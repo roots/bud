@@ -8,7 +8,7 @@ describe('bud.path', function () {
   })
 
   afterEach(() => {
-    teardownBud(bud)
+    bud = teardownBud(bud)
   })
 
   it('path: is a function', () => {

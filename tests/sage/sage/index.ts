@@ -1,5 +1,5 @@
 import {Framework, setupBud, teardownBud} from '../../util'
-import sage from '@roots/sage'
+import * as sage from '@roots/sage'
 
 describe('@roots/sage', () => {
   describe('settings', () => {
@@ -7,7 +7,6 @@ describe('@roots/sage', () => {
 
     beforeAll(done => {
       bud = setupBud()
-      bud.use(sage)
       done()
     })
 
@@ -16,7 +15,17 @@ describe('@roots/sage', () => {
       done()
     })
 
+    it('has extension name', () => {
+      expect(sage.name).toBe('@roots/sage')
+    })
+
+    it('has extension boot method', () => {
+      expect(sage.boot).toBeInstanceOf(Function)
+    })
+
     it('has expected paths', () => {
+      bud.use(sage)
+
       expect(bud.path('storage')).toEqual(
         process.cwd().concat('/storage/bud'),
       )
@@ -30,7 +39,10 @@ describe('@roots/sage', () => {
     })
 
     it('has expected aliases', () => {
-      const aliases = bud.build.config.resolve.alias
+      const {alias: aliases} = bud.build.config.resolve
+
+      bud.use(sage)
+
       expect(aliases['@fonts']).toEqual(
         process.cwd().concat('/resources/fonts'),
       )
