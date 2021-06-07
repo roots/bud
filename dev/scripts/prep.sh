@@ -17,6 +17,9 @@ rm -rf packages/*/*/node_modules
 echo "Cleaning lib"
 rm -rf packages/*/*/lib
 
+echo "Cleaning types"
+rm -rf packages/@roots/*/types
+
 echo "Cleaning docs"
 rm -rf docs
 rm -rf packages/*/*/docs
