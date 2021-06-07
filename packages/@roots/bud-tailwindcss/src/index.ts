@@ -1,27 +1,31 @@
-import './interface'
-import {Framework, Module} from '@roots/bud-framework'
-import {tailwind} from './api'
+import {Tailwind} from './interface'
+import * as api from './api'
 
-export const name: Module['name'] = '@roots/bud-tailwindcss'
+const tailwindcss: Tailwind.Extension = {
+  name: '@roots/bud-tailwindcss',
+  api,
 
-export const api: Module['api'] = {tailwind}
+  boot: app => {
+    /**
+     * Exit early if peerDepenedencies unmet
+     */
+    if (
+      !app.discovery.hasPeerDependency('postcss') ||
+      !app.discovery.hasPeerDependency('tailwindcss')
+    )
+      return
 
-export const boot: Module['boot'] = (app: Framework) => {
-  /**
-   * Exit early if requirements not met
-   */
-  if (
-    !app.discovery.has('devDependencies.postcss') ||
-    !app.discovery.has('devDependencies.tailwindcss')
-  ) {
-    return
-  }
+    const implementation = app.discovery.hasPeerDependency(
+      '@tailwindcss/jit',
+    )
+      ? '@tailwindcss/jit'
+      : 'tailwindcss'
 
-  const implementation = app.discovery.has(
-    'devDependencies.@tailwindcss/jit',
-  )
-    ? '@tailwindcss/jit'
-    : 'tailwindcss'
-
-  app.tailwind(null, implementation)
+    app.tailwind(null, implementation)
+  },
 }
+
+export default tailwindcss
+
+export {api}
+export const {name, boot} = tailwindcss

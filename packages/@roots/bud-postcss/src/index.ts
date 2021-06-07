@@ -13,11 +13,9 @@ const extension: Module = {
 
   boot: ({build, discovery, path, postcss}) => {
     /**
-     * Exit early if requirements not met
+     * Exit early if peerDepenedencies unmet
      */
-    if (!discovery.has('devDependencies.postcss')) {
-      return
-    }
+    if (!discovery.hasPeerDependency('postcss')) return
 
     build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),

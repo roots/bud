@@ -5,10 +5,13 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
 class Rule implements Contract {
-  protected test: Contract.TestFn
-  protected use: Contract.UseFn
-  protected exclude: Contract.ExcludeFn
-  protected type: Contract.TypeFn
+  public test: Contract.TestFn
+
+  public use: Contract.UseFn
+
+  public exclude: Contract.ExcludeFn
+
+  public type: Contract.TypeFn
 
   public constructor({
     test,
@@ -66,8 +69,10 @@ class Rule implements Contract {
   }
 
   @bind
-  public setExclude(exclude: (app: Framework) => RegExp) {
-    this.exclude = exclude
+  public setExclude(
+    exclude: RegExp | ((app: Framework) => RegExp),
+  ) {
+    this.exclude = isFunction(exclude) ? exclude : () => exclude
   }
 
   @bind

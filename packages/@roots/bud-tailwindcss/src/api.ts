@@ -1,12 +1,12 @@
-import {Tailwind} from '@roots/bud-framework'
+import {Tailwind} from './interface'
 
-export const tailwind: Tailwind.Configure = function (
+const tailwind: Tailwind.Configure = function (
   config: Omit<Tailwind.Config, null> = null,
   implementation:
     | 'tailwindcss'
     | '@tailwindcss/jit' = 'tailwindcss',
 ) {
-  config = config ?? this.postcss.plugins[implementation]
+  config = config ?? null
 
   if (this.postcss.plugins['postcss-import']) {
     delete this.postcss.plugins['postcss-import']
@@ -18,10 +18,12 @@ export const tailwind: Tailwind.Configure = function (
     ])
   } else {
     this.postcss.setPlugins([
-      implementation,
+      [implementation, config],
       ...Object.values(this.postcss.plugins),
     ])
   }
 
   return this
 }
+
+export {tailwind}

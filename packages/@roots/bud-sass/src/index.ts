@@ -4,7 +4,12 @@ import {Loader, Item, Rule} from '@roots/bud-build'
 
 const extension: Module = {
   name: '@roots/bud-sass',
-  boot: ({hooks, build}) => {
+  boot: ({hooks, build, discovery}) => {
+    /**
+     * Exit early if peerDepenedencies unmet
+     */
+    if (!discovery.hasPeerDependency('sass')) return
+
     build.loaders['sass'] = new Loader(
       require.resolve('sass-loader'),
     )

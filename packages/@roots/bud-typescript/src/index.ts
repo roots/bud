@@ -11,12 +11,9 @@ const extension: Module = {
   },
   boot: ({build, discovery, hooks, store}) => {
     /**
-     * Exit early if requirements are unmet
+     * Exit early if peerDepenedencies unmet
      */
-    if (
-      !discovery.has('devDependencies.typescript') ||
-      !discovery.has('devDependencies.@roots/bud-babel')
-    ) {
+    if (!discovery.hasPeerDependency('typescript')) {
       return
     }
 

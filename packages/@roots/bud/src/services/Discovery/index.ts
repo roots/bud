@@ -196,4 +196,12 @@ export class Discovery extends Base {
   public getProjectInfo(): {[key: string]: any} {
     return this.all()
   }
+
+  @bind
+  public hasPeerDependency(pkg: string): boolean {
+    return (
+      this.has(`devDependencies.${pkg}`) ||
+      this.has(`dependencies.${pkg}`)
+    )
+  }
 }

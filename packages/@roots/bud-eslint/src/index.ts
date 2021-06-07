@@ -27,6 +27,8 @@ const extension: Extension = {
   api: app => ({
     eslint: new Eslint(app),
   }),
+
+  when: app => app.discovery.hasPeerDependency('eslint'),
 }
 
 export default extension
