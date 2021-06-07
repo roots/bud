@@ -13,10 +13,14 @@ import {
  * https://github.com/diegomura/react-pdf/issues/603
  */
 
-const config = {...defaultConfig, ci: true}
+const config = {...defaultConfig}
 
-const setupBud = () => {
+const setupBud = (
+  mode: 'development' | 'production' = 'production',
+) => {
   const bud = new Bud(config)
+  bud.mode = mode
+
   bud.bootstrap(services)
   bud.lifecycle()
 
@@ -24,7 +28,11 @@ const setupBud = () => {
 }
 
 const teardownBud = (bud: Framework) => {
-  bud.server.watcher.close()
+  bud.server?.watcher?.close()
+  bud.dashboard?.instance?.unmount()
+  bud = null
+
+  return bud
 }
 
 export {Bud, Framework, setupBud, teardownBud, config}
