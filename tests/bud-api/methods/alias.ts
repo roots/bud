@@ -19,5 +19,3 @@ describe('webpack.resolve.alias', function () {
     })
   })
 })
-
-export {}

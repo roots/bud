@@ -7,6 +7,7 @@ import {
 import {Signale} from 'signale'
 
 const logger = new Signale({
+  interactive: true,
   types: {
     log: {
       badge: '📝',
