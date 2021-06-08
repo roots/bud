@@ -19,6 +19,12 @@ const EXAMPLES_SAGE_CONFIG = {
     project: SAGE_DIR,
   },
 }
+const EXECA_OPT = {
+  cwd: EXAMPLES_SAGE_CONFIG.location.project,
+}
+
+const projectFile = (file: string) =>
+  `${EXAMPLES_SAGE_CONFIG.location.project}/${file}`
 
 describe('@roots/sage', () => {
   describe('settings', () => {
@@ -227,22 +233,21 @@ describe('@roots/sage', () => {
   })
 
   describe('examples/sage', () => {
-    const packageJson =
-      EXAMPLES_SAGE_CONFIG.location.project.concat(
-        '/package.json',
-      )
+    const packageJson = projectFile('package.json')
 
     jest.setTimeout(1000000)
 
     beforeAll(async () => {
       log('examples/sage', 'yarn bud init')
 
-      const res = await execa('yarn', ['bud', 'init'], {
-        cwd: EXAMPLES_SAGE_CONFIG.location.project,
-      })
+      const {exitCode, stderr} = await execa(
+        'yarn',
+        ['bud', 'init'],
+        EXECA_OPT,
+      )
 
-      if (res.exitCode !== 0) {
-        error('examples/sage', 'yarn bud init', res.stderr)
+      if (exitCode !== 0) {
+        error('examples/sage', 'yarn bud init', stderr)
       } else {
         success('examples/sage', 'yarn bud init')
       }
@@ -260,40 +265,44 @@ describe('@roots/sage', () => {
         },
       })
 
+      /*
       log('examples/sage', 'restoring lockfile')
 
-      const res = await execa('yarn', {
-        cwd: EXAMPLES_SAGE_CONFIG.location.project,
-      })
+      const {exitCode, stderr} = await execa(
+        'yarn',
+        ['install', '--immutable', 'false'],
+        EXECA_OPT,
+      )
 
-      if (res.exitCode !== 0) {
-        error('examples/sage', 'restoring lockfile', res.stderr)
+      if (exitCode !== 0) {
+        error('examples/sage', 'restoring lockfile', stderr)
       } else {
         success('examples/sage', 'restoring lockfile')
-      }
+      } */
     })
 
     it('builds the project files', async () => {
       log('examples/sage', 'yarn bud build --ci')
 
-      const res = await execa('yarn', ['bud', 'build', '--ci'], {
-        cwd: EXAMPLES_SAGE_CONFIG.location.project,
-      })
+      const {stderr, exitCode} = await execa(
+        'yarn',
+        ['bud', 'build', '--ci'],
+        EXECA_OPT,
+      )
 
-      if (res.exitCode !== 0) {
-        error('examples/sage', 'build error', res.stderr)
+      if (exitCode !== 0) {
+        error('examples/sage', 'build error', stderr)
       } else {
         success('examples/sage', 'build complete')
       }
 
-      expect(res.exitCode).toEqual(0)
+      expect(exitCode).toEqual(0)
     })
 
     describe('output', () => {
-      const entrypointsJson =
-        EXAMPLES_SAGE_CONFIG.location.project.concat(
-          '/public/entrypoints.json',
-        )
+      const entrypointsJson = projectFile(
+        'public/entrypoints.json',
+      )
 
       let entrypoints: {
         [key: string]: {
@@ -338,114 +347,198 @@ describe('@roots/sage', () => {
       })
 
       describe('app', () => {
-        it('runtime seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.app.js.shift()}`,
-            ),
-          )
+        let runtime: Buffer, js: Buffer, css: Buffer
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        beforeAll(async () => {
+          runtime = await readFile(
+            projectFile(`/${entrypoints.app.js.shift()}`),
+          )
+          js = await readFile(
+            projectFile(`/${entrypoints.app.js.pop()}`),
+          )
+          css = await readFile(
+            projectFile(`/${entrypoints.app.css.pop()}`),
+          )
         })
 
-        it('js seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.app.js.pop()}`,
-            ),
+        it('runtime is readable', () => {
+          expect(runtime).toBeInstanceOf(Buffer)
+        })
+        it('runtime has contents', () => {
+          expect(runtime.toString().length).toBeGreaterThan(10)
+        })
+        it('runtime is transpiled', () => {
+          expect(runtime.toString().includes('import')).toBe(
+            false,
           )
-
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        })
+        it('runtime whitespace removed', () => {
+          expect(runtime.toString().match(/  /)).toBeFalsy()
+        })
+        it('runtime breaks removed', () => {
+          expect(runtime.toString().match(/\\n/)).toBeFalsy()
         })
 
-        it('css seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.app.css.pop()}`,
-            ),
-          )
+        it('js is readable', () => {
+          expect(js).toBeInstanceOf(Buffer)
+        })
+        it('js has contents', () => {
+          expect(js.toString().length).toBeGreaterThan(10)
+        })
+        it('js is transpiled', () => {
+          expect(js.toString().includes('import')).toBe(false)
+        })
+        it('js whitespace removed', () => {
+          expect(js.toString().match(/  /)).toBeFalsy()
+        })
+        it('js breaks removed', () => {
+          expect(js.toString().match(/\\n/)).toBeFalsy()
+        })
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('@import')).toBe(
+        it('css is readable', () => {
+          expect(css).toBeInstanceOf(Buffer)
+        })
+        it('css has contents', () => {
+          expect(css.toString().length).toBeGreaterThan(10)
+        })
+        it('css is transpiled', () => {
+          expect(css.toString().includes('@import')).toBe(false)
+        })
+        it('@tailwind directive is transpiled', () => {
+          expect(css.toString().includes('@tailwindcss')).toBe(
             false,
           )
-          expect(asset.toString().includes('@tailwind')).toBe(
-            false,
-          )
+        })
+        it('css uses relative publicPath', () => {
+          expect(
+            css
+              .toString()
+              .match(/background:url\(assets\/image\./),
+          ).toBeTruthy()
+        })
+        it('css whitespace removed', () => {
+          expect(css.toString().match(/    /)).toBeFalsy()
+        })
+        it('css breaks removed', () => {
+          expect(css.toString().match(/\\n/)).toBeFalsy()
         })
       })
 
       describe('editor', () => {
-        it('runtime seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.editor.js.shift()}`,
-            ),
-          )
+        let runtime: Buffer, js: Buffer, css: Buffer
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        beforeAll(async () => {
+          runtime = await readFile(
+            projectFile(`/${entrypoints.editor.js.shift()}`),
+          )
+          js = await readFile(
+            projectFile(`/${entrypoints.editor.js.pop()}`),
+          )
+          css = await readFile(
+            projectFile(`/${entrypoints.editor.css.pop()}`),
+          )
         })
 
-        it('js seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.editor.js.pop()}`,
-            ),
+        it('runtime is readable', () => {
+          expect(runtime).toBeInstanceOf(Buffer)
+        })
+        it('runtime has contents', () => {
+          expect(runtime.toString().length).toBeGreaterThan(10)
+        })
+        it('runtime is transpiled', () => {
+          expect(runtime.toString().includes('import')).toBe(
+            false,
           )
-
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        })
+        it('runtime whitespace removed', () => {
+          expect(runtime.toString().match(/  /)).toBeFalsy()
+        })
+        it('runtime breaks removed', () => {
+          expect(runtime.toString().match(/\\n/)).toBeFalsy()
         })
 
-        it('css seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.editor.css.pop()}`,
-            ),
-          )
+        it('js is readable', () => {
+          expect(js).toBeInstanceOf(Buffer)
+        })
+        it('js has contents', () => {
+          expect(js.toString().length).toBeGreaterThan(10)
+        })
+        it('js is transpiled', () => {
+          expect(js.toString().includes('import')).toBe(false)
+        })
+        it('js whitespace removed', () => {
+          expect(js.toString().match(/  /)).toBeFalsy()
+        })
+        it('js breaks removed', () => {
+          expect(js.toString().match(/\\n/)).toBeFalsy()
+        })
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('@import')).toBe(
+        it('css is readable', () => {
+          expect(css).toBeInstanceOf(Buffer)
+        })
+        it('css has contents', () => {
+          expect(css.toString().length).toBeGreaterThan(10)
+        })
+        it('css is transpiled', () => {
+          expect(css.toString().includes('@import')).toBe(false)
+        })
+        it('@tailwind directive is transpiled', () => {
+          expect(css.toString().includes('@tailwindcss')).toBe(
             false,
           )
-          expect(asset.toString().includes('@tailwind')).toBe(
-            false,
-          )
+        })
+        it('css whitespace removed', () => {
+          expect(css.toString().match(/    /)).toBeFalsy()
+        })
+        it('css breaks removed', () => {
+          expect(css.toString().match(/\\n/)).toBeFalsy()
         })
       })
 
       describe('customizer', () => {
-        it('runtime seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.customizer.js.shift()}`,
-            ),
-          )
+        let runtime: Buffer, js: Buffer
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        beforeAll(async () => {
+          runtime = await readFile(
+            projectFile(`/${entrypoints.customizer.js.shift()}`),
+          )
+          js = await readFile(
+            projectFile(`/${entrypoints.customizer.js.pop()}`),
+          )
         })
 
-        it('js seems okay', async () => {
-          const asset = await readFile(
-            EXAMPLES_SAGE_CONFIG.location.project.concat(
-              `/${entrypoints.customizer.js.pop()}`,
-            ),
+        it('runtime is readable', () => {
+          expect(runtime).toBeInstanceOf(Buffer)
+        })
+        it('runtime has contents', () => {
+          expect(runtime.toString().length).toBeGreaterThan(10)
+        })
+        it('runtime is transpiled', () => {
+          expect(runtime.toString().includes('import')).toBe(
+            false,
           )
+        })
+        it('runtime whitespace removed', () => {
+          expect(runtime.toString().match(/  /)).toBeFalsy()
+        })
+        it('runtime breaks removed', () => {
+          expect(runtime.toString().match(/\\n/)).toBeFalsy()
+        })
 
-          expect(asset).toBeInstanceOf(Buffer)
-          expect(asset.toString().length).toBeGreaterThan(10)
-          expect(asset.toString().includes('import')).toBe(false)
+        it('js is readable', () => {
+          expect(js).toBeInstanceOf(Buffer)
+        })
+        it('js has contents', () => {
+          expect(js.toString().length).toBeGreaterThan(10)
+        })
+        it('js is transpiled', () => {
+          expect(js.toString().includes('import')).toBe(false)
+        })
+        it('js whitespace removed', () => {
+          expect(js.toString().match(/  /)).toBeFalsy()
+        })
+        it('js breaks removed', () => {
+          expect(js.toString().match(/\\n/)).toBeFalsy()
         })
       })
     })
