@@ -1,4 +1,3 @@
-// this might be weird, but it helps to detect memory leaks within the test environment itself
 describe('test environment sanity checks', () => {
   it('should run a test without errors', () => {
     expect(true).toBe(true)
@@ -10,5 +9,3 @@ describe('test environment sanity checks', () => {
     )
   })
 })
-
-// TODO: test setup and teardown of bud?
