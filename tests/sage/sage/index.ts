@@ -9,7 +9,8 @@ import {
 } from '../../util'
 import * as sage from '@roots/sage'
 import execa from 'execa'
-import {readFile, readJson, writeJson} from 'fs-extra'
+import {readFile, readJson, writeFile} from 'fs-extra'
+import {format} from 'prettier'
 
 const SAGE_DIR = process.cwd().concat('/examples/sage')
 const EXAMPLES_SAGE_CONFIG = {
@@ -254,7 +255,10 @@ describe('@roots/sage', () => {
     })
 
     afterAll(async () => {
-      await writeJson(packageJson, {
+      await writeFile(
+        packageJson,
+        format(
+          `{
         name: 'example-sage',
         private: true,
         browserslist: ['extends @wordpress/browserslist-config'],
@@ -263,22 +267,10 @@ describe('@roots/sage', () => {
           '@roots/bud-cli': 'workspace:*',
           '@roots/sage': 'workspace:*',
         },
-      })
-
-      /*
-      log('examples/sage', 'restoring lockfile')
-
-      const {exitCode, stderr} = await execa(
-        'yarn',
-        ['install', '--immutable', 'false'],
-        EXECA_OPT,
+      }`,
+          {parser: 'json'},
+        ),
       )
-
-      if (exitCode !== 0) {
-        error('examples/sage', 'restoring lockfile', stderr)
-      } else {
-        success('examples/sage', 'restoring lockfile')
-      } */
     })
 
     it('builds the project files', async () => {
