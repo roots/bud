@@ -1,14 +1,20 @@
-import {Framework, setupBud, teardownBud} from '../../util'
+import {
+  Framework,
+  setupBud,
+  teardownBud,
+  checkState,
+} from '../../util'
 
 describe('bud.publicPath', function () {
   let bud: Framework
 
   beforeEach(() => {
+    checkState(bud)
     bud = setupBud()
   })
 
   afterEach(() => {
-    teardownBud(bud)
+    bud = teardownBud(bud)
   })
 
   it('publicPath: is a function', () => {
@@ -30,9 +36,6 @@ describe('bud.publicPath', function () {
     const newPath = '/foo'
 
     bud.setPublicPath(newPath)
-    const returnedPath = bud.publicPath()
-
-    expect(returnedPath).toEqual(newPath)
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })

@@ -45,10 +45,10 @@ const extension: Module = {
     ])
 
     const plugins = []
-    require.resolve('postcss-import') &&
+    discovery.has('devDependencies.postcss-import') &&
       plugins.push('postcss-import')
 
-    require.resolve('postcss-preset-env') &&
+    discovery.has('devDependencies.postcss-preset-env') &&
       plugins.push(['postcss-preset-env', {stage: 1}])
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&

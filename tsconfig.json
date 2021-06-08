@@ -17,6 +17,6 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2015",
+    "target": "es2015"
   }
 }
