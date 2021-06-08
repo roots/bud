@@ -43,7 +43,6 @@ export const sage: Sage = {
 
     // optional: react
     app.discovery.hasPeerDependency('react') &&
-      app.discovery.hasPeerDependency('react-dom') &&
       devFeatures.push(react)
 
     app
