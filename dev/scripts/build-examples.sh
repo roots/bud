@@ -10,7 +10,7 @@ rm -rf examples/*/node_modules
 rm -rf examples/*/.budfiles
 
 echo -e "\nBuilding: babel"
-cd ../babel
+cd examples/babel
 cp package.json package.json.bak
 yarn bud init
 yarn bud build --debug --ci
@@ -88,21 +88,5 @@ yarn bud init
 yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
-
-# echo -e "\nBuilding critical-css"
-# cd ../critical-css
-# cp package.json package.json.bak
-# yarn bud init
-# yarn bud build --debug --ci
-# cp package.json.bak package.json
-# rm package.json.bak
-
-# echo -e "\nBuilding: tailwindcss"
-# cd ../tailwindcss
-# cp package.json package.json.bak
-# yarn bud init
-# yarn bud build --debug --ci
-# cp package.json.bak package.json
-# rm package.json.bak
 
 exit
