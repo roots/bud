@@ -8,7 +8,6 @@ peers:
 dependencies:
   dev:
     tailwindcss: ^2.1.2
-    '@tailwindcss/jit': ^0.1.18
 
 templates:
   - name: tailwind.config.js

@@ -1,6 +1,7 @@
 import '@roots/bud-api'
 import '@roots/bud-postcss'
 import {Framework, Module} from '@roots/bud-framework'
+import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
@@ -34,51 +35,9 @@ export declare namespace Tailwind {
     boot: (app: Framework) => void
     api: {tailwind: Configure}
   }
-
+  export type Config = TailwindConfig
   export type Configure = (
-    implementation: 'tailwindcss' | '@tailwindcss/jit',
-    config?: Omit<Config, null> | string,
+    this: Framework,
+    config?: Config,
   ) => Framework
-
-  export interface Config {
-    purge?: string[]
-    target?: string
-    prefix?: 'tw' | string
-    important?: false | boolean
-    separator?: '-' | string
-    presets?: string[]
-    theme?: {
-      [key: string]: UserDef
-    }
-    variants?: {
-      [key: string]: Variant[]
-    }
-    corePlugins?: {}
-    plugins?: []
-  }
-
-  type UserDef<T = UserDef<{[key: string]: UserDef<string>}>> =
-    | T
-    | Rule<T>
-    | RuleSet<T>
-    | ThemeFn<T>
-
-  export interface RuleSet<T> {
-    [key: string]: UserDef<Rule<T>>
-  }
-
-  export type Rule<T> =
-    | string
-    | string[]
-    | boolean
-    | ThemeFn<T>
-    | RuleSet<T>
-    | T
-
-  export type ThemeFn<T = {[key: string]: UserDef<string>}> = (
-    key: string,
-    selection: string,
-  ) => UserDef<T>
-
-  export type Variant = 'responsive' | 'hover' | 'focus'
 }

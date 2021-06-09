@@ -4,34 +4,8 @@ import {
   config as defaultConfig,
   services,
 } from '@roots/bud'
-import {Signale} from 'signale'
 
-const logger = new Signale({
-  interactive: true,
-  types: {
-    log: {
-      badge: '📝',
-      label: 'log',
-      color: 'white',
-    },
-    error: {
-      badge: '🚨',
-      label: 'error',
-      color: 'red',
-    },
-    success: {
-      badge: '✅',
-      label: 'success',
-      color: 'green',
-    },
-  },
-})
-logger.config({
-  displayFilename: true,
-  displayTimestamp: false,
-  displayDate: false,
-})
-const {log, error, success} = logger
+import {logger, log, success, error} from './logger'
 
 /**
  * On the annoying failure to link asm message...
@@ -40,15 +14,12 @@ const {log, error, success} = logger
  * https://github.com/vadimdemedes/yoga-layout-prebuilt/issues/8
  * https://github.com/diegomura/react-pdf/issues/603
  */
-
-const config = {...defaultConfig}
-
 const setupBud = (
   modeOverride?: 'development' | 'production',
   configOverride?: any,
   servicesOverride?: any,
 ) => {
-  const bud: Framework = new Bud(configOverride ?? config)
+  const bud: Framework = new Bud(configOverride ?? defaultConfig)
   bud.mode = modeOverride ?? 'production'
 
   bud.bootstrap(servicesOverride ?? services)
@@ -69,12 +40,15 @@ const checkState = <T = any>(state: T) => {
   state && error('bud state persisted between tests', state)
 }
 
+export {helper as integration, Assets} from './integration'
+
 export {
   Bud,
   Framework,
   setupBud,
   teardownBud,
-  config,
+  defaultConfig as config,
+  logger,
   log,
   error,
   success,

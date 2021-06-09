@@ -5,8 +5,12 @@ module.exports = bud => {
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
     ])
-    .entry({app: ['app.css', 'app.js']})
+    .entry({
+      app: ['app.css', 'app.js'],
+    })
     .template()
+
+  console.log(process.env.NODE_ENV)
 
   return bud
 }
