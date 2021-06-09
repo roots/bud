@@ -1,4 +1,5 @@
 import {Tailwind} from './interface'
+
 import * as api from './api'
 
 const tailwindcss: Tailwind.Extension = {
@@ -11,7 +12,8 @@ const tailwindcss: Tailwind.Extension = {
      */
     if (
       !app.discovery.hasPeerDependency('postcss') ||
-      !app.discovery.hasPeerDependency('tailwindcss')
+      (!app.discovery.hasPeerDependency('tailwindcss') &&
+        !app.discovery.hasPeerDependency('@tailwindcss/jit'))
     )
       return
 
@@ -21,7 +23,7 @@ const tailwindcss: Tailwind.Extension = {
       ? '@tailwindcss/jit'
       : 'tailwindcss'
 
-    app.tailwind(null, implementation)
+    app.tailwind(implementation)
   },
 }
 

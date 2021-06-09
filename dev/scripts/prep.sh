@@ -48,6 +48,4 @@ yarn test
 echo "Generating docs"
 yarn docs
 
-echo "Publish prep"
-
 exit

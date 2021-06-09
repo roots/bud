@@ -2961,6 +2961,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:packages/@roots/bud-tailwindcss"
   dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
@@ -2971,7 +2972,6 @@ __metadata:
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-postcss": "*"
-    "@tailwindcss/jit": ^0.1.18
     autoprefixer: ^10.2.5
     tailwindcss: ^2.1.2
   languageName: unknown

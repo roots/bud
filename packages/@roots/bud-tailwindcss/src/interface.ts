@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+import '@roots/bud-postcss'
 import {Framework, Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
@@ -34,8 +36,8 @@ export declare namespace Tailwind {
   }
 
   export type Configure = (
-    config: Omit<Config, null>,
     implementation: 'tailwindcss' | '@tailwindcss/jit',
+    config?: Omit<Config, null> | string,
   ) => Framework
 
   export interface Config {
