@@ -48,7 +48,7 @@ const setupBud = (
   configOverride?: any,
   servicesOverride?: any,
 ) => {
-  let bud: Framework = new Bud(configOverride ?? config)
+  const bud: Framework = new Bud(configOverride ?? config)
   bud.mode = modeOverride ?? 'production'
 
   bud.bootstrap(servicesOverride ?? services)
@@ -66,7 +66,7 @@ const teardownBud = (bud: Framework) => {
 }
 
 const checkState = <T = any>(state: T) => {
-  if (state) error('bud state persisted between tests', state)
+  state && error('bud state persisted between tests', state)
 }
 
 export {

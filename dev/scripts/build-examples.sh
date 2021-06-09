@@ -8,16 +8,6 @@ echo -e "\nCleaning examples"
 rm -rf examples/*/dist
 rm -rf examples/*/node_modules
 rm -rf examples/*/.budfiles
-rm -rf examples/sage/public
-rm -rf examples/sage/storage/bud
-
-echo -e "\nBuilding: basic"
-cd examples/basic
-cp package.json package.json.bak
-yarn bud init
-yarn bud build --debug --ci
-cp package.json.bak package.json
-rm package.json.bak
 
 echo -e "\nBuilding: babel"
 cd ../babel
@@ -26,14 +16,6 @@ yarn bud init
 yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
-
-# echo -e "\nBuilding critical-css"
-# cd ../critical-css
-# cp package.json package.json.bak
-# yarn bud init
-# yarn bud build --debug --ci
-# cp package.json.bak package.json
-# rm package.json.bak
 
 echo -e "\nBuilding: esbuild"
 cd ../esbuild
@@ -75,24 +57,8 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo -e "\nBuilding: sage"
-cd ../sage
-cp package.json package.json.bak
-yarn bud init
-yarn bud build --debug --ci
-cp package.json.bak package.json
-rm package.json.bak
-
 echo -e "\nBuilding: sass"
 cd ../sass
-cp package.json package.json.bak
-yarn bud init
-yarn bud build --debug --ci
-cp package.json.bak package.json
-rm package.json.bak
-
-echo -e "\nBuilding: tailwindcss"
-cd ../tailwindcss
 cp package.json package.json.bak
 yarn bud init
 yarn bud build --debug --ci
@@ -122,5 +88,21 @@ yarn bud init
 yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
+
+# echo -e "\nBuilding critical-css"
+# cd ../critical-css
+# cp package.json package.json.bak
+# yarn bud init
+# yarn bud build --debug --ci
+# cp package.json.bak package.json
+# rm package.json.bak
+
+# echo -e "\nBuilding: tailwindcss"
+# cd ../tailwindcss
+# cp package.json package.json.bak
+# yarn bud init
+# yarn bud build --debug --ci
+# cp package.json.bak package.json
+# rm package.json.bak
 
 exit

@@ -52,17 +52,21 @@ export class Server extends Service implements Contract {
 
   @bind
   public getWatchedFilesArray(): string[] {
-    return this.config
-      .get('watch.files')
-      .map((file: string) => this.app.path('project', file))
+    const [files, options] = this.config.getValues('watch')
+
+    return files?.length > 0
+      ? sync(
+          files.map((file: string) =>
+            this.app.path('project', file),
+          ),
+          options,
+        )
+      : []
   }
 
   @bind
   public booted() {
-    this.watcher = chokidar.watch(
-      sync(this.config.get('watch.files')),
-      this.config.get('watch.options'),
-    )
+    this.watcher = chokidar.watch(this.getWatchedFilesArray())
   }
 
   @bind
