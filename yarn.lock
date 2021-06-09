@@ -3463,26 +3463,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/jit@npm:^0":
-  version: 0.1.18
-  resolution: "@tailwindcss/jit@npm:0.1.18"
-  dependencies:
-    chokidar: ^3.5.1
-    dlv: ^1.1.3
-    fast-glob: ^3.2.5
-    lodash.topath: ^4.5.2
-    normalize-path: ^3.0.0
-    object-hash: ^2.1.1
-    parse-glob: ^3.0.4
-    postcss-selector-parser: ^6.0.4
-    quick-lru: ^5.1.1
-  peerDependencies:
-    postcss: ^8.2.6
-    tailwindcss: ^2.0.3
-  checksum: c2121fb10285983e0876a1367eecd44dcdbd685ddee1e933d1a0476fc41dbe0d6a77bb823f464b1eb948c7be82b8fd55c897c9fed07c8f5b2fd7e7cda9a0be31
-  languageName: node
-  linkType: hard
-
 "@tokenizer/token@npm:^0.1.1":
   version: 0.1.1
   resolution: "@tokenizer/token@npm:0.1.1"
@@ -3674,16 +3654,6 @@ __metadata:
     "@types/estree": "*"
     "@types/json-schema": "*"
   checksum: 70f6b2bd893f66d305faae1ba7104b45efee962713be99c5f72f586603ef743f353b93fcae24def351e698d5d1b93b7b9ad7fcf3f11f6318083a2a4d252f5c79
-  languageName: node
-  linkType: hard
-
-"@types/eslint@npm:^7.2.11":
-  version: 7.2.13
-  resolution: "@types/eslint@npm:7.2.13"
-  dependencies:
-    "@types/estree": "*"
-    "@types/json-schema": "*"
-  checksum: 6dac9f9d7d155c90a6eba104718e1adb43c3e4020ea75ab8f5094db8603617473a4ac6f7ddeb2c670822860b869a7e3871406a82425ec470965cdfc1f3dd3ad0
   languageName: node
   linkType: hard
 
@@ -3934,13 +3904,6 @@ __metadata:
   version: 14.14.37
   resolution: "@types/node@npm:14.14.37"
   checksum: 647e671ac3815f428a07ae9353ebab93c5335d4d0a461ca837a79eebf55c04f28bee80f0c43881cdd8696f595feb112bc8eb74f6124125e02f79a7677374c187
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^15":
-  version: 15.12.2
-  resolution: "@types/node@npm:15.12.2"
-  checksum: 0dff080f306e4d5cd968bd43315238a227b1f54f4bb59fa9cee976535678f00755834c0288315029ae12f78b3db43efb5bfb700cf8aae882f184eb700229f974
   languageName: node
   linkType: hard
 
@@ -5167,7 +5130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.2.5, autoprefixer@npm:^10.2.6":
+"autoprefixer@npm:^10.2.6":
   version: 10.2.6
   resolution: "autoprefixer@npm:10.2.6"
   dependencies:
@@ -8332,22 +8295,6 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/sage": "workspace:*"
-    "@tailwindcss/jit": ^0
-    "@types/eslint": ^7.2.11
-    "@types/node": ^15
-    "@types/react": ^17.0.8
-    "@types/react-dom": ^17.0.5
-    "@types/tailwindcss": ^2
-    "@wordpress/browserslist-config": ^4.0.1
-    autoprefixer: ^10.2.5
-    eslint: ^7.27.0
-    postcss: ^8.3.0
-    postcss-import: ^14.0.2
-    postcss-preset-env: ^6.7.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    tailwindcss: ^2
-    typescript: ^4
   languageName: unknown
   linkType: soft
 
@@ -17165,7 +17112,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2, tailwindcss@npm:^2.1.2":
+"tailwindcss@npm:^2.1.2":
   version: 2.1.4
   resolution: "tailwindcss@npm:2.1.4"
   dependencies:
