@@ -28,10 +28,7 @@ describe('examples', () => {
   describe(NAME, () => {
     jest.setTimeout(1000000)
 
-    let packageJson: string,
-      manifest: {[key: string]: string},
-      js: Buffer,
-      css: Buffer
+    let packageJson: string
 
     beforeAll(async () => {
       packageJson = projectPath('package.json')
@@ -49,12 +46,6 @@ describe('examples', () => {
       }
 
       success(NAME, 'yarn bud init')
-
-      manifest = await readJson(distPath('manifest.json'))
-      js = await readFile(distPath('app.js'))
-      css = await readFile(distPath('app.css'))
-
-      return
     })
 
     afterAll(async () => {
@@ -77,9 +68,15 @@ describe('examples', () => {
           {parser: 'json'},
         ),
       )
+
+      success(NAME, 'restore package.json')
     })
 
     describe('builds the project files', () => {
+      let manifest: {[key: string]: string},
+        js: Buffer,
+        css: Buffer
+
       beforeAll(async () => {
         log(NAME, 'yarn bud build --ci --debug')
 
@@ -91,45 +88,50 @@ describe('examples', () => {
 
         if (exitCode !== 0) {
           error(NAME, 'build error', {stderr, stdout})
-          return
         }
 
+        manifest = await readJson(distPath('manifest.json'))
+        js = await readFile(distPath('app.js'))
+        css = await readFile(distPath('app.css'))
+
         success(NAME, 'build complete')
-        expect(exitCode).toEqual(0)
       })
 
-      it('has expected manifest entries', () => {
-        expect(manifest['app.js']).toBe('/app.js')
+      describe('manifest', () => {
+        it('has expected manifest entries', () => {
+          expect(manifest['app.js']).toBe('/app.js')
+        })
       })
 
-      describe('app', () => {
-        it('js is readable', () => {
+      describe('js', () => {
+        it('is readable', () => {
           expect(js).toBeInstanceOf(Buffer)
         })
-        it('js has contents', () => {
+        it('has contents', () => {
           expect(js.toString().length).toBeGreaterThan(10)
         })
-        it('js is transpiled', () => {
+        it('is transpiled', () => {
           expect(js.toString().includes('import')).toBeFalsy()
         })
-        it('css is readable', () => {
+      })
+
+      describe('css', () => {
+        it('is readable', () => {
           expect(css).toBeInstanceOf(Buffer)
         })
-        it('css has contents', () => {
+        it('has contents', () => {
           expect(css.toString().length).toBeGreaterThan(10)
         })
-        it('css is transpiled', () => {
+        it('is transpiled', () => {
           expect(css.toString().includes('@import')).toBe(false)
         })
         it('@tailwind directive is transpiled', () => {
-          expect(css.toString().includes('@tailwindcss')).toBe(
-            false,
-          )
+          expect(css.toString().includes('@apply')).toBe(false)
         })
-        it('css whitespace removed', () => {
+        it('has whitespace removed', () => {
           expect(css.toString().match(/    /)).toBeFalsy()
         })
-        it('css breaks removed', () => {
+        it('has breaks removed', () => {
           expect(css.toString().match(/\\n/)).toBeFalsy()
         })
       })
