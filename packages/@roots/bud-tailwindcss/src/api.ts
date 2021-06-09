@@ -16,17 +16,18 @@ const tailwind: Tailwind.Configure = function (
     config ?? this.path('project', 'tailwind.config.js'),
   ]
 
-  const plugins = [use, ...Object.values(this.postcss.plugins)]
-  if (this.postcss.plugins['postcss-import']) {
-    delete this.postcss.plugins['postcss-import']
+  const plugins = {...this.postcss.plugins}
 
-    this.postcss.setPlugins([
-      'postcss-import',
-      ...plugins,
-    ] as any)
-  } else {
-    this.postcss.setPlugins([use, ...plugins] as any)
-  }
+  this.discovery.hasPeerDependency('postcss-import')
+    ? this.postcss.setPlugins([
+        ['postcss-import', null],
+        use,
+        ...Object.values(plugins),
+      ] as any)
+    : this.postcss.setPlugins([
+        use,
+        ...Object.values(plugins),
+      ] as any)
 
   return this
 }

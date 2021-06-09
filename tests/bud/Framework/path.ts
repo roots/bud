@@ -25,5 +25,3 @@ describe('bud.path', function () {
     )
   })
 })
-
-export {}

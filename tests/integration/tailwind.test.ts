@@ -26,11 +26,15 @@ const distPath = (file: string) =>
 
 describe('examples', () => {
   describe(NAME, () => {
-    const packageJson = projectPath('package.json')
-
     jest.setTimeout(1000000)
 
+    let packageJson: string,
+      manifest: {[key: string]: string},
+      js: Buffer,
+      css: Buffer
+
     beforeAll(async () => {
+      packageJson = projectPath('package.json')
       log(NAME, 'yarn bud init')
 
       const {exitCode, stderr} = await execa(
@@ -41,9 +45,16 @@ describe('examples', () => {
 
       if (exitCode !== 0) {
         error(NAME, 'yarn bud init', stderr)
-      } else {
-        success(NAME, 'yarn bud init')
+        return
       }
+
+      success(NAME, 'yarn bud init')
+
+      manifest = await readJson(distPath('manifest.json'))
+      js = await readFile(distPath('app.js'))
+      css = await readFile(distPath('app.css'))
+
+      return
     })
 
     afterAll(async () => {
@@ -61,54 +72,37 @@ describe('examples', () => {
               "@roots/bud-postcss": "workspace:*",
               "@roots/bud-tailwindcss": "workspace:*"
             }
-          }          
+          }
           `,
           {parser: 'json'},
         ),
       )
     })
 
-    it('builds the project files', async () => {
-      log(NAME, 'yarn bud build --ci --debug')
-
-      const {stderr, exitCode} = await execa(
-        'yarn',
-        ['bud', 'build', '--ci', '--debug'],
-        EXECA_OPT,
-      )
-
-      if (exitCode !== 0) {
-        error(NAME, 'build error', stderr)
-      } else {
-        success(NAME, 'build complete')
-      }
-
-      expect(exitCode).toEqual(0)
-    })
-
-    describe('output', () => {
-      let manifest: {[key: string]: string}
-
+    describe('builds the project files', () => {
       beforeAll(async () => {
-        manifest = await readJson(
-          projectPath('dist/manifest.json'),
+        log(NAME, 'yarn bud build --ci --debug')
+
+        const {stdout, stderr, exitCode} = await execa(
+          'yarn',
+          ['bud', 'build', '--ci', '--debug'],
+          EXECA_OPT,
         )
+
+        if (exitCode !== 0) {
+          error(NAME, 'build error', {stderr, stdout})
+          return
+        }
+
+        success(NAME, 'build complete')
+        expect(exitCode).toEqual(0)
       })
 
-      describe('manifest.json', () => {
-        it('has expected entries', () => {
-          expect(manifest['app.js']).toBe('/app.js')
-        })
+      it('has expected manifest entries', () => {
+        expect(manifest['app.js']).toBe('/app.js')
       })
 
       describe('app', () => {
-        let js: Buffer, css: Buffer
-
-        beforeAll(async () => {
-          js = await readFile(distPath(manifest['app.js']))
-          css = await readFile(distPath(manifest['app.css']))
-        })
-
         it('js is readable', () => {
           expect(js).toBeInstanceOf(Buffer)
         })
@@ -118,7 +112,6 @@ describe('examples', () => {
         it('js is transpiled', () => {
           expect(js.toString().includes('import')).toBeFalsy()
         })
-
         it('css is readable', () => {
           expect(css).toBeInstanceOf(Buffer)
         })

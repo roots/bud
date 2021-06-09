@@ -5,7 +5,8 @@ import {format} from 'prettier'
 
 const NAME = 'sage'
 const SAGE_DIR = process.cwd().concat('/examples/sage')
-const EXAMPLES_SAGE_CONFIG = {
+
+const CONFIG = {
   ...config,
   location: {
     ...config.location,
@@ -13,10 +14,10 @@ const EXAMPLES_SAGE_CONFIG = {
   },
 }
 const EXECA_OPT = {
-  cwd: EXAMPLES_SAGE_CONFIG.location.project,
+  cwd: CONFIG.location.project,
 }
 const projectFile = (file: string) =>
-  `${EXAMPLES_SAGE_CONFIG.location.project}/${file}`
+  `${CONFIG.location.project}/${file}`
 
 describe('examples', () => {
   describe(NAME, () => {
@@ -25,7 +26,7 @@ describe('examples', () => {
     jest.setTimeout(1000000)
 
     beforeAll(async () => {
-      log('examples/sage', 'yarn bud init')
+      log(NAME, 'yarn bud init')
 
       const {exitCode, stderr} = await execa(
         'yarn',
@@ -34,33 +35,36 @@ describe('examples', () => {
       )
 
       if (exitCode !== 0) {
-        error('examples/sage', 'yarn bud init', stderr)
-      } else {
-        success('examples/sage', 'yarn bud init')
+        error(NAME, 'yarn bud init', stderr)
+        return
       }
+
+      success(NAME, 'yarn bud init')
     })
 
     afterAll(async () => {
       await writeFile(
         packageJson,
         format(
-          `{
-        name: 'example-sage',
-        private: true,
-        browserslist: ['extends @wordpress/browserslist-config'],
-        devDependencies: {
-          '@roots/bud': 'workspace:*',
-          '@roots/bud-cli': 'workspace:*',
-          '@roots/sage': 'workspace:*',
-        },
-      }`,
+          `
+          {
+            name: "example-sage",
+            private: true,
+            browserslist: ["extends @wordpress/browserslist-config"],
+            devDependencies: {
+              "@roots/bud": "workspace:*",
+              "@roots/bud-cli": "workspace:*",
+              "@roots/sage": "workspace:*",
+            },
+          }
+          `,
           {parser: 'json'},
         ),
       )
     })
 
     it('builds the project files', async () => {
-      log('examples/sage', 'yarn bud build --ci')
+      log(NAME, 'yarn bud build --ci')
 
       const {stderr, exitCode} = await execa(
         'yarn',
@@ -69,9 +73,9 @@ describe('examples', () => {
       )
 
       if (exitCode !== 0) {
-        error('examples/sage', 'build error', stderr)
+        error(NAME, 'build error', stderr)
       } else {
-        success('examples/sage', 'build complete')
+        success(NAME, 'build complete')
       }
 
       expect(exitCode).toEqual(0)
