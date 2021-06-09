@@ -21,7 +21,7 @@ dependencies:
     '@types/eslint': ^7.2.11
     '@types/node': ^15
     '@types/tailwindcss': ^2
-    '@wordpress/browserslist-config': ^4.0.0
+    '@wordpress/browserslist-config': ^4.0.1
     autoprefixer: ^10.2.5
     eslint: ^7.27.0
     postcss: ^8.3.0
