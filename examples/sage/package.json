@@ -1,9 +1,7 @@
 {
   "name": "example-sage",
   "private": true,
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
+  "browserslist": ["extends @wordpress/browserslist-config"],
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-cli": "workspace:*",

@@ -1,17 +1,23 @@
 import type {PostCss, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
-import {BaseConfig} from './BaseConfig'
 
-class Config extends BaseConfig implements PostCss {
+class Config implements PostCss {
+  public _app: Framework['get']
+  public log: any
+  public plugins: PostCss.Registry = {}
+
   public constructor(app: Framework) {
-    super()
-    this.app = app
+    this._app = app.get
+  }
+
+  public get app() {
+    return this._app
   }
 
   @bind
   public normalizeEntry(
-    c: PostCss.Registrable,
+    c: PostCss.Plugin | PostCss.NormalizedPlugin,
   ): PostCss.NormalizedPlugin {
     return isString(c)
       ? ([c, {}] as PostCss.NormalizedPlugin)
@@ -19,7 +25,9 @@ class Config extends BaseConfig implements PostCss {
   }
 
   @bind
-  public setPlugin(plugin: PostCss.Registrable): this {
+  public setPlugin(
+    plugin: PostCss.Plugin | PostCss.NormalizedPlugin,
+  ): this {
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -29,7 +37,7 @@ class Config extends BaseConfig implements PostCss {
 
   @bind
   public setPlugins(
-    plugins: Array<PostCss.NormalizedPlugin | string>,
+    plugins: Array<PostCss.Plugin | PostCss.NormalizedPlugin>,
   ): this {
     this.plugins = plugins.reduce((plugins, plugin) => {
       plugin = this.normalizeEntry(plugin)

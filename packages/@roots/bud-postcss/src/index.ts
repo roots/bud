@@ -12,11 +12,6 @@ const extension: Module = {
   }),
 
   boot: ({build, discovery, path, postcss}) => {
-    /**
-     * Exit early if peerDepenedencies unmet
-     */
-    if (!discovery.hasPeerDependency('postcss')) return
-
     build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
@@ -47,7 +42,15 @@ const extension: Module = {
       plugins.push('postcss-import')
 
     discovery.hasPeerDependency('postcss-preset-env') &&
-      plugins.push(['postcss-preset-env', {stage: 1}])
+      plugins.push([
+        'postcss-preset-env',
+        {
+          stage: 1,
+          features: {
+            'focus-within-pseudo-class': false,
+          },
+        },
+      ])
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&
       plugins.length > 0 &&

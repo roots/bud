@@ -1,33 +1,19 @@
 import {Tailwind} from './interface'
-import {Framework} from '@roots/bud-framework'
 
-const tailwind: Tailwind.Configure = function (
-  this: Framework,
-  implementation:
-    | 'tailwindcss'
-    | '@tailwindcss/jit' = 'tailwindcss',
-  config?: Omit<Tailwind.Config, null> | string,
-) {
-  const use: [
-    'tailwindcss' | '@tailwindcss/jit',
-    (Omit<Tailwind.Config, null> | string)?,
-  ] = [
-    implementation,
-    config ?? this.path('project', 'tailwind.config.js'),
-  ]
+const tailwind: Tailwind.Configure = function (config) {
+  const integration: [string, Tailwind.Config | string] = config
+    ? ['tailwindcss', config]
+    : ['tailwindcss', this.path('project', 'tailwind.config.js')]
 
-  const plugins = {...this.postcss.plugins}
+  const plugins = Object.values(this.postcss.plugins)
 
   this.discovery.hasPeerDependency('postcss-import')
     ? this.postcss.setPlugins([
-        ['postcss-import', null],
-        use,
-        ...Object.values(plugins),
-      ] as any)
-    : this.postcss.setPlugins([
-        use,
-        ...Object.values(plugins),
-      ] as any)
+        'postcss-import',
+        integration,
+        ...plugins,
+      ])
+    : this.postcss.setPlugins([integration, ...plugins])
 
   return this
 }

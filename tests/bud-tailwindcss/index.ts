@@ -49,6 +49,9 @@ describe(NAME, () => {
           'postcss-preset-env',
           {
             stage: 1,
+            features: {
+              'focus-within-pseudo-class': false,
+            },
           },
         ],
         tailwindcss: [

@@ -10,13 +10,6 @@ const extension: Module = {
     typecheck,
   },
   boot: ({build, discovery, hooks, store}) => {
-    /**
-     * Exit early if peerDepenedencies unmet
-     */
-    if (!discovery.hasPeerDependency('typescript')) {
-      return
-    }
-
     store.set('patterns.ts', /\.tsx?$/)
 
     build.loaders['ts'] = new Loader(

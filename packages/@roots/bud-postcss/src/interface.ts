@@ -53,13 +53,15 @@ declare module '@roots/bud-framework' {
      * bud.PostCss.setPlugin(MyPlugin, {plugin: 'options'})
      * ```
      */
-    setPlugin: (plugin: PostCss.Registrable) => this
+    setPlugin: (
+      plugin: PostCss.Plugin | PostCss.NormalizedPlugin,
+    ) => this
 
     /**
      * ## PostCss.setPlugins
      */
     setPlugins(
-      plugins: Array<PostCss.NormalizedPlugin | string>,
+      plugins: Array<PostCss.Plugin | PostCss.NormalizedPlugin>,
     ): this
 
     /**
@@ -74,11 +76,9 @@ declare module '@roots/bud-framework' {
       config?: boolean | string
     }
 
-    type NormalizedPlugin = [string, any]
+    type NormalizedPlugin = [Plugin, any]
 
-    type Plugin = string | NormalizedPlugin | CallableFunction
-
-    type Registrable = string | NormalizedPlugin
+    type Plugin = string
 
     interface Registry {
       [key: string]: [string, any]

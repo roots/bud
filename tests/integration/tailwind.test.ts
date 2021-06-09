@@ -1,140 +1,46 @@
-import {config, error, log, success} from '../util'
-import execa from 'execa'
-import {readFile, readJson, writeFile} from 'fs-extra'
-import {format} from 'prettier'
+import {helper, Assets} from '../util/integration'
 
-const NAME = 'tailwindcss'
-const DIR = process.cwd().concat('/examples/tailwindcss')
+const suite = helper('tailwindcss', 'examples/tailwindcss')
 
-const CONFIG = {
-  ...config,
-  location: {
-    ...config.location,
-    project: DIR,
-  },
-}
+describe(`examples/tailwindcss`, () => {
+  jest.setTimeout(1000000)
 
-const EXECA_OPT = {
-  cwd: CONFIG.location.project,
-}
-
-const projectPath = (file: string) =>
-  `${CONFIG.location.project}/${file}`
-
-const distPath = (file: string) =>
-  `${CONFIG.location.project}/dist/${file}`
-
-describe('examples', () => {
-  describe(NAME, () => {
-    jest.setTimeout(1000000)
-
-    let packageJson: string
+  describe('production', () => {
+    let assets: Assets
 
     beforeAll(async () => {
-      packageJson = projectPath('package.json')
-      log(NAME, 'yarn bud init')
-
-      const {exitCode, stderr} = await execa(
-        'yarn',
-        ['bud', 'init'],
-        EXECA_OPT,
-      )
-
-      if (exitCode !== 0) {
-        error(NAME, 'yarn bud init', stderr)
-        return
-      }
-
-      success(NAME, 'yarn bud init')
+      assets = await suite.setup()
+      return
     })
 
-    afterAll(async () => {
-      await writeFile(
-        packageJson,
-        format(
-          `{
-            "name": "example-tailwindcss",
-            "private": true,
-            "devDependencies": {
-              "@roots/bud": "workspace:*",
-              "@roots/bud-babel": "workspace:*",
-              "@roots/bud-cli": "workspace:*",
-              "@roots/bud-framework": "workspace:*",
-              "@roots/bud-postcss": "workspace:*",
-              "@roots/bud-tailwindcss": "workspace:*"
-            }
-          }
-          `,
-          {parser: 'json'},
-        ),
-      )
+    afterAll(suite.teardown)
 
-      success(NAME, 'restore package.json')
+    it('js: has contents', () => {
+      expect(assets['app.js'].length).toBeGreaterThan(10)
     })
 
-    describe('builds the project files', () => {
-      let manifest: {[key: string]: string},
-        js: Buffer,
-        css: Buffer
+    it('js: is transpiled', () => {
+      expect(assets['app.js'].includes('import')).toBeFalsy()
+    })
 
-      beforeAll(async () => {
-        log(NAME, 'yarn bud build --ci --debug')
+    it('css: has contents', () => {
+      expect(assets['app.css'].length).toBeGreaterThan(10)
+    })
 
-        const {stdout, stderr, exitCode} = await execa(
-          'yarn',
-          ['bud', 'build', '--ci', '--debug'],
-          EXECA_OPT,
-        )
+    it('css: is transpiled', () => {
+      expect(assets['app.css'].includes('@import')).toBe(false)
+    })
 
-        if (exitCode !== 0) {
-          error(NAME, 'build error', {stderr, stdout})
-        }
+    it('css: @tailwind directive is transpiled', () => {
+      expect(assets['app.css'].includes('@apply')).toBe(false)
+    })
 
-        manifest = await readJson(distPath('manifest.json'))
-        js = await readFile(distPath('app.js'))
-        css = await readFile(distPath('app.css'))
+    it('css: has whitespace removed', () => {
+      expect(assets['app.css'].match(/    /)).toBeFalsy()
+    })
 
-        success(NAME, 'build complete')
-      })
-
-      describe('manifest', () => {
-        it('has expected manifest entries', () => {
-          expect(manifest['app.js']).toBe('/app.js')
-        })
-      })
-
-      describe('js', () => {
-        it('is readable', () => {
-          expect(js).toBeInstanceOf(Buffer)
-        })
-        it('has contents', () => {
-          expect(js.toString().length).toBeGreaterThan(10)
-        })
-        it('is transpiled', () => {
-          expect(js.toString().includes('import')).toBeFalsy()
-        })
-      })
-
-      describe('css', () => {
-        it('is readable', () => {
-          expect(css).toBeInstanceOf(Buffer)
-        })
-        it('has contents', () => {
-          expect(css.toString().length).toBeGreaterThan(10)
-        })
-        it('is transpiled', () => {
-          expect(css.toString().includes('@import')).toBe(false)
-        })
-        it('@tailwind directive is transpiled', () => {
-          expect(css.toString().includes('@apply')).toBe(false)
-        })
-        it('has whitespace removed', () => {
-          expect(css.toString().match(/    /)).toBeFalsy()
-        })
-        it('has breaks removed', () => {
-          expect(css.toString().match(/\\n/)).toBeFalsy()
-        })
-      })
+    it('css: has breaks removed', () => {
+      expect(assets['app.css'].match(/\\n/)).toBeFalsy()
     })
   })
 })

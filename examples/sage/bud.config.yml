@@ -1,5 +1,7 @@
 extensions:
   - '@roots/sage'
+setPath:
+  public: '/'
 entry:
   app: '**/app.{js,css}'
   editor: '**/editor.{js,css}'
