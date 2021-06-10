@@ -8,9 +8,9 @@ describe(`examples/tailwindcss`, () => {
   describe('production', () => {
     let assets: Assets
 
-    beforeAll(async done => {
+    beforeAll(async () => {
       assets = await suite.setup()
-      done()
+      return
     })
 
     afterAll(suite.teardown)
