@@ -1,4 +1,4 @@
-module.exports = bud => {
+module.exports = bud =>
   bud
     .use([
       require('@roots/bud-babel'),
@@ -9,8 +9,3 @@ module.exports = bud => {
       app: ['app.css', 'app.js'],
     })
     .template()
-
-  console.log(process.env.NODE_ENV)
-
-  return bud
-}

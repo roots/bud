@@ -1,6 +1,6 @@
 import {Framework, setupBud, teardownBud, config} from '../util'
 import postcss from '@roots/bud-postcss'
-import tailwindcss from '@roots/bud-tailwindcss'
+import * as tailwindcss from '@roots/bud-tailwindcss'
 
 const NAME = 'tailwindcss'
 const DIR = process.cwd().concat('/examples/tailwindcss')
@@ -19,7 +19,7 @@ describe(NAME, () => {
   describe('settings', () => {
     let bud: Framework = null
 
-    beforeAll(done => {
+    beforeEach(done => {
       bud = setupBud('production', CONFIG)
       bud.discovery.set('devDependencies', {
         postcss: '*',
@@ -29,20 +29,23 @@ describe(NAME, () => {
       })
 
       bud.use([postcss, tailwindcss])
-
       done()
     })
 
-    afterAll(done => {
+    afterEach(done => {
       bud = teardownBud(bud)
       done()
     })
 
-    it('extension has name prop', () => {
+    it('has name prop', () => {
       expect(tailwindcss.name).toBe('@roots/bud-tailwindcss')
     })
 
-    it('extension has name prop', () => {
+    it('has an api prop', () => {
+      expect(tailwindcss.api.tailwind).toBeInstanceOf(Function)
+    })
+
+    it('sets up postcss plugins', () => {
       expect(bud.postcss.plugins).toEqual({
         'postcss-import': ['postcss-import', {}],
         'postcss-preset-env': [
