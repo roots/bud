@@ -42,5 +42,11 @@ describe(`examples/tailwindcss`, () => {
     it('css: has breaks removed', () => {
       expect(assets['app.css'].match(/\\n/)).toBeFalsy()
     })
+
+    it('jit: is used to build css', () => {
+      expect(
+        assets['app.css'].match(/w-\\\[800px\\\]/),
+      ).toBeTruthy()
+    })
   })
 })
