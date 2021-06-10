@@ -2,8 +2,12 @@ import {readFileSync} from 'fs'
 import {posix} from 'path'
 
 import execa from 'execa'
-import {readFile, readJson, writeFile} from 'fs-extra'
-import {format} from 'prettier'
+import {
+  readFile,
+  readJson,
+  // writeFile
+} from 'fs-extra'
+// import {format} from 'prettier'
 
 import {error, log, success} from './index'
 
@@ -119,12 +123,12 @@ export function helper(
   }
 
   async function teardown() {
-    await writeFile(
+    /* await writeFile(
       projectPath('package.json'),
       format(project.json, {parser: 'json'}),
     )
 
-    success(name, 'restore package.json')
+    success(name, 'restore package.json') */
     return true
   }
 

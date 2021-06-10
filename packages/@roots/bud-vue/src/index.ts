@@ -10,9 +10,6 @@ const extension: Module = {
   boot: app => {
     const {build, discovery, extensions, store, hooks} = app
 
-    /**
-     * Exit early if peerDepenedencies unmet
-     */
     if (!discovery.hasPeerDependency('vue')) return
 
     build.loaders['vue-style'] = new Loader(
@@ -23,17 +20,16 @@ const extension: Module = {
       loader: ({build}) => build.loaders['vue-style'],
     })
 
-    hooks.on('build/module/rules', rules => [
-      {
-        test: store.get('patterns.vue'),
-        use: [
-          {
-            loader: require.resolve('vue-loader'),
-          },
-        ],
-      },
-      ...rules,
-    ])
+    hooks.on(
+      'build/module/rules',
+      (rules: Configuration['module']['rules']) => [
+        {
+          test: store.get('patterns.vue'),
+          use: [{loader: require.resolve('vue-loader')}],
+        },
+        ...rules,
+      ],
+    )
 
     const cssItems = build.rules['css'].getUse(app)
     build.rules['css'].setUse(({isProduction, build}) => [
