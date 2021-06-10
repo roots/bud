@@ -38,7 +38,10 @@
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
     "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
-    "test": "node --no-warnings ./node_modules/.bin/jest",
+    "test:pre": "yarn node ./jest.pre.js",
+    "test:post": "yarn node ./jest.post.js",
+    "test:all": "node --no-warnings ./node_modules/.bin/jest",
+    "test": "yarn run-s test:pre test:all test:post",
     "majestic": "yarn dlx majestic"
   },
   "resolutions": {
