@@ -13,8 +13,6 @@ describe(`examples/tailwindcss`, () => {
       return
     })
 
-    afterAll(suite.teardown)
-
     it('js: has contents', () => {
       expect(assets['app.js'].length).toBeGreaterThan(10)
     })

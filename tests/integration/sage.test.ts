@@ -15,11 +15,8 @@ describe(suite.name, () => {
       entrypoints = await readJson(
         suite.distPath('entrypoints.json'),
       )
-
       return
     })
-
-    afterAll(suite.teardown)
 
     describe('entrypoints.json', () => {
       it('has expected app entries', () => {

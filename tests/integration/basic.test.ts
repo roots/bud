@@ -13,8 +13,6 @@ describe(`examples/basic`, () => {
       return
     })
 
-    afterAll(suite.teardown)
-
     describe('main.js', () => {
       it('has contents', () => {
         expect(assets['main.js'].length).toBeGreaterThan(10)

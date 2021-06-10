@@ -122,16 +122,6 @@ export function helper(
     return built
   }
 
-  async function teardown() {
-    /* await writeFile(
-      projectPath('package.json'),
-      format(project.json, {parser: 'json'}),
-    )
-
-    success(name, 'restore package.json') */
-    return true
-  }
-
   return {
     name,
     project,
@@ -140,6 +130,5 @@ export function helper(
     yarn,
     manifest,
     setup,
-    teardown,
   }
 }

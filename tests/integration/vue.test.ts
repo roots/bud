@@ -13,8 +13,6 @@ describe(`examples/vue`, () => {
       return
     })
 
-    afterAll(suite.teardown)
-
     describe('app.js', () => {
       it('has contents', () => {
         expect(assets['app.js'].length).toBeGreaterThan(10)
