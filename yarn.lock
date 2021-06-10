@@ -9388,8 +9388,6 @@ __metadata:
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
-    react: ^17.0.2
-    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 

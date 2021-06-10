@@ -9,7 +9,6 @@ const extension: Module = {
 
   boot: app => {
     const {build, discovery, extensions, store, hooks} = app
-
     if (!discovery.hasPeerDependency('vue')) return
 
     build.loaders['vue-style'] = new Loader(
