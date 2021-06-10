@@ -1,10 +1,5 @@
-import {
-  Bud,
-  Framework,
-  config as defaultConfig,
-  services,
-} from '@roots/bud'
-
+import {Bud, config as defaultConfig, services} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import {logger, log, success, error} from './logger'
 
 /**
