@@ -9,7 +9,7 @@ import {
 } from 'fs-extra'
 // import {format} from 'prettier'
 
-import {error, log, success} from './index'
+import {error, log} from './index'
 
 export interface Assets {
   [key: string]: string
@@ -36,9 +36,7 @@ export function helper(
   } = {
     name,
     json: '',
-    dir: dir
-      ? posix.normalize(`${process.cwd()}/${dir}`)
-      : process.cwd(),
+    dir: dir ? `${process.cwd()}/${dir}` : process.cwd(),
     dist: dist ?? 'dist',
   }
 
@@ -104,12 +102,11 @@ export function helper(
   async function yarn(...opts: string[]): Promise<void> {
     log(name, `yarn ${opts.join(' ')}`)
 
-    const {stderr, stdout} = await execa('yarn', opts, {
+    const {stderr} = await execa('yarn', opts, {
       cwd: project.dir,
     })
 
     stderr && error(name, `yarn ${opts.join(' ')}`, stderr)
-    stdout && success(name, `yarn ${opts.join(' ')}`, stdout)
 
     return
   }

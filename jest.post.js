@@ -22,14 +22,15 @@ let ref = {}
     await promise
     await get(path)
     await set(path)
-    return null
+    return Promise.resolve()
   }, Promise.resolve())
 })()
 
 async function get(pkg) {
   ref[pkg] = await readFile(`${pkg}/package.ref`, 'utf8')
-  success(basename(pkg), 'get reference package.json')
-  return
+  return ref[pkg]
+    ? success(basename(pkg), 'restore (read)')
+    : error(basename(pkg), 'restore (read)')
 }
 
 async function set(pkg) {
@@ -40,6 +41,5 @@ async function set(pkg) {
     }),
   )
 
-  success(basename(pkg), 'Restored original package.json')
-  return
+  return success(basename(pkg), 'Restored original package.json')
 }
