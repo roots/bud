@@ -1,0 +1,10 @@
+{
+  "name": "example-eslint",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
+    "@roots/bud-preset-recommend": "workspace:*"
+  }
+}

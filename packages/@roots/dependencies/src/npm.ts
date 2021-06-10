@@ -4,11 +4,11 @@ import {IDependencyManager} from './'
 export class Npm implements IDependencyManager {
   public path: string
 
-  constructor(path: string = process.cwd()) {
+  public constructor(path: string = process.cwd()) {
     this.path = path
   }
 
-  install(
+  public install(
     dev: boolean,
     dependency: string,
   ): SpawnSyncReturns<string> {
@@ -23,7 +23,9 @@ export class Npm implements IDependencyManager {
     return spawnSync('npm', args)
   }
 
-  uninstall(dependency: string): SpawnSyncReturns<string> {
+  public uninstall(
+    dependency: string,
+  ): SpawnSyncReturns<string> {
     const args = ['uninstall'].concat(dependency, [
       '--prefix',
       this.path,

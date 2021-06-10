@@ -26,7 +26,7 @@ declare module '@roots/bud-framework' {
 }
 
 const publicPath: Api.PublicPath = function () {
-  return this.hooks.filter('location/publicPath')
+  return this.hooks.filter('build/output/publicPath')
 }
 
 export {publicPath}

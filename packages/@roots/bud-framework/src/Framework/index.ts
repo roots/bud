@@ -448,7 +448,7 @@ abstract class Framework {
   @bind
   public error(message: string, title: string) {
     const instance = this.dashboard.renderError(message, title)
-    setTimeout(instance.quit, 2000)
+    setTimeout(instance.unmount, 2000)
   }
 }
 

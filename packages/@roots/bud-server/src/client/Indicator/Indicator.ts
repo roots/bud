@@ -175,11 +175,11 @@ export class Indicator extends HTMLElement {
       this.success()
   }
 
-  static get observedAttributes() {
+  public static get observedAttributes() {
     return ['has-errors', 'has-warnings', 'action']
   }
 
-  attributeChangedCallback() {
+  public attributeChangedCallback() {
     this.update()
   }
 

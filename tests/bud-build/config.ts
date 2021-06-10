@@ -1,9 +1,4 @@
-import {
-  Bud,
-  Framework,
-  config as frameworkConfig,
-  services,
-} from '@roots/bud'
+import {Framework, setupBud, teardownBud} from '../util'
 import {Build} from '@roots/bud-build'
 import RemarkHTML from 'remark-html'
 
@@ -13,16 +8,13 @@ describe('bud.build.config', function () {
     path: Framework['path']
 
   beforeAll(() => {
-    bud = new Bud(frameworkConfig)
-      .bootstrap(services)
-      .lifecycle()
-
+    bud = setupBud()
     config = bud.build.config
     path = bud.path
   })
 
   afterAll(() => {
-    bud.server.watcher.close()
+    teardownBud(bud)
   })
 
   it(`doesn't include deprecated properties`, () => {
@@ -59,9 +51,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(config.infrastructureLogging).toEqual({
-      console: bud.logger.instance,
-    })
+    expect(config.infrastructureLogging).toEqual({})
   })
 
   it('has expected mode default', () => {
@@ -247,6 +237,35 @@ describe('bud.build.config', function () {
         },
       ],
     })
+  })
+
+  it('config accessor produces obj with expected keys', () => {
+    expect(Object.keys(bud.build.config)).toEqual([
+      'bail',
+      'cache',
+      'context',
+      'devtool',
+      'entry',
+      'experiments',
+      'externals',
+      'infrastructureLogging',
+      'mode',
+      'module',
+      'name',
+      'node',
+      'output',
+      'optimization',
+      'parallelism',
+      'performance',
+      'plugins',
+      'profile',
+      'recordsPath',
+      'resolve',
+      'stats',
+      'target',
+      'watch',
+      'watchOptions',
+    ])
   })
 })
 

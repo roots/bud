@@ -1,5 +1,4 @@
 import {Service, Server as Contract} from '@roots/bud-framework'
-import Webpack from 'webpack'
 import chokidar from 'chokidar'
 import {sync} from 'globby'
 import {FSWatcher} from 'fs-extra'
@@ -67,14 +66,14 @@ export class Server extends Service implements Contract {
   }
 
   @bind
-  public processMiddlewares(compiler: Contract.Compiler) {
+  public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
         this.info(`Enabling ${key}`)
 
         this.middleware[key] = generate({
           config: this.config,
-          compiler,
+          compiler: this.app.compiler.instance,
         })
       }
     })
@@ -85,7 +84,9 @@ export class Server extends Service implements Contract {
   }
 
   @bind
-  public run(compiler: Webpack.Compiler): this {
+  public run(): this {
+    this.app.compiler.compile()
+
     /**
      * __roots route
      */
@@ -100,7 +101,7 @@ export class Server extends Service implements Contract {
         res.end()
       })
 
-    this.processMiddlewares(compiler)
+    this.processMiddlewares()
 
     /**
      * Listen

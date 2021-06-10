@@ -1,32 +1,53 @@
-const {Plugin} = require('@roots/entrypoints-webpack-plugin')
+import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
+import {Chunk} from 'webpack'
 
 describe('entrypoints.json', () => {
   it('should get chunk file list', () => {
-    const entrypoints = new Plugin()
-    const files = entrypoints.getEntrypointFiles({
-      chunks: [
-        {
-          files: ['foo.js', 'bar.js'],
-        },
-      ],
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
     })
+    const chonk = new Chunk()
+    chonk.files = new Set(['foo.js', 'bar.js'])
+    const files = entrypoints.getEntrypointFiles({
+      chunks: [chonk],
+      origins: [],
+    })
+
     expect(files).toEqual(['foo.js', 'bar.js'])
   })
 
   it('should create manifest object', () => {
-    const entrypoints = new Plugin()
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
+    })
 
     entrypoints.assets = {}
 
-    entrypoints.addToManifest('app', 'runtime.js')
-    entrypoints.addToManifest('app', 'app.js')
-    entrypoints.addToManifest('app', 'app.css')
-    entrypoints.addToManifest('app', 'vendor/foobar.js')
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'runtime.js',
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'app.js',
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'app.css',
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'vendor/foobar.js',
+    })
 
     expect(entrypoints.assets).toEqual({
       app: {
-        js: ['runtime.js', 'app.js', 'vendor/foobar.js'],
-        css: ['app.css'],
+        js: [
+          '/public/runtime.js',
+          '/public/app.js',
+          '/public/vendor/foobar.js',
+        ],
+        css: ['/public/app.css'],
       },
     })
   })

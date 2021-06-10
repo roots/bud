@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import type {Configuration} from 'webpack'
 
 export function config(this: Framework): void {
   this.hooks
@@ -41,7 +42,7 @@ export function config(this: Framework): void {
       'extensions',
       'modules',
     ])
-    .hooks.link('build/module', ['rules', 'unsafeCache'])
+    .hooks.link('build/module', ['rules'])
     .hooks.link('build/output', [
       'path',
       'pathinfo',
@@ -52,8 +53,11 @@ export function config(this: Framework): void {
   this.hooks
     .on('build/bail', true)
     .hooks.on('build/experiments', () => ({
-      lazyCompilation: false,
+      lazyCompilation: this.hooks.filter(
+        'build/experiments/lazyCompilation',
+      ),
     }))
+    .hooks.on('build/experiments/lazyCompilation', () => false)
 
     /**
      * cache
@@ -77,9 +81,7 @@ export function config(this: Framework): void {
       ),
     }))
 
-    .hooks.on('build/infrastructureLogging', () => ({
-      console: this.logger.instance,
-    }))
+    .hooks.on('build/infrastructureLogging', () => ({}))
 
     .hooks.on('build/node', false)
 
@@ -150,7 +152,7 @@ export function config(this: Framework): void {
       this.hooks.filter('location/modules'),
       ...this.discovery.resolveFrom,
     ])
-    .hooks.on('build/stats', () => ({}))
+    .hooks.on('build/stats', (): Configuration['stats'] => ({}))
     .hooks.on('build/target', () => 'web')
     .hooks.on('build/watch', false)
 }

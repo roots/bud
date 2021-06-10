@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "4.2.0",
+  "version": "4.4.0",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",

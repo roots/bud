@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: jest
-          command: yarn test --coverage
+          command: yarn test --coverage --maxWorkers=1
 
       - run:
           name: example builds

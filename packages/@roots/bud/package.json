@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "4.2.0",
+  "version": "4.4.0",
   "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
   "homepage": "https://roots.io/bud",
   "repository": {

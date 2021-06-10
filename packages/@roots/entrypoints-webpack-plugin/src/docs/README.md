@@ -15,10 +15,10 @@ yarn add @roots/entrypoints-webpack-plugin --dev
 ## Usage
 
 ```js
-import {Plugin} from '@roots/entrypoints-webpack-plugin'
+import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 
 webpack({
-  plugins: [new Plugin()],
+  plugins: [new EntrypointsWebpackPlugin()],
 })
 ```
 

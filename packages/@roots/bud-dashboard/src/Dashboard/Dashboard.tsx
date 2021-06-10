@@ -1,17 +1,51 @@
-import {Dashboard} from '@roots/bud-framework'
+import {Dashboard, Framework} from '@roots/bud-framework'
 
-import React from 'react'
-import {Text, Static, Box, useInput} from 'ink'
+import React, {useState, useRef} from 'react'
+import {Box, Newline, Text, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
+import Table from 'ink-table'
+import humanFormat from 'human-format'
+import {Progress} from './Progress'
+import {StatsCompilation} from 'webpack/types'
+import patchConsole from 'patch-console'
 
-import {Assets, Time, Git, Progress, Module} from '../components'
-import {useCompilation, usePackageJson} from '../hooks'
+const formatAssetsData = assets =>
+  assets.reduce(
+    (a, {name, size, emitted, info}) => [
+      ...a,
+      {
+        name: `${emitted ? '❇ ' : ''}${name}`,
+        immutable: info?.immutable ? '✔' : '',
+        minimized: info?.minimized ? '✔' : '',
+        size: humanFormat(size, {
+          prefix: 'k',
+          decimals: 2,
+        }),
+      },
+    ],
+    [],
+  )
 
-const Dashboard: Dashboard.Component = ({bud}) => {
-  const compilation = useCompilation(bud)
-  const theme = useStyle(bud.store.get('theme'))
-  const pkg = usePackageJson(bud)
+const Dashboard = ({bud}: {bud: Framework}) => {
+  const app = useRef(bud)
+
+  const theme = useStyle(app.current.store.get('theme'))
+
+  const [progress, setProgress] =
+    useState<{
+      message: string
+      decimal: number
+      percentage: string
+    }>(null)
+  const [stats, setStats] = useState<StatsCompilation>(null)
+
+  setInterval(() => {
+    setStats(app.current.compiler.stats)
+    setProgress(app.current.compiler.progress)
+  }, 50)
+
+  patchConsole((stream, data) => {})
 
   useInput(input => {
     if (isEqual(input, 'q')) {
@@ -21,57 +55,54 @@ const Dashboard: Dashboard.Component = ({bud}) => {
     }
   })
 
-  const appProps: Dashboard.AppProps = {
-    bud,
-    theme,
-    pkg,
-    ...compilation,
-  }
-
   return (
     <Box flexDirection="column">
-      {appProps.errors?.length > 0 && (
-        <Static marginBottom={1} items={appProps.errors}>
-          {(err: Dashboard.Compilation.WebpackMessage, id) => (
-            <Module
-              key={`${id}-webpack-error`}
-              color={appProps.theme.colors.error}
-              labelColor={theme.colors.foreground}
-              label={`Error: ${err.moduleName}`}>
-              <Box width={theme.bounds.width - 4}>
-                <Text>{err.message}</Text>
-              </Box>
-            </Module>
+      <Text backgroundColor={theme.colors.primary}>
+        {' '}
+        {app.current.mode
+          ? `${app.current.name}@${app.current.mode} `
+          : ''}
+        {stats?.hash ? `#${stats.hash} ` : ''}
+      </Text>
+
+      {stats?.errors?.length > 1 ? (
+        <Box marginY={1} flexDirection="column">
+          {stats.errors.map((err, k) =>
+            err.message ? (
+              <Text color={theme.colors.error} key={`err-${k}`}>
+                {err.message ?? err ?? ''}
+                <Newline />
+              </Text>
+            ) : (
+              []
+            ),
           )}
-        </Static>
+        </Box>
+      ) : null}
+
+      {stats?.assets?.length > 1 &&
+        !(stats?.errors?.length > 1) && (
+          <Table data={formatAssetsData(stats?.assets)} />
+        )}
+
+      {stats?.time && (
+        <Box>
+          <Text color={theme?.colors?.faded}>
+            {' '}
+            Compiled in {stats?.time / 1000}s
+          </Text>
+        </Box>
       )}
 
-      {appProps.hasWarnings && appProps.warnings?.length > 0 && (
-        <Static marginBottom={1} items={appProps.warnings}>
-          {(warning: Dashboard.Compilation.WebpackMessage) => (
-            <Module
-              key={warning.moduleIdentifier}
-              color={appProps.theme.colors.warning}
-              labelColor={theme.colors.foreground}
-              label={`Error: ${warning.moduleName}`}>
-              <Box width={theme.bounds.width - 4}>
-                <Text>{warning.message}</Text>
-              </Box>
-            </Module>
-          )}
-        </Static>
+      {stats?.errors?.length <= 1 && progress?.decimal < 1 && (
+        <Box marginTop={1}>
+          <Progress
+            progress={progress}
+            theme={theme}
+            mode={stats?.mode}
+          />
+        </Box>
       )}
-
-      {appProps.stats?.assets && (
-        <>
-          <Assets {...appProps} />
-          <Time {...appProps} />
-        </>
-      )}
-
-      <Progress {...appProps} />
-
-      <Git theme={appProps.theme} />
     </Box>
   )
 }
