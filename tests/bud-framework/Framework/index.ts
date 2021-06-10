@@ -5,12 +5,14 @@ import {noop} from 'lodash'
 describe('bud', () => {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
+    return
   })
 
-  afterEach(() => {
+  afterAll(() => {
     bud = teardownBud(bud)
+    return
   })
 
   it('mode', () => {
@@ -66,8 +68,8 @@ describe('bud', () => {
   })
 
   it('pipe passes value through fn chain', done => {
-    const cb1 = x => x + 1
-    const cb2 = x => x + 1
+    const cb1 = (x: number) => x + 1
+    const cb2 = (x: number) => x + 1
 
     const res = bud.pipe([cb1, cb2], 0)
 

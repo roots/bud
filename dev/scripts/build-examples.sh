@@ -73,14 +73,6 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo -e "\nBuilding: vue"
-cd ../vue
-cp package.json package.json.bak
-yarn bud init
-yarn bud build --debug --ci
-cp package.json.bak package.json
-rm package.json.bak
-
 echo -e "\nBuilding: wordpress-theme"
 cd ../wordpress-theme
 cp package.json package.json.bak
