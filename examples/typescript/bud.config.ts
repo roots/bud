@@ -8,4 +8,3 @@ export default (bud: Framework) =>
     .use([babel, typescript])
     .entry({app: ['app.ts']})
     .template()
-    .persist()

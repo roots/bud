@@ -3,4 +3,4 @@ type: extension
 
 dependencies:
   dev:
-    vue: ^2.6.14
+    vue: ^2.6.12
