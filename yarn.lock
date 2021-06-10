@@ -4109,7 +4109,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-vue@workspace:packages/@roots/bud-vue":
+"@roots/bud-vue@workspace:*, @roots/bud-vue@workspace:packages/@roots/bud-vue":
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:packages/@roots/bud-vue"
   dependencies:
@@ -9439,9 +9439,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-vue@workspace:examples/vue"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
-    "@roots/bud-vue": "workspace:packages/@roots/bud-vue"
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-vue": "workspace:*"
   languageName: unknown
   linkType: soft
 

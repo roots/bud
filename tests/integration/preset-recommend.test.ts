@@ -5,25 +5,23 @@ const suite = helper(
   'examples/preset-recommend',
 )
 
-describe(`examples/preset-recommend`, () => {
-  jest.setTimeout(1000000)
+jest.setTimeout(1000000)
 
-  describe('production', () => {
-    let assets: Assets
+describe(suite.name, () => {
+  let assets: Assets
 
-    beforeAll(async () => {
-      assets = await suite.setup()
-      return
+  beforeAll(async () => {
+    assets = await suite.setup()
+    return
+  })
+
+  describe('main.js', () => {
+    it('has contents', () => {
+      expect(assets['main.js'].length).toBeGreaterThan(10)
     })
 
-    describe('main.js', () => {
-      it('has contents', () => {
-        expect(assets['main.js'].length).toBeGreaterThan(10)
-      })
-
-      it('is transpiled', () => {
-        expect(assets['main.js'].includes('import')).toBeFalsy()
-      })
+    it('is transpiled', () => {
+      expect(assets['main.js'].includes('import')).toBeFalsy()
     })
   })
 })

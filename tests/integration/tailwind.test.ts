@@ -2,46 +2,50 @@ import {helper, Assets} from '../util/integration'
 
 const suite = helper('tailwindcss', 'examples/tailwindcss')
 
-describe(`examples/tailwindcss`, () => {
-  jest.setTimeout(1000000)
+jest.setTimeout(1000000)
 
-  describe('production', () => {
-    let assets: Assets
+describe(suite.name, () => {
+  let assets: Assets
 
-    beforeAll(async () => {
-      assets = await suite.setup()
-      return
-    })
+  beforeEach(async () => {
+    assets = await suite.setup()
+    return
+  })
 
-    it('js: has contents', () => {
+  describe('app.js', () => {
+    it('has contents', () => {
       expect(assets['app.js'].length).toBeGreaterThan(10)
     })
 
-    it('js: is transpiled', () => {
+    it('is transpiled', () => {
       expect(assets['app.js'].includes('import')).toBeFalsy()
     })
+  })
 
-    it('css: has contents', () => {
+  describe('app.css', () => {
+    it('has contents', () => {
       expect(assets['app.css'].length).toBeGreaterThan(10)
     })
 
-    it('css: is transpiled', () => {
+    it('is transpiled', () => {
       expect(assets['app.css'].includes('@import')).toBe(false)
     })
 
-    it('css: @tailwind directive is transpiled', () => {
+    it('@tailwind directive is transpiled', () => {
       expect(assets['app.css'].includes('@apply')).toBe(false)
     })
 
-    it('css: has whitespace removed', () => {
+    it('has whitespace removed', () => {
       expect(assets['app.css'].match(/    /)).toBeFalsy()
     })
 
-    it('css: has breaks removed', () => {
+    it('has breaks removed', () => {
       expect(assets['app.css'].match(/\\n/)).toBeFalsy()
     })
+  })
 
-    it('jit: is used to build css', () => {
+  describe('jit', () => {
+    it('is used to build css', () => {
       expect(
         assets['app.css'].match(/w-\\\[800px\\\]/),
       ).toBeTruthy()
