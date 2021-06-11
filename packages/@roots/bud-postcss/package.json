@@ -68,7 +68,9 @@
     "@types/lodash": "^4.14.170",
     "@types/node": "^15.6.1",
     "@types/signale": "^1.4.1",
-    "postcss": "^8.3.0",
+    "postcss": "^8.3.2",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
     "webpack": "5.38.1"
   },
   "dependencies": {
