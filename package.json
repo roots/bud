@@ -15,13 +15,14 @@
     }
   ],
   "engines": {
-    "node": "^15.12.2"
+    "node": "^16.3.0"
   },
   "workspaces": {
     "packages": [
       "examples/*",
-      "packages/@roots/*",
-      "packages/base"
+      "packages/base",
+      "packages/docs",
+      "packages/@roots/*"
     ]
   },
   "scripts": {
@@ -66,10 +67,7 @@
     "react-dom": "^17.0.2",
     "remark": "^13.0.0",
     "typescript": "^4.3.2",
-    "webpack": "^5.37.1",
-    "webpack-dev-middleware": "^4.3.0",
-    "webpack-hot-client": "^4.2.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack": "^5.37.1"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
@@ -114,6 +112,6 @@
     "weak-napi": "^2.0.2"
   },
   "volta": {
-    "node": "15.12.2"
+    "node": "16.3.0"
   }
 }
