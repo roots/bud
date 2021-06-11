@@ -7,10 +7,20 @@ namespace Rule {
   export type ExcludeFn = (app?: Framework) => RegExp
   export type TypeFn = (app?: Framework) => string
 
+  export interface Options {
+    test: RegExp | TestFn
+    use?: Item[] | UseFn
+    exclude?: RegExp | ExcludeFn
+    type?: string | TypeFn
+  }
+
   export interface Output {
     test: RegExp
+    use?: {
+      loader: string
+      options?: {[key: string]: any}
+    }[]
     exclude?: RegExp
-    use?: Item.Output[]
     type?: string
   }
 }

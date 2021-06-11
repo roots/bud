@@ -1,8 +1,12 @@
-import {Framework, Loader} from '@roots/bud-framework'
-import type {Item as Contract} from './interface'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 import {Base} from '../shared/Base'
+
+import type {
+  Framework,
+  Loader,
+  Item as Contract,
+} from '@roots/bud-framework'
 
 export class Item extends Base implements Contract {
   protected loader: Contract.LoaderFn
@@ -11,10 +15,7 @@ export class Item extends Base implements Contract {
   public constructor({
     loader,
     options,
-  }: {
-    loader: Loader | Contract.LoaderFn
-    options?: Contract.OptionsFn | Contract.Options
-  }) {
+  }: Contract.ConstructorOptions) {
     super()
 
     this.setLoader(loader)

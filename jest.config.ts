@@ -33,11 +33,11 @@ const config: InitialOptionsTsJest = {
   ],
   testEnvironment: 'node',
   testPathIgnorePatterns: [
-    '/node_modules/',
-    '/examples/',
-    '/docs/',
-    '/dev/',
-    '/tests/util',
+    'node_modules/',
+    'examples/',
+    'docs/',
+    'dev/',
+    'tests/util',
   ],
   verbose: true,
 }

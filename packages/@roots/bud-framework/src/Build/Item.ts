@@ -6,6 +6,11 @@ namespace Item {
   export type OptionsFn = (app?: Framework) => Options
   export type Options = {[key: string]: any}
 
+  export interface ConstructorOptions {
+    loader: Loader | LoaderFn
+    options?: OptionsFn | Options
+  }
+
   export interface Output {
     loader: Loader.Output
     options?: {[key: string]: any}
