@@ -37,7 +37,6 @@ const config: InitialOptionsTsJest = {
     '/examples/',
     '/docs/',
     '/dev/',
-    '/tests/util',
   ],
   verbose: true,
 }

@@ -1,26 +1,32 @@
-import {Framework, Service} from '@roots/bud-framework'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import RemarkHTML from 'remark-html'
+import {posix} from 'path'
+
 import Webpack from 'webpack'
+import RemarkHTML from 'remark-html'
+import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
+import {boundMethod as bind} from 'autobind-decorator'
+
+import {Service} from '@roots/bud-framework'
 import {Loader} from '../Loader'
 import {Rule} from '../Rule'
 import {Item} from '../Item'
 import {config} from './config'
-import {boundMethod as bind} from 'autobind-decorator'
-import {posix} from 'path'
 
-class Build extends Service {
+import type {
+  Framework,
+  Build as Contract,
+} from '@roots/bud-framework'
+
+class Build extends Service implements Contract {
   public name = '@roots/bud-build'
 
-  public loaders: {[key: string]: Loader} = {}
+  public loaders: Contract['loaders'] = {}
 
-  public rules: {[key: string]: Rule} = {}
+  public rules: Contract['rules'] = {}
 
-  public items: {[key: string]: Item} = {}
+  public items: Contract['items'] = {}
 
   public get config(): Webpack.Configuration {
-    const config = this.app.hooks.filter('build')
-    return config
+    return this.app.hooks.filter('build')
   }
 
   @bind
@@ -33,7 +39,7 @@ class Build extends Service {
       html: new Loader(require.resolve('html-loader')),
       md: new Loader(require.resolve('remark-loader')),
       style: new Loader(require.resolve('style-loader')),
-      minicss: new Loader(MiniCssExtractPlugin.loader),
+      minicss: new Loader(MiniCssLoader),
       file: new Loader(require.resolve('file-loader')),
       url: new Loader(require.resolve('url-loader')),
       'resolve-url': new Loader(
@@ -65,13 +71,10 @@ class Build extends Service {
       }),
       minicss: new Item({
         loader: ({build}) => build.loaders.minicss,
-        options: (app: Framework) => ({
+        options: ({path}: Framework) => ({
           publicPath: posix.normalize(
             posix.dirname(
-              posix.relative(
-                app.path('project'),
-                app.path('src'),
-              ),
+              posix.relative(path('project'), path('src')),
             ),
           ),
         }),
