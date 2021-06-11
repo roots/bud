@@ -12,6 +12,10 @@
     {
       "name": "Kelly Mears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "engines": {
@@ -40,8 +44,8 @@
     "docs": "yarn node ./dev/docs/gen/cli.js",
     "test:pre": "yarn node ./jest.pre.js",
     "test:post": "yarn node ./jest.post.js",
-    "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration'",
-    "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration'",
+    "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
+    "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
     "test:integration": "yarn node ./jest.integration.js",
     "test:ci": "yarn run-s test:spec:ci test:integration",
     "test": "yarn run-s test:spec test:integration",
