@@ -82,6 +82,7 @@ const jest = async suite => {
   if (res.exitCode == 0) {
     return Promise.resolve()
   } else {
+    await post()
     throw new Error(res.stderr)
   }
 }

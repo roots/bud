@@ -34,7 +34,3 @@ jobs:
       - run:
           name: jest
           command: yarn test:ci
-
-      - run:
-          name: example builds
-          command: ./dev/scripts/build-examples.sh
