@@ -7,4 +7,6 @@ module.exports = app =>
     .template({
       template: 'public/index.html',
     })
-    .entry('app', ['app.css'])
+    .entry({
+      app: ['app.css'],
+    })

@@ -86,6 +86,7 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('dependencies.react')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-react')).toEqual(
         false,
@@ -120,6 +121,7 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.postcss')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
         false,
@@ -151,6 +153,7 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.tailwindcss')
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-tailwindcss'),
@@ -182,6 +185,8 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.typescript')
+
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-typescript'),

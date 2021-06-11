@@ -9349,9 +9349,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"example-md@workspace:examples/md":
+"example-markdown@workspace:examples/markdown":
   version: 0.0.0-use.local
-  resolution: "example-md@workspace:examples/md"
+  resolution: "example-markdown@workspace:examples/markdown"
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
@@ -9362,10 +9362,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-postcss@workspace:examples/postcss"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
   languageName: unknown
   linkType: soft
 
