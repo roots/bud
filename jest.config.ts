@@ -20,7 +20,9 @@ const config: InitialOptionsTsJest = {
       const base = path.dirname(pkg)
       const {name} = require(pkg)
 
-      return {[`${name}/(.*)$`]: `${base}/src/$1`}
+      return {
+        [`${name}/(.*)$`]: `${base}/src/$1`,
+      }
     })
     .reduce((pkgs, pkg) => ({...pkgs, ...pkg}), {}),
   preset: 'ts-jest',
@@ -37,7 +39,6 @@ const config: InitialOptionsTsJest = {
     '/dev/',
     '/tests/util',
   ],
-
   verbose: true,
 }
 

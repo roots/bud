@@ -1,9 +1,2 @@
-process.on('uncaughtException', () => {})
-
-global.console = Object.keys(global.console).reduce(
-  (a, name) => ({
-    ...a,
-    [name]: jest.fn(),
-  }),
-  global.console,
-)
+import {error} from './tests/util/logger'
+process.on('uncaughtException', error)

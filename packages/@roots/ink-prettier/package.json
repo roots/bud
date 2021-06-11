@@ -62,8 +62,8 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
-    "@types/prettier": "^2.2.3",
+    "@types/node": "^15.12.2",
+    "@types/prettier": "^2.3.0",
     "@types/react": "^17.0.8"
   },
   "dependencies": {

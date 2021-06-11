@@ -6,8 +6,10 @@ import {Loader, Item} from '@roots/bud-build'
 
 const extension: Module = {
   name: '@roots/bud-vue',
+
   boot: app => {
-    const {build, extensions, store, hooks} = app
+    const {build, discovery, extensions, store, hooks} = app
+    if (!discovery.hasPeerDependency('vue')) return
 
     build.loaders['vue-style'] = new Loader(
       require.resolve('vue-style-loader'),
@@ -17,17 +19,16 @@ const extension: Module = {
       loader: ({build}) => build.loaders['vue-style'],
     })
 
-    hooks.on('build/module/rules', rules => [
-      {
-        test: store.get('patterns.vue'),
-        use: [
-          {
-            loader: require.resolve('vue-loader'),
-          },
-        ],
-      },
-      ...rules,
-    ])
+    hooks.on(
+      'build/module/rules',
+      (rules: Configuration['module']['rules']) => [
+        {
+          test: store.get('patterns.vue'),
+          use: [{loader: require.resolve('vue-loader')}],
+        },
+        ...rules,
+      ],
+    )
 
     const cssItems = build.rules['css'].getUse(app)
     build.rules['css'].setUse(({isProduction, build}) => [

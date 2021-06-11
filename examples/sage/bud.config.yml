@@ -6,4 +6,3 @@ entry:
   customizer: '**/customizer.{js,css}'
 assets:
   - assets/images
-persist: true

@@ -16,5 +16,4 @@ module.exports = app => {
     .when(app.isProduction, () => {
       app.runtime('single').splitChunks()
     })
-    .persist()
 }

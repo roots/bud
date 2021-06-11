@@ -1,12 +1,28 @@
-import {Framework, setupBud, teardownBud} from '../../util'
+import {
+  Framework,
+  setupBud,
+  teardownBud,
+  config,
+} from '../../util'
 import * as sage from '@roots/sage'
+
+const SAGE_DIR = process.cwd().concat('/examples/sage')
+const EXAMPLES_SAGE_CONFIG = {
+  ...config,
+  location: {
+    ...config.location,
+    project: SAGE_DIR,
+  },
+}
 
 describe('@roots/sage', () => {
   describe('settings', () => {
     let bud: Framework = null
+    let bootSpy = jest.spyOn(sage, 'boot')
 
     beforeAll(done => {
-      bud = setupBud()
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
+      bud.use(sage)
       done()
     })
 
@@ -15,26 +31,24 @@ describe('@roots/sage', () => {
       done()
     })
 
-    it('has extension name', () => {
+    it('extension has name prop', () => {
       expect(sage.name).toBe('@roots/sage')
     })
 
-    it('has extension boot method', () => {
-      expect(sage.boot).toBeInstanceOf(Function)
+    it('extension boot method was called', () => {
+      expect(bootSpy).toHaveBeenCalled()
     })
 
     it('has expected paths', () => {
-      bud.use(sage)
-
       expect(bud.path('storage')).toEqual(
-        process.cwd().concat('/storage/bud'),
+        SAGE_DIR.concat('/storage/bud'),
       )
       expect(bud.publicPath()).toEqual('public/')
       expect(bud.path('dist')).toEqual(
-        process.cwd().concat('/public'),
+        SAGE_DIR.concat('/public'),
       )
       expect(bud.path('src')).toEqual(
-        process.cwd().concat('/resources'),
+        SAGE_DIR.concat('/resources'),
       )
     })
 
@@ -44,16 +58,16 @@ describe('@roots/sage', () => {
       bud.use(sage)
 
       expect(aliases['@fonts']).toEqual(
-        process.cwd().concat('/resources/fonts'),
+        SAGE_DIR.concat('/resources/fonts'),
       )
       expect(aliases['@images']).toEqual(
-        process.cwd().concat('/resources/images'),
+        SAGE_DIR.concat('/resources/images'),
       )
       expect(aliases['@scripts']).toEqual(
-        process.cwd().concat('/resources/scripts'),
+        SAGE_DIR.concat('/resources/scripts'),
       )
       expect(aliases['@styles']).toEqual(
-        process.cwd().concat('/resources/styles'),
+        SAGE_DIR.concat('/resources/styles'),
       )
     })
   })
@@ -62,8 +76,7 @@ describe('@roots/sage', () => {
     let bud: Framework = null
 
     beforeAll(done => {
-      bud = setupBud('development')
-      bud.discovery.setStore({})
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
       done()
     })
 
@@ -73,22 +86,23 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('dependencies.react')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-react')).toEqual(
         false,
       )
+
       done()
     })
 
     it('used when peer deps present', done => {
-      bud.discovery
-        .set('dependencies.react', '99.99')
-        .set('dependencies.react-dom', '99.99')
+      bud.discovery.set('dependencies.react', '^17')
       bud.use(sage)
 
       expect(bud.extensions.has('@roots/bud-react')).toEqual(
         true,
       )
+
       done()
     })
   })
@@ -97,8 +111,7 @@ describe('@roots/sage', () => {
     let bud: Framework = null
 
     beforeAll(done => {
-      bud = setupBud()
-      bud.discovery.setStore({})
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
       done()
     })
 
@@ -108,12 +121,11 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.postcss')
       bud.use(sage)
-
       expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
         false,
       )
-
       done()
     })
 
@@ -131,8 +143,7 @@ describe('@roots/sage', () => {
     let bud: Framework = null
 
     beforeAll(done => {
-      bud = setupBud()
-      bud.discovery.setStore({})
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
       done()
     })
 
@@ -142,6 +153,7 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.tailwindcss')
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-tailwindcss'),
@@ -163,8 +175,7 @@ describe('@roots/sage', () => {
     let bud: Framework = null
 
     beforeAll(done => {
-      bud = setupBud('development')
-      bud.discovery.setStore({})
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
       done()
     })
 
@@ -174,6 +185,8 @@ describe('@roots/sage', () => {
     })
 
     it('not used when peer deps are missing', done => {
+      bud.discovery.remove('devDependencies.typescript')
+
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-typescript'),
@@ -195,8 +208,7 @@ describe('@roots/sage', () => {
     let bud: Framework = null
 
     beforeAll(done => {
-      bud = setupBud()
-      bud.use(sage)
+      bud = setupBud('production', EXAMPLES_SAGE_CONFIG)
       done()
     })
 
@@ -206,6 +218,7 @@ describe('@roots/sage', () => {
     })
 
     it('is used', done => {
+      bud.use(sage)
       expect(bud.extensions.has('@roots/bud-esbuild')).toEqual(
         true,
       )

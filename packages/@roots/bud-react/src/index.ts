@@ -8,14 +8,9 @@ const extension: Module = {
   name: '@roots/bud-react',
   boot: app => {
     /**
-     * If requirements are not met bounce early
+     * Exit early if peerDepenedencies unmet
      */
-    if (
-      !app.discovery.has('devDependencies.react') &&
-      !app.discovery.has('dependencies.react')
-    ) {
-      return
-    }
+    if (!app.discovery.hasPeerDependency('react')) return
 
     app.babel.setPresets(['@babel/preset-react'])
 

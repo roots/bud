@@ -1,3 +1,21 @@
+## v4.5.0
+
+v4.5.0 comes with a lot of internal improvements and some small changes to the postcss api.
+
+### TODO
+
+- Remove this
+- Update @roots/bud-tailwindcss docs
+
+### Breaking
+
+- `@roots/bud-postcss` api has ben streamlined a bit. The big change is that plugins are now keyed by a string, explicitly. Check the [`@roots/bud-postcss README`] for usage.
+- `@roots/bud-tailwindcss` no longer needs/utilizes the `@tailwindcss/jit` package. This streamlines the config, if you were specifying your configuration in your project's bud config file.
+
+### Improved
+
+- No longer requires `@tailwindcss/jit`.
+
 ## v4.4.0
 
 v4.4.0 is primarily focused on improvements in `@roots/entrypoints-webpack-plugin` and `@roots/bud-dashboard`. It also includes fixes in `@roots/wordpress-dependencies-webpack-plugin` which could have resulted in incomplete asset processing.

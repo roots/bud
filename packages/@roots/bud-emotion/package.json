@@ -62,13 +62,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/preset-react": "^7.13.13",
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
-    "@types/node": "^15.6.1"
+    "@types/node": "^15.12.2"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",

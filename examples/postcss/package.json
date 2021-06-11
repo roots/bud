@@ -2,9 +2,9 @@
   "name": "example-postcss",
   "private": true,
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-postcss": "workspace:*"
   }
 }

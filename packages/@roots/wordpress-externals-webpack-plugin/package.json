@@ -59,7 +59,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1"
+    "@types/node": "^15.12.2"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
