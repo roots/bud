@@ -47,8 +47,8 @@ describe(NAME, () => {
 
     it('sets up postcss plugins', () => {
       expect(bud.postcss.plugins).toEqual({
-        'postcss-import': ['postcss-import', {}],
-        'postcss-preset-env': [
+        import: ['postcss-import', {}],
+        'preset-env': [
           'postcss-preset-env',
           {
             stage: 1,

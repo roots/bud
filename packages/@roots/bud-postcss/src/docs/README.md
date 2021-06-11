@@ -39,13 +39,22 @@ Valid config locations:
 
 - `postcss.config.js` file
 
-The implementation used by `@roots/bud-postcss` internally is the same one intended for use in the project config:
+The API used by `@roots/bud-postcss` internally is the same one intended for use in the project config. Here are the defaults expressed in a few different ways:
 
 ```js
+bud.postcss.setPlugins({
+  import: 'postcss-import',
+  ['preset-env']: ['postcss-preset-env', {stage: 1}],
+})
+
 bud.postcss
-  .setPlugin('postcss-import')
-  .setPlugin('postcss-preset-env')
-  .setPluginOptions('postcss-preset-env', {stage: 1})
+  .setPlugin('import', ['postcss-import'])
+  .setPlugin('preset-env', ['postcss-preset-env', {stage: 1}])
+
+bud.postcss
+  .setPlugin('import', ['postcss-import'])
+  .setPlugin('preset-env', ['postcss-preset-env'])
+  .setPluginOptions('preset-env', {stage: 1})
 ```
 
 ## API
@@ -54,10 +63,13 @@ A configuration API is registered by `@roots/bud-postcss` for your convenience.
 
 ### postcss.setPlugin
 
-Add a postcss plugin:
+Add a postcss plugin. Takes two parameters: the first is a unique key for the plugin, so that it can be referenced later by other extensions. The second can either be the path to the plugin, the resolvable plugin module name, or a postcss PluginCreator function.
 
 ```js
-bud.postcss.set('postcss-import')
+bud.postcss.setPlugin(
+  'import',
+  require.resolve('postcss-import'),
+)
 ```
 
 ### postcss.unsetPlugin
@@ -65,7 +77,7 @@ bud.postcss.set('postcss-import')
 Remove a postcss plugin:
 
 ```js
-bud.postcss.removePlugin('postcss-import')
+bud.postcss.unsetPlugin('import')
 ```
 
 ### postcss.setPluginOptions
@@ -73,7 +85,7 @@ bud.postcss.removePlugin('postcss-import')
 Override any plugin options:
 
 ```js
-bud.postcss.setPluginOptions('postcss-import', {
-  path: bud.subscribe('build/resolve/modules'),
+bud.postcss.setPluginOptions('import', {
+  path: bud.filter('build/resolve/modules'),
 })
 ```

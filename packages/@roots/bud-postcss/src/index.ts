@@ -7,8 +7,8 @@ import {Config} from './Config'
 const extension: Module = {
   name: '@roots/bud-postcss',
 
-  api: app => ({
-    postcss: new Config(app),
+  api: () => ({
+    postcss: new Config(),
   }),
 
   boot: ({build, discovery, path, postcss}) => {
@@ -23,9 +23,7 @@ const extension: Module = {
           config: pathExistsSync(
             path('project', 'postcss.config.js'),
           ),
-          plugins: Object.values(postcss.plugins).map(
-            ([plugin, options]) => require(plugin)(options),
-          ),
+          plugins: Object.values(postcss.plugins),
         },
         sourceMap: true,
       }),
@@ -37,24 +35,21 @@ const extension: Module = {
       build.items.postcss,
     ])
 
-    const plugins = []
-    discovery.hasPeerDependency('postcss-import') &&
-      plugins.push('postcss-import')
-
-    discovery.hasPeerDependency('postcss-preset-env') &&
-      plugins.push([
-        'postcss-preset-env',
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ])
-
     !pathExistsSync(path('project', 'postcss.config.js')) &&
-      plugins.length > 0 &&
-      postcss.setPlugins(plugins)
+      discovery.hasPeerDependency('postcss-import') &&
+      discovery.hasPeerDependency('postcss-preset-env') &&
+      postcss.setPlugins({
+        import: 'postcss-import',
+        'preset-env': [
+          'postcss-preset-env',
+          {
+            stage: 1,
+            features: {
+              'focus-within-pseudo-class': false,
+            },
+          },
+        ],
+      })
   },
 }
 
