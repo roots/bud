@@ -3,85 +3,90 @@ require('ts-node').register({
 })
 
 const execa = require('execa')
-const {readFile, writeFile} = require('fs-extra')
-const {success, log, error} = require('./tests/util/logger')
-const {format} = require('prettier')
 const globby = require('globby')
-const {basename} = require('path/posix')
+const {readFile, writeFile} = require('fs-extra')
+const {Signale} = require('signale')
+const {format} = require('prettier')
 
-let refs = {}
+const logger = new Signale({
+  interactive: false,
+})
 
-const get = async (pkg, file) => {
-  refs[pkg] = await readFile(`${pkg}/${file}`, 'utf8')
-  success(basename(pkg), 'get')
-  return Promise.resolve()
-}
-
-const set = async (pkg, file) => {
-  await writeFile(
-    `${pkg}/${file}`,
-    format(refs[pkg], {
-      parser: 'json',
-    }),
-  )
-
-  success(basename(pkg), 'set')
-  return Promise.resolve()
-}
-
-const pre = async () => {
-  log('test', 'Running pre test script')
-
-  let paths = await globby('./examples/*', {
-    onlyDirectories: true,
-    absolute: true,
-  })
-
+const pre = async paths => {
   await paths.reduce(async (promise, path) => {
     await promise
-    await get(path, 'package.json')
-    await set(path, 'package.ref')
+
+    logger
+      .scope('setup')
+      .await(`${path.replace(process.cwd(), 'bud')}`)
+
+    const pkgContents = await readFile(
+      `${path}/package.json`,
+      'utf8',
+    )
+
+    await writeFile(
+      `${path}/package.ref`,
+      format(pkgContents, {
+        parser: 'json',
+      }),
+    )
+
+    logger
+      .scope('setup')
+      .success(`${path.replace(process.cwd(), 'bud')}`)
+
     return Promise.resolve()
   }, Promise.resolve())
-
-  return Promise.resolve()
 }
 
-const post = async () => {
-  log('test', 'Running post test script')
-
-  let paths = await globby('examples/*', {
-    onlyDirectories: true,
-    absolute: true,
-  })
-
+const post = async paths => {
   await paths.reduce(async (promise, path) => {
     await promise
-    await get(path, 'package.ref')
-    await set(path, 'package.json')
+    logger
+      .scope('teardown')
+      .await(`${path.replace(process.cwd(), 'bud')}`)
+
+    const pkgContents = await readFile(
+      `${path}/package.ref`,
+      'utf8',
+    )
+
+    await writeFile(
+      `${path}/package.json`,
+      format(pkgContents, {
+        parser: 'json',
+      }),
+    )
+
+    logger
+      .scope('teardown')
+      .success(`${path.replace(process.cwd(), 'bud')}`)
+
     return Promise.resolve()
   }, Promise.resolve())
-
-  return Promise.resolve()
 }
 
 const jest = async suite => {
+  logger.scope(suite).await()
+
   const res = execa('yarn', [
     'jest',
-    `tests/${suite}`,
+    `tests/integration/${suite}`,
     '--verbose',
     '--useStderr',
     '--runInBand',
   ])
 
-  res.stdout.pipe(process.stdout)
-  res.stderr.pipe(process.stderr)
-
   await res
 
   if (res.exitCode == 0) {
+    logger.scope(suite).success()
+
     return Promise.resolve()
   } else {
+    logger.scope(suite).fail(res.stderr)
+
     await post()
     throw new Error(res.stderr)
   }
@@ -89,13 +94,36 @@ const jest = async suite => {
 
 const run = async () => {
   try {
-    await pre()
-    await jest('integration')
-    await post()
+    const paths = await globby('examples/*', {
+      cwd: process.cwd(),
+      onlyDirectories: true,
+      absolute: true,
+    })
 
+    logger.info('Commencing')
+
+    await pre(paths)
+
+    await jest('babel')
+    await jest('basic')
+    await jest('markdown')
+    await jest('postcss')
+    await jest('preset-recommend')
+    await jest('react')
+    await jest('sage')
+    await jest('tailwind')
+    await jest('vue')
+
+    await post(paths)
+
+    logger.success('Complete')
+    logger.info(
+      'Remember to run yarn install to update lockfile before committing',
+    )
     return Promise.resolve()
   } catch (err) {
-    throw new Error(error)
+    logger.error(err)
+    throw new Error(err)
   }
 }
 

@@ -1,21 +1,21 @@
 import {Signale} from 'signale'
 
 const logger = new Signale({
-  interactive: true,
+  interactive: false,
   types: {
     log: {
       badge: '📝',
-      label: 'log',
+      label: '',
       color: 'white',
     },
     error: {
       badge: '🚨',
-      label: 'error',
+      label: '',
       color: 'red',
     },
     success: {
       badge: '✅',
-      label: 'success',
+      label: '',
       color: 'green',
     },
   },
