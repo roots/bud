@@ -1,15 +1,8 @@
 import {readFileSync} from 'fs'
 import {posix} from 'path'
-
 import execa from 'execa'
-import {
-  readFile,
-  readJson,
-  // writeFile
-} from 'fs-extra'
-// import {format} from 'prettier'
-
-import {error, log} from './index'
+import {readFile, readJson} from 'fs-extra'
+import {log} from './index'
 
 export interface Assets {
   [key: string]: string
@@ -102,17 +95,25 @@ export function helper(
   async function yarn(...opts: string[]): Promise<void> {
     log(name, `yarn ${opts.join(' ')}`)
 
-    const {stderr} = await execa('yarn', opts, {
+    const res = execa('yarn', opts, {
       cwd: project.dir,
     })
 
-    stderr && error(name, `yarn ${opts.join(' ')}`, stderr)
+    res.stdout.pipe(process.stdout)
+    res.stderr.pipe(process.stderr)
 
-    return
+    const run = async () => {
+      await res
+      return Promise.resolve()
+    }
+
+    await run()
+
+    return Promise.resolve()
   }
 
   async function setup(mode = 'production') {
-    await yarn('bud', 'init')
+    await yarn('bud', 'extensions:install')
     await yarn('bud', `build:${mode}`, '--ci', '--debug')
 
     const built = await assets()
