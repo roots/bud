@@ -3,9 +3,9 @@ import {readJson} from 'fs-extra'
 
 const suite = helper('sage', 'examples/sage', 'public', 'public')
 
-describe(suite.name, () => {
-  jest.setTimeout(1000000)
+jest.setTimeout(1000000)
 
+describe(suite.name, () => {
   let assets: Assets
   let entrypoints: Entrypoints
 

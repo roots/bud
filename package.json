@@ -40,8 +40,9 @@
     "docs": "yarn node ./dev/docs/gen/cli.js",
     "test:pre": "yarn node ./jest.pre.js",
     "test:post": "yarn node ./jest.post.js",
-    "test:all": "node --no-warnings ./node_modules/.bin/jest",
-    "test": "yarn run-s test:pre test:all test:post",
+    "test:spec": "yarn run jest --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
+    "test:integration": "yarn node ./jest.integration.js",
+    "test": "yarn run-s test:spec test:integration",
     "majestic": "yarn dlx majestic"
   },
   "resolutions": {

@@ -7,9 +7,9 @@ jest.setTimeout(1000000)
 describe(suite.name, () => {
   let assets: Assets
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     assets = await suite.setup()
-    return
+    return Promise.resolve()
   })
 
   describe('app.js', () => {
