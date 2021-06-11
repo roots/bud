@@ -19,6 +19,4 @@ yarn build:esm
 echo "Linting packages"
 yarn lint
 
-echo "Done"
-
 exit

@@ -1,27 +1,18 @@
-import {Tailwind} from '@roots/bud-framework'
+import {Tailwind} from './interface'
 
-export const tailwind: Tailwind.Configure = function (
-  config: Omit<Tailwind.Config, null> = null,
-  implementation:
-    | 'tailwindcss'
-    | '@tailwindcss/jit' = 'tailwindcss',
-) {
-  config = config ?? this.postcss.plugins[implementation]
+const tailwind: Tailwind.Configure = function (config) {
+  const tailwindcss: [string, Tailwind.Config | string] = config
+    ? ['tailwindcss', config]
+    : ['tailwindcss', this.path('project', 'tailwind.config.js')]
 
-  if (this.postcss.plugins['postcss-import']) {
-    delete this.postcss.plugins['postcss-import']
-
-    this.postcss.setPlugins([
-      'postcss-import',
-      [implementation, config],
-      ...Object.values(this.postcss.plugins),
-    ])
-  } else {
-    this.postcss.setPlugins([
-      implementation,
-      ...Object.values(this.postcss.plugins),
-    ])
-  }
+  this.postcss.setPlugins({
+    import: this.postcss.plugins['import'] ?? 'postcss-import',
+    tailwindcss,
+    'preset-env':
+      this.postcss.plugins['preset-env'] ?? 'preset-env',
+  })
 
   return this
 }
+
+export {tailwind}

@@ -21,13 +21,19 @@ export default class Build extends Command {
     manifest: flags.boolean(),
   }
 
+  public setEnv(env) {
+    this.app.mode = env
+    process.env.BABEL_ENV = env
+    process.env.NODE_ENV = env
+  }
+
   public async run() {
     this.features = this.parse(Build).flags
     !this.features.ci
       ? this.app.dashboard.run()
       : this.app.store.set('ci', true)
 
-    this.app.mode = this.mode
+    this.setEnv(this.mode)
 
     await this.doStatics()
 

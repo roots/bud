@@ -33,6 +33,15 @@ export interface Server extends Service {
   isWatchable: boolean
 
   /**
+   * Watcher instance
+   */
+  watcher: {
+    [key: string]: any
+    close: CallableFunction
+    on: CallableFunction
+  }
+
+  /**
    * Retrieve an array of watched files.
    */
   getWatchedFilesArray(): string[]

@@ -22,6 +22,4 @@ yarn pkg
 echo "Test"
 yarn test
 
-echo "Done"
-
 exit

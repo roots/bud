@@ -67,8 +67,10 @@ class Rule implements Contract {
   }
 
   @bind
-  public setExclude(exclude: (app: Framework) => RegExp): void {
-    this.exclude = exclude
+  public setExclude(
+    exclude: RegExp | ((app: Framework) => RegExp),
+  ) {
+    this.exclude = isFunction(exclude) ? exclude : () => exclude
   }
 
   @bind

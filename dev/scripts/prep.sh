@@ -8,6 +8,7 @@ echo "Cleaning examples"
 rm -rf examples/*/.budfiles
 rm -rf examples/*/node_modules
 rm -rf examples/*/dist
+rm -rf examples/sage/public/*
 rm -rf examples/sage/storage/bud/*
 
 echo "Cleaning modules"
@@ -16,6 +17,9 @@ rm -rf packages/*/*/node_modules
 
 echo "Cleaning lib"
 rm -rf packages/*/*/lib
+
+echo "Cleaning types"
+rm -rf packages/@roots/*/types
 
 echo "Cleaning docs"
 rm -rf docs
@@ -33,18 +37,13 @@ yarn build:cjs
 echo "Building esm"
 yarn build:esm
 
-echo "Linting packages"
-yarn lint
-
-echo "Linting shrinkwrap"
-yarn pkg
-
-echo "Running tests"
-yarn test
-
 echo "Generating docs"
 yarn docs
 
-echo "Publish prep"
+echo "Linting packages"
+yarn lint
+
+echo "Running tests"
+yarn test
 
 exit

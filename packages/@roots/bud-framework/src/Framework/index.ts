@@ -151,6 +151,16 @@ interface Framework {
   setInstance(key: string, framework: Framework): void
 
   /**
+   * Get the compiler mode
+   */
+  getMode(): Mode
+
+  /**
+   * Set the compiler mode
+   */
+  setMode(mode: Mode): void
+
+  /**
    * app.bootstrap
    */
   bootstrap(services: {
@@ -236,11 +246,11 @@ namespace Framework {
 abstract class Framework {
   public name = 'bud'
 
-  protected _services: Container<Service>
+  public _services: Container<Service>
 
-  protected _instance: Container<this>
+  public _instance: Container<this>
 
-  protected _mode: Mode
+  public _mode: Mode
 
   public api: Api
 
@@ -284,6 +294,14 @@ abstract class Framework {
 
   public set mode(mode: Mode) {
     this._mode = mode
+  }
+
+  public getMode(): Mode {
+    return this.mode
+  }
+
+  public setMode(mode: Mode): void {
+    this.mode = mode
   }
 
   public get isProduction(): boolean {

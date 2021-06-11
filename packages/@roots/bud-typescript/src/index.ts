@@ -10,16 +10,6 @@ const extension: Module = {
     typecheck,
   },
   boot: ({build, discovery, hooks, store}) => {
-    /**
-     * Exit early if requirements are unmet
-     */
-    if (
-      !discovery.has('devDependencies.typescript') ||
-      !discovery.has('devDependencies.@roots/bud-babel')
-    ) {
-      return
-    }
-
     store.set('patterns.ts', /\.tsx?$/)
 
     build.loaders['ts'] = new Loader(

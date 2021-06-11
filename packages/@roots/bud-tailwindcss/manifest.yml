@@ -7,7 +7,6 @@ peers:
 
 dependencies:
   dev:
-    '@tailwindcss/jit': ^0.1.18
     tailwindcss: ^2.1.2
 
 templates:

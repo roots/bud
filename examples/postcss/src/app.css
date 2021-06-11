@@ -1,10 +1,1 @@
-h1 {
-  color: black;
-}
-
-/**
- * h2
- */
-h2 {
-  color: red;
-}
+@import 'main';
