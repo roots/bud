@@ -1,13 +1,16 @@
-import '@roots/bud-postcss'
 import {Extension, Module} from '@roots/bud-extensions'
 import {WebpackPluginInstance} from 'webpack/types'
-import {Framework, setupBud, teardownBud} from '../../util'
+import {Framework, setupBud, teardownBud} from '../util'
 
 describe('@roots/bud-extensions extension', function () {
   let bud: Framework = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {
     apply: jest.fn(),
+  }
+
+  let options = {
+    test: 'foo',
   }
 
   let mockModule: Module = {
@@ -19,6 +22,7 @@ describe('@roots/bud-extensions extension', function () {
         return this
       }),
     })),
+    options: jest.fn(app => options),
     make: jest.fn((options, app) => mockWebpackPlugin),
     when: jest.fn((app, options) => true),
   }
@@ -34,6 +38,13 @@ describe('@roots/bud-extensions extension', function () {
   it('is constructable', () => {
     const extension: Extension = new Extension(bud, mockModule)
     expect(extension).toBeInstanceOf(Extension)
+  })
+
+  it('register fn returns self', () => {
+    const extension: Extension = new Extension(bud, mockModule)
+    extension.register()
+
+    expect(extension.register()).toBeInstanceOf(Extension)
   })
 
   it('calls module register fn', () => {
@@ -70,6 +81,34 @@ describe('@roots/bud-extensions extension', function () {
     extension.options = {foo: 'baz'}
 
     expect(extension.get('options')).toEqual({foo: 'baz'})
+  })
+
+  it('module options are registered', () => {
+    bud.use(mockModule)
+
+    expect(
+      bud.extensions.get('@roots/bud-postcss').get('options')(
+        bud,
+      ),
+    ).toEqual(options)
+
+    expect(
+      bud.extensions.get('@roots/bud-postcss').options,
+    ).toEqual(options)
+  })
+
+  it('extension options are undefined when not set in module', () => {
+    const extension = new Extension(bud, {
+      name: '@roots/bud-null',
+    })
+
+    expect(extension.options).toEqual(undefined)
+  })
+
+  it('extension.make returns webpack plugin', () => {
+    const extension = new Extension(bud, mockModule)
+
+    expect(extension.make).toBe(mockWebpackPlugin)
   })
 })
 

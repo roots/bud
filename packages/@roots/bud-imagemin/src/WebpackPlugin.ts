@@ -11,7 +11,10 @@ const WebpackPlugin: Imagemin.Plugin = {
   make: options => {
     return new ImageminPlugin(options.all())
   },
-  when: ({isProduction}) => isProduction,
+  when: ({isProduction}, options) =>
+    isProduction &&
+    options.isArray('minimizerOptions.plugins') &&
+    options.get('minimizerOptions.plugins').length > 0,
 }
 
 export {WebpackPlugin}
