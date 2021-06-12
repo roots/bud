@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "4.5.0-0",
+  "version": "4.5.0",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -70,6 +70,5 @@
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
     "lodash": "^4.17.21"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

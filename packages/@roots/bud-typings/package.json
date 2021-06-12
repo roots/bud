@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "4.5.0-0",
+  "version": "4.5.0",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -28,6 +28,5 @@
   "files": [
     "./contracts"
   ],
-  "types": "./contracts/index.d.ts",
-  "stableVersion": "4.4.0"
+  "types": "./contracts/index.d.ts"
 }

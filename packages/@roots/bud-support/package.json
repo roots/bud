@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "4.5.0-0",
+  "version": "4.5.0",
   "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -66,6 +66,5 @@
     "lodash": "^4.17.21",
     "node-notifier": "^10.0.0",
     "pretty-format": "^27.0.2"
-  },
-  "stableVersion": "4.4.0"
+  }
 }
