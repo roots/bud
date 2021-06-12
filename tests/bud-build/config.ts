@@ -171,6 +171,9 @@ describe('bud.build.config', function () {
               exclude: /(node_modules|bower_components)/,
               test: /\.(png|jpe?g|gif)$/,
               type: 'asset/resource',
+              generator: {
+                filename: 'assets/[hash][ext][query]',
+              },
             },
             {
               exclude: /(node_modules|bower_components)/,
@@ -215,6 +218,9 @@ describe('bud.build.config', function () {
               exclude: /(node_modules|bower_components)/,
               test: /\.svg$/,
               type: 'asset/resource',
+              generator: {
+                filename: 'assets/[hash][ext][query]',
+              },
             },
             {
               test: /\.(html?)$/,
