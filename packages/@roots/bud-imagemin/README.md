@@ -28,6 +28,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+  - [bud.imagemin.plugins](#budimageminplugins)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
@@ -42,16 +43,10 @@ Minimize bundled image assets.
 yarn add @roots/bud-imagemin --dev
 ```
 
-You will also need to install whatever minimizer plugins you want to use:
+You will also need to install whatever minimizer plugins you want to use. Or, you can take the recommended defaults
 
 ```sh
-yarn add imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --dev
-```
-
-Or, you can install them using the bud-cli:
-
-```sh
-yarn bud extensions:install
+yarn bud init
 ```
 
 ## Usage
@@ -73,8 +68,12 @@ Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stabl
 
 Configure with `bud.imagemin`
 
+### bud.imagemin.plugins
+
+Pass an array of tuples to customize the plugins you would like to use:
+
 ```js
-bud.imagemin([
+bud.imagemin.plugins([
   ["gifsicle", { interlaced: true }],
   ["jpegtran", { progressive: true }],
   ["optipng", { optimizationLevel: 5 }],

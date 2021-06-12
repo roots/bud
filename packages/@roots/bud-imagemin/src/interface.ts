@@ -1,53 +1,51 @@
-import {Module} from '@roots/bud-framework'
-import Plugin from 'image-minimizer-webpack-plugin/types'
+import {
+  Module as BudExtension,
+  Plugin as BudWebpackPlugin,
+} from '@roots/bud-framework'
+import ImageMinimizerPlugin, {
+  PluginOptions,
+} from 'image-minimizer-webpack-plugin/types'
 
 declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-imagemin': Imagemin.Extension
+      'image-minimizer-webpack-plugin': Imagemin.Plugin
+    }
+  }
+
   interface Framework {
     /**
      * ## imagemin
      *
      * Modify image minimizer options.
-     *
-     * ### Usage
-     *
-     * ```js
-     * app.imagemin({
-     *   plugins: [
-     *     // ...
-     *   ]
-     * })
-     * ```
      */
     imagemin: Imagemin.Config
   }
 
   namespace Imagemin {
-    /**
-     * app.imagemin fn
-     */
-    type Config = (
-      options: Options['minimizerOptions'],
-    ) => Framework
-
-    /**
-     * Options
-     */
-    type Options = {
-      minimizerOptions: {
-        plugins: [string, {[key: string]: any}][]
+    interface Extension extends BudExtension {
+      name: '@roots/bud-imagemin'
+      api: (app: Framework) => {
+        imagemin: Config
       }
     }
 
-    /**
-     * Make
-     */
-    type Make = Module.Make<Plugin, Options>
-  }
+    interface Plugin
+      extends BudWebpackPlugin<
+        ImageMinimizerPlugin,
+        PluginOptions
+      > {
+      name: 'image-minimizer-webpack-plugin'
+    }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-imagemin': Module
-      'image-minimizer-webpack-plugin': Module
+    type ImageminPlugin = [string, any]
+
+    interface Config {
+      /**
+       * ## Configure imagemin plugins
+       */
+      plugins(plugins: Array<ImageminPlugin>): Framework
     }
   }
 }

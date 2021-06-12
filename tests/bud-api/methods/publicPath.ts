@@ -1,15 +1,9 @@
-import {
-  Framework,
-  setupBud,
-  teardownBud,
-  checkState,
-} from '../../util'
+import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('bud.publicPath', function () {
   let bud: Framework
 
   beforeEach(() => {
-    checkState(bud)
     bud = setupBud()
   })
 

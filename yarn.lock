@@ -2896,7 +2896,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-imagemin@workspace:packages/@roots/bud-imagemin":
+"@roots/bud-imagemin@workspace:*, @roots/bud-imagemin@workspace:packages/@roots/bud-imagemin":
   version: 0.0.0-use.local
   resolution: "@roots/bud-imagemin@workspace:packages/@roots/bud-imagemin"
   dependencies:
@@ -8350,6 +8350,16 @@ __metadata:
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"example-imagemin@workspace:examples/imagemin":
+  version: 0.0.0-use.local
+  resolution: "example-imagemin@workspace:examples/imagemin"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-imagemin": "workspace:*"
   languageName: unknown
   linkType: soft
 
