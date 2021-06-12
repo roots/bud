@@ -1,20 +1,25 @@
 ## v4.5.0
 
-v4.5.0 comes with a lot of internal improvements and some small changes to the postcss api.
-
-### TODO
-
-- Remove this
-- Update @roots/bud-tailwindcss docs
+v4.5.0 comes with a lot of internal improvements. There are some small changes to the postcss and imagemin apis, for users of those plugins.
 
 ### Breaking
 
-- `@roots/bud-postcss` api has ben streamlined a bit. The big change is that plugins are now keyed by a string, explicitly. Check the [`@roots/bud-postcss README`] for usage.
+- `@roots/bud-postcss` api has ben streamlined a bit. The big change is that plugins are now keyed by a string, explicitly. Check the [`@roots/bud-postcss` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-postcss/README.md) for usage.
 - `@roots/bud-tailwindcss` no longer needs/utilizes the `@tailwindcss/jit` package. This streamlines the config, if you were specifying your configuration in your project's bud config file.
+- `@roots/bud-imagemin`'s api has changed. If you were using the `bud.imagemin` config fn in your config file, you will need to update it. Check the [`@roots/bud-imagemin` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-imagemin/README.md) for updated usage instructions.
 
 ### Improved
 
 - No longer requires `@tailwindcss/jit`.
+
+### Fixed
+
+- `@roots/bud-imagemin`: It's no longer broken.
+
+### Contributors
+
+- kellymears <kelly@roots.io>
+- QWp6t <hi@qwp6t.me>
 
 ## v4.4.0
 
