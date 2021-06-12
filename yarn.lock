@@ -8353,15 +8353,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"example-image-test@workspace:examples/image-test":
-  version: 0.0.0-use.local
-  resolution: "example-image-test@workspace:examples/image-test"
-  dependencies:
-    "@roots/bud": "workspace:*"
-    "@roots/bud-cli": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "example-markdown@workspace:examples/markdown":
   version: 0.0.0-use.local
   resolution: "example-markdown@workspace:examples/markdown"
