@@ -1,26 +1,35 @@
-import {Framework, Service} from '@roots/bud-framework'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import {posix} from 'path'
 import RemarkHTML from 'remark-html'
+import toml from 'toml'
+import yaml from 'yamljs'
+import json5 from 'json5'
+import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
+
 import Webpack from 'webpack'
+import {boundMethod as bind} from 'autobind-decorator'
+
+import {Service} from '@roots/bud-framework'
 import {Loader} from '../Loader'
 import {Rule} from '../Rule'
 import {Item} from '../Item'
 import {config} from './config'
-import {boundMethod as bind} from 'autobind-decorator'
-import {posix} from 'path'
 
-class Build extends Service {
+import type {
+  Framework,
+  Build as Contract,
+} from '@roots/bud-framework'
+
+class Build extends Service implements Contract {
   public name = '@roots/bud-build'
 
-  public loaders: {[key: string]: Loader} = {}
+  public loaders: Contract['loaders'] = {}
 
-  public rules: {[key: string]: Rule} = {}
+  public rules: Contract['rules'] = {}
 
-  public items: {[key: string]: Item} = {}
+  public items: Contract['items'] = {}
 
   public get config(): Webpack.Configuration {
-    const config = this.app.hooks.filter('build')
-    return config
+    return this.app.hooks.filter('build')
   }
 
   @bind
@@ -33,12 +42,14 @@ class Build extends Service {
       html: new Loader(require.resolve('html-loader')),
       md: new Loader(require.resolve('remark-loader')),
       style: new Loader(require.resolve('style-loader')),
-      minicss: new Loader(MiniCssExtractPlugin.loader),
+      minicss: new Loader(MiniCssLoader),
       file: new Loader(require.resolve('file-loader')),
       url: new Loader(require.resolve('url-loader')),
       'resolve-url': new Loader(
         require.resolve('resolve-url-loader'),
       ),
+      csv: new Loader(require.resolve('csv-loader')),
+      xml: new Loader(require.resolve('xml-loader')),
     }
 
     this.items = {
@@ -65,13 +76,10 @@ class Build extends Service {
       }),
       minicss: new Item({
         loader: ({build}) => build.loaders.minicss,
-        options: (app: Framework) => ({
+        options: ({path}: Framework) => ({
           publicPath: posix.normalize(
             posix.dirname(
-              posix.relative(
-                app.path('project'),
-                app.path('src'),
-              ),
+              posix.relative(path('project'), path('src')),
             ),
           ),
         }),
@@ -99,12 +107,18 @@ class Build extends Service {
           }.[ext]`,
         }),
       }),
-      ['resolve-url']: new Item({
+      'resolve-url': new Item({
         loader: ({build}) => build.loaders['resolve-url'],
         options: ({path, hooks}) => ({
           root: path('src'),
           sourceMap: hooks.filter('build/devtool') ?? false,
         }),
+      }),
+      csv: new Item({
+        loader: ({build}) => build.loaders.csv,
+      }),
+      xml: new Item({
+        loader: ({build}) => build.loaders.xml,
       }),
     }
 
@@ -125,7 +139,10 @@ class Build extends Service {
       image: new Rule({
         test: ({store}) => store.get('patterns.image'),
         exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['asset']],
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[hash][ext][query]',
+        },
       }),
       font: new Rule({
         test: ({store}) => store.get('patterns.font'),
@@ -135,19 +152,48 @@ class Build extends Service {
       md: new Rule({
         test: ({store}) => store.get('patterns.md'),
         exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [
-          build.items['html'],
-          build.items['md'],
-        ],
+        use: ({build}) => [build.items.html, build.items.md],
       }),
       svg: new Rule({
         test: ({store}) => store.get('patterns.svg'),
         exclude: ({store}) => store.get('patterns.modules'),
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[hash][ext][query]',
+        },
       }),
       html: new Rule({
         test: ({store}) => store.get('patterns.html'),
-        use: ({build}) => [build.items['html']],
+        use: ({build}) => [build.items.html],
+      }),
+      csv: new Rule({
+        test: () => /\.(csv|tsv)$/i,
+        use: ({build}) => [build.items.csv],
+      }),
+      xml: new Rule({
+        test: () => /\.xml$/i,
+        use: ({build}) => [build.items.xml],
+      }),
+      toml: new Rule({
+        test: () => /\.toml$/i,
+        type: () => 'json',
+        parser: () => ({
+          parse: toml.parse,
+        }),
+      }),
+      yml: new Rule({
+        test: /\.yaml$/i,
+        type: 'json',
+        parser: () => ({
+          parse: yaml.parse,
+        }),
+      }),
+      json5: new Rule({
+        test: /\.json5$/i,
+        type: 'json',
+        parser: () => ({
+          parse: json5.parse,
+        }),
       }),
     }
 

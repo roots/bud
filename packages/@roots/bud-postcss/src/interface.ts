@@ -1,5 +1,6 @@
 import '@roots/bud-extensions'
 import {Module} from '@roots/bud-framework'
+import {PluginCreator} from 'postcss'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -33,55 +34,43 @@ declare module '@roots/bud-framework' {
 
   interface PostCss {
     /**
-     * ## PostCss.log
-     */
-    log: any
-
-    /**
-     * ## PostCss.plugins
+     * Registered plugins
      */
     plugins: PostCss.Registry
 
     /**
-     * ## PostCss.setPlugin
-     *
-     * Add a PostCss plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.PostCss.setPlugin(MyPlugin, {plugin: 'options'})
-     * ```
+     * Set a plugin
      */
-    setPlugin: (plugin: PostCss.Registrable) => this
-
-    /**
-     * ## PostCss.setPlugins
-     */
-    setPlugins(
-      plugins: Array<PostCss.NormalizedPlugin | string>,
+    setPlugin(
+      name: string,
+      plugin: PostCss.Plugin | PostCss.NormalizedPlugin,
     ): this
 
     /**
-     * ## PostCss.setPluginOptions
+     * Set plugins
      */
-    setPluginOptions: (plugin: string, options: any) => this
+    setPlugins(plugins: {
+      [key: string]: PostCss.Plugin | PostCss.NormalizedPlugin
+    }): this
+
+    /**
+     * Set plugin options
+     */
+    setPluginOptions(plugin: string, options: any): this
+
+    /**
+     * Remove a plugin
+     */
+    unsetPlugin(plugin: string): this
   }
 
   namespace PostCss {
-    type Options = {
-      plugins?: Plugin[]
-      config?: boolean | string
-    }
+    type NormalizedPlugin = [Plugin, any]
 
-    type NormalizedPlugin = [string, any]
-
-    type Plugin = string | NormalizedPlugin | CallableFunction
-
-    type Registrable = string | NormalizedPlugin
+    type Plugin = string | PluginCreator<any>
 
     interface Registry {
-      [key: string]: [string, any]
+      [key: string]: NormalizedPlugin
     }
   }
 }

@@ -194,6 +194,11 @@ namespace Hooks {
       svg: Subject
       image: Subject
       font: Subject
+      xml: Subject
+      json5: Subject
+      csv: Subject
+      yml: Subject
+      toml: Subject
     }
 
     export type Root = {

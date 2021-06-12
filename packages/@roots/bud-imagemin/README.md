@@ -28,13 +28,14 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+  - [bud.imagemin.plugins](#budimageminplugins)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
 
 ## Summary
 
-Minimize bundled image assets.
+Optimize image assets.
 
 ## Installation
 
@@ -42,25 +43,13 @@ Minimize bundled image assets.
 yarn add @roots/bud-imagemin --dev
 ```
 
-You will also need to install whatever minimizer plugins you want to use:
+You will also need to install whatever minimizer plugins you want to use. Or, you can take the recommended defaults
 
 ```sh
-yarn add imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --dev
+yarn bud init
 ```
 
-Or, you can install them using the bud-cli:
-
-```sh
-yarn bud extensions:install
-```
-
-## Usage
-
-```js
-bud.use(["@roots/bud-imagemin"]);
-```
-
-Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin) applies the following configuration:
+Out of the box you will get support for the following after running `bud init`:
 
 | Plugin   | Options                               |
 | -------- | ------------------------------------- |
@@ -69,12 +58,24 @@ Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stabl
 | optipng  | `{optimizationLevel: 5}`              |
 | svgo     | `{plugins: [{removeViewBox: false}]}` |
 
+If you want to install any of these plugins individually, you may. You don't need to register them with `bud.imagemin.plugins` as documented below unless you want to further tweak its config. Bud will automatically register the above plugins after you install them as a peer dep in your project.
+
+## Usage
+
+```js
+bud.use(["@roots/bud-imagemin"]);
+```
+
 ## Configuration
 
 Configure with `bud.imagemin`
 
+### bud.imagemin.plugins
+
+Pass an array of tuples to customize the plugins you would like to use:
+
 ```js
-bud.imagemin([
+bud.imagemin.plugins([
   ["gifsicle", { interlaced: true }],
   ["jpegtran", { progressive: true }],
   ["optipng", { optimizationLevel: 5 }],

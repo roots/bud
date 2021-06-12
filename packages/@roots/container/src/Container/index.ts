@@ -435,7 +435,7 @@ export class Container<I = any> {
    * // true if container.repository['my-key'] exists
    * ```
    */
-  public has(key: string | number | number): boolean {
+  public has(key: string | number): boolean {
     return _.has(this.repository, key)
   }
 

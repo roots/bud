@@ -8,7 +8,7 @@ describe('bud.publicPath', function () {
   })
 
   afterEach(() => {
-    teardownBud(bud)
+    bud = teardownBud(bud)
   })
 
   it('publicPath: is a function', () => {
@@ -30,9 +30,6 @@ describe('bud.publicPath', function () {
     const newPath = '/foo'
 
     bud.setPublicPath(newPath)
-    const returnedPath = bud.publicPath()
-
-    expect(returnedPath).toEqual(newPath)
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })

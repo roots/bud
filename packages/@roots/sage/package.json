@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
@@ -66,10 +66,11 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "^7.2.12",
+    "@types/eslint": "^7.2.13",
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.6.1",
-    "@types/tailwindcss": "^2.0.3"
+    "@types/node": "^15.12.2",
+    "@types/tailwindcss": "^2.0.5",
+    "@wordpress/browserslist-config": "^4.0.1"
   },
   "dependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
@@ -92,7 +93,6 @@
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-cli": "*",
-    "@tailwindcss/jit": "^0",
     "@types/eslint": "^7.2.11",
     "@types/node": "^15",
     "@types/tailwindcss": "^2",
@@ -106,9 +106,6 @@
     "typescript": "^4"
   },
   "peerDependenciesMeta": {
-    "@tailwindcss/jit": {
-      "optional": true
-    },
     "@types/eslint": {
       "optional": true
     },
@@ -116,6 +113,9 @@
       "optional": true
     },
     "@types/tailwindcss": {
+      "optional": true
+    },
+    "@wordpress/browserslist-config": {
       "optional": true
     },
     "eslint": {

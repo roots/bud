@@ -1,26 +1,33 @@
-import type {Framework} from '@roots/bud-framework'
-import type {Rule as Contract} from './interface'
-import type {Item} from '../Item/interface'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
+import type {
+  Framework,
+  Rule as Contract,
+  Item,
+} from '@roots/bud-framework'
+
 class Rule implements Contract {
-  protected test: Contract.TestFn
-  protected use: Contract.UseFn
-  protected exclude: Contract.ExcludeFn
-  protected type: Contract.TypeFn
+  public test: Contract.TestFn
+
+  public use: Contract.UseFn
+
+  public exclude: Contract.ExcludeFn
+
+  public type: Contract.TypeFn
+
+  public parser: Contract.ParserFn
+
+  public generator: any
 
   public constructor({
     test,
     use = null,
     exclude = null,
     type = null,
-  }: {
-    test: RegExp | Contract.TestFn
-    use?: Item[] | Contract.UseFn
-    exclude?: RegExp | Contract.ExcludeFn
-    type?: string | Contract.TypeFn
-  }) {
+    parser = null,
+    generator = null,
+  }: Contract.Options) {
     this.test = isFunction(test) ? test : () => test
 
     if (use) {
@@ -35,6 +42,16 @@ class Rule implements Contract {
 
     if (type) {
       this.type = isFunction(type) ? type : () => type
+    }
+
+    if (parser) {
+      this.parser = isFunction(parser) ? parser : () => parser
+    }
+
+    if (generator) {
+      this.generator = isFunction(generator)
+        ? generator
+        : () => generator
     }
   }
 
@@ -51,6 +68,16 @@ class Rule implements Contract {
   }
 
   @bind
+  public getParser(app: Framework): Contract.Parser {
+    return this.parser ? this.parser(app) : null
+  }
+
+  @bind
+  public setParser(parser: Contract.ParserFn): void {
+    this.parser = isFunction(parser) ? parser : () => parser
+  }
+
+  @bind
   public getUse(app: Framework): Item[] {
     return this.use ? this.use(app) : null
   }
@@ -61,13 +88,15 @@ class Rule implements Contract {
   }
 
   @bind
-  public getExclude(app: Framework) {
+  public getExclude(app: Framework): Contract.Output['exclude'] {
     return this.exclude ? this.exclude(app) : null
   }
 
   @bind
-  public setExclude(exclude: (app: Framework) => RegExp) {
-    this.exclude = exclude
+  public setExclude(
+    exclude: RegExp | ((app: Framework) => RegExp),
+  ): void {
+    this.exclude = isFunction(exclude) ? exclude : () => exclude
   }
 
   @bind
@@ -81,16 +110,20 @@ class Rule implements Contract {
   }
 
   @bind
+  public getGenerator(app: Framework) {
+    return this.generator ? this.generator(app) : null
+  }
+
+  @bind
+  public setGenerator(generator) {
+    this.generator = isFunction(generator)
+      ? generator
+      : () => generator
+  }
+
+  @bind
   public make(app: Framework) {
-    const output: {
-      test: RegExp
-      use?: {
-        loader: string
-        options?: {[key: string]: any}
-      }[]
-      exclude?: RegExp
-      type?: string
-    } = {
+    const output: Contract.Output = {
       test: this.test(app),
     }
 
@@ -104,6 +137,14 @@ class Rule implements Contract {
 
     if (this.type) {
       output.type = this.type(app)
+    }
+
+    if (this.parser) {
+      output.parser = this.parser(app)
+    }
+
+    if (this.generator) {
+      output.generator = this.generator(app)
     }
 
     return output

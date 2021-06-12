@@ -5,7 +5,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-cli": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*"
   }

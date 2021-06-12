@@ -1,0 +1,9 @@
+{
+  "name": "example-imagemin",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-imagemin": "workspace:*"
+  }
+}

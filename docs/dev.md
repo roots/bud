@@ -1,3 +1,10 @@
+- [Editor support](#editor-support)
+- [Testing](#testing)
+- [Workflow](#workflow)
+- [Releasing](#releasing)
+- [Documentation](#documentation)
+  - [Reserved md tags](#reserved-md-tags)
+
 ## Editor support
 
 Below are instructions for setting up editor support in VSCode (for MacOS). If you're on another OS or use VIM/Emacs, etc. [consult the yarn docs](https://yarnpkg.com/getting-started/editor-sdks).
@@ -16,6 +23,49 @@ There are a few logging globals defined for your convenience:
 - `success`
 
 Logger docs: [Signale](https://github.com/klaussinani/signale).
+
+## Workflow
+
+Work should be done on feature branches and PRs should be made to the `next` branch. Merging to `next` should be treated as intent to ship code. The intended release version should be indicating using a milestone.
+
+When the time comes to release, a PR from `next->stable` should be squash merged with the version as the title of the PR.
+
+## Releasing
+
+In order to do a release you will need to log into npm _through yarn_: `yarn npm login`. You have to do this through yarn even if you are already logged into npm.
+
+For a preview release, versions should be bumped on the feature branch prior to merging to `next`.
+
+```sh
+yarn workspaces foreach --no-private version [prepatch|preminor|premajor]
+```
+
+For a mainline release, versions should be bumped on the `next` branch prior to merging to `stable`.
+
+```sh
+yarn workspaces foreach --no-private version [patch|minor|major]
+```
+
+Prior to release, run the preparatory scripts to make sure everything is working as expected:
+
+```sh
+# Installs, builds, generates docs, etc. on clean base
+./dev/scripts/prep.sh
+
+# Ensure examples are buildable
+./dev/scripts/build-examples.sh
+
+# Install to update yarn.lock. This should clean up any changes which may still be present after building the examples.
+yarn install
+
+# Your git status should be clean. If you have any tracked changes at this point in time, something is amiss.
+```
+
+Assuming all went well, ship it!
+
+```sh
+yarn workspaces foreach --no-private npm publish --access public
+```
 
 ## Documentation
 

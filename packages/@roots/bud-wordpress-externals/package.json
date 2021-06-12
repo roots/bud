@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -62,7 +62,7 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.6.1"
+    "@types/node": "^15.12.2"
   },
   "dependencies": {
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",

@@ -39,4 +39,11 @@ export abstract class Discovery extends Service {
   }
 
   public abstract resolvePeers(pkg): void
+
+  /**
+   * Returns a boolean representing if
+   * the project has a given pkg listed as a dependency
+   * or devDependency
+   */
+  public abstract hasPeerDependency(pkg: string): boolean
 }

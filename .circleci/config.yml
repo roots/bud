@@ -14,7 +14,7 @@ jobs:
     working_directory: ~/bud
 
     docker:
-      - image: circleci/node:15.11
+      - image: circleci/node:16.3
 
     steps:
       - checkout
@@ -33,8 +33,4 @@ jobs:
 
       - run:
           name: jest
-          command: yarn test --coverage --maxWorkers=1
-
-      - run:
-          name: example builds
-          command: ./dev/scripts/build-examples.sh
+          command: yarn test:ci
