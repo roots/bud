@@ -3,9 +3,7 @@ import {readJsonSync} from 'fs-extra'
 
 describe('bud.discovery', function () {
   let bud: Framework
-  let packageJson = readJsonSync(
-    process.cwd().concat('/package.json'),
-  )
+  let json = readJsonSync(process.cwd().concat('/package.json'))
 
   beforeEach(() => {
     bud = setupBud()
@@ -16,9 +14,9 @@ describe('bud.discovery', function () {
   })
 
   it('contains project level package.json data', () => {
-    expect(bud.discovery.get('name')).toEqual(packageJson.name)
+    expect(bud.discovery.get('name')).toEqual(json.name)
     expect(bud.discovery.get('devDependencies')).toEqual(
-      packageJson.devDependencies,
+      json.devDependencies,
     )
   })
 })

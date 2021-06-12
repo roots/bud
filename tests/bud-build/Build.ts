@@ -32,11 +32,12 @@ export const rules = [
   'md',
   'svg',
   'html',
+  'xml',
+  'json5',
+  'yml',
 ]
 
-const SUITE = 'bud.build'
-
-describe(SUITE, function () {
+describe('bud.build', function () {
   let bud: Framework
 
   beforeAll(done => {
