@@ -82,5 +82,6 @@
     "@roots/bud-react": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

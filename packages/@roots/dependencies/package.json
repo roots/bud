@@ -65,5 +65,6 @@
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

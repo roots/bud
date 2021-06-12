@@ -72,5 +72,6 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-webpack-plugin": "^2.1.1"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

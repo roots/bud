@@ -70,5 +70,6 @@
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
     "lodash": "^4.17.21"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

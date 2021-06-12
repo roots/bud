@@ -68,5 +68,6 @@
     "ink": "^3.0.8",
     "ink-use-stdout-dimensions": "^1.0.5",
     "react": "^17.0.2"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

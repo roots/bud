@@ -78,5 +78,6 @@
     "webpack-hot-client": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

@@ -75,5 +75,6 @@
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-postcss": "*"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

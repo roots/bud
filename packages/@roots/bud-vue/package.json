@@ -83,5 +83,6 @@
   },
   "peerDependencies": {
     "vue": "^2.6.12"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

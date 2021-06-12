@@ -61,5 +61,6 @@
   },
   "peerDependencies": {
     "@roots/bud": "*"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

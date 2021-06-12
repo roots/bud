@@ -78,5 +78,6 @@
     "patch-console": "^1.0.0",
     "react": "^17.0.2",
     "webpack": "^5.38.1"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

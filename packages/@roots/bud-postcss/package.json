@@ -93,5 +93,6 @@
     "postcss-preset-env": {
       "optional": true
     }
-  }
+  },
+  "stableVersion": "4.4.0"
 }
