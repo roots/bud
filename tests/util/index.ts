@@ -31,10 +31,6 @@ const teardownBud = (bud: Framework) => {
   return bud
 }
 
-const checkState = <T = any>(state: T) => {
-  state && error('bud state persisted between tests', state)
-}
-
 export {helper as integration, Assets} from './integration'
 
 export {
@@ -47,5 +43,4 @@ export {
   log,
   error,
   success,
-  checkState,
 }

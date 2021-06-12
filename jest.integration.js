@@ -104,6 +104,7 @@ const run = async () => {
 
     await pre(paths)
 
+    await jest('imagemin')
     await jest('babel')
     await jest('basic')
     await jest('markdown')
