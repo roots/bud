@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "4.4.0",
+  "version": "4.5.0-0",
   "description": "Adds @vue/vue support to @roots/bud projects",
   "repository": {
     "type": "git",
@@ -83,5 +83,6 @@
   },
   "peerDependencies": {
     "vue": "^2.6.12"
-  }
+  },
+  "stableVersion": "4.4.0"
 }

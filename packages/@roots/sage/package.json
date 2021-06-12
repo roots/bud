@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "4.4.0",
+  "version": "4.5.0-0",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
@@ -142,5 +142,6 @@
     "typescript": {
       "optional": true
     }
-  }
+  },
+  "stableVersion": "4.4.0"
 }
