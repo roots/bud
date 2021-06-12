@@ -1,6 +1,7 @@
 import {Framework, setupBud, teardownBud} from '../util'
 import imagemin from '@roots/bud-imagemin'
 
+const EXTENSION_HANDLE = '@roots/bud-imagemin'
 const PLUGIN_HANDLE = 'image-minimizer-webpack-plugin'
 
 describe('@roots/bud-imagemin', () => {
@@ -17,7 +18,7 @@ describe('@roots/bud-imagemin', () => {
   it('is registered', () => {
     bud.use([imagemin])
     expect(imagemin).toEqual(
-      bud.extensions.get('@roots/bud-imagemin').module,
+      bud.extensions.get(EXTENSION_HANDLE).module,
     )
   })
 
@@ -30,13 +31,33 @@ describe('@roots/bud-imagemin', () => {
     )
     expect(registered.module.make).toBeInstanceOf(Function)
     expect(registered.module.when).toBeInstanceOf(Function)
-    expect(registered.module.when(bud)).toEqual(true)
+    expect(registered.module.when).toBeInstanceOf(Function)
     expect(registered.module.options).toBeInstanceOf(Function)
+  })
+
+  it('is not used when there are no imagemin plugins registered', () => {
+    bud.discovery.set('devDependencies', {})
+    bud.use(imagemin)
+
+    const registered = bud.extensions.get(PLUGIN_HANDLE)
+
+    expect(registered.when).toEqual(false)
+  })
+
+  it('is used when there are imagemin plugins registered', () => {
+    bud.discovery.set('devDependencies', {
+      'imagemin-svgo': '^9.0.0',
+    })
+    bud.use(imagemin)
+
+    const registered = bud.extensions.get(PLUGIN_HANDLE)
+
+    expect(registered.when).toEqual(true)
   })
 
   it('has name prop', () => {
     bud.use(imagemin)
-    expect(imagemin.name).toBe('@roots/bud-imagemin')
+    expect(imagemin.name).toBe(EXTENSION_HANDLE)
   })
 
   it('has an api prop', () => {
@@ -69,9 +90,7 @@ describe('@roots/bud-imagemin', () => {
     bud.use(imagemin)
 
     expect(
-      bud.hooks.filter(
-        'extension/image-minimizer-webpack-plugin/options',
-      ),
+      bud.hooks.filter(`extension/${PLUGIN_HANDLE}/options`),
     ).toEqual({
       minimizerOptions: {
         plugins: [['svgo', {plugins: [{removeViewBox: false}]}]],
