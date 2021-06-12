@@ -35,7 +35,7 @@
 
 ## Summary
 
-Minimize bundled image assets.
+Optimize image assets.
 
 ## Installation
 
@@ -49,13 +49,7 @@ You will also need to install whatever minimizer plugins you want to use. Or, yo
 yarn bud init
 ```
 
-## Usage
-
-```js
-bud.use(["@roots/bud-imagemin"]);
-```
-
-Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin) applies the following configuration:
+Out of the box you will get support for the following after running `bud init`:
 
 | Plugin   | Options                               |
 | -------- | ------------------------------------- |
@@ -63,6 +57,14 @@ Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stabl
 | jpegtran | `{progressive: true}`                 |
 | optipng  | `{optimizationLevel: 5}`              |
 | svgo     | `{plugins: [{removeViewBox: false}]}` |
+
+If you want to install any of these plugins individually, you may. You don't need to register them with `bud.imagemin.plugins` as documented below unless you want to further tweak its config. Bud will automatically register the above plugins after you install them as a peer dep in your project.
+
+## Usage
+
+```js
+bud.use(["@roots/bud-imagemin"]);
+```
 
 ## Configuration
 

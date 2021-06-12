@@ -140,6 +140,9 @@ class Build extends Service implements Contract {
         test: ({store}) => store.get('patterns.image'),
         exclude: ({store}) => store.get('patterns.modules'),
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[hash][ext][query]',
+        },
       }),
       font: new Rule({
         test: ({store}) => store.get('patterns.font'),
@@ -155,6 +158,9 @@ class Build extends Service implements Contract {
         test: ({store}) => store.get('patterns.svg'),
         exclude: ({store}) => store.get('patterns.modules'),
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[hash][ext][query]',
+        },
       }),
       html: new Rule({
         test: ({store}) => store.get('patterns.html'),

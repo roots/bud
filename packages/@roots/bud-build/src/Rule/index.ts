@@ -18,12 +18,15 @@ class Rule implements Contract {
 
   public parser: Contract.ParserFn
 
+  public generator: any
+
   public constructor({
     test,
     use = null,
     exclude = null,
     type = null,
     parser = null,
+    generator = null,
   }: Contract.Options) {
     this.test = isFunction(test) ? test : () => test
 
@@ -43,6 +46,12 @@ class Rule implements Contract {
 
     if (parser) {
       this.parser = isFunction(parser) ? parser : () => parser
+    }
+
+    if (generator) {
+      this.generator = isFunction(generator)
+        ? generator
+        : () => generator
     }
   }
 
@@ -99,6 +108,18 @@ class Rule implements Contract {
   }
 
   @bind
+  public getGenerator(app: Framework) {
+    return this.generator ? this.generator(app) : null
+  }
+
+  @bind
+  public setGenerator(generator) {
+    this.generator = isFunction(generator)
+      ? generator
+      : () => generator
+  }
+
+  @bind
   public make(app: Framework) {
     const output: Contract.Output = {
       test: this.test(app),
@@ -118,6 +139,10 @@ class Rule implements Contract {
 
     if (this.parser) {
       output.parser = this.parser(app)
+    }
+
+    if (this.generator) {
+      output.generator = this.generator(app)
     }
 
     return output
