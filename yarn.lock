@@ -2631,10 +2631,13 @@ __metadata:
     "@types/marked": ^2.0.3
     "@types/mini-css-extract-plugin": ^1.4.3
     "@types/node": ^15.12.2
+    "@types/yamljs": ^0
     autobind-decorator: ^2.4.0
     css-loader: ^5.2.6
+    csv-loader: ^3.0.3
     file-loader: ^6.2.0
     html-loader: ^2.1.2
+    json5: ^2.2.0
     lodash: ^4.17.21
     mini-css-extract-plugin: ^1.6.0
     mini-svg-data-uri: ^1.3.3
@@ -2643,8 +2646,11 @@ __metadata:
     remark-loader: ^4.0.0
     resolve-url-loader: ^4.0.0
     style-loader: ^2.0.0
+    toml: ^3.0.0
     url-loader: ^4.1.1
     webpack: ^5.38.1
+    xml-loader: ^1.2.1
+    yamljs: ^0.3.0
   languageName: unknown
   linkType: soft
 
@@ -4359,6 +4365,13 @@ __metadata:
     "@types/webpack-sources": "*"
     source-map: ^0.6.0
   checksum: e502f308846bae6d2e94df083022be1bf151f7e6be73738854d6c7cf7fb581218712114717190b91f6d16a827f6d977bf9c04deda2e8a81203ad2a712cc9121f
+  languageName: node
+  linkType: hard
+
+"@types/yamljs@npm:^0":
+  version: 0.2.31
+  resolution: "@types/yamljs@npm:0.2.31"
+  checksum: a51d60bcf287214b6ac7c47679932396fc0acf6722fcf084e311d334165f135ca19814b9a32f067fd7b10d9cd09bf630e8d351d03f23430923dcc5b9f7e8aabf
   languageName: node
   linkType: hard
 
@@ -7142,6 +7155,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csv-loader@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "csv-loader@npm:3.0.3"
+  dependencies:
+    loader-utils: ^2.0.0
+    papaparse: ^5.2.0
+  checksum: 8eaae3a8ad60e154c03cb011bc243389944588cd2d90ce8cfbd992b089f691a7f395e060a1200e884a3a159dc3a5762504a427e3c9ade9c7530230d466c0e6b3
+  languageName: node
+  linkType: hard
+
 "cuint@npm:^0.2.2":
   version: 0.2.2
   resolution: "cuint@npm:0.2.2"
@@ -9261,7 +9284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.1.6":
+"glob@npm:^7.0.5, glob@npm:^7.1.6":
   version: 7.1.7
   resolution: "glob@npm:7.1.7"
   dependencies:
@@ -11894,7 +11917,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.0.0, loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -13580,6 +13603,13 @@ __metadata:
   version: 2.2.0
   resolution: "p-try@npm:2.2.0"
   checksum: f8a8e9a7693659383f06aec604ad5ead237c7a261c18048a6e1b5b85a5f8a067e469aa24f5bc009b991ea3b058a87f5065ef4176793a200d4917349881216cae
+  languageName: node
+  linkType: hard
+
+"papaparse@npm:^5.2.0":
+  version: 5.3.1
+  resolution: "papaparse@npm:5.3.1"
+  checksum: 3431917bb46f8952e49ca64ecc9107ddf05291573ef666c8fac4e172b57780d131f1af925b47841039bd5ae0ceadc2eafbcb8183c092307442f85eed11f82b69
   languageName: node
   linkType: hard
 
@@ -16010,7 +16040,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sax@npm:~1.2.4":
+"sax@npm:>=0.6.0, sax@npm:~1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -17348,6 +17378,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"toml@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "toml@npm:3.0.0"
+  checksum: 5d7f1d8413ad7780e9bdecce8ea4c3f5130dd53b0a4f2e90b93340979a137739879d7b9ce2ce05c938b8cc828897fe9e95085197342a1377dd8850bf5125f15f
+  languageName: node
+  linkType: hard
+
 "tough-cookie@npm:^2.3.3, tough-cookie@npm:~2.5.0":
   version: 2.5.0
   resolution: "tough-cookie@npm:2.5.0"
@@ -18677,10 +18714,37 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"xml-loader@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "xml-loader@npm:1.2.1"
+  dependencies:
+    loader-utils: ^1.0.0
+    xml2js: ^0.4.16
+  checksum: 1345b56d355fdb5dcf48b3b49387bfe4e4d38c6b574ab77518ae5df3326a60b03a4fe9122db2a53ecd82aa78fa88d53633fcddf857c2902cddc2b1eeb5e2313b
+  languageName: node
+  linkType: hard
+
 "xml-name-validator@npm:^3.0.0":
   version: 3.0.0
   resolution: "xml-name-validator@npm:3.0.0"
   checksum: b3ac459afed783c285bb98e4960bd1f3ba12754fd4f2320efa0f9181ca28928c53cc75ca660d15d205e81f92304419afe94c531c7cfb3e0649aa6d140d53ecb0
+  languageName: node
+  linkType: hard
+
+"xml2js@npm:^0.4.16":
+  version: 0.4.23
+  resolution: "xml2js@npm:0.4.23"
+  dependencies:
+    sax: ">=0.6.0"
+    xmlbuilder: ~11.0.0
+  checksum: ca0cf2dfbf6deeaae878a891c8fbc0db6fd04398087084edf143cdc83d0509ad0fe199b890f62f39c4415cf60268a27a6aed0d343f0658f8779bd7add690fa98
+  languageName: node
+  linkType: hard
+
+"xmlbuilder@npm:~11.0.0":
+  version: 11.0.1
+  resolution: "xmlbuilder@npm:11.0.1"
+  checksum: 7152695e16f1a9976658215abab27e55d08b1b97bca901d58b048d2b6e106b5af31efccbdecf9b07af37c8377d8e7e821b494af10b3a68b0ff4ae60331b415b0
   languageName: node
   linkType: hard
 
@@ -18732,6 +18796,19 @@ resolve@^2.0.0-next.3:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: ce4ada136e8a78a0b08dc10b4b900936912d15de59905b2bf415b4d33c63df1d555d23acb2a41b23cf9fb5da41c256441afca3d6509de7247daa062fd2c5ea5f
+  languageName: node
+  linkType: hard
+
+"yamljs@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "yamljs@npm:0.3.0"
+  dependencies:
+    argparse: ^1.0.7
+    glob: ^7.0.5
+  bin:
+    json2yaml: ./bin/json2yaml
+    yaml2json: ./bin/yaml2json
+  checksum: 76b770d34c7b9babdc4508e4c7c0cbdf371e17129cc027095d9eac0ae5b841c1b16fc2d625ebb542cc299ed4593478abdfcca172b3f0169e0939c6f2ed2e81a4
   languageName: node
   linkType: hard
 

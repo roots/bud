@@ -16,11 +16,14 @@ class Rule implements Contract {
 
   public type: Contract.TypeFn
 
+  public parser: Contract.ParserFn
+
   public constructor({
     test,
     use = null,
     exclude = null,
     type = null,
+    parser = null,
   }: Contract.Options) {
     this.test = isFunction(test) ? test : () => test
 
@@ -37,6 +40,10 @@ class Rule implements Contract {
     if (type) {
       this.type = isFunction(type) ? type : () => type
     }
+
+    if (parser) {
+      this.parser = isFunction(parser) ? parser : () => parser
+    }
   }
 
   @bind
@@ -49,6 +56,16 @@ class Rule implements Contract {
     test: RegExp | ((app: Framework) => RegExp),
   ): void {
     this.test = isFunction(test) ? test : () => test
+  }
+
+  @bind
+  public getParser(app: Framework): Contract.Parser {
+    return this.parser ? this.parser(app) : null
+  }
+
+  @bind
+  public setParser(parser: Contract.ParserFn): void {
+    this.parser = isFunction(parser) ? parser : () => parser
   }
 
   @bind
@@ -97,6 +114,10 @@ class Rule implements Contract {
 
     if (this.type) {
       output.type = this.type(app)
+    }
+
+    if (this.parser) {
+      output.parser = this.parser(app)
     }
 
     return output
