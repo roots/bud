@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "👩‍💻 The @roots/bud CLI runner utility",
-  "version": "4.5.0-0",
+  "version": "4.5.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -128,6 +128,5 @@
     "globby": "^11.0.3",
     "lodash": "^4.17.21",
     "tslib": "^2.2.0"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

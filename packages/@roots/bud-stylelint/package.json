@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "4.5.0-0",
+  "version": "4.5.0",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -72,6 +72,5 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-webpack-plugin": "^2.1.1"
-  },
-  "stableVersion": "4.4.0"
+  }
 }
