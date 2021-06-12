@@ -85,6 +85,5 @@
     "eslint": {
       "optional": true
     }
-  },
-  "stableVersion": "4.4.0"
+  }
 }

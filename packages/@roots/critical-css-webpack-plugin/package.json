@@ -71,6 +71,5 @@
     "safe-require": "^1.0.4",
     "vinyl": "^2.2.1",
     "webpack": "^5.38.1"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

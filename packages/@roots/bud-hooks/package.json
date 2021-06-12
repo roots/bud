@@ -70,6 +70,5 @@
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
     "pretty-format": "^27.0.2"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

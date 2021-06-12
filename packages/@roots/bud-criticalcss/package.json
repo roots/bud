@@ -68,6 +68,5 @@
   "dependencies": {
     "@roots/critical-css-webpack-plugin": "workspace:packages/@roots/critical-css-webpack-plugin",
     "autobind-decorator": "^2.4.0"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

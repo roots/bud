@@ -80,6 +80,5 @@
     "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
     "lodash": "^4.17.21"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

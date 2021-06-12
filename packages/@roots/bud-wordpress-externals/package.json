@@ -67,6 +67,5 @@
   "dependencies": {
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",
     "autobind-decorator": "^2.4.0"
-  },
-  "stableVersion": "4.4.0"
+  }
 }

@@ -28,6 +28,5 @@
   "files": [
     "./contracts"
   ],
-  "types": "./contracts/index.d.ts",
-  "stableVersion": "4.4.0"
+  "types": "./contracts/index.d.ts"
 }

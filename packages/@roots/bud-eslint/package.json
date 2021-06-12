@@ -78,6 +78,5 @@
   "peerDependencies": {
     "@roots/bud": "*",
     "eslint": "^7"
-  },
-  "stableVersion": "4.4.0"
+  }
 }
