@@ -37,13 +37,16 @@ yarn build:cjs
 echo "Building esm"
 yarn build:esm
 
+echo "Running tests"
+yarn test
+
 echo "Generating docs"
 yarn docs
 
-echo "Linting packages"
+echo "Linting"
 yarn lint
 
-echo "Running tests"
-yarn test
+echo "Lint pkg shrinkwrap"
+yarn pkg
 
 exit
