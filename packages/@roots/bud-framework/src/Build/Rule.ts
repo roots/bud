@@ -7,11 +7,17 @@ namespace Rule {
   export type ExcludeFn = (app?: Framework) => RegExp
   export type TypeFn = (app?: Framework) => string
 
+  export type Parser = {
+    parse: (input?: string) => any
+  }
+  export type ParserFn = (app?: Framework) => Parser
+
   export interface Options {
     test: RegExp | TestFn
     use?: Item[] | UseFn
     exclude?: RegExp | ExcludeFn
     type?: string | TypeFn
+    parser?: ParserFn | Parser
   }
 
   export interface Output {
@@ -22,6 +28,7 @@ namespace Rule {
     }[]
     exclude?: RegExp
     type?: string
+    parser?: Parser
   }
 }
 
@@ -41,6 +48,10 @@ interface Rule {
   getType(app: Framework): Rule.Output['type']
 
   setType(type: string | Rule.TypeFn): void
+
+  getParser(app: Framework): Rule.Parser
+
+  setParser(parser: Rule.Parser | Rule.ParserFn): void
 
   make(app: Framework): Rule.Output
 }

@@ -1,6 +1,9 @@
 import {Framework, setupBud, teardownBud} from '../util'
 import {Build} from '@roots/bud-build'
 import RemarkHTML from 'remark-html'
+import toml from 'toml'
+import yaml from 'yamljs'
+import json5 from 'json5'
 
 describe('bud.build.config', function () {
   let bud: Framework,
@@ -167,15 +170,7 @@ describe('bud.build.config', function () {
             {
               exclude: /(node_modules|bower_components)/,
               test: /\.(png|jpe?g|gif)$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/file-loader/dist/cjs.js',
-                  ),
-                  options: {name: 'assets/[name].[ext]'},
-                },
-              ],
+              type: 'asset/resource',
             },
             {
               exclude: /(node_modules|bower_components)/,
@@ -232,6 +227,49 @@ describe('bud.build.config', function () {
                 },
               ],
             },
+            {
+              test: /\.(csv|tsv)$/i,
+              use: [
+                {
+                  loader: path(
+                    'project',
+                    'node_modules/csv-loader/index.js',
+                  ),
+                },
+              ],
+            },
+            {
+              test: /\.xml$/i,
+              use: [
+                {
+                  loader: path(
+                    'project',
+                    'node_modules/xml-loader/index.js',
+                  ),
+                },
+              ],
+            },
+            {
+              parser: {
+                parse: toml.parse,
+              },
+              test: /\.toml$/i,
+              type: 'json',
+            },
+            {
+              parser: {
+                parse: yaml.parse,
+              },
+              test: /\.yaml$/i,
+              type: 'json',
+            },
+            {
+              parser: {
+                parse: json5.parse,
+              },
+              test: /\.json5$/i,
+              type: 'json',
+            },
           ],
           parser: {requireEnsure: false},
         },
@@ -268,5 +306,3 @@ describe('bud.build.config', function () {
     ])
   })
 })
-
-export {}
