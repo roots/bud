@@ -1,17 +1,19 @@
 import {isBoolean} from 'lodash'
-import {Api} from '@roots/bud-framework'
+import {Api, Rule} from '@roots/bud-framework'
+import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
+import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## html [💁 Fluent]
+     * ## template [💁 Fluent]
      *
      * Enable and/or configure a generated HTML template
      *
      * ### Usage
      *
      * ```js
-     * app.html({
+     * app.template({
      *   enabled: true, // default: true
      *   template: 'public/index.html',
      *   replace: {
@@ -26,30 +28,44 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Template = (options?: {
-      /**
-       * Enable HTML generation
-       */
-      enabled?: boolean
+    type Template = (
+      this: Framework,
+      options?: {
+        /**
+         * Enable HTML generation
+         */
+        enabled?: boolean
 
-      /**
-       * An HTML template to use. If none is supplied the
-       * default from @roots/bud-support will be used.
-       */
-      template?: string
+        /**
+         * An HTML template to use. If none is supplied the
+         * default from @roots/bud-support will be used.
+         */
+        template?: string
 
-      /**
-       * ### Replacements
-       *
-       * Template variable names are used as keys.
-       * Each key is associated with a replacement value.
-       */
-      replace?: {[key: string]: any}
-    }) => Framework
+        /**
+         * ### Replacements
+         *
+         * Template variable names are used as keys.
+         * Each key is associated with a replacement value.
+         */
+        replace?: {[key: string]: any}
+      },
+    ) => Framework
   }
 }
 
 const template: Api.Template = function (options?) {
+  if (!options || options?.enabled) {
+    this.hooks.on(
+      'build/module/rules',
+      (rules: {[key: string]: Rule}) => {
+        if (rules.html) delete rules.html
+
+        return rules
+      },
+    )
+  }
+
   /**
    * No options? enable
    * this functionality and return early.
@@ -66,6 +82,22 @@ const template: Api.Template = function (options?) {
   isBoolean(options.enabled)
     ? this.store.set('html', options.enabled)
     : this.store.set('html', true)
+
+  /**
+   * If the plugin was disabled explicitly we're done.
+   */
+  if (options?.enabled == false) {
+    return this
+  }
+
+  /**
+   * Register extensions if not already registered
+   */
+  !this.extensions.has('html-webpack-plugin') &&
+    this.extensions.add(HtmlWebpackPlugin)
+
+  !this.extensions.has('interpolate-html-plugin') &&
+    this.extensions.add(InterpolateHtmlPlugin)
 
   /**
    * Apply any replacements

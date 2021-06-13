@@ -1,5 +1,5 @@
 import {Framework, Module} from '@roots/bud-framework'
-import {Plugin as HtmlWebpackPlugin} from '../html-webpack-plugin'
+import {Plugin as HtmlWebpackPlugin} from './HtmlWebpackPlugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 
 const extension: Module<
@@ -31,5 +31,4 @@ const extension: Module<
     options.getEntries().length > 0,
 }
 
-export default extension
 export const {name, options, make, when} = extension

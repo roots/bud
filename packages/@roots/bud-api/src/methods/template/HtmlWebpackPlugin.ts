@@ -45,5 +45,5 @@ const extension: Extension = {
   when: ({store}) => store.isTrue('html'),
 }
 
-export {extension as default, PluginConstructor as Plugin}
 export const {name, options, make, when} = extension
+export {Plugin}
