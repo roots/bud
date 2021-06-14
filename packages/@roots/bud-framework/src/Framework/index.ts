@@ -20,7 +20,7 @@ import {Server} from '../Server'
 import {Service, Bootstrapper} from '../Service'
 import {Store} from '../Store'
 
-import {isFunction} from 'lodash'
+import {isFunction, isUndefined} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
 
@@ -189,6 +189,16 @@ interface Framework {
    * app.sequence
    */
   sequence(fns: Array<(app: Framework) => any>): Framework
+
+  /**
+   * app.tap
+   */
+  tap(
+    fn:
+      | ((app?: Framework) => any)
+      | ((this: Framework, app?: Framework) => any),
+    bound?: boolean,
+  ): Framework
 
   /**
    * app.when
@@ -415,9 +425,21 @@ abstract class Framework {
 
   @bind
   public sequence(fns: Array<(app: this) => any>): Framework {
-    fns.reduce((_val, fn) => {
-      return fn.bind(this)(this)
-    }, this)
+    fns.reduce((_val, fn) => this.tap(fn), this)
+
+    return this
+  }
+
+  @bind
+  public tap(
+    fn:
+      | ((app: Framework) => any)
+      | ((this: Framework, app?: Framework) => any),
+    bound?: boolean,
+  ) {
+    const bind = !isUndefined(fn.bind) && bound !== false
+
+    fn.call(bind ? this : null, this)
 
     return this
   }
