@@ -10,7 +10,7 @@ jobs:
         platform:
           - ubuntu-latest
         node:
-          - 15.x
+          - 16.x
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
