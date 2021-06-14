@@ -77,9 +77,6 @@ describe('bud', () => {
       expect(this).toBeInstanceOf(Bud)
     })
 
-    // bud does not attempt to bind arrow functions
-    bud.tap(() => expect(this).not.toBeInstanceOf(Bud), true)
-
     done()
   })
 

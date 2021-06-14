@@ -20,7 +20,7 @@ import {Server} from '../Server'
 import {Service, Bootstrapper} from '../Service'
 import {Store} from '../Store'
 
-import {isFunction, isUndefined} from 'lodash'
+import {isFunction} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
 
@@ -435,11 +435,9 @@ abstract class Framework {
     fn:
       | ((app: Framework) => any)
       | ((this: Framework, app?: Framework) => any),
-    bound?: boolean,
+    bound: boolean = true,
   ) {
-    const bind = !isUndefined(fn.bind) && bound !== false
-
-    fn.call(bind ? this : null, this)
+    fn.call(bound ? this : null, this)
 
     return this
   }
