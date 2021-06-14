@@ -19,9 +19,9 @@
   },
   "workspaces": {
     "packages": [
+      "docs",
       "examples/*",
       "packages/base",
-      "packages/docs",
       "packages/@roots/*"
     ]
   },
@@ -38,7 +38,7 @@
     "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
     "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
-    "docs": "yarn node ./dev/docs/gen/cli.js",
+    "docs": "yarn workspace docs start",
     "test:pre": "yarn node ./jest.pre.js",
     "test:post": "yarn node ./jest.post.js",
     "test:spec:ci": "yarn run jest --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",

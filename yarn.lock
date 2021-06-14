@@ -5763,13 +5763,13 @@ __metadata:
   linkType: hard
 
 "algoliasearch-helper@npm:^3.3.4":
-  version: 3.4.5
-  resolution: "algoliasearch-helper@npm:3.4.5"
+  version: 3.5.3
+  resolution: "algoliasearch-helper@npm:3.5.3"
   dependencies:
     events: ^1.1.1
   peerDependencies:
     algoliasearch: ">= 3.1 < 5"
-  checksum: 14cca384146d286d760bdc88218b7a662e2d5223a224e2c8b12dfaef99a7901331e108750375b8bfb6f6c1f56ce4fdac119be697855e5bba6ee3e98897d0df2e
+  checksum: 460addb109fd0f950e76f72311eadfb3793de57df20d52e1195dc1eb2e4448dda504d8e803682b5a4e679f8ffd842bc71d70e31e45055ad3c93b5c415b5e1ea2
   languageName: node
   linkType: hard
 
@@ -7081,10 +7081,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30000981, caniuse-lite@npm:^1.0.30001125":
+"caniuse-lite@npm:^1.0.30000981":
   version: 1.0.30001236
   resolution: "caniuse-lite@npm:1.0.30001236"
   checksum: e1f38df1d37d3f628d84f38487e7edad2c8c57b9ea934e06455a2c3e4d8f283fa3e5b420a61f29539e38abd64942ea201de76195659c0aabfa34a3775ac21cc2
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001125":
+  version: 1.0.30001237
+  resolution: "caniuse-lite@npm:1.0.30001237"
+  checksum: 929dc395f1ff67beb385aade65122faba47c0364044f41cedfe7ada1b89d656beb05d38abf1eedcf9f6e09af0b34577b7953668ff363a6392bf35f20095bba66
   languageName: node
   linkType: hard
 
@@ -9027,9 +9034,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docs@workspace:packages/docs":
+"docs@workspace:docs":
   version: 0.0.0-use.local
-  resolution: "docs@workspace:packages/docs"
+  resolution: "docs@workspace:docs"
   dependencies:
     "@docusaurus/core": 2.0.0-beta.0
     "@docusaurus/preset-classic": 2.0.0-beta.0
@@ -9894,9 +9901,9 @@ __metadata:
   linkType: hard
 
 "eta@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "eta@npm:1.12.1"
-  checksum: ec4f560480353677ab71b0af130434aa34c923fb041d6c2103782680b2e9395b32f49b124e5c4a044807e9dffb9a7cc707168ea95ffbf11a474cda2fd8a60e9f
+  version: 1.12.2
+  resolution: "eta@npm:1.12.2"
+  checksum: b5954831851aebe47043c0312d8eab806c4105333f5d9acaf6c8cd607a8c314c702b494975ad01c45b1e5c06d89ae7afd78c901134403fa9ed80311b331a1962
   languageName: node
   linkType: hard
 
@@ -17918,7 +17925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
+"postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
   version: 8.3.2
   resolution: "postcss@npm:8.3.2"
   dependencies:
@@ -17926,6 +17933,17 @@ __metadata:
     nanoid: ^3.1.23
     source-map-js: ^0.6.2
   checksum: 639170fd696c45238407f996c49a828dd57bf0d5b5b4aa4ef98ed568d1df52bdd8c1ad94784fa15da66ff2184f0d9debd2d08f2b037ff0886426687b21b8a292
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.2.4":
+  version: 8.3.4
+  resolution: "postcss@npm:8.3.4"
+  dependencies:
+    colorette: ^1.2.2
+    nanoid: ^3.1.23
+    source-map-js: ^0.6.2
+  checksum: 86de06e3c4e3f35d41564e2aa94ebf54ceddeef13e2a799f33189c15e8ac3faab87ad6e2ba7999b108c6f432d6abb5ffd453219b20795a3635e47a81185b2a21
   languageName: node
   linkType: hard
 
@@ -21542,10 +21560,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0":
+"tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.2.0":
   version: 2.2.0
   resolution: "tslib@npm:2.2.0"
   checksum: a48c9639f7496fa701ea8ffe0561070fcb44c104a59632f7f845c0af00825c99b6373575ec59b2b5cdbfd7505875086dbe5dc83312304d8979f22ce571218ca3
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.1.0":
+  version: 2.3.0
+  resolution: "tslib@npm:2.3.0"
+  checksum: 8869694c26e4a7b56d449662fd54a4f9ba872c889d991202c74462bd99f10e61d5bd63199566c4284c0f742277736292a969642cc7b590f98727a7cae9529122
   languageName: node
   linkType: hard
 

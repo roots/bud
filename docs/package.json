@@ -2,6 +2,18 @@
   "name": "docs",
   "version": "0.0.0",
   "private": true,
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -23,17 +35,5 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "url-loader": "^4.1.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
