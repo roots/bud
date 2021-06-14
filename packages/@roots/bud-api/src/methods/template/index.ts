@@ -1,4 +1,4 @@
-import {isBoolean} from 'lodash'
+import {isUndefined} from 'lodash'
 import {Api, Rule} from '@roots/bud-framework'
 import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
 import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
@@ -55,7 +55,34 @@ declare module '@roots/bud-framework' {
 }
 
 const template: Api.Template = function (options?) {
-  if (!options || options?.enabled) {
+  /**
+   * Explicitly/implicitly enabled
+   */
+  if (
+    isUndefined(options?.enabled) || // no enable passed (implicitly enabled)
+    options.enabled === true // explicitly enabled
+  ) {
+    /**
+     * Enable feature flag
+     */
+    this.store.set('html', true)
+  } else {
+    this.store.set('html', false)
+  }
+
+  if (this.store.is('html', true)) {
+    /**
+     * Register extensions if not already registered
+     */
+    !this.extensions.has('html-webpack-plugin') &&
+      this.extensions.add(HtmlWebpackPlugin)
+
+    !this.extensions.has('interpolate-html-plugin') &&
+      this.extensions.add(InterpolateHtmlPlugin)
+
+    /**
+     * Remove html-loader
+     */
     this.hooks.on(
       'build/module/rules',
       (rules: {[key: string]: Rule}) => {
@@ -64,63 +91,30 @@ const template: Api.Template = function (options?) {
         return rules
       },
     )
+
+    /**
+     * Apply any replacements
+     * with the interpolation plugin
+     */
+    options?.replace &&
+      this.extensions
+        .get('html-webpack-plugin')
+        .set('options', value => ({
+          ...value,
+          ...options.replace,
+        }))
+
+    /**
+     * Set the template
+     */
+    options?.template &&
+      this.extensions
+        .get('html-webpack-plugin')
+        .set('options', value => ({
+          ...value,
+          template: options.template,
+        }))
   }
-
-  /**
-   * No options? enable
-   * this functionality and return early.
-   */
-  if (!options) {
-    this.store.set('html', true)
-    return this
-  }
-
-  /**
-   * Update the enabled status
-   * for the html plugin
-   */
-  isBoolean(options.enabled)
-    ? this.store.set('html', options.enabled)
-    : this.store.set('html', true)
-
-  /**
-   * If the plugin was disabled explicitly we're done.
-   */
-  if (options?.enabled == false) {
-    return this
-  }
-
-  /**
-   * Register extensions if not already registered
-   */
-  !this.extensions.has('html-webpack-plugin') &&
-    this.extensions.add(HtmlWebpackPlugin)
-
-  !this.extensions.has('interpolate-html-plugin') &&
-    this.extensions.add(InterpolateHtmlPlugin)
-
-  /**
-   * Apply any replacements
-   * with the interpolation plugin
-   */
-  options.replace &&
-    this.extensions
-      .get('html-webpack-plugin')
-      .set('options', value => ({
-        ...value,
-        ...options.replace,
-      }))
-
-  /**
-   * Set the template
-   */
-  options.template &&
-    this.extensions
-      .get('html-webpack-plugin')
-      .set('options', value => ({
-        ...value,
-        template: options.template,
-      }))
 
   return this
 }
