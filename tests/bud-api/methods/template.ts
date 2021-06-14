@@ -105,11 +105,35 @@ describe('bud.template', function () {
       expect(bud.store.is('html', false)).toEqual(true)
     })
 
-    it('does not register plugin when explicitly disabled', () => {
-      bud.template({enabled: false})
-      expect(bud.extensions.has('html-webpack-plugin')).toEqual(
-        false,
-      )
+    it('changes the template when template options is passed', () => {
+      bud.template({template: 'src/foo.html'})
+      expect(
+        bud.extensions.get('html-webpack-plugin').options
+          .template,
+      ).toBe('src/foo.html')
+    })
+
+    it('has expected options after changes', () => {
+      expect(
+        bud.extensions.get('html-webpack-plugin').options,
+      ).toEqual({
+        alwaysWriteToDisk: true,
+        inject: true,
+        minify: {
+          collapseWhitespace: false,
+          keepClosingSlash: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true,
+        },
+        publicPath: '/',
+        template: 'src/foo.html',
+        window: {
+          env: {},
+        },
+      })
     })
   })
 })

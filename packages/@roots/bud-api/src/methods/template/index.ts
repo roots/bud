@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash'
-import {Api, Rule} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
 import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
 
@@ -48,73 +48,38 @@ declare module '@roots/bud-framework' {
          * Template variable names are used as keys.
          * Each key is associated with a replacement value.
          */
-        replace?: {[key: string]: any}
+        replace?: {
+          [key: string]: any
+        }
       },
     ) => Framework
   }
 }
 
-const template: Api.Template = function (options?) {
-  /**
-   * Explicitly/implicitly enabled
-   */
-  if (
-    isUndefined(options?.enabled) || // no enable passed (implicitly enabled)
-    options.enabled === true // explicitly enabled
-  ) {
-    /**
-     * Enable feature flag
-     */
-    this.store.set('html', true)
-  } else {
-    this.store.set('html', false)
-  }
+const template: Api.Template = function (userOptions?) {
+  !this.extensions.has('html-webpack-plugin') &&
+    this.extensions.add(HtmlWebpackPlugin)
 
-  if (this.store.is('html', true)) {
-    /**
-     * Register extensions if not already registered
-     */
-    !this.extensions.has('html-webpack-plugin') &&
-      this.extensions.add(HtmlWebpackPlugin)
+  !this.extensions.has('interpolate-html-plugin') &&
+    this.extensions.add(InterpolateHtmlPlugin)
 
-    !this.extensions.has('interpolate-html-plugin') &&
-      this.extensions.add(InterpolateHtmlPlugin)
+  this.store.set(
+    'html',
+    isUndefined(userOptions?.enabled) ||
+      userOptions.enabled === true,
+  )
 
-    /**
-     * Remove html-loader
-     */
-    this.hooks.on(
-      'build/module/rules',
-      (rules: {[key: string]: Rule}) => {
-        if (rules.html) delete rules.html
+  const {options, set} = this.extensions.get(
+    'html-webpack-plugin',
+  )
 
-        return rules
-      },
-    )
-
-    /**
-     * Apply any replacements
-     * with the interpolation plugin
-     */
-    options?.replace &&
-      this.extensions
-        .get('html-webpack-plugin')
-        .set('options', value => ({
-          ...value,
-          ...options.replace,
-        }))
-
-    /**
-     * Set the template
-     */
-    options?.template &&
-      this.extensions
-        .get('html-webpack-plugin')
-        .set('options', value => ({
-          ...value,
-          template: options.template,
-        }))
-  }
+  userOptions &&
+    set('options', () => ({
+      ...options,
+      ...Object.entries(userOptions)
+        .filter(([k]) => k !== 'enabled')
+        .reduce((a, [k, v]) => ({...a, [k]: v}), {}),
+    }))
 
   return this
 }
