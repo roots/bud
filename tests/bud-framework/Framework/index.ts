@@ -51,6 +51,35 @@ describe('bud', () => {
     done()
   })
 
+  it('tap calls fn and returns instance of Bud', done => {
+    const fn = jest.fn()
+    expect(bud.tap(fn)).toBeInstanceOf(Bud)
+    expect(fn).toHaveBeenCalledTimes(1)
+    done()
+  })
+
+  it('tap passes an instance of Bud', done => {
+    bud.tap(app => expect(app).toBeInstanceOf(Bud))
+    done()
+  })
+
+  it('tap can bind a function to Bud', done => {
+    bud.tap(function () {
+      expect(this).not.toBeInstanceOf(Bud)
+    }, false)
+
+    bud.tap(function () {
+      expect(this).toBeInstanceOf(Bud)
+    }, true)
+
+    // it binds by default
+    bud.tap(function () {
+      expect(this).toBeInstanceOf(Bud)
+    })
+
+    done()
+  })
+
   it('sequence calls fns', done => {
     bud.sequence([
       app => {
