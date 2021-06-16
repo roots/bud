@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # bud.mode
 
 Property which is either `production` or `development`.

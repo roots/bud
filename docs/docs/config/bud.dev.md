@@ -1,6 +1,6 @@
 # bud.dev
 
-Configure the [**@roots/bud**](/docs/packages/@roots/bud) development server.
+Configure **@roots/bud-server**.
 
 ## Server information
 

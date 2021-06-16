@@ -4,7 +4,7 @@ Extend **bud** with additional functionality by registering packages with **bud.
 
 ## Usage
 
-Add support for @sass/sass using the `@roots/bud-sass` extension.
+Add support for [sass](https://sass-lang.com) using the [@roots/bud-sass](docs/add-ons/sass) extension.
 
 ```js
 bud.use(require('@roots/bud-sass'))
@@ -19,7 +19,7 @@ bud.use([
 ])
 ```
 
-In a ts config (or using esmodules), you can utilize import syntax:
+In a ts config, you can utilize import syntax:
 
 ```ts
 import sass from '@roots/bud-sass'

@@ -38,12 +38,6 @@ Consult the typescript docs for more information on Typescript usage.
 If your `tsconfig.json` is not located in your project root you can
 configure the plugin to point to its location.
 
-```js
-bud.typescript({
-  configFile: bud.project('config/tsconfig.json'),
-})
-```
-
 ## Contributing
 
 Contributions are welcome from everyone.
