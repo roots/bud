@@ -67,8 +67,10 @@
     "webpack": "^5.38.1"
   },
   "dependencies": {
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
+    "html-webpack-plugin": "^5.3.1",
     "lodash": "^4.17.21"
   }
 }

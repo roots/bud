@@ -1,17 +1,19 @@
-import {isBoolean} from 'lodash'
+import {isUndefined} from 'lodash'
 import {Api} from '@roots/bud-framework'
+import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
+import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## html [💁 Fluent]
+     * ## template [💁 Fluent]
      *
      * Enable and/or configure a generated HTML template
      *
      * ### Usage
      *
      * ```js
-     * app.html({
+     * app.template({
      *   enabled: true, // default: true
      *   template: 'public/index.html',
      *   replace: {
@@ -26,69 +28,58 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Template = (options?: {
-      /**
-       * Enable HTML generation
-       */
-      enabled?: boolean
+    type Template = (
+      this: Framework,
+      options?: {
+        /**
+         * Enable HTML generation
+         */
+        enabled?: boolean
 
-      /**
-       * An HTML template to use. If none is supplied the
-       * default from @roots/bud-support will be used.
-       */
-      template?: string
+        /**
+         * An HTML template to use. If none is supplied the
+         * default from @roots/bud-support will be used.
+         */
+        template?: string
 
-      /**
-       * ### Replacements
-       *
-       * Template variable names are used as keys.
-       * Each key is associated with a replacement value.
-       */
-      replace?: {[key: string]: any}
-    }) => Framework
+        /**
+         * ### Replacements
+         *
+         * Template variable names are used as keys.
+         * Each key is associated with a replacement value.
+         */
+        replace?: {
+          [key: string]: any
+        }
+      },
+    ) => Framework
   }
 }
 
-const template: Api.Template = function (options?) {
-  /**
-   * No options? enable
-   * this functionality and return early.
-   */
-  if (!options) {
-    this.store.set('html', true)
-    return this
-  }
+const template: Api.Template = function (userOptions?) {
+  !this.extensions.has('html-webpack-plugin') &&
+    this.extensions.add(HtmlWebpackPlugin)
 
-  /**
-   * Update the enabled status
-   * for the html plugin
-   */
-  isBoolean(options.enabled)
-    ? this.store.set('html', options.enabled)
-    : this.store.set('html', true)
+  !this.extensions.has('interpolate-html-plugin') &&
+    this.extensions.add(InterpolateHtmlPlugin)
 
-  /**
-   * Apply any replacements
-   * with the interpolation plugin
-   */
-  options.replace &&
-    this.extensions
-      .get('html-webpack-plugin')
-      .set('options', value => ({
-        ...value,
-        ...options.replace,
-      }))
+  this.store.set(
+    'html',
+    isUndefined(userOptions?.enabled) ||
+      userOptions.enabled === true,
+  )
 
-  /**
-   * Set the template
-   */
-  options.template &&
-    this.extensions
-      .get('html-webpack-plugin')
-      .set('options', value => ({
-        ...value,
-        template: options.template,
-      }))
+  const {options, set} = this.extensions.get(
+    'html-webpack-plugin',
+  )
+
+  userOptions &&
+    set('options', () => ({
+      ...options,
+      ...Object.entries(userOptions)
+        .filter(([k]) => k !== 'enabled')
+        .reduce((a, [k, v]) => ({...a, [k]: v}), {}),
+    }))
 
   return this
 }
