@@ -78,7 +78,7 @@ describe('@roots/bud-imagemin', () => {
       bud.extensions.get(PLUGIN_HANDLE).get('options'),
     ).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {plugins: [{removeViewBox: false}]}]],
+        plugins: [['svgo', {removeViewBox: false}]],
       },
     })
   })
@@ -93,7 +93,7 @@ describe('@roots/bud-imagemin', () => {
       bud.hooks.filter(`extension/${PLUGIN_HANDLE}/options`),
     ).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {plugins: [{removeViewBox: false}]}]],
+        plugins: [['svgo', {removeViewBox: false}]],
       },
     })
   })
@@ -107,9 +107,7 @@ describe('@roots/bud-imagemin', () => {
 
   it('bud.imagemin.plugins registers plugin', () => {
     bud.use(imagemin)
-    bud.imagemin.plugins([
-      ['svgo', {plugins: [{removeViewBox: false}]}],
-    ])
+    bud.imagemin.plugins([['svgo', {removeViewBox: false}]])
 
     const options = bud.extensions
       .get(PLUGIN_HANDLE)
@@ -117,7 +115,7 @@ describe('@roots/bud-imagemin', () => {
 
     expect(options).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {plugins: [{removeViewBox: false}]}]],
+        plugins: [['svgo', {removeViewBox: false}]],
       },
     })
   })
@@ -126,9 +124,7 @@ describe('@roots/bud-imagemin', () => {
     bud.use(imagemin)
 
     bud.imagemin.plugins([['foo', {options: 'boom'}]])
-    bud.imagemin.plugins([
-      ['bar', {plugins: [{removeViewBox: false}]}],
-    ])
+    bud.imagemin.plugins([['bar', {removeViewBox: false}]])
 
     const options = bud.extensions
       .get(PLUGIN_HANDLE)
@@ -136,7 +132,7 @@ describe('@roots/bud-imagemin', () => {
 
     expect(options).toEqual({
       minimizerOptions: {
-        plugins: [['bar', {plugins: [{removeViewBox: false}]}]],
+        plugins: [['bar', {removeViewBox: false}]],
       },
     })
   })

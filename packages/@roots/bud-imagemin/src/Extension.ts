@@ -16,7 +16,7 @@ const Extension: Imagemin.Extension = {
       ['gifsicle', {interlaced: true}],
       ['jpegtran', {progressive: true}],
       ['optipng', {optimizationLevel: 7}],
-      ['svgo', {plugins: [{removeViewBox: false}]}],
+      ['svgo', {removeViewBox: false}],
     ]
 
     imagemin.plugins(
