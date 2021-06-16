@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "description": "Image minification for `@roots/bud` projects",
   "repository": {
     "type": "git",
