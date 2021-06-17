@@ -1,12 +1,36 @@
+## v4.6.0
+
+v4.6.0 extends the framework API with a new `.tap()` method, and it provides fixes for `@roots/bud-imagemin` as well as `bud.template()`.
+
+### Breaking
+
+- `@roots/bud-api` removes the `html-loader` when `bud.template()` is used.
+
+### Improved
+
+- `@roots/bud-framework` now has a `bud.tap()` method for running arbitrary callbacks without breaking the function chain.
+- `@roots/bud` removes `html-webpack-harddisk-plugin` as a dependency.
+- `html-webpack-plugin` has been moved from `@roots/bud` to `@roots/bud-api`, and it is only loaded when `bud.template()` is called.
+
+### Fixed
+
+- `@roots/bud-imagemin` now includes the correct default options for svgo.
+- `@roots/bud-api` supports the `html-webpack-plugin` fallback EJS loader when `bud.template()` is called.
+
+### Contributors
+
+- kellymears <kelly@roots.io>
+- QWp6t <hi@qwp6t.me>
+
 ## v4.5.0
 
 v4.5.0 comes with a lot of internal improvements. There are some small changes to the postcss and imagemin apis, for users of those plugins.
 
 ### Breaking
 
-- `@roots/bud-postcss` api has ben streamlined a bit. The big change is that plugins are now keyed by a string, explicitly. Check the [`@roots/bud-postcss` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-postcss/README.md) for usage.
+- `@roots/bud-postcss` API has been streamlined a bit. The big change is that plugins are now keyed by a string, explicitly. Check the [`@roots/bud-postcss` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-postcss/README.md) for usage.
 - `@roots/bud-tailwindcss` no longer needs/utilizes the `@tailwindcss/jit` package. This streamlines the config, if you were specifying your configuration in your project's bud config file.
-- `@roots/bud-imagemin`'s api has changed. If you were using the `bud.imagemin` config fn in your config file, you will need to update it. Check the [`@roots/bud-imagemin` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-imagemin/README.md) for updated usage instructions.
+- `@roots/bud-imagemin`'s API has changed. If you were using the `bud.imagemin` config fn in your config file, you will need to update it. Check the [`@roots/bud-imagemin` README](https://github.com/roots/bud/blob/stable/packages/%40roots/bud-imagemin/README.md) for updated usage instructions.
 
 ### Improved
 

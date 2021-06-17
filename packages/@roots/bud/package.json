@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -100,8 +100,6 @@
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
-    "html-webpack-harddisk-plugin": "^2.0.0",
-    "html-webpack-plugin": "^5.3.1",
     "ignore-emit-webpack-plugin": "^2.0.6",
     "ink": "^3.0.8",
     "ink-spinner": "^4.0.2",

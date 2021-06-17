@@ -191,6 +191,16 @@ interface Framework {
   sequence(fns: Array<(app: Framework) => any>): Framework
 
   /**
+   * app.tap
+   */
+  tap(
+    fn:
+      | ((app?: Framework) => any)
+      | ((this: Framework, app?: Framework) => any),
+    bound?: boolean,
+  ): Framework
+
+  /**
    * app.when
    */
   when(
@@ -415,9 +425,19 @@ abstract class Framework {
 
   @bind
   public sequence(fns: Array<(app: this) => any>): Framework {
-    fns.reduce((_val, fn) => {
-      return fn.bind(this)(this)
-    }, this)
+    fns.reduce((_val, fn) => this.tap(fn), this)
+
+    return this
+  }
+
+  @bind
+  public tap(
+    fn:
+      | ((app: Framework) => any)
+      | ((this: Framework, app?: Framework) => any),
+    bound: boolean = true,
+  ) {
+    fn.call(bound ? this : null, this)
 
     return this
   }
