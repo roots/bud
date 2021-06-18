@@ -1,2 +1,2 @@
-extensions:
-  - '@roots/bud-preset-recommend'
+  extensions:
+    - '@roots/bud-preset-recommend'  

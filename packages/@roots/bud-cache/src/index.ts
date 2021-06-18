@@ -1,4 +1,8 @@
-import {Service, Cache as Base} from '@roots/bud-framework'
+import {
+  Framework,
+  Service,
+  Cache as Base,
+} from '@roots/bud-framework'
 import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -11,38 +15,38 @@ class Cache extends Service implements Base {
   public cacheFiles: string[] = []
 
   @bind
-  public register(): void {
-    this.app.hooks.on('build', config => {
-      if (isEqual(config.cache.type, 'memory')) {
-        config.cache = {
-          type: 'memory',
-        }
+  public register({hooks}: Framework): void {
+    hooks.on('build/cache/type', 'memory')
+    hooks.on('build/cache/name', undefined)
+    hooks.on('build/cache/version', undefined)
+    hooks.on('build/cache/cacheDirectory', undefined)
+    hooks.on('build/cache/cacheLocation', undefined)
+    hooks.on('build/cache/buildDependencies', undefined)
+    hooks.on('build/cache/managedPaths', undefined)
+
+    /**
+     * Ensure that no other properties are passed
+     * if cache type is 'memory'.
+     */
+    hooks.on('build', config => {
+      if (isEqual(config?.cache?.type, 'memory')) {
+        config.cache = {type: 'memory'}
       }
 
       return config
     })
-
-    this.app.hooks
-      .on('build/cache/name', () => undefined)
-      .hooks.on('build/cache/version', () => undefined)
-      .hooks.on('build/cache/type', () => 'memory')
-      .hooks.on('build/cache/cacheDirectory', () => undefined)
-      .hooks.on('build/cache/cacheLocation', () => undefined)
-      .hooks.on('build/cache/buildDependencies', undefined)
-      .hooks.on('build/cache/managedPaths', () => undefined)
   }
 
   @bind
-  public booted(): void {
-    this.app.hooks.filter('build/cache/type') === 'filesystem' &&
-      !pathExistsSync(this.app.path('storage')) &&
-      mkdirSync(this.app.path('storage'))
+  public booted({path}: Framework): void {
+    !pathExistsSync(path('storage')) &&
+      mkdirSync(path('storage'))
   }
 
   @bind
   public version(): string {
     return crypto
-      .createHash('md4')
+      .createHash('md5')
       .update(this.hash())
       .digest('hex')
   }
@@ -55,10 +59,10 @@ class Cache extends Service implements Base {
   @bind
   public buildDependencies(): string[] {
     return sync([
-      this.app.path('project', 'package.json'),
+      ...this.cacheFiles,
       this.app.path(
         'project',
-        `${this.app.name}.{js,ts,yml,json}`,
+        `${this.app.name}.config.{js,ts,yml,json}`,
       ),
       this.app.path(
         'project',
@@ -67,10 +71,6 @@ class Cache extends Service implements Base {
       ...this.app.discovery.resolveFrom.map(
         dep => `${dep}/lib/cjs/index.js`,
       ),
-      ...this.app.discovery.resolveFrom.map(
-        dep => `${dep}/package.json`,
-      ),
-      ...this.cacheFiles,
       this.app.path('storage', 'cache/*'),
     ])
   }

@@ -7,12 +7,10 @@ describe('bud', () => {
 
   beforeAll(() => {
     bud = setupBud()
-    return
   })
 
   afterAll(() => {
     bud = teardownBud(bud)
-    return
   })
 
   it('mode', () => {
