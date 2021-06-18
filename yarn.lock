@@ -8372,6 +8372,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-multi@workspace:examples/multi-compiler":
+  version: 0.0.0-use.local
+  resolution: "example-multi@workspace:examples/multi-compiler"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+  languageName: unknown
+  linkType: soft
+
 "example-postcss@workspace:examples/postcss":
   version: 0.0.0-use.local
   resolution: "example-postcss@workspace:examples/postcss"

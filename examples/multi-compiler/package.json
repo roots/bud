@@ -1,0 +1,9 @@
+{
+  "name": "example-multi",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+  }
+}

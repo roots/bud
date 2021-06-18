@@ -51,10 +51,10 @@ export interface Compiler extends Service {
 }
 
 export namespace Compiler {
-  export type Compile = () => Webpack.Compiler
+  export type Compile = () => Instance
 
   export type Config = Webpack.Configuration
-  export type Instance = Webpack.Compiler
+  export type Instance = Webpack.Compiler | Webpack.MultiCompiler
 
   export type Progress = {
     percentage: string

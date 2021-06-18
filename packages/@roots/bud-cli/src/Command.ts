@@ -9,11 +9,9 @@ abstract class Command extends Base {
   }
 
   public async init() {
-    const bud = new Bud({
-      ...config,
-    })
-
-    this.app = bud.bootstrap(services).lifecycle()
+    this.app = new Bud(Bud, config)
+      .bootstrap(services)
+      .lifecycle()
 
     return
   }
