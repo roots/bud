@@ -12,6 +12,8 @@ export {Cache} from './Cache'
 
 export {Compiler} from './Compiler'
 
+export {Configuration} from './Configuration'
+
 export {Extension} from './Extensions/Extension'
 
 export {Extensions} from './Extensions/Extensions'

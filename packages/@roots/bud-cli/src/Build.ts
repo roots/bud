@@ -5,10 +5,17 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 import * as flags from './flags'
 
+declare interface Multi {
+  parent: (app: Framework) => Framework
+  [key: string]: (app: Framework) => Framework
+}
+
 export default class Build extends Command {
   public app: Framework
 
   public mode: 'development' | 'production'
+
+  public name: string
 
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -19,6 +26,7 @@ export default class Build extends Command {
     hash: flags.boolean(),
     install: flags.boolean(),
     manifest: flags.boolean(),
+    persist: flags.boolean(),
   }
 
   public setEnv(env) {
@@ -29,6 +37,7 @@ export default class Build extends Command {
 
   public async run() {
     this.features = this.parse(Build).flags
+
     !this.features.ci
       ? this.app.dashboard.run()
       : this.app.store.set('ci', true)
@@ -91,6 +100,24 @@ export default class Build extends Command {
   @bind
   public async builder(configs) {
     const builder = await new Config(this.app, configs).get()
+
+    if (
+      !isFunction(builder) &&
+      builder.hasOwnProperty('parent')
+    ) {
+      const {parent, ...multi} = builder as Multi
+
+      this.app = parent(this.app)
+
+      Object.entries(multi).map(([name, child]) => {
+        const instance = this.app.make(name)
+        instance.name = name
+
+        this.app.children.set(name, child(instance))
+      })
+
+      return
+    }
 
     this.app = !isFunction(builder)
       ? this.app

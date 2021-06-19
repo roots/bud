@@ -1,131 +1,5 @@
-import {Hooks, Server} from '@roots/bud-framework'
-import {Theme} from '@roots/ink-use-style'
-import Webpack from 'webpack/types'
 import {cpus} from 'os'
-
-interface Configuration {
-  /**
-   * Regular expressions for convenience when doing pattern matching.
-   *
-   * @example
-   *
-   * ```js
-   * app.patterns.get('js')
-   * ```
-   */
-  patterns: {[key: string]: RegExp}
-
-  /**
-   * Location
-   */
-  location: Hooks.Locale.Definitions
-
-  /**
-   * Feature: CI mode
-   *
-   * @default false
-   */
-  ci: boolean
-
-  /**
-   * Feature: Clean dist before compilation
-   *
-   * When enabled stale assets will be removed from
-   * the `location/dist` directory prior to the next
-   * compilation.
-   *
-   * @default true
-   */
-  clean: boolean
-
-  /**
-   * Feature: produce webpack.debug.js artifact
-   *
-   * When enabled a `webpack.debug.js` artifact will be
-   * emitted to the `location/storage` directory.
-   *
-   * @default false
-   */
-  debug: boolean
-
-  /**
-   * Discover: automatically register locatable extensions
-   *
-   * When enabled, any discovered extensions will be automatically
-   * initialized.
-   *
-   * @default false
-   */
-  discover: boolean
-
-  /**
-   * Feature: enable filename hashing
-   * @default false
-   */
-  hash: boolean
-
-  /**
-   * Feature: emit html template
-   * @default true
-   */
-  html: boolean
-
-  /**
-   * Feature: automatically install extension dependencies
-   * @default false
-   */
-  install: boolean
-
-  /**
-   * Feature: log to console
-   * @default false
-   */
-  log: boolean
-
-  /**
-   * Feature: produce asset manifest
-   * @default true
-   */
-  manifest: boolean
-
-  /**
-   * File format
-   *
-   * @note do not include extension
-   * @default '[name]'
-   */
-  fileFormat: string
-
-  /**
-   * File format (when hashing is enabled)
-   *
-   * @note do not include extension
-   * @default '[name].[contenthash]'
-   */
-  hashFormat: string
-
-  /**
-   * Seed values for webpack config
-   */
-  build: Webpack.Configuration
-
-  /**
-   * Seed values for extension options
-   */
-  extension: {
-    [key: string]: any
-  }
-
-  /**
-   * Server config
-   */
-  server: Server['config']['repository']
-
-  /**
-   * Theme configuration
-   */
-  theme: Theme
-}
+import {Configuration} from '@roots/bud-framework'
 
 export const config: Configuration = {
   patterns: {
@@ -153,7 +27,7 @@ export const config: Configuration = {
     storage: '.budfiles',
   },
   ci: false,
-  clean: true,
+  clean: false,
   debug: false,
   discover: false,
   hash: false,
@@ -208,13 +82,13 @@ export const config: Configuration = {
     },
     miniCssExtractPlugin: {},
     webpackConfigDumpPlugin: {
-      name: 'webpack.debug.js',
       keepCircularReferences: true,
     },
     webpackDefinePlugin: {},
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
+      assets: Object.create(null),
     },
     webpackProvidePlugin: {},
   },

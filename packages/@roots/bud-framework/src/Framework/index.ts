@@ -38,6 +38,13 @@ interface Framework {
   children: Container<Framework>
 
   /**
+   * If a child instance, returns the parent.
+   *
+   * If the parent instance, returns this
+   */
+  parent: Framework
+
+  /**
    * API service
    */
   api: Api
@@ -252,6 +259,8 @@ abstract class Framework {
 
   public _services: Container<Service>
 
+  public parent: Framework
+
   public children: Container<Framework>
 
   public proto: {
@@ -340,6 +349,7 @@ abstract class Framework {
     ) as 'production' | 'development'
 
     this.store = new Store(this.get).setStore(config ?? {})
+    this.parent = this
   }
 
   public access<I = any>(value: ((app: this) => I) | I): I {
@@ -363,15 +373,17 @@ abstract class Framework {
   public make(key: string): Framework {
     this.children.set(
       key,
-      new (this.proto.obj as any)(
-        this.proto.obj,
-        this.proto.config,
-      )
-        .bootstrap(this.proto.services)
-        .lifecycle(),
+      new (this.proto.obj as any)(this.proto.obj, {
+        ...this.proto.config,
+      }),
     )
 
-    this.get(key).name = key
+    this.children.get(key).parent = this
+    this.children.get(key).name = key
+    this.children
+      .get(key)
+      .bootstrap(this.proto.services)
+      .lifecycle()
 
     return this.get(key)
   }

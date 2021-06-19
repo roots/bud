@@ -2,24 +2,21 @@ import {
   WebpackManifestPlugin,
   Options,
 } from 'webpack-manifest-plugin'
-import {Module} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-framework'
 
-const extension: Module = {
+const extension: Plugin<{apply: any}, Options> = {
   name: 'webpack-manifest-plugin',
 
   options: app =>
     app.store.get('extension.webpackManifestPlugin'),
 
-  make: (options, {publicPath}) => {
-    const pluginOptions: Options = {
-      publicPath: publicPath(),
+  make: (options, {parent, publicPath}) =>
+    new WebpackManifestPlugin({
       ...options.all(),
-    }
-
-    const plugin = new WebpackManifestPlugin(pluginOptions)
-
-    return plugin
-  },
+      publicPath: publicPath(),
+      seed: parent.store.repository.extension
+        .webpackManifestPlugin.assets,
+    }),
 
   when: app => app.store.isTrue('manifest'),
 }

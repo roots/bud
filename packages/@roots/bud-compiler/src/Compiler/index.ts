@@ -57,6 +57,14 @@ export default class extends Service implements Compiler {
         .map(instance => instance.hooks.filter('after')),
     ])
 
+    this.setupInstance()
+    this.isCompiled = true
+
+    return this.instance
+  }
+
+  @bind
+  public setupInstance() {
     this.instance.hooks.done.tap(this.app.name, stats => {
       if (stats) {
         this.stats = stats.toJson()
@@ -68,27 +76,14 @@ export default class extends Service implements Compiler {
         }
 
         if (this.app.mode == 'production') {
-          setTimeout(() => process.exit(), 1000)
+          setTimeout(() => process.exit(), 100)
         }
       })
     })
 
-    new ProgressPlugin((percentage, message): void => {
-      const decimal =
-        percentage && typeof percentage === 'number'
-          ? percentage
-          : 0
-
-      this.progress = {
-        decimal,
-        percentage: `${Math.floor(decimal * 100)}%`,
-        message,
-      }
+    new ProgressPlugin((...args): void => {
+      this.progress = args
     }).apply(this.instance)
-
-    this.isCompiled = true
-
-    return this.instance
   }
 
   @bind

@@ -200,31 +200,5 @@ function getAssets(
     process.exit()
   }
 
-  /**
-   * Entrypoints will always generate a JS file even when it is
-   * just boilerplate (css only entrypoint)
-   */
-  if (isCssOnlyEntrypoint(entry.import)) {
-    this.extensions
-      .get('ignore-emit-webpack-plugin')
-      .set('options', options => ({
-        ignore: [...(options.ignore ?? []), name.concat('.js')],
-      }))
-  }
-
   return entry
-}
-
-/**
- * Return true if entrypoint is comprised of nothing but css files.
- *
- * @webpack5 this is no longer necessary
- */
-function isCssOnlyEntrypoint(assets: string[]): boolean {
-  const getType = (file: string) => file.split('.').pop()
-  const notCss = (file: string) => getType(file) !== 'css'
-  const cssOnly = (entry: string[]) =>
-    entry.filter(f => notCss(f))?.length == 0
-
-  return cssOnly(assets)
 }

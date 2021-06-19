@@ -8379,6 +8379,7 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-esbuild": "workspace:*"
   languageName: unknown
   linkType: soft
 

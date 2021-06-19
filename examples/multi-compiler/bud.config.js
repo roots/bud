@@ -1,18 +1,11 @@
-module.exports = app => {
-  app
-    .entry({
-      styles: '*.css',
-    })
-    .persist()
+module.exports = {
+  parent: app =>
+    app
+      .use(require('@roots/bud-esbuild'))
+      .entry({vanilla: ['demo.js', 'foo.css']}),
 
-  app
-    .make('babel')
-    .use(require('@roots/bud-babel'))
-    .template()
-    .entry({
-      app: ['app.js'],
-    })
-    .persist()
-
-  return app
+  babel: app =>
+    app
+      .use(require('@roots/bud-babel'))
+      .entry({app: ['app.js']}),
 }

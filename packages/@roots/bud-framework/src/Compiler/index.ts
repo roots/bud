@@ -56,11 +56,7 @@ export namespace Compiler {
   export type Config = Webpack.Configuration
   export type Instance = Webpack.Compiler | Webpack.MultiCompiler
 
-  export type Progress = {
-    percentage: string
-    message: string
-    decimal: number
-  }
+  export type Progress = any
 
   export namespace Progress {
     export type Handler = ProgressPlugin['handler']
