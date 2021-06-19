@@ -84,6 +84,18 @@
       },
       "extensions:install": {
         "description": "install extension dependencies"
+      },
+      "clean": {
+        "description": "clean project files"
+      },
+      "clean:storage": {
+        "description": "clean project storage"
+      },
+      "clean:dist": {
+        "description": "clean project distributables"
+      },
+      "clean:all": {
+        "description": "clean all projct files"
       }
     }
   },

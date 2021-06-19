@@ -8,6 +8,7 @@ import Table from 'ink-table'
 import humanFormat from 'human-format'
 import {StatsCompilation} from 'webpack/types'
 import patchConsole from 'patch-console'
+import {Progress} from './Progress'
 
 const useForceUpdate = () => {
   const [, forceUpdate] = React.useState(true)
@@ -42,21 +43,12 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   const instance = useRef<Framework>(bud)
 
   const theme = useStyle(bud?.store?.get('theme'))
-  const [stdout, setStdout] = useState<string[]>([])
-  const [stderr, setStderr] = useState<string[]>([])
   const [progress, setProgress] = useState<any>(null)
   const [stats, setStats] = useState<StatsCompilation>({
     errors: [],
   })
 
-  patchConsole((stream, data) => {
-    if (stream == 'stdout') {
-      setStdout([...stdout, data.toString()])
-    }
-    if (stream == 'stderr') {
-      setStderr([...stderr, data.toString()])
-    }
-  })
+  patchConsole((stream, data) => {})
 
   setInterval(() => {
     setStats(instance.current.compiler.stats)
@@ -66,32 +58,24 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   useInput(input => {
     if (isEqual(input, 'q')) {
       try {
-        process.exit()
+        bud.compiler.instance.close(() => {
+          setTimeout(() => process.exit(), 10)
+        })
       } catch (err) {}
     }
   })
 
   return (
     <Box flexDirection="column" marginTop={1}>
-      <Static items={stdout}>
-        {(out, i) => <Text key={`stdout-${i}`}>{out}</Text>}
-      </Static>
-
-      <Static items={stderr}>
-        {(err, i) => <Text key={`stderr-${i}`}>{err}</Text>}
-      </Static>
-
       <Static flexDirection="column" items={stats?.errors}>
-        {errors =>
-          errors.map((err, k) =>
-            err.message ? (
-              <Text color={theme.colors.error} key={`err-${k}`}>
-                {err.message ?? err ?? ''}
-                <Newline />
-              </Text>
-            ) : (
-              []
-            ),
+        {(err, k) =>
+          err.message ? (
+            <Text key={`err-${k}`}>
+              {err.message ?? err ?? ''}
+              <Newline />
+            </Text>
+          ) : (
+            []
           )
         }
       </Static>
@@ -100,17 +84,25 @@ const Dashboard = ({bud}: {bud: Framework}) => {
         progress &&
         stats?.children?.map((child, id) => (
           <Box
-            key={`stats-${child.name}`}
+            key={`stats-${child.name}-${id}`}
             marginBottom={1}
             flexDirection={'column'}>
             <Text backgroundColor={theme.colors.primary}>
               {' '}
-              {child.name} {stats.hash}
+              {child.name}{' '}
             </Text>
             <Table data={formatAssetsData(child.assets)} />
             <Text>Compiled in {child.time / 1000}s</Text>
           </Box>
         ))}
+
+      {progress && progress[0] && progress[0] < 1 && (
+        <Progress
+          progress={progress}
+          theme={theme}
+          mode={instance.current.mode}
+        />
+      )}
     </Box>
   )
 }

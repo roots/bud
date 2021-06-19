@@ -5,13 +5,6 @@ import {Eslint} from './api'
 const extension: Extension = {
   name: 'eslint-webpack-plugin',
 
-  register: ({cache, path}) => {
-    cache.cacheFiles = [
-      ...cache.cacheFiles,
-      path('storage', 'cache/eslint.json'),
-    ]
-  },
-
   options: ({path, store}) => ({
     extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
     cache: true,
