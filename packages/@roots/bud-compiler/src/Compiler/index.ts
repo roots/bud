@@ -51,7 +51,7 @@ export default class extends Service implements Compiler {
     this.app.hooks.filter('before')
 
     this.instance = webpack([
-      this.app.build.config,
+      this.app.hooks.filter('after'),
       ...this.app.children
         .getValues()
         .map(instance => instance.hooks.filter('after')),
