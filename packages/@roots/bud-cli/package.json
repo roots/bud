@@ -45,7 +45,9 @@
     "lib/",
     "docs/",
     "bin/",
-    "types/"
+    "types/",
+    "assets/",
+    "vendor/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -139,6 +141,7 @@
     "cosmiconfig": "^7.0.0",
     "globby": "^11.0.3",
     "lodash": "^4.17.21",
+    "node-notifier": "^10.0.0",
     "tslib": "^2.2.0"
   }
 }

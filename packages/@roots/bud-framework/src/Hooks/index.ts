@@ -78,7 +78,7 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  filter<T = any>(id: `${Hooks.Name & string}`): T
+  filter<T = any>(id: `${Hooks.Name & string}`, seed?: any): T
 
   /**
    * ## hooks.link
@@ -347,6 +347,7 @@ namespace Hooks {
   export type Name =
     | `before`
     | `after`
+    | `done`
     | `${Item.Final}`
     | `${Locale.Final}`
     | `${Loader.Final}`

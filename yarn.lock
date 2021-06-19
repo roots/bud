@@ -2694,6 +2694,7 @@ __metadata:
     cosmiconfig: ^7.0.0
     globby: ^11.0.3
     lodash: ^4.17.21
+    node-notifier: ^10.0.0
     tslib: ^2.2.0
   bin:
     bud: ./bin/bud

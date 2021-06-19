@@ -4,6 +4,8 @@ import {Config} from './Config'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 import * as flags from './flags'
+import {NotificationCenter} from 'node-notifier'
+import {resolve} from 'path/posix'
 
 declare interface Multi {
   parent: (app: Framework) => Framework
@@ -11,11 +13,15 @@ declare interface Multi {
 }
 
 export default class Build extends Command {
-  public app: Framework
+  public static strict = false
 
-  public mode: 'development' | 'production'
-
-  public name: string
+  public static args = [
+    {
+      name: 'target',
+      required: false,
+      description: 'compiler to build',
+    },
+  ]
 
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -26,7 +32,14 @@ export default class Build extends Command {
     hash: flags.boolean(),
     install: flags.boolean(),
     manifest: flags.boolean(),
-    persist: flags.boolean(),
+  }
+
+  public app: Framework
+
+  public mode: 'development' | 'production'
+
+  public get cli(): {[key: string]: any} {
+    return this.parse(Build)
   }
 
   public setEnv(env) {
@@ -36,9 +49,9 @@ export default class Build extends Command {
   }
 
   public async run() {
-    this.features = this.parse(Build).flags
+    const features = this.cli.flags
 
-    !this.features.ci
+    !features.ci
       ? this.app.dashboard.run()
       : this.app.store.set('ci', true)
 
@@ -60,9 +73,11 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.config.js`,
     ])
 
-    Object.entries(this.features).forEach(([k, v]) => {
+    Object.entries(features).forEach(([k, v]) => {
       this.app.store.set(k, v)
     })
+
+    features.cache && this.app.persist()
 
     this.app.run()
   }
@@ -101,11 +116,70 @@ export default class Build extends Command {
   public async builder(configs) {
     const builder = await new Config(this.app, configs).get()
 
+    this.app.hooks.on('done', () => {
+      this.app.compiler.instance.hooks.done.tap(
+        `${this.app.name}.notifier`,
+        ({stats}: any) => {
+          const final: any = stats.reduce(
+            (final: any, {compilation: stat}: any) => {
+              return {
+                count: final.count + 1,
+                errors: final.errors ?? stat.hasErrors(),
+                assets:
+                  final.assets +
+                  Array.from(stat.entrypoints).length,
+              }
+            },
+            {
+              count: 0,
+              errors: false,
+              assets: 0,
+            },
+          )
+
+          const notifier = new NotificationCenter({
+            title: this.app.name,
+            subtitle: final.errors ? `❌ Error` : `✅ Success`,
+            message: `${final.assets} entrypoints produced`,
+            remove: this.app.name,
+            group: this.app.name,
+            contentImage: resolve(
+              __dirname,
+              '../assets/bud-icon.png',
+            ),
+            customPath: resolve(
+              __dirname,
+              '../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
+            ),
+          })
+
+          notifier.notify({
+            title: final.errors
+              ? `❌ Build error`
+              : `✅ Build success`,
+            message: `${final.assets} entrypoints produced`,
+            group: this.app.name,
+          })
+        },
+      )
+    })
+
     if (
       !isFunction(builder) &&
       builder.hasOwnProperty('parent')
     ) {
       const {parent, ...multi} = builder as Multi
+
+      if (this.cli.args && this.cli.args.length > 0) {
+        this.cli.args.forEach(target => {
+          const instance = this.app.make(target)
+          instance.name = target
+
+          this.app.children.set(target, multi[target](instance))
+        })
+
+        return
+      }
 
       this.app = parent(this.app)
 

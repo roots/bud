@@ -8,4 +8,6 @@ module.exports = {
     app
       .use(require('@roots/bud-babel'))
       .entry({app: ['app.js']}),
+
+  styles: app => app.entry({styles: ['global.css']}),
 }

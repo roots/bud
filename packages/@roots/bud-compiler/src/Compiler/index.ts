@@ -1,7 +1,8 @@
 import {Compiler, Service} from '@roots/bud-framework'
-import webpack, {ProgressPlugin, StatsCompilation} from 'webpack'
+import webpack, {ProgressPlugin} from 'webpack'
 import {noop} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
+import {StatsCompilation} from 'webpack/types'
 
 export default class extends Service implements Compiler {
   public name = '@roots/bud-compiler'
@@ -58,6 +59,8 @@ export default class extends Service implements Compiler {
     ])
 
     this.setupInstance()
+    this.app.hooks.filter('done')
+
     this.isCompiled = true
 
     return this.instance
