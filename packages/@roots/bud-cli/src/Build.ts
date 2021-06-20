@@ -170,18 +170,28 @@ export default class Build extends Command {
     ) {
       const {parent, ...multi} = builder as Multi
 
-      if (this.cli.args && this.cli.args.length > 0) {
-        this.cli.args.forEach(target => {
-          const instance = this.app.make(target)
-          instance.name = target
+      this.app = parent(this.app)
 
-          this.app.children.set(target, multi[target](instance))
-        })
+      if (this.cli.args.target) {
+        !multi[this.cli.args.target] &&
+          (() => {
+            console.error(
+              `${this.cli.args.target} not found in bud config`,
+            )
+
+            process.exit(1)
+          })()
+
+        const instance = this.app.make(this.cli.args.target)
+        instance.name = this.cli.args.target
+
+        this.app.children.set(
+          this.cli.args.target,
+          multi[this.cli.args.target](instance),
+        )
 
         return
       }
-
-      this.app = parent(this.app)
 
       Object.entries(multi).map(([name, child]) => {
         const instance = this.app.make(name)
