@@ -2751,7 +2751,6 @@ __metadata:
     "@types/node": ^15.12.2
     "@types/react": ^17.0.8
     autobind-decorator: ^2.4.0
-    axios: ^0.21.1
     execa: ^5.1.1
     human-readable: ^0.2.1
     ink: ^3.0.8
@@ -5311,15 +5310,6 @@ __metadata:
   version: 4.1.4
   resolution: "axe-core@npm:4.1.4"
   checksum: eca4c5396a572f87661969bcd74add0ce2f32e13ba5cbe84cea313b82fb881d8f7f803f95a51e7f0e6867a72c57d8e60717fff045c5524652cd982ca7b071344
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.21.1":
-  version: 0.21.1
-  resolution: "axios@npm:0.21.1"
-  dependencies:
-    follow-redirects: ^1.10.0
-  checksum: c87915fa0b18c15c63350112b6b3563a3e2ae524d7707de0a73d2e065e0d30c5d3da8563037bc29d4cc1b7424b5a350cb7274fa52525c6c04a615fe561c6ab11
   languageName: node
   linkType: hard
 
@@ -8981,16 +8971,6 @@ __metadata:
     debug:
       optional: true
   checksum: 4b5aaa91a0f938547a083d001a572da4d6b7586b699f330da8794ae2cf8b0d8628bcde794f9b205fbe6c6dcab30272454e723aed8f5540bf47a41fa8c7e36441
-  languageName: node
-  linkType: hard
-
-"follow-redirects@npm:^1.10.0":
-  version: 1.14.1
-  resolution: "follow-redirects@npm:1.14.1"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 7381a55bdc6951c5c1ab73a8da99d9fa4c0496ce72dba92cd2ac2babe0e3ebde9b81c5bca889498ad95984bc773d713284ca2bb17f1b1e1416e5f6531e39a488
   languageName: node
   linkType: hard
 

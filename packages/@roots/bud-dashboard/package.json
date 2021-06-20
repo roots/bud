@@ -66,7 +66,6 @@
     "@roots/filesystem": "workspace:packages/@roots/filesystem",
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "autobind-decorator": "^2.4.0",
-    "axios": "^0.21.1",
     "execa": "^5.1.1",
     "human-readable": "^0.2.1",
     "ink": "^3.0.8",
