@@ -1,14 +1,26 @@
-import {Dashboard, Framework} from '@roots/bud-framework'
-
 import React, {useState, useCallback, useRef} from 'react'
 import {Box, Newline, Text, useInput, Static} from 'ink'
-import {useStyle} from '@roots/ink-use-style'
-import {isEqual} from 'lodash'
-import Table from 'ink-table'
-import humanFormat from 'human-format'
-import {StatsCompilation} from 'webpack/types'
+import {isEqual, noop} from 'lodash'
+import {durationFormatter, sizeFormatter} from 'human-readable'
 import patchConsole from 'patch-console'
+
+import {useStyle} from '@roots/ink-use-style'
 import {Progress} from './Progress'
+
+import {Dashboard, Framework} from '@roots/bud-framework'
+import {StatsCompilation} from 'webpack/types'
+
+const useFormatter = () => {
+  return {
+    fileSize: sizeFormatter({
+      decimalPlaces: 2,
+      keepTrailingZeroes: false,
+    }),
+    duration: durationFormatter({
+      allowMultiples: ['m', 's', 'ms'],
+    }),
+  }
+}
 
 const useForceUpdate = () => {
   const [, forceUpdate] = React.useState(true)
@@ -18,29 +30,10 @@ const useForceUpdate = () => {
   }, [])
 }
 
-const formatAssetsData = assets =>
-  assets
-    .filter(({name}) => name !== 'manifest.json')
-    .reduce(
-      (a, {name, size, emitted, info}) => [
-        ...a,
-        {
-          name: `${emitted ? '❇ ' : ''}${name}`,
-          immutable: info?.immutable ? '✔' : '',
-          minimized: info?.minimized ? '✔' : '',
-          size: humanFormat(size, {
-            prefix: 'k',
-            decimals: 2,
-          }),
-        },
-      ],
-      [],
-    )
-
 const Dashboard = ({bud}: {bud: Framework}) => {
   useForceUpdate()
-
   const instance = useRef<Framework>(bud)
+  const {fileSize, duration} = useFormatter()
 
   const theme = useStyle(bud?.store?.get('theme'))
   const [progress, setProgress] = useState<any>(null)
@@ -48,7 +41,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
     errors: [],
   })
 
-  patchConsole((stream, data) => {})
+  patchConsole(noop)
 
   setInterval(() => {
     setStats(instance.current.compiler.stats)
@@ -91,17 +84,74 @@ const Dashboard = ({bud}: {bud: Framework}) => {
               {' '}
               {child.name}{' '}
             </Text>
-            <Table data={formatAssetsData(child.assets)} />
-            <Text>Compiled in {child.time / 1000}s</Text>
+
+            <Box flexDirection="column" marginY={1}>
+              {child.assets
+                .filter(
+                  ({name, size}) =>
+                    !name.includes('.json') &&
+                    !name.includes('hot-update') &&
+                    size > 0,
+                )
+                .map((asset, id) => (
+                  <Box
+                    key={`mdx-asset-${id}`}
+                    flexDirection="row"
+                    justifyContent="flex-start">
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                        theme.col(3),
+                      ])}>
+                      <Text wrap="truncate-end">
+                        {' '}
+                        - {asset.name}
+                      </Text>
+                    </Box>
+
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                        theme.col(3),
+                      ])}>
+                      {asset?.info?.minimized && (
+                        <Text color={theme.colors.success}>
+                          minimized
+                        </Text>
+                      )}
+                    </Box>
+
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                        theme.col(3),
+                      ])}>
+                      <Text>{fileSize(asset.size)}</Text>
+                    </Box>
+                  </Box>
+                ))}
+            </Box>
+            <Text>Compiled in {duration(child.time)}</Text>
           </Box>
         ))}
 
-      {progress && progress[0] && progress[0] < 1 && (
+      {progress && progress[0] && progress[0] < 1 ? (
         <Progress
           progress={progress}
           theme={theme}
           mode={instance.current.mode}
         />
+      ) : (
+        instance.current.mode == 'development' && (
+          <Box marginBottom={1}>
+            <Text color={theme?.colors.faded}>
+              Press Q to exit
+            </Text>
+          </Box>
+        )
       )}
     </Box>
   )
