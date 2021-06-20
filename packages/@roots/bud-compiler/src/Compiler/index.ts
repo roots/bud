@@ -43,6 +43,8 @@ export default class extends Service implements Compiler {
     this._instance = instance
   }
 
+  public compilerDoneFilterCalled: boolean = false
+
   @bind
   public compile(): Compiler.Instance {
     if (this.isCompiled) {
@@ -51,17 +53,26 @@ export default class extends Service implements Compiler {
 
     this.app.hooks.filter('before')
 
-    this.instance = webpack([
-      this.app.hooks.filter('after'),
+    this.app.hooks.on('after', after => [
+      after,
       ...this.app.children
         .getValues()
-        .map(instance => instance.hooks.filter('after')),
+        .map(instance => instance.build.config),
     ])
 
-    this.setupInstance()
-    this.app.hooks.filter('done')
+    this.instance = webpack(this.app.hooks.filter('after'))
 
-    this.isCompiled = true
+    this.app.when(
+      !this.app.compiler.compilerDoneFilterCalled &&
+        !this.compilerDoneFilterCalled,
+      () => {
+        this.isCompiled = true
+        this.compilerDoneFilterCalled = true
+
+        this.app.hooks.filter('done')
+        this.setupInstance()
+      },
+    )
 
     return this.instance
   }
