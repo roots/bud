@@ -23,14 +23,14 @@ declare module '@roots/bud-framework' {
   namespace Api {
     type Override = (
       overrideFn: (
-        config: Webpack.Configuration,
-      ) => Webpack.Configuration,
+        config: Webpack.Configuration[],
+      ) => Webpack.Configuration[],
     ) => Framework
   }
 }
 
 const override: Api.Override = function (overrideFn) {
-  this.hooks.on('after', (config: Webpack.Configuration) =>
+  this.hooks.on('after', (config: Webpack.Configuration[]) =>
     overrideFn(config),
   )
 

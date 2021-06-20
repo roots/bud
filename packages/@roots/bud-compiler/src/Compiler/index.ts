@@ -1,6 +1,6 @@
 import {Compiler, Service} from '@roots/bud-framework'
 import webpack, {ProgressPlugin} from 'webpack'
-import {noop} from 'lodash'
+import {noop, isEqual} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 import {StatsCompilation} from 'webpack/types'
 
@@ -54,7 +54,7 @@ export default class extends Service implements Compiler {
     this.app.hooks.filter('before')
 
     this.app.hooks.on('after', after => [
-      after,
+      ...after,
       ...this.app.children
         .getValues()
         .map(instance => instance.build.config),
@@ -80,18 +80,13 @@ export default class extends Service implements Compiler {
   @bind
   public setupInstance() {
     this.instance.hooks.done.tap(this.app.name, stats => {
-      if (stats) {
-        this.stats = stats.toJson()
-      }
+      stats && Object.assign(this.stats, stats.toJson())
 
       this.instance.close(err => {
-        if (err) {
-          this.stats.errors.push(err)
-        }
+        err && this.stats.errors.push(err)
 
-        if (this.app.mode == 'production') {
+        isEqual(this.app.mode, 'production') &&
           setTimeout(() => process.exit(), 100)
-        }
       })
     })
 

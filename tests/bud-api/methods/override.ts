@@ -23,20 +23,19 @@ describe('bud.override', function () {
       },
     }
 
-    bud.override(config => ({
+    bud.override(config => [
       ...config,
-      entry: {
-        app: ['foo.js'],
+      {
+        ...config.pop(),
+        entry: {
+          app: ['foo.js'],
+        },
       },
-    }))
+    ])
 
-    expect(bud.hooks.filter('after').entry).toEqual(
-      expectation.entry,
-    )
-
-    expect(bud.hooks.filter('after').devtool).toEqual(
-      expectation.devtool,
-    )
+    const {entry, devtool} = bud.hooks.filter('after').pop()
+    expect(entry).toEqual(expectation.entry)
+    expect(devtool).toEqual(expectation.devtool)
   })
 })
 
