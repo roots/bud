@@ -1,5 +1,4 @@
 import {Framework, Hooks, Service} from '@roots/bud-framework'
-import prettyFormat from 'pretty-format'
 import {noop, get, set, isArray, isFunction} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
@@ -19,7 +18,7 @@ export default class extends Service implements Hooks {
 
   @bind
   public on(id: Hooks.Name, callback: Hooks.Hook): Framework {
-    const [publisher, name] = isArray(id)
+    const [_publisher, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
@@ -31,10 +30,6 @@ export default class extends Service implements Hooks {
       this.set(name, [...current, callback])
     }
 
-    this.logger.scope(name, publisher).success({
-      message: `${name} updated`,
-    })
-
     return this.app
   }
 
@@ -43,7 +38,7 @@ export default class extends Service implements Hooks {
     id: `${Hooks.Name & string}`,
     value?: any,
   ): T {
-    const [subscriber, name] = isArray(id)
+    const [_subscriber, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
@@ -55,13 +50,6 @@ export default class extends Service implements Hooks {
       },
       null,
     )
-
-    this.logger.scope(name, subscriber).success({
-      message: `${name} retrieved`,
-      suffix: prettyFormat(result, {
-        highlight: true,
-      }),
-    })
 
     return result
   }

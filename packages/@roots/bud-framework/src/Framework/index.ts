@@ -146,7 +146,7 @@ interface Framework {
   get(instance?: string): Framework
 
   /**
-   * app.makeInstance
+   * app.make
    * @note multi-compiler api is experimental
    */
   make(

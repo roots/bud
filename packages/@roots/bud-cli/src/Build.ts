@@ -31,12 +31,25 @@ export default class Build extends Command {
 
   public static flags = {
     help: flags.help({char: 'h'}),
-    cache: flags.boolean(),
-    ci: flags.boolean(),
+    cache: flags.boolean({
+      char: 'c',
+      description: 'cache compiler references to disk',
+    }),
+    ci: flags.boolean({
+      description: 'non raw mode tty interoperable output',
+    }),
     debug: flags.boolean(),
     log: flags.boolean(),
-    hash: flags.boolean(),
-    manifest: flags.boolean(),
+    hash: flags.boolean({
+      description: 'hash compiled filenames',
+    }),
+    manifest: flags.boolean({
+      description: 'produce a manifest',
+    }),
+    minimize: flags.boolean({
+      char: 'm',
+      description: 'minimize file size of compiled assets',
+    }),
   }
 
   public get cli() {
@@ -57,14 +70,61 @@ export default class Build extends Command {
       : this.app.store.set('ci', true)
 
     this.setEnv(this.mode)
+
     await this.doStatics()
     await this.doBuilders()
 
     Object.entries(features).forEach(([k, v]) => {
       this.app.store.set(k, v)
+      this.app.children.every((_name, child) => {
+        child.store.set(k, v)
+      })
     })
 
-    features.cache && this.app.persist()
+    if (features.cache) {
+      this.app.persist()
+      this.app.children.every((_name, child) => {
+        child.persist()
+      })
+    }
+
+    if (features.minimize) {
+      this.app.minimize()
+      this.app.children.every((_name, child) => {
+        child.minimize()
+      })
+    }
+
+    this.app.hooks.on('done', () => {
+      const notifier = new NotificationCenter({
+        customPath: resolve(
+          __dirname,
+          '../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
+        ),
+      })
+
+      notifier.notify({
+        title: this.app.compiler.errors
+          ? `Build error`
+          : `Build success`,
+        message: this.app.compiler.errors
+          ? `${
+              this.app.discovery.getProjectInfo().name ??
+              this.app.name
+            } couldn't be compiled`
+          : `${
+              this.app.discovery.getProjectInfo().name ??
+              this.app.name
+            } compiled successfully`,
+        group:
+          this.app.discovery.getProjectInfo().name ??
+          this.app.name,
+        contentImage: resolve(
+          __dirname,
+          '../assets/bud-icon.jpg',
+        ),
+      })
+    })
 
     this.app.run()
   }
@@ -111,92 +171,10 @@ export default class Build extends Command {
   public async builder(configs) {
     const builder = await new Config(this.app, configs).get()
 
-    this.app.hooks.on('done', () => {
-      this.app.compiler.instance.hooks.done.tap(
-        `${this.app.name}.notifier`,
-        ({stats}: any) => {
-          const final: any = stats.reduce(
-            (final: any, {compilation: stat}: any) => {
-              return {
-                count: final.count + 1,
-                errors: final.errors ?? stat.hasErrors(),
-                assets:
-                  final.assets +
-                  Array.from(stat.entrypoints).length,
-              }
-            },
-            {
-              count: 0,
-              errors: false,
-              assets: 0,
-            },
-          )
-
-          const notifier = new NotificationCenter({
-            title: this.app.name,
-            subtitle: final.errors ? `❌ Error` : `✅ Success`,
-            message: `${final.assets} entrypoints produced`,
-            remove: this.app.name,
-            group: this.app.name,
-            contentImage: resolve(
-              __dirname,
-              '../assets/bud-icon.png',
-            ),
-            customPath: resolve(
-              __dirname,
-              '../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
-            ),
-          })
-
-          notifier.notify({
-            title: final.errors
-              ? `❌ Build error`
-              : `✅ Build success`,
-            message: `${final.assets} entrypoints produced`,
-            group: this.app.name,
-          })
-        },
-      )
-    })
-
-    if (
-      !isFunction(builder) &&
-      builder.hasOwnProperty('parent')
-    ) {
-      return this.handleMultiConfig(builder)
-    }
-
-    this.app = !isFunction(builder)
-      ? this.app
-      : builder(this.app)
-  }
-
-  @bind
-  public handleMultiConfig(builder: Multi) {
-    const {parent, ...multi} = builder
-
-    this.app = parent(this.app)
+    isFunction(builder) && builder(this.app)
 
     if (this.cli.args.target) {
-      !multi[this.cli.args.target] &&
-        (() => {
-          console.error(
-            `${this.cli.args.target} not found in bud config`,
-          )
-
-          process.exit(1)
-        })()
-
-      this.app.make(
-        this.cli.args.target,
-        multi[this.cli.args.target],
-      )
-
-      return
+      this.app = this.app.children.get(this.cli.args.target)
     }
-
-    Object.entries(multi).map(([name, child]) => {
-      this.app.make(name, child)
-    })
   }
 }

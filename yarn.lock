@@ -8360,17 +8360,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"example-multi-2@workspace:examples/multi-compiler-2":
-  version: 0.0.0-use.local
-  resolution: "example-multi-2@workspace:examples/multi-compiler-2"
-  dependencies:
-    "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-cli": "workspace:*"
-    "@roots/bud-esbuild": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "example-multi@workspace:examples/multi-compiler":
   version: 0.0.0-use.local
   resolution: "example-multi@workspace:examples/multi-compiler"

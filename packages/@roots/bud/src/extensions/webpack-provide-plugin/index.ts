@@ -5,7 +5,7 @@ interface Index<T> {
   [key: string]: T
 }
 
-const extension: Module<Plugin, Index<{[key: string]: any}>> = {
+const extension: Module<Plugin, Index<Index<any>>> = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>

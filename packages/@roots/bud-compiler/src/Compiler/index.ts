@@ -53,26 +53,28 @@ export default class extends Service implements Compiler {
 
     this.app.hooks.filter('before')
 
-    this.app.hooks.on('after', after => [
-      ...after,
-      ...this.app.children
-        .getValues()
-        .map(instance => instance.build.config),
-    ])
+    this.app.hooks.on('after', after => {
+      !this.app.children.getEntries()[0]
+        ? after.push(this.app.build.config)
+        : this.app.children.every((name, child) => {
+            this.app.log('child compiler added to config', name)
+            after.push(child.build.config)
+          })
+
+      return after
+    })
 
     this.instance = webpack(this.app.hooks.filter('after'))
+    this.isCompiled = true
 
     this.app.when(
-      !this.app.compiler.compilerDoneFilterCalled &&
-        !this.compilerDoneFilterCalled,
+      !this.app.parent.compiler.compilerDoneFilterCalled,
       () => {
-        this.isCompiled = true
-        this.compilerDoneFilterCalled = true
-
         this.app.hooks.filter('done')
-        this.setupInstance()
       },
     )
+
+    this.setupInstance()
 
     return this.instance
   }
