@@ -74,7 +74,7 @@ const use: Api.Use = function (source) {
 
     this.extensions.add(
       isWebpackPlugin(source)
-        ? {name: source.name, make: () => source}
+        ? {...source, make: () => source}
         : source,
     )
   }
