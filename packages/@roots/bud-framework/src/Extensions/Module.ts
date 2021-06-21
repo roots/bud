@@ -38,6 +38,11 @@ interface Module<Plugin = any, Options = any> {
    * compilation.
    */
   when?: Module.When<Options>
+
+  /**
+   * Webpack plugin apply.
+   */
+  apply?: CallableFunction
 }
 
 namespace Module {

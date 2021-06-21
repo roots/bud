@@ -2595,6 +2595,7 @@ __metadata:
     globby: ^11.0.3
     html-webpack-plugin: ^5.3.1
     lodash: ^4.17.21
+    nanoid: ^3.1.23
     webpack: ^5.38.1
   languageName: unknown
   linkType: soft
