@@ -1,9 +1,9 @@
+import {flags} from '@oclif/command'
 import Command from './Command'
 import {Framework} from '@roots/bud'
 import {Config} from './Config'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
-import * as flags from './flags'
 import {NotificationCenter} from 'node-notifier'
 import {resolve} from 'path/posix'
 
@@ -15,6 +15,8 @@ declare interface Multi {
 export default class Build extends Command {
   public static strict = false
 
+  public static description = 'Build application'
+
   public static args = [
     {
       name: 'target',
@@ -23,6 +25,10 @@ export default class Build extends Command {
     },
   ]
 
+  public app: Framework
+
+  public mode: 'development' | 'production'
+
   public static flags = {
     help: flags.help({char: 'h'}),
     cache: flags.boolean(),
@@ -30,16 +36,11 @@ export default class Build extends Command {
     debug: flags.boolean(),
     log: flags.boolean(),
     hash: flags.boolean(),
-    install: flags.boolean(),
     manifest: flags.boolean(),
   }
 
-  public app: Framework
-
-  public mode: 'development' | 'production'
-
-  public get cli(): {[key: string]: any} {
-    return this.parse(Build)
+  public get cli() {
+    return (this.parse as any)(Build as any)
   }
 
   public setEnv(env) {
@@ -56,9 +57,20 @@ export default class Build extends Command {
       : this.app.store.set('ci', true)
 
     this.setEnv(this.mode)
-
     await this.doStatics()
+    await this.doBuilders()
 
+    Object.entries(features).forEach(([k, v]) => {
+      this.app.store.set(k, v)
+    })
+
+    features.cache && this.app.persist()
+
+    this.app.run()
+  }
+
+  @bind
+  public async doBuilders() {
     await this.builder([
       `${this.app.name}.ts`,
       `${this.app.name}.js`,
@@ -72,14 +84,6 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.config.ts`,
       `${this.app.name}.${this.app.mode}.config.js`,
     ])
-
-    Object.entries(features).forEach(([k, v]) => {
-      this.app.store.set(k, v)
-    })
-
-    features.cache && this.app.persist()
-
-    this.app.run()
   }
 
   @bind
@@ -91,15 +95,6 @@ export default class Build extends Command {
       `${this.app.name}.config.json`,
       `${this.app.name}.config.yaml`,
       `${this.app.name}.config.yml`,
-    ]).apply()
-
-    await new Config(this.app, [
-      `${this.app.name}.${this.app.mode}.json`,
-      `${this.app.name}.${this.app.mode}.yaml`,
-      `${this.app.name}.${this.app.mode}.yml`,
-      `${this.app.name}.${this.app.mode}.config.json`,
-      `${this.app.name}.${this.app.mode}.config.yaml`,
-      `${this.app.name}.${this.app.mode}.config.yml`,
     ]).apply()
 
     await new Config(this.app, [
@@ -168,43 +163,40 @@ export default class Build extends Command {
       !isFunction(builder) &&
       builder.hasOwnProperty('parent')
     ) {
-      const {parent, ...multi} = builder as Multi
-
-      this.app = parent(this.app)
-
-      if (this.cli.args.target) {
-        !multi[this.cli.args.target] &&
-          (() => {
-            console.error(
-              `${this.cli.args.target} not found in bud config`,
-            )
-
-            process.exit(1)
-          })()
-
-        const instance = this.app.make(this.cli.args.target)
-        instance.name = this.cli.args.target
-
-        this.app.children.set(
-          this.cli.args.target,
-          multi[this.cli.args.target](instance),
-        )
-
-        return
-      }
-
-      Object.entries(multi).map(([name, child]) => {
-        const instance = this.app.make(name)
-        instance.name = name
-
-        this.app.children.set(name, child(instance))
-      })
-
-      return
+      return this.handleMultiConfig(builder)
     }
 
     this.app = !isFunction(builder)
       ? this.app
       : builder(this.app)
+  }
+
+  @bind
+  public handleMultiConfig(builder: Multi) {
+    const {parent, ...multi} = builder
+
+    this.app = parent(this.app)
+
+    if (this.cli.args.target) {
+      !multi[this.cli.args.target] &&
+        (() => {
+          console.error(
+            `${this.cli.args.target} not found in bud config`,
+          )
+
+          process.exit(1)
+        })()
+
+      this.app.make(
+        this.cli.args.target,
+        multi[this.cli.args.target],
+      )
+
+      return
+    }
+
+    Object.entries(multi).map(([name, child]) => {
+      this.app.make(name, child)
+    })
   }
 }

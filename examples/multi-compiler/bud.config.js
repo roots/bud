@@ -1,13 +1,19 @@
 module.exports = {
   parent: app =>
     app
+      .setPath('dist', dist => `${dist}/app`)
       .use(require('@roots/bud-esbuild'))
-      .entry({vanilla: ['demo.js', 'foo.css']}),
+      .entry('app', ['app.js', 'app.css']),
 
-  babel: app =>
+  theme: app =>
     app
+      .setPath('dist', dist => `${dist}/theme`)
       .use(require('@roots/bud-babel'))
-      .entry({app: ['app.js']}),
+      .entry('theme', ['theme.js', 'theme.css']),
 
-  styles: app => app.entry({styles: ['global.css']}),
+  plugin: app =>
+    app
+      .setPath('dist', dist => `${dist}/plugin`)
+      .use(require('@roots/bud-esbuild'))
+      .entry('plugin', ['plugin.js', 'plugin.css']),
 }

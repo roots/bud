@@ -149,7 +149,10 @@ interface Framework {
    * app.makeInstance
    * @note multi-compiler api is experimental
    */
-  make(key: string): Framework
+  make(
+    key: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework
 
   /**
    * Get the compiler mode
@@ -370,22 +373,25 @@ abstract class Framework {
   }
 
   @bind
-  public make(key: string): Framework {
+  public make(
+    key: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework {
     this.children.set(
       key,
       new (this.proto.obj as any)(this.proto.obj, {
         ...this.proto.config,
       }),
     )
+    const instance = this.children.get(key)
 
-    this.children.get(key).parent = this
-    this.children.get(key).name = key
-    this.children
-      .get(key)
-      .bootstrap(this.proto.services)
-      .lifecycle()
+    instance.bootstrap(this.proto.services).lifecycle()
+    instance.parent = this
+    instance.name = key
 
-    return this.get(key)
+    tap && tap(instance)
+
+    return this
   }
 
   @bind

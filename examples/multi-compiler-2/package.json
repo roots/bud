@@ -1,5 +1,5 @@
 {
-  "name": "example-multi",
+  "name": "example-multi-2",
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:*",

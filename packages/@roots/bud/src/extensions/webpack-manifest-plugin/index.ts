@@ -12,8 +12,9 @@ const extension: Plugin<{apply: any}, Options> = {
 
   make: (options, {parent, publicPath}) =>
     new WebpackManifestPlugin({
-      ...options.all(),
-      publicPath: publicPath(),
+      ...parent.extensions.get('webpack-manifest-plugin')
+        .options,
+      publicPath: parent.publicPath(),
       seed: parent.store.repository.extension
         .webpackManifestPlugin.assets,
     }),
