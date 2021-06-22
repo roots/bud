@@ -7,10 +7,12 @@ describe('bud.setPath', function () {
 
   beforeAll(() => {
     bud = setupBud()
+    return
   })
 
   afterAll(() => {
     bud = teardownBud(bud)
+    return
   })
 
   it('is a function', () => {

@@ -181,7 +181,7 @@ interface Framework {
    */
   path(
     key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
+    ...path: string[]
   ): string
 
   /**
@@ -434,7 +434,7 @@ abstract class Framework {
   @bind
   public path(
     key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
+    ...path: string[]
   ): string {
     return join(
       ...[
@@ -442,7 +442,7 @@ abstract class Framework {
           ? this.hooks.filter('location/project')
           : false,
         this.hooks.filter(`location/${key}` as Hooks.Name),
-        path ?? false,
+        ...(path ?? []),
       ].filter(Boolean),
     )
   }
