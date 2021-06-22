@@ -32,10 +32,17 @@ interface Framework {
   name: string
 
   /**
-   * Multi-compiler instances
+   * Multi-compiler
    * @note multi-compiler api is experimental
    */
-  instance: Container<Framework>
+  children: Container<Framework>
+
+  /**
+   * If a child instance, returns the parent.
+   *
+   * If the parent instance, returns this
+   */
+  parent: Framework
 
   /**
    * API service
@@ -136,19 +143,16 @@ interface Framework {
   /**
    * app.get
    */
-  get(): Framework
+  get(instance?: string): Framework
 
   /**
-   * app.getInstance
+   * app.make
    * @note multi-compiler api is experimental
    */
-  getInstance(key: string): Framework
-
-  /**
-   * app.setInstance
-   * @note multi-compiler api is experimental
-   */
-  setInstance(key: string, framework: Framework): void
+  make(
+    key: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework
 
   /**
    * Get the compiler mode
@@ -258,7 +262,19 @@ abstract class Framework {
 
   public _services: Container<Service>
 
-  public _instance: Container<this>
+  public parent: Framework
+
+  public children: Container<Framework>
+
+  public proto: {
+    obj: Framework
+    config: Store['repository']
+    services: Store['repository']
+  } = {
+    obj: null,
+    config: null,
+    services: null,
+  }
 
   public _mode: Mode
 
@@ -322,7 +338,13 @@ abstract class Framework {
     return this.mode === 'development'
   }
 
-  public constructor(config?: Store['repository']) {
+  public constructor(Bud: any, config?: Store['repository']) {
+    this.proto = {
+      ...this.proto,
+      obj: Bud,
+      config: config,
+    }
+
     this.mode = (
       process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
         ? process.env.NODE_ENV
@@ -330,6 +352,7 @@ abstract class Framework {
     ) as 'production' | 'development'
 
     this.store = new Store(this.get).setStore(config ?? {})
+    this.parent = this
   }
 
   public access<I = any>(value: ((app: this) => I) | I): I {
@@ -345,29 +368,38 @@ abstract class Framework {
   }
 
   @bind
-  public get(): this {
+  public get(child?: string): Framework {
+    return child ? this.children.get(child) : this
+  }
+
+  @bind
+  public make(
+    key: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework {
+    this.children.set(
+      key,
+      new (this.proto.obj as any)(this.proto.obj, {
+        ...this.proto.config,
+      }),
+    )
+    const instance = this.children.get(key)
+
+    instance.bootstrap(this.proto.services).lifecycle()
+    instance.parent = this
+    instance.name = key
+
+    tap && tap(instance)
+
     return this
-  }
-
-  @bind
-  public getInstance(key: string): Framework {
-    return this._instance.get(key)
-  }
-
-  @bind
-  public setInstance(key: string, app: Framework) {
-    Object.assign(this, {
-      _instance: {
-        [key]: app,
-      },
-    })
   }
 
   @bind
   public bootstrap(services: {
     [key: string]: new (app: any) => Service | Bootstrapper
   }): Framework {
-    this.services = this.container(services)
+    this.proto.services = services
+    this.services = this.container(this.proto.services)
 
     this.services.getEntries().map(([key, Instance]) => {
       this[key] = new Instance(this.get)
@@ -393,6 +425,8 @@ abstract class Framework {
         service && service[event] && service[event](this)
       })
     })
+
+    this.children = new Container<Framework>()
 
     return this
   }

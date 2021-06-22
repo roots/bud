@@ -2,7 +2,7 @@ import './interface'
 import type {Framework, Module} from '@roots/bud-framework'
 import {Item, Loader} from '@roots/bud-build'
 import {Config} from './Config'
-import {existsSync} from 'fs-extra'
+import {ensureDirSync, existsSync} from 'fs-extra'
 
 const babel: Module = {
   name: '@roots/bud-babel',
@@ -11,7 +11,9 @@ const babel: Module = {
     babel: new Config().init(app),
   }),
 
-  register: ({build}) => {
+  register: ({build, path}) => {
+    ensureDirSync(path('storage', 'cache/babel'))
+
     build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
     )
@@ -19,7 +21,7 @@ const babel: Module = {
     build.items.babel = new Item({
       loader: ({build}) => build.loaders.babel,
       options: ({path, babel}) => ({
-        cacheDirectory: path('storage', 'babel'),
+        cacheDirectory: path('storage', 'cache/babel'),
         root: path('src'),
         presets: Object.values(babel.presets),
         plugins: Object.values(babel.plugins),

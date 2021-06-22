@@ -1,6 +1,5 @@
 import {Framework, Hooks, Service} from '@roots/bud-framework'
-import prettyFormat from 'pretty-format'
-import _ from 'lodash'
+import {noop, get, set, isArray, isFunction} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export default class extends Service implements Hooks {
@@ -8,57 +7,49 @@ export default class extends Service implements Hooks {
 
   @bind
   public get<T = any>(path: `${Hooks.Name & string}`) {
-    return _.get(this.repository, path) as T
+    return get(this.repository, path) as T
   }
 
   @bind
   public set(key: `${Hooks.Name & string}`, value: any): this {
-    _.set(this.repository, key, value)
+    set(this.repository, key, value)
     return this
   }
 
   @bind
   public on(id: Hooks.Name, callback: Hooks.Hook): Framework {
-    const [publisher, name] = _.isArray(id)
+    const [_publisher, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
     const current = this.get(name)
 
-    if (!_.isArray(current)) {
+    if (!isArray(current)) {
       this.set(name, [callback])
     } else {
       this.set(name, [...current, callback])
     }
 
-    this.logger.scope(name, publisher).success({
-      message: `${name} updated`,
-    })
-
     return this.app
   }
 
   @bind
-  public filter<T = any>(id: `${Hooks.Name & string}`): T {
-    const [subscriber, name] = _.isArray(id)
+  public filter<T = any>(
+    id: `${Hooks.Name & string}`,
+    value?: any,
+  ): T {
+    const [_subscriber, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
-    !this.has(name) && this.set(name, [_.noop])
+    !this.has(name) && this.set(name, [value ?? noop])
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
-        return _.isFunction(cb) ? cb(v) : cb
+        return isFunction(cb) ? cb(v) : cb
       },
       null,
     )
-
-    this.logger.scope(name, subscriber).success({
-      message: `${name} retrieved`,
-      suffix: prettyFormat(result, {
-        highlight: true,
-      }),
-    })
 
     return result
   }

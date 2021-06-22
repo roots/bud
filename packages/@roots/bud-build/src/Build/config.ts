@@ -73,9 +73,6 @@ export function config(this: Framework): void {
       cacheLocation: this.hooks.filter(
         'build/cache/cacheLocation',
       ),
-      buildDependencies: this.hooks.filter(
-        'build/cache/buildDependencies',
-      ),
       managedPaths: this.hooks.filter(
         'build/cache/managedPaths',
       ),

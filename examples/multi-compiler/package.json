@@ -1,0 +1,10 @@
+{
+  "name": "example-multi",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-esbuild": "workspace:*"
+  }
+}

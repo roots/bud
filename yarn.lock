@@ -2695,6 +2695,7 @@ __metadata:
     cosmiconfig: ^7.0.0
     globby: ^11.0.3
     lodash: ^4.17.21
+    node-notifier: ^10.0.0
     tslib: ^2.2.0
   bin:
     bud: ./bin/bud
@@ -2751,14 +2752,11 @@ __metadata:
     "@types/node": ^15.12.2
     "@types/react": ^17.0.8
     autobind-decorator: ^2.4.0
-    axios: ^0.21.1
     execa: ^5.1.1
-    human-format: ^0.11.0
+    human-readable: ^0.2.1
     ink: ^3.0.8
     ink-big-text: ^1.2.0
     ink-gradient: ^2.0.0
-    ink-spinner: ^4.0.2
-    ink-table: ^3.0.0
     lodash: ^4.17.21
     patch-console: ^1.0.0
     react: ^17.0.2
@@ -3149,7 +3147,6 @@ __metadata:
   resolution: "@roots/bud-support@workspace:packages/@roots/bud-support"
   dependencies:
     lodash: ^4.17.21
-    node-notifier: ^10.0.0
     pretty-format: ^27.0.2
     webpack: ^5.38.1
   languageName: unknown
@@ -5317,15 +5314,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1":
-  version: 0.21.1
-  resolution: "axios@npm:0.21.1"
-  dependencies:
-    follow-redirects: ^1.10.0
-  checksum: c87915fa0b18c15c63350112b6b3563a3e2ae524d7707de0a73d2e065e0d30c5d3da8563037bc29d4cc1b7424b5a350cb7274fa52525c6c04a615fe561c6ab11
-  languageName: node
-  linkType: hard
-
 "axobject-query@npm:^2.2.0":
   version: 2.2.0
   resolution: "axobject-query@npm:2.2.0"
@@ -5996,14 +5984,14 @@ __metadata:
   linkType: hard
 
 "cfonts@npm:^2.8.6":
-  version: 2.9.1
-  resolution: "cfonts@npm:2.9.1"
+  version: 2.9.3
+  resolution: "cfonts@npm:2.9.3"
   dependencies:
-    chalk: ^4.1.0
+    chalk: ^4.1.1
     window-size: ^1.1.1
   bin:
     cfonts: bin/index.js
-  checksum: 9f525d0299396b55b29220790aaa0ba30c80af622412a69e5b093d6799a8ba9a23e4b45c1a60cbcbf1d2ae1d26fc5259c20a025caee004e2633e105eeed7c20c
+  checksum: 8bad5ec1cce489d09e3abda79bd340a41c6f54cfb29376aeb969a2d05d3b734419712e4cc7c95ac0a745cc9e31443e2f56390b4c01dbb5a0de80c921b2cc1739
   languageName: node
   linkType: hard
 
@@ -8373,6 +8361,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-multi@workspace:examples/multi-compiler":
+  version: 0.0.0-use.local
+  resolution: "example-multi@workspace:examples/multi-compiler"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-esbuild": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "example-postcss@workspace:examples/postcss":
   version: 0.0.0-use.local
   resolution: "example-postcss@workspace:examples/postcss"
@@ -8966,7 +8965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.10.0":
+"follow-redirects@npm:^1.0.0":
   version: 1.13.3
   resolution: "follow-redirects@npm:1.13.3"
   peerDependenciesMeta:
@@ -9961,10 +9960,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"human-format@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "human-format@npm:0.11.0"
-  checksum: 177bfa53febb3e686eb78933fb5826b230b0cd4f10d0e087d7b47d9b0a51a7c59ea0bb32974c49b192a5726196a9796b558a49540d51883e15c3953374c6277f
+"human-readable@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "human-readable@npm:0.2.1"
+  checksum: f14b8b43f14f51f79c8e5e84903eb38fa33b7ad820e261911f1efb47f47ad73895fa96e32c868f7964990d16a6f4a13634b7afb5d7a61febbecf53229c939d3b
   languageName: node
   linkType: hard
 
@@ -10221,18 +10220,6 @@ __metadata:
     ink: ">=3.0.5"
     react: ">=16.8.2"
   checksum: 0158aa2ea5770ace923c33c88d62eef735f83f32c3d139d5bfe608f41b67280d6738291fbf05543632b13de470daf1b7618e31941608896a763b4924754bcde4
-  languageName: node
-  linkType: hard
-
-"ink-table@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "ink-table@npm:3.0.0"
-  dependencies:
-    object-hash: ^2.0.3
-  peerDependencies:
-    ink: ">=3.0.0"
-    react: ">=16.8.0"
-  checksum: 281ec6295251435a268d3ad3f9382f63eab0548234b3ee6daef07663ac5f24f76f59d5f6ab527f0407b0def05ab6e7ddd8e52c69ce52db251fac40fd0d2c10a1
   languageName: node
   linkType: hard
 
@@ -13273,13 +13260,6 @@ __metadata:
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
-  languageName: node
-  linkType: hard
-
-"object-hash@npm:^2.0.3":
-  version: 2.2.0
-  resolution: "object-hash@npm:2.2.0"
-  checksum: 55ba841e3adce9c4f1b9b46b41983eda40f854e0d01af2802d3ae18a7085a17168d6b81731d43fdf1d6bcbb3c9f9c56d22c8fea992203ad90a38d7d919bc28f1
   languageName: node
   linkType: hard
 

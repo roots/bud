@@ -100,7 +100,7 @@ const run = async () => {
       absolute: true,
     })
 
-    logger.info('Commencing')
+    logger.info('Integration tests')
 
     await pre(paths)
 
@@ -108,6 +108,7 @@ const run = async () => {
     await jest('babel')
     await jest('basic')
     await jest('markdown')
+    await jest('api-multi-compiler')
     await jest('postcss')
     await jest('preset-recommend')
     await jest('react')
@@ -125,6 +126,7 @@ const run = async () => {
   } catch (err) {
     logger.error(err)
     throw new Error(err)
+    process.exit(1)
   }
 }
 

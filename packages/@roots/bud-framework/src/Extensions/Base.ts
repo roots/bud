@@ -54,7 +54,6 @@ abstract class Base {
   }
 
   public get options() {
-    this.logger.log('get options', this)
     return this.app.access(this.get('options'))
   }
 

@@ -8,8 +8,6 @@ import {isEqual} from 'lodash'
 class Cache extends Service implements Base {
   public name = '@roots/bud-cache'
 
-  public cacheFiles: string[] = []
-
   @bind
   public register(): void {
     this.app.hooks.on('build', config => {
@@ -28,23 +26,26 @@ class Cache extends Service implements Base {
       .hooks.on('build/cache/type', () => 'memory')
       .hooks.on('build/cache/cacheDirectory', () => undefined)
       .hooks.on('build/cache/cacheLocation', () => undefined)
-      .hooks.on('build/cache/buildDependencies', undefined)
       .hooks.on('build/cache/managedPaths', () => undefined)
   }
 
   @bind
   public booted(): void {
-    this.app.hooks.filter('build/cache/type') === 'filesystem' &&
+    this.app.hooks.filter('build/cache/type') == 'filesystem' &&
       !pathExistsSync(this.app.path('storage')) &&
       mkdirSync(this.app.path('storage'))
   }
 
   @bind
   public version(): string {
-    return crypto
-      .createHash('md4')
+    const version = crypto
+      .createHash('sha1')
       .update(this.hash())
-      .digest('hex')
+      .digest('base64')
+      .replace(/[^a-z0-9]/gi, '_')
+      .toLowerCase()
+
+    return version
   }
 
   @bind
@@ -54,25 +55,28 @@ class Cache extends Service implements Base {
 
   @bind
   public buildDependencies(): string[] {
-    return sync([
-      this.app.path('project', 'package.json'),
-      this.app.path(
-        'project',
-        `${this.app.name}.{js,ts,yml,json}`,
+    return [
+      ...new Set(
+        sync([
+          this.app.path(
+            'project',
+            `${this.app.name}.{js,ts,yml,json}`,
+          ),
+          this.app.path(
+            'project',
+            `${this.app.name}.config.{js,ts,yml,json}`,
+          ),
+          this.app.path(
+            'project',
+            `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
+          ),
+          ...this.app.discovery.resolveFrom.map(
+            dep => `${dep}/lib/cjs/index.js`,
+          ),
+          this.app.path('storage', 'cache/*'),
+        ]),
       ),
-      this.app.path(
-        'project',
-        `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
-      ),
-      ...this.app.discovery.resolveFrom.map(
-        dep => `${dep}/lib/cjs/index.js`,
-      ),
-      ...this.app.discovery.resolveFrom.map(
-        dep => `${dep}/package.json`,
-      ),
-      ...this.cacheFiles,
-      this.app.path('storage', 'cache/*'),
-    ])
+    ]
   }
 
   @bind

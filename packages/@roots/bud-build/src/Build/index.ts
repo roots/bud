@@ -35,7 +35,7 @@ class Build extends Service implements Contract {
   @bind
   public register(): void {
     this.app.hooks.on('before', () => this.app)
-    this.app.hooks.on('after', () => this.config)
+    this.app.hooks.on('after', () => [])
 
     this.loaders = {
       css: new Loader(require.resolve('css-loader')),

@@ -66,7 +66,7 @@ export namespace Server {
   /**
    * Webpack compiler
    */
-  export type Compiler = Webpack.Compiler
+  export type Compiler = Webpack.Compiler | Webpack.MultiCompiler
 
   /**
    * Middleware
