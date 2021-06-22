@@ -1,4 +1,4 @@
-import {Framework, setupBud, teardownBud, log} from '../../util'
+import {Framework, setupBud, teardownBud} from '../../util'
 import babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
