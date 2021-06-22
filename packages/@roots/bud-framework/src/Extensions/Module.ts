@@ -5,7 +5,7 @@ interface Module<Plugin = any, Options = any> {
   /**
    * The module name
    */
-  name: Module.Name
+  name?: Module.Name
 
   /**
    * Options registered with the extension
