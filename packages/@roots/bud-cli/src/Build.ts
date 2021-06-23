@@ -13,17 +13,7 @@ declare interface Multi {
 }
 
 export default class Build extends Command {
-  public static strict = false
-
   public static description = 'Build application'
-
-  public static args = [
-    {
-      name: 'target',
-      required: false,
-      description: 'compiler to build',
-    },
-  ]
 
   public app: Framework
 
@@ -38,8 +28,14 @@ export default class Build extends Command {
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
-    debug: flags.boolean(),
-    log: flags.boolean(),
+    debug: flags.boolean({
+      char: 'd',
+      description: 'produce config artifacts in [storage] dir',
+    }),
+    log: flags.boolean({
+      char: 'l',
+      description: 'log to console',
+    }),
     hash: flags.boolean({
       description: 'hash compiled filenames',
     }),
@@ -49,6 +45,11 @@ export default class Build extends Command {
     minimize: flags.boolean({
       char: 'm',
       description: 'minimize file size of compiled assets',
+    }),
+    target: flags.string({
+      char: 't',
+      description: 'limit compilation to this compiler',
+      multiple: true,
     }),
   }
 
@@ -63,9 +64,7 @@ export default class Build extends Command {
   }
 
   public async run() {
-    const features = this.cli.flags
-
-    !features.ci
+    !this.cli.flags.ci
       ? this.app.dashboard.run()
       : this.app.store.set('ci', true)
 
@@ -74,21 +73,21 @@ export default class Build extends Command {
     await this.doStatics()
     await this.doBuilders()
 
-    Object.entries(features).forEach(([k, v]) => {
+    Object.entries(this.cli.flags).forEach(([k, v]) => {
       this.app.store.set(k, v)
       this.app.children.every((_name, child) => {
         child.store.set(k, v)
       })
     })
 
-    if (features.cache) {
+    if (this.cli.flags.cache) {
       this.app.persist()
       this.app.children.every((_name, child) => {
         child.persist()
       })
     }
 
-    if (features.minimize) {
+    if (this.cli.flags.minimize) {
       this.app.minimize()
       this.app.children.every((_name, child) => {
         child.minimize()
@@ -125,6 +124,18 @@ export default class Build extends Command {
         ),
       })
     })
+
+    if (this.cli.flags.target) {
+      if (!this.cli.flags.target.includes('parent')) {
+        this.app.hooks.on('build/entry', false)
+      }
+
+      this.app.children.getKeys().forEach(k => {
+        if (!this.cli.flags.target.includes(k)) {
+          this.app.children.remove(k)
+        }
+      })
+    }
 
     this.app.run()
   }
@@ -172,9 +183,5 @@ export default class Build extends Command {
     const builder = await new Config(this.app, configs).get()
 
     isFunction(builder) && builder(this.app)
-
-    if (this.cli.args.target) {
-      this.app = this.app.children.get(this.cli.args.target)
-    }
   }
 }
