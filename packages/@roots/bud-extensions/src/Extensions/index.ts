@@ -4,7 +4,7 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isUndefined} from 'lodash'
+import {isUndefined, isEqual} from 'lodash'
 import {Extension} from '../Extension/index'
 
 export class Extensions extends Service implements Contract {
@@ -26,17 +26,14 @@ export class Extensions extends Service implements Contract {
 
   @bind
   public registerExtension(extension: Module): void {
-    this.log(`Registering extension: %s`, extension.name)
     this.set(
       extension.name,
       new Extension(this.app, extension).register(),
     )
-    this.log(`Extension registered: %s`, extension.name)
   }
 
   @bind
   public bootExtension(extension: Module): void {
-    this.log(`Booting extension: %s`, extension.name)
     this.set(
       extension.name,
       this.get(extension.name).boot(this.app),
@@ -45,27 +42,24 @@ export class Extensions extends Service implements Contract {
 
   @bind
   public add(extension: Module): void {
-    this.log(`Adding extension: %s`, extension.name)
     this.registerExtension(extension)
     this.bootExtension(extension)
   }
 
   @bind
   public make(): Contract.PluginOutput[] {
-    this.log(`Building extensions: %s`, this.getKeys())
-
     const plugins = this.getKeys()
-      .map(name => this.get(name).make)
+      .map((name: string): Module | undefined => {
+        const extension = this.get(name)
+        const isPlugin =
+          !isEqual(extension.when, false) && extension.apply
+
+        return isPlugin ? extension : extension.make
+      })
       .filter(
-        ext => !isUndefined(ext),
+        (ext: Module | undefined) => !isUndefined(ext),
       ) as Contract.PluginOutput[]
 
     return plugins
-  }
-
-  @bind
-  public discard(pkg: string): Service['app'] {
-    this.remove(pkg)
-    return this.app
   }
 }

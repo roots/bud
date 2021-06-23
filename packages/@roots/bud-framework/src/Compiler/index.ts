@@ -42,6 +42,13 @@ export interface Compiler extends Service {
   compile: Compiler.Compile
 
   /**
+   * ## bud.compiler.before
+   *
+   * Parses configuration from bud
+   */
+  before(): any
+
+  /**
    * Compilation callback
    */
   callback(

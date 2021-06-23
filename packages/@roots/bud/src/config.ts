@@ -35,6 +35,7 @@ export const config: Configuration = {
   install: false,
   log: false,
   manifest: true,
+  minimize: true,
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash:6]',
   build: {

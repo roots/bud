@@ -87,6 +87,12 @@ export interface Configuration {
   manifest: boolean
 
   /**
+   * Feature: minimize enabled
+   * @default true
+   */
+  minimize: boolean
+
+  /**
    * File format
    *
    * @note do not include extension

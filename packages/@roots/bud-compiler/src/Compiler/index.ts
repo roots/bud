@@ -43,44 +43,43 @@ export default class extends Service implements Compiler {
     this._instance = instance
   }
 
-  public compilerDoneFilterCalled: boolean = false
-
   @bind
-  public compile(): Compiler.Instance {
-    if (this.isCompiled) {
-      this.instance.close(noop)
-    }
-
-    this.app.hooks.filter('before')
-
-    this.app.hooks.on('after', after => {
-      !this.app.children.getEntries()[0]
-        ? after.push(this.app.build.config)
-        : this.app.children.every((name, child) => {
-            this.app.log('child compiler added to config', name)
-            after.push(child.build.config)
-          })
-
-      return after
+  public register() {
+    this.app.hooks.on('done', () => {
+      this.isCompiled = true
     })
-
-    this.instance = webpack(this.app.hooks.filter('after'))
-    this.isCompiled = true
-
-    this.app.when(
-      !this.app.parent.compiler.compilerDoneFilterCalled,
-      () => {
-        this.app.hooks.filter('done')
-      },
-    )
-
-    this.setupInstance()
-
-    return this.instance
   }
 
   @bind
-  public setupInstance() {
+  public compile(): Compiler.Instance {
+    this.isCompiled && this.instance.close(noop)
+    return this.setup(this.before())
+  }
+
+  @bind
+  public before() {
+    const config = []
+
+    this.app.hooks.filter('before')
+
+    const parent = this.app.build.config
+
+    if (parent.entry || !this.app.children.getEntries()[0]) {
+      config.push(parent)
+    }
+
+    this.app.children.every((name, child) => {
+      this.app.log('child compiler added to config', name)
+      config.push(child.build.config)
+    })
+
+    return config
+  }
+
+  @bind
+  public setup(config: any) {
+    this.instance = webpack(config)
+
     this.instance.hooks.done.tap(this.app.name, stats => {
       stats && Object.assign(this.stats, stats.toJson())
 
@@ -95,6 +94,10 @@ export default class extends Service implements Compiler {
     new ProgressPlugin((...args): void => {
       this.progress = args
     }).apply(this.instance)
+
+    this.app.hooks.filter('done')
+
+    return this.instance
   }
 
   @bind
