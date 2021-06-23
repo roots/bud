@@ -3,11 +3,11 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.lazy', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     teardownBud(bud)
   })
 

@@ -5,14 +5,14 @@ import {noop} from 'lodash'
 describe('bud', () => {
   let bud: Framework
 
-  beforeAll(() => {
+  beforeAll(done => {
     bud = setupBud()
-    return
+    done()
   })
 
-  afterAll(() => {
+  afterAll(done => {
     bud = teardownBud(bud)
-    return
+    done()
   })
 
   it('mode', () => {

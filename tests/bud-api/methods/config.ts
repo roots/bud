@@ -3,12 +3,14 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.config', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
+    return
   })
 
-  afterEach(() => {
+  afterAll(() => {
     teardownBud(bud)
+    return
   })
 
   it('is a function', () => {

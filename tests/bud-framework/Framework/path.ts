@@ -3,11 +3,11 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.path', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     bud = teardownBud(bud)
   })
 
@@ -22,6 +22,12 @@ describe('bud.path', function () {
   it('path: returns correct paths joined to context', () => {
     expect(bud.path('project', 'foo')).toEqual(
       `${process.cwd()}/foo`,
+    )
+  })
+
+  it('path: returns correct multipart paths joined to context', () => {
+    expect(bud.path('project', 'foo', 'bar')).toEqual(
+      `${process.cwd()}/foo/bar`,
     )
   })
 })
