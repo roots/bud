@@ -2,23 +2,27 @@ import {readFile, readJson} from 'fs-extra'
 import {Assets} from '../util/integration'
 import execa from 'execa'
 
+declare interface CompilerArtifacts {
+  assets: Assets
+  manifest: any
+}
+
 const cwd = `${process.cwd()}/examples/multi-compiler`
 
 jest.setTimeout(1000000)
 
 describe('multi-compiler', () => {
-  const plugin: {
-    assets: Assets
-    manifest: any
-  } = {
+  const parent: CompilerArtifacts = {
     assets: {},
     manifest: {},
   }
 
-  const theme: {
-    assets: Assets
-    manifest: any
-  } = {
+  const plugin: CompilerArtifacts = {
+    assets: {},
+    manifest: {},
+  }
+
+  const theme: CompilerArtifacts = {
     assets: {},
     manifest: {},
   }
@@ -31,6 +35,25 @@ describe('multi-compiler', () => {
       'yarn',
       ['bud', `build:production`, '--ci', '--debug'],
       {cwd},
+    )
+
+    parent.manifest = await readJson(
+      `${cwd}/dist/global/manifest.json`,
+    )
+    parent.assets = await Object.entries(parent.manifest).reduce(
+      async (promised: Promise<any>, [name, path]) => {
+        const assets = await promised
+        const buffer = await readFile(
+          `${cwd}/dist/global${path}`,
+          'utf8',
+        )
+
+        return {
+          ...assets,
+          [name]: buffer.toString(),
+        }
+      },
+      Promise.resolve(),
     )
 
     plugin.manifest = await readJson(
@@ -72,6 +95,20 @@ describe('multi-compiler', () => {
     )
 
     return Promise.resolve()
+  })
+
+  describe('global.js', () => {
+    it('has contents', () => {
+      expect(parent.assets['global.js'].length).toBeGreaterThan(
+        10,
+      )
+    })
+
+    it('is transpiled', () => {
+      expect(
+        parent.assets['global.js'].includes('import'),
+      ).toBeFalsy()
+    })
   })
 
   describe('theme.js', () => {

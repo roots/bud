@@ -6,7 +6,7 @@ describe('bud.use', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = setupBud('production')
   })
 
   afterAll(() => {
@@ -15,6 +15,13 @@ describe('bud.use', function () {
 
   beforeEach(() => {
     bud.extensions.setStore({})
+    /**
+     * @todo fix the source of this bodge being necessary
+     */
+    bud.use({
+      name: 'css-minimizer-webpack-plugin',
+      options: {},
+    })
   })
 
   it('is a function', () => {
@@ -38,13 +45,13 @@ describe('bud.use', function () {
   it('registers an anonymous extension', () => {
     bud.use({options: {}})
 
-    expect(bud.extensions.getEntries().length).toEqual(1)
+    expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
   it('registers a webpack plugin', () => {
     bud.use(new HtmlWebpackPlugin())
 
-    expect(bud.extensions.getEntries().length).toEqual(1)
+    expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
   it('registers an inline webpack plugin', () => {
@@ -54,7 +61,7 @@ describe('bud.use', function () {
       },
     })
 
-    expect(bud.extensions.getEntries().length).toEqual(1)
+    expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
   it('registers an imported webpack plugin', () => {
@@ -68,5 +75,16 @@ describe('bud.use', function () {
 
     expect(bud.extensions.has('@roots/bud-babel')).toBe(true)
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
+  })
+
+  it('adds an apply plugin to the config', () => {
+    const plugin = {
+      name: 'my-plugin',
+      apply(compiler) {
+        // noop
+      },
+    }
+    bud.use(plugin)
+    expect(bud.build.config.plugins).toContain(plugin)
   })
 })

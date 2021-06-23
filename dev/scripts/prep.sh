@@ -10,43 +10,63 @@ rm -rf examples/*/node_modules
 rm -rf examples/*/dist
 rm -rf examples/sage/public/*
 rm -rf examples/sage/storage/bud/*
+echo ""
 
 echo "Cleaning modules"
 rm -rf node_modules
 rm -rf packages/*/*/node_modules
+echo ""
 
 echo "Cleaning lib"
 rm -rf packages/*/*/lib
+echo ""
 
 echo "Cleaning types"
 rm -rf packages/@roots/*/types
-
-echo "Cleaning docs"
-rm -rf docs
-rm -rf packages/*/*/docs
+echo ""
 
 echo "Clearing yarn cache"
 yarn cache clean > /dev/null
+echo ""
 
 echo "Installing"
-yarn install
+yarn install > /dev/null
+echo ""
+
+echo "Regenerating docs"
+rm -rf docs
+rm -rf packages/*/*/docs
+yarn docs
+echo ""
 
 echo "Building cjs"
+echo "-------------------------"
 yarn build:cjs
+echo ""
 
 echo "Building esm"
+echo "-------------------------"
 yarn build:esm
+echo ""
 
-echo "Running tests"
+echo "Running tests (specs)"
+echo "-------------------------"
 yarn test
+echo ""
 
-echo "Generating docs"
-yarn docs
+echo "Running tests (integration)"
+echo "-------------------------"
+yarn test:integration
+echo ""
 
-echo "Linting"
+echo "Linting code"
+echo "-------------------------"
 yarn lint
+echo ""
 
-echo "Lint pkg shrinkwrap"
+echo "Linting packaging"
+echo "-------------------------"
 yarn pkg
+echo ""
 
 exit
