@@ -10,7 +10,7 @@ updates:
       - dependencies
 
   - package-ecosystem: "npm"
-    target-branch: "stable"
+    target-branch: "next"
     directory: "/packages/@roots/*"
     schedule:
       interval: "daily"
