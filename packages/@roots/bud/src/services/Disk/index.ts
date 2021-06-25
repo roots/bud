@@ -28,9 +28,10 @@ export class Disk extends Base {
           'project',
           this.get('project').readJson('package.json'),
         )
-      : this.logger
-          .scope("@roots/bud-disk couldn't find a package.json")
-          .log(this.get('project'))
+      : this.app.log(
+          'No package.json found: %s',
+          this.get('project'),
+        )
   }
 
   @bind
@@ -54,9 +55,7 @@ export class Disk extends Base {
     const dir = options?.baseDir ?? this.baseDir
     const glob = options?.glob ?? this.pattern
 
-    this.logger
-      .scope('@roots/bud-disk')
-      .log(`Making disk: ${dir}`)
+    this.app.log(`Making disk: %s`, dir)
 
     const container = new FileContainer(dir)
     container.setDisk(glob)

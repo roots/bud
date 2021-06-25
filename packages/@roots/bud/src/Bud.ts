@@ -10,9 +10,13 @@ import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
 import {Server} from './services/Server'
 import {Build} from '@roots/bud-build'
-import {Framework} from '@roots/bud-framework'
+import {Framework, Store} from '@roots/bud-framework'
 
 class Bud extends Framework {
+  public implementation: new (
+    config: Store['repository'],
+  ) => Framework = Bud
+
   public api: Api
 
   public build: Build

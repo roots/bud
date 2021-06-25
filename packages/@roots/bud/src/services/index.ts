@@ -18,9 +18,7 @@ import {Logger} from './Logger/index'
 import {Server} from './Server/index'
 
 interface Services {
-  [key: string]: new (app: Framework['get']) =>
-    | Service
-    | Bootstrapper
+  [key: string]: new (app: Framework) => Service | Bootstrapper
 }
 
 export const services: Services = {

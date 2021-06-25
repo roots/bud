@@ -27,13 +27,11 @@ import {boundMethod as bind} from 'autobind-decorator'
 interface Framework {
   /**
    * Application name
-   * @default 'bud'
    */
   name: string
 
   /**
    * Multi-compiler
-   * @note multi-compiler api is experimental
    */
   children: Container<Framework>
 
@@ -143,14 +141,14 @@ interface Framework {
   /**
    * app.get
    */
-  get(instance?: string): Framework
+  get(name?: string): Framework
 
   /**
    * app.make
    * @note multi-compiler api is experimental
    */
   make(
-    key: string,
+    name: string,
     tap?: (app: Framework) => Framework,
   ): Framework
 
@@ -187,7 +185,10 @@ interface Framework {
   /**
    * app.pipe
    */
-  pipe<I = any, R = any>(fns: CallableFunction[], value: I): R
+  pipe(
+    fns: ((input: Framework) => Framework)[],
+    value?: Framework,
+  ): Framework
 
   /**
    * app.sequence
@@ -219,6 +220,11 @@ interface Framework {
   log(message?: any, ...optionalArgs: any[]): void
 
   /**
+   * log a message
+   */
+  success(message?: any, ...optionalArgs: any[]): void
+
+  /**
    * log (log level: warn)
    */
   warn(message?: any, ...optionalArgs: any[]): void
@@ -236,7 +242,7 @@ interface Framework {
   /**
    * log (log level: error)
    */
-  error(message: any, title: string): void
+  error(message: any, ...optionalArgs: any[]): void
 }
 
 namespace Framework {
@@ -258,20 +264,24 @@ namespace Framework {
 }
 
 abstract class Framework {
+  public abstract implementation: new (
+    config: Store['repository'],
+    name?: string,
+    parent?: Framework,
+  ) => Framework
+
   public name = 'bud'
 
   public _services: Container<Service>
 
-  public parent: Framework
+  public parent: Framework = this
 
   public children: Container<Framework>
 
   public proto: {
-    obj: Framework
     config: Store['repository']
     services: Store['repository']
   } = {
-    obj: null,
     config: null,
     services: null,
   }
@@ -322,10 +332,12 @@ abstract class Framework {
     this._mode = mode
   }
 
+  @bind
   public getMode(): Mode {
     return this.mode
   }
 
+  @bind
   public setMode(mode: Mode): void {
     this.mode = mode
   }
@@ -338,12 +350,14 @@ abstract class Framework {
     return this.mode === 'development'
   }
 
-  public constructor(Bud: any, config?: Store['repository']) {
-    this.proto = {
-      ...this.proto,
-      obj: Bud,
-      config: config,
-    }
+  public constructor(
+    config?: Store['repository'],
+    name?: string,
+    parent?: Framework,
+  ) {
+    this.proto = {...this.proto, config}
+    this.name = name ?? this.name
+    this.parent = parent ?? this.parent
 
     this.mode = (
       process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
@@ -351,20 +365,7 @@ abstract class Framework {
         : 'production'
     ) as 'production' | 'development'
 
-    this.store = new Store(this.get).setStore(config ?? {})
-    this.parent = this
-  }
-
-  public access<I = any>(value: ((app: this) => I) | I): I {
-    return isFunction(value)
-      ? (value as CallableFunction)(this)
-      : value
-  }
-
-  public container(
-    repository?: Container['repository'],
-  ): Container {
-    return new Container(repository ?? {})
+    this.children = new Container<Framework>()
   }
 
   @bind
@@ -373,37 +374,53 @@ abstract class Framework {
   }
 
   @bind
+  public set(name: string, instance: Framework): void {
+    this.children.set(name, instance)
+  }
+
+  @bind
   public make(
-    key: string,
+    name: string,
     tap?: (app: Framework) => Framework,
   ): Framework {
-    this.children.set(
-      key,
-      new (this.proto.obj as any)(this.proto.obj, {
+    const compiler = new this.implementation(
+      {
         ...this.proto.config,
-      }),
+      },
+      name,
+      this,
     )
-    const instance = this.children.get(key)
 
-    instance.bootstrap(this.proto.services).lifecycle()
-    instance.parent = this
-    instance.name = key
+    compiler.bootstrap(this.proto.services).lifecycle()
 
-    tap && tap(instance)
+    this.set(name, isFunction(tap) ? tap(compiler) : compiler)
 
     return this
   }
 
   @bind
   public bootstrap(services: {
-    [key: string]: new (app: any) => Service | Bootstrapper
+    [key: string]: new (app: Framework) => Service | Bootstrapper
   }): Framework {
     this.proto.services = services
-    this.services = this.container(this.proto.services)
 
-    this.services.getEntries().map(([key, Instance]) => {
-      this[key] = new Instance(this.get)
+    this.store = new Store(this).setStore({
+      ...(this.proto.config ?? {}),
     })
+
+    this.services = this.container({...this.proto.services})
+
+    const LoggerConstructor =
+      this.services.get<new (app: Framework) => Logger>('logger')
+    this.logger = new LoggerConstructor(this)
+
+    this.services
+      .getEntries()
+      .filter(([k, v]) => v.name)
+      .map(([key, Instance]) => {
+        this[key] = new Instance(this)
+        this.info('Instantiated service: %s', key)
+      })
 
     return this
   }
@@ -423,12 +440,25 @@ abstract class Framework {
       this.services.getKeys().forEach(serviceName => {
         const service = this[serviceName]
         service && service[event] && service[event](this)
+        this.info('Lifecycle: %s => %s', service.name, event)
       })
     })
 
-    this.children = new Container<Framework>()
-
     return this
+  }
+
+  @bind
+  public access<I = any>(value: ((app: this) => I) | I): I {
+    return isFunction(value)
+      ? (value as CallableFunction)(this)
+      : value
+  }
+
+  @bind
+  public container(
+    repository?: Container['repository'],
+  ): Container {
+    return new Container(repository ?? {})
   }
 
   @bind
@@ -448,13 +478,16 @@ abstract class Framework {
   }
 
   @bind
-  public pipe<I = any, R = any>(
-    fns: CallableFunction[],
-    value: I,
-  ): R {
-    return (value = fns.reduce((val, fn) => {
-      return fn(val)
-    }, value))
+  public pipe(
+    fns: ((input: Framework) => Framework)[],
+    value: Framework,
+  ): Framework {
+    return fns.reduce(
+      (val: Framework, fn: (input: Framework) => Framework) => {
+        return fn(val)
+      },
+      value ?? this,
+    )
   }
 
   @bind
@@ -492,35 +525,61 @@ abstract class Framework {
   @bind
   public log(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .log(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .log(message, ...optionalArgs)
   }
 
   @bind
   public info(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .info(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .info(message, ...optionalArgs)
+  }
+
+  @bind
+  public success(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .success(message, ...optionalArgs)
   }
 
   @bind
   public warn(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .warn(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .warn(message, ...optionalArgs)
   }
 
   @bind
   public debug(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .debug(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .debug(message, ...optionalArgs)
   }
 
   @bind
-  public error(message: string, title: string) {
-    const instance = this.dashboard.renderError(message, title)
-    setTimeout(instance.unmount, 2000)
+  public error(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .error(message, ...optionalArgs)
   }
 }
 

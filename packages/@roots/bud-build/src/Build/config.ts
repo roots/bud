@@ -135,9 +135,9 @@ export function config(this: Framework): void {
     )
     .hooks.on('build/performance', () => ({}))
     .hooks.on('build/plugins', () => this.extensions.make())
-    .hooks.on('build/profile', () => true)
+    .hooks.on('build/profile', () => false)
     .hooks.on('build/recordsPath', () =>
-      this.path('storage', 'records.json'),
+      this.path('storage', this.name, 'records.json'),
     )
     .hooks.on('build/resolve/alias', {})
     .hooks.on(

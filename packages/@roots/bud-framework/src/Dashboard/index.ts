@@ -31,9 +31,4 @@ export interface Dashboard extends Service {
    * Render error
    */
   renderError(body: string, title: string): Dashboard['instance']
-
-  /**
-   * Unmount CLI
-   */
-  kill(): void
 }

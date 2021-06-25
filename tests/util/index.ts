@@ -15,10 +15,7 @@ const setupBud = (
   configOverride?: any,
   servicesOverride?: any,
 ) => {
-  const bud: Framework = new Bud(
-    Bud,
-    configOverride ?? defaultConfig,
-  )
+  const bud: Framework = new Bud(configOverride ?? defaultConfig)
   bud.mode = modeOverride ?? 'production'
 
   bud.bootstrap(servicesOverride ?? services)

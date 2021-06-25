@@ -82,7 +82,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected profile default', () => {
-    expect(config.profile).toEqual(true)
+    expect(config.profile).toEqual(false)
   })
 
   it('has expected resolve.alias default', () => {

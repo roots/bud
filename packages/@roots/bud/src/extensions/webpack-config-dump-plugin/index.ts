@@ -20,12 +20,8 @@ export const make: Module.Make<
 export const when: Module.When = ({store}) =>
   store.isTrue('debug')
 
-export const options: Module.Options<Options> = ({
-  name,
-  store,
-  path,
-}) => ({
-  ...(store.get('extension.webpackConfigDumpPlugin') ?? {}),
-  outputPath: path('storage'),
-  name: `${name}.config.js`,
+export const options: Module.Options<Options> = app => ({
+  ...(app.store.get('extension.webpackConfigDumpPlugin') ?? {}),
+  outputPath: app.path('storage'),
+  name: `${app.name}.config.js`,
 })

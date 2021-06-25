@@ -3,6 +3,11 @@ import Webpack from 'webpack/types'
 
 export interface Configuration {
   /**
+   * Application name
+   */
+  name: string
+
+  /**
    * Regular expressions for convenience when doing pattern matching.
    *
    * @example

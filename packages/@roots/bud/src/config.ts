@@ -2,6 +2,7 @@ import {cpus} from 'os'
 import {Configuration} from '@roots/bud-framework'
 
 export const config: Configuration = {
+  name: 'bud',
   patterns: {
     css: /\.css$/,
     cssModule: /\.module\.css$/,
@@ -84,6 +85,7 @@ export const config: Configuration = {
     miniCssExtractPlugin: {},
     webpackConfigDumpPlugin: {
       keepCircularReferences: true,
+      depth: 8,
     },
     webpackDefinePlugin: {},
     webpackManifestPlugin: {

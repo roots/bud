@@ -97,12 +97,13 @@ describe('bud', () => {
   })
 
   it('pipe passes value through fn chain', done => {
-    const cb1 = (x: number) => x + 1
-    const cb2 = (x: number) => x + 1
+    const cb1 = app => app
+    const cb2 = app => app
 
-    const res = bud.pipe([cb1, cb2], 0)
+    const res = bud.pipe([cb1, cb2])
 
-    expect(res).toBe(2)
+    expect(res).toBe(bud)
+
     done()
   })
 

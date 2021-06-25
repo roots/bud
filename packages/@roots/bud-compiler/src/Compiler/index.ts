@@ -53,6 +53,7 @@ export default class extends Service implements Compiler {
   @bind
   public compile(): Compiler.Instance {
     this.isCompiled && this.instance.close(noop)
+
     return this.setup(this.before())
   }
 
@@ -68,9 +69,29 @@ export default class extends Service implements Compiler {
       config.push(parent)
     }
 
-    this.app.children.every((name, child) => {
-      this.app.log('child compiler added to config', name)
-      config.push(child.build.config)
+    this.app.children.getValues().forEach(child => {
+      child?.build?.config && config.push(child.build.config)
+    })
+
+    this.app.info(
+      'Compilers: %s',
+      config.map(({name}) => name).join(' '),
+    )
+
+    config.forEach(cfg => {
+      cfg.entry &&
+        this.app.info(
+          '%s entry count: %s',
+          cfg.name,
+          Object.entries(cfg.entry)?.length,
+        )
+
+      cfg.module?.rules[0]?.oneOf &&
+        this.app.info(
+          '%s rules count: %s',
+          cfg.name,
+          cfg.module.rules[0].oneOf.length,
+        )
     })
 
     return config

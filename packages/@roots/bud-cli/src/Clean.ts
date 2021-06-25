@@ -14,8 +14,6 @@ declare interface Multi {
 }
 
 export default class Flush extends Command {
-  public app: Framework
-
   public static flags = {
     help: flags.help({char: 'h'}),
   }
@@ -141,9 +139,7 @@ export default class Flush extends Command {
       return this.handleMultiConfig(builder)
     }
 
-    this.app = !isFunction(builder)
-      ? this.app
-      : builder(this.app)
+    !isFunction(builder) ? this.app : builder(this.app)
   }
 
   @bind
