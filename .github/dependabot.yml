@@ -2,7 +2,7 @@ version: 2
 
 updates:
   - package-ecosystem: "npm"
-    target-branch: "stable"
+    target-branch: "next"
     directory: "/"
     schedule:
       interval: "daily"
