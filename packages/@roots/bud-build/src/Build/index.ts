@@ -32,6 +32,14 @@ class Build extends Service implements Contract {
     return this.app.hooks.filter('build')
   }
 
+  public get entry(): Webpack.Configuration['entry'] {
+    return this.app.hooks.filter('build/entry')
+  }
+
+  public get plugins(): Webpack.Configuration['plugins'] {
+    return this.app.hooks.filter('build/plugins')
+  }
+
   @bind
   public register(): void {
     this.app.hooks.on('before', () => this.app)

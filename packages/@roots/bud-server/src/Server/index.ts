@@ -73,7 +73,7 @@ export class Server extends Service implements Contract {
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
-        this.info(`Enabling ${key}`)
+        this.app.info(`Enabling ${key}`)
 
         this.middleware[key] = generate({
           config: this.config,
@@ -111,12 +111,12 @@ export class Server extends Service implements Contract {
      * Listen
      */
     this.instance.listen(this.config.get('port'), () => {
-      this.info(
+      this.app.info(
         `Server listening on %s`,
         this.config.get('port'),
       )
 
-      this.info({
+      this.app.info({
         ...this.config.all(),
         middleware,
       })

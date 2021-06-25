@@ -1,9 +1,6 @@
 import Command from '../../Command'
-import {Framework} from '@roots/bud'
 
 export default class Install extends Command {
-  public app: Framework
-
   public static description = 'List installed extensions.'
 
   public static examples = ['$ bud extensions:list']

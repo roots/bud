@@ -8,7 +8,7 @@ import {isUndefined, isEqual} from 'lodash'
 import {Extension} from '../Extension/index'
 
 export class Extensions extends Service implements Contract {
-  public name = '@roots/bud-extensions'
+  public name = 'extensions'
 
   @bind
   public register(): void {
@@ -51,6 +51,7 @@ export class Extensions extends Service implements Contract {
     const plugins = this.getKeys()
       .map((name: string): Module | undefined => {
         const extension = this.get(name)
+
         const isPlugin =
           !isEqual(extension.when, false) && extension.apply
 

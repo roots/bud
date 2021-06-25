@@ -2689,6 +2689,7 @@ __metadata:
     "@oclif/plugin-which": ^1.0.3
     "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/node": ^15.12.2
     autobind-decorator: ^2.4.0
@@ -2954,8 +2955,9 @@ __metadata:
     react-dom: ^17.0.2
     webpack: ^5.38.1
   peerDependencies:
-    "@roots/bud": "*"
     "@roots/bud-babel": "*"
+    "@roots/bud-bud": "*"
+    "@roots/bud-framework": "*"
     "@roots/bud-react": "*"
     react: ^17.0.2
     react-dom: ^17.0.2
