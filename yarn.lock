@@ -2987,7 +2987,7 @@ __metadata:
     "@types/node": ^15.12.2
     "@types/vinyl": ^2.0.4
     autobind-decorator: ^2.4.0
-    critical: ^3.1.0
+    critical: ^4.0.0
     lodash: ^4.17.21
     safe-require: ^1.0.4
     vinyl: ^2.2.1
@@ -6192,9 +6192,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"critical@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "critical@npm:3.1.0"
+"critical@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "critical@npm:4.0.0"
   dependencies:
     chalk: ^4.1.0
     clean-css: ^5.1.2
@@ -6208,7 +6208,7 @@ __metadata:
     got: ^11.8.2
     group-args: ^0.1.0
     indent-string: ^4.0.0
-    inline-critical: ^6.0.3
+    inline-critical: ^8.0.0
     is-glob: ^4.0.1
     joi: ^17.4.0
     lodash: ^4.17.21
@@ -6218,11 +6218,10 @@ __metadata:
     p-all: ^3.0.0
     penthouse: ^2.3.2
     plugin-error: ^1.0.1
-    postcss: ^8.2.10
-    postcss-discard: ^1.0.1
-    postcss-image-inliner: ^4.0.4
+    postcss: ^8.3.0
+    postcss-discard: ^2.0.0
+    postcss-image-inliner: ^5.0.0
     postcss-url: ^10.1.3
-    prettier: ^2.2.1
     replace-ext: ^2.0.0
     slash: ^3.0.0
     tempy: ^1.0.1
@@ -6230,7 +6229,7 @@ __metadata:
     vinyl: ^2.2.1
   bin:
     critical: cli.js
-  checksum: aa3d1d546f3a5a838ab1ec92c45cdac7c5737aa92b8039a2775c0f5a1ee755e445bec16e6c2f0bd7c2488552d218aa76291e95e023e9d686fcbcf9f52b89e284
+  checksum: b71790349db70c563cd95e1c4d2e609d125a5257de8eb7c090a7a59e0b30cf7a54737084b6750b864b2976e596e57ed435794a9bce31b049baa74af16b2efbf8
   languageName: node
   linkType: hard
 
@@ -6869,10 +6868,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-indent@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "detect-indent@npm:6.0.0"
-  checksum: 0c38f362016e2d07af1c65b1ecd6ad8a91f06bfdd11383887c867a495ad286d04be2ab44027ac42444704d523982013115bd748c1541df7c9396ad76b22aaf5d
+"detect-indent@npm:^6.0.0, detect-indent@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "detect-indent@npm:6.1.0"
+  checksum: ab953a73c72dbd4e8fc68e4ed4bfd92c97eb6c43734af3900add963fd3a9316f3bc0578b018b24198d4c31a358571eff5f0656e81a1f3b9ad5c547d58b2d093d
   languageName: node
   linkType: hard
 
@@ -9600,33 +9599,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inline-critical@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "inline-critical@npm:6.0.3"
+"inline-critical@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "inline-critical@npm:8.0.0"
   dependencies:
-    chalk: ^4.1.0
-    clean-css: ^4.2.3
+    chalk: ^4.1.1
+    clean-css: ^5.1.2
     css: ^3.0.0
-    detect-indent: ^6.0.0
+    detect-indent: ^6.1.0
     fg-loadcss: ^2.1.0
     get-stdin: ^8.0.0
     indent-string: ^4.0.0
-    jsdom: ^16.4.0
+    jsdom: ^16.6.0
     lodash.defaults: ^4.2.0
     lodash.escaperegexp: ^4.1.2
     lodash.isregexp: ^4.0.1
     lodash.isstring: ^4.0.1
-    meow: ^8.1.0
+    meow: ^9.0.0
     normalize-newline: ^3.0.0
-    postcss: ^7.0.32
-    postcss-discard: ^1.0.1
-    prettier: ^2.2.1
+    postcss: ^8.3.0
+    postcss-discard: ^2.0.0
     reaver: ^2.0.0
     slash: ^3.0.0
-    uglify-js: ^3.12.3
+    uglify-js: ^3.13.8
   bin:
     inline-critical: cli.js
-  checksum: 083a4acbe1cde4f1ea2610754f831d6947455a7a5a7384bdcb082baf5652bc5aeca0b97b6e4978aeb2d279ff58e244346d69257563a505c05b6a98285dcb8afc
+  checksum: f6f27e08e563fb90d46243885c07a000a8e3b4aebf4e0928c43d35b0ee8004674acf70ea69a2bce9a98185723a618339f6747679f6f98c3f149bd4a8ec6a689c
   languageName: node
   linkType: hard
 
@@ -10782,7 +10780,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^16.4.0, jsdom@npm:^16.6.0":
+"jsdom@npm:^16.6.0":
   version: 16.6.0
   resolution: "jsdom@npm:16.6.0"
   dependencies:
@@ -11757,25 +11755,6 @@ __metadata:
     type-fest: ^0.13.1
     yargs-parser: ^18.1.3
   checksum: 87bba177ab858a9b606ee52220e6bf395277beebafefe8ab5dbdf178f5825274a24ca16dca7e0ddd41e5ac3533164ee52e3d0eec87b66d78aae796d24a817842
-  languageName: node
-  linkType: hard
-
-"meow@npm:^8.1.0":
-  version: 8.1.2
-  resolution: "meow@npm:8.1.2"
-  dependencies:
-    "@types/minimist": ^1.2.0
-    camelcase-keys: ^6.2.2
-    decamelize-keys: ^1.1.0
-    hard-rejection: ^2.1.0
-    minimist-options: 4.1.0
-    normalize-package-data: ^3.0.0
-    read-pkg-up: ^7.0.1
-    redent: ^3.0.0
-    trim-newlines: ^3.0.0
-    type-fest: ^0.18.0
-    yargs-parser: ^20.2.3
-  checksum: bc23bf1b4423ef6a821dff9734406bce4b91ea257e7f10a8b7f896f45b59649f07adc0926e2917eacd8cf1df9e4cd89c77623cf63dfd0f8bf54de07a32ee5a85
   languageName: node
   linkType: hard
 
@@ -13280,15 +13259,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-discard@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "postcss-discard@npm:1.0.1"
+"postcss-discard@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "postcss-discard@npm:2.0.0"
   dependencies:
-    clean-css: ^4.2.3
+    clean-css: ^5.1.2
     lodash.isfunction: ^3.0.9
     lodash.isregexp: ^4.0.1
-    postcss: ^7.0.32
-  checksum: 8854101d7670f7a6a710e195a65e38fcc87a17b83812cb4b43a22d1c697c12492f37b4337de9f5949ff584aff83309528e7e6cc31a1ba08453c19937ab9a0007
+    postcss: ^8.3.0
+  checksum: cd0bbfefdb6e22f506d98bf2f18c89a4d4a3b8f79467c08d9f1199c8c10bc7c9338ace6e6d1ffc07e9d2da7df348f8373650c54095f260f5c3704e365f7206c8
   languageName: node
   linkType: hard
 
@@ -13360,17 +13339,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-image-inliner@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "postcss-image-inliner@npm:4.0.4"
+"postcss-image-inliner@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "postcss-image-inliner@npm:5.0.0"
   dependencies:
     asset-resolver: ^3.0.4
     debug: ^4.3.1
     escape-string-regexp: ^4.0.0
     filesize: ^6.1.0
-    postcss: ^7.0.32
     svgo: ^1.3.2
-  checksum: ff832091413a60ec001f3aef2ea2b7ed2217cafec915a117e6a90b7c94732d94fe0d8bccbd78e2990597ed6bb1dc76b2f554a777e7d661abf2f28b1d201f8a23
+  peerDependencies:
+    postcss: ^8.3.0
+  checksum: cf516750adc0ec6e5210c35ea60cb5418755fff3f5f9fa87ae15ab4e8e77e7f7fa52c40300dbe11ff3e41269f51f00e505ee25dc31e90940714fe0cf8efba00c
   languageName: node
   linkType: hard
 
@@ -14001,7 +13981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
+"postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
   version: 8.3.2
   resolution: "postcss@npm:8.3.2"
   dependencies:
@@ -16769,12 +16749,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.12.3":
-  version: 3.13.4
-  resolution: "uglify-js@npm:3.13.4"
+"uglify-js@npm:^3.13.8":
+  version: 3.13.9
+  resolution: "uglify-js@npm:3.13.9"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 74eb2e23791ea90c904dabd7e9daf58aaeb39ec56c6822282f7afb5e068cbb2f9dcc3eaebab688b605e05d2b255b7d6309f5f525e9250126672cfbf68c35ddbd
+  checksum: 4592c78a2fe3148e88da8285951d721a96ade41eb81878cc1f38e81c2afae2a3446c234c801fcd20c524c3dd3385caf06b882dccb42c8f79bf1482882fe3e142
   languageName: node
   linkType: hard
 
