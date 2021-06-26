@@ -73,7 +73,7 @@
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0",
-    "postcss-scss": "^3.0.5",
+    "postcss-scss": "^4.0.0",
     "sass-loader": "^12.1.0"
   },
   "peerDependencies": {
