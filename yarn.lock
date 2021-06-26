@@ -2721,7 +2721,7 @@ __metadata:
     "@types/node": ^15.12.2
     autobind-decorator: ^2.4.0
     postcss: ^8.3.0
-    postcss-scss: ^3.0.5
+    postcss-scss: ^4.0.0
     sass: ^1.34.1
     sass-loader: ^12.1.0
     webpack: ^5.38.1
@@ -13843,12 +13843,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "postcss-scss@npm:3.0.5"
-  dependencies:
-    postcss: ^8.2.7
-  checksum: e927317fa095a6a2375ba923d70c9f0f31dc6fd61148885fc7c3d85cc55450601288be3d0a890cf34473807d27a15693135a8c076581e8ae29fffa175a1b37a3
+"postcss-scss@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "postcss-scss@npm:4.0.0"
+  peerDependencies:
+    postcss: ^8.3.3
+  checksum: 20818b0dc9ef1aa69e543a1a9f00cfa22ff64268d60839b346ce8394dac3c9d28e5039adf607d689c519ccff7da25b5f76f2adfb5345ca13c8a5363673ab6b8e
   languageName: node
   linkType: hard
 
@@ -13981,7 +13981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
+"postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.2":
   version: 8.3.2
   resolution: "postcss@npm:8.3.2"
   dependencies:
