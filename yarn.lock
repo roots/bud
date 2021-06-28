@@ -2082,9 +2082,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-plugins@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "@oclif/plugin-plugins@npm:1.10.0"
+"@oclif/plugin-plugins@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "@oclif/plugin-plugins@npm:1.10.1"
   dependencies:
     "@oclif/color": ^0.x
     "@oclif/command": ^1.5.12
@@ -2099,7 +2099,7 @@ __metadata:
     semver: ^7.3.2
     tslib: ^2.0.0
     yarn: ^1.21.1
-  checksum: 3fb1e5287fcc43912cce1587f739555415000cc0a9077680d95e5114d8cc0bdb6347a50f01544d6694fff5cb73eb6f0760acf9f3df9000447931e9ca6f942c3a
+  checksum: fe50778f0f427f57cd419d57a32b1039e63e007e3a5006ec4af8b003a124b3543b3f808e95fa91be1746190f1ade5ad2b3e6e90d39ff36e288249a3701c9f268
   languageName: node
   linkType: hard
 
@@ -2268,7 +2268,7 @@ __metadata:
     html-loader: ^2.1.2
     json5: ^2.2.0
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^1.6.0
+    mini-css-extract-plugin: ^1.6.1
     mini-svg-data-uri: ^1.3.3
     remark: ^13.0.0
     remark-html: ^13.0.1
@@ -2309,7 +2309,7 @@ __metadata:
     "@oclif/plugin-autocomplete": ^0.3.0
     "@oclif/plugin-commands": ^1.3.0
     "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-plugins": ^1.10.0
+    "@oclif/plugin-plugins": ^1.10.1
     "@oclif/plugin-update": ^1.3.10
     "@oclif/plugin-warn-if-update-available": ^1.7.0
     "@oclif/plugin-which": ^1.0.3
@@ -2809,7 +2809,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.12.2
     autobind-decorator: ^2.4.0
-    terser-webpack-plugin: ^5.1.3
+    terser-webpack-plugin: ^5.1.4
     webpack: ^5.38.1
   languageName: unknown
   linkType: soft
@@ -2823,9 +2823,9 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.12.2
-    "@typescript-eslint/parser": ^4.26.1
+    "@typescript-eslint/parser": ^4.28.0
     autobind-decorator: ^2.4.0
-    fork-ts-checker-webpack-plugin: ^6.2.10
+    fork-ts-checker-webpack-plugin: ^6.2.12
     globby: ^11.0.3
     ts-loader: ^9.2.3
     typescript: ^4.3.2
@@ -2956,7 +2956,7 @@ __metadata:
     ink: ^3.0.8
     ink-spinner: ^4.0.2
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^1.6.0
+    mini-css-extract-plugin: ^1.6.1
     pkg-up: ^3.1.0
     react: ^17.0.2
     resolve-pkg: ^2.0.0
@@ -4031,20 +4031,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^4.26.1":
-  version: 4.26.1
-  resolution: "@typescript-eslint/parser@npm:4.26.1"
+"@typescript-eslint/parser@npm:^4.28.0":
+  version: 4.28.0
+  resolution: "@typescript-eslint/parser@npm:4.28.0"
   dependencies:
-    "@typescript-eslint/scope-manager": 4.26.1
-    "@typescript-eslint/types": 4.26.1
-    "@typescript-eslint/typescript-estree": 4.26.1
+    "@typescript-eslint/scope-manager": 4.28.0
+    "@typescript-eslint/types": 4.28.0
+    "@typescript-eslint/typescript-estree": 4.28.0
     debug: ^4.3.1
   peerDependencies:
     eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 2085fafd1887584b6dd04e138b9c583da9f3a3f9b414595ed2d6c5207ce3f40d6c30cca9fab601648cb254ddcd6ebbe4d9af209eeb31a06f5509f83b9aa300ef
+  checksum: 08c167db5c36776a638afe52130e0bf20bfc94598da3f178171cfafb72703fc508b17667b4584cd6bea4c8c6d6922af8f7a45e9a7d6419f83fe2f6c893845d96
   languageName: node
   linkType: hard
 
@@ -4058,10 +4058,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/scope-manager@npm:4.28.0":
+  version: 4.28.0
+  resolution: "@typescript-eslint/scope-manager@npm:4.28.0"
+  dependencies:
+    "@typescript-eslint/types": 4.28.0
+    "@typescript-eslint/visitor-keys": 4.28.0
+  checksum: cdab7ef35e18cf2c9a25a4e588cb464bd7e6a3e3f9a7dceaa567fa04202b68901b5c9dc108c3ff7b92215c373274c9d105b8061ae97d2600039345c53d33a4ae
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/types@npm:4.26.1":
   version: 4.26.1
   resolution: "@typescript-eslint/types@npm:4.26.1"
   checksum: 9bd3be885de61441bc6cb3adadcbb8dbc5b44d7c68bb689f5a8b95e230dd9a48a43a6d35994df8121bae9c580e84caad3b8681f9a1c49eb352f5d6c651197009
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/types@npm:4.28.0":
+  version: 4.28.0
+  resolution: "@typescript-eslint/types@npm:4.28.0"
+  checksum: 5d167f32e93f5854e78315a3a59beaf45bf9fdc5dc6a01d02c22152c08c8871022b5c41281c5355f44be1f9d36f9d24a67087a5c0dcfeea25477eb5918b5c410
   languageName: node
   linkType: hard
 
@@ -4083,6 +4100,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/typescript-estree@npm:4.28.0":
+  version: 4.28.0
+  resolution: "@typescript-eslint/typescript-estree@npm:4.28.0"
+  dependencies:
+    "@typescript-eslint/types": 4.28.0
+    "@typescript-eslint/visitor-keys": 4.28.0
+    debug: ^4.3.1
+    globby: ^11.0.3
+    is-glob: ^4.0.1
+    semver: ^7.3.5
+    tsutils: ^3.21.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 680ec9a48cc702eba81a1a9101d6635fac10977c930cdb79a94c975b611c0276cc30e13f41630faeb28446cdcc0afb50bd389042629b35a6dd51b6d6774e0973
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/visitor-keys@npm:4.26.1":
   version: 4.26.1
   resolution: "@typescript-eslint/visitor-keys@npm:4.26.1"
@@ -4090,6 +4125,16 @@ __metadata:
     "@typescript-eslint/types": 4.26.1
     eslint-visitor-keys: ^2.0.0
   checksum: a6761f3045f0111800b19d0c907d05f5f6fa79b6701f60b9782d958c3aa5cde2d88002839c74c103efb4d2c542c0e61ec9276a36bf894d7112a82222fe4742c6
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/visitor-keys@npm:4.28.0":
+  version: 4.28.0
+  resolution: "@typescript-eslint/visitor-keys@npm:4.28.0"
+  dependencies:
+    "@typescript-eslint/types": 4.28.0
+    eslint-visitor-keys: ^2.0.0
+  checksum: a2f5cec756946d924e3a4f5e89d600da82d500690575620513eb700e9ab65226f62910a16ed3a2e1e9c46d7171ee6c5f23ff82e222dcd65e4b6e14f712534d71
   languageName: node
   linkType: hard
 
@@ -8361,9 +8406,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fork-ts-checker-webpack-plugin@npm:^6.2.10":
-  version: 6.2.10
-  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.10"
+"fork-ts-checker-webpack-plugin@npm:^6.2.12":
+  version: 6.2.12
+  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.12"
   dependencies:
     "@babel/code-frame": ^7.8.3
     "@types/json-schema": ^7.0.5
@@ -8378,7 +8423,7 @@ __metadata:
     schema-utils: 2.7.0
     semver: ^7.3.2
     tapable: ^1.0.0
-  checksum: ac8c05b9467831fd7b6d964fa9abe04bcebf272bca538f781e88ff54b3d8b95e32a41ce76787433084985ede25825d5fceab29422fd135a94802ac2e739f595c
+  checksum: 0ba28ccafe28fffcca4fda7d68a31561785de2731f8d9b536fb2f5a76ea16c04751b091548a7b2d7dbc9a0a3184e88b41ef2718f6082e329ad1e1f2ab4ccc6d6
   languageName: node
   linkType: hard
 
@@ -11922,16 +11967,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "mini-css-extract-plugin@npm:1.6.0"
+"mini-css-extract-plugin@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "mini-css-extract-plugin@npm:1.6.1"
   dependencies:
     loader-utils: ^2.0.0
     schema-utils: ^3.0.0
     webpack-sources: ^1.1.0
   peerDependencies:
     webpack: ^4.4.0 || ^5.0.0
-  checksum: 04f7c47c18aae7aab9a586ed99dc80255106448403c9c4f80c4b6e647cfc3ea09e2c4fe5cc15a3463be6a1281c2266158beab6a9b81c84f126714e1e995bf6d3
+  checksum: 62ae22503b9e5314585b321a011f4c5af63df0e1b5bfdd2bad84111eee9f4ba8125f39dd58abec9b55de1bfdb12f26ff15f6773076b150cc5eebe663bc1ecff5
   languageName: node
   linkType: hard
 
@@ -15240,6 +15285,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"serialize-javascript@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "serialize-javascript@npm:6.0.0"
+  dependencies:
+    randombytes: ^2.1.0
+  checksum: 56f90b562a1bdc92e55afb3e657c6397c01a902c588c0fe3d4c490efdcc97dcd2a3074ba12df9e94630f33a5ce5b76a74784a7041294628a6f4306e0ec84bf93
+  languageName: node
+  linkType: hard
+
 "serve-static@npm:1.14.1":
   version: 1.14.1
   resolution: "serve-static@npm:1.14.1"
@@ -16218,19 +16272,19 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.3":
-  version: 5.1.3
-  resolution: "terser-webpack-plugin@npm:5.1.3"
+"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.4":
+  version: 5.1.4
+  resolution: "terser-webpack-plugin@npm:5.1.4"
   dependencies:
     jest-worker: ^27.0.2
     p-limit: ^3.1.0
     schema-utils: ^3.0.0
-    serialize-javascript: ^5.0.1
+    serialize-javascript: ^6.0.0
     source-map: ^0.6.1
     terser: ^5.7.0
   peerDependencies:
     webpack: ^5.1.0
-  checksum: f042b0a600979eb1cd3dbfb50140ee38b01afc81c740759f258cc4cbae88aed23cdac4fdc43155902b8b5ae0f58d5e6111c87e2ac2bb31bdf00cffb4f040a17b
+  checksum: 7e5f97ac1944aaff12460201496314ab75d842f4f088e0344ca5143caf85a340d7b0294ed6b4e32b52bbd1bea71648d6417034e889872c582c1be4840e9bd0e7
   languageName: node
   linkType: hard
 
