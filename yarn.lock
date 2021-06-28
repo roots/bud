@@ -2809,7 +2809,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.12.2
     autobind-decorator: ^2.4.0
-    terser-webpack-plugin: ^5.1.3
+    terser-webpack-plugin: ^5.1.4
     webpack: ^5.38.1
   languageName: unknown
   linkType: soft
@@ -15285,6 +15285,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"serialize-javascript@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "serialize-javascript@npm:6.0.0"
+  dependencies:
+    randombytes: ^2.1.0
+  checksum: 56f90b562a1bdc92e55afb3e657c6397c01a902c588c0fe3d4c490efdcc97dcd2a3074ba12df9e94630f33a5ce5b76a74784a7041294628a6f4306e0ec84bf93
+  languageName: node
+  linkType: hard
+
 "serve-static@npm:1.14.1":
   version: 1.14.1
   resolution: "serve-static@npm:1.14.1"
@@ -16263,19 +16272,19 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.3":
-  version: 5.1.3
-  resolution: "terser-webpack-plugin@npm:5.1.3"
+"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.4":
+  version: 5.1.4
+  resolution: "terser-webpack-plugin@npm:5.1.4"
   dependencies:
     jest-worker: ^27.0.2
     p-limit: ^3.1.0
     schema-utils: ^3.0.0
-    serialize-javascript: ^5.0.1
+    serialize-javascript: ^6.0.0
     source-map: ^0.6.1
     terser: ^5.7.0
   peerDependencies:
     webpack: ^5.1.0
-  checksum: f042b0a600979eb1cd3dbfb50140ee38b01afc81c740759f258cc4cbae88aed23cdac4fdc43155902b8b5ae0f58d5e6111c87e2ac2bb31bdf00cffb4f040a17b
+  checksum: 7e5f97ac1944aaff12460201496314ab75d842f4f088e0344ca5143caf85a340d7b0294ed6b4e32b52bbd1bea71648d6417034e889872c582c1be4840e9bd0e7
   languageName: node
   linkType: hard
 
