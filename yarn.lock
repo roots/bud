@@ -2082,9 +2082,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-plugins@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "@oclif/plugin-plugins@npm:1.10.0"
+"@oclif/plugin-plugins@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "@oclif/plugin-plugins@npm:1.10.1"
   dependencies:
     "@oclif/color": ^0.x
     "@oclif/command": ^1.5.12
@@ -2099,7 +2099,7 @@ __metadata:
     semver: ^7.3.2
     tslib: ^2.0.0
     yarn: ^1.21.1
-  checksum: 3fb1e5287fcc43912cce1587f739555415000cc0a9077680d95e5114d8cc0bdb6347a50f01544d6694fff5cb73eb6f0760acf9f3df9000447931e9ca6f942c3a
+  checksum: fe50778f0f427f57cd419d57a32b1039e63e007e3a5006ec4af8b003a124b3543b3f808e95fa91be1746190f1ade5ad2b3e6e90d39ff36e288249a3701c9f268
   languageName: node
   linkType: hard
 
@@ -2309,7 +2309,7 @@ __metadata:
     "@oclif/plugin-autocomplete": ^0.3.0
     "@oclif/plugin-commands": ^1.3.0
     "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-plugins": ^1.10.0
+    "@oclif/plugin-plugins": ^1.10.1
     "@oclif/plugin-update": ^1.3.10
     "@oclif/plugin-warn-if-update-available": ^1.7.0
     "@oclif/plugin-which": ^1.0.3
