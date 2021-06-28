@@ -2825,7 +2825,7 @@ __metadata:
     "@types/node": ^15.12.2
     "@typescript-eslint/parser": ^4.28.0
     autobind-decorator: ^2.4.0
-    fork-ts-checker-webpack-plugin: ^6.2.10
+    fork-ts-checker-webpack-plugin: ^6.2.12
     globby: ^11.0.3
     ts-loader: ^9.2.3
     typescript: ^4.3.2
@@ -8406,9 +8406,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fork-ts-checker-webpack-plugin@npm:^6.2.10":
-  version: 6.2.10
-  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.10"
+"fork-ts-checker-webpack-plugin@npm:^6.2.12":
+  version: 6.2.12
+  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.12"
   dependencies:
     "@babel/code-frame": ^7.8.3
     "@types/json-schema": ^7.0.5
@@ -8423,7 +8423,7 @@ __metadata:
     schema-utils: 2.7.0
     semver: ^7.3.2
     tapable: ^1.0.0
-  checksum: ac8c05b9467831fd7b6d964fa9abe04bcebf272bca538f781e88ff54b3d8b95e32a41ce76787433084985ede25825d5fceab29422fd135a94802ac2e739f595c
+  checksum: 0ba28ccafe28fffcca4fda7d68a31561785de2731f8d9b536fb2f5a76ea16c04751b091548a7b2d7dbc9a0a3184e88b41ef2718f6082e329ad1e1f2ab4ccc6d6
   languageName: node
   linkType: hard
 
