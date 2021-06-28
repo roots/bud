@@ -51,7 +51,7 @@ yarn add @roots/bud @roots/bud-cli --dev
 ## Installation
 
 ```sh
-yarn add @roots/bud-preset-recommended --dev
+yarn add @roots/bud-preset-recommend --dev
 ```
 
 The preset requires `postcss` to be installed in your project. You can install it automatically using [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli).
