@@ -183,11 +183,18 @@ function getAssets(
     },
     true,
   )
-    ? entry.import
-    : sync(entry.import, {
+    ? entry.import // all specified files were directly resolvable
+    : /**
+       * Try for glob
+       */
+      sync(entry.import, {
         cwd: this.path('src'),
         expandDirectories: true,
-      })
+      }) ??
+      /**
+       * Fallback to import as specified
+       */
+      entry.import
 
   return entry
 }

@@ -23,11 +23,10 @@ describe('@roots/bud-framework child', () => {
   })
 
   it('bud can make a child compiler', done => {
-    bud.make('child', child => {
-      return child.entry('child', 'child.js')
-    })
+    bud.make('child')
 
     expect(bud.children.has('child')).toBe(true)
+
     done()
   })
 
