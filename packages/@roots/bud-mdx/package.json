@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "4.6.0",
+  "version": "4.7.0-0",
   "description": "mdx extension for @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -81,5 +81,6 @@
     "@roots/bud-react": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

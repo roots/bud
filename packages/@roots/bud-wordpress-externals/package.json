@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "4.6.0",
+  "version": "4.7.0-0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -67,5 +67,6 @@
   "dependencies": {
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",
     "autobind-decorator": "^2.4.0"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

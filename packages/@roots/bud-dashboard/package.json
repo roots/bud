@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-dashboard",
   "description": "Bud CLI dashboard",
-  "version": "4.6.0",
+  "version": "4.7.0-0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -75,5 +75,6 @@
     "patch-console": "^1.0.0",
     "react": "^17.0.2",
     "webpack": "^5.38.1"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

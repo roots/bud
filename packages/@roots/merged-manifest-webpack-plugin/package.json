@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "4.6.0",
+  "version": "4.7.0-0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -69,5 +69,6 @@
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
     "prettier": "^2.3.0"
-  }
+  },
+  "stableVersion": "4.6.0"
 }
