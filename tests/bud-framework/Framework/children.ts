@@ -1,6 +1,6 @@
 import {Framework, setupBud, teardownBud} from '../../util'
 
-describe('bud child compilers', () => {
+describe('@roots/bud-framework child', () => {
   let bud: Framework
 
   beforeAll(done => {
@@ -13,42 +13,29 @@ describe('bud child compilers', () => {
     done()
   })
 
-  it("parent compiler's parent is this", done => {
-    expect(bud.parent).toEqual(bud)
-    done()
+  it("parent compiler's parent is this", () => {
+    expect(bud.get().name).toBe('bud')
+    expect(bud.parent.name).toBe('bud')
   })
 
-  it('parent has no children', done => {
+  it('parent has no children', () => {
     expect(bud.children.all()).toEqual({})
-    done()
   })
 
-  it.only('bud can make a child compiler', done => {
-    let childCompiler
-
+  it('bud can make a child compiler', done => {
     bud.make('child', child => {
-      child.entry('foo', 'foo.js')
-      childCompiler = child
-
-      return child
+      return child.entry('child', 'child.js')
     })
 
-    expect(bud.get('child')).toEqual(childCompiler)
+    expect(bud.children.has('child')).toBe(true)
     done()
   })
 
-  it.only('child compiler can return to parent compiler via `.parent` property', done => {
-    expect(bud.get('child').parent).toEqual(bud)
-    done()
-  })
+  it('child compiler can return to parent compiler via `.parent` property', () => {
+    const {
+      parent: {name},
+    } = bud.get('child')
 
-  it('bud.build.config returns parent compiler', done => {
-    expect(bud.build.config.name).toBe('bud')
-    done()
-  })
-
-  it.only('bud.get(`child`).build.config returns child compiler', done => {
-    expect(bud.get('child').build.config.name).toBe('child')
-    done()
+    expect(name).toBe('bud')
   })
 })
