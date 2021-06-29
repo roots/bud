@@ -1,16 +1,18 @@
-import {Framework, setupBud, teardownBud} from '../../util'
+import {Bud, Framework, setupBud, teardownBud} from '../../util'
+import {config, services} from '@roots/bud'
 
 describe('@roots/bud-framework child', () => {
   let bud: Framework
 
-  beforeAll(done => {
+  beforeAll(() => {
     bud = setupBud()
-    done()
   })
 
-  afterAll(done => {
+  afterAll(() => {
+    bud.children.every((k, v) => {
+      bud.children.set(k, teardownBud(v))
+    })
     bud = teardownBud(bud)
-    done()
   })
 
   it("parent compiler's parent is this", () => {
@@ -22,12 +24,21 @@ describe('@roots/bud-framework child', () => {
     expect(bud.children.all()).toEqual({})
   })
 
-  it('bud can make a child compiler', done => {
+  it('bud can make a child compiler', () => {
     bud.make('child')
 
     expect(bud.children.has('child')).toBe(true)
+  })
 
-    done()
+  it('bud can set a child compiler', () => {
+    bud.set(
+      'setChild',
+      new Bud(config, 'setChild', bud, bud.mode).bootstrap(
+        services,
+      ),
+    )
+    const {name} = bud.get('setChild')
+    expect(name).toBe('setChild')
   })
 
   it('child compiler can return to parent compiler via `.parent` property', () => {
