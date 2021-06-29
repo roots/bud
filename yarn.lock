@@ -2789,7 +2789,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": ^15.12.2
-    "@types/tailwindcss": ^2.0.5
+    "@types/tailwindcss": ^2.2.0
     autobind-decorator: ^2.4.0
     autoprefixer: ^10.2.6
     postcss: ^8.3.0
@@ -3096,7 +3096,7 @@ __metadata:
     "@types/eslint": ^7.2.13
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.2
-    "@types/tailwindcss": ^2.0.5
+    "@types/tailwindcss": ^2.2.0
     "@wordpress/browserslist-config": ^4.0.1
   peerDependencies:
     "@roots/bud": "*"
@@ -3852,10 +3852,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@types/tailwindcss@npm:2.0.5"
-  checksum: 8e491746fc2528e1a22b15fe311c14bc684322696d96dafa54ef0ebe643b064a040326e49bd4b7a230ac1a6e604900955118bbf38b72ebfac6d6a5ea86f669e2
+"@types/tailwindcss@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@types/tailwindcss@npm:2.2.0"
+  checksum: 8fccac24e3f930c3fbfb8edda1e74ea0faea21bac58833cac6ddb162f17fab5f0b6cd21c2a13e9ffd7684ae105ac9f444f672b16a3472574318e44107e126ce4
   languageName: node
   linkType: hard
 
