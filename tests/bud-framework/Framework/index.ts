@@ -46,6 +46,21 @@ describe('bud', () => {
     done()
   })
 
+  it('access processes a literal value', done => {
+    expect(bud.access(true)).toEqual(true)
+    done()
+  })
+
+  it('access processes a fn', done => {
+    expect(bud.access(() => true)).toEqual(true)
+    done()
+  })
+
+  it('access passes bud as a param', done => {
+    expect(bud.access(bud => bud)).toEqual(bud)
+    done()
+  })
+
   it('container is instance of @roots/container', done => {
     expect(bud.container()).toBeInstanceOf(Container)
     done()

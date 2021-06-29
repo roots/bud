@@ -268,6 +268,7 @@ abstract class Framework {
     config: Store['repository'],
     name?: string,
     parent?: Framework,
+    mode?: 'production' | 'development',
   ) => Framework
 
   public name = 'bud'
@@ -354,28 +355,29 @@ abstract class Framework {
     config?: Store['repository'],
     name?: string,
     parent?: Framework,
+    mode?: 'production' | 'development',
   ) {
     this.proto = {...this.proto, config}
     this.name = name ?? this.name
     this.parent = parent ?? this.parent
 
-    this.mode = (
-      process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
+    this.mode =
+      mode ??
+      ((process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
         ? process.env.NODE_ENV
-        : 'production'
-    ) as 'production' | 'development'
+        : 'production') as 'production' | 'development')
 
     this.children = new Container<Framework>()
   }
 
   @bind
   public get(child?: string): Framework {
-    return child ? this.children.get(child) : this
+    return child ? this.parent.children.get(child) : this
   }
 
   @bind
   public set(name: string, instance: Framework): void {
-    this.children.set(name, instance)
+    this.parent.children.set(name, instance)
   }
 
   @bind
@@ -389,9 +391,10 @@ abstract class Framework {
       },
       name,
       this,
+      this.mode,
     )
-
-    compiler.bootstrap(this.proto.services).lifecycle()
+      .bootstrap(this.proto.services)
+      .lifecycle()
 
     this.set(name, isFunction(tap) ? tap(compiler) : compiler)
 
@@ -418,8 +421,9 @@ abstract class Framework {
       .getEntries()
       .filter(([k, v]) => v.name)
       .map(([key, Instance]) => {
+        this.logger.instance.time(key)
         this[key] = new Instance(this)
-        this.info('Instantiated service: %s', key)
+        this.logger.instance.timeEnd(key)
       })
 
     return this
@@ -436,13 +440,30 @@ abstract class Framework {
       'booted',
     ]
 
+    this.logger.instance.time('lifecycle')
+
     events.forEach(event => {
+      this.logger.instance.scope(event).time(event)
+
       this.services.getKeys().forEach(serviceName => {
         const service = this[serviceName]
-        service && service[event] && service[event](this)
-        this.info('Lifecycle: %s => %s', service.name, event)
+        if (!service || !service[event]) return
+
+        this.logger.instance
+          .scope(service.name, event)
+          .time(event)
+
+        service[event](this)
+
+        this.logger.instance
+          .scope(service.name, event)
+          .timeEnd(event)
       })
+
+      this.logger.instance.scope(event).timeEnd(event)
     })
+
+    this.logger.instance.timeEnd('lifecycle')
 
     return this
   }

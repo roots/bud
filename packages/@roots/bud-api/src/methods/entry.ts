@@ -189,16 +189,5 @@ function getAssets(
         expandDirectories: true,
       })
 
-  /**
-   * Invalid entrypoint
-   */
-  if (!(entry.import.length > 0)) {
-    console.error('Assets not found')
-    console.error(
-      `entrypoint ${name} did not return any results. Make sure these assets are available on disk.\n`,
-    )
-    process.exit()
-  }
-
   return entry
 }
