@@ -69,7 +69,7 @@
     "@types/eslint": "^7.2.13",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.12.2",
-    "@types/tailwindcss": "^2.0.5",
+    "@types/tailwindcss": "^2.2.0",
     "@wordpress/browserslist-config": "^4.0.1"
   },
   "dependencies": {
