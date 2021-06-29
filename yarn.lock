@@ -2722,7 +2722,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     postcss: ^8.3.0
     postcss-scss: ^4.0.0
-    sass: ^1.34.1
+    sass: ^1.35.1
     sass-loader: ^12.1.0
     webpack: ^5.38.1
   peerDependencies:
@@ -15137,14 +15137,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.34.1":
-  version: 1.34.1
-  resolution: "sass@npm:1.34.1"
+"sass@npm:^1.35.1":
+  version: 1.35.1
+  resolution: "sass@npm:1.35.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: 97b3816ab1bf8f59421b61ce84e4c45ad9c59890f960bdd7a23bc5058283070252dcc23f19559c12121c18d6da0b4cd2fddedb6ffe8f2509aad20662fd9ca087
+  checksum: f49e738d637971f5985ab07aeda79629a9b555cca5e414ae2750b90bc9ce94703beada7f8cb5cbf972942e4c6ea941457846846618f2c6a8cd138087ee0502b2
   languageName: node
   linkType: hard
 
