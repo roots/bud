@@ -60,9 +60,9 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "eslint": "^7.28.0",
-    "webpack": "^5.38.1"
+    "@types/node": "^15.12.5",
+    "eslint": "^7.29.0",
+    "webpack": "^5.41.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
@@ -77,7 +77,7 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "eslint": "^7"
+    "eslint": ">=7"
   },
   "stableVersion": "4.6.0"
 }

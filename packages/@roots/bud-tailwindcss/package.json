@@ -64,19 +64,18 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "^15.12.2",
-    "postcss": "^8.3.0"
+    "@types/node": "^15.12.5",
+    "@types/tailwindcss": "^2.2.0",
+    "postcss": "^8.3.5"
   },
   "dependencies": {
-    "@types/tailwindcss": "^2.2.0",
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^10.2.6"
+    "autoprefixer": "^10.2.6",
+    "tailwindcss": "^2.2.4"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
-    "autoprefixer": "^10.2.5",
-    "tailwindcss": "^2.1.2"
+    "@roots/bud-postcss": "*"
   },
   "stableVersion": "4.6.0"
 }

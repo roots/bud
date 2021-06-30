@@ -59,12 +59,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
-    "webpack": "^5.38.1"
+    "webpack": "^5.41.1"
   },
   "stableVersion": "4.6.0"
 }

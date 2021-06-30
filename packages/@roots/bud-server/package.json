@@ -62,19 +62,19 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@types/node": "^15.12.5",
+    "webpack": "^5.41.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
-    "chokidar": "^3.5.1",
+    "chokidar": "^3.5.2",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
+    "globby": "^11.0.4",
     "http-proxy-middleware": "^2.0.0",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21",
-    "webpack-dev-middleware": "^4.3.0",
+    "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-client": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"

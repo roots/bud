@@ -4,7 +4,7 @@
 
 `bud.override` removed. If you want to override the config, use one of the 'build' hooks.
 
-This should technically make 4.7.0 a major release, but `bud.override` was only recently introduced as part of a minor bump and I don't think it's seen broad adoption. So, we're breaking semver for this one.
+This should technically make 4.7.0 a major release, but `bud.override` was only recently introduced as part of a minor bump. So, we're breaking semver for this one.
 
 ### Added
 
@@ -19,13 +19,15 @@ This should technically make 4.7.0 a major release, but `bud.override` was only 
 - New `bud build` flags:
   - **--target/-t** Target a specific compiler to be built in isolation. Can be passed multiple times to target more than one compiler.
   - **--cache/-c** Enable filesystem caching for builds.
+
 ### Improved
 
-- `bud.use` now supports using Webpack plugins directly.
+- **bud.use** now supports using Webpack plugins directly.
 - The CLI has a fresh coat of paint and some performance related enhancements. 
 - New notification center integration (MacOS only)
 
-Contributors
+### Contributors
+
 - kellymears kelly@roots.io
 - QWp6t hi@qwp6t.me
 

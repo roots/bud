@@ -64,10 +64,10 @@
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
+    "@types/node": "^15.12.5",
     "css-loader": "^5.2.6",
     "vue": "^2.6.14",
-    "webpack": "^5.38.1"
+    "webpack": "^5.41.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",

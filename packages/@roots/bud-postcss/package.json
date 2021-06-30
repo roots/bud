@@ -66,12 +66,12 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
+    "@types/node": "^15.12.5",
     "@types/signale": "^1.4.1",
-    "postcss": "^8.3.2",
+    "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",
-    "webpack": "5.38.1"
+    "webpack": "5.41.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
