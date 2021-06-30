@@ -69,7 +69,7 @@
     "ink": "^3.0.8",
     "signale": "^1.4.0",
     "webpack": "^5.38.1",
-    "webpack-dev-middleware": "^4.3.0"
+    "webpack-dev-middleware": "^5.0.0"
   },
   "dependencies": {
     "@roots/container": "workspace:packages/@roots/container",

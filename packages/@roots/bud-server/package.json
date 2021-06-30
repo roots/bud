@@ -74,7 +74,7 @@
     "http-proxy-middleware": "^2.0.0",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21",
-    "webpack-dev-middleware": "^4.3.0",
+    "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-client": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"
