@@ -2506,7 +2506,7 @@ __metadata:
     lodash: ^4.17.21
     signale: ^1.4.0
     webpack: ^5.38.1
-    webpack-dev-middleware: ^4.3.0
+    webpack-dev-middleware: ^5.0.0
   languageName: unknown
   linkType: soft
 
@@ -2748,7 +2748,7 @@ __metadata:
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
     webpack: ^5.38.1
-    webpack-dev-middleware: ^4.3.0
+    webpack-dev-middleware: ^5.0.0
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
     zlib: ^1.0.5
