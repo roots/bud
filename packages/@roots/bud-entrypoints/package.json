@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-entrypoints",
-  "version": "4.7.0-1",
+  "version": "4.7.0-2",
   "description": "Webpack tools",
   "repository": {
     "type": "git",

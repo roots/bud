@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cache",
   "description": "Config caching",
-  "version": "4.7.0-1",
+  "version": "4.7.0-2",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
