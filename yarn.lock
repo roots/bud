@@ -2258,7 +2258,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/marked": ^2.0.3
-    "@types/mini-css-extract-plugin": ^1.4.3
+    "@types/mini-css-extract-plugin": ^2.0.0
     "@types/node": ^15.12.5
     "@types/yamljs": ^0.2.31
     autobind-decorator: ^2.4.0
@@ -2927,7 +2927,7 @@ __metadata:
     "@types/express": ^4.17.12
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.170
-    "@types/mini-css-extract-plugin": ^1.4.3
+    "@types/mini-css-extract-plugin": ^2.0.0
     "@types/node": ^15.12.5
     "@types/pkg-up": ^3.1.0
     "@types/react": ^17.0.11
@@ -3630,14 +3630,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mini-css-extract-plugin@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@types/mini-css-extract-plugin@npm:1.4.3"
+"@types/mini-css-extract-plugin@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@types/mini-css-extract-plugin@npm:2.0.0"
   dependencies:
     "@types/node": "*"
     tapable: ^2.2.0
     webpack: ^5
-  checksum: 809ffb750926c8f66112fcff82e2c4773dd54bde9fadcfee70303b256fbac7d3833d99453044449f49633ce78b1a55bbbbeca9cc1fc86dc446bb77e25ccd5a20
+  checksum: 9806384005a280fa2fb4e63bab1b1a8f74dbe237ad5511e75ca90c10a31673ab848887520f4a5fd44f128055d49ca88517af94c4f055537114b30e1bdc74dfc9
   languageName: node
   linkType: hard
 
