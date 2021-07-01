@@ -78,7 +78,7 @@
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
-    "postcss-loader": "^6.1.0"
+    "postcss-loader": "^6.1.1"
   },
   "peerDependencies": {
     "@roots/bud": "*",

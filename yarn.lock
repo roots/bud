@@ -2557,7 +2557,7 @@ __metadata:
     lodash: ^4.17.21
     postcss: ^8.3.5
     postcss-import: ^14.0.2
-    postcss-loader: ^6.1.0
+    postcss-loader: ^6.1.1
     postcss-preset-env: ^6.7.0
     webpack: 5.41.1
   peerDependencies:
@@ -13479,9 +13479,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "postcss-loader@npm:6.1.0"
+"postcss-loader@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "postcss-loader@npm:6.1.1"
   dependencies:
     cosmiconfig: ^7.0.0
     klona: ^2.0.4
@@ -13489,7 +13489,7 @@ __metadata:
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
-  checksum: ed733e2d42660d67f2d813baffce7ecfc2c0fd9488b8f7035bf779ac10b50a9af754f951f5139e8de22e9b8186b362e1a3659bd34aebdb11f40b3aec46d074b1
+  checksum: 3c32d123813efeaede39cbd990a5c2275d0feeb3e3d2b9ad8f0bbf37e1e6d28f24d3174e4eebe9db4f563d57052dc9b5fb3f699f7527f639769d88e907a99490
   languageName: node
   linkType: hard
 
