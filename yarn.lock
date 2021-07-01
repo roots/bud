@@ -317,21 +317,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-module-imports@npm:^7.10.4, @babel/helper-module-imports@npm:^7.14.5":
+  version: 7.14.5
+  resolution: "@babel/helper-module-imports@npm:7.14.5"
+  dependencies:
+    "@babel/types": ^7.14.5
+  checksum: b98279908698a50a22634e683924cb25eb93edf1bf28ac65691dfa82d7a1a4dae4e6b12b8ef9f9a50171ca484620bce544f270873c53505d8a45364c5b665c0c
+  languageName: node
+  linkType: hard
+
 "@babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.13.12":
   version: 7.13.12
   resolution: "@babel/helper-module-imports@npm:7.13.12"
   dependencies:
     "@babel/types": ^7.13.12
   checksum: 9abb5e3acb5630bf519b4205b7784947b64f93d573ed13579d894611392e48cac40b598f67b34c7b342fc6ac6d2262dcdecf125cac8806888328e914b2775c43
-  languageName: node
-  linkType: hard
-
-"@babel/helper-module-imports@npm:^7.14.5":
-  version: 7.14.5
-  resolution: "@babel/helper-module-imports@npm:7.14.5"
-  dependencies:
-    "@babel/types": ^7.14.5
-  checksum: b98279908698a50a22634e683924cb25eb93edf1bf28ac65691dfa82d7a1a4dae4e6b12b8ef9f9a50171ca484620bce544f270873c53505d8a45364c5b665c0c
   languageName: node
   linkType: hard
 
@@ -918,6 +918,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.14.5":
+  version: 7.14.5
+  resolution: "@babel/plugin-syntax-jsx@npm:7.14.5"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.14.5
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 3a2ba87534b0f9ee70eba0754d2ae544825c25afd98efb8e42b41399e02de4cc5b1f70fc5ce444fb7a7e5b09972c289eed2f00917be5b88d67407f4cbde8e960
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-syntax-jsx@npm:^7.12.13":
   version: 7.12.13
   resolution: "@babel/plugin-syntax-jsx@npm:7.12.13"
@@ -926,17 +937,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 30697ad4607a9339b06c2648c2d128ce6865c3d2d14049b422c5ca060d6532978bb1008e086df402d365fda04fbafe9bd4ad9f62d78ef2e7a7063459b59645c0
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-syntax-jsx@npm:^7.14.5":
-  version: 7.14.5
-  resolution: "@babel/plugin-syntax-jsx@npm:7.14.5"
-  dependencies:
-    "@babel/helper-plugin-utils": ^7.14.5
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 3a2ba87534b0f9ee70eba0754d2ae544825c25afd98efb8e42b41399e02de4cc5b1f70fc5ce444fb7a7e5b09972c289eed2f00917be5b88d67407f4cbde8e960
   languageName: node
   linkType: hard
 
@@ -3125,6 +3125,26 @@ __metadata:
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
     zlib: ^1.0.5
+  languageName: unknown
+  linkType: soft
+
+"@roots/bud-solid@workspace:*, @roots/bud-solid@workspace:packages/@roots/bud-solid":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-solid@workspace:packages/@roots/bud-solid"
+  dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/node": ^15.12.2
+    autobind-decorator: ^2.4.0
+    babel-preset-solid: ^1.0.0
+    type-fest: ^1.2.0
+    webpack: ^5.38.1
+  peerDependencies:
+    "@roots/bud": "*"
+    "@roots/bud-babel": "*"
+    solid-js: ">=1"
   languageName: unknown
   linkType: soft
 
@@ -5450,6 +5470,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-jsx-dom-expressions@npm:^0.29.0":
+  version: 0.29.1
+  resolution: "babel-plugin-jsx-dom-expressions@npm:0.29.1"
+  dependencies:
+    "@babel/helper-module-imports": ^7.10.4
+    "@babel/plugin-syntax-jsx": ^7.10.4
+    "@babel/types": ^7.11.5
+  checksum: 96cd3083c81cf82d7107432fce165b96a9860aa4b6938bde4b16084fc14b527cfc3c46a41522b4ed71d5f99c5291435f771bc8264464ed399dfc55de37f794a8
+  languageName: node
+  linkType: hard
+
 "babel-plugin-macros@npm:^2.6.1":
   version: 2.8.0
   resolution: "babel-plugin-macros@npm:2.8.0"
@@ -5539,6 +5570,15 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 141c11dce5e7f3821da3e0dbeeb2bb3802bd418816a72568802d5cdd2fa97a973e65fdddfcfa3b71cfb5dd841266298095e0498db8fe315ec1063d5944040adc
+  languageName: node
+  linkType: hard
+
+"babel-preset-solid@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "babel-preset-solid@npm:1.0.0"
+  dependencies:
+    babel-plugin-jsx-dom-expressions: ^0.29.0
+  checksum: 65b98355c709d4ec433e2797b1e5c3c12f86a73edbbae205a438dfe7833887881e792d4964624199c32c509897bae37029a6cacdb4b76f3649aee3e2e5905bbe
   languageName: node
   linkType: hard
 
@@ -8423,6 +8463,18 @@ __metadata:
     "@roots/bud-cli": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"example-solid@workspace:examples/solid":
+  version: 0.0.0-use.local
+  resolution: "example-solid@workspace:examples/solid"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-solid": "workspace:*"
+    solid-js: ^1
   languageName: unknown
   linkType: soft
 
@@ -16365,6 +16417,13 @@ resolve@^2.0.0-next.3:
     ip: ^1.1.5
     smart-buffer: ^4.1.0
   checksum: 5c532e4646f0c5de22527cecbe0a2fb33b997f4c99f56dc4a7da13de74f83faa7b3e9dc480fa84e584a4564aa684ea4a94026e3cfbf263e834021063adf444f2
+  languageName: node
+  linkType: hard
+
+"solid-js@npm:^1":
+  version: 1.0.0
+  resolution: "solid-js@npm:1.0.0"
+  checksum: b7c3e3fe124f56a7725c946d8ebab1399ca0dc444ce7c2aa4642c7551ff83af7c86d8507abe4f48759d1342f269706aad991a738b2bca23e656682e405cf7a61
   languageName: node
   linkType: hard
 

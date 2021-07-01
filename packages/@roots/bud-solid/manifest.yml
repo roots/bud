@@ -1,0 +1,10 @@
+name: '@roots/bud-solid'
+type: extension
+
+peers:
+  - '@roots/bud'
+  - '@roots/bud-babel'
+
+dependencies:
+  production:
+    'solid-js': ^1
