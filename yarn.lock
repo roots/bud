@@ -8472,9 +8472,8 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-cli": "workspace:*"
     "@roots/bud-solid": "workspace:*"
-    solid-js: ^1
   languageName: unknown
   linkType: soft
 
@@ -16417,13 +16416,6 @@ resolve@^2.0.0-next.3:
     ip: ^1.1.5
     smart-buffer: ^4.1.0
   checksum: 5c532e4646f0c5de22527cecbe0a2fb33b997f4c99f56dc4a7da13de74f83faa7b3e9dc480fa84e584a4564aa684ea4a94026e3cfbf263e834021063adf444f2
-  languageName: node
-  linkType: hard
-
-"solid-js@npm:^1":
-  version: 1.0.0
-  resolution: "solid-js@npm:1.0.0"
-  checksum: b7c3e3fe124f56a7725c946d8ebab1399ca0dc444ce7c2aa4642c7551ff83af7c86d8507abe4f48759d1342f269706aad991a738b2bca23e656682e405cf7a61
   languageName: node
   linkType: hard
 

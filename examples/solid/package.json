@@ -4,10 +4,7 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-cli": "workspace:*",
     "@roots/bud-solid": "workspace:*"
-  },
-  "dependencies": {
-    "solid-js": "^1"
   }
 }
