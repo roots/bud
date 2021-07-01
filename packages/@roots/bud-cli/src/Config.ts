@@ -12,6 +12,7 @@ export class Config {
     searchPlaces: Options['searchPlaces'],
   ) {
     this.target = app
+
     this.options = {
       searchPlaces,
       loaders: {

@@ -31,6 +31,7 @@ const extension: Module = {
     )
 
     const cssItems = build.rules['css'].getUse(app)
+
     build.rules['css'].setUse(({isProduction, build}) => [
       isProduction
         ? build.items['minicss']
@@ -40,6 +41,7 @@ const extension: Module = {
 
     if (app.build.rules['sass']) {
       const sassItems = app.build.rules['sass'].getUse(app)
+
       build.rules['css'].setUse(({isProduction, build}) => [
         isProduction
           ? build.items['minicss']

@@ -17,7 +17,6 @@ Most extensions related hooks can be found in `@roots/bud`.
 | locations/publicPath            | public path (default: `/`)                                        |
 | locations/modules               | node_modules path (relative to `locations/project`)               |
 | locations/storage               | storage dir for artifacts/cache (relative to `locations/project`) |
-| locations/records               | webpack records json path (relative to `locations/storage`)       |
 | build/bail                      | webpack.bail                                                      |
 | build/cache                     | webpack.cache                                                     |
 | build/context                   | webpack.context                                                   |

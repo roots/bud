@@ -95,14 +95,13 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                 )
                 .map((asset, id) => (
                   <Box
-                    key={`mdx-asset-${id}`}
+                    key={`asset-${id}`}
                     flexDirection="row"
                     justifyContent="flex-start">
                     <Box
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                        theme.col(3),
                       ])}>
                       <Text wrap="truncate-end">
                         {' '}
@@ -114,7 +113,6 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                        theme.col(3),
                       ])}>
                       {asset?.info?.minimized && (
                         <Text color={theme.colors.success}>
@@ -127,7 +125,6 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                        theme.col(3),
                       ])}>
                       <Text>{fileSize(asset.size)}</Text>
                     </Box>

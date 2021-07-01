@@ -6,7 +6,6 @@ describe('bud.build.config', function () {
   beforeAll(() => {
     bud = setupBud()
     bud.mode = 'development'
-    return
   })
 
   afterAll(() => {

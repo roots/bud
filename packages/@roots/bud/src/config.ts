@@ -1,32 +1,39 @@
-import {cpus} from 'os'
 import {Configuration} from '@roots/bud-framework'
 
 export const config: Configuration = {
   name: 'bud',
+
   patterns: {
+    js: /\.(js|jsx)$/,
+    ts: /\.(ts|tsx)$/,
+    sass: /\.(scss|sass)$/,
+    sassModule: /\.module\.(scss|sass)$/,
     css: /\.css$/,
     cssModule: /\.module\.css$/,
     font: /\.(ttf|otf|eot|woff2?|ico)$/,
     html: /\.(html?)$/,
     image: /\.(png|jpe?g|gif)$/,
-    js: /\.(js|jsx)$/,
     modules: /(node_modules|bower_components)/,
-    sass: /\.(scss|sass)$/,
-    sassModule: /\.module\.(scss|sass)$/,
     svg: /\.svg$/,
-    ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,
     md: /\.md$/,
+    toml: /\.toml$/,
+    yml: /\.(yaml|yml)$/,
+    xml: /\.xml$/,
+    csv: /\.(csv|tsv)$/,
+    json: /\.json$/,
+    json5: /\.json5$/,
   },
+
   location: {
     project: process.cwd(),
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
     publicPath: '/',
-    records: 'records.json',
     storage: '.budfiles',
   },
+
   ci: false,
   clean: false,
   debug: false,
@@ -37,15 +44,30 @@ export const config: Configuration = {
   log: false,
   manifest: true,
   minimize: true,
+
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash:6]',
   build: {
     optimization: {
       emitOnErrors: false,
     },
-    parallelism: cpus().length - 1,
     resolve: {
-      extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
+      extensions: [
+        '.wasm',
+        '.mjs',
+        '.js',
+        '.jsx',
+        '.css',
+        '.json',
+        '.json5',
+        '.toml',
+        '.xml',
+        '.csv',
+        '.tsv',
+        '.yml',
+        '.yaml',
+        '.xml',
+      ],
     },
   },
   extension: {
@@ -91,6 +113,9 @@ export const config: Configuration = {
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
+      /**
+       * create an empty object in case we want a merged manifest.
+       */
       assets: Object.create(null),
     },
     webpackProvidePlugin: {},
@@ -104,9 +129,7 @@ export const config: Configuration = {
         '!node_modules',
         '!vendor',
       ],
-      options: {
-        persistant: false,
-      },
+      options: {},
     },
     middleware: {
       dev: true,
