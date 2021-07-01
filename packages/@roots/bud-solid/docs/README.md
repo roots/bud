@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/@roots/bud-react">
-    <img src="https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/bud-solid">
+    <img src="https://img.shields.io/npm/v/@roots/bud-solid.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -19,47 +19,52 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-react</strong>
+  <strong>@roots/bud-solid</strong>
 </h1>
 
-> React support for [**@roots/bud**](https://github.com/roots/bud) projects.
+> solid-js support for [**@roots/bud**](https://github.com/roots/bud) projects.
 
-- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
 
-## Requirements
-
-[**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependencies.
-
-```sh
-yarn add @roots/bud-babel --dev
-```
-
-You should also install `react` and `react-dom` explicitly:
-
-```sh
-yarn add react react-dom
-```
-
 ## Installation
 
 ```sh
-yarn add @roots/bud-react --dev
+yarn add @roots/bud-solid --dev
+```
+
+Easiest way to keep everything in your project up-to-date is running `bud init` after installing any extension:
+
+```sh
+yarn bud init
 ```
 
 ## Usage
 
-Include [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) in your config. Make sure it is included after [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel).
+JS/TS config:
 
 ```js
 module.exports = (app) =>
-  app
-    .use([require("@roots/bud-babel"), require("@roots/bud-react")])
-    .entry("app", ["app.css"]);
+  app.use([require("@roots/bud-babel"), require("@roots/bud-solid")]);
+```
+
+JSON config:
+
+```json
+{
+  "extensions": ["@roots/bud-babel", "@roots/bud-solid"]
+}
+```
+
+yml config:
+
+```yml
+extensions:
+  - "@roots/bud-babel"
+  - "@roots/bud-solid"
 ```
 
 ## Contributing
