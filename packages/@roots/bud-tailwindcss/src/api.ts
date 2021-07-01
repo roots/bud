@@ -9,7 +9,7 @@ const tailwind: Tailwind.Configure = function (config) {
     import: this.postcss.plugins['import'] ?? 'postcss-import',
     tailwindcss,
     'preset-env':
-      this.postcss.plugins['preset-env'] ?? 'preset-env',
+      this.postcss.plugins['preset-env'] ?? 'postcss-preset-env',
   })
 
   return this

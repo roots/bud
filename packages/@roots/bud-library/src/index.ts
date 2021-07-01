@@ -1,12 +1,7 @@
 import './interface'
-
 import {Framework, Library, Module} from '@roots/bud-framework'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-/**
- * @module @roots/bud-library
- * @description Wrapper for autodll-webpack-plugin
- */
 interface Extension {
   name: Module.Name
   api: Module.Api &
@@ -15,18 +10,9 @@ interface Extension {
     })
 }
 
-/**
- * bud-library extension
- */
 const extension: Extension = {
-  /**
-   * @property name
-   */
   name: '@roots/bud-library',
 
-  /**
-   * @property api
-   */
   api: app => ({
     library(modules) {
       this.extensions.add({

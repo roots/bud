@@ -8,7 +8,7 @@ export interface Configuration {
   name: string
 
   /**
-   * Regular expressions for convenience when doing pattern matching.
+   * Shared regular expressions for pattern matching.
    *
    * @example
    *
@@ -109,7 +109,7 @@ export interface Configuration {
    * File format (when hashing is enabled)
    *
    * @note do not include extension
-   * @default '[name].[contenthash]'
+   * @default '[name].[contenthash:6]'
    */
   hashFormat: string
 
@@ -134,6 +134,51 @@ export interface Configuration {
    * Theme configuration
    */
   theme: {
-    [key: string]: any
+    spacing: number // number of chars to use for gutters, spacers, etc.
+    colors: {
+      foreground: TermColor // text color
+      faded: TermColor // 'grayed out' color
+      primary: TermColor // primary color
+      primaryAlt: TermColor // variant of primary color (for gradients, etc.)
+      error: TermColor // error color
+      errorAlt: TermColor // variant of error color (for gradients, etc.)
+      warning: TermColor // warning color
+      success: TermColor // success color
+      accent: TermColor // accent color
+      flavor: TermColor // flavor color
+    }
+    screens: [
+      [number, number], // sm
+      [number, number], // md
+      [number, number], // lg
+      [number, number], // xl
+    ]
+    columns: number // col system to use
+    maxWidth: number // max width of terminal output
+    maxHeight: number // max height of terminal output
   }
 }
+
+/**
+ * Can be either ansi-color or hex
+ */
+type TermColor =
+  | `#${string}`
+  | `black`
+  | `red`
+  | `green`
+  | `yellow`
+  | `blue`
+  | `magenta`
+  | `cyan`
+  | `white`
+  | `gray`
+  | `grey`
+  | `blackBright`
+  | `redBright`
+  | `greenBright`
+  | `yellowBright`
+  | `blueBright`
+  | `magentaBright`
+  | `cyanBright`
+  | `whiteBright`

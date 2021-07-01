@@ -9,9 +9,6 @@ describe('@roots/bud-framework child', () => {
   })
 
   afterAll(() => {
-    bud.children.every((k, v) => {
-      bud.children.set(k, teardownBud(v))
-    })
     bud = teardownBud(bud)
   })
 
@@ -33,9 +30,12 @@ describe('@roots/bud-framework child', () => {
   it('bud can set a child compiler', () => {
     bud.set(
       'setChild',
-      new Bud(config, 'setChild', bud, bud.mode).bootstrap(
-        services,
-      ),
+      new Bud({
+        config,
+        name: 'setChild',
+        parent: bud,
+        mode: bud.mode,
+      }).bootstrap(services),
     )
     const {name} = bud.get('setChild')
     expect(name).toBe('setChild')

@@ -60,10 +60,7 @@
     "commands": "./lib/cjs/commands",
     "bin": "bud",
     "plugins": [
-      "@oclif/plugin-plugins",
       "@oclif/plugin-update",
-      "@oclif/plugin-warn-if-update-available",
-      "@oclif/plugin-which",
       "@oclif/plugin-commands",
       "@oclif/plugin-autocomplete",
       "@oclif/plugin-help"
@@ -124,7 +121,8 @@
     "@oclif/test": "^1.2.8",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.5"
+    "@types/node": "^15.12.5",
+    "@types/prettier": "^2.3.0"
   },
   "dependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
@@ -133,16 +131,16 @@
     "@oclif/plugin-autocomplete": "^0.3.0",
     "@oclif/plugin-commands": "^1.3.0",
     "@oclif/plugin-help": "^3.2.2",
-    "@oclif/plugin-plugins": "^1.10.1",
     "@oclif/plugin-update": "^1.3.10",
-    "@oclif/plugin-warn-if-update-available": "^1.7.0",
-    "@oclif/plugin-which": "^1.0.3",
     "@roots/bud": "workspace:packages/@roots/bud",
     "autobind-decorator": "^2.4.0",
     "cosmiconfig": "^7.0.0",
     "globby": "^11.0.4",
     "lodash": "^4.17.21",
     "node-notifier": "^10.0.0",
+    "prettier": "^2.3.2",
+    "pretty-format": "^27.0.6",
+    "serialize-javascript": "^6.0.0",
     "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"

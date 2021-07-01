@@ -36,7 +36,7 @@ describe('server', function () {
             '!node_modules',
             '!vendor',
           ],
-          options: {persistant: false},
+          options: {},
         },
       })
     })
@@ -92,19 +92,3 @@ describe('server', function () {
     })
   })
 })
-
-// middleware: Server.Middleware.Inventory
-
-// assets: string[]
-
-// instance: Server.Instance
-
-// config: Server.Config
-
-// isWatchable: boolean
-
-// getWatchedFilesArray(): string[]
-
-// run(): this
-
-// inject(): void

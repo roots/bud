@@ -6,7 +6,6 @@ import {Container} from '@roots/container'
 import {Dashboard} from '../Dashboard'
 import {Dependencies} from '../Dependencies'
 import {Discovery} from '../Discovery'
-import {Disk} from '../Disk'
 import {Env} from '../Env'
 import {Extensions} from '../Extensions'
 import {Hooks} from '../Hooks'
@@ -23,6 +22,7 @@ import {Store} from '../Store'
 import {isFunction} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
+import {Configuration} from 'src/Configuration'
 
 interface Framework {
   /**
@@ -31,16 +31,21 @@ interface Framework {
   name: string
 
   /**
-   * Multi-compiler
-   */
-  children: Container<Framework>
-
-  /**
    * If a child instance, returns the parent.
    *
    * If the parent instance, returns this
    */
   parent: Framework
+
+  /**
+   * Multi-compiler
+   */
+  children: Container<Framework>
+
+  /**
+   * True if instance is child
+   */
+  isChild: boolean
 
   /**
    * API service
@@ -76,11 +81,6 @@ interface Framework {
    * Discovery service
    */
   discovery: Discovery
-
-  /**
-   * Disk service
-   */
-  disk: Disk
 
   /**
    * Envvar service
@@ -264,12 +264,12 @@ namespace Framework {
 }
 
 abstract class Framework {
-  public abstract implementation: new (
-    config: Store['repository'],
-    name?: string,
-    parent?: Framework,
-    mode?: 'production' | 'development',
-  ) => Framework
+  public abstract implementation: new (options: {
+    config: Configuration
+    name?: string
+    parent?: Framework
+    mode?: 'production' | 'development'
+  }) => Framework
 
   public name = 'bud'
 
@@ -277,10 +277,12 @@ abstract class Framework {
 
   public parent: Framework = this
 
+  public isChild: boolean = false
+
   public children: Container<Framework>
 
   public proto: {
-    config: Store['repository']
+    config: Configuration
     services: Store['repository']
   } = {
     config: null,
@@ -302,8 +304,6 @@ abstract class Framework {
   public dependencies: Dependencies
 
   public discovery: Discovery
-
-  public disk: Disk
 
   public env: Env
 
@@ -351,18 +351,18 @@ abstract class Framework {
     return this.mode === 'development'
   }
 
-  public constructor(
-    config?: Store['repository'],
-    name?: string,
-    parent?: Framework,
-    mode?: 'production' | 'development',
-  ) {
-    this.proto = {...this.proto, config}
-    this.name = name ?? this.name
-    this.parent = parent ?? this.parent
+  public constructor(options: {
+    name?: string
+    mode?: 'production' | 'development'
+    config?: Configuration
+    parent?: Framework
+  }) {
+    this.proto = {...this.proto, config: options.config}
+    this.name = options.name ?? this.name
+    this.parent = options.parent ?? this.parent
 
     this.mode =
-      mode ??
+      options.mode ??
       ((process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
         ? process.env.NODE_ENV
         : 'production') as 'production' | 'development')
@@ -385,16 +385,16 @@ abstract class Framework {
     name: string,
     tap?: (app: Framework) => Framework,
   ): Framework {
-    const compiler = new this.implementation(
-      {
-        ...this.proto.config,
-      },
+    const compiler = new this.implementation({
+      config: this.proto.config,
       name,
-      this,
-      this.mode,
-    )
+      parent: this,
+      mode: this.mode,
+    })
       .bootstrap(this.proto.services)
       .lifecycle()
+
+    compiler.isChild = true
 
     this.set(name, isFunction(tap) ? tap(compiler) : compiler)
 
@@ -413,17 +413,50 @@ abstract class Framework {
 
     this.services = this.container({...this.proto.services})
 
+    /**
+     * Build the logger early
+     */
     const LoggerConstructor =
       this.services.get<new (app: Framework) => Logger>('logger')
+
     this.logger = new LoggerConstructor(this)
 
     this.services
       .getEntries()
-      .filter(([k, v]) => v.name)
+      .filter(([k, v]) => {
+        /**
+         * No reason to boot an extension that isnt well written
+         */
+        if (!v.name) return false
+
+        /**
+         * No reason to start server for prod
+         */
+        if (k == 'server' && this.isProduction) return false
+
+        /**
+         * No reason to boot expensive parent services
+         * for child compilation instantances
+         */
+        if (
+          this.isChild &&
+          [
+            'compiler',
+            'discovery',
+            'dashboard',
+            'server',
+          ].includes(k)
+        )
+          return false
+
+        return true
+      })
+
+      /**
+       * Instantiate the services
+       */
       .map(([key, Instance]) => {
-        this.logger.instance.time(key)
         this[key] = new Instance(this)
-        this.logger.instance.timeEnd(key)
       })
 
     return this
@@ -439,8 +472,6 @@ abstract class Framework {
       'boot',
       'booted',
     ]
-
-    this.logger.instance.time('lifecycle')
 
     events.forEach(event => {
       this.logger.instance.scope(event).time(event)
@@ -462,8 +493,6 @@ abstract class Framework {
 
       this.logger.instance.scope(event).timeEnd(event)
     })
-
-    this.logger.instance.timeEnd('lifecycle')
 
     return this
   }

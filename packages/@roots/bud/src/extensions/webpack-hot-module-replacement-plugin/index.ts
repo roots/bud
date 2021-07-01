@@ -7,4 +7,6 @@ export const make: Module.Make = () =>
   new HotModuleReplacementPlugin()
 
 export const when: Module.When = app =>
-  app.isDevelopment && app.server.config.isTrue('middleware.hot')
+  app.isDevelopment &&
+  !app.isChild &&
+  app.server?.config?.isTrue('middleware.hot')

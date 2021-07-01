@@ -35,6 +35,8 @@ export const rules = [
   'xml',
   'json5',
   'yml',
+  'yaml',
+  'toml',
 ]
 
 describe('bud.build', function () {

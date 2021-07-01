@@ -175,29 +175,29 @@ class Build extends Service implements Contract {
         use: ({build}) => [build.items.html],
       }),
       csv: new Rule({
-        test: () => /\.(csv|tsv)$/i,
+        test: ({store}) => store.get('patterns.csv'),
         use: ({build}) => [build.items.csv],
       }),
       xml: new Rule({
-        test: () => /\.xml$/i,
+        test: ({store}) => store.get('patterns.xml'),
         use: ({build}) => [build.items.xml],
       }),
       toml: new Rule({
-        test: () => /\.toml$/i,
+        test: ({store}) => store.get('patterns.toml'),
         type: () => 'json',
         parser: () => ({
           parse: toml.parse,
         }),
       }),
       yml: new Rule({
-        test: /\.yaml$/i,
+        test: ({store}) => store.get('patterns.yml'),
         type: 'json',
         parser: () => ({
           parse: yaml.parse,
         }),
       }),
       json5: new Rule({
-        test: /\.json5$/i,
+        test: ({store}) => store.get('patterns.json5'),
         type: 'json',
         parser: () => ({
           parse: json5.parse,

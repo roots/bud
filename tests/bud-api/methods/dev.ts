@@ -4,7 +4,7 @@ describe('bud.dev', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = setupBud('development')
     return
   })
 

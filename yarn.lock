@@ -1948,7 +1948,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/color@npm:^0.1.0, @oclif/color@npm:^0.x":
+"@oclif/color@npm:^0.1.0":
   version: 0.1.2
   resolution: "@oclif/color@npm:0.1.2"
   dependencies:
@@ -1961,7 +1961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.5.10, @oclif/command@npm:^1.5.12, @oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
+"@oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
   version: 1.8.0
   resolution: "@oclif/command@npm:1.8.0"
   dependencies:
@@ -1977,7 +1977,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/config@npm:^1.12.8, @oclif/config@npm:^1.13.0, @oclif/config@npm:^1.15.1, @oclif/config@npm:^1.17.0, @oclif/config@npm:^1.8.7, @oclif/config@npm:^1.9.0":
+"@oclif/config@npm:^1.13.0, @oclif/config@npm:^1.15.1, @oclif/config@npm:^1.17.0, @oclif/config@npm:^1.8.7, @oclif/config@npm:^1.9.0":
   version: 1.17.0
   resolution: "@oclif/config@npm:1.17.0"
   dependencies:
@@ -2091,27 +2091,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-plugins@npm:^1.10.1":
-  version: 1.10.1
-  resolution: "@oclif/plugin-plugins@npm:1.10.1"
-  dependencies:
-    "@oclif/color": ^0.x
-    "@oclif/command": ^1.5.12
-    "@oclif/errors": ^1.2.2
-    chalk: ^4.1.0
-    cli-ux: ^5.2.1
-    debug: ^4.1.0
-    fs-extra: ^9.0
-    http-call: ^5.2.2
-    load-json-file: ^5.2.0
-    npm-run-path: ^4.0.1
-    semver: ^7.3.2
-    tslib: ^2.0.0
-    yarn: ^1.21.1
-  checksum: fe50778f0f427f57cd419d57a32b1039e63e007e3a5006ec4af8b003a124b3543b3f808e95fa91be1746190f1ade5ad2b3e6e90d39ff36e288249a3701c9f268
-  languageName: node
-  linkType: hard
-
 "@oclif/plugin-update@npm:^1.3.10":
   version: 1.3.10
   resolution: "@oclif/plugin-update@npm:1.3.10"
@@ -2132,35 +2111,6 @@ __metadata:
     semver: ^5.6.0
     tar-fs: ^1.16.3
   checksum: b8438bc6198c1f86e709b524e1e84487ed58a2be17f25d2f3de4debbc4b2e87ed4ae45e8e170153149613a15cdd6772fe58675c682a1998fdf6dac16387fe7c7
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-warn-if-update-available@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "@oclif/plugin-warn-if-update-available@npm:1.7.0"
-  dependencies:
-    "@oclif/command": ^1.5.10
-    "@oclif/config": ^1.12.8
-    "@oclif/errors": ^1.2.2
-    chalk: ^2.4.1
-    debug: ^4.1.0
-    fs-extra: ^7.0.0
-    http-call: ^5.2.2
-    lodash.template: ^4.4.0
-    semver: ^5.6.0
-  checksum: be3b0700b698795cab74817eebde41e48fcc30385406616072e076a7ec4927b774bc3f03f633f922f5aa18580b929fb26eee32cf914b2b81ba78d1265784265e
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-which@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@oclif/plugin-which@npm:1.0.3"
-  dependencies:
-    "@oclif/command": ^1.5.4
-    "@oclif/config": ^1.8.7
-    cli-ux: ^4.9.1
-    tslib: ^1.9.3
-  checksum: be4c1c900fa54e16241305a20f623a790e24b1dc52cb6387c29f93cac8111546e5aa5390bc05b996aa15b9beee31babef712e4f89465c589941ad3ea90825879
   languageName: node
   linkType: hard
 
@@ -2267,7 +2217,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/marked": ^2.0.3
-    "@types/mini-css-extract-plugin": ^1.4.3
+    "@types/mini-css-extract-plugin": ^2.0.0
     "@types/node": ^15.12.5
     "@types/yamljs": ^0.2.31
     autobind-decorator: ^2.4.0
@@ -2277,7 +2227,7 @@ __metadata:
     html-loader: ^2.1.2
     json5: ^2.2.0
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.0.0
     mini-svg-data-uri: ^1.3.3
     remark: ^13.0.0
     remark-html: ^13.0.1
@@ -2318,20 +2268,21 @@ __metadata:
     "@oclif/plugin-autocomplete": ^0.3.0
     "@oclif/plugin-commands": ^1.3.0
     "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-plugins": ^1.10.1
     "@oclif/plugin-update": ^1.3.10
-    "@oclif/plugin-warn-if-update-available": ^1.7.0
-    "@oclif/plugin-which": ^1.0.3
     "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/node": ^15.12.5
+    "@types/prettier": ^2.3.0
     autobind-decorator: ^2.4.0
     cosmiconfig: ^7.0.0
     globby: ^11.0.4
     lodash: ^4.17.21
     node-notifier: ^10.0.0
+    prettier: ^2.3.2
+    pretty-format: ^27.0.6
+    serialize-javascript: ^6.0.0
     tslib: ^2.3.0
   bin:
     bud: ./bin/bud
@@ -2615,7 +2566,7 @@ __metadata:
     lodash: ^4.17.21
     postcss: ^8.3.5
     postcss-import: ^14.0.2
-    postcss-loader: ^6.1.0
+    postcss-loader: ^6.1.1
     postcss-preset-env: ^6.7.0
     webpack: 5.41.1
   peerDependencies:
@@ -2935,7 +2886,7 @@ __metadata:
     "@types/express": ^4.17.12
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.170
-    "@types/mini-css-extract-plugin": ^1.4.3
+    "@types/mini-css-extract-plugin": ^2.0.0
     "@types/node": ^15.12.5
     "@types/pkg-up": ^3.1.0
     "@types/react": ^17.0.11
@@ -2956,7 +2907,7 @@ __metadata:
     ink: ^3.0.8
     ink-spinner: ^4.0.2
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.0.0
     pkg-up: ^3.1.0
     react: ^17.0.2
     resolve-pkg: ^2.0.0
@@ -3645,14 +3596,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mini-css-extract-plugin@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@types/mini-css-extract-plugin@npm:1.4.3"
+"@types/mini-css-extract-plugin@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@types/mini-css-extract-plugin@npm:2.0.0"
   dependencies:
     "@types/node": "*"
     tapable: ^2.2.0
     webpack: ^5
-  checksum: 809ffb750926c8f66112fcff82e2c4773dd54bde9fadcfee70303b256fbac7d3833d99453044449f49633ce78b1a55bbbbeca9cc1fc86dc446bb77e25ccd5a20
+  checksum: 9806384005a280fa2fb4e63bab1b1a8f74dbe237ad5511e75ca90c10a31673ab848887520f4a5fd44f128055d49ca88517af94c4f055537114b30e1bdc74dfc9
   languageName: node
   linkType: hard
 
@@ -5824,7 +5775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-ux@npm:^4.9.1, cli-ux@npm:^4.9.3":
+"cli-ux@npm:^4.9.3":
   version: 4.9.3
   resolution: "cli-ux@npm:4.9.3"
   dependencies:
@@ -11279,19 +11230,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"load-json-file@npm:^5.2.0":
-  version: 5.3.0
-  resolution: "load-json-file@npm:5.3.0"
-  dependencies:
-    graceful-fs: ^4.1.15
-    parse-json: ^4.0.0
-    pify: ^4.0.1
-    strip-bom: ^3.0.0
-    type-fest: ^0.3.0
-  checksum: 8bf15599db9471e264d916f98f1f51eb5d1e6a26d0ec3711d17df54d5983ccba1a0a4db2a6490bb27171f1261b72bf237d557f34e87d26e724472b92bdbdd4f7
-  languageName: node
-  linkType: hard
-
 "load-json-file@npm:^6.2.0":
   version: 6.2.0
   resolution: "load-json-file@npm:6.2.0"
@@ -12157,16 +12095,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "mini-css-extract-plugin@npm:1.6.2"
+"mini-css-extract-plugin@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "mini-css-extract-plugin@npm:2.0.0"
   dependencies:
-    loader-utils: ^2.0.0
     schema-utils: ^3.0.0
-    webpack-sources: ^1.1.0
   peerDependencies:
-    webpack: ^4.4.0 || ^5.0.0
-  checksum: c2c1f3d7e5bc206b5bece0f37b65467ee58e0bb0b61d5e031bb818682b02db2552b296f5018af9058b18eb7127e00f6462fb718712a3d4432079dfa848b510cc
+    webpack: ^5.0.0
+  checksum: 5e83129e5885c5cd78f195acc524243adc61b5502b040446b87b1519132afd03106f263aaa376fe9127da4ff383b5adca861d317874925c3ed02d1c789bf95fd
   languageName: node
   linkType: hard
 
@@ -13680,9 +13616,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "postcss-loader@npm:6.1.0"
+"postcss-loader@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "postcss-loader@npm:6.1.1"
   dependencies:
     cosmiconfig: ^7.0.0
     klona: ^2.0.4
@@ -13690,7 +13626,7 @@ __metadata:
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
-  checksum: ed733e2d42660d67f2d813baffce7ecfc2c0fd9488b8f7035bf779ac10b50a9af754f951f5139e8de22e9b8186b362e1a3659bd34aebdb11f40b3aec46d074b1
+  checksum: 3c32d123813efeaede39cbd990a5c2275d0feeb3e3d2b9ad8f0bbf37e1e6d28f24d3174e4eebe9db4f563d57052dc9b5fb3f699f7527f639769d88e907a99490
   languageName: node
   linkType: hard
 
@@ -17048,13 +16984,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^0.3.0":
-  version: 0.3.1
-  resolution: "type-fest@npm:0.3.1"
-  checksum: 347ff46c2285616635cb59f722e7f396bee81b8988b6fc1f1536b725077f2abf6ccfa22ab7a78e9b6ce7debea0e6614bbf5946cbec6674ec1bde12113af3a65c
-  languageName: node
-  linkType: hard
-
 "type-fest@npm:^0.6.0":
   version: 0.6.0
   resolution: "type-fest@npm:0.6.0"
@@ -17762,7 +17691,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^1.0.1, webpack-sources@npm:^1.1.0":
+"webpack-sources@npm:^1.0.1":
   version: 1.4.3
   resolution: "webpack-sources@npm:1.4.3"
   dependencies:
@@ -18144,16 +18073,6 @@ resolve@^2.0.0-next.3:
     y18n: ^5.0.5
     yargs-parser: ^20.2.2
   checksum: b14afbb51e3251a204d81937c86a7e9d4bdbf9a2bcee38226c900d00f522969ab675703bee2a6f99f8e20103f608382936034e64d921b74df82b63c07c5e8f59
-  languageName: node
-  linkType: hard
-
-"yarn@npm:^1.21.1":
-  version: 1.22.10
-  resolution: "yarn@npm:1.22.10"
-  bin:
-    yarn: bin/yarn.js
-    yarnpkg: bin/yarn.js
-  checksum: bc7ebba3d91090310b1db28af1f9fc913b8936693f4c41031db67e5c10ba171a23b343173cd3d0ea91d388e38e6244d17292278cf6c563b1dd7f8e5d0df77b4c
   languageName: node
   linkType: hard
 

@@ -23,5 +23,5 @@ export const when: Module.When = ({store}) =>
 export const options: Module.Options<Options> = app => ({
   ...(app.store.get('extension.webpackConfigDumpPlugin') ?? {}),
   outputPath: app.path('storage'),
-  name: `${app.name}.config.js`,
+  name: `webpack.config.js`,
 })

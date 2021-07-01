@@ -1,11 +1,11 @@
 import Base from '@oclif/command'
-import {Bud, Framework, services, config} from '@roots/bud'
+import {Notifier} from './Notifier'
 
 abstract class Command extends Base {
-  public app: Framework
+  public notifier: Notifier
 
   public async init() {
-    this.app = new Bud(config).bootstrap(services).lifecycle()
+    this.notifier = new Notifier()
   }
 }
 

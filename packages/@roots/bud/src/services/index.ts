@@ -10,7 +10,6 @@ import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
 import {Dependencies} from './Dependencies/index'
 import {Discovery} from './Discovery/index'
-import {Disk} from './Disk/index'
 import {Env} from './Env/index'
 import {Extensions} from './Extensions/index'
 import {Hooks} from './Hooks/index'
@@ -26,7 +25,6 @@ export const services: Services = {
   logger: Logger,
   hooks: Hooks,
   env: Env,
-  disk: Disk,
   build: Build,
   cache: Cache,
   discovery: Discovery,

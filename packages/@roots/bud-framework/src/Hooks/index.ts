@@ -319,7 +319,6 @@ namespace Hooks {
       publicPath: Subject
       storage: Subject
       modules: Subject
-      records: Subject
     }
 
     export type Base = `location`
