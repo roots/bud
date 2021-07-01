@@ -62,7 +62,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.170",
     "@types/marked": "^2.0.3",
-    "@types/mini-css-extract-plugin": "^1.4.3",
+    "@types/mini-css-extract-plugin": "^2.0.0",
     "@types/node": "^15.12.5",
     "@types/yamljs": "^0.2.31",
     "webpack": "^5.41.1"
