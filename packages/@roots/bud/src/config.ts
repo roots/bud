@@ -35,7 +35,7 @@ export const config: Configuration = {
   },
 
   ci: false,
-  clean: false,
+  clean: true,
   debug: false,
   discover: false,
   hash: false,
@@ -113,22 +113,13 @@ export const config: Configuration = {
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
-      /**
-       * create an empty object in case we want a merged manifest.
-       */
       assets: Object.create(null),
     },
     webpackProvidePlugin: {},
   },
   server: {
     watch: {
-      files: [
-        '**/*.html',
-        '**/*.php',
-        '**/*.ejs',
-        '!node_modules',
-        '!vendor',
-      ],
+      files: [],
       options: {},
     },
     middleware: {
@@ -138,8 +129,8 @@ export const config: Configuration = {
     },
     browser: {
       indicator: true,
-      log: true,
       overlay: true,
+      log: true,
     },
     proxy: {
       host: 'localhost',

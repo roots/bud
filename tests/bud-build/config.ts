@@ -132,7 +132,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected number of plugins', () => {
-    expect(config.plugins.length).toBe(3)
+    expect(config.plugins.length).toBe(4)
   })
 
   it('has valid plugins', () => {

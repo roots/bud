@@ -1,16 +1,14 @@
-import {Sage} from './interface'
+import * as Babel from '@roots/bud-babel'
+import * as Entrypoints from '@roots/bud-entrypoints'
+import * as Eslint from '@roots/bud-eslint'
+import * as PostCss from '@roots/bud-postcss'
+import * as React from '@roots/bud-react'
+import * as Tailwind from '@roots/bud-tailwindcss'
+import * as WordPressExternals from '@roots/bud-wordpress-externals'
+import * as WordPressManifests from '@roots/bud-wordpress-manifests'
+import * as WordPressDependencies from '@roots/bud-wordpress-dependencies'
 
-import * as babel from '@roots/bud-babel'
-import * as entrypoints from '@roots/bud-entrypoints'
-import * as eslint from '@roots/bud-eslint'
-import * as postcss from '@roots/bud-postcss'
-
-import * as react from '@roots/bud-react'
-import * as tailwind from '@roots/bud-tailwindcss'
-
-import * as externals from '@roots/bud-wordpress-externals'
-import * as manifests from '@roots/bud-wordpress-manifests'
-import * as dependencies from '@roots/bud-wordpress-dependencies'
+import type {Sage} from './interface'
 
 export const sage: Sage = {
   name: '@roots/sage',
@@ -18,24 +16,24 @@ export const sage: Sage = {
   boot: app => {
     app
       .use([
-        babel,
-        postcss,
-        eslint,
-        react,
-        tailwind,
-        entrypoints,
-        dependencies,
-        externals,
-        manifests,
+        Babel,
+        PostCss,
+        Eslint,
+        React,
+        Tailwind,
+        Entrypoints,
+        WordPressDependencies,
+        WordPressExternals,
+        WordPressManifests,
       ])
 
       .setPath({
-        storage: app.env.get('APP_STORAGE') ?? 'storage/bud',
-        src: app.env.get('APP_SRC') ?? 'resources',
-        dist: app.env.get('APP_DIST') ?? 'public',
+        storage: 'storage/bud',
+        src: 'resources',
+        dist: 'public',
       })
 
-      .setPublicPath(app.env.get('APP_PUBLIC_PATH') ?? 'public/')
+      .setPublicPath('public/')
 
       .alias({
         '@fonts': app.path('src', 'fonts'),
@@ -44,12 +42,10 @@ export const sage: Sage = {
         '@styles': app.path('src', 'styles'),
       })
 
-      .template({enabled: false})
-
       .provide({jquery: ['$', 'jQuery']})
 
       .when(
-        ({isProduction}) => isProduction,
+        app.isProduction,
         app =>
           app.minimize().hash().splitChunks().runtime('single'),
         app => app.proxy().devtool(),

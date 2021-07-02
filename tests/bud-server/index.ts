@@ -29,13 +29,7 @@ describe('server', function () {
         port: 3000,
         proxy: {host: 'localhost', port: 8000},
         watch: {
-          files: [
-            '**/*.html',
-            '**/*.php',
-            '**/*.ejs',
-            '!node_modules',
-            '!vendor',
-          ],
+          files: [],
           options: {},
         },
       })
@@ -87,8 +81,8 @@ describe('server', function () {
       ])
     })
 
-    it('is watchable', () => {
-      expect(bud.server.isWatchable).toBe(true)
+    it('is not watching by default', () => {
+      expect(bud.server.isWatchable).toBe(false)
     })
   })
 })

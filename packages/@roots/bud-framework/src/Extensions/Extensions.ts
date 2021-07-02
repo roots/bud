@@ -1,10 +1,16 @@
 import {Service} from '../Service'
-import {Module} from './Module'
 import {WebpackPluginInstance} from 'webpack/types'
+import {Module} from './Module'
 
 interface Extensions extends Service {
+  /**
+   * Add an extension
+   */
   add(extension: Module): void
 
+  /**
+   * Produce Webpack Plugins
+   */
   make(): Extensions.PluginOutput[]
 }
 

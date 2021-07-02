@@ -62,7 +62,10 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  on(id: Hooks.Name, callback: Hooks.Hook): Framework
+  on(
+    id: `${Hooks.Name & string}`,
+    callback: Hooks.Hook,
+  ): Framework
 
   /**
    * ## hooks.filter
