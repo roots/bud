@@ -2265,7 +2265,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.0
+    "@types/prettier": ^2.3.1
     autobind-decorator: ^2.4.0
     cosmiconfig: ^7.0.0
     globby: ^11.0.4
@@ -2976,7 +2976,7 @@ __metadata:
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.0
+    "@types/prettier": ^2.3.1
     "@types/react": ^17.0.11
     autobind-decorator: ^2.4.0
     ink: ^3.0.8
@@ -3005,7 +3005,7 @@ __metadata:
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.0
+    "@types/prettier": ^2.3.1
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
     prettier: ^2.3.2
@@ -3649,10 +3649,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@types/prettier@npm:2.3.0"
-  checksum: 8dd9b5263fd91001d72ca4e2ff89fb0d1ba23a450bd723b4478eb651755a2f1151af14ab90c4f7dadba607142757b340c1d7271ae56806563c76719d3321ec20
+"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@types/prettier@npm:2.3.1"
+  checksum: 545891e0ecbb60345263e4f142d406b3d4ff97bb24605f247844af55f6523e974d3c7b0b7a83f59467e078e193c879b9491ec24c652c536f1905a4966b3e5784
   languageName: node
   linkType: hard
 
