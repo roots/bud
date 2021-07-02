@@ -68,7 +68,7 @@
     "@types/node": "^15.12.5",
     "postcss": "^8.3.5",
     "sass": "^1.35.1",
-    "webpack": "^5.41.1"
+    "webpack": "^5.42.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
