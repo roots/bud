@@ -336,16 +336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.3, @babel/parser@npm:^7.14.5, @babel/parser@npm:^7.7.0, @babel/parser@npm:^7.7.2":
-  version: 7.14.5
-  resolution: "@babel/parser@npm:7.14.5"
-  bin:
-    parser: ./bin/babel-parser.js
-  checksum: 9fdcf174d9e9ab76b242a837307d5c513dc530f6080d0dd1b93d5e0338e80f0b8d71cc6afebd33f9ac22cf51d0427709efab8f3377757be56d5e58fe0b9d68ef
-  languageName: node
-  linkType: hard
-
-"@babel/parser@npm:^7.12.0, @babel/parser@npm:^7.13.9":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.12.0, @babel/parser@npm:^7.13.9, @babel/parser@npm:^7.14.3, @babel/parser@npm:^7.14.5, @babel/parser@npm:^7.7.0, @babel/parser@npm:^7.7.2":
   version: 7.14.7
   resolution: "@babel/parser@npm:7.14.7"
   bin:
@@ -2461,7 +2452,7 @@ __metadata:
     express: ^4.17.1
     fs-extra: ^10.0.0
     globby: ^11.0.4
-    http-proxy-middleware: ^2.0.0
+    http-proxy-middleware: ^2.0.1
     ink: ^3.0.8
     lodash: ^4.17.21
     signale: ^1.4.0
@@ -2697,7 +2688,7 @@ __metadata:
     chokidar: ^3.5.2
     fs-extra: ^10.0.0
     globby: ^11.0.4
-    http-proxy-middleware: ^2.0.0
+    http-proxy-middleware: ^2.0.1
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
     webpack: ^5.41.1
@@ -3388,17 +3379,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:^0.0.47":
-  version: 0.0.47
-  resolution: "@types/estree@npm:0.0.47"
-  checksum: aed5c940436250c25c5e140aa19e7199ba3452e72e1aecc515621507df9e5ed5076ddba84a1684c36d62be841ff3e2bafce8793f16fe6f69d10884449d4461e7
-  languageName: node
-  linkType: hard
-
-"@types/estree@npm:^0.0.48":
+"@types/estree@npm:*, @types/estree@npm:^0.0.48":
   version: 0.0.48
   resolution: "@types/estree@npm:0.0.48"
   checksum: 5062c9a65d3b4020df54741ec7e697ad516bb446a1f8823bd7990544cf6221ab6facf8dd7ad1c79753a5dde5ecb6a9bc4ffcaa1123dba1119566887732cc39fb
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:^0.0.47":
+  version: 0.0.47
+  resolution: "@types/estree@npm:0.0.47"
+  checksum: aed5c940436250c25c5e140aa19e7199ba3452e72e1aecc515621507df9e5ed5076ddba84a1684c36d62be841ff3e2bafce8793f16fe6f69d10884449d4461e7
   languageName: node
   linkType: hard
 
@@ -9362,16 +9353,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "http-proxy-middleware@npm:2.0.0"
+"http-proxy-middleware@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "http-proxy-middleware@npm:2.0.1"
   dependencies:
     "@types/http-proxy": ^1.17.5
     http-proxy: ^1.18.1
     is-glob: ^4.0.1
     is-plain-obj: ^3.0.0
     micromatch: ^4.0.2
-  checksum: 1cf880d06f7ba44836e890f738df3fa257a03591fea47b09be60476bf4a9fc997fd329f857c997797372904a5ad4a150bbf7d933a8b048c78dfb84231e9f0b90
+  checksum: 0de65bc6644b6efae5d26cd3bec071ceaeb92f26856ffee5ecdde9c702ea1435936e7dfb09da2ac0883eada80fdc993e9925902fc10bf6625565d6365f8cb30f
   languageName: node
   linkType: hard
 
