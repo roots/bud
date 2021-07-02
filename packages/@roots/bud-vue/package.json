@@ -65,10 +65,10 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.12.5",
-    "@vue/compiler-sfc": "^3.1.2",
+    "@vue/compiler-sfc": "^3.1.4",
     "css-loader": "^5.2.6",
-    "vue": "^3.1.2",
-    "webpack": "^5.41.1"
+    "vue": "^3.1.4",
+    "webpack": "^5.42.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
@@ -80,8 +80,8 @@
     "vue-loader": "^16.3.0"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "^3.1.2",
-    "vue": "^3.1.2"
+    "@vue/compiler-sfc": "^3.1.4",
+    "vue": "^3.1.4"
   },
   "stableVersion": "4.6.0"
 }
