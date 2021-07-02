@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-dependencies",
-  "version": "4.7.0-2",
+  "version": "4.7.0-3",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
