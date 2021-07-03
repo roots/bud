@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "4.7.0-4",
+  "version": "4.7.0-5",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
