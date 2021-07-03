@@ -24,6 +24,16 @@ interface Build extends Service {
   config: Webpack.Configuration
 
   /**
+   * ## entry
+   */
+  entry: Webpack.Configuration['entry']
+
+  /**
+   * ## plugins
+   */
+  plugins: Webpack.Configuration['plugins']
+
+  /**
    * ## loaders
    *
    * Loader registry

@@ -17,21 +17,24 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Run = () => void
+    type Run = (this: Framework) => void
   }
 }
 
 export const run: Api.Run = function (): void {
-  this.when(
+  const isDev =
     this.isDevelopment &&
-      this.server.config.isTrue('middleware.hot'),
-    this.server.inject,
-  )
+    this.server?.run &&
+    this.server?.config.isTrue('middleware.hot')
 
-  if (this.mode == 'development') {
-    this.server.run()
-  } else {
-    this.compiler.compile()
-    this.compiler.instance.run(this.compiler.callback)
+  const dev = () => {
+    this.server?.inject()
+    this.server?.run()
   }
+
+  const prod = () => {
+    this.compiler.compile().run(this.compiler.callback)
+  }
+
+  this.when(isDev, dev, prod)
 }

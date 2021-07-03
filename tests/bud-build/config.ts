@@ -82,7 +82,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected profile default', () => {
-    expect(config.profile).toEqual(true)
+    expect(config.profile).toEqual(false)
   })
 
   it('has expected resolve.alias default', () => {
@@ -94,8 +94,17 @@ describe('bud.build.config', function () {
       '.wasm',
       '.mjs',
       '.js',
+      '.jsx',
       '.css',
       '.json',
+      '.json5',
+      '.toml',
+      '.xml',
+      '.csv',
+      '.tsv',
+      '.yml',
+      '.yaml',
+      '.xml',
     ])
   })
 
@@ -111,7 +120,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected target default', () => {
-    expect(config.target).toEqual('web')
+    expect(config.target).toEqual(undefined)
   })
 
   it('has expected watch default', () => {
@@ -234,7 +243,7 @@ describe('bud.build.config', function () {
               ],
             },
             {
-              test: /\.(csv|tsv)$/i,
+              test: /\.(csv|tsv)$/,
               use: [
                 {
                   loader: path(
@@ -245,7 +254,7 @@ describe('bud.build.config', function () {
               ],
             },
             {
-              test: /\.xml$/i,
+              test: /\.xml$/,
               use: [
                 {
                   loader: path(
@@ -259,21 +268,21 @@ describe('bud.build.config', function () {
               parser: {
                 parse: toml.parse,
               },
-              test: /\.toml$/i,
+              test: /\.toml$/,
               type: 'json',
             },
             {
               parser: {
                 parse: yaml.parse,
               },
-              test: /\.yaml$/i,
+              test: /\.(yaml|yml)$/,
               type: 'json',
             },
             {
               parser: {
                 parse: json5.parse,
               },
-              test: /\.json5$/i,
+              test: /\.json5$/,
               type: 'json',
             },
           ],

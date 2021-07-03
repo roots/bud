@@ -1,76 +1,48 @@
-const client = require('webpack-hot-middleware/client?quiet=true')
 const {overlay} = require('./ErrorOverlay')
 const {indicator} = require('./Indicator')
 
-/**
- * Client
- */
-const run = async () => {
+const parsePayload = payload => {
+  return {
+    complete: payload?.action == 'built',
+    pending: payload?.action == 'building',
+    hasWarnings: payload?.warnings?.length > 0,
+    hasErrors: payload?.errors?.length > 0,
+  }
+}
+
+const getServerData = async () => {
   const res = await fetch('/__roots/config.json')
   const server = await res.json()
 
-  server.browser.log &&
-    (() => {
-      console.info(`[Bud] Development mode`)
-      console.info(
-        `[Bud] You should NOT be seeing this message in production.`,
-      )
-    })()
+  return server
+}
 
-  /**
-   * Instantiate overlay
-   */
-  server.browser.overlay && client.useCustomOverlay(overlay)
+const run = async () => {
+  const server = await getServerData()
+  const {
+    subscribeAll,
+    useCustomOverlay,
+  } = require(`webpack-hot-middleware/client?quiet=false`)
 
-  /**
-   * Loading indicator
-   */
-  server.browser.indicator &&
-    (() => {
-      indicator.init()
+  if (server.browser.overlay) useCustomOverlay(overlay)
 
-      client.subscribeAll(payload => {
-        const reload = payload?.action == 'reload'
-        const complete = payload?.action == 'built'
-        const pending = payload?.action == 'building'
-        const hasWarnings = payload?.warnings?.length > 0
-        const hasErrors = payload?.errors?.length > 0
+  if (server.browser.indicator) indicator.init()
 
-        server.browser.log &&
-          (() => {
-            hasWarnings &&
-              console.warn('[Bud] Warning', payload.warnings)
+  subscribeAll(payload => {
+    const {hasWarnings, hasErrors, pending, complete} =
+      parsePayload(payload)
 
-            hasErrors &&
-              console.error('[Bud] Error', payload.errors)
+    if (payload.action == 'reload') window.location.reload()
 
-            pending && console.log('[Bud] Compiling...')
-
-            complete &&
-              !hasErrors &&
-              !hasWarnings &&
-              console.log(
-                `[Bud] Compilation success [${payload.hash}] (${payload.time}ms)`,
-              )
-
-            reload &&
-              console.log(
-                `[Bud] Project template modified. Reloading now.`,
-              )
-          })()
-
-        reload && indicator.reload()
-
-        payload &&
-          indicator.update({
-            payload,
-            complete,
-            pending,
-            hasWarnings,
-            hasErrors,
-          })
+    if (server.browser.indicator)
+      indicator.update({
+        payload,
+        complete,
+        pending,
+        hasWarnings,
+        hasErrors,
       })
-    })()
+  })
 }
 
 run()

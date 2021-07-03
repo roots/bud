@@ -2,7 +2,7 @@ import {Service} from '@roots/bud-framework'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 
 export abstract class Base extends Service {
-  public name = 'service/dependencies'
+  public name = 'dependencies'
 
   public manager: DependenciesManager
 

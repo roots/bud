@@ -23,13 +23,20 @@ declare module '@roots/bud-framework' {
 }
 
 type Watch = (
-  watchlist: Server.Configuration['watch']['files'],
-  watchoptions: Server.Configuration['watch']['options'],
+  files: Server.Configuration['watch']['files'],
+  options?: Server.Configuration['watch']['options'],
 ) => Framework
 
-export const watch: Watch = function (watchlist, watchoptions) {
-  this.server.config.set('watch.list', watchlist)
-  this.server.config.set('watch.options', watchoptions)
+export const watch: Watch = function (files, options) {
+  const target = this.isChild ? this.parent : this
+
+  if (!target.isDevelopment || !target.server) {
+    target.log('Skipping watched files in production')
+    return this
+  }
+
+  files && this.server.config.set('watch.files', files)
+  options && this.server.config.set('watch.options', options)
 
   return this
 }

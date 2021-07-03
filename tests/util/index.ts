@@ -9,13 +9,16 @@ import {logger, log, success, error} from './logger'
  * https://github.com/vadimdemedes/yoga-layout-prebuilt/issues/8
  * https://github.com/diegomura/react-pdf/issues/603
  */
+
 const setupBud = (
   modeOverride?: 'development' | 'production',
   configOverride?: any,
   servicesOverride?: any,
 ) => {
-  const bud: Framework = new Bud(configOverride ?? defaultConfig)
-  bud.mode = modeOverride ?? 'production'
+  const bud: Framework = new Bud({
+    config: configOverride ?? defaultConfig,
+    mode: modeOverride ?? 'production',
+  })
 
   bud.bootstrap(servicesOverride ?? services)
   bud.lifecycle()

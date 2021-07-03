@@ -1,12 +1,19 @@
 import {Service, Server as Contract} from '@roots/bud-framework'
 import chokidar from 'chokidar'
-import {sync} from 'globby'
+import globby from 'globby'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
-
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
+
+/**
+ * Override globby.sync return
+ */
+const sync = globby.sync as (
+  paths: string[],
+  options: globby.GlobbyOptions,
+) => string[]
 
 export class Server extends Service implements Contract {
   public name = '@roots/bud-server'
@@ -65,15 +72,10 @@ export class Server extends Service implements Contract {
   }
 
   @bind
-  public booted() {
-    this.watcher = chokidar.watch(this.getWatchedFilesArray())
-  }
-
-  @bind
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
-        this.info(`Enabling ${key}`)
+        this.app.info(`Enabling ${key}`)
 
         this.middleware[key] = generate({
           config: this.config,
@@ -111,16 +113,18 @@ export class Server extends Service implements Contract {
      * Listen
      */
     this.instance.listen(this.config.get('port'), () => {
-      this.info(
+      this.app.info(
         `Server listening on %s`,
         this.config.get('port'),
       )
 
-      this.info({
+      this.app.info({
         ...this.config.all(),
         middleware,
       })
     })
+
+    this.watcher = chokidar.watch(this.getWatchedFilesArray())
 
     this.isWatchable &&
       this.watcher?.on('change', path => {

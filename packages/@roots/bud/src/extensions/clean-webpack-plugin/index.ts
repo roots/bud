@@ -8,7 +8,8 @@ const extension: Module<Plugin, Options> = {
   name: 'clean-webpack-plugin',
   options: ({store}) =>
     store.get('extension.cleanWebpackPlugin'),
-  make: opts => new Plugin(opts.all()),
+  make: options => new Plugin(options.all()),
+  when: ({store}) => store.isTrue('clean'),
 }
 
-export const {name, options, make} = extension
+export const {name, options, when, make} = extension

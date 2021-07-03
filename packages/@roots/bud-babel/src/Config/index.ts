@@ -1,14 +1,63 @@
 import type {Babel, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
-import {BaseConfig} from './BaseConfig'
 
-export class Config extends BaseConfig implements Babel {
+export class Config implements Babel {
+  public name = '@roots/bud-babel'
+
+  public log: any
+
+  public app: Framework
+
+  public _plugins: Babel.Registry = {}
+
+  public _presets: Babel.Registry = {}
+
+  public get plugins() {
+    return this._plugins
+  }
+
+  public set plugins(plugins) {
+    this._plugins = plugins
+  }
+
+  public get presets() {
+    return this._presets
+  }
+
+  public set presets(presets) {
+    this._presets = presets
+  }
+
+  /**
+   * Accessor: enabledPlugins
+   */
+  public _enabledPlugins: string[] = []
+
+  public get enabledPlugins() {
+    return this._enabledPlugins
+  }
+
+  public set enabledPlugins(plugins: string[]) {
+    this._enabledPlugins = plugins
+  }
+
+  /**
+   * Accessor: enabledPresets
+   */
+  public _enabledPresets: string[] = []
+
+  public get enabledPresets() {
+    return this._enabledPresets
+  }
+
+  public set enabledPresets(presets: string[]) {
+    this._enabledPresets = presets
+  }
+
   @bind
   public init(app: Framework): this {
     this.app = app
-    this.log = app.logger.instance.scope(this.name)
-
     return this
   }
 
@@ -23,8 +72,6 @@ export class Config extends BaseConfig implements Babel {
 
   @bind
   public setPlugin(plugin: Babel.Registrable): this {
-    this.app.log(`Setting babel plugin: ${plugin}`)
-
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -43,8 +90,6 @@ export class Config extends BaseConfig implements Babel {
 
   @bind
   public setPreset(preset: Babel.Registrable): this {
-    this.app.log(`Setting babel preset: ${preset}`)
-
     preset = this.normalizeEntry(preset)
 
     this.presets = {...this.presets, [preset[0]]: preset}
@@ -64,7 +109,7 @@ export class Config extends BaseConfig implements Babel {
   @bind
   public unsetPreset(preset: string) {
     !this.presets[preset]
-      ? this.log.error(`${preset} not found`, this.presets)
+      ? this.app.error(`${preset} not found`)
       : delete this.presets[preset]
 
     return this
@@ -73,7 +118,7 @@ export class Config extends BaseConfig implements Babel {
   @bind
   public unsetPlugin(plugin: string) {
     !this.plugins[plugin]
-      ? this.log.error(`${plugin} not found`, this.plugins)
+      ? this.app.error(`${plugin} not found`)
       : delete this.plugins[plugin]
 
     return this

@@ -1,7 +1,8 @@
 import {Compiler, Service} from '@roots/bud-framework'
-import webpack, {ProgressPlugin, StatsCompilation} from 'webpack'
-import {noop} from 'lodash'
+import webpack, {ProgressPlugin} from 'webpack'
+import {noop, isEqual} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
+import {StatsCompilation} from 'webpack/types'
 
 export default class extends Service implements Compiler {
   public name = '@roots/bud-compiler'
@@ -43,45 +44,79 @@ export default class extends Service implements Compiler {
   }
 
   @bind
+  public register() {
+    this.app.hooks.on('done', () => {
+      this.isCompiled = true
+    })
+  }
+
+  @bind
   public compile(): Compiler.Instance {
-    if (this.isCompiled) {
-      this.instance.close(noop)
-    }
+    this.isCompiled && this.instance.close(noop)
+
+    return this.setup(this.before())
+  }
+
+  @bind
+  public before() {
+    const config = []
 
     this.app.hooks.filter('before')
 
-    this.instance = webpack(this.app.hooks.filter('after'))
+    const parent = this.app.build.config
+
+    if (parent.entry || !this.app.children.getEntries()[0]) {
+      config.push(parent)
+    }
+
+    this.app.children.getValues().forEach(child => {
+      child?.build?.config && config.push(child.build.config)
+    })
+
+    this.app.info(
+      'Compilers: %s',
+      config.map(({name}) => name).join(' '),
+    )
+
+    config.forEach(cfg => {
+      cfg.entry &&
+        this.app.info(
+          '%s entry count: %s',
+          cfg.name,
+          Object.entries(cfg.entry)?.length,
+        )
+
+      cfg.module?.rules[0]?.oneOf &&
+        this.app.info(
+          '%s rules count: %s',
+          cfg.name,
+          cfg.module.rules[0].oneOf.length,
+        )
+    })
+
+    return config
+  }
+
+  @bind
+  public setup(config: any) {
+    this.instance = webpack(config)
 
     this.instance.hooks.done.tap(this.app.name, stats => {
-      if (stats) {
-        this.stats = stats.toJson()
-      }
+      stats && Object.assign(this.stats, stats.toJson())
 
       this.instance.close(err => {
-        if (err) {
-          this.stats.errors.push(err)
-        }
+        err && this.stats.errors.push(err)
 
-        if (this.app.mode == 'production') {
-          setTimeout(() => process.exit(), 1000)
-        }
+        isEqual(this.app.mode, 'production') &&
+          setTimeout(() => process.exit(), 100)
       })
     })
 
-    new ProgressPlugin((percentage, message): void => {
-      const decimal =
-        percentage && typeof percentage === 'number'
-          ? percentage
-          : 0
-
-      this.progress = {
-        decimal,
-        percentage: `${Math.floor(decimal * 100)}%`,
-        message,
-      }
+    new ProgressPlugin((...args): void => {
+      this.progress = args
     }).apply(this.instance)
 
-    this.isCompiled = true
+    this.app.hooks.filter('done')
 
     return this.instance
   }

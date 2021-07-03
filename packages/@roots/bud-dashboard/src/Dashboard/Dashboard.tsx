@@ -1,107 +1,154 @@
-import {Dashboard, Framework} from '@roots/bud-framework'
-
-import React, {useState, useRef} from 'react'
-import {Box, Newline, Text, useInput} from 'ink'
-import {useStyle} from '@roots/ink-use-style'
-import {isEqual} from 'lodash'
-import Table from 'ink-table'
-import humanFormat from 'human-format'
-import {Progress} from './Progress'
-import {StatsCompilation} from 'webpack/types'
+import React, {useState, useCallback, useRef} from 'react'
+import {Box, Newline, Text, useInput, Static} from 'ink'
+import {isEqual, noop} from 'lodash'
+import {durationFormatter, sizeFormatter} from 'human-readable'
 import patchConsole from 'patch-console'
 
-const formatAssetsData = assets =>
-  assets.reduce(
-    (a, {name, size, emitted, info}) => [
-      ...a,
-      {
-        name: `${emitted ? '❇ ' : ''}${name}`,
-        immutable: info?.immutable ? '✔' : '',
-        minimized: info?.minimized ? '✔' : '',
-        size: humanFormat(size, {
-          prefix: 'k',
-          decimals: 2,
-        }),
-      },
-    ],
-    [],
-  )
+import {useStyle} from '@roots/ink-use-style'
+import {Progress} from './Progress'
+
+import {Dashboard, Framework} from '@roots/bud-framework'
+import {StatsCompilation} from 'webpack/types'
+
+const useFormatter = () => {
+  return {
+    fileSize: sizeFormatter({
+      decimalPlaces: 2,
+      keepTrailingZeroes: false,
+    }),
+    duration: durationFormatter({
+      allowMultiples: ['m', 's', 'ms'],
+    }),
+  }
+}
+
+const useForceUpdate = () => {
+  const [, forceUpdate] = React.useState(true)
+
+  return useCallback(() => {
+    forceUpdate(s => !s)
+  }, [])
+}
 
 const Dashboard = ({bud}: {bud: Framework}) => {
-  const app = useRef(bud)
+  useForceUpdate()
+  const instance = useRef<Framework>(bud)
+  const {fileSize, duration} = useFormatter()
 
-  const theme = useStyle(app.current.store.get('theme'))
+  const theme = useStyle(bud?.store?.get('theme'))
+  const [progress, setProgress] = useState<any>(null)
+  const [stats, setStats] = useState<StatsCompilation>({
+    errors: [],
+  })
 
-  const [progress, setProgress] =
-    useState<{
-      message: string
-      decimal: number
-      percentage: string
-    }>(null)
-  const [stats, setStats] = useState<StatsCompilation>(null)
+  patchConsole(noop)
 
   setInterval(() => {
-    setStats(app.current.compiler.stats)
-    setProgress(app.current.compiler.progress)
-  }, 50)
-
-  patchConsole((stream, data) => {})
+    setStats(instance.current.compiler.stats)
+    setProgress(instance.current.compiler.progress)
+  }, 10)
 
   useInput(input => {
     if (isEqual(input, 'q')) {
       try {
-        process.exit()
+        bud.compiler.instance.close(() => {
+          setTimeout(() => process.exit(), 10)
+        })
       } catch (err) {}
     }
   })
 
   return (
-    <Box flexDirection="column">
-      <Text backgroundColor={theme.colors.primary}>
-        {' '}
-        {app.current.mode
-          ? `${app.current.name}@${app.current.mode} `
-          : ''}
-        {stats?.hash ? `#${stats.hash} ` : ''}
-      </Text>
+    <Box flexDirection="column" marginTop={1}>
+      <Static flexDirection="column" items={stats?.errors}>
+        {(err, k) =>
+          err.message ? (
+            <Text key={`err-${k}`}>
+              {err.message ?? err ?? ''}
+              <Newline />
+            </Text>
+          ) : (
+            []
+          )
+        }
+      </Static>
 
-      {stats?.errors?.length > 1 ? (
-        <Box marginY={1} flexDirection="column">
-          {stats.errors.map((err, k) =>
-            err.message ? (
-              <Text color={theme.colors.error} key={`err-${k}`}>
-                {err.message ?? err ?? ''}
-                <Newline />
-              </Text>
-            ) : (
-              []
-            ),
-          )}
-        </Box>
-      ) : null}
+      {stats?.errors?.length <= 1 &&
+        progress &&
+        stats?.children?.map((child, id) => (
+          <Box
+            key={`stats-${child.name}-${id}`}
+            marginBottom={1}
+            flexDirection={'column'}>
+            <Text backgroundColor={theme.colors.primary}>
+              {' '}
+              {child.name}{' '}
+            </Text>
 
-      {stats?.assets?.length > 1 &&
-        !(stats?.errors?.length > 1) && (
-          <Table data={formatAssetsData(stats?.assets)} />
-        )}
+            <Box flexDirection="column" marginY={1}>
+              {child.assets
+                .filter(
+                  ({name, size}) =>
+                    !name.includes('.json') &&
+                    !name.includes('hot-update') &&
+                    size > 0,
+                )
+                .map((asset, id) => (
+                  <Box
+                    key={`asset-${id}`}
+                    flexDirection="row"
+                    justifyContent="flex-start">
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                      ])}>
+                      <Text wrap="truncate-end">
+                        {' '}
+                        - {asset.name}
+                      </Text>
+                    </Box>
 
-      {stats?.time && (
-        <Box>
-          <Text color={theme?.colors?.faded}>
-            {' '}
-            Compiled in {stats?.time / 1000}s
-          </Text>
-        </Box>
-      )}
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                      ])}>
+                      {asset?.info?.minimized && (
+                        <Text color={theme.colors.success}>
+                          minimized
+                        </Text>
+                      )}
+                    </Box>
 
-      {stats?.errors?.length <= 1 && progress?.decimal < 1 && (
-        <Box marginTop={1}>
-          <Progress
-            progress={progress}
-            theme={theme}
-            mode={stats?.mode}
-          />
-        </Box>
+                    <Box
+                      width={theme.ctx([
+                        theme.col(12),
+                        theme.col(4),
+                      ])}>
+                      <Text>{fileSize(asset.size)}</Text>
+                    </Box>
+                  </Box>
+                ))}
+            </Box>
+            <Text>Compiled in {duration(child.time)}</Text>
+          </Box>
+        ))}
+
+      {progress && progress[0] && progress[0] < 1 ? (
+        <Progress
+          progress={progress}
+          theme={theme}
+          mode={instance.current.mode}
+        />
+      ) : (
+        instance.current.mode == 'development' && (
+          <Box marginBottom={1}>
+            <Text color={theme?.colors.faded}>
+              Press Q to exit
+            </Text>
+          </Box>
+        )
       )}
     </Box>
   )

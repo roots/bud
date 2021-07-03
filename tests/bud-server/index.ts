@@ -29,14 +29,8 @@ describe('server', function () {
         port: 3000,
         proxy: {host: 'localhost', port: 8000},
         watch: {
-          files: [
-            '**/*.html',
-            '**/*.php',
-            '**/*.ejs',
-            '!node_modules',
-            '!vendor',
-          ],
-          options: {persistant: false},
+          files: [],
+          options: {},
         },
       })
     })
@@ -71,40 +65,14 @@ describe('server', function () {
       expect(bud.server.inject).toBeInstanceOf(Function)
     })
 
-    it('has watcher property', () => {
-      expect(bud.server.watcher).toHaveProperty('close')
-      expect(bud.server.watcher).toHaveProperty('on')
-    })
-
-    it('has instance property', () => {
-      expect(bud.server.instance).toHaveProperty('on')
-      expect(bud.server.instance).toHaveProperty('use')
-    })
-
     it('has expected assets property', () => {
       expect(bud.server.assets).toEqual([
         `${process.cwd()}/packages/@roots/bud-server/lib/cjs/client/index.js`,
       ])
     })
 
-    it('is watchable', () => {
-      expect(bud.server.isWatchable).toBe(true)
+    it('is not watching by default', () => {
+      expect(bud.server.isWatchable).toBe(false)
     })
   })
 })
-
-// middleware: Server.Middleware.Inventory
-
-// assets: string[]
-
-// instance: Server.Instance
-
-// config: Server.Config
-
-// isWatchable: boolean
-
-// getWatchedFilesArray(): string[]
-
-// run(): this
-
-// inject(): void

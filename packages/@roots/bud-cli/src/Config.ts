@@ -1,28 +1,32 @@
 import {cosmiconfig, Options} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Framework} from '@roots/bud'
+import {Framework, Module} from '@roots/bud-framework'
 
 export class Config {
-  public app: Framework
+  public target: Framework
+  public options: Options
 
-  public searchPlaces: Options['searchPlaces']
+  public constructor(
+    app: Framework,
+    searchPlaces: Options['searchPlaces'],
+  ) {
+    this.target = app
 
-  public loaders: Options['loaders'] = {
-    '.ts': TypeScriptLoader,
-  }
-
-  public constructor(app: Framework, searchPlaces) {
-    this.app = app
-    this.searchPlaces = searchPlaces
+    this.options = {
+      searchPlaces,
+      loaders: {
+        '.ts': TypeScriptLoader,
+      },
+    }
   }
 
   @bind
   public async get() {
-    const res = await cosmiconfig(this.app.name, {
-      searchPlaces: this.searchPlaces,
-      loaders: this.loaders,
-    }).search()
+    const res = await cosmiconfig(
+      this.target.name,
+      this.options,
+    ).search()
 
     return res?.config ?? {}
   }
@@ -32,17 +36,20 @@ export class Config {
     const config = await this.get()
 
     if (config.extensions) {
-      await Promise.all(
-        config.extensions.map(moduleImport => {
-          this.app.extensions.add(require(moduleImport))
-        }),
-      )
+      config.extensions.map(mod => {
+        const ext: Module = require(mod)
+        this.target.use(ext as any)
+      })
     }
 
-    Object.keys(config)
-      .filter(key => key !== 'extensions')
-      .forEach(key => {
-        this.app[key] && this.app[key](config[key])
+    console.log(config)
+
+    Object.entries(config)
+      .filter(([key]) => key !== 'extensions')
+      .forEach(([key, value]) => {
+        this.target[key] && this.target[key](value)
       })
+
+    return this.target
   }
 }

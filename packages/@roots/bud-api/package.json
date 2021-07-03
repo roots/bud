@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "4.6.0",
+  "version": "4.7.0-6",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -62,15 +62,17 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "globby": "^11.0.3",
-    "webpack": "^5.38.1"
+    "@types/node": "^15.12.5",
+    "globby": "^11.0.4",
+    "webpack": "^5.42.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
-    "html-webpack-plugin": "^5.3.1",
-    "lodash": "^4.17.21"
-  }
+    "html-webpack-plugin": "^5.3.2",
+    "lodash": "^4.17.21",
+    "nanoid": "^3.1.23"
+  },
+  "stableVersion": "4.6.0"
 }

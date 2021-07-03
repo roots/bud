@@ -11,7 +11,7 @@ const babel: Module = {
     babel: new Config().init(app),
   }),
 
-  register: ({build}) => {
+  register: ({build, path}) => {
     build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
     )
@@ -19,7 +19,7 @@ const babel: Module = {
     build.items.babel = new Item({
       loader: ({build}) => build.loaders.babel,
       options: ({path, babel}) => ({
-        cacheDirectory: path('storage', 'babel'),
+        cacheDirectory: path('storage', 'cache/babel'),
         root: path('src'),
         presets: Object.values(babel.presets),
         plugins: Object.values(babel.plugins),
@@ -29,19 +29,20 @@ const babel: Module = {
     build.rules.js.setUse(({build}) => [build.items.babel])
   },
 
-  boot: app =>
+  boot: app => {
     !existsSync(app.path('project', 'babel.config.js')) &&
-    app.babel.setPresets(['@babel/preset-env']).setPlugins([
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          helpers: false,
-        },
-      ],
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-class-properties',
-    ]),
+      app.babel.setPresets(['@babel/preset-env']).setPlugins([
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            helpers: false,
+          },
+        ],
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-proposal-class-properties',
+      ])
+  },
 }
 
 export default babel

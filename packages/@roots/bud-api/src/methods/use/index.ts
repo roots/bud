@@ -1,39 +1,87 @@
-import type {Api} from '@roots/bud-framework'
-import {isArray} from 'lodash'
+import type {Api, Module} from '@roots/bud-framework'
+import {isArray, isEqual, isFunction} from 'lodash'
+import {nanoid} from 'nanoid'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.use [💁 Fluent]
+     * ## bud.use
      *
      * Register an extension or set of extensions
      *
      * ### Usage
      *
+     * Add packaged bud extensions:
+     *
      * ```js
      * bud.use([
-     *   '@roots/bud-babel',
-     *   '@roots/bud-react',
+     *   require('@roots/bud-babel'),
+     *   require('@roots/bud-react'),
      * ])
+     * ```
+     *
+     * Add an extension inline (also works with an array of extensions):
+     *
+     * ```js
+     * bud.use({
+     *  name: 'my-webpack-plugin',
+     *  make: () => new MyWebpackPlugin(),
+     * })
+     * ```
+     *
+     * Add a webpack plugin inline (also work with an array of plugins):
+     *
+     * ```js
+     * bud.use(new MyWebpackPlugin())
      * ```
      */
     use: Api.Use
   }
 
   namespace Api {
-    type Use = (source: any | Array<any>) => Framework
+    type Input = Module | Module[]
+    type Use = (source: Input) => Framework
   }
 }
 
+/**
+ * Helpers
+ */
+const isWebpackPlugin = (extension: Module): boolean =>
+  extension.apply &&
+  isFunction(extension.apply) &&
+  !isEqual(extension.apply.toString(), '[native code]')
+
+const hasValidConstructorName = ({
+  constructor,
+}: Module): boolean =>
+  constructor?.name &&
+  typeof constructor.name == 'string' &&
+  constructor.name !== 'default' &&
+  constructor.name !== 'Object'
+
+const generateName = (input: Module) =>
+  hasValidConstructorName(input)
+    ? input.constructor.name
+    : nanoid(4)
+
+/**
+ * bud.use method
+ */
 const use: Api.Use = function (source) {
-  if (!isArray(source)) {
-    this.extensions.add(source)
-    return this
+  const addExtension = (source: Module) => {
+    source.name = source.name ?? generateName(source)
+
+    this.extensions.add(
+      isWebpackPlugin(source)
+        ? {...source, make: () => source}
+        : source,
+    )
   }
 
-  source.forEach(extension => {
-    this.extensions.add(extension)
-  })
+  !isArray(source)
+    ? addExtension(source)
+    : source.forEach(addExtension)
 
   return this
 }

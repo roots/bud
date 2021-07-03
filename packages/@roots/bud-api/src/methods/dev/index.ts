@@ -25,7 +25,9 @@ declare module '@roots/bud-framework' {
 }
 
 const dev: Api.Dev = function (config) {
-  this.server.config.mutateStore(
+  const target = this.isChild ? this.parent : this
+
+  target.server.config.mutateStore(
     (store: Server.Configuration) => ({
       ...store,
       ...config,

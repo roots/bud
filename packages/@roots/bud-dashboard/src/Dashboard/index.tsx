@@ -1,10 +1,10 @@
-import {Service as Base} from '@roots/bud-framework'
 import React from 'react'
 import {render, Text, Instance} from 'ink'
 import {isString} from 'lodash'
 
 import {boundMethod as bind} from 'autobind-decorator'
 
+import {Service as Base} from '@roots/bud-framework'
 import {Dashboard as DashboardComponent} from './Dashboard'
 import {Error} from '../components/Error'
 import {Write} from '../components/Write'
@@ -76,10 +76,5 @@ export class Dashboard extends Base {
         <Output />
       </Screen>,
     )
-  }
-
-  @bind
-  public kill(): void {
-    this.dashboard && this.dashboard.unmount()
   }
 }

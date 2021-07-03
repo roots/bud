@@ -32,10 +32,18 @@ class Build extends Service implements Contract {
     return this.app.hooks.filter('build')
   }
 
+  public get entry(): Webpack.Configuration['entry'] {
+    return this.app.hooks.filter('build/entry')
+  }
+
+  public get plugins(): Webpack.Configuration['plugins'] {
+    return this.app.hooks.filter('build/plugins')
+  }
+
   @bind
   public register(): void {
     this.app.hooks.on('before', () => this.app)
-    this.app.hooks.on('after', () => this.config)
+    this.app.hooks.on('after', () => [])
 
     this.loaders = {
       css: new Loader(require.resolve('css-loader')),
@@ -167,29 +175,29 @@ class Build extends Service implements Contract {
         use: ({build}) => [build.items.html],
       }),
       csv: new Rule({
-        test: () => /\.(csv|tsv)$/i,
+        test: ({store}) => store.get('patterns.csv'),
         use: ({build}) => [build.items.csv],
       }),
       xml: new Rule({
-        test: () => /\.xml$/i,
+        test: ({store}) => store.get('patterns.xml'),
         use: ({build}) => [build.items.xml],
       }),
       toml: new Rule({
-        test: () => /\.toml$/i,
+        test: ({store}) => store.get('patterns.toml'),
         type: () => 'json',
         parser: () => ({
           parse: toml.parse,
         }),
       }),
       yml: new Rule({
-        test: /\.yaml$/i,
+        test: ({store}) => store.get('patterns.yml'),
         type: 'json',
         parser: () => ({
           parse: yaml.parse,
         }),
       }),
       json5: new Rule({
-        test: /\.json5$/i,
+        test: ({store}) => store.get('patterns.json5'),
         type: 'json',
         parser: () => ({
           parse: json5.parse,
