@@ -190,7 +190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.14.5":
+"@babel/helper-module-imports@npm:^7.10.4, @babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.14.5":
   version: 7.14.5
   resolution: "@babel/helper-module-imports@npm:7.14.5"
   dependencies:
@@ -658,14 +658,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.14.5":
+"@babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.14.5":
   version: 7.14.5
   resolution: "@babel/plugin-syntax-jsx@npm:7.14.5"
   dependencies:
     "@babel/helper-plugin-utils": ^7.12.13
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 30697ad4607a9339b06c2648c2d128ce6865c3d2d14049b422c5ca060d6532978bb1008e086df402d365fda04fbafe9bd4ad9f62d78ef2e7a7063459b59645c0
+  checksum: 3a2ba87534b0f9ee70eba0754d2ae544825c25afd98efb8e42b41399e02de4cc5b1f70fc5ce444fb7a7e5b09972c289eed2f00917be5b88d67407f4cbde8e960
   languageName: node
   linkType: hard
 
@@ -3636,6 +3636,13 @@ __metadata:
   version: 15.12.5
   resolution: "@types/node@npm:15.12.5"
   checksum: 4550941a5db67f21bf1c54b2f76ef6fb56ced08583b6049fceef5972ef73791225c41b9a30ce36f496fded284dd736973b5e2107f4bd036d41f35550e3af3450
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^15.12.2":
+  version: 15.14.1
+  resolution: "@types/node@npm:15.14.1"
+  checksum: efcc7e52a2d4d2e64c9e80ec72e3a08271a8536a713ffbfaa8391bd2a34bce599b8c2926eddc2f060a32df1c5dbd6a5d58be20ef4ac3fc6a45920622d4c87707
   languageName: node
   linkType: hard
 
@@ -17040,7 +17047,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^1.0.1, type-fest@npm:^1.2.1":
+"type-fest@npm:^1.0.1, type-fest@npm:^1.2.0, type-fest@npm:^1.2.1":
   version: 1.2.1
   resolution: "type-fest@npm:1.2.1"
   checksum: 8a177c228267a6d50267fe7b21f1ea41d057556795df7a34ee9022088dd4fc8bddf6616790f5cf99ca73ba0ec161bae8f229b7888aaf7082d7e909bea36efd11
