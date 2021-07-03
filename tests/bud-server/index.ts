@@ -65,16 +65,6 @@ describe('server', function () {
       expect(bud.server.inject).toBeInstanceOf(Function)
     })
 
-    it('has watcher property', () => {
-      expect(bud.server.watcher).toHaveProperty('close')
-      expect(bud.server.watcher).toHaveProperty('on')
-    })
-
-    it('has instance property', () => {
-      expect(bud.server.instance).toHaveProperty('on')
-      expect(bud.server.instance).toHaveProperty('use')
-    })
-
     it('has expected assets property', () => {
       expect(bud.server.assets).toEqual([
         `${process.cwd()}/packages/@roots/bud-server/lib/cjs/client/index.js`,

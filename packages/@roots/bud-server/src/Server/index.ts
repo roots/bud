@@ -72,11 +72,6 @@ export class Server extends Service implements Contract {
   }
 
   @bind
-  public booted() {
-    this.watcher = chokidar.watch(this.getWatchedFilesArray())
-  }
-
-  @bind
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
@@ -128,6 +123,8 @@ export class Server extends Service implements Contract {
         middleware,
       })
     })
+
+    this.watcher = chokidar.watch(this.getWatchedFilesArray())
 
     this.isWatchable &&
       this.watcher?.on('change', path => {

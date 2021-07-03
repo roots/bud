@@ -28,7 +28,7 @@ type Watch = (
 ) => Framework
 
 export const watch: Watch = function (watchlist, watchoptions) {
-  this.server.config.set('watch.list', watchlist)
+  this.server.config.set('watch.files', watchlist)
   this.server.config.set('watch.options', watchoptions)
 
   return this

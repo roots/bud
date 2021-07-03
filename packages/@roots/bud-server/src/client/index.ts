@@ -19,27 +19,22 @@ const getServerData = async () => {
 
 const run = async () => {
   const server = await getServerData()
-
   const {
     subscribeAll,
     useCustomOverlay,
   } = require(`webpack-hot-middleware/client?quiet=false`)
 
-  subscribeAll(({action}) => {
-    if (action == 'reload') {
-      window.location.reload()
-    }
-  })
-
   if (server.browser.overlay) useCustomOverlay(overlay)
 
-  if (server.browser.indicator) {
-    indicator.init()
+  if (server.browser.indicator) indicator.init()
 
-    subscribeAll(payload => {
-      const {hasWarnings, hasErrors, pending, complete} =
-        parsePayload(payload)
+  subscribeAll(payload => {
+    const {hasWarnings, hasErrors, pending, complete} =
+      parsePayload(payload)
 
+    if (payload.action == 'reload') window.location.reload()
+
+    if (server.browser.indicator)
       indicator.update({
         payload,
         complete,
@@ -47,8 +42,7 @@ const run = async () => {
         hasWarnings,
         hasErrors,
       })
-    })
-  }
+  })
 }
 
 run()
