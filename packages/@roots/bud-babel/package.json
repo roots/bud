@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "4.7.0-7",
+  "version": "4.7.0-8",
   "description": "A friendly build tool to help manage your project assets.",
   "repository": {
     "type": "git",
