@@ -33,7 +33,10 @@ export const sage: Sage = {
         dist: 'public',
       })
 
-      .setPublicPath('public/')
+      .setPublicPath(
+        app.env.get('APP_PUBLIC_PATH') ??
+          '/app/themes/sage/public/',
+      )
 
       .alias({
         '@fonts': app.path('src', 'fonts'),
