@@ -7,7 +7,7 @@ yarn add @roots/bud-solid --dev
 Easiest way to keep everything in your project up-to-date is running `bud init` after installing any extension:
 
 ```sh
-yarn bud init 
+yarn bud init
 ```
 
 ## Usage
@@ -26,10 +26,7 @@ json config:
 
 ```json
 {
-  "extensions": [
-    "@roots/bud-babel",
-    "@roots/bud-solid"
-  ]
+  "extensions": ["@roots/bud-babel", "@roots/bud-solid"]
 }
 ```
 

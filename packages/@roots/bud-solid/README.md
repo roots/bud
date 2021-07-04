@@ -44,14 +44,14 @@ yarn bud init
 
 ## Usage
 
-JS/TS config:
+js/ts config:
 
 ```js
 module.exports = (app) =>
   app.use([require("@roots/bud-babel"), require("@roots/bud-solid")]);
 ```
 
-JSON config:
+json config:
 
 ```json
 {
