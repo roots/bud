@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "4.7.0-6",
+  "version": "4.7.0-7",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
