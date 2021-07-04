@@ -12,7 +12,7 @@ yarn bud init
 
 ## Usage
 
-JS/TS config:
+js/ts config:
 
 ```js
 module.exports = app =>
@@ -22,7 +22,7 @@ module.exports = app =>
   ])
 ```
 
-JSON config:
+json config:
 
 ```json
 {

@@ -26,6 +26,7 @@ undecided:
   - "@roots/bud-react"
   - "@roots/bud-sass"
   - "@roots/bud-server"
+  - "@roots/bud-solid"
   - "@roots/bud-stylelint"
   - "@roots/bud-support"
   - "@roots/bud-tailwindcss"
