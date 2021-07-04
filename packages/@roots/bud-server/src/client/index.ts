@@ -1,5 +1,10 @@
-const {overlay} = require('./ErrorOverlay')
-const {indicator} = require('./Indicator')
+import {isEqual} from 'lodash'
+import {overlay} from './ErrorOverlay'
+import {indicator} from './Indicator'
+import {
+  subscribeAll,
+  useCustomOverlay,
+} from 'webpack-hot-middleware/client'
 
 const parsePayload = payload => {
   return {
@@ -17,24 +22,17 @@ const getServerData = async () => {
   return server
 }
 
-const run = async () => {
+const dev = async () => {
   const server = await getServerData()
-  const {
-    subscribeAll,
-    useCustomOverlay,
-  } = require(`webpack-hot-middleware/client?quiet=false`)
 
-  if (server.browser.overlay) useCustomOverlay(overlay)
-
-  if (server.browser.indicator) indicator.init()
+  server.browser.overlay && useCustomOverlay(overlay)
+  server.browser.indicator && indicator.init()
 
   subscribeAll(payload => {
     const {hasWarnings, hasErrors, pending, complete} =
       parsePayload(payload)
 
-    if (payload.action == 'reload') window.location.reload()
-
-    if (server.browser.indicator)
+    server.browser.indicator &&
       indicator.update({
         payload,
         complete,
@@ -42,7 +40,9 @@ const run = async () => {
         hasWarnings,
         hasErrors,
       })
+
+    isEqual(payload.action, 'reload') && window.location.reload()
   })
 }
 
-run()
+dev()

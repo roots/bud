@@ -425,7 +425,7 @@ abstract class Framework {
       .getEntries()
       .filter(([k, v]) => {
         /**
-         * No reason to boot an extension that isnt well written
+         * No reason to boot an extension that isn't well written
          */
         if (!v.name) return false
 

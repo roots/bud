@@ -3,6 +3,7 @@ import * as Entrypoints from '@roots/bud-entrypoints'
 import * as Eslint from '@roots/bud-eslint'
 import * as PostCss from '@roots/bud-postcss'
 import * as React from '@roots/bud-react'
+import * as Stylelint from '@roots/bud-stylelint'
 import * as Tailwind from '@roots/bud-tailwindcss'
 import * as WordPressExternals from '@roots/bud-wordpress-externals'
 import * as WordPressManifests from '@roots/bud-wordpress-manifests'
@@ -19,6 +20,7 @@ export const sage: Sage = {
         Babel,
         PostCss,
         Eslint,
+        Stylelint,
         React,
         Tailwind,
         Entrypoints,

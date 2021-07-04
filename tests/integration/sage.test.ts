@@ -19,6 +19,7 @@ describe(suite.name, () => {
     entrypoints = await readJson(
       suite.distPath('entrypoints.json'),
     )
+
     return
   })
 

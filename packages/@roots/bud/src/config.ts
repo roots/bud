@@ -113,7 +113,7 @@ export const config: Configuration = {
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
-      assets: Object.create(null),
+      publicPath: '',
     },
     webpackProvidePlugin: {},
   },
