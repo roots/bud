@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-hooks",
   "description": "Hooks controller for Bud",
-  "version": "4.7.0-8",
+  "version": "4.7.0-9",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
