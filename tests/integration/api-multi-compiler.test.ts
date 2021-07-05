@@ -44,7 +44,7 @@ describe('multi-compiler', () => {
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
         const buffer = await readFile(
-          `${cwd}/dist/global${path}`,
+          `${cwd}/dist/global/${path}`,
           'utf8',
         )
 
@@ -63,7 +63,7 @@ describe('multi-compiler', () => {
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
         const buffer = await readFile(
-          `${cwd}/dist/plugin${path}`,
+          `${cwd}/dist/plugin/${path}`,
           'utf8',
         )
 
@@ -82,7 +82,7 @@ describe('multi-compiler', () => {
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
         const buffer = await readFile(
-          `${cwd}/dist/theme${path}`,
+          `${cwd}/dist/theme/${path}`,
           'utf8',
         )
 

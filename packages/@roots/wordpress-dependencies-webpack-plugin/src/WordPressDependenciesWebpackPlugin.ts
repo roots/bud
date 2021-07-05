@@ -73,14 +73,16 @@ class WordPressDependenciesWebpackPlugin {
             this.usedDependencies[userRequest]
               ?.map(req => wpPkgs.transform(req).enqueue)
               .forEach(req => {
-                this.manifest[entry.name].push(req)
+                !this.manifest[entry.name].includes(req) &&
+                  this.manifest[entry.name].push(req)
               })
 
             _modules?.forEach(({userRequest}) => {
               this.usedDependencies[userRequest]
                 ?.map(req => wpPkgs.transform(req).enqueue)
                 .forEach(req => {
-                  this.manifest[entry.name].push(req)
+                  !this.manifest[entry.name].includes(req) &&
+                    this.manifest[entry.name].push(req)
                 })
             })
           })
