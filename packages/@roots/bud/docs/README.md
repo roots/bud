@@ -82,41 +82,19 @@ export default (bud: Framework) =>
       require("@roots/bud-postcss"),
       require("@roots/bud-react"),
     ])
+    .setPath("src", "js")
+    .setPublicPath("assets")
+    .alias({
+      "@src": bud.path("src"),
+    })
 
-    .library(["react", "react-dom"])
-
-    .entry({ app: ["app.{js,css}"] })
+    .entry({ app: "app.{js,css}" })
 
     .when(
       bud.isProduction,
       ({ minimize }) => minimize(),
-      ({ devtool }) => devtool("eval-source-map")
+      ({ devtool }) => devtool()
     );
-```
-
-Which could also be expressed in a set of `yml` files
-
-```yml
-# bud.config.yml
-extensions:
-  - "@roots/bud-babel"
-  - "@roots/bud-postcss"
-  - "@roots/bud-react"
-library:
-  - "react"
-  - "react-dom"
-entry:
-  app: "app.{js,css}"
-```
-
-```yml
-# bud.production.config.yml
-minimize: true
-```
-
-```yml
-# bud.development.config.yml
-devtool: "eval-source-map"
 ```
 
 For more on configuring [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) check out the [dedicated documentation](https://github.com/roots/bud/tree/stable/docs/config/README.md).

@@ -8,3 +8,7 @@ exclude_patterns:
   - '.*'
   - 'packages/@roots/*/templates'
   - 'packages/@roots/*/src/docs'
+plugins:
+  eslint:
+    enabled: true
+  
