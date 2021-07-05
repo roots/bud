@@ -2711,7 +2711,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     babel-preset-solid: ^1.0.0
     type-fest: ^1.2.0
-    webpack: ^5.38.1
+    webpack: ^5.42.0
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
