@@ -65,7 +65,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.12.5",
     "typescript": "^4.3.4",
-    "webpack": "^5.42.0"
+    "webpack": "^5.42.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",

@@ -67,7 +67,7 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "webpack": "^5.42.0"
+    "webpack": "^5.42.1"
   },
   "stableVersion": "4.6.0"
 }
