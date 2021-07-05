@@ -2947,7 +2947,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
     "@types/node": ^15.12.5
-    "@types/vinyl": ^2.0.4
+    "@types/vinyl": ^2.0.5
     autobind-decorator: ^2.4.0
     critical: ^4.0.0
     lodash: ^4.17.21
@@ -3632,14 +3632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^15.12.5":
-  version: 15.12.5
-  resolution: "@types/node@npm:15.12.5"
-  checksum: 4550941a5db67f21bf1c54b2f76ef6fb56ced08583b6049fceef5972ef73791225c41b9a30ce36f496fded284dd736973b5e2107f4bd036d41f35550e3af3450
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^15.12.2":
+"@types/node@npm:*, @types/node@npm:^15.12.2, @types/node@npm:^15.12.5":
   version: 15.14.1
   resolution: "@types/node@npm:15.14.1"
   checksum: efcc7e52a2d4d2e64c9e80ec72e3a08271a8536a713ffbfaa8391bd2a34bce599b8c2926eddc2f060a32df1c5dbd6a5d58be20ef4ac3fc6a45920622d4c87707
@@ -3859,13 +3852,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vinyl@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@types/vinyl@npm:2.0.4"
+"@types/vinyl@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@types/vinyl@npm:2.0.5"
   dependencies:
     "@types/expect": ^1.20.4
     "@types/node": "*"
-  checksum: 4fb0ea747cbe11b5b0ef74647b19a93b630c0fda424dd40774c696f10cf7a7b8c4867d74940964ebd5194b2f374330ecab8e9720000ecc362d94e5faf53738b7
+  checksum: 99c169732b3e1fe04397558c82f9844b016ba0a1c632d3f384df855dd8feb92b99007025a69145390be5a23a234c72b63e6dbcbcef0d710cba1ddd9c5fa2fac6
   languageName: node
   linkType: hard
 
