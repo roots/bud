@@ -2903,7 +2903,7 @@ __metadata:
     "@types/react": ^17.0.11
     "@types/resolve-pkg": ^2.0.0
     "@types/signale": ^1.4.1
-    "@types/webpack-manifest-plugin": ^3.0.4
+    "@types/webpack-manifest-plugin": ^3.0.5
     autobind-decorator: ^2.4.0
     clean-webpack-plugin: ^4.0.0-alpha.0
     copy-webpack-plugin: ^9.0.1
@@ -3882,13 +3882,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-manifest-plugin@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@types/webpack-manifest-plugin@npm:3.0.4"
+"@types/webpack-manifest-plugin@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@types/webpack-manifest-plugin@npm:3.0.5"
   dependencies:
     "@types/tapable": ^1
     "@types/webpack": ^4
-  checksum: 2105506727edcbe9feee93476d0a89858e8ba6ff02093f0ee4924c612c15a8ec23b6ac18ae92efa69faebdadf2c1e1c9b95c885119233a5fe3223f618ccfb219
+  checksum: b88bcd866857b3de7c9a79747008dba76901945c341bf5a417ddea41c06acdda85a2d63d4e90c73aef978907179cfb4292e027f4a6e4f862baa15bf9a8f5b30e
   languageName: node
   linkType: hard
 

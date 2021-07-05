@@ -72,7 +72,7 @@
     "@types/react": "^17.0.11",
     "@types/resolve-pkg": "^2.0.0",
     "@types/signale": "^1.4.1",
-    "@types/webpack-manifest-plugin": "^3.0.4",
+    "@types/webpack-manifest-plugin": "^3.0.5",
     "webpack": "^5.42.0"
   },
   "dependencies": {
