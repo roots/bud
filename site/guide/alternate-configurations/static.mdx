@@ -1,0 +1,112 @@
+---
+sidebar_label: Static config
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Static configuration
+
+:::note
+
+This guide assumes you are already familiar with [configuring bud using vanilla JS](/guide/getting-started/config).
+
+:::
+
+Bud also supports configuration using static config files, although the API is slightly more limited. Bud supports `json` and `yml` as static config options.
+
+## Create a static config file
+
+Create either a `bud.config.json` or `bud.config.yml` in your project root.
+
+## Working with a static config
+
+Generally speaking, config function names can be used as keys. Their values serve as function parameters.
+
+<Tabs
+  defaultValue="yml"
+  values={[
+    {label: 'yml', value: 'yml'},
+    {label: 'json', value: 'json'},
+  ]}>
+  <TabItem value="yml">
+
+  ```yml title="bud.config.yml"
+  entry:
+    app: 
+      - index.js
+      - index.css
+  ```
+
+  </TabItem>
+  <TabItem value="json">
+
+  ```json title="bud.config.json"
+  {
+    "entry": {
+      "app": [
+        "index.js",
+        "index.css"
+      ]
+    }
+  }
+  ```
+  </TabItem>
+</Tabs>
+
+Things to think about:
+
+- You can't do a bunch of stuff in a static config. If you need to specify a callback or anything that isn't a simple primitive as a parameter a static config is not for you. You should use a JavaScript or TypeScript config.
+- Static configurations will likely never have parity with JavaScript or TypeScript configurations. It's just not on the roadmap.
+- yml is about ten times slower to parse than any other config type.
+
+## Extensions
+
+Extensions are a special case for static config, as we can't import them. Normally, we'd point to the list of caveats above and say "static configs simply do not support this". 
+
+But, without extensions bud is very limited, and static configurations are nice if the project is otherwise compatible, so we've made an exception and provided an alternative to [bud.use](/docs/bud.use) for static configs.
+
+Instead of bud.use, use the `extensions` key and pass the package name as a string. Bud will resolve it from there.
+
+<Tabs
+  defaultValue="yml"
+  values={[
+    {label: 'yml', value: 'yml'},
+    {label: 'json', value: 'json'},
+  ]}>
+  <TabItem value="yml">
+
+  ```yml title="bud.config.yml"
+  extensions:
+    - '@roots/bud-babel'
+  entry:
+    app: 
+      - index.js
+      - index.css
+  ```
+
+  </TabItem>
+  <TabItem value="json">
+
+  ```json title="bud.config.json"
+  {
+    "extensions": [
+      "@roots/bud-babel"
+    ],
+    "entry": {
+      "app": [
+        "index.js",
+        "index.css"
+      ]
+    }
+  }
+  ```
+  </TabItem>
+</Tabs>
+
+:::warning
+
+This may not play nicely with yarn 2/3 or other pnp solutions. We will not support these use cases.
+
+:::

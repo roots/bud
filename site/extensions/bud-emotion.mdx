@@ -1,0 +1,64 @@
+---
+sidebar_label: '@roots/bud-emotion'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-emotion
+
+[Emotion](https://emotion.sh) support can be added by installing the [@roots/bud-emotion extension](/extensions/bud-emotion).
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-emotion --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-emotion --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Include **@roots/bud-emotion** in your config. Make sure it is included after [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-react](/extensions/bud-react).
+
+```js {4}
+bud.use([
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
+  require('@roots/bud-emotion'),
+])
+```

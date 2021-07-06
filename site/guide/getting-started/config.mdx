@@ -1,0 +1,98 @@
+---
+sidebar_label: Creating a config
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Configuring our build
+
+So far we've been working without a configuration file which is easy but not very flexible. In this guide we'll add a config file to our build so that we have a little more control.
+
+## Create bud.config.js
+
+Create a file named **bud.config.js** file in the project root. This file exports a single function that will tell **bud** to serve our js using bud's built-in html template.
+
+```js title='bud.config.js'
+module.exports = bud => bud.template()
+```
+
+:::info bud.config.js isn't the only way
+
+You can also configure your project with json or yml. We won't be covering that now but it is an option you might want to look into later.
+
+:::
+
+With our config file in place, start the development server.
+
+```shell
+yarn bud dev
+```
+
+Your site is now available to view in browser at [localhost:3000](http://localhost:3000).
+
+Open **src/index.js** and make some edits: the site **reloads automatically** and displays your changes.
+
+## Adding a new entrypoint
+
+What if we want to add another script to our project, which should be built and output separately? It's simple.
+
+Let's say we add the following script to our project at **src/landing.js**:
+
+```js title='src/landing.js'
+console.log('landing page script')
+```
+
+We'll specify the new script in **bud.config.js** using **bud.entry**:
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+If you run a build now you'll see your new file was compiled, but you might also notice that **dist/main.js** is missing.
+
+At first, we were relying on bud's implicit inclusion of **src/index.js**. But now that we are specifying an entrypoint, we'll need
+to explicitly specify the original file as well.
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('main', 'index.js')
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+Bud won't provide any entry defaults once we start configuring entrypoints for ourselves.
+
+## Adding files to an existing entrypoint
+
+Currently, we are importing our application css by importing it into the **src/index.js** entrypoint. This is a totally valid way to handle css in your build,
+but let's say we didn't want to do this and instead specify the css file in **bud.config.js**.
+
+Start by removing the import from **src/index.js**
+
+```js {1-2} title='src/index.js'
+
+
+console.log('hello world!')
+```
+
+And instead add the css to the **main** entry. It's second parameter can take either a **string** or an **array**, and we'll use the latter to specify multiple files.
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('main', ['index.js', 'index.css'])
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+## Next steps
+
+The rest of this section deals with alternative ways to configure bud beyond `bud.config.js`. 
+
+If you want to skip on to adding support for babel, [feel free to skip ahead](/guide/getting-started/extending).

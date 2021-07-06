@@ -25,7 +25,8 @@
     "packages": [
       "examples/*",
       "packages/@roots/*",
-      "packages/base"
+      "packages/base",
+      "site"
     ]
   },
   "scripts": {
@@ -41,7 +42,6 @@
     "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
     "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
-    "docs": "yarn node ./dev/docs/gen/cli.js",
     "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
     "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
     "test:integration": "yarn node ./jest.integration.js",

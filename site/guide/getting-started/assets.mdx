@@ -1,0 +1,79 @@
+---
+sidebar_label: Copying static assets
+sidebar_position: 5
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Copying static assets
+
+If you need to copy assets as part of your compilation, you can specify what you'd like to copy using [bud.assets](/docs/bud.assets).
+
+Let's add an `images` directory to our project and make sure to include at least one image in it.
+
+```shell {7-8}
+  ├── package.json
+  ├── dist
+  │   ├── main.js
+  │   ├── main.css
+  │   ├── landing.js
+  │   └── manifest.json
+  ├── images
+  │   └── image.png
+  └── src
+      ├── index.js
+      ├── index.css
+      └── landing.js
+```
+
+## Adding the image to our compilation
+
+[bud.assets](/docs/bud.assets) takes an array of assets we want copied, so we'll add our image to that.
+
+```js {8} title='bud.config.js'
+module.exports = bud => 
+  bud
+    .use(require('@roots/bud-babel'))
+    .entry({
+      main: ['index.js', 'index.css'],
+      landing: 'landing.js',
+    })
+    .assets(['images/image.png'])
+    .template()
+```
+
+## Copying directories
+
+If we have more than one image in that directory and we want to copy all of them, we could add each image to this array manually. But it will
+like be much faster & more maintable to copy the entire directory, which [bud.assets](/docs/bud.assets) supports.
+
+```js {8} title='bud.config.js'
+module.exports = bud => 
+  bud
+    .use(require('@roots/bud-babel'))
+    .entry({
+      main: ['index.js', 'index.css'],
+      landing: 'landing.js',
+    })
+    .assets(['images'])
+    .template()
+```
+
+## Copying pattern matches
+
+[bud.assets](/docs/bud.assets) also supports glob matching in case we want to copy only assets that match a particular pattern:
+
+```js {8} title='bud.config.js'
+module.exports = bud => 
+  bud
+    .use(require('@roots/bud-babel'))
+    .entry({
+      main: ['index.js', 'index.css'],
+      landing: 'landing.js',
+    })
+    .assets(['images/**/*.{png,gif,jpg}'])
+    .template()
+```
+
+Run a build and check **dist/main.js**. You should find the class declaration has been transpiled away.
