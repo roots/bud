@@ -54,7 +54,7 @@ export default function HomepageFeatures() {
       <div className="container">
         <div className="row">
           <div className="text--center">
-            <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV">
+            <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/kinsta.svg"
                 alt="Kinsta"
@@ -66,7 +66,7 @@ export default function HomepageFeatures() {
               />
             </a>
 
-            <a href="https://k-m.com/">
+            <a href="https://k-m.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/km-digital.svg"
                 alt="KM Digital"
@@ -77,7 +77,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://carrot.com/">
+            <a href="https://carrot.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/carrot.svg"
                 alt="Carrot"
@@ -88,7 +88,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://www.c21redwood.com/">
+            <a href="https://www.c21redwood.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/c21redwood.svg"
                 alt="C21 Redwood Realty"
@@ -99,7 +99,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://wordpress.com/">
+            <a href="https://wordpress.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/wordpress.svg"
                 alt="WordPress.com"
@@ -110,7 +110,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://icons8.com/">
+            <a href="https://icons8.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/icons8.svg"
                 alt="Icons8"
@@ -121,7 +121,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://www.harnessup.com/">
+            <a href="https://www.harnessup.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/harness-software.svg"
                 alt="Harness Software"
@@ -132,7 +132,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://www.codersclan.com/">
+            <a href="https://www.codersclan.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/coders-clan.svg"
                 alt="Coders Clan"
@@ -143,7 +143,7 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://generodigital.com/">
+            <a href="https://generodigital.com/" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/genero.svg"
                 alt="Genero"
@@ -154,10 +154,21 @@ export default function HomepageFeatures() {
                 }}
               />
             </a>
-            <a href="https://motto.ca/roots">
+            <a href="https://motto.ca/roots" rel="sponsored">
               <img
                 src="https://cdn.roots.io/app/uploads/motto.svg"
                 alt="Motto"
+                style={{
+                  marginRight: '4px',
+                  marginLeft: '4px',
+                  width: '18%',
+                }}
+              />
+            </a>
+            <a href="https://40q.agency/" rel="sponsored">
+              <img
+                src="https://cdn.roots.io/app/uploads/40q.svg"
+                alt="40Q"
                 style={{
                   marginRight: '4px',
                   marginLeft: '4px',
