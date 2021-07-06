@@ -2241,7 +2241,7 @@ __metadata:
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
-    filenamify: ^4.3.0
+    filenamify: ^5.0.0
     fs-extra: ^10.0.0
     globby: ^11.0.4
     lodash: ^4.17.21
@@ -8407,14 +8407,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filenamify@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "filenamify@npm:4.3.0"
+"filenamify@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "filenamify@npm:5.0.0"
   dependencies:
     filename-reserved-regex: ^2.0.0
     strip-outer: ^1.0.1
     trim-repeated: ^1.0.0
-  checksum: 5b71a7ff8e958c8621957e6fbf7872024126d3b5da50f59b1634af3343ba1a69d4cc15cfe4ca4bbfa7c959ad4d98614ee51e6f1d9fa7326eef8ceda2da8cd74e
+  checksum: 5913742cff2863fa0a8a1b2c872378a3e233e3b81dd4858384c3e3dd844846a33b12109f7d3dbc4566cf87bbdef34f2054697bf99efe23a5d288ab501dc62f26
   languageName: node
   linkType: hard
 
