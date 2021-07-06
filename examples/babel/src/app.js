@@ -1,9 +1,21 @@
-import './demo'
+class CoolClass {
+  message = ''
+
+  constructor() {
+    this.message = 'hello world'
+  }
+
+  sayHello() {
+    return this.message
+  }
+}
+
+const cool = new CoolClass()
 
 const target = document.querySelector('body')
 target.innerHTML = `
   <div>
-    <h1>Hello from babel!</h1>
+    <h1>${cool.sayHello()}!</h1>
   </div>
 `
 
@@ -12,8 +24,6 @@ target.innerHTML = `
  *
  * @see https://webpack.js.org/api/hot-module-replacement
  */
-if (module) {
-  module.hot.accept(err => {
-    console.error(err)
-  })
-}
+import.meta.webpackHot?.accept(err => {
+  console.error(err)
+})

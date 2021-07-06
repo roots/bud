@@ -1,0 +1,130 @@
+---
+sidebar_label: '@roots/bud-postcss'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-postcss
+
+[PostCSS](https://postcss.org) support can be added by installing the **@roots/bud-postcss** extension.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-postcss --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-postcss --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Add the extension to your config:
+
+```js
+bud.use(require('@roots/bud-postcss'))
+```
+
+You should be good-to-go at this point! If you feel you may need to configure postcss further, read on. 
+
+## Configuration
+
+Out of the box **@roots/bud-postcss** supports:
+
+- postcss-import
+- postcss-preset-env
+
+If this works for you, great! No need to keep reading. But, should you need something more specialized, you can configure it in your bud config file or a **postcss.config.js** file in your project's root directory.
+
+:::info
+
+If you have a postcss config file in your project, that configuration will be used instead of the defaults provided by this extension.
+
+:::
+
+## Using the bud config builder
+
+The API used by **@roots/bud-postcss** internally can also be used in your project config. Here are the defaults expressed in a few different ways:
+
+```js
+bud.postcss.setPlugins({
+  import: 'postcss-import',
+  'preset-env': ['postcss-preset-env', {stage: 1}],
+})
+```
+
+```js
+bud.postcss
+  .setPlugin('import', ['postcss-import'])
+  .setPlugin('preset-env', ['postcss-preset-env', {stage: 1}])
+```
+
+```js
+bud.postcss
+  .setPlugin('import', ['postcss-import'])
+  .setPlugin('preset-env', ['postcss-preset-env'])
+  .setPluginOptions('preset-env', {stage: 1})
+```
+
+### postcss.setPlugin
+
+Add a postcss plugin. Takes two parameters: the first is a unique key for the plugin, so that it can be referenced later by other extensions. The second can either be the path to the plugin, the resolvable plugin module name, or a postcss PluginCreator function.
+
+```js
+bud.postcss.setPlugin(
+  'import',
+  require.resolve('postcss-import'),
+)
+```
+
+### postcss.unsetPlugin
+
+Remove a postcss plugin:
+
+```js
+bud.postcss.unsetPlugin('import')
+```
+
+### postcss.setPluginOptions
+
+Override any plugin options:
+
+```js
+bud.postcss.setPluginOptions('import', {
+  path: bud.filter('build/resolve/modules'),
+})
+```

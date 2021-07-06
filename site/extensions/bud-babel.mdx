@@ -1,0 +1,209 @@
+---
+title: '@roots/bud-babel'
+sidebar_label: '@roots/bud-babel'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-babel
+
+[Babel](https://babeljs.io) support can be added by installing the [@roots/bud-babel](/extensions/bud-babel) extension.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-babel --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-babel --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+```js
+bud.use('@roots/bud-babel')
+```
+
+## Configuration
+
+Out of the box **@roots/bud-babel** comes preconfigured with:
+
+- @babel/preset-env
+- @babel/plugin-transform-runtime
+- @babel/plugin-proposal-object-rest-spread
+- @babel/plugin-syntax-dynamic-import
+
+If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by `@roots/bud-babel` designed to help you out.
+
+### Presets
+
+See what presets are registered:
+
+```js title='bud.config.js'
+console.dir(app.babel.presets)
+```
+
+Add preset:
+
+```js title='bud.config.js'
+app.babel.setPreset('@babel/preset-env')
+```
+
+Remove preset:
+
+```js title='bud.config.js'
+app.babel.unsetPreset('@babel/preset-env')
+```
+
+Fully override presets:
+
+```js title='bud.config.js'
+app.babel.setPresets(['@babel/preset-env'])
+```
+
+Override any preset options:
+
+```js title='bud.config.js'
+app.babel.setPresetOptions('@babel/preset-env', {
+  useBuiltIns: 'entry',
+})
+```
+
+### Plugins
+
+Plugins has nearly the exact same API already demonstrated by the `presets` docs above.
+
+See what plugins are registered:
+
+```js title='bud.config.js'
+console.log(app.babel.plugins)
+```
+
+Add a plugin:
+
+```js title='bud.config.js'
+app.babel.setPlugin('@babel/plugin-transform-runtime')
+```
+
+Add a plugin with options:
+
+```js title='bud.config.js'
+app.babel.setPlugin([
+  '@babel/plugin-transform-runtime',
+  {helpers: false},
+])
+```
+
+Fully override plugins:
+
+```js title='bud.config.js'
+app.babel.setPlugins([
+  '@babel/plugin-transform-runtime',
+  '@babel/plugin-proposal-object-rest-spread',
+  ['@babel/plugin-syntax-dynamic-import', {helpers: false}],
+])
+```
+
+Remove a plugin:
+
+```js title='bud.config.js'
+app.babel.unsetPlugin('@babel/plugin-transform-runtime')
+```
+
+Override any plugin options:
+
+```js title='bud.config.js'
+app.babel.setPluginOptions('@babel/plugin-transform-runtime', {
+  helpers: false,
+})
+```
+
+## Example
+
+This is the default implementation (as provided by this plugin):
+
+```js title='bud.config.js'
+app.babel
+  .setPreset('@babel/preset-env')
+  .setPlugins([
+    '@babel/plugin-transform-runtime',
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-syntax-dynamic-import',
+  ])
+  .setPluginOptions('@babel/plugin-transform-runtime', {
+    helpers: false,
+  })
+```
+
+## Configuring babel-loader
+
+Merge options with existing options by passing the options to merge along with the framework instance:
+
+```js title='bud.config.js'
+app.build.items['babel'].mergeOptions(
+  {
+    cacheDirectory: ({path}) => path('project', 'tmp'),
+  },
+  bud,
+)
+```
+
+Override loader options directly:
+
+```js title='bud.config.js'
+app.build.items['babel'].setOptions({
+  cacheDirectory: ({path}) => path('project', 'tmp'),
+  presets: Object.values(babel.presets),
+  plugins: Object.values(babel.plugins),
+})
+```
+
+When using `setOptions`, you must include the plugins and presets (as demonstrated above) if you want bud to continue managing these options. Using `setOptions` completely overrides the framework's callbacks.
+
+If you intend to override those callbacks, you need to pass those options along yourself (or use `mergeOptions`):
+
+```js title='bud.config.js'
+app.build.items['babel'].setOptions({
+  cacheDirectory: ({path}) => path('project', 'tmp'),
+  presets: ['@babel/preset-env'],
+  plugins: [
+    '@babel/plugin-transform-runtime',
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-syntax-dynamic-import',
+  ],
+})
+```

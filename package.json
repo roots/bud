@@ -19,7 +19,7 @@
   },
   "workspaces": {
     "packages": [
-      "docs",
+      "site",
       "examples/*",
       "packages/base",
       "packages/@roots/*"
