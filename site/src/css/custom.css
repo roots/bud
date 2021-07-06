@@ -1,0 +1,40 @@
+:root {
+  --ifm-color-primary: rgb(86, 98, 218);
+  --ifm-color-primary-dark: rgb(86, 98, 218);
+  --ifm-color-primary-darker: rgb(71, 83, 220);
+  --ifm-color-primary-darkest: rgb(40, 49, 142);
+  --ifm-color-primary-light: rgb(86, 98, 218);
+  --ifm-color-primary-lighter: rgb(140, 146, 220);
+  --ifm-color-primary-lightest: rgb(206, 209, 247);
+  --ifm-code-font-size: 95%;
+  --ifm-footer-background-color: rgb(40, 49, 142);
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background: linear-gradient(217deg, rgb(71, 83, 220), rgb(86, 98, 218));
+  color: white;
+}
+
+html[data-theme='dark']{
+  --ifm-link-color: rgb(140, 146, 220);
+}
+
+.footer {
+  background: linear-gradient(217deg, rgb(86, 98, 218), rgb(40, 49, 142));
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(140, 146, 220, 0.4);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+.navbar__search-input {
+  border-radius: 5px;
+}
+
+.footer__bottom {
+  text-align: left;
+  margin-top: 2rem;
+}

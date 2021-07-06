@@ -46,16 +46,6 @@ yarn install > /dev/null
 echo "Installed all packages"
 echo ""
 
-echo "Regenerating docs"
-echo "-------------------------"
-rm -rf docs
-echo "Removed built docs from root"
-rm -rf packages/*/*/docs
-echo "Removed built docs from pkgs"
-yarn docs
-echo "Rebuilt docs"
-echo ""
-
 echo "Building cjs"
 echo "-------------------------"
 yarn build:cjs

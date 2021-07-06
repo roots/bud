@@ -101,7 +101,7 @@ For more on configuring [**@roots/bud**](https://github.com/roots/bud/tree/stabl
 
 ## Running a build
 
-![Terminal usage](/dev/assets/cli.svg)
+![Terminal usage](/static/img/cli.svg)
 
 Once you've set up your configuration file the following command will run the build:
 

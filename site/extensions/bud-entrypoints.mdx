@@ -1,0 +1,73 @@
+---
+sidebar_label: '@roots/bud-entrypoints'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-entrypoints
+
+**@roots/bud-entrypoints** generates an enhanced asset manifest for usage in server-powered applications like **Laravel** and **WordPress**.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-entrypoints --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-entrypoints --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Include [@roots/bud-entrypoints](/extensions/bud-entrypoints) in your config.
+
+```js {2}
+bud.use([
+  require('@roots/bud-entrypoints')
+])
+```
+
+## Example output
+
+Assets are broken down by entrypoint and then filetype. If a runtime is being generated it should always be the first item in the `js` array.
+
+```json
+{
+  "app": {
+    "js": [
+      "/app/themes/sage/public/runtime.275c0c.js",
+      "/app/themes/sage/public/app.c28c5f.js"
+    ],
+    "css": [
+      "/app/themes/sage/public/app.fefc38.css"
+    ],
+  },
+  "editor": {
+    "js": [
+      "/app/themes/sage/public/runtime.275c0c.js",
+      "/app/themes/sage/public/editor.b8360e.js"
+    ],
+    "css": [
+      "/app/themes/sage/public/editor.a67373.css"
+    ],
+  },
+  "customizer": {
+    "js": [
+      "/app/themes/sage/public/runtime.275c0c.js",
+      "/app/themes/sage/public/customizer.a6ba2e.js"
+    ],
+  }
+}
+```

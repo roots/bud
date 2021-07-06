@@ -1,0 +1,155 @@
+---
+sidebar_label: First steps
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Getting started
+
+We'll start with a basic configuration for a down-to-basics project with bud. **We should be done in about 5 minutes**.
+
+## Our project
+
+To follow along, recreate the following project in an empty directory:
+
+<Tabs
+  defaultValue="structure"
+  values={[
+    {label: 'structure', value: 'structure'},
+    {label: 'package.json', value: 'package.json'},
+    {label: 'src/index.js', value: 'src/index.js'},
+    {label: 'src/index.css', value: 'src/index.css'},
+  ]}>
+
+  <TabItem value="structure">
+
+  ```shell
+  ├── package.json
+  └── src
+      ├── index.js
+      └── index.css
+  ```
+
+  </TabItem>
+  <TabItem value="package.json">
+
+  ```json title='package.json'
+  {
+    "name": "demo-project"
+  }
+  ```
+
+  </TabItem>
+  <TabItem value="src/index.js">
+
+  ```js title='src/index.js'
+  console.log('hello world!')
+  ```
+
+  </TabItem>
+  <TabItem value="src/index.css">
+
+  ```css title='src/index.css'
+  body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    text-color: white;
+  }  
+  ```
+
+  </TabItem>
+</Tabs>
+
+## Install bud
+
+Start by installing **@roots/bud** and **@roots/bud-cli**.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud @roots/bud-cli
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud @roots/bud-cli --save-dev
+
+  </TabItem>
+</Tabs>
+
+**@roots/bud** is the build tool itself. **@roots/bud-cli** provides us a CLI interface for running builds and managing our project.
+
+## Building the app
+
+:::success
+
+Nope, you didn't miss a step. No configuration is needed as long as there is an entrypoint defined at **src/index.js**.
+
+:::
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud build
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud build
+
+  </TabItem>
+</Tabs>
+
+You should see your built file in **dist/main.js** (along with a file called **manifest.json**).
+
+```shell {2-4}
+  ├── package.json
+  ├── dist
+  │   ├── main.js
+  │   └── manifest.json
+  └── src
+      ├── index.js
+      └── index.css
+```
+
+## Adding css
+
+Looks like our css is missing! Let's add it by importing it into the 'src/index.js' entrypoint. 
+
+We'll review another way to handle this in the next part of the guide. But this will do us nicely for now.
+
+```js {1} title='src/index.js'
+  import './index.css'
+
+  console.log('hello world!')
+```
+
+Rerun the build with **bud build**. You should see the compiled css appear in **dist**:
+
+```shell {4}
+  ├── package.json
+  ├── dist
+  │   ├── main.js
+  │   ├── main.css
+  │   └── manifest.json
+  └── src
+      ├── index.js
+      └── index.css
+```
+
+## Next steps
+
+For anything beyond the simplest projects, you'll likely need to provide some form of configuration, which [we'll do in the next step](/guide/getting-started/config).

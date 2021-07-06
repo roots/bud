@@ -25,7 +25,20 @@
     "packages": [
       "examples/*",
       "packages/@roots/*",
-      "packages/base"
+      "packages/base",
+      "site"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
   "scripts": {
@@ -41,7 +54,15 @@
     "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
     "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
-    "docs": "yarn node ./dev/docs/gen/cli.js",
+    "site:docusaurus": "docusaurus",
+    "site:start": "docusaurus start",
+    "site:build": "docusaurus build",
+    "site:swizzle": "docusaurus swizzle",
+    "site:deploy": "docusaurus deploy",
+    "site:clear": "docusaurus clear",
+    "site:serve": "docusaurus serve",
+    "site:write-translations": "docusaurus write-translations",
+    "site:write-heading-ids": "docusaurus write-heading-ids",
     "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
     "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
     "test:integration": "yarn node ./jest.integration.js",
@@ -74,10 +95,13 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "devDependencies": {
+    "@docusaurus/core": "2.0.0-beta.0",
+    "@docusaurus/preset-classic": "2.0.0-beta.0",
+    "@easyops-cn/docusaurus-search-local": "^0.18.1",
     "@skypack/package-check": "^0.2.2",
+    "@svgr/webpack": "^5.5.0",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
-    "@types/mdx-js__react": "^1.5.3",
     "@types/node": "^15.12.5",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
@@ -85,6 +109,7 @@
     "@types/weak-napi": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "chokidar": "^3.5.2",
+    "clsx": "^1.1.1",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
@@ -92,6 +117,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "execa": "^5.1.1",
+    "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.4",
     "ink": "^3.0.8",
@@ -101,18 +127,14 @@
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remark": "^13.0.0",
-    "remark-emoji": "^2.2.0",
-    "remark-github": "^10.1.0",
-    "remark-toc": "^7.2.0",
     "rimraf": "^3.0.2",
     "signale": "^1.4.0",
-    "to-vfile": "^6.1.0",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
     "type-fest": "^1.2.1",
     "typescript": "^4.3.4",
+    "url-loader": "^4.1.1",
     "weak-napi": "^2.0.2"
   },
   "volta": {

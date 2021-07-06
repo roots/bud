@@ -1,0 +1,35 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# WordPress
+
+For a setup which _Just Works_ out-of-the-box, consider using [@roots/sage](https://github.com/roots/sage)
+
+```js title='bud.config.js'
+module.exports = app =>
+  app
+    .use([
+      require('@roots/bud-preset-recommend'),
+      require('@roots/bud-react'),
+      require('@roots/bud-wordpress-dependencies'),
+      require('@roots/bud-wordpress-externals'),
+      require('@roots/bud-wordpress-manifests'),
+      require('@roots/bud-entrypoints'),
+    ])
+    .when(app.isProduction, app =>
+      app
+        .hash()
+        .minimize()
+        .runtime('single'),
+    )
+    .proxy()
+    .entry({
+      app: ['app.js', 'app.css'],
+      editor: ['editor.js', 'editor.css'],
+    })
+```
+
