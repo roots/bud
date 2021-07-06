@@ -4,7 +4,7 @@ module.exports = {
   title: 'Bud',
   tagline:
     'A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix',
-  url: 'https://localhost:3000',
+  url: 'https://budjs.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
