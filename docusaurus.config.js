@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 
 module.exports = {
-  title: 'Bud',
+  title: 'bud',
   tagline:
     'A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix',
   url: 'https://budjs.netlify.app',
@@ -14,7 +14,7 @@ module.exports = {
   themeConfig: {
     navbar: {
       logo: {
-        alt: 'My Site Logo',
+        alt: 'bud',
         src: 'img/logo.svg',
       },
       items: [
