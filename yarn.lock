@@ -2218,7 +2218,7 @@ __metadata:
     html-loader: ^2.1.2
     json5: ^2.2.0
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^2.0.0
+    mini-css-extract-plugin: ^2.1.0
     mini-svg-data-uri: ^1.3.3
     remark: ^13.0.0
     remark-html: ^13.0.1
@@ -2918,7 +2918,7 @@ __metadata:
     ink: ^3.0.8
     ink-spinner: ^4.0.2
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^2.0.0
+    mini-css-extract-plugin: ^2.1.0
     pkg-up: ^3.1.0
     react: ^17.0.2
     resolve-pkg: ^2.0.0
@@ -12137,14 +12137,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mini-css-extract-plugin@npm:2.0.0"
+"mini-css-extract-plugin@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "mini-css-extract-plugin@npm:2.1.0"
   dependencies:
     schema-utils: ^3.0.0
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 5e83129e5885c5cd78f195acc524243adc61b5502b040446b87b1519132afd03106f263aaa376fe9127da4ff383b5adca861d317874925c3ed02d1c789bf95fd
+  checksum: d9d61c6bb40328806c8f4dd874a5e2e77ad7d452720fe1b48ad9fbdf84f2619f1063ce2370da48a4859318e5c865da128dc6ca1ea03fde556aea214576108cc5
   languageName: node
   linkType: hard
 
