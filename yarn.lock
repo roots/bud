@@ -1775,6 +1775,95 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/core@npm:2.0.0-beta.ff31de0ff":
+  version: 2.0.0-beta.ff31de0ff
+  resolution: "@docusaurus/core@npm:2.0.0-beta.ff31de0ff"
+  dependencies:
+    "@babel/core": ^7.12.16
+    "@babel/generator": ^7.12.15
+    "@babel/plugin-syntax-dynamic-import": ^7.8.3
+    "@babel/plugin-transform-runtime": ^7.12.15
+    "@babel/preset-env": ^7.12.16
+    "@babel/preset-react": ^7.12.13
+    "@babel/preset-typescript": ^7.12.16
+    "@babel/runtime": ^7.12.5
+    "@babel/runtime-corejs3": ^7.12.13
+    "@babel/traverse": ^7.12.13
+    "@docusaurus/cssnano-preset": 2.0.0-beta.ff31de0ff
+    "@docusaurus/react-loadable": 5.5.0
+    "@docusaurus/types": 2.0.0-beta.ff31de0ff
+    "@docusaurus/utils": 2.0.0-beta.ff31de0ff
+    "@docusaurus/utils-validation": 2.0.0-beta.ff31de0ff
+    "@endiliey/static-site-generator-webpack-plugin": ^4.0.0
+    "@svgr/webpack": ^5.5.0
+    autoprefixer: ^10.2.5
+    babel-loader: ^8.2.2
+    babel-plugin-dynamic-import-node: 2.3.0
+    boxen: ^5.0.1
+    chalk: ^4.1.1
+    chokidar: ^3.5.1
+    clean-css: ^5.1.2
+    commander: ^5.1.0
+    copy-webpack-plugin: ^8.1.1
+    core-js: ^3.9.1
+    css-loader: ^5.1.1
+    css-minimizer-webpack-plugin: ^2.0.0
+    cssnano: ^5.0.4
+    del: ^6.0.0
+    detect-port: ^1.3.0
+    eta: ^1.12.1
+    express: ^4.17.1
+    file-loader: ^6.2.0
+    fs-extra: ^10.0.0
+    github-slugger: ^1.3.0
+    globby: ^11.0.2
+    html-minifier-terser: ^5.1.1
+    html-tags: ^3.1.0
+    html-webpack-plugin: ^5.3.1
+    import-fresh: ^3.3.0
+    is-root: ^2.1.0
+    leven: ^3.1.0
+    lodash: ^4.17.20
+    mini-css-extract-plugin: ^1.6.0
+    module-alias: ^2.2.2
+    nprogress: ^0.2.0
+    postcss: ^8.2.15
+    postcss-loader: ^5.3.0
+    prompts: ^2.4.1
+    react-dev-utils: ^11.0.1
+    react-error-overlay: ^6.0.9
+    react-helmet: ^6.1.0
+    react-loadable: ^5.5.0
+    react-loadable-ssr-addon-v5-slorber: ^1.0.1
+    react-router: ^5.2.0
+    react-router-config: ^5.1.1
+    react-router-dom: ^5.2.0
+    resolve-pathname: ^3.0.0
+    rtl-detect: ^1.0.3
+    semver: ^7.3.4
+    serve-handler: ^6.1.3
+    shelljs: ^0.8.4
+    std-env: ^2.2.1
+    strip-ansi: ^6.0.0
+    terser-webpack-plugin: ^5.1.2
+    tslib: ^2.2.0
+    update-notifier: ^5.1.0
+    url-loader: ^4.1.1
+    wait-on: ^5.3.0
+    webpack: ^5.37.0
+    webpack-bundle-analyzer: ^4.4.2
+    webpack-dev-server: ^3.11.2
+    webpack-merge: ^5.7.3
+    webpackbar: ^5.0.0-3
+  peerDependencies:
+    react: ^16.8.4 || ^17.0.0
+    react-dom: ^16.8.4 || ^17.0.0
+  bin:
+    docusaurus: bin/docusaurus.js
+  checksum: 673d1edb67e0079f3bdf768c4d01c3a90b618786ec6945af970c4a00c2cc435daeea504b3918192a6c1a02a81e0a3a398bffd764d3ab590716a07ccae69c5250
+  languageName: node
+  linkType: hard
+
 "@docusaurus/cssnano-preset@npm:2.0.0-beta.0":
   version: 2.0.0-beta.0
   resolution: "@docusaurus/cssnano-preset@npm:2.0.0-beta.0"
@@ -1783,6 +1872,17 @@ __metadata:
     postcss: ^8.2.10
     postcss-sort-media-queries: ^3.8.9
   checksum: 6c495b0faa3874505bbc0bd88f24f18c5d26342138a2e5c11afaae5b29def9c9af1fd4e0c4f91a92f66fb4434d1d306ce430eaed2e5697de8fc049458e3f5d31
+  languageName: node
+  linkType: hard
+
+"@docusaurus/cssnano-preset@npm:2.0.0-beta.ff31de0ff":
+  version: 2.0.0-beta.ff31de0ff
+  resolution: "@docusaurus/cssnano-preset@npm:2.0.0-beta.ff31de0ff"
+  dependencies:
+    cssnano-preset-advanced: ^5.1.1
+    postcss: ^8.2.15
+    postcss-sort-media-queries: ^3.10.11
+  checksum: 02a3c5cc1643883fa0b81bb4df60c735000a9ced820c2d1b719336b181ab31fcde1a0ac1994159b01b355f600184bf2c4d32f5bd8186452ccc3ac430f63a3e86
   languageName: node
   linkType: hard
 
@@ -1918,6 +2018,18 @@ __metadata:
     react: ^16.8.4 || ^17.0.0
     react-dom: ^16.8.4 || ^17.0.0
   checksum: 192e40e7ebf89f3d9138a3607c2a13c6c60bc760f3af9ebb955db25047a1bb0c1460579d1f5dacac926dc28004754b8cfc2b84b955eb07b13bb7725a2cc2a858
+  languageName: node
+  linkType: hard
+
+"@docusaurus/plugin-google-analytics@npm:^2.0.0-beta.3":
+  version: 2.0.0-beta.ff31de0ff
+  resolution: "@docusaurus/plugin-google-analytics@npm:2.0.0-beta.ff31de0ff"
+  dependencies:
+    "@docusaurus/core": 2.0.0-beta.ff31de0ff
+  peerDependencies:
+    react: ^16.8.4 || ^17.0.0
+    react-dom: ^16.8.4 || ^17.0.0
+  checksum: 6a199cdc387e9d222818011037fe14e605a25e19f33ab0cc0c146f2604d0465d54a111d7ec72b5b2fad51b2725e5d266667fdacaba8559697865b148aa5aed62
   languageName: node
   linkType: hard
 
@@ -2095,7 +2207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/utils-validation@npm:^2.0.0-beta.0":
+"@docusaurus/utils-validation@npm:2.0.0-beta.ff31de0ff, @docusaurus/utils-validation@npm:^2.0.0-beta.0":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/utils-validation@npm:2.0.0-beta.ff31de0ff"
   dependencies:
@@ -6441,7 +6553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boxen@npm:^5.0.0":
+"boxen@npm:^5.0.0, boxen@npm:^5.0.1":
   version: 5.0.1
   resolution: "boxen@npm:5.0.1"
   dependencies:
@@ -6553,6 +6665,7 @@ __metadata:
   resolution: "bud@workspace:."
   dependencies:
     "@docusaurus/core": 2.0.0-beta.0
+    "@docusaurus/plugin-google-analytics": ^2.0.0-beta.3
     "@docusaurus/preset-classic": 2.0.0-beta.0
     "@easyops-cn/docusaurus-search-local": ^0.18.1
     "@skypack/package-check": ^0.2.2
@@ -7684,7 +7797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-webpack-plugin@npm:^8.1.0":
+"copy-webpack-plugin@npm:^8.1.0, copy-webpack-plugin@npm:^8.1.1":
   version: 8.1.1
   resolution: "copy-webpack-plugin@npm:8.1.1"
   dependencies:
@@ -8165,7 +8278,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssnano-preset-advanced@npm:^5.0.0":
+"cssnano-preset-advanced@npm:^5.0.0, cssnano-preset-advanced@npm:^5.1.1":
   version: 5.1.3
   resolution: "cssnano-preset-advanced@npm:5.1.3"
   dependencies:
@@ -8229,7 +8342,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssnano@npm:^5.0.0, cssnano@npm:^5.0.1, cssnano@npm:^5.0.6":
+"cssnano@npm:^5.0.0, cssnano@npm:^5.0.1, cssnano@npm:^5.0.4, cssnano@npm:^5.0.6":
   version: 5.0.6
   resolution: "cssnano@npm:5.0.6"
   dependencies:
@@ -11464,7 +11577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^5.2.0, html-webpack-plugin@npm:^5.3.2":
+"html-webpack-plugin@npm:^5.2.0, html-webpack-plugin@npm:^5.3.1, html-webpack-plugin@npm:^5.3.2":
   version: 5.3.2
   resolution: "html-webpack-plugin@npm:5.3.2"
   dependencies:
@@ -14705,7 +14818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.4.0":
+"mini-css-extract-plugin@npm:^1.4.0, mini-css-extract-plugin@npm:^1.6.0":
   version: 1.6.2
   resolution: "mini-css-extract-plugin@npm:1.6.2"
   dependencies:
@@ -16531,7 +16644,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^5.2.0":
+"postcss-loader@npm:^5.2.0, postcss-loader@npm:^5.3.0":
   version: 5.3.0
   resolution: "postcss-loader@npm:5.3.0"
   dependencies:
@@ -17084,7 +17197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-sort-media-queries@npm:^3.8.9":
+"postcss-sort-media-queries@npm:^3.10.11, postcss-sort-media-queries@npm:^3.8.9":
   version: 3.11.12
   resolution: "postcss-sort-media-queries@npm:3.11.12"
   dependencies:
@@ -17359,7 +17472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prompts@npm:^2.0.1, prompts@npm:^2.4.0":
+"prompts@npm:^2.0.1, prompts@npm:^2.4.0, prompts@npm:^2.4.1":
   version: 2.4.1
   resolution: "prompts@npm:2.4.1"
   dependencies:
@@ -18666,7 +18779,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"rtl-detect@npm:^1.0.2":
+"rtl-detect@npm:^1.0.2, rtl-detect@npm:^1.0.3":
   version: 1.0.3
   resolution: "rtl-detect@npm:1.0.3"
   checksum: 4b2652f3b0879cdc83e801925515f5dd98278b0af2e8fb34726736920778b4f67c10b758f68e524561307ee8c6f4840088cbe37d4d72c00250545c6898b21b5e
@@ -20298,7 +20411,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.4":
+"terser-webpack-plugin@npm:^5.1.1, terser-webpack-plugin@npm:^5.1.2, terser-webpack-plugin@npm:^5.1.4":
   version: 5.1.4
   resolution: "terser-webpack-plugin@npm:5.1.4"
   dependencies:
@@ -21526,7 +21639,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"wait-on@npm:^5.2.1":
+"wait-on@npm:^5.2.1, wait-on@npm:^5.3.0":
   version: 5.3.0
   resolution: "wait-on@npm:5.3.0"
   dependencies:
@@ -21602,7 +21715,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack-bundle-analyzer@npm:^4.4.0":
+"webpack-bundle-analyzer@npm:^4.4.0, webpack-bundle-analyzer@npm:^4.4.2":
   version: 4.4.2
   resolution: "webpack-bundle-analyzer@npm:4.4.2"
   dependencies:

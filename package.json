@@ -139,5 +139,8 @@
   },
   "volta": {
     "node": "16.3.0"
+  },
+  "dependencies": {
+    "@docusaurus/plugin-google-analytics": "^2.0.0-beta.3"
   }
 }

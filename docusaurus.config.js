@@ -102,6 +102,10 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Roots Foundation, LLC.`,
     },
+    googleAnalytics: {
+      trackingID: 'UA-71591-53',
+      anonymizeIP: true,
+    },
   },
   presets: [
     [
