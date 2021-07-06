@@ -6561,7 +6561,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud@workspace:."
   dependencies:
+    "@docusaurus/core": 2.0.0-beta.0
+    "@docusaurus/preset-classic": 2.0.0-beta.0
+    "@easyops-cn/docusaurus-search-local": ^0.18.1
+    "@mdx-js/react": ^1.6.21
     "@skypack/package-check": ^0.2.2
+    "@svgr/webpack": ^5.5.0
     "@types/fs-extra": ^9.0.11
     "@types/jest": ^26.0.23
     "@types/mdx-js__react": ^1.5.3
@@ -6572,6 +6577,7 @@ __metadata:
     "@types/weak-napi": ^2.0.0
     "@typescript-eslint/eslint-plugin": ^4.28.1
     chokidar: ^3.5.2
+    clsx: ^1.1.1
     eslint: ^7.29.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.23.4
@@ -6579,6 +6585,7 @@ __metadata:
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
     execa: ^5.1.1
+    file-loader: ^6.2.0
     fs-extra: ^10.0.0
     globby: ^11.0.4
     ink: ^3.0.8
@@ -6600,6 +6607,7 @@ __metadata:
     tsconfig-paths: ^3.9.0
     type-fest: ^1.2.1
     typescript: ^4.3.4
+    url-loader: ^4.1.1
     weak-napi: ^2.0.2
   languageName: unknown
   linkType: soft
@@ -8755,23 +8763,6 @@ __metadata:
   checksum: 80130b665379ecd991687ae079fbee25d091e03e4c4cef41e7643b977849ac48c2f56bfcb3727e53594d29029b833749811110d9f3fbee1b26a6e6f8096a5cef
   languageName: node
   linkType: hard
-
-"docs@workspace:site":
-  version: 0.0.0-use.local
-  resolution: "docs@workspace:site"
-  dependencies:
-    "@docusaurus/core": 2.0.0-beta.0
-    "@docusaurus/preset-classic": 2.0.0-beta.0
-    "@easyops-cn/docusaurus-search-local": ^0.18.1
-    "@mdx-js/react": ^1.6.21
-    "@svgr/webpack": ^5.5.0
-    clsx: ^1.1.1
-    file-loader: ^6.2.0
-    react: ^17.0.1
-    react-dom: ^17.0.1
-    url-loader: ^4.1.1
-  languageName: unknown
-  linkType: soft
 
 "doctrine@npm:^2.1.0":
   version: 2.1.0

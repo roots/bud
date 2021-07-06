@@ -108,17 +108,24 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars/docs.js'),
+          path: 'site/docs',
+          sidebarPath: require.resolve(
+            './site/src/sidebars/docs.js',
+          ),
           editUrl:
             'https://github.com/roots/bud/edit/next/site/docs/',
         },
         blog: {
+          path: 'site/blog',
           showReadingTime: true,
-          editUrl:
-            'https://github.com/roots/bud/edit/next/site/blog/',
+        },
+        pages: {
+          path: 'site/pages',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve(
+            './site/src/css/custom.css',
+          ),
         },
       },
     ],
@@ -128,9 +135,11 @@ module.exports = {
       require.resolve('@docusaurus/plugin-content-docs'),
       {
         id: 'guide',
-        path: 'guide',
+        path: './site/guide',
         routeBasePath: 'guide',
-        sidebarPath: require.resolve('./sidebars/guide.js'),
+        sidebarPath: require.resolve(
+          './site/src/sidebars/guide.js',
+        ),
         include: ['**/*.md', '**/*.mdx'],
       },
     ],
@@ -138,9 +147,11 @@ module.exports = {
       require.resolve('@docusaurus/plugin-content-docs'),
       {
         id: 'recipes',
-        path: 'recipes',
+        path: './site/recipes',
         routeBasePath: 'recipes',
-        sidebarPath: require.resolve('./sidebars/recipes.js'),
+        sidebarPath: require.resolve(
+          './site/src/sidebars/recipes.js',
+        ),
         include: ['**/*.md', '**/*.mdx'],
       },
     ],
@@ -148,9 +159,11 @@ module.exports = {
       require.resolve('@docusaurus/plugin-content-docs'),
       {
         id: 'extensions',
-        path: './extensions',
+        path: './site/extensions',
         routeBasePath: 'extensions',
-        sidebarPath: require.resolve('./sidebars/extensions.js'),
+        sidebarPath: require.resolve(
+          './site/src/sidebars/extensions.js',
+        ),
         include: ['**/*.md', '**/*.mdx'],
       },
     ],
@@ -158,7 +171,12 @@ module.exports = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsDir: ['extensions', 'guide', 'recipes', 'docs'],
+        docsDir: [
+          'site/extensions',
+          'site/guide',
+          'site/recipes',
+          'site/docs',
+        ],
         docsRouteBasePath: [
           'extensions',
           'guide',
