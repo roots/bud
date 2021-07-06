@@ -2121,9 +2121,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.0-rc.0":
-  version: 0.5.0-rc.0
-  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.0-rc.0"
+"@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.0-rc.1":
+  version: 0.5.0-rc.1
+  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.0-rc.1"
   dependencies:
     ansi-html: ^0.0.7
     core-js-pure: ^3.8.1
@@ -2136,7 +2136,7 @@ __metadata:
     "@types/webpack": 4.x || 5.x
     react-refresh: ^0.10.0
     sockjs-client: ^1.4.0
-    type-fest: ^1.0.2
+    type-fest: 1.x
     webpack: ">=4.43.0 <6.0.0"
     webpack-dev-server: 3.x || >=4.0.0-beta.0
     webpack-hot-middleware: 2.x
@@ -2154,7 +2154,7 @@ __metadata:
       optional: true
     webpack-plugin-serve:
       optional: true
-  checksum: 25ab136763842bf879b8bfbe5e9664e1519a8f9061deb52aa1a4438131bab551243fc7a0f1ab1b27b45448202719bde427180145fd7a58853ebda68b83102c33
+  checksum: 92b672d073b718a5f52bad83bb7e41c7e86374932a1dcc66d7ac527c95c660308b06dd662ef991abcb8f62b81b8d34a5e02c5800d61234f9944ef6db7aa1ae39
   languageName: node
   linkType: hard
 
@@ -2633,7 +2633,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.14.6
     "@babel/preset-react": ^7.14.5
-    "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.0
+    "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.1
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
