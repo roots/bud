@@ -3328,7 +3328,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/eslint": ^7.2.13
+    "@types/eslint": ^7.2.14
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
   peerDependencies:
@@ -3794,7 +3794,7 @@ __metadata:
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
-    "@types/eslint": ^7.2.13
+    "@types/eslint": ^7.2.14
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
     "@types/tailwindcss": ^2.2.1
@@ -4279,13 +4279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^7.2.13, @types/eslint@npm:^7.2.6":
-  version: 7.2.13
-  resolution: "@types/eslint@npm:7.2.13"
+"@types/eslint@npm:*, @types/eslint@npm:^7.2.14, @types/eslint@npm:^7.2.6":
+  version: 7.2.14
+  resolution: "@types/eslint@npm:7.2.14"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 6dac9f9d7d155c90a6eba104718e1adb43c3e4020ea75ab8f5094db8603617473a4ac6f7ddeb2c670822860b869a7e3871406a82425ec470965cdfc1f3dd3ad0
+  checksum: 83c166031d396eefe74acc52ae635dad2702dc62dcc33c764bbffb471b5d6b079a69f5319426056bb24e88d2e12619b0f6f3137658ad18704111a91e3890dd51
   languageName: node
   linkType: hard
 
