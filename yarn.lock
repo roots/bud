@@ -3637,7 +3637,7 @@ __metadata:
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/copy-webpack-plugin": ^8.0.0
     "@types/css-minimizer-webpack-plugin": ^3.0.2
-    "@types/express": ^4.17.12
+    "@types/express": ^4.17.13
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.170
     "@types/mini-css-extract-plugin": ^2.0.0
@@ -4321,15 +4321,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.12":
-  version: 4.17.12
-  resolution: "@types/express@npm:4.17.12"
+"@types/express@npm:^4.17.13":
+  version: 4.17.13
+  resolution: "@types/express@npm:4.17.13"
   dependencies:
     "@types/body-parser": "*"
     "@types/express-serve-static-core": ^4.17.18
     "@types/qs": "*"
     "@types/serve-static": "*"
-  checksum: 5869f575f66e5ea891a00fd253719577a1afe8d39fba47f3f24539188dac351d61f4511a168c6b5b5c902c724b26809950421325887896f5e23f28a3a2aa9458
+  checksum: 12a2a0e6c4b993fc0854bec665906788aea0d8ee4392389d7a98a5de1eefdd33c9e1e40a91f3afd274011119c506f7b4126acb97fae62ae20b654974d44cba12
   languageName: node
   linkType: hard
 
