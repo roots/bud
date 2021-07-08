@@ -64,7 +64,7 @@
     "@types/lodash": "^4.14.170",
     "@types/node": "^15.12.5",
     "globby": "^11.0.4",
-    "webpack": "^5.42.1"
+    "webpack": "^5.43.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

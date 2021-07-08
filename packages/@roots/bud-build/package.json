@@ -65,7 +65,7 @@
     "@types/mini-css-extract-plugin": "^2.0.1",
     "@types/node": "^15.12.5",
     "@types/yamljs": "^0.2.31",
-    "webpack": "^5.42.1"
+    "webpack": "^5.43.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
