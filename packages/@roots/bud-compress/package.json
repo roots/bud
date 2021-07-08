@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.12.5",
-    "webpack": "^5.42.1"
+    "webpack": "^5.43.0"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
