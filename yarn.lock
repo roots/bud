@@ -2631,6 +2631,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mdx-js/runtime@npm:^1.6.22":
+  version: 1.6.22
+  resolution: "@mdx-js/runtime@npm:1.6.22"
+  dependencies:
+    "@mdx-js/mdx": 1.6.22
+    "@mdx-js/react": 1.6.22
+    buble-jsx-only: ^0.19.8
+  peerDependencies:
+    react: ^16.13.1
+  checksum: 28f881891ecb514c0ae774cfae0e1a9ed84206b8797a9f961a694a79a69d0c3c312e2030934c19f350e1da36a8a0c07a7d5988520b2e4fc8505e53b3b7f39473
+  languageName: node
+  linkType: hard
+
 "@mdx-js/util@npm:1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/util@npm:1.6.22"
@@ -5350,6 +5363,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-dynamic-import@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "acorn-dynamic-import@npm:4.0.0"
+  peerDependencies:
+    acorn: ^6.0.0
+  checksum: ef7298e632e9d107b2be06b47d607de94d7213ca2417fced02af76b0c71e13074d98924e270c7bfec421c1049ed9001a97ed4d0f28020d9cfa1aae16ca20664a
+  languageName: node
+  linkType: hard
+
 "acorn-globals@npm:^6.0.0":
   version: 6.0.0
   resolution: "acorn-globals@npm:6.0.0"
@@ -5360,7 +5382,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-jsx@npm:^5.3.1":
+"acorn-jsx@npm:^5.0.1, acorn-jsx@npm:^5.3.1":
   version: 5.3.1
   resolution: "acorn-jsx@npm:5.3.1"
   peerDependencies:
@@ -5391,6 +5413,15 @@ __metadata:
   version: 8.1.1
   resolution: "acorn-walk@npm:8.1.1"
   checksum: 5e4dafbcec14fbfac96e1f13726273e969a30fdf607ed4eb6ca335292f85b8c896393fee15837a8f2b27afd7ede0f1c6edb5b5e6d0123a8821fee1a834318e62
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^6.1.1":
+  version: 6.4.2
+  resolution: "acorn@npm:6.4.2"
+  bin:
+    acorn: bin/acorn
+  checksum: 44b07053729db7f44d28343eed32247ed56dc4a6ec6dff2b743141ecd6b861406bbc1c20bf9d4f143ea7dd08add5dc8c290582756539bc03a8db605050ce2fb4
   languageName: node
   linkType: hard
 
@@ -6513,6 +6544,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"buble-jsx-only@npm:^0.19.8":
+  version: 0.19.8
+  resolution: "buble-jsx-only@npm:0.19.8"
+  dependencies:
+    acorn: ^6.1.1
+    acorn-dynamic-import: ^4.0.0
+    acorn-jsx: ^5.0.1
+    chalk: ^2.4.2
+    magic-string: ^0.25.3
+    minimist: ^1.2.0
+    regexpu-core: ^4.5.4
+  bin:
+    buble: ./bin/buble
+  checksum: 27f8b666065ec97f17cbbe5a599931154d99c4ad9bd6be59552ff83432f3f2649da90fa14cb7b690705c86fa38fca102c9031cc14b8c2bc968ac23785c8b8ed3
+  languageName: node
+  linkType: hard
+
 "bud@workspace:.":
   version: 0.0.0-use.local
   resolution: "bud@workspace:."
@@ -6521,6 +6569,7 @@ __metadata:
     "@docusaurus/module-type-aliases": ^2.0.0-beta.3
     "@docusaurus/preset-classic": 2.0.0-beta.0
     "@easyops-cn/docusaurus-search-local": ^0.18.1
+    "@mdx-js/runtime": ^1.6.22
     "@skypack/package-check": ^0.2.2
     "@svgr/webpack": ^5.5.0
     "@types/fs-extra": ^9.0.11
@@ -14085,7 +14134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.25.7":
+"magic-string@npm:^0.25.3, magic-string@npm:^0.25.7":
   version: 0.25.7
   resolution: "magic-string@npm:0.25.7"
   dependencies:
@@ -18052,7 +18101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexpu-core@npm:^4.7.1":
+"regexpu-core@npm:^4.5.4, regexpu-core@npm:^4.7.1":
   version: 4.7.1
   resolution: "regexpu-core@npm:4.7.1"
   dependencies:
