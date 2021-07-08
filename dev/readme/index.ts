@@ -38,3 +38,8 @@ globby.sync(`${process.cwd()}/site/docs/*`).map(path => {
     ),
   )
 })
+
+copyFileSync(
+  `${process.cwd()}/packages/@roots/bud/README.md`,
+  `${process.cwd()}/README.md`,
+)
