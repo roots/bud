@@ -2907,7 +2907,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     chalk: ^4.1.1
@@ -2933,7 +2933,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     babel-loader: ^8.2.2
@@ -2949,7 +2949,7 @@ __metadata:
   resolution: "@roots/bud-build@workspace:packages/@roots/bud-build"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/marked": ^2.0.4
     "@types/mini-css-extract-plugin": ^2.0.1
     "@types/node": ^15.12.5
@@ -3006,7 +3006,7 @@ __metadata:
     "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     "@types/prettier": ^2.3.1
     autobind-decorator: ^2.4.0
@@ -3028,7 +3028,7 @@ __metadata:
   resolution: "@roots/bud-compiler@workspace:packages/@roots/bud-compiler"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3069,7 +3069,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     "@types/react": ^17.0.11
     autobind-decorator: ^2.4.0
@@ -3129,7 +3129,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     esbuild-loader: ^2.13.1
@@ -3171,7 +3171,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3187,7 +3187,7 @@ __metadata:
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
     "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     "@types/webpack-dev-middleware": ^5.0.1
     autobind-decorator: ^2.4.0
@@ -3210,7 +3210,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/container": "workspace:packages/@roots/container"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3292,7 +3292,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     "@types/signale": ^1.4.1
     autobind-decorator: ^2.4.0
@@ -3425,7 +3425,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     chokidar: ^3.5.2
@@ -3586,7 +3586,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3639,7 +3639,7 @@ __metadata:
     "@types/css-minimizer-webpack-plugin": ^3.0.2
     "@types/express": ^4.17.13
     "@types/fs-extra": ^9.0.11
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/mini-css-extract-plugin": ^2.0.1
     "@types/node": ^15.12.5
     "@types/pkg-up": ^3.1.0
@@ -3688,7 +3688,7 @@ __metadata:
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     "@types/vinyl": ^2.0.5
     autobind-decorator: ^2.4.0
@@ -3835,7 +3835,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/lodash": ^4.14.170
+    "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -4465,10 +4465,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*, @types/lodash@npm:^4.14.170":
-  version: 4.14.170
-  resolution: "@types/lodash@npm:4.14.170"
-  checksum: 238a440804e787b85461cc280a11926c80779f7502fec21a70b4424d5feba4cc34cdcbbbc1dca2ec5e75b06d5dc42e42add798be3b6651e8dce9f4b5318d6022
+"@types/lodash@npm:*, @types/lodash@npm:^4.14.171":
+  version: 4.14.171
+  resolution: "@types/lodash@npm:4.14.171"
+  checksum: d093d8ff8b31d7829ab5f2625d824bb1f903fb07d4beca50812c99c3d6c6b63155c56eb0ecf14b97f0d4ba5fcb3b13f8259cca6d4313345326f3c48bed6f4b9f
   languageName: node
   linkType: hard
 
