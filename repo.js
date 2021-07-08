@@ -6,6 +6,9 @@ module.exports = {
     '@roots/bud-api',
     '@roots/bud-babel',
     '@roots/bud-build',
+    '@roots/bud-cache',
+    '@roots/bud-cli',
+    '@roots/bud-compiler',
   ],
   sponsors: [
     {
@@ -58,6 +61,23 @@ module.exports = {
       title: 'Motto',
       url: 'https://motto.ca/roots',
       image: 'https://cdn.roots.io/app/uploads/motto.svg',
+    },
+  ],
+  contributors: [
+    {
+      name: 'Kelly Mears',
+      url: 'https://github.com/kellymears',
+      type: ['development', 'documentation'],
+    },
+    {
+      name: 'Qwp6t',
+      url: 'https://github.com/qwp6t',
+      type: ['development', 'documentation'],
+    },
+    {
+      name: 'Scott Walkinshaw',
+      url: 'https://github.com/scott.walkinshaw',
+      type: ['documentation'],
     },
   ],
 }

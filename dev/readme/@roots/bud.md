@@ -130,10 +130,3 @@ There are a number of Roots maintained extensions available to kickstart your pr
 ### Third-party extensions
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
-
-## Documentation and details
-
-- [Documentation](/docs/README.md)
-- [Getting started](/docs/getting-started.md)
-- [Configuration](/docs/config/README.md)
-- [CLI](/docs/cli.md)

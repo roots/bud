@@ -31,7 +31,7 @@
 </p>
 
 <h1 align="center">
-  <strong>undefined</strong>
+  <strong>@roots/bud-build</strong>
 </h1>
 
 > Bud webpack config build controller
@@ -46,11 +46,9 @@ yarn add @roots/bud-build
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
-
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
-
 
 <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV">
   <img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150" />
@@ -82,3 +80,13 @@ Help support our open-source development efforts by [becoming a patron](https://
 <a href="https://motto.ca/roots">
   <img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150" />
 </a>
+
+## Community
+
+Keep track of development and community news.
+
+- Participate on the [Roots Discourse](https://discourse.roots.io)
+- Follow [@rootswp on Twitter](https://twitter.com/rootswp)
+- Read and subscribe to the [Roots blog](https://roots.io/blog/)
+- Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
+- Listen to the [Roots Radio podcast](https://roots.io/podcast/)

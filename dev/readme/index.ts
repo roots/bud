@@ -8,6 +8,7 @@ import globby from 'globby'
 import Banner from '../../site/src/components/readme/Banner'
 import Sponsors from '../../site/src/components/readme/Sponsors'
 import Contributing from '../../site/src/components/readme/Contributing'
+import Community from '../../site/src/components/readme/Community'
 import {packages as pkgs} from '../../repo'
 
 pkgs.map(pkg => {
@@ -15,7 +16,7 @@ pkgs.map(pkg => {
     `${process.cwd()}/packages/${pkg}/README.md`,
     [
       Banner({
-        title: pkg.name,
+        title: pkg,
         description: readJsonSync(
           `${process.cwd()}/packages/${pkg}/package.json`,
         ).description,
@@ -23,6 +24,7 @@ pkgs.map(pkg => {
       readFileSync(`${process.cwd()}/dev/readme/${pkg}.md`),
       Contributing(),
       Sponsors(),
+      Community(),
     ].join('\n'),
   )
 })

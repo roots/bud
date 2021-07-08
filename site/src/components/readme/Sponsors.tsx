@@ -1,18 +1,18 @@
 import project from '../../../../repo'
 
-const Sponsors = () => `
+const Sponsors = () => `\
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
 ${project.sponsors
   .map(
-    sponsor => `
+    sponsor => `\
 <a href="${sponsor.url}">
   <img src="${sponsor.image}" alt="${sponsor.title}" width="200" height="150" />
 </a>`,
   )
-  .join('')}
+  .join('\n')}
 `
 
 export default Sponsors
