@@ -2950,7 +2950,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.170
-    "@types/marked": ^2.0.3
+    "@types/marked": ^2.0.4
     "@types/mini-css-extract-plugin": ^2.0.0
     "@types/node": ^15.12.5
     "@types/yamljs": ^0.2.31
@@ -4472,10 +4472,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/marked@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@types/marked@npm:2.0.3"
-  checksum: 60f992edf9f70f9d1c6c9a8f1730a01a3d735ebe9fe53365d471433622b52d25325345848652dbd66f1f88966b747d8fe0c923748c03fa5896269fe7cff45507
+"@types/marked@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@types/marked@npm:2.0.4"
+  checksum: 5c1db00f2a27a71cd95646424f10ca8869249ef0137c0f0fadc01479cdf35927a3e6a8e1aee67e126e2540a5384ee55b326dc93aea4e3a78788f23334f3d7cfd
   languageName: node
   linkType: hard
 
