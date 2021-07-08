@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-babel",
   "version": "4.7.0-9",
-  "description": "A friendly build tool to help manage your project assets.",
+  "description": "Extension for @roots/bud providing Babel support",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",

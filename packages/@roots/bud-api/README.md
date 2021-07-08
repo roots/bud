@@ -1,4 +1,3 @@
-
 <p align="center">
   <img
     alt="Bud"
@@ -42,11 +41,13 @@ Surfaces various configuration utilities for use in end-user configs and extensi
 
 [See the documentation](https://bud.js.org/docs/api.alias)
 
+
 ## Contributing
 
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).

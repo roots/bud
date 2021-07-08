@@ -12,14 +12,14 @@ bud.use("@roots/bud-babel");
 
 ## Configuration
 
-Out of the box [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) comes with:
+Out of the box [**@roots/bud-babel**](/packages/@roots/bud-babel) comes with:
 
 - `@babel/preset-env`
 - `@babel/plugin-transform-runtime`
 - `@babel/plugin-proposal-object-rest-spread`
 - `@babel/plugin-syntax-dynamic-import`
 
-If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) designed to help you out.
+If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [**@roots/bud-babel**](/packages/@roots/bud-babel) designed to help you out.
 
 ### Presets
 

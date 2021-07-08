@@ -1,8 +1,8 @@
-const Banner = ({title, description}) => `
+const Banner = ({title, description, logo}) => `\
 <p align="center">
   <img
     alt="Bud"
-    src="https://cdn.roots.io/app/uploads/logo-bud.svg"
+    src="${logo}"
     height="100"
   />
 </p>

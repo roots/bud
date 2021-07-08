@@ -9,9 +9,9 @@ import Banner from '../../site/src/components/readme/Banner'
 import Sponsors from '../../site/src/components/readme/Sponsors'
 import Contributing from '../../site/src/components/readme/Contributing'
 import Community from '../../site/src/components/readme/Community'
-import {packages as pkgs} from '../../repo'
+import project from '../../repo'
 
-pkgs.map(pkg => {
+project.packages.map(pkg => {
   writeFileSync(
     `${process.cwd()}/packages/${pkg}/README.md`,
     [
@@ -20,6 +20,7 @@ pkgs.map(pkg => {
         description: readJsonSync(
           `${process.cwd()}/packages/${pkg}/package.json`,
         ).description,
+        logo: project.logo,
       }),
       readFileSync(`${process.cwd()}/dev/readme/${pkg}.md`),
       Contributing(),

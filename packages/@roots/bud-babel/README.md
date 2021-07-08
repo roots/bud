@@ -1,4 +1,3 @@
-
 <p align="center">
   <img
     alt="Bud"
@@ -34,7 +33,7 @@
   <strong>@roots/bud-babel</strong>
 </h1>
 
-> A friendly build tool to help manage your project assets.
+> Extension for @roots/bud providing Babel support
 
 ## Installation
 
@@ -50,14 +49,14 @@ bud.use("@roots/bud-babel");
 
 ## Configuration
 
-Out of the box [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) comes with:
+Out of the box [**@roots/bud-babel**](/packages/@roots/bud-babel) comes with:
 
 - `@babel/preset-env`
 - `@babel/plugin-transform-runtime`
 - `@babel/plugin-proposal-object-rest-spread`
 - `@babel/plugin-syntax-dynamic-import`
 
-If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) designed to help you out.
+If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [**@roots/bud-babel**](/packages/@roots/bud-babel) designed to help you out.
 
 ### Presets
 
@@ -195,11 +194,13 @@ bud.build.items["babel"].setOptions({
 });
 ```
 
+
 ## Contributing
 
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).

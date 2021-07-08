@@ -1,4 +1,3 @@
-
 <p align="center">
   <img
     alt="Bud"
@@ -169,11 +168,13 @@ There are a number of Roots maintained extensions available to kickstart your pr
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
+
 ## Contributing
 
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).

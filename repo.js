@@ -1,6 +1,7 @@
 const repo = process.cwd()
 
 module.exports = {
+  logo: `https://cdn.roots.io/app/uploads/logo-bud.svg`,
   packages: [
     '@roots/bud',
     '@roots/bud-api',

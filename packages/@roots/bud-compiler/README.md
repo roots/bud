@@ -1,4 +1,3 @@
-
 <p align="center">
   <img
     alt="Bud"
@@ -45,11 +44,13 @@ The compiler provides controls and renders Bud's built-in development server.
 ```sh
 yarn add @roots/bud-compiler --dev
 ```
+
 ## Contributing
 
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
