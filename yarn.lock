@@ -2741,16 +2741,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.4":
-  version: 1.3.4
-  resolution: "@oclif/errors@npm:1.3.4"
+"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.5":
+  version: 1.3.5
+  resolution: "@oclif/errors@npm:1.3.5"
   dependencies:
     clean-stack: ^3.0.0
     fs-extra: ^8.1
     indent-string: ^4.0.0
     strip-ansi: ^6.0.0
     wrap-ansi: ^7.0.0
-  checksum: 1dd0d93650acbdbdd343ca11c8b5d0f9952258172f430c06a26e7d65ffe304d062b14923548eb88751bbf1c2ced708b7f4ee1e86566c8d2e6a1500846da60efb
+  checksum: abce216ff1321ac4924fe405c50e9b2a93cfb51ad229d7e6ced8ee1c4bd01a85ee270b4433a12c73da9394dd8e9f6ec73443f8582da7ac46379b7e4991c3fa50
   languageName: node
   linkType: hard
 
@@ -2998,7 +2998,7 @@ __metadata:
     "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
     "@oclif/command": ^1.8.0
     "@oclif/dev-cli": ^1.26.0
-    "@oclif/errors": ^1.3.4
+    "@oclif/errors": ^1.3.5
     "@oclif/plugin-autocomplete": ^0.3.0
     "@oclif/plugin-commands": ^1.3.0
     "@oclif/plugin-help": ^3.2.2
@@ -20895,21 +20895,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.1.4":
+"uglify-js@npm:^3.1.4, uglify-js@npm:^3.13.8":
   version: 3.13.10
   resolution: "uglify-js@npm:3.13.10"
   bin:
     uglifyjs: bin/uglifyjs
   checksum: e5e51fc9b27c19745cc64cc3bd83e6e4d515e7a0cc1842e2bc92df9d687728b336a8276d46e85a588e434397e97032e95e006f91f2b3b9fdf599ced65790e236
-  languageName: node
-  linkType: hard
-
-"uglify-js@npm:^3.13.8":
-  version: 3.13.9
-  resolution: "uglify-js@npm:3.13.9"
-  bin:
-    uglifyjs: bin/uglifyjs
-  checksum: 4592c78a2fe3148e88da8285951d721a96ade41eb81878cc1f38e81c2afae2a3446c234c801fcd20c524c3dd3385caf06b882dccb42c8f79bf1482882fe3e142
   languageName: node
   linkType: hard
 
