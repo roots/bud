@@ -3,6 +3,7 @@ import {
   readFileSync,
   readJsonSync,
   writeFileSync,
+  pathExistsSync,
 } from 'fs-extra'
 import globby from 'globby'
 import Banner from '../../site/src/components/readme/Banner'
@@ -12,22 +13,23 @@ import Community from '../../site/src/components/readme/Community'
 import project from '../../repo'
 
 project.packages.map(pkg => {
-  writeFileSync(
-    `${process.cwd()}/packages/${pkg}/README.md`,
-    [
-      Banner({
-        title: pkg,
-        description: readJsonSync(
-          `${process.cwd()}/packages/${pkg}/package.json`,
-        ).description,
-        logo: project.logo,
-      }),
-      readFileSync(`${process.cwd()}/dev/readme/${pkg}.md`),
-      Contributing(),
-      Sponsors(),
-      Community(),
-    ].join('\n'),
-  )
+  pathExistsSync(`${process.cwd()}/dev/readme/${pkg}.md`) &&
+    writeFileSync(
+      `${process.cwd()}/packages/${pkg}/README.md`,
+      [
+        Banner({
+          title: pkg,
+          description: readJsonSync(
+            `${process.cwd()}/packages/${pkg}/package.json`,
+          ).description,
+          logo: project.logo,
+        }),
+        readFileSync(`${process.cwd()}/dev/readme/${pkg}.md`),
+        Contributing(),
+        Sponsors(),
+        Community(),
+      ].join('\n'),
+    )
 })
 
 globby.sync(`${process.cwd()}/site/docs/*`).map(path => {

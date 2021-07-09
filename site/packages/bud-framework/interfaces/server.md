@@ -22,7 +22,7 @@ Assets
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:18](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L18)
+[packages/@roots/bud-framework/src/Server/index.ts:18](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L18)
 
 ___
 
@@ -34,7 +34,7 @@ Server configuration
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:28](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L28)
+[packages/@roots/bud-framework/src/Server/index.ts:28](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L28)
 
 ___
 
@@ -62,7 +62,7 @@ Server instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:23](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L23)
+[packages/@roots/bud-framework/src/Server/index.ts:23](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L23)
 
 ___
 
@@ -74,7 +74,7 @@ Has files to watch and watch is enabled
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:33](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L33)
+[packages/@roots/bud-framework/src/Server/index.ts:33](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L33)
 
 ___
 
@@ -86,7 +86,7 @@ Registered server middlewares
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:13](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L13)
+[packages/@roots/bud-framework/src/Server/index.ts:13](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L13)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:38](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L38)
+[packages/@roots/bud-framework/src/Service/index.ts:38](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L38)
 
 ___
 
@@ -139,7 +139,7 @@ Watcher instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:38](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L38)
+[packages/@roots/bud-framework/src/Server/index.ts:38](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L38)
 
 ## Accessors
 
@@ -207,7 +207,7 @@ access(isAValue)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:51](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L51)
+[packages/@roots/bud-framework/src/Service/index.ts:51](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L51)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:42](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L42)
+[packages/@roots/bud-framework/src/Service/index.ts:42](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L42)
 
 ## Methods
 
@@ -275,7 +275,7 @@ Boot
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:29](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L29)
+[packages/@roots/bud-framework/src/Service/index.ts:29](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L29)
 
 ___
 
@@ -301,7 +301,7 @@ Post boot callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:34](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L34)
+[packages/@roots/bud-framework/src/Service/index.ts:34](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L34)
 
 ___
 
@@ -327,7 +327,7 @@ Bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:9](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L9)
+[packages/@roots/bud-framework/src/Service/index.ts:9](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L9)
 
 ___
 
@@ -353,7 +353,7 @@ Bootstrapped
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:14](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L14)
+[packages/@roots/bud-framework/src/Service/index.ts:14](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L14)
 
 ___
 
@@ -448,7 +448,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:56](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L56)
+[packages/@roots/bud-framework/src/Service/index.ts:56](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L56)
 
 ___
 
@@ -772,7 +772,7 @@ Retrieve an array of watched files.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:47](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L47)
+[packages/@roots/bud-framework/src/Server/index.ts:47](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L47)
 
 ___
 
@@ -823,7 +823,7 @@ Inject client scripts innto compilation (HMR, dev experience)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:57](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L57)
+[packages/@roots/bud-framework/src/Server/index.ts:57](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L57)
 
 ___
 
@@ -1514,7 +1514,7 @@ Register
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:19](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L19)
+[packages/@roots/bud-framework/src/Service/index.ts:19](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L19)
 
 ___
 
@@ -1540,7 +1540,7 @@ Post registered callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:24](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Service/index.ts#L24)
+[packages/@roots/bud-framework/src/Service/index.ts:24](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Service/index.ts#L24)
 
 ___
 
@@ -1591,7 +1591,7 @@ Run the server instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:52](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L52)
+[packages/@roots/bud-framework/src/Server/index.ts:52](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Server/index.ts#L52)
 
 ___
 

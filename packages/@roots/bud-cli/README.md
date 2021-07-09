@@ -49,13 +49,6 @@ With npm:
 npm install @roots/bud-cli --save-dev
 ```
 
-## Getting started
-
-The CLI includes detailed usage instructions:
-
-```sh
-yarn bud --help
-```
 
 ## Contributing
 

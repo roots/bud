@@ -1,6 +1,6 @@
 exclude_patterns:
   - 'dev'
-  - 'docs'
+  - 'site'
   - 'examples'
   - 'tests'
   - 'jest.config.ts'

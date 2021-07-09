@@ -1,3 +1,9 @@
+## Installation
+
+```sh
+yarn add @roots/bud-api
+```
+
 ## Overview
 
 Surfaces various configuration utilities for use in end-user configs and extensions.

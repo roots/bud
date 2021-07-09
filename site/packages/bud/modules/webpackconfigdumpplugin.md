@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:13](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L13)
+[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:13](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L13)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:23](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L23)
+[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:23](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L23)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:20](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L20)
+[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:20](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L20)
 
 ## Functions
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:15](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L15)
+[packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts:15](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud/src/extensions/webpack-config-dump-plugin/index.ts#L15)
