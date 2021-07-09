@@ -3008,7 +3008,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.1
+    "@types/prettier": ^2.3.2
     autobind-decorator: ^2.4.0
     cosmiconfig: ^7.0.0
     globby: ^11.0.4
@@ -3740,7 +3740,7 @@ __metadata:
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.1
+    "@types/prettier": ^2.3.2
     "@types/react": ^17.0.11
     autobind-decorator: ^2.4.0
     ink: ^3.0.8
@@ -3769,7 +3769,7 @@ __metadata:
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
-    "@types/prettier": ^2.3.1
+    "@types/prettier": ^2.3.2
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
     prettier: ^2.3.2
@@ -4572,10 +4572,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "@types/prettier@npm:2.3.1"
-  checksum: 545891e0ecbb60345263e4f142d406b3d4ff97bb24605f247844af55f6523e974d3c7b0b7a83f59467e078e193c879b9491ec24c652c536f1905a4966b3e5784
+"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "@types/prettier@npm:2.3.2"
+  checksum: c4313e16650811f47b07a0fa7ac0742e966f61283a7292eb667fd4626d760bf3b7d896be3eaabb3354ad45fdbe3a340299b018dd3bcce1ff753d030a8cd2479c
   languageName: node
   linkType: hard
 
@@ -20895,21 +20895,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.1.4":
+"uglify-js@npm:^3.1.4, uglify-js@npm:^3.13.8":
   version: 3.13.10
   resolution: "uglify-js@npm:3.13.10"
   bin:
     uglifyjs: bin/uglifyjs
   checksum: e5e51fc9b27c19745cc64cc3bd83e6e4d515e7a0cc1842e2bc92df9d687728b336a8276d46e85a588e434397e97032e95e006f91f2b3b9fdf599ced65790e236
-  languageName: node
-  linkType: hard
-
-"uglify-js@npm:^3.13.8":
-  version: 3.13.9
-  resolution: "uglify-js@npm:3.13.9"
-  bin:
-    uglifyjs: bin/uglifyjs
-  checksum: 4592c78a2fe3148e88da8285951d721a96ade41eb81878cc1f38e81c2afae2a3446c234c801fcd20c524c3dd3385caf06b882dccb42c8f79bf1482882fe3e142
   languageName: node
   linkType: hard
 
