@@ -3453,7 +3453,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.12.2
     autobind-decorator: ^2.4.0
-    babel-preset-solid: ^1.0.0
+    babel-preset-solid: ^1.0.1
     type-fest: ^1.2.0
     webpack: ^5.43.0
   peerDependencies:
@@ -6157,14 +6157,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.29.0":
-  version: 0.29.1
-  resolution: "babel-plugin-jsx-dom-expressions@npm:0.29.1"
+"babel-plugin-jsx-dom-expressions@npm:^0.29.3":
+  version: 0.29.3
+  resolution: "babel-plugin-jsx-dom-expressions@npm:0.29.3"
   dependencies:
     "@babel/helper-module-imports": ^7.10.4
     "@babel/plugin-syntax-jsx": ^7.10.4
     "@babel/types": ^7.11.5
-  checksum: 96cd3083c81cf82d7107432fce165b96a9860aa4b6938bde4b16084fc14b527cfc3c46a41522b4ed71d5f99c5291435f771bc8264464ed399dfc55de37f794a8
+  checksum: b726258bcea54da7c91ba2f6f49f79c7459ad923cbb2273d02bea453a5b668131a759d915134d12d31a2ebe2eb007b025423abb2e14697a18723e518552af405
   languageName: node
   linkType: hard
 
@@ -6260,12 +6260,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-solid@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "babel-preset-solid@npm:1.0.0"
+"babel-preset-solid@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "babel-preset-solid@npm:1.0.1"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.29.0
-  checksum: 65b98355c709d4ec433e2797b1e5c3c12f86a73edbbae205a438dfe7833887881e792d4964624199c32c509897bae37029a6cacdb4b76f3649aee3e2e5905bbe
+    babel-plugin-jsx-dom-expressions: ^0.29.3
+  checksum: 61cc4d655e12398fe7bf6e9f4f8d66273c7266664bf7c33fb944c0eff4d4d7b0906ef2b407a424a279bfae5c95e38343a6e782d13cb4cb90deead9ef4a9dd5b2
   languageName: node
   linkType: hard
 
@@ -20895,21 +20895,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.1.4":
+"uglify-js@npm:^3.1.4, uglify-js@npm:^3.13.8":
   version: 3.13.10
   resolution: "uglify-js@npm:3.13.10"
   bin:
     uglifyjs: bin/uglifyjs
   checksum: e5e51fc9b27c19745cc64cc3bd83e6e4d515e7a0cc1842e2bc92df9d687728b336a8276d46e85a588e434397e97032e95e006f91f2b3b9fdf599ced65790e236
-  languageName: node
-  linkType: hard
-
-"uglify-js@npm:^3.13.8":
-  version: 3.13.9
-  resolution: "uglify-js@npm:3.13.9"
-  bin:
-    uglifyjs: bin/uglifyjs
-  checksum: 4592c78a2fe3148e88da8285951d721a96ade41eb81878cc1f38e81c2afae2a3446c234c801fcd20c524c3dd3385caf06b882dccb42c8f79bf1482882fe3e142
   languageName: node
   linkType: hard
 
