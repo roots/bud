@@ -1,7 +1,21 @@
 const repo = process.cwd()
 
 module.exports = {
-  logo: `https://cdn.roots.io/app/uploads/logo-bud.svg`,
+  name: 'bud',
+  description:
+    'A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix',
+  logo: 'https://cdn.roots.io/app/uploads/logo-bud.svg',
+  links: {
+    repo: 'https://github.com/roots/bud',
+    site: 'https://budjs.netlify.app',
+    discourse: 'https://discourse.roots.io/c/bud/24',
+  },
+  organization: {
+    name: 'Roots Foundation, LLC',
+    twitter: 'https://twitter.com/roots',
+    site: 'https://roots.io',
+    favicon: 'https://roots.io/favicon.ico',
+  },
   packages: [
     '@roots/bud',
     '@roots/bud-api',
@@ -10,6 +24,7 @@ module.exports = {
     '@roots/bud-cache',
     '@roots/bud-cli',
     '@roots/bud-compiler',
+    '@roots/bud-compress',
   ],
   sponsors: [
     {

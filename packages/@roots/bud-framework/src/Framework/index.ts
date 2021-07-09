@@ -22,53 +22,71 @@ import {Store} from '../Store'
 import {isFunction} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Configuration} from 'src/Configuration'
+import {Configuration} from '../Configuration'
 
 interface Framework {
   /**
+   * ## name
+   *
    * Application name
    */
   name: string
 
   /**
+   * ## parent
+   *
    * If a child instance, returns the parent.
    *
-   * If the parent instance, returns this
+   * If the parent instance, returns {Framework}
    */
   parent: Framework
 
   /**
-   * Multi-compiler
+   * ## children
+   *
+   * Compiler instance container.
    */
   children: Container<Framework>
 
   /**
-   * True if instance is child
+   * ## isChild
+   *
+   * Returns true if current compiler is a child compiler
    */
   isChild: boolean
 
   /**
-   * API service
+   * ## api
+   *
+   * Service providing config api methods
    */
   api: Api
 
   /**
-   * Build service
+   * ## build
+   *
+   * Service handling config compilation
    */
   build: Build
 
   /**
-   * Cache service
+   * ## cache
+   *
+   * Service handling compiler cache
    */
   cache: Cache
 
   /**
-   * Compiler service
+   * ## compiler
+   *
+   * Service handling build compilation
    */
   compiler: Compiler
 
   /**
-   * Dashboard service
+   * ## dashboard
+   *
+   * Service providing CLI interface
    */
   dashboard: Dashboard
 

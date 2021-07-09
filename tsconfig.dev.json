@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "composite": false,
-    "declaration": true,
-    "declarationMap": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "importHelpers": true,
-    "lib": ["DOM", "ES2019"],
-    "jsx": "react",
+    "experimentalDecorators": true,
+    "noEmit": true,
     "moduleResolution": "node",
     "module": "commonjs",
-    "noUnusedLocals": true,
-    "noEmitOnError": true,
-    "sourceMap": true,
     "skipLibCheck": true,
-    "strict": false,
-    "target": "ES2015"
-  }
+    "jsx": "react",
+    "target": "ES2020",
+  },
+  "files": [
+    "packages/@roots/bud/src/index.ts",
+    "packages/@roots/bud-build/src/index.ts",
+    "packages/@roots/bud-compiler/src/index.ts",
+    "packages/@roots/bud-framework/src/index.ts",
+  ],
+  "exclude": ["node_modules"],
 }

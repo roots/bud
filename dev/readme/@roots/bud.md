@@ -61,7 +61,7 @@ For more on configuring [**@roots/bud**](/packages/@roots/bud) check out the [de
 
 ## Running a build
 
-![Terminal usage](/static/img/cli.svg)
+![Terminal usage](https://github.com/roots/bud/tree/stable/static/img/cli.svg)
 
 Once you've set up your configuration file the following command will run the build:
 

@@ -3,7 +3,7 @@ import type {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.run
+     * ## run
      *
      * Run the build
      *

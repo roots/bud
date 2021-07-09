@@ -40,6 +40,8 @@ class Bud extends Framework {
   public logger: Logger
 
   public server: Server
+
+  public alias: Framework.Api.Alias
 }
 
 export {Bud}

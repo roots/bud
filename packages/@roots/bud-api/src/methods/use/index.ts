@@ -1,11 +1,11 @@
-import type {Api, Module} from '@roots/bud-framework'
 import {isArray, isEqual, isFunction} from 'lodash'
 import {nanoid} from 'nanoid'
+import type {Framework, Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.use
+     * ## use
      *
      * Register an extension or set of extensions
      *
@@ -35,10 +35,10 @@ declare module '@roots/bud-framework' {
      * bud.use(new MyWebpackPlugin())
      * ```
      */
-    use: Api.Use
+    use: Framework.Api.Use
   }
 
-  namespace Api {
+  namespace Framework.Api {
     type Input = Module | Module[]
     type Use = (source: Input) => Framework
   }
@@ -68,7 +68,7 @@ const generateName = (input: Module) =>
 /**
  * bud.use method
  */
-const use: Api.Use = function (source) {
+const use: Framework.Api.Use = function (source) {
   const addExtension = (source: Module) => {
     source.name = source.name ?? generateName(source)
 

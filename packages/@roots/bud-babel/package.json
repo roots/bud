@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-babel",
   "version": "4.7.0-9",
-  "description": "Extension for @roots/bud providing Babel support",
+  "description": "Adds babel support to @roots/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",

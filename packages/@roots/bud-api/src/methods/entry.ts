@@ -13,7 +13,7 @@ declare module '@roots/bud-framework' {
      *
      * Uses [fast-glob](https://git.io/JkGbw) syntax.
      *
-     * **Supported patterns**
+     * #### Supported patterns
      *
      * - `*` matches any number of characters, but not `/`
      * - `?` matches a single character, but not `/`
@@ -63,6 +63,7 @@ declare module '@roots/bud-framework' {
      *    dependOn: ['react'],
      *  },
      * })
+     * ```
      */
     entry: Api.Entry
   }

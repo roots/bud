@@ -5,7 +5,7 @@ import {sync} from 'globby'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## assets  [💁 Fluent]
+     * ## assets
      *
      * Copy static assets during compilation.
      *

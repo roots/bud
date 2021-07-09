@@ -1,21 +1,22 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 
+const project = require('./repo')
+
 module.exports = {
-  title: 'bud',
-  tagline:
-    'A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix',
-  url: 'https://budjs.netlify.app',
+  title: project.name,
+  tagline: project.description,
+  url: project.links.site,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: project.organization.favicon,
   organizationName: 'roots',
-  projectName: 'bud',
+  projectName: project.name,
   themeConfig: {
     navbar: {
       logo: {
         alt: 'bud',
-        src: 'img/logo.svg',
+        src: project.logo,
       },
       items: [
         {
@@ -45,9 +46,10 @@ module.exports = {
           label: 'Recipes',
           docsPluginId: 'recipes',
         },
+        {to: '/packages', label: 'API', position: 'right'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/roots/bud',
+          href: project.links.repo,
           label: 'GitHub',
           position: 'right',
         },
@@ -78,11 +80,11 @@ module.exports = {
           items: [
             {
               label: 'Twitter',
-              href: 'https://twitter.com/rootswp',
+              href: project.organization.twitter,
             },
             {
               label: 'Discourse',
-              href: 'https://discourse.roots.io/c/bud/24',
+              href: project.links.discourse,
             },
           ],
         },
@@ -95,12 +97,14 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/roots/bud',
+              href: project.links.repo,
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Roots Foundation, LLC.`,
+      copyright: `Copyright © ${new Date().getFullYear()} ${
+        project.organization.name
+      }.`,
     },
   },
   presets: [
@@ -112,8 +116,7 @@ module.exports = {
           sidebarPath: require.resolve(
             './site/src/sidebars/docs.js',
           ),
-          editUrl:
-            'https://github.com/roots/bud/edit/next/site/docs/',
+          editUrl: `${project.links.repo}/edit/next/site/docs/`,
         },
         blog: {
           path: 'site/blog',
@@ -168,6 +171,18 @@ module.exports = {
       },
     ],
     [
+      require.resolve('@docusaurus/plugin-content-docs'),
+      {
+        id: 'packages',
+        path: './site/packages',
+        routeBasePath: 'packages',
+        sidebarPath: require.resolve(
+          './site/src/sidebars/packages.js',
+        ),
+        include: ['**/*.md', '**/*.mdx'],
+      },
+    ],
+    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
@@ -183,6 +198,42 @@ module.exports = {
           'recipes',
           'docs',
         ],
+      },
+    ],
+    [
+      require.resolve('docusaurus-plugin-typedoc'),
+      {
+        id: `api.bud`,
+        out: 'packages/bud',
+        entryPoints: ['packages/@roots/bud/src/index.ts'],
+        tsconfig: `tsconfig.dev.json`,
+        docsRoot: 'site',
+        readme: 'none',
+        sidebar: {
+          categoryLabel: '@roots/bud',
+          fullNames: false,
+          sidebarFile: null,
+          indexLabel: undefined,
+        },
+      },
+    ],
+    [
+      require.resolve('docusaurus-plugin-typedoc'),
+      {
+        id: `api.framework`,
+        out: 'packages/bud-framework',
+        entryPoints: [
+          'packages/@roots/bud-framework/src/index.ts',
+        ],
+        tsconfig: `tsconfig.dev.json`,
+        docsRoot: 'site',
+        readme: 'none',
+        sidebar: {
+          categoryLabel: '@roots/bud-framework',
+          fullNames: false,
+          sidebarFile: null,
+          indexLabel: undefined,
+        },
       },
     ],
   ],

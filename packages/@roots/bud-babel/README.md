@@ -33,7 +33,7 @@
   <strong>@roots/bud-babel</strong>
 </h1>
 
-> Extension for @roots/bud providing Babel support
+> Adds babel support to @roots/bud
 
 ## Installation
 
