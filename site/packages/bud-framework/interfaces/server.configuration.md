@@ -27,7 +27,7 @@ Client features
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:152](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L152)
+[packages/@roots/bud-framework/src/Server/index.ts:152](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L152)
 
 ___
 
@@ -39,7 +39,7 @@ Escape hatch for Webpack's host check security feature.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:206](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L206)
+[packages/@roots/bud-framework/src/Server/index.ts:206](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L206)
 
 ___
 
@@ -51,7 +51,7 @@ Filename to serve as index.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:171](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L171)
+[packages/@roots/bud-framework/src/Server/index.ts:171](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L171)
 
 ___
 
@@ -70,7 +70,7 @@ HTTP headers on each request.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:183](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L183)
+[packages/@roots/bud-framework/src/Server/index.ts:183](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L183)
 
 ___
 
@@ -84,7 +84,7 @@ The development server host
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:116](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L116)
+[packages/@roots/bud-framework/src/Server/index.ts:116](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L116)
 
 ___
 
@@ -96,7 +96,7 @@ The index path for web server, defaults to "index.html".
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:161](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L161)
+[packages/@roots/bud-framework/src/Server/index.ts:161](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L161)
 
 ___
 
@@ -115,7 +115,7 @@ list of HTTP request methods accepted
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:195](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L195)
+[packages/@roots/bud-framework/src/Server/index.ts:195](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L195)
 
 ___
 
@@ -131,7 +131,7 @@ Enabled middlewares
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:108](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L108)
+[packages/@roots/bud-framework/src/Server/index.ts:108](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L108)
 
 ___
 
@@ -144,7 +144,7 @@ mime types or extension mappings
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:201](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L201)
+[packages/@roots/bud-framework/src/Server/index.ts:201](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L201)
 
 ___
 
@@ -158,7 +158,7 @@ The development server port
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:122](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L122)
+[packages/@roots/bud-framework/src/Server/index.ts:122](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L122)
 
 ___
 
@@ -177,7 +177,7 @@ Proxy destination
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:127](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L127)
+[packages/@roots/bud-framework/src/Server/index.ts:127](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L127)
 
 ___
 
@@ -189,7 +189,7 @@ The path that the middleware is bound to.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:166](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L166)
+[packages/@roots/bud-framework/src/Server/index.ts:166](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L166)
 
 ___
 
@@ -208,4 +208,4 @@ Files which should reload the browser when changed.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:144](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L144)
+[packages/@roots/bud-framework/src/Server/index.ts:144](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L144)

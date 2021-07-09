@@ -10,11 +10,9 @@
     "jsx": "react",
     "target": "ES2020",
   },
-  "files": [
+  "include": [
     "packages/@roots/bud/src/index.ts",
-    "packages/@roots/bud-build/src/index.ts",
-    "packages/@roots/bud-compiler/src/index.ts",
-    "packages/@roots/bud-framework/src/index.ts",
+    "packages/@roots/bud-framework/src/index.ts"
   ],
   "exclude": ["node_modules"],
 }

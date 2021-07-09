@@ -24,7 +24,7 @@ Webpack compiler
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:69](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L69)
+[packages/@roots/bud-framework/src/Server/index.ts:69](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L69)
 
 ___
 
@@ -36,7 +36,7 @@ Configuration container
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:99](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L99)
+[packages/@roots/bud-framework/src/Server/index.ts:99](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L99)
 
 ___
 
@@ -48,7 +48,7 @@ Server instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:64](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L64)
+[packages/@roots/bud-framework/src/Server/index.ts:64](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L64)
 
 ___
 
@@ -60,4 +60,4 @@ Middleware
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:74](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud-framework/src/Server/index.ts#L74)
+[packages/@roots/bud-framework/src/Server/index.ts:74](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud-framework/src/Server/index.ts#L74)

@@ -115,7 +115,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 

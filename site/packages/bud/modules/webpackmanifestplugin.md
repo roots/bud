@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-manifest-plugin/index.ts:7](https://github.com/roots/bud/blob/3a901c67/packages/@roots/bud/src/extensions/webpack-manifest-plugin/index.ts#L7)
+[packages/@roots/bud/src/extensions/webpack-manifest-plugin/index.ts:7](https://github.com/roots/bud/blob/af5606c4/packages/@roots/bud/src/extensions/webpack-manifest-plugin/index.ts#L7)
 
 ___
 
