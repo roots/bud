@@ -72,7 +72,7 @@ Service.name
 
 #### Defined in
 
-packages/@roots/bud-api/types/Api.d.ts:7
+packages/@roots/bud-api/types/Api.d.ts:3
 
 ___
 
@@ -90,7 +90,7 @@ Service.repository
 
 #### Defined in
 
-packages/@roots/bud-api/types/Api.d.ts:8
+packages/@roots/bud-api/types/Api.d.ts:4
 
 ## Accessors
 
@@ -211,7 +211,7 @@ Contract.bindMethod
 
 #### Defined in
 
-packages/@roots/bud-api/types/Api.d.ts:10
+packages/@roots/bud-api/types/Api.d.ts:6
 
 ___
 
@@ -299,7 +299,7 @@ Service.bootstrap
 
 #### Defined in
 
-packages/@roots/bud-api/types/Api.d.ts:9
+packages/@roots/bud-api/types/Api.d.ts:5
 
 ___
 

@@ -26,7 +26,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler/index.ts:61](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Compiler/index.ts#L61)
+[packages/@roots/bud-framework/src/Compiler/index.ts:61](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Compiler/index.ts#L61)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler/index.ts:63](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Compiler/index.ts#L63)
+[packages/@roots/bud-framework/src/Compiler/index.ts:63](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Compiler/index.ts#L63)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler/index.ts:64](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Compiler/index.ts#L64)
+[packages/@roots/bud-framework/src/Compiler/index.ts:64](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Compiler/index.ts#L64)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler/index.ts:66](https://github.com/roots/bud/blob/aefb67c5/packages/@roots/bud-framework/src/Compiler/index.ts#L66)
+[packages/@roots/bud-framework/src/Compiler/index.ts:66](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Compiler/index.ts#L66)

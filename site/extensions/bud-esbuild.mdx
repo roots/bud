@@ -35,7 +35,31 @@ Esbuild does not include support for hot module reloading.
   </TabItem>
 </Tabs>
 
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
 ## Usage
+
+Add the extension to your config.
 
 ```js
 bud.use('@roots/bud-esbuild')

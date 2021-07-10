@@ -4625,6 +4625,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-reconciler@npm:^0":
+  version: 0.26.2
+  resolution: "@types/react-reconciler@npm:0.26.2"
+  dependencies:
+    "@types/react": "*"
+  checksum: 4e227fb82985c4812211d706745b4eaac7e3128c2b3fa50c676b25dfe8d4a995871dea2318c03ad5998204bfff056f8d07a47e6b84272de75758574b13d60c67
+  languageName: node
+  linkType: hard
+
 "@types/react-router-dom@npm:^5.1.7":
   version: 5.1.7
   resolution: "@types/react-router-dom@npm:5.1.7"
@@ -6530,10 +6539,12 @@ __metadata:
     "@types/react": ^17.0.13
     "@types/react-dom": ^17.0.8
     "@types/react-helmet": ^6.1.1
+    "@types/react-reconciler": ^0
     "@types/react-router-dom": ^5.1.7
     "@types/signale": ^1.4.1
     "@types/weak-napi": ^2.0.0
     "@typescript-eslint/eslint-plugin": ^4.28.1
+    autobind-decorator: ^2.4.0
     chokidar: ^3.5.2
     clsx: ^1.1.1
     docusaurus-plugin-typedoc: ^0.15.1
@@ -6554,6 +6565,7 @@ __metadata:
     prettier: ^2.3.2
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-reconciler: ^0.26.2
     rimraf: ^3.0.2
     signale: ^1.4.0
     ts-jest: ^27.0.3
@@ -17774,6 +17786,19 @@ __metadata:
   peerDependencies:
     react: ^16.0.0
   checksum: c9c74208325a940ca36e031b71499f6d8e62e96ee673d69e35cc9e6a661aa746a2b0750f2ffcd1bae0a29eaf3d127dc8197ab7e801e6a3a2ab7d45a71b464630
+  languageName: node
+  linkType: hard
+
+"react-reconciler@npm:^0.26.2":
+  version: 0.26.2
+  resolution: "react-reconciler@npm:0.26.2"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    scheduler: ^0.20.2
+  peerDependencies:
+    react: ^17.0.2
+  checksum: 2ebceace56f547f51eaf142becefef9cca980eae4f42d90ee5a966f54a375f5082d78b71b00c40bbd9bca69e0e0f698c7d4e81cc7373437caa19831fddc1d01b
   languageName: node
   linkType: hard
 

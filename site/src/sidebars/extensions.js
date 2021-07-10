@@ -6,9 +6,11 @@ module.exports = {
       label: 'Extensions',
       items: [
         'bud-babel',
+        'bud-criticalcss',
         'bud-emotion',
         'bud-entrypoints',
         'bud-esbuild',
+        'bud-eslint',
         'bud-imagemin',
         'bud-postcss',
         'bud-react',

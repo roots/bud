@@ -1,6 +1,23 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 
+const globby = require('globby')
+const {copyFileSync} = require('fs-extra')
 const project = require('./repo')
+
+globby.sync(`${process.cwd()}/site/docs/*`).map(path => {
+  copyFileSync(
+    path,
+    path.replace(
+      `${process.cwd()}/site/docs/`,
+      `${process.cwd()}/packages/@roots/bud-api/docs/`,
+    ),
+  )
+})
+
+copyFileSync(
+  `${process.cwd()}/packages/@roots/bud/README.md`,
+  `${process.cwd()}/README.md`,
+)
 
 module.exports = {
   title: project.name,
