@@ -29,7 +29,7 @@ export const RootReadme = () => (
     <Banner
       title={`@roots/bud`}
       description={project.description}
-      logo={project.links.site}
+      logo={project.logo}
     />
     <span>{`
 ![Terminal usage](/static/img/cli.svg)
