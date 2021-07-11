@@ -31,7 +31,7 @@ Hook definition
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:105](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L105)
+[packages/@roots/bud-framework/src/Hooks/index.ts:105](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L105)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:98](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L98)
+[packages/@roots/bud-framework/src/Hooks/index.ts:98](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L98)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:349](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L349)
+[packages/@roots/bud-framework/src/Hooks/index.ts:349](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L349)
 
 ___
 
@@ -69,7 +69,7 @@ bud.publish key/value argument
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:110](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L110)
+[packages/@roots/bud-framework/src/Hooks/index.ts:110](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L110)
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:360](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L360)
+[packages/@roots/bud-framework/src/Hooks/index.ts:360](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L360)

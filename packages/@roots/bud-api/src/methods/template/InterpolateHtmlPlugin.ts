@@ -7,6 +7,7 @@ const extension: Module<
   {[key: string]: RegExp}
 > = {
   name: 'interpolate-html-plugin',
+
   options: app => {
     const env = Object.fromEntries(
       app.env
@@ -27,6 +28,7 @@ const extension: Module<
   },
   make: options =>
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, options.all()),
+
   when: (_app: Framework, options: Module.Options) =>
     options.getEntries().length > 0,
 }

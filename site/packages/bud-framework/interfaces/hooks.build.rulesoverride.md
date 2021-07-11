@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:240](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Hooks/index.ts#L240)
+[packages/@roots/bud-framework/src/Hooks/index.ts:240](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L240)
 
 ## Methods
 

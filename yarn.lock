@@ -9740,6 +9740,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-template@workspace:examples/html-template":
+  version: 0.0.0-use.local
+  resolution: "example-template@workspace:examples/html-template"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "example-typescript@workspace:examples/typescript":
   version: 0.0.0-use.local
   resolution: "example-typescript@workspace:examples/typescript"

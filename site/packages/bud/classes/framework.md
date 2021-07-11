@@ -115,7 +115,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 
@@ -894,7 +894,7 @@ app.template({
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/template/index.d.ts:23
+packages/@roots/bud-api/types/methods/template/index.d.ts:24
 
 ___
 

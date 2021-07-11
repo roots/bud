@@ -14,4 +14,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Extensions.ts:18](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud-framework/src/Extensions/Extensions.ts#L18)
+[packages/@roots/bud-framework/src/Extensions/Extensions.ts:18](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Extensions.ts#L18)

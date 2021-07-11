@@ -1,12 +1,15 @@
 import {isUndefined} from 'lodash'
-import {Api} from '@roots/bud-framework'
+
 import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
 import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
+
+import type {Options as HtmlOptions} from 'html-webpack-plugin'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## template [💁 Fluent]
+     * ## template
      *
      * Enable and/or configure a generated HTML template
      *
@@ -24,62 +27,96 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    template: Api.Template
+    template: Framework.Api.Template
   }
 
-  namespace Api {
+  namespace Framework.Api {
     type Template = (
       this: Framework,
-      options?: {
-        /**
-         * Enable HTML generation
-         */
-        enabled?: boolean
-
-        /**
-         * An HTML template to use. If none is supplied the
-         * default from @roots/bud-support will be used.
-         */
-        template?: string
-
-        /**
-         * ### Replacements
-         *
-         * Template variable names are used as keys.
-         * Each key is associated with a replacement value.
-         */
-        replace?: {
-          [key: string]: any
-        }
-      },
+      options?: Options,
     ) => Framework
+
+    interface Options extends HtmlOptions {
+      /**
+       * Explicitly enable or disable html templating.
+       */
+      enabled?: boolean
+
+      /**
+       * Path to an HTML template to use. If none is supplied
+       * one is provided as a default.
+       */
+      template?: string
+
+      /**
+       * Template variable names are used as keys.
+       * Each key is associated with a replacement value.
+       */
+      replace?: {
+        [key: string]: string
+      }
+    }
   }
 }
 
-const template: Api.Template = function (userOptions?) {
+const template: Framework.Api.Template = function (userOptions) {
+  /**
+   * Add the html-webpack-plugin extension if it isn't already added
+   */
   !this.extensions.has('html-webpack-plugin') &&
     this.extensions.add(HtmlWebpackPlugin)
 
+  /**
+   * Add the interpolate-html-plugin extension if it isn't already added
+   */
   !this.extensions.has('interpolate-html-plugin') &&
     this.extensions.add(InterpolateHtmlPlugin)
 
+  /**
+   * Set feature flag to true
+   */
   this.store.set(
     'html',
     isUndefined(userOptions?.enabled) ||
       userOptions.enabled === true,
   )
 
-  const {options, set} = this.extensions.get(
-    'html-webpack-plugin',
-  )
+  /**
+   * This isn't an option for either html-webpack-plugin or interpolate-html-plugin
+   * so we'll just delete it.
+   */
+  !isUndefined(userOptions?.enabled) &&
+    delete userOptions.enabled
 
-  userOptions &&
-    set('options', () => ({
-      ...options,
-      ...Object.entries(userOptions)
-        .filter(([k]) => k !== 'enabled')
-        .reduce((a, [k, v]) => ({...a, [k]: v}), {}),
-    }))
+  /**
+   * If there were no options specified, we're done.
+   */
+  if (!userOptions) return this
+
+  /**
+   * Set html-webpack-plugin options
+   */
+  const htmlPlugin = this.extensions.get('html-webpack-plugin')
+  htmlPlugin.set('options', {
+    ...htmlPlugin.options,
+    ...userOptions,
+  })
+
+  /**
+   * If there are no template vars specified, we're done
+   */
+  if (!userOptions.replace) return this
+
+  /**
+   * Set interpolate-html-plugin options
+   */
+  const interpolatePlugin = this.extensions.get(
+    'interpolate-html-plugin',
+  )
+  interpolatePlugin.set('options', {
+    ...interpolatePlugin.options,
+    ...userOptions.replace,
+  })
 
   return this
 }

@@ -60,7 +60,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:9](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L9)
+[packages/@roots/bud/src/services/Discovery/index.ts:9](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L9)
 
 ___
 
@@ -84,7 +84,7 @@ Base.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:11](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L11)
+[packages/@roots/bud/src/services/Discovery/index.ts:11](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L11)
 
 ___
 
@@ -320,7 +320,7 @@ Base.discover
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:53](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L53)
+[packages/@roots/bud/src/services/Discovery/index.ts:53](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L53)
 
 ___
 
@@ -700,7 +700,7 @@ Base.getProjectInfo
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:196](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L196)
+[packages/@roots/bud/src/services/Discovery/index.ts:196](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L196)
 
 ___
 
@@ -800,7 +800,7 @@ Base.hasPeerDependency
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:201](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L201)
+[packages/@roots/bud/src/services/Discovery/index.ts:201](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L201)
 
 ___
 
@@ -818,7 +818,7 @@ Base.install
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:168](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L168)
+[packages/@roots/bud/src/services/Discovery/index.ts:168](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L168)
 
 ___
 
@@ -1371,7 +1371,7 @@ Base.mapConfig
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:151](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L151)
+[packages/@roots/bud/src/services/Discovery/index.ts:151](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L151)
 
 ___
 
@@ -1527,7 +1527,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:37](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L37)
+[packages/@roots/bud/src/services/Discovery/index.ts:37](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L37)
 
 ___
 
@@ -1545,7 +1545,7 @@ Base.registerDiscovered
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:140](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L140)
+[packages/@roots/bud/src/services/Discovery/index.ts:140](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L140)
 
 ___
 
@@ -1630,7 +1630,7 @@ Base.resolvePeers
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:81](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L81)
+[packages/@roots/bud/src/services/Discovery/index.ts:81](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L81)
 
 ___
 
@@ -1679,7 +1679,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:107](https://github.com/roots/bud/blob/c3cf697d/packages/@roots/bud/src/services/Discovery/index.ts#L107)
+[packages/@roots/bud/src/services/Discovery/index.ts:107](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Discovery/index.ts#L107)
 
 ___
 
