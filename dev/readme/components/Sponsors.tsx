@@ -14,7 +14,7 @@ export const Sponsors = () => (
       <span
         key={
           id
-        }>{`<a href=${sponsor.url}><img src="${sponsor.image}" alt="${sponsor.title}" width="200" height="150"/></a>`}</span>
+        }>{`<a href="${sponsor.url}"><img src="${sponsor.image}" alt="${sponsor.title}" width="200" height="150"/></a>`}</span>
     ))}
   </>
 )
