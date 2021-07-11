@@ -194,6 +194,7 @@
   - examples/**
 
 'docs':
+  - docusaurus.config.js
   - docs/*
   - docs/**
   - packages/**/docs/*
