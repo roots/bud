@@ -36,7 +36,7 @@ yarn add @roots/bud-framework --dev
 
 ## Documentation
 
-For more information on utilizing this package [check out our dedicated docs]https://budjs.netlify.app
+For more information on utilizing this package [check out our dedicated docs](https://budjs.netlify.app)
 
 ## Community
 
