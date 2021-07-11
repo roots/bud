@@ -33,5 +33,3 @@ describe('bud.publicPath', function () {
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })
-
-export {}

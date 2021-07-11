@@ -29,5 +29,3 @@ describe('bud.minimize', function () {
     expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })
-
-export {}

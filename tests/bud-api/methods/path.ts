@@ -29,5 +29,3 @@ describe('bud.path', function () {
     expect(bud.hooks.filter('location/project')).toEqual(path)
   })
 })
-
-export {}

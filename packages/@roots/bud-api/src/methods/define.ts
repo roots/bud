@@ -1,5 +1,5 @@
-import {Framework} from '@roots/bud-framework'
-import type Webpack from 'webpack'
+import type {Framework} from '@roots/bud-framework'
+import type {DefinePlugin} from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -20,17 +20,18 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Define = (values: {
-      [key: string]: Webpack.DefinePlugin['definitions']
-    }) => Framework
+    type Define = (
+      this: Framework,
+      values: DefinePlugin['definitions'],
+    ) => Framework
   }
 }
 
 export const define: Framework.Api.Define = function (values) {
   this.hooks.on(
     'extension/webpack-define-plugin/options',
-    (existantValues: Webpack.DefinePlugin['definitions']) => ({
-      ...existantValues,
+    (existant: DefinePlugin['definitions']) => ({
+      ...existant,
       ...values,
     }),
   )

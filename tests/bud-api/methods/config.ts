@@ -23,5 +23,3 @@ describe('bud.config', function () {
     expect(bud.store.isTrue('clean')).toEqual(false)
   })
 })
-
-export {}

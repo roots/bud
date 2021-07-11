@@ -110,5 +110,3 @@ describe('bud.entry', function () {
     })
   })
 })
-
-export {}

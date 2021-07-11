@@ -1,6 +1,6 @@
 import {Framework, setupBud, teardownBud} from '../../util'
 
-describe('bud.lazy', function () {
+describe('bud.config', function () {
   let bud: Framework
 
   beforeAll(() => {
@@ -14,14 +14,14 @@ describe('bud.lazy', function () {
   })
 
   it('is a function', () => {
-    expect(bud.lazy).toBeInstanceOf(Function)
+    expect(bud.define).toBeInstanceOf(Function)
   })
 
-  it('enables build.config.experiments.lazyCompilation', () => {
-    bud.lazy()
+  it('modifies bud.store', () => {
+    bud.define({foo: 'bar'})
 
     expect(
-      bud.hooks.filter('build/experiments/lazyCompilation'),
-    ).toEqual(true)
+      bud.extensions.get('webpack-define-plugin').options,
+    ).toEqual({foo: 'bar'})
   })
 })

@@ -23,5 +23,3 @@ describe('bud.externals', function () {
     })
   })
 })
-
-export {}

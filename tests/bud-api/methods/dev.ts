@@ -32,5 +32,3 @@ describe('bud.dev', function () {
     })
   })
 })
-
-export {}

@@ -23,5 +23,3 @@ describe('bud.hash', function () {
     )
   })
 })
-
-export {}
