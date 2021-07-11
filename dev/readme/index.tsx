@@ -2,7 +2,7 @@ import {readJson} from 'fs-extra'
 import React from 'react'
 
 import render from './renderer'
-import {MasterReadme} from './MasterReadme'
+import {RootReadme, MasterReadme} from './MasterReadme'
 import project from '../../repo'
 
 const generateReadmes = () =>
@@ -22,3 +22,5 @@ const generateReadmes = () =>
   })
 
 generateReadmes()
+
+render(<RootReadme />, `${process.cwd()}/README.md`)

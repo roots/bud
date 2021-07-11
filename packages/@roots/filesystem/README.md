@@ -34,6 +34,8 @@ Install **@roots/filesystem** to your project.
 yarn add @roots/filesystem --dev
 ```
 
+When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
+
 ## Documentation
 
 For more information on utilizing this package [check out our dedicated docs](https://budjs.netlify.app)
@@ -52,9 +54,9 @@ Keep track of development and community news.
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
-## Bud sponsors
+## Sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 

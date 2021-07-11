@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100" />
+  <img alt="Bud" src="https://budjs.netlify.app" height="100" />
 </p>
 
 <p align="center">
@@ -27,9 +27,12 @@
 
 > A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
 
+![Terminal usage](/static/img/cli.svg)
+
 ## Installation
 
-Install [@roots/bud](/packages/@roots/bud) and [**@roots/bud-cli**](/packages/@roots/bud-cli) to your project
+Install [@roots/bud](/packages/@roots/bud) and 
+[**@roots/bud-cli**](/packages/@roots/bud-cli) to your project
 
 ```sh
 yarn add @roots/bud @roots/bud-cli --dev
@@ -37,31 +40,9 @@ yarn add @roots/bud @roots/bud-cli --dev
 
 ## Getting started
 
-Bud can either be configured with a static config file (`json`/`yml`) or a builder module (`js`/`ts`).
-
-Dead simple example:
-
-```js
-/**
- * bud.config.js
- */
-module.exports = (bud) => bud.entry('app', ['app.js']);
-```
-
-Or, as yml:
-
-```yml
-# bud.config.yml
-entry:
-  app: 'app.js'
-```
-
-A more advanced configuration might look like:
+Check out the [dedicated documentation](/docs/config/README.md) for usage details.
 
 ```ts
-/**
- * bud.config.ts
- */
 import { Framework } from "@roots/bud";
 
 export default (bud: Framework) =>
@@ -86,32 +67,6 @@ export default (bud: Framework) =>
     );
 ```
 
-For more on configuring [**@roots/bud**](/packages/@roots/bud) check out the [dedicated documentation](/docs/config/README.md).
-
-## Running a build
-
-![Terminal usage](https://github.com/roots/bud/tree/stable/static/img/cli.svg)
-
-Once you've set up your configuration file the following command will run the build:
-
-```sh
-yarn bud build
-```
-
-You should see your built assets in the `dist` directory of your project.
-
-### Running in `production` mode
-
-```sh
-yarn bud build:production
-```
-
-### Running in `development` mode
-
-```sh
-yarn bud build:development
-```
-
 ## Example implementations
 
 There are [example implementations available](/examples).
@@ -120,15 +75,11 @@ There are [example implementations available](/examples).
 
 Bud provides an intentionally sparse set of out-of-the-box features.
 
-In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for devs to swap out parts of the framework as needed.
+You will likely want to utilize extensions in your project.
 
-That said, you will likely want to utilize extensions in your project.
-
-If you're unsure where to start or what you need you can try the [**@roots/bud-preset-recommend**](/packages/@roots/bud-preset-recommend) preset. Most require zero configuration.
-
-### First-party extensions
-
-There are a number of Roots maintained extensions available to kickstart your project
+If you're unsure where to start or what you need you can try the 
+[**@roots/bud-preset-recommend**](/packages/@roots/bud-preset-recommend) preset. 
+Most require zero configuration.
 
 | Name                                                                                                                         | Project home                                                                                                                                       | Extension docs                                                                                             | Latest                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -156,13 +107,8 @@ There are a number of Roots maintained extensions available to kickstart your pr
 | [**@roots/bud-wordpress-externals**](/packages/@roots/bud-wordpress-externals)       | [**@roots/wordpress-externals-webpack-plugin**](/packages/@roots/wordpress-externals-webpack-plugin)       | [📚 README](/packages/@roots/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-manifests**](/packages/@roots/bud-wordpress-manifests)       | [**@roots/merged-manifest-webpack-plugin**](/packages/@roots/merged-manifest-webpack-plugin)               | [📚 README](/packages/@roots/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
-### Third-party extensions
-
-Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
-  
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://budjs.netlify.app).
+Have you produced a Bud extension and want to share it here? 
+Please, create an issue sharing information about your project.
 
 ## Community
 
@@ -178,39 +124,19 @@ Keep track of development and community news.
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
-## Bud sponsors
+## Sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV">
-  <img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150" />
-</a>
-<a href="https://k-m.com/">
-  <img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150" />
-</a>
-<a href="https://carrot.com/">
-  <img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150" />
-</a>
-<a href="https://www.c21redwood.com/">
-  <img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150" />
-</a>
-<a href="https://wordpress.com/">
-  <img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150" />
-</a>
-<a href="https://icons8.com/">
-  <img src="https://cdn.roots.io/app/uploads/icons8.svg" alt="Icons8" width="200" height="150" />
-</a>
-<a href="https://www.harnessup.com/">
-  <img src="https://cdn.roots.io/app/uploads/harness-software.svg" alt="Harness Software" width="200" height="150" />
-</a>
-<a href="https://www.codersclan.com/">
-  <img src="https://cdn.roots.io/app/uploads/coders-clan.svg" alt="Coders Clan" width="200" height="150" />
-</a>
-<a href="https://generodigital.com/">
-  <img src="https://cdn.roots.io/app/uploads/genero.svg" alt="Genero" width="200" height="150" />
-</a>
-<a href="https://motto.ca/roots">
-  <img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150" />
-</a>
+<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
+<a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
+<a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>
+<a href="https://www.c21redwood.com/"><img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/></a>
+<a href="https://wordpress.com/"><img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150"/></a>
+<a href="https://icons8.com/"><img src="https://cdn.roots.io/app/uploads/icons8.svg" alt="Icons8" width="200" height="150"/></a>
+<a href="https://www.harnessup.com/"><img src="https://cdn.roots.io/app/uploads/harness-software.svg" alt="Harness Software" width="200" height="150"/></a>
+<a href="https://www.codersclan.com/"><img src="https://cdn.roots.io/app/uploads/coders-clan.svg" alt="Coders Clan" width="200" height="150"/></a>
+<a href="https://generodigital.com/"><img src="https://cdn.roots.io/app/uploads/genero.svg" alt="Genero" width="200" height="150"/></a>
+<a href="https://motto.ca/roots"><img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150"/></a>
