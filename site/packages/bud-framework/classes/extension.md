@@ -31,7 +31,7 @@ Base.constructor
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:12](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L12)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:12](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L12)
 
 ## Properties
 
@@ -53,7 +53,7 @@ Base.\_app
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:12](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L12)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:12](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L12)
 
 ___
 
@@ -67,7 +67,7 @@ Base.\_module
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:10](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L10)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:10](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L10)
 
 ## Accessors
 
@@ -81,7 +81,7 @@ Base.\_module
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:40](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L40)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:40](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L40)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:71](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L71)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:71](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L71)
 
 • `set` **make**(`make`): `void`
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:86](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L86)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:86](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L86)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:36](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L36)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:36](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L36)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:44](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L44)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:44](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L44)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:48](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L48)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:48](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L48)
 
 • `set` **options**(`options`): `void`
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:52](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L52)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:52](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L52)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:56](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L56)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:56](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L56)
 
 • `set` **when**(`when`): `void`
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:67](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L67)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:67](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L67)
 
 ## Methods
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Extension.ts:7](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Extension.ts#L7)
+[packages/@roots/bud-framework/src/Extensions/Extension.ts:7](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Extension.ts#L7)
 
 ___
 
@@ -237,7 +237,7 @@ Base.get
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:25](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L25)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:25](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L25)
 
 ___
 
@@ -261,7 +261,7 @@ Base.makeKey
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:20](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L20)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:20](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L20)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Extension.ts:5](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Extension.ts#L5)
+[packages/@roots/bud-framework/src/Extensions/Extension.ts:5](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Extension.ts#L5)
 
 ___
 
@@ -300,4 +300,4 @@ Base.set
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Base.ts:32](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Extensions/Base.ts#L32)
+[packages/@roots/bud-framework/src/Extensions/Base.ts:32](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Extensions/Base.ts#L32)

@@ -15,4 +15,4 @@ custom_edit_url: null
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/splitChunks.d.ts:26
+packages/@roots/bud-api/types/methods/splitChunks.d.ts:23

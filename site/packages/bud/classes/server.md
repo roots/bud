@@ -130,7 +130,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Server/index.ts:6](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Server/index.ts#L6)
+[packages/@roots/bud/src/services/Server/index.ts:6](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/services/Server/index.ts#L6)
 
 ___
 
@@ -1611,7 +1611,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Server/index.ts:9](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/services/Server/index.ts#L9)
+[packages/@roots/bud/src/services/Server/index.ts:9](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/services/Server/index.ts#L9)
 
 ___
 

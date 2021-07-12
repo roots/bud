@@ -50,6 +50,17 @@ export const config: Configuration = {
   build: {
     optimization: {
       emitOnErrors: false,
+      splitChunks: {
+        cacheGroups: {
+          defaultVendors: {
+            chunks: 'all',
+            test: /[\\/]node_modules[\\/]/,
+            reuseExistingChunk: true,
+            priority: -10,
+            filename: `vendor/[name].bundle.js`,
+          },
+        },
+      },
     },
     resolve: {
       extensions: [

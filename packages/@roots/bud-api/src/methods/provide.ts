@@ -16,25 +16,27 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    provide: Provide
+    provide: Framework.Api.Provide
   }
 
-  namespace Api {
-    export {Provide}
-    export {Provided}
+  namespace Framework.Api {
+    type Provide = (
+      this: Framework,
+      packages?: Provided,
+    ) => Framework
+
+    interface Provided {
+      [key: string]: string | string[]
+    }
   }
 }
 
-export type Provide = (packages?: Provided) => Framework
-
-export interface Provided {
-  [key: string]: string | string[]
-}
-
-export const provide: Provide = function (packages) {
+export const provide: Framework.Api.Provide = function (
+  packages,
+) {
   this.hooks.on(
     'extension/webpack-provide-plugin/options',
-    (provided: Provided) => ({
+    (provided: Framework.Api.Provided) => ({
       ...provided,
       ...Object.entries(packages).reduce(
         (a, [k, v]) => ({

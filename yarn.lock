@@ -9612,6 +9612,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-emotion@workspace:examples/emotion":
+  version: 0.0.0-use.local
+  resolution: "example-emotion@workspace:examples/emotion"
+  dependencies:
+    "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+  languageName: unknown
+  linkType: soft
+
 "example-esbuild@workspace:examples/esbuild":
   version: 0.0.0-use.local
   resolution: "example-esbuild@workspace:examples/esbuild"

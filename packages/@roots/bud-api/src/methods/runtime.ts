@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import {isUndefined} from 'lodash'
 import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
@@ -16,17 +17,16 @@ declare module '@roots/bud-framework' {
      * bud.runtime()
      * ```
      */
-    runtime: Api.Runtime
+    runtime: Framework.Api.Runtime
   }
 
-  namespace Api {
-    export {Runtime}
+  namespace Framework.Api {
+    type Runtime = (
+      this: Framework,
+      runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+    ) => Framework
   }
 }
-
-type Runtime = (
-  runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
-) => Framework
 
 const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] =
   {
@@ -34,9 +34,12 @@ const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] =
       `runtime/${entrypoint.name}`,
   }
 
-export const runtime: Runtime = function (runtime?) {
-  const value = runtime ? runtime : DEFAULT_OPTIONS
-  this.hooks.on('build/optimization/runtimeChunk', () => value)
+export const runtime: Framework.Api.Runtime = function (
+  runtime?,
+) {
+  this.hooks.on('build/optimization/runtimeChunk', () =>
+    !isUndefined(runtime) ? runtime : DEFAULT_OPTIONS,
+  )
 
   return this
 }

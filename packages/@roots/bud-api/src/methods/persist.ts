@@ -1,9 +1,9 @@
-import {Api} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## persist  [💁 Fluent]
+     * ## persist
      *
      * Cache webpack builds to the filesystem.
      *
@@ -15,15 +15,20 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    persist: Api.Persist
+    persist: Framework.Api.Persist
   }
 
-  namespace Api {
-    type Persist = (enabled?: boolean) => Framework
+  namespace Framework.Api {
+    type Persist = (
+      this: Framework,
+      enabled?: boolean,
+    ) => Framework
   }
 }
 
-const persist: Api.Persist = function (enabled = true) {
+const persist: Framework.Api.Persist = function (
+  enabled = true,
+) {
   this.hooks
     .on('build/cache', () => ({
       type: this.hooks.filter('build/cache/type'),

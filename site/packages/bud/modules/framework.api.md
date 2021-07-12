@@ -11,6 +11,11 @@ custom_edit_url: null
 
 - [SplitChunks](framework.api.splitchunks.md)
 
+## Interfaces
+
+- [Options](../interfaces/framework.api.options.md)
+- [Provided](../interfaces/framework.api.provided.md)
+
 ## Type aliases
 
 ### Alias
@@ -64,17 +69,18 @@ ___
 
 ### Define
 
-Ƭ **Define**: (`values`: { [key: string]: `Webpack.DefinePlugin`[``"definitions"``];  }) => [`Framework`](../classes/framework.md)
+Ƭ **Define**: (`this`: [`Framework`](../classes/framework.md), `values`: `DefinePlugin`[``"definitions"``]) => [`Framework`](../classes/framework.md)
 
 #### Type declaration
 
-▸ (`values`): [`Framework`](../classes/framework.md)
+▸ (`this`, `values`): [`Framework`](../classes/framework.md)
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `values` | `Object` |
+| `this` | [`Framework`](../classes/framework.md) |
+| `values` | `DefinePlugin`[``"definitions"``] |
 
 ##### Returns
 
@@ -121,18 +127,94 @@ packages/@roots/bud-api/types/methods/use/index.d.ts:38
 
 ___
 
-### SplitChunks
+### Persist
 
-Ƭ **SplitChunks**: (`options?`: [`Options`](framework.api.splitchunks.md#options)) => [`Framework`](../classes/framework.md)
+Ƭ **Persist**: (`this`: [`Framework`](../classes/framework.md), `enabled?`: `boolean`) => [`Framework`](../classes/framework.md)
 
 #### Type declaration
 
-▸ (`options?`): [`Framework`](../classes/framework.md)
+▸ (`this`, `enabled?`): [`Framework`](../classes/framework.md)
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+| `enabled?` | `boolean` |
+
+##### Returns
+
+[`Framework`](../classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/persist.d.ts:20
+
+___
+
+### Provide
+
+Ƭ **Provide**: (`this`: [`Framework`](../classes/framework.md), `packages?`: [`Provided`](../interfaces/framework.api.provided.md)) => [`Framework`](../classes/framework.md)
+
+#### Type declaration
+
+▸ (`this`, `packages?`): [`Framework`](../classes/framework.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+| `packages?` | [`Provided`](../interfaces/framework.api.provided.md) |
+
+##### Returns
+
+[`Framework`](../classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/provide.d.ts:21
+
+___
+
+### Runtime
+
+Ƭ **Runtime**: (`this`: [`Framework`](../classes/framework.md), `runtime?`: `Webpack.Configuration`[``"optimization"``][``"runtimeChunk"``]) => [`Framework`](../classes/framework.md)
+
+#### Type declaration
+
+▸ (`this`, `runtime?`): [`Framework`](../classes/framework.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+| `runtime?` | `Webpack.Configuration`[``"optimization"``][``"runtimeChunk"``] |
+
+##### Returns
+
+[`Framework`](../classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/runtime.d.ts:21
+
+___
+
+### SplitChunks
+
+Ƭ **SplitChunks**: (`this`: [`Framework`](../classes/framework.md), `options?`: [`Options`](framework.api.splitchunks.md#options)) => [`Framework`](../classes/framework.md)
+
+#### Type declaration
+
+▸ (`this`, `options?`): [`Framework`](../classes/framework.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
 | `options?` | [`Options`](framework.api.splitchunks.md#options) |
 
 ##### Returns
@@ -141,7 +223,32 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/splitChunks.d.ts:24
+packages/@roots/bud-api/types/methods/splitChunks.d.ts:21
+
+___
+
+### Template
+
+Ƭ **Template**: (`this`: [`Framework`](../classes/framework.md), `options?`: [`Options`](../interfaces/framework.api.options.md)) => [`Framework`](../classes/framework.md)
+
+#### Type declaration
+
+▸ (`this`, `options?`): [`Framework`](../classes/framework.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+| `options?` | [`Options`](../interfaces/framework.api.options.md) |
+
+##### Returns
+
+[`Framework`](../classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/template/index.d.ts:27
 
 ___
 

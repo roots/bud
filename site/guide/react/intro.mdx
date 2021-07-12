@@ -1,0 +1,112 @@
+---
+sidebar_label: Configuring React
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Configuring React
+
+This guide covers adding support for React and JSX to your project.
+
+## Installing core packages
+
+Start by installing **@roots/bud** and **@roots/bud-cli**.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud @roots/bud-cli --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud @roots/bud-cli --save-dev
+
+  </TabItem>
+</Tabs>
+
+**@roots/bud** is the build tool itself. **@roots/bud-cli** provides us a CLI interface for running builds and managing our project.
+
+## Installing required extensions
+
+To utilize React you must install the **@roots/bud-babel** and **@roots/bud-react** extensions.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-babel @roots/bud-react --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-babel @roots/bud-react --save-dev
+
+  </TabItem>
+</Tabs>
+
+Remember to run **bud init** after installing these extensions.
+
+## Base configuration
+
+```js {1} title='bud.config.js'
+const babel = require('@roots/bud-babel')
+const react = require('@roots/bud-react')
+
+module.exports = app => 
+  app.use([babel, react])
+    .entry('app', 'app.js')
+```
+
+## Adding support for emotion
+
+To utilize emotion you will also require **@roots/bud-emotion**.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-emotion --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-emotion --save-dev
+
+  </TabItem>
+</Tabs>
+
+Remember to run **bud init** after installing the emotion extension. Next, add it to your config.
+
+```js {3,6} title='bud.config.js'
+const babel = require('@roots/bud-babel')
+const react = require('@roots/bud-react')
+const emotion = require('@roots/bud-emotion')
+
+module.exports = app => 
+  app.use([babel, react, emotion])
+    .entry('app', 'app.js')
+```
+
+:::note
+
+Emotion depends on babel and react, so make sure to add it **after** both of them.
+
+:::
+
+You're now ready to use emotion as a styled components provider in your project!

@@ -2,30 +2,12 @@ import {Framework, setupBud, teardownBud} from '../../util'
 
 const DEFAULT_OPTIONS = {
   cacheGroups: {
-    chunks: 'all',
-    vendors: {
+    defaultVendors: {
       chunks: 'all',
-      enforce: true,
       test: /[\\/]node_modules[\\/]/,
       reuseExistingChunk: true,
       priority: -10,
-      name: function (
-        module: any,
-        _chunks: any,
-        cacheGroupKey: any,
-      ) {
-        const moduleFileNameParts = module
-          .identifier()
-          .split('/')
-          .reduceRight(item => item)
-          .split('.')
-
-        const file = moduleFileNameParts
-          .slice(0, moduleFileNameParts.length - 1)
-          .join('.')
-
-        return `${cacheGroupKey}/${file}`
-      },
+      filename: `vendor/[name].bundle.js`,
     },
   },
 }
@@ -62,8 +44,8 @@ describe('bud.splitChunks', function () {
 
     expect(
       bud.hooks.filter('build/optimization/splitChunks')
-        .cacheGroups.vendors.name,
-    ).toBeInstanceOf(Function)
+        .cacheGroups.defaultVendors.filename,
+    ).toBe(DEFAULT_OPTIONS.cacheGroups.defaultVendors.filename)
   })
 
   it('sets options when passed as parameters', () => {

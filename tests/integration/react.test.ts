@@ -1,6 +1,6 @@
 import {helper, Assets} from '../util/integration'
 
-const suite = helper('md', 'examples/react')
+const suite = helper('react', 'examples/react')
 
 jest.setTimeout(1000000)
 

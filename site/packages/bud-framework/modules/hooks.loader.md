@@ -21,7 +21,7 @@ Loaders
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:118](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L118)
+[packages/@roots/bud-framework/src/Hooks/index.ts:118](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Hooks/index.ts#L118)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:131](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L131)
+[packages/@roots/bud-framework/src/Hooks/index.ts:131](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Hooks/index.ts#L131)
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:119](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud-framework/src/Hooks/index.ts#L119)
+[packages/@roots/bud-framework/src/Hooks/index.ts:119](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Hooks/index.ts#L119)

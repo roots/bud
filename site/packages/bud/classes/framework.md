@@ -115,7 +115,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 
@@ -288,7 +288,7 @@ ___
 
 • **devtool**: `Devtool`
 
-## devtool [💁 Fluent]
+## devtool
 
 Enable and configure sourcemaps using any of [Webpack's
 devtool utilities](https://webpack.js.org/configuration/devtool/).
@@ -608,9 +608,9 @@ ___
 
 ### persist
 
-• **persist**: `Persist`
+• **persist**: [`Persist`](../modules/framework.api.md#persist)
 
-## persist  [💁 Fluent]
+## persist
 
 Cache webpack builds to the filesystem.
 
@@ -647,7 +647,7 @@ ___
 
 ### provide
 
-• **provide**: `Provide`
+• **provide**: [`Provide`](../modules/framework.api.md#provide)
 
 ## provide
 
@@ -753,7 +753,7 @@ ___
 
 ### runtime
 
-• **runtime**: `Runtime`
+• **runtime**: [`Runtime`](../modules/framework.api.md#runtime)
 
 ## runtime
 
@@ -840,7 +840,7 @@ ___
 
 • **splitChunks**: [`SplitChunks`](../modules/framework.api.splitchunks.md)
 
-## splitChunks  [💁 Fluent]
+## splitChunks
 
 Useful for bundling vendor modules separately from application code.
 
@@ -872,9 +872,9 @@ ___
 
 ### template
 
-• **template**: `Template`
+• **template**: [`Template`](../modules/framework.api.md#template)
 
-## template [💁 Fluent]
+## template
 
 Enable and/or configure a generated HTML template
 
@@ -942,7 +942,7 @@ ___
 
 • **watch**: [`Watch`](../modules/framework.api.md#watch)
 
-## watch  [💁 Fluent]
+## watch
 
 Configure the list of files that, when modified,
 will force the browser to reload (even in hot mode).

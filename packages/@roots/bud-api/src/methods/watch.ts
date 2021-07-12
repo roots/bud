@@ -3,7 +3,7 @@ import {Framework, Server} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## watch  [💁 Fluent]
+     * ## watch
      *
      * Configure the list of files that, when modified,
      * will force the browser to reload (even in hot mode).

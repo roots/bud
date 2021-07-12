@@ -93,7 +93,7 @@ app.alias({
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:44](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L44)
+[packages/@roots/bud/src/Bud.ts:44](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L44)
 
 ___
 
@@ -111,7 +111,7 @@ Service providing config api methods
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:22](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L22)
+[packages/@roots/bud/src/Bud.ts:22](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L22)
 
 ___
 
@@ -139,7 +139,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 
@@ -157,7 +157,7 @@ Service handling config compilation
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:24](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L24)
+[packages/@roots/bud/src/Bud.ts:24](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L24)
 
 ___
 
@@ -175,7 +175,7 @@ Service handling compiler cache
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:26](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L26)
+[packages/@roots/bud/src/Bud.ts:26](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L26)
 
 ___
 
@@ -211,7 +211,7 @@ Service handling build compilation
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:28](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L28)
+[packages/@roots/bud/src/Bud.ts:28](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L28)
 
 ___
 
@@ -313,7 +313,7 @@ Dependencies service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:30](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L30)
+[packages/@roots/bud/src/Bud.ts:30](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L30)
 
 ___
 
@@ -348,7 +348,7 @@ ___
 
 • **devtool**: `Devtool`
 
-## devtool [💁 Fluent]
+## devtool
 
 Enable and configure sourcemaps using any of [Webpack's
 devtool utilities](https://webpack.js.org/configuration/devtool/).
@@ -381,7 +381,7 @@ Discovery service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:32](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L32)
+[packages/@roots/bud/src/Bud.ts:32](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L32)
 
 ___
 
@@ -471,7 +471,7 @@ Envvar service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:34](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L34)
+[packages/@roots/bud/src/Bud.ts:34](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L34)
 
 ___
 
@@ -487,7 +487,7 @@ Extensions service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:36](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L36)
+[packages/@roots/bud/src/Bud.ts:36](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L36)
 
 ___
 
@@ -554,7 +554,7 @@ Hooks service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:38](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L38)
+[packages/@roots/bud/src/Bud.ts:38](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L38)
 
 ___
 
@@ -582,7 +582,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:15](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L15)
+[packages/@roots/bud/src/Bud.ts:15](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L15)
 
 ___
 
@@ -646,7 +646,7 @@ Logger service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:40](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L40)
+[packages/@roots/bud/src/Bud.ts:40](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L40)
 
 ___
 
@@ -728,9 +728,9 @@ ___
 
 ### persist
 
-• **persist**: `Persist`
+• **persist**: [`Persist`](../modules/framework.api.md#persist)
 
-## persist  [💁 Fluent]
+## persist
 
 Cache webpack builds to the filesystem.
 
@@ -775,7 +775,7 @@ ___
 
 ### provide
 
-• **provide**: `Provide`
+• **provide**: [`Provide`](../modules/framework.api.md#provide)
 
 ## provide
 
@@ -897,7 +897,7 @@ ___
 
 ### runtime
 
-• **runtime**: `Runtime`
+• **runtime**: [`Runtime`](../modules/framework.api.md#runtime)
 
 ## runtime
 
@@ -933,7 +933,7 @@ Dev server service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:42](https://github.com/roots/bud/blob/2a86a6e8/packages/@roots/bud/src/Bud.ts#L42)
+[packages/@roots/bud/src/Bud.ts:42](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/Bud.ts#L42)
 
 ___
 
@@ -1000,7 +1000,7 @@ ___
 
 • **splitChunks**: [`SplitChunks`](../modules/framework.api.splitchunks.md)
 
-## splitChunks  [💁 Fluent]
+## splitChunks
 
 Useful for bundling vendor modules separately from application code.
 
@@ -1040,9 +1040,9 @@ ___
 
 ### template
 
-• **template**: `Template`
+• **template**: [`Template`](../modules/framework.api.md#template)
 
-## template [💁 Fluent]
+## template
 
 Enable and/or configure a generated HTML template
 
@@ -1118,7 +1118,7 @@ ___
 
 • **watch**: [`Watch`](../modules/framework.api.md#watch)
 
-## watch  [💁 Fluent]
+## watch
 
 Configure the list of files that, when modified,
 will force the browser to reload (even in hot mode).
