@@ -24,8 +24,6 @@ export {Dependencies} from './Dependencies'
 
 export {Discovery} from './Discovery'
 
-export {Disk} from './Disk'
-
 export {Env} from './Env'
 
 export {Hooks} from './Hooks'
