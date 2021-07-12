@@ -1,0 +1,99 @@
+---
+sidebar_label: '@roots/bud-typescript'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-typescript
+
+[TypeScript](https://typescript.org) support can be added by installing the **@roots/bud-typescript** extension.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-typescript --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-typescript --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Add the extension to your config. Make sure to include after [@roots/bud-babel](/extensions/bud-babel)
+
+```js
+bud.use([
+  require('@roots/bud-babel'),
+  require('@roots/bud-typescript'),
+])
+```
+
+## Enable Typechecking
+
+:::info
+
+This step is optional but recommended.
+
+:::
+
+By default TypeScript files will only be compiled to JS during builds. 
+If you also want typechecking, you can enable it in your bud configuration:
+
+```js
+bud.typecheck()
+```
+
+## Configuration
+
+Beyond that, general ts configuration is handled using a standard **tsconfig.json** in your project root. See [the TypeScript docs on tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for more information.
+
+Here's a simple starter, should you need it:
+
+```json
+{
+  "compilerOptions": {
+    "rootDir": "ts",
+    "outDir": "dist",
+    "target": "es2019",
+    "lib": ["es2019", "dom"],
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true
+  }
+}
+```

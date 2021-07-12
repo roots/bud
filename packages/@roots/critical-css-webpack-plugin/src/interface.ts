@@ -26,11 +26,6 @@ export interface Options {
     height?: number
 
     /**
-     * Minify critical-path CSS when inlining
-     */
-    minify?: boolean
-
-    /**
      * Extract critical
      */
     extract?: boolean

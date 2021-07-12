@@ -4,11 +4,6 @@ import {Framework} from '../Framework'
 
 abstract class Bootstrapper extends Container {
   /**
-   * Loose
-   */
-  [key: string]: any
-
-  /**
    * Bootstrap
    */
   public bootstrap?(app: Framework): any
@@ -31,7 +26,7 @@ abstract class Bootstrapper extends Container {
   /**
    * Boot
    */
-  public boot?(ap: Framework): any
+  public boot?(app: Framework): any
 
   /**
    * Post boot callback
@@ -40,57 +35,26 @@ abstract class Bootstrapper extends Container {
 }
 
 abstract class Service extends Bootstrapper {
-  [key: string]: any
-
   public name: string
 
-  private _app: Framework['get']
+  private _app: () => Framework
 
   public get app(): Framework {
     return this._app()
   }
 
-  public constructor(app: Framework['get']) {
+  public constructor(app: Framework) {
     super()
-    this._app = app
+    this._app = () => app
   }
 
   public get access(): Framework['access'] {
     return this.app.access
   }
 
-  public get logger() {
-    return this.app.logger.instance.scope(this.name as string)
-  }
-
-  public get log() {
-    return this.logger.log
-  }
-
-  public get info() {
-    return this.logger.info
-  }
-
-  public get warn() {
-    return this.logger.warn
-  }
-
-  public get error() {
-    return this.logger.error
-  }
-
-  public get debug() {
-    return this.logger.debug
-  }
-
   @bind
   public filterUnique(value, index, self) {
     return self.indexOf(value) === index
-  }
-
-  @bind
-  public service<T = any>(serviceName: string | number): T {
-    return this.app.services.get<T>(serviceName)
   }
 }
 

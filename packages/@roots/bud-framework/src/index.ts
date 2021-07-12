@@ -12,6 +12,8 @@ export {Cache} from './Cache'
 
 export {Compiler} from './Compiler'
 
+export {Configuration} from './Configuration'
+
 export {Extension} from './Extensions/Extension'
 
 export {Extensions} from './Extensions/Extensions'
@@ -21,8 +23,6 @@ export {Dashboard} from './Dashboard'
 export {Dependencies} from './Dependencies'
 
 export {Discovery} from './Discovery'
-
-export {Disk} from './Disk'
 
 export {Env} from './Env'
 

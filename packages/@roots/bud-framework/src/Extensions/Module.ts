@@ -5,7 +5,7 @@ interface Module<Plugin = any, Options = any> {
   /**
    * The module name
    */
-  name: Module.Name
+  name?: Module.Name
 
   /**
    * Options registered with the extension
@@ -33,6 +33,11 @@ interface Module<Plugin = any, Options = any> {
   make?: Module.Make<Plugin, Options>
 
   /**
+   * Webpack plugin apply.
+   */
+  apply?: CallableFunction
+
+  /**
    * Returns a boolean determining if
    * a webpack plugin should be used in
    * compilation.
@@ -48,8 +53,8 @@ namespace Module {
     | {[key: string]: any}
 
   export type Boot = (app: Framework) => any
-
   export type Register = (app: Framework) => any
+  export type Config = (app: Framework) => any
 
   export type Options<T = any> = T | ((app: Framework) => T)
 

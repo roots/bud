@@ -5,28 +5,19 @@ peers:
   - '@roots/bud'
   - '@roots/bud-babel'
   - '@roots/bud-entrypoints'
-  - '@roots/bud-esbuild'
+  - '@roots/bud-eslint'
   - '@roots/bud-postcss'
   - '@roots/bud-react'
   - '@roots/bud-tailwindcss'
-  - '@roots/bud-typescript'
   - '@roots/bud-wordpress-externals'
   - '@roots/bud-wordpress-dependencies'
   - '@roots/bud-wordpress-manifests'
-  - '@roots/bud-eslint'
 
 dependencies:
   dev:
-    '@types/eslint': ^7.2.11
-    '@types/node': ^15
-    '@types/tailwindcss': ^2
-    '@wordpress/browserslist-config': ^4.0.1
-    autoprefixer: ^10.2.5
     eslint: ^7.27.0
-    "postcss": ^8.3.0
+    postcss: ^8.3.0
     postcss-import: ^14.0.2
     postcss-preset-env: ^6.7.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    tailwindcss: ^2.1.2
-    typescript: ^4

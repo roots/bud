@@ -101,6 +101,10 @@
   - packages/@roots/bud-server/*
   - packages/@roots/bud-server/**
 
+'@roots/bud-solid':
+  - packages/@roots/bud-solid/*
+  - packages/@roots/bud-solid/**
+
 '@roots/bud-stylelint':
   - packages/@roots/bud-stylelint/*
   - packages/@roots/bud-stylelint/**

@@ -1,0 +1,104 @@
+---
+sidebar_label: Adding babel support
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Adding extensions
+
+Our project is coming together, but it's a little rough working with vanilla js. Let's add support for [Babel](https://babeljs.io).
+
+We can do this easily using the [@roots/bud-babel](/extensions/bud-babel) extension.
+
+## Installing an extension
+
+Start by installing **@roots/bud-babel**.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-babel --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-babel --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing extension dependencies
+
+Extensions might not come with batteries included.
+
+It's a good idea after installing a new extension to run **bud init** to install any missing peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+Now our project is guaranteed to meet the requirements of whatever we have installed. 
+
+:::info Protip
+
+It's also a good idea to run **bud init** after upgrading extensions in case requirements have changed.
+
+:::
+
+## Adding the extension to your config
+
+Once installed and initialized, modify your **bud.config.js** file to utilize the extension.
+
+```js {3} title='bud.config.js'
+module.exports = bud => 
+  bud
+    .use(require('@roots/bud-babel'))
+    .entry('main', 'index.js')
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+All done! Your builds are processed with babel.
+
+You can see for yourself by modifying **src/index.js** so that it contains some fancy stuff:
+
+```js title='src/index.js'
+class CoolClass {
+  message = 'hello world'
+
+  function sayHello() {
+    return this.message
+  }
+}
+
+const cool = new CoolClass()
+
+console.log(cool.sayHello())
+```
+
+Run a build and check **dist/main.js**. You should find the class declaration has been transpiled away.
+
+## Next steps
+
+Before moving on, add PostCSS support in the same manner that we added Babel, using the [@roots/bud-postcss](extensions/bud-postcss) extension.

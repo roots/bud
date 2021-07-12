@@ -7,7 +7,7 @@ peers:
 
 dependencies:
   dev:
-    tailwindcss: ^2.1.2
+    tailwindcss: ^2.2.4
 
 templates:
   - name: tailwind.config.js

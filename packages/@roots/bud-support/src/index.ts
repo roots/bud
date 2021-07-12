@@ -17,12 +17,6 @@ import {killPort} from './util/killPort'
 export {killPort}
 
 /**
- * Util: notify
- */
-import {notify} from './util/notify'
-export {notify}
-
-/**
  * Util: WordPress packages
  */
 export * as wpPkgs from './util/wordpressPkgs'

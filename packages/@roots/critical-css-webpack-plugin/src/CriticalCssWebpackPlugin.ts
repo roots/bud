@@ -35,7 +35,6 @@ export class CriticalCssWebpackPlugin {
    */
   public _options: Options = {
     criticalOptions: {
-      minify: true,
       extract: true,
       width: 375,
       height: 565,

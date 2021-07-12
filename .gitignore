@@ -18,3 +18,8 @@ dist
 .pnp.*
 
 /profiles
+
+# Docusaurus
+.docusaurus
+.cache-loader
+build

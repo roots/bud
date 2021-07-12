@@ -1,0 +1,68 @@
+---
+sidebar_label: '@roots/bud-preset-recommend'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-preset-recommend
+
+The [@roots/bud-preset-recommend](/extensions/bud-preset-recommend) package is a great starting point for a wide variety of projects.
+
+It includes out-of-the-box support for:
+
+- Babel
+- PostCss
+- Entrypoints manifest
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-preset-recommend --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-preset-recommend --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Include **@roots/bud-preset-recommend** in your config.
+
+```js {4}
+bud.use([
+  require('@roots/bud-preset-recommend'),
+])
+```

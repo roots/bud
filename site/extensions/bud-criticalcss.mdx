@@ -1,0 +1,44 @@
+---
+sidebar_label: '@roots/bud-criticalcss'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-criticalcss
+
+:::warning
+
+This extension is experimental.
+
+:::
+
+**@roots/bud-criticalcss** allows for extracting 'above-the-fold' css from your stylesheets.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-criticalcss --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-criticalcss --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Include [@roots/bud-criticalcss](/extensions/bud-criticalcss) in your config.
+
+```js {2} title='bud.config.js'
+bud.use([require('@roots/bud-criticalcss')])
+```

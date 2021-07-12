@@ -3,16 +3,22 @@ import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
-import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
 import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
 import {Server} from './services/Server'
 import {Build} from '@roots/bud-build'
-import {Framework} from '@roots/bud-framework'
+import {Framework, Configuration} from '@roots/bud-framework'
 
 class Bud extends Framework {
+  public implementation: new (options: {
+    name?: string
+    mode?: 'production' | 'development'
+    config?: Configuration
+    parent?: Framework
+  }) => Framework = Bud
+
   public api: Api
 
   public build: Build
@@ -25,8 +31,6 @@ class Bud extends Framework {
 
   public discovery: Discovery
 
-  public disk: Disk
-
   public env: Env
 
   public extensions: Extensions
@@ -36,6 +40,8 @@ class Bud extends Framework {
   public logger: Logger
 
   public server: Server
+
+  public alias: Framework.Api.Alias
 }
 
 export {Bud}

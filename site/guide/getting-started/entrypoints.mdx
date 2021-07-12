@@ -1,0 +1,82 @@
+---
+sidebar_label: Entrypoints
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Adding a new entrypoint
+
+What if we want to add another script to our project, which should be built and output separately? Let's try it.
+
+## Add a second script
+
+Add a new script to your project at **src/landing.js**.
+
+```js title='src/landing.js'
+console.log('landing page script')
+```
+
+To build it, specify the new script in **bud.config.js** using [bud.entry](/docs/bud.entry).
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+## Two steps forward, one step back
+
+If you run a build now you'll see your new file was compiled, but you might also notice that **dist/main.js** is missing.
+
+Until now, we'd been successfully relying on bud's implicit inclusion of **src/index.js**. But now that we are specifying an entrypoint, we'll need
+to explicitly specify the original file as well.
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('main', 'index.js')
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+Remember, bud won't provide any entry defaults once we start configuring entrypoints for ourselves.
+
+## Adding files to an existing entrypoint
+
+Currently, we are importing our application css by importing it into the **src/index.js** entrypoint. This is a totally valid way to handle css in your build,
+but let's say we didn't want to do this and instead specify the css file in **bud.config.js**.
+
+Start by removing the css import from **src/index.js**
+
+```js {1-2} title='src/index.js'
+
+
+console.log('hello world!')
+```
+
+And instead add the css to the **main** entry. It's second parameter can take either a **string** or an **array**, and we'll use the latter to specify multiple files.
+
+```js {3} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry('main', ['index.js', 'index.css'])
+    .entry('landing', 'landing.js')
+    .template()
+```
+
+## Specifying entrypoints as an object
+
+While we can call [bud.entry](/docs/bud.entry) as many times as we need, we can also specify our entrypoints all in one go using object syntax.
+
+```js {3-6} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry({
+      main: ['index.js', 'index.css'],
+      landing: 'landing.js',
+    })
+    .template()
+```

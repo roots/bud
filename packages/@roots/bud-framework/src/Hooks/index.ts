@@ -62,7 +62,10 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  on(id: Hooks.Name, callback: Hooks.Hook): Framework
+  on(
+    id: `${Hooks.Name & string}`,
+    callback: Hooks.Hook,
+  ): Framework
 
   /**
    * ## hooks.filter
@@ -78,7 +81,7 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  filter<T = any>(id: `${Hooks.Name & string}`): T
+  filter<T = any>(id: `${Hooks.Name & string}`, seed?: any): T
 
   /**
    * ## hooks.link
@@ -319,7 +322,6 @@ namespace Hooks {
       publicPath: Subject
       storage: Subject
       modules: Subject
-      records: Subject
     }
 
     export type Base = `location`
@@ -347,6 +349,7 @@ namespace Hooks {
   export type Name =
     | `before`
     | `after`
+    | `done`
     | `${Item.Final}`
     | `${Locale.Final}`
     | `${Loader.Final}`

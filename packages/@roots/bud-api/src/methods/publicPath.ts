@@ -3,7 +3,7 @@ import type {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.publicPath
+     * ## publicPath
      *
      * By default it is assumed that assets are served from webroot (`/`).
      * You can use this method to replace this value for apps  served from

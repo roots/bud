@@ -1,0 +1,60 @@
+---
+sidebar_label: '@roots/bud-vue'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-vue
+
+[Vue](https://vuejs.org) support can be added by installing the **@roots/bud-vue** extension.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-vue --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-vue --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Include **@roots/bud-vue** in your config.
+
+```js
+bud.use(require('@roots/bud-vue'))
+```

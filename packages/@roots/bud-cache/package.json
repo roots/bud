@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cache",
   "description": "Config caching",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -30,7 +30,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/"
   ],
@@ -61,14 +60,15 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
-    "filenamify": "^4.3.0",
+    "filenamify": "^5.0.0",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
+    "globby": "^11.0.4",
     "lodash": "^4.17.21"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

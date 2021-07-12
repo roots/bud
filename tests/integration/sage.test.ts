@@ -1,7 +1,12 @@
 import {helper, Assets, Entrypoints} from '../util/integration'
 import {readJson} from 'fs-extra'
 
-const suite = helper('sage', 'examples/sage', 'public', 'public')
+const suite = helper(
+  'sage',
+  'examples/sage',
+  'public',
+  '/app/themes/sage/public/',
+)
 
 jest.setTimeout(1000000)
 
@@ -14,6 +19,7 @@ describe(suite.name, () => {
     entrypoints = await readJson(
       suite.distPath('entrypoints.json'),
     )
+
     return
   })
 

@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -29,9 +29,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -63,11 +61,12 @@
     "@roots/container": "workspace:packages/@roots/container",
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
+    "globby": "^11.0.4",
     "lodash": "^4.17.21",
     "resolve-from": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2"
-  }
+    "@types/node": "^15.12.5"
+  },
+  "stableVersion": "4.6.0"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-dependencies",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -29,7 +29,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "manifest.yml",
     "types/"
@@ -62,12 +61,13 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2"
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

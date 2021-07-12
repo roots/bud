@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -31,15 +31,15 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    config: Api.Config
+    config: Framework.Api.Config
   }
 
-  namespace Api {
+  namespace Framework.Api {
     type Config = (config?: any) => Framework
   }
 }
 
-const config: Api.Config = function (config) {
+const config: Framework.Api.Config = function (config) {
   this.store.mergeStore(config)
 
   return this

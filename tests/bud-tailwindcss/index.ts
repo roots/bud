@@ -19,8 +19,17 @@ describe(NAME, () => {
   describe('settings', () => {
     let bud: Framework = null
 
-    beforeEach(done => {
+    beforeAll(done => {
       bud = setupBud('production', CONFIG)
+      done()
+    })
+
+    afterAll(done => {
+      bud = teardownBud(bud)
+      done()
+    })
+
+    beforeEach(() => {
       bud.discovery.set('devDependencies', {
         postcss: '*',
         ['postcss-preset-env']: '*',
@@ -29,12 +38,6 @@ describe(NAME, () => {
       })
 
       bud.use([postcss, tailwindcss])
-      done()
-    })
-
-    afterEach(done => {
-      bud = teardownBud(bud)
-      done()
     })
 
     it('has name prop', () => {

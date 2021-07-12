@@ -5,7 +5,7 @@ import {sync} from 'globby'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## assets  [💁 Fluent]
+     * ## assets
      *
      * Copy static assets during compilation.
      *
@@ -23,7 +23,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Assets = (from: string[]) => Framework
+type Assets = (this: Framework, from: string[]) => Framework
 
 const extension: Module<CopyPlugin, CopyPluginOptions> = {
   name: 'copy-webpack-plugin',
@@ -43,28 +43,29 @@ const extension: Module<CopyPlugin, CopyPluginOptions> = {
   },
 
   api: () => ({
-    assets: function (jobs) {
-      jobs.map(from => {
-        sync(from).map((from: string) => {
-          const dirName =
-            from.split('/')[from.split('/').length - 2]
+    assets: function (
+      this: Framework,
+      paths: string[],
+    ): Framework {
+      sync(paths).map((from: string) => {
+        const dirName =
+          from.split('/')[from.split('/').length - 2]
 
-          const format = this.store.isTrue('hash')
-            ? this.store.get('hashFormat')
-            : this.store.get('fileFormat')
+        const format = this.store.isTrue('hash')
+          ? this.store.get('hashFormat')
+          : this.store.get('fileFormat')
 
-          const pattern = {
-            from,
-            to: `${dirName}/${format}.[ext]`,
-          }
+        const pattern = {
+          from,
+          to: `${dirName}/${format}.[ext]`,
+        }
 
-          this.extensions
-            .get('copy-webpack-plugin')
-            .set('options', (copy: CopyPluginOptions) => ({
-              ...copy,
-              patterns: [...(copy.patterns ?? []), pattern],
-            }))
-        })
+        this.extensions
+          .get('copy-webpack-plugin')
+          .set('options', (copy: CopyPluginOptions) => ({
+            ...copy,
+            patterns: [...(copy.patterns ?? []), pattern],
+          }))
       })
 
       return this

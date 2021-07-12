@@ -1,6 +1,6 @@
 {
   "name": "@roots/container",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Collections utility",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -61,11 +61,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "type-fest": "^1.2.0"
+    "@types/node": "^15.12.5",
+    "type-fest": "^1.2.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

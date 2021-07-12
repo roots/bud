@@ -43,7 +43,9 @@ describe('@roots/sage', () => {
       expect(bud.path('storage')).toEqual(
         SAGE_DIR.concat('/storage/bud'),
       )
-      expect(bud.publicPath()).toEqual('public/')
+      expect(bud.publicPath()).toEqual(
+        '/app/themes/sage/public/',
+      )
       expect(bud.path('dist')).toEqual(
         SAGE_DIR.concat('/public'),
       )
@@ -72,7 +74,7 @@ describe('@roots/sage', () => {
     })
   })
 
-  describe('react', () => {
+  describe('babel', () => {
     let bud: Framework = null
 
     beforeAll(done => {
@@ -85,24 +87,12 @@ describe('@roots/sage', () => {
       done()
     })
 
-    it('not used when peer deps are missing', done => {
-      bud.discovery.remove('dependencies.react')
+    it('is used', done => {
+      bud.discovery.set('devDependencies.babel', '*')
       bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-react')).toEqual(
-        false,
-      )
-
-      done()
-    })
-
-    it('used when peer deps present', done => {
-      bud.discovery.set('dependencies.react', '^17')
-      bud.use(sage)
-
-      expect(bud.extensions.has('@roots/bud-react')).toEqual(
+      expect(bud.extensions.has('@roots/bud-babel')).toEqual(
         true,
       )
-
       done()
     })
   })
@@ -120,19 +110,33 @@ describe('@roots/sage', () => {
       done()
     })
 
-    it('not used when peer deps are missing', done => {
-      bud.discovery.remove('devDependencies.postcss')
-      bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
-        false,
-      )
-      done()
-    })
-
-    it('used when peer deps present', done => {
+    it('is used', done => {
       bud.discovery.set('devDependencies.postcss', '*')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
+        true,
+      )
+      done()
+    })
+  })
+
+  describe('react', () => {
+    let bud: Framework = null
+
+    beforeAll(done => {
+      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
+      done()
+    })
+
+    afterAll(done => {
+      bud = teardownBud(bud)
+      done()
+    })
+
+    it('is used', done => {
+      bud.discovery.set('devDependencies.react', '*')
+      bud.use(sage)
+      expect(bud.extensions.has('@roots/bud-react')).toEqual(
         true,
       )
       done()
@@ -152,76 +156,12 @@ describe('@roots/sage', () => {
       done()
     })
 
-    it('not used when peer deps are missing', done => {
-      bud.discovery.remove('devDependencies.tailwindcss')
-      bud.use(sage)
-      expect(
-        bud.extensions.has('@roots/bud-tailwindcss'),
-      ).toEqual(false)
-      done()
-    })
-
-    it('used when peer deps present', done => {
+    it('is used', done => {
       bud.discovery.set('devDependencies.tailwindcss', '*')
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-tailwindcss'),
       ).toEqual(true)
-      done()
-    })
-  })
-
-  describe('typescript', () => {
-    let bud: Framework = null
-
-    beforeAll(done => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      done()
-    })
-
-    afterAll(done => {
-      bud = teardownBud(bud)
-      done()
-    })
-
-    it('not used when peer deps are missing', done => {
-      bud.discovery.remove('devDependencies.typescript')
-
-      bud.use(sage)
-      expect(
-        bud.extensions.has('@roots/bud-typescript'),
-      ).toEqual(false)
-      done()
-    })
-
-    it(`used when peer deps are present`, done => {
-      bud.discovery.set('devDependencies.typescript', '*')
-      bud.use(sage)
-      expect(
-        bud.extensions.has('@roots/bud-typescript'),
-      ).toEqual(true)
-      done()
-    })
-  })
-
-  describe('esbuild', () => {
-    let bud: Framework = null
-
-    beforeAll(done => {
-      bud = setupBud('production', EXAMPLES_SAGE_CONFIG)
-      done()
-    })
-
-    afterAll(done => {
-      bud = teardownBud(bud)
-      done()
-    })
-
-    it('is used', done => {
-      bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-esbuild')).toEqual(
-        true,
-      )
       done()
     })
   })

@@ -66,7 +66,7 @@ export namespace Server {
   /**
    * Webpack compiler
    */
-  export type Compiler = Webpack.Compiler
+  export type Compiler = Webpack.Compiler | Webpack.MultiCompiler
 
   /**
    * Middleware
@@ -156,11 +156,6 @@ export namespace Server {
     }
 
     /**
-     * Hot module reloading enabled
-     */
-    hot?: boolean
-
-    /**
      * The index path for web server, defaults to "index.html".
      */
     index?: DevMiddleware.Options['index']
@@ -204,22 +199,6 @@ export namespace Server {
      * mime types or extension mappings
      */
     mimeTypes?: DevMiddleware.MimeTypeMap
-
-    /**
-     * Instructs the module to enable or disable the s
-     * erver-side rendering mode
-     */
-    serverSideRender?: DevMiddleware.Options['serverSideRender']
-
-    /**
-     * Proxy setting: object passed to  https.createServer
-     */
-    ssl?: Proxy.Options['ssl']
-
-    /**
-     * Proxy setting: set to true to verify SSL certificates
-     */
-    secure?: Proxy.Options['secure']
 
     /**
      * Escape hatch for Webpack's host check security feature.

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Adds prettier support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -31,7 +31,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/",
     "manifest.yml"
@@ -63,11 +62,12 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "eslint": "^7.28.0"
+    "@types/node": "^15.12.5",
+    "eslint": "^7.29.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "prettier": "^2.3.0"
-  }
+    "prettier": "^2.3.2"
+  },
+  "stableVersion": "4.6.0"
 }

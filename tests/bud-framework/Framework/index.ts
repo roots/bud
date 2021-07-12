@@ -5,14 +5,14 @@ import {noop} from 'lodash'
 describe('bud', () => {
   let bud: Framework
 
-  beforeAll(() => {
+  beforeAll(done => {
     bud = setupBud()
-    return
+    done()
   })
 
-  afterAll(() => {
+  afterAll(done => {
     bud = teardownBud(bud)
-    return
+    done()
   })
 
   it('mode', () => {
@@ -43,6 +43,21 @@ describe('bud', () => {
     bud.mode = 'development'
     expect(bud.isProduction).toEqual(false)
 
+    done()
+  })
+
+  it('access processes a literal value', done => {
+    expect(bud.access(true)).toEqual(true)
+    done()
+  })
+
+  it('access processes a fn', done => {
+    expect(bud.access(() => true)).toEqual(true)
+    done()
+  })
+
+  it('access passes bud as a param', done => {
+    expect(bud.access(bud => bud)).toEqual(bud)
     done()
   })
 
@@ -97,12 +112,13 @@ describe('bud', () => {
   })
 
   it('pipe passes value through fn chain', done => {
-    const cb1 = (x: number) => x + 1
-    const cb2 = (x: number) => x + 1
+    const cb1 = app => app
+    const cb2 = app => app
 
-    const res = bud.pipe([cb1, cb2], 0)
+    const res = bud.pipe([cb1, cb2])
 
-    expect(res).toBe(2)
+    expect(res).toBe(bud)
+
     done()
   })
 

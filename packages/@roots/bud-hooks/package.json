@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-hooks",
   "description": "Hooks controller for Bud",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -30,10 +30,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -62,13 +60,14 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2"
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "pretty-format": "^27.0.2"
-  }
+    "pretty-format": "^27.0.6"
+  },
+  "stableVersion": "4.6.0"
 }

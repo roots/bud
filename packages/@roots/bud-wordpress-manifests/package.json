@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -62,10 +62,11 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin",
     "autobind-decorator": "^2.4.0"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

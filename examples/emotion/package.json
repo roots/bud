@@ -1,0 +1,11 @@
+{
+  "name": "example-emotion",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion",
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+  }
+}

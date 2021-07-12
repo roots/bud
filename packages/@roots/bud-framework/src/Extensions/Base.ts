@@ -9,15 +9,11 @@ type Key = `${keyof Framework.Extensions & string}`
 abstract class Base {
   protected _module: Module
 
-  protected _app: Framework['get']
+  protected _app: () => Framework
 
   public constructor(app: Framework, extension: Module) {
-    this._app = app.get
+    this._app = () => app
     this._module = extension
-
-    this.logger
-      .scope(this.module.name as string)
-      .success('Extension instantiated')
   }
 
   @bind
@@ -45,16 +41,11 @@ abstract class Base {
     return this._app()
   }
 
-  public get logger() {
-    return this.app.extensions.logger
-  }
-
   public get name(): keyof Framework.Extensions {
     return this.module.name
   }
 
   public get options() {
-    this.logger.log('get options', this)
     return this.app.access(this.get('options'))
   }
 
@@ -78,17 +69,7 @@ abstract class Base {
   }
 
   public get make() {
-    if (this.when == false) {
-      this.logger.debug({
-        message: `not set for inclusion. skipping.`,
-      })
-
-      return
-    }
-
-    if (!this.get('make')) {
-      return
-    }
+    if (this.when == false || !this.get('make')) return
 
     if (_.isFunction(this.get('make'))) {
       return this.get('make')(

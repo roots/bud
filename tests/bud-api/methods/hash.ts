@@ -3,11 +3,11 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.hash', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     teardownBud(bud)
   })
 
@@ -23,5 +23,3 @@ describe('bud.hash', function () {
     )
   })
 })
-
-export {}

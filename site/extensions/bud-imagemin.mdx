@@ -1,0 +1,87 @@
+---
+sidebar_label: '@roots/bud-imagemin'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-imagemin
+
+[@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-imagemin --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-imagemin --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Add the extension to your config:
+
+```js {2} title='bud.config.js'
+module.exports = bud =>
+  bud.use(['@roots/bud-imagemin'])
+```
+
+## Configuration
+
+By default, [@roots/bud-imagemin](/extensions/bud-imagemin) applies the following configuration:
+
+| Plugin   | Options                               |
+| -------- | ------------------------------------- |
+| gifsicle | `{interlaced: true}`                  |
+| jpegtran | `{progressive: true}`                 |
+| optipng  | `{optimizationLevel: 5}`              |
+| svgo     | `{plugins: [{removeViewBox: false}]}` |
+
+
+If you'd like to make changes you can do so using a the **bud.imagemin** utility function registered by the extension.
+
+```js {4-9} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .use([require('@roots/bud-imagemin')])
+    .imagemin([
+      ['gifsicle', {interlaced: true}],
+      ['jpegtran', {progressive: true}],
+      ['optipng', {optimizationLevel: 5}],
+      ['svgo', {plugins: [{removeViewBox: false}]}],
+    ])
+```

@@ -4,8 +4,7 @@ import {
   Framework,
 } from '@roots/bud-framework'
 import {Container} from '@roots/container'
-import {Signale, SignaleConfig} from 'signale'
-import {boundMethod as bind} from 'autobind-decorator'
+import {Signale} from 'signale'
 
 /**
  * Logger service
@@ -16,30 +15,9 @@ export class Logger
 {
   public name = 'service/logger'
 
-  public _app: Framework['get']
+  public _app: () => Framework
 
   public _instance: Signale
-
-  public config: SignaleConfig = {
-    displayScope: true,
-    displayBadge: false,
-    displayDate: false,
-    displayFilename: false,
-    displayLabel: true,
-    displayTimestamp: false,
-    underlineLabel: false,
-    underlineMessage: false,
-    underlinePrefix: false,
-    underlineSuffix: false,
-    uppercaseLabel: false,
-  }
-
-  public options = {
-    disabled: true,
-    interactive: false,
-    secrets: [process.cwd()],
-    stream: process.stdout,
-  }
 
   public get instance() {
     return this._instance
@@ -53,26 +31,42 @@ export class Logger
     return this._app()
   }
 
-  public constructor(app: Framework['get']) {
+  public constructor(app: Framework) {
     super()
-    this._app = app
-  }
 
-  @bind
-  public bootstrap() {
-    this.instance = this.makeLogger()
+    this._app = () => app
+
+    this._instance = new Signale({
+      disabled: true,
+      interactive: false,
+      secrets: [process.cwd()],
+      scope: app.name,
+      types: {
+        log: {
+          label: 'log',
+          badge: '≫',
+          color: 'magentaBright',
+        },
+      },
+      stream: [process.stdout],
+    })
+
+    this._instance.config({
+      displayScope: true,
+      displayBadge: true,
+      displayDate: false,
+      displayFilename: false,
+      displayLabel: false,
+      displayTimestamp: false,
+      underlineLabel: false,
+      underlineMessage: false,
+      underlinePrefix: false,
+      underlineSuffix: false,
+      uppercaseLabel: false,
+    })
 
     if (process.argv.includes('--log')) {
-      this.instance.enable()
+      this._instance.enable()
     }
-  }
-
-  @bind
-  public makeLogger() {
-    const logger = new Signale(this.options)
-    logger.config(this.config)
-    logger.scope('framework')
-
-    return logger
   }
 }

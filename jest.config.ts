@@ -7,12 +7,13 @@ const config: InitialOptionsTsJest = {
   transform: {
     ...defaults.transform,
   },
-  collectCoverageFrom: globby.sync([
-    'packages/@roots/src/**/*.{ts,tsx}',
-    'packages/@roots/src/*.{ts,tsx}',
-    '!**/node_modules/**',
-    '!tests/util.ts',
-  ]),
+  coveragePathIgnorePatterns: [
+    '@roots/filesystem',
+    '@roots/bud-typings',
+    'types',
+    'node_modules',
+    'tests',
+  ],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: globby
     .sync('packages/@roots/*/package.json', {absolute: true})

@@ -3,11 +3,11 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.publicPath', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
   })
 
-  afterEach(() => {
+  afterAll(() => {
     bud = teardownBud(bud)
   })
 
@@ -33,5 +33,3 @@ describe('bud.publicPath', function () {
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })
-
-export {}

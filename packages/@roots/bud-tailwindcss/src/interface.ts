@@ -1,7 +1,7 @@
 import '@roots/bud-api'
 import '@roots/bud-postcss'
-import {Framework, Module} from '@roots/bud-framework'
-import {TailwindConfig} from 'tailwindcss/tailwind-config'
+import type {Framework, Module} from '@roots/bud-framework'
+import type {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
@@ -30,14 +30,14 @@ declare module '@roots/bud-framework' {
 }
 
 export declare namespace Tailwind {
-  export interface Extension extends Module {
+  interface Extension extends Module {
     name: string
     boot: (app: Framework) => void
     api: {tailwind: Configure}
   }
-  export type Config = TailwindConfig
-  export type Configure = (
+
+  type Configure = (
     this: Framework,
-    config?: Config,
+    config?: TailwindConfig,
   ) => Framework
 }

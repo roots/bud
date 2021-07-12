@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Recommended preset for Bud projects",
   "repository": {
     "type": "git",
@@ -29,10 +29,9 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -63,9 +62,9 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "^7.2.13",
+    "@types/eslint": "^7.2.14",
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.5"
   },
   "dependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
@@ -81,5 +80,6 @@
     "postcss": "^8.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

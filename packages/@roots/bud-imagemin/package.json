@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "description": "Image minification for `@roots/bud` projects",
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/",
     "manifest.yml"
@@ -53,8 +52,8 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@types/node": "^15.12.5",
+    "webpack": "^5.43.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
@@ -80,5 +79,6 @@
     "imagemin-svgo": {
       "optional": true
     }
-  }
+  },
+  "stableVersion": "4.6.0"
 }

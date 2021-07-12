@@ -2,16 +2,6 @@ import {Service} from '../Service'
 
 declare interface Cache extends Service {
   /**
-   * ## cache.cacheFiles
-   *
-   * Additional files to use for webpack cache vaidation.
-   *
-   * Intended for extensions to register cache stores
-   * (babel cache, eslint cache, etc.)
-   */
-  cacheFiles: string[]
-
-  /**
    * ## cache.buildDependencies
    *
    * Dependencies which should be checked to determine cache

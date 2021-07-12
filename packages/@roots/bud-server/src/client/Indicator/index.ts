@@ -22,10 +22,6 @@ const activity = {
     this.node.setAttribute('has-warnings', hasWarnings)
     this.node.setAttribute('has-errors', hasErrors)
   },
-
-  reload() {
-    setTimeout(window.location.reload, 1000)
-  },
 }
 
 export const indicator = activity

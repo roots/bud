@@ -42,48 +42,26 @@ export default (bud: Framework) =>
       require('@roots/bud-postcss'),
       require('@roots/bud-react'),
     ])
+    .setPath('src', 'js')
+    .setPublicPath('assets')
+    .alias({
+      '@src': bud.path('src'),
+    })
 
-    .library(['react', 'react-dom'])
-
-    .entry({app: ['app.{js,css}']})
+    .entry({app: 'app.{js,css}'})
 
     .when(
       bud.isProduction,
       ({minimize}) => minimize(),
-      ({devtool}) => devtool('eval-source-map'),
+      ({devtool}) => devtool(),
     )
-```
-
-Which could also be expressed in a set of `yml` files
-
-```yml
-# bud.config.yml
-extensions:
-  - '@roots/bud-babel'
-  - '@roots/bud-postcss'
-  - '@roots/bud-react'
-library:
-  - 'react'
-  - 'react-dom'
-entry:
-  app: 'app.{js,css}'
-```
-
-```yml
-# bud.production.config.yml
-minimize: true
-```
-
-```yml
-# bud.development.config.yml
-devtool: 'eval-source-map'
 ```
 
 For more on configuring `@roots/bud` check out the [dedicated documentation](docs:config/README).
 
 ## Running a build
 
-![Terminal usage](/dev/assets/cli.svg)
+![Terminal usage](/static/img/cli.svg)
 
 Once you've set up your configuration file the following command will run the build:
 

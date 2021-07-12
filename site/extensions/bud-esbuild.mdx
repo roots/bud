@@ -1,0 +1,74 @@
+---
+sidebar_label: '@roots/bud-esbuild'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-esbuild
+
+[Esbuild](https://esbuild.github.io) support can be added by installing the **@roots/bud-esbuild** extension.
+
+:::warning
+
+Esbuild does not include support for hot module reloading.
+
+:::
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-esbuild --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-esbuild --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Add the extension to your config.
+
+```js
+bud.use('@roots/bud-esbuild')
+```
+
+## Configuration
+
+Set options:
+
+```js
+bud.esbuild.setOptions({target: 'es2020'})
+```

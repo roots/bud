@@ -3,12 +3,14 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.lazy', function () {
   let bud: Framework
 
-  beforeEach(() => {
+  beforeAll(() => {
     bud = setupBud()
+    return
   })
 
-  afterEach(() => {
+  afterAll(() => {
     teardownBud(bud)
+    return
   })
 
   it('is a function', () => {
@@ -18,10 +20,8 @@ describe('bud.lazy', function () {
   it('enables build.config.experiments.lazyCompilation', () => {
     bud.lazy()
 
-    expect(bud.build.config.experiments.lazyCompilation).toEqual(
-      true,
-    )
+    expect(
+      bud.hooks.filter('build/experiments/lazyCompilation'),
+    ).toEqual(true)
   })
 })
-
-export {}

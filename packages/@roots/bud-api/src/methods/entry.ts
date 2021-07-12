@@ -13,7 +13,7 @@ declare module '@roots/bud-framework' {
      *
      * Uses [fast-glob](https://git.io/JkGbw) syntax.
      *
-     * **Supported patterns**
+     * #### Supported patterns
      *
      * - `*` matches any number of characters, but not `/`
      * - `?` matches a single character, but not `/`
@@ -63,6 +63,7 @@ declare module '@roots/bud-framework' {
      *    dependOn: ['react'],
      *  },
      * })
+     * ```
      */
     entry: Api.Entry
   }
@@ -183,48 +184,18 @@ function getAssets(
     },
     true,
   )
-    ? entry.import
-    : sync(entry.import, {
+    ? entry.import // all specified files were directly resolvable
+    : /**
+       * Try for glob
+       */
+      sync(entry.import, {
         cwd: this.path('src'),
         expandDirectories: true,
-      })
-
-  /**
-   * Invalid entrypoint
-   */
-  if (!(entry.import.length > 0)) {
-    console.error('Assets not found')
-    console.error(
-      `entrypoint ${name} did not return any results. Make sure these assets are available on disk.\n`,
-    )
-    process.exit()
-  }
-
-  /**
-   * Entrypoints will always generate a JS file even when it is
-   * just boilerplate (css only entrypoint)
-   */
-  if (isCssOnlyEntrypoint(entry.import)) {
-    this.extensions
-      .get('ignore-emit-webpack-plugin')
-      .set('options', options => ({
-        ignore: [...(options.ignore ?? []), name.concat('.js')],
-      }))
-  }
+      }) ??
+      /**
+       * Fallback to import as specified
+       */
+      entry.import
 
   return entry
-}
-
-/**
- * Return true if entrypoint is comprised of nothing but css files.
- *
- * @webpack5 this is no longer necessary
- */
-function isCssOnlyEntrypoint(assets: string[]): boolean {
-  const getType = (file: string) => file.split('.').pop()
-  const notCss = (file: string) => getType(file) !== 'css'
-  const cssOnly = (entry: string[]) =>
-    entry.filter(f => notCss(f))?.length == 0
-
-  return cssOnly(assets)
 }

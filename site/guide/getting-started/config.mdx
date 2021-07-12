@@ -1,0 +1,35 @@
+---
+sidebar_label: Creating a config
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Configuring our build
+
+So far we've been working without a configuration file which is easy but not very flexible. In this guide we'll add a config file to our build so that we have a little more control.
+
+## Create bud.config.js
+
+Create a file named **bud.config.js** file in the project root. This file exports a single function that will tell **bud** to serve our js using bud's built-in html template.
+
+```js title='bud.config.js'
+module.exports = bud => bud.template()
+```
+
+:::info bud.config.js isn't the only way
+
+You can also configure your project with json or yml. We won't be covering that now but it is an option you might want to look into later.
+
+:::
+
+With our config file in place, start the development server.
+
+```shell
+yarn bud dev
+```
+
+Your site is now available to view in browser at [localhost:3000](http://localhost:3000).
+
+Open **src/index.js** and make some edits: the site **reloads automatically** and displays your changes.

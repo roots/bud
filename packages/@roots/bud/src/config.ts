@@ -1,157 +1,39 @@
-import {Hooks, Server} from '@roots/bud-framework'
-import {Theme} from '@roots/ink-use-style'
-import Webpack from 'webpack/types'
-import {cpus} from 'os'
-
-interface Configuration {
-  /**
-   * Regular expressions for convenience when doing pattern matching.
-   *
-   * @example
-   *
-   * ```js
-   * app.patterns.get('js')
-   * ```
-   */
-  patterns: {[key: string]: RegExp}
-
-  /**
-   * Location
-   */
-  location: Hooks.Locale.Definitions
-
-  /**
-   * Feature: CI mode
-   *
-   * @default false
-   */
-  ci: boolean
-
-  /**
-   * Feature: Clean dist before compilation
-   *
-   * When enabled stale assets will be removed from
-   * the `location/dist` directory prior to the next
-   * compilation.
-   *
-   * @default true
-   */
-  clean: boolean
-
-  /**
-   * Feature: produce webpack.debug.js artifact
-   *
-   * When enabled a `webpack.debug.js` artifact will be
-   * emitted to the `location/storage` directory.
-   *
-   * @default false
-   */
-  debug: boolean
-
-  /**
-   * Discover: automatically register locatable extensions
-   *
-   * When enabled, any discovered extensions will be automatically
-   * initialized.
-   *
-   * @default false
-   */
-  discover: boolean
-
-  /**
-   * Feature: enable filename hashing
-   * @default false
-   */
-  hash: boolean
-
-  /**
-   * Feature: emit html template
-   * @default true
-   */
-  html: boolean
-
-  /**
-   * Feature: automatically install extension dependencies
-   * @default false
-   */
-  install: boolean
-
-  /**
-   * Feature: log to console
-   * @default false
-   */
-  log: boolean
-
-  /**
-   * Feature: produce asset manifest
-   * @default true
-   */
-  manifest: boolean
-
-  /**
-   * File format
-   *
-   * @note do not include extension
-   * @default '[name]'
-   */
-  fileFormat: string
-
-  /**
-   * File format (when hashing is enabled)
-   *
-   * @note do not include extension
-   * @default '[name].[contenthash]'
-   */
-  hashFormat: string
-
-  /**
-   * Seed values for webpack config
-   */
-  build: Webpack.Configuration
-
-  /**
-   * Seed values for extension options
-   */
-  extension: {
-    [key: string]: any
-  }
-
-  /**
-   * Server config
-   */
-  server: Server['config']['repository']
-
-  /**
-   * Theme configuration
-   */
-  theme: Theme
-}
+import {Configuration} from '@roots/bud-framework'
 
 export const config: Configuration = {
+  name: 'bud',
+
   patterns: {
+    js: /\.(js|jsx)$/,
+    ts: /\.(ts|tsx)$/,
+    sass: /\.(scss|sass)$/,
+    sassModule: /\.module\.(scss|sass)$/,
     css: /\.css$/,
     cssModule: /\.module\.css$/,
     font: /\.(ttf|otf|eot|woff2?|ico)$/,
     html: /\.(html?)$/,
     image: /\.(png|jpe?g|gif)$/,
-    js: /\.(js|jsx)$/,
     modules: /(node_modules|bower_components)/,
-    sass: /\.(scss|sass)$/,
-    sassModule: /\.module\.(scss|sass)$/,
     svg: /\.svg$/,
-    ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,
     md: /\.md$/,
+    toml: /\.toml$/,
+    yml: /\.(yaml|yml)$/,
+    xml: /\.xml$/,
+    csv: /\.(csv|tsv)$/,
+    json: /\.json$/,
+    json5: /\.json5$/,
   },
+
   location: {
     project: process.cwd(),
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
     publicPath: '/',
-    records: 'records.json',
     storage: '.budfiles',
   },
+
   ci: false,
   clean: true,
   debug: false,
@@ -161,15 +43,42 @@ export const config: Configuration = {
   install: false,
   log: false,
   manifest: true,
+  minimize: true,
+
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash:6]',
   build: {
     optimization: {
       emitOnErrors: false,
+      splitChunks: {
+        cacheGroups: {
+          defaultVendors: {
+            chunks: 'all',
+            test: /[\\/]node_modules[\\/]/,
+            reuseExistingChunk: true,
+            priority: -10,
+            filename: `vendor/[name].bundle.js`,
+          },
+        },
+      },
     },
-    parallelism: cpus().length - 1,
     resolve: {
-      extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
+      extensions: [
+        '.wasm',
+        '.mjs',
+        '.js',
+        '.jsx',
+        '.css',
+        '.json',
+        '.json5',
+        '.toml',
+        '.xml',
+        '.csv',
+        '.tsv',
+        '.yml',
+        '.yaml',
+        '.xml',
+      ],
     },
   },
   extension: {
@@ -208,28 +117,21 @@ export const config: Configuration = {
     },
     miniCssExtractPlugin: {},
     webpackConfigDumpPlugin: {
-      name: 'webpack.debug.js',
       keepCircularReferences: true,
+      depth: 8,
     },
     webpackDefinePlugin: {},
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
+      publicPath: '',
     },
     webpackProvidePlugin: {},
   },
   server: {
     watch: {
-      files: [
-        '**/*.html',
-        '**/*.php',
-        '**/*.ejs',
-        '!node_modules',
-        '!vendor',
-      ],
-      options: {
-        persistant: false,
-      },
+      files: [],
+      options: {},
     },
     middleware: {
       dev: true,
@@ -238,8 +140,8 @@ export const config: Configuration = {
     },
     browser: {
       indicator: true,
-      log: true,
       overlay: true,
+      log: true,
     },
     proxy: {
       host: 'localhost',

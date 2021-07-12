@@ -1,6 +1,6 @@
 {
   "name": "@roots/critical-css-webpack-plugin",
-  "version": "4.6.0",
+  "version": "4.7.0-9",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -60,16 +60,17 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "@types/vinyl": "^2.0.4"
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^15.12.5",
+    "@types/vinyl": "^2.0.5"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "critical": "^3.1.0",
+    "critical": "^4.0.0",
     "lodash": "^4.17.21",
     "safe-require": "^1.0.4",
     "vinyl": "^2.2.1",
-    "webpack": "^5.38.1"
-  }
+    "webpack": "^5.43.0"
+  },
+  "stableVersion": "4.6.0"
 }

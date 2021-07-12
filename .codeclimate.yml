@@ -1,7 +1,14 @@
 exclude_patterns:
   - 'dev'
-  - 'docs'
+  - 'site'
   - 'examples'
+  - 'tests'
+  - 'jest.config.ts'
+  - 'jest.integration.js'
   - '.*'
   - 'packages/@roots/*/templates'
   - 'packages/@roots/*/src/docs'
+plugins:
+  eslint:
+    enabled: true
+  

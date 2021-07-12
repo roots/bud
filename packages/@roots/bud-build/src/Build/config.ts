@@ -73,9 +73,6 @@ export function config(this: Framework): void {
       cacheLocation: this.hooks.filter(
         'build/cache/cacheLocation',
       ),
-      buildDependencies: this.hooks.filter(
-        'build/cache/buildDependencies',
-      ),
       managedPaths: this.hooks.filter(
         'build/cache/managedPaths',
       ),
@@ -138,9 +135,9 @@ export function config(this: Framework): void {
     )
     .hooks.on('build/performance', () => ({}))
     .hooks.on('build/plugins', () => this.extensions.make())
-    .hooks.on('build/profile', () => true)
+    .hooks.on('build/profile', () => false)
     .hooks.on('build/recordsPath', () =>
-      this.path('storage', 'records.json'),
+      this.path('storage', 'modules.json'),
     )
     .hooks.on('build/resolve/alias', {})
     .hooks.on(
@@ -153,6 +150,5 @@ export function config(this: Framework): void {
       ...this.discovery.resolveFrom,
     ])
     .hooks.on('build/stats', (): Configuration['stats'] => ({}))
-    .hooks.on('build/target', () => 'web')
     .hooks.on('build/watch', false)
 }

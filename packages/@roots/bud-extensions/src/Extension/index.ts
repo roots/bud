@@ -25,10 +25,6 @@ export class Extension extends Base implements Module {
     this.set('when', () => this.module.when)
     this.set('make', () => this.module.make)
 
-    this.logger
-      .scope(this.name as string)
-      .success('Extension registered')
-
     return this
   }
 
@@ -37,10 +33,6 @@ export class Extension extends Base implements Module {
     this.app.when(this.module.boot, () => {
       this.module.boot(this.app)
     })
-
-    this.logger
-      .scope(this.name as string)
-      .success('Extension booted')
 
     return this
   }

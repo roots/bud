@@ -1,0 +1,27 @@
+---
+sidebar_label: Environment limited configuration
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Environment limited configuration
+
+:::note
+
+This guide assumes you are already familiar with [configuring bud using vanilla JS](/guide/getting-started/config).
+
+:::
+
+Bud has tools to deal with `production` and `development` builds of your project. But, you can also create configuration files which are only applied for certain builds.
+
+For instance, if you have configuration which only applies to development builds you can create a file called `bud.config.development.js` in the root of your project. It works just like
+`bud.config.js` except it is only applied in development.
+
+Environment specific configs are compatible with any supported configuration type (js, ts, yml, or json).
+
+You can utilize any number of supported configs in the same project.
+
+So, if you want to use `bud.config.ts` as a base config, and then create `bud.config.development.ts` and `bud.config.production.ts` for your environment specific requirements,
+that's totally doable. Each of the environment limited configs will be used in their respective environments, and the base config will always be applied regardless.

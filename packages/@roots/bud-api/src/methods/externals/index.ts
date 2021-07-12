@@ -15,6 +15,7 @@ declare module '@roots/bud-framework' {
      * bud.externals({
      *   'jQuery': 'window.jquery',
      * })
+     * ```
      */
     externals: Api.Externals
   }

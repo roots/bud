@@ -4,16 +4,16 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isUndefined} from 'lodash'
+import {isUndefined, isEqual} from 'lodash'
 import {Extension} from '../Extension/index'
 
 export class Extensions extends Service implements Contract {
-  public name = '@roots/bud-extensions'
+  public name = 'extensions'
 
   @bind
   public register(): void {
     this.every((_name: string, extension: Module) => {
-      return this.registerExtension(extension)
+      return this.add(extension)
     })
   }
 
@@ -26,46 +26,32 @@ export class Extensions extends Service implements Contract {
 
   @bind
   public registerExtension(extension: Module): void {
-    this.log(`Registering extension: %s`, extension.name)
-    this.set(
-      extension.name,
-      new Extension(this.app, extension).register(),
-    )
-    this.log(`Extension registered: %s`, extension.name)
+    this.set(extension.name, this.get(extension.name).register())
   }
 
   @bind
   public bootExtension(extension: Module): void {
-    this.log(`Booting extension: %s`, extension.name)
-    this.set(
-      extension.name,
-      this.get(extension.name).boot(this.app),
-    )
+    this.set(extension.name, this.get(extension.name).boot())
   }
 
   @bind
   public add(extension: Module): void {
-    this.log(`Adding extension: %s`, extension.name)
+    this.set(extension.name, new Extension(this.app, extension))
     this.registerExtension(extension)
     this.bootExtension(extension)
   }
 
   @bind
   public make(): Contract.PluginOutput[] {
-    this.log(`Building extensions: %s`, this.getKeys())
+    return this.getValues()
+      .map((extension: Module) => {
+        const isPlugin =
+          !isEqual(extension.when, false) && extension.apply
 
-    const plugins = this.getKeys()
-      .map(name => this.get(name).make)
+        return isPlugin ? extension : extension.make
+      })
       .filter(
-        ext => !isUndefined(ext),
+        (ext: Module | undefined) => !isUndefined(ext),
       ) as Contract.PluginOutput[]
-
-    return plugins
-  }
-
-  @bind
-  public discard(pkg: string): Service['app'] {
-    this.remove(pkg)
-    return this.app
   }
 }

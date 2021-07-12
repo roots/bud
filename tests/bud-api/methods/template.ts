@@ -135,5 +135,19 @@ describe('bud.template', function () {
         },
       })
     })
+
+    it('has expected options after changes', () => {
+      bud.template({
+        replace: {
+          foo: 'bar',
+        },
+      })
+
+      expect(
+        bud.extensions.get('interpolate-html-plugin').options,
+      ).toEqual({
+        foo: 'bar',
+      })
+    })
   })
 })

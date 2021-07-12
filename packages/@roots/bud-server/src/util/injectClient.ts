@@ -16,25 +16,28 @@ export declare type InjectClient = (
  * Filters on `webpack.entry`
  */
 export const injectClient: InjectClient = (app, injection) => {
-  app.hooks.on(
-    'build/entry',
-    (entry: Webpack.Entry): Webpack.Entry => ({
-      ...(entry
-        ? Object.entries(entry).reduce(
-            (entries, [name, asset]) => ({
-              ...entries,
-              [name]: {
-                ...asset,
-                import: [...(asset.import ?? []), ...injection],
-              },
-            }),
-            {},
-          )
-        : {
-            app: {
-              import: ['index.js', ...injection],
+  const addScript = (entry: Webpack.Entry): Webpack.Entry => ({
+    ...(entry
+      ? Object.entries(entry).reduce(
+          (entries, [name, asset]) => ({
+            ...entries,
+            [name]: {
+              ...asset,
+              import: [...(asset.import ?? []), ...injection],
             },
           }),
-    }),
-  )
+          {},
+        )
+      : {
+          app: {
+            import: ['index.js', ...injection],
+          },
+        }),
+  })
+
+  app.hooks.on('build/entry', addScript)
+
+  app.children.every((_name: string, child: Framework) => {
+    child.hooks.on('build/entry', addScript)
+  })
 }

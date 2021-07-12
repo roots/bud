@@ -3,7 +3,7 @@ import {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.lazy
+     * ## lazy
      *
      * Enable experimental lazy compilation. Disabled by default.
      *

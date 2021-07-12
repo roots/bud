@@ -4,7 +4,7 @@ import type Webpack from 'webpack'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## devtool [💁 Fluent]
+     * ## devtool
      *
      * Enable and configure sourcemaps using any of [Webpack's
      * devtool utilities](https://webpack.js.org/configuration/devtool/).

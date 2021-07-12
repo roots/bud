@@ -4,5 +4,6 @@ body {
 
 .brand {
   @apply text-3xl font-medium text-indigo-500;
+
   background: url(~@images/image.png);
 }

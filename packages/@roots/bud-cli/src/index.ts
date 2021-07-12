@@ -1,4 +1,6 @@
-import {run} from '@oclif/command'
-import * as flags from './flags/index'
+import '@roots/bud'
+import '@roots/bud-framework'
 
-export {run, flags}
+import {run} from '@oclif/command'
+
+export {run}

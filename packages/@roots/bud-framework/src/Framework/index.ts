@@ -6,7 +6,6 @@ import {Container} from '@roots/container'
 import {Dashboard} from '../Dashboard'
 import {Dependencies} from '../Dependencies'
 import {Discovery} from '../Discovery'
-import {Disk} from '../Disk'
 import {Env} from '../Env'
 import {Extensions} from '../Extensions'
 import {Hooks} from '../Hooks'
@@ -23,42 +22,71 @@ import {Store} from '../Store'
 import {isFunction} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
+import {Configuration} from '../Configuration'
 
 interface Framework {
   /**
+   * ## name
+   *
    * Application name
-   * @default 'bud'
    */
   name: string
 
   /**
-   * Multi-compiler instances
-   * @note multi-compiler api is experimental
+   * ## parent
+   *
+   * If a child instance, returns the parent.
+   *
+   * If the parent instance, returns {Framework}
    */
-  instance: Container<Framework>
+  parent: Framework
 
   /**
-   * API service
+   * ## children
+   *
+   * Compiler instance container.
+   */
+  children: Container<Framework>
+
+  /**
+   * ## isChild
+   *
+   * Returns true if current compiler is a child compiler
+   */
+  isChild: boolean
+
+  /**
+   * ## api
+   *
+   * Service providing config api methods
    */
   api: Api
 
   /**
-   * Build service
+   * ## build
+   *
+   * Service handling config compilation
    */
   build: Build
 
   /**
-   * Cache service
+   * ## cache
+   *
+   * Service handling compiler cache
    */
   cache: Cache
 
   /**
-   * Compiler service
+   * ## compiler
+   *
+   * Service handling build compilation
    */
   compiler: Compiler
 
   /**
-   * Dashboard service
+   * ## dashboard
+   *
+   * Service providing CLI interface
    */
   dashboard: Dashboard
 
@@ -71,11 +99,6 @@ interface Framework {
    * Discovery service
    */
   discovery: Discovery
-
-  /**
-   * Disk service
-   */
-  disk: Disk
 
   /**
    * Envvar service
@@ -136,19 +159,16 @@ interface Framework {
   /**
    * app.get
    */
-  get(): Framework
+  get(name?: string): Framework
 
   /**
-   * app.getInstance
+   * app.make
    * @note multi-compiler api is experimental
    */
-  getInstance(key: string): Framework
-
-  /**
-   * app.setInstance
-   * @note multi-compiler api is experimental
-   */
-  setInstance(key: string, framework: Framework): void
+  make(
+    name: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework
 
   /**
    * Get the compiler mode
@@ -177,13 +197,16 @@ interface Framework {
    */
   path(
     key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
+    ...path: string[]
   ): string
 
   /**
    * app.pipe
    */
-  pipe<I = any, R = any>(fns: CallableFunction[], value: I): R
+  pipe(
+    fns: ((input: Framework) => Framework)[],
+    value?: Framework,
+  ): Framework
 
   /**
    * app.sequence
@@ -215,6 +238,11 @@ interface Framework {
   log(message?: any, ...optionalArgs: any[]): void
 
   /**
+   * log a message
+   */
+  success(message?: any, ...optionalArgs: any[]): void
+
+  /**
    * log (log level: warn)
    */
   warn(message?: any, ...optionalArgs: any[]): void
@@ -232,7 +260,7 @@ interface Framework {
   /**
    * log (log level: error)
    */
-  error(message: any, title: string): void
+  error(message: any, ...optionalArgs: any[]): void
 }
 
 namespace Framework {
@@ -254,11 +282,30 @@ namespace Framework {
 }
 
 abstract class Framework {
+  public abstract implementation: new (options: {
+    config: Configuration
+    name?: string
+    parent?: Framework
+    mode?: 'production' | 'development'
+  }) => Framework
+
   public name = 'bud'
 
   public _services: Container<Service>
 
-  public _instance: Container<this>
+  public parent: Framework = this
+
+  public isChild: boolean = false
+
+  public children: Container<Framework>
+
+  public proto: {
+    config: Configuration
+    services: Store['repository']
+  } = {
+    config: null,
+    services: null,
+  }
 
   public _mode: Mode
 
@@ -275,8 +322,6 @@ abstract class Framework {
   public dependencies: Dependencies
 
   public discovery: Discovery
-
-  public disk: Disk
 
   public env: Env
 
@@ -306,10 +351,12 @@ abstract class Framework {
     this._mode = mode
   }
 
+  @bind
   public getMode(): Mode {
     return this.mode
   }
 
+  @bind
   public setMode(mode: Mode): void {
     this.mode = mode
   }
@@ -322,56 +369,113 @@ abstract class Framework {
     return this.mode === 'development'
   }
 
-  public constructor(config?: Store['repository']) {
-    this.mode = (
-      process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
+  public constructor(options: {
+    name?: string
+    mode?: 'production' | 'development'
+    config?: Configuration
+    parent?: Framework
+  }) {
+    this.proto = {...this.proto, config: options.config}
+    this.name = options.name ?? this.name
+    this.parent = options.parent ?? this.parent
+
+    this.mode =
+      options.mode ??
+      ((process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
         ? process.env.NODE_ENV
-        : 'production'
-    ) as 'production' | 'development'
+        : 'production') as 'production' | 'development')
 
-    this.store = new Store(this.get).setStore(config ?? {})
-  }
-
-  public access<I = any>(value: ((app: this) => I) | I): I {
-    return isFunction(value)
-      ? (value as CallableFunction)(this)
-      : value
-  }
-
-  public container(
-    repository?: Container['repository'],
-  ): Container {
-    return new Container(repository ?? {})
+    this.children = new Container<Framework>()
   }
 
   @bind
-  public get(): this {
+  public get(child?: string): Framework {
+    return child ? this.parent.children.get(child) : this
+  }
+
+  @bind
+  public set(name: string, instance: Framework): void {
+    this.parent.children.set(name, instance)
+  }
+
+  @bind
+  public make(
+    name: string,
+    tap?: (app: Framework) => Framework,
+  ): Framework {
+    const compiler = new this.implementation({
+      config: this.proto.config,
+      name,
+      parent: this,
+      mode: this.mode,
+    })
+      .bootstrap(this.proto.services)
+      .lifecycle()
+
+    compiler.isChild = true
+
+    this.set(name, isFunction(tap) ? tap(compiler) : compiler)
+
     return this
   }
 
   @bind
-  public getInstance(key: string): Framework {
-    return this._instance.get(key)
-  }
-
-  @bind
-  public setInstance(key: string, app: Framework) {
-    Object.assign(this, {
-      _instance: {
-        [key]: app,
-      },
-    })
-  }
-
-  @bind
   public bootstrap(services: {
-    [key: string]: new (app: any) => Service | Bootstrapper
+    [key: string]: new (app: Framework) => Service | Bootstrapper
   }): Framework {
-    this.services = this.container(services)
+    this.proto.services = services
 
-    this.services.getEntries().map(([key, Instance]) => {
-      this[key] = new Instance(this.get)
+    this.store = new Store(this).setStore({
+      ...(this.proto.config ?? {}),
     })
+
+    this.services = this.container({...this.proto.services})
+
+    /**
+     * Build the logger early
+     */
+    const LoggerConstructor =
+      this.services.get<new (app: Framework) => Logger>('logger')
+
+    this.logger = new LoggerConstructor(this)
+
+    this.services
+      .getEntries()
+      .filter(([k, v]) => {
+        /**
+         * No reason to boot an extension that isn't well written
+         */
+        if (!v.name) return false
+
+        /**
+         * No reason to start server for prod
+         */
+        if (k == 'server' && this.isProduction) return false
+
+        /**
+         * No reason to boot expensive parent services
+         * for child compilation instantances
+         */
+        if (
+          this.isChild &&
+          [
+            'compiler',
+            'discovery',
+            'dashboard',
+            'server',
+          ].includes(k)
+        )
+          return false
+
+        return true
+      })
+
+      /**
+       * Instantiate the services
+       */
+      .map(([key, Instance]) => {
+        this[key] = new Instance(this)
+      })
 
     return this
   }
@@ -388,19 +492,47 @@ abstract class Framework {
     ]
 
     events.forEach(event => {
+      this.logger.instance.scope(event).time(event)
+
       this.services.getKeys().forEach(serviceName => {
         const service = this[serviceName]
-        service && service[event] && service[event](this)
+        if (!service || !service[event]) return
+
+        this.logger.instance
+          .scope(service.name, event)
+          .time(event)
+
+        service[event](this)
+
+        this.logger.instance
+          .scope(service.name, event)
+          .timeEnd(event)
       })
+
+      this.logger.instance.scope(event).timeEnd(event)
     })
 
     return this
   }
 
   @bind
+  public access<I = any>(value: ((app: this) => I) | I): I {
+    return isFunction(value)
+      ? (value as CallableFunction)(this)
+      : value
+  }
+
+  @bind
+  public container(
+    repository?: Container['repository'],
+  ): Container {
+    return new Container(repository ?? {})
+  }
+
+  @bind
   public path(
     key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
+    ...path: string[]
   ): string {
     return join(
       ...[
@@ -408,19 +540,22 @@ abstract class Framework {
           ? this.hooks.filter('location/project')
           : false,
         this.hooks.filter(`location/${key}` as Hooks.Name),
-        path ?? false,
+        ...(path ?? []),
       ].filter(Boolean),
     )
   }
 
   @bind
-  public pipe<I = any, R = any>(
-    fns: CallableFunction[],
-    value: I,
-  ): R {
-    return (value = fns.reduce((val, fn) => {
-      return fn(val)
-    }, value))
+  public pipe(
+    fns: ((input: Framework) => Framework)[],
+    value: Framework,
+  ): Framework {
+    return fns.reduce(
+      (val: Framework, fn: (input: Framework) => Framework) => {
+        return fn(val)
+      },
+      value ?? this,
+    )
   }
 
   @bind
@@ -458,35 +593,61 @@ abstract class Framework {
   @bind
   public log(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .log(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .log(message, ...optionalArgs)
   }
 
   @bind
   public info(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .info(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .info(message, ...optionalArgs)
+  }
+
+  @bind
+  public success(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .success(message, ...optionalArgs)
   }
 
   @bind
   public warn(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .warn(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .warn(message, ...optionalArgs)
   }
 
   @bind
   public debug(message?: any, ...optionalArgs: any[]) {
     this.logger.instance
-      .scope(this.name)
-      .debug(message, optionalArgs)
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .debug(message, ...optionalArgs)
   }
 
   @bind
-  public error(message: string, title: string) {
-    const instance = this.dashboard.renderError(message, title)
-    setTimeout(instance.unmount, 2000)
+  public error(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(
+        this.parent.name,
+        this.name == 'bud' ? 'global' : this.name,
+      )
+      .error(message, ...optionalArgs)
   }
 }
 

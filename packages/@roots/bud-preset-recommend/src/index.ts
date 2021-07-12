@@ -1,8 +1,8 @@
 import '@roots/bud-api'
 import {Module} from '@roots/bud-framework'
-import babel from '@roots/bud-babel'
-import postcss from '@roots/bud-postcss'
-import entrypoints from '@roots/bud-entrypoints'
+import * as babel from '@roots/bud-babel'
+import * as postcss from '@roots/bud-postcss'
+import * as entrypoints from '@roots/bud-entrypoints'
 
 declare module '@roots/bud-framework' {
   namespace Extensions {
@@ -14,8 +14,8 @@ declare module '@roots/bud-framework' {
 
 const extension: Module = {
   name: '@roots/bud-preset-recommend',
-  register: ({use}) => {
-    use([babel, postcss, entrypoints]).template().persist()
+  register: app => {
+    app.use([babel, postcss, entrypoints])
   },
 }
 

@@ -1,2 +1,2 @@
-import {error} from './tests/util/logger'
-process.on('uncaughtException', error)
+const noop = () => null
+process.on('uncaughtException', noop)

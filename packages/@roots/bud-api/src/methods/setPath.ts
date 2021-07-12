@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.setPath
+     * ## setPath
      *
      * Set a directory. The project directory should be an absolute path.
      * All other directories should be relative (src, dist, etc.)
@@ -31,7 +31,6 @@ interface SetPath {
 export const setPath: SetPath = function (...args) {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
-
     return this
   }
 

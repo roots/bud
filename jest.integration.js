@@ -100,20 +100,23 @@ const run = async () => {
       absolute: true,
     })
 
-    logger.info('Commencing')
+    logger.info('Integration tests')
 
     await pre(paths)
 
-    await jest('imagemin')
-    await jest('babel')
     await jest('basic')
+    await jest('babel')
+    await jest('html-template')
+    await jest('api-multi-compiler')
     await jest('markdown')
     await jest('postcss')
     await jest('preset-recommend')
     await jest('react')
+    await jest('emotion')
     await jest('sage')
     await jest('tailwind')
     await jest('vue')
+    await jest('imagemin')
 
     await post(paths)
 

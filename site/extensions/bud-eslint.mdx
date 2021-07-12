@@ -1,0 +1,104 @@
+---
+sidebar_label: '@roots/bud-eslint'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-eslint
+
+[Eslint](https://eslint.org) support can be added by installing the **@roots/bud-eslint** extension.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-eslint --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-eslint --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Add the extension to your config.
+
+```js title='bud.config.js'
+bud.use('@roots/bud-eslint')
+```
+
+## Configuration
+
+Once everything is installed you can configure eslint via eslint config, as is documented. See [the official Eslint user guide](https://eslint.org/docs/user-guide/configuring).
+
+### Configuring the plugin
+
+If you want to configure the eslint plugin options, you may do so with **bud.eslint**. 
+
+```js title='bud.config.js'
+bud.eslint.config({target: 'es2020'})
+```
+
+Default configuration values:
+
+| option         | value                               |
+| -------------- | ------------------------------------|
+| cache          | true                                |
+| cacheLocation  | storage directory                   |
+| context        | src directory                       |
+| cwd            | project directory                   |
+| exclude        | node_modules                        |
+| extensions     | `['js', 'jsx', 'ts', 'tsx', 'vue']` |
+| failOnError    | true                                |
+
+### Configuring eslint using bud.extensions
+
+```js title='bud.config.js'
+bud.extensions.get('eslint-webpack-plugin').options = {
+  // ... options
+}
+```
+
+### Configuring eslint using bud.api
+
+```js title='bud.config.js'
+bud.hooks.on(
+  'extension/eslint-webpack-plugin/options',
+  options => ({
+    ...options,
+    // overrides
+  }),
+)
+```

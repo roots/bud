@@ -3,4 +3,5 @@ type: extension
 
 dependencies:
   dev:
-    vue: ^2.6.12
+    vue: ^3.1.2
+    '@vue/compiler-sfc': ^3.1.2

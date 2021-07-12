@@ -3,12 +3,14 @@ import {Framework, setupBud, teardownBud} from '../../util'
 describe('bud.dev', function () {
   let bud: Framework
 
-  beforeEach(() => {
-    bud = setupBud()
+  beforeAll(() => {
+    bud = setupBud('development')
+    return
   })
 
-  afterEach(() => {
+  afterAll(() => {
     teardownBud(bud)
+    return
   })
 
   it('sets host', () => {
@@ -30,5 +32,3 @@ describe('bud.dev', function () {
     })
   })
 })
-
-export {}
