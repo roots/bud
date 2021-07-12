@@ -31,10 +31,8 @@
 Install **@roots/bud-cli** to your project.
 
 ```shell
-yarn add @roots/bud-cli --dev
+yarn add @roots/bud-cli
 ```
-
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
 
 ## Documentation
 

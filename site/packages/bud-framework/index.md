@@ -25,7 +25,6 @@ custom_edit_url: null
 - [Bootstrapper](classes/bootstrapper.md)
 - [Container](classes/container.md)
 - [Discovery](classes/discovery.md)
-- [Disk](classes/disk.md)
 - [Extension](classes/extension.md)
 - [FileContainer](classes/filecontainer.md)
 - [Framework](classes/framework.md)
@@ -59,7 +58,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Env/index.ts:2](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Env/index.ts#L2)
+[packages/@roots/bud-framework/src/Env/index.ts:2](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud-framework/src/Env/index.ts#L2)
 
 ___
 
@@ -69,4 +68,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Mode/index.ts:1](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Mode/index.ts#L1)
+[packages/@roots/bud-framework/src/Mode/index.ts:1](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud-framework/src/Mode/index.ts#L1)

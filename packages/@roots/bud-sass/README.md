@@ -25,7 +25,7 @@
   <strong>@roots/bud-sass</strong>
 </h1>
 
-> Sass support
+> Sass support for @roots/bud projects.
 ## Installation
 
 Install **@roots/bud-sass** to your project.
@@ -34,7 +34,11 @@ Install **@roots/bud-sass** to your project.
 yarn add @roots/bud-sass --dev
 ```
 
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
+Run `bud init` after installation to ensure peer dependencies are met.
+
+```shell
+yarn bud init
+```
 
 ## Documentation
 

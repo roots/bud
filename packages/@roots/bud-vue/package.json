@@ -29,7 +29,6 @@
     "vue"
   ],
   "files": [
-    "docs/",
     "lib/",
     "types/",
     "manifest.yml"

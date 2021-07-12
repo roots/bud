@@ -3,74 +3,17 @@ import {
   Banner,
   Community,
   Contributing,
-  Docs,
-  Installation,
   Sponsors,
-} from './components'
-import project from '../../repo'
+} from '../components'
+import project from '../../../repo'
 
-export const MasterReadme = ({title, description, logo}) => (
-  <>
-    <Banner
-      title={title ?? ''}
-      description={description ?? ''}
-      logo={logo ?? ''}
-    />
-    <Installation pkg={title} />
-    <Docs url={project.links.site} />
-    <Community />
-    <Contributing />
-    <Sponsors />
-  </>
-)
-
-export const RootReadme = () => (
-  <>
-    <Banner
-      title={`@roots/bud`}
-      description={project.description}
-      logo={project.logo}
-    />
-    <span>{`
+export const Body = () => (
+  <span>{`
 ![Terminal usage](/static/img/cli.svg)
-
-## Installation
-
-Install [@roots/bud](/packages/@roots/bud) and 
-[**@roots/bud-cli**](/packages/@roots/bud-cli) to your project
-
-\`\`\`sh
-yarn add @roots/bud @roots/bud-cli --dev
-\`\`\`
 
 ## Getting started
 
 Check out the [dedicated documentation](/docs/config/README.md) for usage details.
-
-\`\`\`ts
-import { Framework } from "@roots/bud";
-
-export default (bud: Framework) =>
-  bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-      require('@roots/bud-react'),
-    ])
-    .setPath('src', 'js')
-    .setPublicPath('assets')
-    .alias({
-      '@src': bud.path('src'),
-    })
-
-    .entry({ app: 'app.{js,css}' })
-
-    .when(
-      bud.isProduction,
-      ({ minimize }) => minimize(),
-      ({ devtool }) => devtool()
-    );
-\`\`\`
 
 ## Example implementations
 
@@ -115,6 +58,16 @@ Most require zero configuration.
 Have you produced a Bud extension and want to share it here? 
 Please, create an issue sharing information about your project.
 `}</span>
+)
+
+export const RootTemplate = () => (
+  <>
+    <Banner
+      title={`@roots/bud`}
+      description={project.description}
+      logo={project.logo}
+    />
+    <Body />
     <Community />
     <Contributing />
     <Sponsors />

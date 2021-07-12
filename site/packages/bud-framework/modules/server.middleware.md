@@ -35,7 +35,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:86](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Server/index.ts#L86)
+[packages/@roots/bud-framework/src/Server/index.ts:86](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud-framework/src/Server/index.ts#L86)
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server/index.ts:88](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud-framework/src/Server/index.ts#L88)
+[packages/@roots/bud-framework/src/Server/index.ts:88](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud-framework/src/Server/index.ts#L88)

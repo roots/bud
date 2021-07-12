@@ -31,10 +31,8 @@
 Install **@roots/bud-typings** to your project.
 
 ```shell
-yarn add @roots/bud-typings --dev
+yarn add @roots/bud-typings
 ```
-
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
 
 ## Documentation
 

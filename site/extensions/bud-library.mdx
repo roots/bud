@@ -1,0 +1,75 @@
+---
+title: '@roots/bud-library'
+sidebar_label: '@roots/bud-library'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-library
+
+The [@roots/bud-library](/extensions/bud-library) extension adds a **bud.library** method to make it simple to create a long-lived, highly-cacheable DLL from a list of modules.
+
+The first build will likely take longer as the DLL will need to be compiled, but subsequent builds should see a noticeable reduction in build time.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-library --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-library --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Installing peer dependencies
+
+After installing the main package, run the `bud init` command to install required peer dependencies:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud init
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud init
+
+  </TabItem>
+</Tabs>
+
+## Usage
+
+First, add the extension to your config.
+
+```js title='bud.config.js'
+bud.use(require('@roots/bud-library'))
+```
+
+Pass `bud.library` the module you would like to add to the DLL cache:
+
+```js title='bud.config.js'
+bud.library("jquery");
+```
+
+Multiple modules can be added using an array:
+
+```js title='bud.config.js'
+bud.library(["jquery", "bootstrap"]);
+```

@@ -31,7 +31,6 @@
   "files": [
     "lib/",
     "templates/",
-    "docs/",
     "types/"
   ],
   "main": "./lib/cjs/index.js",

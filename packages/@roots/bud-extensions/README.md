@@ -31,10 +31,8 @@
 Install **@roots/bud-extensions** to your project.
 
 ```shell
-yarn add @roots/bud-extensions --dev
+yarn add @roots/bud-extensions
 ```
-
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
 
 ## Documentation
 

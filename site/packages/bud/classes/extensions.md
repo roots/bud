@@ -60,7 +60,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:5](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/services/Extensions/index.ts#L5)
+[packages/@roots/bud/src/services/Extensions/index.ts:5](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/services/Extensions/index.ts#L5)
 
 ___
 
@@ -81,7 +81,7 @@ Base.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:7](https://github.com/roots/bud/blob/7200ac65/packages/@roots/bud/src/services/Extensions/index.ts#L7)
+[packages/@roots/bud/src/services/Extensions/index.ts:7](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/services/Extensions/index.ts#L7)
 
 ## Accessors
 

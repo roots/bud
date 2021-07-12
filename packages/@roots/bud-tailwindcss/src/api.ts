@@ -1,7 +1,8 @@
-import {Tailwind} from './interface'
+import type {Tailwind} from './interface'
+import type {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 const tailwind: Tailwind.Configure = function (config) {
-  const tailwindcss: [string, Tailwind.Config | string] = config
+  const tailwindcss: [string, TailwindConfig | string] = config
     ? ['tailwindcss', config]
     : ['tailwindcss', this.path('project', 'tailwind.config.js')]
 

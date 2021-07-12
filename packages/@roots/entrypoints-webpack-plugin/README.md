@@ -34,12 +34,6 @@ Install **@roots/entrypoints-webpack-plugin** to your project.
 yarn add @roots/entrypoints-webpack-plugin --dev
 ```
 
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
-
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://budjs.netlify.app)
-
 ## Community
 
 Keep track of development and community news.

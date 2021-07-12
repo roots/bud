@@ -19,7 +19,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "manifest.yml",
     "types/"

@@ -34,7 +34,11 @@ Install **@roots/bud-wordpress-dependencies** to your project.
 yarn add @roots/bud-wordpress-dependencies --dev
 ```
 
-When installing an extension remember to run `bud init` after installation to ensure peer dependencies are correct.
+Run `bud init` after installation to ensure peer dependencies are met.
+
+```shell
+yarn bud init
+```
 
 ## Documentation
 

@@ -29,43 +29,9 @@
 
 ![Terminal usage](/static/img/cli.svg)
 
-## Installation
-
-Install [@roots/bud](/packages/@roots/bud) and 
-[**@roots/bud-cli**](/packages/@roots/bud-cli) to your project
-
-```sh
-yarn add @roots/bud @roots/bud-cli --dev
-```
-
 ## Getting started
 
 Check out the [dedicated documentation](/docs/config/README.md) for usage details.
-
-```ts
-import { Framework } from "@roots/bud";
-
-export default (bud: Framework) =>
-  bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-      require('@roots/bud-react'),
-    ])
-    .setPath('src', 'js')
-    .setPublicPath('assets')
-    .alias({
-      '@src': bud.path('src'),
-    })
-
-    .entry({ app: 'app.{js,css}' })
-
-    .when(
-      bud.isProduction,
-      ({ minimize }) => minimize(),
-      ({ devtool }) => devtool()
-    );
-```
 
 ## Example implementations
 

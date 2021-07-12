@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-sass",
   "version": "4.7.0-9",
-  "description": "Sass support",
+  "description": "Sass support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/",
     "manifest.yml"

@@ -8,7 +8,11 @@ export class Code {
   public render() {
     return `\
 \`\`\`${this.props.lang ?? ''}
-${this.props.children.join('')}
+${
+  Array.isArray(this.props.children)
+    ? this.props.children.join('')
+    : this.props.children
+}
 \`\`\`\n`
   }
 }

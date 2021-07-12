@@ -29,10 +29,9 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

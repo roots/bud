@@ -30,9 +30,9 @@
   },
   "files": [
     "lib/",
-    "publish/",
     "types/",
-    "manifest/"
+    "templates/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

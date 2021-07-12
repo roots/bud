@@ -2,25 +2,59 @@ import {readJson} from 'fs-extra'
 import React from 'react'
 
 import render from './renderer'
-import {RootReadme, MasterReadme} from './MasterReadme'
+import {RootTemplate} from './templates/RootTemplate'
+import {CoreTemplate} from './templates/CoreTemplate'
+import {ExtensionTemplate} from './templates/ExtensionTemplate'
+import {LibraryTemplate} from './templates/LibraryTemplate'
 import project from '../../repo'
 
-const generateReadmes = () =>
-  project.packages.map(async pkg => {
-    const info = await readJson(
-      `${process.cwd()}/packages/${pkg}/package.json`,
-    )
+const {
+  packages: {extensions, core, lib},
+} = project
 
-    render(
-      <MasterReadme
-        title={info.name}
-        description={info.description}
-        logo={project.logo}
-      />,
-      `${process.cwd()}/packages/${info.name}/README.md`,
-    )
-  })
+extensions.map(async pkg => {
+  const info = await readJson(
+    `${process.cwd()}/packages/${pkg}/package.json`,
+  )
 
-generateReadmes()
+  render(
+    <ExtensionTemplate
+      title={info.name}
+      description={info.description}
+      logo={project.logo}
+    />,
+    `${process.cwd()}/packages/${info.name}/README.md`,
+  )
+})
 
-render(<RootReadme />, `${process.cwd()}/README.md`)
+core.map(async pkg => {
+  const info = await readJson(
+    `${process.cwd()}/packages/${pkg}/package.json`,
+  )
+
+  render(
+    <CoreTemplate
+      title={info.name}
+      description={info.description}
+      logo={project.logo}
+    />,
+    `${process.cwd()}/packages/${info.name}/README.md`,
+  )
+})
+
+lib.map(async pkg => {
+  const info = await readJson(
+    `${process.cwd()}/packages/${pkg}/package.json`,
+  )
+
+  render(
+    <LibraryTemplate
+      title={info.name}
+      description={info.description}
+      logo={project.logo}
+    />,
+    `${process.cwd()}/packages/${info.name}/README.md`,
+  )
+})
+
+render(<RootTemplate />, `${process.cwd()}/README.md`)
