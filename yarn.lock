@@ -4666,10 +4666,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/replacestream@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@types/replacestream@npm:4.0.0"
-  checksum: 06c4966020d9f3858ca1555f39075531d7a74a632fa32dab55a3386ab08bcd28a6ed41d64072f2cbde6992f00a2d36c9551bcd5b053837b497478052e29b6623
+"@types/replacestream@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@types/replacestream@npm:4.0.1"
+  checksum: 899bd22038c957ebf62d6aa68e580e6778c45431e5210f94df2e219b5323fcb305973a49a00cbeaebf410a860c9375aa9f464b404e09de1a7a26e5dca89747b6
   languageName: node
   linkType: hard
 
@@ -10584,7 +10584,7 @@ __metadata:
   resolution: "g@workspace:packages/base"
   dependencies:
     "@skypack/package-check": ^0.2.2
-    "@types/replacestream": ^4.0.0
+    "@types/replacestream": ^4.0.1
     globby: ^11.0.4
     npm-run-all: ^4.1.5
     prettier: ^2.3.2
