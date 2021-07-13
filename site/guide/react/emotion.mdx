@@ -28,7 +28,7 @@ To utilize emotion we will add [**@roots/bud-emotion**](/extensions/bud-emotion)
   </TabItem>
 </Tabs>
 
-Remember to run [**bud init**](/guide/cli/index) after installation. 
+Remember to run **bud init** after installation. 
 
 Next, add it to your config _after_ [**@roots/bud-babel**](/extensions/bud-babel) and [**@roots/bud-react**](/extensions/bud-react).
 
@@ -40,7 +40,3 @@ const emotion = require('@roots/bud-emotion')
 module.exports = app => 
   app.use([babel, react, emotion])
 ```
-
-## Example
-
-Peep the [**/examples/emotion** in the roots/bud repo](https://github.com/roots/bud/tree/stable/examples/emotion) for a working example.

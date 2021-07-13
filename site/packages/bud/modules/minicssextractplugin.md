@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/mini-css-extract-plugin/index.ts:6](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/extensions/mini-css-extract-plugin/index.ts#L6)
+[packages/@roots/bud/src/extensions/mini-css-extract-plugin/index.ts:6](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/extensions/mini-css-extract-plugin/index.ts#L6)
 
 ___
 

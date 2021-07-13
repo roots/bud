@@ -8,13 +8,13 @@ import TabItem from '@theme/TabItem'
 
 # Adding extensions
 
-Our project is coming together, but it's a little rough working with vanilla js. Let's add support for [Babel](https://babeljs.io).
+Our project is coming together, but it's a little rough working with vanilla js. Let's add support for [Babel](https://babeljs.io/docs/en/#babel-is-a-javascript-compiler).
 
-We can do this easily using the [@roots/bud-babel](/extensions/bud-babel) extension.
+We can do this easily using the [**@roots/bud-babel extension**](/extensions/bud-babel).
 
 ## Installing an extension
 
-Start by installing **@roots/bud-babel**.
+Start by installing [**@roots/bud-babel**](/extensions/bud-babel).
 
 <Tabs
   defaultValue="yarn"
@@ -68,7 +68,7 @@ It's also a good idea to run **bud init** after upgrading extensions in case req
 
 ## Adding the extension to your config
 
-Once installed and initialized, modify your **bud.config.js** file to utilize the extension.
+Once installed and initialized, add the extension to your **bud.config.js** file with [**bud.use**](/docs/bud.use).
 
 ```js {3} title='bud.config.js'
 module.exports = bud => 
@@ -79,7 +79,7 @@ module.exports = bud =>
     .template()
 ```
 
-All done! Your builds are processed with babel.
+All done! Your js will now be transpiled with babel.
 
 You can see for yourself by modifying **src/index.js** so that it contains some fancy stuff:
 

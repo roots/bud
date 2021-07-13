@@ -1,5 +1,5 @@
 ---
-sidebar_label: Entrypoints
+sidebar_label: Adding entrypoints
 sidebar_position: 3
 ---
 
@@ -18,7 +18,7 @@ Add a new script to your project at **src/landing.js**.
 console.log('landing page script')
 ```
 
-To build it, specify the new script in **bud.config.js** using [bud.entry](/docs/bud.entry).
+To build it, specify the new script in **bud.config.js** using [**bud.entry**](/docs/bud.entry).
 
 ```js {3} title='bud.config.js'
 module.exports = bud =>
@@ -31,8 +31,9 @@ module.exports = bud =>
 
 If you run a build now you'll see your new file was compiled, but you might also notice that **dist/main.js** is missing.
 
-Until now, we'd been successfully relying on bud's implicit inclusion of **src/index.js**. But now that we are specifying an entrypoint, we'll need
-to explicitly specify the original file as well.
+Until now, we'd been successfully relying on bud's implicit inclusion of **src/index.js**, which it will attempt to use if [**bud.entry**](/docs/bud.entry) is not called. 
+
+But now that we are [specifying an entrypoint in our config](#add-a-second-script), we'll need to explicitly specify **src/index.js** as well.
 
 ```js {3} title='bud.config.js'
 module.exports = bud =>
@@ -42,12 +43,17 @@ module.exports = bud =>
     .template()
 ```
 
-Remember, bud won't provide any entry defaults once we start configuring entrypoints for ourselves.
-
 ## Adding files to an existing entrypoint
 
-Currently, we are importing our application css by importing it into the **src/index.js** entrypoint. This is a totally valid way to handle css in your build,
-but let's say we didn't want to do this and instead specify the css file in **bud.config.js**.
+Currently, we are importing our application css by importing it into the **src/index.js** entrypoint. 
+
+```js {1} title='src/index.js'
+import './index.css'
+
+console.log('hello, world.')
+```
+
+This is a totally valid way to handle css in your build, but let's instead specify the css file in **bud.config.js** so we can keep learning about how to work with it.
 
 Start by removing the css import from **src/index.js**
 
@@ -57,7 +63,7 @@ Start by removing the css import from **src/index.js**
 console.log('hello world!')
 ```
 
-And instead add the css to the **main** entry. It's second parameter can take either a **string** or an **array**, and we'll use the latter to specify multiple files.
+Now, add the css to the **main** entry. 
 
 ```js {3} title='bud.config.js'
 module.exports = bud =>
@@ -67,9 +73,11 @@ module.exports = bud =>
     .template()
 ```
 
+As you can see, [**bud.entry**](/docs/bud.entry)'s second parameter can be either a **string** or an **array**, and we're using the **array** so we can specify multiple files.
+
 ## Specifying entrypoints as an object
 
-While we can call [bud.entry](/docs/bud.entry) as many times as we need, we can also specify our entrypoints all in one go using object syntax.
+While we can call [**bud.entry**](/docs/bud.entry) as many times as we need, we can also specify all of our entrypoints in one call using object syntax.
 
 ```js {3-6} title='bud.config.js'
 module.exports = bud =>
@@ -78,5 +86,15 @@ module.exports = bud =>
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
     })
+    .template()
+```
+
+Subsequent calls to [**bud.entry**](/docs/bud.entry) will merge our existing entrypoints with our new ones, rather than overwriting everything. So this is safe and functionally equivalent:
+
+```js {3-4} title='bud.config.js'
+module.exports = bud =>
+  bud
+    .entry({main: ['index.js', 'index.css']})
+    .entry({landing: 'landing.js'})
     .template()
 ```

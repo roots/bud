@@ -51,13 +51,6 @@ module.exports = {
           label: 'Extensions',
           docsPluginId: 'extensions',
         },
-        {
-          type: 'doc',
-          docId: 'index',
-          position: 'left',
-          label: 'Recipes',
-          docsPluginId: 'recipes',
-        },
         {to: '/packages', label: 'API', position: 'right'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {

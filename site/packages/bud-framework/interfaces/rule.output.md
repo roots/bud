@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:32](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L32)
+[packages/@roots/bud-framework/src/Build/Rule.ts:32](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L32)
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:35](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L35)
+[packages/@roots/bud-framework/src/Build/Rule.ts:35](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L35)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:34](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L34)
+[packages/@roots/bud-framework/src/Build/Rule.ts:34](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L34)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:27](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L27)
+[packages/@roots/bud-framework/src/Build/Rule.ts:27](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L27)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:33](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L33)
+[packages/@roots/bud-framework/src/Build/Rule.ts:33](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L33)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:28](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Build/Rule.ts#L28)
+[packages/@roots/bud-framework/src/Build/Rule.ts:28](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Build/Rule.ts#L28)

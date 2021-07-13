@@ -8,22 +8,34 @@ import TabItem from '@theme/TabItem'
 
 # Configuring our build
 
-So far we've been working without a configuration file which is easy but not very flexible. In this guide we'll add a config file to our build so that we have a little more control.
+So far we've been working without a configuration file which is easy but not very flexible. 
+
+In this guide we'll add a **bud.config.js** file to our build so that we have a little more control.
 
 ## Create bud.config.js
 
-Create a file named **bud.config.js** file in the project root. This file exports a single function that will tell **bud** to serve our js using bud's built-in html template.
+Create a file titled **bud.config.js** file in the project root. 
+
+This file exports a single function that will tell **bud** to generate an html file for our application.
 
 ```js title='bud.config.js'
 module.exports = bud => bud.template()
 ```
 
-With our config file in place, start the development server.
+## Rerun the build
 
-```shell
-yarn bud dev
+With the **bud.config.js** in place re-run the build using **bud build**.
+
+You should again see your built assets in **dist** as well as a new **index.html** file.
+
+```shell {3} title='$ tree -I node_modules'
+  ├── package.json
+  ├── dist
+  │   ├── index.html
+  │   ├── main.js
+  │   ├── main.css
+  │   └── manifest.json
+  └── src
+      ├── index.js
+      └── index.css
 ```
-
-Your site is now available to view in browser at [localhost:3000](http://localhost:3000).
-
-Open **src/index.js** and make some edits: the site **reloads automatically** and displays your changes.

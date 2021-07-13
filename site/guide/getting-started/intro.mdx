@@ -5,6 +5,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import Installation from '../installation.mdx'
 
 # Getting started
 
@@ -25,7 +26,7 @@ To follow along, recreate the following project in an empty directory:
 
   <TabItem value="structure">
 
-  ```shell
+  ```shell title='$ tree -I node_modules'
   ├── package.json
   └── src
       ├── index.js
@@ -45,6 +46,8 @@ To follow along, recreate the following project in an empty directory:
   <TabItem value="src/index.js">
 
   ```js title='src/index.js'
+  import './index.css'
+
   console.log('hello world!')
   ```
 
@@ -63,37 +66,15 @@ To follow along, recreate the following project in an empty directory:
   </TabItem>
 </Tabs>
 
-## Install bud
+## Installing bud
 
-Start by installing **@roots/bud** and **@roots/bud-cli**.
+<Installation />
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
+## Using the CLI
 
-    yarn add @roots/bud @roots/bud-cli
+The **bud** command is your primary means of initiating builds and carrying out other tasks.
 
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud @roots/bud-cli --save-dev
-
-  </TabItem>
-</Tabs>
-
-**@roots/bud** is the build tool itself. **@roots/bud-cli** provides us a CLI interface for running builds and managing our project.
-
-## Building the app
-
-:::success
-
-Nope, you didn't miss a step. No configuration is needed as long as there is an entrypoint defined at **src/index.js**.
-
-:::
+For a better sense of what all is possible, try invoking **bud** with the `--help` flag:
 
 <Tabs
   defaultValue="yarn"
@@ -103,53 +84,12 @@ Nope, you didn't miss a step. No configuration is needed as long as there is an 
   ]}>
   <TabItem value="yarn">
 
-    yarn bud build
+    yarn bud --help
 
   </TabItem>
   <TabItem value="npm">
 
-    npm run bud build
+    npm run bud --help
 
   </TabItem>
 </Tabs>
-
-You should see your built file in **dist/main.js** (along with a file called **manifest.json**).
-
-```shell {2-4}
-  ├── package.json
-  ├── dist
-  │   ├── main.js
-  │   └── manifest.json
-  └── src
-      ├── index.js
-      └── index.css
-```
-
-## Adding css
-
-Looks like our css is missing! Let's add it by importing it into the 'src/index.js' entrypoint. 
-
-We'll review another way to handle this in the next part of the guide. But this will do us nicely for now.
-
-```js {1} title='src/index.js'
-  import './index.css'
-
-  console.log('hello world!')
-```
-
-Rerun the build with **bud build**. You should see the compiled css appear in **dist**:
-
-```shell {4}
-  ├── package.json
-  ├── dist
-  │   ├── main.js
-  │   ├── main.css
-  │   └── manifest.json
-  └── src
-      ├── index.js
-      └── index.css
-```
-
-## Next steps
-
-For anything beyond the simplest projects, you'll likely need to provide some form of configuration, which [we'll do in the next step](/guide/getting-started/config).
