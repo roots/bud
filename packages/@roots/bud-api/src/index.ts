@@ -8,7 +8,7 @@ export {
   dev,
   externals,
   hash,
-  lazy,
+  experiments,
   use,
   devtool,
   define,
