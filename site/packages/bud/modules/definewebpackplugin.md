@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-define-plugin/index.ts:8](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/extensions/webpack-define-plugin/index.ts#L8)
+[packages/@roots/bud/src/extensions/webpack-define-plugin/index.ts:8](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/extensions/webpack-define-plugin/index.ts#L8)
 
 ___
 

@@ -72,7 +72,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Hooks/index.ts:8](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/services/Hooks/index.ts#L8)
+[packages/@roots/bud/src/services/Hooks/index.ts:8](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Hooks/index.ts#L8)
 
 ___
 
@@ -1640,7 +1640,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Hooks/index.ts:11](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/services/Hooks/index.ts#L11)
+[packages/@roots/bud/src/services/Hooks/index.ts:11](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Hooks/index.ts#L11)
 
 ___
 

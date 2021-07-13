@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:240](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud-framework/src/Hooks/index.ts#L240)
+[packages/@roots/bud-framework/src/Hooks/index.ts:240](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud-framework/src/Hooks/index.ts#L240)
 
 ## Methods
 
@@ -53,7 +53,7 @@ Iterator
 
 #### Inherited from
 
-Rules.\_\_@iterator@5836
+Rules.\_\_@iterator@5837
 
 #### Defined in
 
@@ -84,7 +84,7 @@ when they will be absent when used in a 'with' statement.
 
 #### Inherited from
 
-Rules.\_\_@unscopables@5875
+Rules.\_\_@unscopables@5876
 
 #### Defined in
 

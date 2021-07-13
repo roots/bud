@@ -2,7 +2,7 @@ import type {PostCss} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
-class Config implements PostCss {
+export class Config implements PostCss {
   public plugins: PostCss.Registry = {}
 
   @bind
@@ -62,5 +62,3 @@ class Config implements PostCss {
     return this
   }
 }
-
-export {Config}

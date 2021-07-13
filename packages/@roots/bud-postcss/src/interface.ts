@@ -49,9 +49,12 @@ declare module '@roots/bud-framework' {
     /**
      * Set plugins
      */
-    setPlugins(plugins: {
-      [key: string]: PostCss.Plugin | PostCss.NormalizedPlugin
-    }): this
+    setPlugins(
+      this: PostCss,
+      plugins: {
+        [key: string]: PostCss.Plugin | PostCss.NormalizedPlugin
+      },
+    ): this
 
     /**
      * Set plugin options

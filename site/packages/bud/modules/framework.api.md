@@ -117,6 +117,31 @@ packages/@roots/bud-api/types/methods/dev/index.d.ts:21
 
 ___
 
+### Experiments
+
+Ƭ **Experiments**: (`this`: [`Framework`](../classes/framework.md), `settings`: `Webpack.Configuration`[``"experiments"``]) => [`Framework`](../classes/framework.md)
+
+#### Type declaration
+
+▸ (`this`, `settings`): [`Framework`](../classes/framework.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+| `settings` | `Webpack.Configuration`[``"experiments"``] |
+
+##### Returns
+
+[`Framework`](../classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/experiments/index.d.ts:21
+
+___
+
 ### Input
 
 Ƭ **Input**: `Module` \| `Module`[]

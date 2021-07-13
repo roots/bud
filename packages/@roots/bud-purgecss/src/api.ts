@@ -1,9 +1,13 @@
-import {PurgeCss} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import Purge from '@fullhuman/postcss-purgecss'
 
-export const purge: PurgeCss.Config = function configuration(
+export const purge: Framework.Api.Purge = function configuration(
   userOptions,
 ) {
-  this.postcss.set(['@fullhuman/postcss-purgecss', userOptions])
+  this.postcss.setPlugin('@fullhuman/postcss-purgecss', [
+    Purge,
+    userOptions,
+  ])
 
   return this
 }

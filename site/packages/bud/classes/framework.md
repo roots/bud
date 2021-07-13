@@ -115,7 +115,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 
@@ -399,6 +399,28 @@ packages/@roots/bud-framework/types/Framework/index.d.ts:90
 
 ___
 
+### experiments
+
+• **experiments**: [`Experiments`](../modules/framework.api.md#experiments)
+
+## experiments
+
+Configure experimental webpack options.
+
+### Usage
+
+```js
+bud.experiments({
+ lazyCompilation: true,
+})
+```
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/experiments/index.d.ts:18
+
+___
+
 ### extensions
 
 • **extensions**: `Extensions`
@@ -501,32 +523,6 @@ Returns true if current compiler is a child compiler
 #### Defined in
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:48
-
-___
-
-### lazy
-
-• **lazy**: `Lazy`
-
-## lazy
-
-Enable experimental lazy compilation. Disabled by default.
-
-### Usage
-
-```js
-bud.lazy()
-```
-
-Disable:
-
-```js
-bud.lazy(false)
-```
-
-#### Defined in
-
-packages/@roots/bud-api/types/methods/lazy/index.d.ts:21
 
 ___
 

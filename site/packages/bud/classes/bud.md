@@ -93,7 +93,7 @@ app.alias({
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:44](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L44)
+[packages/@roots/bud/src/Bud.ts:44](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L44)
 
 ___
 
@@ -111,7 +111,7 @@ Service providing config api methods
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:22](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L22)
+[packages/@roots/bud/src/Bud.ts:22](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L22)
 
 ___
 
@@ -139,7 +139,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
+[packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts:22](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/extensions/copy-webpack-plugin/index.ts#L22)
 
 ___
 
@@ -157,7 +157,7 @@ Service handling config compilation
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:24](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L24)
+[packages/@roots/bud/src/Bud.ts:24](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L24)
 
 ___
 
@@ -175,7 +175,7 @@ Service handling compiler cache
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:26](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L26)
+[packages/@roots/bud/src/Bud.ts:26](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L26)
 
 ___
 
@@ -211,7 +211,7 @@ Service handling build compilation
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:28](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L28)
+[packages/@roots/bud/src/Bud.ts:28](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L28)
 
 ___
 
@@ -313,7 +313,7 @@ Dependencies service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:30](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L30)
+[packages/@roots/bud/src/Bud.ts:30](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L30)
 
 ___
 
@@ -381,7 +381,7 @@ Discovery service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:32](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L32)
+[packages/@roots/bud/src/Bud.ts:32](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L32)
 
 ___
 
@@ -471,7 +471,33 @@ Envvar service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:34](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L34)
+[packages/@roots/bud/src/Bud.ts:34](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L34)
+
+___
+
+### experiments
+
+• **experiments**: [`Experiments`](../modules/framework.api.md#experiments)
+
+## experiments
+
+Configure experimental webpack options.
+
+### Usage
+
+```js
+bud.experiments({
+ lazyCompilation: true,
+})
+```
+
+#### Inherited from
+
+[Framework](framework.md).[experiments](framework.md#experiments)
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/experiments/index.d.ts:18
 
 ___
 
@@ -487,7 +513,7 @@ Extensions service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:36](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L36)
+[packages/@roots/bud/src/Bud.ts:36](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L36)
 
 ___
 
@@ -554,7 +580,7 @@ Hooks service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:38](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L38)
+[packages/@roots/bud/src/Bud.ts:38](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L38)
 
 ___
 
@@ -582,7 +608,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:15](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L15)
+[packages/@roots/bud/src/Bud.ts:15](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L15)
 
 ___
 
@@ -604,36 +630,6 @@ packages/@roots/bud-framework/types/Framework/index.d.ts:48
 
 ___
 
-### lazy
-
-• **lazy**: `Lazy`
-
-## lazy
-
-Enable experimental lazy compilation. Disabled by default.
-
-### Usage
-
-```js
-bud.lazy()
-```
-
-Disable:
-
-```js
-bud.lazy(false)
-```
-
-#### Inherited from
-
-[Framework](framework.md).[lazy](framework.md#lazy)
-
-#### Defined in
-
-packages/@roots/bud-api/types/methods/lazy/index.d.ts:21
-
-___
-
 ### logger
 
 • **logger**: [`Logger`](logger.md)
@@ -646,7 +642,7 @@ Logger service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:40](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L40)
+[packages/@roots/bud/src/Bud.ts:40](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L40)
 
 ___
 
@@ -933,7 +929,7 @@ Dev server service
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud.ts:42](https://github.com/roots/bud/blob/e6633219/packages/@roots/bud/src/Bud.ts#L42)
+[packages/@roots/bud/src/Bud.ts:42](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/Bud.ts#L42)
 
 ___
 
