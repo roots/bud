@@ -2,26 +2,53 @@
 
 Enables and/or configures boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically.
 
+## Signature
+
+```ts title='template.d.ts'
+type Template = (
+  this: Framework,
+  options?: {
+    enabled?: boolean
+    template?: string
+    replace?: {
+      [key: string]: string
+    },
+  }
+) => Framework
+```
+
 ## Usage
 
-Passed with no arguments the default HTML template will be used and all variables will be sourced from `.env`.
+This method requires no properties. By default it will source an html template for you.
 
-```js
+```js title='bud.config.js'
 bud.template()
 ```
 
-## Customizing
+You will likely want to define the following variables in a `.env` file if you're using it this way:
 
-- Specify our html template using `template`.
-- Add additional variables using `replacements`.
+- APP_NAME
+- APP_DESCRIPTION
+- PUBLIC_URL
 
-You can use any of these variables in the template by surrounding the variable name with `%` characters. Example: `%VARIABLE_NAME%`.
+## Explicitly enabling or disabling
 
-```js
-const {name, description} = bud.disk.fs.readJson('package.json')
+You may use `enabled` to explicitly disable or enable the html generation.
+
+```js title='bud.config.js'
+bud.template({enabled: false})
+```
+
+Useful in the event that an overeager extension is adding a template you do not have use for.
+
+## Defining template variables
+
+Add template variables using `replace`.
+
+```js {3-7} title='bud.config.js'
 bud.template({
-  template: bud.project('public/index.html'),
-  replacements: {
+  template: bud.path('project', 'public', 'index.html'),
+  replace: {
     APP_NAME: name,
     APP_DESCRIPTION: description,
     PUBLIC_URL: '/app/theme',
@@ -29,11 +56,19 @@ bud.template({
 })
 ```
 
-## Sourcing from .env
+You may use any of these variables in the template by surrounding the variable name with `%` characters.
 
-In addition to the variables specified in `replacements` any `.env` variables are also made available to the html -- you don't need to specify anything.
+```html {2} title='public/index.html'
+<html>
+  <title>%APP_NAME%</title>
+</html>
+```
 
-## Reference: the default HTML boilerplate
+You may use [**bud.define**](/docs/bud.define) should you need to access defined variables from your application code as well.
+
+Lastly, any variables defined in an `.env` file are also made available to the template automatically.
+
+## Default template reference
 
 ```html
 <!DOCTYPE html>

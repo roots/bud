@@ -1,26 +1,35 @@
 # bud.define
 
-Define variables during configuration which will be made available to bundled code.
+[**bud.define**](/docs/bud.define) is used to make values defined in your config available throughout your application.
+
+## Signature
+
+```ts title='bud.define.d.ts'
+type Define = (
+  this: Framework
+  values: Webpack.DefinePlugin["definitions"]
+) => Framework
+```
 
 ## Usage
 
-Define a value:
+In your config file, call **bud.define** and pass your definitions.
 
-```ts
+```js title='bud.config.js'
 bud.define({
   APP_NAME: 'My Application',
 })
 ```
 
-Use them in application code:
+Once defined, you can use them in your application.
 
-```ts
+```ts title='src/app.js'
 const {APP_NAME} = window
 ```
 
-Use them in [an html template](/docs/bud.template):
+They will also be made available to [any html templates](/docs/bud.template).
 
-```html
+```html title='public/index.html'
 <html>
   <title>%APP_NAME%</title>
   <!-- ... -->

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
 :root {
   --ifm-color-primary: rgb(86, 98, 218);
   --ifm-color-primary-dark: rgb(86, 98, 218);
@@ -7,7 +9,10 @@
   --ifm-color-primary-lighter: rgb(140, 146, 220);
   --ifm-color-primary-lightest: rgb(206, 209, 247);
   --ifm-code-font-size: 95%;
+
   --ifm-footer-background-color: rgb(40, 49, 142);
+
+  --ifm-font-family-base: 'Work Sans';
 }
 
 .menu__link--active:not(.menu__link--sublist) {

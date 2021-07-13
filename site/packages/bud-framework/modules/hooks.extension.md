@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:336](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud-framework/src/Hooks/index.ts#L336)
+[packages/@roots/bud-framework/src/Hooks/index.ts:336](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Hooks/index.ts#L336)
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:339](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud-framework/src/Hooks/index.ts#L339)
+[packages/@roots/bud-framework/src/Hooks/index.ts:339](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Hooks/index.ts#L339)
 
 ___
 
@@ -35,4 +35,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:337](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud-framework/src/Hooks/index.ts#L337)
+[packages/@roots/bud-framework/src/Hooks/index.ts:337](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud-framework/src/Hooks/index.ts#L337)

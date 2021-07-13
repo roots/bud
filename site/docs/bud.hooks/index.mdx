@@ -11,21 +11,19 @@ Bud provides a system of 'hooks' to expose values for modification.
 
 Hooks are defined as functions. Hook functions are registered with `bud.hooks.on`
 
-`bud.hooks.on` takes two parameters:
-
-- The `name` of the hook.
-- A function to filter the associated value through.
-
-### Usage
-
-Add a new entry to the `webpack.externals` configuration:
-
-```js
+```js title='bud.config.js'
 bud.hooks.on('build/externals', externals => ({
   ...externals,
   $: 'jquery',
 })
 ```
+
+`bud.hooks.on` takes two parameters:
+
+- The `name` of the hook.
+- A function to filter the associated value through.
+
+For a close look at this interface see [the API documentation for **hooks.on**](/packages/bud-framework/interfaces/hooks#hookson).
 
 ## bud.hooks.filter
 
@@ -35,6 +33,8 @@ Filters are registered with `bud.hooks.filter`.
 
 - The `name` of the `filter` to hook onto.
 - The `value` which is being filtered
+
+For a close look at this interface see [the API documentation for **hooks.filter**](/packages/bud-framework/interfaces/hooks#hooksfilter)
 
 ### Usage
 

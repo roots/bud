@@ -37,7 +37,7 @@ Container.constructor
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:32](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L32)
+[packages/@roots/bud/src/services/Logger/index.ts:32](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L32)
 
 ## Properties
 
@@ -55,7 +55,7 @@ Container.constructor
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:18](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L18)
+[packages/@roots/bud/src/services/Logger/index.ts:18](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L18)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:20](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L20)
+[packages/@roots/bud/src/services/Logger/index.ts:20](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L20)
 
 ___
 
@@ -99,7 +99,7 @@ Contract.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:16](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L16)
+[packages/@roots/bud/src/services/Logger/index.ts:16](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L16)
 
 ___
 
@@ -133,7 +133,7 @@ packages/@roots/container/types/Container/index.d.ts:19
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:30](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L30)
+[packages/@roots/bud/src/services/Logger/index.ts:30](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L30)
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:22](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L22)
+[packages/@roots/bud/src/services/Logger/index.ts:22](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L22)
 
 • `set` **instance**(`instance`): `void`
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:26](https://github.com/roots/bud/blob/ed066101/packages/@roots/bud/src/services/Logger/index.ts#L26)
+[packages/@roots/bud/src/services/Logger/index.ts:26](https://github.com/roots/bud/blob/d7cd28f6/packages/@roots/bud/src/services/Logger/index.ts#L26)
 
 ## Methods
 

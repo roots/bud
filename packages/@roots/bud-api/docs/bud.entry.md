@@ -8,19 +8,19 @@ This function allows you to modify this behavior.
 
 The simplest usage is just a name for the entrypoint and the asset to compile
 
-```js
+```js title='bud.config.js'
 bud.entry('app', 'app.js')
 ```
 
 It is also possible to pass an array of assets. Assets do not have to be the same filetype to be grouped together as a single entrypoint.
 
-```js
+```js title='bud.config.js'
 bud.entry('app', ['app.js', 'app.css'])
 ```
 
 You may specify multiple entrypoints in one call using object syntax
 
-```js
+```js title='bud.config.js'
 bud.entry({
   app: ['app.js', 'app.css'],
   admin: ['admin.js', 'admin.css'],
@@ -33,7 +33,7 @@ Bud supports the new Webpack 5 `dependOn` syntax for explicitly defining entrypo
 
 Example react application:
 
-```ts
+```ts title='bud.config.js'
 bud.entry({
   react: ['react', 'react-dom'],
   app: {
@@ -43,11 +43,11 @@ bud.entry({
 })
 ```
 
-## Hooks
+## Specifying entrypoints with hooks
 
-You may also specify entrypoints using the `build/entry` hook.
+You may also specify entrypoints using the `build/entry` [hook](/docs/bud.hooks/index).
 
-```js
+```js title='bud.config.js'
 bud.hooks.on('build/entry', {
   app: ['app.js', 'app.css'],
   admin: ['admin.js', 'admin.css'],
@@ -56,7 +56,7 @@ bud.hooks.on('build/entry', {
 
 This will completely override whatever is defined. If you want to augment the existing definition you can do so with spread syntax.
 
-```js
+```js title='bud.config.js'
 bud.hooks.on('build/entry', entrypoints => ({
   ...entrypoints,
   app: ['app.js', 'app.css'],

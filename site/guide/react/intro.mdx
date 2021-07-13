@@ -69,38 +69,3 @@ const react = require('@roots/bud-react')
 module.exports = app => 
   app.use([babel, react])
 ```
-
-## Adding support for emotion
-
-To utilize emotion you will also require **@roots/bud-emotion**.
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-emotion --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-emotion --save-dev
-
-  </TabItem>
-</Tabs>
-
-Remember to run [**bud init**](/guide/cli/index) after installation. 
-
-Next, add it to your config _after_ [**@roots/bud-babel**](/extensions/bud-babel) and [**@roots/bud-react**](/extensions/bud-react).
-
-```js {3,6} title='bud.config.js'
-const babel = require('@roots/bud-babel')
-const react = require('@roots/bud-react')
-const emotion = require('@roots/bud-emotion')
-
-module.exports = app => 
-  app.use([babel, react, emotion])
-```
