@@ -64,7 +64,7 @@
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
-    "webpack": "^5.43.0"
+    "webpack": "^5.44.0"
   },
   "stableVersion": "4.6.0"
 }
