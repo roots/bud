@@ -19,7 +19,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:186](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L186)
+[packages/@roots/bud-framework/src/Hooks/index.ts:186](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L186)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:225](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L225)
+[packages/@roots/bud-framework/src/Hooks/index.ts:225](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L225)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:220](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L220)
+[packages/@roots/bud-framework/src/Hooks/index.ts:220](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L220)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:215](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L215)
+[packages/@roots/bud-framework/src/Hooks/index.ts:215](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L215)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:207](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L207)
+[packages/@roots/bud-framework/src/Hooks/index.ts:207](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L207)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:211](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L211)
+[packages/@roots/bud-framework/src/Hooks/index.ts:211](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L211)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:187](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L187)
+[packages/@roots/bud-framework/src/Hooks/index.ts:187](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L187)
 
 ___
 
@@ -95,4 +95,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:188](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L188)
+[packages/@roots/bud-framework/src/Hooks/index.ts:188](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L188)

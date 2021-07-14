@@ -367,7 +367,7 @@ Optimization.splitChunks
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:246](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Hooks/index.ts#L246)
+[packages/@roots/bud-framework/src/Hooks/index.ts:246](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Hooks/index.ts#L246)
 
 ___
 

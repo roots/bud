@@ -15,4 +15,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler/index.ts:69](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Compiler/index.ts#L69)
+[packages/@roots/bud-framework/src/Compiler/index.ts:69](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Compiler/index.ts#L69)

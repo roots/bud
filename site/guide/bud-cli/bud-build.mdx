@@ -20,33 +20,33 @@ import BuildTargetThemePlugin from '!!raw-loader!./../../src/components/cli-outp
 
 ## bud build
 
-<CodeBlock title='$ yarn bud build'>{Build.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build'>{Build}</CodeBlock>
 
 ## bud build --cache
 
 The `--cache` flag is recommended for outstanding performance. Compare the `compiled in` output to the uncached build (above).
 
-<CodeBlock title='$ yarn bud build --cache' highlight={6}>{BuildCache.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build --cache' highlight={6}>{BuildCache}</CodeBlock>
 
 ## bud build --target
 
 In multi-compiler configurations, many compilers are run in a batch.
 
-<CodeBlock title='$ yarn bud build'>{BuildMulti.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build'>{BuildMulti}</CodeBlock>
 
 The `--target` flag will only compile a specified compiler.
 
-<CodeBlock title='$ yarn bud build --target theme'>{BuildTargetTheme.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build --target theme'>{BuildTargetTheme}</CodeBlock>
 
 It can be passed more than once.
 
-<CodeBlock title='$ yarn bud build --target theme --target plugin'>{BuildTargetThemePlugin.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build --target theme --target plugin'>{BuildTargetThemePlugin}</CodeBlock>
 
 ## bud build --hash
 
 The `--hash` flag will enable filename hashing for the build.
 
-<CodeBlock title='$ yarn bud build --hash'>{BuildHash.split('\n').splice(1).join('\n')}</CodeBlock>
+<CodeBlock title='$ yarn bud build --hash'>{BuildHash}</CodeBlock>
 
 ## bud build --ci
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, Text, Instance} from 'ink'
+import {render, Text, Instance, Box} from 'ink'
 import {isString} from 'lodash'
 
 import {boundMethod as bind} from 'autobind-decorator'
@@ -9,22 +9,11 @@ import {Dashboard as DashboardComponent} from './Dashboard'
 import {Error} from '../components/Error'
 import {Write} from '../components/Write'
 import {Screen} from '../components/Screen'
-import {Mark} from '../components/Mark'
 
 export class Dashboard extends Base {
   public name = 'dashboard'
 
   public instance: Instance
-
-  public _data: string[] = []
-
-  public get data(): string[] {
-    return this._data
-  }
-
-  public set data(data: string[]) {
-    this._data = [...this._data, ...data]
-  }
 
   @bind
   public register(): void {
@@ -38,12 +27,12 @@ export class Dashboard extends Base {
   public run(): void {
     if (this.app.store.isTrue('ci')) {
       console.log('ci mode')
+
       return
     }
 
     this.instance = render(
-      <Screen>
-        <Mark text={this.app.name} />
+      <Screen app={this.app}>
         <DashboardComponent bud={this.app} />
       </Screen>,
     )
@@ -52,27 +41,29 @@ export class Dashboard extends Base {
   @bind
   public renderError(body: string, title: string): Instance {
     return render(
-      <Screen>
-        <Mark text={this.app.name} />
+      <Screen app={this.app}>
         <Error body={body} title={title} />
       </Screen>,
     )
   }
 
   @bind
-  public render(Component: any): Instance {
+  public render(Component: any, title: string): Instance {
     const Output = () =>
       isString(Component) ? (
         <Text>{Component}</Text>
       ) : Array.isArray(Component) ? (
-        Component.map((c, id) => <Text key={id}>{c}</Text>)
+        <Box flexDirection="column">
+          {Component.map((c, id) => (
+            <Text key={id}>{c}</Text>
+          ))}
+        </Box>
       ) : (
         Component
       )
 
     return render(
-      <Screen>
-        <Mark text={this.app.name} />
+      <Screen app={this.app} title={title ?? null}>
         <Output />
       </Screen>,
     )

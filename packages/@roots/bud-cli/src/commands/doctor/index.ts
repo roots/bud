@@ -2,7 +2,6 @@ import {flags} from '@oclif/command'
 import Command from '../../Command'
 import {Framework, config} from '@roots/bud'
 import Runner from '../../Runner'
-import format from 'pretty-format'
 
 export default class Doctor extends Command {
   public static description = 'Help diagnose issues with Bud'
@@ -55,18 +54,33 @@ export default class Doctor extends Command {
 
     const runner = new Runner(this.cli, {
       config,
-      mode: this.mode,
+      mode: 'production',
     })
     this.app = await runner.make()
 
-    this.app.logger.instance
-      .scope('cli')
-      .timeEnd('pre compilation')
+    if (this.app.discovery.has('required')) {
+      const missingPeers = this.app.discovery
+        .getValues('required')
+        .filter(
+          dep => !this.app.discovery.hasPeerDependency(dep.name),
+        )
+
+      if (missingPeers.length > 0) {
+        this.app.dashboard.render(
+          [
+            'Missing dependencies:\n',
+            ...missingPeers?.map(peer => `❌ ${peer.name}`),
+          ],
+          'bud doctor',
+        )
+
+        process.exit()
+      }
+    }
 
     this.app.dashboard.render(
-      format(this.app.build.config, {
-        indent: 2,
-      }),
+      ['All checks are O.K.'],
+      'bud doctor',
     )
 
     process.exit()

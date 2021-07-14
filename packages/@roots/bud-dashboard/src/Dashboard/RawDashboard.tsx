@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useRef} from 'react'
 import {Box, Newline, Text, useInput, Static} from 'ink'
-import {isEqual, noop} from 'lodash'
+import {isEqual} from 'lodash'
 import {durationFormatter, sizeFormatter} from 'human-readable'
 import patchConsole from 'patch-console'
 
@@ -41,7 +41,8 @@ const RawDashboard = ({bud}: {bud: Framework}) => {
     errors: [],
   })
 
-  patchConsole(noop)
+  const [stdout, _setStdout] = useState<string[]>([])
+  patchConsole(() => null)
 
   setInterval(() => {
     setStats(instance.current.compiler.stats)
@@ -59,12 +60,12 @@ const RawDashboard = ({bud}: {bud: Framework}) => {
   })
 
   return (
-    <Box flexDirection="column" marginTop={1}>
-      <Static flexDirection="column" items={stats?.errors}>
-        {(err, k) =>
-          err.message ? (
-            <Text key={`err-${k}`}>
-              {err.message ?? err ?? ''}
+    <Box flexDirection="column">
+      <Static flexDirection="column" items={stdout}>
+        {(stdout, k) =>
+          stdout ? (
+            <Text key={`stdout-${k}`}>
+              {stdout ?? ''}
               <Newline />
             </Text>
           ) : (
@@ -143,7 +144,7 @@ const RawDashboard = ({bud}: {bud: Framework}) => {
         />
       ) : (
         instance.current.mode == 'development' && (
-          <Box marginBottom={1}>
+          <Box flexDirection="column" marginBottom={1}>
             <Text color={theme?.colors.faded}>
               Press Q to exit
             </Text>

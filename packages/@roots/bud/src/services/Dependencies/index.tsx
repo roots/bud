@@ -74,8 +74,9 @@ export class Dependencies extends Base {
             },
           ])
         } catch (err) {
-          console.error(
+          this.app.dashboard.renderError(
             `Error installing ${dep.name}. Requested by ${dep.source} ${err}`,
+            `bud extensions:install`,
           )
         }
       })

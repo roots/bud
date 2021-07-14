@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: bud cli
 sidebar_label: Introduction
 sidebar_position: 1
 ---
@@ -10,17 +10,16 @@ import CodeBlock from '@theme/CodeBlock'
 import HelpOutput from '!!raw-loader!./../../src/components/cli-output/help.mdx'
 import CommandsOutput from '!!raw-loader!./../../src/components/cli-output/commands.mdx'
 
-<pre title='$ bud help'>{HelpOutput}</pre>
-
 The `bud` command is your primary means of interfacing with the bud framework.
 
-To continue exploring what all is available to you, try invoking `bud help`.
+To explore what all is available to you, try invoking `bud help`. Similarly, you may explore any subcommand with the `--help` flag.
 
-Similarly, you may explore any subcommand with the `--help` flag.
+<CodeBlock title='$ bud help'>{HelpOutput}</CodeBlock>
 
 ## Quick links
 
 - Compile assets: [bud build](/guide/bud-cli/bud-build)
 - Develop assets: [bud dev](/guide/bud-cli/bud-dev)
-- Ensure project requirements are met: [bud init](/guide/bud-cli/bud-init)
+- Check for missing dependencies: [bud doctor](/guide/bud-cli/bud-doctor)
+- Install any missing project dependencies: [bud init](/guide/bud-cli/bud-init)
 - Clean compiled assets and artifacts: [bud clean](/guide/bud-cli/bud-clean)

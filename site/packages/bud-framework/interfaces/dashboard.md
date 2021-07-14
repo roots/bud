@@ -38,7 +38,7 @@ Instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:13](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L13)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:13](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L13)
 
 ___
 
@@ -54,7 +54,7 @@ Service name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:8](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L8)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:8](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L8)
 
 ___
 
@@ -66,7 +66,7 @@ Render
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:28](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L28)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:28](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L28)
 
 ___
 
@@ -150,7 +150,7 @@ access(isAValue)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:51](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L51)
+[packages/@roots/bud-framework/src/Service/index.ts:51](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L51)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:42](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L42)
+[packages/@roots/bud-framework/src/Service/index.ts:42](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L42)
 
 ## Methods
 
@@ -218,7 +218,7 @@ Boot
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:29](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L29)
+[packages/@roots/bud-framework/src/Service/index.ts:29](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L29)
 
 ___
 
@@ -244,7 +244,7 @@ Post boot callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:34](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L34)
+[packages/@roots/bud-framework/src/Service/index.ts:34](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L34)
 
 ___
 
@@ -270,7 +270,7 @@ Bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:9](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L9)
+[packages/@roots/bud-framework/src/Service/index.ts:9](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L9)
 
 ___
 
@@ -296,7 +296,7 @@ Bootstrapped
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:14](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L14)
+[packages/@roots/bud-framework/src/Service/index.ts:14](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L14)
 
 ___
 
@@ -391,7 +391,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:56](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L56)
+[packages/@roots/bud-framework/src/Service/index.ts:56](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L56)
 
 ___
 
@@ -1419,7 +1419,7 @@ Register service
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:18](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L18)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:18](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L18)
 
 ___
 
@@ -1445,7 +1445,7 @@ Post registered callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service/index.ts:24](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Service/index.ts#L24)
+[packages/@roots/bud-framework/src/Service/index.ts:24](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Service/index.ts#L24)
 
 ___
 
@@ -1503,7 +1503,7 @@ Render error
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:33](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L33)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:33](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L33)
 
 ___
 
@@ -1519,7 +1519,7 @@ Mount CLI
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:23](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Dashboard/index.ts#L23)
+[packages/@roots/bud-framework/src/Dashboard/index.ts:23](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Dashboard/index.ts#L23)
 
 ___
 

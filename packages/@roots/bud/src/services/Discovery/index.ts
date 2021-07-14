@@ -189,7 +189,10 @@ export class Discovery extends Base {
             }>('required'),
           ),
         )
-      : console.log('Nothing to install')
+      : this.app.dashboard.render(
+          'Nothing to install',
+          'bud extensions:install',
+        )
   }
 
   @bind

@@ -2,13 +2,12 @@ import Command from '../../Command'
 import {Framework, config} from '@roots/bud'
 import Runner from '../../Runner'
 import Build from '../../Build'
-export default class Install extends Command {
+
+export default class List extends Command {
   public static description =
-    'Install packages required by extensions'
+    'List extensions available to project'
 
-  public static aliases = ['init']
-
-  public static examples = [`$ bud extensions:install`]
+  public static examples = [`$ bud extensions:list`]
 
   public cli: {flags: any; args: any}
 
@@ -23,25 +22,13 @@ export default class Install extends Command {
     })
     this.app = await runner.make()
 
-    this.app.discovery.install()
+    this.app.dashboard.render(
+      this.app.discovery
+        .getValues('peers')
+        .map(peer => `- ${peer.name}`),
 
-    console.log('Peers')
-    console.log('----')
-
-    this.app.discovery.getValues('peers').forEach(item => {
-      console.log(`- ${item.name}`)
-    })
-
-    console.log('')
-
-    console.log('Requires')
-    console.log('----')
-
-    this.app.discovery
-      .getValues('required')
-      .forEach(({name}) => {
-        console.log(`- ${name}`)
-      })
+      'bud extensions:list',
+    )
 
     process.exit()
   }

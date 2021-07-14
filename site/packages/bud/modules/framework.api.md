@@ -202,6 +202,30 @@ packages/@roots/bud-api/types/methods/provide.d.ts:21
 
 ___
 
+### Run
+
+Ƭ **Run**: (`this`: [`Framework`](../classes/framework.md)) => `void`
+
+#### Type declaration
+
+▸ (`this`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `this` | [`Framework`](../classes/framework.md) |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+packages/@roots/bud-api/types/methods/run.d.ts:18
+
+___
+
 ### Runtime
 
 Ƭ **Runtime**: (`this`: [`Framework`](../classes/framework.md), `runtime?`: `Webpack.Configuration`[``"optimization"``][``"runtimeChunk"``]) => [`Framework`](../classes/framework.md)

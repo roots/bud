@@ -34,16 +34,6 @@ packages/@roots/bud-framework/types/Service/index.d.ts:32
 
 ## Properties
 
-### \_data
-
-• **\_data**: `string`[]
-
-#### Defined in
-
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:6
-
-___
-
 ### ident
 
 • **ident**: ``"@roots/container"``
@@ -161,36 +151,6 @@ ___
 #### Defined in
 
 packages/@roots/bud-framework/types/Service/index.d.ts:32
-
-___
-
-### data
-
-• `get` **data**(): `string`[]
-
-#### Returns
-
-`string`[]
-
-#### Defined in
-
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:7
-
-• `set` **data**(`data`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `string`[] |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:8
 
 ## Methods
 
@@ -1443,7 +1403,7 @@ Base.register
 
 #### Defined in
 
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:9
+packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:6
 
 ___
 
@@ -1510,13 +1470,14 @@ ___
 
 ### render
 
-▸ **render**(`Component`): `Instance`
+▸ **render**(`Component`, `title`): `Instance`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `Component` | `any` |
+| `title` | `string` |
 
 #### Returns
 
@@ -1524,7 +1485,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:12
+packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:9
 
 ___
 
@@ -1545,7 +1506,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:11
+packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:8
 
 ___
 
@@ -1559,7 +1520,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:10
+packages/@roots/bud-dashboard/types/Dashboard/index.d.ts:7
 
 ___
 

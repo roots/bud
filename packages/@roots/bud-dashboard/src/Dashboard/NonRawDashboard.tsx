@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useRef} from 'react'
 import {Box, Newline, Text, Static} from 'ink'
-import {noop} from 'lodash'
 import {durationFormatter, sizeFormatter} from 'human-readable'
 import patchConsole from 'patch-console'
 
@@ -41,7 +40,10 @@ const NonRawDashboard = ({bud}: {bud: Framework}) => {
     errors: [],
   })
 
-  patchConsole(noop)
+  const [stdout, setStdout] = useState<string[]>([])
+  patchConsole((stream, data) => {
+    setStdout([...stdout, data])
+  })
 
   setInterval(() => {
     setStats(instance.current.compiler.stats)
@@ -50,6 +52,19 @@ const NonRawDashboard = ({bud}: {bud: Framework}) => {
 
   return (
     <Box flexDirection="column" marginTop={1}>
+      <Static flexDirection="column" items={stdout}>
+        {(stdout, k) =>
+          stdout ? (
+            <Text key={`stdout-${k}`}>
+              {stdout ?? ''}
+              <Newline />
+            </Text>
+          ) : (
+            []
+          )
+        }
+      </Static>
+
       <Static flexDirection="column" items={stats?.errors}>
         {(err, k) =>
           err.message ? (
