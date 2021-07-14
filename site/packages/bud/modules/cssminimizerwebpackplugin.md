@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/css-minimizer-webpack-plugin/index.ts:6](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/extensions/css-minimizer-webpack-plugin/index.ts#L6)
+[packages/@roots/bud/src/extensions/css-minimizer-webpack-plugin/index.ts:6](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/extensions/css-minimizer-webpack-plugin/index.ts#L6)
 
 ___
 

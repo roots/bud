@@ -1,4 +1,4 @@
-import type {Api} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -13,15 +13,15 @@ declare module '@roots/bud-framework' {
      * bud.run()
      * ```
      */
-    run: Api.Run
+    run: Framework.Api.Run
   }
 
-  namespace Api {
+  namespace Framework.Api {
     type Run = (this: Framework) => void
   }
 }
 
-export const run: Api.Run = function (): void {
+export const run: Framework.Api.Run = function (): void {
   const isDev =
     this.isDevelopment &&
     this.server?.run &&

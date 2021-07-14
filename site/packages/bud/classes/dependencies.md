@@ -60,7 +60,7 @@ Base.manager
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/Base.ts:7](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/Base.ts#L7)
+[packages/@roots/bud/src/services/Dependencies/Base.ts:7](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/Base.ts#L7)
 
 ___
 
@@ -74,7 +74,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/Base.ts:5](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/Base.ts#L5)
+[packages/@roots/bud/src/services/Dependencies/Base.ts:5](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/Base.ts#L5)
 
 ___
 
@@ -748,7 +748,7 @@ Base.install
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:49](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/index.tsx#L49)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:49](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/index.tsx#L49)
 
 ___
 
@@ -1437,7 +1437,7 @@ Base.notify
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:85](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/index.tsx#L85)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:85](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/index.tsx#L85)
 
 ___
 
@@ -1455,7 +1455,7 @@ Base.pkg
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:11](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/index.tsx#L11)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:11](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/index.tsx#L11)
 
 ___
 
@@ -1473,7 +1473,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:16](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/index.tsx#L16)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:16](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/index.tsx#L16)
 
 ___
 
@@ -1630,7 +1630,7 @@ Base.shouldInstall
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:23](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud/src/services/Dependencies/index.tsx#L23)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:23](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud/src/services/Dependencies/index.tsx#L23)
 
 ___
 

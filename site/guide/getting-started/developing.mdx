@@ -1,0 +1,47 @@
+---
+sidebar_label: Running in dev
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+# Developing
+
+You can run the build in development mode for hot module reloading.
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud dev
+
+  </TabItem>
+</Tabs>
+
+You should see receipt of what was built in your terminal
+
+```shell {3} title='$ bud build'
+bud
+
+- main.js         minimized          56 bytes
+- main.css        minimized          51 bytes
+
+Compiled in 486ms
+```
+
+Try making a change in **src/index.js**. You should see your terminal update with the most recent changes after you save.
+
+## Next steps
+
+For anything beyond the simplest projects, you'll likely need to provide some configuration, which [we'll do in the next step](/guide/getting-started/config).

@@ -42,8 +42,6 @@ export class Config {
       })
     }
 
-    console.log(config)
-
     Object.entries(config)
       .filter(([key]) => key !== 'extensions')
       .forEach(([key, value]) => {

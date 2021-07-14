@@ -1,0 +1,55 @@
+---
+title: bud build
+sidebar_label: bud build
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import BuildHelp from '!!raw-loader!./../../src/components/cli-output/build--help.mdx'
+import Build from '!!raw-loader!./../../src/components/cli-output/build.mdx'
+import BuildCI from '!!raw-loader!./../../src/components/cli-output/build--ci.mdx'
+import BuildCache from '!!raw-loader!./../../src/components/cli-output/build--cache.mdx'
+import BuildHash from '!!raw-loader!./../../src/components/cli-output/build--hash.mdx'
+import BuildMulti from '!!raw-loader!./../../src/components/cli-output/build-multi.mdx'
+import BuildTargetTheme from '!!raw-loader!./../../src/components/cli-output/build--target-theme.mdx'
+import BuildTargetThemePlugin from '!!raw-loader!./../../src/components/cli-output/build--target-theme-plugin.mdx'
+
+<CodeBlock title='$ yarn bud build --help'>{BuildHelp}</CodeBlock>
+
+## bud build
+
+<CodeBlock title='$ yarn bud build'>{Build.split('\n').splice(1).join('\n')}</CodeBlock>
+
+## bud build --cache
+
+The `--cache` flag is recommended for outstanding performance. Compare the `compiled in` output to the uncached build (above).
+
+<CodeBlock title='$ yarn bud build --cache' highlight={6}>{BuildCache.split('\n').splice(1).join('\n')}</CodeBlock>
+
+## bud build --target
+
+In multi-compiler configurations, many compilers are run in a batch.
+
+<CodeBlock title='$ yarn bud build'>{BuildMulti.split('\n').splice(1).join('\n')}</CodeBlock>
+
+The `--target` flag will only compile a specified compiler.
+
+<CodeBlock title='$ yarn bud build --target theme'>{BuildTargetTheme.split('\n').splice(1).join('\n')}</CodeBlock>
+
+It can be passed more than once.
+
+<CodeBlock title='$ yarn bud build --target theme --target plugin'>{BuildTargetThemePlugin.split('\n').splice(1).join('\n')}</CodeBlock>
+
+## bud build --hash
+
+The `--hash` flag will enable filename hashing for the build.
+
+<CodeBlock title='$ yarn bud build --hash'>{BuildHash.split('\n').splice(1).join('\n')}</CodeBlock>
+
+## bud build --ci
+
+The `--ci` flag uses webpack's default cli output (for interoperability).
+
+<CodeBlock title='$ yarn bud build --ci'>{BuildCI}</CodeBlock>

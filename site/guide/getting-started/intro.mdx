@@ -1,13 +1,14 @@
 ---
+title: Getting Started
 sidebar_label: First steps
 sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
 import Installation from '../installation.mdx'
-
-# Getting started
+import Help from '!!raw-loader!./../../src/components/cli-output/help.mdx'
 
 We'll start with a basic configuration for a down-to-basics project with bud. **We should be done in about 5 minutes**.
 
@@ -38,7 +39,12 @@ To follow along, recreate the following project in an empty directory:
 
   ```json title='package.json'
   {
-    "name": "demo-project"
+      "name": "getting-started",
+      "private": true,
+      "devDependencies": {
+          "@roots/bud": "workspace:*",
+          "@roots/bud-cli": "workspace:*"
+      }
   }
   ```
 
@@ -59,8 +65,8 @@ To follow along, recreate the following project in an empty directory:
     margin: 0;
     padding: 0;
     background: black;
-    text-color: white;
-  }  
+    color: white;
+  }
   ```
 
   </TabItem>
@@ -76,20 +82,4 @@ The **bud** command is your primary means of initiating builds and carrying out 
 
 For a better sense of what all is possible, try invoking **bud** with the `--help` flag:
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud --help
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud --help
-
-  </TabItem>
-</Tabs>
+<CodeBlock title='$ yarn bud --help'>{Help}</CodeBlock>

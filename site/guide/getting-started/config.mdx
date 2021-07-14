@@ -1,12 +1,12 @@
 ---
 sidebar_label: Creating a config
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Configuring our build
+# Configuring
 
 So far we've been working without a configuration file which is easy but not very flexible. 
 
@@ -26,16 +26,14 @@ module.exports = bud => bud.template()
 
 With the **bud.config.js** in place re-run the build using **bud build**.
 
-You should again see your built assets in **dist** as well as a new **index.html** file.
+You'll see the **index.html** file is being generated.
 
-```shell {3} title='$ tree -I node_modules'
-  ├── package.json
-  ├── dist
-  │   ├── index.html
-  │   ├── main.js
-  │   ├── main.css
-  │   └── manifest.json
-  └── src
-      ├── index.js
-      └── index.css
+```shell {3} title='$ bud build'
+bud
+
+- index.html                         467 bytes
+- main.js         minimized          56 bytes
+- main.css        minimized          51 bytes
+
+Compiled in 604ms
 ```

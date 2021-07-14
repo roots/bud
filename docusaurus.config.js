@@ -1,18 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 
-const globby = require('globby')
-const {copyFileSync} = require('fs-extra')
+const dracula = require('prism-react-renderer/themes/dracula')
 const project = require('./repo')
-
-globby.sync(`${process.cwd()}/site/docs/*`).map(path => {
-  copyFileSync(
-    path,
-    path.replace(
-      `${process.cwd()}/site/docs/`,
-      `${process.cwd()}/packages/@roots/bud-api/docs/`,
-    ),
-  )
-})
 
 module.exports = {
   title: project.name,
@@ -25,6 +14,11 @@ module.exports = {
   organizationName: 'roots',
   projectName: project.name,
   themeConfig: {
+    hideableSidebar: true,
+    prism: {
+      additionalLanguages: ['php'],
+      theme: dracula,
+    },
     navbar: {
       logo: {
         alt: 'bud',
@@ -33,7 +27,7 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'getting-started/intro',
+          docId: 'introduction',
           position: 'left',
           label: 'Guide',
           docsPluginId: 'guide',

@@ -29,7 +29,7 @@ Objects to bind to the framework.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:28](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L28)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:28](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L28)
 
 ___
 
@@ -41,7 +41,7 @@ Webpack plugin apply.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:38](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L38)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:38](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L38)
 
 ___
 
@@ -53,7 +53,7 @@ General purpose callback. Called after everything else.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:23](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L23)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:23](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L23)
 
 ___
 
@@ -65,7 +65,7 @@ Returns an instantiated webpack plugin
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:33](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L33)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:33](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L33)
 
 ___
 
@@ -77,7 +77,7 @@ The module name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:8](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L8)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:8](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L8)
 
 ___
 
@@ -89,7 +89,7 @@ Options registered with the extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:13](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L13)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:13](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L13)
 
 ___
 
@@ -101,7 +101,7 @@ General purpose callback. Called first.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:18](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L18)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:18](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L18)
 
 ___
 
@@ -115,4 +115,4 @@ compilation.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions/Module.ts:45](https://github.com/roots/bud/blob/17ec97df/packages/@roots/bud-framework/src/Extensions/Module.ts#L45)
+[packages/@roots/bud-framework/src/Extensions/Module.ts:45](https://github.com/roots/bud/blob/fa18f55d/packages/@roots/bud-framework/src/Extensions/Module.ts#L45)

@@ -31,7 +31,7 @@ function partial(string $partial): void
     );
 
     $templateFile &&
-    require_once $templateFile;
+        require_once $templateFile;
 }
 
 

@@ -75,7 +75,7 @@ Explicitly enable or disable html templating.
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/template/index.d.ts:35
+packages/@roots/bud-api/types/methods/template/index.d.ts:32
 
 ___
 
@@ -231,7 +231,7 @@ Each key is associated with a replacement value.
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/template/index.d.ts:45
+packages/@roots/bud-api/types/methods/template/index.d.ts:42
 
 ___
 
@@ -284,7 +284,7 @@ HtmlOptions.template
 
 #### Defined in
 
-packages/@roots/bud-api/types/methods/template/index.d.ts:40
+packages/@roots/bud-api/types/methods/template/index.d.ts:37
 
 ___
 
