@@ -68,7 +68,7 @@ export default class Doctor extends Command {
       if (missingPeers.length > 0) {
         this.app.dashboard.render(
           [
-            'Missing dependencies:\n',
+            'Missing dependencies\n',
             ...missingPeers?.map(peer => `❌ ${peer.name}`),
           ],
           'bud doctor',
@@ -79,7 +79,7 @@ export default class Doctor extends Command {
     }
 
     this.app.dashboard.render(
-      ['All checks are O.K.'],
+      'All checks are O.K.',
       'bud doctor',
     )
 

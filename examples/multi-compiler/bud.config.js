@@ -23,18 +23,4 @@ module.exports = app => {
         .setPath('dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
     )
-
-  console.log(
-    app.children
-      .getValues()
-      .map(
-        ({extensions}) =>
-          extensions.get('webpack-manifest-plugin').make,
-      ),
-  )
-
-  console.log(app.hooks.filter('location/dist'))
-  console.log(
-    app.children.get('plugin').hooks.filter('location/dist'),
-  )
 }
