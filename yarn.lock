@@ -2857,9 +2857,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.0-rc.1":
-  version: 0.5.0-rc.1
-  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.0-rc.1"
+"@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.0-rc.2":
+  version: 0.5.0-rc.2
+  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.0-rc.2"
   dependencies:
     ansi-html: ^0.0.7
     core-js-pure: ^3.8.1
@@ -2890,7 +2890,7 @@ __metadata:
       optional: true
     webpack-plugin-serve:
       optional: true
-  checksum: 92b672d073b718a5f52bad83bb7e41c7e86374932a1dcc66d7ac527c95c660308b06dd662ef991abcb8f62b81b8d34a5e02c5800d61234f9944ef6db7aa1ae39
+  checksum: e8cfda8fef820cea0e7424069f62824f812dd7d836fa3903be4eb3e343debc24463191a4d8d2900f5e865a1bb531157a63cdb245e598d5d4d1e27c26c2be0d82
   languageName: node
   linkType: hard
 
@@ -3377,7 +3377,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.14.6
     "@babel/preset-react": ^7.14.5
-    "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.1
+    "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.2
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
