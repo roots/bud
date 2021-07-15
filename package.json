@@ -149,9 +149,5 @@
   },
   "volta": {
     "node": "16.3.0"
-  },
-  "dependencies": {
-    "@docusaurus/theme-live-codeblock": "latest",
-    "react-hook-form": "^7.11.0"
   }
 }

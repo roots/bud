@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Loader.ts:6](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Loader.ts#L6)
+[packages/@roots/bud-framework/src/Build/Loader.ts:6](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Build/Loader.ts#L6)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Loader.ts:4](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Loader.ts#L4)
+[packages/@roots/bud-framework/src/Build/Loader.ts:4](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Build/Loader.ts#L4)
 
 ___
 
@@ -48,4 +48,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Loader.ts:5](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Loader.ts#L5)
+[packages/@roots/bud-framework/src/Build/Loader.ts:5](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Build/Loader.ts#L5)

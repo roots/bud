@@ -16,7 +16,7 @@ Seed values for webpack config
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:119](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L119)
+[packages/@roots/bud-framework/src/Configuration/index.ts:119](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L119)
 
 ___
 
@@ -30,7 +30,7 @@ Feature: CI mode
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:31](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L31)
+[packages/@roots/bud-framework/src/Configuration/index.ts:31](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L31)
 
 ___
 
@@ -48,7 +48,7 @@ compilation.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:42](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L42)
+[packages/@roots/bud-framework/src/Configuration/index.ts:42](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L42)
 
 ___
 
@@ -65,7 +65,7 @@ emitted to the `location/storage` directory.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:52](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L52)
+[packages/@roots/bud-framework/src/Configuration/index.ts:52](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L52)
 
 ___
 
@@ -82,7 +82,7 @@ initialized.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:62](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L62)
+[packages/@roots/bud-framework/src/Configuration/index.ts:62](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L62)
 
 ___
 
@@ -98,7 +98,7 @@ Seed values for extension options
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:124](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L124)
+[packages/@roots/bud-framework/src/Configuration/index.ts:124](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L124)
 
 ___
 
@@ -114,7 +114,7 @@ File format
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:106](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L106)
+[packages/@roots/bud-framework/src/Configuration/index.ts:106](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L106)
 
 ___
 
@@ -128,7 +128,7 @@ Feature: enable filename hashing
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:68](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L68)
+[packages/@roots/bud-framework/src/Configuration/index.ts:68](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L68)
 
 ___
 
@@ -144,7 +144,7 @@ File format (when hashing is enabled)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:114](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L114)
+[packages/@roots/bud-framework/src/Configuration/index.ts:114](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L114)
 
 ___
 
@@ -158,7 +158,7 @@ Feature: emit html template
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:74](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L74)
+[packages/@roots/bud-framework/src/Configuration/index.ts:74](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L74)
 
 ___
 
@@ -172,7 +172,7 @@ Feature: automatically install extension dependencies
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:80](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L80)
+[packages/@roots/bud-framework/src/Configuration/index.ts:80](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L80)
 
 ___
 
@@ -184,7 +184,7 @@ Location
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:24](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L24)
+[packages/@roots/bud-framework/src/Configuration/index.ts:24](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L24)
 
 ___
 
@@ -198,7 +198,7 @@ Feature: log to console
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:86](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L86)
+[packages/@roots/bud-framework/src/Configuration/index.ts:86](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L86)
 
 ___
 
@@ -212,7 +212,7 @@ Feature: produce asset manifest
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:92](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L92)
+[packages/@roots/bud-framework/src/Configuration/index.ts:92](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L92)
 
 ___
 
@@ -226,7 +226,7 @@ Feature: minimize enabled
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:98](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L98)
+[packages/@roots/bud-framework/src/Configuration/index.ts:98](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L98)
 
 ___
 
@@ -238,7 +238,7 @@ Application name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:8](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L8)
+[packages/@roots/bud-framework/src/Configuration/index.ts:8](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L8)
 
 ___
 
@@ -260,7 +260,7 @@ app.patterns.get('js')
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:19](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L19)
+[packages/@roots/bud-framework/src/Configuration/index.ts:19](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L19)
 
 ___
 
@@ -272,7 +272,7 @@ Server config
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:131](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L131)
+[packages/@roots/bud-framework/src/Configuration/index.ts:131](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L131)
 
 ___
 
@@ -305,4 +305,4 @@ Theme configuration
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Configuration/index.ts:136](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Configuration/index.ts#L136)
+[packages/@roots/bud-framework/src/Configuration/index.ts:136](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Configuration/index.ts#L136)
