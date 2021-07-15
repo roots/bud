@@ -13,6 +13,7 @@ module.exports = {
   favicon: project.organization.favicon,
   organizationName: 'roots',
   projectName: project.name,
+  themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
     hideableSidebar: true,
     prism: {

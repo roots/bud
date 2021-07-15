@@ -24,7 +24,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:48](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L48)
+[packages/@roots/bud-framework/src/Build/Rule.ts:48](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L48)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:60](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L60)
+[packages/@roots/bud-framework/src/Build/Rule.ts:60](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L60)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:56](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L56)
+[packages/@roots/bud-framework/src/Build/Rule.ts:56](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L56)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:40](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L40)
+[packages/@roots/bud-framework/src/Build/Rule.ts:40](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L40)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:52](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L52)
+[packages/@roots/bud-framework/src/Build/Rule.ts:52](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L52)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:44](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L44)
+[packages/@roots/bud-framework/src/Build/Rule.ts:44](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L44)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:64](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L64)
+[packages/@roots/bud-framework/src/Build/Rule.ts:64](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L64)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:50](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L50)
+[packages/@roots/bud-framework/src/Build/Rule.ts:50](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L50)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:62](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L62)
+[packages/@roots/bud-framework/src/Build/Rule.ts:62](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L62)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:58](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L58)
+[packages/@roots/bud-framework/src/Build/Rule.ts:58](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L58)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:42](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L42)
+[packages/@roots/bud-framework/src/Build/Rule.ts:42](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L42)
 
 ___
 
@@ -244,7 +244,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:54](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L54)
+[packages/@roots/bud-framework/src/Build/Rule.ts:54](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L54)
 
 ___
 
@@ -264,4 +264,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build/Rule.ts:46](https://github.com/roots/bud/blob/e487e2b6d/packages/@roots/bud-framework/src/Build/Rule.ts#L46)
+[packages/@roots/bud-framework/src/Build/Rule.ts:46](https://github.com/roots/bud/blob/2fd4ac325/packages/@roots/bud-framework/src/Build/Rule.ts#L46)
