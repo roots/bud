@@ -1,4 +1,9 @@
-import React, {useState, useCallback, useRef} from 'react'
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  Fragment,
+} from 'react'
 import {Box, Newline, Text, useInput, Static} from 'ink'
 import {isEqual} from 'lodash'
 import {durationFormatter, sizeFormatter} from 'human-readable'
@@ -41,8 +46,10 @@ const RawDashboard = ({bud}: {bud: Framework}) => {
     errors: [],
   })
 
-  const [stdout, _setStdout] = useState<string[]>([])
-  patchConsole(() => null)
+  const [stderr, setStderr] = useState<string[]>([])
+  patchConsole((stream, data) => {
+    isEqual(stream, 'stderr') && setStderr([...stderr, data])
+  })
 
   setInterval(() => {
     setStats(instance.current.compiler.stats)
@@ -61,13 +68,25 @@ const RawDashboard = ({bud}: {bud: Framework}) => {
 
   return (
     <Box flexDirection="column">
-      <Static flexDirection="column" items={stdout}>
-        {(stdout, k) =>
-          stdout ? (
-            <Text key={`stdout-${k}`}>
-              {stdout ?? ''}
+      <Static flexDirection="column" items={stderr}>
+        {(stdout, k) => (
+          <Text key={`stdout-${k}`}>
+            {stdout ?? ''}
+            <Newline />
+          </Text>
+        )}
+      </Static>
+
+      <Static flexDirection="column" items={stats?.errors ?? []}>
+        {(err, k) =>
+          err ? (
+            <Fragment key={`stats-err-${k}`}>
               <Newline />
-            </Text>
+              <Text>
+                {err.file ? `Error in ${err.file}` : ``}
+              </Text>
+              <Text>{err.message ?? ''}</Text>
+            </Fragment>
           ) : (
             []
           )

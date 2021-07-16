@@ -73,27 +73,6 @@ export default class extends Service implements Compiler {
       child?.build?.config && config.push(child.build.config)
     })
 
-    this.app.info(
-      'Compilers: %s',
-      config.map(({name}) => name).join(' '),
-    )
-
-    config.forEach(cfg => {
-      cfg.entry &&
-        this.app.info(
-          '%s entry count: %s',
-          cfg.name,
-          Object.entries(cfg.entry)?.length,
-        )
-
-      cfg.module?.rules[0]?.oneOf &&
-        this.app.info(
-          '%s rules count: %s',
-          cfg.name,
-          cfg.module.rules[0].oneOf.length,
-        )
-    })
-
     return config
   }
 
@@ -115,8 +94,6 @@ export default class extends Service implements Compiler {
     new ProgressPlugin((...args): void => {
       this.progress = args
     }).apply(this.instance)
-
-    this.app.hooks.filter('done')
 
     return this.instance
   }
@@ -145,5 +122,7 @@ export default class extends Service implements Compiler {
       stats && console.log(stats.toString())
       err && console.error(err)
     })
+
+    this.app.hooks.filter('done').map(cb => cb(this.app))
   }
 }

@@ -12,17 +12,10 @@ export default class Runner {
 
   public constructor(cli, options) {
     this.cli = cli
-    this.app = new Bud(options)
-    this.app.bootstrap(services)
-
-    this.app.logger.instance.scope('cli').time('pre compilation')
-
-    this.app.lifecycle()
+    this.app = new Bud(options).bootstrap(services).lifecycle()
   }
 
   public async make(build = true) {
-    this.app.logger.instance.scope('cli').time('parsing options')
-
     !this.cli.flags.ci
       ? this.app.dashboard.run()
       : this.app.store.set('ci', true)
@@ -72,10 +65,6 @@ export default class Runner {
         })
       }
     }
-
-    this.app.logger.instance
-      .scope('cli')
-      .timeEnd('parsing options')
 
     return this.app
   }

@@ -6,14 +6,14 @@
   </div>
 </template>
 
-<style>
-.custom-class {
-  color: 'white';
+<style lang="css">
+  .custom-class {
+    color: 'white';
+  }
 
   h1 {
     font-size: 24px;
   }
-}
 </style>
 
 <script>

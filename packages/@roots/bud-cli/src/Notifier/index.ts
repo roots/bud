@@ -1,7 +1,7 @@
-import {Framework} from '@roots/bud'
 import {resolve} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
 import {NotificationCenter} from 'node-notifier'
+import {Framework} from '@roots/bud'
 
 const MACOS_NOTIFIER_PATH = resolve(
   __dirname,
@@ -19,6 +19,8 @@ export class Notifier {
 
   @bind
   public notify(app: Framework) {
+    const name = app.discovery.getProjectInfo().name ?? app.name
+
     this.notifier.notify({
       title:
         app.compiler.stats.errors.length > 0
@@ -26,13 +28,9 @@ export class Notifier {
           : `Build success`,
       message:
         app.compiler.stats.errors.length > 0
-          ? `${
-              app.discovery.getProjectInfo().name ?? app.name
-            } couldn't be compiled`
-          : `${
-              app.discovery.getProjectInfo().name ?? app.name
-            } compiled successfully`,
-      group: app.discovery.getProjectInfo().name ?? app.name,
+          ? `${name} couldn't be compiled`
+          : `${name} compiled successfully`,
+      group: name,
       contentImage: resolve(__dirname, '../assets/bud-icon.jpg'),
     })
   }

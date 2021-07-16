@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:321](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L321)
+[packages/@roots/bud-framework/src/Hooks/index.ts:321](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L321)
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:324](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L324)
+[packages/@roots/bud-framework/src/Hooks/index.ts:324](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L324)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:319](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L319)
+[packages/@roots/bud-framework/src/Hooks/index.ts:319](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L319)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:322](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L322)
+[packages/@roots/bud-framework/src/Hooks/index.ts:322](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L322)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:320](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L320)
+[packages/@roots/bud-framework/src/Hooks/index.ts:320](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L320)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks/index.ts:323](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud-framework/src/Hooks/index.ts#L323)
+[packages/@roots/bud-framework/src/Hooks/index.ts:323](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud-framework/src/Hooks/index.ts#L323)

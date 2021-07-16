@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:4](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L4)
+[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:4](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L4)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:9](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L9)
+[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:9](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L9)
 
 ## Functions
 
@@ -45,4 +45,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:6](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L6)
+[packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts:6](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/extensions/webpack-hot-module-replacement-plugin/index.ts#L6)

@@ -48,7 +48,7 @@ Base config
 
 #### Defined in
 
-[packages/@roots/bud/src/config.ts:3](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/config.ts#L3)
+[packages/@roots/bud/src/config.ts:3](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/config.ts#L3)
 
 ___
 
@@ -67,7 +67,7 @@ Base extensions & webpack plugins.
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/index.ts:12](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/extensions/index.ts#L12)
+[packages/@roots/bud/src/extensions/index.ts:12](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/extensions/index.ts#L12)
 
 ___
 
@@ -79,4 +79,4 @@ Base framework services
 
 #### Defined in
 
-[packages/@roots/bud/src/services/index.ts:23](https://github.com/roots/bud/blob/e7af0dde3/packages/@roots/bud/src/services/index.ts#L23)
+[packages/@roots/bud/src/services/index.ts:23](https://github.com/roots/bud/blob/641aa39f8/packages/@roots/bud/src/services/index.ts#L23)

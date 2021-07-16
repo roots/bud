@@ -54,16 +54,10 @@ export default class Build extends Command {
       config,
       mode: this.mode,
     })
+
     this.app = await runner.make()
 
-    this.app.hooks.on('done', () =>
-      this.notifier.notify(this.app),
-    )
-
-    this.app.logger.instance
-      .scope('cli')
-      .timeEnd('pre compilation')
-
+    this.app.hooks.on('done', [this.notifier.notify])
     this.app.run()
   }
 }

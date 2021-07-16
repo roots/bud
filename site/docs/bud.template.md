@@ -1,6 +1,6 @@
 # bud.template
 
-Enables and/or configures boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically.
+Enables and/or configures boilerplate HTML generated for your project.
 
 ## Signature
 
@@ -19,17 +19,11 @@ type Template = (
 
 ## Usage
 
-This method requires no properties. By default it will source an html template for you.
+This method can be called without passing any options.
 
 ```js title='bud.config.js'
 bud.template()
 ```
-
-You will likely want to define the following variables in a `.env` file if you're using it this way:
-
-- APP_NAME
-- APP_DESCRIPTION
-- PUBLIC_URL
 
 ## Explicitly enabling or disabling
 
@@ -41,13 +35,20 @@ bud.template({enabled: false})
 
 Useful in the event that an overeager extension is adding a template you do not have use for.
 
-## Defining template variables
+## Using a custom template
+
+```js title='bud.config.js'
+bud.template({
+  template: 'index.html',
+})
+```
+
+## Defining template vars
 
 Add template variables using `replace`.
 
-```js {3-7} title='bud.config.js'
+```js {2-6} title='bud.config.js'
 bud.template({
-  template: bud.path('project', 'public', 'index.html'),
   replace: {
     APP_NAME: name,
     APP_DESCRIPTION: description,
