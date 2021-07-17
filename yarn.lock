@@ -4292,16 +4292,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^7":
-  version: 7.28.0
-  resolution: "@types/eslint@npm:7.28.0"
-  dependencies:
-    "@types/estree": "*"
-    "@types/json-schema": "*"
-  checksum: 75ac2577d2a2e35bae66f56d2d1c871d5e836b2721cf14bd3df450c9d584eba48fa3b1013fba710245bf4795f16e1df0ed315e543e3199c4815ee4782537d0ae
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:*, @types/estree@npm:^0.0.48":
   version: 0.0.48
   resolution: "@types/estree@npm:0.0.48"
@@ -9728,15 +9718,6 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/sage": "workspace:*"
-    "@types/eslint": ^7
-    "@types/react": ^17.0.13
-    "@types/react-dom": ^17.0.8
-    eslint: ^7.27.0
-    postcss: ^8.3.0
-    postcss-import: ^14.0.2
-    postcss-preset-env: ^6.7.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
