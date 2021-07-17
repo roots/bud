@@ -2967,7 +2967,7 @@ __metadata:
     remark-html: ^13.0.1
     remark-loader: ^4.0.0
     resolve-url-loader: ^4.0.0
-    style-loader: ^3.0.0
+    style-loader: ^3.1.0
     toml: ^3.0.0
     url-loader: ^4.1.1
     webpack: ^5.44.0
@@ -19877,12 +19877,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"style-loader@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "style-loader@npm:3.0.0"
+"style-loader@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "style-loader@npm:3.1.0"
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 082bee844418fcb3c2b3ef3b524ff0aa184ee103dc725f5ad34c86da73d6725a418a683ebea012746d7c297ad87888f56a27fb74bc14cf77719540f9a699a94a
+  checksum: bf7e8d2cc9b5d51b39ce5a975604b67e9d8c96f7b44fee38da1b04c42d92f66c8dc0bb533c1e035921facd1e41cb9caab9567589e961d93cc6785ce55f49311e
   languageName: node
   linkType: hard
 
