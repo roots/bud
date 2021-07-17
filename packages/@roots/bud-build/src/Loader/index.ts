@@ -1,15 +1,13 @@
-import {boundMethod as bind} from 'autobind-decorator'
 import {Base} from '../shared/Base'
 
-import type {
-  Framework,
-  Loader as Contract,
-} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
 
-export class Loader extends Base implements Contract {
-  protected src: Contract.Src
+import type {Framework, Build} from '@roots/bud-framework'
 
-  public constructor(src: Contract.Input) {
+export class Loader extends Base implements Build.Loader {
+  protected src: Build.Loader.Src
+
+  public constructor(src: Build.Loader.Input) {
     super()
     this.src = this.normalizeInput<string>(src)
   }

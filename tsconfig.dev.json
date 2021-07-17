@@ -12,8 +12,10 @@
     "resolveJsonModule": true,
   },
   "include": [
-    "packages/@roots/bud/src/index.ts",
-    "packages/@roots/bud-framework/src/index.ts"
+    "packages/@roots/bud/types",
+    "packages/@roots/bud-framework/types",
+    "packages/@roots/bud-babel/types",
+    "packages/@roots/bud-postcss/types"
   ],
   "exclude": ["node_modules"],
 }

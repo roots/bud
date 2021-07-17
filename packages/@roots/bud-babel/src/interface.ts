@@ -1,121 +1,126 @@
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## babel
+     *
+     * Configure babel.
+     */
+    babel: Framework.Api.Babel
+  }
+
   namespace Framework {
     interface Extensions {
       '@roots/bud-babel': Module
     }
-  }
 
-  namespace Hooks.Loader {
-    interface Definitions {
-      babel: string
-    }
-  }
-
-  namespace Hooks.Item {
-    interface Definitions {
-      babel: any
-    }
-  }
-
-  interface Framework {
-    /**
-     * ## bud.Babel
-     *
-     * Configure babel.
-     */
-    babel: Babel
-  }
-
-  interface Babel {
-    /**
-     * ## babel.log
-     */
-    log: any
-
-    /**
-     * ## babel.plugins
-     */
-    plugins: Babel.Registry
-
-    /**
-     * ## babel.presets
-     */
-    presets: Babel.Registry
-
-    /**
-     * ## babel.init
-     *
-     * Initialize class.
-     */
-    init: (app: Framework) => this
-
-    /**
-     * ## babel.setPlugin
-     *
-     * Add a babel plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
-     * ```
-     */
-    setPlugin: (plugin: Babel.Registrable) => this
-
-    /**
-     * ## babel.setPlugins
-     */
-    setPlugins(
-      plugins: Array<Babel.NormalizedPlugin | string>,
-    ): this
-
-    /**
-     * ## babel.setPluginOptions
-     */
-    setPluginOptions: (plugin: string, options: any) => this
-
-    /**
-     * ## babel.setPlugin
-     *
-     * Add a babel plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
-     * ```
-     */
-    setPreset: (preset: Babel.Registrable) => this
-
-    /**
-     * ## babel.setPresets
-     */
-    setPresets(
-      presets: Array<Babel.NormalizedPlugin | string>,
-    ): this
-
-    /**
-     * ## babel.setPresetOptions
-     */
-    setPresetOptions: (preset: string, options: any) => this
-  }
-
-  namespace Babel {
-    type Options = {
-      plugins?: Plugin[]
-      config?: boolean | string
+    namespace Hooks.Loader {
+      interface Definitions {
+        babel: string
+      }
     }
 
-    type NormalizedPlugin = [string, any]
+    namespace Hooks.Item {
+      interface Definitions {
+        babel: any
+      }
+    }
 
-    type Plugin = string | NormalizedPlugin | CallableFunction
+    namespace Api {
+      interface Babel {
+        /**
+         * ## babel.log
+         */
+        log: any
 
-    type Registrable = string | NormalizedPlugin
+        /**
+         * ## babel.plugins
+         */
+        plugins: Babel.Registry
 
-    interface Registry {
-      [key: string]: [string, any]
+        /**
+         * ## babel.presets
+         */
+        presets: Babel.Registry
+
+        /**
+         * ## babel.init
+         *
+         * Initialize class.
+         */
+        init(app: Framework): Babel
+
+        /**
+         * ## babel.setPlugin
+         *
+         * Add a babel plugin.
+         *
+         * ### Usage
+         *
+         * ```js
+         * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
+         * ```
+         */
+        setPlugin(plugin: Babel.Registrable): Babel
+
+        /**
+         * ## babel.setPlugins
+         */
+        setPlugins(
+          plugins: Array<Babel.NormalizedPlugin | string>,
+        ): Babel
+
+        /**
+         * ## babel.setPluginOptions
+         */
+        setPluginOptions: (plugin: string, options: any) => this
+
+        /**
+         * ## babel.setPlugin
+         *
+         * Add a babel plugin.
+         *
+         * ### Usage
+         *
+         * ```js
+         * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
+         * ```
+         */
+        setPreset(preset: Babel.Registrable): Babel
+
+        /**
+         * ## babel.setPresets
+         */
+        setPresets(
+          presets: Array<Babel.NormalizedPlugin | string>,
+        ): Babel
+
+        /**
+         * ## babel.setPresetOptions
+         */
+        setPresetOptions(preset: string, options: any): Babel
+      }
+
+      namespace Babel {
+        type Options = {
+          plugins?: Plugin[]
+          config?: boolean | string
+        }
+
+        type NormalizedPlugin = [string, any]
+
+        type Plugin =
+          | string
+          | NormalizedPlugin
+          | CallableFunction
+
+        type Registrable = string | NormalizedPlugin
+
+        interface Registry {
+          [key: string]: [string, any]
+        }
+      }
     }
   }
 }

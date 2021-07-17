@@ -1,7 +1,8 @@
-import {Framework} from '../Framework'
 import {Service} from '../Service'
-import {Module} from '../Extensions/Module'
-import Webpack from 'webpack/types'
+
+import type {Framework} from '../Framework'
+import type {Module} from '../Extensions/Module'
+import type Webpack from 'webpack/types'
 
 export {Hooks}
 
@@ -62,10 +63,7 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  on(
-    id: `${Hooks.Name & string}`,
-    callback: Hooks.Hook,
-  ): Framework
+  on(id: `${Hooks.Name}`, callback: Hooks.Hook): Framework
 
   /**
    * ## hooks.filter
@@ -81,17 +79,14 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  filter<T = any>(id: `${Hooks.Name & string}`, seed?: any): T
+  filter<T = any>(id: `${Hooks.Name}`, seed?: any): T
 
   /**
    * ## hooks.link
    *
    * Link one key to the value of another
    */
-  link(
-    target: `${Hooks.Name & string}`,
-    links: string[],
-  ): Framework
+  link(target: `${Hooks.Name}`, links: string[]): Framework
 }
 
 namespace Hooks {

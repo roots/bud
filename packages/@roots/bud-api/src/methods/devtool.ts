@@ -15,19 +15,19 @@ declare module '@roots/bud-framework' {
      * app.devtool('inline-cheap-module-source-map')
      * ```
      */
-    devtool: Api.Devtool
+    devtool: Framework.Api.Devtool
   }
 
-  namespace Api {
-    export {Devtool}
+  namespace Framework.Api {
+    type Devtool = (
+      devtool?: Webpack.Configuration['devtool'],
+    ) => Framework
   }
 }
 
-type Devtool = (
-  devtool?: Webpack.Configuration['devtool'],
-) => Framework
-
-export const devtool: Devtool = function (devtool = false) {
+export const devtool: Framework.Api.Devtool = function (
+  devtool = false,
+) {
   this.hooks.on('build/devtool', () => devtool)
 
   return this

@@ -1,21 +1,18 @@
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
 import {Base} from '../shared/Base'
 
-import type {
-  Framework,
-  Loader,
-  Item as Contract,
-} from '@roots/bud-framework'
+import {isFunction} from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
-export class Item extends Base implements Contract {
-  protected loader: Contract.LoaderFn
-  protected options: Contract.OptionsFn
+import type {Framework, Build} from '@roots/bud-framework'
+
+export class Item extends Base implements Build.Item {
+  protected loader: Build.Item.LoaderFn
+  protected options: Build.Item.OptionsFn
 
   public constructor({
     loader,
     options,
-  }: Contract.ConstructorOptions) {
+  }: Build.Item.ConstructorOptions) {
     super()
 
     this.setLoader(loader)
@@ -28,20 +25,20 @@ export class Item extends Base implements Contract {
   }
 
   @bind
-  public setLoader(loader: Loader | Contract.LoaderFn) {
+  public setLoader(loader: Build.Loader | Build.Item.LoaderFn) {
     this.loader = isFunction(loader) ? loader : () => loader
   }
 
   @bind
   public setOptions(
-    options: Contract.OptionsFn | Contract.Options,
+    options: Build.Item.OptionsFn | Build.Item.Options,
   ) {
     this.options = isFunction(options) ? options : () => options
   }
 
   @bind
   public mergeOptions(
-    options: Contract.Options,
+    options: Build.Item.Options,
     app: Framework,
   ) {
     options = {
@@ -53,8 +50,8 @@ export class Item extends Base implements Contract {
   }
 
   @bind
-  public make(app: Framework): Contract.Output {
-    const output: Contract.Output = {
+  public make(app: Framework): Build.Item.Output {
+    const output: Build.Item.Output = {
       loader: this.loader(app).make(app),
     }
 

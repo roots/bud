@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -13,15 +13,15 @@ declare module '@roots/bud-framework' {
      * bud.hash()
      * ```
      */
-    hash: Api.Hash
+    hash: Framework.Api.Hash
   }
 
-  namespace Api {
+  namespace Framework.Api {
     type Hash = (enabled?: boolean) => Framework
   }
 }
 
-const hash: Api.Hash = function (enabled = true) {
+const hash: Framework.Api.Hash = function (enabled = true) {
   this.store.set('hash', enabled)
   return this
 }

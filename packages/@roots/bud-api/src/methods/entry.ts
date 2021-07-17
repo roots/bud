@@ -1,6 +1,6 @@
-import {Api, Framework} from '@roots/bud-framework'
 import {sync, GlobTask} from 'globby'
 import {isArray, isString} from 'lodash'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -65,10 +65,10 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    entry: Api.Entry
+    entry: Framework.Api.Entry
   }
 
-  namespace Api {
+  namespace Framework.Api {
     interface Entry {
       (name: string, entrypoint: Entry.Value): Framework
     }
@@ -94,7 +94,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const entry: Api.Entry = function (...args) {
+export const entry: Framework.Api.Entry = function (...args) {
   /**
    * Ducktype entrypoint to determine if it was called like
    * entry(name, ...assets) or entry({[name]: ...assets})
@@ -118,36 +118,44 @@ export const entry: Api.Entry = function (...args) {
 /**
  * Make entrypoints
  */
-function makeEntrypoints(entry: Api.Entry.Object): Framework {
-  this.hooks.on('build/entry', (existant: Api.Entry.Object) => {
-    return {
-      ...existant,
-      ...Object.entries(entry).reduce(
-        (
-          entrypoints,
-          [name, entry]: [
-            string,
-            Api.Entry.Object | Api.Entry.Object['import'],
-          ],
-        ) => {
-          /**
-           * Normalize entrypoint
-           */
-          entry = isString(entry) ? {import: [entry]} : entry
-          entry = isArray(entry) ? {import: entry} : entry
+function makeEntrypoints(
+  entry: Framework.Api.Entry.Object,
+): Framework {
+  this.hooks.on(
+    'build/entry',
+    (existant: Framework.Api.Entry.Object) => {
+      return {
+        ...existant,
+        ...Object.entries(entry).reduce(
+          (
+            entrypoints,
+            [name, entry]: [
+              string,
+              (
+                | Framework.Api.Entry.Object
+                | Framework.Api.Entry.Object['import']
+              ),
+            ],
+          ) => {
+            /**
+             * Normalize entrypoint
+             */
+            entry = isString(entry) ? {import: [entry]} : entry
+            entry = isArray(entry) ? {import: entry} : entry
 
-          return {
-            ...entrypoints,
-            [name]: {
-              ...(entrypoints[name] ?? {}),
-              ...getAssets.bind(this)(name, entry),
-            },
-          }
-        },
-        {},
-      ),
-    }
-  })
+            return {
+              ...entrypoints,
+              [name]: {
+                ...(entrypoints[name] ?? {}),
+                ...getAssets.bind(this)(name, entry),
+              },
+            }
+          },
+          {},
+        ),
+      }
+    },
+  )
 
   return this
 }
@@ -157,7 +165,7 @@ function makeEntrypoints(entry: Api.Entry.Object): Framework {
  */
 const normalize = (
   assets: string | string[],
-): Api.Entry.Object['import'] =>
+): Framework.Api.Entry.Object['import'] =>
   isArray(assets) ? assets : [assets]
 
 /**
@@ -165,8 +173,8 @@ const normalize = (
  */
 function getAssets(
   name: string,
-  entry: Api.Entry.Object,
-): Api.Entry.Object {
+  entry: Framework.Api.Entry.Object,
+): Framework.Api.Entry.Object {
   /**
    * If the supplied strings are ALL directly resolvable, use them.
    * Otherwise, treat as glob.

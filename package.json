@@ -53,7 +53,7 @@
     "profile:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile:esm",
     "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
-    "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
+    "pkg": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg",
     "readme": "yarn ts-node ./dev/readme",
     "site": "yarn run-s site:pre site:build",
     "site:pre": "yarn ts-node ./dev/site",

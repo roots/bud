@@ -24,7 +24,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Alias = (
+    type Alias = (
       this: Framework,
       alias: Webpack.Configuration['resolve']['alias'],
     ) => Framework

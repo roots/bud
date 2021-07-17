@@ -1,22 +1,18 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
-import type {
-  Framework,
-  Rule as Contract,
-  Item,
-} from '@roots/bud-framework'
+import type {Framework, Build} from '@roots/bud-framework'
 
-class Rule implements Contract {
-  public test: Contract.TestFn
+class Rule implements Build.Rule {
+  public test: Build.Rule.TestFn
 
-  public use: Contract.UseFn
+  public use: Build.Rule.UseFn
 
-  public exclude: Contract.ExcludeFn
+  public exclude: Build.Rule.ExcludeFn
 
-  public type: Contract.TypeFn
+  public type: Build.Rule.TypeFn
 
-  public parser: Contract.ParserFn
+  public parser: Build.Rule.ParserFn
 
   public generator: any
 
@@ -27,7 +23,7 @@ class Rule implements Contract {
     type = null,
     parser = null,
     generator = null,
-  }: Contract.Options) {
+  }: Build.Rule.Options) {
     this.test = isFunction(test) ? test : () => test
 
     if (use) {
@@ -68,27 +64,29 @@ class Rule implements Contract {
   }
 
   @bind
-  public getParser(app: Framework): Contract.Parser {
+  public getParser(app: Framework): Build.Rule.Parser {
     return this.parser ? this.parser(app) : null
   }
 
   @bind
-  public setParser(parser: Contract.ParserFn): void {
+  public setParser(parser: Build.Rule.ParserFn): void {
     this.parser = isFunction(parser) ? parser : () => parser
   }
 
   @bind
-  public getUse(app: Framework): Item[] {
+  public getUse(app: Framework): Build.Item[] {
     return this.use ? this.use(app) : null
   }
 
   @bind
-  public setUse(use: Contract.UseFn | Item[]): void {
+  public setUse(use: Build.Rule.UseFn | Build.Item[]): void {
     this.use = isFunction(use) ? use : () => use
   }
 
   @bind
-  public getExclude(app: Framework): Contract.Output['exclude'] {
+  public getExclude(
+    app: Framework,
+  ): Build.Rule.Output['exclude'] {
     return this.exclude ? this.exclude(app) : null
   }
 
@@ -123,7 +121,7 @@ class Rule implements Contract {
 
   @bind
   public make(app: Framework) {
-    const output: Contract.Output = {
+    const output: Build.Rule.Output = {
       test: this.test(app),
     }
 

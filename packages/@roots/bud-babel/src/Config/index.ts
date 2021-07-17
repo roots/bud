@@ -1,17 +1,17 @@
-import type {Babel, Framework} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
-export class Config implements Babel {
+export class Config implements Framework.Api.Babel {
   public name = '@roots/bud-babel'
 
   public log: any
 
   public app: Framework
 
-  public _plugins: Babel.Registry = {}
+  public _plugins: Framework.Api.Babel.Registry = {}
 
-  public _presets: Babel.Registry = {}
+  public _presets: Framework.Api.Babel.Registry = {}
 
   public get plugins() {
     return this._plugins
@@ -63,15 +63,17 @@ export class Config implements Babel {
 
   @bind
   public normalizeEntry(
-    c: Babel.Registrable,
-  ): Babel.NormalizedPlugin {
+    c: Framework.Api.Babel.Registrable,
+  ): Framework.Api.Babel.NormalizedPlugin {
     return isString(c)
-      ? ([c, {}] as Babel.NormalizedPlugin)
-      : (c as Babel.NormalizedPlugin)
+      ? ([c, {}] as Framework.Api.Babel.NormalizedPlugin)
+      : (c as Framework.Api.Babel.NormalizedPlugin)
   }
 
   @bind
-  public setPlugin(plugin: Babel.Registrable): this {
+  public setPlugin(
+    plugin: Framework.Api.Babel.Registrable,
+  ): this {
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -81,7 +83,9 @@ export class Config implements Babel {
 
   @bind
   public setPlugins(
-    plugins: Array<Babel.NormalizedPlugin | string>,
+    plugins: Array<
+      Framework.Api.Babel.NormalizedPlugin | string
+    >,
   ): this {
     plugins.map(this.setPlugin)
 
@@ -89,7 +93,9 @@ export class Config implements Babel {
   }
 
   @bind
-  public setPreset(preset: Babel.Registrable): this {
+  public setPreset(
+    preset: Framework.Api.Babel.Registrable,
+  ): this {
     preset = this.normalizeEntry(preset)
 
     this.presets = {...this.presets, [preset[0]]: preset}
@@ -99,7 +105,9 @@ export class Config implements Babel {
 
   @bind
   public setPresets(
-    presets: Array<Babel.NormalizedPlugin | string>,
+    presets: Array<
+      Framework.Api.Babel.NormalizedPlugin | string
+    >,
   ): this {
     presets.map(this.setPreset)
 

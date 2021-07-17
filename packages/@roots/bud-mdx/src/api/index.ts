@@ -1,10 +1,10 @@
-import {Mdx, Framework} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 
-export class MdxConfig implements Mdx {
+export class MdxConfig implements Framework.Api.Mdx {
   protected _app: Framework['get']
-  protected _remarkPlugins: Mdx.RemarkRegistry = {}
-  protected _rehypePlugins: Mdx.RehypeRegistry = {}
+  protected _remarkPlugins: Framework.Api.Mdx.RemarkRegistry = {}
+  protected _rehypePlugins: Framework.Api.Mdx.RehypeRegistry = {}
 
   public constructor(app: Framework) {
     this._app = app.get
@@ -30,20 +30,22 @@ export class MdxConfig implements Mdx {
     this._rehypePlugins = plugins
   }
 
-  public get options(): Mdx.Options {
+  public get options(): Framework.Api.Mdx.Options {
     return {
       remarkPlugins: Object.values(this.remarkPlugins),
       rehypePlugins: Object.values(this.rehypePlugins),
     }
   }
 
-  public set options(options: Mdx.Options) {
+  public set options(options: Framework.Api.Mdx.Options) {
     this._remarkPlugins = options.remarkPlugins
     this._rehypePlugins = options.rehypePlugins
   }
 
   @bind
-  public setRemarkPlugin(plugin: Mdx.RemarkRegistry) {
+  public setRemarkPlugin(
+    plugin: Framework.Api.Mdx.RemarkRegistry,
+  ) {
     this.remarkPlugins = {
       ...this.remarkPlugins,
       ...plugin,
@@ -60,7 +62,9 @@ export class MdxConfig implements Mdx {
   }
 
   @bind
-  public setRehypePlugin(plugin: Mdx.RehypeRegistry) {
+  public setRehypePlugin(
+    plugin: Framework.Api.Mdx.RehypeRegistry,
+  ) {
     this.rehypePlugins = {
       ...this.rehypePlugins,
       ...plugin,

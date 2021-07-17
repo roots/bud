@@ -1,4 +1,5 @@
 import {isFunction} from 'lodash'
+
 import type {Framework} from '@roots/bud-framework'
 
 export class Base {

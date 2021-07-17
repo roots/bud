@@ -17,15 +17,6 @@ describe('bud', () => {
     expect(bud.mode).toEqual('production')
   })
 
-  it('setMode changes the mode', () => {
-    bud.setMode('development')
-    expect(bud.mode).toEqual('development')
-  })
-
-  it('setMode returns the mode', () => {
-    expect(bud.getMode()).toBe(bud.mode)
-  })
-
   it('isDevelopment', () => {
     bud.mode = 'production'
     expect(bud.isDevelopment).toEqual(false)

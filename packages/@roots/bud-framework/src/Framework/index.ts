@@ -1,28 +1,28 @@
-import {Api} from '../Api'
-import {Build} from '../Build'
-import {Cache} from '../Cache'
-import {Compiler} from '../Compiler'
-import {Container} from '@roots/container'
-import {Dashboard} from '../Dashboard'
-import {Dependencies} from '../Dependencies'
-import {Discovery} from '../Discovery'
-import {Env} from '../Env'
-import {Extensions} from '../Extensions'
-import {Hooks} from '../Hooks'
-import {Item} from '../Build/Item'
-import {Loader} from '../Build/Loader'
-import {Logger} from '../Logger'
-import {Mode} from '../Mode'
-import {Module} from '../Extensions/Module'
-import {Rule} from '../Build/Rule'
-import {Server} from '../Server'
+import {Services} from './Services'
+import {Lifecycle} from './Lifecycle'
 import {Service, Bootstrapper} from '../Service'
 import {Store} from '../Store'
+
+import {Container} from '@roots/container'
 
 import {isFunction} from 'lodash'
 import {join} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Configuration} from '../Configuration'
+
+import type {Api} from '../Api'
+import type {Build} from '../Build'
+import type {Cache} from '../Cache'
+import type {Compiler} from '../Compiler'
+import type {Configuration} from '../Configuration'
+import type {Dashboard} from '../Dashboard'
+import type {Dependencies} from '../Dependencies'
+import type {Discovery} from '../Discovery'
+import type {Env} from '../Env'
+import type {Extensions, Module} from '../Extensions'
+import type {Hooks} from '../Hooks'
+import type {Logger} from '../Logger'
+import type {Mode} from '../Mode'
+import type {Server} from '../Server'
 
 interface Framework {
   /**
@@ -171,16 +171,6 @@ interface Framework {
   ): Framework
 
   /**
-   * Get the compiler mode
-   */
-  getMode(): Mode
-
-  /**
-   * Set the compiler mode
-   */
-  setMode(mode: Mode): void
-
-  /**
    * app.bootstrap
    */
   bootstrap(services: {
@@ -264,20 +254,28 @@ interface Framework {
 }
 
 namespace Framework {
+  export type Tapable =
+    | ((app: Framework) => any)
+    | ((this: Framework, app?: Framework) => any)
+
   export interface Extensions {
     [key: string]: Module
   }
 
   export interface Rules {
-    [key: string]: Rule
+    [key: string]: Build.Rule
   }
 
   export interface Items {
-    [key: string]: Item
+    [key: string]: Build.Item
   }
 
   export interface Loaders {
-    [key: string]: Loader
+    [key: string]: Build.Loader
+  }
+
+  export interface ServiceConstructor {
+    [key: string]: new (app: Framework) => Service | Bootstrapper
   }
 }
 
@@ -351,16 +349,6 @@ abstract class Framework {
     this._mode = mode
   }
 
-  @bind
-  public getMode(): Mode {
-    return this.mode
-  }
-
-  @bind
-  public setMode(mode: Mode): void {
-    this.mode = mode
-  }
-
   public get isProduction(): boolean {
     return this.mode === 'production'
   }
@@ -376,15 +364,10 @@ abstract class Framework {
     parent?: Framework
   }) {
     this.proto = {...this.proto, config: options.config}
+
     this.name = options.name ?? this.name
     this.parent = options.parent ?? this.parent
-
-    this.mode =
-      options.mode ??
-      ((process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
-        ? process.env.NODE_ENV
-        : 'production') as 'production' | 'development')
-
+    this.mode = options.mode ?? 'production'
     this.children = new Container<Framework>()
   }
 
@@ -414,7 +397,10 @@ abstract class Framework {
 
     compiler.isChild = true
 
-    this.set(name, isFunction(tap) ? tap(compiler) : compiler)
+    this.set(
+      name,
+      tap && isFunction(tap) ? tap(compiler) : compiler,
+    )
 
     return this
   }
@@ -425,92 +411,28 @@ abstract class Framework {
   }): Framework {
     this.proto.services = services
 
-    this.store = new Store(this).setStore({
-      ...(this.proto.config ?? {}),
-    })
+    this.services = new Container()
 
-    this.services = this.container({...this.proto.services})
+    this.services.set(
+      'logger',
+      new services.logger(this) as unknown as Logger,
+    )
 
-    /**
-     * Build the logger early
-     */
-    const LoggerConstructor =
-      this.services.get<new (app: Framework) => Logger>('logger')
+    this.services.set(
+      'store',
+      new Store(this).setStore({
+        ...(this.proto.config ?? {}),
+      }),
+    )
 
-    this.logger = new LoggerConstructor(this)
-
-    this.services
-      .getEntries()
-      .filter(([k, v]) => {
-        /**
-         * No reason to boot an extension that isn't well written
-         */
-        if (!v.name) return false
-
-        /**
-         * No reason to start server for prod
-         */
-        if (k == 'server' && this.isProduction) return false
-
-        /**
-         * No reason to boot expensive parent services
-         * for child compilation instantances
-         */
-        if (
-          this.isChild &&
-          [
-            'compiler',
-            'discovery',
-            'dashboard',
-            'server',
-          ].includes(k)
-        )
-          return false
-
-        return true
-      })
-
-      /**
-       * Instantiate the services
-       */
-      .map(([key, Instance]) => {
-        this[key] = new Instance(this)
-      })
+    Services.make(this, services)
 
     return this
   }
 
   @bind
   public lifecycle(): Framework {
-    const events = [
-      'bootstrap',
-      'bootstrapped',
-      'register',
-      'registered',
-      'boot',
-      'booted',
-    ]
-
-    events.forEach(event => {
-      this.logger.instance.scope(event).time(event)
-
-      this.services.getKeys().forEach(serviceName => {
-        const service = this[serviceName]
-        if (!service || !service[event]) return
-
-        this.logger.instance
-          .scope(service.name, event)
-          .time(event)
-
-        service[event](this)
-
-        this.logger.instance
-          .scope(service.name, event)
-          .timeEnd(event)
-      })
-
-      this.logger.instance.scope(event).timeEnd(event)
-    })
+    Lifecycle.doEvents(this)
 
     return this
   }
@@ -566,12 +488,7 @@ abstract class Framework {
   }
 
   @bind
-  public tap(
-    fn:
-      | ((app: Framework) => any)
-      | ((this: Framework, app?: Framework) => any),
-    bound: boolean = true,
-  ) {
+  public tap(fn: Framework.Tapable, bound: boolean = true) {
     fn.call(bound ? this : null, this)
 
     return this

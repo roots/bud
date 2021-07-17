@@ -16,40 +16,50 @@ import BuildMulti from '!!raw-loader!./../../src/components/cli-output/build-mul
 import BuildTargetTheme from '!!raw-loader!./../../src/components/cli-output/build--target-theme.mdx'
 import BuildTargetThemePlugin from '!!raw-loader!./../../src/components/cli-output/build--target-theme-plugin.mdx'
 
-<CodeBlock title='$ yarn bud build --help'>{BuildHelp}</CodeBlock>
+<CodeBlock title="$ yarn bud build --help">
+  {BuildHelp}
+</CodeBlock>
 
 ## bud build
 
-<CodeBlock title='$ yarn bud build'>{Build}</CodeBlock>
+<CodeBlock title="$ yarn bud build">{Build}</CodeBlock>
 
 ## bud build --cache
 
 The `--cache` flag is recommended for outstanding performance. Compare the `compiled in` output to the uncached build (above).
 
-<CodeBlock title='$ yarn bud build --cache' highlight={6}>{BuildCache}</CodeBlock>
+<CodeBlock title="$ yarn bud build --cache" highlight={6}>
+  {BuildCache}
+</CodeBlock>
 
 ## bud build --target
 
 In multi-compiler configurations, many compilers are run in a batch.
 
-<CodeBlock title='$ yarn bud build'>{BuildMulti}</CodeBlock>
+<CodeBlock title="$ yarn bud build">{BuildMulti}</CodeBlock>
 
 The `--target` flag will only compile a specified compiler.
 
-<CodeBlock title='$ yarn bud build --target theme'>{BuildTargetTheme}</CodeBlock>
+<CodeBlock title="$ yarn bud build --target theme">
+  {BuildTargetTheme}
+</CodeBlock>
 
 It can be passed more than once.
 
-<CodeBlock title='$ yarn bud build --target theme --target plugin'>{BuildTargetThemePlugin}</CodeBlock>
+<CodeBlock title="$ yarn bud build --target theme --target plugin">
+  {BuildTargetThemePlugin}
+</CodeBlock>
 
 ## bud build --hash
 
 The `--hash` flag will enable filename hashing for the build.
 
-<CodeBlock title='$ yarn bud build --hash'>{BuildHash}</CodeBlock>
+<CodeBlock title="$ yarn bud build --hash">
+  {BuildHash}
+</CodeBlock>
 
 ## bud build --ci
 
 The `--ci` flag uses webpack's default cli output (for interoperability).
 
-<CodeBlock title='$ yarn bud build --ci'>{BuildCI}</CodeBlock>
+<CodeBlock title="$ yarn bud build --ci">{BuildCI}</CodeBlock>

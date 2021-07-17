@@ -1,5 +1,5 @@
-import {Api} from '@roots/bud-framework'
-import Webpack from 'webpack'
+import type {Api} from '@roots/bud-framework'
+import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {

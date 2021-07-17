@@ -1,4 +1,4 @@
-import {Module, Loader} from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -7,81 +7,85 @@ declare module '@roots/bud-framework' {
      *
      * Configure mdx to suit your application needs
      */
-    mdx: Mdx
+    mdx: Framework.Api.Mdx
   }
 
-  /**
-   * ## MDX Configuration
-   */
-  interface Mdx {
-    /**
-     * ## mdx.setRemarkPlugin
-     *
-     * Add a remark plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.mdx.setRemarkPlugin({emoji})
-     * ```
-     */
-    setRemarkPlugin: Mdx.SetRemarkPlugin
+  namespace Framework.Api {
+    interface Mdx {
+      /**
+       * ## mdx.setRemarkPlugin
+       *
+       * Add a remark plugin.
+       *
+       * ### Usage
+       *
+       * ```js
+       * bud.mdx.setRemarkPlugin({emoji})
+       * ```
+       */
+      setRemarkPlugin: Framework.Api.Mdx.SetRemarkPlugin
 
-    /**
-     * ## mdx.remarkPlugins
-     *
-     * Get registered remark plugins.
-     */
-    remarkPlugins: Mdx.RemarkRegistry
+      /**
+       * ## mdx.remarkPlugins
+       *
+       * Get registered remark plugins.
+       */
+      remarkPlugins: Framework.Api.Mdx.RemarkRegistry
 
-    /**
-     * ## mdx.setRehypePlugin
-     *
-     * Add a rehype plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.mdx.setRehypePlugin({emoji})
-     * ```
-     */
-    setRehypePlugin: Mdx.SetRehypePlugin
+      /**
+       * ## mdx.setRehypePlugin
+       *
+       * Add a rehype plugin.
+       *
+       * ### Usage
+       *
+       * ```js
+       * bud.mdx.setRehypePlugin({emoji})
+       * ```
+       */
+      setRehypePlugin: Framework.Api.Mdx.SetRehypePlugin
 
-    /**
-     * ## mdx.rehypePlugins
-     *
-     * Get registered rehype plugins.
-     */
-    rehypePlugins: Mdx.RehypeRegistry
+      /**
+       * ## mdx.rehypePlugins
+       *
+       * Get registered rehype plugins.
+       */
+      rehypePlugins: Framework.Api.Mdx.RehypeRegistry
 
-    /**
-     * ## mdx.options
-     */
-    options: Mdx.Options
-  }
-
-  namespace Mdx {
-    interface RemarkRegistry {
-      [key: string]: RemarkPlugin
+      /**
+       * ## mdx.options
+       */
+      options: Framework.Api.Mdx.Options
     }
 
-    interface RehypeRegistry {
-      [key: string]: RehypePlugin
-    }
-    interface Options {
-      rehypePlugins: RehypePlugin[]
-      remarkPlugins: RemarkPlugin[]
-    }
+    namespace Mdx {
+      interface RemarkRegistry {
+        [key: string]: RemarkPlugin
+      }
 
-    type RemarkPlugin = any
-    type RehypePlugin = any
-    type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
-    type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
+      interface RehypeRegistry {
+        [key: string]: RehypePlugin
+      }
+
+      interface Options {
+        rehypePlugins: RehypePlugin[]
+        remarkPlugins: RemarkPlugin[]
+      }
+
+      type RemarkPlugin = any
+      type RehypePlugin = any
+      type SetRemarkPlugin = (
+        plugins: RemarkRegistry,
+      ) => Framework.Api.Mdx
+      type SetRehypePlugin = (
+        plugins: RemarkRegistry,
+      ) => Framework.Api.Mdx
+    }
   }
 
   namespace Hooks.Loader {
     interface Definitions {
-      mdx: Loader
+      mdx: any
     }
   }
 

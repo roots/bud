@@ -2,6 +2,7 @@
  * Framework re-export
  */
 export {Framework} from '@roots/bud-framework'
+export {Bud} from './Bud'
 
 /**
  * Base config
@@ -27,20 +28,15 @@ export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
  * Base framework services
  */
 export {services} from './services'
-export {Api} from '@roots/bud-api'
-export {Build} from '@roots/bud-build'
-export {Cache} from '@roots/bud-cache'
-export {Compiler} from '@roots/bud-compiler'
-export {Dashboard} from '@roots/bud-dashboard'
-export {Dependencies} from './services/Dependencies/index'
-export {Discovery} from './services/Discovery/index'
-export {Env} from './services/Env/index'
-export {Extensions} from './services/Extensions/index'
-export {Hooks} from './services/Hooks/index'
-export {Logger} from './services/Logger/index'
-export {Server} from './services/Server/index'
-
-/**
- * Bud
- */
-export {Bud} from './Bud'
+export * as Api from '@roots/bud-api'
+export * as Build from '@roots/bud-build'
+export * as Cache from '@roots/bud-cache'
+export * as Compiler from '@roots/bud-compiler'
+export * as Dashboard from '@roots/bud-dashboard'
+export * as Dependencies from './services/Dependencies/index'
+export * as Discovery from './services/Discovery/index'
+export * as Env from './services/Env/index'
+export * as Extensions from './services/Extensions/index'
+export * from './services/Hooks/index'
+export * from './services/Logger/index'
+export * from './services/Server/index'

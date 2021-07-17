@@ -70,7 +70,7 @@ const generateName = (input: Module) =>
  */
 const use: Framework.Api.Use = function (source) {
   const addExtension = (source: Module) => {
-    source.name = source.name ?? generateName(source)
+    if (!source.name) source.name = generateName(source)
 
     this.extensions.add(
       isWebpackPlugin(source)

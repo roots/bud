@@ -1,5 +1,5 @@
-import {Hooks, Server} from '../'
-import Webpack from 'webpack/types'
+import type {Hooks, Server} from '../'
+import type Webpack from 'webpack/types'
 
 export interface Configuration {
   /**
@@ -136,16 +136,16 @@ export interface Configuration {
   theme: {
     spacing: number // number of chars to use for gutters, spacers, etc.
     colors: {
-      foreground: TermColor // text color
-      faded: TermColor // 'grayed out' color
-      primary: TermColor // primary color
-      primaryAlt: TermColor // variant of primary color (for gradients, etc.)
-      error: TermColor // error color
-      errorAlt: TermColor // variant of error color (for gradients, etc.)
-      warning: TermColor // warning color
-      success: TermColor // success color
-      accent: TermColor // accent color
-      flavor: TermColor // flavor color
+      foreground: Framework.Configuration.TermColor // text color
+      faded: Framework.Configuration.TermColor // 'grayed out' color
+      primary: Framework.Configuration.TermColor // primary color
+      primaryAlt: Framework.Configuration.TermColor // variant of primary color (for gradients, etc.)
+      error: Framework.Configuration.TermColor // error color
+      errorAlt: Framework.Configuration.TermColor // variant of error color (for gradients, etc.)
+      warning: Framework.Configuration.TermColor // warning color
+      success: Framework.Configuration.TermColor // success color
+      accent: Framework.Configuration.TermColor // accent color
+      flavor: Framework.Configuration.TermColor // flavor color
     }
     screens: [
       [number, number], // sm
@@ -159,26 +159,28 @@ export interface Configuration {
   }
 }
 
-/**
- * Can be either ansi-color or hex
- */
-type TermColor =
-  | `#${string}`
-  | `black`
-  | `red`
-  | `green`
-  | `yellow`
-  | `blue`
-  | `magenta`
-  | `cyan`
-  | `white`
-  | `gray`
-  | `grey`
-  | `blackBright`
-  | `redBright`
-  | `greenBright`
-  | `yellowBright`
-  | `blueBright`
-  | `magentaBright`
-  | `cyanBright`
-  | `whiteBright`
+declare namespace Framework.Configuration {
+  /**
+   * Can be either ansi-color or hex
+   */
+  type TermColor =
+    | `#${string}`
+    | `black`
+    | `red`
+    | `green`
+    | `yellow`
+    | `blue`
+    | `magenta`
+    | `cyan`
+    | `white`
+    | `gray`
+    | `grey`
+    | `blackBright`
+    | `redBright`
+    | `greenBright`
+    | `yellowBright`
+    | `blueBright`
+    | `magentaBright`
+    | `cyanBright`
+    | `whiteBright`
+}

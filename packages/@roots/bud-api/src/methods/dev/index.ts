@@ -1,4 +1,4 @@
-import {Framework, Server} from '@roots/bud-framework'
+import type {Framework, Server} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -20,7 +20,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Dev = (
+    type Dev = (
       this: Framework,
       config?: Server.Configuration,
     ) => Framework
