@@ -29,32 +29,6 @@ export class Config implements Framework.Api.Babel {
     this._presets = presets
   }
 
-  /**
-   * Accessor: enabledPlugins
-   */
-  public _enabledPlugins: string[] = []
-
-  public get enabledPlugins() {
-    return this._enabledPlugins
-  }
-
-  public set enabledPlugins(plugins: string[]) {
-    this._enabledPlugins = plugins
-  }
-
-  /**
-   * Accessor: enabledPresets
-   */
-  public _enabledPresets: string[] = []
-
-  public get enabledPresets() {
-    return this._enabledPresets
-  }
-
-  public set enabledPresets(presets: string[]) {
-    this._enabledPresets = presets
-  }
-
   @bind
   public init(app: Framework): this {
     this.app = app
@@ -88,7 +62,6 @@ export class Config implements Framework.Api.Babel {
     >,
   ): this {
     plugins.map(this.setPlugin)
-
     return this
   }
 
@@ -98,7 +71,10 @@ export class Config implements Framework.Api.Babel {
   ): this {
     preset = this.normalizeEntry(preset)
 
-    this.presets = {...this.presets, [preset[0]]: preset}
+    this.presets = {
+      ...this.presets,
+      [preset[0]]: preset,
+    }
 
     return this
   }

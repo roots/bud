@@ -1,6 +1,6 @@
 import '@roots/bud-extensions'
-import {Module} from '@roots/bud-framework'
-import {PluginCreator} from 'postcss'
+import type {Module} from '@roots/bud-framework'
+import type {PluginCreator} from 'postcss'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -9,7 +9,7 @@ declare module '@roots/bud-framework' {
      *
      * Configure postcss.
      */
-    postcss: PostCss
+    postcss: Framework.Api.PostCss
   }
 
   namespace Framework {
@@ -30,50 +30,46 @@ declare module '@roots/bud-framework' {
         }
       }
     }
-  }
 
-  interface PostCss {
-    /**
-     * Registered plugins
-     */
-    plugins: PostCss.Registry
+    namespace Api {
+      interface PostCss {
+        /**
+         * Registered plugins
+         */
+        plugins: PostCss.Registry
 
-    /**
-     * Set a plugin
-     */
-    setPlugin(
-      name: string,
-      plugin: PostCss.Plugin | PostCss.NormalizedPlugin,
-    ): this
+        /**
+         * Set a plugin
+         */
+        setPlugin(
+          plugin: string | PostCss.NormalizedPlugin,
+        ): this
 
-    /**
-     * Set plugins
-     */
-    setPlugins(
-      this: PostCss,
-      plugins: {
-        [key: string]: PostCss.Plugin | PostCss.NormalizedPlugin
-      },
-    ): this
+        /**
+         * Set plugins
+         */
+        setPlugins(
+          plugins: Array<PostCss.NormalizedPlugin | string>,
+        ): this
 
-    /**
-     * Set plugin options
-     */
-    setPluginOptions(plugin: string, options: any): this
+        /**
+         * Set plugin options
+         */
+        setPluginOptions(plugin: string, options: any): this
 
-    /**
-     * Remove a plugin
-     */
-    unsetPlugin(plugin: string): this
-  }
+        /**
+         * Remove a plugin
+         */
+        unsetPlugin(plugin: string): this
+      }
 
-  namespace PostCss {
-    type NormalizedPlugin = [Plugin, any]
+      namespace PostCss {
+        type NormalizedPlugin = [string, any]
 
-    type Plugin = string | PluginCreator<any>
-
-    interface Registry {
-      [key: string]: NormalizedPlugin
+        interface Registry {
+          [key: string]: [PluginCreator<any>, any]
+        }
+      }
     }
   }
 }

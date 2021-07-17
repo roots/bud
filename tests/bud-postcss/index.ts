@@ -5,9 +5,10 @@ describe('@roots/bud-postcss', () => {
   let bud: Framework = setupBud('production')
 
   let mock = {
-    plugins: {
-      import: ['postcss-import', {}],
-      'preset-env': [
+    plugins: [
+      ['postcss-import'],
+      ['postcss-nested'],
+      [
         'postcss-preset-env',
         {
           stage: 1,
@@ -16,7 +17,7 @@ describe('@roots/bud-postcss', () => {
           },
         },
       ],
-    },
+    ],
   }
 
   beforeAll(() => {
@@ -39,12 +40,5 @@ describe('@roots/bud-postcss', () => {
 
   it('exports a boot method', () => {
     expect(postcss.boot).toBeInstanceOf(Function)
-  })
-
-  it('uses registered plugins values in build.module.rules', () => {
-    expect(
-      bud.build.items.postcss.make(bud).options.postcssOptions
-        .plugins,
-    ).toEqual(Object.values(mock.plugins))
   })
 })

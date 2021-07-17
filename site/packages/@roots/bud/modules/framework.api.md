@@ -11,6 +11,7 @@ custom_edit_url: null
 
 - [Babel](framework.api.babel.md)
 - [Entry](framework.api.entry.md)
+- [PostCss](framework.api.postcss.md)
 - [SplitChunks](framework.api.splitchunks.md)
 
 ## Interfaces
@@ -18,6 +19,7 @@ custom_edit_url: null
 - [Babel](../interfaces/framework.api.babel-1.md)
 - [Entry](../interfaces/framework.api.entry-1.md)
 - [Options](../interfaces/framework.api.options.md)
+- [PostCss](../interfaces/framework.api.postcss-1.md)
 - [Provided](../interfaces/framework.api.provided.md)
 
 ## Type aliases

@@ -57,7 +57,7 @@ const extension: Module<CopyPlugin, CopyPluginOptions> = {
 
         const pattern = {
           from,
-          to: `${dirName}/${format}.[ext]`,
+          to: `${dirName}/${format}[ext]`,
         }
 
         this.extensions

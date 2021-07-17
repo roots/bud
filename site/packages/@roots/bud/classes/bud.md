@@ -91,7 +91,7 @@ app.alias({
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:31
+packages/@roots/bud/types/Bud.d.ts:32
 
 ___
 
@@ -109,7 +109,7 @@ Service providing config api methods
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:20
+packages/@roots/bud/types/Bud.d.ts:21
 
 ___
 
@@ -173,7 +173,7 @@ Service handling config compilation
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:21
+packages/@roots/bud/types/Bud.d.ts:22
 
 ___
 
@@ -191,7 +191,7 @@ Service handling compiler cache
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:22
+packages/@roots/bud/types/Bud.d.ts:23
 
 ___
 
@@ -227,7 +227,7 @@ Service handling build compilation
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:23
+packages/@roots/bud/types/Bud.d.ts:24
 
 ___
 
@@ -329,7 +329,7 @@ Dependencies service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:24
+packages/@roots/bud/types/Bud.d.ts:25
 
 ___
 
@@ -397,7 +397,7 @@ Discovery service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:25
+packages/@roots/bud/types/Bud.d.ts:26
 
 ___
 
@@ -487,7 +487,7 @@ Envvar service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:26
+packages/@roots/bud/types/Bud.d.ts:27
 
 ___
 
@@ -529,7 +529,7 @@ Extensions service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:27
+packages/@roots/bud/types/Bud.d.ts:28
 
 ___
 
@@ -596,7 +596,7 @@ Hooks service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:28
+packages/@roots/bud/types/Bud.d.ts:29
 
 ___
 
@@ -624,7 +624,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:14
+packages/@roots/bud/types/Bud.d.ts:15
 
 ___
 
@@ -658,7 +658,7 @@ Logger service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:29
+packages/@roots/bud/types/Bud.d.ts:30
 
 ___
 
@@ -766,7 +766,7 @@ ___
 
 ### postcss
 
-• **postcss**: `PostCss`
+• **postcss**: [`PostCss`](../interfaces/framework.api.postcss-1.md)
 
 ## bud.postcss
 
@@ -963,7 +963,7 @@ Dev server service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:30
+packages/@roots/bud/types/Bud.d.ts:31
 
 ___
 

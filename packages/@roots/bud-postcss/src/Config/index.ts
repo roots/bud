@@ -1,54 +1,52 @@
-import type {PostCss} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
-export class Config implements PostCss {
-  public plugins: PostCss.Registry = {}
+import type {Framework} from '@roots/bud-framework'
+import {PluginCreator} from 'postcss'
+
+export class Config implements Framework.Api.PostCss {
+  public plugins: Framework.Api.PostCss.Registry = {}
 
   @bind
-  public normalize(
-    c: PostCss.Plugin | PostCss.NormalizedPlugin,
-  ): PostCss.NormalizedPlugin {
-    return isString(c)
-      ? ([c, {}] as PostCss.NormalizedPlugin)
-      : (c as PostCss.NormalizedPlugin)
+  public normalizeEntry(
+    c: string | Framework.Api.PostCss.NormalizedPlugin,
+  ): Framework.Api.PostCss.NormalizedPlugin {
+    return isString(c) ? [c, {}] : c
   }
 
   @bind
   public setPlugin(
-    name: string,
-    plugin: PostCss.Plugin | PostCss.NormalizedPlugin,
+    plugin: string | Framework.Api.PostCss.NormalizedPlugin,
   ): this {
-    this.plugins[name] = this.normalize(plugin)
+    const [
+      name,
+      config,
+    ]: Framework.Api.PostCss.NormalizedPlugin =
+      this.normalizeEntry(plugin)
+
+    const pluginCreator: PluginCreator<any> = require(name)
+
+    this.plugins = {
+      ...this.plugins,
+      [`${name}`]: [pluginCreator, config ?? undefined],
+    }
 
     return this
   }
 
   @bind
-  public setPlugins(plugins: {
-    [key: string]: PostCss.Plugin | PostCss.NormalizedPlugin
-  }): this {
-    this.plugins = Object.entries(plugins).reduce(
-      (
-        plugins,
-        [name, plugin]: [
-          string,
-          PostCss.Plugin | PostCss.NormalizedPlugin,
-        ],
-      ) => ({
-        ...plugins,
-        [name]: this.normalize(plugin),
-      }),
-      {},
-    )
-
+  public setPlugins(
+    plugins: Array<
+      string | Framework.Api.PostCss.NormalizedPlugin
+    >,
+  ): this {
+    plugins.map(this.setPlugin)
     return this
   }
 
   @bind
   public unsetPlugin(plugin: string) {
     this.plugins[plugin] && delete this.plugins[plugin]
-
     return this
   }
 

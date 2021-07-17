@@ -2,8 +2,8 @@ body {
   @apply font-sans;
 }
 
-.brand {
+#root {
   @apply text-3xl font-medium text-indigo-500;
 
-  background: url(~@images/image.png);
+  background: url(~@images/image.jpeg);
 }

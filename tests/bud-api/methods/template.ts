@@ -128,7 +128,7 @@ describe('bud.template', function () {
           removeStyleLinkTypeAttributes: true,
           useShortDoctype: true,
         },
-        publicPath: '/',
+        publicPath: 'auto',
         template: 'src/foo.html',
         window: {
           env: {},

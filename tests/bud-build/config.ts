@@ -155,9 +155,7 @@ describe('bud.build.config', function () {
                     'project',
                     '/node_modules/mini-css-extract-plugin/dist/loader.js',
                   ),
-                  options: {
-                    publicPath: '.',
-                  },
+                  options: {},
                 },
                 {
                   loader: path(

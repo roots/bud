@@ -1,4 +1,4 @@
-import {Configuration} from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework'
 
 export const config: Configuration = {
   name: 'bud',
@@ -30,7 +30,7 @@ export const config: Configuration = {
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
-    publicPath: '/',
+    publicPath: '',
     storage: '.budfiles',
   },
 
@@ -124,7 +124,6 @@ export const config: Configuration = {
     webpackManifestPlugin: {
       fileName: 'manifest.json',
       writeToFileEmit: true,
-      publicPath: '',
     },
     webpackProvidePlugin: {},
   },

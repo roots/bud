@@ -114,7 +114,7 @@ export function helper(
 
   async function setup(mode = 'production') {
     await yarn('bud', 'extensions:install')
-    await yarn('bud', `build:${mode}`, '--ci', '--debug')
+    await yarn('bud', `build:${mode}`, '--debug')
 
     const built = await assets()
     return built

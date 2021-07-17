@@ -5,7 +5,7 @@ import MiniCssExtractPlugin, {
 
 const extension: Module<MiniCssExtractPlugin, PluginOptions> = {
   name: 'mini-css-extract-plugin',
-  options: ({store}) => ({
+  options: ({hooks, store}) => ({
     filename: store.isTrue('hash')
       ? `${store.get('hashFormat')}.css`
       : `${store.get('fileFormat')}.css`,

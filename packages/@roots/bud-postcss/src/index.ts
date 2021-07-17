@@ -23,7 +23,9 @@ const extension: Module = {
           config: pathExistsSync(
             path('project', 'postcss.config.js'),
           ),
-          plugins: Object.values(postcss.plugins),
+          plugins: Object.values(postcss.plugins).map(
+            ([plugin, options]) => plugin(options),
+          ),
         },
         sourceMap: true,
       }),
@@ -36,11 +38,10 @@ const extension: Module = {
     ])
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&
-      discovery.hasPeerDependency('postcss-import') &&
-      discovery.hasPeerDependency('postcss-preset-env') &&
-      postcss.setPlugins({
-        import: 'postcss-import',
-        'preset-env': [
+      postcss.setPlugins([
+        'postcss-import',
+        'postcss-nested',
+        [
           'postcss-preset-env',
           {
             stage: 1,
@@ -49,7 +50,7 @@ const extension: Module = {
             },
           },
         ],
-      })
+      ])
   },
 }
 

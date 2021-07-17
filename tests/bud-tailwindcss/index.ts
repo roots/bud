@@ -12,9 +12,6 @@ const CONFIG = {
   },
 }
 
-const projectPath = (file: string) =>
-  `${CONFIG.location.project}/${file}`
-
 describe(NAME, () => {
   describe('settings', () => {
     let bud: Framework = null
@@ -49,22 +46,12 @@ describe(NAME, () => {
     })
 
     it('sets up postcss plugins', () => {
-      expect(bud.postcss.plugins).toEqual({
-        import: ['postcss-import', {}],
-        'preset-env': [
-          'postcss-preset-env',
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
-          },
-        ],
-        tailwindcss: [
-          'tailwindcss',
-          projectPath('tailwind.config.js'),
-        ],
-      })
+      expect(Object.keys(bud.postcss.plugins)).toEqual([
+        'postcss-import',
+        'postcss-nested',
+        'postcss-preset-env',
+        'tailwindcss',
+      ])
     })
   })
 })

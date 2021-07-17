@@ -128,7 +128,9 @@ export function config(this: Framework): void {
     .hooks.on('build/output/path', () => this.path('dist'))
     .hooks.on('build/output/pathinfo', () => false)
     .hooks.on('build/output/publicPath', () =>
-      this.store.get('location.publicPath'),
+      this.store.is('location.publicPath', '')
+        ? 'auto'
+        : this.store.get('location.publicPath'),
     )
     .hooks.on('build/parallelism', () =>
       this.store.get('build.parallelism'),

@@ -71,6 +71,9 @@
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "autoprefixer": "^10.2.6",
+    "postcss": "^8",
+    "postcss-import": "^14",
+    "postcss-preset-env": "^6",
     "tailwindcss": "^2.2.4"
   },
   "peerDependencies": {

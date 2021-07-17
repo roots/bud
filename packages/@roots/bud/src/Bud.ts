@@ -1,4 +1,5 @@
 import {Api} from '@roots/bud-api'
+import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dependencies} from './services/Dependencies'
@@ -8,10 +9,11 @@ import {Extensions} from './services/Extensions'
 import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
 import {Server} from './services/Server'
-import {Build} from '@roots/bud-build'
-import {Framework, Configuration} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
-class Bud extends Framework {
+import type {Configuration} from '@roots/bud-framework'
+
+export class Bud extends Framework {
   public implementation: new (options: {
     name?: string
     mode?: 'production' | 'development'
@@ -43,5 +45,3 @@ class Bud extends Framework {
 
   public alias: Framework.Api.Alias
 }
-
-export {Bud}

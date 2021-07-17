@@ -9,7 +9,6 @@ describe(suite.name, () => {
 
   beforeAll(async () => {
     assets = await suite.setup()
-    return
   })
 
   describe('main.js', () => {

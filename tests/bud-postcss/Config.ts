@@ -6,7 +6,7 @@ describe('bud.postcss', () => {
 
   beforeAll(() => {
     bud = setupBud('production')
-    bud.use([postcss])
+    bud.use(postcss)
   })
 
   afterAll(() => {
@@ -14,9 +14,9 @@ describe('bud.postcss', () => {
   })
 
   it('setPlugins functions', () => {
-    bud.postcss.setPlugins({
-      import: 'postcss-import',
-      'preset-env': [
+    bud.postcss.setPlugins([
+      'postcss-nested',
+      [
         'postcss-preset-env',
         {
           stage: 1,
@@ -25,81 +25,46 @@ describe('bud.postcss', () => {
           },
         },
       ],
-    })
+    ])
 
-    expect(bud.postcss.plugins).toEqual({
-      import: ['postcss-import', {}],
-      'preset-env': [
-        'postcss-preset-env',
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ],
-    })
+    expect(Object.keys(bud.postcss.plugins)).toEqual([
+      'postcss-import',
+      'postcss-nested',
+      'postcss-preset-env',
+    ])
   })
 
   it('unsetPlugin functions', () => {
-    bud.postcss.unsetPlugin('import')
-    expect(
-      bud.build.items.postcss.make(bud).options.postcssOptions
-        .plugins,
-    ).toEqual(
-      Object.values({
-        'preset-env': [
-          'postcss-preset-env',
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
-          },
-        ],
-      }),
-    )
+    bud.postcss.unsetPlugin('postcss-import')
+    expect(Object.keys(bud.postcss.plugins)).toEqual([
+      'postcss-nested',
+      'postcss-preset-env',
+    ])
   })
 
   it('setPlugin functions', () => {
-    bud.postcss.setPlugin('import', ['postcss-import', {}])
+    bud.postcss.setPlugin(['postcss-import', {}])
+
+    expect(Object.keys(bud.postcss.plugins)).toContain(
+      'postcss-import',
+    )
 
     expect(
-      bud.build.items.postcss.make(bud).options.postcssOptions
-        .plugins,
-    ).toEqual([
-      [
-        'postcss-preset-env',
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ],
-      ['postcss-import', {}],
-    ])
+      bud.postcss.plugins['postcss-import'].shift(),
+    ).toBeInstanceOf(Function)
+
+    expect(bud.postcss.plugins['postcss-import'].pop()).toEqual(
+      {},
+    )
   })
 
   it('setPluginOptions functions', () => {
-    bud.postcss.setPluginOptions('import', {
+    bud.postcss.setPluginOptions('postcss-import', {
       foo: 'bar',
     })
 
-    expect(
-      bud.build.items.postcss.make(bud).options.postcssOptions
-        .plugins,
-    ).toEqual([
-      [
-        'postcss-preset-env',
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ],
-      ['postcss-import', {foo: 'bar'}],
-    ])
+    expect(bud.postcss.plugins['postcss-import'].pop()).toEqual({
+      foo: 'bar',
+    })
   })
 })

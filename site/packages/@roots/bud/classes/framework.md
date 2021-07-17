@@ -640,7 +640,7 @@ ___
 
 ### postcss
 
-• **postcss**: `PostCss`
+• **postcss**: [`PostCss`](../interfaces/framework.api.postcss-1.md)
 
 ## bud.postcss
 

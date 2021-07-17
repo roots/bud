@@ -59,13 +59,14 @@ Add the extension to your config:
 bud.use(require('@roots/bud-postcss'))
 ```
 
-You should be good-to-go at this point! If you feel you may need to configure postcss further, read on. 
+You should be good-to-go at this point! If you feel you may need to configure postcss further, read on.
 
 ## Configuration
 
 Out of the box **@roots/bud-postcss** supports:
 
 - postcss-import
+- postcss-nested
 - postcss-preset-env
 
 If this works for you, great! No need to keep reading. But, should you need something more specialized, you can configure it in your bud config file or a **postcss.config.js** file in your project's root directory.
@@ -82,33 +83,47 @@ The API used by **@roots/bud-postcss** internally can also be used in your proje
 
 ```js
 bud.postcss.setPlugins({
-  import: 'postcss-import',
-  'preset-env': ['postcss-preset-env', {stage: 1}],
+  'postcss-import',
+  ['postcss-preset-env', {stage: 1}],
 })
 ```
 
 ```js
 bud.postcss
-  .setPlugin('import', ['postcss-import'])
-  .setPlugin('preset-env', ['postcss-preset-env', {stage: 1}])
+  .setPlugin('postcss-import')
+  .setPlugin(['postcss-preset-env', {stage: 1}])
 ```
 
 ```js
 bud.postcss
-  .setPlugin('import', ['postcss-import'])
-  .setPlugin('preset-env', ['postcss-preset-env'])
-  .setPluginOptions('preset-env', {stage: 1})
+  .setPlugin(['postcss-import'])
+  .setPlugin(['postcss-preset-env'])
+  .setPluginOptions('postcss-preset-env', {stage: 1})
 ```
 
 ### postcss.setPlugin
 
-Add a postcss plugin. Takes two parameters: the first is a unique key for the plugin, so that it can be referenced later by other extensions. The second can either be the path to the plugin, the resolvable plugin module name, or a postcss PluginCreator function.
+Add a postcss plugin. Takes two parameters: the first is the resolvable plugin module name, The second are any options to pass to the PostCSS plugin function it references.
 
 ```js
-bud.postcss.setPlugin(
-  'import',
-  require.resolve('postcss-import'),
-)
+bud.postcss.setPlugin(['postcss-preset-env', {stage: 1}])
+```
+
+If there are no options you can use a string:
+
+```js
+bud.postcss.setPlugin('postcss-preset-env')
+```
+
+### postcss.setPlugins
+
+Adds postcss plugins. Takes an array of the arguments supplied to **bud.postcss.setPlugin**.
+
+```js
+bud.postcss.setPlugins([
+  'postcss-import',
+  ['postcss-preset-env', {stage: 1}],
+])
 ```
 
 ### postcss.unsetPlugin
@@ -116,7 +131,7 @@ bud.postcss.setPlugin(
 Remove a postcss plugin:
 
 ```js
-bud.postcss.unsetPlugin('import')
+bud.postcss.unsetPlugin('postcss-import')
 ```
 
 ### postcss.setPluginOptions
@@ -124,7 +139,7 @@ bud.postcss.unsetPlugin('import')
 Override any plugin options:
 
 ```js
-bud.postcss.setPluginOptions('import', {
+bud.postcss.setPluginOptions('postcss-import', {
   path: bud.filter('build/resolve/modules'),
 })
 ```

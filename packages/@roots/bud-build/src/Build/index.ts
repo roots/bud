@@ -1,4 +1,3 @@
-import {posix} from 'path'
 import RemarkHTML from 'remark-html'
 import toml from 'toml'
 import yaml from 'yamljs'
@@ -84,13 +83,7 @@ class Build extends Service implements Contract {
       }),
       minicss: new Item({
         loader: ({build}) => build.loaders.minicss,
-        options: ({path}: Framework) => ({
-          publicPath: posix.normalize(
-            posix.dirname(
-              posix.relative(path('project'), path('src')),
-            ),
-          ),
-        }),
+        options: ({path}: Framework) => ({}),
       }),
       raw: new Item({
         loader: ({build}) => build.loaders.raw,

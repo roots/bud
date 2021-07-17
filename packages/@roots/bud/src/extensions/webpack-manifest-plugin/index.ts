@@ -10,8 +10,11 @@ const extension: Plugin<{apply: any}, Options> = {
   options: ({store}) =>
     store.get<Options>('extension.webpackManifestPlugin'),
 
-  make: options => {
-    return new WebpackManifestPlugin(options.all())
+  make: (options, {store}) => {
+    return new WebpackManifestPlugin({
+      publicPath: store.get('location.publicPath'),
+      ...options.all(),
+    })
   },
 
   when: app => app.store.isTrue('manifest'),

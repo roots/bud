@@ -43,9 +43,7 @@ describe('@roots/sage', () => {
       expect(bud.path('storage')).toEqual(
         SAGE_DIR.concat('/storage/bud'),
       )
-      expect(bud.publicPath()).toEqual(
-        '/app/themes/sage/public/',
-      )
+      expect(bud.publicPath()).toEqual('auto')
       expect(bud.path('dist')).toEqual(
         SAGE_DIR.concat('/public'),
       )

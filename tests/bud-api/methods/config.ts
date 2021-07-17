@@ -5,12 +5,10 @@ describe('bud.config', function () {
 
   beforeAll(() => {
     bud = setupBud()
-    return
   })
 
   afterAll(() => {
     teardownBud(bud)
-    return
   })
 
   it('is a function', () => {
