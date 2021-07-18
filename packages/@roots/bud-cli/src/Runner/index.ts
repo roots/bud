@@ -12,7 +12,11 @@ export default class Runner {
 
   public constructor(cli, options) {
     this.cli = cli
-    this.app = new Bud(options).bootstrap(services).lifecycle()
+    this.app = new Bud({
+      name: 'bud',
+      ...options,
+      services,
+    }).bootstrap()
   }
 
   public async make(build = true) {
@@ -30,7 +34,7 @@ export default class Runner {
         this.app.store.set(k, v)
 
         this.app.children.every((_name, child) => {
-          child.store.set(k, v)
+          child?.store && child.store.set(k, v)
         })
       })
 
@@ -54,9 +58,7 @@ export default class Runner {
        * Target was specified
        */
       if (this.cli.flags.target.length > 0) {
-        !this.cli.flags.target.includes('parent') &&
-          !this.cli.flags.target.includes('bud') &&
-          !this.cli.flags.target.includes('global') &&
+        !this.cli.flags.target.includes('bud') &&
           this.app.hooks.on('build/entry', false)
 
         this.app.children.getKeys().forEach(name => {

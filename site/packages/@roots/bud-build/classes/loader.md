@@ -34,7 +34,7 @@ Base.constructor
 
 #### Defined in
 
-packages/@roots/bud-build/types/Loader/index.d.ts:4
+bud-build/types/Loader/index.d.ts:4
 
 ## Properties
 
@@ -44,7 +44,7 @@ packages/@roots/bud-build/types/Loader/index.d.ts:4
 
 #### Defined in
 
-packages/@roots/bud-build/types/Loader/index.d.ts:4
+bud-build/types/Loader/index.d.ts:4
 
 ## Methods
 
@@ -68,7 +68,7 @@ Build.Loader.make
 
 #### Defined in
 
-packages/@roots/bud-build/types/Loader/index.d.ts:6
+bud-build/types/Loader/index.d.ts:6
 
 ___
 
@@ -110,4 +110,4 @@ Base.normalizeInput
 
 #### Defined in
 
-packages/@roots/bud-build/types/shared/Base.d.ts:3
+bud-build/types/shared/Base.d.ts:3

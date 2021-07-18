@@ -1,15 +1,15 @@
-import {Framework} from '@roots/bud-framework'
-import {PluginOptions} from 'image-minimizer-webpack-plugin/types'
+import type {Framework} from '@roots/bud-framework'
+import type {PluginOptions} from 'image-minimizer-webpack-plugin/types'
 
 class Api {
-  public _app: Framework['get']
+  public _app: () => Framework
 
   public get app(): Framework {
     return this._app()
   }
 
   public constructor(app: Framework) {
-    this._app = app.get
+    this._app = () => app
   }
 
   public plugins(plugins: [string, any]) {

@@ -1,43 +1,27 @@
-export {Api} from './Api'
-
 export {Container} from '@roots/container'
-
-export {FileContainer} from '@roots/filesystem'
 
 export {Bootstrapper, Service} from './Service'
 
-export {Build} from './Build'
-
-export {Cache} from './Cache'
-
-export {Compiler} from './Compiler'
-
-export {Configuration} from './Configuration'
-
-export {Extension} from './Extensions/Extension'
-
-export {Extensions} from './Extensions/Extensions'
-
-export {Dashboard} from './Dashboard'
-
-export {Dependencies} from './Dependencies'
-
 export {Discovery} from './Discovery'
 
-export {Env} from './Env'
-
-export {Hooks} from './Hooks'
-
-export {Logger} from './Logger'
-
-export {Mode} from './Mode'
-
-export {Module} from './Extensions/Module'
-
-export {Plugin} from './Extensions/Plugin'
-
-export {Server} from './Server'
+export {Extension} from './Extensions/Extension'
 
 export {Store} from './Store'
 
 export {Framework} from './Framework'
+
+export type {Api} from './Api'
+export type {Build} from './Build'
+export type {Cache} from './Cache'
+export type {Compiler} from './Compiler'
+export type {Dashboard} from './Dashboard'
+export type {Dependencies} from './Dependencies'
+export type {Env} from './Env'
+export type {Extensions} from './Extensions/Extensions'
+export type {Hooks} from './Hooks'
+export type {Logger} from './Logger'
+export type {Mode} from './Mode'
+export type {Module} from './Extensions/Module'
+export type {Plugin} from './Extensions/Plugin'
+export type {Server} from './Server'
+export type {Configuration} from './Configuration'

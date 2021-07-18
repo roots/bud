@@ -1,11 +1,10 @@
 ---
-id: "build.rule"
+id: "rule"
 title: "Class: Rule"
-sidebar_label: "Build.Rule"
+sidebar_label: "Rule"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[Build](../modules/build.md).Rule
 
 ## Implements
 

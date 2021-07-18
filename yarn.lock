@@ -3186,7 +3186,6 @@ __metadata:
   dependencies:
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
-    "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.171
     "@types/node": ^15.12.5
@@ -3636,8 +3635,6 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
-    "@roots/filesystem": "workspace:packages/@roots/filesystem"
-    "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/css-minimizer-webpack-plugin": ^3.0.2
     "@types/express": ^4.17.13

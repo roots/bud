@@ -9,8 +9,6 @@ custom_edit_url: null
 
 ## Namespaces
 
-- [Api](modules/api.md)
-- [Build](modules/build.md)
 - [Cache](modules/cache.md)
 - [CleanWebpackPlugin](modules/cleanwebpackplugin.md)
 - [Compiler](modules/compiler.md)
@@ -22,6 +20,7 @@ custom_edit_url: null
 - [Discovery](modules/discovery.md)
 - [Env](modules/env.md)
 - [Extensions](modules/extensions.md)
+- [Factory](modules/factory.md)
 - [Framework](modules/framework.md)
 - [HotModuleReplacementPlugin](modules/hotmodulereplacementplugin.md)
 - [IgnoreEmitWebpackPlugin](modules/ignoreemitwebpackplugin.md)
@@ -29,22 +28,58 @@ custom_edit_url: null
 - [WebpackConfigDumpPlugin](modules/webpackconfigdumpplugin.md)
 - [WebpackManifestPlugin](modules/webpackmanifestplugin.md)
 - [WebpackProvidePlugin](modules/webpackprovideplugin.md)
+- [items](modules/items.md)
+- [loaders](modules/loaders.md)
+- [methods](modules/methods.md)
+- [rules](modules/rules.md)
 
 ## Classes
 
+- [Api](classes/api.md)
 - [Bud](classes/bud.md)
+- [Build](classes/build.md)
 - [Framework](classes/framework.md)
-- [Hooks](classes/hooks.md)
-- [Logger](classes/logger.md)
-- [Server](classes/server.md)
+- [Item](classes/item.md)
+- [Loader](classes/loader.md)
+- [Rule](classes/rule.md)
+
+## Interfaces
+
+- [Configuration](interfaces/configuration.md)
+
+## Type aliases
+
+### Factory
+
+Ƭ **Factory**: (`overrides?`: [`Options`](interfaces/factory.options.md)) => [`Framework`](classes/framework.md)
+
+#### Type declaration
+
+▸ (`overrides?`): [`Framework`](classes/framework.md)
+
+Factory
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | [`Options`](interfaces/factory.options.md) |
+
+##### Returns
+
+[`Framework`](classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud/types/factory.d.ts:2
 
 ## Variables
 
 ### config
 
-• `Const` **config**: `Configuration`
+• `Const` **config**: [`Configuration`](interfaces/configuration.md)
 
-Base config
+Config
 
 #### Defined in
 
@@ -56,7 +91,7 @@ ___
 
 • `Const` **extensions**: `Object`
 
-Base extensions & webpack plugins.
+Extensions
 
 #### Index signature
 
@@ -77,10 +112,30 @@ ___
 
 ### services
 
-• `Const` **services**: `Services`
+• `Const` **services**: [`Services`](interfaces/framework.services.md)
 
-Base framework services
+Services
 
 #### Defined in
 
-packages/@roots/bud/types/services/index.d.ts:5
+packages/@roots/bud/types/services/index.d.ts:2
+
+## Functions
+
+### factory
+
+▸ `Const` **factory**(`overrides?`): [`Framework`](classes/framework.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | [`Options`](interfaces/factory.options.md) |
+
+#### Returns
+
+[`Framework`](classes/framework.md)
+
+#### Defined in
+
+packages/@roots/bud/types/factory.d.ts:12

@@ -42,14 +42,16 @@ export const rules = [
 describe('bud.build', function () {
   let bud: Framework
 
-  beforeAll(done => {
+  beforeAll(() => {
     bud = setupBud()
-    done()
   })
 
-  afterAll(done => {
+  afterAll(() => {
     bud = teardownBud(bud)
-    done()
+  })
+
+  it('has rebuild method', () => {
+    expect(bud.build.rebuild).toBeInstanceOf(Function)
   })
 
   it('has valid rules', () => {

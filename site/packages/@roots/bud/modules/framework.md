@@ -6,7 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Framework re-export
+Framework
 
 ## Namespaces
 
@@ -18,8 +18,9 @@ Framework re-export
 - [Extensions](../interfaces/framework.extensions.md)
 - [Items](../interfaces/framework.items.md)
 - [Loaders](../interfaces/framework.loaders.md)
+- [Options](../interfaces/framework.options.md)
 - [Rules](../interfaces/framework.rules.md)
-- [ServiceConstructor](../interfaces/framework.serviceconstructor.md)
+- [Services](../interfaces/framework.services.md)
 
 ## Type aliases
 
@@ -29,4 +30,4 @@ Framework re-export
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:196
+packages/@roots/bud-framework/types/Framework/index.d.ts:192

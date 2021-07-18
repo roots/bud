@@ -1,10 +1,12 @@
 ---
-id: "bud"
-title: "Class: Bud"
-sidebar_label: "Bud"
+id: 'bud'
+title: 'Class: Bud'
+sidebar_label: 'Bud'
 sidebar_position: 0
 custom_edit_url: null
 ---
+
+Bud
 
 ## Hierarchy
 
@@ -20,51 +22,47 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | `Object` |
-| `options.config?` | `Configuration` |
-| `options.mode?` | ``"production"`` \| ``"development"`` |
-| `options.name?` | `string` |
-| `options.parent?` | [`Framework`](framework.md) |
+| Name      | Type                                            |
+| :-------- | :---------------------------------------------- |
+| `options` | [`Options`](../interfaces/framework.options.md) |
 
-#### Inherited from
+#### Overrides
 
 [Framework](framework.md).[constructor](framework.md#constructor)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:248
+packages/@roots/bud/types/Bud.d.ts:14
 
 ## Properties
 
-### \_mode
+### \_config
 
-• **\_mode**: `Mode`
+• **\_config**: [`Configuration`](../interfaces/configuration.md)
 
 #### Inherited from
 
-[Framework](framework.md).[_mode](framework.md#_mode)
+[Framework](framework.md).[\_config](framework.md#_config)
 
 #### Defined in
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:229
 
-___
+---
 
 ### \_services
 
-• **\_services**: `Container`<`Service`\>
+• **\_services**: [`Services`](../interfaces/framework.services.md)
 
 #### Inherited from
 
-[Framework](framework.md).[_services](framework.md#_services)
+[Framework](framework.md).[\_services](framework.md#_services)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:221
+packages/@roots/bud-framework/types/Framework/index.d.ts:228
 
-___
+---
 
 ### alias
 
@@ -85,19 +83,19 @@ app.alias({
 })
 ```
 
-#### Overrides
+#### Inherited from
 
 [Framework](framework.md).[alias](framework.md#alias)
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:32
+packages/@roots/bud-api/types/methods/alias/index.d.ts:21
 
-___
+---
 
 ### api
 
-• **api**: [`Api`](api.api-1.md)
+• **api**: [`Api`](api.md)
 
 ## api
 
@@ -109,9 +107,9 @@ Service providing config api methods
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:21
+packages/@roots/bud/types/Bud.d.ts:16
 
-___
+---
 
 ### assets
 
@@ -139,7 +137,7 @@ app.assets(['src/images'])
 
 packages/@roots/bud/types/extensions/copy-webpack-plugin/index.d.ts:20
 
-___
+---
 
 ### babel
 
@@ -157,11 +155,11 @@ Configure babel.
 
 packages/@roots/bud-babel/types/interface.d.ts:9
 
-___
+---
 
 ### build
 
-• **build**: [`Build`](build.build-1.md)
+• **build**: [`Build`](build.md)
 
 ## build
 
@@ -173,9 +171,9 @@ Service handling config compilation
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:22
+packages/@roots/bud/types/Bud.d.ts:17
 
-___
+---
 
 ### cache
 
@@ -191,13 +189,13 @@ Service handling compiler cache
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:23
+packages/@roots/bud/types/Bud.d.ts:18
 
-___
+---
 
 ### children
 
-• **children**: `Container`<[`Framework`](framework.md)\>
+• **children**: `Container`<`Object`\>
 
 ## children
 
@@ -211,7 +209,7 @@ Compiler instance container.
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:38
 
-___
+---
 
 ### compiler
 
@@ -227,9 +225,9 @@ Service handling build compilation
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:24
+packages/@roots/bud/types/Bud.d.ts:19
 
-___
+---
 
 ### config
 
@@ -271,7 +269,7 @@ app.config({
 
 packages/@roots/bud-api/types/methods/config/index.d.ts:33
 
-___
+---
 
 ### dashboard
 
@@ -287,9 +285,9 @@ Service providing CLI interface
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:74
+packages/@roots/bud-framework/types/Framework/index.d.ts:70
 
-___
+---
 
 ### define
 
@@ -315,7 +313,7 @@ app.define({
 
 packages/@roots/bud-api/types/methods/define.d.ts:18
 
-___
+---
 
 ### dependencies
 
@@ -329,9 +327,9 @@ Dependencies service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:25
+packages/@roots/bud/types/Bud.d.ts:20
 
-___
+---
 
 ### dev
 
@@ -358,7 +356,7 @@ app.dev({
 
 packages/@roots/bud-api/types/methods/dev/index.d.ts:18
 
-___
+---
 
 ### devtool
 
@@ -383,7 +381,7 @@ app.devtool('inline-cheap-module-source-map')
 
 packages/@roots/bud-api/types/methods/devtool.d.ts:17
 
-___
+---
 
 ### discovery
 
@@ -397,9 +395,9 @@ Discovery service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:26
+packages/@roots/bud/types/Bud.d.ts:21
 
-___
+---
 
 ### entry
 
@@ -419,7 +417,7 @@ Uses [fast-glob](https://git.io/JkGbw) syntax.
 - `?` matches a single character, but not `/`
 - `**` matches any number of characters, including `/`,
   as long as it's the only thing in a path part
-- `{}` allows for a comma-separated list  of "or" expressions
+- `{}` allows for a comma-separated list of "or" expressions
 - `!` at the beginning of a pattern will negate the match
 
 ### Usage
@@ -455,13 +453,13 @@ Declare entrypoint dependencies:
 
 ```js
 app.entry({
- react: {
-   import: ['react', 'react-dom']
- },
- app: {
-   import: ['app.js'],
-   dependOn: ['react'],
- },
+  react: {
+    import: ['react', 'react-dom'],
+  },
+  app: {
+    import: ['app.js'],
+    dependOn: ['react'],
+  },
 })
 ```
 
@@ -473,7 +471,7 @@ app.entry({
 
 packages/@roots/bud-api/types/methods/entry.d.ts:66
 
-___
+---
 
 ### env
 
@@ -487,9 +485,9 @@ Envvar service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:27
+packages/@roots/bud/types/Bud.d.ts:22
 
-___
+---
 
 ### experiments
 
@@ -503,7 +501,7 @@ Configure experimental webpack options.
 
 ```js
 bud.experiments({
- lazyCompilation: true,
+  lazyCompilation: true,
 })
 ```
 
@@ -515,7 +513,7 @@ bud.experiments({
 
 packages/@roots/bud-api/types/methods/experiments/index.d.ts:18
 
-___
+---
 
 ### extensions
 
@@ -529,9 +527,9 @@ Extensions service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:28
+packages/@roots/bud/types/Bud.d.ts:23
 
-___
+---
 
 ### externals
 
@@ -546,7 +544,7 @@ with a matching name.
 
 ```js
 bud.externals({
-  'jQuery': 'window.jquery',
+  jQuery: 'window.jquery',
 })
 ```
 
@@ -558,7 +556,7 @@ bud.externals({
 
 packages/@roots/bud-api/types/methods/externals/index.d.ts:19
 
-___
+---
 
 ### hash
 
@@ -582,11 +580,11 @@ bud.hash()
 
 packages/@roots/bud-api/types/methods/hash/index.d.ts:15
 
-___
+---
 
 ### hooks
 
-• **hooks**: [`Hooks`](hooks.md)
+• **hooks**: `Hooks`
 
 Hooks service
 
@@ -596,27 +594,23 @@ Hooks service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:29
+packages/@roots/bud/types/Bud.d.ts:24
 
-___
+---
 
 ### implementation
 
-• **implementation**: (`options`: { `config?`: `Configuration` ; `mode?`: ``"production"`` \| ``"development"`` ; `name?`: `string` ; `parent?`: [`Framework`](framework.md)  }) => [`Framework`](framework.md)
+• **implementation**: (`options?`: [`Options`](../interfaces/framework.options.md)) => [`Framework`](framework.md)
 
 #### Type declaration
 
-• **new Bud**(`options`)
+• **new Bud**(`options?`)
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | `Object` |
-| `options.config?` | `Configuration` |
-| `options.mode?` | ``"production"`` \| ``"development"`` |
-| `options.name?` | `string` |
-| `options.parent?` | [`Framework`](framework.md) |
+| Name       | Type                                            |
+| :--------- | :---------------------------------------------- |
+| `options?` | [`Options`](../interfaces/framework.options.md) |
 
 #### Overrides
 
@@ -624,17 +618,13 @@ ___
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:15
+packages/@roots/bud/types/Bud.d.ts:14
 
-___
+---
 
 ### isChild
 
 • **isChild**: `boolean`
-
-## isChild
-
-Returns true if current compiler is a child compiler
 
 #### Inherited from
 
@@ -642,13 +632,13 @@ Returns true if current compiler is a child compiler
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:44
+packages/@roots/bud-framework/types/Framework/index.d.ts:210
 
-___
+---
 
 ### logger
 
-• **logger**: [`Logger`](logger.md)
+• **logger**: `Logger`
 
 Logger service
 
@@ -658,9 +648,9 @@ Logger service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:30
+packages/@roots/bud/types/Bud.d.ts:25
 
-___
+---
 
 ### minimize
 
@@ -698,7 +688,21 @@ bud.minimize(true)
 
 packages/@roots/bud-api/types/methods/minimize.d.ts:29
 
-___
+---
+
+### mode
+
+• **mode**: `Mode`
+
+#### Inherited from
+
+[Framework](framework.md).[mode](framework.md#mode)
+
+#### Defined in
+
+packages/@roots/bud-framework/types/Framework/index.d.ts:214
+
+---
 
 ### name
 
@@ -716,7 +720,7 @@ Application name
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:24
 
-___
+---
 
 ### parent
 
@@ -726,7 +730,7 @@ ___
 
 If a child instance, returns the parent.
 
-If the parent instance, returns {Framework}
+If the parent instance, returns null.
 
 #### Inherited from
 
@@ -736,7 +740,7 @@ If the parent instance, returns {Framework}
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:32
 
-___
+---
 
 ### persist
 
@@ -762,7 +766,7 @@ app.persist({
 
 packages/@roots/bud-api/types/methods/persist.d.ts:17
 
-___
+---
 
 ### postcss
 
@@ -780,28 +784,7 @@ Configure postcss.
 
 packages/@roots/bud-postcss/types/interface.d.ts:11
 
-___
-
-### proto
-
-• **proto**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `config` | `Configuration` |
-| `services` | `any` |
-
-#### Inherited from
-
-[Framework](framework.md).[proto](framework.md#proto)
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:225
-
-___
+---
 
 ### provide
 
@@ -828,7 +811,7 @@ bud.provide({
 
 packages/@roots/bud-api/types/methods/provide.d.ts:18
 
-___
+---
 
 ### proxy
 
@@ -858,8 +841,8 @@ Specify host and port:
 
 ```js
 bud.proxy({
- host: 'example.test',
- port: 3000,
+  host: 'example.test',
+  port: 3000,
 })
 ```
 
@@ -871,7 +854,7 @@ bud.proxy({
 
 packages/@roots/bud-api/types/methods/proxy.d.ts:34
 
-___
+---
 
 ### publicPath
 
@@ -880,7 +863,7 @@ ___
 ## publicPath
 
 By default it is assumed that assets are served from webroot (`/`).
-You can use this method to replace this value for apps  served from
+You can use this method to replace this value for apps served from
 a subdirectory.
 
 ### Usage
@@ -899,7 +882,7 @@ bud.publicPath('/app/themes/sage/dist')
 
 packages/@roots/bud-api/types/methods/publicPath.d.ts:19
 
-___
+---
 
 ### run
 
@@ -923,7 +906,7 @@ bud.run()
 
 packages/@roots/bud-api/types/methods/run.d.ts:15
 
-___
+---
 
 ### runtime
 
@@ -949,11 +932,11 @@ bud.runtime()
 
 packages/@roots/bud-api/types/methods/runtime.d.ts:18
 
-___
+---
 
 ### server
 
-• **server**: [`Server`](server.md)
+• **server**: `Server`
 
 Dev server service
 
@@ -963,9 +946,9 @@ Dev server service
 
 #### Defined in
 
-packages/@roots/bud/types/Bud.d.ts:31
+packages/@roots/bud/types/Bud.d.ts:26
 
-___
+---
 
 ### setPath
 
@@ -988,7 +971,7 @@ bud.setPath('src', 'custom/src')
 
 packages/@roots/bud-api/types/methods/setPath.d.ts:14
 
-___
+---
 
 ### setPublicPath
 
@@ -1024,7 +1007,7 @@ app.setPublicPath(publicPath => {
 
 packages/@roots/bud-api/types/methods/setPublicPath.d.ts:27
 
-___
+---
 
 ### splitChunks
 
@@ -1038,7 +1021,7 @@ Useful for bundling vendor modules separately from application code.
 
 ```js
 bud.splitChunks({
- chunks: 'all',
+  chunks: 'all',
 })
 ```
 
@@ -1050,7 +1033,7 @@ bud.splitChunks({
 
 packages/@roots/bud-api/types/methods/splitChunks.d.ts:18
 
-___
+---
 
 ### store
 
@@ -1064,9 +1047,9 @@ Key Value store service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:106
+packages/@roots/bud-framework/types/Framework/index.d.ts:102
 
-___
+---
 
 ### template
 
@@ -1098,7 +1081,7 @@ app.template({
 
 packages/@roots/bud-api/types/methods/template/index.d.ts:24
 
-___
+---
 
 ### use
 
@@ -1123,8 +1106,8 @@ Add an extension inline (also works with an array of extensions):
 
 ```js
 bud.use({
- name: 'my-webpack-plugin',
- make: () => new MyWebpackPlugin(),
+  name: 'my-webpack-plugin',
+  make: () => new MyWebpackPlugin(),
 })
 ```
 
@@ -1142,7 +1125,7 @@ bud.use(new MyWebpackPlugin())
 
 packages/@roots/bud-api/types/methods/use/index.d.ts:35
 
-___
+---
 
 ### watch
 
@@ -1167,7 +1150,7 @@ app.watch(['templates/*.html'])
 
 packages/@roots/bud-api/types/methods/watch.d.ts:16
 
-___
+---
 
 ### write
 
@@ -1179,10 +1162,10 @@ ___
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type  |
+| :-------- | :---- |
 | `content` | `any` |
-| `props` | `any` |
+| `props`   | `any` |
 
 ##### Returns
 
@@ -1208,9 +1191,9 @@ packages/@roots/bud-dashboard/types/interface.d.ts:5
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:248
+packages/@roots/bud-framework/types/Framework/index.d.ts:231
 
-___
+---
 
 ### isProduction
 
@@ -1222,67 +1205,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:247
-
-___
-
-### mode
-
-• `get` **mode**(): `Mode`
-
-#### Returns
-
-`Mode`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:245
-
-• `set` **mode**(`mode`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `mode` | `Mode` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:246
-
-___
-
-### services
-
-• `get` **services**(): `Container`<`Service`\>
-
-#### Returns
-
-`Container`<`Service`\>
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:243
-
-• `set` **services**(`services`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `services` | `Container`<`Service`\> |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:244
+packages/@roots/bud-framework/types/Framework/index.d.ts:230
 
 ## Methods
 
@@ -1298,7 +1221,7 @@ function and return the result.
 If the value is not a function it will return its value.
 
 ```js
-const isAFunction = (option) => `option value: ${option}`
+const isAFunction = option => `option value: ${option}`
 const isAValue = 'option value: true'
 
 access(isAFunction, true)
@@ -1310,14 +1233,14 @@ access(isAValue)
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `I` | `any` |
+| Name | Type  |
+| :--- | :---- |
+| `I`  | `any` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                                   |
+| :------ | :------------------------------------- |
 | `value` | `I` \| (`app`: [`Bud`](bud.md)) => `I` |
 
 #### Returns
@@ -1332,19 +1255,13 @@ access(isAValue)
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:126
 
-___
+---
 
 ### bootstrap
 
-▸ **bootstrap**(`services`): [`Framework`](framework.md)
+▸ **bootstrap**(): [`Framework`](framework.md)
 
-app.bootstrap
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `services` | `Object` |
+bootstrap
 
 #### Returns
 
@@ -1356,9 +1273,9 @@ app.bootstrap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:143
+packages/@roots/bud-framework/types/Framework/index.d.ts:106
 
-___
+---
 
 ### container
 
@@ -1368,8 +1285,8 @@ app.container
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type  |
+| :------------ | :---- |
 | `repository?` | `any` |
 
 #### Returns
@@ -1384,7 +1301,7 @@ app.container
 
 packages/@roots/bud-framework/types/Framework/index.d.ts:130
 
-___
+---
 
 ### debug
 
@@ -1394,9 +1311,9 @@ log (log level: debug)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message?`        | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1409,9 +1326,9 @@ log (log level: debug)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:189
+packages/@roots/bud-framework/types/Framework/index.d.ts:175
 
-___
+---
 
 ### error
 
@@ -1421,9 +1338,9 @@ log (log level: error)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message`         | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1436,35 +1353,33 @@ log (log level: error)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:193
+packages/@roots/bud-framework/types/Framework/index.d.ts:179
 
-___
+---
 
-### get
+### filter
 
-▸ **get**(`name?`): [`Framework`](framework.md)
-
-app.get
+▸ **filter**(`__namedParameters`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name?` | `string` |
+| Name                | Type           |
+| :------------------ | :------------- |
+| `__namedParameters` | [`any`, `any`] |
 
 #### Returns
 
-[`Framework`](framework.md)
+`boolean`
 
 #### Inherited from
 
-[Framework](framework.md).[get](framework.md#get)
+[Framework](framework.md).[filter](framework.md#filter)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:134
+packages/@roots/bud-framework/types/Framework/index.d.ts:233
 
-___
+---
 
 ### info
 
@@ -1474,9 +1389,9 @@ log (log level: info)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message?`        | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1489,29 +1404,9 @@ log (log level: info)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:185
+packages/@roots/bud-framework/types/Framework/index.d.ts:171
 
-___
-
-### lifecycle
-
-▸ **lifecycle**(): [`Framework`](framework.md)
-
-app.lifecycle
-
-#### Returns
-
-[`Framework`](framework.md)
-
-#### Inherited from
-
-[Framework](framework.md).[lifecycle](framework.md#lifecycle)
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:149
-
-___
+---
 
 ### log
 
@@ -1521,9 +1416,9 @@ log a message
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message?`        | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1536,9 +1431,9 @@ log a message
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:173
+packages/@roots/bud-framework/types/Framework/index.d.ts:159
 
-___
+---
 
 ### make
 
@@ -1550,9 +1445,9 @@ app.make
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+| Name   | Type                                                                |
+| :----- | :------------------------------------------------------------------ |
+| `name` | `string`                                                            |
 | `tap?` | (`app`: [`Framework`](framework.md)) => [`Framework`](framework.md) |
 
 #### Returns
@@ -1565,9 +1460,9 @@ app.make
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:139
+packages/@roots/bud-framework/types/Framework/index.d.ts:135
 
-___
+---
 
 ### path
 
@@ -1577,10 +1472,10 @@ app.path
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | ``"project"`` \| ``"src"`` \| ``"dist"`` \| ``"publicPath"`` \| ``"storage"`` \| ``"modules"`` |
-| `...path` | `string`[] |
+| Name      | Type                                                                               |
+| :-------- | :--------------------------------------------------------------------------------- |
+| `key`     | `"project"` \| `"src"` \| `"dist"` \| `"publicPath"` \| `"storage"` \| `"modules"` |
+| `...path` | `string`[]                                                                         |
 
 #### Returns
 
@@ -1592,9 +1487,9 @@ app.path
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:153
+packages/@roots/bud-framework/types/Framework/index.d.ts:139
 
-___
+---
 
 ### pipe
 
@@ -1604,10 +1499,10 @@ app.pipe
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fns` | (`input`: [`Framework`](framework.md)) => [`Framework`](framework.md)[] |
-| `value?` | [`Framework`](framework.md) |
+| Name     | Type                                                                    |
+| :------- | :---------------------------------------------------------------------- |
+| `fns`    | (`input`: [`Framework`](framework.md)) => [`Framework`](framework.md)[] |
+| `value?` | [`Framework`](framework.md)                                             |
 
 #### Returns
 
@@ -1619,9 +1514,9 @@ app.pipe
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:157
+packages/@roots/bud-framework/types/Framework/index.d.ts:143
 
-___
+---
 
 ### sequence
 
@@ -1631,8 +1526,8 @@ app.sequence
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                                            |
+| :---- | :---------------------------------------------- |
 | `fns` | (`app`: [`Framework`](framework.md)) => `any`[] |
 
 #### Returns
@@ -1645,34 +1540,9 @@ app.sequence
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:161
+packages/@roots/bud-framework/types/Framework/index.d.ts:147
 
-___
-
-### set
-
-▸ **set**(`name`, `instance`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `instance` | [`Framework`](framework.md) |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[Framework](framework.md).[set](framework.md#set)
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:255
-
-___
+---
 
 ### success
 
@@ -1682,9 +1552,9 @@ log a message
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message?`        | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1697,9 +1567,9 @@ log a message
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:177
+packages/@roots/bud-framework/types/Framework/index.d.ts:163
 
-___
+---
 
 ### tap
 
@@ -1709,10 +1579,10 @@ app.tap
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fn` | (`app?`: [`Framework`](framework.md)) => `any` \| (`app?`: [`Framework`](framework.md)) => `any` |
-| `bound?` | `boolean` |
+| Name     | Type                                                                                             |
+| :------- | :----------------------------------------------------------------------------------------------- |
+| `fn`     | (`app?`: [`Framework`](framework.md)) => `any` \| (`app?`: [`Framework`](framework.md)) => `any` |
+| `bound?` | `boolean`                                                                                        |
 
 #### Returns
 
@@ -1724,9 +1594,9 @@ app.tap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:165
+packages/@roots/bud-framework/types/Framework/index.d.ts:151
 
-___
+---
 
 ### warn
 
@@ -1736,9 +1606,9 @@ log (log level: warn)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `any` |
+| Name              | Type    |
+| :---------------- | :------ |
+| `message?`        | `any`   |
 | `...optionalArgs` | `any`[] |
 
 #### Returns
@@ -1751,9 +1621,9 @@ log (log level: warn)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:181
+packages/@roots/bud-framework/types/Framework/index.d.ts:167
 
-___
+---
 
 ### when
 
@@ -1763,11 +1633,11 @@ app.when
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `test` | `boolean` \| (`app`: [`Framework`](framework.md)) => `boolean` |
-| `trueCase` | (`app`: [`Framework`](framework.md)) => `any` |
-| `falseCase?` | (`app`: [`Framework`](framework.md)) => `any` |
+| Name         | Type                                                           |
+| :----------- | :------------------------------------------------------------- |
+| `test`       | `boolean` \| (`app`: [`Framework`](framework.md)) => `boolean` |
+| `trueCase`   | (`app`: [`Framework`](framework.md)) => `any`                  |
+| `falseCase?` | (`app`: [`Framework`](framework.md)) => `any`                  |
 
 #### Returns
 
@@ -1779,4 +1649,4 @@ app.when
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:169
+packages/@roots/bud-framework/types/Framework/index.d.ts:155

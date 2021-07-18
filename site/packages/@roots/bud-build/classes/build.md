@@ -34,9 +34,19 @@ Service.constructor
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:32
+bud-framework/types/Service/index.d.ts:32
 
 ## Properties
+
+### \_config
+
+• **\_config**: `Configuration`
+
+#### Defined in
+
+bud-build/types/Build/index.d.ts:15
+
+___
 
 ### ident
 
@@ -54,7 +64,7 @@ Service.ident
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:15
+container/types/Container/index.d.ts:15
 
 ___
 
@@ -64,7 +74,7 @@ ___
 
 #### Index signature
 
-▪ [key: `string`]: `Build.Item`
+▪ [key: `string`]: `Contract.Item`
 
 #### Implementation of
 
@@ -72,7 +82,7 @@ Contract.items
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:8
+bud-build/types/Build/index.d.ts:12
 
 ___
 
@@ -82,7 +92,7 @@ ___
 
 #### Index signature
 
-▪ [key: `string`]: `Build.Loader`
+▪ [key: `string`]: `Contract.Loader`
 
 #### Implementation of
 
@@ -90,7 +100,7 @@ Contract.loaders
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:6
+bud-build/types/Build/index.d.ts:6
 
 ___
 
@@ -108,7 +118,7 @@ Service.name
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:5
+bud-build/types/Build/index.d.ts:5
 
 ___
 
@@ -128,7 +138,7 @@ Service.repository
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:19
+container/types/Container/index.d.ts:19
 
 ___
 
@@ -138,7 +148,7 @@ ___
 
 #### Index signature
 
-▪ [key: `string`]: `Build.Rule`
+▪ [key: `string`]: `Contract.Rule`
 
 #### Implementation of
 
@@ -146,7 +156,7 @@ Contract.rules
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:7
+bud-build/types/Build/index.d.ts:9
 
 ## Accessors
 
@@ -196,7 +206,7 @@ access(isAValue)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:34
+bud-framework/types/Service/index.d.ts:34
 
 ___
 
@@ -210,7 +220,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:32
+bud-framework/types/Service/index.d.ts:32
 
 ___
 
@@ -224,35 +234,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:9
-
-___
-
-### entry
-
-• `get` **entry**(): `string` \| () => `string` \| `EntryObject` \| `string`[] \| `Promise`<`EntryStatic`\> \| `EntryObject` \| `string`[]
-
-#### Returns
-
-`string` \| () => `string` \| `EntryObject` \| `string`[] \| `Promise`<`EntryStatic`\> \| `EntryObject` \| `string`[]
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/index.d.ts:10
-
-___
-
-### plugins
-
-• `get` **plugins**(): ((`compiler`: `Compiler`) => `void` \| `WebpackPluginInstance`)[]
-
-#### Returns
-
-((`compiler`: `Compiler`) => `void` \| `WebpackPluginInstance`)[]
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/index.d.ts:11
+bud-build/types/Build/index.d.ts:16
 
 ## Methods
 
@@ -284,7 +266,7 @@ Service.all
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:35
+container/types/Container/index.d.ts:35
 
 ___
 
@@ -314,7 +296,7 @@ Service.boot
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:23
+bud-framework/types/Service/index.d.ts:23
 
 ___
 
@@ -344,7 +326,7 @@ Service.booted
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:27
+bud-framework/types/Service/index.d.ts:27
 
 ___
 
@@ -374,7 +356,7 @@ Service.bootstrap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:7
+bud-framework/types/Service/index.d.ts:7
 
 ___
 
@@ -404,7 +386,7 @@ Service.bootstrapped
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:11
+bud-framework/types/Service/index.d.ts:11
 
 ___
 
@@ -443,7 +425,7 @@ Service.each
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:153
+container/types/Container/index.d.ts:153
 
 ___
 
@@ -481,7 +463,7 @@ Service.every
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:165
+container/types/Container/index.d.ts:165
 
 ___
 
@@ -511,7 +493,7 @@ Service.filterUnique
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:35
+bud-framework/types/Service/index.d.ts:35
 
 ___
 
@@ -541,7 +523,7 @@ Service.findKey
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:169
+container/types/Container/index.d.ts:169
 
 ___
 
@@ -572,7 +554,7 @@ Service.findKeyIn
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:173
+container/types/Container/index.d.ts:173
 
 ___
 
@@ -616,7 +598,7 @@ Service.fromEntries
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:141
+container/types/Container/index.d.ts:141
 
 ___
 
@@ -666,7 +648,7 @@ Service.get
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:105
+container/types/Container/index.d.ts:105
 
 ___
 
@@ -716,7 +698,7 @@ Service.getEntries
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:123
+container/types/Container/index.d.ts:123
 
 ___
 
@@ -762,7 +744,7 @@ Service.getKeys
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:212
+container/types/Container/index.d.ts:212
 
 ___
 
@@ -806,7 +788,7 @@ Service.getMap
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:230
+container/types/Container/index.d.ts:230
 
 ___
 
@@ -851,7 +833,7 @@ Service.getValues
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:192
+container/types/Container/index.d.ts:192
 
 ___
 
@@ -890,7 +872,7 @@ Service.has
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:293
+container/types/Container/index.d.ts:293
 
 ___
 
@@ -930,7 +912,7 @@ Service.is
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:319
+container/types/Container/index.d.ts:319
 
 ___
 
@@ -969,7 +951,7 @@ Service.isArray
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:372
+container/types/Container/index.d.ts:372
 
 ___
 
@@ -1008,7 +990,7 @@ Service.isDefined
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:476
+container/types/Container/index.d.ts:476
 
 ___
 
@@ -1047,7 +1029,7 @@ Service.isFalse
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:345
+container/types/Container/index.d.ts:345
 
 ___
 
@@ -1086,7 +1068,7 @@ Service.isFunction
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:502
+container/types/Container/index.d.ts:502
 
 ___
 
@@ -1126,7 +1108,7 @@ Service.isIndexed
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:359
+container/types/Container/index.d.ts:359
 
 ___
 
@@ -1165,7 +1147,7 @@ Service.isNotArray
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:385
+container/types/Container/index.d.ts:385
 
 ___
 
@@ -1204,7 +1186,7 @@ Service.isNotNull
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:463
+container/types/Container/index.d.ts:463
 
 ___
 
@@ -1243,7 +1225,7 @@ Service.isNotNumber
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:437
+container/types/Container/index.d.ts:437
 
 ___
 
@@ -1282,7 +1264,7 @@ Service.isNotString
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:411
+container/types/Container/index.d.ts:411
 
 ___
 
@@ -1321,7 +1303,7 @@ Service.isNull
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:450
+container/types/Container/index.d.ts:450
 
 ___
 
@@ -1360,7 +1342,7 @@ Service.isNumber
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:424
+container/types/Container/index.d.ts:424
 
 ___
 
@@ -1399,7 +1381,7 @@ Service.isString
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:398
+container/types/Container/index.d.ts:398
 
 ___
 
@@ -1438,7 +1420,7 @@ Service.isTrue
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:332
+container/types/Container/index.d.ts:332
 
 ___
 
@@ -1477,7 +1459,7 @@ Service.isUndefined
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:489
+container/types/Container/index.d.ts:489
 
 ___
 
@@ -1516,7 +1498,7 @@ Service.merge
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:280
+container/types/Container/index.d.ts:280
 
 ___
 
@@ -1554,7 +1536,7 @@ Service.mergeStore
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:61
+container/types/Container/index.d.ts:61
 
 ___
 
@@ -1593,7 +1575,7 @@ Service.mutate
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:268
+container/types/Container/index.d.ts:268
 
 ___
 
@@ -1631,7 +1613,25 @@ Service.mutateStore
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:87
+container/types/Container/index.d.ts:87
+
+___
+
+### rebuild
+
+▸ **rebuild**(): `Configuration`
+
+#### Returns
+
+`Configuration`
+
+#### Implementation of
+
+Contract.rebuild
+
+#### Defined in
+
+bud-build/types/Build/index.d.ts:17
 
 ___
 
@@ -1653,7 +1653,7 @@ Service.register
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/index.d.ts:12
+bud-build/types/Build/index.d.ts:18
 
 ___
 
@@ -1683,7 +1683,7 @@ Service.registered
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:19
+bud-framework/types/Service/index.d.ts:19
 
 ___
 
@@ -1722,7 +1722,7 @@ Service.remove
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:306
+container/types/Container/index.d.ts:306
 
 ___
 
@@ -1761,7 +1761,7 @@ Service.set
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:242
+container/types/Container/index.d.ts:242
 
 ___
 
@@ -1801,7 +1801,7 @@ Service.setStore
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:49
+container/types/Container/index.d.ts:49
 
 ___
 
@@ -1842,7 +1842,7 @@ Service.transform
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:256
+container/types/Container/index.d.ts:256
 
 ___
 
@@ -1882,4 +1882,4 @@ Service.transformStore
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:75
+container/types/Container/index.d.ts:75

@@ -34,7 +34,7 @@ Base.constructor
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:5
+bud-build/types/Item/index.d.ts:5
 
 ## Properties
 
@@ -44,7 +44,7 @@ packages/@roots/bud-build/types/Item/index.d.ts:5
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:4
+bud-build/types/Item/index.d.ts:4
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:5
+bud-build/types/Item/index.d.ts:5
 
 ## Methods
 
@@ -74,7 +74,7 @@ packages/@roots/bud-build/types/Item/index.d.ts:5
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:7
+bud-build/types/Item/index.d.ts:7
 
 ___
 
@@ -98,7 +98,7 @@ Build.Item.make
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:11
+bud-build/types/Item/index.d.ts:11
 
 ___
 
@@ -123,7 +123,7 @@ Build.Item.mergeOptions
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:10
+bud-build/types/Item/index.d.ts:10
 
 ___
 
@@ -165,7 +165,7 @@ Base.normalizeInput
 
 #### Defined in
 
-packages/@roots/bud-build/types/shared/Base.d.ts:3
+bud-build/types/shared/Base.d.ts:3
 
 ___
 
@@ -189,7 +189,7 @@ Build.Item.setLoader
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:8
+bud-build/types/Item/index.d.ts:8
 
 ___
 
@@ -213,4 +213,4 @@ Build.Item.setOptions
 
 #### Defined in
 
-packages/@roots/bud-build/types/Item/index.d.ts:9
+bud-build/types/Item/index.d.ts:9

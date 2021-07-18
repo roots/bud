@@ -1,12 +1,8 @@
-import {
-  Api as Contract,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import {Framework, Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as api from './methods'
 
-export class Api extends Service implements Contract {
+export class Api extends Service {
   public name: Service['name'] = '@roots/bud-api'
 
   public repository: Service['repository'] = api

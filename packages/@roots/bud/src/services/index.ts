@@ -1,8 +1,4 @@
-import {
-  Framework,
-  Service,
-  Bootstrapper,
-} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 import {Api} from '@roots/bud-api'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
@@ -16,11 +12,7 @@ import {Hooks} from './Hooks/index'
 import {Logger} from './Logger/index'
 import {Server} from './Server/index'
 
-interface Services {
-  [key: string]: new (app: Framework) => Service | Bootstrapper
-}
-
-export const services: Services = {
+export const services: Framework.Services = {
   api: Api,
   logger: Logger,
   hooks: Hooks,

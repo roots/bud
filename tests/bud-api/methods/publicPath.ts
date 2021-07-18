@@ -30,6 +30,8 @@ describe('bud.publicPath', function () {
     const newPath = '/foo'
 
     bud.setPublicPath(newPath)
-    expect(bud.build.config.output.publicPath).toEqual(newPath)
+    expect(bud.build.rebuild().output.publicPath).toEqual(
+      newPath,
+    )
   })
 })

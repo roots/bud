@@ -2,7 +2,7 @@ import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import {Framework} from '../Framework'
 
-abstract class Bootstrapper extends Container {
+abstract class Bootstrapper<T = any> extends Container<T> {
   /**
    * Bootstrap
    */
@@ -34,7 +34,7 @@ abstract class Bootstrapper extends Container {
   public booted?(app: Framework): any
 }
 
-abstract class Service extends Bootstrapper {
+abstract class Service<T = any> extends Bootstrapper<T> {
   public name: string
 
   private _app: () => Framework

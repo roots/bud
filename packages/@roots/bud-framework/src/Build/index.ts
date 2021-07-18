@@ -9,10 +9,8 @@ import type Webpack from 'webpack/types'
  * Responsible for assembling the webpack config used
  * by the compiler.
  *
- * Access the config with `build.config`. It is
- * a dynamic getter and referencing the property
- * is equivalent to rebuilding the configuration
- * entirely.
+ * Access the config with `build.config`. It can be rebuilt
+ * with `build.generate`.
  */
 interface Build extends Service {
   /**
@@ -23,18 +21,11 @@ interface Build extends Service {
   config: Webpack.Configuration
 
   /**
-   * ## entry
+   * ## rebuild
    *
-   * Webpack entry configuration
+   * Regenerate Webpack configuration
    */
-  entry: Webpack.Configuration['entry']
-
-  /**
-   * ## plugins
-   *
-   * Webpack plugins configuration
-   */
-  plugins: Webpack.Configuration['plugins']
+  rebuild(): Webpack.Configuration
 
   /**
    * ## loaders

@@ -9,18 +9,6 @@ custom_edit_url: null
 
 ## Properties
 
-### log
-
-• **log**: `any`
-
-## babel.log
-
-#### Defined in
-
-packages/@roots/bud-babel/types/interface.d.ts:30
-
-___
-
 ### plugins
 
 • **plugins**: [`Registry`](framework.api.babel.registry.md)
@@ -29,7 +17,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:34
+packages/@roots/bud-babel/types/interface.d.ts:30
 
 ___
 
@@ -41,7 +29,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:38
+packages/@roots/bud-babel/types/interface.d.ts:34
 
 ___
 
@@ -68,7 +56,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:64
+packages/@roots/bud-babel/types/interface.d.ts:60
 
 ## Methods
 
@@ -92,7 +80,7 @@ Initialize class.
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:44
+packages/@roots/bud-babel/types/interface.d.ts:40
 
 ___
 
@@ -122,7 +110,7 @@ bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:56
+packages/@roots/bud-babel/types/interface.d.ts:52
 
 ___
 
@@ -144,7 +132,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:60
+packages/@roots/bud-babel/types/interface.d.ts:56
 
 ___
 
@@ -174,7 +162,7 @@ bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:76
+packages/@roots/bud-babel/types/interface.d.ts:72
 
 ___
 
@@ -197,7 +185,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:84
+packages/@roots/bud-babel/types/interface.d.ts:80
 
 ___
 
@@ -219,4 +207,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:80
+packages/@roots/bud-babel/types/interface.d.ts:76

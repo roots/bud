@@ -12,10 +12,6 @@ custom_edit_url: null
 
   ↳ **`Api`**
 
-## Implements
-
-- `Contract`
-
 ## Constructors
 
 ### constructor
@@ -44,10 +40,6 @@ packages/@roots/bud-framework/types/Service/index.d.ts:32
 
 Identify
 
-#### Implementation of
-
-Contract.ident
-
 #### Inherited from
 
 Service.ident
@@ -62,10 +54,6 @@ ___
 
 • **name**: `string`
 
-#### Implementation of
-
-Contract.name
-
 #### Overrides
 
 Service.name
@@ -79,10 +67,6 @@ ___
 ### repository
 
 • **repository**: `any`
-
-#### Implementation of
-
-Contract.repository
 
 #### Overrides
 
@@ -176,10 +160,6 @@ container.all()
 
 `any`
 
-#### Implementation of
-
-Contract.all
-
 #### Inherited from
 
 Service.all
@@ -205,10 +185,6 @@ ___
 
 `Object`
 
-#### Implementation of
-
-Contract.bindMethod
-
 #### Defined in
 
 packages/@roots/bud-api/types/Api.d.ts:6
@@ -230,10 +206,6 @@ Boot
 #### Returns
 
 `any`
-
-#### Implementation of
-
-Contract.boot
 
 #### Inherited from
 
@@ -261,10 +233,6 @@ Post boot callback
 
 `any`
 
-#### Implementation of
-
-Contract.booted
-
 #### Inherited from
 
 Service.booted
@@ -288,10 +256,6 @@ ___
 #### Returns
 
 `void`
-
-#### Implementation of
-
-Contract.bootstrap
 
 #### Overrides
 
@@ -318,10 +282,6 @@ Bootstrapped
 #### Returns
 
 `any`
-
-#### Implementation of
-
-Contract.bootstrapped
 
 #### Inherited from
 
@@ -358,10 +318,6 @@ container.withEntries('key', (key, value) => doSomething)
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.each
-
 #### Inherited from
 
 Service.each
@@ -396,10 +352,6 @@ container.withEntries('key', (key, value) => doSomething)
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.every
-
 #### Inherited from
 
 Service.every
@@ -425,10 +377,6 @@ ___
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.filterUnique
 
 #### Inherited from
 
@@ -456,10 +404,6 @@ Find
 
 `any`
 
-#### Implementation of
-
-Contract.findKey
-
 #### Inherited from
 
 Service.findKey
@@ -486,10 +430,6 @@ Find in container item
 #### Returns
 
 `any`
-
-#### Implementation of
-
-Contract.findKeyIn
 
 #### Inherited from
 
@@ -530,10 +470,6 @@ container.getEntries('key')
 #### Returns
 
 [`Api`](api.md)
-
-#### Implementation of
-
-Contract.fromEntries
 
 #### Inherited from
 
@@ -581,10 +517,6 @@ container.get(['container', 'container-item'])
 
 `T`
 
-#### Implementation of
-
-Contract.get
-
 #### Inherited from
 
 Service.get
@@ -631,10 +563,6 @@ container.getEntries('key')
 
 [`string`, `ValueOf`<`T`, keyof `T`\>][]
 
-#### Implementation of
-
-Contract.getEntries
-
 #### Inherited from
 
 Service.getEntries
@@ -677,10 +605,6 @@ container.getKeys()
 
 `string`[]
 
-#### Implementation of
-
-Contract.getKeys
-
 #### Inherited from
 
 Service.getKeys
@@ -720,10 +644,6 @@ container.getMap()
 #### Returns
 
 `Map`<`string`, `any`\>
-
-#### Implementation of
-
-Contract.getMap
 
 #### Inherited from
 
@@ -766,10 +686,6 @@ container.getValues()
 
 `any`[]
 
-#### Implementation of
-
-Contract.getValues
-
 #### Inherited from
 
 Service.getValues
@@ -804,10 +720,6 @@ container.has('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.has
 
 #### Inherited from
 
@@ -845,10 +757,6 @@ container.is('my-key', {whatever: 'value'})
 
 `boolean`
 
-#### Implementation of
-
-Contract.is
-
 #### Inherited from
 
 Service.is
@@ -883,10 +791,6 @@ container.isArray('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isArray
 
 #### Inherited from
 
@@ -923,10 +827,6 @@ container.isDefined('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isDefined
-
 #### Inherited from
 
 Service.isDefined
@@ -962,10 +862,6 @@ container.isFalse('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isFalse
-
 #### Inherited from
 
 Service.isFalse
@@ -1000,10 +896,6 @@ container.isFunction('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isFunction
 
 #### Inherited from
 
@@ -1041,10 +933,6 @@ container.isIndexed('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isIndexed
-
 #### Inherited from
 
 Service.isIndexed
@@ -1079,10 +967,6 @@ container.isNotArray('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isNotArray
 
 #### Inherited from
 
@@ -1119,10 +1003,6 @@ container.isNotNull('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotNull
-
 #### Inherited from
 
 Service.isNotNull
@@ -1157,10 +1037,6 @@ container.isNumber('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isNotNumber
 
 #### Inherited from
 
@@ -1197,10 +1073,6 @@ container.isString('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotString
-
 #### Inherited from
 
 Service.isNotString
@@ -1235,10 +1107,6 @@ container.isNull('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isNull
 
 #### Inherited from
 
@@ -1275,10 +1143,6 @@ container.isNumber('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNumber
-
 #### Inherited from
 
 Service.isNumber
@@ -1313,10 +1177,6 @@ container.isString('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isString
 
 #### Inherited from
 
@@ -1353,10 +1213,6 @@ container.isTrue('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isTrue
-
 #### Inherited from
 
 Service.isTrue
@@ -1391,10 +1247,6 @@ container.isDefined('my-key')
 #### Returns
 
 `boolean`
-
-#### Implementation of
-
-Contract.isUndefined
 
 #### Inherited from
 
@@ -1431,10 +1283,6 @@ container.merge('key', {merge: values})
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.merge
-
 #### Inherited from
 
 Service.merge
@@ -1468,10 +1316,6 @@ container.mergeStore({test: 'foo'})
 #### Returns
 
 [`Api`](api.md)
-
-#### Implementation of
-
-Contract.mergeStore
 
 #### Inherited from
 
@@ -1508,10 +1352,6 @@ container.mutate('key', currentValue => modifiedValue)
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.mutate
-
 #### Inherited from
 
 Service.mutate
@@ -1546,10 +1386,6 @@ container.mutate('key', currentValue => modifiedValue)
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.mutateStore
-
 #### Inherited from
 
 Service.mutateStore
@@ -1576,10 +1412,6 @@ Register
 
 `any`
 
-#### Implementation of
-
-Contract.register
-
 #### Inherited from
 
 Service.register
@@ -1605,10 +1437,6 @@ Post registered callback
 #### Returns
 
 `any`
-
-#### Implementation of
-
-Contract.registered
 
 #### Inherited from
 
@@ -1645,10 +1473,6 @@ container.remove('my-key')
 
 [`Api`](api.md)
 
-#### Implementation of
-
-Contract.remove
-
 #### Inherited from
 
 Service.remove
@@ -1683,10 +1507,6 @@ container.set('key', value)
 #### Returns
 
 [`Api`](api.md)
-
-#### Implementation of
-
-Contract.set
 
 #### Inherited from
 
@@ -1723,10 +1543,6 @@ container.setStore({
 #### Returns
 
 [`Api`](api.md)
-
-#### Implementation of
-
-Contract.setStore
 
 #### Inherited from
 
@@ -1765,10 +1581,6 @@ container.transform('key', currentValue => modifiedValue)
 
 `any`
 
-#### Implementation of
-
-Contract.transform
-
 #### Inherited from
 
 Service.transform
@@ -1804,10 +1616,6 @@ container.transform(store=> modifiedStore)
 #### Returns
 
 `any`
-
-#### Implementation of
-
-Contract.transformStore
 
 #### Inherited from
 

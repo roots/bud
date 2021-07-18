@@ -30,11 +30,6 @@ declare module '@roots/bud-framework' {
     namespace Api {
       interface Babel {
         /**
-         * ## babel.log
-         */
-        log: any
-
-        /**
          * ## babel.plugins
          */
         plugins: Babel.Registry

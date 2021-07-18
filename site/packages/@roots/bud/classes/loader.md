@@ -1,11 +1,10 @@
 ---
-id: "build.loader"
+id: "loader"
 title: "Class: Loader"
-sidebar_label: "Build.Loader"
+sidebar_label: "Loader"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[Build](../modules/build.md).Loader
 
 ## Hierarchy
 

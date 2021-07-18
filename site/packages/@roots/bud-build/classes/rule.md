@@ -24,7 +24,7 @@ custom_edit_url: null
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:8
+bud-build/types/Rule/index.d.ts:8
 
 ## Properties
 
@@ -34,7 +34,7 @@ packages/@roots/bud-build/types/Rule/index.d.ts:8
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:5
+bud-build/types/Rule/index.d.ts:5
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:8
+bud-build/types/Rule/index.d.ts:8
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:7
+bud-build/types/Rule/index.d.ts:7
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:3
+bud-build/types/Rule/index.d.ts:3
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:6
+bud-build/types/Rule/index.d.ts:6
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:4
+bud-build/types/Rule/index.d.ts:4
 
 ## Methods
 
@@ -108,7 +108,7 @@ Build.Rule.getExclude
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:16
+bud-build/types/Rule/index.d.ts:16
 
 ___
 
@@ -132,7 +132,7 @@ Build.Rule.getGenerator
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:20
+bud-build/types/Rule/index.d.ts:20
 
 ___
 
@@ -156,7 +156,7 @@ Build.Rule.getParser
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:12
+bud-build/types/Rule/index.d.ts:12
 
 ___
 
@@ -180,7 +180,7 @@ Build.Rule.getTest
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:10
+bud-build/types/Rule/index.d.ts:10
 
 ___
 
@@ -204,7 +204,7 @@ Build.Rule.getType
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:18
+bud-build/types/Rule/index.d.ts:18
 
 ___
 
@@ -228,7 +228,7 @@ Build.Rule.getUse
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:14
+bud-build/types/Rule/index.d.ts:14
 
 ___
 
@@ -252,7 +252,7 @@ Build.Rule.make
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:22
+bud-build/types/Rule/index.d.ts:22
 
 ___
 
@@ -276,7 +276,7 @@ Build.Rule.setExclude
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:17
+bud-build/types/Rule/index.d.ts:17
 
 ___
 
@@ -300,7 +300,7 @@ Build.Rule.setGenerator
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:21
+bud-build/types/Rule/index.d.ts:21
 
 ___
 
@@ -324,7 +324,7 @@ Build.Rule.setParser
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:13
+bud-build/types/Rule/index.d.ts:13
 
 ___
 
@@ -348,7 +348,7 @@ Build.Rule.setTest
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:11
+bud-build/types/Rule/index.d.ts:11
 
 ___
 
@@ -372,7 +372,7 @@ Build.Rule.setType
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:19
+bud-build/types/Rule/index.d.ts:19
 
 ___
 
@@ -396,4 +396,4 @@ Build.Rule.setUse
 
 #### Defined in
 
-packages/@roots/bud-build/types/Rule/index.d.ts:15
+bud-build/types/Rule/index.d.ts:15

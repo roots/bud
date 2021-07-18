@@ -10,13 +10,17 @@ export class Discovery extends Base {
 
   public repository: {
     name: string
+
     peers: {}
+
     dependencies: {
       [key: string]: string
     }
+
     devDependencies: {
       [key: string]: string
     }
+
     required: {
       [key: string]: {
         source: string

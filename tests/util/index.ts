@@ -1,4 +1,4 @@
-import {Bud, config as defaultConfig, services} from '@roots/bud'
+import {Bud, factory, config, services} from '@roots/bud'
 import {Framework} from '@roots/bud-framework'
 import {logger, log, success, error} from './logger'
 
@@ -15,15 +15,12 @@ const setupBud = (
   configOverride?: any,
   servicesOverride?: any,
 ) => {
-  const bud: Framework = new Bud({
-    config: configOverride ?? defaultConfig,
+  return factory({
+    name: 'bud',
     mode: modeOverride ?? 'production',
+    config: configOverride ?? config,
+    services: servicesOverride ?? services,
   })
-
-  bud.bootstrap(servicesOverride ?? services)
-  bud.lifecycle()
-
-  return bud
 }
 
 const teardownBud = (bud: Framework) => {
@@ -41,7 +38,7 @@ export {
   Framework,
   setupBud,
   teardownBud,
-  defaultConfig as config,
+  config,
   logger,
   log,
   error,

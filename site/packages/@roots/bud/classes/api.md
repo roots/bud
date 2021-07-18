@@ -1,26 +1,22 @@
 ---
-id: "hooks"
-title: "Class: Hooks"
-sidebar_label: "Hooks"
+id: "api"
+title: "Class: Api"
+sidebar_label: "Api"
 sidebar_position: 0
 custom_edit_url: null
 ---
 
 ## Hierarchy
 
-- `Base`
+- `Service`
 
-  ↳ **`Hooks`**
-
-## Implements
-
-- `Contract`
+  ↳ **`Api`**
 
 ## Constructors
 
 ### constructor
 
-• **new Hooks**(`app`)
+• **new Api**(`app`)
 
 #### Parameters
 
@@ -30,7 +26,7 @@ custom_edit_url: null
 
 #### Inherited from
 
-Base.constructor
+Service.constructor
 
 #### Defined in
 
@@ -44,13 +40,9 @@ packages/@roots/bud-framework/types/Service/index.d.ts:32
 
 Identify
 
-#### Implementation of
-
-Contract.ident
-
 #### Inherited from
 
-Base.ident
+Service.ident
 
 #### Defined in
 
@@ -62,17 +54,13 @@ ___
 
 • **name**: `string`
 
-#### Implementation of
-
-Contract.name
-
 #### Overrides
 
-Base.name
+Service.name
 
 #### Defined in
 
-packages/@roots/bud/types/services/Hooks/index.d.ts:4
+packages/@roots/bud-api/types/Api.d.ts:3
 
 ___
 
@@ -80,19 +68,13 @@ ___
 
 • **repository**: `any`
 
-The container store
+#### Overrides
 
-#### Implementation of
-
-Contract.repository
-
-#### Inherited from
-
-Base.repository
+Service.repository
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:19
+packages/@roots/bud-api/types/Api.d.ts:4
 
 ## Accessors
 
@@ -178,17 +160,34 @@ container.all()
 
 `any`
 
-#### Implementation of
-
-Contract.all
-
 #### Inherited from
 
-Base.all
+Service.all
 
 #### Defined in
 
 packages/@roots/container/types/Container/index.d.ts:35
+
+___
+
+### bindMethod
+
+▸ **bindMethod**(`acc`, `__namedParameters`): `Object`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `acc` | `Object` |
+| `__namedParameters` | [`string`, `CallableFunction`] |
+
+#### Returns
+
+`Object`
+
+#### Defined in
+
+packages/@roots/bud-api/types/Api.d.ts:6
 
 ___
 
@@ -208,13 +207,9 @@ Boot
 
 `any`
 
-#### Implementation of
-
-Contract.boot
-
 #### Inherited from
 
-Base.boot
+Service.boot
 
 #### Defined in
 
@@ -238,13 +233,9 @@ Post boot callback
 
 `any`
 
-#### Implementation of
-
-Contract.booted
-
 #### Inherited from
 
-Base.booted
+Service.booted
 
 #### Defined in
 
@@ -254,9 +245,7 @@ ___
 
 ### bootstrap
 
-▸ `Optional` **bootstrap**(`app`): `any`
-
-Bootstrap
+▸ **bootstrap**(`app`): `void`
 
 #### Parameters
 
@@ -266,19 +255,15 @@ Bootstrap
 
 #### Returns
 
-`any`
+`void`
 
-#### Implementation of
+#### Overrides
 
-Contract.bootstrap
-
-#### Inherited from
-
-Base.bootstrap
+Service.bootstrap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Service/index.d.ts:7
+packages/@roots/bud-api/types/Api.d.ts:5
 
 ___
 
@@ -298,13 +283,9 @@ Bootstrapped
 
 `any`
 
-#### Implementation of
-
-Contract.bootstrapped
-
 #### Inherited from
 
-Base.bootstrapped
+Service.bootstrapped
 
 #### Defined in
 
@@ -314,7 +295,7 @@ ___
 
 ### each
 
-▸ **each**(`key`, `callFn`): [`Hooks`](hooks.md)
+▸ **each**(`key`, `callFn`): [`Api`](api.md)
 
 ## container.withEntries
 
@@ -335,15 +316,11 @@ container.withEntries('key', (key, value) => doSomething)
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.each
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.each
+Service.each
 
 #### Defined in
 
@@ -353,7 +330,7 @@ ___
 
 ### every
 
-▸ **every**(`fn`): [`Hooks`](hooks.md)
+▸ **every**(`fn`): [`Api`](api.md)
 
 ## container.every
 
@@ -373,54 +350,15 @@ container.withEntries('key', (key, value) => doSomething)
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.every
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.every
+Service.every
 
 #### Defined in
 
 packages/@roots/container/types/Container/index.d.ts:165
-
-___
-
-### filter
-
-▸ **filter**<`T`\>(`id`, `value?`): `T`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | `any` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `id` | `string` |
-| `value?` | `any` |
-
-#### Returns
-
-`T`
-
-#### Implementation of
-
-Contract.filter
-
-#### Inherited from
-
-Base.filter
-
-#### Defined in
-
-packages/@roots/bud-hooks/types/Hooks/index.d.ts:7
 
 ___
 
@@ -440,13 +378,9 @@ ___
 
 `boolean`
 
-#### Implementation of
-
-Contract.filterUnique
-
 #### Inherited from
 
-Base.filterUnique
+Service.filterUnique
 
 #### Defined in
 
@@ -470,13 +404,9 @@ Find
 
 `any`
 
-#### Implementation of
-
-Contract.findKey
-
 #### Inherited from
 
-Base.findKey
+Service.findKey
 
 #### Defined in
 
@@ -501,13 +431,9 @@ Find in container item
 
 `any`
 
-#### Implementation of
-
-Contract.findKeyIn
-
 #### Inherited from
 
-Base.findKeyIn
+Service.findKeyIn
 
 #### Defined in
 
@@ -517,7 +443,7 @@ ___
 
 ### fromEntries
 
-▸ **fromEntries**(`entries`): [`Hooks`](hooks.md)
+▸ **fromEntries**(`entries`): [`Api`](api.md)
 
 ## container.fromEntries
 
@@ -543,15 +469,11 @@ container.getEntries('key')
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.fromEntries
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.fromEntries
+Service.fromEntries
 
 #### Defined in
 
@@ -561,7 +483,23 @@ ___
 
 ### get
 
-▸ **get**<`T`\>(`path`): `T`
+▸ **get**<`T`\>(`key`): `T`
+
+## container.get
+
+Get a value from the container.
+
+If no key is passed the container store will be returned.
+
+### Usage
+
+```js
+container.get('container.container-item')
+```
+
+```js
+container.get(['container', 'container-item'])
+```
 
 #### Type parameters
 
@@ -573,23 +511,19 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `path` | `string` |
+| `key` | `string` \| `number` |
 
 #### Returns
 
 `T`
 
-#### Implementation of
-
-Contract.get
-
 #### Inherited from
 
-Base.get
+Service.get
 
 #### Defined in
 
-packages/@roots/bud-hooks/types/Hooks/index.d.ts:4
+packages/@roots/container/types/Container/index.d.ts:105
 
 ___
 
@@ -629,13 +563,9 @@ container.getEntries('key')
 
 [`string`, `ValueOf`<`T`, keyof `T`\>][]
 
-#### Implementation of
-
-Contract.getEntries
-
 #### Inherited from
 
-Base.getEntries
+Service.getEntries
 
 #### Defined in
 
@@ -675,13 +605,9 @@ container.getKeys()
 
 `string`[]
 
-#### Implementation of
-
-Contract.getKeys
-
 #### Inherited from
 
-Base.getKeys
+Service.getKeys
 
 #### Defined in
 
@@ -719,13 +645,9 @@ container.getMap()
 
 `Map`<`string`, `any`\>
 
-#### Implementation of
-
-Contract.getMap
-
 #### Inherited from
 
-Base.getMap
+Service.getMap
 
 #### Defined in
 
@@ -764,13 +686,9 @@ container.getValues()
 
 `any`[]
 
-#### Implementation of
-
-Contract.getValues
-
 #### Inherited from
 
-Base.getValues
+Service.getValues
 
 #### Defined in
 
@@ -803,13 +721,9 @@ container.has('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.has
-
 #### Inherited from
 
-Base.has
+Service.has
 
 #### Defined in
 
@@ -843,13 +757,9 @@ container.is('my-key', {whatever: 'value'})
 
 `boolean`
 
-#### Implementation of
-
-Contract.is
-
 #### Inherited from
 
-Base.is
+Service.is
 
 #### Defined in
 
@@ -882,13 +792,9 @@ container.isArray('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isArray
-
 #### Inherited from
 
-Base.isArray
+Service.isArray
 
 #### Defined in
 
@@ -921,13 +827,9 @@ container.isDefined('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isDefined
-
 #### Inherited from
 
-Base.isDefined
+Service.isDefined
 
 #### Defined in
 
@@ -960,13 +862,9 @@ container.isFalse('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isFalse
-
 #### Inherited from
 
-Base.isFalse
+Service.isFalse
 
 #### Defined in
 
@@ -999,13 +897,9 @@ container.isFunction('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isFunction
-
 #### Inherited from
 
-Base.isFunction
+Service.isFunction
 
 #### Defined in
 
@@ -1039,13 +933,9 @@ container.isIndexed('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isIndexed
-
 #### Inherited from
 
-Base.isIndexed
+Service.isIndexed
 
 #### Defined in
 
@@ -1078,13 +968,9 @@ container.isNotArray('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotArray
-
 #### Inherited from
 
-Base.isNotArray
+Service.isNotArray
 
 #### Defined in
 
@@ -1117,13 +1003,9 @@ container.isNotNull('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotNull
-
 #### Inherited from
 
-Base.isNotNull
+Service.isNotNull
 
 #### Defined in
 
@@ -1156,13 +1038,9 @@ container.isNumber('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotNumber
-
 #### Inherited from
 
-Base.isNotNumber
+Service.isNotNumber
 
 #### Defined in
 
@@ -1195,13 +1073,9 @@ container.isString('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNotString
-
 #### Inherited from
 
-Base.isNotString
+Service.isNotString
 
 #### Defined in
 
@@ -1234,13 +1108,9 @@ container.isNull('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNull
-
 #### Inherited from
 
-Base.isNull
+Service.isNull
 
 #### Defined in
 
@@ -1273,13 +1143,9 @@ container.isNumber('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isNumber
-
 #### Inherited from
 
-Base.isNumber
+Service.isNumber
 
 #### Defined in
 
@@ -1312,13 +1178,9 @@ container.isString('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isString
-
 #### Inherited from
 
-Base.isString
+Service.isString
 
 #### Defined in
 
@@ -1351,13 +1213,9 @@ container.isTrue('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isTrue
-
 #### Inherited from
 
-Base.isTrue
+Service.isTrue
 
 #### Defined in
 
@@ -1390,13 +1248,9 @@ container.isDefined('my-key')
 
 `boolean`
 
-#### Implementation of
-
-Contract.isUndefined
-
 #### Inherited from
 
-Base.isUndefined
+Service.isUndefined
 
 #### Defined in
 
@@ -1404,38 +1258,9 @@ packages/@roots/container/types/Container/index.d.ts:489
 
 ___
 
-### link
-
-▸ **link**(`target`, `links`): [`Framework`](framework.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `target` | `Name` |
-| `links` | `string`[] |
-
-#### Returns
-
-[`Framework`](framework.md)
-
-#### Implementation of
-
-Contract.link
-
-#### Inherited from
-
-Base.link
-
-#### Defined in
-
-packages/@roots/bud-hooks/types/Hooks/index.d.ts:8
-
-___
-
 ### merge
 
-▸ **merge**(`key`, `value`): [`Hooks`](hooks.md)
+▸ **merge**(`key`, `value`): [`Api`](api.md)
 
 ## container.merge
 
@@ -1456,15 +1281,11 @@ container.merge('key', {merge: values})
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.merge
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.merge
+Service.merge
 
 #### Defined in
 
@@ -1474,7 +1295,7 @@ ___
 
 ### mergeStore
 
-▸ **mergeStore**(`values`): [`Hooks`](hooks.md)
+▸ **mergeStore**(`values`): [`Api`](api.md)
 
 ## container.mergeStore
 
@@ -1494,15 +1315,11 @@ container.mergeStore({test: 'foo'})
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.mergeStore
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.mergeStore
+Service.mergeStore
 
 #### Defined in
 
@@ -1512,7 +1329,7 @@ ___
 
 ### mutate
 
-▸ **mutate**(`key`, `mutationFn`): [`Hooks`](hooks.md)
+▸ **mutate**(`key`, `mutationFn`): [`Api`](api.md)
 
 ## container.mutate
 
@@ -1533,15 +1350,11 @@ container.mutate('key', currentValue => modifiedValue)
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.mutate
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.mutate
+Service.mutate
 
 #### Defined in
 
@@ -1551,7 +1364,7 @@ ___
 
 ### mutateStore
 
-▸ **mutateStore**(`mutationFn`): [`Hooks`](hooks.md)
+▸ **mutateStore**(`mutationFn`): [`Api`](api.md)
 
 ## container.mutateStore
 
@@ -1571,15 +1384,11 @@ container.mutate('key', currentValue => modifiedValue)
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.mutateStore
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.mutateStore
+Service.mutateStore
 
 #### Defined in
 
@@ -1587,61 +1396,29 @@ packages/@roots/container/types/Container/index.d.ts:87
 
 ___
 
-### on
+### register
 
-▸ **on**(`id`, `callback`): [`Framework`](framework.md)
+▸ `Optional` **register**(`app`): `any`
+
+Register
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `id` | `Name` |
-| `callback` | `any` |
+| `app` | [`Framework`](framework.md) |
 
 #### Returns
 
-[`Framework`](framework.md)
-
-#### Implementation of
-
-Contract.on
+`any`
 
 #### Inherited from
 
-Base.on
+Service.register
 
 #### Defined in
 
-packages/@roots/bud-hooks/types/Hooks/index.d.ts:6
-
-___
-
-### register
-
-▸ **register**(`__namedParameters`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | `Object` |
-| `__namedParameters.store` | `any` |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-Contract.register
-
-#### Overrides
-
-Base.register
-
-#### Defined in
-
-packages/@roots/bud/types/services/Hooks/index.d.ts:5
+packages/@roots/bud-framework/types/Service/index.d.ts:15
 
 ___
 
@@ -1661,13 +1438,9 @@ Post registered callback
 
 `any`
 
-#### Implementation of
-
-Contract.registered
-
 #### Inherited from
 
-Base.registered
+Service.registered
 
 #### Defined in
 
@@ -1677,7 +1450,7 @@ ___
 
 ### remove
 
-▸ **remove**(`key`): [`Hooks`](hooks.md)
+▸ **remove**(`key`): [`Api`](api.md)
 
 ## container.delete
 
@@ -1698,15 +1471,11 @@ container.remove('my-key')
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.remove
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.remove
+Service.remove
 
 #### Defined in
 
@@ -1716,36 +1485,42 @@ ___
 
 ### set
 
-▸ **set**(`key`, `value`): [`Hooks`](hooks.md)
+▸ **set**(`key`, `value`): [`Api`](api.md)
+
+## container.set
+
+Set a value on a container item.
+
+### Usage
+
+```js
+container.set('key', value)
+```
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `key` | `string` |
+| `key` | `string` \| `number` |
 | `value` | `any` |
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.set
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.set
+Service.set
 
 #### Defined in
 
-packages/@roots/bud-hooks/types/Hooks/index.d.ts:5
+packages/@roots/container/types/Container/index.d.ts:242
 
 ___
 
 ### setStore
 
-▸ **setStore**(`repository`): [`Hooks`](hooks.md)
+▸ **setStore**(`repository`): [`Api`](api.md)
 
 ## container.setStore
 
@@ -1767,15 +1542,11 @@ container.setStore({
 
 #### Returns
 
-[`Hooks`](hooks.md)
-
-#### Implementation of
-
-Contract.setStore
+[`Api`](api.md)
 
 #### Inherited from
 
-Base.setStore
+Service.setStore
 
 #### Defined in
 
@@ -1810,13 +1581,9 @@ container.transform('key', currentValue => modifiedValue)
 
 `any`
 
-#### Implementation of
-
-Contract.transform
-
 #### Inherited from
 
-Base.transform
+Service.transform
 
 #### Defined in
 
@@ -1850,13 +1617,9 @@ container.transform(store=> modifiedStore)
 
 `any`
 
-#### Implementation of
-
-Contract.transformStore
-
 #### Inherited from
 
-Base.transformStore
+Service.transformStore
 
 #### Defined in
 

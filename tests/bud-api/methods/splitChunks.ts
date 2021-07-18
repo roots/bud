@@ -39,7 +39,9 @@ describe('bud.splitChunks', function () {
     bud.splitChunks()
 
     expect(
-      JSON.stringify(bud.build.config.optimization.splitChunks),
+      JSON.stringify(
+        bud.build.rebuild().optimization.splitChunks,
+      ),
     ).toStrictEqual(JSON.stringify(DEFAULT_OPTIONS))
 
     expect(

@@ -5,13 +5,15 @@ import {isString} from 'lodash'
 export class Config implements Framework.Api.Babel {
   public name = '@roots/bud-babel'
 
-  public log: any
-
-  public app: Framework
+  public _app: () => Framework
 
   public _plugins: Framework.Api.Babel.Registry = {}
 
   public _presets: Framework.Api.Babel.Registry = {}
+
+  public get app() {
+    return this._app()
+  }
 
   public get plugins() {
     return this._plugins
@@ -31,7 +33,8 @@ export class Config implements Framework.Api.Babel {
 
   @bind
   public init(app: Framework): this {
-    this.app = app
+    this._app = () => app
+
     return this
   }
 

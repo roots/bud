@@ -61,16 +61,21 @@ export default class extends Service implements Compiler {
   public before() {
     const config = []
 
-    this.app.hooks.filter('before')
+    this.app.hooks.filter('before').map(cb => cb(this.app))
 
-    const parent = this.app.build.config
-
-    if (parent.entry || !this.app.children.getEntries()[0]) {
-      config.push(parent)
+    if (
+      this.app.build.rebuild().entry ||
+      this.app.children.getEntries().length == 0
+    ) {
+      this.app.info('using parent compiler')
+      config.push(this.app.build.config)
     }
 
     this.app.children.getValues().forEach(child => {
-      child?.build?.config && config.push(child.build.config)
+      if (child?.build?.rebuild()) {
+        this.app.info(`using ${child.name} compiler`)
+        config.push(child.build.config)
+      }
     })
 
     return config

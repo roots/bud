@@ -36,7 +36,7 @@ export const setPath: SetPath = function (...args) {
 
   if (Object.entries(args[0]).length === 0) {
     this.error(
-      `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project', 'records]`,
+      `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project']`,
       `Type error`,
     )
   }

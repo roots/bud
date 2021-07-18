@@ -1,11 +1,10 @@
 ---
-id: "api.methods"
+id: "methods"
 title: "Namespace: methods"
-sidebar_label: "Api.methods"
+sidebar_label: "methods"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[Api](api.md).methods
 
 ## Functions
 

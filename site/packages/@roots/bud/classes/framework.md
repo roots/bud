@@ -6,7 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Framework re-export
+Framework
 
 ## Hierarchy
 
@@ -24,21 +24,17 @@ Framework re-export
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.config?` | `Configuration` |
-| `options.mode?` | ``"production"`` \| ``"development"`` |
-| `options.name?` | `string` |
-| `options.parent?` | [`Framework`](framework.md) |
+| `options` | [`Options`](../interfaces/framework.options.md) |
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:248
+packages/@roots/bud-framework/types/Framework/index.d.ts:231
 
 ## Properties
 
-### \_mode
+### \_config
 
-• **\_mode**: `Mode`
+• **\_config**: [`Configuration`](../interfaces/configuration.md)
 
 #### Defined in
 
@@ -48,11 +44,11 @@ ___
 
 ### \_services
 
-• **\_services**: `Container`<`Service`\>
+• **\_services**: [`Services`](../interfaces/framework.services.md)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:221
+packages/@roots/bud-framework/types/Framework/index.d.ts:228
 
 ___
 
@@ -91,7 +87,7 @@ Service providing config api methods
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:50
+packages/@roots/bud-framework/types/Framework/index.d.ts:46
 
 ___
 
@@ -143,7 +139,7 @@ Service handling config compilation
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:56
+packages/@roots/bud-framework/types/Framework/index.d.ts:52
 
 ___
 
@@ -157,13 +153,13 @@ Service handling compiler cache
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:62
+packages/@roots/bud-framework/types/Framework/index.d.ts:58
 
 ___
 
 ### children
 
-• **children**: `Container`<[`Framework`](framework.md)\>
+• **children**: `Container`<`Object`\>
 
 ## children
 
@@ -185,7 +181,7 @@ Service handling build compilation
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:68
+packages/@roots/bud-framework/types/Framework/index.d.ts:64
 
 ___
 
@@ -237,7 +233,7 @@ Service providing CLI interface
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:74
+packages/@roots/bud-framework/types/Framework/index.d.ts:70
 
 ___
 
@@ -271,7 +267,7 @@ Dependencies service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:78
+packages/@roots/bud-framework/types/Framework/index.d.ts:74
 
 ___
 
@@ -327,7 +323,7 @@ Discovery service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:82
+packages/@roots/bud-framework/types/Framework/index.d.ts:78
 
 ___
 
@@ -409,7 +405,7 @@ Envvar service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:86
+packages/@roots/bud-framework/types/Framework/index.d.ts:82
 
 ___
 
@@ -443,7 +439,7 @@ Extensions service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:90
+packages/@roots/bud-framework/types/Framework/index.d.ts:86
 
 ___
 
@@ -498,13 +494,13 @@ Hooks service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:94
+packages/@roots/bud-framework/types/Framework/index.d.ts:90
 
 ___
 
 ### implementation
 
-• `Abstract` **implementation**: (`options`: { `config`: `Configuration` ; `mode?`: ``"production"`` \| ``"development"`` ; `name?`: `string` ; `parent?`: [`Framework`](framework.md)  }) => [`Framework`](framework.md)
+• `Abstract` **implementation**: (`options`: [`Options`](../interfaces/framework.options.md)) => [`Framework`](framework.md)
 
 #### Type declaration
 
@@ -514,15 +510,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.config` | `Configuration` |
-| `options.mode?` | ``"production"`` \| ``"development"`` |
-| `options.name?` | `string` |
-| `options.parent?` | [`Framework`](framework.md) |
+| `options` | [`Options`](../interfaces/framework.options.md) |
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:214
+packages/@roots/bud-framework/types/Framework/index.d.ts:207
 
 ___
 
@@ -530,13 +522,9 @@ ___
 
 • **isChild**: `boolean`
 
-## isChild
-
-Returns true if current compiler is a child compiler
-
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:44
+packages/@roots/bud-framework/types/Framework/index.d.ts:210
 
 ___
 
@@ -548,7 +536,7 @@ Logger service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:98
+packages/@roots/bud-framework/types/Framework/index.d.ts:94
 
 ___
 
@@ -586,6 +574,16 @@ packages/@roots/bud-api/types/methods/minimize.d.ts:29
 
 ___
 
+### mode
+
+• **mode**: `Mode`
+
+#### Defined in
+
+packages/@roots/bud-framework/types/Framework/index.d.ts:214
+
+___
+
 ### name
 
 • **name**: `string`
@@ -608,7 +606,7 @@ ___
 
 If a child instance, returns the parent.
 
-If the parent instance, returns {Framework}
+If the parent instance, returns null.
 
 #### Defined in
 
@@ -649,23 +647,6 @@ Configure postcss.
 #### Defined in
 
 packages/@roots/bud-postcss/types/interface.d.ts:11
-
-___
-
-### proto
-
-• **proto**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `config` | `Configuration` |
-| `services` | `any` |
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:225
 
 ___
 
@@ -805,7 +786,7 @@ Dev server service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:102
+packages/@roots/bud-framework/types/Framework/index.d.ts:98
 
 ___
 
@@ -890,7 +871,7 @@ Key Value store service
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:106
+packages/@roots/bud-framework/types/Framework/index.d.ts:102
 
 ___
 
@@ -1018,7 +999,7 @@ packages/@roots/bud-dashboard/types/interface.d.ts:5
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:248
+packages/@roots/bud-framework/types/Framework/index.d.ts:231
 
 ___
 
@@ -1032,67 +1013,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:247
-
-___
-
-### mode
-
-• `get` **mode**(): `Mode`
-
-#### Returns
-
-`Mode`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:245
-
-• `set` **mode**(`mode`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `mode` | `Mode` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:246
-
-___
-
-### services
-
-• `get` **services**(): `Container`<`Service`\>
-
-#### Returns
-
-`Container`<`Service`\>
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:243
-
-• `set` **services**(`services`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `services` | `Container`<`Service`\> |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:244
+packages/@roots/bud-framework/types/Framework/index.d.ts:230
 
 ## Methods
 
@@ -1142,15 +1063,9 @@ ___
 
 ### bootstrap
 
-▸ **bootstrap**(`services`): [`Framework`](framework.md)
+▸ **bootstrap**(): [`Framework`](framework.md)
 
-app.bootstrap
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `services` | `Object` |
+bootstrap
 
 #### Returns
 
@@ -1158,7 +1073,7 @@ app.bootstrap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:143
+packages/@roots/bud-framework/types/Framework/index.d.ts:106
 
 ___
 
@@ -1203,7 +1118,7 @@ log (log level: debug)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:189
+packages/@roots/bud-framework/types/Framework/index.d.ts:175
 
 ___
 
@@ -1226,29 +1141,27 @@ log (log level: error)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:193
+packages/@roots/bud-framework/types/Framework/index.d.ts:179
 
 ___
 
-### get
+### filter
 
-▸ **get**(`name?`): [`Framework`](framework.md)
-
-app.get
+▸ **filter**(`__namedParameters`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name?` | `string` |
+| `__namedParameters` | [`any`, `any`] |
 
 #### Returns
 
-[`Framework`](framework.md)
+`boolean`
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:134
+packages/@roots/bud-framework/types/Framework/index.d.ts:233
 
 ___
 
@@ -1271,23 +1184,7 @@ log (log level: info)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:185
-
-___
-
-### lifecycle
-
-▸ **lifecycle**(): [`Framework`](framework.md)
-
-app.lifecycle
-
-#### Returns
-
-[`Framework`](framework.md)
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:149
+packages/@roots/bud-framework/types/Framework/index.d.ts:171
 
 ___
 
@@ -1310,7 +1207,7 @@ log a message
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:173
+packages/@roots/bud-framework/types/Framework/index.d.ts:159
 
 ___
 
@@ -1335,7 +1232,7 @@ app.make
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:139
+packages/@roots/bud-framework/types/Framework/index.d.ts:135
 
 ___
 
@@ -1358,7 +1255,7 @@ app.path
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:153
+packages/@roots/bud-framework/types/Framework/index.d.ts:139
 
 ___
 
@@ -1381,7 +1278,7 @@ app.pipe
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:157
+packages/@roots/bud-framework/types/Framework/index.d.ts:143
 
 ___
 
@@ -1403,28 +1300,7 @@ app.sequence
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:161
-
-___
-
-### set
-
-▸ **set**(`name`, `instance`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `instance` | [`Framework`](framework.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-framework/types/Framework/index.d.ts:255
+packages/@roots/bud-framework/types/Framework/index.d.ts:147
 
 ___
 
@@ -1447,7 +1323,7 @@ log a message
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:177
+packages/@roots/bud-framework/types/Framework/index.d.ts:163
 
 ___
 
@@ -1470,7 +1346,7 @@ app.tap
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:165
+packages/@roots/bud-framework/types/Framework/index.d.ts:151
 
 ___
 
@@ -1493,7 +1369,7 @@ log (log level: warn)
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:181
+packages/@roots/bud-framework/types/Framework/index.d.ts:167
 
 ___
 
@@ -1517,4 +1393,4 @@ app.when
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:169
+packages/@roots/bud-framework/types/Framework/index.d.ts:155

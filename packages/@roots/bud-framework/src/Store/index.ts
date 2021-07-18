@@ -1,7 +1,7 @@
 import {Service} from '../Service'
 import {get} from 'lodash'
 
-class Store extends Service {
+class Store extends Service<Store.Repo> {
   public name = 'service/store'
 
   public get<T = any>(path: Store.Keys) {
@@ -39,6 +39,10 @@ namespace Store {
     | `manifest`
     | `extension`
     | `extension.${string}`
+
+  export type Repo = {
+    [K in Store.Keys & string]: any
+  }
 }
 
 export {Store}

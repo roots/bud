@@ -1,5 +1,5 @@
-import {Bud, Framework, setupBud, teardownBud} from '../../util'
-import {config, services} from '@roots/bud'
+import {Framework, setupBud, teardownBud} from '../../util'
+import {factory} from '@roots/bud'
 
 describe('@roots/bud-framework child', () => {
   let bud: Framework
@@ -12,9 +12,12 @@ describe('@roots/bud-framework child', () => {
     bud = teardownBud(bud)
   })
 
-  it("parent compiler's parent is this", () => {
-    expect(bud.get().name).toBe('bud')
-    expect(bud.parent.name).toBe('bud')
+  it("parent compiler's name is this", () => {
+    expect(bud.name).toBe('bud')
+  })
+
+  it('parent compiler has no parent', () => {
+    expect(bud.parent).toBe(null)
   })
 
   it('parent has no children', () => {
@@ -28,23 +31,15 @@ describe('@roots/bud-framework child', () => {
   })
 
   it('bud can set a child compiler', () => {
-    bud.set(
-      'setChild',
-      new Bud({
-        config,
-        name: 'setChild',
-        parent: bud,
-        mode: bud.mode,
-      }).bootstrap(services),
-    )
-    const {name} = bud.get('setChild')
+    bud.children.set('setChild', factory({name: 'setChild'}))
+    const {name} = bud.children.get('setChild')
     expect(name).toBe('setChild')
   })
 
   it('child compiler can return to parent compiler via `.parent` property', () => {
     const {
       parent: {name},
-    } = bud.get('child')
+    } = bud.children.get('child')
 
     expect(name).toBe('bud')
   })

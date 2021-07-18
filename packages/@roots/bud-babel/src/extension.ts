@@ -10,22 +10,37 @@ export const api: Module['api'] = (app: Framework) => ({
   babel: new Config().init(app),
 })
 
-export const register: Module['register'] = ({build}) => {
-  build.loaders.babel = new Loader(
+export const register: Module['register'] = app => {
+  app.build.loaders.babel = new Loader(
     require.resolve('babel-loader'),
   )
 
-  build.items.babel = new Item({
+  app.build.items.babel = new Item({
     loader: ({build}) => build.loaders.babel,
-    options: ({path, babel}) => ({
-      cacheDirectory: path('storage', 'cache/babel'),
-      root: path('src'),
-      presets: Object.values(babel.presets),
-      plugins: Object.values(babel.plugins),
-    }),
+    options: app => {
+      const options: {
+        cacheDirectory: string
+        root: string
+        presets?: any
+        plugins?: any
+      } = {
+        cacheDirectory: app.path('storage', 'cache/babel'),
+        root: app.path('src'),
+      }
+
+      if (app.babel?.presets) {
+        options.presets = Object.values(app.babel.presets)
+      }
+
+      if (app.babel?.plugins) {
+        options.plugins = Object.values(app.babel.plugins)
+      }
+
+      return options
+    },
   })
 
-  build.rules.js.setUse(({build}) => [build.items.babel])
+  app.build.rules.js.setUse(({build}) => [build.items.babel])
 }
 
 export const boot: Module['boot'] = app => {

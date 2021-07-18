@@ -1,22 +1,26 @@
 ---
-id: "server"
-title: "Class: Server"
-sidebar_label: "Server"
+id: "build"
+title: "Class: Build"
+sidebar_label: "Build"
 sidebar_position: 0
 custom_edit_url: null
 ---
 
 ## Hierarchy
 
-- `Base`
+- `Service`
 
-  ↳ **`Server`**
+  ↳ **`Build`**
+
+## Implements
+
+- `Contract`
 
 ## Constructors
 
 ### constructor
 
-• **new Server**(`app`)
+• **new Build**(`app`)
 
 #### Parameters
 
@@ -26,7 +30,7 @@ custom_edit_url: null
 
 #### Inherited from
 
-Base.constructor
+Service.constructor
 
 #### Defined in
 
@@ -34,59 +38,13 @@ packages/@roots/bud-framework/types/Service/index.d.ts:32
 
 ## Properties
 
-### \_assets
+### \_config
 
-• `Readonly` **\_assets**: `string`[]
-
-#### Inherited from
-
-Base.\_assets
+• **\_config**: `Configuration`
 
 #### Defined in
 
-packages/@roots/bud-server/types/Server/index.d.ts:15
-
-___
-
-### \_instance
-
-• **\_instance**: `Application`
-
-#### Inherited from
-
-Base.\_instance
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:9
-
-___
-
-### \_watcher
-
-• **\_watcher**: `FSWatcher`
-
-#### Inherited from
-
-Base.\_watcher
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:10
-
-___
-
-### config
-
-• **config**: `Config`
-
-#### Inherited from
-
-Base.config
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:8
+packages/@roots/bud-build/types/Build/index.d.ts:15
 
 ___
 
@@ -96,9 +54,13 @@ ___
 
 Identify
 
+#### Implementation of
+
+Contract.ident
+
 #### Inherited from
 
-Base.ident
+Service.ident
 
 #### Defined in
 
@@ -106,17 +68,39 @@ packages/@roots/container/types/Container/index.d.ts:15
 
 ___
 
-### middleware
+### items
 
-• **middleware**: `Inventory`
+• **items**: `Object`
 
-#### Inherited from
+#### Index signature
 
-Base.middleware
+▪ [key: `string`]: `Contract.Item`
+
+#### Implementation of
+
+Contract.items
 
 #### Defined in
 
-packages/@roots/bud-server/types/Server/index.d.ts:7
+packages/@roots/bud-build/types/Build/index.d.ts:12
+
+___
+
+### loaders
+
+• **loaders**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: `Contract.Loader`
+
+#### Implementation of
+
+Contract.loaders
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/index.d.ts:6
 
 ___
 
@@ -124,13 +108,17 @@ ___
 
 • **name**: `string`
 
+#### Implementation of
+
+Contract.name
+
 #### Overrides
 
-Base.name
+Service.name
 
 #### Defined in
 
-packages/@roots/bud/types/services/Server/index.d.ts:3
+packages/@roots/bud-build/types/Build/index.d.ts:5
 
 ___
 
@@ -140,13 +128,35 @@ ___
 
 The container store
 
+#### Implementation of
+
+Contract.repository
+
 #### Inherited from
 
-Base.repository
+Service.repository
 
 #### Defined in
 
 packages/@roots/container/types/Container/index.d.ts:19
+
+___
+
+### rules
+
+• **rules**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: `Contract.Rule`
+
+#### Implementation of
+
+Contract.rules
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/index.d.ts:9
 
 ## Accessors
 
@@ -214,91 +224,17 @@ packages/@roots/bud-framework/types/Service/index.d.ts:32
 
 ___
 
-### assets
+### config
 
-• `get` **assets**(): `string`[]
-
-#### Returns
-
-`string`[]
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:16
-
-___
-
-### instance
-
-• `get` **instance**(): `Application`
+• `get` **config**(): `Configuration`
 
 #### Returns
 
-`Application`
+`Configuration`
 
 #### Defined in
 
-packages/@roots/bud-server/types/Server/index.d.ts:11
-
-• `set` **instance**(`instance`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `instance` | `Application` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:12
-
-___
-
-### isWatchable
-
-• `get` **isWatchable**(): `boolean`
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:17
-
-___
-
-### watcher
-
-• `get` **watcher**(): `FSWatcher`
-
-#### Returns
-
-`FSWatcher`
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:13
-
-• `set` **watcher**(`watcher`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `watcher` | `FSWatcher` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:14
+packages/@roots/bud-build/types/Build/index.d.ts:16
 
 ## Methods
 
@@ -320,9 +256,13 @@ container.all()
 
 `any`
 
+#### Implementation of
+
+Contract.all
+
 #### Inherited from
 
-Base.all
+Service.all
 
 #### Defined in
 
@@ -346,9 +286,13 @@ Boot
 
 `any`
 
+#### Implementation of
+
+Contract.boot
+
 #### Inherited from
 
-Base.boot
+Service.boot
 
 #### Defined in
 
@@ -372,9 +316,13 @@ Post boot callback
 
 `any`
 
+#### Implementation of
+
+Contract.booted
+
 #### Inherited from
 
-Base.booted
+Service.booted
 
 #### Defined in
 
@@ -398,9 +346,13 @@ Bootstrap
 
 `any`
 
+#### Implementation of
+
+Contract.bootstrap
+
 #### Inherited from
 
-Base.bootstrap
+Service.bootstrap
 
 #### Defined in
 
@@ -424,9 +376,13 @@ Bootstrapped
 
 `any`
 
+#### Implementation of
+
+Contract.bootstrapped
+
 #### Inherited from
 
-Base.bootstrapped
+Service.bootstrapped
 
 #### Defined in
 
@@ -436,7 +392,7 @@ ___
 
 ### each
 
-▸ **each**(`key`, `callFn`): [`Server`](server.md)
+▸ **each**(`key`, `callFn`): [`Build`](build.md)
 
 ## container.withEntries
 
@@ -457,11 +413,15 @@ container.withEntries('key', (key, value) => doSomething)
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.each
 
 #### Inherited from
 
-Base.each
+Service.each
 
 #### Defined in
 
@@ -471,7 +431,7 @@ ___
 
 ### every
 
-▸ **every**(`fn`): [`Server`](server.md)
+▸ **every**(`fn`): [`Build`](build.md)
 
 ## container.every
 
@@ -491,11 +451,15 @@ container.withEntries('key', (key, value) => doSomething)
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.every
 
 #### Inherited from
 
-Base.every
+Service.every
 
 #### Defined in
 
@@ -519,9 +483,13 @@ ___
 
 `boolean`
 
+#### Implementation of
+
+Contract.filterUnique
+
 #### Inherited from
 
-Base.filterUnique
+Service.filterUnique
 
 #### Defined in
 
@@ -545,9 +513,13 @@ Find
 
 `any`
 
+#### Implementation of
+
+Contract.findKey
+
 #### Inherited from
 
-Base.findKey
+Service.findKey
 
 #### Defined in
 
@@ -572,9 +544,13 @@ Find in container item
 
 `any`
 
+#### Implementation of
+
+Contract.findKeyIn
+
 #### Inherited from
 
-Base.findKeyIn
+Service.findKeyIn
 
 #### Defined in
 
@@ -584,7 +560,7 @@ ___
 
 ### fromEntries
 
-▸ **fromEntries**(`entries`): [`Server`](server.md)
+▸ **fromEntries**(`entries`): [`Build`](build.md)
 
 ## container.fromEntries
 
@@ -610,11 +586,15 @@ container.getEntries('key')
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.fromEntries
 
 #### Inherited from
 
-Base.fromEntries
+Service.fromEntries
 
 #### Defined in
 
@@ -658,9 +638,13 @@ container.get(['container', 'container-item'])
 
 `T`
 
+#### Implementation of
+
+Contract.get
+
 #### Inherited from
 
-Base.get
+Service.get
 
 #### Defined in
 
@@ -704,9 +688,13 @@ container.getEntries('key')
 
 [`string`, `ValueOf`<`T`, keyof `T`\>][]
 
+#### Implementation of
+
+Contract.getEntries
+
 #### Inherited from
 
-Base.getEntries
+Service.getEntries
 
 #### Defined in
 
@@ -746,9 +734,13 @@ container.getKeys()
 
 `string`[]
 
+#### Implementation of
+
+Contract.getKeys
+
 #### Inherited from
 
-Base.getKeys
+Service.getKeys
 
 #### Defined in
 
@@ -786,9 +778,13 @@ container.getMap()
 
 `Map`<`string`, `any`\>
 
+#### Implementation of
+
+Contract.getMap
+
 #### Inherited from
 
-Base.getMap
+Service.getMap
 
 #### Defined in
 
@@ -827,31 +823,17 @@ container.getValues()
 
 `any`[]
 
+#### Implementation of
+
+Contract.getValues
+
 #### Inherited from
 
-Base.getValues
+Service.getValues
 
 #### Defined in
 
 packages/@roots/container/types/Container/index.d.ts:192
-
-___
-
-### getWatchedFilesArray
-
-▸ **getWatchedFilesArray**(): `string`[]
-
-#### Returns
-
-`string`[]
-
-#### Inherited from
-
-Base.getWatchedFilesArray
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:18
 
 ___
 
@@ -880,31 +862,17 @@ container.has('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.has
+
 #### Inherited from
 
-Base.has
+Service.has
 
 #### Defined in
 
 packages/@roots/container/types/Container/index.d.ts:293
-
-___
-
-### inject
-
-▸ **inject**(): `void`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Base.inject
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:21
 
 ___
 
@@ -934,9 +902,13 @@ container.is('my-key', {whatever: 'value'})
 
 `boolean`
 
+#### Implementation of
+
+Contract.is
+
 #### Inherited from
 
-Base.is
+Service.is
 
 #### Defined in
 
@@ -969,9 +941,13 @@ container.isArray('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isArray
+
 #### Inherited from
 
-Base.isArray
+Service.isArray
 
 #### Defined in
 
@@ -1004,9 +980,13 @@ container.isDefined('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isDefined
+
 #### Inherited from
 
-Base.isDefined
+Service.isDefined
 
 #### Defined in
 
@@ -1039,9 +1019,13 @@ container.isFalse('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isFalse
+
 #### Inherited from
 
-Base.isFalse
+Service.isFalse
 
 #### Defined in
 
@@ -1074,9 +1058,13 @@ container.isFunction('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isFunction
+
 #### Inherited from
 
-Base.isFunction
+Service.isFunction
 
 #### Defined in
 
@@ -1110,9 +1098,13 @@ container.isIndexed('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isIndexed
+
 #### Inherited from
 
-Base.isIndexed
+Service.isIndexed
 
 #### Defined in
 
@@ -1145,9 +1137,13 @@ container.isNotArray('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNotArray
+
 #### Inherited from
 
-Base.isNotArray
+Service.isNotArray
 
 #### Defined in
 
@@ -1180,9 +1176,13 @@ container.isNotNull('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNotNull
+
 #### Inherited from
 
-Base.isNotNull
+Service.isNotNull
 
 #### Defined in
 
@@ -1215,9 +1215,13 @@ container.isNumber('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNotNumber
+
 #### Inherited from
 
-Base.isNotNumber
+Service.isNotNumber
 
 #### Defined in
 
@@ -1250,9 +1254,13 @@ container.isString('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNotString
+
 #### Inherited from
 
-Base.isNotString
+Service.isNotString
 
 #### Defined in
 
@@ -1285,9 +1293,13 @@ container.isNull('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNull
+
 #### Inherited from
 
-Base.isNull
+Service.isNull
 
 #### Defined in
 
@@ -1320,9 +1332,13 @@ container.isNumber('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isNumber
+
 #### Inherited from
 
-Base.isNumber
+Service.isNumber
 
 #### Defined in
 
@@ -1355,9 +1371,13 @@ container.isString('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isString
+
 #### Inherited from
 
-Base.isString
+Service.isString
 
 #### Defined in
 
@@ -1390,9 +1410,13 @@ container.isTrue('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isTrue
+
 #### Inherited from
 
-Base.isTrue
+Service.isTrue
 
 #### Defined in
 
@@ -1425,9 +1449,13 @@ container.isDefined('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Contract.isUndefined
+
 #### Inherited from
 
-Base.isUndefined
+Service.isUndefined
 
 #### Defined in
 
@@ -1437,7 +1465,7 @@ ___
 
 ### merge
 
-▸ **merge**(`key`, `value`): [`Server`](server.md)
+▸ **merge**(`key`, `value`): [`Build`](build.md)
 
 ## container.merge
 
@@ -1458,11 +1486,15 @@ container.merge('key', {merge: values})
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.merge
 
 #### Inherited from
 
-Base.merge
+Service.merge
 
 #### Defined in
 
@@ -1472,7 +1504,7 @@ ___
 
 ### mergeStore
 
-▸ **mergeStore**(`values`): [`Server`](server.md)
+▸ **mergeStore**(`values`): [`Build`](build.md)
 
 ## container.mergeStore
 
@@ -1492,11 +1524,15 @@ container.mergeStore({test: 'foo'})
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.mergeStore
 
 #### Inherited from
 
-Base.mergeStore
+Service.mergeStore
 
 #### Defined in
 
@@ -1506,7 +1542,7 @@ ___
 
 ### mutate
 
-▸ **mutate**(`key`, `mutationFn`): [`Server`](server.md)
+▸ **mutate**(`key`, `mutationFn`): [`Build`](build.md)
 
 ## container.mutate
 
@@ -1527,11 +1563,15 @@ container.mutate('key', currentValue => modifiedValue)
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.mutate
 
 #### Inherited from
 
-Base.mutate
+Service.mutate
 
 #### Defined in
 
@@ -1541,7 +1581,7 @@ ___
 
 ### mutateStore
 
-▸ **mutateStore**(`mutationFn`): [`Server`](server.md)
+▸ **mutateStore**(`mutationFn`): [`Build`](build.md)
 
 ## container.mutateStore
 
@@ -1561,11 +1601,15 @@ container.mutate('key', currentValue => modifiedValue)
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.mutateStore
 
 #### Inherited from
 
-Base.mutateStore
+Service.mutateStore
 
 #### Defined in
 
@@ -1573,47 +1617,43 @@ packages/@roots/container/types/Container/index.d.ts:87
 
 ___
 
-### processMiddlewares
+### rebuild
 
-▸ **processMiddlewares**(): `void`
+▸ **rebuild**(): `Configuration`
 
 #### Returns
 
-`void`
+`Configuration`
 
-#### Inherited from
+#### Implementation of
 
-Base.processMiddlewares
+Contract.rebuild
 
 #### Defined in
 
-packages/@roots/bud-server/types/Server/index.d.ts:19
+packages/@roots/bud-build/types/Build/index.d.ts:17
 
 ___
 
 ### register
 
-▸ **register**(`__namedParameters`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | `Object` |
-| `__namedParameters.container` | `any` |
-| `__namedParameters.store` | `any` |
+▸ **register**(): `void`
 
 #### Returns
 
 `void`
 
+#### Implementation of
+
+Contract.register
+
 #### Overrides
 
-Base.register
+Service.register
 
 #### Defined in
 
-packages/@roots/bud/types/services/Server/index.d.ts:4
+packages/@roots/bud-build/types/Build/index.d.ts:18
 
 ___
 
@@ -1633,9 +1673,13 @@ Post registered callback
 
 `any`
 
+#### Implementation of
+
+Contract.registered
+
 #### Inherited from
 
-Base.registered
+Service.registered
 
 #### Defined in
 
@@ -1645,7 +1689,7 @@ ___
 
 ### remove
 
-▸ **remove**(`key`): [`Server`](server.md)
+▸ **remove**(`key`): [`Build`](build.md)
 
 ## container.delete
 
@@ -1666,11 +1710,15 @@ container.remove('my-key')
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.remove
 
 #### Inherited from
 
-Base.remove
+Service.remove
 
 #### Defined in
 
@@ -1678,27 +1726,9 @@ packages/@roots/container/types/Container/index.d.ts:306
 
 ___
 
-### run
-
-▸ **run**(): [`Server`](server.md)
-
-#### Returns
-
-[`Server`](server.md)
-
-#### Inherited from
-
-Base.run
-
-#### Defined in
-
-packages/@roots/bud-server/types/Server/index.d.ts:20
-
-___
-
 ### set
 
-▸ **set**(`key`, `value`): [`Server`](server.md)
+▸ **set**(`key`, `value`): [`Build`](build.md)
 
 ## container.set
 
@@ -1719,11 +1749,15 @@ container.set('key', value)
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.set
 
 #### Inherited from
 
-Base.set
+Service.set
 
 #### Defined in
 
@@ -1733,7 +1767,7 @@ ___
 
 ### setStore
 
-▸ **setStore**(`repository`): [`Server`](server.md)
+▸ **setStore**(`repository`): [`Build`](build.md)
 
 ## container.setStore
 
@@ -1755,11 +1789,15 @@ container.setStore({
 
 #### Returns
 
-[`Server`](server.md)
+[`Build`](build.md)
+
+#### Implementation of
+
+Contract.setStore
 
 #### Inherited from
 
-Base.setStore
+Service.setStore
 
 #### Defined in
 
@@ -1794,9 +1832,13 @@ container.transform('key', currentValue => modifiedValue)
 
 `any`
 
+#### Implementation of
+
+Contract.transform
+
 #### Inherited from
 
-Base.transform
+Service.transform
 
 #### Defined in
 
@@ -1830,9 +1872,13 @@ container.transform(store=> modifiedStore)
 
 `any`
 
+#### Implementation of
+
+Contract.transformStore
+
 #### Inherited from
 
-Base.transformStore
+Service.transformStore
 
 #### Defined in
 

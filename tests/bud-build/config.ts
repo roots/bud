@@ -1,19 +1,17 @@
 import {Framework, setupBud, teardownBud} from '../util'
-import {Build} from '@roots/bud-build'
+
 import RemarkHTML from 'remark-html'
 import toml from 'toml'
-import yaml from 'yamljs'
 import json5 from 'json5'
+import yaml from 'yamljs'
+
+import {RuleSetRule} from 'webpack/types'
 
 describe('bud.build.config', function () {
-  let bud: Framework,
-    config: Build['config'],
-    path: Framework['path']
+  let bud: Framework
 
   beforeAll(() => {
     bud = setupBud()
-    config = bud.build.config
-    path = bud.path
   })
 
   afterAll(() => {
@@ -21,76 +19,84 @@ describe('bud.build.config', function () {
   })
 
   it(`doesn't include deprecated properties`, () => {
-    expect(config.hasOwnProperty('devServer')).toBe(false)
-    expect(config.hasOwnProperty('unsafeCache')).toBe(false)
+    expect(bud.build.config.hasOwnProperty('devServer')).toBe(
+      false,
+    )
+    expect(bud.build.config.hasOwnProperty('unsafeCache')).toBe(
+      false,
+    )
   })
 
   it('has expected bail default', () => {
-    expect(config.bail).toEqual(true)
+    expect(bud.build.config.bail).toEqual(true)
   })
 
   it('has expected cache default', () => {
-    expect(config.cache).toEqual({
+    expect(bud.build.config.cache).toEqual({
       type: 'memory',
     })
   })
 
   it('has expected context default', () => {
-    expect(config.context).toEqual(path('project'))
+    expect(bud.build.config.context).toEqual(bud.path('project'))
   })
 
   it('has expected devtool default', () => {
-    expect(config.devtool).toEqual(false)
+    expect(bud.build.config.devtool).toEqual(false)
   })
 
   it('has expected entry default', () => {
-    expect(config.entry).toEqual(undefined)
+    expect(bud.build.config.entry).toEqual(undefined)
   })
 
   it('has expected experiments default', () => {
-    expect(config.experiments).toEqual({
+    expect(bud.build.config.experiments).toEqual({
       lazyCompilation: false,
     })
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(config.infrastructureLogging).toEqual({})
+    expect(bud.build.config.infrastructureLogging).toEqual({})
   })
 
   it('has expected mode default', () => {
-    expect(config.mode).toEqual('production')
+    expect(bud.build.config.mode).toEqual('production')
   })
 
   it('has expected name default', () => {
-    expect(config.name).toEqual('bud')
+    expect(bud.build.config.name).toEqual('bud')
   })
 
   it('has expected node default', () => {
-    expect(config.node).toEqual(false)
+    expect(bud.build.config.node).toEqual(false)
   })
 
   it('has expected optimization.minimize default', () => {
-    expect(config.optimization.minimize).toEqual(true)
+    expect(bud.build.config.optimization.minimize).toEqual(true)
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect(config.optimization.emitOnErrors).toEqual(false)
+    expect(bud.build.config.optimization.emitOnErrors).toEqual(
+      false,
+    )
   })
 
   it('has expected optimization.runtimeChunk default', () => {
-    expect(config.optimization.runtimeChunk).toEqual(undefined)
+    expect(bud.build.config.optimization.runtimeChunk).toEqual(
+      undefined,
+    )
   })
 
   it('has expected profile default', () => {
-    expect(config.profile).toEqual(false)
+    expect(bud.build.config.profile).toEqual(false)
   })
 
   it('has expected resolve.alias default', () => {
-    expect(config.resolve.alias).toEqual({})
+    expect(bud.build.config.resolve.alias).toEqual({})
   })
 
   it('has expected resolve.extensions default', () => {
-    expect(config.resolve.extensions).toEqual([
+    expect(bud.build.config.resolve.extensions).toEqual([
       '.wasm',
       '.mjs',
       '.js',
@@ -109,184 +115,234 @@ describe('bud.build.config', function () {
   })
 
   it('has expected resolve.modules default', () => {
-    expect(config.resolve.modules).toEqual([
+    expect(bud.build.config.resolve.modules).toEqual([
       'src',
       'node_modules',
     ])
   })
 
   it('has expected stats default', () => {
-    expect(config.stats).toEqual({})
+    expect(bud.build.config.stats).toEqual({})
   })
 
   it('has expected target default', () => {
-    expect(config.target).toEqual(undefined)
+    expect(bud.build.config.target).toEqual(undefined)
   })
 
   it('has expected watch default', () => {
-    expect(config.watch).toEqual(false)
+    expect(bud.build.config.watch).toEqual(false)
   })
 
   it('has expected watchOptions default', () => {
-    expect(config.watchOptions).toEqual(undefined)
+    expect(bud.build.config.watchOptions).toEqual(undefined)
   })
 
   it('has expected number of plugins', () => {
-    expect(config.plugins.length).toBe(4)
+    expect(bud.build.config.plugins.length).toBe(4)
   })
 
   it('has valid plugins', () => {
-    config.plugins.filter(plugin => {
+    bud.build.config.plugins.filter(plugin => {
       expect(plugin).toHaveProperty('apply')
     })
   })
 
-  it('has expected module.rules default', () => {
-    expect(config.module).toEqual({
-      rules: [
+  it('has expected default asset/image rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[0],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      generator: {
+        filename: 'assets/[hash][ext][query]',
+      },
+      test: /\.(png|jpe?g|gif)$/,
+      type: 'asset/resource',
+    })
+  })
+
+  it('has expected default font rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[1],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.(ttf|otf|eot|woff2?|ico)$/,
+      use: [
         {
-          oneOf: [
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.css$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    '/node_modules/mini-css-extract-plugin/dist/loader.js',
-                  ),
-                  options: {},
-                },
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/css-loader/dist/cjs.js',
-                  ),
-                  options: {
-                    importLoaders: 1,
-                    sourceMap: false,
-                  },
-                },
-              ],
-            },
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.(js|jsx)$/,
-              use: [],
-            },
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.(png|jpe?g|gif)$/,
-              type: 'asset/resource',
-              generator: {
-                filename: 'assets/[hash][ext][query]',
-              },
-            },
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.(ttf|otf|eot|woff2?|ico)$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/resolve-url-loader/index.js',
-                  ),
-                  options: {
-                    root: path('project', 'src'),
-                    sourceMap: false,
-                  },
-                },
-              ],
-            },
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.md$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/html-loader/dist/cjs.js',
-                  ),
-                },
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/remark-loader/dist/cjs.js',
-                  ),
-                  options: {
-                    remarkOptions: {
-                      plugins: [RemarkHTML],
-                    },
-                  },
-                },
-              ],
-            },
-            {
-              exclude: /(node_modules|bower_components)/,
-              test: /\.svg$/,
-              type: 'asset/resource',
-              generator: {
-                filename: 'assets/[hash][ext][query]',
-              },
-            },
-            {
-              test: /\.(html?)$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/html-loader/dist/cjs.js',
-                  ),
-                },
-              ],
-            },
-            {
-              test: /\.(csv|tsv)$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/csv-loader/index.js',
-                  ),
-                },
-              ],
-            },
-            {
-              test: /\.xml$/,
-              use: [
-                {
-                  loader: path(
-                    'project',
-                    'node_modules/xml-loader/index.js',
-                  ),
-                },
-              ],
-            },
-            {
-              parser: {
-                parse: toml.parse,
-              },
-              test: /\.toml$/,
-              type: 'json',
-            },
-            {
-              parser: {
-                parse: yaml.parse,
-              },
-              test: /\.(yaml|yml)$/,
-              type: 'json',
-            },
-            {
-              parser: {
-                parse: json5.parse,
-              },
-              test: /\.json5$/,
-              type: 'json',
-            },
-          ],
-          parser: {requireEnsure: false},
+          loader: bud.path(
+            'project',
+            'node_modules/resolve-url-loader/index.js',
+          ),
+          options: {
+            root: bud.path('project', 'src'),
+            sourceMap: false,
+          },
         },
       ],
+    })
+  })
+
+  it('has expected default md rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[2],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.md$/,
+      use: [
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/html-loader/dist/cjs.js',
+          ),
+        },
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/remark-loader/dist/cjs.js',
+          ),
+          options: {
+            remarkOptions: {
+              plugins: [RemarkHTML],
+            },
+          },
+        },
+      ],
+    })
+  })
+
+  it('has expected default svg rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[3],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.svg$/,
+      type: 'asset/resource',
+      generator: {
+        filename: 'assets/[hash][ext][query]',
+      },
+    })
+  })
+
+  it('has expected default html rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[4],
+    ).toEqual({
+      test: /\.(html?)$/,
+      use: [
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/html-loader/dist/cjs.js',
+          ),
+        },
+      ],
+    })
+  })
+
+  it('has expected default csv rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[5],
+    ).toEqual({
+      test: /\.(csv|tsv)$/,
+      use: [
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/csv-loader/index.js',
+          ),
+        },
+      ],
+    })
+  })
+
+  it('has expected default xml rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[6],
+    ).toEqual({
+      test: /\.xml$/,
+      use: [
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/xml-loader/index.js',
+          ),
+        },
+      ],
+    })
+  })
+
+  it('has expected default toml rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[7],
+    ).toEqual({
+      parser: {
+        parse: toml.parse,
+      },
+      test: /\.toml$/,
+      type: 'json',
+    })
+  })
+
+  it('has expected default yaml rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[8],
+    ).toEqual({
+      parser: {
+        parse: yaml.parse,
+      },
+      test: /\.(yaml|yml)$/,
+      type: 'json',
+    })
+  })
+
+  it('has expected default json rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[9],
+    ).toEqual({
+      parser: {
+        parse: json5.parse,
+      },
+      test: /\.json5$/,
+      type: 'json',
+    })
+  })
+
+  it('has expected default css rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule)
+        .oneOf[10],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.css$/,
+      use: [
+        {
+          loader: bud.path(
+            'project',
+            '/node_modules/mini-css-extract-plugin/dist/loader.js',
+          ),
+          options: {},
+        },
+        {
+          loader: bud.path(
+            'project',
+            'node_modules/css-loader/dist/cjs.js',
+          ),
+          options: {
+            importLoaders: 1,
+            sourceMap: false,
+          },
+        },
+      ],
+    })
+  })
+
+  it('has expected default js rule', () => {
+    expect(
+      (bud.build.config.module.rules[0] as RuleSetRule)
+        .oneOf[11],
+    ).toEqual({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.(js|jsx)$/,
+      use: [],
     })
   })
 

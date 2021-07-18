@@ -47,9 +47,22 @@ export const config: Configuration = {
 
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash:6]',
+
   build: {
+    bail: true,
+    devtool: false,
+    infrastructureLogging: {},
+    experiments: {
+      lazyCompilation: false,
+    },
+    output: {
+      pathinfo: false,
+    },
     optimization: {
       emitOnErrors: false,
+      minimizer: ['...'],
+      moduleIds: 'deterministic',
+      removeEmptyChunks: true,
       splitChunks: {
         cacheGroups: {
           defaultVendors: {
@@ -62,6 +75,8 @@ export const config: Configuration = {
         },
       },
     },
+    performance: {},
+    profile: false,
     resolve: {
       extensions: [
         '.wasm',
@@ -80,6 +95,7 @@ export const config: Configuration = {
         '.xml',
       ],
     },
+    stats: {},
   },
   extension: {
     cleanWebpackPlugin: {

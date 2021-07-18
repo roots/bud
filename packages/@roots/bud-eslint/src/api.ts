@@ -1,18 +1,23 @@
-import {EslintConfig} from './interface'
-import {Framework} from '@roots/bud-framework'
+import type {EslintConfig} from './interface'
+import type {Framework} from '@roots/bud-framework'
+import type {Options} from 'eslint-webpack-plugin'
+
 import {boundMethod as bind} from 'autobind-decorator'
-import {Options} from 'eslint-webpack-plugin'
 
 export class Eslint implements EslintConfig {
-  public app: Framework['get']
+  public _app: () => Framework
+
+  public get app() {
+    return this._app()
+  }
 
   public constructor(app: Framework) {
-    this.app = app.get
+    this._app = () => app
   }
 
   @bind
   public config(userOptions: Options): Framework {
-    this.app().hooks.on(
+    this.app.hooks.on(
       'extension/eslint-webpack-plugin/options',
       (options: Options) => ({
         ...options,
@@ -20,6 +25,6 @@ export class Eslint implements EslintConfig {
       }),
     )
 
-    return this.app()
+    return this.app
   }
 }

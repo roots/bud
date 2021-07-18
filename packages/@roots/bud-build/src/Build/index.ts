@@ -1,205 +1,62 @@
-import RemarkHTML from 'remark-html'
-import toml from 'toml'
-import yaml from 'yamljs'
-import json5 from 'json5'
-import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
-
-import Webpack from 'webpack'
-import {boundMethod as bind} from 'autobind-decorator'
-
 import {Service} from '@roots/bud-framework'
-import {Loader} from '../Loader'
-import {Rule} from '../Rule'
-import {Item} from '../Item'
+
+import * as loaders from './loaders'
+import * as items from './items'
+import * as rules from './rules'
 import {config} from './config'
 
-import type {
-  Framework,
-  Build as Contract,
-} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
 
-class Build extends Service implements Contract {
+import type Webpack from 'webpack'
+import type {Build as Contract} from '@roots/bud-framework'
+
+export class Build extends Service implements Contract {
   public name = '@roots/bud-build'
 
-  public loaders: Contract['loaders'] = {}
+  public loaders: {[key: string]: Contract.Loader}
 
-  public rules: Contract['rules'] = {}
+  public rules: {[key: string]: Contract.Rule}
 
-  public items: Contract['items'] = {}
+  public items: {[key: string]: Contract.Item}
+
+  public _config: Webpack.Configuration
 
   public get config(): Webpack.Configuration {
-    return this.app.hooks.filter('build')
+    if (!this._config) {
+      this.rebuild()
+    }
+
+    return this._config
   }
 
-  public get entry(): Webpack.Configuration['entry'] {
-    return this.app.hooks.filter('build/entry')
-  }
+  public rebuild(): Webpack.Configuration {
+    this._config = this.app.hooks.filter('build')
 
-  public get plugins(): Webpack.Configuration['plugins'] {
-    return this.app.hooks.filter('build/plugins')
+    return this._config
   }
 
   @bind
   public register(): void {
-    this.app.hooks.on('before', () => this.app)
+    const componentReducer = (a, [k, v]) => ({...a, [k]: v()})
+
+    this.loaders = this.app
+      .container(loaders)
+      .getEntries()
+      .reduce(componentReducer, {})
+
+    this.rules = this.app
+      .container(rules)
+      .getEntries()
+      .reduce(componentReducer, {})
+
+    this.items = this.app
+      .container(items)
+      .getEntries()
+      .reduce(componentReducer, {})
+
+    this.app.hooks.on('before', () => [])
     this.app.hooks.on('after', () => [])
 
-    this.loaders = {
-      css: new Loader(require.resolve('css-loader')),
-      html: new Loader(require.resolve('html-loader')),
-      md: new Loader(require.resolve('remark-loader')),
-      style: new Loader(require.resolve('style-loader')),
-      minicss: new Loader(MiniCssLoader),
-      file: new Loader(require.resolve('file-loader')),
-      url: new Loader(require.resolve('url-loader')),
-      'resolve-url': new Loader(
-        require.resolve('resolve-url-loader'),
-      ),
-      csv: new Loader(require.resolve('csv-loader')),
-      xml: new Loader(require.resolve('xml-loader')),
-    }
-
-    this.items = {
-      css: new Item({
-        loader: ({build}) => build.loaders.css,
-        options: ({hooks}) => ({
-          sourceMap: hooks.filter('build/devtool') ?? false,
-          importLoaders: 1,
-        }),
-      }),
-      html: new Item({
-        loader: ({build}) => build.loaders.html,
-      }),
-      style: new Item({
-        loader: ({build}) => build.loaders.style,
-      }),
-      md: new Item({
-        loader: ({build}) => build.loaders.md,
-        options: {
-          remarkOptions: {
-            plugins: [RemarkHTML],
-          },
-        },
-      }),
-      minicss: new Item({
-        loader: ({build}) => build.loaders.minicss,
-        options: ({path}: Framework) => ({}),
-      }),
-      raw: new Item({
-        loader: ({build}) => build.loaders.raw,
-      }),
-      file: new Item({
-        loader: ({build}) => build.loaders.file,
-        options: ({store}) => ({
-          name: `${
-            store.isTrue('hash')
-              ? store.get('hashFormat')
-              : store.get('fileFormat')
-          }.[ext]`,
-        }),
-      }),
-      asset: new Item({
-        loader: ({build}) => build.loaders.file,
-        options: ({store}) => ({
-          name: `assets/${
-            store.isTrue('hash')
-              ? store.get('hashFormat')
-              : store.get('fileFormat')
-          }.[ext]`,
-        }),
-      }),
-      'resolve-url': new Item({
-        loader: ({build}) => build.loaders['resolve-url'],
-        options: ({path, hooks}) => ({
-          root: path('src'),
-          sourceMap: hooks.filter('build/devtool') ?? false,
-        }),
-      }),
-      csv: new Item({
-        loader: ({build}) => build.loaders.csv,
-      }),
-      xml: new Item({
-        loader: ({build}) => build.loaders.xml,
-      }),
-    }
-
-    this.rules = {
-      css: new Rule({
-        test: ({store}) => store.get('patterns.css'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: ({isProduction, build}) => [
-          isProduction ? build.items.minicss : build.items.style,
-          build.items.css,
-        ],
-      }),
-      js: new Rule({
-        test: ({store}) => store.get('patterns.js'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: [],
-      }),
-      image: new Rule({
-        test: ({store}) => store.get('patterns.image'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/[hash][ext][query]',
-        },
-      }),
-      font: new Rule({
-        test: ({store}) => store.get('patterns.font'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['resolve-url']],
-      }),
-      md: new Rule({
-        test: ({store}) => store.get('patterns.md'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items.html, build.items.md],
-      }),
-      svg: new Rule({
-        test: ({store}) => store.get('patterns.svg'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/[hash][ext][query]',
-        },
-      }),
-      html: new Rule({
-        test: ({store}) => store.get('patterns.html'),
-        use: ({build}) => [build.items.html],
-      }),
-      csv: new Rule({
-        test: ({store}) => store.get('patterns.csv'),
-        use: ({build}) => [build.items.csv],
-      }),
-      xml: new Rule({
-        test: ({store}) => store.get('patterns.xml'),
-        use: ({build}) => [build.items.xml],
-      }),
-      toml: new Rule({
-        test: ({store}) => store.get('patterns.toml'),
-        type: () => 'json',
-        parser: () => ({
-          parse: toml.parse,
-        }),
-      }),
-      yml: new Rule({
-        test: ({store}) => store.get('patterns.yml'),
-        type: 'json',
-        parser: () => ({
-          parse: yaml.parse,
-        }),
-      }),
-      json5: new Rule({
-        test: ({store}) => store.get('patterns.json5'),
-        type: 'json',
-        parser: () => ({
-          parse: json5.parse,
-        }),
-      }),
-    }
-
-    config.bind(this.app)()
+    config(this.app)
   }
 }
-
-export {Build}

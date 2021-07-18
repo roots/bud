@@ -19,7 +19,7 @@ custom_edit_url: null
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:91
+packages/@roots/bud-babel/types/interface.d.ts:87
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:87
+packages/@roots/bud-babel/types/interface.d.ts:83
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:92
+packages/@roots/bud-babel/types/interface.d.ts:88
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-babel/types/interface.d.ts:93
+packages/@roots/bud-babel/types/interface.d.ts:89

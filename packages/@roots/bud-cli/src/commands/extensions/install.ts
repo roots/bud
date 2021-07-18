@@ -21,6 +21,7 @@ export default class Install extends Command {
       config,
       mode: 'production',
     })
+
     this.app = await runner.make()
 
     this.app.discovery.install()

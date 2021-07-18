@@ -15,7 +15,7 @@ export const name = `webpack-config-dump-plugin`
 export const make: Module.Make<
   WebpackConfigDumpPlugin,
   Options
-> = options => new WebpackConfigDumpPlugin(options.all())
+> = options => new WebpackConfigDumpPlugin({...options.all()})
 
 export const when: Module.When = ({store}) =>
   store.isTrue('debug')
@@ -23,5 +23,5 @@ export const when: Module.When = ({store}) =>
 export const options: Module.Options<Options> = app => ({
   ...(app.store.get('extension.webpackConfigDumpPlugin') ?? {}),
   outputPath: app.path('storage'),
-  name: `webpack.config.js`,
+  name: `${app.name}.webpack.config.js`,
 })

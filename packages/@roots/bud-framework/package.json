@@ -73,7 +73,6 @@
   "dependencies": {
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
-    "@roots/filesystem": "workspace:packages/@roots/filesystem",
     "autobind-decorator": "^2.4.0",
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",

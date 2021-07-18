@@ -82,4 +82,14 @@ echo "-------------------------"
 yarn pkg
 echo ""
 
+echo "Generating READMEs"
+echo "-------------------------"
+yarn readme
+echo ""
+
+echo "Building docs"
+echo "-------------------------"
+yarn site:build
+echo ""
+
 exit

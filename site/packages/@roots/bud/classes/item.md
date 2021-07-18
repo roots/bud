@@ -1,11 +1,10 @@
 ---
-id: "build.item"
+id: "item"
 title: "Class: Item"
-sidebar_label: "Build.Item"
+sidebar_label: "Item"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[Build](../modules/build.md).Item
 
 ## Hierarchy
 

@@ -87,8 +87,6 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
-    "@roots/filesystem": "workspace:packages/@roots/filesystem",
-    "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "autobind-decorator": "^2.4.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
