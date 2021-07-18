@@ -22,4 +22,4 @@ dist
 # Docusaurus
 .docusaurus
 .cache-loader
-build
+/build
