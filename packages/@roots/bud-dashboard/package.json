@@ -73,7 +73,7 @@
     "lodash": "^4.17.21",
     "patch-console": "^1.0.0",
     "react": "^17.0.2",
-    "webpack": "^5.44.0"
+    "webpack": "^5.45.1"
   },
   "stableVersion": "4.6.0"
 }

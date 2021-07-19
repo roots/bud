@@ -70,7 +70,7 @@
     "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",
-    "webpack": "5.44.0"
+    "webpack": "5.45.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
