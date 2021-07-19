@@ -6,12 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-**`abstract`** Bootstrapper
-
-[Service](Service.md) base class.
-
-[Logger](../interfaces/Logger.md) and [Store](Store.md) extend this directly
-since they are needed before the lifecycle even starts up.
+Abstract
 
 ## Type parameters
 
@@ -26,6 +21,34 @@ since they are needed before the lifecycle even starts up.
   ↳ **`Bootstrapper`**
 
   ↳↳ [`Service`](Service.md)
+
+## Constructors
+
+### constructor
+
+• **new Bootstrapper**<`T`\>(`repository?`)
+
+Class constructor
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `repository?` | `T` |
+
+#### Inherited from
+
+Container<T\>.constructor
+
+#### Defined in
+
+packages/@roots/container/types/Container/index.d.ts:23
 
 ## Methods
 
@@ -49,7 +72,7 @@ Boot
 
 #### Defined in
 
-bud-framework/src/Service.ts:43
+[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
 
 ___
 
@@ -73,7 +96,7 @@ Post boot callback
 
 #### Defined in
 
-bud-framework/src/Service.ts:49
+[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
 
 ___
 
@@ -97,7 +120,7 @@ Bootstrap
 
 #### Defined in
 
-bud-framework/src/Service.ts:19
+[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
 
 ___
 
@@ -121,7 +144,7 @@ Bootstrapped
 
 #### Defined in
 
-bud-framework/src/Service.ts:25
+[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
 
 ___
 
@@ -145,7 +168,7 @@ Register
 
 #### Defined in
 
-bud-framework/src/Service.ts:31
+[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
 
 ___
 
@@ -169,4 +192,4 @@ Post registered callback
 
 #### Defined in
 
-bud-framework/src/Service.ts:37
+[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)

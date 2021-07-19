@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[bud-framework/src/Framework/index.ts:234](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Framework/index.ts#L234)
+[packages/@roots/bud-framework/src/Framework/index.ts:234](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L234)
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Framework/index.ts:232](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Framework/index.ts#L232)
+[packages/@roots/bud-framework/src/Framework/index.ts:232](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L232)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Framework/index.ts:231](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Framework/index.ts#L231)
+[packages/@roots/bud-framework/src/Framework/index.ts:231](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L231)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Framework/index.ts:235](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Framework/index.ts#L235)
+[packages/@roots/bud-framework/src/Framework/index.ts:235](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L235)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Framework/index.ts:233](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Framework/index.ts#L233)
+[packages/@roots/bud-framework/src/Framework/index.ts:233](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L233)

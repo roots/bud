@@ -1,8 +1,8 @@
 ---
-id: "index"
-title: "@roots/bud-framework"
-slug: "/api"
-sidebar_label: "Exports"
+id: 'index'
+title: '@roots/bud-framework'
+slug: '/api'
+sidebar_label: 'Exports'
 sidebar_position: 0.5
 custom_edit_url: null
 ---
@@ -51,14 +51,14 @@ custom_edit_url: null
 
 #### Defined in
 
-[bud-framework/src/Env/index.ts:3](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Env/index.ts#L3)
+packages/@roots/bud-framework/src/Env.ts:3
 
-___
+---
 
 ### Mode
 
-Ƭ **Mode**: ``"production"`` \| ``"development"``
+Ƭ **Mode**: `"production"` \| `"development"`
 
 #### Defined in
 
-[bud-framework/src/Mode/index.ts:1](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Mode/index.ts#L1)
+[packages/@roots/bud-framework/src/Mode/index.ts:1](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Mode/index.ts#L1)

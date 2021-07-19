@@ -13,33 +13,20 @@ type Key = `${keyof Framework.Extensions & string}`
 /**
  * @interface Extension
  *
- * Abstract class
+ * Abstract Extension
  */
 export abstract class Extension {
   protected _module: Module
 
   protected _app: () => Framework
 
+  public abstract register(): Extension
+
+  public abstract boot(): Extension
+
   public constructor(app: Framework, extension: Module) {
     this._app = () => app
     this._module = extension
-  }
-
-  @bind
-  public makeKey(key: Key): Hooks.Name {
-    return `extension/${String(this.name)}/${key}` as Hooks.Name
-  }
-
-  @bind
-  public get(key: Key) {
-    const hook = this.makeKey(key)
-    const value = this.app.hooks.filter(hook)
-    return value
-  }
-
-  @bind
-  public set(key: Key, value: any) {
-    this.app.hooks.on(this.makeKey(key), value)
   }
 
   public get module(): Module {
@@ -96,7 +83,21 @@ export abstract class Extension {
     this.set('make', make)
   }
 
-  public abstract register(): Extension
+  @bind
+  public makeKey(key: Key): Hooks.Name {
+    return `extension/${String(this.name)}/${key}` as Hooks.Name
+  }
 
-  public abstract boot(): Extension
+  @bind
+  public get(key: Key) {
+    const hook = this.makeKey(key)
+    const value = this.app.hooks.filter(hook)
+
+    return value
+  }
+
+  @bind
+  public set(key: Key, value: any) {
+    this.app.hooks.on(this.makeKey(key), value)
+  }
 }

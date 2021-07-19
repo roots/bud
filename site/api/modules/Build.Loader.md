@@ -7,6 +7,8 @@ custom_edit_url: null
 
 [Build](Build.md).Loader
 
+**`namespace`** Build.Loader
+
 ## Type aliases
 
 ### Input
@@ -15,7 +17,7 @@ custom_edit_url: null
 
 #### Defined in
 
-bud-framework/src/Build.ts:126
+[packages/@roots/bud-framework/src/Build.ts:142](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L142)
 
 ___
 
@@ -25,7 +27,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:124
+[packages/@roots/bud-framework/src/Build.ts:140](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L140)
 
 ___
 
@@ -49,4 +51,4 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:125
+[packages/@roots/bud-framework/src/Build.ts:141](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L141)

@@ -34,7 +34,7 @@ echo ""
 
 echo "Cleaning types"
 echo "-------------------------"
-rm -rf packages/@roots/*/types
+rm -rf packages/*/*/types
 echo "Removed all types directories"
 echo ""
 

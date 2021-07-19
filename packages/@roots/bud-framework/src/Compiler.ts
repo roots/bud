@@ -2,8 +2,15 @@
  * @module @roots/bud-framework
  */
 
-import {Service} from '../Service'
-import Webpack, {ProgressPlugin} from 'webpack/types'
+import {Service} from './'
+import {
+  Configuration,
+  MultiCompiler as WebpackMultiCompiler,
+  Compiler as WebpackCompiler,
+  ProgressPlugin,
+  StatsError,
+  StatsCompilation,
+} from 'webpack/types'
 
 export interface Compiler extends Service {
   /**
@@ -43,7 +50,7 @@ export interface Compiler extends Service {
    * })
    * ```
    */
-  compile: Compiler.Compile
+  compile(): Compiler.Instance
 
   /**
    * ## bud.compiler.before
@@ -55,17 +62,12 @@ export interface Compiler extends Service {
   /**
    * Compilation callback
    */
-  callback(
-    err: Webpack.StatsError,
-    stats: Webpack.StatsCompilation,
-  ): void
+  callback(err: StatsError, stats: StatsCompilation): void
 }
 
 export namespace Compiler {
-  export type Compile = () => Instance
-
-  export type Config = Webpack.Configuration
-  export type Instance = Webpack.Compiler | Webpack.MultiCompiler
+  export type Config = Configuration
+  export type Instance = WebpackCompiler | WebpackMultiCompiler
 
   export type Progress = any
 

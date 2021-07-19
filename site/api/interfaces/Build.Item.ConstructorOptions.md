@@ -11,18 +11,18 @@ custom_edit_url: null
 
 ### loader
 
-• **loader**: [`Loader`](Build.Loader-1.md) \| (`app?`: [`Framework`](../classes/Framework.md)) => [`Loader`](Build.Loader-1.md)
+• **loader**: [`Loader`](Build.Loader-1.md) \| [`LoaderFn`](../modules/Build.Item.md#loaderfn)
 
 #### Defined in
 
-bud-framework/src/Build.ts:113
+[packages/@roots/bud-framework/src/Build.ts:126](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L126)
 
 ___
 
 ### options
 
-• `Optional` **options**: [`Options`](../modules/Build.Item.md#options) \| [`OptionsFn`](../modules/Build.Item.md#optionsfn)
+• `Optional` **options**: [`OptionsFn`](../modules/Build.Item.md#optionsfn) \| [`Options`](../modules/Build.Item.md#options)
 
 #### Defined in
 
-bud-framework/src/Build.ts:114
+[packages/@roots/bud-framework/src/Build.ts:127](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L127)

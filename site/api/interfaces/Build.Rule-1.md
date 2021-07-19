@@ -9,6 +9,8 @@ custom_edit_url: null
 
 **`interface`** Build.Rule
 
+Wrapper for {@link RuleSetRule}
+
 ## Methods
 
 ### getExclude
@@ -27,7 +29,7 @@ custom_edit_url: null
 
 #### Defined in
 
-bud-framework/src/Build.ts:83
+[packages/@roots/bud-framework/src/Build.ts:95](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L95)
 
 ___
 
@@ -47,7 +49,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:99
+[packages/@roots/bud-framework/src/Build.ts:107](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L107)
 
 ___
 
@@ -67,7 +69,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:93
+[packages/@roots/bud-framework/src/Build.ts:103](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L103)
 
 ___
 
@@ -87,7 +89,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:75
+[packages/@roots/bud-framework/src/Build.ts:87](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L87)
 
 ___
 
@@ -107,7 +109,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:89
+[packages/@roots/bud-framework/src/Build.ts:99](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L99)
 
 ___
 
@@ -127,13 +129,15 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:79
+[packages/@roots/bud-framework/src/Build.ts:91](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L91)
 
 ___
 
 ### make
 
-▸ **make**(`app`): [`Output`](Build.Rule.Output.md)
+▸ **make**(`app`): `RuleSetRule` \| [`Output`](Build.Rule.Output.md)
+
+Returns final {@link RuleSetRule} for inclusion in [Build.config](Build.md#config)
 
 #### Parameters
 
@@ -143,11 +147,11 @@ ___
 
 #### Returns
 
-[`Output`](Build.Rule.Output.md)
+`RuleSetRule` \| [`Output`](Build.Rule.Output.md)
 
 #### Defined in
 
-bud-framework/src/Build.ts:105
+[packages/@roots/bud-framework/src/Build.ts:114](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L114)
 
 ___
 
@@ -159,7 +163,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `exclude` | `RegExp` \| (`app?`: [`Framework`](../classes/Framework.md)) => `RegExp` |
+| `exclude` | `RegExp` \| [`ExcludeFn`](../modules/Build.Rule.md#excludefn) |
 
 #### Returns
 
@@ -167,7 +171,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:85
+[packages/@roots/bud-framework/src/Build.ts:97](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L97)
 
 ___
 
@@ -187,7 +191,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:101
+[packages/@roots/bud-framework/src/Build.ts:109](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L109)
 
 ___
 
@@ -199,7 +203,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`Parser`](Build.Rule.Parser.md) \| (`app?`: [`Framework`](../classes/Framework.md)) => [`Parser`](Build.Rule.Parser.md) |
+| `parser` | [`Parser`](Build.Rule.Parser.md) \| [`ParserFn`](../modules/Build.Rule.md#parserfn) |
 
 #### Returns
 
@@ -207,7 +211,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:95
+[packages/@roots/bud-framework/src/Build.ts:105](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L105)
 
 ___
 
@@ -219,7 +223,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `test` | `RegExp` \| (`app?`: [`Framework`](../classes/Framework.md)) => `RegExp` |
+| `test` | `RegExp` \| [`TestFn`](../modules/Build.Rule.md#testfn) |
 
 #### Returns
 
@@ -227,7 +231,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:77
+[packages/@roots/bud-framework/src/Build.ts:89](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L89)
 
 ___
 
@@ -239,7 +243,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | `string` \| (`app?`: [`Framework`](../classes/Framework.md)) => `string` |
+| `type` | `string` \| [`TypeFn`](../modules/Build.Rule.md#typefn) |
 
 #### Returns
 
@@ -247,7 +251,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:91
+[packages/@roots/bud-framework/src/Build.ts:101](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L101)
 
 ___
 
@@ -259,7 +263,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `use` | (`app?`: [`Framework`](../classes/Framework.md)) => [`Item`](Build.Item-1.md)[] |
+| `use` | [`UseFn`](../modules/Build.Rule.md#usefn) |
 
 #### Returns
 
@@ -267,4 +271,49 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:81
+[packages/@roots/bud-framework/src/Build.ts:93](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L93)
+
+___
+
+### test
+
+▸ `Optional` **test**(`app?`): `string` \| `RegExp` \| (`value`: `string`) => `boolean` \| `RuleSetLogicalConditionsAbsolute` \| `RuleSetConditionAbsolute`[]
+
+Wrapping {@link RuleSetRule.test}
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app?` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`string` \| `RegExp` \| (`value`: `string`) => `boolean` \| `RuleSetLogicalConditionsAbsolute` \| `RuleSetConditionAbsolute`[]
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Build.ts:79](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L79)
+
+___
+
+### use
+
+▸ `Optional` **use**(`app?`): [`Item`](Build.Item-1.md)[]
+
+Returns an array of [Build.Item](Build.Item-1.md) values, each of which
+can be built with [Build.Item.make](Build.Item-1.md#make) to produce {@link RuleSetRule.use} compatible output.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app?` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+[`Item`](Build.Item-1.md)[]
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Build.ts:85](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L85)

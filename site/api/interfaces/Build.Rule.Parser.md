@@ -25,4 +25,4 @@ custom_edit_url: null
 
 #### Defined in
 
-bud-framework/src/Build.ts:131
+[packages/@roots/bud-framework/src/Build.ts:155](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L155)

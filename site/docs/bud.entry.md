@@ -50,9 +50,8 @@ You can specify assets using [fast-glob syntax](https://git.io/JkGbw).
 - `*` matches any number of characters, but not `/`
 - `?` matches a single character, but not `/`
 - `**` matches any number of characters, including `/`, as long as it's the only thing in a path part
-- `{}` allows for a comma-separated list  of "or" expressions
+- `{}` allows for a comma-separated list of "or" expressions
 - `!` at the beginning of a pattern will negate the match
-
 
 ## Specifying entrypoints with hooks
 

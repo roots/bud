@@ -20,7 +20,7 @@ You will need to handle resolving custom domains yourself if you don't want to u
 
 :::
 
-```ts
+```ts title='bud.config.js'
 bud.dev({
   host: 'my-local-site.example',
   port: 5000,
@@ -33,7 +33,7 @@ Users building on top of an existing backend framework like WordPress, Laravel, 
 
 Bud has a function specfically for configuring a proxy server: [bud.proxy](/docs/bud.proxy). But you may also configure the proxy from `bud.dev`, if desired.
 
-```js
+```ts title='bud.config.js'
 bud.dev({
   host: 'example.test',
   port: 3000,
@@ -50,7 +50,7 @@ You may enable or disable middleware using the middleware key.
 
 Example disabling all server middleware:
 
-```js
+```ts title='bud.config.js'
 bud.dev({
   middleware: {
     dev: false,
@@ -60,13 +60,13 @@ bud.dev({
 })
 ```
 
-## Browser development scripts
+## Browser scripts
 
 Bud comes with a logging utility and live reload indicators which run in the browser (in dev mode).
 
 These can be toggled using the `browser` config options:
 
-```js
+```ts title='bud.config.js'
 bud.dev({
   browser: {
     log?: boolean
@@ -76,6 +76,6 @@ bud.dev({
 })
 ```
 
-- `log` will enable/disable the logger.
-- `indicator` will enable/disable the live reload indicator.
-- `overlay` will enable/disable the error overlay.
+- **log**: enable/disable the logger.
+- **indicator**: enable/disable the live reload indicator.
+- **overlay**: enable/disable the error overlay.

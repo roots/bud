@@ -27,7 +27,7 @@ custom_edit_url: null
 
 #### Defined in
 
-bud-framework/src/Build.ts:68
+[packages/@roots/bud-framework/src/Build.ts:67](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L67)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:66
+[packages/@roots/bud-framework/src/Build.ts:62](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L62)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:62
+[packages/@roots/bud-framework/src/Build.ts:58](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L58)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | (`app?`: [`Framework`](../classes/Framework.md)) => [`Options`](../modules/Build.Item.md#options) |
+| `options` | [`OptionsFn`](../modules/Build.Item.md#optionsfn) |
 
 #### Returns
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:64
+[packages/@roots/bud-framework/src/Build.ts:60](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L60)

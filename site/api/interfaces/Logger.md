@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[bud-framework/src/Logger/index.ts:6](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Logger/index.ts#L6)
+[packages/@roots/bud-framework/src/Logger/index.ts:6](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Logger/index.ts#L6)
 
 ___
 
@@ -24,4 +24,4 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Logger/index.ts:4](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Logger/index.ts#L4)
+[packages/@roots/bud-framework/src/Logger/index.ts:4](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Logger/index.ts#L4)

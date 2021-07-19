@@ -7,12 +7,38 @@ custom_edit_url: null
 
 [Build](Build.md).Item
 
+**`namespace`** Build.Item
+
 ## Interfaces
 
 - [ConstructorOptions](../interfaces/Build.Item.ConstructorOptions.md)
 - [Output](../interfaces/Build.Item.Output.md)
 
 ## Type aliases
+
+### LoaderFn
+
+Ƭ **LoaderFn**: (`app?`: [`Framework`](../classes/Framework.md)) => [`Loader`](../interfaces/Build.Loader-1.md)
+
+#### Type declaration
+
+▸ (`app?`): [`Loader`](../interfaces/Build.Loader-1.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app?` | [`Framework`](../classes/Framework.md) |
+
+##### Returns
+
+[`Loader`](../interfaces/Build.Loader-1.md)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Build.ts:121](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L121)
+
+___
 
 ### Options
 
@@ -24,7 +50,7 @@ custom_edit_url: null
 
 #### Defined in
 
-bud-framework/src/Build.ts:110
+[packages/@roots/bud-framework/src/Build.ts:123](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L123)
 
 ___
 
@@ -48,4 +74,4 @@ ___
 
 #### Defined in
 
-bud-framework/src/Build.ts:109
+[packages/@roots/bud-framework/src/Build.ts:122](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L122)

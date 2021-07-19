@@ -1,12 +1,13 @@
-import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
 import type {Framework, Build} from '@roots/bud-framework'
 
-class Rule implements Build.Rule {
-  public test: Build.Rule.TestFn
+import {boundMethod as bind} from 'autobind-decorator'
 
-  public use: Build.Rule.UseFn
+class Rule implements Build.Rule {
+  public test: (app?: Framework) => RegExp
+
+  public use: (app?: Framework) => Build.Item[]
 
   public exclude: Build.Rule.ExcludeFn
 

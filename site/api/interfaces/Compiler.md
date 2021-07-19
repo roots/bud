@@ -14,32 +14,6 @@ custom_edit_url: null
 
 ## Properties
 
-### compile
-
-• **compile**: [`Compile`](../modules/Compiler.md#compile)
-
-## bud.compiler.compile
-
-Return a compiler instance for a webpack configuration.
-
-### Usage
-
-```js
-bud.compiler.compile()
-```
-
-```js
-bud.compiler.compile({
-  entry: {app: 'foo.js'}
-})
-```
-
-#### Defined in
-
-[bud-framework/src/Compiler/index.ts:46](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L46)
-
-___
-
 ### instance
 
 • **instance**: [`Instance`](../modules/Compiler.md#instance)
@@ -48,7 +22,7 @@ The compiler instance
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:12](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L12)
+packages/@roots/bud-framework/src/Compiler.ts:19
 
 ___
 
@@ -60,7 +34,7 @@ Has already been ran
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:17](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L17)
+packages/@roots/bud-framework/src/Compiler.ts:24
 
 ___
 
@@ -74,7 +48,7 @@ ___
 
 #### Defined in
 
-bud-framework/src/Service.ts:60
+[packages/@roots/bud-framework/src/Service.ts:60](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L60)
 
 ___
 
@@ -86,7 +60,7 @@ Formatted progress plugin
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:27](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L27)
+packages/@roots/bud-framework/src/Compiler.ts:34
 
 ___
 
@@ -98,7 +72,7 @@ Compiler stats output
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:22](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L22)
+packages/@roots/bud-framework/src/Compiler.ts:29
 
 ## Accessors
 
@@ -112,7 +86,7 @@ Compiler stats output
 
 #### Defined in
 
-bud-framework/src/Service.ts:64
+[packages/@roots/bud-framework/src/Service.ts:64](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L64)
 
 ## Methods
 
@@ -130,7 +104,119 @@ Parses configuration from bud
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:53](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L53)
+packages/@roots/bud-framework/src/Compiler.ts:60
+
+___
+
+### boot
+
+▸ `Optional` **boot**(`app`): `any`
+
+Boot
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[boot](../classes/Service.md#boot)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
+
+___
+
+### booted
+
+▸ `Optional` **booted**(`app`): `any`
+
+Post boot callback
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[booted](../classes/Service.md#booted)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
+
+___
+
+### bootstrap
+
+▸ `Optional` **bootstrap**(`app`): `any`
+
+Bootstrap
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[bootstrap](../classes/Service.md#bootstrap)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
+
+___
+
+### bootstrapped
+
+▸ `Optional` **bootstrapped**(`app`): `any`
+
+Bootstrapped
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[bootstrapped](../classes/Service.md#bootstrapped)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
 
 ___
 
@@ -153,4 +239,90 @@ Compilation callback
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:58](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L58)
+packages/@roots/bud-framework/src/Compiler.ts:65
+
+___
+
+### compile
+
+▸ **compile**(): [`Instance`](../modules/Compiler.md#instance)
+
+## bud.compiler.compile
+
+Return a compiler instance for a webpack configuration.
+
+### Usage
+
+```js
+bud.compiler.compile()
+```
+
+```js
+bud.compiler.compile({
+  entry: {app: 'foo.js'}
+})
+```
+
+#### Returns
+
+[`Instance`](../modules/Compiler.md#instance)
+
+#### Defined in
+
+packages/@roots/bud-framework/src/Compiler.ts:53
+
+___
+
+### register
+
+▸ `Optional` **register**(`app`): `any`
+
+Register
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[register](../classes/Service.md#register)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
+
+___
+
+### registered
+
+▸ `Optional` **registered**(`app`): `any`
+
+Post registered callback
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `app` | [`Framework`](../classes/Framework.md) |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[Service](../classes/Service.md).[registered](../classes/Service.md#registered)
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)

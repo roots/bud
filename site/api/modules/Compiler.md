@@ -12,41 +12,23 @@ custom_edit_url: null
 
 ## Type aliases
 
-### Compile
-
-Ƭ **Compile**: () => [`Instance`](Compiler.md#instance)
-
-#### Type declaration
-
-▸ (): [`Instance`](Compiler.md#instance)
-
-##### Returns
-
-[`Instance`](Compiler.md#instance)
-
-#### Defined in
-
-[bud-framework/src/Compiler/index.ts:65](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L65)
-
-___
-
 ### Config
 
-Ƭ **Config**: `Webpack.Configuration`
+Ƭ **Config**: `Configuration`
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:67](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L67)
+packages/@roots/bud-framework/src/Compiler.ts:69
 
 ___
 
 ### Instance
 
-Ƭ **Instance**: `Webpack.Compiler` \| `Webpack.MultiCompiler`
+Ƭ **Instance**: `WebpackCompiler` \| `WebpackMultiCompiler`
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:68](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L68)
+packages/@roots/bud-framework/src/Compiler.ts:70
 
 ___
 
@@ -56,4 +38,4 @@ ___
 
 #### Defined in
 
-[bud-framework/src/Compiler/index.ts:70](https://github.com/roots/bud/blob/5e343994e/packages/@roots/bud-framework/src/Compiler/index.ts#L70)
+packages/@roots/bud-framework/src/Compiler.ts:72
