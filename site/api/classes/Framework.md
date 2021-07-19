@@ -6,6 +6,8 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
+**`abstract`** Framework
+
 ## Constructors
 
 ### constructor
@@ -20,21 +22,34 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:334](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L334)
+[packages/@roots/bud-framework/src/Framework/index.ts:348](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L348)
 
 ## Properties
+
+### access
+
+• **access**: [`Access`](../index.md#access)<`any`\>
+
+If a value is a function **access** will call that
+function and return the result.
+
+If the value is not a function **access** will return its value.
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Framework/index.ts:141](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L141)
+
+___
 
 ### api
 
 • **api**: [`Api`](../interfaces/Api.md)
 
-api
-
-Service providing config api methods
+Service providing config facades
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L49)
+[packages/@roots/bud-framework/src/Framework/index.ts:65](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L65)
 
 ___
 
@@ -42,13 +57,11 @@ ___
 
 • **build**: [`Build`](../interfaces/Build.md)
 
-Build
-
 Service handling config compilation
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:56](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L56)
+[packages/@roots/bud-framework/src/Framework/index.ts:70](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L70)
 
 ___
 
@@ -56,25 +69,23 @@ ___
 
 • **cache**: [`Cache`](../interfaces/Cache.md)
 
-Cache
-
 Service handling compiler cache
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:63](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L63)
+[packages/@roots/bud-framework/src/Framework/index.ts:75](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L75)
 
 ___
 
 ### children
 
-• **children**: `Container`<`Object`\>
+• **children**: `Container`<[`Instances`](../interfaces/Framework.Instances.md)\>
 
-Compiler container {@link Container}.
+Child compiler instance container
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:42](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L42)
+[packages/@roots/bud-framework/src/Framework/index.ts:60](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L60)
 
 ___
 
@@ -82,13 +93,11 @@ ___
 
 • **compiler**: [`Compiler`](../interfaces/Compiler.md)
 
-Compiler
-
-Handles build compilation
+Service handling build compilation
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:70](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L70)
+[packages/@roots/bud-framework/src/Framework/index.ts:80](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L80)
 
 ___
 
@@ -96,11 +105,11 @@ ___
 
 • **dashboard**: [`Dashboard`](../interfaces/Dashboard.md)
 
-Dashboard
+Service handling build reporter rendering
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:75](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L75)
+[packages/@roots/bud-framework/src/Framework/index.ts:85](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L85)
 
 ___
 
@@ -108,11 +117,11 @@ ___
 
 • **dependencies**: [`Dependencies`](../interfaces/Dependencies.md)
 
-Dependencies
+Service handling peer package management
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:80](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L80)
+[packages/@roots/bud-framework/src/Framework/index.ts:90](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L90)
 
 ___
 
@@ -120,23 +129,23 @@ ___
 
 • **discovery**: [`Discovery`](Discovery.md)
 
-Discovery
+Service providing information on project and peers
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:85](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L85)
+[packages/@roots/bud-framework/src/Framework/index.ts:95](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L95)
 
 ___
 
 ### env
 
-• **env**: [`Env`](../index.md#env)
+• **env**: [`Env`](../interfaces/Env.md)
 
-Env
+Service providing env data
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:90](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L90)
+[packages/@roots/bud-framework/src/Framework/index.ts:100](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L100)
 
 ___
 
@@ -144,11 +153,12 @@ ___
 
 • **extensions**: [`Extensions`](../interfaces/Extensions.md)
 
-Extensions
+Service handling registration of [Module](../interfaces/Module.md) and {@link Plugin}
+into [Extension](Extension.md) objects.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:95](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L95)
+[packages/@roots/bud-framework/src/Framework/index.ts:106](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L106)
 
 ___
 
@@ -156,31 +166,21 @@ ___
 
 • **hooks**: [`Hooks`](../interfaces/Hooks.md)
 
-Hooks
+Service handling eventing
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:100](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L100)
+[packages/@roots/bud-framework/src/Framework/index.ts:111](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L111)
 
 ___
 
 ### implementation
 
-• `Abstract` **implementation**: (`options`: [`Options`](../interfaces/Framework.Options.md)) => [`Framework`](Framework.md)
-
-#### Type declaration
-
-• **new Framework**(`options`)
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `options` | [`Options`](../interfaces/Framework.Options.md) |
+• `Abstract` **implementation**: [`Constructor`](../modules/Framework.md#constructor)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:260](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L260)
+[packages/@roots/bud-framework/src/Framework/index.ts:296](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L296)
 
 ___
 
@@ -188,21 +188,33 @@ ___
 
 • **logger**: [`Logger`](../interfaces/Logger.md)
 
-Logger
+[Bootstrapper](Bootstrapper.md) provides logger methods
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:105](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L105)
+[packages/@roots/bud-framework/src/Framework/index.ts:116](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L116)
+
+___
+
+### make
+
+• **make**: [`Make`](../index.md#make)
+
+Make a child compiler.
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Framework/index.ts:146](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L146)
 
 ___
 
 ### mode
 
-• **mode**: [`Mode`](../index.md#mode)
+• **mode**: [`Mode`](../modules/Framework.md#mode)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:270](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L270)
+[packages/@roots/bud-framework/src/Framework/index.ts:304](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L304)
 
 ___
 
@@ -214,31 +226,17 @@ Application name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L31)
+[packages/@roots/bud-framework/src/Framework/index.ts:49](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L49)
 
 ___
 
 ### options
 
-• **options**: `Object`
-
-Cloned from [Framework.Options](../interfaces/Framework.Options.md) on instantiation.
-
-Stored so [Framework.make](Framework.md#make) can utilize as base for child compilers.
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `config` | [`Configuration`](../interfaces/Configuration.md) | [Configuration](../interfaces/Configuration.md) |
-| `mode` | [`Mode`](../index.md#mode) | [Framework.mode](Framework.md#mode) |
-| `name` | `string` | [Framework.name](Framework.md#name) |
-| `parent?` | [`Framework`](Framework.md) | [Framework](Framework.md) |
-| `services` | [`Services`](../interfaces/Framework.Services.md) | [Framework.Services](../interfaces/Framework.Services.md) |
+• **options**: [`Options`](../interfaces/Framework.Options.md)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:303](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L303)
+[packages/@roots/bud-framework/src/Framework/index.ts:332](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L332)
 
 ___
 
@@ -251,7 +249,7 @@ If the parent instance, returns null.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L37)
+[packages/@roots/bud-framework/src/Framework/index.ts:55](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L55)
 
 ___
 
@@ -263,7 +261,7 @@ Server
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:110](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L110)
+[packages/@roots/bud-framework/src/Framework/index.ts:121](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L121)
 
 ___
 
@@ -271,11 +269,25 @@ ___
 
 • **store**: [`Store`](Store.md)
 
-Store
+[Bootstrapper](Bootstrapper.md) provides general utility container.
+
+Contains [Configuration](../interfaces/Configuration.md) but is available for use as scratch space.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:115](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L115)
+[packages/@roots/bud-framework/src/Framework/index.ts:128](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L128)
+
+___
+
+### when
+
+• **when**: [`When`](../index.md#when)
+
+Executes a function if a given test is `true`.
+
+#### Defined in
+
+[packages/@roots/bud-framework/src/Framework/index.ts:151](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L151)
 
 ## Accessors
 
@@ -289,7 +301,7 @@ Store
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:330](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L330)
+[packages/@roots/bud-framework/src/Framework/index.ts:344](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L344)
 
 ___
 
@@ -303,79 +315,15 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:326](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L326)
+[packages/@roots/bud-framework/src/Framework/index.ts:340](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L340)
 
 ## Methods
-
-### access
-
-▸ **access**<`I`\>(`value`): `I`
-
-If a value is a function it will call that
-function and return the result.
-
-If the value is not a function it will return its value.
-
-```js
-const isAFunction = (option) => `option value: ${option}`
-const isAValue = 'option value: true'
-
-access(isAFunction, true)
-// => `option value: true`
-
-access(isAValue)
-// => `option value: true`
-```
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `I` | `any` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `I` \| (`app`: [`Framework`](Framework.md)) => `I` |
-
-#### Returns
-
-`I`
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:139](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L139)
-
-▸ **access**<`I`\>(`value`): `I`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `I` | `any` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `I` \| (`app`: [`Framework`](Framework.md)) => `I` |
-
-#### Returns
-
-`I`
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:469](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L469)
-
-___
 
 ### bootstrap
 
 ▸ **bootstrap**(): [`Framework`](Framework.md)
 
-bootstrap
+Instantiates and executes lifecycle events on registered [Service](Service.md) classes.
 
 #### Returns
 
@@ -383,7 +331,7 @@ bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:120](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L120)
+[packages/@roots/bud-framework/src/Framework/index.ts:133](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L133)
 
 ▸ **bootstrap**(): [`Framework`](Framework.md)
 
@@ -393,7 +341,7 @@ bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:355](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L355)
+[packages/@roots/bud-framework/src/Framework/index.ts:373](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L373)
 
 ___
 
@@ -401,7 +349,7 @@ ___
 
 ▸ **container**(`repository?`): `Container`<`any`\>
 
-container
+Creates a new container from a given repository.
 
 #### Parameters
 
@@ -415,7 +363,7 @@ container
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:144](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L144)
+[packages/@roots/bud-framework/src/Framework/index.ts:156](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L156)
 
 ▸ **container**(`repository?`): `Container`<`any`\>
 
@@ -431,7 +379,7 @@ container
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:476](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L476)
+[packages/@roots/bud-framework/src/Framework/index.ts:454](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L454)
 
 ___
 
@@ -454,7 +402,7 @@ log (log level: debug)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:217](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L217)
+[packages/@roots/bud-framework/src/Framework/index.ts:212](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L212)
 
 ▸ **debug**(`message?`, ...`optionalArgs`): `void`
 
@@ -471,7 +419,7 @@ log (log level: debug)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:567](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L567)
+[packages/@roots/bud-framework/src/Framework/index.ts:532](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L532)
 
 ___
 
@@ -494,7 +442,7 @@ error handler
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:222](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L222)
+[packages/@roots/bud-framework/src/Framework/index.ts:217](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L217)
 
 ▸ **error**(`message?`, ...`optionalArgs`): `void`
 
@@ -511,7 +459,7 @@ error handler
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:574](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L574)
+[packages/@roots/bud-framework/src/Framework/index.ts:539](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L539)
 
 ___
 
@@ -532,7 +480,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:456](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L456)
+[packages/@roots/bud-framework/src/Framework/index.ts:441](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L441)
 
 ___
 
@@ -555,7 +503,7 @@ log (log level: info)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:212](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L212)
+[packages/@roots/bud-framework/src/Framework/index.ts:207](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L207)
 
 ▸ **info**(`message?`, ...`optionalArgs`): `void`
 
@@ -572,7 +520,7 @@ log (log level: info)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:546](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L546)
+[packages/@roots/bud-framework/src/Framework/index.ts:511](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L511)
 
 ___
 
@@ -595,7 +543,7 @@ log
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:197](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L197)
+[packages/@roots/bud-framework/src/Framework/index.ts:192](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L192)
 
 ▸ **log**(`message?`, ...`optionalArgs`): `void`
 
@@ -612,47 +560,7 @@ log
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:539](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L539)
-
-___
-
-### make
-
-▸ **make**(`name`, `tap?`): [`Framework`](Framework.md)
-
-make
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `tap?` | (`app`: [`Framework`](Framework.md)) => [`Framework`](Framework.md) |
-
-#### Returns
-
-[`Framework`](Framework.md)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:149](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L149)
-
-▸ **make**(`name`, `tap?`): [`Framework`](Framework.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `tap?` | (`app`: [`Framework`](Framework.md)) => [`Framework`](Framework.md) |
-
-#### Returns
-
-[`Framework`](Framework.md)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:423](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L423)
+[packages/@roots/bud-framework/src/Framework/index.ts:504](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L504)
 
 ___
 
@@ -675,7 +583,7 @@ path
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:157](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L157)
+[packages/@roots/bud-framework/src/Framework/index.ts:161](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L161)
 
 ▸ **path**(`key`, ...`path`): `string`
 
@@ -692,7 +600,7 @@ path
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:483](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L483)
+[packages/@roots/bud-framework/src/Framework/index.ts:461](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L461)
 
 ___
 
@@ -715,7 +623,7 @@ pipe
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:165](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L165)
+[packages/@roots/bud-framework/src/Framework/index.ts:169](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L169)
 
 ▸ **pipe**(`fns`, `value`): [`Framework`](Framework.md)
 
@@ -732,7 +640,7 @@ pipe
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:499](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L499)
+[packages/@roots/bud-framework/src/Framework/index.ts:477](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L477)
 
 ___
 
@@ -754,7 +662,7 @@ sequence
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:173](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L173)
+[packages/@roots/bud-framework/src/Framework/index.ts:177](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L177)
 
 ▸ **sequence**(`fns`): [`Framework`](Framework.md)
 
@@ -770,7 +678,7 @@ sequence
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:512](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L512)
+[packages/@roots/bud-framework/src/Framework/index.ts:490](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L490)
 
 ___
 
@@ -793,7 +701,7 @@ log (log level: success)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:202](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L202)
+[packages/@roots/bud-framework/src/Framework/index.ts:197](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L197)
 
 ▸ **success**(`message?`, ...`optionalArgs`): `void`
 
@@ -810,7 +718,7 @@ log (log level: success)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:553](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L553)
+[packages/@roots/bud-framework/src/Framework/index.ts:518](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L518)
 
 ___
 
@@ -833,7 +741,7 @@ tap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:178](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L178)
+[packages/@roots/bud-framework/src/Framework/index.ts:182](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L182)
 
 ▸ **tap**(`fn`, `bound?`): [`Framework`](Framework.md)
 
@@ -841,7 +749,7 @@ tap
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `fn` | [`Tapable`](../modules/Framework.md#tapable) | `undefined` |
+| `fn` | [`Tapable`](../modules/Framework.md#tapable)<`any`\> | `undefined` |
 | `bound` | `boolean` | `true` |
 
 #### Returns
@@ -850,7 +758,7 @@ tap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:519](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L519)
+[packages/@roots/bud-framework/src/Framework/index.ts:497](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L497)
 
 ___
 
@@ -873,7 +781,7 @@ log (log level: warn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:207](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L207)
+[packages/@roots/bud-framework/src/Framework/index.ts:202](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L202)
 
 ▸ **warn**(`message?`, ...`optionalArgs`): `void`
 
@@ -890,46 +798,4 @@ log (log level: warn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:560](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L560)
-
-___
-
-### when
-
-▸ **when**(`test`, `trueCase`, `falseCase?`): [`Framework`](Framework.md)
-
-when
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `test` | `boolean` \| (`app`: [`Framework`](Framework.md)) => `boolean` |
-| `trueCase` | (`app`: [`Framework`](Framework.md)) => `any` |
-| `falseCase?` | (`app`: [`Framework`](Framework.md)) => `any` |
-
-#### Returns
-
-[`Framework`](Framework.md)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:188](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L188)
-
-▸ **when**(`test`, `trueCase`, `falseCase?`): [`Framework`](Framework.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `test` | `boolean` \| (`app`: [`Framework`](Framework.md)) => `boolean` |
-| `trueCase` | (`app`: [`Framework`](Framework.md)) => `any` |
-| `falseCase?` | (`app`: [`Framework`](Framework.md)) => `any` |
-
-#### Returns
-
-[`Framework`](Framework.md)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/index.ts:526](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L526)
+[packages/@roots/bud-framework/src/Framework/index.ts:525](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L525)

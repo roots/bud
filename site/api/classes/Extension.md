@@ -25,7 +25,7 @@ Abstract Extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:27](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L27)
+[packages/@roots/bud-framework/src/Extension.ts:27](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L27)
 
 ## Properties
 
@@ -43,7 +43,7 @@ Abstract Extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:21](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L21)
+[packages/@roots/bud-framework/src/Extension.ts:21](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L21)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L19)
+[packages/@roots/bud-framework/src/Extension.ts:19](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L19)
 
 ## Accessors
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:36](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L36)
+[packages/@roots/bud-framework/src/Extension.ts:36](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L36)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:67](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L67)
+[packages/@roots/bud-framework/src/Extension.ts:67](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L67)
 
 • `set` **make**(`make`): `void`
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:82](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L82)
+[packages/@roots/bud-framework/src/Extension.ts:82](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L82)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:32](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L32)
+[packages/@roots/bud-framework/src/Extension.ts:32](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L32)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:40](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L40)
+[packages/@roots/bud-framework/src/Extension.ts:40](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L40)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:44](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L44)
+[packages/@roots/bud-framework/src/Extension.ts:44](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L44)
 
 • `set` **options**(`options`): `void`
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:48](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L48)
+[packages/@roots/bud-framework/src/Extension.ts:48](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L48)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:52](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L52)
+[packages/@roots/bud-framework/src/Extension.ts:52](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L52)
 
 • `set` **when**(`when`): `void`
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:63](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L63)
+[packages/@roots/bud-framework/src/Extension.ts:63](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L63)
 
 ## Methods
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L25)
+[packages/@roots/bud-framework/src/Extension.ts:25](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L25)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:92](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L92)
+[packages/@roots/bud-framework/src/Extension.ts:92](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L92)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:87](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L87)
+[packages/@roots/bud-framework/src/Extension.ts:87](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L87)
 
 ___
 
@@ -253,7 +253,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:23](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L23)
+[packages/@roots/bud-framework/src/Extension.ts:23](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L23)
 
 ___
 
@@ -274,4 +274,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extension.ts:100](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Extension.ts#L100)
+[packages/@roots/bud-framework/src/Extension.ts:100](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extension.ts#L100)

@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import {Framework} from '@roots/bud-framework'
 
 import type {Api} from '@roots/bud-api'
@@ -13,13 +17,15 @@ import type {Hooks} from './services/Hooks'
 import type {Logger} from './services/Logger'
 import type {Server} from './services/Server'
 
+/**
+ * @class Bud
+ */
 export class Bud extends Framework {
-  public implementation: new (
-    options?: Framework.Options,
-  ) => Framework
+  public implementation: Framework.Constructor
 
   public constructor(options: Framework.Options) {
     super(options)
+
     this.implementation = Bud
   }
 

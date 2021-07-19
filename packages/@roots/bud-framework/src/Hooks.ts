@@ -1,4 +1,8 @@
-import type {Framework, Module, Service} from './'
+/**
+ * @module @roots/bud-framework
+ */
+
+import type {Framework, Extension, Module, Service} from './'
 import type Webpack from 'webpack/types'
 
 /**
@@ -35,7 +39,7 @@ interface Hooks extends Service {
   repository: Hooks.Repository
 
   /**
-   * ## hooks.on
+   * hooks.on
    *
    * Register a function to filter a value.
    *
@@ -45,7 +49,7 @@ interface Hooks extends Service {
    * in the order they were registered, with each hook's output used
    * as the input for the next.
    *
-   * ### Usage
+   * ## Usage
    *
    * ```js
    * app.hooks.on(
@@ -57,11 +61,13 @@ interface Hooks extends Service {
   on(id: `${Hooks.Name}`, callback: Hooks.Hook): Framework
 
   /**
-   * ## hooks.filter
+   * hooks.filter
    *
    * The other side of bud.hooks.on. Passes a key and a value. If
    * any filters are registered on that key they will transform
    * the output before it is returned.
+   *
+   * ## Usage
    *
    * ```js
    * bud.hooks.filter(
@@ -74,10 +80,6 @@ interface Hooks extends Service {
 }
 
 namespace Hooks {
-  export type LinkedObj<T> = {
-    [K in keyof T as `${K & string}`]: `${Hooks.Name & string}`
-  }
-
   /**
    * Hook definition
    */
@@ -333,7 +335,7 @@ namespace Hooks {
     export type Subject = Module
 
     export type Final = keyof {
-      [K in keyof Framework.Extensions as
+      [K in keyof Framework.Index<Extension> as
         | `extension`
         | `extension/${K}`
         | `extension/${K}/${

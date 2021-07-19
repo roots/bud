@@ -14,43 +14,7 @@ custom_edit_url: null
 
   ↳ **`Discovery`**
 
-## Constructors
-
-### constructor
-
-• **new Discovery**(`app`)
-
-Class constructor
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Inherited from
-
-[Service](Service.md).[constructor](Service.md#constructor)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:68](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L68)
-
 ## Properties
-
-### name
-
-• **name**: `string`
-
-#### Inherited from
-
-[Service](Service.md).[name](Service.md#name)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:60](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L60)
-
-___
 
 ### resolveFrom
 
@@ -60,7 +24,7 @@ Array of paths for webpack to resolve modules from
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:14](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L14)
+[packages/@roots/bud-framework/src/Discovery.ts:14](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L14)
 
 ## Accessors
 
@@ -74,121 +38,9 @@ Array of paths for webpack to resolve modules from
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:64](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L64)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
-
-### boot
-
-▸ `Optional` **boot**(`app`): `any`
-
-Boot
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[boot](Service.md#boot)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
-
-___
-
-### booted
-
-▸ `Optional` **booted**(`app`): `any`
-
-Post boot callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[booted](Service.md#booted)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
-
-___
-
-### bootstrap
-
-▸ `Optional` **bootstrap**(`app`): `any`
-
-Bootstrap
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[bootstrap](Service.md#bootstrap)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
-
-___
-
-### bootstrapped
-
-▸ `Optional` **bootstrapped**(`app`): `any`
-
-Bootstrapped
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[bootstrapped](Service.md#bootstrapped)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
-
-___
 
 ### discover
 
@@ -208,7 +60,7 @@ Collect packages.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L19)
+[packages/@roots/bud-framework/src/Discovery.ts:19](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L19)
 
 ___
 
@@ -224,7 +76,7 @@ Get aggregated project info
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:44](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L44)
+[packages/@roots/bud-framework/src/Discovery.ts:44](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L44)
 
 ___
 
@@ -248,7 +100,7 @@ or devDependency
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:55](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L55)
+[packages/@roots/bud-framework/src/Discovery.ts:55](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L55)
 
 ___
 
@@ -264,7 +116,7 @@ Install packages
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:39](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L39)
+[packages/@roots/bud-framework/src/Discovery.ts:39](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L39)
 
 ___
 
@@ -288,35 +140,7 @@ Gather information on packages
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L31)
-
-___
-
-### register
-
-▸ `Optional` **register**(`app`): `any`
-
-Register
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[register](Service.md#register)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
+[packages/@roots/bud-framework/src/Discovery.ts:31](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L31)
 
 ___
 
@@ -332,35 +156,7 @@ Register discovered packages as extensions
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:26](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L26)
-
-___
-
-### registered
-
-▸ `Optional` **registered**(`app`): `any`
-
-Post registered callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](Service.md).[registered](Service.md#registered)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)
+[packages/@roots/bud-framework/src/Discovery.ts:26](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L26)
 
 ___
 
@@ -380,4 +176,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:48](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Discovery.ts#L48)
+[packages/@roots/bud-framework/src/Discovery.ts:48](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Discovery.ts#L48)

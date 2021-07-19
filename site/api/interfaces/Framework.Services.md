@@ -7,6 +7,10 @@ custom_edit_url: null
 
 [Framework](../modules/Framework.md).Services
 
-## Indexable
+Registered services
 
-▪ [key: `string`]: (`app`: [`Framework`](../classes/Framework.md)) => [`Service`](../classes/Service.md) \| [`Bootstrapper`](../classes/Bootstrapper.md)
+## Hierarchy
+
+- [`Index`](../modules/Framework.md#index)<`fn`\>
+
+  ↳ **`Services`**

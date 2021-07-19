@@ -1,3 +1,10 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import {Container} from '@roots/container'
 
-export type Env = Container
+/**
+ * @interface Env
+ */
+export interface Env extends Container {}

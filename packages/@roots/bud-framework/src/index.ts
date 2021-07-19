@@ -1,7 +1,3 @@
-/**
- * Abstract
- */
-
 export {Bootstrapper, Service} from './Service'
 
 export {Discovery} from './Discovery'
@@ -12,10 +8,7 @@ export {Framework} from './Framework'
 
 export {Store} from './Store'
 
-/**
- * Interfaces
- */
-
+//
 export type {Api} from './Api'
 
 export type {Build} from './Build'
@@ -38,19 +31,28 @@ export type {Hooks} from './Hooks'
 
 export type {Logger} from './Logger'
 
-export type {Mode} from './Mode'
-
 export type {Module} from './Module'
 
 export type {Plugin} from './Plugin'
 
 export type {Server} from './Server'
 
-/**
- * Externals
- */
+//
+export {access} from './Framework/access'
 
+export {make} from './Framework/make'
+
+export {when} from './Framework/when'
+
+export type {Access} from './Framework/access'
+
+export type {Make} from './Framework/make'
+
+export type {When} from './Framework/when'
+
+//
 import {Container} from '@roots/container'
+
 import type Webpack from 'webpack/types'
 
 export {Container, Webpack}

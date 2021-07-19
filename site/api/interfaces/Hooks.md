@@ -40,20 +40,6 @@ hooks.on(
 
 ## Properties
 
-### name
-
-• **name**: `string`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[name](../classes/Service.md#name)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:60](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L60)
-
-___
-
 ### repository
 
 • **repository**: [`Repository`](../modules/Hooks.md#repository)
@@ -66,7 +52,7 @@ Service.repository
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:35](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L35)
+[packages/@roots/bud-framework/src/Hooks.ts:39](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L39)
 
 ## Accessors
 
@@ -80,131 +66,21 @@ Service.repository
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:64](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L64)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
-
-### boot
-
-▸ `Optional` **boot**(`app`): `any`
-
-Boot
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[boot](../classes/Service.md#boot)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
-
-___
-
-### booted
-
-▸ `Optional` **booted**(`app`): `any`
-
-Post boot callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[booted](../classes/Service.md#booted)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
-
-___
-
-### bootstrap
-
-▸ `Optional` **bootstrap**(`app`): `any`
-
-Bootstrap
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrap](../classes/Service.md#bootstrap)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
-
-___
-
-### bootstrapped
-
-▸ `Optional` **bootstrapped**(`app`): `any`
-
-Bootstrapped
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrapped](../classes/Service.md#bootstrapped)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
-
-___
 
 ### filter
 
 ▸ **filter**<`T`\>(`id`, `seed?`): `T`
 
-## hooks.filter
+hooks.filter
 
 The other side of bud.hooks.on. Passes a key and a value. If
 any filters are registered on that key they will transform
 the output before it is returned.
+
+## Usage
 
 ```js
 bud.hooks.filter(
@@ -232,7 +108,7 @@ bud.hooks.filter(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:73](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L73)
+[packages/@roots/bud-framework/src/Hooks.ts:79](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L79)
 
 ___
 
@@ -240,7 +116,7 @@ ___
 
 ▸ **on**(`id`, `callback`): [`Framework`](../classes/Framework.md)
 
-## hooks.on
+hooks.on
 
 Register a function to filter a value.
 
@@ -250,7 +126,7 @@ hook is registered to a name, they will be called sequentially
 in the order they were registered, with each hook's output used
 as the input for the next.
 
-### Usage
+## Usage
 
 ```js
 app.hooks.on(
@@ -272,60 +148,4 @@ app.hooks.on(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:57](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L57)
-
-___
-
-### register
-
-▸ `Optional` **register**(`app`): `any`
-
-Register
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[register](../classes/Service.md#register)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
-
-___
-
-### registered
-
-▸ `Optional` **registered**(`app`): `any`
-
-Post registered callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[registered](../classes/Service.md#registered)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)
+[packages/@roots/bud-framework/src/Hooks.ts:61](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L61)

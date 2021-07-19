@@ -1,12 +1,18 @@
-import {Dependencies as DependenciesManager} from '@roots/dependencies'
-import {boundMethod as bind} from 'autobind-decorator'
-import {readJsonSync} from 'fs-extra'
 import React from 'react'
 import {Text, Static} from 'ink'
-import {Base} from './Base'
+import {readJsonSync} from 'fs-extra'
 import {isEqual} from 'lodash'
 
-export class Dependencies extends Base {
+import {Dependencies as DependenciesManager} from '@roots/dependencies'
+import {Service} from '@roots/bud-framework'
+
+import {boundMethod as bind} from 'autobind-decorator'
+
+export class Dependencies extends Service {
+  public name = 'dependencies'
+
+  public manager: DependenciesManager
+
   @bind
   public pkg() {
     return readJsonSync(this.app.path('project', 'package.json'))

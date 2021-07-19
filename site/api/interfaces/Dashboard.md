@@ -6,6 +6,8 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
+**`interface`** Dashboard
+
 ## Hierarchy
 
 - [`Service`](../classes/Service.md)
@@ -18,39 +20,11 @@ custom_edit_url: null
 
 • **instance**: `Instance`
 
-Instance
+Ink instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:13](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L13)
-
-___
-
-### name
-
-• **name**: `any`
-
-Service name
-
-#### Overrides
-
-[Service](../classes/Service.md).[name](../classes/Service.md#name)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Dashboard/index.ts:8](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L8)
-
-___
-
-### render
-
-• **render**: `any`
-
-Render
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Dashboard/index.ts:28](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L28)
+packages/@roots/bud-framework/src/Dashboard.ts:15
 
 ## Accessors
 
@@ -64,167 +38,30 @@ Render
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:64](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L64)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
-### boot
+### render
 
-▸ `Optional` **boot**(`app`): `any`
+▸ **render**(`Component`, `title?`): `Instance`
 
-Boot
-
-**`internal`**
+Render stdout
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
+| `Component` | `any` |
+| `title?` | `string` |
 
 #### Returns
 
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[boot](../classes/Service.md#boot)
+`Instance`
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
-
-___
-
-### booted
-
-▸ `Optional` **booted**(`app`): `any`
-
-Post boot callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[booted](../classes/Service.md#booted)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
-
-___
-
-### bootstrap
-
-▸ `Optional` **bootstrap**(`app`): `any`
-
-Bootstrap
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrap](../classes/Service.md#bootstrap)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
-
-___
-
-### bootstrapped
-
-▸ `Optional` **bootstrapped**(`app`): `any`
-
-Bootstrapped
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrapped](../classes/Service.md#bootstrapped)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
-
-___
-
-### register
-
-▸ **register**(): `void`
-
-Register service
-
-#### Returns
-
-`void`
-
-#### Overrides
-
-[Service](../classes/Service.md).[register](../classes/Service.md#register)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Dashboard/index.ts:18](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L18)
-
-___
-
-### registered
-
-▸ `Optional` **registered**(`app`): `any`
-
-Post registered callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[registered](../classes/Service.md#registered)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)
+packages/@roots/bud-framework/src/Dashboard.ts:25
 
 ___
 
@@ -247,7 +84,7 @@ Render error
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:33](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L33)
+packages/@roots/bud-framework/src/Dashboard.ts:30
 
 ___
 
@@ -255,7 +92,7 @@ ___
 
 ▸ **run**(): `void`
 
-Mount CLI
+Mount and instantiate Dashboard
 
 #### Returns
 
@@ -263,4 +100,4 @@ Mount CLI
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Dashboard/index.ts:23](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Dashboard/index.ts#L23)
+packages/@roots/bud-framework/src/Dashboard.ts:20

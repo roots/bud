@@ -1,5 +1,10 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import {Container} from '@roots/container'
-import type {Framework} from './Framework'
+
+import type {Framework} from './'
 
 /**
  * @abstract Bootstrapper
@@ -7,11 +12,18 @@ import type {Framework} from './Framework'
  * {@link Service} base class.
  *
  * {@link Logger} and {@link Store} extend this directly
- * since they are needed before the lifecycle even starts up.
+ * since they are needed before lifecycle methods are invoked.
+ *
+ * Container instance.
  *
  * @noInheritDoc
  */
 abstract class Bootstrapper<T = any> extends Container<T> {
+  /**
+   * Name
+   */
+  public name: any
+
   /**
    * Bootstrap
    * @internal
@@ -52,13 +64,11 @@ abstract class Bootstrapper<T = any> extends Container<T> {
 /**
  * @abstract Service
  *
- * The atomic unit of Framework functionality.
+ * Atomic unit of Framework functionality. Container instance.
  *
  * @noInheritDoc
  */
 abstract class Service<T = any> extends Bootstrapper<T> {
-  public name: string
-
   private _app: () => Framework
 
   public get app(): Framework {

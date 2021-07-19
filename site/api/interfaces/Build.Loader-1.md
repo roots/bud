@@ -27,4 +27,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:51](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L51)
+[packages/@roots/bud-framework/src/Build.ts:51](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L51)

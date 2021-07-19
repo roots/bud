@@ -13,19 +13,23 @@ custom_edit_url: null
 
 • **config**: [`Configuration`](Configuration.md)
 
+[Configuration](Configuration.md)
+
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:234](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L234)
+[packages/@roots/bud-framework/src/Framework/index.ts:272](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L272)
 
 ___
 
 ### mode
 
-• **mode**: ``"production"`` \| ``"development"``
+• **mode**: [`Mode`](../modules/Framework.md#mode)
+
+[Framework.mode](../classes/Framework.md#mode)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:232](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L232)
+[packages/@roots/bud-framework/src/Framework/index.ts:268](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L268)
 
 ___
 
@@ -33,9 +37,11 @@ ___
 
 • **name**: `string`
 
+[Framework.name](../classes/Framework.md#name)
+
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:231](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L231)
+[packages/@roots/bud-framework/src/Framework/index.ts:264](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L264)
 
 ___
 
@@ -43,9 +49,11 @@ ___
 
 • `Optional` **parent**: [`Framework`](../classes/Framework.md)
 
+[Framework](../classes/Framework.md)
+
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:235](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L235)
+[packages/@roots/bud-framework/src/Framework/index.ts:281](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L281)
 
 ___
 
@@ -53,6 +61,8 @@ ___
 
 • **services**: [`Services`](Framework.Services.md)
 
+[Framework.Services](Framework.Services.md)
+
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:233](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Framework/index.ts#L233)
+[packages/@roots/bud-framework/src/Framework/index.ts:276](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L276)

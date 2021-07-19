@@ -1,11 +1,18 @@
-import {Service} from '../Service'
-import {Container} from '@roots/container'
-import Webpack from 'webpack'
-import {Application, Handler} from 'express'
-import DevMiddleware from 'webpack-dev-middleware'
-import Proxy from 'http-proxy-middleware'
-import {WatchOptions} from 'chokidar'
+/**
+ * @module @roots/bud-framework
+ */
 
+import type {Service} from './'
+import type {Container} from '@roots/container'
+import type Webpack from 'webpack/types'
+import type {Application, Handler} from 'express'
+import type DevMiddleware from 'webpack-dev-middleware'
+import type Proxy from 'http-proxy-middleware'
+import type {WatchOptions} from 'chokidar'
+
+/**
+ * @interface Server
+ */
 export interface Server extends Service {
   /**
    * Registered server middlewares

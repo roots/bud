@@ -7,6 +7,10 @@ custom_edit_url: null
 
 [Framework](../modules/Framework.md).Extensions
 
-## Indexable
+Registered extensions
 
-▪ [key: `string`]: [`Module`](Module.md)
+## Hierarchy
+
+- [`Index`](../modules/Framework.md#index)<[`Module`](Module.md) \| [`Plugin`](Plugin.md)\>
+
+  ↳ **`Extensions`**

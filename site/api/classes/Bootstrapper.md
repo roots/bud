@@ -6,7 +6,14 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Abstract
+**`abstract`** Bootstrapper
+
+[Service](Service.md) base class.
+
+[Logger](../interfaces/Logger.md) and [Store](Store.md) extend this directly
+since they are needed before lifecycle methods are invoked.
+
+Container instance.
 
 ## Type parameters
 
@@ -22,33 +29,19 @@ Abstract
 
   ↳↳ [`Service`](Service.md)
 
-## Constructors
+  ↳↳ [`Logger`](../interfaces/Logger.md)
 
-### constructor
+## Properties
 
-• **new Bootstrapper**<`T`\>(`repository?`)
+### name
 
-Class constructor
+• **name**: `any`
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | `any` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `repository?` | `T` |
-
-#### Inherited from
-
-Container<T\>.constructor
+Name
 
 #### Defined in
 
-packages/@roots/container/types/Container/index.d.ts:23
+[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L25)
 
 ## Methods
 
@@ -72,7 +65,7 @@ Boot
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
+[packages/@roots/bud-framework/src/Service.ts:55](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L55)
 
 ___
 
@@ -96,7 +89,7 @@ Post boot callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
+[packages/@roots/bud-framework/src/Service.ts:61](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L61)
 
 ___
 
@@ -120,7 +113,7 @@ Bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
+[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L31)
 
 ___
 
@@ -144,7 +137,7 @@ Bootstrapped
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
+[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L37)
 
 ___
 
@@ -168,7 +161,7 @@ Register
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
+[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L43)
 
 ___
 
@@ -192,4 +185,4 @@ Post registered callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)
+[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L49)

@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import {Module} from './Module'
 
 /**

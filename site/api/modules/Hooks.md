@@ -22,23 +22,7 @@ Hook definition
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:84](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L84)
-
-___
-
-### LinkedObj
-
-Ƭ **LinkedObj**<`T`\>: { [K in keyof T as \`${K & string}\`]: \`${Hooks.Name & string}\`}
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Hooks.ts:77](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L77)
+[packages/@roots/bud-framework/src/Hooks.ts:86](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L86)
 
 ___
 
@@ -50,7 +34,7 @@ bud.publish key/value argument
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:89](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L89)
+[packages/@roots/bud-framework/src/Hooks.ts:91](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L91)
 
 ___
 
@@ -60,4 +44,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:359](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Hooks.ts#L359)
+[packages/@roots/bud-framework/src/Hooks.ts:361](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L361)

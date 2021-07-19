@@ -18,7 +18,7 @@ custom_edit_url: null
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:69
+[packages/@roots/bud-framework/src/Compiler.ts:69](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L69)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:70
+[packages/@roots/bud-framework/src/Compiler.ts:70](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L70)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:72
+[packages/@roots/bud-framework/src/Compiler.ts:72](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L72)

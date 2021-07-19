@@ -1,10 +1,23 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import {join} from 'path'
 
-import {Container, Service, Bootstrapper, Store} from '../'
+import {
+  Container,
+  Service,
+  Bootstrapper,
+  Store,
+  access,
+  make,
+  when,
+} from '../'
 
 import {isFunction, isNull} from 'lodash'
 
 import type {
+  Access,
   Api,
   Build,
   Cache,
@@ -17,13 +30,18 @@ import type {
   Extensions,
   Hooks,
   Logger,
+  Make,
   Module,
-  Mode,
+  Plugin,
   Server,
+  When,
 } from '../'
 
 import {boundMethod as bind} from 'autobind-decorator'
 
+/**
+ * @interface Framework
+ */
 interface Framework {
   /**
    * Application name
@@ -37,70 +55,63 @@ interface Framework {
   parent: Framework
 
   /**
-   * Compiler container {@link Container}.
+   * Child compiler instance container
    */
-  children: Container<{[key: string]: Framework}>
+  children: Container<Framework.Instances>
 
   /**
-   * api
-   *
-   * Service providing config api methods
+   * Service providing config facades
    */
   api: Api
 
   /**
-   * Build
-   *
    * Service handling config compilation
    */
   build: Build
 
   /**
-   * Cache
-   *
    * Service handling compiler cache
    */
   cache: Cache
 
   /**
-   * Compiler
-   *
-   * Handles build compilation
+   * Service handling build compilation
    */
   compiler: Compiler
 
   /**
-   * Dashboard
+   * Service handling build reporter rendering
    */
   dashboard: Dashboard
 
   /**
-   * Dependencies
+   * Service handling peer package management
    */
   dependencies: Dependencies
 
   /**
-   * Discovery
+   * Service providing information on project and peers
    */
   discovery: Discovery
 
   /**
-   * Env
+   * Service providing env data
    */
   env: Env
 
   /**
-   * Extensions
+   * Service handling registration of {@link Module} and {@link Plugin}
+   * into {@link Extension} objects.
    */
   extensions: Extensions
 
   /**
-   * Hooks
+   * Service handling eventing
    */
   hooks: Hooks
 
   /**
-   * Logger
+   * {@link Bootstrapper} provides logger methods
    */
   logger: Logger
 
@@ -110,46 +121,39 @@ interface Framework {
   server: Server
 
   /**
-   * Store
+   * {@link Bootstrapper} provides general utility container.
+   *
+   * Contains {@link Configuration} but is available for use as scratch space.
    */
   store: Store
 
   /**
-   * bootstrap
+   * Instantiates and executes lifecycle events on registered {@link Service} classes.
    */
   bootstrap(): Framework
 
   /**
-   * If a value is a function it will call that
+   * If a value is a function **access** will call that
    * function and return the result.
    *
-   * If the value is not a function it will return its value.
-   *
-   * ```js
-   * const isAFunction = (option) => `option value: ${option}`
-   * const isAValue = 'option value: true'
-   *
-   * access(isAFunction, true)
-   * // => `option value: true`
-   *
-   * access(isAValue)
-   * // => `option value: true`
-   * ```
+   * If the value is not a function **access** will return its value.
    */
-  access<I = any>(value: ((app: this) => I) | I): I
+  access: Access
 
   /**
-   * container
+   * Make a child compiler.
+   */
+  make: Make
+
+  /**
+   * Executes a function if a given test is `true`.
+   */
+  when: When
+
+  /**
+   * Creates a new container from a given repository.
    */
   container(repository?: Container['repository']): Container
-
-  /**
-   * make
-   */
-  make(
-    name: string,
-    tap?: (app: Framework) => Framework,
-  ): Framework
 
   /**
    * path
@@ -183,15 +187,6 @@ interface Framework {
   ): Framework
 
   /**
-   * when
-   */
-  when(
-    test: ((app: Framework) => boolean) | boolean,
-    trueCase: (app: Framework) => any,
-    falseCase?: (app: Framework) => any,
-  ): Framework
-
-  /**
    * log
    */
   log(message?: any, ...optionalArgs: any[]): void
@@ -222,52 +217,91 @@ interface Framework {
   error(message: any, ...optionalArgs: any[]): void
 }
 
+/**
+ * @namespace Framework
+ */
 namespace Framework {
-  export interface Services {
-    [key: string]: new (app: Framework) => Service | Bootstrapper
-  }
+  /**
+   * Utility: Returns hash of a given object type
+   */
+  export type Index<T = any> = {[key: string]: T}
 
+  /**
+   * Compilation mode
+   */
+  export type Mode = 'production' | 'development'
+
+  /**
+   * Registered services
+   */
+  export interface Services
+    extends Index<
+      new (app: Framework) => Service | Bootstrapper
+    > {}
+
+  export interface Instances extends Index<Framework> {}
+
+  /**
+   * Registered extensions
+   */
+  export interface Extensions extends Index<Module | Plugin> {}
+
+  /**
+   * Framework Constructor
+   */
+  export type Constructor = new (options: Options) => Framework
+
+  /*
+   * Constructor props
+   *
+   * Cloned to {@link Framework.options} on instantiation so that {@link Framework.make}
+   * has reference when instantiating child compilers
+   */
   export interface Options {
+    /**
+     * {@link Framework.name}
+     */
     name: string
-    mode: 'production' | 'development'
-    services: Services
+    /**
+     * {@link Framework.mode}
+     */
+    mode: Framework.Mode
+    /**
+     * {@link Configuration}
+     */
     config: Configuration
+    /**
+     * {@link Framework.Services}
+     */
+    services: Framework.Services
+
+    /**
+     * {@link Framework}
+     */
     parent?: Framework
   }
 
-  export type Tapable =
-    | ((app: Framework) => any)
-    | ((this: Framework, app?: Framework) => any)
-
-  export interface Extensions {
-    [key: string]: Module
-  }
-
-  export interface Rules {
-    [key: string]: Build.Rule
-  }
-
-  export interface Items {
-    [key: string]: Build.Item
-  }
-
-  export interface Loaders {
-    [key: string]: Build.Loader
-  }
+  /**
+   * Callback which accepts Framework as a parameter
+   */
+  export type Tapable<I = any> =
+    | ((app: Framework) => I)
+    | ((this: Framework, app?: Framework) => I)
 }
 
+/**
+ * @abstract Framework
+ */
 abstract class Framework {
-  public abstract implementation: new (
-    options: Framework.Options,
-  ) => Framework
+  public abstract implementation: Framework.Constructor
 
-  public name = 'bud'
+  public name: string
 
   public parent: Framework
 
-  public children: Container<{[key: string]: Framework}>
+  public children: Container<Framework.Instances>
 
-  public mode: Mode
+  public mode: Framework.Mode
 
   public api: Api
 
@@ -295,33 +329,13 @@ abstract class Framework {
 
   public store: Store
 
-  /**
-   * Cloned from {@link Framework.Options} on instantiation.
-   *
-   * Stored so {@link Framework.make} can utilize as base for child compilers.
-   */
-  public options: {
-    /**
-     * {@link Framework.name}
-     */
-    name: string
-    /**
-     * {@link Framework.mode}
-     */
-    mode: Mode
-    /**
-     * {@link Configuration}
-     */
-    config: Configuration
-    /**
-     * {@link Framework.Services}
-     */
-    services: Framework.Services
-    /**
-     * {@link Framework}
-     */
-    parent?: Framework
-  }
+  public options: Framework.Options
+
+  public access: Access
+
+  public make: Make
+
+  public when: When
 
   public get isProduction(): boolean {
     return this.mode === 'production'
@@ -349,6 +363,10 @@ abstract class Framework {
     this.logger = new this.options.services.logger(
       this,
     ) as unknown as Logger
+
+    this.access = access.bind(this)
+    this.when = when.bind(this)
+    this.make = make.bind(this)
   }
 
   @bind
@@ -420,39 +438,6 @@ abstract class Framework {
   }
 
   @bind
-  public make(
-    name: string,
-    tap?: (app: Framework) => Framework,
-  ): Framework {
-    if (!isNull(this.parent)) {
-      this.error(
-        `\`${this.name}\` is a child compiler but you tried to call make from it. Try \`${this.name}.parent.make\` instead.`,
-        `${this.name}.make`,
-      )
-
-      process.exit(1)
-    }
-
-    this.info(`Making child compiler: ${name}`)
-
-    this.children.set(
-      name,
-      new this.implementation({
-        name,
-        mode: this.mode,
-        services: this.options.services,
-        config: this.options.config,
-        parent: this,
-      }).bootstrap(),
-    )
-
-    this.info(`Compilers`, this.children.getKeys())
-    this.get(name, tap)
-
-    return this
-  }
-
-  @bind
   public get(name: string, tap?: (app: Framework) => Framework) {
     this.log('get request', name)
 
@@ -463,13 +448,6 @@ abstract class Framework {
     }
 
     return compiler
-  }
-
-  @bind
-  public access<I = any>(value: ((app: this) => I) | I): I {
-    return isFunction(value)
-      ? (value as CallableFunction)(this)
-      : value
   }
 
   @bind
@@ -518,19 +496,6 @@ abstract class Framework {
   @bind
   public tap(fn: Framework.Tapable, bound: boolean = true) {
     fn.call(bound ? this : null, this)
-
-    return this
-  }
-
-  @bind
-  public when(
-    test: ((app: Framework) => boolean) | boolean,
-    trueCase: (app: Framework) => any,
-    falseCase?: (app: Framework) => any,
-  ): Framework {
-    this.access(test)
-      ? trueCase && isFunction(trueCase) && trueCase(this)
-      : falseCase && isFunction(falseCase) && falseCase(this)
 
     return this
   }

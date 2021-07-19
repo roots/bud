@@ -22,7 +22,7 @@ The compiler instance
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:19
+[packages/@roots/bud-framework/src/Compiler.ts:19](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L19)
 
 ___
 
@@ -34,21 +34,7 @@ Has already been ran
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:24
-
-___
-
-### name
-
-• **name**: `string`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[name](../classes/Service.md#name)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:60](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L60)
+[packages/@roots/bud-framework/src/Compiler.ts:24](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L24)
 
 ___
 
@@ -60,7 +46,7 @@ Formatted progress plugin
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:34
+[packages/@roots/bud-framework/src/Compiler.ts:34](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L34)
 
 ___
 
@@ -72,7 +58,7 @@ Compiler stats output
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:29
+[packages/@roots/bud-framework/src/Compiler.ts:29](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L29)
 
 ## Accessors
 
@@ -86,7 +72,7 @@ packages/@roots/bud-framework/src/Compiler.ts:29
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:64](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L64)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -104,119 +90,7 @@ Parses configuration from bud
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:60
-
-___
-
-### boot
-
-▸ `Optional` **boot**(`app`): `any`
-
-Boot
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[boot](../classes/Service.md#boot)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L43)
-
-___
-
-### booted
-
-▸ `Optional` **booted**(`app`): `any`
-
-Post boot callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[booted](../classes/Service.md#booted)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L49)
-
-___
-
-### bootstrap
-
-▸ `Optional` **bootstrap**(`app`): `any`
-
-Bootstrap
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrap](../classes/Service.md#bootstrap)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:19](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L19)
-
-___
-
-### bootstrapped
-
-▸ `Optional` **bootstrapped**(`app`): `any`
-
-Bootstrapped
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[bootstrapped](../classes/Service.md#bootstrapped)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L25)
+[packages/@roots/bud-framework/src/Compiler.ts:60](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L60)
 
 ___
 
@@ -239,7 +113,7 @@ Compilation callback
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:65
+[packages/@roots/bud-framework/src/Compiler.ts:65](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L65)
 
 ___
 
@@ -269,60 +143,4 @@ bud.compiler.compile({
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Compiler.ts:53
-
-___
-
-### register
-
-▸ `Optional` **register**(`app`): `any`
-
-Register
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[register](../classes/Service.md#register)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L31)
-
-___
-
-### registered
-
-▸ `Optional` **registered**(`app`): `any`
-
-Post registered callback
-
-**`internal`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | [`Framework`](../classes/Framework.md) |
-
-#### Returns
-
-`any`
-
-#### Inherited from
-
-[Service](../classes/Service.md).[registered](../classes/Service.md#registered)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Service.ts#L37)
+[packages/@roots/bud-framework/src/Compiler.ts:53](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Compiler.ts#L53)

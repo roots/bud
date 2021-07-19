@@ -46,7 +46,7 @@ export class Dashboard extends Base {
   }
 
   @bind
-  public render(Component: any, title: string): Instance {
+  public render(Component: any, title?: string): Instance {
     const Output = () =>
       isString(Component) ? (
         <Text>{Component}</Text>

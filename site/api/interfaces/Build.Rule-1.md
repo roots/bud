@@ -29,7 +29,7 @@ Wrapper for {@link RuleSetRule}
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:95](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L95)
+[packages/@roots/bud-framework/src/Build.ts:95](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L95)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:107](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L107)
+[packages/@roots/bud-framework/src/Build.ts:107](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L107)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:103](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L103)
+[packages/@roots/bud-framework/src/Build.ts:103](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L103)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:87](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L87)
+[packages/@roots/bud-framework/src/Build.ts:87](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L87)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:99](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L99)
+[packages/@roots/bud-framework/src/Build.ts:99](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L99)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:91](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L91)
+[packages/@roots/bud-framework/src/Build.ts:91](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L91)
 
 ___
 
@@ -151,7 +151,7 @@ Returns final {@link RuleSetRule} for inclusion in [Build.config](Build.md#confi
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:114](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L114)
+[packages/@roots/bud-framework/src/Build.ts:114](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L114)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:97](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L97)
+[packages/@roots/bud-framework/src/Build.ts:97](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L97)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:109](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L109)
+[packages/@roots/bud-framework/src/Build.ts:109](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L109)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:105](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L105)
+[packages/@roots/bud-framework/src/Build.ts:105](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L105)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:89](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L89)
+[packages/@roots/bud-framework/src/Build.ts:89](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L89)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:101](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L101)
+[packages/@roots/bud-framework/src/Build.ts:101](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L101)
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:93](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L93)
+[packages/@roots/bud-framework/src/Build.ts:93](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L93)
 
 ___
 
@@ -293,7 +293,7 @@ Wrapping {@link RuleSetRule.test}
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:79](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L79)
+[packages/@roots/bud-framework/src/Build.ts:79](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L79)
 
 ___
 
@@ -316,4 +316,4 @@ can be built with [Build.Item.make](Build.Item-1.md#make) to produce {@link Rule
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:85](https://github.com/roots/bud/blob/1a11bae56/packages/@roots/bud-framework/src/Build.ts#L85)
+[packages/@roots/bud-framework/src/Build.ts:85](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Build.ts#L85)

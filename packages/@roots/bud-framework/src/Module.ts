@@ -1,5 +1,9 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import type {Container} from '@roots/container'
-import type {Framework} from './Framework'
+import type {Framework} from './'
 
 /**
  * @interface Module
@@ -52,6 +56,9 @@ interface Module<Plugin = any, Options = any> {
   when?: Module.When<Options>
 }
 
+/**
+ * @namespace Module
+ */
 namespace Module {
   export type Name = keyof Framework.Extensions
 
