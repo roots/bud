@@ -1,5 +1,8 @@
-import {Service} from '../Service'
+import type {Service} from '../Service'
 
+/**
+ * @interface Dependencies
+ */
 export interface Dependencies extends Service {
   /**
    * Install production dependencies

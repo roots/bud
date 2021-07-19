@@ -13,6 +13,8 @@
   },
   "include": [
     "packages/@roots/bud/**/*",
+    "packages/@roots/bud-api/types/methods/**/*",
+    "packages/@roots/container/**/*",
     "packages/@roots/bud-framework/**/*",
   ],
 }

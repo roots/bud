@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import type {Hooks, Server} from '../'
 import type Webpack from 'webpack/types'
 

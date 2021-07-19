@@ -1,125 +1,116 @@
 import {join} from 'path'
 
-import {Service, Bootstrapper} from '../Service'
-import {Store} from '../Store'
-
-import {Container} from '@roots/container'
+import {Container, Service, Bootstrapper, Store} from '../'
 
 import {isFunction, isNull} from 'lodash'
 
-import type {Api} from '../Api'
-import type {Build} from '../Build'
-import type {Cache} from '../Cache'
-import type {Compiler} from '../Compiler'
-import type {Configuration} from '../Configuration'
-import type {Dashboard} from '../Dashboard'
-import type {Dependencies} from '../Dependencies'
-import type {Discovery} from '../Discovery'
-import type {Env} from '../Env'
-import type {Extensions, Module} from '../Extensions'
-import type {Hooks} from '../Hooks'
-import type {Logger} from '../Logger'
-import type {Mode} from '../Mode'
-import type {Server} from '../Server'
+import type {
+  Api,
+  Build,
+  Cache,
+  Compiler,
+  Configuration,
+  Dashboard,
+  Dependencies,
+  Discovery,
+  Env,
+  Extensions,
+  Hooks,
+  Logger,
+  Module,
+  Mode,
+  Server,
+} from '../'
 
 import {boundMethod as bind} from 'autobind-decorator'
 
 interface Framework {
   /**
-   * ## name
-   *
    * Application name
    */
   name: string
 
   /**
-   * ## parent
-   *
-   * If a child instance, returns the parent.
-   *
+   * If a child instance, returns the parent ({@link Framework}).
    * If the parent instance, returns null.
    */
   parent: Framework
 
   /**
-   * ## children
-   *
-   * Compiler instance container.
+   * Compiler container {@link Container}.
    */
   children: Container<{[key: string]: Framework}>
 
   /**
-   * ## api
+   * api
    *
    * Service providing config api methods
    */
   api: Api
 
   /**
-   * ## build
+   * Build
    *
    * Service handling config compilation
    */
   build: Build
 
   /**
-   * ## cache
+   * Cache
    *
    * Service handling compiler cache
    */
   cache: Cache
 
   /**
-   * ## compiler
+   * Compiler
    *
-   * Service handling build compilation
+   * Handles build compilation
    */
   compiler: Compiler
 
   /**
-   * ## dashboard
-   *
-   * Service providing CLI interface
+   * Dashboard
    */
   dashboard: Dashboard
 
   /**
-   * Dependencies service
+   * Dependencies
    */
   dependencies: Dependencies
 
   /**
-   * Discovery service
+   * Discovery
    */
   discovery: Discovery
 
   /**
-   * Envvar service
+   * Env
    */
   env: Env
 
   /**
-   * Extensions service
+   * Extensions
    */
   extensions: Extensions
 
   /**
-   * Hooks service
+   * Hooks
    */
   hooks: Hooks
 
   /**
-   * Logger service
+   * Logger
    */
   logger: Logger
 
   /**
-   * Dev server service
+   * Server
    */
   server: Server
 
   /**
-   * Key Value store service
+   * Store
    */
   store: Store
 
@@ -129,8 +120,6 @@ interface Framework {
   bootstrap(): Framework
 
   /**
-   * app.access
-   *
    * If a value is a function it will call that
    * function and return the result.
    *
@@ -150,13 +139,12 @@ interface Framework {
   access<I = any>(value: ((app: this) => I) | I): I
 
   /**
-   * app.container
+   * container
    */
   container(repository?: Container['repository']): Container
 
   /**
-   * app.make
-   * @note multi-compiler api is experimental
+   * make
    */
   make(
     name: string,
@@ -164,7 +152,7 @@ interface Framework {
   ): Framework
 
   /**
-   * app.path
+   * path
    */
   path(
     key: `${keyof Hooks.Locale.Definitions & string}`,
@@ -172,7 +160,7 @@ interface Framework {
   ): string
 
   /**
-   * app.pipe
+   * pipe
    */
   pipe(
     fns: ((input: Framework) => Framework)[],
@@ -180,12 +168,12 @@ interface Framework {
   ): Framework
 
   /**
-   * app.sequence
+   * sequence
    */
   sequence(fns: Array<(app: Framework) => any>): Framework
 
   /**
-   * app.tap
+   * tap
    */
   tap(
     fn:
@@ -195,7 +183,7 @@ interface Framework {
   ): Framework
 
   /**
-   * app.when
+   * when
    */
   when(
     test: ((app: Framework) => boolean) | boolean,
@@ -204,12 +192,12 @@ interface Framework {
   ): Framework
 
   /**
-   * log a message
+   * log
    */
   log(message?: any, ...optionalArgs: any[]): void
 
   /**
-   * log a message
+   * log (log level: success)
    */
   success(message?: any, ...optionalArgs: any[]): void
 
@@ -229,7 +217,7 @@ interface Framework {
   debug(message?: any, ...optionalArgs: any[]): void
 
   /**
-   * log (log level: error)
+   * error handler
    */
   error(message: any, ...optionalArgs: any[]): void
 }
@@ -307,11 +295,31 @@ abstract class Framework {
 
   public store: Store
 
+  /**
+   * Cloned from {@link Framework.Options} on instantiation.
+   *
+   * Stored so {@link Framework.make} can utilize as base for child compilers.
+   */
   public options: {
+    /**
+     * {@link Framework.name}
+     */
     name: string
+    /**
+     * {@link Framework.mode}
+     */
     mode: Mode
+    /**
+     * {@link Configuration}
+     */
     config: Configuration
+    /**
+     * {@link Framework.Services}
+     */
     services: Framework.Services
+    /**
+     * {@link Framework}
+     */
     parent?: Framework
   }
 

@@ -1,6 +1,6 @@
 ---
 id: "Build"
-title: "Module: Build"
+title: "Namespace: Build"
 sidebar_label: "Build"
 sidebar_position: 0
 custom_edit_url: null
@@ -8,8 +8,12 @@ custom_edit_url: null
 
 ## Namespaces
 
-- [Build](Build.Build-1.md)
+- [Item](Build.Item.md)
+- [Loader](Build.Loader.md)
+- [Rule](Build.Rule.md)
 
 ## Interfaces
 
-- [Build](../interfaces/Build.Build-2.md)
+- [Item](../interfaces/Build.Item-1.md)
+- [Loader](../interfaces/Build.Loader-1.md)
+- [Rule](../interfaces/Build.Rule-1.md)

@@ -7,8 +7,7 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {Service as Base} from '@roots/bud-framework'
 import {Dashboard as DashboardComponent} from './Dashboard'
 import {Error} from '../components/Error'
-import {Write} from '../components/Write'
-import {Screen} from '../components/Screen'
+import {Screen} from './Screen'
 
 export class Dashboard extends Base {
   public name = 'dashboard'
@@ -18,7 +17,6 @@ export class Dashboard extends Base {
   @bind
   public register(): void {
     Object.assign(this.app, {
-      write: Write,
       error: Error,
     })
   }

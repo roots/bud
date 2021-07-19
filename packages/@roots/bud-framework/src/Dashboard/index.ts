@@ -1,5 +1,5 @@
-import {Service} from '../Service'
-import {Instance} from 'ink'
+import type {Service} from '../Service'
+import type {Instance} from 'ink'
 
 export interface Dashboard extends Service {
   /**

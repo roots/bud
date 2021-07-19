@@ -1,11 +1,7 @@
 import type React from 'react'
-import type {Write} from './components/Write'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
-    write: typeof Write
-  }
-
   namespace Dashboard {
     interface Props {
       bud: Framework

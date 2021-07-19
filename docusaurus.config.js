@@ -199,14 +199,7 @@ module.exports = {
       {
         id: 'bud',
         entryPoints: [
-          'packages/@roots/bud-framework/src/Build/index.ts',
-          'packages/@roots/bud-framework/src/Compiler/index.ts',
-          'packages/@roots/bud-framework/src/Configuration/index.ts',
-          'packages/@roots/bud-framework/src/Dashboard/index.ts',
-          'packages/@roots/bud-framework/src/Env/index.ts',
-          'packages/@roots/bud-framework/src/Extensions/index.ts',
-          'packages/@roots/bud-framework/src/Service/index.ts',
-          'packages/@roots/bud-framework/src/Framework/index.ts',
+          'packages/@roots/bud-framework/src/index.ts',
         ],
         exclude: ['**/*.d.ts', '**/node_modules/**/*'],
         tsconfig: `tsconfig.dev.json`,

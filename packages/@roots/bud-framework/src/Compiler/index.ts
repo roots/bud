@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-framework
+ */
+
 import {Service} from '../Service'
 import Webpack, {ProgressPlugin} from 'webpack/types'
 

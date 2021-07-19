@@ -1,22 +1,17 @@
 ---
 id: "Extensions"
-title: "Module: Extensions"
+title: "Namespace: Extensions"
 sidebar_label: "Extensions"
 sidebar_position: 0
 custom_edit_url: null
 ---
 
-## Namespaces
+## Type aliases
 
-- [Extensions](Extensions.Extensions-1.md)
-- [Module](Extensions.Module.md)
+### PluginOutput
 
-## Classes
+Ƭ **PluginOutput**: `WebpackPluginInstance`[]
 
-- [Extension](../classes/Extensions.Extension.md)
+#### Defined in
 
-## Interfaces
-
-- [Extensions](../interfaces/Extensions.Extensions-2.md)
-- [Module](../interfaces/Extensions.Module-1.md)
-- [Plugin](../interfaces/Extensions.Plugin.md)
+bud-framework/src/Extensions.ts:26
