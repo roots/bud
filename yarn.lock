@@ -6546,7 +6546,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     chokidar: ^3.5.2
     clsx: ^1.1.1
-    docusaurus-plugin-typedoc: ^0.15.1
+    docusaurus-plugin-typedoc: ^0.15.2
     eslint: ^7.29.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.23.4
@@ -6571,10 +6571,11 @@ __metadata:
     ts-jest: ^27.0.3
     ts-node: ^10.0.0
     tsconfig-paths: ^3.9.0
-    type-fest: ^1.2.1
-    typedoc: ^0.21.2
-    typedoc-plugin-markdown: ^3.10.2
-    typescript: ^4.3.4
+    type-fest: ^1.2.2
+    typedoc: ^0.21.0
+    typedoc-plugin-markdown: ^3.10.0
+    typedoc-plugin-no-inherit: ^1.3.0
+    typescript: ^4.3.5
     url-loader: ^4.1.1
     weak-napi: ^2.0.2
   languageName: unknown
@@ -8727,13 +8728,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-typedoc@npm:^0.15.1":
-  version: 0.15.1
-  resolution: "docusaurus-plugin-typedoc@npm:0.15.1"
+"docusaurus-plugin-typedoc@npm:^0.15.2":
+  version: 0.15.2
+  resolution: "docusaurus-plugin-typedoc@npm:0.15.2"
   peerDependencies:
     typedoc: ">=0.21.0"
     typedoc-plugin-markdown: ">=3.10.0"
-  checksum: c729ee5bde46f0a8ae04e3aa912bc58be795e4b31f9c26e8eb6ddc6e0a208ab197f5523b541255d5d131a5a0b9e8b597269bcdd1e7a7a8cdcdc011bf06f2f786
+  checksum: 41cd958d8a173657c84244fcb4f0a0f48ec5dc3ce9c4fe7af334dccd931ac4769798f2feb20b116ddfd552aa047cbf89405d7e380b3bf42067ae4e20bc016789
   languageName: node
   linkType: hard
 
@@ -20847,6 +20848,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "type-fest@npm:1.2.2"
+  checksum: 51ea6792ffae81c037ace48bbf085672273efc5af0226092d8debabb9b724ee6ade0f6456ca173c98975ac1ff267a1778bbe051d08479d18e47c2a60fd4a399e
+  languageName: node
+  linkType: hard
+
 "type-is@npm:~1.6.17, type-is@npm:~1.6.18":
   version: 1.6.18
   resolution: "type-is@npm:1.6.18"
@@ -20894,24 +20902,32 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-markdown@npm:^3.10.2":
-  version: 3.10.2
-  resolution: "typedoc-plugin-markdown@npm:3.10.2"
+"typedoc-plugin-markdown@npm:^3.10.0":
+  version: 3.10.3
+  resolution: "typedoc-plugin-markdown@npm:3.10.3"
   dependencies:
     handlebars: ^4.7.7
   peerDependencies:
-    typedoc: ">=0.21.0"
-  checksum: 55546d977fa6bdfe4c1c4fc26510c840d1112621cee73d285ae5a4aaa40f29bd5836988a49cbc142d3df36df4763fe0ac84cd222573604c7f0509748e221b7bd
+    typedoc: ">=0.21.2"
+  checksum: 735bf58e1f40d2ad42363917e194541f666bf7e80822f7e48f9bc4b329210550ebdb753600b9066e2bdf118c9b900f1890fa679d5b0b239d14b34287ac4d276f
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.21.2":
-  version: 0.21.2
-  resolution: "typedoc@npm:0.21.2"
+"typedoc-plugin-no-inherit@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "typedoc-plugin-no-inherit@npm:1.3.0"
+  peerDependencies:
+    typedoc: ">=0.20.31"
+  checksum: c2c560a1433a34a1f65a274dfafb7e3b326b240e01cdf85022930ab9ccb1152708003ea399b2927385f7ca26ff15a3bafd1c606dcd8cddf8a5546f078626267f
+  languageName: node
+  linkType: hard
+
+"typedoc@npm:^0.21.0, typedoc@npm:^0.21.2":
+  version: 0.21.4
+  resolution: "typedoc@npm:0.21.4"
   dependencies:
     glob: ^7.1.7
     handlebars: ^4.7.7
-    lodash: ^4.17.21
     lunr: ^2.3.9
     marked: ^2.1.1
     minimatch: ^3.0.0
@@ -20922,27 +20938,27 @@ resolve@^2.0.0-next.3:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x
   bin:
     typedoc: bin/typedoc
-  checksum: 18e67f1acfef098996d30e059f7f64cbfd07933a040d16e7422ec48741d877b8609539eb2785fbd66b382ebb829a0430f17eb1570839b5b9c461b1077f69e70f
+  checksum: 16bbbfbe1e858c006c5bdc86be8052c9db3be5f95dda7c720e1d2b78a6dc233798d442b0fbfcdb7f6d9e5d0cd41bc9038035c16a83d8880fb042891dbdf0c5f2
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.3.2":
-  version: 4.3.2
-  resolution: "typescript@npm:4.3.2"
+"typescript@npm:^4.3.5":
+  version: 4.3.5
+  resolution: "typescript@npm:4.3.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c2a86fa03ce03b255adc13ccd70a55173ca6539ae12114feca59f34a4e9bb69f14fb7cd5adc6c2416e568cff05c870b89d1366768ec55fce04fbdffb429a1cee
+  checksum: bab033b5e2b0790dd35b77fd005df976ef80b8d84fd2c6e63cc31808151875beae9216e5a315fe7068e8499905c3c354248fe83272cdfc13b7705635f0c66c97
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^4.3.2#~builtin<compat/typescript>":
-  version: 4.3.2
-  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=d8b4e7"
+"typescript@patch:typescript@npm%3A^4.3.5#~builtin<compat/typescript>":
+  version: 4.3.5
+  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=d8b4e7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3d3dec06ba6e5b05caa292355712ed9db813fa1c2377630b1f24b42e5ee8957f0bcdd5efd1500c970a11a6f684897f5728f5542ac822932227159a0611499a5e
+  checksum: bc2c4fdf0f1557fdafe4ef74848c72ebd9c8c60829568248f869121aea2bb20e16649a252431d0acb185ec118143be22bed73d08f64379557810d82756afedde
   languageName: node
   linkType: hard
 

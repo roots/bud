@@ -5,7 +5,7 @@ import {Store} from '../Store'
 
 import {Container} from '@roots/container'
 
-import {isFunction} from 'lodash'
+import {isFunction, isNull} from 'lodash'
 
 import type {Api} from '../Api'
 import type {Build} from '../Build'
@@ -277,8 +277,6 @@ abstract class Framework {
 
   public parent: Framework
 
-  public isChild: boolean
-
   public children: Container<{[key: string]: Framework}>
 
   public mode: Mode
@@ -309,9 +307,13 @@ abstract class Framework {
 
   public store: Store
 
-  public _services: Framework.Services
-
-  public _config: Configuration
+  public options: {
+    name: string
+    mode: Mode
+    config: Configuration
+    services: Framework.Services
+    parent?: Framework
+  }
 
   public get isProduction(): boolean {
     return this.mode === 'production'
@@ -322,33 +324,68 @@ abstract class Framework {
   }
 
   public constructor(options: Framework.Options) {
-    this.name = options.name
-    this.parent = options.parent ?? null
-    this.mode = options.mode
+    this.options = {...options}
 
-    this._services = {...options.services}
-    this._config = {...options.config}
+    this.name = this.options.name
+    this.parent = this.options.parent ?? null
+    this.mode = this.options.mode
 
-    this.children = options.parent
-      ? options.parent.children
-      : new Container({})
+    if (isNull(this.parent)) {
+      this.children = new Container({})
+    }
+
+    this.store = new Store(this).setStore({
+      ...this.options.config,
+    })
+
+    this.logger = new this.options.services.logger(
+      this,
+    ) as unknown as Logger
   }
 
   @bind
   public bootstrap(): Framework {
-    this.store = new Store(this).setStore({
-      ...this._config,
-    })
-
-    this.logger = new this._services.logger(
-      this,
-    ) as unknown as Logger
-
-    const keys = this.container({...this._services})
+    const keys = this.container({...this.options.services})
       .getEntries()
-      .filter(this.filter.bind(this))
+      .filter(([name, service]): boolean => {
+        /**
+         * No reason to boot an extension that isn't well written
+         */
+        if (!service?.name) {
+          this.warn(
+            'service must include name property. none found; skipping.',
+            service,
+          )
+
+          return false
+        }
+
+        /**
+         * No reason to start server for prod
+         */
+        if (name == 'server' && this.isProduction) return false
+
+        /**
+         * No reason to boot expensive parent services
+         * for child compilation instantances
+         */
+        if (
+          !isNull(this.parent) &&
+          [
+            'compiler',
+            'dashboard',
+            'discovery',
+            'server',
+          ].includes(name)
+        ) {
+          return false
+        }
+
+        return true
+      })
       .map(([name, Service]: [string, any]) => {
-        this[name] = new Service(this)
+        Object.assign(this, {[name]: new Service(this)})
+
         return name
       })
 
@@ -375,46 +412,19 @@ abstract class Framework {
   }
 
   @bind
-  public filter([name, service]): boolean {
-    /**
-     * No reason to boot an extension that isn't well written
-     */
-    if (!service?.name) {
-      this.warn(
-        'service must include name property. none found; skipping.',
-        service,
-      )
-
-      return false
-    }
-
-    /**
-     * No reason to start server for prod
-     */
-    if (name == 'server' && this.isProduction) return false
-
-    /**
-     * No reason to boot expensive parent services
-     * for child compilation instantances
-     */
-    if (
-      this.parent &&
-      ['compiler', 'dashboard', 'discovery', 'server'].includes(
-        name,
-      )
-    ) {
-      if (this.parent[name]) this[name] = this.parent[name]
-      return false
-    }
-
-    return true
-  }
-
-  @bind
   public make(
     name: string,
     tap?: (app: Framework) => Framework,
   ): Framework {
+    if (!isNull(this.parent)) {
+      this.error(
+        `\`${this.name}\` is a child compiler but you tried to call make from it. Try \`${this.name}.parent.make\` instead.`,
+        `${this.name}.make`,
+      )
+
+      process.exit(1)
+    }
+
     this.info(`Making child compiler: ${name}`)
 
     this.children.set(
@@ -422,19 +432,29 @@ abstract class Framework {
       new this.implementation({
         name,
         mode: this.mode,
-        services: this._services,
-        config: this._config,
+        services: this.options.services,
+        config: this.options.config,
         parent: this,
       }).bootstrap(),
     )
 
     this.info(`Compilers`, this.children.getKeys())
-
-    if (tap && isFunction(tap)) {
-      tap(this.children.get(name))
-    }
+    this.get(name, tap)
 
     return this
+  }
+
+  @bind
+  public get(name: string, tap?: (app: Framework) => Framework) {
+    this.log('get request', name)
+
+    const compiler = this.children.get(name)
+
+    if (tap && isFunction(tap)) {
+      tap(compiler)
+    }
+
+    return compiler
   }
 
   @bind
@@ -547,6 +567,8 @@ abstract class Framework {
     this.logger.instance
       .scope(this.name)
       .error(message, ...optionalArgs)
+
+    this.dashboard.renderError(message, optionalArgs.pop())
   }
 }
 

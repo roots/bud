@@ -22,6 +22,8 @@ declare module '@roots/bud-framework' {
 }
 
 export const run: Framework.Api.Run = function (): void {
+  this.dashboard.run()
+
   const isDev =
     this.isDevelopment &&
     this.server?.run &&

@@ -15,7 +15,7 @@ export class Logger
 {
   public name = 'service/logger'
 
-  public _app: () => Framework
+  private _app: () => Framework
 
   public _instance: Signale
 

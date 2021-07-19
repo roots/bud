@@ -8,5 +8,5 @@ export const make: Module.Make = () =>
 
 export const when: Module.When = app =>
   app.isDevelopment &&
-  !app.isChild &&
+  !app.parent &&
   app.server?.config?.isTrue('middleware.hot')

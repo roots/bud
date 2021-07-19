@@ -4,12 +4,12 @@ module.exports = app =>
     .setPath('dist', 'dist/global')
     .entry('global', ['global.js', 'global.css'])
 
-    .make('theme', theme =>
+    .make('theme', theme => {
       theme
         .use([require('@roots/bud-babel')])
         .setPath('dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css']),
-    )
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
     .make('plugin', plugin =>
       plugin
         .use([require('@roots/bud-babel')])

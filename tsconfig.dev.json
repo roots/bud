@@ -12,10 +12,7 @@
     "resolveJsonModule": true,
   },
   "include": [
-    "packages/@roots/bud/types",
-    "packages/@roots/bud-framework/types",
-    "packages/@roots/bud-babel/types",
-    "packages/@roots/bud-postcss/types"
+    "packages/@roots/bud/**/*",
+    "packages/@roots/bud-framework/**/*",
   ],
-  "exclude": ["node_modules"],
 }

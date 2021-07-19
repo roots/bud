@@ -63,20 +63,25 @@ export default class extends Service implements Compiler {
 
     this.app.hooks.filter('before').map(cb => cb(this.app))
 
+    this.app.parent &&
+      this.app.error(`Trying to compile a child directly.`)
+
     if (
       this.app.build.rebuild().entry ||
       this.app.children.getEntries().length == 0
     ) {
       this.app.info('using parent compiler')
-      config.push(this.app.build.config)
+      config.push(this.app.build.rebuild())
     }
 
-    this.app.children.getValues().forEach(child => {
-      if (child?.build?.rebuild()) {
-        this.app.info(`using ${child.name} compiler`)
-        config.push(child.build.config)
+    this.app.children.getValues().forEach(({build, name}) => {
+      if (name) {
+        this.app.info(`using ${name} compiler`)
+        config.push(build.rebuild())
       }
     })
+
+    this.app.debug(config)
 
     return config
   }

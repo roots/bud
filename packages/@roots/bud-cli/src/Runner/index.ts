@@ -20,9 +20,7 @@ export default class Runner {
   }
 
   public async make(build = true) {
-    !this.cli.flags.ci
-      ? this.app.dashboard.run()
-      : this.app.store.set('ci', true)
+    this.cli.flags.ci && this.app.store.set('ci', true)
 
     this.setEnv(this.app.mode)
 

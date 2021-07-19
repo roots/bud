@@ -56,7 +56,10 @@ describe('bud.build.config', function () {
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(bud.build.config.infrastructureLogging).toEqual({})
+    expect(bud.build.config.infrastructureLogging).toEqual({
+      appendOnly: true,
+      level: 'none',
+    })
   })
 
   it('has expected mode default', () => {

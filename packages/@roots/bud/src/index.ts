@@ -1,17 +1,21 @@
 /**
  * Bud
+ * @exports Bud
  */
 export {Bud} from './Bud'
 
 /**
  * Factory
+ * @exports factory
  */
 export {factory, Factory} from './factory'
 
 /**
  * Config
+ * @exports config
+ * @exports Configuration
  */
-export {config} from './config'
+export {config, Configuration} from './config'
 
 /**
  * Extensions
@@ -42,15 +46,28 @@ export {
   Rule,
   Loader,
 } from '@roots/bud-build'
-export * as Cache from '@roots/bud-cache'
-export * as Compiler from '@roots/bud-compiler'
-export * as Dashboard from '@roots/bud-dashboard'
-export * as Dependencies from './services/Dependencies/index'
-export * as Discovery from './services/Discovery/index'
-export * as Env from './services/Env/index'
-export * as Extensions from './services/Extensions/index'
+
+export * from '@roots/bud-cache'
+export * from '@roots/bud-compiler'
+export * from '@roots/bud-dashboard'
+
+export * from './services/Dependencies'
+export * from './services/Discovery'
+export * from './services/Env'
+export * from './services/Extensions'
+export * from './services/Hooks'
+export * from './services/Logger'
+export * from './services/Server'
 
 /**
  * Framework
  */
-export {Configuration, Framework} from '@roots/bud-framework'
+export {
+  Framework,
+  Extension,
+  Module,
+  Plugin,
+  Service,
+  Bootstrapper,
+  Store,
+} from '@roots/bud-framework'

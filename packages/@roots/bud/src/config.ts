@@ -1,5 +1,7 @@
 import type {Configuration} from '@roots/bud-framework'
 
+export type {Configuration}
+
 export const config: Configuration = {
   name: 'bud',
 
@@ -51,7 +53,10 @@ export const config: Configuration = {
   build: {
     bail: true,
     devtool: false,
-    infrastructureLogging: {},
+    infrastructureLogging: {
+      level: 'none',
+      appendOnly: true,
+    },
     experiments: {
       lazyCompilation: false,
     },

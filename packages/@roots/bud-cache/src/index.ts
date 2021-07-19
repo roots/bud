@@ -70,9 +70,13 @@ class Cache extends Service implements Base {
             'project',
             `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
           ),
-          ...this.app.discovery.resolveFrom.map(
+          ...(this.app.discovery?.resolveFrom?.map(
             dep => `${dep}/lib/cjs/index.js`,
-          ),
+          ) ??
+            this.app.parent?.discovery?.resolveFrom?.map(
+              dep => `${dep}/lib/cjs/index.js`,
+            ) ??
+            []),
           this.app.path('storage', 'cache/*'),
         ]),
       ),
