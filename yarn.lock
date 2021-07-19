@@ -2915,7 +2915,7 @@ __metadata:
     html-webpack-plugin: ^5.3.2
     lodash: ^4.17.21
     nanoid: ^3.1.23
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -2940,7 +2940,7 @@ __metadata:
     babel-plugin-add-module-exports: ^1.0.4
     fs-extra: ^10.0.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -2970,7 +2970,7 @@ __metadata:
     style-loader: ^3.1.0
     toml: ^3.0.0
     url-loader: ^4.1.1
-    webpack: ^5.44.0
+    webpack: ^5.45.1
     xml-loader: ^1.2.1
     yamljs: ^0.3.0
   languageName: unknown
@@ -3032,7 +3032,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3046,7 +3046,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^8.0.1
     typedoc: ^0.21.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3082,7 +3082,7 @@ __metadata:
     lodash: ^4.17.21
     patch-console: ^1.0.0
     react: ^17.0.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3136,7 +3136,7 @@ __metadata:
     esbuild-loader: ^2.13.1
     fs-extra: ^10.0.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
   languageName: unknown
@@ -3159,7 +3159,7 @@ __metadata:
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
     eslint-webpack-plugin: ^2.5.4
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
     eslint: ">=7"
@@ -3176,7 +3176,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3199,7 +3199,7 @@ __metadata:
     ink: ^3.0.8
     lodash: ^4.17.21
     signale: ^1.4.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
     webpack-dev-middleware: ^5.0.0
   languageName: unknown
   linkType: soft
@@ -3228,7 +3228,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     image-minimizer-webpack-plugin: ^2.2.0
     imagemin: ^8.0.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     imagemin-gifsicle: ^7
     imagemin-jpegtran: ^7
@@ -3255,7 +3255,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     autodll-webpack-plugin: ^0.4.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
   languageName: unknown
@@ -3273,7 +3273,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud-babel": "*"
     "@roots/bud-bud": "*"
@@ -3302,7 +3302,7 @@ __metadata:
     postcss-import: ^14.0.2
     postcss-loader: ^6.1.1
     postcss-preset-env: ^6.7.0
-    webpack: 5.44.0
+    webpack: 5.45.1
   peerDependencies:
     "@roots/bud": "*"
     postcss: ^8
@@ -3388,7 +3388,7 @@ __metadata:
     react-hot-loader: ^4.13.0
     react-refresh: ^0.10.0
     type-fest: ^1.2.1
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
@@ -3411,7 +3411,7 @@ __metadata:
     postcss-scss: ^4.0.0
     sass: ^1.35.2
     sass-loader: ^12.1.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-postcss": "*"
@@ -3434,7 +3434,7 @@ __metadata:
     http-proxy-middleware: ^2.0.1
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
     webpack-dev-middleware: ^5.0.0
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
@@ -3454,7 +3454,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     babel-preset-solid: ^1.0.1
     type-fest: ^1.2.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
@@ -3473,7 +3473,7 @@ __metadata:
     stylelint: ^13.13.1
     stylelint-config-standard: ^22.0.0
     stylelint-webpack-plugin: ^2.2.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3483,7 +3483,7 @@ __metadata:
   dependencies:
     lodash: ^4.17.21
     pretty-format: ^27.0.6
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3518,7 +3518,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     terser-webpack-plugin: ^5.1.4
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3537,7 +3537,7 @@ __metadata:
     globby: ^11.0.4
     ts-loader: ^9.2.3
     typescript: ^4.3.4
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
@@ -3574,7 +3574,7 @@ __metadata:
     he: ^1.2.0
     vue: ^3.1.4
     vue-loader: ^16.3.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.4
     vue: ^3.1.4
@@ -3666,7 +3666,7 @@ __metadata:
     react: ^17.0.2
     resolve-pkg: ^2.0.0
     signale: ^1.4.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
     webpack-config-dump-plugin: ^3.0.1
     webpack-manifest-plugin: ^3.1.1
   languageName: unknown
@@ -3696,7 +3696,7 @@ __metadata:
     lodash: ^4.17.21
     safe-require: ^1.0.4
     vinyl: ^2.2.1
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3716,7 +3716,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3772,7 +3772,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
     prettier: ^2.3.2
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3839,7 +3839,7 @@ __metadata:
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -3850,7 +3850,7 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/node": ^15.12.5
     autobind-decorator: ^2.4.0
-    webpack: ^5.44.0
+    webpack: ^5.45.1
   languageName: unknown
   linkType: soft
 
@@ -20841,14 +20841,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^1.0.1, type-fest@npm:^1.2.0, type-fest@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "type-fest@npm:1.2.1"
-  checksum: 8a177c228267a6d50267fe7b21f1ea41d057556795df7a34ee9022088dd4fc8bddf6616790f5cf99ca73ba0ec161bae8f229b7888aaf7082d7e909bea36efd11
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^1.2.2":
+"type-fest@npm:^1.0.1, type-fest@npm:^1.2.0, type-fest@npm:^1.2.1, type-fest@npm:^1.2.2":
   version: 1.2.2
   resolution: "type-fest@npm:1.2.2"
   checksum: 51ea6792ffae81c037ace48bbf085672273efc5af0226092d8debabb9b724ee6ade0f6456ca173c98975ac1ff267a1778bbe051d08479d18e47c2a60fd4a399e
