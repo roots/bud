@@ -3328,7 +3328,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/eslint": ^7.2.14
+    "@types/eslint": ^7.28.0
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
   peerDependencies:
@@ -3794,7 +3794,7 @@ __metadata:
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
-    "@types/eslint": ^7.2.14
+    "@types/eslint": ^7.28.0
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.12.5
     "@types/tailwindcss": ^2.2.1
@@ -4279,13 +4279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^7.2.14, @types/eslint@npm:^7.2.6":
-  version: 7.2.14
-  resolution: "@types/eslint@npm:7.2.14"
+"@types/eslint@npm:*, @types/eslint@npm:^7.2.6, @types/eslint@npm:^7.28.0":
+  version: 7.28.0
+  resolution: "@types/eslint@npm:7.28.0"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 83c166031d396eefe74acc52ae635dad2702dc62dcc33c764bbffb471b5d6b079a69f5319426056bb24e88d2e12619b0f6f3137658ad18704111a91e3890dd51
+  checksum: 75ac2577d2a2e35bae66f56d2d1c871d5e836b2721cf14bd3df450c9d584eba48fa3b1013fba710245bf4795f16e1df0ed315e543e3199c4815ee4782537d0ae
   languageName: node
   linkType: hard
 
@@ -20841,14 +20841,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^1.0.1, type-fest@npm:^1.2.0, type-fest@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "type-fest@npm:1.2.1"
-  checksum: 8a177c228267a6d50267fe7b21f1ea41d057556795df7a34ee9022088dd4fc8bddf6616790f5cf99ca73ba0ec161bae8f229b7888aaf7082d7e909bea36efd11
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^1.2.2":
+"type-fest@npm:^1.0.1, type-fest@npm:^1.2.0, type-fest@npm:^1.2.1, type-fest@npm:^1.2.2":
   version: 1.2.2
   resolution: "type-fest@npm:1.2.2"
   checksum: 51ea6792ffae81c037ace48bbf085672273efc5af0226092d8debabb9b724ee6ade0f6456ca173c98975ac1ff267a1778bbe051d08479d18e47c2a60fd4a399e
