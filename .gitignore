@@ -17,6 +17,8 @@ dist
 !.yarn/versions
 .pnp.*
 
+!/dev/build/yarn-plugin-tasks/lib
+
 /profiles
 
 # Docusaurus
