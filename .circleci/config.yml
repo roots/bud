@@ -25,7 +25,7 @@ jobs:
 
       - run:
           name: build cjs
-          command: yarn task
+          command: yarn build:ci:cjs
 
       - run:
           name: build esm
