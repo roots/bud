@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import sh from '../sh'
+import sh from './sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `site`, `readme`]]
+    static paths = [[`task`]]
 
     static usage = {
       category: `task`,
-      description: `rebuild readmes`,
-      examples: [[`Make site`, `yarn task site readme`]],
+      description: `Run project tasks`,
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn ts-node ./dev/readme`])
+      await $([
+        `yarn ts-node ./dev/site`,
+        `yarn task site:readme`,
+      ])
+      await $([`yarn docusaurus build`])
     }
   }

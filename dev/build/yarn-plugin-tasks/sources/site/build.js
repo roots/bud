@@ -16,7 +16,7 @@ export default Command =>
 
       await $([
         `yarn ts-node ./dev/site`,
-        `yarn task site:readme`,
+        `yarn task site readme`,
       ])
       await $([`yarn docusaurus build`])
     }

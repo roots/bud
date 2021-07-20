@@ -3,7 +3,7 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `test:integration`]]
+    static paths = [[`task`, `test`, `integration`]]
 
     static usage = {
       category: `task`,

@@ -1,6 +1,6 @@
 {
   "name": "@roots/yarn-plugin-tasks",
-  "private": "true",
+  "private": true,
   "scripts": {
     "build": "rollup -c && prettier lib/* --write"
   },

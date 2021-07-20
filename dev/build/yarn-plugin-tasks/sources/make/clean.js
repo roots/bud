@@ -3,17 +3,19 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `site`, `readme`]]
+    static paths = [[`task`, `make`, `clean`]]
 
     static usage = {
       category: `task`,
-      description: `rebuild readmes`,
-      examples: [[`Make site`, `yarn task site readme`]],
+      description: `build the project`,
+      examples: [[`Build everything`, `yarn task make`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn ts-node ./dev/readme`])
+      await $([`yarn task clean`])
+      await $([`yarn install --immutable`])
+      await $([`yarn task build`])
     }
   }

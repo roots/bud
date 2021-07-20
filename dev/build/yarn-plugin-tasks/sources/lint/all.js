@@ -7,10 +7,7 @@ export default Command =>
 
     static usage = {
       category: `task`,
-      description: `lint`,
-      details: `
-       Runs all linters
-     `,
+      description: `Runs all linters`,
       examples: [[`Run all linters`, `yarn task lint`]],
     }
 
@@ -18,8 +15,8 @@ export default Command =>
       const $ = sh.bind(this)
 
       await $([
-        `yarn task lint:eslint`,
-        `yarn task lint:skypack`,
+        `yarn task lint eslint`,
+        `yarn task lint skypack`,
       ])
     }
   }

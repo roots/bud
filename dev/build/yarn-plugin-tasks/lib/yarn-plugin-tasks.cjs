@@ -2669,15 +2669,20 @@ async function sh(cmds) {
   await Promise.all(
     cmds.map(async cmd => {
       const [invoke, ...params] = cmd.split(' ')
-      const task = execa$1(invoke, params)
+      try {
+        const task = execa$1(invoke, params)
 
-      task.stdout.on('data', d =>
-        this.context.stdout.write(
-          d.toString().replace(/YN\d\d\d\d:\s/g, ''),
-        ),
-      )
+        task.stdout.on('data', d =>
+          this.context.stdout.write(
+            d.toString().replace(/YN\d\d\d\d:\s/g, ''),
+          ),
+        )
 
-      return task
+        return task
+      } catch (err) {
+        this.context.stderr.write(err)
+        process.exit(1)
+      }
     }),
   )
 
@@ -2686,7 +2691,29 @@ async function sh(cmds) {
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
-var make = Command =>
+var task = Command =>
+  class extends Command {
+    static paths = [[`task`]]
+
+    static usage = {
+      category: `task`,
+      description: `Run project tasks`,
+    }
+
+    async execute() {
+      const $ = sh.bind(this)
+
+      await $([
+        `yarn ts-node ./dev/site`,
+        `yarn task site:readme`,
+      ])
+      await $([`yarn docusaurus build`])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+var dev = Command =>
   class extends Command {
     static paths = [[`task`, `make`]]
 
@@ -2702,8 +2729,53 @@ var make = Command =>
       await $([`yarn task clean`])
       await $([`yarn install --immutable`])
       await $([`yarn task build`])
-      await $([`yarn task test`])
-      await $([`yarn task lint`, `yarn task site`])
+      await $([
+        `yarn task test`,
+        `yarn task lint`,
+        `yarn task site`,
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+var ci = Command =>
+  class extends Command {
+    static paths = [[`task`, `make`, `ci`]]
+
+    static usage = {
+      category: `task`,
+      description: `build the project (CI)`,
+      examples: [[`Build for ci`, `yarn task make ci`]],
+    }
+
+    async execute() {
+      const $ = sh.bind(this)
+
+      await $([`yarn install --immutable`])
+      await $([`yarn task build`])
+      await $([`yarn task test`, `yarn task site`])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+var clean$1 = Command =>
+  class extends Command {
+    static paths = [[`task`, `make`, `clean`]]
+
+    static usage = {
+      category: `task`,
+      description: `build the project`,
+      examples: [[`Build everything`, `yarn task make`]],
+    }
+
+    async execute() {
+      const $ = sh.bind(this)
+
+      await $([`yarn task clean`])
+      await $([`yarn install --immutable`])
+      await $([`yarn task build`])
     }
   }
 
@@ -2745,7 +2817,7 @@ var all$3 = Command =>
 
     static usage = {
       category: `task`,
-      description: `profile`,
+      description: `Profile all build processes`,
       examples: [
         [`Profile all build processes`, `yarn task profile`],
       ],
@@ -2753,10 +2825,7 @@ var all$3 = Command =>
 
     async execute() {
       const $ = sh.bind(this)
-
-      await $([
-        `yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile`,
-      ])
+      await $([`yarn task profile cjs`, `yarn task profile esm`])
     }
   }
 
@@ -2764,13 +2833,13 @@ var all$3 = Command =>
 
 var cjs$1 = Command =>
   class extends Command {
-    static paths = [[`task`, `profile:cjs`]]
+    static paths = [[`task`, `profile`, `cjs`]]
 
     static usage = {
       category: `task`,
-      description: `profile:cjs`,
+      description: `Profile build (cjs)`,
       examples: [
-        [`Profile cjs build process`, `yarn task profile:cjs`],
+        [`Profile cjs build process`, `yarn task profile cjs`],
       ],
     }
 
@@ -2787,13 +2856,13 @@ var cjs$1 = Command =>
 
 var esm$1 = Command =>
   class extends Command {
-    static paths = [[`task`, `profile:esm`]]
+    static paths = [[`task`, `profile`, `esm`]]
 
     static usage = {
       category: `task`,
-      description: `profile:esm`,
+      description: `profile esm`,
       examples: [
-        [`Profile esm build process`, `yarn task profile:esm`],
+        [`Profile esm build process`, `yarn task profile esm`],
       ],
     }
 
@@ -2823,7 +2892,7 @@ var build = Command =>
 
       await $([
         `yarn ts-node ./dev/site`,
-        `yarn task site:readme`,
+        `yarn task site readme`,
       ])
       await $([`yarn docusaurus build`])
     }
@@ -2833,12 +2902,12 @@ var build = Command =>
 
 var readme = Command =>
   class extends Command {
-    static paths = [[`task`, `site:readme`]]
+    static paths = [[`task`, `site`, `readme`]]
 
     static usage = {
       category: `task`,
       description: `rebuild readmes`,
-      examples: [[`Make site`, `yarn task site:readme`]],
+      examples: [[`Make site`, `yarn task site readme`]],
     }
 
     async execute() {
@@ -2852,12 +2921,12 @@ var readme = Command =>
 
 var start = Command =>
   class extends Command {
-    static paths = [[`task`, `site:start`]]
+    static paths = [[`task`, `site`, `start`]]
 
     static usage = {
       category: `task`,
-      description: `site:start`,
-      examples: [[`Build site`, `yarn task site:start`]],
+      description: `site start`,
+      examples: [[`Build site`, `yarn task site start`]],
     }
 
     async execute() {
@@ -2876,19 +2945,14 @@ var all$2 = Command =>
 
     static usage = {
       category: `task`,
-      description: `build`,
-      details: `
-       Lint and prettify packaged code
-     `,
+      description: `Build project source`,
       examples: [[`Build packages`, `yarn task build`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([
-        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build`,
-      ])
+      await $([`yarn task build cjs`, `yarn task build esm`])
     }
   }
 
@@ -2896,14 +2960,11 @@ var all$2 = Command =>
 
 var cjs = Command =>
   class extends Command {
-    static paths = [[`task`, `build:cjs`]]
+    static paths = [[`task`, `build`, `cjs`]]
 
     static usage = {
       category: `task`,
-      description: `build:cjs`,
-      details: `
-       Build cjs
-     `,
+      description: `build project source (cjs)`,
       examples: [[`Build cjs packages`, `yarn task build:cjs`]],
     }
 
@@ -2920,14 +2981,11 @@ var cjs = Command =>
 
 var esm = Command =>
   class extends Command {
-    static paths = [[`task`, `build:esm`]]
+    static paths = [[`task`, `build`, `esm`]]
 
     static usage = {
       category: `task`,
-      description: `build:esm`,
-      details: `
-       Build esm
-     `,
+      description: `build project source (esm)`,
       examples: [[`Build esm packages`, `yarn task build:esm`]],
     }
 
@@ -2948,10 +3006,7 @@ var all$1 = Command =>
 
     static usage = {
       category: `task`,
-      description: `lint`,
-      details: `
-       Runs all linters
-     `,
+      description: `Runs all linters`,
       examples: [[`Run all linters`, `yarn task lint`]],
     }
 
@@ -2959,8 +3014,8 @@ var all$1 = Command =>
       const $ = sh.bind(this)
 
       await $([
-        `yarn task lint:eslint`,
-        `yarn task lint:skypack`,
+        `yarn task lint eslint`,
+        `yarn task lint skypack`,
       ])
     }
   }
@@ -2969,14 +3024,11 @@ var all$1 = Command =>
 
 var eslint = Command =>
   class extends Command {
-    static paths = [[`task`, `lint:eslint`]]
+    static paths = [[`task`, `lint`, `eslint`]]
 
     static usage = {
       category: `task`,
-      description: `lint:eslint`,
-      details: `
-       Lint packaged code
-     `,
+      description: `Run eslint`,
       examples: [
         [`Lint packaged code`, `yarn task lint:eslint`],
       ],
@@ -2995,11 +3047,11 @@ var eslint = Command =>
 
 var skypack = Command =>
   class extends Command {
-    static paths = [[`task`, `lint:skypack`]]
+    static paths = [[`task`, `lint`, `skypack`]]
 
     static usage = {
       category: `task`,
-      description: `lint:skypack`,
+      description: `Run skypack`,
       examples: [
         [`Lint packaged code`, `yarn task lint:skypack`],
       ],
@@ -3022,18 +3074,15 @@ var all = Command =>
 
     static usage = {
       category: `task`,
-      description: `test`,
-      details: `
-       Run all test suites
-     `,
+      description: `Run all test suites`,
       examples: [[`Run tests`, `yarn task test`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn task test:unit`])
-      await $([`yarn task test:integration`])
+      await $([`yarn task test unit`])
+      await $([`yarn task test integration`])
     }
   }
 
@@ -3041,7 +3090,7 @@ var all = Command =>
 
 var integration = Command =>
   class extends Command {
-    static paths = [[`task`, `test:integration`]]
+    static paths = [[`task`, `test`, `integration`]]
 
     static usage = {
       category: `task`,
@@ -3065,13 +3114,13 @@ var integration = Command =>
 
 var unit = Command =>
   class extends Command {
-    static paths = [[`task`, `test:unit`]]
+    static paths = [[`task`, `test`, `unit`]]
 
     static usage = {
       category: `task`,
       description: `Run unit test suite`,
 
-      examples: [[`Run unit test suite`, `yarn task test:unit`]],
+      examples: [[`Run unit test suite`, `yarn task test unit`]],
     }
 
     async execute() {
@@ -3092,8 +3141,11 @@ const plugin = {
 
     return {
       commands: [
-        make(Command),
+        task(Command),
         clean(Command),
+        dev(Command),
+        ci(Command),
+        clean$1(Command),
         all(Command),
         unit(Command),
         integration(Command),

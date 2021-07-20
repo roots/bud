@@ -3,14 +3,11 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `lint:eslint`]]
+    static paths = [[`task`, `lint`, `eslint`]]
 
     static usage = {
       category: `task`,
-      description: `lint:eslint`,
-      details: `
-       Lint packaged code
-     `,
+      description: `Run eslint`,
       examples: [
         [`Lint packaged code`, `yarn task lint:eslint`],
       ],

@@ -7,7 +7,7 @@ export default Command =>
 
     static usage = {
       category: `task`,
-      description: `profile`,
+      description: `Profile all build processes`,
       examples: [
         [`Profile all build processes`, `yarn task profile`],
       ],
@@ -15,9 +15,6 @@ export default Command =>
 
     async execute() {
       const $ = sh.bind(this)
-
-      await $([
-        `yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile`,
-      ])
+      await $([`yarn task profile cjs`, `yarn task profile esm`])
     }
   }

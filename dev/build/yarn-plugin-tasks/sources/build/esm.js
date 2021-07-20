@@ -3,14 +3,11 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `build:esm`]]
+    static paths = [[`task`, `build`, `esm`]]
 
     static usage = {
       category: `task`,
-      description: `build:esm`,
-      details: `
-       Build esm
-     `,
+      description: `build project source (esm)`,
       examples: [[`Build esm packages`, `yarn task build:esm`]],
     }
 

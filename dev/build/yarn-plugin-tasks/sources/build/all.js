@@ -7,18 +7,13 @@ export default Command =>
 
     static usage = {
       category: `task`,
-      description: `build`,
-      details: `
-       Lint and prettify packaged code
-     `,
+      description: `Build project source`,
       examples: [[`Build packages`, `yarn task build`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([
-        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build`,
-      ])
+      await $([`yarn task build cjs`, `yarn task build esm`])
     }
   }

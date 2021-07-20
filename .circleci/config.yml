@@ -25,12 +25,4 @@ jobs:
 
       - run:
           name: build cjs
-          command: yarn task
-
-      - run:
-          name: build esm
-          command: yarn build:ci:esm
-
-      - run:
-          name: jest
-          command: yarn test:ci
+          command: yarn task make ci

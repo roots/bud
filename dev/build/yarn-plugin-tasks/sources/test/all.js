@@ -7,17 +7,14 @@ export default Command =>
 
     static usage = {
       category: `task`,
-      description: `test`,
-      details: `
-       Run all test suites
-     `,
+      description: `Run all test suites`,
       examples: [[`Run tests`, `yarn task test`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn task test:unit`])
-      await $([`yarn task test:integration`])
+      await $([`yarn task test unit`])
+      await $([`yarn task test integration`])
     }
   }
