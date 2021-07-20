@@ -2666,27 +2666,30 @@ execa$2.exports.node = (scriptPath, args, options = {}) => {
 var execa$1 = execa$2.exports
 
 async function sh(cmds) {
-  await Promise.all(
-    cmds.map(async cmd => {
-      const [invoke, ...params] = cmd.split(' ')
-      try {
-        const task = execa$1(invoke, params)
+  try {
+    await Promise.all(
+      cmds.map(async cmd => {
+        const [invoke, ...params] = cmd.split(' ')
+        try {
+          const task = execa$1(invoke, params)
 
-        task.stdout.on('data', d =>
-          this.context.stdout.write(
-            d.toString().replace(/YN\d\d\d\d:\s/g, ''),
-          ),
-        )
+          task.stdout.on('data', d =>
+            this.context.stdout.write(
+              d.toString().replace(/YN\d\d\d\d:\s/g, ''),
+            ),
+          )
 
-        return task
-      } catch (err) {
-        this.context.stderr.write(err)
-        process.exit(1)
-      }
-    }),
-  )
+          return task
+        } catch (err) {
+          throw new Error(err)
+        }
+      }),
+    )
 
-  return Promise.resolve()
+    return Promise.resolve()
+  } catch (err) {
+    throw new Error(err)
+  }
 }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -2701,13 +2704,7 @@ var task = Command =>
     }
 
     async execute() {
-      const $ = sh.bind(this)
-
-      await $([
-        `yarn ts-node ./dev/site`,
-        `yarn task site:readme`,
-      ])
-      await $([`yarn docusaurus build`])
+      sh.bind(this)
     }
   }
 

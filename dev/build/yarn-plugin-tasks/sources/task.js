@@ -12,11 +12,5 @@ export default Command =>
 
     async execute() {
       const $ = sh.bind(this)
-
-      await $([
-        `yarn ts-node ./dev/site`,
-        `yarn task site:readme`,
-      ])
-      await $([`yarn docusaurus build`])
     }
   }
