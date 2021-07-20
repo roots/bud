@@ -87,7 +87,7 @@ access(isAValue) // => `option value: true`
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/access.ts:20
+[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/access.ts#L20)
 
 ___
 
@@ -99,9 +99,7 @@ ___
 
 ▸ (`this`, `name`, `tap?`): [`Framework`](classes/Framework.md)
 
-Make a child compiler.
-
- ## Usage
+ Make a child compiler.
 
  **make** takes two parameters:
 
@@ -137,7 +135,7 @@ Make a child compiler.
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/make.ts:30
+[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/make.ts#L28)
 
 ___
 
@@ -154,8 +152,6 @@ Executes a function if a given test is `true`.
 - The first parameter is the conditional check.
 - The second parameter is the function to run if `true`.
 - The third parameter is optional; executed if the conditional is not `true`.
-
-## Usage
 
 Only produce a vendor bundle when running in `production` mode:
 
@@ -188,7 +184,7 @@ bud.when(
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/when.ts:30
+[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/when.ts#L28)
 
 ## Functions
 
@@ -208,7 +204,7 @@ packages/@roots/bud-framework/src/Framework/when.ts:30
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/access.ts:25
+[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/access.ts#L25)
 
 ___
 
@@ -229,7 +225,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/make.ts:36
+[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/make.ts#L34)
 
 ___
 
@@ -251,4 +247,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Framework/when.ts:37
+[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/when.ts#L35)

@@ -35,7 +35,7 @@ Objects to bind to the framework.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:39](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L39)
+[packages/@roots/bud-framework/src/Module.ts:39](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L39)
 
 ___
 
@@ -47,7 +47,7 @@ Webpack plugin apply.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:49](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L49)
+[packages/@roots/bud-framework/src/Module.ts:49](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L49)
 
 ___
 
@@ -59,7 +59,7 @@ General purpose callback. Called after everything else.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:34](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L34)
+[packages/@roots/bud-framework/src/Module.ts:34](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L34)
 
 ___
 
@@ -71,7 +71,7 @@ Returns an instantiated webpack plugin
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:44](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L44)
+[packages/@roots/bud-framework/src/Module.ts:44](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L44)
 
 ___
 
@@ -83,7 +83,7 @@ The module name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:19](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L19)
+[packages/@roots/bud-framework/src/Module.ts:19](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L19)
 
 ___
 
@@ -95,7 +95,7 @@ Options registered with the extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:24](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L24)
+[packages/@roots/bud-framework/src/Module.ts:24](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L24)
 
 ___
 
@@ -107,7 +107,7 @@ General purpose callback. Called first.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:29](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L29)
+[packages/@roots/bud-framework/src/Module.ts:29](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L29)
 
 ___
 
@@ -121,4 +121,4 @@ compilation.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:56](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Module.ts#L56)
+[packages/@roots/bud-framework/src/Module.ts:56](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Module.ts#L56)

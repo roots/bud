@@ -26,7 +26,7 @@
       "examples/*",
       "packages/@roots/*",
       "packages/base",
-      "site/guide/getting-started/example"
+      "dev/build/yarn-plugin-tasks"
     ]
   },
   "browserslist": {
@@ -42,36 +42,11 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build",
-    "build:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:cjs",
-    "build:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:esm",
     "build:ci": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build",
     "build:ci:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:cjs",
     "build:ci:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:esm",
-    "profile": "yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings run profile",
-    "profile:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile:cjs",
-    "profile:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile:esm",
-    "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
-    "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
-    "pkg": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg",
-    "readme": "yarn ts-node ./dev/readme",
-    "site": "yarn run-s site:pre site:build",
-    "site:pre": "yarn ts-node ./dev/site",
-    "site:docusaurus": "docusaurus",
-    "site:start": "docusaurus start",
-    "site:build": "docusaurus build",
-    "site:swizzle": "docusaurus swizzle",
-    "site:deploy": "docusaurus deploy",
-    "site:clear": "docusaurus clear",
-    "site:serve": "docusaurus serve",
-    "site:write-translations": "docusaurus write-translations",
-    "site:write-heading-ids": "docusaurus write-heading-ids",
     "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "test:integration": "yarn node ./jest.integration.js",
-    "test:ci": "yarn run-s test:spec:ci test:integration",
-    "test:all": "yarn run-s test:spec test:integration",
-    "test": "yarn jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'"
+    "test:ci": "yarn run-s test:spec:ci test:integration"
   },
   "resolutions": {
     "@babel/core": "^7.14.3",
@@ -114,9 +89,10 @@
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "autobind-decorator": "^2.4.0",
     "chokidar": "^3.5.2",
+    "clipanion": "^3.0.0",
     "clsx": "^1.1.1",
     "docusaurus-plugin-typedoc": "^0.15.2",
-    "eslint": "^7.29.0",
+    "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",

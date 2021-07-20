@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "Bud webpack config build controller",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -59,11 +59,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@types/eslint": "^7",
     "@types/lodash": "^4.14.171",
     "@types/marked": "^2.0.4",
     "@types/mini-css-extract-plugin": "^2.0.1",
     "@types/node": "^15.12.5",
     "@types/yamljs": "^0.2.31",
+    "eslint": "^7.31.0",
     "webpack": "^5.45.1"
   },
   "dependencies": {

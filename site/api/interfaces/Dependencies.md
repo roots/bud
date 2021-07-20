@@ -26,7 +26,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -48,7 +48,7 @@ Install dependencies
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dependencies.ts:14
+[packages/@roots/bud-framework/src/Dependencies.ts:14](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dependencies.ts#L14)
 
 ___
 
@@ -70,7 +70,7 @@ Prints notices to console.
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dependencies.ts:40
+[packages/@roots/bud-framework/src/Dependencies.ts:40](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dependencies.ts#L40)
 
 ___
 
@@ -86,7 +86,7 @@ Returns project package.json as an object
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dependencies.ts:35
+[packages/@roots/bud-framework/src/Dependencies.ts:35](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dependencies.ts#L35)
 
 ___
 
@@ -110,4 +110,4 @@ required to be installed.
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dependencies.ts:27
+[packages/@roots/bud-framework/src/Dependencies.ts:27](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dependencies.ts#L27)

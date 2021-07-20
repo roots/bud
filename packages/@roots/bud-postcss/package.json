@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -63,10 +63,12 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/eslint": "^7",
     "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.171",
     "@types/node": "^15.12.5",
     "@types/signale": "^1.4.1",
+    "eslint": "^7.31.0",
     "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",

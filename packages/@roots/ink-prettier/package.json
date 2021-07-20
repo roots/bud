@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-prettier",
   "description": "Prettier component for React Ink",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -62,9 +62,11 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@types/eslint": "^7",
     "@types/node": "^15.12.5",
     "@types/prettier": "^2.3.2",
-    "@types/react": "^17.0.11"
+    "@types/react": "^17.0.11",
+    "eslint": "^7.31.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

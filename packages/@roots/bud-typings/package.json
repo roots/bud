@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -29,5 +29,9 @@
     "./contracts"
   ],
   "types": "./contracts/index.d.ts",
-  "stableVersion": "4.6.0"
+  "stableVersion": "4.6.0",
+  "devDependencies": {
+    "@types/eslint": "^7",
+    "eslint": "^7.31.0"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-terser",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Adds terser support to Bud",
   "repository": {
     "type": "git",
@@ -58,7 +58,9 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/eslint": "^7",
     "@types/node": "^15.12.5",
+    "eslint": "^7.31.0",
     "webpack": "^5.45.1"
   },
   "dependencies": {

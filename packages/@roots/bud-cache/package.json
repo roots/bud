@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cache",
   "description": "Config caching",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -59,8 +59,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@types/eslint": "^7",
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.5"
+    "@types/node": "^15.12.5",
+    "eslint": "^7.31.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",

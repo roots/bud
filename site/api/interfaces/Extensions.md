@@ -28,7 +28,7 @@ Extensions service
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -50,7 +50,7 @@ Add an extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions.ts:17](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extensions.ts#L17)
+[packages/@roots/bud-framework/src/Extensions.ts:17](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Extensions.ts#L17)
 
 ___
 
@@ -66,4 +66,4 @@ Produce Webpack Plugins
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions.ts:22](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Extensions.ts#L22)
+[packages/@roots/bud-framework/src/Extensions.ts:22](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Extensions.ts#L22)

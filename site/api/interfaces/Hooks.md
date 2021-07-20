@@ -52,7 +52,7 @@ Service.repository
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:39](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L39)
+[packages/@roots/bud-framework/src/Hooks.ts:39](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L39)
 
 ## Accessors
 
@@ -66,7 +66,7 @@ Service.repository
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -108,7 +108,7 @@ bud.hooks.filter(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:79](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L79)
+[packages/@roots/bud-framework/src/Hooks.ts:79](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L79)
 
 ___
 
@@ -148,4 +148,4 @@ app.hooks.on(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:61](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Hooks.ts#L61)
+[packages/@roots/bud-framework/src/Hooks.ts:61](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L61)

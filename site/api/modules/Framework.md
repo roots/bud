@@ -35,7 +35,7 @@ Framework Constructor
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:252](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L252)
+[packages/@roots/bud-framework/src/Framework/index.ts:252](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/index.ts#L252)
 
 ___
 
@@ -57,7 +57,7 @@ Utility: Returns hash of a given object type
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:227](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L227)
+[packages/@roots/bud-framework/src/Framework/index.ts:227](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/index.ts#L227)
 
 ___
 
@@ -69,7 +69,7 @@ Compilation mode
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:232](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L232)
+[packages/@roots/bud-framework/src/Framework/index.ts:232](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/index.ts#L232)
 
 ___
 
@@ -87,4 +87,4 @@ Callback which accepts Framework as a parameter
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/index.ts:287](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Framework/index.ts#L287)
+[packages/@roots/bud-framework/src/Framework/index.ts:287](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/index.ts#L287)

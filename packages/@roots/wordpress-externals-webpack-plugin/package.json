@@ -1,6 +1,6 @@
 {
   "name": "@roots/wordpress-externals-webpack-plugin",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -59,7 +59,9 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.12.5"
+    "@types/eslint": "^7",
+    "@types/node": "^15.12.5",
+    "eslint": "^7.31.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

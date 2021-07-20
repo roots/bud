@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -60,9 +60,11 @@
   },
   "devDependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
+    "@types/eslint": "^7",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.12.5",
     "@types/prettier": "^2.3.2",
+    "eslint": "^7.31.0",
     "webpack": "^5.45.1"
   },
   "dependencies": {

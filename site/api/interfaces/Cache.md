@@ -37,7 +37,7 @@ Facades:
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -56,7 +56,7 @@ validity.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Cache.ts:28](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Cache.ts#L28)
+[packages/@roots/bud-framework/src/Cache.ts:28](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Cache.ts#L28)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Cache.ts:33](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Cache.ts#L33)
+[packages/@roots/bud-framework/src/Cache.ts:33](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Cache.ts#L33)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Cache.ts:38](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Cache.ts#L38)
+[packages/@roots/bud-framework/src/Cache.ts:38](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Cache.ts#L38)
 
 ___
 
@@ -107,4 +107,4 @@ and its dependencies.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Cache.ts:46](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Cache.ts#L46)
+[packages/@roots/bud-framework/src/Cache.ts:46](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Cache.ts#L46)

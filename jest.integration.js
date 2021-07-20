@@ -16,10 +16,6 @@ const pre = async paths => {
   await paths.reduce(async (promise, path) => {
     await promise
 
-    logger
-      .scope('setup')
-      .await(`${path.replace(process.cwd(), 'bud')}`)
-
     const pkgContents = await readFile(
       `${path}/package.json`,
       'utf8',
@@ -31,10 +27,6 @@ const pre = async paths => {
         parser: 'json',
       }),
     )
-
-    logger
-      .scope('setup')
-      .success(`${path.replace(process.cwd(), 'bud')}`)
 
     return Promise.resolve()
   }, Promise.resolve())
@@ -43,9 +35,6 @@ const pre = async paths => {
 const post = async paths => {
   await paths.reduce(async (promise, path) => {
     await promise
-    logger
-      .scope('teardown')
-      .await(`${path.replace(process.cwd(), 'bud')}`)
 
     const pkgContents = await readFile(
       `${path}/package.ref`,
@@ -59,16 +48,12 @@ const post = async paths => {
       }),
     )
 
-    logger
-      .scope('teardown')
-      .success(`${path.replace(process.cwd(), 'bud')}`)
-
     return Promise.resolve()
   }, Promise.resolve())
 }
 
 const jest = async suite => {
-  logger.scope(suite).await()
+  logger.scope(suite).time('run')
 
   const res = execa('yarn', [
     'jest',
@@ -81,13 +66,14 @@ const jest = async suite => {
   await res
 
   if (res.exitCode == 0) {
-    logger.scope(suite).success()
+    logger.scope(suite).timeEnd('run')
 
     return Promise.resolve()
   } else {
-    logger.scope(suite).fail(res.stderr)
+    logger.scope(suite).timeEnd('run')
 
     await post()
+
     throw new Error(res.stderr)
   }
 }

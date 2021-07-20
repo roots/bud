@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Sass support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -64,7 +64,9 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
+    "@types/eslint": "^7",
     "@types/node": "^15.12.5",
+    "eslint": "^7.31.0",
     "postcss": "^8.3.5",
     "sass": "^1.35.2",
     "webpack": "^5.45.1"

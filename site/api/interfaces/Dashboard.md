@@ -24,7 +24,7 @@ Ink instance
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dashboard.ts:15
+[packages/@roots/bud-framework/src/Dashboard.ts:15](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dashboard.ts#L15)
 
 ## Accessors
 
@@ -38,7 +38,7 @@ packages/@roots/bud-framework/src/Dashboard.ts:15
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/017bef370/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -61,7 +61,7 @@ Render stdout
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dashboard.ts:25
+[packages/@roots/bud-framework/src/Dashboard.ts:25](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dashboard.ts#L25)
 
 ___
 
@@ -84,7 +84,7 @@ Render error
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dashboard.ts:30
+[packages/@roots/bud-framework/src/Dashboard.ts:30](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dashboard.ts#L30)
 
 ___
 
@@ -100,4 +100,4 @@ Mount and instantiate Dashboard
 
 #### Defined in
 
-packages/@roots/bud-framework/src/Dashboard.ts:20
+[packages/@roots/bud-framework/src/Dashboard.ts:20](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Dashboard.ts#L20)

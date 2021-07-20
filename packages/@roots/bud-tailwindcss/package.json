@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -64,8 +64,10 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
+    "@types/eslint": "^7",
     "@types/node": "^15.12.5",
     "@types/tailwindcss": "^2.2.1",
+    "eslint": "^7.31.0",
     "postcss": "^8.3.5"
   },
   "dependencies": {

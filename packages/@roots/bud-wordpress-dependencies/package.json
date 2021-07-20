@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-dependencies",
-  "version": "4.7.0-9",
+  "version": "4.7.0-10",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -61,8 +61,10 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/eslint": "^7",
     "@types/lodash": "^4.14.171",
-    "@types/node": "^15.12.5"
+    "@types/node": "^15.12.5",
+    "eslint": "^7.31.0"
   },
   "dependencies": {
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin",
