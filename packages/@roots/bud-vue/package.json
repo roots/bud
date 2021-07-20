@@ -76,7 +76,7 @@
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
     "he": "^1.2.0",
-    "vue-loader": "^16.3.0"
+    "vue-loader": "^16.3.1"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^3.1.5",

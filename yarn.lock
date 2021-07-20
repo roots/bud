@@ -3573,7 +3573,7 @@ __metadata:
     de-indent: ^1.0.2
     he: ^1.2.0
     vue: ^3.1.4
-    vue-loader: ^16.3.0
+    vue-loader: ^16.3.1
     webpack: ^5.45.1
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.5
@@ -21584,14 +21584,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vue-loader@npm:^16.3.0":
-  version: 16.3.0
-  resolution: "vue-loader@npm:16.3.0"
+"vue-loader@npm:^16.3.1":
+  version: 16.3.1
+  resolution: "vue-loader@npm:16.3.1"
   dependencies:
     chalk: ^4.1.0
     hash-sum: ^2.0.0
     loader-utils: ^2.0.0
-  checksum: f6b226ea326a9282b2dc7e57e6fd083812d7fe318225ddc93231ae140a3fc535ed10e761d8a291f47233cca649355465389e01ae33532ffca5b4260f8d12e71a
+  checksum: 7cabe8c6a478303f4a97c642ce84e0b27133bc150472501941fc917c8336e8433e50fa9b0779ea3de29766dd1875f7f678fed30eeeb71823d33d8dc4dc019da3
   languageName: node
   linkType: hard
 
