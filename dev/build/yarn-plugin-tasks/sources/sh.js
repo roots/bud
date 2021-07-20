@@ -1,17 +1,25 @@
 import execa from 'execa'
 
 export default async function (cmds, useIdent = true) {
+  const label =
+    this.path.length > 1
+      ? this.path
+          .splice(this.path.length - 1)
+          .join(' ')
+          .concat(' › ')
+      : ``
+
+  const format = d =>
+    d
+      .toString()
+      .replace(/➤\sYN\d\d\d\d:\s/g, '')
+      .replace(/\n/, `\n${label}`)
+
   await Promise.all(
     cmds.map(async cmd => {
-      const ident = this.path.join(' ').concat(' › ')
-
       const stdout = d => {
         this.context.stdout.write(
-          useIdent === true
-            ? ident.concat(
-                d.toString().replace(/➤\sYN\d\d\d\d:\s/g, ''),
-              )
-            : d,
+          useIdent === true ? format(d) : d,
         )
       }
 
