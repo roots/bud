@@ -2665,31 +2665,37 @@ execa$2.exports.node = (scriptPath, args, options = {}) => {
 
 var execa$1 = execa$2.exports
 
-async function sh(cmds) {
-  try {
-    await Promise.all(
-      cmds.map(async cmd => {
-        const [invoke, ...params] = cmd.split(' ')
-        try {
-          const task = execa$1(invoke, params)
+async function sh(cmds, useIdent = true) {
+  await Promise.all(
+    cmds.map(async cmd => {
+      const ident = this.path.join(' ').concat(' › ')
 
-          task.stdout.on('data', d =>
-            this.context.stdout.write(
-              d.toString().replace(/YN\d\d\d\d:\s/g, ''),
-            ),
-          )
+      const stdout = d => {
+        this.context.stdout.write(
+          useIdent === true
+            ? ident.concat(
+                d.toString().replace(/➤\sYN\d\d\d\d:\s/g, ''),
+              )
+            : d,
+        )
+      }
 
-          return task
-        } catch (err) {
-          throw new Error(err)
-        }
-      }),
-    )
+      const [invoke, ...params] = cmd.split(' ')
 
-    return Promise.resolve()
-  } catch (err) {
-    throw new Error(err)
-  }
+      try {
+        const task = execa$1(invoke, params)
+
+        task.stdout.on('data', stdout)
+        task.stderr.on('data', stdout)
+
+        return task
+      } catch (err) {
+        throw new Error(err)
+      }
+    }),
+  )
+
+  return Promise.resolve()
 }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -3078,7 +3084,7 @@ var all = Command =>
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn task test unit`])
+      await $([`yarn task test unit`], false)
       await $([`yarn task test integration`])
     }
   }
@@ -3123,9 +3129,12 @@ var unit = Command =>
     async execute() {
       const $ = sh.bind(this)
 
-      await $([
-        `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"`,
-      ])
+      await $(
+        [
+          `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"`,
+        ],
+        false,
+      )
     }
   }
 

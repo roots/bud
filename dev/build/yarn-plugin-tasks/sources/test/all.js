@@ -14,7 +14,7 @@ export default Command =>
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn task test unit`])
+      await $([`yarn task test unit`], false)
       await $([`yarn task test integration`])
     }
   }

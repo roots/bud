@@ -15,8 +15,11 @@ export default Command =>
     async execute() {
       const $ = sh.bind(this)
 
-      await $([
-        `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"`,
-      ])
+      await $(
+        [
+          `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"`,
+        ],
+        false,
+      )
     }
   }
