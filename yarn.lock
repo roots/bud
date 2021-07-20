@@ -3692,7 +3692,7 @@ __metadata:
     "@types/node": ^15.12.5
     "@types/vinyl": ^2.0.5
     autobind-decorator: ^2.4.0
-    critical: ^4.0.0
+    critical: ^4.0.1
     lodash: ^4.17.21
     safe-require: ^1.0.4
     vinyl: ^2.2.1
@@ -7781,9 +7781,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"critical@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "critical@npm:4.0.0"
+"critical@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "critical@npm:4.0.1"
   dependencies:
     chalk: ^4.1.0
     clean-css: ^5.1.2
@@ -7818,7 +7818,7 @@ __metadata:
     vinyl: ^2.2.1
   bin:
     critical: cli.js
-  checksum: b71790349db70c563cd95e1c4d2e609d125a5257de8eb7c090a7a59e0b30cf7a54737084b6750b864b2976e596e57ed435794a9bce31b049baa74af16b2efbf8
+  checksum: a7fee83042e58daf6f58ae0968e6eef7dc1eb7cf65b440d344f0c4685cbcaf356035f52627042143ab8db359755e09c778ebc4d4b5fd804568e7b26ef035b194
   languageName: node
   linkType: hard
 
