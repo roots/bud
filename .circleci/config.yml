@@ -25,4 +25,4 @@ jobs:
 
       - run:
           name: build cjs
-          command: yarn task make ci
+          command: yarn proj make ci
