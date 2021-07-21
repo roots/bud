@@ -3,11 +3,11 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `make`, `clean`]]
+    static paths = [[`kjo`, `make`, `clean`]]
 
     static usage = {
-      category: `task`,
-      description: `build the project`,
+      category: `kjo`,
+      description: `build the kjo`,
       examples: [
         [`Build everything from clean base`, `yarn make clean`],
       ],
@@ -18,6 +18,6 @@ export default Command =>
 
       await $([`yarn clean`])
       await $([`yarn install --immutable`])
-      await $([`yarn proj build`])
+      await $([`yarn kjo build`])
     }
   }

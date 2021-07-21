@@ -3,13 +3,13 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `test`, `unit`]]
+    static paths = [[`kjo`, `test`, `unit`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Run unit test suite`,
 
-      examples: [[`Run unit test suite`, `yarn proj test unit`]],
+      examples: [[`Run unit test suite`, `yarn kjo test unit`]],
     }
 
     async execute() {

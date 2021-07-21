@@ -3,12 +3,12 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `build`, `cjs`]]
+    static paths = [[`kjo`, `build`, `cjs`]]
 
     static usage = {
-      category: `task`,
-      description: `build project source (cjs)`,
-      examples: [[`Build cjs packages`, `yarn proj build cjs`]],
+      category: `kjo`,
+      description: `build kjo source (cjs)`,
+      examples: [[`Build cjs packages`, `yarn kjo build cjs`]],
     }
 
     async execute() {

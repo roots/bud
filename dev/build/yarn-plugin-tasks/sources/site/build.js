@@ -3,12 +3,12 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `site`]]
+    static paths = [[`kjo`, `site`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Build site`,
-      examples: [[`Build site`, `yarn proj site`]],
+      examples: [[`Build site`, `yarn kjo site`]],
     }
 
     async execute() {
@@ -16,7 +16,7 @@ export default Command =>
 
       await $([
         `yarn ts-node ./dev/site`,
-        `yarn proj site readme`,
+        `yarn kjo site readme`,
       ])
       await $([`yarn docusaurus build`])
     }

@@ -3,12 +3,12 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `site`, `readme`]]
+    static paths = [[`kjo`, `site`, `readme`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `rebuild readmes`,
-      examples: [[`Make site`, `yarn proj site readme`]],
+      examples: [[`Make site`, `yarn kjo site readme`]],
     }
 
     async execute() {

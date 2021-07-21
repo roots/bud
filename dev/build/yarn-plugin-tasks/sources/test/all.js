@@ -3,18 +3,18 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `test`]]
+    static paths = [[`kjo`, `test`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Run all test suites`,
-      examples: [[`Run tests`, `yarn proj test`]],
+      examples: [[`Run tests`, `yarn kjo test`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn proj test unit`], false)
-      await $([`yarn proj test integration`], false)
+      await $([`yarn kjo test unit`], false)
+      await $([`yarn kjo test integration`], false)
     }
   }

@@ -3,20 +3,17 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `lint`]]
+    static paths = [[`kjo`, `lint`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Runs all linters`,
-      examples: [[`Run all linters`, `yarn proj lint`]],
+      examples: [[`Run all linters`, `yarn kjo lint`]],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([
-        `yarn proj lint eslint`,
-        `yarn proj lint skypack`,
-      ])
+      await $([`yarn kjo lint eslint`, `yarn kjo lint skypack`])
     }
   }

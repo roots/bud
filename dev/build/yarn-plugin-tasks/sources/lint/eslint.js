@@ -3,14 +3,12 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `lint`, `eslint`]]
+    static paths = [[`kjo`, `lint`, `eslint`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Run eslint`,
-      examples: [
-        [`Lint packaged code`, `yarn proj lint eslint`],
-      ],
+      examples: [[`Lint packaged code`, `yarn kjo lint eslint`]],
     }
 
     async execute() {

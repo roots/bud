@@ -3,11 +3,11 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `clean`]]
+    static paths = [[`kjo`, `clean`]]
 
     static usage = {
-      category: `task`,
-      description: `Clean project of all built artifacts`,
+      category: `kjo`,
+      description: `Clean kjo of all built artifacts`,
       examples: [[`Clean`, `yarn clean`]],
     }
 

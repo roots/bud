@@ -3,13 +3,13 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`proj`, `lint`, `skypack`]]
+    static paths = [[`kjo`, `lint`, `skypack`]]
 
     static usage = {
-      category: `task`,
+      category: `kjo`,
       description: `Run skypack`,
       examples: [
-        [`Lint packaged code`, `yarn proj lint skypack`],
+        [`Lint packaged code`, `yarn kjo lint skypack`],
       ],
     }
 
