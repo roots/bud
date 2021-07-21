@@ -15,7 +15,9 @@ export default Command =>
       const $ = sh.bind(this)
 
       await $([`yarn install --immutable`])
-      await $([`yarn kjo build cjs`])
+      await $([
+        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings run build:cjs`,
+      ])
       await $([`yarn kjo test`])
       await $([`yarn kjo site`])
     }
