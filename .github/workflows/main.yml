@@ -42,10 +42,4 @@ jobs:
         run: yarn install --immutable
 
       - name: Build CJS
-        run: yarn build:ci:cjs
-
-      - name: Build ESM
-        run: yarn build:ci:esm
-
-      - name: Tests
-        run: yarn test:ci
+        run: yarn kjo make ci
