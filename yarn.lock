@@ -3017,7 +3017,7 @@ __metadata:
     "@types/node": ^15.12.5
     "@types/yamljs": ^0.2.31
     autobind-decorator: ^2.4.0
-    css-loader: ^5.2.6
+    css-loader: ^6.2.0
     csv-loader: ^3.0.3
     eslint: ^7.31.0
     file-loader: ^6.2.0
@@ -3689,7 +3689,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
     babel-plugin-transform-vue-jsx: ^3.7.0
-    css-loader: ^5.2.6
+    css-loader: ^6.2.0
     de-indent: ^1.0.2
     eslint: ^7.31.0
     he: ^1.2.0
@@ -8080,7 +8080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^5.1.1, css-loader@npm:^5.2.6":
+"css-loader@npm:^5.1.1":
   version: 5.2.6
   resolution: "css-loader@npm:5.2.6"
   dependencies:
@@ -8097,6 +8097,24 @@ __metadata:
   peerDependencies:
     webpack: ^4.27.0 || ^5.0.0
   checksum: 993354a24887724712dc1320abba5c1c4f7a4fdc6cfd64d160a0706218d6eeb241dbf4cea0694cd2752f7c3626b543efdd9993d12f4bb5b75f33e9c4da155e10
+  languageName: node
+  linkType: hard
+
+"css-loader@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "css-loader@npm:6.2.0"
+  dependencies:
+    icss-utils: ^5.1.0
+    postcss: ^8.2.15
+    postcss-modules-extract-imports: ^3.0.0
+    postcss-modules-local-by-default: ^4.0.0
+    postcss-modules-scope: ^3.0.0
+    postcss-modules-values: ^4.0.0
+    postcss-value-parser: ^4.1.0
+    semver: ^7.3.5
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: 9c6e6e1eef7ab897ea1f45094a153ee82d94ef5248b54b8f8a3634c72900ec5f3cc463b3c0eca65290118c3dbfd52887ba7294b4807a0247a3c5d7cf3a63b2e6
   languageName: node
   linkType: hard
 
@@ -16229,14 +16247,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "picomatch@npm:2.2.3"
-  checksum: 45e2b882b5265d3a322c6b7b854c1fdc33d5083011b9730296e9ad26332824ac356529f1ce1b0c1111f08a84c02e8525ea121d17c4bbe2970ca6665e587921fa
-  languageName: node
-  linkType: hard
-
-"picomatch@npm:^2.2.2":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.2.3":
   version: 2.3.0
   resolution: "picomatch@npm:2.3.0"
   checksum: 16818720ea7c5872b6af110760dee856c8e4cd79aed1c7a006d076b1cc09eff3ae41ca5019966694c33fbd2e1cc6ea617ab10e4adac6df06556168f13be3fca2
