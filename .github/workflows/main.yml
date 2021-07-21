@@ -38,8 +38,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
-        run: yarn install --immutable
-
-      - name: Build CJS
-        run: yarn kjo make ci
+      - name: Install, Build, and Test
+        run: yarn kjo make
