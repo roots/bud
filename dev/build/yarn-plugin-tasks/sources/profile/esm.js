@@ -3,13 +3,13 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `profile`, `esm`]]
+    static paths = [[`proj`, `profile`, `esm`]]
 
     static usage = {
       category: `task`,
       description: `profile esm`,
       examples: [
-        [`Profile esm build process`, `yarn task profile esm`],
+        [`Profile esm build process`, `yarn proj profile esm`],
       ],
     }
 

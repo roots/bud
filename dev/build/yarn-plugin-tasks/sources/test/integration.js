@@ -3,7 +3,7 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `test`, `integration`]]
+    static paths = [[`proj`, `test`, `integration`]]
 
     static usage = {
       category: `task`,
@@ -11,7 +11,7 @@ export default Command =>
       examples: [
         [
           `Run integration test suite`,
-          `yarn task test integration`,
+          `yarn proj test integration`,
         ],
       ],
     }

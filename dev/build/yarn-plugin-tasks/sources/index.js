@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import task from './task'
 import * as make from './make'
 import clean from './clean'
 import * as profile from './profile'
@@ -15,7 +14,6 @@ const plugin = {
 
     return {
       commands: [
-        task(Command),
         clean(Command),
         make.dev(Command),
         make.ci(Command),

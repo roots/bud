@@ -3,18 +3,18 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `profile`]]
+    static paths = [[`proj`, `profile`]]
 
     static usage = {
       category: `task`,
       description: `Profile all build processes`,
       examples: [
-        [`Profile all build processes`, `yarn task profile`],
+        [`Profile all build processes`, `yarn proj profile`],
       ],
     }
 
     async execute() {
       const $ = sh.bind(this)
-      await $([`yarn task profile cjs`, `yarn task profile esm`])
+      await $([`yarn proj profile cjs`, `yarn proj profile esm`])
     }
   }

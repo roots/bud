@@ -3,19 +3,21 @@ import sh from '../sh'
 
 export default Command =>
   class extends Command {
-    static paths = [[`task`, `make`, `clean`]]
+    static paths = [[`proj`, `make`, `clean`]]
 
     static usage = {
       category: `task`,
       description: `build the project`,
-      examples: [[`Build everything`, `yarn task make`]],
+      examples: [
+        [`Build everything from clean base`, `yarn make clean`],
+      ],
     }
 
     async execute() {
       const $ = sh.bind(this)
 
-      await $([`yarn task clean`])
+      await $([`yarn clean`])
       await $([`yarn install --immutable`])
-      await $([`yarn task build`])
+      await $([`yarn proj build`])
     }
   }
