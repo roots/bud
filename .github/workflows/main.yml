@@ -1,7 +1,8 @@
-name: build
+name: Build & Test
 
 on:
-  workflow_dispatch:
+  - pull_request_target
+  - workflow_dispatch
 
 jobs:
   build:
@@ -38,5 +39,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install, Build, and Test
-        run: yarn kjo make
+      - name: Install
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn kjo build cjs
+
+      - name: Unit Tests
+        run: yarn kjo test unit
+
+      - name: Integration Tests
+        run: yarn kjo test integration
+
+      - name: Skypack Lint
+        run: yarn kjo lint skypack
