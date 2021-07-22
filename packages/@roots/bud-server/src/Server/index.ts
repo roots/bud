@@ -1,6 +1,6 @@
 import {Service, Server as Contract} from '@roots/bud-framework'
 import chokidar from 'chokidar'
-import globby from 'globby'
+import {globbySync, Options as GlobbyOptions} from 'globby'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -10,9 +10,9 @@ import {injectClient} from '../util/injectClient'
 /**
  * Override globby.sync return
  */
-const sync = globby.sync as (
+const sync = globbySync as (
   paths: string[],
-  options: globby.GlobbyOptions,
+  options: GlobbyOptions,
 ) => string[]
 
 export class Server extends Service implements Contract {

@@ -1,4 +1,4 @@
-import {sync, GlobTask} from 'globby'
+import {globbySync as sync, GlobTask} from 'globby'
 import {isArray, isString} from 'lodash'
 import type {Framework} from '@roots/bud-framework'
 

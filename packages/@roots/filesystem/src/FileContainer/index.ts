@@ -2,7 +2,7 @@ import path, {PlatformPath} from 'path'
 import * as fs from 'fs-extra'
 import resolveFrom from 'resolve-from'
 import _ from 'lodash'
-import {sync} from 'globby'
+import {globbySync as sync} from 'globby'
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 

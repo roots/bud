@@ -1,6 +1,6 @@
 import {Framework, Module} from '@roots/bud-framework'
 import CopyPlugin, {CopyPluginOptions} from 'copy-webpack-plugin'
-import {sync} from 'globby'
+import {globbySync as sync} from 'globby'
 
 declare module '@roots/bud-framework' {
   interface Framework {

@@ -3,7 +3,7 @@ require('ts-node').register({
 })
 
 const execa = require('execa')
-const globby = require('globby')
+const {globby} = require('globby')
 const {readFile, writeFile} = require('fs-extra')
 const {Signale} = require('signale')
 const {format} = require('prettier')

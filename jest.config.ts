@@ -1,5 +1,5 @@
 import path from 'path'
-import globby from 'globby'
+import {globbySync} from 'globby'
 import {defaults} from 'ts-jest/presets'
 import type {InitialOptionsTsJest} from 'ts-jest/dist/types'
 
@@ -15,8 +15,10 @@ const config: InitialOptionsTsJest = {
     'tests',
   ],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
-  moduleNameMapper: globby
-    .sync('packages/@roots/*/package.json', {absolute: true})
+  moduleNameMapper: globbySync(
+    'packages/@roots/*/package.json',
+    {absolute: true},
+  )
     .map(pkg => {
       const base = path.dirname(pkg)
       const {name} = require(pkg)

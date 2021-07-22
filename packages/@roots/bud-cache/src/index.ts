@@ -2,7 +2,7 @@ import {Service, Cache as Base} from '@roots/bud-framework'
 import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
-import {sync} from 'globby'
+import {globbySync as sync} from 'globby'
 import {isEqual} from 'lodash'
 
 class Cache extends Service implements Base {
