@@ -113,7 +113,7 @@
     "react-reconciler": "0.26.2",
     "rimraf": "3.0.2",
     "signale": "1.4.0",
-    "ts-jest": "27.0.3",
+    "ts-jest": "27.0.4",
     "ts-node": "10.0.0",
     "tsconfig-paths": "3.9.0",
     "type-fest": "1.2.2",
