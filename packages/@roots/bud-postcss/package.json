@@ -67,7 +67,7 @@
     "@types/fs-extra": "9.0.12",
     "@types/lodash": "4.14.171",
     "@types/node": "15.14.1",
-    "@types/signale": "1.4.1",
+    "@types/signale": "1.4.2",
     "eslint": "7.31.0",
     "postcss": "8.3.5",
     "postcss-import": "14.0.2",

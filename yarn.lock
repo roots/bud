@@ -3409,7 +3409,7 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
-    "@types/signale": 1.4.1
+    "@types/signale": 1.4.2
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
     fs-extra: ^10.0.0
@@ -3794,7 +3794,7 @@ __metadata:
     "@types/pkg-up": 3.1.0
     "@types/react": 17.0.14
     "@types/resolve-pkg": 2.0.0
-    "@types/signale": 1.4.1
+    "@types/signale": 1.4.2
     "@types/webpack-manifest-plugin": 3.0.5
     autobind-decorator: ^2.4.0
     clean-webpack-plugin: ^4.0.0-alpha.0
@@ -4931,12 +4931,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/signale@npm:1.4.1":
-  version: 1.4.1
-  resolution: "@types/signale@npm:1.4.1"
+"@types/signale@npm:1.4.2":
+  version: 1.4.2
+  resolution: "@types/signale@npm:1.4.2"
   dependencies:
     "@types/node": "*"
-  checksum: 3ca61f93378cdf1213e34cbf2231de99ffb12bf40d6ed74964815e75e67c623e7d192e69d0bf42f44a766ebb6f8254b77e0f2954000ea3d281933ead1d8a6d2b
+  checksum: efe07631afcf4708fb2f9b1be6e8b1e92ad511fe3ee5ced827ab2f7c3909e6646104aa4b25f164e5b52562a0df2af9ae469fb81bc21b2e95a7d3fbc075787e9c
   languageName: node
   linkType: hard
 
@@ -6741,7 +6741,7 @@ __metadata:
     "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.2
     "@types/react-router-dom": 5.1.8
-    "@types/signale": 1.4.1
+    "@types/signale": 1.4.2
     "@types/weak-napi": 2.0.0
     "@typescript-eslint/eslint-plugin": 4.28.1
     autobind-decorator: 2.4.0
