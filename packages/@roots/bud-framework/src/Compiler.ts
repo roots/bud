@@ -2,15 +2,16 @@
  * @module @roots/bud-framework
  */
 
-import {Service} from './'
 import {
+  Compiler as WebpackCompiler,
   Configuration,
   MultiCompiler as WebpackMultiCompiler,
-  Compiler as WebpackCompiler,
   ProgressPlugin,
-  StatsError,
   StatsCompilation,
+  StatsError,
 } from 'webpack/types'
+
+import {Service} from './'
 
 export interface Compiler extends Service {
   /**

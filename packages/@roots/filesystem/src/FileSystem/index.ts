@@ -1,10 +1,11 @@
-import _ from 'lodash'
-import fs from 'fs-extra'
-import path from 'path'
-import {FileContainer} from '..'
 import {Container} from '@roots/container'
-import globby from 'globby'
 import {boundMethod as bind} from 'autobind-decorator'
+import fs from 'fs-extra'
+import globby from 'globby'
+import _ from 'lodash'
+import path from 'path'
+
+import {FileContainer} from '..'
 
 export class FileSystem extends Container<FileContainer> {
   /**

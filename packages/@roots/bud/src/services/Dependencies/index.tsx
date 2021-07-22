@@ -1,12 +1,10 @@
-import React from 'react'
-import {Text, Static} from 'ink'
-import {readJsonSync} from 'fs-extra'
-import {isEqual} from 'lodash'
-
-import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {Service} from '@roots/bud-framework'
-
+import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
+import {readJsonSync} from 'fs-extra'
+import {Static, Text} from 'ink'
+import {isEqual} from 'lodash'
+import React from 'react'
 
 export class Dependencies extends Service {
   public name = 'dependencies'

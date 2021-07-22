@@ -1,6 +1,6 @@
-import Webpack, {Chunk, Compiler, Compilation} from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 import {uniq} from 'lodash'
+import Webpack, {Chunk, Compilation, Compiler} from 'webpack'
 
 class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   protected plugin = {

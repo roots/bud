@@ -1,7 +1,7 @@
 import {Compiler, Service} from '@roots/bud-framework'
-import webpack, {ProgressPlugin} from 'webpack'
-import {noop, isEqual} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isEqual, isString, noop} from 'lodash'
+import webpack, {ProgressPlugin} from 'webpack'
 import {StatsCompilation} from 'webpack/types'
 
 export default class extends Service implements Compiler {
@@ -129,8 +129,11 @@ export default class extends Service implements Compiler {
     })
 
     this.app.when(this.app.store.get('ci'), () => {
-      stats && console.log(stats.toString())
-      err && console.error(err)
+      stats && process.stdout.write(stats.toString())
+      err &&
+        process.stderr.write(
+          isString(err) ? err : JSON.stringify(err),
+        )
     })
 
     this.app.hooks.filter('done').map(cb => cb(this.app))

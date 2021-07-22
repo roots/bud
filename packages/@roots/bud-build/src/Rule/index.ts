@@ -1,8 +1,6 @@
-import {isFunction} from 'lodash'
-
-import type {Framework, Build} from '@roots/bud-framework'
-
+import type {Build, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isFunction} from 'lodash'
 
 class Rule implements Build.Rule {
   public test: (app?: Framework) => RegExp

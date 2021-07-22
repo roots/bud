@@ -13,8 +13,8 @@ module.exports = {
     },
   },
   extends: [
+    'prettier',
     'plugin:react/recommended',
-    'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',

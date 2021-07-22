@@ -2,8 +2,9 @@
  * @module @roots/bud-framework
  */
 
-import type {Service} from './Service'
 import type {Instance} from 'ink'
+
+import type {Service} from './Service'
 
 /**
  * @interface Dashboard

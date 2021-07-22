@@ -1,8 +1,7 @@
+import type {Configuration, Framework} from './'
 import {Bud} from './Bud'
 import {config} from './config'
 import {services} from './services'
-
-import type {Framework, Configuration} from './'
 
 export type Factory = (overrides?: Factory.Options) => Framework
 

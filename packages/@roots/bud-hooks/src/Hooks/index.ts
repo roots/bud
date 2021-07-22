@@ -1,6 +1,6 @@
 import {Framework, Hooks, Service} from '@roots/bud-framework'
-import {noop, get, set, isArray, isFunction} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
+import {get, isArray, isFunction, noop, set} from 'lodash'
 
 export default class extends Service implements Hooks {
   public name = '@roots/bud-hooks'

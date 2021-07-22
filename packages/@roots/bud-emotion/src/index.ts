@@ -1,4 +1,5 @@
 import '@roots/bud-babel'
+
 import {Framework, Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {

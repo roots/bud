@@ -1,6 +1,7 @@
 import {Framework, Module} from '@roots/bud-framework'
-import {Plugin as HtmlWebpackPlugin} from './HtmlWebpackPlugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
+
+import {Plugin as HtmlWebpackPlugin} from './HtmlWebpackPlugin'
 
 const extension: Module<
   InterpolateHtmlPlugin,

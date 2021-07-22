@@ -1,7 +1,8 @@
-import Command from '../../Command'
-import {Framework, config} from '@roots/bud'
-import Runner from '../../Runner'
+import {config, Framework} from '@roots/bud'
+
 import Build from '../../Build'
+import Command from '../../Command'
+import Runner from '../../Runner'
 
 export default class List extends Command {
   public static description =

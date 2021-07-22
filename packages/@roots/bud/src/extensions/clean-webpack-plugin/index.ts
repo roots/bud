@@ -1,7 +1,7 @@
 import {Module} from '@roots/bud-framework'
 import {
-  Options,
   CleanWebpackPlugin as Plugin,
+  Options,
 } from 'clean-webpack-plugin'
 
 const extension: Module<Plugin, Options> = {

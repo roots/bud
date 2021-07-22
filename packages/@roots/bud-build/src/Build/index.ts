@@ -1,14 +1,12 @@
-import {Service} from '@roots/bud-framework'
-
-import * as loaders from './loaders'
-import * as items from './items'
-import * as rules from './rules'
-import {config} from './config'
-
-import {boundMethod as bind} from 'autobind-decorator'
-
-import type Webpack from 'webpack'
 import type {Build as Contract} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
+import type Webpack from 'webpack'
+
+import {config} from './config'
+import * as items from './items'
+import * as loaders from './loaders'
+import * as rules from './rules'
 
 export class Build extends Service implements Contract {
   public name = '@roots/bud-build'

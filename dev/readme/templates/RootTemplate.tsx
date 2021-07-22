@@ -1,11 +1,12 @@
 import React from 'react'
+
+import project from '../../../repo'
 import {
   Banner,
   Community,
   Contributing,
   Sponsors,
 } from '../components'
-import project from '../../../repo'
 
 export const Body = () => (
   <span>{`

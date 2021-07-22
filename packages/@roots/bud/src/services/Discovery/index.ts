@@ -2,8 +2,8 @@ import {Discovery as Base} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
-import resolvePkg from 'pkg-up'
 import {dirname} from 'path'
+import resolvePkg from 'pkg-up'
 
 export class Discovery extends Base {
   public name = 'service/discovery'

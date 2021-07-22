@@ -1,5 +1,6 @@
 import './interface'
-import {Framework, Terser, Module} from '@roots/bud-framework'
+
+import {Framework, Module, Terser} from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin'
 
 export const name: Module['name'] = 'terser-webpack-plugin'

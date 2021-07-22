@@ -9,9 +9,12 @@ export default Command =>
     }
 
     async execute() {
-      await this.$([`yarn install --immutable`])
-      await this.$([`yarn kjo build cjs`])
-      await this.$([`yarn kjo test`])
-      await this.$([`yarn kjo site`])
+      await this.$([
+        `yarn install --immutable`,
+        `yarn kjo build cjs`,
+        `yarn kjo test unit`,
+        `yarn kjo test integration`,
+        [`yarn kjo lint eslint`, `yarn kjo lint skypack`],
+      ])
     }
   }

@@ -1,6 +1,7 @@
 export {WordPressExternals} from './interface'
-import {externals} from './externals'
 import Webpack, {ExternalsPlugin} from 'webpack'
+
+import {externals} from './externals'
 
 export class Plugin {
   public name = 'WordPressExternalsWebpackPlugin'

@@ -1,7 +1,10 @@
+/*eslint import/no-unresolved: [2, { ignore: ['tailwindcss/tailwind-config'] }]*/
+
 import '@roots/bud-api'
 import '@roots/bud-postcss'
+
 import type {Framework, Module} from '@roots/bud-framework'
-import type {TailwindConfig} from 'tailwindcss/tailwind-config'
+import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 declare module '@roots/bud-framework' {
   namespace Framework {

@@ -1,13 +1,12 @@
-import React from 'react'
-import {render, Text, Instance, Box} from 'ink'
-import {isString} from 'lodash'
-
-import {boundMethod as bind} from 'autobind-decorator'
-
 import {Service as Base} from '@roots/bud-framework'
-import {Dashboard as DashboardComponent} from './Dashboard'
+import {boundMethod as bind} from 'autobind-decorator'
+import {Box, Instance, render, Text} from 'ink'
+import {isString} from 'lodash'
+import React from 'react'
+
 import {Error} from '../components/Error'
-import {Screen} from './Screen'
+import {Screen} from '../components/Screen'
+import {Dashboard as DashboardComponent} from './Dashboard'
 
 export class Dashboard extends Base {
   public name = 'dashboard'
@@ -23,11 +22,7 @@ export class Dashboard extends Base {
 
   @bind
   public run(): void {
-    if (this.app.store.isTrue('ci')) {
-      console.log('ci mode')
-
-      return
-    }
+    if (this.app.store.isTrue('ci')) return
 
     this.instance = render(
       <Screen app={this.app}>

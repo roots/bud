@@ -1,6 +1,5 @@
-import {isFunction} from 'lodash'
-
 import type {Framework} from '@roots/bud-framework'
+import {isFunction} from 'lodash'
 
 export class Base {
   public normalizeInput<T = any>(

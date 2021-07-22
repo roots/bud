@@ -1,7 +1,7 @@
 import {Styles} from '@roots/ink-use-style'
-
-import React from 'react'
 import {Box} from 'ink'
+import React from 'react'
+
 import {Bar} from './Bar'
 
 export const Progress = ({

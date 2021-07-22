@@ -1,6 +1,6 @@
-import {sync, GlobTask} from 'globby'
-import {isArray, isString} from 'lodash'
 import type {Framework} from '@roots/bud-framework'
+import {GlobTask, sync} from 'globby'
+import {isArray, isString} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {

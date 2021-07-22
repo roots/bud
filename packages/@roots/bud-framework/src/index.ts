@@ -52,7 +52,6 @@ export type {When} from './Framework/when'
 
 //
 import {Container} from '@roots/container'
-
 import type Webpack from 'webpack/types'
 
 export {Container, Webpack}

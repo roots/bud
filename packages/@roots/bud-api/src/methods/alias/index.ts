@@ -1,5 +1,5 @@
-import {resolve} from 'path'
 import type {Framework} from '@roots/bud-framework'
+import {resolve} from 'path'
 import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {

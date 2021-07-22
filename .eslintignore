@@ -1,13 +1,7 @@
-node_modules
-dist
-docs
-test
-lab
-scripts
 **/bin
 **/lib
-**/types
 **/*.d.ts
 **/*.json
-node_modules
-tsconfig.json
+**/node_modules
+**/package.json
+**/tsconfig.json

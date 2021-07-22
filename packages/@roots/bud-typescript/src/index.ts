@@ -1,8 +1,10 @@
 import './interface'
+
+import {Item, Loader, Rule} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
-import {typecheck} from './api'
-import {Loader, Item, Rule} from '@roots/bud-build'
 import {Configuration} from 'webpack/types'
+
+import {typecheck} from './api'
 
 const extension: Module = {
   name: '@roots/bud-typescript',

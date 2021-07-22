@@ -1,6 +1,16 @@
+const OFF = 0
+const WARN = 1
+const ERROR = 2
+
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: [
+    '@typescript-eslint',
+    'simple-import-sort',
+    'prettier',
+    'react',
+    'react-hooks',
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -14,21 +24,23 @@ module.exports = {
     },
   },
   extends: [
+    'prettier',
     'plugin:react/recommended',
-    'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
   ],
   rules: {
-    'import/no-unresolved': 0,
-    'react/prop-types': 'off',
-    'no-console': 0,
-    'react/prop-types': 0,
-    'react/react-in-jsx-scope': 0,
-    'no-extra-semi': 0,
-    'markdownlint/no-inline-html': 0,
-    '@typescript-eslint/explicit-member-accessibility': 2,
+    'prettier/prettier': ERROR,
+    'react/prop-types': OFF,
+    'react/react-in-jsx-scope': ERROR,
+    'react-hooks/rules-of-hooks': ERROR,
+    'react-hooks/exhaustive-deps': WARN,
+    'simple-import-sort/imports': ERROR,
+    '@typescript-eslint/explicit-member-accessibility': ERROR,
+    'arrow-body-style': OFF,
+    'no-console': ERROR,
+    'no-extra-semi': WARN,
     quotes: [
       'error',
       'single',

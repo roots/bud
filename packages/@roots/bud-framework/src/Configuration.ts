@@ -2,8 +2,9 @@
  * @module @roots/bud-framework
  */
 
-import type {Hooks, Server} from '.'
 import type Webpack from 'webpack/types'
+
+import type {Hooks, Server} from '.'
 
 export interface Configuration {
   /**

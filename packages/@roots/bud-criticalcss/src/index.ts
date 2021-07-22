@@ -1,6 +1,7 @@
-import {Extension} from './interface'
 import {CriticalCss} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+
+import {Extension} from './interface'
 
 const extension: Extension = {
   name: '@roots/bud-criticalcss',

@@ -1,7 +1,7 @@
-import {cosmiconfig, Options} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
-import {boundMethod as bind} from 'autobind-decorator'
 import {Framework, Module} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
+import {cosmiconfig, Options} from 'cosmiconfig'
 
 export class Config {
   public target: Framework

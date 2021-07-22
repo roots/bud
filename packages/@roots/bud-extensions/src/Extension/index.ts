@@ -1,6 +1,6 @@
-import _ from 'lodash'
 import {Extension as Base, Module} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
+import _ from 'lodash'
 
 export class Extension extends Base implements Module {
   @bind

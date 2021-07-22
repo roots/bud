@@ -1,5 +1,5 @@
-import {Tailwind} from './interface'
 import {tailwind} from './api'
+import {Tailwind} from './interface'
 
 const tailwindcss: Tailwind.Extension = {
   name: '@roots/bud-tailwindcss',

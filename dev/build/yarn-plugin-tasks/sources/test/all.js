@@ -5,7 +5,8 @@ export default Command =>
     static usage = {category: `kjo`}
 
     async execute() {
-      await this.$([`yarn kjo test unit`], false)
-      await this.$([`yarn kjo test integration`], false)
+      await this.$([
+        [`yarn kjo test unit`, `yarn kjo test integration`],
+      ])
     }
   }

@@ -1,10 +1,10 @@
 import './interface'
 
-import {Loader, Item, Rule} from '@roots/bud-build'
-import {MdxConfig} from './api'
-
+import {Item, Loader, Rule} from '@roots/bud-build'
 import type {Framework, Module} from '@roots/bud-framework'
 import type Webpack from 'webpack/types'
+
+import {MdxConfig} from './api'
 
 const extension: Module = {
   name: '@roots/bud-mdx',

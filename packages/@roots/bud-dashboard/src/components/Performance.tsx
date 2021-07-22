@@ -1,5 +1,5 @@
+import {Box, Text} from 'ink'
 import React, {useEffect, useState} from 'react'
-import {Text, Box} from 'ink'
 
 const gT = (num: string | number, num2: string | number) => {
   return new Number(num) > new Number(num2)
@@ -46,7 +46,13 @@ export const Performance = () => {
     setArrayBuffers(mem.arrayBuffers)
     gT(mem.arrayBuffers, maxArrayBuffers) &&
       setMaxArrayBuffers(mem.arrayBuffers)
-  })
+  }, [
+    maxRss,
+    maxHeapTotal,
+    maxHeapUsed,
+    maxExternal,
+    maxArrayBuffers,
+  ])
 
   return (
     <Box flexDirection="column">

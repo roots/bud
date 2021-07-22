@@ -1,4 +1,5 @@
 import '@roots/bud-postcss'
+
 import {Module} from '@roots/bud-framework'
 import {RuleSetRule, RuleSetUseItem} from 'webpack'
 

@@ -1,8 +1,7 @@
-import {Base} from '../shared/Base'
-
+import type {Build, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 
-import type {Framework, Build} from '@roots/bud-framework'
+import {Base} from '../shared/Base'
 
 export class Loader extends Base implements Build.Loader {
   protected src: Build.Loader.Src

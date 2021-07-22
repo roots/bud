@@ -6,8 +6,7 @@ export default Command =>
 
     async execute() {
       await this.$([
-        `yarn ts-node ./dev/site`,
-        `yarn kjo site readme`,
+        [`yarn ts-node ./dev/site`, `yarn kjo site readme`],
       ])
       await this.$([`yarn docusaurus build`])
     }

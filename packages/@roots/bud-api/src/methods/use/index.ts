@@ -1,6 +1,6 @@
+import type {Framework, Module} from '@roots/bud-framework'
 import {isArray, isEqual, isFunction} from 'lodash'
 import {nanoid} from 'nanoid'
-import type {Framework, Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {

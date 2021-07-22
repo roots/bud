@@ -6,15 +6,16 @@ export default Command =>
 
     async execute() {
       await this.$([
-        `rm -rf **/.budfiles`,
-        `rm -rf **/node_modules`,
-        `rm -rf examples/*/dist`,
-        `rm -rf examples/sage/public/*`,
-        `rm -rf examples/sage/storage/bud/*`,
-        `rm -rf packages/*/*/lib`,
-        `rm -rf packages/*/*/types`,
+        [
+          `rm -rf **/.budfiles`,
+          `rm -rf **/node_modules`,
+          `rm -rf examples/*/dist`,
+          `rm -rf examples/sage/public/*`,
+          `rm -rf examples/sage/storage/bud/*`,
+          `rm -rf packages/*/*/lib`,
+          `rm -rf packages/*/*/types`,
+        ],
+        `yarn cache clean`,
       ])
-
-      await this.$([`yarn cache clean`])
     }
   }

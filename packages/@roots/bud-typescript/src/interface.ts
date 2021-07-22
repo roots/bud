@@ -1,7 +1,8 @@
 import '@roots/bud-babel'
+
 import {Module, Plugin} from '@roots/bud-framework'
-import Webpack from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {

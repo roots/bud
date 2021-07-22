@@ -1,10 +1,9 @@
+import type {Framework} from '@roots/bud-framework'
+import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import {isUndefined} from 'lodash'
 
 import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
 import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
-
-import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {

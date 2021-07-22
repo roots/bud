@@ -2,11 +2,12 @@
  * @module @roots/bud-framework
  */
 
+import {boundMethod as bind} from 'autobind-decorator'
 import _ from 'lodash'
+
 import {Framework} from './Framework'
 import {Hooks} from './Hooks'
 import {Module} from './Module'
-import {boundMethod as bind} from 'autobind-decorator'
 
 type Key = `${keyof Framework.Extensions & string}`
 

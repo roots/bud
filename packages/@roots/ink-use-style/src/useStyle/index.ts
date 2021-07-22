@@ -1,8 +1,8 @@
-import React from 'react'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import React from 'react'
 
-import type {Styles, Theme, UseStyle} from '../typings'
 import {defaultTheme} from '../themes/index'
+import type {Styles, Theme, UseStyle} from '../typings'
 
 /**
  * Use style.
@@ -51,7 +51,7 @@ export const useStyle: UseStyle = (
       height:
         height > theme.maxHeight ? theme.maxHeight : height,
     })
-  }, [width, height])
+  }, [width, height, theme.maxHeight, theme.maxWidth])
 
   /**
    * Set unit to be the total application width available
@@ -59,7 +59,7 @@ export const useStyle: UseStyle = (
    */
   React.useEffect(() => {
     setUnit(bounds.width / theme.columns)
-  }, [bounds])
+  }, [bounds.width, theme.columns])
 
   /**
    * Determine which screen size is currently active.

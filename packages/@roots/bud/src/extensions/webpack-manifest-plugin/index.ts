@@ -1,8 +1,8 @@
-import {
-  WebpackManifestPlugin,
-  Options,
-} from 'webpack-manifest-plugin'
 import {Plugin} from '@roots/bud-framework'
+import {
+  Options,
+  WebpackManifestPlugin,
+} from 'webpack-manifest-plugin'
 
 const extension: Plugin<{apply: any}, Options> = {
   name: 'webpack-manifest-plugin',

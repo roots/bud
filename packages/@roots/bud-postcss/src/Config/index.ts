@@ -1,7 +1,6 @@
-import {isString} from 'lodash'
-import {boundMethod as bind} from 'autobind-decorator'
-
 import type {Framework} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
+import {isString} from 'lodash'
 import {PluginCreator} from 'postcss'
 
 export class Config implements Framework.Api.PostCss {

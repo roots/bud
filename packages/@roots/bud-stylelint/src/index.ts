@@ -1,7 +1,7 @@
-import Plugin from 'stylelint-webpack-plugin'
-
 import './interface'
+
 import type {Framework} from '@roots/bud-framework'
+import Plugin from 'stylelint-webpack-plugin'
 
 const extension: Framework.Extensions['stylelint-webpack-plugin'] =
   {

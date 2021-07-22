@@ -1,16 +1,15 @@
-import React, {useState, useRef, Fragment} from 'react'
-import {Box, Newline, Text, Static, useStdin} from 'ink'
+import type {Framework} from '@roots/bud-framework'
+import {useStyle} from '@roots/ink-use-style'
+import {Box, Newline, Static, Text, useStdin} from 'ink'
 import {isEqual} from 'lodash'
 import patchConsole from 'patch-console'
+import React, {Fragment, useRef, useState} from 'react'
+import type {StatsCompilation} from 'webpack/types'
 
-import {useStyle} from '@roots/ink-use-style'
-import {Progress} from './Progress'
-import {Input} from './Input'
+import {Progress} from '../components/Progress'
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
-
-import type {Framework} from '@roots/bud-framework'
-import type {StatsCompilation} from 'webpack/types'
+import {Input} from './Input'
 
 const Dashboard = ({bud}: {bud: Framework}) => {
   const instance = useRef<Framework>(bud)

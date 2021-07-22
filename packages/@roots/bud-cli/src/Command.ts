@@ -1,4 +1,5 @@
 import Base from '@oclif/command'
+
 import {Notifier} from './Notifier'
 
 abstract class Command extends Base {

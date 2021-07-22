@@ -1,10 +1,11 @@
 import {
-  Module,
   Extensions as Contract,
+  Module,
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isUndefined, isEqual} from 'lodash'
+import {isEqual, isUndefined} from 'lodash'
+
 import {Extension} from '../Extension/index'
 
 export class Extensions extends Service implements Contract {

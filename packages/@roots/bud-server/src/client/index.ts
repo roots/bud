@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import {isEqual} from 'lodash'
-import {overlay} from './ErrorOverlay'
-import {indicator} from './Indicator'
 import {
   subscribeAll,
   useCustomOverlay,
 } from 'webpack-hot-middleware/client'
+
+import {overlay} from './ErrorOverlay'
+import {indicator} from './Indicator'
 
 const parsePayload = payload => {
   return {

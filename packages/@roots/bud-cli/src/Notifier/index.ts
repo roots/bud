@@ -1,7 +1,7 @@
-import {resolve} from 'path'
+import {Framework} from '@roots/bud'
 import {boundMethod as bind} from 'autobind-decorator'
 import {NotificationCenter} from 'node-notifier'
-import {Framework} from '@roots/bud'
+import {resolve} from 'path'
 
 const MACOS_NOTIFIER_PATH = resolve(
   __dirname,

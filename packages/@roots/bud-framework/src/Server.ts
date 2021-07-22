@@ -2,13 +2,14 @@
  * @module @roots/bud-framework
  */
 
-import type {Service} from './'
 import type {Container} from '@roots/container'
-import type Webpack from 'webpack/types'
-import type {Application, Handler} from 'express'
-import type DevMiddleware from 'webpack-dev-middleware'
-import type Proxy from 'http-proxy-middleware'
 import type {WatchOptions} from 'chokidar'
+import type {Application, Handler} from 'express'
+import type Proxy from 'http-proxy-middleware'
+import type Webpack from 'webpack/types'
+import type DevMiddleware from 'webpack-dev-middleware'
+
+import type {Service} from './'
 
 /**
  * @interface Server

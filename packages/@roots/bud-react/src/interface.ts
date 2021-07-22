@@ -1,7 +1,9 @@
 import '@roots/bud-api'
 import '@roots/bud-babel'
-import {Module} from '@roots/bud-extensions'
+
 import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
+import {Module} from '@roots/bud-extensions'
+
 declare module '@roots/bud-framework' {
   export interface Framework {
     reactRefresh(options: ReactRefreshPluginOptions): Framework

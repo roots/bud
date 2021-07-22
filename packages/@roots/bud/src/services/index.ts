@@ -1,9 +1,10 @@
-import {Framework} from '@roots/bud-framework'
 import {Api} from '@roots/bud-api'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
+import type {Framework} from '@roots/bud-framework'
+
 import {Dependencies} from './Dependencies/index'
 import {Discovery} from './Discovery/index'
 import {Env} from './Env/index'

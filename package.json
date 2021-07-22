@@ -41,13 +41,6 @@
       "last 1 safari version"
     ]
   },
-  "scripts": {
-    "build:ci": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build",
-    "build:ci:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:cjs",
-    "build:ci:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:esm",
-    "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "test:ci": "yarn run-s test:spec:ci test:integration"
-  },
   "resolutions": {
     "@babel/core": "^7.14.3",
     "@babel/types": "^7.14.2",
@@ -88,16 +81,15 @@
     "@types/weak-napi": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "autobind-decorator": "^2.4.0",
-    "chokidar": "^3.5.2",
     "clipanion": "^3.0.0",
     "clsx": "^1.1.1",
     "docusaurus-plugin-typedoc": "^0.15.2",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "execa": "^5.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",

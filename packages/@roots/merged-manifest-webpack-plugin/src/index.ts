@@ -1,8 +1,8 @@
-import Webpack from 'webpack'
+import {boundMethod as bind} from 'autobind-decorator'
 import fs from 'fs-extra'
 import path from 'path'
 import {format} from 'prettier'
-import {boundMethod as bind} from 'autobind-decorator'
+import Webpack from 'webpack'
 
 class MergedManifestWebpackPlugin {
   public plugin = {
@@ -88,9 +88,9 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove wordpress.json manifest.
        */
-      // await fs.remove(this.manifestPath(this.wordpressName))
+      await fs.remove(this.manifestPath(this.wordpressName))
     } catch (err) {
-      console.error(err)
+      throw new Error(err)
     }
 
     return callback()

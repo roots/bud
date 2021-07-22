@@ -1,5 +1,6 @@
 import {Plugin} from '@roots/bud-framework'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
+
 import {Eslint} from './api'
 
 const extension: Plugin<EslintPlugin, Options> = {

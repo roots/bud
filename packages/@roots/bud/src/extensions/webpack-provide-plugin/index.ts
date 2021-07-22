@@ -1,5 +1,5 @@
-import {ProvidePlugin as Plugin} from 'webpack'
 import type {Module} from '@roots/bud-framework'
+import {ProvidePlugin as Plugin} from 'webpack'
 
 interface Index<T> {
   [key: string]: T

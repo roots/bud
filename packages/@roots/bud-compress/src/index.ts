@@ -1,4 +1,5 @@
 import './interface'
+
 import type {Module} from '@roots/bud-framework'
 
 import brotli from './brotli/index'

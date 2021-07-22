@@ -1,5 +1,5 @@
-import * as Plugin from 'html-webpack-plugin'
 import {Module} from '@roots/bud-framework'
+import * as Plugin from 'html-webpack-plugin'
 import {posix} from 'path'
 
 const PluginConstructor = Plugin.default

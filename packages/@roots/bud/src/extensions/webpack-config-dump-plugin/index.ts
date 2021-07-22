@@ -1,6 +1,5 @@
-import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
-
 import type {Plugin} from '@roots/bud-framework'
+import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 
 const extension: Plugin<
   WebpackConfigDumpPlugin,

@@ -1,12 +1,12 @@
 import {readJson} from 'fs-extra'
 import React from 'react'
 
+import project from '../../repo'
 import render from './renderer'
-import {RootTemplate} from './templates/RootTemplate'
 import {CoreTemplate} from './templates/CoreTemplate'
 import {ExtensionTemplate} from './templates/ExtensionTemplate'
 import {LibraryTemplate} from './templates/LibraryTemplate'
-import project from '../../repo'
+import {RootTemplate} from './templates/RootTemplate'
 
 const {
   packages: {extensions, core, lib},

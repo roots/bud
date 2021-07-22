@@ -2,8 +2,9 @@
  * @module @roots/bud-framework
  */
 
-import type {Framework, Extension, Module, Service} from './'
 import type Webpack from 'webpack/types'
+
+import type {Extension, Framework, Module, Service} from './'
 
 /**
  * @interface Hooks

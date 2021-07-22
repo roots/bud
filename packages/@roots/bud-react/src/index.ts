@@ -1,4 +1,5 @@
 import './interface'
+
 import {Module} from '@roots/bud-framework'
 
 import RefreshExtension from './react-refresh'

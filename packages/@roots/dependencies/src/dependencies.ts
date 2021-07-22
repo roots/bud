@@ -1,7 +1,8 @@
 import {spawnSync} from 'child_process'
+
 import {IDependencyManager} from './'
-import {Yarn} from './yarn'
 import {Npm} from './npm'
+import {Yarn} from './yarn'
 
 export class Dependencies {
   public path: string

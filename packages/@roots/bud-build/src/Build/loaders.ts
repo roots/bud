@@ -1,5 +1,6 @@
-import {Loader} from '../Loader'
 import MiniCss from 'mini-css-extract-plugin'
+
+import {Loader} from '../Loader'
 
 export const css = () =>
   new Loader(require.resolve('css-loader'))

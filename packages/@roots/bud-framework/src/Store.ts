@@ -1,5 +1,6 @@
-import {Service} from './Service'
 import {get} from 'lodash'
+
+import {Service} from './Service'
 
 class Store extends Service<Store.Repo> {
   public name = 'service/store'

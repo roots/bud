@@ -5,9 +5,9 @@ import * as PostCss from '@roots/bud-postcss'
 import * as React from '@roots/bud-react'
 import * as Stylelint from '@roots/bud-stylelint'
 import * as Tailwind from '@roots/bud-tailwindcss'
+import * as WordPressDependencies from '@roots/bud-wordpress-dependencies'
 import * as WordPressExternals from '@roots/bud-wordpress-externals'
 import * as WordPressManifests from '@roots/bud-wordpress-manifests'
-import * as WordPressDependencies from '@roots/bud-wordpress-dependencies'
 
 import type {Sage} from './interface'
 

@@ -1,5 +1,5 @@
 import {Api, Server} from '@roots/bud-framework'
-import {isUndefined, isBoolean} from 'lodash'
+import {isBoolean, isUndefined} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {

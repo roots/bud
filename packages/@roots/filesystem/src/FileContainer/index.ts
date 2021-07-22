@@ -1,10 +1,10 @@
-import path, {PlatformPath} from 'path'
-import * as fs from 'fs-extra'
-import resolveFrom from 'resolve-from'
-import _ from 'lodash'
-import {sync} from 'globby'
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
+import * as fs from 'fs-extra'
+import {sync} from 'globby'
+import _ from 'lodash'
+import path, {PlatformPath} from 'path'
+import resolveFrom from 'resolve-from'
 
 export class FileContainer extends Container {
   /**

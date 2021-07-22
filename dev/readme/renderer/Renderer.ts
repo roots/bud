@@ -1,4 +1,5 @@
 import Reconciler from 'react-reconciler'
+
 import {createElement} from './createElement'
 
 const HostConfig: any = {

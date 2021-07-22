@@ -1,8 +1,6 @@
 import execa from 'execa'
 import {writeFileSync} from 'fs-extra'
 
-const BADSTR = [`[2K[1A[2K[1A[2K[G`, /\033/g, /^\n\n\n\n/g, /^\n\n\n\s/g]
-
 const writeOut = (
   args: string[],
   out: string,
@@ -10,13 +8,15 @@ const writeOut = (
 ) => {
   const reducer = (a, c) => a.replace(c, '')
 
+  const output = execa.sync('yarn', args, {
+    cwd: `${process.cwd()}/${dir}`,
+  }).stdout
+
+  const junk = [`[2K[1A[2K[1A[2K[G`, /\033/g, /^\n\n\n\n/g, /^\n\n\n\s/g]
+
   writeFileSync(
     `${process.cwd()}/site/src/components/cli-output/${out}.mdx`,
-    BADSTR.reduce(
-      reducer,
-      execa.sync('yarn', args, {cwd: `${process.cwd()}/${dir}`})
-        .stdout,
-    ),
+    junk.reduce(reducer, output),
   )
 }
 

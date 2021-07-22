@@ -1,7 +1,9 @@
 import './interface'
+
 import {Item, Loader} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
 import {pathExistsSync} from 'fs-extra'
+
 import {Config} from './Config'
 
 const extension: Module = {

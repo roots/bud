@@ -1,9 +1,10 @@
-import {Service, Server as Contract} from '@roots/bud-framework'
-import chokidar from 'chokidar'
-import globby from 'globby'
-import {FSWatcher} from 'fs-extra'
-import {resolve} from 'path'
+import {Server as Contract, Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
+import chokidar from 'chokidar'
+import {FSWatcher} from 'fs-extra'
+import globby from 'globby'
+import {resolve} from 'path'
+
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 

@@ -1,6 +1,6 @@
+import {Component} from './Component'
 import {Inner} from './Inner'
 import {Message} from './Message'
-import {Component} from './Component'
 import {template} from './template'
 
 const client = {

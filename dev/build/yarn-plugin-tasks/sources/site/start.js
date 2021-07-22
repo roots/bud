@@ -10,7 +10,9 @@ export default Command =>
     }
 
     async execute() {
-      await this.$([`yarn ts-node ./dev/site`])
-      await this.$([`yarn docusaurus start`])
+      await this.$([
+        `yarn ts-node ./dev/site`,
+        `yarn docusaurus start`,
+      ])
     }
   }

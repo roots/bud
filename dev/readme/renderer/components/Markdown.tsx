@@ -10,9 +10,6 @@ export class Markdown {
   }
 
   public render() {
-    console.log(
-      this.blocks.map(block => block.render()).join('\n'),
-    )
     return this.blocks.map(block => block.render()).join('\n')
   }
 }

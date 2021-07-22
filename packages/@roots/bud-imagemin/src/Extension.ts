@@ -1,7 +1,9 @@
 import './interface'
+
 import {Imagemin} from '@roots/bud-framework'
-import {WebpackPlugin} from './WebpackPlugin'
+
 import {Api} from './Api'
+import {WebpackPlugin} from './WebpackPlugin'
 
 const Extension: Imagemin.Extension = {
   name: '@roots/bud-imagemin',

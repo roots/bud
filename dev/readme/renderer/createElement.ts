@@ -1,4 +1,4 @@
-import {File, Break, Markdown, Code, P, Span} from './components'
+import {Break, Code, File, Markdown, P, Span} from './components'
 
 export function createElement(type, props?, root?) {
   const COMPONENTS = {

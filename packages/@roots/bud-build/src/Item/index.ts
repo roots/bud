@@ -1,9 +1,8 @@
-import {Base} from '../shared/Base'
-
-import {isFunction} from 'lodash'
+import type {Build, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isFunction} from 'lodash'
 
-import type {Framework, Build} from '@roots/bud-framework'
+import {Base} from '../shared/Base'
 
 export class Item extends Base implements Build.Item {
   protected loader: Build.Item.LoaderFn

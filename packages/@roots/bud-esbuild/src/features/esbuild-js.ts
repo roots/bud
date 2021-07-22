@@ -1,5 +1,5 @@
-import type {Module} from '@roots/bud-framework'
 import {Item, Loader} from '@roots/bud-build'
+import type {Module} from '@roots/bud-framework'
 
 /**
  * @const jsFeature

@@ -1,7 +1,7 @@
 import {
-  Logger as Contract,
   Bootstrapper,
   Framework,
+  Logger as Contract,
 } from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {Signale} from 'signale'

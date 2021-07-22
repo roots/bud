@@ -1,8 +1,9 @@
 import '@roots/bud-api'
-import {Module} from '@roots/bud-framework'
+
 import * as babel from '@roots/bud-babel'
-import * as postcss from '@roots/bud-postcss'
 import * as entrypoints from '@roots/bud-entrypoints'
+import {Module} from '@roots/bud-framework'
+import * as postcss from '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
   namespace Extensions {

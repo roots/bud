@@ -1,4 +1,5 @@
 import '@roots/bud-extensions'
+
 import type {Module} from '@roots/bud-framework'
 import type {PluginCreator} from 'postcss'
 

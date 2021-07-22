@@ -1,5 +1,6 @@
-import React from 'react'
 import {render} from 'ink'
+import React from 'react'
+
 import {Component} from './Error'
 
 const Error: CallableFunction = (

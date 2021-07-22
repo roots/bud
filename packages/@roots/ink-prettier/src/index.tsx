@@ -1,6 +1,6 @@
-import React from 'react'
 import {Box, Text} from 'ink'
 import prettier from 'prettier'
+import React from 'react'
 
 interface Props extends prettier.Options {
   children: string

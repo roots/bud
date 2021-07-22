@@ -1,5 +1,5 @@
-import {DefinePlugin} from 'webpack'
 import type {Plugin} from '@roots/bud-framework'
+import {DefinePlugin} from 'webpack'
 
 interface Options {
   definitions: DefinePlugin['definitions']

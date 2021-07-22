@@ -1,7 +1,8 @@
-import {Config} from '../Config'
+import {Bud, Framework, services} from '@roots/bud'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
-import {services, Bud, Framework} from '@roots/bud'
+
+import {Config} from '../Config'
 
 export default class Runner {
   public app: Framework

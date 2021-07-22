@@ -1,6 +1,6 @@
-import Webpack, {Compiler, Compilation} from 'webpack'
-import {boundMethod as bind} from 'autobind-decorator'
 import {wpPkgs} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
+import Webpack, {Compilation, Compiler} from 'webpack'
 
 class WordPressDependenciesWebpackPlugin {
   public plugin = {

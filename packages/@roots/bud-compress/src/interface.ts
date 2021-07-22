@@ -1,4 +1,4 @@
-import {Plugin, Module} from '@roots/bud-framework'
+import {Module, Plugin} from '@roots/bud-framework'
 import CompressionPlugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {

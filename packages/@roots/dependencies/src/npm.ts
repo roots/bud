@@ -1,4 +1,5 @@
 import {spawnSync, SpawnSyncReturns} from 'child_process'
+
 import {IDependencyManager} from './'
 
 export class Npm implements IDependencyManager {

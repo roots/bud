@@ -1,6 +1,7 @@
 import {flags} from '@oclif/command'
+import {config, Framework} from '@roots/bud'
+
 import Command from './Command'
-import {Framework, config} from '@roots/bud'
 import Runner from './Runner'
 
 export default class Build extends Command {

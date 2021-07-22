@@ -1,7 +1,8 @@
 import './interface'
+
+import {Module} from '@roots/bud-framework'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Configuration} from 'webpack'
-import {Module} from '@roots/bud-framework'
 
 const extension: Module = {
   name: '@roots/bud-vue',

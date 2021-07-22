@@ -1,5 +1,6 @@
 import '@roots/bud-api'
 import '@roots/bud-babel'
+
 import {Module} from '@roots/bud-framework'
 import {RuleSetRule, RuleSetUseItem} from 'webpack'
 

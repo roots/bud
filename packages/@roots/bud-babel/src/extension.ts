@@ -1,8 +1,10 @@
 import './interface'
+
 import {Item, Loader} from '@roots/bud-build'
-import {Config} from './Config'
-import {existsSync} from 'fs-extra'
 import type {Framework, Module} from '@roots/bud-framework'
+import {existsSync} from 'fs-extra'
+
+import {Config} from './Config'
 
 export const name: Module['name'] = '@roots/bud-babel'
 

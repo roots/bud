@@ -1,6 +1,6 @@
+import json5Parser from 'json5'
 import tomlParser from 'toml'
 import yamlParser from 'yamljs'
-import json5Parser from 'json5'
 
 import {Rule} from '../Rule'
 

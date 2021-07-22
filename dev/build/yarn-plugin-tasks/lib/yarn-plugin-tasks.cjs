@@ -1,24 +1,191 @@
 'use strict'
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var dev = Command =>
+var all$3 = Command =>
   class extends Command {
-    static paths = [[`kjo`, `make`]]
-    static usage = {
-      category: `kjo`,
-      description: `build the kjo`,
-    }
+    static paths = [[`kjo`, `build`]]
+    static usage = {category: `kjo`}
 
     async execute() {
-      await this.$([`yarn kjo clean`])
-      await this.$([`yarn install --immutable`])
-      await this.$([`yarn kjo build`])
       await this.$([
-        `yarn kjo test unit`,
-        `yarn kjo test integration`,
-        `yarn kjo lint skypack`,
+        [`yarn kjo build cjs`, `yarn kjo build esm`],
       ])
-      await this.$([`yarn install`])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var cjs$1 = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `build`, `cjs`]]
+
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:cjs`,
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var esm$1 = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `build`, `esm`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:esm`,
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var clean = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `clean`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        [
+          `rm -rf **/.budfiles`,
+          `rm -rf **/node_modules`,
+          `rm -rf examples/*/dist`,
+          `rm -rf examples/sage/public/*`,
+          `rm -rf examples/sage/storage/bud/*`,
+          `rm -rf packages/*/*/lib`,
+          `rm -rf packages/*/*/types`,
+        ],
+        `yarn cache clean`,
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+const ERROR = 1
+const OK = 0
+
+var makeCommand = (Command, exec) =>
+  class Base extends Command {
+    constructor(options) {
+      super(options)
+    }
+
+    /**
+     * Run a series of sequential and/or parallel taskes
+     */
+    async $(options) {
+      const exitCode = await options.reduce(
+        this.sequential.bind(this),
+        this.promiseOK(),
+      )
+
+      this.taskFailed(exitCode) && process.exit(ERROR)
+
+      return Promise.resolve(OK)
+    }
+
+    /**
+     * Run tasks sequentially
+     */
+    async sequential(promise, task) {
+      const exitCode = await promise
+
+      if (this.taskFailed(exitCode)) return ERROR
+
+      return Array.isArray(task)
+        ? this.$(task)
+        : this.runTask(task)
+    }
+
+    /**
+     * Run a single task
+     */
+    runTask(task) {
+      const [invoke, ...params] = task.split(' ')
+      return exec(invoke, params)
+    }
+
+    /**
+     * Check task status
+     */
+    taskFailed(code) {
+      return Array.isArray(code)
+        ? code.filter(c => c !== OK).length > 0
+        : code !== OK
+    }
+
+    /**
+     * Promise OK
+     */
+    async promiseOK() {
+      return OK
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var all$2 = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `lint`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        [
+          `yarn kjo lint eslint`,
+          `yarn kjo lint prettier`,
+          `yarn kjo lint skypack`,
+        ],
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+var eslint = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `lint`, `eslint`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        [
+          `yarn eslint packages/**/src/**/*.{js,jsx,ts,tsx} --fix`,
+          `yarn eslint dev/**/*.{js,jsx,ts,tsx} --fix`,
+        ],
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var prettier = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `lint`, `prettier`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        [
+          `yarn prettier packages/**/src/**/*.{ts,js,tsx,jsx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+          `yarn prettier examples/**/*.{ts,js,tsx,jsx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+          `yarn prettier dev/**/*.{ts,js,tsx,jsx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+        ],
+      ])
+    }
+  }
+
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+var skypack = Command =>
+  class extends Command {
+    static paths = [[`kjo`, `lint`, `skypack`]]
+    static usage = {category: `kjo`}
+
+    async execute() {
+      await this.$([
+        `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg`,
+      ])
     }
   }
 
@@ -33,36 +200,36 @@ var ci = Command =>
     }
 
     async execute() {
-      await this.$([`yarn install --immutable`])
-      await this.$([`yarn kjo build cjs`])
-      await this.$([`yarn kjo test`])
-      await this.$([`yarn kjo site`])
+      await this.$([
+        `yarn install --immutable`,
+        `yarn kjo build cjs`,
+        `yarn kjo test unit`,
+        `yarn kjo test integration`,
+        [`yarn kjo lint eslint`, `yarn kjo lint skypack`],
+      ])
     }
   }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var clean = Command =>
+
+var dev = Command =>
   class extends Command {
-    static paths = [[`kjo`, `clean`]]
+    static paths = [[`kjo`, `make`]]
     static usage = {category: `kjo`}
 
     async execute() {
       await this.$([
-        `rm -rf **/.budfiles`,
-        `rm -rf **/node_modules`,
-        `rm -rf examples/*/dist`,
-        `rm -rf examples/sage/public/*`,
-        `rm -rf examples/sage/storage/bud/*`,
-        `rm -rf packages/*/*/lib`,
-        `rm -rf packages/*/*/types`,
+        `yarn kjo clean`,
+        `yarn install --immutable`,
+        `yarn kjo build`,
+        [`yarn kjo test unit`, `yarn kjo lint skypack`],
+        `yarn install`,
       ])
-
-      await this.$([`yarn cache clean`])
     }
   }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var all$3 = Command =>
+var all$1 = Command =>
   class extends Command {
     static paths = [[`kjo`, `profile`]]
     static usage = {category: `kjo`}
@@ -76,7 +243,7 @@ var all$3 = Command =>
   }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var cjs$1 = Command =>
+var cjs = Command =>
   class extends Command {
     static paths = [[`kjo`, `profile`, `cjs`]]
     static usage = {category: `kjo`}
@@ -89,7 +256,7 @@ var cjs$1 = Command =>
   }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var esm$1 = Command =>
+var esm = Command =>
   class extends Command {
     static paths = [[`kjo`, `profile`, `esm`]]
     static usage = {category: `kjo`}
@@ -109,8 +276,7 @@ var build = Command =>
 
     async execute() {
       await this.$([
-        `yarn ts-node ./dev/site`,
-        `yarn kjo site readme`,
+        [`yarn ts-node ./dev/site`, `yarn kjo site readme`],
       ])
       await this.$([`yarn docusaurus build`])
     }
@@ -120,12 +286,7 @@ var build = Command =>
 var readme = Command =>
   class extends Command {
     static paths = [[`kjo`, `site`, `readme`]]
-
-    static usage = {
-      category: `kjo`,
-      description: `rebuild readmes`,
-      examples: [[`Make site`, `yarn kjo site readme`]],
-    }
+    static usage = {category: `kjo`}
 
     async execute() {
       await this.$([`yarn ts-node ./dev/readme`])
@@ -144,85 +305,9 @@ var start = Command =>
     }
 
     async execute() {
-      await this.$([`yarn ts-node ./dev/site`])
-      await this.$([`yarn docusaurus start`])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var all$2 = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `build`]]
-    static usage = {category: `kjo`}
-
-    async execute() {
-      await this.$([`yarn kjo build cjs`, `yarn kjo build esm`])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var cjs = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `build`, `cjs`]]
-
-    static usage = {category: `kjo`}
-
-    async execute() {
       await this.$([
-        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:cjs`,
-      ])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var esm = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `build`, `esm`]]
-    static usage = {category: `kjo`}
-
-    async execute() {
-      await this.$([
-        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:esm`,
-      ])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var all$1 = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `lint`]]
-    static usage = {category: `kjo`}
-
-    async execute() {
-      await this.$([
-        `yarn kjo lint eslint`,
-        `yarn kjo lint skypack`,
-      ])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var eslint = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `lint`, `eslint`]]
-    static usage = {category: `kjo`}
-
-    async execute() {
-      await this.$([
-        `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint`,
-      ])
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var skypack = Command =>
-  class extends Command {
-    static paths = [[`kjo`, `lint`, `skypack`]]
-    static usage = {category: `kjo`}
-
-    async execute() {
-      await this.$([
-        `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg`,
+        `yarn ts-node ./dev/site`,
+        `yarn docusaurus start`,
       ])
     }
   }
@@ -234,8 +319,9 @@ var all = Command =>
     static usage = {category: `kjo`}
 
     async execute() {
-      await this.$([`yarn kjo test unit`], false)
-      await this.$([`yarn kjo test integration`], false)
+      await this.$([
+        [`yarn kjo test unit`, `yarn kjo test integration`],
+      ])
     }
   }
 
@@ -264,30 +350,6 @@ var unit = Command =>
   }
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-var makeCommand = (Command, exec) =>
-  class Base extends Command {
-    constructor(options) {
-      super(options)
-    }
-
-    async $(cmds) {
-      await Promise.all(
-        cmds.map(async cmd => {
-          const [invoke, ...params] = cmd.split(' ')
-
-          try {
-            return exec(invoke, params)
-          } catch (err) {
-            throw new Error(err)
-          }
-        }),
-      )
-
-      return Promise.resolve()
-    }
-  }
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
 const plugin = {
   name: `plugin-bud`,
@@ -305,15 +367,16 @@ const plugin = {
         all(Base),
         unit(Base),
         integration(Base),
+        all$1(Base),
+        cjs(Base),
+        esm(Base),
         all$3(Base),
         cjs$1(Base),
         esm$1(Base),
         all$2(Base),
-        cjs(Base),
-        esm(Base),
-        all$1(Base),
         skypack(Base),
         eslint(Base),
+        prettier(Base),
         build(Base),
         readme(Base),
         start(Base),

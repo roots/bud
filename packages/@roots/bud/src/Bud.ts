@@ -2,12 +2,11 @@
  * @module @roots/bud
  */
 
-import {Framework} from '@roots/bud-framework'
-
 import type {Api} from '@roots/bud-api'
 import type {Build} from '@roots/bud-build'
 import type {Cache} from '@roots/bud-cache'
 import type {Compiler} from '@roots/bud-compiler'
+import {Framework} from '@roots/bud-framework'
 
 import type {Dependencies} from './services/Dependencies'
 import type {Discovery} from './services/Discovery'

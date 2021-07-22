@@ -6,8 +6,11 @@ export default Command =>
 
     async execute() {
       await this.$([
-        `yarn kjo lint eslint`,
-        `yarn kjo lint skypack`,
+        [
+          `yarn kjo lint eslint`,
+          `yarn kjo lint prettier`,
+          `yarn kjo lint skypack`,
+        ],
       ])
     }
   }

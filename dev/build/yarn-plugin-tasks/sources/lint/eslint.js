@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 export default Command =>
   class extends Command {
     static paths = [[`kjo`, `lint`, `eslint`]]
@@ -6,7 +7,10 @@ export default Command =>
 
     async execute() {
       await this.$([
-        `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint`,
+        [
+          `yarn eslint packages/**/src/**/*.{js,jsx,ts,tsx} --fix`,
+          `yarn eslint dev/**/*.{js,jsx,ts,tsx} --fix`,
+        ],
       ])
     }
   }

@@ -1,7 +1,7 @@
-import {Item} from '../Item'
+import type {Framework} from '@roots/bud-framework'
 import RemarkHTML from 'remark-html'
 
-import type {Framework} from '@roots/bud-framework'
+import {Item} from '../Item'
 
 export const asset = () =>
   new Item({

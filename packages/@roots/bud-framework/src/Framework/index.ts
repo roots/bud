@@ -2,19 +2,9 @@
  * @module @roots/bud-framework
  */
 
-import {join} from 'path'
-
-import {
-  Container,
-  Service,
-  Bootstrapper,
-  Store,
-  access,
-  make,
-  when,
-} from '../'
-
+import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction, isNull} from 'lodash'
+import {join} from 'path'
 
 import type {
   Access,
@@ -36,8 +26,15 @@ import type {
   Server,
   When,
 } from '../'
-
-import {boundMethod as bind} from 'autobind-decorator'
+import {
+  access,
+  Bootstrapper,
+  Container,
+  make,
+  Service,
+  Store,
+  when,
+} from '../'
 
 /**
  * @interface Framework

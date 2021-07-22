@@ -1,8 +1,10 @@
 import './interface'
+
 import type {Module} from '@roots/bud-framework'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
-import {features} from './features/index'
+
 import {setOptions} from './api/index'
+import {features} from './features/index'
 
 const esbuild: Module = {
   name: '@roots/bud-esbuild',

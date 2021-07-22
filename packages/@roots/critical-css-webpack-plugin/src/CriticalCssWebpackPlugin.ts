@@ -1,9 +1,10 @@
-import type {Options} from './interface'
-import Webpack, {Module} from 'webpack'
-import critical from 'critical'
 import {boundMethod as bind} from 'autobind-decorator'
-import vinyl from 'vinyl'
+import critical from 'critical'
 import safeRequire from 'safe-require'
+import vinyl from 'vinyl'
+import Webpack, {Module} from 'webpack'
+
+import type {Options} from './interface'
 
 const HtmlWebpackPlugin = safeRequire('html-webpack-plugin')
 

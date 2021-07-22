@@ -3,6 +3,7 @@
  */
 
 import {Signale} from 'signale'
+
 import {Bootstrapper} from '.'
 
 /**

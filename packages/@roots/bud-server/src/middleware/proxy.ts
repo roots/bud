@@ -1,9 +1,9 @@
+import {Server} from '@roots/bud-framework'
 import {
   createProxyMiddleware,
   Options,
 } from 'http-proxy-middleware'
 import zlib from 'zlib'
-import {Server} from '@roots/bud-framework'
 
 /**
  * Proxy middleware factory

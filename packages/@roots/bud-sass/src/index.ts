@@ -1,6 +1,7 @@
 import './interface'
+
+import {Item, Loader, Rule} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
-import {Loader, Item, Rule} from '@roots/bud-build'
 
 const extension: Module = {
   name: '@roots/bud-sass',
