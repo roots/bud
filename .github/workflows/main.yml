@@ -49,9 +49,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: |
-          yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:cjs
-          yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:esm
+        run: yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build
 
       - name: Unit Tests
         run: yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"
