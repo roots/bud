@@ -67,7 +67,7 @@
     "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
-    "postcss": "8.3.5",
+    "postcss": "8.3.6",
     "sass": "1.35.2",
     "webpack": "5.45.1"
   },
