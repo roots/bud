@@ -3,7 +3,7 @@
     "config:base",
     "schedule:daily",
     ":dependencyDashboard"
-  ]
+  ],
   "commitMessageAction": "Bump",
   "commitMessageTopic": "{{depName}}",
   "postUpdateOptions": ["yarnDedupeHighest"],
