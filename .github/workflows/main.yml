@@ -1,8 +1,15 @@
 name: Build & Test
 
 on:
-  - pull_request_target
-  - workflow_dispatch
+  push:
+    branches:
+      - stable
+      - next
+  pull_request:
+    branches:
+      - stable
+      - next
+  workflow_dispatch:
 
 jobs:
   build:
@@ -43,7 +50,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn kjo build cjs
+        run: yarn kjo build
 
       - name: Unit Tests
         run: yarn kjo test unit
@@ -51,5 +58,5 @@ jobs:
       - name: Integration Tests
         run: yarn kjo test integration
 
-      - name: Skypack Lint
-        run: yarn kjo lint skypack
+      - name: Lint
+        run: yarn kjo lint
