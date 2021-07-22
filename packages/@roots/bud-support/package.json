@@ -59,9 +59,9 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "^7",
-    "eslint": "^7.31.0",
-    "webpack": "^5.45.1"
+    "@types/eslint": "7.28.0",
+    "eslint": "7.31.0",
+    "webpack": "5.45.1"
   },
   "dependencies": {
     "lodash": "^4.17.21",

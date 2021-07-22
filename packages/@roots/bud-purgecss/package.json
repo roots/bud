@@ -64,10 +64,10 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/eslint": "^7",
-    "@types/node": "^15.12.5",
-    "eslint": "^7.31.0",
-    "postcss": "^8.3.5"
+    "@types/eslint": "7.28.0",
+    "@types/node": "15.14.1",
+    "eslint": "7.31.0",
+    "postcss": "8.3.5"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.3",

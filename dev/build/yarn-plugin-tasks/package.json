@@ -5,13 +5,13 @@
     "build": "rollup -c && prettier lib/* --write"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.1",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.2",
-    "@types/eslint": "^7",
-    "eslint": "^7.31.0",
-    "execa": "^5.1.1",
-    "prettier": "^2.3.2",
-    "rollup": "^2.53.2"
+    "@rollup/plugin-commonjs": "19.0.1",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "13.0.2",
+    "@types/eslint": "7.28.0",
+    "eslint": "7.31.0",
+    "execa": "5.1.1",
+    "prettier": "2.3.2",
+    "rollup": "2.53.2"
   }
 }
