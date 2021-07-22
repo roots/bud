@@ -31,7 +31,7 @@
   "types": "./contracts/index.d.ts",
   "stableVersion": "4.6.0",
   "devDependencies": {
-    "@types/eslint": "^7",
-    "eslint": "^7.31.0"
+    "@types/eslint": "7.28.0",
+    "eslint": "7.31.0"
   }
 }
