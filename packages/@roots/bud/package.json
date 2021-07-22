@@ -71,7 +71,7 @@
     "@types/pkg-up": "3.1.0",
     "@types/react": "17.0.14",
     "@types/resolve-pkg": "2.0.0",
-    "@types/signale": "1.4.1",
+    "@types/signale": "1.4.2",
     "@types/webpack-manifest-plugin": "3.0.5",
     "eslint": "7.31.0",
     "webpack": "5.45.1"
