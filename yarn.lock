@@ -4839,14 +4839,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-router-dom@npm:5.1.7":
-  version: 5.1.7
-  resolution: "@types/react-router-dom@npm:5.1.7"
+"@types/react-router-dom@npm:5.1.8":
+  version: 5.1.8
+  resolution: "@types/react-router-dom@npm:5.1.8"
   dependencies:
     "@types/history": "*"
     "@types/react": "*"
     "@types/react-router": "*"
-  checksum: ad40f55557bb7cd8d19d783c1d7dbca85e8874e03cced37e464f74f9f0a588a9a7e411de74da362d1a5c5bf80f7aaca78fe9a66d26741e47c5c06e49a62d1229
+  checksum: ff4af091f8e076b64f6f3f2af52429772641388393065930880e8931ce881873c2f0dff53bb1e373db5ae6b737fc514db4a1f5daa7d8bf3cf3b3088ce84472fc
   languageName: node
   linkType: hard
 
@@ -6754,7 +6754,7 @@ __metadata:
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.2
-    "@types/react-router-dom": 5.1.7
+    "@types/react-router-dom": 5.1.8
     "@types/signale": 1.4.1
     "@types/weak-napi": 2.0.0
     "@typescript-eslint/eslint-plugin": 4.28.1
