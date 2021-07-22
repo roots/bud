@@ -3302,7 +3302,7 @@ __metadata:
     fs-extra: ^10.0.0
     globby: ^11.0.4
     http-proxy-middleware: 2.0.1
-    ink: 3.0.8
+    ink: 3.0.9
     lodash: ^4.17.21
     signale: 1.4.0
     webpack: 5.45.1
@@ -6115,13 +6115,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astral-regex@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "astral-regex@npm:1.0.0"
-  checksum: 93417fc0879531cd95ace2560a54df865c9461a3ac0714c60cbbaa5f1f85d2bee85489e78d82f70b911b71ac25c5f05fc5a36017f44c9bb33c701bee229ff848
-  languageName: node
-  linkType: hard
-
 "astral-regex@npm:^2.0.0":
   version: 2.0.0
   resolution: "astral-regex@npm:2.0.0"
@@ -6773,7 +6766,7 @@ __metadata:
     file-loader: 6.2.0
     fs-extra: 10.0.0
     globby: 11.0.4
-    ink: 3.0.8
+    ink: 3.0.9
     ink-testing-library: 2.1.0
     jest: 27.0.6
     npm-run-all: 4.1.5
@@ -12192,9 +12185,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:3.0.8":
-  version: 3.0.8
-  resolution: "ink@npm:3.0.8"
+"ink@npm:3.0.9":
+  version: 3.0.9
+  resolution: "ink@npm:3.0.9"
   dependencies:
     ansi-escapes: ^4.2.1
     auto-bind: 4.0.0
@@ -12213,7 +12206,7 @@ __metadata:
     signal-exit: ^3.0.2
     slice-ansi: ^3.0.0
     stack-utils: ^2.0.2
-    string-length: ^3.1.0
+    string-width: ^4.2.2
     type-fest: ^0.12.0
     widest-line: ^3.1.0
     wrap-ansi: ^6.2.0
@@ -12225,7 +12218,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 8ec8fac1893e82e1e65d6db4d81b130be631bc5f5fe74effb0a3fdf704ec4cd875cd826054262d78d15caf7ae55196739637257689f44ac274a5bf2ff6e7d61e
+  checksum: a27184d741ab9381ce6e8e3d141a1919ae1bf4fbfa55e4c04013b31720d4d14a1c5e905a0adccd330cf739a5c3856cef5f69f8ca20fc1457ac6676e2c6015926
   languageName: node
   linkType: hard
 
@@ -19837,16 +19830,6 @@ resolve@^2.0.0-next.3:
   version: 1.1.3
   resolution: "string-hash@npm:1.1.3"
   checksum: 104b8667a5e0dc71bfcd29fee09cb88c6102e27bfb07c55f95535d90587d016731d52299380052e514266f4028a7a5172e0d9ac58e2f8f5001be61dc77c0754d
-  languageName: node
-  linkType: hard
-
-"string-length@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "string-length@npm:3.1.0"
-  dependencies:
-    astral-regex: ^1.0.0
-    strip-ansi: ^5.2.0
-  checksum: b09ccacc2f96ba3ade9f2b3163901e05f668a2b14bc353853165c1f3b19185421ac004e9957b62827083d163e049c41a1b15170e252eaf44fdd686553c372714
   languageName: node
   linkType: hard
 
