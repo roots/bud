@@ -4036,7 +4036,7 @@ __metadata:
     eslint: 7.31.0
     execa: 5.1.1
     prettier: 2.3.2
-    rollup: 2.53.2
+    rollup: 2.53.3
   languageName: unknown
   linkType: soft
 
@@ -18875,9 +18875,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"rollup@npm:2.53.2":
-  version: 2.53.2
-  resolution: "rollup@npm:2.53.2"
+"rollup@npm:2.53.3":
+  version: 2.53.3
+  resolution: "rollup@npm:2.53.3"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -18885,7 +18885,7 @@ resolve@^2.0.0-next.3:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 0b64def8f0a6e16abff59397e21328ec0605c2f5f2623a5d276603c696e244593f86773b0dd965aa7aae8970f72bf3c723b5bc50f9b3e800c105290e6c62c690
+  checksum: 76fa43b2e9afde6d56de3c59048cb680170dd5724a02e9c7b35f0736e9d6416e50bfdbed1295b141381453129de368c386ccfa2db91f0355e32b3499114866b1
   languageName: node
   linkType: hard
 
