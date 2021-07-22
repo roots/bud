@@ -3598,7 +3598,7 @@ __metadata:
     eslint: 7.31.0
     stylelint: ^13.13.1
     stylelint-config-standard: ^22.0.0
-    stylelint-webpack-plugin: ^2.2.2
+    stylelint-webpack-plugin: ^3.0.0
     webpack: 5.45.1
   languageName: unknown
   linkType: soft
@@ -4632,10 +4632,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.4, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.6, @types/json-schema@npm:^7.0.7":
-  version: 7.0.7
-  resolution: "@types/json-schema@npm:7.0.7"
-  checksum: ea3b409235862d28122751158f4054e729e31ad844bd7b8b23868f38c518047b1c0e8e4e7cc293e02c31a2fb8cfc8a4506c2de2a745cf78b218e064fb8898cd4
+"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.4, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.7, @types/json-schema@npm:^7.0.8":
+  version: 7.0.8
+  resolution: "@types/json-schema@npm:7.0.8"
+  checksum: f1d0fe76ab1db93846f36a9179faa44b9b66f2f5f44597e46e65456a1c998f632c63b94ed347058ed1a230cbf95a9a164b4daf4d70aa3d651d5033f7856df83c
   languageName: node
   linkType: hard
 
@@ -4954,13 +4954,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/stylelint@npm:^13.13.0":
-  version: 13.13.0
-  resolution: "@types/stylelint@npm:13.13.0"
+"@types/stylelint@npm:^13.13.1":
+  version: 13.13.1
+  resolution: "@types/stylelint@npm:13.13.1"
   dependencies:
     globby: 11.x.x
     postcss: 7.x.x
-  checksum: 2282744f3cf7cf6af6734d6496be151b16144ce4421a031b83da64f40e71e2078118c0e09a89b0b948a819024aef177fb74d12c0a22bfd4f4436e47db85eed99
+  checksum: 86add6ce35e1a53e7332074bc92672ca85b65374ad2c6745918a30c47697eefec700ebb8c0c3c66e38adf8f0b69cf216ef846e14138f52c77e6428b645c9ef1b
   languageName: node
   linkType: hard
 
@@ -19099,14 +19099,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "schema-utils@npm:3.0.0"
+"schema-utils@npm:^3.0.0, schema-utils@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "schema-utils@npm:3.1.1"
   dependencies:
-    "@types/json-schema": ^7.0.6
+    "@types/json-schema": ^7.0.8
     ajv: ^6.12.5
     ajv-keywords: ^3.5.2
-  checksum: 56dc93b4f6abe91aa2b76b2c656610cc6d491297f4e6866340bc7b6b226b521a2969ab2498cd9e6c59eda670b730a9c8695404ca56c08643c3b95c5e174588c8
+  checksum: fb73f3d759d43ba033c877628fe9751620a26879f6301d3dbeeb48cf2a65baec5cdf99da65d1bf3b4ff5444b2e59cbe4f81c2456b5e0d2ba7d7fd4aed5da29ce
   languageName: node
   linkType: hard
 
@@ -20183,21 +20183,20 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"stylelint-webpack-plugin@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "stylelint-webpack-plugin@npm:2.2.2"
+"stylelint-webpack-plugin@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "stylelint-webpack-plugin@npm:3.0.1"
   dependencies:
-    "@types/stylelint": ^13.13.0
-    arrify: ^2.0.1
+    "@types/stylelint": ^13.13.1
     globby: ^11.0.4
-    jest-worker: ^27.0.2
+    jest-worker: ^27.0.6
     micromatch: ^4.0.4
     normalize-path: ^3.0.0
-    schema-utils: ^3.0.0
+    schema-utils: ^3.1.0
   peerDependencies:
     stylelint: ^13.0.0
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 7da7cd4dae7ac41f03c9fde85677e5ce7905bf6aa17c9e76823894f75cb106765ce9441bfdd3f2bfe594ba4a26576a0f6882b4113e60bccf41a40822b21ea2a2
+    webpack: ^5.0.0
+  checksum: 508749710d35856b44011ba71f4ce7055d1d22b243614fe3957bf903302e13a3a52d7989061f38a91c94d841009e4a4b619f6ab82068158e13ff6b3faf0e5a15
   languageName: node
   linkType: hard
 
