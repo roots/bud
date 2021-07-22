@@ -3385,8 +3385,8 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: 17.0.2
+    react-dom: 17.0.2
     webpack: 5.45.1
   peerDependencies:
     "@roots/bud-babel": "*"
@@ -6768,7 +6768,7 @@ __metadata:
     eslint-plugin-import: 2.23.4
     eslint-plugin-prettier: 3.4.0
     eslint-plugin-react: 7.24.0
-    eslint-plugin-react-hooks: ^4.2.0
+    eslint-plugin-react-hooks: 4.2.0
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
@@ -6779,9 +6779,9 @@ __metadata:
     npm-run-all: 4.1.5
     prettier: 2.3.2
     raw-loader: 4.0.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-reconciler: ^0.26.2
+    react: 17.0.2
+    react-dom: 17.0.2
+    react-reconciler: 0.26.2
     rimraf: 3.0.2
     signale: 1.4.0
     ts-jest: 27.0.3
@@ -9517,7 +9517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^4.2.0":
+"eslint-plugin-react-hooks@npm:4.2.0, eslint-plugin-react-hooks@npm:^4.2.0":
   version: 4.2.0
   resolution: "eslint-plugin-react-hooks@npm:4.2.0"
   peerDependencies:
@@ -17899,7 +17899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -18022,6 +18022,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-reconciler@npm:0.26.2":
+  version: 0.26.2
+  resolution: "react-reconciler@npm:0.26.2"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    scheduler: ^0.20.2
+  peerDependencies:
+    react: ^17.0.2
+  checksum: 2ebceace56f547f51eaf142becefef9cca980eae4f42d90ee5a966f54a375f5082d78b71b00c40bbd9bca69e0e0f698c7d4e81cc7373437caa19831fddc1d01b
+  languageName: node
+  linkType: hard
+
 "react-reconciler@npm:^0.24.0":
   version: 0.24.0
   resolution: "react-reconciler@npm:0.24.0"
@@ -18033,19 +18046,6 @@ __metadata:
   peerDependencies:
     react: ^16.0.0
   checksum: c9c74208325a940ca36e031b71499f6d8e62e96ee673d69e35cc9e6a661aa746a2b0750f2ffcd1bae0a29eaf3d127dc8197ab7e801e6a3a2ab7d45a71b464630
-  languageName: node
-  linkType: hard
-
-"react-reconciler@npm:^0.26.2":
-  version: 0.26.2
-  resolution: "react-reconciler@npm:0.26.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.2
-  peerDependencies:
-    react: ^17.0.2
-  checksum: 2ebceace56f547f51eaf142becefef9cca980eae4f42d90ee5a966f54a375f5082d78b71b00c40bbd9bca69e0e0f698c7d4e81cc7373437caa19831fddc1d01b
   languageName: node
   linkType: hard
 
@@ -18127,7 +18127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
