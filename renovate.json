@@ -1,5 +1,11 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "schedule:daily",
+    ":dependencyDashboard"
   ]
+  "commitMessageAction": "Bump",
+  "commitMessageTopic": "{{depName}}",
+  "postUpdateOptions": ["yarnDedupeHighest"],
+  "timezone": "America/Los_Angeles"
 }
