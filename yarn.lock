@@ -6762,7 +6762,7 @@ __metadata:
     chokidar: 3.5.2
     clipanion: 3.0.1
     clsx: 1.1.1
-    docusaurus-plugin-typedoc: 0.15.2
+    docusaurus-plugin-typedoc: 0.15.3
     eslint: 7.31.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-import: 2.23.4
@@ -8924,13 +8924,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-typedoc@npm:0.15.2":
-  version: 0.15.2
-  resolution: "docusaurus-plugin-typedoc@npm:0.15.2"
+"docusaurus-plugin-typedoc@npm:0.15.3":
+  version: 0.15.3
+  resolution: "docusaurus-plugin-typedoc@npm:0.15.3"
   peerDependencies:
     typedoc: ">=0.21.0"
     typedoc-plugin-markdown: ">=3.10.0"
-  checksum: 41cd958d8a173657c84244fcb4f0a0f48ec5dc3ce9c4fe7af334dccd931ac4769798f2feb20b116ddfd552aa047cbf89405d7e380b3bf42067ae4e20bc016789
+  checksum: 07d71f08aad84502a07ef31357d641604b825b8b7c11bc3247da484ab5dc1a428e2d520d906fcfc437623253edf68425556baa68e5c28357c6692c479f425a48
   languageName: node
   linkType: hard
 

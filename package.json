@@ -91,7 +91,7 @@
     "chokidar": "3.5.2",
     "clipanion": "3.0.1",
     "clsx": "1.1.1",
-    "docusaurus-plugin-typedoc": "0.15.2",
+    "docusaurus-plugin-typedoc": "0.15.3",
     "eslint": "7.31.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.23.4",
