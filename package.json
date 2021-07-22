@@ -83,7 +83,7 @@
     "@types/react-dom": "17.0.9",
     "@types/react-helmet": "6.1.1",
     "@types/react-reconciler": "0.26.2",
-    "@types/react-router-dom": "5.1.7",
+    "@types/react-router-dom": "5.1.8",
     "@types/signale": "1.4.1",
     "@types/weak-napi": "2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
