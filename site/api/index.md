@@ -87,7 +87,7 @@ access(isAValue) // => `option value: true`
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/access.ts#L20)
+[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/access.ts#L20)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/make.ts#L28)
+[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/make.ts#L28)
 
 ___
 
@@ -184,7 +184,7 @@ bud.when(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/when.ts#L28)
+[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/when.ts#L28)
 
 ## Functions
 
@@ -204,7 +204,7 @@ bud.when(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/access.ts#L25)
+[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/access.ts#L25)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/make.ts#L34)
+[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/make.ts#L34)
 
 ___
 
@@ -247,4 +247,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Framework/when.ts#L35)
+[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/when.ts#L35)

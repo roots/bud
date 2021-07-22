@@ -24,7 +24,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Store.ts:5](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Store.ts#L5)
+[packages/@roots/bud-framework/src/Store.ts:5](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Store.ts#L5)
 
 ## Accessors
 
@@ -38,7 +38,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -68,4 +68,4 @@ Service.get
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Store.ts:7](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Store.ts#L7)
+[packages/@roots/bud-framework/src/Store.ts:7](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Store.ts#L7)

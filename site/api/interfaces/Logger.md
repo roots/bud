@@ -22,7 +22,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Logger.ts:12](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Logger.ts#L12)
+[packages/@roots/bud-framework/src/Logger.ts:12](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Logger.ts#L12)
 
 ___
 
@@ -38,7 +38,7 @@ Name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L25)
+[packages/@roots/bud-framework/src/Service.ts:25](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L25)
 
 ## Methods
 
@@ -66,7 +66,7 @@ Boot
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:55](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L55)
+[packages/@roots/bud-framework/src/Service.ts:55](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L55)
 
 ___
 
@@ -94,7 +94,7 @@ Post boot callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:61](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L61)
+[packages/@roots/bud-framework/src/Service.ts:61](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L61)
 
 ___
 
@@ -122,7 +122,7 @@ Bootstrap
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L31)
+[packages/@roots/bud-framework/src/Service.ts:31](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L31)
 
 ___
 
@@ -150,7 +150,7 @@ Bootstrapped
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L37)
+[packages/@roots/bud-framework/src/Service.ts:37](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L37)
 
 ___
 
@@ -178,7 +178,7 @@ Register
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L43)
+[packages/@roots/bud-framework/src/Service.ts:43](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L43)
 
 ___
 
@@ -206,4 +206,4 @@ Post registered callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Service.ts#L49)
+[packages/@roots/bud-framework/src/Service.ts:49](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L49)

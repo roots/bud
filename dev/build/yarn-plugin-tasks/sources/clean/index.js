@@ -1,20 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import sh from '../sh'
-
 export default Command =>
   class extends Command {
     static paths = [[`kjo`, `clean`]]
-
-    static usage = {
-      category: `kjo`,
-      description: `Clean kjo of all built artifacts`,
-      examples: [[`Clean`, `yarn clean`]],
-    }
+    static usage = {category: `kjo`}
 
     async execute() {
-      const $ = sh.bind(this)
-
-      await $([
+      await this.$([
         `rm -rf **/.budfiles`,
         `rm -rf **/node_modules`,
         `rm -rf examples/*/dist`,
@@ -24,6 +15,6 @@ export default Command =>
         `rm -rf packages/*/*/types`,
       ])
 
-      await $([`yarn cache clean`])
+      await this.$([`yarn cache clean`])
     }
   }

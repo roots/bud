@@ -22,7 +22,7 @@ Hook definition
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:86](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L86)
+[packages/@roots/bud-framework/src/Hooks.ts:86](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Hooks.ts#L86)
 
 ___
 
@@ -34,7 +34,7 @@ bud.publish key/value argument
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:91](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L91)
+[packages/@roots/bud-framework/src/Hooks.ts:91](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Hooks.ts#L91)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Hooks.ts:361](https://github.com/roots/bud/blob/f85a5e1be/packages/@roots/bud-framework/src/Hooks.ts#L361)
+[packages/@roots/bud-framework/src/Hooks.ts:361](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Hooks.ts#L361)

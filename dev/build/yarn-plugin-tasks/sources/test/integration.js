@@ -1,24 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import sh from '../sh'
-
 export default Command =>
   class extends Command {
     static paths = [[`kjo`, `test`, `integration`]]
-
-    static usage = {
-      category: `kjo`,
-      description: `Run integration test suite`,
-      examples: [
-        [
-          `Run integration test suite`,
-          `yarn kjo test integration`,
-        ],
-      ],
-    }
+    static usage = {category: `kjo`}
 
     async execute() {
-      const $ = sh.bind(this)
-
-      await $([`node ./jest.integration.js`])
+      await this.$([`node ./jest.integration.js`])
     }
   }

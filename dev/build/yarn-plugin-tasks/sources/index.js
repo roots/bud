@@ -6,33 +6,36 @@ import * as site from './site'
 import * as build from './build'
 import * as lint from './lint'
 import * as test from './test'
+import makeCommand from './Command'
 
 const plugin = {
   name: `plugin-bud`,
   factory: require => {
-    const {Command} = require('clipanion')
+    const Base = makeCommand(
+      require('clipanion').Command,
+      require('@yarnpkg/shell').execute,
+    )
 
     return {
       commands: [
-        clean(Command),
-        make.dev(Command),
-        make.ci(Command),
-        make.clean(Command),
-        test.all(Command),
-        test.unit(Command),
-        test.integration(Command),
-        profile.all(Command),
-        profile.cjs(Command),
-        profile.esm(Command),
-        build.all(Command),
-        build.cjs(Command),
-        build.esm(Command),
-        lint.all(Command),
-        lint.skypack(Command),
-        lint.eslint(Command),
-        site.build(Command),
-        site.readme(Command),
-        site.start(Command),
+        clean(Base),
+        make.dev(Base),
+        make.ci(Base),
+        test.all(Base),
+        test.unit(Base),
+        test.integration(Base),
+        profile.all(Base),
+        profile.cjs(Base),
+        profile.esm(Base),
+        build.all(Base),
+        build.cjs(Base),
+        build.esm(Base),
+        lint.all(Base),
+        lint.skypack(Base),
+        lint.eslint(Base),
+        site.build(Base),
+        site.readme(Base),
+        site.start(Base),
       ],
     }
   },

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import sh from '../sh'
-
 export default Command =>
   class extends Command {
     static paths = [[`kjo`, `site`, `start`]]
@@ -12,9 +10,7 @@ export default Command =>
     }
 
     async execute() {
-      const $ = sh.bind(this)
-
-      await $([`yarn ts-node ./dev/site`])
-      await $([`yarn docusaurus start`])
+      await this.$([`yarn ts-node ./dev/site`])
+      await this.$([`yarn docusaurus start`])
     }
   }

@@ -1,26 +1,21 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import sh from '../sh'
-
 export default Command =>
   class extends Command {
     static paths = [[`kjo`, `make`]]
-
     static usage = {
       category: `kjo`,
       description: `build the kjo`,
-      examples: [[`Build everything`, `yarn make`]],
     }
 
     async execute() {
-      const $ = sh.bind(this)
-
-      await $([`yarn kjo clean`])
-      await $([`yarn install --immutable`])
-      await $([`yarn kjo build`])
-      await $([
-        `yarn kjo test`,
-        `yarn kjo lint`,
-        `yarn kjo site`,
+      await this.$([`yarn kjo clean`])
+      await this.$([`yarn install --immutable`])
+      await this.$([`yarn kjo build`])
+      await this.$([
+        `yarn kjo test unit`,
+        `yarn kjo test integration`,
+        `yarn kjo lint skypack`,
       ])
+      await this.$([`yarn install`])
     }
   }
