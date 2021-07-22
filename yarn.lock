@@ -3038,7 +3038,7 @@ __metadata:
     "@types/node": 15.14.1
     "@types/yamljs": 0.2.31
     autobind-decorator: ^2.4.0
-    css-loader: ^5.2.6
+    css-loader: ^6.0.0
     csv-loader: ^3.0.3
     eslint: 7.31.0
     file-loader: ^6.2.0
@@ -3710,7 +3710,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
     babel-plugin-transform-vue-jsx: ^3.7.0
-    css-loader: 5.2.7
+    css-loader: 6.2.0
     de-indent: ^1.0.2
     eslint: 7.31.0
     he: ^1.2.0
@@ -8083,7 +8083,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:5.2.7, css-loader@npm:^5.1.1, css-loader@npm:^5.2.6":
+"css-loader@npm:6.2.0, css-loader@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "css-loader@npm:6.2.0"
+  dependencies:
+    icss-utils: ^5.1.0
+    postcss: ^8.2.15
+    postcss-modules-extract-imports: ^3.0.0
+    postcss-modules-local-by-default: ^4.0.0
+    postcss-modules-scope: ^3.0.0
+    postcss-modules-values: ^4.0.0
+    postcss-value-parser: ^4.1.0
+    semver: ^7.3.5
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: 9c6e6e1eef7ab897ea1f45094a153ee82d94ef5248b54b8f8a3634c72900ec5f3cc463b3c0eca65290118c3dbfd52887ba7294b4807a0247a3c5d7cf3a63b2e6
+  languageName: node
+  linkType: hard
+
+"css-loader@npm:^5.1.1":
   version: 5.2.7
   resolution: "css-loader@npm:5.2.7"
   dependencies:
