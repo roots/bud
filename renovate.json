@@ -8,5 +8,11 @@
   "commitMessageTopic": "{{depName}}",
   "postUpdateOptions": ["yarnDedupeHighest"],
   "timezone": "America/Los_Angeles",
-  "baseBranches": ["next"]
+  "baseBranches": ["next"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }
