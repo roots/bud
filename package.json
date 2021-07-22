@@ -115,7 +115,7 @@
     "signale": "1.4.0",
     "ts-jest": "27.0.3",
     "ts-node": "10.0.0",
-    "tsconfig-paths": "3.9.0",
+    "tsconfig-paths": "3.10.1",
     "type-fest": "1.2.2",
     "typedoc": "0.21.4",
     "typedoc-plugin-markdown": "3.10.3",
