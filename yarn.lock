@@ -3706,7 +3706,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
     "@types/node": 15.14.1
-    "@vue/compiler-sfc": ^3.1.5
+    "@vue/compiler-sfc": 3.1.5
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
     babel-plugin-transform-vue-jsx: ^3.7.0
@@ -3714,7 +3714,7 @@ __metadata:
     de-indent: ^1.0.2
     eslint: 7.31.0
     he: ^1.2.0
-    vue: ^3.1.5
+    vue: 3.1.5
     vue-loader: ^16.3.1
     webpack: 5.45.1
   peerDependencies:
@@ -5288,7 +5288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-sfc@npm:^3.1.5":
+"@vue/compiler-sfc@npm:3.1.5":
   version: 3.1.5
   resolution: "@vue/compiler-sfc@npm:3.1.5"
   dependencies:
@@ -21799,7 +21799,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.1.5":
+"vue@npm:3.1.5":
   version: 3.1.5
   resolution: "vue@npm:3.1.5"
   dependencies:
