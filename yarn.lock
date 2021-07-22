@@ -4805,12 +4805,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-helmet@npm:6.1.1":
-  version: 6.1.1
-  resolution: "@types/react-helmet@npm:6.1.1"
+"@types/react-helmet@npm:6.1.2":
+  version: 6.1.2
+  resolution: "@types/react-helmet@npm:6.1.2"
   dependencies:
     "@types/react": "*"
-  checksum: bc962f7e37e6cdd748d2da2eca5c5726041736ce9e8d04217528191edde454fc93e9be2f93985de5afc96e8a9ebf6f60c1ed6485f9f0226a6c664a04faddb928
+  checksum: ee66a7b950ba9f1013fd25de32ba6322bf5206fe5de56b9556a5151c76522b892b0cc5566cc8dfd0b54cb76fedb17ed21b6b2e6577849b791c168eaed5aad5f3
   languageName: node
   linkType: hard
 
@@ -6736,7 +6736,7 @@ __metadata:
     "@types/node": 15.14.1
     "@types/react": 17.0.14
     "@types/react-dom": 17.0.9
-    "@types/react-helmet": 6.1.1
+    "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.2
     "@types/react-router-dom": 5.1.7
     "@types/signale": 1.4.1
