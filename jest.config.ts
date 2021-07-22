@@ -1,5 +1,5 @@
 import path from 'path'
-import {globbySync} from 'globby'
+import {sync as globbySync} from 'globby'
 import {defaults} from 'ts-jest/presets'
 import type {InitialOptionsTsJest} from 'ts-jest/dist/types'
 

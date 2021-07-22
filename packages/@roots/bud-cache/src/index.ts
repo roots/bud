@@ -2,7 +2,7 @@ import {Service, Cache as Base} from '@roots/bud-framework'
 import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
-import {globbySync as sync} from 'globby'
+import {sync as globbySync} from 'globby'
 import {isEqual} from 'lodash'
 
 class Cache extends Service implements Base {
@@ -57,7 +57,7 @@ class Cache extends Service implements Base {
   public buildDependencies(): string[] {
     return [
       ...new Set(
-        sync([
+        globbySync([
           this.app.path(
             'project',
             `${this.app.name}.{js,ts,yml,json}`,

@@ -1,4 +1,4 @@
-import {globbySync as sync, GlobTask} from 'globby'
+import {sync as globbySync, GlobTask} from 'globby'
 import {isArray, isString} from 'lodash'
 import type {Framework} from '@roots/bud-framework'
 
@@ -196,7 +196,7 @@ function getAssets(
     : /**
        * Try for glob
        */
-      sync(entry.import, {
+      globbySync(entry.import, {
         cwd: this.path('src'),
         expandDirectories: true,
       }) ??

@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import {FileContainer} from '..'
 import {Container} from '@roots/container'
-import {globby} from 'globby'
+import globby from 'globby'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export class FileSystem extends Container<FileContainer> {

@@ -1,6 +1,6 @@
 import {Service, Server as Contract} from '@roots/bud-framework'
 import chokidar from 'chokidar'
-import {globbySync, Options as GlobbyOptions} from 'globby'
+import {sync as globbySync, GlobbyOptions} from 'globby'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
 import {boundMethod as bind} from 'autobind-decorator'
