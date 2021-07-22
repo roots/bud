@@ -3260,7 +3260,7 @@ __metadata:
     eslint-plugin-prettier: ^3.4.0
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
-    eslint-webpack-plugin: ^2.5.4
+    eslint-webpack-plugin: ^3.0.0
     webpack: 5.45.1
   peerDependencies:
     "@roots/bud": "*"
@@ -4478,7 +4478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7.2.6":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7.2.14":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
   dependencies:
@@ -6061,13 +6061,6 @@ __metadata:
   version: 1.0.1
   resolution: "arrify@npm:1.0.1"
   checksum: 745075dd4a4624ff0225c331dacb99be501a515d39bcb7c84d24660314a6ec28e68131b137e6f7e16318170842ce97538cd298fc4cd6b2cc798e0b957f2747e7
-  languageName: node
-  linkType: hard
-
-"arrify@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "arrify@npm:2.0.1"
-  checksum: 067c4c1afd182806a82e4c1cb8acee16ab8b5284fbca1ce29408e6e91281c36bb5b612f6ddfbd40a0f7a7e0c75bf2696eb94c027f6e328d6e9c52465c98e4209
   languageName: node
   linkType: hard
 
@@ -9578,20 +9571,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:^2.5.4":
-  version: 2.5.4
-  resolution: "eslint-webpack-plugin@npm:2.5.4"
+"eslint-webpack-plugin@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "eslint-webpack-plugin@npm:3.0.1"
   dependencies:
-    "@types/eslint": ^7.2.6
-    arrify: ^2.0.1
-    jest-worker: ^26.6.2
-    micromatch: ^4.0.2
+    "@types/eslint": ^7.2.14
+    jest-worker: ^27.0.6
+    micromatch: ^4.0.4
     normalize-path: ^3.0.0
-    schema-utils: ^3.0.0
+    schema-utils: ^3.1.0
   peerDependencies:
     eslint: ^7.0.0
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: df663e5f656c84e135db144d77b82874d158955451969890d454a76ec355c309a84a186e3aaf4fa53d7529ac01a43c2943a49768fd0493fd32df3e5ba8c5210a
+    webpack: ^5.0.0
+  checksum: ef9241907d7b99eb7edad48e005c49aa73124875f9c910bfde1645dfe853f2cbbfce363c80b2c2157d00a23545caefa74c138a61c1deb7f8666ee3569a025549
   languageName: node
   linkType: hard
 
@@ -13467,17 +13459,6 @@ __metadata:
     jest-util: ^27.0.6
     string-length: ^4.0.1
   checksum: f473f652bd07fc55105ab0a2de82073567c4e763084a84b31925c16b7b51d1e640ca25e3b442c3a06cc24d40c8af00fd9e1bc051bc4769b78d3aca0f00b1461d
-  languageName: node
-  linkType: hard
-
-"jest-worker@npm:^26.6.2":
-  version: 26.6.2
-  resolution: "jest-worker@npm:26.6.2"
-  dependencies:
-    "@types/node": "*"
-    merge-stream: ^2.0.0
-    supports-color: ^7.0.0
-  checksum: f9afa3b88e3f12027901e4964ba3ff048285b5783b5225cab28fac25b4058cea8ad54001e9a1577ee2bed125fac3ccf5c80dc507b120300cc1bbcb368796533e
   languageName: node
   linkType: hard
 
