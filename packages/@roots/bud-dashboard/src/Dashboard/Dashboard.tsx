@@ -38,7 +38,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   return (
     <Box flexDirection="column">
       {isRawModeSupported && <Input bud={instance.current} />}
-      <Static flexDirection="column" items={stderr}>
+      <Static items={stderr}>
         {(stdout, k) => (
           <Text key={`stdout-${k}`}>
             {stdout ?? ''}
@@ -47,7 +47,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
         )}
       </Static>
 
-      <Static flexDirection="column" items={stats?.errors ?? []}>
+      <Static items={stats?.errors ?? []}>
         {(err, k) =>
           err ? (
             <Fragment key={`stats-err-${k}`}>
