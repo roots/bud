@@ -5105,7 +5105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.28.1":
+"@typescript-eslint/eslint-plugin@npm:4.28.1":
   version: 4.28.1
   resolution: "@typescript-eslint/eslint-plugin@npm:4.28.1"
   dependencies:
@@ -6741,7 +6741,7 @@ __metadata:
     "@types/react-router-dom": 5.1.7
     "@types/signale": 1.4.1
     "@types/weak-napi": 2.0.0
-    "@typescript-eslint/eslint-plugin": ^4.28.1
+    "@typescript-eslint/eslint-plugin": 4.28.1
     autobind-decorator: 2.4.0
     chokidar: 3.5.2
     clipanion: 3.0.0
