@@ -6,10 +6,6 @@
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-cli": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-tailwindcss": "workspace:*",
-    "postcss": "^8.2.13",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^2.2.4"
+    "@roots/bud-tailwindcss": "workspace:*"
   }
 }
