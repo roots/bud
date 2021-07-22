@@ -3010,7 +3010,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
@@ -3063,7 +3063,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
@@ -3227,7 +3227,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
@@ -3288,7 +3288,7 @@ __metadata:
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     "@types/webpack-dev-middleware": 5.0.1
@@ -3403,7 +3403,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     "@types/signale": 1.4.1
@@ -3442,7 +3442,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     eslint: 7.31.0
   peerDependencies:
@@ -3545,7 +3545,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
@@ -3784,7 +3784,7 @@ __metadata:
     "@types/css-minimizer-webpack-plugin": 3.0.2
     "@types/eslint": 7.28.0
     "@types/express": 4.17.13
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.171
     "@types/mini-css-extract-plugin": 2.0.1
     "@types/node": 15.14.1
@@ -3928,7 +3928,7 @@ __metadata:
   dependencies:
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
     autobind-decorator: ^2.4.0
@@ -3958,7 +3958,7 @@ __metadata:
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     "@types/tailwindcss": 2.2.1
     "@wordpress/browserslist-config": ^4.0.1
@@ -4523,12 +4523,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fs-extra@npm:9.0.11":
-  version: 9.0.11
-  resolution: "@types/fs-extra@npm:9.0.11"
+"@types/fs-extra@npm:9.0.12":
+  version: 9.0.12
+  resolution: "@types/fs-extra@npm:9.0.12"
   dependencies:
     "@types/node": "*"
-  checksum: 54619e50583a45d63e1d061dc5ca09b53424dd8ec01edfc282b6d5733d4fc40bcf3e66a2704a13ed4d3bf36f261b6fa27c180fd2f86114f6bc30c3eb245f453e
+  checksum: c63834f0be8d0993c55abcc0b2c90f3c095cf3aa9e827973472167bd93687df9da546bd5e0823ddc9e83e1651c9cfb09bbac99fa57a15ab28fd21280426e472c
   languageName: node
   linkType: hard
 
@@ -6731,7 +6731,7 @@ __metadata:
     "@easyops-cn/docusaurus-search-local": 0.18.1
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.12
     "@types/jest": 26.0.23
     "@types/node": 15.14.1
     "@types/react": 17.0.14

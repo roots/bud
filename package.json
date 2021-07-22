@@ -76,7 +76,7 @@
     "@easyops-cn/docusaurus-search-local": "0.18.1",
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
-    "@types/fs-extra": "9.0.11",
+    "@types/fs-extra": "9.0.12",
     "@types/jest": "26.0.23",
     "@types/node": "15.14.1",
     "@types/react": "17.0.14",
