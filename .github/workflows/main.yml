@@ -1,8 +1,14 @@
 name: Build & Test
 
 on:
-  - pull_request_target
-  - workflow_dispatch
+  push:
+    branches:
+      - stable
+  pull_request:
+    branches:
+      - stable
+      - next
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node}}
 
@@ -43,13 +49,15 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn kjo build cjs
+        run: yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build
 
       - name: Unit Tests
-        run: yarn kjo test unit
+        run: yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"
 
       - name: Integration Tests
-        run: yarn kjo test integration
+        run: node ./jest.integration.js
 
-      - name: Skypack Lint
-        run: yarn kjo lint skypack
+      - name: Lint
+        run: |
+          yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint
+          yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg

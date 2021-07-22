@@ -6,7 +6,7 @@ export default Command =>
 
     async execute() {
       await this.$([
-        [`yarn kjo build cjs`, `yarn kjo build esm`],
+        `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build`,
       ])
     }
   }

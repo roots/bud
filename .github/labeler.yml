@@ -1,3 +1,33 @@
+'docs':
+  - docs/*
+  - docs/**
+  - packages/**/docs/*
+  - packages/**/docs/**
+  - dev/docs/*
+  - dev/docs/**/*
+
+'dependencies':
+  - packages/**/package.json
+  - examples/**/package.json
+  - package.json
+  - yarn.lock
+
+'examples':
+  - examples/*
+  - examples/**
+
+'test':
+  - packages/**/*.test.js
+  - tests/*
+  - tests/**
+  - jest.config.ts
+  - jest.setup.ts
+  - jest.types.ts
+
+'roots-notifier':
+  - packages/roots-notifier/*
+  - packages/roots-notifier/**
+
 '@roots/bud':
   - packages/@roots/bud/*
   - packages/@roots/bud/**
@@ -25,6 +55,10 @@
 '@roots/bud-compiler':
   - packages/@roots/bud-compiler/*
   - packages/@roots/bud-compiler/**
+
+'@roots/bud-compress':
+  - packages/@roots/bud-compress/*
+  - packages/@roots/bud-compress/**
 
 '@roots/bud-criticalcss':
   - packages/@roots/bud-criticalcss/*
@@ -57,6 +91,7 @@
 '@roots/bud-framework':
   - packages/@roots/bud-framework/*
   - packages/@roots/bud-framework/**
+
 '@roots/bud-hooks':
   - packages/@roots/bud-hooks/*
   - packages/@roots/bud-hooks/**
@@ -188,29 +223,3 @@
 '@roots/wordpress-externals-webpack-plugin':
   - packages/@roots/wordpress-externals-webpack-plugin/*
   - packages/@roots/wordpress-externals-webpack-plugin/**
-
-'examples':
-  - examples/*
-  - examples/**
-
-'docs':
-  - docs/*
-  - docs/**
-  - packages/**/docs/*
-  - packages/**/docs/**
-  - dev/docs/*
-  - dev/docs/**/*
-
-'dependencies':
-  - packages/**/package.json
-  - examples/**/package.json
-  - package.json
-  - yarn.lock
-
-'test':
-  - packages/**/*.test.js
-  - tests/*
-  - tests/**
-  - jest.config.ts
-  - jest.setup.ts
-  - jest.types.ts

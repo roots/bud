@@ -59,10 +59,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "^7",
-    "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.5",
-    "eslint": "^7.31.0"
+    "@types/eslint": "7.28.0",
+    "@types/fs-extra": "9.0.12",
+    "@types/node": "15.14.1",
+    "eslint": "7.31.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",

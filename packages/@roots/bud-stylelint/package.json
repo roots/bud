@@ -63,16 +63,16 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "^7",
-    "@types/node": "^15.12.5",
-    "eslint": "^7.31.0",
-    "webpack": "^5.45.1"
+    "@types/eslint": "7.28.0",
+    "@types/node": "15.14.1",
+    "eslint": "7.31.0",
+    "webpack": "5.46.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "stylelint-webpack-plugin": "^2.2.2"
+    "stylelint-webpack-plugin": "^3.0.0"
   },
   "stableVersion": "4.6.0"
 }

@@ -59,18 +59,18 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "^7",
-    "@types/fs-extra": "^9.0.11",
-    "@types/lodash": "^4.14.171",
-    "@types/node": "^15.12.5",
-    "@types/webpack-dev-middleware": "^5.0.1",
-    "chokidar": "^3.5.2",
-    "eslint": "^7.31.0",
-    "http-proxy-middleware": "^2.0.1",
-    "ink": "^3.0.8",
-    "signale": "^1.4.0",
-    "webpack": "^5.45.1",
-    "webpack-dev-middleware": "^5.0.0"
+    "@types/eslint": "7.28.0",
+    "@types/fs-extra": "9.0.12",
+    "@types/lodash": "4.14.171",
+    "@types/node": "15.14.1",
+    "@types/webpack-dev-middleware": "5.0.1",
+    "chokidar": "3.5.2",
+    "eslint": "7.31.0",
+    "http-proxy-middleware": "2.0.1",
+    "ink": "3.0.9",
+    "signale": "1.4.0",
+    "webpack": "5.46.0",
+    "webpack-dev-middleware": "5.0.0"
   },
   "dependencies": {
     "@roots/container": "workspace:packages/@roots/container",

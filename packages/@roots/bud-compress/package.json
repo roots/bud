@@ -61,11 +61,11 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "^7",
-    "@types/node": "^15.12.5",
-    "eslint": "^7.31.0",
-    "typedoc": "^0.21.2",
-    "webpack": "^5.45.1"
+    "@types/eslint": "7.28.0",
+    "@types/node": "15.14.1",
+    "eslint": "7.31.0",
+    "typedoc": "0.21.4",
+    "webpack": "5.46.0"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",

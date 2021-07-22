@@ -14,7 +14,8 @@ export default Command =>
         `yarn kjo build cjs`,
         `yarn kjo test unit`,
         `yarn kjo test integration`,
-        [`yarn kjo lint eslint`, `yarn kjo lint skypack`],
+        `yarn kjo lint eslint`,
+        `yarn kjo lint skypack`,
       ])
     }
   }

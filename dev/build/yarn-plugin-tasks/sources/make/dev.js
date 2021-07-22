@@ -10,7 +10,8 @@ export default Command =>
         `yarn kjo clean`,
         `yarn install --immutable`,
         `yarn kjo build`,
-        [`yarn kjo test unit`, `yarn kjo lint skypack`],
+        `yarn kjo test unit`,
+        `yarn kjo lint skypack`,
         `yarn install`,
       ])
     }

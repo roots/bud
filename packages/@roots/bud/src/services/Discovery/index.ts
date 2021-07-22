@@ -170,15 +170,14 @@ export class Discovery extends Base {
 
   @bind
   public install(): void {
-    const required =
-      this.get<{
-        [key: string]: {
-          source: string
-          name: string
-          ver: string
-          type: 'dependencies' | 'devDependencies'
-        }
-      }>('required')
+    const required = this.get<{
+      [key: string]: {
+        source: string
+        name: string
+        ver: string
+        type: 'dependencies' | 'devDependencies'
+      }
+    }>('required')
 
     required
       ? this.app.dependencies.install(

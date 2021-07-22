@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:daily",
+    ":dependencyDashboard"
+  ],
+  "commitMessageAction": "Bump",
+  "commitMessageTopic": "{{depName}}",
+  "postUpdateOptions": ["yarnDedupeHighest"],
+  "timezone": "America/Los_Angeles",
+  "baseBranches": ["next"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
+}

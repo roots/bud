@@ -1,7 +1,7 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
-import {sync} from 'globby'
+import {sync as globbySync} from 'globby'
 import _ from 'lodash'
 import path, {PlatformPath} from 'path'
 import resolveFrom from 'resolve-from'
@@ -78,11 +78,14 @@ export class FileContainer extends Container {
    */
   @bind
   public setDisk(glob: string[]): this {
-    sync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
-      onlyFiles: false,
-      cwd: this._baseDir,
-      expandDirectories: true,
-    }).map((file: any) => {
+    globbySync(
+      glob ?? ['*', '**/*', '!vendor', '!node_modules'],
+      {
+        onlyFiles: false,
+        cwd: this._baseDir,
+        expandDirectories: true,
+      },
+    ).map((file: any) => {
       this.set(file, path.join(this.baseDir, file))
     })
 
