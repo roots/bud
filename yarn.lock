@@ -3964,7 +3964,7 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     "@types/tailwindcss": 2.2.1
-    "@wordpress/browserslist-config": 4.0.1
+    "@wordpress/browserslist-config": 4.1.0
     eslint: 7.31.0
   peerDependencies:
     "@roots/bud": "*"
@@ -5522,10 +5522,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/browserslist-config@npm:4.0.1":
-  version: 4.0.1
-  resolution: "@wordpress/browserslist-config@npm:4.0.1"
-  checksum: 9a8fa960fd5a0c512bf5dfbcee548d8e823de308ada36c94b5dcc0c0e4e71dff5d06dc1e3645a2bdaaada2f5101609c8168389e4bca6788319b8fdf017505262
+"@wordpress/browserslist-config@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@wordpress/browserslist-config@npm:4.1.0"
+  checksum: 9c1b15c0be844fd1c09cb262c149ffa2758c70200b01777cbdc4aad4f5d95315d5bba229c11ecc72671f5780972cf23af0e396fd32e35b23266bc4d6f212fe31
   languageName: node
   linkType: hard
 
