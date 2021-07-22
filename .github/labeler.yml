@@ -11,7 +11,7 @@
   - examples/**/package.json
   - package.json
   - yarn.lock
-  
+
 'examples':
   - examples/*
   - examples/**
@@ -23,6 +23,10 @@
   - jest.config.ts
   - jest.setup.ts
   - jest.types.ts
+
+'roots-notifier':
+  - packages/roots-notifier/*
+  - packages/roots-notifier/**
 
 '@roots/bud':
   - packages/@roots/bud/*
@@ -51,6 +55,10 @@
 '@roots/bud-compiler':
   - packages/@roots/bud-compiler/*
   - packages/@roots/bud-compiler/**
+
+'@roots/bud-compress':
+  - packages/@roots/bud-compress/*
+  - packages/@roots/bud-compress/**
 
 '@roots/bud-criticalcss':
   - packages/@roots/bud-criticalcss/*
@@ -83,6 +91,7 @@
 '@roots/bud-framework':
   - packages/@roots/bud-framework/*
   - packages/@roots/bud-framework/**
+
 '@roots/bud-hooks':
   - packages/@roots/bud-hooks/*
   - packages/@roots/bud-hooks/**
