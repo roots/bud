@@ -4638,13 +4638,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:26.0.23":
-  version: 26.0.23
-  resolution: "@types/jest@npm:26.0.23"
+"@types/jest@npm:26.0.24":
+  version: 26.0.24
+  resolution: "@types/jest@npm:26.0.24"
   dependencies:
     jest-diff: ^26.0.0
     pretty-format: ^26.0.0
-  checksum: 69db26061e6be34de2a440c8a470b651c53ba6ee0057614a278c4f756ff00281f46cc075b24e5bd761f399f175f49d0a5758b50dd921342a8592461548dea29a
+  checksum: ae39675412f08d884926254e9b12bfd2b5a4e4d204c94d3148cb942174a474930d0c60540133c968f22241d4712b7940c96cbc883096eb326a4d5b206fb78bd0
   languageName: node
   linkType: hard
 
@@ -6734,7 +6734,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
-    "@types/jest": 26.0.23
+    "@types/jest": 26.0.24
     "@types/node": 15.14.1
     "@types/react": 17.0.14
     "@types/react-dom": 17.0.9
