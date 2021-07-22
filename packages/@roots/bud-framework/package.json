@@ -67,7 +67,7 @@
     "chokidar": "3.5.2",
     "eslint": "7.31.0",
     "http-proxy-middleware": "2.0.1",
-    "ink": "3.0.8",
+    "ink": "3.0.9",
     "signale": "1.4.0",
     "webpack": "5.45.1",
     "webpack-dev-middleware": "5.0.0"
