@@ -5,7 +5,7 @@ sidebar_label: "Loader"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).Loader
+[Build](../namespaces/Build.md).Loader
 
 **`interface`** Build.Loader
 
@@ -27,4 +27,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:51](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L51)
+[packages/@roots/bud-framework/src/Build.ts:52](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L52)

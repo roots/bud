@@ -5,24 +5,24 @@ sidebar_label: "Options"
 custom_edit_url: null
 ---
 
-[Server](../modules/Server.md).[Middleware](../modules/Server.Middleware.md).Options
+[Server](../namespaces/Server.md).[Middleware](../namespaces/Server.Middleware.md).Options
 
 ## Properties
 
 ### compiler
 
-• **compiler**: [`Compiler`](../modules/Server.md#compiler)
+• **compiler**: [`Compiler`](../namespaces/Server.md#compiler)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:90](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L90)
+[packages/@roots/bud-framework/src/Server.ts:91](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L91)
 
 ___
 
 ### config
 
-• **config**: [`Config`](../modules/Server.md#config)
+• **config**: [`Config`](../namespaces/Server.md#config)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:89](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L89)
+[packages/@roots/bud-framework/src/Server.ts:90](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L90)

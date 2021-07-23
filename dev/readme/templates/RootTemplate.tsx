@@ -1,6 +1,5 @@
 import React from 'react'
 
-import project from '../../../repo'
 import {
   Banner,
   Community,
@@ -61,16 +60,16 @@ Please, create an issue sharing information about your project.
 `}</span>
 )
 
-export const RootTemplate = () => (
+export const RootTemplate = ({project}) => (
   <>
     <Banner
-      title={`@roots/bud`}
+      title={project.name}
       description={project.description}
       logo={project.logo}
     />
     <Body />
     <Community />
     <Contributing />
-    <Sponsors />
+    <Sponsors project={project} />
   </>
 )

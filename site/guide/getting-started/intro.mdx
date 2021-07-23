@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 import Installation from '../installation.mdx'
-import Help from '!!raw-loader!./../../src/components/cli-output/help.mdx'
+import Help from '!!raw-loader!./../../src/components/cli-output/babel-help.md'
 
 We'll start with a basic configuration for a down-to-basics project with bud. **We should be done in about 5 minutes**.
 
@@ -27,47 +27,47 @@ To follow along, recreate the following project in an empty directory:
 
   <TabItem value="structure">
 
-  ```shell title='$ tree -I node_modules'
-  ├── package.json
-  └── src
-      ├── index.js
-      └── index.css
-  ```
+```shell title='$ tree -I node_modules'
+├── package.json
+└── src
+    ├── index.js
+    └── index.css
+```
 
   </TabItem>
   <TabItem value="package.json">
 
-  ```json title='package.json'
-  {
-      "name": "getting-started",
-      "private": true,
-      "devDependencies": {
-          "@roots/bud": "workspace:*",
-          "@roots/bud-cli": "workspace:*"
-      }
+```json title='package.json'
+{
+  "name": "getting-started",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-cli": "workspace:*"
   }
-  ```
+}
+```
 
   </TabItem>
   <TabItem value="src/index.js">
 
-  ```js title='src/index.js'
-  import './index.css'
+```js title='src/index.js'
+import './index.css'
 
-  console.log('hello world!')
-  ```
+console.log('hello world!')
+```
 
   </TabItem>
   <TabItem value="src/index.css">
 
-  ```css title='src/index.css'
-  body {
-    margin: 0;
-    padding: 0;
-    background: black;
-    color: white;
-  }
-  ```
+```css title='src/index.css'
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+}
+```
 
   </TabItem>
 </Tabs>
@@ -82,4 +82,4 @@ The **bud** command is your primary means of initiating builds and carrying out 
 
 For a better sense of what all is possible, try invoking **bud** with the `--help` flag:
 
-<CodeBlock title='$ yarn bud --help'>{Help}</CodeBlock>
+<CodeBlock title="$ yarn bud --help">{Help}</CodeBlock>

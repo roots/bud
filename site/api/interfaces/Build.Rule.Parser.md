@@ -5,7 +5,7 @@ sidebar_label: "Parser"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).[Rule](../modules/Build.Rule.md).Parser
+[Build](../namespaces/Build.md).[Rule](../namespaces/Build.Rule.md).Parser
 
 ## Methods
 
@@ -25,4 +25,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:155](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L155)
+[packages/@roots/bud-framework/src/Build.ts:156](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L156)

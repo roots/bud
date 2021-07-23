@@ -1,5 +1,6 @@
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
+
 import styles from './HomepageFeatures.module.css'
 
 const FeatureList = [
@@ -7,8 +8,8 @@ const FeatureList = [
     title: 'Easy to Use',
     description: (
       <>
-        It's simple to get started with Bud. You don't need a
-        single line of configuration to get going.
+        It&apos;s simple to get started with Bud. You don&apos;t
+        need a single line of configuration to get going.
       </>
     ),
   },
@@ -16,8 +17,8 @@ const FeatureList = [
     title: "Anticipates what's next",
     description: (
       <>
-        Bud lets you focus on your project but won't get in your
-        way when it's sleeve rolling time.
+        Bud lets you focus on your project but won&apos;t get in
+        your way when it&apos;s sleeve rolling time.
       </>
     ),
   },
@@ -26,7 +27,7 @@ const FeatureList = [
     description: (
       <>
         Extend Bud with extensions. Tap into hundreds of hooks to
-        customize your build to your heart's content.
+        customize your build to your heart&apos;s content.
       </>
     ),
   },

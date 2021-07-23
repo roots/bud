@@ -8,7 +8,7 @@ custom_edit_url: null
 
 ## Hierarchy
 
-- [`Service`](Service.md)<[`Repo`](../modules/Store.md#repo)\>
+- [`Service`](Service.md)<[`Repo`](../namespaces/Store.md#repo)\>
 
   ↳ **`Store`**
 
@@ -24,7 +24,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Store.ts:5](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Store.ts#L5)
+[packages/@roots/bud-framework/src/Store.ts:6](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Store.ts#L6)
 
 ## Accessors
 
@@ -38,7 +38,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -56,7 +56,7 @@ Service.name
 
 | Name | Type |
 | :------ | :------ |
-| `path` | [`Keys`](../modules/Store.md#keys) |
+| `path` | [`Keys`](../namespaces/Store.md#keys) |
 
 #### Returns
 
@@ -68,4 +68,4 @@ Service.get
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Store.ts:7](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Store.ts#L7)
+[packages/@roots/bud-framework/src/Store.ts:8](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Store.ts#L8)

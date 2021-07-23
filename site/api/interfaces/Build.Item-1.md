@@ -5,7 +5,7 @@ sidebar_label: "Item"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).Item
+[Build](../namespaces/Build.md).Item
 
 **`interface`** Build.Item
 
@@ -27,7 +27,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:67](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L67)
+[packages/@roots/bud-framework/src/Build.ts:68](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L68)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`Options`](../modules/Build.Item.md#options) |
+| `options` | [`Options`](../namespaces/Build.Item.md#options) |
 | `app` | [`Framework`](../classes/Framework.md) |
 
 #### Returns
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:62](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L62)
+[packages/@roots/bud-framework/src/Build.ts:63](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L63)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:58](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L58)
+[packages/@roots/bud-framework/src/Build.ts:59](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L59)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`OptionsFn`](../modules/Build.Item.md#optionsfn) |
+| `options` | [`OptionsFn`](../namespaces/Build.Item.md#optionsfn) |
 
 #### Returns
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:60](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L60)
+[packages/@roots/bud-framework/src/Build.ts:61](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L61)

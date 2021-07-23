@@ -2,28 +2,30 @@
  * @type {import('@docusaurus/types').DocusaurusConfig}
  */
 
-const project = require('./repo')
+const {manifest} = require('./package.json')
+
+const theme = require('prism-react-renderer/themes/dracula')
 
 module.exports = {
-  title: project.name,
-  tagline: project.description,
-  url: project.links.site,
+  title: manifest.name,
+  tagline: manifest.description,
+  url: manifest.url.docs,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: project.organization.favicon,
-  organizationName: 'roots',
-  projectName: project.name,
+  favicon: manifest.organization.favicon,
+  organizationName: manifest.organization.name,
+  projectName: manifest.name,
   themeConfig: {
     hideableSidebar: true,
     prism: {
       additionalLanguages: ['php'],
-      theme: require('prism-react-renderer/themes/dracula'),
+      theme,
     },
     navbar: {
       logo: {
-        alt: 'bud',
-        src: project.logo,
+        alt: manifest.name,
+        src: manifest.logo,
       },
       items: [
         {
@@ -49,7 +51,7 @@ module.exports = {
         {to: '/api/api', label: 'API', position: 'right'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: project.links.repo,
+          href: manifest.url.web,
           label: 'GitHub',
           position: 'right',
         },
@@ -80,11 +82,11 @@ module.exports = {
           items: [
             {
               label: 'Twitter',
-              href: project.organization.twitter,
+              href: manifest.organization.twitter,
             },
             {
               label: 'Discourse',
-              href: project.links.discourse,
+              href: manifest.url.discourse,
             },
           ],
         },
@@ -97,13 +99,13 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: project.links.repo,
+              href: manifest.url.web,
             },
           ],
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} ${
-        project.organization.name
+        manifest.organization.name
       }.`,
     },
   },
@@ -116,7 +118,9 @@ module.exports = {
           sidebarPath: require.resolve(
             './site/src/sidebars/docs.js',
           ),
-          editUrl: `${project.links.repo}/edit/next/site/docs/`,
+          editUrl: manifest.url.web.concat(
+            `/edit/next/site/docs/`,
+          ),
         },
         blog: {
           path: 'site/blog',
@@ -126,9 +130,9 @@ module.exports = {
           path: 'site/pages',
         },
         theme: {
-          customCss: require.resolve(
-            './site/src/css/custom.css',
-          ),
+          customCss: process
+            .cwd()
+            .concat('/site/src/css/custom.css'),
         },
       },
     ],

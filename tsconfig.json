@@ -9,7 +9,10 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "lib": ["dom", "es2020"],
+    "lib": [
+      "dom",
+      "es2020"
+    ],
     "jsx": "react",
     "moduleResolution": "node",
     "module": "commonjs",

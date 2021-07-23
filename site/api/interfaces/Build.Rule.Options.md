@@ -5,17 +5,17 @@ sidebar_label: "Options"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).[Rule](../modules/Build.Rule.md).Options
+[Build](../namespaces/Build.md).[Rule](../namespaces/Build.Rule.md).Options
 
 ## Properties
 
 ### exclude
 
-• `Optional` **exclude**: `RegExp` \| [`ExcludeFn`](../modules/Build.Rule.md#excludefn)
+• `Optional` **exclude**: `RegExp` \| [`ExcludeFn`](../namespaces/Build.Rule.md#excludefn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:164](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L164)
+[packages/@roots/bud-framework/src/Build.ts:165](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L165)
 
 ___
 
@@ -25,44 +25,44 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:167](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L167)
+[packages/@roots/bud-framework/src/Build.ts:168](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L168)
 
 ___
 
 ### parser
 
-• `Optional` **parser**: [`Parser`](Build.Rule.Parser.md) \| [`ParserFn`](../modules/Build.Rule.md#parserfn)
+• `Optional` **parser**: [`Parser`](Build.Rule.Parser.md) \| [`ParserFn`](../namespaces/Build.Rule.md#parserfn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:166](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L166)
+[packages/@roots/bud-framework/src/Build.ts:167](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L167)
 
 ___
 
 ### test
 
-• **test**: `RegExp` \| [`TestFn`](../modules/Build.Rule.md#testfn)
+• **test**: `RegExp` \| [`TestFn`](../namespaces/Build.Rule.md#testfn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:162](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L162)
+[packages/@roots/bud-framework/src/Build.ts:163](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L163)
 
 ___
 
 ### type
 
-• `Optional` **type**: `string` \| [`TypeFn`](../modules/Build.Rule.md#typefn)
+• `Optional` **type**: `string` \| [`TypeFn`](../namespaces/Build.Rule.md#typefn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:165](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L165)
+[packages/@roots/bud-framework/src/Build.ts:166](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L166)
 
 ___
 
 ### use
 
-• `Optional` **use**: [`Item`](Build.Item-1.md)[] \| [`UseFn`](../modules/Build.Rule.md#usefn)
+• `Optional` **use**: [`Item`](Build.Item-1.md)[] \| [`UseFn`](../namespaces/Build.Rule.md#usefn)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:163](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L163)
+[packages/@roots/bud-framework/src/Build.ts:164](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L164)

@@ -15,6 +15,7 @@ dist
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+!.yarn/local
 .pnp.*
 
 !/dev/build/yarn-plugin-tasks/lib

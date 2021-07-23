@@ -5,8 +5,8 @@ sidebar_label: "Inventory"
 custom_edit_url: null
 ---
 
-[Server](../modules/Server.md).[Middleware](../modules/Server.Middleware.md).Inventory
+[Server](../namespaces/Server.md).[Middleware](../namespaces/Server.Middleware.md).Inventory
 
 ## Indexable
 
-▪ [key: `string`]: [`Middleware`](../modules/Server.Middleware.md)
+▪ [key: `string`]: [`Middleware`](../namespaces/Server.Middleware.md)

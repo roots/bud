@@ -5,7 +5,7 @@ sidebar_label: "Output"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).[Item](../modules/Build.Item.md).Output
+[Build](../namespaces/Build.md).[Item](../namespaces/Build.Item.md).Output
 
 ## Properties
 
@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:131](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L131)
+[packages/@roots/bud-framework/src/Build.ts:132](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L132)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:132](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L132)
+[packages/@roots/bud-framework/src/Build.ts:133](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L133)

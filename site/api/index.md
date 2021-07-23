@@ -9,14 +9,14 @@ custom_edit_url: null
 
 ## Namespaces
 
-- [Build](modules/Build.md)
-- [Compiler](modules/Compiler.md)
-- [Extensions](modules/Extensions.md)
-- [Framework](modules/Framework.md)
-- [Hooks](modules/Hooks.md)
-- [Module](modules/Module.md)
-- [Server](modules/Server.md)
-- [Store](modules/Store.md)
+- [Build](namespaces/Build.md)
+- [Compiler](namespaces/Compiler.md)
+- [Extensions](namespaces/Extensions.md)
+- [Framework](namespaces/Framework.md)
+- [Hooks](namespaces/Hooks.md)
+- [Module](namespaces/Module.md)
+- [Server](namespaces/Server.md)
+- [Store](namespaces/Store.md)
 
 ## Classes
 
@@ -48,7 +48,7 @@ custom_edit_url: null
 
 ### Access
 
-Ƭ **Access**<`I`\>: (`this`: [`Framework`](classes/Framework.md), `value`: [`Tapable`](modules/Framework.md#tapable)<`I`\> \| `I`) => `I`
+Ƭ **Access**<`I`\>: (`this`: [`Framework`](classes/Framework.md), `value`: [`Tapable`](namespaces/Framework.md#tapable)<`I`\> \| `I`) => `I`
 
 #### Type parameters
 
@@ -79,7 +79,7 @@ access(isAValue) // => `option value: true`
 | Name | Type |
 | :------ | :------ |
 | `this` | [`Framework`](classes/Framework.md) |
-| `value` | [`Tapable`](modules/Framework.md#tapable)<`I`\> \| `I` |
+| `value` | [`Tapable`](namespaces/Framework.md#tapable)<`I`\> \| `I` |
 
 ##### Returns
 
@@ -87,13 +87,13 @@ access(isAValue) // => `option value: true`
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/access.ts#L20)
+[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/access.ts#L20)
 
 ___
 
 ### Make
 
-Ƭ **Make**: (`this`: [`Framework`](classes/Framework.md), `name`: `string`, `tap?`: [`Tapable`](modules/Framework.md#tapable)) => [`Framework`](classes/Framework.md)
+Ƭ **Make**: (`this`: [`Framework`](classes/Framework.md), `name`: `string`, `tap?`: [`Tapable`](namespaces/Framework.md#tapable)) => [`Framework`](classes/Framework.md)
 
 #### Type declaration
 
@@ -127,7 +127,7 @@ ___
 | :------ | :------ |
 | `this` | [`Framework`](classes/Framework.md) |
 | `name` | `string` |
-| `tap?` | [`Tapable`](modules/Framework.md#tapable) |
+| `tap?` | [`Tapable`](namespaces/Framework.md#tapable) |
 
 ##### Returns
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/make.ts#L28)
+[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/make.ts#L28)
 
 ___
 
@@ -184,7 +184,7 @@ bud.when(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/when.ts#L28)
+[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/when.ts#L28)
 
 ## Functions
 
@@ -204,7 +204,7 @@ bud.when(
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/access.ts#L25)
+[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/access.ts#L25)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `tap?` | [`Tapable`](modules/Framework.md#tapable)<`any`\> |
+| `tap?` | [`Tapable`](namespaces/Framework.md#tapable)<`any`\> |
 
 #### Returns
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/make.ts#L34)
+[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/make.ts#L34)
 
 ___
 
@@ -247,4 +247,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Framework/when.ts#L35)
+[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/when.ts#L35)

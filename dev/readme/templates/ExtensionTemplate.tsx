@@ -1,6 +1,5 @@
 import React from 'react'
 
-import project from '../../../repo'
 import {
   Banner,
   Community,
@@ -11,13 +10,13 @@ import {
 export const ExtensionTemplate = ({
   title,
   description,
-  logo,
+  project,
 }) => (
   <>
     <Banner
       title={title ?? ''}
       description={description ?? ''}
-      logo={logo ?? ''}
+      logo={project.logo ?? ''}
     />
 
     <h2>Installation</h2>
@@ -34,11 +33,11 @@ export const ExtensionTemplate = ({
     <h2>Documentation</h2>
     <p>
       For more information on utilizing this package [check out
-      our dedicated docs]({project.links.site})
+      our dedicated docs]({project.url.docs})
     </p>
 
     <Community />
     <Contributing />
-    <Sponsors />
+    <Sponsors project={project} />
   </>
 )

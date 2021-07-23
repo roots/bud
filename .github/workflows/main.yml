@@ -49,15 +49,13 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build
+        run: yarn kjo build
 
       - name: Unit Tests
-        run: yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util"
+        run: yarn kjo test -u
 
       - name: Integration Tests
-        run: node ./jest.integration.js
+        run: yarn kjo test -i
 
       - name: Lint
-        run: |
-          yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint
-          yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg
+        run: yarn kjo lint -e -s

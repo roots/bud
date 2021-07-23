@@ -7,12 +7,16 @@ import {
   Sponsors,
 } from '../components'
 
-export const LibraryTemplate = ({title, description, logo}) => (
+export const LibraryTemplate = ({
+  title,
+  description,
+  project,
+}) => (
   <>
     <Banner
       title={title ?? ''}
       description={description ?? ''}
-      logo={logo ?? ''}
+      logo={project.logo ?? ''}
     />
 
     <h2>Installation</h2>
@@ -23,6 +27,6 @@ export const LibraryTemplate = ({title, description, logo}) => (
 
     <Community />
     <Contributing />
-    <Sponsors />
+    <Sponsors project={project} />
   </>
 )

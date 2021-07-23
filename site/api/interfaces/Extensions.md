@@ -28,7 +28,7 @@ Extensions service
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -50,20 +50,20 @@ Add an extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions.ts:17](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Extensions.ts#L17)
+[packages/@roots/bud-framework/src/Extensions.ts:18](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Extensions.ts#L18)
 
 ___
 
 ### make
 
-▸ **make**(): [`PluginOutput`](../modules/Extensions.md#pluginoutput)[]
+▸ **make**(): [`PluginOutput`](../namespaces/Extensions.md#pluginoutput)[]
 
 Produce Webpack Plugins
 
 #### Returns
 
-[`PluginOutput`](../modules/Extensions.md#pluginoutput)[]
+[`PluginOutput`](../namespaces/Extensions.md#pluginoutput)[]
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Extensions.ts:22](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Extensions.ts#L22)
+[packages/@roots/bud-framework/src/Extensions.ts:23](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Extensions.ts#L23)

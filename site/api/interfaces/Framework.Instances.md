@@ -5,10 +5,10 @@ sidebar_label: "Instances"
 custom_edit_url: null
 ---
 
-[Framework](../modules/Framework.md).Instances
+[Framework](../namespaces/Framework.md).Instances
 
 ## Hierarchy
 
-- [`Index`](../modules/Framework.md#index)<[`Framework`](../classes/Framework.md)\>
+- [`Index`](../namespaces/Framework.md#index)<[`Framework`](../classes/Framework.md)\>
 
   ↳ **`Instances`**

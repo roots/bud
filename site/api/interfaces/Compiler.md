@@ -16,13 +16,13 @@ custom_edit_url: null
 
 ### instance
 
-• **instance**: [`Instance`](../modules/Compiler.md#instance)
+• **instance**: [`Instance`](../namespaces/Compiler.md#instance)
 
 The compiler instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:19](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L19)
+[packages/@roots/bud-framework/src/Compiler.ts:20](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L20)
 
 ___
 
@@ -34,7 +34,7 @@ Has already been ran
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:24](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L24)
+[packages/@roots/bud-framework/src/Compiler.ts:25](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L25)
 
 ___
 
@@ -46,7 +46,7 @@ Formatted progress plugin
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:34](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L34)
+[packages/@roots/bud-framework/src/Compiler.ts:35](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L35)
 
 ___
 
@@ -58,7 +58,7 @@ Compiler stats output
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:29](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L29)
+[packages/@roots/bud-framework/src/Compiler.ts:30](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L30)
 
 ## Accessors
 
@@ -72,7 +72,7 @@ Compiler stats output
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -90,7 +90,7 @@ Parses configuration from bud
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:60](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L60)
+[packages/@roots/bud-framework/src/Compiler.ts:61](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L61)
 
 ___
 
@@ -113,13 +113,13 @@ Compilation callback
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:65](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L65)
+[packages/@roots/bud-framework/src/Compiler.ts:66](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L66)
 
 ___
 
 ### compile
 
-▸ **compile**(): [`Instance`](../modules/Compiler.md#instance)
+▸ **compile**(): [`Instance`](../namespaces/Compiler.md#instance)
 
 ## bud.compiler.compile
 
@@ -139,8 +139,8 @@ bud.compiler.compile({
 
 #### Returns
 
-[`Instance`](../modules/Compiler.md#instance)
+[`Instance`](../namespaces/Compiler.md#instance)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Compiler.ts:53](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Compiler.ts#L53)
+[packages/@roots/bud-framework/src/Compiler.ts:54](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Compiler.ts#L54)

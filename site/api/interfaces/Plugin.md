@@ -25,7 +25,7 @@ custom_edit_url: null
 
 ### api
 
-• `Optional` **api**: [`Api`](../modules/Module.md#api)
+• `Optional` **api**: [`Api`](../namespaces/Module.md#api)
 
 Objects to bind to the framework.
 
@@ -35,7 +35,7 @@ Objects to bind to the framework.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:39](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L39)
+[packages/@roots/bud-framework/src/Module.ts:40](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L40)
 
 ___
 
@@ -51,13 +51,13 @@ Webpack plugin apply.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:49](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L49)
+[packages/@roots/bud-framework/src/Module.ts:50](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L50)
 
 ___
 
 ### boot
 
-• `Optional` **boot**: [`Boot`](../modules/Module.md#boot)
+• `Optional` **boot**: [`Boot`](../namespaces/Module.md#boot)
 
 General purpose callback. Called after everything else.
 
@@ -67,13 +67,13 @@ General purpose callback. Called after everything else.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:34](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L34)
+[packages/@roots/bud-framework/src/Module.ts:35](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L35)
 
 ___
 
 ### make
 
-• **make**: [`Make`](../modules/Module.md#make)<`Plugin`, `Options`\>
+• **make**: [`Make`](../namespaces/Module.md#make)<`Plugin`, `Options`\>
 
 Returns an instantiated webpack plugin
 
@@ -83,7 +83,7 @@ Returns an instantiated webpack plugin
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Plugin.ts:12](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Plugin.ts#L12)
+[packages/@roots/bud-framework/src/Plugin.ts:12](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Plugin.ts#L12)
 
 ___
 
@@ -99,13 +99,13 @@ The module name
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:19](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L19)
+[packages/@roots/bud-framework/src/Module.ts:20](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L20)
 
 ___
 
 ### options
 
-• `Optional` **options**: [`Options`](../modules/Module.md#options)<`Options`\>
+• `Optional` **options**: [`Options`](../namespaces/Module.md#options)<`Options`\>
 
 Options registered with the extension
 
@@ -115,13 +115,13 @@ Options registered with the extension
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Plugin.ts:11](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Plugin.ts#L11)
+[packages/@roots/bud-framework/src/Plugin.ts:11](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Plugin.ts#L11)
 
 ___
 
 ### register
 
-• `Optional` **register**: [`Register`](../modules/Module.md#register)
+• `Optional` **register**: [`Register`](../namespaces/Module.md#register)
 
 General purpose callback. Called first.
 
@@ -131,13 +131,13 @@ General purpose callback. Called first.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:29](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L29)
+[packages/@roots/bud-framework/src/Module.ts:30](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L30)
 
 ___
 
 ### when
 
-• `Optional` **when**: [`When`](../modules/Module.md#when)<`any`\>
+• `Optional` **when**: [`When`](../namespaces/Module.md#when)<`any`\>
 
 Returns a boolean determining if
 a webpack plugin should be used in
@@ -149,4 +149,4 @@ compilation.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Module.ts:56](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Module.ts#L56)
+[packages/@roots/bud-framework/src/Module.ts:57](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Module.ts#L57)

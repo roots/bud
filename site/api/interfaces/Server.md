@@ -24,19 +24,19 @@ Assets
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:25](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L25)
+[packages/@roots/bud-framework/src/Server.ts:26](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L26)
 
 ___
 
 ### config
 
-• **config**: [`Config`](../modules/Server.md#config)
+• **config**: [`Config`](../namespaces/Server.md#config)
 
 Server configuration
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:35](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L35)
+[packages/@roots/bud-framework/src/Server.ts:36](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L36)
 
 ___
 
@@ -48,7 +48,7 @@ Server instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:30](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L30)
+[packages/@roots/bud-framework/src/Server.ts:31](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L31)
 
 ___
 
@@ -60,7 +60,7 @@ Has files to watch and watch is enabled
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:40](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L40)
+[packages/@roots/bud-framework/src/Server.ts:41](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L41)
 
 ___
 
@@ -72,7 +72,7 @@ Registered server middlewares
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:20](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L20)
+[packages/@roots/bud-framework/src/Server.ts:21](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L21)
 
 ___
 
@@ -95,7 +95,7 @@ Watcher instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:45](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L45)
+[packages/@roots/bud-framework/src/Server.ts:46](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L46)
 
 ## Accessors
 
@@ -109,7 +109,7 @@ Watcher instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -125,7 +125,7 @@ Retrieve an array of watched files.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:54](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L54)
+[packages/@roots/bud-framework/src/Server.ts:55](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L55)
 
 ___
 
@@ -141,7 +141,7 @@ Inject client scripts innto compilation (HMR, dev experience)
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:64](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L64)
+[packages/@roots/bud-framework/src/Server.ts:65](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L65)
 
 ___
 
@@ -157,4 +157,4 @@ Run the server instance
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:59](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L59)
+[packages/@roots/bud-framework/src/Server.ts:60](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L60)

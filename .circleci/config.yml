@@ -25,4 +25,4 @@ jobs:
 
       - run:
           name: build cjs
-          command: yarn kjo make ci
+          command: yarn kjo make

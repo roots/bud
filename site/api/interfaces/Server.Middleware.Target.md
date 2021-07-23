@@ -5,7 +5,7 @@ sidebar_label: "Target"
 custom_edit_url: null
 ---
 
-[Server](../modules/Server.md).[Middleware](../modules/Server.Middleware.md).Target
+[Server](../namespaces/Server.md).[Middleware](../namespaces/Server.Middleware.md).Target
 
 ## Properties
 
@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:98](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L98)
+[packages/@roots/bud-framework/src/Server.ts:99](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L99)
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Server.ts:99](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Server.ts#L99)
+[packages/@roots/bud-framework/src/Server.ts:100](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Server.ts#L100)

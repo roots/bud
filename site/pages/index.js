@@ -1,10 +1,12 @@
-import React from 'react'
-import clsx from 'clsx'
-import Layout from '@theme/Layout'
+/* eslint-disable import/no-unresolved */
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import styles from './index.module.css'
+import Layout from '@theme/Layout'
+import clsx from 'clsx'
+import React from 'react'
+
 import HomepageFeatures from '../src/components/HomepageFeatures'
+import styles from './index.module.css'
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext()

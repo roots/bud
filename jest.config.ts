@@ -1,47 +1,52 @@
-import path from 'path'
-import {sync as globbySync} from 'globby'
-import {defaults} from 'ts-jest/presets'
+import globby from 'globby'
+import {dirname} from 'path'
 import type {InitialOptionsTsJest} from 'ts-jest/dist/types'
+import {defaults} from 'ts-jest/presets'
 
-const config: InitialOptionsTsJest = {
-  transform: {
-    ...defaults.transform,
-  },
-  coveragePathIgnorePatterns: [
-    '@roots/filesystem',
-    '@roots/bud-typings',
-    'types',
-    'node_modules',
-    'tests',
-  ],
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
-  moduleNameMapper: globbySync(
-    'packages/@roots/*/package.json',
-    {absolute: true},
-  )
-    .map(pkg => {
-      const base = path.dirname(pkg)
-      const {name} = require(pkg)
+export default async function config(): Promise<InitialOptionsTsJest> {
+  const moduleNameMapper = await mapModuleNames()
 
-      return {
-        [`${name}/(.*)$`]: `${base}/src/$1`,
-      }
-    })
-    .reduce((pkgs, pkg) => ({...pkgs, ...pkg}), {}),
-  preset: 'ts-jest',
-  setupFiles: ['./jest.setup.ts'],
-  testMatch: [
-    '**/tests/**/*.[jt]s?(x)',
-    '**/?(*.)+(spec|test).[jt]s?(x)',
-  ],
-  testEnvironment: 'node',
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/examples/',
-    '/docs/',
-    '/dev/',
-  ],
-  verbose: true,
+  return {
+    ...defaults,
+    coveragePathIgnorePatterns: [
+      'types',
+      'node_modules',
+      'tests',
+      'examples',
+      'docs',
+      '@roots/filesystem',
+      '@roots/bud-typings',
+    ],
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    moduleNameMapper,
+    preset: 'ts-jest',
+    testMatch: [
+      '**/tests/**/*.[jt]s?(x)',
+      '**/?(*.)+(spec|test).[jt]s?(x)',
+    ],
+    testEnvironment: 'node',
+    testPathIgnorePatterns: [
+      '/node_modules/',
+      '/examples/',
+      '/docs/',
+      '/dev/',
+      '/site/',
+    ],
+    verbose: true,
+  }
 }
 
-export default config
+const mapModuleNames = async (): Promise<
+  InitialOptionsTsJest['moduleNameMapper']
+> => {
+  const pkgs = await globby('packages/@roots/*/package.json', {
+    absolute: true,
+  })
+
+  return pkgs
+    .map(pkg => [
+      `${require.resolve(pkg)}/(.*)$`,
+      `${dirname(pkg)}/src/$1`,
+    ])
+    .reduce((a, [k, v]) => ({...a, [k]: v}), {})
+}

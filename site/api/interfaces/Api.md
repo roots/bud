@@ -26,7 +26,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -47,4 +47,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Api.ts:11](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Api.ts#L11)
+[packages/@roots/bud-framework/src/Api.ts:11](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Api.ts#L11)

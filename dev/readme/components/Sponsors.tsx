@@ -1,8 +1,6 @@
 import React from 'react'
 
-import project from '../../../repo'
-
-const Grid = () =>
+const Grid = ({project}) =>
   project.sponsors.map((sponsor, id) => (
     <span
       key={
@@ -10,7 +8,7 @@ const Grid = () =>
       }>{`<a href="${sponsor.url}"><img src="${sponsor.image}" alt="${sponsor.title}" width="200" height="150"/></a>`}</span>
   ))
 
-export const Sponsors = () => (
+export const Sponsors = ({project}) => (
   <>
     <h2>Sponsors</h2>
 
@@ -19,6 +17,6 @@ export const Sponsors = () => (
       [becoming a patron](https://www.patreon.com/rootsdev).
     </p>
 
-    <Grid />
+    <Grid project={project} />
   </>
 )

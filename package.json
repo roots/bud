@@ -1,23 +1,12 @@
 {
-  "name": "bud",
+  "name": "bud.js",
   "private": true,
-  "description": "A friendly build tool to help manage your project assets.",
-  "homepage": "https://roots.io/bud",
+  "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git"
   },
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Kelly Mears",
-      "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    }
-  ],
   "engines": {
     "node": "^16.3.0"
   },
@@ -26,7 +15,7 @@
       "examples/*",
       "packages/@roots/*",
       "packages/base",
-      "dev/build/yarn-plugin-tasks"
+      ".yarn/local"
     ]
   },
   "browserslist": {
@@ -79,7 +68,9 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/signale": "^1.4.1",
     "@types/weak-napi": "^2.0.0",
+    "@types/yamljs": "0.2.31",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@yarnpkg/builder": "^3.0.0-rc.12",
     "autobind-decorator": "^2.4.0",
     "clipanion": "^3.0.0",
     "clsx": "^1.1.1",
@@ -98,7 +89,6 @@
     "ink": "^3.0.8",
     "ink-testing-library": "^2.1.0",
     "jest": "^27.0.6",
-    "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
@@ -119,5 +109,361 @@
   },
   "volta": {
     "node": "16.3.0"
+  },
+  "manifest": {
+    "name": "bud.js",
+    "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+    "version": "4.7.0-next.10",
+    "tag": "latest",
+    "logo": "https://cdn.roots.io/app/uploads/logo-bud.svg",
+    "url": {
+      "discourse": "https://discourse.roots.io/c/bud/24",
+      "docs": "https://budjs.netlify.app",
+      "git": "git@github.com:roots/bud",
+      "web": "https://github.com/roots/bud"
+    },
+    "organization": {
+      "name": "Roots Foundation, LLC",
+      "site": "https://roots.io",
+      "twitter": "https://twitter.com/roots",
+      "favicon": "https://roots.io/favicon.ico"
+    },
+    "contributors": {
+      "kellymears": {
+        "name": "Kelly Mears",
+        "type": [
+          "steward",
+          "development",
+          "documentation"
+        ]
+      },
+      "qwp6t": {
+        "name": "Qwp6t",
+        "type": [
+          "steward",
+          "development",
+          "documentation"
+        ]
+      },
+      "swalkinshaw": {
+        "name": "Scott Walkinshaw",
+        "type": [
+          "steward",
+          "documentation"
+        ]
+      },
+      "clayrisser": {
+        "name": "Jam Risser",
+        "type": [
+          "documentation"
+        ]
+      },
+      "lettenmair": {
+        "name": "Justin Lettenmair",
+        "type": [
+          "documentation"
+        ]
+      }
+    },
+    "core": {
+      "@roots/bud": {
+        "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+        "dependencies": [
+          "@roots/bud-api",
+          "@roots/bud-build",
+          "@roots/bud-cache",
+          "@roots/bud-compiler",
+          "@roots/bud-cli",
+          "@roots/bud-dashboard",
+          "@roots/bud-extensions",
+          "@roots/bud-framework",
+          "@roots/bud-hooks",
+          "@roots/bud-server",
+          "@roots/bud-support"
+        ]
+      },
+      "@roots/bud-api": {
+        "description": "@roots/bud core: build config facades",
+        "dependencies": [
+          "@roots/bud-framework",
+          "@roots/bud-support"
+        ]
+      },
+      "@roots/bud-build": {
+        "description": "@roots/bud core: build config controller",
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-cache": {
+        "description": "@roots/bud core: build config caching",
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-cli": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-compiler": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-dashboard": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-extensions": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-framework": {
+        "dependencies": [
+          "@roots/container",
+          "@roots/dependencies"
+        ]
+      },
+      "@roots/bud-hooks": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-server": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-support": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-typings": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      }
+    },
+    "extensions": {
+      "@roots/bud-babel": {
+        "description": "Babel support for @roots/bud projects",
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-compress": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-criticalcss": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-emotion": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-entrypoints": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-esbuild": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-eslint": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-imagemin": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-library": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-mdx": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-postcss": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-preset-recommend": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-prettier": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-purgecss": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-react": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-sass": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-solid": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-stylelint": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-tailwindcss": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-terser": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-typescript": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-vue": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-wordpress-dependencies": {
+        "dependencies": [
+          "@roots/bud-framework",
+          "@roots/merged-manifest-webpack-plugin"
+        ]
+      },
+      "@roots/bud-wordpress-externals": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/bud-wordpress-manifests": {
+        "dependencies": [
+          "@roots/bud-framework"
+        ]
+      },
+      "@roots/sage": {
+        "dependencies": [
+          "@roots/bud",
+          "@roots/bud-babel",
+          "@roots/bud-entrypoints",
+          "@roots/bud-eslint",
+          "@roots/bud-postcss",
+          "@roots/bud-prettier",
+          "@roots/bud-react",
+          "@roots/bud-stylelint",
+          "@roots/bud-tailwindcss",
+          "@roots/bud-wordpress-dependencies",
+          "@roots/bud-wordpress-externals",
+          "@roots/bud-wordpress-manifests"
+        ]
+      }
+    },
+    "lib": {
+      "@roots/container": {
+        "dependencies": []
+      },
+      "@roots/critical-css-webpack-plugin": {
+        "dependencies": []
+      },
+      "@roots/dependencies": {
+        "dependencies": []
+      },
+      "@roots/entrypoints-webpack-plugin": {
+        "dependencies": []
+      },
+      "@roots/filesystem": {
+        "dependencies": []
+      },
+      "@roots/ink-prettier": {
+        "dependencies": []
+      }
+    },
+    "sponsors": [
+      {
+        "image": "https://cdn.roots.io/app/uploads/kinsta.svg",
+        "title": "Kinsta",
+        "url": "https://kinsta.com/?kaid=OFDHAJIXUDIV"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/km-digital.svg",
+        "title": "KM Digital",
+        "url": "https://k-m.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/carrot.svg",
+        "title": "Carrot",
+        "url": "https://carrot.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/c21redwood.svg",
+        "title": "C21 Redwood Realty",
+        "url": "https://www.c21redwood.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/wordpress.svg",
+        "title": "WordPress.com",
+        "url": "https://wordpress.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/icons8.svg",
+        "title": "Icons8",
+        "url": "https://icons8.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/harness-software.svg",
+        "title": "Harness Software",
+        "url": "https://www.harnessup.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/coders-clan.svg",
+        "title": "Coders Clan",
+        "url": "https://www.codersclan.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/genero.svg",
+        "title": "Genero",
+        "url": "https://generodigital.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/motto.svg",
+        "title": "Motto",
+        "url": "https://motto.ca/roots"
+      }
+    ]
   }
 }

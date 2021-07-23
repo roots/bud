@@ -29,7 +29,7 @@ Webpack configuration
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:35](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L35)
+[packages/@roots/bud-framework/src/Build.ts:36](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L36)
 
 ___
 
@@ -45,7 +45,7 @@ RuleSetUse item registry
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:25](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L25)
+[packages/@roots/bud-framework/src/Build.ts:26](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L26)
 
 ___
 
@@ -61,7 +61,7 @@ Loader registry
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:20](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L20)
+[packages/@roots/bud-framework/src/Build.ts:21](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L21)
 
 ___
 
@@ -77,7 +77,7 @@ Webpack rules registry
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:30](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L30)
+[packages/@roots/bud-framework/src/Build.ts:31](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L31)
 
 ## Accessors
 
@@ -91,7 +91,7 @@ Webpack rules registry
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -107,4 +107,4 @@ Regenerate Webpack configuration
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:40](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L40)
+[packages/@roots/bud-framework/src/Build.ts:41](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L41)

@@ -24,7 +24,7 @@ Array of paths for webpack to resolve modules from
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:14](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L14)
+[packages/@roots/bud-framework/src/Discovery.ts:14](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L14)
 
 ## Accessors
 
@@ -38,7 +38,7 @@ Array of paths for webpack to resolve modules from
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Service.ts#L74)
+[packages/@roots/bud-framework/src/Service.ts:74](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Service.ts#L74)
 
 ## Methods
 
@@ -60,7 +60,7 @@ Collect packages.
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:19](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L19)
+[packages/@roots/bud-framework/src/Discovery.ts:19](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L19)
 
 ___
 
@@ -76,7 +76,7 @@ Get aggregated project info
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:44](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L44)
+[packages/@roots/bud-framework/src/Discovery.ts:44](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L44)
 
 ___
 
@@ -100,7 +100,7 @@ or devDependency
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:55](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L55)
+[packages/@roots/bud-framework/src/Discovery.ts:55](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L55)
 
 ___
 
@@ -116,7 +116,7 @@ Install packages
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:39](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L39)
+[packages/@roots/bud-framework/src/Discovery.ts:39](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L39)
 
 ___
 
@@ -140,7 +140,7 @@ Gather information on packages
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:31](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L31)
+[packages/@roots/bud-framework/src/Discovery.ts:31](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L31)
 
 ___
 
@@ -156,7 +156,7 @@ Register discovered packages as extensions
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:26](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L26)
+[packages/@roots/bud-framework/src/Discovery.ts:26](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L26)
 
 ___
 
@@ -176,4 +176,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Discovery.ts:48](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Discovery.ts#L48)
+[packages/@roots/bud-framework/src/Discovery.ts:48](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Discovery.ts#L48)

@@ -5,7 +5,7 @@ sidebar_label: "Rule"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).Rule
+[Build](../namespaces/Build.md).Rule
 
 **`interface`** Build.Rule
 
@@ -29,7 +29,7 @@ Wrapper for {@link RuleSetRule}
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:95](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L95)
+[packages/@roots/bud-framework/src/Build.ts:96](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L96)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:107](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L107)
+[packages/@roots/bud-framework/src/Build.ts:108](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L108)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:103](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L103)
+[packages/@roots/bud-framework/src/Build.ts:104](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L104)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:87](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L87)
+[packages/@roots/bud-framework/src/Build.ts:88](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L88)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:99](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L99)
+[packages/@roots/bud-framework/src/Build.ts:100](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L100)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:91](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L91)
+[packages/@roots/bud-framework/src/Build.ts:92](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L92)
 
 ___
 
@@ -151,7 +151,7 @@ Returns final {@link RuleSetRule} for inclusion in [Build.config](Build.md#confi
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:114](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L114)
+[packages/@roots/bud-framework/src/Build.ts:115](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L115)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `exclude` | `RegExp` \| [`ExcludeFn`](../modules/Build.Rule.md#excludefn) |
+| `exclude` | `RegExp` \| [`ExcludeFn`](../namespaces/Build.Rule.md#excludefn) |
 
 #### Returns
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:97](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L97)
+[packages/@roots/bud-framework/src/Build.ts:98](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L98)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:109](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L109)
+[packages/@roots/bud-framework/src/Build.ts:110](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L110)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `parser` | [`Parser`](Build.Rule.Parser.md) \| [`ParserFn`](../modules/Build.Rule.md#parserfn) |
+| `parser` | [`Parser`](Build.Rule.Parser.md) \| [`ParserFn`](../namespaces/Build.Rule.md#parserfn) |
 
 #### Returns
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:105](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L105)
+[packages/@roots/bud-framework/src/Build.ts:106](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L106)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `test` | `RegExp` \| [`TestFn`](../modules/Build.Rule.md#testfn) |
+| `test` | `RegExp` \| [`TestFn`](../namespaces/Build.Rule.md#testfn) |
 
 #### Returns
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:89](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L89)
+[packages/@roots/bud-framework/src/Build.ts:90](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L90)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | `string` \| [`TypeFn`](../modules/Build.Rule.md#typefn) |
+| `type` | `string` \| [`TypeFn`](../namespaces/Build.Rule.md#typefn) |
 
 #### Returns
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:101](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L101)
+[packages/@roots/bud-framework/src/Build.ts:102](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L102)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `use` | [`UseFn`](../modules/Build.Rule.md#usefn) |
+| `use` | [`UseFn`](../namespaces/Build.Rule.md#usefn) |
 
 #### Returns
 
@@ -271,7 +271,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:93](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L93)
+[packages/@roots/bud-framework/src/Build.ts:94](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L94)
 
 ___
 
@@ -293,7 +293,7 @@ Wrapping {@link RuleSetRule.test}
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:79](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L79)
+[packages/@roots/bud-framework/src/Build.ts:80](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L80)
 
 ___
 
@@ -316,4 +316,4 @@ can be built with [Build.Item.make](Build.Item-1.md#make) to produce {@link Rule
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:85](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L85)
+[packages/@roots/bud-framework/src/Build.ts:86](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L86)

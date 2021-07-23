@@ -5,7 +5,7 @@ sidebar_label: "Output"
 custom_edit_url: null
 ---
 
-[Build](../modules/Build.md).[Rule](../modules/Build.Rule.md).Output
+[Build](../namespaces/Build.md).[Rule](../namespaces/Build.Rule.md).Output
 
 ## Properties
 
@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:176](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L176)
+[packages/@roots/bud-framework/src/Build.ts:177](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L177)
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:179](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L179)
+[packages/@roots/bud-framework/src/Build.ts:180](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L180)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:178](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L178)
+[packages/@roots/bud-framework/src/Build.ts:179](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L179)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:171](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L171)
+[packages/@roots/bud-framework/src/Build.ts:172](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L172)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:177](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L177)
+[packages/@roots/bud-framework/src/Build.ts:178](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L178)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Build.ts:172](https://github.com/roots/bud/blob/4498d10b4/packages/@roots/bud-framework/src/Build.ts#L172)
+[packages/@roots/bud-framework/src/Build.ts:173](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Build.ts#L173)
