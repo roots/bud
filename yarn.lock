@@ -3175,7 +3175,7 @@ __metadata:
     lodash: ^4.17.21
     patch-console: ^1.0.0
     react: ^17.0.2
-    webpack: ^5.45.1
+    webpack: ^5.46.0
   languageName: unknown
   linkType: soft
 
@@ -3847,7 +3847,7 @@ __metadata:
     lodash: ^4.17.21
     safe-require: ^1.0.4
     vinyl: ^2.2.1
-    webpack: ^5.45.1
+    webpack: ^5.46.0
   languageName: unknown
   linkType: soft
 
@@ -3871,7 +3871,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
     lodash: ^4.17.21
-    webpack: ^5.45.1
+    webpack: ^5.46.0
   languageName: unknown
   linkType: soft
 
@@ -4005,7 +4005,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
     lodash: ^4.17.21
-    webpack: ^5.45.1
+    webpack: ^5.46.0
   languageName: unknown
   linkType: soft
 
@@ -4018,7 +4018,7 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.31.0
-    webpack: ^5.45.1
+    webpack: ^5.46.0
   languageName: unknown
   linkType: soft
 
