@@ -76,7 +76,7 @@
     "postcss": "^8",
     "postcss-import": "^14",
     "postcss-preset-env": "^6",
-    "tailwindcss": "^2.2.4"
+    "tailwindcss": "^2.2.6"
   },
   "peerDependencies": {
     "@roots/bud": "*",
