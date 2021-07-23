@@ -48,14 +48,17 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
+      - name: Pre-build
+        run: yarn kjo pre
+
       - name: Build
-        run: yarn kjo build
+        run: yarn kjo build --cjs
 
       - name: Unit Tests
-        run: yarn kjo test -u
+        run: yarn kjo test --unit
 
       - name: Integration Tests
-        run: yarn kjo test -i
+        run: yarn kjo test --integration
 
       - name: Lint
-        run: yarn kjo lint -e -s
+        run: yarn kjo lint --eslint --skypack

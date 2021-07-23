@@ -16,16 +16,36 @@
 @media screen and (max-width: 966px) {
   .heroBanner {
     padding: 2rem;
-    background: linear-gradient(217deg, rgb(86, 98, 218), rgb(71, 83, 220));
+    background: linear-gradient(
+      217deg,
+      rgb(86, 98, 218),
+      rgb(71, 83, 220)
+    );
   }
 }
 
 .heroBanner {
-  background: linear-gradient(217deg, rgb(86, 98, 218), rgb(71, 83, 220));
+  background: linear-gradient(
+    217deg,
+    rgb(86, 98, 218),
+    rgb(71, 83, 220)
+  );
 }
 
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
 }

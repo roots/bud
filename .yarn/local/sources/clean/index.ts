@@ -4,9 +4,7 @@ import {Option} from 'clipanion'
 export class CleanCommand extends Command {
   static paths = [[`kjo`, `clean`]]
 
-  public dfx = Option.Boolean(`--d,--dfx`, {
-    required: false,
-  })
+  public dfx = Option.Boolean(`-d,--dfx`, false)
 
   public commands = {
     rm: [
@@ -19,10 +17,12 @@ export class CleanCommand extends Command {
       `rm -rf packages/*/*/types`,
       `yarn cache clean`,
     ],
-    dfx: [`git clean -dfx`],
+    dfx: [`git clean -dfx`, `yarn cache clean`],
   }
 
   async execute() {
-    this.dfx ? await this.$(this.commands.dfx) : this.commands.rm
+    this.dfx
+      ? await this.$(this.commands.dfx)
+      : this.$(this.commands.rm)
   }
 }

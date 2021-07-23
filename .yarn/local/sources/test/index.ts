@@ -4,7 +4,7 @@ import {Option} from 'clipanion'
 export class TestCommand extends Command {
   static paths = [[`kjo`, `test`]]
 
-  public unit = Option.Boolean(`--u,--unit`, false)
+  public unit = Option.Boolean(`-u,--unit`, false)
   public integration = Option.Boolean(`-i,--integration`, false)
 
   public commands = {

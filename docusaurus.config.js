@@ -16,6 +16,7 @@ module.exports = {
   favicon: manifest.organization.favicon,
   organizationName: manifest.organization.name,
   projectName: manifest.name,
+  customFields: manifest,
   themeConfig: {
     hideableSidebar: true,
     prism: {

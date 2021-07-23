@@ -6,7 +6,7 @@ import {LintCommand} from './lint'
 import {TestCommand} from './test'
 import {VersionCommand} from './version'
 import {MakeCommand} from './make'
-import {PreCommand} from './pre'
+import {GenCommand} from './gen'
 
 const plugin: Plugin = {
   hooks: {
@@ -19,7 +19,7 @@ const plugin: Plugin = {
     CleanCommand,
     LintCommand,
     MakeCommand,
-    PreCommand,
+    GenCommand,
     TestCommand,
     VersionCommand,
   ],

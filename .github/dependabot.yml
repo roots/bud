@@ -1,20 +1,20 @@
 version: 2
 
 updates:
-  - package-ecosystem: "npm"
-    target-branch: "next"
-    directory: "/"
+  - package-ecosystem: npm
+    target-branch: next
+    directory: /
     schedule:
-      interval: "daily"
+      interval: daily
     labels:
       - dependencies
 
-  - package-ecosystem: "npm"
-    target-branch: "next"
-    directory: "/packages/@roots/*"
+  - package-ecosystem: npm
+    target-branch: next
+    directory: /packages/@roots/*
     schedule:
-      interval: "daily"
+      interval: daily
     ignore:
-      - dependency-name: "@roots/*"
+      - dependency-name: @roots/*
     labels:
       - dependencies

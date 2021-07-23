@@ -1,10 +1,36 @@
 import execa from 'execa'
 import {writeFileSync} from 'fs-extra'
 
+gen(['bud', 'help'])
+gen(['bud', 'commands'])
+gen(['bud', 'init', '--help'])
+gen(['bud', 'dev', '--help'])
+gen(['bud', 'extensions', '--help'])
+gen(['bud', 'doctor', '--help'])
+gen(['bud', 'doctor'])
+gen(['bud', 'doctor'], 'react')
+gen(['bud', 'clean', '--help'])
+gen(['bud', 'build'])
+gen(['bud', 'build', '--help'])
+gen(['bud', 'build', '--ci'])
+gen(['bud', 'build', '--hash'])
+gen(['bud', 'build'], 'multi-compiler')
+gen(['bud', 'build', '--target', 'theme'], 'multi-compiler')
+gen(
+  ['bud', 'build', '--target', 'theme', '--target', 'plugin'],
+  'multi-compiler',
+)
+
+/**
+ * Repeat twice so --cache is demonstrated ;)
+ */
+gen(['bud', 'build', '--cache'])
+gen(['bud', 'build', '--cache'])
+
 /**
  * Write terminal output to docusaurus mdx
  */
-const writeOut = (args: string[], dir = 'babel') => {
+function gen(args: string[], dir = 'babel', ver = '') {
   const {stdout, escapedCommand} = execa.sync('yarn', args, {
     cwd: process.cwd().concat('/examples/', dir),
   })
@@ -18,6 +44,7 @@ const writeOut = (args: string[], dir = 'babel') => {
         .replace(/^yarn\sbud\s/, '')
         .replace(/\s--/g, '--')
         .replace(/\s/g, '-'),
+      ver ? `-${ver}` : ``,
       '.md',
     ),
     stdout
@@ -28,29 +55,3 @@ const writeOut = (args: string[], dir = 'babel') => {
       .replace(/minimized/g, 'minimized       '),
   )
 }
-
-writeOut(['bud', 'help'])
-writeOut(['bud', 'commands'])
-writeOut(['bud', 'init', '--help'])
-writeOut(['bud', 'dev', '--help'])
-writeOut(['bud', 'extensions', '--help'])
-writeOut(['bud', 'doctor', '--help'])
-writeOut(['bud', 'doctor'])
-writeOut(['bud', 'doctor'], 'react')
-writeOut(['bud', 'clean', '--help'])
-writeOut(['bud', 'build'])
-writeOut(['bud', 'build', '--help'])
-writeOut(['bud', 'build', '--ci'])
-writeOut(['bud', 'build', '--hash'])
-writeOut(['bud', 'build'], 'multi-compiler')
-writeOut(['bud', 'build', '--target', 'theme'], 'multi-compiler')
-writeOut(
-  ['bud', 'build', '--target', 'theme', '--target', 'plugin'],
-  'multi-compiler',
-)
-
-/**
- * Repeat twice so --cache is demonstrated ;)
- */
-writeOut(['bud', 'build', '--cache'])
-writeOut(['bud', 'build', '--cache'])

@@ -1,16 +1,20 @@
 import {Command} from '../Command'
+import {Option} from 'clipanion'
 
 export class MakeCommand extends Command {
   static paths = [[`kjo`, `make`]]
 
-  public commands = {}
+  public dfx = Option.Boolean(`-d,--dfx`, false)
 
   async execute() {
     const itinerary = [
       `yarn install --immutable`,
-      `yarn kjo build -c`,
+      `yarn kjo clean`.concat(this.dfx ? '--dfx' : ''),
+      `yarn kjo build`,
       `yarn kjo test`,
-      `yarn kjo lint -j -p`,
+      `yarn`,
+      `yarn kjo lint`,
+      `yarn kjo gen`,
     ]
 
     await this.$(itinerary)

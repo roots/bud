@@ -1,0 +1,9 @@
+[build]
+  publish = "build/"
+
+  # Default build command.
+  command = "yarn kjo gen"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  package = "netlify-plugin-inline-critical-css"
