@@ -88,7 +88,7 @@
     "globby": "11.0.4",
     "ink": "3.0.9",
     "ink-testing-library": "2.1.0",
-    "jest": "^27.0.6",
+    "jest": "27.0.6",
     "netlify-plugin-inline-critical-css": "^1.2.0",
     "prettier": "2.3.2",
     "raw-loader": "4.0.2",
