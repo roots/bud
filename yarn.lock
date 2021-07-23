@@ -3000,7 +3000,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-babel@workspace:packages/@roots/bud-babel"
   dependencies:
-    "@babel/core": ^7.14.6
+    "@babel/core": ^7.14.8
     "@babel/plugin-proposal-class-properties": ^7.14.5
     "@babel/plugin-proposal-object-rest-spread": ^7.14.7
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
@@ -3490,7 +3490,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-react@workspace:packages/@roots/bud-react"
   dependencies:
-    "@babel/core": ^7.14.6
+    "@babel/core": ^7.14.8
     "@babel/preset-react": ^7.14.5
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.2
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
