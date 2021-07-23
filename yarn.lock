@@ -4814,12 +4814,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.26.2":
-  version: 0.26.2
-  resolution: "@types/react-reconciler@npm:0.26.2"
+"@types/react-reconciler@npm:0.26.3":
+  version: 0.26.3
+  resolution: "@types/react-reconciler@npm:0.26.3"
   dependencies:
     "@types/react": "*"
-  checksum: 4e227fb82985c4812211d706745b4eaac7e3128c2b3fa50c676b25dfe8d4a995871dea2318c03ad5998204bfff056f8d07a47e6b84272de75758574b13d60c67
+  checksum: 7ce88daeb67db6bf9a1f91308fd9cf7ed3a1d4dc0c450b18003b5946ba88cf0d6aad49e0a17a9ce20059e80dbd46acad73f796648856f2fb187a5abaae258bef
   languageName: node
   linkType: hard
 
@@ -6723,7 +6723,7 @@ __metadata:
     "@types/react": 17.0.14
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
-    "@types/react-reconciler": 0.26.2
+    "@types/react-reconciler": 0.26.3
     "@types/react-router-dom": 5.1.8
     "@types/signale": 1.4.2
     "@types/weak-napi": 2.0.0
