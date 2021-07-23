@@ -3712,7 +3712,7 @@ __metadata:
     eslint: 7.31.0
     he: ^1.2.0
     vue: 3.1.5
-    vue-loader: ^16.3.1
+    vue-loader: ^16.3.3
     webpack: 5.46.0
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.5
@@ -21820,14 +21820,20 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vue-loader@npm:^16.3.1":
-  version: 16.3.1
-  resolution: "vue-loader@npm:16.3.1"
+"vue-loader@npm:^16.3.3":
+  version: 16.3.3
+  resolution: "vue-loader@npm:16.3.3"
   dependencies:
     chalk: ^4.1.0
     hash-sum: ^2.0.0
     loader-utils: ^2.0.0
-  checksum: 7cabe8c6a478303f4a97c642ce84e0b27133bc150472501941fc917c8336e8433e50fa9b0779ea3de29766dd1875f7f678fed30eeeb71823d33d8dc4dc019da3
+  peerDependencies:
+    "@vue/compiler-sfc": ^3.0.8
+    webpack: ^4.1.0 || ^5.0.0-0
+  peerDependenciesMeta:
+    "@vue/compiler-sfc":
+      optional: true
+  checksum: d5d76bff1b79d9c49c170d93051092b1ef9230437277598e324171507c9c2fa0fd528e2b0ad10eeaa82e2008250060776da5bfd5c63c70bad838bb3229a1322c
   languageName: node
   linkType: hard
 
