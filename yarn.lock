@@ -3575,7 +3575,7 @@ __metadata:
     "@types/eslint": 7.28.0
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
-    babel-preset-solid: ^1.0.1
+    babel-preset-solid: ^1.0.4
     eslint: 7.31.0
     type-fest: 1.2.2
     webpack: 5.46.0
@@ -6350,14 +6350,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.29.3":
-  version: 0.29.3
-  resolution: "babel-plugin-jsx-dom-expressions@npm:0.29.3"
+"babel-plugin-jsx-dom-expressions@npm:^0.29.7":
+  version: 0.29.7
+  resolution: "babel-plugin-jsx-dom-expressions@npm:0.29.7"
   dependencies:
     "@babel/helper-module-imports": ^7.10.4
     "@babel/plugin-syntax-jsx": ^7.10.4
     "@babel/types": ^7.11.5
-  checksum: b726258bcea54da7c91ba2f6f49f79c7459ad923cbb2273d02bea453a5b668131a759d915134d12d31a2ebe2eb007b025423abb2e14697a18723e518552af405
+  checksum: f34fa7737a33bf24391c2072daac46baeb8af232ea70f33ebba3a5f2afb1b14cd5ba39a6e5162d7ace5e0623de82b9322bb9bd31b72cf85471d4dc1c859b6327
   languageName: node
   linkType: hard
 
@@ -6453,12 +6453,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-solid@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "babel-preset-solid@npm:1.0.1"
+"babel-preset-solid@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "babel-preset-solid@npm:1.0.4"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.29.3
-  checksum: 61cc4d655e12398fe7bf6e9f4f8d66273c7266664bf7c33fb944c0eff4d4d7b0906ef2b407a424a279bfae5c95e38343a6e782d13cb4cb90deead9ef4a9dd5b2
+    babel-plugin-jsx-dom-expressions: ^0.29.7
+  checksum: fbbbc51f5411bb1aef9b7d8521002446e3671a49efb72473369ec91ba67ba841351472902f956271f8035b11d9e5f9fa6d5a29ca2f9d93b06c5a8622926a79aa
   languageName: node
   linkType: hard
 
