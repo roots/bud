@@ -48,9 +48,6 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
-      - name: Pre-build
-        run: yarn kjo pre
-
       - name: Build
         run: yarn kjo build --cjs
 

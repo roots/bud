@@ -6,4 +6,6 @@
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
+
+[[plugins]]
   package = "netlify-plugin-inline-critical-css"
