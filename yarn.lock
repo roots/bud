@@ -3499,7 +3499,7 @@ __metadata:
     eslint: 7.31.0
     postcss: 8.3.6
     postcss-scss: ^4.0.0
-    sass: 1.35.2
+    sass: 1.36.0
     sass-loader: ^12.1.0
     webpack: 5.46.0
   peerDependencies:
@@ -20206,14 +20206,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:1.35.2":
-  version: 1.35.2
-  resolution: "sass@npm:1.35.2"
+"sass@npm:1.36.0":
+  version: 1.36.0
+  resolution: "sass@npm:1.36.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: bae338ac88d5a2f6d99dd3fc8f3ac84a93419eaa2d38ee877ddd844f6996f21b0005ed074e9eadb28bb08c4a3c2dc379a01cd6fe47352a9857870d33f69273ef
+  checksum: fdb03deed1769f182900c1b5505bc22e50cf1d3ce4d5253fc907865f784c430236937bd391d91ef714e59995584f13ff31d3776d5283e730f5172ac227585754
   languageName: node
   linkType: hard
 
