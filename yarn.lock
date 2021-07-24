@@ -2668,7 +2668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/plugin-lighthouse@npm:^2.1.2":
+"@netlify/plugin-lighthouse@npm:2.1.2":
   version: 2.1.2
   resolution: "@netlify/plugin-lighthouse@npm:2.1.2"
   dependencies:
@@ -3996,13 +3996,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/yarn-plugin-kjo@workspace:.yarn/local"
   dependencies:
-    "@types/node": ^16.0.0
-    "@yarnpkg/builder": ^3.0.0-rc.12
-    "@yarnpkg/cli": ^3.0.0-rc.12
-    "@yarnpkg/core": ^3.0.0-rc.12
-    "@yarnpkg/shell": ^3.0.0-rc.12
-    clipanion: ^3.0.1
-    typescript: ^4.3.2
+    "@types/node": 16.4.1
+    "@yarnpkg/builder": 3.0.0-rc.12
+    "@yarnpkg/cli": 3.0.0-rc.12
+    "@yarnpkg/core": 3.0.0-rc.12
+    "@yarnpkg/shell": 3.0.0-rc.12
+    clipanion: 3.0.1
+    typescript: 4.3.5
   languageName: unknown
   linkType: soft
 
@@ -4692,7 +4692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.0.0":
+"@types/node@npm:*, @types/node@npm:16.4.1":
   version: 16.4.1
   resolution: "@types/node@npm:16.4.1"
   checksum: 6cff78c802a1efecc900506a468a9bdaa321c7132a05e87552ab710f3d3a5cd230308317634f94b8db4833c66c72a765b28670d5ccf8c7c5a7363fcce32d1b1e
@@ -5537,7 +5537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/builder@npm:^3.0.0-rc.12":
+"@yarnpkg/builder@npm:3.0.0-rc.12":
   version: 3.0.0-rc.12
   resolution: "@yarnpkg/builder@npm:3.0.0-rc.12"
   dependencies:
@@ -5568,7 +5568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:^3.0.0-rc.12":
+"@yarnpkg/cli@npm:3.0.0-rc.12, @yarnpkg/cli@npm:^3.0.0-rc.12":
   version: 3.0.0-rc.12
   resolution: "@yarnpkg/cli@npm:3.0.0-rc.12"
   dependencies:
@@ -5605,7 +5605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.0.0-rc.12":
+"@yarnpkg/core@npm:3.0.0-rc.12, @yarnpkg/core@npm:^3.0.0-rc.12":
   version: 3.0.0-rc.12
   resolution: "@yarnpkg/core@npm:3.0.0-rc.12"
   dependencies:
@@ -5983,7 +5983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^3.0.0-rc.12":
+"@yarnpkg/shell@npm:3.0.0-rc.12, @yarnpkg/shell@npm:^3.0.0-rc.12":
   version: 3.0.0-rc.12
   resolution: "@yarnpkg/shell@npm:3.0.0-rc.12"
   dependencies:
@@ -7215,7 +7215,7 @@ __metadata:
     "@docusaurus/module-type-aliases": 2.0.0-beta.ff31de0ff
     "@docusaurus/preset-classic": 2.0.0-beta.3
     "@easyops-cn/docusaurus-search-local": 0.18.1
-    "@netlify/plugin-lighthouse": ^2.1.2
+    "@netlify/plugin-lighthouse": 2.1.2
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
@@ -7229,7 +7229,7 @@ __metadata:
     "@types/signale": 1.4.2
     "@types/weak-napi": 2.0.0
     "@typescript-eslint/eslint-plugin": 4.28.4
-    "@yarnpkg/builder": ^3.0.0-rc.12
+    "@yarnpkg/builder": 3.0.0-rc.12
     autobind-decorator: 2.4.0
     clipanion: 3.0.1
     clsx: 1.1.1
@@ -7248,7 +7248,7 @@ __metadata:
     ink: 3.0.9
     ink-testing-library: 2.1.0
     jest: 27.0.6
-    netlify-plugin-inline-critical-css: ^1.2.0
+    netlify-plugin-inline-critical-css: 1.2.0
     prettier: 2.3.2
     raw-loader: 4.0.2
     react: 17.0.2
@@ -16171,7 +16171,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"netlify-plugin-inline-critical-css@npm:^1.2.0":
+"netlify-plugin-inline-critical-css@npm:1.2.0":
   version: 1.2.0
   resolution: "netlify-plugin-inline-critical-css@npm:1.2.0"
   dependencies:
