@@ -51,11 +51,11 @@ jobs:
       - name: Build
         run: yarn kjo build --cjs
 
+      - name: Lint
+        run: yarn kjo lint --eslint --skypack
+
       - name: Unit Tests
         run: yarn kjo test --unit
 
       - name: Integration Tests
         run: yarn kjo test --integration
-
-      - name: Lint
-        run: yarn kjo lint --eslint --skypack
