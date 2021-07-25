@@ -33,6 +33,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
       '/site/',
     ],
     verbose: true,
+    maxWorkers: '50%',
   }
 }
 
