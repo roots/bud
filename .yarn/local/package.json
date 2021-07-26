@@ -4,7 +4,7 @@
   "main": "./sources/index.ts",
   "dependencies": {
     "@types/node": "16.4.1",
-    "@yarnpkg/builder": "3.0.0-rc.12",
+    "@yarnpkg/builder": "3.0.0-rc.13",
     "@yarnpkg/cli": "3.0.0-rc.12",
     "@yarnpkg/core": "3.0.0-rc.12",
     "@yarnpkg/shell": "3.0.0-rc.12",
