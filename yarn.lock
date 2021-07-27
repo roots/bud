@@ -3999,7 +3999,7 @@ __metadata:
     "@types/node": 16.4.1
     "@yarnpkg/builder": 3.0.0
     "@yarnpkg/cli": 3.0.0
-    "@yarnpkg/core": 3.0.0-rc.13
+    "@yarnpkg/core": 3.0.0
     "@yarnpkg/shell": 3.0.0
     clipanion: 3.0.1
     typescript: 4.3.5
@@ -5560,47 +5560,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:3.0.0-rc.13":
-  version: 3.0.0-rc.13
-  resolution: "@yarnpkg/core@npm:3.0.0-rc.13"
-  dependencies:
-    "@arcanis/slice-ansi": ^1.0.2
-    "@types/semver": ^7.1.0
-    "@types/treeify": ^1.0.0
-    "@yarnpkg/fslib": ^2.5.0-rc.13
-    "@yarnpkg/json-proxy": ^2.1.1-rc.11
-    "@yarnpkg/libzip": ^2.2.2-rc.11
-    "@yarnpkg/parsers": ^2.4.0-rc.11
-    "@yarnpkg/pnp": ^3.0.0-rc.13
-    "@yarnpkg/shell": ^3.0.0-rc.13
-    camelcase: ^5.3.1
-    chalk: ^3.0.0
-    ci-info: ^2.0.0
-    clipanion: ^3.0.1
-    cross-spawn: 7.0.3
-    diff: ^4.0.1
-    globby: ^11.0.1
-    got: ^11.7.0
-    json-file-plus: ^3.3.1
-    lodash: ^4.17.15
-    micromatch: ^4.0.2
-    mkdirp: ^0.5.1
-    p-limit: ^2.2.0
-    p-queue: ^6.0.0
-    pluralize: ^7.0.0
-    pretty-bytes: ^5.1.0
-    semver: ^7.1.2
-    stream-to-promise: ^2.2.0
-    strip-ansi: ^6.0.0
-    tar: ^6.0.5
-    treeify: ^1.1.0
-    tslib: ^1.13.0
-    tunnel: ^0.0.6
-  checksum: c874c48cb859ffbc417c9d824e6271b884fc10ba1a97371ee3c8c65e59c30fbf2a3f74e863305aba6cb5dbb897e825e7893a6c34367aa4426736f7435ce2bcb4
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/core@npm:^3.0.0":
+"@yarnpkg/core@npm:3.0.0, @yarnpkg/core@npm:^3.0.0":
   version: 3.0.0
   resolution: "@yarnpkg/core@npm:3.0.0"
   dependencies:
@@ -5653,7 +5613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.5.0-rc.13":
+"@yarnpkg/fslib@npm:^2.5.0":
   version: 2.5.0
   resolution: "@yarnpkg/fslib@npm:2.5.0"
   dependencies:
@@ -5663,7 +5623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/json-proxy@npm:^2.1.1, @yarnpkg/json-proxy@npm:^2.1.1-rc.11":
+"@yarnpkg/json-proxy@npm:^2.1.1":
   version: 2.1.1
   resolution: "@yarnpkg/json-proxy@npm:2.1.1"
   dependencies:
@@ -5673,7 +5633,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^2.2.2, @yarnpkg/libzip@npm:^2.2.2-rc.11":
+"@yarnpkg/libzip@npm:^2.2.2":
   version: 2.2.2
   resolution: "@yarnpkg/libzip@npm:2.2.2"
   dependencies:
@@ -5693,7 +5653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^2.4.0, @yarnpkg/parsers@npm:^2.4.0-rc.11":
+"@yarnpkg/parsers@npm:^2.4.0":
   version: 2.4.0
   resolution: "@yarnpkg/parsers@npm:2.4.0"
   dependencies:
@@ -5950,7 +5910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnp@npm:^3.0.0, @yarnpkg/pnp@npm:^3.0.0-rc.13":
+"@yarnpkg/pnp@npm:^3.0.0":
   version: 3.0.0
   resolution: "@yarnpkg/pnp@npm:3.0.0"
   dependencies:
@@ -5978,7 +5938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:3.0.0, @yarnpkg/shell@npm:^3.0.0, @yarnpkg/shell@npm:^3.0.0-rc.13":
+"@yarnpkg/shell@npm:3.0.0, @yarnpkg/shell@npm:^3.0.0":
   version: 3.0.0
   resolution: "@yarnpkg/shell@npm:3.0.0"
   dependencies:
