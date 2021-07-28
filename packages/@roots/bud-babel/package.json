@@ -67,7 +67,7 @@
     "@types/lodash": "4.14.171",
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
