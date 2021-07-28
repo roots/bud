@@ -67,7 +67,7 @@
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "webpack": "^5.46.0"
+    "webpack": "^5.47.0"
   },
   "stableVersion": "4.6.0"
 }
