@@ -72,7 +72,7 @@
     "lodash": "^4.17.21",
     "safe-require": "^1.0.4",
     "vinyl": "^2.2.1",
-    "webpack": "^5.46.0"
+    "webpack": "^5.47.0"
   },
   "stableVersion": "4.6.0"
 }

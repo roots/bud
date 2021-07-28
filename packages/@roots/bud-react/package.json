@@ -71,7 +71,7 @@
     "@types/react-dom": "17.0.9",
     "eslint": "7.31.0",
     "type-fest": "1.2.2",
-    "webpack": "5.46.0"
+    "webpack": "5.47.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
