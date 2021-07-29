@@ -3785,7 +3785,7 @@ __metadata:
     signale: ^1.4.0
     webpack: 5.47.0
     webpack-config-dump-plugin: ^3.0.1
-    webpack-manifest-plugin: ^3.2.0
+    webpack-manifest-plugin: ^4.0.1
   languageName: unknown
   linkType: soft
 
@@ -23460,15 +23460,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack-manifest-plugin@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "webpack-manifest-plugin@npm:3.2.0"
+"webpack-manifest-plugin@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "webpack-manifest-plugin@npm:4.0.1"
   dependencies:
     tapable: ^2.0.0
     webpack-sources: ^2.2.0
   peerDependencies:
-    webpack: ^4.44.2
-  checksum: 70c7e7fcbe6232a881eb89e53b1cbee74e874196b2569cb1fca9a768d9c0ad86fadf3af7de6effa1047379cbfad6a949c532296c65cf43ea333284ff546a5e64
+    webpack: ^4.44.2 || ^5.47.0
+  checksum: cc03b756fd40eb283d4abf48871ea8e224a914cfefd32ce248db5420a10c9bda89be7afd5222f8d5cf5c782e98309d8f632d60cc0f0042c90800a0d8e28c7723
   languageName: node
   linkType: hard
 
