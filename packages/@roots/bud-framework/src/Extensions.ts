@@ -2,7 +2,7 @@
  * @module @roots/bud-framework
  */
 
-import type {WebpackPluginInstance} from 'webpack/types'
+import type {WebpackPluginInstance} from 'webpack'
 
 import type {Module, Service} from './'
 

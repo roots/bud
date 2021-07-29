@@ -4,7 +4,7 @@ import {Box, Newline, Static, Text, useStdin} from 'ink'
 import {isEqual} from 'lodash'
 import patchConsole from 'patch-console'
 import React, {Fragment, useRef, useState} from 'react'
-import type {StatsCompilation} from 'webpack/types'
+import type {StatsCompilation} from 'webpack'
 
 import {Progress} from '../components/Progress'
 import {useForceUpdate} from '../hooks/useForceUpdate'

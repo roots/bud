@@ -70,8 +70,7 @@
     "@types/fs-extra": "9.0.12",
     "@types/node": "15.14.1",
     "@types/tailwindcss": "2.2.1",
-    "@wordpress/browserslist-config": "4.1.0",
-    "eslint": "7.31.0"
+    "@wordpress/browserslist-config": "4.1.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
@@ -85,7 +84,8 @@
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
-    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
+    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

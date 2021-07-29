@@ -69,7 +69,7 @@
     "css-loader": "6.2.0",
     "eslint": "7.31.0",
     "vue": "3.1.5",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
@@ -78,6 +78,7 @@
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
     "he": "^1.2.0",
+    "tslib": "^2.3.0",
     "vue-loader": "^16.3.3"
   },
   "peerDependencies": {

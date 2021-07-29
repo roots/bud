@@ -3,7 +3,7 @@
   "private": true,
   "main": "./sources/index.ts",
   "dependencies": {
-    "@types/node": "16.4.1",
+    "@types/node": "16.4.7",
     "@yarnpkg/builder": "3.0.0",
     "@yarnpkg/cli": "3.0.0",
     "@yarnpkg/core": "3.0.0",

@@ -2,7 +2,7 @@
  * @module @roots/bud-framework
  */
 
-import type {Configuration, RuleSetRule} from 'webpack/types'
+import type {Configuration, RuleSetRule} from 'webpack'
 
 import type {Framework, Service} from './'
 

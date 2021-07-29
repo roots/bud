@@ -61,11 +61,12 @@
   "devDependencies": {
     "@types/eslint": "7.28.0",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "pretty-format": "^27.0.6"
+    "pretty-format": "^27.0.6",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

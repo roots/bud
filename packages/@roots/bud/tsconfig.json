@@ -1,17 +1,17 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "declarationDir": "./types",
+    "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "typeRoots": [
-      "./src/types"
-    ],
+    "declarationDir": "./types",
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "lib",
     "types",
     "node_modules"
-  ],
+  ]
 }

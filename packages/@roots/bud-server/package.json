@@ -64,7 +64,7 @@
     "@types/lodash": "4.14.171",
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
@@ -75,6 +75,7 @@
     "http-proxy-middleware": "^2.0.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21",
+    "tslib": "^2.3.0",
     "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-client": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0",

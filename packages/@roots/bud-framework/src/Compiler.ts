@@ -9,7 +9,7 @@ import {
   ProgressPlugin,
   StatsCompilation,
   StatsError,
-} from 'webpack/types'
+} from 'webpack'
 
 import {Service} from './'
 

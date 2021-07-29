@@ -6,7 +6,7 @@ import type {Container} from '@roots/container'
 import type {WatchOptions} from 'chokidar'
 import type {Application, Handler} from 'express'
 import type Proxy from 'http-proxy-middleware'
-import type Webpack from 'webpack/types'
+import type Webpack from 'webpack'
 import type DevMiddleware from 'webpack-dev-middleware'
 
 import type {Service} from './'

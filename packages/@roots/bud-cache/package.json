@@ -61,7 +61,7 @@
   "devDependencies": {
     "@types/fs-extra": "9.0.12",
     "@types/node": "15.14.1",
-    "webpack": "^5.47.0"
+    "webpack": "^5.47.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
@@ -69,7 +69,8 @@
     "filenamify": "^5.0.0",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

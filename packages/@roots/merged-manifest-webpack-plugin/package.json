@@ -65,12 +65,13 @@
     "@types/node": "15.14.1",
     "@types/prettier": "2.3.2",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

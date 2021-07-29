@@ -1,8 +1,8 @@
 import {Compiler, Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isEqual, isString, noop} from 'lodash'
+import type {StatsCompilation} from 'webpack'
 import webpack, {ProgressPlugin} from 'webpack'
-import {StatsCompilation} from 'webpack/types'
 
 export default class extends Service implements Compiler {
   public name = '@roots/bud-compiler'

@@ -1,6 +1,6 @@
 import {Server} from '@roots/bud-framework'
 import {isNull, isUndefined} from 'lodash'
-import {Compiler, MultiCompiler} from 'webpack/types'
+import {Compiler, MultiCompiler} from 'webpack'
 import DevMiddleware from 'webpack-dev-middleware'
 
 const middlewareConfigKeys = [

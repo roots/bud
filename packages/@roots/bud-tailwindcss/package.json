@@ -72,11 +72,12 @@
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^10.2.6",
-    "postcss": "^8",
-    "postcss-import": "^14",
-    "postcss-preset-env": "^6",
-    "tailwindcss": "^2.2.7"
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^2.2.7",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

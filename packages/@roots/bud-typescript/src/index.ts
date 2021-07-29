@@ -2,7 +2,7 @@ import './interface'
 
 import {Item, Loader, Rule} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
-import {Configuration} from 'webpack/types'
+import {Configuration} from 'webpack'
 
 import {typecheck} from './api'
 

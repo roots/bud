@@ -69,7 +69,8 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "pretty-format": "^27.0.6"
+    "pretty-format": "^27.0.6",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

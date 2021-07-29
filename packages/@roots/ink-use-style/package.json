@@ -69,7 +69,8 @@
     "autobind-decorator": "^2.4.0",
     "ink": "^3.0.8",
     "ink-use-stdout-dimensions": "^1.0.5",
-    "react": "^17.0.2"
+    "react": "^17.0.2",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

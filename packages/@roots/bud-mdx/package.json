@@ -68,12 +68,13 @@
     "eslint": "7.31.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@roots/bud-babel": "*",

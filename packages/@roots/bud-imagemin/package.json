@@ -55,12 +55,13 @@
     "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "image-minimizer-webpack-plugin": "^2.2.0",
-    "imagemin": "^8.0.0"
+    "imagemin": "^8.0.0",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "imagemin-gifsicle": "^7",

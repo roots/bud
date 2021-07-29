@@ -65,13 +65,14 @@
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
     "typedoc": "0.21.4",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
-    "compression-webpack-plugin": "^8.0.1"
+    "compression-webpack-plugin": "^8.0.1",
+    "tslib": "^2.3.0"
   },
   "stableVersion": "4.6.0"
 }

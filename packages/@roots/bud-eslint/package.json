@@ -61,7 +61,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "15.14.1",
     "eslint": "7.31.0",
-    "webpack": "5.46.0"
+    "webpack": "5.47.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
@@ -72,7 +72,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-webpack-plugin": "^3.0.0"
+    "eslint-webpack-plugin": "^3.0.1",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",
