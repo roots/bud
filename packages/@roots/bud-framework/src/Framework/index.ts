@@ -37,184 +37,6 @@ import {
 } from '../'
 
 /**
- * @interface Framework
- */
-interface Framework {
-  /**
-   * Application name
-   */
-  name: string
-
-  /**
-   * If a child instance, returns the parent ({@link Framework}).
-   * If the parent instance, returns null.
-   */
-  parent: Framework
-
-  /**
-   * Child compiler instance container
-   */
-  children: Container<Framework.Instances>
-
-  /**
-   * Service providing config facades
-   */
-  api: Api
-
-  /**
-   * Service handling config compilation
-   */
-  build: Build
-
-  /**
-   * Service handling compiler cache
-   */
-  cache: Cache
-
-  /**
-   * Service handling build compilation
-   */
-  compiler: Compiler
-
-  /**
-   * Service handling build reporter rendering
-   */
-  dashboard: Dashboard
-
-  /**
-   * Service handling peer package management
-   */
-  dependencies: Dependencies
-
-  /**
-   * Service providing information on project and peers
-   */
-  discovery: Discovery
-
-  /**
-   * Service providing env data
-   */
-  env: Env
-
-  /**
-   * Service handling registration of {@link Module} and {@link Plugin}
-   * into {@link Extension} objects.
-   */
-  extensions: Extensions
-
-  /**
-   * Service handling eventing
-   */
-  hooks: Hooks
-
-  /**
-   * {@link Bootstrapper} provides logger methods
-   */
-  logger: Logger
-
-  /**
-   * Server
-   */
-  server: Server
-
-  /**
-   * {@link Bootstrapper} provides general utility container.
-   *
-   * Contains {@link Configuration} but is available for use as scratch space.
-   */
-  store: Store
-
-  /**
-   * Instantiates and executes lifecycle events on registered {@link Service} classes.
-   */
-  bootstrap(): Framework
-
-  /**
-   * If a value is a function **access** will call that
-   * function and return the result.
-   *
-   * If the value is not a function **access** will return its value.
-   */
-  access: Access
-
-  /**
-   * Make a child compiler.
-   */
-  make: Make
-
-  /**
-   * Executes a function if a given test is `true`.
-   */
-  when: When
-
-  /**
-   * Creates a new container from a given repository.
-   */
-  container(repository?: Container['repository']): Container
-
-  /**
-   * path
-   */
-  path(
-    key: `${keyof Hooks.Locale.Definitions & string}`,
-    ...path: string[]
-  ): string
-
-  /**
-   * pipe
-   */
-  pipe(
-    fns: ((input: Framework) => Framework)[],
-    value?: Framework,
-  ): Framework
-
-  /**
-   * sequence
-   */
-  sequence(fns: Array<(app: Framework) => any>): Framework
-
-  /**
-   * tap
-   */
-  tap(
-    fn:
-      | ((app?: Framework) => any)
-      | ((this: Framework, app?: Framework) => any),
-    bound?: boolean,
-  ): Framework
-
-  /**
-   * log
-   */
-  log(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: success)
-   */
-  success(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: warn)
-   */
-  warn(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: info)
-   */
-  info(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: debug)
-   */
-  debug(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * error handler
-   */
-  error(message: any, ...optionalArgs: any[]): void
-}
-
-/**
  * @namespace Framework
  */
 namespace Framework {
@@ -290,7 +112,7 @@ namespace Framework {
  * @abstract Framework
  */
 abstract class Framework {
-  public abstract implementation: Framework.Constructor
+  public implementation: Framework.Constructor
 
   public name: string
 
@@ -448,10 +270,10 @@ abstract class Framework {
   }
 
   @bind
-  public container(
-    repository?: Container['repository'],
+  public container<T = any>(
+    repository?: Container<T>['repository'],
   ): Container {
-    return new Container(repository ?? {})
+    return new Container<T>(repository ?? {})
   }
 
   @bind
@@ -473,7 +295,7 @@ abstract class Framework {
   @bind
   public pipe(
     fns: ((input: Framework) => Framework)[],
-    value: Framework,
+    value?: Framework,
   ): Framework {
     return fns.reduce(
       (val: Framework, fn: (input: Framework) => Framework) => {

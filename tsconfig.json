@@ -5,9 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "lib": [
       "dom",
@@ -17,9 +16,35 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
+    "removeComments": false,
+    "rootDir": "./packages",
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
     "target": "es2015"
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/@roots/bud"
+    },
+    {
+      "path": "./packages/@roots/bud-api"
+    },
+    {
+      "path": "./packages/@roots/bud-build"
+    },
+    {
+      "path": "./packages/@roots/bud-cache"
+    },
+    {
+      "path": "./packages/@roots/bud-framework"
+    },
+    {
+      "path": "./packages/@roots/bud-framework"
+    },
+    {
+      "path": "./packages/@roots/bud-preset-recommend"
+    },
+  ]
 }

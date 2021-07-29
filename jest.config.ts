@@ -44,10 +44,13 @@ const mapModuleNames = async (): Promise<
     absolute: true,
   })
 
-  return pkgs
-    .map(pkg => [
-      `${require.resolve(pkg)}/(.*)$`,
-      `${dirname(pkg)}/src/$1`,
-    ])
-    .reduce((a, [k, v]) => ({...a, [k]: v}), {})
+  return pkgs.reduce(
+    (pkgs, pkg) => ({
+      ...pkgs,
+      [`${require.resolve(pkg)}/(.*)$`]: `${dirname(
+        pkg,
+      )}/src/$1`,
+    }),
+    {},
+  )
 }

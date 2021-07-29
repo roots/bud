@@ -1,27 +1,24 @@
-import {Api} from './Api'
-import * as methods from './methods'
-export {Api, methods}
+/**
+ * @module @roots/bud-api
+ */
 
-export {
-  alias,
-  config,
-  define,
-  dev,
-  devtool,
-  entry,
-  experiments,
-  externals,
-  hash,
-  use,
-  minimize,
-  persist,
-  provide,
-  proxy,
-  publicPath,
-  run,
-  runtime,
-  setPath,
-  setPublicPath,
-  splitChunks,
-  watch,
-} from './methods'
+import {Repository} from './repository'
+
+declare module '@roots/bud-framework' {
+  interface Framework extends Repository {}
+}
+
+/**
+ * @exports Framework.Api
+ */
+export {Api} from './Api'
+
+/**
+ * @exports Framework.Api['repository']
+ */
+export * as repository from './repository'
+
+/**
+ * @exports Repository
+ */
+export type {Repository} from './repository'

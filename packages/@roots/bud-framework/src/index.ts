@@ -1,4 +1,6 @@
-export {Bootstrapper, Service} from './Service'
+export {Bootstrapper} from './Bootstrapper'
+
+export {Service} from './Service'
 
 export {Discovery} from './Discovery'
 
@@ -8,36 +10,34 @@ export {Framework} from './Framework'
 
 export {Store} from './Store'
 
-//
-export type {Api} from './Api'
+export {Api} from './Api'
 
-export type {Build} from './Build'
+export {Build} from './Build'
 
-export type {Cache} from './Cache'
+export {Cache} from './Cache'
 
-export type {Compiler} from './Compiler'
+export {Compiler} from './Compiler'
 
-export type {Configuration} from './Configuration'
+export {Configuration} from './Configuration'
 
-export type {Dashboard} from './Dashboard'
+export {Dashboard} from './Dashboard'
 
-export type {Dependencies} from './Dependencies'
+export {Dependencies} from './Dependencies'
 
-export type {Env} from './Env'
+export {Env} from './Env'
 
-export type {Extensions} from './Extensions'
+export {Extensions} from './Extensions'
 
-export type {Hooks} from './Hooks'
+export {Hooks} from './Hooks'
 
-export type {Logger} from './Logger'
+export {Logger} from './Logger'
 
-export type {Module} from './Module'
+export {Module} from './Module'
 
-export type {Plugin} from './Plugin'
+export {Plugin} from './Plugin'
 
-export type {Server} from './Server'
+export {Server} from './Server'
 
-//
 export {access} from './Framework/access'
 
 export {make} from './Framework/make'
@@ -50,8 +50,4 @@ export type {Make} from './Framework/make'
 
 export type {When} from './Framework/when'
 
-//
-import {Container} from '@roots/container'
-import type Webpack from 'webpack/types'
-
-export {Container, Webpack}
+export {Container} from '@roots/container'

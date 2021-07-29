@@ -36,7 +36,15 @@ export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
  * Services
  */
 export {services} from './services'
-export {Api, methods} from '@roots/bud-api'
+
+/**
+ * @roots/bud-api
+ */
+export {Api, repository} from '@roots/bud-api'
+
+/**
+ * @roots/bud-build
+ */
 export {
   Build,
   items,
@@ -47,17 +55,22 @@ export {
   Loader,
 } from '@roots/bud-build'
 
-export * from '@roots/bud-cache'
-export * from '@roots/bud-compiler'
-export * from '@roots/bud-dashboard'
+export {Cache} from '@roots/bud-cache'
+export {Compiler} from '@roots/bud-compiler'
+export {
+  Dashboard,
+  Screen,
+  Error,
+  Progress,
+} from '@roots/bud-dashboard'
 
-export * from './services/Dependencies'
-export * from './services/Discovery'
-export * from './services/Env'
-export * from './services/Extensions'
-export * from './services/Hooks'
-export * from './services/Logger'
-export * from './services/Server'
+export {Dependencies} from './services/Dependencies'
+export {Discovery} from './services/Discovery'
+export {Env} from './services/Env'
+export {Extensions} from './services/Extensions'
+export {Hooks} from './services/Hooks'
+export {Logger} from './services/Logger'
+export {Server} from './services/Server'
 
 /**
  * Framework

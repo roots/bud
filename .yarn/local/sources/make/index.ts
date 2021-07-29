@@ -9,7 +9,7 @@ export class MakeCommand extends Command {
   async execute() {
     const itinerary = [
       `yarn install --immutable`,
-      `yarn kjo clean`.concat(this.dfx ? '--dfx' : ''),
+      `yarn kjo clean`,
       `yarn kjo build`,
       `yarn kjo test`,
       `yarn`,

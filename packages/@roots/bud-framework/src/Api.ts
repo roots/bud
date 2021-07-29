@@ -7,8 +7,6 @@ import {Service} from './Service'
 /**
  * @interface Api
  */
-interface Api extends Service {
-  bindMethod(acc, [name, fn]: [string, CallableFunction]): void
-}
+interface Api extends Service {}
 
 export {Api}

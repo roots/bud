@@ -40,18 +40,7 @@ export function config(app: Framework): void {
     /**
      * Cache
      */
-    .hooks.on('build/cache', () => ({
-      name: app.hooks.filter('build/cache/name'),
-      version: app.hooks.filter('build/cache/version'),
-      type: app.hooks.filter('build/cache/type'),
-      cacheDirectory: app.hooks.filter(
-        'build/cache/cacheDirectory',
-      ),
-      cacheLocation: app.hooks.filter(
-        'build/cache/cacheLocation',
-      ),
-      managedPaths: app.hooks.filter('build/cache/managedPaths'),
-    }))
+    .hooks.on('build/cache', () => undefined)
 
     /**
      * Context

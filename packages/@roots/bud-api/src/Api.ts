@@ -1,31 +1,23 @@
-import {Framework, Service} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
+/**
+ * @module @roots/bud-api
+ */
 
-import * as api from './methods'
+import {Service} from '@roots/bud-framework'
 
-export class Api extends Service {
-  public name: Service['name'] = '@roots/bud-api'
+import type {Repository} from './repository'
+import * as repository from './repository'
 
-  public repository: Service['repository'] = api
+/**
+ * Api
+ *
+ * Provides macros/facades for assisting with common config tasks.
+ */
+class Api extends Service<Repository> {
+  public name = 'api'
 
-  @bind
-  public bootstrap(app: Framework): void {
-    Object.assign(
-      app,
-      this.getEntries().reduce(this.bindMethod, {}),
-    )
-  }
-
-  @bind
-  public bindMethod(
-    acc: {[key: string]: CallableFunction},
-    [name, fn]: [string, CallableFunction],
-  ): {
-    [key: string]: CallableFunction
-  } {
-    return {
-      ...acc,
-      [name]: fn.bind(this.app),
-    }
+  public bootstrap() {
+    this.bindMacro<Repository>(repository)
   }
 }
+
+export {Api}

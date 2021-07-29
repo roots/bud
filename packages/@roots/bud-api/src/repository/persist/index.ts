@@ -1,34 +1,9 @@
-import {Framework} from '@roots/bud-framework'
+import {Repository} from '../..'
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * ## persist
-     *
-     * Cache webpack builds to the filesystem.
-     *
-     * ### Usage
-     *
-     * ```js
-     * app.persist({
-     *   type: 'memory',
-     * })
-     * ```
-     */
-    persist: Framework.Api.Persist
-  }
-
-  namespace Framework.Api {
-    type Persist = (
-      this: Framework,
-      enabled?: boolean,
-    ) => Framework
-  }
-}
-
-const persist: Framework.Api.Persist = function (
-  enabled = true,
-) {
+/**
+ * @function persist
+ */
+const persist: Repository.Persist = function (enabled = true) {
   this.hooks
     .on('build/cache', () => ({
       type: this.hooks.filter('build/cache/type'),
@@ -43,7 +18,6 @@ const persist: Framework.Api.Persist = function (
         'build/cache/buildDependencies',
       ),
     }))
-
     .hooks.on(
       'build/cache/version',
       enabled ? this.cache.version : undefined,
@@ -69,4 +43,7 @@ const persist: Framework.Api.Persist = function (
   return this
 }
 
+/**
+ * @exports persist
+ */
 export {persist}

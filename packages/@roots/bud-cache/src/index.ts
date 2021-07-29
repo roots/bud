@@ -1,32 +1,23 @@
-import {Cache as Base, Service} from '@roots/bud-framework'
+import {
+  Cache as Base,
+  Framework,
+  Service,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {sync as globbySync} from 'globby'
-import {isEqual} from 'lodash'
 
-class Cache extends Service implements Base {
-  public name = '@roots/bud-cache'
+export class Cache extends Service implements Base {
+  public name = 'cache'
 
   @bind
-  public register(): void {
-    this.app.hooks.on('build', config => {
-      if (isEqual(config.cache.type, 'memory')) {
-        config.cache = {
-          type: 'memory',
-        }
-      }
-
-      return config
-    })
-
-    this.app.hooks
-      .on('build/cache/name', () => undefined)
-      .hooks.on('build/cache/version', () => undefined)
+  public register(app: Framework): void {
+    app.hooks
+      .on('build/cache', () => ({
+        type: app.hooks.filter('build/cache/type'),
+      }))
       .hooks.on('build/cache/type', () => 'memory')
-      .hooks.on('build/cache/cacheDirectory', () => undefined)
-      .hooks.on('build/cache/cacheLocation', () => undefined)
-      .hooks.on('build/cache/managedPaths', () => undefined)
   }
 
   @bind
@@ -93,5 +84,3 @@ class Cache extends Service implements Base {
     )
   }
 }
-
-export {Cache}
