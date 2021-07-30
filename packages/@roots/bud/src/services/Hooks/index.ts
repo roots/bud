@@ -5,7 +5,7 @@ import {boundMethod as bind} from 'autobind-decorator'
 type LocationName = keyof Contract.Locale.Definitions
 
 export class Hooks extends Base implements Contract {
-  public name = 'service/hooks'
+  public name = 'hooks'
 
   @bind
   public register({store}) {

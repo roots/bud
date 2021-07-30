@@ -8,16 +8,25 @@ import type {Repository} from './repository'
 import * as repository from './repository'
 
 /**
- * Api
+ * @class Api
  *
  * Provides macros/facades for assisting with common config tasks.
  */
 class Api extends Service<Repository> {
+  /**
+   * Service name
+   */
   public name = 'api'
 
+  /**
+   * Bootstrap
+   */
   public bootstrap() {
     this.bindMacro<Repository>(repository)
   }
 }
 
+/**
+ * @exports Api
+ */
 export {Api}

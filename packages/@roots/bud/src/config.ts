@@ -1,8 +1,17 @@
+/**
+ * @module @roots/bud
+ */
+
 import type {Configuration} from '@roots/bud-framework'
 
 export type {Configuration}
 
-export const config: Configuration = {
+/**
+ * @const config
+ *
+ * {@link Configuration}
+ */
+const config: Configuration = {
   name: 'bud',
 
   patterns: {
@@ -196,3 +205,8 @@ export const config: Configuration = {
     maxHeight: 999,
   },
 }
+
+/**
+ * @exports config
+ */
+export {config}

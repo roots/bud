@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import expand from 'dotenv-expand'
 
 export class Env extends Service {
-  public name = 'service/env'
+  public name = 'env'
 
   public get envPath(): string {
     return this.app.path('project', '.env')

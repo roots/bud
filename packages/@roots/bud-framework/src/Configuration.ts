@@ -6,7 +6,10 @@ import type Webpack from 'webpack'
 
 import type {Hooks, Server} from '.'
 
-export interface Configuration {
+/**
+ * @interface Configuration
+ */
+interface Configuration {
   /**
    * Application name
    */
@@ -189,3 +192,8 @@ declare namespace Configuration {
     | `cyanBright`
     | `whiteBright`
 }
+
+/**
+ * @exports Configuration
+ */
+export {Configuration}

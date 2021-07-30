@@ -3,7 +3,7 @@ import {boundMethod as bind} from 'autobind-decorator'
 import express from 'express'
 
 export class Server extends Base {
-  public name = 'service/server'
+  public name = 'server'
 
   @bind
   public register({container, store}): void {

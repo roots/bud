@@ -1,17 +1,18 @@
 /**
- * Bud
+ * @module @roots/bud
+ */
+
+/**
  * @exports Bud
  */
 export {Bud} from './Bud'
 
 /**
- * Factory
  * @exports factory
  */
 export {factory, Factory} from './factory'
 
 /**
- * Config
  * @exports config
  * @exports Configuration
  */
@@ -33,12 +34,13 @@ export * as MiniCssExtractPlugin from './extensions/mini-css-extract-plugin'
 export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
 
 /**
- * Services
+ * @exports services
  */
 export {services} from './services'
 
 /**
- * @roots/bud-api
+ * @exports Api
+ * @exports repository
  */
 export {Api, repository} from '@roots/bud-api'
 

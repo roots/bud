@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import type {Configuration, Framework} from './'
 import {Bud} from './Bud'
 import {config} from './config'

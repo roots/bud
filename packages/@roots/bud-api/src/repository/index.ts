@@ -8,12 +8,15 @@ import type {
   Server,
 } from '@roots/bud-framework'
 import type {GlobTask} from 'globby'
+import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type Webpack from 'webpack'
 
 /* eslint-disable import/export */
 
 /**
  * @interface Repository
+ *
+ * {@link Framework.Api['repository']}
  */
 interface Repository {
   /**
@@ -231,6 +234,8 @@ interface Repository {
    * ```js
    * bud.minimize(true)
    * ```
+   *
+   * {@link Repository.Minimize}
    */
   minimize: Repository.Minimize
 
@@ -246,8 +251,192 @@ interface Repository {
    *   type: 'memory',
    * })
    * ```
+   *
+   * {@link Repository.Persist}
    */
   persist: Repository.Persist
+
+  /**
+   * provide
+   *
+   * Makes a variable/module available throughout the entire
+   * application without needing to import it explicitly.
+   *
+   * @usage
+   *
+   * ```js
+   * bud.provide({
+   *   jquery: '$',
+   * })
+   * ```
+   *
+   * {@link Repository.Provide}
+   */
+  provide: Repository.Provide
+
+  /**
+   * proxy
+   *
+   * Set proxy settings for the development server.
+   *
+   * By default it proxies whatever is running on localhost on port 8000.
+   *
+   * @usage
+   *
+   * Enable:
+   *
+   * ```js
+   * bud.proxy()
+   * ```
+   *
+   * Disable:
+   *
+   * ```js
+   * bud.proxy({enabled: false})
+   * ```
+   *
+   * Specify host and port:
+   *
+   * ```js
+   * bud.proxy({
+   *  host: 'example.test',
+   *  port: 3000,
+   * })
+   * ```
+   *
+   * {@link Repository.Proxy}
+   */
+  proxy: Repository.Proxy
+
+  /**
+   * publicPath
+   *
+   * By default it is assumed that assets are served from webroot (`/`).
+   * You can use this method to replace this value for apps  served from
+   * a subdirectory.
+   *
+   * @usage
+   *
+   * Set the default path for a [@roots/sage project](https://github.com/roots/sage):
+   *
+   * ```js
+   * bud.publicPath('/app/themes/sage/dist')
+   * ```
+   *
+   * {@link Repository.PublicPath}
+   */
+  publicPath: Repository.PublicPath
+
+  /**
+   * run
+   *
+   * Run the build
+   *
+   * @usage
+   *
+   * ```js
+   * bud.run()
+   * ```
+   *
+   * {@link Repository.Run}
+   */
+  run: Repository.Run
+
+  /**
+   * runtime
+   *
+   * Generate a runtime chunk intended to be inlined on the page.
+   *
+   * Useful for code splitting and dynamic imports.
+   *
+   * @usage
+   *
+   * ```js
+   * bud.runtime()
+   * ```
+   */
+  runtime: Repository.Runtime
+
+  /**
+   * setPath
+   *
+   * Set a directory. The project directory should be an absolute path.
+   * All other directories should be relative (src, dist, etc.)
+   *
+   * @usage
+   *
+   * ```js
+   * bud.setPath('src', 'custom/src')
+   * ```
+   *
+   * {@link Repository.SetPath}
+   */
+  setPath: Repository.SetPath
+
+  /**
+   * setPublicPath
+   *
+   * By default it is assumed that assets are served from webroot (`/`).
+   * You can use this method to replace this value for apps served from
+   * a subdirectory.
+   *
+   * @usage
+   *
+   * Set the default path using a string
+   *
+   * ```js
+   * app.setPublicPath('/app/themes/sage/dist')
+   * ```
+   *
+   * Set the publicPath using a function.
+   *
+   * ```js
+   * app.setPublicPath(publicPath => {
+   *   return `web/assets/${publicPath}`
+   * })
+   * ```
+   *
+   * {@link Repository.SetPublicPath}
+   */
+  setPublicPath: Repository.SetPublicPath
+
+  /**
+   * splitChunks
+   *
+   * Useful for bundling vendor modules separately from application code.
+   *
+   * @usage
+   *
+   * ```js
+   * bud.splitChunks({
+   *  chunks: 'all',
+   * })
+   * ```
+   *
+   * {@link Repository.SplitChunks}
+   */
+  splitChunks: Repository.SplitChunks
+
+  /**
+   * template
+   *
+   * Enable and/or configure a generated HTML template
+   *
+   * @usage
+   *
+   * ```js
+   * app.template({
+   *   enabled: true, // default: true
+   *   template: 'public/index.html',
+   *   replace: {
+   *     APP_NAME: name,
+   *     APP_DESCRIPTION: description,
+   *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
+   *   },
+   * })
+   * ```
+   */
+  template: Repository.Template
 
   /**
    * use
@@ -429,6 +618,157 @@ namespace Repository {
   }
 
   /**
+   * @interface Provide
+   *
+   * {@link Repository.provide}
+   */
+  export interface Provide {
+    (this: Framework, packages?: Provide.Provided): Framework
+  }
+
+  /**
+   * @namespace Provide
+   */
+  export namespace Provide {
+    export interface Provided {
+      [key: string]: string | string[]
+    }
+  }
+
+  /**
+   * @interface Proxy
+   *
+   * {@link Repository.proxy}
+   */
+  export interface Proxy {
+    (
+      this: Framework,
+      config?: {
+        /**
+         * Explicity enable or disable proxy service
+         */
+        enabled?: boolean
+
+        /**
+         * Hostname of the proxy target
+         */
+        host?: Server.Configuration['proxy']['host']
+
+        /**
+         * Port of the proxy target
+         */
+        port?: Server.Configuration['proxy']['port']
+      },
+    ): Framework
+  }
+
+  /**
+   * @interface PublicPath
+   *
+   * {@link Repository.publicPath}
+   */
+  export interface PublicPath {
+    (this: Framework): string
+  }
+
+  /**
+   * @interface Run
+   *
+   * {@link Repository.run}
+   */
+  export interface Run {
+    (this: Framework): void
+  }
+
+  /**
+   * @interface Runtime
+   *
+   * {@link Repository.runtime}
+   */
+  export interface Runtime {
+    (
+      this: Framework,
+      runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+    ): Framework
+  }
+
+  /**
+   * @interface SetPath
+   *
+   * {@link Repository.setPath}
+   */
+  export interface SetPath {
+    (this: Framework, name: any, path?: string): Framework
+  }
+  export interface SetPath {
+    (this: Framework, paths: string[]): Framework
+  }
+
+  /**
+   * @interface SetPublicPath
+   *
+   * {@link Repository.setPublicPath}
+   */
+  export type SetPublicPath = (
+    publicPath: string | ((publicPath: string) => string),
+  ) => Framework
+
+  /**
+   * @interface SplitChunks
+   *
+   * {@link Repository.splitChunks}
+   */
+  export interface SplitChunks {
+    (
+      this: Framework,
+      options?: Repository.SplitChunks.Options,
+    ): Framework
+  }
+
+  /**
+   * @namespace SplitChunks
+   */
+  export namespace SplitChunks {
+    export type Options =
+      Webpack.Configuration['optimization']['splitChunks']
+  }
+
+  /**
+   * @interface Template
+   *
+   * {@link Repository.template}
+   */
+  export interface Template {
+    (this: Framework, options?: Template.Options): Framework
+  }
+
+  /**
+   * @namespace Template
+   */
+  export namespace Template {
+    export interface Options extends HtmlOptions {
+      /**
+       * Explicitly enable or disable html templating.
+       */
+      enabled?: boolean
+
+      /**
+       * Path to an HTML template to use. If none is supplied
+       * one is provided as a default.
+       */
+      template?: string
+
+      /**
+       * Template variable names are used as keys.
+       * Each key is associated with a replacement value.
+       */
+      replace?: {
+        [key: string]: string
+      }
+    }
+  }
+
+  /**
    * @interface Use
    *
    * {@link Repository.use}
@@ -445,14 +785,16 @@ namespace Repository {
   }
 
   /**
-   * Watch
+   * @interface Watch
    *
    * {@link Repository.watch}
    */
-  export type Watch = (
-    files: Server.Configuration['watch']['files'],
-    options?: Server.Configuration['watch']['options'],
-  ) => Framework
+  export interface Watch {
+    (
+      files: Server.Configuration['watch']['files'],
+      options?: Server.Configuration['watch']['options'],
+    ): Framework
+  }
 }
 
 /**

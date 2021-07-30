@@ -1,34 +1,6 @@
-import {Framework} from '@roots/bud-framework'
+import {Repository} from '..'
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * ## setPath
-     *
-     * Set a directory. The project directory should be an absolute path.
-     * All other directories should be relative (src, dist, etc.)
-     *
-     * ```js
-     * bud.setPath('src', 'custom/src')
-     * ```
-     */
-    setPath: Api.SetPath
-  }
-
-  namespace Api {
-    export {SetPath}
-  }
-}
-
-interface SetPath {
-  (name: any, path?: string): Framework
-}
-
-interface SetPath {
-  (paths: any): Framework
-}
-
-export const setPath: SetPath = function (...args) {
+export const setPath: Repository.SetPath = function (...args) {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
     return this

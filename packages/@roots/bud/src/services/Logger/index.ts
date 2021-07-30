@@ -13,7 +13,7 @@ export class Logger
   extends Container
   implements Contract, Bootstrapper
 {
-  public name = 'service/logger'
+  public name = 'logger'
 
   private _app: () => Framework
 
