@@ -1,6 +1,6 @@
 import {Plugin} from '@roots/bud-framework'
 import {
-  Options,
+  ManifestPluginOptions as Options,
   WebpackManifestPlugin,
 } from 'webpack-manifest-plugin'
 

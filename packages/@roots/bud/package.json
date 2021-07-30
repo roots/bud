@@ -72,7 +72,6 @@
     "@types/react": "17.0.15",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
-    "@types/webpack-manifest-plugin": "3.0.5",
     "eslint": "7.31.0",
     "webpack": "5.47.1"
   },
@@ -110,7 +109,7 @@
     "signale": "^1.4.0",
     "tslib": "^2.3.0",
     "webpack-config-dump-plugin": "^3.0.1",
-    "webpack-manifest-plugin": "^4.0.0"
+    "webpack-manifest-plugin": "^4.0.2"
   },
   "stableVersion": "4.6.0"
 }
