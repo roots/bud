@@ -2,7 +2,7 @@
   publish = "build/"
 
   # Default build command.
-  command = "yarn kjo gen"
+  command = "yarn kjo build && yarn kjo gen"
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"

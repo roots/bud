@@ -1,6 +1,10 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import {isBoolean, isUndefined} from 'lodash'
 
-import type {Repository} from '../'
+import type {Repository} from '../..'
 
 /**
  * @function proxy
@@ -50,4 +54,7 @@ const proxy: Repository.Proxy = function (config) {
   return this
 }
 
+/**
+ * @exports proxy
+ */
 export {proxy}

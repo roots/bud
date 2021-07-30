@@ -1,5 +1,5 @@
 require('ts-node').register({
-  project: require.resolve('./tsconfig.dev.json'),
+  project: require.resolve('./tsconfig.json'),
 })
 
 const execa = require('execa')

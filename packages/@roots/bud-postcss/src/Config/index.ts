@@ -8,19 +8,14 @@ export class Config implements Framework.Api.PostCss {
 
   @bind
   public normalizeEntry(
-    c: string | Framework.Api.PostCss.NormalizedPlugin,
-  ): Framework.Api.PostCss.NormalizedPlugin {
+    c: string | [string, any],
+  ): [string, any] {
     return isString(c) ? [c, {}] : c
   }
 
   @bind
-  public setPlugin(
-    plugin: string | Framework.Api.PostCss.NormalizedPlugin,
-  ): this {
-    const [
-      name,
-      config,
-    ]: Framework.Api.PostCss.NormalizedPlugin =
+  public setPlugin(plugin: string | [string, any]): this {
+    const [name, config]: [string, any] =
       this.normalizeEntry(plugin)
 
     const pluginCreator: PluginCreator<any> = require(name)
@@ -35,9 +30,7 @@ export class Config implements Framework.Api.PostCss {
 
   @bind
   public setPlugins(
-    plugins: Array<
-      string | Framework.Api.PostCss.NormalizedPlugin
-    >,
+    plugins: Array<string | [string, any]>,
   ): this {
     plugins.map(this.setPlugin)
     return this
