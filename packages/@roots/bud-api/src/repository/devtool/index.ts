@@ -1,34 +1,19 @@
-import type {Framework} from '@roots/bud-framework'
-import type Webpack from 'webpack'
+/**
+ * @module @roots/bud-api
+ */
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * ## devtool
-     *
-     * Enable and configure sourcemaps using any of [Webpack's
-     * devtool utilities](https://webpack.js.org/configuration/devtool/).
-     *
-     * ### Usage
-     *
-     * ```js
-     * app.devtool('inline-cheap-module-source-map')
-     * ```
-     */
-    devtool: Framework.Api.Devtool
-  }
+import type {Repository} from '..'
 
-  namespace Framework.Api {
-    type Devtool = (
-      devtool?: Webpack.Configuration['devtool'],
-    ) => Framework
-  }
-}
-
-export const devtool: Framework.Api.Devtool = function (
-  devtool = false,
-) {
+/**
+ * @function devtool
+ */
+const devtool: Repository.Devtool = function (devtool = false) {
   this.hooks.on('build/devtool', () => devtool)
 
   return this
 }
+
+/**
+ * @exports devtool
+ */
+export {devtool}

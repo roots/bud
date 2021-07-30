@@ -1,6 +1,6 @@
 ---
 id: "index"
-title: "@roots/bud-framework"
+title: "@roots/bud"
 slug: "/api"
 sidebar_label: "Exports"
 sidebar_position: 0.5
@@ -9,125 +9,71 @@ custom_edit_url: null
 
 ## Namespaces
 
-- [Build](namespaces/Build.md)
-- [Compiler](namespaces/Compiler.md)
-- [Extensions](namespaces/Extensions.md)
+- [CleanWebpackPlugin](namespaces/CleanWebpackPlugin.md)
+- [Configuration](namespaces/Configuration.md)
+- [CopyWebpackPlugin](namespaces/CopyWebpackPlugin.md)
+- [CssMinimizerWebpackPlugin](namespaces/CssMinimizerWebpackPlugin.md)
+- [Factory](namespaces/Factory.md)
 - [Framework](namespaces/Framework.md)
-- [Hooks](namespaces/Hooks.md)
+- [HotModuleReplacementPlugin](namespaces/HotModuleReplacementPlugin.md)
+- [IgnoreEmitWebpackPlugin](namespaces/IgnoreEmitWebpackPlugin.md)
+- [MiniCssExtractPlugin](namespaces/MiniCssExtractPlugin.md)
 - [Module](namespaces/Module.md)
-- [Server](namespaces/Server.md)
 - [Store](namespaces/Store.md)
+- [WebpackConfigDumpPlugin](namespaces/WebpackConfigDumpPlugin.md)
+- [WebpackDefinePlugin](namespaces/WebpackDefinePlugin.md)
+- [WebpackManifestPlugin](namespaces/WebpackManifestPlugin.md)
+- [WebpackProvidePlugin](namespaces/WebpackProvidePlugin.md)
+- [items](namespaces/items.md)
+- [loaders](namespaces/loaders.md)
+- [repository](namespaces/repository.md)
+- [rules](namespaces/rules.md)
 
 ## Classes
 
+- [Api](classes/Api.md)
 - [Bootstrapper](classes/Bootstrapper.md)
+- [Bud](classes/Bud.md)
+- [Build](classes/Build.md)
+- [Cache](classes/Cache.md)
+- [Compiler](classes/Compiler.md)
+- [Dashboard](classes/Dashboard.md)
+- [Dependencies](classes/Dependencies.md)
 - [Discovery](classes/Discovery.md)
+- [Env](classes/Env.md)
 - [Extension](classes/Extension.md)
+- [Extensions](classes/Extensions.md)
 - [Framework](classes/Framework.md)
+- [Hooks](classes/Hooks.md)
+- [Item](classes/Item.md)
+- [Loader](classes/Loader.md)
+- [Logger](classes/Logger.md)
+- [Rule](classes/Rule.md)
+- [Server](classes/Server.md)
 - [Service](classes/Service.md)
 - [Store](classes/Store.md)
 
 ## Interfaces
 
-- [Api](interfaces/Api.md)
-- [Build](interfaces/Build.md)
-- [Cache](interfaces/Cache.md)
-- [Compiler](interfaces/Compiler.md)
 - [Configuration](interfaces/Configuration.md)
-- [Dashboard](interfaces/Dashboard.md)
-- [Dependencies](interfaces/Dependencies.md)
-- [Env](interfaces/Env.md)
-- [Extensions](interfaces/Extensions.md)
-- [Hooks](interfaces/Hooks.md)
-- [Logger](interfaces/Logger.md)
 - [Module](interfaces/Module.md)
 - [Plugin](interfaces/Plugin.md)
-- [Server](interfaces/Server.md)
 
 ## Type aliases
 
-### Access
+### Factory
 
-Ƭ **Access**<`I`\>: (`this`: [`Framework`](classes/Framework.md), `value`: [`Tapable`](namespaces/Framework.md#tapable)<`I`\> \| `I`) => `I`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `I` | `any` |
+Ƭ **Factory**: (`overrides?`: [`Options`](interfaces/Factory.Options.md)) => [`Framework`](classes/Framework.md)
 
 #### Type declaration
 
-▸ (`this`, `value`): `I`
-
-If a value is a function **access** will call that
-function and return the result.
-
-If the value is not a function **access** will return its value.
-
-```js
-const isAFunction = (option) => `option value: ${option}`
-const isAValue = 'option value: true'
-
-access(isAFunction, true) // => `option value: true`
-
-access(isAValue) // => `option value: true`
-```
+▸ (`overrides?`): [`Framework`](classes/Framework.md)
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `this` | [`Framework`](classes/Framework.md) |
-| `value` | [`Tapable`](namespaces/Framework.md#tapable)<`I`\> \| `I` |
-
-##### Returns
-
-`I`
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/access.ts:20](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/access.ts#L20)
-
-___
-
-### Make
-
-Ƭ **Make**: (`this`: [`Framework`](classes/Framework.md), `name`: `string`, `tap?`: [`Tapable`](namespaces/Framework.md#tapable)) => [`Framework`](classes/Framework.md)
-
-#### Type declaration
-
-▸ (`this`, `name`, `tap?`): [`Framework`](classes/Framework.md)
-
- Make a child compiler.
-
- **make** takes two parameters:
-
- - The **name** of the new compiler
- - An optional callback to use for configuring the compiler.
-
- ```js
- bud.make('scripts', child => child.entry('app', 'app.js'))
- ```
-
- This function returns the parent bud instance for further chaining. It is also possible to reference the parent instance using [Framework.parent](classes/Framework.md#parent).
-
- ```js
- make('scripts', child => {
-   child.entry('app', 'app.js')
-   child.parent.dev({
-     // ...
-   })
- })
- ```
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `this` | [`Framework`](classes/Framework.md) |
-| `name` | `string` |
-| `tap?` | [`Tapable`](namespaces/Framework.md#tapable) |
+| `overrides?` | [`Options`](interfaces/Factory.Options.md) |
 
 ##### Returns
 
@@ -135,89 +81,124 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:28](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/make.ts#L28)
+packages/@roots/bud/types/factory.d.ts:5
 
-___
+## Variables
 
-### When
+### Error
 
-Ƭ **When**: (`this`: [`Framework`](classes/Framework.md), `test`: (`app`: [`Framework`](classes/Framework.md)) => `boolean` \| `boolean`, `trueCase`: (`app`: [`Framework`](classes/Framework.md)) => `any`, `falseCase?`: (`app`: [`Framework`](classes/Framework.md)) => `any`) => [`Framework`](classes/Framework.md)
-
-#### Type declaration
-
-▸ (`this`, `test`, `trueCase`, `falseCase?`): [`Framework`](classes/Framework.md)
-
-Executes a function if a given test is `true`.
-
-- The first parameter is the conditional check.
-- The second parameter is the function to run if `true`.
-- The third parameter is optional; executed if the conditional is not `true`.
-
-Only produce a vendor bundle when running in `production` mode:
-
-```js
-bud.when(bud.isProduction, () => bud.vendor())
-```
-
-Use `eval` sourcemap in development mode and `hidden-source-map` in production:
-
-```js
-bud.when(
-  bud.isDevelopment,
-  () => bud.devtool('eval'),
-  () => bud.devtool('hidden-source-map'),
-)
-```
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `this` | [`Framework`](classes/Framework.md) |
-| `test` | (`app`: [`Framework`](classes/Framework.md)) => `boolean` \| `boolean` |
-| `trueCase` | (`app`: [`Framework`](classes/Framework.md)) => `any` |
-| `falseCase?` | (`app`: [`Framework`](classes/Framework.md)) => `any` |
-
-##### Returns
-
-[`Framework`](classes/Framework.md)
+• `Const` **Error**: `CallableFunction`
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/when.ts:28](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/when.ts#L28)
+packages/@roots/bud-dashboard/types/components/Error/index.d.ts:1
+
+___
+
+### config
+
+• `Const` **config**: [`Configuration`](interfaces/Configuration.md)
+
+**`exports`** config
+
+**`exports`** Configuration
+
+#### Defined in
+
+packages/@roots/bud/types/config.d.ts:11
+
+___
+
+### extensions
+
+• `Const` **extensions**: `Object`
+
+Extensions
+
+#### Index signature
+
+▪ [x: `string`]: typeof [`WebpackProvidePlugin`](namespaces/WebpackProvidePlugin.md) \| typeof [`CleanWebpackPlugin`](namespaces/CleanWebpackPlugin.md) \| typeof [`WebpackConfigDumpPlugin`](namespaces/WebpackConfigDumpPlugin.md) \| typeof [`CopyWebpackPlugin`](namespaces/CopyWebpackPlugin.md) \| typeof [`CssMinimizerWebpackPlugin`](namespaces/CssMinimizerWebpackPlugin.md) \| typeof [`WebpackDefinePlugin`](namespaces/WebpackDefinePlugin.md) \| typeof [`HotModuleReplacementPlugin`](namespaces/HotModuleReplacementPlugin.md) \| typeof [`IgnoreEmitWebpackPlugin`](namespaces/IgnoreEmitWebpackPlugin.md) \| typeof [`WebpackManifestPlugin`](namespaces/WebpackManifestPlugin.md) \| typeof [`MiniCssExtractPlugin`](namespaces/MiniCssExtractPlugin.md)
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `webpack-hot-module-replacement-plugin` | typeof [`HotModuleReplacementPlugin`](namespaces/HotModuleReplacementPlugin.md) |
+
+#### Defined in
+
+packages/@roots/bud/types/extensions/index.d.ts:11
+
+___
+
+### services
+
+• `Const` **services**: [`Services`](interfaces/Framework.Services.md)
+
+**`exports`** services
+
+#### Defined in
+
+packages/@roots/bud/types/services/index.d.ts:2
 
 ## Functions
 
-### access
+### Progress
 
-▸ `Const` **access**(`value`): `any`
+▸ `Const` **Progress**(`__namedParameters`): `Element`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `any` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.mode` | `string` |
+| `__namedParameters.progress` | `any` |
+| `__namedParameters.theme` | `Styles` |
 
 #### Returns
 
-`any`
+`Element`
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/access.ts:25](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/access.ts#L25)
+packages/@roots/bud-dashboard/types/components/Progress/index.d.ts:3
 
 ___
 
-### make
+### Screen
 
-▸ `Const` **make**(`name`, `tap?`): [`Framework`](classes/Framework.md)
+▸ `Const` **Screen**(`__namedParameters`): `Element`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `string` |
-| `tap?` | [`Tapable`](namespaces/Framework.md#tapable)<`any`\> |
+| `__namedParameters` | `Object` |
+| `__namedParameters.app` | [`Framework`](classes/Framework.md) |
+| `__namedParameters.children` | `any` |
+| `__namedParameters.color?` | `any` |
+| `__namedParameters.title?` | `string` |
+
+#### Returns
+
+`Element`
+
+#### Defined in
+
+packages/@roots/bud-dashboard/types/components/Screen.d.ts:3
+
+___
+
+### factory
+
+▸ `Const` **factory**(`overrides?`): [`Framework`](classes/Framework.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `overrides?` | [`Options`](interfaces/Factory.Options.md) |
 
 #### Returns
 
@@ -225,26 +206,4 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud-framework/src/Framework/make.ts:34](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/make.ts#L34)
-
-___
-
-### when
-
-▸ `Const` **when**(`test`, `trueCase`, `falseCase?`): [`Framework`](classes/Framework.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `test` | `boolean` \| (`app`: [`Framework`](classes/Framework.md)) => `boolean` |
-| `trueCase` | (`app`: [`Framework`](classes/Framework.md)) => `any` |
-| `falseCase?` | (`app`: [`Framework`](classes/Framework.md)) => `any` |
-
-#### Returns
-
-[`Framework`](classes/Framework.md)
-
-#### Defined in
-
-[packages/@roots/bud-framework/src/Framework/when.ts:35](https://github.com/roots/bud/blob/add6758eb/packages/@roots/bud-framework/src/Framework/when.ts#L35)
+packages/@roots/bud/types/factory.d.ts:15

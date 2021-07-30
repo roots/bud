@@ -1,8 +1,15 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import type {Server} from '@roots/bud-framework'
 
 import type {Repository} from '../'
 
-export const dev: Repository.Dev = function (config) {
+/**
+ * @function dev
+ */
+const dev: Repository.Dev = function (config) {
   const target = this.parent ?? this
 
   target.server.config.mutateStore(
@@ -14,3 +21,8 @@ export const dev: Repository.Dev = function (config) {
 
   return this
 }
+
+/**
+ * @exports dev
+ */
+export {dev}

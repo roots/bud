@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import {Repository} from '../'
 
 /**

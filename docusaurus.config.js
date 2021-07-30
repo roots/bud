@@ -203,11 +203,8 @@ module.exports = {
       require.resolve('docusaurus-plugin-typedoc'),
       {
         id: 'bud',
-        entryPoints: [
-          'packages/@roots/bud-framework/src/index.ts',
-        ],
-        exclude: ['**/*.d.ts', '**/node_modules/**/*'],
-        tsconfig: `tsconfig.dev.json`,
+        entryPoints: ['./packages/@roots/bud/types/index.d.ts'],
+        tsconfig: `./tsconfig.json`,
         plugin: ['typedoc-plugin-no-inherit'],
         readme: 'none',
         docsRoot: 'site',

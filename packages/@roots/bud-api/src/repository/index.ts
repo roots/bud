@@ -109,6 +109,22 @@ interface Repository {
   dev: Repository.Dev
 
   /**
+   * devtool
+   *
+   * Enable and configure sourcemaps using any of [Webpack's
+   * devtool utilities](https://webpack.js.org/configuration/devtool/).
+   *
+   * @usage
+   *
+   * ```js
+   * app.devtool('inline-cheap-module-source-map')
+   * ```
+   *
+   * {@link Repository.Devtool}
+   */
+  devtool: Repository.Devtool
+
+  /**
    * entry
    *
    * Generate application entrypoints from source asset paths.
@@ -209,6 +225,21 @@ interface Repository {
    * {@link Repository.Externals}
    */
   externals: Repository.Externals
+
+  /**
+   * hash
+   *
+   * Enable filename hashing of built assets.
+   *
+   * @usage
+   *
+   * ```js
+   * bud.hash()
+   * ```
+   *
+   * {@link Repository.Hash}
+   */
+  hash: Repository.Hash
 
   /**
    * minimize
@@ -495,41 +526,58 @@ interface Repository {
  */
 namespace Repository {
   /**
-   * Alias
+   * @interface Alias
    *
    * {@link Repository.alias}
    */
-  export type Alias = (
-    this: Framework,
-    alias: Webpack.Configuration['resolve']['alias'],
-  ) => Framework
+  export interface Alias {
+    (
+      this: Framework,
+      alias: Webpack.Configuration['resolve']['alias'],
+    ): Framework
+  }
 
   /**
-   * Config
+   * @interface Config
    *
    * {@link Repository.config}
    */
-  export type Config = (config?: any) => Framework
+  export interface Config {
+    (this: Framework, config?: any): Framework
+  }
 
   /**
-   * Define
+   * @interface Define
    *
    * {@link Repository.define}
    */
-  export type Define = (
-    this: Framework,
-    values: Webpack.DefinePlugin['definitions'],
-  ) => Framework
+  export interface Define {
+    (
+      this: Framework,
+      values: Webpack.DefinePlugin['definitions'],
+    ): Framework
+  }
 
   /**
-   * Dev
+   * @interface Dev
    *
    * {@link Repository.dev}
    */
-  export type Dev = (
-    this: Framework,
-    config?: Server.Configuration,
-  ) => Framework
+  export interface Dev {
+    (this: Framework, config?: Server.Configuration): Framework
+  }
+
+  /**
+   * @interface Devtool
+   *
+   * {@link Repository.devtool}
+   */
+  export interface Devtool {
+    (
+      this: Framework,
+      devtool?: Webpack.Configuration['devtool'],
+    ): Framework
+  }
 
   /**
    * @interface Entry
@@ -591,16 +639,28 @@ namespace Repository {
   }
 
   /**
-   * Externals
+   * @interface Externals
    *
    * {@link Repository.externals}
    */
-  export type Externals = (
-    externals: Webpack.Configuration['externals'],
-  ) => Framework
+  export interface Externals {
+    (
+      this: Framework,
+      externals: Webpack.Configuration['externals'],
+    ): Framework
+  }
 
   /**
-   * Minimize
+   * @interface Hash
+   *
+   * {@link Repository.hash}
+   */
+  export interface Hash {
+    (this: Framework, enabled?: boolean): Framework
+  }
+
+  /**
+   * @interface Minimize
    *
    * {@link Repository.minimize}
    */
@@ -709,9 +769,11 @@ namespace Repository {
    *
    * {@link Repository.setPublicPath}
    */
-  export type SetPublicPath = (
-    publicPath: string | ((publicPath: string) => string),
-  ) => Framework
+  export interface SetPublicPath {
+    (
+      publicPath: string | ((publicPath: string) => string),
+    ): Framework
+  }
 
   /**
    * @interface SplitChunks

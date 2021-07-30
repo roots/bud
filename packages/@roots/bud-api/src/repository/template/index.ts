@@ -66,4 +66,7 @@ const template: Repository.Template = function (userOptions) {
   return this
 }
 
+/**
+ * @exports template
+ */
 export {template}

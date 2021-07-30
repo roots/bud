@@ -1,9 +1,13 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import type {Repository} from '../'
 
-export const watch: Repository.Watch = function (
-  files,
-  options,
-) {
+/**
+ * @function watch
+ */
+const watch: Repository.Watch = function (files, options) {
   const target = this.isChild ? this.parent : this
 
   if (!target.isDevelopment || !target.server) {
@@ -16,3 +20,8 @@ export const watch: Repository.Watch = function (
 
   return this
 }
+
+/**
+ * @exports watch
+ */
+export {watch}

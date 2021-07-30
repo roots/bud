@@ -42,16 +42,12 @@ declare module '@roots/bud-framework' {
         /**
          * Set a plugin
          */
-        setPlugin(
-          plugin: string | PostCss.NormalizedPlugin,
-        ): this
+        setPlugin(plugin: string | [string, any]): this
 
         /**
          * Set plugins
          */
-        setPlugins(
-          plugins: Array<PostCss.NormalizedPlugin | string>,
-        ): this
+        setPlugins(plugins: Array<[string, any] | string>): this
 
         /**
          * Set plugin options
@@ -65,8 +61,6 @@ declare module '@roots/bud-framework' {
       }
 
       namespace PostCss {
-        type NormalizedPlugin = [string, any]
-
         interface Registry {
           [key: string]: [PluginCreator<any>, any]
         }

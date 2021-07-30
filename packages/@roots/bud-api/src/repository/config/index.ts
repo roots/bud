@@ -5,7 +5,7 @@
 import type {Repository} from '../'
 
 /**
- * config
+ * @function config
  */
 const config: Repository.Config = function (config) {
   this.store.mergeStore(config)

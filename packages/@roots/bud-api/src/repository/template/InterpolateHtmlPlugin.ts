@@ -27,6 +27,7 @@ const extension: Module<
       ...store,
     }
   },
+
   make: options =>
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, options.all()),
 

@@ -1,6 +1,13 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import {Repository} from '..'
 
-export const setPath: Repository.SetPath = function (...args) {
+/**
+ * @function setPath
+ */
+const setPath: Repository.SetPath = function (...args) {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
     return this
@@ -38,3 +45,8 @@ export const setPath: Repository.SetPath = function (...args) {
 
   return this
 }
+
+/**
+ * @exports setPath
+ */
+export {setPath}

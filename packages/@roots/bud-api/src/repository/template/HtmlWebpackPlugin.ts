@@ -13,8 +13,8 @@ interface Extension extends Module {
 const extension: Extension = {
   name: 'html-webpack-plugin',
 
-  options: ({env, publicPath, store}) => {
-    const fromEnv = env
+  options(app) {
+    const fromEnv = app.env
       .getEntries()
       .filter(([k]: [string, string]) => k.includes('PUBLIC'))
       .reduce(
@@ -22,10 +22,12 @@ const extension: Extension = {
         {},
       )
 
-    const fromStore = store.get('extension.webpackDefinePlugin')
+    const fromStore = app.store.get(
+      'extension.webpackDefinePlugin',
+    )
 
     return {
-      publicPath: publicPath(),
+      publicPath: app.publicPath(),
       template: posix.resolve(
         require.resolve('@roots/bud-support'),
         '../../../templates/template.html',
@@ -36,7 +38,7 @@ const extension: Extension = {
           ...fromStore,
         },
       },
-      ...(store.get('extension.htmlWebpackPlugin') ?? {}),
+      ...(app.store.get('extension.htmlWebpackPlugin') ?? {}),
     }
   },
 
