@@ -3808,7 +3808,7 @@ __metadata:
     tslib: ^2.3.0
     webpack: 5.47.1
     webpack-config-dump-plugin: ^3.0.1
-    webpack-manifest-plugin: ^3.2.0
+    webpack-manifest-plugin: ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -23500,15 +23500,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack-manifest-plugin@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "webpack-manifest-plugin@npm:3.2.0"
+"webpack-manifest-plugin@npm:^4.0.0":
+  version: 4.0.2
+  resolution: "webpack-manifest-plugin@npm:4.0.2"
   dependencies:
     tapable: ^2.0.0
     webpack-sources: ^2.2.0
   peerDependencies:
-    webpack: ^4.44.2
-  checksum: 70c7e7fcbe6232a881eb89e53b1cbee74e874196b2569cb1fca9a768d9c0ad86fadf3af7de6effa1047379cbfad6a949c532296c65cf43ea333284ff546a5e64
+    webpack: ^4.44.2 || ^5.47.0
+  checksum: 7f8a338b977bb9a8be10196d17e033f965b97735d36258513e5104b148c8ad1da8441bb8f9c8580b9455f40201ac2ac2a2edcce6ef60e46f072519c0cc0d1f70
   languageName: node
   linkType: hard
 
