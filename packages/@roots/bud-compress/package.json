@@ -63,7 +63,7 @@
   "devDependencies": {
     "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
-    "eslint": "7.31.0",
+    "eslint": "7.32.0",
     "typedoc": "0.21.4",
     "webpack": "5.47.1"
   },

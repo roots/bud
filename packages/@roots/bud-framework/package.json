@@ -65,7 +65,7 @@
     "@types/node": "15.14.1",
     "@types/webpack-dev-middleware": "5.0.1",
     "chokidar": "3.5.2",
-    "eslint": "7.31.0",
+    "eslint": "7.32.0",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.0.9",
     "signale": "1.4.0",
