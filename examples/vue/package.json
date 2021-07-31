@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
     "@roots/bud-vue": "workspace:*"
   }
 }

@@ -119,7 +119,6 @@
     "@types/react": "17.0.15",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
-    "eslint": "7.31.0",
     "webpack": "5.47.1"
   },
   "dependencies": {

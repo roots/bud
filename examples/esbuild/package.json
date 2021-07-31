@@ -3,7 +3,6 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
     "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild"
   }
 }

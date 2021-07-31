@@ -7,9 +7,14 @@ import {Bud} from './Bud'
 import {config} from './config'
 import {services} from './services'
 
-export type Factory = (overrides?: Factory.Options) => Framework
+/**
+ * @interface Factory
+ */
+interface Factory {
+  (overrides?: Factory.Options): Framework
+}
 
-export namespace Factory {
+namespace Factory {
   export interface Options {
     name: string
     mode?: 'production' | 'development'
@@ -19,7 +24,10 @@ export namespace Factory {
   }
 }
 
-export const factory: Factory = overrides => {
+/**
+ * @function factory
+ */
+const factory: Factory = overrides => {
   return new Bud({
     name: 'bud',
     mode: 'production',
@@ -34,3 +42,13 @@ export const factory: Factory = overrides => {
     },
   }).bootstrap()
 }
+
+/**
+ * @exports factory
+ */
+export {factory}
+
+/**
+ * @exports Factory
+ */
+export {Factory}

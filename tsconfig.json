@@ -41,9 +41,6 @@
       "path": "./packages/@roots/bud-cache"
     },
     {
-      "path": "./packages/@roots/bud-cli"
-    },
-    {
       "path": "./packages/@roots/bud-compiler"
     },
     {

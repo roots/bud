@@ -39,9 +39,6 @@
   "engines": {
     "node": ">=14"
   },
-  "bin": {
-    "bud": "./bin/bud"
-  },
   "files": [
     "lib/",
     "bin/",
@@ -55,48 +52,6 @@
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
-  },
-  "oclif": {
-    "commands": "./lib/cjs/commands",
-    "bin": "bud",
-    "plugins": [
-      "@oclif/plugin-update",
-      "@oclif/plugin-commands",
-      "@oclif/plugin-autocomplete",
-      "@oclif/plugin-help"
-    ],
-    "topics": {
-      "build": {
-        "description": "compile project assets"
-      },
-      "build:dev": {
-        "description": "compile assets for development"
-      },
-      "build:production": {
-        "description": "compile assets for production"
-      },
-      "extensions": {
-        "description": "get information on installed extensions"
-      },
-      "extensions:list": {
-        "description": "list installed extensions"
-      },
-      "extensions:install": {
-        "description": "install extension dependencies"
-      },
-      "clean": {
-        "description": "clean project files"
-      },
-      "clean:storage": {
-        "description": "clean project storage"
-      },
-      "clean:dist": {
-        "description": "clean project distributables"
-      },
-      "clean:all": {
-        "description": "clean all projct files"
-      }
-    }
   },
   "scripts": {
     "build": "yarn g:build",

@@ -3,7 +3,6 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-sass": "workspace:*"
   }

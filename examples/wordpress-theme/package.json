@@ -4,7 +4,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
     "@roots/bud-entrypoints": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
