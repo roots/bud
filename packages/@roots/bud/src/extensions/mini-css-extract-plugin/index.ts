@@ -1,11 +1,13 @@
 import {Module} from '@roots/bud-framework'
-import MiniCssExtractPlugin, {
-  PluginOptions,
-} from 'mini-css-extract-plugin'
+import {PluginOptions} from 'mini-css-extract-plugin'
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const extension: Module<MiniCssExtractPlugin, PluginOptions> = {
+const extension: Module<
+  typeof MiniCssExtractPlugin,
+  PluginOptions
+> = {
   name: 'mini-css-extract-plugin',
-  options: ({hooks, store}) => ({
+  options: ({store}) => ({
     filename: store.isTrue('hash')
       ? `${store.get('hashFormat')}.css`
       : `${store.get('fileFormat')}.css`,

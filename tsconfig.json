@@ -23,43 +23,4 @@
     "strict": false,
     "target": "es2015"
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./packages/@roots/bud"
-    },
-    {
-      "path": "./packages/@roots/bud-api"
-    },
-    {
-      "path": "./packages/@roots/bud-babel"
-    },
-    {
-      "path": "./packages/@roots/bud-build"
-    },
-    {
-      "path": "./packages/@roots/bud-cache"
-    },
-    {
-      "path": "./packages/@roots/bud-compiler"
-    },
-    {
-      "path": "./packages/@roots/bud-compress"
-    },
-    {
-      "path": "./packages/@roots/bud-criticalcss"
-    },
-    {
-      "path": "./packages/@roots/bud-dashboard"
-    },
-    {
-      "path": "./packages/@roots/bud-framework"
-    },
-    {
-      "path": "./packages/@roots/bud-hooks"
-    },
-    {
-      "path": "./packages/@roots/bud-preset-recommend"
-    },
-  ]
 }

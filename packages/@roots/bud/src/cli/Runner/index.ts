@@ -1,7 +1,7 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
-import {Bud, Framework, services} from '../..'
+import {factory, Framework} from '../..'
 import {Config} from '../Config'
 
 export default class Runner {
@@ -13,11 +13,11 @@ export default class Runner {
 
   public constructor(cli, options) {
     this.cli = cli
-    this.app = new Bud({
+
+    this.app = factory({
       name: 'bud',
-      ...options,
-      services,
-    }).bootstrap()
+      config: options,
+    })
   }
 
   public async make(build = true) {

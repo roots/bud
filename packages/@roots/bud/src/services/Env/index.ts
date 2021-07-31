@@ -1,6 +1,6 @@
 import {Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import dotenv from 'dotenv'
+import env from 'dotenv'
 import expand from 'dotenv-expand'
 
 export class Env extends Service {
@@ -12,7 +12,9 @@ export class Env extends Service {
 
   @bind
   public getParsedEnv() {
-    return expand(dotenv.config({path: this.envPath})).parsed
+    return env?.config
+      ? expand(env.config({path: this.envPath})).parsed
+      : {}
   }
 
   @bind

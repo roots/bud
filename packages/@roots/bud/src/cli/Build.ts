@@ -1,6 +1,6 @@
 import {flags} from '@oclif/command'
 
-import {config, Framework} from '..'
+import {Framework} from '..'
 import Command from './Command'
 import Runner from './Runner'
 
@@ -52,7 +52,6 @@ export default class Build extends Command {
     this.cli = this.parse(Build)
 
     const runner = new Runner(this.cli, {
-      config,
       mode: this.mode,
     })
 

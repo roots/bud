@@ -3,10 +3,10 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
 import {dirname} from 'path'
-import resolvePkg from 'pkg-up'
+const pkgUp = require('pkg-up')
 
 export class Discovery extends Base {
-  public name = 'service/discovery'
+  public name = 'discovery'
 
   public repository: {
     name: string
@@ -63,8 +63,9 @@ export class Discovery extends Base {
           return
 
         const dir = dirname(
-          resolvePkg.sync({cwd: dirname(require.resolve(name))}),
+          pkgUp.sync({cwd: dirname(require.resolve(name))}),
         )
+
         if (!dir) return
 
         this.set(`peers.${name}`, {
@@ -89,7 +90,7 @@ export class Discovery extends Base {
 
     pkg.peers.forEach(peer => {
       const dir = dirname(
-        resolvePkg.sync({
+        pkgUp.sync({
           cwd: dirname(require.resolve(peer)),
         }),
       )

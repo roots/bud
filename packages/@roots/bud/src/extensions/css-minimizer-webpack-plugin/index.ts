@@ -1,7 +1,7 @@
 import {Module} from '@roots/bud-framework'
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-type Extension = Module<CssMinimizerPlugin, any>
+type Extension = Module<typeof CssMinimizerPlugin, any>
 
 const extension: Extension = {
   name: 'css-minimizer-webpack-plugin',

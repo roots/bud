@@ -25,11 +25,13 @@ import type {Framework} from './'
  *  })
  *  ```
  */
-type Make = (
-  this: Framework,
-  name: string,
-  tap?: Framework.Tapable,
-) => Framework
+interface Make {
+  (
+    this: Framework,
+    name: string,
+    tap?: Framework.Tapable,
+  ): Framework
+}
 
 const make: Make = function (name, tap?) {
   handleChildNestingError.bind(this)()

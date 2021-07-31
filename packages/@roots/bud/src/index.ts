@@ -86,3 +86,7 @@ export {
   Bootstrapper,
   Store,
 } from '@roots/bud-framework'
+
+import {run} from '@oclif/command'
+
+export {run}
