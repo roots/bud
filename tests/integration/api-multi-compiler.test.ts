@@ -1,6 +1,7 @@
-import {readFile, readJson} from 'fs-extra'
-import {Assets} from '../util/integration'
 import execa from 'execa'
+import {readFile, readJson} from 'fs-extra'
+
+import {Assets} from '../util/integration'
 
 declare interface CompilerArtifacts {
   assets: Assets

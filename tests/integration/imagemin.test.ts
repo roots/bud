@@ -1,5 +1,6 @@
 import {readFile} from 'fs-extra'
-import {helper, Assets} from '../util/integration'
+
+import {Assets, helper} from '../util/integration'
 
 const suite = helper('imagemin', 'examples/imagemin')
 

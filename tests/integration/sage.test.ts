@@ -1,5 +1,6 @@
-import {helper, Assets, Entrypoints} from '../util/integration'
 import {readJson} from 'fs-extra'
+
+import {Assets, Entrypoints, helper} from '../util/integration'
 
 const suite = helper(
   'sage',

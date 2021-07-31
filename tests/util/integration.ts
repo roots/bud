@@ -1,7 +1,8 @@
-import {readFileSync} from 'fs'
-import {posix} from 'path'
 import execa from 'execa'
+import {readFileSync} from 'fs'
 import {readFile, readJson} from 'fs-extra'
+import {posix} from 'path'
+
 import {log} from './index'
 
 export interface Assets {

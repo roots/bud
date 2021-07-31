@@ -1,6 +1,7 @@
-import {Bud, factory, config, services} from '@roots/bud'
+import {Bud, config, factory, services} from '@roots/bud'
 import {Framework} from '@roots/bud-framework'
-import {logger, log, success, error} from './logger'
+
+import {error, log, logger, success} from './logger'
 
 /**
  * On the annoying failure to link asm message...

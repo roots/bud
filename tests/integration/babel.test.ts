@@ -1,4 +1,4 @@
-import {helper, Assets} from '../util/integration'
+import {Assets, helper} from '../util/integration'
 
 const suite = helper('babel', 'examples/babel')
 
