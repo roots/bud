@@ -3,8 +3,11 @@ import {
   Module,
   Typescript,
 } from '@roots/bud-framework'
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
+/**
+ * @const PRODUCTION_CONFIG
+ */
 const PRODUCTION_CONFIG = {
   async: false,
   useTypescriptIncrementalApi: true,
@@ -15,6 +18,9 @@ const PRODUCTION_CONFIG = {
   },
 }
 
+/**
+ * @const DEVELOPMENT_CONFIG
+ */
 const DEVELOPMENT_CONFIG = {
   diagnosticOptions: {
     semantic: true,
@@ -22,7 +28,10 @@ const DEVELOPMENT_CONFIG = {
   },
 }
 
-export const typecheck: Typescript.TypeCheck = function (
+/**
+ * @const {TypeScript.Typecheck} typecheck
+ */
+const typecheck: Typescript.TypeCheck = function (
   enabled = true,
 ) {
   !enabled &&
@@ -43,3 +52,8 @@ export const typecheck: Typescript.TypeCheck = function (
 
   return this
 }
+
+/**
+ * @exports typecheck
+ */
+export {typecheck}

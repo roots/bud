@@ -14,5 +14,4 @@ const plugin: Module<Plugin, Options> = {
   when: (_app, options) => options?.get('ignore')?.length > 0,
 }
 
-export {plugin as default}
 export const {name, options, make, when} = plugin

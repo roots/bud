@@ -1,9 +1,16 @@
-import {boundMethod as bind} from 'autobind-decorator'
-import fs from 'fs-extra'
-import path from 'path'
-import {format} from 'prettier'
-import Webpack from 'webpack'
+/**
+ * @module @roots/merged-manifest-webpack-plugin
+ */
 
+import {boundMethod as bind} from 'autobind-decorator'
+import * as fs from 'fs-extra'
+import * as path from 'path'
+import {format} from 'prettier'
+import * as Webpack from 'webpack'
+
+/**
+ * @class MergedManifestWebpackPlugin
+ */
 class MergedManifestWebpackPlugin {
   public plugin = {
     name: 'MergedManifestPlugin',
@@ -132,4 +139,11 @@ class MergedManifestWebpackPlugin {
   }
 }
 
-export {MergedManifestWebpackPlugin as default}
+/**
+ * @exports MergedManifestWebpackPlugin
+ * @exports default
+ */
+export {
+  MergedManifestWebpackPlugin,
+  MergedManifestWebpackPlugin as default,
+}

@@ -5,7 +5,4 @@
   command = "yarn kjo build && yarn kjo gen"
 
 [[plugins]]
-  package = "@netlify/plugin-lighthouse"
-
-[[plugins]]
   package = "netlify-plugin-inline-critical-css"

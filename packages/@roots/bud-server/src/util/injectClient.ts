@@ -1,11 +1,15 @@
+/**
+ * @module @roots/bud-server
+ */
+
 import {Framework} from '@roots/bud-framework'
-import Webpack from 'webpack'
+import * as Webpack from 'webpack'
 
 /**
  * Inject webpack entrypoints with
  * client HMR handling script(s).
  */
-export declare type InjectClient = (
+declare type InjectClient = (
   app: Framework,
   injection: string[],
 ) => void
@@ -15,7 +19,7 @@ export declare type InjectClient = (
  *
  * Filters on `webpack.entry`
  */
-export const injectClient: InjectClient = (app, injection) => {
+const injectClient: InjectClient = (app, injection) => {
   const addScript = (entry: Webpack.Entry): Webpack.Entry => ({
     ...(entry
       ? Object.entries(entry).reduce(
@@ -41,3 +45,13 @@ export const injectClient: InjectClient = (app, injection) => {
     child.hooks.on('build/entry', addScript)
   })
 }
+
+/**
+ * @exports injectClient
+ */
+export {injectClient}
+
+/**
+ * @exports InjectClient
+ */
+export type {InjectClient}

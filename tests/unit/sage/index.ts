@@ -21,15 +21,13 @@ describe('@roots/sage', () => {
     let bud: Framework = null
     let bootSpy = jest.spyOn(sage, 'boot')
 
-    beforeAll(done => {
+    beforeAll(() => {
       bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
       bud.use(sage)
-      done()
     })
 
-    afterAll(done => {
+    afterAll(() => {
       bud = teardownBud(bud)
-      done()
     })
 
     it('extension has name prop', () => {
@@ -76,92 +74,80 @@ describe('@roots/sage', () => {
   describe('babel', () => {
     let bud: Framework = null
 
-    beforeAll(done => {
+    beforeAll(() => {
       bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      done()
     })
 
-    afterAll(done => {
+    afterAll(() => {
       bud = teardownBud(bud)
-      done()
     })
 
-    it('is used', done => {
+    it('is used', () => {
       bud.discovery.set('devDependencies.babel', '*')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-babel')).toEqual(
         true,
       )
-      done()
     })
   })
 
   describe('postcss', () => {
     let bud: Framework = null
 
-    beforeAll(done => {
+    beforeAll(() => {
       bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      done()
     })
 
-    afterAll(done => {
+    afterAll(() => {
       bud = teardownBud(bud)
-      done()
     })
 
-    it('is used', done => {
+    it('is used', () => {
       bud.discovery.set('devDependencies.postcss', '*')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
         true,
       )
-      done()
     })
   })
 
   describe('react', () => {
     let bud: Framework = null
 
-    beforeAll(done => {
+    beforeAll(() => {
       bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      done()
     })
 
-    afterAll(done => {
+    afterAll(() => {
       bud = teardownBud(bud)
-      done()
     })
 
-    it('is used', done => {
+    it('is used', () => {
       bud.discovery.set('devDependencies.react', '*')
       bud.use(sage)
       expect(bud.extensions.has('@roots/bud-react')).toEqual(
         true,
       )
-      done()
     })
   })
 
   describe('tailwindcss', () => {
     let bud: Framework = null
 
-    beforeAll(done => {
+    beforeAll(() => {
       bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      done()
     })
 
-    afterAll(done => {
+    afterAll(() => {
       bud = teardownBud(bud)
-      done()
     })
 
-    it('is used', done => {
+    it('is used', () => {
       bud.discovery.set('devDependencies.tailwindcss', '*')
       bud.use(sage)
       expect(
         bud.extensions.has('@roots/bud-tailwindcss'),
       ).toEqual(true)
-      done()
     })
   })
 })

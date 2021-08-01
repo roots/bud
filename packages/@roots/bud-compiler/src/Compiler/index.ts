@@ -1,13 +1,25 @@
-import {Compiler, Service} from '@roots/bud-framework'
+/**
+ * @module @roots/bud-compiler
+ */
+
+import {
+  Compiler as Contract,
+  Service,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isEqual, isString, noop} from 'lodash'
-import type {StatsCompilation} from 'webpack'
-import webpack, {ProgressPlugin} from 'webpack'
+import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
-export default class extends Service implements Compiler {
-  public name = '@roots/bud-compiler'
+/**
+ * @class Compiler
+ */
+class Compiler extends Service implements Contract {
+  /**
+   * @property {string} name
+   */
+  public name = 'compiler'
 
-  public _instance: Compiler.Instance
+  public _instance: Contract.Instance
 
   public _stats: StatsCompilation = {
     assets: [],
@@ -15,7 +27,7 @@ export default class extends Service implements Compiler {
     warnings: [],
   }
 
-  public _progress: Compiler.Progress
+  public _progress: Contract.Progress
 
   public isCompiled: boolean = false
 
@@ -27,19 +39,19 @@ export default class extends Service implements Compiler {
     this._stats = stats
   }
 
-  public get progress(): Compiler['progress'] {
+  public get progress(): Contract.Progress {
     return this._progress
   }
 
-  public set progress(progress: Compiler['progress']) {
+  public set progress(progress: Contract.Progress) {
     this._progress = progress
   }
 
-  public get instance(): Compiler.Instance {
+  public get instance(): Contract.Instance {
     return this._instance
   }
 
-  public set instance(instance: Compiler.Instance) {
+  public set instance(instance: Contract.Instance) {
     this._instance = instance
   }
 
@@ -51,7 +63,7 @@ export default class extends Service implements Compiler {
   }
 
   @bind
-  public compile(): Compiler.Instance {
+  public compile(): Contract.Instance {
     this.isCompiled && this.instance.close(noop)
 
     return this.setup(this.before())
@@ -139,3 +151,8 @@ export default class extends Service implements Compiler {
     this.app.hooks.filter('done').map(cb => cb(this.app))
   }
 }
+
+/**
+ * @exports Compiler
+ */
+export {Compiler}

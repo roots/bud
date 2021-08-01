@@ -1,5 +1,5 @@
 import {render} from 'ink'
-import React from 'react'
+import * as React from 'react'
 
 import {Component} from './Error'
 

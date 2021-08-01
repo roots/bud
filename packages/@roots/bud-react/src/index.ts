@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-react
+ */
+
 import './interface'
 
 import {Module} from '@roots/bud-framework'
@@ -5,11 +9,14 @@ import {Module} from '@roots/bud-framework'
 import RefreshExtension from './react-refresh'
 import devScriptReducer from './util'
 
+/**
+ * @const extension
+ */
 const extension: Module = {
   name: '@roots/bud-react',
   boot: app => {
     /**
-     * Exit early if peerDepenedencies unmet
+     * Exit early if peerDependencies unmet
      */
     if (!app.discovery.hasPeerDependency('react')) return
 
@@ -24,5 +31,14 @@ const extension: Module = {
   },
 }
 
-export default extension
+/**
+ * @exports default
+ * @exports extension
+ */
+export {extension as default, extension}
+
+/**
+ * @exports name
+ * @exports boot
+ */
 export const {name, boot} = extension

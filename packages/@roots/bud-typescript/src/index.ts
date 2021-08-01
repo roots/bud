@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-typescript
+ */
+
 import './interface'
 
 import {Item, Loader, Rule} from '@roots/bud-build'
@@ -6,6 +10,9 @@ import {Configuration} from 'webpack'
 
 import {typecheck} from './api'
 
+/**
+ * @const {Module} extension
+ */
 const extension: Module = {
   name: '@roots/bud-typescript',
   api: {
@@ -46,5 +53,15 @@ const extension: Module = {
   },
 }
 
-export default extension
+/**
+ * @exports default
+ * @exports extension
+ */
+export {extension, extension as default}
+
+/**
+ * @exports name
+ * @exports boot
+ * @exports api
+ */
 export const {name, boot, api} = extension

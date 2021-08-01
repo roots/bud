@@ -2,7 +2,7 @@ import {Service as Base} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {Box, Instance, render, Text} from 'ink'
 import {isString} from 'lodash'
-import React from 'react'
+import * as React from 'react'
 
 import {Error} from '../components/Error'
 import {Screen} from '../components/Screen'

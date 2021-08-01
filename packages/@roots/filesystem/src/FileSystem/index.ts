@@ -1,9 +1,9 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import fs from 'fs-extra'
-import globby from 'globby'
-import _ from 'lodash'
-import path from 'path'
+import * as fs from 'fs-extra'
+import * as globby from 'globby'
+import * as _ from 'lodash'
+import * as path from 'path'
 
 import {FileContainer} from '..'
 

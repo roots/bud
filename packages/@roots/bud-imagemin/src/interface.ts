@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-imagemin
+ */
+
 import {
   Module as BudExtension,
   Plugin as BudWebpackPlugin,

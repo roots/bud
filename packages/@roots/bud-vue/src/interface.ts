@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-vue
+ */
+
 import '@roots/bud-api'
 import '@roots/bud-babel'
 

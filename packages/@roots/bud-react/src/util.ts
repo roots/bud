@@ -1,5 +1,12 @@
+/**
+ * @module @roots/bud-react
+ */
+
 import type {Configuration} from 'webpack'
 
+/**
+ * @function addRefresh
+ */
 function addRefresh(entries, [name, assets]) {
   return {
     ...(entries ?? {}),
@@ -13,10 +20,16 @@ function addRefresh(entries, [name, assets]) {
   }
 }
 
+/**
+ * @function reducer
+ */
 function reducer(entry: Configuration['entry']) {
   return entry
     ? Object.entries(entry).reduce(addRefresh, entry)
     : {}
 }
 
+/**
+ * @exports default
+ */
 export default reducer

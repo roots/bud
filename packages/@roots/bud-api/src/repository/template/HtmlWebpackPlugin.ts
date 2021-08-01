@@ -1,13 +1,11 @@
 import {Module} from '@roots/bud-framework'
-import * as Plugin from 'html-webpack-plugin'
+import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import {posix} from 'path'
 
-const PluginConstructor = Plugin.default
-
 interface Extension extends Module {
-  options: Module.Options<Plugin.Options>
-  make: Module.Make<Plugin, Plugin.Options>
-  when: Module.When<Plugin.Options>
+  options: Module.Options<HtmlWebpackPlugin.Options>
+  make: Module.Make<HtmlWebpackPlugin, HtmlWebpackPlugin.Options>
+  when: Module.When<HtmlWebpackPlugin.Options>
 }
 
 const extension: Extension = {
@@ -42,10 +40,10 @@ const extension: Extension = {
     }
   },
 
-  make: options => new PluginConstructor(options.all()),
+  make: options => new HtmlWebpackPlugin(options.all()),
 
   when: ({store}) => store.isTrue('html'),
 }
 
 export const {name, options, make, when} = extension
-export {Plugin}
+export {HtmlWebpackPlugin}

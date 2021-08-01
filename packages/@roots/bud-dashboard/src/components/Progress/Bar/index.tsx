@@ -1,8 +1,9 @@
 import {Text} from 'ink'
-import Gradient from 'ink-gradient'
-import React, {useEffect, useState} from 'react'
+import * as Gradient from 'ink-gradient'
+import * as React from 'react'
+import {FunctionComponent, useEffect, useState} from 'react'
 
-export const Bar: React.FunctionComponent<{
+export const Bar: FunctionComponent<{
   colors?: string[]
   percent: number
   character?: string

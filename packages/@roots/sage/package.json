@@ -64,6 +64,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.28.0",
@@ -73,7 +74,6 @@
     "@wordpress/browserslist-config": "4.1.0"
   },
   "dependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
@@ -89,7 +89,7 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-cli": "*",
+    "@wordpress/browserslist-config": "^4.1.0",
     "eslint": "^7.27.0",
     "postcss": "^8.3.0",
     "postcss-import": "^14.0.2",

@@ -1,6 +1,6 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {uniq} from 'lodash'
-import Webpack, {Chunk, Compilation, Compiler} from 'webpack'
+import * as Webpack from 'webpack'
 
 class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   protected plugin = {
@@ -10,9 +10,9 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
 
   public name: string = 'entrypoints.json'
 
-  public compiler: Compiler
+  public compiler: Webpack.Compiler
 
-  public compilation: Compilation
+  public compilation: Webpack.Compilation
 
   public publicPath: string
 
@@ -26,7 +26,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     this.assets = {}
 
     this.compiler = compiler
@@ -36,7 +36,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,
-      (compilation: Compilation) => {
+      (compilation: Webpack.Compilation) => {
         this.compilation = compilation
 
         this.compilation.hooks.processAssets.tap(
@@ -87,7 +87,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
 
   @bind
   public getEntrypointFiles(entry: {
-    chunks: Chunk[]
+    chunks: Webpack.Chunk[]
     origins: any[]
   }): string[] {
     const files = []

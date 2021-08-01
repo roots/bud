@@ -1,14 +1,17 @@
 import {wpPkgs} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
-import Webpack, {Compilation, Compiler} from 'webpack'
+import * as Webpack from 'webpack'
 
+/**
+ * @class WordPressDependenciesWebpackPlugin
+ */
 class WordPressDependenciesWebpackPlugin {
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',
     stage: Infinity,
   }
 
-  protected compilation: Compilation
+  protected compilation: Webpack.Compilation
 
   public fileName: string
 
@@ -21,7 +24,7 @@ class WordPressDependenciesWebpackPlugin {
   }
 
   @bind
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.normalModuleFactory.tap(
       this.plugin.name,
       this.normalModuleFactory,
@@ -62,7 +65,7 @@ class WordPressDependenciesWebpackPlugin {
   }
 
   @bind
-  public processAssets(assets: Compilation['assets']) {
+  public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {
       this.manifest[entry.name] = []
 
@@ -96,4 +99,7 @@ class WordPressDependenciesWebpackPlugin {
   }
 }
 
+/**
+ * @exports WordPressDependenciesWebpackPlugin
+ */
 export {WordPressDependenciesWebpackPlugin}

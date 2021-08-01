@@ -27,4 +27,7 @@ namespace Extensions {
   export type PluginOutput = WebpackPluginInstance[]
 }
 
+/**
+ * @exports Extensions
+ */
 export {Extensions}

@@ -1,51 +1,46 @@
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
-import React from 'react'
+import {ComponentState, useEffect, useState} from 'react'
 
 import {defaultTheme} from '../themes/index'
 import type {Styles, Theme, UseStyle} from '../typings'
 
+const useStdoutDimensions = require('ink-use-stdout-dimensions')
+
 /**
- * Use style.
+ * @const useStyle
  */
-export const useStyle: UseStyle = (
-  initialData = defaultTheme,
-) => {
+const useStyle: UseStyle = (initialData = defaultTheme) => {
   /**
    * Theme values
    */
-  const [theme, setTheme] = React.useState<Theme>(initialData)
+  const [theme, setTheme] = useState<Theme>(initialData)
 
   /**
    * Width and height of terminal viewport.
    */
-  const [width, height]: React.ComponentState =
-    useStdoutDimensions()
+  const [width, height]: ComponentState = useStdoutDimensions()
 
   /**
    * Active screen size
    */
-  const [screen, setScreen]: React.ComponentState =
-    React.useState()
+  const [screen, setScreen]: ComponentState = useState()
 
   /**
    * Width of one column.
    */
-  const [unit, setUnit]: React.ComponentState =
-    React.useState(null)
+  const [unit, setUnit]: ComponentState = useState(null)
 
   /**
    * Width and height of application.
    */
-  const [bounds, setBounds]: React.ComponentState =
-    React.useState({
-      width,
-      height,
-    })
+  const [bounds, setBounds]: ComponentState = useState({
+    width,
+    height,
+  })
 
   /**
    * Set application based on viewport size.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     setBounds({
       width: width > theme.maxWidth ? theme.maxWidth : width,
       height:
@@ -57,14 +52,14 @@ export const useStyle: UseStyle = (
    * Set unit to be the total application width available
    * divided by the column count
    */
-  React.useEffect(() => {
+  useEffect(() => {
     setUnit(bounds.width / theme.columns)
   }, [bounds.width, theme.columns])
 
   /**
    * Determine which screen size is currently active.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     theme.screens.forEach(([lower, upper], iteration) => {
       bounds.width > lower &&
         bounds.width < upper &&
@@ -128,3 +123,8 @@ export const useStyle: UseStyle = (
     ctx,
   }
 }
+
+/**
+ * @exports useStyle
+ */
+export {useStyle}

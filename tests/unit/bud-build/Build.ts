@@ -2,18 +2,7 @@ import {Item, Loader, Rule} from '@roots/bud-build'
 
 import {Framework, setupBud, teardownBud} from '../../util'
 
-export const loaders = [
-  'css',
-  'html',
-  'md',
-  'style',
-  'minicss',
-  'file',
-  'url',
-  'resolve-url',
-]
-
-export const items = [
+const items = [
   'css',
   'html',
   'style',
@@ -25,7 +14,7 @@ export const items = [
   'resolve-url',
 ]
 
-export const rules = [
+const rules = [
   'css',
   'js',
   'image',

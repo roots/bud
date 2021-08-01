@@ -1,5 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import RemarkHTML from 'remark-html'
+import * as RemarkHTML from 'remark-html'
 
 import {Item} from '../Item'
 

@@ -1,5 +1,5 @@
 export {WordPressExternals} from './interface'
-import Webpack, {ExternalsPlugin} from 'webpack'
+import {Compiler, ExternalsPlugin} from 'webpack'
 
 import {externals} from './externals'
 
@@ -14,7 +14,7 @@ export class Plugin {
     this.externals = new ExternalsPlugin('window', externals)
   }
 
-  public apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     this.externals.apply(compiler)
   }
 }

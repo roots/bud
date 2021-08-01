@@ -81,14 +81,17 @@ namespace Framework {
      * {@link Framework.name}
      */
     name: string
+
     /**
      * {@link Framework.mode}
      */
     mode: Framework.Mode
+
     /**
      * {@link Configuration}
      */
     config: Configuration
+
     /**
      * {@link Framework.Services}
      */
@@ -364,4 +367,7 @@ abstract class Framework {
   }
 }
 
+/**
+ * @exports Framework
+ */
 export {Framework}

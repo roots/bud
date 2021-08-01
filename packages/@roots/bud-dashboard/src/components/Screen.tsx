@@ -1,6 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import {Box, Text} from 'ink'
-import React from 'react'
+import * as React from 'react'
 
 export const Screen = ({
   app,

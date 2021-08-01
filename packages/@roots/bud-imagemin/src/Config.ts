@@ -1,7 +1,14 @@
+/**
+ * @module @roots/bud-imagemin
+ */
+
 import type {Framework} from '@roots/bud-framework'
 import type {PluginOptions} from 'image-minimizer-webpack-plugin/types'
 
-class Api {
+/**
+ * @class Config
+ */
+class Config {
   public _app: () => Framework
 
   public get app(): Framework {
@@ -28,4 +35,7 @@ class Api {
   }
 }
 
-export {Api}
+/**
+ * @exports Config
+ */
+export {Config}

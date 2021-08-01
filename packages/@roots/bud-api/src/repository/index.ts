@@ -9,7 +9,7 @@ import type {
 } from '@roots/bud-framework'
 import type {GlobTask} from 'globby'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import type Webpack from 'webpack'
+import type * as Webpack from 'webpack'
 
 /* eslint-disable import/export */
 
@@ -39,6 +39,25 @@ interface Repository {
    * {@link Repository.Alias}
    */
   alias: Repository.Alias
+
+  /**
+   * assets
+   *
+   * Copy static assets during compilation.
+   *
+   * You may specify paths with a string literal or glob pattern.
+   *
+   * @usage
+   *
+   * Copy **src/images** to **dist/images**
+   *
+   * ```js
+   * app.assets(['src/images'])
+   * ```
+   *
+   * {@link Repository.Assets}
+   */
+  assets: Repository.Assets
 
   /**
    * config
@@ -538,6 +557,15 @@ namespace Repository {
   }
 
   /**
+   * @interface Assets
+   *
+   * {@link Repository.assets}
+   */
+  export interface Assets {
+    (this: Framework, from: string[]): Framework
+  }
+
+  /**
    * @interface Config
    *
    * {@link Repository.config}
@@ -863,6 +891,11 @@ namespace Repository {
  * @exports alias
  */
 export {alias} from './alias'
+
+/**
+ * @exports assets
+ */
+export {assets} from './assets'
 
 /**
  * @exports config

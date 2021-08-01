@@ -2,7 +2,7 @@
  * @module @roots/bud-api
  */
 
-import type Webpack from 'webpack'
+import type {Configuration} from 'webpack'
 
 import type {Repository} from '../'
 
@@ -12,17 +12,17 @@ import type {Repository} from '../'
 const externals: Repository.Externals = function (externals) {
   this.hooks.on(
     'build/externals',
-    (existant: Webpack.Configuration['externals']) =>
+    (existant: Configuration['externals']) =>
       ({
         ...(existant as any),
         ...(externals as any),
-      } as Webpack.Configuration['externals']),
+      } as Configuration['externals']),
   )
 
   return this
 }
 
 /**
- * @exports externals
+ * @exports repository.externals
  */
 export {externals}

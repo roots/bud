@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import '@roots/bud-extensions'
 
 import type {Module} from '@roots/bud-framework'

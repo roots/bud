@@ -91,8 +91,8 @@ const run = async () => {
     await pre(paths)
 
     await jest('basic')
-    await jest('babel')
     await jest('html-template')
+    await jest('babel')
     await jest('api-multi-compiler')
     await jest('markdown')
     await jest('postcss')

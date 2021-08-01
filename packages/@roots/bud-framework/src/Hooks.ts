@@ -2,7 +2,7 @@
  * @module @roots/bud-framework
  */
 
-import type Webpack from 'webpack'
+import type * as Webpack from 'webpack'
 
 import type {Extension, Framework, Module, Service} from './'
 
@@ -94,8 +94,6 @@ namespace Hooks {
   }
 
   /**
-   * Loaders
-   *
    * @hidden
    */
   export namespace Loader {
@@ -364,4 +362,7 @@ namespace Hooks {
   }
 }
 
+/**
+ * @exports Hooks
+ */
 export {Hooks}

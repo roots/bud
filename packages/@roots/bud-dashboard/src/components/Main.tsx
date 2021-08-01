@@ -1,5 +1,5 @@
 import {Box} from 'ink'
-import React from 'react'
+import * as React from 'react'
 
 export const Main = ({children}) => (
   <Box

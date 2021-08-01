@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import {Module} from '@roots/bud-framework'
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
@@ -21,5 +25,4 @@ const extension: Extension = {
   },
 }
 
-export default extension
 export const {name, options, boot} = extension

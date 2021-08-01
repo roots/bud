@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud-extensions
+ */
+
 import {
   Extensions as Contract,
   Module,
@@ -8,9 +12,24 @@ import {isEqual, isUndefined} from 'lodash'
 
 import {Extension} from '../Extension/index'
 
-export class Extensions extends Service implements Contract {
+/**
+ * @class Extensions
+ */
+class Extensions extends Service implements Contract {
+  /**
+   * @property {string} name
+   */
   public name = 'extensions'
 
+  /**
+   * @property {Contract.repository} repository
+   */
+  public repository: {[key: string]: Extension | Module}
+
+  /**
+   * @method register
+   * {@link Contract.register}
+   */
   @bind
   public register(): void {
     this.every((_name: string, extension: Module) => {
@@ -18,6 +37,10 @@ export class Extensions extends Service implements Contract {
     })
   }
 
+  /**
+   * @method boot
+   * {@link Contract.boot}
+   */
   @bind
   public boot(): void {
     this.every((_name: string, extension: Module) => {
@@ -25,16 +48,25 @@ export class Extensions extends Service implements Contract {
     })
   }
 
+  /**
+   * @method registerExtension
+   */
   @bind
   public registerExtension(extension: Module): void {
     this.set(extension.name, this.get(extension.name).register())
   }
 
+  /**
+   * @method bootExtension
+   */
   @bind
   public bootExtension(extension: Module): void {
     this.set(extension.name, this.get(extension.name).boot())
   }
 
+  /**
+   * @method add
+   */
   @bind
   public add(extension: Module): void {
     this.set(extension.name, new Extension(this.app, extension))
@@ -42,6 +74,9 @@ export class Extensions extends Service implements Contract {
     this.bootExtension(extension)
   }
 
+  /**
+   * @method make
+   */
   @bind
   public make(): Contract.PluginOutput[] {
     return this.getValues()
@@ -56,3 +91,8 @@ export class Extensions extends Service implements Contract {
       ) as Contract.PluginOutput[]
   }
 }
+
+/**
+ * @exports Extensions
+ */
+export {Extensions}

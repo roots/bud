@@ -3,7 +3,7 @@
  */
 
 import {resolve} from 'path'
-import type Webpack from 'webpack'
+import type {Configuration} from 'webpack'
 
 import type {Repository} from '../'
 
@@ -13,7 +13,7 @@ import type {Repository} from '../'
 const alias: Repository.Alias = function (alias) {
   this.hooks.on(
     'build/resolve/alias',
-    (aliases: Webpack.Configuration['resolve']['alias']) => ({
+    (aliases: Configuration['resolve']['alias']) => ({
       ...aliases,
       ...Object.entries(alias).reduce(
         (a, [k, v]: [string, string]) => ({

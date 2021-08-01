@@ -1,17 +1,31 @@
+/**
+ * @module @roots/bud-babel
+ */
+
 import './interface'
 
 import {Item, Loader} from '@roots/bud-build'
 import type {Framework, Module} from '@roots/bud-framework'
 import {existsSync} from 'fs-extra'
 
+import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './'
 import {Config} from './Config'
 
+/**
+ * @exports name
+ */
 export const name: Module['name'] = '@roots/bud-babel'
 
+/**
+ * @exports api
+ */
 export const api: Module['api'] = (app: Framework) => ({
   babel: new Config().init(app),
 })
 
+/**
+ * @exports register
+ */
 export const register: Module['register'] = app => {
   app.build.loaders.babel = new Loader(
     require.resolve('babel-loader'),
@@ -45,14 +59,12 @@ export const register: Module['register'] = app => {
   app.build.rules.js.setUse(({build}) => [build.items.babel])
 }
 
+/**
+ * @exports boot
+ */
 export const boot: Module['boot'] = app => {
   !existsSync(app.path('project', 'babel.config.js')) &&
     app.babel
-      .setPresets(['@babel/preset-env'])
-      .setPlugins([
-        ['@babel/plugin-transform-runtime', {helpers: false}],
-        '@babel/plugin-proposal-object-rest-spread',
-        '@babel/plugin-syntax-dynamic-import',
-        '@babel/plugin-proposal-class-properties',
-      ])
+      .setPresets(DEFAULT_PRESETS)
+      .setPlugins(DEFAULT_PLUGINS)
 }

@@ -1,6 +1,6 @@
 import {Styles} from '@roots/ink-use-style'
 import {Box} from 'ink'
-import React from 'react'
+import * as React from 'react'
 
 import {Bar} from './Bar'
 

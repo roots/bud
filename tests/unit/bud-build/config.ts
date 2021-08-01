@@ -1,8 +1,8 @@
-import json5 from 'json5'
-import RemarkHTML from 'remark-html'
-import toml from 'toml'
-import {RuleSetRule} from 'webpack/types'
-import yaml from 'yamljs'
+import * as json5 from 'json5'
+import * as RemarkHTML from 'remark-html'
+import * as toml from 'toml'
+import {RuleSetRule} from 'webpack'
+import * as yaml from 'yamljs'
 
 import {Framework, setupBud, teardownBud} from '../../util'
 

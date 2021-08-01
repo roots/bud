@@ -1,7 +1,7 @@
-👩‍💻 The @roots/bud CLI runner utility
+A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
 
 VERSION
-  @roots/bud-cli/4.7.0-10 darwin-arm64 node-v16.3.0
+  @roots/bud/4.7.0-10 darwin-arm64 node-v16.3.0
 
 USAGE
   $ bud [COMMAND]

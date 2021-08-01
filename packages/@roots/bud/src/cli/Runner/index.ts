@@ -16,7 +16,7 @@ export default class Runner {
 
     this.app = factory({
       name: 'bud',
-      config: options,
+      ...(options ?? {}),
     })
   }
 

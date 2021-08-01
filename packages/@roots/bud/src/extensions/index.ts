@@ -1,3 +1,9 @@
+/**
+ * @module @roots/bud
+ */
+
+import type {Module} from '@roots/bud-framework'
+
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
 import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
@@ -9,7 +15,11 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-export const extensions = {
+interface extensions {
+  [key: string]: Module
+}
+
+const extensions: extensions = {
   [WebpackProvidePlugin.name]: WebpackProvidePlugin,
   [CleanWebpackPlugin.name]: CleanWebpackPlugin,
   [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,
@@ -21,3 +31,5 @@ export const extensions = {
   [WebpackManifestPlugin.name]: WebpackManifestPlugin,
   [MiniCssExtractPlugin.name]: MiniCssExtractPlugin,
 }
+
+export {extensions}

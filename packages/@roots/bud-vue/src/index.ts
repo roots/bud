@@ -1,10 +1,17 @@
+/**
+ * @module @roots/bud-vue
+ */
+
 import './interface'
 
 import {Module} from '@roots/bud-framework'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Configuration} from 'webpack'
 
-const extension: Module = {
+/**
+ * @const vueExtension
+ */
+const vueExtension: Module = {
   name: '@roots/bud-vue',
 
   boot: app => {
@@ -49,5 +56,14 @@ const extension: Module = {
   },
 }
 
-export default extension
-export const {name, boot} = extension
+/**
+ * @exports vueExtension
+ * @exports default
+ */
+export {vueExtension, vueExtension as default}
+
+/**
+ * @exports name
+ * @exports boot
+ */
+export const {name, boot} = vueExtension

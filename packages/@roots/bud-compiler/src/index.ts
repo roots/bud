@@ -1,3 +1,11 @@
-import Compiler from './Compiler'
+/**
+ * @module @roots/bud-compiler
+ */
 
-export {Compiler}
+import {Compiler} from './Compiler'
+
+/**
+ * @exports Compiler
+ * @exports default
+ */
+export {Compiler as default, Compiler}

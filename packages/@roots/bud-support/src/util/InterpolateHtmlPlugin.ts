@@ -1,49 +1,91 @@
-import Webpack from 'webpack'
+/**
+ * @module @roots/bud-support
+ */
 
-export default class InterpolateHtmlPlugin {
+import * as Webpack from 'webpack'
+
+/**
+ * @interface RegularExpressionIndex
+ */
+interface RegularExpressionIndex {
+  [key: string]: RegExp
+}
+
+/**
+ * @class InterpolateHtmlPlugin
+ */
+class InterpolateHtmlPlugin {
+  /**
+   * @property {string} name
+   */
   public name = 'interpolate-html-plugin'
 
-  public htmlWebpackPlugin: any
+  /**
+   * @property {Webpack.WebpackPluginInstance} htmlWebpackPlugin
+   */
+  public htmlWebpackPlugin: Webpack.WebpackPluginInstance
 
-  public replacements: {[key: string]: RegExp}
+  /**
+   * @property {RegularExpressionIndex} replacements
+   */
+  public replacements: RegularExpressionIndex
 
+  /**
+   * @constructor
+   */
   public constructor(
-    htmlWebpackPlugin: any,
-    replacements: {[key: string]: RegExp},
+    htmlWebpackPlugin: Webpack.WebpackPluginInstance,
+    replacements: RegularExpressionIndex,
   ) {
     this.htmlWebpackPlugin = htmlWebpackPlugin
     this.replacements = replacements
   }
 
-  private escapeRegExp(string: String) {
+  /**
+   * @function escapeRegExp
+   */
+  public escapeRegExp(string: String) {
     return string
       .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
       .replace(/-/g, '\\x2d')
   }
 
+  /**
+   * @function apply
+   * @implements Webpack.WebpackPluginInstance['apply']
+   */
   public apply(compiler: Webpack.Compiler): void {
+    /**
+     * @function modifyHtmlWebpackPluginOptions
+     */
+    const modifyHtmlWebpackPluginOptions = (
+      compilation: any,
+    ) => {
+      this.htmlWebpackPlugin
+        .getHooks(compilation)
+        .afterTemplateExecution.tap(
+          'InterpolateHtmlPlugin',
+          (data: any) => {
+            Object.entries(this.replacements).forEach(
+              ([key, value]) => {
+                data.html = data.html.replace(
+                  new RegExp(`%${this.escapeRegExp(key)}%`, 'g'),
+                  value,
+                )
+              },
+            )
+          },
+        )
+    }
+
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
-      (compilation: any) => {
-        this.htmlWebpackPlugin
-          .getHooks(compilation)
-          .afterTemplateExecution.tap(
-            'InterpolateHtmlPlugin',
-            data => {
-              Object.entries(this.replacements).forEach(
-                ([key, value]) => {
-                  data.html = data.html.replace(
-                    new RegExp(
-                      `%${this.escapeRegExp(key)}%`,
-                      'g',
-                    ),
-                    value,
-                  )
-                },
-              )
-            },
-          )
-      },
+      modifyHtmlWebpackPluginOptions,
     )
   }
 }
+
+/**
+ * @exports InterpolateHtmlPlugin
+ */
+export default InterpolateHtmlPlugin

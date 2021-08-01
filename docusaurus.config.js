@@ -11,7 +11,7 @@ module.exports = {
   tagline: manifest.description,
   url: manifest.url.docs,
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: manifest.organization.favicon,
   organizationName: manifest.organization.name,
@@ -170,16 +170,6 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
-        id: 'api',
-        path: './site/api',
-        routeBasePath: 'api',
-        sidebarPath: './site/src/sidebars/packages.js',
-        include: ['**/*.md', '**/*.mdx'],
-      },
-    ],
-    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
@@ -203,7 +193,7 @@ module.exports = {
       require.resolve('docusaurus-plugin-typedoc'),
       {
         id: 'bud',
-        entryPoints: ['./packages/@roots/bud/types/index.d.ts'],
+        entryPoints: ['./packages/@roots/bud/src/index.ts'],
         tsconfig: `./tsconfig.json`,
         plugin: ['typedoc-plugin-no-inherit'],
         readme: 'none',
@@ -213,6 +203,16 @@ module.exports = {
           sidebarFile: null,
           fullNames: false,
         },
+      },
+    ],
+    [
+      require.resolve('@docusaurus/plugin-content-docs'),
+      {
+        id: 'api',
+        path: './site/api',
+        routeBasePath: 'api',
+        sidebarPath: './site/src/sidebars/packages.js',
+        include: ['**/*.md', '**/*.mdx'],
       },
     ],
   ],

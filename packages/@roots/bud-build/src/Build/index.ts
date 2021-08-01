@@ -1,7 +1,7 @@
 import type {Build as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import type Webpack from 'webpack'
+import type * as Webpack from 'webpack'
 
 import {config} from './config'
 import * as items from './items'

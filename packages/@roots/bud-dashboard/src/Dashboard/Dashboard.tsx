@@ -1,9 +1,14 @@
+/**
+ * @module @roots/bud-dashboard
+ */
+
 import type {Framework} from '@roots/bud-framework'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, Newline, Static, Text, useStdin} from 'ink'
 import {isEqual} from 'lodash'
-import patchConsole from 'patch-console'
-import React, {Fragment, useRef, useState} from 'react'
+import * as patchConsole from 'patch-console'
+import * as React from 'react'
+import {Fragment, useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {Progress} from '../components/Progress'
@@ -11,6 +16,9 @@ import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
 import {Input} from './Input'
 
+/**
+ * @const Dashboard
+ */
 const Dashboard = ({bud}: {bud: Framework}) => {
   const instance = useRef<Framework>(bud)
   const [stderr, setStderr] = useState<string[]>([])
@@ -143,4 +151,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   )
 }
 
+/**
+ * @exports Dashboard
+ */
 export {Dashboard}

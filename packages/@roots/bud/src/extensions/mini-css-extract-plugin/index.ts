@@ -1,10 +1,13 @@
+/**
+ * @module @roots/bud
+ */
+
 import {Module} from '@roots/bud-framework'
-import {PluginOptions} from 'mini-css-extract-plugin'
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const extension: Module<
-  typeof MiniCssExtractPlugin,
-  PluginOptions
+  MiniCssExtractPlugin,
+  MiniCssExtractPlugin.PluginOptions
 > = {
   name: 'mini-css-extract-plugin',
   options: ({store}) => ({
@@ -20,5 +23,4 @@ const extension: Module<
   when: ({isProduction}) => isProduction,
 }
 
-export {extension as default}
 export const {name, options, make, when} = extension

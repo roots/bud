@@ -1,8 +1,6 @@
-.docs
 *.log
 node_modules
 coverage
-dist
 **/lib
 **/types
 !**/src/types
@@ -18,11 +16,14 @@ dist
 !.yarn/local
 .pnp.*
 
+# Kjo
 !/dev/build/yarn-plugin-tasks/lib
 
-/profiles
+# Profiles
+**/profiles
 
 # Docusaurus
 .docusaurus
 .cache-loader
 /build
+site/api

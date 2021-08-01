@@ -1,36 +1,71 @@
+/**
+ * @module @roots/bud-babel
+ */
+
 import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
-export class Config implements Framework.Api.Babel {
+import type {Babel} from '..'
+
+/**
+ * @class Config
+ */
+class Config implements Babel {
+  /**
+   * @property {string} name
+   */
   public name = '@roots/bud-babel'
 
+  /**
+   * @property {Framework} _app
+   * @hidden
+   */
   public _app: () => Framework
 
-  public _plugins: Framework.Api.Babel.Registry = {}
+  /**
+   * @property {Babel.Registry} _plugins
+   * @hidden
+   */
+  public _plugins: Babel.Registry = {}
 
-  public _presets: Framework.Api.Babel.Registry = {}
+  /**
+   * @property {Babel.Registry} _presets
+   * @hidden
+   */
+  public _presets: Babel.Registry = {}
 
+  /**
+   * @property {Framework} app
+   * @readonly
+   */
   public get app() {
     return this._app()
   }
 
+  /**
+   * @property {Babel.Registry} plugins
+   */
   public get plugins() {
     return this._plugins
   }
-
   public set plugins(plugins) {
     this._plugins = plugins
   }
 
+  /**
+   * @property {Babel.Registry} presets
+   */
   public get presets() {
     return this._presets
   }
-
   public set presets(presets) {
     this._presets = presets
   }
 
+  /**
+   * @method init
+   */
   @bind
   public init(app: Framework): this {
     this._app = () => app
@@ -38,19 +73,23 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method normalizeEntry
+   */
   @bind
   public normalizeEntry(
-    c: Framework.Api.Babel.Registrable,
-  ): Framework.Api.Babel.NormalizedPlugin {
+    c: Babel.Registrable,
+  ): Babel.NormalizedPlugin {
     return isString(c)
-      ? ([c, {}] as Framework.Api.Babel.NormalizedPlugin)
-      : (c as Framework.Api.Babel.NormalizedPlugin)
+      ? ([c, {}] as Babel.NormalizedPlugin)
+      : (c as Babel.NormalizedPlugin)
   }
 
+  /**
+   * @method setPlugin
+   */
   @bind
-  public setPlugin(
-    plugin: Framework.Api.Babel.Registrable,
-  ): this {
+  public setPlugin(plugin: Babel.Registrable): this {
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -58,20 +97,22 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method setPlugins
+   */
   @bind
   public setPlugins(
-    plugins: Array<
-      Framework.Api.Babel.NormalizedPlugin | string
-    >,
+    plugins: Array<Babel.NormalizedPlugin | string>,
   ): this {
     plugins.map(this.setPlugin)
     return this
   }
 
+  /**
+   * @method SetPreset
+   */
   @bind
-  public setPreset(
-    preset: Framework.Api.Babel.Registrable,
-  ): this {
+  public setPreset(preset: Babel.Registrable): this {
     preset = this.normalizeEntry(preset)
 
     this.presets = {
@@ -82,17 +123,21 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method setPresets
+   */
   @bind
   public setPresets(
-    presets: Array<
-      Framework.Api.Babel.NormalizedPlugin | string
-    >,
+    presets: Array<Babel.NormalizedPlugin | string>,
   ): this {
     presets.map(this.setPreset)
 
     return this
   }
 
+  /**
+   * @method unsetPreset
+   */
   @bind
   public unsetPreset(preset: string) {
     !this.presets[preset]
@@ -102,6 +147,9 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method unsetPlugin
+   */
   @bind
   public unsetPlugin(plugin: string) {
     !this.plugins[plugin]
@@ -111,6 +159,9 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method setPluginOptions
+   */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin][0], options]
@@ -118,6 +169,9 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 
+  /**
+   * @method setPresetOptions
+   */
   @bind
   public setPresetOptions(preset: string, options: any): this {
     this.presets[preset] = [this.presets[preset][0], options]
@@ -125,3 +179,8 @@ export class Config implements Framework.Api.Babel {
     return this
   }
 }
+
+/**
+ * @exports Config
+ */
+export {Config}

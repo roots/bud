@@ -1,9 +1,16 @@
+/**
+ * @module @roots/bud-api
+ */
+
 import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 import {PluginCreator} from 'postcss'
 
-export class Config implements Framework.Api.PostCss {
+/**
+ * @class Config
+ */
+class Config implements Framework.Api.PostCss {
   public plugins: Framework.Api.PostCss.Registry = {}
 
   @bind
@@ -52,3 +59,8 @@ export class Config implements Framework.Api.PostCss {
     return this
   }
 }
+
+/**
+ * @exports Config
+ */
+export {Config}

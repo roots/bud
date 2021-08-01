@@ -1,35 +1,28 @@
-import {Discovery as Base} from '@roots/bud-framework'
+/**
+ * @module @roots/bud
+ */
+
+import {Discovery as Contract} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
 import {dirname} from 'path'
+
 const pkgUp = require('pkg-up')
 
-export class Discovery extends Base {
+/**
+ * @class Discovery
+ */
+class Discovery extends Contract {
+  /**
+   * @property {string} name
+   */
   public name = 'discovery'
 
-  public repository: {
-    name: string
-
-    peers: {}
-
-    dependencies: {
-      [key: string]: string
-    }
-
-    devDependencies: {
-      [key: string]: string
-    }
-
-    required: {
-      [key: string]: {
-        source: string
-        name: string
-        ver: string
-        type: 'dependencies' | 'devDependencies'
-      }
-    }
-  } = {
+  /**
+   * @property {Contract.repository} repository
+   */
+  public repository: Contract['repository'] = {
     name: null,
     peers: {},
     dependencies: {},
@@ -37,6 +30,9 @@ export class Discovery extends Base {
     required: {},
   }
 
+  /**
+   * @method register
+   */
   @bind
   public register(): void {
     this.setStore(
@@ -53,6 +49,9 @@ export class Discovery extends Base {
       this.getValues('peers').forEach(this.resolvePeers)
   }
 
+  /**
+   * @method discover
+   */
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
@@ -82,6 +81,9 @@ export class Discovery extends Base {
     return this
   }
 
+  /**
+   * @method resolvePeers
+   */
   @bind
   public resolvePeers(pkg): void {
     if (!pkg.peers) {
@@ -108,8 +110,12 @@ export class Discovery extends Base {
     })
   }
 
+  /**
+   * @method setRequired
+   * @hidden
+   */
   @bind
-  private setRequired() {
+  public setRequired() {
     this.each('peers', (source, pkg) => {
       if (!pkg) return
 
@@ -141,6 +147,10 @@ export class Discovery extends Base {
     })
   }
 
+  /**
+   * @method registerDiscovered
+   * @hidden
+   */
   @bind
   public registerDiscovered() {
     this.each('peers', (_name, pkg) => {
@@ -152,6 +162,10 @@ export class Discovery extends Base {
     })
   }
 
+  /**
+   * @method mapConfig
+   * @hidden
+   */
   @bind
   public mapConfig(pkg: {name: string; dir: string}) {
     if (!pkg) return
@@ -169,6 +183,9 @@ export class Discovery extends Base {
       : {}
   }
 
+  /**
+   * @method install
+   */
   @bind
   public install(): void {
     const required = this.get<{
@@ -199,11 +216,17 @@ export class Discovery extends Base {
         )
   }
 
+  /**
+   * @method getProjectInfo
+   */
   @bind
   public getProjectInfo(): {[key: string]: any} {
     return this.all()
   }
 
+  /**
+   * @method hasPeerDependency
+   */
   @bind
   public hasPeerDependency(pkg: string): boolean {
     return (
@@ -212,3 +235,8 @@ export class Discovery extends Base {
     )
   }
 }
+
+/**
+ * @exports Discovery
+ */
+export {Discovery}

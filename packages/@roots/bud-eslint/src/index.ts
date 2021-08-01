@@ -1,9 +1,21 @@
+/**
+ * @module @roots/bud-eslint
+ */
+
+import './interface'
+
 import {Plugin} from '@roots/bud-framework'
-import EslintPlugin, {Options} from 'eslint-webpack-plugin'
+import ESLintWebpackPlugin, {
+  Options,
+} from 'eslint-webpack-plugin'
+const EslintPlugin = require('eslint-webpack-plugin')
 
 import {Eslint} from './api'
 
-const extension: Plugin<EslintPlugin, Options> = {
+/**
+ * @const {Plugin} extension
+ */
+const extension: Plugin<ESLintWebpackPlugin, Options> = {
   name: 'eslint-webpack-plugin',
 
   options: ({path, store}) => ({
@@ -25,6 +37,20 @@ const extension: Plugin<EslintPlugin, Options> = {
   when: app => app.discovery.hasPeerDependency('eslint'),
 }
 
-export default extension
+/**
+ * @exports default
+ * @exports extension
+ */
+export {extension, extension as default}
+
+/**
+ * @exports name
+ * @exports options
+ * @exports make
+ */
 export const {name, options, make} = extension
+
+/**
+ * @exports Plugin
+ */
 export type {Plugin}

@@ -4,10 +4,33 @@
 
 import {Service} from './Service'
 
+interface Repository {
+  name: string
+
+  peers: {}
+
+  dependencies: {
+    [key: string]: string
+  }
+
+  devDependencies: {
+    [key: string]: string
+  }
+
+  required: {
+    [key: string]: {
+      source: string
+      name: string
+      ver: string
+      type: 'dependencies' | 'devDependencies'
+    }
+  }
+}
+
 /**
  * @interface Discovery
  */
-export abstract class Discovery extends Service {
+export abstract class Discovery extends Service<Repository> {
   /**
    * Array of paths for webpack to resolve modules from
    */

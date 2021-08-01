@@ -3,7 +3,7 @@
  */
 
 import {boundMethod as bind} from 'autobind-decorator'
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 import {Framework} from './Framework'
 import {Hooks} from './Hooks'
@@ -16,7 +16,7 @@ type Key = `${keyof Framework.Extensions & string}`
  *
  * Abstract Extension
  */
-export abstract class Extension {
+abstract class Extension {
   protected _module: Module
 
   protected _app: () => Framework
@@ -102,3 +102,8 @@ export abstract class Extension {
     this.app.hooks.on(this.makeKey(key), value)
   }
 }
+
+/**
+ * @exports Extension
+ */
+export {Extension}

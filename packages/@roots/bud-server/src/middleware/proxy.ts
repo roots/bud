@@ -3,7 +3,7 @@ import {
   createProxyMiddleware,
   Options,
 } from 'http-proxy-middleware'
-import zlib from 'zlib'
+import * as zlib from 'zlib'
 
 /**
  * Proxy middleware factory

@@ -1,5 +1,5 @@
 import babel from '@roots/bud-babel'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import {Framework, setupBud, teardownBud} from '../../../util'
 

@@ -1,4 +1,4 @@
-import MiniCss from 'mini-css-extract-plugin'
+import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
 
 import {Loader} from '../Loader'
 
@@ -12,7 +12,7 @@ export const html = () =>
   new Loader(require.resolve('html-loader'))
 export const md = () =>
   new Loader(require.resolve('remark-loader'))
-export const minicss = () => new Loader(MiniCss.loader)
+export const minicss = () => new Loader(MiniCssLoader)
 export const resolveUrl = () =>
   new Loader(require.resolve('resolve-url-loader'))
 export const style = () =>

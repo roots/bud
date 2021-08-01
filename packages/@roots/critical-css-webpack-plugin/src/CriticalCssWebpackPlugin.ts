@@ -1,17 +1,31 @@
 import {boundMethod as bind} from 'autobind-decorator'
-import critical from 'critical'
-import safeRequire from 'safe-require'
-import vinyl from 'vinyl'
-import Webpack, {Module} from 'webpack'
+import * as critical from 'critical'
+import * as safeRequire from 'safe-require'
+import * as vinyl from 'vinyl'
+import * as Webpack from 'webpack'
 
 import type {Options} from './interface'
 
+/**
+ * @const HtmlWebpackPlugin
+ */
 const HtmlWebpackPlugin = safeRequire('html-webpack-plugin')
+
+/**
+ * @const INIT_OPTIONS
+ */
+const INIT_OPTIONS = {
+  criticalOptions: {
+    extract: true,
+    width: 375,
+    height: 565,
+  },
+}
 
 /**
  * CriticalCSSWebpackPlugin
  */
-export class CriticalCssWebpackPlugin {
+class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
    */
@@ -34,13 +48,7 @@ export class CriticalCssWebpackPlugin {
   /**
    * Options
    */
-  public _options: Options = {
-    criticalOptions: {
-      extract: true,
-      width: 375,
-      height: 565,
-    },
-  }
+  public _options: Options = INIT_OPTIONS
 
   /**
    * Entrypoint css mapping
@@ -127,7 +135,10 @@ export class CriticalCssWebpackPlugin {
    * Critical css from aggregated entrypoint css sources
    */
   @bind
-  public async criticalEntry(entry: string, module: Module) {
+  public async criticalEntry(
+    entry: string,
+    module: Webpack.Module,
+  ) {
     const name = this.maybeHashName(module, entry)
 
     const {css, uncritical} = await this.generateCritical(
@@ -240,3 +251,5 @@ export class CriticalCssWebpackPlugin {
     }
   }
 }
+
+export {CriticalCssWebpackPlugin}

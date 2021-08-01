@@ -1,12 +1,19 @@
+/**
+ * @module @roots/bud
+ */
+
 import {Service} from '@roots/bud-framework'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {Static, Text} from 'ink'
 import {isEqual} from 'lodash'
-import React from 'react'
+import * as React from 'react'
 
-export class Dependencies extends Service {
+/**
+ * @class Dependencies
+ */
+class Dependencies extends Service {
   public name = 'dependencies'
 
   public manager: DependenciesManager
@@ -95,3 +102,8 @@ export class Dependencies extends Service {
     )
   }
 }
+
+/**
+ * @exports Dependencies
+ */
+export {Dependencies}

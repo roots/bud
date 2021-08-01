@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import type {Plugin} from '@roots/bud-framework'
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 

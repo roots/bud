@@ -47,7 +47,7 @@ describe('@roots/bud-imagemin', () => {
 
   it('is used when there are imagemin plugins registered', () => {
     bud.discovery.set('devDependencies', {
-      'imagemin-svgo': '^9.0.0',
+      'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)
 
@@ -71,7 +71,7 @@ describe('@roots/bud-imagemin', () => {
 
   it('automatically registered found imagemin plugins', () => {
     bud.discovery.set('devDependencies', {
-      'imagemin-svgo': '^9.0.0',
+      'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)
 
@@ -79,14 +79,14 @@ describe('@roots/bud-imagemin', () => {
       bud.extensions.get(PLUGIN_HANDLE).get('options'),
     ).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {removeViewBox: false}]],
+        plugins: [['imagemin-gifsicle', {interlaced: true}]],
       },
     })
   })
 
   it('options filter is functioning', () => {
     bud.discovery.set('devDependencies', {
-      'imagemin-svgo': '^9.0.0',
+      'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)
 
@@ -94,7 +94,7 @@ describe('@roots/bud-imagemin', () => {
       bud.hooks.filter(`extension/${PLUGIN_HANDLE}/options`),
     ).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {removeViewBox: false}]],
+        plugins: [['imagemin-gifsicle', {interlaced: true}]],
       },
     })
   })
@@ -108,7 +108,7 @@ describe('@roots/bud-imagemin', () => {
 
   it('bud.imagemin.plugins registers plugin', () => {
     bud.use(imagemin)
-    bud.imagemin.plugins([['svgo', {removeViewBox: false}]])
+    bud.imagemin.plugins([['svgo', {interlaced: true}]])
 
     const options = bud.extensions
       .get(PLUGIN_HANDLE)
@@ -116,7 +116,7 @@ describe('@roots/bud-imagemin', () => {
 
     expect(options).toEqual({
       minimizerOptions: {
-        plugins: [['svgo', {removeViewBox: false}]],
+        plugins: [['svgo', {interlaced: true}]],
       },
     })
   })
@@ -125,7 +125,7 @@ describe('@roots/bud-imagemin', () => {
     bud.use(imagemin)
 
     bud.imagemin.plugins([['foo', {options: 'boom'}]])
-    bud.imagemin.plugins([['bar', {removeViewBox: false}]])
+    bud.imagemin.plugins([['bar', {interlaced: true}]])
 
     const options = bud.extensions
       .get(PLUGIN_HANDLE)
@@ -133,7 +133,7 @@ describe('@roots/bud-imagemin', () => {
 
     expect(options).toEqual({
       minimizerOptions: {
-        plugins: [['bar', {removeViewBox: false}]],
+        plugins: [['bar', {interlaced: true}]],
       },
     })
   })

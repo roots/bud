@@ -1,8 +1,15 @@
+/**
+ * @module @roots/bud-extensions
+ */
+
 import {Extension as Base, Module} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import _ from 'lodash'
+import {isFunction} from 'lodash'
 
-export class Extension extends Base implements Module {
+/**
+ * @class Extension
+ */
+class Extension extends Base implements Module {
   @bind
   public register() {
     this.app.when(this.module.options, () =>
@@ -12,7 +19,7 @@ export class Extension extends Base implements Module {
     this.app.when(this.module.hasOwnProperty('api'), () => {
       Object.assign(
         this.app,
-        _.isFunction(this.module.api)
+        isFunction(this.module.api)
           ? this.module.api(this.app)
           : this.module.api,
       )
@@ -37,3 +44,8 @@ export class Extension extends Base implements Module {
     return this
   }
 }
+
+/**
+ * @exports Extension
+ */
+export {Extension}

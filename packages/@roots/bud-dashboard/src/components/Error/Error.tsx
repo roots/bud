@@ -1,5 +1,5 @@
 import {Box, Text} from 'ink'
-import React from 'react'
+import * as React from 'react'
 
 export const Component = ({title = 'Error', body}) => {
   return (

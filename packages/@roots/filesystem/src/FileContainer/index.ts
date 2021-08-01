@@ -2,9 +2,9 @@ import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
 import {sync as globbySync} from 'globby'
-import _ from 'lodash'
-import path, {PlatformPath} from 'path'
-import resolveFrom from 'resolve-from'
+import * as _ from 'lodash'
+import * as path from 'path'
+import * as resolveFrom from 'resolve-from'
 
 export class FileContainer extends Container {
   /**
@@ -15,7 +15,7 @@ export class FileContainer extends Container {
   /**
    * PlatformPath
    */
-  public path: PlatformPath = path
+  public path: path.PlatformPath = path
 
   /**
    * resolveFrom (better resolve)

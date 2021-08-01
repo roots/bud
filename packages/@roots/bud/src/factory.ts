@@ -26,6 +26,10 @@ namespace Factory {
 
 /**
  * @function factory
+ *
+ * Create a Bud instance programmatically.
+ *
+ * Extensions, services and base configuration can all be overridden using props. {@link Factory.Options}
  */
 const factory: Factory = overrides => {
   return new Bud({

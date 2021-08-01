@@ -3,15 +3,6 @@ import {Option} from 'clipanion'
 
 export class GenCommand extends Command {
   static paths = [[`kjo`, `gen`]]
-  static usage = {
-    category: 'kjo',
-    description: 'Generate site files and repository README.mds',
-    examples: [
-      [`Generate everything`, `yarn kjo gen`],
-      [`Generate site files`, `yarn kjo gen --site`],
-      [`Generate repo readmes`, `yarn kjo gen --readme`],
-    ],
-  }
 
   public site = Option.Boolean(`-s,--site`, false)
   public readme = Option.Boolean(`-r,--readme`, false)

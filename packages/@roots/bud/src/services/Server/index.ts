@@ -1,6 +1,6 @@
 import {Server as Base} from '@roots/bud-server'
 import {boundMethod as bind} from 'autobind-decorator'
-import express from 'express'
+import * as express from 'express'
 
 export class Server extends Base {
   public name = 'server'

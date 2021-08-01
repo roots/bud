@@ -1,4 +1,4 @@
-import globby from 'globby'
+import * as globby from 'globby'
 import {dirname} from 'path'
 import type {InitialOptionsTsJest} from 'ts-jest/dist/types'
 import {defaults} from 'ts-jest/presets'
@@ -16,6 +16,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
       'docs',
       '@roots/filesystem',
       '@roots/bud-typings',
+      '@roots/bud-cli',
     ],
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper,

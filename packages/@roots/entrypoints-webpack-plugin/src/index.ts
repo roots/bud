@@ -1,1 +1,4 @@
-export {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'
+import {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'
+
+export {EntrypointsWebpackPlugin}
+export default EntrypointsWebpackPlugin

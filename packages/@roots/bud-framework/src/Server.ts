@@ -5,16 +5,16 @@
 import type {Container} from '@roots/container'
 import type {WatchOptions} from 'chokidar'
 import type {Application, Handler} from 'express'
-import type Proxy from 'http-proxy-middleware'
-import type Webpack from 'webpack'
-import type DevMiddleware from 'webpack-dev-middleware'
+import type * as Proxy from 'http-proxy-middleware'
+import type * as Webpack from 'webpack'
+import type * as DevMiddleware from 'webpack-dev-middleware'
 
 import type {Service} from './'
 
 /**
  * @interface Server
  */
-export interface Server extends Service {
+interface Server extends Service {
   /**
    * Registered server middlewares
    */
@@ -65,7 +65,7 @@ export interface Server extends Service {
   inject(): void
 }
 
-export namespace Server {
+namespace Server {
   /**
    * Server instance
    */
@@ -214,3 +214,8 @@ export namespace Server {
     disableHostCheck?: DevMiddleware.Options[]
   }
 }
+
+/**
+ * @exports Server
+ */
+export {Server}

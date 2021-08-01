@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import type {Plugin} from '@roots/bud-framework'
 import {DefinePlugin} from 'webpack'
 
@@ -32,5 +36,4 @@ const extension: Plugin<DefinePlugin, Options> = {
   },
 }
 
-export default extension
 export const {name, make, when, options} = extension

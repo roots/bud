@@ -1,5 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import type React from 'react'
+import type * as React from 'react'
 
 declare module '@roots/bud-framework' {
   namespace Dashboard {

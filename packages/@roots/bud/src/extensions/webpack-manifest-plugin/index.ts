@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import {Plugin} from '@roots/bud-framework'
 import {
   ManifestPluginOptions as Options,
@@ -20,5 +24,4 @@ const extension: Plugin<{apply: any}, Options> = {
   when: app => app.store.isTrue('manifest'),
 }
 
-export default extension
 export const {name, options, make, when} = extension

@@ -1,4 +1,4 @@
-import execa from 'execa'
+import {sync as execaSync} from 'execa'
 import {writeFileSync} from 'fs-extra'
 
 gen(['bud', 'help'])
@@ -31,7 +31,7 @@ gen(['bud', 'build', '--cache'])
  * Write terminal output to docusaurus mdx
  */
 function gen(args: string[], dir = 'babel', ver = '') {
-  const {stdout, escapedCommand} = execa.sync('yarn', args, {
+  const {stdout, escapedCommand} = execaSync('yarn', args, {
     cwd: process.cwd().concat('/examples/', dir),
   })
 

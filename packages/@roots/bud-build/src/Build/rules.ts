@@ -1,9 +1,16 @@
-import json5Parser from 'json5'
-import tomlParser from 'toml'
-import yamlParser from 'yamljs'
+/**
+ * @module @roots/bud-build
+ */
 
 import {Rule} from '../Rule'
 
+const json5Parser = require('json5')
+const tomlParser = require('toml')
+const yamlParser = require('yamljs')
+
+/**
+ * @exports image
+ */
 export const image = () =>
   new Rule({
     test: ({store}) => store.get('patterns.image'),
@@ -14,6 +21,9 @@ export const image = () =>
     },
   })
 
+/**
+ * @exports font
+ */
 export const font = () =>
   new Rule({
     test: ({store}) => store.get('patterns.font'),
@@ -21,6 +31,9 @@ export const font = () =>
     use: ({build}) => [build.items['resolveUrl']],
   })
 
+/**
+ * @exports md
+ */
 export const md = () =>
   new Rule({
     test: ({store}) => store.get('patterns.md'),
@@ -28,6 +41,9 @@ export const md = () =>
     use: ({build}) => [build.items.html, build.items.md],
   })
 
+/**
+ * @exports svg
+ */
 export const svg = () =>
   new Rule({
     test: ({store}) => store.get('patterns.svg'),
@@ -38,25 +54,37 @@ export const svg = () =>
     },
   })
 
+/**
+ * @exports html
+ */
 export const html = () =>
   new Rule({
     test: ({store}) => store.get('patterns.html'),
     use: ({build}) => [build.items.html],
   })
 
+/**
+ * @exports csv
+ */
 export const csv = () =>
   new Rule({
     test: ({store}) => store.get('patterns.csv'),
     use: ({build}) => [build.items.csv],
   })
 
+/**
+ * @exports xml
+ */
 export const xml = () =>
   new Rule({
     test: ({store}) => store.get('patterns.xml'),
     use: ({build}) => [build.items.xml],
   })
 
-export const toml = () =>
+/**
+ * @exports toml
+ */
+export const toml: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.toml'),
     type: () => 'json',
@@ -65,7 +93,10 @@ export const toml = () =>
     }),
   })
 
-export const yml = () =>
+/**
+ * @exports yml
+ */
+export const yml: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.yml'),
     type: 'json',
@@ -74,7 +105,10 @@ export const yml = () =>
     }),
   })
 
-export const json5 = () =>
+/**
+ * @exports json5
+ */
+export const json5: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.json5'),
     type: 'json',
@@ -83,7 +117,10 @@ export const json5 = () =>
     }),
   })
 
-export const css = () =>
+/**
+ * @exports css
+ */
+export const css: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.css'),
     exclude: ({store}) => store.get('patterns.modules'),
@@ -93,7 +130,10 @@ export const css = () =>
     ],
   })
 
-export const js = () =>
+/**
+ * @exports js
+ */
+export const js: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.js'),
     exclude: ({store}) => store.get('patterns.modules'),

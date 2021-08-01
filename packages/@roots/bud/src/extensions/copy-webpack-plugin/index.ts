@@ -1,37 +1,20 @@
-import {Framework, Module} from '@roots/bud-framework'
-import CopyPlugin, {CopyPluginOptions} from 'copy-webpack-plugin'
-import {sync as globbySync} from 'globby'
+/**
+ * @module @roots/bud
+ */
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * ## assets
-     *
-     * Copy static assets during compilation.
-     *
-     * You may specify paths with a string literal or glob pattern.
-     *
-     * ### Usage
-     *
-     * **Copy src/images to dist/images**
-     *
-     * ```js
-     * app.assets(['src/images'])
-     * ```
-     */
-    assets: Assets
-  }
-}
+import {Module} from '@roots/bud-framework'
+import * as CopyPlugin from 'copy-webpack-plugin'
+import {CopyPluginOptions} from 'copy-webpack-plugin'
 
-type Assets = (this: Framework, from: string[]) => Framework
-
-const extension: Module<CopyPlugin, CopyPluginOptions> = {
+const copyPluginExtension: Module<
+  CopyPlugin,
+  CopyPluginOptions
+> = {
   name: 'copy-webpack-plugin',
 
-  options: () => ({
+  options: {
     patterns: [],
-    noErrorOnMissing: true,
-  }),
+  },
 
   make: options => new CopyPlugin(options.all()),
 
@@ -41,36 +24,6 @@ const extension: Module<CopyPlugin, CopyPluginOptions> = {
       options.get('patterns')?.length > 0
     )
   },
-
-  api: () => ({
-    assets: function (
-      this: Framework,
-      paths: string[],
-    ): Framework {
-      globbySync(paths).map((from: string) => {
-        const dirName =
-          from.split('/')[from.split('/').length - 2]
-
-        const format = this.store.isTrue('hash')
-          ? this.store.get('hashFormat')
-          : this.store.get('fileFormat')
-
-        const pattern = {
-          from,
-          to: `${dirName}/${format}[ext]`,
-        }
-
-        this.extensions
-          .get('copy-webpack-plugin')
-          .set('options', (copy: CopyPluginOptions) => ({
-            ...copy,
-            patterns: [...(copy.patterns ?? []), pattern],
-          }))
-      })
-
-      return this
-    },
-  }),
 }
 
-export const {name, options, make, when, api} = extension
+export const {name, options, make, when} = copyPluginExtension

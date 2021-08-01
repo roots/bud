@@ -1,20 +1,26 @@
 import './interface'
 
 import {Framework, Library, Module} from '@roots/bud-framework'
-import AutoDllPlugin from 'autodll-webpack-plugin'
 
-interface Extension {
-  name: Module.Name
-  api: Module.Api &
-    ((app: Framework) => {
-      library: Library.Configure
-    })
+const AutoDllPlugin = require('autodll-webpack-plugin')
+
+/**
+ * @interface AutoDllExtension
+ */
+interface AutoDllExtension {
+  name: Module.Name & '@roots/bud-library'
+  api: Module.Api & {
+    library: Library.Configure
+  }
 }
 
-const extension: Extension = {
+/**
+ * @const autodllExtension
+ */
+const autodllExtension: AutoDllExtension = {
   name: '@roots/bud-library',
 
-  api: app => ({
+  api: {
     library(modules) {
       this.extensions.add({
         name: 'autodll-webpack-plugin',
@@ -39,7 +45,17 @@ const extension: Extension = {
 
       return this
     },
-  }),
+  },
 }
 
-export {extension as default}
+/**
+ * @exports autodllExtension
+ * @exports default
+ */
+export {autodllExtension, autodllExtension as default}
+
+/**
+ * @exports name
+ * @exports api
+ */
+export const {name, api} = autodllExtension

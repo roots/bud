@@ -1,5 +1,6 @@
 import {Box, Text} from 'ink'
-import React, {useEffect, useState} from 'react'
+import * as React from 'react'
+import {useEffect, useState} from 'react'
 
 const gT = (num: string | number, num2: string | number) => {
   return new Number(num) > new Number(num2)

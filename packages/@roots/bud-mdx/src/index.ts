@@ -1,14 +1,31 @@
+/**
+ * @module @roots/bud-mdx
+ */
+
 import './interface'
 
 import {Item, Loader, Rule} from '@roots/bud-build'
 import type {Framework, Module} from '@roots/bud-framework'
-import type Webpack from 'webpack'
+import type * as Webpack from 'webpack'
 
 import {MdxConfig} from './api'
 
+/**
+ * @const extension
+ */
 const extension: Module = {
+  /**
+   * @property {string} name
+   *
+   * {@link Module.name}
+   */
   name: '@roots/bud-mdx',
 
+  /**
+   * @property {Module.boot} boot
+   *
+   * {@link Module.boot}
+   */
   boot: (app: Framework) => {
     const {build, store, hooks} = app
 
@@ -46,5 +63,14 @@ const extension: Module = {
   },
 }
 
-export default extension
+/**
+ * @exports extension
+ * @exports default
+ */
+export {extension as default, extension}
+
+/**
+ * @exports name
+ * @exports boot
+ */
 export const {name, boot} = extension

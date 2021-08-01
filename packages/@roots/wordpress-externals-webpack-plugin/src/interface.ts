@@ -1,4 +1,7 @@
-export namespace WordPressExternals {
+/**
+ * @namespace WordPressExternals
+ */
+namespace WordPressExternals {
   export type Output = {
     dir: string
     name: string
@@ -38,3 +41,8 @@ export namespace WordPressExternals {
     [key: string]: any
   }
 }
+
+/**
+ * @exports WordPressExternals
+ */
+export {WordPressExternals}

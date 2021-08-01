@@ -1,3 +1,7 @@
+/**
+ * @module @roots/bud
+ */
+
 import type {Module} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
 
