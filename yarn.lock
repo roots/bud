@@ -3056,7 +3056,7 @@ __metadata:
     cosmiconfig: 7.0.0
     eslint: 7.32.0
     globby: 11.0.4
-    lodash: ^4.17.21
+    lodash: 4.17.21
     node-notifier: 10.0.0
     prettier: 2.3.2
     pretty-format: ^27.0.6
