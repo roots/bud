@@ -3059,7 +3059,7 @@ __metadata:
     lodash: 4.17.21
     node-notifier: 10.0.0
     prettier: 2.3.2
-    pretty-format: ^27.0.6
+    pretty-format: 27.0.6
     serialize-javascript: 6.0.0
     tslib: 2.3.0
   languageName: unknown
@@ -18202,6 +18202,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pretty-format@npm:27.0.6, pretty-format@npm:^27.0.6":
+  version: 27.0.6
+  resolution: "pretty-format@npm:27.0.6"
+  dependencies:
+    "@jest/types": ^27.0.6
+    ansi-regex: ^5.0.0
+    ansi-styles: ^5.0.0
+    react-is: ^17.0.1
+  checksum: 1584f7fe29da829e3cf5c9090b0a18300c4b7b81510047e1d4ba080f87e19b6ce07f191ecf2354d64c1cec4c331009bde255a272db2c8292657b6acc059e4864
+  languageName: node
+  linkType: hard
+
 "pretty-format@npm:^26.0.0, pretty-format@npm:^26.6.2":
   version: 26.6.2
   resolution: "pretty-format@npm:26.6.2"
@@ -18211,18 +18223,6 @@ __metadata:
     ansi-styles: ^4.0.0
     react-is: ^17.0.1
   checksum: e3b808404d7e1519f0df1aa1f25cee0054ab475775c6b2b8c5568ff23194a92d54bf93274139b6f584ca70fd773be4eaa754b0e03f12bb0a8d1426b07f079976
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:^27.0.6":
-  version: 27.0.6
-  resolution: "pretty-format@npm:27.0.6"
-  dependencies:
-    "@jest/types": ^27.0.6
-    ansi-regex: ^5.0.0
-    ansi-styles: ^5.0.0
-    react-is: ^17.0.1
-  checksum: 1584f7fe29da829e3cf5c9090b0a18300c4b7b81510047e1d4ba080f87e19b6ce07f191ecf2354d64c1cec4c331009bde255a272db2c8292657b6acc059e4864
   languageName: node
   linkType: hard
 
