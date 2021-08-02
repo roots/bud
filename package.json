@@ -111,7 +111,7 @@
     "weak-napi": "2.0.2"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "2.3.0"
   },
   "manifest": {
     "name": "bud.js",
