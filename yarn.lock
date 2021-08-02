@@ -2307,7 +2307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
+"@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2, @endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
   version: 3.0.2
   resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
   dependencies:
@@ -2721,7 +2721,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
+"@oclif/command@npm:1.8.0, @oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
   version: 1.8.0
   resolution: "@oclif/command@npm:1.8.0"
   dependencies:
@@ -2774,7 +2774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.5":
+"@oclif/errors@npm:1.3.5, @oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.5":
   version: 1.3.5
   resolution: "@oclif/errors@npm:1.3.5"
   dependencies:
@@ -2806,7 +2806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-autocomplete@npm:^0.3.0":
+"@oclif/plugin-autocomplete@npm:0.3.0, @oclif/plugin-autocomplete@npm:^0.3.0":
   version: 0.3.0
   resolution: "@oclif/plugin-autocomplete@npm:0.3.0"
   dependencies:
@@ -2821,7 +2821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-commands@npm:^1.3.0":
+"@oclif/plugin-commands@npm:1.3.0, @oclif/plugin-commands@npm:^1.3.0":
   version: 1.3.0
   resolution: "@oclif/plugin-commands@npm:1.3.0"
   dependencies:
@@ -2833,7 +2833,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^3, @oclif/plugin-help@npm:^3.2.0, @oclif/plugin-help@npm:^3.2.2":
+"@oclif/plugin-help@npm:3.2.2, @oclif/plugin-help@npm:^3, @oclif/plugin-help@npm:^3.2.0, @oclif/plugin-help@npm:^3.2.2":
   version: 3.2.2
   resolution: "@oclif/plugin-help@npm:3.2.2"
   dependencies:
@@ -2851,7 +2851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-update@npm:^1.3.10":
+"@oclif/plugin-update@npm:1.3.10, @oclif/plugin-update@npm:^1.3.10":
   version: 1.3.10
   resolution: "@oclif/plugin-update@npm:1.3.10"
   dependencies:
@@ -3037,14 +3037,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-cli@workspace:packages/@roots/bud-cli"
   dependencies:
-    "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
-    "@oclif/command": ^1.8.0
+    "@endemolshinegroup/cosmiconfig-typescript-loader": 3.0.2
+    "@oclif/command": 1.8.0
     "@oclif/dev-cli": 1.26.0
-    "@oclif/errors": ^1.3.5
-    "@oclif/plugin-autocomplete": ^0.3.0
-    "@oclif/plugin-commands": ^1.3.0
-    "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-update": ^1.3.10
+    "@oclif/errors": 1.3.5
+    "@oclif/plugin-autocomplete": 0.3.0
+    "@oclif/plugin-commands": 1.3.0
+    "@oclif/plugin-help": 3.2.2
+    "@oclif/plugin-update": 1.3.10
     "@oclif/test": 1.2.8
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
@@ -3052,16 +3052,16 @@ __metadata:
     "@types/lodash": 4.14.171
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
-    autobind-decorator: ^2.4.0
-    cosmiconfig: ^7.0.0
+    autobind-decorator: 2.4.0
+    cosmiconfig: 7.0.0
     eslint: 7.32.0
-    globby: ^11.0.4
+    globby: 11.0.4
     lodash: ^4.17.21
-    node-notifier: ^10.0.0
-    prettier: ^2.3.2
+    node-notifier: 10.0.0
+    prettier: 2.3.2
     pretty-format: ^27.0.6
-    serialize-javascript: ^6.0.0
-    tslib: ^2.3.0
+    serialize-javascript: 6.0.0
+    tslib: 2.3.0
   languageName: unknown
   linkType: soft
 
@@ -7211,7 +7211,7 @@ __metadata:
     ts-jest: 27.0.4
     ts-node: 10.1.0
     tsconfig-paths: 3.10.1
-    tslib: ^2.3.0
+    tslib: 2.3.0
     type-fest: 1.3.0
     typedoc: 0.21.5
     typedoc-plugin-markdown: 3.10.4
@@ -8353,6 +8353,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig@npm:7.0.0, cosmiconfig@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "cosmiconfig@npm:7.0.0"
+  dependencies:
+    "@types/parse-json": ^4.0.0
+    import-fresh: ^3.2.1
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+    yaml: ^1.10.0
+  checksum: 6801feaa0249e9b9fdde5b3d70dc33b4f9c69095bec94d67e3fe08b66eac24dc7e2099f053597cfbc94b743de269aa5d2cfa7da3fde765433423b06bd122941a
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^6.0.0":
   version: 6.0.0
   resolution: "cosmiconfig@npm:6.0.0"
@@ -8363,19 +8376,6 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.7.2
   checksum: 8eed7c854b91643ecb820767d0deb038b50780ecc3d53b0b19e03ed8aabed4ae77271198d1ae3d49c3b110867edf679f5faad924820a8d1774144a87cb6f98fc
-  languageName: node
-  linkType: hard
-
-"cosmiconfig@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "cosmiconfig@npm:7.0.0"
-  dependencies:
-    "@types/parse-json": ^4.0.0
-    import-fresh: ^3.2.1
-    parse-json: ^5.0.0
-    path-type: ^4.0.0
-    yaml: ^1.10.0
-  checksum: 6801feaa0249e9b9fdde5b3d70dc33b4f9c69095bec94d67e3fe08b66eac24dc7e2099f053597cfbc94b743de269aa5d2cfa7da3fde765433423b06bd122941a
   languageName: node
   linkType: hard
 
@@ -15967,7 +15967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-notifier@npm:^10.0.0":
+"node-notifier@npm:10.0.0, node-notifier@npm:^10.0.0":
   version: 10.0.0
   resolution: "node-notifier@npm:10.0.0"
   dependencies:
@@ -19992,6 +19992,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"serialize-javascript@npm:6.0.0, serialize-javascript@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "serialize-javascript@npm:6.0.0"
+  dependencies:
+    randombytes: ^2.1.0
+  checksum: 56f90b562a1bdc92e55afb3e657c6397c01a902c588c0fe3d4c490efdcc97dcd2a3074ba12df9e94630f33a5ce5b76a74784a7041294628a6f4306e0ec84bf93
+  languageName: node
+  linkType: hard
+
 "serialize-javascript@npm:^4.0.0":
   version: 4.0.0
   resolution: "serialize-javascript@npm:4.0.0"
@@ -20007,15 +20016,6 @@ resolve@^2.0.0-next.3:
   dependencies:
     randombytes: ^2.1.0
   checksum: bb45a427690c3d2711e28499de0fbf25036af1e23c63c6a9237ed0aa572fd0941fcdefe50a2dccf26d9df8c8b86ae38659e19d8ba7afd3fbc1f1c7539a2a48d2
-  languageName: node
-  linkType: hard
-
-"serialize-javascript@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "serialize-javascript@npm:6.0.0"
-  dependencies:
-    randombytes: ^2.1.0
-  checksum: 56f90b562a1bdc92e55afb3e657c6397c01a902c588c0fe3d4c490efdcc97dcd2a3074ba12df9e94630f33a5ce5b76a74784a7041294628a6f4306e0ec84bf93
   languageName: node
   linkType: hard
 
