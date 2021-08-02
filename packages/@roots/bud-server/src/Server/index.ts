@@ -16,8 +16,19 @@ const sync = globbySync as (
   options: GlobbyOptions,
 ) => string[]
 
-export class Server extends Service implements Contract {
-  public name = '@roots/bud-server'
+/**
+ * Service: Server
+ *
+ * @noInheritDoc
+ */
+export class Server
+  extends Service<Contract.Configuration>
+  implements Contract
+{
+  /**
+   * @property {string} name
+   */
+  public name = 'server'
 
   public middleware: Contract.Middleware.Inventory = {}
 

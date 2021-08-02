@@ -1,17 +1,19 @@
 /**
- * @module @roots/bud-babel
+ * @module Framework.Extensions.Babel
  */
 
 import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
-import type {Babel} from '..'
+import type {BabelConfig} from '..'
 
 /**
- * @class Config
+ * Babel config utility
+ *
+ * @implements BabelConfig
  */
-class Config implements Babel {
+class Config implements BabelConfig {
   /**
    * @property {string} name
    */
@@ -24,16 +26,16 @@ class Config implements Babel {
   public _app: () => Framework
 
   /**
-   * @property {Babel.Registry} _plugins
+   * @property {BabelConfig.Registry} _plugins
    * @hidden
    */
-  public _plugins: Babel.Registry = {}
+  public _plugins: BabelConfig.Registry = {}
 
   /**
-   * @property {Babel.Registry} _presets
+   * @property {BabelConfig.Registry} _presets
    * @hidden
    */
-  public _presets: Babel.Registry = {}
+  public _presets: BabelConfig.Registry = {}
 
   /**
    * @property {Framework} app
@@ -44,7 +46,7 @@ class Config implements Babel {
   }
 
   /**
-   * @property {Babel.Registry} plugins
+   * @property {BabelConfig.Registry} plugins
    */
   public get plugins() {
     return this._plugins
@@ -54,7 +56,7 @@ class Config implements Babel {
   }
 
   /**
-   * @property {Babel.Registry} presets
+   * @property {BabelConfig.Registry} presets
    */
   public get presets() {
     return this._presets
@@ -64,32 +66,29 @@ class Config implements Babel {
   }
 
   /**
-   * @method init
+   * @constructor
    */
-  @bind
-  public init(app: Framework): this {
+  public constructor(app: Framework) {
     this._app = () => app
-
-    return this
   }
 
   /**
-   * @method normalizeEntry
+   * BabelConfig.normalizeEntry
    */
   @bind
   public normalizeEntry(
-    c: Babel.Registrable,
-  ): Babel.NormalizedPlugin {
+    c: BabelConfig.Registrable,
+  ): BabelConfig.NormalizedPlugin {
     return isString(c)
-      ? ([c, {}] as Babel.NormalizedPlugin)
-      : (c as Babel.NormalizedPlugin)
+      ? ([c, {}] as BabelConfig.NormalizedPlugin)
+      : (c as BabelConfig.NormalizedPlugin)
   }
 
   /**
-   * @method setPlugin
+   * BabelConfig.setPlugin
    */
   @bind
-  public setPlugin(plugin: Babel.Registrable): this {
+  public setPlugin(plugin: BabelConfig.Registrable): this {
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -98,21 +97,22 @@ class Config implements Babel {
   }
 
   /**
-   * @method setPlugins
+   * BabelConfig.setPlugins
    */
   @bind
   public setPlugins(
-    plugins: Array<Babel.NormalizedPlugin | string>,
+    plugins: Array<BabelConfig.NormalizedPlugin | string>,
   ): this {
     plugins.map(this.setPlugin)
+
     return this
   }
 
   /**
-   * @method SetPreset
+   * BabelConfig.setPreset
    */
   @bind
-  public setPreset(preset: Babel.Registrable): this {
+  public setPreset(preset: BabelConfig.Registrable): this {
     preset = this.normalizeEntry(preset)
 
     this.presets = {
@@ -124,11 +124,11 @@ class Config implements Babel {
   }
 
   /**
-   * @method setPresets
+   * BabelConfig.setPresets
    */
   @bind
   public setPresets(
-    presets: Array<Babel.NormalizedPlugin | string>,
+    presets: Array<BabelConfig.NormalizedPlugin | string>,
   ): this {
     presets.map(this.setPreset)
 
@@ -136,7 +136,7 @@ class Config implements Babel {
   }
 
   /**
-   * @method unsetPreset
+   * BabelConfig.unsetPreset
    */
   @bind
   public unsetPreset(preset: string) {
@@ -148,7 +148,7 @@ class Config implements Babel {
   }
 
   /**
-   * @method unsetPlugin
+   * BabelConfig.unsetPlugin
    */
   @bind
   public unsetPlugin(plugin: string) {
@@ -160,7 +160,7 @@ class Config implements Babel {
   }
 
   /**
-   * @method setPluginOptions
+   * BabelConfig.setPluginOptions
    */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
@@ -170,7 +170,7 @@ class Config implements Babel {
   }
 
   /**
-   * @method setPresetOptions
+   * BabelConfig.setPresetOptions
    */
   @bind
   public setPresetOptions(preset: string, options: any): this {
@@ -180,7 +180,4 @@ class Config implements Babel {
   }
 }
 
-/**
- * @exports Config
- */
 export {Config}

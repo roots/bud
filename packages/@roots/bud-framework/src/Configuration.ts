@@ -4,7 +4,7 @@
 
 import type * as Webpack from 'webpack'
 
-import type {Hooks, Server} from '.'
+import type {Framework, Server} from '.'
 
 /**
  * @interface Configuration
@@ -29,7 +29,7 @@ interface Configuration {
   /**
    * Location
    */
-  location: Hooks.Locale.Definitions
+  location: Framework.Locations
 
   /**
    * Feature: CI mode

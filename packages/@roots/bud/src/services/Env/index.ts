@@ -1,5 +1,5 @@
 /**
- * @module @roots/bud
+ * @module Bud.Env
  */
 
 import {Service} from '@roots/bud-framework'
@@ -8,9 +8,11 @@ import * as env from 'dotenv'
 import * as expand from 'dotenv-expand'
 
 /**
- * @class Env
+ * Service: Env
+ *
+ * @noInheritDoc
  */
-class Env extends Service {
+class Env extends Service<{[key: string]: any}> {
   /**
    * @property {string} name
    */
@@ -28,7 +30,7 @@ class Env extends Service {
    * @method getParsedEnv
    */
   @bind
-  public getParsedEnv() {
+  public getParsedEnv(): {[key: string]: any} {
     return env?.config
       ? expand(env.config({path: this.envPath})).parsed
       : {}
@@ -44,7 +46,4 @@ class Env extends Service {
   }
 }
 
-/**
- * @exports Env
- */
 export {Env}

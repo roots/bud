@@ -8,7 +8,15 @@ import {Error} from '../components/Error'
 import {Screen} from '../components/Screen'
 import {Dashboard as DashboardComponent} from './Dashboard'
 
+/**
+ * Service: Dashboard
+ *
+ * @noInheritDoc
+ */
 export class Dashboard extends Base {
+  /**
+   * @property {string} name
+   */
   public name = 'dashboard'
 
   public instance: Instance

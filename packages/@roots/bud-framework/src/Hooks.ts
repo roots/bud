@@ -4,15 +4,14 @@
 
 import type * as Webpack from 'webpack'
 
-import type {Extension, Framework, Module, Service} from './'
+import type {Framework, Module, Plugin, Service} from './'
 
 /**
  * @interface Hooks
  *
- * ### Usage
+ * @usage
  *
- * ####  Add a new entry to the
- * `webpack.externals` configuration:
+ * Add a new entry to the `webpack.externals` configuration:
  *
  * ```js
  * hooks.on(
@@ -24,7 +23,7 @@ import type {Extension, Framework, Module, Service} from './'
  * )
  * ```
  *
- * #### Change the `webpack.output.filename` format:
+ * Change the `webpack.output.filename` format:
  *
  * ```js
  * hooks.on(
@@ -33,12 +32,7 @@ import type {Extension, Framework, Module, Service} from './'
  * )
  * ```
  */
-interface Hooks extends Service {
-  /**
-   * Hooks repository
-   */
-  repository: Hooks.Repository
-
+interface Hooks extends Service<Hooks.Repository> {
   /**
    * hooks.on
    *
@@ -59,7 +53,7 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  on(id: `${Hooks.Name}`, callback: Hooks.Hook): Framework
+  on(id: Hooks.Name, callback: Hooks.Hook): Framework
 
   /**
    * hooks.filter
@@ -77,7 +71,7 @@ interface Hooks extends Service {
    * )
    * ```
    */
-  filter<T = any>(id: `${Hooks.Name}`, seed?: any): T
+  filter<T = any>(id: Hooks.Name, seed?: any): T
 }
 
 namespace Hooks {
@@ -87,160 +81,51 @@ namespace Hooks {
   export type Hook<T = any> = ((value?: T) => T) | T
 
   /**
-   * bud.publish key/value argument
+   * Hooks repository
    */
-  export type PublishDict = {
-    [K in Hooks.Name as `${K & string}`]?: any
+  export type Repository = {
+    [K in Name as `${K & string}`]?: Hook[]
   }
 
-  /**
-   * @hidden
-   */
-  export namespace Loader {
-    export type Base = `loader`
-    export type Subject = string
+  export type Key = `${keyof Repository}`
 
-    export interface Definitions {
-      css: Subject
-      raw: Subject
-      style: Subject
-      file: Subject
-      url: Subject
-      minicss: Subject
-      ['resolve-url']: Subject
-    }
+  export type LocationKeys =
+    `location/${keyof Framework.Locations & string}`
 
-    export type Final =
-      | `loader`
-      | keyof {
-          [K in keyof Definitions as `${Base}/${K &
-            string}`]: Definitions[K]
-        }
-  }
+  export type LoaderKeys =
+    | `loader`
+    | `loader/${keyof Framework.Loaders}`
 
-  /**
-   * @hidden
-   */
-  export namespace Item {
-    export type Base = 'item'
-    export type Subject = Webpack.RuleSetUseItem
-    export type SubjectKeys = 'loader' | 'options'
+  export type ItemKeys =
+    | `item`
+    | `item/${keyof Framework.Items}`
+    | `item/${keyof Framework.Items}/loader`
+    | `item/${keyof Framework.Items}/options`
+    | `item/${keyof Framework.Items}/options/${string}`
 
-    export type OptionsKey = `${string}`
+  export type RuleKeys =
+    | `rule`
+    | `rule/${keyof Framework.Rules}`
+    | `rule/${keyof Framework.Rules}/${keyof Webpack.RuleSetRule}`
+    | `rule/${keyof Framework.Rules}/${keyof Webpack.RuleSetRule &
+        `options`}/${string}`
 
-    export interface Definitions {
-      css: Subject
-      file: Subject
-      image: Subject
-      font: Subject
-      js: Subject
-      minicss: Subject
-      'resolve-url': Subject
-      raw: Subject
-      style: Subject
-      svg: Subject
-    }
+  export namespace BuildHooks {
+    type Rules = Webpack.Configuration['module']['rules']
 
-    export type Root = {
-      item: Subject
-    }
-
-    export type Item = {
-      [K in keyof Definitions as `${Base}/${K & string}`]: any
-    }
-
-    export type Props = {
-      [K in keyof Item as `${K & string}/${SubjectKeys}`]: any
-    }
-
-    export type OptionKey<K> = `${K & string}/${SubjectKeys &
-      'options'}/${string}`
-
-    export type Options = {
-      [K in keyof Item as OptionKey<K>]: any
-    }
-
-    export type Final =
-      | keyof Root
-      | keyof Item
-      | keyof Props
-      | keyof Options
-  }
-
-  /**
-   * @hidden
-   */
-  export namespace Rule {
-    export type Base = 'rule'
-    export type Subject = Webpack.RuleSetRule
-    export type WebpackMap = {
-      [K in keyof Subject as `${Base}/${keyof Definitions &
-        string}/${K & string}`]: Subject[K]
-    }
-
-    export interface Definitions {
-      js: Subject
-      css: Subject
-      html: Subject
-      svg: Subject
-      image: Subject
-      font: Subject
-      xml: Subject
-      json5: Subject
-      csv: Subject
-      yml: Subject
-      toml: Subject
-    }
-
-    export type Root = {
-      rule: Subject
-    }
-
-    export type Rule = {
-      [K in keyof Definitions as `${Base}/${K & string}`]: any
-    }
-
-    export type Props = {
-      [K in keyof Rule as `${K & string}/${keyof Subject &
-        string}`]: any
-    }
-
-    export type Options = {
-      [K in keyof Rule as `${K & string}/${keyof Subject &
-        'options'}/${string}`]: any
-    }
-
-    export type Final =
-      | keyof Root
-      | keyof Rule
-      | keyof Props
-      | keyof Options
-  }
-
-  /**
-   * @hidden
-   */
-  export namespace Build {
-    /**
-     * Bud does not support 'none'
-     */
-    export type Mode = 'development' | 'production'
-
-    export type Rules = Webpack.Configuration['module']['rules']
-    export interface RulesOverride extends Rules {
+    interface RulesOverride extends Rules {
       oneOf: Webpack.RuleSetRule
     }
 
-    export type Optimization =
-      Webpack.Configuration['optimization']
-    export interface OptimizationOverride extends Optimization {
+    type Optimization = Webpack.Configuration['optimization']
+    interface OptimizationOverride extends Optimization {
       splitChunks: {
         cacheGroups: any
       }
     }
 
     interface Config extends Webpack.Configuration {
-      mode?: Build.Mode
+      mode?: Framework.Mode
       module?: {
         noParse?:
           | RegExp
@@ -253,93 +138,63 @@ namespace Hooks {
       parallelism?: Webpack.Configuration['parallelism']
     }
 
-    export type Dive<T, S> = {
+    type Dive<T, S> = {
       [K in keyof T as `build/${S & string}/${K & string}`]: T[K]
     }
 
-    export type Props = {
-      [K in keyof Config as `build/${K & string}`]: Config[K]
-    }
-
-    export type Top = {build: Config}
-
-    export type Final = keyof {
-      [K in
-        | keyof Top
-        | keyof Props
-        | keyof Dive<Config['output'], 'output'>
-        | 'build/output/pathInfo'
-        | keyof Dive<Config['module'], 'module'>
-        | keyof Dive<Config['module']['rules'], 'module/rules'>
-        | keyof Dive<
-            Config['module']['rules']['oneOf'],
-            'module/rules/oneOf'
-          >
-        | 'build/module/rules/parser'
-        | keyof Dive<Config['resolve'], 'resolve'>
-        | keyof Dive<Config['resolveLoader'], 'resolveLoader'>
-        | 'build/cache/name'
-        | 'build/cache/cacheLocation'
-        | 'build/cache/cacheDirectory'
-        | 'build/cache/hashAlgorithm'
-        | 'build/cache/managedPaths'
-        | 'build/cache/version'
-        | 'build/cache/type'
-        | 'build/cache/buildDependencies'
-        | keyof Dive<Config['experiments'], 'experiments'>
-        | keyof Dive<Config['watchOptions'], 'watchOptions'>
-        | keyof Dive<Config['performance'], 'performance'>
-        | keyof Dive<Config['optimization'], 'optimization'>
-        | keyof Dive<
-            Config['optimization']['splitChunks'],
-            'optimization/splitChunks'
-          >
-        | keyof Dive<
-            Config['optimization']['splitChunks']['cacheGroups'],
-            'optimization/splitChunks/cacheGroups'
-          >
-        | keyof Dive<
-            Config['optimization']['splitChunks']['cacheGroups']['vendor'],
-            'optimization/splitChunks/cacheGroups/vendor'
-          >]: any
-    }
+    export type Keys =
+      | `build`
+      | `build/${keyof Config}`
+      | keyof Dive<Config['output'], 'output'>
+      | 'build/output/pathInfo'
+      | keyof Dive<Config['module'], 'module'>
+      | keyof Dive<Config['module']['rules'], 'module/rules'>
+      | keyof Dive<
+          Config['module']['rules']['oneOf'],
+          'module/rules/oneOf'
+        >
+      | 'build/module/rules/parser'
+      | keyof Dive<Config['resolve'], 'resolve'>
+      | keyof Dive<Config['resolveLoader'], 'resolveLoader'>
+      | 'build/cache/name'
+      | 'build/cache/cacheLocation'
+      | 'build/cache/cacheDirectory'
+      | 'build/cache/hashAlgorithm'
+      | 'build/cache/managedPaths'
+      | 'build/cache/version'
+      | 'build/cache/type'
+      | 'build/cache/buildDependencies'
+      | keyof Dive<Config['experiments'], 'experiments'>
+      | keyof Dive<Config['watchOptions'], 'watchOptions'>
+      | keyof Dive<Config['performance'], 'performance'>
+      | keyof Dive<Config['optimization'], 'optimization'>
+      | keyof Dive<
+          Config['optimization']['splitChunks'],
+          'optimization/splitChunks'
+        >
+      | keyof Dive<
+          Config['optimization']['splitChunks']['cacheGroups'],
+          'optimization/splitChunks/cacheGroups'
+        >
+      | keyof Dive<
+          Config['optimization']['splitChunks']['cacheGroups']['vendor'],
+          'optimization/splitChunks/cacheGroups/vendor'
+        >
   }
 
   /**
-   * @hidden
-   */
-  export namespace Locale {
-    export interface Definitions {
-      project: Subject
-      src: Subject
-      dist: Subject
-      publicPath: Subject
-      storage: Subject
-      modules: Subject
-    }
-
-    export type Base = `location`
-    export type Subject = string
-    export type Final = keyof {
-      [K in keyof Definitions as `${Base}/${K &
-        string}`]: Definitions[K]
-    }
-  }
-
-  /**
-   * @hidden
+   * Hooks.Extension
    */
   export namespace Extension {
-    export type Base = `extension`
-    export type Subject = Module
-
-    export type Final = keyof {
-      [K in keyof Framework.Index<Extension> as
+    export type Keys = keyof {
+      [K in keyof Framework.Extensions as
         | `extension`
         | `extension/${K}`
         | `extension/${K}/${
-            | `${keyof Subject & string}`
-            | `${keyof Subject & string}/${string}`}`]: any
+            | `${keyof Module & string}`
+            | `${keyof Module & string}/${string}`}`]:
+        | Module
+        | Plugin
     }
   }
 
@@ -350,19 +205,12 @@ namespace Hooks {
     | `before`
     | `after`
     | `done`
-    | `${Item.Final}`
-    | `${Locale.Final}`
-    | `${Loader.Final}`
-    | `${Rule.Final}`
-    | `${Extension.Final}`
-    | `${Build.Final}`
-
-  export type Repository = {
-    [K in Name as `${K & string}`]?: Hook[]
-  }
+    | `${ItemKeys}`
+    | `${LocationKeys}`
+    | `${LoaderKeys}`
+    | `${RuleKeys}`
+    | `${Extension.Keys}`
+    | `${BuildHooks.Keys}`
 }
 
-/**
- * @exports Hooks
- */
 export {Hooks}

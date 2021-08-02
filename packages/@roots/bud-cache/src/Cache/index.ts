@@ -13,11 +13,21 @@ import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {sync as globbySync} from 'globby'
 
 /**
- * @class Cache
+ * Service: Cache
+ *
+ * @noInheritDoc
  */
 class Cache extends Service implements Contract {
+  /**
+   * @property {string} name
+   */
   public name = 'cache'
 
+  /**
+   * Service register event
+   *
+   * @see {Service.register}
+   */
   @bind
   public register(app: Framework): void {
     app.hooks
@@ -27,6 +37,11 @@ class Cache extends Service implements Contract {
       .hooks.on('build/cache/type', () => 'memory')
   }
 
+  /**
+   * Service booted event
+   *
+   * @see {Service.booted}
+   */
   @bind
   public booted(): void {
     this.app.hooks.filter('build/cache/type') == 'filesystem' &&
@@ -34,22 +49,31 @@ class Cache extends Service implements Contract {
       mkdirSync(this.app.path('storage'))
   }
 
+  /**
+   * Returns sha1 hash as a version string
+   */
   @bind
   public version(): string {
-    const version = createHash('sha1')
+    return createHash('sha1')
       .update(this.hash())
       .digest('base64')
       .replace(/[^a-z0-9]/gi, '_')
       .toLowerCase()
-
-    return version
   }
 
+  /**
+   * Returns cache directory for fs operations
+   */
   @bind
   public directory(): string {
     return this.app.path('storage', 'cache')
   }
 
+  /**
+   * Returns array of build dependency paths
+   *
+   * @see [webpack cache.buildDependencies docs](https://webpack.js.org/configuration/cache/#cachebuilddependencies)
+   */
   @bind
   public buildDependencies(): string[] {
     return [
@@ -80,6 +104,9 @@ class Cache extends Service implements Contract {
     ]
   }
 
+  /**
+   * Returns hash of all build dependencies and parsed CLI arguments
+   */
   @bind
   public hash(): string {
     return JSON.stringify(
@@ -91,7 +118,4 @@ class Cache extends Service implements Contract {
   }
 }
 
-/**
- * @exports Cache
- */
 export {Cache}

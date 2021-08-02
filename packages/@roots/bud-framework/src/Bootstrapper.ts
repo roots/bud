@@ -1,28 +1,49 @@
 /**
- * @module @roots/bud-framework
+ * @module Framework.Bootstrapper
  */
 
-import {Container} from '@roots/container'
+import {Container, Repository} from '@roots/container'
 
 import type {Framework} from './'
 
 /**
- * @abstract Bootstrapper
- *
- * {@link Service} base class.
- *
- * {@link Logger} and {@link Store} extend this directly
- * since they are needed before lifecycle methods are invoked.
- *
- * Container instance.
+ * Bootstrapper
  *
  * @noInheritDoc
  */
 abstract class Bootstrapper<T = any> extends Container<T> {
   /**
-   * Name
+   * @property {string} name
    */
   public name: any
+
+  /**
+   * @property {Repository} repository
+   */
+  public repository: Repository & T
+
+  /**
+   * @property {Framework} _app
+   * @hidden
+   */
+  private _app: () => Framework
+
+  /**
+   * @property {Framework} app
+   * @readonly
+   */
+  public get app(): Framework {
+    return this._app()
+  }
+
+  /**
+   * @constructor
+   */
+  public constructor(app: Framework) {
+    super()
+
+    this._app = () => app
+  }
 
   /**
    * Bootstrap

@@ -2,7 +2,7 @@
  * @module @roots/bud
  */
 
-import type {Module} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
@@ -15,11 +15,7 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-interface extensions {
-  [key: string]: Module
-}
-
-const extensions: extensions = {
+const extensions: Framework.Modules = {
   [WebpackProvidePlugin.name]: WebpackProvidePlugin,
   [CleanWebpackPlugin.name]: CleanWebpackPlugin,
   [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,

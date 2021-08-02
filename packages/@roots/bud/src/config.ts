@@ -7,9 +7,7 @@ import type {Configuration} from '@roots/bud-framework'
 export type {Configuration}
 
 /**
- * @const config
- *
- * {@link Configuration}
+ * Bud base configuration
  */
 const config: Configuration = {
   name: 'bud',
@@ -206,7 +204,4 @@ const config: Configuration = {
   },
 }
 
-/**
- * @exports config
- */
 export {config}

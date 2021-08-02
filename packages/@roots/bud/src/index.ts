@@ -2,57 +2,91 @@
  * @module @roots/bud
  */
 
-export {Bud} from './Bud'
-
-export {factory, Factory} from './factory'
-
-export {config, Configuration} from './config'
-
-export {extensions} from './extensions'
-
-export {services} from './services'
-
-export {Api} from '@roots/bud-api'
-
-export {
-  Build,
-  Item,
-  Rule,
-  Loader,
-  items,
-  loaders,
-  rules,
-} from '@roots/bud-build'
-
-export {Cache} from '@roots/bud-cache'
-
-export {Compiler} from '@roots/bud-compiler'
-
-export {Dashboard} from '@roots/bud-dashboard'
-
-export {Dependencies} from './services/Dependencies'
-
-export {Discovery} from './services/Discovery'
-
-export {Env} from './services/Env'
-
-export {Extensions} from './services/Extensions'
-
-export {Hooks} from './services/Hooks'
-
-export {Logger} from './services/Logger'
-
-export {Server} from './services/Server'
-
-export {
-  Framework,
+import {
+  Bootstrapper,
+  Bud,
   Extension,
+  Framework,
   Module,
   Plugin,
   Service,
-  Bootstrapper,
   Store,
-} from '@roots/bud-framework'
+} from './Bud'
+import {config, Configuration} from './config'
+import {extensions} from './extensions'
+import {Factory, factory} from './Factory'
+import {services} from './services'
+import {Api} from './services/Api'
+import {
+  Build,
+  Item,
+  items,
+  Loader,
+  loaders,
+  Rule,
+  rules,
+} from './services/Build'
+import {Cache} from './services/Cache'
+import {Compiler} from './services/Compiler'
+import {Dashboard} from './services/Dashboard'
+import {Dependencies} from './services/Dependencies'
+import {Discovery} from './services/Discovery'
+import {Env} from './services/Env'
+import {Extensions} from './services/Extensions'
+import {Hooks} from './services/Hooks'
+import {Logger} from './services/Logger'
+import {Server} from './services/Server'
+
+export {Bud}
+
+export {Framework}
+
+export {Api}
+
+export {Build}
+
+export {Bootstrapper}
+
+export {Cache}
+
+export {Compiler}
+
+export {Dashboard}
+
+export {Dependencies}
+
+export {Discovery}
+
+export {Env}
+
+export {Extension}
+
+export {Extensions}
+
+export {Hooks}
+
+export {Logger}
+
+export {Module}
+
+export {Plugin}
+
+export {Server}
+
+export {Service}
+
+export {Store}
+
+export {config}
+export type {Configuration}
+
+export {items, rules, loaders}
+export {Item, Rule, Loader}
+
+export {factory}
+export type {Factory}
+
+export {extensions, services}
 
 /**
  * @hidden

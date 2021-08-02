@@ -51,6 +51,78 @@ namespace Framework {
   export type Mode = 'production' | 'development'
 
   /**
+   * Registered loaders
+   */
+  export interface Loaders
+    extends Framework.Index<Build.Loader> {
+    css: Build.Loader
+    csv: Build.Loader
+    html: Build.Loader
+    md: Build.Loader
+    raw: Build.Loader
+    style: Build.Loader
+    file: Build.Loader
+    url: Build.Loader
+    minicss: Build.Loader
+    'resolve-url': Build.Loader
+    xml: Build.Loader
+  }
+
+  /**
+   * Registered items
+   */
+  export interface Items extends Framework.Index<Build.Item> {
+    css: Build.Item
+    csv: Build.Item
+    file: Build.Item
+    image: Build.Item
+    font: Build.Item
+    html: Build.Item
+    js: Build.Item
+    md: Build.Item
+    minicss: Build.Item
+    'resolve-url': Build.Item
+    raw: Build.Item
+    style: Build.Item
+    svg: Build.Item
+    xml: Build.Item
+  }
+
+  /**
+   * Registered rules
+   */
+  export interface Rules extends Framework.Index<Build.Rule> {
+    js: Build.Rule
+    css: Build.Rule
+    html: Build.Rule
+    svg: Build.Rule
+    image: Build.Rule
+    font: Build.Rule
+    xml: Build.Rule
+    json5: Build.Rule
+    csv: Build.Rule
+    yml: Build.Rule
+    toml: Build.Rule
+  }
+
+  /**
+   * Registered locations
+   */
+  export interface Locations extends Framework.Index<string> {
+    project: string
+    src: string
+    dist: string
+    publicPath: string
+    storage: string
+    modules: string
+  }
+
+  /**
+   * Registered modules
+   */
+  export interface Modules extends Index<Module | Plugin> {}
+
+  /**
    * Registered services
    */
   export interface Services
@@ -58,6 +130,9 @@ namespace Framework {
       new (app: Framework) => Service | Bootstrapper
     > {}
 
+  /**
+   * Registered compilers
+   */
   export interface Instances extends Index<Framework> {}
 
   /**
@@ -71,10 +146,9 @@ namespace Framework {
   export type Constructor = new (options: Options) => Framework
 
   /*
-   * Constructor props
+   * Constructor options
    *
-   * Cloned to {@link Framework.options} on instantiation so that {@link Framework.make}
-   * has reference when instantiating child compilers
+   * @see {Framework.options}
    */
   export interface Options {
     /**
@@ -281,7 +355,7 @@ abstract class Framework {
 
   @bind
   public path(
-    key: `${keyof Hooks.Locale.Definitions & string}`,
+    key: keyof Framework.Locations,
     ...path: string[]
   ): string {
     return join(
@@ -289,7 +363,7 @@ abstract class Framework {
         key !== 'project'
           ? this.hooks.filter('location/project')
           : false,
-        this.hooks.filter(`location/${key}` as Hooks.Name),
+        this.hooks.filter(`location/${key}`),
         ...(path ?? []),
       ].filter(Boolean),
     )

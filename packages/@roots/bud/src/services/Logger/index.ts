@@ -1,72 +1,49 @@
-import {
-  Bootstrapper,
-  Framework,
-  Logger as Contract,
-} from '@roots/bud-framework'
-import {Container} from '@roots/container'
+/**
+ * @module Bud.Logger
+ */
+
+import {Framework, Logger as Base} from '@roots/bud-framework'
 import {Signale} from 'signale'
 
 /**
- * Logger service
+ * Constants
  */
-export class Logger
-  extends Container
-  implements Contract, Bootstrapper
-{
+import {INSTANCE_CONFIG, LOGGER_TYPES} from './enum'
+
+/**
+ * Bootstrapper: Logger
+ *
+ * @implements {Contract}
+ * @implements {Bootstrapper}
+ * @noInheritDoc
+ */
+class Logger extends Base {
+  /**
+   * @property {string} name
+   */
   public name = 'logger'
 
-  private _app: () => Framework
-
-  public _instance: Signale
-
-  public get instance() {
-    return this._instance
-  }
-
-  public set instance(instance) {
-    this._instance = instance
-  }
-
-  public get app(): Framework {
-    return this._app()
-  }
-
+  /**
+   * @constructor
+   */
   public constructor(app: Framework) {
-    super()
+    super(app)
 
-    this._app = () => app
-
-    this._instance = new Signale({
+    this.instance = new Signale({
       disabled: true,
       interactive: false,
       secrets: [process.cwd()],
       scope: app.name,
-      types: {
-        log: {
-          label: 'log',
-          badge: '≫',
-          color: 'magentaBright',
-        },
-      },
+      types: LOGGER_TYPES,
       stream: [process.stdout],
     })
 
-    this._instance.config({
-      displayScope: true,
-      displayBadge: true,
-      displayDate: false,
-      displayFilename: false,
-      displayLabel: false,
-      displayTimestamp: false,
-      underlineLabel: false,
-      underlineMessage: false,
-      underlinePrefix: false,
-      underlineSuffix: false,
-      uppercaseLabel: false,
-    })
+    this.instance.config(INSTANCE_CONFIG)
 
     if (process.argv.includes('--log')) {
-      this._instance.enable()
+      this.instance.enable()
     }
   }
 }
+
+export {Logger}

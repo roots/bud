@@ -1,27 +1,30 @@
 /**
- * @module @roots/bud
+ * @module Bud.Extensions
  */
 
 import {Extensions as Contract} from '@roots/bud-extensions'
+import {Framework, Service} from '@roots/bud-framework'
 
 import {extensions} from '../../extensions'
 
 /**
- * @class Extensions
+ * Service: Extensions
+ *
+ * @implements {Contract}
  */
-class Extensions extends Contract {
+class Extensions
+  extends Contract
+  implements Service<Framework.Extensions>
+{
   /**
    * @property {string} name
    */
   public name = 'extensions'
 
   /**
-   * @property {Contract.repository} repository
+   * @property {Framework.Extensions} repository
    */
   public repository = extensions
 }
 
-/**
- * @exports Extensions
- */
 export {Extensions}

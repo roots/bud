@@ -1,7 +1,6 @@
 **/bin
 **/lib
 **/*.json
-**/*.md
 **/node_modules
 **/package.json
 **/tsconfig.json

@@ -1,8 +1,11 @@
 /**
- * @module @roots/bud
+ * @module Bud.Discovery
  */
 
-import {Discovery as Contract} from '@roots/bud-framework'
+import {
+  Discovery as Contract,
+  Service,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
@@ -11,9 +14,15 @@ import {dirname} from 'path'
 const pkgUp = require('pkg-up')
 
 /**
- * @class Discovery
+ * Service: Discovery
+ *
+ * @implements {Service}
+ * @noInheritDoc
  */
-class Discovery extends Contract {
+class Discovery
+  extends Contract
+  implements Service<Contract['repository']>
+{
   /**
    * @property {string} name
    */
@@ -28,6 +37,25 @@ class Discovery extends Contract {
     dependencies: {},
     devDependencies: {},
     required: {},
+  }
+
+  /**
+   * @method getProjectInfo
+   */
+  @bind
+  public getProjectInfo(): {[key: string]: any} {
+    return this.all()
+  }
+
+  /**
+   * @method hasPeerDependency
+   */
+  @bind
+  public hasPeerDependency(pkg: string): boolean {
+    return (
+      this.has(`devDependencies.${pkg}`) ||
+      this.has(`dependencies.${pkg}`)
+    )
   }
 
   /**
@@ -185,6 +213,7 @@ class Discovery extends Contract {
 
   /**
    * @method install
+   * @hidden
    */
   @bind
   public install(): void {
@@ -215,28 +244,6 @@ class Discovery extends Contract {
           'bud extensions:install',
         )
   }
-
-  /**
-   * @method getProjectInfo
-   */
-  @bind
-  public getProjectInfo(): {[key: string]: any} {
-    return this.all()
-  }
-
-  /**
-   * @method hasPeerDependency
-   */
-  @bind
-  public hasPeerDependency(pkg: string): boolean {
-    return (
-      this.has(`devDependencies.${pkg}`) ||
-      this.has(`dependencies.${pkg}`)
-    )
-  }
 }
 
-/**
- * @exports Discovery
- */
 export {Discovery}

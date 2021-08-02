@@ -1,5 +1,5 @@
 /**
- * @module @roots/bud
+ * @module Bud.Dependencies
  */
 
 import {Service} from '@roots/bud-framework'
@@ -11,18 +11,36 @@ import {isEqual} from 'lodash'
 import * as React from 'react'
 
 /**
- * @class Dependencies
+ * Service: Dependencies
+ *
+ * @noInheritDoc
  */
-class Dependencies extends Service {
+class Dependencies extends Service<null> {
+  /**
+   * @property {string} name
+   */
   public name = 'dependencies'
 
+  /**
+   * @property {DependenciesManager} manager
+   */
   public manager: DependenciesManager
 
+  /**
+   * dependencies.readProjectJson
+   *
+   * Read project JSON and return as a hash
+   */
   @bind
-  public pkg() {
+  public readProjectJson() {
     return readJsonSync(this.app.path('project', 'package.json'))
   }
 
+  /**
+   * dependencies.register
+   *
+   * @see {Service.register}
+   */
   @bind
   public register() {
     this.manager = new DependenciesManager(
@@ -30,32 +48,29 @@ class Dependencies extends Service {
     )
   }
 
+  /**
+   * dependencies.shouldInstall
+   *
+   * Returns a boolean value representing if a package is eligible for installation
+   */
   @bind
-  public shouldInstall(source: string, dep: string) {
-    const pkgJson = this.pkg()
+  public shouldInstall(dep: string): boolean {
+    const pkgJson = this.readProjectJson()
 
-    const shouldInstall =
+    return (
       !pkgJson ||
       !Object.keys({
         ...(pkgJson['dependencies'] ?? {}),
         ...(pkgJson['devDependencies'] ?? {}),
       })?.includes(dep)
-
-    if (!shouldInstall) {
-      this.app.dashboard.render(
-        <Static items={[{dep}]}>
-          {({dep}) => (
-            <Text key={dep}>
-              [{source}] {dep} is already installed
-            </Text>
-          )}
-        </Static>,
-      )
-    }
-
-    return shouldInstall
+    )
   }
 
+  /**
+   * dependencies.install
+   *
+   * Install an array of dependencies and/or devDependencies
+   */
   @bind
   public install(
     deps: {
@@ -66,44 +81,64 @@ class Dependencies extends Service {
     }[],
   ): void {
     deps
+
+      /**
+       * Filter out ineligible packages and notify user
+       */
       .filter(({source, name}) => {
-        return this.shouldInstall(source, name)
+        if (!this.shouldInstall(name)) {
+          this.app.dashboard.render(
+            <Static items={[{name}]}>
+              {({name}) => (
+                <Text key={name}>
+                  [{source}] {name} is already installed
+                </Text>
+              )}
+            </Static>,
+          )
+
+          return false
+        }
+
+        return true
       })
+
+      /**
+       * Attempt installation of eligible packages
+       */
       .forEach(dep => {
+        this.app.dashboard.render(
+          <Static
+            items={[
+              `[${dep.source}] Installing ${dep.type} ${dep.name}@${dep.ver}`,
+            ]}>
+            {msg => <Text key={`${msg}`}>{msg}</Text>}
+          </Static>,
+        )
+
         try {
-          this.notify([
-            {
-              msg: `[${dep.source}] Installing ${dep.type} ${dep.name}@${dep.ver}`,
-            },
-            {
-              msg: this.manager.client
-                .install(
-                  isEqual(dep.type, 'devDependencies'),
-                  `${dep.name}@${dep.ver}`,
-                )
-                .output.toString(),
-            },
-          ])
+          const result = this.manager.client
+            .install(
+              isEqual(dep.type, 'devDependencies'),
+              `${dep.name}@${dep.ver}`,
+            )
+            .output.toString()
+
+          this.app.dashboard.render(
+            <Static items={[result]}>
+              {msg => <Text key={`${msg}`}>{msg}</Text>}
+            </Static>,
+          )
         } catch (err) {
           this.app.dashboard.renderError(
-            `Error installing ${dep.name}. Requested by ${dep.source} ${err}`,
-            `bud extensions:install`,
+            `Error installing ${dep.name}. Requested by ${
+              dep.source
+            } ${JSON.stringify(err)}`,
+            `Package installation error`,
           )
         }
       })
   }
-
-  @bind
-  public notify(notices: {msg: string}[]) {
-    this.app.dashboard.render(
-      <Static items={notices}>
-        {({msg}) => <Text key={`${msg}`}>{msg}</Text>}
-      </Static>,
-    )
-  }
 }
 
-/**
- * @exports Dependencies
- */
 export {Dependencies}

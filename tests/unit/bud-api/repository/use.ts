@@ -1,4 +1,4 @@
-import babel from '@roots/bud-babel'
+import * as Babel from '@roots/bud-babel'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import {Framework, setupBud, teardownBud} from '../../../util'
@@ -30,7 +30,7 @@ describe('bud.use', function () {
   })
 
   it('registers an imported extension', () => {
-    bud.use(babel)
+    bud.use(Babel)
 
     expect(bud.extensions.has('@roots/bud-babel'))
   })
@@ -72,7 +72,7 @@ describe('bud.use', function () {
   })
 
   it('registers multiple extensions', () => {
-    bud.use([babel, new HtmlWebpackPlugin()])
+    bud.use([Babel, new HtmlWebpackPlugin()])
 
     expect(bud.extensions.has('@roots/bud-babel')).toBe(true)
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)

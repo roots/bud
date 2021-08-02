@@ -1,0 +1,23 @@
+---
+title: Node API
+sidebar_label: Node API
+sidebar_position: 6
+---
+
+**bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to: 
+
+- Use **bud** as part of an existing pipeline like gulp
+- Use **bud** to generate a configuration to be consumed by **webpack** directly
+- Modify **bud** before running a build.
+
+## Using the bud factory
+
+```js
+import {factory} from '@roots/bud'
+
+const app = factory()
+
+app.tap(app => {
+  // configure as needed
+})
+```

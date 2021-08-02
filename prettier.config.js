@@ -8,4 +8,12 @@ module.exports = {
   useTabs: false,
   trailingComma: 'all',
   semi: false,
+  overrides: [
+    {
+      files: '*.mdx',
+      options: {
+        parser: 'mdx',
+      },
+    },
+  ],
 }

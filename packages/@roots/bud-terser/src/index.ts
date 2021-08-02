@@ -53,4 +53,4 @@ export const api = {
 }
 
 const extension: Module = {name, options, api, boot}
-export default extension
+export {extension, extension as default}

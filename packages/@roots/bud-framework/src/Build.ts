@@ -18,17 +18,17 @@ interface Build extends Service {
   /**
    * Loader registry
    */
-  loaders: {[key: string]: Build.Loader}
+  loaders: Framework.Loaders
 
   /**
    * RuleSetUse item registry
    */
-  items: {[key: string]: Build.Item}
+  items: Framework.Items
 
   /**
    * Webpack rules registry
    */
-  rules: {[key: string]: Build.Rule}
+  rules: Framework.Rules
 
   /**
    * Webpack configuration

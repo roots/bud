@@ -8,9 +8,11 @@ import type {Repository} from './repository'
 import * as repository from './repository'
 
 /**
- * @class Api
+ * Service: Api
  *
  * Provides macros/facades for assisting with common config tasks.
+ *
+ * @noInheritDoc
  */
 class Api extends Service<Repository> {
   /**

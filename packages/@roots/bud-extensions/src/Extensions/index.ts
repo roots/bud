@@ -4,18 +4,24 @@
 
 import {
   Extensions as Contract,
+  Framework,
   Module,
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isEqual, isUndefined} from 'lodash'
 
-import {Extension} from '../Extension/index'
+import {Extension} from '../Extension'
 
 /**
- * @class Extensions
+ * Service: Extensions
+ *
+ * @noInheritDoc
  */
-class Extensions extends Service implements Contract {
+class Extensions
+  extends Service<Framework.Extensions>
+  implements Contract
+{
   /**
    * @property {string} name
    */

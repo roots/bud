@@ -11,9 +11,9 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {get, isArray, isFunction, noop, set} from 'lodash'
 
 /**
- * @class Hooks
+ * Service: Hooks
  *
- * {@link Contract}
+ * @noInheritDoc
  */
 class Hooks extends Service implements Contract {
   /**
