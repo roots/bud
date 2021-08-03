@@ -16,15 +16,10 @@ import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '..'
  * @implements {Framework.Module}
  */
 const Babel: BabelExtension = {
-  /**
-   * @property {string} name
-   * @see {BabelExtension.name}
-   */
+  /** {@inheritDoc Module.name} */
   name: '@roots/bud-babel',
 
-  /**
-   * Extension register event
-   */
+  /** {@inheritDoc Module.register} */
   register(app: Framework): void {
     /**
      * Bind app.babel

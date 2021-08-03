@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-extensions
- */
-
 import {
   Extensions as Contract,
   Framework,
@@ -14,65 +10,36 @@ import {isEqual, isUndefined} from 'lodash'
 import {Extension} from '../Extension'
 
 /**
- * Service: Extensions
+ * {@inheritDoc Contract}
  *
- * @noInheritDoc
+ * @public
+ * @sealed
  */
 class Extensions
   extends Service<Framework.Extensions>
   implements Contract
 {
-  /**
-   * @property {string} name
-   */
+  /** {@inheritDoc Contract.name} */
   public name = 'extensions'
 
-  /**
-   * @property {Contract.repository} repository
-   */
-  public repository: {[key: string]: Extension | Module}
+  /** {@inheritDoc Contract.repository} */
+  public repository: Framework.Extensions
 
-  /**
-   * @method register
-   * {@link Contract.register}
-   */
-  @bind
+  /** {@inheritDoc Contract.register} */
   public register(): void {
     this.every((_name: string, extension: Module) => {
       return this.add(extension)
     })
   }
 
-  /**
-   * @method boot
-   * {@link Contract.boot}
-   */
-  @bind
+  /** {@inheritDoc Contract.boot} */
   public boot(): void {
     this.every((_name: string, extension: Module) => {
       return this.bootExtension(extension)
     })
   }
 
-  /**
-   * @method registerExtension
-   */
-  @bind
-  public registerExtension(extension: Module): void {
-    this.set(extension.name, this.get(extension.name).register())
-  }
-
-  /**
-   * @method bootExtension
-   */
-  @bind
-  public bootExtension(extension: Module): void {
-    this.set(extension.name, this.get(extension.name).boot())
-  }
-
-  /**
-   * @method add
-   */
+  /** {@inheritDoc Contract.add} */
   @bind
   public add(extension: Module): void {
     this.set(extension.name, new Extension(this.app, extension))
@@ -80,25 +47,62 @@ class Extensions
     this.bootExtension(extension)
   }
 
-  /**
-   * @method make
-   */
+  /** {@inheritDoc Contract.make} */
   @bind
   public make(): Contract.PluginOutput[] {
-    return this.getValues()
-      .map((extension: Module) => {
-        const isPlugin =
-          !isEqual(extension.when, false) && extension.apply
+    const pluginMap = (extension: Module) => {
+      const isPlugin =
+        !isEqual(extension.when, false) && extension.apply
 
-        return isPlugin ? extension : extension.make
-      })
-      .filter(
-        (ext: Module | undefined) => !isUndefined(ext),
-      ) as Contract.PluginOutput[]
+      return isPlugin ? extension : extension.make
+    }
+
+    const filterUndefined = (
+      ext: Module | Plugin | undefined,
+    ): boolean => !isUndefined(ext)
+
+    return this.getValues()
+      .map(pluginMap)
+      .filter(filterUndefined) as Contract.PluginOutput[]
+  }
+
+  /** {@inheritDoc Contract.getEligibleWebpackModules} */
+  @bind
+  public getEligibleWebpackModules(): Extension[] {
+    return this.getValues().filter(
+      (extension: Extension): boolean => {
+        if (
+          isEqual(extension.when, false) ||
+          (isUndefined(extension.make) &&
+            isUndefined(extension.apply))
+        ) {
+          return false
+        }
+
+        return true
+      },
+    )
+  }
+
+  /**
+   * Register an extension and set in the container
+   *
+   * @internal
+   */
+  @bind
+  public registerExtension(extension: Module): void {
+    this.set(extension.name, this.get(extension.name).register())
+  }
+
+  /**
+   * Boot a registered extension
+   *
+   * @internal
+   */
+  @bind
+  public bootExtension(extension: Module): void {
+    this.set(extension.name, this.get(extension.name).boot())
   }
 }
 
-/**
- * @exports Extensions
- */
 export {Extensions}

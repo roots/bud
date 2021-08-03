@@ -7,12 +7,11 @@ import type {Configuration, RuleSetRule} from 'webpack'
 import type {Framework, Service} from './'
 
 /**
- * @interface Build
+ * Assembles the webpack config used by the {@link Compiler | Compiler Service}
  *
- * Assembles the webpack config used by the {@link Compiler}.
- *
- * Final configuration is accessible {@link Build.config}.
- * It can be rebuilt with {@link Build.rebuild}.
+ * @remarks
+ * Final configuration is accessible {@link Build.config}
+ * It can be rebuilt with {@link Build.rebuild}
  */
 interface Build extends Service {
   /**

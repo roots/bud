@@ -1,3 +1,7 @@
+/**
+ * @module Bud
+ */
+
 import type {Framework} from '@roots/bud-framework'
 
 import {Api} from './Api'
@@ -13,6 +17,9 @@ import {Hooks} from './Hooks'
 import {Logger} from './Logger'
 import {Server} from './Server'
 
+/**
+ * Registered services
+ */
 export const services: Framework.Services = {
   api: Api,
   logger: Logger,

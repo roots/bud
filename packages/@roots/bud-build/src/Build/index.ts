@@ -12,9 +12,7 @@ import * as loaders from './loaders'
 import * as rules from './rules'
 
 /**
- * Service Build
- *
- * @noInheritDoc
+ * Service: Build
  */
 export class Build extends Service implements Contract {
   /**

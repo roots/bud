@@ -1,15 +1,13 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {get} from 'lodash'
 
 import {Service} from './Service'
 
 /**
- * @class Store
+ * Options container service
+ *
+ * @sealed
  */
-class Store extends Service<Store.Repo> {
+class Store extends Service<Store.Repository> {
   /**
    * @property {string} name
    */
@@ -23,9 +21,6 @@ class Store extends Service<Store.Repo> {
   }
 }
 
-/**
- * @namespace Store
- */
 namespace Store {
   export type Keys =
     | `theme`
@@ -57,12 +52,9 @@ namespace Store {
     | `extension`
     | `extension.${string}`
 
-  export type Repo = {
-    [K in Store.Keys & string]: any
+  export type Repository = {
+    [K in Store.Keys & string]?: any
   }
 }
 
-/**
- * @exports Store
- */
 export {Store}

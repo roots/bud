@@ -1,11 +1,11 @@
 /**
- * @module @roots/bud
+ * @module Bud.Services
  */
 
 import {Api as Base, repository} from '@roots/bud-api'
 
 /**
- * @class Api
+ * Service: Api
  */
 class Api extends Base {}
 

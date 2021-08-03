@@ -16,14 +16,8 @@ class Extensions
   extends Contract
   implements Service<Framework.Extensions>
 {
-  /**
-   * @property {string} name
-   */
   public name = 'extensions'
 
-  /**
-   * @property {Framework.Extensions} repository
-   */
   public repository = extensions
 }
 

@@ -1,46 +1,44 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {Signale} from 'signale'
 
 import {Bootstrapper, Framework} from '.'
 
 /**
- * Service: Logger
+ * Logging service
  *
- * @noInheritDoc
+ * @public
  */
-export abstract class Logger extends Bootstrapper<null> {
-  /**
-   * @property {string} name
-   */
+abstract class Logger extends Bootstrapper {
+  /** {@inheritDoc Service.name} */
   public name: string = 'logger'
 
   /**
-   * @property {Signale} _instance
+   * Logger instance
+   *
+   * @readonly
    * @hidden
    */
   public _instance: Signale
 
   /**
-   * @property {Signale} instance
+   * Logger instance get accessor
    */
-  public get instance() {
+  public get instance(): Signale {
     return this._instance
   }
 
   /**
-   * @property {Signale} instance
+   * Logger instance set accessor
    */
-  public set instance(instance) {
+  public set instance(instance: Signale) {
     this._instance = instance
   }
 
   /**
-   * @constructor
+   * Class constructor
    */
   public constructor(app: Framework) {
     super(app)
   }
 }
+
+export {Logger}

@@ -3033,38 +3033,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-cli@workspace:packages/@roots/bud-cli":
-  version: 0.0.0-use.local
-  resolution: "@roots/bud-cli@workspace:packages/@roots/bud-cli"
-  dependencies:
-    "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
-    "@oclif/command": ^1.8.0
-    "@oclif/dev-cli": 1.26.0
-    "@oclif/errors": ^1.3.5
-    "@oclif/plugin-autocomplete": ^0.3.0
-    "@oclif/plugin-commands": ^1.3.0
-    "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-update": ^1.3.10
-    "@oclif/test": 1.2.8
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.0
-    "@types/lodash": 4.14.171
-    "@types/node": 15.14.1
-    "@types/prettier": 2.3.2
-    autobind-decorator: ^2.4.0
-    cosmiconfig: ^7.0.0
-    eslint: 7.32.0
-    globby: ^11.0.4
-    lodash: ^4.17.21
-    node-notifier: ^10.0.0
-    prettier: ^2.3.2
-    pretty-format: ^27.0.6
-    serialize-javascript: ^6.0.0
-    tslib: ^2.3.0
-  languageName: unknown
-  linkType: soft
-
 "@roots/bud-compiler@workspace:packages/@roots/bud-compiler":
   version: 0.0.0-use.local
   resolution: "@roots/bud-compiler@workspace:packages/@roots/bud-compiler"
@@ -3648,16 +3616,6 @@ __metadata:
   peerDependenciesMeta:
     eslint:
       optional: true
-  languageName: unknown
-  linkType: soft
-
-"@roots/bud-typings@workspace:packages/@roots/bud-typings":
-  version: 0.0.0-use.local
-  resolution: "@roots/bud-typings@workspace:packages/@roots/bud-typings"
-  dependencies:
-    "@types/eslint": 7.28.0
-    eslint: 7.32.0
-    tslib: 2.3.0
   languageName: unknown
   linkType: soft
 
@@ -21861,17 +21819,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.3.0, tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "tslib@npm:2.3.0"
-  checksum: 8869694c26e4a7b56d449662fd54a4f9ba872c889d991202c74462bd99f10e61d5bd63199566c4284c0f742277736292a969642cc7b590f98727a7cae9529122
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^1, tslib@npm:^1.13.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "tslib@npm:2.3.0"
+  checksum: 8869694c26e4a7b56d449662fd54a4f9ba872c889d991202c74462bd99f10e61d5bd63199566c4284c0f742277736292a969642cc7b590f98727a7cae9529122
   languageName: node
   linkType: hard
 

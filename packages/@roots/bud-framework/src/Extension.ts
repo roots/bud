@@ -61,10 +61,13 @@ abstract class Extension {
     return this.get('when')
   }
 
-  public set when(when: Module['when']) {
+  public set when(when: Module.When) {
     this.set('when', when)
   }
 
+  /**
+   * @property {Module.Make} make
+   */
   public get make() {
     if (this.when == false || !this.get('make')) return
 
@@ -78,6 +81,20 @@ abstract class Extension {
     }
 
     return this.get('make')
+  }
+
+  /**
+   * @property {WebpackPluginInstance['apply']} apply
+   */
+  public get apply() {
+    if (this.when == false || !this.get('apply'))
+      return undefined
+
+    if (_.isFunction(this.get('apply'))) {
+      return this.get('apply')
+    }
+
+    return undefined
   }
 
   public set make(make: Module.Make) {

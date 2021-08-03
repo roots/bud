@@ -1,14 +1,11 @@
 /**
- * @module @roots/bud
+ * @module Bud
  */
 
 import type {Configuration} from '@roots/bud-framework'
 
 export type {Configuration}
 
-/**
- * Bud base configuration
- */
 const config: Configuration = {
   name: 'bud',
 

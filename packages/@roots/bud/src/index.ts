@@ -1,9 +1,8 @@
 /**
- * @module @roots/bud
+ * @module Bud
  */
 
 import {
-  Bootstrapper,
   Bud,
   Extension,
   Framework,
@@ -28,7 +27,12 @@ import {
 } from './services/Build'
 import {Cache} from './services/Cache'
 import {Compiler} from './services/Compiler'
-import {Dashboard} from './services/Dashboard'
+import {
+  Dashboard,
+  Error,
+  Progress,
+  Screen,
+} from './services/Dashboard'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Env} from './services/Env'
@@ -44,8 +48,6 @@ export {Framework}
 export {Api}
 
 export {Build}
-
-export {Bootstrapper}
 
 export {Cache}
 
@@ -135,4 +137,12 @@ export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
 /**
  * @hidden
  */
-export {Screen, Error, Progress} from '@roots/bud-dashboard'
+export {Screen}
+/**
+ * @hidden
+ */
+export {Error}
+/**
+ * @hidden
+ */
+export {Progress}

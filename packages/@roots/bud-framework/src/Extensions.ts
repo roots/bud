@@ -4,23 +4,33 @@
 
 import type {WebpackPluginInstance} from 'webpack'
 
-import type {Module, Service} from './'
+import type {Framework, Module, Plugin, Service} from './'
 
 /**
- * @interface Extensions
+ * Container service for {@link Framework} extensions.
  *
- * Extensions service
+ * @remarks
+ * Extensions can be defined as a {@link Module}, which is more generic.
+ * They can also be defined as a {@link Plugin} which is a {@link Module}
+ * specifically providing a {@link WebpackPluginInstance}.
+ *
+ * @public
  */
-interface Extensions extends Service {
+interface Extensions extends Service<Framework.Extensions> {
   /**
    * Add an extension
    */
-  add(extension: Module): void
+  add(extension: Module | Plugin): void
 
   /**
-   * Produce Webpack Plugins
+   * Get {@link WebpackPluginInstance} instances to be included in compilation
    */
   make(): Extensions.PluginOutput[]
+
+  /**
+   * Get {@link Extension} instances slated for inclusion in compilation
+   */
+  getEligibleWebpackModules(): (Module | Plugin)[]
 }
 
 namespace Extensions {

@@ -11,20 +11,16 @@ import {Signale} from 'signale'
 import {INSTANCE_CONFIG, LOGGER_TYPES} from './enum'
 
 /**
- * Bootstrapper: Logger
+ * Logger service
  *
- * @implements {Contract}
- * @implements {Bootstrapper}
- * @noInheritDoc
+ * @sealed
  */
 class Logger extends Base {
-  /**
-   * @property {string} name
-   */
+  /** {@inheritDoc Base.name} */
   public name = 'logger'
 
   /**
-   * @constructor
+   * Class constructor
    */
   public constructor(app: Framework) {
     super(app)

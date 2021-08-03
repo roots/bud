@@ -2,30 +2,7 @@ import {isNull} from 'lodash'
 
 import type {Framework} from './'
 
-/**
- *  Make a child compiler.
- *
- *  **make** takes two parameters:
- *
- *  - The **name** of the new compiler
- *  - An optional callback to use for configuring the compiler.
- *
- *  ```js
- *  bud.make('scripts', child => child.entry('app', 'app.js'))
- *  ```
- *
- *  This function returns the parent bud instance for further chaining. It is also possible to reference the parent instance using {@link Framework.parent}.
- *
- *  ```js
- *  make('scripts', child => {
- *    child.entry('app', 'app.js')
- *    child.parent.dev({
- *      // ...
- *    })
- *  })
- *  ```
- */
-interface Make {
+interface make {
   (
     this: Framework,
     name: string,
@@ -33,7 +10,11 @@ interface Make {
   ): Framework
 }
 
-const make: Make = function (name, tap?) {
+function make(
+  this: Framework,
+  name: string,
+  tap?: Framework.Tapable,
+): Framework {
   handleChildNestingError.bind(this)()
 
   this.info(`Making child compiler: ${name}`)
@@ -77,4 +58,4 @@ function handleChildNestingError(this: Framework) {
   }
 }
 
-export {make, Make}
+export {make}
