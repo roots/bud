@@ -71,8 +71,8 @@
     "@types/react-router-dom": "5.1.8",
     "@types/signale": "1.4.2",
     "@types/weak-napi": "2.0.0",
-    "@typescript-eslint/eslint-plugin": "4.28.5",
-    "@yarnpkg/builder": "3.0.0-rc.13",
+    "@typescript-eslint/eslint-plugin": "4.29.0",
+    "@yarnpkg/builder": "3.0.1",
     "autobind-decorator": "2.4.0",
     "clipanion": "3.0.1",
     "clsx": "1.1.1",
@@ -111,7 +111,7 @@
     "weak-napi": "2.0.2"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "2.3.0"
   },
   "manifest": {
     "name": "bud.js",
