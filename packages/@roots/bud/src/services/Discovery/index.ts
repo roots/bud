@@ -1,7 +1,3 @@
-/**
- * @module Bud.Discovery
- */
-
 import {
   Discovery as Contract,
   Service,
@@ -14,48 +10,20 @@ import {dirname} from 'path'
 const pkgUp = require('pkg-up')
 
 /**
- * Service: Discovery
- *
- * @implements {Service}
- * @noInheritDoc
+ * @sealed
  */
 class Discovery
   extends Contract
   implements Service<Contract['repository']>
 {
-  /**
-   * @property {string} name
-   */
   public name = 'discovery'
 
-  /**
-   * @property {Contract.repository} repository
-   */
   public repository: Contract['repository'] = {
     name: null,
     peers: {},
     dependencies: {},
     devDependencies: {},
     required: {},
-  }
-
-  /**
-   * @method getProjectInfo
-   */
-  @bind
-  public getProjectInfo(): {[key: string]: any} {
-    return this.all()
-  }
-
-  /**
-   * @method hasPeerDependency
-   */
-  @bind
-  public hasPeerDependency(pkg: string): boolean {
-    return (
-      this.has(`devDependencies.${pkg}`) ||
-      this.has(`dependencies.${pkg}`)
-    )
   }
 
   /**
@@ -75,6 +43,25 @@ class Discovery
 
     this.has('peers') &&
       this.getValues('peers').forEach(this.resolvePeers)
+  }
+
+  /**
+   * @method getProjectInfo
+   */
+  @bind
+  public getProjectInfo(): {[key: string]: any} {
+    return this.all()
+  }
+
+  /**
+   * @method hasPeerDependency
+   */
+  @bind
+  public hasPeerDependency(pkg: string): boolean {
+    return (
+      this.has(`devDependencies.${pkg}`) ||
+      this.has(`dependencies.${pkg}`)
+    )
   }
 
   /**

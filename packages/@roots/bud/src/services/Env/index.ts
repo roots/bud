@@ -5,8 +5,6 @@ import * as env from 'dotenv'
 import * as expand from 'dotenv-expand'
 
 /**
- * Env service
- *
  * @sealed
  */
 class Env extends Service<Framework.Index<any>> {

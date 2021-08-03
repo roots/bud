@@ -8,7 +8,7 @@ import {Bootstrapper, Framework} from './'
  * Atomic unit of {@link Framework} functionality.
  *
  * @remarks
- * Services extend the {@link Container} class.
+ * Services extend {@link Bootstrapper}, which provides container functions and access to the main {@link Framework} instance.
  *
  * All services must be defined during instantiation of the {@link Framework}.
  *
@@ -24,6 +24,7 @@ import {Bootstrapper, Framework} from './'
  * - {@link Service.booted booted} is called after all {@link Service.boot} callbacks are complete.
  *
  * @typeParam T - Container repository typing, if applicable
+ *
  * @public
  */
 abstract class Service<
@@ -100,13 +101,13 @@ abstract class Service<
    * Bind a {@link CallableFunction} to the {@link Framework}.
    *
    * @example
-   *
    * Bind to `app.boundFnName`:
    *
    * ```js
    * app.service.bindClass({boundFnName: BindingClass})
    * ```
    *
+   * @typeParam T - Object typing
    * @decorator `@bind`
    */
   @bind
@@ -130,11 +131,9 @@ abstract class Service<
    * Bind a {@link Class} to the {@link Framework}.
    *
    * @remarks
-   *
    * Constructor parameters can be specified using an array.
    *
    * @example
-   *
    * Bind to `app.bindingName`:
    *
    * ```js
@@ -142,13 +141,13 @@ abstract class Service<
    * ```
    *
    * @example
-   *
    * Specify constructor parameters to pass to `BindingClass` during instantiation.
    *
    * ```js
    * app.service.bindClass({bindingName: [BindingClass, foo, bar]})
    * ```
    *
+   * @typeParam T - Object typing
    * @decorator `@bind`
    */
   @bind

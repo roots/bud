@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud
- */
-
 import {Plugin} from '@roots/bud-framework'
 import {
   ManifestPluginOptions as Options,
@@ -12,7 +8,7 @@ const extension: Plugin<{apply: any}, Options> = {
   name: 'webpack-manifest-plugin',
 
   options: ({store}) =>
-    store.get<Options>('extension.webpackManifestPlugin'),
+    store.get('extension.webpackManifestPlugin'),
 
   make: (options, {store}) => {
     return new WebpackManifestPlugin({

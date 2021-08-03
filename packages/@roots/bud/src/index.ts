@@ -1,16 +1,27 @@
 /**
- * @module Bud
+ * `@roots/bud` is a frontend build framework combining the best parts
+ * of Symfony Encore and Laravel Mix
+ *
+ * @remarks
+ * The `@roots/bud` package provides {@link Bud Bud}, a concrete implementation of the {@link Framework Framework} abstract class
+ * and its required interfaces.
+ *
+ * A {@link factory factory} function is exported to simplify instantiation for programmatic usage.
+ *
+ * It also provides a CLI which can be invoked with `bud`.
+ *
+ * @packageDocumentation
  */
 
 import {
-  Bud,
   Extension,
-  Framework,
   Module,
   Plugin,
   Service,
   Store,
-} from './Bud'
+} from '@roots/bud-framework'
+
+import {Bud, Framework} from './Bud'
 import {config, Configuration} from './config'
 import {extensions} from './extensions'
 import {Factory, factory} from './Factory'

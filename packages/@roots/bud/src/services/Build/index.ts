@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud
- */
-
 import {
   Build as Base,
   Item,
@@ -14,6 +10,8 @@ import {
 
 /**
  * Service: Build
+ *
+ * @sealed
  */
 class Build extends Base {}
 

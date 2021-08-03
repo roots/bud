@@ -561,7 +561,7 @@ namespace Framework {
   export type Constructor = new (options: Options) => Framework
 
   /*
-   * Constructor options (bound to {@link Framework.options})
+   * Constructor options
    */
   export interface Options {
     /**

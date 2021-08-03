@@ -7,7 +7,7 @@ import {
 import {Service} from '@roots/bud-framework'
 
 /**
- * Service: Dashboard
+ * @sealed
  */
 class Dashboard extends Base implements Service {}
 

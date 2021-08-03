@@ -1,7 +1,3 @@
-/**
- * @module Bud
- */
-
 import type {Framework} from '@roots/bud-framework'
 
 import {Api} from './Api'

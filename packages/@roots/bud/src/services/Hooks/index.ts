@@ -1,27 +1,19 @@
-/**
- * @module Bud.Hooks
- */
-
 import {
   Configuration,
   Hooks as Contract,
   Service,
 } from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
-import {boundMethod as bind} from 'autobind-decorator'
 
 /**
- * Service: Hooks
- *
- * @implements {Contract}
+ * @sealed
  */
 class Hooks extends Base implements Contract, Service {
   /**
-   * @method register
+   * {@inheritDoc Service.register}
    */
-  @bind
   public register({store}) {
-    const hookLocale = (
+    const mapLocale = (
       name: keyof Configuration['location'],
     ) => {
       this.on(`location/${name}`, () =>
@@ -32,7 +24,7 @@ class Hooks extends Base implements Contract, Service {
     const locales: (keyof Configuration['location'] & string)[] =
       ['project', 'src', 'dist', 'storage', 'modules']
 
-    locales.forEach(hookLocale)
+    locales.map(mapLocale)
   }
 }
 

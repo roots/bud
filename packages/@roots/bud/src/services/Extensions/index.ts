@@ -1,16 +1,10 @@
-/**
- * @module Bud.Extensions
- */
-
 import {Extensions as Contract} from '@roots/bud-extensions'
 import {Framework, Service} from '@roots/bud-framework'
 
 import {extensions} from '../../extensions'
 
 /**
- * Service: Extensions
- *
- * @implements {Contract}
+ * @sealed
  */
 class Extensions
   extends Contract

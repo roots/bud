@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {boundMethod as bind} from 'autobind-decorator'
 import * as _ from 'lodash'
 
@@ -12,9 +8,7 @@ import {Module} from './Module'
 type Key = `${keyof Framework.Extensions & string}`
 
 /**
- * @interface Extension
- *
- * Abstract Extension
+ * Extension
  */
 abstract class Extension {
   protected _module: Module
@@ -120,7 +114,4 @@ abstract class Extension {
   }
 }
 
-/**
- * @exports Extension
- */
 export {Extension}

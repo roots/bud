@@ -1,7 +1,3 @@
-/**
- * @module Bud.Dependencies
- */
-
 import {Service} from '@roots/bud-framework'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -13,35 +9,22 @@ import * as React from 'react'
 /**
  * Service: Dependencies
  *
- * @noInheritDoc
+ * @sealed
  */
 class Dependencies extends Service<null> {
   /**
-   * @property {string} name
+   * {@inheritDoc Service.name}
    */
   public name = 'dependencies'
 
   /**
-   * @property {DependenciesManager} manager
+   * Handles interacting with package manager
    */
   public manager: DependenciesManager
 
   /**
-   * dependencies.readProjectJson
-   *
-   * Read project JSON and return as a hash
+   * {@inheritDoc Service.register}
    */
-  @bind
-  public readProjectJson() {
-    return readJsonSync(this.app.path('project', 'package.json'))
-  }
-
-  /**
-   * dependencies.register
-   *
-   * @see {Service.register}
-   */
-  @bind
   public register() {
     this.manager = new DependenciesManager(
       this.app.path('project'),
@@ -49,9 +32,19 @@ class Dependencies extends Service<null> {
   }
 
   /**
-   * dependencies.shouldInstall
+   * Read project JSON and return as a hash
    *
+   * @decorator `@bind`
+   */
+  @bind
+  public readProjectJson() {
+    return readJsonSync(this.app.path('project', 'package.json'))
+  }
+
+  /**
    * Returns a boolean value representing if a package is eligible for installation
+   *
+   * @decorator `@bind`
    */
   @bind
   public shouldInstall(dep: string): boolean {
@@ -67,9 +60,9 @@ class Dependencies extends Service<null> {
   }
 
   /**
-   * dependencies.install
-   *
    * Install an array of dependencies and/or devDependencies
+   *
+   * @decorator `@bind`
    */
   @bind
   public install(

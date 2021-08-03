@@ -1,17 +1,9 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {Container} from '@roots/container'
 
 import type {Framework} from './'
 
 /**
- * @interface Module
- *
- * An extension object as imported from source.
- *
- * Consumed by {@link Extension}.
+ * A {@link Framework Framework} extension
  */
 interface Module<Plugin = any, Options = any> {
   /**
@@ -20,7 +12,7 @@ interface Module<Plugin = any, Options = any> {
   name?: Module.Name
 
   /**
-   * Options registered with the extension
+   * Options registered to the extension module
    */
   options?: Module.Options<Options>
 
@@ -41,11 +33,15 @@ interface Module<Plugin = any, Options = any> {
 
   /**
    * Returns an instantiated webpack plugin
+   *
+   * @deprecated Convert this instance to a {@link Plugin Plugin}
    */
   make?: Module.Make<Plugin, Options>
 
   /**
    * Webpack plugin apply.
+   *
+   * @deprecated Convert this instance to a {@link Plugin Plugin}
    */
   apply?: CallableFunction
 
@@ -53,13 +49,12 @@ interface Module<Plugin = any, Options = any> {
    * Returns a boolean determining if
    * a webpack plugin should be used in
    * compilation.
+   *
+   * @deprecated Convert this instance to a {@link Plugin Plugin}
    */
   when?: Module.When<Options>
 }
 
-/**
- * @namespace Module
- */
 namespace Module {
   export type Name = keyof Framework.Extensions
 
@@ -68,7 +63,9 @@ namespace Module {
     | {[key: string]: any}
 
   export type Boot = (app: Framework) => any
+
   export type Register = (app: Framework) => any
+
   export type Config = (app: Framework) => any
 
   export type Options<T = any> = T | ((app: Framework) => T)

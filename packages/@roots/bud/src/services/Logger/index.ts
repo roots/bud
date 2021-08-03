@@ -1,7 +1,3 @@
-/**
- * @module Bud.Logger
- */
-
 import {Framework, Logger as Base} from '@roots/bud-framework'
 import {Signale} from 'signale'
 
@@ -11,14 +7,9 @@ import {Signale} from 'signale'
 import {INSTANCE_CONFIG, LOGGER_TYPES} from './enum'
 
 /**
- * Logger service
- *
  * @sealed
  */
 class Logger extends Base {
-  /** {@inheritDoc Base.name} */
-  public name = 'logger'
-
   /**
    * Class constructor
    */
