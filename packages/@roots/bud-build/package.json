@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@types/eslint": "7.28.0",
-    "@types/lodash": "4.14.171",
+    "@types/lodash": "4.14.172",
     "@types/marked": "2.0.4",
     "@types/mini-css-extract-plugin": "2.0.1",
     "@types/node": "15.14.1",
