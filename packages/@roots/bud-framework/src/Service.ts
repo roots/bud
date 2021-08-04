@@ -2,7 +2,8 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isArray} from 'lodash'
 import type {Class} from 'type-fest'
 
-import {Bootstrapper, Framework} from './'
+import {Bootstrapper} from './Bootstrapper'
+import {Framework} from './Framework'
 
 /**
  * Atomic unit of {@link Framework} functionality.

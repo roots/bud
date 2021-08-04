@@ -1,6 +1,6 @@
 import {isNull} from 'lodash'
 
-import {Framework} from '..'
+import {Framework, Service} from '..'
 import {LIFECYCLE_EVENTS, PARENT_SERVICES} from './constants'
 
 interface bootstrap {
@@ -14,45 +14,33 @@ function bootstrap(this: Framework): Framework {
     ...this.options.services,
   })
     .getEntries()
-    .filter(([name, service]): boolean => {
-      /**
-       * No reason to boot an extension that isn't well written
-       */
-      if (!service?.name) {
-        this.warn(
-          'service must include `name` property. none found; skipping.',
-          service,
-        )
-
-        return false
-      }
-
-      /**
-       * No reason to start server for production
-       */
-      if (service.name == 'server' && this.isProduction)
-        return false
-
-      /**
-       * No reason to boot expensive parent services
-       * for child compilation instantances
-       */
-      if (
-        isParentInstance &&
-        PARENT_SERVICES.includes(service.name)
-      ) {
-        return false
-      }
-
-      return true
-    })
+    .filter(
+      ([name, _service]: [
+        keyof Framework.Services,
+        Service,
+      ]): boolean => {
+        /**
+         * - No reason to start server for production
+         * - No reason to boot expensive parent services for child compilation instantances
+         */
+        return (name == 'server' && this.isProduction) ||
+          (isParentInstance && PARENT_SERVICES.includes(name))
+          ? false
+          : true
+      },
+    )
 
   /**
    * Initialize services
    */
   const initializedServices = validServices.map(
-    ([name, Service]: [string, any]) => {
-      Object.assign(this, {[name]: new Service(this)})
+    ([name, Service]: [
+      string,
+      new (app: Framework) => Service,
+    ]) => {
+      Object.assign(this, {
+        [name]: new Service(this),
+      })
 
       return name
     },
@@ -62,13 +50,9 @@ function bootstrap(this: Framework): Framework {
    * Service lifecycle
    */
   LIFECYCLE_EVENTS.map(event => {
-    this.log(event)
-
     initializedServices.map(key => {
       const service = this[key]
       if (!service || !service[event]) return
-
-      this.log(service.name, event)
 
       service[event](this)
     })

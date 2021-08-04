@@ -300,16 +300,6 @@ abstract class Framework {
       this.children = new Container({})
     }
 
-    /** Instantiate {@link Framework.store} service early */
-    this.store = new Store(this).setStore({
-      ...this.options.config,
-    })
-
-    /** Instantiate {@link Framework.logger} service early */
-    this.logger = new this.options.services.logger(
-      this,
-    ) as unknown as Logger
-
     // Bindings
     this.access = this.access.bind(this)
     this.bootstrap = this.bootstrap.bind(this)

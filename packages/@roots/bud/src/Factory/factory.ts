@@ -1,7 +1,3 @@
-/**
- * @module Factory
- */
-
 import {Bud} from '../Bud'
 import {config} from '../config'
 import {services} from '../services'

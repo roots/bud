@@ -1,16 +1,16 @@
 import {factory} from '@roots/bud'
 
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {Framework, teardownBud} from '../../../util'
 
 describe('@roots/bud-framework child', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory()
   })
 
   afterAll(() => {
-    bud = teardownBud(bud)
+    teardownBud(bud)
   })
 
   it("parent compiler's name is this", () => {

@@ -7,7 +7,7 @@ const LIFECYCLE_EVENTS = [
   'booted',
 ]
 
-const PARENT_SERVICES = [
+const PARENT_SERVICES: (string | number)[] = [
   'compiler',
   'dashboard',
   'discovery',

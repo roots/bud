@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-compiler
- */
-
 import {
   Compiler as Contract,
   Service,
@@ -11,57 +7,58 @@ import {isEqual, isString, noop} from 'lodash'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
 /**
- * @class Compiler
+ * Webpack compilation controller
  */
 class Compiler extends Service implements Contract {
   /**
-   * @property {string} name
+   * Service ident
    */
   public name = 'compiler'
 
-  public _instance: Contract.Instance
+  /**
+   * {@link Webpack Webpack} instance
+   */
+  public instance: Contract.Instance
 
-  public _stats: StatsCompilation = {
+  /**
+   * Compilation stats
+   */
+  public stats: StatsCompilation = {
     assets: [],
     errors: [],
     warnings: [],
   }
 
-  public _progress: Contract.Progress
+  /**
+   * Compilation progress as reported by {@link ProgressPlugin}
+   */
+  public progress: Contract.Progress
 
+  /**
+   * True if compiler is already instantiated
+   */
   public isCompiled: boolean = false
 
-  public get stats(): StatsCompilation {
-    return this._stats
-  }
-
-  public set stats(stats: StatsCompilation) {
-    this._stats = stats
-  }
-
-  public get progress(): Contract.Progress {
-    return this._progress
-  }
-
-  public set progress(progress: Contract.Progress) {
-    this._progress = progress
-  }
-
-  public get instance(): Contract.Instance {
-    return this._instance
-  }
-
-  public set instance(instance: Contract.Instance) {
-    this._instance = instance
-  }
-
-  @bind
+  /**
+   * Lifecycle method: bootstrapped
+   *
+   * @remarks
+   * Registers hooks filtered before and after
+   * the instantiation of Webpack as well as one additional hook
+   * which is filtered at the tail of the Webpack compiler callback.
+   */
   public register() {
+    this.app.hooks.on('before', () => [])
+    this.app.hooks.on('after', () => [])
+
     this.app.hooks.on('done', () => {
       this.isCompiled = true
     })
   }
 
+  /**
+   * Initiate webpack compilation process
+   */
   @bind
   public compile(): Contract.Instance {
     this.isCompiled && this.instance.close(noop)
@@ -69,6 +66,9 @@ class Compiler extends Service implements Contract {
     return this.setup(this.before())
   }
 
+  /**
+   * Returns final webpack configuration
+   */
   @bind
   public before() {
     const config = []
@@ -120,6 +120,9 @@ class Compiler extends Service implements Contract {
     return this.instance
   }
 
+  /**
+   * Webpack compilation callback
+   */
   @bind
   public callback(...args: any[]) {
     /**
@@ -140,7 +143,7 @@ class Compiler extends Service implements Contract {
       this.stats.errors.push(err)
     })
 
-    this.app.when(this.app.store.get('ci'), () => {
+    this.app.when(this.app.store.isTrue('ci'), () => {
       stats && process.stdout.write(stats.toString())
       err &&
         process.stderr.write(
@@ -152,7 +155,4 @@ class Compiler extends Service implements Contract {
   }
 }
 
-/**
- * @exports Compiler
- */
 export {Compiler}

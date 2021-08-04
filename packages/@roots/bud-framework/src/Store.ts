@@ -1,23 +1,34 @@
 import {get} from 'lodash'
 
+import {Framework} from './Framework'
 import {Service} from './Service'
 
 /**
- * Options container service
+ * Options container store
  *
  * @sealed
  */
-class Store extends Service<Store.Repository> {
-  /**
-   * @property {string} name
-   */
+class Store extends Service {
+  /** {@inheritDoc name} */
   public name = 'store'
 
   /**
-   * @function get
+   * Get a store value
+   *
+   * @override
    */
   public get<T = any>(path: Store.Keys) {
     return get(this.repository, path) as T
+  }
+
+  /**
+   * Lifecycle method: bootstrap
+   *
+   * @remarks
+   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+   */
+  public bootstrap(app: Framework) {
+    this.setStore({...app.options.config})
   }
 }
 

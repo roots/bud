@@ -12,25 +12,37 @@ import * as loaders from './loaders'
 import * as rules from './rules'
 
 /**
- * Service: Build
+ * Builds the {@link Webpack Webpack} configuration object from
+ * {@link Framework Framework} components.
  */
 export class Build extends Service implements Contract {
   /**
-   * @property {string} name
+   * Service identifier
    */
   public name = 'build'
 
   /**
-   * @property {Framework.Loaders}
+   * Registered loaders
    */
   public loaders: Framework.Loaders
 
+  /**
+   * Registered rules
+   */
   public rules: Framework.Rules
 
+  /**
+   * Registered items
+   */
   public items: Framework.Items
 
+  /** @hidden */
   public _config: Webpack.Configuration
 
+  /**
+   * The Webpack config object
+   * @readonly
+   */
   public get config(): Webpack.Configuration {
     if (!this._config) {
       this.rebuild()
@@ -39,14 +51,25 @@ export class Build extends Service implements Contract {
     return this._config
   }
 
+  /**
+   * Rebuild the Webpack config object
+   *
+   * @decorator `@bind`
+   */
+  @bind
   public rebuild(): Webpack.Configuration {
     this._config = this.app.hooks.filter('build')
 
     return this._config
   }
 
-  @bind
-  public register(): void {
+  /**
+   * Lifecycle method: bootstrap
+   *
+   * @remarks
+   * Registers config builder components and calls initial hooks
+   */
+  public bootstrap(): void {
     const componentReducer = (a, [k, v]) => ({...a, [k]: v()})
 
     this.loaders = this.app
@@ -63,9 +86,6 @@ export class Build extends Service implements Contract {
       .container(items)
       .getEntries()
       .reduce(componentReducer, {})
-
-    this.app.hooks.on('before', () => [])
-    this.app.hooks.on('after', () => [])
 
     config(this.app)
   }

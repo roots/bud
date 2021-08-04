@@ -1,15 +1,24 @@
-import {Framework, Logger as Base} from '@roots/bud-framework'
+import {
+  Framework,
+  Logger as Contract,
+  Service,
+} from '@roots/bud-framework'
 import {Signale} from 'signale'
 
 /**
  * Constants
  */
-import {INSTANCE_CONFIG, LOGGER_TYPES} from './enum'
+import {INSTANCE_CONFIG, LOGGER_TYPES} from './constants'
 
 /**
  * @sealed
  */
-class Logger extends Base {
+class Logger extends Service implements Contract {
+  /**
+   * Logger instance get accessor
+   */
+  public instance: Signale
+
   /**
    * Class constructor
    */
