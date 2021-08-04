@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.12",
-    "@types/lodash": "4.14.171",
+    "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
     "webpack": "5.47.1"
   },
