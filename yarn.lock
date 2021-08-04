@@ -2065,7 +2065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/utils-validation@npm:^2.0.0-beta.0":
+"@docusaurus/utils-validation@npm:^2.0.0-beta.4":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/utils-validation@npm:2.0.0-beta.ff31de0ff"
   dependencies:
@@ -2096,7 +2096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/utils@npm:2.0.0-beta.ff31de0ff, @docusaurus/utils@npm:^2.0.0-beta.0":
+"@docusaurus/utils@npm:2.0.0-beta.ff31de0ff, @docusaurus/utils@npm:^2.0.0-beta.4":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/utils@npm:2.0.0-beta.ff31de0ff"
   dependencies:
@@ -2123,12 +2123,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@easyops-cn/docusaurus-search-local@npm:0.18.1":
-  version: 0.18.1
-  resolution: "@easyops-cn/docusaurus-search-local@npm:0.18.1"
+"@easyops-cn/docusaurus-search-local@npm:0.19.1":
+  version: 0.19.1
+  resolution: "@easyops-cn/docusaurus-search-local@npm:0.19.1"
   dependencies:
-    "@docusaurus/utils": ^2.0.0-beta.0
-    "@docusaurus/utils-validation": ^2.0.0-beta.0
+    "@docusaurus/utils": ^2.0.0-beta.4
+    "@docusaurus/utils-validation": ^2.0.0-beta.4
     "@easyops-cn/autocomplete.js": ^0.38.1
     cheerio: ^1.0.0-rc.3
     clsx: ^1.1.1
@@ -2141,7 +2141,7 @@ __metadata:
     tslib: ^2.2.0
   peerDependencies:
     nodejieba: ^2.4.1
-  checksum: aacf4b3aebeca6afb7060aed43214c187d72d360e65cbd024d4ddbdaa309c26f87211910de80baeeebd2fffe288f6aa5bbd40be2a908a6b39f305044351b3b72
+  checksum: e99eeb7e49bed7fac928d1082b95518469ba7660359564998f82eae71d384547dc18246fc3c0d45d3dcfb8a0f3cfe04a4710b2c11b424b1a55b4c430a35f8819
   languageName: node
   linkType: hard
 
@@ -7133,7 +7133,7 @@ __metadata:
     "@docusaurus/core": 2.0.0-beta.4
     "@docusaurus/module-type-aliases": 2.0.0-beta.ff31de0ff
     "@docusaurus/preset-classic": 2.0.0-beta.4
-    "@easyops-cn/docusaurus-search-local": 0.18.1
+    "@easyops-cn/docusaurus-search-local": 0.19.1
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
