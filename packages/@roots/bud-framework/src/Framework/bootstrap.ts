@@ -1,5 +1,3 @@
-import {isNull} from 'lodash'
-
 import {Framework, Service} from '..'
 import {
   DEVELOPMENT_SERVICES,
@@ -12,10 +10,8 @@ interface bootstrap {
 }
 
 function bootstrap(this: Framework): Framework {
-  const isChildInstance = !isNull(this.parent)
-
   const validServices = this.container<Framework.Services>({
-    ...this.options.services,
+    ...this.services,
   })
     .getEntries()
     .filter(
@@ -29,7 +25,7 @@ function bootstrap(this: Framework): Framework {
          */
         return (this.isProduction &&
           DEVELOPMENT_SERVICES.includes(name)) ||
-          (isChildInstance && PARENT_SERVICES.includes(name))
+          (!this.isParent && PARENT_SERVICES.includes(name))
           ? false
           : true
       },

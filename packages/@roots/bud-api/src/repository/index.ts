@@ -324,17 +324,6 @@ interface Repository {
   runtime: Repository.Runtime
 
   /**
-   * Set a directory. The project directory should be an absolute path.
-   * All other directories should be relative (src, dist, etc.)
-   *
-   * @example
-   * ```js
-   * bud.setPath('src', 'custom/src')
-   * ```
-   */
-  setPath: Repository.SetPath
-
-  /**
    * By default it is assumed that assets are served from webroot (`/`).
    * You can use this method to replace this value for apps served from
    * a subdirectory.
@@ -568,13 +557,6 @@ namespace Repository {
     ): Framework
   }
 
-  export interface SetPath {
-    (this: Framework, name: any, path?: string): Framework
-  }
-  export interface SetPath {
-    (this: Framework, paths: string[]): Framework
-  }
-
   export interface SetPublicPath {
     (
       publicPath: string | ((publicPath: string) => string),
@@ -669,8 +651,6 @@ export {publicPath} from './publicPath'
 export {run} from './run'
 
 export {runtime} from './runtime'
-
-export {setPath} from './setPath'
 
 export {setPublicPath} from './setPublicPath'
 

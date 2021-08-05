@@ -5,13 +5,20 @@ import {Framework} from '..'
 interface path {
   (
     this: Framework,
-    key: keyof Framework.Locations,
+    key: keyof Framework.Locations & string,
     ...path: string[]
   ): string
 }
 
-function path(
-  key: keyof Framework.Locations,
+interface path {
+  (
+    key: keyof Framework.Locations & string,
+    ...path: string[]
+  ): string
+}
+
+const path: path = function (
+  key: keyof Framework.Locations & string,
   ...path: string[]
 ): string {
   return join(

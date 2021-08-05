@@ -1,20 +1,9 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {WebpackPluginInstance} from 'webpack'
 
 import type {Framework, Module, Plugin, Service} from './'
 
 /**
- * Container service for {@link Framework} extensions.
- *
- * @remarks
- * Extensions can be defined as a {@link Module}, which is more generic.
- * They can also be defined as a {@link Plugin} which is a {@link Module}
- * specifically providing a {@link WebpackPluginInstance}.
- *
- * @public
+ * @noInherit
  */
 interface Extensions extends Service<Framework.Extensions> {
   /**
@@ -37,7 +26,4 @@ namespace Extensions {
   export type PluginOutput = WebpackPluginInstance[]
 }
 
-/**
- * @exports Extensions
- */
 export {Extensions}

@@ -1,10 +1,6 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {Container} from '@roots/container'
 
 /**
- * @interface Env
+ * @noInherit
  */
 export interface Env extends Container {}

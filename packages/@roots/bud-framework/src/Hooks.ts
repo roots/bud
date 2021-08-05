@@ -27,21 +27,21 @@ import type {Framework, Module, Plugin, Service} from './'
  *   () => '[name].[hash:4]',
  * )
  * ```
+ *
+ * @noInherit
  */
 interface Hooks extends Service<Hooks.Repository> {
   /**
-   * hooks.on
-   *
    * Register a function to filter a value.
    *
+   * @remarks
    * If a filter calls for this name the function is then run,
    * passing whatever data along for modification. If more than one
    * hook is registered to a name, they will be called sequentially
    * in the order they were registered, with each hook's output used
    * as the input for the next.
    *
-   * ## Usage
-   *
+   * @example
    * ```js
    * app.hooks.on(
    *   'namespace.name.value',
@@ -52,14 +52,11 @@ interface Hooks extends Service<Hooks.Repository> {
   on(id: Hooks.Name, callback: Hooks.Hook): Framework
 
   /**
-   * hooks.filter
-   *
    * The other side of bud.hooks.on. Passes a key and a value. If
    * any filters are registered on that key they will transform
    * the output before it is returned.
    *
-   * ## Usage
-   *
+   * @example
    * ```js
    * bud.hooks.filter(
    *   'namespace.name.event',

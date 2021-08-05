@@ -7,23 +7,26 @@ interface get {
     this: Framework,
     name: string,
     tap?: (app: Framework) => Framework,
-  )
+  ): Framework
 }
 
-function get(
-  this: Framework,
+interface get {
+  (name: string, tap?: (app: Framework) => Framework): Framework
+}
+
+const get: get = function (
   name: string,
   tap?: (app: Framework) => Framework,
-) {
+): Framework {
   this.log('get request', name)
 
-  const compiler = this.children.get(name)
+  const instance = this.children.get(name)
 
   if (tap && isFunction(tap)) {
-    tap(compiler)
+    tap(instance)
   }
 
-  return compiler
+  return instance
 }
 
 export {get}

@@ -1,11 +1,7 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {Service} from './Service'
 
 /**
- * @interface Dependencies
+ * @noInherit
  */
 export interface Dependencies extends Service {
   /**

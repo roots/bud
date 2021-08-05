@@ -1,24 +1,21 @@
 import {Framework} from '..'
 
-interface pipe {
-  (
-    fns: ((input: Framework) => Framework)[],
-    value?: Framework,
-  ): Framework
+interface Callback<T = Framework> {
+  (input: T): T
 }
 
-function pipe(
-  fns: ((input: Framework) => Framework)[],
-  value?: Framework,
-): Framework {
-  const pipeReducer = (
-    val: Framework,
-    fn: (input: Framework) => Framework,
-  ) => {
+interface pipe {
+  <T = Framework>(fns: Callback<T>[], value?: T): T
+}
+
+function pipe<T = Framework>(fns: Callback<T>[], value?: T): T {
+  const pipeReducer = (val: T, fn: Callback<T>) => {
     return fn(val)
   }
 
-  return fns.reduce(pipeReducer, value ?? this)
+  return value
+    ? fns.reduce(pipeReducer, value)
+    : fns.reduce(pipeReducer, this)
 }
 
 export {pipe}

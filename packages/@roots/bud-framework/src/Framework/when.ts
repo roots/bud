@@ -11,7 +11,12 @@ interface when {
   ): Framework
 }
 
-const when: when = function (test, trueCase, falseCase) {
+function when(
+  this: Framework,
+  test: ((app: Framework) => boolean) | boolean,
+  trueCase: (app: Framework) => any,
+  falseCase?: (app: Framework) => any,
+): Framework {
   this.access(test)
     ? trueCase && isFunction(trueCase) && trueCase(this)
     : falseCase && isFunction(falseCase) && falseCase(this)

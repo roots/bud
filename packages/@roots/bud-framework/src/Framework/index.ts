@@ -1,6 +1,7 @@
+/* eslint-disable import/export */
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isNull} from 'lodash'
+import {isNull, isUndefined} from 'lodash'
 
 import type {
   Api,
@@ -56,19 +57,11 @@ abstract class Framework {
    * Framework name
    *
    * @remarks
-   * In multi-compiler usages of the class, each instance has a unique name.
+   * The name of the parent compiler is used as a base when sourcing configuration files.
+   * So, in an implementation that uses the name `app`, the Framework will be sourcing
+   * `app.config.js`, `app.development.config.js`, etc.
    */
   public name: string
-
-  /**
-   * Child {@link Framework} instances
-   *
-   * @remarks
-   * Is `null` if the current instance is a child instance.
-   *
-   * @default null
-   */
-  public children: Container<Framework.Instances> = null
 
   /**
    * Compilation mode
@@ -89,6 +82,45 @@ abstract class Framework {
    * @default null
    */
   public parent: Framework | null = null
+
+  /**
+   * Is parent
+   *
+   * @readonly
+   */
+  public get isParent(): boolean {
+    return isNull(this.parent)
+  }
+
+  /**
+   * Child {@link Framework} instances
+   *
+   * @remarks
+   * Is `null` if the current instance is a child instance.
+   *
+   * @default null
+   */
+  public children: Container<Framework.Instances> | null = null
+
+  /**
+   * Has children
+   *
+   * @readonly
+   */
+  public get hasChildren(): boolean {
+    return (
+      !isNull(this.children) &&
+      this.children.getEntries().length > 0
+    )
+  }
+
+  /**
+   * Framework services
+   *
+   * @remarks
+   * Can be set directly on the child instance or passed as a property in the {@link Framework.Options Framework constructor options}.
+   */
+  public services: Framework.Services
 
   /**
    * Macros for assisting with common config tasks
@@ -120,8 +152,7 @@ abstract class Framework {
   public build: Build
 
   /**
-   * Determines cache validity and generates version
-   * string based on hashed build configuration and project manifest files.
+   * Determines cache validity and generates version string based on SHA-1 hashed build configuration and project manifest files.
    *
    * @virtual
    */
@@ -245,41 +276,48 @@ abstract class Framework {
   }
 
   /**
-   * Framework constructor options
-   *
-   * @remarks
-   * Saved as a property from the constructor so options
-   * can be referenced from child instances.
-   */
-  public options: Framework.Options
-
-  /**
    * Class constructor
    */
   public constructor(options: Framework.Options) {
-    // Clone options parameter so as to not mutate other instances
-    this.options = {...options}
-
-    this.name = this.options.name
-    this.mode = this.options.mode
-
-    // Assign parent/child references
-    if (isNull(this.options.parent))
-      this.children = new Container({})
-    else this.parent = this
-
     // Bindings
-    this.access = this.access.bind(this)
-    this.bootstrap = this.bootstrap.bind(this)
-    this.container = this.container.bind(this)
-    this.get = this.get.bind(this)
-    this.make = this.make.bind(this)
-    this.path = this.path.bind(this)
-    this.pipe = this.pipe.bind(this)
-    this.setPath = this.setPath.bind(this)
-    this.sequence = this.sequence.bind(this)
-    this.tap = this.tap.bind(this)
-    this.when = this.when.bind(this)
+    this.bindMethod<access>('access', access)
+      .bindMethod<bootstrap>('bootstrap', bootstrap)
+      .bindMethod<container>('container', container)
+      .bindMethod<get>('get', get)
+      .bindMethod<make>('make', make)
+      .bindMethod<path>('path', path)
+      .bindMethod<pipe>('pipe', pipe)
+      .bindMethod<setPath>('setPath', setPath)
+      .bindMethod<sequence>('sequence', sequence)
+      .bindMethod<tap>('tap', tap)
+      .bindMethod<when>('when', when)
+
+    // Assign to instance
+    this.name = options.name
+    this.mode = options.mode ?? options.parent.mode
+    this.services = options.services ?? options.parent.services
+    this.store = new Store<Configuration>(this).setStore({
+      ...(options.config ?? options.parent.store.all()),
+    })
+
+    // Parent & child instance exclusive settings
+    if (isNull(this.parent) && isUndefined(options.parent))
+      this.children = new Container()
+    else this.parent = options.parent
+  }
+
+  /**
+   * Bind method to {@link Framework}
+   *
+   * @internal
+   */
+  public bindMethod<T = Function>(
+    key: string,
+    method: T & Function,
+  ): Framework {
+    this[key] = method.bind(this) as T
+
+    return this
   }
 
   /**
@@ -299,7 +337,7 @@ abstract class Framework {
    * access(isAValue) // => `option value: true`
    * ```
    */
-  public access: access = access
+  public access: access
 
   /**
    * Initializes and binds {@link Framework.services}
@@ -309,7 +347,7 @@ abstract class Framework {
    * new FrameworkImplementation(...constructorParams).bootstrap()
    * ```
    */
-  public bootstrap: bootstrap = bootstrap
+  public bootstrap: bootstrap
 
   /**
    * Create a new {@link Container} instance
@@ -321,7 +359,7 @@ abstract class Framework {
    * myContainer.get('key') // returns 'value'
    * ```
    */
-  public container = container
+  public container: container
 
   /**
    * Returns a {@link Framework} instance from the {@link Framework.children} container
@@ -334,7 +372,7 @@ abstract class Framework {
    * bud.get('pluginName', (plugin) => plugin.entry('main', 'main.js'))
    * ```
    */
-  public get: get = get
+  public get: get
 
   /**
    * Instantiate a child instance and add to {@link Framework.children} container
@@ -364,12 +402,12 @@ abstract class Framework {
    * })
    * ```
    */
-  public make: make = make
+  public make: make
 
   /**
-   * Returns a {@link Framework.Location} as an absolute path
+   * Returns a {@link Framework.Location} value as an absolute path
    */
-  public path: path = path
+  public path: path
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
@@ -390,7 +428,7 @@ abstract class Framework {
    * ) // resulting value is 3
    * ```
    */
-  public pipe: pipe = pipe
+  public pipe: pipe
 
   /**
    * Set a {@link Framework.Location} value
@@ -405,7 +443,7 @@ abstract class Framework {
    * bud.setPath('src', 'custom/src')
    * ```
    */
-  public setPath: setPath = setPath
+  public setPath: setPath
 
   /**
    * Run a value through a sequence of non mutational functions.
@@ -437,7 +475,7 @@ abstract class Framework {
    * })
    * ```
    */
-  public tap: tap = tap
+  public tap: tap
 
   /**
    * Executes a function if a given test is `true`.
@@ -465,7 +503,7 @@ abstract class Framework {
    * )
    * ```
    */
-  public when: when = when
+  public when: when
 
   /**
    * Log a message
@@ -654,18 +692,18 @@ namespace Framework {
    */
   export interface Options {
     name: string
-    mode: Framework.Mode
-    config: Configuration
-    services: Framework.Services
+    mode?: Framework.Mode
+    config?: Configuration
+    services?: Framework.Services
     parent?: Framework
   }
 
   /**
    * Callback which accepts Framework as a parameter
    */
-  export type Tapable<I = any> =
-    | ((app: Framework) => I)
-    | ((this: Framework, app?: Framework) => I)
+  export interface Tapable {
+    <T = Framework>(value?: T): any
+  }
 }
 
 export {Framework}

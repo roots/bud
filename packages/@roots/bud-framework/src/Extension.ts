@@ -7,9 +7,6 @@ import {Module} from './Module'
 
 type Key = `${keyof Framework.Extensions & string}`
 
-/**
- * Extension
- */
 abstract class Extension {
   protected _module: Module
 
@@ -77,9 +74,6 @@ abstract class Extension {
     return this.get('make')
   }
 
-  /**
-   * @property {WebpackPluginInstance['apply']} apply
-   */
   public get apply() {
     if (this.when == false || !this.get('apply'))
       return undefined

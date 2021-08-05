@@ -1,13 +1,15 @@
 import {Container} from '@roots/container'
 
-import {Framework} from '.'
-
 interface container<T = any> {
-  (this: Framework, repository: T): Container<T>
+  <T>(repository?: T): Container<T>
 }
 
-function container<T = any>(repository?: T): Container<T> {
-  return new Container<T>(repository)
+const container = function <T = any>(
+  repository?: T,
+): Container<T> {
+  return repository
+    ? new Container<T>(repository)
+    : new Container()
 }
 
 export {container}

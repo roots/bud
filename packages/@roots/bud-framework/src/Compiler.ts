@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {
   Compiler as WebpackCompiler,
   Configuration,

@@ -10,9 +10,6 @@ import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
  * Webpack compilation controller
  */
 class Compiler extends Service implements Contract {
-  /**
-   * Service ident
-   */
   public name = 'compiler'
 
   /**
@@ -78,20 +75,30 @@ class Compiler extends Service implements Contract {
     this.app.parent &&
       this.app.error(`Trying to compile a child directly.`)
 
+    /**
+     * Attempt to use the parent instance in the compilation if there are entries
+     * registered to it or if it has no child instances registered.
+     */
     if (
       this.app.build.rebuild().entry ||
-      this.app.children.getEntries().length == 0
+      !this.app.hasChildren
     ) {
       this.app.info('using parent compiler')
       config.push(this.app.build.rebuild())
     }
 
-    this.app.children.getValues().forEach(({build, name}) => {
-      if (name) {
-        this.app.info(`using ${name} compiler`)
-        config.push(build.rebuild())
-      }
-    })
+    /**
+     * If there are {@link Framework.children} instances, iterate through
+     * them and add to `config`
+     */
+    this.app.hasChildren &&
+      this.app.children.getValues().map(({build, name}) => {
+        name &&
+          (() => {
+            this.app.info(`using ${name} compiler`)
+            config.push(build.rebuild())
+          })()
+      })
 
     this.app.debug(config)
 

@@ -1,7 +1,7 @@
 import {Service} from './Service'
 
 /**
- * @interface Api
+ * @noInherit
  */
 interface Api extends Service {}
 

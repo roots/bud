@@ -166,11 +166,11 @@ interface Configuration {
   }
 }
 
-declare namespace Configuration {
+namespace Configuration {
   /**
    * Can be either ansi-color or hex
    */
-  type TermColor =
+  export type TermColor =
     | `#${string}`
     | `black`
     | `red`
@@ -192,7 +192,4 @@ declare namespace Configuration {
     | `whiteBright`
 }
 
-/**
- * @exports Configuration
- */
 export {Configuration}

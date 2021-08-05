@@ -3,7 +3,7 @@ import {Signale} from 'signale'
 import {Service} from '.'
 
 /**
- * Logging service abstract class
+ * @noInherit
  */
 interface Logger extends Service {
   name: 'logger'

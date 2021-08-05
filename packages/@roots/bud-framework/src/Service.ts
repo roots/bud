@@ -117,15 +117,12 @@ abstract class Service<
       [key: string]: CallableFunction
     },
   >(properties: T): void {
-    Object.assign(
-      this.app,
-      this.app
-        .container<T>(properties)
-        .getEntries()
-        .reduce((acc, [name, value]) => {
-          return {...acc, [`${name}`]: value.bind(this.app)}
-        }, {}),
-    )
+    this.app
+      .container(properties)
+      .getEntries()
+      .map(([name, value]) => {
+        this.app.bindMethod(name, value)
+      })
   }
 
   /**
@@ -160,7 +157,7 @@ abstract class Service<
     Object.assign(
       this.app,
       this.app
-        .container<T>(properties)
+        .container(properties)
         .getEntries()
         .reduce((acc, [name, value]) => {
           const [ClassObj, constructorParams] = isArray(value)

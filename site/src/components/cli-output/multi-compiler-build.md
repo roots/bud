@@ -3,7 +3,7 @@ bud
  - global.js       minimized       110 bytes
  - global.css       minimized       18 bytes
 
-Compiled in 578ms
+Compiled in 571ms
 
  theme
 

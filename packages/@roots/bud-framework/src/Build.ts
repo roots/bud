@@ -1,17 +1,9 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {Configuration, RuleSetRule} from 'webpack'
 
 import type {Framework, Service} from './'
 
 /**
- * Assembles the webpack config used by the {@link Compiler | Compiler Service}
- *
- * @remarks
- * Final configuration is accessible {@link Build.config}
- * It can be rebuilt with {@link Build.rebuild}
+ * @noInherit
  */
 interface Build extends Service {
   /**
@@ -40,9 +32,6 @@ interface Build extends Service {
   rebuild(): Configuration
 }
 
-/**
- * @namespace Build
- */
 namespace Build {
   /**
    * @interface Build.Loader

@@ -12,14 +12,12 @@ import {Extensions} from './Extensions'
 import {Hooks} from './Hooks'
 import {Logger} from './Logger'
 import {Server} from './Server'
-import {Store} from './Store'
 
 /**
  * Registered services
  */
 export const services: Framework.Services = {
   logger: Logger,
-  store: Store,
   api: Api,
   hooks: Hooks,
   env: Env,

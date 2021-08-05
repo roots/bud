@@ -1,6 +1,6 @@
 import {get} from 'lodash'
 
-import {Framework} from './Framework'
+import {Configuration} from './Configuration'
 import {Service} from './Service'
 
 /**
@@ -8,8 +8,7 @@ import {Service} from './Service'
  *
  * @sealed
  */
-class Store extends Service {
-  /** {@inheritDoc name} */
+class Store<T = Configuration> extends Service<T> {
   public name = 'store'
 
   /**
@@ -19,16 +18,6 @@ class Store extends Service {
    */
   public get<T = any>(path: Store.Keys) {
     return get(this.repository, path) as T
-  }
-
-  /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   */
-  public bootstrap(app: Framework) {
-    this.setStore({...app.options.config})
   }
 }
 

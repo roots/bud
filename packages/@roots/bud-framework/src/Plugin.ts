@@ -1,8 +1,5 @@
 import {Module} from './Module'
 
-/**
- * @interface Plugin
- */
 interface Plugin<Plugin = any, Options = any> extends Module {
   /**
    * Returns an instantiated webpack plugin
@@ -15,9 +12,7 @@ interface Plugin<Plugin = any, Options = any> extends Module {
   apply?: CallableFunction
 
   /**
-   * Returns a boolean determining if
-   * a webpack plugin should be used in
-   * compilation.
+   * Returns a boolean determining if a webpack plugin should be used in compilation.
    */
   when?: Module.When<Options>
 }

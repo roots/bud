@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {Service} from './Service'
 
 interface Repository {
@@ -28,7 +24,7 @@ interface Repository {
 }
 
 /**
- * @interface Discovery
+ * @noInherit
  */
 export abstract class Discovery extends Service<Repository> {
   /**

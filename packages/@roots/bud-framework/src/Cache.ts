@@ -1,47 +1,36 @@
-/**
- * @module @roots/bud-framework
- */
-
 import {Service} from './Service'
 
 /**
- * @interface Cache
+ * Handles cache invalidation, version generation, and the setting of build.cache config hooks.
  *
- * Handles cache invalidation, version generation, and build.cache config hooks.
- *
+ * @remarks
  * Interfaces with:
- *
  *  - {@link Discovery} to determine project dependencies for snapshotting/validation.
  *  - {@link Build} via {@link Hooks} to update config.
  *
  * Facades:
- *
  *  - {@link Api} can toggle cache settings with {@link Bud.Persist}
+ *
+ * @noInherit
  */
-declare interface Cache extends Service {
+interface Cache extends Service {
   /**
-   * ## cache.buildDependencies
-   *
-   * Dependencies which should be checked to determine cache
-   * validity.
+   * Dependencies which should be checked to determine cache validity.
    */
   buildDependencies(): string[]
 
   /**
-   * ## cache.cacheLocation
+   * Directory used to store cache files
    */
   directory(): string
 
   /**
-   * ## cache.hash
+   * Hash of config files and build dependencies
    */
   hash(): string
 
   /**
-   * ## cache.version
-   *
-   * A hash created from the stringified contents of the project config files
-   * and its dependencies.
+   * A short, unique string created from the hashed contents of the project config files and build dependencies.
    */
   version(): string
 }

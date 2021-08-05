@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {Container} from '@roots/container'
 import type {WatchOptions} from 'chokidar'
 import type {Application, Handler} from 'express'
@@ -12,7 +8,7 @@ import type * as DevMiddleware from 'webpack-dev-middleware'
 import type {Service} from './'
 
 /**
- * @interface Server
+ * @noInherit
  */
 interface Server extends Service {
   /**

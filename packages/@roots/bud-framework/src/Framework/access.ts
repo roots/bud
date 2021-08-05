@@ -3,11 +3,14 @@ import {isFunction} from 'lodash'
 import type {Framework} from './'
 
 interface access<I = any> {
-  (this: Framework, value: Framework.Tapable<I> | I): I
+  (this: Framework, value: Framework.Tapable | I): I
 }
 
-const access: access = function (value) {
-  return isFunction(value) ? value(this) : value
+function access<I = any>(
+  this: Framework,
+  value: Framework.Tapable | I,
+) {
+  return isFunction(value) ? value.bind(this)(this) : value
 }
 
 export {access}
