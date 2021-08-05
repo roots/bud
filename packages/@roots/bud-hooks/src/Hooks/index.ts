@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-hooks
- */
-
 import {
   Framework,
   Hooks as Contract,
@@ -12,18 +8,13 @@ import {get, isArray, isFunction, noop, set} from 'lodash'
 
 /**
  * Service: Hooks
- *
- * @noInheritDoc
  */
 class Hooks extends Service implements Contract {
-  /**
-   * @property {Contract.name} name
-   */
   public name = 'hooks'
 
   /**
-   * @method get
-   * {@link Contract.get}
+   * Get a hooks value
+   * @override
    */
   @bind
   public get<T = any>(path: `${Contract.Name & string}`) {
@@ -31,8 +22,8 @@ class Hooks extends Service implements Contract {
   }
 
   /**
-   * @method set
-   * {@link Contract.set}
+   * Set a hooks value
+   * @override
    */
   @bind
   public set(
@@ -93,7 +84,4 @@ class Hooks extends Service implements Contract {
   }
 }
 
-/**
- * @exports Hooks
- */
 export {Hooks}

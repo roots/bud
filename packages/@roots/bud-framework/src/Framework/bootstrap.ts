@@ -1,14 +1,18 @@
 import {isNull} from 'lodash'
 
 import {Framework, Service} from '..'
-import {LIFECYCLE_EVENTS, PARENT_SERVICES} from './constants'
+import {
+  DEVELOPMENT_SERVICES,
+  LIFECYCLE_EVENTS,
+  PARENT_SERVICES,
+} from './constants'
 
 interface bootstrap {
   (this: Framework): Framework
 }
 
 function bootstrap(this: Framework): Framework {
-  const isParentInstance = !isNull(this.parent)
+  const isChildInstance = !isNull(this.parent)
 
   const validServices = this.container<Framework.Services>({
     ...this.options.services,
@@ -23,8 +27,9 @@ function bootstrap(this: Framework): Framework {
          * - No reason to start server for production
          * - No reason to boot expensive parent services for child compilation instantances
          */
-        return (name == 'server' && this.isProduction) ||
-          (isParentInstance && PARENT_SERVICES.includes(name))
+        return (this.isProduction &&
+          DEVELOPMENT_SERVICES.includes(name)) ||
+          (isChildInstance && PARENT_SERVICES.includes(name))
           ? false
           : true
       },

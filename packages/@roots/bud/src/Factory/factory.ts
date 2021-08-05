@@ -4,8 +4,7 @@ import {services} from '../services'
 import type {Factory} from './'
 
 /**
- * @function factory
- * @implements {Factory}
+ * Instantiate a new Bud instance
  */
 const factory: Factory = overrides => {
   return new Bud({

@@ -1,12 +1,6 @@
-/**
- * @module Factory
- */
-
 import type {Configuration, Framework} from '..'
 
 /**
- * @interface Factory
- *
  * Create a Bud instance programmatically.
  */
 export declare interface Factory {
@@ -15,16 +9,28 @@ export declare interface Factory {
 
 export declare namespace Factory {
   /**
-   * @interface Factory.Options
-   *
    * Overrides for extensions, services and base configuration.
    */
   interface Options {
-    name: string
-    mode?: 'production' | 'development'
+    /**
+     * Application name
+     */
+    name: Framework['name']
+
+    /**
+     * Compilation mode
+     */
+    mode?: Framework['mode']
+
+    /**
+     * Framework base configuration
+     */
     config?: Configuration
+
+    /**
+     * Registered services
+     */
     services?: Framework.Services
-    parent?: Framework
   }
 }
 

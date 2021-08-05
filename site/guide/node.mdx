@@ -4,20 +4,70 @@ sidebar_label: Node API
 sidebar_position: 6
 ---
 
-**bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to: 
+**bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to:
 
 - Use **bud** as part of an existing pipeline like gulp
 - Use **bud** to generate a configuration to be consumed by **webpack** directly
 - Modify **bud** before running a build.
 
-## Using the bud factory
+## Using Bud with Node
+
+The easiest way to get going is calling the **factory** helper exported from **@roots/bud**.
+
+```js
+import {factory} from '@roots/bud'
+
+const app = factory()
+```
+
+You may wish to override Bud services, its base configuration, or programatically set 
+the compiler mode to `production` or `development`. These can all be passed as optional parameters.
+
+You can also import the default `config` and `services` objects to merge your overrides with 
+the defaults (so you don't have to reimplement the entire framework).
+
+```js
+import {config, factory, services} from '@roots/bud'
+
+const app = factory({
+  name: 'bud'
+  mode: 'production'
+  config: {
+    ...config,
+    // config overrides
+  },
+  services: {
+    ...services,
+    // service overrides
+  }
+})
+```
+
+The return value of **factory** is an instance of **Bud**, same as it when passed to 
+the function exported from `bud.config.js` when using the CLI.
+
+## Running a build from Node
+
+Once configured, simply call **bud.run** to run the build.
 
 ```js
 import {factory} from '@roots/bud'
 
 const app = factory()
 
-app.tap(app => {
-  // configure as needed
-})
+app.entry('app', 'app.js').run()
+```
+
+## Exporting a webpack config
+
+You may also want to utilize **bud** to create a config to be used with **webpack** directly. 
+This is easily accomplished by exporting **bud.build.config** in a file called `webpack.config.js`.
+
+```js title='webpack.config.js'
+import {factory} from '@roots/bud'
+
+const app = factory()
+const config = app.entry('app', 'app.js').build.config
+
+export default config
 ```

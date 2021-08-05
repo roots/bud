@@ -1,7 +1,6 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction, isNull} from 'lodash'
-import {join} from 'path'
+import {isNull} from 'lodash'
 
 import type {
   Api,
@@ -23,19 +22,31 @@ import type {
 import {
   access,
   bootstrap,
+  container,
+  get,
   make,
+  path,
   pipe,
+  sequence,
   Service,
+  setPath,
   Store,
+  tap,
   when,
 } from '../'
 
 /**
- * The core Framework interface
+ * The base class of a {@link Framework Framework instance}
+ *
+ * @remarks
+ * Implementations must provide a {@link Framework.implementation} property
+ * conforming to the {@link Framework.Constructor} interface
+ *
+ * This is in addition to all required {@link Framework.Options constructor parameters}.
  */
 abstract class Framework {
   /**
-   * Concrete implementation of the {@link Framework} interface
+   * Concrete implementation of the {@link Framework Framework interface}
    *
    * @virtual
    */
@@ -50,67 +61,104 @@ abstract class Framework {
   public name: string
 
   /**
-   * Parent compiler.
+   * Child {@link Framework} instances
    *
    * @remarks
-   * Returns `null` if the current instance is the parent instance.
+   * Is `null` if the current instance is a child instance.
+   *
+   * @default null
    */
-  public parent: Framework
-
-  /**
-   * Child {@link Framework} instances
-   */
-  public children: Container<Framework.Instances>
+  public children: Container<Framework.Instances> = null
 
   /**
    * Compilation mode
+   *
+   * @remarks
+   * Unlike webpack, there is no 'none' mode.
+   *
+   * @default 'production'
    */
-  public mode: Framework.Mode
+  public mode: Framework.Mode = 'production'
 
   /**
-   * {@inheritDoc Api}
+   * Parent {@link Framework} instance
+   *
+   * @remarks
+   * Is `null` if the current instance is the parent instance.
+   *
+   * @default null
+   */
+  public parent: Framework | null = null
+
+  /**
+   * Macros for assisting with common config tasks
+   *
+   * @internal
    * @virtual
    */
   public api: Api
 
   /**
-   * {@inheritDoc Build}
+   * Build configuration container
+   *
+   * @example
+   * {@link Build.config} property contains the build config object:
+   *
+   * ```js
+   * build.config
+   * ```
+   *
+   * @example
+   * Rebuild the configuration:
+   *
+   * ```js
+   * build.rebuild()
+   * ```
+   *
    * @virtual
    */
   public build: Build
 
   /**
-   * {@inheritDoc Cache}
+   * Determines cache validity and generates version
+   * string based on hashed build configuration and project manifest files.
+   *
    * @virtual
    */
   public cache: Cache
 
   /**
-   * {@inheritDoc Compiler}
+   * Compiles {@link Framework.build} configuration and stats/errors/progress reporting.
+   *
    * @virtual
    */
   public compiler: Compiler
 
   /**
-   * {@inheritDoc Dashboard}
+   * Presents build progress, stats and errors from {@link Framework.compiler} and {@link Framework.server}
+   * over the CLI.
+   *
    * @virtual
    */
   public dashboard: Dashboard
 
   /**
-   * {@inheritDoc Dependencies}
+   * Utilities for interfacing with user package manager software
+   *
    * @virtual
    */
   public dependencies: Dependencies
 
   /**
-   * {@inheritDoc Discovery}
+   * Project information and peer dependency management utilities
+   *
    * @virtual
    */
   public discovery: Discovery
 
   /**
-   * {@inheritDoc Env}
+   * .env container
+   *
    * @virtual
    */
   public env: Env
@@ -120,34 +168,63 @@ abstract class Framework {
    *
    * @remarks
    * Extensions can be defined as a {@link Module}, which is more generic.
+   *
    * They can also be defined as a {@link Plugin} which is a {@link Module}
    * specifically yielding a {@link WebpackPluginInstance}.
    *
-   * @public
+   * When adding a {@link Module} or {@link Plugin} to the container
+   * with {@link Extensions.add} it is cast to the {@link Extension} type.
+   *
    * @virtual
    */
   public extensions: Extensions
 
   /**
-   * {@inheritDoc Hooks}
+   * Service allowing for fitering {@link Framework} values through callbacks.
+   *
+   * @example
+   * Add a new entry to the `webpack.externals` configuration:
+   *
+   * ```js
+   * hooks.on(
+   *   'build/externals',
+   *   externals => ({
+   *     ...externals,
+   *     $: 'jquery',
+   *   }),
+   * )
+   * ```
+   *
+   * @example
+   * Change the `webpack.output.filename` format:
+   *
+   * ```js
+   * hooks.on(
+   *   'build/output/filename',
+   *   () => '[name].[hash:4]',
+   * )
+   * ```
+   *
    * @virtual
    */
   public hooks: Hooks
 
   /**
-   * {@inheritDoc Logger}
+   * Logging service
+   *
    * @virtual
    */
   public logger: Logger
 
   /**
-   * {@inheritDoc Server}
+   * Development server and browser devtools
+   *
    * @virtual
    */
   public server: Server
 
   /**
-   * Options container service
+   * Container service for holding {@link Configuration} values
    *
    * @sealed
    */
@@ -168,11 +245,48 @@ abstract class Framework {
   }
 
   /**
+   * Framework constructor options
+   *
+   * @remarks
+   * Saved as a property from the constructor so options
+   * can be referenced from child instances.
+   */
+  public options: Framework.Options
+
+  /**
+   * Class constructor
+   */
+  public constructor(options: Framework.Options) {
+    // Clone options parameter so as to not mutate other instances
+    this.options = {...options}
+
+    this.name = this.options.name
+    this.mode = this.options.mode
+
+    // Assign parent/child references
+    if (isNull(this.options.parent))
+      this.children = new Container({})
+    else this.parent = this
+
+    // Bindings
+    this.access = this.access.bind(this)
+    this.bootstrap = this.bootstrap.bind(this)
+    this.container = this.container.bind(this)
+    this.get = this.get.bind(this)
+    this.make = this.make.bind(this)
+    this.path = this.path.bind(this)
+    this.pipe = this.pipe.bind(this)
+    this.setPath = this.setPath.bind(this)
+    this.sequence = this.sequence.bind(this)
+    this.tap = this.tap.bind(this)
+    this.when = this.when.bind(this)
+  }
+
+  /**
    * Access a value which may or may not be a function.
    *
    * @remarks
-   * If a value is a function **access** will call that
-   * function and return the result.
+   * If a value is a function **access** will call that function and return the result.
    *
    * If the value is not a function **access** will return its value.
    *
@@ -180,22 +294,50 @@ abstract class Framework {
    * ```js
    * const isAFunction = (option) => `option value: ${option}`
    * const isAValue = 'option value: true'
-   * ```
    *
-   * @example
-   * ```js
    * access(isAFunction, true) // => `option value: true`
-   * ```
-   *
-   * @example
-   * ```js
    * access(isAValue) // => `option value: true`
    * ```
    */
   public access: access = access
 
   /**
-   * Make a child compiler.
+   * Initializes and binds {@link Framework.services}
+   *
+   * @example
+   * ```js
+   * new FrameworkImplementation(...constructorParams).bootstrap()
+   * ```
+   */
+  public bootstrap: bootstrap = bootstrap
+
+  /**
+   * Create a new {@link Container} instance
+   *
+   * @example
+   * ```js
+   * const myContainer = bud.container({key: 'value'})
+   *
+   * myContainer.get('key') // returns 'value'
+   * ```
+   */
+  public container = container
+
+  /**
+   * Returns a {@link Framework} instance from the {@link Framework.children} container
+   *
+   * @remarks
+   * An optional {@link tap} function can be provided to configure the returned Framework instance.
+   *
+   * @example
+   * ```js
+   * bud.get('pluginName', (plugin) => plugin.entry('main', 'main.js'))
+   * ```
+   */
+  public get: get = get
+
+  /**
+   * Instantiate a child instance and add to {@link Framework.children} container
    *
    * @remarks
    * **make** takes two parameters:
@@ -225,6 +367,79 @@ abstract class Framework {
   public make: make = make
 
   /**
+   * Returns a {@link Framework.Location} as an absolute path
+   */
+  public path: path = path
+
+  /**
+   * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
+   *
+   * @remarks
+   * If no value is provided the value is assumed to be the {@link Framework} itself
+   *
+   * {@link sequence} is a non-mutational version of this method.
+   *
+   * @example
+   * ```js
+   * app.pipe(
+   *   [
+   *     value => value + 1,
+   *     value => value + 1,
+   *   ],
+   *   1, // initial value
+   * ) // resulting value is 3
+   * ```
+   */
+  public pipe: pipe = pipe
+
+  /**
+   * Set a {@link Framework.Location} value
+   *
+   * @remarks
+   * The project directory should be an absolute path.
+   * All other directories should be relative (src, dist, etc.)
+   * @see {@link Framework.Locations}
+   *
+   * @example
+   * ```js
+   * bud.setPath('src', 'custom/src')
+   * ```
+   */
+  public setPath: setPath = setPath
+
+  /**
+   * Run a value through a sequence of non mutational functions.
+   *
+   * @remarks
+   * Unlike {@link pipe} the value returned from each function is ignored.
+   */
+  public sequence = sequence
+
+  /**
+   * Execute a callback
+   *
+   * @remarks
+   * Callback is provided {@link Framework the Framework instance} as a parameter.
+   *
+   * @example
+   * ```js
+   * bud.tap(bud => {
+   *   // do something with bud
+   * })
+   * ```
+   *
+   * @example
+   * Lexical scope is bound to {@link Framework} where applicable, so it is possible to reference the {@link Framework instance} using `this`.
+   *
+   * ```js
+   * bud.tap(function () {
+   *  // do something with this
+   * })
+   * ```
+   */
+  public tap: tap = tap
+
+  /**
    * Executes a function if a given test is `true`.
    *
    * @remarks
@@ -233,7 +448,7 @@ abstract class Framework {
    * - The third parameter is optional; executed if the conditional is not `true`.
    *
    * @example
-   * Only produce a vendor bundle when running in `production` mode:
+   * Only produce a vendor bundle when running in `production` {@link Mode}:
    *
    * ```js
    * bud.when(bud.isProduction, () => bud.vendor())
@@ -251,125 +466,6 @@ abstract class Framework {
    * ```
    */
   public when: when = when
-
-  /**
-   * Pipe a value through an array of functions
-   *
-   * @remarks
-   * If no value is provided the value is assumed to be the {@link Framework} itself
-   *
-   * @example
-   * ```js
-   * app.pipe(
-   *   [
-   *     value => value + 1,
-   *     value => value + 1,
-   *   ],
-   *   1, // initial value
-   * ) // resulting value is 3
-   * ```
-   */
-  public pipe: pipe = pipe
-
-  /**
-   * Initializes and binds {@link Framework.services}
-   */
-  public bootstrap: bootstrap = bootstrap
-
-  /**
-   * Framework constructor options
-   *
-   * @remarks
-   * Saved as a property from the constructor so options
-   * can be referenced from child instances.
-   */
-  public options: Framework.Options
-
-  /**
-   * Class constructor
-   */
-  public constructor(options: Framework.Options) {
-    // Clone options parameter so as to not mutate other instances
-    this.options = {...options}
-
-    this.name = this.options.name
-    this.parent = this.options.parent ?? null
-    this.mode = this.options.mode
-
-    if (isNull(this.parent)) {
-      this.children = new Container({})
-    }
-
-    // Bindings
-    this.access = this.access.bind(this)
-    this.bootstrap = this.bootstrap.bind(this)
-    this.make = this.make.bind(this)
-    this.pipe = this.pipe.bind(this)
-    this.when = this.when.bind(this)
-  }
-
-  /**
-   * Returns a {@link Framework} instance from the {@link Framework.children} container
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public get(name: string, tap?: (app: Framework) => Framework) {
-    this.log('get request', name)
-
-    const compiler = this.children.get(name)
-
-    if (tap && isFunction(tap)) {
-      tap(compiler)
-    }
-
-    return compiler
-  }
-
-  /**
-   * Create a new {@link Container} instance
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public container<T = any>(repository?: T): Container {
-    return new Container<T>(repository)
-  }
-
-  /**
-   * Returns a {@link Framework.Location} as an absolute path
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public path(
-    key: keyof Framework.Locations,
-    ...path: string[]
-  ): string {
-    return join(
-      ...[
-        key !== 'project'
-          ? this.hooks.filter('location/project')
-          : false,
-        this.hooks.filter(`location/${key}`),
-        ...(path ?? []),
-      ].filter(Boolean),
-    )
-  }
-
-  @bind
-  public sequence(fns: Array<(app: this) => any>): Framework {
-    fns.reduce((_val, fn) => this.tap(fn), this)
-
-    return this
-  }
-
-  @bind
-  public tap(fn: Framework.Tapable, bound: boolean = true) {
-    fn.call(bound ? this : null, this)
-
-    return this
-  }
 
   /**
    * Log a message
@@ -451,10 +547,13 @@ abstract class Framework {
 
 namespace Framework {
   /**
-   * Utility: Returns hash of a given object type
+   * Hash of a given object type
    */
   export type Index<T = any> = {[key: string]: T}
 
+  /**
+   * Compilation mode
+   */
   export type Mode = 'production' | 'development'
 
   /**
@@ -554,29 +653,10 @@ namespace Framework {
    * Constructor options
    */
   export interface Options {
-    /**
-     * {@link Framework.name}
-     */
     name: string
-
-    /**
-     * {@link Framework.mode}
-     */
     mode: Framework.Mode
-
-    /**
-     * {@link Configuration}
-     */
     config: Configuration
-
-    /**
-     * {@link Framework.Services}
-     */
     services: Framework.Services
-
-    /**
-     * {@link Framework}
-     */
     parent?: Framework
   }
 

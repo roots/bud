@@ -1,6 +1,10 @@
-import {Repository} from '..'
+import {Framework} from '.'
 
-const setPath: Repository.SetPath = function (...args) {
+interface setPath {
+  (this: Framework, ...args): Framework
+}
+
+function setPath(this: Framework, ...args): Framework {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
     return this

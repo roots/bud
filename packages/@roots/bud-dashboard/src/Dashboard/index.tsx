@@ -10,8 +10,6 @@ import {Dashboard as DashboardComponent} from './Dashboard'
 
 /**
  * Service: Dashboard
- *
- * @noInheritDoc
  */
 export class Dashboard extends Base {
   /**

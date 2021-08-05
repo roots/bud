@@ -1,16 +1,11 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type * as Webpack from 'webpack'
 
 import type {Framework, Module, Plugin, Service} from './'
 
 /**
- * @interface Hooks
+ * Service allowing for fitering {@link Framework} values through callbacks.
  *
- * @usage
- *
+ * @example
  * Add a new entry to the `webpack.externals` configuration:
  *
  * ```js
@@ -23,6 +18,7 @@ import type {Framework, Module, Plugin, Service} from './'
  * )
  * ```
  *
+ * @example
  * Change the `webpack.output.filename` format:
  *
  * ```js

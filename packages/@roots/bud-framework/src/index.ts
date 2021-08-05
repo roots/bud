@@ -56,8 +56,20 @@ export {access} from './Framework/access'
 
 export {bootstrap} from './Framework/bootstrap'
 
+export {container} from './Framework/container'
+
+export {get} from './Framework/get'
+
 export {make} from './Framework/make'
 
+export {path} from './Framework/path'
+
 export {pipe} from './Framework/pipe'
+
+export {setPath} from './Framework/setPath'
+
+export {sequence} from './Framework/sequence'
+
+export {tap} from './Framework/tap'
 
 export {when} from './Framework/when'

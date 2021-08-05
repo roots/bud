@@ -7,7 +7,7 @@ import type * as Webpack from 'webpack'
 import type {Framework, Server} from '.'
 
 /**
- * @interface Configuration
+ * Framework configuration
  */
 interface Configuration {
   /**
@@ -19,7 +19,6 @@ interface Configuration {
    * Shared regular expressions for pattern matching.
    *
    * @example
-   *
    * ```js
    * app.patterns.get('js')
    * ```

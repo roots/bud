@@ -5,7 +5,7 @@ import {Module} from '@roots/bud-framework'
 
 const extension: Module = {
   name: '@roots/bud-sass',
-  boot: ({hooks, build, discovery, error}) => {
+  boot: ({hooks, build, error}) => {
     try {
       require.resolve('sass')
     } catch (err) {
@@ -20,7 +20,7 @@ const extension: Module = {
 
     build.items['sass'] = new Item({
       loader: app => app.build.loaders['sass'],
-      options: app => ({
+      options: () => ({
         implementation: (() =>
           require(require.resolve('sass')))(),
         sourceMap: true,
