@@ -3223,7 +3223,7 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
-    "@types/webpack-dev-middleware": 5.0.1
+    "@types/webpack-dev-middleware": 5.0.2
     autobind-decorator: ^2.4.0
     chokidar: 3.5.2
     eslint: 7.32.0
@@ -4974,14 +4974,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-dev-middleware@npm:5.0.1":
-  version: 5.0.1
-  resolution: "@types/webpack-dev-middleware@npm:5.0.1"
+"@types/webpack-dev-middleware@npm:5.0.2":
+  version: 5.0.2
+  resolution: "@types/webpack-dev-middleware@npm:5.0.2"
   dependencies:
     "@types/connect": "*"
     tapable: ^2.1.1
     webpack: ^5.38.1
-  checksum: f46bd56c05cd218fea7bf41ed19b53ba8c55cb459c95c9b6568c1dc4943a67de92507fa622ba809badaa15bcd139bddca79132052a80988e6c2880fa980395a0
+  checksum: fd7ff7608362a1bd01ca7f89d1f3308d21519e4271a16f672e7801b087618c9fda10a102db61a8f5fda1253d580bfc227d574feb10ee0d87d24288f19bd846a9
   languageName: node
   linkType: hard
 
