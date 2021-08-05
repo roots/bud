@@ -365,11 +365,14 @@ abstract class Framework {
    * Returns a {@link Framework} instance from the {@link Framework.children} container
    *
    * @remarks
-   * An optional {@link tap} function can be provided to configure the returned Framework instance.
+   * An optional {@link tap} function can be provided to configure the {@link Framework} instance.
    *
    * @example
    * ```js
-   * bud.get('pluginName', (plugin) => plugin.entry('main', 'main.js'))
+   * const name = 'plugin'
+   * const tapFn = plugin => plugin.entry('main', 'main.js')
+   *
+   * bud.get(name, tapFn)
    * ```
    */
   public get: get
@@ -405,7 +408,7 @@ abstract class Framework {
   public make: make
 
   /**
-   * Returns a {@link Framework.Location} value as an absolute path
+   * Returns a {@link Framework.Locations} value as an absolute path
    */
   public path: path
 
@@ -431,10 +434,10 @@ abstract class Framework {
   public pipe: pipe
 
   /**
-   * Set a {@link Framework.Location} value
+   * Set a {@link Framework.Locations} value
    *
    * @remarks
-   * The project directory should be an absolute path.
+   * The {@link Framework.Locations `project` directory} should be an absolute path.
    * All other directories should be relative (src, dist, etc.)
    * @see {@link Framework.Locations}
    *
@@ -446,7 +449,7 @@ abstract class Framework {
   public setPath: setPath
 
   /**
-   * Run a value through a sequence of non mutational functions.
+   * Run a value through an array of syncronous, non-mutational functions.
    *
    * @remarks
    * Unlike {@link pipe} the value returned from each function is ignored.
