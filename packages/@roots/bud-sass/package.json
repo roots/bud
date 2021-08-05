@@ -66,8 +66,8 @@
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/node": "15.14.1",
     "postcss": "8.3.6",
-    "sass": "1.37.2",
-    "webpack": "5.47.1"
+    "sass": "1.37.5",
+    "webpack": "5.48.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",

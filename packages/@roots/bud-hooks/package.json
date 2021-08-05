@@ -61,7 +61,7 @@
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
     "@types/eslint": "7.28.0",
-    "@types/lodash": "4.14.171",
+    "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
     "eslint": "7.32.0"
   },
