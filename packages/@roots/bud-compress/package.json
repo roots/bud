@@ -65,7 +65,7 @@
     "@types/node": "15.14.1",
     "eslint": "7.32.0",
     "typedoc": "0.21.5",
-    "webpack": "5.48.0"
+    "webpack": "5.49.0"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
