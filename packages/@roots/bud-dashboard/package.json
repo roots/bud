@@ -58,7 +58,7 @@
     "@types/eslint": "7.28.0",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
-    "@types/react": "17.0.15",
+    "@types/react": "17.0.16",
     "eslint": "7.32.0"
   },
   "dependencies": {
