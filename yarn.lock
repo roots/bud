@@ -3090,7 +3090,7 @@ __metadata:
     "@types/eslint": 7.28.0
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
-    "@types/react": 17.0.15
+    "@types/react": 17.0.16
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
     execa: ^5.1.1
@@ -3433,7 +3433,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": 15.14.1
-    "@types/react": 17.0.15
+    "@types/react": 17.0.16
     "@types/react-dom": 17.0.9
     autobind-decorator: ^2.4.0
     react-hot-loader: ^4.13.0
@@ -3728,7 +3728,7 @@ __metadata:
     "@types/mini-css-extract-plugin": 2.0.1
     "@types/node": 15.14.1
     "@types/pkg-up": 3.1.0
-    "@types/react": 17.0.15
+    "@types/react": 17.0.16
     "@types/resolve-pkg": 2.0.0
     "@types/signale": 1.4.2
     autobind-decorator: ^2.4.0
@@ -3846,7 +3846,7 @@ __metadata:
     "@types/eslint": 7.28.0
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
-    "@types/react": 17.0.15
+    "@types/react": 17.0.16
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
     ink: ^3.0.8
@@ -4816,14 +4816,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.15":
-  version: 17.0.15
-  resolution: "@types/react@npm:17.0.15"
+"@types/react@npm:17.0.16":
+  version: 17.0.16
+  resolution: "@types/react@npm:17.0.16"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 4ee41e0c8d0e938f501f80ac75a5ee70b5e8cd5968a1f764960bf7b2694fd0d8ca01345f00325617130643b4af6e072bb3ade023dbc2bd2db7e73504b355b8d9
+  checksum: cba60aeb284d4024feaca1364557fda72011e984b6b08f6e06a7cdc65e267eabc42d59c541ddbbb81720ab195b6df95a3535540abadd5c0e2cce26b16759dbaa
   languageName: node
   linkType: hard
 
@@ -7139,7 +7139,7 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/jest": 26.0.24
     "@types/node": 16.3.0
-    "@types/react": 17.0.15
+    "@types/react": 17.0.16
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.3
