@@ -5,15 +5,6 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
-    "@types/react": "17.0.15",
-    "@types/react-dom": "^17",
-    "postcss": "^8.2.13",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0"
-  },
-  "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
   }
 }

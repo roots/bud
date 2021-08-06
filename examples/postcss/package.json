@@ -4,8 +4,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0"
+    "@roots/bud-postcss": "workspace:*"
   }
 }
