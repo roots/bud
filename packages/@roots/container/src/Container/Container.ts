@@ -4,18 +4,18 @@ import type {ValueOf} from 'type-fest'
 import type {Repository} from './Repository'
 
 /**
- * @roots/container
+ * Stores and provides utilities for manipulating {@link Repository data}
  */
 export class Container<I = any> {
   /**
-   * Identify
+   * Identifier
    */
   public ident: 'container'
 
   /**
    * The container store
    */
-  public repository: any
+  public repository: Repository
 
   /**
    * Class constructor
@@ -25,12 +25,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.all
+   * Returns the repository in its entirety as a plain JS object
    *
-   * Does the same thing as container.all
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.all()
    * ```
@@ -40,12 +37,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.setStore
-   *
    * Replace the store with an all new set of values
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.setStore({
    *  new: ['store', 'contents'],
@@ -59,12 +53,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mergeStore
-   *
    * Merge values onto the container store.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.mergeStore({test: 'foo'})
    * ```
@@ -79,14 +70,10 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.transformStore
+   * Runs the entire repository through the supplied fn and returns
+   * the transformed value.
    *
-   * Retrieve the container store, running it through the supplied fn.
-   *
-   * Returns the transformed value.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.transform(store=> modifiedStore)
    * ```
@@ -96,12 +83,11 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mutateStore
+   * Runs the entire {@link Repository} through the supplied fn and returns
+   * the transformed value. The transformed {@link Repository} replaces the
+   * original.
    *
-   * Mutate the container store.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.mutate('key', currentValue => modifiedValue)
    * ```
@@ -115,18 +101,17 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.get
+   * Returns a value from the the repository.
    *
-   * Get a value from the container.
-   *
+   * @remarks
    * If no key is passed the container store will be returned.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.get('container.container-item')
    * ```
    *
+   * @example
    * ```js
    * container.get(['container', 'container-item'])
    * ```
@@ -136,18 +121,17 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getEntries
+   * Returns a {@link Repository} key and value as a tuple
    *
-   * Get container value as [K, V] tuples.
-   *
+   * @remarks
    * If no key is passed the container store will be used.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.getEntries()
    * ```
    *
+   * @example
    * ```js
    * container.getEntries('key')
    * ```
@@ -172,18 +156,14 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.fromEntries
+   * Merges object created from an array of tuples with the {@link Repository}.
    *
-   * Set container value from [K, V] tuples.
-   *
-   * If no key is passed the container store will be used.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.getEntries()
    * ```
    *
+   * @example
    * ```js
    * container.getEntries('key')
    * ```
@@ -195,12 +175,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.withEntries
-   *
    * Use each value as parameters in a supplied callback
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
@@ -218,12 +195,10 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.every
+   * Calls a supplied function for every {@link Repository} value, passing
+   * the item's key and value as callback parameters.
    *
-   * Use each value as parameters in a supplied callback
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
@@ -246,7 +221,13 @@ export class Container<I = any> {
   }
 
   /**
-   * Find in container item
+   * Gets a nested value from the {@link Repository}
+   *
+   * @example
+   * ```js
+   * container.findKeyIn('top-level-key', 'inner', 'nested', 'item')
+   * // returns repository['top-level-key'].inner.nested.item
+   * ```
    */
   public findKeyIn(
     key: string | number,
@@ -265,18 +246,14 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getValues
+   * Returns an array of values of the enumerable properties of a {@link Repository} object
    *
-   * Get an item value.
-   *
-   * If no key is passed the container store will be used.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.getValues('container.container-item')
    * ```
    *
+   * @example
    * ```js
    * container.getValues()
    * // => returns values from entire store
@@ -287,19 +264,15 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getKeys
+   * Returns an array of values of the enumerable keys of a {@link Repository} object
    *
-   * Get an item's keys.
-   *
-   * If no key is passed the container store will be used.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.getKeys('item')
    * // => returns keys of container.repository[item]
    * ```
    *
+   * @example
    * ```js
    * container.getKeys()
    * // => returns keys of container.repository
@@ -310,17 +283,19 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getMap
+   * Get a {@link Repository} item as a {@link Map}.
    *
-   * Get an item as a Map datatype.
+   * @remarks
+   * If no key is passed the container store is mapped.
    *
-   * If no key is passed the container store will be used.
-   *
-   * ### Usage
-   *
+   * @example
+   * Returns `repository.item` as a Map:
    * ```js
    * container.getMap('item')
    * ```
+   *
+   * @example
+   * Returns the entire repository as a Map:
    *
    * ```js
    * container.getMap()
@@ -345,12 +320,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.set
+   * Set a {@link Repository} value
    *
-   * Set a value on a container item.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.set('key', value)
    * ```
@@ -362,14 +334,12 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.transform
-   *
    * Retrieve a container item, running it through the supplied fn.
    *
+   * @remarks
    * Returns the transformed value.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.transform('key', currentValue => modifiedValue)
    * ```
@@ -382,12 +352,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mutate
+   * Mutate a {@link Repository} item
    *
-   * Mutate a container item.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.mutate('key', currentValue => modifiedValue)
    * ```
@@ -402,12 +369,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.merge
+   * Merge a supplied value with an existing {@link Repository} value
    *
-   * Merge a container item.
-   *
-   * If no key is supplied the value will be merged onto the store itself.
-   *
+   * @example
    * ```js
    * container.merge('key', {merge: values})
    * ```
@@ -419,12 +383,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.has
-   *
    * Return a boolean indicating if a given key exists.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.has('my-key')
    * // true if container.repository['my-key'] exists
@@ -435,12 +396,11 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.delete
+   * delete
    *
    * Delete an entry from the repository
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.remove('my-key')
    * // Remove container.repository['my-key']
@@ -453,12 +413,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.is
-   *
    * Return a boolean indicating if the given key matches the given value.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.is('my-key', {whatever: 'value'})
    * // True if container.repository['my-key'] === {whatever: 'value'}
@@ -469,12 +426,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isTrue
-   *
    * Return a boolean indicating if the given key's value is true
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isTrue('my-key')
    * // True if container.repository['my-key'] === true
@@ -485,12 +439,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isFalse
-   *
    * Return a boolean indicating if the given key's value is false
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isFalse('my-key')
    * // True if container.repository['my-key'] === false
@@ -501,13 +452,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isIndexed
+   * Return true if object is likely a vanilla object with string keys.
    *
-   * Return true if object is likely a vanilla object with
-   * string keys.
-   *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isIndexed('my-key')
    * // True if container.repository['my-key'] appears to be an object.
@@ -523,12 +470,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isArray
-   *
    * Return true if object is an array.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isArray('my-key')
    * // True if container.repository['my-key'] is an array
@@ -539,12 +483,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNotArray
-   *
    * Return true if object is not an array.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isNotArray('my-key')
    * // True if container.repository['my-key'] is not an array
@@ -555,12 +496,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isString
-   *
    * Return true if object is a string.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isString('my-key')
    * // True if container.repository['my-key'] is a string
@@ -571,12 +509,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNotString
-   *
    * Return true if object is a string.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isString('my-key')
    * // True if container.repository['my-key'] is not a string
@@ -587,12 +522,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNumber
-   *
    * Return true if object is a number.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isNumber('my-key')
    * // True if container.repository['my-key'] is a number
@@ -603,12 +535,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNotNumber
-   *
    * Return true if object is not a number.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isNumber('my-key')
    * // True if container.repository['my-key'] is not a number
@@ -619,12 +548,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNull
-   *
    * Return true if object is null.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isNull('my-key')
    * // True if container.repository['my-key'] is null
@@ -635,12 +561,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isNotNull
-   *
    * Return true if object is not null.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isNotNull('my-key')
    * // True if container.repository['my-key'] is not null
@@ -651,12 +574,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isDefined
-   *
    * Return true if object is defined.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isDefined('my-key')
    * // True if container has a 'my-key' entry with a definite value.
@@ -667,12 +587,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isUndefined
-   *
    * Return true if object is defined.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isDefined('my-key')
    * // True if container has a 'my-key' entry with a definite value.
@@ -683,12 +600,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.isFunction
-   *
    * Return true if object is a function
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * container.isFunction('my-key')
    * // True if object associated with 'my-key' is a fn.

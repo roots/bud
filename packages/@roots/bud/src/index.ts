@@ -19,6 +19,7 @@ import {
   Service,
   Store,
 } from '@roots/bud-framework'
+import {Container} from '@roots/container'
 
 import {Bud, Framework} from './Bud'
 import {config, Configuration} from './config'
@@ -37,12 +38,7 @@ import {
 } from './services/Build'
 import {Cache} from './services/Cache'
 import {Compiler} from './services/Compiler'
-import {
-  Dashboard,
-  Error,
-  Progress,
-  Screen,
-} from './services/Dashboard'
+import {Dashboard} from './services/Dashboard'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Env} from './services/Env'
@@ -62,6 +58,8 @@ export {Build}
 export {Cache}
 
 export {Compiler}
+
+export {Container}
 
 export {Dashboard}
 
@@ -144,15 +142,3 @@ export * as MiniCssExtractPlugin from './extensions/mini-css-extract-plugin'
  * @hidden
  */
 export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
-/**
- * @hidden
- */
-export {Screen}
-/**
- * @hidden
- */
-export {Error}
-/**
- * @hidden
- */
-export {Progress}

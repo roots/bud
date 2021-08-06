@@ -1,3 +1,9 @@
 bud doctor
 
-All checks are O.K.
+Missing dependencies
+
+❌ postcss
+❌ postcss-import
+❌ postcss-preset-env
+❌ react
+❌ react-dom

@@ -192,7 +192,7 @@ module.exports = {
     [
       require.resolve('docusaurus-plugin-typedoc'),
       {
-        id: 'bud',
+        id: 'typedoc.bud',
         entryPoints: ['./packages/@roots/bud/src/index.ts'],
         tsconfig: `./tsconfig.json`,
         plugin: ['typedoc-plugin-no-inherit'],
@@ -200,6 +200,8 @@ module.exports = {
         docsRoot: 'site',
         out: 'api',
         sidebar: {
+          label: 'Framework API',
+          categoryLabel: 'Framework API',
           sidebarFile: null,
           fullNames: false,
         },

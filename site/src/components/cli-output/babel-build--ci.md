@@ -15,4 +15,4 @@ bud:
     css modules 330 bytes
       css ../../node_modules/css-loader/dist/cjs.js       ??ruleSet[1].rules[0].oneOf[10].use[1]!./src/foo.css        27 bytes [built] [code generated]
       css ../../node_modules/css-loader/dist/cjs.js       ??ruleSet[1].rules[0].oneOf[10].use[1]!./src/global.css        303 bytes [built] [code generated]
-  bud (webpack 5.49.0) compiled successfully in 581 ms
+  bud (webpack 5.49.0) compiled successfully in 608 ms

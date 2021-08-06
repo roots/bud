@@ -1,0 +1,66 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": false,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "es2020"
+    ],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noUnusedLocals": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "es2015"
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/@roots/bud-framework"
+    },
+    {
+      "path": "./packages/@roots/bud"
+    },
+    {
+      "path": "./packages/@roots/container"
+    },
+    {
+      "path": "./packages/@roots/bud-api"
+    },
+    {
+      "path": "./packages/@roots/bud-build"
+    },
+    {
+      "path": "./packages/@roots/bud-cache"
+    },
+    {
+      "path": "./packages/@roots/bud-compiler"
+    },
+    {
+      "path": "./packages/@roots/bud-dashboard"
+    },
+    {
+      "path": "./packages/@roots/bud-extensions"
+    },
+    {
+      "path": "./packages/@roots/bud-hooks"
+    },
+    {
+      "path": "./packages/@roots/bud-support"
+    },
+    {
+      "path": "./packages/@roots/dependencies"
+    },
+    {
+      "path": "./packages/@roots/ink-use-style"
+    },
+  ]
+}

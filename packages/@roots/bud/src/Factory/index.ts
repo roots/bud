@@ -3,15 +3,15 @@ import type {Configuration, Framework} from '..'
 /**
  * Create a Bud instance programmatically.
  */
-export declare interface Factory {
+export interface Factory {
   (overrides?: Factory.Options): Framework
 }
 
-export declare namespace Factory {
+export namespace Factory {
   /**
    * Overrides for extensions, services and base configuration.
    */
-  interface Options {
+  export interface Options {
     /**
      * Application name
      */

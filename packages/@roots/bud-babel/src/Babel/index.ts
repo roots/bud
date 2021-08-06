@@ -9,17 +9,9 @@ import {existsSync} from 'fs-extra'
 import type {BabelExtension} from '..'
 import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '..'
 
-/**
- * Extension: Babel
- *
- * @implements {BabelExtension}
- * @implements {Framework.Module}
- */
 const Babel: BabelExtension = {
-  /** {@inheritDoc Module.name} */
   name: '@roots/bud-babel',
 
-  /** {@inheritDoc Module.register} */
   register(app: Framework): void {
     /**
      * Bind app.babel

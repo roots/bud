@@ -1,14 +1,8 @@
-/**
- * @module Framework.Extensions.Babel
- */
-
 import type {Build, Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * babel
-     *
      * Configure babel.
      *
      * @usage
@@ -22,7 +16,7 @@ declare module '@roots/bud-framework' {
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-babel': Module
+      '@roots/bud-babel': BabelExtension
     }
 
     interface Loaders {
@@ -35,18 +29,12 @@ declare module '@roots/bud-framework' {
   }
 }
 
-/**
- * @interface BabelExtension
- */
 interface BabelExtension {
   name: Module.Name & '@roots/bud-babel'
   register: Module.Register
   boot: Module.Boot
 }
 
-/**
- * @interface BabelConfig
- */
 interface BabelConfig {
   /**
    * babel.plugins
