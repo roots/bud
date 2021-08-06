@@ -3714,7 +3714,7 @@ __metadata:
     de-indent: ^1.0.2
     he: ^1.2.0
     vue: 3.1.5
-    vue-loader: ^16.3.3
+    vue-loader: ^16.4.1
     webpack: 5.49.0
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.5
@@ -3865,7 +3865,9 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    webpack: ^5.47.1
+    webpack: ^5.49.0
+  peerDependencies:
+    webpack: ^5.49.0
   languageName: unknown
   linkType: soft
 
@@ -22810,9 +22812,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vue-loader@npm:^16.3.3":
-  version: 16.3.3
-  resolution: "vue-loader@npm:16.3.3"
+"vue-loader@npm:^16.4.1":
+  version: 16.4.1
+  resolution: "vue-loader@npm:16.4.1"
   dependencies:
     chalk: ^4.1.0
     hash-sum: ^2.0.0
@@ -22823,7 +22825,7 @@ resolve@^2.0.0-next.3:
   peerDependenciesMeta:
     "@vue/compiler-sfc":
       optional: true
-  checksum: d5d76bff1b79d9c49c170d93051092b1ef9230437277598e324171507c9c2fa0fd528e2b0ad10eeaa82e2008250060776da5bfd5c63c70bad838bb3229a1322c
+  checksum: 9142b561fbdbb4c1f4a0a418be6d373efda9aaabd8a0118e1c29fc8c2b0f663102e66198e89f674f78f9a2f7c124ac964fd33042bcfe006f2cb4531a5fe122ef
   languageName: node
   linkType: hard
 
@@ -23168,7 +23170,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.49.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.40.0":
+"webpack@npm:5.49.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.40.0, webpack@npm:^5.49.0":
   version: 5.49.0
   resolution: "webpack@npm:5.49.0"
   dependencies:

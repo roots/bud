@@ -3,4 +3,4 @@ bud
  - app.js       minimized       699 bytes
  - app.css       minimized       248 bytes
 
-Compiled in 921ms
+Compiled in 1s 112ms

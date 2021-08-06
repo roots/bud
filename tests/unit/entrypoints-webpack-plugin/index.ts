@@ -10,7 +10,6 @@ describe('entrypoints.json', () => {
     chonk.files = new Set(['foo.js', 'bar.js'])
     const files = entrypoints.getEntrypointFiles({
       chunks: [chonk],
-      origins: [],
     })
 
     expect(files).toEqual(['foo.js', 'bar.js'])
