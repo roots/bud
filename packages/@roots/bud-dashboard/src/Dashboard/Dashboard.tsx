@@ -1,20 +1,17 @@
-/**
- * @module @roots/bud-dashboard
- */
-
 import type {Framework} from '@roots/bud-framework'
-import {useStyle} from '@roots/ink-use-style'
-import {Box, Newline, Static, Text, useStdin} from 'ink'
+import {Ink, InkUseStyle, React} from '@roots/bud-support'
 import {isEqual} from 'lodash'
 import * as patchConsole from 'patch-console'
-import * as React from 'react'
-import {Fragment, useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {Progress} from '../components/Progress'
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
 import {Input} from './Input'
+
+const {useStyle} = InkUseStyle
+const {Fragment, useRef, useState} = React
+const {Box, Newline, Static, Text, useStdin} = Ink
 
 /**
  * @const Dashboard

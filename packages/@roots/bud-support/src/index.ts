@@ -1,22 +1,16 @@
-/**
- * Util: dump
- */
+import * as InkUseStyle from '@roots/ink-use-style'
+import * as Ink from 'ink'
+import * as React from 'react'
+
 import {dump} from './util/dump'
-export {dump}
-
-/**
- * Interpolate HTML Webpack Plugin
- */
-import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
-export {InterpolateHtmlPlugin}
-
-/**
- * Util: killPort
- */
+import {InterpolateHtmlPlugin} from './util/InterpolateHtmlPlugin'
 import {killPort} from './util/killPort'
-export {killPort}
+import * as wpPkgs from './util/wordpressPkgs'
 
-/**
- * Util: WordPress packages
- */
-export * as wpPkgs from './util/wordpressPkgs'
+export {dump}
+export {Ink}
+export {InkUseStyle}
+export {InterpolateHtmlPlugin}
+export {killPort}
+export {wpPkgs}
+export {React}

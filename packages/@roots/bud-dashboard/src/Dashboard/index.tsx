@@ -1,12 +1,13 @@
 import {Service as Base} from '@roots/bud-framework'
+import {Ink, React} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Box, Instance, render, Text} from 'ink'
 import {isString} from 'lodash'
-import * as React from 'react'
 
 import {Error} from '../components/Error'
 import {Screen} from '../components/Screen'
 import {Dashboard as DashboardComponent} from './Dashboard'
+
+const {Box, render, Text} = Ink
 
 /**
  * Service: Dashboard
@@ -17,7 +18,7 @@ export class Dashboard extends Base {
    */
   public name = 'dashboard'
 
-  public instance: Instance
+  public instance: Ink.Instance
 
   @bind
   public register(): void {
@@ -38,7 +39,7 @@ export class Dashboard extends Base {
   }
 
   @bind
-  public renderError(body: string, title: string): Instance {
+  public renderError(body: string, title: string): Ink.Instance {
     return render(
       <Screen app={this.app}>
         <Error body={body} title={title} />
@@ -47,7 +48,7 @@ export class Dashboard extends Base {
   }
 
   @bind
-  public render(Component: any, title?: string): Instance {
+  public render(Component: any, title?: string): Ink.Instance {
     const Output = () =>
       isString(Component) ? (
         <Text>{Component}</Text>

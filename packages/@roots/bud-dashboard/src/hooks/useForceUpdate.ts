@@ -1,9 +1,9 @@
-import {useCallback, useState} from 'react'
+import {React} from '@roots/bud-support'
 
 export const useForceUpdate = () => {
-  const [, forceUpdate] = useState(true)
+  const [, forceUpdate] = React.useState(true)
 
-  return useCallback(() => {
+  return React.useCallback(() => {
     forceUpdate(s => !s)
   }, [])
 }

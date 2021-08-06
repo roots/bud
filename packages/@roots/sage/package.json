@@ -84,8 +84,7 @@
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
-    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests",
-    "tslib": "^2.3.0"
+    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
   },
   "peerDependencies": {
     "@roots/bud": "*",

@@ -1,6 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import {Box, Text} from 'ink'
-import * as React from 'react'
+import {Ink, React} from '@roots/bud-support'
 
 export const Screen = ({
   app,
@@ -14,20 +13,20 @@ export const Screen = ({
   children: any
 }) =>
   title ? (
-    <Box flexDirection="column" marginY={1}>
-      <Text
+    <Ink.Box flexDirection="column" marginY={1}>
+      <Ink.Text
         backgroundColor={app.store.get(
           color ?? 'theme.colors.primary',
         )}>
         {' '}
         {title}{' '}
-      </Text>
-      <Box flexDirection="column" marginTop={1}>
+      </Ink.Text>
+      <Ink.Box flexDirection="column" marginTop={1}>
         {children}
-      </Box>
-    </Box>
+      </Ink.Box>
+    </Ink.Box>
   ) : (
-    <Box flexDirection="column" marginTop={1}>
+    <Ink.Box flexDirection="column" marginTop={1}>
       {children}
-    </Box>
+    </Ink.Box>
   )

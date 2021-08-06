@@ -1,6 +1,5 @@
-import {Text} from 'ink'
+import {Ink, React} from '@roots/bud-support'
 import * as Gradient from 'ink-gradient'
-import * as React from 'react'
 import {FunctionComponent, useEffect, useState} from 'react'
 
 export const Bar: FunctionComponent<{
@@ -23,11 +22,11 @@ export const Bar: FunctionComponent<{
   }, [maxWidth, percent])
 
   return fill <= 0 ? null : (
-    <Text wrap="truncate">
+    <Ink.Text wrap="truncate">
       <Gradient colors={colors}>
         {character.repeat(fill)}
       </Gradient>
       {'▉'.repeat(maxWidth - fill)}
-    </Text>
+    </Ink.Text>
   )
 }

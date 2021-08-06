@@ -72,8 +72,7 @@
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "tslib": "^2.3.0"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
   },
   "peerDependencies": {
     "@roots/bud": "*",

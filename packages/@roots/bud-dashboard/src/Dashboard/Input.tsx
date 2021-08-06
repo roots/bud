@@ -1,8 +1,8 @@
-import {useInput} from 'ink'
+import {Ink} from '@roots/bud-support'
 import {isEqual} from 'lodash'
 
 export const Input = ({bud}) => {
-  useInput(input => {
+  Ink.useInput(input => {
     if (isEqual(input, 'q')) {
       try {
         bud.compiler.instance.close(() => {

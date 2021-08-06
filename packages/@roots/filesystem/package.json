@@ -63,13 +63,10 @@
     "fs-extra": "^10.0.0",
     "globby": "^11.0.4",
     "lodash": "^4.17.21",
-    "resolve-from": "^5.0.0",
-    "tslib": "^2.3.0"
+    "resolve-from": "^5.0.0"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
-    "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "@types/node": "15.14.1"
   },
   "stableVersion": "4.6.0"
 }

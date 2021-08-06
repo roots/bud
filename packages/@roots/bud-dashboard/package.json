@@ -55,28 +55,25 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
     "@types/react": "17.0.15",
-    "eslint": "7.32.0"
+    "react": "^17.0.2",
+    "webpack": "^5.47.1"
   },
   "dependencies": {
     "@roots/bud-compiler": "workspace:packages/@roots/bud-compiler",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/filesystem": "workspace:packages/@roots/filesystem",
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "autobind-decorator": "^2.4.0",
     "execa": "^5.1.1",
     "human-readable": "^0.2.1",
-    "ink": "^3.0.8",
     "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",
     "lodash": "^4.17.21",
-    "patch-console": "^1.0.0",
-    "react": "^17.0.2",
-    "tslib": "^2.3.0",
-    "webpack": "^5.47.1"
+    "patch-console": "^1.0.0"
   },
   "stableVersion": "4.6.0"
 }

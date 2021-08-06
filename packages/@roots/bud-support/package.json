@@ -42,8 +42,8 @@
   },
   "scripts": {
     "build": "yarn g:build",
-    "build:cjs": "yarn g:build:cjs",
-    "build:esm": "yarn g:build:esm",
+    "build:cjs": "yarn g:build:cjs && yarn ncc build ./src/index.ts -o ./lib/cjs --minify=true",
+    "build:esm": "yarn g:build:esm && yarn ncc build ./src/index.ts -o ./lib/esm --minify=true",
     "profile": "yarn g:profile",
     "profile:cjs": "yarn g:profile:cjs",
     "profile:esm": "yarn g:profile:esm",
@@ -59,14 +59,21 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
-    "eslint": "7.32.0",
+    "@roots/container": "workspace:packages/@roots/container",
+    "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
+    "@types/react": "17.0.15",
+    "@types/react-dom": "^17",
+    "@vercel/ncc": "^0.29.0",
+    "ink": "^3.0.9",
+    "ink-spinner": "^4.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-node": "^10.1.0",
     "webpack": "5.48.0"
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "pretty-format": "^27.0.6",
-    "tslib": "^2.3.0"
+    "pretty-format": "^27.0.6"
   },
   "stableVersion": "4.6.0"
 }

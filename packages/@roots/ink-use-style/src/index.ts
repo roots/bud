@@ -17,4 +17,4 @@ export {defaultTheme} from './themes'
  * @exports Styles
  * @exports Theme
  */
-export {UseStyle, Styles, Theme} from './typings'
+export type {UseStyle, Styles, Theme} from './typings'

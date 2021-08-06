@@ -71,12 +71,10 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@types/eslint": "7.28.0",
-    "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "@types/node": "15.14.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.0"
+    "autobind-decorator": "^2.4.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

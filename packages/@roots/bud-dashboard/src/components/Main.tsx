@@ -1,11 +1,10 @@
-import {Box} from 'ink'
-import * as React from 'react'
+import {Ink, React} from '@roots/bud-support'
 
 export const Main = ({children}) => (
-  <Box
+  <Ink.Box
     justifyContent="space-between"
     display="flex"
     flexDirection="column">
     {children}
-  </Box>
+  </Ink.Box>
 )

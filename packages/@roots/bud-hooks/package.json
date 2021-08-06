@@ -60,17 +60,14 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/eslint": "7.28.0",
     "@types/lodash": "4.14.172",
-    "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "@types/node": "15.14.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "pretty-format": "^27.0.6",
-    "tslib": "^2.3.0"
+    "pretty-format": "^27.0.6"
   },
   "stableVersion": "4.6.0"
 }

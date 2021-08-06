@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-imagemin": "workspace:*"
+    "@roots/bud-imagemin": "workspace:*",
+    "@types/imagemin-gifsicle": "^7",
+    "imagemin-gifsicle": "^7.0.0"
   }
 }

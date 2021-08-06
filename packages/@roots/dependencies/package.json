@@ -61,13 +61,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
-    "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "@types/node": "15.14.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.0"
+    "autobind-decorator": "^2.4.0"
   },
   "stableVersion": "4.6.0"
 }

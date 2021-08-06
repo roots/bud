@@ -1,19 +1,9 @@
-/**
- * @module @roots/bud-support
- */
-
 import * as Webpack from 'webpack'
 
-/**
- * @interface RegularExpressionIndex
- */
 interface RegularExpressionIndex {
   [key: string]: RegExp
 }
 
-/**
- * @class InterpolateHtmlPlugin
- */
 class InterpolateHtmlPlugin {
   /**
    * @property {string} name
@@ -85,7 +75,4 @@ class InterpolateHtmlPlugin {
   }
 }
 
-/**
- * @exports InterpolateHtmlPlugin
- */
-export default InterpolateHtmlPlugin
+export {InterpolateHtmlPlugin}

@@ -3,6 +3,10 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.3.0",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0"
   }
 }

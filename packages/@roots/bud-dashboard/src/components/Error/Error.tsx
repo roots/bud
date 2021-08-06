@@ -1,19 +1,18 @@
-import {Box, Text} from 'ink'
-import * as React from 'react'
+import {Ink, React} from '@roots/bud-support'
 
 export const Component = ({title = 'Error', body}) => {
   return (
-    <Box
+    <Ink.Box
       flexDirection="column"
       borderColor="red"
       borderStyle="round"
       marginBottom={1}
       padding={1}>
-      <Text wrap="wrap" bold>
+      <Ink.Text wrap="wrap" bold>
         {title}
-      </Text>
+      </Ink.Text>
 
-      <Text wrap="wrap">{body}</Text>
-    </Box>
+      <Ink.Text wrap="wrap">{body}</Ink.Text>
+    </Ink.Box>
   )
 }

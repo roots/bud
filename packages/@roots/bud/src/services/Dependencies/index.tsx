@@ -1,10 +1,10 @@
 import {Service} from '@roots/bud-framework'
+import {React} from '@roots/bud-support'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {Static, Text} from 'ink'
 import {isEqual} from 'lodash'
-import * as React from 'react'
 
 /**
  * Service: Dependencies

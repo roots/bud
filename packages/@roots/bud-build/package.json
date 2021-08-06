@@ -59,13 +59,11 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
     "@types/lodash": "4.14.172",
     "@types/marked": "2.0.4",
     "@types/mini-css-extract-plugin": "2.0.1",
     "@types/node": "15.14.1",
     "@types/yamljs": "0.2.31",
-    "eslint": "7.32.0",
     "webpack": "5.48.0"
   },
   "dependencies": {
@@ -85,7 +83,6 @@
     "resolve-url-loader": "^4.0.0",
     "style-loader": "^3.2.1",
     "toml": "^3.0.0",
-    "tslib": "^2.3.0",
     "url-loader": "^4.1.1",
     "xml-loader": "^1.2.1",
     "yamljs": "^0.3.0"

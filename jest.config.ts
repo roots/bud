@@ -17,6 +17,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
       '@roots/filesystem',
       '@roots/bud-typings',
       '@roots/bud-cli',
+      '@roots/bud-support',
     ],
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper,

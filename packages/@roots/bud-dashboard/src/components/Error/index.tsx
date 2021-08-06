@@ -1,5 +1,4 @@
-import {render} from 'ink'
-import * as React from 'react'
+import {Ink, React} from '@roots/bud-support'
 
 import {Component} from './Error'
 
@@ -7,7 +6,7 @@ const Error: CallableFunction = (
   body: string,
   title: string,
 ) => {
-  render(
+  Ink.render(
     <Component title={title ?? 'Error'} body={body ?? ''} />,
   )
 }
