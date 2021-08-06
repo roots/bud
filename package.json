@@ -183,7 +183,8 @@
       },
       "@roots/bud-dashboard": {
         "dependencies": [
-          "@roots/bud-framework"
+          "@roots/bud-framework",
+          "@roots/bud-support"
         ]
       },
       "@roots/bud-extensions": {
