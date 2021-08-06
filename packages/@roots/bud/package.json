@@ -157,8 +157,6 @@
     "mini-css-extract-plugin": "^2.1.0",
     "node-notifier": "^10.0.0",
     "pkg-up": "^3.1.0",
-    "pretty-format": "^27.0.6",
-    "resolve-pkg": "^2.0.0",
     "signale": "^1.4.0",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^4.0.2"
