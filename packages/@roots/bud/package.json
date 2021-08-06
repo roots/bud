@@ -119,7 +119,7 @@
     "@types/react": "17.0.16",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
-    "webpack": "5.48.0"
+    "webpack": "5.49.0"
   },
   "dependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
