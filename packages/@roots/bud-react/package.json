@@ -66,10 +66,10 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "15.14.1",
-    "@types/react": "17.0.15",
+    "@types/react": "17.0.16",
     "@types/react-dom": "17.0.9",
-    "type-fest": "1.3.0",
-    "webpack": "5.48.0"
+    "type-fest": "1.4.0",
+    "webpack": "5.49.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",

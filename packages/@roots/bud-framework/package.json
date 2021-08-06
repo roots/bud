@@ -67,7 +67,7 @@
     "http-proxy-middleware": "2.0.1",
     "ink": "3.0.9",
     "signale": "1.4.0",
-    "webpack": "5.48.0",
+    "webpack": "5.49.0",
     "webpack-dev-middleware": "5.0.0"
   },
   "dependencies": {
