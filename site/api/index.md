@@ -145,7 +145,7 @@ instance.run() // run build
 
 #### Defined in
 
-[packages/@roots/bud/src/config.ts:9](https://github.com/roots/bud/blob/34e7c1a7/packages/@roots/bud/src/config.ts#L9)
+[packages/@roots/bud/src/config.ts:9](https://github.com/roots/bud/blob/5b2c8bf9/packages/@roots/bud/src/config.ts#L9)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/index.ts:18](https://github.com/roots/bud/blob/34e7c1a7/packages/@roots/bud/src/extensions/index.ts#L18)
+[packages/@roots/bud/src/extensions/index.ts:18](https://github.com/roots/bud/blob/5b2c8bf9/packages/@roots/bud/src/extensions/index.ts#L18)
 
 ___
 
@@ -167,7 +167,7 @@ Registered services
 
 #### Defined in
 
-[packages/@roots/bud/src/services/index.ts:19](https://github.com/roots/bud/blob/34e7c1a7/packages/@roots/bud/src/services/index.ts#L19)
+[packages/@roots/bud/src/services/index.ts:19](https://github.com/roots/bud/blob/5b2c8bf9/packages/@roots/bud/src/services/index.ts#L19)
 
 ## Functions
 
@@ -189,7 +189,7 @@ Instantiate a new Bud instance
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/factory.ts:9](https://github.com/roots/bud/blob/34e7c1a7/packages/@roots/bud/src/Factory/factory.ts#L9)
+[packages/@roots/bud/src/Factory/factory.ts:9](https://github.com/roots/bud/blob/5b2c8bf9/packages/@roots/bud/src/Factory/factory.ts#L9)
 
 ___
 
