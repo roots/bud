@@ -15,7 +15,7 @@ export class Container<I = any> {
   /**
    * The container store
    */
-  public repository: Repository
+  public repository: any
 
   /**
    * Class constructor

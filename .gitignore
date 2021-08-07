@@ -26,4 +26,3 @@ coverage
 .docusaurus
 .cache-loader
 /build
-site/api
