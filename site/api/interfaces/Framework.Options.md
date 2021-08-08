@@ -15,7 +15,7 @@ custom_edit_url: null
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:536
+packages/@roots/bud-framework/types/Framework/index.d.ts:500
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:535
+packages/@roots/bud-framework/types/Framework/index.d.ts:499
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:534
+packages/@roots/bud-framework/types/Framework/index.d.ts:498
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:538
+packages/@roots/bud-framework/types/Framework/index.d.ts:502
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:537
+packages/@roots/bud-framework/types/Framework/index.d.ts:501

@@ -70,7 +70,12 @@ export class Build extends Service implements Contract {
    * Registers config builder components and calls initial hooks
    */
   public bootstrap(): void {
-    const componentReducer = (a, [k, v]) => ({...a, [k]: v()})
+    function componentReducer<T = any>(
+      a,
+      [k, v]: [string, () => T],
+    ) {
+      return {...a, [k]: v()}
+    }
 
     this.loaders = this.app
       .container(loaders)

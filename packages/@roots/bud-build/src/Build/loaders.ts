@@ -2,22 +2,62 @@ import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
 
 import {Loader} from '../Loader'
 
-export const css = () =>
+/**
+ * Returns {@link Loader} for {@link import('css-loader') css-loader}
+ */
+export const css: () => Loader = () =>
   new Loader(require.resolve('css-loader'))
-export const csv = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('csv-loader') csv-loader}
+ */
+export const csv: () => Loader = () =>
   new Loader(require.resolve('csv-loader'))
-export const file = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('file-loader') file-loader}
+ */
+export const file: () => Loader = () =>
   new Loader(require.resolve('file-loader'))
-export const html = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('html-loader') html-loader}
+ */
+export const html: () => Loader = () =>
   new Loader(require.resolve('html-loader'))
-export const md = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('remark-loader') remark-loader}
+ */
+export const md: () => Loader = () =>
   new Loader(require.resolve('remark-loader'))
-export const minicss = () => new Loader(MiniCssLoader)
-export const resolveUrl = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('mini-css-extract-plugin').loader mini-css-extract-plugin.loader}
+ */
+export const minicss: () => Loader = () =>
+  new Loader(MiniCssLoader)
+
+/**
+ * Returns {@link Loader} for {@link import('resolve-url-loader') resolve-url-loader}
+ */
+export const resolveUrl: () => Loader = () =>
   new Loader(require.resolve('resolve-url-loader'))
-export const style = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('style-loader') style-loader}
+ */
+export const style: () => Loader = () =>
   new Loader(require.resolve('style-loader'))
-export const url = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('url-loader') url-loader}
+ */
+export const url: () => Loader = () =>
   new Loader(require.resolve('url-loader'))
-export const xml = () =>
+
+/**
+ * Returns {@link Loader} for {@link import('xml-loader') xml-loader}
+ */
+export const xml: () => Loader = () =>
   new Loader(require.resolve('xml-loader'))

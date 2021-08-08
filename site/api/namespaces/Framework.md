@@ -39,7 +39,7 @@ Framework Constructor
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:532
+packages/@roots/bud-framework/types/Framework/index.d.ts:496
 
 ___
 

@@ -46,6 +46,7 @@ A Service provides functionality through a series of lifecycle callbacks, which 
 
 ## Implemented by
 
+- [`Api`](Api.md)
 - [`Dashboard`](Dashboard.md)
 - [`Discovery`](Discovery.md)
 - [`Extensions`](Extensions.md)

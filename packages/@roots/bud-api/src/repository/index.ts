@@ -47,6 +47,8 @@ interface Repository {
    * Values defined in this function are more likely to be overwritten by {@link Framework Framework} hooks, etc.
    * If there is a more direct way to make your change it is better to not use this function.
    *
+   * Still, this function provides utility for certain use cases.
+   *
    * @example
    * ```js
    * app.config({

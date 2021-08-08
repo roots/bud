@@ -1,8 +1,14 @@
+// @ts-check
+
 const babel = require('@roots/bud-babel')
 const react = require('@roots/bud-react')
 const emotion = require('@roots/bud-emotion')
 
-module.exports = app =>
+/**
+ * @function config
+ * @param {import('@roots/bud').Bud} app
+ */
+function config(app) {
   app
     .use([babel, react, emotion])
     .template({
@@ -12,3 +18,6 @@ module.exports = app =>
     .when(app.isProduction, () => {
       app.runtime('single').splitChunks()
     })
+}
+
+module.exports = config

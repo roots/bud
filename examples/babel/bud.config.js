@@ -1,3 +1,9 @@
+// @ts-check
+
+/**
+ * @function config
+ * @param {import('@roots/bud').Bud} app
+ */
 module.exports = app =>
   app
     .use(require('@roots/bud-babel'))

@@ -23,7 +23,7 @@ Registered locations
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:504
+packages/@roots/bud-framework/types/Framework/index.d.ts:468
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:507
+packages/@roots/bud-framework/types/Framework/index.d.ts:471
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:502
+packages/@roots/bud-framework/types/Framework/index.d.ts:466
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:505
+packages/@roots/bud-framework/types/Framework/index.d.ts:469
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:503
+packages/@roots/bud-framework/types/Framework/index.d.ts:467
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:506
+packages/@roots/bud-framework/types/Framework/index.d.ts:470

@@ -33,4 +33,4 @@ Callback which accepts Framework as a parameter
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Framework/index.d.ts:544
+packages/@roots/bud-framework/types/Framework/index.d.ts:508

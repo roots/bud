@@ -26,4 +26,4 @@ Create a Bud instance programmatically.
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/index.ts:7](https://github.com/roots/bud/blob/325618c6/packages/@roots/bud/src/Factory/index.ts#L7)
+[packages/@roots/bud/src/Factory/index.ts:7](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/Factory/index.ts#L7)

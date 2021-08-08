@@ -601,56 +601,17 @@ namespace Framework {
    * Registered loaders
    */
   export interface Loaders
-    extends Framework.Index<Build.Loader> {
-    css: Build.Loader
-    csv: Build.Loader
-    html: Build.Loader
-    md: Build.Loader
-    raw: Build.Loader
-    style: Build.Loader
-    file: Build.Loader
-    url: Build.Loader
-    minicss: Build.Loader
-    'resolve-url': Build.Loader
-    xml: Build.Loader
-  }
+    extends Framework.Index<Build.Loader> {}
 
   /**
    * Registered items
    */
-  export interface Items extends Framework.Index<Build.Item> {
-    css: Build.Item
-    csv: Build.Item
-    file: Build.Item
-    image: Build.Item
-    font: Build.Item
-    html: Build.Item
-    js: Build.Item
-    md: Build.Item
-    minicss: Build.Item
-    'resolve-url': Build.Item
-    raw: Build.Item
-    style: Build.Item
-    svg: Build.Item
-    xml: Build.Item
-  }
+  export interface Items extends Framework.Index<Build.Item> {}
 
   /**
    * Registered rules
    */
-  export interface Rules extends Framework.Index<Build.Rule> {
-    js: Build.Rule
-    css: Build.Rule
-    html: Build.Rule
-    svg: Build.Rule
-    image: Build.Rule
-    font: Build.Rule
-    xml: Build.Rule
-    json5: Build.Rule
-    csv: Build.Rule
-    yml: Build.Rule
-    toml: Build.Rule
-  }
+  export interface Rules extends Framework.Index<Build.Rule> {}
 
   /**
    * Registered locations

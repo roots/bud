@@ -1,5 +1,11 @@
-module.exports = bud =>
-  bud
+// @ts-check
+
+/**
+ * @function config
+ * @param {import('@roots/bud').Bud} app
+ */
+module.exports = app =>
+  app
     .use([
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
