@@ -61,7 +61,7 @@
   "devDependencies": {
     "@types/lodash": "4.14.172",
     "@types/marked": "2.0.4",
-    "@types/mini-css-extract-plugin": "2.0.1",
+    "@types/mini-css-extract-plugin": "2.2.0",
     "@types/node": "15.14.1",
     "@types/yamljs": "0.2.31",
     "webpack": "5.49.0"
