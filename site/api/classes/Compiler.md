@@ -98,7 +98,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Compiler/index.ts:9](https://github.com/roots/bud/blob/5b2c8bf9/packages/@roots/bud/src/services/Compiler/index.ts#L9)
+[packages/@roots/bud/src/services/Compiler/index.ts:9](https://github.com/roots/bud/blob/325618c6/packages/@roots/bud/src/services/Compiler/index.ts#L9)
 
 ___
 

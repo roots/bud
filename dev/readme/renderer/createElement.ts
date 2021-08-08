@@ -1,4 +1,12 @@
-import {Break, Code, File, Markdown, P, Span} from './components'
+import {
+  Break,
+  Code,
+  File,
+  Image,
+  Markdown,
+  P,
+  Span,
+} from './components'
 
 export function createElement(type, props?, root?) {
   const COMPONENTS = {
@@ -46,6 +54,9 @@ export function createElement(type, props?, root?) {
     },
     span: () => {
       return new Span({...props})
+    },
+    img: () => {
+      return new Image({...props})
     },
     default: () => {
       return new P(props)

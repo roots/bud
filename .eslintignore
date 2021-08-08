@@ -1,6 +1,5 @@
 **/bin
 **/lib
-**/*.d.ts
 **/*.json
 **/node_modules
 **/package.json
