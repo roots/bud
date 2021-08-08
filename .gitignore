@@ -26,3 +26,4 @@ coverage
 .docusaurus
 .cache-loader
 /build
+.netlify

@@ -20,9 +20,11 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": ["src"],
-  "exclude": ["dist", "node_modules"],
-  "files": ["types/global.d.ts"],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
 }
