@@ -6,7 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Stores and provides utilities for manipulating [data](../namespaces/Store.md#repository)
+Provides a simple chainable interface for working with collections of data
 
 ## Type parameters
 
@@ -42,7 +42,7 @@ packages/@roots/container/types/Container/Container.d.ts:18
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
 

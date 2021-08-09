@@ -1,14 +1,19 @@
 import {items, loaders, rules} from '@roots/bud-build'
 import {Framework} from '@roots/bud-framework'
 
+import * as CleanWebpackPlugin from '../extensions/clean-webpack-plugin'
+import * as CopyWebpackPlugin from '../extensions/copy-webpack-plugin'
+import * as CssMinimizerWebpackPlugin from '../extensions/css-minimizer-webpack-plugin'
+import * as IgnoreEmitWebpackPlugin from '../extensions/ignore-emit-webpack-plugin'
+import * as MiniCssExtractPlugin from '../extensions/mini-css-extract-plugin'
+import * as WebpackConfigDumpPlugin from '../extensions/webpack-config-dump-plugin'
+import * as DefineWebpackPlugin from '../extensions/webpack-define-plugin'
+import * as HotModuleReplacementPlugin from '../extensions/webpack-hot-module-replacement-plugin'
+import * as WebpackManifestPlugin from '../extensions/webpack-manifest-plugin'
+import * as WebpackProvidePlugin from '../extensions/webpack-provide-plugin'
+
 /**
  * Bud is a frontend build framework combining the best parts of Symfony Encore and Laravel Mix
- *
- * @remarks
- * Many methods/properties are assigned to Bud's parent class {@link Framework}, and not {@link Bud} itself.
- * If you are looking for a reference and it's not here check the definition of {@link Framework}.
- *
- * @noInheritDoc
  */
 class Bud extends Framework {
   /**
@@ -30,6 +35,22 @@ class Bud extends Framework {
 }
 
 declare module '@roots/bud-framework' {
+  /**
+   * Registered extensions
+   */
+  interface Extensions {
+    ['webpack-provide-plugin']: typeof WebpackProvidePlugin
+    ['clean-webpack-plugin']: typeof CleanWebpackPlugin
+    ['webpack-config-dump-plugin']: typeof WebpackConfigDumpPlugin
+    ['copy-webpack-plugin']: typeof CopyWebpackPlugin
+    ['css-minimizer-webpack-plugin']: typeof CssMinimizerWebpackPlugin
+    ['webpack-define-plugin']: typeof DefineWebpackPlugin
+    ['webpack-hot-module-replacement-plugin']: typeof HotModuleReplacementPlugin
+    ['ignore-emit-webpack-plugin']: typeof IgnoreEmitWebpackPlugin
+    ['webpack-manifest-plugin']: typeof WebpackManifestPlugin
+    ['mini-css-extract-plugin']: typeof MiniCssExtractPlugin
+  }
+
   /**
    * Registered loaders
    */

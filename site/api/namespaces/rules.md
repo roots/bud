@@ -12,7 +12,7 @@ custom_edit_url: null
 
 ▸ `Const` **css**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** css
+Returns [Rule](../classes/Rule.md) for `.css` handling
 
 #### Returns
 
@@ -28,7 +28,7 @@ ___
 
 ▸ `Const` **csv**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** csv
+Returns [Rule](../classes/Rule.md) for `.csv` handling
 
 #### Returns
 
@@ -44,7 +44,7 @@ ___
 
 ▸ `Const` **font**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** font
+Returns [Rule](../classes/Rule.md) for `.woff`/`.otf` handling
 
 #### Returns
 
@@ -60,7 +60,7 @@ ___
 
 ▸ `Const` **html**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** html
+Returns [Rule](../classes/Rule.md) for `.html` handling
 
 #### Returns
 
@@ -92,7 +92,7 @@ ___
 
 ▸ `Const` **js**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** js
+Returns [Rule](../classes/Rule.md) for `.js` handling
 
 #### Returns
 
@@ -108,7 +108,7 @@ ___
 
 ▸ `Const` **json5**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** json5
+Returns [Rule](../classes/Rule.md) for `.jsonc` handling
 
 #### Returns
 
@@ -124,7 +124,7 @@ ___
 
 ▸ `Const` **md**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** md
+Returns [Rule](../classes/Rule.md) for `.md` handling
 
 #### Returns
 
@@ -140,7 +140,7 @@ ___
 
 ▸ `Const` **svg**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** svg
+Returns [Rule](../classes/Rule.md) for `.svg` handling
 
 #### Returns
 
@@ -156,7 +156,7 @@ ___
 
 ▸ `Const` **toml**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** toml
+Returns [Rule](../classes/Rule.md) for `.toml` handling
 
 #### Returns
 
@@ -172,7 +172,7 @@ ___
 
 ▸ `Const` **xml**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** xml
+Returns [Rule](../classes/Rule.md) for `.xml` handling
 
 #### Returns
 
@@ -188,7 +188,7 @@ ___
 
 ▸ `Const` **yml**(): [`Rule`](../classes/Rule.md)
 
-**`exports`** yml
+Returns [Rule](../classes/Rule.md) for `.yml` / `.yaml` handling
 
 #### Returns
 

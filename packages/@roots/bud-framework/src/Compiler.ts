@@ -9,21 +9,26 @@ import {
 
 import {Service} from './'
 
-export interface Compiler extends Service {
+/**
+ * {@link Service Service}: compiles {@link Framework.build} configuration and reports on stats, progress, and errors.
+ *
+ * @noInheritDoc
+ */
+interface Compiler extends Service {
   /**
-   * The compiler instance
+   * The compiler: an instance of {@link WebpackMultiCompiler}
    */
   instance: Compiler.Instance
 
   /**
-   * Has already been ran
+   * `true` if compiler has already been instantiated.
    */
   isCompiled: boolean
 
   /**
-   * Compiler stats output
+   * Contains {@link StatsCompilation}, if available.
    */
-  stats: any
+  stats: StatsCompilation
 
   /**
    * Formatted progress plugin
@@ -31,38 +36,43 @@ export interface Compiler extends Service {
   progress: Compiler.Progress
 
   /**
-   * ## bud.compiler.compile
+   * Returns a {@link WebpackMultiCompiler}, given {@link Configuration}
    *
-   * Return a compiler instance for a webpack configuration.
+   * @remarks
+   * {@link Framework} compiler should always be specified in a multi-compiler format (wrap a standard configuration in an array).
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * bud.compiler.compile()
    * ```
    *
+   * @example
    * ```js
-   * bud.compiler.compile({
+   * bud.compiler.compile([{
    *   entry: {app: 'foo.js'}
-   * })
+   * }])
    * ```
    */
   compile(): Compiler.Instance
 
   /**
-   * ## bud.compiler.before
+   * Callback for {@link Framework.Hooks} `before` filter
    *
-   * Parses configuration from bud
+   * @remarks
+   * Parses {@link Framework.Build.config} instances and generates final input for {@link Compiler.compile}
    */
   before(): any
 
   /**
    * Compilation callback
+   *
+   * @remarks
+   * Provides stats and error reporting
    */
   callback(err: StatsError, stats: StatsCompilation): void
 }
 
-export namespace Compiler {
+namespace Compiler {
   export type Config = Configuration
   export type Instance = WebpackCompiler | WebpackMultiCompiler
 
@@ -72,3 +82,5 @@ export namespace Compiler {
     export type Handler = ProgressPlugin['handler']
   }
 }
+
+export {Compiler}

@@ -44,7 +44,7 @@ packages/@roots/bud-framework/types/Service.d.ts:87
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
 
@@ -76,7 +76,7 @@ Contract.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:13](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Extensions/index.ts#L13)
+[packages/@roots/bud/src/services/Extensions/index.ts:13](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Extensions/index.ts#L13)
 
 ___
 
@@ -94,7 +94,7 @@ Contract.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:15](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Extensions/index.ts#L15)
+[packages/@roots/bud/src/services/Extensions/index.ts:15](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Extensions/index.ts#L15)
 
 ## Accessors
 
@@ -230,10 +230,10 @@ ___
 
 ▸ **bindMacro**<`T`\>(`properties`): `void`
 
-Bind a {@link CallableFunction} to the [Framework](Framework.md).
+Bind a {@link CallableFunction} to the [Framework](Framework.md)
 
 **`example`**
-Bind to `app.boundFnName`:
+Bind to `app.boundFnName`
 
 ```js
 app.service.bindClass({boundFnName: BindingClass})

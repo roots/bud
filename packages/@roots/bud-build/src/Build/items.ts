@@ -3,6 +3,9 @@ import * as RemarkHTML from 'remark-html'
 
 import {Item} from '../Item'
 
+/**
+ * Returns {@link Item} for assets
+ */
 export const asset = () =>
   new Item({
     loader: ({build}) => build.loaders.file,
@@ -15,6 +18,9 @@ export const asset = () =>
     }),
   })
 
+/**
+ * Returns {@link Item} for css
+ */
 export const css = () =>
   new Item({
     loader: ({build}) => build.loaders.css,
@@ -24,20 +30,33 @@ export const css = () =>
     }),
   })
 
+/**
+ * Returns {@link Item} for csv
+ */
 export const csv = () =>
   new Item({
     loader: ({build}) => build.loaders.csv,
   })
 
+/**
+ * Returns {@link Item} for html
+ */
 export const html = () =>
   new Item({
     loader: ({build}) => build.loaders.html,
   })
+
+/**
+ * Returns {@link Item} for style
+ */
 export const style = () =>
   new Item({
     loader: ({build}) => build.loaders.style,
   })
 
+/**
+ * Returns {@link Item} for markdown
+ */
 export const md = () =>
   new Item({
     loader: ({build}) => build.loaders.md,
@@ -48,17 +67,26 @@ export const md = () =>
     },
   })
 
+/**
+ * Returns {@link Item} for minicss-extract-plugin
+ */
 export const minicss = () =>
   new Item({
     loader: ({build}) => build.loaders.minicss,
     options: ({path}: Framework) => ({}),
   })
 
+/**
+ * Returns {@link Item} for raw
+ */
 export const raw = () =>
   new Item({
     loader: ({build}) => build.loaders.raw,
   })
 
+/**
+ * Returns {@link Item} for file
+ */
 export const file = () =>
   new Item({
     loader: ({build}) => build.loaders.file,
@@ -71,6 +99,9 @@ export const file = () =>
     }),
   })
 
+/**
+ * Returns {@link Item} resolve-url
+ */
 export const resolveUrl = () =>
   new Item({
     loader: ({build}) => build.loaders['resolveUrl'],
@@ -80,6 +111,9 @@ export const resolveUrl = () =>
     }),
   })
 
+/**
+ * Returns {@link Item} for xml
+ */
 export const xml = () =>
   new Item({
     loader: ({build}) => build.loaders.xml,

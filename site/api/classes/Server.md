@@ -104,7 +104,7 @@ ___
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
 
@@ -162,7 +162,7 @@ ___
 
 ### repository
 
-• **repository**: `Configuration`
+• **repository**: `Configuration` & [`Index`](../namespaces/Framework.md#index)<`any`\>
 
 Container repository
 
@@ -374,10 +374,10 @@ ___
 
 ▸ **bindMacro**<`T`\>(`properties`): `void`
 
-Bind a {@link CallableFunction} to the [Framework](Framework.md).
+Bind a {@link CallableFunction} to the [Framework](Framework.md)
 
 **`example`**
-Bind to `app.boundFnName`:
+Bind to `app.boundFnName`
 
 ```js
 app.service.bindClass({boundFnName: BindingClass})
@@ -1768,7 +1768,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Server/index.ts:12](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Server/index.ts#L12)
+[packages/@roots/bud/src/services/Server/index.ts:12](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Server/index.ts#L12)
 
 ___
 

@@ -6,6 +6,8 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
+Displays build progress, stats & errors in the terminal
+
 **`sealed`**
 
 ## Hierarchy
@@ -44,7 +46,7 @@ packages/@roots/bud-framework/types/Service.d.ts:87
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
 
@@ -98,13 +100,9 @@ ___
 
 ### repository
 
-• **repository**: `Object`
+• **repository**: { [key: string]: `any`;  } & [`Index`](../namespaces/Framework.md#index)<`any`\>
 
 Container repository
-
-#### Index signature
-
-▪ [key: `string`]: `any`
 
 #### Implementation of
 
@@ -226,10 +224,10 @@ ___
 
 ▸ **bindMacro**<`T`\>(`properties`): `void`
 
-Bind a {@link CallableFunction} to the [Framework](Framework.md).
+Bind a {@link CallableFunction} to the [Framework](Framework.md)
 
 **`example`**
-Bind to `app.boundFnName`:
+Bind to `app.boundFnName`
 
 ```js
 app.service.bindClass({boundFnName: BindingClass})

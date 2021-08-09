@@ -20,7 +20,7 @@ abstract class Bootstrapper<T = any> extends Container<T> {
   /**
    * Container repository
    */
-  public repository: T
+  public repository: T & Framework.Index
 
   /**
    * Access {@link Framework Framework} instance

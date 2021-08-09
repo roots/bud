@@ -135,7 +135,7 @@ interface Configuration {
   /**
    * Server config
    */
-  server: Server['config']['repository']
+  server: Server.Configuration
 
   /**
    * Theme configuration

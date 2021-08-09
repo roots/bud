@@ -22,7 +22,7 @@ export const image = () =>
   })
 
 /**
- * @exports font
+ * Returns {@link Rule} for `.woff`/`.otf` handling
  */
 export const font = () =>
   new Rule({
@@ -32,7 +32,7 @@ export const font = () =>
   })
 
 /**
- * @exports md
+ * Returns {@link Rule} for `.md` handling
  */
 export const md = () =>
   new Rule({
@@ -42,7 +42,7 @@ export const md = () =>
   })
 
 /**
- * @exports svg
+ * Returns {@link Rule} for `.svg` handling
  */
 export const svg = () =>
   new Rule({
@@ -55,7 +55,7 @@ export const svg = () =>
   })
 
 /**
- * @exports html
+ * Returns {@link Rule} for `.html` handling
  */
 export const html = () =>
   new Rule({
@@ -64,7 +64,7 @@ export const html = () =>
   })
 
 /**
- * @exports csv
+ * Returns {@link Rule} for `.csv` handling
  */
 export const csv = () =>
   new Rule({
@@ -73,7 +73,7 @@ export const csv = () =>
   })
 
 /**
- * @exports xml
+ * Returns {@link Rule} for `.xml` handling
  */
 export const xml = () =>
   new Rule({
@@ -82,7 +82,7 @@ export const xml = () =>
   })
 
 /**
- * @exports toml
+ * Returns {@link Rule} for `.toml` handling
  */
 export const toml: () => Rule = () =>
   new Rule({
@@ -94,7 +94,7 @@ export const toml: () => Rule = () =>
   })
 
 /**
- * @exports yml
+ * Returns {@link Rule} for `.yml` / `.yaml` handling
  */
 export const yml: () => Rule = () =>
   new Rule({
@@ -106,7 +106,7 @@ export const yml: () => Rule = () =>
   })
 
 /**
- * @exports json5
+ * Returns {@link Rule} for `.jsonc` handling
  */
 export const json5: () => Rule = () =>
   new Rule({
@@ -118,7 +118,7 @@ export const json5: () => Rule = () =>
   })
 
 /**
- * @exports css
+ * Returns {@link Rule} for `.css` handling
  */
 export const css: () => Rule = () =>
   new Rule({
@@ -131,7 +131,7 @@ export const css: () => Rule = () =>
   })
 
 /**
- * @exports js
+ * Returns {@link Rule} for `.js` handling
  */
 export const js: () => Rule = () =>
   new Rule({

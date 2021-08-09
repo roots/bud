@@ -228,6 +228,8 @@ Modify the [Framework](Framework.md) baseline config.
 Values defined in this function are more likely to be overwritten by [Framework](Framework.md) hooks, etc.
 If there is a more direct way to make your change it is better to not use this function.
 
+Still, this function provides utility for certain use cases.
+
 **`example`**
 ```js
 app.config({
@@ -250,7 +252,7 @@ app.config({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:61
+packages/@roots/bud-api/types/repository/index.d.ts:63
 
 ___
 
@@ -303,7 +305,7 @@ app.define({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:72
+packages/@roots/bud-api/types/repository/index.d.ts:74
 
 ___
 
@@ -337,7 +339,7 @@ app.dev({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:84
+packages/@roots/bud-api/types/repository/index.d.ts:86
 
 ___
 
@@ -355,7 +357,7 @@ app.devtool('inline-cheap-module-source-map')
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:94
+packages/@roots/bud-api/types/repository/index.d.ts:96
 
 ___
 
@@ -441,7 +443,7 @@ app.entry({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:158
+packages/@roots/bud-api/types/repository/index.d.ts:160
 
 ___
 
@@ -474,7 +476,7 @@ bud.experiments({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:169
+packages/@roots/bud-api/types/repository/index.d.ts:171
 
 ___
 
@@ -517,7 +519,7 @@ bud.externals({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:181
+packages/@roots/bud-api/types/repository/index.d.ts:183
 
 ___
 
@@ -557,7 +559,7 @@ bud.hash()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:190
+packages/@roots/bud-api/types/repository/index.d.ts:192
 
 ___
 
@@ -692,7 +694,7 @@ bud.minimize(true)
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:215
+packages/@roots/bud-api/types/repository/index.d.ts:217
 
 ___
 
@@ -774,7 +776,7 @@ app.persist({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:226
+packages/@roots/bud-api/types/repository/index.d.ts:228
 
 ___
 
@@ -822,7 +824,7 @@ bud.provide({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:238
+packages/@roots/bud-api/types/repository/index.d.ts:240
 
 ___
 
@@ -860,7 +862,7 @@ bud.proxy({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:268
+packages/@roots/bud-api/types/repository/index.d.ts:270
 
 ___
 
@@ -881,7 +883,7 @@ bud.publicPath('/app/themes/sage/dist')
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:281
+packages/@roots/bud-api/types/repository/index.d.ts:283
 
 ___
 
@@ -898,7 +900,7 @@ bud.run()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:290
+packages/@roots/bud-api/types/repository/index.d.ts:292
 
 ___
 
@@ -917,7 +919,7 @@ bud.runtime()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:301
+packages/@roots/bud-api/types/repository/index.d.ts:303
 
 ___
 
@@ -1032,7 +1034,7 @@ app.setPublicPath(publicPath => {
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:323
+packages/@roots/bud-api/types/repository/index.d.ts:325
 
 ___
 
@@ -1051,7 +1053,7 @@ bud.splitChunks({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:334
+packages/@roots/bud-api/types/repository/index.d.ts:336
 
 ___
 
@@ -1121,7 +1123,7 @@ app.template({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:351
+packages/@roots/bud-api/types/repository/index.d.ts:353
 
 ___
 
@@ -1160,7 +1162,7 @@ bud.use(new MyWebpackPlugin())
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:382
+packages/@roots/bud-api/types/repository/index.d.ts:384
 
 ___
 
@@ -1178,7 +1180,7 @@ app.watch(['templates/*.html'])
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:392
+packages/@roots/bud-api/types/repository/index.d.ts:394
 
 ___
 

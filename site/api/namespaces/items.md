@@ -12,61 +12,7 @@ custom_edit_url: null
 
 ▸ `Const` **asset**(): [`Item`](../classes/Item.md)
 
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:2
-
-___
-
-### css
-
-▸ `Const` **css**(): [`Item`](../classes/Item.md)
-
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:3
-
-___
-
-### csv
-
-▸ `Const` **csv**(): [`Item`](../classes/Item.md)
-
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:4
-
-___
-
-### file
-
-▸ `Const` **file**(): [`Item`](../classes/Item.md)
-
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:10
-
-___
-
-### html
-
-▸ `Const` **html**(): [`Item`](../classes/Item.md)
+Returns [Item](../classes/Item.md) for assets
 
 #### Returns
 
@@ -78,37 +24,11 @@ packages/@roots/bud-build/types/Build/items.d.ts:5
 
 ___
 
-### md
+### css
 
-▸ `Const` **md**(): [`Item`](../classes/Item.md)
+▸ `Const` **css**(): [`Item`](../classes/Item.md)
 
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:7
-
-___
-
-### minicss
-
-▸ `Const` **minicss**(): [`Item`](../classes/Item.md)
-
-#### Returns
-
-[`Item`](../classes/Item.md)
-
-#### Defined in
-
-packages/@roots/bud-build/types/Build/items.d.ts:8
-
-___
-
-### raw
-
-▸ `Const` **raw**(): [`Item`](../classes/Item.md)
+Returns [Item](../classes/Item.md) for css
 
 #### Returns
 
@@ -120,9 +40,11 @@ packages/@roots/bud-build/types/Build/items.d.ts:9
 
 ___
 
-### resolveUrl
+### csv
 
-▸ `Const` **resolveUrl**(): [`Item`](../classes/Item.md)
+▸ `Const` **csv**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for csv
 
 #### Returns
 
@@ -130,7 +52,103 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/items.d.ts:11
+packages/@roots/bud-build/types/Build/items.d.ts:13
+
+___
+
+### file
+
+▸ `Const` **file**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for file
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:37
+
+___
+
+### html
+
+▸ `Const` **html**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for html
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:17
+
+___
+
+### md
+
+▸ `Const` **md**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for markdown
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:25
+
+___
+
+### minicss
+
+▸ `Const` **minicss**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for minicss-extract-plugin
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:29
+
+___
+
+### raw
+
+▸ `Const` **raw**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) for raw
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:33
+
+___
+
+### resolveUrl
+
+▸ `Const` **resolveUrl**(): [`Item`](../classes/Item.md)
+
+Returns [Item](../classes/Item.md) resolve-url
+
+#### Returns
+
+[`Item`](../classes/Item.md)
+
+#### Defined in
+
+packages/@roots/bud-build/types/Build/items.d.ts:41
 
 ___
 
@@ -138,13 +156,15 @@ ___
 
 ▸ `Const` **style**(): [`Item`](../classes/Item.md)
 
+Returns [Item](../classes/Item.md) for style
+
 #### Returns
 
 [`Item`](../classes/Item.md)
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/items.d.ts:6
+packages/@roots/bud-build/types/Build/items.d.ts:21
 
 ___
 
@@ -152,10 +172,12 @@ ___
 
 ▸ `Const` **xml**(): [`Item`](../classes/Item.md)
 
+Returns [Item](../classes/Item.md) for xml
+
 #### Returns
 
 [`Item`](../classes/Item.md)
 
 #### Defined in
 
-packages/@roots/bud-build/types/Build/items.d.ts:12
+packages/@roots/bud-build/types/Build/items.d.ts:45

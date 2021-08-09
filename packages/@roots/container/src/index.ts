@@ -1,16 +1,11 @@
 /**
- * @module @roots/container
+ * `@roots/container` is a utility to make working with collections of data simple and chainable.
+ *
+ * @packageDocumentation
  */
 
 import {Container, Repository} from './Container'
 
-/**
- * @exports Container
- * @exports Repository
- */
 export {Container, Repository}
 
-/**
- * @exports default
- */
 export default Container

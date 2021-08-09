@@ -6,7 +6,15 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Service: Cache
+Handles cache invalidation, version generation, and the setting of 'build/cache' config hooks.
+
+**`remarks`**
+📝 Interfaces with:
+ - [Discovery](Discovery.md) to determine project dependencies for snapshotting/validation.
+ - [Build](Build.md) via [Hooks](Hooks.md) to update config.
+
+📝 Adds to `bud`:
+ - [Bud.persist](Bud.md#persist) - Toggles cache settings
 
 **`sealed`**
 
@@ -15,6 +23,10 @@ Service: Cache
 - `Base`
 
   ↳ **`Cache`**
+
+## Implements
+
+- [`Service`](Service.md)
 
 ## Constructors
 
@@ -42,9 +54,13 @@ packages/@roots/bud-framework/types/Service.d.ts:87
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
+
+#### Implementation of
+
+Service.ident
 
 #### Inherited from
 
@@ -62,6 +78,10 @@ ___
 
 **`property`** {string} name
 
+#### Implementation of
+
+Service.name
+
 #### Inherited from
 
 Base.name
@@ -74,13 +94,13 @@ ___
 
 ### repository
 
-• **repository**: `Object`
+• **repository**: { [key: string]: `any`;  } & [`Index`](../namespaces/Framework.md#index)<`any`\>
 
 Container repository
 
-#### Index signature
+#### Implementation of
 
-▪ [key: `string`]: `any`
+Service.repository
 
 #### Inherited from
 
@@ -124,6 +144,10 @@ container.all()
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.all
 
 #### Inherited from
 
@@ -176,6 +200,10 @@ app.service.bindClass({bindingName: [BindingClass, foo, bar]})
 
 `void`
 
+#### Implementation of
+
+Service.bindClass
+
 #### Inherited from
 
 Base.bindClass
@@ -190,10 +218,10 @@ ___
 
 ▸ **bindMacro**<`T`\>(`properties`): `void`
 
-Bind a {@link CallableFunction} to the [Framework](Framework.md).
+Bind a {@link CallableFunction} to the [Framework](Framework.md)
 
 **`example`**
-Bind to `app.boundFnName`:
+Bind to `app.boundFnName`
 
 ```js
 app.service.bindClass({boundFnName: BindingClass})
@@ -216,6 +244,10 @@ app.service.bindClass({boundFnName: BindingClass})
 #### Returns
 
 `void`
+
+#### Implementation of
+
+Service.bindMacro
 
 #### Inherited from
 
@@ -248,6 +280,10 @@ Lifecycle method: boot
 
 `any`
 
+#### Implementation of
+
+Service.boot
+
 #### Inherited from
 
 Base.boot
@@ -269,6 +305,10 @@ Service booted event
 #### Returns
 
 `void`
+
+#### Implementation of
+
+Service.booted
 
 #### Inherited from
 
@@ -301,6 +341,10 @@ Lifecycle method: bootstrap
 
 `any`
 
+#### Implementation of
+
+Service.bootstrap
+
 #### Inherited from
 
 Base.bootstrap
@@ -331,6 +375,10 @@ Lifecycle method: bootstrapped
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.bootstrapped
 
 #### Inherited from
 
@@ -406,6 +454,10 @@ container.withEntries('key', (key, value) => doSomething)
 
 [`Cache`](Cache.md)
 
+#### Implementation of
+
+Service.each
+
 #### Inherited from
 
 Base.each
@@ -438,6 +490,10 @@ container.withEntries('key', (key, value) => doSomething)
 
 [`Cache`](Cache.md)
 
+#### Implementation of
+
+Service.every
+
 #### Inherited from
 
 Base.every
@@ -463,6 +519,10 @@ Find
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.findKey
 
 #### Inherited from
 
@@ -496,6 +556,10 @@ container.findKeyIn('top-level-key', 'inner', 'nested', 'item')
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.findKeyIn
 
 #### Inherited from
 
@@ -532,6 +596,10 @@ container.getEntries('key')
 #### Returns
 
 [`Cache`](Cache.md)
+
+#### Implementation of
+
+Service.fromEntries
 
 #### Inherited from
 
@@ -578,6 +646,10 @@ container.get(['container', 'container-item'])
 
 `T`
 
+#### Implementation of
+
+Service.get
+
 #### Inherited from
 
 Base.get
@@ -623,6 +695,10 @@ container.getEntries('key')
 
 [`string`, `ValueOf`<`T`, keyof `T`\>][]
 
+#### Implementation of
+
+Service.getEntries
+
 #### Inherited from
 
 Base.getEntries
@@ -660,6 +736,10 @@ container.getKeys()
 #### Returns
 
 `string`[]
+
+#### Implementation of
+
+Service.getKeys
 
 #### Inherited from
 
@@ -703,6 +783,10 @@ container.getMap()
 
 `Map`<`string`, `any`\>
 
+#### Implementation of
+
+Service.getMap
+
 #### Inherited from
 
 Base.getMap
@@ -740,6 +824,10 @@ container.getValues()
 
 `any`[]
 
+#### Implementation of
+
+Service.getValues
+
 #### Inherited from
 
 Base.getValues
@@ -771,6 +859,10 @@ container.has('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.has
 
 #### Inherited from
 
@@ -825,6 +917,10 @@ container.is('my-key', {whatever: 'value'})
 
 `boolean`
 
+#### Implementation of
+
+Service.is
+
 #### Inherited from
 
 Base.is
@@ -856,6 +952,10 @@ container.isArray('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isArray
 
 #### Inherited from
 
@@ -889,6 +989,10 @@ container.isDefined('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isDefined
+
 #### Inherited from
 
 Base.isDefined
@@ -920,6 +1024,10 @@ container.isFalse('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isFalse
 
 #### Inherited from
 
@@ -953,6 +1061,10 @@ container.isFunction('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isFunction
+
 #### Inherited from
 
 Base.isFunction
@@ -984,6 +1096,10 @@ container.isIndexed('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isIndexed
 
 #### Inherited from
 
@@ -1017,6 +1133,10 @@ container.isNotArray('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isNotArray
+
 #### Inherited from
 
 Base.isNotArray
@@ -1048,6 +1168,10 @@ container.isNotNull('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isNotNull
 
 #### Inherited from
 
@@ -1081,6 +1205,10 @@ container.isNumber('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isNotNumber
+
 #### Inherited from
 
 Base.isNotNumber
@@ -1112,6 +1240,10 @@ container.isString('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isNotString
 
 #### Inherited from
 
@@ -1145,6 +1277,10 @@ container.isNull('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isNull
+
 #### Inherited from
 
 Base.isNull
@@ -1176,6 +1312,10 @@ container.isNumber('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isNumber
 
 #### Inherited from
 
@@ -1209,6 +1349,10 @@ container.isString('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isString
+
 #### Inherited from
 
 Base.isString
@@ -1240,6 +1384,10 @@ container.isTrue('my-key')
 #### Returns
 
 `boolean`
+
+#### Implementation of
+
+Service.isTrue
 
 #### Inherited from
 
@@ -1273,6 +1421,10 @@ container.isDefined('my-key')
 
 `boolean`
 
+#### Implementation of
+
+Service.isUndefined
+
 #### Inherited from
 
 Base.isUndefined
@@ -1305,6 +1457,10 @@ container.merge('key', {merge: values})
 
 [`Cache`](Cache.md)
 
+#### Implementation of
+
+Service.merge
+
 #### Inherited from
 
 Base.merge
@@ -1335,6 +1491,10 @@ container.mergeStore({test: 'foo'})
 #### Returns
 
 [`Cache`](Cache.md)
+
+#### Implementation of
+
+Service.mergeStore
 
 #### Inherited from
 
@@ -1367,6 +1527,10 @@ container.mutate('key', currentValue => modifiedValue)
 #### Returns
 
 [`Cache`](Cache.md)
+
+#### Implementation of
+
+Service.mutate
 
 #### Inherited from
 
@@ -1401,6 +1565,10 @@ container.mutate('key', currentValue => modifiedValue)
 
 [`Cache`](Cache.md)
 
+#### Implementation of
+
+Service.mutateStore
+
 #### Inherited from
 
 Base.mutateStore
@@ -1428,6 +1596,10 @@ Service register event
 #### Returns
 
 `void`
+
+#### Implementation of
+
+Service.register
 
 #### Inherited from
 
@@ -1459,6 +1631,10 @@ Lifecycle method: registered
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.registered
 
 #### Inherited from
 
@@ -1494,6 +1670,10 @@ container.remove('my-key')
 
 [`Cache`](Cache.md)
 
+#### Implementation of
+
+Service.remove
+
 #### Inherited from
 
 Base.remove
@@ -1525,6 +1705,10 @@ container.set('key', value)
 #### Returns
 
 [`Cache`](Cache.md)
+
+#### Implementation of
+
+Service.set
 
 #### Inherited from
 
@@ -1558,6 +1742,10 @@ container.setStore({
 #### Returns
 
 [`Cache`](Cache.md)
+
+#### Implementation of
+
+Service.setStore
 
 #### Inherited from
 
@@ -1594,6 +1782,10 @@ container.transform('key', currentValue => modifiedValue)
 
 `any`
 
+#### Implementation of
+
+Service.transform
+
 #### Inherited from
 
 Base.transform
@@ -1625,6 +1817,10 @@ container.transform(store=> modifiedStore)
 #### Returns
 
 `any`
+
+#### Implementation of
+
+Service.transformStore
 
 #### Inherited from
 

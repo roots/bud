@@ -267,7 +267,7 @@ ___
 
 ### server
 
-• **server**: `any`
+• **server**: `Configuration`
 
 Server config
 

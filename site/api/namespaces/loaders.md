@@ -12,7 +12,7 @@ custom_edit_url: null
 
 ▸ `Const` **css**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('css-loader') css-loader}
+Returns [Loader](../classes/Loader.md) for `css-loader`
 
 #### Returns
 
@@ -28,7 +28,7 @@ ___
 
 ▸ `Const` **csv**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('csv-loader') csv-loader}
+Returns [Loader](../classes/Loader.md) for `csv-loader`
 
 #### Returns
 
@@ -44,7 +44,7 @@ ___
 
 ▸ `Const` **file**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('file-loader') file-loader}
+Returns [Loader](../classes/Loader.md) for `file-loader`
 
 #### Returns
 
@@ -60,7 +60,7 @@ ___
 
 ▸ `Const` **html**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('html-loader') html-loader}
+Returns [Loader](../classes/Loader.md) for `html-loader`
 
 #### Returns
 
@@ -76,7 +76,7 @@ ___
 
 ▸ `Const` **md**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('remark-loader') remark-loader}
+Returns [Loader](../classes/Loader.md) for `remark-loader`
 
 #### Returns
 
@@ -92,7 +92,7 @@ ___
 
 ▸ `Const` **minicss**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('mini-css-extract-plugin').loader mini-css-extract-plugin.loader}
+Returns [Loader](../classes/Loader.md) for `mini-css-extract-plugin.loader`
 
 #### Returns
 
@@ -108,7 +108,7 @@ ___
 
 ▸ `Const` **resolveUrl**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('resolve-url-loader') resolve-url-loader}
+Returns [Loader](../classes/Loader.md) for `resolve-url-loader`
 
 #### Returns
 
@@ -124,7 +124,7 @@ ___
 
 ▸ `Const` **style**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('style-loader') style-loader}
+Returns [Loader](../classes/Loader.md) for `style-loader`
 
 #### Returns
 
@@ -140,7 +140,7 @@ ___
 
 ▸ `Const` **url**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('url-loader') url-loader}
+Returns [Loader](../classes/Loader.md) for `url-loader`
 
 #### Returns
 
@@ -156,7 +156,7 @@ ___
 
 ▸ `Const` **xml**(): [`Loader`](../classes/Loader.md)
 
-Returns [Loader](../classes/Loader.md) for {@link import('xml-loader') xml-loader}
+Returns [Loader](../classes/Loader.md) for `xml-loader`
 
 #### Returns
 

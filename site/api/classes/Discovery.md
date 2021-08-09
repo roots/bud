@@ -44,7 +44,7 @@ packages/@roots/bud-framework/types/Service.d.ts:87
 
 ### ident
 
-• **ident**: ``"container"``
+• **ident**: `string`
 
 Identifier
 
@@ -76,13 +76,13 @@ Contract.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:19](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L19)
+[packages/@roots/bud/src/services/Discovery/index.ts:19](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L19)
 
 ___
 
 ### repository
 
-• **repository**: `Repository`
+• **repository**: `Repository` & [`Index`](../namespaces/Framework.md#index)<`any`\>
 
 #### Implementation of
 
@@ -94,7 +94,7 @@ Contract.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:21](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L21)
+[packages/@roots/bud/src/services/Discovery/index.ts:21](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L21)
 
 ___
 
@@ -220,10 +220,10 @@ ___
 
 ▸ **bindMacro**<`T`\>(`properties`): `void`
 
-Bind a {@link CallableFunction} to the [Framework](Framework.md).
+Bind a {@link CallableFunction} to the [Framework](Framework.md)
 
 **`example`**
-Bind to `app.boundFnName`:
+Bind to `app.boundFnName`
 
 ```js
 app.service.bindClass({boundFnName: BindingClass})
@@ -423,7 +423,7 @@ Contract.discover
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:71](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L71)
+[packages/@roots/bud/src/services/Discovery/index.ts:71](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L71)
 
 ___
 
@@ -808,7 +808,7 @@ Contract.getProjectInfo
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:52](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L52)
+[packages/@roots/bud/src/services/Discovery/index.ts:52](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L52)
 
 ___
 
@@ -911,7 +911,7 @@ Contract.hasPeerDependency
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:60](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L60)
+[packages/@roots/bud/src/services/Discovery/index.ts:60](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L60)
 
 ___
 
@@ -1620,7 +1620,7 @@ Contract.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:33](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L33)
+[packages/@roots/bud/src/services/Discovery/index.ts:33](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L33)
 
 ___
 
@@ -1719,7 +1719,7 @@ Contract.resolvePeers
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Discovery/index.ts:103](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/Discovery/index.ts#L103)
+[packages/@roots/bud/src/services/Discovery/index.ts:103](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/Discovery/index.ts#L103)
 
 ___
 

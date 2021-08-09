@@ -17,12 +17,12 @@ The `@roots/bud` package provides [Bud](classes/Bud.md), a concrete implementati
 This package also provides a CLI which can is invoked with `bud`.
 
 Exported data & instances:
-- [config](classes/Framework.md#config) — The default [Configuration](interfaces/Configuration.md) used as the {@link Bud.store} [repository](classes/Store.md#repository)
-- [extensions](classes/Framework.md#extensions) — The default [Framework.Extensions](interfaces/Framework.Extensions.md) used as the {@link Bud.extensions} {@link Extensions.respository repository}
-- [items](classes/Build.md#items) — The default [Framework.Items](interfaces/Framework.Items.md) registered to {@link Bud.build}
-- [Rules](interfaces/Framework.Rules.md) — The default [Framework.Rules](interfaces/Framework.Rules.md) registered to {@link Bud.build}
-- [loaders](classes/Build.md#loaders) — The default [Framework.Loaders](interfaces/Framework.Loaders.md) registered to {@link Bud.build}
-- [services](classes/Framework.md#services) — The default [Framework.Services](interfaces/Framework.Services.md) registered to {@link Bud.services}
+- [config](classes/Bud.md#config) — The default [Configuration](interfaces/Configuration.md) used as the [Bud.store](classes/Bud.md#store) {@link Store.repository repository}
+- [extensions](classes/Bud.md#extensions) — The default [Framework.Extensions](interfaces/Framework.Extensions.md) used as the [Bud.extensions](classes/Bud.md#extensions) {@link Extensions.respository repository}
+- [items](classes/Build.md#items) — The default [Framework.Items](interfaces/Framework.Items.md) registered to [Bud.build](classes/Bud.md#build)
+- [Rules](interfaces/Framework.Rules.md) — The default [Framework.Rules](interfaces/Framework.Rules.md) registered to [Bud.build](classes/Bud.md#build)
+- [loaders](classes/Build.md#loaders) — The default [Framework.Loaders](interfaces/Framework.Loaders.md) registered to [Bud.build](classes/Bud.md#build)
+- [services](classes/Bud.md#services) — The default [Framework.Services](interfaces/Framework.Services.md) registered to [Bud.services](classes/Bud.md#services)
 
 Exported classes:
 - [Container](classes/Container.md) — Container class
@@ -31,19 +31,19 @@ Exported classes:
 - [Rule](classes/Rule.md) — Webpack RuleSetRule wrapper
 
 Exported services:
-- [Api](classes/Api.md) — Api service (instantiated at {@link Bud.api})
-- [Build](classes/Build.md) — Build service (instantiated at {@link Bud.build})
-- [Cache](classes/Cache.md) — Cache service (instantiated at {@link Bud.cache})
-- [Compiler](classes/Compiler.md) — Compiler service (instantiated at {@link Bud.compiler})
-- [Dashboard](classes/Dashboard.md) — Dashboard service (instantiated at {@link Bud.dashboard})
-- [Dependencies](classes/Dependencies.md) — Dependencies service (instantiated at {@link Bud.dependencies})
-- [Discovery](classes/Discovery.md) — Discovery service (instantiated at {@link Bud.discovery})
-- [Env](classes/Env.md) — Env service (instantiated at {@link Bud.env})
-- [Extensions](interfaces/Framework.Extensions.md) — Extensions service (instantiated at {@link Bud.extensions})
-- [Hooks](classes/Hooks.md) — Hooks service (instantiated at {@link Bud.hooks})
-- [Logger](classes/Logger.md) — Logger service (instantiated at {@link Bud.logger})
-- [Server](classes/Server.md) — Server service (instantiated at {@link Bud.server})
-- [Store](classes/Store.md) — Store service (instantiated at {@link Bud.store})
+- [Api](classes/Api.md) — Api service (instantiated at [Bud.api](classes/Bud.md#api))
+- [Build](classes/Build.md) — Build service (instantiated at [Bud.build](classes/Bud.md#build))
+- [Cache](classes/Cache.md) — Cache service (instantiated at [Bud.cache](classes/Bud.md#cache))
+- [Compiler](classes/Compiler.md) — Compiler service (instantiated at [Bud.compiler](classes/Bud.md#compiler))
+- [Dashboard](classes/Dashboard.md) — Dashboard service (instantiated at [Bud.dashboard](classes/Bud.md#dashboard))
+- [Dependencies](classes/Dependencies.md) — Dependencies service (instantiated at [Bud.dependencies](classes/Bud.md#dependencies))
+- [Discovery](classes/Discovery.md) — Discovery service (instantiated at [Bud.discovery](classes/Bud.md#discovery))
+- [Env](classes/Env.md) — Env service (instantiated at [Bud.env](classes/Bud.md#env))
+- [Extensions](interfaces/Framework.Extensions.md) — Extensions service (instantiated at [Bud.extensions](classes/Bud.md#extensions))
+- [Hooks](classes/Hooks.md) — Hooks service (instantiated at [Bud.hooks](classes/Bud.md#hooks))
+- [Logger](classes/Logger.md) — Logger service (instantiated at [Bud.logger](classes/Bud.md#logger))
+- [Server](classes/Server.md) — Server service (instantiated at [Bud.server](classes/Bud.md#server))
+- [Store](classes/Store.md) — Store service (instantiated at [Bud.store](classes/Bud.md#store))
 
 Exported interfaces and virtual classes:
 - [Configuration](interfaces/Configuration.md) — Configuration interface
@@ -145,7 +145,7 @@ instance.run() // run build
 
 #### Defined in
 
-[packages/@roots/bud/src/config.ts:9](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/config.ts#L9)
+[packages/@roots/bud/src/config.ts:9](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/config.ts#L9)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/extensions/index.ts:18](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/extensions/index.ts#L18)
+[packages/@roots/bud/src/extensions/index.ts:18](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/extensions/index.ts#L18)
 
 ___
 
@@ -167,7 +167,7 @@ Registered services
 
 #### Defined in
 
-[packages/@roots/bud/src/services/index.ts:19](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/services/index.ts#L19)
+[packages/@roots/bud/src/services/index.ts:19](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/services/index.ts#L19)
 
 ## Functions
 
@@ -189,7 +189,7 @@ Instantiate a new Bud instance
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/factory.ts:9](https://github.com/roots/bud/blob/e51c85c2/packages/@roots/bud/src/Factory/factory.ts#L9)
+[packages/@roots/bud/src/Factory/factory.ts:9](https://github.com/roots/bud/blob/96454777/packages/@roots/bud/src/Factory/factory.ts#L9)
 
 ___
 

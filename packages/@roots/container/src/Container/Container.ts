@@ -4,13 +4,13 @@ import type {ValueOf} from 'type-fest'
 import type {Repository} from './Repository'
 
 /**
- * Stores and provides utilities for manipulating {@link Repository data}
+ * Provides a simple chainable interface for working with collections of data
  */
 export class Container<I = any> {
   /**
    * Identifier
    */
-  public ident: 'container'
+  public ident: string = 'container'
 
   /**
    * The container store

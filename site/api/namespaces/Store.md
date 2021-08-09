@@ -10,7 +10,7 @@ custom_edit_url: null
 
 ### Keys
 
-Ƭ **Keys**: ``"theme"`` \| \`theme.${string}\` \| \`server.${string}\` \| ``"server"`` \| ``"env"`` \| \`env.${string}\` \| ``"location"`` \| \`location.${string}\` \| ``"patterns"`` \| \`patterns.${string}\` \| ``"project"`` \| \`project.${string}\` \| \`compilation.${string}\` \| ``"build"`` \| ``"build.resolve"`` \| \`build.${string}\` \| ``"hash"`` \| ``"hashFormat"`` \| ``"fileFormat"`` \| ``"ci"`` \| ``"clean"`` \| ``"define"`` \| ``"debug"`` \| ``"discover"`` \| ``"html"`` \| ``"manifest"`` \| ``"extension"`` \| \`extension.${string}\`
+Ƭ **Keys**: keyof [`Configuration`](../interfaces/Configuration.md) & `string` \| \`theme.${string}\` \| \`server.${string}\` \| \`env.${string}\` \| \`location.${string}\` \| \`patterns.${string}\` \| ``"project"`` \| \`project.${string}\` \| \`compilation.${string}\` \| ``"build.resolve"`` \| \`build.${string}\` \| ``"hash"`` \| ``"hashFormat"`` \| ``"fileFormat"`` \| ``"ci"`` \| ``"clean"`` \| ``"define"`` \| ``"debug"`` \| ``"discover"`` \| ``"html"`` \| ``"manifest"`` \| ``"extension"`` \| \`extension.${string}\`
 
 #### Defined in
 

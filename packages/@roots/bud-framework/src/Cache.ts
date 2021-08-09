@@ -1,7 +1,7 @@
 import {Service} from './Service'
 
 /**
- * Handles cache invalidation, version generation, and the setting of build.cache config hooks.
+ * {@link Service}: Handles cache invalidation, version generation, and the setting of build.cache config hooks.
  *
  * @remarks
  * Interfaces with:
@@ -11,7 +11,7 @@ import {Service} from './Service'
  * Facades:
  *  - {@link Api} can toggle cache settings with {@link Bud.Persist}
  *
- * @noInherit
+ * @noInheritDoc
  */
 interface Cache extends Service {
   /**

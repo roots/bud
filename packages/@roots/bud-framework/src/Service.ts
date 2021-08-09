@@ -26,7 +26,7 @@ import {Framework} from './Framework'
  *
  * @typeParam T - Container repository typing, if applicable
  *
- * @public
+ * @noInheritDoc
  */
 abstract class Service<
   T = {[key: string]: any},
@@ -99,10 +99,10 @@ abstract class Service<
   }
 
   /**
-   * Bind a {@link CallableFunction} to the {@link Framework}.
+   * Bind a {@link CallableFunction} to the {@link Framework}
    *
    * @example
-   * Bind to `app.boundFnName`:
+   * Bind to `app.boundFnName`
    *
    * ```js
    * app.service.bindClass({boundFnName: BindingClass})
