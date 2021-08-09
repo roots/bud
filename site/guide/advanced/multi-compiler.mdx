@@ -1,0 +1,86 @@
+---
+title: Multi-compiler
+sidebar_label: Multi-compiler
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+It is possible to configure more than one Webpack compiler from a single bud config.
+
+For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; anything with very different 
+needs for its marketing pages and administrative interfaces &mdash; it is potentially very useful.
+
+To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters: a name for the instance 
+(so we can refer to it later), and a callback that is identical to the standard `bud.config.js` module-level function.
+
+## In practice
+
+In this example `bud.config.js` we'll create two instances of bud: one for hypothetical theme code and another for hypothetical plugin code.
+
+```js
+module.exports = app =>
+  app
+    .make('theme', theme => {
+      theme
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
+    .make('plugin', plugin =>
+      plugin
+        .use([require('@roots/bud-babel'), require('@roots/bud-react')])
+        .setPath('dist', 'dist/plugin')
+        .entry('plugin', ['plugin.js', 'plugin.css']),
+    )
+```
+
+There is an immediate benefit gained from structuring our config this way: our `plugin` compiler uses [@roots/bud-react](/extensions/bud-react), 
+but our `theme` compiler does not. Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
+build into two distinct compilations we've all but guaranteed that it won't.
+
+## Improved workflow with `--target`
+
+The other benefit is a potentially massive workflow improvement. Let's say that we have to work on the `theme` more often than the `plugin`. 
+Now, we don't have to rebuild the `plugin` code again just to work on our theme. We can use the `bud` cli to only run the compiler we need 
+using the `--target` flag.
+
+So, to only rebuild the `theme`:
+
+```shell
+bud build --target theme
+```
+
+If you had more than two instances it might make sense to want to target more than one compiler, and `--target` supports that:
+
+```shell
+bud build --target theme --target plugin
+```
+
+## Child instances cannot be created from a child instance
+
+You cannot create a child compiler from a child compiler. So, don't do this:
+
+```js 9-13
+module.exports = app =>
+  app
+    .make('theme', theme => {
+      theme
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+
+        .make('invalid', grandchild => {
+          /**
+           * `theme` cannot create a child compiler. only `app` can.
+           */
+        })
+    })
+```
+
+If you try this the cli will present you with a certificate of failure and the process will exit.
+
+
+

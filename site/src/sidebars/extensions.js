@@ -23,7 +23,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Presets',
-      items: ['bud-preset-recommend'],
+      items: ['bud-preset-recommend', 'bud-preset-wordpress'],
     },
   ],
 }

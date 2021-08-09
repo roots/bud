@@ -1,20 +1,16 @@
 {
-  "name": "@roots/sage",
+  "name": "@roots/bud-preset-wordpress",
   "version": "4.7.0-10",
-  "description": "@roots/sage preset for @roots/bud",
+  "description": "WordPress-ready preset for Bud projects",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud",
-    "directory": "packages/@roots/sage"
+    "directory": "packages/@roots/bud-preset-recommend"
   },
   "contributors": [
     {
       "name": "Kelly Mears",
       "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -27,15 +23,14 @@
   },
   "keywords": [
     "bud",
-    "sage"
+    "bud-preset"
   ],
   "engines": {
     "node": ">=14"
   },
   "files": [
-    "bin/",
-    "types/",
     "lib/",
+    "types/",
     "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
@@ -67,54 +62,25 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
-    "@types/tailwindcss": "2.2.1",
     "@wordpress/browserslist-config": "4.1.0"
   },
   "dependencies": {
-    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
-    "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
-    "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
-    "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
-    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
+    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
+    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",
+    "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
+    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
   },
   "peerDependencies": {
     "@roots/bud": "*",
     "@wordpress/browserslist-config": "^4.1.0",
-    "eslint": "^7.27.0",
     "postcss": "^8.3.0",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwindcss": "^2.2.4"
-  },
-  "peerDependenciesMeta": {
-    "@wordpress/browserslist-config": {
-      "optional": true
-    },
-    "eslint": {
-      "optional": true
-    },
-    "postcss": {
-      "optional": true
-    },
-    "postcss-import": {
-      "optional": true
-    },
-    "postcss-preset-env": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
-    }
+    "react-dom": "^17.0.2"
   },
   "stableVersion": "4.6.0"
 }

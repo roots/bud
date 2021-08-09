@@ -3132,7 +3132,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-entrypoints@workspace:*, @roots/bud-entrypoints@workspace:packages/@roots/bud-entrypoints":
+"@roots/bud-entrypoints@workspace:packages/@roots/bud-entrypoints":
   version: 0.0.0-use.local
   resolution: "@roots/bud-entrypoints@workspace:packages/@roots/bud-entrypoints"
   dependencies:
@@ -3364,6 +3364,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-preset-wordpress@workspace:*, @roots/bud-preset-wordpress@workspace:packages/@roots/bud-preset-wordpress":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-preset-wordpress@workspace:packages/@roots/bud-preset-wordpress"
+  dependencies:
+    "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies"
+    "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
+    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
+    "@types/node": 15.14.1
+    "@wordpress/browserslist-config": 4.1.0
+  peerDependencies:
+    "@roots/bud": "*"
+    "@wordpress/browserslist-config": ^4.1.0
+    postcss: ^8.3.0
+    postcss-import: ^14.0.2
+    postcss-preset-env: ^6.7.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
 "@roots/bud-prettier@workspace:packages/@roots/bud-prettier":
   version: 0.0.0-use.local
   resolution: "@roots/bud-prettier@workspace:packages/@roots/bud-prettier"
@@ -3392,7 +3418,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-react@workspace:*, @roots/bud-react@workspace:packages/@roots/bud-react":
+"@roots/bud-react@workspace:packages/@roots/bud-react":
   version: 0.0.0-use.local
   resolution: "@roots/bud-react@workspace:packages/@roots/bud-react"
   dependencies:
@@ -3611,7 +3637,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-wordpress-dependencies@workspace:*, @roots/bud-wordpress-dependencies@workspace:packages/@roots/bud-wordpress-dependencies":
+"@roots/bud-wordpress-dependencies@workspace:packages/@roots/bud-wordpress-dependencies":
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-dependencies@workspace:packages/@roots/bud-wordpress-dependencies"
   dependencies:
@@ -3625,7 +3651,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-wordpress-externals@workspace:*, @roots/bud-wordpress-externals@workspace:packages/@roots/bud-wordpress-externals":
+"@roots/bud-wordpress-externals@workspace:packages/@roots/bud-wordpress-externals":
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-externals@workspace:packages/@roots/bud-wordpress-externals"
   dependencies:
@@ -3637,7 +3663,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-wordpress-manifests@workspace:*, @roots/bud-wordpress-manifests@workspace:packages/@roots/bud-wordpress-manifests":
+"@roots/bud-wordpress-manifests@workspace:packages/@roots/bud-wordpress-manifests":
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-manifests@workspace:packages/@roots/bud-wordpress-manifests"
   dependencies:
@@ -3821,21 +3847,14 @@ __metadata:
   resolution: "@roots/sage@workspace:packages/@roots/sage"
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier"
-    "@roots/bud-react": "workspace:packages/@roots/bud-react"
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-    "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies"
-    "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
-    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
     "@types/eslint": 7.28.0
-    "@types/fs-extra": 9.0.12
     "@types/node": 15.14.1
     "@types/tailwindcss": 2.2.1
     "@wordpress/browserslist-config": 4.1.0
@@ -10365,14 +10384,7 @@ __metadata:
   resolution: "example-wordpress-theme@workspace:examples/wordpress-theme"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-entrypoints": "workspace:*"
-    "@roots/bud-esbuild": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
-    "@roots/bud-react": "workspace:*"
-    "@roots/bud-wordpress-dependencies": "workspace:*"
-    "@roots/bud-wordpress-externals": "workspace:*"
-    "@roots/bud-wordpress-manifests": "workspace:*"
+    "@roots/bud-preset-wordpress": "workspace:*"
   languageName: unknown
   linkType: soft
 

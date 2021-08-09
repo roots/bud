@@ -1,22 +1,8 @@
-const babel = require('@roots/bud-babel')
-const postcss = require('@roots/bud-postcss')
-const react = require('@roots/bud-react')
-const dependencies = require('@roots/bud-wordpress-dependencies')
-const externals = require('@roots/bud-wordpress-externals')
-const manifests = require('@roots/bud-wordpress-manifests')
-const entrypoints = require('@roots/bud-entrypoints')
+const WordPressPreset = require('@roots/bud-preset-wordpress')
 
 module.exports = app =>
   app
-    .use([
-      babel,
-      postcss,
-      react,
-      dependencies,
-      externals,
-      manifests,
-      entrypoints,
-    ])
+    .use(WordPressPreset)
     .entry({
       app: ['app.js', 'app.css'],
       editor: ['editor.js'],

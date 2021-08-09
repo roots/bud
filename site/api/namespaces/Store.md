@@ -10,11 +10,11 @@ custom_edit_url: null
 
 ### Keys
 
-Ƭ **Keys**: keyof [`Configuration`](../interfaces/Configuration.md) & `string` \| \`theme.${string}\` \| \`server.${string}\` \| \`env.${string}\` \| \`location.${string}\` \| \`patterns.${string}\` \| ``"project"`` \| \`project.${string}\` \| \`compilation.${string}\` \| ``"build.resolve"`` \| \`build.${string}\` \| ``"hash"`` \| ``"hashFormat"`` \| ``"fileFormat"`` \| ``"ci"`` \| ``"clean"`` \| ``"define"`` \| ``"debug"`` \| ``"discover"`` \| ``"html"`` \| ``"manifest"`` \| ``"extension"`` \| \`extension.${string}\`
+Ƭ **Keys**: \`${keyof Configuration & string}\` \| \`theme.${keyof Configuration["theme"] & string}\` \| ``"theme.screens"`` \| \`theme.colors.${keyof Configuration["theme"]["colors"] & string}\` \| \`server.${keyof Configuration["server"] & string}\` \| \`server.middleware.${keyof Configuration["server"]["middleware"] & string}\` \| \`server.browser.${keyof Configuration["server"]["browser"] & string}\` \| \`server.${keyof Configuration["server"] & string}.${string}\` \| \`env.${string}\` \| \`location.${keyof Configuration["location"] & string}\` \| \`patterns.${keyof Configuration["patterns"] & string}\` \| \`build.${keyof Webpack.Configuration}\` \| \`build.module.${keyof Webpack.Configuration["module"]}\` \| \`build.module.${keyof Webpack.Configuration["module"]}.${string}\` \| \`extension.${string}\` \| \`build.${keyof Webpack.Configuration}.${string}\`
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Store.d.ts:18
+packages/@roots/bud-framework/types/Store.d.ts:19
 
 ___
 
@@ -24,4 +24,4 @@ ___
 
 #### Defined in
 
-packages/@roots/bud-framework/types/Store.d.ts:19
+packages/@roots/bud-framework/types/Store.d.ts:20

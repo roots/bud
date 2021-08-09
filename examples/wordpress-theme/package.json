@@ -3,13 +3,6 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-entrypoints": "workspace:*",
-    "@roots/bud-esbuild": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-react": "workspace:*",
-    "@roots/bud-wordpress-dependencies": "workspace:*",
-    "@roots/bud-wordpress-externals": "workspace:*",
-    "@roots/bud-wordpress-manifests": "workspace:*"
+    "@roots/bud-preset-wordpress": "workspace:*"
   }
 }

@@ -1,6 +1,6 @@
 # bud.make
 
-Create a new individually configurable instance of bud.
+Create a new, configurable instance of Bud.
 
 ## Usage
 
@@ -13,7 +13,9 @@ Create a new individually configurable instance of bud.
 bud.make('scripts', child => child.entry('app', 'app.js'))
 ```
 
-This function returns the parent bud instance for further chaining. It is also possible to reference the parent instance using `bud.parent`.
+This function returns the parent bud instance for further chaining. 
+
+It is also possible to reference the parent instance using `bud.parent`.
 
 ```js
 bud.make('scripts', child => {
@@ -26,8 +28,6 @@ bud.make('scripts', child => {
 })
 ```
 
-Likewise, a child compiler can also be tapped into again later using `bud.get`
+Related:
 
-```js
-bud.get('scripts').hash()
-```
+- [bud.get](/docs/bud.get)
