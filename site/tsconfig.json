@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@roots/bud/*": [
+        "../packages/@roots/bud/src/*",
+      ]
+    },
+    "resolveJsonModule": true
+  },
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "include": [
+    "./"
+  ],
+}

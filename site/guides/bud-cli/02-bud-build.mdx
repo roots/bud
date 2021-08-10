@@ -1,5 +1,6 @@
 ---
 title: bud build
+description: CLI command to compile project assets
 sidebar_label: bud build
 sidebar_position: 2
 ---
@@ -15,24 +16,46 @@ import BuildHash from '!!raw-loader!@site/src/components/cli-output/babel-build-
 import BuildMulti from '!!raw-loader!@site/src/components/cli-output/multi-compiler-build.md'
 import BuildTargetTheme from '!!raw-loader!@site/src/components/cli-output/multi-compiler-build--target-theme.md'
 import BuildTargetThemePlugin from '!!raw-loader!@site/src/components/cli-output/multi-compiler-build--target-theme--target-plugin.md'
+import BuildDev from '!!raw-loader!@site/src/components/cli-output/babel-dev--help.md'
+
+[bud build](/guides/bud-cli/bud-build) initiates compilation of client assets.
 
 <CodeBlock title="$ yarn bud build --help">
   {BuildHelp}
 </CodeBlock>
 
-## bud build
+## bud build:production
 
-<CodeBlock title="$ yarn bud build">{Build}</CodeBlock>
+<CodeBlock title="$ yarn bud build:production">{Build}</CodeBlock>
 
-## bud build --cache
+Aliases: `bud build`, `bud production`
 
-The `--cache` flag is recommended for outstanding performance. Compare the `compiled in` output to the uncached build (above).
+## bud build:dev
+
+```shell title="$ yarn bud build:dev"
+ bud
+
+ - vendor/defaultVendors-…                          638.14 kB
+ - app.js                                           78.92 kB
+
+Compiled in 709ms
+
+Press Q to exit
+```
+
+Aliases: `bud dev`, `bud start`, `bud build:development`
+
+## Flags
+
+### --cache
+
+The `--cache` flag is recommended for outstanding performance. Compare the `compiled in` output to any of the uncached builds above.
 
 <CodeBlock title="$ yarn bud build --cache" highlight={6}>
   {BuildCache}
 </CodeBlock>
 
-## bud build --target
+### --target
 
 In multi-compiler configurations, many compilers are run in a batch.
 
@@ -50,7 +73,7 @@ It can be passed more than once.
   {BuildTargetThemePlugin}
 </CodeBlock>
 
-## bud build --hash
+### --hash
 
 The `--hash` flag will enable filename hashing for the build.
 
@@ -58,7 +81,7 @@ The `--hash` flag will enable filename hashing for the build.
   {BuildHash}
 </CodeBlock>
 
-## bud build --ci
+### --ci
 
 The `--ci` flag uses webpack's default cli output (for interoperability).
 

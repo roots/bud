@@ -81,7 +81,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Api/index.ts:16](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Api/index.ts#L16)
+[packages/@roots/bud/src/services/Api/index.ts:16](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Api/index.ts#L16)
 
 ___
 
@@ -99,7 +99,7 @@ Base.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Api/index.ts:18](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Api/index.ts#L18)
+[packages/@roots/bud/src/services/Api/index.ts:18](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Api/index.ts#L18)
 
 ## Accessors
 
@@ -338,7 +338,7 @@ Base.bootstrap
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Api/index.ts:21](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Api/index.ts#L21)
+[packages/@roots/bud/src/services/Api/index.ts:21](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Api/index.ts#L21)
 
 ___
 

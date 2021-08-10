@@ -1,4 +1,9 @@
-# bud.make
+---
+slug: bud.make
+title: bud.make
+description: Create a new, configurable instance of Bud.
+sidebar_label: bud.make
+---
 
 Create a new, configurable instance of Bud.
 
@@ -22,9 +27,12 @@ It is also possible to reference the parent instance using `bud.parent`.
 ```js
 bud.make('scripts', child => {
   child.entry('app', 'app.js')
-  child.parent.dev({
-    // ...
-  })
+
+  /**
+   * This is a reference to the parent instance
+   * @const {import('@roots/bud').Framework} parent
+   */
+  const {parent} = child
 
   return child
 })

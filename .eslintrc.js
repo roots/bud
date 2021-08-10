@@ -23,13 +23,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: [
-    'prettier',
-    'plugin:react/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:import/typescript',
-  ],
+  extends: ['prettier', 'plugin:react/recommended'],
   rules: {
     '@typescript-eslint/explicit-member-accessibility': ERROR,
     'arrow-body-style': OFF,

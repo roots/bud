@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
@@ -19,11 +17,11 @@ function Header() {
 }
 
 function Contributor({id, type}) {
-  const [user, setUser] = useState({type})
+  const [user, setUser] = useState({})
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const {res} = await fetch(
+    const fetchUser = async id => {
+      const res = await fetch(
         `https://api.github.com/users/${id}`,
       )
 
@@ -31,7 +29,7 @@ function Contributor({id, type}) {
     }
 
     fetchUser(id)
-  }, [id, user])
+  }, [id, user, setUser])
 
   return (
     <div className={clsx('col col--4')}>
@@ -62,7 +60,7 @@ export default function Home() {
             <div className="row">
               {Object.entries(manifest.contributors).map(
                 ([user, info], id) => (
-                  <Contributor key={id} id={user} {...info} />
+                  <Contributor key={id} id={user} type={info} />
                 ),
               )}
             </div>

@@ -1,10 +1,13 @@
 ---
-sidebar_position: 3
+slug: bud.isProduction
+title: bud.isProduction
+description: Property that is `true` when bud.mode is `production`
+sidebar_label: bud.isProduction
 ---
 
 # bud.isProduction
 
-**Boolean** property which is `true` when [bud.mode](/docs/bud.mode/index) is `production`
+**Boolean** property which is `true` when [bud.mode](/docs/bud.mode/bud.mode) is `production`
 
 ## Usage
 
@@ -26,5 +29,5 @@ bud.when(
 
 ## See also
 
-- [bud.mode](/docs/bud.mode/index)
+- [bud.mode](/docs/bud.mode/bud.mode)
 - [bud.isDevelopment](/docs/bud.mode/bud.isDevelopment)

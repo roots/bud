@@ -1,7 +1,7 @@
 ---
 title: bud doctor
+description: CLI command to check for issues with the project configuration
 sidebar_label: bud doctor
-sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs'
@@ -11,15 +11,15 @@ import Help from '!!raw-loader!@site/src/components/cli-output/babel-doctor--hel
 import Success from '!!raw-loader!@site/src/components/cli-output/babel-doctor.md'
 import Fail from '!!raw-loader!@site/src/components/cli-output/react-doctor.md'
 
-In the future `bud doctor` will do other checks to help keep projects healthy.
-
-For now, it simply checks your package.json against the extensions you have installed and provides feedback if anything is missing.
+[bud doctor](/guides/bud-cli/bud-doctor) checks your package.json against the extensions you have installed and provides feedback if anything is missing.
 
 <CodeBlock title="$ yarn bud doctor --help">{Help}</CodeBlock>
 
+In the future [bud doctor](/guides/bud-cli/bud-doctor) will perform other checks to ensure projects are remain healthy.
+
 ## Success
 
-Running `bud doctor` in a project that meets requirements:
+Running [bud doctor](/guides/bud-cli/bud-doctor) in a project that meets requirements:
 
 <CodeBlock title="$ yarn bud doctor">{Success}</CodeBlock>
 

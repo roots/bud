@@ -1,10 +1,18 @@
+// @ts-check
 /**
- * @type {import('@docusaurus/types').DocusaurusConfig}
+ * @typedef {import('@docusaurus/types').DocusaurusConfig} Config
+ *
  */
+
 const {posix: path} = require('path')
+const darkTheme = require('prism-react-renderer/themes/dracula')
+const theme = require('prism-react-renderer/themes/github')
 const {manifest} = require('../package.json')
 
-module.exports = {
+/**
+ * @type {Partial<Config>} config
+ */
+const config = {
   title: manifest.name,
   tagline: manifest.description,
   url: manifest.url.docs,
@@ -18,14 +26,13 @@ module.exports = {
   themeConfig: {
     announcementBar: {
       id: 'announcementBar-1', // Increment on change
-      content:
-        '⭐️ If you like Bud.js, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/roots/bud">GitHub</a>! ⭐',
+      content: `⭐️ If you like Bud.js, give it a star on <a target="_blank" rel="noopener noreferrer" href="${manifest.url.web}">GitHub</a>! ⭐`,
     },
     hideableSidebar: true,
     prism: {
       additionalLanguages: ['php'],
-      darkTheme: require('prism-react-renderer/themes/dracula'),
-      theme: require('prism-react-renderer/themes/github'),
+      darkTheme,
+      theme,
     },
     navbar: {
       hideOnScroll: true,
@@ -136,7 +143,7 @@ module.exports = {
           ),
         },
         blog: {
-          path: 'blog',
+          path: './blog',
           showReadingTime: true,
         },
         pages: {
@@ -228,3 +235,5 @@ module.exports = {
     ],
   ],
 }
+
+module.exports = config

@@ -13,7 +13,7 @@ Replace variables in your application code and templates at compile time.
 
 ## Usage
 
-Call [bud.define](bud.define) and pass your definitions.
+Call [bud.define](/docs/bud.define) and pass your definitions.
 
 ```ts title='bud.config.js'
 bud.define({
@@ -27,7 +27,7 @@ Any instances of `APP_NAME` in your application code will be replaced with `My A
 console.log(APP_NAME) 
 ```
 
-Replacements will also be made when compiling [html templates](bud.template).
+Replacements will also be made when compiling [html templates](/docs/bud.template).
 
 ```html title='public/index.html'
 <html>
@@ -38,7 +38,7 @@ Replacements will also be made when compiling [html templates](bud.template).
 
 ## Signature
 
-```ts title='bud.define.d.ts'
+```ts title='@roots/bud-api/types/repository/index.d.ts'
 interface Define {
   (
     this: Framework,

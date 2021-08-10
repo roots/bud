@@ -149,7 +149,7 @@ You can provide additional configuration to the [@roots/bud-imagemin](/extension
 Admittedly, that was kind of a lot, but we also got a out of it. We have made a small problem for ourselves, though. All of these optimizations
 are slowing down our dev builds for no reason. Worse still, the [bud.hash](/docs/bud.hash) function is breaking our hot reloading.
 
-Let's use [bud.mode](/docs/bud.mode/index) to only apply these optimizations for production builds.
+Let's use [bud.mode](/docs/bud.mode/bud.mode) to only apply these optimizations for production builds.
 
 ```js {14-21} title='bud.config.js'
 module.exports = bud => {

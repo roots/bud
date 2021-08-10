@@ -1,13 +1,47 @@
-# bud.splitChunks
+---
+slug: bud.use
+title: bud.use
+description: Register an extension or set of extensions.
+sidebar_label: bud.use
+---
 
-Separate vendor code from application code with **bud.splitChunks**.
+Register an extension or set of extensions
 
 ## Usage
+Add packaged bud extensions:
 
 ```js
-bud.splitChunks()
+bud.use([
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
+])
 ```
 
-## Options
+Add an extension inline (also works with an array of extensions):
 
-[bud.splitChunks](/docs/bud.splitChunks) takes any parameter Webpack does.
+```js
+bud.use({
+  name: 'my-webpack-plugin',
+  make: () => new MyWebpackPlugin(),
+})
+```
+
+Add a webpack plugin inline (also work with an array of plugins):
+
+```js
+bud.use(new MyWebpackPlugin())
+```
+
+## Signature
+
+```ts title='@roots/bud-api/types/repository/index.d.ts'
+namespace Repository {
+  interface Use {
+    (this: Framework, source: Use.Input): Framework
+  }
+
+  namespace Use {
+    type Input = Module | Module[]
+  }
+}
+```

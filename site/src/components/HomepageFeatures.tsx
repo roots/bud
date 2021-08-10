@@ -34,7 +34,7 @@ const FeatureList = [
   },
 ]
 
-function Feature({Svg, title, description}) {
+const Feature = ({Svg, title, description}) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -50,7 +50,7 @@ function Feature({Svg, title, description}) {
   )
 }
 
-export default function HomepageFeatures() {
+const HomepageFeatures = () => {
   const {siteConfig} = useDocusaurusContext()
 
   return (
@@ -61,15 +61,7 @@ export default function HomepageFeatures() {
             {siteConfig.customFields.sponsors.map(
               (sponsor, id) => (
                 <a key={id} href={sponsor.url}>
-                  <img
-                    src={sponsor.image}
-                    alt={sponsor.title}
-                    style={{
-                      marginRight: '4px',
-                      marginLeft: '4px',
-                      width: '18%',
-                    }}
-                  />
+                  <img src={sponsor.image} alt={sponsor.title} />
                 </a>
               ),
             )}
@@ -79,3 +71,5 @@ export default function HomepageFeatures() {
     </section>
   )
 }
+
+export default HomepageFeatures

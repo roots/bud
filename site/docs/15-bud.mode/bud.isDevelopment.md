@@ -1,10 +1,13 @@
 ---
-sidebar_position: 2
+slug: bud.isDevelopment
+title: bud.isDevelopment
+description: Property that is `true` when bud.mode is `development`
+sidebar_label: bud.isDevelopment
 ---
 
 # bud.isDevelopment
 
-**Boolean** property which is `true` when [bud.mode](/docs/bud.mode/index) is `development`
+**Boolean** property which is `true` when [bud.mode](/docs/bud.mode/bud.mode) is `development`
 
 ## Usage
 
@@ -27,5 +30,5 @@ module.exports = bud =>
 
 ## See also
 
-- [bud.mode](/docs/bud.mode/index)
+- [bud.mode](/docs/bud.mode/bud.mode)
 - [bud.isProduction](/docs/bud.mode/bud.isProduction)

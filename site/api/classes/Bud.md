@@ -34,7 +34,7 @@ Class constructor
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud/index.ts:30](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Bud/index.ts#L30)
+[packages/@roots/bud/src/Bud/index.ts:30](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/Bud/index.ts#L30)
 
 ## Properties
 
@@ -711,7 +711,7 @@ Fulfills [Framework.implementation](Framework.md#implementation)
 
 #### Defined in
 
-[packages/@roots/bud/src/Bud/index.ts:25](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Bud/index.ts#L25)
+[packages/@roots/bud/src/Bud/index.ts:25](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/Bud/index.ts#L25)
 
 ___
 
