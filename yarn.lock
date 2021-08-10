@@ -4949,7 +4949,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.29.0":
+"@typescript-eslint/eslint-plugin@npm:4.29.0":
   version: 4.29.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.29.0"
   dependencies:
@@ -4986,7 +4986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^4.28.5, @typescript-eslint/parser@npm:^4.29.0":
+"@typescript-eslint/parser@npm:4.29.0, @typescript-eslint/parser@npm:^4.28.5":
   version: 4.29.0
   resolution: "@typescript-eslint/parser@npm:4.29.0"
   dependencies:
@@ -7086,8 +7086,8 @@ __metadata:
     "@types/react-router-dom": 5.1.8
     "@types/signale": 1.4.2
     "@types/weak-napi": 2.0.0
-    "@typescript-eslint/eslint-plugin": ^4.29.0
-    "@typescript-eslint/parser": ^4.29.0
+    "@typescript-eslint/eslint-plugin": 4.29.0
+    "@typescript-eslint/parser": 4.29.0
     "@yarnpkg/builder": 3.0.1
     autobind-decorator: 2.4.0
     clsx: 1.1.1
