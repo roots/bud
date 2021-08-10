@@ -7,7 +7,9 @@ export class GenCommand extends Command {
   public site = Option.Boolean(`-s,--site`, false)
   public readme = Option.Boolean(`-r,--readme`, false)
   public commands = {
-    site: [`yarn ts-node ./dev/site`, `yarn docusaurus build`],
+    site: [
+      `yarn workspace @roots/bud-docs run docusaurus build`,
+    ],
     readme: [`yarn ts-node ./dev/readme`],
   }
 

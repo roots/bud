@@ -1,0 +1,30 @@
+---
+title: bud doctor
+sidebar_label: bud doctor
+sidebar_position: 5
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import Help from '!!raw-loader!@site/src/components/cli-output/babel-doctor--help.md'
+import Success from '!!raw-loader!@site/src/components/cli-output/babel-doctor.md'
+import Fail from '!!raw-loader!@site/src/components/cli-output/react-doctor.md'
+
+In the future `bud doctor` will do other checks to help keep projects healthy.
+
+For now, it simply checks your package.json against the extensions you have installed and provides feedback if anything is missing.
+
+<CodeBlock title="$ yarn bud doctor --help">{Help}</CodeBlock>
+
+## Success
+
+Running `bud doctor` in a project that meets requirements:
+
+<CodeBlock title="$ yarn bud doctor">{Success}</CodeBlock>
+
+## Failure
+
+In the event of a failure, you may install the missing extensions with **bud init**.
+
+<CodeBlock title="$ yarn bud doctor">{Fail}</CodeBlock>

@@ -27,7 +27,7 @@
 
 > A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
  
-[Terminal usage](/static/img/cli.svg})
+[Terminal usage](/site/static/img/cli.svg})
 ## Getting started
 
 Check out the [dedicated documentation](https://budjs.netlify.app) for usage details.

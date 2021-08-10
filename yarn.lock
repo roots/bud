@@ -3107,6 +3107,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-docs@workspace:site":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-docs@workspace:site"
+  dependencies:
+    "@docusaurus/core": 2.0.0-beta.4
+    "@docusaurus/module-type-aliases": 2.0.0-beta.ff31de0ff
+    "@docusaurus/preset-classic": 2.0.0-beta.4
+    "@easyops-cn/docusaurus-search-local": 0.19.1
+    "@skypack/package-check": 0.2.2
+    "@svgr/webpack": 5.5.0
+    "@types/fs-extra": 9.0.12
+    "@types/jest": 26.0.24
+    "@types/node": 16.3.0
+    "@types/react": 17.0.16
+    "@types/react-dom": 17.0.9
+    "@types/react-helmet": 6.1.2
+    "@types/react-reconciler": 0.26.3
+    "@types/react-router-dom": 5.1.8
+    "@types/signale": 1.4.2
+    "@types/weak-napi": 2.0.0
+    "@typescript-eslint/eslint-plugin": ^4.29.0
+    "@typescript-eslint/parser": ^4.29.0
+    "@yarnpkg/builder": 3.0.1
+    autobind-decorator: 2.4.0
+    clsx: 1.1.1
+    docusaurus-plugin-typedoc: 0.15.3
+    file-loader: 6.2.0
+    raw-loader: 4.0.2
+    react: 17.0.2
+    react-dom: 17.0.2
+    typescript: 4.3.5
+    url-loader: 4.1.1
+  languageName: unknown
+  linkType: soft
+
 "@roots/bud-emotion@workspace:packages/@roots/bud-emotion":
   version: 0.0.0-use.local
   resolution: "@roots/bud-emotion@workspace:packages/@roots/bud-emotion"
@@ -7089,10 +7124,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@docusaurus/core": 2.0.0-beta.4
-    "@docusaurus/module-type-aliases": 2.0.0-beta.ff31de0ff
-    "@docusaurus/preset-classic": 2.0.0-beta.4
-    "@easyops-cn/docusaurus-search-local": 0.19.1
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
@@ -7109,8 +7140,6 @@ __metadata:
     "@typescript-eslint/parser": ^4.29.0
     "@yarnpkg/builder": 3.0.1
     autobind-decorator: 2.4.0
-    clsx: 1.1.1
-    docusaurus-plugin-typedoc: 0.15.3
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-import: 2.23.4

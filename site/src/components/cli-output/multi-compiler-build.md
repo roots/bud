@@ -1,20 +1,20 @@
 bud
 
- - global.js       minimized       110 bytes
+ - global.js        minimized       110 bytes
  - global.css       minimized       18 bytes
 
-Compiled in 717ms
+Compiled in 671ms
 
- theme
+theme
 
- - theme.css       304 bytes
+ - theme.css                      304 bytes
  - theme.js       minimized       52 bytes
 
-Compiled in 488ms
+Compiled in 473ms
 
- plugin
+plugin
 
- - plugin.css       304 bytes
+ - plugin.css                      304 bytes
  - plugin.js       minimized       52 bytes
 
-Compiled in 489ms
+Compiled in 465ms

@@ -2,6 +2,8 @@
 
 Create a new, configurable instance of Bud.
 
+For more context on how this might be useful check out [the guide on multi-compiler configurations](/guides/advanced/multi-compiler).
+
 ## Usage
 
 **bud.make** takes two parameters:

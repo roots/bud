@@ -48,7 +48,7 @@ Handles interacting with package manager
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:23](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L23)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:23](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L23)
 
 ___
 
@@ -64,7 +64,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:18](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L18)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:18](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L18)
 
 ## Accessors
 
@@ -322,7 +322,7 @@ Install an array of dependencies and/or devDependencies
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:68](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L68)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:68](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L68)
 
 ___
 
@@ -340,7 +340,7 @@ Read project JSON and return as a hash
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:40](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L40)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:40](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L40)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:28](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L28)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:28](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L28)
 
 ___
 
@@ -415,4 +415,4 @@ Returns a boolean value representing if a package is eligible for installation
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Dependencies/index.tsx:50](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Dependencies/index.tsx#L50)
+[packages/@roots/bud/src/services/Dependencies/index.tsx:50](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Dependencies/index.tsx#L50)

@@ -19,7 +19,7 @@ Framework base configuration
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/index.ts:28](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/Factory/index.ts#L28)
+[packages/@roots/bud/src/Factory/index.ts:28](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Factory/index.ts#L28)
 
 ___
 
@@ -31,7 +31,7 @@ Compilation mode
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/index.ts:23](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/Factory/index.ts#L23)
+[packages/@roots/bud/src/Factory/index.ts:23](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Factory/index.ts#L23)
 
 ___
 
@@ -43,7 +43,7 @@ Application name
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/index.ts:18](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/Factory/index.ts#L18)
+[packages/@roots/bud/src/Factory/index.ts:18](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Factory/index.ts#L18)
 
 ___
 
@@ -55,4 +55,4 @@ Registered services
 
 #### Defined in
 
-[packages/@roots/bud/src/Factory/index.ts:33](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/Factory/index.ts#L33)
+[packages/@roots/bud/src/Factory/index.ts:33](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/Factory/index.ts#L33)

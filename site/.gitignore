@@ -1,0 +1,5 @@
+# Docusaurus
+.docusaurus
+.cache-loader
+/build
+.netlify

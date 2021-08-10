@@ -18,6 +18,7 @@
       "examples/*",
       "packages/@roots/*",
       "packages/base",
+      "site",
       ".yarn/local"
     ]
   },
@@ -39,10 +40,6 @@
     "typescript": "4.3.5"
   },
   "devDependencies": {
-    "@docusaurus/core": "2.0.0-beta.4",
-    "@docusaurus/module-type-aliases": "2.0.0-beta.ff31de0ff",
-    "@docusaurus/preset-classic": "2.0.0-beta.4",
-    "@easyops-cn/docusaurus-search-local": "0.19.1",
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
     "@types/fs-extra": "9.0.12",
@@ -59,8 +56,6 @@
     "@typescript-eslint/parser": "^4.29.0",
     "@yarnpkg/builder": "3.0.1",
     "autobind-decorator": "2.4.0",
-    "clsx": "1.1.1",
-    "docusaurus-plugin-typedoc": "0.15.3",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.23.4",

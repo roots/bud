@@ -1,3 +1,4 @@
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -50,122 +51,28 @@ function Feature({Svg, title, description}) {
 }
 
 export default function HomepageFeatures() {
+  const {siteConfig} = useDocusaurusContext()
+
   return (
     <section className={styles.features}>
       <div className="container">
         <div className="row">
           <div className="text--center">
-            <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV">
-              <img
-                src="https://cdn.roots.io/app/uploads/kinsta.svg"
-                alt="Kinsta"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-
-            <a href="https://k-m.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/km-digital.svg"
-                alt="KM Digital"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://carrot.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/carrot.svg"
-                alt="Carrot"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://www.c21redwood.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/c21redwood.svg"
-                alt="C21 Redwood Realty"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://wordpress.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/wordpress.svg"
-                alt="WordPress.com"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://icons8.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/icons8.svg"
-                alt="Icons8"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://www.harnessup.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/harness-software.svg"
-                alt="Harness Software"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://www.codersclan.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/coders-clan.svg"
-                alt="Coders Clan"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://generodigital.com/">
-              <img
-                src="https://cdn.roots.io/app/uploads/genero.svg"
-                alt="Genero"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
-            <a href="https://motto.ca/roots">
-              <img
-                src="https://cdn.roots.io/app/uploads/motto.svg"
-                alt="Motto"
-                style={{
-                  marginRight: '4px',
-                  marginLeft: '4px',
-                  width: '18%',
-                }}
-              />
-            </a>
+            {siteConfig.customFields.sponsors.map(
+              (sponsor, id) => (
+                <a key={id} href={sponsor.url}>
+                  <img
+                    src={sponsor.image}
+                    alt={sponsor.title}
+                    style={{
+                      marginRight: '4px',
+                      marginLeft: '4px',
+                      width: '18%',
+                    }}
+                  />
+                </a>
+              ),
+            )}
           </div>
         </div>
       </div>

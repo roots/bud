@@ -50,7 +50,7 @@ Service.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Env/index.ts:12](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Env/index.ts#L12)
+[packages/@roots/bud/src/services/Env/index.ts:12](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Env/index.ts#L12)
 
 ## Accessors
 
@@ -86,7 +86,7 @@ Returns path to .env file
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Env/index.ts:19](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Env/index.ts#L19)
+[packages/@roots/bud/src/services/Env/index.ts:19](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Env/index.ts#L19)
 
 ## Methods
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Env/index.ts:34](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Env/index.ts#L34)
+[packages/@roots/bud/src/services/Env/index.ts:34](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Env/index.ts#L34)
 
 ___
 
@@ -307,7 +307,7 @@ get parsed .env hashmap
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Env/index.ts:27](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Env/index.ts#L27)
+[packages/@roots/bud/src/services/Env/index.ts:27](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Env/index.ts#L27)
 
 ___
 

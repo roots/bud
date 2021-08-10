@@ -91,7 +91,7 @@ Base.items
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Build/index.ts:51](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Build/index.ts#L51)
+[packages/@roots/bud/src/services/Build/index.ts:51](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Build/index.ts#L51)
 
 ___
 
@@ -111,7 +111,7 @@ Base.loaders
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Build/index.ts:41](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Build/index.ts#L41)
+[packages/@roots/bud/src/services/Build/index.ts:41](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Build/index.ts#L41)
 
 ___
 
@@ -131,7 +131,7 @@ Base.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Build/index.ts:36](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Build/index.ts#L36)
+[packages/@roots/bud/src/services/Build/index.ts:36](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Build/index.ts#L36)
 
 ___
 
@@ -171,7 +171,7 @@ Base.rules
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Build/index.ts:46](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Build/index.ts#L46)
+[packages/@roots/bud/src/services/Build/index.ts:46](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Build/index.ts#L46)
 
 ## Accessors
 

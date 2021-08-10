@@ -22,8 +22,5 @@ coverage
 # Profiles
 **/profiles
 
-# Docusaurus
-.docusaurus
-.cache-loader
-/build
+# Netlify
 .netlify

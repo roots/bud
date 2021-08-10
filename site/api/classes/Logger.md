@@ -38,7 +38,7 @@ Class constructor
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:25](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Logger/index.ts#L25)
+[packages/@roots/bud/src/services/Logger/index.ts:25](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Logger/index.ts#L25)
 
 ## Properties
 
@@ -54,7 +54,7 @@ Contract.instance
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Logger/index.ts:20](https://github.com/roots/bud/blob/0f52a7c3/packages/@roots/bud/src/services/Logger/index.ts#L20)
+[packages/@roots/bud/src/services/Logger/index.ts:20](https://github.com/roots/bud/blob/ba45c7e9/packages/@roots/bud/src/services/Logger/index.ts#L20)
 
 ## Accessors
 
