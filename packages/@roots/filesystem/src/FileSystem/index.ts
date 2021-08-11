@@ -1,34 +1,29 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import * as fs from 'fs-extra'
-import * as globby from 'globby'
-import * as _ from 'lodash'
+import {get} from 'lodash'
 import * as path from 'path'
 
 import {FileContainer} from '..'
 
 export class FileSystem extends Container<FileContainer> {
   /**
-   * fs util
-   *
-   * @see fs-extra
+   * PlatformPath
    */
-  public fs: typeof fs = fs
-
-  /**
-   * Globby library.
-   */
-  public glob: typeof globby = globby
-
-  /**
-   * cwd
-   */
-  public path: typeof path = path
+  private _path: path.PlatformPath = path
+  public get path(): path.PlatformPath {
+    return this._path
+  }
 
   /**
    * Base directory
    */
-  protected _baseDir: string = process.cwd()
+  private _baseDir: string = process.cwd()
+  public get baseDir(): string {
+    return this._baseDir
+  }
+  public set baseDir(dir: string) {
+    this._baseDir = dir
+  }
 
   /**
    * Get
@@ -38,7 +33,7 @@ export class FileSystem extends Container<FileContainer> {
    */
   @bind
   public get<T = FileContainer>(key?: string): T {
-    return _.get(this.repository, key) as unknown as T
+    return get(this.repository, key) as unknown as T
   }
 
   /**
@@ -72,13 +67,5 @@ export class FileSystem extends Container<FileContainer> {
     )
 
     return this.get(key)
-  }
-
-  public get baseDir(): string {
-    return this._baseDir
-  }
-
-  public set baseDir(baseDir: string) {
-    this._baseDir = baseDir
   }
 }

@@ -6,7 +6,6 @@ import InkSpinner from 'ink-spinner'
 import * as React from 'react'
 
 import {dump} from './util/dump'
-import {InterpolateHtmlPlugin} from './util/InterpolateHtmlPlugin'
 import {killPort} from './util/killPort'
 import * as wpPkgs from './util/wordpressPkgs'
 
@@ -16,7 +15,6 @@ export {InkBigText}
 export {InkGradient}
 export {InkSpinner}
 export {InkUseStyle}
-export {InterpolateHtmlPlugin}
 export {killPort}
 export {wpPkgs}
 export {React}

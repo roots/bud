@@ -1,12 +1,12 @@
 require('ts-node').register({
-  project: require.resolve('./tsconfig.json'),
+  project: './tsconfig.json',
 })
 
-const execa = require('execa')
 const globby = require('globby')
+const execa = require('execa')
 const {readFile, writeFile} = require('fs-extra')
-const {Signale} = require('signale')
 const {format} = require('prettier')
+const {Signale} = require('signale')
 
 const logger = new Signale({
   interactive: false,

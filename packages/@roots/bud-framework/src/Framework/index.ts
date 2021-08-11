@@ -664,8 +664,8 @@ namespace Framework {
   /**
    * Callback which accepts Framework as a parameter
    */
-  export interface Tapable {
-    <T = Framework>(value?: T): any
+  export interface Tapable<T = Framework> {
+    (value?: T): any
   }
 }
 

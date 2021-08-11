@@ -2,9 +2,9 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "outDir": "./lib/cjs",
+    "rootDir": "./src",
   },
   "include": [
     "src"

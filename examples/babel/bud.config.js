@@ -1,12 +1,14 @@
 // @ts-check
 
+const babel = require('@roots/bud-babel')
+
 /**
  * @function config
  * @param {import('@roots/bud').Bud} app
  */
 module.exports = app =>
   app
-    .use(require('@roots/bud-babel'))
+    .use(babel)
     .tap(({babel}) => {
       babel
         .setPresets(['@babel/preset-env'])

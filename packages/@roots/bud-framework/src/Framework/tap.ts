@@ -1,11 +1,11 @@
 import {Framework} from '..'
 
-interface tap {
-  (fn: Framework.Tapable, bound?: boolean): Framework
+interface tap<T = Framework> {
+  (fn: Framework.Tapable<T>, bound?: boolean): T
 }
 
-const tap: tap = function (
-  fn: Framework.Tapable,
+const tap: tap<Framework> = function (
+  fn: Framework.Tapable<Framework>,
   bound: boolean = true,
 ): Framework {
   fn.call(bound ? this : null, this)

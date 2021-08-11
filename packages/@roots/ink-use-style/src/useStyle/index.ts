@@ -5,9 +5,6 @@ import type {Styles, Theme, UseStyle} from '../typings'
 
 const useStdoutDimensions = require('ink-use-stdout-dimensions')
 
-/**
- * @const useStyle
- */
 const useStyle: UseStyle = (initialData = defaultTheme) => {
   /**
    * Theme values

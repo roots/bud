@@ -2,67 +2,53 @@ import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
 import {sync as globbySync} from 'globby'
-import * as _ from 'lodash'
+import {get, has, set} from 'lodash'
 import * as path from 'path'
-import * as resolveFrom from 'resolve-from'
+import * as resolve from 'resolve-from'
 
 export class FileContainer extends Container {
   /**
    * FS-Extra library
    */
-  public fs: typeof fs = fs
+  private _fs: typeof fs = fs
+  public get fs(): typeof fs {
+    return this._fs
+  }
 
   /**
    * PlatformPath
    */
-  public path: path.PlatformPath = path
+  private _path: path.PlatformPath = path
+  public get path(): path.PlatformPath {
+    return this._path
+  }
 
   /**
-   * resolveFrom (better resolve)
+   * resolve
    */
-  public from: typeof resolveFrom = resolveFrom
+  private _resolve: typeof resolve = resolve
+  public get resolve(): typeof resolve {
+    return this._resolve
+  }
 
   /**
    * Base directory
    */
-  public _baseDir: string = process.cwd()
+  private _baseDir: string = process.cwd()
+  public get baseDir(): string {
+    return this._baseDir
+  }
+  public set baseDir(dir: string) {
+    this._baseDir = dir
+  }
 
   /**
    * Class constructor.
    */
   public constructor(baseDir?: string) {
     super()
+
     this._baseDir = baseDir
-  }
-
-  /**
-   * ## setBase
-   *
-   * Set the FS base directory.
-   *
-   * ### Usage
-   *
-   * ```
-   * fsInstance.setBase(__dirname)
-   * ```
-   */
-  public set baseDir(dir: string) {
-    this._baseDir = dir
-  }
-
-  /**
-   * ## getBase
-   *
-   * Returns the FS base directory.
-   *
-   * ### Usage
-   *
-   * ```
-   * fsInstance.getBase()
-   * ```
-   */
-  public get baseDir(): string {
-    return this._baseDir
   }
 
   /**
@@ -70,8 +56,7 @@ export class FileContainer extends Container {
    *
    * Establish the disk repository from an array of globs.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.setDisk(['*.js', '!*.css.js'])
    * ```
@@ -97,12 +82,11 @@ export class FileContainer extends Container {
    *
    * List repository contents.
    *
-   * ### Usage
-   *
+   * @example
    */
   @bind
   public ls(key?: string): any {
-    return key ? _.get(this.repository, key) : this.repository
+    return key ? get(this.repository, key) : this.repository
   }
 
   /**
@@ -110,15 +94,14 @@ export class FileContainer extends Container {
    *
    * Return boolean `true` if key is a match.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.has('some/file.js')
    * ```
    */
   @bind
   public has(key: string): boolean {
-    return _.has(this.repository, key)
+    return has(this.repository, key)
   }
 
   /**
@@ -126,15 +109,14 @@ export class FileContainer extends Container {
    *
    * Set a value.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.set('some/file.js', '/absolute/path/to/some/file.js')
    * ```
    */
   @bind
   public set(key: string, value: any): this {
-    _.set(this.repository, [`${key}`], value)
+    set(this.repository, [`${key}`], value)
 
     return this
   }
@@ -145,8 +127,7 @@ export class FileContainer extends Container {
    * Return a boolean `true` if repository has a key and it's value
    * resolves to an actual disk location.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.exists('some/file.js')
    * ```
@@ -162,8 +143,7 @@ export class FileContainer extends Container {
    * Create a file if it does not already exist. Will also create an
    * associated repository entry if it doesn't exist.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.ensure('some/file.js')
    * ```
@@ -184,8 +164,7 @@ export class FileContainer extends Container {
    * Create a directory if it does not already exist. Will also create an
    * associated repository entry if it doesn't exist.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.ensureDir('some/file.js')
    * ```
@@ -206,8 +185,7 @@ export class FileContainer extends Container {
    *
    * Read file contents as a utf8 encoded string.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.read('some/file.md')
    * ```
@@ -222,8 +200,7 @@ export class FileContainer extends Container {
    *
    * Retrieve file contents as a javascript object.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.readJson('some/file.json')
    * // => {json: 'contents', as: 'an object'}
@@ -239,8 +216,7 @@ export class FileContainer extends Container {
    *
    * Write file contents as a string
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.write('some/file.md', 'string contens')
    * ```
@@ -261,8 +237,7 @@ export class FileContainer extends Container {
    *
    * Write file contents as a JSON object.
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.writeJson(
    *   'some/file.json',
@@ -285,8 +260,7 @@ export class FileContainer extends Container {
    *
    * NodeRequire a matching file as a module
    *
-   * ### Usage
-   *
+   * @example
    * ```js
    * fsInstance.require('path/to/module.js')
    * ```
