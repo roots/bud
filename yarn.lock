@@ -1656,7 +1656,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/core@npm:2.0.0-beta.ff31de0ff, @docusaurus/core@npm:^2.0.0-beta.4":
+"@docusaurus/core@npm:2.0.0-beta.ff31de0ff":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/core@npm:2.0.0-beta.ff31de0ff"
   dependencies:
@@ -1784,7 +1784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/module-type-aliases@npm:^2.0.0-beta.4":
+"@docusaurus/module-type-aliases@npm:2.0.0-beta.ff31de0ff":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/module-type-aliases@npm:2.0.0-beta.ff31de0ff"
   checksum: c0d87501d7fc1f39f61a52442a4161a7dd6389b5fc84e04b86cf68d3edbf03893f1ccdf650a16320e26adde024dbea757d50bdf765837587b3926dc0f1ba12bc
@@ -1928,7 +1928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/preset-classic@npm:^2.0.0-beta.4":
+"@docusaurus/preset-classic@npm:2.0.0-beta.ff31de0ff":
   version: 2.0.0-beta.ff31de0ff
   resolution: "@docusaurus/preset-classic@npm:2.0.0-beta.ff31de0ff"
   dependencies:
@@ -3063,9 +3063,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-docs@workspace:site"
   dependencies:
-    "@docusaurus/core": ^2.0.0-beta.4
-    "@docusaurus/module-type-aliases": ^2.0.0-beta.4
-    "@docusaurus/preset-classic": ^2.0.0-beta.4
+    "@docusaurus/core": 2.0.0-beta.ff31de0ff
+    "@docusaurus/module-type-aliases": 2.0.0-beta.ff31de0ff
+    "@docusaurus/preset-classic": 2.0.0-beta.ff31de0ff
     "@easyops-cn/docusaurus-search-local": 0.19.1
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
@@ -4589,10 +4589,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:16.4.7":
-  version: 16.4.7
-  resolution: "@types/node@npm:16.4.7"
-  checksum: a1e80deea93f10225d1ac0825bd5eff3355dbc37084a88b0138921c9c930eb54acebb008d090a332a96d31ff50de69f2f5fc1402571070ea745f023e9f874805
+"@types/node@npm:*, @types/node@npm:^16.4.13":
+  version: 16.4.13
+  resolution: "@types/node@npm:16.4.13"
+  checksum: 071e86a1d196cf72928a7109e99769dffed93db481032b9ca2f52e6f3ced432e2a179849c85e587e67409202e1ed37bffd0c7a31d38adf35a385d327dfe8bd72
   languageName: node
   linkType: hard
 
@@ -4610,6 +4610,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:16.4.7":
+  version: 16.4.7
+  resolution: "@types/node@npm:16.4.7"
+  checksum: a1e80deea93f10225d1ac0825bd5eff3355dbc37084a88b0138921c9c930eb54acebb008d090a332a96d31ff50de69f2f5fc1402571070ea745f023e9f874805
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^13.7.0":
   version: 13.13.52
   resolution: "@types/node@npm:13.13.52"
@@ -4621,13 +4628,6 @@ __metadata:
   version: 15.14.2
   resolution: "@types/node@npm:15.14.2"
   checksum: 0be88677d1f0322dd986e347b4aa8c7115759a52e4d57bec8cab5ef90d581d89d8854cab862166515bb9a3834611d5832f75061af5193e13c8255a46fd1f59ac
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^16.4.13":
-  version: 16.4.13
-  resolution: "@types/node@npm:16.4.13"
-  checksum: 071e86a1d196cf72928a7109e99769dffed93db481032b9ca2f52e6f3ced432e2a179849c85e587e67409202e1ed37bffd0c7a31d38adf35a385d327dfe8bd72
   languageName: node
   linkType: hard
 
@@ -23037,7 +23037,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.49.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
+"webpack@npm:5.49.0":
   version: 5.49.0
   resolution: "webpack@npm:5.49.0"
   dependencies:
@@ -23074,7 +23074,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.28.0":
+"webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.28.0, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
   version: 5.50.0
   resolution: "webpack@npm:5.50.0"
   dependencies:
