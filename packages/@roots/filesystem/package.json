@@ -61,7 +61,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.4",
+    "globby": "^12.0.0",
     "lodash": "^4.17.21",
     "resolve-from": "^5.0.0"
   },

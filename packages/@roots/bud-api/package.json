@@ -63,7 +63,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
-    "globby": "11.0.4",
+    "globby": "12.0.0",
     "webpack": "5.49.0"
   },
   "dependencies": {
