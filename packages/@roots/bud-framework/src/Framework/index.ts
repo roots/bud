@@ -1,4 +1,3 @@
-/* eslint-disable import/export */
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isNull, isUndefined} from 'lodash'

@@ -1,5 +1,3 @@
-/*eslint import/no-unresolved: [2, { ignore: ['tailwindcss/tailwind-config'] }]*/
-
 import '@roots/bud-api'
 import '@roots/bud-postcss'
 

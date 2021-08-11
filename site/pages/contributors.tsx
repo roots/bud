@@ -17,7 +17,7 @@ function Header() {
 }
 
 function Contributor({id, type}) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
     const fetchUser = async id => {
@@ -31,7 +31,7 @@ function Contributor({id, type}) {
     fetchUser(id)
   }, [id, user, setUser])
 
-  return (
+  return !user ? null : (
     <div className={clsx('col col--4')}>
       <div className="text--center">
         <img src={user.avatar_url} />
@@ -44,7 +44,7 @@ function Contributor({id, type}) {
   )
 }
 
-export default function Home() {
+export default function Contributors() {
   const {
     siteConfig: {customFields: manifest},
   } = useDocusaurusContext()
@@ -54,6 +54,7 @@ export default function Home() {
       title={`${manifest.name} Contributors`}
       description="Thanks to everyone who made this happen">
       <Header />
+
       <main>
         <section className={styles.features}>
           <div className="container">

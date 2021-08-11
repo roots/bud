@@ -10,8 +10,8 @@
   <a href="https://www.npmjs.com/package/@roots/bud">
     <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
   </a>
-  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
-    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  <a href="https://codecov.io/gh/roots/bud">
+    <img src="https://codecov.io/gh/roots/bud/branch/next/graph/badge.svg?token=DRJ28OD8XD"/>
   </a>
   <a href="https://twitter.com/rootswp">
     <img

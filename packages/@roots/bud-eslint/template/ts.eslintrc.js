@@ -15,12 +15,9 @@ module.exports = {
   extends: [
     'prettier',
     'plugin:react/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
     'plugin:import/typescript',
   ],
   rules: {
-    'import/no-unresolved': 0,
     'no-console': 0,
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,

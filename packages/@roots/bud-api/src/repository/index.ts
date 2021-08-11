@@ -7,8 +7,6 @@ import type {GlobTask} from 'globby'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
-/* eslint-disable import/export */
-
 interface Repository {
   /**
    * Register shorthand for resolving modules using webpack aliases.
