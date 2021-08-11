@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
-    "paths": {
-      "@roots/bud/*": [
-        "../packages/@roots/bud/src/*",
-      ]
-    },
-    "resolveJsonModule": true
+    "allowJs": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "DOM"
+    ],
+    "noEmit": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "@docusaurus/module-type-aliases",
+      "@docusaurus/theme-classic"
+    ]
   },
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "include": [
     "./"
   ],

@@ -61,13 +61,6 @@ const config = {
           label: 'Extensions',
           docsPluginId: 'extensions',
         },
-        {
-          type: 'doc',
-          docId: 'index',
-          docsPluginId: 'api',
-          label: 'API',
-          position: 'right',
-        },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: manifest.url.web,
@@ -190,47 +183,13 @@ const config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsDir: [
-          'extensions',
-          'guides',
-          'recipes',
-          'docs',
-          'api',
-        ],
+        docsDir: ['extensions', 'guides', 'recipes', 'docs'],
         docsRouteBasePath: [
           'extensions',
           'guides',
           'recipes',
           'docs',
-          'api',
         ],
-      },
-    ],
-    [
-      require.resolve('docusaurus-plugin-typedoc'),
-      {
-        id: 'api',
-        entryPoints: ['../packages/@roots/bud/src/index.ts'],
-        tsconfig: `../tsconfig.json`,
-        plugin: ['typedoc-plugin-no-inherit'],
-        readme: 'none',
-        docsRoot: '.',
-        sidebar: {
-          label: 'Framework API',
-          categoryLabel: 'Framework API',
-          sidebarFile: null,
-          fullNames: false,
-        },
-      },
-    ],
-    [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
-        id: 'api',
-        path: './api',
-        routeBasePath: 'api',
-        sidebarPath: './sidebars/docs.js',
-        include: ['**/*.md', '**/*.mdx'],
       },
     ],
   ],

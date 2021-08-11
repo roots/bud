@@ -3083,8 +3083,6 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     typedoc: 0.21.5
-    typedoc-plugin-markdown: 3.10.4
-    typedoc-plugin-no-inherit: 1.3.0
     typescript: 4.3.5
     url-loader: 4.1.1
   languageName: unknown
@@ -7121,9 +7119,6 @@ __metadata:
     ts-node: 10.1.0
     tsconfig-paths: 3.10.1
     type-fest: 1.4.0
-    typedoc: 0.21.5
-    typedoc-plugin-markdown: 3.10.4
-    typedoc-plugin-no-inherit: 1.3.0
     typescript: 4.3.5
     url-loader: 4.1.1
     weak-napi: 2.0.2
@@ -22066,26 +22061,6 @@ resolve@^2.0.0-next.3:
   version: 0.12.10
   resolution: "typedoc-default-themes@npm:0.12.10"
   checksum: 4c19a0fecdf24777bd153c6ae4a4f2b23c95521a83483cdbee89aaeef985d7e37f2665b37d55f809ef36d0eb4433a921209dc45a1055791d81464bffeea77dfd
-  languageName: node
-  linkType: hard
-
-"typedoc-plugin-markdown@npm:3.10.4":
-  version: 3.10.4
-  resolution: "typedoc-plugin-markdown@npm:3.10.4"
-  dependencies:
-    handlebars: ^4.7.7
-  peerDependencies:
-    typedoc: ">=0.21.2"
-  checksum: 71c910e8a2c3fca002ce040aa9ef4bd1a2c836e6ea31db00e7eb0d66944192d27412b3b5397904e36f051f4a7cc0d68c626ccc5b0d41ad0a3dc74774219abe00
-  languageName: node
-  linkType: hard
-
-"typedoc-plugin-no-inherit@npm:1.3.0":
-  version: 1.3.0
-  resolution: "typedoc-plugin-no-inherit@npm:1.3.0"
-  peerDependencies:
-    typedoc: ">=0.20.31"
-  checksum: c2c560a1433a34a1f65a274dfafb7e3b326b240e01cdf85022930ab9ccb1152708003ea399b2927385f7ca26ff15a3bafd1c606dcd8cddf8a5546f078626267f
   languageName: node
   linkType: hard
 

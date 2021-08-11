@@ -1,7 +1,7 @@
 {
   "name": "bud.js",
   "private": true,
-  "description": "⚡️ Lightning fast frontend build tooling combining the best parts of Symfony Encore and Laravel Mix",
+  "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git"
@@ -81,16 +81,13 @@
     "ts-node": "10.1.0",
     "tsconfig-paths": "3.10.1",
     "type-fest": "1.4.0",
-    "typedoc": "0.21.5",
-    "typedoc-plugin-markdown": "3.10.4",
-    "typedoc-plugin-no-inherit": "1.3.0",
     "typescript": "4.3.5",
     "url-loader": "4.1.1",
     "weak-napi": "2.0.2"
   },
   "manifest": {
     "name": "bud.js",
-    "description": "⚡️ Lightning fast frontend build tooling combining the best parts of Symfony Encore and Laravel Mix",
+    "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
     "version": "4.7.0-next.10",
     "tag": "latest",
     "logo": "https://cdn.roots.io/app/uploads/logo-bud.svg",
