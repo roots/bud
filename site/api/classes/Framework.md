@@ -86,7 +86,7 @@ app.alias({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:23
+packages/@roots/bud-api/types/repository/index.d.ts:19
 
 ___
 
@@ -124,7 +124,7 @@ app.assets(['src/images'])
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:37
+packages/@roots/bud-api/types/repository/index.d.ts:33
 
 ___
 
@@ -252,7 +252,7 @@ app.config({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:67
+packages/@roots/bud-api/types/repository/index.d.ts:63
 
 ___
 
@@ -305,7 +305,7 @@ app.define({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:78
+packages/@roots/bud-api/types/repository/index.d.ts:74
 
 ___
 
@@ -339,7 +339,7 @@ app.dev({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:90
+packages/@roots/bud-api/types/repository/index.d.ts:86
 
 ___
 
@@ -357,7 +357,7 @@ app.devtool('inline-cheap-module-source-map')
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:100
+packages/@roots/bud-api/types/repository/index.d.ts:96
 
 ___
 
@@ -443,7 +443,7 @@ app.entry({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:164
+packages/@roots/bud-api/types/repository/index.d.ts:160
 
 ___
 
@@ -476,7 +476,7 @@ bud.experiments({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:175
+packages/@roots/bud-api/types/repository/index.d.ts:171
 
 ___
 
@@ -519,7 +519,7 @@ bud.externals({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:187
+packages/@roots/bud-api/types/repository/index.d.ts:183
 
 ___
 
@@ -559,7 +559,7 @@ bud.hash()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:196
+packages/@roots/bud-api/types/repository/index.d.ts:192
 
 ___
 
@@ -694,7 +694,7 @@ bud.minimize(true)
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:221
+packages/@roots/bud-api/types/repository/index.d.ts:217
 
 ___
 
@@ -776,7 +776,7 @@ app.persist({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:232
+packages/@roots/bud-api/types/repository/index.d.ts:228
 
 ___
 
@@ -824,7 +824,7 @@ bud.provide({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:244
+packages/@roots/bud-api/types/repository/index.d.ts:240
 
 ___
 
@@ -862,7 +862,7 @@ bud.proxy({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:274
+packages/@roots/bud-api/types/repository/index.d.ts:270
 
 ___
 
@@ -883,7 +883,7 @@ bud.publicPath('/app/themes/sage/dist')
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:287
+packages/@roots/bud-api/types/repository/index.d.ts:283
 
 ___
 
@@ -900,7 +900,7 @@ bud.run()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:296
+packages/@roots/bud-api/types/repository/index.d.ts:292
 
 ___
 
@@ -919,7 +919,7 @@ bud.runtime()
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:307
+packages/@roots/bud-api/types/repository/index.d.ts:303
 
 ___
 
@@ -1034,7 +1034,7 @@ app.setPublicPath(publicPath => {
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:329
+packages/@roots/bud-api/types/repository/index.d.ts:325
 
 ___
 
@@ -1053,7 +1053,7 @@ bud.splitChunks({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:340
+packages/@roots/bud-api/types/repository/index.d.ts:336
 
 ___
 
@@ -1123,7 +1123,7 @@ app.template({
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:357
+packages/@roots/bud-api/types/repository/index.d.ts:353
 
 ___
 
@@ -1162,7 +1162,7 @@ bud.use(new MyWebpackPlugin())
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:388
+packages/@roots/bud-api/types/repository/index.d.ts:384
 
 ___
 
@@ -1180,7 +1180,7 @@ app.watch(['templates/*.html'])
 
 #### Defined in
 
-packages/@roots/bud-api/types/repository/index.d.ts:398
+packages/@roots/bud-api/types/repository/index.d.ts:394
 
 ___
 

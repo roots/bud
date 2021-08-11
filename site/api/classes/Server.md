@@ -1768,7 +1768,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Server/index.ts:12](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Server/index.ts#L12)
+[packages/@roots/bud/src/services/Server/index.ts:12](https://github.com/roots/bud/blob/95b5c12b/packages/@roots/bud/src/services/Server/index.ts#L12)
 
 ___
 

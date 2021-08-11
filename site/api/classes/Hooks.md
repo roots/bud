@@ -1600,7 +1600,7 @@ Base.register
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Hooks/index.ts:15](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Hooks/index.ts#L15)
+[packages/@roots/bud/src/services/Hooks/index.ts:15](https://github.com/roots/bud/blob/95b5c12b/packages/@roots/bud/src/services/Hooks/index.ts#L15)
 
 ___
 

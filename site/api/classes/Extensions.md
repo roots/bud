@@ -76,7 +76,7 @@ Contract.name
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:13](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Extensions/index.ts#L13)
+[packages/@roots/bud/src/services/Extensions/index.ts:13](https://github.com/roots/bud/blob/95b5c12b/packages/@roots/bud/src/services/Extensions/index.ts#L13)
 
 ___
 
@@ -94,7 +94,7 @@ Contract.repository
 
 #### Defined in
 
-[packages/@roots/bud/src/services/Extensions/index.ts:15](https://github.com/roots/bud/blob/a5a389b4/packages/@roots/bud/src/services/Extensions/index.ts#L15)
+[packages/@roots/bud/src/services/Extensions/index.ts:15](https://github.com/roots/bud/blob/95b5c12b/packages/@roots/bud/src/services/Extensions/index.ts#L15)
 
 ## Accessors
 

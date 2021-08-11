@@ -1,17 +1,28 @@
 import * as React from 'react'
 
-export const Banner = ({title, description, logo}) => (
+export const Banner = ({
+  title = null,
+  description = null,
+  logo = null,
+}) => (
   <span>
     {`\
-<p align="center">
+${
+  logo
+    ? `<p align="center">
   <img alt="Bud" src="${logo}" height="100" />
-</p>
+</p>`
+    : ``
+}
 
 <p align="center">
   <img
     alt="MIT License"
     src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
   />
+  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_small" alt="FOSSA Status">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=small"/>
+  </a>
   <a href="https://www.npmjs.com/package/@roots/bud">
     <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
   </a>
@@ -26,10 +37,15 @@ export const Banner = ({title, description, logo}) => (
   </a>
 </p>
 
+${
+  title
+    ? `
 <h1 align="center">
   <strong>${title}</strong>
-</h1>
+</h1>`
+    : ``
+}
 
-> ${description}`}
+${description ? `> ${description}` : ``}`}
   </span>
 )
