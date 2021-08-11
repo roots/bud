@@ -38,6 +38,9 @@
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_large)
+
 ## Installation
 
 Install [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) and [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) to your project
@@ -124,6 +127,7 @@ For more on configuring [**@roots/bud**](https://github.com/roots/bud/tree/stabl
 ## Running a build
 
 ![Terminal usage](/dev/assets/cli.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_shield)
 
 Once you've set up your configuration file the following command will run the build:
 
