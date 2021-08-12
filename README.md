@@ -26,7 +26,7 @@
 
 
 
-> ⚡️ Lightning fast frontend build tooling combining the best parts of Symfony Encore and Laravel Mix
+> ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
 
 ## Features
 
