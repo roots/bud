@@ -1,7 +1,7 @@
 import {Ink} from '@roots/bud-support'
 import {isEqual} from 'lodash'
 
-export const Input = ({bud}) => {
+const Input = ({bud}) => {
   Ink.useInput(input => {
     if (isEqual(input, 'q')) {
       try {
@@ -14,3 +14,5 @@ export const Input = ({bud}) => {
 
   return null
 }
+
+export {Input}

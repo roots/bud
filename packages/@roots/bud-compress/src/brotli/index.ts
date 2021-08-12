@@ -1,8 +1,9 @@
-import type {Compress} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 
-const extension: Compress.Extension = {
+const extension: Framework.Compress.Extension = {
   name: 'compression-webpack-plugin-brotli',
+
   options: {
     algorithm: 'brotliCompress',
     filename: '[name].br[query]',
@@ -14,8 +15,11 @@ const extension: Compress.Extension = {
     minRatio: 0.8,
     deleteOriginalAssets: false,
   },
+
   make: options => new Plugin(options.all()),
+
   when: ({store}) => store.isTrue('brotli'),
+
   api: {
     brotli: function (options) {
       this.store.set('brotli', true)

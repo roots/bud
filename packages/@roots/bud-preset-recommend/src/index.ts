@@ -15,6 +15,7 @@ declare module '@roots/bud-framework' {
 
 const extension: Module = {
   name: '@roots/bud-preset-recommend',
+
   register: app => {
     app.use([babel, postcss, entrypoints])
   },

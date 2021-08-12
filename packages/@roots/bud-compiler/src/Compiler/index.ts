@@ -3,8 +3,14 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isEqual, isString, noop} from 'lodash'
+import {isEqual, isString} from 'lodash'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
+
+const INITIAL_STATS = {
+  assets: [],
+  errors: [],
+  warnings: [],
+}
 
 /**
  * Webpack compilation controller
@@ -20,11 +26,7 @@ class Compiler extends Service implements Contract {
   /**
    * Compilation stats
    */
-  public stats: StatsCompilation = {
-    assets: [],
-    errors: [],
-    warnings: [],
-  }
+  public stats: StatsCompilation = INITIAL_STATS
 
   /**
    * Compilation progress as reported by {@link ProgressPlugin}
@@ -43,14 +45,13 @@ class Compiler extends Service implements Contract {
    * Registers hooks filtered before and after
    * the instantiation of Webpack as well as one additional hook
    * which is filtered at the tail of the Webpack compiler callback.
+   *
+   * @decorator `@bind`
    */
+  @bind
   public register() {
     this.app.hooks.on('before', () => [])
     this.app.hooks.on('after', () => [])
-
-    this.app.hooks.on('done', () => {
-      this.isCompiled = true
-    })
   }
 
   /**
@@ -58,9 +59,15 @@ class Compiler extends Service implements Contract {
    */
   @bind
   public compile(): Contract.Instance {
-    this.isCompiled && this.instance.close(noop)
+    let compilationInstance
 
-    return this.setup(this.before())
+    if (this.isCompiled)
+      this.instance.close(() => {
+        compilationInstance = this.setup(this.before())
+      })
+    else compilationInstance = this.setup(this.before())
+
+    return compilationInstance
   }
 
   /**
@@ -69,6 +76,10 @@ class Compiler extends Service implements Contract {
   @bind
   public before() {
     const config = []
+
+    this.stats = INITIAL_STATS
+
+    this.isCompiled = true
 
     this.app.hooks.filter('before').map(cb => cb(this.app))
 
@@ -116,6 +127,7 @@ class Compiler extends Service implements Contract {
         err && this.stats.errors.push(err)
 
         isEqual(this.app.mode, 'production') &&
+          !process.env.JEST_WORKER_ID &&
           setTimeout(() => process.exit(), 100)
       })
     })
@@ -158,7 +170,9 @@ class Compiler extends Service implements Contract {
         )
     })
 
-    this.app.hooks.filter('done').map(cb => cb(this.app))
+    const doneCallbacks = this.app.hooks.filter('done')
+
+    doneCallbacks?.map(cb => cb(this.app))
   }
 }
 

@@ -3,30 +3,24 @@ import {Ink, React} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
-import {Error} from '../components/Error'
+import {Dashboard as DashboardComponent} from '../components/Dashboard'
 import {Screen} from '../components/Screen'
-import {Dashboard as DashboardComponent} from './Dashboard'
+import {Error} from '../Error'
 
 const {Box, render, Text} = Ink
 
-/**
- * Service: Dashboard
- */
-export class Dashboard extends Base {
-  /**
-   * @property {string} name
-   */
+class Dashboard extends Base {
   public name = 'dashboard'
 
   public instance: Ink.Instance
 
-  @bind
   public register(): void {
-    Object.assign(this.app, {
-      error: Error,
-    })
+    this.bindMacro({error: Error})
   }
 
+  /**
+   * @decorator `@bind`
+   */
   @bind
   public run(): void {
     if (this.app.store.isTrue('ci')) return
@@ -38,6 +32,9 @@ export class Dashboard extends Base {
     )
   }
 
+  /**
+   * @decorator `@bind`
+   */
   @bind
   public renderError(body: string, title: string): Ink.Instance {
     return render(
@@ -47,6 +44,9 @@ export class Dashboard extends Base {
     )
   }
 
+  /**
+   * @decorator `@bind`
+   */
   @bind
   public render(Component: any, title?: string): Ink.Instance {
     const Output = () =>
@@ -69,3 +69,5 @@ export class Dashboard extends Base {
     )
   }
 }
+
+export {Dashboard}

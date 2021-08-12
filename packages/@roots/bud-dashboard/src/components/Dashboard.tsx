@@ -1,31 +1,50 @@
 import type {Framework} from '@roots/bud-framework'
-import {Ink, InkUseStyle, React} from '@roots/bud-support'
+import {
+  Ink,
+  InkSpinner,
+  InkUseStyle,
+  React,
+} from '@roots/bud-support'
 import {isEqual} from 'lodash'
 import * as patchConsole from 'patch-console'
 import type {StatsCompilation} from 'webpack'
 
-import {Progress} from '../components/Progress'
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
 import {Input} from './Input'
+import {Progress} from './Progress'
 
 const {useStyle} = InkUseStyle
 const {Fragment, useRef, useState} = React
 const {Box, Newline, Static, Text, useStdin} = Ink
 
-/**
- * @const Dashboard
- */
 const Dashboard = ({bud}: {bud: Framework}) => {
+  /**
+   * Bud instance
+   */
   const instance = useRef<Framework>(bud)
+
+  /**
+   * Stderr stream
+   */
   const [stderr, setStderr] = useState<string[]>([])
+
+  /**
+   * ProgressPlugin reportage
+   */
   const [progress, setProgress] = useState<any>(null)
+
+  /**
+   * WebpackStatsPlugin reportage
+   */
   const [stats, setStats] = useState<StatsCompilation>({
     errors: [],
   })
 
   const {isRawModeSupported} = useStdin()
+
   const {fileSize, duration} = useFormatter()
+
   const theme = useStyle(bud?.store?.get('theme'))
 
   patchConsole((stream, data) => {
@@ -33,41 +52,61 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   })
 
   setInterval(() => {
-    setStats(instance.current.compiler.stats)
-    setProgress(instance.current.compiler.progress)
+    instance?.current?.compiler?.stats &&
+      setStats(instance.current.compiler.stats)
+
+    instance?.current?.compiler?.progress &&
+      setProgress(instance.current.compiler.progress)
   }, 10)
 
   useForceUpdate()
 
-  return (
+  const hasCompilerErrors =
+    stats && stats?.errors && stats?.errors?.length > 0
+  const hasStdErr = stderr && stderr.length > 0
+
+  const hasErrors = hasStdErr || hasCompilerErrors
+
+  return !progress && !hasErrors ? (
+    <Text>
+      <InkSpinner /> Loading
+    </Text>
+  ) : (
     <Box flexDirection="column">
       {isRawModeSupported && <Input bud={instance.current} />}
-      <Static items={stderr}>
-        {(stdout, k) => (
-          <Text key={`stdout-${k}`}>
-            {stdout ?? ''}
-            <Newline />
-          </Text>
-        )}
-      </Static>
 
-      <Static items={stats?.errors ?? []}>
-        {(err, k) =>
-          err ? (
-            <Fragment key={`stats-err-${k}`}>
+      {hasErrors && (
+        <Static items={stderr}>
+          {(stdout, k) => (
+            <Text key={`stdout-${k}`}>
+              {stdout ?? ''}
               <Newline />
-              <Text>
-                {err.file ? `Error in ${err.file}` : ``}
-              </Text>
-              <Text>{err.message ?? ''}</Text>
-            </Fragment>
-          ) : (
-            []
-          )
-        }
-      </Static>
+            </Text>
+          )}
+        </Static>
+      )}
 
-      {stats?.errors?.length <= 1 &&
+      {hasCompilerErrors && (
+        <Static items={stats?.errors ?? []}>
+          {(err, k) =>
+            err ? (
+              <Fragment key={`stats-err-${k}`}>
+                <Newline />
+
+                <Text>
+                  {err.file ? `Error in ${err.file}` : ``}
+                </Text>
+
+                <Text>{err.message ?? ''}</Text>
+              </Fragment>
+            ) : (
+              []
+            )
+          }
+        </Static>
+      )}
+
+      {!hasErrors &&
         progress &&
         stats?.children?.map((child, id) => (
           <Box
@@ -125,11 +164,16 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                   </Box>
                 ))}
             </Box>
+
             <Text>Compiled in {duration(child.time)}</Text>
           </Box>
         ))}
 
-      {progress && progress[0] && progress[0] < 1 ? (
+      {instance &&
+      theme &&
+      progress &&
+      progress[0] &&
+      progress[0] < 1 ? (
         <Progress
           progress={progress}
           theme={theme}
@@ -148,7 +192,4 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   )
 }
 
-/**
- * @exports Dashboard
- */
 export {Dashboard}

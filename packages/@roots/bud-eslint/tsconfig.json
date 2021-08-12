@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",

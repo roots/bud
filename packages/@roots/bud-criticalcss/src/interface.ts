@@ -1,7 +1,7 @@
-import type {Plugin} from '@roots/bud-framework'
+import type {WebpackPlugin} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
-export type Extension = Plugin<
+export type Extension = WebpackPlugin<
   CriticalCssWebpackPlugin,
   CriticalCssWebpackPlugin['options']
 >
@@ -9,12 +9,9 @@ export type Extension = Plugin<
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## critical
-     *
      * Extract critical CSS
      *
-     * ### Usage
-     *
+     * @usage
      * ```js
      * app.critical({
      *  // ...
@@ -25,16 +22,10 @@ declare module '@roots/bud-framework' {
   }
 
   namespace CriticalCss {
-    /**
-     * app.critical fn
-     */
     type Configure = (
       options: CriticalCssWebpackPlugin['options'],
     ) => Framework
 
-    /**
-     * Options
-     */
     type Options = CriticalCssWebpackPlugin['options']
   }
 

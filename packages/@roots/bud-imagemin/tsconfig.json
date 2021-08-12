@@ -1,7 +1,9 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",

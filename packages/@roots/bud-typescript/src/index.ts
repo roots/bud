@@ -15,9 +15,11 @@ import {typecheck} from './api'
  */
 const extension: Module = {
   name: '@roots/bud-typescript',
+
   api: {
     typecheck,
   },
+
   boot: ({build, discovery, hooks, store}) => {
     store.set('patterns.ts', /\.tsx?$/)
 
@@ -53,15 +55,5 @@ const extension: Module = {
   },
 }
 
-/**
- * @exports default
- * @exports extension
- */
 export {extension, extension as default}
-
-/**
- * @exports name
- * @exports boot
- * @exports api
- */
 export const {name, boot, api} = extension

@@ -1,36 +1,19 @@
-/**
- * @module @roots/bud-mdx
- */
-
 import './interface'
 
 import {Item, Loader, Rule} from '@roots/bud-build'
 import type {Framework, Module} from '@roots/bud-framework'
 import type * as Webpack from 'webpack'
 
-import {MdxConfig} from './api'
+import {MdxConfig} from './MdxConfig'
 
-/**
- * @const extension
- */
 const extension: Module = {
-  /**
-   * @property {string} name
-   *
-   * {@link Module.name}
-   */
   name: '@roots/bud-mdx',
 
-  /**
-   * @property {Module.boot} boot
-   *
-   * {@link Module.boot}
-   */
   boot: (app: Framework) => {
     const {build, store, hooks} = app
 
-    Object.assign(app, {
-      mdx: new MdxConfig(app),
+    app.extensions.bindClass({
+      mdx: [MdxConfig, app],
     })
 
     store.set('patterns.mdx', /\.mdx$/)
@@ -50,9 +33,6 @@ const extension: Module = {
       use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
-    /**
-     * .mdx extension
-     */
     hooks.on(
       'build/resolve/extensions',
       (exts: Webpack.Configuration['resolve']['extensions']) => [
@@ -63,14 +43,6 @@ const extension: Module = {
   },
 }
 
-/**
- * @exports extension
- * @exports default
- */
 export {extension as default, extension}
 
-/**
- * @exports name
- * @exports boot
- */
 export const {name, boot} = extension

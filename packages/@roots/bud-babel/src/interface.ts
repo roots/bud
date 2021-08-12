@@ -6,7 +6,6 @@ declare module '@roots/bud-framework' {
      * Configure babel.
      *
      * @usage
-     *
      * ```js
      * app.use([babel])
      * ```
@@ -29,7 +28,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-interface BabelExtension {
+interface BabelExtension extends Module {
   name: Module.Name & '@roots/bud-babel'
   register: Module.Register
   boot: Module.Boot

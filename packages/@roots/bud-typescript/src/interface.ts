@@ -1,23 +1,18 @@
 import '@roots/bud-babel'
 
-import {Module, Plugin} from '@roots/bud-framework'
+import {Build, Module, WebpackPlugin} from '@roots/bud-framework'
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * bud.typecheck
-     *
      * Enable typescript type checking
      *
      * @usage
-     *
      * ```js
      * bud.typecheck()
      * ```
-     *
-     * {@link Typescript.Typecheck}
      */
     typecheck: Typescript.TypeCheck
   }
@@ -29,29 +24,22 @@ declare module '@roots/bud-framework' {
   namespace Framework {
     interface Extensions {
       '@roots/bud-typescript': Module
-      'fork-ts-checker-plugin': Plugin<
+      'fork-ts-checker-plugin': WebpackPlugin<
         typeof ForkTsCheckerWebpackPlugin
       >
     }
-  }
-
-  namespace Hooks.Loader {
-    interface Definitions {
-      ts: string
-      babel: string
+    interface Loaders {
+      ts: Build.Loader
+      babel: Build.Loader
     }
-  }
 
-  namespace Hooks.Item {
-    interface Definitions {
-      ts: any
-      babel: any
+    interface Items {
+      ts: Build.Item
+      babel: Build.Item
     }
-  }
 
-  namespace Hooks.Rule {
-    interface Definitions {
-      ts: any
+    interface Rules {
+      ts: Build.Rule
     }
   }
 }

@@ -1,7 +1,3 @@
-/**
- * @module Framework.Extensions.Babel
- */
-
 import {Babel} from './Babel'
 import {Config} from './Config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './constants'

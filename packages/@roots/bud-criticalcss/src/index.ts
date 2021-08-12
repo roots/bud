@@ -5,8 +5,11 @@ import {Extension} from './interface'
 
 const extension: Extension = {
   name: '@roots/bud-criticalcss',
+
   options: (): CriticalCss.Options => ({}),
+
   make: options => new CriticalCssWebpackPlugin(options.all()),
+
   when: ({isProduction}) => isProduction,
   api: {
     critical: function (options) {

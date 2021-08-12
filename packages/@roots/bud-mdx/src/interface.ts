@@ -1,10 +1,9 @@
+import {Item, Loader} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## mdx
-     *
      * Configure mdx to suit your application needs
      */
     mdx: Framework.Api.Mdx
@@ -13,21 +12,17 @@ declare module '@roots/bud-framework' {
   namespace Framework.Api {
     interface Mdx {
       /**
-       * ## mdx.remarkPlugins
-       *
        * Get registered remark plugins.
        */
       remarkPlugins: Framework.Api.Mdx.RemarkRegistry
 
       /**
-       * ## mdx.rehypePlugins
-       *
        * Get registered rehype plugins.
        */
       rehypePlugins: Framework.Api.Mdx.RehypeRegistry
 
       /**
-       * ## mdx.options
+       * Set MDX options
        */
       options: Framework.Api.Mdx.Options
     }
@@ -52,20 +47,16 @@ declare module '@roots/bud-framework' {
     }
   }
 
-  namespace Hooks.Loader {
-    interface Definitions {
-      mdx: any
-    }
-  }
-
-  namespace Hooks.Item {
-    interface Definitions {
-      mdx: any
-      babel: any
-    }
-  }
-
   namespace Framework {
+    interface Loaders {
+      mdx: Loader
+    }
+
+    interface Items {
+      mdx: Item
+      babel: Item
+    }
+
     interface Extensions {
       '@roots/bud-mdx': Module
     }

@@ -1,19 +1,17 @@
-import {Module, Plugin} from '@roots/bud-framework'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
 import CompressionPlugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## brotli  [💁 Fluent]
-     *
      * Compress static assets with brotli compression.
      *
+     * @remarks
      * It's arguments are optional. For more information on
      * configuration consult [the compression webpack
      * plugin documentation](#).
      *
-     * ### Usage
-     *
+     * @usage
      * **Simplest way to get started is to just call it**
      *
      * This is likely a fine default config.
@@ -22,7 +20,7 @@ declare module '@roots/bud-framework' {
      * bud.brotli()
      * ```
      *
-     * #### Shown with default options
+     * With default options:
      *
      * ```js
      * bud.brotli({
@@ -38,32 +36,34 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Compress.ConfigFn
+    brotli: Framework.Compress.ConfigFn
 
     /**
      * ## gzip  [💁 Fluent]
      *
      * Gzip static assets.
      */
-    gzip: Compress.ConfigFn
+    gzip: Framework.Compress.ConfigFn
   }
 
-  namespace Compress {
-    type ConfigFn = (options?: Options) => Framework
+  namespace Framework {
+    namespace Compress {
+      type ConfigFn = (options?: Options) => Framework
 
-    interface Options {
-      filename: string
-      algorithm: string
-      test: RegExp
-      compressionOptions: {
-        [key: string]: any
+      interface Options {
+        filename: string
+        algorithm: string
+        test: RegExp
+        compressionOptions: {
+          [key: string]: any
+        }
+        threshold: number
+        minRatio: number
+        deleteOriginalAssets: boolean
       }
-      threshold: number
-      minRatio: number
-      deleteOriginalAssets: boolean
-    }
 
-    type Extension = Plugin<CompressionPlugin, Options>
+      type Extension = WebpackPlugin<CompressionPlugin, Options>
+    }
   }
 
   namespace Framework {

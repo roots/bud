@@ -61,12 +61,9 @@ describe('@roots/bud-imagemin', () => {
     expect(imagemin.name).toBe(EXTENSION_HANDLE)
   })
 
-  it('has an api prop', () => {
+  it('binds imagemin config class', () => {
     bud.use(imagemin)
-
-    expect(imagemin.api(bud).imagemin.plugins).toBeInstanceOf(
-      Function,
-    )
+    expect(bud.imagemin).toBeDefined()
   })
 
   it('automatically registered found imagemin plugins', () => {
