@@ -7,6 +7,9 @@
 import * as Support from '@roots/bud-support'
 import {EventEmitter} from 'events'
 
+/**
+ * Unchanged
+ */
 class Stdout extends EventEmitter {
   get columns() {
     return 100
@@ -25,6 +28,9 @@ class Stdout extends EventEmitter {
   }
 }
 
+/**
+ * Unchanged
+ */
 class Stderr extends EventEmitter {
   readonly frames: string[] = []
   private _lastFrame?: string
@@ -39,6 +45,9 @@ class Stderr extends EventEmitter {
   }
 }
 
+/**
+ * Unchanged
+ */
 class Stdin extends EventEmitter {
   isTTY = true
 
@@ -63,6 +72,9 @@ class Stdin extends EventEmitter {
   }
 }
 
+/**
+ * Modified: rerender returns @roots/bud-support instance of React
+ */
 export interface Instance {
   rerender: (tree: Support.React.ReactElement) => void
   unmount: () => void
@@ -74,8 +86,14 @@ export interface Instance {
   lastFrame: () => string | undefined
 }
 
+/**
+ * Modified: instances is an array of @roots/bud-support instances of Ink
+ */
 const instances: Support.Ink.Instance[] = []
 
+/**
+ * Modified use @roots/bud-support ink renderer
+ */
 export const render = (
   tree: Support.React.ReactElement,
 ): Instance => {

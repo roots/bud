@@ -1,9 +1,4 @@
-import {
-  Dashboard as Base,
-  Error,
-  Progress,
-  Screen,
-} from '@roots/bud-dashboard'
+import {Dashboard as Base} from '@roots/bud-dashboard'
 import {Service} from '@roots/bud-framework'
 
 /**
@@ -15,16 +10,3 @@ import {Service} from '@roots/bud-framework'
 class Dashboard extends Base implements Service {}
 
 export {Dashboard}
-
-/**
- * @hidden
- */
-export {Screen}
-/**
- * @hidden
- */
-export {Error}
-/**
- * @hidden
- */
-export {Progress}

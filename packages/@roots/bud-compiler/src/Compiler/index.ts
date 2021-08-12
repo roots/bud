@@ -127,7 +127,7 @@ class Compiler extends Service implements Contract {
         err && this.stats.errors.push(err)
 
         isEqual(this.app.mode, 'production') &&
-          !process.env.JEST_WORKER_ID &&
+          !process.env.BUD_KEEP_ALIVE &&
           setTimeout(() => process.exit(), 100)
       })
     })

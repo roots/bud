@@ -5,6 +5,8 @@ import {join} from 'path'
 import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
 
+process.env.BUD_KEEP_ALIVE = 'true'
+
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
   let dashboard: Ink.Instance
