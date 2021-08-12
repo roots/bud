@@ -1,6 +1,8 @@
-import {WebpackDefinePlugin} from '@roots/bud'
+import {extensions} from '@roots/bud'
 
 import {Framework, setupBud, teardownBud} from '../../../../util'
+
+const WebpackDefinePlugin = extensions['webpack-define-plugin']
 
 describe('WebpackDefinePlugin', function () {
   let bud: Framework
@@ -43,26 +45,3 @@ describe('WebpackDefinePlugin', function () {
     })
   })
 })
-
-/* name: 'webpack-define-plugin',
-  make: options => new DefinePlugin(options.all()),
-  when: (_bud, opts) => opts.getEntries()?.length > 0,
-  options: ({env, store}) => {
-    const fromEnv = env
-      .getEntries()
-      .filter(([k]: [string, string]) =>
-        k.includes('APP_PUBLIC'),
-      )
-      .reduce(
-        (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
-        {},
-      )
-
-    const fromStore = store.get('extension.webpackDefinePlugin')
-
-    return {
-      ...fromEnv,
-      ...fromStore,
-    }
-  } 
-*/

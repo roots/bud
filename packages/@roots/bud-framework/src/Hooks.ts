@@ -1,6 +1,12 @@
 import type * as Webpack from 'webpack'
 
-import type {Framework, Module, Plugin, Service} from './'
+import type {
+  Build,
+  Framework,
+  Module,
+  Service,
+  WebpackPlugin,
+} from './'
 
 /**
  * Service allowing for fitering {@link Framework} values through callbacks.
@@ -27,8 +33,6 @@ import type {Framework, Module, Plugin, Service} from './'
  *   () => '[name].[hash:4]',
  * )
  * ```
- *
- * @noInherit
  */
 interface Hooks extends Service<Hooks.Repository> {
   /**
@@ -69,12 +73,15 @@ interface Hooks extends Service<Hooks.Repository> {
 
 namespace Hooks {
   /**
-   * Hook definition
+   * Hook signature
    */
   export type Hook<T = any> = ((value?: T) => T) | T
 
   /**
    * Hooks repository
+   *
+   * @remarks
+   * Mapped type for ensuring proper references throughout the application
    */
   export type Repository = {
     [K in Name as `${K & string}`]?: Hook[]
@@ -87,23 +94,23 @@ namespace Hooks {
 
   export type LoaderKeys =
     | `loader`
-    | `loader/${keyof Framework.Loaders}`
+    | `loader/${keyof Build.Loaders}`
 
   export type ItemKeys =
     | `item`
-    | `item/${keyof Framework.Items}`
-    | `item/${keyof Framework.Items}/loader`
-    | `item/${keyof Framework.Items}/options`
-    | `item/${keyof Framework.Items}/options/${string}`
+    | `item/${keyof Build.Items}`
+    | `item/${keyof Build.Items}/loader`
+    | `item/${keyof Build.Items}/options`
+    | `item/${keyof Build.Items}/options/${string}`
 
   export type RuleKeys =
     | `rule`
-    | `rule/${keyof Framework.Rules}`
-    | `rule/${keyof Framework.Rules}/${keyof Webpack.RuleSetRule}`
-    | `rule/${keyof Framework.Rules}/${keyof Webpack.RuleSetRule &
+    | `rule/${keyof Build.Rules}`
+    | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule}`
+    | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule &
         `options`}/${string}`
 
-  export namespace BuildHooks {
+  namespace BuildHooks {
     type Rules = Webpack.Configuration['module']['rules']
 
     interface RulesOverride extends Rules {
@@ -187,7 +194,7 @@ namespace Hooks {
             | `${keyof Module & string}`
             | `${keyof Module & string}/${string}`}`]:
         | Module
-        | Plugin
+        | WebpackPlugin
     }
   }
 

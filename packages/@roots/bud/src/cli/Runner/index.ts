@@ -1,7 +1,8 @@
+import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
-import {factory, Framework} from '../..'
+import factory from '../../Factory'
 import {Config} from '../Config'
 
 export default class Runner {

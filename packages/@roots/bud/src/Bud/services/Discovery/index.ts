@@ -9,9 +9,6 @@ import {dirname} from 'path'
 
 const pkgUp = require('pkg-up')
 
-/**
- * @sealed
- */
 class Discovery
   extends Contract
   implements Service<Contract['repository']>
@@ -26,9 +23,6 @@ class Discovery
     required: {},
   }
 
-  /**
-   * @method register
-   */
   @bind
   public register(): void {
     this.setStore(

@@ -46,19 +46,19 @@ import type {Framework, Service} from './'
  */
 interface Build extends Service {
   /**
-   * {@link Framework.Loaders} registry
+   * {@link Build.Loaders Loader registry}
    */
-  loaders: Framework.Loaders
+  loaders: Build.Loaders
 
   /**
-   * RuleSetUse item registry
+   * {@link Build.Items Item registry}
    */
-  items: Framework.Items
+  items: Build.Items
 
   /**
-   * Webpack rules registry
+   * {@link Build.Rules Rule registry}
    */
-  rules: Framework.Rules
+  rules: Build.Rules
 
   /**
    * Accesses {@link Webpack.Configuration}
@@ -72,6 +72,27 @@ interface Build extends Service {
 }
 
 namespace Build {
+  /**
+   * Registered loaders
+   */
+  export interface Loaders extends Framework.Index<Loader> {
+    [key: string]: Loader
+  }
+
+  /**
+   * Registered items
+   */
+  export interface Items extends Framework.Index<Item> {
+    [key: string]: Item
+  }
+
+  /**
+   * Registered rules
+   */
+  export interface Rules extends Framework.Index<Rule> {
+    [key: string]: Rule
+  }
+
   /**
    * Makes a Webpack loader
    */
@@ -229,6 +250,9 @@ namespace Build {
 
     export type GeneratorFn = (app?: Framework) => any
 
+    /**
+     * Rule.Options
+     */
     export interface Options {
       test: RegExp | TestFn
       use?: Item[] | UseFn
@@ -239,6 +263,9 @@ namespace Build {
     }
 
     /**
+     * Rule.Output
+     *
+     * @remarks
      * Output conforming to Webpack {@link RuleSetRule} interface
      */
     export interface Output {

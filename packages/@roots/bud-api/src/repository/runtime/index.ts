@@ -5,7 +5,7 @@
 import {isUndefined} from 'lodash'
 import type {Configuration, EntryObject} from 'webpack'
 
-import type {Repository} from '..'
+import type Repository from '..'
 
 /**
  * @const DEFAULT_OPTIONS

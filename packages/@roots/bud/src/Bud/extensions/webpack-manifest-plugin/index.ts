@@ -1,10 +1,12 @@
-import {Plugin} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
 import {
   ManifestPluginOptions as Options,
   WebpackManifestPlugin,
 } from 'webpack-manifest-plugin'
 
-const extension: Plugin<{apply: any}, Options> = {
+interface extension extends Module<{apply: any}, Options> {}
+
+const extension = {
   name: 'webpack-manifest-plugin',
 
   options: ({store}) =>
@@ -20,4 +22,4 @@ const extension: Plugin<{apply: any}, Options> = {
   when: app => app.store.isTrue('manifest'),
 }
 
-export const {name, options, make, when} = extension
+export default extension

@@ -1,7 +1,6 @@
 import {Service} from '@roots/bud-framework'
 
-import type {Repository} from './repository'
-import * as repository from './repository'
+import Repository from './repository'
 
 /**
  * Provides macros/facades for assisting with common config tasks.
@@ -9,7 +8,7 @@ import * as repository from './repository'
 class Api extends Service<Repository> {
   public name = 'api'
 
-  public repository = repository
+  public repository = Repository
 
   public bootstrap() {
     this.bindMacro<Repository>(this.all())

@@ -12,9 +12,6 @@ import {isEqual} from 'lodash'
  * @sealed
  */
 class Dependencies extends Service<null> {
-  /**
-   * {@inheritDoc Service.name}
-   */
   public name = 'dependencies'
 
   /**

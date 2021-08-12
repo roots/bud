@@ -1,15 +1,13 @@
-/**
- * @module @roots/bud
- */
-
-import type {Module} from '@roots/bud-framework'
+import type {Framework, Module} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
 
-interface Index<T> {
-  [key: string]: T
-}
+interface extension
+  extends Module<
+    Plugin,
+    Framework.Index<Framework.Index<any>>
+  > {}
 
-const extension: Module<Plugin, Index<Index<any>>> = {
+const extension = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>
@@ -21,4 +19,4 @@ const extension: Module<Plugin, Index<Index<any>>> = {
     options && options.getEntries().length > 0,
 }
 
-export const {name, options, make, when} = extension
+export default extension

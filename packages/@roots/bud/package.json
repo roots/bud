@@ -40,10 +40,60 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
+    },
+    "./factory": {
+      "require": "./lib/cjs/Factory/index.js",
+      "import": "./lib/esm/Factory/index.js"
+    },
+    "./config": {
+      "require": "./lib/cjs/config.js",
+      "import": "./lib/esm/config.js"
+    },
+    "./services": {
+      "require": "./lib/cjs/Bud/services/index.js",
+      "import": "./lib/esm/Bud/services/index.js"
+    },
+    "./services/*": {
+      "require": "./lib/cjs/Bud/services/*/index.js",
+      "import": "./lib/esm/Bud/services/*/index.js"
+    },
+    "./extensions": {
+      "require": "./lib/cjs/Bud/extensions/index.js",
+      "import": "./lib/esm/Bud/extensions/index.js"
+    },
+    "./extensions/*": {
+      "require": "./lib/cjs/Bud/extensions/*/index.js",
+      "import": "./lib/esm/Bud/extensions/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "factory": [
+        "./types/Factory/index.d.ts"
+      ],
+      "config": [
+        "./types/config.d.ts"
+      ],
+      "services": [
+        "./types/Bud/services/index.d.ts"
+      ],
+      "services/*": [
+        "./types/Bud/services/*/index.d.ts"
+      ],
+      "extensions": [
+        "./types/Bud/extensions/index.d.ts"
+      ],
+      "extensions/*": [
+        "./types/Bud/extensions/*/index.d.ts"
+      ]
+    }
   },
   "oclif": {
     "commands": "./lib/cjs/cli/commands",
@@ -83,7 +133,7 @@
         "description": "clean project distributables"
       },
       "clean:all": {
-        "description": "clean all projct files"
+        "description": "clean all project files"
       }
     }
   },
@@ -153,7 +203,6 @@
     "fs-extra": "^10.0.0",
     "globby": "^12.0.0",
     "ignore-emit-webpack-plugin": "^2.0.6",
-    "ink-spinner": "^4.0.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.1.0",
     "node-notifier": "^10.0.0",

@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 import {Api} from './Api'
 import {Build} from './Build'
@@ -8,25 +8,24 @@ import {Dashboard} from './Dashboard'
 import {Dependencies} from './Dependencies'
 import {Discovery} from './Discovery'
 import {Env} from './Env'
-import {Extensions} from './Extensions'
+import Extensions from './Extensions'
 import {Hooks} from './Hooks'
 import {Logger} from './Logger'
 import {Server} from './Server'
 
-/**
- * Registered services
- */
-export const services: Framework.Services = {
-  logger: Logger,
+const Services: Framework.Services = {
   api: Api,
-  hooks: Hooks,
-  env: Env,
   build: Build,
   cache: Cache,
-  discovery: Discovery,
-  dependencies: Dependencies,
-  extensions: Extensions,
-  server: Server,
-  dashboard: Dashboard,
   compiler: Compiler,
+  dashboard: Dashboard,
+  dependencies: Dependencies,
+  discovery: Discovery,
+  env: Env,
+  extensions: Extensions,
+  hooks: Hooks,
+  logger: Logger,
+  server: Server,
 }
+
+export default Services

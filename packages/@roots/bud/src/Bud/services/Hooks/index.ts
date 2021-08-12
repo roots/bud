@@ -6,11 +6,25 @@ import {
 import {Hooks as Base} from '@roots/bud-hooks'
 
 /**
+ * Locations keys
+ */
+const LOCATIONS = [
+  'project',
+  'src',
+  'dist',
+  'storage',
+  'modules',
+]
+
+/**
  * @sealed
  */
 class Hooks extends Base implements Contract, Service {
   /**
-   * {@inheritDoc Service.register}
+   * Registr lifecycle hook
+   *
+   * @remarks
+   * Register hooks for each {@link Framework.Locations} key
    */
   public register({store}) {
     const mapLocale = (
@@ -22,7 +36,7 @@ class Hooks extends Base implements Contract, Service {
     }
 
     const locales: (keyof Configuration['location'] & string)[] =
-      ['project', 'src', 'dist', 'storage', 'modules']
+      LOCATIONS
 
     locales.map(mapLocale)
   }

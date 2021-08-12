@@ -12,9 +12,6 @@ import * as loaders from './loaders'
 import * as rules from './rules'
 
 export class Build extends Service implements Contract {
-  /** @hidden */
-  public _config: Webpack.Configuration
-
   public name = 'build'
 
   public loaders: Framework.Loaders
@@ -22,21 +19,6 @@ export class Build extends Service implements Contract {
   public rules: Framework.Rules
 
   public items: Framework.Items
-
-  public get config(): Webpack.Configuration {
-    if (!this._config) {
-      this.rebuild()
-    }
-
-    return this._config
-  }
-
-  @bind
-  public rebuild(): Webpack.Configuration {
-    this._config = this.app.hooks.filter('build')
-
-    return this._config
-  }
 
   public bootstrap(): void {
     function componentReducer<T = any>(
@@ -62,5 +44,28 @@ export class Build extends Service implements Contract {
       .reduce(componentReducer, {})
 
     config(this.app)
+  }
+
+  /** @hidden */
+  public _config: Webpack.Configuration
+
+  /**
+   * {@link Webpack.Configuration}
+   *
+   * @readonly
+   */
+  public get config(): Webpack.Configuration {
+    if (!this._config) {
+      this.rebuild()
+    }
+
+    return this._config
+  }
+
+  @bind
+  public rebuild(): Webpack.Configuration {
+    this._config = this.app.hooks.filter('build')
+
+    return this._config
   }
 }

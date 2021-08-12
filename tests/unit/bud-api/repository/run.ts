@@ -1,7 +1,7 @@
 import {factory} from '@roots/bud'
-import {repository} from '@roots/bud-api'
+import {Repository} from '@roots/bud-api'
 
-const {run} = repository
+const {run} = Repository
 
 const bud = factory()
 

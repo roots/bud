@@ -15,7 +15,7 @@ export {Framework} from './Framework'
 
 export {Module} from './Module'
 
-export {Plugin} from './Plugin'
+export {WebpackPlugin} from './WebpackPlugin'
 
 export {Service} from './Service'
 
@@ -51,47 +51,24 @@ export {Logger} from './Logger'
 
 export {Server} from './Server'
 
-/**
- * @hidden
- */
 export {access} from './Framework/access'
-/**
- * @hidden
- */
+
 export {bootstrap} from './Framework/bootstrap'
-/**
- * @hidden
- */
+
 export {container} from './Framework/container'
-/**
- * @hidden
- */
+
 export {get} from './Framework/get'
-/**
- * @hidden
- */
+
 export {make} from './Framework/make'
-/**
- * @hidden
- */
+
 export {path} from './Framework/path'
-/**
- * @hidden
- */
+
 export {pipe} from './Framework/pipe'
-/**
- * @hidden
- */
+
 export {setPath} from './Framework/setPath'
-/**
- * @hidden
- */
+
 export {sequence} from './Framework/sequence'
-/**
- * @hidden
- */
+
 export {tap} from './Framework/tap'
-/**
- * @hidden
- */
+
 export {when} from './Framework/when'

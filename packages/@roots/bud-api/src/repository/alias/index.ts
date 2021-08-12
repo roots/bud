@@ -1,15 +1,8 @@
-/**
- * @module @roots/bud-api
- */
-
 import {resolve} from 'path'
 import type {Configuration} from 'webpack'
 
-import type {Repository} from '../'
+import type Repository from '../'
 
-/**
- * @function alias
- */
 const alias: Repository.Alias = function (alias) {
   this.hooks.on(
     'build/resolve/alias',
@@ -28,7 +21,4 @@ const alias: Repository.Alias = function (alias) {
   return this
 }
 
-/**
- * @exports alias
- */
-export {alias}
+export default alias

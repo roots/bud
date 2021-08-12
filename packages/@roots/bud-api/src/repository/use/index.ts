@@ -2,7 +2,7 @@ import type {Module} from '@roots/bud-framework'
 import {isArray, isEqual, isFunction} from 'lodash'
 import {nanoid} from 'nanoid'
 
-import type {Repository} from '../'
+import type Repository from '../'
 
 const isWebpackPlugin = (extension: Module): boolean =>
   extension.apply &&

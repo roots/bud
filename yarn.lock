@@ -3741,7 +3741,6 @@ __metadata:
     fs-extra: ^10.0.0
     globby: ^12.0.0
     ignore-emit-webpack-plugin: ^2.0.6
-    ink-spinner: ^4.0.2
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.1.0
     node-notifier: ^10.0.0
@@ -12712,7 +12711,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ink-spinner@npm:4.0.2, ink-spinner@npm:^4.0.2":
+"ink-spinner@npm:4.0.2":
   version: 4.0.2
   resolution: "ink-spinner@npm:4.0.2"
   dependencies:

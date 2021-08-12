@@ -1,25 +1,26 @@
-/**
- * @module @roots/bud
- */
-
-import type {Plugin} from '@roots/bud-framework'
+import type {WebpackPlugin} from '@roots/bud-framework'
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 
-const extension: Plugin<
-  WebpackConfigDumpPlugin,
-  {
-    outputPath?: string
-    name?: string
-    depth?: number
-    keepCircularReferences?: boolean
-    showFunctionNames?: boolean
-    includeFalseValues?: boolean
-  }
-> = {
+interface Options {
+  outputPath?: string
+  name?: string
+  depth?: number
+  keepCircularReferences?: boolean
+  showFunctionNames?: boolean
+  includeFalseValues?: boolean
+}
+
+interface extension
+  extends WebpackPlugin<WebpackConfigDumpPlugin, Options> {}
+
+const extension = {
   name: `webpack-config-dump-plugin`,
+
   make: options =>
     new WebpackConfigDumpPlugin({...options.all()}),
+
   when: ({store}) => store.isTrue('debug'),
+
   options: app => ({
     ...(app.store.get('extension.webpackConfigDumpPlugin') ??
       {}),

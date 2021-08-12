@@ -24,14 +24,4 @@ export interface Dependencies extends Service {
     dep: string,
     type: 'dependencies' | 'devDependencies',
   ): boolean
-
-  /**
-   * Returns project package.json as an object
-   */
-  pkg(): string
-
-  /**
-   * Prints notices to console.
-   */
-  notify(notices: {msg: string; src: string}[]): void
 }

@@ -9,37 +9,30 @@ import {isEqual, isUndefined} from 'lodash'
 
 import {Extension} from '../Extension'
 
-/**
- * {@inheritDoc Contract}
- *
- * @public
- * @sealed
- */
 class Extensions
   extends Service<Framework.Extensions>
   implements Contract
 {
-  /** {@inheritDoc Contract.name} */
   public name = 'extensions'
 
-  /** {@inheritDoc Contract.repository} */
   public repository: Framework.Extensions
 
-  /** {@inheritDoc Contract.register} */
   public register(): void {
     this.every((_name: string, extension: Module) => {
       return this.add(extension)
     })
   }
 
-  /** {@inheritDoc Contract.boot} */
   public boot(): void {
     this.every((_name: string, extension: Module) => {
       return this.bootExtension(extension)
     })
   }
 
-  /** {@inheritDoc Contract.add} */
+  /**
+   * Add a module to the repository, transforming it into an {@link Extension} instance
+   * in the process.
+   */
   @bind
   public add(extension: Module): void {
     this.set(extension.name, new Extension(this.app, extension))
@@ -47,7 +40,12 @@ class Extensions
     this.bootExtension(extension)
   }
 
-  /** {@inheritDoc Contract.make} */
+  /**
+   * Returns webpack configuration values for extensions instances
+   * which produce a Webpack plugin and are set to be used in the next compilation
+   *
+   * @decorator `@bind`
+   */
   @bind
   public make(): Contract.PluginOutput[] {
     const pluginMap = (extension: Module) => {
@@ -66,7 +64,12 @@ class Extensions
       .filter(filterUndefined) as Contract.PluginOutput[]
   }
 
-  /** {@inheritDoc Contract.getEligibleWebpackModules} */
+  /**
+   * Returns extension instances which produce a Webpack plugin and are
+   * set to be used in the next compilation
+   *
+   * @decorator `@bind`
+   */
   @bind
   public getEligibleWebpackModules(): Extension[] {
     return this.getValues().filter(
@@ -88,6 +91,7 @@ class Extensions
    * Register an extension and set in the container
    *
    * @internal
+   * @decorator `@bind`
    */
   @bind
   public registerExtension(extension: Module): void {
@@ -98,6 +102,7 @@ class Extensions
    * Boot a registered extension
    *
    * @internal
+   * @decorator `@bind`
    */
   @bind
   public bootExtension(extension: Module): void {

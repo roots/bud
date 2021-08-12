@@ -6,7 +6,7 @@ import type {Framework} from '@roots/bud-framework'
 import {sync as globbySync} from 'globby'
 import {isArray, isString} from 'lodash'
 
-import type {Repository} from '../'
+import type Repository from '../'
 
 /**
  * @function entry

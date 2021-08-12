@@ -1,15 +1,12 @@
 import type {WebpackPluginInstance} from 'webpack'
 
-import type {Framework, Module, Plugin, Service} from './'
+import type {Framework, Module, Service, WebpackPlugin} from './'
 
-/**
- * @noInherit
- */
 interface Extensions extends Service<Framework.Extensions> {
   /**
    * Add an extension
    */
-  add(extension: Module | Plugin): void
+  add(extension: Module | WebpackPlugin): void
 
   /**
    * Get {@link WebpackPluginInstance} instances to be included in compilation
@@ -19,7 +16,7 @@ interface Extensions extends Service<Framework.Extensions> {
   /**
    * Get {@link Extension} instances slated for inclusion in compilation
    */
-  getEligibleWebpackModules(): (Module | Plugin)[]
+  getEligibleWebpackModules(): (Module | WebpackPlugin)[]
 }
 
 namespace Extensions {

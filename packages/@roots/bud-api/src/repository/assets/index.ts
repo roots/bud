@@ -5,7 +5,7 @@
 import {CopyPluginOptions} from 'copy-webpack-plugin'
 import {sync as globbySync} from 'globby'
 
-import {Repository} from '..'
+import type Repository from '..'
 
 /**
  * @function assets

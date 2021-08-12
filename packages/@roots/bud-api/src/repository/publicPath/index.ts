@@ -1,4 +1,4 @@
-import type {Repository} from '..'
+import type Repository from '..'
 
 /**
  * @function publicPath

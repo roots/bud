@@ -1,6 +1,6 @@
 import {isUndefined} from 'lodash'
 
-import type {Repository} from '..'
+import type Repository from '..'
 import * as HtmlWebpackPlugin from './HtmlWebpackPlugin'
 import * as InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
 

@@ -4,7 +4,7 @@
 
 import type {Server} from '@roots/bud-framework'
 
-import type {Repository} from '../'
+import type Repository from '../'
 
 /**
  * @function dev

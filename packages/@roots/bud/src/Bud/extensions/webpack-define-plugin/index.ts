@@ -1,15 +1,11 @@
-/**
- * @module @roots/bud
- */
-
-import type {Plugin} from '@roots/bud-framework'
+import type {WebpackPlugin} from '@roots/bud-framework'
 import {DefinePlugin} from 'webpack'
 
 interface Options {
   definitions: DefinePlugin['definitions']
 }
 
-const extension: Plugin<DefinePlugin, Options> = {
+const extension: WebpackPlugin<DefinePlugin, Options> = {
   name: 'webpack-define-plugin',
   make: options => new DefinePlugin(options.all()),
   when: (_bud, opts) => opts.getEntries()?.length > 0,

@@ -1,5 +1,5 @@
 /**
- * `@roots/bud` is a frontend build framework combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
  *
  * @remarks
  * The `@roots/bud` package provides {@link Bud}, a concrete implementation of the {@link Framework Framework abstract class}.
@@ -11,37 +11,7 @@
  * Exported data & instances:
  * - {@link config} — The default {@link Configuration} used as the {@link Bud.store} {@link Store.repository repository}
  * - {@link extensions} — The default {@link Framework.Extensions} used as the {@link Bud.extensions} {@link Extensions.respository repository}
- * - {@link items} — The default {@link Framework.Items} registered to {@link Bud.build}
- * - {@link Rules} — The default {@link Framework.Rules} registered to {@link Bud.build}
- * - {@link loaders} — The default {@link Framework.Loaders} registered to {@link Bud.build}
  * - {@link services} — The default {@link Framework.Services} registered to {@link Bud.services}
- *
- * Exported classes:
- * - {@link Container} — Container class
- * - {@link Item} — Webpack RuleSetItem wrapper
- * - {@link Loader}) — Webpack Loader wrapper
- * - {@link Rule} — Webpack RuleSetRule wrapper
- *
- * Exported services:
- * - {@link Api} — Api service (instantiated at {@link Bud.api})
- * - {@link Build} — Build service (instantiated at {@link Bud.build})
- * - {@link Cache} — Cache service (instantiated at {@link Bud.cache})
- * - {@link Compiler} — Compiler service (instantiated at {@link Bud.compiler})
- * - {@link Dashboard} — Dashboard service (instantiated at {@link Bud.dashboard})
- * - {@link Dependencies} — Dependencies service (instantiated at {@link Bud.dependencies})
- * - {@link Discovery} — Discovery service (instantiated at {@link Bud.discovery})
- * - {@link Env} — Env service (instantiated at {@link Bud.env})
- * - {@link Extensions} — Extensions service (instantiated at {@link Bud.extensions})
- * - {@link Hooks} — Hooks service (instantiated at {@link Bud.hooks})
- * - {@link Logger} — Logger service (instantiated at {@link Bud.logger})
- * - {@link Server} — Server service (instantiated at {@link Bud.server})
- * - {@link Store} — Store service (instantiated at {@link Bud.store})
- *
- * Exported interfaces and virtual classes:
- * - {@link Configuration} — Configuration interface
- * - {@link Framework} — Framework interface
- * - {@link Module} — Module interface
- * - {@link Service} — Service interface
  *
  * @example
  * Example configuration file (`bud.config.js`). This file is run by invoking `bud build` in the terminal.
@@ -90,133 +60,96 @@
  * @packageDocumentation
  */
 
-import {
-  Extension,
-  Module,
-  Plugin,
-  Service,
-  Store,
-} from '@roots/bud-framework'
-import {Container} from '@roots/container'
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    /**
+     * Registered extensions
+     */
+    interface Extensions {
+      'webpack-provide-plugin': Module
+      'clean-webpack-plugin': Module
+      'webpack-config-dump-plugin': Module
+      'copy-webpack-plugin': Module
+      'css-minimizer-webpack-plugin': Module
+      'webpack-define-plugin': Module
+      'webpack-hot-module-replacement-plugin': Module
+      'ignore-emit-webpack-plugin': Module
+      'webpack-manifest-plugin': Module
+      'mini-css-extract-plugin': Module
+    }
 
-import {Bud, Framework} from './Bud'
+    /**
+     * Registered loaders
+     */
+    interface Loaders {
+      css: Loader
+      csv: Loader
+      file: Loader
+      html: Loader
+      md: Loader
+      minicss: Loader
+      'resolve-url': Loader
+      style: Loader
+      url: Loader
+      xml: Loader
+    }
+
+    /**
+     * Registered items
+     */
+    interface Items {
+      css: Item
+      csv: Item
+      file: Item
+      image: Item
+      font: Item
+      html: Item
+      md: Item
+      minicss: Item
+      'resolve-url': Item
+      raw: Item
+      style: Item
+      xml: Item
+    }
+
+    /**
+     * Registered rules
+     */
+    interface Rules {
+      js: Rule
+      css: Rule
+      html: Rule
+      svg: Rule
+      image: Rule
+      font: Rule
+      xml: Rule
+      json5: Rule
+      csv: Rule
+      yml: Rule
+      toml: Rule
+    }
+  }
+}
+
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
+
+import extensions from './Bud/extensions'
+import {Bud, Framework} from './Bud/extensions/Bud'
+import services from './Bud/services'
 import {config, Configuration} from './config'
-import {extensions} from './extensions'
-import {Factory, factory} from './Factory'
-import {services} from './services'
-import {Api} from './services/Api'
-import {
-  Build,
-  Item,
-  items,
-  Loader,
-  loaders,
-  Rule,
-  rules,
-} from './services/Build'
-import {Cache} from './services/Cache'
-import {Compiler} from './services/Compiler'
-import {Dashboard} from './services/Dashboard'
-import {Dependencies} from './services/Dependencies'
-import {Discovery} from './services/Discovery'
-import {Env} from './services/Env'
-import {Extensions} from './services/Extensions'
-import {Hooks} from './services/Hooks'
-import {Logger} from './services/Logger'
-import {Server} from './services/Server'
+import factory from './Factory'
 
 export {Bud}
-
-export {Framework}
-
-export {Api}
-
-export {Build}
-
-export {Cache}
-
-export {Compiler}
-
-export {Container}
-
-export {Dashboard}
-
-export {Dependencies}
-
-export {Discovery}
-
-export {Env}
-
-export {Extension}
-
-export {Extensions}
-
-export {Hooks}
-
-export {Logger}
-
-export {Module}
-
-export {Plugin}
-
-export {Server}
-
-export {Service}
-
-export {Store}
-
-export {config}
-export type {Configuration}
-
-export {items, rules, loaders}
-export {Item, Rule, Loader}
-
-export {factory}
-export type {Factory}
-
+export {config, factory}
 export {extensions, services}
 
-/**
- * @hidden
- */
-export {run} from '@oclif/command'
-/**
- * @hidden
- */
-export * as WebpackConfigDumpPlugin from './extensions/webpack-config-dump-plugin'
-/**
- * @hidden
- */
-export * as WebpackDefinePlugin from './extensions/webpack-define-plugin'
-/**
- * @hidden
- */
-export * as HotModuleReplacementPlugin from './extensions/webpack-hot-module-replacement-plugin'
-/**
- * @hidden
- */
-export * as WebpackManifestPlugin from './extensions/webpack-manifest-plugin'
-/**
- * @hidden
- */
-export * as CleanWebpackPlugin from './extensions/clean-webpack-plugin'
-/**
- * @hidden
- */
-export * as CopyWebpackPlugin from './extensions/copy-webpack-plugin'
-/**
- * @hidden
- */
-export * as CssMinimizerWebpackPlugin from './extensions/css-minimizer-webpack-plugin'
-/**
- * @hidden
- */
-export * as IgnoreEmitWebpackPlugin from './extensions/ignore-emit-webpack-plugin'
-/**
- * @hidden
- */
-export * as MiniCssExtractPlugin from './extensions/mini-css-extract-plugin'
-/**
- * @hidden
- */
-export * as WebpackProvidePlugin from './extensions/webpack-provide-plugin'
+export {
+  Configuration,
+  Framework,
+  Module,
+  Item,
+  Rule,
+  Loader,
+  WebpackPlugin,
+}

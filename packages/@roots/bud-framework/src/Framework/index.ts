@@ -16,8 +16,8 @@ import type {
   Hooks,
   Logger,
   Module,
-  Plugin,
   Server,
+  WebpackPlugin,
 } from '../'
 import {
   access,
@@ -158,14 +158,14 @@ abstract class Framework {
   public cache: Cache
 
   /**
-   * Compiles {@link Framework.build} configuration and stats/errors/progress reporting.
+   * Compiles {@link Build} configuration and stats/errors/progress reporting.
    *
    * @virtual
    */
   public compiler: Compiler
 
   /**
-   * Presents build progress, stats and errors from {@link Framework.compiler} and {@link Framework.server}
+   * Presents build progress, stats and errors from {@link Compiler} and {@link Server}
    * over the CLI.
    *
    * @virtual
@@ -199,7 +199,7 @@ abstract class Framework {
    * @remarks
    * Extensions can be defined as a {@link Module}, which is more generic.
    *
-   * They can also be defined as a {@link Plugin} which is a {@link Module}
+   * They can also be defined as a {@link WebpackPlugin} which is a {@link Module}
    * specifically yielding a {@link WebpackPluginInstance}.
    *
    * When adding a {@link Module} or {@link Plugin} to the container
@@ -625,11 +625,6 @@ namespace Framework {
   }
 
   /**
-   * Registered modules
-   */
-  export interface Modules extends Index<Module | Plugin> {}
-
-  /**
    * Registered services
    */
   export interface Services
@@ -643,7 +638,8 @@ namespace Framework {
   /**
    * Registered extensions
    */
-  export interface Extensions extends Index<Module | Plugin> {}
+  export interface Extensions
+    extends Index<Module | WebpackPlugin> {}
 
   /**
    * Framework Constructor

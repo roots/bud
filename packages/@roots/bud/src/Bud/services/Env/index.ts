@@ -4,12 +4,12 @@ import {boundMethod as bind} from 'autobind-decorator'
 import * as env from 'dotenv'
 import * as expand from 'dotenv-expand'
 
-/**
- * @sealed
- */
 class Env extends Service<Framework.Index<any>> {
-  /** {@inheritDoc Service.name} */
   public name = 'env'
+
+  public bootstrap() {
+    this.setStore(this.getParsedEnv())
+  }
 
   /**
    * Returns path to .env file
@@ -28,11 +28,6 @@ class Env extends Service<Framework.Index<any>> {
     return env?.config
       ? expand(env.config({path: this.envPath})).parsed
       : {}
-  }
-
-  /** {@inheritDoc Service.bootstrap} */
-  public bootstrap() {
-    this.setStore(this.getParsedEnv())
   }
 }
 

@@ -7,6 +7,29 @@ import type {GlobTask} from 'globby'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
+import alias from './alias'
+import {assets} from './assets'
+import {config} from './config'
+import {define} from './define'
+import {dev} from './dev'
+import {devtool} from './devtool'
+import {entry} from './entry'
+import {experiments} from './experiments'
+import {externals} from './externals'
+import {hash} from './hash'
+import minimize from './minimize'
+import {persist} from './persist'
+import {provide} from './provide'
+import {proxy} from './proxy'
+import {publicPath} from './publicPath'
+import {run} from './run'
+import {runtime} from './runtime'
+import {setPublicPath} from './setPublicPath'
+import {splitChunks} from './splitChunks'
+import {template} from './template'
+import {use} from './use'
+import {watch} from './watch'
+
 interface Repository {
   /**
    * Register shorthand for resolving modules using webpack aliases.
@@ -618,48 +641,29 @@ namespace Repository {
   }
 }
 
-export {alias} from './alias'
+const Repository = {
+  alias,
+  assets,
+  config,
+  define,
+  dev,
+  devtool,
+  entry,
+  experiments,
+  externals,
+  hash,
+  minimize,
+  persist,
+  provide,
+  proxy,
+  publicPath,
+  run,
+  runtime,
+  setPublicPath,
+  splitChunks,
+  template,
+  use,
+  watch,
+}
 
-export {assets} from './assets'
-
-export {config} from './config'
-
-export {define} from './define'
-
-export {dev} from './dev'
-
-export {devtool} from './devtool'
-
-export {experiments} from './experiments'
-
-export {externals} from './externals'
-
-export {entry} from './entry'
-
-export {hash} from './hash'
-
-export {minimize} from './minimize'
-
-export {persist} from './persist'
-
-export {provide} from './provide'
-
-export {proxy} from './proxy'
-
-export {publicPath} from './publicPath'
-
-export {run} from './run'
-
-export {runtime} from './runtime'
-
-export {setPublicPath} from './setPublicPath'
-
-export {splitChunks} from './splitChunks'
-
-export {template} from './template'
-
-export {use} from './use'
-
-export {watch} from './watch'
-
-export {Repository}
+export default Repository

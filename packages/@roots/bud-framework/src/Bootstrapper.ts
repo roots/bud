@@ -8,19 +8,14 @@ import type {Framework} from './'
  * @public
  */
 abstract class Bootstrapper<T = any> extends Container<T> {
-  /** @hidden */
-  private _app: () => Framework
-
   /**
    * Service identifier
    * @virtual
    */
   public name: any
 
-  /**
-   * Container repository
-   */
-  public repository: T & Framework.Index
+  /** @hidden */
+  private _app: () => Framework
 
   /**
    * Access {@link Framework Framework} instance
@@ -30,6 +25,11 @@ abstract class Bootstrapper<T = any> extends Container<T> {
   public get app(): Framework {
     return this._app()
   }
+
+  /**
+   * Container repository
+   */
+  public repository: T & Framework.Index
 
   /**
    * Class constructor

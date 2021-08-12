@@ -1,8 +1,5 @@
-import {Repository} from '../..'
+import type Repository from '..'
 
-/**
- * @function persist
- */
 const persist: Repository.Persist = function (enabled = true) {
   this.hooks
     .on('build/cache', () => ({
@@ -43,7 +40,4 @@ const persist: Repository.Persist = function (enabled = true) {
   return this
 }
 
-/**
- * @exports persist
- */
 export {persist}
