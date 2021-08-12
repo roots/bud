@@ -7094,7 +7094,7 @@ __metadata:
     "@typescript-eslint/parser": 4.29.1
     "@yarnpkg/builder": 3.0.1
     autobind-decorator: 2.4.0
-    codecov: ^3.8.3
+    codecov: 3.8.3
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-import: 2.24.0
@@ -7889,7 +7889,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codecov@npm:^3.8.3":
+"codecov@npm:3.8.3":
   version: 3.8.3
   resolution: "codecov@npm:3.8.3"
   dependencies:
