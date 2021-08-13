@@ -1,24 +1,17 @@
-/**
- * @module @roots/bud-postcss
- */
-
 import {Item, Loader} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
 import {pathExistsSync} from 'fs-extra'
 
 import {Config} from './Config'
 
-/**
- * @const extension
- */
 const extension: Module = {
   name: '@roots/bud-postcss',
 
-  api: () => ({
+  api: {
     postcss: new Config(),
-  }),
+  },
 
-  boot: ({build, discovery, path, postcss}) => {
+  boot: ({build, path, postcss}) => {
     build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
@@ -61,9 +54,4 @@ const extension: Module = {
   },
 }
 
-/**
- * @exports name
- * @exports api
- * @exports boot
- */
 export const {name, api, boot} = extension

@@ -1,11 +1,12 @@
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
-import {join} from 'path'
 
 import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
 
 process.env.BUD_KEEP_ALIVE = 'true'
+
+jest.setTimeout(20000)
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
@@ -17,8 +18,8 @@ describe('@roots/bud-dashboard', function () {
   })
 
   afterAll(() => {
-    bud = teardownBud(bud)
     dashboard.unmount()
+    teardownBud(bud)
   })
 
   it('exists', () => {
@@ -51,28 +52,5 @@ describe('@roots/bud-dashboard', function () {
 
       done()
     }, 3000)
-  }, 10000)
-
-  it('displays stats', done => {
-    bud.setPath(
-      'project',
-      join(process.cwd(), 'examples', 'basic'),
-    )
-    bud.build.rebuild()
-    bud.compiler.compile().run(bud.compiler.callback)
-
-    dashboard.rerender(<Components.Dashboard bud={bud} />)
-
-    setTimeout(() => {
-      expect(dashboard.lastFrame().includes(' - main.js')).toBe(
-        true,
-      )
-
-      expect(dashboard.lastFrame().includes('Compiled in')).toBe(
-        true,
-      )
-
-      done()
-    }, 3000)
-  }, 10000)
+  })
 })

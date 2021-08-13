@@ -5,6 +5,11 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-framework",
+      "@roots/bud-postcss"
+    ]
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"]

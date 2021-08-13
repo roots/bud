@@ -1,6 +1,6 @@
 import '@roots/bud-babel'
 
-import {Module} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   namespace Framework {

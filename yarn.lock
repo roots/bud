@@ -3564,7 +3564,6 @@ __metadata:
   resolution: "@roots/bud-tailwindcss@workspace:packages/@roots/bud-tailwindcss"
   dependencies:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": 15.14.1

@@ -30,11 +30,14 @@ const setupBud = (
 }
 
 const teardownBud = (bud: Framework) => {
-  bud?.server?.watcher?.close()
-  bud?.dashboard?.instance?.unmount()
+  bud?.server?.instance?.close && bud.server.instance.close()
+  bud?.server?.watcher?.close && bud.server.watcher.close()
+  bud?.dashboard?.instance?.unmount &&
+    bud?.dashboard?.instance?.unmount()
+
   bud = null
 
-  return bud
+  return null
 }
 
 export {helper as integration, Assets} from './integration'

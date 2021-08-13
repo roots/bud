@@ -1,25 +1,35 @@
-/**
- * @module @roots/bud-postcss
- */
+import type {Build, Module} from '@roots/bud-framework'
 
-import './interface'
-
+import {Config} from './Config'
 import * as extension from './extension'
 
-/**
- * @exports extension
- * @exports default
- */
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Configure postcss.
+     */
+    postcss: Config
+  }
+
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-postcss': Module
+    }
+
+    namespace Hooks {
+      interface Loaders {
+        postcss: Build.Loader
+      }
+
+      interface Items {
+        postcss: Build.Item
+      }
+    }
+  }
+}
+
 export {extension, extension as default}
 
-/**
- * @exports name
- * @exports api
- * @exports boot
- */
 export const {name, api, boot} = extension
 
-/**
- * @exports Config
- */
-export {Config} from './Config'
+export {Config}

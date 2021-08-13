@@ -1,17 +1,40 @@
-/**
- * @module @roots/bud-api
- */
-
-import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 import {PluginCreator} from 'postcss'
 
-/**
- * @class Config
- */
-class Config implements Framework.Api.PostCss {
-  public plugins: Framework.Api.PostCss.Registry = {}
+interface Registry {
+  [key: string]: [PluginCreator<any>, any]
+}
+
+interface Config {
+  /**
+   * Registered plugins
+   */
+  plugins: Registry
+
+  /**
+   * Set a plugin
+   */
+  setPlugin(plugin: string | [string, any]): this
+
+  /**
+   * Set plugins
+   */
+  setPlugins(plugins: Array<[string, any] | string>): this
+
+  /**
+   * Set plugin options
+   */
+  setPluginOptions(plugin: string, options: any): this
+
+  /**
+   * Remove a plugin
+   */
+  unsetPlugin(plugin: string): this
+}
+
+class Config {
+  public plugins: Registry = {}
 
   @bind
   public normalizeEntry(
@@ -60,7 +83,4 @@ class Config implements Framework.Api.PostCss {
   }
 }
 
-/**
- * @exports Config
- */
 export {Config}

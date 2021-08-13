@@ -1,6 +1,14 @@
-import type {Tailwind} from './interface'
+import type {Framework} from '@roots/bud-framework'
+import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
-const tailwind: Tailwind.Configure = function (config) {
+interface tailwindConfig {
+  (this: Framework, config?: TailwindConfig): Framework
+}
+
+function tailwindConfig(
+  this: Framework,
+  config: TailwindConfig,
+): Framework {
   this.postcss.setPlugins([
     'postcss-import',
     [
@@ -22,4 +30,4 @@ const tailwind: Tailwind.Configure = function (config) {
   return this
 }
 
-export {tailwind}
+export default tailwindConfig

@@ -4,6 +4,10 @@ sidebar_label: Node API
 sidebar_position: 4
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
 **bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to:
 
 - Use **bud** as part of an existing pipeline like gulp
@@ -14,11 +18,33 @@ sidebar_position: 4
 
 The easiest way to get going is calling the **factory** helper exported from **@roots/bud**.
 
-```js
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='config/build.js'
 import {factory} from '@roots/bud'
 
 const app = factory()
 ```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='config/build.ts'
+import {factory} from '@roots/bud'
+import type {Framework} from '@roots/bud'
+
+const app: Framework = factory()
+```
+
+  </TabItem>
+</Tabs>
 
 You may wish to override Bud services, its base configuration, or programatically set 
 the compiler mode to `production` or `development`. These can all be specified with optional factory config properties.
@@ -26,7 +52,16 @@ the compiler mode to `production` or `development`. These can all be specified w
 You may wish to import the `config` and `services` objects from `@roots/bud` to merge your overrides with 
 the defaults. This way, you don't have to reimplement the entire framework.
 
-```js
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='config/build.js'
 import {config, factory, services} from '@roots/bud'
 
 const app = factory({
@@ -43,6 +78,30 @@ const app = factory({
 })
 ```
 
+  </TabItem>
+  <TabItem value="ts">
+
+```js title='config/build.ts'
+import {config, factory, services} from '@roots/bud'
+import type {Framework} from '@roots/bud'
+
+const app: Framework = factory({
+  name: 'bud'
+  mode: 'production'
+  config: {
+    ...config,
+    // config overrides
+  },
+  services: {
+    ...services,
+    // service overrides
+  }
+})
+```
+
+  </TabItem>
+</Tabs>
+
 The return value of **factory** is an instance of **Bud**, just as it is passed to `bud.config.js` when using the CLI.
 Configuration from that point on should be identical, with the exception of running the build and/or development server.
 
@@ -50,6 +109,7 @@ Configuration from that point on should be identical, with the exception of runn
 
 Once configured, simply call **bud.run** to run the build. In `development` the server will be instantiated for you. If you would like
 to handle that yourself for some reason check out the source for **bud.run**.
+
 
 ```js
 import {factory} from '@roots/bud'
