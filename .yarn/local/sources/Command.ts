@@ -16,16 +16,21 @@ export abstract class Command extends BaseCommand {
   }
 
   /**
-   * Run a series of sequential and/or parallel taskes
+   * Run a task or series of tasks
    */
-  public async $(options: Array<string | string[]>) {
-    const exitCode = await options.reduce(
-      this.sequential.bind(this),
-      this.promiseOK(),
-    )
+  public async $(options: string | string[]) {
+    let exitCode
+
+    if (Array.isArray(options)) {
+      exitCode = await options.reduce(
+        this.sequential.bind(this),
+        this.promiseOK(),
+      )
+    } else {
+      exitCode = await this.runTask(options)
+    }
 
     this.taskFailed(exitCode) && process.exit(ERROR)
-
     return Promise.resolve(OK)
   }
 
@@ -40,9 +45,7 @@ export abstract class Command extends BaseCommand {
 
     if (this.taskFailed(exitCode)) return ERROR
 
-    return Array.isArray(task)
-      ? this.$(task)
-      : this.runTask(task)
+    return this.$(task)
   }
 
   /**

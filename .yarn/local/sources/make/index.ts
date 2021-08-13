@@ -7,16 +7,11 @@ export class MakeCommand extends Command {
   public dfx = Option.Boolean(`-d,--dfx`, false)
 
   async execute() {
-    const itinerary = [
-      `yarn install --immutable`,
-      `yarn kjo clean`,
-      `yarn kjo build`,
-      `yarn kjo test`,
-      `yarn`,
-      `yarn kjo lint`,
-      `yarn kjo gen`,
-    ]
-
-    await this.$(itinerary)
+    await this.$(`yarn install --immutable`)
+    await this.$(`yarn kjo clean`)
+    await this.$(`yarn kjo build`)
+    await this.$(`yarn kjo test`)
+    await this.$(`yarn`)
+    await this.$(`yarn kjo lint`)
   }
 }

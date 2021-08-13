@@ -7,7 +7,7 @@ import * as Ink from '../../util/ink'
 
 process.env.BUD_KEEP_ALIVE = null
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
@@ -25,8 +25,8 @@ describe('@roots/bud-dashboard', function () {
   })
 
   afterAll(() => {
-    bud = teardownBud(bud)
     dashboard.unmount()
+    teardownBud(bud)
   })
 
   it('displays `Press Q to exit`', done => {

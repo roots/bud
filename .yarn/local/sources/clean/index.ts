@@ -6,23 +6,39 @@ export class CleanCommand extends Command {
 
   public dfx = Option.Boolean(`-d,--dfx`, false)
 
-  public commands = {
-    rm: [
-      `rm -rf **/.budfiles`,
-      `rm -rf **/node_modules`,
-      `rm -rf examples/*/dist`,
-      `rm -rf examples/sage/public/*`,
-      `rm -rf examples/sage/storage/bud/*`,
-      `rm -rf packages/*/*/lib`,
-      `rm -rf packages/*/*/types`,
-      `yarn cache clean`,
-    ],
-    dfx: [`git clean -dfx`, `yarn cache clean`],
-  }
-
   async execute() {
-    this.dfx
-      ? await this.$(this.commands.dfx)
-      : this.$(this.commands.rm)
+    if (this.dfx) {
+      await this.$(`git clean -dfx`)
+      await this.$(`yarn cache clean`)
+
+      return
+    }
+
+    console.log(`rimraf **/.budfiles`)
+    await this.$(`yarn rimraf **/.budfiles`)
+
+    console.log(`rimraf examples/*/node_modules`)
+    await this.$(`yarn rimraf examples/*/node_modules`)
+
+    console.log(`rimraf examples/*/dist`)
+    await this.$(`yarn rimraf examples/*/dist`)
+
+    console.log(`rimraf examples/sage/public/*`)
+    await this.$(`yarn rimraf examples/sage/public/*`)
+
+    console.log(`rimraf examples/sage/storage/bud/*`)
+    await this.$(`yarn rimraf examples/sage/storage/bud/*`)
+
+    console.log(`rimraf packages/@roots/*/lib`)
+    await this.$(`yarn rimraf packages/@roots/*/lib`)
+
+    console.log(`rimraf packages/@roots/*/types`)
+    await this.$(`yarn rimraf packages/@roots/*/types`)
+
+    console.log(`rimraf packages/@roots/*/node_modules`)
+    await this.$(`yarn rimraf packages/@roots/*/node_modules`)
+
+    console.log(`cache clean`)
+    await this.$(`yarn cache clean`)
   }
 }

@@ -11,7 +11,7 @@ jest.setTimeout(20000)
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
-  let dashboard: Ink.Instance
+  let dashboard: any
 
   beforeAll(() => {
     bud = setupBud()

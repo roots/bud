@@ -4,37 +4,20 @@ import {Option} from 'clipanion'
 export class TestCommand extends Command {
   static paths = [[`kjo`, `test`]]
 
+  public all = Option.Boolean(`-a,--all`, false)
   public unit = Option.Boolean(`-u,--unit`, false)
   public integration = Option.Boolean(`-i,--integration`, false)
   public workers = Option.String(`-w,--workers`, '50%')
 
-  public commands = {
-    unit: [
-      `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util" --maxWorkers={{workers}}`,
-    ],
-    integration: [`node ./jest.integration.js`],
-  }
-
   async execute() {
-    const itinerary = []
+    const all = (!this.unit && !this.integration) || this.all
 
-    if (this.unit) itinerary.push(this.commands.unit)
-    if (this.integration)
-      itinerary.push(this.commands.integration)
-
-    if (!this.unit && !this.integration)
-      itinerary.push(
-        Object.values(this.commands).reduce((a, v) => [
-          ...a,
-          ...v,
-        ]),
-        [],
+    if (this.unit || all)
+      await this.$(
+        `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util" --maxWorkers=${this.workers}`,
       )
 
-    await this.$(itinerary)
-  }
-
-  public runTask(task: string): Promise<number> {
-    return super.runTask(task.replace('{{workers}}', this.workers))
+    if (this.integration || all)
+      await this.$(`node ./jest.integration.js`)
   }
 }

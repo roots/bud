@@ -79,15 +79,15 @@ const config = {
           items: [
             {
               label: 'Getting started',
-              to: '/guides/getting-started/intro',
+              to: '/guides/getting-started/',
             },
             {
               label: 'Documentation',
-              to: '/docs/index',
+              to: '/docs/',
             },
             {
               label: 'Extensions',
-              to: '/extensions/index',
+              to: '/extensions/',
             },
           ],
         },

@@ -18,13 +18,13 @@ function Header() {
         <div className={styles.buttons}>
           <Link
             className="button button--outline button--lg"
-            to="/guides/introduction">
+            to="/guides/">
             Learn more
           </Link>
 
           <Link
             className="button button--outline button--lg"
-            to="/guides/getting-started/intro">
+            to="/guides/getting-started/">
             Getting started
           </Link>
         </div>

@@ -75,7 +75,7 @@ class Stdin extends EventEmitter {
 /**
  * Modified: rerender returns @roots/bud-support instance of React
  */
-export interface Instance {
+interface Instance {
   rerender: (tree: Support.React.ReactElement) => void
   unmount: () => void
   cleanup: () => void

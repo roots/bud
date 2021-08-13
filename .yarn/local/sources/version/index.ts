@@ -25,9 +25,9 @@ export class VersionCommand extends Command {
     )
 
     if (this.version) {
-      await this.$([
+      await this.$(
         `yarn workspaces foreach --no-private version --deferred ${raw.manifest.version}`,
-      ])
+      )
     }
 
     if (!this.version && !this.tag) {

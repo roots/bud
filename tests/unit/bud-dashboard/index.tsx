@@ -10,7 +10,7 @@ jest.setTimeout(20000)
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
-  let dashboard: Ink.Instance
+  let dashboard: any
 
   beforeAll(() => {
     bud = setupBud()
@@ -35,7 +35,7 @@ describe('@roots/bud-dashboard', function () {
   })
 
   it('renders loading indicator', () => {
-    expect(dashboard.frames.pop()).toEqual('⠋ Loading')
+    expect(dashboard.lastFrame()).toEqual('⠋ Loading')
   })
 
   it('displays an error', done => {

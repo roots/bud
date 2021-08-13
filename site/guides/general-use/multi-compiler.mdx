@@ -2,7 +2,6 @@
 title: Running multiple compilers
 description: It is possible to configure more than one Webpack compiler from a single bud config.
 sidebar_label: Multi-compiler
-sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs'
@@ -33,46 +32,46 @@ In this example we're creating two instances of bud: one for `theme` code and an
   ]}>
   <TabItem value="js">
 
-```js title='bud.config.js'
-module.exports = app =>
-  app
-    .make('theme', theme => 
-      theme
-        .use(require('@roots/bud-babel'))
-        .setPath('dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css'])
-    )
-    .make('plugin', plugin =>
-      plugin
-        .use([require('@roots/bud-babel'), require('@roots/bud-react')])
-        .setPath('dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css']),
-    )
-```
+  ```js title='bud.config.js'
+  module.exports = app =>
+    app
+      .make('theme', theme => 
+        theme
+          .use(require('@roots/bud-babel'))
+          .setPath('dist', 'dist/theme')
+          .entry('theme', ['theme.js', 'theme.css'])
+      )
+      .make('plugin', plugin =>
+        plugin
+          .use([require('@roots/bud-babel'), require('@roots/bud-react')])
+          .setPath('dist', 'dist/plugin')
+          .entry('plugin', ['plugin.js', 'plugin.css']),
+      )
+  ```
 
   </TabItem>
   <TabItem value="ts">
 
-```ts title='bud.config.ts'
-import type {Framework} from '@roots/bud'
-import Babel from '@roots/bud-babel'
-import React from '@roots/bud-react'
+  ```ts title='bud.config.ts'
+  import type {Framework} from '@roots/bud'
+  import Babel from '@roots/bud-babel'
+  import React from '@roots/bud-react'
 
-export default (app: Framework): void =>
-  app
-    .make('theme', (theme: Framework): void => {
-      theme
-        .use(Babel)
-        .setPath('dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css'])
-    })
-    .make('plugin', (plugin: Framework): void =>
-      plugin
-        .use([Babel, React])
-        .setPath('dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css']),
-    )
-```
+  export default (app: Framework): void =>
+    app
+      .make('theme', (theme: Framework): void => {
+        theme
+          .use(Babel)
+          .setPath('dist', 'dist/theme')
+          .entry('theme', ['theme.js', 'theme.css'])
+      })
+      .make('plugin', (plugin: Framework): void =>
+        plugin
+          .use([Babel, React])
+          .setPath('dist', 'dist/plugin')
+          .entry('plugin', ['plugin.js', 'plugin.css']),
+      )
+  ```
 
   </TabItem>
 </Tabs>

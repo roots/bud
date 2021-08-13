@@ -2,10 +2,39 @@
 title: Filename hashing
 description: Enable or disable filename hashing of built assets.
 sidebar_label: Filename hashing
-sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 Filename hashing of built assets can be enabled using the [bud.hash](/docs/bud.hash) function.
+
+## Example
+
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+  ```js title="bud.config.js"
+  module.exports = bud => bud.hash()
+  ```
+
+  </TabItem>
+  <TabItem value="ts">
+
+  ```ts bud.config.ts
+  import type {Framework} from '@roots/bud'
+
+  export default (bud: Framework) => bud.hash()
+  ```
+
+  </TabItem>
+</Tabs>
 
 ## Customizing the hash format
 
