@@ -126,9 +126,8 @@ class Compiler extends Service implements Contract {
       this.instance.close(err => {
         err && this.stats.errors.push(err)
 
-        isEqual(this.app.mode, 'production') &&
-          !process.env.BUD_KEEP_ALIVE &&
-          setTimeout(() => process.exit(), 100)
+        isEqual(this.app.mode, 'production') && this.app.close()
+        !process.env.BUD_KEEP_ALIVE && process.exit()
       })
     })
 

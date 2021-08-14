@@ -38,6 +38,9 @@ export class CleanCommand extends Command {
     console.log(`rimraf packages/@roots/*/node_modules`)
     await this.$(`yarn rimraf packages/@roots/*/node_modules`)
 
+    console.log(`rimraf node_modules`)
+    await this.$(`yarn rimraf node_modules`)
+
     console.log(`cache clean`)
     await this.$(`yarn cache clean`)
   }

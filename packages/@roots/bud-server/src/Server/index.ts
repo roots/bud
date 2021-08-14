@@ -25,34 +25,17 @@ export class Server
   extends Service<Contract.Configuration>
   implements Contract
 {
-  /**
-   * @property {string} name
-   */
   public name = 'server'
 
-  public middleware: Contract.Middleware.Inventory = {}
+  public application: Contract.Application
 
   public config: Contract.Config
 
-  public _instance: Contract.Instance
+  public instance: Contract.Instance
 
-  public _watcher: FSWatcher
+  public middleware: Contract.Middleware.Inventory = {}
 
-  public get instance() {
-    return this._instance
-  }
-
-  public set instance(instance) {
-    this._instance = instance
-  }
-
-  public get watcher() {
-    return this._watcher
-  }
-
-  public set watcher(watcher: FSWatcher) {
-    this._watcher = watcher
-  }
+  public watcher: FSWatcher
 
   public readonly _assets = [
     resolve(__dirname, '../client/index.js'),
@@ -97,7 +80,7 @@ export class Server
     })
 
     Object.values(this.middleware).forEach(middleware =>
-      this.instance.use(middleware),
+      this.application.use(middleware),
     )
   }
 
@@ -108,7 +91,7 @@ export class Server
     /**
      * __roots route
      */
-    this.instance
+    this.application
       .route('/__roots/config.json')
       .get((_req, res) => {
         res.send({
@@ -124,17 +107,20 @@ export class Server
     /**
      * Listen
      */
-    this.instance.listen(this.config.get('port'), () => {
-      this.app.info(
-        `Server listening on %s`,
-        this.config.get('port'),
-      )
+    this.instance = this.application.listen(
+      this.config.get('port'),
+      () => {
+        this.app.info(
+          `Server listening on %s`,
+          this.config.get('port'),
+        )
 
-      this.app.info({
-        ...this.config.all(),
-        middleware,
-      })
-    })
+        this.app.info({
+          ...this.config.all(),
+          middleware,
+        })
+      },
+    )
 
     this.watcher = chokidar.watch(this.getWatchedFilesArray())
 

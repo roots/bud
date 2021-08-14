@@ -2,11 +2,9 @@
  * `@roots/bud` is a frontend build framework combining the best parts of Symfony Encore and Laravel Mix
  *
  * @remarks
- * The `@roots/bud-framework` package defines the central abstract {@link Framework} class
- * and provides interfaces for the Framework's essential {@link Service} classes.
+ * The `@roots/bud-framework` package defines the central abstract {@link Framework} class and provides interfaces for the Framework's essential {@link Service} classes.
  *
- * {@link Framework} is designed to be extended by a class providing implementations
- * for the services exported herein.
+ * {@link Framework} is to be extended by a class providing implementations for the service interfaces exported herein.
  *
  * @packageDocumentation
  */
@@ -54,6 +52,8 @@ export {Server} from './Server'
 export {access} from './Framework/access'
 
 export {bootstrap} from './Framework/bootstrap'
+
+export {close} from './Framework/close'
 
 export {container} from './Framework/container'
 

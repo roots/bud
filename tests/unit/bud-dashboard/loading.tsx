@@ -1,6 +1,5 @@
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
-import {join} from 'path'
 
 import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
@@ -16,14 +15,6 @@ describe('@roots/bud-dashboard', function () {
 
   beforeAll(() => {
     bud = setupBud()
-
-    bud.setPath(
-      'project',
-      join(process.cwd(), 'examples', 'basic'),
-    )
-
-    bud.compiler.compile().run(bud.compiler.callback)
-
     dashboard = Ink.render(<Components.Dashboard bud={bud} />)
   })
 
@@ -32,23 +23,7 @@ describe('@roots/bud-dashboard', function () {
     teardownBud(bud)
   })
 
-  it('displays stats', done => {
-    setTimeout(() => {
-      expect(dashboard.lastFrame().includes(' - main.js')).toBe(
-        true,
-      )
-
-      done()
-    }, 3000)
-  })
-
-  it('displays timings', done => {
-    setTimeout(() => {
-      expect(dashboard.lastFrame().includes('Compiled in')).toBe(
-        true,
-      )
-
-      done()
-    }, 3000)
+  it('renders loading indicator', () => {
+    expect(dashboard.lastFrame()).toEqual('⠋ Loading')
   })
 })

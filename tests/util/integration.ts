@@ -103,12 +103,7 @@ export function helper(
     res.stdout.pipe(process.stdout)
     res.stderr.pipe(process.stderr)
 
-    const run = async () => {
-      await res
-      return Promise.resolve()
-    }
-
-    await run()
+    await res
 
     return Promise.resolve()
   }

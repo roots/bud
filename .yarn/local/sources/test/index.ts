@@ -5,8 +5,8 @@ export class TestCommand extends Command {
   static paths = [[`kjo`, `test`]]
 
   public all = Option.Boolean(`-a,--all`, false)
-  public unit = Option.Boolean(`-u,--unit`, false)
   public integration = Option.Boolean(`-i,--integration`, false)
+  public unit = Option.Boolean(`-u,--unit`, false)
   public workers = Option.String(`-w,--workers`, '50%')
 
   async execute() {

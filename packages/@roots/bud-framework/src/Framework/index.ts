@@ -22,6 +22,7 @@ import type {
 import {
   access,
   bootstrap,
+  close,
   container,
   get,
   make,
@@ -281,6 +282,7 @@ abstract class Framework {
     // Bindings
     this.bindMethod<access>('access', access)
       .bindMethod<bootstrap>('bootstrap', bootstrap)
+      .bindMethod<close>('close', close)
       .bindMethod<container>('container', container)
       .bindMethod<get>('get', get)
       .bindMethod<make>('make', make)
@@ -347,6 +349,16 @@ abstract class Framework {
    * ```
    */
   public bootstrap: bootstrap
+
+  /**
+   * Gracefully shutdown {@link Framework} and registered {@link Service Service instances}
+   *
+   * @example
+   * ```js
+   * bud.close()
+   * ```
+   */
+  public close: close
 
   /**
    * Create a new {@link Container} instance

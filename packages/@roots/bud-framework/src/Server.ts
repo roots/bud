@@ -1,15 +1,16 @@
 import type {Container} from '@roots/container'
 import type {WatchOptions} from 'chokidar'
-import type {Application, Handler} from 'express'
+import type {
+  Application as ExpressApplication,
+  Handler,
+} from 'express'
+import type {Server as HttpServer} from 'http'
 import type * as Proxy from 'http-proxy-middleware'
 import type * as Webpack from 'webpack'
 import type * as DevMiddleware from 'webpack-dev-middleware'
 
 import type {Service} from './'
 
-/**
- * @noInherit
- */
 interface Server extends Service {
   /**
    * Registered server middlewares
@@ -20,6 +21,11 @@ interface Server extends Service {
    * Assets
    */
   assets: string[]
+
+  /**
+   * Server instance
+   */
+  application: Server.Application
 
   /**
    * Server instance
@@ -63,9 +69,14 @@ interface Server extends Service {
 
 namespace Server {
   /**
+   * Server application
+   */
+  export type Application = ExpressApplication
+
+  /**
    * Server instance
    */
-  export type Instance = Application
+  export type Instance = HttpServer
 
   /**
    * Webpack compiler

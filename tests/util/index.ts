@@ -30,12 +30,7 @@ const setupBud = (
 }
 
 const teardownBud = (bud: Framework) => {
-  bud?.server?.instance?.close && bud.server.instance.close()
-  bud?.server?.watcher?.close && bud.server.watcher.close()
-  bud?.dashboard?.instance?.unmount &&
-    bud?.dashboard?.instance?.unmount()
-
-  bud = null
+  bud.close()
 
   return null
 }

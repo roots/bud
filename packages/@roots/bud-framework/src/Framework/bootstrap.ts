@@ -10,6 +10,14 @@ interface bootstrap {
 }
 
 function bootstrap(this: Framework): Framework {
+  /**
+   * Register signal termination handler
+   */
+  process.on('SIGTERM', this.close)
+
+  /**
+   * Get bindable services
+   */
   const validServices = this.container<Framework.Services>({
     ...this.services,
   })
