@@ -3485,7 +3485,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     chokidar: ^3.5.2
     fs-extra: ^10.0.0
-    globby: 11.0.1
+    globby: 11.0.4
     http-proxy-middleware: ^2.0.1
     http-terminator: ^3.0.0
     json-stringify-safe: ^5.0.1
@@ -4362,19 +4362,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.0.0":
+"@types/debug@npm:^4.0.0, @types/debug@npm:^4.1.5":
   version: 4.1.7
   resolution: "@types/debug@npm:4.1.7"
   dependencies:
     "@types/ms": "*"
   checksum: 0a7b89d8ed72526858f0b61c6fd81f477853e8c4415bb97f48b1b5545248d2ae389931680b94b393b993a7cfe893537a200647d93defe6d87159b96812305adc
-  languageName: node
-  linkType: hard
-
-"@types/debug@npm:^4.1.5":
-  version: 4.1.5
-  resolution: "@types/debug@npm:4.1.5"
-  checksum: 36bdb74909be193aeeb8c9bb64ef45d691f35181dcf75285728ec1e07103cb91042be2e8294f0624fc5922d9b4f68482faf5ea3068288577ebdccee76cd7870c
   languageName: node
   linkType: hard
 
@@ -7172,7 +7165,7 @@ __metadata:
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
-    globby: 11.0.1
+    globby: 11.0.4
     jest: 27.0.6
     prettier: 2.3.2
     raw-loader: 4.0.2
@@ -7483,17 +7476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "chalk@npm:4.1.1"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: 036e973e665ba1a32c975e291d5f3d549bceeb7b1b983320d4598fb75d70fe20c5db5d62971ec0fe76cdbce83985a00ee42372416abfc3a5584465005a7855ed
-  languageName: node
-  linkType: hard
-
-"chalk@npm:^4.1.2":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
