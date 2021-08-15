@@ -65,8 +65,10 @@
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "ink": "^3.0.8",
-    "ink-use-stdout-dimensions": "^1.0.5",
+    "ink-use-stdout-dimensions": "^1.0.5"
+  },
+  "peerDependencies": {
+    "ink": "^3.0.9",
     "react": "^17.0.2"
   },
   "stableVersion": "4.6.0"

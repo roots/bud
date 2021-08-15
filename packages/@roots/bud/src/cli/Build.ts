@@ -22,9 +22,13 @@ export default class Build extends Command {
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
-    debug: flags.boolean({
+    discover: flags.boolean({
       char: 'd',
-      description: 'produce config artifacts in [storage] dir',
+      description: 'automatically utilize installed extensions',
+    }),
+    install: flags.boolean({
+      char: 'i',
+      description: 'ensure peer dependencies are installed',
     }),
     log: flags.boolean({
       char: 'l',

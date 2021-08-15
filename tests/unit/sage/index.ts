@@ -1,153 +1,85 @@
+import {config, factory, Framework} from '@roots/bud'
 import * as sage from '@roots/sage'
 
-import {
-  config,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../util'
+let SAGE_DIR = process.cwd().concat('/examples/sage')
 
-const SAGE_DIR = process.cwd().concat('/examples/sage')
-const EXAMPLES_SAGE_CONFIG = {
-  ...config,
-  location: {
-    ...config.location,
-    project: SAGE_DIR,
+let SAGE_CFG = {
+  config: {
+    ...config,
+    location: {
+      ...config.location,
+      project: SAGE_DIR,
+    },
   },
 }
 
 describe('@roots/sage', () => {
-  describe('settings', () => {
-    let bud: Framework = null
-    let bootSpy = jest.spyOn(sage, 'boot')
+  let bud: Framework = null
+  let bootSpy = jest.spyOn(sage, 'boot')
 
-    beforeAll(() => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-      bud.use(sage)
-    })
+  beforeAll(() => {
+    bud = factory(SAGE_CFG)
+    bud.discovery.set('devDependencies.react', '*')
+    bud.discovery.set('devDependencies.tailwindcss', '*')
+    bud.discovery.set('devDependencies.postcss', '*')
+    bud.discovery.set('devDependencies.babel', '*')
 
-    afterAll(() => {
-      bud = teardownBud(bud)
-    })
-
-    it('extension has name prop', () => {
-      expect(sage.name).toBe('@roots/sage')
-    })
-
-    it('extension boot method was called', () => {
-      expect(bootSpy).toHaveBeenCalled()
-    })
-
-    it('has expected paths', () => {
-      expect(bud.path('storage')).toEqual(
-        SAGE_DIR.concat('/storage/bud'),
-      )
-      expect(bud.publicPath()).toEqual('auto')
-      expect(bud.path('dist')).toEqual(
-        SAGE_DIR.concat('/public'),
-      )
-      expect(bud.path('src')).toEqual(
-        SAGE_DIR.concat('/resources'),
-      )
-    })
-
-    it('has expected aliases', () => {
-      const {alias: aliases} = bud.build.config.resolve
-
-      bud.use(sage)
-
-      expect(aliases['@fonts']).toEqual(
-        SAGE_DIR.concat('/resources/fonts'),
-      )
-      expect(aliases['@images']).toEqual(
-        SAGE_DIR.concat('/resources/images'),
-      )
-      expect(aliases['@scripts']).toEqual(
-        SAGE_DIR.concat('/resources/scripts'),
-      )
-      expect(aliases['@styles']).toEqual(
-        SAGE_DIR.concat('/resources/styles'),
-      )
-    })
+    bud.use(sage)
   })
 
-  describe('babel', () => {
-    let bud: Framework = null
-
-    beforeAll(() => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-    })
-
-    afterAll(() => {
-      bud = teardownBud(bud)
-    })
-
-    it('is used', () => {
-      bud.discovery.set('devDependencies.babel', '*')
-      bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-babel')).toEqual(
-        true,
-      )
-    })
+  it('extension has name prop', () => {
+    expect(sage.name).toBe('@roots/sage')
   })
 
-  describe('postcss', () => {
-    let bud: Framework = null
-
-    beforeAll(() => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-    })
-
-    afterAll(() => {
-      bud = teardownBud(bud)
-    })
-
-    it('is used', () => {
-      bud.discovery.set('devDependencies.postcss', '*')
-      bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
-        true,
-      )
-    })
+  it('extension boot method was called', () => {
+    expect(bootSpy).toHaveBeenCalled()
   })
 
-  describe('react', () => {
-    let bud: Framework = null
-
-    beforeAll(() => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-    })
-
-    afterAll(() => {
-      bud = teardownBud(bud)
-    })
-
-    it('is used', () => {
-      bud.discovery.set('devDependencies.react', '*')
-      bud.use(sage)
-      expect(bud.extensions.has('@roots/bud-react')).toEqual(
-        true,
-      )
-    })
+  it('has expected paths', () => {
+    expect(bud.path('storage')).toEqual(
+      SAGE_DIR.concat('/storage/bud'),
+    )
+    expect(bud.publicPath()).toEqual('')
+    expect(bud.path('dist')).toEqual(SAGE_DIR.concat('/public'))
+    expect(bud.path('src')).toEqual(
+      SAGE_DIR.concat('/resources'),
+    )
   })
 
-  describe('tailwindcss', () => {
-    let bud: Framework = null
+  it('has expected aliases', () => {
+    const {alias: aliases} = bud.build.config.resolve
 
-    beforeAll(() => {
-      bud = setupBud('development', EXAMPLES_SAGE_CONFIG)
-    })
+    expect(aliases['@fonts']).toEqual(
+      SAGE_DIR.concat('/resources/fonts'),
+    )
+    expect(aliases['@images']).toEqual(
+      SAGE_DIR.concat('/resources/images'),
+    )
+    expect(aliases['@scripts']).toEqual(
+      SAGE_DIR.concat('/resources/scripts'),
+    )
+    expect(aliases['@styles']).toEqual(
+      SAGE_DIR.concat('/resources/styles'),
+    )
+  })
 
-    afterAll(() => {
-      bud = teardownBud(bud)
-    })
+  it('babel is used', () => {
+    expect(bud.extensions.has('@roots/bud-babel')).toEqual(true)
+  })
 
-    it('is used', () => {
-      bud.discovery.set('devDependencies.tailwindcss', '*')
-      bud.use(sage)
-      expect(
-        bud.extensions.has('@roots/bud-tailwindcss'),
-      ).toEqual(true)
-    })
+  it('postcss is used', () => {
+    expect(bud.extensions.has('@roots/bud-postcss')).toEqual(
+      true,
+    )
+  })
+
+  it('react is used', () => {
+    expect(bud.extensions.has('@roots/bud-react')).toEqual(true)
+  })
+
+  it('tailwindcss is used', () => {
+    expect(bud.extensions.has('@roots/bud-tailwindcss')).toEqual(
+      true,
+    )
   })
 })

@@ -76,7 +76,7 @@ class Stdin extends EventEmitter {
  * Modified: rerender returns @roots/bud-support instance of React
  */
 interface Instance {
-  rerender: (tree: Support.React.ReactElement) => void
+  rerender: (tree: any) => void
   unmount: () => void
   cleanup: () => void
   stdout: Stdout
@@ -94,9 +94,7 @@ const instances: Support.Ink.Instance[] = []
 /**
  * Modified use @roots/bud-support ink renderer
  */
-export const render = (
-  tree: Support.React.ReactElement,
-): Instance => {
+export const render = (tree: any): Instance => {
   const stdout = new Stdout()
   const stderr = new Stderr()
   const stdin = new Stdin()

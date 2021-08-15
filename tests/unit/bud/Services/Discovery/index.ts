@@ -1,17 +1,12 @@
+import {factory, Framework} from '@roots/bud'
 import {readJsonSync} from 'fs-extra'
-
-import {Framework, setupBud, teardownBud} from '../../../../util'
 
 describe('bud.discovery', function () {
   let bud: Framework
   let json = readJsonSync(process.cwd().concat('/package.json'))
 
-  beforeEach(() => {
-    bud = setupBud()
-  })
-
-  afterEach(() => {
-    bud = teardownBud(bud)
+  beforeAll(() => {
+    bud = factory()
   })
 
   it('contains project level package.json data', () => {

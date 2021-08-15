@@ -32,11 +32,9 @@ describe('multi-compiler', () => {
     await execa('yarn', ['bud', 'extensions:install'], {
       cwd,
     })
-    await execa(
-      'yarn',
-      ['bud', `build:production`, '--ci', '--debug'],
-      {cwd},
-    )
+    await execa('yarn', ['bud', `build:production`, '--ci'], {
+      cwd,
+    })
 
     parent.manifest = await readJson(
       `${cwd}/dist/global/manifest.json`,

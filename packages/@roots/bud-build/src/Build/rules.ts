@@ -1,15 +1,13 @@
-/**
- * @module @roots/bud-build
- */
+import {
+  json5 as json5Parser,
+  toml as tomlParser,
+  yaml as yamlParser,
+} from '@roots/bud-support'
 
 import {Rule} from '../Rule'
 
-const json5Parser = require('json5')
-const tomlParser = require('toml')
-const yamlParser = require('yamljs')
-
 /**
- * @exports image
+ * Returns {@link Rule} for `asset/resource`
  */
 export const image = () =>
   new Rule({
@@ -29,16 +27,6 @@ export const font = () =>
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
     use: ({build}) => [build.items['resolveUrl']],
-  })
-
-/**
- * Returns {@link Rule} for `.md` handling
- */
-export const md = () =>
-  new Rule({
-    test: ({store}) => store.get('patterns.md'),
-    exclude: ({store}) => store.get('patterns.modules'),
-    use: ({build}) => [build.items.html, build.items.md],
   })
 
 /**

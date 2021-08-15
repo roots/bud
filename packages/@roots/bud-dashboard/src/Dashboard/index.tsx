@@ -14,8 +14,14 @@ class Dashboard extends Base {
 
   public instance: Ink.Instance
 
+  @bind
   public register(): void {
     this.bindMacro({error: Error})
+  }
+
+  @bind
+  public booted(): void {
+    this.run()
   }
 
   /**
@@ -25,19 +31,23 @@ class Dashboard extends Base {
   public run(): void {
     if (this.app.store.isTrue('ci')) return
 
-    this.instance = render(
-      <Screen app={this.app}>
-        <DashboardComponent bud={this.app} />
-      </Screen>,
-    )
+    if (!this.instance) {
+      this.instance = render(
+        <DashboardComponent bud={this.app} />,
+      )
+    } else {
+      this.instance?.rerender(
+        <DashboardComponent bud={this.app} />,
+      )
+    }
   }
 
   /**
    * @decorator `@bind`
    */
   @bind
-  public renderError(body: string, title: string): Ink.Instance {
-    return render(
+  public renderError(body: string, title: string): void {
+    this.render(
       <Screen app={this.app}>
         <Error body={body} title={title} />
       </Screen>,
@@ -48,7 +58,7 @@ class Dashboard extends Base {
    * @decorator `@bind`
    */
   @bind
-  public render(Component: any, title?: string): Ink.Instance {
+  public render(Component: any, title?: string): void {
     const Output = () =>
       isString(Component) ? (
         <Text>{Component}</Text>
@@ -62,11 +72,19 @@ class Dashboard extends Base {
         Component
       )
 
-    return render(
-      <Screen app={this.app} title={title ?? null}>
-        <Output />
-      </Screen>,
-    )
+    if (!this.instance) {
+      this.instance = render(
+        <Screen app={this.app} title={title ?? null}>
+          <Output />
+        </Screen>,
+      )
+    } else {
+      this.instance?.rerender(
+        <Screen app={this.app} title={title ?? null}>
+          <Output />
+        </Screen>,
+      )
+    }
   }
 }
 

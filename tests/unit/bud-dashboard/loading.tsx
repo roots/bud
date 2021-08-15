@@ -1,7 +1,7 @@
+import {factory, Framework} from '@roots/bud'
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
 
-import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
 
 process.env.BUD_KEEP_ALIVE = 'true'
@@ -14,16 +14,15 @@ describe('@roots/bud-dashboard', function () {
   let dashboard: any
 
   beforeAll(() => {
-    bud = setupBud()
-    dashboard = Ink.render(<Components.Dashboard bud={bud} />)
+    bud = factory()
   })
 
   afterAll(() => {
-    dashboard.unmount()
-    teardownBud(bud)
+    dashboard.cleanup()
   })
 
   it('renders loading indicator', () => {
-    expect(dashboard.lastFrame()).toEqual('⠋ Loading')
+    dashboard = Ink.render(<Components.Dashboard bud={bud} />)
+    expect(dashboard.lastFrame()).toContain(`⠋ Loading`)
   })
 })

@@ -1,13 +1,6 @@
-const sage = require('@roots/sage');
-
-module.exports = (app) =>
+module.exports = (app) => {
   app
-
-    /**
-     * Use sage preset extension
-     */
-    .use(sage)
-
+    .use(require('@roots/sage'))
     /**
      * Application assets
      */
@@ -23,3 +16,4 @@ module.exports = (app) =>
      * when modified.
      */
     .watch(['tailwind.config.js', 'resources/views/*.blade.php']);
+};

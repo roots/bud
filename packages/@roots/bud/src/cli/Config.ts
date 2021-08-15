@@ -1,33 +1,34 @@
-import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
+import {
+  cosmiconfig,
+  cosmiconfigTsLoader,
+} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
-import {cosmiconfig, Options} from 'cosmiconfig'
 
 import {Framework, Module} from '../'
 
 export class Config {
   public target: Framework
-  public options: Options
+  public options: cosmiconfig.Options
 
   public constructor(
     app: Framework,
-    searchPlaces: Options['searchPlaces'],
+    searchPlaces: cosmiconfig.Options['searchPlaces'],
   ) {
     this.target = app
 
     this.options = {
       searchPlaces,
       loaders: {
-        '.ts': TypeScriptLoader,
+        '.ts': cosmiconfigTsLoader,
       },
     }
   }
 
   @bind
   public async get() {
-    const res = await cosmiconfig(
-      this.target.name,
-      this.options,
-    ).search()
+    const res = await cosmiconfig
+      .cosmiconfig(this.target.name, this.options)
+      .search()
 
     return res?.config ?? {}
   }

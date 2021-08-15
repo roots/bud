@@ -2,6 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
+import {config} from '../../config'
 import factory from '../../Factory'
 import {Config} from '../Config'
 
@@ -16,28 +17,29 @@ export default class Runner {
     this.cli = cli
 
     this.app = factory({
-      name: 'bud',
+      mode: this.mode ?? 'production',
       ...(options ?? {}),
+      config: {
+        ...config,
+        ...(options.config ?? {}),
+        ci: this.cli.flags.ci,
+      },
     })
   }
 
   public async make(build = true) {
-    this.cli.flags.ci && this.app.store.set('ci', true)
+    if (this.cli.flags.install) {
+      this.app.discovery.install()
+    }
 
-    this.setEnv(this.app.mode)
+    if (this.cli.flags.discover) {
+      this.app.discovery.registerDiscovered()
+    }
 
     await this.doStatics()
     await this.doBuilders()
 
     if (build) {
-      Object.entries(this.cli.flags).forEach(([k, v]) => {
-        this.app.store.set(k, v)
-
-        this.app.children.every((_name, child) => {
-          child?.store && child.store.set(k, v)
-        })
-      })
-
       if (this.cli.flags.cache) {
         this.app.persist()
 

@@ -127,9 +127,7 @@ export function config(app: Framework): void {
       app.store.get('build.output.pathinfo'),
     )
     .hooks.on('build/output/publicPath', () =>
-      app.store.is('location.publicPath', '')
-        ? 'auto'
-        : app.store.get('location.publicPath'),
+      app.store.get('location.publicPath'),
     )
 
     /**

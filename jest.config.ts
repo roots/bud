@@ -17,6 +17,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
     ],
     extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
     preset: 'ts-jest',
+    setupFiles: ['./jest.setup.ts'],
     testMatch: [
       '**/tests/**/*.[jt]s?(x)',
       '**/?(*.)+(spec|test).[jt]s?(x)',

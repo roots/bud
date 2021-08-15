@@ -1,20 +1,12 @@
-import {
-  config,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../../util'
+import type {Framework} from '@roots/bud-framework'
+
+import {config, setupBud} from '../../../util'
 
 describe('bud.path', function () {
   let bud: Framework
 
   beforeAll(() => {
     bud = setupBud('production')
-    return
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
     return
   })
 

@@ -1,6 +1,5 @@
+import {factory, Framework} from '@roots/bud'
 import imagemin from '@roots/bud-imagemin'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 const EXTENSION_HANDLE = '@roots/bud-imagemin'
 const PLUGIN_HANDLE = 'image-minimizer-webpack-plugin'
@@ -9,15 +8,12 @@ describe('@roots/bud-imagemin', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('production')
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory()
   })
 
   it('is registered', () => {
     bud.use([imagemin])
+
     expect(imagemin).toEqual(
       bud.extensions.get(EXTENSION_HANDLE).module,
     )

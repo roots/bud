@@ -16,7 +16,7 @@ const extension: Module = {
       mdx: [MdxConfig, app],
     })
 
-    store.set('patterns.mdx', /\.mdx$/)
+    store.set('patterns.mdx', /\.mdx?$/)
 
     build.loaders.mdx = new Loader(
       require.resolve('@mdx-js/loader'),

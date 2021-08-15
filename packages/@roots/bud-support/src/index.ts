@@ -1,20 +1,38 @@
+import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import * as InkUseStyle from '@roots/ink-use-style'
+import chalk from 'chalk'
+import * as cosmiconfig from 'cosmiconfig'
+import dotenv from 'dotenv'
+import dotenvExpand from 'dotenv-expand'
+import * as Express from 'express'
 import * as Ink from 'ink'
-import InkBigText from 'ink-big-text'
 import InkGradient from 'ink-gradient'
 import InkSpinner from 'ink-spinner'
+import * as json5 from 'json5'
+import * as Notifier from 'node-notifier'
 import * as React from 'react'
 
-import {dump} from './util/dump'
-import {killPort} from './util/killPort'
-import * as wpPkgs from './util/wordpressPkgs'
+import pkgUp from './external/pkg-up'
+import toml from './external/toml'
+import yaml from './external/yaml'
 
-export {dump}
+export {dump} from './util/dump'
+export {killPort} from './util/killPort'
+export * as wpPkgs from './util/wordpressPkgs'
+
+export {dotenv}
+export {dotenvExpand}
 export {Ink}
-export {InkBigText}
 export {InkGradient}
 export {InkSpinner}
 export {InkUseStyle}
-export {killPort}
-export {wpPkgs}
+export {Notifier}
 export {React}
+export {Express}
+export {chalk}
+export {cosmiconfig}
+export {cosmiconfigTsLoader}
+export {pkgUp}
+export {json5}
+export {toml}
+export {yaml}

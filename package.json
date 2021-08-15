@@ -22,24 +22,15 @@
       ".yarn/local"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "resolutions": {
-    "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@1.10.0#./.yarn/patches/yoga-layout-prebuilt.patch",
+    "@types/react": "16.8.0",
     "globby": "11.0.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "typescript": "4.3.5"
+    "ink": "3.0.9",
+    "react": "16.8.0",
+    "react-dom": "16.8.0",
+    "typescript": "4.3.5",
+    "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#./.yarn/patches/yoga-layout-prebuilt.patch",
+    "remark-loader@4.0.0": "patch:remark-loader@npm:4.0.0#.yarn/patches/remark-loader-npm-4.0.0-97c9afb1c4"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
@@ -70,7 +61,6 @@
     "file-loader": "6.2.0",
     "fs-extra": "10.0.0",
     "globby": "11.0.1",
-    "ink-testing-library": "2.1.0",
     "jest": "27.0.6",
     "prettier": "2.3.2",
     "raw-loader": "4.0.2",

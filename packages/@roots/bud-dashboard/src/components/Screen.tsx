@@ -21,6 +21,7 @@ export const Screen = ({
         {' '}
         {title}{' '}
       </Ink.Text>
+
       <Ink.Box flexDirection="column" marginTop={1}>
         {children}
       </Ink.Box>

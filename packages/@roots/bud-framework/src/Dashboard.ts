@@ -23,10 +23,10 @@ export interface Dashboard extends Service {
   /**
    * Render stdout
    */
-  render(Component: any, title?: string): Instance
+  render(Component: any, title?: string): void
 
   /**
    * Render error
    */
-  renderError(body: string, title: string): Instance
+  renderError(body: string, title: string): void
 }

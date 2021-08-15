@@ -1,12 +1,12 @@
+import {factory, Framework} from '@roots/bud'
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
 
-import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
 
-process.env.BUD_KEEP_ALIVE = 'true'
-
 jest.setTimeout(20000)
+
+process.env.BUD_KEEP_ALIVE = 'true'
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
@@ -14,14 +14,13 @@ describe('@roots/bud-dashboard', function () {
   let dashboard: any
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory()
     bud.compiler.compile().run(bud.compiler.callback)
     dashboard = Ink.render(<Components.Dashboard bud={bud} />)
   })
 
   afterAll(() => {
-    dashboard.unmount()
-    teardownBud(bud)
+    dashboard.cleanup()
   })
 
   it('exists', () => {
@@ -47,6 +46,6 @@ describe('@roots/bud-dashboard', function () {
       ).toBe(true)
 
       done()
-    }, 3000)
+    }, 1000)
   })
 })

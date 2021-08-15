@@ -1,22 +1,15 @@
+import {factory} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
 
-import {
-  Bud,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../../util'
+process.env.BUD_KEEP_ALIVE = 'true'
 
 describe('bud', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory()
   })
 
   it('mode', () => {
@@ -63,28 +56,28 @@ describe('bud', () => {
 
   it('tap calls fn and returns instance of Bud', done => {
     const fn = jest.fn()
-    expect(bud.tap(fn)).toBeInstanceOf(Bud)
+    expect(bud.tap(fn)).toBeInstanceOf(Framework)
     expect(fn).toHaveBeenCalledTimes(1)
     done()
   })
 
   it('tap passes an instance of Bud', done => {
-    bud.tap(app => expect(app).toBeInstanceOf(Bud))
+    bud.tap(app => expect(app).toBeInstanceOf(Framework))
     done()
   })
 
   it('tap can bind a function to Bud', done => {
     bud.tap(function () {
-      expect(this).not.toBeInstanceOf(Bud)
+      expect(this).not.toBeInstanceOf(Framework)
     }, false)
 
     bud.tap(function () {
-      expect(this).toBeInstanceOf(Bud)
+      expect(this).toBeInstanceOf(Framework)
     }, true)
 
     // it binds by default
     bud.tap(function () {
-      expect(this).toBeInstanceOf(Bud)
+      expect(this).toBeInstanceOf(Framework)
     })
 
     done()
@@ -93,13 +86,13 @@ describe('bud', () => {
   it('sequence calls fns', done => {
     bud.sequence([
       app => {
-        expect(app).toBeInstanceOf(Bud)
+        expect(app).toBeInstanceOf(Framework)
       },
       app => {
-        expect(app).toBeInstanceOf(Bud)
+        expect(app).toBeInstanceOf(Framework)
       },
       app => {
-        expect(app).toBeInstanceOf(Bud)
+        expect(app).toBeInstanceOf(Framework)
       },
     ])
 
@@ -121,7 +114,7 @@ describe('bud', () => {
     bud.when(
       () => true,
       (app: Framework) => {
-        expect(app).toBeInstanceOf(Bud)
+        expect(app).toBeInstanceOf(Framework)
       },
     )
 
@@ -129,7 +122,7 @@ describe('bud', () => {
       () => false,
       noop,
       (app: Framework) => {
-        expect(app).toBeInstanceOf(Bud)
+        expect(app).toBeInstanceOf(Framework)
       },
     )
 

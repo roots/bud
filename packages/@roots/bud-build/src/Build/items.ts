@@ -1,5 +1,4 @@
 import type {Framework} from '@roots/bud-framework'
-import * as RemarkHTML from 'remark-html'
 
 import {Item} from '../Item'
 
@@ -60,11 +59,6 @@ export const style = () =>
 export const md = () =>
   new Item({
     loader: ({build}) => build.loaders.md,
-    options: {
-      remarkOptions: {
-        plugins: [RemarkHTML],
-      },
-    },
   })
 
 /**

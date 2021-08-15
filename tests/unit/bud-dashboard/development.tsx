@@ -1,32 +1,45 @@
+import {config, factory, Framework} from '@roots/bud'
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
-import {join} from 'path'
 
-import {Framework, setupBud, teardownBud} from '../../util'
 import * as Ink from '../../util/ink'
 
-process.env.BUD_KEEP_ALIVE = null
-
 jest.setTimeout(20000)
+
+let BASIC_DIR = process.cwd().concat('/examples/basic')
+
+let BASIC_CFG = {
+  mode: 'development',
+  config: {
+    ...config,
+    location: {
+      ...config.location,
+      project: BASIC_DIR,
+    },
+  },
+}
+
+process.env.BUD_KEEP_ALIVE = 'true'
 
 describe('@roots/bud-dashboard', function () {
   let bud: Framework
   let dashboard: any
 
-  beforeAll(() => {
-    bud = setupBud('development')
-    bud.setPath(
-      'project',
-      join(process.cwd(), 'examples', 'basic'),
-    )
-
+  beforeAll(done => {
+    bud = factory(BASIC_CFG)
     bud.compiler.compile().run(bud.compiler.callback)
+
     dashboard = Ink.render(<Components.Dashboard bud={bud} />)
+
+    done()
   })
 
   afterAll(() => {
-    dashboard.unmount()
-    teardownBud(bud)
+    dashboard.cleanup()
+  })
+
+  it('is in development mode', () => {
+    expect(bud.isDevelopment).toBe(true)
   })
 
   it('displays `Press Q to exit`', done => {
@@ -36,12 +49,12 @@ describe('@roots/bud-dashboard', function () {
       ).toBe(true)
 
       done()
-    }, 2000)
+    }, 1000)
   })
 
   it('displays stats', done => {
     setTimeout(() => {
-      expect(dashboard.lastFrame().includes(' - main.js')).toBe(
+      expect(dashboard.lastFrame().includes('- main.js')).toBe(
         true,
       )
 
@@ -50,6 +63,6 @@ describe('@roots/bud-dashboard', function () {
       )
 
       done()
-    }, 3000)
+    }, 1000)
   })
 })

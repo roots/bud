@@ -1,63 +1,39 @@
+import {factory} from '@roots/bud'
 import postcss from '@roots/bud-postcss'
 import * as tailwindcss from '@roots/bud-tailwindcss'
 
-import {
-  config,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../util'
+process.env.BUD_KEEP_ALIVE = 'true'
 
-const NAME = 'tailwindcss'
-const DIR = process.cwd().concat('/examples/tailwindcss')
-const CONFIG = {
-  ...config,
-  location: {
-    ...config.location,
-    project: DIR,
-  },
-}
+describe('@roots/bud-tailwindcss', () => {
+  let bud
 
-describe(NAME, () => {
-  describe('settings', () => {
-    let bud: Framework = null
+  beforeAll(() => {
+    bud = factory()
 
-    beforeAll(done => {
-      bud = setupBud('production', CONFIG)
-      done()
+    bud.discovery.set('devDependencies', {
+      postcss: '*',
+      'postcss-preset-env': '*',
+      'postcss-import': '*',
+      tailwindcss: '*',
     })
 
-    afterAll(done => {
-      bud = teardownBud(bud)
-      done()
-    })
+    bud.use([postcss, tailwindcss])
+  })
 
-    beforeEach(() => {
-      bud.discovery.set('devDependencies', {
-        postcss: '*',
-        ['postcss-preset-env']: '*',
-        ['postcss-import']: '*',
-        tailwindcss: '*',
-      })
+  it('has name prop', () => {
+    expect(tailwindcss.name).toBe('@roots/bud-tailwindcss')
+  })
 
-      bud.use([postcss, tailwindcss])
-    })
+  it('has an api prop', () => {
+    expect(tailwindcss.api.tailwind).toBeInstanceOf(Function)
+  })
 
-    it('has name prop', () => {
-      expect(tailwindcss.name).toBe('@roots/bud-tailwindcss')
-    })
-
-    it('has an api prop', () => {
-      expect(tailwindcss.api.tailwind).toBeInstanceOf(Function)
-    })
-
-    it('sets up postcss plugins', () => {
-      expect(Object.keys(bud.postcss.plugins)).toEqual([
-        'postcss-import',
-        'postcss-nested',
-        'postcss-preset-env',
-        'tailwindcss',
-      ])
-    })
+  it('sets up postcss plugins', () => {
+    expect(Object.keys(bud.postcss.plugins)).toEqual([
+      'postcss-import',
+      'postcss-nested',
+      'postcss-preset-env',
+      'tailwindcss',
+    ])
   })
 })

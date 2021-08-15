@@ -1,13 +1,9 @@
-/**
- * @module Framework.Extensions.Babel
- */
-
-import type {BabelConfig} from './'
+import type {Config} from './'
 
 /**
  * Default babel plugins
  */
-const DEFAULT_PLUGINS: Array<BabelConfig.Registrable> = [
+const DEFAULT_PLUGINS: Array<Config.Registrable> = [
   ['@babel/plugin-transform-runtime', {helpers: false}],
   '@babel/plugin-proposal-object-rest-spread',
   '@babel/plugin-syntax-dynamic-import',
@@ -17,7 +13,7 @@ const DEFAULT_PLUGINS: Array<BabelConfig.Registrable> = [
 /*
  * Default babel presets
  */
-const DEFAULT_PRESETS: Array<BabelConfig.Registrable> = [
+const DEFAULT_PRESETS: Array<Config.Registrable> = [
   '@babel/preset-env',
 ]
 

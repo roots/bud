@@ -1,4 +1,4 @@
-import {Framework, setupBud, teardownBud} from '../../util'
+import {Framework, setupBud} from '../../util'
 
 describe('bud.build.config', function () {
   let bud: Framework
@@ -6,10 +6,6 @@ describe('bud.build.config', function () {
   beforeAll(() => {
     bud = setupBud()
     bud.mode = 'development'
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
   })
 
   it('has expected mode default', () => {

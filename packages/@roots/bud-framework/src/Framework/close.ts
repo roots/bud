@@ -13,15 +13,15 @@ function close(this: Framework) {
   existsAndIsCallable(this.dashboard?.instance?.unmount) &&
     this.dashboard.instance.unmount()
 
-  setTimeout(
-    () =>
-      existsAndIsCallable(this.server?.instance?.close) &&
-      this.server.instance.close(() => {
+  this.isDevelopment && this.server
+    ? setTimeout(() => {
+        this.server.close()
         existsAndIsCallable(this.server?.watcher?.close) &&
           this.server.watcher.close()
-      }),
-    10,
-  )
+
+        !process.env.BUD_KEEP_ALIVE && process.exit()
+      }, 10)
+    : !process.env.BUD_KEEP_ALIVE && process.exit()
 }
 
 export {close}

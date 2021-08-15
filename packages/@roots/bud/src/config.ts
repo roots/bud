@@ -42,7 +42,7 @@ const config: Configuration = {
 
   ci: false,
   clean: true,
-  debug: false,
+  debug: true,
   discover: false,
   hash: false,
   html: false,
@@ -74,12 +74,12 @@ const config: Configuration = {
       removeEmptyChunks: true,
       splitChunks: {
         cacheGroups: {
-          defaultVendors: {
+          vendor: {
             chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
             reuseExistingChunk: true,
             priority: -10,
-            filename: `vendor/[name].bundle.js`,
+            filename: `vendor/[name].js`,
           },
         },
       },
@@ -193,7 +193,7 @@ const config: Configuration = {
       [0, 40],
       [41, 60],
       [61, 80],
-      [81, Infinity],
+      [81, 200],
     ],
     columns: 12,
     maxWidth: 80,

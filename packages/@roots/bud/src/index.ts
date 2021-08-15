@@ -132,9 +132,13 @@ declare module '@roots/bud-framework' {
 }
 
 import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module, WebpackPlugin} from '@roots/bud-framework'
+import {
+  Framework,
+  Module,
+  WebpackPlugin,
+} from '@roots/bud-framework'
 
-import {Bud, Framework} from './Bud'
+import {Bud} from './Bud'
 import extensions from './Bud/extensions'
 import services from './Bud/services'
 import {config, Configuration} from './config'

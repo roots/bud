@@ -1,9 +1,13 @@
+import type {Container} from '@roots/container'
+
 import type {Service} from './Service'
 
-/**
- * @noInherit
- */
 export interface Dependencies extends Service {
+  /**
+   * Installation status
+   */
+  messages: Container
+
   /**
    * Install dependencies
    */

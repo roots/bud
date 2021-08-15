@@ -1,14 +1,10 @@
-import {Framework, setupBud, teardownBud} from '../../util'
+import {factory, Framework} from '@roots/bud'
 
 describe('@roots/bud-compiler', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('development')
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory()
   })
 
   it('is not compiled initially', () => {
@@ -25,7 +21,10 @@ describe('@roots/bud-compiler', function () {
   })
 
   it('has a webpack compiler instance after calling compile', () => {
-    bud.compiler.compile()
     expect(bud.compiler.instance).toBeDefined()
+  })
+
+  it('reports being compiled', () => {
+    expect(bud.compiler.isCompiled).toBe(true)
   })
 })

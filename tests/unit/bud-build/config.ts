@@ -1,20 +1,12 @@
-import * as json5 from 'json5'
-import * as RemarkHTML from 'remark-html'
-import * as toml from 'toml'
+import {factory, Framework} from '@roots/bud'
+import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
-import * as yaml from 'yamljs'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
+    bud = factory()
   })
 
   it(`doesn't include deprecated properties`, () => {
@@ -140,7 +132,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins.length).toBe(4)
+    expect(bud.build.config.plugins.length).toBe(5)
   })
 
   it('has valid plugins', () => {
@@ -183,37 +175,9 @@ describe('bud.build.config', function () {
     })
   })
 
-  it('has expected default md rule', () => {
-    expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[2],
-    ).toEqual({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.md$/,
-      use: [
-        {
-          loader: bud.path(
-            'project',
-            'node_modules/html-loader/dist/cjs.js',
-          ),
-        },
-        {
-          loader: bud.path(
-            'project',
-            'node_modules/remark-loader/dist/cjs.js',
-          ),
-          options: {
-            remarkOptions: {
-              plugins: [RemarkHTML],
-            },
-          },
-        },
-      ],
-    })
-  })
-
   it('has expected default svg rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[3],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[2],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.svg$/,
@@ -226,7 +190,7 @@ describe('bud.build.config', function () {
 
   it('has expected default html rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[4],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[3],
     ).toEqual({
       test: /\.(html?)$/,
       use: [
@@ -242,7 +206,7 @@ describe('bud.build.config', function () {
 
   it('has expected default csv rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[5],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[4],
     ).toEqual({
       test: /\.(csv|tsv)$/,
       use: [
@@ -258,7 +222,7 @@ describe('bud.build.config', function () {
 
   it('has expected default xml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[6],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[5],
     ).toEqual({
       test: /\.xml$/,
       use: [
@@ -274,7 +238,7 @@ describe('bud.build.config', function () {
 
   it('has expected default toml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[7],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[6],
     ).toEqual({
       parser: {
         parse: toml.parse,
@@ -286,7 +250,7 @@ describe('bud.build.config', function () {
 
   it('has expected default yaml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[8],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[7],
     ).toEqual({
       parser: {
         parse: yaml.parse,
@@ -298,7 +262,7 @@ describe('bud.build.config', function () {
 
   it('has expected default json rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[9],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[8],
     ).toEqual({
       parser: {
         parse: json5.parse,
@@ -310,8 +274,7 @@ describe('bud.build.config', function () {
 
   it('has expected default css rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule)
-        .oneOf[10],
+      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[9],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.css$/,
@@ -340,7 +303,7 @@ describe('bud.build.config', function () {
   it('has expected default js rule', () => {
     expect(
       (bud.build.config.module.rules[0] as RuleSetRule)
-        .oneOf[11],
+        .oneOf[10],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.(js|jsx)$/,

@@ -1,15 +1,16 @@
-/**
- * @module Framework.Extensions.Babel
- */
-
 import {Item, Loader} from '@roots/bud-build'
-import type {Framework} from '@roots/bud-framework'
+import type {Framework, Module} from '@roots/bud-framework'
 import {existsSync} from 'fs-extra'
 
-import type {BabelExtension} from '..'
 import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '..'
 
-const Babel: BabelExtension = {
+interface Babel extends Module {
+  name: Module.Name & '@roots/bud-babel'
+  register: Module.Register
+  boot: Module.Boot
+}
+
+const Babel: Babel = {
   name: '@roots/bud-babel',
 
   register(app: Framework): void {

@@ -2,7 +2,6 @@ name: "@roots/sage"
 type: preset
 
 peers:
-  - "@roots/bud"
   - "@roots/bud-babel"
   - "@roots/bud-entrypoints"
   - "@roots/bud-eslint"

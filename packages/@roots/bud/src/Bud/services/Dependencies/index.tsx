@@ -1,48 +1,30 @@
+import {Ink, React} from '@roots/bud-support'
 import {Service} from '@roots/bud-framework'
-import {React} from '@roots/bud-support'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
-import {Static, Text} from 'ink'
 import {isEqual} from 'lodash'
 
-/**
- * Service: Dependencies
- *
- * @sealed
- */
 class Dependencies extends Service<null> {
   public name = 'dependencies'
 
   /**
-   * Handles interacting with package manager
+   * Interfaces with package manager
    */
   public manager: DependenciesManager
 
-  /**
-   * {@inheritDoc Service.register}
-   */
+  @bind
   public register() {
     this.manager = new DependenciesManager(
       this.app.path('project'),
     )
   }
 
-  /**
-   * Read project JSON and return as a hash
-   *
-   * @decorator `@bind`
-   */
   @bind
   public readProjectJson() {
     return readJsonSync(this.app.path('project', 'package.json'))
   }
 
-  /**
-   * Returns a boolean value representing if a package is eligible for installation
-   *
-   * @decorator `@bind`
-   */
   @bind
   public shouldInstall(dep: string): boolean {
     const pkgJson = this.readProjectJson()
@@ -56,11 +38,6 @@ class Dependencies extends Service<null> {
     )
   }
 
-  /**
-   * Install an array of dependencies and/or devDependencies
-   *
-   * @decorator `@bind`
-   */
   @bind
   public install(
     deps: {
@@ -70,64 +47,61 @@ class Dependencies extends Service<null> {
       type: 'devDependencies' | 'dependencies'
     }[],
   ): void {
-    deps
+    this.app.dashboard.render(
+      `Installing required peer dependencies\n`,
+    )
 
-      /**
-       * Filter out ineligible packages and notify user
-       */
-      .filter(({source, name}) => {
-        if (!this.shouldInstall(name)) {
-          this.app.dashboard.render(
-            <Static items={[{name}]}>
-              {({name}) => (
-                <Text key={name}>
-                  [{source}] {name} is already installed
-                </Text>
-              )}
-            </Static>,
-          )
+    const skipped = deps.filter(
+      dep => !this.shouldInstall(dep.name),
+    )
 
-          return false
-        }
-
-        return true
-      })
-
-      /**
-       * Attempt installation of eligible packages
-       */
-      .forEach(dep => {
-        this.app.dashboard.render(
-          <Static
-            items={[
-              `[${dep.source}] Installing ${dep.type} ${dep.name}@${dep.ver}`,
-            ]}>
-            {msg => <Text key={`${msg}`}>{msg}</Text>}
-          </Static>,
+    /**
+     * Filter out ineligible packages
+     */
+    const installed = deps
+      .filter(dep => this.shouldInstall(dep.name))
+      .map(dep => {
+        this.manager.client.install(
+          isEqual(dep.type, 'devDependencies'),
+          `${dep.name}@${dep.ver}`,
         )
 
-        try {
-          const result = this.manager.client
-            .install(
-              isEqual(dep.type, 'devDependencies'),
-              `${dep.name}@${dep.ver}`,
-            )
-            .output.toString()
-
-          this.app.dashboard.render(
-            <Static items={[result]}>
-              {msg => <Text key={`${msg}`}>{msg}</Text>}
-            </Static>,
-          )
-        } catch (err) {
-          this.app.dashboard.renderError(
-            `Error installing ${dep.name}. Requested by ${
-              dep.source
-            } ${JSON.stringify(err)}`,
-            `Package installation error`,
-          )
-        }
+        return dep
       })
+
+    this.app.dashboard.render(
+      <Ink.Box flexDirection="column">
+        <Ink.Box marginBottom={1} flexDirection="column">
+          <Ink.Text
+            backgroundColor={this.app.store.get(
+              'theme.colors.primary',
+            )}
+            color={this.app.store.get(
+              'theme.colors.foreground',
+            )}>
+            Installation Complete
+          </Ink.Text>
+        </Ink.Box>
+
+        {installed.length > 0 && (
+          <Ink.Box marginBottom={1} flexDirection="column">
+            {installed.map(dep => (
+              <Ink.Text
+                key={`${dep.name}-${dep.ver}`}>{`✓ ${dep.name}@${dep.ver}`}</Ink.Text>
+            ))}
+          </Ink.Box>
+        )}
+
+        {skipped.length > 0 && (
+          <Ink.Box marginBottom={1} flexDirection="column">
+            {skipped.map(dep => (
+              <Ink.Text
+                key={`${dep.name}-${dep.ver}`}>{`✓ ${dep.name}@${dep.ver} already installed`}</Ink.Text>
+            ))}
+          </Ink.Box>
+        )}
+      </Ink.Box>,
+    )
   }
 }
 

@@ -1,6 +1,5 @@
+import {factory, Framework} from '@roots/bud'
 import {Item, Loader, Rule} from '@roots/bud-build'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 const items = [
   'css',
@@ -33,11 +32,7 @@ describe('bud.build', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory()
   })
 
   it('has rebuild method', () => {

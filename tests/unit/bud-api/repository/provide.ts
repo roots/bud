@@ -1,16 +1,10 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {Framework, setupBud} from '../../../util'
 
 describe('bud.provide', function () {
   let bud: Framework
 
   beforeAll(() => {
     bud = setupBud()
-    return
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
-    return
   })
 
   it('is a function', () => {

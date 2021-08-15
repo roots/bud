@@ -30,8 +30,6 @@ const setupBud = (
 }
 
 const teardownBud = (bud: Framework) => {
-  bud.close()
-
   return null
 }
 

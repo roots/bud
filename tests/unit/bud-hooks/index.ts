@@ -11,7 +11,7 @@ describe('@roots/bud-hooks', function () {
   })
 
   afterAll(() => {
-    bud = teardownBud(bud)
+    teardownBud(bud)
   })
 
   it('is constructable', () => {

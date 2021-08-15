@@ -2,12 +2,10 @@ import {
   Discovery as Contract,
   Service,
 } from '@roots/bud-framework'
+import {cosmiconfig, pkgUp} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
-import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
 import {dirname} from 'path'
-
-const pkgUp = require('pkg-up')
 
 class Discovery
   extends Contract
@@ -32,24 +30,15 @@ class Discovery
       .discover('devDependencies')
       .setRequired()
 
-    this.app.store.isTrue('discover') &&
-      this.registerDiscovered()
-
     this.has('peers') &&
       this.getValues('peers').forEach(this.resolvePeers)
   }
 
-  /**
-   * @method getProjectInfo
-   */
   @bind
   public getProjectInfo(): {[key: string]: any} {
     return this.all()
   }
 
-  /**
-   * @method hasPeerDependency
-   */
   @bind
   public hasPeerDependency(pkg: string): boolean {
     return (
@@ -58,9 +47,6 @@ class Discovery
     )
   }
 
-  /**
-   * @method discover
-   */
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
@@ -90,9 +76,6 @@ class Discovery
     return this
   }
 
-  /**
-   * @method resolvePeers
-   */
   @bind
   public resolvePeers(pkg): void {
     if (!pkg.peers) {
@@ -108,7 +91,7 @@ class Discovery
 
       if (!dir) return
 
-      this.set(`peers.${peer}`, {
+      this.set(`resolved.${peer}`, {
         name: peer,
         dir,
         ...this.mapConfig({name: peer, dir}),
@@ -119,10 +102,6 @@ class Discovery
     })
   }
 
-  /**
-   * @method setRequired
-   * @hidden
-   */
   @bind
   public setRequired() {
     this.each('peers', (source, pkg) => {
@@ -156,32 +135,27 @@ class Discovery
     })
   }
 
-  /**
-   * @method registerDiscovered
-   * @hidden
-   */
   @bind
   public registerDiscovered() {
-    this.each('peers', (_name, pkg) => {
-      if (!pkg) return
-
-      if (pkg?.type === 'extension' || pkg?.type === 'preset') {
+    this.getValues('peers').forEach(pkg => {
+      if (pkg.type == 'extension' || pkg.type == 'preset') {
         this.app.extensions.add(require(pkg.name))
+        this.set(`registered.${pkg.name}`, pkg)
+      } else {
+        this.set(`skipped.${pkg.name}`, pkg)
       }
     })
   }
 
-  /**
-   * @method mapConfig
-   * @hidden
-   */
   @bind
   public mapConfig(pkg: {name: string; dir: string}) {
     if (!pkg) return
 
-    const cosmi = cosmiconfigSync(pkg.name, {
-      searchPlaces: ['manifest.yml'],
-    }).search(pkg.dir)
+    const cosmi = cosmiconfig
+      .cosmiconfigSync(pkg.name, {
+        searchPlaces: ['manifest.yml'],
+      })
+      .search(pkg.dir)
 
     return cosmi?.config
       ? {
@@ -192,10 +166,6 @@ class Discovery
       : {}
   }
 
-  /**
-   * @method install
-   * @hidden
-   */
   @bind
   public install(): void {
     const required = this.get<{
@@ -207,23 +177,19 @@ class Discovery
       }
     }>('required')
 
-    required
-      ? this.app.dependencies.install(
-          Object.values(
-            this.get<{
-              [key: string]: {
-                source: string
-                name: string
-                ver: string
-                type: 'dependencies' | 'devDependencies'
-              }
-            }>('required'),
-          ),
-        )
-      : this.app.dashboard.render(
-          'Nothing to install',
-          'bud extensions:install',
-        )
+    required &&
+      this.app.dependencies.install(
+        Object.values(
+          this.get<{
+            [key: string]: {
+              source: string
+              name: string
+              ver: string
+              type: 'dependencies' | 'devDependencies'
+            }
+          }>('required'),
+        ),
+      )
   }
 }
 

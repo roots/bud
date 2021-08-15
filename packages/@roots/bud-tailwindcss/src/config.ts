@@ -7,14 +7,11 @@ interface tailwindConfig {
 
 function tailwindConfig(
   this: Framework,
-  config: TailwindConfig,
+  config?: TailwindConfig,
 ): Framework {
   this.postcss.setPlugins([
     'postcss-import',
-    [
-      'tailwindcss',
-      config ?? this.path('project', 'tailwind.config.js'),
-    ],
+    ['tailwindcss', this.path('project', 'tailwind.config.js')],
     'postcss-nested',
     [
       'postcss-preset-env',

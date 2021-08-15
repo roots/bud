@@ -6,6 +6,7 @@ import {Base} from '../shared/Base'
 
 export class Item extends Base implements Build.Item {
   protected loader: Build.Item.LoaderFn
+
   protected options: Build.Item.OptionsFn
 
   public constructor({

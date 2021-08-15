@@ -1,9 +1,8 @@
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 import {ComponentState, useEffect, useState} from 'react'
 
-import {defaultTheme} from '../themes/index'
+import {defaultTheme} from '../themes'
 import type {Styles, Theme, UseStyle} from '../typings'
-
-const useStdoutDimensions = require('ink-use-stdout-dimensions')
 
 const useStyle: UseStyle = (initialData = defaultTheme) => {
   /**
@@ -19,7 +18,7 @@ const useStyle: UseStyle = (initialData = defaultTheme) => {
   /**
    * Active screen size
    */
-  const [screen, setScreen]: ComponentState = useState()
+  const [screen, setScreen]: ComponentState = useState(null)
 
   /**
    * Width of one column.

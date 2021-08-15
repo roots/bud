@@ -11,13 +11,13 @@ describe(suite.name, () => {
     assets = await suite.setup()
   })
 
-  describe('main.js', () => {
+  describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['main.js'].length).toBeGreaterThan(10)
+      expect(assets['app.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(assets['main.js'].includes('import')).toBeFalsy()
+      expect(assets['app.js'].includes('import')).toBeFalsy()
     })
   })
 })

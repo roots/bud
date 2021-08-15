@@ -65,6 +65,11 @@ interface Server extends Service {
    * Inject client scripts innto compilation (HMR, dev experience)
    */
   inject(): void
+
+  /**
+   * Close the server connection
+   */
+  close(): void
 }
 
 namespace Server {

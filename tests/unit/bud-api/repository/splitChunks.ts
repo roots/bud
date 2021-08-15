@@ -1,13 +1,13 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {factory, Framework} from '@roots/bud'
 
 const DEFAULT_OPTIONS = {
   cacheGroups: {
-    defaultVendors: {
+    vendor: {
       chunks: 'all',
       test: /[\\/]node_modules[\\/]/,
       reuseExistingChunk: true,
       priority: -10,
-      filename: `vendor/[name].bundle.js`,
+      filename: `vendor/[name].js`,
     },
   },
 }
@@ -16,13 +16,7 @@ describe('bud.splitChunks', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-    return
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
-    return
+    bud = factory()
   })
 
   beforeEach(() => {
@@ -46,8 +40,8 @@ describe('bud.splitChunks', function () {
 
     expect(
       bud.hooks.filter('build/optimization/splitChunks')
-        .cacheGroups.defaultVendors.filename,
-    ).toBe(DEFAULT_OPTIONS.cacheGroups.defaultVendors.filename)
+        .cacheGroups.vendor.filename,
+    ).toBe(DEFAULT_OPTIONS.cacheGroups.vendor.filename)
   })
 
   it('sets options when passed as parameters', () => {

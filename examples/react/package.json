@@ -1,16 +1,23 @@
 {
   "name": "example-react",
   "private": true,
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
-    "@types/react": "17.0.17",
-    "@types/react-dom": "^17",
-    "postcss": "^8.2.13",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
   },
   "dependencies": {
     "react": "^17.0.2",

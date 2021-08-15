@@ -67,12 +67,17 @@ const Dashboard = ({bud}: {bud: Framework}) => {
 
   const hasErrors = hasStdErr || hasCompilerErrors
 
-  return !progress && !hasErrors ? (
-    <Text>
-      <InkSpinner /> Loading
-    </Text>
-  ) : (
-    <Box flexDirection="column">
+  return (
+    <Box flexDirection="column" marginTop={1}>
+      {!progress && !hasErrors && (
+        <Box marginBottom={1} flexDirection={'column'}>
+          <Text backgroundColor={theme.colors.primary}>
+            {' '}
+            <InkSpinner /> Loading{' '}
+          </Text>
+        </Box>
+      )}
+
       {isRawModeSupported && <Input bud={instance.current} />}
 
       {hasErrors && (

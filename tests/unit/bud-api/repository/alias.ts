@@ -1,14 +1,10 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {Framework, setupBud} from '../../../util'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
   beforeAll(() => {
     bud = setupBud()
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
   })
 
   it('is a function', () => {

@@ -24,12 +24,10 @@ describe('@roots/bud-emotion', () => {
 
     beforeAll(() => {
       bud = setupBud('production', CONFIG)
-      return
     })
 
     afterAll(() => {
       bud = teardownBud(bud)
-      return
     })
 
     beforeEach(() => {

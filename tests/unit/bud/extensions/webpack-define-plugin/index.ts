@@ -1,32 +1,19 @@
 import {extensions} from '@roots/bud'
-
-import {Framework, setupBud, teardownBud} from '../../../../util'
-
-const WebpackDefinePlugin = extensions['webpack-define-plugin']
+import {Container} from '@roots/container'
 
 describe('WebpackDefinePlugin', function () {
-  let bud: Framework
-
-  beforeEach(() => {
-    bud = setupBud()
-  })
-
-  afterEach(() => {
-    bud = teardownBud(bud)
-  })
-
   it('is named `webpack-define-plugin`', () => {
-    expect(WebpackDefinePlugin.name).toBe(
+    expect(extensions['webpack-define-plugin'].name).toBe(
       'webpack-define-plugin',
     )
   })
 
   it('processes options', () => {
-    const env = bud.container({
+    const env = new Container({
       APP_PUBLIC_FOO: 'bar',
     })
 
-    const store = bud.container({
+    const store = new Container({
       extension: {
         webpackDefinePlugin: {
           BANG: 'bong',
@@ -35,7 +22,7 @@ describe('WebpackDefinePlugin', function () {
     })
 
     expect(
-      (WebpackDefinePlugin.options as CallableFunction)({
+      extensions['webpack-define-plugin'].options({
         env,
         store,
       }),

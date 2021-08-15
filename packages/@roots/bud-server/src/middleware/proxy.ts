@@ -5,21 +5,29 @@ import {
 } from 'http-proxy-middleware'
 import * as zlib from 'zlib'
 
+const parseSource = (config): Server.Middleware.Target => {
+  return {
+    host: config.get('host'),
+    port: config.get('port'),
+  }
+}
+
+const parseProxy = (config): Server.Middleware.Target => {
+  return {
+    host: config.get('proxy.host'),
+    port: config.get('proxy.port'),
+  }
+}
+
 /**
  * Proxy middleware factory
  */
 export const proxy: Server.Middleware.Init = ({config}) => {
   // Source host & port
-  const source: Server.Middleware.Target = {
-    host: config.get('host'),
-    port: config.get('port'),
-  }
+  const source = parseSource(config)
 
   // Proxy host & port
-  const proxy: Server.Middleware.Target = {
-    host: config.get('proxy.host'),
-    port: config.get('proxy.port'),
-  }
+  const proxy = parseProxy(config)
 
   // Headers
   const headers = {
