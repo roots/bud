@@ -10,12 +10,12 @@ export class MdCommand extends Command {
   async execute() {
     const all = !this.site && !this.readme
 
-    if (this.readme || all)
+    if (this.site || all)
       await this.$(
         `yarn workspace @roots/bud-docs run docusaurus build`,
       )
 
-    if (this.site || all)
+    if (this.readme || all)
       await this.$(`yarn ts-node ./dev/readme`)
   }
 }

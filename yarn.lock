@@ -3547,11 +3547,12 @@ __metadata:
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/express": 4.17.13
     "@types/yamljs": 0.2.31
-    "@vercel/ncc": 0.29.0
+    "@vercel/ncc": 0.29.1
     chalk: ^4.1.2
     cosmiconfig: ^7.0.0
     dotenv: ^10.0.0
     dotenv-expand: ^5.1.0
+    execa: ^5.1.1
     express: ^4.17.1
     front-matter: ^4.0.2
     ink: 3.0.9
@@ -3571,7 +3572,7 @@ __metadata:
     toml: ^3.0.0
     vfile-reporter: ^7.0.1
     yamljs: ^0.3.0
-    yoga-layout-prebuilt: "patch:yoga-layout-prebuilt@1.10.0#./.yarn/patches/yoga-layout-prebuilt.patch"
+    yoga-layout-prebuilt: "patch:yoga-layout-prebuilt@*#./src/patches/yoga-layout-prebuilt.patch"
   languageName: unknown
   linkType: soft
 
@@ -4798,13 +4799,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:16.8.0":
-  version: 16.8.0
-  resolution: "@types/react@npm:16.8.0"
+"@types/react@npm:17.0.17":
+  version: 17.0.17
+  resolution: "@types/react@npm:17.0.17"
   dependencies:
     "@types/prop-types": "*"
-    csstype: ^2.2.0
-  checksum: fd63a3a15ea83cd79545c3f91d32df4d54742d39aa5b43f0af0bad3c7d6a5344a6013f6ccd9ba1aa47eb4f710c00ffdef06d3f4eeda6e7c4282b42913ed68552
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 3f2ae9ab6f7d5c7b480cd5962fe996f0682173036a8437cfde0122bc8594e0e1482864b766dbf611daef40ed65a9fc73ec9510e12511d68c064f309f25219f67
   languageName: node
   linkType: hard
 
@@ -4846,6 +4848,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: afe657fa6cc163e6a6fa1644cd0da8cc33f5cd12647da0d93d79618af842adddd43c054100a8bb9dd88bf5674a7bbc56e0b056d7367d494d015b05a3938058bf
+  languageName: node
+  linkType: hard
+
+"@types/scheduler@npm:*":
+  version: 0.16.2
+  resolution: "@types/scheduler@npm:0.16.2"
+  checksum: b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
   languageName: node
   linkType: hard
 
@@ -5111,14 +5120,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/ncc@npm:0.29.0":
-  version: 0.29.0
-  resolution: "@vercel/ncc@npm:0.29.0"
+"@vercel/ncc@npm:0.29.1":
+  version: 0.29.1
+  resolution: "@vercel/ncc@npm:0.29.1"
   dependencies:
     node-gyp: latest
   bin:
     ncc: dist/ncc/cli.js
-  checksum: 46b7385d48ae590181bda287767c1f75d7c29fa2fa940aadd4681fd765624746162213e79ab201a069eacb9d880d1a164ec2d10e4a6d7bc0fc718df0b848dfd6
+  checksum: 588751c809b2414f4f9dbfe1657f913582341dc4eac2f78e60d38a816ccc3a67f6b76422c908b7d5af7ba4b21decf7c2b6a06fc781c418d50aff589d5d9e61b6
   languageName: node
   linkType: hard
 
@@ -7172,7 +7181,7 @@ __metadata:
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
-    globby: 11.0.1
+    globby: 12.0.0
     jest: 27.0.6
     prettier: 2.3.2
     raw-loader: 4.0.2
@@ -8959,7 +8968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^2.2.0, csstype@npm:^2.6.8":
+"csstype@npm:^2.6.8":
   version: 2.6.17
   resolution: "csstype@npm:2.6.17"
   checksum: 6eee5cf81a4b1b2f0e8707b4accd7504f7cceb4b5a496d58c6e4fcea1a70c1443a975e45d722c892d372ffe788fa278ddfe4d70c5f881375f34e48bb99c70ecc
@@ -19172,17 +19181,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-dom@npm:16.8.0":
-  version: 16.8.0
-  resolution: "react-dom@npm:16.8.0"
+"react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.13.0
+    scheduler: ^0.20.2
   peerDependencies:
-    react: ^16.0.0
-  checksum: f9302a26b35d5baef72ef674b2c750676b404524d425109a3dd077f01bd98156e78ee926dc469d12f2d89cb67dde45f2d795fccecf291aefc1bf76a83d657c72
+    react: 17.0.2
+  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
   languageName: node
   linkType: hard
 
@@ -19401,15 +19409,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react@npm:16.8.0":
-  version: 16.8.0
-  resolution: "react@npm:16.8.0"
+"react@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.13.0
-  checksum: ab4d78cb90af138f6339565862ad6753b24a39b9cbed9a9c4394f90d4f2b7505525d496f8c5b353de785f151557a0239eb2b01e40bca1565665fb25bf6b6df95
+  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
   languageName: node
   linkType: hard
 
@@ -19781,19 +19787,6 @@ fsevents@^1.2.7:
     remark: ^12.0.0 || ^13.0.0
     webpack: ^5.0.0
   checksum: a62ca24f7f4f250565dc2a4ba46b82a6a8903b7e3fa38a1bedb66f9d12f9216c577dbd200915102186fddea09ab3b1898998b3f1a22761bb2ecfae7040b32909
-  languageName: node
-  linkType: hard
-
-"remark-loader@patch:remark-loader@npm:4.0.0#.yarn/patches/remark-loader-npm-4.0.0-97c9afb1c4::locator=bud.js%40workspace%3A.":
-  version: 4.0.0
-  resolution: "remark-loader@patch:remark-loader@npm%3A4.0.0#.yarn/patches/remark-loader-npm-4.0.0-97c9afb1c4::version=4.0.0&hash=45ee68&locator=bud.js%40workspace%3A."
-  dependencies:
-    front-matter: ^4.0.2
-    vfile-reporter: ^6.0.2
-  peerDependencies:
-    remark: ^12.0.0 || ^13.0.0
-    webpack: ^5.0.0
-  checksum: bd23749b643fdd356fc6438b86f5747dcd1cc26dfbeec4f5c7fc68f278cb7ea736786cfa4c3149dbee28731cdd0db4d4ef428e264e7850fc9e085a6b87d40531
   languageName: node
   linkType: hard
 
@@ -20373,16 +20366,6 @@ resolve@^2.0.0-next.3:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 5636b55cf15f7cf0baa73f2797bf992bdcf75d1b39d82c0aa4608555c774368f6ac321cb641fd5f3d3ceb87805122cd47540da6a7b5960fe0dbdb8f8c263f000
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.13.0":
-  version: 0.13.6
-  resolution: "scheduler@npm:0.13.6"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c82c705f6d0d6df87b26bf2cca33f427e91889438c0435ade3ee7f41860eda4dd7f3171ca2d93e8fe9431f3bd831ca0e267a401a0296e4b14de05e389f82d320
   languageName: node
   linkType: hard
 
@@ -24406,7 +24389,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-yoga-layout-prebuilt@*:
+"yoga-layout-prebuilt@*, yoga-layout-prebuilt@npm:^1.9.6":
   version: 1.10.0
   resolution: "yoga-layout-prebuilt@npm:1.10.0"
   dependencies:
@@ -24415,9 +24398,9 @@ yoga-layout-prebuilt@*:
   languageName: node
   linkType: hard
 
-"yoga-layout-prebuilt@patch:yoga-layout-prebuilt@*#./.yarn/patches/yoga-layout-prebuilt.patch::locator=bud.js%40workspace%3A.":
+"yoga-layout-prebuilt@patch:yoga-layout-prebuilt@*#./src/patches/yoga-layout-prebuilt.patch::locator=%40roots%2Fbud-support%40workspace%3Apackages%2F%40roots%2Fbud-support":
   version: 1.10.0
-  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#./.yarn/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=7dea27&locator=bud.js%40workspace%3A."
+  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#./src/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=7dea27&locator=%40roots%2Fbud-support%40workspace%3Apackages%2F%40roots%2Fbud-support"
   dependencies:
     "@types/yoga-layout": 1.9.2
   checksum: 704a9fee9da6ece88eae796a640ed9187cfaa1fc6a2cffbfd58491768cf8c9e59c67402a7675446ac48ae216127dd5f6cdd1f35074dc240809195292d79bd558

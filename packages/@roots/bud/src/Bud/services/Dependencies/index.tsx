@@ -1,5 +1,5 @@
-import {Ink, React} from '@roots/bud-support'
 import {Service} from '@roots/bud-framework'
+import {Ink, React} from '@roots/bud-support'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'

@@ -2,7 +2,7 @@ require('ts-node').register({
   project: './tsconfig.json',
 })
 
-const globby = require('globby')
+const globby = require('@roots/bud-support/globby')
 const execa = require('execa')
 const {readFile, writeFile} = require('fs-extra')
 const {format} = require('prettier')

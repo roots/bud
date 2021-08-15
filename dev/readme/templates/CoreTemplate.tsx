@@ -4,6 +4,7 @@ import {
   Banner,
   Community,
   Contributing,
+  Docs,
   Sponsors,
 } from '../components'
 
@@ -15,15 +16,14 @@ export const CoreTemplate = ({title, description, project}) => (
       logo={project.logo ?? ''}
     />
 
-    <h2>Installation</h2>
-    <p>Install **{title}** to your project.</p>
+    <span>{`## Installation
+
+Install **${title}** to your project.
+`}</span>
+
     <code lang="shell">yarn add {title}</code>
 
-    <h2>Documentation</h2>
-    <p>
-      For more information on utilizing this package [check out
-      our dedicated docs]({project.url.docs})
-    </p>
+    <Docs url={project.url.docs} />
 
     <Community />
     <Contributing />
