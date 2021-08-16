@@ -3,7 +3,7 @@ import type {
   Module,
   Server,
 } from '@roots/bud-framework'
-import type {GlobTask} from 'globby'
+import {globby} from '@roots/bud-support'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
@@ -499,12 +499,12 @@ namespace Repository {
       [k: string]:
         | Object
         | Object['import']
-        | GlobTask['pattern']
+        | globby.GlobTask['pattern']
     }
 
     export type Value =
-      | GlobTask['pattern']
-      | Array<GlobTask['pattern']>
+      | globby.GlobTask['pattern']
+      | Array<globby.GlobTask['pattern']>
   }
 
   export interface Experiments {

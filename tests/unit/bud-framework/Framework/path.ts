@@ -1,10 +1,10 @@
-import {Framework, setupBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.path', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('path: is a function', () => {

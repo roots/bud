@@ -6,25 +6,14 @@ import {
 import {boundMethod as bind} from 'autobind-decorator'
 import {get, isArray, isFunction, noop, set} from 'lodash'
 
-/**
- * Service: Hooks
- */
 class Hooks extends Service implements Contract {
   public name = 'hooks'
 
-  /**
-   * Get a hooks value
-   * @override
-   */
   @bind
   public get<T = any>(path: `${Contract.Name & string}`) {
     return get(this.repository, path) as T
   }
 
-  /**
-   * Set a hooks value
-   * @override
-   */
   @bind
   public set(
     key: `${Contract.Name & string}`,
@@ -58,10 +47,6 @@ class Hooks extends Service implements Contract {
     return this.app
   }
 
-  /**
-   * @method filter
-   * {@link Contract.filter}
-   */
   @bind
   public filter<T = any>(
     id: `${Contract.Name & string}`,

@@ -1,10 +1,10 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('@roots/bud-framework child', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it("parent compiler's name is this", () => {

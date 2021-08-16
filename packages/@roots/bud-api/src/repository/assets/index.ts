@@ -1,17 +1,10 @@
-/**
- * @module @roots/bud-api
- */
-
+import {globby} from '@roots/bud-support'
 import {CopyPluginOptions} from 'copy-webpack-plugin'
-import {sync as globbySync} from 'globby'
 
 import type Repository from '..'
 
-/**
- * @function assets
- */
 const assets: Repository.Assets = function (paths) {
-  globbySync(paths).map((from: string) => {
+  globby.globbySync(paths).map((from: string) => {
     const dirName = from.split('/')[from.split('/').length - 2]
 
     const format = this.store.isTrue('hash')
@@ -35,7 +28,4 @@ const assets: Repository.Assets = function (paths) {
   return this
 }
 
-/**
- * @exports assets
- */
 export {assets}

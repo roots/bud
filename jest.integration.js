@@ -2,7 +2,7 @@ require('ts-node').register({
   project: './tsconfig.json',
 })
 
-const globby = require('@roots/bud-support/globby')
+const {globby} = require('@roots/bud-support')
 const execa = require('execa')
 const {readFile, writeFile} = require('fs-extra')
 const {format} = require('prettier')
@@ -80,7 +80,7 @@ const jest = async suite => {
 
 const run = async () => {
   try {
-    const paths = await globby('examples/*', {
+    const paths = await globby.globby('examples/*', {
       cwd: process.cwd(),
       onlyDirectories: true,
       absolute: true,

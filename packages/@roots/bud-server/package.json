@@ -60,17 +60,16 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@types/fs-extra": "9.0.12",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
     "webpack": "5.49.0"
   },
   "dependencies": {
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "chokidar": "^3.5.2",
     "fs-extra": "^10.0.0",
-    "globby": "11.0.1",
     "http-proxy-middleware": "^2.0.1",
     "http-terminator": "^3.0.0",
     "json-stringify-safe": "^5.0.1",
@@ -81,8 +80,7 @@
     "zlib": "^1.0.5"
   },
   "peerDependencies": {
-    "@roots/bud-framework": "*",
-    "@roots/bud-support": "*"
+    "@roots/bud-framework": "*"
   },
   "stableVersion": "4.6.0"
 }

@@ -1,11 +1,10 @@
-import {Framework, setupBud} from '../../util'
+import {factory, Framework} from '@roots/bud'
 
 describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-    bud.mode = 'development'
+    bud = factory({mode: 'development', config: {ci: true}})
   })
 
   it('has expected mode default', () => {
@@ -16,5 +15,3 @@ describe('bud.build.config', function () {
     expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })
-
-export {}

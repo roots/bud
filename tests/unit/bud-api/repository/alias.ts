@@ -1,10 +1,13 @@
-import {Framework, setupBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory({
+      mode: 'development',
+      config: {...config, ci: true},
+    })
   })
 
   it('is a function', () => {

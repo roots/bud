@@ -1,7 +1,7 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
-import {sync as globbySync} from 'globby'
+import {globbySync} from 'globby'
 import {get, has, set} from 'lodash'
 import * as path from 'path'
 import * as resolve from 'resolve-from'

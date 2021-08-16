@@ -1,22 +1,16 @@
+import {Bud, factory, Framework} from '@roots/bud'
 import {Hooks} from '@roots/bud-hooks'
-
-import {Bud, Framework, setupBud, teardownBud} from '../../util'
 
 describe('@roots/bud-hooks', function () {
   let bud: Framework
   let hooks: Hooks
 
   beforeAll(() => {
-    bud = setupBud('development')
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
+    bud = factory({mode: 'development'})
   })
 
   it('is constructable', () => {
     hooks = new Hooks(bud)
-
     expect(hooks.app).toBeInstanceOf(Bud)
   })
 

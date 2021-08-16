@@ -196,7 +196,6 @@
     "copy-webpack-plugin": "^9.0.1",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "fs-extra": "^10.0.0",
-    "globby": "^12.0.0",
     "ignore-emit-webpack-plugin": "^2.0.6",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.1.0",

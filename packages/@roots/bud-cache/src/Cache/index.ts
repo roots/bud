@@ -1,33 +1,16 @@
-/**
- * @module @roots/bud-cache
- */
-
 import {
   Cache as Contract,
   Framework,
   Service,
 } from '@roots/bud-framework'
+import {globby} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {createHash} from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
-import {sync as globbySync} from 'globby'
 
-/**
- * Service: Cache
- *
- * @noInheritDoc
- */
 class Cache extends Service implements Contract {
-  /**
-   * @property {string} name
-   */
   public name = 'cache'
 
-  /**
-   * Service register event
-   *
-   * @see {Service.register}
-   */
   @bind
   public register(app: Framework): void {
     app.hooks
@@ -37,11 +20,6 @@ class Cache extends Service implements Contract {
       .hooks.on('build/cache/type', () => 'memory')
   }
 
-  /**
-   * Service booted event
-   *
-   * @see {Service.booted}
-   */
   @bind
   public booted(): void {
     this.app.hooks.filter('build/cache/type') == 'filesystem' &&
@@ -78,7 +56,7 @@ class Cache extends Service implements Contract {
   public buildDependencies(): string[] {
     return [
       ...new Set(
-        globbySync([
+        globby.globbySync([
           this.app.path(
             'project',
             `${this.app.name}.{js,ts,yml,json}`,
@@ -101,7 +79,7 @@ class Cache extends Service implements Contract {
           this.app.path('storage', 'cache/*'),
         ]),
       ),
-    ]
+    ] as string[]
   }
 
   /**

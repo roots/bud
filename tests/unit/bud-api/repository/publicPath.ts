@@ -1,14 +1,10 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.publicPath', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('publicPath: is a function', () => {

@@ -1,17 +1,15 @@
+import {config, factory, Framework} from '@roots/bud'
 import postcss from '@roots/bud-postcss'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('bud.postcss', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('production')
+    bud = factory({
+      mode: 'development',
+      config: {...config, ci: true},
+    })
     bud.use(postcss)
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
   })
 
   it('setPlugins functions', () => {

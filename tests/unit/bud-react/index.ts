@@ -1,7 +1,6 @@
+import {config, factory, Framework} from '@roots/bud'
 import babel from '@roots/bud-babel'
 import react from '@roots/bud-react'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('@roots/bud-react', () => {
   let bud: Framework = null
@@ -20,16 +19,13 @@ describe('@roots/bud-react', () => {
   }
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory({config: {...config, ci: true}})
+
     bud.discovery
       .set('devDependencies', mock.devDependencies)
       .set('dependencies', mock.dependencies)
 
     bud.use([babel, react])
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
   })
 
   it('has name prop', () => {

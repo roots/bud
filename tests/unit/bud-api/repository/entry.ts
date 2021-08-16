@@ -1,26 +1,20 @@
-import {
-  config,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.entry', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('production', {
-      ...config,
-      location: {
-        ...config.location,
-        project: `${process.cwd()}/examples/sage`,
-        src: 'resources',
+    bud = factory({
+      config: {
+        ...config,
+        ci: true,
+        location: {
+          ...config.location,
+          project: `${process.cwd()}/examples/sage`,
+          src: 'resources',
+        },
       },
     })
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
   })
 
   beforeEach(() => {

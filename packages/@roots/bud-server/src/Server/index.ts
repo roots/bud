@@ -1,21 +1,13 @@
 import {Server as Contract, Service} from '@roots/bud-framework'
+import {globby} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as chokidar from 'chokidar'
 import {FSWatcher} from 'fs-extra'
-import {GlobbyOptions, sync as globbySync} from 'globby'
 import {createHttpTerminator} from 'http-terminator'
 import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
-
-/**
- * Override globby.sync return
- */
-const sync = globbySync as (
-  paths: string[],
-  options: GlobbyOptions,
-) => string[]
 
 export class Server
   extends Service<Contract.Configuration>
@@ -55,12 +47,12 @@ export class Server
     const [files, options] = this.config.getValues('watch')
 
     return files?.length > 0
-      ? sync(
+      ? (globby.globbySync(
           files.map((file: string) =>
             this.app.path('project', file),
           ),
           options,
-        )
+        ) as string[])
       : []
   }
 

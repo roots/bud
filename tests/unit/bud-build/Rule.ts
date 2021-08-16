@@ -1,16 +1,11 @@
+import {factory, Framework} from '@roots/bud'
 import {Rule} from '@roots/bud-build'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('Build Rule', function () {
   let bud: Framework = null
 
   beforeAll(() => {
-    bud = setupBud()
-  })
-
-  afterAll(() => {
-    bud = teardownBud(bud)
+    bud = factory({config: {ci: true}})
   })
 
   it('is constructable', () => {

@@ -6,6 +6,7 @@ let SAGE_DIR = process.cwd().concat('/examples/sage')
 let SAGE_CFG = {
   config: {
     ...config,
+    ci: true,
     location: {
       ...config.location,
       project: SAGE_DIR,

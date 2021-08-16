@@ -1,18 +1,9 @@
-/**
- * @module @roots/bud-api
- */
-
 import type {Framework} from '@roots/bud-framework'
-import {sync as globbySync} from 'globby'
+import {globby} from '@roots/bud-support'
 import {isArray, isString} from 'lodash'
 
 import type Repository from '../'
 
-/**
- * @function entry
- *
- * {@link Repository.entry}
- */
 const entry: Repository.Entry = function (...args) {
   /**
    * Ducktype entrypoint to determine if it was called like
@@ -118,7 +109,7 @@ function getAssets(
     : /**
        * Try for glob
        */
-      globbySync(entry.import, {
+      globby.globbySync(entry.import, {
         cwd: this.path('src'),
         expandDirectories: true,
       }) ??
@@ -130,7 +121,4 @@ function getAssets(
   return entry
 }
 
-/**
- * @exports entry
- */
 export {entry}

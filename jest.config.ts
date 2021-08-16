@@ -15,7 +15,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
       '@roots/bud-cli',
       '@roots/bud-support',
     ],
-    extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     preset: 'ts-jest',
     setupFiles: ['./jest.setup.ts'],
     testMatch: [

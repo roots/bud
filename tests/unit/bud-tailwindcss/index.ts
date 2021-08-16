@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import {config, factory} from '@roots/bud'
 import postcss from '@roots/bud-postcss'
 import * as tailwindcss from '@roots/bud-tailwindcss'
 
@@ -8,7 +8,7 @@ describe('@roots/bud-tailwindcss', () => {
   let bud
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
 
     bud.discovery.set('devDependencies', {
       postcss: '*',

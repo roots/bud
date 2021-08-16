@@ -1,6 +1,6 @@
 import {Ink, InkGradient, React} from '@roots/bud-support'
 
-export const Bar: React.FunctionComponent<{
+const Bar: React.FunctionComponent<{
   colors?: string[]
   percent: number
   character?: string
@@ -28,3 +28,5 @@ export const Bar: React.FunctionComponent<{
     </Ink.Text>
   )
 }
+
+export {Bar}
