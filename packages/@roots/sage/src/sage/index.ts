@@ -1,16 +1,17 @@
 import * as Eslint from '@roots/bud-eslint'
+import type {Module} from '@roots/bud-framework'
 import * as PresetWordPress from '@roots/bud-preset-wordpress'
 import * as Stylelint from '@roots/bud-stylelint'
-import * as Tailwind from '@roots/bud-tailwindcss'
+import * as TailwindCss from '@roots/bud-tailwindcss'
 
-import type {Sage} from './interface'
+interface sage extends Module {}
 
-export const sage: Sage = {
+const sage: sage = {
   name: '@roots/sage',
 
-  boot: app => {
+  boot(app) {
     app
-      .use([PresetWordPress, Eslint, Stylelint, Tailwind])
+      .use([PresetWordPress, Eslint, Stylelint, TailwindCss])
 
       .setPath({
         storage: 'storage/bud',
@@ -35,3 +36,5 @@ export const sage: Sage = {
       )
   },
 }
+
+export {sage}

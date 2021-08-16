@@ -1,11 +1,11 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import {Rule} from '@roots/bud-build'
 
 describe('Build Rule', function () {
   let bud: Framework = null
 
   beforeAll(() => {
-    bud = factory({config: {ci: true}})
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('is constructable', () => {
@@ -79,5 +79,3 @@ describe('Build Rule', function () {
     )
   })
 })
-
-export {}
