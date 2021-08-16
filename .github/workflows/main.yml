@@ -49,7 +49,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn kjo build --cjs
+        run: yarn kjo build
 
       - name: Lint
         run: yarn kjo lint --eslint --skypack
