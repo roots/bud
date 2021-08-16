@@ -20,7 +20,7 @@ class Env extends Service<Framework.Index<any>> {
   }
 
   /**
-   * get parsed .env hashmap
+   * get parsed .env
    */
   @bind
   public getParsedEnv(): Framework.Index<any> {

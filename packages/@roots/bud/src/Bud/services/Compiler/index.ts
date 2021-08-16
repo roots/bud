@@ -10,7 +10,6 @@ import {Compiler as Base} from '@roots/bud-compiler'
  *
  * @public
  * @sealed
- * @noInheritDoc
  */
 class Compiler extends Base {}
 

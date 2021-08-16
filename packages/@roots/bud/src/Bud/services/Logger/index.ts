@@ -15,7 +15,7 @@ import {INSTANCE_CONFIG, LOGGER_TYPES} from './constants'
  */
 class Logger extends Service implements Contract {
   /**
-   * Logger instance get accessor
+   * Logger instance
    */
   public instance: Signale
 
