@@ -1,9 +1,8 @@
-import postcss from '@roots/bud-postcss'
-
-import {Framework, setupBud, teardownBud} from '../../util'
+import {config, factory, Framework} from '@roots/bud'
+import postcss, {PostCssConfig} from '@roots/bud-postcss'
 
 describe('@roots/bud-postcss', () => {
-  let bud: Framework = setupBud('production')
+  let bud: Framework
 
   let mock = {
     plugins: [
@@ -22,17 +21,9 @@ describe('@roots/bud-postcss', () => {
   }
 
   beforeAll(() => {
+    bud = factory({config: {...config, ci: true}})
     bud.use([postcss])
     bud.postcss.setPlugins(mock.plugins as any)
-  })
-
-  afterAll(() => {
-    teardownBud(bud)
-  })
-
-  it('exports and registers a bud extension', () => {
-    const registered = bud.extensions.get('@roots/bud-postcss')
-    expect(postcss).toEqual(registered.module)
   })
 
   it('has @roots/bud-postcss name', () => {
@@ -41,5 +32,15 @@ describe('@roots/bud-postcss', () => {
 
   it('exports a boot method', () => {
     expect(postcss.boot).toBeInstanceOf(Function)
+  })
+
+  it('exports api', () => {
+    expect(postcss.api.postcss).toBeInstanceOf(PostCssConfig)
+  })
+
+  it('exports and registers a bud extension', () => {
+    expect(postcss).toEqual(
+      bud.extensions.get('@roots/bud-postcss').module,
+    )
   })
 })

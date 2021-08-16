@@ -1,30 +1,31 @@
 import * as ncc from '@vercel/ncc'
-import {outputFile} from 'fs-extra'
+import {copy, outputFile, remove} from 'fs-extra'
 import * as path from 'path'
 
-export default async (): Promise<void> => {
-  const job = {
-    source: path.join(__dirname, `../index.ts`),
-    output: path.join(__dirname, `../../lib/cjs/index.js`),
-    options: {
-      cache: false,
-      filterAssetBase: process.cwd(),
-      minify: false, // default
-      sourceMap: false, // default
-      watch: false, // default
-      v8cache: false, // default
-      quiet: false, // default
-      debugLog: false, // default
-    },
-  }
+import options from './options'
 
-  ncc(job.source, job.options).then(async ({code}) => {
-    await outputFile(
-      job.output,
-      code.replaceAll(
-        /require\("node:(.*)"\)/g,
-        'require("$1")',
-      ),
-    )
-  })
+const build = async (): Promise<void> => {
+  const source = path.join(__dirname, `../index.ts`)
+  const output = path.join(
+    __dirname,
+    `../../lib/tmp/cjs/index.js`,
+  )
+
+  const {code} = await ncc(source, options)
+
+  await outputFile(
+    output,
+    code.replaceAll(/require\("node:(.*)"\)/g, 'require("$1")'),
+  )
+
+  await remove(path.join(__dirname, `../../lib/cjs`))
+
+  await copy(
+    path.join(__dirname, `../../lib/tmp/cjs`),
+    path.join(__dirname, `../../lib/cjs`),
+  )
+
+  await remove(path.join(__dirname, `../../lib/tmp`))
 }
+
+build()

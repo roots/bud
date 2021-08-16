@@ -2,13 +2,21 @@ import {Item, Loader} from '@roots/bud-build'
 import {Module} from '@roots/bud-framework'
 import {pathExistsSync} from 'fs-extra'
 
-import {Config} from './Config'
+import PostCssConfig from './Config'
 
-const extension: Module = {
+interface postcss extends Module {
+  name: '@roots/bud-postcss'
+  api: {
+    postcss: PostCssConfig
+  }
+  boot: Module.Boot
+}
+
+const postcss: postcss = {
   name: '@roots/bud-postcss',
 
   api: {
-    postcss: new Config(),
+    postcss: new PostCssConfig(),
   },
 
   boot: ({build, path, postcss}) => {
@@ -54,4 +62,4 @@ const extension: Module = {
   },
 }
 
-export const {name, api, boot} = extension
+export default postcss

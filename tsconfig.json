@@ -15,11 +15,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
-    "paths": {
-      "@roots/bud-support": [
-        "./packages/@roots/bud-support/lib/cjs/index.js"
-      ],
-    },
     "removeComments": false,
     "sourceMap": true,
     "skipLibCheck": true,
