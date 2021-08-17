@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import {config, factory, Framework} from '@roots/bud'
+=======
+import {config, factory} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+>>>>>>> a12648e25a952b9350f6da28f7dcccf36f39bc8c
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
 
