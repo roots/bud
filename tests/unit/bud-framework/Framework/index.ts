@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import {config, factory} from '@roots/bud'
 import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
@@ -9,7 +9,7 @@ describe('bud', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('mode', () => {

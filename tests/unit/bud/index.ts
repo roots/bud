@@ -1,10 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, config, factory} from '@roots/bud'
 
 describe('factory', () => {
   let bud
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('is a function', () => {

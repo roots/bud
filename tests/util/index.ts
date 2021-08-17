@@ -24,7 +24,7 @@ const setupBud = (
   return factory({
     name: 'bud',
     mode: modeOverride ?? 'production',
-    config: configOverride ?? config,
+    config: {...(configOverride ?? config), ci: true},
     services: servicesOverride ?? services,
   })
 }

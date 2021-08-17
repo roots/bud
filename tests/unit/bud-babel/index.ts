@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import {config, factory} from '@roots/bud'
 import DefaultImportBabel from '@roots/bud-babel'
 import * as StarBabel from '@roots/bud-babel'
 import {Framework} from '@roots/bud-framework'
@@ -9,7 +9,9 @@ describe('@roots/bud-babel', function () {
   let Config: StarBabel.Config
 
   beforeAll(() => {
-    Config = new StarBabel.Config(factory())
+    Config = new StarBabel.Config(
+      factory({config: {...config, ci: true}}),
+    )
   })
 
   it('works with require', () => {

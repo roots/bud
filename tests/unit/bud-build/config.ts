@@ -1,4 +1,4 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
@@ -6,7 +6,7 @@ describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it(`doesn't include deprecated properties`, () => {

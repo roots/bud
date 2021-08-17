@@ -1,4 +1,4 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import imagemin from '@roots/bud-imagemin'
 
 const EXTENSION_HANDLE = '@roots/bud-imagemin'
@@ -8,7 +8,7 @@ describe('@roots/bud-imagemin', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
   })
 
   it('is registered', () => {

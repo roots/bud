@@ -6,7 +6,7 @@ describe('@roots/bud-hooks', function () {
   let hooks: Hooks
 
   beforeAll(() => {
-    bud = factory({mode: 'development'})
+    bud = factory({mode: 'development', ci: true})
   })
 
   it('is constructable', () => {
