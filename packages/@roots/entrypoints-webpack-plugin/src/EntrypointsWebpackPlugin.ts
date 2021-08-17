@@ -1,6 +1,7 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {uniq} from 'lodash'
-import * as Webpack from 'webpack'
+import {sources} from 'webpack'
+import type * as Webpack from 'webpack'
 
 /**
  * Produces `entrypoints.json` artifact with compiled assets broken down
@@ -88,6 +89,12 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
     )
   }
 
+  /**
+   * Runs through each entrypoint entry and adds to the
+   * manifest
+   *
+   * @decorator `@bind`
+   */
   @bind
   public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
@@ -100,13 +107,17 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
       })
     })
 
-    this.compilation.assets[this.name] =
-      new Webpack.sources.RawSource(
-        JSON.stringify({...this.assets}),
-        true,
-      )
+    this.compilation.assets[this.name] = new sources.RawSource(
+      JSON.stringify({...this.assets}),
+      true,
+    )
   }
 
+  /**
+   * Adds an entry to the manifest
+   *
+   * @decorator `@bind`
+   */
   @bind
   public addToManifest({entry, file}) {
     const type = file.split('.').pop()
