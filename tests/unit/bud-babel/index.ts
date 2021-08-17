@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import {config, factory, Framework} from '@roots/bud'
-=======
-import {config, factory} from '@roots/bud'
->>>>>>> a12648e25a952b9350f6da28f7dcccf36f39bc8c
 import DefaultImportBabel from '@roots/bud-babel'
 import * as StarBabel from '@roots/bud-babel'
 

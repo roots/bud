@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import {Bud, config, factory, Framework} from '@roots/bud'
-=======
-import {Bud, config, factory} from '@roots/bud'
->>>>>>> a12648e25a952b9350f6da28f7dcccf36f39bc8c
 
 describe('factory', () => {
   let bud: Framework
