@@ -86,7 +86,10 @@ export function config(app: Framework): void {
     }))
     .hooks.on('build/module/rules', () => [
       {
+        test: /\.[cm]?(jsx?|tsx?)$/,
         parser: {requireEnsure: false},
+      },
+      {
         oneOf: app.hooks.filter('build/module/rules/oneOf'),
       },
     ])
