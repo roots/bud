@@ -1,28 +1,39 @@
 import * as ncc from '@vercel/ncc'
 import {
-  copy,
+  ensureDir,
   outputFile,
+  readFile,
   readJson,
-  remove,
+  writeFile,
   writeJson,
 } from 'fs-extra'
 import * as path from 'path'
 
 import options from './options'
 
+const source = path.join(__dirname, `../index.ts`)
+const output = path.join(__dirname, `../../lib/esm/index.js`)
+
+/**
+ * Compiles entire package down to a single ESM file
+ */
 const build = async (): Promise<void> => {
   /**
-   * Compiling src/index.ts entrypoint
+   * Read package.json contents
    */
-  const source = path.join(__dirname, `../index.ts`)
+  const prettyPackageJson = await readFile(
+    path.join(__dirname, `../../package.json`),
+  )
 
   /**
-   * ncc will output to lib/tmp
+   * Restore the original package.json
    */
-  const output = path.join(
-    __dirname,
-    `../../lib/tmp/esm/index.js`,
-  )
+  const restoreJson = async () =>
+    writeFile(
+      path.join(__dirname, `../../package.json`),
+      prettyPackageJson,
+      'utf8',
+    )
 
   /**
    * Read package.json contents
@@ -31,56 +42,42 @@ const build = async (): Promise<void> => {
     path.join(__dirname, `../../package.json`),
   )
 
-  /**
-   * Write {type: module} into package.json so build will compile as ESM
-   */
-  await writeJson(path.join(__dirname, `../../package.json`), {
-    ...packageJson,
-    type: 'module',
-  })
+  try {
+    /**
+     * Write {type: module} into package.json so build will compile as ESM
+     */
+    await writeJson(path.join(__dirname, `../../package.json`), {
+      ...packageJson,
+      type: 'module',
+    })
 
-  /**
-   * Drop a package.json indicating ESM into lib/tmp/esm.
-   */
-  await outputFile(
-    path.join(__dirname, `../../lib/tmp/esm/package.json`),
-    `{"type": "module"}`,
-  )
+    /**
+     * Ensure there is a lib/tmp/esm dir to work in
+     */
+    await ensureDir(path.join(__dirname, `../../lib/esm/`))
 
-  /**
-   * Run ncc
-   */
-  const {code} = await ncc(source, options)
+    /**
+     * Drop a package.json indicating ESM into lib/tmp/esm.
+     */
+    await writeJson(
+      path.join(__dirname, `../../lib/esm/package.json`),
+      {type: 'module'},
+    )
 
-  /**
-   * ncc output => lib/esm/tmp
-   */
-  await outputFile(output, code)
+    /**
+     * Run ncc and output to lib/tmp/esm
+     */
+    const {code} = await ncc(source, options)
+    await outputFile(output, code, 'utf8')
 
-  /**
-   * Restore the original package.json
-   */
-  await writeJson(path.join(__dirname, `../../package.json`), {
-    ...packageJson,
-  })
-
-  /**
-   * Clean lib/esm
-   */
-  await remove(path.join(__dirname, `../../lib/esm`))
-
-  /**
-   * Copy lib/tmp/esm to lib/esm
-   */
-  await copy(
-    path.join(__dirname, `../../lib/tmp/esm`),
-    path.join(__dirname, `../../lib/esm`),
-  )
-
-  /**
-   * Remove lib/tmp
-   */
-  await remove(path.join(__dirname, `../../lib/tmp`))
+    /**
+     * Restore original json
+     */
+    await restoreJson()
+  } catch (err) {
+    await restoreJson()
+    process.exit(1)
+  }
 }
 
 build()
