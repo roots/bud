@@ -1,7 +1,7 @@
 module.exports = () => ({
   bail: true,
   cache: { type: 'memory' },
-  context: '/Volumes/Samsung/Code/roots/bud',
+  context: '/bud',
   infrastructureLogging: {
     level: 'none',
     appendOnly: true,
@@ -42,8 +42,8 @@ module.exports = () => ({
             test: /\.(ttf|otf|eot|woff2?|ico)$/,
             use: [
               {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/resolve-url-loader/index.js',
-                options: { root: '/Volumes/Samsung/Code/roots/bud/src' }
+                loader: '/bud/node_modules/resolve-url-loader/index.js',
+                options: { root: '/bud/src' }
               }
             ],
             exclude: /(node_modules|bower_components)/
@@ -56,27 +56,15 @@ module.exports = () => ({
           },
           {
             test: /\.(html?)$/,
-            use: [
-              {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/html-loader/dist/cjs.js'
-              }
-            ]
+            use: [ { loader: '/bud/node_modules/html-loader/dist/cjs.js' } ]
           },
           {
             test: /\.(csv|tsv)$/,
-            use: [
-              {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/csv-loader/index.js'
-              }
-            ]
+            use: [ { loader: '/bud/node_modules/csv-loader/index.js' } ]
           },
           {
             test: /\.xml$/,
-            use: [
-              {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/xml-loader/index.js'
-              }
-            ]
+            use: [ { loader: '/bud/node_modules/xml-loader/index.js' } ]
           },
           { test: /\.toml$/, type: 'json' },
           { test: /\.(yaml|yml)$/, type: 'json' },
@@ -85,10 +73,10 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+                loader: '/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
-                loader: '/Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js',
+                loader: '/bud/node_modules/css-loader/dist/cjs.js',
                 options: { importLoaders: 1 }
               }
             ],
@@ -143,17 +131,17 @@ module.exports = () => ({
     enabledLibraryTypes: [ '...' ],
     enabledWasmLoadingTypes: [ '...' ],
     filename: '[name].js',
-    path: '/Volumes/Samsung/Code/roots/bud/dist'
+    path: '/bud/dist'
   },
   plugins: [
     {
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: true,
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll' ],
-      outputPath: '/Volumes/Samsung/Code/roots/bud/dist'
+      outputPath: '/bud/dist'
     },
     {
-      outputPath: '/Volumes/Samsung/Code/roots/bud/.budfiles',
+      outputPath: '/bud/.budfiles',
       name: 'bud.webpack.config.js',
       depth: 8,
       keepCircularReferences: true
@@ -172,8 +160,8 @@ module.exports = () => ({
       runtimeOptions: { linkType: 'text/css' }
     }
   ],
-  recordsInputPath: '/Volumes/Samsung/Code/roots/bud/.budfiles/bud-modules.json',
-  recordsOutputPath: '/Volumes/Samsung/Code/roots/bud/.budfiles/bud-modules.json',
+  recordsInputPath: '/bud/.budfiles/bud-modules.json',
+  recordsOutputPath: '/bud/.budfiles/bud-modules.json',
   resolve: {
     extensions: [
       '.wasm',  '.mjs',
