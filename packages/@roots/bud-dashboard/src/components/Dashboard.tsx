@@ -63,9 +63,23 @@ const Dashboard = ({bud}: {bud: Framework}) => {
 
   const hasCompilerErrors =
     stats && stats?.errors && stats?.errors?.length > 0
+
   const hasStdErr = stderr && stderr.length > 0
 
   const hasErrors = hasStdErr || hasCompilerErrors
+
+  if (
+    progress &&
+    progress[0] &&
+    progress[0] == 1 &&
+    instance?.current?.isProduction
+  ) {
+    setTimeout(() =>
+      instance.current.close(() => {
+        process.exit(0)
+      }),
+    )
+  }
 
   return (
     <Box flexDirection="column" marginTop={1}>

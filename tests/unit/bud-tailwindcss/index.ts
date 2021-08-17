@@ -20,6 +20,10 @@ describe('@roots/bud-tailwindcss', () => {
     bud.use([postcss, tailwindcss])
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('has name prop', () => {
     expect(tailwindcss.name).toBe('@roots/bud-tailwindcss')
   })

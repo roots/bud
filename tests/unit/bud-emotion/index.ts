@@ -1,33 +1,18 @@
+import {config, factory, Framework} from '@roots/bud'
 import babel from '@roots/bud-babel'
 import emotion from '@roots/bud-emotion'
 import react from '@roots/bud-react'
-
-import {
-  config,
-  Framework,
-  setupBud,
-  teardownBud,
-} from '../../util'
-
-const DIR = process.cwd().concat('/examples/emotion')
-const CONFIG = {
-  ...config,
-  location: {
-    ...config.location,
-    project: DIR,
-  },
-}
 
 describe('@roots/bud-emotion', () => {
   describe('settings', () => {
     let bud: Framework = null
 
     beforeAll(() => {
-      bud = setupBud('production', CONFIG)
+      bud = factory({config: {...config, ci: true}})
     })
 
-    afterAll(() => {
-      bud = teardownBud(bud)
+    afterAll(done => {
+      bud.close(done)
     })
 
     beforeEach(() => {

@@ -9,6 +9,10 @@ describe('bud.experiments', function () {
     })
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.experiments).toBeInstanceOf(Function)
   })

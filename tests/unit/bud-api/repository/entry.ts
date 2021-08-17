@@ -17,6 +17,10 @@ describe('bud.entry', function () {
     })
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   beforeEach(() => {
     bud.hooks.on('build/entry', {})
   })

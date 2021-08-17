@@ -1,10 +1,14 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('@roots/bud-compiler', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('is not compiled initially', () => {

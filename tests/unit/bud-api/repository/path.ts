@@ -1,13 +1,14 @@
-import type {Framework} from '@roots/bud-framework'
-
-import {config, setupBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.path', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('production')
-    return
+    bud = factory({config: {...config, ci: true}})
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   beforeEach(() => {

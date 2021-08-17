@@ -1,15 +1,21 @@
-import {factory} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import DefaultImportBabel from '@roots/bud-babel'
 import * as StarBabel from '@roots/bud-babel'
-import {Framework} from '@roots/bud-framework'
 
 const RequiredBabel = require('@roots/bud-babel')
 
 describe('@roots/bud-babel', function () {
   let Config: StarBabel.Config
 
+  let bud: Framework
+
   beforeAll(() => {
-    Config = new StarBabel.Config(factory())
+    bud = factory({config: {...config, ci: true}})
+    Config = new StarBabel.Config(bud)
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('works with require', () => {

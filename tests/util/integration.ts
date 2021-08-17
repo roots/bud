@@ -3,7 +3,7 @@ import {readFileSync} from 'fs'
 import {readFile, readJson} from 'fs-extra'
 import {posix} from 'path'
 
-import {log} from './index'
+import {log} from './logger'
 
 export interface Assets {
   [key: string]: string

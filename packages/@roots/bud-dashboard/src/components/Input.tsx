@@ -3,9 +3,7 @@ import {isEqual} from 'lodash'
 
 const Input = ({bud}) => {
   Ink.useInput(input => {
-    if (isEqual(input, 'q')) {
-      bud.close()
-    }
+    isEqual(input, 'q') && bud.close()
   })
 
   return null

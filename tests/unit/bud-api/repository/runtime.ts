@@ -1,16 +1,14 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.runtime', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-    return
+    bud = factory({config: {...config, ci: true}})
   })
 
-  afterAll(() => {
-    teardownBud(bud)
-    return
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('is a function', () => {

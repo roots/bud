@@ -7,6 +7,10 @@ describe('bud.hash', function () {
     bud = factory({config: {...config, ci: true}})
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.hash).toBeInstanceOf(Function)
   })

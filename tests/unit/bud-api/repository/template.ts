@@ -1,15 +1,15 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.template', function () {
   describe('default', () => {
     let bud: Framework
 
     beforeAll(() => {
-      bud = setupBud()
+      bud = factory({config: {...config, ci: true}})
     })
 
-    afterAll(() => {
-      bud = teardownBud(bud)
+    afterAll(done => {
+      bud.close(done)
     })
 
     it('is a function', () => {
@@ -55,13 +55,13 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(() => {
-      bud = setupBud()
+      bud = factory({config: {...config, ci: true}})
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })
 
-    afterAll(() => {
-      bud = teardownBud(bud)
+    afterAll(done => {
+      bud.close(done)
     })
 
     it('returns bud', () => {
@@ -91,13 +91,13 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(() => {
-      bud = setupBud()
+      bud = factory({config: {...config, ci: true}})
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })
 
-    afterAll(() => {
-      bud = teardownBud(bud)
+    afterAll(done => {
+      bud.close(done)
     })
 
     it('does not register plugin when explicitly disabled', () => {

@@ -2,8 +2,8 @@ import * as ncc from '@vercel/ncc'
 import {
   copy,
   outputFile,
-  remove,
   readJson,
+  remove,
   writeJson,
 } from 'fs-extra'
 import * as path from 'path'

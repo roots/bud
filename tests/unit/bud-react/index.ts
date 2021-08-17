@@ -28,6 +28,10 @@ describe('@roots/bud-react', () => {
     bud.use([babel, react])
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('has name prop', () => {
     expect(react.name).toBe('@roots/bud-react')
   })

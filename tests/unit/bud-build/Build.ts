@@ -1,4 +1,4 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import {Item, Loader, Rule} from '@roots/bud-build'
 
 const items = [
@@ -32,7 +32,11 @@ describe('bud.build', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('has rebuild method', () => {

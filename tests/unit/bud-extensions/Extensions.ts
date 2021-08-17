@@ -1,7 +1,6 @@
+import {config, factory, Framework} from '@roots/bud'
 import {Extensions, Module} from '@roots/bud-extensions'
 import {WebpackPluginInstance} from 'webpack'
-
-import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('Extensions', function () {
   let bud: Framework = null
@@ -29,11 +28,11 @@ describe('Extensions', function () {
   }
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory({config: {...config, ci: true}})
   })
 
-  afterAll(() => {
-    bud = teardownBud(bud)
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('is constructable', () => {

@@ -51,5 +51,3 @@ describe('entrypoints.json', () => {
     })
   })
 })
-
-export {}

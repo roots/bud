@@ -9,6 +9,10 @@ describe('bud.externals', function () {
     })
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.externals).toBeInstanceOf(Function)
   })

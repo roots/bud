@@ -1,10 +1,17 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({mode: 'development', config: {ci: true}})
+    bud = factory({
+      mode: 'development',
+      config: {...config, ci: true},
+    })
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('has expected mode default', () => {

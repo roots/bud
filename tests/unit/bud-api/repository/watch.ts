@@ -1,14 +1,17 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.watch', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
+    bud = factory({
+      mode: 'development',
+      config: {...config, ci: true},
+    })
   })
 
-  afterAll(() => {
-    bud = teardownBud(bud)
+  afterAll(done => {
+    bud.close(done)
   })
 
   beforeEach(() => {
@@ -24,17 +27,14 @@ describe('bud.watch', function () {
   })
 
   it('sets watch files', () => {
-    bud = setupBud('development')
-
     const value = ['**/*.js']
+
     bud.watch(value)
 
     expect(bud.server.config.get('watch.files')).toBe(value)
   })
 
   it('sets watch options', () => {
-    bud = setupBud('development')
-
     const files = ['**/*.js']
     const options = {cwd: process.cwd()}
     bud.watch(files, options)

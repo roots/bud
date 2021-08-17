@@ -26,6 +26,10 @@ describe('@roots/bud-postcss', () => {
     bud.postcss.setPlugins(mock.plugins as any)
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('has @roots/bud-postcss name', () => {
     expect(postcss.name).toBe('@roots/bud-postcss')
   })

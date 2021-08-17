@@ -7,6 +7,10 @@ describe('bud.config', function () {
     bud = factory({config: {...config, ci: true}})
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.define).toBeInstanceOf(Function)
   })

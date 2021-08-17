@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import {config, factory} from '@roots/bud'
 import {Repository} from '@roots/bud-api'
 
 process.env.BUD_KEEP_ALIVE = 'true'
@@ -13,7 +13,7 @@ describe('bud.run', function () {
   beforeAll(() => {
     run = Repository.run
 
-    bud = factory()
+    bud = factory({config: {...config, ci: true}})
 
     mockCompileRunFn = jest.fn()
     mockCompileFn = jest.fn(() => {

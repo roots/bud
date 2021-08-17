@@ -12,6 +12,10 @@ describe('bud.postcss', () => {
     bud.use(postcss)
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('setPlugins functions', () => {
     bud.postcss.setPlugins([
       'postcss-nested',

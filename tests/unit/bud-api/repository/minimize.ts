@@ -7,6 +7,10 @@ describe('bud.minimize', function () {
     bud = factory({config: {...config, ci: true}})
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.minimize).toBeInstanceOf(Function)
   })

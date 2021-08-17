@@ -10,6 +10,10 @@ describe('webpack.resolve.alias', function () {
     })
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('is a function', () => {
     expect(bud.alias).toBeInstanceOf(Function)
   })

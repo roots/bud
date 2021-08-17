@@ -3,7 +3,7 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isEqual, isString} from 'lodash'
+import {isString} from 'lodash'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
 const INITIAL_STATS = {
@@ -125,11 +125,6 @@ class Compiler extends Service implements Contract {
 
       this.instance.close(err => {
         err && this.stats.errors.push(err)
-
-        isEqual(this.app.mode, 'production') &&
-          setTimeout(() => {
-            this.app.close()
-          }, 100)
       })
     })
 

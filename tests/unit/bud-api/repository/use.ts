@@ -1,24 +1,20 @@
+import {config, factory, Framework} from '@roots/bud'
 import * as Babel from '@roots/bud-babel'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
-
-import {Framework, setupBud, teardownBud} from '../../../util'
 
 describe('bud.use', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud('production')
+    bud = factory({config: {...config, ci: true}})
   })
 
-  afterAll(() => {
-    bud = teardownBud(bud)
+  afterAll(done => {
+    bud.close(done)
   })
 
   beforeEach(() => {
     bud.extensions.setStore({})
-    /**
-     * @todo fix the source of this bodge being necessary
-     */
     bud.use({
       name: 'css-minimizer-webpack-plugin',
       options: {},

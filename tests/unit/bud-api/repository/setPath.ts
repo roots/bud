@@ -1,4 +1,4 @@
-import {Framework, setupBud, teardownBud} from '../../../util'
+import {config, factory, Framework} from '@roots/bud'
 
 const NEW_PATH = `${process.cwd()}/foo`
 
@@ -6,13 +6,11 @@ describe('bud.setPath', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = setupBud()
-    return
+    bud = factory({config: {...config, ci: true}})
   })
 
-  afterAll(() => {
-    bud = teardownBud(bud)
-    return
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('is a function', () => {

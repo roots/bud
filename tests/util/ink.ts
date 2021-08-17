@@ -79,6 +79,7 @@ interface Instance {
   rerender: (tree: any) => void
   unmount: () => void
   cleanup: () => void
+  waitUntilExit: () => Promise<void>
   stdout: Stdout
   stderr: Stderr
   stdin: Stdin
@@ -103,7 +104,7 @@ export const render = (tree: any): Instance => {
     stdout: stdout as any,
     stderr: stderr as any,
     stdin: stdin as any,
-    debug: true,
+    debug: false,
     exitOnCtrlC: false,
     patchConsole: false,
   })
@@ -113,6 +114,7 @@ export const render = (tree: any): Instance => {
   return {
     rerender: instance.rerender,
     unmount: instance.unmount,
+    waitUntilExit: instance.waitUntilExit,
     cleanup: instance.cleanup,
     stdout,
     stderr,

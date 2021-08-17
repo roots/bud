@@ -7,6 +7,10 @@ describe('bud.publicPath', function () {
     bud = factory({config: {...config, ci: true}})
   })
 
+  afterAll(done => {
+    bud.close(done)
+  })
+
   it('publicPath: is a function', () => {
     expect(bud.publicPath).toBeInstanceOf(Function)
   })

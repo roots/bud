@@ -20,12 +20,17 @@ describe('@roots/sage', () => {
 
   beforeAll(() => {
     bud = factory(SAGE_CFG)
+
     bud.discovery.set('devDependencies.react', '*')
     bud.discovery.set('devDependencies.tailwindcss', '*')
     bud.discovery.set('devDependencies.postcss', '*')
     bud.discovery.set('devDependencies.babel', '*')
 
     bud.use(sage)
+  })
+
+  afterAll(done => {
+    bud.close(done)
   })
 
   it('extension has name prop', () => {
