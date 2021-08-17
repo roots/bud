@@ -83,7 +83,7 @@
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
-    "webpack": "5.49.0"
+    "webpack": "5.50.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
