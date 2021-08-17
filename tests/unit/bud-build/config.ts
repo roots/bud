@@ -145,9 +145,16 @@ describe('bud.build.config', function () {
     })
   })
 
+  it('has expected default requireEnsure rule', () => {
+    expect(bud.build.config.module.rules[0]).toEqual({
+      test: /\.[cm]?(jsx?|tsx?)$/,
+      parser: {requireEnsure: false},
+    })
+  })
+
   it('has expected default asset/image rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[0],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       generator: {
@@ -160,7 +167,7 @@ describe('bud.build.config', function () {
 
   it('has expected default font rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[1],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.(ttf|otf|eot|woff2?|ico)$/,
@@ -181,7 +188,7 @@ describe('bud.build.config', function () {
 
   it('has expected default svg rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[2],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.svg$/,
@@ -194,7 +201,7 @@ describe('bud.build.config', function () {
 
   it('has expected default html rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[3],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
     ).toEqual({
       test: /\.(html?)$/,
       use: [
@@ -210,7 +217,7 @@ describe('bud.build.config', function () {
 
   it('has expected default csv rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[4],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
     ).toEqual({
       test: /\.(csv|tsv)$/,
       use: [
@@ -226,7 +233,7 @@ describe('bud.build.config', function () {
 
   it('has expected default xml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[5],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
     ).toEqual({
       test: /\.xml$/,
       use: [
@@ -242,7 +249,7 @@ describe('bud.build.config', function () {
 
   it('has expected default toml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[6],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
     ).toEqual({
       parser: {
         parse: toml.parse,
@@ -254,7 +261,7 @@ describe('bud.build.config', function () {
 
   it('has expected default yaml rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[7],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toEqual({
       parser: {
         parse: yaml.parse,
@@ -266,7 +273,7 @@ describe('bud.build.config', function () {
 
   it('has expected default json rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[8],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toEqual({
       parser: {
         parse: json5.parse,
@@ -278,7 +285,7 @@ describe('bud.build.config', function () {
 
   it('has expected default css rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule).oneOf[9],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.css$/,
@@ -306,41 +313,12 @@ describe('bud.build.config', function () {
 
   it('has expected default js rule', () => {
     expect(
-      (bud.build.config.module.rules[0] as RuleSetRule)
+      (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[10],
     ).toEqual({
       exclude: /(node_modules|bower_components)/,
       test: /\.(js|jsx)$/,
       use: [],
     })
-  })
-
-  it('config accessor produces obj with expected keys', () => {
-    expect(Object.keys(bud.build.config)).toEqual([
-      'bail',
-      'cache',
-      'context',
-      'devtool',
-      'entry',
-      'experiments',
-      'externals',
-      'infrastructureLogging',
-      'mode',
-      'module',
-      'name',
-      'node',
-      'output',
-      'optimization',
-      'parallelism',
-      'performance',
-      'plugins',
-      'profile',
-      'recordsPath',
-      'resolve',
-      'stats',
-      'target',
-      'watch',
-      'watchOptions',
-    ])
   })
 })

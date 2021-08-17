@@ -30,9 +30,11 @@ const rules = [
 
 describe('bud.build', function () {
   let bud: Framework
+  let initialBuildConfig
 
   beforeAll(() => {
     bud = factory({config: {...config, ci: true}})
+    initialBuildConfig = {...bud.build.config}
   })
 
   afterAll(done => {
@@ -64,5 +66,49 @@ describe('bud.build', function () {
         expect(loader).toBeInstanceOf(Loader)
       },
     )
+  })
+
+  it('bud.build.config has expected keys', () => {
+    expect(Object.keys(bud.build.config)).toEqual([
+      'bail',
+      'cache',
+      'context',
+      'devtool',
+      'entry',
+      'experiments',
+      'externals',
+      'infrastructureLogging',
+      'mode',
+      'module',
+      'name',
+      'node',
+      'output',
+      'optimization',
+      'parallelism',
+      'performance',
+      'plugins',
+      'profile',
+      'recordsPath',
+      'resolve',
+      'stats',
+      'target',
+      'watch',
+      'watchOptions',
+    ])
+  })
+
+  it('bud.build.rebuild modifies bud.build.config', () => {
+    const entryValue = {
+      app: {
+        import: ['app.js'],
+      },
+    }
+
+    bud.hooks.on('build/entry', () => entryValue)
+
+    bud.build.rebuild()
+
+    expect(initialBuildConfig).not.toEqual(bud.build.config)
+    expect(bud.build.config.entry).toEqual(entryValue)
   })
 })
