@@ -64,7 +64,7 @@
     "@types/node": "15.14.1",
     "@types/webpack-dev-middleware": "5.0.2",
     "chokidar": "3.5.2",
-    "express": "^4.17.1",
+    "express": "4.17.1",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.0.9",
     "signale": "1.4.0",
