@@ -32,7 +32,7 @@
     "@easyops-cn/docusaurus-search-local": "0.19.1",
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
-    "@tsconfig/docusaurus": "1.0.3",
+    "@tsconfig/docusaurus": "1.0.4",
     "@types/node": "16.4.13",
     "@types/react": "17.0.17",
     "@types/react-dom": "17.0.9",
