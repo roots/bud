@@ -1,6 +1,6 @@
 import {isFunction, isString} from 'lodash'
 
-import type Repository from '..'
+import type {Repository} from '..'
 
 const setPublicPath: Repository.SetPublicPath = function (
   publicPath,

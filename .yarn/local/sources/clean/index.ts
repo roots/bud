@@ -14,20 +14,11 @@ export class CleanCommand extends Command {
       return
     }
 
-    console.log(`rimraf **/.budfiles`)
-    await this.$(`yarn rimraf **/.budfiles`)
+    console.log(`rimraf packages/**/.budfiles`)
+    await this.$(`yarn rimraf packages/**/.budfiles`)
 
     console.log(`rimraf examples/*/node_modules`)
     await this.$(`yarn rimraf examples/*/node_modules`)
-
-    console.log(`rimraf examples/*/dist`)
-    await this.$(`yarn rimraf examples/*/dist`)
-
-    console.log(`rimraf examples/sage/public/*`)
-    await this.$(`yarn rimraf examples/sage/public/*`)
-
-    console.log(`rimraf examples/sage/storage/bud/*`)
-    await this.$(`yarn rimraf examples/sage/storage/bud/*`)
 
     console.log(`rimraf packages/@roots/*/lib`)
     await this.$(`yarn rimraf packages/@roots/*/lib`)

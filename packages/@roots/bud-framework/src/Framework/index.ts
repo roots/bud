@@ -216,27 +216,25 @@ abstract class Framework {
    * @example
    * Add a new entry to the `webpack.externals` configuration:
    *
-   * ```js
+   * ```ts
    * hooks.on(
    *   'build/externals',
    *   externals => ({
    *     ...externals,
    *     $: 'jquery',
-   *   }),
+   *   })
    * )
    * ```
    *
    * @example
    * Change the `webpack.output.filename` format:
    *
-   * ```js
+   * ```ts
    * hooks.on(
    *   'build/output/filename',
    *   () => '[name].[hash:4]',
    * )
    * ```
-   *
-   * @virtual
    */
   public hooks: Hooks
 

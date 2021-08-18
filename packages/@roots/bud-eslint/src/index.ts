@@ -30,5 +30,4 @@ const extension: WebpackPlugin<ESLintWebpackPlugin, Options> = {
   when: app => app.discovery.hasPeerDependency('eslint'),
 }
 
-export {extension, extension as default}
 export const {name, options, make} = extension

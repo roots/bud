@@ -83,4 +83,4 @@ class PostCssConfig {
   }
 }
 
-export default PostCssConfig
+export {PostCssConfig}

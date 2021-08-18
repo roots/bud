@@ -17,7 +17,7 @@ coverage
 .pnp.*
 
 # bud
-.budfiles
+/.budfiles
 
 # Kjo
 !/dev/build/yarn-plugin-tasks/lib

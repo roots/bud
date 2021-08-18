@@ -1,0 +1,46 @@
+{
+  "HtmlWebpackCompiler": [
+    {
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0-0": 563
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0-0": 563
+        },
+        "usedIds": [
+          563
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/html-webpack-plugin/lib/loader.js!../../node_modules/html-loader/dist/cjs.js!../../packages/@roots/bud-support/templates/template.html": 380,
+          "javascript/esm|data:text/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;": 163
+        },
+        "usedIds": [
+          163,
+          380
+        ]
+      }
+    }
+  ],
+  "chunks": {
+    "byName": {
+      "app": 143
+    },
+    "bySource": {
+      "0 app": 143
+    },
+    "usedIds": [
+      143
+    ]
+  },
+  "modules": {
+    "byIdentifier": {
+      "./src/index.js": 138
+    },
+    "usedIds": [
+      138
+    ]
+  }
+}

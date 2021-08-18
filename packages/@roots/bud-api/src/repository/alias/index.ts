@@ -1,9 +1,28 @@
+import type {Framework} from '@roots/bud-framework'
 import {resolve} from 'path'
 import type {Configuration} from 'webpack'
 
-import type Repository from '../'
+/**
+ * Register shorthand for resolving modules using webpack aliases.
+ *
+ * @remarks
+ * Useful for situations that may otherwise require brittle relative paths.
+ *
+ * @usage
+ * ```js
+ * app.alias({
+ *   '@scripts': app.path('src', 'scripts'),
+ * })
+ * ```
+ */
+interface alias {
+  (
+    this: Framework,
+    alias: Configuration['resolve']['alias'],
+  ): Framework
+}
 
-const alias: Repository.Alias = function (alias) {
+const alias: alias = function (alias) {
   this.hooks.on(
     'build/resolve/alias',
     (aliases: Configuration['resolve']['alias']) => ({
@@ -21,4 +40,4 @@ const alias: Repository.Alias = function (alias) {
   return this
 }
 
-export default alias
+export {alias}

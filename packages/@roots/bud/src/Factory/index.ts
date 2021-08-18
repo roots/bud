@@ -1,12 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
 
 import {Bud} from '../Bud'
-import services from '../Bud/services'
-import type {Configuration} from '../config'
+import {services} from '../Bud/services'
 import {config} from '../config'
 
 /**
- * Create a Bud instance programmatically.
+ * Create a Bud instance in Node
  */
 interface Factory {
   (overrides?: Factory.Options): Framework
@@ -30,7 +29,7 @@ namespace Factory {
     /**
      * Framework base configuration
      */
-    config?: Configuration
+    config?: config
 
     /**
      * Registered services
@@ -55,4 +54,4 @@ const Factory = (overrides: Factory.Options): Framework => {
   }).bootstrap()
 }
 
-export default Factory
+export {Factory}

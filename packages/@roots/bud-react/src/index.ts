@@ -1,44 +1,24 @@
 /**
- * @module @roots/bud-react
+ * Adds React to `@roots/bud`
+ *
+ * @packageDocumentation
  */
 
-import './interface'
+import {BudReactExtension} from './BudReactExtension'
+import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
+import {reactRefresh} from './reactRefresh'
 
-import {Module} from '@roots/bud-framework'
+declare module '@roots/bud-framework' {
+  interface Framework {
+    reactRefresh: reactRefresh
+  }
 
-import RefreshExtension from './react-refresh'
-import devScriptReducer from './util'
-
-/**
- * @const extension
- */
-const extension: Module = {
-  name: '@roots/bud-react',
-  boot: app => {
-    /**
-     * Exit early if peerDependencies unmet
-     */
-    if (!app.discovery.hasPeerDependency('react')) return
-
-    app.babel.setPresets(['@babel/preset-react'])
-
-    app.when(app.isDevelopment, () => {
-      app.extensions.add(RefreshExtension)
-
-      app.isDevelopment &&
-        app.hooks.on('build/entry', devScriptReducer)
-    })
-  },
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-react': BudReactExtension
+      '@pmmmwh/react-refresh-webpack-plugin': BudReactRefreshPlugin
+    }
+  }
 }
 
-/**
- * @exports default
- * @exports extension
- */
-export {extension as default, extension}
-
-/**
- * @exports name
- * @exports boot
- */
-export const {name, boot} = extension
+export const {name, boot} = BudReactExtension

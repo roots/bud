@@ -1,4 +1,3 @@
-import {EntrypointsExtension} from './EntrypointsExtension'
+import {BudEntrypointsExtension} from './BudEntrypointsExtension'
 
-export default EntrypointsExtension
-export const {name, make} = EntrypointsExtension
+export const {name, make} = BudEntrypointsExtension

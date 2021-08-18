@@ -1,2 +1,2 @@
 import * as chalk from 'chalk'
-export default chalk
+export {chalk}

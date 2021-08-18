@@ -9,7 +9,7 @@ import {
 } from 'fs-extra'
 import * as path from 'path'
 
-import options from './options'
+import {nccOptions} from './options'
 
 const source = path.join(__dirname, `../index.ts`)
 const output = path.join(__dirname, `../../lib/esm/index.js`)
@@ -67,7 +67,7 @@ const build = async (): Promise<void> => {
     /**
      * Run ncc and output to lib/tmp/esm
      */
-    const {code} = await ncc(source, options)
+    const {code} = await ncc(source, nccOptions)
     await outputFile(output, code, 'utf8')
 
     /**

@@ -3,6 +3,7 @@ slug: bud.isProduction
 title: bud.isProduction
 description: Property that is `true` when bud.mode is `production`
 sidebar_label: bud.isProduction
+image: 'https://budjs.netlify.app/img/share/docs/bud.mode__bud.isProduction.png'
 ---
 
 # bud.isProduction

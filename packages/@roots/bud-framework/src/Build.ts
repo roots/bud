@@ -41,8 +41,6 @@ import type {Framework, Service} from './'
  * ```js
  * bud.hooks.filter('build/entry')
  * ```
- *
- * @noInheritDoc
  */
 interface Build extends Service {
   /**

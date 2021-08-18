@@ -1,4 +1,4 @@
-import type Repository from '../'
+import type {Repository} from '../'
 
 export const provide: Repository.Provide = function (packages) {
   this.hooks.on(

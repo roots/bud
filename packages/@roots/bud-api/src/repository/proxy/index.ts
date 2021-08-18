@@ -1,6 +1,6 @@
 import {isBoolean, isUndefined} from 'lodash'
 
-import type Repository from '..'
+import type {Repository} from '..'
 
 const proxy: Repository.Proxy = function (config) {
   /**

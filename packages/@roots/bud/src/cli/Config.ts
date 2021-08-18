@@ -7,14 +7,15 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {Framework, Module} from '../'
 
 export class Config {
-  public target: Framework
+  public application: Framework
+
   public options: cosmiconfig.Options
 
   public constructor(
     app: Framework,
     searchPlaces: cosmiconfig.Options['searchPlaces'],
   ) {
-    this.target = app
+    this.application = app
 
     this.options = {
       searchPlaces,
@@ -27,7 +28,7 @@ export class Config {
   @bind
   public async get() {
     const res = await cosmiconfig
-      .cosmiconfig(this.target.name, this.options)
+      .cosmiconfig(this.application.name, this.options)
       .search()
 
     return res?.config ?? {}
@@ -40,16 +41,16 @@ export class Config {
     if (config.extensions) {
       config.extensions.map(mod => {
         const ext: Module = require(mod)
-        this.target.use(ext as any)
+        this.application.use(ext as any)
       })
     }
 
     Object.entries(config)
       .filter(([key]) => key !== 'extensions')
       .forEach(([key, value]) => {
-        this.target[key] && this.target[key](value)
+        this.application[key] && this.application[key](value)
       })
 
-    return this.target
+    return this.application
   }
 }

@@ -19,4 +19,4 @@ const extension = {
     options && options.getEntries().length > 0,
 }
 
-export default extension
+export const {name, options, make, when} = extension

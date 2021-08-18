@@ -1,0 +1,1 @@
+document.querySelector("body").innerHTML="\n  <div>\n    <h1>Built with the global compiler</h1>\n  </div>\n";

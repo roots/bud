@@ -11,7 +11,7 @@ import * as items from './items'
 import * as loaders from './loaders'
 import * as rules from './rules'
 
-export class Build extends Service implements Contract {
+class Build extends Service implements Contract {
   public name = 'build'
 
   public loaders: Framework.Loaders
@@ -69,3 +69,5 @@ export class Build extends Service implements Contract {
     return this._config
   }
 }
+
+export {Build}

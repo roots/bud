@@ -7,7 +7,7 @@ import {globby} from '@roots/bud-support'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
-import alias from './alias'
+import {alias} from './alias'
 import {assets} from './assets'
 import {config} from './config'
 import {define} from './define'
@@ -17,7 +17,7 @@ import {entry} from './entry'
 import {experiments} from './experiments'
 import {externals} from './externals'
 import {hash} from './hash'
-import minimize from './minimize'
+import {minimize} from './minimize'
 import {persist} from './persist'
 import {provide} from './provide'
 import {proxy} from './proxy'
@@ -31,66 +31,11 @@ import {use} from './use'
 import {watch} from './watch'
 
 interface Repository {
-  /**
-   * Register shorthand for resolving modules using webpack aliases.
-   *
-   * @remarks
-   * Useful for situations that may otherwise require brittle relative paths.
-   *
-   * @example
-   * ```js
-   * app.alias({
-   *   '@scripts': app.path('src', 'scripts'),
-   * })
-   * ```
-   */
-  alias: Repository.Alias
+  alias: alias
 
-  /**
-   * Copy static assets during compilation.
-   *
-   * @remarks
-   * You may specify paths with a string literal or glob pattern.
-   *
-   * @example
-   * Copy **src/images** to **dist/images**
-   *
-   * ```js
-   * app.assets(['src/images'])
-   * ```
-   */
-  assets: Repository.Assets
+  assets: assets
 
-  /**
-   * Modify the {@link Framework Framework} baseline config.
-   *
-   * @remarks
-   * Values defined in this function are more likely to be overwritten by {@link Framework Framework} hooks, etc.
-   * If there is a more direct way to make your change it is better to not use this function.
-   *
-   * Still, this function provides utility for certain use cases.
-   *
-   * @example
-   * ```js
-   * app.config({
-   *   theme: {
-   *     colors: {
-   *       foreground: '#FFFFFF',
-   *       faded: '#6C758F',
-   *       primary: '#545DD7',
-   *       primaryAlt: '#663399',
-   *       error: '#dc3545',
-   *       errorAlt: '#b22222',
-   *       warning: '#FF611A',
-   *       success: '#46D46A',
-   *       accent: '#ff69b4',
-   *       flavor: '#78C5D7',
-   *     },
-   *   },
-   * })
-   * ```
-   */
-  config: Repository.Config
+  config: config
 
   /**
    * Define application variables.
@@ -666,4 +611,4 @@ const Repository = {
   watch,
 }
 
-export default Repository
+export {Repository}

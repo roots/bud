@@ -1,7 +1,7 @@
 import {config, Framework} from '../../..'
 import Build from '../../Build'
-import Command from '../../Command'
-import Runner from '../../Runner'
+import {Command} from '../../Command'
+import {Runner} from '../../Runner'
 
 export default class Install extends Command {
   public static description =

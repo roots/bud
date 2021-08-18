@@ -43,6 +43,4 @@ const extension: Module = {
   },
 }
 
-export {extension as default, extension}
-
 export const {name, boot} = extension

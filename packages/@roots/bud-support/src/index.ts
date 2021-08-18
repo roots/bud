@@ -11,15 +11,18 @@ import * as json5 from 'json5'
 import * as Notifier from 'node-notifier'
 import * as React from 'react'
 
-import chalk from './external/chalk'
-import globby from './external/globby'
-import pkgUp from './external/pkg-up'
-import toml from './external/toml'
-import yaml from './external/yaml'
+import {chalk} from './external/chalk'
+import * as globby from './external/globby'
+import {pkgUp} from './external/pkg-up'
+import {toml} from './external/toml'
+import {yaml} from './external/yaml'
+import {dump} from './util/dump'
+import {killPort} from './util/killPort'
+import * as wpPkgs from './util/wordpressPkgs'
 
-export {dump} from './util/dump'
-export {killPort} from './util/killPort'
-export * as wpPkgs from './util/wordpressPkgs'
+export {dump}
+export {killPort}
+export {wpPkgs}
 
 export {dotenv}
 export {dotenvExpand}

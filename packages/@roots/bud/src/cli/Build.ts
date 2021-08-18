@@ -1,8 +1,8 @@
 import {flags} from '@oclif/command'
 
 import {Framework} from '..'
-import Command from './Command'
-import Runner from './Runner'
+import {Command} from './Command'
+import {Runner} from './Runner'
 
 export default class Build extends Command {
   public static description = 'Build application'

@@ -3,10 +3,10 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
 import {config} from '../../config'
-import factory from '../../Factory'
+import {Factory} from '../../Factory'
 import {Config} from '../Config'
 
-export default class Runner {
+class Runner {
   public app: Framework
 
   public cli: any
@@ -16,7 +16,7 @@ export default class Runner {
   public constructor(cli, options) {
     this.cli = cli
 
-    this.app = factory({
+    this.app = Factory({
       mode: this.mode ?? 'production',
       ...(options ?? {}),
       config: {
@@ -125,3 +125,5 @@ export default class Runner {
     ]).apply()
   }
 }
+
+export {Runner}

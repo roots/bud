@@ -1,3 +1,1 @@
-import {run} from '@oclif/command'
-
-export {run}
+export {run} from '@oclif/command'

@@ -26,5 +26,4 @@ const extension: Module = {
   },
 }
 
-export default extension
 export const {name, register} = extension

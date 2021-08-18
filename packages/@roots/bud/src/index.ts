@@ -60,6 +60,13 @@
  * @packageDocumentation
  */
 
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {
+  Framework,
+  Module,
+  WebpackPlugin,
+} from '@roots/bud-framework'
+
 declare module '@roots/bud-framework' {
   namespace Framework {
     /**
@@ -131,29 +138,11 @@ declare module '@roots/bud-framework' {
   }
 }
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {
-  Framework,
-  Module,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+export {Item, Loader, Rule}
+export {Framework, Module, WebpackPlugin}
 
-import {Bud} from './Bud'
-import extensions from './Bud/extensions'
-import services from './Bud/services'
-import {config, Configuration} from './config'
-import factory from './Factory'
-
-export {Bud}
-export {config, factory}
-export {extensions, services}
-
-export {
-  Configuration,
-  Framework,
-  Module,
-  Item,
-  Rule,
-  Loader,
-  WebpackPlugin,
-}
+export {Bud} from './Bud'
+export {extensions} from './Bud/extensions'
+export {services} from './Bud/services'
+export {config} from './config'
+export {Factory, Factory as factory} from './Factory'

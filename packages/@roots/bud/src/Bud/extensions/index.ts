@@ -8,8 +8,8 @@ import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
 import * as DefineWebpackPlugin from './webpack-define-plugin'
 import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
-import WebpackManifestPlugin from './webpack-manifest-plugin'
-import WebpackProvidePlugin from './webpack-provide-plugin'
+import * as WebpackManifestPlugin from './webpack-manifest-plugin'
+import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
 const extensions: Framework.Extensions = {
   ['webpack-provide-plugin']: WebpackProvidePlugin,
@@ -25,4 +25,4 @@ const extensions: Framework.Extensions = {
   ['mini-css-extract-plugin']: MiniCssExtractPlugin,
 }
 
-export default extensions
+export {extensions}

@@ -9,45 +9,17 @@
  * @packageDocumentation
  */
 
-export {Framework} from './Framework'
-
-export {Module} from './Module'
-
-export {WebpackPlugin} from './WebpackPlugin'
-
-export {Service} from './Service'
-
-export {Api} from './Api'
-
 export {Bootstrapper} from './Bootstrapper'
-
-export {Build} from './Build'
-
-export {Cache} from './Cache'
-
-export {Compiler} from './Compiler'
-
-export {Configuration} from './Configuration'
-
-export {Dashboard} from './Dashboard'
-
-export {Dependencies} from './Dependencies'
 
 export {Discovery} from './Discovery'
 
 export {Extension} from './Extension'
 
-export {Env} from './Env'
+export {Framework} from './Framework'
+
+export {Service} from './Service'
 
 export {Store} from './Store'
-
-export {Extensions} from './Extensions'
-
-export {Hooks} from './Hooks'
-
-export {Logger} from './Logger'
-
-export {Server} from './Server'
 
 export {access} from './Framework/access'
 
@@ -72,3 +44,31 @@ export {sequence} from './Framework/sequence'
 export {tap} from './Framework/tap'
 
 export {when} from './Framework/when'
+
+export type {Api} from './Api'
+
+export type {Build} from './Build'
+
+export type {Cache} from './Cache'
+
+export type {Compiler} from './Compiler'
+
+export type {Configuration} from './Configuration'
+
+export type {Dashboard} from './Dashboard'
+
+export type {Dependencies} from './Dependencies'
+
+export type {Env} from './Env'
+
+export type {Extensions} from './Extensions'
+
+export type {Hooks} from './Hooks'
+
+export type {Logger} from './Logger'
+
+export type {Module} from './Module'
+
+export type {Server} from './Server'
+
+export type {WebpackPlugin} from './WebpackPlugin'

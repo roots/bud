@@ -1,9 +1,10 @@
 /**
- * @module @roots/bud-hooks
+ * `@roots/bud` is a frontend build framework combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @remarks
+ * The `@roots/bud-hooks` package implements the {@link Hooks Hooks Service}
+ *
+ * @packageDocumentation
  */
 
-/**
- * @exports default
- * @exports Hooks
- */
-export {Hooks, Hooks as default} from './Hooks'
+export {Hooks} from './Hooks'

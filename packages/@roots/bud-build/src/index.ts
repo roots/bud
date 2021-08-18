@@ -1,3 +1,12 @@
+/**
+ * ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @remarks
+ * The `@roots/bud-build` package implements the {@link Build Build Service}
+ *
+ * @packageDocumentation
+ */
+
 export {Build} from './Build'
 export {config} from './Build/config'
 

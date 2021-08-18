@@ -1,7 +1,7 @@
 import type {Build} from '@roots/bud-framework'
 
-import PostCssConfig from './Config'
-import postcss from './postcss'
+import {BudPostCssExtension} from './BudPostCssExtension'
+import {PostCssConfig} from './Config'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -13,7 +13,7 @@ declare module '@roots/bud-framework' {
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-postcss': postcss
+      '@roots/bud-postcss': BudPostCssExtension
     }
 
     namespace Hooks {
@@ -28,6 +28,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default postcss
-export const {name, api, boot} = postcss
+export const {name, api, boot} = BudPostCssExtension
 export {PostCssConfig}

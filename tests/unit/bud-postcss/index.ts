@@ -1,5 +1,5 @@
 import {config, factory, Framework} from '@roots/bud'
-import postcss, {PostCssConfig} from '@roots/bud-postcss'
+import * as BudPostCssExtension from '@roots/bud-postcss'
 
 describe('@roots/bud-postcss', () => {
   let bud: Framework
@@ -22,7 +22,7 @@ describe('@roots/bud-postcss', () => {
 
   beforeAll(() => {
     bud = factory({config: {...config, ci: true}})
-    bud.use([postcss])
+    bud.use([BudPostCssExtension])
     bud.postcss.setPlugins(mock.plugins as any)
   })
 
@@ -31,19 +31,21 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('has @roots/bud-postcss name', () => {
-    expect(postcss.name).toBe('@roots/bud-postcss')
+    expect(BudPostCssExtension.name).toBe('@roots/bud-postcss')
   })
 
   it('exports a boot method', () => {
-    expect(postcss.boot).toBeInstanceOf(Function)
+    expect(BudPostCssExtension.boot).toBeInstanceOf(Function)
   })
 
   it('exports api', () => {
-    expect(postcss.api.postcss).toBeInstanceOf(PostCssConfig)
+    expect(BudPostCssExtension.api.postcss).toBeInstanceOf(
+      BudPostCssExtension.PostCssConfig,
+    )
   })
 
   it('exports and registers a bud extension', () => {
-    expect(postcss).toEqual(
+    expect(BudPostCssExtension).toEqual(
       bud.extensions.get('@roots/bud-postcss').module,
     )
   })

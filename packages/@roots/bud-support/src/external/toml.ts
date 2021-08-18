@@ -1,3 +1,3 @@
 import * as toml from 'toml'
 
-export default toml
+export {toml}

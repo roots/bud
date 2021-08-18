@@ -1,8 +1,9 @@
 **/node_modules
-**/dist
-**/.budfiles
-**/.bud
 **/composer.lock
 **/yarn.lock
 **/vendor
 **/package.ref
+
+/*/.budfiles/**
+!/*/.budfiles/*-modules.json
+!/*/.budfiles/*.webpack.config.js

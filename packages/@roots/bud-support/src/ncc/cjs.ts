@@ -2,7 +2,7 @@ import * as ncc from '@vercel/ncc'
 import {ensureDir, outputFile} from 'fs-extra'
 import * as path from 'path'
 
-import options from './options'
+import {nccOptions} from './options'
 
 const build = async (): Promise<void> => {
   const source = path.join(__dirname, `../index.ts`)
@@ -16,7 +16,7 @@ const build = async (): Promise<void> => {
   /**
    * Compile with ncc and output to lib/cjs
    */
-  const {code} = await ncc(source, options)
+  const {code} = await ncc(source, nccOptions)
   await outputFile(
     output,
     code.replaceAll(/require\("node:(.*)"\)/g, 'require("$1")'),

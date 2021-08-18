@@ -5,10 +5,14 @@ import {Framework} from '@roots/bud-framework'
  *
  * @sealed
  */
-class Bud extends Framework {
+interface Bud extends Framework {
   /**
    * Concrete implementation of the {@link Framework Framework interface}
    */
+  implementation: Framework.Constructor
+}
+
+class Bud extends Framework {
   public implementation: Framework.Constructor
 
   /**

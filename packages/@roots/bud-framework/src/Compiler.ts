@@ -10,9 +10,7 @@ import {
 import {Service} from './'
 
 /**
- * {@link Service Service}: compiles {@link Framework.build} configuration and reports on stats, progress, and errors.
- *
- * @noInheritDoc
+ * Compiles {@link Framework.build} configuration and reports on stats, progress, and errors.
  */
 interface Compiler extends Service {
   /**

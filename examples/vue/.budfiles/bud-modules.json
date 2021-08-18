@@ -1,0 +1,76 @@
+{
+  "chunks": {
+    "byName": {
+      "app": 143
+    },
+    "bySource": {
+      "0 app": 286,
+      "1 app": 143
+    },
+    "usedIds": [
+      143,
+      286
+    ]
+  },
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue?vue&type=style&index=0&id=16d27da8&lang=css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue?vue&type=style&index=0&id=16d27da8&lang=css": 816,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          609,
+          816
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../packages/@roots/bud-vue/node_modules/vue-loader/dist/stylePostLoader.js!../../packages/@roots/bud-vue/node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue?vue&type=style&index=0&id=16d27da8&lang=css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../packages/@roots/bud-vue/node_modules/vue-loader/dist/stylePostLoader.js!../../packages/@roots/bud-vue/node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue?vue&type=style&index=0&id=16d27da8&lang=css": 1,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          1,
+          609
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "../../node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js|624b0322e348f93adf68274138cacded": 286,
+      "../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue|1e5fa04f236e18307354c47af6e8bbf7": 492,
+      "../../packages/@roots/bud-vue/node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue|5599d11b8554011f1b16ee957f0da3dd": 252
+    },
+    "usedIds": [
+      286,
+      492
+    ]
+  }
+}

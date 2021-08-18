@@ -1,8 +1,8 @@
 import {flags} from '@oclif/command'
 
 import {config, Framework} from '../../..'
-import Command from '../../Command'
-import Runner from '../../Runner'
+import {Command} from '../../Command'
+import {Runner} from '../../Runner'
 
 export default class Doctor extends Command {
   public static description = 'Help diagnose issues with Bud'

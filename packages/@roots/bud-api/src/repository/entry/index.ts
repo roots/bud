@@ -2,7 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import {globby} from '@roots/bud-support'
 import {isArray, isString} from 'lodash'
 
-import type Repository from '../'
+import type {Repository} from '../'
 
 const entry: Repository.Entry = function (...args) {
   /**

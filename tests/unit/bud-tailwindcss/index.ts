@@ -1,6 +1,6 @@
 import {config, factory} from '@roots/bud'
-import postcss from '@roots/bud-postcss'
-import * as tailwindcss from '@roots/bud-tailwindcss'
+import * as BudPostCssExtension from '@roots/bud-postcss'
+import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 process.env.BUD_KEEP_ALIVE = 'true'
 
@@ -17,7 +17,7 @@ describe('@roots/bud-tailwindcss', () => {
       tailwindcss: '*',
     })
 
-    bud.use([postcss, tailwindcss])
+    bud.use([BudPostCssExtension, BudTailwindCssExtension])
   })
 
   afterAll(done => {
@@ -25,11 +25,15 @@ describe('@roots/bud-tailwindcss', () => {
   })
 
   it('has name prop', () => {
-    expect(tailwindcss.name).toBe('@roots/bud-tailwindcss')
+    expect(BudTailwindCssExtension.name).toBe(
+      '@roots/bud-tailwindcss',
+    )
   })
 
   it('has an api prop', () => {
-    expect(tailwindcss.api.tailwind).toBeInstanceOf(Function)
+    expect(BudTailwindCssExtension.api.tailwind).toBeInstanceOf(
+      Function,
+    )
   })
 
   it('sets up postcss plugins', () => {

@@ -1,0 +1,77 @@
+{
+  "chunks": {
+    "byName": {
+      "app": 143
+    },
+    "bySource": {
+      "0 app": 143
+    },
+    "usedIds": [
+      143
+    ]
+  },
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/foo.css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/foo.css": 803,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          609,
+          803
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/global.css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/global.css": 89,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          89,
+          609
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./src/app.js": 344,
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./src/demo.js": 755,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].oneOf[9].use[0]!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/foo.css": 615,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].oneOf[9].use[0]!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!./src/global.css": 968
+    },
+    "usedIds": [
+      344,
+      615,
+      755,
+      968
+    ]
+  }
+}

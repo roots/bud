@@ -1,6 +1,6 @@
 import {config, factory, Framework} from '@roots/bud'
-import babel from '@roots/bud-babel'
-import react from '@roots/bud-react'
+import * as BudBabel from '@roots/bud-babel'
+import * as BudReact from '@roots/bud-react'
 
 describe('@roots/bud-react', () => {
   let bud: Framework = null
@@ -25,7 +25,7 @@ describe('@roots/bud-react', () => {
       .set('devDependencies', mock.devDependencies)
       .set('dependencies', mock.dependencies)
 
-    bud.use([babel, react])
+    bud.use([BudBabel, BudReact])
   })
 
   afterAll(done => {
@@ -33,7 +33,7 @@ describe('@roots/bud-react', () => {
   })
 
   it('has name prop', () => {
-    expect(react.name).toBe('@roots/bud-react')
+    expect(BudReact.name).toBe('@roots/bud-react')
   })
 
   it('sets up babel plugin', () => {

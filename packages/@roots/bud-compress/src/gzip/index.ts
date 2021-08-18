@@ -35,5 +35,4 @@ const extension: Framework.Compress.Extension = {
   },
 }
 
-export default extension
 export const {name, options, make, api} = extension

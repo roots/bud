@@ -1,17 +1,16 @@
 import {config, factory, Framework} from '@roots/bud'
-import DefaultImportBabel from '@roots/bud-babel'
-import * as StarBabel from '@roots/bud-babel'
+import * as BudBabelExtension from '@roots/bud-babel'
 
 const RequiredBabel = require('@roots/bud-babel')
 
 describe('@roots/bud-babel', function () {
-  let Config: StarBabel.Config
+  let Config: BudBabelExtension.Config
 
   let bud: Framework
 
   beforeAll(() => {
     bud = factory({config: {...config, ci: true}})
-    Config = new StarBabel.Config(bud)
+    Config = new BudBabelExtension.Config(bud)
   })
 
   afterAll(done => {
@@ -25,15 +24,9 @@ describe('@roots/bud-babel', function () {
   })
 
   it('works with default import', () => {
-    expect(Object.keys(DefaultImportBabel)).toContain('name')
-    expect(Object.keys(DefaultImportBabel)).toContain('register')
-    expect(Object.keys(DefaultImportBabel)).toContain('boot')
-  })
-
-  it('works with star import', () => {
-    expect(Object.keys(StarBabel)).toContain('name')
-    expect(Object.keys(StarBabel)).toContain('register')
-    expect(Object.keys(StarBabel)).toContain('boot')
+    expect(Object.keys(BudBabelExtension)).toContain('name')
+    expect(Object.keys(BudBabelExtension)).toContain('register')
+    expect(Object.keys(BudBabelExtension)).toContain('boot')
   })
 
   it('config class has a setPlugins', () => {
@@ -61,7 +54,7 @@ describe('@roots/bud-babel', function () {
   })
 
   it('has expected default plugins', () => {
-    expect(StarBabel.DEFAULT_PLUGINS).toEqual([
+    expect(BudBabelExtension.DEFAULT_PLUGINS).toEqual([
       ['@babel/plugin-transform-runtime', {helpers: false}],
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-syntax-dynamic-import',
@@ -70,7 +63,7 @@ describe('@roots/bud-babel', function () {
   })
 
   it('has correctly interpreted default plugins', () => {
-    Config.setPlugins(StarBabel.DEFAULT_PLUGINS)
+    Config.setPlugins(BudBabelExtension.DEFAULT_PLUGINS)
 
     expect(Config.plugins).toEqual({
       '@babel/plugin-transform-runtime': [
@@ -93,13 +86,13 @@ describe('@roots/bud-babel', function () {
   })
 
   it('has expected default presets', () => {
-    expect(StarBabel.DEFAULT_PRESETS).toEqual([
+    expect(BudBabelExtension.DEFAULT_PRESETS).toEqual([
       '@babel/preset-env',
     ])
   })
 
   it('has correctly interpreted default plugins', () => {
-    Config.setPresets(StarBabel.DEFAULT_PRESETS)
+    Config.setPresets(BudBabelExtension.DEFAULT_PRESETS)
 
     expect(Config.presets).toEqual({
       '@babel/preset-env': ['@babel/preset-env', {}],

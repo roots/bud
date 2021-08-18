@@ -15,11 +15,16 @@ const INITIAL_STATS = {
 /**
  * Webpack compilation controller
  */
-class Compiler extends Service implements Contract {
+interface Compiler extends Contract {}
+
+class Compiler extends Service {
+  /**
+   * {@link Service} name
+   */
   public name = 'compiler'
 
   /**
-   * {@link Webpack Webpack} instance
+   * {@link Webpack} instance
    */
   public instance: Contract.Instance
 

@@ -4,7 +4,7 @@
 
 import type {Configuration} from 'webpack'
 
-import type Repository from '../'
+import type {Repository} from '../'
 
 /**
  * @function externals

@@ -2,8 +2,8 @@ import {flags} from '@oclif/command'
 import {remove} from 'fs-extra'
 
 import {config, Framework} from '..'
-import Command from './Command'
-import Runner from './Runner'
+import {Command} from './Command'
+import {Runner} from './Runner'
 
 export default class Clean extends Command {
   public app: Framework

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel snapshots .budfiles/bud.webpack.config.js 1`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "app.js",
+      "demo.js",
+      "foo.css",
+      "global.css",
+    ],
+  },
+}
+`;
+
+exports[`babel snapshots .budfiles/bud.webpack.config.js 2`] = `"production"`;
+
+exports[`babel snapshots .budfiles/bud.webpack.config.js 3`] = `
+Object {
+  "minimize": true,
+  "minimizer": Array [
+    "...",
+    Object {
+      "options": Object {
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+    Object {
+      "options": Object {
+        "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+  ],
+  "moduleIds": "deterministic",
+  "splitChunks": Object {
+    "cacheGroups": Object {
+      "vendor": Object {
+        "chunks": "all",
+        "filename": "vendor/[name].js",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
+      },
+    },
+    "defaultSizeTypes": Array [
+      "...",
+    ],
+  },
+}
+`;
+
+exports[`babel snapshots .budfiles/bud.webpack.config.js 4`] = `true`;
+
+exports[`babel snapshots .budfiles/bud.webpack.config.js 5`] = `
+Object {
+  "type": "memory",
+}
+`;
+
+exports[`babel snapshots dist/app.css 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+
+exports[`babel snapshots dist/app.js 1`] = `"(()=>{var e={344:(e,r,o)=>{\\"use strict\\";o(755),document.querySelector(\\"body\\").innerHTML=\\"\\\\n  <div>\\\\n    <h1>Hello from babel!</h1>\\\\n  </div>\\\\n\\"},755:()=>{[\\"fancy\\",\\"ecma\\"].map((function(e){console.log(e)}))},615:()=>{},968:()=>{}},r={};function o(n){var t=r[n];if(void 0!==t)return t.exports;var a=r[n]={exports:{}};return e[n](a,a.exports,o),a.exports}o.n=e=>{var r=e&&e.__esModule?()=>e.default:()=>e;return o.d(r,{a:r}),r},o.d=(e,r)=>{for(var n in r)o.o(r,n)&&!o.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:r[n]})},o.o=(e,r)=>Object.prototype.hasOwnProperty.call(e,r),o(344),o(755),o(615),o(968)})();"`;
+
+exports[`babel snapshots dist/manifest.json 1`] = `
+"{
+  \\"app.css\\": \\"app.css\\",
+  \\"app.js\\": \\"app.js\\"
+}"
+`;

@@ -23,10 +23,6 @@ class Hooks extends Service implements Contract {
     return this
   }
 
-  /**
-   * @method on
-   * {@link Contract.on}
-   */
   @bind
   public on(
     id: Contract.Name,

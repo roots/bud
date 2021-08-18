@@ -1,4 +1,4 @@
-import type Repository from '../'
+import type {Repository} from '../'
 
 export const run: Repository.Run = function (): void {
   this.dashboard.run()

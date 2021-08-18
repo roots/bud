@@ -25,8 +25,6 @@ import {Framework} from './Framework'
  * - {@link Service.booted booted} is called after all {@link Service.boot} callbacks are complete.
  *
  * @typeParam T - Container repository typing, if applicable
- *
- * @noInheritDoc
  */
 abstract class Service<
   T = {[key: string]: any},

@@ -22,4 +22,4 @@ const extension = {
   when: app => app.store.isTrue('manifest'),
 }
 
-export default extension
+export const {name, options, make, when} = extension

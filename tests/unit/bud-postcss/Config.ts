@@ -1,5 +1,5 @@
 import {config, factory, Framework} from '@roots/bud'
-import postcss from '@roots/bud-postcss'
+import * as BudPostCssExtension from '@roots/bud-postcss'
 
 describe('bud.postcss', () => {
   let bud: Framework
@@ -9,7 +9,7 @@ describe('bud.postcss', () => {
       mode: 'development',
       config: {...config, ci: true},
     })
-    bud.use(postcss)
+    bud.use(BudPostCssExtension)
   })
 
   afterAll(done => {

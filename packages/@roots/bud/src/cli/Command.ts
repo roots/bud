@@ -10,4 +10,4 @@ abstract class Command extends Base {
   }
 }
 
-export default Command
+export {Command}

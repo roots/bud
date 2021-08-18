@@ -1,0 +1,94 @@
+{
+  "HtmlWebpackCompiler": [
+    {
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0-0": 563
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0-0": 563
+        },
+        "usedIds": [
+          563
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/html-webpack-plugin/lib/loader.js!../../node_modules/html-loader/dist/cjs.js!./public/index.html": 672,
+          "javascript/esm|data:text/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;": 163
+        },
+        "usedIds": [
+          163,
+          672
+        ]
+      }
+    }
+  ],
+  "chunks": {
+    "byName": {
+      "app": 143,
+      "runtime": 666
+    },
+    "bySource": {
+      "0 app": 666,
+      "1 app": 316,
+      "2 app": 143
+    },
+    "usedIds": [
+      143,
+      316,
+      666
+    ]
+  },
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./src/app.css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./src/app.css": 896,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          609,
+          896
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./src/app.js|481ec15e9e0d9c73c186fedc00bfce57": 198,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].oneOf[9].use[0]!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./src/app.css": 503,
+      "../../node_modules/object-assign/index.js": 320,
+      "../../node_modules/react-dom/cjs/react-dom.production.min.js": 967,
+      "../../node_modules/react-dom/index.js": 316,
+      "../../node_modules/react/cjs/react.production.min.js": 426,
+      "../../node_modules/react/index.js": 784,
+      "../../node_modules/scheduler/cjs/scheduler.production.min.js": 475,
+      "../../node_modules/scheduler/index.js": 616,
+      "asset/resource|./src/components/logo.svg": 798
+    },
+    "usedIds": [
+      198,
+      316,
+      320,
+      426,
+      475,
+      503,
+      616,
+      784,
+      798,
+      967
+    ]
+  }
+}

@@ -1,10 +1,12 @@
 import {Service} from '@roots/bud-framework'
 
-import Repository from './repository'
+import {Repository} from './repository'
 
-/**
- * Provides macros/facades for assisting with common config tasks.
- */
+interface Api extends Service<Repository> {
+  repository: Repository
+  bootstrap(): void
+}
+
 class Api extends Service<Repository> {
   public name = 'api'
 

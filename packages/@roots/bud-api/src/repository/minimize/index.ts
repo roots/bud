@@ -1,4 +1,4 @@
-import type Repository from '../'
+import type {Repository} from '../'
 
 const minimize: Repository.Minimize = function (enabled = true) {
   this.hooks.on('build/optimization/minimize', () => enabled)
@@ -6,4 +6,4 @@ const minimize: Repository.Minimize = function (enabled = true) {
   return this
 }
 
-export default minimize
+export {minimize}

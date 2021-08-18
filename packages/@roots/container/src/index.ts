@@ -7,5 +7,3 @@
 import {Container, Repository} from './Container'
 
 export {Container, Repository}
-
-export default Container

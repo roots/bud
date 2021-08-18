@@ -1,7 +1,10 @@
 /**
- * @module @roots/bud-compiler
+ * `@roots/bud` is a frontend build framework combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @remarks
+ * The `@roots/bud-compiler` package implements the {@link Compiler Compiler Service}
+ *
+ * @packageDocumentation
  */
 
-import {Compiler} from './Compiler'
-
-export {Compiler as default, Compiler}
+export {Compiler} from './Compiler'

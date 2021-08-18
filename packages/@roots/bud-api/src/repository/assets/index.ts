@@ -1,9 +1,25 @@
+import type {Framework} from '@roots/bud-framework'
 import {globby} from '@roots/bud-support'
 import {CopyPluginOptions} from 'copy-webpack-plugin'
 
-import type Repository from '..'
+/**
+ * Copy static assets during compilation.
+ *
+ * @remarks
+ * You may specify paths with a string literal or glob pattern.
+ *
+ * @example
+ * Copy **src/images** to **dist/images**
+ *
+ * ```js
+ * app.assets(['src/images'])
+ * ```
+ */
+interface assets {
+  (this: Framework, from: string[]): Framework
+}
 
-const assets: Repository.Assets = function (paths) {
+function assets(this: Framework, paths: string[]): Framework {
   globby.globbySync(paths).map((from: string) => {
     const dirName = from.split('/')[from.split('/').length - 2]
 

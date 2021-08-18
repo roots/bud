@@ -8,12 +8,12 @@ import {Dashboard} from './Dashboard'
 import {Dependencies} from './Dependencies'
 import {Discovery} from './Discovery'
 import {Env} from './Env'
-import Extensions from './Extensions'
+import {Extensions} from './Extensions'
 import {Hooks} from './Hooks'
 import {Logger} from './Logger'
 import {Server} from './Server'
 
-const Services: Framework.Services = {
+const services: Framework.Services = {
   api: Api,
   build: Build,
   cache: Cache,
@@ -28,4 +28,4 @@ const Services: Framework.Services = {
   server: Server,
 }
 
-export default Services
+export {services}

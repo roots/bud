@@ -1,11 +1,5 @@
-import type {Framework, Module} from '@roots/bud-framework'
-
-import config from './config'
-
-interface extension extends Module {
-  boot: (app: Framework) => void
-  api: {tailwind: config}
-}
+import {BudTailwindCssExtension} from './BudTailwindCssExtension'
+import {tailwindConfig} from './tailwindConfig'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -23,22 +17,17 @@ declare module '@roots/bud-framework' {
      *     // etc
      *   }
      * })
+     * ```
      */
-    tailwind: config
+    tailwind: tailwindConfig
   }
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-tailwindcss': extension
+      '@roots/bud-tailwindcss': BudTailwindCssExtension
     }
   }
 }
 
-const extension: extension = {
-  name: '@roots/bud-tailwindcss',
-  api: {tailwind: config},
-  boot: app => app.tailwind(),
-}
-
-export const {name, api, boot} = extension
-export default extension
+export {tailwindConfig}
+export const {name, api, boot} = BudTailwindCssExtension

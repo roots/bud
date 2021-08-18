@@ -1,6 +1,6 @@
 import type {DefinePlugin} from 'webpack'
 
-import type Repository from '../'
+import type {Repository} from '../'
 
 const define: Repository.Define = function (values) {
   this.hooks.on(

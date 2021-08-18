@@ -1,4 +1,4 @@
-import type Repository from '..'
+import type {Repository} from '..'
 
 const persist: Repository.Persist = function (enabled = true) {
   this.hooks

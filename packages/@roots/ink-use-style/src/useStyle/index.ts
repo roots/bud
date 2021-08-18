@@ -1,10 +1,52 @@
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
-import {ComponentState, useEffect, useState} from 'react'
+import type {ComponentState} from 'react'
+import {useEffect, useState} from 'react'
 
+import type {Theme} from '..'
 import {defaultTheme} from '../themes'
-import type {Styles, Theme, UseStyle} from '../typings'
 
-const useStyle: UseStyle = (initialData = defaultTheme) => {
+/**
+ * useStyle hook
+ *
+ * @returns {Styles}
+ */
+interface useStyle {
+  (themeProps?: Theme): Styles
+}
+
+/**
+ * Return value
+ */
+interface Styles {
+  /**
+   * Spacing value (total character width)
+   */
+  spacing: number
+
+  /**
+   * Maximum width and height of display area
+   */
+  bounds: {
+    /**
+     * Maximum width
+     */
+    width: number
+
+    /**
+     * Maximum height
+     */
+    height: number
+  }
+
+  screen: number
+  colors: {[key: string]: string}
+  ctx: (screens: Array<any>) => any
+  col: (count: number) => number
+  setColors: (colors: Theme['colors']) => void
+  setScreens: (screens: Theme['screens']) => void
+}
+
+const useStyle: useStyle = (initialData = defaultTheme) => {
   /**
    * Theme values
    */
@@ -120,7 +162,5 @@ const useStyle: UseStyle = (initialData = defaultTheme) => {
   }
 }
 
-/**
- * @exports useStyle
- */
 export {useStyle}
+export type {Styles}

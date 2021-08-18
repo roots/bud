@@ -1,13 +1,23 @@
-/**
- * @module Bud
- */
+import {Configuration as BaseConfig} from '@roots/bud-framework'
 
-import type {Configuration} from '@roots/bud-framework'
+interface config extends BaseConfig {}
 
-export type {Configuration}
-
-const config: Configuration = {
+const config: config = {
   name: 'bud',
+
+  ci: false,
+  clean: true,
+  debug: true,
+  discover: false,
+  hash: false,
+  html: false,
+  install: false,
+  log: false,
+  manifest: true,
+  minimize: true,
+
+  fileFormat: '[name]',
+  hashFormat: '[name].[contenthash:6]',
 
   patterns: {
     js: /\.(js|jsx)$/,
@@ -39,20 +49,6 @@ const config: Configuration = {
     publicPath: '',
     storage: '.budfiles',
   },
-
-  ci: false,
-  clean: true,
-  debug: true,
-  discover: false,
-  hash: false,
-  html: false,
-  install: false,
-  log: false,
-  manifest: true,
-  minimize: true,
-
-  fileFormat: '[name]',
-  hashFormat: '[name].[contenthash:6]',
 
   build: {
     bail: true,
@@ -106,6 +102,7 @@ const config: Configuration = {
     },
     stats: {},
   },
+
   extension: {
     cleanWebpackPlugin: {
       cleanStaleWebpackAssets: true,
@@ -152,6 +149,7 @@ const config: Configuration = {
     },
     webpackProvidePlugin: {},
   },
+
   server: {
     watch: {
       files: [],
@@ -175,6 +173,7 @@ const config: Configuration = {
     port: 3000,
     methods: ['GET', 'HEAD'],
   },
+
   theme: {
     spacing: 1,
     colors: {

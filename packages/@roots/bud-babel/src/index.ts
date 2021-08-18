@@ -1,30 +1,26 @@
+/**
+ * ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @remarks
+ * Adds babel support via the {@link BudBabelExtension}
+ *
+ * @packageDocumentation
+ */
+
 import type {Build} from '@roots/bud-framework'
 
-import {Babel} from './Babel'
+import {BudBabelExtension} from './BudBabelExtension'
 import {Config} from './Config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './constants'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * Configure babel.
-     *
-     * @usage
-     * ```js
-     * app.babel.setPlugins([
-     *  ['@babel/plugin-transform-runtime', {helpers: false}],
-     *  '@babel/plugin-proposal-object-rest-spread',
-     *  '@babel/plugin-syntax-dynamic-import',
-     *  '@babel/plugin-proposal-class-properties',
-     * ])
-     * ```
-     */
     babel: Config
   }
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-babel': Babel
+      '@roots/bud-babel': BudBabelExtension
     }
 
     interface Loaders {
@@ -37,8 +33,8 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, register, boot} = Babel
 export {Config}
+
 export {DEFAULT_PLUGINS, DEFAULT_PRESETS}
 
-export default Babel
+export const {name, register, boot} = BudBabelExtension

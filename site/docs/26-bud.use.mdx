@@ -1,0 +1,48 @@
+---
+slug: bud.use
+title: bud.use
+description: Register an extension or set of extensions
+sidebar_label: bud.use
+image: 'https://budjs.netlify.app/img/share/docs/bud.use.png'
+---
+
+Register an extension or set of extensions
+
+## Usage
+Add packaged bud extensions:
+
+```js
+bud.use([
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
+])
+```
+
+Add an extension inline (also works with an array of extensions):
+
+```js
+bud.use({
+  name: 'my-webpack-plugin',
+  make: () => new MyWebpackPlugin(),
+})
+```
+
+Add a webpack plugin inline (also work with an array of plugins):
+
+```js
+bud.use(new MyWebpackPlugin())
+```
+
+## Signature
+
+```ts title='@roots/bud-api/types/repository/index.d.ts'
+namespace Repository {
+  interface Use {
+    (this: Framework, source: Use.Input): Framework
+  }
+
+  namespace Use {
+    type Input = Module | Module[]
+  }
+}
+```

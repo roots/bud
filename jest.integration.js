@@ -55,13 +55,18 @@ const post = async paths => {
 const jest = async suite => {
   logger.scope(suite).time('run')
 
-  const res = execa('yarn', [
+  const cmdSegments = [
     'jest',
     `tests/integration/${suite}`,
     '--verbose',
     '--useStderr',
     '--runInBand',
-  ])
+  ]
+  if (process.argv.includes('--updateSnapshot')) {
+    cmdSegments.push('--updateSnapshot')
+  }
+
+  const res = execa('yarn', cmdSegments)
 
   await res
 

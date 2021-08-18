@@ -30,5 +30,4 @@ const esbuild: Module = {
   }),
 }
 
-export default esbuild
 export const {name, boot, api} = esbuild

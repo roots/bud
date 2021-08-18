@@ -1,7 +1,7 @@
 import {config, factory, Framework} from '@roots/bud'
-import babel from '@roots/bud-babel'
-import emotion from '@roots/bud-emotion'
-import react from '@roots/bud-react'
+import * as BudBabel from '@roots/bud-babel'
+import * as BudEmotion from '@roots/bud-emotion'
+import * as BudReact from '@roots/bud-react'
 
 describe('@roots/bud-emotion', () => {
   describe('settings', () => {
@@ -35,11 +35,11 @@ describe('@roots/bud-emotion', () => {
           'react-dom': '^17.0.2',
         })
 
-      bud.use([babel, react, emotion])
+      bud.use([BudBabel, BudReact, BudEmotion])
     })
 
     it('has name prop', () => {
-      expect(emotion.name).toBe('@roots/bud-emotion')
+      expect(BudEmotion.name).toBe('@roots/bud-emotion')
     })
 
     it('sets up babel plugin', () => {

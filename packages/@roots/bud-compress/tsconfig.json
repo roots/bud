@@ -5,6 +5,9 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "@roots/bud-api",
+    ]
   },
   "include": [
     "src"

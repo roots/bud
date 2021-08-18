@@ -3038,6 +3038,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-compress@workspace:packages/@roots/bud-compress"
   dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": 15.14.1
