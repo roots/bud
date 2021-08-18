@@ -419,5 +419,6 @@
         "url": "https://motto.ca/roots"
       }
     ]
-  }
+  },
+  "packageManager": "yarn@3.0.1"
 }
