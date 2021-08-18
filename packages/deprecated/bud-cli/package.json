@@ -98,7 +98,7 @@
     "prettier": "2.3.2",
     "pretty-format": "27.0.6",
     "serialize-javascript": "6.0.0",
-    "tslib": "2.3.0"
+    "tslib": "2.3.1"
   },
   "stableVersion": "4.6.0"
 }
