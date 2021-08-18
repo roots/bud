@@ -3089,7 +3089,7 @@ __metadata:
     "@easyops-cn/docusaurus-search-local": 0.19.1
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
-    "@tsconfig/docusaurus": 1.0.3
+    "@tsconfig/docusaurus": 1.0.4
     "@types/node": 16.4.13
     "@types/react": 17.0.17
     "@types/react-dom": 17.0.9
@@ -4204,10 +4204,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/docusaurus@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@tsconfig/docusaurus@npm:1.0.3"
-  checksum: 601c6f28182e14a1a5947f08030ed7684fb90040c9960ee49531d582c71980f7ac53f8033dd0c049fcb650e310f084620a1dae68e6525a00b242547bb26e0417
+"@tsconfig/docusaurus@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@tsconfig/docusaurus@npm:1.0.4"
+  checksum: 720ca04baa47cbd7ec9c4f6ce18c5fcc2117a077ceff9fe89b7ac66be4968a9ea37bbf8c72e91e517ed57953b38ce6d1c7e05380623f2c579ae4021fb59f0632
   languageName: node
   linkType: hard
 
