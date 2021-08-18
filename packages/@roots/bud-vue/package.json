@@ -65,9 +65,9 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
-    "@vue/compiler-sfc": "3.1.5",
+    "@vue/compiler-sfc": "3.2.4",
     "css-loader": "6.2.0",
-    "vue": "3.1.5",
+    "vue": "3.2.4",
     "webpack": "5.50.0"
   },
   "dependencies": {
