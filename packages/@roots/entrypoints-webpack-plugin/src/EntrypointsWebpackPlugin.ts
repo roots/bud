@@ -1,7 +1,7 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {uniq} from 'lodash'
-import {sources} from 'webpack'
 import type * as Webpack from 'webpack'
+import {sources} from 'webpack'
 
 /**
  * Produces `entrypoints.json` artifact with compiled assets broken down
