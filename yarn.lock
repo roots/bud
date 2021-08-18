@@ -3566,8 +3566,8 @@ __metadata:
     pretty-format: 27.0.6
     react: ^17.0.2
     react-dom: ^17.0.2
-    remark: ^14.0.1
-    remark-html: ^14.0.0
+    remark: 14.0.1
+    remark-html: 14.0.0
     strip-ansi: 7.0.0
     toml: 3.0.0
     ts-node: 10.2.0
@@ -19866,7 +19866,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"remark-html@npm:^14.0.0":
+"remark-html@npm:14.0.0, remark-html@npm:^14.0.0":
   version: 14.0.0
   resolution: "remark-html@npm:14.0.0"
   dependencies:
@@ -19981,18 +19981,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"remark@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "remark@npm:13.0.0"
-  dependencies:
-    remark-parse: ^9.0.0
-    remark-stringify: ^9.0.0
-    unified: ^9.1.0
-  checksum: e3432bfa1b0029680302e99a6356c08789b3e908457a71eca37ada6a58497e302f08bd5f62fbad840082a8348c181b7f6f981aaf3cd3112207583ddf793a2429
-  languageName: node
-  linkType: hard
-
-"remark@npm:^14.0.1":
+"remark@npm:14.0.1":
   version: 14.0.1
   resolution: "remark@npm:14.0.1"
   dependencies:
@@ -20001,6 +19990,17 @@ fsevents@^1.2.7:
     remark-stringify: ^10.0.0
     unified: ^10.0.0
   checksum: 5a58dfc04ba44130a48f982f8729ed98f767c7b9b6a9fd78587e9451f89416af3e6437505e12532c6f60d8624b1f31a709f8af5c79e771547f79e26095c6a1f5
+  languageName: node
+  linkType: hard
+
+"remark@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "remark@npm:13.0.0"
+  dependencies:
+    remark-parse: ^9.0.0
+    remark-stringify: ^9.0.0
+    unified: ^9.1.0
+  checksum: e3432bfa1b0029680302e99a6356c08789b3e908457a71eca37ada6a58497e302f08bd5f62fbad840082a8348c181b7f6f981aaf3cd3112207583ddf793a2429
   languageName: node
   linkType: hard
 
