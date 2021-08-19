@@ -3044,7 +3044,7 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^8.0.1
-    typedoc: 0.21.5
+    typedoc: 0.21.6
     webpack: 5.50.0
   languageName: unknown
   linkType: soft
@@ -3092,7 +3092,7 @@ __metadata:
     "@svgr/webpack": 5.5.0
     "@tsconfig/docusaurus": 1.0.4
     "@types/node": 16.4.13
-    "@types/react": 17.0.18
+    "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.3
@@ -3103,7 +3103,7 @@ __metadata:
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
-    typedoc: 0.21.5
+    typedoc: 0.21.6
     typescript: 4.3.5
     url-loader: 4.1.1
   languageName: unknown
@@ -3424,7 +3424,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": 15.14.1
-    "@types/react": 17.0.18
+    "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
     autobind-decorator: ^2.4.0
     react-hot-loader: ^4.13.0
@@ -3558,7 +3558,7 @@ __metadata:
     remark-html: 14.0.0
     strip-ansi: 7.0.0
     toml: 3.0.0
-    ts-node: 10.2.0
+    ts-node: 10.2.1
     vfile-reporter: 7.0.1
     yamljs: 0.3.0
     yoga-layout-prebuilt: 1.1.0
@@ -3725,7 +3725,7 @@ __metadata:
     "@types/mini-css-extract-plugin": 2.2.0
     "@types/node": 15.14.1
     "@types/pkg-up": 3.1.0
-    "@types/react": 17.0.18
+    "@types/react": 17.0.19
     "@types/resolve-pkg": 2.0.0
     "@types/signale": 1.4.2
     autobind-decorator: ^2.4.0
@@ -3815,7 +3815,7 @@ __metadata:
   dependencies:
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
-    "@types/react": 17.0.18
+    "@types/react": 17.0.19
   peerDependencies:
     ink: ^3.0.9
     prettier: ^2.3.2
@@ -4787,14 +4787,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.18":
-  version: 17.0.18
-  resolution: "@types/react@npm:17.0.18"
+"@types/react@npm:17.0.19":
+  version: 17.0.19
+  resolution: "@types/react@npm:17.0.19"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 0b3d5fe0466b57c5539169671e29c4bdad2e2cf5b3eea25d443845d0153b2ddfbe0ef6d017f2f0a7ae49732d6fd14db189f9578ba0629790b896abe3a3ee44f3
+  checksum: d5af52623dd863e5a9f64eb72979f19c21e03012e25ee93adc93f664ed7976e81b654128dc653b225ad5ba2aaae24e0febe37face272bb051d6289e23ed7177d
   languageName: node
   linkType: hard
 
@@ -7159,7 +7159,7 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/jest": 27.0.1
     "@types/node": 16.6.1
-    "@types/react": 17.0.18
+    "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
     "@types/react-reconciler": 0.26.3
@@ -7190,7 +7190,7 @@ __metadata:
     rimraf: 3.0.2
     signale: 1.4.0
     ts-jest: 27.0.5
-    ts-node: 10.2.0
+    ts-node: 10.2.1
     tsconfig-paths: 3.10.1
     type-fest: 1.4.0
     typescript: 4.3.5
@@ -22449,9 +22449,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.2.0":
-  version: 10.2.0
-  resolution: "ts-node@npm:10.2.0"
+"ts-node@npm:10.2.1":
+  version: 10.2.1
+  resolution: "ts-node@npm:10.2.1"
   dependencies:
     "@cspotcode/source-map-support": 0.6.1
     "@tsconfig/node10": ^1.0.7
@@ -22481,7 +22481,7 @@ resolve@^2.0.0-next.3:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: da767e0fd5c1b4941f0b846c3532147f31cd2ac4d66a4809358e29ed5971a4e699720bd65f9e5a585a10bc7f9c55571a8fce9e485cedce6a224dcba3869bbd3a
+  checksum: f37d2827a583c51d012cdd3d9b96629fba7a5b5dfad2c26ca48c7c89f904118924689ca56f4b9b2136217194870a76f26aae06e3490ee613b0e960f02dc96bbe
   languageName: node
   linkType: hard
 
@@ -22707,9 +22707,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.21.5":
-  version: 0.21.5
-  resolution: "typedoc@npm:0.21.5"
+"typedoc@npm:0.21.6":
+  version: 0.21.6
+  resolution: "typedoc@npm:0.21.6"
   dependencies:
     glob: ^7.1.7
     handlebars: ^4.7.7
@@ -22723,7 +22723,7 @@ resolve@^2.0.0-next.3:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x
   bin:
     typedoc: bin/typedoc
-  checksum: 1d69ecfc436712ccf5658e63c1665de44b1480593e2627e2ebe1e0f88823866f112ffa0358ee51ddb51a8500994f3600453daacee7ebacf21ccade1ceecc6be1
+  checksum: 0c24e6566492b8e7dd92dd201c10cecf09cb8b828a8c8e9b09fe091d47cee9d559d7eb2745a7137462bdd84726eb25208a2c594987d98fa9c8913118589993cc
   languageName: node
   linkType: hard
 
