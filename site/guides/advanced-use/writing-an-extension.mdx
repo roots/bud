@@ -3,12 +3,14 @@ title: Writing an extension
 description: Create and package an extension to reuse across projects and share with other users
 sidebar_label: Writing an extension
 sidebar_position: 2
+image: 'https://budjs.netlify.app/img/share/guides/advanced-use__writing-an-extension.png'
 ---
 
 import ModuleDefinition from '!!raw-loader!@site/../packages/@roots/bud-framework/src/Module.ts'
 
 import TailwindCssIndex from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/index.ts'
-import TailwindCssConfig from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/config.ts'
+import BudTailwindCssExtension from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/BudTailwindCssExtension.ts'
+import BudTailwindCssConfig from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/tailwindConfig.ts'
 
 import EslintDefinition from '!!raw-loader!@site/../packages/@roots/bud-imagemin/src/index.ts'
 
@@ -41,7 +43,8 @@ The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
   defaultValue="index.ts"
   values={[
     {label: 'index.ts', value: 'index.ts'},
-    {label: 'config.ts', value: 'config.ts'},
+     {label: 'BudTailwindCssExtension.ts', value: 'BudTailwindCssExtension.ts'},
+    {label: 'tailwindConfig.ts', value: 'tailwindConfig.ts'},
     {label: 'tsconfig.json', value: 'tsconfig.json'},
   ]}>
 
@@ -51,9 +54,15 @@ The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
     </CodeBlock>
   </TabItem>
 
-  <TabItem value="config.ts">
-    <CodeBlock className="language-ts" title="config.ts">
-      {TailwindCssConfig}
+  <TabItem value="BudTailwindCssExtension.ts">
+    <CodeBlock className="language-ts" title="BudTailwindCssExtension.ts">
+      {BudTailwindCssExtension}
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="tailwindConfig.ts">
+    <CodeBlock className="language-ts" title="tailwindConfig.ts">
+      {BudTailwindCssConfig}
     </CodeBlock>
   </TabItem>
 
