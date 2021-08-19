@@ -1,0 +1,23 @@
+{
+  "chunks": {
+    "byName": {
+      "app": 143,
+      "main": 179
+    },
+    "bySource": {
+      "0 app": 143,
+      "0 main": 179
+    },
+    "usedIds": [
+      143
+    ]
+  },
+  "modules": {
+    "byIdentifier": {
+      "./src/index.js": 138
+    },
+    "usedIds": [
+      138
+    ]
+  }
+}

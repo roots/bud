@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sage snapshots .budfiles/bud.webpack.config.js 1`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "scripts/app.js",
+      "styles/app.css",
+    ],
+  },
+  "customizer": Object {
+    "import": Array [
+      "scripts/customizer.js",
+    ],
+  },
+  "editor": Object {
+    "import": Array [
+      "scripts/editor.js",
+      "styles/editor.css",
+    ],
+  },
+}
+`;
+
+exports[`sage snapshots .budfiles/bud.webpack.config.js 2`] = `"production"`;
+
+exports[`sage snapshots .budfiles/bud.webpack.config.js 3`] = `
+Object {
+  "minimize": true,
+  "minimizer": Array [
+    "...",
+    Object {
+      "options": Object {
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+    Object {
+      "options": Object {
+        "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+  ],
+  "moduleIds": "deterministic",
+  "splitChunks": Object {
+    "cacheGroups": Object {
+      "vendor": Object {
+        "chunks": "all",
+        "filename": "vendor/[name].js",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
+      },
+    },
+    "defaultSizeTypes": Array [
+      "...",
+    ],
+  },
+}
+`;
+
+exports[`sage snapshots .budfiles/bud.webpack.config.js 4`] = `true`;
+
+exports[`sage snapshots .budfiles/bud.webpack.config.js 5`] = `
+Object {
+  "type": "memory",
+}
+`;
+
+exports[`sage snapshots package.json 1`] = `
+"{
+  \\"name\\": \\"example-sage\\",
+  \\"private\\": true,
+  \\"browserslist\\": [
+    \\"extends @wordpress/browserslist-config\\"
+  ],
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/sage\\": \\"workspace:*\\",
+    \\"@types/eslint\\": \\"^7\\",
+    \\"@types/react\\": \\"^17\\",
+    \\"@types/react-dom\\": \\"^17\\",
+    \\"@wordpress/browserslist-config\\": \\"^4.1.0\\",
+    \\"eslint\\": \\"^7.27.0\\",
+    \\"postcss\\": \\"^8.3.0\\",
+    \\"postcss-import\\": \\"^14.0.2\\",
+    \\"postcss-preset-env\\": \\"^6.7.0\\",
+    \\"react\\": \\"^17.0.2\\",
+    \\"react-dom\\": \\"^17.0.2\\",
+    \\"tailwindcss\\": \\"^2.2.4\\"
+  }
+}
+"
+`;
+
+exports[`sage snapshots public/manifest.json 1`] = `
+"{
+  \\"app.css\\": \\"app.4eb448.css\\",
+  \\"app.js\\": \\"app.67d1d3.js\\",
+  \\"editor.css\\": \\"editor.86fcde.css\\",
+  \\"editor.js\\": \\"editor.73db92.js\\",
+  \\"customizer.js\\": \\"customizer.362fbc.js\\",
+  \\"runtime.js\\": \\"runtime.1341d2.js\\",
+  \\"assets/image.jpeg\\": \\"assets/b2ab482ed23c4c71051e.jpeg\\",
+  \\"images/image.jpeg\\": \\"images/image.b2ab48.jpeg\\"
+}"
+`;

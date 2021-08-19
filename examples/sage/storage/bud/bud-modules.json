@@ -1,0 +1,96 @@
+{
+  "chunks": {
+    "byName": {
+      "app": 143,
+      "customizer": 290,
+      "editor": 189,
+      "runtime": 666
+    },
+    "bySource": {
+      "0 app": 666,
+      "0 customizer": 666,
+      "0 editor": 666,
+      "1 app": 143,
+      "1 customizer": 290,
+      "1 editor": 189
+    },
+    "usedIds": [
+      143,
+      189,
+      290,
+      666
+    ]
+  },
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/app.css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/app.css": 609,
+          "../../node_modules/css-loader/dist/runtime/api.js": 298,
+          "../../node_modules/css-loader/dist/runtime/getUrl.js": 991,
+          "asset/resource|./resources/images/image.jpeg": 322
+        },
+        "usedIds": [
+          298,
+          322,
+          609,
+          991
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin /Volumes/Samsung/Code/roots/bud/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/editor.css": [
+    {
+      "chunks": {
+        "byName": {
+          "child": 396
+        },
+        "bySource": {
+          "0 child": 396
+        },
+        "usedIds": [
+          396
+        ]
+      },
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/editor.css": 414,
+          "../../node_modules/css-loader/dist/runtime/api.js": 609
+        },
+        "usedIds": [
+          414,
+          609
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./resources/scripts/app.js|04c38ac96768e08b221c9a2ee85cf5a7": 904,
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./resources/scripts/customizer.js": 409,
+      "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./resources/scripts/editor.js|22dc6cb546154abff09a81b900651090": 427,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].oneOf[9].use[0]!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/app.css": 860,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js??ruleSet[1].rules[1].oneOf[9].use[0]!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[9].use[2]!./resources/styles/editor.css": 665,
+      "external \"jQuery\"": 609
+    },
+    "usedIds": [
+      409,
+      427,
+      609,
+      665,
+      860,
+      904
+    ]
+  }
+}

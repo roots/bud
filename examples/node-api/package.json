@@ -1,5 +1,5 @@
 {
-  "name": "example-emotion",
+  "name": "example-node-api",
   "private": true,
   "browserslist": {
     "production": [
@@ -14,9 +14,6 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@roots/bud": "workspace:*"
   }
 }

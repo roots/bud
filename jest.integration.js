@@ -99,6 +99,7 @@ const run = async () => {
     await jest('html-template')
     await jest('babel')
     await jest('api-multi-compiler')
+    await jest('node-api')
     await jest('markdown')
     await jest('postcss')
     await jest('preset-recommend')

@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`node-api snapshots .budfiles/bud.webpack.config.js 1`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "index.js",
+    ],
+  },
+}
+`;
+
+exports[`node-api snapshots .budfiles/bud.webpack.config.js 2`] = `"production"`;
+
+exports[`node-api snapshots .budfiles/bud.webpack.config.js 3`] = `
+Object {
+  "minimize": true,
+  "minimizer": Array [
+    "...",
+    Object {
+      "options": Object {
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+    Object {
+      "options": Object {
+        "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+  ],
+  "moduleIds": "deterministic",
+  "splitChunks": Object {
+    "cacheGroups": Object {
+      "vendor": Object {
+        "chunks": "all",
+        "filename": "vendor/[name].js",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
+      },
+    },
+    "defaultSizeTypes": Array [
+      "...",
+    ],
+  },
+}
+`;
+
+exports[`node-api snapshots .budfiles/bud.webpack.config.js 4`] = `true`;
+
+exports[`node-api snapshots .budfiles/bud.webpack.config.js 5`] = `
+Object {
+  "type": "memory",
+}
+`;
+
+exports[`node-api snapshots dist/app.js 1`] = `"console.log(\\"hello\\"),console.log(\\"world\\");"`;
+
+exports[`node-api snapshots dist/manifest.json 1`] = `
+"{
+  \\"app.js\\": \\"app.js\\"
+}"
+`;
+
+exports[`node-api snapshots package.json 1`] = `
+"{
+  \\"name\\": \\"example-node-api\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\"
+  }
+}
+"
+`;

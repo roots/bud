@@ -1,4 +1,5 @@
-import {readJson} from 'fs-extra'
+import {readFile, readJson} from 'fs-extra'
+import {join} from 'path'
 
 import {Assets, Entrypoints, helper} from '../util/integration'
 
@@ -121,6 +122,44 @@ describe(suite.name, () => {
       expect(
         assets['customizer.js'].includes('import'),
       ).toBeFalsy()
+    })
+  })
+
+  describe('snapshots', () => {
+    it('package.json', async () => {
+      const artifact = await readFile(
+        join(process.cwd(), 'examples/sage/package.json'),
+      )
+
+      expect(artifact.toString()).toMatchSnapshot()
+    })
+
+    it('public/manifest.json', async () => {
+      const artifact = await readFile(
+        join(
+          process.cwd(),
+          'examples/sage/public/manifest.json',
+        ),
+      )
+
+      expect(artifact.toString()).toMatchSnapshot()
+    })
+
+    it('.budfiles/bud.webpack.config.js', async () => {
+      let artifact = await import(
+        join(
+          process.cwd(),
+          'examples/sage/storage/bud/bud.webpack.config.js',
+        )
+      )
+
+      artifact = artifact()
+
+      expect(artifact.entry).toMatchSnapshot()
+      expect(artifact.mode).toMatchSnapshot()
+      expect(artifact.optimization).toMatchSnapshot()
+      expect(artifact.bail).toMatchSnapshot()
+      expect(artifact.cache).toMatchSnapshot()
     })
   })
 })
