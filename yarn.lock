@@ -3044,7 +3044,7 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^8.0.1
-    typedoc: 0.21.5
+    typedoc: 0.21.6
     webpack: 5.50.0
   languageName: unknown
   linkType: soft
@@ -3103,7 +3103,7 @@ __metadata:
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
-    typedoc: 0.21.5
+    typedoc: 0.21.6
     typescript: 4.3.5
     url-loader: 4.1.1
   languageName: unknown
@@ -22702,9 +22702,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.21.5":
-  version: 0.21.5
-  resolution: "typedoc@npm:0.21.5"
+"typedoc@npm:0.21.6":
+  version: 0.21.6
+  resolution: "typedoc@npm:0.21.6"
   dependencies:
     glob: ^7.1.7
     handlebars: ^4.7.7
@@ -22718,7 +22718,7 @@ resolve@^2.0.0-next.3:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x
   bin:
     typedoc: bin/typedoc
-  checksum: 1d69ecfc436712ccf5658e63c1665de44b1480593e2627e2ebe1e0f88823866f112ffa0358ee51ddb51a8500994f3600453daacee7ebacf21ccade1ceecc6be1
+  checksum: 0c24e6566492b8e7dd92dd201c10cecf09cb8b828a8c8e9b09fe091d47cee9d559d7eb2745a7137462bdd84726eb25208a2c594987d98fa9c8913118589993cc
   languageName: node
   linkType: hard
 
