@@ -1,12 +1,12 @@
 ---
 title: Creating a config file
-sidebar_label: Creating a config
+description: Part 3/7 of the Getting Started guide covers creating a bud.config.js file
 sidebar_position: 4
+image: 'https://budjs.netlify.app/img/share/guides/getting-started__config.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-
 
 So far we've been working without a configuration file which is easy but not very flexible. 
 
@@ -27,14 +27,14 @@ This file exports a single function that will tell **bud** to generate an html f
   ]}>
   <TabItem value="js">
 
-```js
+```js title='bud.config.js'
 module.exports = bud => bud.template()
 ```
 
   </TabItem>
   <TabItem value="ts">
 
-```ts
+```ts title='bud.config.ts'
 import type {Framework} from '@roots/bud'
 
 export default function (bud: Framework): void {

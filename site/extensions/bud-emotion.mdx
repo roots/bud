@@ -1,13 +1,15 @@
 ---
+title: '@roots/bud-emotion'
+description: 'Preconfigured "CSS-in-JS" support with 👩‍🎤 Emotion'
 sidebar_label: '@roots/bud-emotion'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-emotion.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
 
-# @roots/bud-emotion
-
-[Emotion](https://emotion.sh) support can be added by installing the [@roots/bud-emotion extension](/extensions/bud-emotion).
+[👩‍🎤 Emotion](https://emotion.sh) support can be added by installing the [@roots/bud-emotion extension](/extensions/bud-emotion).
 
 ## Installation
 
@@ -44,6 +46,7 @@ After installing the main package, run the `bud init` command to install require
     yarn bud init
 
   </TabItem>
+
   <TabItem value="npm">
 
     npm run bud init
@@ -55,7 +58,7 @@ After installing the main package, run the `bud init` command to install require
 
 Add the extension to your config. Make sure it is included after [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-react](/extensions/bud-react).
 
-```js {4}
+```js title='bud.config.js' {4}
 bud.use([
   require('@roots/bud-babel'),
   require('@roots/bud-react'),

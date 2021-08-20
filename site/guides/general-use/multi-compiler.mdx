@@ -85,7 +85,7 @@ build into two distinct compilations we've all but guaranteed that it won't.
 The other benefit is a potentially massive workflow improvement. Let's say that we have to work on the `theme` more often than the `plugin`. 
 With the above config we don't have to rebuild the `plugin` code again just to work on our `theme` code. 
 
-We can use the `bud` cli to only run the compiler we need using [the `--target` flag](/guides/bud-cli/bud-build#--target).
+We can use the `bud` cli to only run the compiler we need using [the `--target` flag](/guides/bud-cli/build#--target).
 
 So, to only rebuild the `theme`:
 
@@ -103,7 +103,7 @@ If you had more than two instances it might make sense to want to target more th
 
 You cannot create a child compiler from a child compiler. So, don't do this:
 
-```js {9-13}
+```js title='bud.config.js' {9-13}
 module.exports = app =>
   app
     .make('theme', theme => {

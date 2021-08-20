@@ -1,9 +1,13 @@
 ---
+title: '@roots/bud-criticalcss'
+description: Generate above-the-fold CSS
 sidebar_label: '@roots/bud-criticalcss'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-criticalcss.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
 
 # @roots/bud-criticalcss
 
@@ -13,27 +17,13 @@ This extension is experimental.
 
 :::
 
-**@roots/bud-criticalcss** allows for extracting 'above-the-fold' css from your stylesheets.
+**@roots/bud-criticalcss** allows for extracting 'above-the-fold' css from your stylesheets. 
+
+For more information on this technique check out this [web.dev article](https://web.dev/extract-critical-css/).
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-criticalcss --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-criticalcss --save-dev
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-criticalcss" />
 
 ## Usage
 

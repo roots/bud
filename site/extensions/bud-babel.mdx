@@ -1,62 +1,60 @@
 ---
 title: '@roots/bud-babel'
+description: Transpile JavaScript with Babel
 sidebar_label: '@roots/bud-babel'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-babel.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
 
-# @roots/bud-babel
+import {Install} from '@site/src/docs/Install'
+import {PeerDependencies} from '@site/src/docs/PeerDependencies'
+
+import Example from '!!raw-loader!@site/../examples/babel/bud.config.js'
 
 [Babel](https://babeljs.io) support can be added by installing the [@roots/bud-babel](/extensions/bud-babel) extension.
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-babel --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-babel --save-dev
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-babel" />
 
 ## Installing peer dependencies
 
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
+<PeerDependencies />
 
 ## Usage
 
-```js
-bud.use('@roots/bud-babel')
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='bud.config.js'
+const BudBabelExtension = require('@roots/bud-babel')
+
+module.exports = app =>
+  app.use(BudBabelExtension)
 ```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='bud.config.ts'
+import {Framework} from '@roots/bud'
+import * as BudBabelExtension from '@roots/bud-babel'
+
+export default (app: Framework) => 
+  app.use(BudBabelExtension)
+```
+
+  </TabItem>
+</Tabs>
 
 ## Configuration
 
@@ -68,6 +66,12 @@ Out of the box **@roots/bud-babel** comes preconfigured with:
 - @babel/plugin-syntax-dynamic-import
 
 If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by `@roots/bud-babel` designed to help you out.
+
+### Example configuration
+
+<CodeBlock className="language-js" title="bud.config.js">
+  {Example}
+</CodeBlock>
 
 ### Presets
 
@@ -150,23 +154,6 @@ Override any plugin options:
 app.babel.setPluginOptions('@babel/plugin-transform-runtime', {
   helpers: false,
 })
-```
-
-## Example
-
-This is the default implementation (as provided by this plugin):
-
-```js title='bud.config.js'
-app.babel
-  .setPreset('@babel/preset-env')
-  .setPlugins([
-    '@babel/plugin-transform-runtime',
-    '@babel/plugin-proposal-object-rest-spread',
-    '@babel/plugin-syntax-dynamic-import',
-  ])
-  .setPluginOptions('@babel/plugin-transform-runtime', {
-    helpers: false,
-  })
 ```
 
 ## Configuring babel-loader
