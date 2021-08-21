@@ -1,51 +1,33 @@
-import './interface'
+/**
+ * Adds Sass to `@roots/bud`
+ *
+ * @packageDocumentation
+ */
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
+import type {Item, Loader, Rule} from '@roots/bud-build'
 
-const extension: Module = {
-  name: '@roots/bud-sass',
-  boot: ({hooks, build, error}) => {
-    try {
-      require.resolve('sass')
-    } catch (err) {
-      error(
-        "sass can't be found. Run `bud init`",
-        'Peer dependency missing',
-      )
+import {BudSassExtension} from './BudSassExtension'
+
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-sass': BudSassExtension
     }
-    build.loaders['sass'] = new Loader(
-      require.resolve('sass-loader'),
-    )
+  }
 
-    build.items['sass'] = new Item({
-      loader: app => app.build.loaders['sass'],
-      options: () => ({
-        implementation: (() =>
-          require(require.resolve('sass')))(),
-        sourceMap: true,
-      }),
-    })
+  namespace Framework {
+    interface Loaders {
+      sass: Loader
+    }
 
-    build.rules['sass'] = new Rule({
-      test: app => app.store.get('patterns.sass'),
-      exclude: app => app.store.get('patterns.modules'),
-      use: app => [
-        app.isProduction
-          ? app.build.items['minicss']
-          : app.build.items['style'],
-        app.build.items['css'],
-        app.build.items['postcss'],
-        app.build.items['sass'],
-        app.build.items['resolve-url'],
-      ],
-    })
+    interface Items {
+      sass: Item
+    }
 
-    hooks.on('build/resolve/extensions', (exts: string[]) => [
-      ...exts,
-      '.scss',
-    ])
-  },
+    interface Rules {
+      sass: Rule
+    }
+  }
 }
 
-export const {name, boot} = extension
+export const {name, boot} = BudSassExtension

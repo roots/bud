@@ -3,11 +3,15 @@ import {config, factory, Framework} from '@roots/bud'
 describe('bud.watch', function () {
   let bud: Framework
 
+  let serverConfig
+
   beforeAll(() => {
     bud = factory({
       mode: 'development',
       config: {...config, ci: true},
     })
+
+    serverConfig = {...bud.server.config.all()}
   })
 
   afterAll(done => {
@@ -27,11 +31,17 @@ describe('bud.watch', function () {
   })
 
   it('sets watch files', () => {
-    const value = ['**/*.js']
+    const files = ['**/*.js']
 
-    bud.watch(value)
+    bud.watch(files)
 
-    expect(bud.server.config.get('watch.files')).toBe(value)
+    expect(bud.server.config.all()).toMatchSnapshot({
+      ...serverConfig,
+      watch: {
+        ...serverConfig.watch,
+        files,
+      },
+    })
   })
 
   it('sets watch options', () => {

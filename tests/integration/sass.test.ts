@@ -1,69 +1,96 @@
-import {config, factory, Framework} from '@roots/bud'
-import {Item, Loader, Rule} from '@roots/bud-build'
+import {readFile, readJson} from 'fs-extra'
+import {join} from 'path'
 
-describe('bud.build', function () {
-  let bud: Framework
-  let initialBuildConfig
+import {Assets, helper} from '../util/integration'
 
-  beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
-    initialBuildConfig = {...bud.build.config}
+const suite = helper('sass', 'examples/sass')
+
+jest.setTimeout(30000)
+
+describe(suite.name, () => {
+  let assets: Assets
+
+  beforeAll(async () => {
+    assets = await suite.setup()
   })
 
-  afterAll(done => {
-    bud.close(done)
+  it('package.json is unchanged', async () => {
+    const artifact = await readJson(
+      join(process.cwd(), 'examples/sass/package.json'),
+    )
+
+    expect(artifact).toMatchSnapshot()
   })
 
-  it('has rebuild method', () => {
-    expect(bud.build.rebuild).toBeInstanceOf(Function)
+  it('manifest.yml is unchanged', async () => {
+    const artifact = await readFile(
+      join(process.cwd(), 'examples/sass/bud.config.yml'),
+    )
+
+    expect(artifact.toString()).toMatchSnapshot()
   })
 
-  it('has expected rules', () => {
-    expect(bud.build.rules).toMatchSnapshot()
+  it('src/app.scss is unchanged', async () => {
+    const artifact = await readFile(
+      join(process.cwd(), 'examples/sass/src/app.scss'),
+    )
+
+    expect(artifact.toString()).toMatchSnapshot()
   })
 
-  it('all rules are Rule instances', () => {
-    Object.values(bud.build.rules).forEach(rule => {
-      expect(rule).toBeInstanceOf(Rule)
-    })
+  it('scss is transpiled', () => {
+    expect(assets['app.css']).toMatchSnapshot()
   })
 
-  it('has valid items', () => {
-    Object.values(bud.build.items).forEach(item => {
-      expect(item).toBeInstanceOf(Item)
-    })
-  })
+  it('.budfiles/bud.webpack.config.js', async () => {
+    const artifact = await import(
+      join(
+        process.cwd(),
+        'examples/sass/.budfiles/bud.webpack.config.js',
+      )
+    ).then(artifact => artifact())
 
-  it('has valid loaders', () => {
-    Object.values(bud.build.loaders).forEach(loader => {
-      expect(loader).toBeInstanceOf(Loader)
-    })
-  })
-
-  it('bud.build.config matches snapshot', () => {
-    expect(bud.build.config).toMatchSnapshot({
+    expect(artifact).toMatchSnapshot({
       bail: true,
       cache: {
         type: 'memory',
       },
-      context: expect.stringMatching(process.cwd()),
-      devtool: false,
-      entry: undefined,
-      experiments: {
-        lazyCompilation: false,
+      context: expect.stringContaining('examples/sass'),
+      entry: {
+        app: {
+          import: ['app.scss'],
+        },
       },
-      externals: undefined,
       infrastructureLogging: {
         appendOnly: true,
         level: 'none',
+        stream: {
+          _eventsCount: 1,
+          _isStdio: true,
+          _readableState: {
+            autoDestroy: true,
+            constructed: true,
+            defaultEncoding: 'utf8',
+            highWaterMark: 16384,
+            sync: true,
+          },
+          _type: 'pipe',
+          _writableState: {
+            allBuffers: true,
+            allNoop: true,
+            autoDestroy: true,
+            constructed: true,
+            defaultEncoding: 'utf8',
+            highWaterMark: 16384,
+            sync: true,
+          },
+          fd: 2,
+        },
       },
       mode: 'production',
       module: {
         rules: [
           {
-            parser: {
-              requireEnsure: false,
-            },
             test: /\\\\\\.\\[cm\\]\\?\\(jsx\\?\\|tsx\\?\\)\\$/,
           },
           {
@@ -85,8 +112,9 @@ describe('bud.build', function () {
                       'resolve-url-loader/index.js',
                     ),
                     options: {
-                      root: expect.stringContaining('src'),
-                      sourceMap: false,
+                      root: expect.stringContaining(
+                        'examples/sass/src',
+                      ),
                     },
                   },
                 ],
@@ -130,23 +158,14 @@ describe('bud.build', function () {
                 ],
               },
               {
-                parser: {
-                  parse: expect.any(Function),
-                },
                 test: /\\\\\\.toml\\$/,
                 type: 'json',
               },
               {
-                parser: {
-                  parse: expect.any(Function),
-                },
                 test: /\\\\\\.\\(yaml\\|yml\\)\\$/,
                 type: 'json',
               },
               {
-                parser: {
-                  parse: expect.any(Function),
-                },
                 test: /\\\\\\.json5\\$/,
                 type: 'json',
               },
@@ -158,7 +177,6 @@ describe('bud.build', function () {
                     loader: expect.stringContaining(
                       'mini-css-extract-plugin/dist/loader.js',
                     ),
-                    options: {},
                   },
                   {
                     loader: expect.stringContaining(
@@ -166,7 +184,6 @@ describe('bud.build', function () {
                     ),
                     options: {
                       importLoaders: 1,
-                      sourceMap: false,
                     },
                   },
                 ],
@@ -174,24 +191,53 @@ describe('bud.build', function () {
               {
                 exclude: /\\(node_modules\\|bower_components\\)/,
                 test: /\\\\\\.\\(js\\|jsx\\)\\$/,
-                use: [],
+              },
+              {
+                exclude: /\\(node_modules\\|bower_components\\)/,
+                test: /\\\\\\.\\(scss\\|sass\\)\\$/,
+                use: [
+                  {
+                    loader: expect.stringContaining(
+                      'mini-css-extract-plugin/dist/loader.js',
+                    ),
+                  },
+                  {
+                    loader: expect.stringContaining(
+                      'css-loader/dist/cjs.js',
+                    ),
+                    options: {
+                      importLoaders: 1,
+                    },
+                  },
+                  {
+                    loader: expect.stringContaining(
+                      'sass-loader/dist/cjs.js',
+                    ),
+                    options: {
+                      implementation: {
+                        TRUE: {
+                          value: true,
+                        },
+                        info: expect.stringContaining(
+                          'dart-sass	1.38.0',
+                        ),
+                      },
+                      sourceMap: true,
+                    },
+                  },
+                ],
               },
             ],
           },
         ],
       },
       name: 'bud',
-      node: false,
       optimization: {
-        emitOnErrors: false,
         minimize: true,
         minimizer: [
           '...',
           {
             options: {
-              exclude: undefined,
-              include: undefined,
-              minify: expect.any(Function),
               minimizerOptions: {
                 preset: [
                   'default',
@@ -204,32 +250,18 @@ describe('bud.build', function () {
               },
               parallel: true,
               test: /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-              warningsFilter: expect.any(Function),
             },
           },
           {
             options: {
-              exclude: undefined,
-              include: undefined,
-              minify: expect.any(Function),
-              minimizerOptions: {
-                preset: [
-                  'default',
-                  {
-                    discardComments: {
-                      removeAll: true,
-                    },
-                  },
-                ],
-              },
+              minimizerOptions:
+                "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
               parallel: true,
               test: /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-              warningsFilter: expect.any(Function),
             },
           },
         ],
         moduleIds: 'deterministic',
-        runtimeChunk: undefined,
         splitChunks: {
           cacheGroups: {
             vendor: {
@@ -240,86 +272,62 @@ describe('bud.build', function () {
               test: /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
             },
           },
+          defaultSizeTypes: ['...'],
         },
       },
       output: {
+        enabledChunkLoadingTypes: ['...'],
+        enabledLibraryTypes: ['...'],
+        enabledWasmLoadingTypes: ['...'],
         filename: '[name].js',
-        path: expect.stringContaining('dist'),
-        pathinfo: undefined,
-        publicPath: '',
+        path: expect.stringContaining('examples/sass/dist'),
       },
-      parallelism: undefined,
-      performance: {},
       plugins: [
         {
-          apply: expect.any(Function),
-          cleanAfterEveryBuildPatterns: [],
           cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
           cleanStaleWebpackAssets: true,
-          currentAssets: [],
-          dangerouslyAllowCleanPatternsOutsideProject: false,
-          dry: false,
-          handleDone: expect.any(Function),
-          handleInitial: expect.any(Function),
-          initialClean: false,
-          outputPath: '',
+          outputPath: expect.stringContaining(
+            'examples/sass/dist',
+          ),
           protectWebpackAssets: true,
-          removeFiles: expect.any(Function),
-          verbose: false,
         },
         {
           depth: 8,
-          includeFalseValues: false,
           keepCircularReferences: true,
           name: 'bud.webpack.config.js',
-          outputPath: expect.stringContaining('.budfiles'),
-          showFunctionNames: false,
+          outputPath: expect.stringContaining(
+            'examples/sass/.budfiles',
+          ),
         },
         {
-          DEBUG: false,
           ignorePatterns: [/\\.\\?\\.map\\$/],
-          options: {},
         },
         {
           options: {
-            basePath: '',
             fileName: 'manifest.json',
-            filter: null,
-            generate: undefined,
-            map: null,
-            publicPath: '',
             removeKeyHash:
               /\\(\\[a-f0-9\\]\\{16,32\\}\\\\\\.\\?\\)/gi,
-            seed: undefined,
-            serialize: expect.any(Function),
-            sort: null,
             transformExtensions: /\\^\\(gz\\|map\\)\\$/i,
-            useEntryKeys: false,
-            useLegacyEmit: false,
             writeToFileEmit: true,
           },
         },
         {
-          _sortedModulesCache: expect.any(WeakMap),
           options: {
             chunkFilename: '[name].[id].css',
-            experimentalUseImportModule: false,
             filename: '[name].css',
-            ignoreOrder: false,
           },
           runtimeOptions: {
-            attributes: undefined,
-            insert: undefined,
             linkType: 'text/css',
           },
         },
       ],
-      profile: false,
-      recordsPath: expect.stringContaining(
-        '.budfiles/bud-modules.json',
+      recordsInputPath: expect.stringContaining(
+        'examples/sass/.budfiles/bud-modules.json',
+      ),
+      recordsOutputPath: expect.stringContaining(
+        'examples/sass/.budfiles/bud-modules.json',
       ),
       resolve: {
-        alias: {},
         extensions: [
           '.wasm',
           '.mjs',
@@ -335,28 +343,15 @@ describe('bud.build', function () {
           '.yml',
           '.yaml',
           '.xml',
+          '.scss',
         ],
-        modules: ['src', 'node_modules'],
+        modules: [
+          'src',
+          'node_modules',
+          expect.stringContaining('packages/@roots/bud'),
+          expect.stringContaining('packages/@roots/bud-sass'),
+        ],
       },
-      stats: {},
-      target: undefined,
-      watch: false,
-      watchOptions: undefined,
     })
-  })
-
-  it('bud.build.rebuild modifies bud.build.config', () => {
-    const entryValue = {
-      app: {
-        import: ['app.js'],
-      },
-    }
-
-    bud.hooks.on('build/entry', () => entryValue)
-
-    bud.build.rebuild()
-
-    expect(initialBuildConfig).not.toEqual(bud.build.config)
-    expect(bud.build.config.entry).toEqual(entryValue)
   })
 })

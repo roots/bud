@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/bud-sass matches snapshot 1`] = `
+Object {
+  "boot": [Function],
+  "name": "@roots/bud-sass",
+}
+`;

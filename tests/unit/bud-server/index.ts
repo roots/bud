@@ -15,7 +15,7 @@ describe('@roots/bud-server', function () {
   })
 
   it('has expected defaults', () => {
-    expect(bud.server.config.all()).toEqual({
+    expect(bud.server.config.all()).toMatchSnapshot({
       browser: {
         indicator: true,
         log: true,

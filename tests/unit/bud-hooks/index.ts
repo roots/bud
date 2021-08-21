@@ -6,7 +6,9 @@ describe('@roots/bud-hooks', function () {
   let hooks: Hooks
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {...config, ci: true},
+    })
   })
 
   afterAll(done => {
@@ -34,5 +36,9 @@ describe('@roots/bud-hooks', function () {
 
   it('returns expected value when filtering hook', () => {
     expect(hooks.filter('build')).toBe('bar')
+  })
+
+  it('hooks repository matches snapshot', () => {
+    expect(bud.hooks.repository).toMatchSnapshot()
   })
 })

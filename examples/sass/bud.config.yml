@@ -1,5 +1,4 @@
 extensions:
-  - '@roots/bud-postcss'
   - '@roots/bud-sass'
 
 entry:

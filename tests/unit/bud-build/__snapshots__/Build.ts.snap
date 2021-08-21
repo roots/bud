@@ -1,0 +1,358 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.build bud.build.config matches snapshot 1`] = `
+Object {
+  "bail": true,
+  "cache": Object {
+    "type": "memory",
+  },
+  "context": StringMatching /\\\\/Volumes\\\\/Samsung\\\\/Code\\\\/roots\\\\/bud/,
+  "devtool": false,
+  "entry": undefined,
+  "experiments": Object {
+    "lazyCompilation": false,
+  },
+  "externals": undefined,
+  "infrastructureLogging": Object {
+    "appendOnly": true,
+    "level": "none",
+  },
+  "mode": "production",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "parser": Object {
+          "requireEnsure": false,
+        },
+        "test": Object {},
+      },
+      Object {
+        "oneOf": Array [
+          Object {
+            "exclude": Object {},
+            "generator": Object {
+              "filename": "assets/[hash][ext][query]",
+            },
+            "test": Object {},
+            "type": "asset/resource",
+          },
+          Object {
+            "exclude": Object {},
+            "test": Object {},
+            "use": Array [
+              Object {
+                "loader": StringContaining "resolve-url-loader/index.js",
+                "options": Object {
+                  "root": StringContaining "src",
+                  "sourceMap": false,
+                },
+              },
+            ],
+          },
+          Object {
+            "exclude": Object {},
+            "generator": Object {
+              "filename": "assets/[hash][ext][query]",
+            },
+            "test": Object {},
+            "type": "asset/resource",
+          },
+          Object {
+            "test": Object {},
+            "use": Array [
+              Object {
+                "loader": StringContaining "html-loader/dist/cjs.js",
+              },
+            ],
+          },
+          Object {
+            "test": Object {},
+            "use": Array [
+              Object {
+                "loader": StringContaining "csv-loader/index.js",
+              },
+            ],
+          },
+          Object {
+            "test": Object {},
+            "use": Array [
+              Object {
+                "loader": StringContaining "xml-loader/index.js",
+              },
+            ],
+          },
+          Object {
+            "parser": Object {
+              "parse": Any<Function>,
+            },
+            "test": Object {},
+            "type": "json",
+          },
+          Object {
+            "parser": Object {
+              "parse": Any<Function>,
+            },
+            "test": Object {},
+            "type": "json",
+          },
+          Object {
+            "parser": Object {
+              "parse": Any<Function>,
+            },
+            "test": Object {},
+            "type": "json",
+          },
+          Object {
+            "exclude": Object {},
+            "test": Object {},
+            "use": Array [
+              Object {
+                "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
+                "options": Object {},
+              },
+              Object {
+                "loader": StringContaining "css-loader/dist/cjs.js",
+                "options": Object {
+                  "importLoaders": 1,
+                  "sourceMap": false,
+                },
+              },
+            ],
+          },
+          Object {
+            "exclude": Object {},
+            "test": Object {},
+            "use": Array [],
+          },
+        ],
+      },
+    ],
+  },
+  "name": "bud",
+  "node": false,
+  "optimization": Object {
+    "emitOnErrors": false,
+    "minimize": true,
+    "minimizer": Array [
+      "...",
+      Object {
+        "options": Object {
+          "exclude": undefined,
+          "include": undefined,
+          "minify": Any<Function>,
+          "minimizerOptions": Object {
+            "preset": Array [
+              "default",
+              Object {
+                "discardComments": Object {
+                  "removeAll": true,
+                },
+              },
+            ],
+          },
+          "parallel": true,
+          "test": Object {},
+          "warningsFilter": Any<Function>,
+        },
+      },
+      Object {
+        "options": Object {
+          "exclude": undefined,
+          "include": undefined,
+          "minify": Any<Function>,
+          "minimizerOptions": Object {
+            "preset": Array [
+              "default",
+              Object {
+                "discardComments": Object {
+                  "removeAll": true,
+                },
+              },
+            ],
+          },
+          "parallel": true,
+          "test": Object {},
+          "warningsFilter": Any<Function>,
+        },
+      },
+    ],
+    "moduleIds": "deterministic",
+    "runtimeChunk": undefined,
+    "splitChunks": Object {
+      "cacheGroups": Object {
+        "vendor": Object {
+          "chunks": "all",
+          "filename": "vendor/[name].js",
+          "priority": -10,
+          "reuseExistingChunk": true,
+          "test": Object {},
+        },
+      },
+    },
+  },
+  "output": Object {
+    "filename": "[name].js",
+    "path": StringContaining "dist",
+    "pathinfo": undefined,
+    "publicPath": "",
+  },
+  "parallelism": undefined,
+  "performance": Object {},
+  "plugins": Array [
+    Object {
+      "apply": Any<Function>,
+      "cleanAfterEveryBuildPatterns": Array [],
+      "cleanOnceBeforeBuildPatterns": Array [
+        "**/*",
+        "!dll",
+      ],
+      "cleanStaleWebpackAssets": true,
+      "currentAssets": Array [],
+      "dangerouslyAllowCleanPatternsOutsideProject": false,
+      "dry": false,
+      "handleDone": Any<Function>,
+      "handleInitial": Any<Function>,
+      "initialClean": false,
+      "outputPath": "",
+      "protectWebpackAssets": true,
+      "removeFiles": Any<Function>,
+      "verbose": false,
+    },
+    Object {
+      "depth": 8,
+      "includeFalseValues": false,
+      "keepCircularReferences": true,
+      "name": "bud.webpack.config.js",
+      "outputPath": StringContaining ".budfiles",
+      "showFunctionNames": false,
+    },
+    Object {
+      "DEBUG": false,
+      "ignorePatterns": Array [
+        Object {},
+      ],
+      "options": Object {},
+    },
+    Object {
+      "options": Object {
+        "basePath": "",
+        "fileName": "manifest.json",
+        "filter": null,
+        "generate": undefined,
+        "map": null,
+        "publicPath": "",
+        "removeKeyHash": Object {},
+        "seed": undefined,
+        "serialize": Any<Function>,
+        "sort": null,
+        "transformExtensions": Object {},
+        "useEntryKeys": false,
+        "useLegacyEmit": false,
+        "writeToFileEmit": true,
+      },
+    },
+    Object {
+      "_sortedModulesCache": Any<WeakMap>,
+      "options": Object {
+        "chunkFilename": "[name].[id].css",
+        "experimentalUseImportModule": false,
+        "filename": "[name].css",
+        "ignoreOrder": false,
+      },
+      "runtimeOptions": Object {
+        "attributes": undefined,
+        "insert": undefined,
+        "linkType": "text/css",
+      },
+    },
+  ],
+  "profile": false,
+  "recordsPath": StringContaining ".budfiles/bud-modules.json",
+  "resolve": Object {
+    "alias": Object {},
+    "extensions": Array [
+      ".wasm",
+      ".mjs",
+      ".js",
+      ".jsx",
+      ".css",
+      ".json",
+      ".json5",
+      ".toml",
+      ".xml",
+      ".csv",
+      ".tsv",
+      ".yml",
+      ".yaml",
+      ".xml",
+    ],
+    "modules": Array [
+      "src",
+      "node_modules",
+    ],
+  },
+  "stats": Object {},
+  "target": undefined,
+  "watch": false,
+  "watchOptions": undefined,
+}
+`;
+
+exports[`bud.build has expected rules 1`] = `
+Object {
+  "css": Rule {
+    "exclude": [Function],
+    "test": [Function],
+    "use": [Function],
+  },
+  "csv": Rule {
+    "test": [Function],
+    "use": [Function],
+  },
+  "font": Rule {
+    "exclude": [Function],
+    "test": [Function],
+    "use": [Function],
+  },
+  "html": Rule {
+    "test": [Function],
+    "use": [Function],
+  },
+  "image": Rule {
+    "exclude": [Function],
+    "generator": [Function],
+    "test": [Function],
+    "type": [Function],
+  },
+  "js": Rule {
+    "exclude": [Function],
+    "test": [Function],
+    "use": [Function],
+  },
+  "json5": Rule {
+    "parser": [Function],
+    "test": [Function],
+    "type": [Function],
+  },
+  "svg": Rule {
+    "exclude": [Function],
+    "generator": [Function],
+    "test": [Function],
+    "type": [Function],
+  },
+  "toml": Rule {
+    "parser": [Function],
+    "test": [Function],
+    "type": [Function],
+  },
+  "xml": Rule {
+    "test": [Function],
+    "use": [Function],
+  },
+  "yml": Rule {
+    "parser": [Function],
+    "test": [Function],
+    "type": [Function],
+  },
+}
+`;

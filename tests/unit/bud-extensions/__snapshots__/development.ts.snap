@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Extensions [development] bud.extensions.repository matches snapshot 1`] = `
+Object {
+  "clean-webpack-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "clean-webpack-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "copy-webpack-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "copy-webpack-plugin",
+      "options": Object {
+        "patterns": Array [],
+      },
+      "when": [Function],
+    },
+  },
+  "css-minimizer-webpack-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "boot": [Function],
+      "name": "css-minimizer-webpack-plugin",
+      "options": [Function],
+    },
+  },
+  "ignore-emit-webpack-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "ignore-emit-webpack-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "mini-css-extract-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "mini-css-extract-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "webpack-config-dump-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "webpack-config-dump-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "webpack-define-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "webpack-define-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "webpack-hot-module-replacement-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "webpack-hot-module-replacement-plugin",
+      "when": [Function],
+    },
+  },
+  "webpack-manifest-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "webpack-manifest-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+  "webpack-provide-plugin": Extension {
+    "_app": [Function],
+    "_module": Object {
+      "make": [Function],
+      "name": "webpack-provide-plugin",
+      "options": [Function],
+      "when": [Function],
+    },
+  },
+}
+`;

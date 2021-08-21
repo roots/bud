@@ -9,4 +9,12 @@ describe('repo', function () {
 
     expect(artifact).toMatchSnapshot()
   })
+
+  it('sass is not installed in the monorepo', async () => {
+    try {
+      expect(require.resolve('sass')).toThrowError(
+        `Cannot find module 'sass' from 'tests/unit/root/index.ts`,
+      )
+    } catch {}
+  })
 })

@@ -3444,20 +3444,22 @@ __metadata:
   resolution: "@roots/bud-sass@workspace:packages/@roots/bud-sass"
   dependencies:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     postcss: 8.3.6
     postcss-scss: ^4.0.0
-    sass: 1.38.0
+    resolve-cwd: ^3.0.0
+    safe-resolve: ^1.0.0
     sass-loader: ^12.1.0
     webpack: 5.50.0
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-postcss": "*"
-    sass: ^1.34.0
+  peerDependenciesMeta:
+    "@roots/bud-postcss":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -7609,7 +7611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.5.2, chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
+"chokidar@npm:3.5.2, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -10482,7 +10484,6 @@ __metadata:
   resolution: "example-sass@workspace:examples/sass"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
   languageName: unknown
   linkType: soft
@@ -20342,6 +20343,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"safe-resolve@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "safe-resolve@npm:1.0.0"
+  checksum: 3a1ea6bc72965061d52799da473dd52920dab55f16532bf295c19920cb745661461e4756c35a299c96a6bdc436ab6abd9d217dd48d6cce776657c6ecd8d5add0
+  languageName: node
+  linkType: hard
+
 "safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0, safer-buffer@npm:^2.0.2":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
@@ -20368,17 +20376,6 @@ resolve@^2.0.0-next.3:
     sass:
       optional: true
   checksum: 69c66ea3482922064f1e907fc204283e5e9cc02eb20b7ab1761d478922f77b3e2c47c8e3c585f771d75ce57bb088b226ae2eb4c736849b29c8727e921a6e0d41
-  languageName: node
-  linkType: hard
-
-"sass@npm:1.38.0":
-  version: 1.38.0
-  resolution: "sass@npm:1.38.0"
-  dependencies:
-    chokidar: ">=3.0.0 <4.0.0"
-  bin:
-    sass: sass.js
-  checksum: 2a7140084785ab86a7577b8b1568a2fe9091716e02eacb071e37b32d3b5947d4b433ffc0361494ddeefcd0d8b2d44a87ee43b23630995250a7160261b1307e43
   languageName: node
   linkType: hard
 

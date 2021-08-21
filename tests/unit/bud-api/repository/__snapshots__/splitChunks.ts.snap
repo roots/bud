@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.splitChunks sets default options when called 1`] = `
+Object {
+  "cacheGroups": Object {
+    "vendor": Object {
+      "chunks": "all",
+      "filename": "vendor/[name].js",
+      "priority": -10,
+      "reuseExistingChunk": true,
+      "test": Object {},
+    },
+  },
+}
+`;
+
+exports[`bud.splitChunks sets default options when called 2`] = `
+Object {
+  "cacheGroups": Object {
+    "vendor": Object {
+      "chunks": "all",
+      "filename": "vendor/[name].js",
+      "priority": -10,
+      "reuseExistingChunk": true,
+      "test": Object {},
+    },
+  },
+}
+`;

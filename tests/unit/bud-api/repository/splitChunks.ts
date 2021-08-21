@@ -37,15 +37,12 @@ describe('bud.splitChunks', function () {
     bud.splitChunks()
 
     expect(
-      JSON.stringify(
-        bud.build.rebuild().optimization.splitChunks,
-      ),
-    ).toStrictEqual(JSON.stringify(DEFAULT_OPTIONS))
+      bud.build.rebuild().optimization.splitChunks,
+    ).toMatchSnapshot(DEFAULT_OPTIONS)
 
     expect(
-      bud.hooks.filter('build/optimization/splitChunks')
-        .cacheGroups.vendor.filename,
-    ).toBe(DEFAULT_OPTIONS.cacheGroups.vendor.filename)
+      bud.hooks.filter('build/optimization/splitChunks'),
+    ).toMatchSnapshot(DEFAULT_OPTIONS)
   })
 
   it('sets options when passed as parameters', () => {

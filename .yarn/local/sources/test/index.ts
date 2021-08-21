@@ -8,16 +8,23 @@ export class TestCommand extends Command {
   public integration = Option.Boolean(`-i,--integration`, false)
   public unit = Option.Boolean(`-u,--unit`, false)
   public workers = Option.String(`-w,--workers`, '50%')
+  public update = Option.Boolean(`-up, --update`, false)
 
   async execute() {
     const all = (!this.unit && !this.integration) || this.all
 
-    if (this.unit || all)
-      await this.$(
-        `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util" --maxWorkers=${this.workers}`,
-      )
+    if (this.unit || all) {
+      let unitCommand = `yarn jest --coverage --testPathIgnorePatterns="tests/integration" --testPathIgnorePatterns="tests/util" --maxWorkers=${this.workers}`
+      if (this.update) unitCommand.concat(` --updateSnapshot`)
 
-    if (this.integration || all)
-      await this.$(`node ./jest.integration.js`)
+      await this.$(unitCommand)
+    }
+
+    if (this.integration || all) {
+      let integrationCmd = `node ./jest.integration.js`
+      if (this.update) integrationCmd.concat(` --updateSnapshot`)
+
+      await this.$(integrationCmd)
+    }
   }
 }

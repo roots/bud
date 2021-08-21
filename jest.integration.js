@@ -62,7 +62,10 @@ const jest = async suite => {
     '--useStderr',
     '--runInBand',
   ]
-  if (process.argv.includes('--updateSnapshot')) {
+  if (
+    process.argv.includes('--update') ||
+    process.argv.includes('-up')
+  ) {
     cmdSegments.push('--updateSnapshot')
   }
 
@@ -106,6 +109,7 @@ const run = async () => {
     await jest('react')
     await jest('emotion')
     await jest('sage')
+    await jest('sass')
     await jest('tailwind')
     await jest('vue')
     await jest('imagemin')

@@ -28,7 +28,9 @@ describe('Extensions', function () {
   }
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {...config, ci: true},
+    })
   })
 
   afterAll(done => {
