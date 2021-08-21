@@ -4,7 +4,7 @@ import {join} from 'path'
 describe('repo', function () {
   it('readme.md matches snapshot', async () => {
     const artifact = await readFile(
-      join(process.cwd(), 'readme.md'),
+      join(process.cwd(), 'README.md'),
     )
 
     expect(artifact).toMatchSnapshot()
