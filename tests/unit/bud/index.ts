@@ -114,7 +114,7 @@ describe('factory', () => {
     location: {
       dist: 'dist',
       modules: 'node_modules',
-      project: expect.stringMatching(process.cwd()),
+      project: expect.any(String),
       publicPath: '',
       src: 'src',
       storage: '.budfiles',

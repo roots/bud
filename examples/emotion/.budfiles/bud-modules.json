@@ -42,6 +42,7 @@
   },
   "modules": {
     "byIdentifier": {
+      "../../node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js|886ddf2d7865f3470e2b0d580a0c3254": 256,
       "../../node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js|a1dde1edfd035bc14426c36396022154": 764,
       "../../node_modules/babel-loader/lib/index.js??ruleSet[1].rules[1].oneOf[10].use[0]!./src/app.js|481ec15e9e0d9c73c186fedc00bfce57": 198,
       "../../node_modules/object-assign/index.js": 320,
@@ -55,12 +56,12 @@
     },
     "usedIds": [
       198,
+      256,
       316,
       320,
       426,
       475,
       616,
-      764,
       784,
       798,
       967

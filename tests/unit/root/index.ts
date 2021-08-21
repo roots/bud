@@ -7,7 +7,15 @@ describe('repo', function () {
       join(process.cwd(), 'README.md'),
     )
 
-    expect(artifact).toMatchSnapshot()
+    expect(artifact.toString()).toMatchSnapshot()
+  })
+
+  it('LICENSE.md matches snapshot', async () => {
+    const artifact = await readFile(
+      join(process.cwd(), 'LICENSE.md'),
+    )
+
+    expect(artifact.toString()).toMatchSnapshot()
   })
 
   it('sass is not installed in the monorepo', async () => {

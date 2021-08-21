@@ -6,7 +6,7 @@ Object {
   "cache": Object {
     "type": "memory",
   },
-  "context": StringMatching /\\\\/Volumes\\\\/Samsung\\\\/Code\\\\/roots\\\\/bud/,
+  "context": Any<String>,
   "devtool": false,
   "entry": undefined,
   "experiments": Object {

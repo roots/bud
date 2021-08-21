@@ -6,7 +6,7 @@ Object {
   "cache": Object {
     "type": "memory",
   },
-  "context": "/Volumes/Samsung/Code/roots/bud",
+  "context": Any<String>,
   "devtool": false,
   "entry": undefined,
   "experiments": Object {
@@ -215,7 +215,7 @@ Object {
     },
   ],
   "profile": false,
-  "recordsPath": StringContaining ".budfiles/bud-modules.json",
+  "recordsPath": Any<String>,
   "resolve": Object {
     "alias": Object {},
     "extensions": Array [

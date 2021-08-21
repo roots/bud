@@ -117,7 +117,7 @@ Object {
   "location": Object {
     "dist": "dist",
     "modules": "node_modules",
-    "project": StringMatching /\\\\/Volumes\\\\/Samsung\\\\/Code\\\\/roots\\\\/bud/,
+    "project": Any<String>,
     "publicPath": "",
     "src": "src",
     "storage": ".budfiles",
@@ -329,7 +329,7 @@ Object {
   "location": Object {
     "dist": "dist",
     "modules": "node_modules",
-    "project": StringMatching /\\\\/Volumes\\\\/Samsung\\\\/Code\\\\/roots\\\\/bud/,
+    "project": Any<String>,
     "publicPath": "",
     "src": "src",
     "storage": ".budfiles",

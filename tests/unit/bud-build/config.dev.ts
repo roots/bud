@@ -20,7 +20,7 @@ describe('bud.build.config', function () {
       cache: {
         type: 'memory',
       },
-      context: '/Volumes/Samsung/Code/roots/bud',
+      context: expect.any(String),
       devtool: false,
       entry: undefined,
       experiments: {
@@ -235,9 +235,7 @@ describe('bud.build.config', function () {
         },
       ],
       profile: false,
-      recordsPath: expect.stringContaining(
-        '.budfiles/bud-modules.json',
-      ),
+      recordsPath: expect.any(String),
       resolve: {
         alias: {},
         extensions: [

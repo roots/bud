@@ -46,7 +46,7 @@ describe('bud.build', function () {
       cache: {
         type: 'memory',
       },
-      context: expect.stringMatching(process.cwd()),
+      context: expect.any(String),
       devtool: false,
       entry: undefined,
       experiments: {
