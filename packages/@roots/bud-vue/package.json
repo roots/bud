@@ -68,7 +68,7 @@
     "@vue/compiler-sfc": "3.2.4",
     "css-loader": "6.2.0",
     "vue": "3.2.4",
-    "webpack": "5.50.0"
+    "webpack": "5.51.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
