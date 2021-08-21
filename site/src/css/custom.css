@@ -14,7 +14,6 @@
   --ifm-h1-font-size: 2rem;
 }
 
-
 .markdown header h1 {
   font-size: var(--ifm-h1-font-size);
 }

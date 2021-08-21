@@ -1,4 +1,4 @@
-import {readFile, readJson} from 'fs-extra'
+import {readJson} from 'fs-extra'
 import {join} from 'path'
 
 import {Assets, Entrypoints, helper} from '../util/integration'
@@ -126,40 +126,103 @@ describe(suite.name, () => {
   })
 
   describe('snapshots', () => {
-    it('package.json', async () => {
-      const artifact = await readFile(
+    it('package.json is unchanged', async () => {
+      const artifact = await readJson(
         join(process.cwd(), 'examples/sage/package.json'),
       )
 
-      expect(artifact.toString()).toMatchSnapshot()
+      expect(artifact).toMatchSnapshot()
     })
 
-    it('public/manifest.json', async () => {
-      const artifact = await readFile(
+    it('public/manifest.json matches expectations', async () => {
+      const artifact = await readJson(
         join(
           process.cwd(),
           'examples/sage/public/manifest.json',
         ),
       )
 
-      expect(artifact.toString()).toMatchSnapshot()
+      expect(Object.entries(artifact).length).toEqual(8)
+
+      expect(
+        Object.values<string>(artifact).filter(
+          v =>
+            (v.startsWith('assets/') ||
+              v.startsWith('images/') ||
+              v.startsWith('app') ||
+              v.startsWith('editor') ||
+              v.startsWith('runtime') ||
+              v.startsWith('customizer')) &&
+            (v.endsWith('.js') ||
+              v.endsWith('.css') ||
+              v.endsWith('.jpeg')),
+        ).length,
+      ).toBe(Object.values(artifact).length)
+
+      expect(artifact['app.js']).toMatch(/app\.[\d|\w]*\.js/)
+      expect(artifact['app.css']).toMatch(/app\.[\d|\w]*\.css/)
+      expect(artifact['editor.js']).toMatch(
+        /editor\.[\d|\w]*\.js/,
+      )
+      expect(artifact['editor.css']).toMatch(
+        /editor\.[\d|\w]*\.css/,
+      )
+      expect(artifact['customizer.js']).toMatch(
+        /customizer\.[\d|\w]*\.js/,
+      )
+      expect(artifact['runtime.js']).toMatch(
+        /runtime\.[\d|\w]*\.js/,
+      )
+
+      expect(Object.keys(artifact)).toMatchSnapshot()
     })
 
     it('.budfiles/bud.webpack.config.js', async () => {
-      let artifact = await import(
+      const artifact = await import(
         join(
           process.cwd(),
           'examples/sage/storage/bud/bud.webpack.config.js',
         )
-      )
+      ).then(artifact => artifact())
 
-      artifact = artifact()
-
+      expect(artifact.name).toMatchSnapshot()
       expect(artifact.entry).toMatchSnapshot()
       expect(artifact.mode).toMatchSnapshot()
       expect(artifact.optimization).toMatchSnapshot()
       expect(artifact.bail).toMatchSnapshot()
       expect(artifact.cache).toMatchSnapshot()
+    })
+
+    it('module map matches snapshot', async () => {
+      const artifact = await readJson(
+        join(
+          process.cwd(),
+          'examples/sage/storage/bud/bud-modules.json',
+        ),
+      )
+
+      expect(artifact.chunks).toMatchSnapshot({
+        byName: {
+          app: expect.any(Number),
+          customizer: expect.any(Number),
+          editor: expect.any(Number),
+          runtime: expect.any(Number),
+        },
+        bySource: {
+          '0 app': expect.any(Number),
+          '0 customizer': expect.any(Number),
+          '0 editor': expect.any(Number),
+          '1 app': expect.any(Number),
+          '1 customizer': expect.any(Number),
+          '1 editor': expect.any(Number),
+        },
+        usedIds: [
+          expect.any(Number),
+          expect.any(Number),
+          expect.any(Number),
+          expect.any(Number),
+        ],
+      })
     })
   })
 })

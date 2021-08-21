@@ -1,14 +1,19 @@
 .heroBanner {
-  padding: 4rem 0;
+  padding: 6rem 3rem;
   text-align: center;
   position: relative;
   overflow: hidden;
   color: white;
+  background: linear-gradient(
+    217deg,
+    rgb(86, 98, 218),
+    rgb(71, 83, 220)
+  );
 }
 
 @media screen and (max-width: 966px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 3rem 2rem;
     background: linear-gradient(
       217deg,
       rgb(86, 98, 218),
@@ -17,18 +22,11 @@
   }
 }
 
-.heroBanner {
-  background: linear-gradient(
-    217deg,
-    rgb(86, 98, 218),
-    rgb(71, 83, 220)
-  );
-}
-
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 3rem 1rem;
 }
 
 .buttons a {
