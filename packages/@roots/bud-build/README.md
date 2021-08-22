@@ -72,3 +72,4 @@ Help support our open-source development efforts by [becoming a patron](https://
 <a href="https://www.codersclan.com/"><img src="https://cdn.roots.io/app/uploads/coders-clan.svg" alt="Coders Clan" width="200" height="150"/></a>
 <a href="https://generodigital.com/"><img src="https://cdn.roots.io/app/uploads/genero.svg" alt="Genero" width="200" height="150"/></a>
 <a href="https://motto.ca/roots"><img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150"/></a>
+<a href="https://40q.agency/"><img src="https://cdn.roots.io/app/uploads/40q.svg" alt="40Q" width="200" height="150"/></a>
