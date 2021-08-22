@@ -149,7 +149,7 @@ abstract class Service<
   @bind
   public bindClass<
     T = {
-      [key: string]: Class | [Class, any[]]
+      [key: string]: Class<any> | [Class<any>, any[]]
     },
   >(properties: T): void {
     Object.assign(
