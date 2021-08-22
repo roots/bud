@@ -7,7 +7,7 @@ const PeerDependencies = () => (
   <div>
     <p>
       After installing the main package, run the{' '}
-      <a href="/guides/bud-cli/">`bud init` command</a> to
+      <a href="/guides/bud-cli/"><code>bud init</code> command</a> to
       install required peer dependencies
     </p>
 
