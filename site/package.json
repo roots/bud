@@ -48,8 +48,6 @@
     "url-loader": "4.1.1"
   },
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "octonode": "^0.10.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   }

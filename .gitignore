@@ -1,12 +1,17 @@
+# secret
+.env
+
 *.log
-node_modules
-coverage
 **/lib
 **/types
 !**/src/types
 *.tsbuildinfo
 
-# Yarn
+# jest
+coverage
+
+# pacman artifacts
+node_modules
 .yarn/*
 !.yarn/patches
 !.yarn/releases
@@ -19,11 +24,8 @@ coverage
 # bud
 /.budfiles
 
-# Kjo
-!/dev/build/yarn-plugin-tasks/lib
-
 # Profiles
 **/profiles
 
 # Netlify
-.netlify
+**/.netlify
