@@ -28,6 +28,10 @@ const config = {
       id: 'announcementBar-1', // Increment on change
       content: `⭐️ If you like Bud.js, give it a star on <a target="_blank" rel="noopener noreferrer" href="${manifest.url.web}">GitHub</a>! ⭐`,
     },
+    googleAnalytics: {
+      trackingID: 'UA-71591-53',
+      anonymizeIP: true,
+    },
     hideableSidebar: true,
     prism: {
       additionalLanguages: ['php'],
