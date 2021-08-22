@@ -4,6 +4,7 @@
  *
  */
 
+const {config: dotenvConfig} = require('dotenv')
 const {posix: path} = require('path')
 const darkTheme = require('prism-react-renderer/themes/dracula')
 const theme = require('prism-react-renderer/themes/github')

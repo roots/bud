@@ -49,6 +49,7 @@
     "@yarnpkg/builder": "3.0.1",
     "autobind-decorator": "2.4.0",
     "codecov": "3.8.3",
+    "dotenv": "^10.0.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.24.1",
@@ -60,6 +61,7 @@
     "file-loader": "6.2.0",
     "fs-extra": "10.0.0",
     "jest": "27.0.6",
+    "octonode": "^0.10.2",
     "prettier": "2.3.2",
     "raw-loader": "4.0.2",
     "react": "17.0.2",
@@ -96,32 +98,32 @@
     "contributors": {
       "kellymears": {
         "type": [
-          "steward",
-          "development",
-          "documentation"
+          "🚀 steward",
+          "💻 dev",
+          "✍🏽 docs"
         ]
       },
       "qwp6t": {
         "type": [
-          "steward",
-          "development",
-          "documentation"
+          "🚀 steward",
+          "💻 dev",
+          "✍🏽 docs"
         ]
       },
       "swalkinshaw": {
         "type": [
-          "steward",
-          "documentation"
+          "🚀 steward",
+          "✍🏽 docs"
         ]
       },
       "clayrisser": {
         "type": [
-          "documentation"
+          "✍🏽 docs"
         ]
       },
-      "lettenmair": {
+      "catgofire": {
         "type": [
-          "documentation"
+          "✍🏽 docs"
         ]
       }
     },

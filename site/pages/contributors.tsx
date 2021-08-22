@@ -1,8 +1,9 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
+import {Contributors} from '../src/components/Contributors'
 import styles from './index.module.css'
 
 function Header() {
@@ -16,35 +17,7 @@ function Header() {
   )
 }
 
-function Contributor({id, type}) {
-  const [user, setUser] = useState<any>(null)
-
-  useEffect(() => {
-    const fetchUser = async id => {
-      const res = await fetch(
-        `https://api.github.com/users/${id}`,
-      )
-
-      res && setUser({...user, ...res.json()})
-    }
-
-    fetchUser(id)
-  }, [id, user, setUser])
-
-  return !user ? null : (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <img src={user.avatar_url} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{user.name}</h3>
-        <p>{user.bio}</p>
-      </div>
-    </div>
-  )
-}
-
-export default function Contributors() {
+function Page() {
   const {
     siteConfig: {customFields: manifest},
   } = useDocusaurusContext()
@@ -57,17 +30,11 @@ export default function Contributors() {
 
       <main>
         <section className={styles.features}>
-          <div className="container">
-            <div className="row">
-              {Object.entries(manifest.contributors).map(
-                ([user, info], id) => (
-                  <Contributor key={id} id={user} type={info} />
-                ),
-              )}
-            </div>
-          </div>
+          <Contributors />
         </section>
       </main>
     </Layout>
   )
 }
+
+export default Page
