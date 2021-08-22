@@ -8,7 +8,7 @@ const Sponsor = ({image, title, url}) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <a href={url}>
+        <a href={url} rel="sponsored">
           <img
             src={image}
             alt={title}
