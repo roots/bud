@@ -114,6 +114,12 @@
           "documentation"
         ]
       },
+      "retlehs": {
+        "type": [
+          "steward",
+          "documentation"
+        ]
+      },
       "clayrisser": {
         "type": [
           "documentation"
@@ -417,6 +423,11 @@
         "image": "https://cdn.roots.io/app/uploads/motto.svg",
         "title": "Motto",
         "url": "https://motto.ca/roots"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/40q.svg",
+        "title": "40Q",
+        "url": "https://40q.agency/"
       }
     ]
   },
