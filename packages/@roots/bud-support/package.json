@@ -75,7 +75,7 @@
     "@types/yamljs": "0.2.31",
     "@vercel/ncc": "0.29.2",
     "chalk": "4.1.2",
-    "cosmiconfig": "7.0.0",
+    "cosmiconfig": "7.0.1",
     "dotenv": "10.0.0",
     "dotenv-expand": "5.1.0",
     "execa": "5.1.1",
