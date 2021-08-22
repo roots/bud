@@ -1,10 +1,12 @@
 'docs':
-  - docs/*
-  - docs/**
-  - packages/**/docs/*
-  - packages/**/docs/**
-  - dev/docs/*
-  - dev/docs/**/*
+  - site/*
+  - site/**
+  - README.md
+  - packages/@roots/*/README.md
+  - dev/site/*
+  - dev/site/**/*
+  - dev/readme/*
+  - dev/readme/**/*
 
 'dependencies':
   - packages/**/package.json
