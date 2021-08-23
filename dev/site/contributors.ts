@@ -41,7 +41,7 @@ const packages = (user: any) => {
         ])
 
         if (
-          (res.stdout && res.stdout.includes(user.email)) ||
+          res.stdout.includes(user.email) ||
           res.stdout.includes(user.login) ||
           res.stdout.includes(user.name)
         ) {
@@ -96,7 +96,7 @@ const curryRequestCb =
                 name !== userData.login,
             ) ?? []),
             {
-              name: `${userData.name ?? userData.login}`,
+              name: `${userData.login}`,
               url: `${userData.html_url}`,
             },
           ]

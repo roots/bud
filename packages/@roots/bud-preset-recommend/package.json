@@ -9,16 +9,16 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "Justin Lettenmair",
-      "url": "https://github.com/catgofire"
     },
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "catgofire",
+      "url": "https://github.com/catgofire"
     }
   ],
   "license": "MIT",
