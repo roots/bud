@@ -24,4 +24,10 @@ describe(suite.name, () => {
       expect(assets['main.js'].includes('import')).toBeFalsy()
     })
   })
+
+  describe('main.css', () => {
+    it('is transpiled', () => {
+      expect(assets['main.css']).toMatchSnapshot()
+    })
+  })
 })

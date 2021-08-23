@@ -23,6 +23,512 @@ SOFTWARE.
 "
 `;
 
+exports[`repo examples/package.json matches snapshot 1`] = `
+"{
+  \\"name\\": \\"example-babel\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 2`] = `
+"{
+  \\"name\\": \\"example-basic\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 3`] = `
+"{
+  \\"name\\": \\"example-critical-css\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-criticalcss\\": \\"workspace:packages/@roots/bud-criticalcss\\",
+    \\"@roots/bud-postcss\\": \\"workspace:packages/@roots/bud-postcss\\",
+    \\"@roots/bud-tailwindcss\\": \\"workspace:packages/@roots/bud-tailwindcss\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 4`] = `
+"{
+  \\"name\\": \\"example-emotion\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
+    \\"@roots/bud-emotion\\": \\"workspace:packages/@roots/bud-emotion\\",
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 5`] = `
+"{
+  \\"name\\": \\"example-esbuild\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-esbuild\\": \\"workspace:packages/@roots/bud-esbuild\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 6`] = `
+"{
+  \\"name\\": \\"example-eslint\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-eslint\\": \\"workspace:packages/@roots/bud-eslint\\",
+    \\"@roots/bud-preset-recommend\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 7`] = `
+"{
+  \\"name\\": \\"example-template\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 8`] = `
+"{
+  \\"name\\": \\"example-imagemin\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-imagemin\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 9`] = `
+"{
+  \\"name\\": \\"example-markdown\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-mdx\\": \\"workspace:*\\",
+    \\"@roots/bud-preset-recommend\\": \\"workspace:*\\",
+    \\"@roots/bud-react\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 10`] = `
+"{
+  \\"name\\": \\"example-multi\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 11`] = `
+"{
+  \\"name\\": \\"example-node-api\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 12`] = `
+"{
+  \\"name\\": \\"example-postcss\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@roots/bud-postcss\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 13`] = `
+"{
+  \\"name\\": \\"example-preset-recommend\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-preset-recommend\\": \\"workspace:packages/@roots/bud-preset-recommend\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 14`] = `
+"{
+  \\"name\\": \\"example-react\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
+    \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
+    \\"@roots/bud-postcss\\": \\"workspace:packages/@roots/bud-postcss\\",
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 15`] = `
+"{
+  \\"name\\": \\"example-sage\\",
+  \\"private\\": true,
+  \\"browserslist\\": [
+    \\"extends @wordpress/browserslist-config\\"
+  ],
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/sage\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 16`] = `
+"{
+  \\"name\\": \\"example-sass\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-sass\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 17`] = `
+"{
+  \\"name\\": \\"example-solid\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@roots/bud-solid\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 18`] = `
+"{
+  \\"name\\": \\"example-tailwindcss\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@roots/bud-postcss\\": \\"workspace:*\\",
+    \\"@roots/bud-tailwindcss\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 19`] = `
+"{
+  \\"name\\": \\"example-typescript\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@roots/bud-typescript\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 20`] = `
+"{
+  \\"name\\": \\"example-vue\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-vue\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
+exports[`repo examples/package.json matches snapshot 21`] = `
+"{
+  \\"name\\": \\"example-wordpress-theme\\",
+  \\"private\\": true,
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.5%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  },
+  \\"devDependencies\\": {
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@roots/bud-preset-wordpress\\": \\"workspace:*\\"
+  }
+}
+"
+`;
+
 exports[`repo readme.md matches snapshot 1`] = `
 "<p align=\\"center\\">
   <img alt=\\"Bud\\" src=\\"https://cdn.roots.io/app/uploads/logo-bud.svg\\" height=\\"100\\" />

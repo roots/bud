@@ -1,4 +1,5 @@
-import {readFile} from 'fs-extra'
+import {globby} from '@roots/bud-support'
+import {readFile, readFileSync} from 'fs-extra'
 import {join} from 'path'
 
 describe('repo', function () {
@@ -24,5 +25,13 @@ describe('repo', function () {
         `Cannot find module 'sass' from 'tests/unit/root/index.ts`,
       )
     } catch {}
+  })
+
+  it('examples/package.json matches snapshot', done => {
+    globby.globbySync('examples/*/package.json').map(json => {
+      expect(readFileSync(json).toString()).toMatchSnapshot()
+    })
+
+    done()
   })
 })

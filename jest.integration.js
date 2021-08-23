@@ -71,6 +71,9 @@ const jest = async suite => {
 
   const res = execa('yarn', cmdSegments)
 
+  res.stdout.pipe(process.stdout)
+  res.stderr.pipe(process.stdout)
+
   await res
 
   if (res.exitCode == 0) {
@@ -120,10 +123,25 @@ const run = async () => {
     logger.info(
       'Remember to run yarn install to update lockfile before committing',
     )
+
     return Promise.resolve()
   } catch (err) {
     logger.error(err)
-    throw new Error(err)
+
+    logger.scope('error').time('Restoring package manifests')
+
+    const paths = await globby.globby('examples/*', {
+      cwd: process.cwd(),
+      onlyDirectories: true,
+      absolute: true,
+    })
+
+    await post(paths)
+    await execa('yarn')
+
+    logger.scope('error').timeEnd('Restoring package manifests')
+
+    process.exit(1)
   }
 }
 
