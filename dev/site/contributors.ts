@@ -1,6 +1,9 @@
-import {writeJson} from 'fs-extra'
+import {globby} from '@roots/bud-support'
+import * as execa from 'execa'
+import {readJsonSync, writeFile, writeFileSync} from 'fs-extra'
 import {IncomingMessage} from 'http'
 import * as https from 'https'
+import {format} from 'prettier'
 
 import {manifest} from '../../package.json'
 
@@ -13,6 +16,43 @@ const TOKEN =
     .filter(arg => arg.startsWith('token='))
     .pop()
     .replace('token=', '')
+
+const packages = (user: any) => {
+  if (user.login.includes('bot') || user.login.includes('Bot')) {
+    return []
+  }
+
+  const list = globby.globbySync(`packages/@roots/*`, {
+    absolute: false,
+    cwd: process.cwd(),
+    onlyFiles: false,
+  })
+
+  return (
+    list
+      .map((pkg: string) => {
+        const res = execa.sync('git', [
+          'shortlog',
+          'HEAD',
+          '-s',
+          '-n',
+          '-e',
+          pkg,
+        ])
+
+        if (
+          (res.stdout && res.stdout.includes(user.email)) ||
+          res.stdout.includes(user.login) ||
+          res.stdout.includes(user.name)
+        ) {
+          return pkg.replace('packages/', '')
+        } else {
+          return false
+        }
+      })
+      .filter(Boolean) ?? []
+  )
+}
 
 const makeOptions = (
   user: string,
@@ -29,23 +69,60 @@ const makeOptions = (
 
 const curryRequestCb =
   (user: string): ((res: IncomingMessage) => void) =>
-  res => {
-    let data = ``
+  async res => {
+    let buffer = ``
 
     res.setEncoding('utf8')
 
     res.on('data', (chunk: string): void => {
-      data = `${data}${chunk}`
+      buffer = `${buffer}${chunk}`
     })
 
     res.on('end', async (): Promise<void> => {
-      await writeJson(
+      const userData = JSON.parse(buffer)
+
+      userData.contributions = packages(userData)
+
+      if (userData.contributions.length > 0) {
+        userData.contributions.map(pkgPath => {
+          const filePath = `${process.cwd()}/packages/${pkgPath}/package.json`
+
+          const pkgJson = readJsonSync(filePath)
+
+          pkgJson.contributors = [
+            ...(pkgJson.contributors?.filter(
+              ({name}) =>
+                name !== userData.name &&
+                name !== userData.login,
+            ) ?? []),
+            {
+              name: `${userData.name ?? userData.login}`,
+              url: `${userData.html_url}`,
+            },
+          ]
+
+          writeFileSync(
+            filePath,
+            format(JSON.stringify(pkgJson), {
+              parser: 'json',
+              printWidth: 40,
+            }),
+          )
+        })
+      }
+
+      await writeFile(
         process
           .cwd()
           .concat(`/site/static/data/contributors/${user}.json`),
-        JSON.parse(data),
+        format(JSON.stringify(userData), {
+          parser: 'json',
+          printWidth: 40,
+        }),
       )
     })
+
+    await execa('yarn')
   }
 
 Object.entries(manifest.contributors).map(([user]) => {
