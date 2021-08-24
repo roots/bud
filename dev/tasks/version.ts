@@ -37,7 +37,7 @@ const tag = process.argv.splice(2).pop()
         tag,
         `--allow-same-version`,
       ],
-      {cwd: dirname(pkg)},
+      {cwd: pkg},
     )
   })
 })()
