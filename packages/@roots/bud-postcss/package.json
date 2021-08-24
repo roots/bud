@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "4.7.0-next.11",
+  "version": "4.7.0-next.12",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {

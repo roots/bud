@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-prettier",
   "description": "Prettier component for React Ink",
-  "version": "4.7.0-next.11",
+  "version": "4.7.0-next.12",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
