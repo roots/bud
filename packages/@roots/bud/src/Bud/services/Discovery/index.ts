@@ -1,5 +1,6 @@
 import {
   Discovery as Contract,
+  Framework,
   Service,
 } from '@roots/bud-framework'
 import {cosmiconfig, pkgUp} from '@roots/bud-support'
@@ -7,13 +8,23 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {dirname} from 'path'
 
-class Discovery
-  extends Contract
-  implements Service<Contract['repository']>
-{
+interface Repository extends Framework.Index {
+  name: string
+  peers: Framework.Index<Framework.Index<any>>
+  dependencies: Framework.Index<string>
+  devDependencies: Framework.Index<string>
+  required: Framework.Index<{
+    source: string
+    name: string
+    ver: string
+    type: 'dependencies' | 'devDependencies'
+  }>
+}
+
+class Discovery extends Contract implements Service<Repository> {
   public name = 'discovery'
 
-  public repository: Contract['repository'] = {
+  public repository: Repository = {
     name: null,
     peers: {},
     dependencies: {},
@@ -107,7 +118,7 @@ class Discovery
     this.each('peers', (source, pkg) => {
       if (!pkg) return
 
-      if (pkg.dependencies?.dev) {
+      pkg.dependencies?.dev &&
         Object.entries(pkg.dependencies.dev).forEach(
           ([name, ver]) => {
             this.set(`required.${name}`, {
@@ -118,9 +129,8 @@ class Discovery
             })
           },
         )
-      }
 
-      if (pkg.dependencies?.production) {
+      pkg.dependencies?.production &&
         Object.entries(pkg.dependencies.production).forEach(
           ([name, ver]) => {
             this.set(`required.${name}`, {
@@ -131,7 +141,6 @@ class Discovery
             })
           },
         )
-      }
     })
   }
 
@@ -168,28 +177,10 @@ class Discovery
 
   @bind
   public install(): void {
-    const required = this.get<{
-      [key: string]: {
-        source: string
-        name: string
-        ver: string
-        type: 'dependencies' | 'devDependencies'
-      }
-    }>('required')
+    const required = this.get<Repository['required']>('required')
 
     required &&
-      this.app.dependencies.install(
-        Object.values(
-          this.get<{
-            [key: string]: {
-              source: string
-              name: string
-              ver: string
-              type: 'dependencies' | 'devDependencies'
-            }
-          }>('required'),
-        ),
-      )
+      this.app.dependencies.install(Object.values(required))
   }
 }
 
