@@ -81,7 +81,12 @@
   "manifest": {
     "name": "bud.js",
     "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
-    "version": "4.7.0-next.11",
+    "version": {
+      "major": 4,
+      "minor": 7,
+      "patch": 0,
+      "increment": 11
+    },
     "logo": "https://cdn.roots.io/app/uploads/logo-bud.svg",
     "url": {
       "discourse": "https://discourse.roots.io/c/bud/24",

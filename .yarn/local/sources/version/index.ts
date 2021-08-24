@@ -58,8 +58,6 @@ export class VersionCommand extends Command {
      * Set version
      */
     if (this.set) {
-      console.log(version.object, version.string)
-
       xfs.writeJsonSync(
         this.context.cwd.concat('/package.json') as PortablePath,
         raw,
