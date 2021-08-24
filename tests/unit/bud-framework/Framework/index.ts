@@ -8,7 +8,9 @@ describe('bud', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {...config, ci: true},
+    })
   })
 
   afterAll(done => {
@@ -130,5 +132,9 @@ describe('bud', () => {
     )
 
     done()
+  })
+
+  it('has close fn', () => {
+    expect(bud.close).toBeInstanceOf(Function)
   })
 })

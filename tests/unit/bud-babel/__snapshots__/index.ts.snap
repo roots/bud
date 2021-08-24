@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/bud-babel bud.babel.normalizeEntry normalizes plugins 1`] = `
+Array [
+  "foo",
+  Object {},
+]
+`;
+
+exports[`@roots/bud-babel has correctly interpreted default plugins 1`] = `
+Object {
+  "@babel/plugin-proposal-class-properties": Array [
+    "@babel/plugin-proposal-class-properties",
+    Object {},
+  ],
+  "@babel/plugin-proposal-object-rest-spread": Array [
+    "@babel/plugin-proposal-object-rest-spread",
+    Object {},
+  ],
+  "@babel/plugin-syntax-dynamic-import": Array [
+    "@babel/plugin-syntax-dynamic-import",
+    Object {},
+  ],
+  "@babel/plugin-transform-runtime": Array [
+    "@babel/plugin-transform-runtime",
+    Object {
+      "helpers": false,
+    },
+  ],
+}
+`;
+
+exports[`@roots/bud-babel has correctly interpreted default plugins 2`] = `
+Object {
+  "@babel/preset-env": Array [
+    "@babel/preset-env",
+    Object {},
+  ],
+}
+`;
+
+exports[`@roots/bud-babel has expected default plugins 1`] = `
+Array [
+  Array [
+    "@babel/plugin-transform-runtime",
+    Object {
+      "helpers": false,
+    },
+  ],
+  "@babel/plugin-proposal-object-rest-spread",
+  "@babel/plugin-syntax-dynamic-import",
+  "@babel/plugin-proposal-class-properties",
+]
+`;
+
+exports[`@roots/bud-babel has expected default presets 1`] = `
+Array [
+  "@babel/preset-env",
+]
+`;

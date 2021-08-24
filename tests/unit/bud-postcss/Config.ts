@@ -6,9 +6,13 @@ describe('bud.postcss', () => {
 
   beforeAll(() => {
     bud = factory({
-      mode: 'development',
-      config: {...config, ci: true},
+      mode: 'production',
+      config: {
+        ...config,
+        ci: true,
+      },
     })
+
     bud.use(BudPostCssExtension)
   })
 
@@ -35,14 +39,19 @@ describe('bud.postcss', () => {
       'postcss-nested',
       'postcss-preset-env',
     ])
+
+    expect(bud.postcss.plugins).toMatchSnapshot()
   })
 
   it('unsetPlugin functions', () => {
     bud.postcss.unsetPlugin('postcss-import')
+
     expect(Object.keys(bud.postcss.plugins)).toEqual([
       'postcss-nested',
       'postcss-preset-env',
     ])
+
+    expect(bud.postcss.plugins).toMatchSnapshot()
   })
 
   it('setPlugin functions', () => {
@@ -53,12 +62,12 @@ describe('bud.postcss', () => {
     )
 
     expect(
-      bud.postcss.plugins['postcss-import'].shift(),
+      bud.postcss.plugins['postcss-import'][0],
     ).toBeInstanceOf(Function)
 
-    expect(bud.postcss.plugins['postcss-import'].pop()).toEqual(
-      {},
-    )
+    expect(bud.postcss.plugins['postcss-import'][1]).toEqual({})
+
+    expect(bud.postcss.plugins).toMatchSnapshot()
   })
 
   it('setPluginOptions functions', () => {
@@ -66,8 +75,10 @@ describe('bud.postcss', () => {
       foo: 'bar',
     })
 
-    expect(bud.postcss.plugins['postcss-import'].pop()).toEqual({
+    expect(bud.postcss.plugins['postcss-import'][1]).toEqual({
       foo: 'bar',
     })
+
+    expect(bud.postcss.plugins).toMatchSnapshot()
   })
 })

@@ -8,7 +8,9 @@ describe('@roots/bud-emotion', () => {
     let bud: Framework = null
 
     beforeAll(() => {
-      bud = factory({config: {...config, ci: true}})
+      bud = factory({
+        config: {...config, ci: true},
+      })
     })
 
     afterAll(done => {

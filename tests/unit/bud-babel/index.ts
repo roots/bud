@@ -9,7 +9,9 @@ describe('@roots/bud-babel', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {...config, ci: true},
+    })
     Config = new BudBabelExtension.Config(bud)
   })
 
@@ -54,7 +56,7 @@ describe('@roots/bud-babel', function () {
   })
 
   it('has expected default plugins', () => {
-    expect(BudBabelExtension.DEFAULT_PLUGINS).toEqual([
+    expect(BudBabelExtension.DEFAULT_PLUGINS).toMatchSnapshot([
       ['@babel/plugin-transform-runtime', {helpers: false}],
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-syntax-dynamic-import',
@@ -65,7 +67,7 @@ describe('@roots/bud-babel', function () {
   it('has correctly interpreted default plugins', () => {
     Config.setPlugins(BudBabelExtension.DEFAULT_PLUGINS)
 
-    expect(Config.plugins).toEqual({
+    expect(Config.plugins).toMatchSnapshot({
       '@babel/plugin-transform-runtime': [
         '@babel/plugin-transform-runtime',
         {helpers: false},
@@ -86,7 +88,7 @@ describe('@roots/bud-babel', function () {
   })
 
   it('has expected default presets', () => {
-    expect(BudBabelExtension.DEFAULT_PRESETS).toEqual([
+    expect(BudBabelExtension.DEFAULT_PRESETS).toMatchSnapshot([
       '@babel/preset-env',
     ])
   })
@@ -94,7 +96,7 @@ describe('@roots/bud-babel', function () {
   it('has correctly interpreted default plugins', () => {
     Config.setPresets(BudBabelExtension.DEFAULT_PRESETS)
 
-    expect(Config.presets).toEqual({
+    expect(Config.presets).toMatchSnapshot({
       '@babel/preset-env': ['@babel/preset-env', {}],
     })
   })
@@ -163,7 +165,7 @@ describe('@roots/bud-babel', function () {
     const plugin = 'foo'
     const result = Config.normalizeEntry(plugin)
 
-    expect(result).toEqual(['foo', {}])
+    expect(result).toMatchSnapshot(['foo', {}])
   })
 
   it('bud.babel.app returns app', () => {

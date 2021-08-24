@@ -32,11 +32,17 @@ class Discovery extends Contract implements Service<Repository> {
     required: {},
   }
 
+  /**
+   * Array of paths for webpack to resolve modules from
+   */
+  public resolveFrom: string[] = []
+
   @bind
   public register(): void {
     this.setStore(
       readJsonSync(this.app.path('project', 'package.json')),
     )
+
     this.discover('dependencies')
       .discover('devDependencies')
       .setRequired()
@@ -79,9 +85,6 @@ class Discovery extends Contract implements Service<Repository> {
           dir,
           ...this.mapConfig({name, dir}),
         })
-
-        !this.resolveFrom?.includes(dir) &&
-          this.resolveFrom.push(dir)
       })
 
     return this
