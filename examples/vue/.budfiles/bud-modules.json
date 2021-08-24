@@ -69,8 +69,8 @@
       "../../packages/@roots/bud-vue/node_modules/vue-loader/dist/index.js??ruleSet[1].rules[5].use[0]!./src/app.vue|5599d11b8554011f1b16ee957f0da3dd": 252
     },
     "usedIds": [
-      286,
-      492
+      252,
+      286
     ]
   }
 }

@@ -64,6 +64,12 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
@@ -76,7 +82,6 @@
     "webpack": "5.51.1"
   },
   "dependencies": {
-    "@babel/core": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.2",
     "autobind-decorator": "^2.4.0",
@@ -84,8 +89,6 @@
     "react-refresh": "^0.10.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
     "react": ">=17",
     "react-dom": ">=17"
   },

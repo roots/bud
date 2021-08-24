@@ -66,6 +66,14 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "preset",
+    "peers": [
+      "@roots/bud-babel",
+      "@roots/bud-entrypoints",
+      "@roots/bud-postcss"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
@@ -76,13 +84,7 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
-    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "eslint": "^7.27.0",
-    "postcss": "^8.3.0"
   },
   "stableVersion": "4.6.0"
 }

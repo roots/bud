@@ -74,6 +74,9 @@
     "vue": "3.2.4",
     "webpack": "5.51.1"
   },
+  "bud": {
+    "type": "extensions"
+  },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0",

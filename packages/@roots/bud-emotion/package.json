@@ -64,6 +64,13 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel",
+      "@roots/bud-react"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "7.15.0",
     "@babel/preset-react": "7.14.5",
@@ -81,9 +88,9 @@
     "autobind-decorator": "^2.4.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-react": "*",
+    "@emotion/css": "11.1.3",
+    "@emotion/react": "11.4.1",
+    "@emotion/styled": "11.3.0",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"
   },

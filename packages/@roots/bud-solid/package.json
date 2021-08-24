@@ -61,6 +61,12 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
@@ -77,8 +83,6 @@
     "babel-preset-solid": "^1.0.6"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
     "solid-js": ">=1"
   },
   "stableVersion": "4.6.0"

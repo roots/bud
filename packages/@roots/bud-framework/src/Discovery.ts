@@ -45,14 +45,6 @@ export abstract class Discovery extends Service<Repository> {
   public abstract registerDiscovered(): void
 
   /**
-   * Gather information on packages
-   */
-  public abstract mapConfig(pkg: {
-    name: string
-    dir: string
-  }): void
-
-  /**
    * Install packages
    */
   public abstract install(): void
@@ -63,8 +55,6 @@ export abstract class Discovery extends Service<Repository> {
   public abstract getProjectInfo(): {
     [key: string]: any
   }
-
-  public abstract resolvePeers(pkg): void
 
   /**
    * Returns a boolean representing if

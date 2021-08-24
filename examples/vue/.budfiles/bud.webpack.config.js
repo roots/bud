@@ -36,7 +36,7 @@ module.exports = () => ({
         test: /\.vue$/,
         use: [
           {
-            loader: '/Volumes/Samsung/Code/roots/bud/node_modules/vue-loader/dist/index.js'
+            loader: '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-vue/node_modules/vue-loader/dist/index.js'
           }
         ]
       },
@@ -200,7 +200,8 @@ module.exports = () => ({
       'src',
       'node_modules',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-vue'
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-vue',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel'
     ]
   }
 })

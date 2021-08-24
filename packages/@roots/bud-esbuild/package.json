@@ -65,6 +65,9 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
@@ -78,10 +81,8 @@
     "autobind-decorator": "^2.4.0",
     "esbuild-loader": "^2.13.1",
     "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*"
+    "lodash": "^4.17.21",
+    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
   },
   "stableVersion": "4.6.0"
 }

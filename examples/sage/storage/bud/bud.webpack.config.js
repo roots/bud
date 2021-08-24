@@ -266,7 +266,7 @@ module.exports = () => ({
         failOnError: true,
         context: '/Volumes/Samsung/Code/roots/bud/examples/sage/resources'
       },
-      startTime: 1629800917687
+      startTime: 1629848274277
     }
   ],
   recordsInputPath: '/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/bud-modules.json',
@@ -292,15 +292,19 @@ module.exports = () => ({
       'node_modules',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/sage',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-wordpress',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-recommend',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-entrypoints',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-eslint',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-postcss',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-react',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-tailwindcss',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-externals',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-dependencies',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-manifests'
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-manifests',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-eslint',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-prettier',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-stylelint',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-tailwindcss'
     ]
   }
 })

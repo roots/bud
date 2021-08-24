@@ -269,11 +269,11 @@ module.exports = () => ({
       'node_modules',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-mdx',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-recommend',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-react',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-postcss',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-entrypoints'
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-react',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-recommend',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-entrypoints',
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-postcss'
     ]
   }
 })

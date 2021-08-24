@@ -63,6 +63,11 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "peers": [
+      "@roots/bud-postcss"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
@@ -80,8 +85,7 @@
     "tailwindcss": "^2.2.7"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*"
+    "tailwindcss": "^2.2.4"
   },
   "stableVersion": "4.6.0"
 }

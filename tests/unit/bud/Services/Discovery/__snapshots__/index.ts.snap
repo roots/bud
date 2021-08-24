@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bud.discovery collates required peers 1`] = `
+Object {
+  "postcss": Object {
+    "name": "postcss",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "postcss-import": Object {
+    "name": "postcss-import",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "postcss-preset-env": Object {
+    "name": "postcss-preset-env",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+}
+`;
+
 exports[`bud.discovery contains a repository 1`] = `
 Object {
   "description": Any<String>,
@@ -20,18 +40,9 @@ Object {
 
 exports[`bud.discovery discover method gathers dep data 1`] = `
 Object {
-  "dependencies": Object {
-    "dev": Object {
-      "postcss": Any<String>,
-      "postcss-import": Any<String>,
-      "postcss-preset-env": Any<String>,
-    },
-  },
-  "dir": StringContaining "@roots/bud-postcss",
-  "manifestPath": StringContaining "@roots/bud-postcss/manifest.yml",
   "name": "@roots/bud-postcss",
-  "type": "extension",
-  "ver": Any<String>,
+  "type": "devDependencies",
+  "ver": "4.7.0-next.12",
 }
 `;
 
@@ -39,27 +50,4 @@ exports[`bud.discovery resolveFrom contains paths of found peers 1`] = `
 Array [
   StringContaining "@roots/bud-postcss",
 ]
-`;
-
-exports[`bud.discovery setRequired method collates required peers 1`] = `
-Object {
-  "postcss": Object {
-    "name": "postcss",
-    "source": "@roots/bud-postcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-  "postcss-import": Object {
-    "name": "postcss-import",
-    "source": "@roots/bud-postcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-  "postcss-preset-env": Object {
-    "name": "postcss-preset-env",
-    "source": "@roots/bud-postcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-}
 `;

@@ -56,76 +56,43 @@ describe('bud.discovery', function () {
   })
 
   it('discover method gathers dep data', () => {
-    bud.discovery.set(`devDependencies.@roots/bud-postcss`, `*`)
-
+    bud.discovery.set(
+      `devDependencies.@roots/bud-postcss`,
+      `workspace:packages/@roots/bud-postcss`,
+    )
     bud.discovery.discover(`devDependencies`)
 
     expect(
-      bud.discovery.get(`peers.@roots/bud-postcss`),
-    ).toMatchSnapshot({
-      dependencies: {
-        dev: {
-          postcss: expect.any(String),
-          'postcss-import': expect.any(String),
-          'postcss-preset-env': expect.any(String),
-        },
-      },
-      dir: expect.stringContaining('@roots/bud-postcss'),
-      manifestPath: expect.stringContaining(
-        '@roots/bud-postcss/manifest.yml',
-      ),
-      type: 'extension',
-      ver: expect.any(String),
-    })
+      bud.discovery.get(`extensions.@roots/bud-postcss`),
+    ).toMatchSnapshot()
   })
 
-  it('has setRequired function', () => {
-    expect(bud.discovery.setRequired).toBeInstanceOf(Function)
-  })
-
-  it('setRequired method collates required peers', () => {
-    bud.discovery.setRequired()
-
-    expect(bud.discovery.get('required')).toMatchSnapshot({
+  it('collates required peers', () => {
+    expect(bud.discovery.get('peers')).toMatchSnapshot({
       postcss: {
         name: 'postcss',
-        source: '@roots/bud-postcss',
         ver: expect.any(String),
         type: 'devDependencies',
       },
       'postcss-import': {
         name: 'postcss-import',
-        source: '@roots/bud-postcss',
         ver: expect.any(String),
         type: 'devDependencies',
       },
       'postcss-preset-env': {
         name: 'postcss-preset-env',
-        source: '@roots/bud-postcss',
         ver: expect.any(String),
         type: 'devDependencies',
       },
     })
   })
 
+  it('contains project level name', () => {
+    expect(bud.discovery.get('name')).toEqual(json.name)
+  })
+
   it('has install function', () => {
     expect(bud.discovery.install).toBeInstanceOf(Function)
-  })
-
-  it('has registerDiscovered function', () => {
-    expect(bud.discovery.registerDiscovered).toBeInstanceOf(
-      Function,
-    )
-  })
-
-  it('registerDiscovered method adds extensions', () => {
-    bud.discovery.registerDiscovered()
-
-    expect(bud.extensions.has('@roots/bud-postcss')).toBe(true)
-  })
-
-  it('has resolvePeers function', () => {
-    expect(bud.discovery.resolvePeers).toBeInstanceOf(Function)
   })
 
   it('has resolveFrom property', () => {
@@ -138,7 +105,15 @@ describe('bud.discovery', function () {
     ])
   })
 
-  it('contains project level name', () => {
-    expect(bud.discovery.get('name')).toEqual(json.name)
+  it('has registerDiscovered function', () => {
+    expect(bud.discovery.registerDiscovered).toBeInstanceOf(
+      Function,
+    )
+  })
+
+  it('registerDiscovered method adds extensions', () => {
+    bud.discovery.registerDiscovered()
+
+    expect(bud.extensions.has('@roots/bud-postcss')).toBe(true)
   })
 })

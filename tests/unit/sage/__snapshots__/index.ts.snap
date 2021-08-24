@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/sage sage required peers matches snapshot 1`] = `
+Object {
+  "@roots/bud": Object {
+    "name": "@roots/bud",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "@wordpress/browserslist-config": Object {
+    "name": "@wordpress/browserslist-config",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "eslint": Object {
+    "name": "eslint",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "postcss": Object {
+    "name": "postcss",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "postcss-import": Object {
+    "name": "postcss-import",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "postcss-preset-env": Object {
+    "name": "postcss-preset-env",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "react": Object {
+    "name": "react",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "react-dom": Object {
+    "name": "react-dom",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+  "tailwindcss": Object {
+    "name": "tailwindcss",
+    "type": "devDependencies",
+    "ver": Any<String>,
+  },
+}
+`;
+
+exports[`@roots/sage sage resolveFrom matches snapshot 1`] = `
+Array [
+  StringContaining "@roots/bud",
+  StringContaining "@roots/sage",
+  StringContaining "@roots/bud-preset-wordpress",
+  StringContaining "@roots/bud-preset-recommend",
+  StringContaining "@roots/bud-babel",
+  StringContaining "@roots/bud-entrypoints",
+  StringContaining "@roots/bud-postcss",
+  StringContaining "@roots/bud-react",
+  StringContaining "@roots/bud-wordpress-externals",
+  StringContaining "@roots/bud-wordpress-dependencies",
+  StringContaining "@roots/bud-wordpress-manifests",
+  StringContaining "@roots/bud-eslint",
+  StringContaining "@roots/bud-prettier",
+  StringContaining "@roots/bud-stylelint",
+  StringContaining "@roots/bud-tailwindcss",
+]
+`;

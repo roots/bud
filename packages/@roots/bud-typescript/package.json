@@ -63,6 +63,12 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
@@ -81,8 +87,6 @@
     "ts-loader": "^9.2.3"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
     "eslint": "^7",
     "typescript": "^4"
   },

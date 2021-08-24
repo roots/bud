@@ -63,14 +63,22 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "preset",
+    "peers": [
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-eslint",
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-prettier",
+      "@roots/bud-stylelint",
+      "@roots/bud-tailwindcss"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "7.28.0",
-    "@types/node": "15.14.1",
-    "@types/tailwindcss": "2.2.1",
-    "@wordpress/browserslist-config": "4.1.0"
+    "@types/node": "15.14.1"
   },
   "dependencies": {
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
@@ -78,43 +86,6 @@
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@wordpress/browserslist-config": "^4.1.0",
-    "eslint": "7.27.0",
-    "postcss": "8.3.0",
-    "postcss-import": "14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwindcss": "^2.2.4"
-  },
-  "peerDependenciesMeta": {
-    "@wordpress/browserslist-config": {
-      "optional": true
-    },
-    "eslint": {
-      "optional": true
-    },
-    "postcss": {
-      "optional": true
-    },
-    "postcss-import": {
-      "optional": true
-    },
-    "postcss-preset-env": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
-    }
   },
   "stableVersion": "4.6.0"
 }

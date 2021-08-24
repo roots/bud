@@ -1,4 +1,4 @@
-module.exports = bud =>
+module.exports = bud => {
   bud
     .use([
       require('@roots/bud-preset-recommend'),
@@ -7,3 +7,6 @@ module.exports = bud =>
     ])
     .entry('app', 'app.js')
     .template()
+
+  console.log(bud.build.config.resolve.modules)
+}

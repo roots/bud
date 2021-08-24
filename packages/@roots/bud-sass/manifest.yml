@@ -1,6 +1,0 @@
-name: '@roots/bud-sass'
-type: extension
-
-dependencies:
-  dev:
-    sass: 1.38.1

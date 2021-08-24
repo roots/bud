@@ -4,18 +4,25 @@ import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 process.env.BUD_KEEP_ALIVE = 'true'
 
-describe('@roots/bud-tailwindcss', () => {
+describe.skip('@roots/bud-tailwindcss', () => {
   let bud
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {
+        ...config,
+        ci: true,
+      },
+    })
 
     bud.discovery.set('devDependencies', {
-      postcss: '*',
-      'postcss-preset-env': '*',
-      'postcss-import': '*',
-      tailwindcss: '*',
+      '@roots/bud-tailwindcss':
+        'workspace:@roots/packages/bud-tailwindcss',
+      '@roots/bud-postcss':
+        'workspace:@roots/packages/bud-postcss',
     })
+
+    bud.discovery.discover('devDependencies')
 
     bud.use([BudPostCssExtension, BudTailwindCssExtension])
   })

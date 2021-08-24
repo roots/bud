@@ -62,7 +62,7 @@ class PostCssConfig {
   public setPlugins(
     plugins: Array<string | [string, any]>,
   ): this {
-    plugins.map(this.setPlugin)
+    plugins?.map(this.setPlugin)
     return this
   }
 

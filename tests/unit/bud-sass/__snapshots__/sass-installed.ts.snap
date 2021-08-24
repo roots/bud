@@ -19,6 +19,12 @@ Object {
 }
 `;
 
+exports[`@roots/bud-sass discovery.resolveFrom matches snap 1`] = `
+Array [
+  StringContaining "@roots/bud-sass",
+]
+`;
+
 exports[`@roots/bud-sass has expected sass rule 1`] = `
 Object {
   "exclude": Object {},

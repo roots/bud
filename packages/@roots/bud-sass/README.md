@@ -24,7 +24,6 @@
   </a>
 </p>
 
-
 <h1 align="center">
   <strong>@roots/bud-sass</strong>
 </h1>

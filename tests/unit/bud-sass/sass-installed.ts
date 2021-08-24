@@ -26,6 +26,9 @@ describe('@roots/bud-sass', () => {
     bud = factory({
       config: {...config, ci: true},
     })
+    bud.discovery.set(`devDependencies.@roots/bud-sass`, '*')
+    bud.discovery.discover('devDependencies')
+
     bud.use([BudSassExtension])
   })
 
@@ -36,6 +39,12 @@ describe('@roots/bud-sass', () => {
 
   it('returns normally when sass is installed', () => {
     expect(bud.use([BudSassExtension])).toBeInstanceOf(Bud)
+  })
+
+  it('discovery.resolveFrom matches snap', () => {
+    expect(bud.discovery.resolveFrom).toMatchSnapshot([
+      expect.stringContaining('@roots/bud-sass'),
+    ])
   })
 
   it('adds sass item', () => {

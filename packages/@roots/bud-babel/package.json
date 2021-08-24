@@ -71,6 +71,9 @@
     "@types/node": "15.14.1",
     "webpack": "5.51.1"
   },
+  "bud": {
+    "type": "extension"
+  },
   "dependencies": {
     "@babel/core": "^7.14.8",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
