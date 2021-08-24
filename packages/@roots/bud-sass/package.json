@@ -75,12 +75,12 @@
     "autobind-decorator": "^2.4.0",
     "postcss-scss": "^4.0.0",
     "resolve-cwd": "^3.0.0",
-    "safe-resolve": "^1.0.0",
     "sass-loader": "^12.1.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*"
+    "@roots/bud-postcss": "*",
+    "sass": "1.38.1"
   },
   "peerDependenciesMeta": {
     "@roots/bud-postcss": {

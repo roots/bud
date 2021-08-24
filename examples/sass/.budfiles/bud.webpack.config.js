@@ -117,7 +117,7 @@ module.exports = () => ({
                 loader: '/Volumes/Samsung/Code/roots/bud/node_modules/sass-loader/dist/cjs.js',
                 options: {
                   implementation: {
-                    info: 'dart-sass\t1.38.0\t(Sass Compiler)\t[Dart]\n' +
+                    info: 'dart-sass\t1.38.1\t(Sass Compiler)\t[Dart]\n' +
                       'dart2js\t2.13.4\t(Dart Compiler)\t[Dart]',
                     TRUE: { value: true }
                   },

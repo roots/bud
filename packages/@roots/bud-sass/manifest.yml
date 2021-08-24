@@ -3,4 +3,4 @@ type: extension
 
 dependencies:
   dev:
-    sass: ^1.32.11
+    sass: 1.38.1

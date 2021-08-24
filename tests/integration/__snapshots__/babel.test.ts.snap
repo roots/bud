@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`babel module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "app": Any<Number>,
+  },
+  "bySource": Object {
+    "0 app": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+  ],
+}
+`;
+
 exports[`babel snapshots .budfiles/bud.webpack.config.js 1`] = `
 Object {
   "app": Object {

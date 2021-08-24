@@ -2,11 +2,9 @@ const babel = require('@roots/bud-babel')
 const postcss = require('@roots/bud-postcss')
 const react = require('@roots/bud-react')
 
-const extensions = [babel, postcss, react]
-
 module.exports = app =>
   app
-    .use(extensions)
+    .use([babel, postcss, react])
     .template({
       template: 'public/index.html',
     })

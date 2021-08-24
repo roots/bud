@@ -13,7 +13,7 @@ describe('@roots/bud-sass', () => {
       NULL: expect.any(Object),
       TRUE: expect.any(Object),
       cli_pkg_main_0_: expect.any(Function),
-      info: expect.stringContaining('dart-sass	1.38.0'),
+      info: expect.stringContaining('dart-sass'),
       render: expect.any(Function),
       renderSync: expect.any(Function),
       types: expect.any(Object),

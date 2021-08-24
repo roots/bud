@@ -1,4 +1,4 @@
-import {readFile} from 'fs-extra'
+import {readFile, readJson} from 'fs-extra'
 import {join} from 'path'
 
 import {Assets, helper} from '../util/integration'
@@ -64,6 +64,25 @@ describe(suite.name, () => {
       expect(artifact.optimization).toMatchSnapshot()
       expect(artifact.bail).toMatchSnapshot()
       expect(artifact.cache).toMatchSnapshot()
+    })
+  })
+
+  it('module map matches snapshot', async () => {
+    const artifact = await readJson(
+      join(
+        process.cwd(),
+        'examples/babel/.budfiles/bud-modules.json',
+      ),
+    )
+
+    expect(artifact.chunks).toMatchSnapshot({
+      byName: {
+        app: expect.any(Number),
+      },
+      bySource: {
+        '0 app': expect.any(Number),
+      },
+      usedIds: [expect.any(Number)],
     })
   })
 })

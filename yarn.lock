@@ -3450,12 +3450,12 @@ __metadata:
     autobind-decorator: ^2.4.0
     postcss-scss: ^4.0.0
     resolve-cwd: ^3.0.0
-    safe-resolve: ^1.0.0
     sass-loader: ^12.1.0
     webpack: 5.51.1
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-postcss": "*"
+    sass: 1.38.1
   peerDependenciesMeta:
     "@roots/bud-postcss":
       optional: true
@@ -20340,13 +20340,6 @@ resolve@^2.0.0-next.3:
   version: 1.0.4
   resolution: "safe-require@npm:1.0.4"
   checksum: 78c1b96671f3bb05f40c962fe7b9cc55f3a4053b665b2a01e9356d065b7b9934b26d5c93f70bbccb9dde0c9b5b20e23cac5c45a69459e78a965d6b5c3fee1777
-  languageName: node
-  linkType: hard
-
-"safe-resolve@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "safe-resolve@npm:1.0.0"
-  checksum: 3a1ea6bc72965061d52799da473dd52920dab55f16532bf295c19920cb745661461e4756c35a299c96a6bdc436ab6abd9d217dd48d6cce776657c6ecd8d5add0
   languageName: node
   linkType: hard
 

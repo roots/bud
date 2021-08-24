@@ -219,7 +219,7 @@ describe(suite.name, () => {
                           value: true,
                         },
                         info: expect.stringContaining(
-                          'dart-sass	1.38.0',
+                          'dart-sass',
                         ),
                       },
                       sourceMap: true,

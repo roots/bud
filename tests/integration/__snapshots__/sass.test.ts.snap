@@ -151,7 +151,7 @@ Object {
                     "TRUE": Object {
                       "value": true,
                     },
-                    "info": StringContaining "dart-sass	1.38.0",
+                    "info": StringContaining "dart-sass",
                   },
                   "sourceMap": true,
                 },
@@ -316,7 +316,7 @@ Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-sass": "workspace:*",
     "@types/sass": "^1",
-    "sass": "^1.32.11",
+    "sass": "1.38.1",
   },
   "name": "example-sass",
   "private": true,

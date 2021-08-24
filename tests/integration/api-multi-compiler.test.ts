@@ -1,5 +1,6 @@
 import * as execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
+import {join} from 'path'
 
 import {Assets} from '../util/integration'
 
@@ -133,6 +134,25 @@ describe('multi-compiler', () => {
       expect(
         plugin.assets['plugin.js'].includes('import'),
       ).toBeFalsy()
+    })
+  })
+
+  it('module map matches snapshot', async () => {
+    const artifact = await readJson(
+      join(
+        process.cwd(),
+        'examples/multi-compiler/.budfiles/bud-modules.json',
+      ),
+    )
+
+    expect(artifact.chunks).toMatchSnapshot({
+      byName: {
+        global: expect.any(Number),
+      },
+      bySource: {
+        '0 global': expect.any(Number),
+      },
+      usedIds: [expect.any(Number)],
     })
   })
 })
