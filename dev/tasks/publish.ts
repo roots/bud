@@ -21,6 +21,7 @@ const tag = process.argv.splice(2).pop()
       '--access',
       'public',
     ]
+
     if (tag) {
       command.push('--tag', tag)
     }
