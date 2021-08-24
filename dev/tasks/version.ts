@@ -19,7 +19,7 @@ const tag = process.argv.splice(2).pop()
     manifest.version.increment !== '0'
       ? `.${manifest.version.increment}`
       : ``
-  }`
+  } --allow-same-version`
 
   const pkgs = await globby.globby('packages/@roots/*', {
     absolute: false,
