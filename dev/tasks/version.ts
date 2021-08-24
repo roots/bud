@@ -19,7 +19,7 @@ const tag = process.argv.splice(2).pop()
     manifest.version.increment !== '0'
       ? `.${manifest.version.increment}`
       : ``
-  } --allow-same-version`
+  }`
 
   const pkgs = await globby.globby('packages/@roots/*', {
     absolute: false,
@@ -30,7 +30,13 @@ const tag = process.argv.splice(2).pop()
   pkgs.map((pkg: string) => {
     execa.sync(
       'npm',
-      ['version', versionString, `--preid`, tag],
+      [
+        'version',
+        versionString,
+        `--preid`,
+        tag,
+        `--allow-same-version`,
+      ],
       {cwd: dirname(pkg)},
     )
   })
