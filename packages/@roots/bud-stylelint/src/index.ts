@@ -7,7 +7,7 @@ const extension: Framework.Stylelint.Extension = {
   name: 'stylelint-webpack-plugin',
 
   options: app => ({
-    context: app.path('project'),
+    context: app.path('src'),
   }),
 
   make: opts => new StylelintWebpackPlugin(opts.all()),

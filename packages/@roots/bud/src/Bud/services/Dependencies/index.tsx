@@ -48,7 +48,8 @@ class Dependencies extends Service<null> {
     }[],
   ): void {
     this.app.dashboard.render(
-      `Installing required peer dependencies\n`,
+      `Installing required peer dependencies`,
+      `Installing`,
     )
 
     const skipped = deps.filter(
@@ -61,6 +62,26 @@ class Dependencies extends Service<null> {
     const installed = deps
       .filter(dep => this.shouldInstall(dep.name))
       .map(dep => {
+        this.app.dashboard.render(
+          <>
+            <Ink.Box marginBottom={1} flexDirection="column">
+              <Ink.Text
+                backgroundColor={this.app.store.get(
+                  'theme.colors.primary',
+                )}
+                color={this.app.store.get(
+                  'theme.colors.foreground',
+                )}>
+                Installing
+              </Ink.Text>
+            </Ink.Box>
+            <Ink.Box marginBottom={1} flexDirection="column">
+              <Ink.Text
+                key={`${dep.name}-${dep.ver}`}>{`Installing ${dep.name}@${dep.ver}`}</Ink.Text>
+            </Ink.Box>
+          </>,
+        )
+
         this.manager.client.install(
           isEqual(dep.type, 'devDependencies'),
           `${dep.name}@${dep.ver}`,

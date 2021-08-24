@@ -176,8 +176,7 @@
     "@types/pkg-up": "3.1.0",
     "@types/react": "17.0.19",
     "@types/resolve-pkg": "2.0.0",
-    "@types/signale": "1.4.2",
-    "webpack": "5.51.1"
+    "@types/signale": "1.4.2"
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",
@@ -208,6 +207,7 @@
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.1.0",
     "signale": "^1.4.0",
+    "webpack": "5.51.1",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^4.0.2"
   },

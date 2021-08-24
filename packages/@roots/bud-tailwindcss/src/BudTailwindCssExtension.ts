@@ -9,7 +9,9 @@ interface BudTailwindCssExtension extends Module {
 
 const BudTailwindCssExtension: BudTailwindCssExtension = {
   name: '@roots/bud-tailwindcss',
+
   api: {tailwind: tailwindConfig},
+
   boot: app => app.tailwind(),
 }
 
