@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "4.7.0-10",
+  "version": "4.7.0-next.11",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
