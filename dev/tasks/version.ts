@@ -1,7 +1,6 @@
 import {globby} from '@roots/bud-support'
 import * as execa from 'execa'
 import {readJson} from 'fs-extra'
-import {dirname} from 'path'
 
 const tag = process.argv.splice(2).pop()
 
