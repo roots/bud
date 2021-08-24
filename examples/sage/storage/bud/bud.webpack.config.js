@@ -22,18 +22,16 @@ module.exports = () => ({
       _writableState: {
         highWaterMark: 16384,
         defaultEncoding: 'utf8',
+        sync: true,
         allBuffers: true,
         allNoop: true,
         constructed: true,
         autoDestroy: true
       },
-      columns: 80,
-      rows: 25,
-      _type: 'tty',
+      _type: 'pipe',
       fd: 2,
       _isStdio: true
-    },
-    colors: true
+    }
   },
   mode: 'production',
   module: {
@@ -126,7 +124,10 @@ module.exports = () => ({
                 options: {
                   cacheDirectory: '/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/cache/babel',
                   root: '/Volumes/Samsung/Code/roots/bud/examples/sage/resources',
-                  presets: [ [ '@babel/preset-env' ] ],
+                  presets: [
+                    [ '@babel/preset-env' ],
+                    [ '@babel/preset-react' ]
+                  ],
                   plugins: [
                     [ '@babel/plugin-transform-runtime' ],
                     [ '@babel/plugin-proposal-object-rest-spread' ],
@@ -263,9 +264,9 @@ module.exports = () => ({
         emitError: true,
         emitWarning: true,
         failOnError: true,
-        context: '/Volumes/Samsung/Code/roots/bud/examples/sage'
+        context: '/Volumes/Samsung/Code/roots/bud/examples/sage/resources'
       },
-      startTime: 1629794280154
+      startTime: 1629795569880
     }
   ],
   recordsInputPath: '/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/bud-modules.json',

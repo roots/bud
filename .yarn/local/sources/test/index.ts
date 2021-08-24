@@ -23,7 +23,8 @@ export class TestCommand extends Command {
 
     if (this.integration || all) {
       let integrationCmd = `node ./jest.integration.js`
-      if (this.update) integrationCmd.concat(` --update`)
+      if (this.update)
+        integrationCmd = integrationCmd.concat(` --update`)
 
       await this.$(integrationCmd)
     }

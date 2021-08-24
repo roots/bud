@@ -15,7 +15,7 @@ const tag = process.argv.splice(2).pop()
   const versionString = `${manifest.version.major}.${
     manifest.version.minor
   }.${manifest.version.patch}${tag ? `-${tag}` : ``}${
-    manifest.version.increment !== '0'
+    manifest.version.increment
       ? `.${manifest.version.increment}`
       : ``
   }`
