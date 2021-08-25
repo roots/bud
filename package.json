@@ -50,7 +50,7 @@
     "@yarnpkg/builder": "3.0.1",
     "autobind-decorator": "2.4.0",
     "codecov": "3.8.3",
-    "dotenv": "^10.0.0",
+    "dotenv": "10.0.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.24.1",
