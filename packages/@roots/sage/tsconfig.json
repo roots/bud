@@ -7,10 +7,6 @@
     "declarationDir": "./types",
     "types": [
       "@roots/bud-api",
-      "@roots/bud-framework",
-      "@roots/bud-babel",
-      "@roots/bud-postcss",
-      "@roots/bud-preset-wordpress"
     ]
   },
   "include": ["src"],
