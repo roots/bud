@@ -59,7 +59,7 @@ It's a good idea after installing a new extension to run [bud init](/guides/bud-
   </TabItem>
 </Tabs>
 
-Now our project is guaranteed to meet the requirements of whatever we have installed. 
+Now our project is guaranteed to meet the requirements of whatever we have installed.
 
 :::info Protip
 
@@ -72,7 +72,7 @@ It's also a good idea to run [bud init](/guides/bud-cli/extensions#bud-extension
 Once installed and initialized, add the extension to your **bud.config.js** file with [bud.use](/docs/bud.use).
 
 ```js {3} title='bud.config.js'
-module.exports = bud => 
+module.exports = bud =>
   bud
     .use(require('@roots/bud-babel'))
     .entry('main', 'index.js')

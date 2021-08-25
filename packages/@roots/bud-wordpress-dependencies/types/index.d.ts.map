@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "index.d.ts",
+  "sourceRoot": "",
+  "sources": [
+    "../src/index.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,aAAa,CAAA;AAEpB,OAAO,EAAC,MAAM,EAAC,MAAM,sBAAsB,CAAA;AAC3C,OAAO,EAAC,kCAAkC,IAAI,MAAM,EAAC,MAAM,8CAA8C,CAAA;AAEzG,eAAO,MAAM,IAAI,EAAE,MAAM,CAAC,MAAM,CACgB,CAAA;AAEhD,eAAO,MAAM,IAAI,EAAE,MAAM,CAAC,IAAI,CAAC,MAAM,EAAE,IAAI,CAAsB,CAAA"
+}

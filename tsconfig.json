@@ -1,11 +1,17 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2020",
   },
   "references": [
+    {
+      "path": "./packages/@roots/bud/tsconfig.json"
+    },
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"
     },
@@ -82,7 +88,7 @@
       "path": "./packages/@roots/bud-sass/tsconfig.json"
     },
     {
-      "path": "./packages/@roots/bud-server/tsconfig.json",
+      "path": "./packages/@roots/bud-server/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-solid/tsconfig.json"
@@ -116,9 +122,6 @@
     },
     {
       "path": "./packages/@roots/bud-wordpress-manifests/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud/tsconfig.json"
     },
     {
       "path": "./packages/@roots/container/tsconfig.json"

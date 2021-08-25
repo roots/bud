@@ -15,7 +15,7 @@ To set the path itself you may use [bud.setPublicPath](/docs/bud.setPublicPath).
 Get the public path:
 
 ```js
-bud.publicPath();
+bud.publicPath()
 ```
 
 ## Hooks
@@ -23,13 +23,13 @@ bud.publicPath();
 You may also modify/retrieve this value using the `build/output/publicPath` hook:
 
 ```ts
-bud.hooks.on("build/output/publicPath", "/dist/");
+bud.hooks.on('build/output/publicPath', '/dist/')
 ```
 
 You can modify an existant value using a function:
 
 ```ts
-bud.hooks.on("build/output/publicPath", (path) => {
-  return path.replace("/segment/", "/new-segment/");
-});
+bud.hooks.on('build/output/publicPath', path => {
+  return path.replace('/segment/', '/new-segment/')
+})
 ```

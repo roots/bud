@@ -1,0 +1,1 @@
+{"version":3,"file":"all.d.ts","sourceRoot":"","sources":["../../../../src/cli/commands/clean/all.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,aAAa,CAAA;AAE/B,MAAM,CAAC,OAAO,OAAO,GAAI,SAAQ,KAAK;IACpC,OAAc,WAAW,SAAc;IACvC,OAAc,QAAQ,WAAsB;IACrC,MAAM,EAAE,KAAK,CAAC,QAAQ,CAAC,CAAU;CACzC"}

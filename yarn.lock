@@ -3826,6 +3826,7 @@ __metadata:
   resolution: "@roots/sage@workspace:packages/@roots/sage"
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"

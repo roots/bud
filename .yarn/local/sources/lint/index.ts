@@ -24,15 +24,19 @@ export class LintCommand extends Command {
 
     if (this.prettier || all) {
       await this.$(
-        `yarn prettier packages/**/src/**/*.{ts,js,tsx,jsx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+        `yarn prettier packages/@roots/*/types/**/*.{ts,js,tsx,jsx,d.ts} --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
       )
 
       await this.$(
-        `yarn prettier dev/**/*.{ts,js,tsx,jsx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+        `yarn prettier packages/**/src/**/*.{ts,js,tsx,jsx,d.ts} --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
       )
 
       await this.$(
-        `yarn prettier site/**/*.{ts,js,tsx,jsx,md,mdx} --fix --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+        `yarn prettier dev/**/*.{ts,js,tsx,jsx} --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+      )
+
+      await this.$(
+        `yarn prettier site/**/*.{ts,js,tsx,jsx,md,mdx} --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
       )
     }
 

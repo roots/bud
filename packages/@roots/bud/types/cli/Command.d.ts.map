@@ -1,0 +1,1 @@
+{"version":3,"file":"Command.d.ts","sourceRoot":"","sources":["../../src/cli/Command.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,gBAAgB,CAAA;AAEjC,OAAO,EAAC,QAAQ,EAAC,MAAM,YAAY,CAAA;AAEnC,uBAAe,OAAQ,SAAQ,IAAI;IAC1B,QAAQ,EAAE,QAAQ,CAAA;IAEZ,IAAI;CAGlB;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}

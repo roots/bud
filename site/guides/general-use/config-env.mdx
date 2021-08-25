@@ -48,7 +48,7 @@ module.exports = app =>
   app
     .entry('app', 'app.js')
     .when(
-      app.isProduction, 
+      app.isProduction,
       () => app.hash().minimize()
       () => app.devtool()
     )
@@ -64,7 +64,7 @@ export default function (app: Framework): void {
   app
     .entry('app', 'app.js')
     .when(
-      app.isProduction, 
+      app.isProduction,
       () => app.hash().minimize()
       () => app.devtool()
     )

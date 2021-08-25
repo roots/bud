@@ -34,26 +34,24 @@ Generally speaking, config function names can be used as keys. Their values serv
   ]}>
   <TabItem value="yml">
 
-  ```yml title="bud.config.yml"
-  entry:
-    app: 
-      - index.js
-      - index.css
-  ```
+```yml title="bud.config.yml"
+entry:
+  app:
+    - index.js
+    - index.css
+```
 
   </TabItem>
   <TabItem value="json">
 
-  ```json title="bud.config.json"
-  {
-    "entry": {
-      "app": [
-        "index.js",
-        "index.css"
-      ]
-    }
+```json title="bud.config.json"
+{
+  "entry": {
+    "app": ["index.js", "index.css"]
   }
-  ```
+}
+```
+
   </TabItem>
 </Tabs>
 
@@ -65,7 +63,7 @@ Things to think about:
 
 ## Extensions
 
-Extensions are a special case for static config, as we can't import them. Normally, we'd point to the list of caveats above and say "static configs simply do not support this". 
+Extensions are a special case for static config, as we can't import them. Normally, we'd point to the list of caveats above and say "static configs simply do not support this".
 
 But, without extensions bud is very limited, and static configurations are nice if the project is otherwise compatible, so we've made an exception and provided an alternative to [bud.use](/docs/bud.use) for static configs.
 
@@ -79,31 +77,27 @@ Instead of bud.use, use the `extensions` key and pass the package name as a stri
   ]}>
   <TabItem value="yml">
 
-  ```yml title="bud.config.yml"
-  extensions:
-    - '@roots/bud-babel'
-  entry:
-    app: 
-      - index.js
-      - index.css
-  ```
+```yml title="bud.config.yml"
+extensions:
+  - '@roots/bud-babel'
+entry:
+  app:
+    - index.js
+    - index.css
+```
 
   </TabItem>
   <TabItem value="json">
 
-  ```json title="bud.config.json"
-  {
-    "extensions": [
-      "@roots/bud-babel"
-    ],
-    "entry": {
-      "app": [
-        "index.js",
-        "index.css"
-      ]
-    }
+```json title="bud.config.json"
+{
+  "extensions": ["@roots/bud-babel"],
+  "entry": {
+    "app": ["index.js", "index.css"]
   }
-  ```
+}
+```
+
   </TabItem>
 </Tabs>
 

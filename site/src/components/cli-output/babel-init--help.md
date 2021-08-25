@@ -1,10 +1,10 @@
 Install packages required by extensions
 
 USAGE
-  $ bud extensions:install
+$ bud extensions:install
 
 ALIASES
-  $ bud init
+$ bud init
 
 EXAMPLE
-  $ bud extensions:install
+$ bud extensions:install

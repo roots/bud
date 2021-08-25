@@ -15,17 +15,14 @@ image: 'https://budjs.netlify.app/img/share/docs/bud.mode__bud.isProduction.png'
 Very useful in conditionals:
 
 ```js title='bud.config.js'
-module.exports = bud => 
+module.exports = bud =>
   bud.isProduction && bud.devtool('source-map')
 ```
 
 Pairs well with [bud.when](/docs/bud.when):
 
 ```js {2} title='bud.config.js'
-bud.when(
-  bud.isProduction, 
-  bud => bud.minify(),
-)
+bud.when(bud.isProduction, bud => bud.minify())
 ```
 
 ## See also

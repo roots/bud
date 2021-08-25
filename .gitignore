@@ -3,8 +3,6 @@
 
 *.log
 **/lib
-**/types
-!**/src/types
 *.tsbuildinfo
 
 # jest
