@@ -6,6 +6,9 @@
     "outDir": "./lib/cjs",
     "declaration": true,
     "declarationDir": "./types",
+    "types": [
+      "@roots/bud-build"
+    ]
   },
   "include": [
     "src"

@@ -5,6 +5,10 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "node",
+      "@roots/bud-babel"
+    ]
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"]

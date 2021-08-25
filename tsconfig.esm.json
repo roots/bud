@@ -82,7 +82,7 @@
       "path": "./packages/@roots/bud-sass/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud-server/tsconfig-esm.json",
+      "path": "./packages/@roots/bud-server",
     },
     {
       "path": "./packages/@roots/bud-solid/tsconfig-esm.json"

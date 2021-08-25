@@ -7,6 +7,7 @@
     "declarationDir": "./types",
     "types": [
       "@roots/bud-babel",
+      "@roots/bud-postcss"
     ]
   },
   "include": ["src"],
