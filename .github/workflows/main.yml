@@ -55,7 +55,7 @@ jobs:
         run: yarn tsc -b tsconfig.esm.json
 
       - name: Bundle @roots/bud-support
-        run: yarn workspace @roots/bud-support run build
+        run: yarn ts-node ./dev/tasks/compile/cjs @roots/bud-support
 
       - name: Lint
         run: yarn kjo lint --eslint --skypack
