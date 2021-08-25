@@ -1,5 +1,3 @@
-import '@roots/bud-api'
-
 import type {Module} from '@roots/bud-framework'
 import * as Recommended from '@roots/bud-preset-recommend'
 import * as React from '@roots/bud-react'

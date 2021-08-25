@@ -5,6 +5,12 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-babel",
+      "@roots/bud-preset-recommend",
+      "@roots/bud-react",
+    ]
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"]
