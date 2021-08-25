@@ -3531,7 +3531,7 @@ __metadata:
     strip-ansi: 7.0.0
     toml: 3.0.0
     ts-node: 10.2.1
-    vfile-reporter: 7.0.1
+    vfile-reporter: 7.0.2
     yamljs: 0.3.0
     yoga-layout-prebuilt: 1.1.0
   languageName: unknown
@@ -4734,13 +4734,6 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: d5af52623dd863e5a9f64eb72979f19c21e03012e25ee93adc93f664ed7976e81b654128dc653b225ad5ba2aaae24e0febe37face272bb051d6289e23ed7177d
-  languageName: node
-  linkType: hard
-
-"@types/repeat-string@npm:^1.0.0":
-  version: 1.6.1
-  resolution: "@types/repeat-string@npm:1.6.1"
-  checksum: fce594d206c74c3a6a548252f9c23aee978600f3263782507404d07c0ffa2d4fa31841e58c9c23fe24dd25c109b3edc14be37ab9e9a2562a85e7b5ab23da6714
   languageName: node
   linkType: hard
 
@@ -23333,19 +23326,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vfile-reporter@npm:7.0.1":
-  version: 7.0.1
-  resolution: "vfile-reporter@npm:7.0.1"
+"vfile-reporter@npm:7.0.2":
+  version: 7.0.2
+  resolution: "vfile-reporter@npm:7.0.2"
   dependencies:
-    "@types/repeat-string": ^1.0.0
     "@types/supports-color": ^8.0.0
-    repeat-string: ^1.0.0
     string-width: ^5.0.0
     supports-color: ^9.0.0
     unist-util-stringify-position: ^3.0.0
     vfile-sort: ^3.0.0
     vfile-statistics: ^2.0.0
-  checksum: 358c2f3c107ba87768de329935831c00e12b8ba06c2a9ee24c4f75b5d0c080835bc23cc304efbd8bc121b6a8ca2433fa92da01b50b55dfe96f6aaf4816d69361
+  checksum: 9234da3a125345e06b89e25d024d6ac91b8e39aad92f2606720736d152f2e04ac1ac8bd31ede9c1570fb3fc4f33984954bcfef2a541d94136a753149e779d448
   languageName: node
   linkType: hard
 
