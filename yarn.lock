@@ -3514,7 +3514,7 @@ __metadata:
     express: 4.17.1
     front-matter: 4.0.2
     fs-extra: 10.0.0
-    globby: 12.0.1
+    globby: 12.0.2
     ink: 3.0.9
     ink-big-text: 1.2.0
     ink-gradient: 2.0.0
@@ -11403,7 +11403,7 @@ fsevents@^1.2.7:
     "@types/eslint": 7.28.0
     "@types/replacestream": 4.0.1
     eslint: 7.32.0
-    globby: 12.0.1
+    globby: 12.0.2
     npm-run-all: 4.1.5
     prettier: 2.3.2
     replacestream: 4.0.3
@@ -11707,9 +11707,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"globby@npm:12.0.1, globby@npm:^12.0.0":
-  version: 12.0.1
-  resolution: "globby@npm:12.0.1"
+"globby@npm:12.0.2, globby@npm:^12.0.0":
+  version: 12.0.2
+  resolution: "globby@npm:12.0.2"
   dependencies:
     array-union: ^3.0.1
     dir-glob: ^3.0.1
@@ -11717,7 +11717,7 @@ fsevents@^1.2.7:
     ignore: ^5.1.8
     merge2: ^1.4.1
     slash: ^4.0.0
-  checksum: 01b02c7bba7821387bcbd0fad26fc7d8b2b1b22b276fdb53d2261d64ea014b55defc84342c1f8b6530d78fb08ac4630f9b49919f78900bef6f2de8d6a00f536c
+  checksum: f474ced866755f48ce7e8a7e11b0a1d90fa1f1c25cf86c245fbf05a862accfba695102a843b6386dbe41fa73c2f9a7e625bf566fa7648d2e1304f58748975e3f
   languageName: node
   linkType: hard
 
