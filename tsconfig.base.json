@@ -19,7 +19,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2020"
+    "target": "es2020",
   },
   "files": [],
   "references": [

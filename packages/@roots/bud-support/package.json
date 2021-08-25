@@ -71,7 +71,6 @@
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "@types/express": "4.17.13",
     "@types/yamljs": "0.2.31",
-    "@vercel/ncc": "0.29.2",
     "chalk": "4.1.2",
     "cosmiconfig": "7.0.1",
     "dotenv": "10.0.0",

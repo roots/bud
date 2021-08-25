@@ -6,20 +6,35 @@ export class BuildCommand extends Command {
 
   public cjs = Option.Boolean(`-c,--cjs`, false)
   public esm = Option.Boolean(`-e,--esm`, false)
-  public commands = {
-    all: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build`,
-    cjs: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:cjs`,
-    esm: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:esm`,
-  }
+  public clean = Option.Boolean(`--clean`, false)
 
   async execute() {
-    const itinerary = []
+    const all = !this.cjs && !this.esm
 
-    if (this.cjs) itinerary.push(this.commands.cjs)
-    if (this.esm) itinerary.push(this.commands.esm)
+    if (this.cjs || all) {
+      console.log('kjo: transpiling [commonjs]')
+      await this.$(`yarn tsc -b${this.clean ? ` --clean` : ``}`)
 
-    if (!this.cjs && !this.esm) itinerary.push(this.commands.all)
+      console.log('kjo: bundling @roots/bud-support [commonjs]')
+      await this.$(
+        `yarn ts-node ./dev/tasks/compile/cjs @roots/bud-support`,
+      )
+    }
 
-    await this.$(itinerary)
+    if (this.esm || all) {
+      console.log('kjo: transpiling [esmodule]')
+      await this.$(
+        `yarn tsc -b tsconfig.esm.json${
+          this.clean ? ` --clean` : ``
+        }`,
+      )
+
+      console.log('kjo: bundling @roots/bud-support [esmodule]')
+      await this.$(
+        `yarn ts-node ./dev/tasks/compile/esm @roots/bud-support`,
+      )
+    }
+
+    this.$(`yarn kjo lint --types`)
   }
 }
