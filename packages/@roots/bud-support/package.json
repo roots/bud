@@ -46,13 +46,7 @@
       "import": "./lib/esm/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ]
-    }
-  },
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn ts-node ./src/ncc/cjs",

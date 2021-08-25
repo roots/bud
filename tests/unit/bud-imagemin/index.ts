@@ -1,5 +1,5 @@
 import {config, factory, Framework} from '@roots/bud'
-import imagemin from '@roots/bud-imagemin'
+import * as imagemin from '@roots/bud-imagemin'
 
 const EXTENSION_HANDLE = '@roots/bud-imagemin'
 const PLUGIN_HANDLE = 'image-minimizer-webpack-plugin'

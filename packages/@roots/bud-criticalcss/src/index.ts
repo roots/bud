@@ -1,5 +1,7 @@
-import type {WebpackPlugin} from '@roots/bud-framework'
-import {CriticalCss} from '@roots/bud-framework'
+import type {
+  Framework,
+  WebpackPlugin,
+} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 type BudCriticalCssPlugin = WebpackPlugin<
@@ -19,15 +21,7 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    critical: CriticalCss.Configure
-  }
-
-  namespace CriticalCss {
-    type Configure = (
-      options: CriticalCssWebpackPlugin['options'],
-    ) => Framework
-
-    type Options = CriticalCssWebpackPlugin['options']
+    critical: CriticalCssExtension.Configure
   }
 
   namespace Framework {
@@ -37,10 +31,18 @@ declare module '@roots/bud-framework' {
   }
 }
 
+namespace CriticalCssExtension {
+  export type Configure = (
+    options: CriticalCssWebpackPlugin['options'],
+  ) => Framework
+
+  export type Options = CriticalCssWebpackPlugin['options']
+}
+
 const BudCriticalCssPlugin: BudCriticalCssPlugin = {
   name: '@roots/bud-criticalcss',
 
-  options: (): CriticalCss.Options => ({}),
+  options: (): CriticalCssExtension.Options => ({}),
 
   make: options => new CriticalCssWebpackPlugin(options.all()),
 

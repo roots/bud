@@ -4,6 +4,17 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-build",
+      "@roots/bud-compiler",
+      "@roots/bud-dashboard",
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "@roots/bud-hooks",
+      "@roots/bud-support",
+      "@roots/container"
+    ]
   },
   "include": [
     "src"

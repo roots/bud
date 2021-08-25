@@ -2,9 +2,6 @@ import {wpPkgs} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as Webpack from 'webpack'
 
-/**
- * @class WordPressDependenciesWebpackPlugin
- */
 class WordPressDependenciesWebpackPlugin {
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',

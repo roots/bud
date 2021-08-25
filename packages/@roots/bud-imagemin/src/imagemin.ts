@@ -1,5 +1,4 @@
-import {Imagemin} from '@roots/bud-framework'
-
+import type {Imagemin} from './'
 import {Config} from './Config'
 import {WebpackPlugin} from './WebpackPlugin'
 

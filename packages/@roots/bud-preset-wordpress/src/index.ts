@@ -9,7 +9,7 @@ import * as WordPressManifests from '@roots/bud-wordpress-manifests'
 
 declare module '@roots/bud-framework' {
   interface Extensions {
-    '@roots/bud-preset-wordpress': Module
+    '@roots/bud-preset-wordpress'?: Module
   }
 }
 

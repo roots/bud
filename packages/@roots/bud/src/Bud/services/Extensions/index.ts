@@ -4,7 +4,7 @@ import {Extensions as Contract} from '@roots/bud-framework'
 import {extensions} from '../../extensions'
 
 class Extensions extends Base implements Contract {
-  public repository = extensions
+  public repository = extensions as Extensions['repository']
 }
 
 export {Extensions}

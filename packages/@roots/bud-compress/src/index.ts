@@ -40,46 +40,49 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Framework.Compress.ConfigFn
+    brotli: Compress.ConfigFn
 
     /**
      * ## gzip  [💁 Fluent]
      *
      * Gzip static assets.
      */
-    gzip: Framework.Compress.ConfigFn
+    gzip: Compress.ConfigFn
   }
 
-  namespace Framework {
-    namespace Compress {
-      type ConfigFn = (options?: Options) => Framework
-
-      interface Options {
-        filename: string
-        algorithm: string
-        test: RegExp
-        compressionOptions: {
-          [key: string]: any
-        }
-        threshold: number
-        minRatio: number
-        deleteOriginalAssets: boolean
-      }
-
-      type Extension = WebpackPlugin<CompressionPlugin, Options>
-    }
-  }
+  namespace Framework {}
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-compress': Module
-      'compression-webpack-plugin-brotli': Compress.Extension
-      'compression-webpack-plugin-gzip': Compress.Extension
+      '@roots/bud-compress'?: Module
+      'compression-webpack-plugin-brotli'?: Compress.Extension
+      'compression-webpack-plugin-gzip'?: Compress.Extension
     }
   }
 }
 
-const extension: Framework.Compress.Extension = {
+export namespace Compress {
+  export type ConfigFn = (options?: Options) => Framework
+
+  export interface Options {
+    filename: string
+    algorithm: string
+    test: RegExp
+    compressionOptions: {
+      [key: string]: any
+    }
+    threshold: number
+    minRatio: number
+    deleteOriginalAssets: boolean
+  }
+
+  export type Extension = WebpackPlugin<
+    CompressionPlugin,
+    Options
+  >
+}
+
+const extension: Compress.Extension = {
   name: '@roots/bud-compress',
 
   boot: ({use}) => use([BudBrotliExtension, BudGzipExtension]),

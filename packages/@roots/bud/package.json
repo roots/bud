@@ -52,57 +52,9 @@
     ".": {
       "require": "./lib/cjs/index.js",
       "import": "./lib/esm/index.js"
-    },
-    "./factory": {
-      "require": "./lib/cjs/Factory/index.js",
-      "import": "./lib/esm/Factory/index.js"
-    },
-    "./config": {
-      "require": "./lib/cjs/config.js",
-      "import": "./lib/esm/config.js"
-    },
-    "./services": {
-      "require": "./lib/cjs/Bud/services/index.js",
-      "import": "./lib/esm/Bud/services/index.js"
-    },
-    "./services/*": {
-      "require": "./lib/cjs/Bud/services/*/index.js",
-      "import": "./lib/esm/Bud/services/*/index.js"
-    },
-    "./extensions": {
-      "require": "./lib/cjs/Bud/extensions/index.js",
-      "import": "./lib/esm/Bud/extensions/index.js"
-    },
-    "./extensions/*": {
-      "require": "./lib/cjs/Bud/extensions/*/index.js",
-      "import": "./lib/esm/Bud/extensions/*/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "factory": [
-        "./types/Factory/index.d.ts"
-      ],
-      "config": [
-        "./types/config.d.ts"
-      ],
-      "services": [
-        "./types/Bud/services/index.d.ts"
-      ],
-      "services/*": [
-        "./types/Bud/services/*/index.d.ts"
-      ],
-      "extensions": [
-        "./types/Bud/extensions/index.d.ts"
-      ],
-      "extensions/*": [
-        "./types/Bud/extensions/*/index.d.ts"
-      ]
-    }
-  },
+  "types": "./types/index.d.ts",
   "oclif": {
     "commands": "./lib/cjs/cli/commands",
     "bin": "bud",

@@ -1,5 +1,6 @@
-import {Imagemin} from '@roots/bud-framework'
-import ImageminPlugin from 'image-minimizer-webpack-plugin'
+import * as ImageminPlugin from 'image-minimizer-webpack-plugin'
+
+import type {Imagemin} from './'
 
 const WebpackPlugin: Imagemin.Plugin = {
   name: 'image-minimizer-webpack-plugin',

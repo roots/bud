@@ -1,9 +1,5 @@
-import type {
-  Framework,
-  Module,
-  Server,
-} from '@roots/bud-framework'
-import {globby} from '@roots/bud-support'
+import type {Framework, Server} from '@roots/bud-framework'
+import type {GlobTask} from 'globby'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
@@ -344,37 +340,7 @@ interface Repository {
    */
   template: Repository.Template
 
-  /**
-   * Register an extension or set of extensions
-   *
-   * @example
-   * Add packaged bud extensions:
-   *
-   * ```js
-   * bud.use([
-   *   require('@roots/bud-babel'),
-   *   require('@roots/bud-react'),
-   * ])
-   * ```
-   *
-   * @example
-   * Add an extension inline (also works with an array of extensions):
-   *
-   * ```js
-   * bud.use({
-   *  name: 'my-webpack-plugin',
-   *  make: () => new MyWebpackPlugin(),
-   * })
-   * ```
-   *
-   * @example
-   * Add a webpack plugin inline (also work with an array of plugins):
-   *
-   * ```js
-   * bud.use(new MyWebpackPlugin())
-   * ```
-   */
-  use: Repository.Use
+  use: use
 
   /**
    * Configure the list of files that, when modified,
@@ -444,12 +410,12 @@ namespace Repository {
       [k: string]:
         | Object
         | Object['import']
-        | globby.GlobTask['pattern']
+        | GlobTask['pattern']
     }
 
     export type Value =
-      | globby.GlobTask['pattern']
-      | Array<globby.GlobTask['pattern']>
+      | GlobTask['pattern']
+      | Array<GlobTask['pattern']>
   }
 
   export interface Experiments {
@@ -568,14 +534,6 @@ namespace Repository {
         [key: string]: string
       }
     }
-  }
-
-  export interface Use {
-    (source: Use.Input): Framework
-  }
-
-  export namespace Use {
-    export type Input = Module | Module[]
   }
 
   export interface Watch {

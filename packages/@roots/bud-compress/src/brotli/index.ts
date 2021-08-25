@@ -1,7 +1,8 @@
-import type {Framework} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 
-const extension: Framework.Compress.Extension = {
+import type {Compress} from '../'
+
+const extension: Compress.Extension = {
   name: 'compression-webpack-plugin-brotli',
 
   options: {

@@ -52,7 +52,7 @@ export class Server
             this.app.path('project', file),
           ),
           options,
-        ) as string[])
+        ) as unknown as string[])
       : []
   }
 
