@@ -1,8 +1,8 @@
-import {IDependencyManager} from './'
+import { IDependencyManager } from './';
 export declare class Dependencies {
-  path: string
-  constructor(path?: string)
-  get client(): IDependencyManager
-  isYarn(): boolean
+    path: string;
+    constructor(path?: string);
+    get client(): IDependencyManager;
+    isYarn(): boolean;
 }
 //# sourceMappingURL=dependencies.d.ts.map

@@ -57,9 +57,9 @@ const mapModuleNames = async (): Promise<
   return pkgs.reduce(
     (pkgs, pkg) => ({
       ...pkgs,
-      [`${require.resolve(pkg)}$`]: `${dirname(
+      [`${require.resolve(pkg)}/(.*)$`]: `${dirname(
         pkg,
-      )}/src/index.ts`,
+      )}/src/$1`,
     }),
     {},
   )

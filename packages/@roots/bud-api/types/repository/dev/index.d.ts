@@ -1,13 +1,13 @@
 /**
  * @module @roots/bud-api
  */
-import type {Repository} from '../'
+import type { Repository } from '../';
 /**
  * @function dev
  */
-declare const dev: Repository.Dev
+declare const dev: Repository.Dev;
 /**
  * @exports dev
  */
-export {dev}
+export { dev };
 //# sourceMappingURL=index.d.ts.map

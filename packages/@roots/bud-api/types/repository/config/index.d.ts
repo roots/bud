@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type { Framework } from '@roots/bud-framework';
 /**
  * Modify the {@link Framework Framework} baseline config.
  *
@@ -29,8 +29,8 @@ import type {Framework} from '@roots/bud-framework'
  * ```
  */
 interface config {
-  (this: Framework, config?: any): Framework
+    (this: Framework, config?: any): Framework;
 }
-declare const config: config
-export {config}
+declare const config: config;
+export { config };
 //# sourceMappingURL=index.d.ts.map

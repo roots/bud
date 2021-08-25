@@ -1,4 +1,4 @@
-import {Api as Base, Repository} from '@roots/bud-api'
+import { Api as Base, Repository } from '@roots/bud-api';
 /**
  * Provides macros/facades for assisting with common config tasks.
  *
@@ -8,6 +8,7 @@ import {Api as Base, Repository} from '@roots/bud-api'
  * @public
  * @sealed
  */
-export declare class Api extends Base {}
-export {Repository}
+export declare class Api extends Base {
+}
+export { Repository };
 //# sourceMappingURL=index.d.ts.map

@@ -1,5 +1,5 @@
-import {Cache as Base} from '@roots/bud-cache'
-import {Service} from '@roots/bud-framework'
+import { Cache as Base } from '@roots/bud-cache';
+import { Service } from '@roots/bud-framework';
 /**
  * Handles cache invalidation, version generation, and the setting of 'build/cache' config hooks.
  *
@@ -14,6 +14,7 @@ import {Service} from '@roots/bud-framework'
  * @public
  * @sealed
  */
-declare class Cache extends Base implements Service {}
-export {Cache}
+declare class Cache extends Base implements Service {
+}
+export { Cache };
 //# sourceMappingURL=index.d.ts.map

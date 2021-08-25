@@ -1,8 +1,6 @@
-import type {Framework} from '@roots/bud-framework'
+import type { Framework } from '@roots/bud-framework';
 declare class Base {
-  normalizeInput<T = any>(
-    input: T | ((app: Framework) => T),
-  ): (app: Framework) => T
+    normalizeInput<T = any>(input: T | ((app: Framework) => T)): (app: Framework) => T;
 }
-export {Base}
+export { Base };
 //# sourceMappingURL=Base.d.ts.map

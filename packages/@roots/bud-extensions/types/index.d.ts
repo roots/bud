@@ -8,14 +8,11 @@
  *
  * @packageDocumentation
  */
-import {
-  Extensions as Contract,
-  Module,
-} from '@roots/bud-framework'
-import {Extension} from './Extension'
-import {Extensions} from './Extensions'
-export {Extension}
-export {Extensions}
-export {Module}
-export {Contract}
+import { Extensions as Contract, Module } from '@roots/bud-framework';
+import { Extension } from './Extension';
+import { Extensions } from './Extensions';
+export { Extension };
+export { Extensions };
+export { Module };
+export { Contract };
 //# sourceMappingURL=index.d.ts.map

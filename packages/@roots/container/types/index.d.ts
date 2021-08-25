@@ -3,6 +3,6 @@
  *
  * @packageDocumentation
  */
-import {Container, Repository} from './Container'
-export {Container, Repository}
+import { Container, Repository } from './Container';
+export { Container, Repository };
 //# sourceMappingURL=index.d.ts.map

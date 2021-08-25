@@ -1,13 +1,13 @@
 /**
  * Extension interface
  */
-import './interface'
+import './interface';
 /**
  * Extension name
  */
-export declare const name = '@roots/bud-purgecss'
+export declare const name = "@roots/bud-purgecss";
 /**
  * Extension config api
  */
-export * as api from './api'
+export * as api from './api';
 //# sourceMappingURL=index.d.ts.map

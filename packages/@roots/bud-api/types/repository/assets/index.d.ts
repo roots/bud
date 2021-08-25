@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type { Framework } from '@roots/bud-framework';
 /**
  * Copy static assets during compilation.
  *
@@ -13,11 +13,8 @@ import type {Framework} from '@roots/bud-framework'
  * ```
  */
 interface assets {
-  (this: Framework, from: string[]): Framework
+    (this: Framework, from: string[]): Framework;
 }
-declare function assets(
-  this: Framework,
-  paths: string[],
-): Framework
-export {assets}
+declare function assets(this: Framework, paths: string[]): Framework;
+export { assets };
 //# sourceMappingURL=index.d.ts.map

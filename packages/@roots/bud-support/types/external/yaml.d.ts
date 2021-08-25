@@ -1,3 +1,3 @@
-import * as yaml from 'yamljs'
-export {yaml}
+import * as yaml from 'yamljs';
+export { yaml };
 //# sourceMappingURL=yaml.d.ts.map

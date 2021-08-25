@@ -6,10 +6,11 @@
  *
  * @packageDocumentation
  */
-import {Api} from './Api'
-import {Repository} from './repository'
+import { Api } from './Api';
+import { Repository } from './repository';
 declare module '@roots/bud-framework' {
-  interface Framework extends Repository {}
+    interface Framework extends Repository {
+    }
 }
-export {Api, Repository}
+export { Api, Repository };
 //# sourceMappingURL=index.d.ts.map

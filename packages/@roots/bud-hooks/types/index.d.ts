@@ -6,5 +6,5 @@
  *
  * @packageDocumentation
  */
-export {Hooks} from './Hooks'
+export { Hooks } from './Hooks';
 //# sourceMappingURL=index.d.ts.map

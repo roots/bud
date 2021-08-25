@@ -6,14 +6,13 @@
  *
  * @packageDocumentation
  */
-import {sage} from './sage'
+import { sage } from './sage';
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/sage': sage
+    namespace Framework {
+        interface Extensions {
+            '@roots/sage': sage;
+        }
     }
-  }
 }
-export declare const name: string | number,
-  boot: import('@roots/bud-framework/types/Module').Module.Boot
+export declare const name: string | number, boot: import("@roots/bud-framework/types/Module").Module.Boot;
 //# sourceMappingURL=index.d.ts.map

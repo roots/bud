@@ -1,13 +1,13 @@
 /**
  * @module @roots/bud-api
  */
-import type {Repository} from '..'
+import type { Repository } from '..';
 /**
  * @function runtime
  */
-declare const runtime: Repository.Runtime
+declare const runtime: Repository.Runtime;
 /**
  * @exports runtime
  */
-export {runtime}
+export { runtime };
 //# sourceMappingURL=index.d.ts.map

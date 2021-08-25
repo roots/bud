@@ -1,5 +1,5 @@
-import type {Framework} from '@roots/bud-framework'
-import type {Configuration} from 'webpack'
+import type { Framework } from '@roots/bud-framework';
+import type { Configuration } from 'webpack';
 /**
  * Register shorthand for resolving modules using webpack aliases.
  *
@@ -14,11 +14,8 @@ import type {Configuration} from 'webpack'
  * ```
  */
 interface alias {
-  (
-    this: Framework,
-    alias: Configuration['resolve']['alias'],
-  ): Framework
+    (this: Framework, alias: Configuration['resolve']['alias']): Framework;
 }
-declare const alias: alias
-export {alias}
+declare const alias: alias;
+export { alias };
 //# sourceMappingURL=index.d.ts.map

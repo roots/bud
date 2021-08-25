@@ -1,3 +1,3 @@
-import * as chalk from 'chalk'
-export {chalk}
+import * as chalk from 'chalk';
+export { chalk };
 //# sourceMappingURL=chalk.d.ts.map

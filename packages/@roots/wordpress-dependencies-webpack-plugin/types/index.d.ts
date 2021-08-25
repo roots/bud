@@ -1,2 +1,2 @@
-export {WordPressDependenciesWebpackPlugin} from './WordPressDependenciesWebpackPlugin'
+export { WordPressDependenciesWebpackPlugin } from './WordPressDependenciesWebpackPlugin';
 //# sourceMappingURL=index.d.ts.map

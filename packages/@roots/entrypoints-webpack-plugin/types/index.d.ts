@@ -4,9 +4,6 @@
  *
  * @packageDocumentation
  */
-import {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'
-export {
-  EntrypointsWebpackPlugin,
-  EntrypointsWebpackPlugin as default,
-}
+import { EntrypointsWebpackPlugin } from './EntrypointsWebpackPlugin';
+export { EntrypointsWebpackPlugin, EntrypointsWebpackPlugin as default, };
 //# sourceMappingURL=index.d.ts.map

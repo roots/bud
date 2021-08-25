@@ -6,7 +6,7 @@
  *
  * @packageDocumentation
  */
-import {Cache as Contract} from '@roots/bud-framework'
-import {Cache} from './Cache'
-export {Cache, Cache as default, Contract}
+import { Cache as Contract } from '@roots/bud-framework';
+import { Cache } from './Cache';
+export { Cache, Cache as default, Contract };
 //# sourceMappingURL=index.d.ts.map

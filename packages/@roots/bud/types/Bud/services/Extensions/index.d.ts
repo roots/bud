@@ -1,7 +1,7 @@
-import {Extensions as Base} from '@roots/bud-extensions'
-import {Extensions as Contract} from '@roots/bud-framework'
+import { Extensions as Base } from '@roots/bud-extensions';
+import { Extensions as Contract } from '@roots/bud-framework';
 declare class Extensions extends Base implements Contract {
-  repository: any
+    repository: any;
 }
-export {Extensions}
+export { Extensions };
 //# sourceMappingURL=index.d.ts.map

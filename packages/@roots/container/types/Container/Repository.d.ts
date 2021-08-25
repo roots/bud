@@ -2,10 +2,10 @@
  * Indexed container value store.
  */
 interface Repository {
-  [key: string]: any
+    [key: string]: any;
 }
 declare namespace Repository {
-  type Key<I> = (string | number) & keyof I
+    type Key<I> = (string | number) & keyof I;
 }
-export {Repository}
+export { Repository };
 //# sourceMappingURL=Repository.d.ts.map

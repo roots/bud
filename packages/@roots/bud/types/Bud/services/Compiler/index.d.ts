@@ -1,4 +1,4 @@
-import {Compiler as Base} from '@roots/bud-compiler'
+import { Compiler as Base } from '@roots/bud-compiler';
 /**
  * Compiles configuration and reports on stats, progress, and errors.
  *
@@ -10,6 +10,7 @@ import {Compiler as Base} from '@roots/bud-compiler'
  * @public
  * @sealed
  */
-declare class Compiler extends Base {}
-export {Compiler}
+declare class Compiler extends Base {
+}
+export { Compiler };
 //# sourceMappingURL=index.d.ts.map

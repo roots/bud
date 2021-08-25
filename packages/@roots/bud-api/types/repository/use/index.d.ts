@@ -1,4 +1,4 @@
-import type {Framework, Module} from '@roots/bud-framework'
+import type { Framework, Module } from '@roots/bud-framework';
 /**
  * Register an extension or set of extensions
  *
@@ -30,11 +30,11 @@ import type {Framework, Module} from '@roots/bud-framework'
  * ```
  */
 interface use {
-  (source: use.Input): Framework
+    (source: use.Input): Framework;
 }
 declare namespace use {
-  type Input = Module | Module[]
+    type Input = Module | Module[];
 }
-declare const use: use
-export {use}
+declare const use: use;
+export { use };
 //# sourceMappingURL=index.d.ts.map

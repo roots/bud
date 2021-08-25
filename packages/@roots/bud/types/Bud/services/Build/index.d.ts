@@ -1,9 +1,4 @@
-import {
-  Build as Base,
-  Item,
-  Loader,
-  Rule,
-} from '@roots/bud-build'
+import { Build as Base, Item, Loader, Rule } from '@roots/bud-build';
 /**
  * Builds the Webpack configuration object
  *
@@ -18,6 +13,7 @@ import {
  * @sealed
  * @public
  */
-declare class Build extends Base {}
-export {Build, Item, Rule, Loader}
+declare class Build extends Base {
+}
+export { Build, Item, Rule, Loader };
 //# sourceMappingURL=index.d.ts.map

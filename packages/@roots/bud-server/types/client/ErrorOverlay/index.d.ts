@@ -1,2 +1,2 @@
-export declare const overlay: any
+export declare const overlay: any;
 //# sourceMappingURL=index.d.ts.map

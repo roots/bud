@@ -1,45 +1,45 @@
 export interface Options {
-  criticalOptions?: {
+    criticalOptions?: {
+        /**
+         * Html source string
+         */
+        src?: string;
+        /**
+         * Html source string
+         */
+        html?: string;
+        /**
+         * Base directory
+         */
+        base?: string;
+        /**
+         * Viewport width
+         */
+        width?: number;
+        /**
+         * Viewport height
+         */
+        height?: number;
+        /**
+         * Extract critical
+         */
+        extract?: boolean;
+        /**
+         * Ignore CSS rules
+         */
+        ignore?: {
+            atrule: string[];
+            rule: RegExp[];
+            decl: (node: any, value: any) => boolean;
+        };
+    };
     /**
-     * Html source string
+     * Extract inlined styles from referenced stylesheets
      */
-    src?: string
+    hash?: boolean;
     /**
-     * Html source string
+     * Replace var with inlined CSS
      */
-    html?: string
-    /**
-     * Base directory
-     */
-    base?: string
-    /**
-     * Viewport width
-     */
-    width?: number
-    /**
-     * Viewport height
-     */
-    height?: number
-    /**
-     * Extract critical
-     */
-    extract?: boolean
-    /**
-     * Ignore CSS rules
-     */
-    ignore?: {
-      atrule: string[]
-      rule: RegExp[]
-      decl: (node: any, value: any) => boolean
-    }
-  }
-  /**
-   * Extract inlined styles from referenced stylesheets
-   */
-  hash?: boolean
-  /**
-   * Replace var with inlined CSS
-   */
-  replace?: string
+    replace?: string;
 }
 //# sourceMappingURL=interface.d.ts.map

@@ -1,2 +1,2 @@
-export {setOptions} from './setOptions'
+export { setOptions } from './setOptions';
 //# sourceMappingURL=index.d.ts.map

@@ -6,29 +6,27 @@
  *
  * @packageDocumentation
  */
-import type {Build} from '@roots/bud-framework'
-import {BudBabelExtension} from './BudBabelExtension'
-import {Config} from './Config'
-import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './constants'
+import type { Build } from '@roots/bud-framework';
+import { BudBabelExtension } from './BudBabelExtension';
+import { Config } from './Config';
+import { DEFAULT_PLUGINS, DEFAULT_PRESETS } from './constants';
 declare module '@roots/bud-framework' {
-  interface Framework {
-    babel: Config
-  }
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-babel': BudBabelExtension
+    interface Framework {
+        babel: Config;
     }
-    interface Loaders {
-      babel: Build.Loader
+    namespace Framework {
+        interface Extensions {
+            '@roots/bud-babel': BudBabelExtension;
+        }
+        interface Loaders {
+            babel: Build.Loader;
+        }
+        interface Items {
+            babel: Build.Item;
+        }
     }
-    interface Items {
-      babel: Build.Item
-    }
-  }
 }
-export {Config}
-export {DEFAULT_PLUGINS, DEFAULT_PRESETS}
-export declare const name: '@roots/bud-babel',
-  register: import('@roots/bud-framework/types/Module').Module.Register,
-  boot: import('@roots/bud-framework/types/Module').Module.Boot
+export { Config };
+export { DEFAULT_PLUGINS, DEFAULT_PRESETS };
+export declare const name: "@roots/bud-babel", register: import("@roots/bud-framework/types/Module").Module.Register, boot: import("@roots/bud-framework/types/Module").Module.Boot;
 //# sourceMappingURL=index.d.ts.map

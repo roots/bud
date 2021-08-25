@@ -59,84 +59,80 @@
  *
  * @packageDocumentation
  */
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {
-  Framework,
-  Module,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import { Item, Loader, Rule } from '@roots/bud-build';
+import { Framework, Module, WebpackPlugin } from '@roots/bud-framework';
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    /**
-     * Registered extensions
-     */
-    interface Extensions {
-      'webpack-provide-plugin'?: Module
-      'clean-webpack-plugin'?: Module
-      'webpack-config-dump-plugin'?: Module
-      'copy-webpack-plugin'?: Module
-      'css-minimizer-webpack-plugin'?: Module
-      'webpack-define-plugin'?: Module
-      'webpack-hot-module-replacement-plugin'?: Module
-      'ignore-emit-webpack-plugin'?: Module
-      'webpack-manifest-plugin'?: Module
-      'mini-css-extract-plugin'?: Module
+    namespace Framework {
+        /**
+         * Registered extensions
+         */
+        interface Extensions {
+            'webpack-provide-plugin'?: Module;
+            'clean-webpack-plugin'?: Module;
+            'webpack-config-dump-plugin'?: Module;
+            'copy-webpack-plugin'?: Module;
+            'css-minimizer-webpack-plugin'?: Module;
+            'webpack-define-plugin'?: Module;
+            'webpack-hot-module-replacement-plugin'?: Module;
+            'ignore-emit-webpack-plugin'?: Module;
+            'webpack-manifest-plugin'?: Module;
+            'mini-css-extract-plugin'?: Module;
+        }
+        /**
+         * Registered loaders
+         */
+        interface Loaders {
+            css: Loader;
+            csv: Loader;
+            file: Loader;
+            html: Loader;
+            md: Loader;
+            minicss: Loader;
+            'resolve-url': Loader;
+            style: Loader;
+            url: Loader;
+            xml: Loader;
+        }
+        /**
+         * Registered items
+         */
+        interface Items {
+            css: Item;
+            csv: Item;
+            file: Item;
+            image: Item;
+            font: Item;
+            html: Item;
+            md: Item;
+            minicss: Item;
+            'resolve-url': Item;
+            raw: Item;
+            style: Item;
+            xml: Item;
+        }
+        /**
+         * Registered rules
+         */
+        interface Rules {
+            js: Rule;
+            css: Rule;
+            html: Rule;
+            svg: Rule;
+            image: Rule;
+            font: Rule;
+            xml: Rule;
+            json5: Rule;
+            csv: Rule;
+            yml: Rule;
+            toml: Rule;
+        }
     }
-    /**
-     * Registered loaders
-     */
-    interface Loaders {
-      css: Loader
-      csv: Loader
-      file: Loader
-      html: Loader
-      md: Loader
-      minicss: Loader
-      'resolve-url': Loader
-      style: Loader
-      url: Loader
-      xml: Loader
-    }
-    /**
-     * Registered items
-     */
-    interface Items {
-      css: Item
-      csv: Item
-      file: Item
-      image: Item
-      font: Item
-      html: Item
-      md: Item
-      minicss: Item
-      'resolve-url': Item
-      raw: Item
-      style: Item
-      xml: Item
-    }
-    /**
-     * Registered rules
-     */
-    interface Rules {
-      js: Rule
-      css: Rule
-      html: Rule
-      svg: Rule
-      image: Rule
-      font: Rule
-      xml: Rule
-      json5: Rule
-      csv: Rule
-      yml: Rule
-      toml: Rule
-    }
-  }
 }
-export {Item, Loader, Rule}
-export {Framework, Module, WebpackPlugin}
-export {Bud} from './Bud'
-export {extensions} from './Bud/extensions'
-export {services} from './Bud/services'
-export {config} from './config'
-export {Factory, Factory as factory} from './Factory'
+export { Item, Loader, Rule };
+export { Framework, Module, WebpackPlugin };
+export { Bud } from './Bud';
+export { extensions } from './Bud/extensions';
+export { services } from './Bud/services';
+export { config } from './config';
+export { Factory, Factory as factory } from './Factory';
 //# sourceMappingURL=index.d.ts.map
