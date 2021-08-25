@@ -2,7 +2,11 @@
   "name": "example-emotion",
   "private": true,
   "browserslist": {
-    "production": [">0.5%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -13,10 +17,6 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
   }
 }

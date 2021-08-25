@@ -200,8 +200,7 @@ module.exports = () => ({
       'src',
       'node_modules',
       '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-vue',
-      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel'
+      '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-vue'
     ]
   }
 })

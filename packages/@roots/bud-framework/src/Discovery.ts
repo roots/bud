@@ -1,9 +1,22 @@
 import {Service} from './Service'
 
+interface Buddy {
+  source: string
+  name: string
+  ver: string
+  type: 'dependencies' | 'devDependencies'
+}
+
 interface Repository {
   name: string
 
-  peers: {}
+  peers: {
+    [key: string]: Buddy
+  }
+
+  extensions: {
+    [key: string]: Buddy
+  }
 
   dependencies: {
     [key: string]: string
@@ -11,15 +24,6 @@ interface Repository {
 
   devDependencies: {
     [key: string]: string
-  }
-
-  required: {
-    [key: string]: {
-      source: string
-      name: string
-      ver: string
-      type: 'dependencies' | 'devDependencies'
-    }
   }
 }
 

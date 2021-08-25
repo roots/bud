@@ -78,11 +78,11 @@
     "webpack": "5.51.1"
   },
   "dependencies": {
+    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "esbuild-loader": "^2.13.1",
     "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21",
-    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
+    "lodash": "^4.17.21"
   },
   "stableVersion": "4.6.0"
 }

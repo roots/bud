@@ -116,11 +116,7 @@ exports[`repo examples/package.json matches snapshot 4`] = `
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
     \\"@roots/bud-emotion\\": \\"workspace:packages/@roots/bud-emotion\\",
-    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\",
-    \\"@types/react\\": \\"^17\\",
-    \\"@types/react-dom\\": \\"^17\\",
-    \\"react\\": \\">=17.0.2\\",
-    \\"react-dom\\": \\">=17.0.2\\"
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
   }
 }
 "
@@ -242,14 +238,7 @@ exports[`repo examples/package.json matches snapshot 9`] = `
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-mdx\\": \\"workspace:*\\",
     \\"@roots/bud-preset-recommend\\": \\"workspace:*\\",
-    \\"@roots/bud-react\\": \\"workspace:*\\",
-    \\"@types/react\\": \\"^17\\",
-    \\"@types/react-dom\\": \\"^17\\",
-    \\"postcss\\": \\"8.3.6\\",
-    \\"postcss-import\\": \\"14.0.2\\",
-    \\"postcss-preset-env\\": \\"6.7.0\\",
-    \\"react\\": \\">=17\\",
-    \\"react-dom\\": \\">=17\\"
+    \\"@roots/bud-react\\": \\"workspace:*\\"
   }
 }
 "
@@ -321,10 +310,7 @@ exports[`repo examples/package.json matches snapshot 12`] = `
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-babel\\": \\"workspace:*\\",
-    \\"@roots/bud-postcss\\": \\"workspace:*\\",
-    \\"postcss\\": \\"8.3.6\\",
-    \\"postcss-import\\": \\"14.0.2\\",
-    \\"postcss-preset-env\\": \\"6.7.0\\"
+    \\"@roots/bud-postcss\\": \\"workspace:*\\"
   }
 }
 "
@@ -348,10 +334,7 @@ exports[`repo examples/package.json matches snapshot 13`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
-    \\"@roots/bud-preset-recommend\\": \\"workspace:packages/@roots/bud-preset-recommend\\",
-    \\"postcss\\": \\"8.3.6\\",
-    \\"postcss-import\\": \\"14.0.2\\",
-    \\"postcss-preset-env\\": \\"6.7.0\\"
+    \\"@roots/bud-preset-recommend\\": \\"workspace:packages/@roots/bud-preset-recommend\\"
   }
 }
 "
@@ -377,14 +360,7 @@ exports[`repo examples/package.json matches snapshot 14`] = `
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
     \\"@roots/bud-postcss\\": \\"workspace:packages/@roots/bud-postcss\\",
-    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\",
-    \\"@types/react\\": \\"^17\\",
-    \\"@types/react-dom\\": \\"^17\\",
-    \\"postcss\\": \\"8.3.6\\",
-    \\"postcss-import\\": \\"14.0.2\\",
-    \\"postcss-preset-env\\": \\"6.7.0\\",
-    \\"react\\": \\">=17\\",
-    \\"react-dom\\": \\">=17\\"
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
   }
 }
 "

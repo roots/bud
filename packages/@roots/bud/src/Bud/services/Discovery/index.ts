@@ -8,22 +8,27 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {dirname, join} from 'path'
 
+interface Buddy {
+  source: string
+  name: string
+  ver: string
+  type: 'dependencies' | 'devDependencies'
+}
+
 interface Repository extends Framework.Index {
   name: string
-  peers: Framework.Index<{
-    source: string
-    name: string
-    ver: string
-    type: 'dependencies' | 'devDependencies'
-  }>
-  dependencies: Framework.Index<string>
-  devDependencies: Framework.Index<string>
-  required: Framework.Index<{
-    source: string
-    name: string
-    ver: string
-    type: 'dependencies' | 'devDependencies'
-  }>
+  peers: {
+    [key: string]: Buddy
+  }
+  extensions: {
+    [key: string]: Buddy
+  }
+  dependencies: {
+    [key: string]: string
+  }
+  devDependencies: {
+    [key: string]: string
+  }
 }
 
 class Discovery extends Contract implements Service<Repository> {
@@ -32,9 +37,9 @@ class Discovery extends Contract implements Service<Repository> {
   public repository: Repository = {
     name: null,
     peers: {},
+    extensions: {},
     dependencies: {},
     devDependencies: {},
-    required: {},
   }
 
   /**
@@ -44,18 +49,34 @@ class Discovery extends Contract implements Service<Repository> {
 
   @bind
   public registered(): void {
+    /**
+     * Read package.json
+     */
     this.setStore(
       readJsonSync(this.app.path('project', 'package.json')),
     )
 
+    /**
+     * Find out about all the buddy things
+     */
     this.discover('dependencies').discover('devDependencies')
   }
 
+  /**
+   * Returns all gathered project data
+   *
+   * @decorator `@bind`
+   */
   @bind
   public getProjectInfo(): {[key: string]: any} {
     return this.all()
   }
 
+  /**
+   * Returns true if a dependency is listed in the project manifest
+   *
+   * @decorator `@bind`
+   */
   @bind
   public hasPeerDependency(pkg: string): boolean {
     return (
@@ -64,6 +85,9 @@ class Discovery extends Contract implements Service<Repository> {
     )
   }
 
+  /**
+   * Returns path for a module name (if findable)
+   */
   @bind
   public resolveModuleByName(name: string) {
     try {
@@ -79,23 +103,44 @@ class Discovery extends Contract implements Service<Repository> {
     }
   }
 
+  /**
+   * Returns manifest for a module from name (if findable)
+   */
   @bind
   public resolveManifestByName(name: string) {
     const path = this.resolveModuleByName(name)
     return path ? readJsonSync(join(path, '/package.json')) : {}
   }
 
+  /**
+   * Returns true if a module is a bud
+   */
   @bind
   public isModuleExtension(name: string): boolean {
     return name?.includes('@roots') || name?.includes('bud-')
   }
 
+  /**
+   * Plumbs project dependencies and gathers data
+   * on bud related modules
+   */
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
   ): Discovery {
     this.has(type) &&
-      this.getEntries(type).map(([name, ver]) => {
+      this.getKeys(type).map((name: string) => {
+        /**
+         * Resolver: given a manifest, will separate peers
+         * and extensions for further processing.
+         *
+         * If an extension requires another extension, it will call
+         * itself recursively until it reaches bottom.
+         *
+         * If two extensions require one another it will not iterate
+         * infinitely as it checks if an extension exists before
+         * recursing.
+         */
         const resolvePeers = (manifest: {
           [key: string]: any
         }) => {
@@ -139,10 +184,16 @@ class Discovery extends Contract implements Service<Repository> {
            */
           manifest?.bud?.peers?.forEach((name: string) => {
             this.isModuleExtension(name) &&
+              !this.has(`extensions.${name}`) &&
               resolvePeers(this.resolveManifestByName(name))
           })
         }
 
+        /**
+         * Checks each key in project level package.json
+         * to determine if it is a bud extension. If so it
+         * engages resolvePeers
+         */
         this.isModuleExtension(name) &&
           resolvePeers(this.resolveManifestByName(name))
       })
@@ -150,6 +201,9 @@ class Discovery extends Contract implements Service<Repository> {
     return this
   }
 
+  /**
+   * Registers all bud related extensions with bud.extensions
+   */
   @bind
   public registerDiscovered() {
     this.getValues('extensions').forEach(pkg => {
@@ -160,6 +214,9 @@ class Discovery extends Contract implements Service<Repository> {
     })
   }
 
+  /**
+   * Installs all required peer dependencies
+   */
   @bind
   public install(): void {
     const required = this.get<Repository['peers']>('peers')
