@@ -7123,7 +7123,7 @@ __metadata:
     file-loader: 6.2.0
     fs-extra: 10.0.0
     jest: 27.0.6
-    lodash: ^4.17.21
+    lodash: 4.17.21
     prettier: 2.3.2
     raw-loader: 4.0.2
     react: 17.0.2
