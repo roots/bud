@@ -4,6 +4,6 @@
 **/vendor
 **/package.ref
 
-/*/.budfiles/**
-!/*/.budfiles/*-modules.json
-!/*/.budfiles/*.webpack.config.js
+/*/dist
+/*/storage/bud
+/*/.budfiles

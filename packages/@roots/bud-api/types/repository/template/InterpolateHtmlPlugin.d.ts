@@ -1,38 +1,32 @@
-import { Module } from '@roots/bud-framework';
-import type * as Webpack from 'webpack';
-interface RegularExpressionIndex {
-    [key: string]: RegExp;
-}
+import type { Framework } from '@roots/bud-framework';
+import type { Compilation, Compiler, WebpackPluginInstance } from 'webpack';
+import { HtmlWebpackPlugin } from './BudHtmlWebpackPlugin';
 declare class InterpolateHtmlPlugin {
+    /**
+     * The {@link WebpackPluginInstance['name'] plugin name}
+     */
     name: string;
     /**
-     * @property {Webpack.WebpackPluginInstance} htmlWebpackPlugin
+     * The {@link HtmlWebpackPlugin html-webpack-plugin instance}
      */
-    htmlWebpackPlugin: Webpack.WebpackPluginInstance;
+    htmlWebpackPlugin: WebpackPluginInstance & HtmlWebpackPlugin;
     /**
-     * @property {RegularExpressionIndex} replacements
+     * The {@link Index<RegExp> replacements index}
      */
-    replacements: RegularExpressionIndex;
+    replacements: Framework.Index<RegExp>;
     /**
      * @constructor
      */
-    constructor(htmlWebpackPlugin: Webpack.WebpackPluginInstance, replacements: RegularExpressionIndex);
+    constructor(htmlWebpackPlugin: HtmlWebpackPlugin, replacements: Framework.Index<RegExp>);
     /**
-     * @function escapeRegExp
+     * Returns a {@link RegExp} escaped string
      */
-    escapeRegExp(string: String): string;
+    escapeRegExp(string: string): string;
     /**
-     * @function apply
-     * @implements Webpack.WebpackPluginInstance['apply']
+     * The {@link WebpackPluginInstance['apply'] plugin apply method}
      */
-    apply(compiler: Webpack.Compiler): void;
+    apply(compiler: Compiler): void;
+    modifyHtmlWebpackPluginOptions(compilation: Compilation): void;
 }
-export declare const name: string | number, options: Module.Options<{
-    [key: string]: RegExp;
-}>, make: Module.Make<InterpolateHtmlPlugin, {
-    [key: string]: RegExp;
-}>, when: Module.When<{
-    [key: string]: RegExp;
-}>;
-export {};
+export { InterpolateHtmlPlugin };
 //# sourceMappingURL=InterpolateHtmlPlugin.d.ts.map

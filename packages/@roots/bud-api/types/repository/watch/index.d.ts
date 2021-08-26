@@ -1,13 +1,16 @@
+import type { Framework, Server } from '@roots/bud-framework';
 /**
- * @module @roots/bud-api
+ * Configure the list of files that, when modified,
+ * will force the browser to reload (even in hot mode).
+ *
+ * @example
+ * ```js
+ * app.watch(['templates/*.html'])
+ * ```
  */
-import type { Repository } from '../';
-/**
- * @function watch
- */
-declare const watch: Repository.Watch;
-/**
- * @exports watch
- */
+interface watch {
+    (files: Server.Configuration['watch']['files'], options?: Server.Configuration['watch']['options']): Framework;
+}
+declare const watch: watch;
 export { watch };
 //# sourceMappingURL=index.d.ts.map

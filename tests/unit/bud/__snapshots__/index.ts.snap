@@ -12,6 +12,7 @@ Object {
       "appendOnly": true,
       "level": "none",
     },
+    "node": false,
     "optimization": Object {
       "emitOnErrors": false,
       "minimizer": Array [
@@ -81,7 +82,7 @@ Object {
         ],
       },
     },
-    "htmlWebpackPlugin": Object {
+    "html-webpack-plugin": Object {
       "alwaysWriteToDisk": true,
       "inject": true,
       "minify": Object {
@@ -94,7 +95,7 @@ Object {
         "useShortDoctype": true,
       },
     },
-    "interpolateHtmlPlugin": Object {
+    "interpolate-html-plugin": Object {
       "replace": Object {},
     },
     "miniCssExtractPlugin": Object {},
@@ -224,6 +225,7 @@ Object {
       "appendOnly": true,
       "level": "none",
     },
+    "node": false,
     "optimization": Object {
       "emitOnErrors": false,
       "minimizer": Array [
@@ -268,7 +270,7 @@ Object {
     },
     "stats": Object {},
   },
-  "ci": false,
+  "ci": true,
   "clean": true,
   "debug": true,
   "discover": false,
@@ -293,7 +295,7 @@ Object {
         ],
       },
     },
-    "htmlWebpackPlugin": Object {
+    "html-webpack-plugin": Object {
       "alwaysWriteToDisk": true,
       "inject": true,
       "minify": Object {
@@ -306,7 +308,7 @@ Object {
         "useShortDoctype": true,
       },
     },
-    "interpolateHtmlPlugin": Object {
+    "interpolate-html-plugin": Object {
       "replace": Object {},
     },
     "miniCssExtractPlugin": Object {},

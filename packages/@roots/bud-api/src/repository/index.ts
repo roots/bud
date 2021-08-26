@@ -1,6 +1,5 @@
 import type {Framework, Server} from '@roots/bud-framework'
 import type {GlobTask} from 'globby'
-import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import type * as Webpack from 'webpack'
 
 import {alias} from './alias'
@@ -322,36 +321,11 @@ interface Repository {
    */
   splitChunks: Repository.SplitChunks
 
-  /**
-   * Enable and/or configure a generated HTML template
-   *
-   * @example
-   * ```js
-   * app.template({
-   *   enabled: true, // default: true
-   *   template: 'public/index.html',
-   *   replace: {
-   *     APP_NAME: name,
-   *     APP_DESCRIPTION: description,
-   *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
-   *   },
-   * })
-   * ```
-   */
-  template: Repository.Template
+  template: template
 
   use: use
 
-  /**
-   * Configure the list of files that, when modified,
-   * will force the browser to reload (even in hot mode).
-   *
-   * @example
-   * ```js
-   * app.watch(['templates/*.html'])
-   * ```
-   */
-  watch: Repository.Watch
+  watch: watch
 }
 
 namespace Repository {
@@ -508,43 +482,9 @@ namespace Repository {
     export type Options =
       Webpack.Configuration['optimization']['splitChunks']
   }
-
-  export interface Template {
-    (this: Framework, options?: Template.Options): Framework
-  }
-
-  export namespace Template {
-    export interface Options extends HtmlOptions {
-      /**
-       * Explicitly enable or disable html templating.
-       */
-      enabled?: boolean
-
-      /**
-       * Path to an HTML template to use. If none is supplied
-       * one is provided as a default.
-       */
-      template?: string
-
-      /**
-       * Template variable names are used as keys.
-       * Each key is associated with a replacement value.
-       */
-      replace?: {
-        [key: string]: string
-      }
-    }
-  }
-
-  export interface Watch {
-    (
-      files: Server.Configuration['watch']['files'],
-      options?: Server.Configuration['watch']['options'],
-    ): Framework
-  }
 }
 
-const Repository = {
+const Repository: Repository = {
   alias,
   assets,
   config,

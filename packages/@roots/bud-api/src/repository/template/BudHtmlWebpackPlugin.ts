@@ -1,17 +1,17 @@
-import {Module} from '@roots/bud-framework'
+import {Framework, WebpackPlugin} from '@roots/bud-framework'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import {posix} from 'path'
 
-interface Extension extends Module {
-  options: Module.Options<HtmlWebpackPlugin.Options>
-  make: Module.Make<HtmlWebpackPlugin, HtmlWebpackPlugin.Options>
-  when: Module.When<HtmlWebpackPlugin.Options>
-}
+interface BudHtmlWebpackPlugin
+  extends WebpackPlugin<
+    HtmlWebpackPlugin,
+    HtmlWebpackPlugin.Options
+  > {}
 
-const extension: Extension = {
+const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
   name: 'html-webpack-plugin',
 
-  options(app) {
+  options(app: Framework) {
     const fromEnv = app.env
       .getEntries()
       .filter(([k]: [string, string]) => k.includes('PUBLIC'))
@@ -36,7 +36,7 @@ const extension: Extension = {
           ...fromStore,
         },
       },
-      ...(app.store.get('extension.htmlWebpackPlugin') ?? {}),
+      ...(app.store.get('extension.html-webpack-plugin') ?? {}),
     }
   },
 
@@ -45,5 +45,6 @@ const extension: Extension = {
   when: ({store}) => store.isTrue('html'),
 }
 
-export const {name, options, make, when} = extension
+export const {name, options, make, when} = BudHtmlWebpackPlugin
+
 export {HtmlWebpackPlugin}

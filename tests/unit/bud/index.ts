@@ -56,7 +56,7 @@ describe('factory', () => {
       },
       stats: {},
     },
-    ci: false,
+    ci: true,
     clean: true,
     debug: true,
     discover: false,
@@ -78,7 +78,7 @@ describe('factory', () => {
           ],
         },
       },
-      htmlWebpackPlugin: {
+      'html-webpack-plugin': {
         alwaysWriteToDisk: true,
         inject: true,
         minify: {
@@ -91,7 +91,7 @@ describe('factory', () => {
           useShortDoctype: true,
         },
       },
-      interpolateHtmlPlugin: {
+      'interpolate-html-plugin': {
         replace: {},
       },
       miniCssExtractPlugin: {},

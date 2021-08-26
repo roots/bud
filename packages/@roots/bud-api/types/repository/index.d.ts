@@ -1,11 +1,12 @@
 import type { Framework, Server } from '@roots/bud-framework';
 import type { GlobTask } from 'globby';
-import type { Options as HtmlOptions } from 'html-webpack-plugin';
 import type * as Webpack from 'webpack';
 import { alias } from './alias';
 import { assets } from './assets';
 import { config } from './config';
+import { template } from './template';
 import { use } from './use';
+import { watch } from './watch';
 interface Repository {
     alias: alias;
     assets: assets;
@@ -283,34 +284,9 @@ interface Repository {
      * ```
      */
     splitChunks: Repository.SplitChunks;
-    /**
-     * Enable and/or configure a generated HTML template
-     *
-     * @example
-     * ```js
-     * app.template({
-     *   enabled: true, // default: true
-     *   template: 'public/index.html',
-     *   replace: {
-     *     APP_NAME: name,
-     *     APP_DESCRIPTION: description,
-     *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
-     *   },
-     * })
-     * ```
-     */
-    template: Repository.Template;
+    template: template;
     use: use;
-    /**
-     * Configure the list of files that, when modified,
-     * will force the browser to reload (even in hot mode).
-     *
-     * @example
-     * ```js
-     * app.watch(['templates/*.html'])
-     * ```
-     */
-    watch: Repository.Watch;
+    watch: watch;
 }
 declare namespace Repository {
     interface Alias {
@@ -404,56 +380,7 @@ declare namespace Repository {
     namespace SplitChunks {
         type Options = Webpack.Configuration['optimization']['splitChunks'];
     }
-    interface Template {
-        (this: Framework, options?: Template.Options): Framework;
-    }
-    namespace Template {
-        interface Options extends HtmlOptions {
-            /**
-             * Explicitly enable or disable html templating.
-             */
-            enabled?: boolean;
-            /**
-             * Path to an HTML template to use. If none is supplied
-             * one is provided as a default.
-             */
-            template?: string;
-            /**
-             * Template variable names are used as keys.
-             * Each key is associated with a replacement value.
-             */
-            replace?: {
-                [key: string]: string;
-            };
-        }
-    }
-    interface Watch {
-        (files: Server.Configuration['watch']['files'], options?: Server.Configuration['watch']['options']): Framework;
-    }
 }
-declare const Repository: {
-    alias: alias;
-    assets: typeof assets;
-    config: config;
-    define: Repository.Define;
-    dev: Repository.Dev;
-    devtool: Repository.Devtool;
-    entry: Repository.Entry;
-    experiments: Repository.Experiments;
-    externals: Repository.Externals;
-    hash: Repository.Hash;
-    minimize: Repository.Minimize;
-    persist: Repository.Persist;
-    provide: Repository.Provide;
-    proxy: Repository.Proxy;
-    publicPath: Repository.PublicPath;
-    run: Repository.Run;
-    runtime: Repository.Runtime;
-    setPublicPath: Repository.SetPublicPath;
-    splitChunks: Repository.SplitChunks;
-    template: Repository.Template;
-    use: use;
-    watch: Repository.Watch;
-};
+declare const Repository: Repository;
 export { Repository };
 //# sourceMappingURL=index.d.ts.map

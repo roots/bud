@@ -2,8 +2,10 @@ import {BaseCommand} from '@yarnpkg/cli'
 import {Manifest} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
 
-const ERROR = 1
-const OK = 0
+const enum CODE {
+  ERROR = 1,
+  OK = 0,
+}
 
 export abstract class Command extends BaseCommand {
   static usage = {category: `kjo`}
@@ -18,40 +20,21 @@ export abstract class Command extends BaseCommand {
   /**
    * Run a task or series of tasks
    */
-  public async $(options: string | string[]) {
-    let exitCode
+  public async $(task: string) {
+    let exitCode: CODE
 
-    if (Array.isArray(options)) {
-      exitCode = await options.reduce(
-        this.sequential.bind(this),
-        this.promiseOK(),
-      )
-    } else {
-      exitCode = await this.runTask(options)
-    }
+    console.log(`[kjo] ${task}`)
 
-    this.taskFailed(exitCode) && process.exit(ERROR)
-    return Promise.resolve(OK)
-  }
+    exitCode = await this.runTask(task)
 
-  /**
-   * Run tasks sequentially
-   */
-  public async sequential(
-    promise: Promise<number>,
-    task: string | string[],
-  ): Promise<number> {
-    const exitCode = await promise
-
-    if (this.taskFailed(exitCode)) return ERROR
-
-    return this.$(task)
+    this.taskFailed(exitCode) && process.exit(CODE.ERROR)
+    return Promise.resolve(CODE.OK)
   }
 
   /**
    * Run a single task
    */
-  public runTask(task: string): Promise<number> {
+  public runTask(task: string): Promise<CODE> {
     const [invoke, ...params] = task.split(' ')
     return execute(invoke, params)
   }
@@ -59,16 +42,16 @@ export abstract class Command extends BaseCommand {
   /**
    * Check task status
    */
-  public taskFailed(code: number) {
+  public taskFailed(code: CODE) {
     return Array.isArray(code)
-      ? code.filter(c => c !== OK).length > 0
-      : code !== OK
+      ? code.filter(c => c !== CODE.OK).length > 0
+      : code !== CODE.OK
   }
 
   /**
    * Promise OK
    */
-  public async promiseOK(): Promise<number> {
-    return OK
+  public async promiseOK(): Promise<CODE> {
+    return CODE.OK
   }
 }
