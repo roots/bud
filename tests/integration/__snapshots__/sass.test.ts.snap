@@ -315,6 +315,8 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-sass": "workspace:*",
+    "@types/sass": "^1",
+    "sass": "1.38.1",
   },
   "name": "example-sass",
   "private": true,

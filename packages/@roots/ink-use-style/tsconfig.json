@@ -9,5 +9,14 @@
     "outDir": "./lib/cjs",
   },
   "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "exclude": [
+    "lib",
+    "types",
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+  ]
 }

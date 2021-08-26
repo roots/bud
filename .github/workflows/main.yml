@@ -48,14 +48,8 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
-      - name: Build CJS
-        run: yarn tsc -b
-
-      - name: Build ESM
-        run: yarn tsc -b tsconfig.esm.json
-
-      - name: Bundle @roots/bud-support
-        run: yarn ts-node ./dev/tasks/compile/cjs @roots/bud-support
+      - name: Build
+        run: yarn kjo build
 
       - name: Lint
         run: yarn kjo lint --eslint --skypack

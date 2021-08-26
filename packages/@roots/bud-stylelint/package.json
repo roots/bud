@@ -36,8 +36,7 @@
   "files": [
     "lib/",
     "types/",
-    "templates/",
-    "manifest.yml"
+    "templates/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -68,8 +67,8 @@
     "type": "extension"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/container": "workspace:packages/@roots/container",
     "@types/node": "15.14.1",
     "webpack": "5.51.1"
   },

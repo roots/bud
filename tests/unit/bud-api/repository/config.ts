@@ -4,7 +4,12 @@ describe('bud.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory({
+      config: {
+        ...config,
+        ci: true,
+      },
+    })
   })
 
   afterAll(done => {

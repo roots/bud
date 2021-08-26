@@ -1,19 +1,19 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2020",
   },
   "references": [
     {
-      "path": "./packages/@roots/bud/tsconfig.json"
+      "path": "./packages/@roots/bud-framework/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-babel/tsconfig.json"
@@ -50,9 +50,6 @@
     },
     {
       "path": "./packages/@roots/bud-extensions/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-framework/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-hooks/tsconfig.json"

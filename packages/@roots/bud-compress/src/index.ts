@@ -1,9 +1,6 @@
-import type {Framework} from '@roots/bud-framework'
-import {Module, WebpackPlugin} from '@roots/bud-framework'
-import CompressionPlugin from 'compression-webpack-plugin'
-
-import * as BudBrotliExtension from './brotli/index'
-import * as BudGzipExtension from './gzip/index'
+import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
+import {BudCompressionExtension} from './BudCompressionExtension'
+import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -40,30 +37,24 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Compress.ConfigFn
+    brotli(options?: BudCompressionExtension.Options): Framework
 
     /**
-     * ## gzip  [💁 Fluent]
-     *
      * Gzip static assets.
      */
-    gzip: Compress.ConfigFn
+    gzip(options?: BudCompressionExtension.Options): Framework
   }
-
-  namespace Framework {}
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-compress'?: Module
-      'compression-webpack-plugin-brotli'?: Compress.Extension
-      'compression-webpack-plugin-gzip'?: Compress.Extension
+      '@roots/bud-compress'?: BudCompressionExtension
+      'compression-webpack-plugin-brotli'?: BudBrotliWebpackPlugin
+      'compression-webpack-plugin-gzip'?: BudGzipWebpackPlugin
     }
   }
 }
 
-export namespace Compress {
-  export type ConfigFn = (options?: Options) => Framework
-
+export namespace BudCompressionExtension {
   export interface Options {
     filename: string
     algorithm: string
@@ -75,17 +66,6 @@ export namespace Compress {
     minRatio: number
     deleteOriginalAssets: boolean
   }
-
-  export type Extension = WebpackPlugin<
-    CompressionPlugin,
-    Options
-  >
 }
 
-const extension: Compress.Extension = {
-  name: '@roots/bud-compress',
-
-  boot: ({use}) => use([BudBrotliExtension, BudGzipExtension]),
-}
-
-export const {name, boot} = extension
+export const {name, boot} = BudCompressionExtension

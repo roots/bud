@@ -32,10 +32,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -66,16 +64,14 @@
     "@types/eslint": "7.28.0",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "eslint": "7.32.0",
+    "webpack": "5.51.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "webpack": "^5.47.1"
   },
   "stableVersion": "4.6.0"
 }

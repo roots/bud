@@ -2,18 +2,26 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "composite": true,
-    "declaration": true,
-    "declarationDir": "./types",
-    "outDir": "./lib/cjs",
     "rootDir": "./src",
+    "outDir": "./lib/cjs",
+    "declarationDir": "./types",
+    "types": [
+      "node",
+    ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "types",
-    "node_modules"
+    "./lib",
+    "./node_modules"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-support/tsconfig.json"
+    }
   ]
 }

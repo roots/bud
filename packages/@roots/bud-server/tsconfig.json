@@ -6,11 +6,22 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node",
-      "@roots/bud-framework",
-      "@roots/bud-support"
+      "node"
     ]
   },
-  "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./lib",
+    "./node_modules"
+  ],
+  "references": [
+    {
+      "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    }
+  ]
 }

@@ -4,15 +4,24 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declaration": true,
     "declarationDir": "./types",
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "types",
-    "node_modules"
+    "./lib",
+    "./node_modules"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../critical-css-webpack-plugin"
+    }
   ]
 }

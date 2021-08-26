@@ -6,7 +6,7 @@ const babel = require('@roots/bud-babel')
  * @function config
  * @param {import('@roots/bud').Bud} app
  */
-module.exports = app =>
+module.exports = app => {
   app
     .use(babel)
     .tap(({babel}) => {
@@ -20,3 +20,6 @@ module.exports = app =>
         ])
     })
     .entry('app', '*.{js,css}')
+
+  console.log(app.build.config.module.rules[1].oneOf[9])
+}

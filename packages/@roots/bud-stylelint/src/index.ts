@@ -1,9 +1,31 @@
-import './interface'
+import type {
+  Framework,
+  WebpackPlugin,
+} from '@roots/bud-framework'
+import type {Container} from '@roots/container'
+import StylelintWebpackPlugin, {
+  Options,
+} from 'stylelint-webpack-plugin'
+import type {WebpackPluginInstance} from 'webpack'
 
-import type {Framework} from '@roots/bud-framework'
-import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      'stylelint-webpack-plugin': BudStylelintWebpackPlugin
+    }
+  }
+}
 
-const extension: Framework.Stylelint.Extension = {
+interface BudStylelintWebpackPlugin
+  extends WebpackPlugin<StylelintWebpackPlugin, Options> {
+  name: 'stylelint-webpack-plugin' & WebpackPlugin['name']
+  options(app: Framework): WebpackPlugin['options'] & Options
+  make(
+    options: Container<Options>,
+  ): WebpackPluginInstance & StylelintWebpackPlugin
+}
+
+const BudStylelintWebpackPlugin: BudStylelintWebpackPlugin = {
   name: 'stylelint-webpack-plugin',
 
   options: app => ({
@@ -13,6 +35,4 @@ const extension: Framework.Stylelint.Extension = {
   make: opts => new StylelintWebpackPlugin(opts.all()),
 }
 
-export {extension, extension as default}
-
-export const {name, options, make} = extension
+export const {name, options, make} = BudStylelintWebpackPlugin

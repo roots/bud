@@ -1,14 +1,16 @@
 # secret
 .env
 
+# artifacts
 *.log
 **/lib
 *.tsbuildinfo
+packages/@roots/*/types
 
 # jest
 coverage
 
-# pacman artifacts
+# pacman
 node_modules
 .yarn/*
 !.yarn/patches

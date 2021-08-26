@@ -35,8 +35,7 @@
   "files": [
     "bin/",
     "types/",
-    "lib/",
-    "manifest.yml"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

@@ -7,8 +7,38 @@
     "declarationDir": "./types",
     "types": [
       "@roots/bud-api",
+      "@roots/bud-babel",
+      "@roots/bud-postcss"
     ]
   },
-  "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./lib",
+    "./node_modules"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../bud-eslint/tsconfig.json"
+    },
+    {
+      "path": "./../bud-preset-wordpress/tsconfig.json"
+    },
+    {
+      "path": "./../bud-prettier/tsconfig.json"
+    },
+    {
+      "path": "./../bud-stylelint/tsconfig.json"
+    },
+    {
+      "path": "./../bud-tailwindcss/tsconfig.json"
+    }
+  ]
 }

@@ -1,1 +1,0 @@
-{"version":3,"file":"production.d.ts","sourceRoot":"","sources":["../../../../src/cli/commands/build/production.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,aAAa,CAAA;AAE/B,MAAM,CAAC,OAAO,OAAO,UAAW,SAAQ,KAAK;IAC3C,OAAc,WAAW,SAA8B;IACvD,OAAc,QAAQ,WAAoC;IAC1D,OAAc,OAAO,WAIpB;IACM,IAAI,EAAE,aAAa,GAAG,YAAY,CAAe;CACzD"}

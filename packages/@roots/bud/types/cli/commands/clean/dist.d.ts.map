@@ -1,1 +1,0 @@
-{"version":3,"file":"dist.d.ts","sourceRoot":"","sources":["../../../../src/cli/commands/clean/dist.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,aAAa,CAAA;AAE/B,MAAM,CAAC,OAAO,OAAO,IAAK,SAAQ,KAAK;IACrC,OAAc,WAAW,SAAyB;IAClD,OAAc,QAAQ,WAAuB;IACtC,MAAM,EAAE,KAAK,CAAC,QAAQ,CAAC,CAAW;CAC1C"}

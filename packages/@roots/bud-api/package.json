@@ -34,7 +34,6 @@
     "bud-framework"
   ],
   "files": [
-    "docs/",
     "lib/",
     "types/"
   ],

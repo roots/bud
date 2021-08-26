@@ -25,12 +25,6 @@ export class LintCommand extends Command {
       await this.$(`yarn eslint dev/**/*.{js,jsx,ts,tsx} --fix`)
     }
 
-    if (this.types || all) {
-      await this.$(
-        `yarn prettier packages/**/types/**/*.d.ts --write --loglevel silent --no-error-on-unmatched-pattern`,
-      )
-    }
-
     if (this.prettier || all) {
       await this.$(
         `yarn prettier packages/**/src/**/*.{ts,js,tsx,jsx} --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,

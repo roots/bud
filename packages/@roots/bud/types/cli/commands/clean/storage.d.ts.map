@@ -1,1 +1,0 @@
-{"version":3,"file":"storage.d.ts","sourceRoot":"","sources":["../../../../src/cli/commands/clean/storage.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,aAAa,CAAA;AAE/B,MAAM,CAAC,OAAO,OAAO,OAAQ,SAAQ,KAAK;IACxC,OAAc,WAAW,SAA8B;IACvD,OAAc,QAAQ,WAA0B;IACzC,MAAM,EAAE,KAAK,CAAC,QAAQ,CAAC,CAAc;CAC7C"}

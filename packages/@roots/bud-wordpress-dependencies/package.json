@@ -34,7 +34,6 @@
   },
   "files": [
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",

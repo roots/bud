@@ -1,10 +1,4 @@
-export {
-  globby,
-  globbyStream,
-  globbySync,
-  isDynamicPattern,
-  isGitIgnored,
-  isGitIgnoredSync,
-} from 'globby'
+import {stream, sync} from 'globby'
+import globby from 'globby'
 
-export type {GlobbyFilterFunction} from 'globby'
+export {globby, stream as globbyStream, sync as globbySync}

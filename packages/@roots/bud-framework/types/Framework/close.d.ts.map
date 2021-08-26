@@ -1,1 +1,0 @@
-{"version":3,"file":"close.d.ts","sourceRoot":"","sources":["../../src/Framework/close.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,SAAS,EAAC,MAAM,IAAI,CAAA;AAEjC,UAAU,KAAK;IACb,CAAC,IAAI,EAAE,SAAS,EAAE,IAAI,CAAC,EAAE,gBAAgB,GAAG,IAAI,CAAA;CACjD;AAKD,iBAAS,KAAK,CAAC,IAAI,EAAE,SAAS,EAAE,IAAI,2BAAe,QAsBlD;AAED,OAAO,EAAC,KAAK,EAAC,CAAA"}
