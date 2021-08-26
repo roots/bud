@@ -73,7 +73,7 @@
     "@types/eslint": "7.28.0",
     "@types/node": "15.14.1",
     "eslint": "7.32.0",
-    "type-fest": "2.0.0",
+    "type-fest": "2.1.0",
     "webpack": "5.51.1"
   },
   "dependencies": {
