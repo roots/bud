@@ -1,10 +1,5 @@
-import type {
-  Framework,
-  Module,
-  Server,
-} from '@roots/bud-framework'
-import {globby} from '@roots/bud-support'
-import type {Options as HtmlOptions} from 'html-webpack-plugin'
+import type {Framework, Server} from '@roots/bud-framework'
+import type {GlobTask} from 'globby'
 import type * as Webpack from 'webpack'
 
 import {alias} from './alias'
@@ -326,66 +321,11 @@ interface Repository {
    */
   splitChunks: Repository.SplitChunks
 
-  /**
-   * Enable and/or configure a generated HTML template
-   *
-   * @example
-   * ```js
-   * app.template({
-   *   enabled: true, // default: true
-   *   template: 'public/index.html',
-   *   replace: {
-   *     APP_NAME: name,
-   *     APP_DESCRIPTION: description,
-   *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
-   *   },
-   * })
-   * ```
-   */
-  template: Repository.Template
+  template: template
 
-  /**
-   * Register an extension or set of extensions
-   *
-   * @example
-   * Add packaged bud extensions:
-   *
-   * ```js
-   * bud.use([
-   *   require('@roots/bud-babel'),
-   *   require('@roots/bud-react'),
-   * ])
-   * ```
-   *
-   * @example
-   * Add an extension inline (also works with an array of extensions):
-   *
-   * ```js
-   * bud.use({
-   *  name: 'my-webpack-plugin',
-   *  make: () => new MyWebpackPlugin(),
-   * })
-   * ```
-   *
-   * @example
-   * Add a webpack plugin inline (also work with an array of plugins):
-   *
-   * ```js
-   * bud.use(new MyWebpackPlugin())
-   * ```
-   */
-  use: Repository.Use
+  use: use
 
-  /**
-   * Configure the list of files that, when modified,
-   * will force the browser to reload (even in hot mode).
-   *
-   * @example
-   * ```js
-   * app.watch(['templates/*.html'])
-   * ```
-   */
-  watch: Repository.Watch
+  watch: watch
 }
 
 namespace Repository {
@@ -444,12 +384,12 @@ namespace Repository {
       [k: string]:
         | Object
         | Object['import']
-        | globby.GlobTask['pattern']
+        | GlobTask['pattern']
     }
 
     export type Value =
-      | globby.GlobTask['pattern']
-      | Array<globby.GlobTask['pattern']>
+      | GlobTask['pattern']
+      | Array<GlobTask['pattern']>
   }
 
   export interface Experiments {
@@ -542,51 +482,9 @@ namespace Repository {
     export type Options =
       Webpack.Configuration['optimization']['splitChunks']
   }
-
-  export interface Template {
-    (this: Framework, options?: Template.Options): Framework
-  }
-
-  export namespace Template {
-    export interface Options extends HtmlOptions {
-      /**
-       * Explicitly enable or disable html templating.
-       */
-      enabled?: boolean
-
-      /**
-       * Path to an HTML template to use. If none is supplied
-       * one is provided as a default.
-       */
-      template?: string
-
-      /**
-       * Template variable names are used as keys.
-       * Each key is associated with a replacement value.
-       */
-      replace?: {
-        [key: string]: string
-      }
-    }
-  }
-
-  export interface Use {
-    (source: Use.Input): Framework
-  }
-
-  export namespace Use {
-    export type Input = Module | Module[]
-  }
-
-  export interface Watch {
-    (
-      files: Server.Configuration['watch']['files'],
-      options?: Server.Configuration['watch']['options'],
-    ): Framework
-  }
 }
 
-const Repository = {
+const Repository: Repository = {
   alias,
   assets,
   config,

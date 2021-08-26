@@ -35,8 +35,7 @@
   "files": [
     "bin/",
     "types/",
-    "lib/",
-    "manifest.yml"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -76,6 +75,7 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "15.14.1"

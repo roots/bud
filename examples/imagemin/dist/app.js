@@ -1,1 +1,0 @@
-(()=>{"use strict";var r,e={817:(r,e,t)=>{r.exports=t.p+"assets/94fb00ca4b98031ac243.jpeg"}},t={};function n(r){var o=t[r];if(void 0!==o)return o.exports;var s=t[r]={exports:{}};return e[r](s,s.exports,n),s.exports}n.p="",r=n(817),document.querySelector("body").innerHTML=`\n  <div>\n    <h1>Hello from esbuild!</h1>\n    <img src="${r}" />\n  </div>\n`})();

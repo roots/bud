@@ -1,0 +1,23 @@
+export const nccOptions = {
+  cache: false,
+  external: [
+    'css-loader',
+    'csv-loader',
+    'file-loader',
+    'html-loader',
+    'mini-svg-data-uri',
+    'remark-loader',
+    'resolve-url-loader',
+    'style-loader',
+    'url-loader',
+    'xml-loader',
+    'mini-css-extract-plugin',
+  ],
+  minify: false,
+  sourceMap: false,
+  sourceMapRegister: false,
+  watch: false,
+  v8cache: false,
+  quiet: false,
+  debugLog: false,
+}

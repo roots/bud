@@ -15,7 +15,7 @@ image: 'https://budjs.netlify.app/img/share/docs/bud.mode__bud.isDevelopment.png
 Very useful in conditionals:
 
 ```js title='bud.config.js'
-module.exports = bud => 
+module.exports = bud =>
   bud.isDevelopment && bud.devtool('source-map')
 ```
 
@@ -23,10 +23,7 @@ Pairs well with [bud.when](/docs/bud.when):
 
 ```js {2} title='bud.config.js'
 module.exports = bud =>
-  bud.when(
-    bud.isDevelopment, 
-    bud => bud.devtool(),
-  )
+  bud.when(bud.isDevelopment, bud => bud.devtool())
 ```
 
 ## See also

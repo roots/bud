@@ -1,9 +1,6 @@
-import type {Framework} from '@roots/bud-framework'
-import {Module, WebpackPlugin} from '@roots/bud-framework'
-import CompressionPlugin from 'compression-webpack-plugin'
-
-import * as BudBrotliExtension from './brotli/index'
-import * as BudGzipExtension from './gzip/index'
+import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
+import {BudCompressionExtension} from './BudCompressionExtension'
+import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -40,49 +37,35 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Framework.Compress.ConfigFn
+    brotli(options?: BudCompressionExtension.Options): Framework
 
     /**
-     * ## gzip  [💁 Fluent]
-     *
      * Gzip static assets.
      */
-    gzip: Framework.Compress.ConfigFn
-  }
-
-  namespace Framework {
-    namespace Compress {
-      type ConfigFn = (options?: Options) => Framework
-
-      interface Options {
-        filename: string
-        algorithm: string
-        test: RegExp
-        compressionOptions: {
-          [key: string]: any
-        }
-        threshold: number
-        minRatio: number
-        deleteOriginalAssets: boolean
-      }
-
-      type Extension = WebpackPlugin<CompressionPlugin, Options>
-    }
+    gzip(options?: BudCompressionExtension.Options): Framework
   }
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-compress': Module
-      'compression-webpack-plugin-brotli': Compress.Extension
-      'compression-webpack-plugin-gzip': Compress.Extension
+      '@roots/bud-compress'?: BudCompressionExtension
+      'compression-webpack-plugin-brotli'?: BudBrotliWebpackPlugin
+      'compression-webpack-plugin-gzip'?: BudGzipWebpackPlugin
     }
   }
 }
 
-const extension: Framework.Compress.Extension = {
-  name: '@roots/bud-compress',
-
-  boot: ({use}) => use([BudBrotliExtension, BudGzipExtension]),
+export namespace BudCompressionExtension {
+  export interface Options {
+    filename: string
+    algorithm: string
+    test: RegExp
+    compressionOptions: {
+      [key: string]: any
+    }
+    threshold: number
+    minRatio: number
+    deleteOriginalAssets: boolean
+  }
 }
 
-export const {name, boot} = extension
+export const {name, boot} = BudCompressionExtension

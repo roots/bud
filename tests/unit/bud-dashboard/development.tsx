@@ -8,7 +8,10 @@ jest.setTimeout(20000)
 
 let BASIC_DIR = process.cwd().concat('/examples/basic')
 
-let BASIC_CFG = {
+let BASIC_CFG: {
+  mode: Framework['mode']
+  config: config
+} = {
   mode: 'development',
   config: {
     ...config,
@@ -25,7 +28,7 @@ process.env.BUD_KEEP_ALIVE = 'true'
 describe.skip('@roots/bud-dashboard', function () {
   let bud: Framework
   let dashboard: any
-  let interval
+  let interval: NodeJS.Timer
 
   beforeAll(done => {
     bud = factory(BASIC_CFG)

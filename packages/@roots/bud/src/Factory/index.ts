@@ -18,6 +18,11 @@ namespace Factory {
   export interface Options {
     /**
      * Application name
+     *
+     * @remarks
+     * The name of the parent compiler is used as a base when sourcing configuration files.
+     * So, in an implementation that uses the name `app`, the Framework will be sourcing
+     * `app.config.js`, `app.development.config.js`, etc.
      */
     name?: Framework['name']
 
@@ -38,19 +43,21 @@ namespace Factory {
   }
 }
 
+/**
+ *
+ */
 const Factory = (overrides: Factory.Options): Framework => {
+  overrides.services &&
+    Object.assign(services, overrides.services)
+
+  overrides.config && Object.assign(config, overrides.config)
+
   return new Bud({
     name: 'bud',
     mode: 'production',
     ...overrides,
-    services: {
-      ...services,
-      ...(overrides?.services ?? {}),
-    },
-    config: {
-      ...config,
-      ...(overrides?.config ?? {}),
-    },
+    services,
+    config,
   }).bootstrap()
 }
 

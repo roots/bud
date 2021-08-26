@@ -12,7 +12,7 @@ You can use TypeScript to configure your build for instant feedback and added as
 
 This sounds annoying and complicated but its actually pretty easy to set up and makes configuring bud a lot more intuitive in editors with typechecking support (like VSCode). It doesn't mean you have to convert your project to TypeScript.
 
-Depending on your project structure there may be additional, TypeScript specific steps (although hopefully you're good to go). 
+Depending on your project structure there may be additional, TypeScript specific steps (although hopefully you're good to go).
 
 If you have problems you should refer to the TS docs for more information on configuring TypeScript.
 
@@ -22,8 +22,8 @@ Create a **bud.config.ts** file in your project root. If you already have a **bu
 
 :::caution
 
-Bud configuration files are not mutually exclusive. If you have both a **bud.config.js** file and a **bud.config.ts** file in your project root, 
-both configurations will be applied to your build. Things will probably still work fine, but any issues that may crop up will likely be hard to 
+Bud configuration files are not mutually exclusive. If you have both a **bud.config.js** file and a **bud.config.ts** file in your project root,
+both configurations will be applied to your build. Things will probably still work fine, but any issues that may crop up will likely be hard to
 debug. You should save yourself possible headaches and pick a flavor.
 
 :::
@@ -43,10 +43,8 @@ Rather than using `module.exports` syntax, use a default export.
 ```ts {3} title='bud.config.ts'
 import type {Framework} from '@roots/bud'
 
-export default (bud: Framework): Framework => 
-  bud
-    .entry('main', 'index.js')
-    .template()
+export default (bud: Framework): Framework =>
+  bud.entry('main', 'index.js').template()
 ```
 
 That's it!

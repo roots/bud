@@ -6,20 +6,41 @@ export class BuildCommand extends Command {
 
   public cjs = Option.Boolean(`-c,--cjs`, false)
   public esm = Option.Boolean(`-e,--esm`, false)
-  public commands = {
-    all: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build`,
-    cjs: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:cjs`,
-    esm: `yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build:esm`,
-  }
+  public clean = Option.Boolean(`--clean`, false)
+  public force = Option.Boolean(`--force`, false)
+  public verbose = Option.Boolean(`--verbose`, true)
 
   async execute() {
-    const itinerary = []
+    const all = !this.cjs && !this.esm
 
-    if (this.cjs) itinerary.push(this.commands.cjs)
-    if (this.esm) itinerary.push(this.commands.esm)
+    if (this.clean && this.force) {
+      console.error('--clean and --force are mutually exclusive')
+    }
 
-    if (!this.cjs && !this.esm) itinerary.push(this.commands.all)
+    if (this.clean) {
+      this.verbose = false
+    }
 
-    await this.$(itinerary)
+    if (this.cjs || all) {
+      await this.$(
+        `yarn tsc -b${this.verbose ? ` --verbose` : ``}${
+          this.clean ? ` --clean` : ``
+        }${this.force ? ` --force` : ``}`,
+      )
+    }
+
+    if (this.esm || all) {
+      await this.$(
+        `yarn tsc -b tsconfig.esm.json${
+          this.verbose ? ` --verbose` : ``
+        }${this.clean ? ` --clean` : ``}${
+          this.force ? ` --force` : ``
+        }`,
+      )
+    }
+
+    if (this.clean) return
+
+    await this.$(`yarn kjo compile @roots/bud-support`)
   }
 }

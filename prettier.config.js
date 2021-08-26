@@ -15,5 +15,11 @@ module.exports = {
         parser: 'mdx',
       },
     },
+    {
+      files: '*.d.ts',
+      options: {
+        parser: 'typescript',
+      },
+    },
   ],
 }

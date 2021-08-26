@@ -5,7 +5,12 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(() => {
-      bud = factory({config: {...config, ci: true}})
+      bud = factory({
+        config: {
+          ...config,
+          ci: true,
+        },
+      })
     })
 
     afterAll(done => {
@@ -22,7 +27,7 @@ describe('bud.template', function () {
 
     it('has expected default options', () => {
       expect(
-        bud.store.get('extension.htmlWebpackPlugin'),
+        bud.store.get('extension.html-webpack-plugin'),
       ).toEqual({
         alwaysWriteToDisk: true,
         inject: true,
@@ -70,6 +75,7 @@ describe('bud.template', function () {
 
     it('adds html webpack plugin', () => {
       bud.template()
+
       expect(bud.extensions.has('html-webpack-plugin')).toEqual(
         true,
       )

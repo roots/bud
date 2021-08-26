@@ -36,8 +36,7 @@
   },
   "files": [
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -78,7 +77,7 @@
     "@types/node": "15.14.1",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
-    "type-fest": "2.1.0",
+    "type-fest": "2.0.0",
     "webpack": "5.51.1"
   },
   "dependencies": {

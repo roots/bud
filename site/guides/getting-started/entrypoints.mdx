@@ -33,9 +33,7 @@ To build it, specify the new script in **bud.config.js** using [**bud.entry**](/
 
 ```js {3} title='bud.config.js'
 module.exports = bud =>
-  bud
-    .entry('landing', 'landing.js')
-    .template()
+  bud.entry('landing', 'landing.js').template()
 ```
 
   </TabItem>
@@ -45,9 +43,7 @@ module.exports = bud =>
 import type {Framework} from '@roots/bud'
 
 export default function (bud: Framework): void {
-  bud
-    .entry('landing', 'landing.js')
-    .template()
+  bud.entry('landing', 'landing.js').template()
 }
 ```
 
@@ -58,7 +54,7 @@ export default function (bud: Framework): void {
 
 If you run a build now you'll see your new file was compiled, but you might also notice that **dist/main.js** is missing.
 
-Until now, we'd been successfully relying on bud's implicit inclusion of **src/index.js**, which it will attempt to use if [**bud.entry**](/docs/bud.entry) is not called. 
+Until now, we'd been successfully relying on bud's implicit inclusion of **src/index.js**, which it will attempt to use if [**bud.entry**](/docs/bud.entry) is not called.
 
 But now that we are [specifying an entrypoint in our config](#add-a-second-script), we'll need to explicitly specify **src/index.js** as well.
 
@@ -98,7 +94,7 @@ export default function (bud: Framework): void {
 
 ## Adding files to an existing entrypoint
 
-Currently, we are importing our application css by importing it into the **src/index.js** entrypoint. 
+Currently, we are importing our application css by importing it into the **src/index.js** entrypoint.
 
 ```js {1} title='src/index.js'
 import './index.css'
@@ -111,12 +107,10 @@ This is a totally valid way to handle css in your build, but let's instead speci
 Start by removing the css import from **src/index.js**
 
 ```js {1-2} title='src/index.js'
-
-
 console.log('hello world!')
 ```
 
-Now, add the css to the **main** entry. 
+Now, add the css to the **main** entry.
 
 <Tabs
   groupId="lang"

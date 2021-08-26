@@ -1,7 +1,11 @@
+import {globby} from '@roots/bud-support'
+import {dirname} from 'path'
 import type {InitialOptionsTsJest} from 'ts-jest/dist/types'
 import {defaults} from 'ts-jest/presets'
 
 export default async function config(): Promise<InitialOptionsTsJest> {
+  const moduleNameMapper = await mapModuleNames()
+
   return {
     ...defaults,
     coveragePathIgnorePatterns: [
@@ -20,6 +24,7 @@ export default async function config(): Promise<InitialOptionsTsJest> {
       'types',
     ],
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    moduleNameMapper,
     preset: 'ts-jest',
     setupFiles: ['./jest.setup.ts'],
     testMatch: [
@@ -37,4 +42,25 @@ export default async function config(): Promise<InitialOptionsTsJest> {
     verbose: true,
     maxWorkers: '50%',
   }
+}
+
+const mapModuleNames = async (): Promise<
+  InitialOptionsTsJest['moduleNameMapper']
+> => {
+  const pkgs = await globby.globby(
+    'packages/@roots/*/package.json',
+    {
+      absolute: true,
+    },
+  )
+
+  return pkgs.reduce(
+    (pkgs, pkg) => ({
+      ...pkgs,
+      [`${require.resolve(pkg)}/(.*)$`]: `${dirname(
+        pkg,
+      )}/src/$1`,
+    }),
+    {},
+  )
 }

@@ -2,6 +2,7 @@ import {Plugin} from '@yarnpkg/core'
 
 import {BuildCommand} from './build'
 import {CleanCommand} from './clean'
+import {CompileCommand} from './compile'
 import {LintCommand} from './lint'
 import {TestCommand} from './test'
 import {VersionCommand} from './version'
@@ -17,6 +18,7 @@ const plugin: Plugin = {
   commands: [
     BuildCommand,
     CleanCommand,
+    CompileCommand,
     LintCommand,
     MakeCommand,
     MdCommand,

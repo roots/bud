@@ -38,8 +38,7 @@ import Example from '!!raw-loader!@site/../examples/babel/bud.config.js'
 ```js title='bud.config.js'
 const BudBabelExtension = require('@roots/bud-babel')
 
-module.exports = app =>
-  app.use(BudBabelExtension)
+module.exports = app => app.use(BudBabelExtension)
 ```
 
   </TabItem>
@@ -49,8 +48,7 @@ module.exports = app =>
 import {Framework} from '@roots/bud'
 import * as BudBabelExtension from '@roots/bud-babel'
 
-export default (app: Framework) => 
-  app.use(BudBabelExtension)
+export default (app: Framework) => app.use(BudBabelExtension)
 ```
 
   </TabItem>

@@ -34,10 +34,8 @@
     "utility"
   ],
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -66,7 +64,7 @@
   },
   "devDependencies": {
     "@types/node": "15.14.1",
-    "type-fest": "2.1.0"
+    "type-fest": "2.0.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

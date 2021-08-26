@@ -36,6 +36,7 @@ Regardless of your use case, the [WebpackPlugin](#webpackplugin) type extends th
 ### Example (@roots/bud-tailwindcss)
 
 The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
+
 - registers a function `bud.tailwind` that configures [@roots/bud-postcss](/extensions/bud-postcss).
 - On `boot` it calls that function.
 
@@ -48,37 +49,42 @@ The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
     {label: 'tsconfig.json', value: 'tsconfig.json'},
   ]}>
 
-  <TabItem value="index.ts">
-    <CodeBlock className="language-ts" title="index.js">
-      {TailwindCssIndex}
-    </CodeBlock>
-  </TabItem>
+{' '}
+<TabItem value="index.ts">
+  <CodeBlock className="language-ts" title="index.js">
+    {TailwindCssIndex}
+  </CodeBlock>
+</TabItem>
 
-  <TabItem value="BudTailwindCssExtension.ts">
-    <CodeBlock className="language-ts" title="BudTailwindCssExtension.ts">
-      {BudTailwindCssExtension}
-    </CodeBlock>
-  </TabItem>
+{' '}
+<TabItem value="BudTailwindCssExtension.ts">
+  <CodeBlock
+    className="language-ts"
+    title="BudTailwindCssExtension.ts">
+    {BudTailwindCssExtension}
+  </CodeBlock>
+</TabItem>
 
-  <TabItem value="tailwindConfig.ts">
-    <CodeBlock className="language-ts" title="tailwindConfig.ts">
-      {BudTailwindCssConfig}
-    </CodeBlock>
-  </TabItem>
+{' '}
+<TabItem value="tailwindConfig.ts">
+  <CodeBlock className="language-ts" title="tailwindConfig.ts">
+    {BudTailwindCssConfig}
+  </CodeBlock>
+</TabItem>
 
   <TabItem value="tsconfig.json">
 
-  ```json
-  {
-    "compilerOptions": {
-      "types": [
-        "@roots/bud-api",
-        "@roots/bud-framework",
-        "@roots/bud-postcss"
-      ]
-    }
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-framework",
+      "@roots/bud-postcss"
+    ]
   }
-  ```
+}
+```
 
   </TabItem>
 </Tabs>

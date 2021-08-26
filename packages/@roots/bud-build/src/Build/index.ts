@@ -31,17 +31,17 @@ class Build extends Service implements Contract {
     this.loaders = this.app
       .container(loaders)
       .getEntries()
-      .reduce(componentReducer, {})
+      .reduce(componentReducer, {}) as Framework.Loaders
 
     this.rules = this.app
       .container(rules)
       .getEntries()
-      .reduce(componentReducer, {})
+      .reduce(componentReducer, {}) as Framework.Rules
 
     this.items = this.app
       .container(items)
       .getEntries()
-      .reduce(componentReducer, {})
+      .reduce(componentReducer, {}) as Framework.Items
 
     config(this.app)
   }

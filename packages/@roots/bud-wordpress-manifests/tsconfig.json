@@ -6,6 +6,15 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
   },
-  "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "include": [
+    "./src"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../merged-manifest-webpack-plugin/tsconfig.json"
+    }
+  ]
 }

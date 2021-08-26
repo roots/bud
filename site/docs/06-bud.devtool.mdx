@@ -44,9 +44,9 @@ bud.when(bud.isDevelopment, bud => bud.devtool())
 namespace Repository {
   interface Devtool {
     (
-      this: Framework, 
-      devtool?: Webpack.Configuration['devtool']
-    ): Framework;
+      this: Framework,
+      devtool?: Webpack.Configuration['devtool'],
+    ): Framework
   }
 }
 ```

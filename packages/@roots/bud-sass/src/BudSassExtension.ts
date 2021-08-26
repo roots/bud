@@ -1,6 +1,7 @@
 import {Item, Loader, Rule} from '@roots/bud-build'
 import type {Module} from '@roots/bud-framework'
-import resolve from 'resolve-cwd'
+
+const resolve = require('resolve-cwd')
 
 interface BudSassExtension extends Module {}
 

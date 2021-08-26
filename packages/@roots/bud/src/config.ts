@@ -60,6 +60,7 @@ const config: config = {
     experiments: {
       lazyCompilation: false,
     },
+    node: false,
     output: {
       pathinfo: false,
     },
@@ -121,7 +122,7 @@ const config: config = {
         ],
       },
     },
-    htmlWebpackPlugin: {
+    'html-webpack-plugin': {
       alwaysWriteToDisk: true,
       inject: true,
       minify: {
@@ -134,7 +135,7 @@ const config: config = {
         useShortDoctype: true,
       },
     },
-    interpolateHtmlPlugin: {
+    'interpolate-html-plugin': {
       replace: {},
     },
     miniCssExtractPlugin: {},

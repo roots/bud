@@ -2,12 +2,28 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
+    "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "node",
+      "@roots/bud-api"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "include": [
+    "./src"
+  ],
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../container/tsconfig.json"
+    }
+  ]
 }

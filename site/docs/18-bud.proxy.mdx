@@ -13,7 +13,7 @@ Users building on top of a server-side framework like WordPress, Laravel, RoR, e
 [bud.proxy](/docs/bud.proxy), with nothing passed, will proxy `localhost:8000`.
 
 ```ts title='bud.config.ts'
-bud.proxy();
+bud.proxy()
 ```
 
 Optionally, you may also use [bud.proxy](/docs/bud.proxy) to configure the host and port:
@@ -22,5 +22,5 @@ Optionally, you may also use [bud.proxy](/docs/bud.proxy) to configure the host 
 bud.proxy({
   host: 'example.test',
   port: 8000,
-});
+})
 ```

@@ -35,8 +35,7 @@
   "files": [
     "lib/",
     "types/",
-    "templates/",
-    "manifest.yml"
+    "templates/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
