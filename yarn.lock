@@ -3874,7 +3874,7 @@ __metadata:
     "@yarnpkg/builder": 3.0.1
     "@yarnpkg/cli": 3.0.1
     "@yarnpkg/core": 3.0.0
-    "@yarnpkg/shell": 3.0.1-rc.2
+    "@yarnpkg/shell": 3.0.1-rc.3
     clipanion: 3.0.1
     typescript: 4.3.5
   languageName: unknown
@@ -5465,13 +5465,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.5.1, @yarnpkg/fslib@npm:^2.5.1-rc.1":
+"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.5.1":
   version: 2.5.1
   resolution: "@yarnpkg/fslib@npm:2.5.1"
   dependencies:
     "@yarnpkg/libzip": ^2.2.2
     tslib: ^1.13.0
   checksum: 7dbf458b92c4cc52b574ccaf39f70c50d441ac6c705445e8f08c7a4029be8a8640128d7e51e86827288fcd339ff42d96c7864424d68fd500d09bcfc824f7eab2
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/fslib@npm:^2.6.0-rc.1":
+  version: 2.6.0-rc.1
+  resolution: "@yarnpkg/fslib@npm:2.6.0-rc.1"
+  dependencies:
+    "@yarnpkg/libzip": ^2.2.2
+    tslib: ^1.13.0
+  checksum: ab5d7a9c2eb93b88fed603542ae43ddfde652b2c8254c059adc73f5f01946989efe5e5116632d2e33a32fa13fb99b9a0e3b1e0e29745d25e216702a77cdc78f1
   languageName: node
   linkType: hard
 
@@ -5512,6 +5522,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^1.13.0
   checksum: ae077862b829defc95e85a328270dac5f242628656bb938e5da37913b1d0caab545de9ed9d1df3bc17f4e8da842b545df87931d39902aa2132e90699d96ecc33
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^2.4.1-rc.1":
+  version: 2.4.1-rc.1
+  resolution: "@yarnpkg/parsers@npm:2.4.1-rc.1"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^1.13.0
+  checksum: f184cea8fa98f676840fe237a23d4ca9819df5bcc290d79267226125f8fba9b8abdadba9482b2b2d7c61821e794e353916371360f577de38101d63e18f6d704f
   languageName: node
   linkType: hard
 
@@ -5790,12 +5810,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:3.0.1-rc.2":
-  version: 3.0.1-rc.2
-  resolution: "@yarnpkg/shell@npm:3.0.1-rc.2"
+"@yarnpkg/shell@npm:3.0.1-rc.3":
+  version: 3.0.1-rc.3
+  resolution: "@yarnpkg/shell@npm:3.0.1-rc.3"
   dependencies:
-    "@yarnpkg/fslib": ^2.5.1-rc.1
-    "@yarnpkg/parsers": ^2.4.0
+    "@yarnpkg/fslib": ^2.6.0-rc.1
+    "@yarnpkg/parsers": ^2.4.1-rc.1
     chalk: ^3.0.0
     clipanion: ^3.0.1
     cross-spawn: 7.0.3
@@ -5805,7 +5825,7 @@ __metadata:
     tslib: ^1.13.0
   bin:
     shell: ./lib/cli.js
-  checksum: b5c1883844d18f047efa2e4ccdef8ffc7f8e0b96ac29516b986316e8a547dfca77325f23f0ba07fc3aecabd9e2ee09911420af18e2ccb58b4f4fd0293a7a743d
+  checksum: ca6498c036ce62a4e03a5b4a14c8e6d766247432d28919631c58a27b6ef63da0811b2380fff4d78c23fa3d0868fb031b189231a774bca864d2aa2fbddafb0c49
   languageName: node
   linkType: hard
 
