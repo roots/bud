@@ -4,7 +4,14 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2020",
+    "types": [
+      "node",
+      "jest",
+      "@roots/bud-api",
+      "@roots/bud-framework"
+    ]
   },
+  "files": [],
   "references": [
     {
       "path": "./packages/@roots/bud-framework/tsconfig.json"
