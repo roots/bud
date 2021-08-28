@@ -1,7 +1,8 @@
 import {boundMethod as bind} from 'autobind-decorator'
+import {PluginCreator} from 'postcss'
 
 interface Registry {
-  [key: string]: [string, any]
+  [key: string]: [PluginCreator<any>, any]
 }
 
 interface PostCssConfig {
@@ -13,13 +14,16 @@ interface PostCssConfig {
   /**
    * Set a plugin
    */
-  setPlugin(name: string, plugin: [string, any] | string): this
+  setPlugin(
+    name: string,
+    plugin: [PluginCreator<any>, any] | PluginCreator<any>,
+  ): this
 
   /**
    * Set plugins
    */
   setPlugins(plugins: {
-    [key: string]: [string, any] | string
+    [key: string]: [PluginCreator<any>, any] | PluginCreator<any>
   }): this
 
   /**
@@ -39,7 +43,7 @@ class PostCssConfig {
   @bind
   public setPlugin(
     name: string,
-    plugin: [string, any] | string,
+    plugin: [PluginCreator<any>, any] | PluginCreator<any>,
   ): this {
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
@@ -53,7 +57,7 @@ class PostCssConfig {
 
   @bind
   public setPlugins(plugins: {
-    [key: string]: [string, any] | string
+    [key: string]: [PluginCreator<any>, any] | PluginCreator<any>
   }): this {
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => {

@@ -1,28 +1,24 @@
 import {readJson} from 'fs-extra'
-import {join} from 'path'
-
-import {Assets, Entrypoints, helper} from '../util/integration'
-
-const suite = helper(
-  'sage',
-  'examples/sage',
-  'public',
-  '/app/themes/sage/public/',
-)
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
-  let entrypoints: Entrypoints
+describe('examples/sage', () => {
+  let project: Project
+  let entrypoints: any
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'sage',
+      dir: 'examples/sage',
+      public: 'public',
+    })
+
     entrypoints = await readJson(
-      suite.distPath('entrypoints.json'),
+      project.distPath('entrypoints.json'),
     )
 
-    return
+    await project.setup()
   })
 
   describe('entrypoints.json', () => {
@@ -57,95 +53,110 @@ describe(suite.name, () => {
 
   describe('runtime', () => {
     it('has contents', () => {
-      expect(assets['runtime.js'].length).toBeGreaterThan(10)
+      expect(
+        project.assets['runtime.js'].length,
+      ).toBeGreaterThan(10)
     })
     it('is transpiled', () => {
-      expect(assets['runtime.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['runtime.js'].includes('import'),
+      ).toBeFalsy()
     })
   })
 
   describe('app', () => {
     it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
     })
     it('is transpiled', () => {
-      expect(assets['app.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['app.js'].includes('import'),
+      ).toBeFalsy()
     })
     it('css: has contents', () => {
-      expect(assets['app.css'].length).toBeGreaterThan(10)
+      expect(project.assets['app.css'].length).toBeGreaterThan(
+        10,
+      )
     })
     it('css: is transpiled', () => {
-      expect(assets['app.css'].includes('@import')).toBe(false)
+      expect(project.assets['app.css'].includes('@import')).toBe(
+        false,
+      )
     })
     it('css: @tailwind directive is transpiled', () => {
-      expect(assets['app.css'].includes('@apply')).toBe(false)
+      expect(project.assets['app.css'].includes('@apply')).toBe(
+        false,
+      )
     })
     it('css: has whitespace removed', () => {
-      expect(assets['app.css'].match(/    /)).toBeFalsy()
+      expect(project.assets['app.css'].match(/    /)).toBeFalsy()
     })
     it('css: has breaks removed', () => {
-      expect(assets['app.css'].match(/\\n/)).toBeFalsy()
+      expect(project.assets['app.css'].match(/\\n/)).toBeFalsy()
     })
   })
 
   describe('editor', () => {
     it('has contents', () => {
-      expect(assets['editor.js'].length).toBeGreaterThan(10)
-    })
-    it('is transpiled', () => {
-      expect(assets['editor.js'].includes('import')).toBeFalsy()
-    })
-    it('css: has contents', () => {
-      expect(assets['editor.css'].length).toBeGreaterThan(10)
-    })
-    it('css: is transpiled', () => {
-      expect(assets['editor.css'].includes('@import')).toBe(
-        false,
+      expect(project.assets['editor.js'].length).toBeGreaterThan(
+        10,
       )
     })
+    it('is transpiled', () => {
+      expect(
+        project.assets['editor.js'].includes('import'),
+      ).toBeFalsy()
+    })
+    it('css: has contents', () => {
+      expect(
+        project.assets['editor.css'].length,
+      ).toBeGreaterThan(10)
+    })
+    it('css: is transpiled', () => {
+      expect(
+        project.assets['editor.css'].includes('@import'),
+      ).toBe(false)
+    })
     it('css: @tailwind directive is transpiled', () => {
-      expect(assets['editor.css'].includes('@apply')).toBe(false)
+      expect(
+        project.assets['editor.css'].includes('@apply'),
+      ).toBe(false)
     })
     it('css: has whitespace removed', () => {
-      expect(assets['editor.css'].match(/    /)).toBeFalsy()
+      expect(
+        project.assets['editor.css'].match(/    /),
+      ).toBeFalsy()
     })
     it('css: has breaks removed', () => {
-      expect(assets['editor.css'].match(/\\n/)).toBeFalsy()
+      expect(
+        project.assets['editor.css'].match(/\\n/),
+      ).toBeFalsy()
     })
   })
 
   describe('customizer', () => {
     it('has contents', () => {
-      expect(assets['customizer.js'].length).toBeGreaterThan(10)
+      expect(
+        project.assets['customizer.js'].length,
+      ).toBeGreaterThan(10)
     })
     it('is transpiled', () => {
       expect(
-        assets['customizer.js'].includes('import'),
+        project.assets['customizer.js'].includes('import'),
       ).toBeFalsy()
     })
   })
 
   describe('snapshots', () => {
     it('package.json is unchanged', async () => {
-      const artifact = await readJson(
-        join(process.cwd(), 'examples/sage/package.json'),
-      )
-
-      expect(artifact).toMatchSnapshot()
+      expect(project.packageJson).toMatchSnapshot()
     })
 
     it('public/manifest.json matches expectations', async () => {
-      const artifact = await readJson(
-        join(
-          process.cwd(),
-          'examples/sage/public/manifest.json',
-        ),
-      )
-
-      expect(Object.entries(artifact).length).toEqual(8)
+      expect(Object.entries(project.manifest).length).toEqual(8)
 
       expect(
-        Object.values<string>(artifact).filter(
+        Object.values<string>(project.manifest).filter(
           v =>
             (v.startsWith('assets/') ||
               v.startsWith('images/') ||
@@ -157,51 +168,43 @@ describe(suite.name, () => {
               v.endsWith('.css') ||
               v.endsWith('.jpeg')),
         ).length,
-      ).toBe(Object.values(artifact).length)
+      ).toBe(Object.values(project.manifest).length)
 
-      expect(artifact['app.js']).toMatch(/app\.[\d|\w]*\.js/)
-      expect(artifact['app.css']).toMatch(/app\.[\d|\w]*\.css/)
-      expect(artifact['editor.js']).toMatch(
+      expect(project.manifest['app.js']).toMatch(
+        /app\.[\d|\w]*\.js/,
+      )
+      expect(project.manifest['app.css']).toMatch(
+        /app\.[\d|\w]*\.css/,
+      )
+      expect(project.manifest['editor.js']).toMatch(
         /editor\.[\d|\w]*\.js/,
       )
-      expect(artifact['editor.css']).toMatch(
+      expect(project.manifest['editor.css']).toMatch(
         /editor\.[\d|\w]*\.css/,
       )
-      expect(artifact['customizer.js']).toMatch(
+      expect(project.manifest['customizer.js']).toMatch(
         /customizer\.[\d|\w]*\.js/,
       )
-      expect(artifact['runtime.js']).toMatch(
+      expect(project.manifest['runtime.js']).toMatch(
         /runtime\.[\d|\w]*\.js/,
       )
 
-      expect(Object.keys(artifact)).toMatchSnapshot()
+      expect(Object.keys(project.manifest)).toMatchSnapshot()
     })
 
     it('.budfiles/bud.webpack.config.js', async () => {
-      const artifact = await import(
-        join(
-          process.cwd(),
-          'examples/sage/storage/bud/bud.webpack.config.js',
-        )
-      ).then(({default: artifact}) => artifact())
-
-      expect(artifact.name).toMatchSnapshot()
-      expect(artifact.entry).toMatchSnapshot()
-      expect(artifact.mode).toMatchSnapshot()
-      expect(artifact.optimization).toMatchSnapshot()
-      expect(artifact.bail).toMatchSnapshot()
-      expect(artifact.cache).toMatchSnapshot()
+      expect(project.webpackConfig.name).toMatchSnapshot()
+      expect(project.webpackConfig.entry).toMatchSnapshot()
+      expect(project.webpackConfig.mode).toMatchSnapshot()
+      expect(
+        project.webpackConfig.optimization,
+      ).toMatchSnapshot()
+      expect(project.webpackConfig.bail).toMatchSnapshot()
+      expect(project.webpackConfig.cache).toMatchSnapshot()
     })
 
     it('module map matches snapshot', async () => {
-      const artifact = await readJson(
-        join(
-          process.cwd(),
-          'examples/sage/storage/bud/bud-modules.json',
-        ),
-      )
-
-      expect(artifact.chunks).toMatchSnapshot({
+      expect(project.modules.chunks).toMatchSnapshot({
         byName: {
           app: expect.any(Number),
           customizer: expect.any(Number),

@@ -10,10 +10,13 @@ function tailwindConfig(
   this: Framework,
   config?: TailwindConfig,
 ): Framework {
-  ;(this.postcss as PostCssConfig).setPlugins({
+  // sometimes jest fails to recognize this interface overload
+  const postcss = this.postcss as PostCssConfig
+
+  postcss.setPlugins({
     'postcss-import': this.postcss.plugins['postcss-import'],
     tailwindcss: [
-      require.resolve('tailwindcss'),
+      require('tailwindcss'),
       config ?? this.path('project', 'tailwind.config.js'),
     ],
     'postcss-nested': this.postcss.plugins['postcss-nested'],

@@ -1,25 +1,24 @@
-import {readFile, readJson} from 'fs-extra'
+import {readFile} from 'fs-extra'
 import {join} from 'path'
 
-import {Assets, helper} from '../util/integration'
-
-const suite = helper('sass', 'examples/sass')
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/sass', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'sass',
+      dir: 'examples/sass',
+    })
+
+    await project.setup()
   })
 
   it('package.json is unchanged', async () => {
-    const artifact = await readJson(
-      join(process.cwd(), 'examples/sass/package.json'),
-    )
-
-    expect(artifact).toMatchSnapshot()
+    expect(project.packageJson).toMatchSnapshot()
   })
 
   it('manifest.yml is unchanged', async () => {
@@ -39,18 +38,11 @@ describe(suite.name, () => {
   })
 
   it('scss is transpiled', () => {
-    expect(assets['app.css']).toMatchSnapshot()
+    expect(project.assets['app.css']).toMatchSnapshot()
   })
 
   it('.budfiles/bud.webpack.config.js', async () => {
-    const artifact = await import(
-      join(
-        process.cwd(),
-        'examples/sass/.budfiles/bud.webpack.config.js',
-      )
-    ).then(({default: artifact}) => artifact())
-
-    expect(artifact).toMatchSnapshot({
+    expect(project.webpackConfig).toMatchSnapshot({
       bail: true,
       cache: {
         type: 'memory',

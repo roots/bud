@@ -1,21 +1,27 @@
 import {readFile} from 'fs-extra'
 
-import {Assets, helper} from '../util/integration'
-
-const suite = helper('imagemin', 'examples/imagemin')
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/imagemin', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
-  })
+    project = new Project({
+      name: 'imagemin',
+      dir: 'examples/imagemin',
+    })
 
+    await project.setup()
+  })
   describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
+    })
+
+    it('matches snapshot', () => {
+      expect(project.assets['app.js'].length).toMatchSnapshot()
     })
   })
 
@@ -26,9 +32,11 @@ describe(suite.name, () => {
         'utf8',
       )
 
-      expect(assets['assets/owl.jpeg'].length).toBeLessThan(
-        original.length,
-      )
+      expect(
+        project.assets['assets/owl.jpeg'].length,
+      ).toBeLessThan(original.length)
+
+      expect(project.assets['assets/owl.jpeg']).toMatchSnapshot()
 
       return Promise.resolve()
     })

@@ -1,19 +1,22 @@
-import {Assets, helper} from '../util/integration'
-
-const suite = helper('html-template', 'examples/html-template')
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/html-template', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'html-template',
+      dir: 'examples/html-template',
+    })
+
+    await project.setup()
   })
 
   describe('index.html', () => {
     it('is the correct html', () => {
-      expect(assets['index.html']).toMatchSnapshot()
+      expect(project.assets['index.html']).toMatchSnapshot()
     })
   })
 })

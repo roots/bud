@@ -15,13 +15,15 @@ interface Options {
 interface BudTypeCheckPlugin
   extends WebpackPlugin<ForkTsCheckerWebpackPlugin, Options> {}
 
-export const name: BudTypeCheckPlugin['name'] =
-  'fork-ts-checker-plugin'
-export const options: BudTypeCheckPlugin['options'] = ({
+const name: BudTypeCheckPlugin['name'] = 'fork-ts-checker-plugin'
+
+const options: BudTypeCheckPlugin['options'] = ({
   isProduction,
 }: Framework) => {
   return isProduction ? PRODUCTION_CONFIG : DEVELOPMENT_CONFIG
 }
 
-export const make: BudTypeCheckPlugin['make'] = () =>
+const make: BudTypeCheckPlugin['make'] = () =>
   new ForkTsCheckerWebpackPlugin()
+
+export {name, options, make}

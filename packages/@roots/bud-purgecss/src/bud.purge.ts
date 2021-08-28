@@ -60,7 +60,7 @@ const purge: purge = function (
   userOptions: UserOptions,
 ): Framework {
   this.postcss.setPlugin('@fullhuman/postcss-purgecss', [
-    require.resolve('@fullhuman/postcss-purgecss'),
+    require('@fullhuman/postcss-purgecss'),
     userOptions,
   ])
 

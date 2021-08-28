@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sass .budfiles/bud.webpack.config.js 1`] = `
+exports[`examples/sass .budfiles/bud.webpack.config.js 1`] = `
 Object {
   "bail": true,
   "cache": Object {
@@ -289,7 +289,7 @@ Object {
 }
 `;
 
-exports[`sass manifest.yml is unchanged 1`] = `
+exports[`examples/sass manifest.yml is unchanged 1`] = `
 "extensions:
   - '@roots/bud-sass'
 
@@ -298,34 +298,11 @@ entry:
 "
 `;
 
-exports[`sass package.json is unchanged 1`] = `
-Object {
-  "browserslist": Object {
-    "development": Array [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-    ],
-    "production": Array [
-      ">0.5%",
-      "not dead",
-      "not op_mini all",
-    ],
-  },
-  "devDependencies": Object {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-sass": "workspace:*",
-    "@types/sass": "^1",
-    "sass": "1.38.1",
-  },
-  "name": "example-sass",
-  "private": true,
-}
-`;
+exports[`examples/sass package.json is unchanged 1`] = `Object {}`;
 
-exports[`sass scss is transpiled 1`] = `"body,html{margin:0;padding:0}body{background:blue}body div{border:#fff}"`;
+exports[`examples/sass scss is transpiled 1`] = `"body,html{margin:0;padding:0}body{background:blue}body div{border:#fff}"`;
 
-exports[`sass src/app.scss is unchanged 1`] = `
+exports[`examples/sass src/app.scss is unchanged 1`] = `
 "$blue: blue;
 $white: white;
 

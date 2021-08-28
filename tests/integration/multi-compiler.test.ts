@@ -2,10 +2,8 @@ import execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
 import {join} from 'path'
 
-import {Assets} from '../util/integration'
-
 interface CompilerArtifacts {
-  assets: Assets
+  assets: any
   manifest: any
 }
 

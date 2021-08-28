@@ -1,81 +1,67 @@
-import {readFile, readJson} from 'fs-extra'
-import {join} from 'path'
-
-import {Assets, helper} from '../util/integration'
-
-const suite = helper('babel', 'examples/babel')
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/babel', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'babel',
+      dir: 'examples/babel',
+    })
+
+    await project.setup()
   })
 
   describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(assets['app.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['app.js'].includes('import'),
+      ).toBeFalsy()
+    })
+
+    it('matches snapshot', () => {
+      expect(project.assets['app.js']).toMatchSnapshot()
     })
   })
 
-  describe('snapshots', () => {
-    it('dist/manifest.json', async () => {
-      const artifact = await readFile(
-        join(process.cwd(), 'examples/babel/dist/manifest.json'),
+  describe('app.css', () => {
+    it('has contents', () => {
+      expect(project.assets['app.css'].length).toBeGreaterThan(
+        10,
       )
-
-      expect(artifact.toString()).toMatchSnapshot()
     })
 
-    it('dist/app.css', async () => {
-      const artifact = await readFile(
-        join(process.cwd(), 'examples/babel/dist/app.css'),
-      )
-
-      expect(artifact.toString()).toMatchSnapshot()
+    it('is transpiled', () => {
+      expect(
+        project.assets['app.css'].includes('import'),
+      ).toBeFalsy()
     })
 
-    it('dist/app.js', async () => {
-      const artifact = await readFile(
-        join(process.cwd(), 'examples/babel/dist/app.js'),
-      )
-
-      expect(artifact.toString()).toMatchSnapshot()
+    it('matches snapshot', () => {
+      expect(project.assets['app.css']).toMatchSnapshot()
     })
+  })
 
-    it('.budfiles/bud.webpack.config.js', async () => {
-      const artifact = (
-        await import(
-          join(
-            process.cwd(),
-            'examples/babel/.budfiles/bud.webpack.config.js',
-          )
-        )
-      ).default()
+  it('manifest.json', async () => {
+    expect(project.manifest).toMatchSnapshot()
+  })
 
-      expect(artifact.entry).toMatchSnapshot()
-      expect(artifact.mode).toMatchSnapshot()
-      expect(artifact.optimization).toMatchSnapshot()
-      expect(artifact.bail).toMatchSnapshot()
-      expect(artifact.cache).toMatchSnapshot()
-    })
+  it('.budfiles/bud.webpack.config.js', async () => {
+    expect(project.webpackConfig.entry).toMatchSnapshot()
+    expect(project.webpackConfig.mode).toMatchSnapshot()
+    expect(project.webpackConfig.optimization).toMatchSnapshot()
+    expect(project.webpackConfig.bail).toMatchSnapshot()
+    expect(project.webpackConfig.cache).toMatchSnapshot()
   })
 
   it('module map matches snapshot', async () => {
-    const artifact = await readJson(
-      join(
-        process.cwd(),
-        'examples/babel/.budfiles/bud-modules.json',
-      ),
-    )
-
-    expect(artifact.chunks).toMatchSnapshot({
+    expect(project.modules.chunks).toMatchSnapshot({
       byName: {
         app: expect.any(Number),
       },

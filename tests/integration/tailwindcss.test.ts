@@ -1,52 +1,63 @@
-import {Assets, helper} from '../util/integration'
-
-const suite = helper('tailwindcss', 'examples/tailwindcss')
+import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/react', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'react',
+      dir: 'examples/react',
+    })
+
+    await project.setup()
   })
 
   describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(assets['app.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['app.js'].includes('import'),
+      ).toBeFalsy()
     })
   })
 
   describe('app.css', () => {
     it('has contents', () => {
-      expect(assets['app.css'].length).toBeGreaterThan(10)
+      expect(project.assets['app.css'].length).toBeGreaterThan(
+        10,
+      )
     })
 
     it('is transpiled', () => {
-      expect(assets['app.css'].includes('@import')).toBe(false)
+      expect(project.assets['app.css'].includes('@import')).toBe(
+        false,
+      )
     })
 
     it('@tailwind directive is transpiled', () => {
-      expect(assets['app.css'].includes('@apply')).toBe(false)
+      expect(project.assets['app.css'].includes('@apply')).toBe(
+        false,
+      )
     })
 
     it('has whitespace removed', () => {
-      expect(assets['app.css'].match(/    /)).toBeFalsy()
+      expect(project.assets['app.css'].match(/    /)).toBeFalsy()
     })
 
     it('has breaks removed', () => {
-      expect(assets['app.css'].match(/\\n/)).toBeFalsy()
+      expect(project.assets['app.css'].match(/\\n/)).toBeFalsy()
     })
   })
 
   describe('jit', () => {
     it('is used to build css', () => {
       expect(
-        assets['app.css'].match(/w-\\\[800px\\\]/),
+        project.assets['app.css'].match(/w-\\\[800px\\\]/),
       ).toBeTruthy()
     })
   })

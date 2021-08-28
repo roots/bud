@@ -1,8 +1,6 @@
 const {globby} = require('@roots/bud-support')
 
 module.exports = async function config() {
-  // eslint-disable
-  // @ts-ignore
   const moduleNameMapper = await mapModuleNames()
 
   return {
@@ -11,22 +9,23 @@ module.exports = async function config() {
       color: 'blue',
     },
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    maxWorkers: '50%',
     preset: 'ts-jest',
-    setupFilesAfterEnv: ['./jest.setup.ts'],
+    globalSetup: './jest.setup.js',
+    globalTeardown: './jest.teardown.js',
     testEnvironment: 'node',
-    collectCoverageFrom: [`packages/@roots/*/lib/cjs/**/*`],
-    coveragePathIgnorePatterns: [
-      `@roots/bud-support`,
-      `node_modules`,
-      `types`,
+    collectCoverageFrom: [
+      `<rootDir>/packages/@roots/*/src/**/*`,
     ],
-    moduleNameMapper,
+    coveragePathIgnorePatterns: [`@roots/bud-support`],
+    coverageReporters: ['lcov', 'text', 'html'],
     globals: {
       'ts-jest': {
-        tsconfig: `tsconfig.jest.json`,
+        tsconfig: `<rootDir>/tsconfig.jest.json`,
         compiler: 'typescript',
       },
     },
+    moduleNameMapper,
     testMatch: [`<rootDir>/tests/**/*.ts`],
     testPathIgnorePatterns: [
       '/node_modules/',
@@ -59,7 +58,7 @@ const mapModuleNames = async () => {
 
     return {
       ...pkgs,
-      [`^${relativePath}/(.*)$`]: `<rootDir>/${relativePath}/lib/$1`,
+      [`^${relativePath}/(.*)$`]: `<rootDir>/${relativePath}/src/$1`,
     }
   }, {})
 }

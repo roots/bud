@@ -10,12 +10,12 @@ import type {
   Configuration,
   Dashboard,
   Dependencies,
-  Project,
   Env,
   Extensions,
   Hooks,
   Logger,
   Module,
+  Project,
   Server,
   WebpackPlugin,
 } from '../'

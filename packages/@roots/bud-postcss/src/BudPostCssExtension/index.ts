@@ -45,10 +45,10 @@ const BudPostCssExtension: BudPostCssExtension = {
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&
       postcss.setPlugins({
-        'postcss-import': require.resolve('postcss-import'),
-        'postcss-nested': require.resolve('postcss-nested'),
+        'postcss-import': require('postcss-import'),
+        'postcss-nested': require('postcss-nested'),
         'postcss-preset-env': [
-          require.resolve('postcss-preset-env'),
+          require('postcss-preset-env'),
           {
             stage: 1,
             features: {
