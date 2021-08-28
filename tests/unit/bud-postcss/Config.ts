@@ -1,5 +1,3 @@
-import '@roots/bud-api'
-
 import {factory, Framework} from '@roots/bud'
 import * as BudPostCssExtension from '@roots/bud-postcss'
 

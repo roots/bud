@@ -124,7 +124,7 @@ Object {
     "postcss-preset-env": "6.7.0",
     "react": ">=17",
     "react-dom": ">=17",
-    "tailwindcss": "^2.2.4",
+    "tailwindcss": "^2.2.8",
   },
   "name": "example-sage",
   "private": true,

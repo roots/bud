@@ -1,5 +1,3 @@
-import '@roots/bud-api'
-
 import * as babel from '@roots/bud-babel'
 import * as entrypoints from '@roots/bud-entrypoints'
 import {Module} from '@roots/bud-framework'

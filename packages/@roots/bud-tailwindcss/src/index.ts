@@ -29,5 +29,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export {tailwindConfig}
 export const {name, api, boot} = BudTailwindCssExtension
+export {tailwindConfig}

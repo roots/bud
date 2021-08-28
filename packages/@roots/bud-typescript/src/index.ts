@@ -1,6 +1,8 @@
-import {Build, Module, WebpackPlugin} from '@roots/bud-framework'
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
+import {typecheck} from './api'
 import {BudTypeScriptExtension} from './BudTypeScriptExtension'
 
 declare module '@roots/bud-framework' {
@@ -13,11 +15,7 @@ declare module '@roots/bud-framework' {
      * bud.typecheck()
      * ```
      */
-    typecheck: Typescript.TypeCheck
-  }
-
-  namespace Typescript {
-    type TypeCheck = (enabled?: boolean) => Framework
+    typecheck: typecheck
   }
 
   namespace Framework {
@@ -27,18 +25,17 @@ declare module '@roots/bud-framework' {
         typeof ForkTsCheckerWebpackPlugin
       >
     }
+
     interface Loaders {
-      ts: Build.Loader
-      babel: Build.Loader
+      ts: Loader
     }
 
     interface Items {
-      ts: Build.Item
-      babel: Build.Item
+      ts: Item
     }
 
     interface Rules {
-      ts: Build.Rule
+      ts: Rule
     }
   }
 }

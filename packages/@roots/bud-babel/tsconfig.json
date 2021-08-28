@@ -8,11 +8,15 @@
     "types": [
       "node",
       "jest",
-      "@roots/bud-api"
+      "@roots/bud-api",
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "types",
   ],
   "references": [
     {

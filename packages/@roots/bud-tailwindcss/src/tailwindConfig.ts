@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import type {PostCssConfig} from '@roots/bud-postcss'
 import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 interface tailwindConfig {
@@ -9,7 +10,7 @@ function tailwindConfig(
   this: Framework,
   config?: TailwindConfig,
 ): Framework {
-  this.postcss.setPlugins({
+  ;(this.postcss as PostCssConfig).setPlugins({
     'postcss-import': this.postcss.plugins['postcss-import'],
     tailwindcss: [
       require.resolve('tailwindcss'),

@@ -9,13 +9,16 @@
       "node",
       "jest",
       "tailwindcss",
-      "@roots/bud-framework",
       "@roots/bud-api",
       "@roots/bud-postcss",
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "types",
   ],
   "references": [
     {

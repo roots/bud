@@ -9,11 +9,16 @@
       "node",
       "jest",
       "@roots/bud-api",
-      "@roots/bud-babel"
+      "@roots/bud-babel",
+      "@roots/bud-framework"
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "types"
   ],
   "references": [
     {

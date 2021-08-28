@@ -5,6 +5,16 @@
     "moduleResolution": "node",
     "target": "esnext",
   },
+  "files": [],
+  "include": [
+    "./packages/@roots/*/src"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./packages/@roots/*/lib",
+    "./packages/@roots/*/node_modules",
+    "./packages/@roots/*/types"
+  ],
   "references": [
     {
       "path": "./packages/@roots/bud-framework/tsconfig-esm.json",

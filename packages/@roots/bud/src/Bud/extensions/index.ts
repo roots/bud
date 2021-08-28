@@ -11,7 +11,7 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-const extensions: Framework.Extensions = {
+const extensions: Partial<Framework.Extensions> = {
   ['webpack-provide-plugin']: WebpackProvidePlugin,
   ['clean-webpack-plugin']: CleanWebpackPlugin,
   ['webpack-config-dump-plugin']: WebpackConfigDumpPlugin,

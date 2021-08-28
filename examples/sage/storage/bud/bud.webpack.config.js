@@ -105,9 +105,20 @@ module.exports = () => ({
                 options: {
                   postcssOptions: {
                     plugins: [
-                      { postcssPlugin: 'postcss-import' },
-                      { postcssPlugin: 'postcss-nested' },
-                      { postcssPlugin: 'tailwindcss' }
+                      [
+                        '/Volumes/Samsung/Code/roots/bud/node_modules/postcss-import/index.js'
+                      ],
+                      [
+                        '/Volumes/Samsung/Code/roots/bud/node_modules/tailwindcss/lib/index.js',
+                        '/Volumes/Samsung/Code/roots/bud/examples/sage/tailwind.config.js'
+                      ],
+                      [
+                        '/Volumes/Samsung/Code/roots/bud/node_modules/postcss-nested/index.js'
+                      ],
+                      [
+                        '/Volumes/Samsung/Code/roots/bud/node_modules/postcss-preset-env/index.js',
+                        { stage: 1 }
+                      ]
                     ]
                   },
                   sourceMap: true
@@ -266,7 +277,7 @@ module.exports = () => ({
         failOnError: true,
         context: '/Volumes/Samsung/Code/roots/bud/examples/sage/resources'
       },
-      startTime: 1629983267267
+      startTime: 1630139668959
     }
   ],
   recordsInputPath: '/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/bud-modules.json',

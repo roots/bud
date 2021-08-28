@@ -70,7 +70,6 @@
   },
   "devDependencies": {
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.28.0",
     "@types/jest": "^27.0.1",

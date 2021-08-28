@@ -1,6 +1,3 @@
-// resolve api method types
-import '@roots/bud-api'
-
 import {factory, Framework} from '@roots/bud'
 
 describe('webpack.resolve.alias', function () {

@@ -31,11 +31,14 @@
     ]
   },
   "files": [],
+  "include": [
+    "./packages/@roots/*/src"
+  ],
   "exclude": [
-    "**/node_modules/**/*",
-    "**/__tests__/**/*",
-    "**/lib/**/*",
-    "**/types/**/*",
+    "./node_modules",
+    "./packages/@roots/*/lib",
+    "./packages/@roots/*/node_modules",
+    "./packages/@roots/*/types"
   ],
   "references": [
     {

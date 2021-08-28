@@ -1,7 +1,32 @@
-import './interface'
-
-import {Framework, Module, Terser} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin'
+import {TerserPluginOptions} from 'terser-webpack-plugin'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## bud.terser  [💁 Fluent]
+     *
+     * Configure the minifier. [🔗 Documentation](#)
+     *
+     * For more information on options [see the
+     * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
+     */
+    terser: Terser.Configure
+  }
+
+  namespace Framework {
+    interface Extensions {
+      'terser-webpack-plugin': Module
+    }
+  }
+}
+
+namespace Terser {
+  export type Configure = (
+    options: TerserPluginOptions,
+  ) => Framework
+}
 
 export const name: Module['name'] = 'terser-webpack-plugin'
 
@@ -43,7 +68,10 @@ export const boot: Module.Boot = ({
 }
 
 export const api = {
-  terser: function (options: Terser.Options): Framework {
+  terser: function (
+    this: Framework,
+    options: TerserPluginOptions,
+  ): Framework {
     this.hooks.on(
       'extension/terser-webpack-plugin/options',
       () => options,

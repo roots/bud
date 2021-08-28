@@ -55,7 +55,10 @@ interface Extractors {
   extractor: ExtractorFunction
 }
 
-const purge: purge = function configuration(userOptions) {
+const purge: purge = function (
+  this: Framework,
+  userOptions: UserOptions,
+): Framework {
   this.postcss.setPlugin('@fullhuman/postcss-purgecss', [
     require.resolve('@fullhuman/postcss-purgecss'),
     userOptions,

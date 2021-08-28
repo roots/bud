@@ -1,14 +1,31 @@
-import './interface'
+import {Framework, WebpackPlugin} from '@roots/bud-framework'
+import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
-import {WebpackPlugin} from '@roots/bud-framework'
-import ESLintWebpackPlugin, {
-  Options,
-} from 'eslint-webpack-plugin'
-import EslintPlugin from 'eslint-webpack-plugin'
+import {EslintConfig} from './api'
 
-import {Eslint} from './api'
+interface Extension
+  extends WebpackPlugin<EslintPlugin, Options> {
+  api: (app: Framework) => {
+    eslint: EslintConfig
+  }
+}
 
-const extension: WebpackPlugin<ESLintWebpackPlugin, Options> = {
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Configure eslint options
+     */
+    eslint: EslintConfig
+  }
+
+  namespace Framework {
+    interface Extensions {
+      'eslint-webpack-plugin': Extension
+    }
+  }
+}
+
+const extension: WebpackPlugin<EslintPlugin, Options> = {
   name: 'eslint-webpack-plugin',
 
   options: ({path, store}) => ({
@@ -24,7 +41,7 @@ const extension: WebpackPlugin<ESLintWebpackPlugin, Options> = {
   make: options => new EslintPlugin(options.all()),
 
   api: app => ({
-    eslint: new Eslint(app),
+    eslint: new EslintConfig(app),
   }),
 
   when: app => app.project.hasPeerDependency('eslint'),
