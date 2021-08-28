@@ -43,7 +43,7 @@
     "docusaurus-plugin-typedoc": "0.15.3",
     "file-loader": "6.2.0",
     "raw-loader": "4.0.2",
-    "typedoc": "0.21.6",
+    "typedoc": "0.21.7",
     "typescript": "4.4.2",
     "url-loader": "4.1.1"
   },

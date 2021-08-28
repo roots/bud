@@ -3101,7 +3101,7 @@ __metadata:
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
-    typedoc: 0.21.6
+    typedoc: 0.21.7
     typescript: 4.4.2
     url-loader: 4.1.1
   languageName: unknown
@@ -15314,12 +15314,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"marked@npm:^2.1.1":
-  version: 2.1.3
-  resolution: "marked@npm:2.1.3"
+"marked@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "marked@npm:3.0.2"
   bin:
     marked: bin/marked
-  checksum: 21a5ecd4941bc760aba21dfd97185853ec3b464cf707ad971e3ddb3aeb2f44d0deeb36b0889932afdb6f734975a994d92f18815dd0fabadbd902bdaff997cc5b
+  checksum: 6f88083a7e50494f97af9f92f1b03a299ecde78055f7378dd0837f12aa2e192db84b7ed528d3e7008fd8d26d39f23a2a07af2a349899917171531574798563b5
   languageName: node
   linkType: hard
 
@@ -22676,23 +22676,23 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.21.6":
-  version: 0.21.6
-  resolution: "typedoc@npm:0.21.6"
+"typedoc@npm:0.21.7":
+  version: 0.21.7
+  resolution: "typedoc@npm:0.21.7"
   dependencies:
     glob: ^7.1.7
     handlebars: ^4.7.7
     lunr: ^2.3.9
-    marked: ^2.1.1
+    marked: ^3.0.2
     minimatch: ^3.0.0
     progress: ^2.0.3
     shiki: ^0.9.3
     typedoc-default-themes: ^0.12.10
   peerDependencies:
-    typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x
+    typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: 0c24e6566492b8e7dd92dd201c10cecf09cb8b828a8c8e9b09fe091d47cee9d559d7eb2745a7137462bdd84726eb25208a2c594987d98fa9c8913118589993cc
+  checksum: 695efb85c588851db3238926fa739755a89003a761f1e50a15b13d33f7377e345882dd3bb659307296e90ca28f1827af4fb844f859d20cc7e14e7b4efe852f91
   languageName: node
   linkType: hard
 
