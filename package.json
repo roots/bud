@@ -47,7 +47,7 @@
     "@types/weak-napi": "2.0.0",
     "@typescript-eslint/eslint-plugin": "4.29.3",
     "@typescript-eslint/parser": "4.29.3",
-    "@vercel/ncc": "0.29.2",
+    "@vercel/ncc": "0.30.0",
     "@yarnpkg/builder": "3.0.1",
     "autobind-decorator": "2.4.0",
     "codecov": "3.8.3",
