@@ -22,18 +22,18 @@ class Runner {
       config: {
         ...config,
         ...(options.config ?? {}),
-        ci: this.cli.flags.ci,
+        cli: this.cli.flags.ci ? false : true,
       },
     })
   }
 
   public async make(build = true) {
     if (this.cli.flags.install) {
-      this.app.discovery.install()
+      this.app.project.peers.install()
     }
 
     if (this.cli.flags.discover) {
-      this.app.discovery.registerDiscovered()
+      this.app.project.peers.registerDiscovered()
     }
 
     await this.doStatics()

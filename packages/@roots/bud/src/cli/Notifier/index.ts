@@ -20,7 +20,7 @@ export class Notifier {
 
   @bind
   public notify(app: Framework) {
-    const name = app.discovery.getProjectInfo().name ?? app.name
+    const name = app.project.getProjectInfo().name ?? app.name
 
     this.notifier.notify({
       title:

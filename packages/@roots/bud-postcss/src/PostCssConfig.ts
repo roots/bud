@@ -1,9 +1,7 @@
 import {boundMethod as bind} from 'autobind-decorator'
-import {isString} from 'lodash'
-import {PluginCreator} from 'postcss'
 
 interface Registry {
-  [key: string]: [PluginCreator<any>, any]
+  [key: string]: [string, any]
 }
 
 interface PostCssConfig {
@@ -15,12 +13,14 @@ interface PostCssConfig {
   /**
    * Set a plugin
    */
-  setPlugin(plugin: string | [string, any]): this
+  setPlugin(name: string, plugin: [string, any] | string): this
 
   /**
    * Set plugins
    */
-  setPlugins(plugins: Array<[string, any] | string>): this
+  setPlugins(plugins: {
+    [key: string]: [string, any] | string
+  }): this
 
   /**
    * Set plugin options
@@ -37,32 +37,37 @@ class PostCssConfig {
   public plugins: Registry = {}
 
   @bind
-  public normalizeEntry(
-    c: string | [string, any],
-  ): [string, any] {
-    return isString(c) ? [c, {}] : c
-  }
-
-  @bind
-  public setPlugin(plugin: string | [string, any]): this {
-    const [name, config]: [string, any] =
-      this.normalizeEntry(plugin)
-
-    const pluginCreator: PluginCreator<any> = require(name)
-
-    this.plugins = {
-      ...this.plugins,
-      [`${name}`]: [pluginCreator, config ?? undefined],
+  public setPlugin(
+    name: string,
+    plugin: [string, any] | string,
+  ): this {
+    if (Array.isArray(plugin)) {
+      this.plugins[name] = plugin
+      return this
     }
+
+    this.plugins[name] = [plugin, undefined]
 
     return this
   }
 
   @bind
-  public setPlugins(
-    plugins: Array<string | [string, any]>,
-  ): this {
-    plugins?.map(this.setPlugin)
+  public setPlugins(plugins: {
+    [key: string]: [string, any] | string
+  }): this {
+    this.plugins = Object.entries(plugins).reduce(
+      (plugins, [name, plugin]) => {
+        if (Array.isArray(plugin)) {
+          plugins[name] = plugin
+          return plugins
+        }
+
+        plugins[name] = [plugin, undefined]
+        return plugins
+      },
+      {},
+    )
+
     return this
   }
 

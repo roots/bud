@@ -80,7 +80,9 @@ export default (app: Framework): void =>
 </Tabs>
 
 There is an implicit benefit to structuring our config this way: our `plugin` compiler uses [@roots/bud-react](/extensions/bud-react),
-but our `theme` compiler does not. Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
+but our `theme` compiler does not.
+
+Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
 build into two distinct compilations we've all but guaranteed that it won't.
 
 ## Improved workflow with `--target`
@@ -122,4 +124,20 @@ module.exports = app =>
   })
 ```
 
-If you try this the cli will present you with a certificate of failure and the process will exit.
+If you want to create another child compiler, do so from the parent context:
+
+```js title='bud.config.js' {8-13}
+module.exports = app =>
+app.make('theme', theme => {
+  theme
+    .use([require('@roots/bud-babel')])
+    .setPath('dist', 'dist/theme')
+    .entry('theme', ['theme.js', 'theme.css'])
+})
+.make('plugin', plugin => {
+  plugin
+    .use([require('@roots/bud-babel')])
+    .setPath('dist', 'dist/plugin')
+    .entry('plugin', ['plugin.js', 'plugin.css'])
+})
+```

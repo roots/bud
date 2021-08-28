@@ -1,4 +1,4 @@
-import * as execa from 'execa'
+import execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
 import {join} from 'path'
 
@@ -11,7 +11,7 @@ interface CompilerArtifacts {
 
 const cwd = `${process.cwd()}/examples/multi-compiler`
 
-jest.setTimeout(1000000)
+jest.setTimeout(60000)
 
 describe('multi-compiler', () => {
   const parent: CompilerArtifacts = {

@@ -15,8 +15,6 @@ class Extensions
 {
   public name = 'extensions'
 
-  public repository: Framework.Extensions
-
   public register(): void {
     this.every((_name: string, extension: Module) => {
       return this.add(extension)

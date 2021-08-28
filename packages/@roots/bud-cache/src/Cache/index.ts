@@ -69,10 +69,10 @@ class Cache extends Service implements Contract {
             'project',
             `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
           ),
-          ...(this.app.discovery?.resolveFrom?.map(
+          ...(this.app.project?.resolveFrom?.map(
             dep => `${dep}/lib/cjs/index.js`,
           ) ??
-            this.app.parent?.discovery?.resolveFrom?.map(
+            this.app.parent?.project?.resolveFrom?.map(
               dep => `${dep}/lib/cjs/index.js`,
             ) ??
             []),

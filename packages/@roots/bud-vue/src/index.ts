@@ -8,10 +8,10 @@ const vueExtension: Module = {
   name: '@roots/bud-vue',
 
   boot: app => {
-    const {discovery, extensions, store, hooks} = app
+    const {project, extensions, store, hooks} = app
     if (
-      !discovery.hasPeerDependency('vue') ||
-      !discovery.hasPeerDependency('@vue/compiler-sfc')
+      !project.hasPeerDependency('vue') ||
+      !project.hasPeerDependency('@vue/compiler-sfc')
     )
       return
 

@@ -1,59 +1,46 @@
-/**
- * @module @roots/bud-typescript
- */
+import {Build, Module, WebpackPlugin} from '@roots/bud-framework'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
-import './interface'
+import {BudTypeScriptExtension} from './BudTypeScriptExtension'
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
-import {Configuration} from 'webpack'
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Enable typescript type checking
+     *
+     * @usage
+     * ```js
+     * bud.typecheck()
+     * ```
+     */
+    typecheck: Typescript.TypeCheck
+  }
 
-import {typecheck} from './api'
+  namespace Typescript {
+    type TypeCheck = (enabled?: boolean) => Framework
+  }
 
-/**
- * @const {Module} extension
- */
-const extension: Module = {
-  name: '@roots/bud-typescript',
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-typescript': Module
+      'fork-ts-checker-plugin': WebpackPlugin<
+        typeof ForkTsCheckerWebpackPlugin
+      >
+    }
+    interface Loaders {
+      ts: Build.Loader
+      babel: Build.Loader
+    }
 
-  api: {
-    typecheck,
-  },
+    interface Items {
+      ts: Build.Item
+      babel: Build.Item
+    }
 
-  boot: ({build, discovery, hooks, store}) => {
-    store.set('patterns.ts', /\.tsx?$/)
-
-    build.loaders['ts'] = new Loader(
-      require.resolve('ts-loader'),
-    )
-
-    build.items['ts'] = new Item({
-      loader: build.loaders['ts'],
-      options: {
-        transpileOnly: true,
-        happyPackMode: true,
-      },
-    })
-
-    build.rules['ts'] = new Rule({
-      test: store.get('patterns.ts'),
-      exclude: store.get('patterns.modules'),
-      use: ({build}) => [
-        build.items['babel'],
-        build.items['ts'],
-      ],
-    })
-
-    hooks.on(
-      'build/resolve/extensions',
-      (e: Configuration['resolve']['extensions']) => [
-        ...e,
-        '.ts',
-        '.tsx',
-      ],
-    )
-  },
+    interface Rules {
+      ts: Build.Rule
+    }
+  }
 }
 
-export {extension, extension as default}
-export const {name, boot, api} = extension
+export const {name, boot, api} = BudTypeScriptExtension

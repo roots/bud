@@ -2,7 +2,7 @@ import {Assets, helper} from '../util/integration'
 
 const suite = helper('tailwindcss', 'examples/tailwindcss')
 
-jest.setTimeout(1000000)
+jest.setTimeout(60000)
 
 describe(suite.name, () => {
   let assets: Assets

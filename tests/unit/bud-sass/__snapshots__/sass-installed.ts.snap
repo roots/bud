@@ -19,7 +19,7 @@ Object {
 }
 `;
 
-exports[`@roots/bud-sass discovery.resolveFrom matches snap 1`] = `
+exports[`@roots/bud-sass project.resolveFrom matches snap 1`] = `
 Array [
   StringContaining "@roots/bud-sass",
 ]

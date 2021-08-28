@@ -66,6 +66,9 @@ import {
   Module,
   WebpackPlugin,
 } from '@roots/bud-framework'
+import * as sourcemap from 'source-map-support'
+
+sourcemap.install()
 
 declare module '@roots/bud-framework' {
   namespace Framework {

@@ -8,11 +8,13 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node"
+      "node",
+      "jest",
+      "@roots/bud-api"
     ]
   },
   "include": [
-    "./src"
+    "src"
   ],
   "references": [
     {

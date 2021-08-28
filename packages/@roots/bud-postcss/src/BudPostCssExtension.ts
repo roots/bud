@@ -2,7 +2,7 @@ import {Item, Loader} from '@roots/bud-build'
 import type {Module} from '@roots/bud-extensions'
 import {pathExistsSync} from 'fs-extra'
 
-import {PostCssConfig} from './Config'
+import {PostCssConfig} from './PostCssConfig'
 
 interface BudPostCssExtension extends Module {
   api: {
@@ -31,9 +31,7 @@ const BudPostCssExtension: BudPostCssExtension = {
           config: pathExistsSync(
             path('project', 'postcss.config.js'),
           ),
-          plugins: Object.values(postcss.plugins).map(
-            ([plugin, options]) => plugin(options),
-          ),
+          plugins: Object.values(postcss.plugins),
         },
         sourceMap: true,
       }),
@@ -46,11 +44,11 @@ const BudPostCssExtension: BudPostCssExtension = {
     ])
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&
-      postcss.setPlugins([
-        'postcss-import',
-        'postcss-nested',
-        [
-          'postcss-preset-env',
+      postcss.setPlugins({
+        'postcss-import': require.resolve('postcss-import'),
+        'postcss-nested': require.resolve('postcss-nested'),
+        'postcss-preset-env': [
+          require.resolve('postcss-preset-env'),
           {
             stage: 1,
             features: {
@@ -58,7 +56,7 @@ const BudPostCssExtension: BudPostCssExtension = {
             },
           },
         ],
-      ])
+      })
   },
 }
 

@@ -104,7 +104,7 @@ const run = async () => {
     await jest('basic')
     await jest('html-template')
     await jest('babel')
-    await jest('api-multi-compiler')
+    await jest('multi-compiler')
     await jest('node-api')
     await jest('markdown')
     await jest('postcss')
@@ -114,6 +114,8 @@ const run = async () => {
     await jest('sage')
     await jest('sass')
     await jest('tailwind')
+    await jest('typescript')
+    await jest('wordpress-theme')
     await jest('vue')
     await jest('imagemin')
 

@@ -1,14 +1,19 @@
-/**
- * Extension interface
- */
-import './interface'
+import type {Module} from '@roots/bud-framework'
 
-/**
- * Extension name
- */
+import {purge} from './bud.purge'
+
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Definitions {
+      '@roots/bud-purgecss': Module
+    }
+  }
+
+  interface Framework {
+    purge: purge
+  }
+}
+
 export const name = '@roots/bud-purgecss'
 
-/**
- * Extension config api
- */
-export * as api from './api'
+export const api = {purge}

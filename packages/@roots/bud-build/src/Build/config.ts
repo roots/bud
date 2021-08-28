@@ -224,8 +224,8 @@ export function config(app: Framework): void {
     .hooks.on('build/resolve/modules', () => [
       app.hooks.filter('location/src'),
       app.hooks.filter('location/modules'),
-      ...(app.discovery?.resolveFrom ??
-        app.parent?.discovery?.resolveFrom ??
+      ...(app.project?.resolveFrom ??
+        app.parent?.project?.resolveFrom ??
         []),
     ])
 

@@ -4,13 +4,14 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
+    "src"
   ],
   "references": [
     {

@@ -10,7 +10,7 @@ const suite = helper(
   '/app/themes/sage/public/',
 )
 
-jest.setTimeout(1000000)
+jest.setTimeout(60000)
 
 describe(suite.name, () => {
   let assets: Assets
@@ -183,7 +183,7 @@ describe(suite.name, () => {
           process.cwd(),
           'examples/sage/storage/bud/bud.webpack.config.js',
         )
-      ).then(artifact => artifact())
+      ).then(({default: artifact}) => artifact())
 
       expect(artifact.name).toMatchSnapshot()
       expect(artifact.entry).toMatchSnapshot()

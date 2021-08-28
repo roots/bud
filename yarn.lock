@@ -2941,13 +2941,16 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/copy-webpack-plugin": 8.0.1
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     copy-webpack-plugin: ^9.0.1
     html-webpack-plugin: ^5.3.2
+    jest: ^27.0.6
     lodash: ^4.17.21
     nanoid: ^3.1.23
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -2966,13 +2969,16 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     babel-loader: ^8.2.2
     babel-plugin-add-module-exports: ^1.0.4
     fs-extra: ^10.0.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -2983,6 +2989,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/mini-css-extract-plugin": 2.2.0
     "@types/node": 15.14.1
@@ -2991,6 +2998,7 @@ __metadata:
     csv-loader: ^3.0.3
     file-loader: ^6.2.0
     html-loader: ^2.1.2
+    jest: ^27.0.6
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.1.0
     mini-svg-data-uri: ^1.3.3
@@ -2998,6 +3006,7 @@ __metadata:
     remark-loader: 4.0.0
     resolve-url-loader: ^4.0.0
     style-loader: ^3.2.1
+    tslib: ^2.3.1
     url-loader: ^4.1.1
     webpack: 5.51.1
     xml-loader: ^1.2.1
@@ -3011,12 +3020,15 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     filenamify: ^5.0.0
     fs-extra: ^10.0.0
     globby: ^12.0.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3026,10 +3038,13 @@ __metadata:
   resolution: "@roots/bud-compiler@workspace:packages/@roots/bud-compiler"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3041,9 +3056,12 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^8.0.1
+    jest: ^27.0.6
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3055,8 +3073,11 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/critical-css-webpack-plugin": "workspace:packages/@roots/critical-css-webpack-plugin"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3068,13 +3089,16 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
     execa: ^5.1.1
     human-readable: ^0.2.1
+    jest: ^27.0.6
     lodash: ^4.17.21
     patch-console: ^1.0.0
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3089,6 +3113,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@tsconfig/docusaurus": 1.0.4
+    "@types/jest": ^27.0.1
     "@types/node": 16.4.13
     "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
@@ -3098,9 +3123,11 @@ __metadata:
     clsx: 1.1.1
     docusaurus-plugin-typedoc: 0.15.3
     file-loader: 6.2.0
+    jest: ^27.0.6
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
+    tslib: ^2.3.1
     typedoc: 0.21.6
     typescript: 4.3.5
     url-loader: 4.1.1
@@ -3121,8 +3148,11 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   peerDependencies:
     "@emotion/css": 11.1.3
     "@emotion/react": 11.4.1
@@ -3139,8 +3169,11 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3148,17 +3181,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-esbuild@workspace:packages/@roots/bud-esbuild"
   dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     esbuild-loader: ^2.13.1
     fs-extra: ^10.0.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3169,6 +3204,7 @@ __metadata:
   dependencies:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     babel-eslint: ^10.1.0
@@ -3180,6 +3216,8 @@ __metadata:
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
     eslint-webpack-plugin: ^3.0.1
+    jest: ^27.0.6
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     "@roots/bud": "*"
@@ -3191,12 +3229,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-extensions@workspace:packages/@roots/bud-extensions"
   dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3207,6 +3248,7 @@ __metadata:
   dependencies:
     "@roots/container": "workspace:packages/@roots/container"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     "@types/webpack-dev-middleware": 5.0.2
@@ -3217,8 +3259,10 @@ __metadata:
     globby: ^12.0.0
     http-proxy-middleware: 2.0.1
     ink: 3.0.9
+    jest: ^27.0.6
     lodash: ^4.17.21
     signale: 1.4.0
+    tslib: ^2.3.1
     webpack: 5.51.1
     webpack-dev-middleware: 5.0.0
   languageName: unknown
@@ -3230,11 +3274,14 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
     pretty-format: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3242,11 +3289,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-imagemin@workspace:packages/@roots/bud-imagemin"
   dependencies:
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     image-minimizer-webpack-plugin: ^2.2.0
     imagemin: ^8.0.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     imagemin-gifsicle: ^7
@@ -3271,9 +3322,12 @@ __metadata:
   dependencies:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     autodll-webpack-plugin: ^0.4.2
+    jest: ^27.0.6
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     "@roots/bud": "*"
@@ -3285,13 +3339,17 @@ __metadata:
   resolution: "@roots/bud-mdx@workspace:packages/@roots/bud-mdx"
   dependencies:
     "@mdx-js/loader": ^1.6.22
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     react: 17.0.2
     react-dom: 17.0.2
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3301,19 +3359,21 @@ __metadata:
   resolution: "@roots/bud-postcss@workspace:packages/@roots/bud-postcss"
   dependencies:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     "@types/signale": 1.4.2
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
+    jest: ^27.0.6
     lodash: ^4.17.21
     postcss: 8.3.6
     postcss-import: 14.0.2
     postcss-loader: ^6.1.1
     postcss-preset-env: 6.7.0
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     postcss: 8.3.6
@@ -3338,7 +3398,10 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3355,8 +3418,11 @@ __metadata:
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@wordpress/browserslist-config": 4.1.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   peerDependencies:
     "@wordpress/browserslist-config": ^4.1.0
   languageName: unknown
@@ -3367,9 +3433,12 @@ __metadata:
   resolution: "@roots/bud-prettier@workspace:packages/@roots/bud-prettier"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     prettier: ^2.3.2
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3381,12 +3450,14 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     postcss: 8.3.6
+    tslib: ^2.3.1
   peerDependencies:
-    "@roots/bud": "*"
-    "@roots/bud-postcss": "*"
+    "@fullhuman/postcss-purgecss": ^4.0.3
   languageName: unknown
   linkType: soft
 
@@ -3398,14 +3469,16 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.2
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     react-hot-loader: ^4.13.0
     react-refresh: ^0.10.0
+    tslib: ^2.3.1
     type-fest: 2.1.0
     webpack: 5.51.1
   peerDependencies:
@@ -3422,11 +3495,14 @@ __metadata:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     postcss-scss: ^4.0.0
     resolve-cwd: ^3.0.0
     sass-loader: ^12.1.0
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     sass: 1.38.1
@@ -3440,6 +3516,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
@@ -3447,8 +3524,10 @@ __metadata:
     fs-extra: ^10.0.0
     http-proxy-middleware: ^2.0.1
     http-terminator: ^3.0.0
+    jest: ^27.0.6
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
     webpack-dev-middleware: ^5.0.0
     webpack-hot-client: ^4.2.0
@@ -3468,10 +3547,13 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     babel-preset-solid: ^1.0.6
     eslint: 7.32.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
     type-fest: 2.1.0
     webpack: 5.51.1
   peerDependencies:
@@ -3485,11 +3567,14 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     stylelint: ^13.13.1
     stylelint-config-standard: ^22.0.0
     stylelint-webpack-plugin: ^3.0.0
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3502,6 +3587,7 @@ __metadata:
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/express": 4.17.13
+    "@types/jest": ^27.0.1
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
     cosmiconfig: 7.0.1
@@ -3516,6 +3602,7 @@ __metadata:
     ink-big-text: 1.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.2
+    jest: ^27.0.6
     json5: 2.2.0
     lodash: 4.17.21
     node-notifier: 10.0.0
@@ -3528,6 +3615,7 @@ __metadata:
     strip-ansi: 7.0.0
     toml: 3.0.0
     ts-node: 10.2.1
+    tslib: ^2.3.1
     vfile-reporter: 7.0.2
     yamljs: 0.3.0
     yoga-layout-prebuilt: 1.1.0
@@ -3541,16 +3629,16 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@types/tailwindcss": 2.2.1
     autobind-decorator: ^2.4.0
-    autoprefixer: ^10.3.1
+    jest: ^27.0.6
     postcss: 8.3.6
-    postcss-import: ^14.0.2
-    postcss-preset-env: ^6.7.0
-    tailwindcss: ^2.2.7
+    tailwindcss: ^2.2.8
+    tslib: ^2.3.1
   peerDependencies:
-    tailwindcss: ^2.2.4
+    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 
@@ -3560,9 +3648,12 @@ __metadata:
   dependencies:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     terser-webpack-plugin: ^5.1.4
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3576,12 +3667,15 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@typescript-eslint/parser": ^4.28.5
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
     fork-ts-checker-webpack-plugin: ^6.2.13
+    jest: ^27.0.6
     ts-loader: ^9.2.3
+    tslib: ^2.3.1
     typescript: 4.3.5
     webpack: 5.51.1
   peerDependencies:
@@ -3603,6 +3697,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@vue/compiler-sfc": 3.2.6
     autobind-decorator: ^2.4.0
@@ -3611,6 +3706,8 @@ __metadata:
     css-loader: 6.2.0
     de-indent: ^1.0.2
     he: ^1.2.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
     vue: 3.2.6
     vue-loader: ^16.4.1
     webpack: 5.51.1
@@ -3627,10 +3724,13 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3641,8 +3741,11 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3653,8 +3756,11 @@ __metadata:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3688,6 +3794,7 @@ __metadata:
     "@types/css-minimizer-webpack-plugin": 3.0.2
     "@types/express": 4.17.13
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/mini-css-extract-plugin": 2.2.0
     "@types/node": 15.14.1
@@ -3695,15 +3802,19 @@ __metadata:
     "@types/react": 17.0.19
     "@types/resolve-pkg": 2.0.0
     "@types/signale": 1.4.2
+    "@types/source-map-support": ^0
     autobind-decorator: ^2.4.0
     clean-webpack-plugin: ^4.0.0-alpha.0
     copy-webpack-plugin: ^9.0.1
     css-minimizer-webpack-plugin: ^3.0.2
     fs-extra: ^10.0.0
     ignore-emit-webpack-plugin: ^2.0.6
+    jest: ^27.0.6
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.1.0
     signale: ^1.4.0
+    source-map-support: ^0.5.19
+    tslib: ^2.3.1
     webpack: 5.51.1
     webpack-config-dump-plugin: ^3.0.1
     webpack-manifest-plugin: ^4.0.2
@@ -3716,9 +3827,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/container@workspace:packages/@roots/container"
   dependencies:
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     type-fest: 2.1.0
   languageName: unknown
   linkType: soft
@@ -3728,13 +3842,16 @@ __metadata:
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     "@types/vinyl": 2.0.5
     autobind-decorator: ^2.4.0
     critical: ^4.0.1
+    jest: ^27.0.6
     lodash: ^4.17.21
     safe-require: ^1.0.4
+    tslib: ^2.3.1
     vinyl: ^2.2.1
     webpack: ^5.47.1
   languageName: unknown
@@ -3744,8 +3861,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/dependencies@workspace:packages/@roots/dependencies"
   dependencies:
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3753,9 +3873,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/entrypoints-webpack-plugin@workspace:packages/@roots/entrypoints-webpack-plugin"
   dependencies:
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
     webpack: ^5.49.0
@@ -3767,12 +3890,15 @@ __metadata:
   resolution: "@roots/filesystem@workspace:packages/@roots/filesystem"
   dependencies:
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
     globby: ^12.0.0
+    jest: ^27.0.6
     lodash: ^4.17.21
     resolve-from: ^5.0.0
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3780,9 +3906,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
     "@types/react": 17.0.19
+    jest: ^27.0.6
+    tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
     prettier: ^2.3.2
@@ -3795,9 +3924,12 @@ __metadata:
   resolution: "@roots/ink-use-style@workspace:packages/@roots/ink-use-style"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@types/jest": ^27.0.1
     "@types/node": 16.3.0
     autobind-decorator: ^2.4.0
     ink-use-stdout-dimensions: ^1.0.5
+    jest: ^27.0.6
+    tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
     react: ^17.0.2
@@ -3810,11 +3942,14 @@ __metadata:
   dependencies:
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/fs-extra": 9.0.12
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     "@types/prettier": 2.3.2
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
+    jest: ^27.0.6
     prettier: ^2.3.2
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3832,7 +3967,10 @@ __metadata:
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier"
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
+    jest: ^27.0.6
+    tslib: ^2.3.1
   languageName: unknown
   linkType: soft
 
@@ -3843,11 +3981,14 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
+    jest: ^27.0.6
     lodash: ^4.17.21
+    tslib: ^2.3.1
     webpack: 5.51.1
   languageName: unknown
   linkType: soft
@@ -3858,9 +3999,12 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
+    jest: ^27.0.6
+    tslib: ^2.3.1
   peerDependencies:
     webpack: ^5.47.1
   languageName: unknown
@@ -3870,12 +4014,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/yarn-plugin-kjo@workspace:.yarn/local"
   dependencies:
+    "@types/jest": ^27.0.1
     "@types/node": 16.4.7
     "@yarnpkg/builder": 3.0.1
     "@yarnpkg/cli": 3.0.1
     "@yarnpkg/core": 3.0.0
     "@yarnpkg/shell": 3.0.1-rc.3
     clipanion: 3.0.1
+    jest: ^27.0.6
+    tslib: ^2.3.1
     typescript: 4.3.5
   languageName: unknown
   linkType: soft
@@ -4467,7 +4614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:27.0.1":
+"@types/jest@npm:^27.0.1":
   version: 27.0.1
   resolution: "@types/jest@npm:27.0.1"
   dependencies:
@@ -4822,6 +4969,15 @@ __metadata:
   dependencies:
     "@sinonjs/fake-timers": ^7.0.4
   checksum: 7de3199da97ab45a5f85cb553e384a39bc3a867fcf7521ba22a0fe1a9305891715f11964483af0481e837875a883434597a0097923e6e7fbefe1407af6f5bd76
+  languageName: node
+  linkType: hard
+
+"@types/source-map-support@npm:^0":
+  version: 0.5.4
+  resolution: "@types/source-map-support@npm:0.5.4"
+  dependencies:
+    source-map: ^0.6.0
+  checksum: 160ff77e8a101b18d9915cb5320fd73d484679aef8518ce007b9b5988e333631778730196c4bb15517ff881bee805663fd8640c0ce2ebfab65f061103c452369
   languageName: node
   linkType: hard
 
@@ -6277,6 +6433,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"arg@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "arg@npm:5.0.1"
+  checksum: 9aefbcb1204f8dbd541a045bfe99b6515b4dc697c2f704ef2bb5e9fe5464575d97571e91e673a6f23ad72dd1cc24d7d8cf2d1d828e72c08e4d4f6f9237adc761
+  languageName: node
+  linkType: hard
+
 "argparse@npm:^1.0.7":
   version: 1.0.10
   resolution: "argparse@npm:1.0.10"
@@ -6549,7 +6712,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.2.0, autoprefixer@npm:^10.2.5, autoprefixer@npm:^10.3.1":
+"autoprefixer@npm:^10.2.0, autoprefixer@npm:^10.2.5":
   version: 10.3.1
   resolution: "autoprefixer@npm:10.3.1"
   dependencies:
@@ -7128,7 +7291,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
-    "@types/jest": 27.0.1
+    "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 16.6.1
     "@types/react": 17.0.19
@@ -7137,6 +7300,7 @@ __metadata:
     "@types/react-reconciler": 0.26.3
     "@types/react-router-dom": 5.1.8
     "@types/signale": 1.4.2
+    "@types/source-map-support": ^0
     "@types/weak-napi": 2.0.0
     "@typescript-eslint/eslint-plugin": 4.29.3
     "@typescript-eslint/parser": 4.29.3
@@ -7155,7 +7319,7 @@ __metadata:
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
-    jest: 27.0.6
+    jest: ^27.0.6
     lodash: 4.17.21
     prettier: 2.3.2
     raw-loader: 4.0.2
@@ -7164,9 +7328,11 @@ __metadata:
     react-reconciler: 0.26.2
     rimraf: 3.0.2
     signale: 1.4.0
+    source-map-support: ^0.5.19
     ts-jest: 27.0.5
     ts-node: 10.2.1
     tsconfig-paths: 3.11.0
+    tslib: ^2.3.1
     type-fest: 2.1.0
     typescript: 4.3.5
     url-loader: 4.1.1
@@ -7456,7 +7622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1":
+"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -8005,7 +8171,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0, color-convert@npm:^1.9.3":
+"color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -8047,13 +8213,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color@npm:^3.2.0":
-  version: 3.2.1
-  resolution: "color@npm:3.2.1"
+"color@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "color@npm:4.0.1"
   dependencies:
-    color-convert: ^1.9.3
+    color-convert: ^2.0.1
     color-string: ^1.6.0
-  checksum: f81220e8b774d35865c2561be921f5652117638dcda7ca4029262046e37fc2444ac7bbfdd110cf1fd9c074a4ee5eda8f85944ffbdda26186b602dd9bb05f6400
+  checksum: 46b1e7c6a5d5b1db5e0a8f1f32eea015a1923c9a591cbef67e20b439d67fe8043a7c3beb96c602f0055068909c3ee73bc8ee1817e76a25861a92f64430d6118f
   languageName: node
   linkType: hard
 
@@ -11434,13 +11600,16 @@ fsevents@^1.2.7:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/eslint": 7.28.0
+    "@types/jest": ^27.0.1
     "@types/replacestream": 4.0.1
     eslint: 7.32.0
     globby: 12.0.1
+    jest: ^27.0.6
     npm-run-all: 4.1.5
     prettier: 2.3.2
     replacestream: 4.0.3
     rimraf: 3.0.2
+    tslib: ^2.3.1
     typescript: 4.3.5
   languageName: unknown
   linkType: soft
@@ -11624,6 +11793,15 @@ fsevents@^1.2.7:
   dependencies:
     is-glob: ^4.0.1
   checksum: 48c492051a121c695e7a920c50512e5016458698f11e12133a217505d4b7d41bb20b244bcdd9df10ca29f0f1bd419ed97bcea35d15b1a645ba9e5a388013af7e
+  languageName: node
+  linkType: hard
+
+"glob-parent@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "glob-parent@npm:6.0.1"
+  dependencies:
+    is-glob: ^4.0.1
+  checksum: 0468cf300b8c7a483dbd8c031704fa1003331cbc65ded095f768328ed35eec78dd199c224c7436db997569863c0cbc0b7fd7c3cb45508e6134c502be9e691dc5
   languageName: node
   linkType: hard
 
@@ -14285,7 +14463,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest@npm:27.0.6":
+"jest@npm:^27.0.6":
   version: 27.0.6
   resolution: "jest@npm:27.0.6"
   dependencies:
@@ -16379,12 +16557,21 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"node-emoji@npm:^1.10.0, node-emoji@npm:^1.8.1":
+"node-emoji@npm:^1.10.0":
   version: 1.10.0
   resolution: "node-emoji@npm:1.10.0"
   dependencies:
     lodash.toarray: ^4.4.0
   checksum: e2514e34591c58d907f17ab6a21bcd0f9d7ae311187fc490fb52704389a66f48f0ce84cc34e5baf593c1d96e7796e9350dc1bebe7db4d9379a114fb9e5b0011b
+  languageName: node
+  linkType: hard
+
+"node-emoji@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "node-emoji@npm:1.11.0"
+  dependencies:
+    lodash: ^4.17.21
+  checksum: e8c856c04a1645062112a72e59a98b203505ed5111ff84a3a5f40611afa229b578c7d50f1e6a7f17aa62baeea4a640d2e2f61f63afc05423aa267af10977fb2b
   languageName: node
   linkType: hard
 
@@ -17881,7 +18068,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:14.0.2, postcss-import@npm:^14.0.2":
+"postcss-import@npm:14.0.2":
   version: 14.0.2
   resolution: "postcss-import@npm:14.0.2"
   dependencies:
@@ -18155,14 +18342,14 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss-nested@npm:5.0.5":
-  version: 5.0.5
-  resolution: "postcss-nested@npm:5.0.5"
+"postcss-nested@npm:5.0.6":
+  version: 5.0.6
+  resolution: "postcss-nested@npm:5.0.6"
   dependencies:
-    postcss-selector-parser: ^6.0.4
+    postcss-selector-parser: ^6.0.6
   peerDependencies:
-    postcss: ^8.1.13
-  checksum: 88d97fe3b4f2384ece10ad3c92b626b095830c2dc0c762b69f25261dba122e283d4f86571de50f0d56c8cff77ae94639e64f00d250518ecf2ee9abc290642648
+    postcss: ^8.2.14
+  checksum: dbcbfd11e514f485ac0d2b649b32bcbd855665a88a76f697f8be6c5017aa0260954ecccd2475bbd5865a5d248eae9a4e6e10d2d51927621d05430381aa37e43b
   languageName: node
   linkType: hard
 
@@ -18318,7 +18505,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss-preset-env@npm:6.7.0, postcss-preset-env@npm:^6.7.0":
+"postcss-preset-env@npm:6.7.0":
   version: 6.7.0
   resolution: "postcss-preset-env@npm:6.7.0"
   dependencies:
@@ -20978,7 +21165,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
+"source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.19, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
   version: 0.5.19
   resolution: "source-map-support@npm:0.5.19"
   dependencies:
@@ -21839,33 +22026,33 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.2.7":
-  version: 2.2.7
-  resolution: "tailwindcss@npm:2.2.7"
+"tailwindcss@npm:^2.2.8":
+  version: 2.2.8
+  resolution: "tailwindcss@npm:2.2.8"
   dependencies:
-    arg: ^5.0.0
+    arg: ^5.0.1
     bytes: ^3.0.0
-    chalk: ^4.1.1
+    chalk: ^4.1.2
     chokidar: ^3.5.2
-    color: ^3.2.0
+    color: ^4.0.1
     cosmiconfig: ^7.0.0
     detective: ^5.2.0
     didyoumean: ^1.2.2
     dlv: ^1.1.3
     fast-glob: ^3.2.7
     fs-extra: ^10.0.0
-    glob-parent: ^6.0.0
+    glob-parent: ^6.0.1
     html-tags: ^3.1.0
     is-glob: ^4.0.1
     lodash: ^4.17.21
     lodash.topath: ^4.5.2
     modern-normalize: ^1.1.0
-    node-emoji: ^1.8.1
+    node-emoji: ^1.11.0
     normalize-path: ^3.0.0
     object-hash: ^2.2.0
     postcss-js: ^3.0.3
     postcss-load-config: ^3.1.0
-    postcss-nested: 5.0.5
+    postcss-nested: 5.0.6
     postcss-selector-parser: ^6.0.6
     postcss-value-parser: ^4.1.0
     pretty-hrtime: ^1.0.3
@@ -21880,7 +22067,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 540b90180e3bae4e6c8ffeed9f635a3b70e129561b6ba3f41742c3b2553e730f777e79b30a0ffc2c7aba8a1baffaac82a328552e613d991322354e2478d54921
+  checksum: 13a77e79b8bbc83c2e952f2e69c2811c3a332808354c8d70d86c79b4c9cb513c42ea3b5c09a77b4655c3dbed92dbd0227043cba3dc68bb8928601388aec82b06
   languageName: node
   linkType: hard
 
@@ -22490,6 +22677,13 @@ resolve@^2.0.0-next.3:
   version: 2.3.0
   resolution: "tslib@npm:2.3.0"
   checksum: 8869694c26e4a7b56d449662fd54a4f9ba872c889d991202c74462bd99f10e61d5bd63199566c4284c0f742277736292a969642cc7b590f98727a7cae9529122
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "tslib@npm:2.3.1"
+  checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
   languageName: node
   linkType: hard
 

@@ -6,7 +6,7 @@ import {
   React,
 } from '@roots/bud-support'
 import {isEqual} from 'lodash'
-import * as patchConsole from 'patch-console'
+import patchConsole from 'patch-console'
 import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'

@@ -6,7 +6,7 @@ import {Service} from '@roots/bud-framework'
  *
  * @remarks
  * 📝 Interfaces with:
- *  - {@link Discovery} to determine project dependencies for snapshotting/validation.
+ *  - {@link Project} to determine project dependencies for snapshotting/validation.
  *  - {@link Build} via {@link Hooks} to update config.
  *
  * 📝 Adds to `bud`:

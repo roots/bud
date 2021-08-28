@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.discovery collates required peers 1`] = `
+exports[`bud.project collates required peers 1`] = `
 Object {
   "postcss": Object {
     "name": "postcss",
@@ -20,8 +20,12 @@ Object {
 }
 `;
 
-exports[`bud.discovery contains a repository 1`] = `
+exports[`bud.project contains a repository 1`] = `
 Object {
+  "dependencies": Object {
+    "sass": "^1.38.1",
+    "tslib": "^2.3.1",
+  },
   "description": Any<String>,
   "devDependencies": Any<Object>,
   "engines": Any<Object>,
@@ -38,7 +42,7 @@ Object {
 }
 `;
 
-exports[`bud.discovery discover method gathers dep data 1`] = `
+exports[`bud.project discover method gathers dep data 1`] = `
 Object {
   "name": "@roots/bud-postcss",
   "type": "devDependencies",
@@ -46,7 +50,7 @@ Object {
 }
 `;
 
-exports[`bud.discovery resolveFrom contains paths of found peers 1`] = `
+exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
   StringContaining "@roots/bud-postcss",
 ]

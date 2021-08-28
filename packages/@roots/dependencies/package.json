@@ -63,10 +63,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "16.3.0"
+    "@types/jest": "^27.0.1",
+    "@types/node": "16.3.0",
+    "jest": "^27.0.6"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"
 }

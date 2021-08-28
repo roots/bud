@@ -36,11 +36,17 @@ const BudBabelExtension: BudBabelExtension = {
       options: app => {
         const options: {
           cacheDirectory: string
+          env: any
           root: string
           presets?: any
           plugins?: any
         } = {
           cacheDirectory: app.path('storage', 'cache', 'babel'),
+          env: {
+            development: {
+              compact: false,
+            },
+          },
           root: app.path('src'),
         }
 

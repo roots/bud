@@ -13,7 +13,6 @@ let BASIC_DIR = process.cwd().concat('/examples/basic')
 let BASIC_CFG = {
   config: {
     ...config,
-    ci: true,
     location: {
       ...config.location,
       project: BASIC_DIR,

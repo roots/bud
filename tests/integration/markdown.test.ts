@@ -2,7 +2,7 @@ import {Assets, helper} from '../util/integration'
 
 const suite = helper('md', 'examples/markdown')
 
-jest.setTimeout(1000000)
+jest.setTimeout(30000)
 
 describe(suite.name, () => {
   let assets: Assets

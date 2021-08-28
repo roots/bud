@@ -5,16 +5,15 @@
     "moduleResolution": "node",
     "target": "es2020"
   },
-  "files": [],
   "references": [
-    {
-      "path": "./packages/@roots/bud-framework/tsconfig.json"
-    },
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud-postcss/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-babel/tsconfig.json"
@@ -63,9 +62,6 @@
     },
     {
       "path": "./packages/@roots/bud-mdx/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-postcss/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-preset-recommend/tsconfig.json"
@@ -147,6 +143,9 @@
     },
     {
       "path": "./packages/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
-    }
+    },
+    {
+      "path": "./packages/@roots/bud-framework/tsconfig.json"
+    },
   ]
 }

@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import * as imagemin from '@roots/bud-imagemin'
 
 const EXTENSION_HANDLE = '@roots/bud-imagemin'
@@ -8,7 +8,7 @@ describe('@roots/bud-imagemin', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
   })
 
   afterAll(done => {
@@ -37,7 +37,7 @@ describe('@roots/bud-imagemin', () => {
   })
 
   it('is not used when there are no imagemin plugins registered', () => {
-    bud.discovery.set('devDependencies', {})
+    bud.project.set('devDependencies', {})
     bud.use(imagemin)
 
     const registered = bud.extensions.get(PLUGIN_HANDLE)
@@ -46,7 +46,7 @@ describe('@roots/bud-imagemin', () => {
   })
 
   it('is used when there are imagemin plugins registered', () => {
-    bud.discovery.set('devDependencies', {
+    bud.project.set('devDependencies', {
       'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)
@@ -67,7 +67,7 @@ describe('@roots/bud-imagemin', () => {
   })
 
   it('automatically registered found imagemin plugins', () => {
-    bud.discovery.set('devDependencies', {
+    bud.project.set('devDependencies', {
       'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)
@@ -82,7 +82,7 @@ describe('@roots/bud-imagemin', () => {
   })
 
   it('options filter is functioning', () => {
-    bud.discovery.set('devDependencies', {
+    bud.project.set('devDependencies', {
       'imagemin-gifsicle': '^9.0.0',
     })
     bud.use(imagemin)

@@ -163,7 +163,7 @@ class Compiler extends Service {
       this.stats.errors.push(err)
     })
 
-    this.app.when(this.app.store.isTrue('ci'), () => {
+    this.app.when(this.app.store.isFalse('cli'), () => {
       stats && process.stdout.write(stats.toString())
       err &&
         process.stderr.write(

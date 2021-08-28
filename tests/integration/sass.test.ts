@@ -5,7 +5,7 @@ import {Assets, helper} from '../util/integration'
 
 const suite = helper('sass', 'examples/sass')
 
-jest.setTimeout(30000)
+jest.setTimeout(60000)
 
 describe(suite.name, () => {
   let assets: Assets
@@ -48,7 +48,7 @@ describe(suite.name, () => {
         process.cwd(),
         'examples/sass/.budfiles/bud.webpack.config.js',
       )
-    ).then(artifact => artifact())
+    ).then(({default: artifact}) => artifact())
 
     expect(artifact).toMatchSnapshot({
       bail: true,

@@ -1,4 +1,4 @@
-import * as ImageminPlugin from 'image-minimizer-webpack-plugin'
+import ImageminPlugin from 'image-minimizer-webpack-plugin'
 
 import type {Imagemin} from './'
 

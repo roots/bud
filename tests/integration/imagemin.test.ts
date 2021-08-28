@@ -4,7 +4,7 @@ import {Assets, helper} from '../util/integration'
 
 const suite = helper('imagemin', 'examples/imagemin')
 
-jest.setTimeout(1000000)
+jest.setTimeout(60000)
 
 describe(suite.name, () => {
   let assets: Assets

@@ -3,15 +3,15 @@
 exports[`bud.postcss setPlugin functions 1`] = `
 Object {
   "postcss-import": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-import/index.js",
+    undefined,
   ],
   "postcss-nested": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-nested/index.js",
+    undefined,
   ],
   "postcss-preset-env": Array [
-    [Function],
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-preset-env/index.js",
     Object {
       "features": Object {
         "focus-within-pseudo-class": false,
@@ -25,17 +25,17 @@ Object {
 exports[`bud.postcss setPluginOptions functions 1`] = `
 Object {
   "postcss-import": Array [
-    [Function],
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-import/index.js",
     Object {
       "foo": "bar",
     },
   ],
   "postcss-nested": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-nested/index.js",
+    undefined,
   ],
   "postcss-preset-env": Array [
-    [Function],
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-preset-env/index.js",
     Object {
       "features": Object {
         "focus-within-pseudo-class": false,
@@ -49,15 +49,15 @@ Object {
 exports[`bud.postcss setPlugins functions 1`] = `
 Object {
   "postcss-import": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-import/index.js",
+    undefined,
   ],
   "postcss-nested": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-nested/index.js",
+    undefined,
   ],
   "postcss-preset-env": Array [
-    [Function],
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-preset-env/index.js",
     Object {
       "features": Object {
         "focus-within-pseudo-class": false,
@@ -71,11 +71,11 @@ Object {
 exports[`bud.postcss unsetPlugin functions 1`] = `
 Object {
   "postcss-nested": Array [
-    [Function],
-    Object {},
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-nested/index.js",
+    undefined,
   ],
   "postcss-preset-env": Array [
-    [Function],
+    "/Volumes/Samsung/Code/roots/bud/node_modules/postcss-preset-env/index.js",
     Object {
       "features": Object {
         "focus-within-pseudo-class": false,

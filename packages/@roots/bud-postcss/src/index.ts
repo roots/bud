@@ -1,7 +1,7 @@
 import type {Build} from '@roots/bud-framework'
 
 import {BudPostCssExtension} from './BudPostCssExtension'
-import {PostCssConfig} from './Config'
+import {PostCssConfig} from './PostCssConfig'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -29,4 +29,5 @@ declare module '@roots/bud-framework' {
 }
 
 export const {name, api, boot} = BudPostCssExtension
+
 export {PostCssConfig}

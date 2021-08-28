@@ -57,8 +57,8 @@ Object {
     },
     "stats": Object {},
   },
-  "ci": true,
   "clean": true,
+  "cli": false,
   "debug": true,
   "discover": false,
   "extension": Object {
@@ -270,8 +270,8 @@ Object {
     },
     "stats": Object {},
   },
-  "ci": true,
   "clean": true,
+  "cli": false,
   "debug": true,
   "discover": false,
   "extension": Object {

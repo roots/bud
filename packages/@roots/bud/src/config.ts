@@ -5,7 +5,7 @@ interface config extends BaseConfig {}
 const config: config = {
   name: 'bud',
 
-  ci: false,
+  cli: false,
   clean: true,
   debug: true,
   discover: false,

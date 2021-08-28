@@ -72,11 +72,12 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
+    "jest": "^27.0.6",
     "type-fest": "2.1.0",
     "webpack": "5.51.1"
   },
@@ -85,7 +86,8 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.2",
     "autobind-decorator": "^2.4.0",
     "react-hot-loader": "^4.13.0",
-    "react-refresh": "^0.10.0"
+    "react-refresh": "^0.10.0",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "react": ">=17",

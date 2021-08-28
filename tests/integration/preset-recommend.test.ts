@@ -5,7 +5,7 @@ const suite = helper(
   'examples/preset-recommend',
 )
 
-jest.setTimeout(1000000)
+jest.setTimeout(60000)
 
 describe(suite.name, () => {
   let assets: Assets

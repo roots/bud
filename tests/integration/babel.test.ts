@@ -50,14 +50,14 @@ describe(suite.name, () => {
     })
 
     it('.budfiles/bud.webpack.config.js', async () => {
-      let artifact = await import(
-        join(
-          process.cwd(),
-          'examples/babel/.budfiles/bud.webpack.config.js',
+      const artifact = (
+        await import(
+          join(
+            process.cwd(),
+            'examples/babel/.budfiles/bud.webpack.config.js',
+          )
         )
-      )
-
-      artifact = artifact()
+      ).default()
 
       expect(artifact.entry).toMatchSnapshot()
       expect(artifact.mode).toMatchSnapshot()

@@ -52,14 +52,18 @@
     "type": "extension"
   },
   "devDependencies": {
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
+    "jest": "^27.0.6",
     "webpack": "5.51.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "image-minimizer-webpack-plugin": "^2.2.0",
-    "imagemin": "^8.0.0"
+    "imagemin": "^8.0.0",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "imagemin-gifsicle": "^7",

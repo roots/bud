@@ -1,16 +1,11 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 describe('bud.template', function () {
   describe('default', () => {
     let bud: Framework
 
     beforeAll(() => {
-      bud = factory({
-        config: {
-          ...config,
-          ci: true,
-        },
-      })
+      bud = factory()
     })
 
     afterAll(done => {
@@ -60,7 +55,7 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(() => {
-      bud = factory({config: {...config, ci: true}})
+      bud = factory()
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })
@@ -97,7 +92,7 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(() => {
-      bud = factory({config: {...config, ci: true}})
+      bud = factory()
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })

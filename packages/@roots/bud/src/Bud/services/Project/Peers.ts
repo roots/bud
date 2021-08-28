@@ -1,60 +1,16 @@
-import {
-  Discovery as Contract,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import {Project} from '@roots/bud-framework'
 import {pkgUp} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {dirname, join} from 'path'
 
-interface Buddy {
-  source: string
-  name: string
-  ver: string
-  type: 'dependencies' | 'devDependencies'
-}
+class Peers {
+  public name = 'project'
 
-interface Repository extends Framework.Index {
-  name: string
-  peers: {
-    [key: string]: Buddy
-  }
-  extensions: {
-    [key: string]: Buddy
-  }
-  dependencies: {
-    [key: string]: string
-  }
-  devDependencies: {
-    [key: string]: string
-  }
-}
+  public project: Project
 
-class Discovery extends Contract implements Service<Repository> {
-  public name = 'discovery'
-
-  public repository: Repository = {
-    name: null,
-    peers: {},
-    extensions: {},
-    dependencies: {},
-    devDependencies: {},
-  }
-
-  /**
-   * Array of paths for webpack to resolve modules from
-   */
-  public resolveFrom: string[] = []
-
-  @bind
-  public registered(): void {
-    /**
-     * Read package.json
-     */
-    this.setStore(
-      readJsonSync(this.app.path('project', 'package.json')),
-    )
+  public constructor(project: Project) {
+    this.project = project
 
     /**
      * Find out about all the buddy things
@@ -63,33 +19,10 @@ class Discovery extends Contract implements Service<Repository> {
   }
 
   /**
-   * Returns all gathered project data
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public getProjectInfo(): {[key: string]: any} {
-    return this.all()
-  }
-
-  /**
-   * Returns true if a dependency is listed in the project manifest
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public hasPeerDependency(pkg: string): boolean {
-    return (
-      this.has(`devDependencies.${pkg}`) ||
-      this.has(`dependencies.${pkg}`)
-    )
-  }
-
-  /**
    * Returns path for a module name (if findable)
    */
   @bind
-  public resolveModuleByName(name: string) {
+  public resolvePeerByName(name: string) {
     try {
       const dir = dirname(
         pkgUp.sync({
@@ -107,8 +40,8 @@ class Discovery extends Contract implements Service<Repository> {
    * Returns manifest for a module from name (if findable)
    */
   @bind
-  public resolveManifestByName(name: string) {
-    const path = this.resolveModuleByName(name)
+  public getPeerManifest(name: string) {
+    const path = this.resolvePeerByName(name)
     return path ? readJsonSync(join(path, '/package.json')) : {}
   }
 
@@ -116,7 +49,7 @@ class Discovery extends Contract implements Service<Repository> {
    * Returns true if a module is a bud
    */
   @bind
-  public isModuleExtension(name: string): boolean {
+  public isExtension(name: string): boolean {
     return name?.includes('@roots') || name?.includes('bud-')
   }
 
@@ -127,9 +60,9 @@ class Discovery extends Contract implements Service<Repository> {
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
-  ): Discovery {
-    this.has(type) &&
-      this.getKeys(type).map((name: string) => {
+  ): Peers {
+    this.project.has(type) &&
+      this.project.getKeys(type).map((name: string) => {
         /**
          * Resolver: given a manifest, will separate peers
          * and extensions for further processing.
@@ -147,8 +80,8 @@ class Discovery extends Contract implements Service<Repository> {
           /**
            * Add to eligible extensions
            */
-          !this.has(`extensions.${manifest.name}`) &&
-            this.set(`extensions.${manifest.name}`, {
+          !this.project.has(`extensions.${manifest.name}`) &&
+            this.project.set(`extensions.${manifest.name}`, {
               name: manifest.name,
               ver: manifest.version,
               type: type,
@@ -157,11 +90,11 @@ class Discovery extends Contract implements Service<Repository> {
           /**
            * Add to resolvable paths
            */
-          !this.resolveFrom.includes(
-            this.resolveModuleByName(manifest.name),
+          !this.project.resolveFrom.includes(
+            this.resolvePeerByName(manifest.name),
           ) &&
-            this.resolveFrom.push(
-              this.resolveModuleByName(manifest.name),
+            this.project.resolveFrom.push(
+              this.resolvePeerByName(manifest.name),
             )
 
           /**
@@ -170,8 +103,8 @@ class Discovery extends Contract implements Service<Repository> {
           manifest.peerDependencies &&
             Object.entries(manifest.peerDependencies).forEach(
               ([depName, ver]) => {
-                !this.has(`peers.${depName}`) &&
-                  this.set(`peers.${depName}`, {
+                !this.project.has(`peers.${depName}`) &&
+                  this.project.set(`peers.${depName}`, {
                     name: depName,
                     ver: ver,
                     type: 'devDependencies',
@@ -183,9 +116,9 @@ class Discovery extends Contract implements Service<Repository> {
            * Tail recursion on nested requires
            */
           manifest?.bud?.peers?.forEach((name: string) => {
-            this.isModuleExtension(name) &&
-              !this.has(`extensions.${name}`) &&
-              resolvePeers(this.resolveManifestByName(name))
+            this.isExtension(name) &&
+              !this.project.has(`extensions.${name}`) &&
+              resolvePeers(this.getPeerManifest(name))
           })
         }
 
@@ -194,8 +127,8 @@ class Discovery extends Contract implements Service<Repository> {
          * to determine if it is a bud extension. If so it
          * engages resolvePeers
          */
-        this.isModuleExtension(name) &&
-          resolvePeers(this.resolveManifestByName(name))
+        this.isExtension(name) &&
+          resolvePeers(this.getPeerManifest(name))
       })
 
     return this
@@ -206,11 +139,11 @@ class Discovery extends Contract implements Service<Repository> {
    */
   @bind
   public registerDiscovered() {
-    this.getValues('extensions').forEach(pkg => {
+    this.project.getValues('extensions').forEach(pkg => {
       if (!pkg?.name) return
 
-      this.app.extensions.add(require(pkg.name))
-      this.set(`registered.${pkg.name}`, pkg)
+      this.project.app.extensions.add(require(pkg.name))
+      this.project.set(`registered.${pkg.name}`, pkg)
     })
   }
 
@@ -219,11 +152,13 @@ class Discovery extends Contract implements Service<Repository> {
    */
   @bind
   public install(): void {
-    const required = this.get<Repository['peers']>('peers')
+    const required = this.project.get('peers')
 
     required &&
-      this.app.dependencies.install(Object.values(required))
+      this.project.app.dependencies.install(
+        Object.values(required),
+      )
   }
 }
 
-export {Discovery}
+export {Peers}

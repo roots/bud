@@ -7,17 +7,15 @@
     "declarationDir": "./types",
     "types": [
       "node",
+      "jest",
+      "tailwindcss",
       "@roots/bud-framework",
       "@roots/bud-api",
       "@roots/bud-postcss",
     ]
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
+    "src"
   ],
   "references": [
     {

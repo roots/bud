@@ -1,7 +1,7 @@
 import {Server} from '@roots/bud-framework'
 import {isNull, isUndefined} from 'lodash'
 import {Compiler, MultiCompiler} from 'webpack'
-import * as DevMiddleware from 'webpack-dev-middleware'
+import DevMiddleware from 'webpack-dev-middleware'
 
 const middlewareConfigKeys = [
   'headers',

@@ -33,9 +33,9 @@ interface Configuration {
   /**
    * Feature: CI mode
    *
-   * @default false
+   * @default true
    */
-  ci: boolean
+  cli: boolean
 
   /**
    * Feature: Clean dist before compilation

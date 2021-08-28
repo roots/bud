@@ -67,20 +67,22 @@
     "type": "extension"
   },
   "devDependencies": {
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.12",
+    "@types/jest": "^27.0.1",
     "@types/lodash": "4.14.172",
     "@types/node": "15.14.1",
+    "jest": "^27.0.6",
     "webpack": "5.51.1"
   },
   "dependencies": {
-    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "esbuild-loader": "^2.13.1",
     "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"
 }

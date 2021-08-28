@@ -1,4 +1,4 @@
-import * as execa from 'execa'
+import execa from 'execa'
 import {readFile} from 'fs-extra'
 import {join} from 'path'
 
@@ -13,11 +13,14 @@ describe('node-api', () => {
 
   describe('snapshots', () => {
     it('package.json', async () => {
-      const artifact = await readFile(
-        join(process.cwd(), 'examples/node-api/package.json'),
-      )
+      const artifact = (
+        await readFile(
+          join(process.cwd(), 'examples/node-api/package.json'),
+          'utf8',
+        )
+      ).toString()
 
-      expect(artifact.toString()).toMatchSnapshot()
+      expect(artifact).toMatchSnapshot()
     })
 
     it('dist/manifest.json', async () => {
@@ -40,14 +43,14 @@ describe('node-api', () => {
     })
 
     it('.budfiles/bud.webpack.config.js', async () => {
-      let artifact = await import(
-        join(
-          process.cwd(),
-          'examples/node-api/.budfiles/bud.webpack.config.js',
+      const artifact = (
+        await import(
+          join(
+            process.cwd(),
+            'examples/node-api/.budfiles/bud.webpack.config.js',
+          )
         )
-      )
-
-      artifact = artifact()
+      ).default()
 
       expect(artifact.entry).toMatchSnapshot()
       expect(artifact.mode).toMatchSnapshot()

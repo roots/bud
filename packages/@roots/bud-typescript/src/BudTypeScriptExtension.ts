@@ -13,7 +13,7 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
     typecheck,
   },
 
-  boot: ({build, discovery, hooks, store}) => {
+  boot: ({build, hooks, store}) => {
     store.set('patterns.ts', /\.tsx?$/)
 
     build.loaders['ts'] = new Loader(

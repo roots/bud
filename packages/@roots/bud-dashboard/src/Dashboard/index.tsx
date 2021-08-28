@@ -29,7 +29,7 @@ class Dashboard extends Base {
    */
   @bind
   public run(): void {
-    if (this.app.store.isTrue('ci')) return
+    if (this.app.store.isFalse('cli')) return
 
     if (!this.instance) {
       this.instance = render(

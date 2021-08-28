@@ -1,14 +1,28 @@
-import {config, factory, Framework} from '@roots/bud'
-import {readJsonSync} from 'fs-extra'
+import {factory, Framework} from '@roots/bud'
+import {readJson} from 'fs-extra'
 
-describe('bud.discovery', function () {
+describe('bud.project', function () {
   let bud: Framework
-  let json = readJsonSync(process.cwd().concat('/package.json'))
+  let json: {
+    description: string
+    dependencies: {[key: string]: any}
+    devDependencies: {[key: string]: any}
+    engines: {[key: string]: any}
+    license: string
+    manifest: {[key: string]: any}
+    name: string
+    packageManager: string
+    private: boolean
+    repository: {[key: string]: any}
+    resolutions: {[key: string]: any}
+    version: string
+    volta: {[key: string]: any}
+    workspaces: {[key: string]: any}
+  }
 
-  beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+  beforeAll(async () => {
+    json = await readJson(process.cwd().concat('/package.json'))
+    bud = factory()
   })
 
   afterAll(done => {
@@ -16,7 +30,7 @@ describe('bud.discovery', function () {
   })
 
   it('contains a repository', () => {
-    expect(bud.discovery.repository).toMatchSnapshot({
+    expect(bud.project.repository).toMatchSnapshot({
       description: expect.any(String),
       devDependencies: expect.any(Object),
       engines: expect.any(Object),
@@ -34,41 +48,42 @@ describe('bud.discovery', function () {
   })
 
   it('contains project level devDependencies', () => {
-    expect(bud.discovery.get('devDependencies')).toEqual(
+    expect(bud.project.get('devDependencies')).toEqual(
       json.devDependencies,
     )
   })
 
   it('contains project level devDependencies', () => {
-    expect(bud.discovery.get('dependencies')).toEqual(
+    expect(bud.project.get('dependencies')).toEqual(
       json.dependencies,
     )
   })
 
   it('has hasPeerDependency function', () => {
-    expect(bud.discovery.hasPeerDependency).toBeInstanceOf(
+    expect(bud.project.hasPeerDependency).toBeInstanceOf(
       Function,
     )
   })
 
   it('has discover function', () => {
-    expect(bud.discovery.discover).toBeInstanceOf(Function)
+    expect(bud.project.peers.discover).toBeInstanceOf(Function)
   })
 
   it('discover method gathers dep data', () => {
-    bud.discovery.set(
+    bud.project.set(
       `devDependencies.@roots/bud-postcss`,
       `workspace:packages/@roots/bud-postcss`,
     )
-    bud.discovery.discover(`devDependencies`)
+
+    bud.project.peers.discover(`devDependencies`)
 
     expect(
-      bud.discovery.get(`extensions.@roots/bud-postcss`),
+      bud.project.get(`extensions.@roots/bud-postcss`),
     ).toMatchSnapshot()
   })
 
   it('collates required peers', () => {
-    expect(bud.discovery.get('peers')).toMatchSnapshot({
+    expect(bud.project.get('peers')).toMatchSnapshot({
       postcss: {
         name: 'postcss',
         ver: expect.any(String),
@@ -88,31 +103,31 @@ describe('bud.discovery', function () {
   })
 
   it('contains project level name', () => {
-    expect(bud.discovery.get('name')).toEqual(json.name)
+    expect(bud.project.get('name')).toEqual(json.name)
   })
 
   it('has install function', () => {
-    expect(bud.discovery.install).toBeInstanceOf(Function)
+    expect(bud.project.peers.install).toBeInstanceOf(Function)
   })
 
   it('has resolveFrom property', () => {
-    expect(bud.discovery.resolveFrom).toBeInstanceOf(Array)
+    expect(bud.project.resolveFrom).toBeInstanceOf(Array)
   })
 
   it('resolveFrom contains paths of found peers', () => {
-    expect(bud.discovery.resolveFrom).toMatchSnapshot([
+    expect(bud.project.resolveFrom).toMatchSnapshot([
       expect.stringContaining('@roots/bud-postcss'),
     ])
   })
 
   it('has registerDiscovered function', () => {
-    expect(bud.discovery.registerDiscovered).toBeInstanceOf(
+    expect(bud.project.peers.registerDiscovered).toBeInstanceOf(
       Function,
     )
   })
 
   it('registerDiscovered method adds extensions', () => {
-    bud.discovery.registerDiscovered()
+    bud.project.peers.registerDiscovered()
 
     expect(bud.extensions.has('@roots/bud-postcss')).toBe(true)
   })

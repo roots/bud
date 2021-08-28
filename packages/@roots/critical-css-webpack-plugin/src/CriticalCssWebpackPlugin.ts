@@ -1,7 +1,7 @@
 import {boundMethod as bind} from 'autobind-decorator'
-import * as critical from 'critical'
-import * as safeRequire from 'safe-require'
-import * as vinyl from 'vinyl'
+import critical from 'critical'
+import safeRequire from 'safe-require'
+import vinyl from 'vinyl'
 import * as Webpack from 'webpack'
 
 import type {Options} from './interface'

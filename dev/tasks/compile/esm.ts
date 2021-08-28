@@ -1,4 +1,4 @@
-import * as ncc from '@vercel/ncc'
+import ncc from '@vercel/ncc'
 import {
   emptydir,
   ensureDir,
@@ -9,7 +9,7 @@ import {
   writeFile,
   writeJson,
 } from 'fs-extra'
-import * as path from 'path'
+import path from 'path'
 
 import {nccOptions} from './options'
 

@@ -25,7 +25,7 @@ export default class Install extends Command {
 
     this.app = runner.app
 
-    this.app.discovery.install()
+    this.app.project.peers.install()
 
     process.exit()
   }

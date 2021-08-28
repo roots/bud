@@ -41,7 +41,9 @@ exports[`repo examples/package.json matches snapshot 1`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-babel\\": \\"workspace:*\\"
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -64,7 +66,9 @@ exports[`repo examples/package.json matches snapshot 2`] = `
     ]
   },
   \\"devDependencies\\": {
-    \\"@roots/bud\\": \\"workspace:*\\"
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -90,7 +94,9 @@ exports[`repo examples/package.json matches snapshot 3`] = `
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-criticalcss\\": \\"workspace:packages/@roots/bud-criticalcss\\",
     \\"@roots/bud-postcss\\": \\"workspace:packages/@roots/bud-postcss\\",
-    \\"@roots/bud-tailwindcss\\": \\"workspace:packages/@roots/bud-tailwindcss\\"
+    \\"@roots/bud-tailwindcss\\": \\"workspace:packages/@roots/bud-tailwindcss\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -116,7 +122,9 @@ exports[`repo examples/package.json matches snapshot 4`] = `
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
     \\"@roots/bud-emotion\\": \\"workspace:packages/@roots/bud-emotion\\",
-    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -140,7 +148,9 @@ exports[`repo examples/package.json matches snapshot 5`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
-    \\"@roots/bud-esbuild\\": \\"workspace:packages/@roots/bud-esbuild\\"
+    \\"@roots/bud-esbuild\\": \\"workspace:packages/@roots/bud-esbuild\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -165,7 +175,9 @@ exports[`repo examples/package.json matches snapshot 6`] = `
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-eslint\\": \\"workspace:packages/@roots/bud-eslint\\",
-    \\"@roots/bud-preset-recommend\\": \\"workspace:*\\"
+    \\"@roots/bud-preset-recommend\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -188,7 +200,9 @@ exports[`repo examples/package.json matches snapshot 7`] = `
     ]
   },
   \\"devDependencies\\": {
-    \\"@roots/bud\\": \\"workspace:*\\"
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -212,7 +226,9 @@ exports[`repo examples/package.json matches snapshot 8`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-imagemin\\": \\"workspace:*\\"
+    \\"@roots/bud-imagemin\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -238,7 +254,9 @@ exports[`repo examples/package.json matches snapshot 9`] = `
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-mdx\\": \\"workspace:*\\",
     \\"@roots/bud-preset-recommend\\": \\"workspace:*\\",
-    \\"@roots/bud-react\\": \\"workspace:*\\"
+    \\"@roots/bud-react\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -262,7 +280,9 @@ exports[`repo examples/package.json matches snapshot 10`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-babel\\": \\"workspace:*\\"
+    \\"@roots/bud-babel\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -285,7 +305,9 @@ exports[`repo examples/package.json matches snapshot 11`] = `
     ]
   },
   \\"devDependencies\\": {
-    \\"@roots/bud\\": \\"workspace:*\\"
+    \\"@roots/bud\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -310,7 +332,9 @@ exports[`repo examples/package.json matches snapshot 12`] = `
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-babel\\": \\"workspace:*\\",
-    \\"@roots/bud-postcss\\": \\"workspace:*\\"
+    \\"@roots/bud-postcss\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -334,7 +358,9 @@ exports[`repo examples/package.json matches snapshot 13`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
-    \\"@roots/bud-preset-recommend\\": \\"workspace:packages/@roots/bud-preset-recommend\\"
+    \\"@roots/bud-preset-recommend\\": \\"workspace:packages/@roots/bud-preset-recommend\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -360,7 +386,9 @@ exports[`repo examples/package.json matches snapshot 14`] = `
     \\"@roots/bud\\": \\"workspace:packages/@roots/bud\\",
     \\"@roots/bud-babel\\": \\"workspace:packages/@roots/bud-babel\\",
     \\"@roots/bud-postcss\\": \\"workspace:packages/@roots/bud-postcss\\",
-    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\"
+    \\"@roots/bud-react\\": \\"workspace:packages/@roots/bud-react\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -375,7 +403,9 @@ exports[`repo examples/package.json matches snapshot 15`] = `
   ],
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/sage\\": \\"workspace:*\\"
+    \\"@roots/sage\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -399,7 +429,9 @@ exports[`repo examples/package.json matches snapshot 16`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-sass\\": \\"workspace:*\\"
+    \\"@roots/bud-sass\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -424,7 +456,9 @@ exports[`repo examples/package.json matches snapshot 17`] = `
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-babel\\": \\"workspace:*\\",
-    \\"@roots/bud-solid\\": \\"workspace:*\\"
+    \\"@roots/bud-solid\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -450,7 +484,9 @@ exports[`repo examples/package.json matches snapshot 18`] = `
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-babel\\": \\"workspace:*\\",
     \\"@roots/bud-postcss\\": \\"workspace:*\\",
-    \\"@roots/bud-tailwindcss\\": \\"workspace:*\\"
+    \\"@roots/bud-tailwindcss\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -475,7 +511,9 @@ exports[`repo examples/package.json matches snapshot 19`] = `
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
     \\"@roots/bud-babel\\": \\"workspace:*\\",
-    \\"@roots/bud-typescript\\": \\"workspace:*\\"
+    \\"@roots/bud-typescript\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -499,7 +537,9 @@ exports[`repo examples/package.json matches snapshot 20`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-vue\\": \\"workspace:*\\"
+    \\"@roots/bud-vue\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "
@@ -523,7 +563,9 @@ exports[`repo examples/package.json matches snapshot 21`] = `
   },
   \\"devDependencies\\": {
     \\"@roots/bud\\": \\"workspace:*\\",
-    \\"@roots/bud-preset-wordpress\\": \\"workspace:*\\"
+    \\"@roots/bud-preset-wordpress\\": \\"workspace:*\\",
+    \\"@types/jest\\": \\"^27.0.1\\",
+    \\"jest\\": \\"^27.0.6\\"
   }
 }
 "

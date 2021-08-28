@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import {Item, Loader, Rule} from '@roots/bud-build'
 
 describe('bud.build', function () {
@@ -6,7 +6,7 @@ describe('bud.build', function () {
   let initialBuildConfig
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
     initialBuildConfig = {...bud.build.config}
   })
 

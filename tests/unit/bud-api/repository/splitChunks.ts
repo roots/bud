@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 const DEFAULT_OPTIONS = {
   cacheGroups: {
@@ -16,7 +16,7 @@ describe('bud.splitChunks', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
   })
 
   afterAll(done => {

@@ -2,6 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib/esm",
-    "module": "es2020"
-  }
+    "module": "esnext",
+    "target": "esnext",
+  },
+  "references": [
+    {
+      "path": "./../container/tsconfig-esm.json"
+    },
+  ]
 }

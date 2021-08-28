@@ -15,7 +15,7 @@ let BASIC_CFG: {
   mode: 'development',
   config: {
     ...config,
-    ci: true,
+
     location: {
       ...config.location,
       project: BASIC_DIR,

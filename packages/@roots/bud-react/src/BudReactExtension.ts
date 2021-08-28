@@ -12,7 +12,7 @@ const BudReactExtension: BudReactExtension = {
   name: '@roots/bud-react',
 
   boot: app => {
-    app.when(app.discovery.hasPeerDependency('react'), app => {
+    app.when(app.project.hasPeerDependency('react'), app => {
       app.babel.setPresets(['@babel/preset-react'])
 
       app.when(app.isDevelopment, app => {

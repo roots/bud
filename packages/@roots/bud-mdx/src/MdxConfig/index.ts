@@ -1,11 +1,22 @@
 import type {Framework} from '@roots/bud-framework'
 
-export class MdxConfig implements Framework.Api.Mdx {
+interface Options {
+  rehypePlugins: any[]
+  remarkPlugins: any[]
+}
+
+class MdxConfig implements MdxConfig {
   public _app: () => Framework
 
-  public remarkPlugins: Framework.Api.Mdx.RemarkRegistry = {}
+  /**
+   * Get registered remark plugins.
+   */
+  public remarkPlugins: Framework.Index<any> = {}
 
-  public rehypePlugins: Framework.Api.Mdx.RehypeRegistry = {}
+  /**
+   * Get registered rehype plugins.
+   */
+  public rehypePlugins: Framework.Index<any> = {}
 
   public constructor(app: Framework) {
     this._app = () => app
@@ -15,15 +26,17 @@ export class MdxConfig implements Framework.Api.Mdx {
     return this._app()
   }
 
-  public get options(): Framework.Api.Mdx.Options {
+  public get options(): Options {
     return {
       remarkPlugins: Object.values(this.remarkPlugins),
       rehypePlugins: Object.values(this.rehypePlugins),
     }
   }
 
-  public set options(options: Framework.Api.Mdx.Options) {
+  public set options(options: Options) {
     this.remarkPlugins = options.remarkPlugins
     this.rehypePlugins = options.rehypePlugins
   }
 }
+
+export {MdxConfig}

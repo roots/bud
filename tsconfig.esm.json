@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "es2020",
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2020",
+    "target": "esnext",
   },
   "references": [
     {

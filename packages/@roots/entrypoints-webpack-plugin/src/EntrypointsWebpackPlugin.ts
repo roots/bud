@@ -3,6 +3,24 @@ import {uniq} from 'lodash'
 import type * as Webpack from 'webpack'
 import {sources} from 'webpack'
 
+interface EntrypointsPlugin {
+  name: string
+  assets: Entry
+}
+
+interface Entry {
+  [entry: string]: {
+    [type: string]: string[]
+  }
+}
+
+interface Options {
+  name?: string
+  writeToFileEmit?: boolean
+  publicPath?: string
+  outputPath?: string
+}
+
 /**
  * Produces `entrypoints.json` artifact with compiled assets broken down
  * by entrypoint and then filetype.
@@ -18,7 +36,7 @@ import {sources} from 'webpack'
  *
  * @sealed
  */
-class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
+class EntrypointsWebpackPlugin implements EntrypointsPlugin {
   /**
    * Plugin related properties
    */
@@ -50,12 +68,12 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   /**
    * Collected assets
    */
-  public assets: Entrypoints.Entry
+  public assets: Entry
 
   /**
    * Class constructor
    */
-  public constructor(options?: Entrypoints.Options) {
+  public constructor(options?: Options) {
     options &&
       Object.keys(options).map(prop => {
         Object.assign(this, {[prop]: options[prop]})

@@ -1,4 +1,4 @@
-import * as execa from 'execa'
+import execa from 'execa'
 import {readFileSync} from 'fs'
 import {readFile, readJson} from 'fs-extra'
 import {posix} from 'path'

@@ -71,9 +71,12 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
+    "jest": "^27.0.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "webpack": "5.51.1"
@@ -81,7 +84,8 @@
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"
 }

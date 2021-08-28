@@ -10,7 +10,7 @@ import type {
   Configuration,
   Dashboard,
   Dependencies,
-  Discovery,
+  Project,
   Env,
   Extensions,
   Hooks,
@@ -185,7 +185,7 @@ abstract class Framework {
    *
    * @virtual
    */
-  public discovery: Discovery
+  public project: Project
 
   /**
    * .env container

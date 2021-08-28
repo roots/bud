@@ -7,16 +7,13 @@
     "declarationDir": "./types",
     "types": [
       "node",
+      "jest",
       "@roots/bud-api",
       "@roots/bud-babel"
     ]
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
+    "src"
   ],
   "references": [
     {

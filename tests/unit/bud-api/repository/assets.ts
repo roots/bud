@@ -1,12 +1,13 @@
-import {config, factory, Framework} from '@roots/bud'
+// resolve api method types
+import '@roots/bud-api'
+
+import {factory, Framework} from '@roots/bud'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {

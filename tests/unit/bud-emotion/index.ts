@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import * as BudBabel from '@roots/bud-babel'
 import * as BudEmotion from '@roots/bud-emotion'
 import * as BudReact from '@roots/bud-react'
@@ -8,9 +8,7 @@ describe('@roots/bud-emotion', () => {
     let bud: Framework = null
 
     beforeAll(() => {
-      bud = factory({
-        config: {...config, ci: true},
-      })
+      bud = factory({})
     })
 
     afterAll(done => {
@@ -18,7 +16,7 @@ describe('@roots/bud-emotion', () => {
     })
 
     beforeEach(() => {
-      bud.discovery
+      bud.project
         .set('devDependencies', {
           '@emotion/css': '^11.1.3',
           '@emotion/react': '^11.4.0',

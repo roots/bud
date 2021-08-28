@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import * as BudSassExtension from '@roots/bud-sass'
 
 jest.setTimeout(20000)
@@ -7,9 +7,7 @@ describe('@roots/bud-sass', () => {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {

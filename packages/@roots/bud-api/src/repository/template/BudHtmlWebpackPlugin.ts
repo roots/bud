@@ -1,5 +1,5 @@
 import {Framework, WebpackPlugin} from '@roots/bud-framework'
-import * as HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {posix} from 'path'
 
 interface BudHtmlWebpackPlugin

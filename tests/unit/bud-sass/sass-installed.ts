@@ -1,6 +1,6 @@
-import {Bud, config, factory, Framework} from '@roots/bud'
+import {Bud, factory, Framework} from '@roots/bud'
 import * as BudSassExtension from '@roots/bud-sass'
-import * as execa from 'execa'
+import execa from 'execa'
 
 jest.setTimeout(20000)
 
@@ -23,11 +23,9 @@ describe('@roots/bud-sass', () => {
 
   beforeAll(async () => {
     await execa('yarn', ['add', 'sass'])
-    bud = factory({
-      config: {...config, ci: true},
-    })
-    bud.discovery.set(`devDependencies.@roots/bud-sass`, '*')
-    bud.discovery.discover('devDependencies')
+    bud = factory()
+    bud.project.set(`devDependencies.@roots/bud-sass`, '*')
+    bud.project.peers.discover('devDependencies')
 
     bud.use([BudSassExtension])
   })
@@ -41,8 +39,8 @@ describe('@roots/bud-sass', () => {
     expect(bud.use([BudSassExtension])).toBeInstanceOf(Bud)
   })
 
-  it('discovery.resolveFrom matches snap', () => {
-    expect(bud.discovery.resolveFrom).toMatchSnapshot([
+  it('project.resolveFrom matches snap', () => {
+    expect(bud.project.resolveFrom).toMatchSnapshot([
       expect.stringContaining('@roots/bud-sass'),
     ])
   })
