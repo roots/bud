@@ -49,20 +49,15 @@
   },
   "files": [],
   "include": [
-    "./packages/@roots/*/src"
+    "packages/@roots"
   ],
   "exclude": [
-    "./node_modules",
-    "./packages/@roots/*/lib",
-    "./packages/@roots/*/node_modules",
-    "./packages/@roots/*/types"
+    "node_modules",
+    "coverage"
   ],
   "references": [
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-postcss/tsconfig.json"
@@ -198,6 +193,9 @@
     },
     {
       "path": "./packages/@roots/bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud/tsconfig.json"
     },
   ]
 }

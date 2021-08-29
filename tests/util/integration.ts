@@ -4,8 +4,6 @@ import {readFile, readJson} from 'fs-extra'
 import {posix} from 'path'
 import Webpack from 'webpack'
 
-import {logger} from './logger'
-
 export interface Assets {
   [key: string]: any
 }
@@ -33,6 +31,8 @@ class Project {
 
   public assets: Assets = {}
 
+  public entrypoints: Assets = {}
+
   public manifest: {[key: string]: any} = {}
 
   public modules: {[key: string]: any} = {}
@@ -42,8 +42,6 @@ class Project {
   public packageJson: {[key: string]: any} = {}
 
   public prettyPackageJson: string = null
-
-  public logger = logger
 
   public constructor(options: {
     name: string
@@ -60,28 +58,16 @@ class Project {
         : process.cwd(),
     }
     Object.assign(this, parsed)
-
-    this.log('name', this.name)
-    this.log('mode', this.mode)
-    this.log('dir', this.dir)
-    this.log('dist', this.distPath(''))
-    this.log('public', this.publicPath(''))
-    this.log('storage', this.storagePath(''))
-  }
-
-  @bind
-  public log(scope, ...args: string[]) {
-    this.logger.scope(this.name, scope).log(...args)
   }
 
   @bind
   public async setup(this: Project): Promise<void> {
-    this.log('setup', 'Setting up project')
-
+    await this.setPackageJson()
     await this.setWebpackConfig()
     await this.setManifest()
     await this.setAssets()
     await this.setModules()
+    await this.setEntrypoints()
   }
 
   @bind
@@ -109,12 +95,16 @@ class Project {
   }
 
   @bind
-  public async setManifest() {
-    this.log(
-      'setmanifest',
-      `Reading from ${this.distPath('manifest.json')}`,
+  public async setPackageJson() {
+    let packageJson: {[key: string]: string} = await readJson(
+      this.projectPath('package.json'),
     )
 
+    Object.assign(this, {packageJson})
+  }
+
+  @bind
+  public async setManifest() {
     let manifest: {[key: string]: string} = await readJson(
       this.distPath('manifest.json'),
     )
@@ -132,8 +122,6 @@ class Project {
         {},
       )
     }
-
-    this.logger.log(`manifest`, manifest)
 
     Object.assign(this, {manifest})
   }
@@ -160,14 +148,18 @@ class Project {
   }
 
   @bind
-  public async setWebpackConfig(): Promise<void> {
-    this.log(
-      'setWebpackConfig',
-      `Reading from ${this.storagePath(
-        `bud.webpack.config.js`,
-      )}`,
-    )
+  public async setEntrypoints(): Promise<void> {
+    try {
+      const entrypoints = await readJson(
+        this.distPath('entrypoints.json'),
+      )
 
+      Object.assign(this, {entrypoints})
+    } catch (e) {}
+  }
+
+  @bind
+  public async setWebpackConfig(): Promise<void> {
     const webpackConfig: Webpack.Configuration = (
       await import(this.storagePath(`bud.webpack.config.js`))
     ).default()
@@ -177,11 +169,6 @@ class Project {
 
   @bind
   public async setModules(): Promise<void> {
-    this.log(
-      'setModules',
-      `Reading from ${this.storagePath(`bud-modules.json`)}`,
-    )
-
     const modules = await readJson(
       this.storagePath(`bud-modules.json`),
     )
@@ -191,18 +178,9 @@ class Project {
 
   @bind
   public async yarn(...opts: string[]): Promise<void> {
-    this.log(`yarn`, `$ yarn ${opts.join(' ')}`)
-
     const res = execa('yarn', opts, {
       cwd: this.dir,
     })
-
-    res.stdout.on('data', chunk =>
-      this.logger.info(chunk.toString()),
-    )
-    res.stderr.on('data', chunk =>
-      this.logger.error(process.stderr),
-    )
 
     await res
 

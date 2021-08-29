@@ -1,16 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 1`] = `undefined`;
+exports[`examples/sage package.json is unchanged 1`] = `
+Object {
+  "browserslist": Array [
+    "extends @wordpress/browserslist-config",
+  ],
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/sage": "workspace:*",
+    "@types/eslint": "^7",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
+    "@wordpress/browserslist-config": "^4.1.0",
+    "eslint": ">=7",
+    "postcss": "8.3.6",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "6.7.0",
+    "react": ">=17",
+    "react-dom": ">=17",
+    "tailwindcss": "^2.2.8",
+  },
+  "name": "example-sage",
+  "private": true,
+}
+`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 2`] = `undefined`;
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 1`] = `"bud"`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 3`] = `undefined`;
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 2`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "scripts/app.js",
+      "styles/app.css",
+    ],
+  },
+  "customizer": Object {
+    "import": Array [
+      "scripts/customizer.js",
+    ],
+  },
+  "editor": Object {
+    "import": Array [
+      "scripts/editor.js",
+      "styles/editor.css",
+    ],
+  },
+}
+`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 4`] = `undefined`;
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 3`] = `"production"`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 5`] = `undefined`;
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 4`] = `
+Object {
+  "minimize": true,
+  "minimizer": Array [
+    "...",
+    Object {
+      "options": Object {
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+    Object {
+      "options": Object {
+        "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+      },
+    },
+  ],
+  "moduleIds": "deterministic",
+  "splitChunks": Object {
+    "cacheGroups": Object {
+      "vendor": Object {
+        "chunks": "all",
+        "filename": "vendor/[name].js",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
+      },
+    },
+    "defaultSizeTypes": Array [
+      "...",
+    ],
+  },
+}
+`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 6`] = `undefined`;
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 5`] = `true`;
+
+exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 6`] = `
+Object {
+  "type": "memory",
+}
+`;
+
+exports[`examples/sage snapshots module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "app": Any<Number>,
+    "customizer": Any<Number>,
+    "editor": Any<Number>,
+    "runtime": Any<Number>,
+  },
+  "bySource": Object {
+    "0 app": Any<Number>,
+    "0 customizer": Any<Number>,
+    "0 editor": Any<Number>,
+    "1 app": Any<Number>,
+    "1 customizer": Any<Number>,
+    "1 editor": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+    Any<Number>,
+    Any<Number>,
+    Any<Number>,
+  ],
+}
+`;
 
 exports[`examples/sage snapshots package.json is unchanged 1`] = `
 Object {
@@ -20,13 +139,32 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:*",
     "@roots/sage": "workspace:*",
-  },
-  "installConfig": Object {
-    "installConfig": Object {
-      "hoistingLimits": "workspaces",
-    },
+    "@types/eslint": "^7",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
+    "@wordpress/browserslist-config": "^4.1.0",
+    "eslint": ">=7",
+    "postcss": "8.3.6",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "6.7.0",
+    "react": ">=17",
+    "react-dom": ">=17",
+    "tailwindcss": "^2.2.8",
   },
   "name": "example-sage",
   "private": true,
 }
+`;
+
+exports[`examples/sage snapshots public/manifest.json matches expectations 1`] = `
+Array [
+  "app.css",
+  "app.js",
+  "editor.css",
+  "editor.js",
+  "customizer.js",
+  "runtime.js",
+  "assets/image.jpeg",
+  "images/image.jpeg",
+]
 `;

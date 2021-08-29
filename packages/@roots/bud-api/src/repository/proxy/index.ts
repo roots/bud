@@ -2,13 +2,17 @@ import {isBoolean, isUndefined} from 'lodash'
 
 import type {Repository} from '..'
 
-const proxy: Repository.Proxy = function (config) {
+const proxy: Repository.Proxy = function (config = undefined) {
+  if (!this.server) {
+    return
+  }
+
   /**
    * Case: no config passed
    * Response: enable proxy and bounce
    */
   if (isUndefined(config)) {
-    this.server.config.set('middleware.proxy', true)
+    this.server?.config?.set('middleware.proxy', true)
 
     return this
   }
@@ -17,8 +21,8 @@ const proxy: Repository.Proxy = function (config) {
    * Case: config.enabled isn't explicitly set
    * Response: enable proxy
    */
-  if (isUndefined(config.enabled)) {
-    this.server.config.set('middleware.proxy', true)
+  if (isUndefined(config?.enabled)) {
+    this.server?.config?.set('middleware.proxy', true)
   } else {
     /**
      * Case: config.enabled isn't boolean
@@ -36,10 +40,10 @@ const proxy: Repository.Proxy = function (config) {
      * Case: config.enabled is explicitly set and boolean
      * Use supplied boolean
      */
-    this.server.config.set('middleware.proxy', config.enabled)
+    this.server?.config?.set('middleware.proxy', config.enabled)
   }
 
-  this.server.config.merge('proxy', {
+  this.server?.config?.merge('proxy', {
     ...config,
     enabled: undefined,
   })

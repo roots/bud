@@ -50,7 +50,7 @@ declare module '@roots/bud-framework' {
 const esbuild: Module = {
   name: '@roots/bud-esbuild',
 
-  options: ({hooks, store}) => ({
+  options: ({store}) => ({
     target: store.get('patterns.js'),
     exclude: store.get('patterns.modules'),
   }),

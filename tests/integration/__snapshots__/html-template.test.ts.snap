@@ -1,3 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`examples/html-template index.html is the correct html 1`] = `"<!DOCTYPE html> <html lang=\\"en\\"> <head> <meta charset=\\"utf-8\\"/> <meta name=\\"viewport\\" content=\\"width=device-width,initial-scale=1\\"/> <meta name=\\"theme-color\\" content=\\"#000000\\"/> <meta name=\\"description\\" content=\\"html templating example\\"/> <title>Demo</title> <link rel=\\"icon\\" href=\\"favicon.ico\\"><script defer src=\\"app.js\\"></script></head> <body> <noscript>You need to enable JavaScript to run this app.</noscript> <div id=\\"root\\"></div> </body> </html> "`;
+
+exports[`examples/html-template package.json matches snapshot 1`] = `
+Object {
+  "browserslist": Object {
+    "development": Array [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+    ],
+    "production": Array [
+      ">0.5%",
+      "not dead",
+      "not op_mini all",
+    ],
+  },
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+  },
+  "name": "example-template",
+  "private": true,
+}
+`;

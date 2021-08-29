@@ -298,7 +298,30 @@ entry:
 "
 `;
 
-exports[`examples/sass package.json is unchanged 1`] = `Object {}`;
+exports[`examples/sass package.json is unchanged 1`] = `
+Object {
+  "browserslist": Object {
+    "development": Array [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+    ],
+    "production": Array [
+      ">0.5%",
+      "not dead",
+      "not op_mini all",
+    ],
+  },
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-sass": "workspace:*",
+    "@types/sass": "^1",
+    "sass": "1.38.1",
+  },
+  "name": "example-sass",
+  "private": true,
+}
+`;
 
 exports[`examples/sass scss is transpiled 1`] = `"body,html{margin:0;padding:0}body{background:blue}body div{border:#fff}"`;
 

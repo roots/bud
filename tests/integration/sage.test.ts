@@ -1,41 +1,43 @@
-import {readJson} from 'fs-extra'
 import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
 describe('examples/sage', () => {
   let project: Project
-  let entrypoints: any
 
   beforeAll(async () => {
     project = new Project({
       name: 'sage',
       dir: 'examples/sage',
+      dist: 'public',
       public: 'public',
+      storage: 'storage/bud',
     })
-
-    entrypoints = await readJson(
-      project.distPath('entrypoints.json'),
-    )
 
     await project.setup()
   })
 
-  describe('entrypoints.json', () => {
+  it('package.json is unchanged', async () => {
+    expect(project.packageJson).toMatchSnapshot()
+  })
+
+  describe('project.entrypoints.json', () => {
     it('has expected app entries', () => {
-      expect(entrypoints.app.js).toBeInstanceOf(Array)
-      expect(entrypoints.app.js).toHaveLength(2)
-      expect(entrypoints.app.css).toBeInstanceOf(Array)
-      expect(entrypoints.app.css).toHaveLength(1)
-      expect(entrypoints.app.dependencies).toEqual([])
+      expect(project.entrypoints.app.js).toBeInstanceOf(Array)
+      expect(project.entrypoints.app.js).toHaveLength(2)
+      expect(project.entrypoints.app.css).toBeInstanceOf(Array)
+      expect(project.entrypoints.app.css).toHaveLength(1)
+      expect(project.entrypoints.app.dependencies).toEqual([])
     })
 
     it('has expected editor entries', () => {
-      expect(entrypoints.editor.js).toBeInstanceOf(Array)
-      expect(entrypoints.editor.js).toHaveLength(2)
-      expect(entrypoints.editor.css).toBeInstanceOf(Array)
-      expect(entrypoints.editor.css).toHaveLength(1)
-      expect(entrypoints.editor.dependencies).toEqual([
+      expect(project.entrypoints.editor.js).toBeInstanceOf(Array)
+      expect(project.entrypoints.editor.js).toHaveLength(2)
+      expect(project.entrypoints.editor.css).toBeInstanceOf(
+        Array,
+      )
+      expect(project.entrypoints.editor.css).toHaveLength(1)
+      expect(project.entrypoints.editor.dependencies).toEqual([
         'wp-edit-post',
         'wp-dom-ready',
         'wp-blocks',
@@ -43,11 +45,13 @@ describe('examples/sage', () => {
     })
 
     it('has expected customizer entries', () => {
-      expect(entrypoints.customizer.js).toBeInstanceOf(Array)
-      expect(entrypoints.customizer.js).toHaveLength(2)
-      expect(entrypoints.customizer.dependencies).toEqual([
-        'jquery',
-      ])
+      expect(project.entrypoints.customizer.js).toBeInstanceOf(
+        Array,
+      )
+      expect(project.entrypoints.customizer.js).toHaveLength(2)
+      expect(
+        project.entrypoints.customizer.dependencies,
+      ).toEqual(['jquery'])
     })
   })
 

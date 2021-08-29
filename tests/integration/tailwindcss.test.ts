@@ -2,13 +2,13 @@ import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe('examples/react', () => {
+describe('examples/tailwindcss', () => {
   let project: Project
 
   beforeAll(async () => {
     project = new Project({
-      name: 'react',
-      dir: 'examples/react',
+      name: 'tailwindcss',
+      dir: 'examples/tailwindcss',
     })
 
     await project.setup()

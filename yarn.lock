@@ -3409,9 +3409,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-wordpress@workspace:packages/@roots/bud-preset-wordpress"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
@@ -10505,6 +10503,10 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    postcss: 8.3.6
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 

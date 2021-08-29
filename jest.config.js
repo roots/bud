@@ -33,6 +33,7 @@ module.exports = async function config() {
       '/docs/',
       '/dev/',
       '/site/',
+      '/tests/util',
     ],
     verbose: true,
   }
