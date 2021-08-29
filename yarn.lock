@@ -3101,7 +3101,7 @@ __metadata:
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
-    typedoc: 0.21.7
+    typedoc: 0.21.8
     typescript: 4.4.2
     url-loader: 4.1.1
   languageName: unknown
@@ -20721,14 +20721,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"shiki@npm:^0.9.3":
-  version: 0.9.5
-  resolution: "shiki@npm:0.9.5"
+"shiki@npm:^0.9.8":
+  version: 0.9.8
+  resolution: "shiki@npm:0.9.8"
   dependencies:
     json5: ^2.2.0
     onigasm: ^2.2.5
     vscode-textmate: 5.2.0
-  checksum: 4be871421ca5cd1d5d66d9edee4b33e9ef1c95ebabe5bb1851fb4b265cba8cc82881d1015b2da5ca258a6850880d0643f58bf7d7edb5168c68beb00dd7b20298
+  checksum: ffbce5e5e3449b453d7acb7bd728546e4b5ea87e5df4d2ec69dc95c6c5165166c101eb6db2851e5bb333b7194133936b18b440f8dd0d8859de7ef0abe1951131
   languageName: node
   linkType: hard
 
@@ -22678,9 +22678,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.21.7":
-  version: 0.21.7
-  resolution: "typedoc@npm:0.21.7"
+"typedoc@npm:0.21.8":
+  version: 0.21.8
+  resolution: "typedoc@npm:0.21.8"
   dependencies:
     glob: ^7.1.7
     handlebars: ^4.7.7
@@ -22688,13 +22688,13 @@ resolve@^2.0.0-next.3:
     marked: ^3.0.2
     minimatch: ^3.0.0
     progress: ^2.0.3
-    shiki: ^0.9.3
+    shiki: ^0.9.8
     typedoc-default-themes: ^0.12.10
   peerDependencies:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: 695efb85c588851db3238926fa739755a89003a761f1e50a15b13d33f7377e345882dd3bb659307296e90ca28f1827af4fb844f859d20cc7e14e7b4efe852f91
+  checksum: a78c012822fbd34ccbbe9cdb2464661aad0296a59ec70a6ae6ba8d34ed3a8cbe6409811889fe293afd813140d766d868a87ae1944950fb9972964647bfa54298
   languageName: node
   linkType: hard
 
