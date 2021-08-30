@@ -4,5 +4,16 @@
     "outDir": "./lib/esm",
     "module": "esnext",
     "target": "esnext"
-  }
+  },
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-api/tsconfig-esm.json"
+    },
+    {
+      "path": "./../critical-css-webpack-plugin/tsconfig-esm.json"
+    }
+  ]
 }
