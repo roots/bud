@@ -1,61 +1,165 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
     "module": "commonjs",
-    "moduleResolution": "node",
     "noEmit": true,
     "paths": {
       "@roots/bud/*": [
-        "./packages/@roots/bud/src/*"
+        "packages/@roots/bud/src/*"
       ],
       "@roots/bud-api/*": [
-        "./packages/@roots/bud-api/src/*"
+        "packages/@roots/bud-api/src/*"
       ],
       "@roots/bud-babel/*": [
-        "./packages/@roots/bud-babel/src/*"
+        "packages/@roots/bud-babel/src/*"
       ],
       "@roots/bud-build/*": [
-        "./packages/@roots/bud-build/src/*"
+        "packages/@roots/bud-build/src/*"
       ],
       "@roots/bud-cache/*": [
-        "./packages/@roots/bud-cache/src/*"
+        "packages/@roots/bud-cache/src/*"
       ],
       "@roots/bud-compiler/*": [
-        "./packages/@roots/bud-compiler/src/*"
+        "packages/@roots/bud-compiler/src/*"
       ],
       "@roots/bud-dashboard/*": [
-        "./packages/@roots/bud-dashboard/src/*"
+        "packages/@roots/bud-dashboard/src/*"
       ],
       "@roots/bud-emotion/*": [
-        "./packages/@roots/bud-emotion/src/*"
+        "packages/@roots/bud-emotion/src/*"
       ],
       "@roots/bud-entrypoints/*": [
-        "./packages/@roots/bud-entrypoints/src/*"
+        "packages/@roots/bud-entrypoints/src/*"
+      ],
+      "@roots/bud-esbuild/*": [
+        "packages/@roots/bud-esbuild/src/*"
+      ],
+      "@roots/bud-eslint/*": [
+        "packages/@roots/bud-eslint/src/*"
+      ],
+      "@roots/bud-extensions/*": [
+        "packages/@roots/bud-extensions/src/*"
+      ],
+      "@roots/bud-framework/*": [
+        "packages/@roots/bud-framework/src/*"
+      ],
+      "@roots/bud-hooks/*": [
+        "packages/@roots/bud-hooks/src/*"
+      ],
+      "@roots/bud-imagemin/*": [
+        "packages/@roots/bud-imagemin/src/*"
+      ],
+      "@roots/bud-library/*": [
+        "packages/@roots/bud-library/src/*"
+      ],
+      "@roots/bud-mdx/*": [
+        "packages/@roots/bud-mdx/src/*"
       ],
       "@roots/bud-postcss/*": [
-        "./packages/@roots/bud-postcss/src/*"
+        "packages/@roots/bud-postcss/src/*"
+      ],
+      "@roots/bud-preset-recommend/*": [
+        "packages/@roots/bud-preset-recommend/src/*"
+      ],
+      "@roots/bud-preset-wordpress/*": [
+        "packages/@roots/bud-preset-wordpress/src/*"
+      ],
+      "@roots/bud-prettier/*": [
+        "packages/@roots/bud-prettier/src/*"
       ],
       "@roots/bud-purgecss/*": [
-        "./packages/@roots/bud-purgecss/src/*"
+        "packages/@roots/bud-purgecss/src/*"
       ],
+      "@roots/bud-react/*": [
+        "packages/@roots/bud-react/src/*"
+      ],
+      "@roots/bud-sass/*": [
+        "packages/@roots/bud-sass/src/*"
+      ],
+      "@roots/bud-server/*": [
+        "packages/@roots/bud-server/src/*"
+      ],
+      "@roots/bud-solid/*": [
+        "packages/@roots/bud-solid/src/*"
+      ],
+      "@roots/bud-stylelint/*": [
+        "packages/@roots/bud-stylelint/src/*"
+      ],
+      "@roots/bud-support/*": [
+        "packages/@roots/bud-support/src/*"
+      ],
+      "@roots/bud-tailwindcss/*": [
+        "packages/@roots/bud-tailwindcss/src/*"
+      ],
+      "@roots/bud-terser/*": [
+        "packages/@roots/bud-terser/src/*"
+      ],
+      "@roots/bud-typescript/*": [
+        "packages/@roots/bud-typescript/src/*"
+      ],
+      "@roots/bud-vue/*": [
+        "packages/@roots/bud-vue/src/*"
+      ],
+      "@roots/bud-wordpress-externals/*": [
+        "packages/@roots/bud-wordpress-externals/src/*"
+      ],
+      "@roots/bud-wordpress-manifests/*": [
+        "packages/@roots/bud-wordpress-manifests/src/*"
+      ],
+      "@roots/container/*": [
+        "packages/@roots/container/src/*"
+      ],
+      "@roots/critical-css-webpack-plugin/*": [
+        "packages/@roots/critical-css-webpack-plugin/src/*"
+      ],
+      "@roots/dependencies/*": [
+        "packages/@roots/dependencies/src/*"
+      ],
+      "@roots/entrypoints-webpack-plugin/*": [
+        "packages/@roots/entrypoints-webpack-plugin/src/*"
+      ],
+      "@roots/filesystem/*": [
+        "packages/@roots/filesystem/src/*"
+      ],
+      "@roots/ink-prettier/*": [
+        "packages/@roots/ink-prettier/src/*"
+      ],
+      "@roots/ink-use-style/*": [
+        "packages/@roots/ink-use-style/src/*"
+      ],
+      "@roots/merged-manifest-webpack-plugin/*": [
+        "packages/@roots/merged-manifest-webpack-plugin/src/*"
+      ],
+      "@roots/sage/*": [
+        "packages/@roots/sage/src/*"
+      ],
+      "@roots/wordpress-dependencies-webpack-plugin/*": [
+        "packages/@roots/wordpress-dependencies-webpack-plugin/src/*"
+      ],
+      "@roots/wordpress-externals-webpack-plugin/*": [
+        "packages/@roots/wordpress-externals-webpack-plugin/src/*"
+      ]
     },
     "target": "es2020",
     "types": [
       "node",
-      "jest",
-      "@roots/bud-api",
+      "jest"
     ]
   },
   "files": [],
-  "include": [
-    "packages/@roots"
-  ],
-  "exclude": [
-    "node_modules",
-    "coverage"
-  ],
   "references": [
+    {
+      "path": "./packages/@roots/bud-preset-recommend/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud-preset-wordpress/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud-framework/tsconfig.json"
+    },
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"
     },
@@ -109,12 +213,6 @@
     },
     {
       "path": "./packages/@roots/bud-mdx/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-preset-recommend/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-preset-wordpress/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-prettier/tsconfig.json"
@@ -190,12 +288,6 @@
     },
     {
       "path": "./packages/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud/tsconfig.json"
-    },
+    }
   ]
 }

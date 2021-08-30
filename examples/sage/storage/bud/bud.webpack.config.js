@@ -109,7 +109,6 @@ module.exports = () => ({
                         '/Volumes/Samsung/Code/roots/bud/node_modules/postcss-import/index.js'
                       ],
                       [
-                        '/Volumes/Samsung/Code/roots/bud/node_modules/tailwindcss/lib/index.js',
                         '/Volumes/Samsung/Code/roots/bud/examples/sage/tailwind.config.js'
                       ],
                       [
@@ -277,7 +276,7 @@ module.exports = () => ({
         failOnError: true,
         context: '/Volumes/Samsung/Code/roots/bud/examples/sage/resources'
       },
-      startTime: 1630139668959
+      startTime: 1630262309726
     }
   ],
   recordsInputPath: '/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/bud-modules.json',

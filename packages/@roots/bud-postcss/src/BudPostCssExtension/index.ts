@@ -1,15 +1,17 @@
 import {Item, Loader} from '@roots/bud-build'
-import type {Module} from '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 import {pathExistsSync} from 'fs-extra'
 
 import {PostCssConfig} from '../PostCssConfig'
 
 interface BudPostCssExtension extends Module {
-  api: {
+  name: '@roots/bud-postcss'
+
+  api: Module['api'] & {
     postcss: PostCssConfig
   }
 
-  boot: Module.Boot
+  boot: Module['boot']
 }
 
 const BudPostCssExtension: BudPostCssExtension = {
@@ -19,7 +21,7 @@ const BudPostCssExtension: BudPostCssExtension = {
     postcss: new PostCssConfig(),
   },
 
-  boot({build, path, postcss}) {
+  boot: function ({build, path, postcss}) {
     build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )

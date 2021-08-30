@@ -13,7 +13,15 @@
     ]
   },
   "include": [
-    "src"
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./lib/**/*",
+    "./node_modules/**/*",
+    "./types/**/*"
+  ],
+  "files": [
+    "./index.d.ts",
   ],
   "references": [
     {

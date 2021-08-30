@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "./lib/esm",
     "module": "esnext",
-    "target": "esnext",
     "types": [
       "node",
       "jest",
@@ -13,11 +12,12 @@
     ]
   },
   "include": [
-    "src"
+    "./src/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "types",
+    "./lib/**/*",
+    "./node_modules/**/*",
+    "./types/**/*",
   ],
   "references": [
     {

@@ -10,7 +10,8 @@
       "jest"
     ]
   },
-  "include": [
-    "src"
-  ],
+  "exclude": [
+    "./types",
+    "./lib"
+  ]
 }

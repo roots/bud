@@ -19,7 +19,7 @@
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "references": [
     {

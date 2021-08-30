@@ -1,11 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
     "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2020"
   },
+  "files": [],
   "references": [
     {
       "path": "./packages/@roots/bud-api/tsconfig.json"

@@ -38,7 +38,8 @@
   },
   "files": [
     "lib/",
-    "types/"
+    "types/",
+    "index.d.ts"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

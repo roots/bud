@@ -11,8 +11,17 @@
  * @packageDocumentation
  */
 
-import {purge} from './bud.purge'
+import type {Module} from '@roots/bud-framework'
+import type {purge} from './src/bud.purge'
 
-export const name = '@roots/bud-purgecss'
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-purgecss': Module
+    }
+  }
 
-export const api = {purge}
+  interface Framework {
+    purge: purge
+  }
+}

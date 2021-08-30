@@ -10503,10 +10503,6 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-    postcss: 8.3.6
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 

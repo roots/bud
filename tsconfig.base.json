@@ -172,6 +172,6 @@
     },
     {
       "path": "./packages/@roots/bud-framework/tsconfig.json"
-    },
+    }
   ]
 }

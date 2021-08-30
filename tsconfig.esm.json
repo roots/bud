@@ -1,10 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
     "module": "esnext",
-    "moduleResolution": "node",
-    "target": "esnext",
   },
   "files": [],
   "references": [

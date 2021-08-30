@@ -1,16 +1,15 @@
 /**
- * ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @see https://roots.io/bud
  *
  * @remarks
- * Adds support for PostCSS.
+ * - 💁 Composable - Build boss web applications with a modular, hackable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
  * @packageDocumentation
  */
-
-import {Item, Loader} from '@roots/bud-build'
-
-import {BudPostCssExtension} from './BudPostCssExtension'
-import {PostCssConfig} from './PostCssConfig'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -35,7 +34,11 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, api, boot} = BudPostCssExtension
+import type {Item, Loader} from '@roots/bud-build'
 
+import {BudPostCssExtension} from './BudPostCssExtension'
+import {PostCssConfig} from './PostCssConfig'
+
+export const {name, api, boot} = BudPostCssExtension
 export {PostCssConfig}
-export {BudPostCssExtension}
+export type {BudPostCssExtension}
