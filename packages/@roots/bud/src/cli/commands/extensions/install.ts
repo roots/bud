@@ -1,7 +1,6 @@
-import {config, Framework} from '../../..'
+import {config} from '../../..'
 import Build from '../../Build'
 import {Command} from '../../Command'
-import {Runner} from '../../Runner'
 
 export default class Install extends Command {
   public static description =
@@ -11,19 +10,10 @@ export default class Install extends Command {
 
   public static examples = [`$ bud extensions:install`]
 
-  public cli: {flags: any; args: any}
-
-  public app: Framework
-
   public async run() {
     this.cli = this.parse(Build)
 
-    const runner = new Runner(this.cli, {
-      config,
-      mode: 'production',
-    })
-
-    this.app = runner.app
+    await this.appFactory(this.cli, config, false)
 
     this.app.project.peers.install()
 

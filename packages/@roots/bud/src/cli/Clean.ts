@@ -1,15 +1,10 @@
 import {flags} from '@oclif/command'
 import {remove} from 'fs-extra'
 
-import {config, Framework} from '..'
+import {config} from '../'
 import {Command} from './Command'
-import {Runner} from './Runner'
 
 export default class Clean extends Command {
-  public app: Framework
-
-  public cli: {flags: any; args: any}
-
   public static flags = {
     help: flags.help({char: 'h'}),
     cache: flags.boolean({
@@ -27,11 +22,7 @@ export default class Clean extends Command {
   public async run() {
     this.cli = this.parse(Clean)
 
-    const runner = new Runner(this.cli, {
-      config,
-    })
-
-    this.app = await runner.make(false)
+    this.appFactory(this.cli, config, false)
 
     this.app.logger.instance.scope('cli').timeEnd('pre clean')
 

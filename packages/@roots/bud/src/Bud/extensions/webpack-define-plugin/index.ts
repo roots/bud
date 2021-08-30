@@ -9,11 +9,12 @@ interface BudWebpackDefinePlugin
   extends WebpackPlugin<DefinePlugin, Options> {
   name: 'webpack-define-plugin' & WebpackPlugin['name']
   make: (options: Container<Options>) => DefinePlugin
+  when: (app: Framework, options: Container<Options>) => boolean
   options: (app: Framework) => Options
 }
 
 interface Options {
-  definitions: DefinePlugin['definitions']
+  [key: string]: string
 }
 
 export const name: BudWebpackDefinePlugin['name'] =

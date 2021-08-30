@@ -1,4 +1,5 @@
-import {extensions} from '@roots/bud'
+import {extensions, Framework} from '@roots/bud'
+import {Env} from '@roots/bud/src/Bud/services/Env'
 import {Container} from '@roots/container'
 
 describe('WebpackDefinePlugin', function () {
@@ -9,7 +10,9 @@ describe('WebpackDefinePlugin', function () {
   })
 
   it('processes options', () => {
-    const env = new Container({
+    const env = new Env(null as Framework)
+
+    env.setStore({
       APP_PUBLIC_FOO: 'bar',
     })
 
