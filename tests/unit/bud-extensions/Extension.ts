@@ -1,5 +1,5 @@
-import {factory, Framework} from '@roots/bud'
-import {Extension, Module} from '@roots/bud-extensions'
+import {factory, Framework, Module} from '@roots/bud'
+import {Extension} from '@roots/bud-extensions'
 import {WebpackPluginInstance} from 'webpack/types'
 
 describe('@roots/bud-extensions extension', function () {

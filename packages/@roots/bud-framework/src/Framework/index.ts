@@ -649,7 +649,7 @@ namespace Framework {
    * Registered extensions
    */
   export interface Extensions
-    extends Index<Module | WebpackPlugin> {}
+    extends Partial<Index<Module | WebpackPlugin>> {}
 
   /**
    * Framework Constructor

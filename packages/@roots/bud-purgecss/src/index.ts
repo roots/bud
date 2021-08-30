@@ -1,5 +1,5 @@
 /**
- * Add TailwindCss to Bud projects
+ * Add PurgeCSS to Bud projects
  *
  * @remarks
  * 💁 Composable - Build boss web applications with a modular, hackable build system
@@ -11,8 +11,21 @@
  * @packageDocumentation
  */
 
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-purgecss': Module
+    }
+  }
+
+  interface Framework {
+    purge: purge
+  }
+}
+
+import type {Module} from '@roots/bud-framework'
+
 import {purge} from './bud.purge'
 
 export const name = '@roots/bud-purgecss'
-
 export const api = {purge}

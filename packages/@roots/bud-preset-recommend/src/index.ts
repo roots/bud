@@ -8,15 +8,6 @@
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @example
- * ```js
- * const wp = require('@roots/bud-preset-wordpress')
- *
- * module.exports = (app: Framework) => {
- *   app.use(wp)
- * }
- * ```
- *
  * @packageDocumentation
  */
 
@@ -33,6 +24,20 @@ import * as entrypoints from '@roots/bud-entrypoints'
 import type {Module} from '@roots/bud-framework'
 import * as BudPostCssExtension from '@roots/bud-postcss'
 
+/**
+ * Recommended preset configuration for Bud.
+ *
+ * @remarks
+ * This preset is a wrapper for the following presets:
+ * - `@roots/bud-preset-recommend`
+ * - `@roots/bud-react`
+ * - `@roots/bud-wordpress-dependencies`
+ * - `@roots/bud-wordpress-externals`
+ * - `@roots/bud-wordpress-manifests`
+ *
+ * @prop {Module['name']} name - The preset name
+ * @prop {Module['register']} register - The preset register function
+ */
 interface BudPresetRecommended extends Module {}
 
 const BudPresetRecommended: BudPresetRecommended = {

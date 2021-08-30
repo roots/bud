@@ -12,9 +12,6 @@ class Peers {
   public constructor(project: Project) {
     this.project = project
 
-    /**
-     * Find out about all the buddy things
-     */
     this.discover('dependencies').discover('devDependencies')
   }
 

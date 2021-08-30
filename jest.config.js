@@ -1,41 +1,35 @@
 const {globby} = require('@roots/bud-support')
-const {pathsToModuleNameMapper} = require('ts-jest/utils')
-const {compilerOptions} = require('./tsconfig.jest')
 
 module.exports = async function config() {
+  // eslint-disable
+  // @ts-ignore
+  const moduleNameMapper = await mapModuleNames()
+
   return {
     displayName: {
       name: 'unit',
       color: 'blue',
     },
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
-    maxWorkers: '50%',
     preset: 'ts-jest',
-    // globalSetup: '<rootDir>/jest.setup.js',
-    // globalTeardown: '<rootDir>/jest.teardown.js',
+    globalSetup: '<rootDir>/dev/jest/jest.setup.js',
+    globalTeardown: '<rootDir>/dev/jest/jest.teardown.js',
     testEnvironment: 'node',
     collectCoverageFrom: [
-      '<rootDir>/packages/@roots/**/*.ts',
-      '<rootDir>/packages/@roots/**/*.tsx',
-    ],
-    coveragePathIgnorePatterns: [
-      '@roots/bud-support',
-      'node_modules',
-      'types',
-      'lib',
+      'packages/@roots/**/lib/cjs/**/*',
+      '!packages/@roots/bud-support/**/*',
+      '!packages/@roots/filesystem/**/*',
     ],
     coverageReporters: ['lcov', 'text', 'html'],
     globals: {
       'ts-jest': {
-        tsconfig: `<rootDir>/tsconfig.json`,
+        tsconfig: './tsconfig.jest.json',
         compiler: 'typescript',
       },
     },
-    moduleNameMapper: pathsToModuleNameMapper(
-      compilerOptions.paths,
-      {prefix: '<rootDir>/'},
-    ),
+    moduleNameMapper,
     testMatch: [
+      `<rootDir>/packages/@roots/*/src/__tests__/**/*.ts`,
       `<rootDir>/tests/unit/**/*.ts`,
       `<rootDir>/tests/integration/**/*.ts`,
     ],
@@ -45,12 +39,11 @@ module.exports = async function config() {
       '/docs/',
       '/dev/',
       '/site/',
-      '/tests/util',
+      '/tests/util/',
     ],
     verbose: true,
   }
 }
-
 /**
  * Map module names to their respective paths.
  *

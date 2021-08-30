@@ -23,6 +23,7 @@ Object {
 exports[`bud.project contains a repository 1`] = `
 Object {
   "dependencies": Object {
+    "sass": "^1.38.2",
     "tslib": "^2.3.1",
   },
   "description": Any<String>,
