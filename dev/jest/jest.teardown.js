@@ -7,6 +7,4 @@ module.exports = async () => {
     console.log(`Restoring ${k}`)
     writeFileSync(k, v.pop(), 'utf8')
   })
-
-  execa.commandSync(`yarn`)
 }
