@@ -23,6 +23,9 @@
     },
     {
       "path": "./../bud-api/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-build/tsconfig.json"
     }
   ]
 }

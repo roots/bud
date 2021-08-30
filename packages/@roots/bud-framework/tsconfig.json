@@ -13,13 +13,11 @@
     ]
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
+    "src"
   ],
   "exclude": [
-    "./lib/**/*",
-    "./node_modules/**/*",
-    "./types/**/*",
+    "lib",
+    "types"
   ],
   "references": [
     {
