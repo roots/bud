@@ -8,10 +8,13 @@ export class MakeCommand extends Command {
 
   async execute() {
     await this.$(`yarn install --immutable`)
-    await this.$(`yarn kjo build --verbose`)
+
+    await this.$(`yarn kjo build`)
+
     await this.$(`yarn kjo lint --eslint --skypack`)
+
     await this.$(`yarn kjo test --unit`)
+
     await this.$(`yarn kjo test --integration`)
-    await this.$(`yarn`)
   }
 }

@@ -7,12 +7,26 @@ export class TestCommand extends Command {
   public all = Option.Boolean(`-a,--all`, false)
   public workers = Option.String(`-w,--workers`, '50%')
   public update = Option.Boolean(`--update`, false)
+  public unit = Option.Boolean(`-u,--unit`, false)
+  public integration = Option.Boolean(`-i,--integration`, false)
 
   async execute() {
-    await this.$(
-      `yarn jest --maxWorkers=${this.workers} ${
-        this.update ? `--updateSnapshot` : `--coverage`
-      }`,
-    )
+    if (!this.unit && !this.integration) this.all = true
+
+    if (this.all || this.unit) {
+      await this.$(
+        `yarn jest unit --maxWorkers=${this.workers} ${
+          this.update ? `--updateSnapshot` : `--coverage`
+        }`,
+      )
+    }
+
+    if (this.all || this.integration) {
+      await this.$(
+        `yarn jest integration --maxWorkers=${this.workers} ${
+          this.update ? `--updateSnapshot` : `--coverage`
+        }`,
+      )
+    }
   }
 }

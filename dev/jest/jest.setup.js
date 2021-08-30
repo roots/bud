@@ -4,6 +4,9 @@ const execa = require('execa')
 const {readJsonSync, readFileSync} = require('fs-extra')
 const {dirname} = require('path')
 
+/**
+ * Setup integration tests
+ */
 module.exports = async function () {
   packages = globby
     .globbySync('examples/**/package.json')
@@ -24,7 +27,8 @@ module.exports = async function () {
       console.log(packages, k)
       return
     }
-    console.log(`installing ${v.name}`)
+
+    console.log(`${v.name}\n------------`)
 
     const pregame = execa.commandSync(
       `yarn bud extensions:install`,
@@ -32,16 +36,17 @@ module.exports = async function () {
     )
     pregame.stdout && console.log(pregame.stdout)
 
-    console.log(`building ${v.name}`)
-
     const idontEvenLikeFootball = execa.commandSync(
       `yarn bud build`,
       {cwd: dirname(k)},
     )
     idontEvenLikeFootball.stdout &&
       console.log(idontEvenLikeFootball.stdout)
+
+    console.log(`\n`)
   })
 
   global.packages = packages
+
   return global
 }
