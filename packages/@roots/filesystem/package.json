@@ -73,7 +73,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/node": "16.3.0",
-    "jest": "^27.0.6"
+    "jest": "^27.1.0"
   },
   "stableVersion": "4.6.0"
 }

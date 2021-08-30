@@ -62,7 +62,7 @@
     "@types/jest": "^27.0.1",
     "@types/lodash": "4.14.172",
     "@types/node": "16.3.0",
-    "jest": "^27.0.6"
+    "jest": "^27.1.0"
   },
   "dependencies": {
     "@roots/bud-compiler": "workspace:packages/@roots/bud-compiler",
