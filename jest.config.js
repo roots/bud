@@ -1,15 +1,40 @@
+const mapModuleNames = require('./dev/jest/moduleNameMapper')
+
 /**
- * Jest config
- * @see https://jestjs.io/docs/en/configuration.html
+ * Jest configuration
  */
 module.exports = async function config() {
+  const moduleNameMapper = await mapModuleNames()
+
   return {
-    /**
-     * @see https://jestjs.io/docs/configuration#projects-arraystring--projectconfig
-     */
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    collectCoverageFrom: [
+      'packages/@roots/*/lib/cjs/**/*',
+      '!packages/@roots/bud-support/**/*',
+      '!packages/@roots/filesystem/**/*',
+    ],
+    coverageReporters: ['lcov', 'text', 'html'],
+    globals: {
+      'ts-jest': {
+        tsconfig: '<rootDir>/tsconfig.jest.json',
+        compiler: 'typescript',
+      },
+    },
+    moduleNameMapper,
     projects: [
       '<rootDir>/jest.unit.js',
       '<rootDir>/jest.integration.js',
     ],
+    testPathIgnorePatterns: [
+      '/node_modules/',
+      '/examples/',
+      '/docs/',
+      '/dev/',
+      '/site/',
+      '/tests/util/',
+    ],
+    verbose: true,
   }
 }
