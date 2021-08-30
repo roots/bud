@@ -1,9 +1,24 @@
 import {Service} from './Service'
 
+/**
+ * A Bud related peer dependency
+ */
 interface Buddy {
+  /**
+   * The module/extension which uses this peer
+   */
   source: string
+  /**
+   * The peer module name
+   */
   name: string
+  /**
+   * The peer module version
+   */
   ver: string
+  /**
+   * The peer module type
+   */
   type: 'dependencies' | 'devDependencies'
 }
 
@@ -27,7 +42,13 @@ interface Repository {
   }
 }
 
+/**
+ * Peer dependencies
+ */
 interface Peers {
+  /**
+   * Project instance.
+   */
   project: Project
 
   /**

@@ -1,6 +1,7 @@
 import {Container} from '@roots/container'
 
-/**
- * @noInherit
- */
-export interface Env extends Container {}
+import {Framework} from './Framework'
+
+export interface Env extends Container {
+  getPublicEnv(): Framework.Index<any>
+}

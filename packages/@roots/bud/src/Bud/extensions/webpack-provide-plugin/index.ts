@@ -1,13 +1,13 @@
 import type {Framework, Module} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
 
-interface extension
+interface BudWebpackProvidePlugin
   extends Module<
     Plugin,
     Framework.Index<Framework.Index<any>>
   > {}
 
-const extension = {
+const BudWebpackProvidePlugin: BudWebpackProvidePlugin = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>
@@ -19,4 +19,5 @@ const extension = {
     options && options.getEntries().length > 0,
 }
 
-export const {name, options, make, when} = extension
+export const {name, options, make, when} =
+  BudWebpackProvidePlugin
