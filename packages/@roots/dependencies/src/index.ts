@@ -5,6 +5,7 @@ export {Yarn} from './yarn'
 export {Dependencies} from './dependencies'
 
 export interface IDependencyManager {
+  path: string
   install(
     dev: boolean,
     dependency: string,

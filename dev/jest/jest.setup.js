@@ -34,6 +34,7 @@ module.exports = async function () {
       `yarn bud extensions:install`,
       {cwd: dirname(k)},
     )
+
     pregame.stdout && console.log(pregame.stdout)
 
     const idontEvenLikeFootball = execa.commandSync(

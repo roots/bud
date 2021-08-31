@@ -3220,7 +3220,6 @@ __metadata:
     tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
-    "@roots/bud": "*"
     eslint: ">=7"
   languageName: unknown
   linkType: soft
@@ -3880,7 +3879,7 @@ __metadata:
     tslib: ^2.3.1
     webpack: 5.51.1
   peerDependencies:
-    webpack: ^5.49.0
+    webpack: ">=5"
   languageName: unknown
   linkType: soft
 

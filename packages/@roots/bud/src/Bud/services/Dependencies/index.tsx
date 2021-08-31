@@ -26,16 +26,21 @@ class Dependencies extends Service<null> {
   }
 
   @bind
-  public shouldInstall(dep: string): boolean {
+  public overrideInstallTarget(
+    dep: string,
+    proposed: string,
+  ): boolean {
     const pkgJson = this.readProjectJson()
+    const checkAgainst =
+      proposed == 'dependencies'
+        ? 'devDependencies'
+        : 'dependencies'
 
-    return (
-      !pkgJson ||
-      !Object.keys({
-        ...(pkgJson['dependencies'] ?? {}),
-        ...(pkgJson['devDependencies'] ?? {}),
-      })?.includes(dep)
-    )
+    if (Object.keys(pkgJson[checkAgainst] ?? {}).includes(dep)) {
+      return true
+    }
+
+    return false
   }
 
   @bind
@@ -52,43 +57,39 @@ class Dependencies extends Service<null> {
       `Installing`,
     )
 
-    const skipped = deps.filter(
-      dep => !this.shouldInstall(dep.name),
-    )
-
     /**
      * Filter out ineligible packages
      */
-    const installed = deps
-      .filter(dep => this.shouldInstall(dep.name))
-      .map(dep => {
-        this.app.dashboard.render(
-          <>
-            <Ink.Box marginBottom={1} flexDirection="column">
-              <Ink.Text
-                backgroundColor={this.app.store.get(
-                  'theme.colors.primary',
-                )}
-                color={this.app.store.get(
-                  'theme.colors.foreground',
-                )}>
-                Installing
-              </Ink.Text>
-            </Ink.Box>
-            <Ink.Box marginBottom={1} flexDirection="column">
-              <Ink.Text
-                key={`${dep.name}-${dep.ver}`}>{`Installing ${dep.name}@${dep.ver}`}</Ink.Text>
-            </Ink.Box>
-          </>,
-        )
+    const installed = deps.map(dep => {
+      this.app.dashboard.render(
+        <>
+          <Ink.Box marginBottom={1} flexDirection="column">
+            <Ink.Text
+              backgroundColor={this.app.store.get(
+                'theme.colors.primary',
+              )}
+              color={this.app.store.get(
+                'theme.colors.foreground',
+              )}>
+              Installing
+            </Ink.Text>
+          </Ink.Box>
 
-        this.manager.client.install(
-          isEqual(dep.type, 'devDependencies'),
-          `${dep.name}@${dep.ver}`,
-        )
+          <Ink.Box marginBottom={1} flexDirection="column">
+            <Ink.Text
+              key={`${dep.name}-${dep.ver}`}>{`Installing ${dep.name}@${dep.ver}`}</Ink.Text>
+          </Ink.Box>
+        </>,
+      )
 
-        return dep
-      })
+      this.manager.client.install(
+        isEqual(dep.type, 'devDependencies') &&
+          !this.overrideInstallTarget(dep.name, dep.type),
+        `${dep.name}@${dep.ver}`,
+      )
+
+      return dep
+    })
 
     this.app.dashboard.render(
       <Ink.Box flexDirection="column">
@@ -109,15 +110,6 @@ class Dependencies extends Service<null> {
             {installed.map(dep => (
               <Ink.Text
                 key={`${dep.name}-${dep.ver}`}>{`✓ ${dep.name}@${dep.ver}`}</Ink.Text>
-            ))}
-          </Ink.Box>
-        )}
-
-        {skipped.length > 0 && (
-          <Ink.Box marginBottom={1} flexDirection="column">
-            {skipped.map(dep => (
-              <Ink.Text
-                key={`${dep.name}-${dep.ver}`}>{`✓ ${dep.name}@${dep.ver} already installed`}</Ink.Text>
             ))}
           </Ink.Box>
         )}

@@ -1,7 +1,6 @@
-import {boundMethod as bind} from 'autobind-decorator'
+/* eslint-disable no-console */
 import execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
-import {posix} from 'path'
 import Webpack from 'webpack'
 
 export interface Assets {
@@ -14,6 +13,10 @@ export interface Entrypoints {
     css?: string[]
     dependencies?: string[]
   }
+}
+
+export interface SomeJson {
+  [key: string]: any
 }
 
 class Project {
@@ -33,15 +36,13 @@ class Project {
 
   public entrypoints: Assets = {}
 
-  public manifest: {[key: string]: any} = {}
+  public manifest: SomeJson = {}
 
-  public modules: {[key: string]: any} = {}
+  public modules: SomeJson = {}
 
-  public webpackConfig: {[key: string]: any} = {}
+  public webpackConfig: SomeJson = {}
 
-  public packageJson: {[key: string]: any} = {}
-
-  public prettyPackageJson: string = null
+  public packageJson: SomeJson = {}
 
   public constructor(options: {
     name: string
@@ -51,90 +52,76 @@ class Project {
     public?: string
     storage?: string
   }) {
-    const parsed = {
+    Object.assign(this, {
       ...options,
       dir: options.dir
         ? process.cwd().concat(`/${options.dir}`)
         : process.cwd(),
-    }
-    Object.assign(this, parsed)
+    })
+
+    this.setup = this.setup.bind(this)
+    this.projectPath = this.projectPath.bind(this)
+    this.publicPath = this.publicPath.bind(this)
+    this.setPackageJson = this.setPackageJson.bind(this)
+    this.setManifest = this.setManifest.bind(this)
+    this.setAssets = this.setAssets.bind(this)
+    this.setEntrypoints = this.setEntrypoints.bind(this)
+    this.setWebpackConfig = this.setWebpackConfig.bind(this)
+    this.setModules = this.setModules.bind(this)
+    this.yarn = this.yarn.bind(this)
   }
 
-  @bind
   public async setup(this: Project): Promise<void> {
     await this.setPackageJson()
-    await this.setWebpackConfig()
     await this.setManifest()
     await this.setAssets()
     await this.setModules()
     await this.setEntrypoints()
+    await this.setWebpackConfig()
   }
 
-  @bind
   public projectPath(file: string): string {
-    return posix.normalize(`${this.dir}/${file}`)
+    return `${this.dir}/${file}`
   }
 
-  @bind
-  public distPath(file: string) {
-    return posix.normalize(
-      this.projectPath(`${this.dist}/${file}`),
-    )
-  }
-
-  @bind
-  public storagePath(file: string) {
-    return posix.normalize(
-      this.projectPath(`${this.storage}/${file}`),
-    )
-  }
-
-  @bind
   public publicPath(file: string) {
-    return posix.normalize(`${this.public}/${file}`)
+    return `${this.public}/${file}`
   }
 
-  @bind
   public async setPackageJson() {
-    let packageJson: {[key: string]: string} = await readJson(
+    let packageJson: SomeJson = await readJson(
       this.projectPath('package.json'),
     )
 
     Object.assign(this, {packageJson})
   }
 
-  @bind
   public async setManifest() {
-    let manifest: {[key: string]: string} = await readJson(
-      this.distPath('manifest.json'),
+    let manifest: SomeJson = await readJson(
+      this.projectPath(`${this.dist}/manifest.json`),
     )
 
     /**
      * If publicPath is configured, we need to remove from
      * entries or they won't resolve
      */
-    if (this.public !== '') {
-      manifest = Object.entries(manifest).reduce(
-        (a, [k, v]): Assets => ({
-          ...a,
-          [k]: v.replace(this.public, ''),
-        }),
-        {},
-      )
-    }
+    manifest = Object.entries(manifest).reduce(
+      (a, [k, v]): Assets => ({
+        ...a,
+        [k]: v.replace(this.public, ''),
+      }),
+      {},
+    )
 
     Object.assign(this, {manifest})
   }
 
-  @bind
   public async setAssets(): Promise<void> {
-    if (!this.manifest) return
-
     const assets = await Object.entries(this.manifest).reduce(
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
         const buffer = await readFile(
-          this.distPath(path),
+          this.projectPath(`${this.dist}/${path}`),
           'utf8',
         )
 
@@ -149,40 +136,40 @@ class Project {
     Object.assign(this, {assets})
   }
 
-  @bind
   public async setEntrypoints(): Promise<void> {
     try {
       const entrypoints = await readJson(
-        this.distPath('entrypoints.json'),
+        this.projectPath(`${this.dist}/entrypoints.json`),
       )
 
       Object.assign(this, {entrypoints})
     } catch (e) {}
   }
 
-  @bind
   public async setWebpackConfig(): Promise<void> {
     try {
       const webpackConfig: Webpack.Configuration = (
-        await import(this.storagePath(`bud.webpack.config.js`))
+        await import(
+          this.projectPath(
+            `${this.storage}/bud.webpack.config.js`,
+          )
+        )
       ).default()
 
       Object.assign(this, {webpackConfig})
-    } catch (er) {}
+    } catch (e) {}
   }
 
-  @bind
   public async setModules(): Promise<void> {
     try {
       const modules = await readJson(
-        this.storagePath(`bud-modules.json`),
+        this.projectPath(`${this.storage}/bud-modules.json`),
       )
 
       Object.assign(this, {modules})
     } catch (e) {}
   }
 
-  @bind
   public async yarn(...opts: string[]): Promise<void> {
     const res = execa('yarn', opts, {
       cwd: this.dir,

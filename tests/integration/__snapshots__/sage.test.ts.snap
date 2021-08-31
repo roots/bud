@@ -1,33 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/sage package.json is unchanged 1`] = `
-Object {
-  "browserslist": Array [
-    "extends @wordpress/browserslist-config",
-  ],
-  "devDependencies": Object {
-    "@roots/bud": "workspace:*",
-    "@roots/sage": "workspace:*",
-    "@types/eslint": "^7",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "@wordpress/browserslist-config": "^4.1.0",
-    "eslint": ">=7",
-    "postcss": "8.3.6",
-    "postcss-import": "14.0.2",
-    "postcss-preset-env": "6.7.0",
-    "react": ">=17",
-    "react-dom": ">=17",
-    "tailwindcss": "^2.2.8",
-  },
-  "name": "example-sage",
-  "private": true,
-}
-`;
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 1`] = `"bud"`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 1`] = `"bud"`;
-
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 2`] = `
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 2`] = `
 Object {
   "app": Object {
     "import": Array [
@@ -49,9 +24,9 @@ Object {
 }
 `;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 3`] = `"production"`;
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 3`] = `"production"`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 4`] = `
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 4`] = `
 Object {
   "minimize": true,
   "minimizer": Array [
@@ -98,15 +73,15 @@ Object {
 }
 `;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 5`] = `true`;
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 5`] = `true`;
 
-exports[`examples/sage snapshots .budfiles/bud.webpack.config.js 6`] = `
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 6`] = `
 Object {
   "type": "memory",
 }
 `;
 
-exports[`examples/sage snapshots module map matches snapshot 1`] = `
+exports[`examples/sage [snapshots] module map matches snapshot 1`] = `
 Object {
   "byName": Object {
     "app": Any<Number>,
@@ -131,7 +106,7 @@ Object {
 }
 `;
 
-exports[`examples/sage snapshots package.json is unchanged 1`] = `
+exports[`examples/sage [snapshots] package.json is unchanged 1`] = `
 Object {
   "browserslist": Array [
     "extends @wordpress/browserslist-config",
@@ -156,7 +131,7 @@ Object {
 }
 `;
 
-exports[`examples/sage snapshots public/manifest.json matches expectations 1`] = `
+exports[`examples/sage [snapshots] public/manifest.json matches expectations 1`] = `
 Array [
   "app.css",
   "app.js",
@@ -167,4 +142,29 @@ Array [
   "assets/image.jpeg",
   "images/image.jpeg",
 ]
+`;
+
+exports[`examples/sage package.json is unchanged 1`] = `
+Object {
+  "browserslist": Array [
+    "extends @wordpress/browserslist-config",
+  ],
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/sage": "workspace:*",
+    "@types/eslint": "^7",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
+    "@wordpress/browserslist-config": "^4.1.0",
+    "eslint": ">=7",
+    "postcss": "8.3.6",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "6.7.0",
+    "react": ">=17",
+    "react-dom": ">=17",
+    "tailwindcss": "^2.2.8",
+  },
+  "name": "example-sage",
+  "private": true,
+}
 `;

@@ -24,7 +24,7 @@ export interface Dependencies extends Service {
    * Returns a boolean indicating whether `dep` is
    * required to be installed.
    */
-  shouldInstall(
+  overrideInstallTarget(
     dep: string,
     type: 'dependencies' | 'devDependencies',
   ): boolean

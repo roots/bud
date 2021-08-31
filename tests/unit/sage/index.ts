@@ -39,11 +39,6 @@ describe('@roots/sage', () => {
 
   it(`sage required peers matches snapshot`, () => {
     expect(bud.project.get('peers')).toMatchSnapshot({
-      '@roots/bud': {
-        name: '@roots/bud',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
       '@wordpress/browserslist-config': {
         name: '@wordpress/browserslist-config',
         type: 'devDependencies',

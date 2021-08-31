@@ -84,7 +84,6 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
     "eslint": ">=7"
   },
   "stableVersion": "4.6.0"
