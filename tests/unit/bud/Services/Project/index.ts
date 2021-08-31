@@ -47,26 +47,10 @@ describe('bud.project', function () {
     })
   })
 
-  it('contains project level devDependencies', () => {
-    expect(bud.project.get('devDependencies')).toEqual(
-      json.devDependencies,
-    )
-  })
-
-  it('contains project level devDependencies', () => {
-    expect(bud.project.get('dependencies')).toEqual(
-      json.dependencies,
-    )
-  })
-
   it('has hasPeerDependency function', () => {
     expect(bud.project.hasPeerDependency).toBeInstanceOf(
       Function,
     )
-  })
-
-  it('has discover function', () => {
-    expect(bud.project.peers.discover).toBeInstanceOf(Function)
   })
 
   it('discover method gathers dep data', () => {

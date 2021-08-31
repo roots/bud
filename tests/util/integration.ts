@@ -128,6 +128,8 @@ class Project {
 
   @bind
   public async setAssets(): Promise<void> {
+    if (!this.manifest) return
+
     const assets = await Object.entries(this.manifest).reduce(
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
@@ -160,20 +162,24 @@ class Project {
 
   @bind
   public async setWebpackConfig(): Promise<void> {
-    const webpackConfig: Webpack.Configuration = (
-      await import(this.storagePath(`bud.webpack.config.js`))
-    ).default()
+    try {
+      const webpackConfig: Webpack.Configuration = (
+        await import(this.storagePath(`bud.webpack.config.js`))
+      ).default()
 
-    Object.assign(this, {webpackConfig})
+      Object.assign(this, {webpackConfig})
+    } catch (er) {}
   }
 
   @bind
   public async setModules(): Promise<void> {
-    const modules = await readJson(
-      this.storagePath(`bud-modules.json`),
-    )
+    try {
+      const modules = await readJson(
+        this.storagePath(`bud-modules.json`),
+      )
 
-    Object.assign(this, {modules})
+      Object.assign(this, {modules})
+    } catch (e) {}
   }
 
   @bind

@@ -30,7 +30,7 @@ describe('bud.project', function () {
   })
 
   it('readProjectJson', () => {
-    expect(dependencies.readProjectJson()).toMatchSnapshot()
+    expect(dependencies.readProjectJson().name).toMatchSnapshot()
   })
 
   it('has a shouldInstall method', () => {
