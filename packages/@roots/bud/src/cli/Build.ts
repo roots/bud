@@ -1,11 +1,17 @@
 import {flags} from '@oclif/command'
 
+import {Framework} from '..'
 import {Command} from './Command'
+import {Runner} from './Runner'
 
 export default class Build extends Command {
   public static description = 'Build application'
 
   public mode: 'development' | 'production'
+
+  public cli: {flags: any; args: any}
+
+  public app: Framework
 
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -55,18 +61,16 @@ export default class Build extends Command {
     }),
   }
 
-  public makeApp() {
-    this.appFactory(this.cli)
-  }
-
-  public runApp() {
-    this.app.hooks.on('done', [this.notifier.notify])
-    this.app.run()
-  }
-
   public async run() {
     this.cli = this.parse(Build)
-    this.makeApp()
-    this.runApp()
+
+    const runner = new Runner(this.cli, {
+      mode: this.mode,
+    })
+
+    this.app = await runner.make()
+
+    this.app.hooks.on('done', [this.notifier.notify])
+    this.app.run()
   }
 }

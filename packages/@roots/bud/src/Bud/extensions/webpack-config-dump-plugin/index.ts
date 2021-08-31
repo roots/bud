@@ -1,4 +1,8 @@
-import type {WebpackPlugin} from '@roots/bud-framework'
+import type {
+  Framework,
+  WebpackPlugin,
+} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 
 interface Options {
@@ -14,14 +18,14 @@ interface extension
   extends WebpackPlugin<WebpackConfigDumpPlugin, Options> {}
 
 const extension = {
-  name: `webpack-config-dump-plugin`,
+  name: 'webpack-config-dump-plugin',
 
-  make: options =>
-    new WebpackConfigDumpPlugin({...options.all()}),
+  make: (options: Container<Options>) =>
+    new WebpackConfigDumpPlugin(options.all()),
 
   when: ({store}) => store.isTrue('debug'),
 
-  options: app => ({
+  options: (app: Framework) => ({
     ...(app.store.get('extension.webpackConfigDumpPlugin') ??
       {}),
     outputPath: app.path('storage'),

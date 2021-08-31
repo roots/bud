@@ -4457,7 +4457,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7.2.14":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7, @types/eslint@npm:^7.2.14":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
   dependencies:
@@ -4826,7 +4826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.9":
+"@types/react-dom@npm:17.0.9, @types/react-dom@npm:^17":
   version: 17.0.9
   resolution: "@types/react-dom@npm:17.0.9"
   dependencies:
@@ -5475,7 +5475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/browserslist-config@npm:4.1.0":
+"@wordpress/browserslist-config@npm:4.1.0, @wordpress/browserslist-config@npm:^4.1.0":
   version: 4.1.0
   resolution: "@wordpress/browserslist-config@npm:4.1.0"
   checksum: 9c1b15c0be844fd1c09cb262c149ffa2758c70200b01777cbdc4aad4f5d95315d5bba229c11ecc72671f5780972cf23af0e396fd32e35b23266bc4d6f212fe31
@@ -10309,7 +10309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.32.0":
+"eslint@npm:7.32.0, eslint@npm:>=7":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -10610,6 +10610,17 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
+    "@types/eslint": ^7
+    "@types/react": ^17
+    "@types/react-dom": ^17
+    "@wordpress/browserslist-config": ^4.1.0
+    eslint: ">=7"
+    postcss: 8.3.6
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    react: ">=17"
+    react-dom: ">=17"
+    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 

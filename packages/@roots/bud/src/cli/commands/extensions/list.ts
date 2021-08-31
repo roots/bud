@@ -1,6 +1,7 @@
-import {config} from '../../..'
+import {config, Framework} from '../../..'
 import Build from '../../Build'
 import {Command} from '../../Command'
+import {Runner} from '../../Runner'
 
 export default class List extends Command {
   public static description =
@@ -8,10 +9,18 @@ export default class List extends Command {
 
   public static examples = [`$ bud extensions:list`]
 
+  public cli: {flags: any; args: any}
+
+  public app: Framework
+
   public async run() {
     this.cli = this.parse(Build)
 
-    await this.appFactory(this.cli, config, false)
+    const runner = new Runner(this.cli, {
+      config,
+      mode: 'production',
+    })
+    this.app = await runner.make()
 
     this.app.dashboard.render(
       this.app.project

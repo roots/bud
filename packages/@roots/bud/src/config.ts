@@ -34,7 +34,7 @@ const config: config = {
     vue: /\.vue$/,
     md: /\.md$/,
     toml: /\.toml$/,
-    yml: /\.(yaml|yml)$/,
+    yml: /\.ya?ml$/,
     xml: /\.xml$/,
     csv: /\.(csv|tsv)$/,
     json: /\.json$/,

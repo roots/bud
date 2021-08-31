@@ -1,6 +1,8 @@
 import {flags} from '@oclif/command'
 
+import {config, Framework} from '../../..'
 import {Command} from '../../Command'
+import {Runner} from '../../Runner'
 
 export default class Doctor extends Command {
   public static description = 'Help diagnose issues with Bud'
@@ -42,12 +44,20 @@ export default class Doctor extends Command {
     }),
   }
 
+  public cli: {flags: any; args: any}
+
+  public app: Framework
+
   public mode: 'development' | 'production' = 'production'
 
   public async run() {
     this.cli = this.parse(Doctor)
 
-    await this.appFactory(this.cli)
+    const runner = new Runner(this.cli, {
+      config,
+      mode: 'production',
+    })
+    this.app = await runner.make()
 
     if (this.app.project.has('required')) {
       const missingPeers = this.app.project
