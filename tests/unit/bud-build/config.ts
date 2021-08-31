@@ -116,6 +116,7 @@ describe('bud.build.config', function () {
     expect(bud.build.config.resolve.modules).toEqual([
       'src',
       'node_modules',
+      require.resolve('@roots/bud'),
     ])
   })
 

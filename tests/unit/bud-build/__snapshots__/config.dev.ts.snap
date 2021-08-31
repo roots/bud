@@ -237,6 +237,7 @@ Object {
     "modules": Array [
       "src",
       "node_modules",
+      StringContaining "@roots/bud",
     ],
   },
   "stats": Object {},

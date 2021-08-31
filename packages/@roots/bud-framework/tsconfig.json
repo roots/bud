@@ -8,8 +8,6 @@
     "types": [
       "node",
       "jest",
-      "express",
-      "webpack"
     ]
   },
   "include": [
