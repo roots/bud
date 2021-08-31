@@ -13,6 +13,12 @@ module.exports = async function config() {
       name: 'integration',
       color: 'blue',
     },
+    globals: {
+      'ts-jest': {
+        tsconfig: '<rootDir>/tsconfig.jest.json',
+        compiler: 'typescript',
+      },
+    },
     globalSetup: '<rootDir>/dev/jest/jest.setup.js',
     globalTeardown: '<rootDir>/dev/jest/jest.teardown.js',
     moduleNameMapper,

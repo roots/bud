@@ -54,7 +54,7 @@ describe('@roots/bud-server', function () {
 
   it('has expected assets property', () => {
     expect(bud.server.assets).toEqual([
-      `${process.cwd()}/packages/@roots/bud-server/lib/cjs/client/index.js`,
+      `${process.cwd()}/packages/@roots/bud-server/src/client/index.js`,
     ])
   })
 

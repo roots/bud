@@ -266,7 +266,7 @@ describe('bud.build.config', function () {
       parser: {
         parse: yaml.parse,
       },
-      test: /\.(yaml|yml)$/,
+      test: /\.ya?ml$/,
       type: 'json',
     })
   })

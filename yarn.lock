@@ -3515,6 +3515,8 @@ __metadata:
     "@types/fs-extra": 9.0.12
     "@types/jest": ^27.0.1
     "@types/lodash": 4.14.172
+    "@types/lodash-es": ^4
+    "@types/lodash.isequal": ^4
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     chokidar: ^3.5.2
@@ -3524,6 +3526,7 @@ __metadata:
     jest: ^27.1.0
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
+    lodash.isequal: ^4.5.0
     tslib: ^2.3.1
     webpack: 5.51.1
     webpack-dev-middleware: ^5.0.0
@@ -4457,7 +4460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7, @types/eslint@npm:^7.2.14":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.0, @types/eslint@npm:^7.2.14":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
   dependencies:
@@ -4640,6 +4643,24 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: ee0d098693bf4af44be756eed02daf95f5d0fd4b5b02da952a5952e08842baddf6a986a9ea5f9e460729782f1a0a47848c892ad96ea188b66a363feb49a1536f
+  languageName: node
+  linkType: hard
+
+"@types/lodash-es@npm:^4":
+  version: 4.17.4
+  resolution: "@types/lodash-es@npm:4.17.4"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: acffe910e8cffe475b854d74f4372549ec700ac00d9ed885fd85ec34c3f9af1a262bf667000ea9126dc39a05a75f64593d8a5f312cfd7d90e91294d458be08a7
+  languageName: node
+  linkType: hard
+
+"@types/lodash.isequal@npm:^4":
+  version: 4.5.5
+  resolution: "@types/lodash.isequal@npm:4.5.5"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 9dd22ceb5453a711e3ce6cd5a31d0ba8fe2263b3c989bc3b64e398933dbe7e9fd22a77a585ab7ee4f27d80a00845e15602b2a4a4b113f01291e2fd236a7707f7
   languageName: node
   linkType: hard
 
@@ -4826,7 +4847,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.9, @types/react-dom@npm:^17":
+"@types/react-dom@npm:17.0.9":
   version: 17.0.9
   resolution: "@types/react-dom@npm:17.0.9"
   dependencies:
@@ -5475,7 +5496,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/browserslist-config@npm:4.1.0, @wordpress/browserslist-config@npm:^4.1.0":
+"@wordpress/browserslist-config@npm:4.1.0":
   version: 4.1.0
   resolution: "@wordpress/browserslist-config@npm:4.1.0"
   checksum: 9c1b15c0be844fd1c09cb262c149ffa2758c70200b01777cbdc4aad4f5d95315d5bba229c11ecc72671f5780972cf23af0e396fd32e35b23266bc4d6f212fe31
@@ -10309,7 +10330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.32.0, eslint@npm:>=7":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -10610,17 +10631,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
-    "@types/eslint": ^7
-    "@types/react": ^17
-    "@types/react-dom": ^17
-    "@wordpress/browserslist-config": ^4.1.0
-    eslint: ">=7"
-    postcss: 8.3.6
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    react: ">=17"
-    react-dom: ">=17"
-    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 
@@ -15117,6 +15127,13 @@ fsevents@^1.2.7:
   version: 4.4.2
   resolution: "lodash.get@npm:4.4.2"
   checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
+  languageName: node
+  linkType: hard
+
+"lodash.isequal@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.isequal@npm:4.5.0"
+  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
   languageName: node
   linkType: hard
 

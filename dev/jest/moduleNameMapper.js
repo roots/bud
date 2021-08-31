@@ -1,4 +1,5 @@
 const {globby} = require('@roots/bud-support')
+const {dirname} = require('path')
 
 /**
  * Map module names to their respective paths.
@@ -6,21 +7,18 @@ const {globby} = require('@roots/bud-support')
  * @returns {Promise<InitialOptionsTsJest['moduleNameMapper']>} - The jest module name mapper.
  */
 module.exports = async () => {
-  const pkgs = await globby.globby(
-    'packages/@roots/*/package.json',
-    {
-      absolute: true,
-    },
-  )
+  const pkgs = await globby.globby('packages/@roots/*', {
+    onlyDirectories: true,
+  })
 
-  return pkgs.reduce((pkgs, pkg) => {
-    const relativePath = pkg
-      .split(process.cwd().concat('/packages/'))
-      .pop()
-
-    return {
-      ...pkgs,
-      [`^${relativePath}/(.*)$`]: `<rootDir>/${relativePath}/src/$1`,
-    }
-  }, {})
+  return pkgs
+    .map(pkg => pkg.replace('packages/', ''))
+    .reduce(
+      (mapping, pkg) => ({
+        ...mapping,
+        [`^${pkg}$`]: `<rootDir>/packages/${pkg}/src/index`,
+        [`^${pkg}/(.*)$`]: `<rootDir>/packages/${pkg}/$1`,
+      }),
+      {},
+    )
 }

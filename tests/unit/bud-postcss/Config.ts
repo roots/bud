@@ -1,5 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import * as BudPostCssExtension from '@roots/bud-postcss'
+import {BudPostCssExtension} from '@roots/bud-postcss/src/BudPostCssExtension'
 
 describe('bud.postcss', () => {
   let bud: Framework

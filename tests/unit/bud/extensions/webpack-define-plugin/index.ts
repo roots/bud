@@ -1,5 +1,5 @@
 import {extensions, Framework} from '@roots/bud'
-import {Env} from '@roots/bud/src/Bud/services/Env'
+import {Env} from '@roots/bud/src/Bud/services/Env/index'
 import {Container} from '@roots/container'
 
 describe('WebpackDefinePlugin', function () {

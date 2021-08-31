@@ -1,4 +1,4 @@
-import BuildCommand from '@roots/bud/lib/cjs/cli/Build'
+import BuildCommand from '@roots/bud/src/cli/Build'
 
 describe('Build Command', () => {
   let result: Array<any>

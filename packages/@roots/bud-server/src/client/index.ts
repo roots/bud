@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import {isEqual} from 'lodash'
+import isEqual from 'lodash.isequal'
 import {
   subscribeAll,
   useCustomOverlay,

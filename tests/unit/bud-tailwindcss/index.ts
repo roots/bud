@@ -1,6 +1,6 @@
 import {factory} from '@roots/bud'
-import * as BudPostCssExtension from '@roots/bud-postcss'
-import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
+import {BudPostCssExtension} from '@roots/bud-postcss/src/BudPostCssExtension'
+import {BudTailwindCssExtension} from '@roots/bud-tailwindcss/src/BudTailwindCssExtension'
 
 process.env.BUD_KEEP_ALIVE = 'true'
 

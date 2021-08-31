@@ -13,12 +13,15 @@ module.exports = async function config() {
       name: 'unit',
       color: 'blue',
     },
+    globals: {
+      'ts-jest': {
+        tsconfig: '<rootDir>/tsconfig.jest.json',
+        compiler: 'typescript',
+      },
+    },
     moduleNameMapper,
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: [
-      `<rootDir>/packages/@roots/*/src/__tests__/**/*.ts`,
-      `<rootDir>/tests/unit/**/*.ts`,
-    ],
+    testMatch: [`<rootDir>/tests/unit/**/*.ts`],
   }
 }

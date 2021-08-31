@@ -11,7 +11,8 @@ module.exports = async function config() {
     preset: 'ts-jest',
     testEnvironment: 'node',
     collectCoverageFrom: [
-      'packages/@roots/*/lib/cjs/**/*',
+      'packages/@roots/**/*.{ts,tsx}',
+      '!packages/@roots/**/*.d.ts',
       '!packages/@roots/bud-support/**/*',
       '!packages/@roots/filesystem/**/*',
     ],
