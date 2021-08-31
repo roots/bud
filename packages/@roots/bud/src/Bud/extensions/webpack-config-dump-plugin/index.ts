@@ -14,10 +14,10 @@ interface Options {
   includeFalseValues?: boolean
 }
 
-interface extension
+interface BudConfigDumpPlugin
   extends WebpackPlugin<WebpackConfigDumpPlugin, Options> {}
 
-const extension = {
+const BudConfigDumpPlugin: BudConfigDumpPlugin = {
   name: 'webpack-config-dump-plugin',
 
   make: (options: Container<Options>) =>
@@ -28,9 +28,9 @@ const extension = {
   options: (app: Framework) => ({
     ...(app.store.get('extension.webpackConfigDumpPlugin') ??
       {}),
-    outputPath: app.path('storage'),
+    outputPath: (() => app.path('storage'))(),
     name: `${app.name}.webpack.config.js`,
   }),
 }
 
-export const {name, make, when, options} = extension
+export const {name, make, when, options} = BudConfigDumpPlugin
