@@ -15,6 +15,9 @@ describe('examples/sage', () => {
     })
 
     await project.setup()
+
+    await project.setWebpackConfig()
+    await project.setModules()
   })
 
   it('package.json is unchanged', async () => {
