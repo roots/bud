@@ -22,6 +22,7 @@ Object {
     "...",
     Object {
       "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
         "minimizerOptions": Object {
           "preset": Array [
             "default",
@@ -34,13 +35,16 @@ Object {
         },
         "parallel": true,
         "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
       },
     },
     Object {
       "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
         "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
         "parallel": true,
         "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
       },
     },
   ],

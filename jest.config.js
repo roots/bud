@@ -16,7 +16,7 @@ module.exports = async function config() {
       '!packages/@roots/bud-support/**/*',
       '!packages/@roots/filesystem/**/*',
     ],
-    coverageReporters: ['lcov', 'text', 'html'],
+    coverageReporters: ['lcov', 'text-summary', 'html'],
     globals: {
       'ts-jest': {
         tsconfig: '<rootDir>/tsconfig.jest.json',

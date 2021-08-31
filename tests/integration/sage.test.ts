@@ -66,27 +66,33 @@ describe('examples/sage', () => {
   it('[app] has contents', () => {
     expect(project.assets['app.js'].length).toBeGreaterThan(10)
   })
+
   it('[app] is transpiled', () => {
     expect(
       project.assets['app.js'].includes('import'),
     ).toBeFalsy()
   })
+
   it('[app] css: has contents', () => {
     expect(project.assets['app.css'].length).toBeGreaterThan(10)
   })
+
   it('[app] css: is transpiled', () => {
     expect(project.assets['app.css'].includes('@import')).toBe(
       false,
     )
   })
+
   it('[app] css: @tailwind directive is transpiled', () => {
     expect(project.assets['app.css'].includes('@apply')).toBe(
       false,
     )
   })
+
   it('[app] css: has whitespace removed', () => {
     expect(project.assets['app.css'].match(/    /)).toBeFalsy()
   })
+
   it('[app] css: has breaks removed', () => {
     expect(project.assets['app.css'].match(/\\n/)).toBeFalsy()
   })
@@ -96,31 +102,37 @@ describe('examples/sage', () => {
       10,
     )
   })
+
   it('[editor] is transpiled', () => {
     expect(
       project.assets['editor.js'].includes('import'),
     ).toBeFalsy()
   })
+
   it('[editor] css: has contents', () => {
     expect(project.assets['editor.css'].length).toBeGreaterThan(
       10,
     )
   })
+
   it('[editor] css: is transpiled', () => {
     expect(
       project.assets['editor.css'].includes('@import'),
     ).toBe(false)
   })
+
   it('[editor] css: @tailwind directive is transpiled', () => {
     expect(project.assets['editor.css'].includes('@apply')).toBe(
       false,
     )
   })
+
   it('[editor] css: has whitespace removed', () => {
     expect(
       project.assets['editor.css'].match(/    /),
     ).toBeFalsy()
   })
+
   it('[editor] css: has breaks removed', () => {
     expect(project.assets['editor.css'].match(/\\n/)).toBeFalsy()
   })
@@ -130,6 +142,7 @@ describe('examples/sage', () => {
       project.assets['customizer.js'].length,
     ).toBeGreaterThan(10)
   })
+
   it('[customizer] is transpiled', () => {
     expect(
       project.assets['customizer.js'].includes('import'),

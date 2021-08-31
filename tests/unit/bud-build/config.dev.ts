@@ -203,7 +203,7 @@ describe('bud.build.config', function () {
           keepCircularReferences: true,
           name: 'bud.webpack.config.js',
           outputPath: expect.stringContaining('.budfiles'),
-          showFunctionNames: false,
+          showFunctionNames: true,
         },
         {
           options: {},

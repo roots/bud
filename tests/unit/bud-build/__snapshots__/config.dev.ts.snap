@@ -183,7 +183,7 @@ Object {
       "keepCircularReferences": true,
       "name": "bud.webpack.config.js",
       "outputPath": StringContaining ".budfiles",
-      "showFunctionNames": false,
+      "showFunctionNames": true,
     },
     Object {
       "options": Object {},

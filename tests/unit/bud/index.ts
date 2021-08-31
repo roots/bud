@@ -95,7 +95,7 @@ describe('factory', () => {
         replace: {},
       },
       miniCssExtractPlugin: {},
-      webpackConfigDumpPlugin: {
+      'webpack-config-dump-plugin': {
         depth: 8,
         keepCircularReferences: true,
       },

@@ -14,23 +14,23 @@ describe('examples/preset-recommend', () => {
     await project.setup()
   })
 
-  describe('main.js', () => {
-    it('has contents', () => {
-      expect(project.assets['main.js'].length).toBeGreaterThan(
-        10,
-      )
-    })
-
-    it('is transpiled', () => {
-      expect(
-        project.assets['main.js'].includes('import'),
-      ).toBeFalsy()
+  describe('package.json', () => {
+    it('matches snapshot', () => {
+      expect(project.packageJson).toMatchSnapshot()
     })
   })
 
-  describe('main.css', () => {
-    it('is transpiled', () => {
-      expect(project.assets['main.css']).toMatchSnapshot()
-    })
+  it('[main.js] has contents', () => {
+    expect(project.assets['main.js'].length).toBeGreaterThan(10)
+  })
+
+  it('[main.js] is transpiled', () => {
+    expect(
+      project.assets['main.js'].includes('import'),
+    ).toBeFalsy()
+  })
+
+  it('[main.css] is transpiled', () => {
+    expect(project.assets['main.css']).toMatchSnapshot()
   })
 })

@@ -1,6 +1,11 @@
+import {ensureDirSync, pathExistsSync} from 'fs-extra'
+
 import type {Repository} from '../'
 
 export const run: Repository.Run = function (): void {
+  !pathExistsSync(this.path('storage')) &&
+    ensureDirSync(this.path('storage'))
+
   this.dashboard.run()
 
   const isDev =

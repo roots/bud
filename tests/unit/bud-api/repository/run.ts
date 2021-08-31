@@ -37,6 +37,10 @@ describe('bud.run', function () {
         compile: mockCompileFn,
       },
 
+      path: jest.fn((...strings: string[]): string => {
+        return process.cwd().concat('/.budfiles')
+      }),
+
       run: jest.fn(cb => {
         return cb
       }),

@@ -139,7 +139,8 @@ const config: config = {
       replace: {},
     },
     miniCssExtractPlugin: {},
-    webpackConfigDumpPlugin: {
+    'webpack-config-dump-plugin': {
+      showFunctionNames: true,
       keepCircularReferences: true,
       depth: 8,
     },

@@ -99,9 +99,10 @@ Object {
       "replace": Object {},
     },
     "miniCssExtractPlugin": Object {},
-    "webpackConfigDumpPlugin": Object {
+    "webpack-config-dump-plugin": Object {
       "depth": 8,
       "keepCircularReferences": true,
+      "showFunctionNames": true,
     },
     "webpackDefinePlugin": Object {},
     "webpackManifestPlugin": Object {
@@ -312,9 +313,10 @@ Object {
       "replace": Object {},
     },
     "miniCssExtractPlugin": Object {},
-    "webpackConfigDumpPlugin": Object {
+    "webpack-config-dump-plugin": Object {
       "depth": 8,
       "keepCircularReferences": true,
+      "showFunctionNames": true,
     },
     "webpackDefinePlugin": Object {},
     "webpackManifestPlugin": Object {

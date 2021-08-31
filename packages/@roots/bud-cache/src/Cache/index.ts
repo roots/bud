@@ -6,7 +6,7 @@ import {
 import {globby} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {createHash} from 'crypto'
-import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
+import {readFileSync} from 'fs-extra'
 
 class Cache extends Service implements Contract {
   public name = 'cache'
@@ -18,13 +18,6 @@ class Cache extends Service implements Contract {
         type: app.hooks.filter('build/cache/type'),
       }))
       .hooks.on('build/cache/type', () => 'memory')
-  }
-
-  @bind
-  public booted(): void {
-    this.app.hooks.filter('build/cache/type') == 'filesystem' &&
-      !pathExistsSync(this.app.path('storage')) &&
-      mkdirSync(this.app.path('storage'))
   }
 
   /**
@@ -61,14 +54,17 @@ class Cache extends Service implements Contract {
             'project',
             `${this.app.name}.{js,ts,yml,json}`,
           ),
+
           this.app.path(
             'project',
             `${this.app.name}.config.{js,ts,yml,json}`,
           ),
+
           this.app.path(
             'project',
             `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
           ),
+
           ...(this.app.project?.resolveFrom?.map(
             dep => `${dep}/lib/cjs/index.js`,
           ) ??

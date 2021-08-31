@@ -21,16 +21,8 @@ describe('examples/emotion', () => {
   })
 
   describe('app.js', () => {
-    it('has contents', () => {
-      expect(project.assets['app.js'].length).toBeGreaterThan(10)
-    })
-
     it('is transpiled', () => {
-      expect(
-        project.assets['app.js'].includes(
-          `@keyframes App-logo-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}height:30vmin;pointer-events:none;margin-bottom:2rem;animation:App-logo-spin infinite 20s linear`,
-        ),
-      ).toBe(true)
+      expect(project.assets['app.js']).toMatchSnapshot()
     })
   })
 })
