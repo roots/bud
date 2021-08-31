@@ -336,7 +336,11 @@ describe('bud.build', function () {
           '.yaml',
           '.xml',
         ],
-        modules: ['src', 'node_modules'],
+        modules: [
+          'src',
+          'node_modules',
+          expect.stringContaining('@roots/bud'),
+        ],
       },
       stats: {},
       target: undefined,

@@ -253,7 +253,11 @@ describe('bud.build.config', function () {
           '.yaml',
           '.xml',
         ],
-        modules: ['src', 'node_modules'],
+        modules: [
+          'src',
+          'node_modules',
+          expect.stringContaining('@roots/bud'),
+        ],
       },
       stats: {},
       target: undefined,
