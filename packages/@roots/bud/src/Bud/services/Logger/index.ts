@@ -5,14 +5,8 @@ import {
 } from '@roots/bud-framework'
 import {Signale} from 'signale'
 
-/**
- * Constants
- */
 import {INSTANCE_CONFIG, LOGGER_TYPES} from './constants'
 
-/**
- * @sealed
- */
 class Logger extends Service implements Contract {
   /**
    * Logger instance

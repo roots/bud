@@ -14,6 +14,8 @@ class Env
 
   /**
    * The service bootstrap method
+   *
+   * @decorator `@bind`
    */
   @bind
   public bootstrap() {

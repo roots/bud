@@ -8,9 +8,6 @@ import {isEqual} from 'lodash'
 class Dependencies extends Service<null> {
   public name = 'dependencies'
 
-  /**
-   * Interfaces with package manager
-   */
   public manager: DependenciesManager
 
   @bind

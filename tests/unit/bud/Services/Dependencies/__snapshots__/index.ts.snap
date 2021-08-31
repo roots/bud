@@ -1,9 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.project dependencies manager returns yarn path 1`] = `
-Yarn {
-  "path": "/Volumes/Samsung/Code/roots/bud",
-}
-`;
-
 exports[`bud.project readProjectJson 1`] = `"bud.js"`;
