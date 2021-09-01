@@ -85,7 +85,7 @@
     "ink-big-text": "1.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.2",
-    "jest": "^27.1.0",
+    "jest": "27.1.0",
     "json5": "2.2.0",
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",

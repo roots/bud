@@ -131,7 +131,7 @@
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
     "@types/source-map-support": "^0",
-    "jest": "^27.1.0"
+    "jest": "27.1.0"
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",

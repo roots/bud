@@ -70,7 +70,7 @@
     "@types/lodash-es": "^4",
     "@types/lodash.isequal": "^4",
     "@types/node": "15.14.1",
-    "jest": "^27.1.0",
+    "jest": "27.1.0",
     "webpack": "5.51.1"
   },
   "dependencies": {
