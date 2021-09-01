@@ -1,5 +1,7 @@
 {
   "name": "bud.js",
+  "packageManager": "yarn@3.0.1",
+  "version": "4.7.0-next.12",
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
@@ -31,6 +33,9 @@
     "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch",
     "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
@@ -57,7 +62,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.24.2",
     "eslint-plugin-prettier": "3.4.1",
-    "eslint-plugin-react": "7.25.0",
+    "eslint-plugin-react": "7.25.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "execa": "5.1.1",
@@ -135,248 +140,6 @@
         ]
       }
     },
-    "core": {
-      "@roots/bud": {
-        "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
-        "dependencies": [
-          "@roots/bud-api",
-          "@roots/bud-build",
-          "@roots/bud-cache",
-          "@roots/bud-compiler",
-          "@roots/bud-dashboard",
-          "@roots/bud-extensions",
-          "@roots/bud-framework",
-          "@roots/bud-hooks",
-          "@roots/bud-server",
-          "@roots/bud-support"
-        ]
-      },
-      "@roots/bud-api": {
-        "description": "@roots/bud core: build config facades",
-        "dependencies": [
-          "@roots/bud-framework",
-          "@roots/bud-support"
-        ]
-      },
-      "@roots/bud-build": {
-        "description": "@roots/bud core: build config controller",
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-cache": {
-        "description": "@roots/bud core: build config caching",
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-compiler": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-dashboard": {
-        "dependencies": [
-          "@roots/bud-framework",
-          "@roots/bud-support"
-        ]
-      },
-      "@roots/bud-extensions": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-framework": {
-        "dependencies": [
-          "@roots/container",
-          "@roots/dependencies"
-        ]
-      },
-      "@roots/bud-hooks": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-server": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-support": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      }
-    },
-    "extensions": {
-      "@roots/bud-babel": {
-        "description": "Babel support for @roots/bud projects",
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-compress": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-criticalcss": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-emotion": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-entrypoints": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-esbuild": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-eslint": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-imagemin": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-library": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-mdx": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-postcss": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-preset-recommend": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-prettier": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-purgecss": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-react": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-sass": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-solid": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-stylelint": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-tailwindcss": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-terser": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-typescript": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-vue": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-wordpress-dependencies": {
-        "dependencies": [
-          "@roots/bud-framework",
-          "@roots/merged-manifest-webpack-plugin"
-        ]
-      },
-      "@roots/bud-wordpress-externals": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/bud-wordpress-manifests": {
-        "dependencies": [
-          "@roots/bud-framework"
-        ]
-      },
-      "@roots/sage": {
-        "dependencies": [
-          "@roots/bud",
-          "@roots/bud-babel",
-          "@roots/bud-entrypoints",
-          "@roots/bud-eslint",
-          "@roots/bud-postcss",
-          "@roots/bud-prettier",
-          "@roots/bud-react",
-          "@roots/bud-stylelint",
-          "@roots/bud-tailwindcss",
-          "@roots/bud-wordpress-dependencies",
-          "@roots/bud-wordpress-externals",
-          "@roots/bud-wordpress-manifests"
-        ]
-      }
-    },
-    "lib": {
-      "@roots/container": {
-        "dependencies": []
-      },
-      "@roots/critical-css-webpack-plugin": {
-        "dependencies": []
-      },
-      "@roots/dependencies": {
-        "dependencies": []
-      },
-      "@roots/entrypoints-webpack-plugin": {
-        "dependencies": []
-      },
-      "@roots/filesystem": {
-        "dependencies": []
-      },
-      "@roots/ink-prettier": {
-        "dependencies": []
-      }
-    },
-    "deprecated": [
-      "@roots/bud-cli",
-      "@roots/bud-typings"
-    ],
     "sponsors": [
       {
         "image": "https://cdn.roots.io/app/uploads/kinsta.svg",
@@ -429,10 +192,5 @@
         "url": "https://motto.ca/roots"
       }
     ]
-  },
-  "packageManager": "yarn@3.0.1",
-  "version": "4.7.0-next.11",
-  "dependencies": {
-    "tslib": "^2.3.1"
   }
 }

@@ -45,7 +45,7 @@
     "file-loader": "6.2.0",
     "jest": "^27.1.0",
     "raw-loader": "4.0.2",
-    "typedoc": "0.21.8",
+    "typedoc": "0.21.9",
     "typescript": "4.4.2",
     "url-loader": "4.1.1"
   },
