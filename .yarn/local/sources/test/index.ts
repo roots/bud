@@ -23,7 +23,9 @@ export class TestCommand extends Command {
 
     if (this.all || this.integration) {
       await this.$(
-        `yarn jest integration --verbose --maxWorkers=${this.workers}`,
+        `yarn jest integration --verbose --maxWorkers=${this.workers} ${
+          this.update ? `--updateSnapshot` : ``
+        }`,
       )
     }
   }
