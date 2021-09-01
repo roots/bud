@@ -1,8 +1,13 @@
-import type {WebpackPlugin} from '@roots/bud-framework'
+import type {
+  Framework,
+  WebpackPlugin,
+} from '@roots/bud-framework'
+import {Container} from '@roots/container'
+import {ensureDirSync} from 'fs-extra'
+import {isUndefined} from 'lodash'
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 
 interface Options {
-  outputPath?: string
   name?: string
   depth?: number
   keepCircularReferences?: boolean
@@ -10,23 +15,29 @@ interface Options {
   includeFalseValues?: boolean
 }
 
-interface extension
+interface BudConfigDumpPlugin
   extends WebpackPlugin<WebpackConfigDumpPlugin, Options> {}
 
-const extension = {
-  name: `webpack-config-dump-plugin`,
+const BudConfigDumpPlugin: BudConfigDumpPlugin = {
+  name: 'webpack-config-dump-plugin',
 
-  make: options =>
-    new WebpackConfigDumpPlugin({...options.all()}),
+  make: (options: Container<Options>) => {
+    ensureDirSync(options.get('outputPath'))
 
-  when: ({store}) => store.isTrue('debug'),
+    return new WebpackConfigDumpPlugin({
+      ...options.all(),
+    })
+  },
 
-  options: app => ({
-    ...(app.store.get('extension.webpackConfigDumpPlugin') ??
-      {}),
-    outputPath: app.path('storage'),
+  when: ({cache, store}) =>
+    store.isTrue('debug') && !isUndefined(cache),
+
+  options: (app: Framework) => ({
     name: `${app.name}.webpack.config.js`,
+    outputPath: app.path('storage'),
+    ...app.store.get('extension.webpack-config-dump-plugin'),
   }),
 }
 
-export const {name, make, when, options} = extension
+export const {name, make, when, options, register} =
+  BudConfigDumpPlugin

@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel module map matches snapshot 1`] = `
-Object {
-  "byName": Object {
-    "app": Any<Number>,
-  },
-  "bySource": Object {
-    "0 app": Any<Number>,
-  },
-  "usedIds": Array [
-    Any<Number>,
-  ],
-}
-`;
-
-exports[`babel snapshots .budfiles/bud.webpack.config.js 1`] = `
+exports[`examples/babel .budfiles/bud.webpack.config.js 1`] = `
 Object {
   "app": Object {
     "import": Array [
@@ -27,15 +13,16 @@ Object {
 }
 `;
 
-exports[`babel snapshots .budfiles/bud.webpack.config.js 2`] = `"production"`;
+exports[`examples/babel .budfiles/bud.webpack.config.js 2`] = `"production"`;
 
-exports[`babel snapshots .budfiles/bud.webpack.config.js 3`] = `
+exports[`examples/babel .budfiles/bud.webpack.config.js 3`] = `
 Object {
   "minimize": true,
   "minimizer": Array [
     "...",
     Object {
       "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
         "minimizerOptions": Object {
           "preset": Array [
             "default",
@@ -48,13 +35,16 @@ Object {
         },
         "parallel": true,
         "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
       },
     },
     Object {
       "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
         "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
         "parallel": true,
         "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
       },
     },
   ],
@@ -76,21 +66,35 @@ Object {
 }
 `;
 
-exports[`babel snapshots .budfiles/bud.webpack.config.js 4`] = `true`;
+exports[`examples/babel .budfiles/bud.webpack.config.js 4`] = `true`;
 
-exports[`babel snapshots .budfiles/bud.webpack.config.js 5`] = `
+exports[`examples/babel .budfiles/bud.webpack.config.js 5`] = `
 Object {
   "type": "memory",
 }
 `;
 
-exports[`babel snapshots dist/app.css 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+exports[`examples/babel app.css matches snapshot 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 
-exports[`babel snapshots dist/app.js 1`] = `"(()=>{var e={344:(e,r,o)=>{\\"use strict\\";o(755),document.querySelector(\\"body\\").innerHTML=\\"\\\\n  <div>\\\\n    <h1>Hello from babel!</h1>\\\\n  </div>\\\\n\\"},755:()=>{[\\"fancy\\",\\"ecma\\"].map((function(e){console.log(e)}))},615:()=>{},968:()=>{}},r={};function o(n){var t=r[n];if(void 0!==t)return t.exports;var a=r[n]={exports:{}};return e[n](a,a.exports,o),a.exports}o.n=e=>{var r=e&&e.__esModule?()=>e.default:()=>e;return o.d(r,{a:r}),r},o.d=(e,r)=>{for(var n in r)o.o(r,n)&&!o.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:r[n]})},o.o=(e,r)=>Object.prototype.hasOwnProperty.call(e,r),o(344),o(755),o(615),o(968)})();"`;
+exports[`examples/babel app.js matches snapshot 1`] = `"!function(){var n={344:function(n,e,o){\\"use strict\\";o(755),document.querySelector(\\"body\\").innerHTML=\\"\\\\n  <div>\\\\n    <h1>Hello from babel!</h1>\\\\n  </div>\\\\n\\"},755:function(){[\\"fancy\\",\\"ecma\\"].map((function(n){console.log(n)}))},615:function(){},968:function(){}},e={};function o(t){var r=e[t];if(void 0!==r)return r.exports;var u=e[t]={exports:{}};return n[t](u,u.exports,o),u.exports}o.n=function(n){var e=n&&n.__esModule?function(){return n.default}:function(){return n};return o.d(e,{a:e}),e},o.d=function(n,e){for(var t in e)o.o(e,t)&&!o.o(n,t)&&Object.defineProperty(n,t,{enumerable:!0,get:e[t]})},o.o=function(n,e){return Object.prototype.hasOwnProperty.call(n,e)},o(344),o(755),o(615),o(968)}();"`;
 
-exports[`babel snapshots dist/manifest.json 1`] = `
-"{
-  \\"app.css\\": \\"app.css\\",
-  \\"app.js\\": \\"app.js\\"
-}"
+exports[`examples/babel manifest.json 1`] = `
+Object {
+  "app.css": "app.css",
+  "app.js": "app.js",
+}
+`;
+
+exports[`examples/babel module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "app": Any<Number>,
+  },
+  "bySource": Object {
+    "0 app": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+  ],
+}
 `;

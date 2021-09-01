@@ -1,12 +1,20 @@
-import type {Build} from '@roots/bud-framework'
-
-import {BudPostCssExtension} from './BudPostCssExtension'
-import {PostCssConfig} from './Config'
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @see https://roots.io/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build boss web applications with a modular, hackable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @packageDocumentation
+ */
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * Configure postcss.
+     * Configure postcss plugins and plugin options.
      */
     postcss: PostCssConfig
   }
@@ -16,17 +24,21 @@ declare module '@roots/bud-framework' {
       '@roots/bud-postcss': BudPostCssExtension
     }
 
-    namespace Hooks {
-      interface Loaders {
-        postcss: Build.Loader
-      }
+    interface Loaders {
+      postcss: Loader
+    }
 
-      interface Items {
-        postcss: Build.Item
-      }
+    interface Items {
+      postcss: Item
     }
   }
 }
 
+import type {Item, Loader} from '@roots/bud-build'
+
+import {BudPostCssExtension} from './BudPostCssExtension'
+import {PostCssConfig} from './PostCssConfig'
+
 export const {name, api, boot} = BudPostCssExtension
 export {PostCssConfig}
+export type {BudPostCssExtension}

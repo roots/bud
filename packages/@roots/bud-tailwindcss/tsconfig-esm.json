@@ -2,7 +2,32 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib/esm",
-    "module": "ESNext",
-    "target": "ES2020"
-  }
+    "module": "esnext",
+    "types": [
+      "node",
+      "jest",
+      "tailwindcss",
+      "@roots/bud-api",
+      "@roots/bud-postcss",
+    ]
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "./lib/**/*",
+    "./node_modules/**/*",
+    "./types/**/*",
+  ],
+  "references": [
+    {
+      "path": "./../bud-api/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-postcss/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-framework/tsconfig-esm.json"
+    }
+  ]
 }

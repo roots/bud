@@ -1,5 +1,5 @@
-import {config, factory, Framework} from '@roots/bud'
-import {Extensions, Module} from '@roots/bud-extensions'
+import {factory, Framework, Module} from '@roots/bud'
+import {Extensions} from '@roots/bud-extensions'
 import {WebpackPluginInstance} from 'webpack'
 
 describe('Extensions', function () {
@@ -28,9 +28,7 @@ describe('Extensions', function () {
   }
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {

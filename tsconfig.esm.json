@@ -1,10 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "es2020",
-    "moduleResolution": "node",
-    "target": "es2020",
+    "module": "esnext",
   },
+  "files": [],
   "references": [
     {
       "path": "./packages/@roots/bud-framework/tsconfig-esm.json",
@@ -82,7 +81,7 @@
       "path": "./packages/@roots/bud-sass/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud-server",
+      "path": "./packages/@roots/bud-server/tsconfig-esm.json",
     },
     {
       "path": "./packages/@roots/bud-solid/tsconfig-esm.json"

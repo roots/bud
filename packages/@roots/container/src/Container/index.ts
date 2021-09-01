@@ -1,2 +1,2 @@
 export {Container} from './Container'
-export {Repository} from './Repository'
+export type {Repository} from './Repository'

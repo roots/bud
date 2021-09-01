@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`examples/postcss package.json matches snapshot 1`] = `
+Object {
+  "browserslist": Object {
+    "development": Array [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+    ],
+    "production": Array [
+      ">0.5%",
+      "not dead",
+      "not op_mini all",
+    ],
+  },
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "postcss": "8.3.6",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "6.7.0",
+  },
+  "name": "example-postcss",
+  "private": true,
+}
+`;

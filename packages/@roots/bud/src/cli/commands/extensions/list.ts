@@ -23,7 +23,7 @@ export default class List extends Command {
     this.app = await runner.make()
 
     this.app.dashboard.render(
-      this.app.discovery
+      this.app.project
         .getValues('peers')
         .map(peer => `- ${peer.name}`),
 

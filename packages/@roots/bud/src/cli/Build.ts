@@ -15,35 +15,44 @@ export default class Build extends Command {
 
   public static flags = {
     help: flags.help({char: 'h'}),
+
     cache: flags.boolean({
       char: 'c',
       description: 'cache compiler references to disk',
     }),
+
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
+
     discover: flags.boolean({
       char: 'd',
       description: 'automatically utilize installed extensions',
     }),
+
     install: flags.boolean({
       char: 'i',
       description: 'ensure peer dependencies are installed',
     }),
+
     log: flags.boolean({
       char: 'l',
       description: 'log to console',
     }),
+
     hash: flags.boolean({
       description: 'hash compiled filenames',
     }),
+
     manifest: flags.boolean({
       description: 'produce a manifest',
     }),
+
     minimize: flags.boolean({
       char: 'm',
       description: 'minimize file size of compiled assets',
     }),
+
     target: flags.string({
       char: 't',
       description: 'limit compilation to this compiler',

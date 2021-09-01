@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "lib": [
       "dom",
-      "es2020"
+      "esnext"
     ],
     "jsx": "react",
     "moduleResolution": "node",
@@ -17,7 +21,14 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2020"
+    "target": "esnext",
+    "types": [
+      "node",
+      "jest",
+      "react",
+      "express",
+      "webpack"
+    ]
   },
   "files": [],
 }

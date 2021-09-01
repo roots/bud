@@ -1,4 +1,4 @@
-import {Bud, config, factory, Framework} from '@roots/bud'
+import {Bud, factory, Framework} from '@roots/bud'
 import {Hooks} from '@roots/bud-hooks'
 
 describe('@roots/bud-hooks', function () {
@@ -6,9 +6,7 @@ describe('@roots/bud-hooks', function () {
   let hooks: Hooks
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {

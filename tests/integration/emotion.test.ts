@@ -1,27 +1,28 @@
-import {Assets, helper} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('emotion', 'examples/emotion')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/emotion', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'emotion',
+      dir: 'examples/emotion',
+    })
+
+    await project.setup()
+  })
+
+  describe('package.json', () => {
+    it('matches snapshot', () => {
+      expect(project.packageJson).toMatchSnapshot()
+    })
   })
 
   describe('app.js', () => {
-    it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
-    })
-
     it('is transpiled', () => {
-      expect(
-        assets['app.js'].includes(
-          `@keyframes App-logo-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}height:30vmin;pointer-events:none;margin-bottom:2rem;animation:App-logo-spin infinite 20s linear`,
-        ),
-      ).toBe(true)
+      expect(project.assets['app.js']).toMatchSnapshot()
     })
   })
 })

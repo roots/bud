@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 describe('Extensions', function () {
   let bud: Framework = null
@@ -6,7 +6,6 @@ describe('Extensions', function () {
   beforeAll(() => {
     bud = factory({
       mode: 'development',
-      config: {...config, ci: true},
     })
   })
 

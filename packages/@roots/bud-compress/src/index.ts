@@ -47,9 +47,9 @@ declare module '@roots/bud-framework' {
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-compress'?: BudCompressionExtension
-      'compression-webpack-plugin-brotli'?: BudBrotliWebpackPlugin
-      'compression-webpack-plugin-gzip'?: BudGzipWebpackPlugin
+      '@roots/bud-compress': BudCompressionExtension
+      'compression-webpack-plugin-brotli': BudBrotliWebpackPlugin
+      'compression-webpack-plugin-gzip': BudGzipWebpackPlugin
     }
   }
 }

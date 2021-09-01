@@ -6,15 +6,12 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
+      "jest",
       "node"
     ]
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
+    "src"
   ],
   "references": [
     {

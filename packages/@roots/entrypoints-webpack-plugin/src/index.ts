@@ -7,7 +7,4 @@
 
 import {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'
 
-export {
-  EntrypointsWebpackPlugin,
-  EntrypointsWebpackPlugin as default,
-}
+export {EntrypointsWebpackPlugin}

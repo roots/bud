@@ -78,14 +78,17 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "15.14.1"
+    "@types/jest": "^27.0.1",
+    "@types/node": "15.14.1",
+    "jest": "^27.1.0"
   },
   "dependencies": {
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
-    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
+    "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"
 }

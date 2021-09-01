@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 describe('bud.build.config', function () {
   let bud: Framework
@@ -6,7 +6,6 @@ describe('bud.build.config', function () {
   beforeAll(() => {
     bud = factory({
       mode: 'development',
-      config: {...config, ci: true},
     })
   })
 
@@ -204,7 +203,7 @@ describe('bud.build.config', function () {
           keepCircularReferences: true,
           name: 'bud.webpack.config.js',
           outputPath: expect.stringContaining('.budfiles'),
-          showFunctionNames: false,
+          showFunctionNames: true,
         },
         {
           options: {},
@@ -254,7 +253,11 @@ describe('bud.build.config', function () {
           '.yaml',
           '.xml',
         ],
-        modules: ['src', 'node_modules'],
+        modules: [
+          'src',
+          'node_modules',
+          expect.stringContaining('@roots/bud'),
+        ],
       },
       stats: {},
       target: undefined,

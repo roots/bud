@@ -70,6 +70,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "@types/express": "4.17.13",
+    "@types/jest": "^27.0.1",
     "@types/yamljs": "0.2.31",
     "chalk": "4.1.2",
     "cosmiconfig": "7.0.1",
@@ -84,6 +85,7 @@
     "ink-big-text": "1.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.2",
+    "jest": "^27.1.0",
     "json5": "2.2.0",
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",
@@ -100,5 +102,8 @@
     "yamljs": "0.3.0",
     "yoga-layout-prebuilt": "1.1.0"
   },
-  "stableVersion": "4.6.0"
+  "stableVersion": "4.6.0",
+  "dependencies": {
+    "tslib": "^2.3.1"
+  }
 }

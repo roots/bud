@@ -59,7 +59,7 @@
  *
  * @packageDocumentation
  */
-
+import {Api, Repository} from '@roots/bud-api'
 import {Item, Loader, Rule} from '@roots/bud-build'
 import {
   Framework,
@@ -73,16 +73,16 @@ declare module '@roots/bud-framework' {
      * Registered extensions
      */
     interface Extensions {
-      'webpack-provide-plugin'?: Module
-      'clean-webpack-plugin'?: Module
-      'webpack-config-dump-plugin'?: Module
-      'copy-webpack-plugin'?: Module
-      'css-minimizer-webpack-plugin'?: Module
-      'webpack-define-plugin'?: Module
-      'webpack-hot-module-replacement-plugin'?: Module
-      'ignore-emit-webpack-plugin'?: Module
-      'webpack-manifest-plugin'?: Module
-      'mini-css-extract-plugin'?: Module
+      'webpack-provide-plugin': Module
+      'clean-webpack-plugin': Module
+      'webpack-config-dump-plugin': Module
+      'copy-webpack-plugin': Module
+      'css-minimizer-webpack-plugin': Module
+      'webpack-define-plugin': Module
+      'webpack-hot-module-replacement-plugin': Module
+      'ignore-emit-webpack-plugin': Module
+      'webpack-manifest-plugin': Module
+      'mini-css-extract-plugin': Module
     }
 
     /**
@@ -146,3 +146,4 @@ export {extensions} from './Bud/extensions'
 export {services} from './Bud/services'
 export {config} from './config'
 export {Factory, Factory as factory} from './Factory'
+export {Api, Repository}

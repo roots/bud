@@ -4,7 +4,7 @@ describe('bud.path', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
   })
 
   afterAll(done => {

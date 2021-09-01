@@ -1,12 +1,8 @@
-/**
- * @module @roots/bud
- */
+import type {WebpackPlugin} from '@roots/bud-framework'
+import type {CopyPluginOptions} from 'copy-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 
-import {Module} from '@roots/bud-framework'
-import * as CopyPlugin from 'copy-webpack-plugin'
-import {CopyPluginOptions} from 'copy-webpack-plugin'
-
-const copyPluginExtension: Module<
+const copyPluginExtension: WebpackPlugin<
   CopyPlugin,
   CopyPluginOptions
 > = {
@@ -16,7 +12,8 @@ const copyPluginExtension: Module<
     patterns: [],
   },
 
-  make: options => new CopyPlugin(options.all()),
+  make: options =>
+    new (require('copy-webpack-plugin'))(options.all()),
 
   when(_app, options) {
     return (

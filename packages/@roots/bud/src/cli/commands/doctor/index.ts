@@ -59,11 +59,11 @@ export default class Doctor extends Command {
     })
     this.app = await runner.make()
 
-    if (this.app.discovery.has('required')) {
-      const missingPeers = this.app.discovery
+    if (this.app.project.has('required')) {
+      const missingPeers = this.app.project
         .getValues('required')
         .filter(
-          dep => !this.app.discovery.hasPeerDependency(dep.name),
+          dep => !this.app.project.hasPeerDependency(dep.name),
         )
 
       if (missingPeers.length > 0) {

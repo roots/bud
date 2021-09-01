@@ -67,11 +67,14 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.3.0"
+    "@types/jest": "^27.0.1",
+    "@types/node": "16.3.0",
+    "jest": "^27.1.0"
   },
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"
 }

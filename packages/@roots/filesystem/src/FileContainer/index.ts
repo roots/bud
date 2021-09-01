@@ -52,8 +52,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## setDisk
-   *
    * Establish the disk repository from an array of globs.
    *
    * @example
@@ -78,8 +76,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## fs.ls
-   *
    * List repository contents.
    *
    * @example
@@ -90,8 +86,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## has
-   *
    * Return boolean `true` if key is a match.
    *
    * @example
@@ -105,8 +99,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## set
-   *
    * Set a value.
    *
    * @example
@@ -122,8 +114,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## exists
-   *
    * Return a boolean `true` if repository has a key and it's value
    * resolves to an actual disk location.
    *
@@ -138,8 +128,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## ensure
-   *
    * Create a file if it does not already exist. Will also create an
    * associated repository entry if it doesn't exist.
    *
@@ -159,8 +147,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## ensureDir
-   *
    * Create a directory if it does not already exist. Will also create an
    * associated repository entry if it doesn't exist.
    *
@@ -181,8 +167,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## read
-   *
    * Read file contents as a utf8 encoded string.
    *
    * @example
@@ -196,8 +180,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## readJson
-   *
    * Retrieve file contents as a javascript object.
    *
    * @example
@@ -212,8 +194,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## write
-   *
    * Write file contents as a string
    *
    * @example
@@ -233,8 +213,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## writeJson
-   *
    * Write file contents as a JSON object.
    *
    * @example
@@ -256,8 +234,6 @@ export class FileContainer extends Container {
   }
 
   /**
-   * ## require
-   *
    * NodeRequire a matching file as a module
    *
    * @example

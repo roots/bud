@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import * as BudBabel from '@roots/bud-babel'
 import * as BudReact from '@roots/bud-react'
 
@@ -19,9 +19,9 @@ describe('@roots/bud-react', () => {
   }
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
 
-    bud.discovery
+    bud.project
       .set('devDependencies', mock.devDependencies)
       .set('dependencies', mock.dependencies)
 

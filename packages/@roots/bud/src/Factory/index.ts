@@ -28,37 +28,56 @@ namespace Factory {
 
     /**
      * Compilation mode
+     *
+     * @default `production`
      */
     mode?: Framework['mode']
 
     /**
-     * Framework base configuration
+     * {@link config config overrides}
      */
     config?: config
 
     /**
-     * Registered services
+     * {@link Framework.Services Service overrides}
      */
     services?: Framework.Services
   }
 }
 
 /**
- *
+ * Create a Bud instance in Node
  */
-const Factory = (overrides: Factory.Options): Framework => {
-  overrides.services &&
-    Object.assign(services, overrides.services)
-
-  overrides.config && Object.assign(config, overrides.config)
-
-  return new Bud({
-    name: 'bud',
-    mode: 'production',
-    ...overrides,
-    services,
+const Factory: Factory = (
+  overrides: Factory.Options,
+): Framework => {
+  const options: Framework.Options = {
+    name: overrides?.name ?? 'bud',
+    mode: overrides?.mode ?? 'production',
     config,
-  }).bootstrap()
+    services,
+  }
+
+  /**
+   * Override the default `services` with the provided `overrides.services`
+   */
+  overrides?.services &&
+    Object.assign(options.services, overrides.services)
+
+  /**
+   * Override the default {@link Framework.Configuration} with the provided {@link Factory.Options['config']}
+   */
+  overrides?.config &&
+    Object.assign(options.config, overrides.config)
+
+  process.env.BABEL_ENV = options.mode
+  process.env.NODE_ENV = options.mode
+
+  process.on('uncaughtException', (err: Error) => {
+    // process.stderr.write(JSON.stringify(err))
+  })
+
+  return new Bud(options).bootstrap()
 }
 
 export {Factory}

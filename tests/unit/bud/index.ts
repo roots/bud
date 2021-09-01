@@ -56,7 +56,7 @@ describe('factory', () => {
       },
       stats: {},
     },
-    ci: true,
+    cli: false,
     clean: true,
     debug: true,
     discover: false,
@@ -95,7 +95,7 @@ describe('factory', () => {
         replace: {},
       },
       miniCssExtractPlugin: {},
-      webpackConfigDumpPlugin: {
+      'webpack-config-dump-plugin': {
         depth: 8,
         keepCircularReferences: true,
       },
@@ -194,9 +194,7 @@ describe('factory', () => {
   }
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {
@@ -218,7 +216,6 @@ describe('factory', () => {
   it('bud.store matches snapshot', () => {
     expect(bud.store.all()).toMatchSnapshot({
       ...snapshotConfig,
-      ci: true,
     })
   })
 })

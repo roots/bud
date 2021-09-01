@@ -1,35 +1,35 @@
-import type {WebpackPlugin} from '@roots/bud-framework'
+import type {
+  Framework,
+  WebpackPlugin,
+} from '@roots/bud-framework'
+import type {Container} from '@roots/container'
 import {DefinePlugin} from 'webpack'
 
+interface BudWebpackDefinePlugin
+  extends WebpackPlugin<DefinePlugin, Options> {
+  name: 'webpack-define-plugin' & WebpackPlugin['name']
+  make: (options: Container<Options>) => DefinePlugin
+  when: (app: Framework, options: Container<Options>) => boolean
+  options: (app: Framework) => Options
+}
+
 interface Options {
-  definitions: DefinePlugin['definitions']
+  [key: string]: string
 }
 
-const extension: WebpackPlugin<DefinePlugin, Options> = {
-  name: 'webpack-define-plugin',
-  make: options => new DefinePlugin(options.all()),
-  when: (_bud, opts) => opts.getEntries()?.length > 0,
-  options: ({env, store}) => {
-    /**
-     * .env values which contain PUBLIC
-     */
-    const fromEnv = env
-      .getEntries()
-      .filter(([k]: [string, string]) =>
-        k.includes('APP_PUBLIC'),
-      )
-      .reduce(
-        (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
-        {},
-      )
+export const name: BudWebpackDefinePlugin['name'] =
+  'webpack-define-plugin'
 
-    const fromStore = store.get('extension.webpackDefinePlugin')
+export const make: BudWebpackDefinePlugin['make'] = options =>
+  new DefinePlugin(options.all())
 
-    return {
-      ...fromEnv,
-      ...fromStore,
-    }
-  },
-}
+export const when: BudWebpackDefinePlugin['when'] = (_, opts) =>
+  opts.getEntries()?.length > 0
 
-export const {name, make, when, options} = extension
+export const options: BudWebpackDefinePlugin['options'] = ({
+  env,
+  store,
+}) => ({
+  ...env.getPublicEnv(),
+  ...store.get('extension.webpackDefinePlugin'),
+})

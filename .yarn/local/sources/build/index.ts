@@ -23,9 +23,11 @@ export class BuildCommand extends Command {
 
     if (this.cjs || all) {
       await this.$(
-        `yarn tsc -b${this.verbose ? ` --verbose` : ``}${
-          this.clean ? ` --clean` : ``
-        }${this.force ? ` --force` : ``}`,
+        `yarn tsc -b tsconfig.json${
+          this.verbose ? ` --verbose` : ``
+        }${this.clean ? ` --clean` : ``}${
+          this.force ? ` --force` : ``
+        }`,
       )
     }
 

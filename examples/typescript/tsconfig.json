@@ -9,7 +9,10 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
-    "lib": ["dom","esnext"],
+    "lib": [
+      "dom",
+      "esnext",
+    ],
     "module": "esnext",
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
@@ -20,11 +23,12 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
   },
   "include": ["src"],
   "exclude": [
     "dist",
-    "node_modules"
+    "node_modules",
+    ".budfiles",
   ],
 }

@@ -1,59 +1,43 @@
-/**
- * @module @roots/bud-typescript
- */
-
-import './interface'
-
 import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
-import {Configuration} from 'webpack'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import {typecheck} from './api'
+import {BudTypeScriptExtension} from './BudTypeScriptExtension'
 
-/**
- * @const {Module} extension
- */
-const extension: Module = {
-  name: '@roots/bud-typescript',
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Enable typescript type checking
+     *
+     * @usage
+     * ```js
+     * bud.typecheck()
+     * ```
+     */
+    typecheck: typecheck
+  }
 
-  api: {
-    typecheck,
-  },
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-typescript': Module
+      'fork-ts-checker-plugin': WebpackPlugin<
+        typeof ForkTsCheckerWebpackPlugin
+      >
+    }
 
-  boot: ({build, discovery, hooks, store}) => {
-    store.set('patterns.ts', /\.tsx?$/)
+    interface Loaders {
+      ts: Loader
+    }
 
-    build.loaders['ts'] = new Loader(
-      require.resolve('ts-loader'),
-    )
+    interface Items {
+      ts: Item
+    }
 
-    build.items['ts'] = new Item({
-      loader: build.loaders['ts'],
-      options: {
-        transpileOnly: true,
-        happyPackMode: true,
-      },
-    })
-
-    build.rules['ts'] = new Rule({
-      test: store.get('patterns.ts'),
-      exclude: store.get('patterns.modules'),
-      use: ({build}) => [
-        build.items['babel'],
-        build.items['ts'],
-      ],
-    })
-
-    hooks.on(
-      'build/resolve/extensions',
-      (e: Configuration['resolve']['extensions']) => [
-        ...e,
-        '.ts',
-        '.tsx',
-      ],
-    )
-  },
+    interface Rules {
+      ts: Rule
+    }
+  }
 }
 
-export {extension, extension as default}
-export const {name, boot, api} = extension
+export const {name, boot, api} = BudTypeScriptExtension

@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import {Components} from '@roots/bud-dashboard'
 import {React} from '@roots/bud-support'
 
@@ -12,7 +12,7 @@ describe.skip('@roots/bud-dashboard', function () {
   let dashboard: any
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
     dashboard = Ink.render(<Components.Dashboard bud={bud} />)
   })
 

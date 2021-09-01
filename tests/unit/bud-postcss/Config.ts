@@ -1,5 +1,5 @@
-import {config, factory, Framework} from '@roots/bud'
-import * as BudPostCssExtension from '@roots/bud-postcss'
+import {factory, Framework} from '@roots/bud'
+import {BudPostCssExtension} from '@roots/bud-postcss/src/BudPostCssExtension'
 
 describe('bud.postcss', () => {
   let bud: Framework
@@ -7,10 +7,6 @@ describe('bud.postcss', () => {
   beforeAll(() => {
     bud = factory({
       mode: 'production',
-      config: {
-        ...config,
-        ci: true,
-      },
     })
 
     bud.use(BudPostCssExtension)
@@ -21,10 +17,11 @@ describe('bud.postcss', () => {
   })
 
   it('setPlugins functions', () => {
-    bud.postcss.setPlugins([
-      'postcss-nested',
-      [
-        'postcss-preset-env',
+    bud.postcss.setPlugins({
+      'postcss-import': require('postcss-import'),
+      'postcss-nested': require('postcss-nested'),
+      'postcss-preset-env': [
+        require('postcss-preset-env'),
         {
           stage: 1,
           features: {
@@ -32,7 +29,7 @@ describe('bud.postcss', () => {
           },
         },
       ],
-    ])
+    })
 
     expect(Object.keys(bud.postcss.plugins)).toEqual([
       'postcss-import',
@@ -55,7 +52,10 @@ describe('bud.postcss', () => {
   })
 
   it('setPlugin functions', () => {
-    bud.postcss.setPlugin(['postcss-import', {}])
+    bud.postcss.setPlugin(
+      'postcss-import',
+      require('postcss-import'),
+    )
 
     expect(Object.keys(bud.postcss.plugins)).toContain(
       'postcss-import',
@@ -63,9 +63,11 @@ describe('bud.postcss', () => {
 
     expect(
       bud.postcss.plugins['postcss-import'][0],
-    ).toBeInstanceOf(Function)
+    ).toBeDefined()
 
-    expect(bud.postcss.plugins['postcss-import'][1]).toEqual({})
+    expect(
+      bud.postcss.plugins['postcss-import'][1],
+    ).toBeUndefined()
 
     expect(bud.postcss.plugins).toMatchSnapshot()
   })

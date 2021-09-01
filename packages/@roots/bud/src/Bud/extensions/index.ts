@@ -23,6 +23,6 @@ const extensions: Framework.Extensions = {
   ['ignore-emit-webpack-plugin']: IgnoreEmitWebpackPlugin,
   ['webpack-manifest-plugin']: WebpackManifestPlugin,
   ['mini-css-extract-plugin']: MiniCssExtractPlugin,
-}
+} as Framework.Extensions
 
 export {extensions}

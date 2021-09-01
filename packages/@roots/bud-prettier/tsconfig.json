@@ -5,12 +5,13 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "node",
+      "jest",
+    ]
   },
-  "include": ["src"],
-  "exclude": [
-    "lib",
-    "types",
-    "node_modules"
+  "include": [
+    "src"
   ],
   "references": [
     {

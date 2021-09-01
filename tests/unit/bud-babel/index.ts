@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import * as BudBabelExtension from '@roots/bud-babel'
 
 const RequiredBabel = require('@roots/bud-babel')
@@ -9,9 +9,7 @@ describe('@roots/bud-babel', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
     Config = new BudBabelExtension.Config(bud)
   })
 

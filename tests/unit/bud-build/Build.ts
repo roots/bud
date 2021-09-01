@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import {Item, Loader, Rule} from '@roots/bud-build'
 
 describe('bud.build', function () {
@@ -6,7 +6,7 @@ describe('bud.build', function () {
   let initialBuildConfig
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
     initialBuildConfig = {...bud.build.config}
   })
 
@@ -273,7 +273,7 @@ describe('bud.build', function () {
           keepCircularReferences: true,
           name: 'bud.webpack.config.js',
           outputPath: expect.stringContaining('.budfiles'),
-          showFunctionNames: false,
+          showFunctionNames: true,
         },
         {
           DEBUG: false,
@@ -336,7 +336,11 @@ describe('bud.build', function () {
           '.yaml',
           '.xml',
         ],
-        modules: ['src', 'node_modules'],
+        modules: [
+          'src',
+          'node_modules',
+          expect.stringContaining('@roots/bud'),
+        ],
       },
       stats: {},
       target: undefined,

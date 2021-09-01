@@ -1,4 +1,4 @@
-import * as RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import type {Module} from '@roots/bud-framework'
 

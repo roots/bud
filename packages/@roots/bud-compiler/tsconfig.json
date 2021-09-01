@@ -7,18 +7,19 @@
     "declarationDir": "./types",
     "types": [
       "node",
+      "jest",
+      "@roots/bud-api"
     ]
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
+    "src"
   ],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-api/tsconfig.json"
     }
   ]
 }

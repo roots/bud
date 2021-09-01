@@ -22,3 +22,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const {name, boot} = BudReactExtension
+export {BudReactExtension}
+export {BudReactRefreshPlugin}
+export {reactRefresh}

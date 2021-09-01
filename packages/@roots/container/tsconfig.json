@@ -6,10 +6,16 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "lodash",
+      "node",
+      "jest"
     ]
   },
   "include": [
     "./src"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./types",
+    "./lib"
   ]
 }

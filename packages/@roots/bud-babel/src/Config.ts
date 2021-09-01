@@ -89,7 +89,7 @@ namespace Config {
   }
 }
 
-class Config implements Config {
+class Config {
   public name = '@roots/bud-babel'
 
   public _app: () => Framework

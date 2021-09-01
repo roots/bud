@@ -65,8 +65,12 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.12",
+    "@types/jest": "^27.0.1",
     "@types/lodash": "4.14.172",
+    "@types/lodash-es": "^4",
+    "@types/lodash.isequal": "^4",
     "@types/node": "15.14.1",
+    "jest": "^27.1.0",
     "webpack": "5.51.1"
   },
   "dependencies": {
@@ -78,6 +82,8 @@
     "http-terminator": "^3.0.0",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21",
+    "lodash.isequal": "^4.5.0",
+    "tslib": "^2.3.1",
     "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-client": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0",

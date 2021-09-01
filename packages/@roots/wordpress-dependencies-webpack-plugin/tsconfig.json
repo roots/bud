@@ -7,14 +7,11 @@
     "declarationDir": "./types",
     "types": [
       "node",
+      "jest",
     ],
   },
   "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
+    "src"
   ],
   "references": [
     {

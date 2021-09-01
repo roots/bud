@@ -3,6 +3,13 @@
   "compilerOptions": {
     "outDir": "./lib/esm",
     "module": "esnext",
-    "target": "es2020"
-  }
+  },
+  "references": [
+    {
+      "path": "./../ink-use-style/tsconfig-esm.json"
+    },
+    {
+      "path": "./../container/tsconfig-esm.json"
+    }
+  ]
 }

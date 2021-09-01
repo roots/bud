@@ -2,9 +2,11 @@ import type {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import type {Options} from 'eslint-webpack-plugin'
 
-import type {EslintConfig} from './interface'
+interface EslintConfig {
+  config(userOptions: Options): Framework
+}
 
-export class Eslint implements EslintConfig {
+class EslintConfig {
   public _app: () => Framework
 
   public get app() {
@@ -28,3 +30,5 @@ export class Eslint implements EslintConfig {
     return this.app
   }
 }
+
+export {EslintConfig}

@@ -1,5 +1,3 @@
-import '@roots/bud-babel'
-
 import type {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
@@ -12,8 +10,8 @@ declare module '@roots/bud-framework' {
 
 const extension: Module = {
   name: '@roots/bud-solid',
-  boot({babel, discovery}) {
-    discovery.hasPeerDependency('solid-js') &&
+  boot({babel, project}) {
+    project.hasPeerDependency('solid-js') &&
       babel.setPreset('babel-preset-solid')
   },
 }

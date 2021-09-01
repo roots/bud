@@ -2,11 +2,6 @@
 
 exports[`@roots/sage sage required peers matches snapshot 1`] = `
 Object {
-  "@roots/bud": Object {
-    "name": "@roots/bud",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
   "@wordpress/browserslist-config": Object {
     "name": "@wordpress/browserslist-config",
     "type": "devDependencies",

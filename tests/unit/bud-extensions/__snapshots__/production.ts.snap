@@ -54,6 +54,7 @@ Object {
       "make": [Function],
       "name": "webpack-config-dump-plugin",
       "options": [Function],
+      "register": undefined,
       "when": [Function],
     },
   },

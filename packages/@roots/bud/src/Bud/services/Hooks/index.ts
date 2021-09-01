@@ -16,9 +16,6 @@ const LOCATIONS = [
   'modules',
 ]
 
-/**
- * @sealed
- */
 class Hooks extends Base implements Contract, Service {
   /**
    * Registr lifecycle hook

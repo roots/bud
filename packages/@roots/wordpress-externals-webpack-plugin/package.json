@@ -62,12 +62,15 @@
   },
   "devDependencies": {
     "@types/eslint": "7.28.0",
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
-    "eslint": "7.32.0"
+    "eslint": "7.32.0",
+    "jest": "^27.1.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "webpack": "^5.47.1"

@@ -11,7 +11,7 @@
 
 export {Bootstrapper} from './Bootstrapper'
 
-export {Discovery} from './Discovery'
+export {Project} from './Project'
 
 export {Extension} from './Extension'
 

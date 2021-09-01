@@ -1,19 +1,28 @@
-import {Assets, helper} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('html-template', 'examples/html-template')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/html-template', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'html-template',
+      dir: 'examples/html-template',
+    })
+
+    await project.setup()
+  })
+
+  describe('package.json', () => {
+    it('matches snapshot', () => {
+      expect(project.packageJson).toMatchSnapshot()
+    })
   })
 
   describe('index.html', () => {
     it('is the correct html', () => {
-      expect(assets['index.html']).toMatchSnapshot()
+      expect(project.assets['index.html']).toMatchSnapshot()
     })
   })
 })

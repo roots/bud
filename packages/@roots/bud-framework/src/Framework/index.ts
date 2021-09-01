@@ -10,12 +10,12 @@ import type {
   Configuration,
   Dashboard,
   Dependencies,
-  Discovery,
   Env,
   Extensions,
   Hooks,
   Logger,
   Module,
+  Project,
   Server,
   WebpackPlugin,
 } from '../'
@@ -185,7 +185,7 @@ abstract class Framework {
    *
    * @virtual
    */
-  public discovery: Discovery
+  public project: Project
 
   /**
    * .env container
@@ -649,7 +649,7 @@ namespace Framework {
    * Registered extensions
    */
   export interface Extensions
-    extends Index<Module | WebpackPlugin> {}
+    extends Partial<Index<Module | WebpackPlugin>> {}
 
   /**
    * Framework Constructor

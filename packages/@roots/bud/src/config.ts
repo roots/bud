@@ -5,7 +5,7 @@ interface config extends BaseConfig {}
 const config: config = {
   name: 'bud',
 
-  ci: false,
+  cli: false,
   clean: true,
   debug: true,
   discover: false,
@@ -34,7 +34,7 @@ const config: config = {
     vue: /\.vue$/,
     md: /\.md$/,
     toml: /\.toml$/,
-    yml: /\.(yaml|yml)$/,
+    yml: /\.ya?ml$/,
     xml: /\.xml$/,
     csv: /\.(csv|tsv)$/,
     json: /\.json$/,
@@ -139,7 +139,8 @@ const config: config = {
       replace: {},
     },
     miniCssExtractPlugin: {},
-    webpackConfigDumpPlugin: {
+    'webpack-config-dump-plugin': {
+      showFunctionNames: true,
       keepCircularReferences: true,
       depth: 8,
     },

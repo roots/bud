@@ -1,13 +1,13 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type * as Webpack from 'webpack'
 
 import type {Framework, Server} from '.'
 
 /**
- * Framework configuration
+ * Framework base configuration
+ *
+ * @remarks
+ * These are just initial values. They can be overwritten by the user, or extended by the framework/modules.
+ * It is recommended to use hooks to extend the configuration.
  */
 interface Configuration {
   /**
@@ -26,16 +26,16 @@ interface Configuration {
   patterns: {[key: string]: RegExp}
 
   /**
-   * Location
+   * Registered fs directories
    */
   location: Framework.Locations
 
   /**
-   * Feature: CI mode
+   * Enable or disable the command line interface
    *
-   * @default false
+   * @default true
    */
-  ci: boolean
+  cli: boolean
 
   /**
    * Feature: Clean dist before compilation
@@ -54,7 +54,7 @@ interface Configuration {
    * When enabled a `webpack.debug.js` artifact will be
    * emitted to the `location/storage` directory.
    *
-   * @default false
+   * @default true
    */
   debug: boolean
 
@@ -69,37 +69,43 @@ interface Configuration {
   discover: boolean
 
   /**
-   * Feature: enable filename hashing
+   * Enable or disable filename hashing
+   *
    * @default false
    */
   hash: boolean
 
   /**
-   * Feature: emit html template
+   * Emit html template
+   *
    * @default true
    */
   html: boolean
 
   /**
-   * Feature: automatically install extension dependencies
+   * Automatically install peer dependencies
+   *
    * @default false
    */
   install: boolean
 
   /**
-   * Feature: log to console
+   * Log to console
+   *
    * @default false
    */
   log: boolean
 
   /**
-   * Feature: produce asset manifest
+   * Enable or disable producing a manifest.json file
+   *
    * @default true
    */
   manifest: boolean
 
   /**
-   * Feature: minimize enabled
+   * Enable or disable file minification
+   *
    * @default true
    */
   minimize: boolean
@@ -107,62 +113,115 @@ interface Configuration {
   /**
    * File format
    *
-   * @note do not include extension
+   * @remarks
+   * do not include extension
+   *
    * @default '[name]'
    */
   fileFormat: string
 
   /**
-   * File format (when hashing is enabled)
+   * File format when hashing is enabled
    *
-   * @note do not include extension
+   * @remarks
+   * do not include extension
+   *
    * @default '[name].[contenthash:6]'
    */
   hashFormat: string
 
   /**
-   * Seed values for webpack config
+   * Initial webpack configuration values
    */
   build: Webpack.Configuration
 
   /**
-   * Seed values for extension options
+   * Initial options for registered extensions
    */
-  extension: {
-    [key: string]: any
-  }
+  extension: {[key: string]: any}
 
   /**
-   * Server config
+   * Server configuration
    */
   server: Server.Configuration
 
   /**
-   * Theme configuration
+   * Command line theme configuration
    */
   theme: {
-    spacing: number // number of chars to use for gutters, spacers, etc.
+    /**
+     * width/height of spacer units
+     */
+    spacing: number
+    /**
+     * Color palette
+     */
     colors: {
-      foreground: Configuration.TermColor // text color
-      faded: Configuration.TermColor // 'grayed out' color
-      primary: Configuration.TermColor // primary color
-      primaryAlt: Configuration.TermColor // variant of primary color (for gradients, etc.)
-      error: Configuration.TermColor // error color
-      errorAlt: Configuration.TermColor // variant of error color (for gradients, etc.)
-      warning: Configuration.TermColor // warning color
-      success: Configuration.TermColor // success color
-      accent: Configuration.TermColor // accent color
-      flavor: Configuration.TermColor // flavor color
+      /**
+       * Text color
+       */
+      foreground: Configuration.TermColor
+      /**
+       * Grayed out text color
+       */
+      faded: Configuration.TermColor
+      /**
+       * Primary color
+       */
+      primary: Configuration.TermColor
+      /**
+       * Variant of primary color (for gradients, etc.)
+       */
+      primaryAlt: Configuration.TermColor
+      /**
+       * Error color
+       */
+      error: Configuration.TermColor
+      /**
+       * Variant of error color (for gradients, etc.)
+       */
+      errorAlt: Configuration.TermColor
+      /**
+       * Warning color
+       */
+      warning: Configuration.TermColor
+      /**
+       * Success color
+       */
+      success: Configuration.TermColor
+      /**
+       * Accent color
+       */
+      accent: Configuration.TermColor
+      /**
+       * Flavor color
+       */
+      flavor: Configuration.TermColor
     }
+    /**
+     * Interface breakpoints
+     *
+     * @remarks
+     * Expressed as [width, height]
+     */
     screens: [
       [number, number], // sm
       [number, number], // md
       [number, number], // lg
       [number, number], // xl
     ]
-    columns: number // col system to use
-    maxWidth: number // max width of terminal output
-    maxHeight: number // max height of terminal output
+    /**
+     * Number of columns (like a bootstrap/960 grid system for web)
+     */
+    columns: number
+    /**
+     * Maximum width of raw rendered text
+     */
+    maxWidth: number
+    /**
+     * Maximum height of raw rendered text
+     */
+    maxHeight: number
   }
 }
 

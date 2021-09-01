@@ -7,7 +7,7 @@
  * @packageDocumentation
  */
 
-import type {Build} from '@roots/bud-framework'
+import type {Item, Loader} from '@roots/bud-build'
 
 import {BudBabelExtension} from './BudBabelExtension'
 import {Config} from './Config'
@@ -24,11 +24,11 @@ declare module '@roots/bud-framework' {
     }
 
     interface Loaders {
-      babel: Build.Loader
+      babel: Loader
     }
 
     interface Items {
-      babel: Build.Item
+      babel: Item
     }
   }
 }

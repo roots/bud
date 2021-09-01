@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+
 import {config, factory, Framework} from '@roots/bud'
 import * as sage from '@roots/sage'
 
@@ -7,7 +9,7 @@ describe('@roots/sage', () => {
   let SAGE_CFG = {
     config: {
       ...config,
-      ci: true,
+
       location: {
         ...config.location,
         project: SAGE_DIR,
@@ -36,12 +38,7 @@ describe('@roots/sage', () => {
   })
 
   it(`sage required peers matches snapshot`, () => {
-    expect(bud.discovery.get('peers')).toMatchSnapshot({
-      '@roots/bud': {
-        name: '@roots/bud',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
+    expect(bud.project.get('peers')).toMatchSnapshot({
       '@wordpress/browserslist-config': {
         name: '@wordpress/browserslist-config',
         type: 'devDependencies',
@@ -86,7 +83,7 @@ describe('@roots/sage', () => {
   })
 
   it('sage resolveFrom matches snapshot', () => {
-    expect(bud.discovery.resolveFrom).toMatchSnapshot([
+    expect(bud.project.resolveFrom).toMatchSnapshot([
       expect.stringContaining('@roots/bud'),
       expect.stringContaining('@roots/sage'),
       expect.stringContaining('@roots/bud-preset-wordpress'),

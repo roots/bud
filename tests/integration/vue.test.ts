@@ -1,24 +1,34 @@
-import {Assets, helper} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('vue', 'examples/vue')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/vue', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
-    return
+    project = new Project({
+      name: 'vue',
+      dir: 'examples/vue',
+    })
+
+    await project.setup()
+  })
+
+  describe('package.json', () => {
+    it('matches snapshot', () => {
+      expect(project.packageJson).toMatchSnapshot()
+    })
   })
 
   describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(assets['app.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['app.js'].includes('import'),
+      ).toBeFalsy()
     })
   })
 })

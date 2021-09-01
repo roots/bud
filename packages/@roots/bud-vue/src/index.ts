@@ -1,17 +1,48 @@
-import './interface'
-
 import {Module} from '@roots/bud-framework'
 import {VueLoaderPlugin} from 'vue-loader'
-import {Configuration} from 'webpack'
+import {
+  Configuration,
+  RuleSetRule,
+  RuleSetUseItem,
+} from 'webpack'
+
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-vue': Module
+      'vue-loader-plugin': Module
+    }
+  }
+
+  namespace Hooks.Loader {
+    interface Definitions {
+      vue: string
+      'vue-style': string
+    }
+  }
+
+  namespace Hooks.Item {
+    interface Definitions {
+      vue: RuleSetUseItem
+      'vue-style': RuleSetUseItem
+    }
+  }
+
+  namespace Hooks.Rule {
+    interface Definitions {
+      vue: RuleSetRule
+    }
+  }
+}
 
 const vueExtension: Module = {
   name: '@roots/bud-vue',
 
   boot: app => {
-    const {discovery, extensions, store, hooks} = app
+    const {project, extensions, store, hooks} = app
     if (
-      !discovery.hasPeerDependency('vue') ||
-      !discovery.hasPeerDependency('@vue/compiler-sfc')
+      !project.hasPeerDependency('vue') ||
+      !project.hasPeerDependency('@vue/compiler-sfc')
     )
       return
 

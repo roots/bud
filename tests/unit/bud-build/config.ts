@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
@@ -6,7 +6,7 @@ describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({config: {...config, ci: true}})
+    bud = factory()
   })
 
   afterAll(done => {
@@ -116,6 +116,7 @@ describe('bud.build.config', function () {
     expect(bud.build.config.resolve.modules).toEqual([
       'src',
       'node_modules',
+      require.resolve('@roots/bud'),
     ])
   })
 
@@ -266,7 +267,7 @@ describe('bud.build.config', function () {
       parser: {
         parse: yaml.parse,
       },
-      test: /\.(yaml|yml)$/,
+      test: /\.ya?ml$/,
       type: 'json',
     })
   })

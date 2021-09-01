@@ -6,17 +6,20 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
+      "node",
+      "jest",
       "@roots/bud-api",
       "@roots/bud-babel",
-      "@roots/bud-postcss"
+      "@roots/bud-postcss",
+      "@roots/bud-tailwindcss",
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-framework",
+      "@roots/bud-prettier",
+      "@roots/bud-stylelint"
     ]
   },
   "include": [
     "./src"
-  ],
-  "exclude": [
-    "./lib",
-    "./node_modules"
   ],
   "references": [
     {

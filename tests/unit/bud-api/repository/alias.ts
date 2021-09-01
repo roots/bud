@@ -1,12 +1,11 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
+import {alias} from '@roots/bud-api/src/repository/alias'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory({
-      config: {...config, ci: true},
-    })
+    bud = factory()
   })
 
   afterAll(done => {
@@ -14,11 +13,11 @@ describe('webpack.resolve.alias', function () {
   })
 
   it('is a function', () => {
-    expect(bud.alias).toBeInstanceOf(Function)
+    expect(alias).toBeInstanceOf(Function)
   })
 
   it('is configurable by bud.alias', () => {
-    bud.alias({'@foo': 'bar'})
+    alias.bind(bud)({'@foo': 'bar'})
 
     expect(bud.build.config.resolve.alias).toEqual({
       '@foo': bud.path('project', 'bar'),

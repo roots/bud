@@ -64,14 +64,19 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
     "@types/prettier": "2.3.2",
-    "@types/react": "17.0.19"
+    "@types/react": "17.0.19",
+    "jest": "^27.1.0"
   },
   "peerDependencies": {
     "ink": "^3.0.9",
     "prettier": "^2.3.2",
     "react": "^17.0.2"
   },
-  "stableVersion": "4.6.0"
+  "stableVersion": "4.6.0",
+  "dependencies": {
+    "tslib": "^2.3.1"
+  }
 }

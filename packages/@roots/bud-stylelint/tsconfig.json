@@ -9,11 +9,12 @@
     "declarationDir": "./types",
     "types": [
       "node",
+      "jest",
       "@roots/bud-api"
     ]
   },
   "include": [
-    "./src"
+    "src"
   ],
   "references": [
     {

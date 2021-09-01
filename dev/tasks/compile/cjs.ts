@@ -1,6 +1,6 @@
-import * as ncc from '@vercel/ncc'
+import ncc from '@vercel/ncc'
 import {emptydir, ensureDir, outputFile, remove} from 'fs-extra'
-import * as path from 'path'
+import path from 'path'
 
 import {nccOptions} from './options'
 
@@ -42,27 +42,6 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
     path.join(process.cwd(), `/packages/${pkg}/src/index.ts`),
     nccOptions,
   )
-
-  /**
-   * Ensure no esnext imports snuck in
-   */
-  /*   assets['sourcemap-register.js'].source = Buffer.from(
-    assets['sourcemap-register.js'].source
-      .toString()
-      .replaceAll(/require\("node:(\w*)"\)/g, `require('$1')`),
-  ) */
-
-  /**
-   * Write sourcemap
-   */
-  /* await outputFile(
-    path.join(
-      process.cwd(),
-      `/packages/${pkg}/lib/cjs/sourcemap-register.js`,
-    ),
-    assets['sourcemap-register.js'].source,
-    'utf8',
-  ) */
 
   /**
    * Write entrypoint

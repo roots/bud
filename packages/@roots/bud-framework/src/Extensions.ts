@@ -2,7 +2,8 @@ import type {WebpackPluginInstance} from 'webpack'
 
 import type {Framework, Module, Service, WebpackPlugin} from './'
 
-interface Extensions extends Service<Framework.Extensions> {
+interface Extensions
+  extends Service<Partial<Framework.Extensions>> {
   /**
    * Add an extension
    */

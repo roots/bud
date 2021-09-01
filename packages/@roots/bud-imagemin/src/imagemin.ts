@@ -12,7 +12,7 @@ const extension: Imagemin.Extension = {
     })
   },
 
-  boot: ({discovery, imagemin}) => {
+  boot: ({project, imagemin}) => {
     const plugins: [string, any][] = [
       ['imagemin-gifsicle', {interlaced: true}],
       ['imagemin-jpegtran', {progressive: true}],
@@ -22,7 +22,7 @@ const extension: Imagemin.Extension = {
     imagemin.plugins(
       plugins.filter(
         (plugin: Imagemin.ImageminPlugin): boolean =>
-          discovery.hasPeerDependency(plugin[0]),
+          project.hasPeerDependency(plugin[0]),
       ),
     )
   },

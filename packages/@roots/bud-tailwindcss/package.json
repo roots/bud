@@ -71,20 +71,19 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
+    "@types/jest": "^27.0.1",
     "@types/node": "15.14.1",
     "@types/tailwindcss": "2.2.1",
-    "postcss": "8.3.6"
+    "jest": "^27.1.0",
+    "postcss": "8.3.6",
+    "tailwindcss": "^2.2.8"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^10.3.1",
-    "postcss": "^8.3.6",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^2.2.7"
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "tailwindcss": "^2.2.4"
+    "tailwindcss": "^2.2.8"
   },
   "stableVersion": "4.6.0"
 }

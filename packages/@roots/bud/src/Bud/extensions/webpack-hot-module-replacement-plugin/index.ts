@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud
- */
-
 import {Module} from '@roots/bud-framework'
 import {HotModuleReplacementPlugin} from 'webpack'
 

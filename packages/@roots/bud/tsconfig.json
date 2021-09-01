@@ -4,14 +4,14 @@
     "declarationDir": "./types",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
+    "types": [
+      "node",
+      "jest",
+      "@roots/bud-api",
+    ]
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "lib",
-    "types",
-    "node_modules"
   ],
   "references": [
     {

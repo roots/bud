@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 describe('@roots/bud-server', function () {
   let bud: Framework
@@ -6,7 +6,6 @@ describe('@roots/bud-server', function () {
   beforeAll(() => {
     bud = factory({
       mode: 'development',
-      config: {...config, ci: true},
     })
   })
 
@@ -55,7 +54,7 @@ describe('@roots/bud-server', function () {
 
   it('has expected assets property', () => {
     expect(bud.server.assets).toEqual([
-      `${process.cwd()}/packages/@roots/bud-server/lib/cjs/client/index.js`,
+      `${process.cwd()}/packages/@roots/bud-server/src/client/index.js`,
     ])
   })
 

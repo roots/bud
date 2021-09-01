@@ -10,12 +10,10 @@ import {isEqual, isUndefined} from 'lodash'
 import {Extension} from '../Extension'
 
 class Extensions
-  extends Service<Framework.Extensions>
+  extends Service<Partial<Framework.Extensions>>
   implements Contract
 {
   public name = 'extensions'
-
-  public repository: Framework.Extensions
 
   public register(): void {
     this.every((_name: string, extension: Module) => {
@@ -90,7 +88,6 @@ class Extensions
   /**
    * Register an extension and set in the container
    *
-   * @internal
    * @decorator `@bind`
    */
   @bind
@@ -101,7 +98,6 @@ class Extensions
   /**
    * Boot a registered extension
    *
-   * @internal
    * @decorator `@bind`
    */
   @bind

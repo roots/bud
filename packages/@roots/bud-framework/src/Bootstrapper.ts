@@ -27,11 +27,6 @@ abstract class Bootstrapper<T = any> extends Container<T> {
   }
 
   /**
-   * Container repository
-   */
-  public repository: T & Framework.Index
-
-  /**
    * Class constructor
    */
   public constructor(app: Framework) {

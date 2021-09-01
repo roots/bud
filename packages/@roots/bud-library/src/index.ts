@@ -1,8 +1,41 @@
-import './interface'
+import {Framework, Module} from '@roots/bud-framework'
+import AutoDllPlugin from 'autodll-webpack-plugin'
 
-import {Framework, Library, Module} from '@roots/bud-framework'
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## library  [💁 Fluent]
+     *
+     * Enables DLL ([dynamic link library](https://en.wikipedia.org/wiki/Dynamic-link_library)) caching of specified modules.
+     *
+     * ### Usage
+     *
+     * Supply `app.library` the module you would like to add to the DLL.
+     *
+     * ```js
+     * app.library('jquery')
+     * ```
+     *
+     * Multiple modules can be added at once using an array
+     *
+     * ```js
+     * app.library(['react', 'react-dom'])
+     * ```
+     */
+    library: Library.Configure
+  }
 
-const AutoDllPlugin = require('autodll-webpack-plugin')
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-library': Module
+      'autodll-webpack-plugin': Module
+    }
+  }
+}
+
+namespace Library {
+  export type Configure = (modules: string[]) => Framework
+}
 
 interface AutoDllExtension {
   name: Module.Name & '@roots/bud-library'

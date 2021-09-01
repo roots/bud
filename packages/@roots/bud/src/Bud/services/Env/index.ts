@@ -1,11 +1,23 @@
-import type {Framework} from '@roots/bud-framework'
+import type {
+  Env as Contract,
+  Framework,
+} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 
-class Env extends Service<Framework.Index<any>> {
+class Env
+  extends Service<Framework.Index<any>>
+  implements Contract
+{
   public name = 'env'
 
+  /**
+   * The service bootstrap method
+   *
+   * @decorator `@bind`
+   */
+  @bind
   public bootstrap() {
     this.setStore(this.getParsedEnv())
   }
@@ -21,11 +33,32 @@ class Env extends Service<Framework.Index<any>> {
 
   /**
    * get parsed .env
+   *
+   * @decorator `@bind`
    */
   @bind
   public getParsedEnv(): Framework.Index<any> {
     return dotenv?.config
       ? dotenvExpand(dotenv.config({path: this.envPath})).parsed
+      : {}
+  }
+
+  /**
+   * Get entries from .env which include `APP_PUBLIC` in their name
+   *
+   * @decorator `@bind`
+   */
+  @bind
+  public getPublicEnv(): Framework.Index<any> {
+    return this.repository
+      ? this.getEntries()
+          .filter(([k]: [string, string]) =>
+            k.includes('APP_PUBLIC'),
+          )
+          .reduce(
+            (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
+            {},
+          )
       : {}
   }
 }
