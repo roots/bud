@@ -76,7 +76,7 @@
     "@types/tailwindcss": "2.2.1",
     "jest": "^27.1.0",
     "postcss": "8.3.6",
-    "tailwindcss": "^2.2.8"
+    "tailwindcss": "2.2.9"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
