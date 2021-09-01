@@ -33,7 +33,7 @@
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
     "@tsconfig/docusaurus": "1.0.4",
-    "@types/jest": "^27.0.1",
+    "@types/jest": "27.0.1",
     "@types/node": "16.4.13",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
@@ -52,6 +52,6 @@
   "dependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

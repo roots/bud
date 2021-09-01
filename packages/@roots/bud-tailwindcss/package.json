@@ -71,7 +71,7 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/jest": "^27.0.1",
+    "@types/jest": "27.0.1",
     "@types/node": "15.14.1",
     "@types/tailwindcss": "2.2.1",
     "jest": "27.1.0",
