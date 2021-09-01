@@ -63,7 +63,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
+    "@types/jest": "27.0.1",
     "@types/node": "15.14.1",
     "jest": "27.1.0",
     "type-fest": "2.1.0"
