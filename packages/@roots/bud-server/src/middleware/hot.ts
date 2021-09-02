@@ -1,6 +1,6 @@
 import type {Server} from '@roots/bud-framework'
 import type * as Webpack from 'webpack'
-import * as WebpackHotMiddleware from 'webpack-hot-middleware'
+import WebpackHotMiddleware from 'webpack-hot-middleware'
 
 const options: WebpackHotMiddleware.MiddlewareOptions = {
   log: false,
