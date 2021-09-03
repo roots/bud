@@ -42,9 +42,13 @@ describe('Config', () => {
     expect(returnedValue).toMatchSnapshot(bud)
   })
 
+  /**
+   * This might require a bit of a refactor
+   * @todo refactor Config to allow for baseDir to be swapped out
+   */
   it('returns function that behaves predictably', async () => {
     const userConf = await new Config(bud, [
-      `${__dirname}/__mocks__/bud.config.js`,
+      `/__mocks__/bud.config`,
     ]).get()
 
     expect(userConf).toBeInstanceOf(Function)

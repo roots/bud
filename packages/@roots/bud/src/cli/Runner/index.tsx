@@ -139,6 +139,7 @@ class Runner {
         `${this.app.name}.${this.app.mode}.config.js`,
       ],
       staticBuilders: [
+        `package.json`,
         `${this.app.name}.json`,
         `${this.app.name}.yaml`,
         `${this.app.name}.yml`,

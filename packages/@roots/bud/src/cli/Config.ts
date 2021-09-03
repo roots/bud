@@ -19,6 +19,7 @@ export class Config {
 
     this.options = {
       searchPlaces,
+      packageProp: this.app.name,
       loaders: {
         '.ts': cosmiconfigTsLoader,
       },
