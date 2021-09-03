@@ -1,4 +1,4 @@
-import {config, Framework} from '../../..'
+import type {Framework} from '../../..'
 import Build from '../../Build'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'
@@ -16,10 +16,7 @@ export default class List extends Command {
   public async run() {
     this.cli = this.parse(Build)
 
-    const runner = new Runner(this.cli, {
-      config,
-      mode: 'production',
-    })
+    const runner = new Runner(this.cli)
     this.app = await runner.make()
 
     this.app.dashboard.render(

@@ -6,6 +6,9 @@ import {Command} from './Command'
 import {Runner} from './Runner'
 
 export default class Clean extends Command {
+  public static id: string = 'Clean'
+  public static title: string | undefined = 'Clean'
+
   public app: Framework
 
   public cli: {flags: any; args: any}

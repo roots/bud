@@ -24,6 +24,9 @@ module.exports = async function config() {
     moduleNameMapper,
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: [`<rootDir>/tests/integration/**/*.ts`],
+    testMatch: [
+      `<rootDir>/tests/integration/**/*.ts`,
+      `!**/__mocks__/**/*`,
+    ],
   }
 }

@@ -1,5 +1,4 @@
 const {globby} = require('@roots/bud-support')
-const {dirname} = require('path')
 
 /**
  * Map module names to their respective paths.

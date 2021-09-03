@@ -1,4 +1,5 @@
-import {Bud, config, factory, Framework} from '@roots/bud'
+import {Bud, config, factory} from '@roots/bud'
+import type {Framework} from '@roots/bud-framework'
 
 describe('factory', () => {
   let bud: Framework

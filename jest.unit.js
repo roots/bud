@@ -22,6 +22,9 @@ module.exports = async function config() {
     moduleNameMapper,
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: [`<rootDir>/tests/unit/**/*.ts`],
+    testMatch: [
+      `<rootDir>/tests/unit/**/*.ts`,
+      `!**/__mocks__/**/*`,
+    ],
   }
 }

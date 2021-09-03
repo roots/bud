@@ -1,5 +1,4 @@
 // @ts-check
-
 const babel = require('@roots/bud-babel')
 
 /**

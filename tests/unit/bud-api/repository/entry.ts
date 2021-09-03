@@ -7,7 +7,7 @@ describe('bud.entry', function () {
     bud = factory({
       config: {
         ...config,
-
+        cli: false,
         location: {
           ...config.location,
           project: `${process.cwd()}/examples/sage`,

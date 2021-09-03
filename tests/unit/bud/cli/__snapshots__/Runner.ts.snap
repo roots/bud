@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Runner app property matches mock 1`] = `
+Object {
+  "close": [MockFunction],
+  "dashboard": Object {
+    "render": [MockFunction],
+  },
+  "entry": [MockFunction],
+  "mode": "production",
+  "name": "bud",
+  "project": Object {
+    "getValues": [MockFunction],
+    "has": [MockFunction],
+    "hasPeerDependency": [MockFunction],
+    "peers": Object {
+      "install": [MockFunction],
+    },
+  },
+  "tap": [MockFunction],
+  "use": [MockFunction],
+}
+`;

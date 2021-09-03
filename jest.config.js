@@ -35,6 +35,7 @@ module.exports = async function config() {
       '/dev/',
       '/site/',
       '/tests/util/',
+      '/tests/.*?/__mocks__/',
     ],
     verbose: true,
   }

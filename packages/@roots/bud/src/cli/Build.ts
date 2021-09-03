@@ -64,9 +64,7 @@ export default class Build extends Command {
   public async run() {
     this.cli = this.parse(Build)
 
-    const runner = new Runner(this.cli, {
-      mode: this.mode,
-    })
+    const runner = new Runner(this.cli)
 
     this.app = await runner.make()
 
