@@ -1,5 +1,5 @@
-import {globby} from '@roots/bud-support'
-import * as execa from 'execa'
+import {chalk, globby} from '@roots/bud-support'
+import execa from 'execa'
 import {readJson} from 'fs-extra'
 
 const tag = process.argv.splice(2).pop()
@@ -26,17 +26,39 @@ const tag = process.argv.splice(2).pop()
     onlyFiles: false,
   })
 
-  pkgs.map((pkg: string) => {
-    execa.sync(
-      'npm',
-      [
-        'version',
-        versionString,
-        `--preid`,
-        tag,
-        `--allow-same-version`,
-      ],
-      {cwd: pkg},
-    )
-  })
+  Promise.all(
+    pkgs.map(async (pkg: string) => {
+      const task = execa(
+        'npm',
+        [
+          'version',
+          versionString,
+          `--preid`,
+          tag,
+          `--allow-same-version`,
+        ],
+        {cwd: pkg},
+      )
+
+      task.stdout.on('data', r =>
+        process.stdout.write(
+          `${chalk.green(
+            pkg.split('packages/').pop(),
+          )} set to ${chalk.blue(r.toString())}`,
+        ),
+      )
+
+      task.stderr.on(
+        'data',
+        r =>
+          `${pkg
+            .split('packages/')
+            .pop()} error: ${r.toString()}`,
+      )
+
+      await task
+
+      return Promise.resolve()
+    }),
+  )
 })()

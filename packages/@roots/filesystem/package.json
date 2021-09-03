@@ -1,7 +1,7 @@
 {
   "name": "@roots/filesystem",
   "version": "4.7.0-next.12",
-  "description": "Automated package installation",
+  "description": "A simple, high-level virtual filesystem",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -61,6 +61,11 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "devDependencies": {
+    "@types/jest": "27.0.1",
+    "@types/node": "16.3.0",
+    "jest": "27.1.0"
+  },
   "dependencies": {
     "@roots/container": "workspace:packages/@roots/container",
     "autobind-decorator": "^2.4.0",
@@ -69,11 +74,6 @@
     "lodash": "^4.17.21",
     "resolve-from": "^5.0.0",
     "tslib": "^2.3.1"
-  },
-  "devDependencies": {
-    "@types/jest": "27.0.1",
-    "@types/node": "16.3.0",
-    "jest": "27.1.0"
   },
   "stableVersion": "4.6.0"
 }

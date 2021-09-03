@@ -20,10 +20,10 @@
   ],
   "references": [
     {
-      "path": "./packages/@roots/bud-api/tsconfig.json"
+      "path": "./packages/@roots/bud/tsconfig.json"
     },
     {
-      "path": "./packages/@roots/bud/tsconfig.json"
+      "path": "./packages/@roots/bud-api/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-postcss/tsconfig.json"
@@ -51,6 +51,9 @@
     },
     {
       "path": "./packages/@roots/bud-emotion/tsconfig.json"
+    },
+    {
+      "path": "./packages/@roots/bud-framework/tsconfig.json"
     },
     {
       "path": "./packages/@roots/bud-entrypoints/tsconfig.json"
@@ -143,6 +146,9 @@
       "path": "./packages/@roots/entrypoints-webpack-plugin/tsconfig.json"
     },
     {
+      "path": "./packages/@roots/filesystem/tsconfig.json"
+    },
+    {
       "path": "./packages/@roots/ink-use-style/tsconfig.json"
     },
     {
@@ -156,9 +162,6 @@
     },
     {
       "path": "./packages/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
-    },
-    {
-      "path": "./packages/@roots/bud-framework/tsconfig.json"
     }
   ]
 }

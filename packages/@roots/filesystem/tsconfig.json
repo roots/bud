@@ -10,12 +10,10 @@
       "jest"
     ]
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "references": [
     {
-      "path": "./../container/tsconfig.json"
+      "path": "../container/tsconfig.json"
     }
   ]
 }

@@ -6,7 +6,7 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/@roots/bud-framework/tsconfig-esm.json",
+      "path": "./packages/@roots/bud/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/bud-api/tsconfig-esm.json",
@@ -46,6 +46,9 @@
     },
     {
       "path": "./packages/@roots/bud-extensions/tsconfig-esm.json"
+    },
+    {
+      "path": "./packages/@roots/bud-framework/tsconfig-esm.json",
     },
     {
       "path": "./packages/@roots/bud-hooks/tsconfig-esm.json"
@@ -117,9 +120,6 @@
       "path": "./packages/@roots/bud-wordpress-manifests/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud/tsconfig-esm.json"
-    },
-    {
       "path": "./packages/@roots/container/tsconfig-esm.json"
     },
     {
@@ -127,6 +127,9 @@
     },
     {
       "path": "./packages/@roots/dependencies/tsconfig-esm.json"
+    },
+    {
+      "path": "./packages/@roots/filesystem/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/entrypoints-webpack-plugin/tsconfig-esm.json"

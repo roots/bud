@@ -33,9 +33,6 @@
     "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch",
     "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
-  "dependencies": {
-    "tslib": "2.3.1"
-  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
@@ -85,6 +82,9 @@
     "typescript": "4.4.2",
     "url-loader": "4.1.1",
     "weak-napi": "2.0.2"
+  },
+  "dependencies": {
+    "tslib": "2.3.1"
   },
   "manifest": {
     "name": "bud.js",

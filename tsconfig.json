@@ -39,6 +39,9 @@
       "path": "./packages/@roots/bud-emotion/tsconfig.json"
     },
     {
+      "path": "./packages/@roots/filesystem/tsconfig.json"
+    },
+    {
       "path": "./packages/@roots/bud-entrypoints/tsconfig.json"
     },
     {
