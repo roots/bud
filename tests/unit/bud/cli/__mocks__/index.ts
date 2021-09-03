@@ -6,11 +6,23 @@ export const mocks = (function () {
      * Framework mock
      */
     bud: {
+      /**
+       * Framework name
+       */
       name: 'bud',
+      /**
+       * Compilation mode
+       */
       mode: 'production',
+      /**
+       * Framework shutdown mock
+       */
       close: jest
         .fn()
         .mockImplementation((cb: CallableFunction) => {}),
+      /**
+       * Dashboard service mock
+       */
       dashboard: {
         render: jest
           .fn()
@@ -18,9 +30,15 @@ export const mocks = (function () {
             (body: string, ...args: any) => {},
           ),
       },
+      /**
+       * Api.entry mock
+       */
       entry: jest.fn().mockImplementation(function () {
         return this
       }),
+      /**
+       * Project service mock
+       */
       project: {
         has: jest.fn().mockImplementation((key: string) => true),
         getValues: jest
@@ -33,9 +51,15 @@ export const mocks = (function () {
           install: jest.fn().mockImplementation(() => {}),
         },
       },
+      /**
+       * Api.use mock
+       */
       use: jest.fn().mockImplementation(function (name: string) {
         return this
       }),
+      /**
+       * Tap fn mock
+       */
       tap: jest
         .fn()
         .mockImplementation(function (cb: CallableFunction) {

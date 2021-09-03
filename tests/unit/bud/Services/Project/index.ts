@@ -32,6 +32,7 @@ describe('bud.project', function () {
   it('contains a repository', () => {
     expect(bud.project.repository).toMatchSnapshot({
       description: expect.any(String),
+      dependencies: expect.any(Object),
       devDependencies: expect.any(Object),
       engines: expect.any(Object),
       license: expect.any(String),

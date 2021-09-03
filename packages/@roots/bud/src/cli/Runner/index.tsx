@@ -1,23 +1,51 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
-import {config, Framework} from '../../..'
+import {config, Framework} from '../..'
 import {Factory} from '../../Factory'
 import {Config} from '../Config'
 
+/**
+ * @class Runner
+ * @classdesc Runs bud build for {@link Command} classes
+ *
+ * @remarks
+ * It makes sense to pull this out of any individual command class
+ * because it is usable between all of them.
+ *
+ * It's kind of an overly long and complicated class, but at its
+ * core it's a simple task of running the bud build.
+ *
+ * - Instantiate bud with a {@link Factory}
+ * - Gather configs from project directory
+ * - Process configs. Static config processing is delegated to {@link Config}.
+ * - Call {@link Framework['run']}
+ */
 class Runner {
+  /**
+   * Application instance
+   */
   public app: Framework
 
+  /**
+   * Constructor options
+   */
   public options: {
     mode?: 'production' | 'development'
     config?: Partial<config>
   }
 
+  /**
+   * CLI state
+   */
   public cli: {
     flags: {[key: string]: any}
     args: any[]
   }
 
+  /**
+   * Requested compiler mode
+   */
   public mode: 'development' | 'production'
 
   /**
@@ -131,31 +159,49 @@ class Runner {
 
   @bind
   public async make(build = true) {
+    /**
+     * Handles automatic installation and/or registration of modules
+     */
     this.cli.flags.install && this.app.project.peers.install()
-
     this.cli.flags.discover &&
       this.app.project.peers.registerDiscovered()
 
+    /**
+     * Configure bud instance with static confs
+     */
     await this.doStatics()
+    /**
+     * Configure bud instance with fluent confs
+     */
     await this.doBuilders()
 
+    /**
+     * If we are full on running a build, we'll process the rest of the build
+     * related flags/args
+     */
     if (build) {
-      this.cli.flags.cache && this.app.persist()
-      this.cli.flags.cache &&
+      /**
+       * Handle --cache flag
+       */
+      if (this.cli.flags.cache) {
+        this.app.persist()
         this.app.children.every((_name, child) =>
           child.persist(),
         )
+      }
 
+      /**
+       * Handle --minimize flag
+       */
       if (this.cli.flags.minimize) {
         this.app.minimize()
-
         this.app.children.every((_name, child) => {
           child.minimize()
         })
       }
 
       /**
-       * Target was specified
+       * Handle --target flag
        * @example `bud build --target plugin`
        */
       if (this.cli.flags.target.length > 0) {
@@ -188,6 +234,9 @@ class Runner {
     isFunction(builder) && builder(this.app)
   }
 
+  /**
+   * Set process.env based on app mode
+   */
   @bind
   public setEnv(env: 'production' | 'development') {
     process.env.BABEL_ENV = env
@@ -203,7 +252,6 @@ class Runner {
   @bind
   public async doStatics() {
     await new Config(this.app, this.staticBuilders).apply()
-
     await new Config(this.app, this.staticBuildersByEnv).apply()
   }
 }
