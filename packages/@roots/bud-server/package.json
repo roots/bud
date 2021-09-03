@@ -71,7 +71,7 @@
     "@types/lodash.isequal": "4.5.5",
     "@types/node": "15.14.1",
     "jest": "27.1.0",
-    "webpack": "5.51.1"
+    "webpack": "5.51.2"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

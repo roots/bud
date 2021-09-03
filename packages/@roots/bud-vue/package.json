@@ -69,11 +69,11 @@
     "@types/eslint": "7.28.0",
     "@types/jest": "27.0.1",
     "@types/node": "15.14.1",
-    "@vue/compiler-sfc": "3.2.7",
+    "@vue/compiler-sfc": "3.2.8",
     "css-loader": "6.2.0",
     "jest": "27.1.0",
-    "vue": "3.2.7",
-    "webpack": "5.51.1"
+    "vue": "3.2.8",
+    "webpack": "5.51.2"
   },
   "bud": {
     "type": "extensions"
