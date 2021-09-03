@@ -22,4 +22,4 @@ Object {
 }
 `;
 
-exports[`Config get return config 1`] = `Object {}`;
+exports[`Config get return config 1`] = `[Function]`;
