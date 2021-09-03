@@ -30,6 +30,9 @@ module.exports = async function () {
 
     console.log(`${v.name}\n------------`)
 
+    /**
+     * Install project peer deps
+     */
     const pregame = execa.commandSync(
       `yarn bud extensions:install`,
       {cwd: dirname(k)},
@@ -37,16 +40,21 @@ module.exports = async function () {
 
     pregame.stdout && console.log(pregame.stdout)
 
+    /**
+     * Build project
+     */
     const idontEvenLikeFootball = execa.commandSync(
       `yarn bud build`,
       {cwd: dirname(k)},
     )
+
     idontEvenLikeFootball.stdout &&
       console.log(idontEvenLikeFootball.stdout)
-
-    console.log(`\n`)
   })
 
+  /**
+   * Assign all packages to global so we can uninstall on exit
+   */
   global.packages = packages
 
   return global

@@ -10519,6 +10519,10 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    postcss: 8.3.6
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 
@@ -22022,7 +22026,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:2.2.9":
+"tailwindcss@npm:2.2.9, tailwindcss@npm:^2.2.8":
   version: 2.2.9
   resolution: "tailwindcss@npm:2.2.9"
   dependencies:

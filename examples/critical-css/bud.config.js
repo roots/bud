@@ -12,16 +12,15 @@ module.exports = app =>
       require('@roots/bud-criticalcss'),
     ])
     .template({
-      template: 'public/index.html',
+      template: app.path('project', 'public', 'index.html'),
     })
     .critical({
       replace: '%INLINE_CSS%',
       criticalOptions: {
-        html: 'public/index.html',
+        html: app.path('project', 'public', 'index.html'),
       },
     })
     .hash()
     .entry('app', ['app.css'])
     .entry('app2', ['app2.css'])
     .splitChunks()
-    .minimize()
