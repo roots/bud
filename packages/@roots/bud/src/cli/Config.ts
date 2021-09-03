@@ -31,7 +31,12 @@ export class Config {
       .cosmiconfig(this.app.name, this.options)
       .search()
 
-    return res?.config ?? {}
+    return (
+      res?.config ??
+      function (app) {
+        return app
+      }
+    )
   }
 
   @bind
