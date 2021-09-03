@@ -79,7 +79,7 @@
     "@types/react-dom": "17.0.9",
     "jest": "27.1.0",
     "type-fest": "2.1.0",
-    "webpack": "5.51.1"
+    "webpack": "5.51.2"
   },
   "dependencies": {
     "@babel/preset-react": "^7.14.5",
