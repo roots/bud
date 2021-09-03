@@ -48,7 +48,7 @@ describe('Config', () => {
    */
   it('returns function that behaves predictably', async () => {
     const userConf = await new Config(bud, [
-      `/__mocks__/bud.config`,
+      `/tests/unit/bud/cli/__mocks__/bud.config.js`,
     ]).get()
 
     expect(userConf).toBeInstanceOf(Function)
