@@ -9,23 +9,11 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * `@roots/bud` implements the {@link Framework} interface. This is the main
- * class that is used to build an application.
- *
- * @see https://roots.io/bud
- * @see https://github.com/roots/bud
- *
- * @remarks
  * The `@roots/bud` package provides {@link Bud}, a concrete implementation of the {@link Framework Framework abstract class}.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
  *
  * This package also provides a CLI which can is invoked with `bud`.
- *
- * Exported data & instances:
- * - {@link config} — The default {@link Configuration} used as the {@link Bud.store} {@link Store.repository repository}
- * - {@link extensions} — The default {@link Framework.Extensions} used as the {@link Bud.extensions} {@link Extensions.respository repository}
- * - {@link services} — The default {@link Framework.Services} registered to {@link Bud.services}
  *
  * @example
  * Example configuration file (`bud.config.js`). This file is run by invoking `bud build` in the terminal.
