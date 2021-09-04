@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
+    "declarationDir": "./types"
   },
   "include": [
     "src"

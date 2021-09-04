@@ -77,7 +77,6 @@
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@types/eslint": "7.28.0",

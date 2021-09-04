@@ -65,7 +65,6 @@
     "type": "extension"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.1",
     "@types/node": "16.3.0",

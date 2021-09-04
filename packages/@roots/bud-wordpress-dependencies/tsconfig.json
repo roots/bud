@@ -15,10 +15,10 @@
   ],
   "references": [
     {
-      "path": "./../bud-framework/tsconfig.json",
+      "path": "./../bud-framework/tsconfig.json"
     },
     {
       "path": "./../wordpress-dependencies-webpack-plugin/tsconfig.json"
-    },
+    }
   ]
 }

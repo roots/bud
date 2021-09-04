@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "esnext",
+    "module": "esnext"
   },
   "files": [],
   "references": [
@@ -9,7 +9,7 @@
       "path": "./packages/@roots/bud/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud-api/tsconfig-esm.json",
+      "path": "./packages/@roots/bud-api/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/bud-babel/tsconfig-esm.json"
@@ -48,7 +48,7 @@
       "path": "./packages/@roots/bud-extensions/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud-framework/tsconfig-esm.json",
+      "path": "./packages/@roots/bud-framework/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/bud-hooks/tsconfig-esm.json"
@@ -84,7 +84,7 @@
       "path": "./packages/@roots/bud-sass/tsconfig-esm.json"
     },
     {
-      "path": "./packages/@roots/bud-server/tsconfig-esm.json",
+      "path": "./packages/@roots/bud-server/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/bud-solid/tsconfig-esm.json"
@@ -103,9 +103,6 @@
     },
     {
       "path": "./packages/@roots/bud-typescript/tsconfig-esm.json"
-    },
-    {
-      "path": "./packages/@roots/bud-preset-recommend/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/bud-vue/tsconfig-esm.json"
@@ -133,6 +130,9 @@
     },
     {
       "path": "./packages/@roots/entrypoints-webpack-plugin/tsconfig-esm.json"
+    },
+    {
+      "path": "./packages/@roots/ink-prettier/tsconfig-esm.json"
     },
     {
       "path": "./packages/@roots/ink-use-style/tsconfig-esm.json"

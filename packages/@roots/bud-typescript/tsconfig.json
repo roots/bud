@@ -24,6 +24,9 @@
       "path": "./../bud-babel/tsconfig.json"
     },
     {
+      "path": "./../bud-build/tsconfig.json"
+    },
+    {
       "path": "./../bud-api/tsconfig.json"
     }
   ]

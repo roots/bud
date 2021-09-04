@@ -7,7 +7,7 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
+      "jest"
     ]
   },
   "include": [
@@ -20,6 +20,6 @@
   "references": [
     {
       "path": "./../container/tsconfig.json"
-    },
+    }
   ]
 }

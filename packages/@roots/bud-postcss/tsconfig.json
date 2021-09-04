@@ -9,20 +9,18 @@
       "node",
       "jest",
       "@roots/bud-api",
-      "@roots/bud-framework",
+      "@roots/bud-framework"
     ]
   },
   "include": [
-    "./src/**/*",
-  ],
-  "exclude": [
-    "./lib/**/*",
-    "./node_modules/**/*",
-    "./types/**/*",
+    "src"
   ],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../bud-build/tsconfig.json"
     },
     {
       "path": "./../bud-framework/tsconfig.json"

@@ -14,6 +14,11 @@
   "include": [
     "src"
   ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
+  ],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"

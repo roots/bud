@@ -19,6 +19,6 @@
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"
-    },
+    }
   ]
 }

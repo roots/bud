@@ -3072,7 +3072,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-criticalcss@workspace:packages/@roots/bud-criticalcss"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/critical-css-webpack-plugin": "workspace:packages/@roots/critical-css-webpack-plugin"
     "@types/jest": 27.0.1
@@ -3087,7 +3086,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-dashboard@workspace:packages/@roots/bud-dashboard"
   dependencies:
-    "@roots/bud-compiler": "workspace:packages/@roots/bud-compiler"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
@@ -3146,7 +3144,6 @@ __metadata:
     "@emotion/react": 11.4.1
     "@emotion/styled": 11.3.0
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
     "@types/eslint": 7.28.0
@@ -3168,7 +3165,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-entrypoints@workspace:packages/@roots/bud-entrypoints"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/jest": 27.0.1
@@ -3204,7 +3200,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:packages/@roots/bud-eslint"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/jest": 27.0.1
     "@types/node": 15.14.1
@@ -3392,11 +3387,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/jest": 27.0.1
@@ -3545,7 +3538,6 @@ __metadata:
   dependencies:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
     "@types/jest": 27.0.1
@@ -3647,7 +3639,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-terser@workspace:packages/@roots/bud-terser"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/jest": 27.0.1
     "@types/node": 15.14.1
@@ -3694,7 +3685,6 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/eslint": 7.28.0
     "@types/jest": 27.0.1
@@ -3721,7 +3711,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-dependencies@workspace:packages/@roots/bud-wordpress-dependencies"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
     "@types/jest": 27.0.1
@@ -3738,7 +3727,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-externals@workspace:packages/@roots/bud-wordpress-externals"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin"
     "@types/jest": 27.0.1
@@ -3753,7 +3741,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-manifests@workspace:packages/@roots/bud-wordpress-manifests"
   dependencies:
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin"
     "@types/jest": 27.0.1
@@ -3841,7 +3828,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/jest": 27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
@@ -3958,10 +3944,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:packages/@roots/sage"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier"

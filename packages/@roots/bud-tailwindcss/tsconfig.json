@@ -10,11 +10,11 @@
       "jest",
       "tailwindcss",
       "@roots/bud-api",
-      "@roots/bud-postcss",
+      "@roots/bud-postcss"
     ]
   },
   "include": [
-    "./src/**/*"
+    "src"
   ],
   "exclude": [
     "./lib/**/*",

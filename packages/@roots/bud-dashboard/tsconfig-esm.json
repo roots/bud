@@ -2,8 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib/esm",
-    "module": "esnext",
-    "target": "esnext"
+    "module": "esnext"
   },
   "references": [
     {
@@ -14,6 +13,9 @@
     },
     {
       "path": "./../bud-support/tsconfig-esm.json"
+    },
+    {
+      "path": "./../ink-use-style/tsconfig-esm.json"
     }
   ]
 }

@@ -8,16 +8,16 @@
       "jest",
       "tailwindcss",
       "@roots/bud-api",
-      "@roots/bud-postcss",
+      "@roots/bud-postcss"
     ]
   },
   "include": [
-    "./src/**/*.ts"
+    "src.ts"
   ],
   "exclude": [
     "./lib/**/*",
     "./node_modules/**/*",
-    "./types/**/*",
+    "./types/**/*"
   ],
   "references": [
     {

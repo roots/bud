@@ -8,15 +8,24 @@
     "types": [
       "node",
       "jest",
-      "@roots/bud-framework"
+      "@roots/bud-framework",
+      "@roots/container"
     ]
   },
   "include": [
     "src"
   ],
+  "exclude": [
+    "lib",
+    "types",
+    "node_modules"
+  ],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../container/tsconfig.json"
     }
   ]
 }

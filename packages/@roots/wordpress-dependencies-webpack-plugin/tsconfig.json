@@ -7,13 +7,16 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
-    ],
+      "jest"
+    ]
   },
   "include": [
     "src"
   ],
   "references": [
+    {
+      "path": "./../bud-framework/tsconfig.json"
+    },
     {
       "path": "./../bud-support/tsconfig.json"
     }

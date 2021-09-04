@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "./lib/esm",
     "module": "esnext",
-    "target": "esnext",
     "types": [
       "node",
       "jest",
@@ -15,19 +14,15 @@
   "include": [
     "src"
   ],
-  "exclude": [
-    "node_modules",
-    "types",
-  ],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig-esm.json"
-    },
     {
       "path": "./../bud-api/tsconfig-esm.json"
     },
     {
       "path": "./../bud-babel/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-framework/tsconfig-esm.json"
     },
     {
       "path": "./../bud-react/tsconfig-esm.json"

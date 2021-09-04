@@ -9,11 +9,17 @@
       "node",
       "jest",
       "express",
-      "webpack"
+      "webpack",
+      "@roots/bud-api"
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
     {
@@ -21,6 +27,9 @@
     },
     {
       "path": "./../bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../bud-support/tsconfig.json"
     }
   ]
 }

@@ -19,6 +19,6 @@
   "references": [
     {
       "path": "./../entrypoints-webpack-plugin/tsconfig.json"
-    },
+    }
   ]
 }

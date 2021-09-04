@@ -149,6 +149,9 @@
       "path": "./packages/@roots/filesystem/tsconfig.json"
     },
     {
+      "path": "./packages/@roots/ink-prettier/tsconfig.json"
+    },
+    {
       "path": "./packages/@roots/ink-use-style/tsconfig.json"
     },
     {

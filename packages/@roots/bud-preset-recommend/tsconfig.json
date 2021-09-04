@@ -16,22 +16,22 @@
     ]
   },
   "include": [
-    "./src/**/*.ts"
+    "src.ts"
   ],
   "exclude": [
-    "./lib/**/*",
-    "./node_modules/**/*",
-    "./types/**/*"
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
     {
       "path": "./../bud-api/tsconfig.json"
     },
     {
       "path": "./../bud-babel/tsconfig.json"
+    },
+    {
+      "path": "./../bud-framework/tsconfig.json"
     },
     {
       "path": "./../bud-postcss/tsconfig.json"
