@@ -1,9 +1,26 @@
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter
+ * for `@roots/entrypoints-webpack-plugin`.
+ *
+ * @packageDocumentation
+ */
+
 import {Framework, WebpackPlugin} from '@roots/bud-framework'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
 import {EslintConfig} from './api'
 
-interface Extension
+interface BudEslintWebpackPlugin
   extends WebpackPlugin<EslintPlugin, Options> {
   api: (app: Framework) => {
     eslint: EslintConfig
@@ -20,12 +37,12 @@ declare module '@roots/bud-framework' {
 
   namespace Framework {
     interface Extensions {
-      'eslint-webpack-plugin': Extension
+      'eslint-webpack-plugin': BudEslintWebpackPlugin
     }
   }
 }
 
-const extension: WebpackPlugin<EslintPlugin, Options> = {
+const BudEslintWebpackPlugin: BudEslintWebpackPlugin = {
   name: 'eslint-webpack-plugin',
 
   options: ({path, store}) => ({
@@ -47,4 +64,4 @@ const extension: WebpackPlugin<EslintPlugin, Options> = {
   when: app => app.project.hasPeerDependency('eslint'),
 }
 
-export const {name, options, make} = extension
+export const {name, options, make} = BudEslintWebpackPlugin

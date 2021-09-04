@@ -63,9 +63,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
 
   const hasCompilerErrors =
     stats && stats?.errors && stats?.errors?.length > 0
-
   const hasStdErr = stderr && stderr.length > 0
-
   const hasErrors = hasStdErr || hasCompilerErrors
 
   if (
@@ -157,7 +155,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                       ])}>
                       <Text wrap="truncate-end">
                         {' '}
-                        - {asset.name}
+                        - {asset.name}{' '}
                       </Text>
                     </Box>
 
@@ -168,7 +166,8 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                       ])}>
                       {asset?.info?.minimized && (
                         <Text color={theme.colors.success}>
-                          minimized
+                          {' '}
+                          minimized{' '}
                         </Text>
                       )}
                     </Box>
@@ -178,13 +177,13 @@ const Dashboard = ({bud}: {bud: Framework}) => {
                         theme.col(12),
                         theme.col(4),
                       ])}>
-                      <Text>{fileSize(asset.size)}</Text>
+                      <Text> {fileSize(asset.size)} </Text>
                     </Box>
                   </Box>
                 ))}
             </Box>
 
-            <Text>Compiled in {duration(child.time)}</Text>
+            <Text> Compiled in {duration(child.time)} </Text>
           </Box>
         ))}
 

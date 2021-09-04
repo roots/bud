@@ -46,23 +46,9 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Options
+   * @private
    */
-  public _options: Options = INIT_OPTIONS
-
-  /**
-   * Entrypoint css mapping
-   */
-  public entrypoints: {
-    [key: string]: any
-  } = {}
-
-  /**
-   * Constructor
-   */
-  public constructor(options?: Options) {
-    Object.assign(this, {options})
-  }
+  private _options: Options = INIT_OPTIONS
 
   /**
    * Access: get options
@@ -82,7 +68,35 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Webpack apply plugin
+   * chunks to be written to json
+   *
+   * @var {[type]}
+   */
+  public entrypoints: {
+    [key: string]: any
+  } = {}
+
+  /**
+   * Class constructor
+   *
+   * @param   {Options}  options criticalcss options
+   */
+  public constructor(options?: Options) {
+    Object.assign(this, {options})
+  }
+
+  /**
+   * apply plugin
+   *
+   * @remarks
+   * This method is called by webpack.
+   *
+   * @see {@link WebpackPluginInstance['apply']}
+   *
+   * @param   {Webpack.Compiler} compiler
+   * @returns {Promise<void>}
+   *
+   * @decorator `@bind`
    */
   @bind
   public async apply(compiler: Webpack.Compiler): Promise<void> {
@@ -95,7 +109,9 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Compilation
+   * [Compilation description]
+   *
+   * @var {[type]}
    */
   @bind
   public compilation(compilation: Webpack.Compilation): void {

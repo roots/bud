@@ -1,3 +1,23 @@
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build boss web applications with a modular, hackable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @remarks
+ * `@roots/bud-tailwindcss` adds [tailwindcss](https://tailwindcss.com/') to [@roots/bud](https://github.com/roots/bud)
+ *
+ * @author Kelly Mears <kelly@roots.io>
+ * @license MIT
+ *
+ * @packageDocumentation
+ */
+
 import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import * as InkUseStyle from '@roots/ink-use-style'
 import * as cosmiconfig from 'cosmiconfig'

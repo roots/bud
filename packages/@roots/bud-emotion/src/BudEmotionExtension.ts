@@ -1,5 +1,9 @@
 import {Framework, Module} from '@roots/bud-framework'
 
+/**
+ * Adds Emotion to `@roots/bud`
+ *
+ */
 interface BudEmotionExtension extends Module {}
 
 const BudEmotionExtension: BudEmotionExtension = {

@@ -1,3 +1,26 @@
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * Add stylelint support to Bud projects
+ *
+ * @export {name} The name of the extension
+ * @export {options} The extension options
+ * @export {make} The webpack plugin factory
+ *
+ * @author Kelly Mears <kelly@roots.io>
+ * @license MIT
+ *
+ * @packageDocumentation
+ */
+
 import type {
   Framework,
   WebpackPlugin,

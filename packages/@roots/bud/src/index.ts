@@ -1,5 +1,19 @@
 /**
- * ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * `@roots/bud` implements the {@link Framework} interface. This is the main
+ * class that is used to build an application.
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
  * @remarks
  * The `@roots/bud` package provides {@link Bud}, a concrete implementation of the {@link Framework Framework abstract class}.
@@ -57,8 +71,21 @@
  * instance.run() // run build
  * ```
  *
+ * @export {Bud} The Bud class
+ * @export {Factory} The factory function
+ * @export {extensions} The default {@link Framework.Extensions} repository
+ * @export {services} The default {@link Framework.Services} repository
+ * @export {config} The default {@link Configuration} repository
+ * @export {Api} The Bud API
+ * @export {Repository} The Bud API repository
+ *
+ * @author Kelly Mears <kelly@roots.io>
+ * @author qwp6t
+ * @license MIT
+ *
  * @packageDocumentation
  */
+
 import {Api, Repository} from '@roots/bud-api'
 import {Item, Loader, Rule} from '@roots/bud-build'
 import {

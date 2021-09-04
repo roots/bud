@@ -1,5 +1,4 @@
 import {Notifier as NodeNotifier} from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
 import {resolve} from 'path'
 
 import {Framework} from '../..'
@@ -16,9 +15,10 @@ export class Notifier {
     this.notifier = new NodeNotifier.NotificationCenter({
       customPath: MACOS_NOTIFIER_PATH,
     })
+
+    this.notify = this.notify.bind(this)
   }
 
-  @bind
   public notify(app: Framework) {
     const name = app.project.getProjectInfo().name ?? app.name
 

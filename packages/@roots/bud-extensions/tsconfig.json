@@ -9,11 +9,17 @@
       "node",
       "jest",
       "webpack",
-      "@roots/bud-api"
+      "@roots/bud-api",
+      "@roots/bud-framework"
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
     {

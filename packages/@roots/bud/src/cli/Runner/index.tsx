@@ -1,4 +1,3 @@
-import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
 import {config, Framework} from '../..'
@@ -156,9 +155,11 @@ class Runner {
         `${this.app.name}.${this.app.mode}.config.yml`,
       ],
     })
+
+    this.doStatics = this.doStatics.bind(this)
+    this.doBuilders = this.doBuilders.bind(this)
   }
 
-  @bind
   public async make(build = true) {
     /**
      * Handles automatic installation and/or registration of modules
@@ -229,7 +230,6 @@ class Runner {
    * configures application instance
    * @param configs
    */
-  @bind
   public async build(configs: string[]): Promise<void> {
     const builder = await new Config(this.app, configs).get()
     isFunction(builder) && builder(this.app)
@@ -238,19 +238,16 @@ class Runner {
   /**
    * Set process.env based on app mode
    */
-  @bind
   public setEnv(env: 'production' | 'development') {
     process.env.BABEL_ENV = env
     process.env.NODE_ENV = env
   }
 
-  @bind
   public async doBuilders() {
     await this.build(this.fluentBuilders)
     await this.build(this.fluentBuildersByEnv)
   }
 
-  @bind
   public async doStatics() {
     await new Config(this.app, this.staticBuilders).apply()
     await new Config(this.app, this.staticBuildersByEnv).apply()

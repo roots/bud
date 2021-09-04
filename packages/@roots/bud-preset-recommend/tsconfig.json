@@ -16,7 +16,7 @@
     ]
   },
   "include": [
-    "src.ts"
+    "src"
   ],
   "exclude": [
     "lib",

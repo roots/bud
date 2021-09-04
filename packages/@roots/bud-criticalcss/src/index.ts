@@ -1,27 +1,25 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
-import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * The `@roots/bud-criticalcss` package adds criticalcss support to [@roots/bud](https://github.com/roots/bud)
+ *
+ * @packageDocumentation
+ */
 
-type BudCriticalCssPlugin = WebpackPlugin<
-  CriticalCssWebpackPlugin,
-  CriticalCssWebpackPlugin['options']
->
+import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
+import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * Extract critical CSS
-     *
-     * @usage
-     * ```js
-     * app.critical({
-     *  // ...
-     * })
-     * ```
-     */
-    critical: CriticalCssExtension.Configure
+    critical: critical
   }
 
   namespace Framework {
@@ -31,33 +29,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-namespace CriticalCssExtension {
-  export type Configure = (
-    options: CriticalCssWebpackPlugin['options'],
-  ) => Framework
-
-  export type Options = CriticalCssWebpackPlugin['options']
-}
-
-const BudCriticalCssPlugin: BudCriticalCssPlugin = {
-  name: '@roots/bud-criticalcss',
-
-  options: (): CriticalCssExtension.Options => ({}),
-
-  make: options => new CriticalCssWebpackPlugin(options.all()),
-
-  when: ({isProduction}) => isProduction,
-  api: {
-    critical: function (options) {
-      this.hooks.on(
-        'extension/@roots/bud-criticalcss/options',
-        () => options,
-      )
-
-      return this
-    },
-  },
-}
-
-export const {name, options, make, when, api} =
-  BudCriticalCssPlugin
+export const {api, make, name, options} = BudCriticalCssPlugin

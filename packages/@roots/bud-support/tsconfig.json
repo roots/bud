@@ -13,6 +13,11 @@
   "include": [
     "src"
   ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
+  ],
   "references": [
     {
       "path": "./../ink-use-style/tsconfig.json"

@@ -2,7 +2,6 @@ import {
   cosmiconfig,
   cosmiconfigTsLoader,
 } from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
 
 import {Framework, Module} from '../'
 
@@ -24,9 +23,11 @@ export class Config {
         '.ts': cosmiconfigTsLoader,
       },
     }
+
+    this.get = this.get.bind(this)
+    this.apply = this.apply.bind(this)
   }
 
-  @bind
   public async get() {
     const res = await cosmiconfig
       .cosmiconfig(this.app.name, this.options)
@@ -40,7 +41,6 @@ export class Config {
     )
   }
 
-  @bind
   public async apply() {
     const config = await this.get()
 

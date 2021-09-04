@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-framework
- */
-
 import type {Instance} from 'ink'
 
 import type {Service} from './Service'

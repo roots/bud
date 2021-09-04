@@ -9,7 +9,8 @@
     "types": [
       "node",
       "jest",
-      "@roots/bud-api"
+      "@roots/bud-api",
+      "@roots/bud-framework"
     ]
   },
   "include": [

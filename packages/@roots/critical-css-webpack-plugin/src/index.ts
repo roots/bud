@@ -1,9 +1,7 @@
-import {CriticalCssWebpackPlugin} from './CriticalCssWebpackPlugin'
-import {Options} from './interface'
-
-export {
-  CriticalCssWebpackPlugin,
-  CriticalCssWebpackPlugin as default,
-}
-
-export type {Options}
+/**
+ * CriticalCssWebpackPlugin
+ *
+ * @packageDocumentation
+ */
+export {CriticalCssWebpackPlugin} from './CriticalCssWebpackPlugin'
+export type {Options} from './interface'

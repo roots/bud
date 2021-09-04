@@ -1,20 +1,37 @@
-import {
-  Framework,
-  Module,
-  WebpackPlugin,
-} from '@roots/bud-framework'
-import ImageMinimizerPlugin, {
-  PluginOptions,
-} from 'image-minimizer-webpack-plugin/types'
+/**
+ * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *
+ * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * Add image optimization support to Bud projects
+ *
+ * @export {name} - The name of the extension
+ * @export {api} - The extension API
+ * @export {register} - The extension registration function
+ * @export {boot} - The extension boot function
+ * @export {Config} - The extension configuration interface
+ *
+ * @author Kelly Mears <kelly@roots.io>
+ * @license MIT
+ *
+ * @packageDocumentation
+ */
 
+import {BudImageMinExtension} from './BudImageMinExtension'
+import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
-import {extension} from './imagemin'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
     interface Extensions {
-      '@roots/bud-imagemin': Imagemin.Extension
-      'image-minimizer-webpack-plugin': Imagemin.Plugin
+      '@roots/bud-imagemin': BudImageMinPlugin
+      'image-minimizer-webpack-plugin': BudImageMinPlugin
     }
   }
 
@@ -22,33 +39,13 @@ declare module '@roots/bud-framework' {
     /**
      * Manage image minimizer plugins and options
      */
-    imagemin: Imagemin.Config
+    imagemin: Config
   }
 
   interface Extensions {
-    '@roots/bud-imagemin'?: Imagemin.Extension
+    '@roots/bud-imagemin'?: BudImageMinExtension
   }
 }
 
-export namespace Imagemin {
-  export interface Extension extends Module {
-    name: '@roots/bud-imagemin'
-  }
-
-  export interface Plugin
-    extends WebpackPlugin<ImageMinimizerPlugin, PluginOptions> {
-    name: 'image-minimizer-webpack-plugin'
-  }
-
-  export type ImageminPlugin = [string, any]
-
-  export interface Config {
-    /**
-     * Configure imagemin plugins
-     */
-    plugins(plugins: Array<ImageminPlugin>): Framework
-  }
-}
-
-export const {name, api, register, boot} = extension
-export {Config, WebpackPlugin}
+export const {name, api, register, boot} = BudImageMinExtension
+export type {Config}

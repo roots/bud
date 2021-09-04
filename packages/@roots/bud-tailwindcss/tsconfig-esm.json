@@ -11,14 +11,6 @@
       "@roots/bud-postcss"
     ]
   },
-  "include": [
-    "src.ts"
-  ],
-  "exclude": [
-    "./lib/**/*",
-    "./node_modules/**/*",
-    "./types/**/*"
-  ],
   "references": [
     {
       "path": "./../bud-api/tsconfig-esm.json"

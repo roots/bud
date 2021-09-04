@@ -17,9 +17,9 @@
     "src"
   ],
   "exclude": [
-    "./lib/**/*",
-    "./node_modules/**/*",
-    "./types/**/*"
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
     {

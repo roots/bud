@@ -10,11 +10,17 @@
       "jest",
       "@roots/bud-api",
       "@roots/bud-babel",
+      "@roots/bud-framework",
       "@roots/bud-react"
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
     {

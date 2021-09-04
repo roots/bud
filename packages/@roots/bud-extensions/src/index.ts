@@ -11,6 +11,12 @@
  * The `@roots/bud-extensions` package provides a concrete implementation
  * of the {@link Contract `@roots/bud-framework` Extensions interface}.
  *
+ * @export {Extension} The extension interface
+ * @export {Extensions} The extension service
+ *
+ * @author Kelly Mears <kelly@roots.io>
+ * @license MIT
+ *
  * @packageDocumentation
  */
 

@@ -1,5 +1,8 @@
 import {Configuration as BaseConfig} from '@roots/bud-framework'
 
+/**
+ * {@link Configuration} defaults
+ */
 interface config extends BaseConfig {}
 
 const config: config = {

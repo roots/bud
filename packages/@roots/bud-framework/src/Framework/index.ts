@@ -60,6 +60,8 @@ abstract class Framework {
    * The name of the parent compiler is used as a base when sourcing configuration files.
    * So, in an implementation that uses the name `app`, the Framework will be sourcing
    * `app.config.js`, `app.development.config.js`, etc.
+   *
+   * @virtual
    */
   public name: string
 
@@ -277,7 +279,7 @@ abstract class Framework {
    * Class constructor
    */
   public constructor(options: Framework.Options) {
-    // Bindings
+    // This foolishness is basically mandated by tsc
     this.bindMethod<access>('access', access)
       .bindMethod<bootstrap>('bootstrap', bootstrap)
       .bindMethod<close>('close', close)
