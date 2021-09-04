@@ -3,13 +3,6 @@ import {chalk, globby} from '@roots/bud-support'
 import execa from 'execa'
 
 /**
- * Process argv
- */
-const argv = process.argv.splice(2)
-const tag = argv[0] ?? null
-const dryRun = argv.includes('--dry-run')
-
-/**
  * Publish errything to npm
  *
  * @remarks
@@ -51,6 +44,13 @@ const dryRun = argv.includes('--dry-run')
  */
 ;(async () => {
   /**
+   * Process argv
+   */
+  const argv = process.argv.splice(2)
+  const tag = argv[0] && argv[0] !== '--dry-run' ? argv[0] : null
+  const dryRun = argv.includes('--dry-run')
+
+  /**
    * Gather pkg paths
    */
   const pkgs = await globby.globby('packages/@roots/*', {
@@ -74,7 +74,7 @@ const dryRun = argv.includes('--dry-run')
         `[${pkg.split('packages/').pop()}]`,
       )
 
-      console.log(`${name} publishing...`)
+      console.log(`${name} Publishing...`)
 
       // Don't publish packages with no package.json
       if (
