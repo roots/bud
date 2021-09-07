@@ -3831,7 +3831,7 @@ __metadata:
     "@types/jest": 27.0.1
     "@types/lodash": 4.14.172
     "@types/node": 15.14.1
-    "@types/vinyl": 2.0.5
+    "@types/vinyl": 2.0.6
     autobind-decorator: ^2.4.0
     critical: ^4.0.1
     jest: 27.1.0
@@ -5035,13 +5035,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vinyl@npm:2.0.5":
-  version: 2.0.5
-  resolution: "@types/vinyl@npm:2.0.5"
+"@types/vinyl@npm:2.0.6":
+  version: 2.0.6
+  resolution: "@types/vinyl@npm:2.0.6"
   dependencies:
     "@types/expect": ^1.20.4
     "@types/node": "*"
-  checksum: 99c169732b3e1fe04397558c82f9844b016ba0a1c632d3f384df855dd8feb92b99007025a69145390be5a23a234c72b63e6dbcbcef0d710cba1ddd9c5fa2fac6
+  checksum: 5012fb61e3a29e7deaac7e66b6d8cb73d87d15965c8a38cb69277c2beb851a9a8ec09d4a1b07a3151e143afc2e3a102ca368b9a0e08f2f29de9183c97f9c7d85
   languageName: node
   linkType: hard
 
