@@ -78,7 +78,7 @@
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
     "tsconfig-paths": "3.11.0",
-    "type-fest": "2.1.0",
+    "type-fest": "2.2.0",
     "typescript": "4.4.2",
     "url-loader": "4.1.1",
     "weak-napi": "2.0.2"
