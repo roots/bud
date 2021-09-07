@@ -3604,7 +3604,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     remark: 14.0.1
-    remark-html: 14.0.0
+    remark-html: 14.0.1
     strip-ansi: 7.0.0
     toml: 3.0.0
     ts-node: 10.2.1
@@ -19936,16 +19936,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"remark-html@npm:14.0.0, remark-html@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "remark-html@npm:14.0.0"
+"remark-html@npm:14.0.1, remark-html@npm:^14.0.0":
+  version: 14.0.1
+  resolution: "remark-html@npm:14.0.1"
   dependencies:
     "@types/mdast": ^3.0.0
     hast-util-sanitize: ^4.0.0
     hast-util-to-html: ^8.0.0
     mdast-util-to-hast: ^11.0.0
     unified: ^10.0.0
-  checksum: 5677ed98e7e58bf1af19fab0d92f60928fbbabd15f343d154c7a3aa9b5f2e6f6e2da1afe58d661ee51e8dd8ff73d9744b239303104f372f6dd8a9dd3e3700477
+  checksum: 5d689b05dc6b4f24e08ece07aabca98685949198a8b6ceacb2fbf7fba8f45f55cea5623caddfd92aaf6e6f082bc1c93797dfb82dc48a6f6e1c5263947a4779c9
   languageName: node
   linkType: hard
 
