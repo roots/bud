@@ -5,7 +5,6 @@ import {isNull, isUndefined} from 'lodash'
 import type {
   Api,
   Build,
-  Cache,
   Compiler,
   Configuration,
   Dashboard,
@@ -15,7 +14,6 @@ import type {
   Hooks,
   Logger,
   Module,
-  Project,
   Server,
   WebpackPlugin,
 } from '../'
@@ -35,6 +33,8 @@ import {
   tap,
   when,
 } from '../'
+import * as Cache from '../Cache'
+import * as Project from '../Project'
 
 /**
  * The base class of a {@link Framework Framework instance}
@@ -158,7 +158,7 @@ abstract class Framework {
    *
    * @virtual
    */
-  public cache: Cache
+  public cache: Cache.Interface
 
   /**
    * Compiles {@link Build} configuration and stats/errors/progress reporting.
@@ -187,7 +187,7 @@ abstract class Framework {
    *
    * @virtual
    */
-  public project: Project
+  public project: Project.Interface
 
   /**
    * .env container

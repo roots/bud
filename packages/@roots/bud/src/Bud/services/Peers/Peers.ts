@@ -1,15 +1,32 @@
-import {Project} from '@roots/bud-framework'
+import * as Peers from '@roots/bud-framework/src/Peers'
+import * as Project from '@roots/bud-framework/src/Project'
 import {pkgUp} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {dirname, join} from 'path'
 
-class Peers {
+/**
+ * Peers service class
+ *
+ * @beta
+ */
+export default class
+  extends Peers.Abstract
+  implements Peers.Interface
+{
+  /**
+   * {@inheritDoc}
+   */
   public name = 'project'
 
-  public project: Project
+  public project: Project.Interface
 
-  public constructor(project: Project) {
+  /**
+   * Class constructor
+   */
+  public constructor(project: Project.Interface) {
+    super()
+
     this.project = project
 
     this.discover('dependencies').discover('devDependencies')
@@ -17,6 +34,8 @@ class Peers {
 
   /**
    * Returns path for a module name (if findable)
+   *
+   * @decorator `@bind`
    */
   @bind
   public resolvePeerByName(name: string) {
@@ -35,6 +54,8 @@ class Peers {
 
   /**
    * Returns manifest for a module from name (if findable)
+   *
+   * @decorator `@bind`
    */
   @bind
   public getPeerManifest(name: string) {
@@ -44,6 +65,8 @@ class Peers {
 
   /**
    * Returns true if a module is a bud
+   *
+   * @decorator `@bind`
    */
   @bind
   public isExtension(name: string): boolean {
@@ -53,11 +76,13 @@ class Peers {
   /**
    * Plumbs project dependencies and gathers data
    * on bud related modules
+   *
+   * @decorator `@bind`
    */
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
-  ): Peers {
+  ): this {
     this.project.has(type) &&
       this.project.getKeys(type).map((name: string) => {
         /**
@@ -133,6 +158,8 @@ class Peers {
 
   /**
    * Registers all bud related extensions with bud.extensions
+   *
+   * @decorator `@bind`
    */
   @bind
   public registerDiscovered() {
@@ -146,6 +173,8 @@ class Peers {
 
   /**
    * Installs all required peer dependencies
+   *
+   * @decorator `@bind`
    */
   @bind
   public install(): void {
@@ -157,5 +186,3 @@ class Peers {
       )
   }
 }
-
-export {Peers}

@@ -9,9 +9,11 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * The `@roots/bud-cache` package implements the {@link Cache Cache Service}
+ * The {@link @roots/bud-cache#} package implements the {@link @roots/bud-framework#Cache} interface.
  *
  * @packageDocumentation
  */
 
-export {Cache} from './Cache'
+import Cache from './Cache'
+
+export {Cache}

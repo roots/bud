@@ -131,7 +131,8 @@
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
     "@types/source-map-support": "0.5.4",
-    "jest": "27.1.0"
+    "jest": "27.1.0",
+    "tsconfig-paths": "^3.11.0"
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",

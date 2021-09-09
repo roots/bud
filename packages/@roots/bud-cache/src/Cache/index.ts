@@ -1,16 +1,36 @@
-import {
-  Cache as Contract,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import {Cache, Framework} from '@roots/bud-framework'
 import {globby} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {createHash} from 'crypto'
 import {readFileSync} from 'fs-extra'
 
-class Cache extends Service implements Contract {
+/**
+ * Service class handling cache concerns
+ *
+ * @remarks
+ * Interfaces with:
+ *  - {@link @roots/bud-framework#Project} to determine project dependencies for snapshotting/validation.
+ *  - {@link @roots/bud-framework#Build} via {@link @roots/bud-framework#Hooks} to update config.
+ *
+ * Facades:
+ *  - {@link @roots/bud-framework#Api} can toggle cache settings with {@link Bud.Persist}
+ *
+ * @beta
+ */
+export default class
+  extends Cache.Abstract
+  implements Cache.Interface
+{
+  /**
+   * {@inheritDoc}
+   */
   public name = 'cache'
 
+  /**
+   * {@inheritDoc}
+   *
+   * @decorator `@bind`
+   */
   @bind
   public register(app: Framework): void {
     app.hooks
@@ -22,6 +42,8 @@ class Cache extends Service implements Contract {
 
   /**
    * Returns sha1 hash as a version string
+   *
+   * @decorator `@bind`
    */
   @bind
   public version(): string {
@@ -33,7 +55,9 @@ class Cache extends Service implements Contract {
   }
 
   /**
-   * Returns cache directory for fs operations
+   * Returns cache storage directory
+   *
+   * @decorator `@bind`
    */
   @bind
   public directory(): string {
@@ -43,7 +67,10 @@ class Cache extends Service implements Contract {
   /**
    * Returns array of build dependency paths
    *
-   * @see [webpack cache.buildDependencies docs](https://webpack.js.org/configuration/cache/#cachebuilddependencies)
+   * @remarks
+   * @see https://webpack.js.org/configuration/cache/#cachebuilddependencies
+   *
+   * @decorator `@bind`
    */
   @bind
   public buildDependencies(): string[] {
@@ -80,6 +107,8 @@ class Cache extends Service implements Contract {
 
   /**
    * Returns hash of all build dependencies and parsed CLI arguments
+   *
+   * @decorator `@bind`
    */
   @bind
   public hash(): string {
@@ -91,5 +120,3 @@ class Cache extends Service implements Contract {
     )
   }
 }
-
-export {Cache}
