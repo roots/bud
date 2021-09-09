@@ -1,6 +1,5 @@
 import * as Peers from '../Peers'
 import {Service} from '../Service'
-import {Repository} from '.'
 
 /**
  * Peer service abstract class
@@ -8,7 +7,7 @@ import {Repository} from '.'
  * @virtual
  * @beta
  */
-export abstract class Abstract extends Service<Repository> {
+export abstract class Abstract extends Service<Peers.Repository> {
   /**
    * Array of paths for webpack to resolve modules from
    *

@@ -1,4 +1,4 @@
-import * as Project from '@roots/bud-framework/src/Project'
+import * as Project from '../Project'
 
 /**
  * Peer dependencies

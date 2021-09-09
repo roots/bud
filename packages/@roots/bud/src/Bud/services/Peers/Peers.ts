@@ -1,5 +1,4 @@
-import * as Peers from '@roots/bud-framework/src/Peers'
-import * as Project from '@roots/bud-framework/src/Project'
+import {Peers, Project} from '@roots/bud-framework'
 import {pkgUp} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'

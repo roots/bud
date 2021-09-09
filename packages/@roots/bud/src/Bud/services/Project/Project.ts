@@ -1,8 +1,8 @@
-import * as Project from '@roots/bud-framework/src/Project'
+import {Project} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 
-import {Peers} from '../Peers'
+import {Peers, Repository} from '../Peers'
 
 /**
  * Project service class
@@ -26,7 +26,7 @@ export default class
   /**
    * {@inheritDoc}
    */
-  public repository: Project.Repository = {
+  public repository: Repository = {
     name: null,
     peers: {},
     extensions: {},
