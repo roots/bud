@@ -1,21 +1,19 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * The {@link @roots/bud-api# | @roots/bud-api package} is a repository of high-level functions
+ * intended to make common configuration goals easier to accomplish.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
-
- * @packageDocumentation
+ *
+ * @core @packageDocumentation
  */
 
-import {Api} from './Api'
-import {Repository} from './repository'
+import * as Api from './Api'
 
 declare module '@roots/bud-framework' {
-  interface Framework extends Repository {}
+  interface Framework extends Api.Repository {}
 }
 
-export {Api, Repository}
+export default Api

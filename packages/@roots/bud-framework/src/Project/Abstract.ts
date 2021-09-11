@@ -5,7 +5,7 @@ import {Service} from '../Service'
  * Peer service abstract class
  *
  * @virtual
- * @beta
+ * @public
  */
 export abstract class Abstract extends Service<Peers.Repository> {
   /**

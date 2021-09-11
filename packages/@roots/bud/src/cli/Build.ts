@@ -1,6 +1,6 @@
 import {flags} from '@oclif/command'
 
-import {Framework} from '..'
+import Bud from '../Bud'
 import {Command} from './Command'
 import {Runner} from './Runner'
 
@@ -11,7 +11,7 @@ export default class Build extends Command {
 
   public cli: {flags: any; args: any}
 
-  public app: Framework
+  public app: Bud
 
   public static flags = {
     help: flags.help({char: 'h'}),

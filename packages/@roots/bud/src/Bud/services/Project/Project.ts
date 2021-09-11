@@ -7,7 +7,7 @@ import {Peers, Repository} from '../Peers'
 /**
  * Project service class
  *
- * @beta
+ * @public
  */
 export default class
   extends Project.Abstract

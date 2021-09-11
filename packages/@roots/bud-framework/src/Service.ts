@@ -6,29 +6,56 @@ import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
 
 /**
+ * Generic typing for a {@link Service} key-value store
+ *
+ * @public
+ */
+interface GenericRepository {
+  [key: string]: any
+}
+
+/**
+ * Generic type defining the {@link Service.bindClass} map of
+ * {@link Class} types to {@link Framework} property keys
+ *
+ * @public
+ */
+interface GenericClassMap {
+  [key: string]: Class<any> | [Class<any>, any[]]
+}
+
+/**
+ * Generic type defining the {@link Service.macro} map of
+ * {@link CallableFunction} types to {@link Framework} property keys
+ */
+interface GenericFunctionMap {
+  [key: string]: CallableFunction
+}
+
+/**
  * Atomic unit of {@link Framework} functionality.
  *
  * @remarks
- * Services extend {@link Bootstrapper}, which provides container functions and access to the main {@link Framework} instance.
+ * Services extend {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework} access
  *
- * All services must be defined during instantiation of the {@link Framework}.
+ * A {@link Service} is tapped through a series of callbacks at different points in the build.
+ * Note that all of these callbacks are optional:
  *
- * A Service provides functionality through a series of lifecycle callbacks, which are all optional:
+ * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+ * - {@link Service.bootstrapped} is called once all Services have been instantiated.
+ * - {@link Service.register} is intended for Services to register functionalities, modules, and bind functions and classes.
+ * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.
+ * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.
+ * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.
  *
- * - {@link Service.bootstrap bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
- * - {@link Service.bootstrapped bootstrapped} is called once all Services have been instantiated.
+ * @typeParam Repository - {@link Repository} typing, if applicable
  *
- * - {@link Service.register register} is intended for Services to register functionalities, modules, and bind functions and classes.
- * - {@link Service.registered registered} is called after all {@link Service.register} callbacks are complete.
- *
- * - {@link Service.boot boot} is called once all services are registered. It should be safe for Services to reference one another.
- * - {@link Service.booted booted} is called after all {@link Service.boot} callbacks are complete.
- *
- * @typeParam T - Container repository typing, if applicable
+ * @virtual
+ * @public
  */
 abstract class Service<
-  T = {[key: string]: any},
-> extends Bootstrapper<T> {
+  Repository = GenericRepository,
+> extends Bootstrapper<Repository> {
   /**
    * Lifecycle method: bootstrap
    *
@@ -100,21 +127,20 @@ abstract class Service<
    * Bind a {@link CallableFunction} to the {@link Framework}
    *
    * @example
-   * Bind to `app.boundFnName`
+   * Bind a function named `fooFn` to `app.foo`
    *
    * ```js
-   * app.service.bindClass({boundFnName: BindingClass})
+   * app.service.bindClass({foo: fooFn})
    * ```
    *
-   * @typeParam T - Object typing
+   * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
+   *
    * @decorator `@bind`
    */
   @bind
-  public bindMacro<
-    T = {
-      [key: string]: CallableFunction
-    },
-  >(properties: T): void {
+  public bindMacro<FunctionMap = GenericFunctionMap>(
+    properties: FunctionMap,
+  ): void {
     this.app
       .container(properties)
       .getEntries()
@@ -130,47 +156,53 @@ abstract class Service<
    * Constructor parameters can be specified using an array.
    *
    * @example
-   * Bind to `app.bindingName`:
+   * Bind a Class named `FooClass` to `app.Foo`:
    *
    * ```js
-   * app.service.bindClass({bindingName: BindingClass})
+   * app.service.bindClass({Foo: FooClass})
    * ```
    *
-   * @example
-   * Specify constructor parameters to pass to `BindingClass` during instantiation.
+   * Specify constructor parameters with a tuple:
    *
    * ```js
    * app.service.bindClass({bindingName: [BindingClass, foo, bar]})
    * ```
    *
-   * @typeParam T - Object typing
+   * @typeParam Binding - Map of {@link Framework} keys to {@link Class} types
    * @decorator `@bind`
    */
   @bind
-  public bindClass<
-    T = {
-      [key: string]: Class<any> | [Class<any>, any[]]
-    },
-  >(properties: T): void {
+  public bindClass<ClassMap = GenericClassMap>(
+    properties: ClassMap,
+  ): void {
+    /**
+     *
+     * @param accumulator - {@link T}
+     * @param param - Tuple of {@link Framework} prop names and provided {@link Class} definitions
+     *
+     * @internal
+     */
+    const bindingReducer = (
+      accumulator: ClassMap,
+      [name, value]: [string, Class<any> | [Class<any>, any]],
+    ) => {
+      const [ClassObj, constructorParams] = isArray(value)
+        ? value
+        : [value, []]
+
+      return {
+        ...accumulator,
+        [`${name}`]: new ClassObj(
+          ...(isArray(constructorParams)
+            ? constructorParams
+            : [constructorParams]),
+        ),
+      }
+    }
+
     Object.assign(
       this.app,
-      this.app
-        .container(properties)
-        .getEntries()
-        .reduce((acc, [name, value]) => {
-          const [ClassObj, constructorParams] = isArray(value)
-            ? value
-            : [value, []]
-
-          return {
-            ...acc,
-            [`${name}`]: new ClassObj(
-              ...(isArray(constructorParams)
-                ? constructorParams
-                : [constructorParams]),
-            ),
-          }
-        }, {}),
+      Object.entries(properties).reduce(bindingReducer, {}),
     )
   }
 }

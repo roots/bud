@@ -2,18 +2,12 @@ import {flags} from '@oclif/command'
 import type Parser from '@oclif/parser'
 import {noop} from 'lodash'
 
-import {Framework} from '../../..'
+import Bud from '../../../Bud'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'
 
 const EXIT = process.env.JEST_WORKER_ID ? noop : process.exit
 
-/**
- * @class DoctorCommand
- * @extends Command
- * @classdesc @oclif/Command instance for `doctor` command
- * @example $ bud doctor
- */
 interface Doctor extends Command {
   hasMissingPeers(): boolean
   getMissingPeers(): {name: string}[]
@@ -21,25 +15,26 @@ interface Doctor extends Command {
   run(): Promise<void>
 }
 
+/**
+ * `$ bud doctor` command class
+ *
+ * @public
+ */
 class Doctor extends Command {
   /**
-   * Command description
-   *
-   * @var {Command.description} Doctor.description
+   * {@link Command.description}
    */
   public static description = 'Help diagnose issues with Bud'
 
   /**
-   * Command Examples
-   *
-   * @var {Command.examples} Doctor.examples
+   * {@link Command.examples}
    */
   public static examples = [`$ bud doctor`]
 
   /**
    * Command Flags
    *
-   * @var {Command.flags} Doctor.flags
+   * {@link Command.flags}
    */
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -54,11 +49,13 @@ class Doctor extends Command {
   public static args = []
 
   /**
-   * Application instance
-   *
-   * @var {Framework} Doctor.app
+   * {@link Bud} application instance
    */
-  public app: Framework
+  public app: Bud
+
+  /**
+   * Oclif parser
+   */
   public cli: Parser.Output<
     {
       help: void
@@ -68,16 +65,12 @@ class Doctor extends Command {
   >
 
   /**
-   * Mode to run command in
-   *
-   * @var {Framework.Mode} mode
+   * {@link Bud.Mode} compilation mode
    */
   public mode = 'production'
 
   /**
    * Returns true if there are missing peer dependencies
-   *
-   * @returns {Promise<boolean>}
    */
   public hasMissingPeers(): boolean {
     return this.getMissingPeers()?.length > 0
@@ -85,8 +78,6 @@ class Doctor extends Command {
 
   /**
    * Returns an array of missing peer dependencies
-   *
-   * @return {Promise<any[]>} missing peers
    */
   public getMissingPeers(): {name: string}[] {
     return this.app.project.has('peers')
@@ -99,6 +90,9 @@ class Doctor extends Command {
       : []
   }
 
+  /**
+   * Show feedback on command operation to user
+   */
   public displayFeedback(missing: {name: string}[]): void {
     missing.length < 1
       ? this.app.dashboard.render(
@@ -111,14 +105,15 @@ class Doctor extends Command {
         )
   }
 
+  /**
+   * Called at the end of {@link run}
+   */
   public done() {
     this.app.close(EXIT)
   }
 
   /**
-   * Run command
-   *
-   * @return {Promise<void>} command result
+   * {@link Command.run}
    */
   public async run(): Promise<void> {
     /**

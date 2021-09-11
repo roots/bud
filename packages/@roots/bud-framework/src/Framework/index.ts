@@ -37,17 +37,17 @@ import * as Cache from '../Cache'
 import * as Project from '../Project'
 
 /**
- * The base class of a {@link Framework Framework instance}
+ * Base {@link Framework} class
  *
  * @remarks
  * Implementations must provide a {@link Framework.implementation} property
  * conforming to the {@link Framework.Constructor} interface
  *
- * This is in addition to all required {@link Framework.Options constructor parameters}.
+ * This is in addition to all required {@link Framework.Options}.
  */
 abstract class Framework {
   /**
-   * Concrete implementation of the {@link Framework Framework interface}
+   * Concrete implementation of the {@link Framework}
    *
    * @virtual
    */
@@ -69,9 +69,9 @@ abstract class Framework {
    * Compilation mode
    *
    * @remarks
-   * Unlike webpack, there is no 'none' mode.
+   * Either `production` or `development`. Unlike webpack, there is no 'none' mode.
    *
-   * @default 'production'
+   * @defaultValue 'production'
    */
   public mode: Framework.Mode = 'production'
 
@@ -81,12 +81,12 @@ abstract class Framework {
    * @remarks
    * Is `null` if the current instance is the parent instance.
    *
-   * @default null
+   * @defaultValue null
    */
   public parent: Framework | null = null
 
   /**
-   * Is parent
+   * True when current instance is the parent instance
    *
    * @readonly
    */
@@ -95,17 +95,17 @@ abstract class Framework {
   }
 
   /**
-   * Child {@link Framework} instances
+   * {@link Container} of child {@link Framework} instances
    *
    * @remarks
    * Is `null` if the current instance is a child instance.
    *
-   * @default null
+   * @defaultValue null
    */
   public children: Container<Framework.Instances> | null = null
 
   /**
-   * Has children
+   * True when {@link Framework} has children
    *
    * @readonly
    */
@@ -127,24 +127,19 @@ abstract class Framework {
   /**
    * Macros for assisting with common config tasks
    *
-   * @internal
-   * @virtual
+   * @internal @virtual
    */
   public api: Api
 
   /**
    * Build configuration container
    *
-   * @example
-   * {@link Build.config} property contains the build config object:
-   *
+   * @example The `build.config` property holds the build config object:
    * ```js
    * build.config
    * ```
    *
-   * @example
-   * Rebuild the configuration:
-   *
+   * @example Rebuild the configuration:
    * ```js
    * build.rebuild()
    * ```
@@ -215,9 +210,7 @@ abstract class Framework {
   /**
    * Service allowing for fitering {@link Framework} values through callbacks.
    *
-   * @example
-   * Add a new entry to the `webpack.externals` configuration:
-   *
+   * @example Add a new entry to the `webpack.externals` configuration:
    * ```ts
    * hooks.on(
    *   'build/externals',
@@ -228,9 +221,7 @@ abstract class Framework {
    * )
    * ```
    *
-   * @example
-   * Change the `webpack.output.filename` format:
-   *
+   * @example Change the `webpack.output.filename` format:
    * ```ts
    * hooks.on(
    *   'build/output/filename',
@@ -256,8 +247,6 @@ abstract class Framework {
 
   /**
    * Container service for holding {@link Configuration} values
-   *
-   * @sealed
    */
   public store: Store
 
@@ -400,20 +389,6 @@ abstract class Framework {
    * @example
    * ```js
    * bud.make('scripts', child => child.entry('app', 'app.js'))
-   * ```
-   *
-   * @example
-   * This function returns the parent bud instance for further chaining.
-   *
-   * It is also possible to reference the parent instance using {@link Framework.parent}.
-   *
-   * ```js
-   * make('scripts', child => {
-   *   child.entry('app', 'app.js')
-   *   child.parent.dev({
-   *     // ...
-   *   })
-   * })
    * ```
    */
   public make: make
@@ -662,10 +637,25 @@ namespace Framework {
    * Constructor options
    */
   export interface Options {
+    /**
+     * @virtual
+     */
     name: string
+    /**
+     * @virtual
+     */
     mode?: Framework.Mode
+    /**
+     * @virtual
+     */
     config?: Configuration
+    /**
+     * @virtual
+     */
     services?: Framework.Services
+    /**
+     * @internal
+     */
     parent?: Framework
   }
 

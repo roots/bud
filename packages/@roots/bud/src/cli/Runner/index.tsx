@@ -1,12 +1,12 @@
 import {isFunction} from 'lodash'
 
-import {config, Framework} from '../..'
-import {Factory} from '../../Factory'
-import {Config} from '../Config'
+import Bud from '../../Bud'
+import config from '../../config'
+import factory from '../../factory'
+import CLIConfig from '../Config'
 
 /**
- * @class Runner
- * @classdesc Runs bud build for {@link Command} classes
+ * Supplies {@link @oclif/command#Command} instances with {@link Bud}
  *
  * @remarks
  * It makes sense to pull this out of any individual command class
@@ -15,23 +15,45 @@ import {Config} from '../Config'
  * It's kind of an overly long and complicated class, but at its
  * core it's a simple task of running the bud build.
  *
- * - Instantiate bud with a {@link Factory}
+ * - Instantiate bud with a {@link factory}
  * - Gather configs from project directory
  * - Process configs. Static config processing is delegated to {@link Config}.
- * - Call {@link Framework['run']}
+ * - Call {@link Bud.run}
+ *
+ * @internal
  */
 class Runner {
   /**
-   * Application instance
+   * @internal
    */
-  public app: Framework
+  public _fluentBuilders: string[]
+
+  /**
+   * @internal
+   */
+  public _fluentBuildersByEnv: string[]
+
+  /**
+   * @internal
+   */
+  public _staticBuilders: string[]
+
+  /**
+   * @internal
+   */
+  public _staticBuildersByEnv: string[]
+
+  /**
+   * {@link Bud} application instance
+   */
+  public app: Bud
 
   /**
    * Constructor options
    */
   public options: {
     mode?: 'production' | 'development'
-    config?: Partial<config>
+    config?: Partial<typeof config>
   }
 
   /**
@@ -43,15 +65,15 @@ class Runner {
   }
 
   /**
-   * Requested compiler mode
+   * Requested {@link Bud.mode}
    */
   public mode: 'development' | 'production'
 
   /**
    * Fluent builders
+   *
    * @example `bud.config.{js,ts}`
    */
-  public _fluentBuilders: string[]
   public get fluentBuilders(): string[] {
     return this._fluentBuilders
   }
@@ -61,9 +83,9 @@ class Runner {
 
   /**
    * Fluent builders by env
+   *
    * @example `bud.development.{js,ts}`
    */
-  public _fluentBuildersByEnv: string[]
   public get fluentBuildersByEnv(): string[] {
     return this._fluentBuildersByEnv
   }
@@ -73,9 +95,9 @@ class Runner {
 
   /**
    * Static builders
+   *
    * @example `bud.config.{json,yml}`
    */
-  public _staticBuilders: string[]
   public get staticBuilders(): string[] {
     return this._staticBuilders
   }
@@ -85,9 +107,9 @@ class Runner {
 
   /**
    * Static builders by env
+   *
    * @example `bud.development.{json,yml}`
    */
-  public _staticBuildersByEnv: string[]
   public get staticBuildersByEnv(): string[] {
     return this._staticBuildersByEnv
   }
@@ -98,14 +120,14 @@ class Runner {
   /**
    * Class constructor
    *
-   * @param cli
-   * @param options
-   * @param app
+   * @param cli - CLI state
+   * @param options - Bud options
+   * @param app - Instance of {@link Bud}
    */
   public constructor(
     cli: Runner['cli'],
     options: Runner['options'] = {},
-    app: Framework = null,
+    app: Bud = null,
   ) {
     Object.assign(this, {cli, options})
     this.setEnv(
@@ -114,7 +136,7 @@ class Runner {
 
     this.app =
       app ??
-      Factory({
+      factory({
         mode: this.mode,
         ...options,
         config: {
@@ -160,20 +182,26 @@ class Runner {
     this.doBuilders = this.doBuilders.bind(this)
   }
 
+  /**
+   * Main process
+   *
+   * @param build - Boolean value indicating if compilation should occur
+   */
   public async make(build = true) {
     /**
-     * Handles automatic installation and/or registration of modules
+     * Handle automatic installation and/or registration of modules
+     * at user request
      */
     this.cli.flags.install && this.app.project.peers.install()
     this.cli.flags.discover &&
       this.app.project.peers.registerDiscovered()
 
     /**
-     * Configure bud instance with static confs
+     * Configure bud instance with static configs.
      */
     await this.doStatics()
     /**
-     * Configure bud instance with fluent confs
+     * Configure bud instance with fluent configs.
      */
     await this.doBuilders()
 
@@ -204,7 +232,8 @@ class Runner {
 
       /**
        * Handle --target flag
-       * @example `bud build --target plugin`
+       *
+       * @example `$ bud build --target plugin`
        */
       if (this.cli.flags.target.length > 0) {
         /**
@@ -226,31 +255,43 @@ class Runner {
   }
 
   /**
-   * Actually calls config fn and
-   * configures application instance
-   * @param configs
+   * Configures application instance
+   *
+   * @param configs - configuration files
    */
   public async build(configs: string[]): Promise<void> {
-    const builder = await new Config(this.app, configs).get()
+    const builder = await new CLIConfig(this.app, configs).get()
+
     isFunction(builder) && builder(this.app)
   }
 
   /**
    * Set process.env based on app mode
+   *
+   * @param env - {@link Bud.mode}
    */
   public setEnv(env: 'production' | 'development') {
     process.env.BABEL_ENV = env
     process.env.NODE_ENV = env
   }
 
+  /**
+   * Process dynamic configs
+   */
   public async doBuilders() {
     await this.build(this.fluentBuilders)
     await this.build(this.fluentBuildersByEnv)
   }
 
+  /**
+   * Process static configs
+   */
   public async doStatics() {
-    await new Config(this.app, this.staticBuilders).apply()
-    await new Config(this.app, this.staticBuildersByEnv).apply()
+    await new CLIConfig(this.app, this.staticBuilders).apply()
+    await new CLIConfig(
+      this.app,
+      this.staticBuildersByEnv,
+    ).apply()
   }
 }
 

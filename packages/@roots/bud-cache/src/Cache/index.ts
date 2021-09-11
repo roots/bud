@@ -15,7 +15,7 @@ import {readFileSync} from 'fs-extra'
  * Facades:
  *  - {@link @roots/bud-framework#Api} can toggle cache settings with {@link Bud.Persist}
  *
- * @beta
+ * @public
  */
 export default class
   extends Cache.Abstract

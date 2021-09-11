@@ -1,11 +1,11 @@
-import {Configuration as BaseConfig} from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework'
 
 /**
- * {@link Configuration} defaults
+ * Base config repository
+ *
+ * @public
  */
-interface config extends BaseConfig {}
-
-const config: config = {
+const config: Configuration = {
   name: 'bud',
 
   cli: false,
@@ -205,4 +205,4 @@ const config: config = {
   },
 }
 
-export {config}
+export {config as default}

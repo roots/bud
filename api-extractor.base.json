@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "compiler": {},
+  "messages": {
+    "compilerMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    },
+    "extractorMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    },
+    "tsdocMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    }
+  },
+  "mainEntryPointFilePath": "<projectFolder>/packages/@roots/<unscopedPackageName>/types/index.d.ts",
+  "projectFolder": "./",
+  "apiReport": {
+    "enabled": true,
+    "reportFileName": "<unscopedPackageName>.api.md",
+    "reportFolder": "<projectFolder>/site/src/api/markdown/",
+    "reportTempFolder": "<projectFolder>/site/src/api/temp/"
+  },
+  "docModel": {
+    "enabled": true,
+    "apiJsonFilePath": "<projectFolder>/site/src/api/input/<unscopedPackageName>.api.json"
+  },
+  "dtsRollup": {
+    "enabled": true,
+    "untrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>.d.ts",
+    "betaTrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-beta.d.ts",
+    "publicTrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-public.d.ts"
+  },
+  "tsdocMetadata": {
+    "enabled": true,
+    "tsdocMetadataFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-tsdoc-metadata.json"
+  }
+}
