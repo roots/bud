@@ -69,7 +69,7 @@
     "imagemin-gifsicle": "^7",
     "imagemin-jpegtran": "^7",
     "imagemin-optipng": "^8",
-    "imagemin-svgo": "^9"
+    "imagemin-svgo": "^9 || ^10"
   },
   "peerDependenciesMeta": {
     "imagemin-gifsicle": {
