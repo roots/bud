@@ -2,7 +2,8 @@ import type {Framework} from '@roots/bud-framework'
 import type {DefinePlugin} from 'webpack'
 
 /**
- * Function accepting {@link webpack#DefinePlugin} definitions and returning the {@link @roots/bud-framework#Framework}
+ * Function accepting {@link webpack#DefinePlugin} definitions and
+ * returning the {@link @roots/bud-framework#Framework}
  *
  * @param values - {@link webpack#DefinePlugin} definitions
  * @returns {@link @roots/bud-framework#Framework}
