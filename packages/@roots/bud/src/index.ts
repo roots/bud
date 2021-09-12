@@ -42,7 +42,7 @@
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'
-import {WebpackPlugin} from '@roots/bud-framework'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
 
 import Bud from './Bud'
 import config from './config'
@@ -119,8 +119,9 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export {Bud}
+export {Bud, Bud as Framework}
 
 export {config}
-
 export {factory}
+
+export {Module, WebpackPlugin}

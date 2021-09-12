@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {Config} from '@roots/bud/src/cli/Config'
+import Config from '@roots/bud/src/cli/Config'
 import {Framework} from '@roots/bud-framework'
 
 import {mocks} from './__mocks__/index'

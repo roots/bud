@@ -1,5 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import {alias} from '@roots/bud-api/src/repository/alias'
+import alias from '@roots/bud-api/src/Api/Repository/alias'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework

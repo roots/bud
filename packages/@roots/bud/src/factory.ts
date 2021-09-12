@@ -6,7 +6,7 @@ import {services} from './Bud/services'
 import config from './config'
 
 /**
- * {@link Bud.ctor} prop overrides
+ * {@link Bud} ctor property overrides
  *
  * @core @public
  */
@@ -23,7 +23,7 @@ interface Options
  *
  * @public @core @config
  */
-function factory(overrides: Options): Bud {
+function factory(overrides?: Options): Bud {
   const options: Framework.Options = {
     name: overrides?.name ?? 'bud',
     mode: overrides?.mode ?? 'production',
