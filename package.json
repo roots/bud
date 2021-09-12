@@ -77,7 +77,7 @@
     "react-reconciler": "0.26.2",
     "rimraf": "3.0.2",
     "signale": "1.4.0",
-    "source-map-support": "0.5.19",
+    "source-map-support": "0.5.20",
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
     "tsconfig-paths": "3.11.0",
