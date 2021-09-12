@@ -75,7 +75,7 @@
     "jest": "27.1.1",
     "signale": "1.4.0",
     "webpack": "5.52.1",
-    "webpack-dev-middleware": "5.0.0"
+    "webpack-dev-middleware": "5.1.0"
   },
   "dependencies": {
     "@roots/container": "workspace:packages/@roots/container",
