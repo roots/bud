@@ -162,8 +162,28 @@ declare abstract class Abstract_3 implements Peers.Interface {
     abstract install(): void;
 }
 
+/**
+ * Calls a given value if it is a function. The function will be bound to
+ * {@link @roots/bud-framework#Framework} before it is called.
+ *
+ * If it is not a function, returns the value without doing anything to it.
+ *
+ * @param this - {@link @roots/bud-framework#Framework}
+ * @param done - Callback function to be called before end of run
+ * @typeParam I - Type of the value expected to be returned
+ *
+ * @public
+ */
 export declare function access<I = any>(this: Framework, value: Framework.Tapable | I): any;
 
+/**
+ * Close interface
+ *
+ * @param this - {@link @roots/bud-framework#Framework}
+ * @param done - Callback function to be called before end of run
+ *
+ * @public
+ */
 export declare interface access<I = any> {
     (this: Framework, value: Framework.Tapable | I): I;
 }
@@ -464,8 +484,24 @@ declare interface Callback_2 {
     <T>(value: T): any;
 }
 
+/**
+ * Exit the program
+ *
+ * @param this - {@link @roots/bud-framework#Framework}
+ * @param done - Callback function to be called before end of run
+ *
+ * @public
+ */
 declare function close_2(this: Framework, done?: (code?: number) => never): void;
 
+/**
+ * Close interface
+ *
+ * @param this - {@link @roots/bud-framework#Framework}
+ * @param done - Callback function to be called before end of run
+ *
+ * @public
+ */
 declare interface close_2 {
     (this: Framework, done?: CallableFunction): void;
 }
@@ -1633,7 +1669,7 @@ export declare interface make {
 }
 
 /**
- * A {@link Framework Framework} extension
+ * A {@link Framework} extension
  */
 export declare interface Module<Plugin = any, Options = any> {
     /**
@@ -1659,13 +1695,13 @@ export declare interface Module<Plugin = any, Options = any> {
     /**
      * Returns an instantiated webpack plugin
      *
-     * @deprecated Convert this instance to a {@link Plugin Plugin}
+     * @deprecated Convert this instance to a {@link WebpackPlugin}
      */
     make?: Module.Make<Plugin, Options>;
     /**
      * Webpack plugin apply.
      *
-     * @deprecated Convert this instance to a {@link Plugin Plugin}
+     * @deprecated Convert this instance to a {@link WebpackPlugin}
      */
     apply?: CallableFunction;
     /**
@@ -1673,7 +1709,7 @@ export declare interface Module<Plugin = any, Options = any> {
      * a webpack plugin should be used in
      * compilation.
      *
-     * @deprecated Convert this instance to a {@link Plugin Plugin}
+     * @deprecated Convert this instance to a {@link WebpackPlugin}
      */
     when?: Module.When<Options>;
 }
@@ -2109,13 +2145,13 @@ export declare interface tap<T = Framework> {
 
 export declare const tap: tap<Framework>;
 
-export declare interface WebpackPlugin<WebpackPluginModule = {
+export declare interface WebpackPlugin<ApplyConstructor = {
     apply: any;
 }, Options = any> extends Module {
     /**
      * Returns an instantiated webpack plugin
      */
-    make?: Module.Make<WebpackPluginModule & {
+    make?: Module.Make<ApplyConstructor & {
         apply: any;
     }, Options>;
     /**

@@ -70,10 +70,10 @@ abstract class Abstract_3 implements Peers.Interface {
     abstract resolvePeerByName(name: string): string;
 }
 
-// @public (undocumented)
+// @public
 export function access<I = any>(this: Framework, value: Framework.Tapable | I): any;
 
-// @public (undocumented)
+// @public
 export interface access<I = any> {
     // (undocumented)
     (this: Framework, value: Framework.Tapable | I): I;
@@ -251,10 +251,10 @@ declare namespace Cache_2 {
 }
 export { Cache_2 as Cache }
 
-// @public (undocumented)
+// @public
 function close_2(this: Framework, done?: (code?: number) => never): void;
 
-// @public (undocumented)
+// @public
 interface close_2 {
     // (undocumented)
     (this: Framework, done?: CallableFunction): void;
@@ -960,11 +960,11 @@ export interface tap<T = Framework> {
 export const tap: tap<Framework>;
 
 // @public (undocumented)
-export interface WebpackPlugin<WebpackPluginModule = {
+export interface WebpackPlugin<ApplyConstructor = {
     apply: any;
 }, Options = any> extends Module {
     apply?: CallableFunction;
-    make?: Module.Make<WebpackPluginModule & {
+    make?: Module.Make<ApplyConstructor & {
         apply: any;
     }, Options>;
     when?: Module.When<Options>;

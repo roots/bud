@@ -3,7 +3,7 @@ import type {Container} from '@roots/container'
 import type {Framework} from './'
 
 /**
- * A {@link Framework Framework} extension
+ * A {@link Framework} extension
  */
 interface Module<Plugin = any, Options = any> {
   /**
@@ -34,14 +34,14 @@ interface Module<Plugin = any, Options = any> {
   /**
    * Returns an instantiated webpack plugin
    *
-   * @deprecated Convert this instance to a {@link Plugin Plugin}
+   * @deprecated Convert this instance to a {@link WebpackPlugin}
    */
   make?: Module.Make<Plugin, Options>
 
   /**
    * Webpack plugin apply.
    *
-   * @deprecated Convert this instance to a {@link Plugin Plugin}
+   * @deprecated Convert this instance to a {@link WebpackPlugin}
    */
   apply?: CallableFunction
 
@@ -50,7 +50,7 @@ interface Module<Plugin = any, Options = any> {
    * a webpack plugin should be used in
    * compilation.
    *
-   * @deprecated Convert this instance to a {@link Plugin Plugin}
+   * @deprecated Convert this instance to a {@link WebpackPlugin}
    */
   when?: Module.When<Options>
 }

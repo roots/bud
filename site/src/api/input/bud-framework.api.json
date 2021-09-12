@@ -141,6 +141,14 @@
         {
           "tagName": "@config",
           "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block"
         }
       ],
       "supportForTags": {
@@ -175,7 +183,9 @@
         "@container": true,
         "@core": true,
         "@extension": true,
-        "@config": true
+        "@config": true,
+        "@hook": true,
+        "@filter": true
       }
     }
   },
@@ -192,11 +202,11 @@
         {
           "kind": "Function",
           "canonicalReference": "@roots/bud-framework!access:function(1)",
-          "docComment": "",
+          "docComment": "/**\n * Calls a given value if it is a function. The function will be bound to {@link @roots/bud-framework#Framework} before it is called.\n *\n * If it is not a function, returns the value without doing anything to it.\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @typeParam I - Type of the value expected to be returned\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare function access<I = "
+              "text": "export declare function access<I = "
             },
             {
               "kind": "Content",
@@ -277,11 +287,11 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!access:interface",
-          "docComment": "",
+          "docComment": "/**\n * Close interface\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "interface access<I = "
+              "text": "export interface access<I = "
             },
             {
               "kind": "Content",
@@ -3489,11 +3499,11 @@
         {
           "kind": "Function",
           "canonicalReference": "@roots/bud-framework!close_2:function(1)",
-          "docComment": "",
+          "docComment": "/**\n * Exit the program\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare function close(this: "
+              "text": "export declare function close(this: "
             },
             {
               "kind": "Reference",
@@ -3548,11 +3558,11 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!close_2:interface",
-          "docComment": "",
+          "docComment": "/**\n * Close interface\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "interface close "
+              "text": "export interface close "
             }
           ],
           "releaseTag": "Public",
@@ -5866,7 +5876,7 @@
                 {
                   "kind": "Reference",
                   "text": "WebpackPlugin",
-                  "canonicalReference": "@roots/bud-framework!~WebpackPlugin:interface"
+                  "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
                 },
                 {
                   "kind": "Content",
@@ -5924,7 +5934,7 @@
                 {
                   "kind": "Reference",
                   "text": "WebpackPlugin",
-                  "canonicalReference": "@roots/bud-framework!~WebpackPlugin:interface"
+                  "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
                 },
                 {
                   "kind": "Content",
@@ -6087,7 +6097,7 @@
                 {
                   "kind": "Reference",
                   "text": "access",
-                  "canonicalReference": "@roots/bud-framework!~access:interface"
+                  "canonicalReference": "@roots/bud-framework!access:interface"
                 },
                 {
                   "kind": "Content",
@@ -6244,7 +6254,7 @@
                 {
                   "kind": "Reference",
                   "text": "close",
-                  "canonicalReference": "@roots/bud-framework!~close:interface"
+                  "canonicalReference": "@roots/bud-framework!close:interface"
                 },
                 {
                   "kind": "Content",
@@ -7505,7 +7515,7 @@
                 {
                   "kind": "Reference",
                   "text": "WebpackPlugin",
-                  "canonicalReference": "@roots/bud-framework!~WebpackPlugin:interface"
+                  "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
                 },
                 {
                   "kind": "Content",
@@ -9314,7 +9324,7 @@
                     {
                       "kind": "Reference",
                       "text": "WebpackPlugin",
-                      "canonicalReference": "@roots/bud-framework!~WebpackPlugin:interface"
+                      "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
                     },
                     {
                       "kind": "Content",
@@ -9958,7 +9968,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Module:interface",
-          "docComment": "/**\n * A {@link Framework Framework} extension\n */\n",
+          "docComment": "/**\n * A {@link Framework} extension\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -10038,7 +10048,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@roots/bud-framework!Module#apply:member",
-              "docComment": "/**\n * Webpack plugin apply.\n *\n * @deprecated\n *\n * Convert this instance to a {@link Plugin Plugin}\n */\n",
+              "docComment": "/**\n * Webpack plugin apply.\n *\n * @deprecated\n *\n * Convert this instance to a {@link WebpackPlugin}\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -10092,7 +10102,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@roots/bud-framework!Module#make:member",
-              "docComment": "/**\n * Returns an instantiated webpack plugin\n *\n * @deprecated\n *\n * Convert this instance to a {@link Plugin Plugin}\n */\n",
+              "docComment": "/**\n * Returns an instantiated webpack plugin\n *\n * @deprecated\n *\n * Convert this instance to a {@link WebpackPlugin}\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -10208,7 +10218,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@roots/bud-framework!Module#when:member",
-              "docComment": "/**\n * Returns a boolean determining if a webpack plugin should be used in compilation.\n *\n * @deprecated\n *\n * Convert this instance to a {@link Plugin Plugin}\n */\n",
+              "docComment": "/**\n * Returns a boolean determining if a webpack plugin should be used in compilation.\n *\n * @deprecated\n *\n * Convert this instance to a {@link WebpackPlugin}\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -14757,7 +14767,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "interface WebpackPlugin<WebpackPluginModule = "
+              "text": "export interface WebpackPlugin<ApplyConstructor = "
             },
             {
               "kind": "Content",
@@ -14788,7 +14798,7 @@
           "releaseTag": "Public",
           "typeParameters": [
             {
-              "typeParameterName": "WebpackPluginModule",
+              "typeParameterName": "ApplyConstructor",
               "constraintTokenRange": {
                 "startIndex": 0,
                 "endIndex": 0
@@ -14854,7 +14864,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<WebpackPluginModule & {\n        apply: any;\n    }, Options>"
+                  "text": "<ApplyConstructor & {\n        apply: any;\n    }, Options>"
                 },
                 {
                   "kind": "Content",

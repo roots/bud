@@ -14,7 +14,7 @@ import {Project} from './Project'
 import {Server} from './Server'
 
 const services: Framework.Services = {
-  api: Api.Container,
+  api: Api,
   build: Build,
   cache: Cache,
   compiler: Compiler,

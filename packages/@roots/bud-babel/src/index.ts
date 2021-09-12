@@ -1,19 +1,21 @@
 // Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
 
 /**
- * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds [Babel transpiler](https://github.com/babel/babel)
+ * support to {@link @roots/bud# | @roots/bud}.
  *
- * @remarks
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * - [Babel](https://babeljs.io/) is a JavaScript compiler that can transpile ES2015+ code to ES5.
+ *
+ * - This extensions comes with a set of preloaded presets and plugins.
+ *
+ * - You may override the defaults using the {@link Config.setPresets} and {@link Config.setPlugins} methods.
+ *
+ * - You may also override the default options for a plugin or preset using the {@link Config.setPluginOptions} and {@link Config.setPresetOptions} methods.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * The `@roots/bud-babel` extension adds Babel transpiler support to Bud projects.
- *
- * @packageDocumentation
+ * @public @extension @packageDocumentation
  */
 
 import type {Item, Loader} from '@roots/bud-build'
@@ -29,7 +31,7 @@ declare module '@roots/bud-framework' {
 
   namespace Framework {
     interface Extensions {
-      '@roots/bud-babel': BudBabelExtension
+      '@roots/bud-babel': typeof BudBabelExtension
     }
 
     interface Loaders {

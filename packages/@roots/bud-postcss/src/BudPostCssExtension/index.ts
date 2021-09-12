@@ -5,7 +5,7 @@ import {pathExistsSync} from 'fs-extra'
 import {PostCssConfig} from '../PostCssConfig'
 
 interface BudPostCssExtension extends Module {
-  name: '@roots/bud-postcss'
+  name: Module['name'] & '@roots/bud-postcss'
 
   api: Module['api'] & {
     postcss: PostCssConfig

@@ -1,3 +1,3 @@
-import Api from '@roots/bud-api'
+import {Api, Repository} from '@roots/bud-api'
 
-export {Api}
+export {Api, Repository}

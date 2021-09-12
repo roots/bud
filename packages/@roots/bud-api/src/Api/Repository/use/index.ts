@@ -10,7 +10,9 @@ import {nanoid} from 'nanoid'
  * @public @config
  */
 interface use {
-  (source: Module | WebpackPlugin): Framework
+  (
+    source: Module | WebpackPlugin | Module[] | WebpackPlugin[],
+  ): Framework
 }
 
 /**

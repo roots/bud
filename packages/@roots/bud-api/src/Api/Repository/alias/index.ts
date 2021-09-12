@@ -2,7 +2,17 @@ import type {Framework} from '@roots/bud-framework'
 import {resolve} from 'path'
 import type {Configuration} from 'webpack'
 
-interface alias {
+/**
+ * Alias interface
+ *
+ * @param this - {@link @roots/bud-framework#Framework | Framework instance}
+ * @param alias - {@link webpack#Configuration.resolve.alias | Webpack resolve alias option}
+ *
+ * @hook build/resolve/alias
+ *
+ * @public @config
+ */
+export interface alias {
   (
     this: Framework,
     alias: Configuration['resolve']['alias'],
@@ -24,7 +34,7 @@ interface alias {
  *
  * @public @config
  */
-const alias: alias = function (alias) {
+export const alias: alias = function (alias) {
   this.hooks.on(
     'build/resolve/alias',
     (aliases: Configuration['resolve']['alias']) => ({
@@ -41,5 +51,3 @@ const alias: alias = function (alias) {
 
   return this
 }
-
-export {alias as default}

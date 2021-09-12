@@ -141,6 +141,14 @@
         {
           "tagName": "@config",
           "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block"
         }
       ],
       "supportForTags": {
@@ -175,7 +183,9 @@
         "@container": true,
         "@core": true,
         "@extension": true,
-        "@config": true
+        "@config": true,
+        "@hook": true,
+        "@filter": true
       }
     }
   },

@@ -10,10 +10,10 @@
  * @core @packageDocumentation
  */
 
-import * as Api from './Api'
+import {Api, Repository} from './Api'
 
 declare module '@roots/bud-framework' {
-  interface Framework extends Api.Repository {}
+  interface Framework extends Repository {}
 }
 
-export default Api
+export {Api, Repository}

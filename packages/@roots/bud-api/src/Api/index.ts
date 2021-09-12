@@ -23,17 +23,12 @@ import template from './Repository/template'
 import use from './Repository/use'
 import watch from './Repository/watch'
 
+/**
+ * API Repository interface
+ *
+ * @public
+ */
 interface Repository {
-  /**
-   * {@link alias} interface
-   *
-   * @param this - {@link @roots/bud-framework#Framework | Framework instance}
-   * @param alias - {@link webpack#Configuration.resolve.alias | Webpack resolve alias option}
-   *
-   * @hook build/resolve/alias
-   *
-   * @public @config
-   */
   alias: alias
   assets: assets
   config: config
@@ -59,14 +54,14 @@ interface Repository {
 }
 
 /**
- * The API class binds all the functions from the {@link Repository} to the {@link @roots/bud-framework#Framework} instance
+ * The API class binds all the functions from the {@link @roots/bud-api#Repository} to the {@link @roots/bud-framework#Framework} instance
  * during the {@link @roots/bud-framework#Service.bootstrap} lifecycle event.
  *
  * @public @core
  */
-class Container extends Service<Repository> {
+class Api extends Service<Repository> {
   /**
-   * {@inheritDoc}
+   * {@inheritDoc @roots/bud-framework#Service.name}
    *
    * @public
    */
@@ -112,4 +107,4 @@ class Container extends Service<Repository> {
   }
 }
 
-export {Container, Repository}
+export {Api, Repository}

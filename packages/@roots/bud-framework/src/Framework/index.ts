@@ -39,17 +39,13 @@ import * as Project from '../Project'
 /**
  * Base {@link Framework} class
  *
- * @remarks
- * Implementations must provide a {@link Framework.implementation} property
- * conforming to the {@link Framework.Constructor} interface
- *
- * This is in addition to all required {@link Framework.Options}.
+ * @core @public
  */
 abstract class Framework {
   /**
    * Concrete implementation of the {@link Framework}
    *
-   * @virtual
+   * @public
    */
   public abstract implementation: Framework.Constructor
 
@@ -61,7 +57,7 @@ abstract class Framework {
    * So, in an implementation that uses the name `app`, the Framework will be sourcing
    * `app.config.js`, `app.development.config.js`, etc.
    *
-   * @virtual
+   * @public
    */
   public name: string
 
@@ -120,14 +116,16 @@ abstract class Framework {
    * Framework services
    *
    * @remarks
-   * Can be set directly on the child instance or passed as a property in the {@link Framework.Options Framework constructor options}.
+   * Can be set directly on the child instance or passed as a property in the {@link @roots/bud-framework#Framework.Options | Framework constructor options}.
+   *
+   * @public
    */
   public services: Framework.Services
 
   /**
    * Macros for assisting with common config tasks
    *
-   * @internal @virtual
+   * @public
    */
   public api: Api
 
@@ -144,21 +142,21 @@ abstract class Framework {
    * build.rebuild()
    * ```
    *
-   * @virtual
+   * @public
    */
   public build: Build
 
   /**
    * Determines cache validity and generates version string based on SHA-1 hashed build configuration and project manifest files.
    *
-   * @virtual
+   * @public
    */
   public cache: Cache.Interface
 
   /**
    * Compiles {@link Build} configuration and stats/errors/progress reporting.
    *
-   * @virtual
+   * @public
    */
   public compiler: Compiler
 
@@ -166,28 +164,28 @@ abstract class Framework {
    * Presents build progress, stats and errors from {@link Compiler} and {@link Server}
    * over the CLI.
    *
-   * @virtual
+   * @public
    */
   public dashboard: Dashboard
 
   /**
    * Utilities for interfacing with user package manager software
    *
-   * @virtual
+   * @public
    */
   public dependencies: Dependencies
 
   /**
    * Project information and peer dependency management utilities
    *
-   * @virtual
+   * @public
    */
   public project: Project.Interface
 
   /**
    * .env container
    *
-   * @virtual
+   * @public
    */
   public env: Env
 
@@ -203,7 +201,7 @@ abstract class Framework {
    * When adding a {@link Module} or {@link Plugin} to the container
    * with {@link Extensions.add} it is cast to the {@link Extension} type.
    *
-   * @virtual
+   * @public
    */
   public extensions: Extensions
 
@@ -228,30 +226,36 @@ abstract class Framework {
    *   () => '[name].[hash:4]',
    * )
    * ```
+   *
+   * @public
    */
   public hooks: Hooks
 
   /**
    * Logging service
    *
-   * @virtual
+   * @public
    */
   public logger: Logger
 
   /**
    * Development server and browser devtools
    *
-   * @virtual
+   * @public
    */
   public server: Server
 
   /**
-   * Container service for holding {@link Configuration} values
+   * Container service for holding {@link @roots/bud-framework#Configuration} values
+   *
+   * @public
    */
   public store: Store
 
   /**
    * True when {@link Framework.mode} is `production`
+   *
+   * @public
    */
   public get isProduction(): boolean {
     return this.mode === 'production'
@@ -259,6 +263,8 @@ abstract class Framework {
 
   /**
    * True when {@link Framework.mode} is `development`
+   *
+   * @public
    */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
@@ -299,7 +305,7 @@ abstract class Framework {
   /**
    * Bind method to {@link Framework}
    *
-   * @internal
+   * @public
    */
   public bindMethod<T = Function>(
     key: string,
@@ -654,7 +660,7 @@ namespace Framework {
      */
     services?: Framework.Services
     /**
-     * @internal
+     * @public
      */
     parent?: Framework
   }

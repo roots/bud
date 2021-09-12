@@ -6,35 +6,39 @@
 
 import type { Configuration } from 'webpack';
 import type { Configuration as Configuration_2 } from '@roots/bud-framework';
-import type { Framework } from '@roots/bud-framework';
+import type { DefinePlugin } from 'webpack';
+import { Framework } from '@roots/bud-framework';
 import type { GlobTask } from 'globby';
 import type { Module } from '@roots/bud-framework';
 import type { Options as Options_2 } from 'html-webpack-plugin';
-import type { Server } from '@roots/bud-framework';
+import { Server } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
-import type * as Webpack from 'webpack';
+import type { WebpackPlugin } from '@roots/bud-framework';
 
-// @public (undocumented)
-export interface Api extends Service<Repository> {
-    // (undocumented)
-    bootstrap(): void;
-    // (undocumented)
-    repository: Repository;
+declare namespace Api {
+    export {
+        Container,
+        Repository
+    }
 }
-
-// @public (undocumented)
-export class Api extends Service<Repository> {
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    repository: Repository;
-}
+export default Api;
 
 // @public
-export interface Repository {
-    // Warning: (ae-forgotten-export) The symbol "alias" needs to be exported by the entry point index.d.ts
+class Container extends Service<Repository> {
+    // Warning: (ae-unresolved-inheritdoc-base) The @inheritDoc tag needs a TSDoc declaration reference; signature matching is not supported yet
     //
     // (undocumented)
+    bootstrap(): void;
+    // Warning: (ae-unresolved-inheritdoc-base) The @inheritDoc tag needs a TSDoc declaration reference; signature matching is not supported yet
+    //
+    // (undocumented)
+    name: string;
+    repository: Repository;
+}
+
+// @public (undocumented)
+interface Repository {
+    // Warning: (ae-forgotten-export) The symbol "alias" needs to be exported by the entry point index.d.ts
     alias: alias;
     // Warning: (ae-forgotten-export) The symbol "assets" needs to be exported by the entry point index.d.ts
     //
@@ -44,22 +48,70 @@ export interface Repository {
     //
     // (undocumented)
     config: config;
-    define: Repository.Define;
-    dev: Repository.Dev;
-    devtool: Repository.Devtool;
-    entry: Repository.Entry;
-    experiments: Repository.Experiments;
-    externals: Repository.Externals;
-    hash: Repository.Hash;
-    minimize: Repository.Minimize;
-    persist: Repository.Persist;
-    provide: Repository.Provide;
-    proxy: Repository.Proxy;
-    publicPath: Repository.PublicPath;
-    run: Repository.Run;
-    runtime: Repository.Runtime;
-    setPublicPath: Repository.SetPublicPath;
-    splitChunks: Repository.SplitChunks;
+    // Warning: (ae-forgotten-export) The symbol "define" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    define: define;
+    // Warning: (ae-forgotten-export) The symbol "dev" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    dev: dev;
+    // Warning: (ae-forgotten-export) The symbol "devtool" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    devtool: devtool;
+    // Warning: (ae-forgotten-export) The symbol "entry" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    entry: entry;
+    // Warning: (ae-forgotten-export) The symbol "experiments" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    experiments: experiments;
+    // Warning: (ae-forgotten-export) The symbol "externals" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    externals: externals;
+    // Warning: (ae-forgotten-export) The symbol "hash" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    hash: hash;
+    // Warning: (ae-forgotten-export) The symbol "minimize" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    minimize: minimize;
+    // Warning: (ae-forgotten-export) The symbol "persist" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    persist: persist;
+    // Warning: (ae-forgotten-export) The symbol "provide" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    provide: provide;
+    // Warning: (ae-forgotten-export) The symbol "proxy" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    proxy: proxy;
+    // Warning: (ae-forgotten-export) The symbol "publicPath" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    publicPath: publicPath;
+    // Warning: (ae-forgotten-export) The symbol "run" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    run: run;
+    // Warning: (ae-forgotten-export) The symbol "runtime" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    runtime: runtime;
+    // Warning: (ae-forgotten-export) The symbol "setPublicPath" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    setPublicPath: setPublicPath;
+    // Warning: (ae-forgotten-export) The symbol "splitChunks" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    splitChunks: splitChunks;
     // Warning: (ae-forgotten-export) The symbol "template" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
@@ -73,146 +125,5 @@ export interface Repository {
     // (undocumented)
     watch: watch;
 }
-
-// @public (undocumented)
-export namespace Repository {
-    // (undocumented)
-    export interface Alias {
-        // (undocumented)
-        (this: Framework, alias: Webpack.Configuration['resolve']['alias']): Framework;
-    }
-    // (undocumented)
-    export interface Assets {
-        // (undocumented)
-        (this: Framework, from: string[]): Framework;
-    }
-    // (undocumented)
-    export interface Config {
-        // (undocumented)
-        (this: Framework, config?: any): Framework;
-    }
-    // (undocumented)
-    export interface Define {
-        // (undocumented)
-        (this: Framework, values: Webpack.DefinePlugin['definitions']): Framework;
-    }
-    // (undocumented)
-    export interface Dev {
-        // (undocumented)
-        (this: Framework, config?: Server.Configuration): Framework;
-    }
-    // (undocumented)
-    export interface Devtool {
-        // (undocumented)
-        (this: Framework, devtool?: Webpack.Configuration['devtool']): Framework;
-    }
-    // (undocumented)
-    export interface Entry {
-        // (undocumented)
-        (this: Framework, name: string, entrypoint: Entry.Value): Framework;
-    }
-    // (undocumented)
-    export interface Entry {
-        // (undocumented)
-        (this: Framework, entrypoints: Entry.Input): Framework;
-    }
-    // (undocumented)
-    export namespace Entry {
-        // (undocumented)
-        export interface Input {
-            // (undocumented)
-            [k: string]: Object | Object['import'] | GlobTask['pattern'];
-        }
-        // (undocumented)
-        export interface Object {
-            // (undocumented)
-            dependsOn?: string[];
-            // (undocumented)
-            import?: string[];
-        }
-        // (undocumented)
-        export type Value = GlobTask['pattern'] | Array<GlobTask['pattern']>;
-    }
-    // (undocumented)
-    export interface Experiments {
-        // (undocumented)
-        (this: Framework, settings: Webpack.Configuration['experiments']): Framework;
-    }
-    // (undocumented)
-    export interface Externals {
-        // (undocumented)
-        (this: Framework, externals: Webpack.Configuration['externals']): Framework;
-    }
-    // (undocumented)
-    export interface Hash {
-        // (undocumented)
-        (this: Framework, enabled?: boolean): Framework;
-    }
-    // (undocumented)
-    export interface Minimize {
-        // (undocumented)
-        (enabled?: boolean): Framework;
-    }
-    // (undocumented)
-    export interface Persist {
-        // (undocumented)
-        (this: Framework, enabled?: boolean): Framework;
-    }
-    // (undocumented)
-    export interface Provide {
-        // (undocumented)
-        (this: Framework, packages?: Provide.Provided): Framework;
-    }
-    // (undocumented)
-    export namespace Provide {
-        // (undocumented)
-        export interface Provided {
-            // (undocumented)
-            [key: string]: string | string[];
-        }
-    }
-    // (undocumented)
-    export interface Proxy {
-        // (undocumented)
-        (this: Framework, config?: {
-            enabled?: boolean;
-            host?: Server.Configuration['proxy']['host'];
-            port?: Server.Configuration['proxy']['port'];
-        }): Framework;
-    }
-    // (undocumented)
-    export interface PublicPath {
-        // (undocumented)
-        (this: Framework): string;
-    }
-    // (undocumented)
-    export interface Run {
-        // (undocumented)
-        (this: Framework): void;
-    }
-    // (undocumented)
-    export interface Runtime {
-        // (undocumented)
-        (this: Framework, runtime?: Webpack.Configuration['optimization']['runtimeChunk']): Framework;
-    }
-    // (undocumented)
-    export interface SetPublicPath {
-        // (undocumented)
-        (publicPath: string | ((publicPath: string) => string)): Framework;
-    }
-    // (undocumented)
-    export interface SplitChunks {
-        // (undocumented)
-        (this: Framework, options?: Repository.SplitChunks.Options): Framework;
-    }
-    // (undocumented)
-    export namespace SplitChunks {
-        // (undocumented)
-        export type Options = Webpack.Configuration['optimization']['splitChunks'];
-    }
-}
-
-// @public (undocumented)
-export const Repository: Repository;
 
 ```

@@ -5,13 +5,16 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
+ *
  * The {@link @roots/bud# | @roots/bud package} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
  *
  * This package also provides a CLI which can is invoked with `bud`.
  *
- * @example Example configuration file (`bud.config.js`). This file is run by invoking `bud build` in the terminal.
+ * @example
+ * Example configuration file (`bud.config.js`). This file is run by invoking `bud build` in the terminal.
+ *
  * ```js
  * module.exports = app =>
  *   app
@@ -22,7 +25,9 @@
  *   .entry('app', 'index.js')
  * ```
  *
- * @example Instantiate `Bud` from node using the `factory` function:
+ * @example
+ * Instantiate `Bud` from node using the `factory` function:
+ *
  * ```js
  * import {factory} from '@roots/bud'
  *
