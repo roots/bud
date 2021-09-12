@@ -1,15 +1,14 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
  * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @remarks
- * The `@roots/bud` package provides {@link Bud}, a concrete implementation of the {@link Framework Framework abstract class}.
+ *
+ * The {@link @roots/bud# | @roots/bud package} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
  *
@@ -29,7 +28,7 @@
  * ```
  *
  * @example
- * Instantiate `bud` from node using the `factory` function:
+ * Instantiate `Bud` from node using the `factory` function:
  *
  * ```js
  * import {factory} from '@roots/bud'
@@ -39,69 +38,36 @@
  * bud.run() // run build
  * ```
  *
- * @example
- * Instantiate `Bud` from node directly. You must provide the `services` and `config` properties yourself.
- *
- * ```js
- * const instance = new Bud({
- *   name: 'bud',
- *   mode: 'production',
- *   services: {
- *     ...services,
- *   },
- *   config: {
- *     ...config,
- *   },
- * })
- *
- * instance.bootstrap() // bootstrap Framework
- *
- * instance.run() // run build
- * ```
- *
- * @export {Bud} The Bud class
- * @export {Factory} The factory function
- * @export {extensions} The default {@link Framework.Extensions} repository
- * @export {services} The default {@link Framework.Services} repository
- * @export {config} The default {@link Configuration} repository
- * @export {Api} The Bud API
- * @export {Repository} The Bud API repository
- *
- * @author Kelly Mears <kelly@roots.io>
- * @author qwp6t
- * @license MIT
- *
- * @packageDocumentation
+ * @core @packageDocumentation
  */
 
-import {Api, Repository} from '@roots/bud-api'
 import {Item, Loader, Rule} from '@roots/bud-build'
-import {
-  Framework,
-  Module,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import {Module, WebpackPlugin} from '@roots/bud-framework'
+
+import Bud from './Bud'
+import config from './config'
+import factory from './factory'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
     /**
-     * Registered extensions
+     * Base {@link @roots/bud-extensions#Extension} map
      */
     interface Extensions {
-      'webpack-provide-plugin': Module
-      'clean-webpack-plugin': Module
-      'webpack-config-dump-plugin': Module
-      'copy-webpack-plugin': Module
-      'css-minimizer-webpack-plugin': Module
-      'webpack-define-plugin': Module
-      'webpack-hot-module-replacement-plugin': Module
-      'ignore-emit-webpack-plugin': Module
-      'webpack-manifest-plugin': Module
-      'mini-css-extract-plugin': Module
+      'webpack-provide-plugin': WebpackPlugin
+      'clean-webpack-plugin': WebpackPlugin
+      'webpack-config-dump-plugin': WebpackPlugin
+      'copy-webpack-plugin': WebpackPlugin
+      'css-minimizer-webpack-plugin': WebpackPlugin
+      'webpack-define-plugin': WebpackPlugin
+      'webpack-hot-module-replacement-plugin': WebpackPlugin
+      'ignore-emit-webpack-plugin': WebpackPlugin
+      'webpack-manifest-plugin': WebpackPlugin
+      'mini-css-extract-plugin': WebpackPlugin
     }
 
     /**
-     * Registered loaders
+     * Base {@link @roots/bud-build#Loader} map
      */
     interface Loaders {
       css: Loader
@@ -117,7 +83,7 @@ declare module '@roots/bud-framework' {
     }
 
     /**
-     * Registered items
+     * Base {@link @roots/bud-build#Item} map
      */
     interface Items {
       css: Item
@@ -135,7 +101,7 @@ declare module '@roots/bud-framework' {
     }
 
     /**
-     * Registered rules
+     * Base {@link @roots/bud-build#Rule} map
      */
     interface Rules {
       js: Rule
@@ -153,12 +119,9 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export {Item, Loader, Rule}
-export {Framework, Module, WebpackPlugin}
+export {Bud, Bud as Framework}
 
-export {Bud} from './Bud'
-export {extensions} from './Bud/extensions'
-export {services} from './Bud/services'
-export {config} from './config'
-export {Factory, Factory as factory} from './Factory'
-export {Api, Repository}
+export {config}
+export {factory}
+
+export {Module, WebpackPlugin}

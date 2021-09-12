@@ -1,10 +1,10 @@
-import {factory, Framework} from '@roots/bud'
+import {factory, Bud} from '@roots/bud'
 import {Dependencies} from '@roots/bud/src/Bud/services/Dependencies'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {Yarn} from '@roots/dependencies/src/yarn'
 
 describe('bud.project', function () {
-  let bud: Framework
+  let bud: Bud
   let dependencies: Dependencies
   let manager: DependenciesManager
 

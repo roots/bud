@@ -5,7 +5,7 @@ import {Service} from '../Service'
  * Peer service interface
  *
  * @virtual
- * @beta
+ * @public
  */
 export interface Interface extends Service {
   /**

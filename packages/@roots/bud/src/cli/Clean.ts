@@ -1,7 +1,8 @@
 import {flags} from '@oclif/command'
 import {remove} from 'fs-extra'
 
-import {config, Framework} from '..'
+import Bud from '../Bud'
+import config from '../config'
 import {Command} from './Command'
 import {Runner} from './Runner'
 
@@ -9,7 +10,7 @@ export default class Clean extends Command {
   public static id: string = 'Clean'
   public static title: string | undefined = 'Clean'
 
-  public app: Framework
+  public app: Bud
 
   public cli: {flags: any; args: any}
 

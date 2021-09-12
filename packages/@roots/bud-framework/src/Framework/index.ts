@@ -37,19 +37,15 @@ import * as Cache from '../Cache'
 import * as Project from '../Project'
 
 /**
- * The base class of a {@link Framework Framework instance}
+ * Base {@link Framework} class
  *
- * @remarks
- * Implementations must provide a {@link Framework.implementation} property
- * conforming to the {@link Framework.Constructor} interface
- *
- * This is in addition to all required {@link Framework.Options constructor parameters}.
+ * @core @public
  */
 abstract class Framework {
   /**
-   * Concrete implementation of the {@link Framework Framework interface}
+   * Concrete implementation of the {@link Framework}
    *
-   * @virtual
+   * @public
    */
   public abstract implementation: Framework.Constructor
 
@@ -61,7 +57,7 @@ abstract class Framework {
    * So, in an implementation that uses the name `app`, the Framework will be sourcing
    * `app.config.js`, `app.development.config.js`, etc.
    *
-   * @virtual
+   * @public
    */
   public name: string
 
@@ -69,9 +65,9 @@ abstract class Framework {
    * Compilation mode
    *
    * @remarks
-   * Unlike webpack, there is no 'none' mode.
+   * Either `production` or `development`. Unlike webpack, there is no 'none' mode.
    *
-   * @default 'production'
+   * @defaultValue 'production'
    */
   public mode: Framework.Mode = 'production'
 
@@ -81,12 +77,12 @@ abstract class Framework {
    * @remarks
    * Is `null` if the current instance is the parent instance.
    *
-   * @default null
+   * @defaultValue null
    */
   public parent: Framework | null = null
 
   /**
-   * Is parent
+   * True when current instance is the parent instance
    *
    * @readonly
    */
@@ -95,17 +91,17 @@ abstract class Framework {
   }
 
   /**
-   * Child {@link Framework} instances
+   * {@link Container} of child {@link Framework} instances
    *
    * @remarks
    * Is `null` if the current instance is a child instance.
    *
-   * @default null
+   * @defaultValue null
    */
   public children: Container<Framework.Instances> | null = null
 
   /**
-   * Has children
+   * True when {@link Framework} has children
    *
    * @readonly
    */
@@ -120,50 +116,47 @@ abstract class Framework {
    * Framework services
    *
    * @remarks
-   * Can be set directly on the child instance or passed as a property in the {@link Framework.Options Framework constructor options}.
+   * Can be set directly on the child instance or passed as a property in the {@link @roots/bud-framework#Framework.Options | Framework constructor options}.
+   *
+   * @public
    */
   public services: Framework.Services
 
   /**
    * Macros for assisting with common config tasks
    *
-   * @internal
-   * @virtual
+   * @public
    */
   public api: Api
 
   /**
    * Build configuration container
    *
-   * @example
-   * {@link Build.config} property contains the build config object:
-   *
+   * @example The `build.config` property holds the build config object:
    * ```js
    * build.config
    * ```
    *
-   * @example
-   * Rebuild the configuration:
-   *
+   * @example Rebuild the configuration:
    * ```js
    * build.rebuild()
    * ```
    *
-   * @virtual
+   * @public
    */
   public build: Build
 
   /**
    * Determines cache validity and generates version string based on SHA-1 hashed build configuration and project manifest files.
    *
-   * @virtual
+   * @public
    */
   public cache: Cache.Interface
 
   /**
    * Compiles {@link Build} configuration and stats/errors/progress reporting.
    *
-   * @virtual
+   * @public
    */
   public compiler: Compiler
 
@@ -171,28 +164,28 @@ abstract class Framework {
    * Presents build progress, stats and errors from {@link Compiler} and {@link Server}
    * over the CLI.
    *
-   * @virtual
+   * @public
    */
   public dashboard: Dashboard
 
   /**
    * Utilities for interfacing with user package manager software
    *
-   * @virtual
+   * @public
    */
   public dependencies: Dependencies
 
   /**
    * Project information and peer dependency management utilities
    *
-   * @virtual
+   * @public
    */
   public project: Project.Interface
 
   /**
    * .env container
    *
-   * @virtual
+   * @public
    */
   public env: Env
 
@@ -208,16 +201,14 @@ abstract class Framework {
    * When adding a {@link Module} or {@link Plugin} to the container
    * with {@link Extensions.add} it is cast to the {@link Extension} type.
    *
-   * @virtual
+   * @public
    */
   public extensions: Extensions
 
   /**
    * Service allowing for fitering {@link Framework} values through callbacks.
    *
-   * @example
-   * Add a new entry to the `webpack.externals` configuration:
-   *
+   * @example Add a new entry to the `webpack.externals` configuration:
    * ```ts
    * hooks.on(
    *   'build/externals',
@@ -228,41 +219,43 @@ abstract class Framework {
    * )
    * ```
    *
-   * @example
-   * Change the `webpack.output.filename` format:
-   *
+   * @example Change the `webpack.output.filename` format:
    * ```ts
    * hooks.on(
    *   'build/output/filename',
    *   () => '[name].[hash:4]',
    * )
    * ```
+   *
+   * @public
    */
   public hooks: Hooks
 
   /**
    * Logging service
    *
-   * @virtual
+   * @public
    */
   public logger: Logger
 
   /**
    * Development server and browser devtools
    *
-   * @virtual
+   * @public
    */
   public server: Server
 
   /**
-   * Container service for holding {@link Configuration} values
+   * Container service for holding {@link @roots/bud-framework#Configuration} values
    *
-   * @sealed
+   * @public
    */
   public store: Store
 
   /**
    * True when {@link Framework.mode} is `production`
+   *
+   * @public
    */
   public get isProduction(): boolean {
     return this.mode === 'production'
@@ -270,6 +263,8 @@ abstract class Framework {
 
   /**
    * True when {@link Framework.mode} is `development`
+   *
+   * @public
    */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
@@ -310,7 +305,7 @@ abstract class Framework {
   /**
    * Bind method to {@link Framework}
    *
-   * @internal
+   * @public
    */
   public bindMethod<T = Function>(
     key: string,
@@ -400,20 +395,6 @@ abstract class Framework {
    * @example
    * ```js
    * bud.make('scripts', child => child.entry('app', 'app.js'))
-   * ```
-   *
-   * @example
-   * This function returns the parent bud instance for further chaining.
-   *
-   * It is also possible to reference the parent instance using {@link Framework.parent}.
-   *
-   * ```js
-   * make('scripts', child => {
-   *   child.entry('app', 'app.js')
-   *   child.parent.dev({
-   *     // ...
-   *   })
-   * })
    * ```
    */
   public make: make
@@ -662,10 +643,25 @@ namespace Framework {
    * Constructor options
    */
   export interface Options {
+    /**
+     * @virtual
+     */
     name: string
+    /**
+     * @virtual
+     */
     mode?: Framework.Mode
+    /**
+     * @virtual
+     */
     config?: Configuration
+    /**
+     * @virtual
+     */
     services?: Framework.Services
+    /**
+     * @public
+     */
     parent?: Framework
   }
 

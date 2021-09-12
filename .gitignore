@@ -6,6 +6,7 @@
 **/lib
 *.tsbuildinfo
 packages/@roots/*/types
+site/api/*
 
 # jest
 coverage

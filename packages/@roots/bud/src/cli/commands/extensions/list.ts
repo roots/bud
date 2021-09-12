@@ -1,18 +1,38 @@
-import type {Framework} from '../../..'
+import type Bud from '../../../Bud'
 import Build from '../../Build'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'
 
+/**
+ * `$ bud extensions:list` command class
+ *
+ * @internal
+ */
 export default class List extends Command {
+  /**
+   * {@inheritDoc Command.description}
+   */
   public static description =
     'List extensions available to project'
 
+  /**
+   * {@inheritDoc Command.examples}
+   */
   public static examples = [`$ bud extensions:list`]
 
+  /**
+   * {@inheritDoc Command.parse}
+   */
   public cli: {flags: any; args: any}
 
-  public app: Framework
+  /**
+   * {@inheritDoc Bud}
+   */
+  public app: Bud
 
+  /**
+   * {@inheritDoc Command.run}
+   */
   public async run() {
     this.cli = this.parse(Build)
 

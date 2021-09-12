@@ -1,7 +1,7 @@
 /**
  * Cache service Interface
  *
- * @beta
+ * @public
  */
 export interface Interface {
   /**

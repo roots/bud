@@ -3,9 +3,9 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 
 /**
- * Configure babel.
+ * Configure Babel transpiler plugin & presets
  *
- * @usage
+ * @example
  * ```js
  * app.babel.setPlugins([
  *  ['@babel/plugin-transform-runtime', {helpers: false}],
@@ -14,50 +14,66 @@ import {isString} from 'lodash'
  *  '@babel/plugin-proposal-class-properties',
  * ])
  * ```
+ *
+ * @public @extension @config
  */
-interface Config {
+export interface Config {
   /**
    * Registered babel plugins
+   *
+   * @public
    */
   plugins: Config.Registry
 
   /**
    * Registered babel presets
+   *
+   * @public
    */
   presets: Config.Registry
 
   /**
    * Add a babel plugin
    *
-   * @usage
+   * @example
    * ```js
    * babel.setPlugin(MyPlugin, {plugin: 'options'})
    * ```
+   *
+   * @public
    */
   setPlugin(plugin: Config.Registrable): Config
 
   /**
    * Add babel plugins
+   *
+   * @public
    */
   setPlugins(plugins: Array<Config.Registrable>): Config
 
   /**
    * Set the options for a plugin
+   *
+   * @public
    */
   setPluginOptions(plugin: string, options: any): Config
 
   /**
    * Add a babel preset
    *
-   * @usage
+   * @example
    * ```js
    * babel.setPlugin(MyPlugin, {plugin: 'options'})
    * ```
+   *
+   * @public
    */
   setPreset(preset: Config.Registrable): Config
 
   /**
    * Add babel presets
+   *
+   * @public
    */
   setPresets(
     presets: Array<Config.NormalizedPlugin | string>,
@@ -65,11 +81,13 @@ interface Config {
 
   /**
    * Set the options for a preset
+   *
+   * @public
    */
   setPresetOptions(preset: string, options: any): Config
 }
 
-namespace Config {
+export namespace Config {
   export type Options = {
     plugins?: Plugin[]
     config?: boolean | string
@@ -89,7 +107,7 @@ namespace Config {
   }
 }
 
-class Config {
+export class Config {
   public name = '@roots/bud-babel'
 
   public _app: () => Framework
@@ -186,5 +204,3 @@ class Config {
     return this
   }
 }
-
-export {Config}

@@ -6,10 +6,11 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
-    'simple-import-sort',
     'prettier',
     'react',
     'react-hooks',
+    'simple-import-sort',
+    'tsdoc',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -53,5 +54,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': ERROR,
     'react-hooks/exhaustive-deps': WARN,
     'simple-import-sort/imports': ERROR,
+    'tsdoc/syntax': WARN,
   },
 }

@@ -5,7 +5,7 @@ import * as Cache from './'
  * Cache service abstract class
  *
  * @virtual
- * @beta
+ * @public
  */
 export abstract class Abstract
   extends Service

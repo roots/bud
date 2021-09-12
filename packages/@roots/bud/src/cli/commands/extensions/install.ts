@@ -1,4 +1,4 @@
-import type {Framework} from '../../..'
+import type Bud from '../../../Bud'
 import Build from '../../Build'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'
@@ -13,7 +13,7 @@ export default class Install extends Command {
 
   public cli: {flags: any; args: any}
 
-  public app: Framework
+  public app: Bud
 
   public async run() {
     this.cli = this.parse(Build)

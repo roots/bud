@@ -1,24 +1,28 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
  *
+ * @remarks
  * - 💁 Composable - Build boss web applications with a modular, configurable build system
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  * - 🌱 Easy - Low bundle size and fast build times
  *
+ * The `@roots/bud-framework` package defines the abstract {@link Framework} class
+ * and provides interfaces for the Framework's essential {@link Service} classes.
+ *
+ * {@link Framework} is a @virtual interface providing contracts
+ * for {@link Service} implementations.
+ *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- * The {@link @roots/bud-framework#} package defines the
- * central abstract {@link Framework} class and provides
- * interfaces for the Framework's essential {@link Service}
- * classes.
- *
- * {@link Framework} is to be extended by a class providing implementations
- * for the service interfaces exported herein.
- *
- * @packageDocumentation
+ * @packageDocumentation @core
  */
+
+import * as Cache from './Cache'
+import * as Peers from './Peers'
+import * as Project from './Project'
 
 /**
  * Concrete classes
@@ -47,9 +51,9 @@ export {when} from './Framework/when'
  * Abstract classes
  */
 
-export * as Cache from './Cache'
-export * as Peers from './Peers'
-export * as Project from './Project'
+export {Cache}
+export {Peers}
+export {Project}
 export {Framework} from './Framework'
 export {Bootstrapper} from './Bootstrapper'
 export {Extension} from './Extension'

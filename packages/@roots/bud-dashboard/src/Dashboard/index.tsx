@@ -13,37 +13,23 @@ import {Error} from '../Error'
 /**
  * Dashboard Service class
  *
- * @remarks
- * The dashboard is initialized on `booted` if the
- * `cli` key from `bud.store` is set to `true`.
- *
- * @class Dashboard
- * @classdesc Dashboard Service class
- *
- * @extends {Base}
- * @implements {Contract}
- * @export {Dashboard} Dashboard Service class
+ * @public
  */
 class Dashboard extends Base implements Contract {
   /**
-   * The service name
-   *
-   * @type {string}
-   * @implements {Contract['name']}
+   * {@inheritDoc @roots/bud-framework#Service.name}
    */
-  public name: Contract['name'] = 'dashboard'
+  public name = 'dashboard'
 
   /**
-   * The ink instance
-   *
-   * @type {Ink}
+   * The {@link Ink} instance
    */
   public instance: Ink.Instance
 
   /**
-   * {@link Base.register} lifecycle event handler
+   * {@inheritDoc @roots/bud-framework#Service.register}
    *
-   * @returns {void}
+   * @decorator `@bind`
    */
   @bind
   public register(): void {
@@ -51,9 +37,9 @@ class Dashboard extends Base implements Contract {
   }
 
   /**
-   * {@link Base.booted} lifecycle event handler
+   * {@inheritDoc @roots/bud-framework#Service.booted}
    *
-   * @returns {void}
+   * @decorator `@bind`
    */
   @bind
   public booted(): void {
@@ -65,18 +51,17 @@ class Dashboard extends Base implements Contract {
    *
    * @remarks
    * This method will initialize the dashboard CLI interface
-   * unless the app.store `cli` entry is `false.
+   * unless the app.store `cli` entry is `false`.
    *
    * By default the `cli` entry is false. However, the
    * cli class from `@roots/bud` sets it to `true`.
-   *
-   * @returns {void}
    *
    * @decorator `@bind`
    */
   @bind
   public run(): void {
     if (this.app.store.isFalse('cli')) return
+
     if (!this.instance) {
       this.instance = Ink.render(
         <DashboardComponent bud={this.app} />,
@@ -91,11 +76,7 @@ class Dashboard extends Base implements Contract {
   /**
    * Renders an error message and title to the screen.
    *
-   * @remarks
    * @see {@link Framework.error}
-   *
-   * @param {string} message - The error message to render.
-   * @param {string} title - The error title to render.
    *
    * @decorator `@bind`
    */
@@ -112,9 +93,10 @@ class Dashboard extends Base implements Contract {
    * Renders to the screen. It will rerender the existing
    * component if already initialized.
    *
-   * @param {React.FunctionComponent} Output - The body of the screen
+   * @param Component - The body of the screen
+   * @param title - The title of the screen
    *
-   * @param Output
+   * @decorator `@bind`
    */
   @bind
   public render(Component: any, title?: string): void {

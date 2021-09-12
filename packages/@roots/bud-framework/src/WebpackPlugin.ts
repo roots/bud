@@ -1,13 +1,13 @@
 import {Module} from './Module'
 
-interface WebpackPlugin<
-  WebpackPluginModule = {apply: any},
+export interface WebpackPlugin<
+  ApplyConstructor = {apply: any},
   Options = any,
 > extends Module {
   /**
    * Returns an instantiated webpack plugin
    */
-  make?: Module.Make<WebpackPluginModule & {apply: any}, Options>
+  make?: Module.Make<ApplyConstructor & {apply: any}, Options>
 
   /**
    * Webpack plugin apply.
@@ -19,5 +19,3 @@ interface WebpackPlugin<
    */
   when?: Module.When<Options>
 }
-
-export {WebpackPlugin}

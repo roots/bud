@@ -1,5 +1,3 @@
-import type {Framework} from '@roots/bud-framework'
-
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
 import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
@@ -11,7 +9,7 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-const extensions: Framework.Extensions = {
+export const extensions = {
   ['webpack-provide-plugin']: WebpackProvidePlugin,
   ['clean-webpack-plugin']: CleanWebpackPlugin,
   ['webpack-config-dump-plugin']: WebpackConfigDumpPlugin,
@@ -23,6 +21,4 @@ const extensions: Framework.Extensions = {
   ['ignore-emit-webpack-plugin']: IgnoreEmitWebpackPlugin,
   ['webpack-manifest-plugin']: WebpackManifestPlugin,
   ['mini-css-extract-plugin']: MiniCssExtractPlugin,
-} as Framework.Extensions
-
-export {extensions}
+}

@@ -1,8 +1,8 @@
-import {Bud, factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {Hooks} from '@roots/bud-hooks'
 
 describe('@roots/bud-hooks', function () {
-  let bud: Framework
+  let bud: Bud
   let hooks: Hooks
 
   beforeAll(() => {

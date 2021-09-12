@@ -4,32 +4,68 @@ import {existsSync} from 'fs-extra'
 
 import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '.'
 
-interface BudBabelExtension extends Module {
+/**
+ * Babel extension interface
+ *
+ * @public @config
+ */
+export interface BudBabelExtension extends Module {
+  /**
+   * {@inheritDoc @roots/bud-framework#Module.name}
+   *
+   * @public
+   */
   name: Module.Name & '@roots/bud-babel'
+  /**
+   * {@inheritDoc @roots/bud-framework#Module.register}
+   *
+   * @public
+   */
   register: Module.Register
+  /**
+   * {@inheritDoc @roots/bud-framework#Module.boot}
+   *
+   * @public
+   */
   boot: Module.Boot
 }
 
-const BudBabelExtension: BudBabelExtension = {
+/**
+ * Adds Babel transpiler support to Bud projects
+ *
+ * @public @config
+ */
+export const BudBabelExtension: BudBabelExtension = {
+  /**
+   * {@inheritDoc @roots/bud-framework#Module.name}
+   *
+   * @public
+   */
   name: '@roots/bud-babel',
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Module.register}
+   *
+   * @public
+   */
   register(app: Framework): void {
     /**
-     * Bind app.babel
+     * Binds the {@link @roots/bud-babel#Config | Babel configuration class} using
+     * {@link @roots/bud-framework#Service.bindClass | the Service.bindClass method}
      */
     app.extensions.bindClass({
       babel: [Config, app],
     })
 
     /**
-     * Register Build Loader
+     * Register new {@link @roots/bud-build#Loader} for Babel
      */
     app.build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
     )
 
     /**
-     * Register Build Item
+     * Register new {@link @roots/bud-build#Item} for Babel
      */
     app.build.items.babel = new Item({
       loader: ({build}) => build.loaders.babel,
@@ -63,7 +99,7 @@ const BudBabelExtension: BudBabelExtension = {
     })
 
     /**
-     * Override Build JS Rule
+     * @override {@link @roots/bud-build#Rule.use}
      */
     app.build.rules.js.setUse(({build}) => [build.items.babel])
   },
@@ -78,5 +114,3 @@ const BudBabelExtension: BudBabelExtension = {
         .setPlugins(DEFAULT_PLUGINS)
   },
 }
-
-export {BudBabelExtension}

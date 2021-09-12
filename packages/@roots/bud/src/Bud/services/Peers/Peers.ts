@@ -7,7 +7,7 @@ import {dirname, join} from 'path'
 /**
  * Peers service class
  *
- * @beta
+ * @public
  */
 export default class
   extends Peers.Abstract

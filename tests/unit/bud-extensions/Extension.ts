@@ -1,9 +1,10 @@
-import {factory, Framework, Module} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {Extension} from '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack/types'
 
 describe('@roots/bud-extensions extension', function () {
-  let bud: Framework = null
+  let bud: Bud = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {
     apply: jest.fn(),
@@ -18,7 +19,7 @@ describe('@roots/bud-extensions extension', function () {
     register: jest.fn(app => null),
     boot: jest.fn(app => null),
     api: jest.fn(app => ({
-      foo: jest.fn(function (this: Framework) {
+      foo: jest.fn(function (this: Bud) {
         return this
       }),
     })),

@@ -6,14 +6,15 @@ import {Service} from './Service'
 
 /**
  * Options container store
- *
- * @sealed
  */
 class Store<T = Configuration> extends Service<T> {
+  /**
+   * {@inheritDoc Service.Repository}
+   */
   public name = 'store'
 
   /**
-   * Get a store value
+   * {@inheritDoc @roots/container#Container.get}
    *
    * @override
    */

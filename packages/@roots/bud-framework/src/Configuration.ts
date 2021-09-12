@@ -8,6 +8,8 @@ import type {Framework, Server} from '.'
  * @remarks
  * These are just initial values. They can be overwritten by the user, or extended by the framework/modules.
  * It is recommended to use hooks to extend the configuration.
+ *
+ * @public
  */
 interface Configuration {
   /**
@@ -33,7 +35,7 @@ interface Configuration {
   /**
    * Enable or disable the command line interface
    *
-   * @default true
+   * @defaultValue true
    */
   cli: boolean
 
@@ -44,7 +46,7 @@ interface Configuration {
    * the `location/dist` directory prior to the next
    * compilation.
    *
-   * @default true
+   * @defaultValue true
    */
   clean: boolean
 
@@ -54,7 +56,7 @@ interface Configuration {
    * When enabled a `webpack.debug.js` artifact will be
    * emitted to the `location/storage` directory.
    *
-   * @default true
+   * @defaultValue true
    */
   debug: boolean
 
@@ -64,49 +66,49 @@ interface Configuration {
    * When enabled, any discovered extensions will be automatically
    * initialized.
    *
-   * @default false
+   * @defaultValue false
    */
   discover: boolean
 
   /**
    * Enable or disable filename hashing
    *
-   * @default false
+   * @defaultValue false
    */
   hash: boolean
 
   /**
    * Emit html template
    *
-   * @default true
+   * @defaultValue true
    */
   html: boolean
 
   /**
    * Automatically install peer dependencies
    *
-   * @default false
+   * @defaultValue false
    */
   install: boolean
 
   /**
    * Log to console
    *
-   * @default false
+   * @defaultValue false
    */
   log: boolean
 
   /**
    * Enable or disable producing a manifest.json file
    *
-   * @default true
+   * @defaultValue true
    */
   manifest: boolean
 
   /**
    * Enable or disable file minification
    *
-   * @default true
+   * @defaultValue true
    */
   minimize: boolean
 
@@ -116,7 +118,7 @@ interface Configuration {
    * @remarks
    * do not include extension
    *
-   * @default '[name]'
+   * @defaultValue '[name]'
    */
   fileFormat: string
 
@@ -126,7 +128,7 @@ interface Configuration {
    * @remarks
    * do not include extension
    *
-   * @default '[name].[contenthash:6]'
+   * @defaultValue '[name].[contenthash:6]'
    */
   hashFormat: string
 
