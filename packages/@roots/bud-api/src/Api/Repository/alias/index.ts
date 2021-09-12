@@ -12,7 +12,7 @@ import type {Configuration} from 'webpack'
  *
  * @public @config
  */
-export interface alias {
+interface alias {
   (
     this: Framework,
     alias: Configuration['resolve']['alias'],
@@ -34,7 +34,7 @@ export interface alias {
  *
  * @public @config
  */
-export const alias: alias = function (alias) {
+const alias: alias = function (alias) {
   this.hooks.on(
     'build/resolve/alias',
     (aliases: Configuration['resolve']['alias']) => ({
@@ -51,3 +51,5 @@ export const alias: alias = function (alias) {
 
   return this
 }
+
+export {alias as default}
