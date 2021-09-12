@@ -2650,7 +2650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:^7.13.44, @microsoft/api-documenter@npm:^7.13.47":
+"@microsoft/api-documenter@npm:7.13.47":
   version: 7.13.47
   resolution: "@microsoft/api-documenter@npm:7.13.47"
   dependencies:
@@ -2678,7 +2678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:^7.18.7":
+"@microsoft/api-extractor@npm:7.18.7":
   version: 7.18.7
   resolution: "@microsoft/api-extractor@npm:7.18.7"
   dependencies:
@@ -3824,7 +3824,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": ^7.13.47
+    "@microsoft/api-documenter": 7.13.47
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": 1.26.0
@@ -3871,7 +3871,7 @@ __metadata:
     mini-css-extract-plugin: ^2.1.0
     signale: ^1.4.0
     source-map-support: ^0.5.19
-    tsconfig-paths: ^3.11.0
+    tsconfig-paths: 3.11.0
     tslib: ^2.3.1
     webpack: 5.52.0
     webpack-config-dump-plugin: ^3.0.1
@@ -7407,8 +7407,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": ^7.13.44
-    "@microsoft/api-extractor": ^7.18.7
+    "@microsoft/api-documenter": 7.13.47
+    "@microsoft/api-extractor": 7.18.7
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
@@ -7437,7 +7437,7 @@ __metadata:
     eslint-plugin-react: 7.25.1
     eslint-plugin-react-hooks: 4.2.0
     eslint-plugin-simple-import-sort: 7.0.0
-    eslint-plugin-tsdoc: ^0.2.14
+    eslint-plugin-tsdoc: 0.2.14
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
@@ -7456,7 +7456,7 @@ __metadata:
     tsconfig-paths: 3.11.0
     tslib: 2.3.1
     type-fest: 2.2.0
-    typedoc: ^0.22.2
+    typedoc: 0.22.2
     typescript: 4.4.2
     url-loader: 4.1.1
     weak-napi: 2.0.2
@@ -10383,7 +10383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tsdoc@npm:^0.2.14":
+"eslint-plugin-tsdoc@npm:0.2.14":
   version: 0.2.14
   resolution: "eslint-plugin-tsdoc@npm:0.2.14"
   dependencies:
@@ -15649,16 +15649,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"marked@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "marked@npm:3.0.2"
-  bin:
-    marked: bin/marked
-  checksum: 6f88083a7e50494f97af9f92f1b03a299ecde78055f7378dd0837f12aa2e192db84b7ed528d3e7008fd8d26d39f23a2a07af2a349899917171531574798563b5
-  languageName: node
-  linkType: hard
-
-"marked@npm:^3.0.3":
+"marked@npm:^3.0.2, marked@npm:^3.0.3":
   version: 3.0.3
   resolution: "marked@npm:3.0.3"
   bin:
@@ -21101,7 +21092,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"shiki@npm:^0.9.10":
+"shiki@npm:^0.9.10, shiki@npm:^0.9.8":
   version: 0.9.10
   resolution: "shiki@npm:0.9.10"
   dependencies:
@@ -21109,17 +21100,6 @@ resolve@~1.19.0:
     onigasm: ^2.2.5
     vscode-textmate: 5.2.0
   checksum: 2544ee3321d280de4a22e7e871bc93c1f2566120bf340fcc9764f29e22fcd7aa778bd9f8b133387f0808cd4085bda25c0a7e1c0868d85fe06aea7bbb4c904a68
-  languageName: node
-  linkType: hard
-
-"shiki@npm:^0.9.8":
-  version: 0.9.8
-  resolution: "shiki@npm:0.9.8"
-  dependencies:
-    json5: ^2.2.0
-    onigasm: ^2.2.5
-    vscode-textmate: 5.2.0
-  checksum: ffbce5e5e3449b453d7acb7bd728546e4b5ea87e5df4d2ec69dc95c6c5165166c101eb6db2851e5bb333b7194133936b18b440f8dd0d8859de7ef0abe1951131
   languageName: node
   linkType: hard
 
@@ -23097,7 +23077,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.22.2":
+"typedoc@npm:0.22.2":
   version: 0.22.2
   resolution: "typedoc@npm:0.22.2"
   dependencies:
