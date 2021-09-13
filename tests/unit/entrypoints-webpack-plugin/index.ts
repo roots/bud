@@ -15,6 +15,19 @@ describe('entrypoints.json', () => {
     expect(files).toEqual(['foo.js', 'bar.js'])
   })
 
+  it('should get chunk file list with publicPath', () => {
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
+    })
+    const chonk = new Chunk()
+    chonk.files = new Set(['foo.js', 'bar.js'])
+    const files = entrypoints.getEntrypointFiles({
+      chunks: [chonk],
+    })
+
+    expect(files).toEqual(['/public/foo.js', '/public/bar.js'])
+  })
+
   it('should create manifest object', () => {
     const entrypoints = new EntrypointsWebpackPlugin({
       publicPath: '/public/',

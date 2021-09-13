@@ -1,7 +1,4 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import {
   CriticalCssWebpackPlugin,
@@ -18,7 +15,7 @@ import {critical} from './critical'
  * {@link CriticalCssWebpackPlugin @roots/critical-css-webpack-plugin}
  */
 interface BudCriticalCssPlugin
-  extends WebpackPlugin<
+  extends Extension.CompilerPlugin<
     CriticalCssWebpackPlugin,
     Partial<Options>
   > {

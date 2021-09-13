@@ -1,9 +1,9 @@
-import type {Module} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 
 import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
-interface BudImageMinExtension extends Module {}
+interface BudImageMinExtension extends Extension.Module {}
 
 const BudImageMinExtension: BudImageMinExtension = {
   name: '@roots/bud-imagemin',

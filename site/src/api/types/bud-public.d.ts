@@ -40,8 +40,10 @@
  */
 
 import type { Configuration } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
+import { Framework as Framework_2 } from '@roots/bud-framework';
+import { Module } from '@roots/bud-framework';
 import { SetOptional } from 'type-fest';
+import { WebpackPlugin } from '@roots/bud-framework';
 
 /**
  * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
@@ -54,7 +56,7 @@ import { SetOptional } from 'type-fest';
  *
  * @public @core
  */
-export declare class Bud extends Framework implements Contract {
+declare class Bud extends Framework_2 implements Contract {
     /**
      * {@link Bud} class definition
      *
@@ -63,14 +65,16 @@ export declare class Bud extends Framework implements Contract {
      *
      * @public
      */
-    implementation: Framework.Constructor;
+    implementation: Framework_2.Constructor;
     /**
      * Class constructor
      *
      * @param options - {@link @roots/bud-framework#Framework.Options}
      */
-    constructor(options: Framework.Options);
+    constructor(options: Framework_2.Options);
 }
+export { Bud }
+export { Bud as Framework }
 
 /**
  * Base config repository
@@ -84,13 +88,13 @@ export declare const config: Configuration;
  *
  * @public @core
  */
-declare interface Contract extends Framework {
+declare interface Contract extends Framework_2 {
     /**
      * {@inheritDoc @roots/bud-framework#Framework.implementation}
      *
      * @public
      */
-    implementation: Framework.Constructor;
+    implementation: Framework_2.Constructor;
 }
 
 /**
@@ -103,14 +107,18 @@ declare interface Contract extends Framework {
  *
  * @public @core @config
  */
-export declare function factory(overrides: Options): Bud;
+export declare function factory(overrides?: Options): Bud;
+
+export { Module }
 
 /**
- * {@link Bud.ctor} prop overrides
+ * {@link Bud} ctor property overrides
  *
  * @core @public
  */
-declare interface Options extends SetOptional<Framework.Options, 'name'> {
+declare interface Options extends SetOptional<Framework_2.Options, 'name'> {
 }
+
+export { WebpackPlugin }
 
 export { }

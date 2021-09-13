@@ -1,16 +1,39 @@
-import {Framework} from '..'
+import {Framework, Tapable} from '..'
 
-interface tap<T = Framework> {
-  (fn: Framework.Tapable<T>, bound?: boolean): T
+export interface tap<T = Framework> {
+  (fn: Tapable<[T]>, bound?: boolean): T
 }
 
-const tap: tap<Framework> = function (
-  fn: Framework.Tapable<Framework>,
+/**
+ * Execute a callback
+ *
+ * @remarks
+ * Callback is provided {@link Framework | the Framework instance} as a parameter.
+ *
+ * @example
+ * ```js
+ * bud.tap(bud => {
+ *   // do something with bud
+ * })
+ * ```
+ *
+ * @example
+ * Lexical scope is bound to Framework where applicable, so it
+ * is possible to reference the Framework using `this`.
+ *
+ * ```js
+ * bud.tap(function () {
+ *  // do something with this
+ * })
+ * ```
+ *
+ * @public
+ */
+export const tap: tap<Framework> = function (
+  fn: Tapable<[Framework]>,
   bound: boolean = true,
 ): Framework {
   fn.call(bound ? this : null, this)
 
   return this
 }
-
-export {tap}

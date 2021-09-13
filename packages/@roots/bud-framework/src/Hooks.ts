@@ -1,12 +1,17 @@
-import type * as Webpack from 'webpack'
+import * as Webpack from 'webpack'
 
-import type {
-  Build,
+import {
   Framework,
-  Module,
+  Items,
+  Loaders,
+  Locations,
+  Mode,
+  Modules,
+  Plugins,
+  Rules,
   Service,
-  WebpackPlugin,
 } from './'
+import {Extension} from './Extensions/Extension'
 
 /**
  * Service allowing for fitering {@link Framework} values through callbacks.
@@ -14,7 +19,7 @@ import type {
  * @example
  * Add a new entry to the `webpack.externals` configuration:
  *
- * ```js
+ * ```ts
  * hooks.on(
  *   'build/externals',
  *   externals => ({
@@ -27,12 +32,14 @@ import type {
  * @example
  * Change the `webpack.output.filename` format:
  *
- * ```js
+ * ```ts
  * hooks.on(
  *   'build/output/filename',
  *   () => '[name].[hash:4]',
  * )
  * ```
+ *
+ * @public @core
  */
 interface Hooks extends Service<Hooks.Repository> {
   /**
@@ -52,6 +59,8 @@ interface Hooks extends Service<Hooks.Repository> {
    *   value => 'replaced by this string',
    * )
    * ```
+   *
+   * @public
    */
   on(id: Hooks.Name, callback: Hooks.Hook): Framework
 
@@ -67,10 +76,17 @@ interface Hooks extends Service<Hooks.Repository> {
    *   ['array', 'of', 'items'],
    * )
    * ```
+   *
+   * @public
    */
   filter<T = any>(id: Hooks.Name, seed?: any): T
 }
 
+/**
+ * Hooks namespace
+ *
+ * @public
+ */
 namespace Hooks {
   /**
    * Hook signature
@@ -89,25 +105,23 @@ namespace Hooks {
 
   export type Key = `${keyof Repository}`
 
-  export type LocationKeys =
-    `location/${keyof Framework.Locations & string}`
+  export type LocationKeys = `location/${keyof Locations &
+    string}`
 
-  export type LoaderKeys =
-    | `loader`
-    | `loader/${keyof Build.Loaders}`
+  export type LoaderKeys = `loader` | `loader/${keyof Loaders}`
 
   export type ItemKeys =
     | `item`
-    | `item/${keyof Build.Items}`
-    | `item/${keyof Build.Items}/loader`
-    | `item/${keyof Build.Items}/options`
-    | `item/${keyof Build.Items}/options/${string}`
+    | `item/${keyof Items}`
+    | `item/${keyof Items}/loader`
+    | `item/${keyof Items}/options`
+    | `item/${keyof Items}/options/${string}`
 
   export type RuleKeys =
     | `rule`
-    | `rule/${keyof Build.Rules}`
-    | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule}`
-    | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule &
+    | `rule/${keyof Rules}`
+    | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule}`
+    | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule &
         `options`}/${string}`
 
   namespace BuildHooks {
@@ -125,7 +139,7 @@ namespace Hooks {
     }
 
     interface Config extends Webpack.Configuration {
-      mode?: Framework.Mode
+      mode?: Mode
       module?: {
         noParse?:
           | RegExp
@@ -185,21 +199,18 @@ namespace Hooks {
   /**
    * Hooks.Extension
    */
-  export namespace Extension {
-    export type Keys = keyof {
-      [K in keyof Framework.Extensions as
-        | `extension`
-        | `extension/${K}`
-        | `extension/${K}/${
-            | `${keyof Module & string}`
-            | `${keyof Module & string}/${string}`}`]:
-        | Module
-        | WebpackPlugin
-    }
+  export type Keys = keyof {
+    [K in keyof Modules | keyof Plugins as
+      | `extension`
+      | `extension/${K}`
+      | `extension/${K}/${
+          | `${keyof Modules | keyof Plugins}`
+          | (`${keyof Modules | keyof Plugins}/${string}` &
+              string)}`]: Extension
   }
 
   /**
-   * @hidden
+   * @internal
    */
   export type Name =
     | `before`
@@ -208,8 +219,8 @@ namespace Hooks {
     | `${ItemKeys}`
     | `${LocationKeys}`
     | `${LoaderKeys}`
+    | `${Keys}`
     | `${RuleKeys}`
-    | `${Extension.Keys}`
     | `${BuildHooks.Keys}`
 }
 

@@ -4,7 +4,7 @@ import {
   yaml as yamlParser,
 } from '@roots/bud-support'
 
-import {Rule} from '../Rule'
+import Rule from '../Rule'
 
 /**
  * Returns {@link Rule} for `asset/resource`

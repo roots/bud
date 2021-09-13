@@ -1,8 +1,8 @@
 import {Item, Loader, Rule} from '@roots/bud-build'
-import type {Framework, Module} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import {pathExistsSync, readJson} from 'fs-extra'
 
-export const tsFeature: Module = {
+export const tsFeature: Extension.CompilerPlugin = {
   name: '@roots/bud-esbuild/ts',
 
   boot: ({build, hooks}: Framework) => {

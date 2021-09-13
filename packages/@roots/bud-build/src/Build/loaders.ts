@@ -1,6 +1,6 @@
 import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
 
-import {Loader} from '../Loader'
+import Loader from '../Loader'
 
 /**
  * Returns {@link Loader} for `css-loader`

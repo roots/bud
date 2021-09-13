@@ -4,28 +4,27 @@ import {Service} from '../Service'
 /**
  * Peer service interface
  *
- * @virtual
- * @public
+ * @public @core @container
  */
 export interface Interface extends Service {
   /**
    * Array of paths for webpack to resolve modules from
    *
-   * @virtual
+   * @public
    */
   resolveFrom: string[]
 
   /**
    * Peer module related utilities
    *
-   * @virtual
+   * @public
    */
   peers: Peers.Interface
 
   /**
    * Get aggregated project info
    *
-   * @virtual
+   * @public
    */
   getProjectInfo(): {
     [key: string]: any
@@ -36,7 +35,7 @@ export interface Interface extends Service {
    * the project has a given pkg listed as a dependency
    * or devDependency
    *
-   * @virtual
+   * @public
    */
   hasPeerDependency(pkg: string): boolean
 }

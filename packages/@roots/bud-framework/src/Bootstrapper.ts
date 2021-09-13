@@ -1,26 +1,34 @@
 import {Container} from '@roots/container'
 
-import type {Framework} from './'
+import {Framework} from './'
 
 /**
- * Provides container functionality and access to {@link Framework} instance.
+ * Provides {@link @roots/container# | Container}
+ * functionality and access to {@link Framework}
+.
  *
- * @public
+ * @public @core @container
  */
-abstract class Bootstrapper<T = any> extends Container<T> {
+export abstract class Bootstrapper<
+  T = any,
+> extends Container<T> {
   /**
-   * Service identifier
-   * @virtual
+   * @internal
    */
-  public name: any
-
-  /** @hidden */
   private _app: () => Framework
 
   /**
-   * Access {@link Framework Framework} instance
+   * Service identifier
    *
-   * @readonly
+   * @public
+   */
+  public name: any
+
+  /**
+   * Access {@link Framework}
+
+   *
+   * @public @readonly
    */
   public get app(): Framework {
     return this._app()
@@ -28,6 +36,11 @@ abstract class Bootstrapper<T = any> extends Container<T> {
 
   /**
    * Class constructor
+   *
+   * @param app - {@link Framework}
+
+   *
+   * @public
    */
   public constructor(app: Framework) {
     super()
@@ -35,5 +48,3 @@ abstract class Bootstrapper<T = any> extends Container<T> {
     this._app = () => app
   }
 }
-
-export {Bootstrapper}

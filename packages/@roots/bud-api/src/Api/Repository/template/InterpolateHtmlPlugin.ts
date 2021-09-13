@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Index} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import type {
   Compilation,
@@ -13,39 +13,49 @@ import {HtmlWebpackPlugin} from './BudHtmlWebpackPlugin'
  *
  * @public
  */
-class InterpolateHtmlPlugin {
+export class InterpolateHtmlPlugin {
   /**
    * {@link WebpackPluginInstance.name}
+   *
+   * @public
    */
   public name = 'interpolate-html-plugin'
 
   /**
    * {@link HtmlWebpackPlugin}
+   *
+   * @public
    */
   public htmlWebpackPlugin: HtmlWebpackPlugin &
     WebpackPluginInstance
 
   /**
-   * {@link Index} of {@link RegExp}
+   * {@link Index} of regular expressions
+   *
+   * @public
    */
-  public replacements: Framework.Index<RegExp>
+  public replacements: Index<RegExp>
 
   /**
    * Class constructor
    *
    * @param htmlWebpackPlugin - {@link HtmlWebpackPlugin}
-   * @param replacements - {@link Index} of {@link RegExp}
+   * @param replacements - {@link Index} of regular expressions
+   *
+   * @public
    */
   public constructor(
     htmlWebpackPlugin: HtmlWebpackPlugin,
-    replacements: Framework.Index<RegExp>,
+    replacements: Index<RegExp>,
   ) {
     this.htmlWebpackPlugin = htmlWebpackPlugin
     this.replacements = replacements
   }
 
   /**
-   * Returns a {@link RegExp} escaped string
+   * Returns an escaped regular expression string
+   *
+   * @public
    */
   public escapeRegExp(string: string): string {
     return string
@@ -55,7 +65,11 @@ class InterpolateHtmlPlugin {
 
   /**
    * {@link WebpackPluginInstance.apply}
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public apply(compiler: Compiler): void {
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
@@ -66,6 +80,7 @@ class InterpolateHtmlPlugin {
   /**
    * @param compilation - {@link Compilation}
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -89,5 +104,3 @@ class InterpolateHtmlPlugin {
       )
   }
 }
-
-export {InterpolateHtmlPlugin}

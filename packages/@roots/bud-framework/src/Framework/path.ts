@@ -1,24 +1,21 @@
 import {join} from 'path'
 
-import {Framework} from '..'
+import {Framework, Locations} from '..'
 
 interface path {
   (
     this: Framework,
-    key: keyof Framework.Locations & string,
+    key: keyof Locations & string,
     ...path: string[]
   ): string
 }
 
 interface path {
-  (
-    key: keyof Framework.Locations & string,
-    ...path: string[]
-  ): string
+  (key: keyof Locations & string, ...path: string[]): string
 }
 
 const path: path = function (
-  key: keyof Framework.Locations & string,
+  key: keyof Locations & string,
   ...path: string[]
 ): string {
   return join(

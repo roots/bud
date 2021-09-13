@@ -1,10 +1,4 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
@@ -25,15 +19,14 @@ declare module '@roots/bud-framework' {
      * configuration consult [the compression webpack
      * plugin documentation](#).
      *
-     * @usage
-     * **Simplest way to get started is to just call it**
-     *
+     * @example
      * This is likely a fine default config.
      *
      * ```js
      * bud.brotli()
      * ```
      *
+     * @example
      * With default options:
      *
      * ```js
@@ -49,21 +42,26 @@ declare module '@roots/bud-framework' {
      *   deleteOriginalAssets: false,
      * })
      * ```
+     *
+     * @public
      */
     brotli(options?: BudCompressionExtension.Options): Framework
 
     /**
      * Gzip static assets.
+     *
+     * @public
      */
     gzip(options?: BudCompressionExtension.Options): Framework
   }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-compress': BudCompressionExtension
-      'compression-webpack-plugin-brotli': BudBrotliWebpackPlugin
-      'compression-webpack-plugin-gzip': BudGzipWebpackPlugin
-    }
+  interface Modules {
+    '@roots/bud-compress': BudCompressionExtension
+  }
+
+  interface Plugins {
+    'compression-webpack-plugin-brotli': BudBrotliWebpackPlugin
+    'compression-webpack-plugin-gzip': BudGzipWebpackPlugin
   }
 }
 

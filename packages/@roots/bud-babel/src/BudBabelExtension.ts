@@ -1,5 +1,5 @@
 import {Item, Loader} from '@roots/bud-build'
-import type {Framework, Module} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import {existsSync} from 'fs-extra'
 
 import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '.'
@@ -9,25 +9,25 @@ import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '.'
  *
  * @public @config
  */
-export interface BudBabelExtension extends Module {
+export interface BudBabelExtension extends Extension.Module {
   /**
    * {@inheritDoc @roots/bud-framework#Module.name}
    *
    * @public
    */
-  name: Module.Name & '@roots/bud-babel'
+  name: Extension.Module['name'] & '@roots/bud-babel'
   /**
    * {@inheritDoc @roots/bud-framework#Module.register}
    *
    * @public
    */
-  register: Module.Register
+  register: Extension.Module['register']
   /**
    * {@inheritDoc @roots/bud-framework#Module.boot}
    *
    * @public
    */
-  boot: Module.Boot
+  boot: Extension.Module['boot']
 }
 
 /**

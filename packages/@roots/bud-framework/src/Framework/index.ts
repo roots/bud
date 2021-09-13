@@ -2,7 +2,7 @@ import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isNull, isUndefined} from 'lodash'
 
-import type {
+import {
   Api,
   Build,
   Compiler,
@@ -10,44 +10,44 @@ import type {
   Dashboard,
   Dependencies,
   Env,
-  Extensions,
   Hooks,
+  Index,
   Logger,
-  Module,
+  Mode,
   Server,
-  WebpackPlugin,
+  Services,
 } from '../'
 import {
-  access,
-  bootstrap,
   close,
   container,
   get,
-  make,
   path,
   pipe,
   sequence,
-  Service,
   setPath,
   Store,
-  tap,
   when,
 } from '../'
 import * as Cache from '../Cache'
+import {Extensions} from '../Extensions'
 import * as Project from '../Project'
+import {access} from './access'
+import {bootstrap} from './bootstrap'
+import {make} from './make'
+import {tap} from './tap'
 
 /**
  * Base {@link Framework} class
  *
  * @core @public
  */
-abstract class Framework {
+export abstract class Framework {
   /**
    * Concrete implementation of the {@link Framework}
    *
    * @public
    */
-  public abstract implementation: Framework.Constructor
+  public abstract implementation: Constructor
 
   /**
    * Framework name
@@ -69,7 +69,7 @@ abstract class Framework {
    *
    * @defaultValue 'production'
    */
-  public mode: Framework.Mode = 'production'
+  public mode: Mode = 'production'
 
   /**
    * Parent {@link Framework} instance
@@ -98,7 +98,7 @@ abstract class Framework {
    *
    * @defaultValue null
    */
-  public children: Container<Framework.Instances> | null = null
+  public children: Container<Index<Framework>> = null
 
   /**
    * True when {@link Framework} has children
@@ -116,38 +116,23 @@ abstract class Framework {
    * Framework services
    *
    * @remarks
-   * Can be set directly on the child instance or passed as a property in the {@link @roots/bud-framework#Framework.Options | Framework constructor options}.
+   * Can be set directly on the child instance or passed as a property in the {@link Options}.
    *
    * @public
    */
-  public services: Framework.Services
+  public services: Services
 
   /**
    * Macros for assisting with common config tasks
    *
-   * @public
+   * @public @container
    */
   public api: Api
 
-  /**
-   * Build configuration container
-   *
-   * @example The `build.config` property holds the build config object:
-   * ```js
-   * build.config
-   * ```
-   *
-   * @example Rebuild the configuration:
-   * ```js
-   * build.rebuild()
-   * ```
-   *
-   * @public
-   */
-  public build: Build
+  public build: Build.Interface
 
   /**
-   * Determines cache validity and generates version string based on SHA-1 hashed build configuration and project manifest files.
+   * Determines cache validity and generates cache keys.
    *
    * @public
    */
@@ -185,7 +170,7 @@ abstract class Framework {
   /**
    * .env container
    *
-   * @public
+   * @public @container
    */
   public env: Env
 
@@ -246,7 +231,7 @@ abstract class Framework {
   public server: Server
 
   /**
-   * Container service for holding {@link @roots/bud-framework#Configuration} values
+   * Container service for holding configuration values
    *
    * @public
    */
@@ -272,8 +257,12 @@ abstract class Framework {
 
   /**
    * Class constructor
+   *
+   * @param options - {@link Framework.Options | Framework constructor options}
+   *
+   * @public
    */
-  public constructor(options: Framework.Options) {
+  public constructor(options: Options) {
     // This foolishness is basically mandated by tsc
     this.bindMethod<access>('access', access)
       .bindMethod<bootstrap>('bootstrap', bootstrap)
@@ -303,7 +292,7 @@ abstract class Framework {
   }
 
   /**
-   * Bind method to {@link Framework}
+   * Bind method to {@link Framework | Framework instance}
    *
    * @public
    */
@@ -332,26 +321,22 @@ abstract class Framework {
    * access(isAFunction, true) // => `option value: true`
    * access(isAValue) // => `option value: true`
    * ```
+   *
+   * @public
    */
   public access: access
 
-  /**
-   * Initializes and binds {@link Framework.services}
-   *
-   * @example
-   * ```js
-   * new FrameworkImplementation(...constructorParams).bootstrap()
-   * ```
-   */
   public bootstrap: bootstrap
 
   /**
-   * Gracefully shutdown {@link Framework} and registered {@link Service Service instances}
+   * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
    *
    * @example
    * ```js
    * bud.close()
    * ```
+   *
+   * @public
    */
   public close: close
 
@@ -364,11 +349,13 @@ abstract class Framework {
    *
    * myContainer.get('key') // returns 'value'
    * ```
+   *
+   * @public @container
    */
   public container: container
 
   /**
-   * Returns a {@link Framework} instance from the {@link Framework.children} container
+   * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
    *
    * @remarks
    * An optional {@link tap} function can be provided to configure the {@link Framework} instance.
@@ -380,27 +367,17 @@ abstract class Framework {
    *
    * bud.get(name, tapFn)
    * ```
+   *
+   * @public
    */
   public get: get
 
-  /**
-   * Instantiate a child instance and add to {@link Framework.children} container
-   *
-   * @remarks
-   * **make** takes two parameters:
-   *
-   * - The **name** of the new compiler
-   * - An optional callback to use for configuring the compiler.
-   *
-   * @example
-   * ```js
-   * bud.make('scripts', child => child.entry('app', 'app.js'))
-   * ```
-   */
   public make: make
 
   /**
-   * Returns a {@link Framework.Locations} value as an absolute path
+   * Returns a {@link Locations} value as an absolute path
+   *
+   * @public
    */
   public path: path
 
@@ -422,22 +399,11 @@ abstract class Framework {
    *   1, // initial value
    * ) // resulting value is 3
    * ```
+   *
+   * @public
    */
   public pipe: pipe
 
-  /**
-   * Set a {@link Framework.Locations} value
-   *
-   * @remarks
-   * The {@link Framework.Locations `project` directory} should be an absolute path.
-   * All other directories should be relative (src, dist, etc.)
-   * @see {@link Framework.Locations}
-   *
-   * @example
-   * ```js
-   * bud.setPath('src', 'custom/src')
-   * ```
-   */
   public setPath: setPath
 
   /**
@@ -445,31 +411,11 @@ abstract class Framework {
    *
    * @remarks
    * Unlike {@link pipe} the value returned from each function is ignored.
+   *
+   * @public
    */
   public sequence = sequence
 
-  /**
-   * Execute a callback
-   *
-   * @remarks
-   * Callback is provided {@link Framework the Framework instance} as a parameter.
-   *
-   * @example
-   * ```js
-   * bud.tap(bud => {
-   *   // do something with bud
-   * })
-   * ```
-   *
-   * @example
-   * Lexical scope is bound to {@link Framework} where applicable, so it is possible to reference the {@link Framework instance} using `this`.
-   *
-   * ```js
-   * bud.tap(function () {
-   *  // do something with this
-   * })
-   * ```
-   */
   public tap: tap
 
   /**
@@ -497,12 +443,15 @@ abstract class Framework {
    *   () => bud.devtool('hidden-source-map'),
    * )
    * ```
+   *
+   * @public
    */
   public when: when
 
   /**
    * Log a message
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -515,6 +464,7 @@ abstract class Framework {
   /**
    * Log an `info` level message
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -527,6 +477,7 @@ abstract class Framework {
   /**
    * Log a `success` level message
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -539,6 +490,7 @@ abstract class Framework {
   /**
    * Log a `warning` level message
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -551,6 +503,7 @@ abstract class Framework {
   /**
    * Log a `debug` level message
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -563,9 +516,10 @@ abstract class Framework {
   /**
    * Log and display an error.
    *
-   * @remark
+   * @remarks
    * This error is fatal and will kill the process
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -578,99 +532,62 @@ abstract class Framework {
   }
 }
 
-namespace Framework {
+/**
+ * Framework Constructor
+ */
+export type Constructor = new (options: Options) => Framework
+
+/*
+ * Constructor options
+ */
+export interface Options {
   /**
-   * Hash of a given object type
+   * Application name
+   *
+   * @remarks
+   * In the context of the parent compiler this options is used
+   * for many things, including determining where to look for configuration
+   * files and fundamental, related conventions.
+   *
+   * @defaultValue 'bud'
+   *
+   * @internal
    */
-  export type Index<T = any> = {[key: string]: T}
+  name: string
 
   /**
-   * Compilation mode
+   * The mode to run the application in. Either `production` or `development`.
+   *
+   * @public
    */
-  export type Mode = 'production' | 'development'
+  mode?: Mode
 
   /**
-   * Registered loaders
+   * The object providing initial configuration values.
+   *
+   * @remarks
+   * It is probable that extensions and services will modify
+   * values introduced in this object. If you are looking to simply modify
+   * configuration values it is generally a better idea to use the
+   * {@link @roots/bud-hooks#Hooks | Hooks class} instead.
+   *
+   * @public
    */
-  export interface Loaders
-    extends Framework.Index<Build.Loader> {}
+  config?: Configuration
 
   /**
-   * Registered items
+   * Framework services
+   * @public
    */
-  export interface Items extends Framework.Index<Build.Item> {}
+  services?: Services
 
   /**
-   * Registered rules
+   * Should only be used by the main {@link Framework} instance.
+   *
+   * This constructor option is used to determine if a given {@link Framework} instance
+   * is the parent compiler.
+   *
+   * @internal
    */
-  export interface Rules extends Framework.Index<Build.Rule> {}
-
-  /**
-   * Registered locations
-   */
-  export interface Locations extends Framework.Index<string> {
-    project: string
-    src: string
-    dist: string
-    publicPath: string
-    storage: string
-    modules: string
-  }
-
-  /**
-   * Registered services
-   */
-  export interface Services
-    extends Index<new (app: Framework) => Service> {}
-
-  /**
-   * Registered compilers
-   */
-  export interface Instances extends Index<Framework> {}
-
-  /**
-   * Registered extensions
-   */
-  export interface Extensions
-    extends Partial<Index<Module | WebpackPlugin>> {}
-
-  /**
-   * Framework Constructor
-   */
-  export type Constructor = new (options: Options) => Framework
-
-  /*
-   * Constructor options
-   */
-  export interface Options {
-    /**
-     * @virtual
-     */
-    name: string
-    /**
-     * @virtual
-     */
-    mode?: Framework.Mode
-    /**
-     * @virtual
-     */
-    config?: Configuration
-    /**
-     * @virtual
-     */
-    services?: Framework.Services
-    /**
-     * @public
-     */
-    parent?: Framework
-  }
-
-  /**
-   * Callback which accepts Framework as a parameter
-   */
-  export interface Tapable<T = Framework> {
-    (value?: T): any
-  }
+  parent?: Framework
 }
-
-export {Framework}

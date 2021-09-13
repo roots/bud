@@ -4,8 +4,7 @@ import * as Cache from './'
 /**
  * Cache service abstract class
  *
- * @virtual
- * @public
+ * @public @core @container
  */
 export abstract class Abstract
   extends Service
@@ -14,21 +13,21 @@ export abstract class Abstract
   /**
    * Dependencies which should be checked to determine cache validity.
    *
-   * @virtual
+   * @public
    */
   public abstract buildDependencies(): string[]
 
   /**
    * Directory used to store cache files
    *
-   * @virtual
+   * @public
    */
   public abstract directory(): string
 
   /**
    * Hash of config files and build dependencies
    *
-   * @virtual
+   * @public
    */
   public abstract hash(): string
 
@@ -36,7 +35,7 @@ export abstract class Abstract
    * A short, unique string created from the hashed contents of the project
    * config files and build dependencies.
    *
-   * @virtual
+   * @public
    */
   public abstract version(): string
 }

@@ -1,30 +1,13 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * Add stylelint support to Bud projects
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- * Add stylelint support to Bud projects
- *
- * @export {name} The name of the extension
- * @export {options} The extension options
- * @export {make} The webpack plugin factory
- *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
- *
- * @packageDocumentation
+ * @extension @betaDocumentation @packageDocumentation
  */
 
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import StylelintWebpackPlugin, {
   Options,
@@ -40,9 +23,15 @@ declare module '@roots/bud-framework' {
 }
 
 interface BudStylelintWebpackPlugin
-  extends WebpackPlugin<StylelintWebpackPlugin, Options> {
-  name: 'stylelint-webpack-plugin' & WebpackPlugin['name']
-  options(app: Framework): WebpackPlugin['options'] & Options
+  extends Extension.CompilerPlugin<
+    StylelintWebpackPlugin,
+    Options
+  > {
+  name: 'stylelint-webpack-plugin' &
+    Extension.CompilerPlugin['name']
+  options(
+    app: Framework,
+  ): Extension.CompilerPlugin['options'] & Options
   make(
     options: Container<Options>,
   ): WebpackPluginInstance & StylelintWebpackPlugin

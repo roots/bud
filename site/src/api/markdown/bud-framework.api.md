@@ -23,70 +23,59 @@ import { StatsCompilation } from 'webpack';
 import { StatsError } from 'webpack';
 import type { WatchOptions } from 'chokidar';
 import * as Webpack from 'webpack';
-import type { WebpackPluginInstance } from 'webpack';
 
-// @public @virtual
+// @public
 abstract class Abstract extends Service implements Cache_2.Interface {
-    // @virtual
     abstract buildDependencies(): string[];
-    // @virtual
     abstract directory(): string;
-    // @virtual
     abstract hash(): string;
-    // @virtual
     abstract version(): string;
 }
 
-// @public @virtual
+// @public
 abstract class Abstract_2 extends Service<Peers.Repository> {
-    // @virtual
     abstract getProjectInfo(): {
         [key: string]: any;
     };
-    // @virtual
     abstract hasPeerDependency(pkg: string): boolean;
-    // @virtual
     abstract peers: Peers.Interface;
-    // @virtual
     resolveFrom: string[];
 }
 
-// @public @virtual
+// @public
 abstract class Abstract_3 implements Peers.Interface {
-    // @virtual
     abstract discover(type: 'dependencies' | 'devDependencies'): this;
-    // @virtual
     abstract getPeerManifest(name: string): {
         [key: string]: any;
     };
-    // @virtual
     abstract install(): void;
-    // @virtual
     abstract isExtension(name: string): boolean;
-    // @virtual
     abstract project: Project.Interface;
-    // @virtual
     abstract registerDiscovered(): void;
     abstract resolvePeerByName(name: string): string;
 }
 
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "access" because one of its declarations is marked as @internal
+//
 // @public
 export function access<I = any>(this: Framework, value: Framework.Tapable | I): any;
 
-// @public
+// @internal (undocumented)
 export interface access<I = any> {
     // (undocumented)
     (this: Framework, value: Framework.Tapable | I): I;
 }
 
-// @public (undocumented)
+// @public
 export interface Api extends Service {
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "bootstrap" because one of its declarations is marked as @internal
+//
+// @public
 export function bootstrap(this: Framework): Framework;
 
-// @public (undocumented)
+// @internal
 export interface bootstrap {
     // (undocumented)
     (this: Framework): Framework;
@@ -96,23 +85,19 @@ export interface bootstrap {
 export abstract class Bootstrapper<T = any> extends Container<T> {
     constructor(app: Framework);
     get app(): Framework;
-    // @virtual
     name: any;
 }
 
 // @public
 export interface Build extends Service {
     config: Webpack.Configuration;
-    // (undocumented)
     items: Build.Items;
-    // (undocumented)
     loaders: Build.Loaders;
     rebuild(): Webpack.Configuration;
-    // (undocumented)
     rules: Build.Rules;
 }
 
-// @public (undocumented)
+// @public
 export namespace Build {
     export interface Item {
         make(app: Framework): Build.Item.Output;
@@ -261,6 +246,8 @@ interface close_2 {
 }
 export { close_2 as close }
 
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Compiler" because one of its declarations is marked as @internal
+//
 // @public
 export interface Compiler extends Service {
     before(): any;
@@ -272,7 +259,7 @@ export interface Compiler extends Service {
     stats: StatsCompilation;
 }
 
-// @public (undocumented)
+// @internal
 export namespace Compiler {
     // (undocumented)
     export type Config = Configuration_2;
@@ -289,7 +276,7 @@ export namespace Compiler {
 
 // @public
 export interface Configuration {
-    build: Webpack.Configuration;
+    build: Partial<Webpack.Configuration>;
     clean: boolean;
     cli: boolean;
     debug: boolean;
@@ -349,18 +336,20 @@ export interface Configuration {
     };
 }
 
-// @public (undocumented)
+// @public
 export namespace Configuration {
     export type TermColor = `#${string}` | `black` | `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `white` | `gray` | `grey` | `blackBright` | `redBright` | `greenBright` | `yellowBright` | `blueBright` | `magentaBright` | `cyanBright` | `whiteBright`;
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "container" because one of its declarations is marked as @internal
+//
+// @internal
 export interface container<T = any> {
     // (undocumented)
     <T>(repository?: T): Container<T>;
 }
 
-// @public (undocumented)
+// @public
 export const container: <T = any>(repository?: T) => Container<T>;
 
 // @public
@@ -371,7 +360,7 @@ export interface Dashboard extends Service {
     run(): void;
 }
 
-// @public (undocumented)
+// @public
 export interface Dependencies extends Service {
     install(dependencies: {
         name: string;
@@ -383,113 +372,73 @@ export interface Dependencies extends Service {
     overrideInstallTarget(dep: string, type: 'dependencies' | 'devDependencies'): boolean;
 }
 
-// @public (undocumented)
+// @public
 export interface Env extends Container {
-    // (undocumented)
     getPublicEnv(): Framework.Index<any>;
 }
 
-// @public (undocumented)
-export abstract class Extension {
-    constructor(app: Framework, extension: Module);
-    // (undocumented)
-    get app(): Framework;
-    // (undocumented)
-    protected _app: () => Framework;
-    // (undocumented)
-    get apply(): any;
-    // (undocumented)
-    abstract boot(): Extension;
-    // (undocumented)
-    get(key: Key): any;
-    get make(): Module.Make;
-    set make(make: Module.Make);
-    // Warning: (ae-forgotten-export) The symbol "Key" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    makeKey(key: Key): Hooks.Name;
-    // (undocumented)
-    get module(): Module;
-    // (undocumented)
-    protected _module: Module;
-    // (undocumented)
-    get name(): keyof Framework.Extensions;
-    // (undocumented)
-    get options(): Module['options'];
-    set options(options: Module['options']);
-    // (undocumented)
-    abstract register(): Extension;
-    // (undocumented)
-    set(key: Key, value: any): void;
-    // (undocumented)
-    get when(): Module.When;
-    set when(when: Module.When);
+// @public
+export interface Extension {
+    app: Framework;
+    apply: WebpackPlugin['apply'];
+    boot(): Extension;
+    get(key: `${keyof Framework.Extensions & string}`): any;
+    make: Module['make'] | WebpackPlugin['make'];
+    makeKey(key: `${keyof Framework.Extensions & string}`): Hooks.Name;
+    module: Module | WebpackPlugin;
+    name: Module['name'] | WebpackPlugin['options'];
+    options: Module['options'] | WebpackPlugin['options'];
+    register(): Extension;
+    set(key: `${keyof Framework.Extensions & string}`, value: any): void;
+    when: Module['when'];
 }
 
-// @public (undocumented)
+// @public
 export interface Extensions extends Service<Partial<Framework.Extensions>> {
     add(extension: Module | WebpackPlugin): void;
     getEligibleWebpackModules(): (Module | WebpackPlugin)[];
-    make(): Extensions.PluginOutput[];
+    make(): PluginInstance[];
 }
 
-// @public (undocumented)
-export namespace Extensions {
-    // (undocumented)
-    export type PluginOutput = WebpackPluginInstance[];
-}
-
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Framework" because one of its declarations is marked as @internal
+//
 // @public
 export abstract class Framework {
     constructor(options: Framework.Options);
     access: access;
-    // @internal @virtual
     api: Api;
-    // @internal
     bindMethod<T = Function>(key: string, method: T & Function): Framework;
     bootstrap: bootstrap;
-    // @virtual
     build: Build;
-    // @virtual
     cache: Cache_2.Interface;
     children: Container<Framework.Instances> | null;
     close: close_2;
-    // @virtual
     compiler: Compiler;
     container: container;
-    // @virtual
     dashboard: Dashboard;
     debug(message?: any, ...optionalArgs: any[]): void;
-    // @virtual
     dependencies: Dependencies;
-    // @virtual
     env: Env;
     error(message?: any, ...optionalArgs: any[]): void;
-    // @virtual
     extensions: Extensions;
     get: get;
     get hasChildren(): boolean;
     hooks: Hooks;
-    // @virtual
     abstract implementation: Framework.Constructor;
     info(message?: any, ...optionalArgs: any[]): void;
     get isDevelopment(): boolean;
     get isParent(): boolean;
     get isProduction(): boolean;
     log(message?: any, ...optionalArgs: any[]): void;
-    // @virtual
     logger: Logger;
     make: make;
     mode: Framework.Mode;
-    // @virtual
     name: string;
     parent: Framework | null;
     path: path;
     pipe: pipe;
-    // @virtual
     project: Project.Interface;
     sequence: typeof sequence;
-    // @virtual
     server: Server;
     services: Framework.Services;
     setPath: setPath;
@@ -500,7 +449,7 @@ export abstract class Framework {
     when: when;
 }
 
-// @public (undocumented)
+// @internal
 export namespace Framework {
     export type Constructor = new (options: Options) => Framework;
     export interface Extensions extends Partial<Index<Module | WebpackPlugin>> {
@@ -531,40 +480,41 @@ export namespace Framework {
     export type Mode = 'production' | 'development';
     // (undocumented)
     export interface Options {
-        // @virtual (undocumented)
+        // @public
         config?: Configuration;
-        // @virtual (undocumented)
+        // @public
         mode?: Framework.Mode;
-        // @virtual (undocumented)
         name: string;
-        // @internal (undocumented)
         parent?: Framework;
-        // @virtual (undocumented)
+        // @public
         services?: Framework.Services;
     }
     export interface Rules extends Framework.Index<Build.Rule> {
     }
     export interface Services extends Index<new (app: Framework) => Service> {
     }
+    // @public
     export interface Tapable<T = Framework> {
         // (undocumented)
         (value?: T): any;
     }
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "get" because one of its declarations is marked as @internal
+//
+// @internal
 export interface get {
     // (undocumented)
     (this: Framework, name: string, tap?: (app: Framework) => Framework): Framework;
 }
 
-// @public (undocumented)
+// @internal @override
 export interface get {
     // (undocumented)
     (name: string, tap?: (app: Framework) => Framework): Framework;
 }
 
-// @public (undocumented)
+// @public
 export const get: get;
 
 // @public
@@ -573,7 +523,7 @@ export interface Hooks extends Service<Hooks.Repository> {
     on(id: Hooks.Name, callback: Hooks.Hook): Framework;
 }
 
-// @public (undocumented)
+// @public
 export namespace Hooks {
     // (undocumented)
     export namespace BuildHooks {
@@ -631,8 +581,9 @@ export namespace Hooks {
     export type LoaderKeys = `loader` | `loader/${keyof Build.Loaders}`;
     // (undocumented)
     export type LocationKeys = `location/${keyof Framework.Locations & string}`;
-    // (undocumented)
+    // @internal (undocumented)
     export type Name = `before` | `after` | `done` | `${ItemKeys}` | `${LocationKeys}` | `${LoaderKeys}` | `${RuleKeys}` | `${Extension.Keys}` | `${BuildHooks.Keys}`;
+    // Warning: (ae-incompatible-release-tags) The symbol "Repository" is marked as @public, but its signature references "Name" which is marked as @internal
     export type Repository = {
         [K in Name as `${K & string}`]?: Hook[];
     };
@@ -663,36 +614,38 @@ interface Interface_2 {
     resolvePeerByName(name: string): string;
 }
 
-// @public @virtual
+// @public
 interface Interface_3 extends Service {
-    // @virtual
     getProjectInfo(): {
         [key: string]: any;
     };
-    // @virtual
     hasPeerDependency(pkg: string): boolean;
-    // @virtual
     peers: Peers.Interface;
-    // @virtual
     resolveFrom: string[];
 }
 
-// @public (undocumented)
+// @public
 export interface Logger extends Service {
     instance: Signale;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "name"
+    //
     // (undocumented)
     name: 'logger';
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "make" because one of its declarations is marked as @internal
+//
+// @public
 export function make(name: string, tap?: Framework.Tapable): Framework;
 
-// @public (undocumented)
+// @internal
 export interface make {
     // (undocumented)
     (name: string, tap?: Framework.Tapable): Framework;
 }
 
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Module" because one of its declarations is marked as @internal
+//
 // @public
 export interface Module<Plugin = any, Options = any> {
     api?: Module.Api;
@@ -704,11 +657,10 @@ export interface Module<Plugin = any, Options = any> {
     name?: Module.Name;
     options?: Module.Options<Options>;
     register?: Module.Register;
-    // @deprecated
     when?: Module.When<Options>;
 }
 
-// @public (undocumented)
+// @internal
 export namespace Module {
     // (undocumented)
     export type Api = ((app: Framework) => {
@@ -776,6 +728,11 @@ export interface pipe {
     <T = Framework>(fns: Callback<T>[], value?: T): T;
 }
 
+// @public
+export interface PluginInstance {
+    apply: CallableFunction;
+}
+
 declare namespace Project {
     export {
         Abstract_2 as Abstract,
@@ -784,23 +741,18 @@ declare namespace Project {
 }
 export { Project }
 
-// @public (undocumented)
+// @public
 interface Repository {
-    // (undocumented)
     dependencies: {
         [key: string]: string;
     };
-    // (undocumented)
     devDependencies: {
         [key: string]: string;
     };
-    // (undocumented)
     extensions: {
         [key: string]: Peer;
     };
-    // (undocumented)
     name: string;
-    // (undocumented)
     peers: {
         [key: string]: Peer;
     };
@@ -817,7 +769,9 @@ export interface sequence {
     <T = Framework>(this: Framework, fns: Callback_2[], value?: T): Framework;
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Server" because one of its declarations is marked as @internal
+//
+// @public
 export interface Server extends Service {
     application: Server.Application;
     assets: string[];
@@ -836,7 +790,7 @@ export interface Server extends Service {
     };
 }
 
-// @public (undocumented)
+// @internal (undocumented)
 export namespace Server {
     export type Application = Application;
     export type Compiler = Webpack.Compiler | Webpack.MultiCompiler;
@@ -900,7 +854,7 @@ export namespace Server {
 
 // Warning: (ae-forgotten-export) The symbol "GenericRepository" needs to be exported by the entry point index.d.ts
 //
-// @public @virtual
+// @public
 export abstract class Service<Repository = GenericRepository> extends Bootstrapper<Repository> {
     constructor(app: Framework);
     // Warning: (ae-forgotten-export) The symbol "GenericClassMap" needs to be exported by the entry point index.d.ts
@@ -921,26 +875,30 @@ export abstract class Service<Repository = GenericRepository> extends Bootstrapp
     registered?(app: Framework): any;
 }
 
-// @public (undocumented)
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "setPath" because one of its declarations is marked as @internal
+//
+// @public
 export function setPath(this: Framework, ...args: any[]): Framework;
 
-// @public (undocumented)
+// @internal
 export interface setPath {
     // (undocumented)
     (this: Framework, ...args: any[]): Framework;
 }
 
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Store" because one of its declarations is marked as @internal
+//
 // @public
 export class Store<T = Configuration> extends Service<T> {
     // @override (undocumented)
     get<T = any>(path: keyof Store.Repository): T;
-    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "Repository"
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "name"
     //
     // (undocumented)
     name: string;
 }
 
-// @public (undocumented)
+// @internal (undocumented)
 export namespace Store {
     // (undocumented)
     export type Keys = `${keyof Configuration & string}` | `theme.${keyof Configuration['theme'] & string}` | `theme.screens` | `theme.colors.${keyof Configuration['theme']['colors'] & string}` | `server.${keyof Configuration['server'] & string}` | `server.middleware.${keyof Configuration['server']['middleware'] & string}` | `server.browser.${keyof Configuration['server']['browser'] & string}` | `server.${keyof Configuration['server'] & string}.${string}` | `env.${string}` | `location.${keyof Configuration['location'] & string}` | `patterns.${keyof Configuration['patterns'] & string}` | `build.${keyof Webpack.Configuration}` | `build.module.${keyof Webpack.Configuration['module']}` | `build.module.${keyof Webpack.Configuration['module']}.${string}` | `extension.${string}` | `build.${keyof Webpack.Configuration}.${string}`;
@@ -959,7 +917,7 @@ export interface tap<T = Framework> {
 // @public (undocumented)
 export const tap: tap<Framework>;
 
-// @public (undocumented)
+// @public
 export interface WebpackPlugin<ApplyConstructor = {
     apply: any;
 }, Options = any> extends Module {

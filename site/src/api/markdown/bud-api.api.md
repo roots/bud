@@ -15,30 +15,22 @@ import { Server } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
 import type { WebpackPlugin } from '@roots/bud-framework';
 
-declare namespace Api {
-    export {
-        Container,
-        Repository
-    }
-}
-export default Api;
-
 // @public
-class Container extends Service<Repository> {
+export class Api extends Service<Repository> {
     // Warning: (ae-unresolved-inheritdoc-base) The @inheritDoc tag needs a TSDoc declaration reference; signature matching is not supported yet
     //
     // (undocumented)
     bootstrap(): void;
-    // Warning: (ae-unresolved-inheritdoc-base) The @inheritDoc tag needs a TSDoc declaration reference; signature matching is not supported yet
-    //
     // (undocumented)
     name: string;
     repository: Repository;
 }
 
-// @public (undocumented)
-interface Repository {
+// @public
+export interface Repository {
     // Warning: (ae-forgotten-export) The symbol "alias" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
     alias: alias;
     // Warning: (ae-forgotten-export) The symbol "assets" needs to be exported by the entry point index.d.ts
     //

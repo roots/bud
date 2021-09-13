@@ -12,25 +12,26 @@
  * Wordpress manifests are a collection of files
  * that are used in a WordPress theme or plugin.
  *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
- *
+
  * @packageDocumentation
  */
 
-import {WebpackPlugin} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
     interface Extensions {
-      '@roots/bud-wordpress-manifests': WebpackPlugin
-      '@roots/merged-manifest-webpack-plugin': WebpackPlugin
+      '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
+      '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
     }
   }
 }
 
-const extension: WebpackPlugin<MergedManifestPlugin, null> = {
+const extension: Extension.CompilerPlugin<
+  MergedManifestPlugin,
+  null
+> = {
   name: '@roots/bud-wordpress-manifests',
   make: () => new MergedManifestPlugin(),
 }

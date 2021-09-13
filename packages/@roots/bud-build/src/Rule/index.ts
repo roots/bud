@@ -1,20 +1,69 @@
-import type {Build, Framework} from '@roots/bud-framework'
+import {
+  Factory,
+  Framework,
+  Item,
+  Maybe,
+  Rule,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
-class Rule implements Build.Rule {
-  public test: (app?: Framework) => RegExp
+/**
+ * Framework Rule
+ *
+ * @public
+ */
+export default class
+  extends Rule.Abstract
+  implements Rule.Interface
+{
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
+   *
+   * @public
+   */
+  public test: Factory<[Framework], RegExp>
 
-  public use: (app?: Framework) => Build.Item[]
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
+   *
+   * @public
+   */
+  public use: Factory<[Framework], Item.Interface[]>
 
-  public exclude: Build.Rule.ExcludeFn
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
+   *
+   * @public
+   */
+  public exclude: Factory<[Framework], RegExp>
 
-  public type: Build.Rule.TypeFn
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
+   *
+   * @public
+   */
+  public type: Factory<[Framework], string>
 
-  public parser: Build.Rule.ParserFn
+  /**
+   * Generator factory
+   *
+   * @public
+   */
+  public parser: Factory<[Framework], Rule.Parser>
 
-  public generator: any
+  /**
+   * Generator factory
+   *
+   * @public
+   */
+  public generator: Factory<[Framework], any>
 
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor({
     test,
     use = null,
@@ -22,7 +71,9 @@ class Rule implements Build.Rule {
     type = null,
     parser = null,
     generator = null,
-  }: Build.Rule.Options) {
+  }: Rule.Options) {
+    super()
+
     this.test = isFunction(test) ? test : () => test
 
     if (use) {
@@ -50,6 +101,14 @@ class Rule implements Build.Rule {
     }
   }
 
+  /**
+   *
+   * @param app
+   * @returns
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getTest(app: Framework): RegExp {
     return this.test ? this.test(app) : null
@@ -63,36 +122,36 @@ class Rule implements Build.Rule {
   }
 
   @bind
-  public getParser(app: Framework): Build.Rule.Parser {
+  public getParser(app: Framework): Rule.Parser {
     return this.parser ? this.parser(app) : null
   }
 
   @bind
-  public setParser(parser: Build.Rule.ParserFn): void {
+  public setParser(
+    parser: Maybe<[Framework], Rule.Parser>,
+  ): void {
     this.parser = isFunction(parser) ? parser : () => parser
   }
 
   @bind
-  public getUse(app: Framework): Build.Item[] {
+  public getUse(app: Framework): Item.Interface[] {
     return this.use ? this.use(app) : null
   }
 
   @bind
-  public setUse(use: Build.Rule.UseFn | Build.Item[]): void {
+  public setUse(
+    use: Maybe<[Framework], Item.Interface[]>,
+  ): void {
     this.use = isFunction(use) ? use : () => use
   }
 
   @bind
-  public getExclude(
-    app: Framework,
-  ): Build.Rule.Output['exclude'] {
+  public getExclude(app: Framework): RegExp {
     return this.exclude ? this.exclude(app) : null
   }
 
   @bind
-  public setExclude(
-    exclude: RegExp | ((app: Framework) => RegExp),
-  ): void {
+  public setExclude(exclude: Maybe<[Framework], RegExp>): void {
     this.exclude = isFunction(exclude) ? exclude : () => exclude
   }
 
@@ -118,9 +177,18 @@ class Rule implements Build.Rule {
       : () => generator
   }
 
+  /**
+   * Produce final rule output
+   *
+   * @param app - {@link @roots/bud-framework#Framework}
+   * @returns finalized rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public make(app: Framework) {
-    const output: Build.Rule.Output = {
+    const output: Rule.Output = {
       test: this.test(app),
     }
 
@@ -147,5 +215,3 @@ class Rule implements Build.Rule {
     return output
   }
 }
-
-export {Rule}

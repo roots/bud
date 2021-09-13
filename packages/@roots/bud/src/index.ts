@@ -41,81 +41,71 @@
  * @core @packageDocumentation
  */
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module, WebpackPlugin} from '@roots/bud-framework'
+import {
+  Extension,
+  Item,
+  Loader,
+  Rule,
+} from '@roots/bud-framework'
 
 import Bud from './Bud'
 import config from './config'
 import factory from './factory'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    /**
-     * Base {@link @roots/bud-extensions#Extension} map
-     */
-    interface Extensions {
-      'webpack-provide-plugin': WebpackPlugin
-      'clean-webpack-plugin': WebpackPlugin
-      'webpack-config-dump-plugin': WebpackPlugin
-      'copy-webpack-plugin': WebpackPlugin
-      'css-minimizer-webpack-plugin': WebpackPlugin
-      'webpack-define-plugin': WebpackPlugin
-      'webpack-hot-module-replacement-plugin': WebpackPlugin
-      'ignore-emit-webpack-plugin': WebpackPlugin
-      'webpack-manifest-plugin': WebpackPlugin
-      'mini-css-extract-plugin': WebpackPlugin
-    }
+  interface Plugins {
+    'webpack-provide-plugin': Extension.CompilerPlugin
+    'clean-webpack-plugin': Extension.CompilerPlugin
+    'webpack-config-dump-plugin': Extension.CompilerPlugin
+    'copy-webpack-plugin': Extension.CompilerPlugin
+    'css-minimizer-webpack-plugin': Extension.CompilerPlugin
+    'webpack-define-plugin': Extension.CompilerPlugin
+    'webpack-hot-module-replacement-plugin': Extension.CompilerPlugin
+    'ignore-emit-webpack-plugin': Extension.CompilerPlugin
+    'webpack-manifest-plugin': Extension.CompilerPlugin
+    'mini-css-extract-plugin': Extension.CompilerPlugin
+  }
 
-    /**
-     * Base {@link @roots/bud-build#Loader} map
-     */
-    interface Loaders {
-      css: Loader
-      csv: Loader
-      file: Loader
-      html: Loader
-      md: Loader
-      minicss: Loader
-      'resolve-url': Loader
-      style: Loader
-      url: Loader
-      xml: Loader
-    }
+  interface Loaders {
+    css: Loader.Interface
+    csv: Loader.Interface
+    file: Loader.Interface
+    html: Loader.Interface
+    md: Loader.Interface
+    minicss: Loader.Interface
+    'resolve-url': Loader.Interface
+    style: Loader.Interface
+    url: Loader.Interface
+    xml: Loader.Interface
+  }
 
-    /**
-     * Base {@link @roots/bud-build#Item} map
-     */
-    interface Items {
-      css: Item
-      csv: Item
-      file: Item
-      image: Item
-      font: Item
-      html: Item
-      md: Item
-      minicss: Item
-      'resolve-url': Item
-      raw: Item
-      style: Item
-      xml: Item
-    }
+  interface Items {
+    css: Item.Interface
+    csv: Item.Interface
+    file: Item.Interface
+    image: Item.Interface
+    font: Item.Interface
+    html: Item.Interface
+    md: Item.Interface
+    minicss: Item.Interface
+    'resolve-url': Item.Interface
+    raw: Item.Interface
+    style: Item.Interface
+    xml: Item.Interface
+  }
 
-    /**
-     * Base {@link @roots/bud-build#Rule} map
-     */
-    interface Rules {
-      js: Rule
-      css: Rule
-      html: Rule
-      svg: Rule
-      image: Rule
-      font: Rule
-      xml: Rule
-      json5: Rule
-      csv: Rule
-      yml: Rule
-      toml: Rule
-    }
+  interface Rules {
+    js: Rule.Interface
+    css: Rule.Interface
+    html: Rule.Interface
+    svg: Rule.Interface
+    image: Rule.Interface
+    font: Rule.Interface
+    xml: Rule.Interface
+    json5: Rule.Interface
+    csv: Rule.Interface
+    yml: Rule.Interface
+    toml: Rule.Interface
   }
 }
 
@@ -123,5 +113,3 @@ export {Bud, Bud as Framework}
 
 export {config}
 export {factory}
-
-export {Module, WebpackPlugin}

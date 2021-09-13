@@ -1,8 +1,4 @@
-import type {
-  Framework,
-  Module,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import {isArray, isEqual, isFunction} from 'lodash'
 import {nanoid} from 'nanoid'
 
@@ -11,14 +7,22 @@ import {nanoid} from 'nanoid'
  */
 interface use {
   (
-    source: Module | WebpackPlugin | Module[] | WebpackPlugin[],
+    source:
+      | Extension.Module
+      | Extension.CompilerPlugin
+      | Extension.Module,
   ): Framework
 }
 
 /**
  * Returns true if extensions appears to be a WebpackPlugin constructor
  */
-const isWebpackPlugin = (extension: Module): boolean =>
+const isWebpackPlugin = (
+  extension:
+    | Extension.Module
+    | Extension.CompilerPlugin
+    | Extension.ApplyPlugin,
+): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
   !isEqual(extension.apply.toString(), '[native code]')
@@ -28,7 +32,10 @@ const isWebpackPlugin = (extension: Module): boolean =>
  */
 const hasValidConstructorName = ({
   constructor,
-}: Module): boolean =>
+}:
+  | Extension.Module
+  | Extension.CompilerPlugin
+  | Extension.ApplyPlugin): boolean =>
   constructor?.name &&
   typeof constructor.name == 'string' &&
   constructor.name !== 'default' &&
@@ -38,7 +45,12 @@ const hasValidConstructorName = ({
  * Generates a unique name for extensions which do not
  * have a name prop or constructor name
  */
-const generateName = (input: Module) =>
+const generateName = (
+  input:
+    | Extension.Module
+    | Extension.ApplyPlugin
+    | Extension.CompilerPlugin,
+) =>
   hasValidConstructorName(input)
     ? input.constructor.name
     : nanoid(4)
@@ -76,8 +88,15 @@ const generateName = (input: Module) =>
  * @public @config
  */
 const use: use = function (source) {
-  const addExtension = (source: Module) => {
-    if (!source.name) source.name = generateName(source)
+  const addExtension = (
+    source:
+      | Extension.Module
+      | Extension.CompilerPlugin
+      | Extension.ApplyPlugin,
+  ) => {
+    if (!source.hasOwnProperty('name')) {
+      source.name = generateName(source)
+    }
 
     this.extensions.add(
       isWebpackPlugin(source)

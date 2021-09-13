@@ -4,28 +4,27 @@ import {Service} from '../Service'
 /**
  * Peer service abstract class
  *
- * @virtual
- * @public
+ * @public @core @container
  */
 export abstract class Abstract extends Service<Peers.Repository> {
   /**
    * Array of paths for webpack to resolve modules from
    *
-   * @virtual
+   * @public
    */
   public resolveFrom: string[] = []
 
   /**
    * Peer module related utilities
    *
-   * @virtual
+   * @public
    */
   public abstract peers: Peers.Interface
 
   /**
    * Get aggregated project info
    *
-   * @virtual
+   * @public
    */
   public abstract getProjectInfo(): {
     [key: string]: any
@@ -36,7 +35,7 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * the project has a given pkg listed as a dependency
    * or devDependency
    *
-   * @virtual
+   * @public
    */
   public abstract hasPeerDependency(pkg: string): boolean
 }

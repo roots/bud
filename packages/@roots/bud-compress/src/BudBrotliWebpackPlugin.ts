@@ -1,10 +1,10 @@
-import type {WebpackPlugin} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
 interface BudBrotliWebpackPlugin
-  extends WebpackPlugin<
+  extends Extension.CompilerPlugin<
     Plugin,
     BudCompressionExtension.Options
   > {}

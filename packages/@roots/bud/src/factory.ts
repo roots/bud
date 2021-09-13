@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import {Options as FrameworkOptions} from '@roots/bud-framework'
 import {SetOptional} from 'type-fest'
 
 import Bud from './Bud'
@@ -11,12 +11,12 @@ import config from './config'
  * @core @public
  */
 interface Options
-  extends SetOptional<Framework.Options, 'name'> {}
+  extends SetOptional<FrameworkOptions, 'name'> {}
 
 /**
  * Create a {@link Bud} instance programatically
  *
- * @example Simple usage
+ * @example
  * ```ts
  * const bud = factory()
  * ```
@@ -24,7 +24,7 @@ interface Options
  * @public @core @config
  */
 function factory(overrides?: Options): Bud {
-  const options: Framework.Options = {
+  const options: FrameworkOptions = {
     name: overrides?.name ?? 'bud',
     mode: overrides?.mode ?? 'production',
     config,

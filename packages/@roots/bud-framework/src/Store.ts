@@ -5,11 +5,15 @@ import {Configuration} from './Configuration'
 import {Service} from './Service'
 
 /**
- * Options container store
+ * Container store for initial configuration and general options
+ *
+ * @public @core @config
  */
 class Store<T = Configuration> extends Service<T> {
   /**
-   * {@inheritDoc Service.Repository}
+   * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public
    */
   public name = 'store'
 
@@ -23,6 +27,9 @@ class Store<T = Configuration> extends Service<T> {
   }
 }
 
+/**
+ * @internal
+ */
 namespace Store {
   export type Keys =
     | `${keyof Configuration & string}`

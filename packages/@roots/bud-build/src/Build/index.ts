@@ -1,7 +1,4 @@
-import type {
-  Build as Contract,
-  Framework,
-} from '@roots/bud-framework'
+import {Build, Items, Loaders, Rules} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import type * as Webpack from 'webpack'
@@ -11,14 +8,19 @@ import * as items from './items'
 import * as loaders from './loaders'
 import * as rules from './rules'
 
-class Build extends Service implements Contract {
+/**
+ * Framework configuration builder class
+ *
+ * @public
+ */
+export default class extends Service implements Build.Interface {
   public name = 'build'
 
-  public loaders: Framework.Loaders
+  public loaders: Loaders
 
-  public rules: Framework.Rules
+  public rules: Rules
 
-  public items: Framework.Items
+  public items: Items
 
   public bootstrap(): void {
     function componentReducer<T = any>(
@@ -31,22 +33,24 @@ class Build extends Service implements Contract {
     this.loaders = this.app
       .container(loaders)
       .getEntries()
-      .reduce(componentReducer, {}) as Framework.Loaders
+      .reduce(componentReducer, {}) as Loaders
 
     this.rules = this.app
       .container(rules)
       .getEntries()
-      .reduce(componentReducer, {}) as Framework.Rules
+      .reduce(componentReducer, {}) as Rules
 
     this.items = this.app
       .container(items)
       .getEntries()
-      .reduce(componentReducer, {}) as Framework.Items
+      .reduce(componentReducer, {}) as Items
 
     config(this.app)
   }
 
-  /** @hidden */
+  /**
+   * @internal
+   */
   public _config: Webpack.Configuration
 
   /**
@@ -69,5 +73,3 @@ class Build extends Service implements Contract {
     return this._config
   }
 }
-
-export {Build}

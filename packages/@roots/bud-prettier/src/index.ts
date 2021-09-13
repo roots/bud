@@ -1,14 +1,14 @@
-import {Module} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
     interface Extensions {
-      '@roots/bud-prettier': Module
+      '@roots/bud-prettier': Extension.Module
     }
   }
 }
 
-const extension: Module = {
+const extension: Extension.Module = {
   name: '@roots/bud-prettier',
 }
 

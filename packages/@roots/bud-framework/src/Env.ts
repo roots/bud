@@ -1,7 +1,17 @@
 import {Container} from '@roots/container'
 
-import {Framework} from './Framework'
+import {Index} from './'
 
+/**
+ * Env container interface
+ *
+ * @public @core @container
+ */
 export interface Env extends Container {
-  getPublicEnv(): Framework.Index<any>
+  /**
+   * Get public environment variables
+   *
+   * @public
+   */
+  getPublicEnv(): Index<any>
 }

@@ -19,6 +19,16 @@ import { Server } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
 import type { WebpackPlugin } from '@roots/bud-framework';
 
+/**
+ * Alias interface
+ *
+ * @param this - {@link @roots/bud-framework#Framework | Framework instance}
+ * @param alias - {@link webpack#Configuration.resolve.alias | Webpack resolve alias option}
+ *
+ * @hook build/resolve/alias
+ *
+ * @public @config
+ */
 declare interface alias {
     (this: Framework, alias: Configuration['resolve']['alias']): Framework;
 }
@@ -40,13 +50,32 @@ declare interface alias {
  */
 declare const alias: alias;
 
-declare namespace Api {
-    export {
-        Container,
-        Repository
-    }
+/**
+ * The API class binds all the functions from the {@link @roots/bud-api#Repository} to the {@link @roots/bud-framework#Framework} instance
+ * during the {@link @roots/bud-framework#Service.bootstrap} lifecycle event.
+ *
+ * @public @core
+ */
+export declare class Api extends Service<Repository> {
+    /**
+     * {@inheritDoc @roots/bud-framework#Service.name}
+     *
+     * @public
+     */
+    name: string;
+    /**
+     * Collection of high-level functions used to configure the project
+     *
+     * @public
+     */
+    repository: Repository;
+    /**
+     * {@inheritDoc}
+     *
+     * @public
+     */
+    bootstrap(): void;
 }
-export default Api;
 
 /**
  * Copy static assets during compilation.
@@ -105,34 +134,8 @@ declare interface config {
 }
 
 /**
- * The API class binds all the functions from the {@link Repository} to the {@link @roots/bud-framework#Framework} instance
- * during the {@link @roots/bud-framework#Service.bootstrap} lifecycle event.
- *
- * @public @core
- */
-declare class Container extends Service<Repository> {
-    /**
-     * {@inheritDoc}
-     *
-     * @public
-     */
-    name: string;
-    /**
-     * Collection of high-level functions used to configure the project
-     *
-     * @public
-     */
-    repository: Repository;
-    /**
-     * {@inheritDoc}
-     *
-     * @public
-     */
-    bootstrap(): void;
-}
-
-/**
- * Function accepting {@link webpack#DefinePlugin} definitions and returning the {@link @roots/bud-framework#Framework}
+ * Function accepting {@link webpack#DefinePlugin} definitions and
+ * returning the {@link @roots/bud-framework#Framework}
  *
  * @param values - {@link webpack#DefinePlugin} definitions
  * @returns {@link @roots/bud-framework#Framework}
@@ -616,7 +619,7 @@ declare class Container extends Service<Repository> {
   * a subdirectory.
   *
   * @example
-  * Set the default path for a [@roots/sage project](https://github.com/roots/sage):
+  * Set the default path for a Sage project:
   *
   * ```js
   * bud.publicPath('/app/themes/sage/dist')
@@ -626,17 +629,12 @@ declare class Container extends Service<Repository> {
   */
  declare const publicPath: publicPath;
 
- declare interface Repository {
-     /**
-      * {@link alias} interface
-      *
-      * @param this - {@link @roots/bud-framework#Framework | Framework instance}
-      * @param alias - {@link webpack#Configuration.resolve.alias | Webpack resolve alias option}
-      *
-      * @hook build/resolve/alias
-      *
-      * @public @config
-      */
+ /**
+  * API Repository interface
+  *
+  * @public
+  */
+ export declare interface Repository {
      alias: alias;
      assets: assets;
      config: config;

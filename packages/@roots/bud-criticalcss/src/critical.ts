@@ -3,7 +3,7 @@ import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 /**
  * Extract critical CSS
  *
- * @usage
+ * @example
  * ```js
  * app.critical({
  *  // ...

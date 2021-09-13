@@ -1,10 +1,11 @@
 import {Item, Loader, Rule} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import {Configuration} from 'webpack'
 
 import {typecheck} from './api'
 
-interface BudTypeScriptExtension extends Module {}
+interface BudTypeScriptExtension
+  extends Extension.CompilerPlugin {}
 
 const BudTypeScriptExtension: BudTypeScriptExtension = {
   name: '@roots/bud-typescript',

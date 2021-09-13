@@ -1,11 +1,8 @@
-import type {Framework, Module} from '@roots/bud-framework'
+import type {Extension, Index} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
 
 interface BudWebpackProvidePlugin
-  extends Module<
-    Plugin,
-    Framework.Index<Framework.Index<any>>
-  > {}
+  extends Extension.CompilerPlugin<Plugin, Index<Index<any>>> {}
 
 const BudWebpackProvidePlugin: BudWebpackProvidePlugin = {
   name: 'webpack-provide-plugin',

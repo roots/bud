@@ -1,6 +1,6 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {isArray} from 'lodash'
-import type {Class} from 'type-fest'
+import {Class} from 'type-fest'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
@@ -16,7 +16,8 @@ interface GenericRepository {
 
 /**
  * Generic type defining the {@link Service.bindClass} map of
- * {@link Class} types to {@link Framework} property keys
+ * classes to {@link Framework}
+ property keys
  *
  * @public
  */
@@ -25,21 +26,26 @@ interface GenericClassMap {
 }
 
 /**
- * Generic type defining the {@link Service.macro} map of
- * {@link CallableFunction} types to {@link Framework} property keys
+ * Generic type defining the {@link Service.bindMacro} map of
+ * callable function interfaces to {@link Framework}
+ property keys
  */
 interface GenericFunctionMap {
   [key: string]: CallableFunction
 }
 
 /**
- * Atomic unit of {@link Framework} functionality.
+ * Atomic unit of {@link Framework}
+ functionality.
  *
  * @remarks
- * Services extend {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework} access
+ *
+ * A {@link Service} extends {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework}
+ access
  *
  * A {@link Service} is tapped through a series of callbacks at different points in the build.
- * Note that all of these callbacks are optional:
+ *
+ * All of the callbacks are optional:
  *
  * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
  * - {@link Service.bootstrapped} is called once all Services have been instantiated.
@@ -50,8 +56,7 @@ interface GenericFunctionMap {
  *
  * @typeParam Repository - {@link Repository} typing, if applicable
  *
- * @virtual
- * @public
+ * @public @core @container
  */
 abstract class Service<
   Repository = GenericRepository,
@@ -62,7 +67,7 @@ abstract class Service<
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
    *
-   * @virtual
+   * @virtual @public
    */
   public bootstrap?(app: Framework): any
 
@@ -70,9 +75,12 @@ abstract class Service<
    * Lifecycle method: bootstrapped
    *
    * @remarks
-   * `bootstrapped` is called once all Services have been instantiated.
+   * Called once all {@link Service} instances are available.
    *
-   * @virtual
+   * @param app - {@link Framework}
+
+   *
+   * @virtual @public
    */
   public bootstrapped?(app: Framework): any
 
@@ -80,9 +88,13 @@ abstract class Service<
    * Lifecycle method: register
    *
    * @remarks
-   * `register` is intended for Services to register functionalities, modules, and bind functions and classes.
+   * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Framework}
+.
    *
-   * @virtual
+   * @param app - {@link Framework}
+
+   *
+   * @virtual @public
    */
   public register?(app: Framework): any
 
@@ -92,7 +104,10 @@ abstract class Service<
    * @remarks
    * `registered` is called after all {@link Service.register} callbacks are complete.
    *
-   * @virtual
+   * @param app - {@link Framework}
+
+   *
+   * @virtual @public
    */
   public registered?(app: Framework): any
 
@@ -102,7 +117,10 @@ abstract class Service<
    * @remarks
    * `boot` is called once all services are registered. It should be safe for Services to reference one another.
    *
-   * @virtual
+   * @param app - {@link Framework}
+
+   *
+   * @virtual @public
    */
   public boot?(app: Framework): any
 
@@ -112,12 +130,18 @@ abstract class Service<
    * @remarks
    * `booted` is called after all {@link Service.boot} callbacks are complete.
    *
-   * @virtual
+   * @param app - {@link Framework}
+
+   *
+   * @virtual @public @public
    */
   public booted?(app: Framework): any
 
   /**
    * Class constructor
+   *
+   * @param app - {@link Framework}
+
    */
   public constructor(app: Framework) {
     super(app)
@@ -165,10 +189,13 @@ abstract class Service<
    * Specify constructor parameters with a tuple:
    *
    * ```js
-   * app.service.bindClass({bindingName: [BindingClass, foo, bar]})
+   * app.service.bindClass({
+   *   bindingName: [BindingClass, foo, bar]
+   * })
    * ```
    *
-   * @typeParam Binding - Map of {@link Framework} keys to {@link Class} types
+   * @typeParam Binding - Map of {@link Framework} keys to classes
+   *
    * @decorator `@bind`
    */
   @bind

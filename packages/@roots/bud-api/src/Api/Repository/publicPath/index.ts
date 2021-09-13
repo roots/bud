@@ -13,7 +13,7 @@ interface publicPath {
  * a subdirectory.
  *
  * @example
- * Set the default path for a [@roots/sage project](https://github.com/roots/sage):
+ * Set the default path for a Sage project:
  *
  * ```js
  * bud.publicPath('/app/themes/sage/dist')

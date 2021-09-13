@@ -1,3 +1,4 @@
+import {boundMethod as bind} from 'autobind-decorator'
 import * as _ from 'lodash'
 import type {ValueOf} from 'type-fest'
 
@@ -5,20 +6,30 @@ import type {Repository} from './Repository'
 
 /**
  * Provides a simple chainable interface for working with collections of data
+ *
+ * @public
  */
 export class Container<I = any> {
   /**
    * Identifier
+   *
+   * @public
    */
   public ident: string = 'container'
 
   /**
    * The container store
+   *
+   * @public
    */
-  public repository: any
+  public repository: {[key: string]: any}
 
   /**
    * Class constructor
+   *
+   * @param repository - Key-value data store
+   *
+   * @public
    */
   public constructor(repository?: I) {
     this.setStore(repository ?? {})
@@ -31,7 +42,11 @@ export class Container<I = any> {
    * ```js
    * container.all()
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public all() {
     return this.repository
   }
@@ -45,7 +60,11 @@ export class Container<I = any> {
    *  new: ['store', 'contents'],
    * })
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public setStore(repository: Repository): this {
     this.repository = repository
 
@@ -59,7 +78,14 @@ export class Container<I = any> {
    * ```js
    * container.mergeStore({test: 'foo'})
    * ```
+   *
+   * @param values - Values to merge onto the container store
+   * @returns The container instance
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public mergeStore(values: Repository): this {
     this.setStore({
       ...this.all(),
@@ -77,21 +103,32 @@ export class Container<I = any> {
    * ```js
    * container.transform(store=> modifiedStore)
    * ```
+   *
+   * @param fn - Function to run on the repository
+   * @returns The transformed repository
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public transformStore(transformFn: (value: any) => any): any {
     return transformFn(this.all())
   }
 
   /**
-   * Runs the entire {@link Repository} through the supplied fn and returns
-   * the transformed value. The transformed {@link Repository} replaces the
+   * Runs the entire {@link (Repository:interface) | Repository} through the supplied fn and returns
+   * the transformed value. The transformed {@link (Repository:interface) | Repository} replaces the
    * original.
    *
    * @example
    * ```js
    * container.mutate('key', currentValue => modifiedValue)
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public mutateStore(mutationFn: (value?: I) => I): this {
     const transform = this.transformStore(mutationFn)
 
@@ -115,13 +152,17 @@ export class Container<I = any> {
    * ```js
    * container.get(['container', 'container-item'])
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public get<T = any>(key: string | number) {
     return _.get(this.repository, key) as T
   }
 
   /**
-   * Returns a {@link Repository} key and value as a tuple
+   * Returns a {@link (Repository:interface) | Repository} key and value as a tuple
    *
    * @remarks
    * If no key is passed the container store will be used.
@@ -135,7 +176,11 @@ export class Container<I = any> {
    * ```js
    * container.getEntries('key')
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public getEntries<T = any>(
     key?: string | number,
   ): [string, ValueOf<T>][] {
@@ -156,7 +201,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Merges object created from an array of tuples with the {@link Repository}.
+   * Merges object created from an array of tuples with the {@link (Repository:interface) | Repository}.
    *
    * @example
    * ```js
@@ -167,7 +212,11 @@ export class Container<I = any> {
    * ```js
    * container.getEntries('key')
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public fromEntries(entries: [string, any][]): this {
     this.mergeStore(Object.fromEntries(entries))
 
@@ -181,7 +230,11 @@ export class Container<I = any> {
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public each(
     key: string | number,
     callFn: (key, value) => void,
@@ -195,14 +248,18 @@ export class Container<I = any> {
   }
 
   /**
-   * Calls a supplied function for every {@link Repository} value, passing
+   * Calls a supplied function for every {@link (Repository:interface) | Repository} value, passing
    * the item's key and value as callback parameters.
    *
    * @example
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public every(
     fn: (key: string | number, value: any) => any,
   ): this {
@@ -221,14 +278,18 @@ export class Container<I = any> {
   }
 
   /**
-   * Gets a nested value from the {@link Repository}
+   * Gets a nested value from the {@link (Repository:interface) | Repository}
    *
    * @example
    * ```js
    * container.findKeyIn('top-level-key', 'inner', 'nested', 'item')
    * // returns repository['top-level-key'].inner.nested.item
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public findKeyIn(
     key: string | number,
     ...searchItem: any[]
@@ -246,7 +307,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Returns an array of values of the enumerable properties of a {@link Repository} object
+   * Returns an array of values of the enumerable properties of a {@link (Repository:interface) | Repository} object
    *
    * @example
    * ```js
@@ -258,13 +319,17 @@ export class Container<I = any> {
    * container.getValues()
    * // => returns values from entire store
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public getValues(key?: string): any[] {
     return Object.values(key ? this.get(key) : this.all())
   }
 
   /**
-   * Returns an array of values of the enumerable keys of a {@link Repository} object
+   * Returns an array of values of the enumerable keys of a {@link (Repository:interface) | Repository} object
    *
    * @example
    * ```js
@@ -277,13 +342,17 @@ export class Container<I = any> {
    * container.getKeys()
    * // => returns keys of container.repository
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public getKeys(key?: string): string[] {
     return Object.keys(key ? this.get(key) : this.all())
   }
 
   /**
-   * Get a {@link Repository} item as a {@link Map}.
+   * Get a {@link (Repository:interface) | Repository} item as a {@link MapConstructor}.
    *
    * @remarks
    * If no key is passed the container store is mapped.
@@ -300,7 +369,11 @@ export class Container<I = any> {
    * ```js
    * container.getMap()
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public getMap(key?: string): Map<string, any> {
     const reducer: [
       (
@@ -320,13 +393,17 @@ export class Container<I = any> {
   }
 
   /**
-   * Set a {@link Repository} value
+   * Set a {@link (Repository:interface) | Repository} value
    *
    * @example
    * ```js
    * container.set('key', value)
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public set(key: string | number, value: any): this {
     _.set(this.repository, key, value)
 
@@ -343,7 +420,14 @@ export class Container<I = any> {
    * ```js
    * container.transform('key', currentValue => modifiedValue)
    * ```
+   *
+   * @param key - The key of the item to transform
+   * @param fn - The function to transform the item with
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public transform(
     key: string | number,
     mutationFn: (value?: any) => any,
@@ -352,13 +436,20 @@ export class Container<I = any> {
   }
 
   /**
-   * Mutate a {@link Repository} item
+   * Mutate a {@link (Repository:interface) | Repository} item
    *
    * @example
    * ```js
    * container.mutate('key', currentValue => modifiedValue)
    * ```
+   *
+   * @param key - The key of the item to mutate
+   * @param mutationFn - The mutation function to run on the item
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public mutate(
     key: string | number,
     mutationFn: (value?: any) => any,
@@ -369,13 +460,20 @@ export class Container<I = any> {
   }
 
   /**
-   * Merge a supplied value with an existing {@link Repository} value
+   * Merge a supplied value with an existing {@link (Repository:interface) | Repository} value
    *
    * @example
    * ```js
    * container.merge('key', {merge: values})
    * ```
+   *
+   * @param key - The key of the item to merge
+   * @param value - The value to merge with the existing value
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public merge(key: string | number, value: any): this {
     this.set(key, _.merge(this.get(key), value))
 
@@ -390,7 +488,11 @@ export class Container<I = any> {
    * container.has('my-key')
    * // true if container.repository['my-key'] exists
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public has(key: string | number | number): boolean {
     return _.has(this.repository, key)
   }
@@ -405,7 +507,11 @@ export class Container<I = any> {
    * container.remove('my-key')
    * // Remove container.repository['my-key']
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public remove(key: string | number): this {
     delete this.repository[key]
 
@@ -420,7 +526,11 @@ export class Container<I = any> {
    * container.is('my-key', {whatever: 'value'})
    * // True if container.repository['my-key'] === {whatever: 'value'}
    * ```
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public is(key: string | number, value: any): boolean {
     return _.isEqual(this.get(key), value)
   }
@@ -433,7 +543,14 @@ export class Container<I = any> {
    * container.isTrue('my-key')
    * // True if container.repository['my-key'] === true
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if the key's value is true
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isTrue(key: string | number): boolean {
     return this.is(key, true)
   }
@@ -446,7 +563,14 @@ export class Container<I = any> {
    * container.isFalse('my-key')
    * // True if container.repository['my-key'] === false
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if the key's value is false
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isFalse(key: string | number): boolean {
     return this.is(key, false)
   }
@@ -459,7 +583,14 @@ export class Container<I = any> {
    * container.isIndexed('my-key')
    * // True if container.repository['my-key'] appears to be an object.
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if the key is likely an object.
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isIndexed(key?: string | number): boolean {
     const value = key ? this.get(key) : this.all()
     return (
@@ -477,7 +608,14 @@ export class Container<I = any> {
    * container.isArray('my-key')
    * // True if container.repository['my-key'] is an array
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if the value is an array
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isArray(key: string | number): boolean {
     return this.has(key) && _.isArray(this.get(key))
   }
@@ -490,7 +628,14 @@ export class Container<I = any> {
    * container.isNotArray('my-key')
    * // True if container.repository['my-key'] is not an array
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is not an array
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isNotArray(key: string | number): boolean {
     return this.has(key) && !_.isArray(this.get(key))
   }
@@ -503,20 +648,34 @@ export class Container<I = any> {
    * container.isString('my-key')
    * // True if container.repository['my-key'] is a string
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is a string
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isString(key: string | number): boolean {
     return this.has(key) && _.isString(this.get(key))
   }
 
   /**
-   * Return true if object is a string.
+   * Return true if object is not a string.
    *
    * @example
    * ```js
    * container.isString('my-key')
    * // True if container.repository['my-key'] is not a string
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is not a string
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isNotString(key: string | number): boolean {
     return this.has(key) && !_.isString(this.get(key))
   }
@@ -529,7 +688,14 @@ export class Container<I = any> {
    * container.isNumber('my-key')
    * // True if container.repository['my-key'] is a number
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is a number
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isNumber(key: string | number): boolean {
     return this.has(key) && _.isNumber(this.get(key))
   }
@@ -542,7 +708,14 @@ export class Container<I = any> {
    * container.isNumber('my-key')
    * // True if container.repository['my-key'] is not a number
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is not a number
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isNotNumber(key: string | number): boolean {
     return this.has(key) && !_.isNumber(this.get(key))
   }
@@ -555,7 +728,11 @@ export class Container<I = any> {
    * container.isNull('my-key')
    * // True if container.repository['my-key'] is null
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is null
    */
+  @bind
   public isNull(key: string | number): boolean {
     return this.has(key) && _.isNull(this.get(key))
   }
@@ -568,7 +745,14 @@ export class Container<I = any> {
    * container.isNotNull('my-key')
    * // True if container.repository['my-key'] is not null
    * ```
+   *
+   * @param key - The key to check
+   * @returns True if object is not null
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isNotNull(key: string | number): boolean {
     return this.has(key) && !_.isNull(this.get(key))
   }
@@ -577,24 +761,39 @@ export class Container<I = any> {
    * Return true if object is defined.
    *
    * @example
+   * True if container has a 'my-key' entry with a definite value.
+   *
    * ```js
    * container.isDefined('my-key')
-   * // True if container has a 'my-key' entry with a definite value.
    * ```
+   *
+   * @param key - The key to check.
+   * @returns True if the key is defined.
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isDefined(key: string | number): boolean {
     return this.has(key) && !_.isUndefined(this.get(key))
   }
 
   /**
-   * Return true if object is defined.
+   * Return true if object is not defined.
    *
    * @example
    * ```js
    * container.isDefined('my-key')
    * // True if container has a 'my-key' entry with a definite value.
    * ```
+   *
+   * @param key - The key to check.
+   * @returns True if the key is not defined.
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isUndefined(key: string | number): boolean {
     return !this.has(key) || _.isUndefined(this.get(key))
   }
@@ -606,8 +805,15 @@ export class Container<I = any> {
    * ```js
    * container.isFunction('my-key')
    * // True if object associated with 'my-key' is a fn.
-   * ````
+   * ```
+   *
+   * @param key - The key to check.
+   * @returns True if object is a function.
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public isFunction(key: string | number): boolean {
     return this.has(key) && _.isFunction(this.get(key))
   }

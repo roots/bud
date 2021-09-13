@@ -1,17 +1,13 @@
 import {isFunction} from 'lodash'
 
-import type {Framework} from './'
+import {Tapable} from '../'
+import {Framework} from './'
 
 /**
- * Close interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param done - Callback function to be called before end of run
- *
- * @public
+ * @internal
  */
 export interface access<I = any> {
-  (this: Framework, value: Framework.Tapable | I): I
+  (this: Framework, value: Tapable | I): I
 }
 
 /**
@@ -28,7 +24,7 @@ export interface access<I = any> {
  */
 export function access<I = any>(
   this: Framework,
-  value: Framework.Tapable | I,
+  value: Tapable | I,
 ) {
   return isFunction(value) ? value.bind(this)(this) : value
 }

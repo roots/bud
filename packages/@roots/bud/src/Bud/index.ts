@@ -1,4 +1,8 @@
-import {Framework} from '@roots/bud-framework'
+import {
+  Constructor,
+  Framework,
+  Options,
+} from '@roots/bud-framework'
 
 /**
  * Implements {@link @roots/bud-framework#Framework | the Framework abstract class}
@@ -7,21 +11,15 @@ import {Framework} from '@roots/bud-framework'
  */
 interface Contract extends Framework {
   /**
-   * {@inheritDoc @roots/bud-framework#Framework.implementation}
+   * {@inheritDoc @roots/bud-framework#implementation}
    *
    * @public
    */
-  implementation: Framework.Constructor
+  implementation: Constructor
 }
 
 /**
  * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * Documentation:
- *
- * - [Bud usage guide](https://bud.js.org/guides/getting-started)
- *
- * - [Bud API documentation](https://bud.js.org/api/bud.bud)
  *
  * @public @core
  */
@@ -34,14 +32,14 @@ class Bud extends Framework implements Contract {
    *
    * @public
    */
-  public implementation: Framework.Constructor
+  public implementation: Constructor
 
   /**
    * Class constructor
    *
-   * @param options - {@link @roots/bud-framework#Framework.Options}
+   * @param options - {@link @roots/bud-framework#Options}
    */
-  public constructor(options: Framework.Options) {
+  public constructor(options: Options) {
     super(options)
 
     this.implementation = Bud

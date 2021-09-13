@@ -22,10 +22,8 @@ declare module '@roots/bud-framework' {
     critical: critical
   }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-criticalcss': BudCriticalCssPlugin
-    }
+  interface Extensions {
+    '@roots/bud-criticalcss': BudCriticalCssPlugin
   }
 }
 

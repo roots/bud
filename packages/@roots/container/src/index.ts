@@ -1,18 +1,8 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * @see https://roots.io/bud
- *
- * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
- * @remarks
- * `@roots/container` is a utility to make working with collections of data simple and chainable.
- *
- * @export {Container} The container class
- * @export {Repository} The repository interface
+ * The {@link @roots/container# | @roots/container} package provides
+ * a simple chainable interface for working with collections of data
  *
  * @packageDocumentation
  */

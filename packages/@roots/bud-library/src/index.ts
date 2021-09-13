@@ -1,14 +1,7 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
  * @see https://roots.io/bud
  *
- * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {BudDllExtension} from './BudDllExtension'
@@ -20,11 +13,9 @@ declare module '@roots/bud-framework' {
     library: library
   }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-library': BudDllExtension
-      'autodll-webpack-plugin': BudDllPlugin
-    }
+  interface Extensions {
+    '@roots/bud-library': BudDllExtension
+    'autodll-webpack-plugin': BudDllPlugin
   }
 }
 

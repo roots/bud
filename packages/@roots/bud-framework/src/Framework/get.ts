@@ -2,6 +2,11 @@ import {isFunction} from 'lodash'
 
 import {Framework} from '..'
 
+/**
+ * get function interface
+ *
+ * @internal
+ */
 interface get {
   (
     this: Framework,
@@ -10,10 +15,20 @@ interface get {
   ): Framework
 }
 
+/**
+ * get function interface
+ *
+ * @internal @override
+ */
 interface get {
   (name: string, tap?: (app: Framework) => Framework): Framework
 }
 
+/**
+ * Retrieves a specific {@link Framework | Framework instance} by name.
+ *
+ * @public
+ */
 const get: get = function (
   name: string,
   tap?: (app: Framework) => Framework,

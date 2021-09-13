@@ -1,9 +1,9 @@
-import {Framework, WebpackPlugin} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {posix} from 'path'
 
 interface BudHtmlWebpackPlugin
-  extends WebpackPlugin<
+  extends Extension.CompilerPlugin<
     HtmlWebpackPlugin,
     HtmlWebpackPlugin.Options
   > {}

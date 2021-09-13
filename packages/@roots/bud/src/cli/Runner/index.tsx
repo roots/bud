@@ -16,8 +16,11 @@ import CLIConfig from '../Config'
  * core it's a simple task of running the bud build.
  *
  * - Instantiate bud with a {@link factory}
+ *
  * - Gather configs from project directory
+ *
  * - Process configs. Static config processing is delegated to {@link Config}.
+ *
  * - Call {@link Bud.run}
  *
  * @internal

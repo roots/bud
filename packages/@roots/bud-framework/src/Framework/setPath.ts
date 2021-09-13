@@ -1,9 +1,33 @@
 import {Framework} from '.'
 
+/**
+ * setPath function interface
+ *
+ * @internal
+ */
 interface setPath {
   (this: Framework, ...args): Framework
 }
 
+/**
+ * Set a {@link @roots/bud-framework#Location | Location} value
+ *
+ * @remarks
+ * The {@link Locations.project} should be an absolute path.
+ * All other directories should be relative (src, dist, etc.)
+ * @see {@link Locations}
+ *
+ * @example
+ * ```js
+ * bud.setPath('src', 'custom/src')
+ * ```
+ *
+ * @param this - {@link Framework}
+ * @param args - path parts
+ * @returns {@link Framework}
+ *
+ * @public
+ */
 function setPath(this: Framework, ...args): Framework {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])

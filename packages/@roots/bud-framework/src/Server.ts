@@ -1,49 +1,68 @@
-import type {Container} from '@roots/container'
-import type {WatchOptions} from 'chokidar'
-import type {
+import {Container} from '@roots/container'
+import {WatchOptions} from 'chokidar'
+import {
   Application as ExpressApplication,
   Handler,
 } from 'express'
-import type {Server as HttpServer} from 'http'
-import type * as Proxy from 'http-proxy-middleware'
-import type * as Webpack from 'webpack'
-import type * as DevMiddleware from 'webpack-dev-middleware'
+import {Server as HttpServer} from 'http'
+import * as Proxy from 'http-proxy-middleware'
+import * as Webpack from 'webpack'
+import * as DevMiddleware from 'webpack-dev-middleware'
 
-import type {Service} from './'
+import {Service} from './'
 
+/**
+ * Server service interface
+ *
+ * @public @core @container
+ */
 interface Server extends Service {
   /**
    * Registered server middlewares
+   *
+   * @public
    */
   middleware: Server.Middleware.Inventory
 
   /**
    * Assets
+   *
+   * @public
    */
   assets: string[]
 
   /**
    * Server instance
+   *
+   * @public
    */
   application: Server.Application
 
   /**
    * Server instance
+   *
+   * @public
    */
   instance: Server.Instance
 
   /**
    * Server configuration
+   *
+   * @public
    */
   config: Server.Config
 
   /**
    * Has files to watch and watch is enabled
+   *
+   * @public
    */
   isWatchable: boolean
 
   /**
    * Watcher instance
+   *
+   * @public
    */
   watcher: {
     [key: string]: any
@@ -53,25 +72,36 @@ interface Server extends Service {
 
   /**
    * Retrieve an array of watched files.
+   *
+   * @public
    */
   getWatchedFilesArray(): string[]
 
   /**
    * Run the server instance
+   *
+   * @public
    */
   run(): this
 
   /**
-   * Inject client scripts innto compilation (HMR, dev experience)
+   * Inject client scripts into compilation
+   *
+   * @public
    */
   inject(): void
 
   /**
    * Close the server connection
+   *
+   * @public
    */
   close(): void
 }
 
+/**
+ * @internal
+ */
 namespace Server {
   /**
    * Server application
@@ -131,13 +161,14 @@ namespace Server {
 
     /**
      * The development server host
-     * @default localhost
+     *
+     * @defaultValue localhost
      */
     host?: string
 
     /**
      * The development server port
-     * @default 3000
+     * @defaultValue 3000
      */
     port?: number
 
@@ -147,13 +178,15 @@ namespace Server {
     proxy?: {
       /**
        * Proxy destination host
-       * @default localhost
+       *
+       * @defaultValue localhost
        */
       host?: string
 
       /**
        * Proxy destination port
-       * @default 8000
+       *
+       * @defaultValue 8000
        */
       port?: number
     }
@@ -227,7 +260,4 @@ namespace Server {
   }
 }
 
-/**
- * @exports Server
- */
 export {Server}

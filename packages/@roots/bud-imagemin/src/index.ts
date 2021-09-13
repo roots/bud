@@ -11,15 +11,6 @@
  * @remarks
  * Add image optimization support to Bud projects
  *
- * @export {name} - The name of the extension
- * @export {api} - The extension API
- * @export {register} - The extension registration function
- * @export {boot} - The extension boot function
- * @export {Config} - The extension configuration interface
- *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
- *
  * @packageDocumentation
  */
 
@@ -28,11 +19,9 @@ import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-imagemin': BudImageMinPlugin
-      'image-minimizer-webpack-plugin': BudImageMinPlugin
-    }
+  interface Plugins {
+    '@roots/bud-imagemin': BudImageMinPlugin
+    'image-minimizer-webpack-plugin': BudImageMinPlugin
   }
 
   interface Framework {
@@ -42,8 +31,8 @@ declare module '@roots/bud-framework' {
     imagemin: Config
   }
 
-  interface Extensions {
-    '@roots/bud-imagemin'?: BudImageMinExtension
+  interface Modules {
+    '@roots/bud-imagemin': BudImageMinExtension
   }
 }
 

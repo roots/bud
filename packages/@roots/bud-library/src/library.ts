@@ -22,6 +22,8 @@ import {BudDllPluginConstructor} from './BudDllPlugin'
  * ```js
  * app.library(['react', 'react-dom'])
  * ```
+ *
+ * @public @config @extension
  */
 interface library {
   (this: Framework, modules: string | string[]): Framework

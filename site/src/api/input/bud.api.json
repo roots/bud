@@ -334,7 +334,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare function factory(overrides: "
+              "text": "declare function factory(overrides?: "
             },
             {
               "kind": "Reference",

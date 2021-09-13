@@ -1,6 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
-  "compiler": {},
+  "compiler": {
+    "skipLibCheck": true
+  },
   "messages": {
     "compilerMessageReporting": {
       "default": {
@@ -20,6 +22,7 @@
   },
   "mainEntryPointFilePath": "<projectFolder>/packages/@roots/<unscopedPackageName>/types/index.d.ts",
   "projectFolder": "./",
+  "bundledPackages": ["react"],
   "apiReport": {
     "enabled": true,
     "reportFileName": "<unscopedPackageName>.api.md",

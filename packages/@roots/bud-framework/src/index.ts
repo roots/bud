@@ -1,18 +1,14 @@
 // Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
 
 /**
- * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Bud/Framework - Extensible build tools framework for modern web development
  *
  * @remarks
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
- *
- * The `@roots/bud-framework` package defines the abstract {@link Framework} class
+
+ * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the abstract {@link Framework} class
  * and provides interfaces for the Framework's essential {@link Service} classes.
  *
- * {@link Framework} is a @virtual interface providing contracts
- * for {@link Service} implementations.
+ * {@link (Framework:class)} is an abstract class providing contracts for {@link Service} implementations.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -20,9 +16,14 @@
  * @packageDocumentation @core
  */
 
+import Build, {Item, Loader, Rule} from './Build'
 import * as Cache from './Cache'
+import {Extensions} from './Extensions'
+import * as Extension from './Extensions/Extension'
+import {Constructor, Framework, Options} from './Framework'
 import * as Peers from './Peers'
 import * as Project from './Project'
+import {Service} from './Service'
 
 /**
  * Concrete classes
@@ -51,28 +52,161 @@ export {when} from './Framework/when'
  * Abstract classes
  */
 
+export {Build}
 export {Cache}
+export {Constructor}
+export {Extension}
+export {Extensions}
+export {Framework}
+export {Item}
+export {Loader}
+export {Options}
 export {Peers}
 export {Project}
-export {Framework} from './Framework'
+export {Rule}
+export {Service}
+
 export {Bootstrapper} from './Bootstrapper'
-export {Extension} from './Extension'
-export {Service} from './Service'
 
 /**
  * Types and interfaces
  */
 
-export type {Api} from './Api'
-export type {Build} from './Build'
-export type {Compiler} from './Compiler'
-export type {Configuration} from './Configuration'
-export type {Dashboard} from './Dashboard'
-export type {Dependencies} from './Dependencies'
-export type {Env} from './Env'
-export type {Extensions} from './Extensions'
-export type {Hooks} from './Hooks'
-export type {Logger} from './Logger'
-export type {Module} from './Module'
-export type {Server} from './Server'
-export type {WebpackPlugin} from './WebpackPlugin'
+export {Api} from './Api'
+export {Compiler} from './Compiler'
+export {Configuration} from './Configuration'
+export {Dashboard} from './Dashboard'
+export {Dependencies} from './Dependencies'
+export {Env} from './Env'
+export {Hooks} from './Hooks'
+export {Logger} from './Logger'
+export {Server} from './Server'
+
+/**
+ * Util
+ */
+
+/**
+ * Loosely typed interface
+ */
+export interface Loose {
+  [key: string]: any
+}
+
+/**
+ * Framework factory
+ *
+ * @public
+ */
+export interface Factory<P extends any[], T> {
+  (...args: P): T
+}
+
+/**
+ * Callback which accepts Framework as a parameter
+ *
+ * @public
+ */
+export interface Tapable<P extends any[] = [Framework], T = any>
+  extends Factory<[P], T> {}
+
+/**
+ * At least one parameter is required
+ *
+ * @public
+ */
+export type AtLeastOne<Type = unknown> = Type | Type[]
+
+/**
+ * Maybe
+ *
+ * @remarks
+ * If T is a function, and it is passed a value of type A, it returns T.
+ * If it is not a function, it returns T.
+ *
+ * @typeParam A - Arguments to be passed when T is a function and it is invoked
+ * @typeParam T - Type to be returned
+ *
+ * @public
+ */
+export type Maybe<A extends any[], T> = T | Factory<A, T>
+
+/**
+ * Hash of a given object type
+ */
+export type Index<T = any> = {[key: string]: T}
+
+/**
+ * Compilation mode
+ */
+export type Mode = 'production' | 'development'
+
+/**
+ * Registered extensions
+ */
+export interface Modules
+  extends Partial<Index<Extension.Module>> {}
+
+/**
+ * Registered plugins
+ */
+export interface Plugins
+  extends Partial<Index<Extension.CompilerPlugin>> {}
+
+/**
+ * Registered loaders
+ */
+export interface Loaders extends Index<Loader.Interface> {}
+
+/**
+ * Registered items
+ */
+export interface Items extends Index<Item.Interface> {}
+
+/**
+ * Registered rules
+ */
+export interface Rules extends Index<Rule.Interface> {}
+
+/**
+ * Registered locations
+ */
+export interface Locations extends Index<string> {}
+
+/**
+ * Registered services
+ */
+export interface Services
+  extends Index<new (app: Framework) => Service> {}
+
+/**
+ * Compiler plugin instance
+ *
+ * @remarks
+ * Compatible with the webpack plugin interface.
+ *
+ * @public
+ */
+export interface PluginInstance {
+  /**
+   * Apply method
+   *
+   * @public
+   */
+  apply: CallableFunction
+}
+
+/**
+ * @deprecated Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead
+ */
+export interface Module<P = any, O = any>
+  extends Extension.Module<O> {}
+
+/**
+ * @deprecated Use {@link Extension.CompilerPlugin} instead
+ */
+export interface WebpackPlugin<P = any, O = any>
+  extends Extension.CompilerPlugin<
+    Extension.ApplyPlugin,
+    unknown
+  > {}

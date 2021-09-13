@@ -5,16 +5,20 @@
 ```ts
 
 import type { Configuration } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
+import { Framework as Framework_2 } from '@roots/bud-framework';
+import { Module } from '@roots/bud-framework';
 import { SetOptional } from 'type-fest';
+import { WebpackPlugin } from '@roots/bud-framework';
 
 // Warning: (ae-forgotten-export) The symbol "Contract" needs to be exported by the entry point index.d.ts
 //
 // @public
-export class Bud extends Framework implements Contract {
-    constructor(options: Framework.Options);
-    implementation: Framework.Constructor;
+class Bud extends Framework_2 implements Contract {
+    constructor(options: Framework_2.Options);
+    implementation: Framework_2.Constructor;
 }
+export { Bud }
+export { Bud as Framework }
 
 // @public
 export const config: Configuration;
@@ -22,6 +26,10 @@ export const config: Configuration;
 // Warning: (ae-forgotten-export) The symbol "Options" needs to be exported by the entry point index.d.ts
 //
 // @public
-export function factory(overrides: Options): Bud;
+export function factory(overrides?: Options): Bud;
+
+export { Module }
+
+export { WebpackPlugin }
 
 ```

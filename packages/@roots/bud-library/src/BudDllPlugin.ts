@@ -1,13 +1,18 @@
-import {Framework, WebpackPlugin} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
 interface BudDllPlugin
-  extends WebpackPlugin<AutoDllPlugin, AutoDllPlugin.Options> {
-  name: WebpackPlugin['name'] & 'autodll-webpack-plugin'
+  extends Extension.CompilerPlugin<
+    AutoDllPlugin,
+    AutoDllPlugin.Options
+  > {
+  name: Extension.CompilerPlugin['name'] &
+    'autodll-webpack-plugin'
   options: (app: Framework) => AutoDllPlugin.Options
   make(options: Container<AutoDllPlugin.Options>): AutoDllPlugin
 }
+
 interface BudDllPluginConstructor {
   (modules: string | string[]): BudDllPlugin
 }

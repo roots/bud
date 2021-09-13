@@ -35,10 +35,8 @@ declare module '@roots/bud-framework' {
     eslint: EslintConfig
   }
 
-  namespace Framework {
-    interface Extensions {
-      'eslint-webpack-plugin': BudEslintWebpackPlugin
-    }
+  interface Plugins {
+    'eslint-webpack-plugin': BudEslintWebpackPlugin
   }
 }
 

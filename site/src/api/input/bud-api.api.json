@@ -200,30 +200,100 @@
       "name": "",
       "members": [
         {
-          "kind": "Namespace",
-          "canonicalReference": "@roots/bud-api!Api:namespace",
-          "docComment": "",
-          "excerptTokens": [],
-          "releaseTag": "None",
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-api!Api:class",
+          "docComment": "/**\n * The API class binds all the functions from the {@link @roots/bud-api#Repository} to the {@link @roots/bud-framework#Framework} instance during the {@link @roots/bud-framework#Service.bootstrap} lifecycle event.\n *\n * @public @core\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare class Api extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Service",
+              "canonicalReference": "@roots/bud-framework!~Service:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Repository",
+              "canonicalReference": "@roots/bud-api!~Repository:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "releaseTag": "Public",
           "name": "Api",
           "members": [
             {
-              "kind": "Class",
-              "canonicalReference": "@roots/bud-api!Api.Container:class",
-              "docComment": "/**\n * The API class binds all the functions from the {@link Repository} to the {@link @roots/bud-framework#Framework} instance during the {@link @roots/bud-framework#Service.bootstrap} lifecycle event.\n *\n * @public @core\n */\n",
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-api!Api#bootstrap:member(1)",
+              "docComment": "/**\n * {@inheritDoc}\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "declare class Container extends "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Service",
-                  "canonicalReference": "@roots/bud-framework!~Service:class"
+                  "text": "bootstrap(): "
                 },
                 {
                   "kind": "Content",
-                  "text": "<"
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "bootstrap"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Api#name:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Service.name}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Api#repository:member",
+              "docComment": "/**\n * Collection of high-level functions used to configure the project\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "repository: "
                 },
                 {
                   "kind": "Reference",
@@ -232,714 +302,634 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "> "
+                  "text": ";"
                 }
               ],
+              "isOptional": false,
               "releaseTag": "Public",
-              "name": "Container",
-              "members": [
-                {
-                  "kind": "Method",
-                  "canonicalReference": "@roots/bud-api!Api.Container#bootstrap:member(1)",
-                  "docComment": "/**\n * {@inheritDoc}\n *\n * @public\n */\n",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "bootstrap(): "
-                    },
-                    {
-                      "kind": "Content",
-                      "text": "void"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "isStatic": false,
-                  "returnTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  },
-                  "releaseTag": "Public",
-                  "overloadIndex": 1,
-                  "parameters": [],
-                  "name": "bootstrap"
-                },
-                {
-                  "kind": "Property",
-                  "canonicalReference": "@roots/bud-api!Api.Container#name:member",
-                  "docComment": "/**\n * {@inheritDoc}\n *\n * @public\n */\n",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "name: "
-                    },
-                    {
-                      "kind": "Content",
-                      "text": "string"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "name",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  },
-                  "isStatic": false
-                },
-                {
-                  "kind": "Property",
-                  "canonicalReference": "@roots/bud-api!Api.Container#repository:member",
-                  "docComment": "/**\n * Collection of high-level functions used to configure the project\n *\n * @public\n */\n",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "repository: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "Repository",
-                      "canonicalReference": "@roots/bud-api!~Repository:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "repository",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  },
-                  "isStatic": false
-                }
-              ],
-              "extendsTokenRange": {
+              "name": "repository",
+              "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 5
+                "endIndex": 2
               },
-              "implementsTokenRanges": []
-            },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@roots/bud-api!Repository:interface",
+          "docComment": "/**\n * API Repository interface\n *\n * @public\n */\n",
+          "excerptTokens": [
             {
-              "kind": "Interface",
-              "canonicalReference": "@roots/bud-api!Api.Repository:interface",
+              "kind": "Content",
+              "text": "interface Repository "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Repository",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#alias:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "interface Repository "
+                  "text": "alias: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "alias",
+                  "canonicalReference": "@roots/bud-api!~alias:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
                 }
               ],
+              "isOptional": false,
               "releaseTag": "Public",
-              "name": "Repository",
-              "members": [
+              "name": "alias",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#assets:member",
+              "docComment": "",
+              "excerptTokens": [
                 {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#alias:member",
-                  "docComment": "/**\n * {@link alias} interface\n *\n * @param this - {@link @roots/bud-framework#Framework | Framework instance}\n *\n * @param alias - {@link webpack#Configuration.resolve.alias | Webpack resolve alias option}\n *\n * @hook\n *\n * build/resolve/alias\n *\n * @public @config\n */\n",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "alias: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "alias",
-                      "canonicalReference": "@roots/bud-api!~alias:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "alias",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
+                  "kind": "Content",
+                  "text": "assets: "
                 },
                 {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#assets:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "assets: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "assets",
-                      "canonicalReference": "@roots/bud-api!~assets:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "assets",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
+                  "kind": "Reference",
+                  "text": "assets",
+                  "canonicalReference": "@roots/bud-api!~assets:interface"
                 },
                 {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#config:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "config: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "config",
-                      "canonicalReference": "@roots/bud-api!~config:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "config",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#define:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "define: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "define",
-                      "canonicalReference": "@roots/bud-api!~define:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "define",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#dev:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "dev: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "dev",
-                      "canonicalReference": "@roots/bud-api!~dev:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "dev",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#devtool:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "devtool: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "devtool",
-                      "canonicalReference": "@roots/bud-api!~devtool:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "devtool",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#entry:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "entry: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "entry",
-                      "canonicalReference": "@roots/bud-api!~entry:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "entry",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#experiments:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "experiments: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "experiments",
-                      "canonicalReference": "@roots/bud-api!~experiments:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "experiments",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#externals:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "externals: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "externals",
-                      "canonicalReference": "@roots/bud-api!~externals:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "externals",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#hash:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "hash: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "hash",
-                      "canonicalReference": "@roots/bud-api!~hash:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "hash",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#minimize:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "minimize: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "minimize",
-                      "canonicalReference": "@roots/bud-api!~minimize:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "minimize",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#persist:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "persist: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "persist",
-                      "canonicalReference": "@roots/bud-api!~persist:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "persist",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#provide:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "provide: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "provide",
-                      "canonicalReference": "@roots/bud-api!~provide:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "provide",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#proxy:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "proxy: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "proxy",
-                      "canonicalReference": "@roots/bud-api!~proxy:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "proxy",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#publicPath:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "publicPath: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "publicPath",
-                      "canonicalReference": "@roots/bud-api!~publicPath:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "publicPath",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#run:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "run: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "run",
-                      "canonicalReference": "@roots/bud-api!~run:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "run",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#runtime:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "runtime: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "runtime",
-                      "canonicalReference": "@roots/bud-api!~runtime:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "runtime",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#setPublicPath:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "setPublicPath: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "setPublicPath",
-                      "canonicalReference": "@roots/bud-api!~setPublicPath:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "setPublicPath",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#splitChunks:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "splitChunks: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "splitChunks",
-                      "canonicalReference": "@roots/bud-api!~splitChunks:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "splitChunks",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#template:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "template: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "template",
-                      "canonicalReference": "@roots/bud-api!~template:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "template",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#use:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "use: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "use",
-                      "canonicalReference": "@roots/bud-api!~use:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "use",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "kind": "PropertySignature",
-                  "canonicalReference": "@roots/bud-api!Api.Repository#watch:member",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "watch: "
-                    },
-                    {
-                      "kind": "Reference",
-                      "text": "watch",
-                      "canonicalReference": "@roots/bud-api!~watch:interface"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "isOptional": false,
-                  "releaseTag": "Public",
-                  "name": "watch",
-                  "propertyTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
+                  "kind": "Content",
+                  "text": ";"
                 }
               ],
-              "extendsTokenRanges": []
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "assets",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#config:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "config",
+                  "canonicalReference": "@roots/bud-api!~config:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "config",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#define:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "define: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "define",
+                  "canonicalReference": "@roots/bud-api!~define:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "define",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#dev:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "dev: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "dev",
+                  "canonicalReference": "@roots/bud-api!~dev:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "dev",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#devtool:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "devtool: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "devtool",
+                  "canonicalReference": "@roots/bud-api!~devtool:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "devtool",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#entry:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "entry: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "entry",
+                  "canonicalReference": "@roots/bud-api!~entry:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "entry",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#experiments:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "experiments: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "experiments",
+                  "canonicalReference": "@roots/bud-api!~experiments:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "experiments",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#externals:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "externals: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "externals",
+                  "canonicalReference": "@roots/bud-api!~externals:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "externals",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#hash:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "hash: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "hash",
+                  "canonicalReference": "@roots/bud-api!~hash:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "hash",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#minimize:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "minimize: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "minimize",
+                  "canonicalReference": "@roots/bud-api!~minimize:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "minimize",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#persist:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "persist: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "persist",
+                  "canonicalReference": "@roots/bud-api!~persist:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "persist",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#provide:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "provide: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "provide",
+                  "canonicalReference": "@roots/bud-api!~provide:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "provide",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#proxy:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "proxy: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "proxy",
+                  "canonicalReference": "@roots/bud-api!~proxy:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "proxy",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#publicPath:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "publicPath: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "publicPath",
+                  "canonicalReference": "@roots/bud-api!~publicPath:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "publicPath",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#run:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "run: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "run",
+                  "canonicalReference": "@roots/bud-api!~run:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "run",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#runtime:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "runtime: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "runtime",
+                  "canonicalReference": "@roots/bud-api!~runtime:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "runtime",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#setPublicPath:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setPublicPath: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "setPublicPath",
+                  "canonicalReference": "@roots/bud-api!~setPublicPath:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "setPublicPath",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#splitChunks:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "splitChunks: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "splitChunks",
+                  "canonicalReference": "@roots/bud-api!~splitChunks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "splitChunks",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#template:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "template: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "template",
+                  "canonicalReference": "@roots/bud-api!~template:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "template",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#use:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "use: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "use",
+                  "canonicalReference": "@roots/bud-api!~use:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "use",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-api!Repository#watch:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "watch: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "watch",
+                  "canonicalReference": "@roots/bud-api!~watch:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "watch",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             }
-          ]
+          ],
+          "extendsTokenRanges": []
         }
       ]
     }

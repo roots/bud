@@ -10,34 +10,49 @@ import {
 import {Service} from './'
 
 /**
- * Compiles {@link Framework.build} configuration and reports on stats, progress, and errors.
+ * Compiles {@link (Framework:class).build | Framework.build} configuration
+ * and reports on stats, progress, and errors encountered during compilation.
+ *
+ * @public @core @container
  */
 interface Compiler extends Service {
   /**
-   * The compiler: an instance of {@link WebpackMultiCompiler}
+   * The compiler instance
+   *
+   * @public
    */
   instance: Compiler.Instance
 
   /**
    * `true` if compiler has already been instantiated.
+   *
+   * @public
    */
   isCompiled: boolean
 
   /**
-   * Contains {@link StatsCompilation}, if available.
+   * Contains compilation stats, if available.
+   *
+   * @public
    */
   stats: StatsCompilation
 
   /**
-   * Formatted progress plugin
+   * Contains compilation progress, if avialable
+   *
+   * @public
    */
   progress: Compiler.Progress
 
   /**
-   * Returns a {@link WebpackMultiCompiler}, given {@link Configuration}
+   * Returns a {@link @roots/bud-framework#Compiler."instance" | Compiler instance}
+   * when provided with a valid {@link Configuration}
    *
    * @remarks
-   * {@link Framework} compiler should always be specified in a multi-compiler format (wrap a standard configuration in an array).
+   * The {@link Framework}
+ compiler should always be
+   * specified in a multi-compiler format (wrap a standard configuration
+   * in an array).
    *
    * @example
    * ```js
@@ -50,14 +65,19 @@ interface Compiler extends Service {
    *   entry: {app: 'foo.js'}
    * }])
    * ```
+   *
+   * @public
    */
   compile(): Compiler.Instance
 
   /**
-   * Callback for {@link Framework.Hooks} `before` filter
+   * Callback for {@link (Framework:namespace).Hooks | Framework.Hooks} `before` filter
    *
    * @remarks
-   * Parses {@link Framework.Build.config} instances and generates final input for {@link Compiler.compile}
+   * Parses {@link (Framework:namespace).Build.config} instances and generates
+   * final input for {@link (Compiler:interface).compile | Compiler.compile}
+   *
+   * @public
    */
   before(): any
 
@@ -66,10 +86,20 @@ interface Compiler extends Service {
    *
    * @remarks
    * Provides stats and error reporting
+   *
+   * @public
    */
   callback(err: StatsError, stats: StatsCompilation): void
 }
 
+/**
+ * Compiler namespace
+ *
+ * @internalRemarks
+ * Todo: move out of this namespace
+ *
+ * @internal
+ */
 namespace Compiler {
   export type Config = Configuration
   export type Instance = WebpackCompiler | WebpackMultiCompiler

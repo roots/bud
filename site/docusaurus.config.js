@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * @typedef {import('@docusaurus/types').DocusaurusConfig} Config
+ * \@typedef {import('@docusaurus/types').DocusaurusConfig} Config
  *
  */
 
@@ -10,7 +10,7 @@ const theme = require('prism-react-renderer/themes/github')
 const {manifest} = require('../package.json')
 
 /**
- * @type {Partial<Config>} config
+ * \@type {Partial<Config>} config
  */
 const config = {
   title: manifest.name,
@@ -175,6 +175,16 @@ const config = {
         id: 'extensions',
         path: './extensions',
         routeBasePath: 'extensions',
+        sidebarPath: './sidebars/docs.js',
+        include: ['**/*.md', '**/*.mdx'],
+      },
+    ],
+    [
+      require.resolve('@docusaurus/plugin-content-docs'),
+      {
+        id: 'api',
+        path: './api',
+        routeBasePath: 'api',
         sidebarPath: './sidebars/docs.js',
         include: ['**/*.md', '**/*.mdx'],
       },

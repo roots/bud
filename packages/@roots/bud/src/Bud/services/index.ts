@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Services} from '@roots/bud-framework'
 
 import {Api} from './Api'
 import {Build} from './Build'
@@ -13,7 +13,7 @@ import {Logger} from './Logger'
 import {Project} from './Project'
 import {Server} from './Server'
 
-const services: Framework.Services = {
+const services: Services = {
   api: Api,
   build: Build,
   cache: Cache,

@@ -1,5 +1,7 @@
 /**
  * Service lifecycle events
+ *
+ * @public
  */
 const LIFECYCLE_EVENTS = [
   'bootstrap',
@@ -11,7 +13,9 @@ const LIFECYCLE_EVENTS = [
 ]
 
 /**
- * Services which should only be instantiated in the parent compiler context.
+ * Services which are only instantiated in the parent compiler context.
+ *
+ * @public
  */
 const PARENT_SERVICES: (string | number)[] = [
   'compiler',
@@ -21,7 +25,9 @@ const PARENT_SERVICES: (string | number)[] = [
 ]
 
 /**
- * Services which should only be instantiated in development
+ * Services which are only instantiated in development
+ *
+ * @public
  */
 const DEVELOPMENT_SERVICES: (string | number)[] = ['server']
 

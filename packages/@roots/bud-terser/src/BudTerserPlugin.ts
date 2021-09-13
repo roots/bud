@@ -1,12 +1,12 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import type {TerserPluginOptions} from 'terser-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
 interface BudTerserPlugin
-  extends WebpackPlugin<TerserPlugin, TerserPluginOptions> {
+  extends Extension.CompilerPlugin<
+    TerserPlugin,
+    TerserPluginOptions
+  > {
   name: '@roots/bud-terser'
   api: {
     terser: terser

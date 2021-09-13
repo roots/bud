@@ -1,19 +1,21 @@
-import type * as Webpack from 'webpack'
+import * as Webpack from 'webpack'
 
-import type {Framework, Server} from '.'
+import {Index, Locations, Server} from '.'
 
 /**
  * Framework base configuration
  *
  * @remarks
  * These are just initial values. They can be overwritten by the user, or extended by the framework/modules.
- * It is recommended to use hooks to extend the configuration.
+ * It is recommended to use {@link @roots/bud-framework#Hooks.on} to extend the
  *
  * @public
  */
-interface Configuration {
+export interface Configuration {
   /**
    * Application name
+   *
+   * @public
    */
   name: string
 
@@ -24,29 +26,37 @@ interface Configuration {
    * ```js
    * app.patterns.get('js')
    * ```
+   *
+   * @public
    */
-  patterns: {[key: string]: RegExp}
+  patterns: Index<RegExp>
 
   /**
    * Registered fs directories
+   *
+   * @public
    */
-  location: Framework.Locations
+  location: Locations
 
   /**
-   * Enable or disable the command line interface
+   * Feature toggle: enable or disable the command line interface
    *
    * @defaultValue true
+   *
+   * @public
    */
   cli: boolean
 
   /**
-   * Feature: Clean dist before compilation
+   * Feature toggle: Clean dist before compilation
    *
    * When enabled stale assets will be removed from
    * the `location/dist` directory prior to the next
    * compilation.
    *
    * @defaultValue true
+   *
+   * @public
    */
   clean: boolean
 
@@ -57,6 +67,8 @@ interface Configuration {
    * emitted to the `location/storage` directory.
    *
    * @defaultValue true
+   *
+   * @public
    */
   debug: boolean
 
@@ -67,6 +79,8 @@ interface Configuration {
    * initialized.
    *
    * @defaultValue false
+   *
+   * @public
    */
   discover: boolean
 
@@ -74,6 +88,8 @@ interface Configuration {
    * Enable or disable filename hashing
    *
    * @defaultValue false
+   *
+   * @public
    */
   hash: boolean
 
@@ -81,6 +97,8 @@ interface Configuration {
    * Emit html template
    *
    * @defaultValue true
+   *
+   * @public
    */
   html: boolean
 
@@ -88,6 +106,8 @@ interface Configuration {
    * Automatically install peer dependencies
    *
    * @defaultValue false
+   *
+   * @public
    */
   install: boolean
 
@@ -95,6 +115,8 @@ interface Configuration {
    * Log to console
    *
    * @defaultValue false
+   *
+   * @public
    */
   log: boolean
 
@@ -102,6 +124,8 @@ interface Configuration {
    * Enable or disable producing a manifest.json file
    *
    * @defaultValue true
+   *
+   * @public
    */
   manifest: boolean
 
@@ -109,6 +133,8 @@ interface Configuration {
    * Enable or disable file minification
    *
    * @defaultValue true
+   *
+   * @public
    */
   minimize: boolean
 
@@ -119,6 +145,8 @@ interface Configuration {
    * do not include extension
    *
    * @defaultValue '[name]'
+   *
+   * @public
    */
   fileFormat: string
 
@@ -129,82 +157,120 @@ interface Configuration {
    * do not include extension
    *
    * @defaultValue '[name].[contenthash:6]'
+   *
+   * @public
    */
   hashFormat: string
 
   /**
    * Initial webpack configuration values
+   *
+   * @public
    */
-  build: Webpack.Configuration
+  build: Partial<Webpack.Configuration>
 
   /**
    * Initial options for registered extensions
+   *
+   * @public
    */
-  extension: {[key: string]: any}
+  extension: Index<any>
 
   /**
    * Server configuration
+   *
+   * @public
    */
   server: Server.Configuration
 
   /**
    * Command line theme configuration
+   *
+   * @public
    */
   theme: {
     /**
-     * width/height of spacer units
+     * Scale of spacer unit
+     *
+     * @defaultValue 1
+     *
+     * @public
      */
     spacing: number
     /**
      * Color palette
+     *
+     * @public
      */
     colors: {
       /**
        * Text color
+       *
+       * @public
        */
-      foreground: Configuration.TermColor
+      foreground: TermColor
       /**
        * Grayed out text color
+       *
+       * @public
        */
-      faded: Configuration.TermColor
+      faded: TermColor
       /**
        * Primary color
+       *
+       * @public
        */
-      primary: Configuration.TermColor
+      primary: TermColor
       /**
        * Variant of primary color (for gradients, etc.)
+       *
+       * @public
        */
-      primaryAlt: Configuration.TermColor
+      primaryAlt: TermColor
       /**
        * Error color
+       *
+       * @public
        */
-      error: Configuration.TermColor
+      error: TermColor
       /**
        * Variant of error color (for gradients, etc.)
+       *
+       * @public
        */
-      errorAlt: Configuration.TermColor
+      errorAlt: TermColor
       /**
        * Warning color
+       *
+       * @public
        */
-      warning: Configuration.TermColor
+      warning: TermColor
       /**
        * Success color
+       *
+       * @public
        */
-      success: Configuration.TermColor
+      success: TermColor
       /**
        * Accent color
+       *
+       * @public
        */
-      accent: Configuration.TermColor
+      accent: TermColor
       /**
        * Flavor color
+       *
+       * @public
        */
-      flavor: Configuration.TermColor
+      flavor: TermColor
     }
     /**
      * Interface breakpoints
      *
      * @remarks
      * Expressed as [width, height]
+     *
+     * @public
      */
     screens: [
       [number, number], // sm
@@ -214,43 +280,45 @@ interface Configuration {
     ]
     /**
      * Number of columns (like a bootstrap/960 grid system for web)
+     *
+     * @public
      */
     columns: number
     /**
      * Maximum width of raw rendered text
+     *
+     * @public
      */
     maxWidth: number
     /**
      * Maximum height of raw rendered text
+     *
+     * @public
      */
     maxHeight: number
   }
 }
 
-namespace Configuration {
-  /**
-   * Can be either ansi-color or hex
-   */
-  export type TermColor =
-    | `#${string}`
-    | `black`
-    | `red`
-    | `green`
-    | `yellow`
-    | `blue`
-    | `magenta`
-    | `cyan`
-    | `white`
-    | `gray`
-    | `grey`
-    | `blackBright`
-    | `redBright`
-    | `greenBright`
-    | `yellowBright`
-    | `blueBright`
-    | `magentaBright`
-    | `cyanBright`
-    | `whiteBright`
-}
-
-export {Configuration}
+/**
+ * @public
+ */
+export type TermColor =
+  | `#${string}`
+  | `black`
+  | `red`
+  | `green`
+  | `yellow`
+  | `blue`
+  | `magenta`
+  | `cyan`
+  | `white`
+  | `gray`
+  | `grey`
+  | `blackBright`
+  | `redBright`
+  | `greenBright`
+  | `yellowBright`
+  | `blueBright`
+  | `magentaBright`
+  | `cyanBright`
+  | `whiteBright`
