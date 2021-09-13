@@ -69,7 +69,7 @@ interface Options extends HtmlOptions {
  * @public @config
  */
 const template: template = function (
-  userOptions: Options,
+  userOptions?: Options,
 ): Framework {
   /**
    * Add {@link BudHtmlWebpackPlugin} if it isn't already added
@@ -126,6 +126,7 @@ const template: template = function (
   const interpolatePlugin = this.extensions.get(
     'interpolate-html-plugin',
   )
+
   interpolatePlugin.set('options', {
     ...interpolatePlugin.options,
     ...userOptions.replace,

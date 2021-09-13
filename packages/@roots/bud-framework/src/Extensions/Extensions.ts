@@ -1,4 +1,4 @@
-import {Service} from '../'
+import {Modules, Plugins, Service} from '../'
 import {ApplyPlugin, Extension} from './Extension'
 
 /**
@@ -6,7 +6,8 @@ import {ApplyPlugin, Extension} from './Extension'
  *
  * @public @core
  */
-export interface Extensions extends Service<Extension> {
+export interface Extensions
+  extends Service<Partial<Plugins | Modules>> {
   /**
    * Add an extension
    *
@@ -15,7 +16,7 @@ export interface Extensions extends Service<Extension> {
   add(extension: Extension): void
 
   /**
-   * Get {@link PluginInstance} instances to be included in compilation
+   * Get {@link ApplyPlugin} instances to be included in compilation
    *
    * @public
    */

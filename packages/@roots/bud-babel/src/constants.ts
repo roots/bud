@@ -1,11 +1,11 @@
-import type {Config} from './Config'
+import type {Registrable} from './Config'
 
 /**
  * Default babel plugins
  *
  * @public
  */
-export const DEFAULT_PLUGINS: Array<Config.Registrable> = [
+export const DEFAULT_PLUGINS: Array<Registrable> = [
   ['@babel/plugin-transform-runtime', {helpers: false}],
   '@babel/plugin-proposal-object-rest-spread',
   '@babel/plugin-syntax-dynamic-import',
@@ -17,6 +17,6 @@ export const DEFAULT_PLUGINS: Array<Config.Registrable> = [
  *
  * @public
  */
-export const DEFAULT_PRESETS: Array<Config.Registrable> = [
+export const DEFAULT_PRESETS: Array<Registrable> = [
   '@babel/preset-env',
 ]

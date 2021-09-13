@@ -12,7 +12,7 @@
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'
-import type {Framework, Module} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import type * as Webpack from 'webpack'
 
 import {MdxConfig} from './MdxConfig'
@@ -25,22 +25,20 @@ declare module '@roots/bud-framework' {
     mdx: MdxConfig
   }
 
-  namespace Framework {
-    interface Loaders {
-      mdx: Loader
-    }
+  interface Loaders {
+    mdx: Loader
+  }
 
-    interface Items {
-      mdx: Item
-    }
+  interface Items {
+    mdx: Item
+  }
 
-    interface Extensions {
-      '@roots/bud-mdx': Module
-    }
+  interface Modules {
+    '@roots/bud-mdx': Extension.Module
   }
 }
 
-const extension: Module = {
+const extension: Extension.Module = {
   name: '@roots/bud-mdx',
 
   boot: (app: Framework) => {

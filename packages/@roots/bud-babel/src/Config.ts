@@ -23,14 +23,14 @@ export interface Config {
    *
    * @public
    */
-  plugins: Config.Registry
+  plugins: Registry
 
   /**
    * Registered babel presets
    *
    * @public
    */
-  presets: Config.Registry
+  presets: Registry
 
   /**
    * Add a babel plugin
@@ -42,14 +42,14 @@ export interface Config {
    *
    * @public
    */
-  setPlugin(plugin: Config.Registrable): Config
+  setPlugin(plugin: Registrable): Config
 
   /**
    * Add babel plugins
    *
    * @public
    */
-  setPlugins(plugins: Array<Config.Registrable>): Config
+  setPlugins(plugins: Array<Registrable>): Config
 
   /**
    * Set the options for a plugin
@@ -68,16 +68,14 @@ export interface Config {
    *
    * @public
    */
-  setPreset(preset: Config.Registrable): Config
+  setPreset(preset: Registrable): Config
 
   /**
    * Add babel presets
    *
    * @public
    */
-  setPresets(
-    presets: Array<Config.NormalizedPlugin | string>,
-  ): Config
+  setPresets(presets: Array<NormalizedPlugin | string>): Config
 
   /**
    * Set the options for a preset
@@ -87,34 +85,32 @@ export interface Config {
   setPresetOptions(preset: string, options: any): Config
 }
 
-export namespace Config {
-  export type Options = {
-    plugins?: Plugin[]
-    config?: boolean | string
-  }
+export type Options = {
+  plugins?: Plugin[]
+  config?: boolean | string
+}
 
-  export type NormalizedPlugin = [string, {[key: string]: any}]
+export type NormalizedPlugin = [string, {[key: string]: any}]
 
-  export type Plugin =
-    | string
-    | NormalizedPlugin
-    | CallableFunction
+export type Plugin = string | NormalizedPlugin | CallableFunction
 
-  export type Registrable = string | NormalizedPlugin
+export type Registrable = string | NormalizedPlugin
 
-  export interface Registry {
-    [key: string]: [string, any]
-  }
+export interface Registry {
+  [key: string]: [string, any]
 }
 
 export class Config {
+  /**
+   * @public
+   */
   public name = '@roots/bud-babel'
 
   public _app: () => Framework
 
-  public plugins: Config.Registry = {}
+  public plugins: Registry = {}
 
-  public presets: Config.Registry = {}
+  public presets: Registry = {}
 
   public get app() {
     return this._app()
@@ -125,16 +121,14 @@ export class Config {
   }
 
   @bind
-  public normalizeEntry(
-    c: Config.Registrable,
-  ): Config.NormalizedPlugin {
+  public normalizeEntry(c: Registrable): NormalizedPlugin {
     return isString(c)
-      ? ([c, {}] as Config.NormalizedPlugin)
-      : (c as Config.NormalizedPlugin)
+      ? ([c, {}] as NormalizedPlugin)
+      : (c as NormalizedPlugin)
   }
 
   @bind
-  public setPlugin(plugin: Config.Registrable): this {
+  public setPlugin(plugin: Registrable): this {
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -144,7 +138,7 @@ export class Config {
 
   @bind
   public setPlugins(
-    plugins: Array<Config.NormalizedPlugin | string>,
+    plugins: Array<NormalizedPlugin | string>,
   ): this {
     plugins.map(this.setPlugin)
 
@@ -152,7 +146,7 @@ export class Config {
   }
 
   @bind
-  public setPreset(preset: Config.Registrable): this {
+  public setPreset(preset: Registrable): this {
     preset = this.normalizeEntry(preset)
 
     this.presets = {
@@ -165,7 +159,7 @@ export class Config {
 
   @bind
   public setPresets(
-    presets: Array<Config.NormalizedPlugin | string>,
+    presets: Array<NormalizedPlugin | string>,
   ): this {
     presets.map(this.setPreset)
 

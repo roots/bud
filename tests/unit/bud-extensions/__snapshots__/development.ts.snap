@@ -2,7 +2,7 @@
 
 exports[`Extensions [development] bud.extensions.repository matches snapshot 1`] = `
 Object {
-  "clean-webpack-plugin": Extension {
+  "clean-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -11,7 +11,7 @@ Object {
       "when": [Function],
     },
   },
-  "copy-webpack-plugin": Extension {
+  "copy-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -22,7 +22,7 @@ Object {
       "when": [Function],
     },
   },
-  "css-minimizer-webpack-plugin": Extension {
+  "css-minimizer-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "boot": [Function],
@@ -30,7 +30,7 @@ Object {
       "options": [Function],
     },
   },
-  "ignore-emit-webpack-plugin": Extension {
+  "ignore-emit-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -39,7 +39,7 @@ Object {
       "when": [Function],
     },
   },
-  "mini-css-extract-plugin": Extension {
+  "mini-css-extract-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -48,7 +48,7 @@ Object {
       "when": [Function],
     },
   },
-  "webpack-config-dump-plugin": Extension {
+  "webpack-config-dump-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -58,7 +58,7 @@ Object {
       "when": [Function],
     },
   },
-  "webpack-define-plugin": Extension {
+  "webpack-define-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -67,7 +67,7 @@ Object {
       "when": [Function],
     },
   },
-  "webpack-hot-module-replacement-plugin": Extension {
+  "webpack-hot-module-replacement-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -75,7 +75,7 @@ Object {
       "when": [Function],
     },
   },
-  "webpack-manifest-plugin": Extension {
+  "webpack-manifest-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],
@@ -84,7 +84,7 @@ Object {
       "when": [Function],
     },
   },
-  "webpack-provide-plugin": Extension {
+  "webpack-provide-plugin": Controller {
     "_app": [Function],
     "_module": Object {
       "make": [Function],

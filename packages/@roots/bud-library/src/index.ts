@@ -13,8 +13,11 @@ declare module '@roots/bud-framework' {
     library: library
   }
 
-  interface Extensions {
+  interface Modules {
     '@roots/bud-library': BudDllExtension
+  }
+
+  interface Plugins {
     'autodll-webpack-plugin': BudDllPlugin
   }
 }

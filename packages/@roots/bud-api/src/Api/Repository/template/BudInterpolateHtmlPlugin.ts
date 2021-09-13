@@ -70,3 +70,6 @@ const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin = {
    */
   when: (_app, options) => options.getEntries().length > 0,
 }
+
+export const {name, options, make, when} =
+  BudInterpolateHtmlPlugin

@@ -1,9 +1,5 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * Imagemin adapter for Bud
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -11,7 +7,7 @@
  * @remarks
  * Add image optimization support to Bud projects
  *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {BudImageMinExtension} from './BudImageMinExtension'
@@ -19,18 +15,28 @@ import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
 declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Manage image minimizer plugins and options
+     *
+     * @public
+     */
+    imagemin: Config
+  }
+
+  /**
+   * @override
+   * @public
+   */
   interface Plugins {
     '@roots/bud-imagemin': BudImageMinPlugin
     'image-minimizer-webpack-plugin': BudImageMinPlugin
   }
 
-  interface Framework {
-    /**
-     * Manage image minimizer plugins and options
-     */
-    imagemin: Config
-  }
-
+  /**
+   * @override
+   * @public
+   */
   interface Modules {
     '@roots/bud-imagemin': BudImageMinExtension
   }

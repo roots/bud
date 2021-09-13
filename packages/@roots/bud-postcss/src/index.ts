@@ -3,11 +3,6 @@
  *
  * @see https://roots.io/bud
  *
- * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
  * @packageDocumentation
  */
 
@@ -19,18 +14,16 @@ declare module '@roots/bud-framework' {
     postcss: PostCssConfig
   }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-postcss': BudPostCssExtension
-    }
+  interface Modules {
+    '@roots/bud-postcss': BudPostCssExtension
+  }
 
-    interface Loaders {
-      postcss: Loader
-    }
+  interface Loaders {
+    postcss: Loader
+  }
 
-    interface Items {
-      postcss: Item
-    }
+  interface Items {
+    postcss: Item
   }
 }
 

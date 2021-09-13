@@ -66,6 +66,7 @@
     "type": "extension"
   },
   "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",

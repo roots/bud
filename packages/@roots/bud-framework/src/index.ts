@@ -156,28 +156,29 @@ export interface Plugins
 /**
  * Registered loaders
  */
-export interface Loaders extends Index<Loader.Interface> {}
+export interface Loaders
+  extends Partial<Index<Loader.Interface>> {}
 
 /**
  * Registered items
  */
-export interface Items extends Index<Item.Interface> {}
+export interface Items extends Partial<Index<Item.Interface>> {}
 
 /**
  * Registered rules
  */
-export interface Rules extends Index<Rule.Interface> {}
+export interface Rules extends Partial<Index<Rule.Interface>> {}
 
 /**
  * Registered locations
  */
-export interface Locations extends Index<string> {}
+export interface Locations extends Partial<Index<string>> {}
 
 /**
  * Registered services
  */
 export interface Services
-  extends Index<new (app: Framework) => Service> {}
+  extends Partial<Index<new (app: Framework) => Service>> {}
 
 /**
  * Compiler plugin instance

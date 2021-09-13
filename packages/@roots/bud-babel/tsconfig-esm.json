@@ -6,6 +6,9 @@
   },
   "references": [
     {
+      "path": "./../bud/tsconfig-esm.json"
+    },
+    {
       "path": "./../bud-framework/tsconfig-esm.json"
     },
     {

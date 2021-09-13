@@ -1,26 +1,11 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
-import {Container} from '@roots/container'
+import type {Extension} from '@roots/bud-framework'
 import type MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 interface Plugin
-  extends WebpackPlugin<
+  extends Extension.CompilerPlugin<
     MiniCssExtractPlugin,
     MiniCssExtractPlugin.PluginOptions
-  > {
-  name: 'mini-css-extract-plugin' & WebpackPlugin['name']
-  options: (
-    app: Framework,
-  ) => MiniCssExtractPlugin.PluginOptions &
-    WebpackPlugin['options']
-  make: ((
-    options: Container<MiniCssExtractPlugin.PluginOptions>,
-  ) => MiniCssExtractPlugin) &
-    WebpackPlugin['make']
-  when: ((app: Framework) => boolean) & WebpackPlugin['when']
-}
+  > {}
 
 export const name: Plugin['name'] = 'mini-css-extract-plugin'
 

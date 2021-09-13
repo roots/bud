@@ -3,7 +3,7 @@ import {
   Framework,
   Item,
   Maybe,
-  Rule,
+  Rule as Base,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
@@ -13,9 +13,9 @@ import {isFunction} from 'lodash'
  *
  * @public
  */
-export default class
-  extends Rule.Abstract
-  implements Rule.Interface
+export default class Rule
+  extends Base.Abstract
+  implements Base.Interface
 {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
@@ -50,7 +50,7 @@ export default class
    *
    * @public
    */
-  public parser: Factory<[Framework], Rule.Parser>
+  public parser: Factory<[Framework], Base.Parser>
 
   /**
    * Generator factory
@@ -71,7 +71,7 @@ export default class
     type = null,
     parser = null,
     generator = null,
-  }: Rule.Options) {
+  }: Base.Options) {
     super()
 
     this.test = isFunction(test) ? test : () => test
@@ -122,13 +122,13 @@ export default class
   }
 
   @bind
-  public getParser(app: Framework): Rule.Parser {
+  public getParser(app: Framework): Base.Parser {
     return this.parser ? this.parser(app) : null
   }
 
   @bind
   public setParser(
-    parser: Maybe<[Framework], Rule.Parser>,
+    parser: Maybe<[Framework], Base.Parser>,
   ): void {
     this.parser = isFunction(parser) ? parser : () => parser
   }
@@ -178,7 +178,7 @@ export default class
   }
 
   /**
-   * Produce final rule output
+   * Produce final Base output
    *
    * @param app - {@link @roots/bud-framework#Framework}
    * @returns finalized rule
@@ -188,7 +188,7 @@ export default class
    */
   @bind
   public make(app: Framework) {
-    const output: Rule.Output = {
+    const output: Base.Output = {
       test: this.test(app),
     }
 

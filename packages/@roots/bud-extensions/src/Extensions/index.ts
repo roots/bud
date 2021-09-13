@@ -1,6 +1,8 @@
 import {
   Extension as Definition,
   Extensions as Contract,
+  Modules,
+  Plugins,
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -22,7 +24,7 @@ import Controller from '../Controller'
  * @core @public @container
  */
 export class Extensions
-  extends Service<Partial<Extensions>>
+  extends Service<Partial<Plugins | Modules>>
   implements Contract
 {
   /**

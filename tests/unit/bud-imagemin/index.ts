@@ -25,15 +25,15 @@ describe('@roots/bud-imagemin', () => {
 
   it('exports and registers a bud webpack plugin interface', () => {
     bud.use(imagemin)
-    const registered = bud.extensions.get(PLUGIN_HANDLE)
+    const controller = bud.extensions.get(PLUGIN_HANDLE)
 
-    expect(registered.module.name).toBe(
+    expect(controller.module.name).toBe(
       'image-minimizer-webpack-plugin',
     )
-    expect(registered.module.make).toBeInstanceOf(Function)
-    expect(registered.module.when).toBeInstanceOf(Function)
-    expect(registered.module.when).toBeInstanceOf(Function)
-    expect(registered.module.options).toBeInstanceOf(Function)
+    expect(controller.module.make).toBeInstanceOf(Function)
+    expect(controller.module.when).toBeInstanceOf(Function)
+    expect(controller.module.when).toBeInstanceOf(Function)
+    expect(controller.module.options).toBeInstanceOf(Object)
   })
 
   it('is not used when there are no imagemin plugins registered', () => {

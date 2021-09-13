@@ -58,7 +58,7 @@ interface GenericFunctionMap {
  *
  * @public @core @container
  */
-abstract class Service<
+export abstract class Service<
   Repository = GenericRepository,
 > extends Bootstrapper<Repository> {
   /**
@@ -78,7 +78,6 @@ abstract class Service<
    * Called once all {@link Service} instances are available.
    *
    * @param app - {@link Framework}
-
    *
    * @virtual @public
    */
@@ -89,10 +88,8 @@ abstract class Service<
    *
    * @remarks
    * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Framework}
-.
    *
    * @param app - {@link Framework}
-
    *
    * @virtual @public
    */
@@ -105,7 +102,6 @@ abstract class Service<
    * `registered` is called after all {@link Service.register} callbacks are complete.
    *
    * @param app - {@link Framework}
-
    *
    * @virtual @public
    */
@@ -118,7 +114,6 @@ abstract class Service<
    * `boot` is called once all services are registered. It should be safe for Services to reference one another.
    *
    * @param app - {@link Framework}
-
    *
    * @virtual @public
    */
@@ -131,9 +126,8 @@ abstract class Service<
    * `booted` is called after all {@link Service.boot} callbacks are complete.
    *
    * @param app - {@link Framework}
-
    *
-   * @virtual @public @public
+   * @virtual @public
    */
   public booted?(app: Framework): any
 
@@ -141,7 +135,8 @@ abstract class Service<
    * Class constructor
    *
    * @param app - {@link Framework}
-
+   *
+   * @public
    */
   public constructor(app: Framework) {
     super(app)
@@ -159,6 +154,7 @@ abstract class Service<
    *
    * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -196,6 +192,7 @@ abstract class Service<
    *
    * @typeParam Binding - Map of {@link Framework} keys to classes
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -233,5 +230,3 @@ abstract class Service<
     )
   }
 }
-
-export {Service}

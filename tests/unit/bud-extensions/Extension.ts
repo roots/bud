@@ -1,9 +1,9 @@
 import {Bud, factory} from '@roots/bud'
-import {Extension} from '@roots/bud-extensions'
-import {Module} from '@roots/bud-framework'
+import {Controller} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack/types'
 
-describe('@roots/bud-extensions extension', function () {
+describe('@roots/bud-extensions Controller', function () {
   let bud: Bud = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {
@@ -14,7 +14,7 @@ describe('@roots/bud-extensions extension', function () {
     test: 'foo',
   }
 
-  let mockModule: Module = {
+  let mockModule: Extension.Module = {
     name: '@roots/bud-postcss',
     register: jest.fn(app => null),
     boot: jest.fn(app => null),
@@ -37,51 +37,73 @@ describe('@roots/bud-extensions extension', function () {
   })
 
   it('is constructable', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    expect(extension).toBeInstanceOf(Extension)
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+
+    expect(controller).toBeInstanceOf(Controller)
   })
 
   it('register fn returns self', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    extension.register()
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+    controller.register()
 
-    expect(extension.register()).toBeInstanceOf(Extension)
+    expect(controller.register()).toBeInstanceOf(Controller)
   })
 
   it('calls module register fn', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    extension.register()
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+    controller.register()
 
-    expect(extension.module.register).toHaveBeenCalled()
+    expect(controller.module.register).toHaveBeenCalled()
   })
 
   it('calls module boot fn', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    extension.boot()
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+    controller.boot()
 
-    expect(extension.module.boot).toHaveBeenCalled()
+    expect(controller.module.boot).toHaveBeenCalled()
   })
 
   it('returns expected unique id', () => {
-    const extension: Extension = new Extension(bud, mockModule)
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
 
-    expect(extension.makeKey('options')).toEqual(
+    expect(controller.makeKey('options')).toEqual(
       'extension/@roots/bud-postcss/options',
     )
   })
 
   it('set fn returns expected value', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    extension.set('options', {foo: 'bap'})
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+    controller.set('options', {foo: 'bap'})
 
-    expect(extension.options).toEqual({foo: 'bap'})
+    expect(controller.options).toEqual({foo: 'bap'})
   })
 
   it('get fn returns expected value', () => {
-    const extension: Extension = new Extension(bud, mockModule)
-    extension.options = {foo: 'baz'}
+    const controller: Controller = new Controller(
+      bud,
+      mockModule,
+    )
+    controller.options = {foo: 'baz'}
 
-    expect(extension.get('options')).toEqual({foo: 'baz'})
+    expect(controller.get('options')).toEqual({foo: 'baz'})
   })
 
   it('module options are registered', () => {
@@ -98,17 +120,17 @@ describe('@roots/bud-extensions extension', function () {
     ).toEqual(options)
   })
 
-  it('extension options are undefined when not set in module', () => {
-    const extension = new Extension(bud, {
+  it('Controller options are undefined when not set in module', () => {
+    const controller = new Controller(bud, {
       name: '@roots/bud-null',
     })
 
-    expect(extension.options).toEqual(undefined)
+    expect(controller.options).toEqual(undefined)
   })
 
-  it('extension.make returns webpack plugin', () => {
-    const extension = new Extension(bud, mockModule)
+  it('controller.make returns webpack plugin', () => {
+    const controller = new Controller(bud, mockModule)
 
-    expect(extension.make).toBe(mockWebpackPlugin)
+    expect(controller.make).toBe(mockWebpackPlugin)
   })
 })

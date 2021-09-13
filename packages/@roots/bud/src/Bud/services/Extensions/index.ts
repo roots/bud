@@ -1,15 +1,12 @@
-import {Extensions as Base} from '@roots/bud-extensions'
-import {Extensions as Contract} from '@roots/bud-framework'
+import {Extensions} from '@roots/bud-extensions'
 
-import {extensions} from '../../extensions'
+import {repository} from './repository'
 
 /**
  * Extensions service
  *
  * @public
  */
-class Extensions extends Base implements Contract {
-  public repository = extensions as Extensions['repository']
+export default class extends Extensions {
+  public repository = repository
 }
-
-export {Extensions}

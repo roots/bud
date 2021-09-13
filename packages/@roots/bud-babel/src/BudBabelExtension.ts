@@ -31,7 +31,7 @@ export interface BudBabelExtension extends Extension.Module {
 }
 
 /**
- * Adds Babel transpiler support to Bud projects
+ * Adds Babel transpiler support to Framework projects
  *
  * @public @config
  */

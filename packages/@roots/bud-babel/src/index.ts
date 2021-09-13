@@ -10,7 +10,7 @@
  * @public @extension @packageDocumentation
  */
 
-import type {Item, Loader} from '@roots/bud-build'
+import {Item, Loader} from '@roots/bud-build'
 
 import {BudBabelExtension} from './BudBabelExtension'
 import {Config} from './Config'

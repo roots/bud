@@ -9,7 +9,7 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-export const extensions = {
+export const repository = {
   ['webpack-provide-plugin']: WebpackProvidePlugin,
   ['clean-webpack-plugin']: CleanWebpackPlugin,
   ['webpack-config-dump-plugin']: WebpackConfigDumpPlugin,

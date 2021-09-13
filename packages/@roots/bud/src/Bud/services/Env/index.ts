@@ -1,20 +1,10 @@
-import type {Env as Contract, Index} from '@roots/bud-framework'
+import type {Env, Index} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 
-class Env extends Service<Index<any>> implements Contract {
+export default class extends Service<Index<any>> implements Env {
   public name = 'env'
-
-  /**
-   * The service bootstrap method
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public bootstrap() {
-    this.setStore(this.getParsedEnv())
-  }
 
   /**
    * Returns path to .env file
@@ -26,8 +16,20 @@ class Env extends Service<Index<any>> implements Contract {
   }
 
   /**
+   * The service bootstrap method
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public bootstrap() {
+    this.setStore(this.getParsedEnv())
+  }
+
+  /**
    * get parsed .env
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -40,6 +42,7 @@ class Env extends Service<Index<any>> implements Contract {
   /**
    * Get entries from .env which include `APP_PUBLIC` in their name
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -56,5 +59,3 @@ class Env extends Service<Index<any>> implements Contract {
       : {}
   }
 }
-
-export {Env}
