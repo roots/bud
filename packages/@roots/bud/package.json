@@ -116,7 +116,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.13.47",
+    "@microsoft/api-documenter": "7.13.47",
     "@oclif/dev-cli": "1.26.0",
     "@oclif/test": "1.2.8",
     "@types/copy-webpack-plugin": "8.0.1",
@@ -125,15 +125,15 @@
     "@types/fs-extra": "9.0.12",
     "@types/jest": "27.0.1",
     "@types/lodash": "4.14.172",
-    "@types/mini-css-extract-plugin": "2.2.0",
+    "@types/mini-css-extract-plugin": "2.3.0",
     "@types/node": "15.14.1",
     "@types/pkg-up": "3.1.0",
     "@types/react": "17.0.20",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
     "@types/source-map-support": "0.5.4",
-    "jest": "27.1.0",
-    "tsconfig-paths": "^3.11.0"
+    "jest": "27.1.1",
+    "tsconfig-paths": "3.11.0"
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",
@@ -167,7 +167,7 @@
     "signale": "^1.4.0",
     "source-map-support": "^0.5.19",
     "tslib": "^2.3.1",
-    "webpack": "5.52.0",
+    "webpack": "5.52.1",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^4.0.2"
   },

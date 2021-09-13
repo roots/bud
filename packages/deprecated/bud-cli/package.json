@@ -95,8 +95,8 @@
     "globby": "12.0.1",
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",
-    "prettier": "2.3.2",
-    "pretty-format": "27.1.0",
+    "prettier": "2.4.0",
+    "pretty-format": "27.1.1",
     "serialize-javascript": "6.0.0",
     "tslib": "2.3.1"
   },
