@@ -190,23 +190,36 @@
     }
   },
   "kind": "Package",
-  "canonicalReference": "@roots/bud!",
-  "docComment": "/**\n * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @remarks\n *\n * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.\n *\n * {@link factory} is exported to simplify instantiation for direct use with Node.\n *\n * This package also provides a CLI which can is invoked with `bud`.\n *\n * @example\n *\n * Example configuration file (`bud.config.js`). This file is run by invoking `$ bud build` in the terminal.\n * ```js\n * module.exports = app =>\n *   app\n *   .template({\n *     favicon: app.path('src', 'favicon.ico'),\n *     minify: false,\n *   })\n *   .entry('app', 'index.js')\n * ```\n *\n * @example\n *\n * Instantiate `Bud` from node using the `factory` function:\n * ```js\n * import {factory} from '@roots/bud'\n *\n * const bud = factory()\n *\n * bud.run() // run build\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
-  "name": "@roots/bud",
+  "canonicalReference": "@roots/sage!",
+  "docComment": "/**\n * The {@link @roots/sage# | @roots/sage preset} configures Bud for use with the Sage starter theme\n *\n * @remarks\n *\n * - 💁 Composable - Build boss web applications with a modular, configurable build system - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @see\n *\n * https://github.com/roots/sage\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
+  "name": "@roots/sage",
   "members": [
     {
       "kind": "EntryPoint",
-      "canonicalReference": "@roots/bud!",
+      "canonicalReference": "@roots/sage!",
       "name": "",
       "members": [
         {
-          "kind": "Class",
-          "canonicalReference": "@roots/bud!Bud:class",
-          "docComment": "/**\n * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @public @core\n */\n",
+          "kind": "Variable",
+          "canonicalReference": "@roots/sage!boot:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class Bud extends "
+              "text": "boot: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
@@ -215,162 +228,75 @@
             },
             {
               "kind": "Content",
-              "text": " "
-            },
-            {
-              "kind": "Content",
-              "text": "implements "
-            },
-            {
-              "kind": "Reference",
-              "text": "Contract",
-              "canonicalReference": "@roots/bud!~Contract:interface"
-            },
-            {
-              "kind": "Content",
-              "text": " "
+              "text": "], unknown>"
             }
           ],
           "releaseTag": "Public",
-          "name": "Bud",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "@roots/bud!Bud:constructor(1)",
-              "docComment": "/**\n * Class constructor\n *\n * @param options - {@link @roots/bud-framework#Options}\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor(options: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Options",
-                  "canonicalReference": "@roots/bud-framework!Options:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ");"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud!Bud#implementation:member",
-              "docComment": "/**\n * {@link Bud} class definition\n *\n * @remarks\n *\n * Used internally when creating child Bud instances\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "implementation: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Constructor",
-                  "canonicalReference": "@roots/bud-framework!Constructor:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "implementation",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            }
-          ],
-          "extendsTokenRange": {
+          "name": "boot",
+          "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 3
-          },
-          "implementsTokenRanges": [
-            {
-              "startIndex": 4,
-              "endIndex": 6
-            }
-          ]
+            "endIndex": 6
+          }
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@roots/bud!config:var",
-          "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Configuration}\n *\n * @public @config\n */\n",
+          "canonicalReference": "@roots/sage!name_2:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "config: "
+              "text": "name: "
             },
             {
-              "kind": "Reference",
-              "text": "Configuration",
-              "canonicalReference": "@roots/bud-framework!Configuration:interface"
+              "kind": "Content",
+              "text": "string"
             }
           ],
           "releaseTag": "Public",
-          "name": "config",
+          "name": "name_2",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
           }
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud!factory:function(1)",
-          "docComment": "/**\n * Create a {@link Bud} instance programatically\n *\n * @example\n * ```ts\n * const bud = factory()\n * ```\n *\n * @public @core @config\n */\n",
+          "kind": "Variable",
+          "canonicalReference": "@roots/sage!register:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare function factory(overrides?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Options",
-              "canonicalReference": "@roots/bud!~Options:interface"
+              "text": "register: "
             },
             {
               "kind": "Content",
-              "text": "): "
+              "text": "import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
-              "text": "Bud",
-              "canonicalReference": "@roots/bud!~Bud:class"
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
             },
             {
               "kind": "Content",
-              "text": ";"
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], unknown>"
             }
           ],
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 4
-          },
           "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "overrides",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "factory"
+          "name": "register",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
         }
       ]
     }

@@ -1,25 +1,17 @@
 /**
- * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds [Babel transpiler](https://github.com/babel/babel)
- * support to {@link @roots/bud# | @roots/bud}.
- *
- * - [Babel](https://babeljs.io/) is a JavaScript compiler that can transpile ES2015+ code to ES5.
- *
- * - This extensions comes with a set of preloaded presets and plugins.
- *
- * - You may override the defaults using the {@link Config.setPresets} and {@link Config.setPlugins} methods.
- *
- * - You may also override the default options for a plugin or preset using the {@link Config.setPluginOptions} and {@link Config.setPresetOptions} methods.
- *
+ * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel
+ * transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.
+
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @public @extension @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Framework } from '@roots/bud-framework';
-import { Module } from '@roots/bud-framework/types/Module';
+import { Factory } from '@roots/bud-framework';
+import { Framework } from '@roots/bud-framework';
 
-export declare const boot: Module.Boot;
+export declare const boot: Factory<[Framework], unknown>;
 
 /**
  * Configure Babel transpiler plugin & presets
@@ -42,13 +34,13 @@ export declare interface Config {
      *
      * @public
      */
-    plugins: Config.Registry;
+    plugins: Registry;
     /**
      * Registered babel presets
      *
      * @public
      */
-    presets: Config.Registry;
+    presets: Registry;
     /**
      * Add a babel plugin
      *
@@ -59,13 +51,13 @@ export declare interface Config {
      *
      * @public
      */
-    setPlugin(plugin: Config.Registrable): Config;
+    setPlugin(plugin: Registrable): Config;
     /**
      * Add babel plugins
      *
      * @public
      */
-    setPlugins(plugins: Array<Config.Registrable>): Config;
+    setPlugins(plugins: Array<Registrable>): Config;
     /**
      * Set the options for a plugin
      *
@@ -82,13 +74,13 @@ export declare interface Config {
      *
      * @public
      */
-    setPreset(preset: Config.Registrable): Config;
+    setPreset(preset: Registrable): Config;
     /**
      * Add babel presets
      *
      * @public
      */
-    setPresets(presets: Array<Config.NormalizedPlugin | string>): Config;
+    setPresets(presets: Array<NormalizedPlugin | string>): Config;
     /**
      * Set the options for a preset
      *
@@ -97,29 +89,17 @@ export declare interface Config {
     setPresetOptions(preset: string, options: any): Config;
 }
 
-export declare namespace Config {
-    export type Options = {
-        plugins?: Plugin[];
-        config?: boolean | string;
-    };
-    export type NormalizedPlugin = [string, {
-        [key: string]: any;
-    }];
-    export type Plugin = string | NormalizedPlugin | CallableFunction;
-    export type Registrable = string | NormalizedPlugin;
-    export interface Registry {
-        [key: string]: [string, any];
-    }
-}
-
 export declare class Config {
+    /**
+     * @public
+     */
     name: string;
     _app: () => Framework;
-    plugins: Config.Registry;
-    presets: Config.Registry;
+    plugins: Registry;
+    presets: Registry;
     get app(): Framework;
     constructor(app: Framework);
-    normalizeEntry(c: Config.Registrable): Config.NormalizedPlugin;
+    normalizeEntry(c: Registrable): NormalizedPlugin;
     unsetPreset(preset: string): this;
     unsetPlugin(plugin: string): this;
 }
@@ -129,18 +109,28 @@ export declare class Config {
  *
  * @public
  */
-export declare const DEFAULT_PLUGINS: Array<Config.Registrable>;
+export declare const DEFAULT_PLUGINS: Array<Registrable>;
 
 /**
  * Default babel presets
  *
  * @public
  */
-export declare const DEFAULT_PRESETS: Array<Config.Registrable>;
+export declare const DEFAULT_PRESETS: Array<Registrable>;
 
 declare const name_2: "@roots/bud-babel";
 export { name_2 as name }
 
-export declare const register: Module.Register;
+declare type NormalizedPlugin = [string, {
+    [key: string]: any;
+}];
+
+export declare const register: Factory<[Framework], unknown>;
+
+declare type Registrable = string | NormalizedPlugin;
+
+declare interface Registry {
+    [key: string]: [string, any];
+}
 
 export { }

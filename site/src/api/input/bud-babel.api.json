@@ -191,7 +191,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-babel!",
-  "docComment": "/**\n * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds [Babel transpiler](https://github.com/babel/babel) support to {@link @roots/bud# | @roots/bud}.\n *\n * - [Babel](https://babeljs.io/) is a JavaScript compiler that can transpile ES2015+ code to ES5.\n *\n * - This extensions comes with a set of preloaded presets and plugins.\n *\n * - You may override the defaults using the {@link Config.setPresets} and {@link Config.setPlugins} methods.\n *\n * - You may also override the default options for a plugin or preset using the {@link Config.setPluginOptions} and {@link Config.setPresetOptions} methods.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @public @extension @packageDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
   "name": "@roots/bud-babel",
   "members": [
     {
@@ -210,19 +210,32 @@
             },
             {
               "kind": "Content",
-              "text": "import(\"@roots/bud-framework/types/Module\")."
+              "text": "import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
-              "text": "Module.Boot",
-              "canonicalReference": "@roots/bud-framework!~Module.Boot:type"
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], unknown>"
             }
           ],
           "releaseTag": "Public",
           "name": "boot",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 3
+            "endIndex": 6
           }
         },
         {
@@ -254,7 +267,7 @@
                 {
                   "kind": "Reference",
                   "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!~Framework:class"
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
                 },
                 {
                   "kind": "Content",
@@ -282,7 +295,7 @@
                 {
                   "kind": "Reference",
                   "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!~Framework:class"
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
                 },
                 {
                   "kind": "Content",
@@ -313,7 +326,7 @@
                 {
                   "kind": "Reference",
                   "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!~Framework:class"
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
                 },
                 {
                   "kind": "Content",
@@ -332,7 +345,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-babel!Config#name:member",
-              "docComment": "",
+              "docComment": "/**\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -367,8 +380,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registrable",
-                  "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+                  "text": "Registrable",
+                  "canonicalReference": "@roots/bud-babel!Registrable:type"
                 },
                 {
                   "kind": "Content",
@@ -376,8 +389,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.NormalizedPlugin",
-                  "canonicalReference": "@roots/bud-babel!Config.NormalizedPlugin:type"
+                  "text": "NormalizedPlugin",
+                  "canonicalReference": "@roots/bud-babel!NormalizedPlugin:type"
                 },
                 {
                   "kind": "Content",
@@ -414,8 +427,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registry",
-                  "canonicalReference": "@roots/bud-babel!Config.Registry:interface"
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-babel!Registry:interface"
                 },
                 {
                   "kind": "Content",
@@ -442,8 +455,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registry",
-                  "canonicalReference": "@roots/bud-babel!Config.Registry:interface"
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-babel!Registry:interface"
                 },
                 {
                   "kind": "Content",
@@ -576,8 +589,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registry",
-                  "canonicalReference": "@roots/bud-babel!Config.Registry:interface"
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-babel!Registry:interface"
                 },
                 {
                   "kind": "Content",
@@ -603,8 +616,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registry",
-                  "canonicalReference": "@roots/bud-babel!Config.Registry:interface"
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-babel!Registry:interface"
                 },
                 {
                   "kind": "Content",
@@ -630,8 +643,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registrable",
-                  "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+                  "text": "Registrable",
+                  "canonicalReference": "@roots/bud-babel!Registrable:type"
                 },
                 {
                   "kind": "Content",
@@ -745,8 +758,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registrable",
-                  "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+                  "text": "Registrable",
+                  "canonicalReference": "@roots/bud-babel!Registrable:type"
                 },
                 {
                   "kind": "Content",
@@ -795,8 +808,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.Registrable",
-                  "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+                  "text": "Registrable",
+                  "canonicalReference": "@roots/bud-babel!Registrable:type"
                 },
                 {
                   "kind": "Content",
@@ -910,8 +923,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Config.NormalizedPlugin",
-                  "canonicalReference": "@roots/bud-babel!Config.NormalizedPlugin:type"
+                  "text": "NormalizedPlugin",
+                  "canonicalReference": "@roots/bud-babel!NormalizedPlugin:type"
                 },
                 {
                   "kind": "Content",
@@ -953,207 +966,6 @@
           "extendsTokenRanges": []
         },
         {
-          "kind": "Namespace",
-          "canonicalReference": "@roots/bud-babel!Config:namespace",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare namespace Config "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "Config",
-          "members": [
-            {
-              "kind": "TypeAlias",
-              "canonicalReference": "@roots/bud-babel!Config.NormalizedPlugin:type",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "type NormalizedPlugin = "
-                },
-                {
-                  "kind": "Content",
-                  "text": "[string, {\n        [key: string]: any;\n    }]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "NormalizedPlugin",
-              "typeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "TypeAlias",
-              "canonicalReference": "@roots/bud-babel!Config.Options:type",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "type Options = "
-                },
-                {
-                  "kind": "Content",
-                  "text": "{\n        plugins?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Plugin",
-                  "canonicalReference": "@roots/bud-babel!Config.Plugin:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[];\n        config?: boolean | string;\n    }"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "Options",
-              "typeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 4
-              }
-            },
-            {
-              "kind": "TypeAlias",
-              "canonicalReference": "@roots/bud-babel!Config.Plugin:type",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "type Plugin = "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string | "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "NormalizedPlugin",
-                  "canonicalReference": "@roots/bud-babel!Config.NormalizedPlugin:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": " | "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CallableFunction",
-                  "canonicalReference": "!CallableFunction:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "Plugin",
-              "typeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 5
-              }
-            },
-            {
-              "kind": "TypeAlias",
-              "canonicalReference": "@roots/bud-babel!Config.Registrable:type",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "type Registrable = "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string | "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "NormalizedPlugin",
-                  "canonicalReference": "@roots/bud-babel!Config.NormalizedPlugin:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "Registrable",
-              "typeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "Interface",
-              "canonicalReference": "@roots/bud-babel!Config.Registry:interface",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "interface Registry "
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "Registry",
-              "members": [
-                {
-                  "kind": "IndexSignature",
-                  "canonicalReference": "@roots/bud-babel!Config.Registry:index(1)",
-                  "docComment": "",
-                  "excerptTokens": [
-                    {
-                      "kind": "Content",
-                      "text": "[key: "
-                    },
-                    {
-                      "kind": "Content",
-                      "text": "string"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": "]: "
-                    },
-                    {
-                      "kind": "Content",
-                      "text": "[string, any]"
-                    },
-                    {
-                      "kind": "Content",
-                      "text": ";"
-                    }
-                  ],
-                  "returnTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  },
-                  "releaseTag": "Public",
-                  "overloadIndex": 1,
-                  "parameters": [
-                    {
-                      "parameterName": "key",
-                      "parameterTypeTokenRange": {
-                        "startIndex": 1,
-                        "endIndex": 2
-                      }
-                    }
-                  ]
-                }
-              ],
-              "extendsTokenRanges": []
-            }
-          ]
-        },
-        {
           "kind": "Variable",
           "canonicalReference": "@roots/bud-babel!DEFAULT_PLUGINS:var",
           "docComment": "/**\n * Default babel plugins\n *\n * @public\n */\n",
@@ -1173,8 +985,8 @@
             },
             {
               "kind": "Reference",
-              "text": "Config.Registrable",
-              "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+              "text": "Registrable",
+              "canonicalReference": "@roots/bud-babel!Registrable:type"
             },
             {
               "kind": "Content",
@@ -1208,8 +1020,8 @@
             },
             {
               "kind": "Reference",
-              "text": "Config.Registrable",
-              "canonicalReference": "@roots/bud-babel!Config.Registrable:type"
+              "text": "Registrable",
+              "canonicalReference": "@roots/bud-babel!Registrable:type"
             },
             {
               "kind": "Content",
@@ -1255,19 +1067,32 @@
             },
             {
               "kind": "Content",
-              "text": "import(\"@roots/bud-framework/types/Module\")."
+              "text": "import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
-              "text": "Module.Register",
-              "canonicalReference": "@roots/bud-framework!~Module.Register:type"
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], unknown>"
             }
           ],
           "releaseTag": "Public",
           "name": "register",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 3
+            "endIndex": 6
           }
         }
       ]

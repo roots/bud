@@ -6,22 +6,23 @@
 
 /// <reference types="node" />
 
-import type { Application } from 'express';
-import type { Class } from 'type-fest';
+import { Application } from 'express';
+import { Class } from 'type-fest';
 import { Compiler as Compiler_2 } from 'webpack';
 import { Configuration as Configuration_2 } from 'webpack';
 import { Container } from '@roots/container';
-import type * as DevMiddleware from 'webpack-dev-middleware';
-import type { Handler } from 'express';
-import type { Instance } from 'ink';
+import * as DevMiddleware from 'webpack-dev-middleware';
+import { Handler } from 'express';
+import { Instance } from 'ink';
 import { MultiCompiler } from 'webpack';
 import { ProgressPlugin } from 'webpack';
-import type * as Proxy_2 from 'http-proxy-middleware';
-import type { Server as Server_2 } from 'http';
+import * as Proxy_2 from 'http-proxy-middleware';
+import { RuleSetRule } from 'webpack';
+import { Server as Server_2 } from 'http';
 import { Signale } from 'signale';
 import { StatsCompilation } from 'webpack';
 import { StatsError } from 'webpack';
-import type { WatchOptions } from 'chokidar';
+import { WatchOptions } from 'chokidar';
 import * as Webpack from 'webpack';
 
 // @public
@@ -58,17 +59,26 @@ abstract class Abstract_3 implements Peers.Interface {
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "access" because one of its declarations is marked as @internal
 //
 // @public
-export function access<I = any>(this: Framework, value: Framework.Tapable | I): any;
+export function access<I = any>(this: Framework, value: Tapable | I): any;
 
 // @internal (undocumented)
 export interface access<I = any> {
     // (undocumented)
-    (this: Framework, value: Framework.Tapable | I): I;
+    (this: Framework, value: Tapable | I): I;
 }
 
 // @public
 export interface Api extends Service {
 }
+
+// @public
+interface ApplyPlugin extends Loose {
+    // (undocumented)
+    apply(...args: any[]): unknown;
+}
+
+// @public
+export type AtLeastOne<Type = unknown> = Type | Type[];
 
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "bootstrap" because one of its declarations is marked as @internal
 //
@@ -88,144 +98,29 @@ export abstract class Bootstrapper<T = any> extends Container<T> {
     name: any;
 }
 
+declare namespace Build {
+    export {
+        Build_2 as Interface,
+        Build_3 as Abstract
+    }
+}
+export { Build }
+
 // @public
-export interface Build extends Service {
+interface Build_2 extends Service {
     config: Webpack.Configuration;
-    items: Build.Items;
-    loaders: Build.Loaders;
+    items: Items;
+    loaders: Loaders;
     rebuild(): Webpack.Configuration;
-    rules: Build.Rules;
+    rules: Rules;
 }
 
 // @public
-export namespace Build {
-    export interface Item {
-        make(app: Framework): Build.Item.Output;
-        mergeOptions(options: Build.Item.Options, app: Framework): void;
-        setLoader(loader: (app?: Framework) => Build.Loader): void;
-        setOptions(options: Build.Item.OptionsFn): void;
-    }
-    // (undocumented)
-    export namespace Item {
-        // (undocumented)
-        export interface ConstructorOptions {
-            // (undocumented)
-            loader: Loader | LoaderFn;
-            // (undocumented)
-            options?: OptionsFn | Options;
-        }
-        // (undocumented)
-        export type LoaderFn = (app?: Framework) => Loader;
-        // (undocumented)
-        export type Options = {
-            [key: string]: any;
-        };
-        // (undocumented)
-        export type OptionsFn = (app?: Framework) => Options;
-        // (undocumented)
-        export interface Output {
-            // (undocumented)
-            loader: Build.Loader.Output;
-            // (undocumented)
-            options?: {
-                [key: string]: any;
-            };
-        }
-    }
-    export interface Items extends Framework.Index<Item> {
-        // (undocumented)
-        [key: string]: Item;
-    }
-    export interface Loader {
-        make(app: Framework): string;
-    }
-    // (undocumented)
-    export namespace Loader {
-        // (undocumented)
-        export type Input = Src | Output;
-        // (undocumented)
-        export type Output = string;
-        // (undocumented)
-        export type Src = (app?: Framework) => Output;
-    }
-    export interface Loaders extends Framework.Index<Loader> {
-        // (undocumented)
-        [key: string]: Loader;
-    }
-    export interface Rule {
-        getExclude(app: Framework): Rule.Output['exclude'];
-        getGenerator(app: Framework): any;
-        getParser(app: Framework): Rule.Parser;
-        getTest(app: Framework): RegExp;
-        getType(app: Framework): Rule.Output['type'];
-        getUse(app: Framework): Item[];
-        make(app: Framework): Rule.Output | Webpack.RuleSetRule;
-        setExclude(exclude: Rule.ExcludeFn | RegExp): void;
-        setGenerator(Generator: any | Rule.GeneratorFn): void;
-        setParser(parser: Rule.Parser | Rule.ParserFn): void;
-        setTest(test: RegExp | Rule.TestFn): void;
-        setType(type: string | Rule.TypeFn): void;
-        setUse(use: Rule.UseFn): void;
-        test?: (app?: Framework) => Webpack.RuleSetRule['test'];
-        use?: (app?: Framework) => Item[];
-    }
-    // (undocumented)
-    export namespace Rule {
-        // (undocumented)
-        export type ExcludeFn = (app?: Framework) => RegExp;
-        // (undocumented)
-        export type GeneratorFn = (app?: Framework) => any;
-        export interface Options {
-            // (undocumented)
-            exclude?: RegExp | ExcludeFn;
-            // (undocumented)
-            generator?: GeneratorFn | any;
-            // (undocumented)
-            parser?: ParserFn | Parser;
-            // (undocumented)
-            test: RegExp | TestFn;
-            // (undocumented)
-            type?: string | TypeFn;
-            // (undocumented)
-            use?: Item[] | UseFn;
-        }
-        export interface Output {
-            // (undocumented)
-            exclude?: RegExp;
-            // (undocumented)
-            generator?: any;
-            // (undocumented)
-            parser?: Parser;
-            // (undocumented)
-            test: RegExp;
-            // (undocumented)
-            type?: string;
-            // (undocumented)
-            use?: {
-                loader: string;
-                options?: {
-                    [key: string]: any;
-                };
-            }[];
-        }
-        // (undocumented)
-        export interface Parser {
-            // (undocumented)
-            parse: (input?: string) => any;
-        }
-        // (undocumented)
-        export type ParserFn = (app?: Framework) => Parser;
-        // (undocumented)
-        export type TestFn = (app?: Framework) => RegExp;
-        // (undocumented)
-        export type TypeFn = (app?: Framework) => string;
-        // (undocumented)
-        export type UseFn = (app?: Framework) => Item[];
-    }
-    export interface Rules extends Framework.Index<Rule> {
-        // (undocumented)
-        [key: string]: Rule;
-    }
+class Build_3 extends Service {
+    config: Webpack.Configuration;
+    items: Item.Interface[];
+    loaders: Loader.Interface[];
+    rules: Rule.Interface[];
 }
 
 declare namespace Cache_2 {
@@ -275,42 +170,59 @@ export namespace Compiler {
 }
 
 // @public
+interface CompilerPlugin<Plugin = ApplyPlugin, Options = unknown> extends Module_2 {
+    apply?: Plugin & ApplyPlugin['apply'];
+    make?: Maybe<[
+    Container<Options>,
+    Framework
+    ], Plugin & ApplyPlugin>;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "name"
+    //
+    // (undocumented)
+    name: Module_2['name'];
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "options"
+    //
+    // (undocumented)
+    options?: Maybe<[Framework], Options>;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "when"
+    //
+    // (undocumented)
+    when?: Module_2['when'];
+}
+
+// @public
 export interface Configuration {
     build: Partial<Webpack.Configuration>;
     clean: boolean;
     cli: boolean;
     debug: boolean;
     discover: boolean;
-    extension: {
-        [key: string]: any;
-    };
+    extension: Index<any>;
     fileFormat: string;
     hash: boolean;
     hashFormat: string;
     html: boolean;
     install: boolean;
-    location: Framework.Locations;
+    location: Locations;
     log: boolean;
     manifest: boolean;
     minimize: boolean;
     name: string;
-    patterns: {
-        [key: string]: RegExp;
-    };
+    patterns: Index<RegExp>;
     server: Server.Configuration;
     theme: {
         spacing: number;
         colors: {
-            foreground: Configuration.TermColor;
-            faded: Configuration.TermColor;
-            primary: Configuration.TermColor;
-            primaryAlt: Configuration.TermColor;
-            error: Configuration.TermColor;
-            errorAlt: Configuration.TermColor;
-            warning: Configuration.TermColor;
-            success: Configuration.TermColor;
-            accent: Configuration.TermColor;
-            flavor: Configuration.TermColor;
+            foreground: TermColor;
+            faded: TermColor;
+            primary: TermColor;
+            primaryAlt: TermColor;
+            error: TermColor;
+            errorAlt: TermColor;
+            warning: TermColor;
+            success: TermColor;
+            accent: TermColor;
+            flavor: TermColor;
         };
         screens: [
         [
@@ -337,8 +249,12 @@ export interface Configuration {
 }
 
 // @public
-export namespace Configuration {
-    export type TermColor = `#${string}` | `black` | `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `white` | `gray` | `grey` | `blackBright` | `redBright` | `greenBright` | `yellowBright` | `blueBright` | `magentaBright` | `cyanBright` | `whiteBright`;
+export type Constructor = new (options: Options) => Framework;
+
+// @public
+interface ConstructorOptions {
+    loader: Maybe<[Framework], Loader.Interface>;
+    options?: Maybe<[Framework], Options_2>;
 }
 
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "container" because one of its declarations is marked as @internal
@@ -351,6 +267,34 @@ export interface container<T = any> {
 
 // @public
 export const container: <T = any>(repository?: T) => Container<T>;
+
+// @public
+interface Controller {
+    app: Framework;
+    apply: Extension_2['apply'];
+    boot(): Controller;
+    get(key: Name): any;
+    make: Extension_2['make'];
+    makeKey(key: Name): Hooks.Name;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: This type of declaration is not supported yet by the resolver
+    //
+    // (undocumented)
+    module: Extension_2;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: This type of declaration is not supported yet by the resolver
+    //
+    // (undocumented)
+    name: Extension_2['name'];
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: This type of declaration is not supported yet by the resolver
+    //
+    // (undocumented)
+    options: Extension_2['options'];
+    register(): Controller;
+    set(key: Name, value: any): void;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: This type of declaration is not supported yet by the resolver
+    //
+    // (undocumented)
+    when: Extension_2['when'];
+}
 
 // @public
 export interface Dashboard extends Service {
@@ -374,44 +318,55 @@ export interface Dependencies extends Service {
 
 // @public
 export interface Env extends Container {
-    getPublicEnv(): Framework.Index<any>;
+    getPublicEnv(): Index<any>;
+}
+
+declare namespace Extension {
+    export {
+        Name,
+        Extension_2 as Extension,
+        ApplyPlugin,
+        CompilerPlugin,
+        Controller,
+        Module_2 as Module
+    }
+}
+export { Extension }
+
+// @public
+type Extension_2<P = ApplyPlugin, O = unknown> = Module_2<O> | CompilerPlugin<P, O>;
+
+// @public
+export interface Extensions extends Service<Partial<Plugins | Modules>> {
+    add(extension: Extension_2): void;
+    getEligibleWebpackModules(): Extension_2[];
+    make(): ApplyPlugin[];
 }
 
 // @public
-export interface Extension {
-    app: Framework;
-    apply: WebpackPlugin['apply'];
-    boot(): Extension;
-    get(key: `${keyof Framework.Extensions & string}`): any;
-    make: Module['make'] | WebpackPlugin['make'];
-    makeKey(key: `${keyof Framework.Extensions & string}`): Hooks.Name;
-    module: Module | WebpackPlugin;
-    name: Module['name'] | WebpackPlugin['options'];
-    options: Module['options'] | WebpackPlugin['options'];
-    register(): Extension;
-    set(key: `${keyof Framework.Extensions & string}`, value: any): void;
-    when: Module['when'];
+export interface Factory<P extends any[], T> {
+    // (undocumented)
+    (...args: P): T;
 }
 
 // @public
-export interface Extensions extends Service<Partial<Framework.Extensions>> {
-    add(extension: Module | WebpackPlugin): void;
-    getEligibleWebpackModules(): (Module | WebpackPlugin)[];
-    make(): PluginInstance[];
+interface Factory_2 {
+    // (undocumented)
+    (app: Framework): LoaderInterface;
 }
 
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Framework" because one of its declarations is marked as @internal
-//
 // @public
 export abstract class Framework {
-    constructor(options: Framework.Options);
+    constructor(options: Options);
     access: access;
     api: Api;
     bindMethod<T = Function>(key: string, method: T & Function): Framework;
+    // (undocumented)
     bootstrap: bootstrap;
-    build: Build;
+    // (undocumented)
+    build: Build.Interface;
     cache: Cache_2.Interface;
-    children: Container<Framework.Instances> | null;
+    children: Container<Index<Framework>>;
     close: close_2;
     compiler: Compiler;
     container: container;
@@ -424,15 +379,16 @@ export abstract class Framework {
     get: get;
     get hasChildren(): boolean;
     hooks: Hooks;
-    abstract implementation: Framework.Constructor;
+    abstract implementation: Constructor;
     info(message?: any, ...optionalArgs: any[]): void;
     get isDevelopment(): boolean;
     get isParent(): boolean;
     get isProduction(): boolean;
     log(message?: any, ...optionalArgs: any[]): void;
     logger: Logger;
+    // (undocumented)
     make: make;
-    mode: Framework.Mode;
+    mode: Mode;
     name: string;
     parent: Framework | null;
     path: path;
@@ -440,64 +396,15 @@ export abstract class Framework {
     project: Project.Interface;
     sequence: typeof sequence;
     server: Server;
-    services: Framework.Services;
+    services: Services;
+    // (undocumented)
     setPath: setPath;
     store: Store;
     success(message?: any, ...optionalArgs: any[]): void;
+    // (undocumented)
     tap: tap;
     warn(message?: any, ...optionalArgs: any[]): void;
     when: when;
-}
-
-// @internal
-export namespace Framework {
-    export type Constructor = new (options: Options) => Framework;
-    export interface Extensions extends Partial<Index<Module | WebpackPlugin>> {
-    }
-    export type Index<T = any> = {
-        [key: string]: T;
-    };
-    export interface Instances extends Index<Framework> {
-    }
-    export interface Items extends Framework.Index<Build.Item> {
-    }
-    export interface Loaders extends Framework.Index<Build.Loader> {
-    }
-    export interface Locations extends Framework.Index<string> {
-        // (undocumented)
-        dist: string;
-        // (undocumented)
-        modules: string;
-        // (undocumented)
-        project: string;
-        // (undocumented)
-        publicPath: string;
-        // (undocumented)
-        src: string;
-        // (undocumented)
-        storage: string;
-    }
-    export type Mode = 'production' | 'development';
-    // (undocumented)
-    export interface Options {
-        // @public
-        config?: Configuration;
-        // @public
-        mode?: Framework.Mode;
-        name: string;
-        parent?: Framework;
-        // @public
-        services?: Framework.Services;
-    }
-    export interface Rules extends Framework.Index<Build.Rule> {
-    }
-    export interface Services extends Index<new (app: Framework) => Service> {
-    }
-    // @public
-    export interface Tapable<T = Framework> {
-        // (undocumented)
-        (value?: T): any;
-    }
 }
 
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "get" because one of its declarations is marked as @internal
@@ -530,7 +437,7 @@ export namespace Hooks {
         // (undocumented)
         export interface Config extends Webpack.Configuration {
             // (undocumented)
-            mode?: Framework.Mode;
+            mode?: Mode;
             // (undocumented)
             module?: {
                 noParse?: RegExp | RegExp[] | ((content: string) => boolean);
@@ -566,31 +473,33 @@ export namespace Hooks {
         }
             {};
     }
-    export namespace Extension {
-        // (undocumented)
-        export type Keys = keyof {
-            [K in keyof Framework.Extensions as `extension` | `extension/${K}` | `extension/${K}/${`${keyof Module & string}` | `${keyof Module & string}/${string}`}`]: Module | WebpackPlugin;
-        };
-    }
     export type Hook<T = any> = ((value?: T) => T) | T;
     // (undocumented)
-    export type ItemKeys = `item` | `item/${keyof Build.Items}` | `item/${keyof Build.Items}/loader` | `item/${keyof Build.Items}/options` | `item/${keyof Build.Items}/options/${string}`;
+    export type ItemKeys = `item` | `item/${keyof Items}` | `item/${keyof Items}/loader` | `item/${keyof Items}/options` | `item/${keyof Items}/options/${string}`;
     // (undocumented)
     export type Key = `${keyof Repository}`;
+    export type Keys = keyof {
+        [K in keyof Modules | keyof Plugins as `extension` | `extension/${K}` | `extension/${K}/${`${keyof Modules | keyof Plugins}` | (`${keyof Modules | keyof Plugins}/${string}` & string)}`]: Extension_2;
+    };
     // (undocumented)
-    export type LoaderKeys = `loader` | `loader/${keyof Build.Loaders}`;
+    export type LoaderKeys = `loader` | `loader/${keyof Loaders}`;
     // (undocumented)
-    export type LocationKeys = `location/${keyof Framework.Locations & string}`;
+    export type LocationKeys = `location/${keyof Locations & string}`;
     // @internal (undocumented)
-    export type Name = `before` | `after` | `done` | `${ItemKeys}` | `${LocationKeys}` | `${LoaderKeys}` | `${RuleKeys}` | `${Extension.Keys}` | `${BuildHooks.Keys}`;
+    export type Name = `before` | `after` | `done` | `${ItemKeys}` | `${LocationKeys}` | `${LoaderKeys}` | `${Keys}` | `${RuleKeys}` | `${BuildHooks.Keys}`;
     // Warning: (ae-incompatible-release-tags) The symbol "Repository" is marked as @public, but its signature references "Name" which is marked as @internal
     export type Repository = {
         [K in Name as `${K & string}`]?: Hook[];
     };
     // (undocumented)
-    export type RuleKeys = `rule` | `rule/${keyof Build.Rules}` | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule}` | `rule/${keyof Build.Rules}/${keyof Webpack.RuleSetRule & `options`}/${string}`;
+    export type RuleKeys = `rule` | `rule/${keyof Rules}` | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule}` | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule & `options`}/${string}`;
         {};
 }
+
+// @public
+export type Index<T = any> = {
+    [key: string]: T;
+};
 
 // @public
 interface Interface {
@@ -624,6 +533,72 @@ interface Interface_3 extends Service {
     resolveFrom: string[];
 }
 
+declare namespace Item {
+    export {
+        Item_2 as Interface,
+        Item_3 as Abstract,
+        Options_2 as Options,
+        ConstructorOptions,
+        Output
+    }
+}
+export { Item }
+
+// @public
+interface Item_2 {
+    loader: Factory<[Framework], Loader.Interface>;
+    make(app: Framework): Output;
+    mergeOptions(options: Options_2, app: Framework): void;
+    options: Options_2;
+    setLoader(factory: Maybe<[Framework], Loader.Interface>): void;
+    setOptions(factory: Maybe<[Framework], Options_2>): void;
+}
+
+// @public
+abstract class Item_3 {
+    abstract loader: Factory<[Framework], Loader.Interface>;
+    abstract make(app: Framework): Output;
+    abstract mergeOptions(options: Options_2, app: Framework): void;
+    abstract options: Factory<[Framework], Options_2>;
+    abstract setLoader(factory: Maybe<[Framework], Loader.Interface>): void;
+    abstract setOptions(factory: Maybe<[Framework], Options_2>): void;
+}
+
+// @public
+export interface Items extends Partial<Index<Item.Interface>> {
+}
+
+declare namespace Loader {
+    export {
+        LoaderInterface as Interface,
+        LoaderAbstract as Abstract,
+        Factory_2 as Factory
+    }
+}
+export { Loader }
+
+// @public
+abstract class LoaderAbstract implements LoaderInterface {
+    abstract make(app: Framework): string;
+    abstract normalizeInput<T = any>(input: Maybe<[Framework], T>): Factory<[Framework], T>;
+    abstract src: Factory<[Framework], string>;
+}
+
+// @public
+interface LoaderInterface {
+    make(app: Framework): string;
+    normalizeInput<T = any>(input: Maybe<[Framework], T>): Factory<[Framework], T>;
+    src: Factory<[Framework], string>;
+}
+
+// @public
+export interface Loaders extends Partial<Index<Loader.Interface>> {
+}
+
+// @public
+export interface Locations extends Partial<Index<string>> {
+}
+
 // @public
 export interface Logger extends Service {
     instance: Signale;
@@ -633,67 +608,120 @@ export interface Logger extends Service {
     name: 'logger';
 }
 
+// @public
+export interface Loose {
+    // (undocumented)
+    [key: string]: any;
+}
+
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "make" because one of its declarations is marked as @internal
 //
 // @public
-export function make(name: string, tap?: Framework.Tapable): Framework;
+export function make(name: string, tap?: Tapable): Framework;
 
 // @internal
 export interface make {
     // (undocumented)
-    (name: string, tap?: Framework.Tapable): Framework;
+    (name: string, tap?: Tapable): Framework;
 }
 
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Module" because one of its declarations is marked as @internal
-//
 // @public
-export interface Module<Plugin = any, Options = any> {
-    api?: Module.Api;
-    // @deprecated
-    apply?: CallableFunction;
-    boot?: Module.Boot;
-    // @deprecated
-    make?: Module.Make<Plugin, Options>;
-    name?: Module.Name;
-    options?: Module.Options<Options>;
-    register?: Module.Register;
-    when?: Module.When<Options>;
+export type Maybe<A extends any[], T> = T | Factory<A, T>;
+
+// @public
+export type Mode = 'production' | 'development';
+
+// @public @deprecated (undocumented)
+export interface Module<P = any, O = any> extends Extension.Module<O> {
 }
 
-// @internal
-export namespace Module {
+// @public
+interface Module_2<Options = unknown> extends Loose {
+    api?: Maybe<[Framework], Index<unknown>>;
+    // @deprecated
+    apply?: ApplyPlugin;
+    boot?: Factory<[Framework], unknown>;
+    // @deprecated
+    make?: Maybe<[Container<Options>, Framework], ApplyPlugin>;
+    name?: Name;
+    options?: Maybe<[Framework], Options>;
+    register?: Factory<[Framework], unknown>;
+    when?: Maybe<[Framework, Container<Options>], boolean>;
+}
+
+// @public
+export interface Modules extends Partial<Index<Extension.Module>> {
+}
+
+// @public
+type Name = `${(keyof Modules & string) | (keyof Plugins & string)}`;
+
+// @public (undocumented)
+export interface Options {
+    config?: Configuration;
+    mode?: Mode;
+    // @internal
+    name: string;
+    // @internal
+    parent?: Framework;
+    services?: Services;
+}
+
+// @public
+interface Options_2 {
     // (undocumented)
-    export type Api = ((app: Framework) => {
-        [key: string]: any;
-    }) | {
-        [key: string]: any;
-    };
+    [key: string]: any;
+}
+
+// @public
+interface Options_3 extends Partial<{
+    test: Maybe<[Framework], RegExp>;
+    use: Maybe<[Framework], Item.Interface[]>;
+    exclude: Maybe<[Framework], RegExp>;
+    type: Maybe<[Framework], string>;
+    parser: Maybe<[Framework], Parser>;
+    generator: Maybe<[Framework], any>;
+}> {
+}
+
+// @public
+interface Output {
+    loader: string;
+    options?: Options_2;
+}
+
+// @public
+interface Output_2 extends Partial<{
+    test: RegExp;
+    use?: {
+        loader: string;
+        options?: {
+            [key: string]: any;
+        };
+    }[];
+    exclude?: RegExp;
+    type?: string;
+    parser?: Parser;
+    generator?: any;
+}> {
+}
+
+// @public
+interface Parser {
     // (undocumented)
-    export type Boot = (app: Framework) => any;
-    // (undocumented)
-    export type Config = (app: Framework) => any;
-    // (undocumented)
-    export type Make<Plugin = any, Opts = any> = (options?: Container<Opts>, app?: Framework) => Plugin;
-    // (undocumented)
-    export type Name = keyof Framework.Extensions;
-    // (undocumented)
-    export type Options<T = any> = T | ((app: Framework) => T);
-    // (undocumented)
-    export type Register = (app: Framework) => any;
-    // (undocumented)
-    export type When<T = any> = ((app: Framework, opt?: Container<T>) => boolean) | boolean;
+    parse: (input?: string) => any;
 }
 
 // @public (undocumented)
 export interface path {
     // (undocumented)
-    (this: Framework, key: keyof Framework.Locations & string, ...path: string[]): string;
+    (this: Framework, key: keyof Locations & string, ...path: string[]): string;
 }
 
 // @public (undocumented)
 export interface path {
     // (undocumented)
-    (key: keyof Framework.Locations & string, ...path: string[]): string;
+    (key: keyof Locations & string, ...path: string[]): string;
 }
 
 // @public (undocumented)
@@ -733,6 +761,10 @@ export interface PluginInstance {
     apply: CallableFunction;
 }
 
+// @public
+export interface Plugins extends Partial<Index<Extension.CompilerPlugin>> {
+}
+
 declare namespace Project {
     export {
         Abstract_2 as Abstract,
@@ -756,6 +788,59 @@ interface Repository {
     peers: {
         [key: string]: Peer;
     };
+}
+
+declare namespace Rule {
+    export {
+        Rule_2 as Interface,
+        Rule_3 as Abstract,
+        Parser,
+        Options_3 as Options,
+        Output_2 as Output
+    }
+}
+export { Rule }
+
+// @public
+interface Rule_2 {
+    getExclude(app: Framework): Output_2['exclude'];
+    getGenerator(app: Framework): any;
+    getParser(app: Framework): Parser;
+    getTest(app: Framework): RegExp;
+    getType(app: Framework): Output_2['type'];
+    getUse(app: Framework): Item.Interface[];
+    make(app: Framework): Output_2 | RuleSetRule;
+    setExclude(exclude: Maybe<[Framework], RegExp>): void;
+    setGenerator(Generator: Maybe<[Framework], any>): void;
+    setParser(parser: Maybe<[Framework], Parser>): void;
+    setTest(test: Maybe<[Framework], RegExp>): void;
+    setType(type: Maybe<[Framework], string>): void;
+    setUse(use: Maybe<[Framework], Item.Interface[]>): void;
+    test?(app?: Framework): RuleSetRule['test'];
+    use?(app?: Framework): Item.Interface[];
+}
+
+// @public
+abstract class Rule_3 {
+    abstract getExclude(app: Framework): Output_2['exclude'];
+    abstract getGenerator(app: Framework): any;
+    abstract getParser(app: Framework): Parser;
+    abstract getTest(app: Framework): RegExp;
+    abstract getType(app: Framework): Output_2['type'];
+    abstract getUse(app: Framework): Item.Interface[];
+    abstract make(app: Framework): Output_2 | RuleSetRule;
+    abstract setExclude(exclude: Maybe<[Framework], RegExp>): void;
+    abstract setGenerator(Generator: Maybe<[Framework], any>): void;
+    abstract setParser(parser: Maybe<[Framework], Parser>): void;
+    abstract setTest(test: Maybe<[Framework], RegExp>): void;
+    abstract setType(type: Maybe<[Framework], string>): void;
+    abstract setUse(use: Maybe<[Framework], Item.Interface[]>): void;
+    abstract test?(app?: Framework): RuleSetRule['test'];
+    abstract use?(app?: Framework): Item.Interface[];
+}
+
+// @public
+export interface Rules extends Partial<Index<Rule.Interface>> {
 }
 
 // Warning: (ae-forgotten-export) The symbol "Callback" needs to be exported by the entry point index.d.ts
@@ -875,6 +960,10 @@ export abstract class Service<Repository = GenericRepository> extends Bootstrapp
     registered?(app: Framework): any;
 }
 
+// @public
+export interface Services extends Partial<Index<new (app: Framework) => Service>> {
+}
+
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "setPath" because one of its declarations is marked as @internal
 //
 // @public
@@ -911,21 +1000,18 @@ export namespace Store {
 // @public (undocumented)
 export interface tap<T = Framework> {
     // (undocumented)
-    (fn: Framework.Tapable<T>, bound?: boolean): T;
+    (fn: Tapable<[T]>, bound?: boolean): T;
 }
 
-// @public (undocumented)
+// @public
 export const tap: tap<Framework>;
 
 // @public
-export interface WebpackPlugin<ApplyConstructor = {
-    apply: any;
-}, Options = any> extends Module {
-    apply?: CallableFunction;
-    make?: Module.Make<ApplyConstructor & {
-        apply: any;
-    }, Options>;
-    when?: Module.When<Options>;
+export interface Tapable<P extends any[] = [Framework], T = any> extends Factory<[P], T> {
+}
+
+// @public @deprecated (undocumented)
+export interface WebpackPlugin<P = any, O = any> extends Extension.CompilerPlugin<Extension.ApplyPlugin, unknown> {
 }
 
 // @public (undocumented)
@@ -936,5 +1022,9 @@ export interface when {
     // (undocumented)
     (this: Framework, test: ((app: Framework) => boolean) | boolean, trueCase: (app: Framework) => any, falseCase?: (app: Framework) => any): Framework;
 }
+
+// Warnings were encountered during analysis:
+//
+// src/Configuration.ts:211:7 - (ae-forgotten-export) The symbol "TermColor" needs to be exported by the entry point index.d.ts
 
 ```

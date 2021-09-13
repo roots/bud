@@ -10,7 +10,10 @@ import {
 import {Service} from './'
 
 /**
- * Compiles {@link (Framework:class).build | Framework.build} configuration
+ * Compiler service interface
+ *
+ * @remarks
+ * Compiles {@link @roots/bud-framework#Build.config | Build config}
  * and reports on stats, progress, and errors encountered during compilation.
  *
  * @public @core @container
@@ -47,12 +50,6 @@ interface Compiler extends Service {
   /**
    * Returns a {@link @roots/bud-framework#Compiler."instance" | Compiler instance}
    * when provided with a valid {@link Configuration}
-   *
-   * @remarks
-   * The {@link Framework}
- compiler should always be
-   * specified in a multi-compiler format (wrap a standard configuration
-   * in an array).
    *
    * @example
    * ```js

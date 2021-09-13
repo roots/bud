@@ -201,17 +201,21 @@
       "members": [
         {
           "kind": "Class",
-          "canonicalReference": "@roots/bud-extensions!Extension:class",
+          "canonicalReference": "@roots/bud-extensions!Controller:class",
           "docComment": "/**\n * Extension instance controller\n *\n * @public @core\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare class Extension implements "
+              "text": "export default class Controller implements "
+            },
+            {
+              "kind": "Content",
+              "text": "Extension."
             },
             {
               "kind": "Reference",
-              "text": "Module",
-              "canonicalReference": "@roots/bud-framework!~Module:interface"
+              "text": "Controller",
+              "canonicalReference": "@roots/bud-framework!default:interface"
             },
             {
               "kind": "Content",
@@ -219,11 +223,11 @@
             }
           ],
           "releaseTag": "Public",
-          "name": "Extension",
+          "name": "Controller",
           "members": [
             {
               "kind": "Constructor",
-              "canonicalReference": "@roots/bud-extensions!Extension:constructor(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller:constructor(1)",
               "docComment": "/**\n * The class constructor\n *\n * @param app - The {@link @roots/bud-framework#Framework | Framework instance}\n *\n * @param extension - The {@link @roots/bud-framework#Module | Module instance}\n */\n",
               "excerptTokens": [
                 {
@@ -233,16 +237,20 @@
                 {
                   "kind": "Reference",
                   "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!~Framework:class"
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
                 },
                 {
                   "kind": "Content",
                   "text": ", extension: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Extension."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -263,14 +271,14 @@
                   "parameterName": "extension",
                   "parameterTypeTokenRange": {
                     "startIndex": 3,
-                    "endIndex": 4
+                    "endIndex": 5
                   }
                 }
               ]
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#app:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#app:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Framework | Framework instance}\n *\n * @public @readonly\n */\n",
               "excerptTokens": [
                 {
@@ -280,7 +288,7 @@
                 {
                   "kind": "Reference",
                   "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!~Framework:class"
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
                 },
                 {
                   "kind": "Content",
@@ -298,7 +306,7 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#apply:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#apply:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `apply` property\n *\n * @public @readonly\n */\n",
               "excerptTokens": [
                 {
@@ -325,7 +333,7 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-extensions!Extension#boot:member(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller#boot:member(1)",
               "docComment": "/**\n * Extension boot event\n *\n * @remarks\n *\n * Calls the {@link @roots/bud-framework#Module.boot} callback\n *\n * @returns {@link Extension}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public @core\n */\n",
               "excerptTokens": [
                 {
@@ -333,8 +341,9 @@
                   "text": "boot(): "
                 },
                 {
-                  "kind": "Content",
-                  "text": "this"
+                  "kind": "Reference",
+                  "text": "Controller",
+                  "canonicalReference": "@roots/bud-extensions!default:class"
                 },
                 {
                   "kind": "Content",
@@ -354,7 +363,7 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-extensions!Extension#get:member(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller#get:member(1)",
               "docComment": "/**\n * Get a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value after it has been passed through any {@link @roots/bud-framework#Hooks.filter | filter callbacks}\n *\n * @param key - The {@link Extension.name}\n *\n * @filter\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -363,16 +372,25 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "`${keyof "
+                  "text": "`${(keyof "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
+                  "text": "Plugins",
+                  "canonicalReference": "@roots/bud-framework!Plugins:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " & string}`"
+                  "text": " & string) | (keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Modules",
+                  "canonicalReference": "@roots/bud-framework!Modules:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " & string)}`"
                 },
                 {
                   "kind": "Content",
@@ -390,8 +408,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
+                "startIndex": 7,
+                "endIndex": 8
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -400,7 +418,7 @@
                   "parameterName": "key",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 4
+                    "endIndex": 6
                   }
                 }
               ],
@@ -408,7 +426,7 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#make:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#make:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `when` property\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -416,9 +434,17 @@
                   "text": "get make(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Extension."
+                },
+                {
                   "kind": "Reference",
-                  "text": "Module.Make",
-                  "canonicalReference": "@roots/bud-framework!~Module.Make:type"
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['make']"
                 },
                 {
                   "kind": "Content",
@@ -426,16 +452,16 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "\n\nset make(make: "
+                  "text": "\n\nset make(make: Extension."
                 },
                 {
                   "kind": "Reference",
-                  "text": "Module.Make",
-                  "canonicalReference": "@roots/bud-framework!~Module.Make:type"
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": ");"
+                  "text": "['make']);"
                 }
               ],
               "isOptional": false,
@@ -443,13 +469,13 @@
               "name": "make",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 4
               },
               "isStatic": false
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-extensions!Extension#makeKey:member(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller#makeKey:member(1)",
               "docComment": "/**\n * Make a {@link @roots/bud-hooks#Hooks | Hooks} key from a {@link Extension.name}\n *\n * @remarks\n *\n * This key must be registered with {@link @roots/bud-framework#Framework.Hooks | Framework.Hooks}\n *\n * @param key - The {@link Extension.name}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -458,16 +484,25 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "`${keyof "
+                  "text": "`${(keyof "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
+                  "text": "Plugins",
+                  "canonicalReference": "@roots/bud-framework!Plugins:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " & string}`"
+                  "text": " & string) | (keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Modules",
+                  "canonicalReference": "@roots/bud-framework!Modules:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " & string)}`"
                 },
                 {
                   "kind": "Content",
@@ -486,8 +521,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
+                "startIndex": 7,
+                "endIndex": 8
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -496,7 +531,7 @@
                   "parameterName": "key",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 4
+                    "endIndex": 6
                   }
                 }
               ],
@@ -504,7 +539,7 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#module:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#module:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin}\n *\n * @public @readonly\n */\n",
               "excerptTokens": [
                 {
@@ -512,9 +547,13 @@
                   "text": "get module(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Extension."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -526,13 +565,13 @@
               "name": "module",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 3
               },
               "isStatic": false
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#name:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#name:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} name\n *\n * @public @readonly\n */\n",
               "excerptTokens": [
                 {
@@ -541,12 +580,25 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "keyof "
+                  "text": "(keyof "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
+                  "text": "Plugins",
+                  "canonicalReference": "@roots/bud-framework!Plugins:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " & string) | (keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Modules",
+                  "canonicalReference": "@roots/bud-framework!Modules:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " & string)"
                 },
                 {
                   "kind": "Content",
@@ -558,13 +610,13 @@
               "name": "name",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 6
               },
               "isStatic": false
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#options:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#options:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} options\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -572,9 +624,13 @@
                   "text": "get options(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Extension."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -586,12 +642,12 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "\n\nset options(options: "
+                  "text": "\n\nset options(options: Extension."
                 },
                 {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -603,13 +659,13 @@
               "name": "options",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 4
               },
               "isStatic": false
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-extensions!Extension#register:member(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller#register:member(1)",
               "docComment": "/**\n * Extension registration event\n *\n * @remarks\n *\n * Calls the {@link @roots/bud-framework#Module.register} callback\n *\n * @returns {@link Extension}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public @core\n */\n",
               "excerptTokens": [
                 {
@@ -618,8 +674,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Extension",
-                  "canonicalReference": "@roots/bud-extensions!Extension:class"
+                  "text": "Controller",
+                  "canonicalReference": "@roots/bud-extensions!default:class"
                 },
                 {
                   "kind": "Content",
@@ -639,7 +695,7 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-extensions!Extension#set:member(1)",
+              "canonicalReference": "@roots/bud-extensions!Controller#set:member(1)",
               "docComment": "/**\n * Set a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value after passing it through any {@link @roots/bud-framework#Hooks.on | hooks callbacks}\n *\n * @param key - The {@link Extension.name}\n *\n * @param value - The new value\n *\n * @hook\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -648,16 +704,25 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "`${keyof "
+                  "text": "`${(keyof "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
+                  "text": "Plugins",
+                  "canonicalReference": "@roots/bud-framework!Plugins:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " & string}`"
+                  "text": " & string) | (keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Modules",
+                  "canonicalReference": "@roots/bud-framework!Modules:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " & string)}`"
                 },
                 {
                   "kind": "Content",
@@ -683,8 +748,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
+                "startIndex": 9,
+                "endIndex": 10
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -693,14 +758,14 @@
                   "parameterName": "key",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 4
+                    "endIndex": 6
                   }
                 },
                 {
                   "parameterName": "value",
                   "parameterTypeTokenRange": {
-                    "startIndex": 5,
-                    "endIndex": 6
+                    "startIndex": 7,
+                    "endIndex": 8
                   }
                 }
               ],
@@ -708,7 +773,7 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "@roots/bud-extensions!Extension#when:member",
+              "canonicalReference": "@roots/bud-extensions!Controller#when:member",
               "docComment": "/**\n * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `when` property\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
@@ -716,9 +781,17 @@
                   "text": "get when(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Extension."
+                },
+                {
                   "kind": "Reference",
-                  "text": "Module.When",
-                  "canonicalReference": "@roots/bud-framework!~Module.When:type"
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['when']"
                 },
                 {
                   "kind": "Content",
@@ -726,16 +799,16 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "\n\nset when(when: "
+                  "text": "\n\nset when(when: Extension."
                 },
                 {
                   "kind": "Reference",
-                  "text": "Module.When",
-                  "canonicalReference": "@roots/bud-framework!~Module.When:type"
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": ");"
+                  "text": "['when']);"
                 }
               ],
               "isOptional": false,
@@ -743,7 +816,7 @@
               "name": "when",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 4
               },
               "isStatic": false
             }
@@ -751,7 +824,7 @@
           "implementsTokenRanges": [
             {
               "startIndex": 1,
-              "endIndex": 3
+              "endIndex": 4
             }
           ]
         },
@@ -767,7 +840,7 @@
             {
               "kind": "Reference",
               "text": "Service",
-              "canonicalReference": "@roots/bud-framework!~Service:class"
+              "canonicalReference": "@roots/bud-framework!Service:class"
             },
             {
               "kind": "Content",
@@ -784,8 +857,17 @@
             },
             {
               "kind": "Reference",
-              "text": "Framework.Extensions",
-              "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
+              "text": "Plugins",
+              "canonicalReference": "@roots/bud-framework!Plugins:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "Modules",
+              "canonicalReference": "@roots/bud-framework!Modules:interface"
             },
             {
               "kind": "Content",
@@ -818,9 +900,13 @@
                   "text": "add(extension: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Definition."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -838,8 +924,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
+                "startIndex": 4,
+                "endIndex": 5
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -848,7 +934,7 @@
                   "parameterName": "extension",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 2
+                    "endIndex": 3
                   }
                 }
               ],
@@ -886,38 +972,51 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-extensions!Extensions#bootExtension:member(1)",
-              "docComment": "/**\n * Boots a registered {@link Extension} instance\n *\n * @remarks\n *\n * Can be booted from its {@link @roots/bud-framework#Service.repository | Service.repository} key or with the literal {@link @roots/bud-framework#Module | Module}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "docComment": "/**\n * Boots a registered {@link Extension} instance\n *\n * @remarks\n *\n * Can be booted from its {@link @roots/bud-framework#Service.repository | Service.repository} key or with the literal {@link @roots/bud-framework#Definition.Module | Module}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
                   "text": "bootExtension(extension: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Definition."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | Definition."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | `${(keyof Definition."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " | "
+                  "text": " & string) | (Definition."
                 },
                 {
                   "kind": "Reference",
-                  "text": "WebpackPlugin",
-                  "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " | `${keyof "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string}`"
+                  "text": " & string)}`"
                 },
                 {
                   "kind": "Content",
@@ -935,8 +1034,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 8,
-                "endIndex": 9
+                "startIndex": 11,
+                "endIndex": 12
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -945,7 +1044,7 @@
                   "parameterName": "extension",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 7
+                    "endIndex": 10
                   }
                 }
               ],
@@ -961,9 +1060,13 @@
                   "text": "getEligibleWebpackModules(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Definition."
+                },
+                {
                   "kind": "Reference",
-                  "text": "Extension",
-                  "canonicalReference": "@roots/bud-extensions!Extension:class"
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -978,7 +1081,7 @@
               "isStatic": false,
               "returnTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 4
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -995,9 +1098,13 @@
                   "text": "make(): "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Definition."
+                },
+                {
                   "kind": "Reference",
-                  "text": "PluginInstance",
-                  "canonicalReference": "@roots/bud-framework!PluginInstance:interface"
+                  "text": "ApplyPlugin",
+                  "canonicalReference": "@roots/bud-framework!ApplyPlugin:interface"
                 },
                 {
                   "kind": "Content",
@@ -1012,7 +1119,7 @@
               "isStatic": false,
               "returnTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 4
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -1085,31 +1192,44 @@
                   "text": "registerExtension(extension: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Definition."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | Definition."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | `${(keyof Definition."
+                },
+                {
                   "kind": "Reference",
                   "text": "Module",
-                  "canonicalReference": "@roots/bud-framework!~Module:interface"
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " | "
+                  "text": " & string) | (Definition."
                 },
                 {
                   "kind": "Reference",
-                  "text": "WebpackPlugin",
-                  "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface"
+                  "text": "CompilerPlugin",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": " | `${keyof "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework.Extensions",
-                  "canonicalReference": "@roots/bud-framework!~Framework.Extensions:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string}`"
+                  "text": " & string)}`"
                 },
                 {
                   "kind": "Content",
@@ -1127,8 +1247,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 8,
-                "endIndex": 9
+                "startIndex": 11,
+                "endIndex": 12
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -1137,7 +1257,7 @@
                   "parameterName": "extension",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 7
+                    "endIndex": 10
                   }
                 }
               ],
@@ -1146,12 +1266,12 @@
           ],
           "extendsTokenRange": {
             "startIndex": 1,
-            "endIndex": 7
+            "endIndex": 9
           },
           "implementsTokenRanges": [
             {
-              "startIndex": 8,
-              "endIndex": 10
+              "startIndex": 10,
+              "endIndex": 12
             }
           ]
         }

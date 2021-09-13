@@ -7,13 +7,12 @@
 import type { Configuration } from 'webpack';
 import type { Configuration as Configuration_2 } from '@roots/bud-framework';
 import type { DefinePlugin } from 'webpack';
+import { Extension } from '@roots/bud-framework';
 import { Framework } from '@roots/bud-framework';
 import type { GlobTask } from 'globby';
-import type { Module } from '@roots/bud-framework';
 import type { Options as Options_2 } from 'html-webpack-plugin';
 import { Server } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
-import type { WebpackPlugin } from '@roots/bud-framework';
 
 // @public
 export class Api extends Service<Repository> {
@@ -23,6 +22,7 @@ export class Api extends Service<Repository> {
     bootstrap(): void;
     // (undocumented)
     name: string;
+    // @override
     repository: Repository;
 }
 

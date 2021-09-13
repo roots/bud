@@ -5,19 +5,18 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import type { Configuration } from 'webpack';
 import type { Configuration as Configuration_2 } from '@roots/bud-framework';
 import type { DefinePlugin } from 'webpack';
+import { Extension } from '@roots/bud-framework';
 import { Framework } from '@roots/bud-framework';
 import type { GlobTask } from 'globby';
-import type { Module } from '@roots/bud-framework';
 import type { Options as Options_2 } from 'html-webpack-plugin';
 import { Server } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
-import type { WebpackPlugin } from '@roots/bud-framework';
 
 /**
  * Alias interface
@@ -64,9 +63,9 @@ export declare class Api extends Service<Repository> {
      */
     name: string;
     /**
-     * Collection of high-level functions used to configure the project
+     * A {@link @roots/container#Repository | Repository} of high-level functions used to configure the project
      *
-     * @public
+     * @override @public
      */
     repository: Repository;
     /**
@@ -811,7 +810,7 @@ declare interface config {
    * @public @config
    */
   declare interface use {
-      (source: Module | WebpackPlugin | Module[] | WebpackPlugin[]): Framework;
+      (source: Extension.Module | Extension.CompilerPlugin | Extension.Module): Framework;
   }
 
   /**

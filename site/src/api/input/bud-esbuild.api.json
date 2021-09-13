@@ -190,23 +190,36 @@
     }
   },
   "kind": "Package",
-  "canonicalReference": "@roots/bud!",
-  "docComment": "/**\n * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @remarks\n *\n * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.\n *\n * {@link factory} is exported to simplify instantiation for direct use with Node.\n *\n * This package also provides a CLI which can is invoked with `bud`.\n *\n * @example\n *\n * Example configuration file (`bud.config.js`). This file is run by invoking `$ bud build` in the terminal.\n * ```js\n * module.exports = app =>\n *   app\n *   .template({\n *     favicon: app.path('src', 'favicon.ico'),\n *     minify: false,\n *   })\n *   .entry('app', 'index.js')\n * ```\n *\n * @example\n *\n * Instantiate `Bud` from node using the `factory` function:\n * ```js\n * import {factory} from '@roots/bud'\n *\n * const bud = factory()\n *\n * bud.run() // run build\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
-  "name": "@roots/bud",
+  "canonicalReference": "@roots/bud-esbuild!",
+  "docComment": "/**\n * ESBuild support for Bud projects\n *\n * This plugin is much more limited in terms of supporting essential dev-focused features like hot-reloading. It is provided as-is for use in Bud projects. It is not currently a focus of our development efforts.\n *\n * @remarks\n *\n * If you would like to contribute to the development of this plugin (especially if you have experience with module reloading in an ESBuild context), please open an issue on Github.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @beta @extension @packageDocumentation @betaDocumentation\n */\n",
+  "name": "@roots/bud-esbuild",
   "members": [
     {
       "kind": "EntryPoint",
-      "canonicalReference": "@roots/bud!",
+      "canonicalReference": "@roots/bud-esbuild!",
       "name": "",
       "members": [
         {
-          "kind": "Class",
-          "canonicalReference": "@roots/bud!Bud:class",
-          "docComment": "/**\n * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @public @core\n */\n",
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-esbuild!api:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class Bud extends "
+              "text": "api: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Maybe",
+              "canonicalReference": "@roots/bud-framework!Maybe:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
@@ -215,162 +228,105 @@
             },
             {
               "kind": "Content",
-              "text": " "
-            },
-            {
-              "kind": "Content",
-              "text": "implements "
+              "text": "], import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
-              "text": "Contract",
-              "canonicalReference": "@roots/bud!~Contract:interface"
+              "text": "Index",
+              "canonicalReference": "@roots/bud-framework!Index:type"
             },
             {
               "kind": "Content",
-              "text": " "
+              "text": "<unknown>>"
             }
           ],
           "releaseTag": "Public",
-          "name": "Bud",
-          "members": [
-            {
-              "kind": "Constructor",
-              "canonicalReference": "@roots/bud!Bud:constructor(1)",
-              "docComment": "/**\n * Class constructor\n *\n * @param options - {@link @roots/bud-framework#Options}\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "constructor(options: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Options",
-                  "canonicalReference": "@roots/bud-framework!Options:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ");"
-                }
-              ],
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud!Bud#implementation:member",
-              "docComment": "/**\n * {@link Bud} class definition\n *\n * @remarks\n *\n * Used internally when creating child Bud instances\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "implementation: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Constructor",
-                  "canonicalReference": "@roots/bud-framework!Constructor:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "implementation",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            }
-          ],
-          "extendsTokenRange": {
+          "name": "api",
+          "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 3
-          },
-          "implementsTokenRanges": [
-            {
-              "startIndex": 4,
-              "endIndex": 6
-            }
-          ]
+            "endIndex": 8
+          }
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@roots/bud!config:var",
-          "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Configuration}\n *\n * @public @config\n */\n",
+          "canonicalReference": "@roots/bud-esbuild!boot:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "config: "
+              "text": "boot: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"@roots/bud-framework\")."
             },
             {
               "kind": "Reference",
-              "text": "Configuration",
-              "canonicalReference": "@roots/bud-framework!Configuration:interface"
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], unknown>"
             }
           ],
           "releaseTag": "Public",
-          "name": "config",
+          "name": "boot",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-esbuild!name_2:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "name: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "name_2",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
           }
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud!factory:function(1)",
-          "docComment": "/**\n * Create a {@link Bud} instance programatically\n *\n * @example\n * ```ts\n * const bud = factory()\n * ```\n *\n * @public @core @config\n */\n",
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-esbuild!options:var",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare function factory(overrides?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Options",
-              "canonicalReference": "@roots/bud!~Options:interface"
+              "text": "options: "
             },
             {
               "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Bud",
-              "canonicalReference": "@roots/bud!~Bud:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
+              "text": "unknown"
             }
           ],
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 4
-          },
           "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "overrides",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "factory"
+          "name": "options",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
         }
       ]
     }

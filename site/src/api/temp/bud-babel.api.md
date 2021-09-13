@@ -4,44 +4,25 @@
 
 ```ts
 
-import type { Framework } from '@roots/bud-framework';
-import { Module } from '@roots/bud-framework/types/Module';
+import { Factory } from '@roots/bud-framework';
+import { Framework } from '@roots/bud-framework';
 
 // @public (undocumented)
-export const boot: Module.Boot;
+export const boot: Factory<[Framework], unknown>;
 
 // @public
 export interface Config {
-    plugins: Config.Registry;
-    presets: Config.Registry;
-    setPlugin(plugin: Config.Registrable): Config;
+    // Warning: (ae-forgotten-export) The symbol "Registry" needs to be exported by the entry point index.d.ts
+    plugins: Registry;
+    presets: Registry;
+    // Warning: (ae-forgotten-export) The symbol "Registrable" needs to be exported by the entry point index.d.ts
+    setPlugin(plugin: Registrable): Config;
     setPluginOptions(plugin: string, options: any): Config;
-    setPlugins(plugins: Array<Config.Registrable>): Config;
-    setPreset(preset: Config.Registrable): Config;
+    setPlugins(plugins: Array<Registrable>): Config;
+    setPreset(preset: Registrable): Config;
     setPresetOptions(preset: string, options: any): Config;
-    setPresets(presets: Array<Config.NormalizedPlugin | string>): Config;
-}
-
-// @public (undocumented)
-export namespace Config {
-    // (undocumented)
-    export type NormalizedPlugin = [string, {
-        [key: string]: any;
-    }];
-    // (undocumented)
-    export type Options = {
-        plugins?: Plugin[];
-        config?: boolean | string;
-    };
-    // (undocumented)
-    export type Plugin = string | NormalizedPlugin | CallableFunction;
-    // (undocumented)
-    export type Registrable = string | NormalizedPlugin;
-    // (undocumented)
-    export interface Registry {
-        // (undocumented)
-        [key: string]: [string, any];
-    }
+    // Warning: (ae-forgotten-export) The symbol "NormalizedPlugin" needs to be exported by the entry point index.d.ts
+    setPresets(presets: Array<NormalizedPlugin | string>): Config;
 }
 
 // @public (undocumented)
@@ -54,11 +35,11 @@ export class Config {
     // (undocumented)
     name: string;
     // (undocumented)
-    normalizeEntry(c: Config.Registrable): Config.NormalizedPlugin;
+    normalizeEntry(c: Registrable): NormalizedPlugin;
     // (undocumented)
-    plugins: Config.Registry;
+    plugins: Registry;
     // (undocumented)
-    presets: Config.Registry;
+    presets: Registry;
     // (undocumented)
     unsetPlugin(plugin: string): this;
     // (undocumented)
@@ -66,16 +47,16 @@ export class Config {
 }
 
 // @public
-export const DEFAULT_PLUGINS: Array<Config.Registrable>;
+export const DEFAULT_PLUGINS: Array<Registrable>;
 
 // @public
-export const DEFAULT_PRESETS: Array<Config.Registrable>;
+export const DEFAULT_PRESETS: Array<Registrable>;
 
 // @public (undocumented)
 const name_2: "@roots/bud-babel";
 export { name_2 as name }
 
 // @public (undocumented)
-export const register: Module.Register;
+export const register: Factory<[Framework], unknown>;
 
 ```

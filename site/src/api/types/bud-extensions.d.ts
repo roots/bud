@@ -12,24 +12,24 @@
  * @core @packageDocumentation
  */
 
+import { Extension } from '@roots/bud-framework';
 import { Extensions as Extensions_2 } from '@roots/bud-framework';
 import { Framework } from '@roots/bud-framework';
 import { Hooks } from '@roots/bud-framework';
-import { Module } from '@roots/bud-framework';
-import { PluginInstance } from '@roots/bud-framework';
+import { Modules } from '@roots/bud-framework';
+import { Plugins } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
-import { WebpackPlugin } from '@roots/bud-framework';
 
 /**
  * Extension instance controller
  *
  * @public @core
  */
-export declare class Extension implements Module {
+export declare class Controller implements Extension.Controller {
     /**
      * @internal
      */
-    protected _module: Module | WebpackPlugin;
+    protected _module: Extension.Module | Extension.CompilerPlugin;
     /**
      * @internal
      */
@@ -39,7 +39,7 @@ export declare class Extension implements Module {
      *
      * @public @readonly
      */
-    get module(): Module;
+    get module(): Extension.Module;
     /**
      * The {@link @roots/bud-framework#Framework | Framework instance}
      *
@@ -51,28 +51,28 @@ export declare class Extension implements Module {
      *
      * @public @readonly
      */
-    get name(): keyof Framework.Extensions;
+    get name(): (keyof Plugins & string) | (keyof Modules & string);
     /**
      * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} options
      *
      * @public
      */
-    get options(): Module['options'];
-    set options(options: Module['options']);
+    get options(): Extension.Module['options'];
+    set options(options: Extension.Module['options']);
     /**
      * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `when` property
      *
      * @public
      */
-    get when(): Module.When;
-    set when(when: Module.When);
+    get when(): Extension.Module['when'];
+    set when(when: Extension.Module['when']);
     /**
      * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `when` property
      *
      * @public
      */
-    get make(): Module.Make;
-    set make(make: Module.Make);
+    get make(): Extension.CompilerPlugin['make'];
+    set make(make: Extension.CompilerPlugin['make']);
     /**
      * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} `apply` property
      *
@@ -85,7 +85,7 @@ export declare class Extension implements Module {
      * @param app - The {@link @roots/bud-framework#Framework | Framework instance}
      * @param extension - The {@link @roots/bud-framework#Module | Module instance}
      */
-    constructor(app: Framework, extension: Module);
+    constructor(app: Framework, extension: Extension.Module);
     /**
      * Make a {@link @roots/bud-hooks#Hooks | Hooks} key from a {@link Extension.name}
      *
@@ -97,7 +97,7 @@ export declare class Extension implements Module {
      * @public
      * @decorator `@bind`
      */
-    makeKey(key: `${keyof Framework.Extensions & string}`): Hooks.Name;
+    makeKey(key: `${(keyof Plugins & string) | (keyof Modules & string)}`): Hooks.Name;
     /**
      * Get a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value
      * after it has been passed through any {@link @roots/bud-framework#Hooks.filter | filter callbacks}
@@ -109,7 +109,7 @@ export declare class Extension implements Module {
      * @public
      * @decorator `@bind`
      */
-    get(key: `${keyof Framework.Extensions & string}`): any;
+    get(key: `${(keyof Plugins & string) | (keyof Modules & string)}`): any;
     /**
      * Set a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value
      * after passing it through any {@link @roots/bud-framework#Hooks.on | hooks callbacks}
@@ -122,7 +122,7 @@ export declare class Extension implements Module {
      * @public
      * @decorator `@bind`
      */
-    set(key: `${keyof Framework.Extensions & string}`, value: any): void;
+    set(key: `${(keyof Plugins & string) | (keyof Modules & string)}`, value: any): void;
     /**
      * Extension registration event
      *
@@ -134,7 +134,7 @@ export declare class Extension implements Module {
          * @public @core
          * @decorator `@bind`
          */
-     register(): Extension;
+     register(): Controller;
      /**
       * Extension boot event
       *
@@ -146,7 +146,7 @@ export declare class Extension implements Module {
           * @public @core
           * @decorator `@bind`
           */
-      boot(): this;
+      boot(): Controller;
      }
 
      /**
@@ -162,7 +162,7 @@ export declare class Extension implements Module {
       *
       * @core @public @container
       */
-     export declare class Extensions extends Service<Partial<Framework.Extensions>> implements Extensions_2 {
+     export declare class Extensions extends Service<Partial<Plugins | Modules>> implements Extensions_2 {
          /**
           * {@inheritDoc @roots/bud-framework#Service.register}
           *
@@ -187,7 +187,7 @@ export declare class Extension implements Module {
           *
           * @override @public
           */
-         add(extension: Module): void;
+         add(extension: Extension.Module): void;
          /**
           * Returns an array of {@link @roots/bud-framework#PluginInstance | plugin instances}
           * which have been registered to the {@link Extensions | Extensions container} and
@@ -198,7 +198,7 @@ export declare class Extension implements Module {
           * @public
           * @decorator `@bind`
           */
-         make(): PluginInstance[];
+         make(): Extension.ApplyPlugin[];
          /**
           * Returns extension instances which produce a Webpack plugin and are
           * set to be used in the next compilation
@@ -208,7 +208,7 @@ export declare class Extension implements Module {
           * @public
           * @decorator `@bind`
           */
-         getEligibleWebpackModules(): Extension[];
+         getEligibleWebpackModules(): Extension.CompilerPlugin[];
          /**
           * Registers an extension
           *
@@ -219,18 +219,18 @@ export declare class Extension implements Module {
           * @public
           * @decorator `@bind`
           */
-         registerExtension(extension: Module | WebpackPlugin | `${keyof Framework.Extensions & string}`): void;
+         registerExtension(extension: Extension.Module | Extension.CompilerPlugin | `${(keyof Extension.Module & string) | (Extension.CompilerPlugin & string)}`): void;
          /**
           * Boots a registered {@link Extension} instance
           *
           * @remarks
           * Can be booted from its {@link @roots/bud-framework#Service.repository | Service.repository} key or
-          * with the literal {@link @roots/bud-framework#Module | Module}
+          * with the literal {@link @roots/bud-framework#Definition.Module | Module}
           *
           * @public
           * @decorator `@bind`
           */
-         bootExtension(extension: Module | WebpackPlugin | `${keyof Framework.Extensions & string}`): void;
+         bootExtension(extension: Extension.Module | Extension.CompilerPlugin | `${(keyof Extension.Module & string) | (Extension.CompilerPlugin & string)}`): void;
      }
 
      export { }

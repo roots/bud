@@ -10,7 +10,9 @@
  *
  * @remarks
  * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ *
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ *
  * - 🌱 Easy - Low bundle size and fast build times
  *
  * @extension @packageDocumentation @betaDocumentation
@@ -34,4 +36,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot} = Sage
+export const {name, boot, register} = Sage

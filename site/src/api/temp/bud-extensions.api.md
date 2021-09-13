@@ -4,52 +4,52 @@
 
 ```ts
 
+import { Extension } from '@roots/bud-framework';
 import { Extensions as Extensions_2 } from '@roots/bud-framework';
 import { Framework } from '@roots/bud-framework';
 import { Hooks } from '@roots/bud-framework';
-import { Module } from '@roots/bud-framework';
-import { PluginInstance } from '@roots/bud-framework';
+import { Modules } from '@roots/bud-framework';
+import { Plugins } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
-import { WebpackPlugin } from '@roots/bud-framework';
 
 // @public
-export class Extension implements Module {
-    constructor(app: Framework, extension: Module);
+export class Controller implements Extension.Controller {
+    constructor(app: Framework, extension: Extension.Module);
     get app(): Framework;
     // @internal (undocumented)
     protected _app: () => Framework;
     get apply(): any;
-    boot(): this;
-    get(key: `${keyof Framework.Extensions & string}`): any;
-    get make(): Module.Make;
-    set make(make: Module.Make);
-    makeKey(key: `${keyof Framework.Extensions & string}`): Hooks.Name;
-    get module(): Module;
+    boot(): Controller;
+    get(key: `${(keyof Plugins & string) | (keyof Modules & string)}`): any;
+    get make(): Extension.CompilerPlugin['make'];
+    set make(make: Extension.CompilerPlugin['make']);
+    makeKey(key: `${(keyof Plugins & string) | (keyof Modules & string)}`): Hooks.Name;
+    get module(): Extension.Module;
     // @internal (undocumented)
-    protected _module: Module | WebpackPlugin;
-    get name(): keyof Framework.Extensions;
-    get options(): Module['options'];
-    set options(options: Module['options']);
-    register(): Extension;
-    set(key: `${keyof Framework.Extensions & string}`, value: any): void;
-    get when(): Module.When;
-    set when(when: Module.When);
+    protected _module: Extension.Module | Extension.CompilerPlugin;
+    get name(): (keyof Plugins & string) | (keyof Modules & string);
+    get options(): Extension.Module['options'];
+    set options(options: Extension.Module['options']);
+    register(): Controller;
+    set(key: `${(keyof Plugins & string) | (keyof Modules & string)}`, value: any): void;
+    get when(): Extension.Module['when'];
+    set when(when: Extension.Module['when']);
 }
 
 // @public
-export class Extensions extends Service<Partial<Framework.Extensions>> implements Extensions_2 {
+export class Extensions extends Service<Partial<Plugins | Modules>> implements Extensions_2 {
     // @override
-    add(extension: Module): void;
+    add(extension: Extension.Module): void;
     // @override (undocumented)
     boot(): void;
-    bootExtension(extension: Module | WebpackPlugin | `${keyof Framework.Extensions & string}`): void;
-    getEligibleWebpackModules(): Extension[];
-    make(): PluginInstance[];
+    bootExtension(extension: Extension.Module | Extension.CompilerPlugin | `${(keyof Extension.Module & string) | (Extension.CompilerPlugin & string)}`): void;
+    getEligibleWebpackModules(): Extension.CompilerPlugin[];
+    make(): Extension.ApplyPlugin[];
     // @override (undocumented)
     name: string;
     // @override (undocumented)
     register(): void;
-    registerExtension(extension: Module | WebpackPlugin | `${keyof Framework.Extensions & string}`): void;
+    registerExtension(extension: Extension.Module | Extension.CompilerPlugin | `${(keyof Extension.Module & string) | (Extension.CompilerPlugin & string)}`): void;
 }
 
 ```

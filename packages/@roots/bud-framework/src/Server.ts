@@ -18,7 +18,7 @@ import {Service} from './'
  */
 interface Server extends Service {
   /**
-   * Registered server middlewares
+   * Server middleware
    *
    * @public
    */

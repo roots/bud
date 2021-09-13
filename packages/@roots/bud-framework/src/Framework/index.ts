@@ -91,7 +91,7 @@ export abstract class Framework {
   }
 
   /**
-   * {@link Container} of child {@link Framework} instances
+   * {@link @roots/container#Container} of child {@link Framework} instances
    *
    * @remarks
    * Is `null` if the current instance is a child instance.
@@ -139,7 +139,7 @@ export abstract class Framework {
   public cache: Cache.Interface
 
   /**
-   * Compiles {@link Build} configuration and stats/errors/progress reporting.
+   * Compiles {@link @roots/bud-framework#Build | Build} configuration and stats/errors/progress reporting.
    *
    * @public
    */
