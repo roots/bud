@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Adds vue sfc support to Bud projects
@@ -18,7 +19,12 @@ import {
 } from 'webpack'
 
 declare module '@roots/bud-framework' {
-  interface Extensions {
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   *
+   * @public @override
+   */
+  interface Modules {
     '@roots/bud-vue': Extension.Module
     'vue-loader-plugin': Extension.Module
   }

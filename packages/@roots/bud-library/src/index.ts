@@ -19,10 +19,18 @@ declare module '@roots/bud-framework' {
     library: library
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-library': BudDllExtension
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
+   */
   interface Plugins {
     'autodll-webpack-plugin': BudDllPlugin
   }

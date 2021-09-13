@@ -12,6 +12,10 @@ import type {Item, Loader, Rule} from '@roots/bud-build'
 import {BudSassExtension} from './BudSassExtension'
 
 declare module '@roots/bud-framework' {
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-sass': BudSassExtension
   }

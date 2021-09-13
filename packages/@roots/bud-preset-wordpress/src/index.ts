@@ -48,7 +48,8 @@ import * as BudWordPressManifestsExtension from '@roots/bud-wordpress-manifests'
 
 declare module '@roots/bud-framework' {
   /**
-   * @public @override {@link @roots/bud-framework#Modules}
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
    */
   interface Modules {
     /**

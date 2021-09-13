@@ -1,3 +1,6 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+Licensed under the MIT license.
+
 /**
  * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
  *
@@ -15,13 +18,13 @@
  * @packageDocumentation
  */
 
-import {Framework, WebpackPlugin} from '@roots/bud-framework'
+import {Framework, Extension} from '@roots/bud-framework'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
 import {EslintConfig} from './api'
 
 interface BudEslintWebpackPlugin
-  extends WebpackPlugin<EslintPlugin, Options> {
+  extends Extension.CompilerPlugin<EslintPlugin, Options> {
   api: (app: Framework) => {
     eslint: EslintConfig
   }
@@ -35,6 +38,10 @@ declare module '@roots/bud-framework' {
     eslint: EslintConfig
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
+   */
   interface Plugins {
     'eslint-webpack-plugin': BudEslintWebpackPlugin
   }

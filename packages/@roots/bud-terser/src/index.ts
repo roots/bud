@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Adds terser minification support to Bud
@@ -21,7 +22,7 @@ declare module '@roots/bud-framework' {
     terser: BudTerserPlugin['api']['terser']
   }
 
-  interface Extensions {
+  interface Modules {
     'terser-webpack-plugin': BudTerserPlugin
   }
 }

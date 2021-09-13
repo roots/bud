@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Adds MDX support to Bud
@@ -31,6 +32,10 @@ declare module '@roots/bud-framework' {
     mdx: Item
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-mdx': Extension.Module
   }

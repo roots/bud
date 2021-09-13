@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * {@link @roots/merged-manifest-webpack-plugin# | @roots/merged-manifest-webpack-plugin} adapter
@@ -17,11 +18,14 @@ import {Extension} from '@roots/bud-framework'
 import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
-      '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
-    }
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   *
+   * @public @override
+   */
+  interface Modules {
+    '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
+    '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
   }
 }
 

@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * The {@link @roots/bud-dashboard#} package implements the {@link @roots/bud-framework#Dashboard} interface.

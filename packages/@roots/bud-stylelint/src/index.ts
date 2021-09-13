@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Add stylelint support to Bud
@@ -16,8 +17,12 @@ import StylelintWebpackPlugin, {
 } from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  interface Extensions {
-    'stylelint-webpack-plugin': BudStylelintWebpackPlugin
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
+    '@roots/bud-stylelint': BudStylelintWebpackPlugin
   }
 }
 

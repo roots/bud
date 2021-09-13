@@ -21,8 +21,7 @@ import {Extension} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   /**
    * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @override
+   * @public @override
    */
   interface Modules {
     /**

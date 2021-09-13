@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Add solid.js to Bud
@@ -12,7 +13,11 @@
 import type {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Extensions {
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
     '@roots/bud-solid': BudSolidExtension
   }
 }

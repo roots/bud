@@ -8,7 +8,6 @@ import {
 declare module '@roots/bud-framework' {
   /**
    * {@inheritDoc @roots/bud-framework#Plugins}
-   *
    * @public @override
    */
   interface Plugins {
@@ -26,7 +25,6 @@ declare module '@roots/bud-framework' {
 
   /**
    * {@inheritDoc @roots/bud-framework#Loaders}
-   *
    * @public @override
    */
   interface Loaders {
@@ -44,7 +42,6 @@ declare module '@roots/bud-framework' {
 
   /**
    * {@inheritDoc @roots/bud-framework#Items}
-   *
    * @public @override
    */
   interface Items {
@@ -64,7 +61,6 @@ declare module '@roots/bud-framework' {
 
   /**
    * {@inheritDoc @roots/bud-framework#Rules}
-   *
    * @public @override
    */
   interface Rules {

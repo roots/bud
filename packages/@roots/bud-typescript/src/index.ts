@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Adds TypeScript support to Bud
@@ -39,10 +40,18 @@ declare module '@roots/bud-framework' {
     typecheck: typecheck
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-typescript': Extension.Module
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
+   */
   interface Plugins {
     'fork-ts-checker-plugin': Extension.CompilerPlugin<
       typeof ForkTsCheckerWebpackPlugin

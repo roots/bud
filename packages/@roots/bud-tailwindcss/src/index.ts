@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Adds tailwindcss support to Bud
@@ -37,6 +38,10 @@ declare module '@roots/bud-framework' {
     tailwind: tailwindConfig
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-tailwindcss': BudTailwindCssExtension
   }

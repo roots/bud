@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * Add React to Bud
@@ -18,6 +19,10 @@ declare module '@roots/bud-framework' {
     reactRefresh: reactRefresh
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
   interface Modules {
     '@roots/bud-react': BudReactExtension
     '@pmmmwh/react-refresh-webpack-plugin': BudReactRefreshPlugin

@@ -25,8 +25,8 @@ declare module '@roots/bud-framework' {
   }
 
   /**
-   * @override
-   * @public
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
    */
   interface Plugins {
     '@roots/bud-imagemin': BudImageMinPlugin
@@ -34,8 +34,8 @@ declare module '@roots/bud-framework' {
   }
 
   /**
-   * @override
-   * @public
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
    */
   interface Modules {
     '@roots/bud-imagemin': BudImageMinExtension

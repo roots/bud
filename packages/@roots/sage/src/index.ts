@@ -22,11 +22,11 @@ import {Sage} from './Sage'
 
 declare module '@roots/bud-framework' {
   /**
-   * {@inheritDoc @roots/bud-framework#Extensions}
+   * {@inheritDoc @roots/bud-framework#Modules}
    *
    * @public @override
    */
-  interface Extensions {
+  interface Modules {
     /**
      * {@inheritDoc @roots/sage#Sage}
      *

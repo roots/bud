@@ -22,7 +22,11 @@ declare module '@roots/bud-framework' {
     purge: purge
   }
 
-  interface Extensions {
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
     '@roots/bud-purgecss': Extension.Module
   }
 }
