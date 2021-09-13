@@ -1,4 +1,5 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
  * WordPress provides many packages which do not need to be included with project distributables.
@@ -10,7 +11,8 @@
  * @see https://github.com/roots/bud
 
  * @remarks
- * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension} as a peer extension.
+ * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension}
+ * as a peer extension.
  *
  * @extension @packageDocumentation @betaDocumentation
  */
@@ -25,7 +27,7 @@ declare module '@roots/bud-framework' {
    */
   interface Plugins {
     /**
-     * {@link @roots/wordpress-externals-webpack-plugin# | @roots/wordpress-externals-webpack-plugin} adapter
+     * {@link PluginAdapter}
      *
      * @public
      */

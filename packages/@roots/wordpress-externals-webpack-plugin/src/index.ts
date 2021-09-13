@@ -13,7 +13,7 @@ import {Compiler, ExternalsPlugin} from 'webpack'
 
 import {externals} from './externals'
 
-export class Plugin {
+export class WordPressExternals {
   public name = 'WordPressExternalsWebpackPlugin'
 
   public stage = Infinity

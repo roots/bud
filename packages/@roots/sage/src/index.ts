@@ -1,10 +1,10 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
- * The `@roots/sage` preset configures the `@roots/bud` framework
- * for the Sage starter theme.
+ * The {@link @roots/sage# | @roots/sage preset} configures Bud for use
+ * with the Sage starter theme
  *
- * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  * @see https://github.com/roots/sage
  *
@@ -26,7 +26,7 @@ declare module '@roots/bud-framework' {
    */
   interface Extensions {
     /**
-     * {@inheritDoc Sage}
+     * {@inheritDoc @roots/sage#Sage}
      *
      * @public
      */

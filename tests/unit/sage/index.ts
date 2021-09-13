@@ -1,7 +1,7 @@
 import '@roots/bud-api'
 
 import {config, factory, Framework} from '@roots/bud'
-import * as sage from '@roots/sage'
+import * as Sage from '@roots/sage'
 
 describe('@roots/sage', () => {
   let SAGE_DIR = process.cwd().concat('/examples/sage')
@@ -18,11 +18,11 @@ describe('@roots/sage', () => {
   }
 
   let bud: Framework = null
-  let bootSpy = jest.spyOn(sage, 'boot')
+  let bootSpy = jest.spyOn(Sage, 'boot')
 
   beforeAll(() => {
     bud = factory(SAGE_CFG)
-    bud.use(sage)
+    bud.use(Sage)
   })
 
   afterAll(done => {
@@ -30,7 +30,7 @@ describe('@roots/sage', () => {
   })
 
   it('extension has name prop', () => {
-    expect(sage.name).toBe('@roots/sage')
+    expect(Sage.name).toBe('@roots/sage')
   })
 
   it('extension boot method was called', () => {

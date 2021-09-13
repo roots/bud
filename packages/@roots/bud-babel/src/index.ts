@@ -1,8 +1,9 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds [Babel transpiler](https://github.com/babel/babel)
- * support to {@link @roots/bud-framework# | @roots/bud-framework}.
+ * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel
+ * transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.
 
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud

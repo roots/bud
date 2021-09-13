@@ -1,8 +1,13 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
 /**
+ * Static asset compression extension
+ *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'

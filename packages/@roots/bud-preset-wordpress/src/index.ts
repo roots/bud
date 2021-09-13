@@ -1,12 +1,31 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * Preset config for WordPress plugins & themes.
  *
  * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
  * @remarks
  * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ *
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ *
  * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @remarks
+ * This preset is a wrapper for the following presets:
+ *
+ * - {@link @roots/bud-preset-recommend# | @roots/bud-preset-recommend}
+ *
+ * - {@link @roots/bud-react# | @roots/bud-react}
+ *
+ * - {@link @roots/bud-wordpress-dependencies# | @roots/bud-wordpress-dependencies}
+ *
+ * - {@link @roots/bud-wordpress-externals# | @roots/bud-wordpress-externals}
+ *
+ * - {@link @roots/bud-wordpress-manifests# | @roots/bud-wordpress-manifests}
  *
  * @example
  * ```js
@@ -17,10 +36,10 @@
  * }
  * ```
  *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
-import type {Framework, Module} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import * as BudRecommendPreset from '@roots/bud-preset-recommend'
 import * as BudReactExtension from '@roots/bud-react'
 import * as BudWordPressDependenciesExtension from '@roots/bud-wordpress-dependencies'
@@ -28,15 +47,19 @@ import * as BudWordPressExternalsExtension from '@roots/bud-wordpress-externals'
 import * as BudWordPressManifestsExtension from '@roots/bud-wordpress-manifests'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-preset-wordpress': BudWordPressPreset
-    }
+  /**
+   * @public @override {@link @roots/bud-framework#Modules}
+   */
+  interface Modules {
+    /**
+     * @public {@inheritDoc BudWordPressPreset}
+     */
+    '@roots/bud-preset-wordpress': BudWordPressPreset
   }
 }
 
 /**
- * Preset configuration for WordPress plugins & themes
+ * Preset config for WordPress plugins & themes
  *
  * @remarks
  * This preset is a wrapper for the following presets:
@@ -46,18 +69,17 @@ declare module '@roots/bud-framework' {
  * - `@roots/bud-wordpress-externals`
  * - `@roots/bud-wordpress-manifests`
  *
- * @prop {Module['name']} name - The preset name
- * @prop {Module['register']} register - The preset register function
+ * @public
  */
-interface BudWordPressPreset extends Module {
+interface BudWordPressPreset extends Extension.Module {
   name: '@roots/bud-preset-wordpress'
   register: (app: Framework) => void
 }
 
-const name: BudWordPressPreset['name'] =
+export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
 
-const register: BudWordPressPreset['register'] = app => {
+export const register: BudWordPressPreset['register'] = app => {
   app.use([
     BudRecommendPreset,
     BudReactExtension,
@@ -66,5 +88,3 @@ const register: BudWordPressPreset['register'] = app => {
     BudWordPressManifestsExtension,
   ])
 }
-
-export {name, register}

@@ -15,9 +15,7 @@ interface GenericRepository {
 }
 
 /**
- * Generic type defining the {@link Service.bindClass} map of
- * classes to {@link Framework}
- property keys
+ * Generic type defining the {@link Service.bindClass} map of classes to {@link Framework} property keys
  *
  * @public
  */
@@ -27,31 +25,33 @@ interface GenericClassMap {
 
 /**
  * Generic type defining the {@link Service.bindMacro} map of
- * callable function interfaces to {@link Framework}
- property keys
+ * callable function interfaces to {@link Framework} property keys
  */
 interface GenericFunctionMap {
   [key: string]: CallableFunction
 }
 
 /**
- * Atomic unit of {@link Framework}
- functionality.
+ * Atomic unit of {@link Framework} functionality.
  *
  * @remarks
- *
- * A {@link Service} extends {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework}
- access
+ * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container}
+ * and {@link Framework} access
  *
  * A {@link Service} is tapped through a series of callbacks at different points in the build.
  *
  * All of the callbacks are optional:
  *
  * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+ *
  * - {@link Service.bootstrapped} is called once all Services have been instantiated.
+ *
  * - {@link Service.register} is intended for Services to register functionalities, modules, and bind functions and classes.
+ *
  * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.
+ *
  * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.
+ *
  * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.
  *
  * @typeParam Repository - {@link Repository} typing, if applicable
@@ -152,6 +152,10 @@ export abstract class Service<
    * app.service.bindClass({foo: fooFn})
    * ```
    *
+   * @remarks
+   * You should also override the {@link @roots/bud-framework# | '@roots/bud-framework' module} to ensure
+   * that your function typings are correctly implemented and exported.
+   *
    * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
    *
    * @public
@@ -201,7 +205,7 @@ export abstract class Service<
   ): void {
     /**
      *
-     * @param accumulator - {@link T}
+     * @param accumulator - {@link ClassMap}
      * @param param - Tuple of {@link Framework} prop names and provided {@link Class} definitions
      *
      * @internal

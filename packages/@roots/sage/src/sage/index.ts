@@ -5,14 +5,14 @@ import * as BudStylelintExtension from '@roots/bud-stylelint'
 import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 /**
- * Sage extension interface
+ * {@inheritDoc @roots/bud-framework#Extension.Module}
  *
  * @public
  */
 export interface Sage extends Extension.Module {}
 
 /**
- * Sage preset
+ * Sage preset configuration for the {@link @roots/bud-framework# | @roots/bud-framework}
  *
  * @public @config
  */

@@ -1,19 +1,39 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
- * ⚡️ Bud/Framework - Extensible build tools framework for modern web development
+ * ⚡️ Bud/Framework - Extensible build tooling for modern web development
  *
- * @remarks
-
- * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the abstract {@link Framework} class
- * and provides interfaces for the Framework's essential {@link Service} classes.
+ * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the
+ * abstract {@link Framework} class and provides interfaces for the Framework's
+ * essential {@link Service} classes.
  *
- * {@link (Framework:class)} is an abstract class providing contracts for {@link Service} implementations.
+ * The overarching design goal of this architecture is to make it as simple as
+ * possible to swap out the underlying {@link Service} implementations without
+ * having to modify the core framework code.
+ *
+ * To that effect, interoperability with other build tools is possible through
+ * extending the {@link Framework} class and adding or modifying {@link Service}
+ * classes.
+ *
+ * The original implementation uses Webpack as the underlying
+ * build tool, but this is not a requirement for future implementations and
+ * we've done our best to maintain a separation of core code from
+ * the build tool we are currently leveraging.
+ *
+ * We sincerely hope that these efforts will help you build a better web.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @core
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation
  */
 
 import Build, {Item, Loader, Rule} from './Build'
