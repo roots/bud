@@ -1,5 +1,10 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
+ * Adds DLL support to Bud
+
  * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
  * @extension @packageDocumentation @betaDocumentation
  */

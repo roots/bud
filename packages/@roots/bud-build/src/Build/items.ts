@@ -3,7 +3,11 @@ import type {Framework} from '@roots/bud-framework'
 import Item from '../Item'
 
 /**
- * Returns {@link Item} for assets
+ * {@link @roots/bud-framework#Items.asset | asset factory}
+ *
+ * @returns {@link @roots/bud-build#Item | Item}
+ *
+ * @public
  */
 export const asset = () =>
   new Item({
@@ -18,7 +22,11 @@ export const asset = () =>
   })
 
 /**
- * Returns {@link Item} for css
+ * {@link @roots/bud-framework#Items.css | css factory}
+ *
+ * @returns {@link @roots/bud-build#Item | Item}
+ *
+ * @public
  */
 export const css = () =>
   new Item({

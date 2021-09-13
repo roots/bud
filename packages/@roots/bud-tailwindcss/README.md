@@ -24,12 +24,12 @@
   </a>
 </p>
 
-
 <h1 align="center">
   <strong>@roots/bud-tailwindcss</strong>
 </h1>
 
 > Adds tailwindcss support to Bud
+
 ## Installation
 
 Install **@roots/bud-tailwindcss** to your project.

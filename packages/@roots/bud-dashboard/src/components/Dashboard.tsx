@@ -18,6 +18,14 @@ const {useStyle} = InkUseStyle
 const {Fragment, useRef, useState} = React
 const {Box, Newline, Static, Text, useStdin} = Ink
 
+/**
+ * Dashboard display component
+ *
+ * @param app - {@link @roots/bud-framework#Framework | Framework}
+ * @returns ReactElement
+ *
+ * @public
+ */
 const Dashboard = ({bud}: {bud: Framework}) => {
   /**
    * Bud instance
@@ -41,10 +49,21 @@ const Dashboard = ({bud}: {bud: Framework}) => {
     errors: [],
   })
 
+  /**
+   * True if `rawmode` is supported in terminal
+   */
   const {isRawModeSupported} = useStdin()
 
+  /**
+   * Formatting utilities for filesize, duration in seconds
+   */
   const {fileSize, duration} = useFormatter()
 
+  /**
+   * CLI theming
+   *
+   * @see {@link @roots/ink-use-style#useStyle | @roots/ink-use-style useStyle hook}
+   */
   const theme = useStyle(bud?.store?.get('theme'))
 
   patchConsole((stream, data) => {

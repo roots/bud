@@ -1,14 +1,12 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
+ * Adds MDX support to Bud
+
  * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
- * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'

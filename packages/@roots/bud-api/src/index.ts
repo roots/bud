@@ -7,7 +7,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import {Api, Repository} from './Api'

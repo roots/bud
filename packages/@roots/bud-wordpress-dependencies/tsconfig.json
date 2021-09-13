@@ -7,11 +7,17 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest"
+      "jest",
+      "@roots/bud-framework"
     ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "types"
   ],
   "references": [
     {

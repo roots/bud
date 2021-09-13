@@ -1,10 +1,12 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * Add stylelint support to Bud projects
+ * Add stylelint support to Bud
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
- *
- * @extension @betaDocumentation @packageDocumentation
+
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import type {Extension, Framework} from '@roots/bud-framework'
@@ -12,13 +14,10 @@ import type {Container} from '@roots/container'
 import StylelintWebpackPlugin, {
   Options,
 } from 'stylelint-webpack-plugin'
-import type {WebpackPluginInstance} from 'webpack'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      'stylelint-webpack-plugin': BudStylelintWebpackPlugin
-    }
+  interface Extensions {
+    'stylelint-webpack-plugin': BudStylelintWebpackPlugin
   }
 }
 
@@ -32,9 +31,7 @@ interface BudStylelintWebpackPlugin
   options(
     app: Framework,
   ): Extension.CompilerPlugin['options'] & Options
-  make(
-    options: Container<Options>,
-  ): WebpackPluginInstance & StylelintWebpackPlugin
+  make(options: Container<Options>): StylelintWebpackPlugin
 }
 
 const BudStylelintWebpackPlugin: BudStylelintWebpackPlugin = {

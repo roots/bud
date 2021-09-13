@@ -3,20 +3,30 @@ import {Service} from '@roots/bud-framework'
 import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
 
+/**
+ * {@inheritDoc @roots/bud-framework#Env}
+ *
+ * @public
+ */
 export default class extends Service<Index<any>> implements Env {
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.env}
+   *
+   * @public
+   */
   public name = 'env'
 
   /**
-   * Returns path to .env file
+   * Accessor: path to .env file
    *
-   * @readonly
+   * @public @readonly
    */
   public get envPath(): string {
     return this.app.path('project', '.env')
   }
 
   /**
-   * The service bootstrap method
+   * {@inheritDoc @roots/bud-framework#Service.bootstrap}
    *
    * @public
    * @decorator `@bind`

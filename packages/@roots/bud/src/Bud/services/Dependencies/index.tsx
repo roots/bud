@@ -5,11 +5,32 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import {isEqual} from 'lodash'
 
+/**
+ * Bud Dependencies Service class
+ *
+ * @public
+ */
 class Dependencies extends Service<null> {
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public @override
+   */
   public name = 'dependencies'
 
+  /**
+   * Dependencies installation manager
+   *
+   * @public
+   */
   public manager: DependenciesManager
 
+  /**
+   * {@link @roots/bud-framework#Service.register}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public register() {
     this.manager = new DependenciesManager(
@@ -17,11 +38,29 @@ class Dependencies extends Service<null> {
     )
   }
 
+  /**
+   * Read project `package.json` manifest
+   *
+   * @returns {object}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public readProjectJson() {
     return readJsonSync(this.app.path('project', 'package.json'))
   }
 
+  /**
+   * Override installation target?
+   *
+   * @param dep - dependency in question
+   * @param proposed - proposed installation target
+   * @returns whether to install it differently than proposed
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public overrideInstallTarget(
     dep: string,
@@ -40,6 +79,17 @@ class Dependencies extends Service<null> {
     return false
   }
 
+  /**
+   * Installs all the things
+   *
+   * @internalRemarks
+   * #TODO: Fix this mess of a function and make it better. It's not good. -- GPT3
+   *
+   * @param deps - dependencies to install
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public install(
     deps: {

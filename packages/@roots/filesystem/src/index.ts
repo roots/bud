@@ -1,7 +1,12 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * `@roots/filesystem` is a simple, high-level virtual filesystem.
+ * A simple, high-level virtual filesystem.
  *
- * @packageDocumentation
+ * @beta
+ * This package is provided as-is.
+ *
+ * @packageDocumentation @betaDocumentation
  */
 
 export {FileContainer} from './FileContainer'

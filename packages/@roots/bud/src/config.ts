@@ -1,17 +1,51 @@
 import type {Configuration} from '@roots/bud-framework'
 
 /**
- * Base config repository
+ * {@inheritDoc @roots/bud-framework#Configuration}
  *
- * @public
+ * @public @config
  */
 const config: Configuration = {
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.name}
+   *
+   * @public
+   */
   name: 'bud',
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.cli}
+   *
+   * @public
+   */
   cli: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.clean}
+   *
+   * @public
+   */
   clean: true,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.debug}
+   *
+   * @public
+   */
   debug: true,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.dev}
+   *
+   * @public
+   */
   discover: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.hash}
+   *
+   * @public
+   */
   hash: false,
   html: false,
   install: false,

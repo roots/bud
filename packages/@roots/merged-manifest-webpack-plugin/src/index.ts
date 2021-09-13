@@ -1,6 +1,4 @@
-/**
- * @module @roots/merged-manifest-webpack-plugin
- */
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
 
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
@@ -9,13 +7,25 @@ import {format} from 'prettier'
 import * as Webpack from 'webpack'
 
 /**
- * @class MergedManifestWebpackPlugin
+ * MergedManifestWebpackPlugin
+ *
+ * @public
  */
 class MergedManifestWebpackPlugin {
+  /**
+   * Plugin ident
+   *
+   * @public
+   */
   public plugin = {
     name: 'MergedManifestPlugin',
   }
 
+  /**
+   * Directory where the manifest will be written.
+   *
+   * @public
+   */
   public dir: string
 
   public path: string
@@ -26,6 +36,11 @@ class MergedManifestWebpackPlugin {
 
   public wordpressName = 'wordpress.json'
 
+  /**
+   * Plugin constructor
+   *
+   * @public
+   */
   public constructor(options?: {
     entrypointsName?: string
     wordpressName?: string

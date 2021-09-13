@@ -1,25 +1,41 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * @see https://roots.io/bud
+ * Recommended preset configuration for Bud.
  *
  * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ * This preset is a wrapper for the following presets:
  *
- * @packageDocumentation
+ * - {@link @roots/bud-babel# | @roots/bud-babel}
+ *
+ * - {@link @roots/bud-postcss# | @roots/bud-postcss}
+ *
+ * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {BudPresetRecommend} from './BudPresetRecommend'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-preset-recommend': BudPresetRecommend
-    }
+  /**
+   * {@inheritDoc @roots/bud-framework#Extensions}
+   *
+   * @public @override
+   */
+  interface Extensions {
+    /**
+     * {@inheritDoc @roots/bud-preset-recommend#BudPresetRecommend}
+     *
+     * @public
+     */
+    '@roots/bud-preset-recommend': BudPresetRecommend
   }
 }
 
 export const {name, register} = BudPresetRecommend
+
 export type {BudPresetRecommend}

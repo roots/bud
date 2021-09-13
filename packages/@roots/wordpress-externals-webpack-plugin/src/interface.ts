@@ -1,5 +1,8 @@
 /**
- * @namespace WordPressExternals
+ * WordPressExternals
+ *
+ * @public
+ * @todo remove namespacing
  */
 namespace WordPressExternals {
   export type Output = {

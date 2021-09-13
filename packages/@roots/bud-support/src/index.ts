@@ -1,21 +1,24 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * This package is a collection of internal dependencies utilized by the build system.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
  * @remarks
- * `@roots/bud-tailwindcss` adds [tailwindcss](https://tailwindcss.com/') to [@roots/bud](https://github.com/roots/bud)
+ * This package is bundled with \@vercel/ncc. Sometimes type definitions can be a little iffy.
  *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
+ * It is recommended for extension authors to include their type definitions separately. You can
+ * ensure that these packages are included in the runtime by specifying your type imports with
+ * `import type` syntax.
  *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'

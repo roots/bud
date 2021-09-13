@@ -1,9 +1,16 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * React hook for use with the ink cli library
+ * React hook for easy styling of Ink components.
  *
- * @packageDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
+/**
+ * Theme interface
+ *
+ * @public
+ */
 export interface Theme {
   spacing: Theme.Spacing
   colors: Theme.Colors
@@ -20,6 +27,7 @@ export namespace Theme {
 }
 
 export {useStyle} from './useStyle/index'
+
 export type {Styles} from './useStyle/index'
 
 export {defaultTheme} from './themes'

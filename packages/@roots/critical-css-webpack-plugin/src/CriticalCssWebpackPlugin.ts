@@ -7,12 +7,16 @@ import * as Webpack from 'webpack'
 import type {Options} from './interface'
 
 /**
- * @const HtmlWebpackPlugin
+ * HtmlWebpackPlugin
+ *
+ * @public
  */
 const HtmlWebpackPlugin = safeRequire('html-webpack-plugin')
 
 /**
- * @const INIT_OPTIONS
+ * Default options
+ *
+ * @public
  */
 const INIT_OPTIONS = {
   criticalOptions: {
@@ -24,10 +28,14 @@ const INIT_OPTIONS = {
 
 /**
  * CriticalCSSWebpackPlugin
+ *
+ * @public
  */
 class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
+   *
+   * @public
    */
   public plugin = {
     name: 'CriticalCssWebpackPlugin',
@@ -36,6 +44,8 @@ class CriticalCssWebpackPlugin {
 
   /**
    * Webpack lifecycle events
+   *
+   * @public
    */
   public webpack: {
     compiler: Webpack.Compiler
@@ -46,20 +56,22 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * @private
+   * Plugin options
+   *
+   * @defaultValue {@link INIT_OPTIONS}
+   *
+   * @internal
    */
-  private _options: Options = INIT_OPTIONS
+  public _options: Options = INIT_OPTIONS
 
   /**
-   * Access: get options
+   * Accessor: get options
+   *
+   * @public
    */
   public get options(): Options {
     return this._options
   }
-
-  /**
-   * Access: set options
-   */
   public set options(options: Options) {
     this._options = {
       ...this._options,
@@ -70,7 +82,7 @@ class CriticalCssWebpackPlugin {
   /**
    * chunks to be written to json
    *
-   * @var {[type]}
+   * @public
    */
   public entrypoints: {
     [key: string]: any
@@ -79,23 +91,24 @@ class CriticalCssWebpackPlugin {
   /**
    * Class constructor
    *
-   * @param   {Options}  options criticalcss options
+   * @param options - {@link Options}
+   *
+   * @public
    */
   public constructor(options?: Options) {
     Object.assign(this, {options})
   }
 
   /**
-   * apply plugin
+   * Webpack apply hook
    *
    * @remarks
-   * This method is called by webpack.
+   * Webpack compiler callback
    *
-   * @see {@link WebpackPluginInstance['apply']}
-   *
-   * @param   {Webpack.Compiler} compiler
+   * @param compiler - Webpack compiler
    * @returns {Promise<void>}
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -109,9 +122,10 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * [Compilation description]
+   * Compilation hook
    *
-   * @var {[type]}
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public compilation(compilation: Webpack.Compilation): void {
@@ -125,6 +139,9 @@ class CriticalCssWebpackPlugin {
 
   /**
    * Process assets
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async processAssets(
@@ -149,6 +166,9 @@ class CriticalCssWebpackPlugin {
 
   /**
    * Critical css from aggregated entrypoint css sources
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async criticalEntry(
@@ -180,6 +200,9 @@ class CriticalCssWebpackPlugin {
 
   /**
    * Get merged css modules
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public getMergedCssModules(chunk) {
@@ -194,6 +217,9 @@ class CriticalCssWebpackPlugin {
 
   /**
    * Returns either the entrypoint name or the entrypoint name with a hash
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public maybeHashName(

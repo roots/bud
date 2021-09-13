@@ -1,23 +1,27 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * This extension wraps {@link @roots/critical-css-webpack-plugin#CriticalCSSPlugin | @roots/critical-css-webpack-plugin}
+ * and provides criticalcss support.
  *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * @beta
+ * This extension is under active development. But it should not be considered stable and there may be breaking changes.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- * The `@roots/bud-criticalcss` package adds criticalcss support to [@roots/bud](https://github.com/roots/bud)
- *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
 import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
+  /**
+   * {@inheritDoc @roots/bud-framework#Framework}
+   *
+   * @override
+   */
   interface Framework {
     critical: critical
   }

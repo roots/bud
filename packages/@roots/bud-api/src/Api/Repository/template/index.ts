@@ -13,7 +13,7 @@ import * as BudInterpolateHtmlPlugin from './BudInterpolateHtmlPlugin'
  *
  * @public @config
  */
-interface template {
+export interface template {
   (this: Framework, userOptions?: Options): Framework
 }
 
@@ -68,7 +68,7 @@ interface Options extends HtmlOptions {
  *
  * @public @config
  */
-const template: template = function (
+export const template: template = function (
   userOptions?: Options,
 ): Framework {
   /**
@@ -134,5 +134,3 @@ const template: template = function (
 
   return this
 }
-
-export {template as default}

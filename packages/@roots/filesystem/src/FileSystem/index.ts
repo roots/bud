@@ -5,11 +5,22 @@ import * as path from 'path'
 
 import {FileContainer} from '..'
 
+/**
+ * FileSystem class
+ *
+ * @public
+ */
 export class FileSystem extends Container<FileContainer> {
   /**
-   * PlatformPath
+   * @internal
    */
   private _path: path.PlatformPath = path
+
+  /**
+   * Accessor: path
+   *
+   * @public
+   */
   public get path(): path.PlatformPath {
     return this._path
   }

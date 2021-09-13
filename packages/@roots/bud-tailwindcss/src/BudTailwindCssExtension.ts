@@ -1,8 +1,8 @@
-import type {Framework, Module} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 
 import {tailwindConfig} from './tailwindConfig'
 
-interface BudTailwindCssExtension extends Module {
+interface BudTailwindCssExtension extends Extension.Module {
   api: {tailwind: tailwindConfig}
   boot: (app: Framework) => void
 }

@@ -1,6 +1,8 @@
 import * as BudBabelExtension from '@roots/bud-babel'
 import * as BudEntrypointsPlugin from '@roots/bud-entrypoints'
-import type {WebpackPlugin} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {Factory} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import * as BudPostCssExtension from '@roots/bud-postcss'
 
 /**
@@ -9,33 +11,34 @@ import * as BudPostCssExtension from '@roots/bud-postcss'
  * @remarks
  * This preset is a wrapper for the following presets:
  *
- * - {@link @roots/bud-preset-recommend#}
+ * - {@link @roots/bud-babel# | @roots/bud-babel}
  *
- * - {@link @roots/bud-react#}
+ * - {@link @roots/bud-postcss# | @roots/bud-postcss}
  *
- * - {@link @roots/bud-wordpress-dependencies#}
+ * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
  *
- * - {@link @roots/bud-wordpress-externals#}
- *
- * - {@link @roots/bud-wordpress-manifests#}
- *
- * @public @config
+ * @public
  */
-export interface BudPresetRecommend extends WebpackPlugin {}
+export interface BudPresetRecommend extends Extension.Module {
+  name: '@roots/bud-preset-recommend'
+  register: Factory<[Framework], unknown>
+}
 
 /**
  * Recommended preset configuration for Bud.
+ *
+ * @public
  */
 export const BudPresetRecommend: BudPresetRecommend = {
   /**
-   * {@inheritDoc @roots/bud-framework#Module}
+   * {@inheritDoc @roots/bud-framework#Extension.Module.name}
    *
    * @public
    */
   name: '@roots/bud-preset-recommend',
 
   /**
-   * {@inheritDoc @roots/bud-framework#register}
+   * {@inheritDoc @roots/bud-framework#Extension.Module.register}
    *
    * @public
    */

@@ -1,23 +1,50 @@
 import * as BudEslintExtension from '@roots/bud-eslint'
-import type {Module} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 import * as PresetWordPress from '@roots/bud-preset-wordpress'
 import * as BudStylelintExtension from '@roots/bud-stylelint'
 import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
-interface sage extends Module {}
+/**
+ * Sage extension interface
+ *
+ * @public
+ */
+export interface Sage extends Extension.Module {}
 
-const sage: sage = {
+/**
+ * Sage preset
+ *
+ * @public @config
+ */
+export const Sage: Sage = {
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.Module.name}
+   *
+   * @public
+   */
   name: '@roots/sage',
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.Module.register}
+   *
+   * @public
+   */
+  register(app) {
+    app.use([
+      PresetWordPress,
+      BudEslintExtension,
+      BudStylelintExtension,
+      BudTailwindCssExtension,
+    ])
+  },
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.Module.boot}
+   *
+   * @public
+   */
   boot(app) {
     app
-      .use([
-        PresetWordPress,
-        BudEslintExtension,
-        BudStylelintExtension,
-        BudTailwindCssExtension,
-      ])
-
       .setPath({
         storage: 'storage/bud',
         src: 'resources',
@@ -47,5 +74,3 @@ const sage: sage = {
       )
   },
 }
-
-export {sage}

@@ -6,6 +6,11 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
+/**
+ * Initial state
+ *
+ * @public
+ */
 const INITIAL_STATS = {
   assets: [],
   errors: [],
@@ -13,44 +18,57 @@ const INITIAL_STATS = {
 }
 
 /**
- * Webpack compilation controller
+ * Webpack compilation controller interface
+ *
+ * @public
  */
 interface Compiler extends Contract {}
 
+/**
+ * Wepback compilation controller class
+ *
+ * @public
+ */
 class Compiler extends Service {
   /**
-   * {@link Service} name
+   * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public
    */
   public name = 'compiler'
 
   /**
-   * {@link Webpack} instance
+   * Compiler instance
+   *
+   * @public
    */
   public instance: Contract.Instance
 
   /**
    * Compilation stats
+   *
+   * @public
    */
   public stats: StatsCompilation = INITIAL_STATS
 
   /**
-   * Compilation progress as reported by {@link ProgressPlugin}
+   * Compilation progress
+   *
+   * @public
    */
   public progress: Contract.Progress
 
   /**
    * True if compiler is already instantiated
+   *
+   * @public
    */
   public isCompiled: boolean = false
 
   /**
-   * Lifecycle method: bootstrapped
+   * {@inheritDoc @roots/bud-framework#Service.register}
    *
-   * @remarks
-   * Registers hooks filtered before and after
-   * the instantiation of Webpack as well as one additional hook
-   * which is filtered at the tail of the Webpack compiler callback.
-   *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -60,7 +78,12 @@ class Compiler extends Service {
   }
 
   /**
-   * Initiate webpack compilation process
+   * Initiates compilation
+   *
+   * @returns the compiler instance
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public compile(): Contract.Instance {
@@ -77,6 +100,9 @@ class Compiler extends Service {
 
   /**
    * Returns final webpack configuration
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public before() {
@@ -121,6 +147,10 @@ class Compiler extends Service {
     return config
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setup(config: any) {
     this.instance = webpack(config)
@@ -141,7 +171,10 @@ class Compiler extends Service {
   }
 
   /**
-   * Webpack compilation callback
+   * Compilation callback
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public callback(...args: any[]) {

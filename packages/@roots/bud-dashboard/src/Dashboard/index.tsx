@@ -15,20 +15,25 @@ import {Error} from '../Error'
  *
  * @public
  */
-class Dashboard extends Base implements Contract {
+export class Dashboard extends Base implements Contract {
   /**
    * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public
    */
   public name = 'dashboard'
 
   /**
    * The {@link Ink} instance
+   *
+   * @public
    */
   public instance: Ink.Instance
 
   /**
    * {@inheritDoc @roots/bud-framework#Service.register}
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -39,6 +44,7 @@ class Dashboard extends Base implements Contract {
   /**
    * {@inheritDoc @roots/bud-framework#Service.booted}
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -56,6 +62,7 @@ class Dashboard extends Base implements Contract {
    * By default the `cli` entry is false. However, the
    * cli class from `@roots/bud` sets it to `true`.
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -78,6 +85,7 @@ class Dashboard extends Base implements Contract {
    *
    * @see {@link Framework.error}
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -96,6 +104,7 @@ class Dashboard extends Base implements Contract {
    * @param Component - The body of the screen
    * @param title - The title of the screen
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -128,5 +137,3 @@ class Dashboard extends Base implements Contract {
     }
   }
 }
-
-export {Dashboard}

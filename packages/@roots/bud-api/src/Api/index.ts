@@ -19,7 +19,7 @@ import run from './Repository/run'
 import runtime from './Repository/runtime'
 import setPublicPath from './Repository/setPublicPath'
 import splitChunks from './Repository/splitChunks'
-import template from './Repository/template'
+import {template} from './Repository/template'
 import use from './Repository/use'
 import watch from './Repository/watch'
 
@@ -68,9 +68,9 @@ class Api extends Service<Repository> {
   public name = 'api'
 
   /**
-   * Collection of high-level functions used to configure the project
+   * A {@link @roots/container#Repository | Repository} of high-level functions used to configure the project
    *
-   * @public
+   * @override @public
    */
   public repository: Repository = {
     alias,

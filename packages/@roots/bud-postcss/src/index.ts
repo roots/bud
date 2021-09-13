@@ -1,9 +1,12 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
+ * Adds PostCSS support to Bud
+
  * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 declare module '@roots/bud-framework' {

@@ -4,7 +4,7 @@
  * The {@link @roots/container# | @roots/container} package provides
  * a simple chainable interface for working with collections of data
  *
- * @packageDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 export {Container} from './Container'

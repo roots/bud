@@ -28,6 +28,23 @@ interface LoaderOptions {
   jsxFragment?: string
 }
 
+/**
+ * Configure esbuild-loader options
+ *
+ * @remarks
+ * This plugin is in beta and is provided as-is. There may
+ * be breaking changes. It is not currently a development
+ * priority.
+ *
+ * @example
+ * ```js
+ * bud.babel.setOptions({
+ *  target: 'es2020',
+ * })
+ * ```
+ *
+ * @beta @config
+ */
 export const setOptions: setOptions = function (
   type,
   opts,

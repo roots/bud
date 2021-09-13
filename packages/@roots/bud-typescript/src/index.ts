@@ -1,7 +1,20 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * @see https://roots.io/bud
+ * Adds TypeScript support to Bud
  *
- * @packageDocumentation
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @remarks
+ * You should absolutely use this extension
+ *
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'
@@ -20,6 +33,8 @@ declare module '@roots/bud-framework' {
      * ```js
      * bud.typecheck()
      * ```
+     *
+     * @public
      */
     typecheck: typecheck
   }

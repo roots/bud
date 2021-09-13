@@ -1,36 +1,23 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * Add solid.js to Bud
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
- *
- * @remarks
- * Add solid.js support to Bud projects
- *
- * @export {name} The name of the extension
- * @export {boot} The service boot function
- *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
- *
- * @packageDocumentation
+
+ * @extension @packageDocumentation @betaDocumentation
  */
 
-import type {Module} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-solid': Module
-    }
+  interface Extensions {
+    '@roots/bud-solid': BudSolidExtension
   }
 }
 
-interface BudSolidExtension extends Module {}
+interface BudSolidExtension extends Extension.Module {}
 
 const BudSolidExtension: BudSolidExtension = {
   name: '@roots/bud-solid',

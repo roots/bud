@@ -6,6 +6,11 @@ import {
 } from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   *
+   * @public @override
+   */
   interface Plugins {
     'webpack-provide-plugin': Extension.CompilerPlugin
     'clean-webpack-plugin': Extension.CompilerPlugin
@@ -19,6 +24,11 @@ declare module '@roots/bud-framework' {
     'mini-css-extract-plugin': Extension.CompilerPlugin
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Loaders}
+   *
+   * @public @override
+   */
   interface Loaders {
     css: Loader.Interface
     csv: Loader.Interface
@@ -32,6 +42,11 @@ declare module '@roots/bud-framework' {
     xml: Loader.Interface
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Items}
+   *
+   * @public @override
+   */
   interface Items {
     css: Item.Interface
     csv: Item.Interface
@@ -47,6 +62,11 @@ declare module '@roots/bud-framework' {
     xml: Item.Interface
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Rules}
+   *
+   * @public @override
+   */
   interface Rules {
     js: Rule.Interface
     css: Rule.Interface

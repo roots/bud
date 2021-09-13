@@ -2,12 +2,12 @@
 
 /**
  * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds [Babel transpiler](https://github.com/babel/babel)
- * support to {@link @roots/bud# | @roots/bud}.
+ * support to {@link @roots/bud-framework# | @roots/bud-framework}.
 
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @public @extension @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {Item, Loader} from '@roots/bud-build'

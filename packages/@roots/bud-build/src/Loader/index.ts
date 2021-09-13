@@ -16,6 +16,9 @@ export default class
   extends Loader.Abstract
   implements Loader.Interface
 {
+  /**
+   * {@link @roots/bud-framework#Factory | Factory} returning the loader path
+   */
   public src: Factory<[Framework], string>
 
   /**
@@ -32,10 +35,13 @@ export default class
   }
 
   /**
-   * Factory producing the final loader path
+   * {@link @roots/bud-framework#Factory | Factory} producing the final loader path
    *
    * @param app - {@link @roots/bud-framework#Framework}
    * @returns final loader path
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public make(app: Framework): string {
@@ -43,10 +49,12 @@ export default class
   }
 
   /**
-   * Ensure that a value is a factory
+   * Ensure that a userInput is assigned to the class as a {@link @roots/bud-framework#Factory | Factory}
    *
    * @param input - input value
-   * @returns
+   * @returns normalized value from user input
+   *
+   * @public
    */
   public normalizeInput<T = any>(
     input: Maybe<[Framework], T>,

@@ -1,26 +1,17 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved. Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * Adds tailwindcss support to Bud
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @remarks
- * - 💁 Composable - Build boss web applications with a modular, hackable build system
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @remarks
- * `@roots/bud-tailwindcss` adds [tailwindcss](https://tailwindcss.com/') to [@roots/bud](https://github.com/roots/bud)
- *
- * @export {name} The extension name
- * @export {api} The extension API
- * @export {boot} The extension boot function
- * @export {BudTailwindCssExtension} The extension interface
- *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
- *
- * @packageDocumentation
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 declare module '@roots/bud-framework' {
@@ -28,7 +19,7 @@ declare module '@roots/bud-framework' {
     /**
      * Configure tailwindcss.
      *
-     * @usage
+     * @example
      * ```js
      * bud.tailwind('tailwind.config.js')
      * ```
@@ -40,14 +31,14 @@ declare module '@roots/bud-framework' {
      *   }
      * })
      * ```
+     *
+     * @public @config
      */
     tailwind: tailwindConfig
   }
 
-  namespace Framework {
-    interface Extensions {
-      '@roots/bud-tailwindcss': BudTailwindCssExtension
-    }
+  interface Modules {
+    '@roots/bud-tailwindcss': BudTailwindCssExtension
   }
 }
 
