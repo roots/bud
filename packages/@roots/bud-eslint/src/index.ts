@@ -1,5 +1,5 @@
 // Copyright (c) Roots Foundation, LLC. All rights reserved.
-Licensed under the MIT license.
+// Licensed under the MIT license.
 
 /**
  * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix

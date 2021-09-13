@@ -1,3 +1,6 @@
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
 /**
  * Imagemin adapter for Bud
  *
@@ -15,6 +18,10 @@ import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
 declare module '@roots/bud-framework' {
+  /**
+   * {@inheritDoc @roots/bud-framework#Framework}
+   * @public @override
+   */
   interface Framework {
     /**
      * Manage image minimizer plugins and options
