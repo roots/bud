@@ -1,6 +1,11 @@
-import {factory, Module} from '@roots/bud'
+import {factory} from '@roots/bud'
 import {Extensions} from '@roots/bud-extensions'
-import {Framework} from '@roots/bud-framework'
+import {
+  Extension,
+  Framework,
+  Modules,
+  Plugins,
+} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
 describe('Extensions', function () {
@@ -14,7 +19,7 @@ describe('Extensions', function () {
     test: 'foo',
   }
 
-  let mockModule: Module = {
+  let mockModule: Extension.Module = {
     name: '@roots/bud-postcss',
     register: jest.fn(app => null),
     boot: jest.fn(app => null),
@@ -43,7 +48,7 @@ describe('Extensions', function () {
 
   it('add fn registers a module', () => {
     const extensions: Extensions = new Extensions(bud)
-    extensions.repository = {} as Framework.Extensions
+    extensions.repository = {} as Modules
 
     extensions.add(mockModule)
 
@@ -54,7 +59,7 @@ describe('Extensions', function () {
 
   it('getEligibleWebpackModules returns webpack plugins to be used in compilation', () => {
     const extensions: Extensions = new Extensions(bud)
-    extensions.repository = {} as Framework.Extensions
+    extensions.repository = {} as Modules | Plugins
 
     extensions.add(mockModule)
 

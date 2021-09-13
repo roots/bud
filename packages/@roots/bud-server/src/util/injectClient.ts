@@ -1,7 +1,3 @@
-/**
- * @module @roots/bud-server
- */
-
 import {Framework} from '@roots/bud-framework'
 import * as Webpack from 'webpack'
 
@@ -46,12 +42,6 @@ const injectClient: InjectClient = (app, injection) => {
   })
 }
 
-/**
- * @exports injectClient
- */
 export {injectClient}
 
-/**
- * @exports InjectClient
- */
 export type {InjectClient}

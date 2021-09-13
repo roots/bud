@@ -1,19 +1,17 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * Hooks system used for framework eventing.
  *
  * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
  *
  * @remarks
- * The `@roots/bud-hooks` package implements the {@link Hooks Hooks Service}
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
  *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  *
- * @packageDocumentation
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation @betaDocumentation
  */
 
 export {Hooks} from './Hooks'

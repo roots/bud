@@ -155,10 +155,6 @@ class MergedManifestWebpackPlugin {
   }
 }
 
-/**
- * @exports MergedManifestWebpackPlugin
- * @exports default
- */
 export {
   MergedManifestWebpackPlugin,
   MergedManifestWebpackPlugin as default,

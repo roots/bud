@@ -18,7 +18,7 @@
  * @packageDocumentation
  */
 
-import {Framework, Extension} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
 import {EslintConfig} from './api'

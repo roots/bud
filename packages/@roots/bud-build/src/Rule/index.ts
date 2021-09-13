@@ -103,7 +103,7 @@ export default class Rule
 
   /**
    *
-   * @param app
+   * @param app - {@link @roots/bud-framework#Framework | Framework}
    * @returns
    *
    * @public

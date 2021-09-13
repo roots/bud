@@ -5,7 +5,7 @@ import execa from 'execa'
 /**
  * Publish errything to npm
  *
- * @remarks
+ * @internalRemarks
  * Doesn't wrap `yarn npm publish` command, because it lacks
  * flexibility in tagging (doesn't support `--tag` option with arbitrary tag names).
  * Instead, this wraps the `npm publish` command directly.
@@ -37,10 +37,7 @@ import execa from 'execa'
  * $ yarn ts-node ./dev/tasks/publish next
  * ```
  *
- * @param {string} tag - Tag to publish with
- * @param {boolean} dryRun - Dry run flag
- * @returns {void}
- * @throws {Error}
+ * @internal
  */
 ;(async () => {
   /**

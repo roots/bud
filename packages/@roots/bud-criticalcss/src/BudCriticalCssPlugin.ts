@@ -10,9 +10,7 @@ import {critical} from './critical'
 /**
  * Extends bud with critical css
  *
- * @remarks
- * The Webpack plugin providing this functionality is
- * {@link CriticalCssWebpackPlugin @roots/critical-css-webpack-plugin}
+ * @public
  */
 interface BudCriticalCssPlugin
   extends Extension.CompilerPlugin<

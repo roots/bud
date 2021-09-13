@@ -1,5 +1,5 @@
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ *  Development server features for the `@roots/bud` framework.
  *
  * - 💁 Composable - Build boss web applications with a modular, configurable build system
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
@@ -7,15 +7,6 @@
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
- *
- * @remarks
- * `@roots/bud-server` provides a development server
- * for the `@roots/bud` framework.
- *
- * @export {Server} - Server Service class
- *
- * @author Kelly Mears <kelly@roots.io>
- * @license MIT
  *
  * @packageDocumentation
  */

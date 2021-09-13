@@ -64,7 +64,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
 
   try {
     /**
-     * Write {type: module} into package.json so build will compile as ESM
+     * Writes type:module prop to package.json so build will compile as ESM
      */
     await writeJson(
       path.join(process.cwd(), `/packages/${pkg}/package.json`),
