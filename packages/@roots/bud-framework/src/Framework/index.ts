@@ -228,7 +228,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public server: Server
+  public server: Server.Interface
 
   /**
    * Container service for holding configuration values

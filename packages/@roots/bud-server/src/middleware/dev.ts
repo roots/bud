@@ -1,4 +1,5 @@
 import {Server} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {isNull, isUndefined} from 'lodash'
 import {Compiler, MultiCompiler} from 'webpack'
 import DevMiddleware from 'webpack-dev-middleware'
@@ -18,12 +19,12 @@ const middlewareConfigKeys = [
 /**
  * Make dev middleware
  */
-const dev: Server.Middleware.Init = ({
+const dev = ({
   compiler,
   config,
 }: {
   compiler: Compiler | MultiCompiler
-  config: Server.Config
+  config: Container<Server.Configuration>
 }) => {
   return DevMiddleware(compiler as any, options(config))
 }
@@ -32,7 +33,7 @@ const dev: Server.Middleware.Init = ({
  * Make dev middlware options
  */
 const options = (
-  config: Server.Config,
+  config: Container<Server.Configuration>,
 ): DevMiddleware.Options => ({
   writeToDisk: true,
   ...Object.fromEntries(

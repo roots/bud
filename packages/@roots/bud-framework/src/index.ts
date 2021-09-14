@@ -4,6 +4,7 @@
 /**
  * ⚡️ Bud/Framework - Extensible build tooling for modern web development
  *
+ * @remarks
  * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the
  * abstract {@link Framework} class and provides interfaces for the Framework's
  * essential {@link Service} classes.
@@ -33,7 +34,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import Build, {Item, Loader, Rule} from './Build'
@@ -43,6 +44,7 @@ import * as Extension from './Extensions/Extension'
 import {Constructor, Framework, Options} from './Framework'
 import * as Peers from './Peers'
 import * as Project from './Project'
+import * as Server from './Server'
 import {Service} from './Service'
 
 /**
@@ -85,6 +87,7 @@ export {Peers}
 export {Project}
 export {Rule}
 export {Service}
+export {Server}
 
 export {Bootstrapper} from './Bootstrapper'
 
@@ -100,7 +103,6 @@ export {Dependencies} from './Dependencies'
 export {Env} from './Env'
 export {Hooks} from './Hooks'
 export {Logger} from './Logger'
-export {Server} from './Server'
 
 /**
  * Util
@@ -108,6 +110,8 @@ export {Server} from './Server'
 
 /**
  * Loosely typed interface
+ *
+ * @public
  */
 export interface Loose {
   [key: string]: any
@@ -153,49 +157,67 @@ export type Maybe<A extends any[], T> = T | Factory<A, T>
 
 /**
  * Hash of a given object type
+ *
+ * @public
  */
 export type Index<T = any> = {[key: string]: T}
 
 /**
  * Compilation mode
+ *
+ * @public
  */
 export type Mode = 'production' | 'development'
 
 /**
  * Registered extensions
+ *
+ * @virtual @public
  */
 export interface Modules
   extends Partial<Index<Extension.Module>> {}
 
 /**
  * Registered plugins
+ *
+ * @virtual @public
  */
 export interface Plugins
   extends Partial<Index<Extension.CompilerPlugin>> {}
 
 /**
  * Registered loaders
+ *
+ * @virtual @public
  */
 export interface Loaders
   extends Partial<Index<Loader.Interface>> {}
 
 /**
  * Registered items
+ *
+ * @virtual @public
  */
 export interface Items extends Partial<Index<Item.Interface>> {}
 
 /**
  * Registered rules
+ *
+ * @virtual @public
  */
 export interface Rules extends Partial<Index<Rule.Interface>> {}
 
 /**
  * Registered locations
+ *
+ * @virtual @public
  */
 export interface Locations extends Partial<Index<string>> {}
 
 /**
  * Registered services
+ *
+ * @virtual @public
  */
 export interface Services
   extends Partial<Index<new (app: Framework) => Service>> {}
@@ -218,13 +240,21 @@ export interface PluginInstance {
 }
 
 /**
+ * Module
+ *
  * @deprecated Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead
+ *
+ * @public
  */
 export interface Module<P = any, O = any>
   extends Extension.Module<O> {}
 
 /**
+ * Module
+ *
  * @deprecated Use {@link Extension.CompilerPlugin} instead
+ *
+ * @public
  */
 export interface WebpackPlugin<P = any, O = any>
   extends Extension.CompilerPlugin<

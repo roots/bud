@@ -8,7 +8,9 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
-export {Server} from './Server'
+import Server from './Server'
+
+export {Server}

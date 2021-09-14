@@ -191,7 +191,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-framework!",
-  "docComment": "/**\n * ⚡️ Bud/Framework - Extensible build tooling for modern web development\n *\n * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the abstract {@link Framework} class and provides interfaces for the Framework's essential {@link Service} classes.\n *\n * The overarching design goal of this architecture is to make it as simple as possible to swap out the underlying {@link Service} implementations without having to modify the core framework code.\n *\n * To that effect, interoperability with other build tools is possible through extending the {@link Framework} class and adding or modifying {@link Service} classes.\n *\n * The original implementation uses Webpack as the underlying build tool, but this is not a requirement for future implementations and we've done our best to maintain a separation of core code from the build tool we are currently leveraging.\n *\n * We sincerely hope that these efforts will help you build a better web.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
+  "docComment": "/**\n * ⚡️ Bud/Framework - Extensible build tooling for modern web development\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
   "name": "@roots/bud-framework",
   "members": [
     {
@@ -893,7 +893,7 @@
             {
               "kind": "Class",
               "canonicalReference": "@roots/bud-framework!Cache_2.Abstract:class",
-              "docComment": "/**\n * Cache service abstract class\n *\n * @public @core @container\n */\n",
+              "docComment": "/**\n * Cache service abstract class\n *\n * @core @public @container\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1324,7 +1324,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Compiler:interface",
-          "docComment": "/**\n * Compiles {@link (Framework:class).build | Framework.build} configuration and reports on stats, progress, and errors encountered during compilation.\n *\n * @public @core @container\n */\n",
+          "docComment": "/**\n * Compiler service interface\n *\n * @remarks\n *\n * Compiles {@link @roots/bud-framework#Build.config | Build config} and reports on stats, progress, and errors encountered during compilation.\n *\n * @public @core @container\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1435,7 +1435,7 @@
             {
               "kind": "MethodSignature",
               "canonicalReference": "@roots/bud-framework!Compiler#compile:member(1)",
-              "docComment": "/**\n * Returns a {@link @roots/bud-framework#Compiler.\"instance\" | Compiler instance} when provided with a valid {@link Configuration}\n *\n * @remarks\n *\n * The {@link Framework} compiler should always be specified in a multi-compiler format (wrap a standard configuration in an array).\n *\n * @example\n * ```js\n * bud.compiler.compile()\n * ```\n *\n * @example\n * ```js\n * bud.compiler.compile([{\n *   entry: {app: 'foo.js'}\n * }])\n * ```\n *\n * @public\n */\n",
+              "docComment": "/**\n * Returns a {@link @roots/bud-framework#Compiler.\"instance\" | Compiler instance} when provided with a valid {@link Configuration}\n *\n * @example\n * ```js\n * bud.compiler.compile()\n * ```\n *\n * @example\n * ```js\n * bud.compiler.compile([{\n *   entry: {app: 'foo.js'}\n * }])\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3997,7 +3997,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Extensions:interface",
-          "docComment": "/**\n * Extensions Service interface\n *\n * @public @core\n */\n",
+          "docComment": "/**\n * Extensions Service interface\n *\n * @core @public @container\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4535,7 +4535,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#children:member",
-              "docComment": "/**\n * {@link Container} of child {@link Framework} instances\n *\n * @remarks\n *\n * Is `null` if the current instance is a child instance.\n *\n * @defaultValue\n *\n * null\n */\n",
+              "docComment": "/**\n * {@link @roots/container#Container} of child {@link Framework} instances\n *\n * @remarks\n *\n * Is `null` if the current instance is a child instance.\n *\n * @defaultValue\n *\n * null\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4613,7 +4613,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#compiler:member",
-              "docComment": "/**\n * Compiles {@link Build} configuration and stats/errors/progress reporting.\n *\n * @public\n */\n",
+              "docComment": "/**\n * Compiles {@link @roots/bud-framework#Build | Build} configuration and stats/errors/progress reporting.\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -7069,7 +7069,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@roots/bud-framework!Index:type",
-          "docComment": "/**\n * Hash of a given object type\n */\n",
+          "docComment": "/**\n * Hash of a given object type\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8060,7 +8060,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Items:interface",
-          "docComment": "/**\n * Registered items\n */\n",
+          "docComment": "/**\n * Registered items\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8582,7 +8582,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Loaders:interface",
-          "docComment": "/**\n * Registered loaders\n */\n",
+          "docComment": "/**\n * Registered loaders\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8629,7 +8629,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Locations:interface",
-          "docComment": "/**\n * Registered locations\n */\n",
+          "docComment": "/**\n * Registered locations\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8750,7 +8750,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Loose:interface",
-          "docComment": "/**\n * Loosely typed interface\n */\n",
+          "docComment": "/**\n * Loosely typed interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8934,7 +8934,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@roots/bud-framework!Mode:type",
-          "docComment": "/**\n * Compilation mode\n */\n",
+          "docComment": "/**\n * Compilation mode\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8959,7 +8959,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Module:interface",
-          "docComment": "/**\n * @deprecated\n *\n * Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead\n */\n",
+          "docComment": "/**\n * Module\n *\n * @deprecated\n *\n * Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -9032,7 +9032,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Modules:interface",
-          "docComment": "/**\n * Registered extensions\n */\n",
+          "docComment": "/**\n * Registered extensions\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -10495,7 +10495,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Plugins:interface",
-          "docComment": "/**\n * Registered plugins\n */\n",
+          "docComment": "/**\n * Registered plugins\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -13315,7 +13315,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Rules:interface",
-          "docComment": "/**\n * Registered rules\n */\n",
+          "docComment": "/**\n * Registered rules\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -13820,7 +13820,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@roots/bud-framework!Server#middleware:member",
-              "docComment": "/**\n * Registered server middlewares\n *\n * @public\n */\n",
+              "docComment": "/**\n * Server middleware\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -14419,7 +14419,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Services:interface",
-          "docComment": "/**\n * Registered services\n */\n",
+          "docComment": "/**\n * Registered services\n *\n * @virtual @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -14905,7 +14905,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!WebpackPlugin:interface",
-          "docComment": "/**\n * @deprecated\n *\n * Use {@link Extension.CompilerPlugin} instead\n */\n",
+          "docComment": "/**\n * Module\n *\n * @deprecated\n *\n * Use {@link Extension.CompilerPlugin} instead\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

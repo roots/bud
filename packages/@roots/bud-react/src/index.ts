@@ -6,7 +6,14 @@
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
-
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
  * @extension @packageDocumentation @betaDocumentation
  */
 
@@ -15,6 +22,10 @@ import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
 import {reactRefresh} from './reactRefresh'
 
 declare module '@roots/bud-framework' {
+  /**
+   * {@inheritDoc @roots/bud-framework#Frmaework}
+   * @public @override
+   */
   interface Framework {
     reactRefresh: reactRefresh
   }

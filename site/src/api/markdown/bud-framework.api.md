@@ -564,7 +564,7 @@ abstract class Item_3 {
     abstract setOptions(factory: Maybe<[Framework], Options_2>): void;
 }
 
-// @public
+// @public @virtual
 export interface Items extends Partial<Index<Item.Interface>> {
 }
 
@@ -591,11 +591,11 @@ interface LoaderInterface {
     src: Factory<[Framework], string>;
 }
 
-// @public
+// @public @virtual
 export interface Loaders extends Partial<Index<Loader.Interface>> {
 }
 
-// @public
+// @public @virtual
 export interface Locations extends Partial<Index<string>> {
 }
 
@@ -631,7 +631,7 @@ export type Maybe<A extends any[], T> = T | Factory<A, T>;
 // @public
 export type Mode = 'production' | 'development';
 
-// @public @deprecated (undocumented)
+// @public @deprecated
 export interface Module<P = any, O = any> extends Extension.Module<O> {
 }
 
@@ -649,7 +649,7 @@ interface Module_2<Options = unknown> extends Loose {
     when?: Maybe<[Framework, Container<Options>], boolean>;
 }
 
-// @public
+// @public @virtual
 export interface Modules extends Partial<Index<Extension.Module>> {
 }
 
@@ -761,7 +761,7 @@ export interface PluginInstance {
     apply: CallableFunction;
 }
 
-// @public
+// @public @virtual
 export interface Plugins extends Partial<Index<Extension.CompilerPlugin>> {
 }
 
@@ -839,7 +839,7 @@ abstract class Rule_3 {
     abstract use?(app?: Framework): Item.Interface[];
 }
 
-// @public
+// @public @virtual
 export interface Rules extends Partial<Index<Rule.Interface>> {
 }
 
@@ -960,7 +960,7 @@ export abstract class Service<Repository = GenericRepository> extends Bootstrapp
     registered?(app: Framework): any;
 }
 
-// @public
+// @public @virtual
 export interface Services extends Partial<Index<new (app: Framework) => Service>> {
 }
 
@@ -1010,7 +1010,7 @@ export const tap: tap<Framework>;
 export interface Tapable<P extends any[] = [Framework], T = any> extends Factory<[P], T> {
 }
 
-// @public @deprecated (undocumented)
+// @public @deprecated
 export interface WebpackPlugin<P = any, O = any> extends Extension.CompilerPlugin<Extension.ApplyPlugin, unknown> {
 }
 

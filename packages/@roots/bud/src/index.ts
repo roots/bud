@@ -8,7 +8,6 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- *
  * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
@@ -39,7 +38,14 @@
  * bud.run() // run build
  * ```
  *
- * @core @packageDocumentation
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import './registry'

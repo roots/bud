@@ -1,6 +1,7 @@
 /**
  * ⚡️ Bud/Framework - Extensible build tooling for modern web development
  *
+ * @remarks
  * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the
  * abstract {@link Framework} class and provides interfaces for the Framework's
  * essential {@link Service} classes.
@@ -30,7 +31,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
 /// <reference types="node" />
@@ -57,7 +58,7 @@ import * as Webpack from 'webpack';
 /**
  * Cache service abstract class
  *
- * @public @core @container
+ * @core @public @container
  */
 declare abstract class Abstract extends Service implements Cache_2.Interface {
     /**
@@ -472,7 +473,10 @@ declare abstract class Abstract_3 implements Peers.Interface {
     export { close_2 as close }
 
     /**
-     * Compiles {@link (Framework:class).build | Framework.build} configuration
+     * Compiler service interface
+     *
+     * @remarks
+     * Compiles {@link @roots/bud-framework#Build.config | Build config}
      * and reports on stats, progress, and errors encountered during compilation.
      *
      * @public @core @container
@@ -505,12 +509,6 @@ declare abstract class Abstract_3 implements Peers.Interface {
         /**
          * Returns a {@link @roots/bud-framework#Compiler."instance" | Compiler instance}
          * when provided with a valid {@link Configuration}
-         *
-         * @remarks
-         * The {@link Framework}
-         compiler should always be
-         * specified in a multi-compiler format (wrap a standard configuration
-         * in an array).
          *
          * @example
          * ```js
@@ -1138,7 +1136,7 @@ declare abstract class Abstract_3 implements Peers.Interface {
          /**
           * Extensions Service interface
           *
-          * @public @core
+          * @core @public @container
           */
          export declare interface Extensions extends Service<Partial<Plugins | Modules>> {
              /**
@@ -1227,7 +1225,7 @@ declare abstract class Abstract_3 implements Peers.Interface {
               */
              get isParent(): boolean;
              /**
-              * {@link Container} of child {@link Framework} instances
+              * {@link @roots/container#Container} of child {@link Framework} instances
               *
               * @remarks
               * Is `null` if the current instance is a child instance.
@@ -1264,7 +1262,7 @@ declare abstract class Abstract_3 implements Peers.Interface {
               */
              cache: Cache_2.Interface;
              /**
-              * Compiles {@link Build} configuration and stats/errors/progress reporting.
+              * Compiles {@link @roots/bud-framework#Build | Build} configuration and stats/errors/progress reporting.
               *
               * @public
               */
@@ -1724,6 +1722,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Hash of a given object type
+          *
+          * @public
           */
          export declare type Index<T = any> = {
              [key: string]: T;
@@ -1983,6 +1983,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered items
+          *
+          * @virtual @public
           */
          export declare interface Items extends Partial<Index<Item.Interface>> {
          }
@@ -2058,12 +2060,16 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered loaders
+          *
+          * @virtual @public
           */
          export declare interface Loaders extends Partial<Index<Loader.Interface>> {
          }
 
          /**
           * Registered locations
+          *
+          * @virtual @public
           */
          export declare interface Locations extends Partial<Index<string>> {
          }
@@ -2093,6 +2099,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
           */
          /**
           * Loosely typed interface
+          *
+          * @public
           */
          export declare interface Loose {
              [key: string]: any;
@@ -2134,11 +2142,17 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Compilation mode
+          *
+          * @public
           */
          export declare type Mode = 'production' | 'development';
 
          /**
+          * Module
+          *
           * @deprecated Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead
+          *
+          * @public
           */
          export declare interface Module<P = any, O = any> extends Extension.Module<O> {
          }
@@ -2229,6 +2243,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered extensions
+          *
+          * @virtual @public
           */
          export declare interface Modules extends Partial<Index<Extension.Module>> {
          }
@@ -2420,6 +2436,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered plugins
+          *
+          * @virtual @public
           */
          export declare interface Plugins extends Partial<Index<Extension.CompilerPlugin>> {
          }
@@ -2687,6 +2705,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered rules
+          *
+          * @virtual @public
           */
          export declare interface Rules extends Partial<Index<Rule.Interface>> {
          }
@@ -2704,7 +2724,7 @@ declare abstract class Abstract_3 implements Peers.Interface {
           */
          export declare interface Server extends Service {
              /**
-              * Registered server middlewares
+              * Server middleware
               *
               * @public
               */
@@ -2928,6 +2948,8 @@ declare abstract class Abstract_3 implements Peers.Interface {
 
          /**
           * Registered services
+          *
+          * @virtual @public
           */
          export declare interface Services extends Partial<Index<new (app: Framework) => Service>> {
          }
@@ -3022,7 +3044,11 @@ declare abstract class Abstract_3 implements Peers.Interface {
           declare type TermColor = `#${string}` | `black` | `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `white` | `gray` | `grey` | `blackBright` | `redBright` | `greenBright` | `yellowBright` | `blueBright` | `magentaBright` | `cyanBright` | `whiteBright`;
 
           /**
+           * Module
+           *
            * @deprecated Use {@link Extension.CompilerPlugin} instead
+           *
+           * @public
            */
           export declare interface WebpackPlugin<P = any, O = any> extends Extension.CompilerPlugin<Extension.ApplyPlugin, unknown> {
           }

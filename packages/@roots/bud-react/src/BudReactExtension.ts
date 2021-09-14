@@ -1,14 +1,14 @@
-import type {Module} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
 
 /**
- * Adds React to @roots/bud projects
+ * Adds React support
  */
-interface BudReactExtension extends Module {}
+export interface BudReactExtension extends Extension.Module {}
 
-const BudReactExtension: BudReactExtension = {
+export const BudReactExtension: BudReactExtension = {
   name: '@roots/bud-react',
 
   boot: app => {
@@ -42,5 +42,3 @@ function entryHook(entry: Configuration['entry']) {
     ? Object.entries(entry).reduce(addRefresh, entry)
     : {}
 }
-
-export {BudReactExtension}
