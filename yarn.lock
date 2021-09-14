@@ -2667,17 +2667,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor-model@npm:7.13.5":
-  version: 7.13.5
-  resolution: "@microsoft/api-extractor-model@npm:7.13.5"
-  dependencies:
-    "@microsoft/tsdoc": 0.13.2
-    "@microsoft/tsdoc-config": ~0.15.2
-    "@rushstack/node-core-library": 3.40.0
-  checksum: 2740d926ea1358933c2185b5fcabc4e713378186250213c4065e74875ec29ba6dfdfe6bbe475894535e5702a37cda57634bb883ee32990e002f2bc320f622102
-  languageName: node
-  linkType: hard
-
 "@microsoft/api-extractor-model@npm:7.13.7":
   version: 7.13.7
   resolution: "@microsoft/api-extractor-model@npm:7.13.7"
@@ -2689,14 +2678,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:7.18.7":
-  version: 7.18.7
-  resolution: "@microsoft/api-extractor@npm:7.18.7"
+"@microsoft/api-extractor@npm:7.18.9":
+  version: 7.18.9
+  resolution: "@microsoft/api-extractor@npm:7.18.9"
   dependencies:
-    "@microsoft/api-extractor-model": 7.13.5
+    "@microsoft/api-extractor-model": 7.13.7
     "@microsoft/tsdoc": 0.13.2
     "@microsoft/tsdoc-config": ~0.15.2
-    "@rushstack/node-core-library": 3.40.0
+    "@rushstack/node-core-library": 3.40.2
     "@rushstack/rig-package": 0.3.0
     "@rushstack/ts-command-line": 4.9.0
     colors: ~1.2.1
@@ -2707,7 +2696,7 @@ __metadata:
     typescript: ~4.3.5
   bin:
     api-extractor: bin/api-extractor
-  checksum: b9893699c6c660cbe04d1720221e074632ca0bc53ba7e262ee715148587ab51f895347da91070e74c7c18dbbcc3176c0e80056be6476c4107efbef5ba78ec4ab
+  checksum: 97661c0cbe7529ee506ebf90b17674785e945f3f6c167b82afc059042b509247a08673821d64af9ef737c954fce201b30fca470716ed3fffa8b86f63ec218fe3
   languageName: node
   linkType: hard
 
@@ -4093,23 +4082,6 @@ __metadata:
     typescript: 4.4.3
   languageName: unknown
   linkType: soft
-
-"@rushstack/node-core-library@npm:3.40.0":
-  version: 3.40.0
-  resolution: "@rushstack/node-core-library@npm:3.40.0"
-  dependencies:
-    "@types/node": 10.17.13
-    colors: ~1.2.1
-    fs-extra: ~7.0.1
-    import-lazy: ~4.0.0
-    jju: ~1.4.0
-    resolve: ~1.17.0
-    semver: ~7.3.0
-    timsort: ~0.3.0
-    z-schema: ~3.18.3
-  checksum: d5cdc44202b57fdaf4798bf6d8f380defc41075e7e9bf0cc4ea7564037c86093e8c9d5e8b7314150027cac927255d4ea5b283a26d6a174f83ba03d36af2ef30d
-  languageName: node
-  linkType: hard
 
 "@rushstack/node-core-library@npm:3.40.2":
   version: 3.40.2
@@ -7437,7 +7409,7 @@ __metadata:
   resolution: "bud.js@workspace:."
   dependencies:
     "@microsoft/api-documenter": 7.13.49
-    "@microsoft/api-extractor": 7.18.7
+    "@microsoft/api-extractor": 7.18.9
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.12
