@@ -72,7 +72,7 @@
     "express": "4.17.1",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.0.9",
-    "jest": "27.1.1",
+    "jest": "27.2.0",
     "signale": "1.4.0",
     "webpack": "5.52.1",
     "webpack-dev-middleware": "5.1.0"
