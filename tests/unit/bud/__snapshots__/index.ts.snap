@@ -172,7 +172,6 @@ Object {
     },
     "watch": Object {
       "files": Array [],
-      "options": Object {},
     },
   },
   "theme": Object {
@@ -386,7 +385,6 @@ Object {
     },
     "watch": Object {
       "files": Array [],
-      "options": Object {},
     },
   },
   "theme": Object {

@@ -31,7 +31,6 @@ describe('@roots/bud-server', function () {
       proxy: {host: 'localhost', port: 8000},
       watch: {
         files: [],
-        options: {},
       },
     })
   })

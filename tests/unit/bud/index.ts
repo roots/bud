@@ -165,7 +165,6 @@ describe('factory', () => {
       },
       watch: {
         files: [],
-        options: {},
       },
     },
     theme: {

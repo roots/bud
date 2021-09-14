@@ -192,7 +192,6 @@ const config: Configuration = {
   server: {
     watch: {
       files: [],
-      options: {},
     },
     middleware: {
       dev: true,

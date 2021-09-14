@@ -1,6 +1,6 @@
 import {Server as HttpServer} from 'http'
 
-import {Loose} from '../..'
+import {Loose} from '../'
 import {Configuration} from './Config'
 import Interface from './Interface'
 

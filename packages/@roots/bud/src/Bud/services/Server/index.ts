@@ -1,12 +1,22 @@
-import {
-  Framework,
-  Server as Contract,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import {Server as Base} from '@roots/bud-server'
 import {Express} from '@roots/bud-support'
 
-export class Server extends Base implements Contract {
-  public register({container, store}: Framework): void {
+/**
+ * Server service container class
+ *
+ * @public @core @container
+ */
+export class Server
+  extends Base
+  implements Framework.Server.Interface
+{
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.register}
+   *
+   * @public
+   */
+  public register({container, store}): void {
     this.application = Express()
     this.config = container(store.get('server'))
   }

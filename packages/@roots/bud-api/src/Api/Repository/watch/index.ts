@@ -10,13 +10,10 @@ import type {Framework, Server} from '@roots/bud-framework'
  * ```
  */
 interface watch {
-  (
-    files: Server.Configuration['watch']['files'],
-    options?: Server.Configuration['watch']['options'],
-  ): Framework
+  (files: Server.Configuration['watch']['files']): Framework
 }
 
-const watch: watch = function (files, options) {
+const watch: watch = function (files) {
   const target = this.isChild ? this.parent : this
 
   if (!target.isDevelopment || !target.server) {
@@ -25,7 +22,6 @@ const watch: watch = function (files, options) {
   }
 
   files && this.server.config.set('watch.files', files)
-  options && this.server.config.set('watch.options', options)
 
   return this
 }
