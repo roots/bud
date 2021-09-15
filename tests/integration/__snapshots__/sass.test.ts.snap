@@ -27,7 +27,7 @@ Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-sass": "workspace:*",
     "@types/sass": "^1",
-    "sass": "1.39.2",
+    "sass": "1.41.0",
   },
   "name": "example-sass",
   "private": true,
