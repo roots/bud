@@ -190,7 +190,7 @@ Object {
     },
     "columns": 12,
     "maxHeight": 999,
-    "maxWidth": 80,
+    "maxWidth": 140,
     "screens": Array [
       Array [
         0,
@@ -404,7 +404,7 @@ Object {
     },
     "columns": 12,
     "maxHeight": 999,
-    "maxWidth": 80,
+    "maxWidth": 140,
     "screens": Array [
       Array [
         0,
