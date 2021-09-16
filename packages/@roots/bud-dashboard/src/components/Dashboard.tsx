@@ -21,9 +21,6 @@ const {Box, Newline, Static, Text, useStdin} = Ink
 /**
  * Dashboard display component
  *
- * @param app - {@link @roots/bud-framework#Framework | Framework}
- * @returns ReactElement
- *
  * @public
  */
 const Dashboard = ({bud}: {bud: Framework}) => {
@@ -60,16 +57,25 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   const {fileSize, duration} = useFormatter()
 
   /**
-   * CLI theming
+   * CLI theme provider
    *
-   * @see {@link @roots/ink-use-style#useStyle | @roots/ink-use-style useStyle hook}
+   * @remarks
+   * {@link @roots/ink-use-style#useStyle | @roots/ink-use-style useStyle hook}
    */
   const theme = useStyle(bud?.store?.get('theme'))
 
+  /**
+   * Patch console pipes stdout/stderr through a callback
+   * so we can still show important messages while
+   * also keeping the terminal clean
+   */
   patchConsole((stream, data) => {
     isEqual(stream, 'stderr') && setStderr([...stderr, data])
   })
 
+  /**
+   * Set interval to update progress
+   */
   setInterval(() => {
     instance?.current?.compiler?.stats &&
       setStats(instance.current.compiler.stats)
@@ -78,6 +84,9 @@ const Dashboard = ({bud}: {bud: Framework}) => {
       setProgress(instance.current.compiler.progress)
   }, 10)
 
+  /**
+   * Force React re-renders
+   */
   useForceUpdate()
 
   const hasCompilerErrors =
@@ -142,6 +151,11 @@ const Dashboard = ({bud}: {bud: Framework}) => {
         </Static>
       )}
 
+      {/**
+       * Display assets
+       *
+       * #todo: move this to a separate component
+       */}
       {!hasErrors &&
         progress &&
         stats?.children?.map((child, id) => (
@@ -206,16 +220,15 @@ const Dashboard = ({bud}: {bud: Framework}) => {
           </Box>
         ))}
 
+      {/**
+       * #todo this type-guarding is stanky
+       */}
       {instance &&
       theme &&
       progress &&
       progress[0] &&
       progress[0] < 1 ? (
-        <Progress
-          progress={progress}
-          theme={theme}
-          mode={instance.current.mode}
-        />
+        <Progress progress={progress} theme={theme} />
       ) : (
         instance.current.mode == 'development' && (
           <Box flexDirection="column" marginBottom={1}>

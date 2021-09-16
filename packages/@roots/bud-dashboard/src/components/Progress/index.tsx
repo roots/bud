@@ -2,15 +2,7 @@ import {Ink, React} from '@roots/bud-support'
 
 import {Bar} from './Bar'
 
-export const Progress = ({
-  progress,
-  theme,
-  mode,
-}: {
-  mode: string
-  progress: any
-  theme: any
-}) => {
+export const Progress = ({progress, theme}) => {
   return (
     <Ink.Box flexDirection="row">
       <Ink.Box>
