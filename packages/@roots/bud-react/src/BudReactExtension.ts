@@ -1,16 +1,37 @@
-import type {Module} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
 
 /**
- * Adds React to @roots/bud projects
+ * Adds React support
+ *
+ * @remarks
+ * Using babel
+ *
+ * @public
  */
-interface BudReactExtension extends Module {}
+export interface BudReactExtension extends Extension.Module {}
 
-const BudReactExtension: BudReactExtension = {
+/**
+ * Adds React support
+ *
+ * @remarks
+ * Using babel
+ *
+ * @public
+ */
+export const BudReactExtension: BudReactExtension = {
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.Module.name}
+   * @public
+   */
   name: '@roots/bud-react',
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.Module.boot}
+   * @public
+   */
   boot: app => {
     app.when(app.project.hasPeerDependency('react'), app => {
       app.babel.setPresets(['@babel/preset-react'])
@@ -24,6 +45,11 @@ const BudReactExtension: BudReactExtension = {
   },
 }
 
+/**
+ * Adds react-refresh client script to each entrypoint
+ *
+ * @public
+ */
 function addRefresh(entries, [name, assets]) {
   return {
     ...(entries ?? {}),
@@ -37,10 +63,13 @@ function addRefresh(entries, [name, assets]) {
   }
 }
 
+/**
+ * Callback for `build/entry` hook
+ *
+ * @public
+ */
 function entryHook(entry: Configuration['entry']) {
   return entry
     ? Object.entries(entry).reduce(addRefresh, entry)
     : {}
 }
-
-export {BudReactExtension}
