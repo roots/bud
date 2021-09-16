@@ -8,54 +8,86 @@ import type {Configuration} from '@roots/bud-framework'
 const config: Configuration = {
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.name}
-   *
    * @public
    */
   name: 'bud',
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.cli}
-   *
    * @public
    */
   cli: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.clean}
-   *
    * @public
    */
   clean: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.debug}
-   *
    * @public
    */
   debug: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.dev}
-   *
    * @public
    */
   discover: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.hash}
-   *
    * @public
    */
   hash: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.html}
+   * @public
+   */
   html: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.install}
+   * @public
+   */
   install: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.log}
+   * @public
+   */
   log: false,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.manifest}
+   * @public
+   */
   manifest: true,
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.minimize}
+   * @public
+   */
   minimize: true,
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.fileFormat}
+   * @public
+   */
   fileFormat: '[name]',
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.hashFormat}
+   * @public
+   */
   hashFormat: '[name].[contenthash:6]',
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Configuration.patterns}
+   * @public
+   */
   patterns: {
     js: /\.(js|jsx)$/,
     ts: /\.(ts|tsx)$/,
@@ -234,7 +266,7 @@ const config: Configuration = {
       [81, 200],
     ],
     columns: 12,
-    maxWidth: 80,
+    maxWidth: 140,
     maxHeight: 999,
   },
 }
