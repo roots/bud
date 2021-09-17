@@ -124,7 +124,7 @@
     "@types/express": "4.17.13",
     "@types/fs-extra": "9.0.12",
     "@types/jest": "27.0.1",
-    "@types/lodash": "4.14.172",
+    "@types/lodash": "4.14.173",
     "@types/mini-css-extract-plugin": "2.3.0",
     "@types/node": "15.14.1",
     "@types/pkg-up": "3.1.0",
