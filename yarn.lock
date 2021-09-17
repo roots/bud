@@ -3191,7 +3191,7 @@ __metadata:
     "@types/react-reconciler": 0.26.3
     "@types/react-router-dom": 5.1.9
     clsx: 1.1.1
-    docusaurus-plugin-typedoc: 0.16.0
+    docusaurus-plugin-typedoc: 0.16.1
     file-loader: 6.2.0
     jest: 27.2.0
     raw-loader: 4.0.2
@@ -9721,13 +9721,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-typedoc@npm:0.16.0":
-  version: 0.16.0
-  resolution: "docusaurus-plugin-typedoc@npm:0.16.0"
+"docusaurus-plugin-typedoc@npm:0.16.1":
+  version: 0.16.1
+  resolution: "docusaurus-plugin-typedoc@npm:0.16.1"
   peerDependencies:
     typedoc: ">=0.21.0"
     typedoc-plugin-markdown: ">=3.10.0"
-  checksum: b655b4aaad3ca5ffea003a7f1f95cee5ed0a0e0154c22e6fe4ebd81eaca1009a1b6f641bce41ae919cc1b902814a687ab9f30633bf2ff516f1f2598f255f1e91
+  checksum: 4bb492c5de3e4955cb42c21b7053c2138809b7f58cdb84213d483df68a81f8a58d7bb2dbabeaf4b95fa677d1de426ffe8efd7b3eb75d5d45566593b7709246a1
   languageName: node
   linkType: hard
 
