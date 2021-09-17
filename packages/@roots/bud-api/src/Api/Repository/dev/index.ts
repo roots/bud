@@ -1,16 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
 import type {Server} from '@roots/bud-framework'
 
-/**
- * {@link dev | dev} config function interface
- *
- * @param this - {@link @roots/bud-framework#Framework | Framework instance}
- * @param config - {@link @roots/bud-framework#Server.Configuration | Server configuration}
- *
- * @public @config
- */
-interface dev {
-  (this: Framework, config?: Server.Configuration): Framework
+export interface dev {
+  (
+    this: Framework,
+    config?: Partial<Server.Configuration>,
+  ): Framework
 }
 
 /**
@@ -26,7 +21,7 @@ interface dev {
  *
  * @public @config
  */
-const dev: dev = function (config) {
+export const dev: dev = function (config) {
   const target = this.parent ?? this
 
   target.server.config.mutateStore(
@@ -38,5 +33,3 @@ const dev: dev = function (config) {
 
   return this
 }
-
-export {dev as default}

@@ -10,7 +10,7 @@ import type {DefinePlugin} from 'webpack'
  *
  * @public @config
  */
-interface define {
+export interface define {
   (
     this: Framework,
     values: DefinePlugin['definitions'],
@@ -29,7 +29,7 @@ interface define {
  *
  * @public @config
  */
-const define = function (
+export const define: define = function (
   values: DefinePlugin['definitions'],
 ): Framework {
   this.hooks.on(
@@ -42,5 +42,3 @@ const define = function (
 
   return this
 }
-
-export {define as default}
