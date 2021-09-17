@@ -15,7 +15,8 @@
  * This package also provides a CLI which can is invoked with `bud`.
  *
  * @example
- * Example configuration file (`bud.config.js`). This file is run by invoking `$ bud build` in the terminal.
+ * Example configuration file (`bud.config.js`).
+ * This is run by invoking `$ bud build` in the terminal.
  *
  * ```js
  * module.exports = app =>
@@ -48,7 +49,7 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import './registry'
+import './interface'
 
 import {
   Extension,

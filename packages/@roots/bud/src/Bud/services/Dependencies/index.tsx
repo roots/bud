@@ -118,7 +118,8 @@ class Dependencies extends Service<null> {
               color={this.app.store.get(
                 'theme.colors.foreground',
               )}>
-              Installing
+              {' '}
+              Installing{' '}
             </Ink.Text>
           </Ink.Box>
 
@@ -148,15 +149,23 @@ class Dependencies extends Service<null> {
             color={this.app.store.get(
               'theme.colors.foreground',
             )}>
-            Installation Complete
+            {' '}
+            Installation Complete{' '}
           </Ink.Text>
         </Ink.Box>
 
         {installed.length > 0 && (
           <Ink.Box marginBottom={1} flexDirection="column">
             {installed.map(dep => (
-              <Ink.Text
-                key={`${dep.name}-${dep.ver}`}>{`✓ ${dep.name}@${dep.ver}`}</Ink.Text>
+              <Ink.Text key={`${dep.name}-${dep.ver}`}>
+                <Ink.Text
+                  color={this.app.store.get(
+                    'theme.colors.success',
+                  )}>
+                  ✓
+                </Ink.Text>
+                {` ${dep.name}@${dep.ver}`}
+              </Ink.Text>
             ))}
           </Ink.Box>
         )}

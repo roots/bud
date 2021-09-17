@@ -182,7 +182,7 @@ describe('factory', () => {
       },
       columns: 12,
       maxHeight: 999,
-      maxWidth: 80,
+      maxWidth: 140,
       screens: [
         [0, 40],
         [41, 60],

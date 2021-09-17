@@ -5,7 +5,9 @@ import type {Extension} from '@roots/bud-framework'
 import {reactRefresh} from './reactRefresh'
 
 /**
- * Adds react-refresh-webpack-plugin to @roots/bud projects
+ * {@inheritDoc BudReactRefreshPlugin}
+ *
+ * @public
  */
 export interface BudReactRefreshPlugin
   extends Extension.CompilerPlugin<
@@ -13,6 +15,11 @@ export interface BudReactRefreshPlugin
     ReactRefreshPluginOptions
   > {}
 
+/**
+ * Adds react-refresh-webpack-plugin
+ *
+ * @public
+ */
 export const BudReactRefreshPlugin: BudReactRefreshPlugin = {
   name: '@pmmmwh/react-refresh-webpack-plugin',
 

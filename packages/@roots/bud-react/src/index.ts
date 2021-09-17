@@ -7,6 +7,27 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
+ * @example
+ * JavaScript:
+ *
+ * ```js
+ * module exports = bud => {
+ *  bud.use(require('@roots/bud-react'));
+ * }
+ * ```
+ *
+ * @example
+ * Typescript:
+ *
+ * ```ts
+ * import type {Bud} from '@roots/bud
+ * import * as ReactExtension from '@roots/bud-react';
+ *
+ * export default (bud: Bud) => {
+ *   bud.use(ReactExtension);
+ * }
+ * ```
+ *
  * @remarks
  * - 💁 Composable - Build exceptional applications with a modular, configurable build system
  *
@@ -21,9 +42,14 @@ import {BudReactExtension} from './BudReactExtension'
 import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
 import {reactRefresh} from './reactRefresh'
 
+/**
+ * Framework interface
+ */
+
 declare module '@roots/bud-framework' {
   /**
-   * {@inheritDoc @roots/bud-framework#Frmaework}
+   * {@inheritDoc @roots/bud-framework#Framework}
+   *
    * @public @override
    */
   interface Framework {
@@ -32,16 +58,25 @@ declare module '@roots/bud-framework' {
 
   /**
    * {@inheritDoc @roots/bud-framework#Modules}
+   *
    * @public @override
    */
   interface Modules {
     '@roots/bud-react': BudReactExtension
+  }
+
+  /**
+   * {@inheritDoc @roots/bud-framework#CompilerPlugin}
+   *
+   * @public @override
+   */
+  interface CompilerPlugin {
     '@pmmmwh/react-refresh-webpack-plugin': BudReactRefreshPlugin
   }
 }
 
-export const {name, boot} = BudReactExtension
+/**
+ * Export
+ */
 
-export {BudReactExtension}
-export {BudReactRefreshPlugin}
-export {reactRefresh}
+export const {name, boot} = BudReactExtension

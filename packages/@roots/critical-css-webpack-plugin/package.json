@@ -62,10 +62,10 @@
   },
   "devDependencies": {
     "@types/jest": "27.0.1",
-    "@types/lodash": "4.14.172",
+    "@types/lodash": "4.14.173",
     "@types/node": "15.14.1",
     "@types/vinyl": "2.0.6",
-    "jest": "27.1.1"
+    "jest": "27.2.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
