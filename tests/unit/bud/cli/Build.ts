@@ -22,7 +22,7 @@ describe('Build Command', () => {
         parse: expect.any(Function),
         type: 'boolean',
       },
-      ci: {
+      cli: {
         allowNo: false,
         description: 'non raw mode tty interoperable output',
         parse: expect.any(Function),

@@ -112,7 +112,6 @@ export function config(app: Framework): void {
      */
     .hooks.on('build/output', () => ({
       path: app.hooks.filter('build/output/path'),
-      pathinfo: app.hooks.filter('build/output/pathInfo'),
       publicPath: app.hooks.filter('build/output/publicPath'),
       filename: app.hooks.filter('build/output/filename'),
     }))
@@ -240,5 +239,8 @@ export function config(app: Framework): void {
     /**
      * Watch
      */
-    .hooks.on('build/watch', false)
+    .hooks.on('build/watch', () => app.isDevelopment)
+    .hooks.on('build/watchOptions', () =>
+      app.store.get('build.watchOptions'),
+    )
 }

@@ -1,10 +1,30 @@
 import {Indicator} from './Indicator'
 
-const activity = {
+/**
+ * Activity indicator controller
+ *
+ * @public
+ */
+export const indicator = {
+  /**
+   * DOM node
+   *
+   * @public
+   */
   node: null,
 
+  /**
+   * Active WHM payload
+   *
+   * @public
+   */
   payload: null,
 
+  /**
+   * Initialization
+   *
+   * @public
+   */
   init() {
     customElements.define('bud-activity-indicator', Indicator)
 
@@ -15,6 +35,11 @@ const activity = {
     return this
   },
 
+  /**
+   * Update activity indicator
+   *
+   * @public
+   */
   update({payload, complete, pending, hasWarnings, hasErrors}) {
     this.payload = payload
 
@@ -23,5 +48,3 @@ const activity = {
     this.node.setAttribute('has-errors', hasErrors)
   },
 }
-
-export const indicator = activity

@@ -138,7 +138,10 @@ Object {
     [Function],
   ],
   "build/watch": Array [
-    false,
+    [Function],
+  ],
+  "build/watchOptions": Array [
+    [Function],
   ],
   "extension/clean-webpack-plugin/make": Array [
     [Function],

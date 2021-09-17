@@ -1,5 +1,10 @@
 import {durationFormatter, sizeFormatter} from 'human-readable'
 
+/**
+ * Formats filesize and duration
+ *
+ * @public
+ */
 export const useFormatter = () => {
   return {
     fileSize: sizeFormatter({

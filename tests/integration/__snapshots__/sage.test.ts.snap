@@ -65,10 +65,17 @@ Object {
   },
   "splitChunks": Object {
     "cacheGroups": Object {
+      "bud": Object {
+        "chunks": "all",
+        "name": "<<Function 'name'>>",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": /\\(\\[\\\\\\\\/\\]@roots\\|webpack\\|style-loader\\|tslib\\|ansi\\|html-entities\\|css-loader\\)/,
+      },
       "vendor": Object {
         "chunks": "all",
-        "filename": "vendor/[name].js",
-        "priority": -10,
+        "name": "<<Function 'name'>>",
+        "priority": -20,
         "reuseExistingChunk": true,
         "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
       },

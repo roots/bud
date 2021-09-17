@@ -11,21 +11,19 @@ import {Screen} from '../components/Screen'
 import {Error} from '../Error'
 
 /**
- * Dashboard Service class
+ * Dashboard service container implementation
  *
- * @public
+ * @public @core @container
  */
 export class Dashboard extends Base implements Contract {
   /**
    * {@inheritDoc @roots/bud-framework#Service.name}
-   *
    * @public
    */
   public name = 'dashboard'
 
   /**
    * The {@link Ink} instance
-   *
    * @public
    */
   public instance: Ink.Instance

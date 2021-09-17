@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import isEqual from 'lodash.isequal'
 import {
   subscribeAll,
   useCustomOverlay,
@@ -9,6 +8,14 @@ import {
 import {overlay} from './ErrorOverlay'
 import {indicator} from './Indicator'
 
+/**
+ * parse payloads from webpack-hot-middleware/client
+ *
+ * @param payload - raw whm payload
+ * @returns parsed payload
+ *
+ * @public
+ */
 const parsePayload = payload => {
   return {
     complete: payload?.action == 'built',
@@ -18,6 +25,11 @@ const parsePayload = payload => {
   }
 }
 
+/**
+ * Retrieves data on running application
+ *
+ * @public
+ */
 const getServerData = async () => {
   const res = await fetch('/__roots/config.json')
   const server = await res.json()
@@ -25,6 +37,11 @@ const getServerData = async () => {
   return server
 }
 
+/**
+ * Client runtime
+ *
+ * @public
+ */
 const dev = async () => {
   const server = await getServerData()
 
@@ -44,7 +61,7 @@ const dev = async () => {
         hasErrors,
       })
 
-    isEqual(payload.action, 'reload') && window.location.reload()
+    if (payload.action === 'reload') window.location.reload()
   })
 }
 

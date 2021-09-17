@@ -2,10 +2,6 @@
 
 const babel = require('@roots/bud-babel')
 
-/**
- * @function config
- * @param {import('@roots/bud').Bud} app
- */
 module.exports = app => {
   app
     .use(babel)
@@ -19,5 +15,6 @@ module.exports = app => {
           '@babel/plugin-proposal-class-properties',
         ])
     })
+    .template()
     .entry('app', '*.{js,css}')
 }

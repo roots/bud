@@ -2,7 +2,7 @@ import {Server, Service} from '@roots/bud-framework'
 import {globby} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import * as chokidar from 'chokidar'
+import chokidar from 'chokidar'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
 
@@ -10,7 +10,7 @@ import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
 /**
- * Server service container class
+ * Server service container implementation
  *
  * @public @core @container
  */
@@ -118,18 +118,21 @@ export default class
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
-        this.app.info(`Enabling ${key}`)
+        this.app.log(`Enabling ${key}`)
 
-        this.middleware[key] = generate({
+        const configuredMiddleware = generate.bind(this.app)({
           config: this.config,
           compiler: this.app.compiler.instance,
         })
+
+        this.app.log(
+          `configured middleware: ${key}`,
+          configuredMiddleware,
+        )
+
+        this.application.use(configuredMiddleware)
       }
     })
-
-    Object.values(this.middleware).forEach(middleware =>
-      this.application.use(middleware),
-    )
   }
 
   /**
@@ -164,12 +167,12 @@ export default class
     this.instance = this.application.listen(
       this.config.get('port'),
       () => {
-        this.app.info(
+        this.app.log(
           `Server listening on %s`,
           this.config.get('port'),
         )
 
-        this.app.info({
+        this.app.log({
           ...this.config.all(),
           middleware,
         })

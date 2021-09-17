@@ -1,14 +1,35 @@
-import type * as Webpack from 'webpack'
+import type {Framework, Server} from '@roots/bud-framework'
+import {Container} from '@roots/container'
+import type Webpack from 'webpack'
 import WebpackHotMiddleware from 'webpack-hot-middleware'
 
-const options: WebpackHotMiddleware.MiddlewareOptions = {
+/**
+ * Hot middleware options
+ *
+ * @public
+ */
+const options: (
+  config: Container<Server.Configuration>,
+) => WebpackHotMiddleware.MiddlewareOptions = config => ({
   log: false,
-  path: '/__webpack_hmr',
+  path: `/__webpack_hmr`,
   heartbeat: 10 * 1000,
-}
+})
 
-export const hot = ({
+/**
+ * Hot middleware factory
+ *
+ * @public
+ */
+export default function hot({
+  config,
   compiler,
 }: {
+  this: Framework
+  config: Container<Server.Configuration>
   compiler: Webpack.Compiler | Webpack.MultiCompiler
-}) => WebpackHotMiddleware(compiler, options)
+}) {
+  this.log('hot middleware options', options)
+
+  return WebpackHotMiddleware(compiler, options(config))
+}

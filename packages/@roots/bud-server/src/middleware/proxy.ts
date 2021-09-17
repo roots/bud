@@ -1,18 +1,33 @@
-import {Server} from '@roots/bud-framework'
+import {Framework, Server} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {
   createProxyMiddleware,
   Options,
 } from 'http-proxy-middleware'
 import * as zlib from 'zlib'
 
-const parseSource = (config): Server.Target => {
+/**
+ * Returns source host and port from configuration
+ *
+ * @public
+ */
+const parseSource = (
+  config: Container<Server.Configuration>,
+): Server.Target => {
   return {
     host: config.get('host'),
     port: config.get('port'),
   }
 }
 
-const parseProxy = (config): Server.Target => {
+/**
+ * Returns proxy host and port from configuration
+ *
+ * @public
+ */
+const parseProxy = (
+  config: Container<Server.Configuration>,
+): Server.Target => {
   return {
     host: config.get('proxy.host'),
     port: config.get('proxy.port'),
@@ -21,8 +36,15 @@ const parseProxy = (config): Server.Target => {
 
 /**
  * Proxy middleware factory
+ *
+ * @public
  */
-export const proxy = ({config}) => {
+export default function proxy({
+  config,
+}: {
+  this: Framework
+  config: Container<Server.Configuration>
+}) {
   // Source host & port
   const source = parseSource(config)
 
@@ -55,6 +77,8 @@ export const proxy = ({config}) => {
 
   /**
    * Rewrite hostname in body contents
+   *
+   * @public
    */
   const transformBody = (body: string): string =>
     body.replace(
@@ -63,7 +87,9 @@ export const proxy = ({config}) => {
     )
 
   /**
-   * Proxy response handler.
+   * Proxy response handler
+   *
+   * @public
    */
   const onProxyRes = (proxyRes, req, res) => {
     let body = Buffer.from([])
@@ -104,6 +130,8 @@ export const proxy = ({config}) => {
 
   /**
    * Proxy middleware configuration
+   *
+   * @public
    */
   const proxyOptions: Options = {
     autoRewrite: true,

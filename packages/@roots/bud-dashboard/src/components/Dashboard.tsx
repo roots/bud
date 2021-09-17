@@ -23,7 +23,7 @@ const {Box, Newline, Static, Text, useStdin} = Ink
  *
  * @public
  */
-const Dashboard = ({bud}: {bud: Framework}) => {
+export const Dashboard = ({bud}: {bud: Framework}) => {
   /**
    * Bud instance
    */
@@ -241,5 +241,3 @@ const Dashboard = ({bud}: {bud: Framework}) => {
     </Box>
   )
 }
-
-export {Dashboard}

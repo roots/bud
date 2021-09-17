@@ -126,12 +126,9 @@ const config: Configuration = {
       level: 'none',
       appendOnly: true,
     },
-    experiments: {
-      lazyCompilation: false,
-    },
     node: false,
     output: {
-      pathinfo: false,
+      publicPath: '',
     },
     optimization: {
       emitOnErrors: false,
@@ -144,14 +141,34 @@ const config: Configuration = {
             chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
             reuseExistingChunk: true,
+            priority: -20,
+            name(
+              _module: string,
+              chunks: {name: string}[],
+              cacheGroupKey: string,
+            ) {
+              const allChunksNames = chunks
+                .map(item => item.name)
+                .join('~')
+              return `${cacheGroupKey}-${allChunksNames}`
+            },
+          },
+          bud: {
+            chunks: 'all',
+            test: /([\\/]@roots|webpack|style-loader|tslib|ansi|html-entities|css-loader)/,
+            reuseExistingChunk: true,
             priority: -10,
-            filename: `vendor/[name].js`,
+            name(
+              _module: string,
+              _chunks: {name: string}[],
+              cacheGroupKey: string,
+            ) {
+              return `${cacheGroupKey}`
+            },
           },
         },
       },
     },
-    performance: {},
-    profile: false,
     resolve: {
       extensions: [
         '.wasm',
