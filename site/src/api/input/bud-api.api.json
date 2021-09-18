@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -324,7 +326,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-api!Repository:interface",
-          "docComment": "/**\n * API Repository interface\n *\n * @public\n */\n",
+          "docComment": "/**\n * API repository interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -400,7 +402,7 @@
                 {
                   "kind": "Reference",
                   "text": "config",
-                  "canonicalReference": "@roots/bud-api!~config:interface"
+                  "canonicalReference": "@roots/bud-api!config:interface"
                 },
                 {
                   "kind": "Content",
@@ -427,7 +429,7 @@
                 {
                   "kind": "Reference",
                   "text": "define",
-                  "canonicalReference": "@roots/bud-api!~define:interface"
+                  "canonicalReference": "@roots/bud-api!define:interface"
                 },
                 {
                   "kind": "Content",
@@ -454,7 +456,7 @@
                 {
                   "kind": "Reference",
                   "text": "dev",
-                  "canonicalReference": "@roots/bud-api!~dev:interface"
+                  "canonicalReference": "@roots/bud-api!dev:interface"
                 },
                 {
                   "kind": "Content",
@@ -481,7 +483,7 @@
                 {
                   "kind": "Reference",
                   "text": "devtool",
-                  "canonicalReference": "@roots/bud-api!~devtool:interface"
+                  "canonicalReference": "@roots/bud-api!devtool:interface"
                 },
                 {
                   "kind": "Content",

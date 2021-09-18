@@ -2,7 +2,7 @@
  * The {@link @roots/container# | @roots/container} package provides
  * a simple chainable interface for working with collections of data
  *
- * @packageDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import type { ValueOf } from 'type-fest';

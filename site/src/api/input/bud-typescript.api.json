@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {

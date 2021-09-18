@@ -22,12 +22,12 @@ export interface Parser {
  */
 export interface Options
   extends Partial<{
-    test: Maybe<[Framework], RegExp>
-    use: Maybe<[Framework], Item.Interface[]>
-    exclude: Maybe<[Framework], RegExp>
-    type: Maybe<[Framework], string>
-    parser: Maybe<[Framework], Parser>
-    generator: Maybe<[Framework], any>
+    test: Maybe<Array<Framework>, RegExp>
+    use: Maybe<Array<Framework>, Array<Item.Interface>>
+    exclude: Maybe<Array<Framework>, RegExp>
+    type: Maybe<Array<Framework>, string>
+    parser: Maybe<Array<Framework>, Parser>
+    generator: Maybe<Array<Framework>, any>
   }> {}
 
 /**

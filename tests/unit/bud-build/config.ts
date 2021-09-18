@@ -46,7 +46,7 @@ describe('bud.build.config', function () {
 
   it('has expected experiments default', () => {
     expect(bud.build.config.experiments).toEqual({
-      lazyCompilation: false,
+      lazyCompilation: undefined,
     })
   })
 
@@ -86,7 +86,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected profile default', () => {
-    expect(bud.build.config.profile).toEqual(false)
+    expect(bud.build.config.profile).toEqual(undefined)
   })
 
   it('has expected resolve.alias default', () => {

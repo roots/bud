@@ -2,20 +2,20 @@
 // Licensed under the MIT license.
 
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
- *
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times
+ * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter
+ * for `@roots/entrypoints-webpack-plugin`.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @remarks
- * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter
- * for `@roots/entrypoints-webpack-plugin`.
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
  *
- * @packageDocumentation
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @extension @packageDocumentation @betaDocumentation
  */
 
 import {Extension, Framework} from '@roots/bud-framework'

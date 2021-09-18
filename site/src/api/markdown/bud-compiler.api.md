@@ -10,11 +10,7 @@ import { Service } from '@roots/bud-framework';
 import { StatsCompilation } from 'webpack';
 
 // @public
-export interface Compiler extends Compiler_2 {
-}
-
-// @public
-export class Compiler extends Service {
+export class Compiler extends Service implements Compiler_2 {
     before(): any[];
     callback(...args: any[]): void;
     compile(): Compiler_2.Instance;

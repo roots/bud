@@ -5,7 +5,7 @@ import type {Extension} from '@roots/bud-framework'
 import {reactRefresh} from './reactRefresh'
 
 /**
- * Adds react-refresh-webpack-plugin
+ * {@inheritDoc BudReactRefreshPlugin}
  *
  * @public
  */

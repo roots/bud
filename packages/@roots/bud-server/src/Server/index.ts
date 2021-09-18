@@ -1,40 +1,86 @@
-import {Server as Contract, Service} from '@roots/bud-framework'
+import {Server, Service} from '@roots/bud-framework'
 import {globby} from '@roots/bud-support'
+import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import * as chokidar from 'chokidar'
+import chokidar from 'chokidar'
 import {FSWatcher} from 'fs-extra'
-import {createHttpTerminator} from 'http-terminator'
 import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
-export class Server
-  extends Service<Contract.Configuration>
-  implements Contract
+/**
+ * Server service container implementation
+ *
+ * @public @core @container
+ */
+export default class
+  extends Service<Server.Configuration>
+  implements Server.Interface
 {
-  public name = 'server'
-
-  public application: Contract.Application
-
-  public config: Contract.Config
-
-  public instance: Contract.Instance
-
-  public middleware: Contract.Middleware.Inventory = {}
-
-  public _terminator: any
-
-  public watcher: FSWatcher
-
+  /**
+   * @internal @readonly
+   */
   public readonly _assets = [
     resolve(__dirname, '../client/index.js'),
   ]
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public
+   */
+  public name = 'server'
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.application}
+   *
+   * @public
+   */
+  public application: Server.Application
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface."instance"}
+   *
+   * @public
+   */
+  public instance: Server.Instance
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.config}
+   *
+   * @public
+   */
+  public config: Container<Server.Configuration>
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.middleware}
+   *
+   * @public
+   */
+  public middleware: Server.Middleware = {}
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
+   *
+   * @public
+   */
+  public watcher: FSWatcher
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.assets}
+   *
+   * @public
+   */
   public get assets() {
     return this._assets
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.isWatchable}
+   *
+   * @readonly @public
+   */
   public get isWatchable(): boolean {
     return (
       Array.isArray(this.getWatchedFilesArray()) &&
@@ -42,6 +88,12 @@ export class Server
     )
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.getWatchedFilesArray}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getWatchedFilesArray(): string[] {
     const [files, options] = this.config.getValues('watch')
@@ -56,24 +108,39 @@ export class Server
       : []
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.processMiddlewares}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
-        this.app.info(`Enabling ${key}`)
+        this.app.log(`Enabling ${key}`)
 
-        this.middleware[key] = generate({
+        const configuredMiddleware = generate.bind(this.app)({
           config: this.config,
           compiler: this.app.compiler.instance,
         })
+
+        this.app.log(
+          `configured middleware: ${key}`,
+          configuredMiddleware,
+        )
+
+        this.application.use(configuredMiddleware)
       }
     })
-
-    Object.values(this.middleware).forEach(middleware =>
-      this.application.use(middleware),
-    )
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.run}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public run(): this {
     this.app.compiler.compile()
@@ -100,24 +167,27 @@ export class Server
     this.instance = this.application.listen(
       this.config.get('port'),
       () => {
-        this.app.info(
+        this.app.log(
           `Server listening on %s`,
           this.config.get('port'),
         )
 
-        this.app.info({
+        this.app.log({
           ...this.config.all(),
           middleware,
         })
       },
     )
 
-    this._terminator = createHttpTerminator({
-      server: this.instance,
-    })
-
+    /**
+     * Initialize FSWatcher
+     */
     this.watcher = chokidar.watch(this.getWatchedFilesArray())
 
+    /**
+     * If FSWatcher is watching and a file it is watching
+     * is touched, reload the window.
+     */
     this.isWatchable &&
       this.watcher?.on('change', path => {
         this.middleware.hot.publish({
@@ -129,13 +199,23 @@ export class Server
     return this
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.inject}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public inject(): void {
     injectClient(this.app, this.assets)
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.inject}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public close(): void {
-    this._terminator && this._terminator.terminate()
-  }
+  public close(): void {}
 }

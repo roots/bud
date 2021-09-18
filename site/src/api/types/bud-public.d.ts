@@ -5,7 +5,6 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- *
  * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
@@ -13,7 +12,8 @@
  * This package also provides a CLI which can is invoked with `bud`.
  *
  * @example
- * Example configuration file (`bud.config.js`). This file is run by invoking `$ bud build` in the terminal.
+ * Example configuration file (`bud.config.js`).
+ * This is run by invoking `$ bud build` in the terminal.
  *
  * ```js
  * module.exports = app =>
@@ -36,7 +36,14 @@
  * bud.run() // run build
  * ```
  *
- * @core @packageDocumentation
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import type { Configuration } from '@roots/bud-framework';
@@ -114,7 +121,7 @@ export { Item }
 export { Loader }
 
 /**
- * {@link Bud} ctor property overrides
+ * {@link Bud} constructor property overrides
  *
  * @core @public
  */

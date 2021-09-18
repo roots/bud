@@ -9,7 +9,7 @@
  * @see https://github.com/roots/sage
  *
  * @remarks
- * - 💁 Composable - Build boss web applications with a modular, configurable build system
+ * - 💁 Composable - Build exceptional web applications with a modular, configurable build system
  *
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  *

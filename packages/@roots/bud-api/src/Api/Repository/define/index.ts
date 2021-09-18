@@ -1,16 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import type {DefinePlugin} from 'webpack'
 
-/**
- * Function accepting {@link webpack#DefinePlugin} definitions and
- * returning the {@link @roots/bud-framework#Framework}
- *
- * @param values - {@link webpack#DefinePlugin} definitions
- * @returns {@link @roots/bud-framework#Framework}
- *
- * @public @config
- */
-interface define {
+export interface define {
   (
     this: Framework,
     values: DefinePlugin['definitions'],
@@ -27,9 +18,12 @@ interface define {
  * })
  * ```
  *
+ * @hook extension/webpack-define-plugin/options
+ *
  * @public @config
  */
-const define = function (
+export function define(
+  this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
   this.hooks.on(
@@ -42,5 +36,3 @@ const define = function (
 
   return this
 }
-
-export {define as default}

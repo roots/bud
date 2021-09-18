@@ -2,7 +2,7 @@
 
 /**
  * @function config
- * @param {import('@roots/bud').Bud} app
+ * @param {import('@roots/bud-framework').Framework} app
  */
 module.exports = app =>
   app
@@ -18,6 +18,7 @@ module.exports = app =>
       replace: '%INLINE_CSS%',
       criticalOptions: {
         html: app.path('project', 'public', 'index.html'),
+        base: '/',
       },
     })
     .hash()

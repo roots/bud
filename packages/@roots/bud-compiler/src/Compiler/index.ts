@@ -3,7 +3,6 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isString} from 'lodash'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
 /**
@@ -18,18 +17,11 @@ const INITIAL_STATS = {
 }
 
 /**
- * Webpack compilation controller interface
- *
- * @public
- */
-interface Compiler extends Contract {}
-
-/**
  * Wepback compilation controller class
  *
  * @public
  */
-class Compiler extends Service {
+export class Compiler extends Service implements Contract {
   /**
    * {@inheritDoc @roots/bud-framework#Service.name}
    *
@@ -87,15 +79,15 @@ class Compiler extends Service {
    */
   @bind
   public compile(): Contract.Instance {
-    let compilationInstance
+    let instance
 
     if (this.isCompiled)
       this.instance.close(() => {
-        compilationInstance = this.setup(this.before())
+        instance = this.setup(this.before())
       })
-    else compilationInstance = this.setup(this.before())
+    else instance = this.setup(this.before())
 
-    return compilationInstance
+    return instance
   }
 
   /**
@@ -153,15 +145,19 @@ class Compiler extends Service {
    */
   @bind
   public setup(config: any) {
-    this.instance = webpack(config)
+    this.instance = this.app.isDevelopment
+      ? webpack(config, this.callback)
+      : webpack(config)
 
-    this.instance.hooks.done.tap(this.app.name, stats => {
-      stats && Object.assign(this.stats, stats.toJson())
+    if (this.app.isProduction) {
+      this.instance.hooks.done.tap(this.app.name, stats => {
+        stats && Object.assign(this.stats, stats.toJson())
 
-      this.instance.close(err => {
-        err && this.stats.errors.push(err)
+        this.instance.close(err => {
+          err && this.stats.errors.push(err)
+        })
       })
-    })
+    }
 
     new ProgressPlugin((...args): void => {
       this.progress = args
@@ -196,18 +192,8 @@ class Compiler extends Service {
       this.stats.errors.push(err)
     })
 
-    this.app.when(this.app.store.isFalse('cli'), () => {
-      stats && process.stdout.write(stats.toString())
-      err &&
-        process.stderr.write(
-          isString(err) ? err : JSON.stringify(err),
-        )
-    })
-
     const doneCallbacks = this.app.hooks.filter('done')
 
     doneCallbacks?.map(cb => cb(this.app))
   }
 }
-
-export {Compiler}

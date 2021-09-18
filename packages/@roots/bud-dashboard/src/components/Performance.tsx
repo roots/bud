@@ -4,6 +4,11 @@ const gT = (num: string | number, num2: string | number) => {
   return new Number(num) > new Number(num2)
 }
 
+/**
+ * Performance metrics component
+ *
+ * @public
+ */
 export const Performance = () => {
   const [rss, setRss] = React.useState<number>(0)
   const [maxRss, setMaxRss] = React.useState<number>(0)

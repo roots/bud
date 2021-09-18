@@ -6,7 +6,7 @@ import {services} from './Bud/services'
 import config from './config'
 
 /**
- * {@link Bud} ctor property overrides
+ * {@link Bud} constructor property overrides
  *
  * @core @public
  */

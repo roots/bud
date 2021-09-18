@@ -1,0 +1,376 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.18.9",
+    "schemaVersion": 1004,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@container",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@core",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@extension",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@config",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true,
+        "@container": true,
+        "@core": true,
+        "@extension": true,
+        "@config": true,
+        "@hook": true,
+        "@filter": true
+      }
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@roots/bud-wordpress-externals!",
+  "docComment": "/**\n * WordPress provides many packages which do not need to be included with project distributables.\n *\n * This package replaces source code references to WordPress provided packages and collects package references in the {@link @roots/bud-entrypoints# | entrypoints manifest}\n *\n * @remarks\n *\n * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension} as a peer extension.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
+  "name": "@roots/bud-wordpress-externals",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@roots/bud-wordpress-externals!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-wordpress-externals!make:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "make: "
+            },
+            {
+              "kind": "Content",
+              "text": "() => import(\"@roots/wordpress-externals-webpack-plugin\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "WordPressExternals",
+              "canonicalReference": "@roots/wordpress-externals-webpack-plugin!WordPressExternals:class"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "make",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-wordpress-externals!name_2:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "name: "
+            },
+            {
+              "kind": "Content",
+              "text": "\"@roots/wordpress-externals-webpack-plugin\""
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "name_2",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@roots/bud-wordpress-externals!PluginAdapter:interface",
+          "docComment": "/**\n * Adapter for {@link @roots/wordpress-externals-webpack-plugin#Plugin | WordPressExternalsWebpackPlugin}\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface PluginAdapter extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Extension."
+            },
+            {
+              "kind": "Reference",
+              "text": "CompilerPlugin",
+              "canonicalReference": "@roots/bud-framework!CompilerPlugin:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "WordPressExternals",
+              "canonicalReference": "@roots/wordpress-externals-webpack-plugin!WordPressExternals:class"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "PluginAdapter",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-wordpress-externals!PluginAdapter#make:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.make}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "make: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "WordPressExternals",
+                  "canonicalReference": "@roots/wordpress-externals-webpack-plugin!WordPressExternals:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "make",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-wordpress-externals!PluginAdapter#name:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.name}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "'@roots/wordpress-externals-webpack-plugin'"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 6
+            }
+          ]
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-wordpress-externals!PluginAdapter:var",
+          "docComment": "/**\n * {@inheritDoc PluginAdapter}\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "PluginAdapter: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PluginAdapter",
+              "canonicalReference": "@roots/bud-wordpress-externals!PluginAdapter:interface"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "PluginAdapter",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        }
+      ]
+    }
+  ]
+}

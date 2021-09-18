@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -191,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-esbuild!",
-  "docComment": "/**\n * ESBuild support for Bud projects\n *\n * This plugin is much more limited in terms of supporting essential dev-focused features like hot-reloading. It is provided as-is for use in Bud projects. It is not currently a focus of our development efforts.\n *\n * @remarks\n *\n * If you would like to contribute to the development of this plugin (especially if you have experience with module reloading in an ESBuild context), please open an issue on Github.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @beta @extension @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * ESBuild support for Bud projects\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * This plugin is much more limited in terms of supporting essential dev-focused features like hot-reloading. It is provided as-is for use in Bud projects. It is not currently a focus of our development efforts.\n *\n * @beta @extension @packageDocumentation @betaDocumentation\n */\n",
   "name": "@roots/bud-esbuild",
   "members": [
     {

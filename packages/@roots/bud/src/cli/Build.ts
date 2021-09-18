@@ -21,7 +21,7 @@ export default class Build extends Command {
       description: 'cache compiler references to disk',
     }),
 
-    ci: flags.boolean({
+    cli: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
 

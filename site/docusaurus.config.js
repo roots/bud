@@ -185,7 +185,7 @@ const config = {
         id: 'api',
         path: './api',
         routeBasePath: 'api',
-        sidebarPath: './sidebars/docs.js',
+        sidebarPath: false,
         include: ['**/*.md', '**/*.mdx'],
       },
     ],

@@ -2,6 +2,11 @@ import {Ink, React} from '@roots/bud-support'
 
 import {Bar} from './Bar'
 
+/**
+ * Progress component
+ *
+ * @public
+ */
 export const Progress = ({progress, theme}) => {
   return (
     <Ink.Box flexDirection="row">

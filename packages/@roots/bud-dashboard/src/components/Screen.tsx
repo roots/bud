@@ -1,6 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
 import {Ink, React} from '@roots/bud-support'
 
+/**
+ * Screen (generic container)
+ *
+ * @public
+ */
 export const Screen = ({
   app,
   color,

@@ -25,12 +25,12 @@
     {
       "tagName": "@hook",
       "syntaxKind": "block",
-      "allowMultiple": false
+      "allowMultiple": true
     },
     {
       "tagName": "@filter",
       "syntaxKind": "block",
-      "allowMultiple": false
+      "allowMultiple": true
     }
   ],
   "supportForTags": {

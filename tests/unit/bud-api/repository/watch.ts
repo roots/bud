@@ -42,12 +42,4 @@ describe('bud.watch', function () {
       },
     })
   })
-
-  it('sets watch options', () => {
-    const files = ['**/*.js']
-    const options = {cwd: process.cwd()}
-    bud.watch(files, options)
-
-    expect(bud.server.config.get('watch.options')).toBe(options)
-  })
 })

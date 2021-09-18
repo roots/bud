@@ -1,5 +1,3 @@
 const features = ['fancy', 'ecma']
 
-features.map(feat => {
-  console.log(feat)
-})
+features.map(console.log)

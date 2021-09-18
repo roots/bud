@@ -11,7 +11,7 @@ Object {
     "parse": Any<Function>,
     "type": "boolean",
   },
-  "ci": Object {
+  "cli": Object {
     "allowNo": false,
     "description": "non raw mode tty interoperable output",
     "parse": Any<Function>,

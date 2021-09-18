@@ -1,9 +1,19 @@
 import type {Extension, Index} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
 
+/**
+ * {@inheritDoc BudWebpackProvidePlugin}
+ *
+ * @public
+ */
 interface BudWebpackProvidePlugin
   extends Extension.CompilerPlugin<Plugin, Index<Index<any>>> {}
 
+/**
+ * BudWebpackProvidePlugin
+ *
+ * @public
+ */
 const BudWebpackProvidePlugin: BudWebpackProvidePlugin = {
   name: 'webpack-provide-plugin',
 

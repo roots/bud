@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -206,12 +208,25 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class Compiler extends "
+              "text": "export declare class Compiler extends "
             },
             {
               "kind": "Reference",
               "text": "Service",
               "canonicalReference": "@roots/bud-framework!Service:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "Contract",
+              "canonicalReference": "@roots/bud-framework!~Compiler:interface"
             },
             {
               "kind": "Content",
@@ -547,34 +562,10 @@
             "startIndex": 1,
             "endIndex": 3
           },
-          "implementsTokenRanges": []
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-compiler!Compiler:interface",
-          "docComment": "/**\n * Webpack compilation controller interface\n *\n * @public\n */\n",
-          "excerptTokens": [
+          "implementsTokenRanges": [
             {
-              "kind": "Content",
-              "text": "interface Compiler extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "Contract",
-              "canonicalReference": "@roots/bud-framework!~Compiler:interface"
-            },
-            {
-              "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "Compiler",
-          "members": [],
-          "extendsTokenRanges": [
-            {
-              "startIndex": 1,
-              "endIndex": 3
+              "startIndex": 4,
+              "endIndex": 6
             }
           ]
         }

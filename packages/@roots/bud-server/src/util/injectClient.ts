@@ -43,5 +43,3 @@ const injectClient: InjectClient = (app, injection) => {
 }
 
 export {injectClient}
-
-export type {InjectClient}

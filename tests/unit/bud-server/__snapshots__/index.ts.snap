@@ -24,7 +24,6 @@ Object {
   },
   "watch": Object {
     "files": Array [],
-    "options": Object {},
   },
 }
 `;

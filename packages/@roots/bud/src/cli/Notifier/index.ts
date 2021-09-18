@@ -19,6 +19,8 @@ const MACOS_NOTIFIER_PATH = resolve(
 export class Notifier {
   /**
    * Node notifier instance
+   *
+   * @internal
    */
   public notifier: {
     notify(props: {
@@ -31,6 +33,8 @@ export class Notifier {
 
   /**
    * Class notification
+   *
+   * @internal
    */
   public constructor() {
     this.notifier = new NodeNotifier.NotificationCenter({
@@ -44,6 +48,8 @@ export class Notifier {
    * Make with the notifcation
    *
    * @param app - {@link Bud} instance
+   *
+   * @internal
    */
   public notify(app: Bud) {
     const name = app.project.getProjectInfo().name ?? app.name

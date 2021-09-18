@@ -1,8 +1,17 @@
-import {Server} from '@roots/bud-framework'
+import {Framework, Server} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {isNull, isUndefined} from 'lodash'
 import {Compiler, MultiCompiler} from 'webpack'
 import DevMiddleware from 'webpack-dev-middleware'
 
+/**
+ * Middleware configuration keys
+ *
+ * @remarks
+ * WDS middleware is pretty sensitive about what you pass it.
+ *
+ * @public
+ */
 const middlewareConfigKeys = [
   'headers',
   'index',
@@ -11,30 +20,39 @@ const middlewareConfigKeys = [
   'publicPath',
   'serverSideRender',
   'stats',
-  'outputFileSysem',
+  'outputFileSystem',
   'writeToDisk',
 ]
 
 /**
- * Make dev middleware
+ * Dev middleware factory
+ *
+ * @public
  */
-const dev: Server.Middleware.Init = ({
+export default function dev({
   compiler,
   config,
 }: {
+  this: Framework
   compiler: Compiler | MultiCompiler
-  config: Server.Config
-}) => {
-  return DevMiddleware(compiler as any, options(config))
+  config: Container<Server.Configuration>
+}) {
+  const options = makeOptions(config)
+  this.log('dev middleware options', options)
+
+  return DevMiddleware(compiler, options)
 }
 
 /**
- * Make dev middlware options
+ * Dev middleware options factory
+ *
+ * @public
  */
-const options = (
-  config: Server.Config,
+const makeOptions = (
+  config: Container<Server.Configuration>,
 ): DevMiddleware.Options => ({
   writeToDisk: true,
+  index: 'index.html',
   ...Object.fromEntries(
     config
       .mutate('headers', headers => ({
@@ -50,5 +68,3 @@ const options = (
       ),
   ),
 })
-
-export {dev}

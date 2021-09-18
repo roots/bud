@@ -8,5 +8,4 @@ export const make: Extension.CompilerPlugin['make'] = () =>
 
 export const when: Extension.CompilerPlugin['when'] = app =>
   app.isDevelopment &&
-  !app.parent &&
   app.server?.config?.isTrue('middleware.hot')

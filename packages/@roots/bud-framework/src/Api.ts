@@ -5,6 +5,8 @@ import {Service} from './Service'
  *
  * @public @core @container
  */
-interface Api extends Service {}
+interface Api extends Service {
+  name: string
+}
 
 export {Api}

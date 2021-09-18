@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -191,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud!",
-  "docComment": "/**\n * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @remarks\n *\n * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.\n *\n * {@link factory} is exported to simplify instantiation for direct use with Node.\n *\n * This package also provides a CLI which can is invoked with `bud`.\n *\n * @example\n *\n * Example configuration file (`bud.config.js`). This file is run by invoking `$ bud build` in the terminal.\n * ```js\n * module.exports = app =>\n *   app\n *   .template({\n *     favicon: app.path('src', 'favicon.ico'),\n *     minify: false,\n *   })\n *   .entry('app', 'index.js')\n * ```\n *\n * @example\n *\n * Instantiate `Bud` from node using the `factory` function:\n * ```js\n * import {factory} from '@roots/bud'\n *\n * const bud = factory()\n *\n * bud.run() // run build\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
+  "docComment": "/**\n * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @example\n *\n * Example configuration file (`bud.config.js`). This is run by invoking `$ bud build` in the terminal.\n * ```js\n * module.exports = app =>\n *   app\n *   .template({\n *     favicon: app.path('src', 'favicon.ico'),\n *     minify: false,\n *   })\n *   .entry('app', 'index.js')\n * ```\n *\n * @example\n *\n * Instantiate `Bud` from node using the `factory` function:\n * ```js\n * import {factory} from '@roots/bud'\n *\n * const bud = factory()\n *\n * bud.run() // run build\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
   "name": "@roots/bud",
   "members": [
     {

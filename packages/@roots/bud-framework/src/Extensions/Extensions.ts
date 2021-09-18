@@ -4,7 +4,7 @@ import {ApplyPlugin, Extension} from './Extension'
 /**
  * Extensions Service interface
  *
- * @public @core
+ * @core @public @container
  */
 export interface Extensions
   extends Service<Partial<Plugins | Modules>> {

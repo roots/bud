@@ -1,17 +1,5 @@
 import {factory, Framework} from '@roots/bud'
 
-const DEFAULT_OPTIONS = {
-  cacheGroups: {
-    vendor: {
-      chunks: 'all',
-      test: /[\\/]node_modules[\\/]/,
-      reuseExistingChunk: true,
-      priority: -10,
-      filename: `vendor/[name].js`,
-    },
-  },
-}
-
 describe('bud.splitChunks', function () {
   let bud: Framework
 
@@ -27,22 +15,12 @@ describe('bud.splitChunks', function () {
     bud.hooks.on('build/optimization/splitChunks', undefined)
   })
 
-  it('is disabled by default', () => {
-    expect(bud.build.config.optimization.splitChunks).toEqual(
-      undefined,
-    )
-  })
-
   it('sets default options when called', () => {
     bud.splitChunks()
 
     expect(
-      bud.build.rebuild().optimization.splitChunks,
-    ).toMatchSnapshot(DEFAULT_OPTIONS)
-
-    expect(
       bud.hooks.filter('build/optimization/splitChunks'),
-    ).toMatchSnapshot(DEFAULT_OPTIONS)
+    ).toMatchSnapshot()
   })
 
   it('sets options when passed as parameters', () => {

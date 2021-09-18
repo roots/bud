@@ -16,25 +16,23 @@ import {
   Mode,
   Server,
   Services,
-} from '../'
-import {
-  close,
-  container,
-  get,
-  path,
-  pipe,
-  sequence,
-  setPath,
   Store,
-  when,
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
 import * as Project from '../Project'
 import {access} from './access'
 import {bootstrap} from './bootstrap'
+import {close} from './close'
+import {container} from './container'
+import {get} from './get'
 import {make} from './make'
+import {path} from './path'
+import {pipe} from './pipe'
+import {sequence} from './sequence'
+import {setPath} from './setPath'
 import {tap} from './tap'
+import {when} from './when'
 
 /**
  * Base {@link Framework} class
@@ -228,7 +226,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public server: Server
+  public server: Server.Interface
 
   /**
    * Container service for holding configuration values
@@ -372,6 +370,22 @@ export abstract class Framework {
    */
   public get: get
 
+  /**
+   * Instantiate a child instance and add to {@link Framework.children} container
+   *
+   * @remarks
+   * **make** takes two parameters:
+   *
+   * - The **name** of the new compiler
+   * - An optional callback to use for configuring the compiler.
+   *
+   * @example
+   * ```js
+   * bud.make('scripts', child => child.entry('app', 'app.js'))
+   * ```
+   *
+   * @public
+   */
   public make: make
 
   /**
@@ -404,6 +418,25 @@ export abstract class Framework {
    */
   public pipe: pipe
 
+  /**
+   * Set a {@link @roots/bud-framework#Location | Location} value
+   *
+   * @remarks
+   * The {@link Locations.project} should be an absolute path.
+   * All other directories should be relative (src, dist, etc.)
+   * @see {@link Locations}
+   *
+   * @example
+   * ```js
+   * bud.setPath('src', 'custom/src')
+   * ```
+   *
+   * @param this - {@link Framework}
+   * @param args - path parts
+   * @returns {@link Framework}
+   *
+   * @public
+   */
   public setPath: setPath
 
   /**
@@ -416,6 +449,31 @@ export abstract class Framework {
    */
   public sequence = sequence
 
+  /**
+   * Execute a callback
+   *
+   * @remarks
+   * Callback is provided {@link Framework | the Framework instance} as a parameter.
+   *
+   * @example
+   * ```js
+   * bud.tap(bud => {
+   *   // do something with bud
+   * })
+   * ```
+   *
+   * @example
+   * Lexical scope is bound to Framework where applicable, so it
+   * is possible to reference the Framework using `this`.
+   *
+   * ```js
+   * bud.tap(function () {
+   *  // do something with this
+   * })
+   * ```
+   *
+   * @public
+   */
   public tap: tap
 
   /**

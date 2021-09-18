@@ -31,7 +31,7 @@ describe('multi-compiler', () => {
     await execa('yarn', ['bud', 'extensions:install'], {
       cwd,
     })
-    await execa('yarn', ['bud', `build:production`, '--ci'], {
+    await execa('yarn', ['bud', `build:production`, '--cli'], {
       cwd,
     })
 

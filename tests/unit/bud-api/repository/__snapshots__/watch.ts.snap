@@ -26,7 +26,6 @@ Object {
     "files": Array [
       "**/*.js",
     ],
-    "options": Object {},
   },
 }
 `;

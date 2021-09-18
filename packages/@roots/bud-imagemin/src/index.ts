@@ -2,13 +2,17 @@
 // Licensed under the MIT license.
 
 /**
- * Imagemin adapter for Bud
+ * Add image optimization support to Bud projects
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @remarks
- * Add image optimization support to Bud projects
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
  *
  * @extension @packageDocumentation @betaDocumentation
  */

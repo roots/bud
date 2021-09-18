@@ -8,11 +8,11 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
  *
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
  *
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ * - 🌱 Easy - Low bundle size and fast build times
  *
  * @extension @packageDocumentation @betaDocumentation
  */

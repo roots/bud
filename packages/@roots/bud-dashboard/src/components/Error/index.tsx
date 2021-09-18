@@ -1,6 +1,11 @@
 import {Ink, React} from '@roots/bud-support'
 
-const Error = ({title = 'Error', body}) => {
+/**
+ * Error component
+ *
+ * @public
+ */
+export const Error = ({title = 'Error', body}) => {
   return (
     <Ink.Box
       flexDirection="column"
@@ -16,5 +21,3 @@ const Error = ({title = 'Error', body}) => {
     </Ink.Box>
   )
 }
-
-export {Error}
