@@ -6,23 +6,18 @@
 
 /// <reference types="node" />
 
-import { Application } from 'express';
 import { Class } from 'type-fest';
 import { Compiler as Compiler_2 } from 'webpack';
 import { Configuration as Configuration_2 } from 'webpack';
 import { Container } from '@roots/container';
-import * as DevMiddleware from 'webpack-dev-middleware';
-import { Handler } from 'express';
-import { Instance } from 'ink';
+import { Instance as Instance_2 } from 'ink';
 import { MultiCompiler } from 'webpack';
 import { ProgressPlugin } from 'webpack';
-import * as Proxy_2 from 'http-proxy-middleware';
 import { RuleSetRule } from 'webpack';
 import { Server as Server_2 } from 'http';
 import { Signale } from 'signale';
 import { StatsCompilation } from 'webpack';
 import { StatsError } from 'webpack';
-import { WatchOptions } from 'chokidar';
 import * as Webpack from 'webpack';
 
 // @public
@@ -56,19 +51,16 @@ abstract class Abstract_3 implements Peers.Interface {
     abstract resolvePeerByName(name: string): string;
 }
 
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "access" because one of its declarations is marked as @internal
-//
 // @public
-export function access<I = any>(this: Framework, value: Tapable | I): any;
-
-// @internal (undocumented)
-export interface access<I = any> {
+export interface Api extends Service {
     // (undocumented)
-    (this: Framework, value: Tapable | I): I;
+    name: string;
 }
 
 // @public
-export interface Api extends Service {
+interface Application extends Loose {
+    // (undocumented)
+    listen(on: string | number, cb: CallableFunction): Instance;
 }
 
 // @public
@@ -79,17 +71,6 @@ interface ApplyPlugin extends Loose {
 
 // @public
 export type AtLeastOne<Type = unknown> = Type | Type[];
-
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "bootstrap" because one of its declarations is marked as @internal
-//
-// @public
-export function bootstrap(this: Framework): Framework;
-
-// @internal
-export interface bootstrap {
-    // (undocumented)
-    (this: Framework): Framework;
-}
 
 // @public
 export abstract class Bootstrapper<T = any> extends Container<T> {
@@ -125,21 +106,11 @@ class Build_3 extends Service {
 
 declare namespace Cache_2 {
     export {
-        Interface,
+        Interface_2 as Interface,
         Abstract
     }
 }
 export { Cache_2 as Cache }
-
-// @public
-function close_2(this: Framework, done?: (code?: number) => never): void;
-
-// @public
-interface close_2 {
-    // (undocumented)
-    (this: Framework, done?: CallableFunction): void;
-}
-export { close_2 as close }
 
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Compiler" because one of its declarations is marked as @internal
 //
@@ -249,6 +220,34 @@ export interface Configuration {
 }
 
 // @public
+interface Configuration_3 {
+    browser: {
+        log: boolean;
+        indicator: boolean;
+        overlay: boolean;
+    };
+    disableHostCheck?: boolean;
+    filename?: string;
+    headers?: Index<string>;
+    host: string;
+    index?: string;
+    methods?: string[];
+    middleware: Index<boolean>;
+    mimeTypes?: {
+        [type: string]: string;
+    };
+    port: number;
+    proxy: {
+        host: string;
+        port: number;
+    };
+    publicPath?: string;
+    watch: {
+        files: string[];
+    };
+}
+
+// @public
 export type Constructor = new (options: Options) => Framework;
 
 // @public
@@ -256,17 +255,6 @@ interface ConstructorOptions {
     loader: Maybe<[Framework], Loader.Interface>;
     options?: Maybe<[Framework], Options_2>;
 }
-
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "container" because one of its declarations is marked as @internal
-//
-// @internal
-export interface container<T = any> {
-    // (undocumented)
-    <T>(repository?: T): Container<T>;
-}
-
-// @public
-export const container: <T = any>(repository?: T) => Container<T>;
 
 // @public
 interface Controller {
@@ -298,7 +286,7 @@ interface Controller {
 
 // @public
 export interface Dashboard extends Service {
-    instance: Instance;
+    instance: Instance_2;
     render(Component: any, title?: string): void;
     renderError(body: string, title: string): void;
     run(): void;
@@ -358,17 +346,22 @@ interface Factory_2 {
 // @public
 export abstract class Framework {
     constructor(options: Options);
+    // Warning: (ae-forgotten-export) The symbol "access" needs to be exported by the entry point index.d.ts
     access: access;
     api: Api;
     bindMethod<T = Function>(key: string, method: T & Function): Framework;
+    // Warning: (ae-forgotten-export) The symbol "bootstrap" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
     bootstrap: bootstrap;
     // (undocumented)
     build: Build.Interface;
     cache: Cache_2.Interface;
     children: Container<Index<Framework>>;
+    // Warning: (ae-forgotten-export) The symbol "close" needs to be exported by the entry point index.d.ts
     close: close_2;
     compiler: Compiler;
+    // Warning: (ae-forgotten-export) The symbol "container" needs to be exported by the entry point index.d.ts
     container: container;
     dashboard: Dashboard;
     debug(message?: any, ...optionalArgs: any[]): void;
@@ -376,6 +369,7 @@ export abstract class Framework {
     env: Env;
     error(message?: any, ...optionalArgs: any[]): void;
     extensions: Extensions;
+    // Warning: (ae-forgotten-export) The symbol "get" needs to be exported by the entry point index.d.ts
     get: get;
     get hasChildren(): boolean;
     hooks: Hooks;
@@ -386,43 +380,30 @@ export abstract class Framework {
     get isProduction(): boolean;
     log(message?: any, ...optionalArgs: any[]): void;
     logger: Logger;
-    // (undocumented)
+    // Warning: (ae-forgotten-export) The symbol "make" needs to be exported by the entry point index.d.ts
     make: make;
     mode: Mode;
     name: string;
     parent: Framework | null;
+    // Warning: (ae-forgotten-export) The symbol "path" needs to be exported by the entry point index.d.ts
     path: path;
+    // Warning: (ae-forgotten-export) The symbol "pipe" needs to be exported by the entry point index.d.ts
     pipe: pipe;
     project: Project.Interface;
+    // Warning: (ae-forgotten-export) The symbol "sequence" needs to be exported by the entry point index.d.ts
     sequence: typeof sequence;
-    server: Server;
+    server: Server.Interface;
     services: Services;
-    // (undocumented)
+    // Warning: (ae-forgotten-export) The symbol "setPath" needs to be exported by the entry point index.d.ts
     setPath: setPath;
     store: Store;
     success(message?: any, ...optionalArgs: any[]): void;
-    // (undocumented)
+    // Warning: (ae-forgotten-export) The symbol "tap" needs to be exported by the entry point index.d.ts
     tap: tap;
     warn(message?: any, ...optionalArgs: any[]): void;
+    // Warning: (ae-forgotten-export) The symbol "when" needs to be exported by the entry point index.d.ts
     when: when;
 }
-
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "get" because one of its declarations is marked as @internal
-//
-// @internal
-export interface get {
-    // (undocumented)
-    (this: Framework, name: string, tap?: (app: Framework) => Framework): Framework;
-}
-
-// @internal @override
-export interface get {
-    // (undocumented)
-    (name: string, tap?: (app: Framework) => Framework): Framework;
-}
-
-// @public
-export const get: get;
 
 // @public
 export interface Hooks extends Service<Hooks.Repository> {
@@ -502,7 +483,30 @@ export type Index<T = any> = {
 };
 
 // @public
-interface Interface {
+interface Instance extends Server_2 {
+}
+
+// @public
+interface Interface extends Service {
+    application: Application;
+    assets: string[];
+    close(): void;
+    config: Container<Configuration_3>;
+    getWatchedFilesArray(): string[];
+    inject(): void;
+    instance: Instance;
+    isWatchable: boolean;
+    middleware: Middleware;
+    run(): this;
+    watcher: {
+        [key: string]: any;
+        close: CallableFunction;
+        on: CallableFunction;
+    };
+}
+
+// @public
+interface Interface_2 {
     buildDependencies(): string[];
     directory(): string;
     hash(): string;
@@ -510,7 +514,7 @@ interface Interface {
 }
 
 // @public
-interface Interface_2 {
+interface Interface_3 {
     discover(type: 'dependencies' | 'devDependencies'): this;
     getPeerManifest(name: string): {
         [key: string]: any;
@@ -524,7 +528,7 @@ interface Interface_2 {
 }
 
 // @public
-interface Interface_3 extends Service {
+interface Interface_4 extends Service {
     getProjectInfo(): {
         [key: string]: any;
     };
@@ -614,19 +618,14 @@ export interface Loose {
     [key: string]: any;
 }
 
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "make" because one of its declarations is marked as @internal
-//
-// @public
-export function make(name: string, tap?: Tapable): Framework;
-
-// @internal
-export interface make {
-    // (undocumented)
-    (name: string, tap?: Tapable): Framework;
-}
-
 // @public
 export type Maybe<A extends any[], T> = T | Factory<A, T>;
+
+// @public
+interface Middleware {
+    // (undocumented)
+    [key: string]: any;
+}
 
 // @public
 export type Mode = 'production' | 'development';
@@ -712,21 +711,6 @@ interface Parser {
     parse: (input?: string) => any;
 }
 
-// @public (undocumented)
-export interface path {
-    // (undocumented)
-    (this: Framework, key: keyof Locations & string, ...path: string[]): string;
-}
-
-// @public (undocumented)
-export interface path {
-    // (undocumented)
-    (key: keyof Locations & string, ...path: string[]): string;
-}
-
-// @public (undocumented)
-export const path: path;
-
 // @public
 interface Peer {
     name: string;
@@ -740,21 +724,10 @@ declare namespace Peers {
         Peer,
         Repository,
         Abstract_3 as Abstract,
-        Interface_2 as Interface
+        Interface_3 as Interface
     }
 }
 export { Peers }
-
-// Warning: (ae-forgotten-export) The symbol "Callback" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function pipe<T = Framework>(fns: Callback<T>[], value?: T): T;
-
-// @public (undocumented)
-export interface pipe {
-    // (undocumented)
-    <T = Framework>(fns: Callback<T>[], value?: T): T;
-}
 
 // @public
 export interface PluginInstance {
@@ -768,7 +741,7 @@ export interface Plugins extends Partial<Index<Extension.CompilerPlugin>> {
 declare namespace Project {
     export {
         Abstract_2 as Abstract,
-        Interface_3 as Interface
+        Interface_4 as Interface
     }
 }
 export { Project }
@@ -843,99 +816,17 @@ abstract class Rule_3 {
 export interface Rules extends Partial<Index<Rule.Interface>> {
 }
 
-// Warning: (ae-forgotten-export) The symbol "Callback" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function sequence<T = Framework>(this: Framework, fns: Callback_2[], value?: T): Framework;
-
-// @public (undocumented)
-export interface sequence {
-    // (undocumented)
-    <T = Framework>(this: Framework, fns: Callback_2[], value?: T): Framework;
-}
-
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Server" because one of its declarations is marked as @internal
-//
-// @public
-export interface Server extends Service {
-    application: Server.Application;
-    assets: string[];
-    close(): void;
-    config: Server.Config;
-    getWatchedFilesArray(): string[];
-    inject(): void;
-    instance: Server.Instance;
-    isWatchable: boolean;
-    middleware: Server.Middleware.Inventory;
-    run(): this;
-    watcher: {
-        [key: string]: any;
-        close: CallableFunction;
-        on: CallableFunction;
-    };
-}
-
-// @internal (undocumented)
-export namespace Server {
-    export type Application = Application;
-    export type Compiler = Webpack.Compiler | Webpack.MultiCompiler;
-    export type Config = Container<Configuration>;
-    export interface Configuration {
-        browser?: {
-            log?: boolean;
-            indicator?: boolean;
-            overlay?: boolean;
-        };
-        disableHostCheck?: DevMiddleware.Options[];
-        filename?: string;
-        headers?: DevMiddleware.Options['headers'];
-        host?: string;
-        index?: DevMiddleware.Options['index'];
-        methods?: DevMiddleware.Options['methods'];
-        middleware?: {
-            [key: string]: boolean;
-        };
-        mimeTypes?: DevMiddleware.MimeTypeMap;
-        port?: number;
-        proxy?: {
-            host?: string;
-            port?: number;
-        };
-        publicPath?: DevMiddleware.Options['publicPath'];
-        watch?: {
-            files: string[];
-            options: WatchOptions;
-        };
-    }
-    export type Instance = Server_2;
-    export type Middleware = any;
-    // (undocumented)
-    export namespace Middleware {
-        // (undocumented)
-        export type Init = (options: Options) => Middleware;
-        // (undocumented)
-        export interface Inventory {
-            // (undocumented)
-            [key: string]: Middleware;
-        }
-        // (undocumented)
-        export interface Options {
-            // (undocumented)
-            compiler: Compiler;
-            // (undocumented)
-            config: Config;
-        }
-        // (undocumented)
-        export type Proxy = Proxy_2.RequestHandler & Handler;
-        // (undocumented)
-        export interface Target {
-            // (undocumented)
-            host: string;
-            // (undocumented)
-            port: number;
-        }
+declare namespace Server {
+    export {
+        Application,
+        Instance,
+        Middleware,
+        Target,
+        Interface,
+        Configuration_3 as Configuration
     }
 }
+export { Server }
 
 // Warning: (ae-forgotten-export) The symbol "GenericRepository" needs to be exported by the entry point index.d.ts
 //
@@ -964,63 +855,32 @@ export abstract class Service<Repository = GenericRepository> extends Bootstrapp
 export interface Services extends Partial<Index<new (app: Framework) => Service>> {
 }
 
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "setPath" because one of its declarations is marked as @internal
-//
-// @public
-export function setPath(this: Framework, ...args: any[]): Framework;
-
-// @internal
-export interface setPath {
-    // (undocumented)
-    (this: Framework, ...args: any[]): Framework;
-}
-
-// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "Store" because one of its declarations is marked as @internal
-//
 // @public
 export class Store<T = Configuration> extends Service<T> {
     // @override (undocumented)
-    get<T = any>(path: keyof Store.Repository): T;
+    get<T = any>(path: keyof Repository_2): T;
     // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: No member was found with name "name"
     //
-    // (undocumented)
+    // @override (undocumented)
     name: string;
+    // Warning: (ae-forgotten-export) The symbol "Repository" needs to be exported by the entry point index.d.ts
+    repository: Repository_2;
 }
-
-// @internal (undocumented)
-export namespace Store {
-    // (undocumented)
-    export type Keys = `${keyof Configuration & string}` | `theme.${keyof Configuration['theme'] & string}` | `theme.screens` | `theme.colors.${keyof Configuration['theme']['colors'] & string}` | `server.${keyof Configuration['server'] & string}` | `server.middleware.${keyof Configuration['server']['middleware'] & string}` | `server.browser.${keyof Configuration['server']['browser'] & string}` | `server.${keyof Configuration['server'] & string}.${string}` | `env.${string}` | `location.${keyof Configuration['location'] & string}` | `patterns.${keyof Configuration['patterns'] & string}` | `build.${keyof Webpack.Configuration}` | `build.module.${keyof Webpack.Configuration['module']}` | `build.module.${keyof Webpack.Configuration['module']}.${string}` | `extension.${string}` | `build.${keyof Webpack.Configuration}.${string}`;
-    // (undocumented)
-    export type Repository = {
-        [K in Store.Keys & string]?: any;
-    };
-}
-
-// @public (undocumented)
-export interface tap<T = Framework> {
-    // (undocumented)
-    (fn: Tapable<[T]>, bound?: boolean): T;
-}
-
-// @public
-export const tap: tap<Framework>;
 
 // @public
 export interface Tapable<P extends any[] = [Framework], T = any> extends Factory<[P], T> {
 }
 
-// @public @deprecated
-export interface WebpackPlugin<P = any, O = any> extends Extension.CompilerPlugin<Extension.ApplyPlugin, unknown> {
+// @public
+interface Target {
+    // (undocumented)
+    host: string;
+    // (undocumented)
+    port: number;
 }
 
-// @public (undocumented)
-export function when(this: Framework, test: ((app: Framework) => boolean) | boolean, trueCase: (app: Framework) => any, falseCase?: (app: Framework) => any): Framework;
-
-// @public (undocumented)
-export interface when {
-    // (undocumented)
-    (this: Framework, test: ((app: Framework) => boolean) | boolean, trueCase: (app: Framework) => any, falseCase?: (app: Framework) => any): Framework;
+// @public @deprecated
+export interface WebpackPlugin<P = any, O = any> extends Extension.CompilerPlugin<Extension.ApplyPlugin, unknown> {
 }
 
 // Warnings were encountered during analysis:

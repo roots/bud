@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -191,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/sage!",
-  "docComment": "/**\n * The {@link @roots/sage# | @roots/sage preset} configures Bud for use with the Sage starter theme\n *\n * @remarks\n *\n * - 💁 Composable - Build boss web applications with a modular, configurable build system - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @see\n *\n * https://github.com/roots/sage\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/sage# | @roots/sage preset} configures Bud for use with the Sage starter theme\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional web applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @see\n *\n * https://github.com/roots/sage\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
   "name": "@roots/sage",
   "members": [
     {

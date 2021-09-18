@@ -1,0 +1,807 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.18.9",
+    "schemaVersion": 1004,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@container",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@core",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@extension",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@config",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true,
+        "@container": true,
+        "@core": true,
+        "@extension": true,
+        "@config": true,
+        "@hook": true,
+        "@filter": true
+      }
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@roots/bud-postcss!",
+  "docComment": "/**\n * Adds PostCSS support to Bud\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @extension @packageDocumentation @betaDocumentation\n */\n",
+  "name": "@roots/bud-postcss",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@roots/bud-postcss!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-postcss!api:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "api: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Maybe",
+              "canonicalReference": "@roots/bud-framework!Maybe:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Index",
+              "canonicalReference": "@roots/bud-framework!Index:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown>> & {\n    postcss: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PostCssConfig",
+              "canonicalReference": "@roots/bud-postcss!~PostCssConfig:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "api",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 10
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-postcss!boot:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "boot: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Factory",
+              "canonicalReference": "@roots/bud-framework!Factory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<[import(\"@roots/bud-framework\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "@roots/bud-framework!Framework:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], unknown>"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "boot",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@roots/bud-postcss!BudPostCssExtension:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "interface BudPostCssExtension extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Module",
+              "canonicalReference": "@roots/bud-framework!Module:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BudPostCssExtension",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-postcss!BudPostCssExtension#api:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "api: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!Module:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['api'] & {\n        postcss: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PostCssConfig",
+                  "canonicalReference": "@roots/bud-postcss!~PostCssConfig:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "api",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-postcss!BudPostCssExtension#boot:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "boot: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!Module:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['boot']"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "boot",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-postcss!BudPostCssExtension#name:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Module",
+                  "canonicalReference": "@roots/bud-framework!Module:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['name'] & '@roots/bud-postcss'"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-postcss!BudPostCssExtension:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "BudPostCssExtension: "
+            },
+            {
+              "kind": "Reference",
+              "text": "BudPostCssExtension",
+              "canonicalReference": "@roots/bud-postcss!~BudPostCssExtension:interface"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BudPostCssExtension",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-postcss!name_2:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "name: "
+            },
+            {
+              "kind": "Content",
+              "text": "\"@roots/bud-postcss\""
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "name_2",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-postcss!PostCssConfig:class",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare class PostCssConfig "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "PostCssConfig",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#plugins:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "plugins: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-postcss!~Registry:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "plugins",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@roots/bud-postcss!PostCssConfig:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "interface PostCssConfig "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "PostCssConfig",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#plugins:member",
+              "docComment": "/**\n * Registered plugins\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "plugins: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Registry",
+                  "canonicalReference": "@roots/bud-postcss!~Registry:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "plugins",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#setPlugin:member(1)",
+              "docComment": "/**\n * Set a plugin\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setPlugin(name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", plugin: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PluginCreator",
+                  "canonicalReference": "postcss!PluginCreator:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>, any] | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PluginCreator",
+                  "canonicalReference": "postcss!PluginCreator:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "this"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 10
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "name",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "plugin",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 8
+                  }
+                }
+              ],
+              "name": "setPlugin"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#setPluginOptions:member(1)",
+              "docComment": "/**\n * Set plugin options\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setPluginOptions(plugin: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", options: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "this"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "plugin",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "setPluginOptions"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#setPlugins:member(1)",
+              "docComment": "/**\n * Set plugins\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setPlugins(plugins: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        [key: string]: ["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PluginCreator",
+                  "canonicalReference": "postcss!PluginCreator:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>, any] | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PluginCreator",
+                  "canonicalReference": "postcss!PluginCreator:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "this"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "plugins",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "setPlugins"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@roots/bud-postcss!PostCssConfig#unsetPlugin:member(1)",
+              "docComment": "/**\n * Remove a plugin\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "unsetPlugin(plugin: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "this"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "plugin",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "unsetPlugin"
+            }
+          ],
+          "extendsTokenRanges": []
+        }
+      ]
+    }
+  ]
+}

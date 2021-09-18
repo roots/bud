@@ -128,16 +128,17 @@ If you want to create another child compiler, do so from the parent context:
 
 ```js title='bud.config.js' {8-13}
 module.exports = app =>
-app.make('theme', theme => {
-  theme
-    .use([require('@roots/bud-babel')])
-    .setPath('dist', 'dist/theme')
-    .entry('theme', ['theme.js', 'theme.css'])
-})
-.make('plugin', plugin => {
-  plugin
-    .use([require('@roots/bud-babel')])
-    .setPath('dist', 'dist/plugin')
-    .entry('plugin', ['plugin.js', 'plugin.css'])
-})
+  app
+    .make('theme', theme => {
+      theme
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
+    .make('plugin', plugin => {
+      plugin
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/plugin')
+        .entry('plugin', ['plugin.js', 'plugin.css'])
+    })
 ```

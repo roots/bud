@@ -17,10 +17,15 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-export {Dashboard} from './Dashboard'
+import * as Components from './components'
+import {Dashboard} from './Dashboard'
+import {Error} from './Error'
+import * as hooks from './hooks'
 
-export {Error} from './Error'
+export {Components}
 
-export * as Components from './components'
+export {Dashboard}
 
-export * as hooks from './hooks'
+export {Error}
+
+export {hooks}

@@ -4,16 +4,9 @@ import type {
 } from '@roots/bud-framework'
 
 /**
- * Config function interface
- *
  * @privateRemarks Should this function be nixxed entirely?
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param overrides - {@link @roots/bud-framework#Configuration}
- *
- * @public @config
  */
-interface config {
+export interface config {
   (this: Framework, overrides: Partial<Configuration>): Framework
 }
 
@@ -33,7 +26,10 @@ interface config {
  *
  * @public
  */
-function config(overrides: Partial<Configuration>): Framework {
+export function config(
+  this: Framework,
+  overrides: Partial<Configuration>,
+): Framework {
   if (!overrides)
     throw new Error('config() requires a config object')
 
@@ -41,5 +37,3 @@ function config(overrides: Partial<Configuration>): Framework {
 
   return this
 }
-
-export {config as default}

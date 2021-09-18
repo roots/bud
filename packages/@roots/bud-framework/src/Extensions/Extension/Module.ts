@@ -4,7 +4,7 @@ import {Factory, Framework, Index, Loose, Maybe} from '../..'
 import {ApplyPlugin, Name} from './'
 
 /**
- * Bud {@link Extension} interface
+ * Bud extension interface
  *
  * @typeParam Options - Extension options
  *
@@ -44,8 +44,7 @@ export default interface Module<Options = unknown>
    * Objects to bind to the framework. May be expressed as an object literal or a factory function.
    *
    * @remarks
-   * You might also use {@link @roots/bud-framework#Service.bindMacro} from {@link Module.register} or {@link Module.boot}
-   * to accomplish the same thing.
+   * You might also use {@link @roots/bud-framework#Service.bindMacro | bindMacro} to accomplish the same thing.
    *
    * If expressed as a factory function, the function will be called with the {@link Framework} as the first parameter.
    *

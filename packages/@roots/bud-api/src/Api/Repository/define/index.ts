@@ -1,15 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import type {DefinePlugin} from 'webpack'
 
-/**
- * Function accepting {@link webpack#DefinePlugin} definitions and
- * returning the {@link @roots/bud-framework#Framework}
- *
- * @param values - {@link webpack#DefinePlugin} definitions
- * @returns {@link @roots/bud-framework#Framework}
- *
- * @public @config
- */
 export interface define {
   (
     this: Framework,
@@ -27,9 +18,12 @@ export interface define {
  * })
  * ```
  *
+ * @hook extension/webpack-define-plugin/options
+ *
  * @public @config
  */
-export const define: define = function (
+export function define(
+  this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
   this.hooks.on(

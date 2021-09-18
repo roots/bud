@@ -9,12 +9,13 @@ import * as Rule from '../Rule'
  * Build container service interface
  *
  * @remarks
- * The most current config is accessible through {@link Build.config}. If it
- * has never been built before, accessing the property will automatically build it.
+ * The most current config is accessible through {@link @roots/bud-framework#Build | Build.config}.
+ * If it has never been built before, accessing the property will automatically build it.
  *
- * If the configuration has changed {@link Build.rebuild} can be called to regenerate the configuration.
+ * If the configuration has changed {@link @roots/bud-framework#Build| Build.rebuild}
+ * can be called to regenerate the configuration.
  *
- * Most configuration values are produced using {@link Framework.hooks} callbacks.
+ * Most configuration values are produced using {@link @roots/bud-framework#(Hooks:interface) | Hooks}.
  *
  * @example
  * Access the config

@@ -8,18 +8,20 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
- * @remarks
  * This package is bundled with \@vercel/ncc. Sometimes type definitions can be a little iffy.
  *
  * It is recommended for extension authors to include their type definitions separately. You can
  * ensure that these packages are included in the runtime by specifying your type imports with
  * `import type` syntax.
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation @betaDocumentation
  */
 
 import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
@@ -45,23 +47,41 @@ import {killPort} from './util/killPort'
 import * as wpPkgs from './util/wordpressPkgs'
 
 export {dump}
+
 export {killPort}
+
 export {wpPkgs}
 
 export {dotenv}
+
 export {dotenvExpand}
+
 export {globby}
+
 export {Ink}
+
 export {InkGradient}
+
 export {InkSpinner}
+
 export {InkUseStyle}
+
 export {Notifier}
+
 export {React}
+
 export {Express}
+
 export {chalk}
+
 export {cosmiconfig}
+
 export {cosmiconfigTsLoader}
+
 export {pkgUp}
+
 export {json5}
+
 export {toml}
+
 export {yaml}

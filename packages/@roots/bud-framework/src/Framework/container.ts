@@ -5,7 +5,7 @@ import {Container} from '@roots/container'
  *
  * @internal
  */
-interface container<T = any> {
+export interface container<T = any> {
   <T>(repository?: T): Container<T>
 }
 
@@ -14,12 +14,10 @@ interface container<T = any> {
  *
  * @public
  */
-const container = function <T = any>(
+export const container = function <T = any>(
   repository?: T,
 ): Container<T> {
   return repository
     ? new Container<T>(repository)
     : new Container()
 }
-
-export {container}

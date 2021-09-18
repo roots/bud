@@ -8,7 +8,7 @@ import {ApplyPlugin, Module} from './'
  *
  * @public
  */
-export default interface CompilerPlugin<
+export interface CompilerPlugin<
   Plugin = ApplyPlugin,
   Options = unknown,
 > extends Module {

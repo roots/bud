@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.18.7",
+    "toolVersion": "7.18.9",
     "schemaVersion": 1004,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -144,11 +144,13 @@
         },
         {
           "tagName": "@hook",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         },
         {
           "tagName": "@filter",
-          "syntaxKind": "block"
+          "syntaxKind": "block",
+          "allowMultiple": true
         }
       ],
       "supportForTags": {
@@ -200,91 +202,6 @@
       "name": "",
       "members": [
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!access:function(1)",
-          "docComment": "/**\n * Calls a given value if it is a function. The function will be bound to {@link @roots/bud-framework#Framework} before it is called.\n *\n * If it is not a function, returns the value without doing anything to it.\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @typeParam I - Type of the value expected to be returned\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function access<I = "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ">(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ", value: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Tapable",
-              "canonicalReference": "@roots/bud-framework!Tapable:interface"
-            },
-            {
-              "kind": "Content",
-              "text": " | I"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 8,
-            "endIndex": 9
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "parameterName": "value",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 7
-              }
-            }
-          ],
-          "typeParameters": [
-            {
-              "typeParameterName": "I",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "access"
-        },
-        {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Api:interface",
           "docComment": "/**\n * API service container\n *\n * @public @core @container\n */\n",
@@ -305,7 +222,34 @@
           ],
           "releaseTag": "Public",
           "name": "Api",
-          "members": [],
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/bud-framework!Api#name:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
           "extendsTokenRanges": [
             {
               "startIndex": 1,
@@ -358,51 +302,6 @@
             "startIndex": 3,
             "endIndex": 4
           }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!bootstrap:function(1)",
-          "docComment": "/**\n * Initializes and binds {@link Framework.services}\n *\n * @param this - {@link Framework}\n *\n * @returns Framework\n *\n * @example\n * ```js\n * new FrameworkImplementation(...constructorParams).bootstrap()\n * ```\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function bootstrap(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 4
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "bootstrap"
         },
         {
           "kind": "Class",
@@ -551,7 +450,7 @@
             {
               "kind": "Class",
               "canonicalReference": "@roots/bud-framework!Build.Abstract:class",
-              "docComment": "/**\n * Build container service interface\n *\n * @remarks\n *\n * The most current config is accessible through {@link Build.config}. If it has never been built before, accessing the property will automatically build it.\n *\n * If the configuration has changed {@link Build.rebuild} can be called to regenerate the configuration.\n *\n * Most configuration values are produced using {@link Framework.hooks} callbacks.\n *\n * @example\n *\n * Access the config\n * ```js\n * build.config\n * ```\n *\n * @example\n *\n * Rebuild the configuration\n * ```js\n * build.rebuild()\n * ```\n *\n * @example\n *\n * Filter the Webpack configuration.entry value\n * ```js\n * bud.hooks.filter('build/entry')\n * ```\n *\n * @public @core @container\n */\n",
+              "docComment": "/**\n * Build container service interface\n *\n * @remarks\n *\n * The most current config is accessible through {@link @roots/bud-framework#Build | Build.config}. If it has never been built before, accessing the property will automatically build it.\n *\n * If the configuration has changed {@link @roots/bud-framework#Build | Build.rebuild} can be called to regenerate the configuration.\n *\n * Most configuration values are produced using {@link @roots/bud-framework#(Hooks:interface) | Hooks}.\n *\n * @example\n *\n * Access the config\n * ```js\n * build.config\n * ```\n *\n * @example\n *\n * Rebuild the configuration\n * ```js\n * build.rebuild()\n * ```\n *\n * @example\n *\n * Filter the Webpack configuration.entry value\n * ```js\n * bud.hooks.filter('build/entry')\n * ```\n *\n * @public @core @container\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1186,140 +1085,6 @@
               "extendsTokenRanges": []
             }
           ]
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!close_2:function(1)",
-          "docComment": "/**\n * Exit the program\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function close(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ", done?: "
-            },
-            {
-              "kind": "Content",
-              "text": "(code?: number) => never"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "void"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "done",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            }
-          ],
-          "name": "close_2"
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!close_2:interface",
-          "docComment": "/**\n * Close interface\n *\n * @param this - {@link @roots/bud-framework#Framework}\n *\n * @param done - Callback function to be called before end of run\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface close "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "close_2",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!close_2:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "(this: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", done?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CallableFunction",
-                  "canonicalReference": "!CallableFunction:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "this",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "done",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
         },
         {
           "kind": "Interface",
@@ -2075,9 +1840,13 @@
                   "text": "server: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Server."
+                },
+                {
                   "kind": "Reference",
-                  "text": "Server.Configuration",
-                  "canonicalReference": "@roots/bud-framework!~Server.Configuration:interface"
+                  "text": "Configuration",
+                  "canonicalReference": "@roots/bud-framework!Configuration:interface"
                 },
                 {
                   "kind": "Content",
@@ -2089,7 +1858,7 @@
               "name": "server",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 3
               }
             },
             {
@@ -2248,36 +2017,6 @@
           "typeTokenRange": {
             "startIndex": 1,
             "endIndex": 5
-          }
-        },
-        {
-          "kind": "Variable",
-          "canonicalReference": "@roots/bud-framework!container:var",
-          "docComment": "/**\n * Instantiates and returns a new {@link @roots/container#Container | Container}\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "container: "
-            },
-            {
-              "kind": "Content",
-              "text": "<T = any>(repository?: T) => "
-            },
-            {
-              "kind": "Reference",
-              "text": "Container",
-              "canonicalReference": "@roots/container!Container:class"
-            },
-            {
-              "kind": "Content",
-              "text": "<T>"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "container",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 4
           }
         },
         {
@@ -2795,7 +2534,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "export default interface CompilerPlugin<Plugin = "
+                  "text": "export interface CompilerPlugin<Plugin = "
                 },
                 {
                   "kind": "Reference",
@@ -3526,7 +3265,7 @@
                 {
                   "kind": "Reference",
                   "text": "CompilerPlugin",
-                  "canonicalReference": "@roots/bud-framework!default:interface"
+                  "canonicalReference": "@roots/bud-framework!CompilerPlugin:interface"
                 },
                 {
                   "kind": "Content",
@@ -3571,7 +3310,7 @@
             {
               "kind": "Interface",
               "canonicalReference": "@roots/bud-framework!Extension.Module:interface",
-              "docComment": "/**\n * Bud {@link Extension} interface\n *\n * @typeParam Options - Extension options\n *\n * @public @core\n */\n",
+              "docComment": "/**\n * Bud extension interface\n *\n * @typeParam Options - Extension options\n *\n * @public @core\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3614,7 +3353,7 @@
                 {
                   "kind": "PropertySignature",
                   "canonicalReference": "@roots/bud-framework!Extension.Module#api:member",
-                  "docComment": "/**\n * Objects to bind to the framework. May be expressed as an object literal or a factory function.\n *\n * @remarks\n *\n * You might also use {@link @roots/bud-framework#Service.bindMacro} from {@link Module.register} or {@link Module.boot} to accomplish the same thing.\n *\n * If expressed as a factory function, the function will be called with the {@link Framework} as the first parameter.\n *\n * @public\n */\n",
+                  "docComment": "/**\n * Objects to bind to the framework. May be expressed as an object literal or a factory function.\n *\n * @remarks\n *\n * You might also use {@link @roots/bud-framework#Service.bindMacro | bindMacro} to accomplish the same thing.\n *\n * If expressed as a factory function, the function will be called with the {@link Framework} as the first parameter.\n *\n * @public\n */\n",
                   "excerptTokens": [
                     {
                       "kind": "Content",
@@ -4650,7 +4389,7 @@
                 {
                   "kind": "Reference",
                   "text": "container",
-                  "canonicalReference": "@roots/bud-framework!~container:interface"
+                  "canonicalReference": "@roots/bud-framework!container:interface"
                 },
                 {
                   "kind": "Content",
@@ -5241,7 +4980,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#make:member",
-              "docComment": "",
+              "docComment": "/**\n * Instantiate a child instance and add to {@link Framework.children} container\n *\n * @remarks\n *\n * **make** takes two parameters:\n *\n * - The **name** of the new compiler - An optional callback to use for configuring the compiler.\n *\n * @example\n * ```js\n * bud.make('scripts', child => child.entry('app', 'app.js'))\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5393,7 +5132,7 @@
                 {
                   "kind": "Reference",
                   "text": "pipe",
-                  "canonicalReference": "@roots/bud-framework!~pipe:interface"
+                  "canonicalReference": "@roots/bud-framework!pipe:interface"
                 },
                 {
                   "kind": "Content",
@@ -5483,9 +5222,13 @@
                   "text": "server: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "Server."
+                },
+                {
                   "kind": "Reference",
-                  "text": "Server",
-                  "canonicalReference": "@roots/bud-framework!~Server:interface"
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
                 },
                 {
                   "kind": "Content",
@@ -5497,7 +5240,7 @@
               "name": "server",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 3
               },
               "isStatic": false
             },
@@ -5532,7 +5275,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#setPath:member",
-              "docComment": "",
+              "docComment": "/**\n * Set a {@link @roots/bud-framework#Location | Location} value\n *\n * @remarks\n *\n * The {@link Locations.project} should be an absolute path. All other directories should be relative (src, dist, etc.)\n *\n * @param this - {@link Framework}\n *\n * @param args - path parts\n *\n * @returns {@link Framework}\n *\n * @example\n * ```js\n * bud.setPath('src', 'custom/src')\n * ```\n *\n * @see\n *\n * {@link Locations}\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5569,7 +5312,7 @@
                 {
                   "kind": "Reference",
                   "text": "Store",
-                  "canonicalReference": "@roots/bud-framework!~Store:class"
+                  "canonicalReference": "@roots/bud-framework!Store:class"
                 },
                 {
                   "kind": "Content",
@@ -5648,7 +5391,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#tap:member",
-              "docComment": "",
+              "docComment": "/**\n * Execute a callback\n *\n * @remarks\n *\n * Callback is provided {@link Framework | the Framework instance} as a parameter.\n *\n * @example\n * ```js\n * bud.tap(bud => {\n *   // do something with bud\n * })\n * ```\n *\n * @example\n *\n * Lexical scope is bound to Framework where applicable, so it is possible to reference the Framework using `this`.\n * ```js\n * bud.tap(function () {\n *  // do something with this\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5763,28 +5506,6 @@
             }
           ],
           "implementsTokenRanges": []
-        },
-        {
-          "kind": "Variable",
-          "canonicalReference": "@roots/bud-framework!get:var",
-          "docComment": "/**\n * Retrieves a specific {@link Framework | Framework instance} by name.\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "get: "
-            },
-            {
-              "kind": "Reference",
-              "text": "get",
-              "canonicalReference": "@roots/bud-framework!~get:interface"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "get",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          }
         },
         {
           "kind": "Interface",
@@ -8806,66 +8527,6 @@
           "extendsTokenRanges": []
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!make:function(1)",
-          "docComment": "/**\n * Instantiate a child instance and add to {@link Framework.children} container\n *\n * @remarks\n *\n * **make** takes two parameters:\n *\n * - The **name** of the new compiler - An optional callback to use for configuring the compiler.\n *\n * @example\n * ```js\n * bud.make('scripts', child => child.entry('app', 'app.js'))\n * ```\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function make(name: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ", tap?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Tapable",
-              "canonicalReference": "@roots/bud-framework!Tapable:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "name",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "tap",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            }
-          ],
-          "name": "make"
-        },
-        {
           "kind": "TypeAlias",
           "canonicalReference": "@roots/bud-framework!Maybe:type",
           "docComment": "/**\n * Maybe\n *\n * @remarks\n *\n * If T is a function, and it is passed a value of type A, it returns T. If it is not a function, it returns T.\n *\n * @typeParam A - Arguments to be passed when T is a function and it is invoked\n *\n * @typeParam T - Type to be returned\n *\n * @public\n */\n",
@@ -9172,192 +8833,6 @@
             }
           ],
           "extendsTokenRanges": []
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!path:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "interface path "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "path",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!path:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "(this: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", key: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "keyof "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Locations",
-                  "canonicalReference": "@roots/bud-framework!Locations:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", ...path: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 9,
-                "endIndex": 10
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "this",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "key",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 6
-                  }
-                },
-                {
-                  "parameterName": "path",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 7,
-                    "endIndex": 8
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!path:call(2)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "(key: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "keyof "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Locations",
-                  "canonicalReference": "@roots/bud-framework!Locations:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", ...path: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 2,
-              "parameters": [
-                {
-                  "parameterName": "key",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 4
-                  }
-                },
-                {
-                  "parameterName": "path",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 5,
-                    "endIndex": 6
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
-          "kind": "Variable",
-          "canonicalReference": "@roots/bud-framework!path:var",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "path: "
-            },
-            {
-              "kind": "Reference",
-              "text": "path",
-              "canonicalReference": "@roots/bud-framework!~path:interface"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "path",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          }
         },
         {
           "kind": "Namespace",
@@ -10265,191 +9740,6 @@
           ]
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!pipe:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "declare function pipe<T = "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ">(fns: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Callback",
-              "canonicalReference": "@roots/bud-framework!~Callback:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<T>[]"
-            },
-            {
-              "kind": "Content",
-              "text": ", value?: "
-            },
-            {
-              "kind": "Content",
-              "text": "T"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "T"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 8,
-            "endIndex": 9
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "fns",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 5
-              }
-            },
-            {
-              "parameterName": "value",
-              "parameterTypeTokenRange": {
-                "startIndex": 6,
-                "endIndex": 7
-              }
-            }
-          ],
-          "typeParameters": [
-            {
-              "typeParameterName": "T",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "pipe"
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!pipe:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "interface pipe "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "pipe",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!pipe:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "<T = "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ">(fns: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Callback",
-                  "canonicalReference": "@roots/bud-framework!~Callback:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<T>[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", value?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "T"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "T"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 8,
-                "endIndex": 9
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "fns",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 5
-                  }
-                },
-                {
-                  "parameterName": "value",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 6,
-                    "endIndex": 7
-                  }
-                }
-              ],
-              "typeParameters": [
-                {
-                  "typeParameterName": "T",
-                  "constraintTokenRange": {
-                    "startIndex": 0,
-                    "endIndex": 0
-                  },
-                  "defaultTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!PluginInstance:interface",
           "docComment": "/**\n * Compiler plugin instance\n *\n * @remarks\n *\n * Compatible with the webpack plugin interface.\n *\n * @public\n */\n",
@@ -10522,7 +9812,7 @@
             {
               "kind": "Reference",
               "text": "CompilerPlugin",
-              "canonicalReference": "@roots/bud-framework!default:interface"
+              "canonicalReference": "@roots/bud-framework!CompilerPlugin:interface"
             },
             {
               "kind": "Content",
@@ -13360,567 +12650,981 @@
           ]
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!sequence:function(1)",
+          "kind": "Namespace",
+          "canonicalReference": "@roots/bud-framework!Server:namespace",
           "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "declare function sequence<T = "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ">(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ", fns: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Callback",
-              "canonicalReference": "@roots/bud-framework!~Callback:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "[]"
-            },
-            {
-              "kind": "Content",
-              "text": ", value?: "
-            },
-            {
-              "kind": "Content",
-              "text": "T"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 10,
-            "endIndex": 11
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            },
-            {
-              "parameterName": "fns",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 7
-              }
-            },
-            {
-              "parameterName": "value",
-              "parameterTypeTokenRange": {
-                "startIndex": 8,
-                "endIndex": 9
-              }
-            }
-          ],
-          "typeParameters": [
-            {
-              "typeParameterName": "T",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "sequence"
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!sequence:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "interface sequence "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "sequence",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!sequence:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "<T = "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ">(this: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", fns: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Callback",
-                  "canonicalReference": "@roots/bud-framework!~Callback:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", value?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "T"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 10,
-                "endIndex": 11
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "this",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                },
-                {
-                  "parameterName": "fns",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 5,
-                    "endIndex": 7
-                  }
-                },
-                {
-                  "parameterName": "value",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 8,
-                    "endIndex": 9
-                  }
-                }
-              ],
-              "typeParameters": [
-                {
-                  "typeParameterName": "T",
-                  "constraintTokenRange": {
-                    "startIndex": 0,
-                    "endIndex": 0
-                  },
-                  "defaultTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!Server:interface",
-          "docComment": "/**\n * Server service interface\n *\n * @public @core @container\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "interface Server extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "Service",
-              "canonicalReference": "@roots/bud-framework!Service:class"
-            },
-            {
-              "kind": "Content",
-              "text": " "
-            }
-          ],
-          "releaseTag": "Public",
+          "excerptTokens": [],
+          "releaseTag": "None",
           "name": "Server",
           "members": [
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#application:member",
-              "docComment": "/**\n * Server instance\n *\n * @public\n */\n",
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Application:interface",
+              "docComment": "/**\n * Application interface\n *\n * @defaultValue\n *\n * express\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "application: "
+                  "text": "export interface Application extends "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Server.Application",
-                  "canonicalReference": "@roots/bud-framework!~Server.Application:type"
+                  "text": "Loose",
+                  "canonicalReference": "@roots/bud-framework!Loose:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": ";"
+                  "text": " "
                 }
               ],
-              "isOptional": false,
               "releaseTag": "Public",
-              "name": "application",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#assets:member",
-              "docComment": "/**\n * Assets\n *\n * @public\n */\n",
-              "excerptTokens": [
+              "name": "Application",
+              "members": [
                 {
-                  "kind": "Content",
-                  "text": "assets: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
+                  "kind": "MethodSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Application#listen:member(1)",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "listen(on: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string | number"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ", cb: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "CallableFunction",
+                      "canonicalReference": "!CallableFunction:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "): "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Instance",
+                      "canonicalReference": "@roots/bud-framework!Instance:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [
+                    {
+                      "parameterName": "on",
+                      "parameterTypeTokenRange": {
+                        "startIndex": 1,
+                        "endIndex": 2
+                      }
+                    },
+                    {
+                      "parameterName": "cb",
+                      "parameterTypeTokenRange": {
+                        "startIndex": 3,
+                        "endIndex": 4
+                      }
+                    }
+                  ],
+                  "name": "listen"
                 }
               ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "assets",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "MethodSignature",
-              "canonicalReference": "@roots/bud-framework!Server#close:member(1)",
-              "docComment": "/**\n * Close the server connection\n *\n * @public\n */\n",
-              "excerptTokens": [
+              "extendsTokenRanges": [
                 {
-                  "kind": "Content",
-                  "text": "close(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
+                  "startIndex": 1,
+                  "endIndex": 3
                 }
-              ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "close"
+              ]
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#config:member",
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Configuration:interface",
               "docComment": "/**\n * Server configuration\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "config: "
+                  "text": "export interface Configuration "
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "Configuration",
+              "members": [
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#browser:member",
+                  "docComment": "/**\n * Client features\n *\n * @remarks\n *\n * - `log` - Logs dev server activity to the browser console\n *\n * - `indicator` - Displays a small indicator in the browser\n *\n * - `overlay` - Displays a fullscreen overlay in the browser on errors\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "browser: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "{\n        log: boolean;\n        indicator: boolean;\n        overlay: boolean;\n    }"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "browser",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#disableHostCheck:member",
+                  "docComment": "/**\n * Disable host check security features\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "disableHostCheck?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "boolean"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "disableHostCheck",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#filename:member",
+                  "docComment": "/**\n * Filename to serve as index.\n *\n * @defaultValue\n *\n * 'index.html'\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "filename?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "filename",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#headers:member",
+                  "docComment": "/**\n * Include HTTP headers on each request.\n *\n * @example\n * ```json\n * { \"X-Custom-Header\": \"yes\" }\n * ```\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "headers?: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Index",
+                      "canonicalReference": "@roots/bud-framework!Index:type"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "<string>"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "headers",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#host:member",
+                  "docComment": "/**\n * The development server host\n *\n * @defaultValue\n *\n * localhost\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "host: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "host",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#index:member",
+                  "docComment": "/**\n * The index path for web server, defaults to \"index.html\".\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "index?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "index",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#methods:member",
+                  "docComment": "/**\n * Request methods accepted by the server.\n *\n * @example\n * ```json\n * ['GET', 'HEAD']\n * ```\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "methods?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string[]"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "methods",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#middleware:member",
+                  "docComment": "/**\n * Enable middleware\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "middleware: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Index",
+                      "canonicalReference": "@roots/bud-framework!Index:type"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "<boolean>"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "middleware",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#mimeTypes:member",
+                  "docComment": "/**\n * Map Mimetypes to extensions\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "mimeTypes?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "{\n        [type: string]: string;\n    }"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "mimeTypes",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#port:member",
+                  "docComment": "/**\n * The development server port\n *\n * @defaultValue\n *\n * 3000\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "port: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "number"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "port",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#proxy:member",
+                  "docComment": "/**\n * Proxy destination\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "proxy: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "{\n        host: string;\n        port: number;\n    }"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "proxy",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#publicPath:member",
+                  "docComment": "/**\n * The publicPath to serve from.\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "publicPath?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "publicPath",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Configuration#watch:member",
+                  "docComment": "/**\n * Files which should reload the browser when changed.\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "watch: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "{\n        files: string[];\n    }"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "watch",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "extendsTokenRanges": []
+            },
+            {
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Instance:interface",
+              "docComment": "/**\n * Server instance\n *\n * @defaultValue\n *\n * express instance\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "export interface Instance extends "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Server.Config",
-                  "canonicalReference": "@roots/bud-framework!~Server.Config:type"
+                  "text": "HttpServer",
+                  "canonicalReference": "!\"\\\"http\\\"\".Server:class"
                 },
                 {
                   "kind": "Content",
-                  "text": ";"
+                  "text": " "
                 }
               ],
-              "isOptional": false,
               "releaseTag": "Public",
-              "name": "config",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "name": "Instance",
+              "members": [],
+              "extendsTokenRanges": [
+                {
+                  "startIndex": 1,
+                  "endIndex": 3
+                }
+              ]
             },
             {
-              "kind": "MethodSignature",
-              "canonicalReference": "@roots/bud-framework!Server#getWatchedFilesArray:member(1)",
-              "docComment": "/**\n * Retrieve an array of watched files.\n *\n * @public\n */\n",
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Interface:interface",
+              "docComment": "/**\n * Server service interface\n *\n * @core @public @container\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "getWatchedFilesArray(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "getWatchedFilesArray"
-            },
-            {
-              "kind": "MethodSignature",
-              "canonicalReference": "@roots/bud-framework!Server#inject:member(1)",
-              "docComment": "/**\n * Inject client scripts into compilation\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "inject(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "inject"
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#instance:member",
-              "docComment": "/**\n * Server instance\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "instance: "
+                  "text": "export default interface Interface extends "
                 },
                 {
                   "kind": "Reference",
-                  "text": "Server.Instance",
-                  "canonicalReference": "@roots/bud-framework!~Server.Instance:type"
+                  "text": "Service",
+                  "canonicalReference": "@roots/bud-framework!Service:class"
                 },
                 {
                   "kind": "Content",
-                  "text": ";"
+                  "text": " "
                 }
               ],
-              "isOptional": false,
               "releaseTag": "Public",
-              "name": "instance",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "name": "Interface",
+              "members": [
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#application:member",
+                  "docComment": "/**\n * Server application\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "application: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Application",
+                      "canonicalReference": "@roots/bud-framework!Application:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "application",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#assets:member",
+                  "docComment": "/**\n * Assets\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "assets: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string[]"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "assets",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "MethodSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#close:member(1)",
+                  "docComment": "/**\n * Close the server connection\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "close(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "void"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "name": "close"
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#config:member",
+                  "docComment": "/**\n * Server configuration\n *\n * @public @container\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "config: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Container",
+                      "canonicalReference": "@roots/container!Container:class"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "<"
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Configuration",
+                      "canonicalReference": "@roots/bud-framework!Configuration:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ">"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "config",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 5
+                  }
+                },
+                {
+                  "kind": "MethodSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#getWatchedFilesArray:member(1)",
+                  "docComment": "/**\n * Retrieve an array of watched files.\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "getWatchedFilesArray(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string[]"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "name": "getWatchedFilesArray"
+                },
+                {
+                  "kind": "MethodSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#inject:member(1)",
+                  "docComment": "/**\n * Inject client scripts into compilation\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "inject(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "void"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "name": "inject"
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#instance:member",
+                  "docComment": "/**\n * Server instance\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "instance: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Instance",
+                      "canonicalReference": "@roots/bud-framework!Instance:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "instance",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#isWatchable:member",
+                  "docComment": "/**\n * Has files to watch and watch is enabled\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "isWatchable: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "boolean"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "isWatchable",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#middleware:member",
+                  "docComment": "/**\n * Server middleware\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "middleware: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "Middleware",
+                      "canonicalReference": "@roots/bud-framework!Middleware:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "middleware",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "MethodSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#run:member(1)",
+                  "docComment": "/**\n * Run the server instance\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "run(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "this"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "name": "run"
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Interface#watcher:member",
+                  "docComment": "/**\n * Watcher instance\n *\n * @public\n */\n",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "watcher: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "{\n        [key: string]: any;\n        close: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "CallableFunction",
+                      "canonicalReference": "!CallableFunction:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";\n        on: "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "CallableFunction",
+                      "canonicalReference": "!CallableFunction:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";\n    }"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "watcher",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "extendsTokenRanges": [
+                {
+                  "startIndex": 1,
+                  "endIndex": 3
+                }
+              ]
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#isWatchable:member",
-              "docComment": "/**\n * Has files to watch and watch is enabled\n *\n * @public\n */\n",
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Middleware:interface",
+              "docComment": "/**\n * Map of middleware which are to be enabled\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "isWatchable: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
+                  "text": "export interface Middleware "
                 }
               ],
-              "isOptional": false,
               "releaseTag": "Public",
-              "name": "isWatchable",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "name": "Middleware",
+              "members": [
+                {
+                  "kind": "IndexSignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Middleware:index(1)",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "[key: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "]: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "any"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "returnTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  },
+                  "releaseTag": "Public",
+                  "overloadIndex": 1,
+                  "parameters": [
+                    {
+                      "parameterName": "key",
+                      "parameterTypeTokenRange": {
+                        "startIndex": 1,
+                        "endIndex": 2
+                      }
+                    }
+                  ]
+                }
+              ],
+              "extendsTokenRanges": []
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#middleware:member",
-              "docComment": "/**\n * Server middleware\n *\n * @public\n */\n",
+              "kind": "Interface",
+              "canonicalReference": "@roots/bud-framework!Server.Target:interface",
+              "docComment": "/**\n * Proxy target\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "middleware: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Server.Middleware.Inventory",
-                  "canonicalReference": "@roots/bud-framework!~Server.Middleware.Inventory:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
+                  "text": "export interface Target "
                 }
               ],
-              "isOptional": false,
               "releaseTag": "Public",
-              "name": "middleware",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "MethodSignature",
-              "canonicalReference": "@roots/bud-framework!Server#run:member(1)",
-              "docComment": "/**\n * Run the server instance\n *\n * @public\n */\n",
-              "excerptTokens": [
+              "name": "Target",
+              "members": [
                 {
-                  "kind": "Content",
-                  "text": "run(): "
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Target#host:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "host: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "host",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
                 },
                 {
-                  "kind": "Content",
-                  "text": "this"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@roots/bud-framework!Server.Target#port:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "port: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "number"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "port",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
                 }
               ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "run"
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Server#watcher:member",
-              "docComment": "/**\n * Watcher instance\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "watcher: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "{\n        [key: string]: any;\n        close: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CallableFunction",
-                  "canonicalReference": "!CallableFunction:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";\n        on: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CallableFunction",
-                  "canonicalReference": "!CallableFunction:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";\n    }"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "watcher",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 6
-              }
-            }
-          ],
-          "extendsTokenRanges": [
-            {
-              "startIndex": 1,
-              "endIndex": 3
+              "extendsTokenRanges": []
             }
           ]
         },
@@ -14473,73 +14177,13 @@
           ]
         },
         {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!setPath:function(1)",
-          "docComment": "/**\n * Set a {@link @roots/bud-framework#Location | Location} value\n *\n * @remarks\n *\n * The {@link Locations.project} should be an absolute path. All other directories should be relative (src, dist, etc.)\n *\n * @param this - {@link Framework}\n *\n * @param args - path parts\n *\n * @returns {@link Framework}\n *\n * @example\n * ```js\n * bud.setPath('src', 'custom/src')\n * ```\n *\n * @see\n *\n * {@link Locations}\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "declare function setPath(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ", ...args: "
-            },
-            {
-              "kind": "Content",
-              "text": "any[]"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "args",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              }
-            }
-          ],
-          "name": "setPath"
-        },
-        {
           "kind": "Class",
           "canonicalReference": "@roots/bud-framework!Store:class",
           "docComment": "/**\n * Container store for initial configuration and general options\n *\n * @public @core @config\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class Store<T = "
+              "text": "export declare class Store<T = "
             },
             {
               "kind": "Reference",
@@ -14599,8 +14243,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "Store.Repository",
-                  "canonicalReference": "@roots/bud-framework!~Store.Repository:type"
+                  "text": "Repository",
+                  "canonicalReference": "@roots/bud-framework!~Repository:type"
                 },
                 {
                   "kind": "Content",
@@ -14650,7 +14294,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Store#name:member",
-              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Service.name}\n *\n * @public\n */\n",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Service.name}\n *\n * @override @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -14673,6 +14317,34 @@
                 "endIndex": 2
               },
               "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-framework!Store#repository:member",
+              "docComment": "/**\n * Repository\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "repository: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Repository",
+                  "canonicalReference": "@roots/bud-framework!~Repository:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "repository",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
             }
           ],
           "extendsTokenRange": {
@@ -14680,141 +14352,6 @@
             "endIndex": 5
           },
           "implementsTokenRanges": []
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!tap:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface tap<T = "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": "> "
-            }
-          ],
-          "releaseTag": "Public",
-          "typeParameters": [
-            {
-              "typeParameterName": "T",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "name": "tap",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!tap:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "(fn: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Tapable",
-                  "canonicalReference": "@roots/bud-framework!Tapable:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[T]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", bound?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "T"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 6,
-                "endIndex": 7
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "fn",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 3
-                  }
-                },
-                {
-                  "parameterName": "bound",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 4,
-                    "endIndex": 5
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
-          "kind": "Variable",
-          "canonicalReference": "@roots/bud-framework!tap:var",
-          "docComment": "/**\n * Execute a callback\n *\n * @remarks\n *\n * Callback is provided {@link Framework | the Framework instance} as a parameter.\n *\n * @example\n * ```js\n * bud.tap(bud => {\n *   // do something with bud\n * })\n * ```\n *\n * @example\n *\n * Lexical scope is bound to Framework where applicable, so it is possible to reference the Framework using `this`.\n * ```js\n * bud.tap(function () {\n *  // do something with this\n * })\n * ```\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "tap: "
-            },
-            {
-              "kind": "Reference",
-              "text": "tap",
-              "canonicalReference": "@roots/bud-framework!tap:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ">"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "tap",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 5
-          }
         },
         {
           "kind": "Interface",
@@ -14934,7 +14471,7 @@
             {
               "kind": "Reference",
               "text": "CompilerPlugin",
-              "canonicalReference": "@roots/bud-framework!default:interface"
+              "canonicalReference": "@roots/bud-framework!CompilerPlugin:interface"
             },
             {
               "kind": "Content",
@@ -14983,255 +14520,6 @@
               "endIndex": 10
             }
           ]
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@roots/bud-framework!when:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "declare function when(this: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ", test: "
-            },
-            {
-              "kind": "Content",
-              "text": "((app: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ") => boolean) | boolean"
-            },
-            {
-              "kind": "Content",
-              "text": ", trueCase: "
-            },
-            {
-              "kind": "Content",
-              "text": "(app: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ") => any"
-            },
-            {
-              "kind": "Content",
-              "text": ", falseCase?: "
-            },
-            {
-              "kind": "Content",
-              "text": "(app: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ") => any"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Framework",
-              "canonicalReference": "@roots/bud-framework!Framework:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "returnTypeTokenRange": {
-            "startIndex": 15,
-            "endIndex": 16
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "this",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "parameterName": "test",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 6
-              }
-            },
-            {
-              "parameterName": "trueCase",
-              "parameterTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 10
-              }
-            },
-            {
-              "parameterName": "falseCase",
-              "parameterTypeTokenRange": {
-                "startIndex": 11,
-                "endIndex": 14
-              }
-            }
-          ],
-          "name": "when"
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-framework!when:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "interface when "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "when",
-          "members": [
-            {
-              "kind": "CallSignature",
-              "canonicalReference": "@roots/bud-framework!when:call(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "(this: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", test: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "((app: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ") => boolean) | boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", trueCase: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "(app: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ") => any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", falseCase?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "(app: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ") => any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "returnTypeTokenRange": {
-                "startIndex": 15,
-                "endIndex": 16
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "this",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "test",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 6
-                  }
-                },
-                {
-                  "parameterName": "trueCase",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 7,
-                    "endIndex": 10
-                  }
-                },
-                {
-                  "parameterName": "falseCase",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 11,
-                    "endIndex": 14
-                  }
-                }
-              ]
-            }
-          ],
-          "extendsTokenRanges": []
         }
       ]
     }

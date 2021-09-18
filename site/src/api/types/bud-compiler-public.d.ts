@@ -14,19 +14,11 @@ import { Service } from '@roots/bud-framework';
 import { StatsCompilation } from 'webpack';
 
 /**
- * Webpack compilation controller interface
- *
- * @public
- */
-export declare interface Compiler extends Compiler_2 {
-}
-
-/**
  * Wepback compilation controller class
  *
  * @public
  */
-export declare class Compiler extends Service {
+export declare class Compiler extends Service implements Compiler_2 {
     /**
      * {@inheritDoc @roots/bud-framework#Service.name}
      *
