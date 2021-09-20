@@ -78,7 +78,7 @@
     "@types/react": "17.0.22",
     "@types/react-dom": "17.0.9",
     "jest": "27.2.1",
-    "type-fest": "2.3.3",
+    "type-fest": "2.3.4",
     "webpack": "5.53.0"
   },
   "dependencies": {
