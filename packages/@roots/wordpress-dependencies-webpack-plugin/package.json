@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@types/eslint": "7.28.0",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/lodash": "4.14.173",
     "@types/node": "15.14.1",
     "eslint": "7.32.0",
