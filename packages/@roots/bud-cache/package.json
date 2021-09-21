@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.12",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/node": "15.14.1",
     "jest": "27.2.1",
     "webpack": "5.53.0"
