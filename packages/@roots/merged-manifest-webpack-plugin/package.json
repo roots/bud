@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
-    "@types/fs-extra": "9.0.12",
+    "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.2",
     "@types/node": "15.14.1",
     "@types/prettier": "2.3.2",

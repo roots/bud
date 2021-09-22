@@ -38,7 +38,7 @@
     "@microsoft/api-extractor": "7.18.9",
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
-    "@types/fs-extra": "9.0.12",
+    "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.173",
     "@types/node": "16.6.1",
