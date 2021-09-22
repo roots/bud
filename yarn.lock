@@ -3435,14 +3435,14 @@ __metadata:
     fs-extra: ^10.0.0
     jest: 27.2.1
     lodash: ^4.17.21
-    postcss: 8.3.6
+    postcss: 8.3.7
     postcss-import: 14.0.2
     postcss-loader: ^6.1.1
     postcss-preset-env: 6.7.0
     tslib: ^2.3.1
     webpack: 5.53.0
   peerDependencies:
-    postcss: 8.3.6
+    postcss: 8.3.7
     postcss-import: 14.0.2
     postcss-preset-env: 6.7.0
   peerDependenciesMeta:
@@ -3515,7 +3515,7 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     jest: 27.2.1
-    postcss: 8.3.6
+    postcss: 8.3.7
     tslib: ^2.3.1
   peerDependencies:
     "@fullhuman/postcss-purgecss": ^4.0.3
@@ -3696,7 +3696,7 @@ __metadata:
     "@types/tailwindcss": 2.2.1
     autobind-decorator: ^2.4.0
     jest: 27.2.1
-    postcss: 8.3.6
+    postcss: 8.3.7
     tailwindcss: 2.2.15
     tslib: ^2.3.1
   peerDependencies:
@@ -16486,6 +16486,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"nanocolors@npm:^0.1.5":
+  version: 0.1.6
+  resolution: "nanocolors@npm:0.1.6"
+  checksum: 3e748505531f5b21b98275cc8012efa92394ae1b6132d80e96646c20f0ca46442e82ab4b11ad57edccb8bf40433ade6e16d1ce535bc536bde6c009396467c887
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^2.0.3":
   version: 2.1.11
   resolution: "nanoid@npm:2.1.11"
@@ -16493,12 +16500,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.23":
-  version: 3.1.23
-  resolution: "nanoid@npm:3.1.23"
+"nanoid@npm:^3.1.23, nanoid@npm:^3.1.25":
+  version: 3.1.25
+  resolution: "nanoid@npm:3.1.25"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 8fa8dc3283a4fa159700a36cb22f61197547c8155831cb74f1b9c51fbc29ea80c136fd91001468d147a31d3a77f884958aec6c1beabac903c89780acacca9327
+  checksum: e2353828c7d8fde65265e9c981380102e2021f292038a93fd27288bad390339833286e8cbc7531abe1cb2c6b317e55f38b895dcb775151637bb487388558e0ff
   languageName: node
   linkType: hard
 
@@ -18806,7 +18813,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.3.6, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.5":
+"postcss@npm:8.3.6":
   version: 8.3.6
   resolution: "postcss@npm:8.3.6"
   dependencies:
@@ -18814,6 +18821,17 @@ fsevents@^1.2.7:
     nanoid: ^3.1.23
     source-map-js: ^0.6.2
   checksum: ff55b91bea21f42c2a94d77fd05c3f66dd15889c68506cf1dbb9cdee8c3b9e9d0e219bcbc6e61a107bd63e3cac0670176486e2a5794c106a4e1b9babceb79317
+  languageName: node
+  linkType: hard
+
+"postcss@npm:8.3.7, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.5":
+  version: 8.3.7
+  resolution: "postcss@npm:8.3.7"
+  dependencies:
+    nanocolors: ^0.1.5
+    nanoid: ^3.1.25
+    source-map-js: ^0.6.2
+  checksum: 6b8c80611045787efa9900b1a278ec71393a12530a1c1f14baadcd6076e753791edd9bb9ef36c258cac450bc95dc3542ce2a4b6f21d5087875b91daa87422fc5
   languageName: node
   linkType: hard
 
