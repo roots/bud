@@ -8,18 +8,21 @@ const {dirname} = require('path')
  * Setup integration tests
  */
 module.exports = async function () {
-  packages = globby
-    .globbySync('examples/**/package.json')
-    .reduce(
-      (jsons, path) => ({
-        ...jsons,
-        [`${path}`]: [
-          readJsonSync(path),
-          readFileSync(path, 'utf8'),
-        ],
-      }),
-      {},
-    )
+  packages = globby.globbySync('examples/*/package.json').reduce(
+    (jsons, path) => ({
+      ...jsons,
+      [`${path}`]: [
+        readJsonSync(path),
+        readFileSync(path, 'utf8'),
+      ],
+    }),
+    {},
+  )
+
+  console.log(
+    'Running jest setup script for the following:',
+    packages,
+  )
 
   Object.entries(packages).map(([k, v]) => {
     v = v.shift()

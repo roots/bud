@@ -16,7 +16,28 @@ describe('examples/tailwindcss', () => {
 
   describe('package.json', () => {
     it('matches snapshot', () => {
-      expect(project.packageJson).toMatchSnapshot()
+      expect(project.packageJson).toMatchSnapshot({
+        browserslist: {
+          development: [
+            'last 1 chrome version',
+            'last 1 firefox version',
+            'last 1 safari version',
+          ],
+          production: ['>0.5%', 'not dead', 'not op_mini all'],
+        },
+        devDependencies: {
+          '@roots/bud': 'workspace:*',
+          '@roots/bud-babel': 'workspace:*',
+          '@roots/bud-postcss': 'workspace:*',
+          '@roots/bud-tailwindcss': 'workspace:*',
+          postcss: expect.any(String),
+          'postcss-import': expect.any(String),
+          'postcss-preset-env': expect.any(String),
+          tailwindcss: expect.any(String),
+        },
+        name: 'example-tailwindcss',
+        private: true,
+      })
     })
   })
 

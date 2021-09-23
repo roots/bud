@@ -18,7 +18,26 @@ describe('examples/sage', () => {
   })
 
   it('package.json is unchanged', async () => {
-    expect(project.packageJson).toMatchSnapshot()
+    expect(project.packageJson).toMatchSnapshot({
+      browserslist: ['extends @wordpress/browserslist-config'],
+      devDependencies: {
+        '@roots/bud': 'workspace:*',
+        '@roots/sage': 'workspace:*',
+        '@types/eslint': expect.any(String),
+        '@types/react': expect.any(String),
+        '@types/react-dom': expect.any(String),
+        '@wordpress/browserslist-config': expect.any(String),
+        eslint: expect.any(String),
+        postcss: expect.any(String),
+        'postcss-import': expect.any(String),
+        'postcss-preset-env': expect.any(String),
+        react: expect.any(String),
+        'react-dom': expect.any(String),
+        tailwindcss: expect.any(String),
+      },
+      name: 'example-sage',
+      private: true,
+    })
   })
 
   it('[project.entrypoints.json] has expected app entries', () => {

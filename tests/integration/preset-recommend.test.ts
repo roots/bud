@@ -16,7 +16,26 @@ describe('examples/preset-recommend', () => {
 
   describe('package.json', () => {
     it('matches snapshot', () => {
-      expect(project.packageJson).toMatchSnapshot()
+      expect(project.packageJson).toMatchSnapshot({
+        browserslist: {
+          development: [
+            'last 1 chrome version',
+            'last 1 firefox version',
+            'last 1 safari version',
+          ],
+          production: ['>0.5%', 'not dead', 'not op_mini all'],
+        },
+        devDependencies: {
+          '@roots/bud': 'workspace:packages/@roots/bud',
+          '@roots/bud-preset-recommend':
+            'workspace:packages/@roots/bud-preset-recommend',
+          postcss: expect.any(String),
+          'postcss-import': expect.any(String),
+          'postcss-preset-env': expect.any(String),
+        },
+        name: 'example-preset-recommend',
+        private: true,
+      })
     })
   })
 

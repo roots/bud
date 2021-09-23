@@ -19,9 +19,9 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
-    "postcss": "8.3.6",
-    "postcss-import": "14.0.2",
-    "postcss-preset-env": "6.7.0",
+    "postcss": Any<String>,
+    "postcss-import": Any<String>,
+    "postcss-preset-env": Any<String>,
   },
   "name": "example-preset-recommend",
   "private": true,
