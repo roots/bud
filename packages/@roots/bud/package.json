@@ -116,7 +116,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.53",
+    "@microsoft/api-documenter": "7.13.54",
     "@oclif/dev-cli": "1.26.0",
     "@oclif/test": "1.2.8",
     "@types/copy-webpack-plugin": "8.0.1",
