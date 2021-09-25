@@ -61,7 +61,7 @@
   "devDependencies": {
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "@types/jest": "27.0.2",
-    "@types/lodash": "4.14.173",
+    "@types/lodash": "4.14.174",
     "@types/node": "16.3.0",
     "jest": "27.2.1"
   },
