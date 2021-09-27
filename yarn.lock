@@ -3965,7 +3965,7 @@ __metadata:
   dependencies:
     "@types/jest": 27.0.2
     "@types/node": 15.14.1
-    "@types/prettier": 2.3.2
+    "@types/prettier": 2.4.0
     "@types/react": 17.0.24
     jest: 27.2.2
     tslib: ^2.3.1
@@ -4001,7 +4001,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
     "@types/node": 15.14.1
-    "@types/prettier": 2.3.2
+    "@types/prettier": 2.4.0
     autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
     jest: 27.2.2
@@ -4914,10 +4914,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.3.2, @types/prettier@npm:^2.1.5":
-  version: 2.3.2
-  resolution: "@types/prettier@npm:2.3.2"
-  checksum: c4313e16650811f47b07a0fa7ac0742e966f61283a7292eb667fd4626d760bf3b7d896be3eaabb3354ad45fdbe3a340299b018dd3bcce1ff753d030a8cd2479c
+"@types/prettier@npm:2.4.0, @types/prettier@npm:^2.1.5":
+  version: 2.4.0
+  resolution: "@types/prettier@npm:2.4.0"
+  checksum: f7128dc36e68906c9316c7d284b29561c6aa294e9b04d860ab41ebb9734080fdcbbedb42dd1bfa45ed72f9b34e28233d8e2e98c715b31b333d31f77da3dcad01
   languageName: node
   linkType: hard
 
