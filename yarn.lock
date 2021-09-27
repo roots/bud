@@ -4075,7 +4075,7 @@ __metadata:
     "@yarnpkg/cli": 3.0.2
     "@yarnpkg/core": 3.0.0
     "@yarnpkg/shell": 3.0.1-rc.5
-    clipanion: 3.0.1
+    clipanion: 3.1.0
     jest: 27.2.2
     tslib: 2.3.1
     typescript: 4.4.3
@@ -8109,14 +8109,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.0.1, clipanion@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "clipanion@npm:3.0.1"
+"clipanion@npm:3.1.0, clipanion@npm:^3.0.1":
+  version: 3.1.0
+  resolution: "clipanion@npm:3.1.0"
   dependencies:
     typanion: ^3.3.1
   peerDependencies:
     typanion: "*"
-  checksum: 3a4b0c1e7d29a0f3c41860323494114a3533298134761e564b9057fe26ceef929a06da73cc3dfc0000e02c89ad7222984109a60213a212c10ea71ac6cacabc89
+  checksum: bf350082e8953c697cfe35262845700012bdeb1cc490f81cd17de2fe985c8861750164509795ad95d3ee6a2b3742a1d5c6394cdf0f3ff4c4d24173a9fec3418e
   languageName: node
   linkType: hard
 
