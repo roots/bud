@@ -3330,7 +3330,7 @@ __metadata:
     signale: 1.4.0
     tslib: ^2.3.1
     webpack: 5.53.0
-    webpack-dev-middleware: 5.1.0
+    webpack-dev-middleware: 5.2.1
   languageName: unknown
   linkType: soft
 
@@ -8346,6 +8346,13 @@ __metadata:
   version: 1.2.2
   resolution: "colorette@npm:1.2.2"
   checksum: 69fec14ddaedd0f5b00e4bae40dc4bc61f7050ebdc82983a595d6fd64e650b9dc3c033fff378775683138e992e0ddd8717ac7c7cec4d089679dcfbe3cd921b04
+  languageName: node
+  linkType: hard
+
+"colorette@npm:^2.0.10":
+  version: 2.0.12
+  resolution: "colorette@npm:2.0.12"
+  checksum: 1df990c6749826694756ecd05a771fb70fd426cf2b264cf496fb93a621fb4554fabfa8adde0923421f3e38b7265d546f6a46caf833f2d7facf45a40042b510b3
   languageName: node
   linkType: hard
 
@@ -23842,18 +23849,18 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.1.0, webpack-dev-middleware@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "webpack-dev-middleware@npm:5.1.0"
+"webpack-dev-middleware@npm:5.2.1, webpack-dev-middleware@npm:^5.0.0":
+  version: 5.2.1
+  resolution: "webpack-dev-middleware@npm:5.2.1"
   dependencies:
-    colorette: ^1.2.2
+    colorette: ^2.0.10
     memfs: ^3.2.2
     mime-types: ^2.1.31
     range-parser: ^1.2.1
     schema-utils: ^3.1.0
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 5893f20eae99fd32da8e038b305d3001f095aedc1bbafd48e4939bdcdf2099495e575874c8c9c39a8f4a79744e9f84dfbe106af836fd2920ea315ebf77cb75d5
+  checksum: 06f3ef14ec983d115d7109f37312fc691c867c95fe7579784c7b80db0a2be77392fa27de444d0a937546da68c7e99640c13df73dc1351bbed7ebab4cc5569f14
   languageName: node
   linkType: hard
 
