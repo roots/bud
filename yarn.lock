@@ -3022,7 +3022,7 @@ __metadata:
     lodash: ^4.17.21
     nanoid: ^3.1.23
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3051,7 +3051,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3080,7 +3080,7 @@ __metadata:
     style-loader: ^3.2.1
     tslib: ^2.3.1
     url-loader: ^4.1.1
-    webpack: 5.53.0
+    webpack: 5.54.0
     xml-loader: ^1.2.1
   languageName: unknown
   linkType: soft
@@ -3101,7 +3101,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3117,7 +3117,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3134,7 +3134,7 @@ __metadata:
     compression-webpack-plugin: ^9.0.0
     jest: 27.2.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3262,7 +3262,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3285,7 +3285,7 @@ __metadata:
     eslint-webpack-plugin: ^3.0.1
     jest: 27.2.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     eslint: ">=7"
   languageName: unknown
@@ -3304,7 +3304,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3329,7 +3329,7 @@ __metadata:
     lodash: ^4.17.21
     signale: 1.4.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
     webpack-dev-middleware: 5.2.1
   languageName: unknown
   linkType: soft
@@ -3364,7 +3364,7 @@ __metadata:
     imagemin: ^8.0.0
     jest: 27.2.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     imagemin-gifsicle: ^7
     imagemin-jpegtran: ^7
@@ -3394,7 +3394,7 @@ __metadata:
     autodll-webpack-plugin: ^0.4.2
     jest: 27.2.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     "@roots/bud": "*"
   languageName: unknown
@@ -3416,7 +3416,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3440,7 +3440,7 @@ __metadata:
     postcss-loader: ^6.1.1
     postcss-preset-env: 6.7.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     postcss: 8.3.7
     postcss-import: 14.0.2
@@ -3541,7 +3541,7 @@ __metadata:
     react-refresh: ^0.10.0
     tslib: ^2.3.1
     type-fest: 2.3.4
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
@@ -3564,7 +3564,7 @@ __metadata:
     resolve-cwd: ^3.0.0
     sass-loader: ^12.1.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     sass: 1.42.1
   languageName: unknown
@@ -3591,7 +3591,7 @@ __metadata:
     lodash: ^4.17.21
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
     webpack-dev-middleware: ^5.0.0
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
@@ -3617,7 +3617,7 @@ __metadata:
     jest: 27.2.2
     tslib: ^2.3.1
     type-fest: 2.3.4
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     solid-js: ">=1"
   languageName: unknown
@@ -3637,7 +3637,7 @@ __metadata:
     stylelint-config-standard: ^22.0.0
     stylelint-webpack-plugin: ^3.0.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3715,7 +3715,7 @@ __metadata:
     jest: 27.2.2
     terser-webpack-plugin: ^5.1.4
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -3737,7 +3737,7 @@ __metadata:
     ts-loader: ^9.2.3
     tslib: ^2.3.1
     typescript: 4.4.3
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     eslint: ^7
     typescript: ^4
@@ -3769,7 +3769,7 @@ __metadata:
     tslib: ^2.3.1
     vue: 3.2.19
     vue-loader: ^16.4.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.5
     vue: ^3.1.5
@@ -3873,7 +3873,7 @@ __metadata:
     source-map-support: ^0.5.19
     tsconfig-paths: 3.11.0
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
     webpack-config-dump-plugin: ^3.0.1
     webpack-manifest-plugin: ^4.0.2
   bin:
@@ -3936,7 +3936,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   peerDependencies:
     webpack: ">=5"
   languageName: unknown
@@ -4007,7 +4007,7 @@ __metadata:
     jest: 27.2.2
     prettier: ^2.3.2
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -4044,7 +4044,7 @@ __metadata:
     jest: 27.2.2
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.53.0
+    webpack: 5.54.0
   languageName: unknown
   linkType: soft
 
@@ -9984,13 +9984,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.8.0":
-  version: 5.8.0
-  resolution: "enhanced-resolve@npm:5.8.0"
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "enhanced-resolve@npm:5.8.3"
   dependencies:
     graceful-fs: ^4.2.4
     tapable: ^2.2.0
-  checksum: a5eb6bf942821bd1614ea509e73cc5e3bd98717692882ce5ee39fecaa7da69ff49ae7e4d1b668247962e7ab5c90609d98582955d5072ff64e02880e014e851f0
+  checksum: d79fbe531106448b768bb0673fb623ec0202d7ee70373ab7d4f4745d5dfe0806f38c9db7e7da8c941288fe475ab3d538db3791fce522056eeea40ca398c9e287
   languageName: node
   linkType: hard
 
@@ -10086,10 +10086,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "es-module-lexer@npm:0.7.1"
-  checksum: c66fb633cc521529862818caf603897d58d30442c885a1a1ed16823ddbbb8a437e3952454a4b2650242df1c1b4d0efa42fedbe49594e3ef2ceb3c891cf1211dd
+"es-module-lexer@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "es-module-lexer@npm:0.9.0"
+  checksum: 05ddfcb598749e4da78f300e191baa0380dc7aded0b0af808421716f7d90b549edb4062d65958ec1e0abe707d3d025e11b5cebd446f1f615d1bb2be1b6c74d7b
   languageName: node
   linkType: hard
 
@@ -24048,9 +24048,9 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.53.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.28.0, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
-  version: 5.53.0
-  resolution: "webpack@npm:5.53.0"
+"webpack@npm:5.54.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.28.0, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
+  version: 5.54.0
+  resolution: "webpack@npm:5.54.0"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -24061,8 +24061,8 @@ resolve@~1.19.0:
     acorn-import-assertions: ^1.7.6
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.8.0
-    es-module-lexer: ^0.7.1
+    enhanced-resolve: ^5.8.3
+    es-module-lexer: ^0.9.0
     eslint-scope: 5.1.1
     events: ^3.2.0
     glob-to-regexp: ^0.4.1
@@ -24081,7 +24081,7 @@ resolve@~1.19.0:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: f55c40e0a215d68633976ea54acbd9e92bf43f18593d25ffa2f4f1c33e7017d9c475ceabaddf1742d60310d84ec4600e564c1125e061378032948c11a2b18245
+  checksum: aa75ccf1fcd0cb67e886bcfa7944637018657905e23e053a31cb999c61731395c1a7395023b60dced793cb0b5ee9f4184c6f109a2758e154d9c8f8941346128b
   languageName: node
   linkType: hard
 
