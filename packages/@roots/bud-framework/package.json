@@ -65,7 +65,7 @@
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.2",
-    "@types/lodash": "4.14.174",
+    "@types/lodash": "4.14.175",
     "@types/node": "15.14.1",
     "@types/webpack-dev-middleware": "5.0.2",
     "chokidar": "3.5.2",
