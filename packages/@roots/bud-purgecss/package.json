@@ -75,7 +75,7 @@
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/jest": "27.0.2",
     "@types/node": "15.14.1",
-    "jest": "27.2.2",
+    "jest": "27.2.3",
     "postcss": "8.3.7"
   },
   "dependencies": {
