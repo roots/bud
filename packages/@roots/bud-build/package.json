@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@types/jest": "27.0.2",
-    "@types/lodash": "4.14.174",
+    "@types/lodash": "4.14.175",
     "@types/mini-css-extract-plugin": "2.3.0",
     "@types/node": "15.14.1",
     "jest": "27.2.2",
