@@ -72,7 +72,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@types/jest": "27.0.2",
     "@types/node": "15.14.1",
-    "jest": "27.2.3",
+    "jest": "27.2.4",
     "webpack": "5.55.0"
   },
   "dependencies": {
