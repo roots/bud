@@ -3021,7 +3021,7 @@ __metadata:
     lodash: ^4.17.21
     nanoid: ^3.1.23
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3050,7 +3050,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3079,7 +3079,7 @@ __metadata:
     style-loader: ^3.2.1
     tslib: ^2.3.1
     url-loader: ^4.1.1
-    webpack: 5.55.0
+    webpack: 5.55.1
     xml-loader: ^1.2.1
   languageName: unknown
   linkType: soft
@@ -3100,7 +3100,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3116,7 +3116,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3133,7 +3133,7 @@ __metadata:
     compression-webpack-plugin: ^9.0.0
     jest: 27.2.4
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3261,7 +3261,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3284,7 +3284,7 @@ __metadata:
     eslint-webpack-plugin: ^3.0.1
     jest: 27.2.4
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     eslint: ">=7"
   languageName: unknown
@@ -3303,7 +3303,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3328,7 +3328,7 @@ __metadata:
     lodash: ^4.17.21
     signale: 1.4.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
     webpack-dev-middleware: 5.2.1
   languageName: unknown
   linkType: soft
@@ -3363,7 +3363,7 @@ __metadata:
     imagemin: ^8.0.0
     jest: 27.2.4
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     imagemin-gifsicle: ^7
     imagemin-jpegtran: ^7
@@ -3393,7 +3393,7 @@ __metadata:
     autodll-webpack-plugin: ^0.4.2
     jest: 27.2.4
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     "@roots/bud": "*"
   languageName: unknown
@@ -3415,7 +3415,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3439,7 +3439,7 @@ __metadata:
     postcss-loader: ^6.1.1
     postcss-preset-env: 6.7.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     postcss: 8.3.7
     postcss-import: 14.0.2
@@ -3540,7 +3540,7 @@ __metadata:
     react-refresh: ^0.10.0
     tslib: ^2.3.1
     type-fest: 2.3.4
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
@@ -3563,7 +3563,7 @@ __metadata:
     resolve-cwd: ^3.0.0
     sass-loader: ^12.1.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     sass: 1.42.1
   languageName: unknown
@@ -3590,7 +3590,7 @@ __metadata:
     lodash: ^4.17.21
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
     webpack-dev-middleware: ^5.0.0
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
@@ -3616,7 +3616,7 @@ __metadata:
     jest: 27.2.4
     tslib: ^2.3.1
     type-fest: 2.3.4
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     solid-js: ">=1"
   languageName: unknown
@@ -3636,7 +3636,7 @@ __metadata:
     stylelint-config-standard: ^22.0.0
     stylelint-webpack-plugin: ^3.0.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3714,7 +3714,7 @@ __metadata:
     jest: 27.2.4
     terser-webpack-plugin: ^5.1.4
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -3736,7 +3736,7 @@ __metadata:
     ts-loader: ^9.2.3
     tslib: ^2.3.1
     typescript: 4.4.3
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     eslint: ^7
     typescript: ^4
@@ -3768,7 +3768,7 @@ __metadata:
     tslib: ^2.3.1
     vue: 3.2.19
     vue-loader: ^16.4.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     "@vue/compiler-sfc": ^3.1.5
     vue: ^3.1.5
@@ -3872,7 +3872,7 @@ __metadata:
     source-map-support: ^0.5.19
     tsconfig-paths: 3.11.0
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
     webpack-config-dump-plugin: ^3.0.1
     webpack-manifest-plugin: ^4.0.2
   bin:
@@ -3935,7 +3935,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   peerDependencies:
     webpack: ">=5"
   languageName: unknown
@@ -4006,7 +4006,7 @@ __metadata:
     jest: 27.2.4
     prettier: ^2.3.2
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -4043,7 +4043,7 @@ __metadata:
     jest: 27.2.4
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.55.0
+    webpack: 5.55.1
   languageName: unknown
   linkType: soft
 
@@ -24050,9 +24050,9 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.55.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.28.0, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
-  version: 5.55.0
-  resolution: "webpack@npm:5.55.0"
+"webpack@npm:5.55.1, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.28.0, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.47.1":
+  version: 5.55.1
+  resolution: "webpack@npm:5.55.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -24083,7 +24083,7 @@ resolve@~1.19.0:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 9e3dfbb79bad73f379c408fd3bfaf988aab62204d842a0387d1a529254a732b523192b59436e4f2581fd2254f0d17dbb13b83744556dbcb3d039c55db0438b02
+  checksum: 70b447f76d4320bd82229cf7b787c6067c40d35142295408dd662eaa3bdf0d97f587d7913b981e4cc25cff08bb14307b85c18ed4a7b270b22e6586c5770d3f1e
   languageName: node
   linkType: hard
 
