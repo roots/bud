@@ -75,7 +75,7 @@
     "@types/lodash": "4.14.175",
     "@types/node": "15.14.1",
     "jest": "27.2.4",
-    "webpack": "5.55.0"
+    "webpack": "5.55.1"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
