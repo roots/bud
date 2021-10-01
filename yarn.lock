@@ -3187,7 +3187,7 @@ __metadata:
     "@types/react": 17.0.25
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
-    "@types/react-reconciler": 0.26.3
+    "@types/react-reconciler": 0.26.4
     "@types/react-router-dom": 5.3.0
     clsx: 1.1.1
     docusaurus-plugin-typedoc: 0.16.3
@@ -4975,12 +4975,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.26.3":
-  version: 0.26.3
-  resolution: "@types/react-reconciler@npm:0.26.3"
+"@types/react-reconciler@npm:0.26.4":
+  version: 0.26.4
+  resolution: "@types/react-reconciler@npm:0.26.4"
   dependencies:
     "@types/react": "*"
-  checksum: 7ce88daeb67db6bf9a1f91308fd9cf7ed3a1d4dc0c450b18003b5946ba88cf0d6aad49e0a17a9ce20059e80dbd46acad73f796648856f2fb187a5abaae258bef
+  checksum: 5ebb72f8aa70824b69030ae7f4c21828c0fb5c1cc5873a606eb7f7ac50cf5dd52502edcd32bf1eead2f149d076ee1798c86f1ffaebfa8b31d523343368d351e0
   languageName: node
   linkType: hard
 
@@ -7416,7 +7416,7 @@ __metadata:
     "@types/react": 17.0.25
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.2
-    "@types/react-reconciler": 0.26.3
+    "@types/react-reconciler": 0.26.4
     "@types/react-router-dom": 5.3.0
     "@types/signale": 1.4.2
     "@types/source-map-support": 0.5.4
