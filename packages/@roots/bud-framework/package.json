@@ -74,7 +74,7 @@
     "ink": "3.0.9",
     "jest": "27.2.4",
     "signale": "1.4.0",
-    "webpack": "5.55.1",
+    "webpack": "5.56.0",
     "webpack-dev-middleware": "5.2.1"
   },
   "dependencies": {
