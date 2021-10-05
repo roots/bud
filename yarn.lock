@@ -2677,16 +2677,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:7.18.11":
-  version: 7.18.11
-  resolution: "@microsoft/api-extractor@npm:7.18.11"
+"@microsoft/api-extractor@npm:7.18.12":
+  version: 7.18.12
+  resolution: "@microsoft/api-extractor@npm:7.18.12"
   dependencies:
     "@microsoft/api-extractor-model": 7.13.9
     "@microsoft/tsdoc": 0.13.2
     "@microsoft/tsdoc-config": ~0.15.2
     "@rushstack/node-core-library": 3.41.0
     "@rushstack/rig-package": 0.3.1
-    "@rushstack/ts-command-line": 4.9.1
+    "@rushstack/ts-command-line": 4.10.0
     colors: ~1.2.1
     lodash: ~4.17.15
     resolve: ~1.17.0
@@ -2695,7 +2695,7 @@ __metadata:
     typescript: ~4.4.2
   bin:
     api-extractor: bin/api-extractor
-  checksum: 26d32f92833ee64c41e6ed19f94d3bb63d8d40b6a18539dd2b6668ad8c5d9cac55032a32e1d9bab996569b351862319cb788880ac1e296611b9103902671ec14
+  checksum: 621de91276cd12f6b92288071c99748278823d7cbcbfcafa3dfcf47b3a3d46b4c549b9274582875be960a4670e695074fb12fc07c6c38d3b27e4196189ffccd6
   languageName: node
   linkType: hard
 
@@ -4117,18 +4117,6 @@ __metadata:
     colors: ~1.2.1
     string-argv: ~0.3.1
   checksum: 2ecfd4cb5076191140cc13bf908b82b5bf1661b37e90f865e30008e38261658635c4be27484ec7bbdcfac8f28d8b680aa1fc2a8350d77cba137fc084611279dc
-  languageName: node
-  linkType: hard
-
-"@rushstack/ts-command-line@npm:4.9.1":
-  version: 4.9.1
-  resolution: "@rushstack/ts-command-line@npm:4.9.1"
-  dependencies:
-    "@types/argparse": 1.0.38
-    argparse: ~1.0.9
-    colors: ~1.2.1
-    string-argv: ~0.3.1
-  checksum: c05d3dae62d8d79b145cdce201b0c3ffc699027ec5eec5109313b9143ee1d86032837dcbc117aab948c40fa0937e9daa99d1c573c8cd18a8e9d935f534a0eb4a
   languageName: node
   linkType: hard
 
@@ -7418,7 +7406,7 @@ __metadata:
   resolution: "bud.js@workspace:."
   dependencies:
     "@microsoft/api-documenter": 7.13.55
-    "@microsoft/api-extractor": 7.18.11
+    "@microsoft/api-extractor": 7.18.12
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@types/fs-extra": 9.0.13
