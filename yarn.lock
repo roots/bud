@@ -2649,20 +2649,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:7.13.54":
-  version: 7.13.54
-  resolution: "@microsoft/api-documenter@npm:7.13.54"
+"@microsoft/api-documenter@npm:7.13.55":
+  version: 7.13.55
+  resolution: "@microsoft/api-documenter@npm:7.13.55"
   dependencies:
     "@microsoft/api-extractor-model": 7.13.9
     "@microsoft/tsdoc": 0.13.2
     "@rushstack/node-core-library": 3.41.0
-    "@rushstack/ts-command-line": 4.9.1
+    "@rushstack/ts-command-line": 4.10.0
     colors: ~1.2.1
     js-yaml: ~3.13.1
     resolve: ~1.17.0
   bin:
     api-documenter: bin/api-documenter
-  checksum: 8079200b36ced57eb844f193d5b90c46988b67c56a4374d08f0e8036fda4b34ea602ddba94e1a98ce59b4eee26a16f305d977a7036244f1ca66170e3c7e41d94
+  checksum: 0284c19a1962eb119cfbd17c145ab3e556e2af951b252f93041768024d7ca2c954539c46d00abfd33d6de537efec6c890887ed3dfb83fbda53e8c4a1673e0c32
   languageName: node
   linkType: hard
 
@@ -3823,7 +3823,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": 7.13.54
+    "@microsoft/api-documenter": 7.13.55
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": 1.26.0
@@ -4105,6 +4105,18 @@ __metadata:
     resolve: ~1.17.0
     strip-json-comments: ~3.1.1
   checksum: 6fcea63f252dc232d71b802d1e954e3fc42ac2a06684732654c323335dba3313261e19be1062a58d57fbb580d5438aa691706ad7b11e7bc48a9930161b43b93c
+  languageName: node
+  linkType: hard
+
+"@rushstack/ts-command-line@npm:4.10.0":
+  version: 4.10.0
+  resolution: "@rushstack/ts-command-line@npm:4.10.0"
+  dependencies:
+    "@types/argparse": 1.0.38
+    argparse: ~1.0.9
+    colors: ~1.2.1
+    string-argv: ~0.3.1
+  checksum: 2ecfd4cb5076191140cc13bf908b82b5bf1661b37e90f865e30008e38261658635c4be27484ec7bbdcfac8f28d8b680aa1fc2a8350d77cba137fc084611279dc
   languageName: node
   linkType: hard
 
@@ -7405,7 +7417,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": 7.13.54
+    "@microsoft/api-documenter": 7.13.55
     "@microsoft/api-extractor": 7.18.11
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
