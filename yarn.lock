@@ -3073,7 +3073,7 @@ __metadata:
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.1.0
     mini-svg-data-uri: ^1.3.3
-    remark-html: ^14.0.0
+    remark-html: ^15.0.0
     remark-loader: 4.0.0
     resolve-url-loader: ^4.0.0
     style-loader: ^3.2.1
@@ -3672,7 +3672,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     remark: 14.0.1
-    remark-html: 14.0.1
+    remark-html: 15.0.0
     strip-ansi: 7.0.1
     toml: 3.0.0
     ts-node: 10.2.1
@@ -15663,20 +15663,21 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"mdast-util-to-hast@npm:^11.0.0":
-  version: 11.2.0
-  resolution: "mdast-util-to-hast@npm:11.2.0"
+"mdast-util-to-hast@npm:^12.0.0":
+  version: 12.0.0
+  resolution: "mdast-util-to-hast@npm:12.0.0"
   dependencies:
     "@types/hast": ^2.0.0
     "@types/mdast": ^3.0.0
     "@types/mdurl": ^1.0.0
     mdast-util-definitions: ^5.0.0
     mdurl: ^1.0.0
+    micromark-util-sanitize-uri: ^1.0.0
     unist-builder: ^3.0.0
     unist-util-generated: ^2.0.0
     unist-util-position: ^4.0.0
-    unist-util-visit: ^3.0.0
-  checksum: b7259b7d45ce3c40676e5f70ce4db638e22f8addd11946c5c4368315e9210e40d99f78e66749585002b8eba52917100c533d435b459b930fe415cea10fa2f7cd
+    unist-util-visit: ^4.0.0
+  checksum: 27ee12d7e7471069e48568b482cf2256a936f0206b1f083c023b5619e07d051d5c63d23f570d40c01b950519a3058e44903a17fd76ee15654957a04d9b8e0a03
   languageName: node
   linkType: hard
 
@@ -19992,16 +19993,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"remark-html@npm:14.0.1, remark-html@npm:^14.0.0":
-  version: 14.0.1
-  resolution: "remark-html@npm:14.0.1"
+"remark-html@npm:15.0.0, remark-html@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "remark-html@npm:15.0.0"
   dependencies:
     "@types/mdast": ^3.0.0
     hast-util-sanitize: ^4.0.0
     hast-util-to-html: ^8.0.0
-    mdast-util-to-hast: ^11.0.0
+    mdast-util-to-hast: ^12.0.0
     unified: ^10.0.0
-  checksum: 5d689b05dc6b4f24e08ece07aabca98685949198a8b6ceacb2fbf7fba8f45f55cea5623caddfd92aaf6e6f082bc1c93797dfb82dc48a6f6e1c5263947a4779c9
+  checksum: 731360b464ae42711f4f7b66c65a3d5c98445f803f0b7a8e8fbbb3031a1edf81f4c0527b6bfa308cbae49a864231a15bbeaf0cc0987e71b3c7b803f54ddf2b49
   languageName: node
   linkType: hard
 
@@ -23236,6 +23237,16 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
+"unist-util-visit-parents@npm:^5.0.0":
+  version: 5.1.0
+  resolution: "unist-util-visit-parents@npm:5.1.0"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-is: ^5.0.0
+  checksum: 7c413dbb3dfcb679109fa8f0965d9abf117c3c53fa7b8823f68cac0ea53adbe98c1ce954d36c034e086c966b48b1d44d42c85f7bf6b42a032f728ac338929513
+  languageName: node
+  linkType: hard
+
 "unist-util-visit@npm:2.0.3, unist-util-visit@npm:^2.0.0, unist-util-visit@npm:^2.0.1, unist-util-visit@npm:^2.0.2, unist-util-visit@npm:^2.0.3":
   version: 2.0.3
   resolution: "unist-util-visit@npm:2.0.3"
@@ -23255,6 +23266,17 @@ resolve@~1.19.0:
     unist-util-is: ^5.0.0
     unist-util-visit-parents: ^4.0.0
   checksum: c37dbc0c5509f85f3abdf46d927b3dd11e6c419159771b1f1a5ce446d36ac993d04b087e28bc6173a172e0fbe9d77e997f120029b2b449766ebe55b6f6e0cc2c
+  languageName: node
+  linkType: hard
+
+"unist-util-visit@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "unist-util-visit@npm:4.1.0"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-is: ^5.0.0
+    unist-util-visit-parents: ^5.0.0
+  checksum: 3521abee2ed4535092aac073d05f46255475c89781b8e9d8c951a473d91b5d6e4d5912ae4a68a4c1cf17a42ed0108cb93103c7f5c736977529969997451363fb
   languageName: node
   linkType: hard
 
