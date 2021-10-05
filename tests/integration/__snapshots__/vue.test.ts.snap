@@ -17,8 +17,8 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-vue": "workspace:*",
-    "@vue/compiler-sfc": "^3.1.5",
-    "vue": "^3.1.5",
+    "@vue/compiler-sfc": Any<String>,
+    "vue": Any<String>,
   },
   "name": "example-vue",
   "private": true,
