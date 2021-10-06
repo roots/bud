@@ -75,7 +75,7 @@
     "eslint": "7.32.0",
     "jest": "27.2.4",
     "type-fest": "2.3.4",
-    "webpack": "5.56.1"
+    "webpack": "5.57.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
