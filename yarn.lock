@@ -3662,7 +3662,7 @@ __metadata:
     ink: 3.0.9
     ink-big-text: 1.2.0
     ink-gradient: 2.0.0
-    ink-spinner: 4.0.2
+    ink-spinner: 4.0.3
     jest: 27.2.4
     json5: 2.2.0
     lodash: 4.17.21
@@ -13148,15 +13148,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ink-spinner@npm:4.0.2":
-  version: 4.0.2
-  resolution: "ink-spinner@npm:4.0.2"
+"ink-spinner@npm:4.0.3":
+  version: 4.0.3
+  resolution: "ink-spinner@npm:4.0.3"
   dependencies:
     cli-spinners: ^2.3.0
   peerDependencies:
     ink: ">=3.0.5"
     react: ">=16.8.2"
-  checksum: 0158aa2ea5770ace923c33c88d62eef735f83f32c3d139d5bfe608f41b67280d6738291fbf05543632b13de470daf1b7618e31941608896a763b4924754bcde4
+  checksum: d3785d688dd1ba19fb7a850b7a2c1dd8b2d06e4c77e6a7cc6c5bbd366a5a721e9ea45d036447016a9028f7519994077ce603a60a43a495e17b7b443b8a513ddc
   languageName: node
   linkType: hard
 
