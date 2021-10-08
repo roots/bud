@@ -3323,7 +3323,7 @@ __metadata:
     fs-extra: ^10.0.0
     globby: ^12.0.0
     http-proxy-middleware: 2.0.1
-    ink: 3.0.9
+    ink: 3.2.0
     jest: 27.2.4
     lodash: ^4.17.21
     signale: 1.4.0
@@ -3659,7 +3659,7 @@ __metadata:
     front-matter: 4.0.2
     fs-extra: 10.0.0
     globby: 11.0.4
-    ink: 3.0.9
+    ink: 3.2.0
     ink-big-text: 1.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
@@ -13170,9 +13170,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ink@npm:3.0.9":
-  version: 3.0.9
-  resolution: "ink@npm:3.0.9"
+"ink@npm:3.2.0":
+  version: 3.2.0
+  resolution: "ink@npm:3.2.0"
   dependencies:
     ansi-escapes: ^4.2.1
     auto-bind: 4.0.0
@@ -13185,9 +13185,9 @@ fsevents@^1.2.7:
     is-ci: ^2.0.0
     lodash: ^4.17.20
     patch-console: ^1.0.0
-    react-devtools-core: ^4.6.0
-    react-reconciler: ^0.24.0
-    scheduler: ^0.18.0
+    react-devtools-core: ^4.19.1
+    react-reconciler: ^0.26.2
+    scheduler: ^0.20.2
     signal-exit: ^3.0.2
     slice-ansi: ^3.0.0
     stack-utils: ^2.0.2
@@ -13195,7 +13195,7 @@ fsevents@^1.2.7:
     type-fest: ^0.12.0
     widest-line: ^3.1.0
     wrap-ansi: ^6.2.0
-    ws: ^7.2.5
+    ws: ^7.5.5
     yoga-layout-prebuilt: ^1.9.6
   peerDependencies:
     "@types/react": ">=16.8.0"
@@ -13203,7 +13203,7 @@ fsevents@^1.2.7:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: a27184d741ab9381ce6e8e3d141a1919ae1bf4fbfa55e4c04013b31720d4d14a1c5e905a0adccd330cf739a5c3856cef5f69f8ca20fc1457ac6676e2c6015926
+  checksum: 35f1b733b94bf12cc0bf7acb4d3fcba9d961ede15cee9c64a7325606b74cee78e1009eaffbac127f4d7d28e758d8259dea8d0850bfacb991b8d93632f41d3fa2
   languageName: node
   linkType: hard
 
@@ -19400,13 +19400,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-devtools-core@npm:^4.6.0":
-  version: 4.11.0
-  resolution: "react-devtools-core@npm:4.11.0"
+"react-devtools-core@npm:^4.19.1":
+  version: 4.19.1
+  resolution: "react-devtools-core@npm:4.19.1"
   dependencies:
     shell-quote: ^1.6.1
     ws: ^7
-  checksum: dc6c284997669b1fd24165723f9b4ccdb1a9fdbcee44e8bb978da10a75179458752fc8104f7fd964bc2b66119c6d270fae365be0b0e0dd3cebd410a4bff49161
+  checksum: 20471dde740e25a6f51b7b2b719fb1e1a9213cfb2a14d6defb44eced93646f73c9c5e376fcfdc78827c4fb587bc030ca99a14a0154a94acf7a1e1496d2b59ef6
   languageName: node
   linkType: hard
 
@@ -19533,7 +19533,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-reconciler@npm:0.26.2":
+"react-reconciler@npm:0.26.2, react-reconciler@npm:^0.26.2":
   version: 0.26.2
   resolution: "react-reconciler@npm:0.26.2"
   dependencies:
@@ -19543,20 +19543,6 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^17.0.2
   checksum: 2ebceace56f547f51eaf142becefef9cca980eae4f42d90ee5a966f54a375f5082d78b71b00c40bbd9bca69e0e0f698c7d4e81cc7373437caa19831fddc1d01b
-  languageName: node
-  linkType: hard
-
-"react-reconciler@npm:^0.24.0":
-  version: 0.24.0
-  resolution: "react-reconciler@npm:0.24.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.18.0
-  peerDependencies:
-    react: ^16.0.0
-  checksum: c9c74208325a940ca36e031b71499f6d8e62e96ee673d69e35cc9e6a661aa746a2b0750f2ffcd1bae0a29eaf3d127dc8197ab7e801e6a3a2ab7d45a71b464630
   languageName: node
   linkType: hard
 
@@ -20599,16 +20585,6 @@ resolve@~1.19.0:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 5636b55cf15f7cf0baa73f2797bf992bdcf75d1b39d82c0aa4608555c774368f6ac321cb641fd5f3d3ceb87805122cd47540da6a7b5960fe0dbdb8f8c263f000
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "scheduler@npm:0.18.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: b6e0b9e0086b200b114f1ef7f9fcac966ad5d84cd3b1867174be0549d3ff713d1fd22d5574cb024b7d3eadf3307f2afc1cb5bfbf28b0d3bc34b200183800fcae
   languageName: node
   linkType: hard
 
@@ -24363,9 +24339,9 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"ws@npm:^7, ws@npm:^7.2.5, ws@npm:^7.3.1, ws@npm:^7.4.5":
-  version: 7.5.3
-  resolution: "ws@npm:7.5.3"
+"ws@npm:^7, ws@npm:^7.3.1, ws@npm:^7.4.5, ws@npm:^7.5.5":
+  version: 7.5.5
+  resolution: "ws@npm:7.5.5"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -24374,7 +24350,7 @@ resolve@~1.19.0:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 423dc0d859fa74020f5555140905b862470a60ea1567bb9ad55a087263d7718b9c94f69678be1cee9868925c570f1e6fc79d09f90c39057bc63fa2edbb2c547b
+  checksum: bd2b437256012af526c69c03d6670a132e7ab0fe5853f3b7092826acea4203fad4ee2a8d0d9bd44834b2b968e747bf34f753ab535f4a3edf40d262da4b1d0805
   languageName: node
   linkType: hard
 
