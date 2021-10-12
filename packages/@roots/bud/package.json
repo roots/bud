@@ -128,7 +128,7 @@
     "@types/mini-css-extract-plugin": "2.3.0",
     "@types/node": "15.14.1",
     "@types/pkg-up": "3.1.0",
-    "@types/react": "17.0.28",
+    "@types/react": "17.0.29",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
     "@types/source-map-support": "0.5.4",
