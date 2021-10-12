@@ -29,7 +29,7 @@
     "ink": "3.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "typescript": "4.4.3",
+    "typescript": "4.4.4",
     "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch",
     "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
@@ -83,7 +83,7 @@
     "tsconfig-paths": "3.11.0",
     "type-fest": "2.5.0",
     "typedoc": "0.22.5",
-    "typescript": "4.4.3",
+    "typescript": "4.4.4",
     "url-loader": "4.1.1",
     "weak-napi": "2.0.2"
   },
