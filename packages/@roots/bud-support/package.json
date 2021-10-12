@@ -97,7 +97,7 @@
     "remark-html": "15.0.0",
     "strip-ansi": "7.0.1",
     "toml": "3.0.0",
-    "ts-node": "10.2.1",
+    "ts-node": "10.3.0",
     "vfile-reporter": "7.0.2",
     "yamljs": "0.3.0",
     "yoga-layout-prebuilt": "1.1.0"
