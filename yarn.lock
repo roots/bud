@@ -3185,7 +3185,7 @@ __metadata:
     "@tsconfig/docusaurus": 1.0.4
     "@types/jest": 27.0.2
     "@types/node": 16.4.13
-    "@types/react": 17.0.28
+    "@types/react": 17.0.29
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.3
     "@types/react-reconciler": 0.26.4
@@ -3533,7 +3533,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/jest": 27.0.2
     "@types/node": 15.14.1
-    "@types/react": 17.0.28
+    "@types/react": 17.0.29
     "@types/react-dom": 17.0.9
     autobind-decorator: ^2.4.0
     jest: 27.2.5
@@ -3856,7 +3856,7 @@ __metadata:
     "@types/mini-css-extract-plugin": 2.3.0
     "@types/node": 15.14.1
     "@types/pkg-up": 3.1.0
-    "@types/react": 17.0.28
+    "@types/react": 17.0.29
     "@types/resolve-pkg": 2.0.0
     "@types/signale": 1.4.2
     "@types/source-map-support": 0.5.4
@@ -3966,7 +3966,7 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/node": 15.14.1
     "@types/prettier": 2.4.1
-    "@types/react": 17.0.28
+    "@types/react": 17.0.29
     jest: 27.2.5
     tslib: ^2.3.1
   peerDependencies:
@@ -5006,14 +5006,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.28":
-  version: 17.0.28
-  resolution: "@types/react@npm:17.0.28"
+"@types/react@npm:17.0.29":
+  version: 17.0.29
+  resolution: "@types/react@npm:17.0.29"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: c12a078c1a6e64fa1dd7a07048220f2f2b2e571bf70028d1fb952275274776905534464ea176c66303b442b338f3867d087459ee5ef5b8e08fef3cf3da689c61
+  checksum: 39280743f6fec1bbc5c8e705976c1738a5526aaa0e693052badf5cd2dd599b6536dd815b651017737a533bf1c03db6a5738498796ff44f806e55324dc7867723
   languageName: node
   linkType: hard
 
@@ -7414,7 +7414,7 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/lodash": 4.14.175
     "@types/node": 16.6.1
-    "@types/react": 17.0.28
+    "@types/react": 17.0.29
     "@types/react-dom": 17.0.9
     "@types/react-helmet": 6.1.3
     "@types/react-reconciler": 0.26.4
