@@ -38,10 +38,16 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
   /**
    * Compile source
    */
-  const {code} = await ncc(
+  let {code} = await ncc(
     path.join(process.cwd(), `/packages/${pkg}/src/index.ts`),
     nccOptions,
   )
+
+  if (code?.replaceAll)
+    code = code.replaceAll(
+      /require\("node:(\w*)"\)/g,
+      `require('$1')`,
+    )
 
   /**
    * Write entrypoint
@@ -51,9 +57,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
       process.cwd(),
       `/packages/${pkg}/lib/cjs/index.js`,
     ),
-    code
-      // make sure no esm style paths snuck in
-      .replaceAll(/require\("node:(\w*)"\)/g, `require('$1')`),
+    code,
     'utf8',
   )
 

@@ -9,10 +9,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "es2021"],
     "jsx": "react",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -22,13 +19,7 @@
     "skipLibCheck": true,
     "strict": false,
     "target": "esnext",
-    "types": [
-      "node",
-      "jest",
-      "react",
-      "express",
-      "webpack"
-    ]
+    "types": ["node", "jest", "react", "express", "webpack"]
   },
-  "files": [],
+  "files": []
 }

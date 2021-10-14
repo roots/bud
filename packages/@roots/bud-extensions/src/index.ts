@@ -1,21 +1,19 @@
 // Copyright (c) Roots Foundation, LLC. All rights reserved.
 // Licensed under the MIT license.
 
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * The {@link @roots/bud-extensions#} package implements the {@link @roots/bud-framework#Extensions | Extensions interface}
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- *
- * The {@link @roots/bud-extensions# | @roots/bud-extensions} is a concrete
- * implementation of the {@link @roots/bud-framework#Extensions | Framework.Extensions} interface
- *
- * @core @packageDocumentation
+ * @core @packageDocumentation @betaDocumentation
  */
 
-import Controller from './Controller'
+import Controller from './controller'
 
 export {Controller}
 export {Extensions} from './Extensions'
