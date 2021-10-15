@@ -10,6 +10,7 @@ Object {
       "TRUE": Any<Object>,
       "cli_pkg_main_0_": Any<Function>,
       "info": StringContaining "dart-sass",
+      "load": [Function],
       "render": Any<Function>,
       "renderSync": Any<Function>,
       "types": Any<Object>,
@@ -17,12 +18,6 @@ Object {
     "sourceMap": true,
   },
 }
-`;
-
-exports[`@roots/bud-sass project.resolveFrom matches snap 1`] = `
-Array [
-  StringContaining "@roots/bud-sass",
-]
 `;
 
 exports[`@roots/bud-sass has expected sass rule 1`] = `
@@ -50,6 +45,7 @@ Object {
           "TRUE": Any<Object>,
           "cli_pkg_main_0_": Any<Function>,
           "info": StringContaining "dart-sass",
+          "load": [Function],
           "render": Any<Function>,
           "renderSync": Any<Function>,
           "types": Any<Object>,
@@ -59,4 +55,10 @@ Object {
     },
   ],
 }
+`;
+
+exports[`@roots/bud-sass project.resolveFrom matches snap 1`] = `
+Array [
+  StringContaining "@roots/bud-sass",
+]
 `;
