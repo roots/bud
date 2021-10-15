@@ -116,7 +116,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.62",
+    "@microsoft/api-documenter": "7.13.63",
     "@oclif/dev-cli": "1.26.0",
     "@oclif/test": "1.2.8",
     "@types/copy-webpack-plugin": "8.0.1",
@@ -128,7 +128,7 @@
     "@types/mini-css-extract-plugin": "2.3.0",
     "@types/node": "15.14.1",
     "@types/pkg-up": "3.1.0",
-    "@types/react": "17.0.29",
+    "@types/react": "17.0.30",
     "@types/resolve-pkg": "2.0.0",
     "@types/signale": "1.4.2",
     "jest": "27.2.5"
@@ -165,7 +165,7 @@
     "signale": "^1.4.0",
     "tsconfig-paths": "3.11.0",
     "tslib": "^2.3.1",
-    "webpack": "5.58.1",
+    "webpack": "5.58.2",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^4.0.2"
   },
