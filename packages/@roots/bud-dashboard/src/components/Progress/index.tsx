@@ -1,4 +1,5 @@
-import {Ink, React} from '@roots/bud-support'
+import {Box} from 'ink'
+import React from 'react'
 
 import {Bar} from './Bar'
 
@@ -9,18 +10,13 @@ import {Bar} from './Bar'
  */
 export const Progress = ({progress, theme}) => {
   return (
-    <Ink.Box flexDirection="row">
-      <Ink.Box>
-        <Bar
-          character={'▉'}
-          maxWidth={theme.bounds.width - 10}
-          colors={[
-            theme.colors.primary,
-            theme.colors.primaryAlt,
-          ]}
-          percent={progress[0]}
-        />
-      </Ink.Box>
-    </Ink.Box>
+    <Box flexDirection="row">
+      <Bar
+        character={'▉'}
+        maxWidth={theme.bounds.width - 10}
+        colors={[theme.colors.primary, theme.colors.primaryAlt]}
+        percent={progress[0]}
+      />
+    </Box>
   )
 }

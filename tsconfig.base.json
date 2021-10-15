@@ -18,7 +18,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "esnext",
+    "target": "ES2015",
     "types": ["node", "jest", "react", "express", "webpack"]
   },
   "files": []

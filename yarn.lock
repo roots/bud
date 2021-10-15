@@ -3162,12 +3162,16 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/lodash": 4.14.175
     "@types/node": 16.3.0
-    autobind-decorator: ^2.4.0
+    "@types/react": ^17
     execa: ^5.1.1
     human-readable: ^0.2.1
+    ink: ^3.2.0
+    ink-gradient: ^2.0.0
+    ink-spinner: ^4.0.3
     jest: 27.2.5
     lodash: ^4.17.21
     patch-console: ^1.0.0
+    react: ^17.0.2
     tslib: ^2.3.1
   languageName: unknown
   linkType: soft
@@ -3859,7 +3863,6 @@ __metadata:
     "@types/react": 17.0.29
     "@types/resolve-pkg": 2.0.0
     "@types/signale": 1.4.2
-    "@types/source-map-support": 0.5.4
     autobind-decorator: ^2.4.0
     clean-webpack-plugin: ^4.0.0-alpha.0
     copy-webpack-plugin: ^9.0.1
@@ -3870,7 +3873,6 @@ __metadata:
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.1.0
     signale: ^1.4.0
-    source-map-support: ^0.5.19
     tsconfig-paths: 3.11.0
     tslib: ^2.3.1
     webpack: 5.58.1
@@ -10730,6 +10732,9 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
+    postcss: 8.3.9
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -13143,7 +13148,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ink-gradient@npm:2.0.0":
+"ink-gradient@npm:2.0.0, ink-gradient@npm:^2.0.0":
   version: 2.0.0
   resolution: "ink-gradient@npm:2.0.0"
   dependencies:
@@ -13157,7 +13162,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ink-spinner@npm:4.0.3":
+"ink-spinner@npm:4.0.3, ink-spinner@npm:^4.0.3":
   version: 4.0.3
   resolution: "ink-spinner@npm:4.0.3"
   dependencies:
@@ -21196,7 +21201,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:0.5.20, source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.19, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
+"source-map-support@npm:0.5.20, source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
   version: 0.5.20
   resolution: "source-map-support@npm:0.5.20"
   dependencies:

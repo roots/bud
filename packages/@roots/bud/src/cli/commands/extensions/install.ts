@@ -1,4 +1,4 @@
-import type Bud from '../../../Bud'
+import type {Bud} from '../../../Bud'
 import Build from '../../Build'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'

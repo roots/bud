@@ -76,11 +76,4 @@ export default interface Build extends Service {
    * @public
    */
   config: Webpack.Configuration
-
-  /**
-   * Regenerate the compiler configuration
-   *
-   * @public
-   */
-  rebuild(): Webpack.Configuration
 }

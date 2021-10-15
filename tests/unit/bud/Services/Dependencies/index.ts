@@ -1,5 +1,5 @@
 import {factory, Bud} from '@roots/bud'
-import {Dependencies} from '@roots/bud/src/Bud/services/Dependencies'
+import {Dependencies} from '@roots/bud/src/services/Dependencies'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 import {Yarn} from '@roots/dependencies/src/yarn'
 

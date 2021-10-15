@@ -1,20 +1,15 @@
-import type {Extension, Index} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework'
 import {ProvidePlugin as Plugin} from 'webpack'
-
-/**
- * {@inheritDoc BudWebpackProvidePlugin}
- *
- * @public
- */
-interface BudWebpackProvidePlugin
-  extends Extension.CompilerPlugin<Plugin, Index<Index<any>>> {}
 
 /**
  * BudWebpackProvidePlugin
  *
  * @public
  */
-const BudWebpackProvidePlugin: BudWebpackProvidePlugin = {
+const BudWebpackProvidePlugin: Extension.CompilerPlugin<
+  Plugin,
+  Record<string, Record<string, any>>
+> = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>

@@ -1,4 +1,6 @@
-import {Ink, InkGradient, React} from '@roots/bud-support'
+import {Text} from 'ink'
+import InkGradient from 'ink-gradient'
+import React, {useEffect, useState} from 'react'
 
 /**
  * Bar component
@@ -11,12 +13,9 @@ export const Bar: React.FunctionComponent<{
   character?: string
   maxWidth?: number
 }> = ({character, colors, percent, maxWidth}) => {
-  const [fill, setFill] = React.useState(0)
+  const [fill, setFill] = useState(0)
 
-  /**
-   * Calculate bar min, max. Round down to nearest integer
-   */
-  React.useEffect(() => {
+  useEffect(() => {
     const valid =
       typeof maxWidth == 'number' && typeof percent == 'number'
 
@@ -28,11 +27,11 @@ export const Bar: React.FunctionComponent<{
   }, [maxWidth, percent])
 
   return fill <= 0 ? null : (
-    <Ink.Text wrap="truncate">
+    <Text wrap="truncate">
       <InkGradient colors={colors}>
         {character.repeat(fill) ?? ''}
       </InkGradient>
       {'▉'.repeat(maxWidth - fill) ?? ''}
-    </Ink.Text>
+    </Text>
   )
 }

@@ -1,14 +1,14 @@
-import {React} from '@roots/bud-support'
+import {useCallback, useState} from 'react'
 
 /**
  * Forces React re-renders
  *
  * @public
  */
-export const useForceUpdate = () => {
-  const [, forceUpdate] = React.useState(true)
+export function useForceUpdate() {
+  const [, forceUpdate] = useState(true)
 
-  return React.useCallback(() => {
+  return useCallback(() => {
     forceUpdate(s => !s)
   }, [])
 }

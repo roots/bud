@@ -1,10 +1,9 @@
-import {Module} from '@roots/bud-framework'
 import {
   cosmiconfig,
   cosmiconfigTsLoader,
 } from '@roots/bud-support'
 
-import Bud from '../Bud'
+import {Bud} from '../Bud'
 
 /**
  * Configuration class
@@ -66,7 +65,7 @@ export default class Config {
 
     if (config.extensions) {
       config.extensions.map(mod => {
-        const ext: Module = require(mod)
+        const ext = require(mod)
         this.app.use(ext as any)
       })
     }

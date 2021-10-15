@@ -1,4 +1,5 @@
-import {Ink, React} from '@roots/bud-support'
+import {Box, Text} from 'ink'
+import React from 'react'
 
 /**
  * Error component
@@ -7,17 +8,17 @@ import {Ink, React} from '@roots/bud-support'
  */
 export const Error = ({title = 'Error', body}) => {
   return (
-    <Ink.Box
+    <Box
       flexDirection="column"
       borderColor="red"
       borderStyle="round"
       marginBottom={1}
       padding={1}>
-      <Ink.Text wrap="wrap" bold>
+      <Text wrap="wrap" bold>
         {title}
-      </Ink.Text>
+      </Text>
 
-      <Ink.Text wrap="wrap">{body}</Ink.Text>
-    </Ink.Box>
+      <Text wrap="wrap">{body}</Text>
+    </Box>
   )
 }

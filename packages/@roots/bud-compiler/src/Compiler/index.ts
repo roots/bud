@@ -1,5 +1,6 @@
 import {
   Compiler as Contract,
+  Framework,
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -22,13 +23,6 @@ const INITIAL_STATS = {
  * @public
  */
 export class Compiler extends Service implements Contract {
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   *
-   * @public
-   */
-  public name = 'compiler'
-
   /**
    * Compiler instance
    *
@@ -91,55 +85,6 @@ export class Compiler extends Service implements Contract {
   }
 
   /**
-   * Returns final webpack configuration
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public before() {
-    const config = []
-
-    this.stats = INITIAL_STATS
-
-    this.isCompiled = true
-
-    this.app.hooks.filter('before').map(cb => cb(this.app))
-
-    this.app.parent &&
-      this.app.error(`Trying to compile a child directly.`)
-
-    /**
-     * Attempt to use the parent instance in the compilation if there are entries
-     * registered to it or if it has no child instances registered.
-     */
-    if (
-      this.app.build.rebuild().entry ||
-      !this.app.hasChildren
-    ) {
-      this.app.info('using parent compiler')
-      config.push(this.app.build.rebuild())
-    }
-
-    /**
-     * If there are {@link Framework.children} instances, iterate through
-     * them and add to `config`
-     */
-    this.app.hasChildren &&
-      this.app.children.getValues().map(({build, name}) => {
-        name &&
-          (() => {
-            this.app.info(`using ${name} compiler`)
-            config.push(build.rebuild())
-          })()
-      })
-
-    this.app.debug(config)
-
-    return config
-  }
-
-  /**
    * @public
    * @decorator `@bind`
    */
@@ -167,6 +112,50 @@ export class Compiler extends Service implements Contract {
   }
 
   /**
+   * Returns final webpack configuration
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public before() {
+    const config = []
+
+    this.stats = INITIAL_STATS
+
+    this.isCompiled = true
+
+    this.app.hooks.filter('before').map(cb => cb(this.app))
+
+    this.app.parent &&
+      this.app.error(`Trying to compile a child directly.`)
+
+    /**
+     * Attempt to use the parent instance in the compilation if there are entries
+     * registered to it or if it has no child instances registered.
+     */
+    if (this.app.build.config.entry || !this.app.hasChildren) {
+      this.app.info('using parent compiler')
+      config.push(this.app.build.config)
+    }
+
+    /**
+     * If there are {@link Framework.children} instances, iterate through
+     * them and add to `config`
+     */
+    this.app.hasChildren &&
+      this.app.children.getValues().map(({build, name}) => {
+        name &&
+          (() => {
+            this.app.info(`using ${name} compiler`)
+            config.push(build.config)
+          })()
+      })
+
+    return config
+  }
+
+  /**
    * Compilation callback
    *
    * @public
@@ -188,12 +177,12 @@ export class Compiler extends Service implements Contract {
       this.stats = stats.toJson(this.app.build.config.stats)
     })
 
-    this.app.when(err, () => {
-      this.stats.errors.push(err)
-    })
+    err && this.stats.errors.push(err)
 
     const doneCallbacks = this.app.hooks.filter('done')
 
-    doneCallbacks?.map(cb => cb(this.app))
+    doneCallbacks?.map((cb: (bud: Framework) => any) =>
+      cb(this.app),
+    )
   }
 }

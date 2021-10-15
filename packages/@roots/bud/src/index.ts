@@ -58,9 +58,9 @@ import {
   Rule,
 } from '@roots/bud-framework'
 
-import Bud from './Bud'
-import config from './config'
-import factory from './factory'
+import {Bud} from './Bud'
+import {config} from './config'
+import {factory} from './factory'
 
 export {Bud, Bud as Framework}
 

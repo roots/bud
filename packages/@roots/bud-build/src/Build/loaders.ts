@@ -1,4 +1,4 @@
-import {loader as MiniCssLoader} from 'mini-css-extract-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import Loader from '../Loader'
 
@@ -36,7 +36,7 @@ export const md: () => Loader = () =>
  * Returns {@link Loader} for `mini-css-extract-plugin.loader`
  */
 export const minicss: () => Loader = () =>
-  new Loader(MiniCssLoader)
+  new Loader(MiniCssExtractPlugin.loader)
 
 /**
  * Returns {@link Loader} for `resolve-url-loader`

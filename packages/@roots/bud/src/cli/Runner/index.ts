@@ -1,31 +1,14 @@
 import {isFunction} from 'lodash'
 
-import Bud from '../../Bud'
-import config from '../../config'
-import factory from '../../factory'
+import {Bud} from '../../Bud'
+import {config} from '../../config'
+import {factory} from '../../factory'
 import CLIConfig from '../Config'
 
 /**
- * Supplies {@link @oclif/command#Command} instances with {@link Bud}
- *
- * @remarks
- * It makes sense to pull this out of any individual command class
- * because it is usable between all of them.
- *
- * It's kind of an overly long and complicated class, but at its
- * core it's a simple task of running the bud build.
- *
- * - Instantiate bud with a {@link factory}
- *
- * - Gather configs from project directory
- *
- * - Process configs. Static config processing is delegated to {@link Config}.
- *
- * - Call {@link Bud.run}
- *
  * @internal
  */
-class Runner {
+export class Runner {
   /**
    * @internal
    */
@@ -151,30 +134,20 @@ class Runner {
 
     Object.assign(this, {
       fluentBuilders: [
-        `${this.app.name}.ts`,
-        `${this.app.name}.js`,
         `${this.app.name}.config.ts`,
         `${this.app.name}.config.js`,
       ],
       fluentBuildersByEnv: [
-        `${this.app.name}.${this.app.mode}.ts`,
-        `${this.app.name}.${this.app.mode}.js`,
         `${this.app.name}.${this.app.mode}.config.ts`,
         `${this.app.name}.${this.app.mode}.config.js`,
       ],
       staticBuilders: [
         `package.json`,
-        `${this.app.name}.json`,
-        `${this.app.name}.yaml`,
-        `${this.app.name}.yml`,
         `${this.app.name}.config.json`,
         `${this.app.name}.config.yaml`,
         `${this.app.name}.config.yml`,
       ],
       staticBuildersByEnv: [
-        `${this.app.name}.${this.app.mode}.json`,
-        `${this.app.name}.${this.app.mode}.yaml`,
-        `${this.app.name}.${this.app.mode}.yml`,
         `${this.app.name}.${this.app.mode}.config.json`,
         `${this.app.name}.${this.app.mode}.config.yaml`,
         `${this.app.name}.${this.app.mode}.config.yml`,
@@ -264,7 +237,6 @@ class Runner {
    */
   public async build(configs: string[]): Promise<void> {
     const builder = await new CLIConfig(this.app, configs).get()
-
     isFunction(builder) && builder(this.app)
   }
 
@@ -297,5 +269,3 @@ class Runner {
     ).apply()
   }
 }
-
-export {Runner}

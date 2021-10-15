@@ -1,4 +1,5 @@
-import {Ink, React} from '@roots/bud-support'
+import {Box, Text} from 'ink'
+import React, {useEffect, useState} from 'react'
 
 const gT = (num: string | number, num2: string | number) => {
   return new Number(num) > new Number(num2)
@@ -10,26 +11,24 @@ const gT = (num: string | number, num2: string | number) => {
  * @public
  */
 export const Performance = () => {
-  const [rss, setRss] = React.useState<number>(0)
-  const [maxRss, setMaxRss] = React.useState<number>(0)
+  const [rss, setRss] = useState<number>(0)
+  const [maxRss, setMaxRss] = useState<number>(0)
 
-  const [heapTotal, setHeapTotal] = React.useState<number>(0)
-  const [maxHeapTotal, setMaxHeapTotal] =
-    React.useState<number>(0)
+  const [heapTotal, setHeapTotal] = useState<number>(0)
+  const [maxHeapTotal, setMaxHeapTotal] = useState<number>(0)
 
-  const [heapUsed, setHeapUsed] = React.useState<number>(0)
-  const [maxHeapUsed, setMaxHeapUsed] = React.useState<number>(0)
+  const [heapUsed, setHeapUsed] = useState<number>(0)
+  const [maxHeapUsed, setMaxHeapUsed] = useState<number>(0)
 
-  const [external, setExternal] = React.useState<number>(0)
-  const [maxExternal, setMaxExternal] = React.useState<number>(0)
+  const [external, setExternal] = useState<number>(0)
+  const [maxExternal, setMaxExternal] = useState<number>(0)
 
-  const [arrayBuffers, setArrayBuffers] =
-    React.useState<number>(0)
+  const [arrayBuffers, setArrayBuffers] = useState<number>(0)
 
   const [maxArrayBuffers, setMaxArrayBuffers] =
-    React.useState<number>(0)
+    useState<number>(0)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const mem = Object.fromEntries(
       Object.entries(process.memoryUsage()).map(([k, v]) => {
         return [k, Math.round(v / 1024 / 1024)]
@@ -61,41 +60,41 @@ export const Performance = () => {
   ])
 
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box flexDirection="row">
-        <Ink.Text>rss </Ink.Text>
-        <Ink.Text>
+    <Box flexDirection="column">
+      <Box flexDirection="row">
+        <Text>rss </Text>
+        <Text>
           {rss} (max: {maxRss})
-        </Ink.Text>
-      </Ink.Box>
+        </Text>
+      </Box>
 
-      <Ink.Box flexDirection="row">
-        <Ink.Text>heapTotal </Ink.Text>
-        <Ink.Text>
+      <Box flexDirection="row">
+        <Text>heapTotal </Text>
+        <Text>
           {heapTotal} (max: {maxHeapTotal})
-        </Ink.Text>
-      </Ink.Box>
+        </Text>
+      </Box>
 
-      <Ink.Box flexDirection="row">
-        <Ink.Text>heapUsed </Ink.Text>
-        <Ink.Text>
+      <Box flexDirection="row">
+        <Text>heapUsed </Text>
+        <Text>
           {heapUsed} (max: {maxHeapUsed})
-        </Ink.Text>
-      </Ink.Box>
+        </Text>
+      </Box>
 
-      <Ink.Box flexDirection="row">
-        <Ink.Text>external </Ink.Text>
-        <Ink.Text>
+      <Box flexDirection="row">
+        <Text>external </Text>
+        <Text>
           {external} (max: {maxExternal})
-        </Ink.Text>
-      </Ink.Box>
+        </Text>
+      </Box>
 
-      <Ink.Box flexDirection="row">
-        <Ink.Text>arrayBuffers </Ink.Text>
-        <Ink.Text>
+      <Box flexDirection="row">
+        <Text>arrayBuffers </Text>
+        <Text>
           {arrayBuffers} (max: {maxArrayBuffers})
-        </Ink.Text>
-      </Ink.Box>
-    </Ink.Box>
+        </Text>
+      </Box>
+    </Box>
   )
 }

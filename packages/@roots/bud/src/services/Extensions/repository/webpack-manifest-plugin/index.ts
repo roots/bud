@@ -5,18 +5,14 @@ import {
 } from 'webpack-manifest-plugin'
 
 /**
- * {@inheritDoc BudWebpackManifestPlugin}
- * @public
- */
-interface BudWebpackManifestPlugin
-  extends Extension.CompilerPlugin<{apply: any}, Options> {}
-
-/**
  * Webpack Manifest Plugin adapter
  *
  * @public
  */
-const BudWebpackManifestPlugin: BudWebpackManifestPlugin = {
+const BudWebpackManifestPlugin: Extension.CompilerPlugin<
+  {apply: any},
+  Options
+> = {
   /**
    * {@inheritDoc @roots/bud-framework#Extension.name}
    * @public

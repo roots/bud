@@ -62,13 +62,6 @@ interface Repository {
  */
 class Api extends Service<Repository> {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   *
-   * @public
-   */
-  public name = 'api'
-
-  /**
    * A {@link @roots/container#Repository | Repository} of high-level functions used to
    * configure the project
    *

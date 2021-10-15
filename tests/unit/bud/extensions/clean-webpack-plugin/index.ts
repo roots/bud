@@ -1,4 +1,4 @@
-import * as cleanWebpackPlugin from '@roots/bud/src/Bud/services/Extensions/repository/clean-webpack-plugin'
+import * as cleanWebpackPlugin from '@roots/bud/src/services/Extensions/repository/clean-webpack-plugin'
 
 describe('CleanWebpackPlugin', function () {
   it('is named `clean-webpack-plugin`', () => {

@@ -5,68 +5,32 @@ import {existsSync} from 'fs-extra'
 import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '.'
 
 /**
- * Babel extension interface
- *
- * @public @config
- */
-export interface BudBabelExtension extends Extension.Module {
-  /**
-   * {@inheritDoc @roots/bud-framework#Module.name}
-   *
-   * @public
-   */
-  name: Extension.Module['name'] & '@roots/bud-babel'
-  /**
-   * {@inheritDoc @roots/bud-framework#Module.register}
-   *
-   * @public
-   */
-  register: Extension.Module['register']
-  /**
-   * {@inheritDoc @roots/bud-framework#Module.boot}
-   *
-   * @public
-   */
-  boot: Extension.Module['boot']
-}
-
-/**
  * Adds Babel transpiler support to Framework projects
  *
  * @public @config
  */
-export const BudBabelExtension: BudBabelExtension = {
+export const BudBabelExtension: Extension.Module = {
   /**
-   * {@inheritDoc @roots/bud-framework#Module.name}
+   * Extension name
    *
    * @public
    */
   name: '@roots/bud-babel',
 
   /**
-   * {@inheritDoc @roots/bud-framework#Module.register}
+   * Extension register event
    *
    * @public
    */
   register(app: Framework): void {
-    /**
-     * Binds the {@link @roots/bud-babel#Config | Babel configuration class} using
-     * {@link @roots/bud-framework#Service.bindClass | the Service.bindClass method}
-     */
     app.extensions.bindClass({
       babel: [Config, app],
     })
 
-    /**
-     * Register new {@link @roots/bud-build#Loader} for Babel
-     */
     app.build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
     )
 
-    /**
-     * Register new {@link @roots/bud-build#Item} for Babel
-     */
     app.build.items.babel = new Item({
       loader: ({build}) => build.loaders.babel,
       options: app => {
@@ -98,14 +62,13 @@ export const BudBabelExtension: BudBabelExtension = {
       },
     })
 
-    /**
-     * @override {@link @roots/bud-build#Rule.use}
-     */
     app.build.rules.js.setUse(({build}) => [build.items.babel])
   },
 
   /**
    * Extension boot event
+   *
+   * @public
    */
   boot(app: Framework): void {
     !existsSync(app.path('project', 'babel.config.js')) &&

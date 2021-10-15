@@ -2,9 +2,10 @@ import {
   Dashboard as Contract,
   Service as Base,
 } from '@roots/bud-framework'
-import {Ink, React} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
+import {Box, Instance, render, Text} from 'ink'
 import {isString} from 'lodash'
+import React from 'react'
 
 import {Dashboard as DashboardComponent} from '../components/Dashboard'
 import {Screen} from '../components/Screen'
@@ -17,58 +18,27 @@ import {Error} from '../Error'
  */
 export class Dashboard extends Base implements Contract {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   * @public
-   */
-  public name = 'dashboard'
-
-  /**
    * The {@link Ink} instance
    * @public
    */
-  public instance: Ink.Instance
+  public instance: Instance
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.register}
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public register(): void {
     this.bindMacro({error: Error})
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.booted}
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public booted(): void {
     this.run()
   }
 
-  /**
-   * Run the dashboard
-   *
-   * @remarks
-   * This method will initialize the dashboard CLI interface
-   * unless the app.store `cli` entry is `false`.
-   *
-   * By default the `cli` entry is false. However, the
-   * cli class from `@roots/bud` sets it to `true`.
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public run(): void {
     if (this.app.store.isFalse('cli')) return
 
     if (!this.instance) {
-      this.instance = Ink.render(
+      this.instance = render(
         <DashboardComponent bud={this.app} />,
       )
     } else {
@@ -109,25 +79,25 @@ export class Dashboard extends Base implements Contract {
   public render(Component: any, title?: string): void {
     const Output = () =>
       isString(Component) ? (
-        <Ink.Text>{Component}</Ink.Text>
+        <Text>{Component}</Text>
       ) : Array.isArray(Component) ? (
-        <Ink.Box flexDirection="column">
+        <Box flexDirection="column">
           {Component.map((c, id) => (
-            <Ink.Text key={id}>{c}</Ink.Text>
+            <Text key={id}>{c}</Text>
           ))}
-        </Ink.Box>
+        </Box>
       ) : (
         Component
       )
 
     if (!this.instance) {
-      this.instance = Ink.render(
+      this.instance = render(
         <Screen app={this.app} title={title ?? null}>
           <Output />
         </Screen>,
       )
     } else {
-      this.instance?.rerender(
+      this.instance.rerender(
         <Screen app={this.app} title={title ?? null}>
           <Output />
         </Screen>,

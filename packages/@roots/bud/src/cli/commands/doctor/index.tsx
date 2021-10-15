@@ -2,7 +2,7 @@ import {flags} from '@oclif/command'
 import type Parser from '@oclif/parser'
 import {noop} from 'lodash'
 
-import Bud from '../../../Bud'
+import {Bud} from '../../../Bud'
 import {Command} from '../../Command'
 import {Runner} from '../../Runner'
 

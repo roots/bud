@@ -1,7 +1,7 @@
 test.todo('fix this test')
 /* import {Bud} from '@roots/bud'
 import * as webpackDefinePlugin from '@roots/bud/src/Bud/extensions/webpack-define-plugin'
-import {Env} from '@roots/bud/src/Bud/services/Env/index'
+import {Env} from '@roots/bud/src/services/Env/index'
 import {Container} from '@roots/container'
 
 describe('WebpackDefinePlugin', function () {

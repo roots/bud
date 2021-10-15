@@ -1,8 +1,8 @@
 import {flags} from '@oclif/command'
 import {remove} from 'fs-extra'
 
-import Bud from '../Bud'
-import config from '../config'
+import {Bud} from '../Bud'
+import {config} from '../config'
 import {Command} from './Command'
 import {Runner} from './Runner'
 

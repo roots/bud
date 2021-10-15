@@ -3,11 +3,7 @@ import type {Framework} from '@roots/bud-framework'
 import Item from '../Item'
 
 /**
- * {@link @roots/bud-framework#Items.asset | asset factory}
- *
- * @returns {@link @roots/bud-build#Item | Item}
- *
- * @public
+ * .asset handler factory
  */
 export const asset = () =>
   new Item({
@@ -22,11 +18,7 @@ export const asset = () =>
   })
 
 /**
- * {@link @roots/bud-framework#Items.css | css factory}
- *
- * @returns {@link @roots/bud-build#Item | Item}
- *
- * @public
+ * .css handler factory
  */
 export const css = () =>
   new Item({
@@ -38,7 +30,7 @@ export const css = () =>
   })
 
 /**
- * Returns {@link Item} for csv
+ * .csv handler factory
  */
 export const csv = () =>
   new Item({
@@ -46,7 +38,7 @@ export const csv = () =>
   })
 
 /**
- * Returns {@link Item} for html
+ * .html handler factory
  */
 export const html = () =>
   new Item({
@@ -54,7 +46,7 @@ export const html = () =>
   })
 
 /**
- * Returns {@link Item} for style
+ * Factory {@link Item} for style
  */
 export const style = () =>
   new Item({
@@ -62,7 +54,7 @@ export const style = () =>
   })
 
 /**
- * Returns {@link Item} for markdown
+ * Factory {@link Item} for markdown
  */
 export const md = () =>
   new Item({
@@ -70,7 +62,7 @@ export const md = () =>
   })
 
 /**
- * Returns {@link Item} for minicss-extract-plugin
+ * Factory {@link Item} for minicss-extract-plugin
  */
 export const minicss = () =>
   new Item({
@@ -79,7 +71,7 @@ export const minicss = () =>
   })
 
 /**
- * Returns {@link Item} for raw
+ * Factory {@link Item} for raw
  */
 export const raw = () =>
   new Item({
@@ -87,7 +79,7 @@ export const raw = () =>
   })
 
 /**
- * Returns {@link Item} for file
+ * Factory {@link Item} for file
  */
 export const file = () =>
   new Item({
@@ -102,7 +94,7 @@ export const file = () =>
   })
 
 /**
- * Returns {@link Item} resolve-url
+ * Factory {@link Item} resolve-url
  */
 export const resolveUrl = () =>
   new Item({
@@ -114,7 +106,7 @@ export const resolveUrl = () =>
   })
 
 /**
- * Returns {@link Item} for xml
+ * Factory {@link Item} for xml
  */
 export const xml = () =>
   new Item({

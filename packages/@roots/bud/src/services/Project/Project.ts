@@ -14,11 +14,6 @@ export default class
   implements Project.Interface
 {
   /**
-   * {@inheritDoc}
-   */
-  public name = 'project'
-
-  /**
    * {@link Peers} instance
    */
   public peers: Peers

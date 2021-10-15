@@ -1,6 +1,10 @@
-import {Build, Items, Loaders, Rules} from '@roots/bud-framework'
+import {
+  Build as Contract,
+  Items,
+  Loaders,
+  Rules,
+} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
@@ -13,11 +17,11 @@ import * as rules from './rules'
  *
  * @public
  */
-export default class extends Service implements Build.Interface {
+export class Build
+  extends Service
+  implements Contract.Interface
+{
   /**
-   * @internalRemarks
-   * Just your friendly neighborhood Real JavaScript design pattern
-   *
    * @internal
    */
   public _config: Webpack.Configuration
@@ -49,6 +53,17 @@ export default class extends Service implements Build.Interface {
    * @public
    */
   public items: Items
+
+  /**
+   * Finalized build configuration
+   *
+   * @public @readonly
+   */
+  public get config(): Webpack.Configuration {
+    this._config = this.app.hooks.filter('build')
+
+    return this._config
+  }
 
   /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.bootstrap}
@@ -89,30 +104,5 @@ export default class extends Service implements Build.Interface {
       .reduce(componentReducer, {}) as Items
 
     config(this.app)
-  }
-
-  /**
-   * Finalized build configuration
-   *
-   * @public @readonly
-   */
-  public get config(): Webpack.Configuration {
-    this._config = this.app.hooks.filter('build')
-
-    return this._config
-  }
-
-  /**
-   * Finalized build configuration
-   *
-   * @deprecated Use {@link Build.Interface.config} instead
-   *
-   * @public
-   */
-  @bind
-  public rebuild(): Webpack.Configuration {
-    this._config = this.app.hooks.filter('build')
-
-    return this._config
   }
 }

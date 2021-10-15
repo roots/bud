@@ -1,8 +1,4 @@
 /**
- * @module Bud.Logger
- */
-
-/**
  * Instance configuration
  */
 const INSTANCE_CONFIG = {

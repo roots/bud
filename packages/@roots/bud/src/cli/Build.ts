@@ -1,6 +1,6 @@
 import {flags} from '@oclif/command'
 
-import Bud from '../Bud'
+import {Bud} from '../Bud'
 import {Command} from './Command'
 import {Runner} from './Runner'
 

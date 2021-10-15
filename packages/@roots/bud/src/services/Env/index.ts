@@ -1,4 +1,4 @@
-import type {Env, Index} from '@roots/bud-framework'
+import type {Env as Base, Index} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -8,14 +8,7 @@ import {boundMethod as bind} from 'autobind-decorator'
  *
  * @public
  */
-export default class extends Service<Index<any>> implements Env {
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.env}
-   *
-   * @public
-   */
-  public name = 'env'
-
+export class Env extends Service<Index<any>> implements Base {
   /**
    * Accessor: path to .env file
    *

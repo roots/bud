@@ -1,13 +1,11 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import {DefinePlugin} from 'webpack'
 
 interface BudWebpackDefinePlugin
-  extends WebpackPlugin<DefinePlugin, Options> {
-  name: 'webpack-define-plugin' & WebpackPlugin['name']
+  extends Extension.CompilerPlugin<DefinePlugin, Options> {
+  name: 'webpack-define-plugin' &
+    Extension.CompilerPlugin['name']
   make: (options: Container<Options>) => DefinePlugin
   when: (app: Framework, options: Container<Options>) => boolean
   options: (app: Framework) => Options

@@ -1,4 +1,4 @@
-import {Extensions} from '@roots/bud-extensions'
+import {Extensions as Base} from '@roots/bud-extensions'
 
 import {repository} from './repository'
 
@@ -7,6 +7,6 @@ import {repository} from './repository'
  *
  * @public
  */
-export default class extends Extensions {
+export class Extensions extends Base {
   public repository = repository
 }

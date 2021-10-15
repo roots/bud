@@ -17,15 +17,12 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
+import * as Ink from 'ink'
+import React from 'react'
+
 import * as Components from './components'
 import {Dashboard} from './Dashboard'
 import {Error} from './Error'
-import * as hooks from './hooks'
 
-export {Components}
-
-export {Dashboard}
-
-export {Error}
-
-export {hooks}
+export {Ink, React}
+export {Components, Dashboard, Error}

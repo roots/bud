@@ -13,11 +13,6 @@ export default class
   extends Peers.Abstract
   implements Peers.Interface
 {
-  /**
-   * {@inheritDoc}
-   */
-  public name = 'project'
-
   public project: Project.Interface
 
   /**
@@ -25,9 +20,7 @@ export default class
    */
   public constructor(project: Project.Interface) {
     super()
-
     this.project = project
-
     this.discover('dependencies').discover('devDependencies')
   }
 

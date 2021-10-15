@@ -5,7 +5,7 @@ import type {Configuration} from '@roots/bud-framework'
  *
  * @public @config
  */
-const config: Configuration = {
+export const config: Configuration = {
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.name}
    * @public
@@ -286,5 +286,3 @@ const config: Configuration = {
     maxHeight: 999,
   },
 }
-
-export {config as default}
