@@ -13,7 +13,7 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import Controller from './controller'
+import Controller from './Controller'
 
 export {Controller}
 export {Extensions} from './Extensions'

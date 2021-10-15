@@ -8,7 +8,7 @@ import {
 import {boundMethod as bind} from 'autobind-decorator'
 import {isEqual, isString, isUndefined} from 'lodash'
 
-import Controller from '../controller'
+import Controller from '../Controller'
 
 /**
  * Extensions Service
