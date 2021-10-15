@@ -10651,10 +10651,6 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-    postcss: 8.3.6
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    tailwindcss: ^2.2.8
   languageName: unknown
   linkType: soft
 
@@ -18844,17 +18840,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.3.6":
-  version: 8.3.6
-  resolution: "postcss@npm:8.3.6"
-  dependencies:
-    colorette: ^1.2.2
-    nanoid: ^3.1.23
-    source-map-js: ^0.6.2
-  checksum: ff55b91bea21f42c2a94d77fd05c3f66dd15889c68506cf1dbb9cdee8c3b9e9d0e219bcbc6e61a107bd63e3cac0670176486e2a5794c106a4e1b9babceb79317
-  languageName: node
-  linkType: hard
-
 "postcss@npm:8.3.9, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.2.9, postcss@npm:^8.3.0, postcss@npm:^8.3.5":
   version: 8.3.9
   resolution: "postcss@npm:8.3.9"
@@ -22055,7 +22040,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:2.2.16, tailwindcss@npm:^2.2.8":
+"tailwindcss@npm:2.2.16":
   version: 2.2.16
   resolution: "tailwindcss@npm:2.2.16"
   dependencies:

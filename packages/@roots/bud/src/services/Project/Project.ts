@@ -15,12 +15,11 @@ export default class
 {
   /**
    * {@link Peers} instance
+   *
+   * @public
    */
   public peers: Peers
 
-  /**
-   * {@inheritDoc}
-   */
   public repository: Repository = {
     name: null,
     peers: {},
@@ -31,12 +30,15 @@ export default class
 
   /**
    * Array of paths for webpack to resolve modules from
+   *
+   * @public
    */
   public resolveFrom: string[] = []
 
   /**
    * Read project package.json and set peer deps
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -51,6 +53,7 @@ export default class
   /**
    * Returns all gathered project data
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -61,6 +64,7 @@ export default class
   /**
    * Returns true if a dependency is listed in the project manifest
    *
+   * @public
    * @decorator `@bind`
    */
   @bind

@@ -23,8 +23,6 @@ describe('bud.minimize', function () {
   it('disables minimizing when false is passed as param', () => {
     bud.minimize(false)
 
-    expect(bud.build.rebuild().optimization.minimize).toEqual(
-      false,
-    )
+    expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })

@@ -1,10 +1,10 @@
-import {Framework} from '@roots/bud'
-import * as BudBabelExtension from '@roots/bud-babel'
-import * as BudTypeScriptExtension from '@roots/bud-typescript'
+import {Bud} from '@roots/bud'
+import * as Babel from '@roots/bud-babel'
+import * as TS from '@roots/bud-typescript'
 
-export default (bud: Framework) =>
+export default (bud: Bud) =>
   bud
-    .use([BudBabelExtension, BudTypeScriptExtension])
-    .entry({app: ['app.ts']})
+    .use([Babel, TS])
+    .entry({app: 'app.ts'})
     .template()
     .typecheck()

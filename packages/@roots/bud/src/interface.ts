@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+
 import {
   Extension,
   Item,

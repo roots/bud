@@ -2,7 +2,7 @@ import type {Extension} from '@roots/bud-framework'
 import type {CopyPluginOptions} from 'copy-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 
-const copyPluginExtension: Extension.CompilerPlugin<
+const BudCopyWebpackPlugin: Extension.CompilerPlugin<
   CopyPlugin,
   CopyPluginOptions
 > = {
@@ -21,4 +21,4 @@ const copyPluginExtension: Extension.CompilerPlugin<
   },
 }
 
-export const {name, options, make, when} = copyPluginExtension
+export const {name, options, make, when} = BudCopyWebpackPlugin

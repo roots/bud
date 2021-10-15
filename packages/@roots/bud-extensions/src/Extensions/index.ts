@@ -17,23 +17,12 @@ import Controller from '../Controller'
  * This class is a {@link @roots/bud-framework#Service | Service instance} for
  * managing {@link @roots/bud-framework#Framework | Framework} extensions
  *
- * A {@link @roots/bud-framework#Framework | Framework} extension is defined
- * as a {@link @roots/bud-framework#Module | Module} and is instantiated in
- * the container as an instance of the {@link Extension} class
- *
  * @core @public @container
  */
 export class Extensions
   extends Service<Partial<Plugins | Modules>>
   implements Contract
 {
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.register}
-   *
-   * @override @public
-   */
-  public name = 'extensions'
-
   /**
    * {@inheritDoc @roots/bud-framework#Service.register}
    *
@@ -134,10 +123,6 @@ export class Extensions
   /**
    * Registers an extension
    *
-   * @remarks
-   * Can be booted from its {@link @roots/bud-framework#Service.repository | Service.repository} key or
-   * with the literal {@link @roots/bud-framework#Module | Module}
-   *
    * @public
    * @decorator `@bind`
    */
@@ -159,11 +144,7 @@ export class Extensions
   }
 
   /**
-   * Boots a registered {@link Extension} instance
-   *
-   * @remarks
-   * Can be booted from its {@link @roots/bud-framework#Service.repository | Service.repository} key or
-   * with the literal {@link @roots/bud-framework#Definition.Module | Module}
+   * Boots a registered extension
    *
    * @public
    * @decorator `@bind`

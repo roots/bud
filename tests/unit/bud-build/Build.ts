@@ -14,10 +14,6 @@ describe('bud.build', function () {
     bud.close(done)
   })
 
-  it('has rebuild method', () => {
-    expect(bud.build.rebuild).toBeInstanceOf(Function)
-  })
-
   it('has expected rules', () => {
     expect(bud.build.rules).toMatchSnapshot()
   })
@@ -48,8 +44,6 @@ describe('bud.build', function () {
     }
 
     bud.hooks.on('build/entry', () => entryValue)
-
-    bud.build.rebuild()
 
     expect(initialBuildConfig).not.toEqual(bud.build.config)
     expect(bud.build.config.entry).toEqual(entryValue)
