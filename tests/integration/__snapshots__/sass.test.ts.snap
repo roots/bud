@@ -26,8 +26,8 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-sass": "workspace:*",
-    "@types/sass": "^1",
-    "sass": "1.42.1",
+    "@types/sass": Any<String>,
+    "sass": Any<String>,
   },
   "name": "example-sass",
   "private": true,
