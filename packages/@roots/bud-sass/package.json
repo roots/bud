@@ -84,7 +84,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "sass": "1.42.1"
+    "sass": "1.43.2"
   },
   "stableVersion": "4.6.0"
 }
