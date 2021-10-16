@@ -10,13 +10,15 @@ describe('Runner', () => {
 
   beforeEach(async () => {
     bud = mocks.bud as unknown as Framework
-    runner = new Runner({args: [], flags: {}}, null, bud)
+    runner = new Runner(
+      {args: [], argv: [], flags: {}, raw: [], metadata: {}},
+      {},
+      bud,
+    )
   })
 
   afterEach(() => {
-    // spies
     jest.restoreAllMocks()
-    // mocked fn
     jest.clearAllMocks()
   })
 
@@ -34,14 +36,6 @@ describe('Runner', () => {
 
   it('app property matches mock', () => {
     expect(runner.app).toMatchSnapshot(bud)
-  })
-
-  it('has options property', () => {
-    expect(runner.options).toBeDefined()
-  })
-
-  it('has cli property', () => {
-    expect(runner.cli).toBeDefined()
   })
 
   it('setEnv sets process.env.NODE_ENV', () => {

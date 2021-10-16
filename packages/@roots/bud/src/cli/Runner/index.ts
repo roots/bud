@@ -130,8 +130,6 @@ export class Runner {
       this.mode = 'development'
     }
 
-    this.setEnv(this.mode)
-
     this.app =
       app ??
       factory({
@@ -140,7 +138,6 @@ export class Runner {
         config: {
           ...config,
           ci: cli?.flags?.ci ?? false,
-          minimize: cli?.flags?.minimize ?? false,
           ...(options?.config ?? {}),
         },
       })
