@@ -6,32 +6,37 @@ import {Runner} from '../Runner'
 
 export default class Build extends Command {
   public static description = 'compile assets'
+
   public static examples = [
     `$ bud build production`,
     `$ bud build development`,
-    `$ bud build`,
-    `$ bud build dev`,
     `$ bud build --cache`,
   ]
-  public static args = [{name: 'mode'}]
 
-  public app: Bud
+  public static args = [{name: 'mode'}]
 
   public static flags = {
     help: flags.help({char: 'h'}),
 
     cache: flags.boolean({
       char: 'c',
+      allowNo: true,
+      default: true,
       description: 'cache compiler references to disk',
     }),
 
-    cli: flags.boolean({
+    ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
 
     discover: flags.boolean({
       char: 'd',
       description: 'automatically utilize installed extensions',
+    }),
+
+    html: flags.boolean({
+      char: 'd',
+      description: 'generate an html template',
     }),
 
     install: flags.boolean({
@@ -45,15 +50,20 @@ export default class Build extends Command {
     }),
 
     hash: flags.boolean({
+      char: 'h',
+      allowNo: true,
       description: 'hash compiled filenames',
     }),
 
     manifest: flags.boolean({
+      allowNo: true,
+      default: true,
       description: 'produce a manifest',
     }),
 
     minimize: flags.boolean({
       char: 'm',
+      allowNo: true,
       description: 'minimize file size of compiled assets',
     }),
 
@@ -65,17 +75,10 @@ export default class Build extends Command {
     }),
   }
 
+  public app: Bud
+
   public async run() {
-    const {args} = this.parse(Build)
-
-    if (!args.mode) {
-      args.mode = 'production'
-    }
-    if (args.mode === 'dev') {
-      args.mode = 'development'
-    }
-
-    const runner = new Runner(this.parse(Build), args)
+    const runner = new Runner(this.parse(Build))
 
     this.app = await runner.make()
 

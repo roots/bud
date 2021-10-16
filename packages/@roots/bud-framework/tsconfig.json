@@ -7,8 +7,7 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
-      "@roots/container"
+      "jest"
     ]
   },
   "include": [

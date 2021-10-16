@@ -173,11 +173,18 @@ export class Compiler extends Service implements Contract {
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    this.app.when(stats, () => {
+    if (stats) {
       this.stats = stats.toJson(this.app.build.config.stats)
-    })
+      this.app.store.is('ci', true) &&
+        // eslint-disable-next-line no-console
+        console.log(stats.toString())
+    }
 
-    err && this.stats.errors.push(err)
+    if (err) {
+      this.stats.errors.push(err)
+      // eslint-disable-next-line no-console
+      this.app.store.is('ci', true) && console.error(err)
+    }
 
     const doneCallbacks = this.app.hooks.filter('done')
 

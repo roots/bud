@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import Doctor from '@roots/bud/src/cli/commands/doctor'
-import {Notifier} from '@roots/bud/src/cli/Notifier'
 
 import {mocks} from './__mocks__/index'
 
@@ -57,15 +56,5 @@ describe('Doctor', () => {
       ['❌ postcss'],
       'Missing dependencies',
     )
-  })
-
-  it('has done method', () => {
-    expect(doctor.done).toBeInstanceOf(Function)
-  })
-
-  it('has notifier instance', async () => {
-    await doctor.init()
-
-    expect(doctor.notifier).toBeInstanceOf(Notifier)
   })
 })

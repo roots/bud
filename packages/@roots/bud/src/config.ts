@@ -13,10 +13,10 @@ export const config: Configuration = {
   name: 'bud',
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.cli}
+   * {@inheritDoc @roots/bud-framework#Configuration.ci}
    * @public
    */
-  cli: false,
+  ci: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.clean}

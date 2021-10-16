@@ -17,43 +17,35 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type {Extension, Framework} from '@roots/bud-framework'
-import type {Container} from '@roots/container'
+import type {Extension} from '@roots/bud-framework'
 import StylelintWebpackPlugin, {
   Options,
 } from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
-    '@roots/bud-stylelint': BudStylelintWebpackPlugin
+    '@roots/bud-stylelint': Extension.CompilerPlugin<
+      StylelintWebpackPlugin,
+      Options
+    >
   }
 }
 
-interface BudStylelintWebpackPlugin
-  extends Extension.CompilerPlugin<
-    StylelintWebpackPlugin,
-    Options
-  > {
-  name: 'stylelint-webpack-plugin' &
-    Extension.CompilerPlugin['name']
-  options(
-    app: Framework,
-  ): Extension.CompilerPlugin['options'] & Options
-  make(options: Container<Options>): StylelintWebpackPlugin
-}
-
-const BudStylelintWebpackPlugin: BudStylelintWebpackPlugin = {
+const BudStylelintWebpackPlugin: Extension.CompilerPlugin<
+  StylelintWebpackPlugin,
+  Options
+> = {
   name: 'stylelint-webpack-plugin',
 
-  options: app => ({
-    context: app.path('src'),
-  }),
+  options(app) {
+    return {
+      context: app.path('src'),
+    }
+  },
 
-  make: opts => new StylelintWebpackPlugin(opts.all()),
+  make(options) {
+    return new StylelintWebpackPlugin(options.all())
+  },
 }
 
 export const {name, options, make} = BudStylelintWebpackPlugin

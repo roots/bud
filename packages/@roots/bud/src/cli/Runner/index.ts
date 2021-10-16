@@ -45,10 +45,8 @@ export class Runner {
   /**
    * CLI state
    */
-  public cli: {
-    flags: {[key: string]: any}
-    args: any[]
-  }
+  public flags: {[key: string]: any}
+  public args: {[key: string]: any}
 
   /**
    * Requested {@link Bud.mode}
@@ -111,14 +109,28 @@ export class Runner {
    * @param app - Instance of {@link Bud}
    */
   public constructor(
-    cli: Runner['cli'],
+    cli: {
+      args: Record<string, any>
+      argv: Array<string>
+      flags: Record<string, any>
+      raw: Array<Record<string, string>>
+      metadata: Record<string, Record<string, any>>
+    },
     options: Runner['options'] = {},
-    app: Bud = null,
+    app?: Bud,
   ) {
-    Object.assign(this, {cli, options})
-    this.setEnv(
-      options?.mode || this.cli.flags.mode || 'production',
-    )
+    Object.assign(this, {...cli})
+
+    if (!this.args.mode || this.args.mode == 'production') {
+      this.mode = 'production'
+    } else if (
+      this.args.mode == 'dev' ||
+      this.args.mode == 'development'
+    ) {
+      this.mode = 'development'
+    }
+
+    this.setEnv(this.mode)
 
     this.app =
       app ??
@@ -127,8 +139,9 @@ export class Runner {
         ...options,
         config: {
           ...config,
-          ...(options.config ?? {}),
-          cli: this.cli.flags.cli ? false : true,
+          ci: cli?.flags?.ci ?? false,
+          minimize: cli?.flags?.minimize ?? false,
+          ...(options?.config ?? {}),
         },
       })
 
@@ -168,8 +181,8 @@ export class Runner {
      * Handle automatic installation and/or registration of modules
      * at user request
      */
-    this.cli.flags.install && this.app.project.peers.install()
-    this.cli.flags.discover &&
+    this.flags.install && this.app.project.peers.install()
+    this.flags.discover &&
       this.app.project.peers.registerDiscovered()
 
     /**
@@ -189,20 +202,40 @@ export class Runner {
       /**
        * Handle --cache flag
        */
-      if (this.cli.flags.cache) {
-        this.app.persist()
+      if (typeof this.flags.cache !== 'undefined') {
+        this.app.store.set('cache', this.flags.cache)
         this.app.children.every((_name, child) =>
-          child.persist(),
+          child.store.set('cache', this.flags.cache),
+        )
+      }
+
+      /**
+       * Handle --discover flag
+       */
+      if (typeof this.flags.discover !== 'undefined') {
+        this.app.store.set('discover', this.flags.discover)
+        this.app.children.every((_name, child) =>
+          child.store.set('discover', this.flags.discover),
+        )
+      }
+
+      /**
+       * Handle --manifest flag
+       */
+      if (typeof this.flags.manifest !== 'undefined') {
+        this.app.store.set('manifest', this.flags.manifest)
+        this.app.children.every((_name, child) =>
+          child.store.set('manifest', this.flags.manifest),
         )
       }
 
       /**
        * Handle --minimize flag
        */
-      if (this.cli.flags.minimize) {
-        this.app.minimize()
+      if (typeof this.flags.minimize !== 'undefined') {
+        this.app.store.set('minimize', this.flags.minimize)
         this.app.children.every((_name, child) => {
-          child.minimize()
+          child.store.set('minimize', this.flags.minimize)
         })
       }
 
@@ -211,17 +244,17 @@ export class Runner {
        *
        * @example `$ bud build --target plugin`
        */
-      if (this.cli.flags.target.length > 0) {
+      if (this.flags.target.length > 0) {
         /**
          * Handle parent if applicable
          */
-        !this.cli.flags.target.includes('bud') &&
+        !this.flags?.target?.includes('bud') &&
           this.app.hooks.on('build/entry', false)
         /**
          * And children if applicable
          */
         this.app.children.getKeys().forEach(name => {
-          !this.cli.flags.target.includes(name) &&
+          !this.flags?.target?.includes(name) &&
             this.app.children.remove(name)
         })
       }

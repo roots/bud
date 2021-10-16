@@ -28,14 +28,15 @@ export class Dashboard extends Base implements Contract {
     this.bindMacro({error: Error})
   }
 
-  @bind
-  public booted(): void {
-    this.run()
-  }
-
+  /**
+   * Run the dashboard
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public run(): void {
-    if (this.app.store.isFalse('cli')) return
+    if (this.app.store.isTrue('ci')) return
 
     if (!this.instance) {
       this.instance = render(

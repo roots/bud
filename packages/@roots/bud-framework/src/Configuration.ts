@@ -45,7 +45,7 @@ export interface Configuration {
    *
    * @public
    */
-  cli: boolean
+  ci: boolean
 
   /**
    * Feature toggle: Clean dist before compilation
