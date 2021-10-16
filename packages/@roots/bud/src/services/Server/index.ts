@@ -12,7 +12,7 @@ export class Server
   implements Framework.Server.Interface
 {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.register}
+   * Service register callback
    *
    * @public
    */

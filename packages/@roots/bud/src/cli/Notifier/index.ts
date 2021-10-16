@@ -11,18 +11,8 @@ const MACOS_NOTIFIER_PATH = resolve(
   '../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
 )
 
-/**
- * Notifier class
- *
- * @internal
- */
 export class Notifier {
-  /**
-   * Node notifier instance
-   *
-   * @internal
-   */
-  public notifier: {
+  public instance: {
     notify(props: {
       title: string
       message: string
@@ -31,39 +21,31 @@ export class Notifier {
     }): unknown
   }
 
-  /**
-   * Class notification
-   *
-   * @internal
-   */
   public constructor() {
-    this.notifier = new NodeNotifier.NotificationCenter({
+    this.instance = new NodeNotifier.NotificationCenter({
       customPath: MACOS_NOTIFIER_PATH,
     })
 
     this.notify = this.notify.bind(this)
   }
 
-  /**
-   * Make with the notifcation
-   *
-   * @param app - {@link Bud} instance
-   *
-   * @internal
-   */
-  public notify(app: Bud) {
-    const name = app.project.getProjectInfo().name ?? app.name
+  public notify(app: Bud, props) {
+    const group = app.project.getProjectInfo().name ?? app.name
 
-    this.notifier.notify({
-      title:
-        app.compiler.stats.errors.length > 0
-          ? `Build error`
-          : `Build success`,
-      message:
-        app.compiler.stats.errors.length > 0
-          ? `${name} couldn't be compiled`
-          : `${name} compiled successfully`,
-      group: name,
+    const title =
+      props?.title || app.compiler.stats.errors.length > 0
+        ? `Build error`
+        : `Build success`
+
+    const message =
+      props?.message || app.compiler.stats.errors.length > 0
+        ? `${group} couldn't be compiled`
+        : `${group} compiled successfully`
+
+    this.instance.notify({
+      title,
+      message,
+      group,
       contentImage: resolve(__dirname, '../assets/bud-icon.jpg'),
     })
   }

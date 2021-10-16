@@ -14,12 +14,17 @@ export default class
   implements Project.Interface
 {
   /**
-   * {@link Peers} instance
+   * Project peer dependencies manager
    *
    * @public
    */
   public peers: Peers
 
+  /**
+   * Project repository
+   *
+   * @public
+   */
   public repository: Repository = {
     name: null,
     peers: {},
@@ -36,6 +41,17 @@ export default class
   public resolveFrom: string[] = []
 
   /**
+   * Returns all gathered project data
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getProjectInfo(): {[key: string]: any} {
+    return this.all()
+  }
+
+  /**
    * Read project package.json and set peer deps
    *
    * @public
@@ -48,17 +64,6 @@ export default class
     )
 
     this.peers = new Peers(this)
-  }
-
-  /**
-   * Returns all gathered project data
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public getProjectInfo(): {[key: string]: any} {
-    return this.all()
   }
 
   /**

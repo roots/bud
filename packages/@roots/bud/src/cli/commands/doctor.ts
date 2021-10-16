@@ -1,41 +1,20 @@
 import {flags} from '@oclif/command'
 import type Parser from '@oclif/parser'
-import {noop} from 'lodash'
 
-import {Bud} from '../../../Bud'
-import {Command} from '../../Command'
-import {Runner} from '../../Runner'
+import {Bud} from '../../Bud'
+import {config} from '../../config'
+import {Command} from '../Command'
+import {Runner} from '../Runner'
 
-const EXIT = process.env.JEST_WORKER_ID ? noop : process.exit
+export default class Doctor extends Command {
+  public static id = 'doctor'
 
-interface Doctor extends Command {
-  hasMissingPeers(): boolean
-  getMissingPeers(): {name: string}[]
-  handleMissingPeers(): Doctor
-  run(): Promise<void>
-}
+  public static title = 'doctor'
 
-/**
- * `$ bud doctor` command class
- *
- * @public
- */
-class Doctor extends Command {
-  /**
-   * {@link Command.description}
-   */
-  public static description = 'Help diagnose issues with Bud'
+  public static description = 'diagnose issues'
 
-  /**
-   * {@link Command.examples}
-   */
   public static examples = [`$ bud doctor`]
 
-  /**
-   * Command Flags
-   *
-   * {@link Command.flags}
-   */
   public static flags = {
     help: flags.help({char: 'h'}),
     target: flags.string({
@@ -48,14 +27,8 @@ class Doctor extends Command {
 
   public static args = []
 
-  /**
-   * {@link Bud} application instance
-   */
   public app: Bud
 
-  /**
-   * Oclif parser
-   */
   public cli: Parser.Output<
     {
       help: void
@@ -64,21 +37,10 @@ class Doctor extends Command {
     any[]
   >
 
-  /**
-   * {@link Bud.Mode} compilation mode
-   */
-  public mode = 'production'
-
-  /**
-   * Returns true if there are missing peer dependencies
-   */
   public hasMissingPeers(): boolean {
     return this.getMissingPeers()?.length > 0
   }
 
-  /**
-   * Returns an array of missing peer dependencies
-   */
   public getMissingPeers(): {name: string}[] {
     return this.app.project.has('peers')
       ? this.app.project
@@ -90,9 +52,6 @@ class Doctor extends Command {
       : []
   }
 
-  /**
-   * Show feedback on command operation to user
-   */
   public displayFeedback(missing: {name: string}[]): void {
     missing.length < 1
       ? this.app.dashboard.render(
@@ -105,26 +64,13 @@ class Doctor extends Command {
         )
   }
 
-  /**
-   * Called at the end of {@link run}
-   */
-  public done() {
-    this.app.close(EXIT)
-  }
-
-  /**
-   * {@link Command.run}
-   */
   public async run(): Promise<void> {
-    /**
-     * Basic setup
-     */
-    this.cli = this.parse(Doctor)
-    new Runner(this.cli)
+    const runner = new Runner(this.parse(Doctor), {
+      config,
+    })
+    this.app = await runner.make(false)
 
     this.displayFeedback(this.getMissingPeers())
-    this.done()
+    process.exit()
   }
 }
-
-export default Doctor

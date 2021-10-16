@@ -5,28 +5,11 @@ import {
 
 import {Bud} from '../Bud'
 
-/**
- * Configuration class
- *
- * @internal
- */
 export default class Config {
-  /**
-   * {@link Bud} instance
-   */
   public app: Bud
 
-  /**
-   * {@link cosmiconfig.Options}
-   */
   public options: cosmiconfig.Options
 
-  /**
-   * Class constructor
-   *
-   * @param app - {@link Bud.implementation}
-   * @param searchPlaces - cosmiconfig search patterns
-   */
   public constructor(
     app: Bud,
     searchPlaces: cosmiconfig.Options['searchPlaces'],

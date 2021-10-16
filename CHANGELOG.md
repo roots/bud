@@ -1,4 +1,4 @@
-## v4.7.0
+## v5.0.0
 
 ### Breaking
 
@@ -23,7 +23,7 @@ This should technically make 4.7.0 a major release, but `bud.override` was only 
 ### Improved
 
 - **bud.use** now supports using Webpack plugins directly.
-- The CLI has a fresh coat of paint and some performance related enhancements. 
+- The CLI has a fresh coat of paint and some performance related enhancements.
 - New notification center integration (MacOS only)
 
 ### Contributors

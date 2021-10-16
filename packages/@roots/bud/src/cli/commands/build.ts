@@ -1,15 +1,19 @@
 import {flags} from '@oclif/command'
 
-import {Bud} from '../Bud'
-import {Command} from './Command'
-import {Runner} from './Runner'
+import {Bud} from '../../Bud'
+import {Command} from '../Command'
+import {Runner} from '../Runner'
 
 export default class Build extends Command {
-  public static description = 'Build application'
-
-  public mode: 'development' | 'production'
-
-  public cli: {flags: any; args: any}
+  public static description = 'compile assets'
+  public static examples = [
+    `$ bud build production`,
+    `$ bud build development`,
+    `$ bud build`,
+    `$ bud build dev`,
+    `$ bud build --cache`,
+  ]
+  public static args = [{name: 'mode'}]
 
   public app: Bud
 
@@ -62,13 +66,21 @@ export default class Build extends Command {
   }
 
   public async run() {
-    this.cli = this.parse(Build)
+    const {args} = this.parse(Build)
 
-    const runner = new Runner(this.cli, {mode: this.mode})
+    if (!args.mode) {
+      args.mode = 'production'
+    }
+    if (args.mode === 'dev') {
+      args.mode = 'development'
+    }
+
+    const runner = new Runner(this.parse(Build), args)
 
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])
+
     this.app.run()
   }
 }
