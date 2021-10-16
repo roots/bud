@@ -64,7 +64,11 @@ describe('bud.project', function () {
 
     expect(
       bud.project.get(`extensions.@roots/bud-postcss`),
-    ).toMatchSnapshot()
+    ).toMatchSnapshot({
+      "name": "@roots/bud-postcss",
+      "type": "devDependencies",
+      "ver": expect.any(String),
+    })
   })
 
   it('collates required peers', () => {

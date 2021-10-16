@@ -2,9 +2,8 @@
 
 ### Breaking
 
-`bud.override` removed. If you want to override the config, use one of the 'build' hooks.
-
-This should technically make 4.7.0 a major release, but `bud.override` was only recently introduced as part of a minor bump. So, we're breaking semver for this one.
+- `bud.override` removed. If you want to override the config, use one of the 'build' hooks.
+- `@roots/bud-cli` has been deprecated. Use `@roots/bud`.
 
 ### Added
 
@@ -25,6 +24,11 @@ This should technically make 4.7.0 a major release, but `bud.override` was only 
 - **bud.use** now supports using Webpack plugins directly.
 - The CLI has a fresh coat of paint and some performance related enhancements.
 - New notification center integration (MacOS only)
+- Added `@roots/yarn-plugin-kjo` to provide utilities in the `yarn kjo` namespace
+
+### Internal
+
+- `@roots/bud-typings` has been deprecated.
 
 ### Contributors
 
