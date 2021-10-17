@@ -28,10 +28,10 @@ describe('multi-compiler', () => {
   }
 
   beforeAll(async () => {
-    await execa('yarn', ['bud', 'extensions:install'], {
+    await execa('yarn', ['bud', 'init'], {
       cwd,
     })
-    await execa('yarn', ['bud', `build:production`, '--cli'], {
+    await execa('yarn', ['bud', `build`, '--ci'], {
       cwd,
     })
 

@@ -40,5 +40,6 @@ export function factory(overrides?: Options): Bud {
   process.env.BABEL_ENV = options.mode
   process.env.NODE_ENV = options.mode
 
-  return new Bud(options).bootstrap()
+  const bud = new Bud(options)
+  return bud.bootstrap()
 }

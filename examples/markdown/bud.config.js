@@ -7,6 +7,4 @@ module.exports = bud => {
     ])
     .entry('app', 'app.js')
     .template()
-
-  console.log(bud.build.config.resolve.modules)
 }

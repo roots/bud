@@ -36,10 +36,9 @@ module.exports = async function () {
     /**
      * Install project peer deps
      */
-    const pregame = execa.commandSync(
-      `yarn bud extensions:install`,
-      {cwd: dirname(k)},
-    )
+    const pregame = execa.commandSync(`yarn bud init`, {
+      cwd: dirname(k),
+    })
 
     pregame.stdout && console.log(pregame.stdout)
 

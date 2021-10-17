@@ -1,3 +1,4 @@
-module.exports = require('@roots/bud')
+require('@roots/bud')
   .factory({mode: 'production'})
-  .entry('app', 'index.js').build.config
+  .entry('app', 'index.js')
+  .run()
