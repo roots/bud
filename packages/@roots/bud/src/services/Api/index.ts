@@ -1,3 +1,3 @@
-import {Api, Repository} from '@roots/bud-api'
+import {Api as Base} from '@roots/bud-api'
 
-export {Api, Repository}
+export class Api extends Base {}

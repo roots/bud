@@ -1,5 +1,4 @@
 export const nccOptions = {
-  cache: false,
   external: [
     'css-loader',
     'csv-loader',
@@ -19,5 +18,5 @@ export const nccOptions = {
   watch: false,
   v8cache: false,
   quiet: false,
-  debugLog: false,
+  debugLog: true,
 }

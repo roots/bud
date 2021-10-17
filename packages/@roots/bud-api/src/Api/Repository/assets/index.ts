@@ -1,6 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
-import {globby} from '@roots/bud-support'
-import {CopyPluginOptions} from 'copy-webpack-plugin'
+import type {CopyPluginOptions} from 'copy-webpack-plugin'
+
+import {globby} from '../../../services/globby'
 
 /**
  * @public @config

@@ -1,6 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
-import {isUndefined} from 'lodash'
 import type {Configuration, EntryObject} from 'webpack'
+
+import {isUndefined} from '../../../services/lodash'
 
 /**
  * Runtime function interface

@@ -5,8 +5,8 @@ import {
   Modules,
   Plugins,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
+
+import {bind, isFunction} from './controller.dependencies'
 
 /**
  * Extension instance controller

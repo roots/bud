@@ -1,16 +1,15 @@
-/**
- * @module @roots/bud
- */
+import {Plugin} from './css-minimizer-webpack-plugin.dependencies'
+import {Extension} from './css-minimizer-webpack-plugin.interface'
 
-import {Module} from '@roots/bud-framework'
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-
-type Extension = Module<typeof CssMinimizerPlugin, any>
-
-const extension: Extension = {
+const BudCssMinimizerWebpackPlugin: Extension.CompilerPlugin<
+  typeof Plugin,
+  any
+> = {
   name: 'css-minimizer-webpack-plugin',
+
   options: ({store}) =>
     store.get('extension.cssMinimizerWebpackPlugin'),
+
   boot: ({extensions, hooks, isProduction, store}) => {
     isProduction &&
       store.isTrue('minimize') &&
@@ -18,11 +17,11 @@ const extension: Extension = {
       extensions.get('css-minimizer-webpack-plugin')?.options &&
       hooks.on('build/optimization/minimizer', minimizer => [
         ...minimizer,
-        new CssMinimizerPlugin(
+        new Plugin(
           extensions.get('css-minimizer-webpack-plugin').options,
         ),
       ])
   },
 }
 
-export const {name, options, boot} = extension
+export const {name, options, boot} = BudCssMinimizerWebpackPlugin

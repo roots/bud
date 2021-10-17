@@ -21,6 +21,9 @@
   "references": [
     {
       "path": "./../container/tsconfig.json"
+    },
+    {
+      "path": "./../bud-support/tsconfig.json"
     }
   ]
 }

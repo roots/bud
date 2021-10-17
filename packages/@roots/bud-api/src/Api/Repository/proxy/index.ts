@@ -1,5 +1,6 @@
 import {Framework, Server} from '@roots/bud-framework'
-import {isBoolean, isUndefined} from 'lodash'
+
+import {isBoolean, isUndefined} from '../../../services/lodash'
 
 /**
  * Configures proxy settings

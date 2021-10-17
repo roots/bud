@@ -2,14 +2,14 @@ import {
   Dashboard as Contract,
   Service as Base,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind} from '@roots/bud-support'
 import {Box, Instance, render, Text} from 'ink'
-import {isString} from 'lodash'
 import React from 'react'
 
 import {Dashboard as DashboardComponent} from '../components/Dashboard'
 import {Screen} from '../components/Screen'
 import {Error} from '../Error'
+import {isString} from '../services/lodash'
 
 /**
  * Dashboard service container implementation

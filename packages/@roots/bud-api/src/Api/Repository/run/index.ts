@@ -1,5 +1,9 @@
 import type {Framework} from '@roots/bud-framework'
-import {ensureDirSync, pathExistsSync} from 'fs-extra'
+
+import {
+  ensureDirSync,
+  pathExistsSync,
+} from '../../../services/fs-extra'
 
 /**
  * @public @config

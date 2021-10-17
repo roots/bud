@@ -1,5 +1,6 @@
 import {useInput} from 'ink'
-import {isEqual} from 'lodash'
+
+import {isEqual} from '../services/lodash'
 
 /**
  * KBD input handler

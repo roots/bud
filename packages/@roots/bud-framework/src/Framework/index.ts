@@ -1,6 +1,5 @@
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isNull, isUndefined} from 'lodash'
 
 import {
   Api,
@@ -25,6 +24,7 @@ import {access} from './access'
 import {bootstrap} from './bootstrap'
 import {close} from './close'
 import {container} from './container'
+import {isNull, isUndefined} from './framework.dependencies'
 import {get} from './get'
 import {make} from './make'
 import {path} from './path'

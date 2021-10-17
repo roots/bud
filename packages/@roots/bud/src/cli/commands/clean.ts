@@ -1,7 +1,6 @@
-import {remove} from 'fs-extra'
-
 import {Bud} from '../../Bud'
 import {config} from '../../config'
+import {remove} from '../cli.dependencies'
 import {Command} from '../Command'
 import {Runner} from '../Runner'
 

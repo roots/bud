@@ -1,17 +1,10 @@
-import {Options as FrameworkOptions} from '@roots/bud-framework'
-import {SetOptional} from 'type-fest'
-
-import {Bud} from './Bud'
-import {config} from './config'
-import {services} from './services'
-
-/**
- * {@link Bud} constructor property overrides
- *
- * @core @public
- */
-interface Options
-  extends SetOptional<FrameworkOptions, 'name'> {}
+import {Bud} from '../Bud'
+import {config} from '../config'
+import {services} from '../services'
+import type {
+  FrameworkOptions,
+  Options,
+} from './factory.interface'
 
 /**
  * Create a {@link Bud} instance programatically

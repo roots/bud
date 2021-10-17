@@ -1,5 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
-import type {Server} from '@roots/bud-framework'
+import type {Framework, Server} from '@roots/bud-framework'
 
 export interface dev {
   (

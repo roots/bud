@@ -1,15 +1,12 @@
-import type {Extension} from '@roots/bud-framework'
-import {ProvidePlugin as Plugin} from 'webpack'
+import {Plugin} from './webpack-provide-plugin.dependencies'
+import {Model} from './webpack-provide-plugin.interface'
 
 /**
  * BudWebpackProvidePlugin
  *
  * @public
  */
-const BudWebpackProvidePlugin: Extension.CompilerPlugin<
-  Plugin,
-  Record<string, Record<string, any>>
-> = {
+const BudWebpackProvidePlugin: Model = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>

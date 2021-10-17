@@ -1,16 +1,18 @@
-import {Ink, React} from '@roots/bud-dashboard'
 import {Service} from '@roots/bud-framework'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
-import {boundMethod as bind} from 'autobind-decorator'
-import {readJsonSync} from 'fs-extra'
-import {isEqual} from 'lodash'
+
+import {
+  bind,
+  isEqual,
+  readJsonSync,
+} from './dependencies.dependencies'
 
 /**
  * Bud Dependencies Service class
  *
  * @public
  */
-class Dependencies extends Service<null> {
+export class Dependencies extends Service<null> {
   /**
    * {@inheritDoc @roots/bud-framework#Service.name}
    *
@@ -24,6 +26,20 @@ class Dependencies extends Service<null> {
    * @public
    */
   public manager: DependenciesManager
+
+  /**
+   * Record of installed packages
+   *
+   * @public
+   */
+  public installed: Array<[string, string]> = []
+
+  /**
+   * Current pkg and version being installed
+   *
+   * @public
+   */
+  public installing: [string, string] = null
 
   /**
    * {@link @roots/bud-framework#Service.register}
@@ -40,8 +56,6 @@ class Dependencies extends Service<null> {
 
   /**
    * Read project `package.json` manifest
-   *
-   * @returns {object}
    *
    * @public
    * @decorator `@bind`
@@ -99,36 +113,11 @@ class Dependencies extends Service<null> {
       type: 'devDependencies' | 'dependencies'
     }[],
   ): void {
-    this.app.dashboard.render(
-      `Installing required peer dependencies`,
-      `Installing`,
-    )
-
     /**
      * Filter out ineligible packages
      */
-    const installed = deps.map(dep => {
-      this.app.dashboard.render(
-        <>
-          <Ink.Box marginBottom={1} flexDirection="column">
-            <Ink.Text
-              backgroundColor={this.app.store.get(
-                'theme.colors.primary',
-              )}
-              color={this.app.store.get(
-                'theme.colors.foreground',
-              )}>
-              {' '}
-              Installing{' '}
-            </Ink.Text>
-          </Ink.Box>
-
-          <Ink.Box marginBottom={1} flexDirection="column">
-            <Ink.Text
-              key={`${dep.name}-${dep.ver}`}>{`Installing ${dep.name}@${dep.ver}`}</Ink.Text>
-          </Ink.Box>
-        </>,
-      )
+    deps.map(dep => {
+      this.installing = [dep.name, dep.ver]
 
       this.manager.client.install(
         isEqual(dep.type, 'devDependencies') &&
@@ -136,42 +125,9 @@ class Dependencies extends Service<null> {
         `${dep.name}@${dep.ver}`,
       )
 
+      this.installed.push([dep.name, dep.ver])
+
       return dep
     })
-
-    this.app.dashboard.render(
-      <Ink.Box flexDirection="column">
-        <Ink.Box marginBottom={1} flexDirection="column">
-          <Ink.Text
-            backgroundColor={this.app.store.get(
-              'theme.colors.primary',
-            )}
-            color={this.app.store.get(
-              'theme.colors.foreground',
-            )}>
-            {' '}
-            Installation Complete{' '}
-          </Ink.Text>
-        </Ink.Box>
-
-        {installed.length > 0 && (
-          <Ink.Box marginBottom={1} flexDirection="column">
-            {installed.map(dep => (
-              <Ink.Text key={`${dep.name}-${dep.ver}`}>
-                <Ink.Text
-                  color={this.app.store.get(
-                    'theme.colors.success',
-                  )}>
-                  ✓
-                </Ink.Text>
-                {` ${dep.name}@${dep.ver}`}
-              </Ink.Text>
-            ))}
-          </Ink.Box>
-        )}
-      </Ink.Box>,
-    )
   }
 }
-
-export {Dependencies}

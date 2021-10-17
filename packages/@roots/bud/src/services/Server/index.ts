@@ -1,23 +1,18 @@
-import * as Framework from '@roots/bud-framework'
-import {Server as Base} from '@roots/bud-server'
-import {Express} from '@roots/bud-support'
+import {Application, Base} from './server.dependencies'
 
 /**
  * Server service container class
  *
- * @public @core @container
+ * @public
  */
-export class Server
-  extends Base
-  implements Framework.Server.Interface
-{
+export class Server extends Base {
   /**
    * Service register callback
    *
    * @public
    */
   public register({container, store}): void {
-    this.application = Express()
+    this.application = Application()
     this.config = container(store.get('server'))
   }
 }

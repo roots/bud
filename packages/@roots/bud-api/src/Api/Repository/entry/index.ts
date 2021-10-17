@@ -1,7 +1,8 @@
 import type {Framework} from '@roots/bud-framework'
-import {globby} from '@roots/bud-support'
 import type {GlobTask} from 'globby'
-import {isArray, isString} from 'lodash'
+
+import {globby} from '../../../services/globby'
+import {isArray, isString} from '../../../services/lodash'
 
 /**
  * A singular entrypoint asset value

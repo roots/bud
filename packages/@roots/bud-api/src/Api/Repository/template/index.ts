@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import {isUndefined} from 'lodash'
 
+import {isUndefined} from '../../../services/lodash'
 import * as BudHtmlWebpackPlugin from './BudHtmlWebpackPlugin'
 import * as BudInterpolateHtmlPlugin from './BudInterpolateHtmlPlugin'
 

@@ -1,5 +1,3 @@
-import {Container} from '@roots/container'
-
 import {Service} from './Service'
 
 /**
@@ -9,11 +7,18 @@ import {Service} from './Service'
  */
 export interface Dependencies extends Service {
   /**
-   * Installation status
+   * Record of installed packages
    *
-   * @public @container
+   * @public
    */
-  messages: Container
+  installed: Array<[string, string]>
+
+  /**
+   * Current pkg and version being installed
+   *
+   * @public
+   */
+  installing: [string, string]
 
   /**
    * Install dependencies

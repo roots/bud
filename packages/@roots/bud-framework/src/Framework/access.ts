@@ -1,7 +1,6 @@
-import {isFunction} from 'lodash'
-
 import {Tapable} from '../'
 import {Framework} from './'
+import {isFunction} from './framework.dependencies'
 
 /**
  * @internal

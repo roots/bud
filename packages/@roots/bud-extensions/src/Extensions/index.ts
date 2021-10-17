@@ -6,9 +6,13 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {isEqual, isString, isUndefined} from 'lodash'
 
 import Controller from '../Controller'
+import {
+  isEqual,
+  isString,
+  isUndefined,
+} from './extensions.dependencies'
 
 /**
  * Extensions Service

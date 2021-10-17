@@ -7,6 +7,9 @@
   "references": [
     {
       "path": "./../container/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-support/tsconfig-esm.json"
     }
   ]
 }

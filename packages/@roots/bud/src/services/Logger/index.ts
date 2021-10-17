@@ -1,20 +1,24 @@
-import {
-  Framework,
-  Logger as Contract,
-  Service,
-} from '@roots/bud-framework'
-import {Signale} from 'signale'
+import {INSTANCE_CONFIG, LOGGER_TYPES} from './logger.constants'
+import {Service, Signale} from './logger.dependencies'
+import {Contract, Framework} from './logger.interface'
 
-import {INSTANCE_CONFIG, LOGGER_TYPES} from './constants'
-
-class Logger extends Service implements Contract {
+/**
+ * Logger service
+ *
+ * @public
+ */
+export class Logger extends Service implements Contract {
   /**
    * Logger instance
+   *
+   * @public
    */
   public instance: Signale
 
   /**
    * Class constructor
+   *
+   * @public
    */
   public constructor(app: Framework) {
     super(app)
@@ -35,5 +39,3 @@ class Logger extends Service implements Contract {
     }
   }
 }
-
-export {Logger}

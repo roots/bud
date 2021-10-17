@@ -8,17 +8,10 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "types": [
-      "node",
-      "jest",
-      "prettier"
+      "node"
     ]
   },
   "include": [
     "src"
-  ],
-  "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    }
   ]
 }

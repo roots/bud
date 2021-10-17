@@ -17,12 +17,5 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import * as Ink from 'ink'
-import React from 'react'
-
-import * as Components from './components'
-import {Dashboard} from './Dashboard'
-import {Error} from './Error'
-
-export {Ink, React}
-export {Components, Dashboard, Error}
+export {Dashboard} from './Dashboard'
+export {Error} from './Error'

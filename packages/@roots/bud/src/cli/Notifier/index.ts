@@ -1,7 +1,7 @@
-import {Notifier as NodeNotifier} from '@roots/bud-support'
 import {resolve} from 'path'
 
 import {Bud} from '../../Bud'
+import {NodeNotifier} from '../cli.dependencies'
 
 /**
  * MacOS binary

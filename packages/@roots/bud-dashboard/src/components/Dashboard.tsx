@@ -1,15 +1,15 @@
 import type {Framework} from '@roots/bud-framework'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, Newline, Static, Text, useStdin} from 'ink'
-import InkSpinner from 'ink-spinner'
-import {isEqual} from 'lodash'
-import patchConsole from 'patch-console'
 import React, {Fragment, useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
+import {isEqual} from '../services/lodash'
+import {patchConsole} from '../services/patch-console'
 import {Input} from './Input'
+import {Installing} from './Installing'
 import {Progress} from './Progress'
 
 /**
@@ -103,16 +103,11 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
 
   return (
     <Box flexDirection="column" marginTop={1}>
-      {!progress && !hasErrors && (
-        <Box marginBottom={1} flexDirection={'column'}>
-          <Text backgroundColor={theme.colors.primary}>
-            {' '}
-            <InkSpinner /> Loading{' '}
-          </Text>
-        </Box>
-      )}
-
       {isRawModeSupported && <Input bud={instance.current} />}
+
+      {theme && (
+        <Installing app={instance.current} styles={theme} />
+      )}
 
       {hasErrors && (
         <Static items={stderr}>

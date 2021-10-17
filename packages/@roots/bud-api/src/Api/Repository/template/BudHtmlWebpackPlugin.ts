@@ -1,6 +1,7 @@
 import {Extension, Framework} from '@roots/bud-framework'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {posix} from 'path'
+
+import {HtmlWebpackPlugin} from '../../../services/html-webpack-plugin'
 
 interface BudHtmlWebpackPlugin
   extends Extension.CompilerPlugin<

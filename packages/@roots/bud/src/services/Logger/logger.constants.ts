@@ -1,7 +1,7 @@
 /**
  * Instance configuration
  */
-const INSTANCE_CONFIG = {
+export const INSTANCE_CONFIG = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
@@ -18,12 +18,10 @@ const INSTANCE_CONFIG = {
 /**
  * Logger types
  */
-const LOGGER_TYPES = {
+export const LOGGER_TYPES = {
   log: {
     label: 'log',
     badge: '≫',
     color: 'magentaBright',
   },
 }
-
-export {INSTANCE_CONFIG, LOGGER_TYPES}

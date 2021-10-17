@@ -1,5 +1,5 @@
 import {Text} from 'ink'
-import InkGradient from 'ink-gradient'
+import Gradient from 'ink-gradient'
 import React, {useEffect, useState} from 'react'
 
 /**
@@ -28,9 +28,9 @@ export const Bar: React.FunctionComponent<{
 
   return fill <= 0 ? null : (
     <Text wrap="truncate">
-      <InkGradient colors={colors}>
+      <Gradient colors={colors}>
         {character.repeat(fill) ?? ''}
-      </InkGradient>
+      </Gradient>
       {'▉'.repeat(maxWidth - fill) ?? ''}
     </Text>
   )

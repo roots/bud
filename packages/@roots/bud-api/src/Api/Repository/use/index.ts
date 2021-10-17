@@ -1,6 +1,11 @@
-import {Extension, Framework} from '@roots/bud-framework'
-import {isArray, isEqual, isFunction} from 'lodash'
-import {nanoid} from 'nanoid'
+import type {Extension, Framework} from '@roots/bud-framework'
+
+import {
+  isArray,
+  isEqual,
+  isFunction,
+} from '../../../services/lodash'
+import {nanoid} from '../../../services/nanoid'
 
 /**
  * @public @config

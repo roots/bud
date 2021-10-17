@@ -1,25 +1,20 @@
-import {Peers, Project} from '@roots/bud-framework'
-import {pkgUp} from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
-import {readJsonSync} from 'fs-extra'
 import {dirname, join} from 'path'
+
+import {bind, pkgUp, readJsonSync} from './peers.dependencies'
+import type {Peers, Project} from './peers.interface'
 
 /**
  * Peers service class
  *
  * @public
  */
-export default class
-  extends Peers.Abstract
-  implements Peers.Interface
-{
+export default class implements Peers.Interface {
   public project: Project.Interface
 
   /**
    * Class constructor
    */
   public constructor(project: Project.Interface) {
-    super()
     this.project = project
     this.discover('dependencies').discover('devDependencies')
   }

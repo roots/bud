@@ -1,3 +1,3 @@
-import {Build} from '@roots/bud-build'
+import {Build as Base} from '@roots/bud-build'
 
-export default class extends Build {}
+export class Build extends Base {}

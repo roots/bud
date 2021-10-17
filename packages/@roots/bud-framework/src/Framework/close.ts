@@ -1,6 +1,5 @@
-import {isFunction} from 'lodash'
-
 import {Framework} from './'
+import {isFunction} from './framework.dependencies'
 
 /**
  * Check if object is a callable function

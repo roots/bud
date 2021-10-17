@@ -24,64 +24,55 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
-import * as InkUseStyle from '@roots/ink-use-style'
-import * as cosmiconfig from 'cosmiconfig'
-import * as dotenv from 'dotenv'
-import dotenvExpand from 'dotenv-expand'
-import Express from 'express'
-import * as Ink from 'ink'
-import InkGradient from 'ink-gradient'
-import InkSpinner from 'ink-spinner'
-import * as json5 from 'json5'
-import * as Notifier from 'node-notifier'
-import * as React from 'react'
+/**
+ * Dependencies
+ */
+//
 
-import {chalk} from './external/chalk'
-import * as globby from './external/globby'
-import {pkgUp} from './external/pkg-up'
-import {toml} from './external/toml'
-import {yaml} from './external/yaml'
-import {dump} from './util/dump'
-import {killPort} from './util/killPort'
-import * as wpPkgs from './util/wordpressPkgs'
+export {chalk} from './external/chalk'
+export {chokidar} from './external/chokidar'
+export * as CleanWebpackPlugin from './external/clean-webpack-plugin'
+export {
+  cosmiconfig,
+  cosmiconfigTsLoader,
+} from './external/cosmiconfig'
+export * as CopyWebpackPlugin from './external/copy-webpack-plugin'
+export * as CssMinimizerWebpackPlugin from './external/css-minimizer-webpack-plugin'
+export {dotenv} from './external/dotenv'
+export {dotenvExpand} from './external/dotenv-expand'
+export {Express} from './external/express'
+export {fs} from './external/fs-extra'
+export * as globby from './external/globby'
+export {HtmlWebpackPlugin} from './external/html-webpack-plugin'
+export {humanReadable} from './external/human-readable'
+export {HttpProxyMiddleware} from './external/http-proxy-middleware'
+export {IgnoreEmitWebpackPlugin} from './external/ignore-emit-webpack-plugin'
+export {json5} from './external/json5'
+export {lodash} from './external/lodash'
+export {nanoid} from './external/nanoid'
+export {NodeNotifier} from './external/node-notifier'
+export {patchConsole} from './external/patch-console'
+export {pkgUp} from './external/pkg-up'
+export {ProvidePlugin} from './external/webpack-provide-plugin'
+export {Signale} from './external/signale'
+export {toml} from './external/toml'
+export {WebpackDevMiddleware} from './external/webpack-dev-middleware'
+export {WebpackHotMiddleware} from './external/webpack-hot-middleware'
+export {yaml} from './external/yaml'
+export * as zlib from './external/zlib'
 
-export {dump}
+/**
+ * Utilities
+ */
+//
 
-export {killPort}
+export {dump} from './util/dump'
+export {killPort} from './util/killPort'
+export * as wpPkgs from './util/wordpressPkgs'
 
-export {wpPkgs}
+/**
+ * Decorators
+ */
+//
 
-export {dotenv}
-
-export {dotenvExpand}
-
-export {globby}
-
-export {Ink}
-
-export {InkGradient}
-
-export {InkSpinner}
-
-export {InkUseStyle}
-
-export {Notifier}
-
-export {React}
-
-export {Express}
-
-export {chalk}
-
-export {cosmiconfig}
-
-export {cosmiconfigTsLoader}
-
-export {pkgUp}
-
-export {json5}
-
-export {toml}
-
-export {yaml}
+export {bind} from './external/helpful-decorators'

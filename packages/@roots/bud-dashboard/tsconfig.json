@@ -6,10 +6,7 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node",
-      "jest",
-      "react",
-      "@roots/bud-api"
+      "node"
     ]
   },
   "include": [
@@ -21,9 +18,6 @@
     "types"
   ],
   "references": [
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
     {
       "path": "./../bud-framework/tsconfig.json"
     },

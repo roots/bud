@@ -7,9 +7,6 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
-      "webpack",
-      "@roots/bud-api",
       "@roots/bud-framework"
     ]
   },
@@ -26,7 +23,7 @@
       "path": "./../bud-framework/tsconfig.json"
     },
     {
-      "path": "./../bud-api/tsconfig.json"
+      "path": "./../bud-support/tsconfig.json"
     }
   ]
 }

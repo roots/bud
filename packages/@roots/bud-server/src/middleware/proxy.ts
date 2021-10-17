@@ -1,10 +1,9 @@
-import {Framework, Server} from '@roots/bud-framework'
-import {Container} from '@roots/container'
-import {
-  createProxyMiddleware,
-  Options,
-} from 'http-proxy-middleware'
-import * as zlib from 'zlib'
+import type {Framework, Server} from '@roots/bud-framework'
+import type {Container} from '@roots/container'
+
+import type {Options} from '../services/http-proxy-middleware'
+import {createProxyMiddleware} from '../services/http-proxy-middleware'
+import {zlib} from '../services/zlib'
 
 /**
  * Returns source host and port from configuration

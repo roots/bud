@@ -1,8 +1,9 @@
-import {Framework, Server} from '@roots/bud-framework'
-import {Container} from '@roots/container'
-import {isNull, isUndefined} from 'lodash'
-import {Compiler, MultiCompiler} from 'webpack'
-import DevMiddleware from 'webpack-dev-middleware'
+import type {Framework, Server} from '@roots/bud-framework'
+import type {Container} from '@roots/container'
+import type {Compiler, MultiCompiler} from 'webpack'
+
+import {isNull, isUndefined} from '../services/lodash'
+import {WebpackDevMiddleware} from '../services/webpack-dev-middleware'
 
 /**
  * Middleware configuration keys
@@ -40,7 +41,7 @@ export default function dev({
   const options = makeOptions(config)
   this.log('dev middleware options', options)
 
-  return DevMiddleware(compiler, options)
+  return WebpackDevMiddleware(compiler, options)
 }
 
 /**
@@ -50,7 +51,7 @@ export default function dev({
  */
 const makeOptions = (
   config: Container<Server.Configuration>,
-): DevMiddleware.Options => ({
+): WebpackDevMiddleware.Options => ({
   writeToDisk: true,
   index: 'index.html',
   ...Object.fromEntries(

@@ -1,4 +1,7 @@
-import {durationFormatter, sizeFormatter} from 'human-readable'
+import {
+  durationFormatter,
+  sizeFormatter,
+} from '../services/human-readable'
 
 /**
  * Formats filesize and duration

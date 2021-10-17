@@ -1,5 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
-import {isFunction, isString} from 'lodash'
+
+import {isFunction, isString} from '../../../services/lodash'
 
 /**
  * @public @config

@@ -1,8 +1,10 @@
-import {Project} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {readJsonSync} from 'fs-extra'
-
-import {Peers, Repository} from '../Peers'
+import {
+  bind,
+  Peers,
+  Project,
+  readJsonSync,
+} from './project.dependencies'
+import type {Repository} from './project.interface'
 
 /**
  * Project service class

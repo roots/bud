@@ -1,7 +1,7 @@
 import {Services} from '@roots/bud-framework'
 
 import {Api} from './Api'
-import Build from './Build'
+import {Build} from './Build'
 import {Cache} from './Cache'
 import {Compiler} from './Compiler'
 import {Dashboard} from './Dashboard'

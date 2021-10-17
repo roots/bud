@@ -1,8 +1,7 @@
-import {isFunction} from 'lodash'
-
 import {Bud} from '../../Bud'
 import {config} from '../../config'
 import {factory} from '../../factory'
+import {isFunction} from '../cli.dependencies'
 import CLIConfig from '../Config'
 
 /**
