@@ -4,9 +4,8 @@ exports[`Build Command has expected flags 1`] = `
 Object {
   "cache": Object {
     "allowNo": true,
-    "char": "c",
     "default": true,
-    "description": "cache compiler references to disk",
+    "description": "cache built modules to the filesystem.",
     "parse": [Function],
     "type": "boolean",
   },
@@ -16,16 +15,28 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
+  "devtool": Object {
+    "description": "specify source-map type",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
   "discover": Object {
     "allowNo": false,
-    "char": "d",
     "description": "automatically utilize installed extensions",
     "parse": [Function],
     "type": "boolean",
   },
+  "dist": Object {
+    "description": "specify directory to emit assets to",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
   "hash": Object {
     "allowNo": true,
-    "char": "h",
     "description": "hash compiled filenames",
     "parse": [Function],
     "type": "boolean",
@@ -38,8 +49,7 @@ Object {
     "type": "boolean",
   },
   "html": Object {
-    "allowNo": false,
-    "char": "d",
+    "allowNo": true,
     "description": "generate an html template",
     "parse": [Function],
     "type": "boolean",
@@ -53,7 +63,6 @@ Object {
   },
   "log": Object {
     "allowNo": false,
-    "char": "l",
     "description": "log to console",
     "parse": [Function],
     "type": "boolean",
@@ -72,6 +81,26 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
+  "publicPath": Object {
+    "description": "specify public path",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
+  "runtime": Object {
+    "allowNo": true,
+    "description": "Create a runtime chunk",
+    "parse": [Function],
+    "type": "boolean",
+  },
+  "src": Object {
+    "description": "specify directory containing source assets",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
   "target": Object {
     "char": "t",
     "default": Array [],
@@ -80,6 +109,12 @@ Object {
     "multiple": true,
     "parse": [Function],
     "type": "option",
+  },
+  "vendor": Object {
+    "allowNo": true,
+    "description": "create separate chunks for vendor and app code",
+    "parse": [Function],
+    "type": "boolean",
   },
 }
 `;

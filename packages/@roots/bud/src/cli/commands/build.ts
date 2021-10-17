@@ -74,17 +74,14 @@ export default class Build extends Command {
 
     src: flags.string({
       description: 'specify directory containing source assets',
-      default: 'src',
     }),
 
     dist: flags.string({
       description: 'specify directory to emit assets to',
-      default: 'dist',
     }),
 
     publicPath: flags.string({
       description: 'specify public path',
-      default: '',
     }),
 
     vendor: flags.boolean({
