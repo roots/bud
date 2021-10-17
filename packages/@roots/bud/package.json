@@ -118,6 +118,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
     "autobind-decorator": "^2.4.0",
+    "css-minimizer-webpack-plugin": "^3.1.1",
     "mini-css-extract-plugin": "^2.1.0",
     "tslib": "^2.3.1",
     "webpack": "5.58.2",

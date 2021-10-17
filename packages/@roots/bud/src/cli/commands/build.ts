@@ -19,40 +19,40 @@ export default class Build extends Command {
     help: flags.help({char: 'h'}),
 
     cache: flags.boolean({
-      char: 'c',
       allowNo: true,
       default: true,
-      description: 'cache compiler references to disk',
+      description: 'cache built modules to the filesystem.',
     }),
 
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
 
+    devtool: flags.string({
+      description: 'specify source-map type',
+    }),
+
     discover: flags.boolean({
-      char: 'd',
       description: 'automatically utilize installed extensions',
     }),
 
     html: flags.boolean({
-      char: 'd',
+      allowNo: true,
       description: 'generate an html template',
+    }),
+
+    log: flags.boolean({
+      description: 'log to console',
+    }),
+
+    hash: flags.boolean({
+      allowNo: true,
+      description: 'hash compiled filenames',
     }),
 
     install: flags.boolean({
       char: 'i',
       description: 'ensure peer dependencies are installed',
-    }),
-
-    log: flags.boolean({
-      char: 'l',
-      description: 'log to console',
-    }),
-
-    hash: flags.boolean({
-      char: 'h',
-      allowNo: true,
-      description: 'hash compiled filenames',
     }),
 
     manifest: flags.boolean({
@@ -65,6 +65,32 @@ export default class Build extends Command {
       char: 'm',
       allowNo: true,
       description: 'minimize file size of compiled assets',
+    }),
+
+    runtime: flags.boolean({
+      allowNo: true,
+      description: 'Create a runtime chunk',
+    }),
+
+    src: flags.string({
+      description: 'specify directory containing source assets',
+      default: 'src',
+    }),
+
+    dist: flags.string({
+      description: 'specify directory to emit assets to',
+      default: 'dist',
+    }),
+
+    publicPath: flags.string({
+      description: 'specify public path',
+      default: '',
+    }),
+
+    vendor: flags.boolean({
+      allowNo: true,
+      description:
+        'create separate chunks for vendor and app code',
     }),
 
     target: flags.string({

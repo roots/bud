@@ -1,12 +1,11 @@
+import {bind, isFunction} from './item.dependencies'
 import {
   Factory,
   Framework,
   Item,
   Loader,
   Maybe,
-} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
+} from './item.interface'
 
 /**
  * Item class

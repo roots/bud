@@ -24,7 +24,7 @@ export const css = () =>
   new Item({
     loader: ({build}) => build.loaders.css,
     options: ({hooks}) => ({
-      sourceMap: hooks.filter('build/devtool') ?? false,
+      sourceMap: hooks.filter('build/devtool') ? true : false,
       importLoaders: 1,
     }),
   })

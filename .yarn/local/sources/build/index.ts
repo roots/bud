@@ -43,7 +43,7 @@ export class BuildCommand extends Command {
 
     if (this.clean) return
 
-    await this.$(`yarn kjo compile @roots/bud-support`)
     await this.$(`yarn kjo compile @roots/bud-dashboard`)
+    await this.$(`yarn kjo compile @roots/bud-support`)
   }
 }

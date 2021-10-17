@@ -177,9 +177,9 @@ export class Runner {
      * Handle automatic installation and/or registration of modules
      * at user request
      */
-    this.flags.install && this.app.project.peers.install()
     this.flags.discover &&
       this.app.project.peers.registerDiscovered()
+    this.flags.install && this.app.project.peers.install()
 
     /**
      * Configure bud instance with static configs.
@@ -196,22 +196,72 @@ export class Runner {
      */
     if (build) {
       /**
-       * Handle --cache flag
+       * Handle --src flag
        */
-      if (typeof this.flags.cache !== 'undefined') {
-        this.app.store.set('cache', this.flags.cache)
+      if (typeof this.flags.src !== 'undefined') {
+        this.app.setPath('src', this.flags.src)
         this.app.children.every((_name, child) =>
-          child.store.set('cache', this.flags.cache),
+          child.setPath('src', this.flags.src),
         )
       }
 
       /**
-       * Handle --discover flag
+       * Handle --dist flag
        */
-      if (typeof this.flags.discover !== 'undefined') {
-        this.app.store.set('discover', this.flags.discover)
+      if (typeof this.flags.dist !== 'undefined') {
+        this.app.setPath('dist', this.flags.dist)
         this.app.children.every((_name, child) =>
-          child.store.set('discover', this.flags.discover),
+          child.setPath('dist', this.flags.dist),
+        )
+      }
+
+      /**
+       * Handle --publicPath flag
+       */
+      if (typeof this.flags.publicPath !== 'undefined') {
+        this.app.setPublicPath(this.flags.publicPath)
+        this.app.children.every((_name, child) =>
+          child.setPublicPath(this.flags.publicPath),
+        )
+      }
+
+      /**
+       * Handle --cache flag
+       */
+      if (this.flags.cache !== false) {
+        this.app.persist()
+        this.app.children.every((_name, child) =>
+          child.persist(),
+        )
+      }
+
+      /**
+       * Handle --devtool flag
+       */
+      if (typeof this.flags.devtool !== 'undefined') {
+        this.app.devtool(this.flags.devtool)
+        this.app.children.every((_name, child) =>
+          child.devtool(this.flags.devtool),
+        )
+      }
+
+      /**
+       * Handle --devtool flag
+       */
+      if (typeof this.flags.hash !== 'undefined') {
+        this.app.hash(this.flags.hash)
+        this.app.children.every((_name, child) =>
+          child.hash(this.flags.hash),
+        )
+      }
+
+      /**
+       * Handle --runtime flag
+       */
+      if (typeof this.flags.runtime !== 'undefined') {
+        this.app.runtime()
+        this.app.children.every((_name, child) =>
+          child.runtime(),
         )
       }
 
@@ -232,6 +282,16 @@ export class Runner {
         this.app.store.set('minimize', this.flags.minimize)
         this.app.children.every((_name, child) => {
           child.store.set('minimize', this.flags.minimize)
+        })
+      }
+
+      /**
+       * Handle --minimize flag
+       */
+      if (typeof this.flags.vendor !== 'undefined') {
+        this.app.splitChunks()
+        this.app.children.every((_name, child) => {
+          child.splitChunks()
         })
       }
 

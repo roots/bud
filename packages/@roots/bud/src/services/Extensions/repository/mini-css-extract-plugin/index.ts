@@ -1,11 +1,10 @@
 import type {Extension} from '@roots/bud-framework'
 import type MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-interface Plugin
-  extends Extension.CompilerPlugin<
-    MiniCssExtractPlugin,
-    MiniCssExtractPlugin.PluginOptions
-  > {}
+type Plugin = Extension.CompilerPlugin<
+  MiniCssExtractPlugin,
+  MiniCssExtractPlugin.PluginOptions
+>
 
 export const name: Plugin['name'] = 'mini-css-extract-plugin'
 

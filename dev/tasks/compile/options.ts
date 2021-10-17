@@ -1,9 +1,11 @@
 export const nccOptions = {
   external: [
     'css-loader',
+    'css-minimizer-webpack-plugin',
     'csv-loader',
     'file-loader',
     'html-loader',
+    'html-webpack-plugin',
     'mini-svg-data-uri',
     'remark-loader',
     'resolve-url-loader',

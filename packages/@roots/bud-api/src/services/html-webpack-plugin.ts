@@ -1,1 +1,2 @@
-export {HtmlWebpackPlugin} from '@roots/bud-support'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+export {HtmlWebpackPlugin}
