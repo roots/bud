@@ -5,7 +5,6 @@ import {CleanCommand} from './clean'
 import {CompileCommand} from './compile'
 import {LintCommand} from './lint'
 import {TestCommand} from './test'
-import {VersionCommand} from './version'
 import {MakeCommand} from './make'
 import {MdCommand} from './md'
 
@@ -23,7 +22,6 @@ const plugin: Plugin = {
     MakeCommand,
     MdCommand,
     TestCommand,
-    VersionCommand,
   ],
 }
 

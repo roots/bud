@@ -63,7 +63,7 @@ const makeOptions = (
   headers: {
     Authorization: `token ${TOKEN}`,
     'Content-Type': 'application/json',
-    'User-Agent': `bud/v${manifest.version}`,
+    'User-Agent': `roots/bud`,
   },
 })
 
