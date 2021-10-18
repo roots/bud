@@ -75,20 +75,7 @@ Object {
 
 exports[`examples/babel .budfiles/bud.webpack.config.js 4`] = `true`;
 
-exports[`examples/babel .budfiles/bud.webpack.config.js 5`] = `
-Object {
-  "buildDependencies": Object {
-    "bud": Array [
-      "/Volumes/Samsung/Code/roots/bud/examples/babel/bud.config.js",
-      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud/lib/cjs/index.js",
-      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel/lib/cjs/index.js",
-    ],
-  },
-  "cacheDirectory": "/Volumes/Samsung/Code/roots/bud/examples/babel/.budfiles/cache",
-  "type": "filesystem",
-  "version": "52zzh2eib_vqw45slpxdlkuooro_",
-}
-`;
+exports[`examples/babel .budfiles/bud.webpack.config.js 5`] = `"filesystem"`;
 
 exports[`examples/babel app.css matches snapshot 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 

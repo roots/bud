@@ -1,3 +1,5 @@
+import {chalk} from '@roots/bud-support'
+
 import type {Bud} from '../../Bud'
 import {Command} from '../Command'
 import {Runner} from '../Runner'
@@ -15,7 +17,7 @@ export default class Init extends Command {
     return this.getMissingPeers()?.length > 0
   }
 
-  public getMissingPeers(): {name: string; version: string}[] {
+  public getMissingPeers(): any[] {
     return this.app.project.has('peers')
       ? this.app.project
           .getValues('peers')
@@ -29,34 +31,40 @@ export default class Init extends Command {
   public async run() {
     const runner = new Runner(this.parse(Init))
     this.app = await runner.make(false)
+    const output = []
+
+    this.getMissingPeers().map(pkg => {
+      this.app.dashboard.render(
+        [
+          ...output,
+          chalk
+            .yellow(`↯`)
+            .concat(
+              `  ...Installing ${chalk.blue(
+                `${pkg.name}@${pkg.ver}`,
+              )} to ${chalk.magenta(pkg.type)}`,
+            ),
+        ],
+        'Installing',
+      )
+
+      this.app.dependencies.install([pkg])
+
+      output.push(
+        chalk
+          .green(`✓`)
+          .concat(
+            `  Installed ${chalk.blue(
+              `${pkg.name}@${pkg.ver}`,
+            )} to ${chalk.magenta(pkg.type)}`,
+          ),
+      )
+    })
 
     this.app.dashboard.render(
-      'Installing peer dependencies',
-      '$ bud init',
+      [...output, '\n✨ All peer packages installed'],
+      'Installation complete',
     )
-
-    if (this.hasMissingPeers()) {
-      this.app.dashboard.render(
-        this.getMissingPeers().reduce(
-          (acc, {name, version}, i) => {
-            return [...acc, `- Installing ${name}@${version}`]
-          },
-          [],
-        ),
-        '$ bud init',
-      )
-
-      this.app.project.peers.install()
-      this.app.dashboard.render(
-        'All peer packages installed',
-        '$ bud init',
-      )
-    } else {
-      this.app.dashboard.render(
-        'All set. Nothing to install',
-        '$ bud init',
-      )
-    }
 
     process.exit()
   }

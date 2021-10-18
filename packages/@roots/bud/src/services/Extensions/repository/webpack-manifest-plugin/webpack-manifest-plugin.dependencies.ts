@@ -1,2 +1,1 @@
-import {WebpackManifestPlugin} from '@roots/bud-support'
-export {WebpackManifestPlugin}
+export {WebpackManifestPlugin} from 'webpack-manifest-plugin'

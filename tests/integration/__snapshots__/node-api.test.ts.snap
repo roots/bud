@@ -82,7 +82,7 @@ exports[`node-api snapshots dist/app.js 1`] = `"console.log(\\"hello\\"),console
 
 exports[`node-api snapshots dist/manifest.json 1`] = `
 "{
-  \\"main.js\\": \\"main.js\\"
+  \\"app.js\\": \\"app.js\\"
 }"
 `;
 

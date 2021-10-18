@@ -19,11 +19,6 @@ import {
 } from 'webpack'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-vue': Extension.Module
     'vue-loader-plugin': Extension.Module
