@@ -65,8 +65,8 @@
   "devDependencies": {
     "@types/lodash": "4.14.175",
     "@types/node": "15.14.1",
-    "helpful-decorators": "^2.1.0",
-    "lodash": "^4.17.21",
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
     "type-fest": "2.5.1"
   },
   "dependencies": {
