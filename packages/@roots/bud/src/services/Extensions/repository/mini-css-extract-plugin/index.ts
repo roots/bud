@@ -1,10 +1,5 @@
-import type {Extension} from '@roots/bud-framework'
-import type MiniCssExtractPlugin from 'mini-css-extract-plugin'
-
-type Plugin = Extension.CompilerPlugin<
-  MiniCssExtractPlugin,
-  MiniCssExtractPlugin.PluginOptions
->
+import {MiniCssExtractPlugin} from './mini-css-extract-plugin.dependencies'
+import type {Plugin} from './mini-css-extract-plugin.interface'
 
 export const name: Plugin['name'] = 'mini-css-extract-plugin'
 
@@ -20,7 +15,7 @@ export const options: Plugin['options'] = ({store}) => ({
 })
 
 export const make: Plugin['make'] = options =>
-  new (require('mini-css-extract-plugin'))(options.all())
+  new MiniCssExtractPlugin(options.all())
 
 export const when: Plugin['when'] = ({isProduction}) =>
   isProduction

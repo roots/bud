@@ -1,13 +1,14 @@
 import {Server, Service} from '@roots/bud-framework'
+import {bind, fs} from '@roots/bud-support'
 import type {Container} from '@roots/container'
-import {boundMethod as bind} from 'autobind-decorator'
-import type {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {chokidar} from '../services/chokidar'
 import {globby} from '../services/globby'
 import {injectClient} from '../util/injectClient'
+
+type FSWatcher = fs.FSWatcher
 
 /**
  * Server service container implementation

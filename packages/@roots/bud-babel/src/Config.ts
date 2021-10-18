@@ -1,6 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {isString} from 'lodash'
+import {bind, lodash} from '@roots/bud-support'
+
+const {isString} = lodash
 
 /**
  * Configure Babel transpiler plugin & presets

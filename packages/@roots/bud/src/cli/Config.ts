@@ -1,6 +1,7 @@
 import {
   cosmiconfig,
   cosmiconfigTsLoader,
+  safeRequire,
 } from '@roots/bud-support'
 
 import {Bud} from '../Bud'
@@ -48,8 +49,8 @@ export default class Config {
 
     if (config.extensions) {
       config.extensions.map(mod => {
-        const ext = require(mod)
-        this.app.use(ext as any)
+        const ext = safeRequire(mod)
+        if (ext) this.app.use(ext as any)
       })
     }
 

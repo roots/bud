@@ -5,8 +5,9 @@ import {
   Maybe,
   Rule as Base,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
+import {bind, lodash} from '@roots/bud-support'
+
+const {isFunction} = lodash
 
 /**
  * Framework Rule

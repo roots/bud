@@ -1,18 +1,10 @@
-import {boundMethod as bind} from 'autobind-decorator'
-import {isArray} from 'lodash'
-import {Class} from 'type-fest'
+import {bind, lodash} from '@roots/bud-support'
+import type {Class} from 'type-fest'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
 
-/**
- * Generic typing for a {@link Service} key-value store
- *
- * @public
- */
-interface GenericRepository {
-  [key: string]: any
-}
+const {isArray} = lodash
 
 /**
  * Generic type defining the {@link Service.bindClass} map of classes to {@link Framework} property keys
@@ -59,7 +51,7 @@ interface GenericFunctionMap {
  * @public @core @container
  */
 export abstract class Service<
-  Repository = GenericRepository,
+  Repository = Record<string, any>,
 > extends Bootstrapper<Repository> {
   /**
    * Lifecycle method: bootstrap

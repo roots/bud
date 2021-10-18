@@ -1,11 +1,11 @@
-import {Extension} from '@roots/bud-framework'
-import {HotModuleReplacementPlugin} from 'webpack'
+import {HotModuleReplacementPlugin} from './webpack-hot-module-replacement.dependencies'
+import type {Plugin} from './webpack-hot-module-replacement.interface'
 
 export const name = 'webpack-hot-module-replacement-plugin'
 
-export const make: Extension.CompilerPlugin['make'] = () =>
+export const make: Plugin['make'] = () =>
   new HotModuleReplacementPlugin()
 
-export const when: Extension.CompilerPlugin['when'] = app =>
+export const when: Plugin['when'] = app =>
   app.isDevelopment &&
   app.server?.config?.isTrue('middleware.hot')

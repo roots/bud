@@ -9,7 +9,6 @@ import {useFormatter} from '../hooks/useFormatter'
 import {isEqual} from '../services/lodash'
 import {patchConsole} from '../services/patch-console'
 import {Input} from './Input'
-import {Installing} from './Installing'
 import {Progress} from './Progress'
 
 /**
@@ -95,19 +94,13 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
     instance?.current?.isProduction
   ) {
     setTimeout(() =>
-      instance.current.close(() => {
-        process.exit(0)
-      }),
+      instance.current.close(() => process.exit(0)),
     )
   }
 
   return (
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
-
-      {theme && (
-        <Installing app={instance.current} styles={theme} />
-      )}
 
       {hasErrors && (
         <Static items={stderr}>
@@ -125,9 +118,8 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
           {(err, k) =>
             err ? (
               <Fragment key={`stats-err-${k}`}>
-                <Newline />
-
                 <Text>
+                  <Newline />
                   {err.file ? `Error in ${err.file}` : ``}
                 </Text>
 

@@ -91,7 +91,30 @@ exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 5`] = `true`;
 
 exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 6`] = `
 Object {
-  "type": "memory",
+  "buildDependencies": Object {
+    "bud": Array [
+      "/Volumes/Samsung/Code/roots/bud/examples/sage/bud.config.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/sage/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-wordpress/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-preset-recommend/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-entrypoints/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-postcss/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-react/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-externals/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-dependencies/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-wordpress-manifests/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-eslint/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-prettier/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-stylelint/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-tailwindcss/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/cache/eslint.json",
+    ],
+  },
+  "cacheDirectory": "/Volumes/Samsung/Code/roots/bud/examples/sage/storage/bud/cache",
+  "type": "filesystem",
+  "version": "zvhz6mgijnd8f0plb5gqyjbj53s_",
 }
 `;
 

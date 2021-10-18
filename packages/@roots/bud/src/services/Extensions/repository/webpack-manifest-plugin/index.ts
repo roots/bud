@@ -1,18 +1,11 @@
-import type {Extension} from '@roots/bud-framework'
-import {
-  ManifestPluginOptions as Options,
-  WebpackManifestPlugin,
-} from 'webpack-manifest-plugin'
-
+import {WebpackManifestPlugin} from './webpack-manifest-plugin.dependencies'
+import type {Plugin} from './webpack-manifest-plugin.interface'
 /**
  * Webpack Manifest Plugin adapter
  *
  * @public
  */
-const BudWebpackManifestPlugin: Extension.CompilerPlugin<
-  {apply: any},
-  Options
-> = {
+const BudWebpackManifestPlugin: Plugin = {
   /**
    * {@inheritDoc @roots/bud-framework#Extension.name}
    * @public

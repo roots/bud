@@ -1,4 +1,4 @@
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind} from '@roots/bud-support'
 import {PluginCreator} from 'postcss'
 
 interface Registry {

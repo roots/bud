@@ -1,7 +1,6 @@
 import type {Env as Base, Index} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {dotenv, dotenvExpand} from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind, dotenv, dotenvExpand} from '@roots/bud-support'
 
 /**
  * {@inheritDoc @roots/bud-framework#Env}

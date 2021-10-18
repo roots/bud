@@ -3,8 +3,12 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
+import {bind} from '@roots/bud-support'
+import Webpack, {webpack} from 'webpack'
+
+const {ProgressPlugin} = Webpack
+
+type StatsCompilation = Webpack.StatsCompilation
 
 /**
  * Initial state

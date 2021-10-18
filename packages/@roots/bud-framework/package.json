@@ -74,7 +74,6 @@
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
-    "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"

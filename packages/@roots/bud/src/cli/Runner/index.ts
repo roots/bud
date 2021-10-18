@@ -182,19 +182,19 @@ export class Runner {
     this.flags.install && this.app.project.peers.install()
 
     /**
-     * Configure bud instance with static configs.
-     */
-    await this.doStatics()
-    /**
-     * Configure bud instance with fluent configs.
-     */
-    await this.doBuilders()
-
-    /**
      * If we are full on running a build, we'll process the rest of the build
      * related flags/args
      */
     if (build) {
+      /**
+       * Configure bud instance with static configs.
+       */
+      await this.doStatics()
+      /**
+       * Configure bud instance with fluent configs.
+       */
+      await this.doBuilders()
+
       /**
        * Handle --src flag
        */

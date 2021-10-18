@@ -1,8 +1,8 @@
 import {Cache, Framework} from '@roots/bud-framework'
-import {globby} from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind, fs, globby} from '@roots/bud-support'
 import {createHash} from 'crypto'
-import {readFileSync} from 'fs-extra'
+
+const {readFileSync} = fs
 
 /**
  * Service class handling cache concerns

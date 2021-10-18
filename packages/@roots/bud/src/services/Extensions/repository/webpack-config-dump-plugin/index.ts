@@ -1,27 +1,14 @@
-import type {
-  Framework,
-  WebpackPlugin,
-} from '@roots/bud-framework'
-import {Container} from '@roots/container'
-import {ensureDirSync} from 'fs-extra'
-import {isUndefined} from 'lodash'
-import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
+import {
+  ensureDirSync,
+  isUndefined,
+  WebpackConfigDumpPlugin,
+} from './webpack-config-dump-plugin.dependencies'
+import type {Plugin} from './webpack-config-dump-plugin.interface'
 
-interface Options {
-  name?: string
-  depth?: number
-  keepCircularReferences?: boolean
-  showFunctionNames?: boolean
-  includeFalseValues?: boolean
-}
-
-interface BudConfigDumpPlugin
-  extends WebpackPlugin<WebpackConfigDumpPlugin, Options> {}
-
-const BudConfigDumpPlugin: BudConfigDumpPlugin = {
+const BudConfigDumpPlugin: Plugin = {
   name: 'webpack-config-dump-plugin',
 
-  make: (options: Container<Options>) => {
+  make: options => {
     ensureDirSync(options.get('outputPath'))
 
     return new WebpackConfigDumpPlugin({
@@ -32,7 +19,7 @@ const BudConfigDumpPlugin: BudConfigDumpPlugin = {
   when: ({cache, store}) =>
     store.isTrue('debug') && !isUndefined(cache),
 
-  options: (app: Framework) => ({
+  options: app => ({
     name: `${app.name}.webpack.config.js`,
     outputPath: app.path('storage'),
     ...app.store.get('extension.webpack-config-dump-plugin'),

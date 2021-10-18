@@ -51,21 +51,9 @@
 
 import './interface'
 
-import {
-  Extension,
-  Item,
-  Loader,
-  Rule,
-} from '@roots/bud-framework'
-
 import {Bud} from './Bud'
 import {config} from './config'
 import {factory} from './factory'
 
 export {Bud, Bud as Framework}
-
-export {Extension, Item, Loader, Rule}
-
-export {config}
-
-export {factory}
+export {config, factory}

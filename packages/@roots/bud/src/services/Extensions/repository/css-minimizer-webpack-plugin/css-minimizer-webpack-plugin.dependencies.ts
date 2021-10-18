@@ -1,2 +1,6 @@
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
+import {safeRequire} from '@roots/bud-support'
+
+const CssMinimizerWebpackPlugin = safeRequire(
+  'css-minimizer-webpack-plugin',
+)
 export const Plugin = CssMinimizerWebpackPlugin

@@ -5,10 +5,10 @@ import {
   Plugins,
   Service,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
 
 import Controller from '../Controller'
 import {
+  bind,
   isEqual,
   isString,
   isUndefined,

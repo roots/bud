@@ -16,12 +16,19 @@ const LOCATIONS = [
   'modules',
 ]
 
-class Hooks extends Base implements Contract, Service {
+/**
+ * Hooks service
+ *
+ * @public
+ */
+export class Hooks extends Base implements Contract, Service {
   /**
    * Registr lifecycle hook
    *
    * @remarks
    * Register hooks for each {@link Framework.Locations} key
+   *
+   * @public
    */
   public register({store}) {
     const mapLocale = (
@@ -38,5 +45,3 @@ class Hooks extends Base implements Contract, Service {
     locales.map(mapLocale)
   }
 }
-
-export {Hooks}

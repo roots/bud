@@ -77,7 +77,16 @@ exports[`examples/babel .budfiles/bud.webpack.config.js 4`] = `true`;
 
 exports[`examples/babel .budfiles/bud.webpack.config.js 5`] = `
 Object {
-  "type": "memory",
+  "buildDependencies": Object {
+    "bud": Array [
+      "/Volumes/Samsung/Code/roots/bud/examples/babel/bud.config.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud/lib/cjs/index.js",
+      "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel/lib/cjs/index.js",
+    ],
+  },
+  "cacheDirectory": "/Volumes/Samsung/Code/roots/bud/examples/babel/.budfiles/cache",
+  "type": "filesystem",
+  "version": "52zzh2eib_vqw45slpxdlkuooro_",
 }
 `;
 

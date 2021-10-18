@@ -1,20 +1,21 @@
 import {Item, Loader} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {safeRequire} from '@roots/bud-support'
 import {pathExistsSync} from 'fs-extra'
 
 import {PostCssConfig} from '../PostCssConfig'
 
-interface BudPostCssExtension extends Module {
-  name: Module['name'] & '@roots/bud-postcss'
+export interface BudPostCssExtension extends Extension.Module {
+  name: Extension.Module['name'] & '@roots/bud-postcss'
 
-  api: Module['api'] & {
+  api: Extension.Module['api'] & {
     postcss: PostCssConfig
   }
 
-  boot: Module['boot']
+  boot: Extension.Module['boot']
 }
 
-const BudPostCssExtension: BudPostCssExtension = {
+export const BudPostCssExtension: BudPostCssExtension = {
   name: '@roots/bud-postcss',
 
   api: {
@@ -47,10 +48,10 @@ const BudPostCssExtension: BudPostCssExtension = {
 
     !pathExistsSync(path('project', 'postcss.config.js')) &&
       postcss.setPlugins({
-        'postcss-import': require('postcss-import'),
-        'postcss-nested': require('postcss-nested'),
+        'postcss-import': safeRequire('postcss-import'),
+        'postcss-nested': safeRequire('postcss-nested'),
         'postcss-preset-env': [
-          require('postcss-preset-env'),
+          safeRequire('postcss-preset-env'),
           {
             stage: 1,
             features: {
@@ -61,5 +62,3 @@ const BudPostCssExtension: BudPostCssExtension = {
       })
   },
 }
-
-export {BudPostCssExtension}

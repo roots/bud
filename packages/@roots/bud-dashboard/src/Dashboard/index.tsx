@@ -23,9 +23,16 @@ export class Dashboard extends Base implements Contract {
    */
   public instance: Instance
 
+  /**
+   * Service register callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public register(): void {
     this.bindMacro({error: Error})
+    this.run()
   }
 
   /**

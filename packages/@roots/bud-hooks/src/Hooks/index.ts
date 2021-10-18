@@ -3,8 +3,9 @@ import {
   Hooks as Contract,
   Service,
 } from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
-import {get, isArray, isFunction, noop, set} from 'lodash'
+import {bind, lodash} from '@roots/bud-support'
+
+const {get, isArray, isFunction, noop, set} = lodash
 
 class Hooks extends Service implements Contract {
   public name = 'hooks'

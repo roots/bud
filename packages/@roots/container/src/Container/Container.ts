@@ -1,4 +1,4 @@
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind} from 'helpful-decorators'
 import * as _ from 'lodash'
 import type {ValueOf} from 'type-fest'
 

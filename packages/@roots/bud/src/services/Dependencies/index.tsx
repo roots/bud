@@ -39,7 +39,7 @@ export class Dependencies extends Service<null> {
    *
    * @public
    */
-  public installing: [string, string] = null
+  public installing: Array<[string, string]> = []
 
   /**
    * {@link @roots/bud-framework#Service.register}
@@ -116,18 +116,21 @@ export class Dependencies extends Service<null> {
     /**
      * Filter out ineligible packages
      */
-    deps.map(dep => {
-      this.installing = [dep.name, dep.ver]
+    deps
+      .map(dep => {
+        this.installing.push([dep.name, dep.ver])
+        return dep
+      })
+      .map((dep, i) => {
+        this.manager.client.install(
+          isEqual(dep.type, 'devDependencies') &&
+            !this.overrideInstallTarget(dep.name, dep.type),
+          `${dep.name}@${dep.ver}`,
+        )
 
-      this.manager.client.install(
-        isEqual(dep.type, 'devDependencies') &&
-          !this.overrideInstallTarget(dep.name, dep.type),
-        `${dep.name}@${dep.ver}`,
-      )
+        this.installed.push([dep.name, dep.ver])
 
-      this.installed.push([dep.name, dep.ver])
-
-      return dep
-    })
+        return dep
+      })
   }
 }
