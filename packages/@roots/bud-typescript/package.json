@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typescript",
-  "version": "5.0.0-next.0",
+  "version": "5.0.0-next.1",
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
