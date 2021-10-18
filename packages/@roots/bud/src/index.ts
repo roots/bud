@@ -51,9 +51,8 @@
 
 import './interface'
 
-import {Bud} from './Bud'
-import {config} from './config'
-import {factory} from './factory'
+export {Bud} from './Bud'
+export {config} from './config'
+export {factory} from './factory'
 
-export {Bud, Bud as Framework}
-export {config, factory}
+export {Framework} from '@roots/bud-framework'

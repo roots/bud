@@ -5,8 +5,9 @@ import {Command} from '../Command'
 import {Runner} from '../Runner'
 
 export default class Build extends Command {
+  public static id = 'build'
+  public static title = 'build'
   public static description = 'compile assets'
-
   public static examples = [
     `$ bud build production`,
     `$ bud build development`,

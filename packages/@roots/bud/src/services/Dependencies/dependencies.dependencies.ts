@@ -6,3 +6,5 @@ export const {isEqual} = lodash
 
 import {bind} from '@roots/bud-support'
 export {bind}
+
+export {Dependencies as DependenciesManager} from '@roots/dependencies'

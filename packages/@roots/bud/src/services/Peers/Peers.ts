@@ -13,6 +13,8 @@ export default class implements Peers.Interface {
 
   /**
    * Class constructor
+   *
+   * @public
    */
   public constructor(project: Project.Interface) {
     this.project = project
@@ -22,6 +24,7 @@ export default class implements Peers.Interface {
   /**
    * Returns path for a module name (if findable)
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -42,6 +45,7 @@ export default class implements Peers.Interface {
   /**
    * Returns manifest for a module from name (if findable)
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -53,6 +57,7 @@ export default class implements Peers.Interface {
   /**
    * Returns true if a module is a bud
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -64,6 +69,7 @@ export default class implements Peers.Interface {
    * Plumbs project dependencies and gathers data
    * on bud related modules
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -146,6 +152,7 @@ export default class implements Peers.Interface {
   /**
    * Registers all bud related extensions with bud.extensions
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -161,6 +168,7 @@ export default class implements Peers.Interface {
   /**
    * Installs all required peer dependencies
    *
+   * @public
    * @decorator `@bind`
    */
   @bind

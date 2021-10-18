@@ -1,7 +1,7 @@
 import {Application, Base} from './server.dependencies'
 
 /**
- * Server service container class
+ * Server service
  *
  * @public
  */

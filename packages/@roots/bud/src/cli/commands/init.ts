@@ -5,8 +5,9 @@ import {Command} from '../Command'
 import {Runner} from '../Runner'
 
 export default class Init extends Command {
+  public static id = 'init'
+  public static title = 'init'
   public static description = 'install peer dependencies'
-
   public static examples = [`$ bud init`]
 
   public app: Bud

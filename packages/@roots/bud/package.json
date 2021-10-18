@@ -65,9 +65,6 @@
     ]
   },
   "scripts": {
-    "build": "yarn g:build",
-    "build:cjs": "yarn g:build:cjs",
-    "build:esm": "yarn g:build:esm",
     "profile": "yarn g:profile",
     "profile:cjs": "yarn g:profile:cjs",
     "profile:esm": "yarn g:profile:esm",
@@ -111,6 +108,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
     "css-minimizer-webpack-plugin": "^3.1.1",
+    "html-webpack-plugin": "^5.4.0",
     "mini-css-extract-plugin": "^2.1.0",
     "tslib": "^2.3.1",
     "webpack": "5.58.2",

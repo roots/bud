@@ -5,16 +5,7 @@ import {
 } from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
 
-/**
- * Locations keys
- */
-const LOCATIONS = [
-  'project',
-  'src',
-  'dist',
-  'storage',
-  'modules',
-]
+import {LOCATIONS} from './hooks.constants'
 
 /**
  * Hooks service

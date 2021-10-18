@@ -3,13 +3,13 @@ import {Service} from '@roots/bud-framework'
 import {bind, dotenv, dotenvExpand} from '@roots/bud-support'
 
 /**
- * {@inheritDoc @roots/bud-framework#Env}
+ * Env service
  *
  * @public
  */
 export class Env extends Service<Index<any>> implements Base {
   /**
-   * Accessor: path to .env file
+   * Path to .env file
    *
    * @public @readonly
    */
@@ -18,7 +18,7 @@ export class Env extends Service<Index<any>> implements Base {
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Service.bootstrap}
+   * Bootstrap event callback
    *
    * @public
    * @decorator `@bind`
@@ -29,7 +29,7 @@ export class Env extends Service<Index<any>> implements Base {
   }
 
   /**
-   * get parsed .env
+   * Retrieve parsed env object
    *
    * @public
    * @decorator `@bind`

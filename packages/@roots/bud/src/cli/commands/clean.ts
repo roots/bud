@@ -6,11 +6,10 @@ import {Runner} from '../Runner'
 
 export default class Clean extends Command {
   public static id: string = 'Clean'
-
   public static title: string | undefined = 'Clean'
-
   public static description =
     'clean project distributables and caches'
+  public static examples = [`$ bud clean`]
 
   public app: Bud
 

@@ -1,8 +1,8 @@
 import {Service} from '@roots/bud-framework'
-import {Dependencies as DependenciesManager} from '@roots/dependencies'
 
 import {
   bind,
+  DependenciesManager,
   isEqual,
   readJsonSync,
 } from './dependencies.dependencies'

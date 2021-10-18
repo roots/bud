@@ -8,11 +8,8 @@ import {Runner} from '../Runner'
 
 export default class Doctor extends Command {
   public static id = 'doctor'
-
   public static title = 'doctor'
-
   public static description = 'diagnose issues'
-
   public static examples = [`$ bud doctor`]
 
   public static flags = {

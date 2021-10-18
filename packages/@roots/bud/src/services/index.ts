@@ -14,8 +14,6 @@ import {Project} from './Project'
 import {Server} from './Server'
 
 /**
- * {@link @roots/bud-framework#Framework.services | Framework services repository}
- *
  * @public
  */
 export const services: Services = {

@@ -14,7 +14,7 @@ import type {
  * const bud = factory()
  * ```
  *
- * @public @core @config
+ * @public
  */
 export function factory(overrides?: Options): Bud {
   const options: FrameworkOptions = {

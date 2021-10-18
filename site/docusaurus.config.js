@@ -12,7 +12,7 @@ const {manifest} = require('../package.json')
 /**
  * \@type {Partial<Config>} config
  */
-const config = {
+module.exports = {
   title: manifest.name,
   tagline: manifest.description,
   url: manifest.url.docs,
@@ -204,5 +204,3 @@ const config = {
     ],
   ],
 }
-
-module.exports = config
