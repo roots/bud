@@ -16,7 +16,7 @@ export const config: Configuration = {
    * {@inheritDoc @roots/bud-framework#Configuration.ci}
    * @public
    */
-  ci: false,
+  ci: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.clean}

@@ -10,6 +10,7 @@ module.exports = app =>
         .setPath('dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
+
     .make('plugin', plugin =>
       plugin
         .use([require('@roots/bud-babel')])

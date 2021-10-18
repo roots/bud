@@ -6,7 +6,6 @@
     "outDir": "./lib/cjs",
     "types": [
       "node",
-      "jest",
       "@roots/bud-api"
     ]
   },

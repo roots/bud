@@ -59,7 +59,11 @@ export default class Doctor extends Command {
           'bud doctor',
         )
       : this.app.dashboard.render(
-          missing?.map(({name}) => `❌ ${name}`),
+          [
+            ...missing?.map(({name}) => `❌ ${name}`),
+            '\n',
+            'Run `bud init` to install missing dependencies',
+          ],
           'Missing dependencies',
         )
   }

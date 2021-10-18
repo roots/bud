@@ -3792,7 +3792,6 @@ __metadata:
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
     "@types/css-minimizer-webpack-plugin": 3.0.2
-    "@types/lodash": 4.14.175
     "@types/mini-css-extract-plugin": 2.3.0
     "@types/node": 15.14.1
     css-minimizer-webpack-plugin: ^3.1.1

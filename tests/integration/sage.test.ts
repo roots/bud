@@ -222,7 +222,6 @@ describe('examples/sage', () => {
     expect(project.webpackConfig.mode).toMatchSnapshot()
     expect(project.webpackConfig.optimization).toMatchSnapshot()
     expect(project.webpackConfig.bail).toMatchSnapshot()
-    expect(project.webpackConfig.cache).toMatchSnapshot()
   })
 
   it('[snapshots] module map matches snapshot', async () => {

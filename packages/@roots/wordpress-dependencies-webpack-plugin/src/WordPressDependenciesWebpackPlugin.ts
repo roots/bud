@@ -12,7 +12,7 @@ namespace WordPressDependencies {
   }
 }
 
-class WordPressDependenciesWebpackPlugin {
+export class WordPressDependenciesWebpackPlugin {
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',
     stage: Infinity,
@@ -105,8 +105,3 @@ class WordPressDependenciesWebpackPlugin {
     )
   }
 }
-
-/**
- * @exports WordPressDependenciesWebpackPlugin
- */
-export {WordPressDependenciesWebpackPlugin}

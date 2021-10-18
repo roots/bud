@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Doctor from '@roots/bud/src/cli/commands/doctor'
 
 import {mocks} from './__mocks__/index'
@@ -53,7 +52,11 @@ describe('Doctor', () => {
     doctor.displayFeedback([{name: 'postcss'}])
 
     expect(bud.dashboard.render).toHaveBeenCalledWith(
-      ['❌ postcss'],
+      [
+        '❌ postcss',
+        '\n',
+        'Run `bud init` to install missing dependencies',
+      ],
       'Missing dependencies',
     )
   })
