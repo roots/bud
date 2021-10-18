@@ -6,7 +6,6 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "jest",
       "node"
     ]
   },

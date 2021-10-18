@@ -36,9 +36,13 @@ interface Options {
  *
  * @sealed
  */
-class EntrypointsWebpackPlugin implements EntrypointsPlugin {
+export class EntrypointsWebpackPlugin
+  implements EntrypointsPlugin
+{
   /**
-   * Plugin related properties
+   * Plugin compiler ident
+   *
+   * @public
    */
   protected plugin = {
     name: 'EntrypointsManifestPlugin',
@@ -47,31 +51,43 @@ class EntrypointsWebpackPlugin implements EntrypointsPlugin {
 
   /**
    * Artifact filename
+   *
+   * @public
    */
   public name: string = 'entrypoints.json'
 
   /**
    * Webpack compiler instance
+   *
+   * @public
    */
   public compiler: Webpack.Compiler
 
   /**
    * Webpack compilation instance
+   *
+   * @public
    */
   public compilation: Webpack.Compilation
 
   /**
    * Project publicPath
+   *
+   * @public
    */
   public publicPath: string
 
   /**
    * Collected assets
+   *
+   * @public
    */
   public assets: Entry
 
   /**
    * Class constructor
+   *
+   * @public
    */
   public constructor(options?: Options) {
     options &&
@@ -83,6 +99,7 @@ class EntrypointsWebpackPlugin implements EntrypointsPlugin {
   /**
    * Webpack plugin API's `apply` hook
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -174,5 +191,3 @@ class EntrypointsWebpackPlugin implements EntrypointsPlugin {
     return files
   }
 }
-
-export {EntrypointsWebpackPlugin}

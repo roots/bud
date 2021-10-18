@@ -1,6 +1,6 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import type {Webpack} from '@roots/bud-support'
 import type {Container} from '@roots/container'
+import type Webpack from 'webpack'
 
 export interface BudWebpackDefinePlugin
   extends Extension.CompilerPlugin<

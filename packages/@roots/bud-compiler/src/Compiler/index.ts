@@ -4,11 +4,7 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import Webpack, {webpack} from 'webpack'
-
-const {ProgressPlugin} = Webpack
-
-type StatsCompilation = Webpack.StatsCompilation
+import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 
 /**
  * Initial state

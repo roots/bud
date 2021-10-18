@@ -3660,7 +3660,6 @@ __metadata:
     ts-node: 10.3.0
     tslib: ^2.3.1
     vfile-reporter: 7.0.2
-    webpack: ^5.58.2
     webpack-config-dump-plugin: ^3.0.1
     webpack-dev-middleware: ^5.2.1
     webpack-hot-middleware: ^2.25.1
@@ -4015,7 +4014,6 @@ __metadata:
     "@types/node": 15.14.1
     autobind-decorator: ^2.4.0
     eslint: 7.32.0
-    jest: 27.2.5
     tslib: ^2.3.1
   peerDependencies:
     webpack: ^5.47.1
@@ -5009,6 +5007,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: e99fc7cc6265407987b30deda54c1c24bb1478803faf6037557a774b2f034c5b097ffd65847daa87e82a61a250d919f35c3588654b0fdaa816906650f596d1b0
+  languageName: node
+  linkType: hard
+
+"@types/sass@npm:^1":
+  version: 1.16.1
+  resolution: "@types/sass@npm:1.16.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 3f86d2eaf4988a2775fc0fc164d35e73ce82d71228191da7b11d97ad5e8ac129f1c5f798307e31482f8cfebab758bd3b24e731860bed81afe5a1bbe13fa2b2df
   languageName: node
   linkType: hard
 
@@ -7558,6 +7565,8 @@ __metadata:
     execa: 5.1.1
     file-loader: 6.2.0
     fs-extra: 10.0.0
+    ink: 3.2.0
+    ink-testing-library: 2.1.0
     jest: 27.2.5
     lodash: 4.17.21
     prettier: 2.4.1
@@ -8028,7 +8037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.5.2, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
+"chokidar@npm:3.5.2, chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -11100,6 +11109,8 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-sass": "workspace:*"
+    "@types/sass": ^1
+    sass: 1.43.2
   languageName: unknown
   linkType: soft
 
@@ -13836,6 +13847,18 @@ fsevents@^1.2.7:
     ink: ">=3.0.5"
     react: ">=16.8.2"
   checksum: d3785d688dd1ba19fb7a850b7a2c1dd8b2d06e4c77e6a7cc6c5bbd366a5a721e9ea45d036447016a9028f7519994077ce603a60a43a495e17b7b443b8a513ddc
+  languageName: node
+  linkType: hard
+
+"ink-testing-library@npm:2.1.0":
+  version: 2.1.0
+  resolution: "ink-testing-library@npm:2.1.0"
+  peerDependencies:
+    "@types/react": ">=16.8.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 932bc3feed2d68e853f69c56b40610f50ea4366750400ee9597c0f5231acdfd29ac41d8c86924c7f85b7a0ab31cf0ad0726a9d29fdfe6ff82bc836177e7ff063
   languageName: node
   linkType: hard
 
@@ -21621,6 +21644,17 @@ resolve@~1.19.0:
     sass:
       optional: true
   checksum: 69c66ea3482922064f1e907fc204283e5e9cc02eb20b7ab1761d478922f77b3e2c47c8e3c585f771d75ce57bb088b226ae2eb4c736849b29c8727e921a6e0d41
+  languageName: node
+  linkType: hard
+
+"sass@npm:1.43.2":
+  version: 1.43.2
+  resolution: "sass@npm:1.43.2"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+  bin:
+    sass: sass.js
+  checksum: 96bafc42f01395011347c54b31d974a5949866079bb511ec879d1fb56f88d5d8e0c19961aa37e5e4d039d5a3bc536f06159ff432a3de97dfd0e1315a94fbf45d
   languageName: node
   linkType: hard
 

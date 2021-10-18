@@ -30,8 +30,8 @@ import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-import {setOptions} from './api/index'
-import {features} from './features/index'
+import {setOptions} from './api'
+import {features} from './features'
 
 declare module '@roots/bud-framework' {
   /**

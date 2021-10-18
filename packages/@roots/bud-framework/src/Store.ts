@@ -1,4 +1,5 @@
-import {lodash, Webpack} from '@roots/bud-support'
+import {lodash} from '@roots/bud-support'
+import Webpack from 'webpack'
 
 import {Configuration} from './Configuration'
 import {Service} from './Service'

@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/sage# | @roots/sage preset} configures Bud for use
- * with the Sage starter theme
+ * This preset configures Bud for use with the Sage starter theme
  *
  * @see https://github.com/roots/bud
  * @see https://github.com/roots/sage
@@ -21,18 +20,8 @@
 import {Sage} from './Sage'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @public @override
-   */
   interface Modules {
-    /**
-     * {@inheritDoc @roots/sage#Sage}
-     *
-     * @public
-     */
-    '@roots/sage': Sage
+    '@roots/sage': typeof Sage
   }
 }
 

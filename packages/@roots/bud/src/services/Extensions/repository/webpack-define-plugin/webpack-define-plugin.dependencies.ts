@@ -1,2 +1,1 @@
-import Webpack from 'webpack'
-export const {DefinePlugin} = Webpack
+export {DefinePlugin} from 'webpack'

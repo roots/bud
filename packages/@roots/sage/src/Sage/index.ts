@@ -1,49 +1,41 @@
-import * as BudEslintExtension from '@roots/bud-eslint'
-import type {Extension} from '@roots/bud-framework'
-import * as PresetWordPress from '@roots/bud-preset-wordpress'
-import * as BudStylelintExtension from '@roots/bud-stylelint'
-import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
+import {extensions} from './sage.dependencies'
+import type {Sage as Preset} from './sage.interface'
 
 /**
- * {@inheritDoc @roots/bud-framework#Extension.Module}
+ * Sage preset configuration for bud.js
  *
- * @public
- */
-export interface Sage extends Extension.Module {}
-
-/**
- * Sage preset configuration for the {@link @roots/bud-framework# | @roots/bud-framework}
+ * @example
+ * ```ts
+ * app.use(require('@roots/sage')
+ * ```
  *
  * @public @config
  */
-export const Sage: Sage = {
+export const Sage: Preset = {
   /**
-   * {@inheritDoc @roots/bud-framework#Extension.Module.name}
+   * Identifier
    *
    * @public
    */
   name: '@roots/sage',
 
   /**
-   * {@inheritDoc @roots/bud-framework#Extension.Module.register}
+   * Register event callback
+   *
+   * @remarks
+   * `register` is called first, extensions can be
+   * added now so they are available during the `boot` event.
    *
    * @public
    */
-  register(app) {
-    app.use([
-      PresetWordPress,
-      BudEslintExtension,
-      BudStylelintExtension,
-      BudTailwindCssExtension,
-    ])
-  },
+  register: app => app.use(extensions),
 
   /**
-   * {@inheritDoc @roots/bud-framework#Extension.Module.boot}
+   * Boot event callback
    *
    * @public
    */
-  boot(app) {
+  boot: app =>
     app
       .setPath({
         storage: 'storage/bud',
@@ -63,14 +55,7 @@ export const Sage: Sage = {
       .when(
         app.isProduction,
         app =>
-          app.pipe([
-            app => app.minimize(),
-            app => app.hash(),
-            app => app.splitChunks(),
-            app => app.runtime('single'),
-          ]),
-        app =>
-          app.pipe([app => app.proxy(), app => app.devtool()]),
-      )
-  },
+          app.minimize().hash().splitChunks().runtime('single'),
+        app => app.proxy().devtool(),
+      ),
 }

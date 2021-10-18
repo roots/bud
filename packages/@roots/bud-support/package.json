@@ -110,7 +110,6 @@
     "toml": "3.0.0",
     "ts-node": "10.3.0",
     "vfile-reporter": "7.0.2",
-    "webpack": "^5.58.2",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-dev-middleware": "^5.2.1",
     "webpack-hot-middleware": "^2.25.1",
