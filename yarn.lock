@@ -3159,7 +3159,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: 2.3.1
-    typedoc: 0.22.5
+    typedoc: 0.22.6
     typescript: 4.4.4
     url-loader: 4.1.1
   languageName: unknown
@@ -7369,7 +7369,7 @@ __metadata:
     tsconfig-paths: 3.11.0
     tslib: 2.3.1
     type-fest: 2.5.1
-    typedoc: 0.22.5
+    typedoc: 0.22.6
     typescript: 4.4.4
     url-loader: 4.1.1
     weak-napi: 2.0.2
@@ -22538,9 +22538,9 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.22.5":
-  version: 0.22.5
-  resolution: "typedoc@npm:0.22.5"
+"typedoc@npm:0.22.6":
+  version: 0.22.6
+  resolution: "typedoc@npm:0.22.6"
   dependencies:
     glob: ^7.2.0
     lunr: ^2.3.9
@@ -22551,7 +22551,7 @@ resolve@~1.19.0:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: 5b8a8e0e3b4c28370d51db724379f01ea83ae23e3d60a8e23ca669ee4a31f8e134d6f1f9e40ff56cb3c5c7cdc78a413aef5a0d6ec0d5fc1197882bfa631a0748
+  checksum: bdf099fffbe77bd173164ac9d3700ed88e4eb021ce402a255492065f6cbd03f8f420297743616791062f5d2c3e32b0fa061c52f360956f54306b3cd0719ec702
   languageName: node
   linkType: hard
 
