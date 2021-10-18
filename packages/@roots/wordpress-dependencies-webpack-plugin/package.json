@@ -65,7 +65,7 @@
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.175",
     "@types/node": "15.14.1",
-    "eslint": "7.32.0",
+    "eslint": "8.0.1",
     "jest": "27.3.0",
     "webpack": "5.58.2"
   },
