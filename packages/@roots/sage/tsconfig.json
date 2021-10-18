@@ -8,8 +8,6 @@
     "types": [
       "node",
       "@roots/bud-api",
-      "@roots/bud-babel",
-      "@roots/bud-postcss",
       "@roots/bud-tailwindcss",
       "@roots/bud-preset-wordpress",
       "@roots/bud-framework",

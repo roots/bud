@@ -1,3 +1,5 @@
+import '@roots/bud'
+
 import type {Extension} from '@roots/bud-framework'
 
 /**

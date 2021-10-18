@@ -3066,17 +3066,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/fs-extra": 9.0.13
-    "@types/jest": 27.0.2
-    "@types/node": 15.14.1
-    autobind-decorator: ^2.4.0
-    filenamify: ^5.0.0
-    fs-extra: ^10.0.0
-    globby: ^12.0.0
-    jest: 27.2.5
-    lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.58.2
   languageName: unknown
   linkType: soft
 
@@ -3088,9 +3078,6 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/lodash": 4.14.175
     "@types/node": 15.14.1
-    autobind-decorator: ^2.4.0
-    jest: 27.2.5
-    lodash: ^4.17.21
     tslib: ^2.3.1
     webpack: 5.58.2
   languageName: unknown
@@ -10057,7 +10044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-string-regexp@npm:^1.0.2, escape-string-regexp@npm:^1.0.3, escape-string-regexp@npm:^1.0.5":
+"escape-string-regexp@npm:^1.0.3, escape-string-regexp@npm:^1.0.5":
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 6092fda75c63b110c706b6a9bfde8a612ad595b628f0bd2147eea1d3406723020810e591effc7db1da91d80a71a737a313567c5abb3813e8d9c71f4aa595b410
@@ -11088,24 +11075,6 @@ __metadata:
   version: 1.0.0
   resolution: "file-uri-to-path@npm:1.0.0"
   checksum: b648580bdd893a008c92c7ecc96c3ee57a5e7b6c4c18a9a09b44fb5d36d79146f8e442578bc0e173dc027adf3987e254ba1dfd6e3ec998b7c282873010502144
-  languageName: node
-  linkType: hard
-
-"filename-reserved-regex@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "filename-reserved-regex@npm:2.0.0"
-  checksum: 323a0020fd7f243238ffccab9d728cbc5f3a13c84b2c10e01efb09b8324561d7a51776be76f36603c734d4f69145c39a5d12492bf6142a28b50d7f90bd6190bc
-  languageName: node
-  linkType: hard
-
-"filenamify@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "filenamify@npm:5.0.0"
-  dependencies:
-    filename-reserved-regex: ^2.0.0
-    strip-outer: ^1.0.1
-    trim-repeated: ^1.0.0
-  checksum: 5913742cff2863fa0a8a1b2c872378a3e233e3b81dd4858384c3e3dd844846a33b12109f7d3dbc4566cf87bbdef34f2054697bf99efe23a5d288ab501dc62f26
   languageName: node
   linkType: hard
 
@@ -21540,15 +21509,6 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"strip-outer@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "strip-outer@npm:1.0.1"
-  dependencies:
-    escape-string-regexp: ^1.0.2
-  checksum: f8d65d33ca2b49aabc66bb41d689dda7b8b9959d320e3a40a2ef4d7079ff2f67ffb72db43f179f48dbf9495c2e33742863feab7a584d180fa62505439162c191
-  languageName: node
-  linkType: hard
-
 "strtok3@npm:^6.0.3":
   version: 6.0.8
   resolution: "strtok3@npm:6.0.8"
@@ -22288,15 +22248,6 @@ resolve@~1.19.0:
   version: 3.0.0
   resolution: "trim-newlines@npm:3.0.0"
   checksum: ad99b771e7e6fc785cfdd60f3eeb794a6f2f230dd291987107974abd0c95a051d7cf3b6d45b542a59bfe67eb680c5b259ec19741e6fdfdbee0ab783ab8861585
-  languageName: node
-  linkType: hard
-
-"trim-repeated@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "trim-repeated@npm:1.0.0"
-  dependencies:
-    escape-string-regexp: ^1.0.2
-  checksum: e25c235305b82c43f1d64a67a71226c406b00281755e4c2c4f3b1d0b09c687a535dd3c4483327f949f28bb89dc400a0bc5e5b749054f4b99f49ebfe48ba36496
   languageName: node
   linkType: hard
 
