@@ -1,29 +1,16 @@
-import type {Framework, Server} from '@roots/bud-framework'
-import type {Container} from '@roots/container'
-import type {Compiler, MultiCompiler} from 'webpack'
-
-import {isNull, isUndefined} from '../services/lodash'
-import {WebpackDevMiddleware} from '../services/webpack-dev-middleware'
-
-/**
- * Middleware configuration keys
- *
- * @remarks
- * WDS middleware is pretty sensitive about what you pass it.
- *
- * @public
- */
-const middlewareConfigKeys = [
-  'headers',
-  'index',
-  'methods',
-  'mimeTypes',
-  'publicPath',
-  'serverSideRender',
-  'stats',
-  'outputFileSystem',
-  'writeToDisk',
-]
+import {middlewareConfigKeys} from './middleware.constants'
+import {
+  isNull,
+  isUndefined,
+  WebpackDevMiddleware,
+} from './middleware.dependencies'
+import type {
+  Compiler,
+  Container,
+  Framework,
+  MultiCompiler,
+  Server,
+} from './middleware.interface'
 
 /**
  * Dev middleware factory

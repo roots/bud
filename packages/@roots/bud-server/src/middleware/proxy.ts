@@ -1,9 +1,13 @@
-import type {Framework, Server} from '@roots/bud-framework'
-import type {Container} from '@roots/container'
-
-import type {Options} from '../services/http-proxy-middleware'
-import {createProxyMiddleware} from '../services/http-proxy-middleware'
-import {zlib} from '../services/zlib'
+import {
+  createProxyMiddleware,
+  zlib,
+} from './middleware.dependencies'
+import type {
+  Container,
+  Framework,
+  ProxyMiddleware,
+  Server,
+} from './middleware.interface'
 
 /**
  * Returns source host and port from configuration
@@ -132,7 +136,7 @@ export default function proxy({
    *
    * @public
    */
-  const proxyOptions: Options = {
+  const proxyOptions: ProxyMiddleware.Options = {
     autoRewrite: true,
     changeOrigin: true,
     cookieDomainRewrite: {

@@ -1,14 +1,10 @@
 import {Server, Service} from '@roots/bud-framework'
-import {bind, fs} from '@roots/bud-support'
-import type {Container} from '@roots/container'
 import {resolve} from 'path'
 
 import * as middleware from '../middleware'
-import {chokidar} from '../services/chokidar'
-import {globby} from '../services/globby'
 import {injectClient} from '../util/injectClient'
-
-type FSWatcher = fs.FSWatcher
+import {bind, chokidar, globby} from './server.dependencies'
+import type {Container, Watcher} from './server.interface'
 
 /**
  * Server service container implementation
@@ -25,13 +21,6 @@ export default class
   public readonly _assets = [
     resolve(__dirname, '../client/index.js'),
   ]
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   *
-   * @public
-   */
-  public name = 'server'
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.application}
@@ -66,7 +55,7 @@ export default class
    *
    * @public
    */
-  public watcher: FSWatcher
+  public watcher: Watcher
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.assets}
@@ -181,12 +170,12 @@ export default class
     )
 
     /**
-     * Initialize FSWatcher
+     * Initialize Watcher
      */
     this.watcher = chokidar.watch(this.getWatchedFilesArray())
 
     /**
-     * If FSWatcher is watching and a file it is watching
+     * If Watcher is watching and a file it is watching
      * is touched, reload the window.
      */
     this.isWatchable &&

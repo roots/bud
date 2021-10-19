@@ -1,8 +1,10 @@
-import type {Framework, Server} from '@roots/bud-framework'
-import type {Container} from '@roots/container'
-import type Webpack from 'webpack'
-
-import {WebpackHotMiddleware} from '../services/webpack-hot-middleware'
+import {WebpackHotMiddleware} from './middleware.dependencies'
+import type {
+  Container,
+  Framework,
+  Server,
+  Webpack,
+} from './middleware.interface'
 
 /**
  * Hot middleware options
