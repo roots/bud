@@ -67,16 +67,16 @@
     "@types/node": "15.14.1",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.5",
-    "http-proxy-middleware": "2.0.1",
-    "webpack": "5.58.2",
-    "webpack-dev-middleware": "5.2.1",
-    "webpack-hot-middleware": "2.25.1",
-    "zlib": "1.0.5"
+    "webpack": "5.58.2"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "http-proxy-middleware": "2.0.1",
     "lodash.isequal": "^4.5.0",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "webpack-dev-middleware": "5.2.1",
+    "webpack-hot-middleware": "2.25.1",
+    "zlib": "1.0.5"
   },
   "peerDependencies": {
     "@roots/bud-framework": "*"
