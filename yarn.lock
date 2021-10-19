@@ -3520,9 +3520,15 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/node": 15.14.1
+    "@types/webpack-dev-middleware": ^5
+    "@types/webpack-hot-middleware": ^2
+    http-proxy-middleware: ^2.0.1
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
     webpack: 5.58.2
+    webpack-dev-middleware: ^5.2.1
+    webpack-hot-middleware: ^2.25.1
+    zlib: ^1.0.5
   peerDependencies:
     "@roots/bud-framework": "*"
   languageName: unknown
@@ -3580,8 +3586,6 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/prettier": 2.4.1
     "@types/signale": 1.4.2
-    "@types/webpack-dev-middleware": 5.0.2
-    "@types/webpack-hot-middleware": 2.25.5
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
     chokidar: 3.5.2
@@ -3593,12 +3597,9 @@ __metadata:
     dotenv-expand: 5.1.0
     execa: 5.1.1
     express: 4.17.1
-    front-matter: 4.0.2
     fs-extra: 10.0.0
     globby: 11.0.4
     helpful-decorators: 2.1.0
-    html-webpack-plugin: 5.4.0
-    http-proxy-middleware: 2.0.1
     human-readable: 0.2.1
     ignore-emit-webpack-plugin: 2.0.6
     jest: 27.3.0
@@ -3618,12 +3619,7 @@ __metadata:
     tslib: ^2.3.1
     vfile-reporter: 7.0.2
     webpack-config-dump-plugin: 3.0.1
-    webpack-dev-middleware: 5.2.1
-    webpack-hot-middleware: 2.25.1
-    webpack-manifest-plugin: 4.0.2
     yamljs: 0.3.0
-    yoga-layout-prebuilt: 1.1.0
-    zlib: 1.0.5
   languageName: unknown
   linkType: soft
 
@@ -5074,7 +5070,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-dev-middleware@npm:5.0.2":
+"@types/webpack-dev-middleware@npm:^5":
   version: 5.0.2
   resolution: "@types/webpack-dev-middleware@npm:5.0.2"
   dependencies:
@@ -5085,7 +5081,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-hot-middleware@npm:2.25.5":
+"@types/webpack-hot-middleware@npm:^2":
   version: 2.25.5
   resolution: "@types/webpack-hot-middleware@npm:2.25.5"
   dependencies:
@@ -11333,7 +11329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"front-matter@npm:4.0.2, front-matter@npm:^4.0.2":
+"front-matter@npm:^4.0.2":
   version: 4.0.2
   resolution: "front-matter@npm:4.0.2"
   dependencies:
@@ -12562,7 +12558,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:2.0.1":
+"http-proxy-middleware@npm:2.0.1, http-proxy-middleware@npm:^2.0.1":
   version: 2.0.1
   resolution: "http-proxy-middleware@npm:2.0.1"
   dependencies:
@@ -23501,21 +23497,6 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.2.1":
-  version: 5.2.1
-  resolution: "webpack-dev-middleware@npm:5.2.1"
-  dependencies:
-    colorette: ^2.0.10
-    memfs: ^3.2.2
-    mime-types: ^2.1.31
-    range-parser: ^1.2.1
-    schema-utils: ^3.1.0
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 06f3ef14ec983d115d7109f37312fc691c867c95fe7579784c7b80db0a2be77392fa27de444d0a937546da68c7e99640c13df73dc1351bbed7ebab4cc5569f14
-  languageName: node
-  linkType: hard
-
 "webpack-dev-middleware@npm:^3.7.2":
   version: 3.7.3
   resolution: "webpack-dev-middleware@npm:3.7.3"
@@ -23528,6 +23509,21 @@ resolve@~1.19.0:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: faa3cdd7b82d23c35b8f45903556eadd92b0795c76f3e08e234d53f7bab3de13331096a71968e7e9905770ae5de7a4f75ddf09f66d1e0bbabfecbb30db0f71e3
+  languageName: node
+  linkType: hard
+
+"webpack-dev-middleware@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "webpack-dev-middleware@npm:5.2.1"
+  dependencies:
+    colorette: ^2.0.10
+    memfs: ^3.2.2
+    mime-types: ^2.1.31
+    range-parser: ^1.2.1
+    schema-utils: ^3.1.0
+  peerDependencies:
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 06f3ef14ec983d115d7109f37312fc691c867c95fe7579784c7b80db0a2be77392fa27de444d0a937546da68c7e99640c13df73dc1351bbed7ebab4cc5569f14
   languageName: node
   linkType: hard
 
@@ -23579,7 +23575,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack-hot-middleware@npm:2.25.1":
+"webpack-hot-middleware@npm:^2.25.1":
   version: 2.25.1
   resolution: "webpack-hot-middleware@npm:2.25.1"
   dependencies:
@@ -23612,7 +23608,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"webpack-manifest-plugin@npm:4.0.2, webpack-manifest-plugin@npm:^4.0.2":
+"webpack-manifest-plugin@npm:^4.0.2":
   version: 4.0.2
   resolution: "webpack-manifest-plugin@npm:4.0.2"
   dependencies:
@@ -24221,7 +24217,7 @@ yoga-layout-prebuilt@*:
   languageName: node
   linkType: hard
 
-"zlib@npm:1.0.5":
+"zlib@npm:^1.0.5":
   version: 1.0.5
   resolution: "zlib@npm:1.0.5"
   checksum: 5ef5693a1deb70f65845424f5ecce1ee956e50320aa438126759fd28ec8a25ae876acb3b179b4f5050427e7e0dfcd9e45bdae23f055b2d732bc2fe1dbe4da169
