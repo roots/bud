@@ -1,141 +1,87 @@
-/* eslint-disable no-console */
-import {chalk, globby} from '@roots/bud-support'
 import execa from 'execa'
+import {readJson, writeFile} from 'fs-extra'
+import {format} from 'prettier'
 
-/**
- * Publish errything to npm
- *
- * @internalRemarks
- * Doesn't wrap `yarn npm publish` command, because it lacks
- * flexibility in tagging (doesn't support `--tag` option with arbitrary tag names).
- * Instead, this wraps the `npm publish` command directly.
- *
- * @remarks
- * Takes a single argument, which is the tag to publish.
- *
- * @remarks
- * Use `--dry-run` to see what would happen without actually publishing.
- *
- * @example
- * Publish ish
- *
- * ```bash
- * $ yarn ts-node ./dev/tasks/publish
- * ```
- *
- * @example
- * Do a dry run
- *
- * ```bash
- * $ yarn ts-node ./dev/tasks/publish --dry-run
- * ```
- *
- * @example
- * Publish tagged version
- *
- * ```bash
- * $ yarn ts-node ./dev/tasks/publish next
- * ```
- *
- * @internal
- */
-;(async () => {
-  /**
-   * Process argv
-   */
-  const argv = process.argv.splice(2)
-  const tag = argv[0] && argv[0] !== '--dry-run' ? argv[0] : null
-  const dryRun = argv.includes('--dry-run')
+const segments = process.argv.slice(2)
 
-  /**
-   * Gather pkg paths
-   */
-  const pkgs = await globby.globby('packages/@roots/*', {
-    absolute: true,
-    cwd: process.cwd(),
-    onlyDirectories: true,
-  })
+enum FLAG {
+  VERSION = '--version',
+  TAG = '--tag',
+  VERDACCIO = '--verdaccio',
+  PUBLISH = '--publish',
+}
 
-  Promise.all(
-    /**
-     * Async publish mapping
-     *
-     * @param   {(): Promise<void>} async publish job
-     * @param   {string}            pkg   package path
-     *
-     * @return  {Promise<void>} promise resolved when publish is complete
-     */
-    pkgs.map(async (pkg: string) => {
-      // Pkg name
-      const name = chalk.bgGreen.black(
-        `[${pkg.split('packages/').pop()}]`,
-      )
+const hasFlag = (flag: FLAG) => segments.includes(flag)
+const getFlag = (flag: FLAG) => segments[flag].split('=').pop()
+const isDirty = async () => {
+  const {stdout} = await execa('git', ['status', '--porcelain'])
+  return stdout.length > 0
+}
 
-      console.log(`${name} Publishing...`)
+async function main() {
+  const dirty = await isDirty()
+  if (dirty) {
+    // eslint-disable-next-line no-console
+    console.error('Cannot tag with uncommitted changes.')
+    process.exit(1)
+  }
 
-      // Don't publish packages with no package.json
-      if (
-        !(
-          await globby.globby(`${pkg}/package.json`, {
-            absolute: true,
-          })
-        ).length
-      ) {
-        throw new Error(`${pkg} has no package.json`)
-      }
+  if (!hasFlag(FLAG.VERSION)) {
+    // eslint-disable-next-line no-console
+    console.error('Missing --version flag.')
+    process.exit(1)
+  }
 
-      // Don't publish packages that haven't been built
-      if (
-        !(
-          await globby.globby(`${pkg}/lib/cjs/*`, {
-            absolute: true,
-          })
-        ).length
-      ) {
-        throw new Error(`${pkg} has no cjs files`)
-      }
+  if (hasFlag(FLAG.VERDACCIO)) {
+    await $(`npm set registry http://localhost:4873`)
+    await $(`yarn config set registry http://localhost:4873`)
+  }
 
-      // Don't publish packages that haven't been built
-      if (
-        !(
-          await globby.globby(`${pkg}/lib/esm/*`, {
-            absolute: true,
-          })
-        ).length
-      ) {
-        throw new Error(`${pkg} has no esm files`)
-      }
+  await $('yarn kjo make')
+  await $('yarn install')
+  await $(
+    `yarn workspaces foreach --no-private exec npm version ${getFlag(
+      FLAG.VERSION,
+    )}`,
+  )
 
-      // Base publish command
-      const command = ['publish', '--access', 'public']
+  const projectJson = await readJson(
+    process.cwd().concat('/package.json'),
+  )
+  projectJson.version = getFlag(FLAG.VERSION)
 
-      // Add tag if provided
-      tag && command.push('--tag', tag)
-
-      // Add --dry-run if provided
-      dryRun && command.push('--dry-run')
-
-      // Run command with execa
-      const task = execa('npm', command, {cwd: pkg})
-
-      // Log output
-      task.stdout.on('data', r =>
-        process.stdout.write(
-          `${name} ${chalk.blue(r.toString())}`,
-        ),
-      )
-
-      // Log errors
-      task.stderr.on(
-        'data',
-        r => `${name} ${chalk.red(r.toString())}`,
-      )
-
-      // Wait for publish task to complete
-      await task
-
-      // Resolve promise
-      return Promise.resolve()
+  await writeFile(
+    process.cwd().concat('/package.json'),
+    format(JSON.stringify(projectJson, null, 2), {
+      parser: 'json',
     }),
   )
-})()
+
+  if (hasFlag[FLAG.PUBLISH]) {
+    hasFlag[FLAG.TAG]
+      ? await $(
+          `yarn workspaces foreach --no-private npm publish --access public --tag ${getFlag(
+            FLAG.TAG,
+          )}`,
+        )
+      : await $(
+          `yarn workspaces foreach --no-private npm publish --access public`,
+        )
+  }
+}
+
+async function $(cmd: string) {
+  const parts: [string, Array<string>] = cmd
+    .split(' ')
+    .reduce((a: [string, Array<string>], v: string, i) => {
+      if (i === 0) a = [v, []]
+      else a[1].push(v)
+      return a
+    }, null)
+
+  const out = execa(...parts)
+  out.stdout.pipe(process.stdout)
+  out.stderr.pipe(process.stderr)
+}
+
+main()
