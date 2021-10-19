@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "5.0.0-next.3",
+  "version": "5.0.0-next.4",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
