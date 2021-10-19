@@ -3047,7 +3047,7 @@ __metadata:
     html-loader: ^2.1.2
     jest: 27.3.0
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^2.1.0
+    mini-css-extract-plugin: ^2.4.2
     mini-svg-data-uri: ^1.3.3
     remark-html: ^15.0.0
     remark-loader: 4.0.0
@@ -16032,17 +16032,6 @@ fsevents@^1.2.7:
   peerDependencies:
     webpack: ^4.4.0 || ^5.0.0
   checksum: c2c1f3d7e5bc206b5bece0f37b65467ee58e0bb0b61d5e031bb818682b02db2552b296f5018af9058b18eb7127e00f6462fb718712a3d4432079dfa848b510cc
-  languageName: node
-  linkType: hard
-
-"mini-css-extract-plugin@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "mini-css-extract-plugin@npm:2.1.0"
-  dependencies:
-    schema-utils: ^3.0.0
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: d9d61c6bb40328806c8f4dd874a5e2e77ad7d452720fe1b48ad9fbdf84f2619f1063ce2370da48a4859318e5c865da128dc6ca1ea03fde556aea214576108cc5
   languageName: node
   linkType: hard
 
