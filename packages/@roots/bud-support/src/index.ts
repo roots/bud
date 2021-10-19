@@ -37,15 +37,12 @@ export {
   cosmiconfigTsLoader,
 } from './external/cosmiconfig'
 export * as CopyWebpackPlugin from './external/copy-webpack-plugin'
-export * as CssMinimizerWebpackPlugin from './external/css-minimizer-webpack-plugin'
 export {dotenv} from './external/dotenv'
 export {dotenvExpand} from './external/dotenv-expand'
 export {Express} from './external/express'
 export {fs} from './external/fs-extra'
 export * as globby from './external/globby'
-export {HtmlWebpackPlugin} from './external/html-webpack-plugin'
 export {humanReadable} from './external/human-readable'
-export {HttpProxyMiddleware} from './external/http-proxy-middleware'
 export {IgnoreEmitWebpackPlugin} from './external/ignore-emit-webpack-plugin'
 export {json5} from './external/json5'
 export {lodash} from './external/lodash'
@@ -58,11 +55,7 @@ export {ProvidePlugin} from './external/webpack-provide-plugin'
 export {safeRequire} from './external/safe-require'
 export {Signale} from './external/signale'
 export {toml} from './external/toml'
-export {WebpackDevMiddleware} from './external/webpack-dev-middleware'
-export {WebpackHotMiddleware} from './external/webpack-hot-middleware'
-export {WebpackManifestPlugin} from './external/webpack-manifest-plugin'
 export {yaml} from './external/yaml'
-export * as zlib from './external/zlib'
 
 /**
  * Utilities
