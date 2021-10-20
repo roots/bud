@@ -17,14 +17,6 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
-    "@tailwindcss/typography": "^0.4.1",
-    "@wordpress/browserslist-config": "^4.1.0",
-    "eslint": "^7.0.0",
-    "postcss": "8.3.9",
-    "postcss-import": "14.0.2",
-    "postcss-preset-env": "6.7.0",
-    "react": ">=17",
-    "react-dom": ">=17",
-    "tailwindcss": "^2.2.8"
+    "@tailwindcss/typography": "^0.4.1"
   }
 }

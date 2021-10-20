@@ -2980,6 +2980,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@roots/bedrock@workspace:examples/bedrock":
+  version: 0.0.0-use.local
+  resolution: "@roots/bedrock@workspace:examples/bedrock"
+  dependencies:
+    "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
+    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    "@tailwindcss/typography": ^0.4.1
+  languageName: unknown
+  linkType: soft
+
 "@roots/bud-api@workspace:packages/@roots/bud-api":
   version: 0.0.0-use.local
   resolution: "@roots/bud-api@workspace:packages/@roots/bud-api"
@@ -4278,6 +4289,20 @@ __metadata:
   dependencies:
     defer-to-connect: ^2.0.0
   checksum: 27b713859bc7d370f81631eea99879a9d496e1def5d33752fccd6c80dba32cde2094f378c8d07d56f236b08afb4b3621fbf6254faaca52b1a8146ece1eba8428
+  languageName: node
+  linkType: hard
+
+"@tailwindcss/typography@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@tailwindcss/typography@npm:0.4.1"
+  dependencies:
+    lodash.castarray: ^4.4.0
+    lodash.isplainobject: ^4.0.6
+    lodash.merge: ^4.6.2
+    lodash.uniq: ^4.5.0
+  peerDependencies:
+    tailwindcss: ">=2.0.0"
+  checksum: d234509964f59389d00ccc0529b033a5aa670a93149a48520cd2088d102b894cc746146052ea844a926bbea4b16904f5f6b2874399511bf78d55631bdb88ac68
   languageName: node
   linkType: hard
 
@@ -14913,6 +14938,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lodash.castarray@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "lodash.castarray@npm:4.4.0"
+  checksum: fca8c7047e0ae2738b0b2503fb00157ae0ff6d8a1b716f87ed715b22560e09de438c75b65e01a7e44ceb41c5b31dce2eb576e46db04beb9c699c498e03cbd00f
+  languageName: node
+  linkType: hard
+
 "lodash.clonedeep@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.clonedeep@npm:4.5.0"
@@ -15001,6 +15033,13 @@ fsevents@^1.2.7:
   version: 3.0.9
   resolution: "lodash.isfunction@npm:3.0.9"
   checksum: 99e54c34b1e8a9ba75c034deb39cedbd2aca7af685815e67a2a8ec4f73ec9748cda6ebee5a07d7de4b938e90d421fd280e9c385cc190f903ac217ac8aff30314
+  languageName: node
+  linkType: hard
+
+"lodash.isplainobject@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "lodash.isplainobject@npm:4.0.6"
+  checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
   languageName: node
   linkType: hard
 
