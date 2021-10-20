@@ -33,14 +33,12 @@ export const BudReactExtension: BudReactExtension = {
    * @public
    */
   boot: app => {
-    app.when(app.project.hasPeerDependency('react'), app => {
-      app.babel.setPresets(['@babel/preset-react'])
+    app.babel.setPresets(['@babel/preset-react'])
 
-      app.when(app.isDevelopment, app => {
-        app.hooks
-          .on('build/entry', entryHook)
-          .extensions.add(BudReactRefreshPlugin)
-      })
+    app.when(app.isDevelopment, app => {
+      app.hooks
+        .on('build/entry', entryHook)
+        .extensions.add(BudReactRefreshPlugin)
     })
   },
 }
