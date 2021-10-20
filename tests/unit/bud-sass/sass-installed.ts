@@ -31,8 +31,9 @@ describe('@roots/bud-sass', () => {
   })
 
   afterAll(done => {
-    execa.sync('yarn', ['remove', 'sass'])
-    bud.close(done)
+    execa('yarn', ['remove', 'sass']).then(() => {
+      bud.close(done)
+    })
   })
 
   it('returns normally when sass is installed', () => {

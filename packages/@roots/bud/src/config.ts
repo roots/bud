@@ -253,14 +253,18 @@ export const config: Configuration = {
       log: true,
     },
     proxy: {
-      host: 'localhost',
-      port: 8000,
+      target: {
+        host: 'localhost',
+        port: 8080,
+        secure: false,
+        ssl: false,
+        ws: true,
+      },
     },
     host: 'localhost',
     port: 3000,
     methods: ['GET', 'HEAD'],
   },
-
   theme: {
     spacing: 1,
     colors: {

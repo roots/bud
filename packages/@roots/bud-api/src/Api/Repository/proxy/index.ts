@@ -2,12 +2,7 @@ import {Framework, Server} from '@roots/bud-framework'
 
 import {isBoolean, isUndefined} from '../../../services/lodash'
 
-/**
- * Configures proxy settings
- *
- * @public @config
- */
-interface proxy {
+export interface proxy {
   (
     this: Framework,
     config?: {
@@ -19,12 +14,12 @@ interface proxy {
       /**
        * Hostname of the proxy target
        */
-      host?: Server.Configuration['proxy']['host']
+      host?: Server.Configuration['proxy']['target']['host']
 
       /**
        * Port of the proxy target
        */
-      port?: Server.Configuration['proxy']['port']
+      port?: Server.Configuration['proxy']['target']['port']
     },
   ): Framework
 }
@@ -64,7 +59,7 @@ interface proxy {
  *
  * @public @config
  */
-const proxy: proxy = function (options = undefined) {
+export const proxy: proxy = function (options = undefined) {
   if (!this.server) {
     return
   }
@@ -105,12 +100,10 @@ const proxy: proxy = function (options = undefined) {
     this.server?.config?.set('middleware.proxy', options.enabled)
   }
 
-  this.server?.config?.merge('proxy', {
+  this.server?.config?.merge('proxy.target', {
     ...options,
     enabled: undefined,
   })
 
   return this
 }
-
-export {proxy as default}

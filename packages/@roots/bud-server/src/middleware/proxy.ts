@@ -10,11 +10,11 @@ import type {
 } from './middleware.interface'
 
 /**
- * Returns source host and port from configuration
+ * Returns dev host and port
  *
  * @public
  */
-const parseSource = (
+const parseDev = (
   config: Container<Server.Configuration>,
 ): Server.Target => {
   return {
@@ -24,7 +24,7 @@ const parseSource = (
 }
 
 /**
- * Returns proxy host and port from configuration
+ * Returns proxy host and port
  *
  * @public
  */
@@ -32,8 +32,8 @@ const parseProxy = (
   config: Container<Server.Configuration>,
 ): Server.Target => {
   return {
-    host: config.get('proxy.host'),
-    port: config.get('proxy.port'),
+    host: config.get('proxy.target.host'),
+    port: config.get('proxy.target.port'),
   }
 }
 
@@ -48,8 +48,8 @@ export default function proxy({
   this: Framework
   config: Container<Server.Configuration>
 }) {
-  // Source host & port
-  const source = parseSource(config)
+  // Dev server host & port
+  const dev = parseDev(config)
 
   // Proxy host & port
   const proxy = parseProxy(config)
@@ -57,7 +57,7 @@ export default function proxy({
   // Headers
   const headers = {
     'X-Powered-By': '@roots/bud',
-    'X-Bud-Proxy-From': source.host,
+    'X-Bud-Proxy-From': proxy.host,
     'X-Bud-Proxy-Secure': `${config.isTrue('ssl')}`,
   }
 
@@ -72,7 +72,7 @@ export default function proxy({
       : target.host
 
     const port = (port: number) => {
-      return port !== 8000 || 443 ? `:${port}` : ``
+      return port !== 8080 || 443 ? `:${port}` : ``
     }
 
     return `${protocol}${hostname}${port(target.port)}`
@@ -86,7 +86,7 @@ export default function proxy({
   const transformBody = (body: string): string =>
     body.replace(
       new RegExp(`${proxy.host}:${proxy.port}`, 'g'),
-      `${source.host}:${source.port}`,
+      `${dev.host}:${dev.port}`,
     )
 
   /**
@@ -136,22 +136,22 @@ export default function proxy({
    *
    * @public
    */
-  const proxyOptions: ProxyMiddleware.Options = {
+  const options: ProxyMiddleware.Options = {
     autoRewrite: true,
     changeOrigin: true,
     cookieDomainRewrite: {
-      [source.host]: proxy.host,
+      [proxy.host]: dev.host,
     },
     onProxyRes,
     selfHandleResponse: true,
     target: getUrl(proxy),
     headers,
-    hostRewrite: `${source.host}:${source.port}`,
+    hostRewrite: `${dev.host}:${dev.port}`,
     logLevel: 'silent',
-    ssl: config.isTrue('ssl'),
-    secure: config.isTrue('ssl'),
-    ws: config.isTrue('ws'),
+    ssl: config.isTrue('proxy.ssl'),
+    secure: config.isTrue('proxy.secure'),
+    ws: config.isTrue('proxy.ws'),
   }
 
-  return createProxyMiddleware(proxyOptions)
+  return createProxyMiddleware(options)
 }

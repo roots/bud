@@ -2,6 +2,11 @@ import * as Webpack from 'webpack'
 
 import {Index, Locations, Server} from '.'
 
+interface CompilerConfig extends Partial<Webpack.Configuration> {
+  optimization?: any
+  infrastructureLogging?: any
+}
+
 /**
  * Framework base configuration
  *
@@ -167,7 +172,7 @@ export interface Configuration {
    *
    * @public
    */
-  build: Partial<Webpack.Configuration>
+  build: CompilerConfig
 
   /**
    * Initial options for registered extensions

@@ -21,12 +21,14 @@ describe('bud.dev', function () {
   it('sets proxy', () => {
     bud.dev({
       proxy: {
-        host: 'bar.com',
-        port: 9000,
+        target: {
+          host: 'bar.com',
+          port: 9000,
+        },
       },
     })
 
-    expect(bud.server.config.get('proxy')).toEqual({
+    expect(bud.server.config.get('proxy.target')).toEqual({
       host: 'bar.com',
       port: 9000,
     })
