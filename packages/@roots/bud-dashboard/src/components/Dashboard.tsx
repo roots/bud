@@ -143,7 +143,8 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
           <Box
             key={`stats-${child.name}-${id}`}
             marginBottom={1}
-            flexDirection={'column'}>
+            flexDirection={'column'}
+          >
             <Text backgroundColor={theme.colors.primary}>
               {' '}
               {child.name}{' '}
@@ -161,12 +162,14 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
                   <Box
                     key={`asset-${id}`}
                     flexDirection="row"
-                    justifyContent="flex-start">
+                    justifyContent="flex-start"
+                  >
                     <Box
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                      ])}>
+                      ])}
+                    >
                       <Text wrap="truncate-end">
                         {' '}
                         - {asset.name}{' '}
@@ -177,7 +180,8 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                      ])}>
+                      ])}
+                    >
                       {asset?.info?.minimized && (
                         <Text color={theme.colors.success}>
                           {' '}
@@ -190,7 +194,8 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
                       width={theme.ctx([
                         theme.col(12),
                         theme.col(4),
-                      ])}>
+                      ])}
+                    >
                       <Text> {fileSize(asset.size)} </Text>
                     </Box>
                   </Box>

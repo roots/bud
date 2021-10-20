@@ -10,7 +10,8 @@ export const Main = ({children}) => (
   <Box
     justifyContent="space-between"
     display="flex"
-    flexDirection="column">
+    flexDirection="column"
+  >
     {children}
   </Box>
 )

@@ -23,7 +23,8 @@ export const Screen = ({
       <Text
         backgroundColor={app.store.get(
           color ?? 'theme.colors.primary',
-        )}>
+        )}
+      >
         {' '}
         {title}{' '}
       </Text>

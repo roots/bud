@@ -13,7 +13,8 @@ export const Error = ({title = 'Error', body}) => {
       borderColor="red"
       borderStyle="round"
       marginBottom={1}
-      padding={1}>
+      padding={1}
+    >
       <Text wrap="wrap" bold>
         {title}
       </Text>
