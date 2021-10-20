@@ -25,28 +25,9 @@ import BuildDev from '!!raw-loader!@site/src/components/cli-output/babel-dev--he
   {BuildHelp}
 </CodeBlock>
 
-## bud build:production
+## bud build
 
-<CodeBlock title="$ yarn bud build:production">
-  {Build}
-</CodeBlock>
-
-Aliases: `bud build`, `bud production`
-
-## bud build:dev
-
-```shell title="$ yarn bud build:dev"
- bud
-
- - vendor/defaultVendors-…                          638.14 kB
- - app.js                                           78.92 kB
-
-Compiled in 709ms
-
-Press Q to exit
-```
-
-Aliases: `bud dev`, `bud start`, `bud build:development`
+<CodeBlock title="$ yarn bud build [mode]">{Build}</CodeBlock>
 
 ## Flags
 
@@ -58,23 +39,12 @@ The `--cache` flag is recommended for outstanding performance. Compare the `comp
   {BuildCache}
 </CodeBlock>
 
-### --target
+### --ci
 
-In multi-compiler configurations, many compilers are run in a batch.
+The `--ci` flag uses webpack's default cli output which has more detailed,
+robust feedback.
 
-<CodeBlock title="$ yarn bud build">{BuildMulti}</CodeBlock>
-
-The `--target` flag will only compile a specified compiler.
-
-<CodeBlock title="$ yarn bud build --target theme">
-  {BuildTargetTheme}
-</CodeBlock>
-
-It can be passed more than once.
-
-<CodeBlock title="$ yarn bud build --target theme --target plugin">
-  {BuildTargetThemePlugin}
-</CodeBlock>
+<CodeBlock title="$ yarn bud build --ci">{BuildCI}</CodeBlock>
 
 ### --hash
 
@@ -84,8 +54,21 @@ The `--hash` flag will enable filename hashing for the build.
   {BuildHash}
 </CodeBlock>
 
-### --ci
+### --target
 
-The `--ci` flag uses webpack's default cli output (for interoperability).
+In multi-compiler configurations, many compilers are run in tandem.
 
-<CodeBlock title="$ yarn bud build --ci">{BuildCI}</CodeBlock>
+<CodeBlock title="$ yarn bud build">{BuildMulti}</CodeBlock>
+
+The `--target` flag will only compile a specified compiler.
+
+<CodeBlock title="$ yarn bud build --target theme">
+  {BuildTargetTheme}
+</CodeBlock>
+
+It can be used multiple times if you wish to run multiple compilers
+but not all of them.
+
+<CodeBlock title="$ yarn bud build --target theme --target plugin">
+  {BuildTargetThemePlugin}
+</CodeBlock>

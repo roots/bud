@@ -2,7 +2,7 @@
 title: Node API
 description: Overview of instantiating Bud directly from Node
 sidebar_label: Node API
-sidebar_position: 1
+sidebar_position: 2
 image: 'https://budjs.netlify.app/img/share/guides/advanced-use__node.png'
 ---
 
@@ -12,9 +12,9 @@ import CodeBlock from '@theme/CodeBlock'
 
 **bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to:
 
-- Use **bud** as part of an existing pipeline like gulp
+- Use **bud** as part of an existing asset pipeline
 - Use **bud** to generate a configuration to be consumed by **webpack** directly
-- Modify **bud** before running a build.
+- Modify the **bud** object before running a build
 
 ## Using Bud with Node
 
@@ -48,10 +48,10 @@ const app: Framework = factory()
   </TabItem>
 </Tabs>
 
-You may wish to override Bud services, its base configuration, or programatically set
+You may wish to override **bud** services, its base configuration, or programatically set
 the compiler mode to `production` or `development`. These can all be specified with optional factory config properties.
 
-You may wish to import the `config` and `services` objects from `@roots/bud` to merge your overrides with
+You may also wish to import the `config` and `services` objects from `@roots/bud` to merge your overrides with
 the defaults. This way, you don't have to reimplement the entire framework.
 
 <Tabs
@@ -104,13 +104,12 @@ const app: Framework = factory({
   </TabItem>
 </Tabs>
 
-The return value of **factory** is an instance of **Bud**, just as it is passed to `bud.config.js` when using the CLI.
-Configuration from that point on should be identical, with the exception of running the build and/or development server.
+The return value of **factory** is an instance of **Bud**, just as it is passed to the callback function exported by `bud.config.js`.
+Configuration from that point on should be identical, with the exception of you needing to run the build and/or development server.
 
 ## Running a build from Node
 
-Once configured, simply call **bud.run** to run the build. In `development` the server will be instantiated for you. If you would like
-to handle that yourself for some reason check out the source for **bud.run**.
+Once configured, simply call **bud.run** to run the build. In `development` the server will be instantiated for you.
 
 ```js
 import {factory} from '@roots/bud'
@@ -122,8 +121,10 @@ app.entry('app', 'app.js').run()
 
 ## Exporting a webpack config
 
-You may also want to utilize **bud** to create a config to be used with **webpack** directly.
-This is easily accomplished by exporting the **bud.build.config** accessor from a file called `webpack.config.js`.
+It's possible to utilize **bud** to create a config to be used with **webpack** directly should you not want to use
+the **bud** CLI.
+
+This is done by exporting the **bud.build.config** accessor from a file called `webpack.config.js`.
 
 ```js title='webpack.config.js'
 import {factory} from '@roots/bud'
@@ -134,5 +135,5 @@ const config = app.entry('app', 'app.js').build.config
 export default config
 ```
 
-Now you can use the webpack cli as per their documentation to run your build while still taking advantage of all
-the quality of life improvements afforded by `bud`.
+Now, you can use the webpack cli as per their documentation to run your build while still taking advantage of all
+the quality of life improvements afforded by **bud**.

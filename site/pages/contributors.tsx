@@ -9,7 +9,8 @@ import styles from './index.module.css'
 function Header() {
   return (
     <header
-      className={clsx('hero hero--primary', styles.heroBanner)}>
+      className={clsx('hero hero--primary', styles.heroBanner)}
+    >
       <div className="container">
         <h1 className="hero__title">Contributors</h1>
       </div>
@@ -25,7 +26,8 @@ function Page() {
   return (
     <Layout
       title={`${manifest.name} Contributors`}
-      description="Thanks to everyone who made this happen">
+      description="Thanks to everyone who made this happen"
+    >
       <Header />
 
       <main>
