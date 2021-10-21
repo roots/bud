@@ -14,7 +14,7 @@ export default class Build extends Command {
     `$ bud build --cache`,
   ]
 
-  public static args = [{name: 'mode'}]
+  public static args = [{name: 'mode', default: 'production'}]
 
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -102,7 +102,8 @@ export default class Build extends Command {
   public app: Bud
 
   public async run() {
-    const runner = new Runner(this.parse(Build))
+    const options = this.parse(Build)
+    const runner = new Runner(options)
 
     this.app = await runner.make()
 

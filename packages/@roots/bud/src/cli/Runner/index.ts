@@ -120,15 +120,6 @@ export class Runner {
   ) {
     Object.assign(this, {...cli})
 
-    if (!this.args.mode || this.args.mode == 'production') {
-      this.mode = 'production'
-    } else if (
-      this.args.mode == 'dev' ||
-      this.args.mode == 'development'
-    ) {
-      this.mode = 'development'
-    }
-
     this.app =
       app ??
       factory({
@@ -228,10 +219,10 @@ export class Runner {
       /**
        * Handle --cache flag
        */
-      if (this.flags.cache !== false) {
-        this.app.persist()
+      if (typeof this.flags.cache !== 'undefined') {
+        this.app.persist(this.flags.cache)
         this.app.children.every((_name, child) =>
-          child.persist(),
+          child.persist(this.flags.cache),
         )
       }
 
@@ -259,9 +250,9 @@ export class Runner {
        * Handle --runtime flag
        */
       if (typeof this.flags.runtime !== 'undefined') {
-        this.app.runtime()
+        this.app.runtime(this.flags.runtime)
         this.app.children.every((_name, child) =>
-          child.runtime(),
+          child.runtime(this.flags.runtime),
         )
       }
 
@@ -279,9 +270,9 @@ export class Runner {
        * Handle --minimize flag
        */
       if (typeof this.flags.minimize !== 'undefined') {
-        this.app.store.set('minimize', this.flags.minimize)
+        this.app.minimize(this.flags.minimize)
         this.app.children.every((_name, child) => {
-          child.store.set('minimize', this.flags.minimize)
+          child.minimize(this.flags.minimize)
         })
       }
 
@@ -289,9 +280,9 @@ export class Runner {
        * Handle --minimize flag
        */
       if (typeof this.flags.vendor !== 'undefined') {
-        this.app.splitChunks()
+        this.app.splitChunks(this.flags.vendor)
         this.app.children.every((_name, child) => {
-          child.splitChunks()
+          child.splitChunks(this.flags.vendor)
         })
       }
 
