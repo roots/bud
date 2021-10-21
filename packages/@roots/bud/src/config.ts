@@ -123,8 +123,7 @@ export const config: Configuration = {
     bail: true,
     devtool: false,
     infrastructureLogging: {
-      level: 'none',
-      appendOnly: true,
+      level: 'verbose',
     },
     node: false,
     output: {
@@ -138,7 +137,7 @@ export const config: Configuration = {
       splitChunks: {
         cacheGroups: {
           vendor: {
-            chunks: 'all',
+            chunks: 'initial',
             test: /[\\/]node_modules[\\/]/,
             reuseExistingChunk: true,
             priority: -20,
@@ -149,11 +148,11 @@ export const config: Configuration = {
             ) {
               const allChunksNames = chunks
                 .map(item => item.name)
-                .join('~')
+                .join('__')
               return `${cacheGroupKey}-${allChunksNames}`
             },
           },
-          bud: {
+          /* bud: {
             chunks: 'all',
             test: /([\\/]@roots|webpack|style-loader|tslib|ansi|html-entities|css-loader)/,
             reuseExistingChunk: true,
@@ -165,7 +164,7 @@ export const config: Configuration = {
             ) {
               return `${cacheGroupKey}`
             },
-          },
+          }, */
         },
       },
     },
@@ -187,7 +186,7 @@ export const config: Configuration = {
         '.xml',
       ],
     },
-    stats: {},
+    stats: true,
   },
 
   extension: {
@@ -253,13 +252,7 @@ export const config: Configuration = {
       log: true,
     },
     proxy: {
-      target: {
-        host: 'localhost',
-        port: 8080,
-        secure: false,
-        ssl: false,
-        ws: true,
-      },
+      target: 'localhost:3000',
     },
     host: 'localhost',
     port: 3000,

@@ -3,8 +3,10 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, lodash} from '@roots/bud-support'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
+
+const {isFunction} = lodash
 
 /**
  * Initial state
@@ -127,14 +129,14 @@ export class Compiler extends Service implements Contract {
 
     this.app.hooks.filter('before').map(cb => cb(this.app))
 
-    this.app.parent &&
+    !this.app.parent &&
       this.app.error(`Trying to compile a child directly.`)
 
     /**
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (this.app.build.config.entry || !this.app.hasChildren) {
+    if (this.app.build.config.entry && !this.app.hasChildren) {
       this.app.info('using parent compiler')
       config.push(this.app.build.config)
     }
@@ -148,6 +150,7 @@ export class Compiler extends Service implements Contract {
         name &&
           (() => {
             this.app.info(`using ${name} compiler`)
+            this.app.debug(build.config)
             config.push(build.config)
           })()
       })
@@ -173,7 +176,7 @@ export class Compiler extends Service implements Contract {
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    if (stats) {
+    if (stats?.toJson && isFunction(stats.toJson)) {
       this.stats = stats.toJson(this.app.build.config.stats)
       this.app.store.is('ci', true) &&
         // eslint-disable-next-line no-console

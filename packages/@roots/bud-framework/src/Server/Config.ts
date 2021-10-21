@@ -1,4 +1,5 @@
 import {Index} from '../'
+import {Target} from './'
 
 /**
  * Server configuration
@@ -35,52 +36,7 @@ export interface Configuration {
    * @public
    */
   proxy: {
-    target: {
-      /**
-       * Proxy destination host
-       *
-       * @defaultValue localhost
-       *
-       * @public
-       */
-      host?: string
-
-      /**
-       * Proxy destination port
-       *
-       * @defaultValue 8080
-       *
-       * @public
-       */
-      port?: number
-
-      /**
-       * Authenticate ssl cert
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      secure?: boolean
-
-      /**
-       * Proxy should be treated as ssl
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      ssl?: boolean
-
-      /**
-       * Use websockets
-       *
-       * @defaultValue true
-       *
-       * @public
-       */
-      ws?: boolean
-    }
+    target: Target
   }
 
   /**

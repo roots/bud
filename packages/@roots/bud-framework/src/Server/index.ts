@@ -38,10 +38,22 @@ export interface Middleware {
  *
  * @public
  */
-export interface Target {
-  host: string
-  port: number
-}
+export type Target =
+  | string
+  | {
+      host: string
+      port: number
+      protocol?: string
+      hostname?: string
+      socketPath?: string
+      key?: string
+      passphrase?: string
+      pfx?: Buffer | string
+      cert?: string
+      ca?: string
+      ciphers?: string
+      secureProtocol?: string
+    }
 
 export {Interface}
 
