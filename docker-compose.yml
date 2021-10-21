@@ -18,6 +18,7 @@ services:
       - verdaccio
     networks:
       - node-network
+    working_dir: /bud
     command: bash -c /bud/dev/build/init.sh
     volumes:
       - ./:/bud
