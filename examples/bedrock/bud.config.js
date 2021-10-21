@@ -9,6 +9,7 @@ module.exports = bud => {
       sage
         .use([
           require('@roots/bud-preset-wordpress'),
+          require('@roots/bud-eslint'),
           require('@roots/bud-tailwindcss'),
         ])
         .setPath('project', path.resolve('web/app/themes/sage'))
@@ -18,24 +19,12 @@ module.exports = bud => {
           app: '**/app.{js,css}',
           editor: '**/editor.{js,css}',
         })
-    })
-
-    /**
-     * Build plugin
-     */
-    .make('plugin', plugin => {
-      plugin
-        .use([
-          require('@roots/bud-preset-wordpress'),
-          require('@roots/bud-tailwindcss'),
-        ])
-        .setPath(
-          'project',
-          path.resolve('web/app/plugins/example-plugin'),
-        )
-        .entry({
-          app: '**/app.{js,css}',
-          editor: '**/editor.{js,css}',
+        .dev({
+          host: 'http://bedrock.test',
+          port: 3000,
+        })
+        .proxy({
+          target: 'http://bedrock.test',
         })
     })
 }
