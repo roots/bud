@@ -56,6 +56,8 @@ export class Indicator extends HTMLElement {
    */
   public hideTimeout: NodeJS.Timer
 
+  public payload: any
+
   /**
    * Get accessor: has errors
    *
@@ -81,9 +83,9 @@ export class Indicator extends HTMLElement {
    */
   public get isPending(): boolean {
     return (
-      !this.hasErrors &&
-      !this.hasWarnings &&
-      this.getAttribute('action') == 'building'
+      !this.payload?.errors?.length &&
+      !this.payload?.warnings?.length &&
+      this.payload?.action == 'building'
     )
   }
 
@@ -96,7 +98,7 @@ export class Indicator extends HTMLElement {
     success: [4, 120, 87],
     error: [220, 38, 38],
     warn: [252, 211, 77],
-    pending: [255, 255, 255],
+    pending: [59, 130, 246],
   }
 
   /**
@@ -245,14 +247,32 @@ export class Indicator extends HTMLElement {
    * @public
    */
   public update() {
-    if (this.isPending) this.pending()
-    else if (this.hasErrors) this.error()
-    else if (this.hasWarnings) this.warning()
-
-    !this.isPending &&
-      !this.hasErrors &&
-      !this.hasWarnings &&
+    if (
+      !this.payload?.errors?.length &&
+      !this.payload?.warnings?.length &&
+      this.payload.action == 'built'
+    ) {
       this.success()
+      return
+    }
+
+    if (
+      this.payload?.action == 'building' ||
+      this.payload?.action == 'sync'
+    ) {
+      this.pending()
+      return
+    }
+
+    if (this.payload?.errors?.length) {
+      this.error()
+      return
+    }
+
+    if (this.payload?.warnings?.length) {
+      this.warning()
+      return
+    }
   }
 
   public static get observedAttributes() {

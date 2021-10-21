@@ -40,11 +40,17 @@ export const indicator = {
    *
    * @public
    */
-  update({payload, complete, pending, hasWarnings, hasErrors}) {
-    this.payload = payload
+  update(payload) {
+    this.node.payload = payload
 
-    this.node.setAttribute('action', payload.action)
-    this.node.setAttribute('has-warnings', hasWarnings)
-    this.node.setAttribute('has-errors', hasErrors)
+    this.node.setAttribute(
+      'has-warnings',
+      payload.errors?.length,
+    )
+
+    this.node.setAttribute(
+      'has-errors',
+      payload.warnings?.length,
+    )
   },
 }

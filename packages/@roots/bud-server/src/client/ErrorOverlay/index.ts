@@ -8,7 +8,7 @@ import {template} from './template'
  *
  * @public
  */
-const client = {
+export const overlay = {
   /**
    * Initialize component
    *
@@ -53,5 +53,3 @@ const client = {
       document.body.removeChild(this.node)
   },
 }
-
-export const overlay = client.init()

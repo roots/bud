@@ -1,68 +1,36 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import {
+const {
   subscribeAll,
   useCustomOverlay,
-} from 'webpack-hot-middleware/client'
+} = require('webpack-hot-middleware/client')
 
 import {overlay} from './ErrorOverlay'
 import {indicator} from './Indicator'
 
-/**
- * parse payloads from webpack-hot-middleware/client
- *
- * @param payload - raw whm payload
- * @returns parsed payload
- *
- * @public
- */
-const parsePayload = payload => {
-  return {
-    complete: payload?.action == 'built',
-    pending: payload?.action == 'building',
-    hasWarnings: payload?.warnings?.length > 0,
-    hasErrors: payload?.errors?.length > 0,
-  }
-}
+const indicatorEl = indicator.init()
+const overlayEl = overlay.init()
 
 /**
  * Retrieves data on running application
  *
  * @public
  */
-const getServerData = async () => {
+;(async () => {
   const res = await fetch('/__roots/config.json')
   const server = await res.json()
 
-  return server
-}
-
-/**
- * Client runtime
- *
- * @public
- */
-const dev = async () => {
-  const server = await getServerData()
-
-  server.browser.overlay && useCustomOverlay(overlay)
-  server.browser.indicator && indicator.init()
+  useCustomOverlay(overlayEl)
 
   subscribeAll(payload => {
-    const {hasWarnings, hasErrors, pending, complete} =
-      parsePayload(payload)
+    console.log(payload)
 
-    server.browser.indicator &&
-      indicator.update({
-        payload,
-        complete,
-        pending,
-        hasWarnings,
-        hasErrors,
-      })
+    server.browser.indicator && indicatorEl.update(payload)
+
+    server.browser.overlay &&
+      payload?.errors?.length &&
+      overlay.showProblems('errors', payload.errors)
 
     if (payload.action === 'reload') window.location.reload()
   })
-}
-
-dev()
+})()
