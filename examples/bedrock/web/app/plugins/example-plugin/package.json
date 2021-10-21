@@ -1,5 +1,5 @@
 {
-  "name": "@roots/bedrock",
+  "name": "plugin",
   "private": true,
   "browserslist": [
     "extends @wordpress/browserslist-config"
