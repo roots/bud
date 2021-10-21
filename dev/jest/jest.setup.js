@@ -46,7 +46,7 @@ module.exports = async function () {
      * Build project
      */
     const idontEvenLikeFootball = execa.commandSync(
-      `yarn bud build`,
+      `yarn bud build --ci --log`,
       {cwd: dirname(k)},
     )
 
