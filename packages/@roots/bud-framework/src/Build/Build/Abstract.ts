@@ -40,7 +40,7 @@ import * as Rule from '../Rule'
  *
  * @public @core @container
  */
-export default class Build extends Service {
+export default abstract class Build extends Service {
   /**
    * {@link Loader.Interface} array
    *
@@ -63,9 +63,9 @@ export default class Build extends Service {
   public rules: Rule.Interface[]
 
   /**
-   * Accesses the compiler configuration
+   * Make the configuration object
    *
    * @public
    */
-  public config: Webpack.Configuration
+  public abstract make: () => Webpack.Configuration
 }

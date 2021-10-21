@@ -135,13 +135,13 @@ export interface Configuration {
   manifest: boolean
 
   /**
-   * Enable or disable file minification
+   * Enable or disable chunk splitting
    *
-   * @defaultValue true
+   * @defaultValue false
    *
    * @public
    */
-  minimize: boolean
+  splitChunks: boolean
 
   /**
    * File format

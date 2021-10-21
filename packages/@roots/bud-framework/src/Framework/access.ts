@@ -1,12 +1,11 @@
 import {Tapable} from '../'
-import {Framework} from './'
 import {isFunction} from './framework.dependencies'
 
 /**
  * @internal
  */
 export interface access<I = any> {
-  (this: Framework, value: Tapable | I): I
+  (this: I, value: Tapable | I): I
 }
 
 /**
@@ -21,9 +20,6 @@ export interface access<I = any> {
  *
  * @public
  */
-export function access<I = any>(
-  this: Framework,
-  value: Tapable | I,
-) {
+export function access<I = any>(value: Tapable | I) {
   return isFunction(value) ? value.bind(this)(this) : value
 }

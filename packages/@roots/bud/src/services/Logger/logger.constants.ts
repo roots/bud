@@ -14,14 +14,3 @@ export const INSTANCE_CONFIG = {
   underlineSuffix: false,
   uppercaseLabel: false,
 }
-
-/**
- * Logger types
- */
-export const LOGGER_TYPES = {
-  log: {
-    label: 'log',
-    badge: '≫',
-    color: 'magentaBright',
-  },
-}

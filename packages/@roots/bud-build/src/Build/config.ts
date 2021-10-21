@@ -153,17 +153,11 @@ export function config(app: Framework): void {
         'build/optimization/splitChunks',
       ),
     }))
-    .hooks.on(
-      'build/optimization/emitOnErrors',
+    .hooks.on('build/optimization/emitOnErrors', () =>
       app.store.get('build.optimization.emitOnErrors'),
     )
-    .hooks.on(
-      'build/optimization/minimize',
-      () => app.isProduction,
-    )
-    .hooks.on('build/optimization/minimizer', () =>
-      app.store.get('build.optimization.minimizer'),
-    )
+    .hooks.on('build/optimization/minimize', () => false)
+    .hooks.on('build/optimization/minimizer', () => ['...'])
     .hooks.on('build/optimization/moduleIds', () =>
       app.store.get('build.optimization.moduleIds'),
     )
@@ -171,7 +165,9 @@ export function config(app: Framework): void {
       app.store.get('build.optimization.removeEmptyChunks'),
     )
     .hooks.on('build/optimization/splitChunks', () =>
-      app.store.get('build.optimization.splitChunks'),
+      app.store.is('splitChunks', true)
+        ? app.store.get('build.optimization.splitChunks')
+        : false,
     )
 
     /**
@@ -238,7 +234,7 @@ export function config(app: Framework): void {
     /**
      * Watch
      */
-    .hooks.on('build/watch', () => app.isDevelopment)
+    .hooks.on('build/watch', () => app.store.get('build.watch'))
     .hooks.on('build/watchOptions', () =>
       app.store.get('build.watchOptions'),
     )

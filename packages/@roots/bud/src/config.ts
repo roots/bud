@@ -22,7 +22,7 @@ export const config: Configuration = {
    * {@inheritDoc @roots/bud-framework#Configuration.clean}
    * @public
    */
-  clean: true,
+  clean: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.debug}
@@ -67,10 +67,11 @@ export const config: Configuration = {
   manifest: true,
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.minimize}
+   * Split chunks?
+   *
    * @public
    */
-  minimize: true,
+  splitChunks: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.fileFormat}
@@ -123,7 +124,7 @@ export const config: Configuration = {
     bail: true,
     devtool: false,
     infrastructureLogging: {
-      level: 'verbose',
+      console: false,
     },
     node: false,
     output: {
@@ -146,25 +147,31 @@ export const config: Configuration = {
               chunks: {name: string}[],
               cacheGroupKey: string,
             ) {
-              const allChunksNames = chunks
+              const names = chunks
                 .map(item => item.name)
-                .join('__')
-              return `${cacheGroupKey}-${allChunksNames}`
+                .join('.')
+
+              return `${cacheGroupKey}__${names}`
             },
           },
-          /* bud: {
+          bud: {
             chunks: 'all',
             test: /([\\/]@roots|webpack|style-loader|tslib|ansi|html-entities|css-loader)/,
             reuseExistingChunk: true,
+            minSize: 1,
             priority: -10,
             name(
               _module: string,
-              _chunks: {name: string}[],
+              chunks: {name: string}[],
               cacheGroupKey: string,
             ) {
-              return `${cacheGroupKey}`
+              const names = chunks
+                .map(item => item.name)
+                .join('.')
+
+              return `${cacheGroupKey}__${names}`
             },
-          }, */
+          },
         },
       },
     },
@@ -186,27 +193,18 @@ export const config: Configuration = {
         '.xml',
       ],
     },
-    stats: true,
+    stats: {
+      logging: false,
+    },
   },
 
   extension: {
-    cleanWebpackPlugin: {
+    'clean-webpack-plugin': {
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: true,
       cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
     },
-    cssMinimizerWebpackPlugin: {
-      minimizerOptions: {
-        preset: [
-          'default',
-          {
-            discardComments: {
-              removeAll: true,
-            },
-          },
-        ],
-      },
-    },
+    'copy-webpack-plugin': {patterns: []},
     'html-webpack-plugin': {
       alwaysWriteToDisk: true,
       inject: true,
@@ -223,7 +221,7 @@ export const config: Configuration = {
     'interpolate-html-plugin': {
       replace: {},
     },
-    miniCssExtractPlugin: {},
+    'mini-css-extract-plugin': {},
     'webpack-config-dump-plugin': {
       showFunctionNames: true,
       keepCircularReferences: true,

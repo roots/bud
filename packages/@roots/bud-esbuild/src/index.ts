@@ -163,12 +163,14 @@ const esbuild: Extension.Module = {
   boot: ({extensions, hooks}) => {
     features.forEach(feature => extensions.add(feature))
 
-    hooks.on('build/optimization/minimizer', minimizer => [
-      ...(minimizer ?? []),
-      new ESBuildMinifyPlugin(
-        hooks.filter('extension/@roots/bud-esbuild/options'),
-      ),
-    ])
+    hooks.on('build/optimization/minimizer', minimizer => {
+      minimizer.push(
+        new ESBuildMinifyPlugin(
+          hooks.filter('extension/@roots/bud-esbuild/options'),
+        ),
+      )
+      return minimizer
+    })
   },
 
   /**

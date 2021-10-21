@@ -5,16 +5,9 @@ import {Service} from '.'
 /**
  * Logger Service interface
  *
- * @public @core @container
+ * @public
  */
-interface Logger extends Service {
-  /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   *
-   * @public
-   */
-  name: 'logger'
-
+export interface Logger extends Service {
   /**
    * Logger instance
    *
@@ -22,5 +15,3 @@ interface Logger extends Service {
    */
   instance: Signale
 }
-
-export {Logger}

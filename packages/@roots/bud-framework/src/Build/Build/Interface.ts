@@ -76,4 +76,11 @@ export default interface Build extends Service {
    * @public
    */
   config: Webpack.Configuration
+
+  /**
+   * Make the configuration object
+   *
+   * @public
+   */
+  make(): Webpack.Configuration
 }

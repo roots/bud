@@ -13,7 +13,6 @@ declare module '@roots/bud-framework' {
     'clean-webpack-plugin': Extension.CompilerPlugin
     'webpack-config-dump-plugin': Extension.CompilerPlugin
     'copy-webpack-plugin': Extension.CompilerPlugin
-    'css-minimizer-webpack-plugin': Extension.CompilerPlugin
     'webpack-define-plugin': Extension.CompilerPlugin
     'webpack-hot-module-replacement-plugin': Extension.CompilerPlugin
     'ignore-emit-webpack-plugin': Extension.CompilerPlugin

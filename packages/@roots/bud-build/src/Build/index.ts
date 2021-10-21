@@ -24,7 +24,7 @@ export class Build
   /**
    * @internal
    */
-  public _config: Webpack.Configuration
+  public config: Webpack.Configuration
 
   /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.name}
@@ -54,15 +54,20 @@ export class Build
    */
   public items: Items
 
-  /**
-   * Finalized build configuration
-   *
-   * @public @readonly
-   */
-  public get config(): Webpack.Configuration {
-    this._config = this.app.hooks.filter('build')
+  public make(): Webpack.Configuration {
+    this.app.log('build.config called')
 
-    return this._config
+    const config = this.app.hooks.filter('build')
+
+    this.config = Object.entries(config).reduce((a, [k, v]) => {
+      if (v === undefined) {
+        return a
+      }
+
+      return {...a, [k]: v}
+    }, {})
+
+    return this.config
   }
 
   /**

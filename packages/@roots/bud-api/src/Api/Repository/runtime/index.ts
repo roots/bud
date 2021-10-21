@@ -15,7 +15,7 @@ import {isUndefined} from '../../../services/lodash'
  *
  * @public @config
  */
-interface runtime {
+export interface runtime {
   (
     this: Framework,
     runtime?: Configuration['optimization']['runtimeChunk'],
@@ -43,12 +43,12 @@ const DEFAULT_OPTIONS: Configuration['optimization']['runtimeChunk'] =
  *
  * @public @config
  */
-const runtime: runtime = function (runtime?) {
+export const runtime: runtime = function (runtime?) {
   this.hooks.on('build/optimization/runtimeChunk', () =>
-    !isUndefined(runtime) ? runtime : DEFAULT_OPTIONS,
+    !isUndefined(runtime) || runtime !== true
+      ? runtime
+      : DEFAULT_OPTIONS,
   )
 
   return this
 }
-
-export {runtime as default}

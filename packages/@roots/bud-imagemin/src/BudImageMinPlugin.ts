@@ -22,8 +22,8 @@ const BudImageMinPlugin: BudImageMinPlugin = {
     return new ImageMinimizerPlugin(options.all())
   },
 
-  when: ({isProduction}, options) =>
-    isProduction &&
+  when: ({hooks}, options) =>
+    hooks.filter('build/optimization/minimize') &&
     options.isArray('minimizerOptions.plugins') &&
     options.get('minimizerOptions.plugins').length > 0,
 }

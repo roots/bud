@@ -41,7 +41,6 @@ function handleChildNestingError(this: Framework) {
  */
 export function make(name: string, tap?: Tapable): Framework {
   handleChildNestingError.bind(this)()
-
   this.info(`Making child compiler: ${name}`)
 
   /**

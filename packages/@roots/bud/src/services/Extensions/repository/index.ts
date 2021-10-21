@@ -1,6 +1,5 @@
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
-import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
 import * as IgnoreEmitWebpackPlugin from './ignore-emit-webpack-plugin'
 import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
@@ -14,7 +13,6 @@ export const repository = {
   ['clean-webpack-plugin']: CleanWebpackPlugin,
   ['webpack-config-dump-plugin']: WebpackConfigDumpPlugin,
   ['copy-webpack-plugin']: CopyWebpackPlugin,
-  ['css-minimizer-webpack-plugin']: CssMinimizerWebpackPlugin,
   ['webpack-define-plugin']: DefineWebpackPlugin,
   ['webpack-hot-module-replacement-plugin']:
     HotModuleReplacementPlugin,

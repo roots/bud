@@ -10,10 +10,13 @@ const BudCopyWebpackPlugin: Extension.CompilerPlugin<
 > = {
   name: 'copy-webpack-plugin',
 
-  options: {patterns: []},
+  options: ({store}) =>
+    store.get('extension.copy-webpack-plugin'),
 
   make: options =>
-    new (require('copy-webpack-plugin'))(options.all()),
+    new (require('copy-webpack-plugin'))({
+      ...options.all(),
+    }),
 
   when(_app, options) {
     return (

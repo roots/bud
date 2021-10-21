@@ -517,9 +517,10 @@ export abstract class Framework {
    */
   @bind
   public log(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .log(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .log(message, ...optionalArgs)
   }
 
   /**
@@ -530,9 +531,10 @@ export abstract class Framework {
    */
   @bind
   public info(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .info(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .info(message, ...optionalArgs)
   }
 
   /**
@@ -543,9 +545,10 @@ export abstract class Framework {
    */
   @bind
   public success(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .success(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .success(message, ...optionalArgs)
   }
 
   /**
@@ -556,9 +559,10 @@ export abstract class Framework {
    */
   @bind
   public warn(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .warn(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .warn(message, ...optionalArgs)
   }
 
   /**
@@ -569,9 +573,10 @@ export abstract class Framework {
    */
   @bind
   public debug(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .debug(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .debug(message, ...optionalArgs)
   }
 
   /**
@@ -585,11 +590,13 @@ export abstract class Framework {
    */
   @bind
   public error(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .error(message, ...optionalArgs)
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(this.name)
+        .error(message, ...optionalArgs)
 
-    this.dashboard.renderError(message, optionalArgs.pop())
+    this.dashboard?.instance &&
+      this.dashboard.renderError(message, optionalArgs.pop())
   }
 }
 

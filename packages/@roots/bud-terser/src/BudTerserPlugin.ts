@@ -56,16 +56,15 @@ export const options: BudTerserPlugin['options'] = (
 export const boot: BudTerserPlugin['boot'] = ({
   extensions,
   hooks,
-  isProduction,
+  store,
 }) => {
-  hooks.on('build/optimization/minimize', isProduction)
   hooks.on('build/optimization/minimizer', minimizer => {
-    return [
+    minimizer.push(
       new TerserPlugin(
         extensions.get('terser-webpack-plugin').options,
       ),
-      ...(minimizer ?? []),
-    ]
+    )
+    return minimizer
   })
 }
 

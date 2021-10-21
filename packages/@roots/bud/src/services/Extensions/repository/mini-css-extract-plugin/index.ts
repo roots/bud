@@ -11,7 +11,8 @@ export const options: Plugin['options'] = ({store}) => ({
   chunkFilename: store.isTrue('hash')
     ? `${store.get('hashFormat')}.[id].css`
     : `${store.get('fileFormat')}.[id].css`,
-  ...(store.get('extension.miniCssExtractPlugin') ?? {}),
+
+  ...(store.get('extension.mini-css-extract-plugin') ?? {}),
 })
 
 export const make: Plugin['make'] = options =>

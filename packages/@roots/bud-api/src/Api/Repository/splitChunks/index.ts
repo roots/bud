@@ -11,7 +11,7 @@ import type {Configuration} from 'webpack'
  *
  * @public @config
  */
-interface splitChunks {
+export interface splitChunks {
   (
     this: Framework,
     options?: Configuration['optimization']['splitChunks'],
@@ -30,13 +30,21 @@ interface splitChunks {
  *
  * @public @config
  */
-const splitChunks: splitChunks = function (options) {
-  this.hooks.on(
-    'build/optimization/splitChunks',
-    options ?? this.store.get('build.optimization.splitChunks'),
-  )
+export const splitChunks: splitChunks = function (
+  options?: Configuration['optimization']['splitChunks'],
+) {
+  const enabled = options !== false
+
+  if (enabled === true) {
+    this.store.set('splitChunks', true)
+  }
+
+  if (
+    typeof options !== 'boolean' &&
+    typeof options !== 'undefined'
+  ) {
+    this.store.set('build.optimization.splitChunks', options)
+  }
 
   return this
 }
-
-export {splitChunks as default}

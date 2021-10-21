@@ -79,9 +79,9 @@ export class Compiler extends Service implements Contract {
 
     if (this.isCompiled)
       this.instance.close(() => {
-        instance = this.setup(this.before())
+        instance = this.invokeCompiler(this.before())
       })
-    else instance = this.setup(this.before())
+    else instance = this.invokeCompiler(this.before())
 
     return instance
   }
@@ -91,20 +91,19 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setup(config: any) {
+  public invokeCompiler(config: any) {
     this.instance = this.app.isDevelopment
-      ? webpack(config, this.callback)
-      : webpack(config)
+      ? webpack(config)
+      : webpack(config, this.callback)
 
-    if (this.app.isProduction) {
-      this.instance.hooks.done.tap(this.app.name, stats => {
-        stats && Object.assign(this.stats, stats.toJson())
+    this.instance.hooks.done.tap(this.app.name, stats => {
+      stats && Object.assign(this.stats, stats.toJson())
 
+      this.app.isProduction &&
         this.instance.close(err => {
           err && this.stats.errors.push(err)
         })
-      })
-    }
+    })
 
     new ProgressPlugin((...args): void => {
       this.progress = args
@@ -132,13 +131,15 @@ export class Compiler extends Service implements Contract {
     !this.app.parent &&
       this.app.error(`Trying to compile a child directly.`)
 
+    const instanceConfig = this.app.build.make()
+
     /**
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (this.app.build.config.entry && !this.app.hasChildren) {
+    if (instanceConfig.entry && !this.app.hasChildren) {
       this.app.info('using parent compiler')
-      config.push(this.app.build.config)
+      config.push(instanceConfig)
     }
 
     /**
@@ -150,10 +151,12 @@ export class Compiler extends Service implements Contract {
         name &&
           (() => {
             this.app.info(`using ${name} compiler`)
-            this.app.debug(build.config)
-            config.push(build.config)
+            const childConfig = build.make()
+            config.push(childConfig)
           })()
       })
+
+    this.app.log('final config', config)
 
     return config
   }

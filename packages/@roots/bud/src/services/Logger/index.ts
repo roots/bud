@@ -1,4 +1,4 @@
-import {INSTANCE_CONFIG, LOGGER_TYPES} from './logger.constants'
+import {INSTANCE_CONFIG} from './logger.constants'
 import {Service, Signale} from './logger.dependencies'
 import {Contract, Framework} from './logger.interface'
 
@@ -28,7 +28,6 @@ export class Logger extends Service implements Contract {
       interactive: false,
       secrets: [process.cwd()],
       scope: app.name,
-      types: LOGGER_TYPES,
       stream: [process.stdout],
     })
 
