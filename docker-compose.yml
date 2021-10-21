@@ -11,9 +11,8 @@ services:
     ports:
       - 4873:4873
 
-services:
   bud:
-    build: ./dev/build/node
+    build: ./dev/build
     container_name: bud
     depends_on:
       - verdaccio
