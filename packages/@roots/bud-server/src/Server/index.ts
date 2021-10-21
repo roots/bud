@@ -108,7 +108,7 @@ export default class
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.isTrue(`middleware.${key}`)) {
-        this.app.log(`Enabling ${key}`)
+        this.app.log(`Enabling middleware: ${key}`)
 
         const configuredMiddleware = generate.bind(this.app)({
           config: this.config,

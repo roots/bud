@@ -27,7 +27,6 @@ export default function dev({
 }) {
   const options = makeOptions(config)
   this.log('dev middleware options', options)
-
   return WebpackDevMiddleware(compiler, options)
 }
 
