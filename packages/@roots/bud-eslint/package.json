@@ -83,7 +83,13 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "eslint": ">=7"
+    "eslint": ">=7",
+    "prettier": "*"
   },
-  "stableVersion": "4.6.0"
+  "stableVersion": "4.6.0",
+  "peerDependenciesMeta": {
+    "prettier": {
+      "optional": true
+    }
+  }
 }
