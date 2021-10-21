@@ -19,13 +19,7 @@ Object {
   },
   "port": 3000,
   "proxy": Object {
-    "target": Object {
-      "host": "localhost",
-      "port": 8080,
-      "secure": false,
-      "ssl": false,
-      "ws": true,
-    },
+    "target": "localhost:3000",
   },
   "watch": Object {
     "files": Array [
