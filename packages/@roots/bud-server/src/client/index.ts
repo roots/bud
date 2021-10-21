@@ -23,8 +23,6 @@ const overlayEl = overlay.init()
   useCustomOverlay(overlayEl)
 
   subscribeAll(payload => {
-    console.log(payload)
-
     server.browser.indicator && indicatorEl.update(payload)
 
     server.browser.overlay &&
