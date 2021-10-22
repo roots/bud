@@ -137,7 +137,10 @@ export class Compiler extends Service implements Contract {
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (instanceConfig.entry && !this.app.hasChildren) {
+    if (
+      (this.app.hasChildren && instanceConfig.entry) ||
+      !this.app.hasChildren
+    ) {
       this.app.info('using parent compiler')
       config.push(instanceConfig)
     }
