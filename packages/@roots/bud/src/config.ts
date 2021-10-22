@@ -1,4 +1,5 @@
 import type {Configuration} from '@roots/bud-framework'
+import {cpus} from 'os'
 
 /**
  * {@inheritDoc @roots/bud-framework#Configuration}
@@ -137,6 +138,7 @@ export const config: Configuration = {
       removeEmptyChunks: true,
       splitChunks: false,
     },
+    parallelism: cpus().length - 1,
     resolve: {
       extensions: [
         '.wasm',
