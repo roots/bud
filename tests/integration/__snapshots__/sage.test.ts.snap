@@ -63,27 +63,6 @@ Object {
   "runtimeChunk": Object {
     "name": "<<Function 'name'>>",
   },
-  "splitChunks": Object {
-    "cacheGroups": Object {
-      "bud": Object {
-        "chunks": "all",
-        "name": "<<Function 'name'>>",
-        "priority": -10,
-        "reuseExistingChunk": true,
-        "test": /\\(\\[\\\\\\\\/\\]@roots\\|webpack\\|style-loader\\|tslib\\|ansi\\|html-entities\\|css-loader\\)/,
-      },
-      "vendor": Object {
-        "chunks": "all",
-        "name": "<<Function 'name'>>",
-        "priority": -20,
-        "reuseExistingChunk": true,
-        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
-      },
-    },
-    "defaultSizeTypes": Array [
-      "...",
-    ],
-  },
 }
 `;
 
@@ -130,9 +109,11 @@ Object {
     "postcss": Any<String>,
     "postcss-import": Any<String>,
     "postcss-preset-env": Any<String>,
+    "prettier": "*",
     "react": Any<String>,
     "react-dom": Any<String>,
     "tailwindcss": Any<String>,
+    "webpack": "*",
   },
   "name": "example-sage",
   "private": true,
@@ -168,9 +149,11 @@ Object {
     "postcss": Any<String>,
     "postcss-import": Any<String>,
     "postcss-preset-env": Any<String>,
+    "prettier": "*",
     "react": Any<String>,
     "react-dom": Any<String>,
     "tailwindcss": Any<String>,
+    "webpack": "*",
   },
   "name": "example-sage",
   "private": true,

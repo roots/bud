@@ -29,13 +29,7 @@ describe('@roots/bud-server', function () {
         proxy: false,
       },
       proxy: {
-        target: {
-          host: 'localhost',
-          port: 8080,
-          secure: false,
-          ssl: false,
-          ws: true,
-        },
+        target: 'localhost:3000',
       },
       watch: {
         files: [],

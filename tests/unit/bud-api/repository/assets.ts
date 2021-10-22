@@ -16,7 +16,7 @@ describe('webpack.resolve.alias', function () {
   })
 
   it('is configurable by bud.alias', () => {
-    bud.alias({'@foo': 'bar'})
+    bud.alias({'@foo': 'bar'}).build.make()
 
     expect(bud.build.config.resolve.alias).toEqual({
       '@foo': bud.path('project', 'bar'),

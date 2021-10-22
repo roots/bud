@@ -17,12 +17,13 @@ describe('bud.minimize', function () {
 
   it('enables minimizing when called', () => {
     bud.minimize()
+    bud.build.make()
     expect(bud.build.config.optimization.minimize).toEqual(true)
   })
 
   it('disables minimizing when false is passed as param', () => {
     bud.minimize(false)
-
+    bud.build.make()
     expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })

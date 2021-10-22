@@ -16,18 +16,8 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "copy-webpack-plugin",
-      "options": Object {
-        "patterns": Array [],
-      },
-      "when": [Function],
-    },
-  },
-  "css-minimizer-webpack-plugin": Controller {
-    "_app": [Function],
-    "_module": Object {
-      "boot": [Function],
-      "name": "css-minimizer-webpack-plugin",
       "options": [Function],
+      "when": [Function],
     },
   },
   "ignore-emit-webpack-plugin": Controller {

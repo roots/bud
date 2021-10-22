@@ -16,13 +16,13 @@ describe('bud.runtime', function () {
   })
 
   it('enables runtime when called', () => {
-    bud.runtime()
+    bud.runtime({name: 'test'})
 
-    const {name} = bud.hooks.filter(
+    const runtimeChunk = bud.hooks.filter(
       'build/optimization/runtimeChunk',
     )
 
-    expect(name({name: 'app'})).toEqual(`runtime/app`)
+    expect(runtimeChunk.name).toEqual(`test`)
   })
 
   it('can be passed a custom runtimeChunk config', () => {

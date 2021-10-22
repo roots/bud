@@ -49,7 +49,7 @@ describe('@roots/bud-imagemin', () => {
     bud.project.set('devDependencies', {
       'imagemin-gifsicle': '^9.0.0',
     })
-    bud.use(imagemin)
+    bud.minimize().use(imagemin)
 
     const registered = bud.extensions.get(PLUGIN_HANDLE)
 

@@ -15,10 +15,12 @@ describe('bud.use', function () {
 
   beforeEach(() => {
     bud.extensions.setStore({})
-    bud.use({
-      name: 'css-minimizer-webpack-plugin',
-      options: {},
-    })
+    bud
+      .use({
+        name: 'css-minimizer-webpack-plugin',
+        options: {},
+      })
+      .build.make()
   })
 
   it('is a function', () => {
@@ -26,37 +28,41 @@ describe('bud.use', function () {
   })
 
   it('registers an imported extension', () => {
-    bud.use(Babel)
+    bud.use(Babel).build.make()
 
     expect(bud.extensions.has('@roots/bud-babel'))
   })
 
   it('registers an inline extension', () => {
-    bud.use({
-      name: 'inline-extension',
-    })
+    bud
+      .use({
+        name: 'inline-extension',
+      })
+      .build.make()
 
     expect(bud.extensions.has('inline-extension'))
   })
 
   it('registers an anonymous extension', () => {
-    bud.use({options: {}})
+    bud.use({options: {}}).build.make()
 
     expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
   it('registers a webpack plugin', () => {
-    bud.use(new HtmlWebpackPlugin())
+    bud.use(new HtmlWebpackPlugin()).build.make()
 
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
   it('registers an inline webpack plugin', () => {
-    bud.use({
-      apply() {
-        return null
-      },
-    })
+    bud
+      .use({
+        apply() {
+          return null
+        },
+      })
+      .build.make()
 
     expect(bud.extensions.getEntries().length).toEqual(2)
   })
@@ -81,7 +87,7 @@ describe('bud.use', function () {
         // noop
       },
     }
-    bud.use(plugin)
+    bud.use(plugin).build.make()
     expect(bud.build.config.plugins).toContain(plugin)
   })
 })

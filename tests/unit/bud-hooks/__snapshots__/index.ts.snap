@@ -58,20 +58,21 @@ Object {
     [Function],
   ],
   "build/optimization/emitOnErrors": Array [
-    false,
+    [Function],
   ],
   "build/optimization/minimize": Array [
     [Function],
   ],
   "build/optimization/minimizer": Array [
     [Function],
-    [Function],
-    [Function],
   ],
   "build/optimization/moduleIds": Array [
     [Function],
   ],
   "build/optimization/removeEmptyChunks": Array [
+    [Function],
+  ],
+  "build/optimization/runtimeChunk": Array [
     [Function],
   ],
   "build/optimization/splitChunks": Array [
@@ -159,15 +160,6 @@ Object {
     [Function],
   ],
   "extension/copy-webpack-plugin/when": Array [
-    [Function],
-  ],
-  "extension/css-minimizer-webpack-plugin/make": Array [
-    [Function],
-  ],
-  "extension/css-minimizer-webpack-plugin/options": Array [
-    [Function],
-  ],
-  "extension/css-minimizer-webpack-plugin/when": Array [
     [Function],
   ],
   "extension/ignore-emit-webpack-plugin/make": Array [

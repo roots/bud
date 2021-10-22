@@ -5,6 +5,7 @@ describe('bud.publicPath', function () {
 
   beforeAll(() => {
     bud = factory()
+    bud.build.make()
   })
 
   afterAll(done => {
@@ -30,6 +31,8 @@ describe('bud.publicPath', function () {
     const newPath = '/foo'
 
     bud.setPublicPath(newPath)
+
+    bud.build.make()
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })

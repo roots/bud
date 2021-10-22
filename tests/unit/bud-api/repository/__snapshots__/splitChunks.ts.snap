@@ -3,8 +3,15 @@
 exports[`bud.splitChunks sets default options when called 1`] = `
 Object {
   "cacheGroups": Object {
+    "bud": Object {
+      "chunks": "all",
+      "name": [Function],
+      "priority": -10,
+      "reuseExistingChunk": true,
+      "test": /\\(\\[\\\\\\\\/\\]@roots\\|webpack\\|style-loader\\|tslib\\|ansi\\|html-entities\\|css-loader\\)/,
+    },
     "vendor": Object {
-      "chunks": "initial",
+      "chunks": "all",
       "name": [Function],
       "priority": -20,
       "reuseExistingChunk": true,

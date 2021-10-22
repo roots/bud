@@ -1,10 +1,11 @@
 import {factory, Framework} from '@roots/bud'
 import * as BudBabelExtension from '@roots/bud-babel'
+import {Config} from '@roots/bud-babel/src/babel.config'
 
 const RequiredBabel = require('@roots/bud-babel')
 
 describe('@roots/bud-babel', function () {
-  let Config: BudBabelExtension.Config
+  let Config: Config
 
   let bud: Framework
 

@@ -1,5 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import alias from '@roots/bud-api/src/Api/Repository/alias'
+import {alias} from '@roots/bud-api/src/Repository/alias'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
@@ -18,6 +18,8 @@ describe('webpack.resolve.alias', function () {
 
   it('is configurable by bud.alias', () => {
     alias.bind(bud)({'@foo': 'bar'})
+
+    bud.build.make()
 
     expect(bud.build.config.resolve.alias).toEqual({
       '@foo': bud.path('project', 'bar'),

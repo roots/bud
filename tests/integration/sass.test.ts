@@ -19,26 +19,22 @@ describe('examples/sass', () => {
 
   it('package.json is unchanged', async () => {
     expect(project.packageJson).toMatchSnapshot({
-      "browserslist": {
-        "development": [
-          "last 1 chrome version",
-          "last 1 firefox version",
-          "last 1 safari version",
+      browserslist: {
+        development: [
+          'last 1 chrome version',
+          'last 1 firefox version',
+          'last 1 safari version',
         ],
-        "production": [
-          ">0.5%",
-          "not dead",
-          "not op_mini all",
-        ],
+        production: ['>0.5%', 'not dead', 'not op_mini all'],
       },
-      "devDependencies": {
-        "@roots/bud": "workspace:*",
-        "@roots/bud-sass": "workspace:*",
-        "@types/sass": expect.any(String),
-        "sass": expect.any(String),
+      devDependencies: {
+        '@roots/bud': 'workspace:*',
+        '@roots/bud-sass': 'workspace:*',
+        '@types/sass': expect.any(String),
+        sass: expect.any(String),
       },
-      "name": "example-sass",
-      "private": true,
+      name: 'example-sass',
+      private: true,
     })
   })
 

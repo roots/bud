@@ -116,6 +116,7 @@ describe('@roots/sage', () => {
   })
 
   it('has expected aliases', () => {
+    bud.build.make()
     const {alias: aliases} = bud.build.config.resolve
 
     expect(aliases['@fonts']).toEqual(

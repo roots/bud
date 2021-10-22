@@ -34,7 +34,10 @@ Object {
 }
 `;
 
-exports[`examples/sass scss is transpiled 1`] = `"body,html{margin:0;padding:0}body{background:blue}body div{border:#fff}"`;
+exports[`examples/sass scss is transpiled 1`] = `
+"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
+"
+`;
 
 exports[`examples/sass src/app.scss is unchanged 1`] = `
 "$blue: blue;

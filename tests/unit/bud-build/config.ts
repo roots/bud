@@ -7,6 +7,7 @@ describe('bud.build.config', function () {
 
   beforeAll(() => {
     bud = factory()
+    bud.build.make()
   })
 
   afterAll(done => {
@@ -52,8 +53,7 @@ describe('bud.build.config', function () {
 
   it('has expected infrastructureLogging default', () => {
     expect(bud.build.config.infrastructureLogging).toEqual({
-      appendOnly: true,
-      level: 'none',
+      console: false,
     })
   })
 
@@ -70,7 +70,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.minimize default', () => {
-    expect(bud.build.config.optimization.minimize).toEqual(true)
+    expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 
   it('has expected optimization.emitOnErrors default', () => {
@@ -116,12 +116,13 @@ describe('bud.build.config', function () {
     expect(bud.build.config.resolve.modules).toEqual([
       'src',
       'node_modules',
-      require.resolve('@roots/bud'),
     ])
   })
 
   it('has expected stats default', () => {
-    expect(bud.build.config.stats).toEqual({})
+    expect(bud.build.config.stats).toEqual({
+      logging: false,
+    })
   })
 
   it('has expected target default', () => {
@@ -129,15 +130,15 @@ describe('bud.build.config', function () {
   })
 
   it('has expected watch default', () => {
-    expect(bud.build.config.watch).toEqual(false)
+    expect(bud.build.config.watch).toBeUndefined()
   })
 
   it('has expected watchOptions default', () => {
-    expect(bud.build.config.watchOptions).toEqual(undefined)
+    expect(bud.build.config.watchOptions).toBeUndefined()
   })
 
   it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins.length).toBe(5)
+    expect(bud.build.config.plugins.length).toMatchSnapshot()
   })
 
   it('has valid plugins', () => {

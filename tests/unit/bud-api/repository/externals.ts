@@ -16,7 +16,7 @@ describe('bud.externals', function () {
   })
 
   it('modifies build.config.externals', () => {
-    bud.externals({react: 'window.React'})
+    bud.externals({react: 'window.React'}).build.make()
 
     expect(bud.build.config.externals).toEqual({
       react: 'window.React',

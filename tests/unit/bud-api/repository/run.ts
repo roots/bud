@@ -1,7 +1,5 @@
 import {factory} from '@roots/bud'
-import run from '@roots/bud-api/src/Api/Repository/run'
-
-process.env.BUD_KEEP_ALIVE = 'true'
+import {run} from '@roots/bud-api/src/Repository/run'
 
 describe('bud.run', function () {
   let bud

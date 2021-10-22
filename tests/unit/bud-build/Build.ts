@@ -45,6 +45,8 @@ describe('bud.build', function () {
 
     bud.hooks.on('build/entry', () => entryValue)
 
+    bud.build.make()
+
     expect(initialBuildConfig).not.toEqual(bud.build.config)
     expect(bud.build.config.entry).toEqual(entryValue)
   })

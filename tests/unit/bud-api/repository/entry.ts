@@ -15,6 +15,8 @@ describe('bud.entry', function () {
         },
       },
     })
+
+    bud.build.make()
   })
 
   afterAll(done => {
@@ -26,7 +28,7 @@ describe('bud.entry', function () {
   })
 
   it('sets an entrypoint using (string, string) fn signature', () => {
-    bud.entry('app', 'scripts/app.js')
+    bud.entry('app', 'scripts/app.js').build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -36,7 +38,8 @@ describe('bud.entry', function () {
   })
 
   it('sets an entrypoint using (string, string) fn signature with globbing', () => {
-    bud.entry('app', '**/app.{css,js}')
+    bud.entry('app', '**/app.{css,js}').build.make()
+
     expect(bud.build.config.entry).toEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
@@ -45,7 +48,9 @@ describe('bud.entry', function () {
   })
 
   it('sets an entrypoint using (string, string[]) fn signature', () => {
-    bud.entry('app', ['scripts/app.js', 'styles/app.css'])
+    bud
+      .entry('app', ['scripts/app.js', 'styles/app.css'])
+      .build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -55,7 +60,7 @@ describe('bud.entry', function () {
   })
 
   it('sets an entrypoint using (string, string[]) fn signature with globbing', () => {
-    bud.entry('app', ['**/app.js', '**/editor.css'])
+    bud.entry('app', ['**/app.js', '**/editor.css']).build.make()
     expect(bud.build.config.entry).toEqual({
       app: {
         import: ['scripts/app.js', 'styles/editor.css'],
@@ -64,9 +69,11 @@ describe('bud.entry', function () {
   })
 
   it('sets a single entrypoint using k, v fn signature', () => {
-    bud.entry({
-      app: ['scripts/app.js', 'styles/app.css'],
-    })
+    bud
+      .entry({
+        app: ['scripts/app.js', 'styles/app.css'],
+      })
+      .build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -79,6 +86,8 @@ describe('bud.entry', function () {
     bud.entry({
       app: ['**/app.js', 'styles/*.css'],
     })
+
+    bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -96,6 +105,8 @@ describe('bud.entry', function () {
       app: ['scripts/app.js', 'styles/app.css'],
       editor: ['scripts/editor.js', 'styles/editor.css'],
     })
+
+    bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
