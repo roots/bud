@@ -11,3 +11,4 @@ module.exports = app =>
     .use(imagemin)
     .template({template: app.path('src', 'index.html')})
     .entry({app: 'app.js'})
+    .minimize()

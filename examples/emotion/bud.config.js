@@ -16,7 +16,7 @@ function config(app) {
     })
     .entry('app', 'app.js')
     .when(app.isProduction, () => {
-      app.runtime('single').splitChunks()
+      app.runtime('single').splitChunks().minimize()
     })
 }
 

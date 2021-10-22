@@ -6,5 +6,7 @@ module.exports = bud => {
       require('@roots/bud-mdx'),
     ])
     .entry('app', 'app.js')
+    .minimize()
+    .splitChunks()
     .template()
 }

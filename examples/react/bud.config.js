@@ -12,5 +12,5 @@ module.exports = app =>
       app: ['app.{js,css}'],
     })
     .when(app.isProduction, () => {
-      app.runtime('single').splitChunks()
+      app.runtime('single').splitChunks().minimize()
     })

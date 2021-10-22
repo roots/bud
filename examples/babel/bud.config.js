@@ -17,4 +17,6 @@ module.exports = app => {
     })
     .template()
     .entry('app', '*.{js,css}')
+    .splitChunks()
+    .minimize()
 }
