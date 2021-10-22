@@ -137,16 +137,19 @@ export class Runner {
         `${this.app.name}.config.ts`,
         `${this.app.name}.config.js`,
       ],
+
       fluentBuildersByEnv: [
         `${this.app.name}.${this.app.mode}.config.ts`,
         `${this.app.name}.${this.app.mode}.config.js`,
       ],
+
       staticBuilders: [
         `package.json`,
         `${this.app.name}.config.json`,
         `${this.app.name}.config.yaml`,
         `${this.app.name}.config.yml`,
       ],
+
       staticBuildersByEnv: [
         `${this.app.name}.${this.app.mode}.config.json`,
         `${this.app.name}.${this.app.mode}.config.yaml`,

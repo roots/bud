@@ -1,14 +1,14 @@
 import {Service} from '../Service'
-import * as Cache from './'
+import {CacheInterface} from './cache.interface'
 
 /**
- * Cache service abstract class
+ * Cache service Interface
  *
- * @core @public @container
+ * @public
  */
-export abstract class Abstract
+export abstract class CacheAbstract
   extends Service
-  implements Cache.Interface
+  implements CacheInterface
 {
   /**
    * Dependencies which should be checked to determine cache validity.

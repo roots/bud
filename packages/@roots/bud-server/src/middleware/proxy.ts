@@ -1,7 +1,6 @@
-import {
-  createProxyMiddleware,
-  zlib,
-} from './middleware.dependencies'
+import zlib from 'zlib'
+
+import {createProxyMiddleware} from './middleware.dependencies'
 import type {
   Container,
   Framework,

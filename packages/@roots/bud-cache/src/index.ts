@@ -7,9 +7,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
-import Cache from './Cache'
-
-export {Cache}
+export {Cache} from './Cache'

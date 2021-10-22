@@ -8,6 +8,3 @@ import WebpackHotMiddleware from 'webpack-hot-middleware'
 export {WebpackHotMiddleware}
 
 export {createProxyMiddleware} from 'http-proxy-middleware'
-
-import zlib from 'zlib'
-export {zlib}

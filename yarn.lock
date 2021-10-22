@@ -3575,7 +3575,6 @@ __metadata:
     webpack: 5.58.2
     webpack-dev-middleware: 5.2.1
     webpack-hot-middleware: 2.25.1
-    zlib: 1.0.5
   peerDependencies:
     "@roots/bud-framework": "*"
   languageName: unknown
@@ -24562,13 +24561,6 @@ yoga-layout-prebuilt@*:
   bin:
     z-schema: ./bin/z-schema
   checksum: 837f0a4794eacd589c0aca313f19caf8bed075ad77cd2af29e051d08e71131b375af5ff8d7f1c2cc3a7a916c4e4cc8ab6c30bf5c9882b9f7728515b2d2542c23
-  languageName: node
-  linkType: hard
-
-"zlib@npm:1.0.5":
-  version: 1.0.5
-  resolution: "zlib@npm:1.0.5"
-  checksum: 5ef5693a1deb70f65845424f5ecce1ee956e50320aa438126759fd28ec8a25ae876acb3b179b4f5050427e7e0dfcd9e45bdae23f055b2d732bc2fe1dbe4da169
   languageName: node
   linkType: hard
 

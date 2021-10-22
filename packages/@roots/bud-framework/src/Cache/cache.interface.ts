@@ -1,9 +1,11 @@
+import type {Service} from '../Service'
+
 /**
  * Cache service Interface
  *
  * @public
  */
-export interface Interface {
+export interface CacheInterface extends Service {
   /**
    * Dependencies which should be checked to determine cache validity.
    *

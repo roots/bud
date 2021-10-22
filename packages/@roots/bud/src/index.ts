@@ -8,7 +8,8 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * The {@link @roots/bud# | @roots/bud} provides {@link Bud}, a concrete implementation of the {@link @roots/bud-framework#Framework} abstract class.
+ * The {@link @roots/bud# | @roots/bud} package provides the `Bud` class, a concrete implementation
+ * of the {@link @roots/bud-framework#Framework} interface.
  *
  * {@link factory} is exported to simplify instantiation for direct use with Node.
  *
@@ -46,13 +47,15 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import './interface'
 
 export {Bud} from './Bud'
+
 export {config} from './config'
+
 export {factory} from './factory'
 
 export {Framework} from '@roots/bud-framework'

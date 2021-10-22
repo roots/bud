@@ -1,33 +1,35 @@
-import {Cache, Framework} from '@roots/bud-framework'
-import {bind, fs, globby} from '@roots/bud-support'
-import {createHash} from 'crypto'
+import {Framework} from '@roots/bud-framework'
 
-const {readFileSync} = fs
+import {
+  bind,
+  Bud,
+  createHash,
+  globby,
+  readFileSync,
+} from './cache.dependencies'
 
 /**
- * Service class handling cache concerns
+ * Cache service class
  *
  * @remarks
  * Interfaces with:
+ *
  *  - {@link @roots/bud-framework#Project} to determine project dependencies for snapshotting/validation.
+ *
  *  - {@link @roots/bud-framework#Build} via {@link @roots/bud-framework#Hooks} to update config.
  *
  * Facades:
+ *
  *  - {@link @roots/bud-framework#Api} can toggle cache settings with {@link Bud.Persist}
  *
  * @public
  */
-export default class
-  extends Cache.Abstract
-  implements Cache.Interface
+export class Cache
+  extends Bud.Cache.Abstract
+  implements Bud.Cache.Interface
 {
   /**
-   * {@inheritDoc}
-   */
-  public name = 'cache'
-
-  /**
-   * {@inheritDoc}
+   * Service register event
    *
    * @decorator `@bind`
    */
@@ -79,30 +81,35 @@ export default class
         globby.globbySync([
           this.app.path(
             'project',
-            `${this.app.name}.{js,ts,yml,json}`,
-          ),
-
-          this.app.path(
-            'project',
             `${this.app.name}.config.{js,ts,yml,json}`,
           ),
 
           this.app.path(
             'project',
-            `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
+            `${this.app.name}.${this.app.mode}.config.{js,ts.yml,json}`,
           ),
 
-          ...(this.app.project?.resolveFrom?.map(
-            dep => `${dep}/lib/cjs/index.js`,
-          ) ??
-            this.app.parent?.project?.resolveFrom?.map(
-              dep => `${dep}/lib/cjs/index.js`,
-            ) ??
-            []),
-          this.app.path('storage', 'cache/*'),
+          ...this.getFrameworkEntrypoints(),
+
+          this.app.path('storage', 'cache', '**', '*'),
         ]),
       ),
     ] as string[]
+  }
+
+  /**
+   * Cache location: framework entrypoints
+   *
+   * @see https://webpack.js.org/configuration/resolve
+   */
+  public getFrameworkEntrypoints(): string[] {
+    const project = this.app.project ?? this.app.parent.project
+
+    return (
+      project.resolveFrom?.map(
+        dep => `${dep}/lib/cjs/index.js`,
+      ) ?? []
+    )
   }
 
   /**
