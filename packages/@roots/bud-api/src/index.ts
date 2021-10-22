@@ -2,19 +2,20 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-api# | @roots/bud-api package} is a repository of high-level functions
- * intended to make common configuration goals easier to accomplish.
+ * Repository of high-level facades
+ * which simplify common configuration tasks
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
-import {Api, Repository} from './Api'
+import {Repository} from './Repository'
 
 declare module '@roots/bud-framework' {
   interface Framework extends Repository {}
 }
 
-export {Api, Repository}
+export {Api} from './Api'
+export {Repository} from './Repository'
