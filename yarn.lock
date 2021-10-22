@@ -2596,25 +2596,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/node-pre-gyp@npm:^1.0.4":
-  version: 1.0.5
-  resolution: "@mapbox/node-pre-gyp@npm:1.0.5"
-  dependencies:
-    detect-libc: ^1.0.3
-    https-proxy-agent: ^5.0.0
-    make-dir: ^3.1.0
-    node-fetch: ^2.6.1
-    nopt: ^5.0.0
-    npmlog: ^4.1.2
-    rimraf: ^3.0.2
-    semver: ^7.3.4
-    tar: ^6.1.0
-  bin:
-    node-pre-gyp: bin/node-pre-gyp
-  checksum: c1f182a707f5782e47b77a76e9d6a073fb043999cf9ad965bc86732e88db27ad00926d1602918edb7105f05cde67871b84a178ee9844eb742319ade419636675
-  languageName: node
-  linkType: hard
-
 "@mdx-js/loader@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/loader@npm:1.6.22"
@@ -3185,7 +3166,6 @@ __metadata:
     clsx: 1.1.1
     file-loader: 6.2.0
     jest: 27.3.1
-    nodejieba: ^2.5.2
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
@@ -9499,15 +9479,6 @@ __metadata:
   version: 6.1.0
   resolution: "detect-indent@npm:6.1.0"
   checksum: ab953a73c72dbd4e8fc68e4ed4bfd92c97eb6c43734af3900add963fd3a9316f3bc0578b018b24198d4c31a358571eff5f0656e81a1f3b9ad5c547d58b2d093d
-  languageName: node
-  linkType: hard
-
-"detect-libc@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "detect-libc@npm:1.0.3"
-  bin:
-    detect-libc: ./bin/detect-libc.js
-  checksum: daaaed925ffa7889bd91d56e9624e6c8033911bb60f3a50a74a87500680652969dbaab9526d1e200a4c94acf80fc862a22131841145a0a8482d60a99c24f4a3e
   languageName: node
   linkType: hard
 
@@ -16650,7 +16621,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"node-addon-api@npm:^3.0.0, node-addon-api@npm:^3.0.2":
+"node-addon-api@npm:^3.0.0":
   version: 3.2.1
   resolution: "node-addon-api@npm:3.2.1"
   dependencies:
@@ -16762,16 +16733,6 @@ fsevents@^1.2.7:
     has: ^1.0.3
     is: ^3.2.1
   checksum: 1fe3a1ca7fc35392f169c8a46d889d07deb201bba3a20d17df23efab509698c9639737b0c235c9be772a34035e749bae5d477f74c9e26a1b67c78bd7d6dce8e4
-  languageName: node
-  linkType: hard
-
-"nodejieba@npm:^2.5.2":
-  version: 2.5.2
-  resolution: "nodejieba@npm:2.5.2"
-  dependencies:
-    "@mapbox/node-pre-gyp": ^1.0.4
-    node-addon-api: ^3.0.2
-  checksum: 51c98e50eeb235a3748cbefea2000349c831a2f874a5c5a581b11f121b21bacf7ebaecb9a5f7012945044c685b565b3c37a2efcaebc2ffa825d26768a4d635da
   languageName: node
   linkType: hard
 
