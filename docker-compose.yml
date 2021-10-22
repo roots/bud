@@ -19,6 +19,7 @@ services:
     networks:
       - node-network
     working_dir: /bud
+    user: node
     command: bash -c /bud/dev/build/init.sh
     volumes:
       - ./:/bud
