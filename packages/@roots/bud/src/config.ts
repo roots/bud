@@ -135,45 +135,7 @@ export const config: Configuration = {
       minimizer: ['...'],
       moduleIds: 'deterministic',
       removeEmptyChunks: true,
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            chunks: 'initial',
-            test: /[\\/]node_modules[\\/]/,
-            reuseExistingChunk: true,
-            priority: -20,
-            name(
-              _module: string,
-              chunks: {name: string}[],
-              cacheGroupKey: string,
-            ) {
-              const names = chunks
-                .map(item => item.name)
-                .join('.')
-
-              return `${cacheGroupKey}__${names}`
-            },
-          },
-          bud: {
-            chunks: 'all',
-            test: /([\\/]@roots|webpack|style-loader|tslib|ansi|html-entities|css-loader)/,
-            reuseExistingChunk: true,
-            minSize: 1,
-            priority: -10,
-            name(
-              _module: string,
-              chunks: {name: string}[],
-              cacheGroupKey: string,
-            ) {
-              const names = chunks
-                .map(item => item.name)
-                .join('.')
-
-              return `${cacheGroupKey}__${names}`
-            },
-          },
-        },
-      },
+      splitChunks: false,
     },
     resolve: {
       extensions: [
