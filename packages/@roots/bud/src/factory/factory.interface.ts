@@ -9,5 +9,4 @@ export {FrameworkOptions}
  *
  * @core @public
  */
-export interface Options
-  extends SetOptional<FrameworkOptions, 'name'> {}
+export interface Options extends Partial<FrameworkOptions> {}
