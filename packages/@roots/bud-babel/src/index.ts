@@ -13,9 +13,12 @@
 
 import {Item, Loader} from '@roots/bud-build'
 
-import {BudBabelExtension} from './BudBabelExtension'
-import {Config} from './Config'
-import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './constants'
+import {Config} from './babel.config'
+import {
+  DEFAULT_PLUGINS,
+  DEFAULT_PRESETS,
+} from './babel.constants'
+import {BudBabelExtension} from './babel.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -36,7 +39,5 @@ declare module '@roots/bud-framework' {
 }
 
 export {Config}
-
 export {DEFAULT_PLUGINS, DEFAULT_PRESETS}
-
 export const {name, register, boot} = BudBabelExtension

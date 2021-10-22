@@ -1,8 +1,12 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
-import {existsSync} from 'fs-extra'
 
-import {Config, DEFAULT_PLUGINS, DEFAULT_PRESETS} from '.'
+import {Config} from './babel.config'
+import {
+  DEFAULT_PLUGINS,
+  DEFAULT_PRESETS,
+} from './babel.constants'
+import {existsSync} from './babel.dependencies'
 
 /**
  * Adds Babel transpiler support to Framework projects

@@ -1,7 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
 
-const {isString} = lodash
+import {bind, isString} from './babel.dependencies'
+import {
+  NormalizedPlugin,
+  Registrable,
+  Registry,
+} from './babel.interface'
 
 /**
  * Configure Babel transpiler plugin & presets
@@ -86,33 +90,30 @@ export interface Config {
   setPresetOptions(preset: string, options: any): Config
 }
 
-export type Options = {
-  plugins?: Plugin[]
-  config?: boolean | string
-}
-
-export type NormalizedPlugin = [string, {[key: string]: any}]
-
-export type Plugin = string | NormalizedPlugin | CallableFunction
-
-export type Registrable = string | NormalizedPlugin
-
-export interface Registry {
-  [key: string]: [string, any]
-}
-
 export class Config {
   /**
    * @public
    */
   public name = '@roots/bud-babel'
 
+  /**
+   * @internal
+   */
   public _app: () => Framework
 
+  /**
+   * @public
+   */
   public plugins: Registry = {}
 
+  /**
+   * @public
+   */
   public presets: Registry = {}
 
+  /**
+   * @public
+   */
   public get app() {
     return this._app()
   }

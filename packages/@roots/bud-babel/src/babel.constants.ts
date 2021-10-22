@@ -1,4 +1,4 @@
-import type {Registrable} from './Config'
+import type {Registrable} from './babel.interface'
 
 /**
  * Default babel plugins
