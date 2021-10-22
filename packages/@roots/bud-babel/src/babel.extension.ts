@@ -15,6 +15,13 @@ import {existsSync} from './babel.dependencies'
  */
 export const BudBabelExtension: Extension.Module = {
   /**
+   * Extension name
+   *
+   * @public
+   */
+  name: '@roots/bud-babel',
+
+  /**
    * Extension register event
    *
    * @public
