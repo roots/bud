@@ -77,7 +77,7 @@
     "rimraf": "3.0.2",
     "signale": "1.4.0",
     "ts-jest": "27.0.7",
-    "ts-node": "10.3.0",
+    "ts-node": "10.4.0",
     "tsconfig-paths": "3.11.0",
     "type-fest": "2.5.1",
     "typedoc": "0.22.6",
