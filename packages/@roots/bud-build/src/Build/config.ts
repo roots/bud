@@ -164,6 +164,7 @@ export function config(app: Framework): void {
     .hooks.on('build/optimization/removeEmptyChunks', () =>
       app.store.get('build.optimization.removeEmptyChunks'),
     )
+    .hooks.on('build/optimization/runtimeChunk', () => undefined)
     .hooks.on('build/optimization/splitChunks', () =>
       app.store.is('splitChunks', true)
         ? app.store.get('build.optimization.splitChunks')
