@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter
- * for `@roots/entrypoints-webpack-plugin`.
+ * Provides eslint integration for Bud.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -18,55 +17,17 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import {Extension, Framework} from '@roots/bud-framework'
-import EslintPlugin, {Options} from 'eslint-webpack-plugin'
-
-import {EslintConfig} from './api'
-
-interface BudEslintWebpackPlugin
-  extends Extension.CompilerPlugin<EslintPlugin, Options> {
-  api: (app: Framework) => {
-    eslint: EslintConfig
-  }
-}
+import {EslintConfig} from './eslint.api'
+import {BudEslintWebpackPlugin} from './eslint.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * Configure eslint options
-     */
     eslint: EslintConfig
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Plugins}
-   * @public @override
-   */
   interface Plugins {
     'eslint-webpack-plugin': BudEslintWebpackPlugin
   }
-}
-
-const BudEslintWebpackPlugin: BudEslintWebpackPlugin = {
-  name: 'eslint-webpack-plugin',
-
-  options: ({path, store}) => ({
-    extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-    cache: true,
-    cacheLocation: path('storage', 'cache', 'eslint.json'),
-    context: path('src'),
-    cwd: path('project'),
-    exclude: store.get('patterns.module'),
-    failOnError: true,
-  }),
-
-  make: options => new EslintPlugin(options.all()),
-
-  api: app => ({
-    eslint: new EslintConfig(app),
-  }),
-
-  when: app => app.project.hasPeerDependency('eslint'),
 }
 
 export const {name, options, make} = BudEslintWebpackPlugin

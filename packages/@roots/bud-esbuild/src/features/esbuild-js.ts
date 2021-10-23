@@ -1,12 +1,10 @@
-import {Item, Loader} from '@roots/bud-build'
+import {Item} from '@roots/bud-build'
 import type {Extension} from '@roots/bud-framework'
 
 export const jsFeature: Extension.CompilerPlugin = {
   name: '@roots/bud-esbuild/js',
+
   boot: app => {
-    app.build.loaders.esbuild = new Loader(app =>
-      require.resolve('esbuild-loader'),
-    )
     app.build.items['esbuild-js'] = new Item({
       loader: app => app.build.loaders.esbuild,
       options: () => ({

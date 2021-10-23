@@ -6,19 +6,8 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node",
-      "jest"
+      "node"
     ]
   },
-  "include": ["src"],
-  "exclude": [
-    "lib",
-    "types",
-    "node_modules"
-  ],
-  "references": [
-    {
-      "path": "./../entrypoints-webpack-plugin/tsconfig.json"
-    }
-  ]
+  "include": ["src"]
 }

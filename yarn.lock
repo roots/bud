@@ -3122,15 +3122,9 @@ __metadata:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.13
-    "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
     "@types/node": 16.11.4
-    autobind-decorator: ^2.4.0
     babel-loader: ^8.2.3
     babel-plugin-add-module-exports: ^1.0.4
-    fs-extra: ^10.0.0
-    jest: 27.3.1
-    lodash: ^4.17.21
     tslib: ^2.3.1
     webpack: 5.59.1
   languageName: unknown
@@ -3338,9 +3332,7 @@ __metadata:
   resolution: "@roots/bud-eslint@workspace:packages/@roots/bud-eslint"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/jest": 27.0.2
     "@types/node": 16.11.4
-    autobind-decorator: ^2.4.0
     babel-eslint: ^10.1.0
     eslint: 7.32.0
     eslint-config-prettier: ^8.3.0
@@ -3350,12 +3342,11 @@ __metadata:
     eslint-plugin-react: ^7.26.1
     eslint-plugin-react-hooks: ^4.2.0
     eslint-webpack-plugin: ^3.0.1
-    jest: 27.3.1
     tslib: ^2.3.1
     webpack: 5.59.1
   peerDependencies:
-    eslint: ">=7"
-    prettier: "*"
+    eslint: 7.32.0
+    prettier: 2.4.1
   peerDependenciesMeta:
     prettier:
       optional: true
@@ -3450,8 +3441,6 @@ __metadata:
     jest: 27.3.1
     tslib: ^2.3.1
     webpack: 5.59.1
-  peerDependencies:
-    "@roots/bud": "*"
   languageName: unknown
   linkType: soft
 
@@ -3646,8 +3635,6 @@ __metadata:
     webpack: 5.59.1
     webpack-dev-middleware: 5.2.1
     webpack-hot-middleware: 2.25.1
-  peerDependencies:
-    "@roots/bud-framework": "*"
   languageName: unknown
   linkType: soft
 
@@ -3655,6 +3642,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-solid@workspace:packages/@roots/bud-solid"
   dependencies:
+    "@babel/core": 7.15.8
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
@@ -3665,12 +3653,12 @@ __metadata:
     babel-preset-solid: ^1.1.7
     eslint: 7.32.0
     jest: 27.3.1
+    solid-js: 1.1.7
     tslib: ^2.3.1
     type-fest: 2.5.1
     webpack: 5.59.1
   peerDependencies:
-    "@babel-core": "*"
-    solid-js: ">=1"
+    solid-js: ^1.1.7
   languageName: unknown
   linkType: soft
 
@@ -3859,8 +3847,6 @@ __metadata:
     autobind-decorator: ^2.4.0
     jest: 27.3.1
     tslib: ^2.3.1
-  peerDependencies:
-    webpack: "*"
   languageName: unknown
   linkType: soft
 
@@ -4027,14 +4013,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/merged-manifest-webpack-plugin@workspace:packages/@roots/merged-manifest-webpack-plugin"
   dependencies:
-    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin"
     "@types/fs-extra": 9.0.13
-    "@types/jest": 27.0.2
     "@types/node": 16.11.4
     "@types/prettier": 2.4.1
-    autobind-decorator: ^2.4.0
     fs-extra: ^10.0.0
-    jest: 27.3.1
+    helpful-decorators: ^2.1.0
     prettier: ^2.4.1
     tslib: ^2.3.1
     webpack: 5.59.1
@@ -12463,7 +12446,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"helpful-decorators@npm:2.1.0":
+"helpful-decorators@npm:2.1.0, helpful-decorators@npm:^2.1.0":
   version: 2.1.0
   resolution: "helpful-decorators@npm:2.1.0"
   dependencies:
@@ -20957,6 +20940,13 @@ resolve@~1.19.0:
     ip: ^1.1.5
     smart-buffer: ^4.1.0
   checksum: 5c532e4646f0c5de22527cecbe0a2fb33b997f4c99f56dc4a7da13de74f83faa7b3e9dc480fa84e584a4564aa684ea4a94026e3cfbf263e834021063adf444f2
+  languageName: node
+  linkType: hard
+
+"solid-js@npm:1.1.7":
+  version: 1.1.7
+  resolution: "solid-js@npm:1.1.7"
+  checksum: 796ebdccf0ebde6c5db619e85d4e1f83ca03b3a35cdb1debd476f1aeae5e9fe9f741433d3169bd2f3372286212b143604f154a4c1426f927fe880540e50f3e9f
   languageName: node
   linkType: hard
 

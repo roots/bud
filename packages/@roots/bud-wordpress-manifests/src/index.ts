@@ -15,14 +15,9 @@
  */
 
 import {Extension} from '@roots/bud-framework'
-import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
+import {MergedManifestWebpackPlugin} from '@roots/merged-manifest-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
     '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
@@ -30,11 +25,11 @@ declare module '@roots/bud-framework' {
 }
 
 const BudMergedManifestAdapter: Extension.CompilerPlugin<
-  MergedManifestPlugin,
+  MergedManifestWebpackPlugin,
   null
 > = {
   name: '@roots/bud-wordpress-manifests',
-  make: () => new MergedManifestPlugin(),
+  make: () => new MergedManifestWebpackPlugin(),
 }
 
 export const {name, make} = BudMergedManifestAdapter

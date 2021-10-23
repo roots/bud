@@ -77,8 +77,5 @@
     "webpack-dev-middleware": "5.2.1",
     "webpack-hot-middleware": "2.25.1"
   },
-  "peerDependencies": {
-    "@roots/bud-framework": "*"
-  },
   "stableVersion": "4.6.0"
 }

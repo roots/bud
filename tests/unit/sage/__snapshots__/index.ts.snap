@@ -30,7 +30,7 @@ Object {
   "prettier": Object {
     "name": "prettier",
     "type": "devDependencies",
-    "ver": "*",
+    "ver": "2.4.1",
   },
   "react": Object {
     "name": "react",
@@ -46,11 +46,6 @@ Object {
     "name": "tailwindcss",
     "type": "devDependencies",
     "ver": Any<String>,
-  },
-  "webpack": Object {
-    "name": "webpack",
-    "type": "devDependencies",
-    "ver": "*",
   },
 }
 `;

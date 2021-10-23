@@ -151,12 +151,10 @@ export class Compiler extends Service implements Contract {
      */
     this.app.hasChildren &&
       this.app.children.getValues().map(({build, name}) => {
-        name &&
-          (() => {
-            this.app.info(`using ${name} compiler`)
-            const childConfig = build.make()
-            config.push(childConfig)
-          })()
+        if (!name) return
+        this.app.info(`using ${name} compiler`)
+        const childConfig = build.make()
+        config.push(childConfig)
       })
 
     this.app.log('final config', config)

@@ -143,8 +143,12 @@ export default class implements Peers.Interface {
          * engages resolvePeers
          */
         this.isExtension(name) &&
+          !this.project.has(`extensions.${name}`) &&
           resolvePeers(this.getPeerManifest(name))
       })
+
+    this.project.app.store.isTrue('discover') &&
+      this.registerDiscovered()
 
     return this
   }
