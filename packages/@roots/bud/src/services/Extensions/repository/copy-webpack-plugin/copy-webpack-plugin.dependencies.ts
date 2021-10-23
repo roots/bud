@@ -1,2 +1,2 @@
-import {CopyWebpackPlugin} from '@roots/bud-support'
-export const {Plugin} = CopyWebpackPlugin
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+export {CopyWebpackPlugin as Plugin}

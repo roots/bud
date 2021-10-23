@@ -8,18 +8,11 @@
     "types": [
       "node",
       "jest",
-      "express",
-      "webpack",
-      "@roots/bud-api"
+      "express"
     ]
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
   ],
   "references": [
     {

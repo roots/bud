@@ -1,13 +1,6 @@
-import {Plugin} from './copy-webpack-plugin.dependencies'
-import type {
-  Extension,
-  Options,
-} from './copy-webpack-plugin.interface'
+import type {Extension} from './copy-webpack-plugin.interface'
 
-const BudCopyWebpackPlugin: Extension.CompilerPlugin<
-  typeof Plugin,
-  Options
-> = {
+const BudCopyWebpackPlugin: Extension = {
   name: 'copy-webpack-plugin',
 
   options: ({store}) =>

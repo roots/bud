@@ -31,12 +31,10 @@
 
 export {chalk} from './external/chalk'
 export {chokidar} from './external/chokidar'
-export * as CleanWebpackPlugin from './external/clean-webpack-plugin'
 export {
   cosmiconfig,
   cosmiconfigTsLoader,
 } from './external/cosmiconfig'
-export * as CopyWebpackPlugin from './external/copy-webpack-plugin'
 export {dotenv} from './external/dotenv'
 export {dotenvExpand} from './external/dotenv-expand'
 export {Express} from './external/express'

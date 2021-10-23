@@ -1,4 +1,8 @@
-import {CopyWebpackPlugin} from '@roots/bud-support'
-export type Options = CopyWebpackPlugin.Options
+import * as Framework from '@roots/bud-framework'
+import type CopyWebpackPlugin from 'copy-webpack-plugin'
+import type {CopyPluginOptions} from 'copy-webpack-plugin'
 
-export type {Extension} from '@roots/bud-framework'
+export type Extension = Framework.Extension.CompilerPlugin<
+  CopyWebpackPlugin,
+  CopyPluginOptions
+>

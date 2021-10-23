@@ -1,2 +1,2 @@
-import {CleanWebpackPlugin} from '@roots/bud-support'
-export const {Plugin} = CleanWebpackPlugin
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
+export {CleanWebpackPlugin as Plugin}

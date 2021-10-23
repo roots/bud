@@ -1,6 +1,5 @@
-import {resolve} from 'path'
-
 import {Server, Service} from '@roots/bud-framework'
+import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'

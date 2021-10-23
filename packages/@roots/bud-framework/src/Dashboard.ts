@@ -1,4 +1,6 @@
-import {Service} from './Service'
+import type Ink from 'ink'
+
+import type {Service} from './Service'
 
 /**
  * Dashboard service container
@@ -11,7 +13,7 @@ export interface Dashboard extends Service {
    *
    * @public
    */
-  instance: unknown
+  instance: Ink.Instance
 
   /**
    * Mount and render the {@link Dashboard}

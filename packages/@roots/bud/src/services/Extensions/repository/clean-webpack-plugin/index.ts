@@ -1,8 +1,8 @@
 import {Plugin} from './clean-webpack-plugin.dependencies'
 import type {
-  CleanWebpackPlugin,
   Container,
   Extension,
+  Options,
 } from './clean-webpack-plugin.interface'
 
 const BudCleanWebpackPlugin: Extension = {
@@ -11,7 +11,7 @@ const BudCleanWebpackPlugin: Extension = {
   options: ({store}) =>
     store.get('extension.clean-webpack-plugin'),
 
-  make: (options: Container<CleanWebpackPlugin.Options>) =>
+  make: (options: Container<Options>) =>
     new Plugin(options.all()),
 
   when: ({store}) => store.isTrue('clean'),

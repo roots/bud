@@ -4,27 +4,14 @@ import {
   isUndefined,
   WebpackDevMiddleware,
 } from './dev.dependencies'
-import type {
-  Compiler,
-  Container,
-  Framework,
-  MultiCompiler,
-  Server,
-} from './dev.interface'
+import type {Container, DevProps, Server} from './dev.interface'
 
 /**
  * Dev middleware factory
  *
  * @public
  */
-export default function dev({
-  compiler,
-  config,
-}: {
-  this: Framework
-  compiler: Compiler | MultiCompiler
-  config: Container<Server.Configuration>
-}) {
+export default function dev({compiler, config}: DevProps) {
   const options = makeOptions(config)
   this.log('dev middleware options', options)
   return WebpackDevMiddleware(compiler, options)
@@ -42,7 +29,7 @@ const makeOptions = (
   index: 'index.html',
   ...Object.fromEntries(
     config
-      .mutate('headers', headers => ({
+      .mutate('headers', (headers: Record<string, string>) => ({
         ...headers,
         ['X-Server']: '@roots/bud',
       }))

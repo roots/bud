@@ -5,11 +5,7 @@ import {Npm} from './npm'
 import {Yarn} from './yarn'
 
 export class Dependencies {
-  public path: string
-
-  public constructor(path: string = process.cwd()) {
-    this.path = path
-  }
+  public constructor(public path: string = process.cwd()) {}
 
   public get client(): IDependencyManager {
     if (this.isYarn()) {

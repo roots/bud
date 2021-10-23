@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.4",
+    "ink": "^3.2.0",
     "signale": "1.4.0",
     "webpack": "5.59.1"
   },

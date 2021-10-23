@@ -15,17 +15,12 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import {SpawnSyncReturns} from 'child_process'
-
 export {Npm} from './npm'
 export {Yarn} from './yarn'
 export {Dependencies} from './dependencies'
 
 export interface IDependencyManager {
   path: string
-  install(
-    dev: boolean,
-    dependency: string,
-  ): SpawnSyncReturns<string>
-  uninstall(dependency: string): SpawnSyncReturns<string>
+  install(dev: boolean, dependency: string): string
+  uninstall(dependency: string): string
 }
