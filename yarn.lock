@@ -4566,7 +4566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7.2.14, @types/eslint@npm:^7.28.2":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7.2.14":
   version: 7.28.2
   resolution: "@types/eslint@npm:7.28.2"
   dependencies:
@@ -10493,7 +10493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.32.0, eslint@npm:^7.32.0":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -10827,7 +10827,7 @@ __metadata:
     postcss: 8.3.11
     postcss-import: 14.0.2
     postcss-preset-env: 6.7.0
-    tailwindcss: ^2.2.17
+    tailwindcss: 2.2.17
   languageName: unknown
   linkType: soft
 
@@ -10846,9 +10846,9 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-typescript": "workspace:*"
-    "@types/eslint": ^7.28.2
-    eslint: ^7.32.0
-    typescript: ^4.4.4
+    "@types/eslint": 7.28.2
+    eslint: 7.32.0
+    typescript: 4.4.4
   languageName: unknown
   linkType: soft
 
@@ -21870,7 +21870,7 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:2.2.17, tailwindcss@npm:^2.2.17":
+"tailwindcss@npm:2.2.17":
   version: 2.2.17
   resolution: "tailwindcss@npm:2.2.17"
   dependencies:
