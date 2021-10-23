@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "5.0.0-next.5",
+  "version": "5.0.0-next.6",
   "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
