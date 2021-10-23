@@ -25,10 +25,6 @@ declare module '@roots/bud-framework' {
     postcss: PostCssConfig
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-postcss': BudPostCssExtension
   }

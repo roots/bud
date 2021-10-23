@@ -63,8 +63,8 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.175",
-    "@types/node": "15.14.1",
+    "@types/lodash": "4.14.176",
+    "@types/node": "16.11.4",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "type-fest": "2.5.1"

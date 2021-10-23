@@ -1,5 +1,3 @@
-import {Instance} from 'ink'
-
 import {Service} from './Service'
 
 /**
@@ -9,11 +7,11 @@ import {Service} from './Service'
  */
 export interface Dashboard extends Service {
   /**
-   * Ink instance
+   * CLI framework
    *
    * @public
    */
-  instance: Instance
+  instance: unknown
 
   /**
    * Mount and render the {@link Dashboard}

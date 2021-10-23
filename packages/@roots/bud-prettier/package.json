@@ -69,13 +69,16 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.2",
-    "@types/node": "16.3.0",
+    "@types/node": "16.11.4",
     "jest": "27.3.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
-    "prettier": "^2.3.2",
-    "tslib": "^2.3.1"
+    "autobind-decorator": "2.4.0",
+    "prettier": "2.4.1",
+    "tslib": "2.3.1"
+  },
+  "peerDependencies": {
+    "prettier": "2.4.1"
   },
   "stableVersion": "4.6.0"
 }

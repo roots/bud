@@ -1,16 +1,16 @@
-import {middlewareConfigKeys} from './middleware.constants'
+import {middlewareConfigKeys} from './dev.constants'
 import {
   isNull,
   isUndefined,
   WebpackDevMiddleware,
-} from './middleware.dependencies'
+} from './dev.dependencies'
 import type {
   Compiler,
   Container,
   Framework,
   MultiCompiler,
   Server,
-} from './middleware.interface'
+} from './dev.interface'
 
 /**
  * Dev middleware factory

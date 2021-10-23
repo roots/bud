@@ -61,9 +61,9 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.1",
+    "@types/eslint": "7.28.2",
     "@types/jest": "27.0.2",
-    "@types/node": "15.14.1",
+    "@types/node": "16.11.4",
     "eslint": "7.32.0"
   },
   "dependencies": {

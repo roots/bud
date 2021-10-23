@@ -74,16 +74,16 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/jest": "27.0.2",
-    "@types/node": "15.14.1",
+    "@types/node": "16.11.4",
     "jest": "27.3.1",
-    "postcss": "8.3.9"
+    "postcss": "8.3.11"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@fullhuman/postcss-purgecss": "^4.0.3"
+    "@fullhuman/postcss-purgecss": "4.0.3"
   },
   "stableVersion": "4.6.0"
 }

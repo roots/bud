@@ -1,12 +1,12 @@
 import zlib from 'zlib'
 
-import {createProxyMiddleware} from './middleware.dependencies'
+import {createProxyMiddleware} from './proxy.dependencies'
 import type {
   Container,
   Framework,
   ProxyMiddleware,
   Server,
-} from './middleware.interface'
+} from './proxy.interface'
 
 /**
  * Proxy middleware factory

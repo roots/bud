@@ -65,14 +65,14 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "7.28.1",
+    "@types/eslint": "7.28.2",
     "@types/jest": "27.0.2",
-    "@types/node": "15.14.1",
+    "@types/node": "16.11.4",
     "@vue/compiler-sfc": "3.2.20",
     "css-loader": "6.4.0",
     "jest": "27.3.1",
     "vue": "3.2.20",
-    "webpack": "5.58.2"
+    "webpack": "5.59.1"
   },
   "bud": {
     "type": "extensions"
@@ -85,7 +85,7 @@
     "de-indent": "^1.0.2",
     "he": "^1.2.0",
     "tslib": "^2.3.1",
-    "vue-loader": "^16.4.1"
+    "vue-loader": "^16.8.1"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^3.1.5",

@@ -70,30 +70,32 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
+    "@babel/core": "7.15.8",
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/babel__core": "^7",
+    "@types/babel__core": "7.1.16",
     "@types/jest": "27.0.2",
-    "@types/node": "15.14.1",
-    "@types/react": "17.0.30",
-    "@types/react-dom": "17.0.9",
+    "@types/node": "16.11.4",
+    "@types/react": "17.0.31",
+    "@types/react-dom": "17.0.10",
     "jest": "27.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "type-fest": "2.5.1",
-    "webpack": "5.58.2"
+    "webpack": "5.59.1"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.14.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.2",
-    "autobind-decorator": "^2.4.0",
-    "react-hot-loader": "^4.13.0",
-    "react-refresh": "^0.10.0",
-    "tslib": "^2.3.1"
+    "@babel/preset-react": "7.14.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.1",
+    "autobind-decorator": "2.4.0",
+    "react-hot-loader": "4.13.0",
+    "react-refresh": "0.10.0",
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "stableVersion": "4.6.0"
 }

@@ -1,4 +1,4 @@
-import * as Webpack from 'webpack'
+import Webpack from 'webpack'
 
 import {Index, Locations, Server} from '.'
 

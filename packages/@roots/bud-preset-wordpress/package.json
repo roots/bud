@@ -70,14 +70,14 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.2",
-    "@types/node": "15.14.1",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
+    "@types/node": "16.11.4",
+    "@types/react": "17.0.31",
+    "@types/react-dom": "17.0.10",
     "@wordpress/browserslist-config": "4.1.0",
     "jest": "27.3.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "webpack": "^5.59.1"
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "webpack": "5.59.1"
   },
   "dependencies": {
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
@@ -86,10 +86,10 @@
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@wordpress/browserslist-config": "^4.1.0"
+    "@wordpress/browserslist-config": "4.1.0"
   },
   "stableVersion": "4.6.0"
 }

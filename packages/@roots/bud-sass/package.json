@@ -70,16 +70,16 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "15.14.1",
-    "webpack": "5.58.2"
+    "@types/node": "16.11.4",
+    "webpack": "5.59.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "postcss": "^8.3.10",
-    "postcss-scss": "^4.0.0",
-    "resolve-cwd": "^3.0.0",
-    "sass-loader": "^12.1.0",
-    "tslib": "^2.3.1"
+    "postcss": "8.3.11",
+    "postcss-scss": "4.0.1",
+    "resolve-cwd": "3.0.0",
+    "sass-loader": "12.2.0",
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "sass": "1.43.2"

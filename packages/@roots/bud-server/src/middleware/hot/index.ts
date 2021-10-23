@@ -1,10 +1,10 @@
-import {WebpackHotMiddleware} from './middleware.dependencies'
+import {WebpackHotMiddleware} from './hot.dependencies'
 import type {
   Container,
   Framework,
   Server,
   Webpack,
-} from './middleware.interface'
+} from './hot.interface'
 
 /**
  * Hot middleware options

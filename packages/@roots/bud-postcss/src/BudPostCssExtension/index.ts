@@ -1,9 +1,10 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
-import {safeRequire} from '@roots/bud-support'
-import {pathExistsSync} from 'fs-extra'
+import {fs, safeRequire, safeResolve} from '@roots/bud-support'
 
 import {PostCssConfig} from '../PostCssConfig'
+
+const {pathExistsSync} = fs
 
 export interface BudPostCssExtension extends Extension.Module {
   name: Extension.Module['name'] & '@roots/bud-postcss'
@@ -46,19 +47,30 @@ export const BudPostCssExtension: BudPostCssExtension = {
       build.items.postcss,
     ])
 
-    !pathExistsSync(path('project', 'postcss.config.js')) &&
-      postcss.setPlugins({
-        'postcss-import': safeRequire('postcss-import'),
-        'postcss-nested': safeRequire('postcss-nested'),
-        'postcss-preset-env': [
-          safeRequire('postcss-preset-env'),
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
+    if (pathExistsSync(path('project', 'postcss.config.js')))
+      return
+
+    safeResolve('postcss-import') &&
+      postcss.setPlugin(
+        'postcss-import',
+        safeRequire('postcss-import'),
+      )
+
+    safeResolve('postcss-nested') &&
+      postcss.setPlugin(
+        'postcss-nested',
+        safeRequire('postcss-nested'),
+      )
+
+    safeResolve('postcss-preset-env') &&
+      postcss.setPlugin('postcss-preset-env', [
+        safeRequire('postcss-preset-env'),
+        {
+          stage: 1,
+          features: {
+            'focus-within-pseudo-class': false,
           },
-        ],
-      })
+        },
+      ])
   },
 }

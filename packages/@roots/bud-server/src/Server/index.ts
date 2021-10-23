@@ -1,5 +1,6 @@
-import {Server, Service} from '@roots/bud-framework'
 import {resolve} from 'path'
+
+import {Server, Service} from '@roots/bud-framework'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
@@ -7,9 +8,9 @@ import {bind, chokidar, globby} from './server.dependencies'
 import type {Container, Watcher} from './server.interface'
 
 /**
- * Server service container implementation
+ * Server service class
  *
- * @public @core @container
+ * @public
  */
 export default class
   extends Service<Server.Configuration>
