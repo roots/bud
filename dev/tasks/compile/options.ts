@@ -7,6 +7,8 @@ export const nccOptions = {
     'remark-loader',
     'resolve-url-loader',
     'style-loader',
+    'uglify-js',
+    'webpack',
     'url-loader',
     'xml-loader',
   ],
