@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-solid",
-  "version": "5.0.0-next.5",
+  "version": "5.0.0-next.6",
   "description": "solid-js support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
