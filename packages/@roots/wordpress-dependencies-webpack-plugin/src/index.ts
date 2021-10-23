@@ -6,7 +6,7 @@
  * WordPress' enqueue API. The assets which are extracted are made available in a manifest
  * file which can be read server-side.
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 export {WordPressDependenciesWebpackPlugin} from './WordPressDependenciesWebpackPlugin'

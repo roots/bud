@@ -14,7 +14,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 declare module '@roots/bud-framework' {

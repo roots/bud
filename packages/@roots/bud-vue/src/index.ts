@@ -7,7 +7,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
 
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import {Extension} from '@roots/bud-framework'

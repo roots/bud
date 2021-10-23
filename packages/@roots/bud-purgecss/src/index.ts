@@ -17,7 +17,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import {Extension} from '@roots/bud-framework'

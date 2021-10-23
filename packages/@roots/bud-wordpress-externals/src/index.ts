@@ -14,7 +14,7 @@
  * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension}
  * as a peer extension.
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import {PluginAdapter} from './PluginAdapter'

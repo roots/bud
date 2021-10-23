@@ -14,7 +14,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'

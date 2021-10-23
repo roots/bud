@@ -6,7 +6,7 @@
  *
  * @see https://roots.io/bud
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import type {Extension} from '@roots/bud-framework'

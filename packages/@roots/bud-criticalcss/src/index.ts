@@ -11,7 +11,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @extension @packageDocumentation @betaDocumentation
+ * @packageDocumentation @betaDocumentation
  */
 
 import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
