@@ -23,7 +23,7 @@ export const config: Configuration = {
    * {@inheritDoc @roots/bud-framework#Configuration.clean}
    * @public
    */
-  clean: false,
+  clean: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.debug}
