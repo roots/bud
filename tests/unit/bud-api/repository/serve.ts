@@ -1,6 +1,6 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.dev', function () {
+describe('bud.serve', function () {
   let bud: Framework
 
   beforeAll(() => {
@@ -14,12 +14,12 @@ describe('bud.dev', function () {
   })
 
   it('sets host', () => {
-    bud.dev({host: 'bar.com'})
+    bud.serve({host: 'bar.com'})
     expect(bud.server.config.get('host')).toEqual('bar.com')
   })
 
   it('sets proxy', () => {
-    bud.dev({
+    bud.serve({
       proxy: {
         target: {
           host: 'bar.com',
