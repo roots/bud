@@ -90,8 +90,6 @@ export class Cache
           ),
 
           ...this.getFrameworkEntrypoints(),
-
-          this.app.path('storage', 'cache', '**', '*'),
         ]),
       ),
     ] as string[]
