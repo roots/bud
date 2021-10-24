@@ -3,8 +3,6 @@ import {Service} from '@roots/bud-framework'
 import {
   bind,
   DependenciesManager,
-  isEqual,
-  readJsonSync,
 } from './dependencies.dependencies'
 
 /**
@@ -55,45 +53,6 @@ export class Dependencies extends Service<null> {
   }
 
   /**
-   * Read project `package.json` manifest
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public readProjectJson() {
-    return readJsonSync(this.app.path('project', 'package.json'))
-  }
-
-  /**
-   * Override installation target?
-   *
-   * @param dep - dependency in question
-   * @param proposed - proposed installation target
-   * @returns whether to install it differently than proposed
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public overrideInstallTarget(
-    dep: string,
-    proposed: string,
-  ): boolean {
-    const pkgJson = this.readProjectJson()
-    const checkAgainst =
-      proposed == 'dependencies'
-        ? 'devDependencies'
-        : 'dependencies'
-
-    if (Object.keys(pkgJson[checkAgainst] ?? {}).includes(dep)) {
-      return true
-    }
-
-    return false
-  }
-
-  /**
    * Installs all the things
    *
    * @internalRemarks
@@ -106,31 +65,31 @@ export class Dependencies extends Service<null> {
    */
   @bind
   public install(
-    deps: {
+    dependencies: {
       name: string
-      ver: string
-      source: string
-      type: 'devDependencies' | 'dependencies'
+      version: string
     }[],
   ): void {
-    /**
-     * Filter out ineligible packages
-     */
-    deps
-      .map(dep => {
-        this.installing.push([dep.name, dep.ver])
-        return dep
+    dependencies
+      .map(dependency => {
+        this.installing.push([
+          dependency.name,
+          dependency.version,
+        ])
+        return dependency
       })
-      .map((dep, i) => {
+      .map((dependency, i) => {
         this.manager.client.install(
-          isEqual(dep.type, 'devDependencies') &&
-            !this.overrideInstallTarget(dep.name, dep.type),
-          `${dep.name}@${dep.ver}`,
+          true,
+          `${dependency.name}@${dependency.version}`,
         )
 
-        this.installed.push([dep.name, dep.ver])
+        this.installed.push([
+          dependency.name,
+          dependency.version,
+        ])
 
-        return dep
+        return dependency
       })
   }
 }
