@@ -45,6 +45,13 @@ export interface Repository {
   name: string
 
   /**
+   * The project manifest path
+   *
+   * @public
+   */
+  manifestPath: string
+
+  /**
    * Peers of this peer
    *
    * @public

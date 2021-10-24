@@ -1,6 +1,5 @@
 import {
   Compiler as Contract,
-  Framework,
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
@@ -101,6 +100,7 @@ export class Compiler extends Service implements Contract {
 
       this.app.isProduction &&
         this.instance.close(err => {
+          this.app.hooks.filter('done', this.app)
           err && this.stats.errors.push(err)
         })
     })
@@ -192,11 +192,5 @@ export class Compiler extends Service implements Contract {
       // eslint-disable-next-line no-console
       this.app.store.is('ci', true) && console.error(err)
     }
-
-    const doneCallbacks = this.app.hooks.filter('done')
-
-    doneCallbacks?.map((cb: (bud: Framework) => any) =>
-      cb(this.app),
-    )
   }
 }

@@ -27,7 +27,6 @@ export default function proxy({
     ? config.get('host').concat(`:`, port)
     : config.get('host')
 
-  // Proxy host & port
   const target = config.get('proxy.target')
 
   // Headers
@@ -74,7 +73,6 @@ export default function proxy({
           ),
         )
       } else {
-        // Not gzip
         res.send(Buffer.from(transformBody(body.toString())))
       }
 
