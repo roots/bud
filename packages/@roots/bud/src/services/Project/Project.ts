@@ -29,6 +29,7 @@ export default class
    */
   public repository: Repository = {
     name: null,
+    manifestPath: null,
     peers: {},
     extensions: {},
     dependencies: {},
@@ -61,9 +62,10 @@ export default class
    */
   @bind
   public registered(): void {
-    this.setStore(
-      readJsonSync(this.app.path('project', 'package.json')),
-    )
+    const manifestPath = this.app.path('project', 'package.json')
+    this.setStore(readJsonSync(manifestPath))
+
+    this.set('manifestPath', manifestPath)
 
     this.peers = new Peers(this)
   }
