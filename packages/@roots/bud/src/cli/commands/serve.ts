@@ -1,11 +1,11 @@
 import {Runner} from '../Runner'
 import Build from './build'
 
-export default class Dev extends Build {
-  public static id = 'dev'
-  public static title = 'dev'
+export default class Serve extends Build {
+  public static id = 'serve'
+  public static title = 'serve'
   public static description = 'compile assets'
-  public static examples = [`$ bud dev --cache`]
+  public static examples = [`$ bud serve --cache`]
   public static args = [{name: 'mode', default: 'development'}]
   public static aliases = ['dev', 'start']
 

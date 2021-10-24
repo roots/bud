@@ -6,15 +6,12 @@ import {Runner} from '../Runner'
 
 export default class Build extends Command {
   public static id = 'build'
-  public static title = 'build'
-  public static description = 'compile assets'
-  public static examples = [
-    `$ bud build production`,
-    `$ bud build development`,
-    `$ bud build --cache`,
-  ]
 
-  public static args = [{name: 'mode', default: 'production'}]
+  public static title = 'build'
+
+  public static description = 'compile source assets'
+
+  public static examples = [`$ bud build`, `$ bud build --cache`]
 
   public static flags = {
     help: flags.help({char: 'h'}),
@@ -27,6 +24,11 @@ export default class Build extends Command {
 
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
+    }),
+
+    clean: flags.boolean({
+      allowNo: true,
+      description: 'clean distributables on compilation',
     }),
 
     devtool: flags.string({
@@ -103,12 +105,11 @@ export default class Build extends Command {
 
   public async run() {
     const options = this.parse(Build)
-    const runner = new Runner(options)
+    const runner = new Runner(options, {mode: 'production'})
 
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])
-
     this.app.run()
   }
 }

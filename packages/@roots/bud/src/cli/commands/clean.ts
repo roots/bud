@@ -14,11 +14,9 @@ export default class Clean extends Command {
   public app: Bud
 
   public async run() {
-    const runner = new Runner(this.parse(Clean), {
+    this.app = new Runner(this.parse(Clean), {
       config,
-    })
-
-    this.app = await runner.make(false)
+    }).app
 
     try {
       this.app.dashboard.render('Cleaning caches', 'bud clean')

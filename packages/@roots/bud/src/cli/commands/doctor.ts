@@ -66,12 +66,12 @@ export default class Doctor extends Command {
   }
 
   public async run(): Promise<void> {
-    const runner = new Runner(this.parse(Doctor), {
+    this.app = new Runner(this.parse(Doctor), {
       config,
-    })
-    this.app = await runner.make(false)
+    }).app
 
     this.displayFeedback(this.getMissingPeers())
+
     process.exit()
   }
 }
