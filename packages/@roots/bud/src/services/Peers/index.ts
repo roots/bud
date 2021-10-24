@@ -1,2 +1,2 @@
-import Peers from './Peers'
+import {Peers} from './peers.service'
 export {Peers}
