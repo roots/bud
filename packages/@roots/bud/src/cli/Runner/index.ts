@@ -128,9 +128,18 @@ export class Runner {
         config: {
           ...config,
           ci: cli?.flags?.ci ?? false,
+          discover: cli?.flags?.discover ?? false,
+          install: cli?.flags?.install ?? false,
           ...(options?.config ?? {}),
         },
       })
+
+    /**
+     * Handle --clean flag
+     */
+    if (typeof this.flags.clean !== 'undefined') {
+      this.app.store.set('clean', this.flags.clean)
+    }
 
     Object.assign(this, {
       fluentBuilders: [
@@ -166,148 +175,135 @@ export class Runner {
    *
    * @param build - Boolean value indicating if compilation should occur
    */
-  public async make(build = true) {
+  public async make() {
     /**
-     * Handle automatic installation and/or registration of modules
-     * at user request
+     * Configure bud instance with static configs.
      */
-    this.flags.discover &&
-      this.app.project.peers.registerDiscovered()
-    this.flags.install && this.app.project.peers.install()
+    await this.doStatics()
+    /**
+     * Configure bud instance with fluent configs.
+     */
+    await this.doBuilders()
 
     /**
-     * If we are full on running a build, we'll process the rest of the build
-     * related flags/args
+     * Handle --src flag
      */
-    if (build) {
+    if (typeof this.flags.src !== 'undefined') {
+      this.app.setPath('src', this.flags.src)
+      this.app.children.every((_name, child) =>
+        child.setPath('src', this.flags.src),
+      )
+    }
+
+    /**
+     * Handle --dist flag
+     */
+    if (typeof this.flags.dist !== 'undefined') {
+      this.app.setPath('dist', this.flags.dist)
+      this.app.children.every((_name, child) =>
+        child.setPath('dist', this.flags.dist),
+      )
+    }
+
+    /**
+     * Handle --publicPath flag
+     */
+    if (typeof this.flags.publicPath !== 'undefined') {
+      this.app.setPublicPath(this.flags.publicPath)
+      this.app.children.every((_name, child) =>
+        child.setPublicPath(this.flags.publicPath),
+      )
+    }
+
+    /**
+     * Handle --cache flag
+     */
+    if (typeof this.flags.cache !== 'undefined') {
+      this.app.persist(this.flags.cache)
+      this.app.children.every((_name, child) =>
+        child.persist(this.flags.cache),
+      )
+    }
+
+    /**
+     * Handle --devtool flag
+     */
+    if (typeof this.flags.devtool !== 'undefined') {
+      this.app.devtool(this.flags.devtool)
+      this.app.children.every((_name, child) =>
+        child.devtool(this.flags.devtool),
+      )
+    }
+
+    /**
+     * Handle --devtool flag
+     */
+    if (typeof this.flags.hash !== 'undefined') {
+      this.app.hash(this.flags.hash)
+      this.app.children.every((_name, child) =>
+        child.hash(this.flags.hash),
+      )
+    }
+
+    /**
+     * Handle --runtime flag
+     */
+    if (typeof this.flags.runtime !== 'undefined') {
+      this.app.runtime(this.flags.runtime)
+      this.app.children.every((_name, child) =>
+        child.runtime(this.flags.runtime),
+      )
+    }
+
+    /**
+     * Handle --manifest flag
+     */
+    if (typeof this.flags.manifest !== 'undefined') {
+      this.app.store.set('manifest', this.flags.manifest)
+      this.app.children.every((_name, child) =>
+        child.store.set('manifest', this.flags.manifest),
+      )
+    }
+
+    /**
+     * Handle --minimize flag
+     */
+    if (typeof this.flags.minimize !== 'undefined') {
+      this.app.minimize(this.flags.minimize)
+      this.app.children.every((_name, child) => {
+        child.minimize(this.flags.minimize)
+      })
+    }
+
+    /**
+     * Handle --minimize flag
+     */
+    if (typeof this.flags.vendor !== 'undefined') {
+      this.app.splitChunks(this.flags.vendor)
+      this.app.children.every((_name, child) => {
+        child.splitChunks(this.flags.vendor)
+      })
+    }
+
+    /**
+     * Handle --target flag
+     *
+     * @example `$ bud build --target plugin`
+     */
+    if (this.flags.target.length > 0) {
       /**
-       * Configure bud instance with static configs.
+       * Handle parent if applicable
        */
-      await this.doStatics()
-      /**
-       * Configure bud instance with fluent configs.
-       */
-      await this.doBuilders()
+      !this.flags?.target?.includes('bud') &&
+        this.app.hooks.on('build/entry', false)
 
       /**
-       * Handle --src flag
+       * And children if applicable
        */
-      if (typeof this.flags.src !== 'undefined') {
-        this.app.setPath('src', this.flags.src)
-        this.app.children.every((_name, child) =>
-          child.setPath('src', this.flags.src),
-        )
-      }
-
-      /**
-       * Handle --dist flag
-       */
-      if (typeof this.flags.dist !== 'undefined') {
-        this.app.setPath('dist', this.flags.dist)
-        this.app.children.every((_name, child) =>
-          child.setPath('dist', this.flags.dist),
-        )
-      }
-
-      /**
-       * Handle --publicPath flag
-       */
-      if (typeof this.flags.publicPath !== 'undefined') {
-        this.app.setPublicPath(this.flags.publicPath)
-        this.app.children.every((_name, child) =>
-          child.setPublicPath(this.flags.publicPath),
-        )
-      }
-
-      /**
-       * Handle --cache flag
-       */
-      if (typeof this.flags.cache !== 'undefined') {
-        this.app.persist(this.flags.cache)
-        this.app.children.every((_name, child) =>
-          child.persist(this.flags.cache),
-        )
-      }
-
-      /**
-       * Handle --devtool flag
-       */
-      if (typeof this.flags.devtool !== 'undefined') {
-        this.app.devtool(this.flags.devtool)
-        this.app.children.every((_name, child) =>
-          child.devtool(this.flags.devtool),
-        )
-      }
-
-      /**
-       * Handle --devtool flag
-       */
-      if (typeof this.flags.hash !== 'undefined') {
-        this.app.hash(this.flags.hash)
-        this.app.children.every((_name, child) =>
-          child.hash(this.flags.hash),
-        )
-      }
-
-      /**
-       * Handle --runtime flag
-       */
-      if (typeof this.flags.runtime !== 'undefined') {
-        this.app.runtime(this.flags.runtime)
-        this.app.children.every((_name, child) =>
-          child.runtime(this.flags.runtime),
-        )
-      }
-
-      /**
-       * Handle --manifest flag
-       */
-      if (typeof this.flags.manifest !== 'undefined') {
-        this.app.store.set('manifest', this.flags.manifest)
-        this.app.children.every((_name, child) =>
-          child.store.set('manifest', this.flags.manifest),
-        )
-      }
-
-      /**
-       * Handle --minimize flag
-       */
-      if (typeof this.flags.minimize !== 'undefined') {
-        this.app.minimize(this.flags.minimize)
-        this.app.children.every((_name, child) => {
-          child.minimize(this.flags.minimize)
-        })
-      }
-
-      /**
-       * Handle --minimize flag
-       */
-      if (typeof this.flags.vendor !== 'undefined') {
-        this.app.splitChunks(this.flags.vendor)
-        this.app.children.every((_name, child) => {
-          child.splitChunks(this.flags.vendor)
-        })
-      }
-
-      /**
-       * Handle --target flag
-       *
-       * @example `$ bud build --target plugin`
-       */
-      if (this.flags.target.length > 0) {
-        /**
-         * Handle parent if applicable
-         */
-        !this.flags?.target?.includes('bud') &&
-          this.app.hooks.on('build/entry', false)
-        /**
-         * And children if applicable
-         */
-        this.app.children.getKeys().forEach(name => {
-          !this.flags?.target?.includes(name) &&
-            this.app.children.remove(name)
-        })
-      }
+      this.app.children.getKeys().forEach(name => {
+        !this.flags?.target?.includes(name) &&
+          this.app.children.remove(name)
+      })
     }
 
     return this.app
