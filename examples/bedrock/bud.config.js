@@ -1,5 +1,10 @@
 const path = require('path')
 
+/**
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} bud
+ */
 module.exports = bud => {
   bud
     .use([
@@ -18,7 +23,7 @@ module.exports = bud => {
     })
     .when(bud.isDevelopment, () => {
       bud
-        .dev({
+        .serve({
           host: 'http://bedrock.test',
           port: 3000,
         })
