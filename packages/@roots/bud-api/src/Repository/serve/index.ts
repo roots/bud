@@ -1,6 +1,6 @@
 import type {Framework, Server} from '@roots/bud-framework'
 
-export interface dev {
+export interface serve {
   (
     this: Framework,
     config?: Partial<Server.Configuration>,
@@ -12,7 +12,7 @@ export interface dev {
  *
  * @example
  * ```js
- * app.dev({
+ * app.serve({
  *   host: 'my-local-site.example',
  *   port: 5000,
  * })
@@ -20,8 +20,9 @@ export interface dev {
  *
  * @public @config
  */
-export const dev: dev = function (config) {
+export const serve: serve = function (config) {
   const target = this.parent ?? this
+  if (!target.server) return this
 
   target.server.config.mutateStore(
     (store: Server.Configuration) => ({

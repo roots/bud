@@ -2,7 +2,6 @@ import {alias} from './alias'
 import assets from './assets'
 import {config} from './config'
 import {define} from './define'
-import {dev} from './dev'
 import {devtool} from './devtool'
 import {entry} from './entry'
 import experiments from './experiments'
@@ -15,6 +14,7 @@ import {proxy} from './proxy'
 import {publicPath} from './publicPath'
 import {run} from './run'
 import {runtime} from './runtime'
+import {serve} from './serve'
 import setPublicPath from './setPublicPath'
 import {splitChunks} from './splitChunks'
 import {template} from './template'
@@ -26,7 +26,6 @@ export interface Repository {
   assets: assets
   config: config
   define: define
-  dev: dev
   devtool: devtool
   entry: entry
   experiments: experiments
@@ -39,6 +38,7 @@ export interface Repository {
   publicPath: publicPath
   run: run
   runtime: runtime
+  serve: serve
   setPublicPath: setPublicPath
   splitChunks: splitChunks
   template: template
@@ -51,7 +51,6 @@ export const Repository: Repository = {
   assets,
   config,
   define,
-  dev,
   devtool,
   entry,
   experiments,
@@ -64,6 +63,7 @@ export const Repository: Repository = {
   publicPath,
   run,
   runtime,
+  serve,
   setPublicPath,
   splitChunks,
   template,

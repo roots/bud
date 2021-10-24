@@ -43,8 +43,14 @@ export interface proxy {
  * @public @config
  */
 export const proxy: proxy = function (options = undefined) {
-  this.store.set('server.middleware.proxy', options !== false)
-  this.store.merge('server.proxy', options)
+  const target = this.parent ?? this
+
+  if (!target.server) return this
+  if (typeof options === 'undefined') return this
+
+  if (options === false)
+    target.server.config.set('middleware.proxy', false)
+  else target.server.config.merge('proxy', options)
 
   return this
 }
