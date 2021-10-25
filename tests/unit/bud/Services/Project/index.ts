@@ -26,7 +26,54 @@ describe('bud.project', function () {
   })
 
   it('contains a repository', () => {
-    expect(bud.project.repository).toMatchSnapshot()
+    expect(bud.project.repository).toMatchSnapshot({
+      browserslist: {
+        development: [
+          'last 1 chrome version',
+          'last 1 firefox version',
+          'last 1 safari version',
+        ],
+        production: ['>0.5%', 'not dead', 'not op_mini all'],
+      },
+      devDependencies: {
+        '@roots/bud': 'workspace:*',
+        '@roots/bud-babel': 'workspace:*',
+      },
+      extensions: {
+        '@roots/bud-babel': {
+          bud: {
+            type: 'extension',
+          },
+          dependsOn: [],
+          name: '@roots/bud-babel',
+          path: expect.stringContaining('@roots/bud-babel'),
+          provides: {
+            '@babel/core': expect.any(String),
+            '@babel/plugin-proposal-class-properties':
+              expect.any(String),
+            '@babel/plugin-proposal-object-rest-spread':
+              expect.any(String),
+            '@babel/plugin-syntax-dynamic-import':
+              expect.any(String),
+            '@babel/plugin-transform-runtime':
+              expect.any(String),
+            '@babel/preset-env': expect.any(String),
+            '@roots/bud-build':
+              'workspace:packages/@roots/bud-build',
+            'babel-loader': expect.any(String),
+            'babel-plugin-add-module-exports':
+              expect.any(String),
+            tslib: expect.any(String),
+          },
+          version: expect.any(String),
+        },
+      },
+      manifestPath: expect.stringContaining(
+        'babel/package.json',
+      ),
+      name: 'example-babel',
+      private: true,
+    })
   })
 
   it('has hasPeerDependency function', () => {
@@ -43,7 +90,7 @@ describe('bud.project', function () {
     ).toMatchSnapshot({
       name: '@roots/bud-babel',
       bud: {type: 'extension'},
-      path: '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel',
+      path: expect.stringContaining('@roots/bud-babel'),
       dependsOn: [],
       provides: {
         '@babel/core': expect.any(String),
@@ -60,7 +107,7 @@ describe('bud.project', function () {
         'babel-plugin-add-module-exports': expect.any(String),
         tslib: expect.any(String),
       },
-      version: '5.0.0-next.6',
+      version: expect.any(String),
     })
   })
 
