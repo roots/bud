@@ -219,10 +219,8 @@ export function config(app: Framework): void {
     )
     .hooks.on('build/resolve/modules', () => [
       ...new Set([
-        app.path('src'),
-        app.path('modules'),
-        'src',
-        'node_modules',
+        app.hooks.filter('location/src'),
+        app.hooks.filter('location/modules'),
         ...(app.project?.resolveFrom ??
           app.parent?.project?.resolveFrom ??
           []),
