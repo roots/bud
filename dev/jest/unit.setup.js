@@ -1,4 +1,4 @@
-const {clearBudfiles} = require('../clearBudfiles')
+const clearBudfiles = require('./util/clearBudfiles')
 
 module.exports = async function config() {
   await clearBudfiles()

@@ -2,8 +2,15 @@ const {noop} = require('lodash')
 const rimraf = require('rimraf')
 
 module.exports = async () => {
-  return rimraf(
+  rimraf(
     `${process.cwd()}/examples/*/.budfiles`,
+    {
+      glob: true,
+    },
+    noop,
+  )
+  return rimraf(
+    `${process.cwd()}/examples/*/resources/storage/bud/**/*`,
     {
       glob: true,
     },
