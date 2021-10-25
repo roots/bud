@@ -73,7 +73,7 @@
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.4",
-    "@types/tailwindcss": "2.2.1",
+    "@types/tailwindcss": "2.2.2",
     "jest": "27.3.1",
     "postcss": "8.3.11",
     "tailwindcss": "2.2.17"
