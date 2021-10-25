@@ -2,7 +2,7 @@
 import {lodash} from '@roots/bud-support'
 import {highlight} from 'cli-highlight'
 import {format} from 'pretty-format'
-import {Framework} from 'src'
+import {Framework} from './'
 
 const {isUndefined} = lodash
 
