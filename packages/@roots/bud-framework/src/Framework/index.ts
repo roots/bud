@@ -10,7 +10,6 @@ import {
   Env,
   Hooks,
   Index,
-  Logger,
   Mode,
   Server,
   Services,
@@ -18,11 +17,13 @@ import {
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
+import {Logger} from '../Logger'
 import * as Project from '../Project'
 import {access} from './access'
 import {bootstrap} from './bootstrap'
 import {close} from './close'
 import {container} from './container'
+import {dd, dump} from './dump'
 import {
   bind,
   isNull,
@@ -130,6 +131,11 @@ export abstract class Framework {
    */
   public api: Api
 
+  /**
+   * Build service
+   *
+   * @public
+   */
   public build: Build.Interface
 
   /**
@@ -222,7 +228,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public logger: Logger
+  public logger: Logger = new Logger(this)
 
   /**
    * Development server and browser devtools
@@ -269,6 +275,8 @@ export abstract class Framework {
       .bindMethod<bootstrap>('bootstrap', bootstrap)
       .bindMethod<close>('close', close)
       .bindMethod<container>('container', container)
+      .bindMethod<close>('dump', dump)
+      .bindMethod<close>('dd', dd)
       .bindMethod<get>('get', get)
       .bindMethod<make>('make', make)
       .bindMethod<path>('path', path)
@@ -287,9 +295,9 @@ export abstract class Framework {
     })
 
     // Parent & child instance exclusive settings
-    if (isNull(this.parent) && isUndefined(options.parent))
+    if (isNull(this.parent) && isUndefined(options.parent)) {
       this.children = new Container()
-    else this.parent = options.parent
+    } else this.parent = options.parent
   }
 
   /**
@@ -305,6 +313,11 @@ export abstract class Framework {
 
     return this
   }
+
+  /**
+   * @internal
+   */
+  public bootstrap: bootstrap
 
   /**
    * Access a value which may or may not be a function.
@@ -326,8 +339,6 @@ export abstract class Framework {
    * @public
    */
   public access: access
-
-  public bootstrap: bootstrap
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
@@ -508,6 +519,17 @@ export abstract class Framework {
    * @public
    */
   public when: when
+
+  /**
+   *
+   */
+  public dump: typeof dump = dump
+
+  /**
+   * Dumps object to console and then
+   * gracefully exits bud and kills the process.
+   */
+  public dd: typeof dd = dd
 
   /**
    * Log a message

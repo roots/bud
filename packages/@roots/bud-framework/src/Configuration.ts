@@ -44,6 +44,13 @@ export interface Configuration {
   location: Locations
 
   /**
+   * Is caching enabled?
+   *
+   * @public
+   */
+  cache: boolean
+
+  /**
    * Feature toggle: enable or disable the command line interface
    *
    * @defaultValue true

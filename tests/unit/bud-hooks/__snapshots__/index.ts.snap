@@ -237,7 +237,6 @@ Object {
   ],
   "location/storage": Array [
     [Function],
-    [Function],
   ],
 }
 `;

@@ -3,8 +3,9 @@
 const imagemin = require('@roots/bud-imagemin')
 
 /**
- * @function config
- * @param {import('@roots/bud').Bud} app
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
  */
 module.exports = app =>
   app

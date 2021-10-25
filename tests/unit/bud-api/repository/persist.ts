@@ -32,7 +32,7 @@ describe('bud.persist', function () {
 
     expect(
       bud.hooks.filter('build/cache/buildDependencies').bud,
-    ).toEqual(bud.cache.buildDependencies())
+    ).toEqual(bud.cache.data.dependencies)
 
     expect(bud.hooks.filter('build/cache/managedPaths')).toEqual(
       [bud.path('modules')],

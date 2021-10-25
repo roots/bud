@@ -1,28 +1,23 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import {readJson} from 'fs-extra'
 
 describe('bud.project', function () {
   let bud: Framework
-  let json: {
-    description: string
-    dependencies: {[key: string]: any}
-    devDependencies: {[key: string]: any}
-    engines: {[key: string]: any}
-    license: string
-    manifest: {[key: string]: any}
-    name: string
-    packageManager: string
-    private: boolean
-    repository: {[key: string]: any}
-    resolutions: {[key: string]: any}
-    version: string
-    volta: {[key: string]: any}
-    workspaces: {[key: string]: any}
-  }
+  let json: any
 
   beforeAll(async () => {
-    json = await readJson(process.cwd().concat('/package.json'))
-    bud = factory()
+    const project = process.cwd().concat('/examples/babel')
+    json = await readJson(project.concat('/package.json'))
+
+    bud = factory({
+      config: {
+        ...config,
+        location: {
+          ...config.location,
+          project,
+        },
+      },
+    })
   })
 
   afterAll(done => {
@@ -30,22 +25,7 @@ describe('bud.project', function () {
   })
 
   it('contains a repository', () => {
-    expect(bud.project.repository).toMatchSnapshot({
-      description: expect.any(String),
-      dependencies: expect.any(Object),
-      devDependencies: expect.any(Object),
-      engines: expect.any(Object),
-      license: expect.any(String),
-      manifest: expect.any(Object),
-      name: expect.any(String),
-      packageManager: expect.any(String),
-      private: true,
-      repository: expect.any(Object),
-      resolutions: expect.any(Object),
-      version: expect.any(String),
-      volta: expect.any(Object),
-      workspaces: expect.any(Object),
-    })
+    expect(bud.project.repository).toMatchSnapshot()
   })
 
   it('has hasPeerDependency function', () => {
@@ -55,39 +35,31 @@ describe('bud.project', function () {
   })
 
   it('discover method gathers dep data', () => {
-    bud.project.set(
-      `devDependencies.@roots/bud-postcss`,
-      `workspace:packages/@roots/bud-postcss`,
-    )
-
     bud.project.peers.discover(`devDependencies`)
 
     expect(
-      bud.project.get(`extensions.@roots/bud-postcss`),
+      bud.project.get(`extensions.@roots/bud-babel`),
     ).toMatchSnapshot({
-      "name": "@roots/bud-postcss",
-      "type": "devDependencies",
-      "ver": expect.any(String),
-    })
-  })
-
-  it('collates required peers', () => {
-    expect(bud.project.get('peers')).toMatchSnapshot({
-      postcss: {
-        name: 'postcss',
-        ver: expect.any(String),
-        type: 'devDependencies',
+      name: '@roots/bud-babel',
+      bud: {type: 'extension'},
+      path: '/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel',
+      dependsOn: [],
+      provides: {
+        '@babel/core': expect.any(String),
+        '@babel/plugin-proposal-class-properties':
+          expect.any(String),
+        '@babel/plugin-proposal-object-rest-spread':
+          expect.any(String),
+        '@babel/plugin-syntax-dynamic-import':
+          expect.any(String),
+        '@babel/plugin-transform-runtime': expect.any(String),
+        '@babel/preset-env': expect.any(String),
+        '@roots/bud-build': expect.any(String),
+        'babel-loader': expect.any(String),
+        'babel-plugin-add-module-exports': expect.any(String),
+        tslib: expect.any(String),
       },
-      'postcss-import': {
-        name: 'postcss-import',
-        ver: expect.any(String),
-        type: 'devDependencies',
-      },
-      'postcss-preset-env': {
-        name: 'postcss-preset-env',
-        ver: expect.any(String),
-        type: 'devDependencies',
-      },
+      version: '5.0.0-next.6',
     })
   })
 
@@ -105,19 +77,19 @@ describe('bud.project', function () {
 
   it('resolveFrom contains paths of found peers', () => {
     expect(bud.project.resolveFrom).toMatchSnapshot([
-      expect.stringContaining('@roots/bud-postcss'),
+      expect.stringContaining('@roots/bud-babel'),
+      expect.stringContaining('@roots/bud'),
+      expect.stringContaining('@roots/bud-build'),
     ])
-  })
 
-  it('has registerDiscovered function', () => {
-    expect(bud.project.peers.registerDiscovered).toBeInstanceOf(
-      Function,
-    )
-  })
+    const config = bud.build.make()
 
-  it('registerDiscovered method adds extensions', () => {
-    bud.project.peers.registerDiscovered()
-
-    expect(bud.extensions.has('@roots/bud-postcss')).toBe(true)
+    expect(config.resolve.modules).toMatchSnapshot([
+      expect.stringContaining('examples/babel/src'),
+      expect.stringContaining('examples/babel/node_modules'),
+      expect.stringContaining('@roots/bud-babel'),
+      expect.stringContaining('@roots/bud'),
+      expect.stringContaining('@roots/bud-build'),
+    ])
   })
 })

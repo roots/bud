@@ -1,54 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.project collates required peers 1`] = `
-Object {
-  "postcss": Object {
-    "name": "postcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-  "postcss-import": Object {
-    "name": "postcss-import",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-  "postcss-preset-env": Object {
-    "name": "postcss-preset-env",
-    "type": "devDependencies",
-    "ver": Any<String>,
-  },
-}
-`;
-
 exports[`bud.project contains a repository 1`] = `
 Object {
-  "dependencies": Any<Object>,
-  "description": Any<String>,
-  "devDependencies": Any<Object>,
-  "engines": Any<Object>,
-  "license": Any<String>,
-  "manifest": Any<Object>,
-  "name": Any<String>,
-  "packageManager": Any<String>,
+  "browserslist": Object {
+    "development": Array [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+    ],
+    "production": Array [
+      ">0.5%",
+      "not dead",
+      "not op_mini all",
+    ],
+  },
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+  },
+  "extensions": Object {
+    "@roots/bud-babel": Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "dependsOn": Array [],
+      "name": "@roots/bud-babel",
+      "path": "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel",
+      "provides": Object {
+        "@babel/core": "^7.15.8",
+        "@babel/plugin-proposal-class-properties": "^7.14.5",
+        "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/plugin-transform-runtime": "^7.15.8",
+        "@babel/preset-env": "^7.15.8",
+        "@roots/bud-build": "workspace:packages/@roots/bud-build",
+        "babel-loader": "^8.2.3",
+        "babel-plugin-add-module-exports": "^1.0.4",
+        "tslib": "^2.3.1",
+      },
+      "version": "5.0.0-next.6",
+    },
+  },
+  "manifestPath": "/Volumes/Samsung/Code/roots/bud/examples/babel/package.json",
+  "name": "example-babel",
   "private": true,
-  "repository": Any<Object>,
-  "resolutions": Any<Object>,
-  "version": Any<String>,
-  "volta": Any<Object>,
-  "workspaces": Any<Object>,
 }
 `;
 
 exports[`bud.project discover method gathers dep data 1`] = `
 Object {
-  "name": "@roots/bud-postcss",
-  "type": "devDependencies",
-  "ver": Any<String>,
+  "bud": Object {
+    "type": "extension",
+  },
+  "dependsOn": Array [],
+  "name": "@roots/bud-babel",
+  "path": "/Volumes/Samsung/Code/roots/bud/packages/@roots/bud-babel",
+  "provides": Object {
+    "@babel/core": Any<String>,
+    "@babel/plugin-proposal-class-properties": Any<String>,
+    "@babel/plugin-proposal-object-rest-spread": Any<String>,
+    "@babel/plugin-syntax-dynamic-import": Any<String>,
+    "@babel/plugin-transform-runtime": Any<String>,
+    "@babel/preset-env": Any<String>,
+    "@roots/bud-build": Any<String>,
+    "babel-loader": Any<String>,
+    "babel-plugin-add-module-exports": Any<String>,
+    "tslib": Any<String>,
+  },
+  "version": "5.0.0-next.6",
 }
 `;
 
 exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
-  StringContaining "@roots/bud-postcss",
+  StringContaining "@roots/bud-babel",
+  StringContaining "@roots/bud",
+  StringContaining "@roots/bud-build",
+]
+`;
+
+exports[`bud.project resolveFrom contains paths of found peers 2`] = `
+Array [
+  StringContaining "examples/babel/src",
+  StringContaining "examples/babel/node_modules",
+  StringContaining "@roots/bud-babel",
+  StringContaining "@roots/bud",
+  StringContaining "@roots/bud-build",
 ]
 `;

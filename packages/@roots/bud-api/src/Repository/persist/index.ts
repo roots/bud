@@ -1,22 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
 
-/**
- * Persist function interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param enabled - Should cache be persisted on disk
- *
- * @defaultValue enabled = true
- *
- * @hook build/cache
- * @hook build/cache/cacheDirectory
- * @hook build/cache/managedPaths
- * @hook build/cache/buildDependencies
- * @hook build/cache/version
- * @hook build/cache/type
- *
- * @public @config
- */
 interface persist {
   (this: Framework, enabled?: boolean): Framework
 }
@@ -62,7 +45,7 @@ const persist: persist = function (enabled = true) {
     .hooks.on('build/cache/buildDependencies', () =>
       enabled
         ? {
-            bud: this.cache.buildDependencies(),
+            bud: this.cache.data.dependencies,
           }
         : undefined,
     )

@@ -28,6 +28,4 @@ export const BudEslintWebpackPlugin: BudEslintWebpackPlugin = {
   api: app => ({
     eslint: new EslintConfig(app),
   }),
-
-  when: app => app.project.hasPeerDependency('eslint'),
 }

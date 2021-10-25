@@ -1,4 +1,4 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
@@ -6,7 +6,15 @@ describe('bud.build.config', function () {
   let bud: Framework
 
   beforeAll(() => {
-    bud = factory()
+    bud = factory({
+      config: {
+        ...config,
+        location: {
+          ...config.location,
+          project: process.cwd().concat('/examples/babel'),
+        },
+      },
+    })
     bud.build.make()
   })
 
@@ -28,7 +36,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected cache default', () => {
-    expect(bud.build.config.cache).toEqual({
+    expect(bud.build.config.cache).toMatchSnapshot({
       type: 'memory',
     })
   })
@@ -38,15 +46,15 @@ describe('bud.build.config', function () {
   })
 
   it('has expected devtool default', () => {
-    expect(bud.build.config.devtool).toEqual(false)
+    expect(bud.build.config.devtool).toBe(false)
   })
 
   it('has expected entry default', () => {
-    expect(bud.build.config.entry).toEqual(undefined)
+    expect(bud.build.config.entry).toBeUndefined()
   })
 
   it('has expected experiments default', () => {
-    expect(bud.build.config.experiments).toEqual({
+    expect(bud.build.config.experiments).toMatchSnapshot({
       lazyCompilation: undefined,
     })
   })
@@ -94,7 +102,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected resolve.extensions default', () => {
-    expect(bud.build.config.resolve.extensions).toEqual([
+    expect(bud.build.config.resolve.extensions).toMatchSnapshot([
       '.wasm',
       '.mjs',
       '.js',
@@ -112,21 +120,14 @@ describe('bud.build.config', function () {
     ])
   })
 
-  it('has expected resolve.modules default', () => {
-    expect(bud.build.config.resolve.modules).toEqual([
-      'src',
-      'node_modules',
-    ])
-  })
-
   it('has expected stats default', () => {
-    expect(bud.build.config.stats).toEqual({
+    expect(bud.build.config.stats).toMatchSnapshot({
       logging: false,
     })
   })
 
   it('has expected target default', () => {
-    expect(bud.build.config.target).toEqual(undefined)
+    expect(bud.build.config.target).toBeUndefined()
   })
 
   it('has expected watch default', () => {
@@ -148,7 +149,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected default requireEnsure rule', () => {
-    expect(bud.build.config.module.rules[0]).toEqual({
+    expect(bud.build.config.module.rules[0]).toMatchSnapshot({
       test: /\.[cm]?(jsx?|tsx?)$/,
       parser: {requireEnsure: false},
     })
@@ -157,7 +158,7 @@ describe('bud.build.config', function () {
   it('has expected default asset/image rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
-    ).toEqual({
+    ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       generator: {
         filename: 'assets/[hash][ext][query]',
@@ -170,17 +171,16 @@ describe('bud.build.config', function () {
   it('has expected default font rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
-    ).toEqual({
+    ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       test: /\.(ttf|otf|eot|woff2?|ico)$/,
       use: [
         {
-          loader: bud.path(
-            'project',
-            'node_modules/resolve-url-loader/index.js',
+          loader: expect.stringContaining(
+            'resolve-url-loader/index.js',
           ),
           options: {
-            root: bud.path('project', 'src'),
+            root: expect.stringContaining('src'),
             sourceMap: false,
           },
         },
@@ -191,7 +191,7 @@ describe('bud.build.config', function () {
   it('has expected default svg rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
-    ).toEqual({
+    ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       test: /\.svg$/,
       type: 'asset/resource',
@@ -204,13 +204,12 @@ describe('bud.build.config', function () {
   it('has expected default html rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
-    ).toEqual({
+    ).toMatchSnapshot({
       test: /\.(html?)$/,
       use: [
         {
-          loader: bud.path(
-            'project',
-            'node_modules/html-loader/dist/cjs.js',
+          loader: expect.stringContaining(
+            'html-loader/dist/cjs.js',
           ),
         },
       ],
@@ -220,14 +219,11 @@ describe('bud.build.config', function () {
   it('has expected default csv rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
-    ).toEqual({
+    ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
       use: [
         {
-          loader: bud.path(
-            'project',
-            'node_modules/csv-loader/index.js',
-          ),
+          loader: expect.stringContaining('csv-loader/index.js'),
         },
       ],
     })
@@ -236,13 +232,12 @@ describe('bud.build.config', function () {
   it('has expected default xml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
-    ).toEqual({
+    ).toMatchSnapshot({
       test: /\.xml$/,
       use: [
         {
-          loader: bud.path(
-            'project',
-            'node_modules/xml-loader/index.js',
+          loader: expect.stringContaining(
+            '/xml-loader/index.js',
           ),
         },
       ],
@@ -252,7 +247,7 @@ describe('bud.build.config', function () {
   it('has expected default toml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
-    ).toEqual({
+    ).toMatchSnapshot({
       parser: {
         parse: toml.parse,
       },
@@ -264,7 +259,7 @@ describe('bud.build.config', function () {
   it('has expected default yaml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
-    ).toEqual({
+    ).toMatchSnapshot({
       parser: {
         parse: yaml.parse,
       },
@@ -276,7 +271,7 @@ describe('bud.build.config', function () {
   it('has expected default json rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
-    ).toEqual({
+    ).toMatchSnapshot({
       parser: {
         parse: json5.parse,
       },
@@ -288,21 +283,19 @@ describe('bud.build.config', function () {
   it('has expected default css rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
-    ).toEqual({
+    ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       test: /\.css$/,
       use: [
         {
-          loader: bud.path(
-            'project',
-            '/node_modules/mini-css-extract-plugin/dist/loader.js',
+          loader: expect.stringContaining(
+            'mini-css-extract-plugin/dist/loader.js',
           ),
           options: {},
         },
         {
-          loader: bud.path(
-            'project',
-            'node_modules/css-loader/dist/cjs.js',
+          loader: expect.stringContaining(
+            'css-loader/dist/cjs.js',
           ),
           options: {
             importLoaders: 1,
@@ -317,7 +310,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[10],
-    ).toEqual({
+    ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       test: /\.(js|jsx)$/,
       use: [],

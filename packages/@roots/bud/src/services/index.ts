@@ -1,5 +1,3 @@
-import {Services} from '@roots/bud-framework'
-
 import {Api} from './Api'
 import {Build} from './Build'
 import {Cache} from './Cache'
@@ -9,24 +7,22 @@ import {Dependencies} from './Dependencies'
 import {Env} from './Env'
 import {Extensions} from './Extensions'
 import {Hooks} from './Hooks'
-import {Logger} from './Logger'
 import {Project} from './Project'
 import {Server} from './Server'
 
 /**
  * @public
  */
-export const services: Services = {
+export const services = {
   api: Api,
-  build: Build,
+  hooks: Hooks,
   cache: Cache,
+  project: Project,
+  env: Env,
+  build: Build,
   compiler: Compiler,
   dashboard: Dashboard,
   dependencies: Dependencies,
-  project: Project,
-  env: Env,
   extensions: Extensions,
-  hooks: Hooks,
-  logger: Logger,
   server: Server,
 }

@@ -5,6 +5,7 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
@@ -54,6 +55,12 @@ export class Build
    */
   public items: Items
 
+  /**
+   * Make build
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
   public make(): Webpack.Configuration {
     this.app.log('build.config called')
 
@@ -74,7 +81,9 @@ export class Build
    * {@inheritDoc @roots/bud-framework#Build.Interface.bootstrap}
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public bootstrap(): void {
     /**
      * Reduces components to their normalized form

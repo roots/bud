@@ -67,7 +67,7 @@ export const md = () =>
 export const minicss = () =>
   new Item({
     loader: ({build}) => build.loaders.minicss,
-    options: ({path}: Framework) => ({}),
+    options: ({store}: Framework) => ({}),
   })
 
 /**

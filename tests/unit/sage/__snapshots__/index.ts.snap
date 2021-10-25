@@ -4,55 +4,47 @@ exports[`@roots/sage sage required peers matches snapshot 1`] = `
 Object {
   "@wordpress/browserslist-config": Object {
     "name": "@wordpress/browserslist-config",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "4.1.0",
   },
   "eslint": Object {
     "name": "eslint",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "7.32.0",
   },
   "postcss": Object {
     "name": "postcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "8.3.11",
   },
   "postcss-import": Object {
     "name": "postcss-import",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "14.0.2",
   },
   "postcss-preset-env": Object {
     "name": "postcss-preset-env",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "6.7.0",
   },
   "prettier": Object {
     "name": "prettier",
-    "type": "devDependencies",
-    "ver": "2.4.1",
+    "version": "2.4.1",
   },
   "react": Object {
     "name": "react",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "17.0.2",
   },
   "react-dom": Object {
     "name": "react-dom",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "17.0.2",
   },
   "tailwindcss": Object {
     "name": "tailwindcss",
-    "type": "devDependencies",
-    "ver": Any<String>,
+    "version": "^2.2.8",
   },
 }
 `;
 
 exports[`@roots/sage sage resolveFrom matches snapshot 1`] = `
 Array [
-  StringContaining "@roots/bud",
+  StringContaining "examples/sage/resources",
+  StringContaining "examples/sage/node_modules",
   StringContaining "@roots/sage",
   StringContaining "@roots/bud-preset-wordpress",
   StringContaining "@roots/bud-preset-recommend",
@@ -67,5 +59,7 @@ Array [
   StringContaining "@roots/bud-prettier",
   StringContaining "@roots/bud-stylelint",
   StringContaining "@roots/bud-tailwindcss",
+  StringContaining "@roots/bud",
+  StringContaining "@roots/bud-build",
 ]
 `;

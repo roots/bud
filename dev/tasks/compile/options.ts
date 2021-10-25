@@ -1,5 +1,5 @@
 export const nccOptions = {
-  external: [
+  externals: [
     'css-loader',
     'csv-loader',
     'file-loader',
@@ -11,6 +11,8 @@ export const nccOptions = {
     'webpack',
     'url-loader',
     'xml-loader',
+    '@roots/bud-framework',
+    '@roots/bud-support',
   ],
   minify: false,
   sourceMap: false,

@@ -1,11 +1,14 @@
-import {Framework} from '@roots/bud-framework'
-
 import {
   bind,
   Bud,
   createHash,
+  ensureFileSync,
+  existsSync,
   globby,
   readFileSync,
+  readJsonSync,
+  removeSync,
+  writeJsonSync,
 } from './cache.dependencies'
 
 /**
@@ -29,17 +32,123 @@ export class Cache
   implements Bud.Cache.Interface
 {
   /**
-   * Service register event
+   * Bud cache location
    *
+   * @public
+   */
+  public get cachePath(): string {
+    return this.app.path('storage', 'bud.cache.json')
+  }
+
+  /**
+   * @public
+   */
+  public data: Record<string, any> & {version: string} = {
+    configFiles: [],
+    dependencies: [],
+    version: '',
+    project: {
+      name: '',
+      devDependencies: {},
+      dependencies: {},
+    },
+  }
+
+  /**
+   * @public
+   */
+  public valid: boolean
+
+  /**
+   * @public
+   */
+  public register(): void {
+    this.app.hooks
+      .on('build/cache', () => ({
+        type: this.app.hooks.filter('build/cache/type'),
+      }))
+      .hooks.on('build/cache/type', () => 'memory')
+
+    this.data.configFiles = {
+      dynamic: globby.globbySync([
+        this.app.path(
+          'project',
+          `${this.app.name}.config.{js,ts}`,
+        ),
+        this.app.path(
+          'project',
+          `${this.app.name}.${this.app.mode}.config.{js,ys}`,
+        ),
+      ]),
+      static: globby.globbySync([
+        this.app.path(
+          'project',
+          `${this.app.name}.config.{yml,yaml,json}`,
+        ),
+        this.app.path(
+          'project',
+          `${this.app.name}.${this.app.mode}.config.{yml,yaml,json}`,
+        ),
+      ]),
+    }
+
+    this.data.dependencies = [
+      ...new Set(
+        globby.globbySync([
+          this.app.path('project', 'package.json'),
+          ...(this.data.configFiles.dynamic ?? []),
+          ...(this.data.configFiles.static ?? []),
+        ]),
+      ),
+    ]
+  }
+
+  /**
+   * Verify cache
+   *
+   * @returns {boolean}
+   *
+   * @public
+   */
+  @bind
+  public verifyProfile(): boolean {
+    if (!existsSync(this.cachePath)) {
+      ensureFileSync(this.cachePath)
+      this.valid = false
+      return this.valid
+    }
+
+    const data = readJsonSync(this.cachePath)
+
+    this.valid = data.version === this.version()
+
+    return this.valid ? data : false
+  }
+
+  /**
+   * Service boot method
+   *
+   * @public
    * @decorator `@bind`
    */
   @bind
-  public register(app: Framework): void {
-    app.hooks
-      .on('build/cache', () => ({
-        type: app.hooks.filter('build/cache/type'),
-      }))
-      .hooks.on('build/cache/type', () => 'memory')
+  public updateProfile(): void {
+    const maybeData = this.verifyProfile()
+    if (maybeData) {
+      this.app.project.setStore(this.data.project)
+      return
+    }
+
+    this.app.project.initialize()
+
+    removeSync(this.cachePath)
+    writeJsonSync(this.cachePath, {
+      ...this.data,
+      version: this.version(),
+      dependencies: this.data.dependencies,
+      configFiles: this.data.configFiles,
+      resolve: this.app.hooks.filter('build/resolve/modules'),
+    })
   }
 
   /**
@@ -67,50 +176,6 @@ export class Cache
   }
 
   /**
-   * Returns array of build dependency paths
-   *
-   * @remarks
-   * @see https://webpack.js.org/configuration/cache/#cachebuilddependencies
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public buildDependencies(): string[] {
-    return [
-      ...new Set(
-        globby.globbySync([
-          this.app.path(
-            'project',
-            `${this.app.name}.config.{js,ts,yml,json}`,
-          ),
-
-          this.app.path(
-            'project',
-            `${this.app.name}.${this.app.mode}.config.{js,ts.yml,json}`,
-          ),
-
-          ...this.getFrameworkEntrypoints(),
-        ]),
-      ),
-    ] as string[]
-  }
-
-  /**
-   * Cache location: framework entrypoints
-   *
-   * @see https://webpack.js.org/configuration/resolve
-   */
-  public getFrameworkEntrypoints(): string[] {
-    const project = this.app.project ?? this.app.parent.project
-
-    return (
-      project.resolveFrom?.map(
-        dep => `${dep}/lib/cjs/index.js`,
-      ) ?? []
-    )
-  }
-
-  /**
    * Returns hash of all build dependencies and parsed CLI arguments
    *
    * @decorator `@bind`
@@ -118,7 +183,7 @@ export class Cache
   @bind
   public hash(): string {
     return JSON.stringify(
-      this.buildDependencies().reduce(
+      this.data.dependencies.reduce(
         (all, file) => all.concat(readFileSync(file, 'utf8')),
         process.argv.slice(3).join(''),
       ) ?? '{}',

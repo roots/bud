@@ -3,4 +3,12 @@ export {bind, globby} from '@roots/bud-support'
 export {createHash} from 'crypto'
 
 import {fs} from '@roots/bud-support'
-export const {readFileSync} = fs
+export const {
+  existsSync,
+  ensureFileSync,
+  readFileSync,
+  readJsonSync,
+  removeSync,
+  writeJsonSync,
+  writeFileSync,
+} = fs

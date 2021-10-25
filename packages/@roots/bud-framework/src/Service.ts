@@ -3,6 +3,7 @@ import type {Class} from 'type-fest'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
+import {Logger} from './Logger'
 
 const {isArray} = lodash
 
@@ -122,6 +123,15 @@ export abstract class Service<
    * @virtual @public
    */
   public booted?(app: Framework): any
+
+  /**
+   * Service scoped logger
+   *
+   * @public
+   */
+  public get logger(): Logger['instance'] {
+    return this.app.logger.instance
+  }
 
   /**
    * Class constructor

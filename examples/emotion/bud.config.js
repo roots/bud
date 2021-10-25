@@ -5,8 +5,9 @@ const react = require('@roots/bud-react')
 const emotion = require('@roots/bud-emotion')
 
 /**
- * @function config
- * @param {import('@roots/bud').Bud} app
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
  */
 function config(app) {
   app

@@ -130,6 +130,7 @@ export class Runner {
           ci: cli?.flags?.ci ?? false,
           discover: cli?.flags?.discover ?? false,
           install: cli?.flags?.install ?? false,
+          cache: cli?.flags?.cache !== 'false',
           ...(options?.config ?? {}),
         },
       })
@@ -184,6 +185,8 @@ export class Runner {
      * Configure bud instance with fluent configs.
      */
     await this.doBuilders()
+
+    this.app.cache.updateProfile()
 
     /**
      * Handle --src flag
@@ -310,16 +313,6 @@ export class Runner {
   }
 
   /**
-   * Configures application instance
-   *
-   * @param configs - configuration files
-   */
-  public async build(configs: string[]): Promise<void> {
-    const builder = await new CLIConfig(this.app, configs).get()
-    isFunction(builder) && builder(this.app)
-  }
-
-  /**
    * Set process.env based on app mode
    *
    * @param env - {@link Bud.mode}
@@ -333,18 +326,20 @@ export class Runner {
    * Process dynamic configs
    */
   public async doBuilders() {
-    await this.build(this.fluentBuilders)
-    await this.build(this.fluentBuildersByEnv)
+    const builder = await new CLIConfig(
+      this.app,
+      this.app.cache.data.configFiles.dynamic,
+    ).get()
+    isFunction(builder) && builder(this.app)
   }
 
   /**
    * Process static configs
    */
   public async doStatics() {
-    await new CLIConfig(this.app, this.staticBuilders).apply()
     await new CLIConfig(
       this.app,
-      this.staticBuildersByEnv,
+      this.app.cache.data.configFiles.static,
     ).apply()
   }
 }

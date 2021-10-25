@@ -1,4 +1,4 @@
-import {Bud, factory, Framework} from '@roots/bud'
+import {Bud, config, factory, Framework} from '@roots/bud'
 import * as BudSassExtension from '@roots/bud-sass'
 import execa from 'execa'
 
@@ -23,10 +23,15 @@ describe('@roots/bud-sass', () => {
 
   beforeAll(async () => {
     await execa('yarn', ['add', 'sass'])
-    bud = factory()
-    bud.project.set(`devDependencies.@roots/bud-sass`, '*')
-    bud.project.peers.discover('devDependencies')
-
+    bud = factory({
+      config: {
+        ...config,
+        location: {
+          ...config.location,
+          project: process.cwd().concat('/examples/sass'),
+        },
+      },
+    })
     bud.use([BudSassExtension])
   })
 
@@ -38,12 +43,6 @@ describe('@roots/bud-sass', () => {
 
   it('returns normally when sass is installed', () => {
     expect(bud.use([BudSassExtension])).toBeInstanceOf(Bud)
-  })
-
-  it('project.resolveFrom matches snap', () => {
-    expect(bud.project.resolveFrom).toMatchSnapshot([
-      expect.stringContaining('@roots/bud-sass'),
-    ])
   })
 
   it('adds sass item', () => {

@@ -7,6 +7,8 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export interface Interface extends Service {
+  manifestPath: string
+
   /**
    * Array of paths for webpack to resolve modules from
    *
@@ -38,4 +40,9 @@ export interface Interface extends Service {
    * @public
    */
   hasPeerDependency(pkg: string): boolean
+
+  /**
+   * Build project profile
+   */
+  initialize(): void
 }

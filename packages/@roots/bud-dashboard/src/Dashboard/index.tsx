@@ -1,7 +1,5 @@
-import {
-  Dashboard as Contract,
-  Service as Base,
-} from '@roots/bud-framework'
+import {Dashboard as Contract} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {Box, Instance, render, Text} from 'ink'
 import React from 'react'
@@ -16,7 +14,7 @@ import {isString} from '../services/lodash'
  *
  * @public @core @container
  */
-export class Dashboard extends Base implements Contract {
+export class Dashboard extends Service implements Contract {
   /**
    * The {@link Ink} instance
    * @public

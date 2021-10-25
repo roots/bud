@@ -7,6 +7,7 @@ describe('bud.entry', function () {
     bud = factory({
       config: {
         ...config,
+        cache: false,
         ci: true,
         location: {
           ...config.location,

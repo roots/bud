@@ -1,7 +1,7 @@
 import {
   bind,
   Peers,
-  Project,
+  Project as FrameworkProject,
   readJsonSync,
 } from './project.dependencies'
 import type {Repository} from './project.interface'
@@ -11,10 +11,17 @@ import type {Repository} from './project.interface'
  *
  * @public
  */
-export default class
-  extends Project.Abstract
-  implements Project.Interface
+export class Project
+  extends FrameworkProject.Abstract
+  implements FrameworkProject.Interface
 {
+  /**
+   * Project package.json location
+   *
+   * @public
+   */
+  public manifestPath: string
+
   /**
    * Project peer dependencies manager
    *
@@ -61,13 +68,19 @@ export default class
    * @decorator `@bind`
    */
   @bind
-  public registered(): void {
-    const manifestPath = this.app.path('project', 'package.json')
-    this.setStore(readJsonSync(manifestPath))
-
-    this.set('manifestPath', manifestPath)
+  public initialize(): void {
+    this.manifestPath = this.app.path('project', 'package.json')
+    this.logger.log(
+      'Cache is either disabled or invalid and must be built',
+    )
+    this.setStore(readJsonSync(this.manifestPath))
+    this.set('manifestPath', this.manifestPath)
 
     this.peers = new Peers(this)
+    this.app.cache.data.project = this.all()
+    this.app.cache.data.resolve = this.resolveFrom
+
+    this.logger.log('Saving to cache', this.all())
   }
 
   /**

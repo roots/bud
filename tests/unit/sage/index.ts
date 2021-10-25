@@ -9,7 +9,7 @@ describe('@roots/sage', () => {
   let SAGE_CFG = {
     config: {
       ...config,
-
+      cache: false,
       location: {
         ...config.location,
         project: SAGE_DIR,
@@ -41,50 +41,31 @@ describe('@roots/sage', () => {
     expect(bud.project.get('peers')).toMatchSnapshot({
       '@wordpress/browserslist-config': {
         name: '@wordpress/browserslist-config',
-        type: 'devDependencies',
-        ver: expect.any(String),
+        version: '4.1.0',
       },
-      eslint: {
-        name: 'eslint',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
-      postcss: {
-        name: 'postcss',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
+      postcss: {name: 'postcss', version: '8.3.11'},
       'postcss-import': {
         name: 'postcss-import',
-        type: 'devDependencies',
-        ver: expect.any(String),
+        version: '14.0.2',
       },
       'postcss-preset-env': {
         name: 'postcss-preset-env',
-        type: 'devDependencies',
-        ver: expect.any(String),
+        version: '6.7.0',
       },
-      react: {
-        name: 'react',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
-      'react-dom': {
-        name: 'react-dom',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
-      tailwindcss: {
-        name: 'tailwindcss',
-        type: 'devDependencies',
-        ver: expect.any(String),
-      },
+      react: {name: 'react', version: '17.0.2'},
+      'react-dom': {name: 'react-dom', version: '17.0.2'},
+      eslint: {name: 'eslint', version: '7.32.0'},
+      prettier: {name: 'prettier', version: '2.4.1'},
+      tailwindcss: {name: 'tailwindcss', version: '^2.2.8'},
     })
   })
 
   it('sage resolveFrom matches snapshot', () => {
-    expect(bud.project.resolveFrom).toMatchSnapshot([
-      expect.stringContaining('@roots/bud'),
+    const config = bud.build.make()
+
+    expect(config.resolve.modules).toMatchSnapshot([
+      expect.stringContaining('examples/sage/resources'),
+      expect.stringContaining('examples/sage/node_modules'),
       expect.stringContaining('@roots/sage'),
       expect.stringContaining('@roots/bud-preset-wordpress'),
       expect.stringContaining('@roots/bud-preset-recommend'),
@@ -101,6 +82,8 @@ describe('@roots/sage', () => {
       expect.stringContaining('@roots/bud-prettier'),
       expect.stringContaining('@roots/bud-stylelint'),
       expect.stringContaining('@roots/bud-tailwindcss'),
+      expect.stringContaining('@roots/bud'),
+      expect.stringContaining('@roots/bud-build'),
     ])
   })
 

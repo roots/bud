@@ -11,11 +11,11 @@ export abstract class CacheAbstract
   implements CacheInterface
 {
   /**
-   * Dependencies which should be checked to determine cache validity.
+   * Cached data.
    *
    * @public
    */
-  public abstract buildDependencies(): string[]
+  public abstract data: Record<string, any>
 
   /**
    * Directory used to store cache files
@@ -32,10 +32,22 @@ export abstract class CacheAbstract
   public abstract hash(): string
 
   /**
+   * Is cache valid?
+   */
+  public abstract readonly valid: boolean
+
+  /**
    * A short, unique string created from the hashed contents of the project
    * config files and build dependencies.
    *
    * @public
    */
   public abstract version(): string
+
+  /**
+   * Update profile if needed
+   *
+   * @public
+   */
+  public abstract updateProfile(): void
 }

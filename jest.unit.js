@@ -18,8 +18,10 @@ module.exports = async function config() {
         tsconfig: '<rootDir>/tsconfig.jest.json',
         compiler: 'typescript',
       },
+      suites: {},
     },
     moduleNameMapper,
+    globalSetup: '<rootDir>/dev/jest/unit.setup.js',
     preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: [

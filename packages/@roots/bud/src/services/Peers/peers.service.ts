@@ -22,12 +22,6 @@ export class Peers implements Model.Interface {
    * @public
    */
   public constructor(public project: Project.Interface) {
-    if (
-      !this.project.app.store.isTrue('discover') &&
-      !this.project.app.store.isTrue('install')
-    )
-      return
-
     this.project.has('dependencies') &&
       this.discover('dependencies')
 
@@ -82,7 +76,7 @@ export class Peers implements Model.Interface {
   @bind
   public isExtension(name: string): boolean {
     return (
-      (name?.includes('@roots') || name?.includes('bud-')) &&
+      (name.includes('@roots') || name.includes('bud-')) &&
       !CORE_MODULES.includes(name)
     )
   }
@@ -119,7 +113,7 @@ export class Peers implements Model.Interface {
       })
       .map((name: string) => {
         this.project.app.log(`Profiling ${name}`)
-        return this.profileExtension(this.getPeerManifest(name))
+        return this.profileExtension(name)
       })
 
     return this
@@ -143,42 +137,47 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public profileExtension(manifest: {[key: string]: any}) {
-    manifest.path = this.resolvePeerByName(manifest.name)
-    if (this.project.resolveFrom.includes(manifest.path)) return
+  public profileExtension(name: string) {
+    const path = this.resolvePeerByName(name)
+
+    if (
+      this.project.resolveFrom.includes(path) ||
+      this.project.has(`extensions.${name}`)
+    ) {
+      return
+    } else {
+      this.project.resolveFrom.push(path)
+    }
+
+    const manifest = this.getPeerManifest(name)
 
     const extension = {
       name: manifest.name,
       bud: manifest.bud,
-      path: manifest.path,
-      dependsOn: manifest.peerDependencies,
-      provides: manifest.dependencies,
-      version: manifest.version,
+      path: path,
+      dependsOn: manifest.peerDependencies ?? [],
+      provides: manifest.dependencies ?? [],
+      version: manifest.version ?? [],
     }
+    this.project.set(`extensions.${name}`, extension)
 
-    this.project.set(`extensions.${manifest.name}`, extension)
-    !this.project.resolveFrom.includes(extension.path) &&
-      this.project.resolveFrom.push(extension.path)
+    extension.dependsOn &&
+      Object.entries(extension.dependsOn)
+        .filter(([name, version]) => {
+          if (this.project.has(`peers.${name}`)) {
+            return false
+          }
+          this.project.app.log(
+            `New peer dependency found: ${name}@${version}`,
+          )
 
-    if (!extension.dependsOn) return
+          return true
+        })
+        .forEach(([name, version]) => {
+          this.project.set(`peers.${name}`, {name, version})
+        })
 
-    Object.entries(extension.dependsOn)
-      .filter(([name, version]) => {
-        if (this.project.has(`peers.${name}`)) {
-          return false
-        }
-
-        this.project.app.log(
-          `Peer dependency found: ${name}@${version}`,
-        )
-
-        return true
-      })
-      .forEach(([name, version]) => {
-        this.project.set(`peers.${name}`, {name, version})
-      })
-
-    Object.entries(extension.dependsOn).forEach(([name]) => {
+    extension.bud.peers?.forEach(name => {
       if (
         !this.isExtension(name) ||
         this.project.has(`extensions.${name}`)
@@ -186,7 +185,7 @@ export class Peers implements Model.Interface {
         return
       }
 
-      this.profileExtension(this.getPeerManifest(name))
+      this.profileExtension(name)
     })
   }
 
@@ -198,7 +197,9 @@ export class Peers implements Model.Interface {
    */
   @bind
   public registerDiscovered() {
-    this.project.getValues('extensions').forEach(pkg => {
+    const extensions = this.project.getValues('extensions')
+
+    extensions?.forEach(pkg => {
       if (!pkg?.name) return
 
       this.project.app.extensions.add(safeRequire(pkg.name))

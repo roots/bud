@@ -8,6 +8,13 @@ import {Service} from '../Service'
  */
 export abstract class Abstract extends Service<Peers.Repository> {
   /**
+   * Project package.json location
+   *
+   * @public
+   */
+  public manifestPath: string
+
+  /**
    * Array of paths for webpack to resolve modules from
    *
    * @public
@@ -38,4 +45,6 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * @public
    */
   public abstract hasPeerDependency(pkg: string): boolean
+
+  public abstract initialize(): void
 }

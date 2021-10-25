@@ -1,2 +1,1 @@
-import Project from './Project'
-export {Project}
+export {Project} from './Project'

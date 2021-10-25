@@ -100,7 +100,7 @@ export class Compiler extends Service implements Contract {
 
       this.app.isProduction &&
         this.instance.close(err => {
-          this.app.hooks.filter('done', this.app)
+          this.app.hooks.filter('done')
           err && this.stats.errors.push(err)
         })
     })

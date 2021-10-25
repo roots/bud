@@ -1,8 +1,9 @@
 // @ts-check
 
 /**
- * @function config
- * @param {import('@roots/bud-framework').Framework} app
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
  */
 module.exports = app =>
   app

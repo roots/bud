@@ -1,3 +1,10 @@
+// @ts-check
+
+/**
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} bud
+ */
 module.exports = bud => {
   bud
     .use([

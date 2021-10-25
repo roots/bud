@@ -88,8 +88,9 @@
     "vue-loader": "^16.8.1"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "^3.1.5",
-    "vue": "^3.1.5"
+    "@vue/compiler-sfc": "^3.2.20",
+    "@vue/runtime-dom": "^3.2.20",
+    "vue": "^3.2.20"
   },
   "stableVersion": "4.6.0"
 }

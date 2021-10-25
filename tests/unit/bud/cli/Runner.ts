@@ -26,10 +26,6 @@ describe('Runner', () => {
     expect(runner.make).toBeInstanceOf(Function)
   })
 
-  it('build', () => {
-    expect(runner.build).toBeInstanceOf(Function)
-  })
-
   it('setEnv', () => {
     expect(runner.setEnv).toBeInstanceOf(Function)
   })

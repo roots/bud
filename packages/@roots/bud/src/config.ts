@@ -14,6 +14,13 @@ export const config: Configuration = {
   name: 'bud',
 
   /**
+   * Is caching enabled?
+   *
+   * @public
+   */
+  cache: false,
+
+  /**
    * {@inheritDoc @roots/bud-framework#Configuration.ci}
    * @public
    */

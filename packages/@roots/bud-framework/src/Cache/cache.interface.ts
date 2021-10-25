@@ -7,11 +7,11 @@ import type {Service} from '../Service'
  */
 export interface CacheInterface extends Service {
   /**
-   * Dependencies which should be checked to determine cache validity.
+   * Cached data
    *
    * @public
    */
-  buildDependencies(): string[]
+  data: Record<string, any>
 
   /**
    * Directory used to store cache files
@@ -28,10 +28,24 @@ export interface CacheInterface extends Service {
   hash(): string
 
   /**
+   * Is cache valid?
+   *
+   * @public
+   */
+  valid: boolean
+
+  /**
    * A short, unique string created from the hashed contents of the project
    * config files and build dependencies.
    *
    * @public
    */
   version(): string
+
+  /**
+   * Update profile if needed
+   *
+   * @public
+   */
+  updateProfile(): void
 }

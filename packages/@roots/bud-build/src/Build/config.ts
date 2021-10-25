@@ -218,11 +218,15 @@ export function config(app: Framework): void {
       app.store.get('build.resolve.extensions'),
     )
     .hooks.on('build/resolve/modules', () => [
-      app.hooks.filter('location/src'),
-      app.hooks.filter('location/modules'),
-      ...(app.project?.resolveFrom ??
-        app.parent?.project?.resolveFrom ??
-        []),
+      ...new Set([
+        app.path('src'),
+        app.path('modules'),
+        'src',
+        'node_modules',
+        ...(app.project?.resolveFrom ??
+          app.parent?.project?.resolveFrom ??
+          []),
+      ]),
     ])
 
     /**

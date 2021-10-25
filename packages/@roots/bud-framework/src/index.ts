@@ -203,7 +203,9 @@ export interface Locations extends Partial<Index<string>> {}
  * @virtual @public
  */
 export interface Services
-  extends Partial<Index<new (app: Framework) => Service>> {}
+  extends Partial<
+    Record<string, new (app: Framework) => Service>
+  > {}
 
 /**
  * Compiler plugin instance

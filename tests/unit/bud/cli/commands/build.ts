@@ -10,7 +10,7 @@ describe('Build Command', () => {
   })
 
   it(`description is 'compile build assets' `, () => {
-    expect(build.description).toBe('compile assets')
+    expect(build.description).toBe('compile source assets')
   })
 
   it('has examples array', () => {

@@ -1,13 +1,13 @@
+import {Signale} from './logger.dependencies'
 import {INSTANCE_CONFIG} from './logger.constants'
-import {Service, Signale} from './logger.dependencies'
-import {Contract, Framework} from './logger.interface'
+import type {Framework} from './logger.interface'
 
 /**
  * Logger service
  *
  * @public
  */
-export class Logger extends Service implements Contract {
+export class Logger {
   /**
    * Logger instance
    *
@@ -21,13 +21,11 @@ export class Logger extends Service implements Contract {
    * @public
    */
   public constructor(app: Framework) {
-    super(app)
-
     this.instance = new Signale({
       disabled: true,
       interactive: false,
       secrets: [process.cwd()],
-      scope: app.name,
+      scope: 'bud',
       stream: [process.stdout],
     })
 

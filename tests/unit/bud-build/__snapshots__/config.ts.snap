@@ -1,3 +1,180 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.build.config has expected number of plugins 1`] = `4`;
+exports[`bud.build.config has expected cache default 1`] = `
+Object {
+  "type": "memory",
+}
+`;
+
+exports[`bud.build.config has expected default asset/image rule 1`] = `
+Object {
+  "exclude": Object {},
+  "generator": Object {
+    "filename": "assets/[hash][ext][query]",
+  },
+  "test": Object {},
+  "type": "asset/resource",
+}
+`;
+
+exports[`bud.build.config has expected default css rule 1`] = `
+Object {
+  "exclude": Object {},
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
+      "options": Object {
+        "filename": "[name].css",
+      },
+    },
+    Object {
+      "loader": StringContaining "css-loader/dist/cjs.js",
+      "options": Object {
+        "importLoaders": 1,
+        "sourceMap": false,
+      },
+    },
+  ],
+}
+`;
+
+exports[`bud.build.config has expected default csv rule 1`] = `
+Object {
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "csv-loader/index.js",
+    },
+  ],
+}
+`;
+
+exports[`bud.build.config has expected default font rule 1`] = `
+Object {
+  "exclude": Object {},
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "resolve-url-loader/index.js",
+      "options": Object {
+        "root": StringContaining "src",
+        "sourceMap": false,
+      },
+    },
+  ],
+}
+`;
+
+exports[`bud.build.config has expected default html rule 1`] = `
+Object {
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "html-loader/dist/cjs.js",
+    },
+  ],
+}
+`;
+
+exports[`bud.build.config has expected default js rule 1`] = `
+Object {
+  "exclude": Object {},
+  "test": Object {},
+  "use": Array [],
+}
+`;
+
+exports[`bud.build.config has expected default json rule 1`] = `
+Object {
+  "parser": Object {
+    "parse": [Function],
+  },
+  "test": Object {},
+  "type": "json",
+}
+`;
+
+exports[`bud.build.config has expected default requireEnsure rule 1`] = `
+Object {
+  "parser": Object {
+    "requireEnsure": false,
+  },
+  "test": Object {},
+}
+`;
+
+exports[`bud.build.config has expected default svg rule 1`] = `
+Object {
+  "exclude": Object {},
+  "generator": Object {
+    "filename": "assets/[hash][ext][query]",
+  },
+  "test": Object {},
+  "type": "asset/resource",
+}
+`;
+
+exports[`bud.build.config has expected default toml rule 1`] = `
+Object {
+  "parser": Object {
+    "parse": [Function],
+  },
+  "test": Object {},
+  "type": "json",
+}
+`;
+
+exports[`bud.build.config has expected default xml rule 1`] = `
+Object {
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "/xml-loader/index.js",
+    },
+  ],
+}
+`;
+
+exports[`bud.build.config has expected default yaml rule 1`] = `
+Object {
+  "parser": Object {
+    "parse": [Function],
+  },
+  "test": Object {},
+  "type": "json",
+}
+`;
+
+exports[`bud.build.config has expected experiments default 1`] = `
+Object {
+  "lazyCompilation": undefined,
+}
+`;
+
+exports[`bud.build.config has expected number of plugins 1`] = `5`;
+
+exports[`bud.build.config has expected resolve.extensions default 1`] = `
+Array [
+  ".wasm",
+  ".mjs",
+  ".js",
+  ".jsx",
+  ".css",
+  ".json",
+  ".json5",
+  ".toml",
+  ".xml",
+  ".csv",
+  ".tsv",
+  ".yml",
+  ".yaml",
+  ".xml",
+]
+`;
+
+exports[`bud.build.config has expected stats default 1`] = `
+Object {
+  "logging": false,
+}
+`;
