@@ -133,22 +133,32 @@ export class Cache
    */
   @bind
   public updateProfile(): void {
-    const maybeData = this.verifyProfile()
+    const maybeData = this.verifyProfile() as unknown as
+      | Record<string, any>
+      | false
     if (maybeData) {
-      this.app.project.setStore(this.data.project)
+      this.app.project.setStore((maybeData as any).project)
+      this.app.project.resolveFrom = (maybeData as any).resolve
       return
     }
 
     this.app.project.initialize()
 
-    removeSync(this.cachePath)
-    writeJsonSync(this.cachePath, {
+    this.data = {
       ...this.data,
       version: this.version(),
       dependencies: this.data.dependencies,
       configFiles: this.data.configFiles,
-      resolve: this.app.hooks.filter('build/resolve/modules'),
-    })
+      project: this.app.project.all(),
+      resolve: this.app.project.resolveFrom,
+    }
+
+    this.logger.log(
+      `Writing cache file to ${this.cachePath}`,
+      this.data,
+    )
+    removeSync(this.cachePath)
+    writeJsonSync(this.cachePath, this.data)
   }
 
   /**

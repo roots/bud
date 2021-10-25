@@ -61,6 +61,15 @@ export class Project
     return this.all()
   }
 
+  public register(): void {
+    this.manifestPath = this.app.path('project', 'package.json')
+    this.logger.log(
+      'Cache is either disabled or invalid and must be built',
+    )
+    this.setStore(readJsonSync(this.manifestPath))
+    this.set('manifestPath', this.manifestPath)
+  }
+
   /**
    * Read project package.json and set peer deps
    *
@@ -69,13 +78,6 @@ export class Project
    */
   @bind
   public initialize(): void {
-    this.manifestPath = this.app.path('project', 'package.json')
-    this.logger.log(
-      'Cache is either disabled or invalid and must be built',
-    )
-    this.setStore(readJsonSync(this.manifestPath))
-    this.set('manifestPath', this.manifestPath)
-
     this.peers = new Peers(this)
     this.app.cache.data.project = this.all()
     this.app.cache.data.resolve = this.resolveFrom
