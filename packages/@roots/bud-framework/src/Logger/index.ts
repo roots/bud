@@ -1,5 +1,5 @@
-import {Signale} from './logger.dependencies'
 import {INSTANCE_CONFIG} from './logger.constants'
+import {Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
 /**
