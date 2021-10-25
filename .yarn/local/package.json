@@ -4,12 +4,12 @@
   "main": "./sources/index.ts",
   "dependencies": {
     "@types/node": "16.11.4",
-    "@yarnpkg/builder": "3.1.0-rc.9",
+    "@yarnpkg/builder": "3.1.0-rc.10",
     "@yarnpkg/cli": "3.1.0-rc.12",
     "@yarnpkg/core": "3.1.0-rc.13",
     "@yarnpkg/shell": "3.1.0-rc.9",
     "clipanion": "3.2.0-rc.3",
-    "esbuild": "0.13.8",
+    "esbuild": "0.13.9",
     "tslib": "2.3.1",
     "typescript": "4.4.4"
   },
