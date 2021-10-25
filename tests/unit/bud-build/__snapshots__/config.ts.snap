@@ -24,9 +24,7 @@ Object {
   "use": Array [
     Object {
       "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
-      "options": Object {
-        "filename": "[name].css",
-      },
+      "options": Object {},
     },
     Object {
       "loader": StringContaining "css-loader/dist/cjs.js",

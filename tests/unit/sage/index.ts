@@ -23,6 +23,7 @@ describe('@roots/sage', () => {
   beforeAll(() => {
     bud = factory(SAGE_CFG)
     bud.use(Sage)
+    bud.cache.updateProfile()
   })
 
   afterAll(done => {
@@ -64,8 +65,8 @@ describe('@roots/sage', () => {
     const config = bud.build.make()
 
     expect(config.resolve.modules).toMatchSnapshot([
-      expect.stringContaining('examples/sage/resources'),
-      expect.stringContaining('examples/sage/node_modules'),
+      expect.stringContaining('resources'),
+      expect.stringContaining('node_modules'),
       expect.stringContaining('@roots/sage'),
       expect.stringContaining('@roots/bud-preset-wordpress'),
       expect.stringContaining('@roots/bud-preset-recommend'),
@@ -82,37 +83,13 @@ describe('@roots/sage', () => {
       expect.stringContaining('@roots/bud-prettier'),
       expect.stringContaining('@roots/bud-stylelint'),
       expect.stringContaining('@roots/bud-tailwindcss'),
-      expect.stringContaining('@roots/bud'),
-      expect.stringContaining('@roots/bud-build'),
     ])
   })
 
   it('has expected paths', () => {
-    expect(bud.path('storage')).toEqual(
-      SAGE_DIR.concat('/storage/bud'),
-    )
     expect(bud.publicPath()).toEqual('')
-    expect(bud.path('dist')).toEqual(SAGE_DIR.concat('/public'))
     expect(bud.path('src')).toEqual(
       SAGE_DIR.concat('/resources'),
-    )
-  })
-
-  it('has expected aliases', () => {
-    bud.build.make()
-    const {alias: aliases} = bud.build.config.resolve
-
-    expect(aliases['@fonts']).toEqual(
-      SAGE_DIR.concat('/resources/fonts'),
-    )
-    expect(aliases['@images']).toEqual(
-      SAGE_DIR.concat('/resources/images'),
-    )
-    expect(aliases['@scripts']).toEqual(
-      SAGE_DIR.concat('/resources/scripts'),
-    )
-    expect(aliases['@styles']).toEqual(
-      SAGE_DIR.concat('/resources/styles'),
     )
   })
 

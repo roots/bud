@@ -74,17 +74,13 @@ Object {
 exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
   StringContaining "@roots/bud-babel",
-  StringContaining "@roots/bud",
-  StringContaining "@roots/bud-build",
 ]
 `;
 
 exports[`bud.project resolveFrom contains paths of found peers 2`] = `
 Array [
-  StringContaining "examples/babel/src",
-  StringContaining "examples/babel/node_modules",
+  StringContaining "src",
+  StringContaining "node_modules",
   StringContaining "@roots/bud-babel",
-  StringContaining "@roots/bud",
-  StringContaining "@roots/bud-build",
 ]
 `;

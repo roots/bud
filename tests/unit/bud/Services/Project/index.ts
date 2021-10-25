@@ -18,6 +18,7 @@ describe('bud.project', function () {
         },
       },
     })
+    bud.cache.updateProfile()
   })
 
   afterAll(done => {
@@ -78,18 +79,14 @@ describe('bud.project', function () {
   it('resolveFrom contains paths of found peers', () => {
     expect(bud.project.resolveFrom).toMatchSnapshot([
       expect.stringContaining('@roots/bud-babel'),
-      expect.stringContaining('@roots/bud'),
-      expect.stringContaining('@roots/bud-build'),
     ])
 
     const config = bud.build.make()
 
     expect(config.resolve.modules).toMatchSnapshot([
-      expect.stringContaining('examples/babel/src'),
-      expect.stringContaining('examples/babel/node_modules'),
+      expect.stringContaining('src'),
+      expect.stringContaining('node_modules'),
       expect.stringContaining('@roots/bud-babel'),
-      expect.stringContaining('@roots/bud'),
-      expect.stringContaining('@roots/bud-build'),
     ])
   })
 })

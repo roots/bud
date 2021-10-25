@@ -7,6 +7,7 @@ module.exports = (app) => {
   app
     .use(require('@roots/sage'))
     .setPath({
+      storage: '.budfiles',
       dist: 'dist',
     })
     .entry({

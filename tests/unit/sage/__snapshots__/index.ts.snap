@@ -43,8 +43,8 @@ Object {
 
 exports[`@roots/sage sage resolveFrom matches snapshot 1`] = `
 Array [
-  StringContaining "examples/sage/resources",
-  StringContaining "examples/sage/node_modules",
+  StringContaining "resources",
+  StringContaining "node_modules",
   StringContaining "@roots/sage",
   StringContaining "@roots/bud-preset-wordpress",
   StringContaining "@roots/bud-preset-recommend",
@@ -59,7 +59,5 @@ Array [
   StringContaining "@roots/bud-prettier",
   StringContaining "@roots/bud-stylelint",
   StringContaining "@roots/bud-tailwindcss",
-  StringContaining "@roots/bud",
-  StringContaining "@roots/bud-build",
 ]
 `;

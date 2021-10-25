@@ -9,9 +9,9 @@ describe('examples/sage', () => {
     project = new Project({
       name: 'sage',
       dir: 'examples/sage',
-      dist: 'public',
+      dist: 'dist',
       public: 'public',
-      storage: 'storage/bud',
+      storage: '.budfiles',
     })
 
     await project.setup()
