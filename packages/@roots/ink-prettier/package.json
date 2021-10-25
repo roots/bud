@@ -67,7 +67,7 @@
     "@types/jest": "27.0.2",
     "@types/node": "16.11.4",
     "@types/prettier": "2.4.1",
-    "@types/react": "17.0.31",
+    "@types/react": "17.0.32",
     "jest": "27.3.1"
   },
   "peerDependencies": {
