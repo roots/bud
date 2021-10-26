@@ -2,6 +2,19 @@
 
 exports[`Runner app property matches mock 1`] = `
 Object {
+  "cache": Object {
+    "updateProfile": [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    },
+  },
   "close": [MockFunction],
   "dashboard": Object {
     "render": [MockFunction],

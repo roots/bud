@@ -16,7 +16,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-solid": "workspace:*",
-    "solid-js": "^1.1.7"
+    "@roots/bud-solid": "workspace:*"
   }
 }

@@ -134,6 +134,7 @@ describe('bud.project', function () {
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
       expect.stringContaining('@roots/bud-babel'),
+      expect.stringContaining('node_modules'),
     ])
   })
 })

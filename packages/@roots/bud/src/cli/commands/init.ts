@@ -29,6 +29,8 @@ export default class Init extends Command {
 
   public async run() {
     this.app = new Runner(this.parse(Init)).app
+    this.app.cache.updateProfile()
+
     const output = []
 
     this.getMissingPeers().map(pkg => {
@@ -40,7 +42,7 @@ export default class Init extends Command {
             .concat(
               `  ...Installing ${chalk.blue(
                 `${pkg.name}@${pkg.version}`,
-              )} to ${chalk.magenta(pkg.type)}`,
+              )}`,
             ),
         ],
         'Installing',
@@ -54,7 +56,7 @@ export default class Init extends Command {
           .concat(
             `  Installed ${chalk.blue(
               `${pkg.name}@${pkg.version}`,
-            )} to ${chalk.magenta(pkg.type)}`,
+            )}`,
           ),
       )
     })

@@ -16,13 +16,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
-    "@roots/bud-preset-recommend": "workspace:*",
-    "@types/eslint": "7.28.2",
-    "@types/prettier": "2.4.1",
-    "eslint": "7.32.0",
-    "postcss": "8.3.11",
-    "postcss-import": "14.0.2",
-    "postcss-preset-env": "6.7.0",
-    "prettier": "2.4.1"
+    "@roots/bud-preset-recommend": "workspace:*"
   }
 }

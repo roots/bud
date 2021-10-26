@@ -62,6 +62,7 @@ export class Cache
   /**
    * @public
    */
+  @bind
   public register(): void {
     this.app.hooks
       .on('build/cache', () => ({

@@ -14,16 +14,9 @@
     ]
   },
   "devDependencies": {
-    "@emotion/css": "11.5.0",
-    "@emotion/react": "11.5.0",
-    "@emotion/styled": "11.3.0",
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
   }
 }

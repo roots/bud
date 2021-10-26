@@ -59,5 +59,6 @@ Array [
   StringContaining "@roots/bud-prettier",
   StringContaining "@roots/bud-stylelint",
   StringContaining "@roots/bud-tailwindcss",
+  StringContaining "node_modules",
 ]
 `;

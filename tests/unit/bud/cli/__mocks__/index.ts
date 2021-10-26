@@ -14,6 +14,16 @@ export const mocks = (function () {
        * Compilation mode
        */
       mode: 'production',
+
+      /**
+       * Cache mock
+       */
+      cache: {
+        updateProfile: jest
+          .fn()
+          .mockImplementation((cb: CallableFunction) => {}),
+      },
+
       /**
        * Framework shutdown mock
        */

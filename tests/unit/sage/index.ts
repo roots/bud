@@ -83,6 +83,7 @@ describe('@roots/sage', () => {
       expect.stringContaining('@roots/bud-prettier'),
       expect.stringContaining('@roots/bud-stylelint'),
       expect.stringContaining('@roots/bud-tailwindcss'),
+      expect.stringContaining('node_modules'),
     ])
   })
 

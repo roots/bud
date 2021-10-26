@@ -1,3 +1,5 @@
+import {bind} from '@roots/bud-support'
+
 import {Bud} from '../../Bud'
 import {config} from '../../config'
 import {factory} from '../../factory'
@@ -166,9 +168,6 @@ export class Runner {
         `${this.app.name}.${this.app.mode}.config.yml`,
       ],
     })
-
-    this.doStatics = this.doStatics.bind(this)
-    this.doBuilders = this.doBuilders.bind(this)
   }
 
   /**
@@ -176,6 +175,7 @@ export class Runner {
    *
    * @param build - Boolean value indicating if compilation should occur
    */
+  @bind
   public async make() {
     /**
      * Configure bud instance with static configs.
@@ -317,6 +317,7 @@ export class Runner {
    *
    * @param env - {@link Bud.mode}
    */
+  @bind
   public setEnv(env: 'production' | 'development') {
     process.env.BABEL_ENV = env
     process.env.NODE_ENV = env
@@ -325,6 +326,7 @@ export class Runner {
   /**
    * Process dynamic configs
    */
+  @bind
   public async doBuilders() {
     const builder = await new CLIConfig(
       this.app,
@@ -336,6 +338,7 @@ export class Runner {
   /**
    * Process static configs
    */
+  @bind
   public async doStatics() {
     await new CLIConfig(
       this.app,

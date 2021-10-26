@@ -2,6 +2,9 @@
 
 exports[`Config apply returns bud 1`] = `
 Object {
+  "cache": Object {
+    "updateProfile": [MockFunction],
+  },
   "close": [MockFunction],
   "dashboard": Object {
     "render": [MockFunction],

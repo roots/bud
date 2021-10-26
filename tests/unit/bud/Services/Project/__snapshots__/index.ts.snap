@@ -82,5 +82,6 @@ Array [
   StringContaining "src",
   StringContaining "node_modules",
   StringContaining "@roots/bud-babel",
+  StringContaining "node_modules",
 ]
 `;

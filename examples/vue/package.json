@@ -15,9 +15,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-vue": "workspace:*",
-    "@vue/compiler-sfc": "^3.1.5",
-    "@vue/runtime-dom": "^3.2.20",
-    "vue": "^3.1.5"
+    "@roots/bud-vue": "workspace:*"
   }
 }
