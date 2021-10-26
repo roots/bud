@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 const execa = require('execa')
-const {readFile, readJson} = require('fs-extra')
+const {readJson} = require('fs-extra')
 const path = require('path')
 const {noop} = require('lodash')
-const {safeResolve} = require('@roots/bud-support')
 const {magenta} = require('chalk')
 
 const manifestPath = path.resolve(
@@ -46,7 +45,7 @@ async function install() {
   const installString = Object.entries(
     cache.project.peers,
   ).reduce((acc, [k, {name, version}]) => {
-    return safeResolve(name) ? acc : `${acc} ${name}@${version}`
+    return `${acc} ${name}@${version}`
   }, `yarn workspace bud-examples-resolver add`)
 
   const task = execa.command(installString)
