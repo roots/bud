@@ -17,7 +17,7 @@
   },
   "workspaces": {
     "packages": [
-      "dev/jest/resolver",
+      "dev/jest/util/resolver",
       "examples/*",
       "packages/@roots/*",
       "packages/base",
