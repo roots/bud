@@ -66,10 +66,10 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "imagemin-gifsicle": "^7",
-    "imagemin-jpegtran": "^7",
-    "imagemin-optipng": "^8",
-    "imagemin-svgo": "^9 || ^10"
+    "imagemin-gifsicle": "7.0.0",
+    "imagemin-jpegtran": "7.0.0",
+    "imagemin-optipng": "8.0.0",
+    "imagemin-svgo": "10.0.0"
   },
   "peerDependenciesMeta": {
     "imagemin-gifsicle": {

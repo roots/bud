@@ -3,9 +3,9 @@ import type {Extension} from '@roots/bud-framework'
 import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
-interface BudImageMinExtension extends Extension.Module {}
+export interface BudImageMinExtension extends Extension.Module {}
 
-const BudImageMinExtension: BudImageMinExtension = {
+export const BudImageMinExtension: BudImageMinExtension = {
   name: '@roots/bud-imagemin',
 
   register(app): void {
@@ -24,13 +24,15 @@ const BudImageMinExtension: BudImageMinExtension = {
 
     const eligiblePlugins: Array<
       [string, {[key: string]: any}]
-    > = plugins?.filter(([name]) =>
-      project.hasPeerDependency(name),
-    )
+    > = plugins?.filter(([name]) => {
+      try {
+        require.resolve(name)
+        return true
+      } catch (e) {
+        return false
+      }
+    })
 
-    eligiblePlugins.length > 0 &&
-      imagemin.plugins(eligiblePlugins)
+    imagemin.plugins(eligiblePlugins)
   },
 }
-
-export {BudImageMinExtension}

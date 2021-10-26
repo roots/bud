@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import type {PluginOptions} from 'image-minimizer-webpack-plugin/types'
 
-class Config {
+export class Config {
   public _app: () => Framework
 
   public get app(): Framework {
@@ -12,14 +12,14 @@ class Config {
     this._app = () => app
   }
 
-  public plugins(plugins: [string, any][]) {
+  public plugins(plugins: Array<[string, any]>) {
     this.app.hooks.on(
       'extension/image-minimizer-webpack-plugin/options',
       (options: PluginOptions) => ({
         ...(options ?? {}),
         minimizerOptions: {
           ...(options.minimizerOptions ?? {}),
-          plugins: plugins,
+          plugins: [...plugins],
         },
       }),
     )
@@ -27,5 +27,3 @@ class Config {
     return this.app
   }
 }
-
-export {Config}
