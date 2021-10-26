@@ -7,6 +7,24 @@ export interface tailwindConfig {
   (this: Framework, config?: TailwindConfig): Framework
 }
 
+/**
+ * Configure tailwindcss.
+ *
+ * @example
+ * ```js
+ * bud.tailwind('tailwind.config.js')
+ * ```
+ *
+ * ```js
+ * bud.tailwind({
+ *   theme: {
+ *     // etc
+ *   }
+ * })
+ * ```
+ *
+ * @public
+ */
 export function tailwindConfig(
   this: Framework,
   config?: TailwindConfig,
