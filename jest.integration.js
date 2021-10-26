@@ -20,6 +20,7 @@ module.exports = async function config() {
       },
     },
     globalSetup: '<rootDir>/dev/jest/integration.setup.js',
+    globalTeardown: '<rootDir>/dev/jest/teardown.js',
     moduleNameMapper,
     preset: 'ts-jest',
     testEnvironment: 'node',

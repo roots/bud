@@ -22,6 +22,7 @@ module.exports = async function config() {
     },
     moduleNameMapper,
     globalSetup: '<rootDir>/dev/jest/unit.setup.js',
+    globalTeardown: '<rootDir>/dev/jest/teardown.js',
     preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: [
