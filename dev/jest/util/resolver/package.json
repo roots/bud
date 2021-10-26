@@ -30,6 +30,8 @@
     "@roots/bud-tailwindcss": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@roots/bud-vue": "workspace:*",
-    "@roots/sage": "workspace:*"
+    "@roots/sage": "workspace:*",
+    "@types/imagemin-gifsicle": "^7",
+    "@types/imagemin-svgo": "^10"
   }
 }

@@ -9,14 +9,14 @@ const {noop} = require('lodash')
 const {green, magenta, bold} = require('chalk')
 const clearBudfiles = require('./util/clearBudfiles')
 const Project = require('./util/project')
-const {writeFileSync} = require('fs')
-const path = require('path')
+const {install} = require('./util/dependencies')
 
 /**
  * Setup integration tests
  */
 module.exports = async () => {
-  await resolverModules()
+  await clearBudfiles()
+  await install()
 
   console.log('Reading the projects dir')
   let manifestPaths = await globby('examples/*/package.json')
@@ -30,9 +30,6 @@ module.exports = async () => {
 
   console.log('manifest paths discovered:')
   manifestPaths.map(s => console.log(`- ${s}`))
-
-  console.log(magenta`\n  Clearing budfiles`)
-  await clearBudfiles()
 
   await manifestPaths.reduce(async (promised, path, i) => {
     let accumulator = await promised
@@ -114,21 +111,4 @@ module.exports = async () => {
       [`${result.name}`]: result,
     }
   }, Promise.resolve({}))
-}
-
-async function resolverModules() {
-  const resolverManifestPath = path.resolve(
-    __dirname,
-    'resolver',
-    'package.json',
-  )
-  const resolverManifest = await readFile(resolverManifestPath)
-  console.log(magenta`\n  Resolving examples peer dependencies`)
-  const initttask = execa.command(`yarn bud init`, {
-    cwd: path.dirname(resolverManifestPath),
-  })
-  initttask.stdout.pipe(process.stdout)
-  initttask.stderr.pipe(process.stderr)
-  await initttask.finally(noop)
-  writeFileSync(resolverManifestPath, resolverManifest, 'utf8')
 }
