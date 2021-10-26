@@ -1,20 +1,20 @@
 import {Item, Loader, Rule} from '@roots/bud-build'
 import type {Extension} from '@roots/bud-framework'
-import {safeResolve} from '@roots/bud-support'
 
 export interface BudSassExtension extends Extension.Module {}
 
 export const BudSassExtension: BudSassExtension = {
   name: '@roots/bud-sass',
 
-  boot: ({hooks, build, error}) => {
-    const sassPath = safeResolve('sass')
-
-    if (!sassPath) {
-      error(
+  boot: ({hooks, build, warn}) => {
+    try {
+      require.resolve('sass')
+    } catch (e) {
+      warn(
         "sass can't be found. Run `bud init` or install `sass` manually",
         'Peer dependency missing',
       )
+      return
     }
 
     Object.assign(build.loaders, {
@@ -25,7 +25,7 @@ export const BudSassExtension: BudSassExtension = {
       sass: new Item({
         loader: ({build}) => build.loaders.sass,
         options: () => ({
-          implementation: (() => require(sassPath))(),
+          implementation: (() => require('sass'))(),
           sourceMap: true,
         }),
       }),
