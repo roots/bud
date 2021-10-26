@@ -3414,10 +3414,10 @@ __metadata:
     tslib: ^2.3.1
     webpack: 5.59.1
   peerDependencies:
-    imagemin-gifsicle: ^7
-    imagemin-jpegtran: ^7
-    imagemin-optipng: ^8
-    imagemin-svgo: ^9 || ^10
+    imagemin-gifsicle: 7.0.0
+    imagemin-jpegtran: 7.0.0
+    imagemin-optipng: 8.0.0
+    imagemin-svgo: 10.0.0
   peerDependenciesMeta:
     imagemin-gifsicle:
       optional: true
@@ -3660,6 +3660,7 @@ __metadata:
     type-fest: 2.5.1
     webpack: 5.59.1
   peerDependencies:
+    "@babel/plugin-syntax-jsx": 7.14.5
     solid-js: ^1.1.7
   languageName: unknown
   linkType: soft
@@ -3748,7 +3749,7 @@ __metadata:
     tailwindcss: 2.2.17
     tslib: ^2.3.1
   peerDependencies:
-    tailwindcss: ^2.2.8
+    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -3817,9 +3818,9 @@ __metadata:
     vue-loader: ^16.8.1
     webpack: 5.59.1
   peerDependencies:
-    "@vue/compiler-sfc": ^3.2.20
-    "@vue/runtime-dom": ^3.2.20
-    vue: ^3.2.20
+    "@vue/compiler-sfc": 3.2.20
+    "@vue/runtime-dom": 3.2.20
+    vue: 3.2.20
   languageName: unknown
   linkType: soft
 
@@ -4674,6 +4675,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/imagemin-gifsicle@npm:^7":
+  version: 7.0.1
+  resolution: "@types/imagemin-gifsicle@npm:7.0.1"
+  dependencies:
+    "@types/imagemin": "*"
+  checksum: 1c3a901b9cd407acd30fec81e19afc5d4c5e67797f02051de73c915571e4b861f5dc7af3c226b5a64ab4fcc2b1d1bf29bba128b9696acdb283a593d4667f3f48
+  languageName: node
+  linkType: hard
+
+"@types/imagemin-svgo@npm:^10":
+  version: 10.0.0
+  resolution: "@types/imagemin-svgo@npm:10.0.0"
+  dependencies:
+    "@types/imagemin": "*"
+    "@types/svgo": ^1
+  checksum: 1ab11644d5c8d2fb58cda1b969bdc6319c0fa60b7ac64a628cbc3062d2360c34543978b2978fdfb198ad96d23ab26d09a611df81a0c21eadb702462bc76f3777
+  languageName: node
+  linkType: hard
+
+"@types/imagemin@npm:*":
+  version: 8.0.0
+  resolution: "@types/imagemin@npm:8.0.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 4ba20d0067a92e2d5ea194a804311477f7e8a7d1d75193ac8f685b885b9be377592aeb40edb416754eb5b69b64d61cd190802142dd3faca55bc90d7783ceb418
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.3
   resolution: "@types/istanbul-lib-coverage@npm:2.0.3"
@@ -5060,6 +5089,13 @@ __metadata:
   version: 8.1.1
   resolution: "@types/supports-color@npm:8.1.1"
   checksum: 6f35588fc423bf6b511167b4aaa0348638567f7a74de24d77dfb930d2053757585e1799d9c903f3db7a23a9ef2518878de9427b20d2f4476899aaf923e98de11
+  languageName: node
+  linkType: hard
+
+"@types/svgo@npm:^1":
+  version: 1.3.6
+  resolution: "@types/svgo@npm:1.3.6"
+  checksum: 46d648b51a9485eb129ba30da009bb3d6223434bbe224cb051351d9f6055f3c3688544dee5a200d007e993822a4ccec2d96fd13f7c04a2ac8495a602de028f04
   languageName: node
   linkType: hard
 
@@ -7489,9 +7525,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bud-examples-resolver@workspace:dev/jest/resolver":
+"bud-examples-resolver@workspace:dev/jest/util/resolver":
   version: 0.0.0-use.local
-  resolution: "bud-examples-resolver@workspace:dev/jest/resolver"
+  resolution: "bud-examples-resolver@workspace:dev/jest/util/resolver"
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
@@ -7510,6 +7546,8 @@ __metadata:
     "@roots/bud-typescript": "workspace:*"
     "@roots/bud-vue": "workspace:*"
     "@roots/sage": "workspace:*"
+    "@types/imagemin-gifsicle": ^7
+    "@types/imagemin-svgo": ^10
   languageName: unknown
   linkType: soft
 
