@@ -63,18 +63,6 @@ module.exports = async () => {
     console.log(`  cache: ${result.cache.path}`)
 
     /**
-     * Initialize project
-     */
-    /*       const initttask = execa.command(`yarn bud init`, {
-        cwd: result.directory,
-      })
-      initttask.stdout.pipe(process.stdout)
-      initttask.stderr.pipe(process.stderr)
-      await initttask.finally(noop)
-
-      console.log(blue`\n [${result.name}] Building project\n`)
- */
-    /**
      * Build project
      */
     const buildtask = execa.command(

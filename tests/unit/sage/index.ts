@@ -42,22 +42,28 @@ describe('@roots/sage', () => {
     expect(bud.project.get('peers')).toMatchSnapshot({
       '@wordpress/browserslist-config': {
         name: '@wordpress/browserslist-config',
-        version: '4.1.0',
+        version: expect.any(String),
       },
       postcss: {name: 'postcss', version: '8.3.11'},
       'postcss-import': {
         name: 'postcss-import',
-        version: '14.0.2',
+        version: expect.any(String),
       },
       'postcss-preset-env': {
         name: 'postcss-preset-env',
-        version: '6.7.0',
+        version: expect.any(String),
       },
-      react: {name: 'react', version: '17.0.2'},
-      'react-dom': {name: 'react-dom', version: '17.0.2'},
-      eslint: {name: 'eslint', version: '7.32.0'},
-      prettier: {name: 'prettier', version: '2.4.1'},
-      tailwindcss: {name: 'tailwindcss', version: '^2.2.8'},
+      react: {name: 'react', version: expect.any(String)},
+      'react-dom': {
+        name: 'react-dom',
+        version: expect.any(String),
+      },
+      eslint: {name: 'eslint', version: expect.any(String)},
+      prettier: {name: 'prettier', version: expect.any(String)},
+      tailwindcss: {
+        name: 'tailwindcss',
+        version: expect.any(String),
+      },
     })
   })
 

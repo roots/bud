@@ -7,3 +7,4 @@
 **/*.d.ts
 examples/*/src/**/*
 examples/*/bud.config.*
+dev/jest/**/*

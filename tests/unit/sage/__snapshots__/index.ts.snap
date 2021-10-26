@@ -4,11 +4,11 @@ exports[`@roots/sage sage required peers matches snapshot 1`] = `
 Object {
   "@wordpress/browserslist-config": Object {
     "name": "@wordpress/browserslist-config",
-    "version": "4.1.0",
+    "version": Any<String>,
   },
   "eslint": Object {
     "name": "eslint",
-    "version": "7.32.0",
+    "version": Any<String>,
   },
   "postcss": Object {
     "name": "postcss",
@@ -16,27 +16,27 @@ Object {
   },
   "postcss-import": Object {
     "name": "postcss-import",
-    "version": "14.0.2",
+    "version": Any<String>,
   },
   "postcss-preset-env": Object {
     "name": "postcss-preset-env",
-    "version": "6.7.0",
+    "version": Any<String>,
   },
   "prettier": Object {
     "name": "prettier",
-    "version": "2.4.1",
+    "version": Any<String>,
   },
   "react": Object {
     "name": "react",
-    "version": "17.0.2",
+    "version": Any<String>,
   },
   "react-dom": Object {
     "name": "react-dom",
-    "version": "17.0.2",
+    "version": Any<String>,
   },
   "tailwindcss": Object {
     "name": "tailwindcss",
-    "version": "^2.2.8",
+    "version": Any<String>,
   },
 }
 `;
