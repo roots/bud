@@ -18,24 +18,25 @@
  */
 
 import type {Extension} from '@roots/bud-framework'
+import {safeRequire} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-solid': BudSolidExtension
   }
 }
 
-interface BudSolidExtension extends Extension.Module {}
+type BudSolidExtension = Extension.Module
 
 const BudSolidExtension: BudSolidExtension = {
   name: '@roots/bud-solid',
-  boot({babel, project}) {
-    project.hasPeerDependency('solid-js') &&
-      babel.setPreset('babel-preset-solid')
+  boot({babel, warn}) {
+    !safeRequire('babel-preset-solid') &&
+      warn(
+        'babel-preset-solid is required by @roots/bud-solid-js but is not resolvable.',
+      )
+
+    babel.setPreset('babel-preset-solid')
   },
 }
 

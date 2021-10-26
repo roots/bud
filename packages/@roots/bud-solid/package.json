@@ -85,6 +85,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
+    "@babel/plugin-syntax-jsx": "7.14.5",
     "solid-js": "^1.1.7"
   },
   "stableVersion": "4.6.0"
