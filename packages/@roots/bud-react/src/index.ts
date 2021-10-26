@@ -47,29 +47,14 @@ import {reactRefresh} from './reactRefresh'
  */
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Framework}
-   *
-   * @public @override
-   */
   interface Framework {
     reactRefresh: reactRefresh
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-react': BudReactExtension
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#CompilerPlugin}
-   *
-   * @public @override
-   */
   interface CompilerPlugin {
     '@pmmmwh/react-refresh-webpack-plugin': BudReactRefreshPlugin
   }

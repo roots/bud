@@ -18,11 +18,6 @@ import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
 import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Framework}
-   *
-   * @override
-   */
   interface Framework {
     critical: critical
   }

@@ -19,31 +19,9 @@
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * Configure tailwindcss.
-     *
-     * @example
-     * ```js
-     * bud.tailwind('tailwind.config.js')
-     * ```
-     *
-     * ```js
-     * bud.tailwind({
-     *   theme: {
-     *     // etc
-     *   }
-     * })
-     * ```
-     *
-     * @public @config
-     */
     tailwind: tailwindConfig
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-tailwindcss': BudTailwindCssExtension
   }

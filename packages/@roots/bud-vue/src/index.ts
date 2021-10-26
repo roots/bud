@@ -10,79 +10,29 @@
  * @packageDocumentation @betaDocumentation
  */
 
+import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
-import {VueLoaderPlugin} from 'vue-loader'
-import {
-  Configuration,
-  RuleSetRule,
-  RuleSetUseItem,
-} from 'webpack'
+
+import {VueExtension} from './vue.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/bud-vue': Extension.Module
     'vue-loader-plugin': Extension.Module
   }
-
   interface Loaders {
-    vue: string
-    'vue-style': string
+    vue: Loader
+    'vue-style': Loader
   }
 
   interface Items {
-    vue: RuleSetUseItem
-    'vue-style': RuleSetUseItem
+    vue: Item
+    'vue-style': Item
   }
 
   interface Rules {
-    vue: RuleSetRule
+    vue: Rule
   }
-}
-
-const VueExtension: Extension.Module = {
-  name: '@roots/bud-vue',
-
-  boot: app => {
-    const {project, extensions, store, hooks} = app
-
-    if (
-      !project.hasPeerDependency('vue') ||
-      !project.hasPeerDependency('@vue/compiler-sfc')
-    )
-      return
-
-    hooks.on(
-      'build/module/rules',
-      (rules: Configuration['module']['rules']) => [
-        {
-          test: store.get('patterns.vue'),
-          use: [{loader: require.resolve('vue-loader')}],
-        },
-        ...rules,
-      ],
-    )
-
-    extensions.add({
-      name: 'vue-loader-plugin',
-      make: () => new VueLoaderPlugin(),
-    })
-
-    hooks.on(
-      'build/resolve/alias',
-      (aliases: Configuration['resolve']['alias']) => ({
-        ...aliases,
-        vue: '@vue/runtime-dom',
-      }),
-    )
-
-    hooks.on(
-      'build/resolve/extensions',
-      (extensions: Configuration['resolve']['extensions']) => [
-        ...extensions,
-        '.vue',
-      ],
-    )
-  },
 }
 
 export const {name, boot} = VueExtension

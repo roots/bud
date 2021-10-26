@@ -13,17 +13,7 @@
 import {BudEmotionExtension} from './BudEmotionExtension'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   *
-   * @public @override
-   */
   interface Modules {
-    /**
-     * @see {@link BudEmotionExtension}
-     *
-     * @public
-     */
     '@roots/bud-emotion': BudEmotionExtension
   }
 }
