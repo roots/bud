@@ -33,13 +33,6 @@ describe('examples/react', () => {
             'workspace:packages/@roots/bud-postcss',
           '@roots/bud-react':
             'workspace:packages/@roots/bud-react',
-          '@types/react': expect.any(String),
-          '@types/react-dom': expect.any(String),
-          postcss: expect.any(String),
-          'postcss-import': expect.any(String),
-          'postcss-preset-env': expect.any(String),
-          react: expect.any(String),
-          'react-dom': expect.any(String),
         },
         name: 'example-react',
         private: true,

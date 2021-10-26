@@ -28,8 +28,6 @@ describe('examples/vue', () => {
         devDependencies: {
           '@roots/bud': 'workspace:*',
           '@roots/bud-vue': 'workspace:*',
-          '@vue/compiler-sfc': expect.any(String),
-          vue: expect.any(String),
         },
         name: 'example-vue',
         private: true,

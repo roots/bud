@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/bud-imagemin automatically registered found imagemin plugins 1`] = `
+Object {
+  "minimizerOptions": Object {
+    "plugins": Array [
+      Array [
+        "imagemin-gifsicle",
+        Object {
+          "interlaced": true,
+        },
+      ],
+      Array [
+        "imagemin-jpegtran",
+        Object {
+          "progressive": true,
+        },
+      ],
+      Array [
+        "imagemin-optipng",
+        Object {
+          "optimizationLevel": 7,
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`@roots/bud-imagemin bud.imagemin.plugins overwrites previously registered plugins 1`] = `
+Object {
+  "minimizerOptions": Object {
+    "plugins": Array [
+      Array [
+        "bar",
+        Object {
+          "interlaced": true,
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`@roots/bud-imagemin bud.imagemin.plugins registers plugin 1`] = `
+Object {
+  "minimizerOptions": Object {
+    "plugins": Array [
+      Array [
+        "svgo",
+        Object {
+          "interlaced": true,
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`@roots/bud-imagemin options filter is functioning 1`] = `
+Object {
+  "minimizerOptions": Object {
+    "plugins": Array [
+      Array [
+        "imagemin-gifsicle",
+        Object {
+          "interlaced": true,
+        },
+      ],
+      Array [
+        "imagemin-jpegtran",
+        Object {
+          "progressive": true,
+        },
+      ],
+      Array [
+        "imagemin-optipng",
+        Object {
+          "optimizationLevel": 7,
+        },
+      ],
+    ],
+  },
+}
+`;

@@ -1,6 +1,5 @@
 import {Bud, config, factory, Framework} from '@roots/bud'
 import * as BudSassExtension from '@roots/bud-sass'
-import execa from 'execa'
 
 jest.setTimeout(20000)
 
@@ -22,7 +21,6 @@ describe('@roots/bud-sass', () => {
   }
 
   beforeAll(async () => {
-    await execa('yarn', ['add', 'sass'])
     bud = factory({
       config: {
         ...config,
@@ -36,9 +34,7 @@ describe('@roots/bud-sass', () => {
   })
 
   afterAll(done => {
-    execa('yarn', ['remove', 'sass']).then(() => {
-      bud.close(done)
-    })
+    bud.close(done)
   })
 
   it('returns normally when sass is installed', () => {

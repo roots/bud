@@ -30,8 +30,6 @@ describe('examples/sass', () => {
       devDependencies: {
         '@roots/bud': 'workspace:*',
         '@roots/bud-sass': 'workspace:*',
-        '@types/sass': expect.any(String),
-        sass: expect.any(String),
       },
       name: 'example-sass',
       private: true,

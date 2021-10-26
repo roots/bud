@@ -22,27 +22,17 @@ describe('examples/imagemin', () => {
         name: 'example-imagemin',
         private: true,
         browserslist: {
-          production: [
-            '>0.5%',
-            'not dead',
-            'not op_mini all'
-          ],
+          production: ['>0.5%', 'not dead', 'not op_mini all'],
           development: [
             'last 1 chrome version',
             'last 1 firefox version',
-            'last 1 safari version'
-          ]
+            'last 1 safari version',
+          ],
         },
         devDependencies: {
           '@roots/bud': 'workspace:*',
           '@roots/bud-imagemin': 'workspace:*',
-          '@types/imagemin-gifsicle': expect.any(String),
-          '@types/imagemin-svgo': expect.any(String),
-          'imagemin-gifsicle': expect.any(String),
-          'imagemin-jpegtran': expect.any(String),
-          'imagemin-optipng': expect.any(String),
-          'imagemin-svgo': expect.any(String),
-        }
+        },
       })
     })
   })

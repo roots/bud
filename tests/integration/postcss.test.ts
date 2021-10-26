@@ -17,28 +17,21 @@ describe('examples/postcss', () => {
   describe('package.json', () => {
     it('matches snapshot', () => {
       expect(project.packageJson).toMatchSnapshot({
-        "browserslist": {
-          "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version",
+        browserslist: {
+          development: [
+            'last 1 chrome version',
+            'last 1 firefox version',
+            'last 1 safari version',
           ],
-          "production": [
-            ">0.5%",
-            "not dead",
-            "not op_mini all",
-          ],
+          production: ['>0.5%', 'not dead', 'not op_mini all'],
         },
-        "devDependencies": {
-          "@roots/bud": "workspace:*",
-          "@roots/bud-babel": "workspace:*",
-          "@roots/bud-postcss": "workspace:*",
-          "postcss": expect.any(String),
-          "postcss-import": expect.any(String),
-          "postcss-preset-env": expect.any(String),
+        devDependencies: {
+          '@roots/bud': 'workspace:*',
+          '@roots/bud-babel': 'workspace:*',
+          '@roots/bud-postcss': 'workspace:*',
         },
-        "name": "example-postcss",
-        "private": true,
+        name: 'example-postcss',
+        private: true,
       })
     })
   })

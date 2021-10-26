@@ -17,9 +17,6 @@ Object {
   "devDependencies": Object {
     "@roots/bud": "workspace:*",
     "@roots/bud-vue": "workspace:*",
-    "@vue/compiler-sfc": Any<String>,
-    "@vue/runtime-dom": "^3.2.20",
-    "vue": Any<String>,
   },
   "name": "example-vue",
   "private": true,

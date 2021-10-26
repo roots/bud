@@ -29,9 +29,6 @@ describe('examples/preset-recommend', () => {
           '@roots/bud': 'workspace:packages/@roots/bud',
           '@roots/bud-preset-recommend':
             'workspace:packages/@roots/bud-preset-recommend',
-          postcss: expect.any(String),
-          'postcss-import': expect.any(String),
-          'postcss-preset-env': expect.any(String),
         },
         name: 'example-preset-recommend',
         private: true,

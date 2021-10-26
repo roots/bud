@@ -36,22 +36,12 @@ describe('@roots/bud-imagemin', () => {
     expect(controller.module.options).toBeInstanceOf(Object)
   })
 
-  it('is not used when there are no imagemin plugins registered', () => {
-    bud.project.set('devDependencies', {})
-    bud.use(imagemin)
-
-    const registered = bud.extensions.get(PLUGIN_HANDLE)
-
-    expect(registered.when).toEqual(false)
-  })
-
   it('is used when there are imagemin plugins registered', () => {
-    bud.project.set('devDependencies', {
-      'imagemin-gifsicle': '^9.0.0',
-    })
     bud.minimize().use(imagemin)
 
-    const registered = bud.extensions.get(PLUGIN_HANDLE)
+    const registered = bud.extensions.get(
+      'image-minimizer-webpack-plugin',
+    )
 
     expect(registered.when).toEqual(true)
   })
@@ -67,33 +57,19 @@ describe('@roots/bud-imagemin', () => {
   })
 
   it('automatically registered found imagemin plugins', () => {
-    bud.project.set('devDependencies', {
-      'imagemin-gifsicle': '^9.0.0',
-    })
     bud.use(imagemin)
 
     expect(
       bud.extensions.get(PLUGIN_HANDLE).get('options'),
-    ).toEqual({
-      minimizerOptions: {
-        plugins: [['imagemin-gifsicle', {interlaced: true}]],
-      },
-    })
+    ).toMatchSnapshot()
   })
 
   it('options filter is functioning', () => {
-    bud.project.set('devDependencies', {
-      'imagemin-gifsicle': '^9.0.0',
-    })
     bud.use(imagemin)
 
     expect(
       bud.hooks.filter(`extension/${PLUGIN_HANDLE}/options`),
-    ).toEqual({
-      minimizerOptions: {
-        plugins: [['imagemin-gifsicle', {interlaced: true}]],
-      },
-    })
+    ).toMatchSnapshot()
   })
 
   it('bud.imagemin.plugins returns bud', () => {
@@ -111,11 +87,7 @@ describe('@roots/bud-imagemin', () => {
       .get(PLUGIN_HANDLE)
       .get('options')
 
-    expect(options).toEqual({
-      minimizerOptions: {
-        plugins: [['svgo', {interlaced: true}]],
-      },
-    })
+    expect(options).toMatchSnapshot()
   })
 
   it('bud.imagemin.plugins overwrites previously registered plugins', () => {
@@ -128,10 +100,6 @@ describe('@roots/bud-imagemin', () => {
       .get(PLUGIN_HANDLE)
       .get('options')
 
-    expect(options).toEqual({
-      minimizerOptions: {
-        plugins: [['bar', {interlaced: true}]],
-      },
-    })
+    expect(options).toMatchSnapshot()
   })
 })
