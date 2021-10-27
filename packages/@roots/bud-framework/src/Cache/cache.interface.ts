@@ -7,11 +7,18 @@ import type {Service} from '../Service'
  */
 export interface CacheInterface extends Service {
   /**
-   * Cached data
+   * Cache path
    *
    * @public
    */
-  data: Record<string, any>
+  cachePath: string
+
+  /**
+   * Is a cache file present
+   *
+   * @public
+   */
+  hasCache(): Promise<boolean>
 
   /**
    * Directory used to store cache files
@@ -25,7 +32,7 @@ export interface CacheInterface extends Service {
    *
    * @public
    */
-  hash(): string
+  hash(str: string): string
 
   /**
    * Is cache valid?
@@ -35,17 +42,16 @@ export interface CacheInterface extends Service {
   valid: boolean
 
   /**
-   * A short, unique string created from the hashed contents of the project
-   * config files and build dependencies.
-   *
-   * @public
-   */
-  version(): string
-
-  /**
    * Update profile if needed
    *
    * @public
    */
-  updateProfile(): void
+  build(): Promise<void>
+
+  /**
+   * Verify cache validity
+   *
+   * @public
+   */
+  verify(): Promise<boolean>
 }

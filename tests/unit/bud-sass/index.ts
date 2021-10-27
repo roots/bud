@@ -6,8 +6,8 @@ jest.setTimeout(20000)
 describe('@roots/bud-sass', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

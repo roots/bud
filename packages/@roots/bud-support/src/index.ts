@@ -37,6 +37,7 @@ export {
 } from './external/cosmiconfig'
 export {dotenv} from './external/dotenv'
 export {dotenvExpand} from './external/dotenv-expand'
+export {execa} from './external/execa'
 export {Express} from './external/express'
 export {fs} from './external/fs-extra'
 export * as globby from './external/globby'

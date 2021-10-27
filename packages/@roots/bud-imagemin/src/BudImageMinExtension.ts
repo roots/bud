@@ -8,14 +8,14 @@ export interface BudImageMinExtension extends Extension.Module {}
 export const BudImageMinExtension: BudImageMinExtension = {
   name: '@roots/bud-imagemin',
 
-  register(app): void {
+  register: app => {
     app.extensions.add(BudImageMinPlugin)
     app.extensions.bindClass({
       imagemin: [Config, app],
     })
   },
 
-  boot({project, imagemin}): void {
+  boot: ({imagemin}) => {
     const plugins: Array<[string, {[key: string]: any}]> = [
       ['imagemin-gifsicle', {interlaced: true}],
       ['imagemin-jpegtran', {progressive: true}],

@@ -7,8 +7,8 @@ const PLUGIN_HANDLE = 'image-minimizer-webpack-plugin'
 describe('@roots/bud-imagemin', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

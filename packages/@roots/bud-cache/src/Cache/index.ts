@@ -1,14 +1,13 @@
+import {isEqual, isUndefined} from 'lodash'
+
 import {
   bind,
   Bud,
   createHash,
-  ensureFileSync,
-  existsSync,
-  globby,
-  readFileSync,
-  readJsonSync,
-  removeSync,
-  writeJsonSync,
+  ensureFile,
+  readFile,
+  readJson,
+  writeJson,
 } from './cache.dependencies'
 
 /**
@@ -43,15 +42,8 @@ export class Cache
   /**
    * @public
    */
-  public data: Record<string, any> & {version: string} = {
-    configFiles: [],
-    dependencies: [],
-    version: '',
-    project: {
-      name: '',
-      devDependencies: {},
-      dependencies: {},
-    },
+  public repository: Record<string, any> & {version: string} = {
+    version: null,
   }
 
   /**
@@ -63,67 +55,108 @@ export class Cache
    * @public
    */
   @bind
-  public register(): void {
+  public async register(): Promise<void> {
     this.app.hooks
       .on('build/cache', () => ({
         type: this.app.hooks.filter('build/cache/type'),
       }))
       .hooks.on('build/cache/type', () => 'memory')
 
-    this.data.configFiles = {
-      dynamic: globby.globbySync([
-        this.app.path(
-          'project',
-          `${this.app.name}.config.{js,ts}`,
-        ),
-        this.app.path(
-          'project',
-          `${this.app.name}.${this.app.mode}.config.{js,ys}`,
-        ),
-      ]),
-      static: globby.globbySync([
-        this.app.path(
-          'project',
-          `${this.app.name}.config.{yml,yaml,json}`,
-        ),
-        this.app.path(
-          'project',
-          `${this.app.name}.${this.app.mode}.config.{yml,yaml,json}`,
-        ),
-      ]),
+    const version = await this.version(this.app.project)
+    const hasCache = await this.hasCache()
+
+    this.app.project.set('version', version)
+
+    if (hasCache) {
+      try {
+        const jsonData = await readJson(this.cachePath)
+        this.setStore(jsonData)
+      } catch (e) {
+        this.valid = false
+        this.app.warn(
+          'The cache store seems to exist but is invalid JSON. Overwriting.',
+        )
+        this.setStore({})
+        await ensureFile(this.cachePath)
+        await writeJson(this.cachePath, this.all())
+      }
+    } else {
+      this.valid = false
+      this.app.log('The cache store is missing. Writing file.')
+
+      this.setStore({})
+      await ensureFile(this.cachePath)
+      writeJson(this.cachePath, this.all())
     }
 
-    this.data.dependencies = [
-      ...new Set(
-        globby.globbySync([
-          this.app.path('project', 'package.json'),
-          ...(this.data.configFiles.dynamic ?? []),
-          ...(this.data.configFiles.static ?? []),
-        ]),
-      ),
-    ]
+    await this.verify()
+    this.logger.log('cache has been registered')
   }
 
   /**
    * Verify cache
    *
-   * @returns {boolean}
+   * @returns boolean
    *
    * @public
    */
   @bind
-  public verifyProfile(): boolean {
-    if (!existsSync(this.cachePath)) {
-      ensureFileSync(this.cachePath)
-      this.valid = false
+  public async verify(): Promise<boolean> {
+    if (!isUndefined(this.valid)) {
+      this.logger.log(
+        'Cache has already been checked for this build',
+        'status',
+        this.valid,
+      )
+
       return this.valid
     }
 
-    const data = readJsonSync(this.cachePath)
+    const setStatus = (status: boolean) => {
+      this.valid = status
+      this.logger.log('Cache profile valid', status)
+      return status
+    }
 
-    this.valid = data.version === this.version()
+    const cachePresent = await this.hasCache()
 
-    return this.valid ? data : false
+    if (
+      !cachePresent ||
+      this.app.project.isUndefined('dependencies') ||
+      !this.has('dependencies') ||
+      this.isUndefined('dependencies')
+    ) {
+      setStatus(false)
+      return this.valid
+    }
+
+    const projectVersionString = await this.version(
+      this.app.project,
+    )
+    const cacheVersionString = await this.version(this)
+
+    if (!isEqual(projectVersionString, cacheVersionString)) {
+      setStatus(false)
+    }
+
+    setStatus(true)
+
+    return this.valid
+  }
+
+  @bind
+  public async hasCache(): Promise<boolean> {
+    try {
+      const hasCache = (await readFile(this.cachePath))
+        ? true
+        : false
+      this.logger.log('has cache', hasCache)
+      return hasCache
+    } catch (e) {
+      const hasCache = false
+      this.logger.log('has cache', hasCache)
+      return false
+    }
   }
 
   /**
@@ -133,33 +166,15 @@ export class Cache
    * @decorator `@bind`
    */
   @bind
-  public updateProfile(): void {
-    const maybeData = this.verifyProfile() as unknown as
-      | Record<string, any>
-      | false
-    if (maybeData) {
-      this.app.project.setStore((maybeData as any).project)
-      this.app.project.resolveFrom = (maybeData as any).resolve
-      return
-    }
+  public async build(): Promise<void> {
+    this.setStore({
+      ...this.all(),
+      ...this.app.project.all(),
+    })
 
-    this.app.project.initialize()
+    this.logger.log(`Writing cache`, this.cachePath, this.all())
 
-    this.data = {
-      ...this.data,
-      version: this.version(),
-      dependencies: this.data.dependencies,
-      configFiles: this.data.configFiles,
-      project: this.app.project.all(),
-      resolve: this.app.project.resolveFrom,
-    }
-
-    this.logger.log(
-      `Writing cache file to ${this.cachePath}`,
-      this.data,
-    )
-    removeSync(this.cachePath)
-    writeJsonSync(this.cachePath, this.data)
+    await writeJson(this.cachePath, this.all())
   }
 
   /**
@@ -168,12 +183,26 @@ export class Cache
    * @decorator `@bind`
    */
   @bind
-  public version(): string {
+  public hash(str: string): string {
     return createHash('sha1')
-      .update(this.hash())
+      .update(str)
       .digest('base64')
       .replace(/[^a-z0-9]/gi, '_')
       .toLowerCase()
+  }
+
+  @bind
+  public async version(container): Promise<string> {
+    const cliArguments = process.argv.slice(3).join('')
+    const str = await container
+      .get('dependencies')
+      .reduce(async (promised, file) => {
+        promised = await promised
+        file = await readFile(file, 'utf8')
+        return file.concat(file)
+      }, Promise.resolve(``))
+
+    return this.hash(str.concat(cliArguments))
   }
 
   /**
@@ -184,20 +213,5 @@ export class Cache
   @bind
   public directory(): string {
     return this.app.path('storage', 'cache')
-  }
-
-  /**
-   * Returns hash of all build dependencies and parsed CLI arguments
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public hash(): string {
-    return JSON.stringify(
-      this.data.dependencies.reduce(
-        (all, file) => all.concat(readFileSync(file, 'utf8')),
-        process.argv.slice(3).join(''),
-      ) ?? '{}',
-    )
   }
 }

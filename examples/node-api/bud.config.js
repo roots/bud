@@ -1,6 +1,6 @@
-require('@roots/bud')
-  .factory({mode: 'production'})
-  .entry('app', 'index.js')
-  .minimize()
-  .splitChunks()
-  .run()
+const {factory} = require('@roots/bud')
+
+;(async () => {
+  const bud = await factory({mode: 'production'})
+  bud.entry('app', 'index.js').minimize().splitChunks().run()
+})()

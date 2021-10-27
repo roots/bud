@@ -221,8 +221,8 @@ export function config(app: Framework): void {
       ...new Set([
         app.path('src'),
         app.path('modules'),
-        ...(app.project?.resolveFrom ??
-          app.parent?.project?.resolveFrom ??
+        ...(app.project?.get('resolve') ??
+          app.parent?.project.get('resolve') ??
           []),
         app.hooks.filter('location/modules'),
       ]),

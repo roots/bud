@@ -3,10 +3,11 @@ import {factory, Framework} from '@roots/bud'
 describe('Extensions', function () {
   let bud: Framework = null
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'development',
     })
+    bud
   })
 
   afterAll(done => {

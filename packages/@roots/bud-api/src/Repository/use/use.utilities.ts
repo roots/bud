@@ -10,13 +10,13 @@ import {isEqual, isFunction, nanoid} from './use.dependencies'
  *
  * @example
  * ```ts
- * isWebpackPlugin(new WebpackPlugin())
+ * isCompilerPlugin(new WebpackPlugin())
  * // => true
  * ```
  *
  * @internal
  */
-export const isWebpackPlugin = (
+export const isCompilerPlugin = (
   extension:
     | Extension.Module
     | Extension.CompilerPlugin

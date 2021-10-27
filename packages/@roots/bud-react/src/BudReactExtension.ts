@@ -28,6 +28,10 @@ export const BudReactExtension: BudReactExtension = {
    */
   name: '@roots/bud-react',
 
+  register: app => {
+    app.use(['@roots/bud-babel'])
+  },
+
   /**
    * {@inheritDoc @roots/bud-framework#Extension.Module.boot}
    * @public

@@ -1,9 +1,4 @@
-import * as BudBabelExtension from '@roots/bud-babel'
-import * as BudEntrypointsPlugin from '@roots/bud-entrypoints'
-import {Framework} from '@roots/bud-framework'
-import {Factory} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework'
-import * as BudPostCssExtension from '@roots/bud-postcss'
 
 /**
  * Recommended preset configuration for Bud.
@@ -21,7 +16,7 @@ import * as BudPostCssExtension from '@roots/bud-postcss'
  */
 export interface BudPresetRecommend extends Extension.Module {
   name: '@roots/bud-preset-recommend'
-  register: Factory<[Framework], unknown>
+  register: any
 }
 
 /**
@@ -44,9 +39,9 @@ export const BudPresetRecommend: BudPresetRecommend = {
    */
   register: app => {
     app.use([
-      BudBabelExtension,
-      BudPostCssExtension,
-      BudEntrypointsPlugin,
+      '@roots/bud-babel',
+      '@roots/bud-postcss',
+      '@roots/bud-entrypoints',
     ])
   },
 }

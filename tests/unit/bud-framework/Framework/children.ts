@@ -3,8 +3,8 @@ import {factory, Framework} from '@roots/bud'
 describe('@roots/bud-framework child', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

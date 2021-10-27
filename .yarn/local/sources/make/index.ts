@@ -13,8 +13,6 @@ export class MakeCommand extends Command {
 
     await this.$(`yarn kjo lint --eslint --skypack`)
 
-    await this.$(`yarn kjo test --unit`)
-
-    await this.$(`yarn kjo test --integration`)
+    await this.$(`yarn kjo test`)
   }
 }

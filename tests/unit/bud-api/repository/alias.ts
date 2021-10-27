@@ -4,8 +4,8 @@ import {alias} from '@roots/bud-api/src/Repository/alias'
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

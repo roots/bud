@@ -11,8 +11,8 @@ describe.skip('@roots/bud-dashboard', function () {
 
   let dashboard: any
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
     dashboard = Ink.render(<Components.Dashboard bud={bud} />)
   })
 

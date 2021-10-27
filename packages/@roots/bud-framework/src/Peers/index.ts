@@ -37,12 +37,17 @@ export interface Peer {
  * @public
  */
 export interface Repository {
+  version: string
+
   /**
-   * The project name
+   * Config files
    *
    * @public
    */
-  name: string
+  configFiles: {
+    dynamic: Array<string>
+    static: Array<string>
+  }
 
   /**
    * The project manifest path
@@ -70,22 +75,13 @@ export interface Repository {
   }
 
   /**
-   * Dependencies
+   * Resolve paths
    *
    * @public
    */
-  dependencies: {
-    [key: string]: string
-  }
+  resolve: []
 
-  /**
-   * Development dependencies
-   *
-   * @public
-   */
-  devDependencies: {
-    [key: string]: string
-  }
+  manifest: Record<string, any>
 }
 
 export {Abstract} from './Abstract'

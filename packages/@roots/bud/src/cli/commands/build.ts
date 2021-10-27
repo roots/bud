@@ -22,6 +22,11 @@ export default class Build extends Command {
       description: 'cache built modules to the filesystem.',
     }),
 
+    clearCache: flags.boolean({
+      default: false,
+      description: 'Clear the cache before compilation',
+    }),
+
     ci: flags.boolean({
       description: 'non raw mode tty interoperable output',
     }),
@@ -107,6 +112,7 @@ export default class Build extends Command {
     const options = this.parse(Build)
     const runner = new Runner(options, {mode: 'production'})
 
+    await runner.initialize()
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])

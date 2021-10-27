@@ -28,8 +28,8 @@ describe('@roots/bud-extensions Controller', function () {
     when: jest.fn((app, options) => true),
   }
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

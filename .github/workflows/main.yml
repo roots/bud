@@ -54,8 +54,5 @@ jobs:
       - name: Lint
         run: yarn kjo lint --eslint --skypack
 
-      - name: Unit Tests
-        run: yarn kjo test --unit
-
-      - name: Integration Tests
-        run: yarn kjo test --integration
+      - name: Test
+        run: yarn kjo test

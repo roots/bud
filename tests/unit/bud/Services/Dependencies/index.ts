@@ -9,7 +9,7 @@ describe('bud.project', function () {
   let manager: DependenciesManager
 
   beforeAll(async () => {
-    bud = factory()
+    bud = await factory()
 
     dependencies = new Dependencies(bud)
     dependencies.register()

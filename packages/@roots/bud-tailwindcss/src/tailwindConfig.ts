@@ -29,7 +29,6 @@ export function tailwindConfig(
   this: Framework,
   config?: TailwindConfig,
 ): Framework {
-  // sometimes jest fails to recognize this interface overload
   const postcss = this.postcss as PostCssConfig
 
   postcss.setPlugins({

@@ -1,6 +1,6 @@
 import {Loose, Modules, Plugins} from '../..'
 import {CompilerPlugin} from './CompilerPlugin'
-import Controller from './Controller'
+import {Controller} from './Controller'
 import Module from './Module'
 
 /**

@@ -110,6 +110,15 @@ export interface Factory<P extends any[], T> {
 }
 
 /**
+ * Framework async factory
+ *
+ * @public
+ */
+export interface AsyncFactory<P extends any[], T> {
+  (...args: P): Promise<T>
+}
+
+/**
  * Callback which accepts Framework as a parameter
  *
  * @public

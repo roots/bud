@@ -7,8 +7,8 @@ process.env.BUD_KEEP_ALIVE = 'true'
 describe.skip('@roots/bud-tailwindcss', () => {
   let bud
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
 
     bud.project.set('devDependencies', {
       '@roots/bud-tailwindcss':

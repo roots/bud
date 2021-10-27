@@ -7,8 +7,8 @@ process.env.BUD_KEEP_ALIVE = 'true'
 describe('bud', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

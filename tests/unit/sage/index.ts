@@ -20,10 +20,10 @@ describe('@roots/sage', () => {
   let bud: Framework = null
   let bootSpy = jest.spyOn(Sage, 'boot')
 
-  beforeAll(() => {
-    bud = factory(SAGE_CFG)
+  beforeAll(async () => {
+    bud = await factory(SAGE_CFG)
     bud.use(Sage)
-    bud.cache.updateProfile()
+    bud.project.findPeers()
   })
 
   afterAll(done => {

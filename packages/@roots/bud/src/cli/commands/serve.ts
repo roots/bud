@@ -12,7 +12,7 @@ export default class Serve extends Build {
   public async run() {
     const cli = this.parse(Build)
     const runner = new Runner(cli, {mode: 'development'})
-
+    await runner.initialize()
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])

@@ -38,7 +38,7 @@ async function install() {
   await build()
 
   console.log(
-    magenta`\n Ensuring required dependencies are available to integration projects \n`,
+    magenta`\n Ensuring required dependencies are available to integration projects\n`,
   )
   const cache = await readJson(cachePath)
 
@@ -47,6 +47,8 @@ async function install() {
   ).reduce((acc, [k, {name, version}]) => {
     return `${acc} ${name}@${version}`
   }, `yarn workspace bud-examples-resolver add`)
+
+  console.log(` `.concat(installString).concat(`\n`))
 
   const task = execa.command(installString)
   task.stdout.pipe(process.stdout)

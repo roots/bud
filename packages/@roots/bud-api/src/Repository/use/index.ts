@@ -1,6 +1,6 @@
-import {isArray} from './use.dependencies'
+import {isArray, isString} from './use.dependencies'
 import type {Framework, Source} from './use.interface'
-import {generateName, isWebpackPlugin} from './use.utilities'
+import {generateName, isCompilerPlugin} from './use.utilities'
 
 export interface use {
   (source: Source): Framework
@@ -45,22 +45,63 @@ export interface use {
  *
  * @public
  */
-export const use: use = function (source) {
+export const use: use = function (
+  source: Source | string | Array<string>,
+): Framework {
+  const bud = this as Framework
+
+  if (isString(source) && bud.extensions.has(source)) {
+    bud.log(source, 'Extension already included in compilation')
+    return this
+  }
+
+  if (bud.cache.valid) {
+    if (isString(source)) {
+      bud.log(source, 'Cached extension. Skipping require.')
+      return this
+    }
+
+    if (isArray(source) && source.every(isString)) {
+      bud.log(source, 'Cached extensions. Skipping require.')
+      return this
+    }
+  }
+
+  if (isArray(source) && source.every(isString)) {
+    source = source.map(s => require(s))
+  }
+
   const addExtension = (source: Source) => {
     if (!source.hasOwnProperty('name')) {
       source.name = generateName(source)
     }
 
-    this.extensions.add(
-      isWebpackPlugin(source)
+    const isPlugin = isCompilerPlugin(source)
+    bud.log(
+      `Registering ${
+        isPlugin ? 'compiler plugin' : 'extension'
+      }`,
+      source.name,
+    )
+
+    bud.extensions.add(
+      isCompilerPlugin(source)
         ? {...source, make: () => source}
         : source,
     )
   }
 
-  !isArray(source)
-    ? addExtension(source)
-    : source.forEach(addExtension)
+  if (isString(source)) {
+    addExtension(require(source))
+    return this
+  }
+
+  if (!isArray(source) && !isString(source)) {
+    addExtension(source)
+    return this
+  }
+
+  source.map(addExtension)
 
   return this
 }

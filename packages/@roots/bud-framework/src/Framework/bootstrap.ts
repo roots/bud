@@ -13,7 +13,7 @@ import {
  * @internal
  */
 export interface bootstrap {
-  (this: Framework): Framework
+  (this: Framework): Promise<Framework>
 }
 
 /**
@@ -29,7 +29,9 @@ export interface bootstrap {
  *
  * @public
  */
-export function bootstrap(this: Framework): Framework {
+export async function bootstrap(
+  this: Framework,
+): Promise<Framework> {
   /**
    * Get bindable services
    */
@@ -70,14 +72,25 @@ export function bootstrap(this: Framework): Framework {
   /**
    * Service lifecycle
    */
-  LIFECYCLE_EVENTS.map(event => {
-    initializedServices.map(key => {
+  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
+    await promised
+
+    this.log(`Running ${event}`)
+
+    await initializedServices.reduce(async (promised, key) => {
+      await promised
+
       const service = this[key]
       if (!service || !service[event]) return
 
-      service[event](this)
-    })
-  })
+      this.log(`Running ${event} on ${key} service`)
+
+      await service[event](this)
+      return Promise.resolve()
+    }, Promise.resolve())
+
+    return Promise.resolve()
+  }, Promise.resolve())
 
   return this
 }

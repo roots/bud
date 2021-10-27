@@ -7,8 +7,8 @@ describe('bud.run', function () {
   let mockCompileFn
   let MOCK_BUD
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
 
     mockCompileRunFn = jest.fn()
     mockCompileFn = jest.fn(() => {

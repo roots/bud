@@ -7,7 +7,7 @@ import {Extension, Name} from './'
  *
  * @public @core
  */
-export default interface Controller {
+export interface Controller {
   /**
    * {@inheritDoc Framework}
    *
@@ -64,7 +64,7 @@ export default interface Controller {
    *
    * @public
    */
-  register(): Controller
+  register(): this
 
   /**
    * An extension boot function
@@ -73,7 +73,7 @@ export default interface Controller {
    *
    * @public
    */
-  boot(): Controller
+  boot(): this
 
   /**
    * Make a {@link @roots/bud-framework#Hooks.name | hook name} from a

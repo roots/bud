@@ -3,8 +3,8 @@ import {factory, Framework} from '@roots/bud'
 describe('bud.runtime', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

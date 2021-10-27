@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support'
+import {remove} from 'fs-extra'
 
 import {Bud} from '../../Bud'
 import {config} from '../../config'
@@ -102,6 +103,14 @@ export class Runner {
     this._staticBuildersByEnv = builders
   }
 
+  public cli: {
+    args: Record<string, any>
+    argv: Array<string>
+    flags: Record<string, any>
+    raw: Array<Record<string, string>>
+    metadata: Record<string, Record<string, any>>
+  }
+
   /**
    * Class constructor
    *
@@ -118,55 +127,23 @@ export class Runner {
       metadata: Record<string, Record<string, any>>
     },
     options: Runner['options'] = {},
-    app?: Bud,
   ) {
     Object.assign(this, {...cli})
+    options && Object.assign(this, options)
+  }
 
-    this.app =
-      app ??
-      factory({
-        mode: this.mode,
-        ...options,
-        config: {
-          ...config,
-          ci: cli?.flags?.ci ?? false,
-          discover: cli?.flags?.discover ?? false,
-          install: cli?.flags?.install ?? false,
-          cache: cli?.flags?.cache !== 'false',
-          ...(options?.config ?? {}),
-        },
-      })
-
-    /**
-     * Handle --clean flag
-     */
-    if (typeof this.flags.clean !== 'undefined') {
-      this.app.store.set('clean', this.flags.clean)
-    }
-
-    Object.assign(this, {
-      fluentBuilders: [
-        `${this.app.name}.config.ts`,
-        `${this.app.name}.config.js`,
-      ],
-
-      fluentBuildersByEnv: [
-        `${this.app.name}.${this.app.mode}.config.ts`,
-        `${this.app.name}.${this.app.mode}.config.js`,
-      ],
-
-      staticBuilders: [
-        `package.json`,
-        `${this.app.name}.config.json`,
-        `${this.app.name}.config.yaml`,
-        `${this.app.name}.config.yml`,
-      ],
-
-      staticBuildersByEnv: [
-        `${this.app.name}.${this.app.mode}.config.json`,
-        `${this.app.name}.${this.app.mode}.config.yaml`,
-        `${this.app.name}.${this.app.mode}.config.yml`,
-      ],
+  public async initialize() {
+    this.app = await factory({
+      mode: this.mode,
+      ...this.options,
+      config: {
+        ...config,
+        ci: this.flags?.ci ?? false,
+        discover: this.flags?.discover ?? false,
+        install: this.flags?.install ?? false,
+        cache: this.flags?.cache !== 'false',
+        ...(this.options?.config ?? {}),
+      },
     })
   }
 
@@ -177,6 +154,17 @@ export class Runner {
    */
   @bind
   public async make() {
+    if (this.flags.clearCache === true) {
+      remove(this.app.path('storage').concat('bud.cache.json'))
+    }
+
+    /**
+     * Handle --clean flag
+     */
+    if (typeof this.flags.clean !== 'undefined') {
+      this.app.store.set('clean', this.flags.clean)
+    }
+
     /**
      * Configure bud instance with static configs.
      */
@@ -185,8 +173,6 @@ export class Runner {
      * Configure bud instance with fluent configs.
      */
     await this.doBuilders()
-
-    this.app.cache.updateProfile()
 
     /**
      * Handle --src flag
@@ -328,10 +314,13 @@ export class Runner {
    */
   @bind
   public async doBuilders() {
+    if (!this.app.project.get('configFiles.dynamic')) return
+
     const builder = await new CLIConfig(
       this.app,
-      this.app.cache.data.configFiles.dynamic,
+      this.app.project.get('configFiles.dynamic'),
     ).get()
+
     isFunction(builder) && builder(this.app)
   }
 
@@ -340,9 +329,11 @@ export class Runner {
    */
   @bind
   public async doStatics() {
+    if (!this.app.project.has('configFiles.static')) return
+
     await new CLIConfig(
       this.app,
-      this.app.cache.data.configFiles.static,
+      this.app.project.get('configFiles.static'),
     ).apply()
   }
 }

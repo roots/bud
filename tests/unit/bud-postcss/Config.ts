@@ -4,8 +4,8 @@ import {BudPostCssExtension} from '@roots/bud-postcss/src/BudPostCssExtension'
 describe('bud.postcss', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'production',
     })
 

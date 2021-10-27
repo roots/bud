@@ -9,8 +9,8 @@ describe('@roots/bud-babel', function () {
 
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
     Config = new BudBabelExtension.Config(bud)
   })
 

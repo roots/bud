@@ -3,8 +3,8 @@ import {factory, Framework} from '@roots/bud'
 describe('bud.persist', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {
@@ -19,7 +19,7 @@ describe('bud.persist', function () {
     bud.persist()
 
     expect(bud.hooks.filter('build/cache/version')).toBe(
-      bud.cache.version(),
+      bud.cache.get('version'),
     )
 
     expect(bud.hooks.filter('build/cache/type')).toBe(
@@ -32,7 +32,7 @@ describe('bud.persist', function () {
 
     expect(
       bud.hooks.filter('build/cache/buildDependencies').bud,
-    ).toEqual(bud.cache.data.dependencies)
+    ).toEqual(bud.cache.get('dependencies'))
 
     expect(bud.hooks.filter('build/cache/managedPaths')).toEqual(
       [bud.path('modules')],

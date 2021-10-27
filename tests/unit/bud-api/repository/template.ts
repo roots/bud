@@ -4,8 +4,8 @@ describe('bud.template', function () {
   describe('default', () => {
     let bud: Framework
 
-    beforeAll(() => {
-      bud = factory()
+    beforeAll(async () => {
+      bud = await factory()
     })
 
     afterAll(done => {
@@ -54,8 +54,8 @@ describe('bud.template', function () {
   describe('called', () => {
     let bud: Framework
 
-    beforeAll(() => {
-      bud = factory()
+    beforeAll(async () => {
+      bud = await factory()
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })
@@ -91,8 +91,8 @@ describe('bud.template', function () {
   describe('called with options', () => {
     let bud: Framework
 
-    beforeAll(() => {
-      bud = factory()
+    beforeAll(async () => {
+      bud = await factory()
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })

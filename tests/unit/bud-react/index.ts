@@ -18,8 +18,8 @@ describe('@roots/bud-react', () => {
     },
   }
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
 
     bud.project
       .set('devDependencies', mock.devDependencies)

@@ -21,6 +21,13 @@ export interface Dependencies extends Service {
   installing: [string, string]
 
   /**
+   * Dependency manager
+   *
+   * @public
+   */
+  manager: any
+
+  /**
    * Install dependencies
    *
    * @param dependencies - Array of dependencies to install

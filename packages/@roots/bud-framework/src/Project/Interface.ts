@@ -44,5 +44,5 @@ export interface Interface extends Service {
   /**
    * Build project profile
    */
-  initialize(): void
+  findPeers(): void
 }

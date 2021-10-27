@@ -16,8 +16,8 @@ import {Server} from './Server'
 export const services = {
   api: Api,
   hooks: Hooks,
-  cache: Cache,
   project: Project,
+  cache: Cache,
   env: Env,
   build: Build,
   compiler: Compiler,

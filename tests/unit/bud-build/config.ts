@@ -5,8 +5,8 @@ import {RuleSetRule} from 'webpack'
 describe('bud.build.config', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       config: {
         ...config,
         location: {
@@ -15,6 +15,7 @@ describe('bud.build.config', function () {
         },
       },
     })
+
     bud.build.make()
   })
 

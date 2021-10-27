@@ -20,8 +20,8 @@ describe('@roots/bud-postcss', () => {
     },
   }
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
     bud.use([BudPostCssExtension])
     bud.postcss.setPlugins(mock.plugins as any)
   })

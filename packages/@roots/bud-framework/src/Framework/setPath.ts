@@ -5,7 +5,7 @@ import {Framework} from '.'
  *
  * @internal
  */
-interface setPath {
+export interface setPath {
   (this: Framework, ...args): Framework
 }
 
@@ -28,7 +28,7 @@ interface setPath {
  *
  * @public
  */
-function setPath(this: Framework, ...args): Framework {
+export function setPath(this: Framework, ...args): Framework {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
     return this
@@ -57,7 +57,7 @@ function setPath(this: Framework, ...args): Framework {
           `Path: ${k} was defined as ${v}. This path should be relative to the project root. You should fix this.`,
         )
 
-        v = v.replace(this.hooks.filter('location/project'), '')
+        v = v.replace(this.hooks.filter('location.project'), '')
       },
     )
 
@@ -66,5 +66,3 @@ function setPath(this: Framework, ...args): Framework {
 
   return this
 }
-
-export {setPath}

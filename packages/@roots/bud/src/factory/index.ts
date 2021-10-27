@@ -16,7 +16,9 @@ import type {
  *
  * @public
  */
-export function factory(overrides?: Options): Bud {
+export async function factory(
+  overrides?: Options,
+): Promise<Bud> {
   const options: FrameworkOptions = {
     name: overrides?.name ?? 'bud',
     mode: overrides?.mode ?? 'production',
@@ -34,5 +36,26 @@ export function factory(overrides?: Options): Bud {
   process.env.NODE_ENV = options.mode
 
   const bud = new Bud(options)
-  return bud.bootstrap()
+
+  await bud.bootstrap()
+
+  if (!bud.cache.valid) return bud
+
+  await bud.project
+    .getEntries('extensions')
+    .reduce(async (promised, [name, extension]) => {
+      await promised
+      bud.log('Using cached extension', extension.name)
+      const resolvedExtension = await import(extension.name)
+
+      bud.extensions.add(resolvedExtension)
+
+      if (!bud.extensions.has(extension.name)) {
+        bud.error('Cached extension not found', extension.name)
+      }
+
+      return Promise.resolve()
+    }, Promise.resolve())
+
+  return bud
 }

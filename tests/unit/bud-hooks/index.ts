@@ -5,8 +5,8 @@ describe('@roots/bud-hooks', function () {
   let bud: Bud
   let hooks: Hooks
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
   })
 
   afterAll(done => {

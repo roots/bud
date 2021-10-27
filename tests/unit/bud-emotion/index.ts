@@ -7,8 +7,8 @@ describe('@roots/bud-emotion', () => {
   describe('settings', () => {
     let bud: Framework = null
 
-    beforeAll(() => {
-      bud = factory({})
+    beforeAll(async () => {
+      bud = await factory()
     })
 
     afterAll(done => {

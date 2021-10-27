@@ -26,7 +26,7 @@ export const BudBabelExtension: Extension.Module = {
    *
    * @public
    */
-  register(app: Framework): void {
+  register: (app: Framework): void => {
     app.extensions.bindClass({
       babel: [Config, app],
     })

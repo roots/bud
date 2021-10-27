@@ -25,6 +25,7 @@ module.exports = async function config() {
     },
     moduleNameMapper,
     projects: [
+      '<rootDir>/jest.all.js',
       '<rootDir>/jest.unit.js',
       '<rootDir>/jest.integration.js',
     ],

@@ -50,7 +50,8 @@ export const minimize: minimize = function (
   enabled = true,
   options?: {css: any},
 ) {
-  enabled = enabled ?? true
+  enabled = enabled !== false
+
   this.hooks.on('build/optimization/minimize', () => enabled)
 
   if (enabled) {
@@ -64,6 +65,7 @@ export const minimize: minimize = function (
             ...(options?.css ?? {}),
           }),
         )
+
         return minimizer
       },
     )

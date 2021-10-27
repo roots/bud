@@ -93,5 +93,5 @@ export default interface Interface extends Service {
    *
    * @public
    */
-  close(): void
+  close(): any
 }

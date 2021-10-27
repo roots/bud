@@ -169,11 +169,7 @@ export default class Controller implements Extension.Controller {
    * @decorator `@bind`
    */
   @bind
-  public get(
-    key: `${
-      | (keyof Plugins & string)
-      | (keyof Modules & string)}`,
-  ) {
+  public get(key: string): any {
     const hook = this.makeKey(key)
     const value = this.app.hooks.filter(hook)
 
@@ -214,7 +210,7 @@ export default class Controller implements Extension.Controller {
    * @decorator `@bind`
    */
   @bind
-  public register(): Controller {
+  public register(): this {
     this.app.when(this.module.options as any, () =>
       this.set('options', () => this.module.options),
     )
@@ -250,7 +246,7 @@ export default class Controller implements Extension.Controller {
    * @decorator `@bind`
    */
   @bind
-  public boot(): Controller {
+  public boot() {
     this.app.when(this.module.boot as any, () => {
       this.module.boot(this.app)
     })

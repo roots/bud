@@ -4,7 +4,7 @@ import {
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
-
+// import {ProgressPlugin} from 'webpack'
 const {isFunction} = lodash
 
 /**
@@ -51,6 +51,11 @@ export class Compiler extends Service implements Contract {
    * @public
    */
   public isCompiled: boolean = false
+
+  /**
+   * @public
+   */
+  public config: any = []
 
   /**
    * {@inheritDoc @roots/bud-framework#Service.register}
@@ -126,7 +131,7 @@ export class Compiler extends Service implements Contract {
 
     this.isCompiled = true
 
-    this.app.hooks.filter('before').map(cb => cb(this.app))
+    this.app.hooks.filter('before', this.app)
 
     !this.app.parent &&
       this.app.error(`Trying to compile a child directly.`)

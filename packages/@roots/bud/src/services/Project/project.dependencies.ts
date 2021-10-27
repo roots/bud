@@ -1,11 +1,9 @@
-import {bind} from '@roots/bud-support'
-export {bind}
+export {bind} from '@roots/bud-support'
 
-import {fs} from '@roots/bud-support'
-export const {readJsonSync} = fs
+import {fs, globby} from '@roots/bud-support'
+export const {readJson} = fs
+export {globby}
 
-import {Project} from '@roots/bud-framework'
-export {Project}
+export {Project} from '@roots/bud-framework'
 
-import {Peers} from '../Peers'
-export {Peers}
+export {Peers} from '../Peers'

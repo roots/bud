@@ -33,19 +33,19 @@ const persist: persist = function (enabled = true) {
     }))
     .hooks.on(
       'build/cache/version',
-      enabled ? this.cache.version : undefined,
+      enabled ? this.project.get('version') : undefined,
     )
     .hooks.on('build/cache/type', () =>
       enabled ? 'filesystem' : 'memory',
     )
     .hooks.on(
       'build/cache/cacheDirectory',
-      enabled ? this.cache.directory : undefined,
+      enabled ? this.project.get('directory') : undefined,
     )
     .hooks.on('build/cache/buildDependencies', () =>
       enabled
         ? {
-            bud: this.cache.data.dependencies,
+            bud: this.project.get('dependencies'),
           }
         : undefined,
     )

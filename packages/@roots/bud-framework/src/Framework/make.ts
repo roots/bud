@@ -1,4 +1,3 @@
-import {Tapable} from '../'
 import {Framework} from './'
 
 /**
@@ -7,7 +6,10 @@ import {Framework} from './'
  * @internal
  */
 export interface make {
-  (name: string, tap?: Tapable): Framework
+  (
+    name: string,
+    tap?: (app: Framework) => any,
+  ): Promise<Framework>
 }
 
 /**
@@ -39,28 +41,25 @@ function handleChildNestingError(this: Framework) {
  *
  * @public
  */
-export function make(name: string, tap?: Tapable): Framework {
-  handleChildNestingError.bind(this)()
-  this.info(`Making child compiler: ${name}`)
+export async function make(
+  name: string,
+  tap?: (app: Framework) => any,
+): Promise<Framework> {
+  const parent = this as Framework
 
-  /**
-   * Instantiate a new instance
-   */
-  this.children.set(
+  handleChildNestingError.bind(parent)()
+  parent.info(`Making child compiler: ${name}`)
+
+  const instance = new this.implementation({
     name,
-    new this.implementation({
-      name,
-      parent: this,
-    }).bootstrap(),
-  )
+    parent: parent,
+  })
 
-  /**
-   * Tap, if applicable
-   */
-  tap && this.get(name, tap)
+  await instance.bootstrap()
 
-  /**
-   * Return Framework
-   */
-  return this
+  parent.children.set(name, instance)
+
+  parent.get(name, tap)
+
+  return parent
 }

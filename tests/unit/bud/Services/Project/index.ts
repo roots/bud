@@ -9,7 +9,7 @@ describe('bud.project', function () {
     const project = process.cwd().concat('/examples/babel')
     json = await readJson(project.concat('/package.json'))
 
-    bud = factory({
+    bud = await factory({
       config: {
         ...config,
         location: {
@@ -18,7 +18,6 @@ describe('bud.project', function () {
         },
       },
     })
-    bud.cache.updateProfile()
   })
 
   afterAll(done => {

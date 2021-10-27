@@ -21,20 +21,19 @@ const manifestPath = path.resolve(
   'package.json',
 )
 
-/**
- * Setup integration tests
- */
 module.exports = async () => {
   try {
-    console.log(magenta`\n Restoring resolver package.json\n`)
+    console.log(magenta`\n Restoring resolver package.json`)
+
     await copy(manifestTmpPath, manifestPath, {overwrite: true})
 
-    console.log(magenta`\n Resetting yarn.lock\n`)
-
-    const buildtask = execa.command(`yarn`)
-    buildtask.stdout.pipe(process.stdout)
-    buildtask.stderr.pipe(process.stderr)
-    await buildtask.finally(noop)
+    console.log(magenta`\n Restoring yarn.lock`)
+    console.log(
+      `\n Console output silenced. Practice patience\n`,
+    )
+    const task = execa.command(`yarn`)
+    task.stderr.pipe(process.stderr)
+    await task.finally(noop)
   } catch (e) {
     console.info('yarn.lock could not be restored')
     console.log(e)

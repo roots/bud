@@ -4,8 +4,8 @@ import * as BudPurgeCssExtension from '@roots/bud-purgecss'
 describe('@roots/bud-purgecss', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory()
     bud.use([BudPurgeCssExtension])
   })
 

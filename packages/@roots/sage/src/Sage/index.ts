@@ -1,4 +1,3 @@
-import {extensions} from './sage.dependencies'
 import type {Sage as Preset} from './sage.interface'
 
 /**
@@ -28,7 +27,13 @@ export const Sage: Preset = {
    *
    * @public
    */
-  register: app => app.use(extensions),
+  register: app =>
+    app.use([
+      '@roots/bud-preset-wordpress',
+      '@roots/bud-eslint',
+      '@roots/bud-stylelint',
+      '@roots/bud-tailwindcss',
+    ]),
 
   /**
    * Boot event callback
@@ -54,7 +59,7 @@ export const Sage: Preset = {
 
       .when(
         app.isProduction,
-        app => app.minimize(true).hash().runtime('single'),
+        app => app.minimize().hash().runtime('single'),
         app => app.proxy().devtool(),
       ),
 }

@@ -22,10 +22,10 @@ export class Peers implements Model.Interface {
    * @public
    */
   public constructor(public project: Project.Interface) {
-    this.project.has('dependencies') &&
+    this.project.has('manifest.dependencies') &&
       this.discover('dependencies')
 
-    this.project.has('devDependencies') &&
+    this.project.has('manifest.devDependencies') &&
       this.discover('devDependencies')
 
     this.project.app.store.isTrue('discover') &&
@@ -92,8 +92,10 @@ export class Peers implements Model.Interface {
   public discover(
     projectModuleType: 'dependencies' | 'devDependencies',
   ): this {
+    this.project.logger.log(`Analyzing ${projectModuleType}`)
+
     this.project
-      .getKeys(projectModuleType)
+      .getKeys(`manifest.${projectModuleType}`)
       .filter((name: string) => {
         if (!this.isExtension(name)) {
           this.project.app.log(
@@ -141,12 +143,13 @@ export class Peers implements Model.Interface {
     const path = this.resolvePeerByName(name)
 
     if (
-      this.project.resolveFrom.includes(path) ||
+      this.project.get('resolve').includes(path) ||
       this.project.has(`extensions.${name}`)
     ) {
       return
     } else {
-      this.project.resolveFrom.push(path)
+      const resolve = this.project.get('resolve')
+      this.project.set('resolve', [...resolve, path])
     }
 
     const manifest = this.getPeerManifest(name)
@@ -155,10 +158,11 @@ export class Peers implements Model.Interface {
       name: manifest.name,
       bud: manifest.bud,
       path: path,
-      dependsOn: manifest.peerDependencies ?? [],
-      provides: manifest.dependencies ?? [],
-      version: manifest.version ?? [],
+      dependsOn: manifest.peerDependencies,
+      provides: manifest.dependencies,
+      version: manifest.version,
     }
+
     this.project.set(`extensions.${name}`, extension)
 
     extension.dependsOn &&

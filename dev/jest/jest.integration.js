@@ -1,9 +1,7 @@
-const mapModuleNames = require('./dev/jest/moduleNameMapper')
+// @ts-check
 
-/**
- * Run the tests with the following command:
- * $ yarn kjo test --integration
- */
+const mapModuleNames = require('./moduleNameMapper')
+
 module.exports = async function config() {
   const moduleNameMapper = await mapModuleNames()
 
@@ -15,18 +13,28 @@ module.exports = async function config() {
     },
     globals: {
       'ts-jest': {
-        tsconfig: '<rootDir>/tsconfig.jest.json',
+        tsconfig: '<rootDir>/dev/jest/tsconfig.jest.json',
         compiler: 'typescript',
       },
     },
-    globalSetup: '<rootDir>/dev/jest/integration.setup.js',
-    globalTeardown: '<rootDir>/dev/jest/teardown.js',
     moduleNameMapper,
+    rootDir: process.cwd(),
+    globalSetup: '<rootDir>/dev/jest/jest.setup.js',
+    globalTeardown: '<rootDir>/dev/jest/jest.teardown.js',
     preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: [
       `<rootDir>/tests/integration/**/*.ts`,
       `!**/__mocks__/**/*`,
+    ],
+    testPathIgnorePatterns: [
+      '/node_modules/',
+      '/examples/',
+      '/docs/',
+      '/dev/',
+      '/site/',
+      '/tests/util/',
+      '/tests/.*?/__mocks__/',
     ],
   }
 }

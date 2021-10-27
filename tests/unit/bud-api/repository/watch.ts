@@ -5,8 +5,8 @@ describe('bud.watch', function () {
 
   let serverConfig
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'development',
     })
 

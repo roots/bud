@@ -1,4 +1,4 @@
-import {chalk} from '@roots/bud-support'
+import {chalk, execa} from '@roots/bud-support'
 
 import type {Bud} from '../../Bud'
 import {Command} from '../Command'
@@ -28,44 +28,48 @@ export default class Init extends Command {
   }
 
   public async run() {
-    this.app = new Runner(this.parse(Init)).app
-    this.app.cache.updateProfile()
+    const runner = new Runner(this.parse(Init))
+    await runner.initialize()
+    this.app = runner.app
 
-    const output = []
+    this.app.project.findPeers()
 
-    this.getMissingPeers().map(pkg => {
-      this.app.dashboard.render(
-        [
-          ...output,
-          chalk
-            .yellow(`↯`)
-            .concat(
-              `  ...Installing ${chalk.blue(
-                `${pkg.name}@${pkg.version}`,
-              )}`,
-            ),
-        ],
-        'Installing',
-      )
-
-      this.app.dependencies.install([pkg])
-
-      output.push(
-        chalk
-          .green(`✓`)
-          .concat(
-            `  Installed ${chalk.blue(
-              `${pkg.name}@${pkg.version}`,
-            )}`,
-          ),
-      )
-    })
-
-    this.app.dashboard.render(
-      [...output, '\n✨ All peer packages installed'],
-      'Installation complete',
+    const pkgs = this.getMissingPeers().reduce(
+      (acc, dependency) =>
+        `${acc} ${dependency.name}@${dependency.version}`,
+      ``,
     )
 
+    if (!pkgs.length) {
+      this.app.dashboard.render(
+        `All peer dependencies met. Nothing to install.`,
+        '$ bud init',
+      )
+      process.exit()
+    }
+
+    const cmd = this.app.dependencies.manager.isYarn()
+      ? `yarn add${pkgs} --dev`
+      : `npm install${pkgs} --save-dev`
+
+    const output = [chalk.blue`${cmd}\n`]
+
+    this.app.dashboard.render(output, `$bud init`)
+
+    const task = execa.command(cmd)
+    task.stdout.on('data', data => {
+      output.push(data.toString())
+      this.app.dashboard.render(output, `$ bud init`)
+    })
+    task.stderr.on('data', data => {
+      output.push(data.toString())
+      this.app.dashboard.render(output, `$ bud init`)
+    })
+    await task.finally()
+
+    output.push(chalk.green`✨ All peer packages installed`)
+
+    this.app.dashboard.render(output, '$ bud init')
     process.exit()
   }
 }
