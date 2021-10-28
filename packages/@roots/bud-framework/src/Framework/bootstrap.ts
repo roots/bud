@@ -32,6 +32,8 @@ export interface bootstrap {
 export async function bootstrap(
   this: Framework,
 ): Promise<Framework> {
+  this.time('lifecycle')
+
   /**
    * Get bindable services
    */
@@ -52,6 +54,20 @@ export async function bootstrap(
           : true
       },
     )
+
+  this.container<Services>({
+    ...this.services,
+  })
+    .getKeys()
+    .filter(
+      (name: keyof Services): boolean =>
+        !this.isParent &&
+        PARENT_SERVICES.includes(name) &&
+        this.parent[name],
+    )
+    .map((name: keyof Services) => {
+      Object.assign(this, {[name]: this.parent[name]})
+    })
 
   /**
    * Initialize services
@@ -75,22 +91,27 @@ export async function bootstrap(
   await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
     await promised
 
-    this.log(`Running ${event}`)
+    this.time(`lifecycle event: ${event}`)
 
     await initializedServices.reduce(async (promised, key) => {
       await promised
 
+      this.log(`${event} ${key}`)
+
       const service = this[key]
+
       if (!service || !service[event]) return
 
-      this.log(`Running ${event} on ${key} service`)
-
       await service[event](this)
+
       return Promise.resolve()
     }, Promise.resolve())
+
+    this.timeEnd(`lifecycle event: ${event}`)
 
     return Promise.resolve()
   }, Promise.resolve())
 
+  this.timeEnd('lifecycle')
   return this
 }

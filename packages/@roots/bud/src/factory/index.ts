@@ -37,6 +37,8 @@ export async function factory(
 
   const bud = new Bud(options)
 
+  bud.time('bud')
+
   await bud.bootstrap()
 
   if (!bud.cache.valid) return bud
@@ -45,17 +47,13 @@ export async function factory(
     .getEntries('extensions')
     .reduce(async (promised, [name, extension]) => {
       await promised
-      bud.log('Using cached extension', extension.name)
+      bud.success(`importing ${name} as an esmodule`)
+
       const resolvedExtension = await import(extension.name)
-
       bud.extensions.add(resolvedExtension)
-
-      if (!bud.extensions.has(extension.name)) {
-        bud.error('Cached extension not found', extension.name)
-      }
-
       return Promise.resolve()
     }, Promise.resolve())
+  bud.log('factory project check', bud.project.all())
 
   return bud
 }

@@ -50,16 +50,16 @@ export async function make(
   handleChildNestingError.bind(parent)()
   parent.info(`Making child compiler: ${name}`)
 
-  const instance = new this.implementation({
+  const instance = new this.constructor({
     name,
-    parent: parent,
+    parent,
   })
 
   await instance.bootstrap()
 
-  parent.children.set(name, instance)
+  if (tap) tap.bind(this)(instance)
 
-  parent.get(name, tap)
+  parent.children.set(name, instance)
 
   return parent
 }

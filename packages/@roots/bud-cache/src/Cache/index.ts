@@ -1,10 +1,10 @@
+import {Repository} from '@roots/container'
+import {bind, once} from 'helpful-decorators'
 import {isEqual, isUndefined} from 'lodash'
 
 import {
-  bind,
   Bud,
   createHash,
-  ensureFile,
   readFile,
   readJson,
   writeJson,
@@ -31,20 +31,9 @@ export class Cache
   implements Bud.Cache.Interface
 {
   /**
-   * Bud cache location
-   *
    * @public
    */
-  public get cachePath(): string {
-    return this.app.path('storage', 'bud.cache.json')
-  }
-
-  /**
-   * @public
-   */
-  public repository: Record<string, any> & {version: string} = {
-    version: null,
-  }
+  public repository: Repository = {}
 
   /**
    * @public
@@ -56,41 +45,57 @@ export class Cache
    */
   @bind
   public async register(): Promise<void> {
+    try {
+      const data = await readJson(
+        this.app.project.get('cache.file'),
+      )
+      this.setStore(data)
+      this.app.success(
+        `cache loaded from ${this.get('cache.file')}`,
+      )
+    } catch (e) {
+      this.valid = false
+      this.app.error('cache either not present or invalid')
+    }
+
+    if (this.valid !== false)
+      await this.verify(
+        this.app.project.get('version'),
+        this.get('version'),
+      )
+  }
+
+  @bind
+  public booted() {
+    this.app.hooks.on('run', async val => {
+      await this.write()
+      return val
+    })
+
     this.app.hooks
       .on('build/cache', () => ({
         type: this.app.hooks.filter('build/cache/type'),
       }))
       .hooks.on('build/cache/type', () => 'memory')
+  }
 
-    const version = await this.version(this.app.project)
-    const hasCache = await this.hasCache()
+  @bind
+  public async write(): Promise<boolean> {
+    try {
+      this.setStore(this.app.project.all())
+      await writeJson(this.get('cache.file'), this.all())
 
-    this.app.project.set('version', version)
+      this.app.success(
+        `cache successfully written to ${this.get(
+          'cache.file',
+        )}`,
+      )
 
-    if (hasCache) {
-      try {
-        const jsonData = await readJson(this.cachePath)
-        this.setStore(jsonData)
-      } catch (e) {
-        this.valid = false
-        this.app.warn(
-          'The cache store seems to exist but is invalid JSON. Overwriting.',
-        )
-        this.setStore({})
-        await ensureFile(this.cachePath)
-        await writeJson(this.cachePath, this.all())
-      }
-    } else {
-      this.valid = false
-      this.app.log('The cache store is missing. Writing file.')
-
-      this.setStore({})
-      await ensureFile(this.cachePath)
-      writeJson(this.cachePath, this.all())
+      return true
+    } catch (e) {
+      this.app.error(e)
+      return false
     }
-
-    await this.verify()
-    this.logger.log('cache has been registered')
   }
 
   /**
@@ -101,80 +106,23 @@ export class Cache
    * @public
    */
   @bind
-  public async verify(): Promise<boolean> {
-    if (!isUndefined(this.valid)) {
-      this.logger.log(
-        'Cache has already been checked for this build',
-        'status',
-        this.valid,
+  @once
+  public async verify(
+    projectHash: string,
+    cacheHash: string,
+  ): Promise<boolean> {
+    if (!isUndefined(this.valid)) return this.valid
+
+    if (!isEqual(projectHash, cacheHash)) {
+      this.valid = false
+      this.app.error(
+        `cache hash does not match project's hash. cache is invalid and project must be rebuilt.`,
       )
-
       return this.valid
     }
 
-    const setStatus = (status: boolean) => {
-      this.valid = status
-      this.logger.log('Cache profile valid', status)
-      return status
-    }
-
-    const cachePresent = await this.hasCache()
-
-    if (
-      !cachePresent ||
-      this.app.project.isUndefined('dependencies') ||
-      !this.has('dependencies') ||
-      this.isUndefined('dependencies')
-    ) {
-      setStatus(false)
-      return this.valid
-    }
-
-    const projectVersionString = await this.version(
-      this.app.project,
-    )
-    const cacheVersionString = await this.version(this)
-
-    if (!isEqual(projectVersionString, cacheVersionString)) {
-      setStatus(false)
-    }
-
-    setStatus(true)
-
-    return this.valid
-  }
-
-  @bind
-  public async hasCache(): Promise<boolean> {
-    try {
-      const hasCache = (await readFile(this.cachePath))
-        ? true
-        : false
-      this.logger.log('has cache', hasCache)
-      return hasCache
-    } catch (e) {
-      const hasCache = false
-      this.logger.log('has cache', hasCache)
-      return false
-    }
-  }
-
-  /**
-   * Service boot method
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async build(): Promise<void> {
-    this.setStore({
-      ...this.all(),
-      ...this.app.project.all(),
-    })
-
-    this.logger.log(`Writing cache`, this.cachePath, this.all())
-
-    await writeJson(this.cachePath, this.all())
+    this.valid = true
+    this.app.success(`cache hash is a match`)
   }
 
   /**
@@ -192,17 +140,31 @@ export class Cache
   }
 
   @bind
-  public async version(container): Promise<string> {
-    const cliArguments = process.argv.slice(3).join('')
-    const str = await container
-      .get('dependencies')
-      .reduce(async (promised, file) => {
-        promised = await promised
-        file = await readFile(file, 'utf8')
-        return file.concat(file)
-      }, Promise.resolve(``))
+  public static async version(
+    filePaths: Array<string>,
+  ): Promise<string> {
+    const hash: (str: string) => Promise<string> = async str =>
+      createHash('sha1')
+        .update(str)
+        .digest('base64')
+        .replace(/[^a-z0-9]/gi, '_')
+        .toLowerCase()
 
-    return this.hash(str.concat(cliArguments))
+    try {
+      const cliSalt = await hash(process.argv.slice(3).join(''))
+      const str = await filePaths.reduce(
+        async (promised, filePath) => {
+          await promised
+
+          const file = await readFile(filePath, 'utf8')
+          return `${promised}${file}`
+        },
+        Promise.resolve(``),
+      )
+      return hash(str.concat(cliSalt) ?? '')
+    } catch (e) {
+      throw new Error(`${e.message}`)
+    }
   }
 
   /**

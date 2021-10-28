@@ -27,15 +27,6 @@ export abstract class Abstract implements Peers.Interface {
   ): this
 
   /**
-   * Register discovered packages as extensions
-   *
-   * @returns void
-   *
-   * @public
-   */
-  public abstract registerDiscovered(): void
-
-  /**
    * Returns path for a module name (if findable)
    *
    * @param name - peer module name
@@ -66,13 +57,4 @@ export abstract class Abstract implements Peers.Interface {
    * @public
    */
   public abstract isExtension(name: string): boolean
-
-  /**
-   * Install packages
-   *
-   * @returns void
-   *
-   * @public
-   */
-  public abstract install(): void
 }

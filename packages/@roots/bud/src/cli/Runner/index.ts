@@ -55,54 +55,6 @@ export class Runner {
    */
   public mode: 'development' | 'production'
 
-  /**
-   * Fluent builders
-   *
-   * @example `bud.config.{js,ts}`
-   */
-  public get fluentBuilders(): string[] {
-    return this._fluentBuilders
-  }
-  public set fluentBuilders(builders: string[]) {
-    this._fluentBuilders = builders
-  }
-
-  /**
-   * Fluent builders by env
-   *
-   * @example `bud.development.{js,ts}`
-   */
-  public get fluentBuildersByEnv(): string[] {
-    return this._fluentBuildersByEnv
-  }
-  public set fluentBuildersByEnv(builders: string[]) {
-    this._fluentBuildersByEnv = builders
-  }
-
-  /**
-   * Static builders
-   *
-   * @example `bud.config.{json,yml}`
-   */
-  public get staticBuilders(): string[] {
-    return this._staticBuilders
-  }
-  public set staticBuilders(builders: string[]) {
-    this._staticBuilders = builders
-  }
-
-  /**
-   * Static builders by env
-   *
-   * @example `bud.development.{json,yml}`
-   */
-  public get staticBuildersByEnv(): string[] {
-    return this._staticBuildersByEnv
-  }
-  public set staticBuildersByEnv(builders: string[]) {
-    this._staticBuildersByEnv = builders
-  }
-
   public cli: {
     args: Record<string, any>
     argv: Array<string>
@@ -161,17 +113,10 @@ export class Runner {
     /**
      * Handle --clean flag
      */
-    if (typeof this.flags.clean !== 'undefined') {
+    if (this.flags.clean !== undefined) {
       this.app.store.set('clean', this.flags.clean)
     }
 
-    /**
-     * Configure bud instance with static configs.
-     */
-    await this.doStatics()
-    /**
-     * Configure bud instance with fluent configs.
-     */
     await this.doBuilders()
 
     /**
@@ -299,29 +244,21 @@ export class Runner {
   }
 
   /**
-   * Set process.env based on app mode
-   *
-   * @param env - {@link Bud.mode}
-   */
-  @bind
-  public setEnv(env: 'production' | 'development') {
-    process.env.BABEL_ENV = env
-    process.env.NODE_ENV = env
-  }
-
-  /**
    * Process dynamic configs
    */
   @bind
   public async doBuilders() {
-    if (!this.app.project.get('configFiles.dynamic')) return
+    this.app.time('parsing dynamic global config(s)')
+    await this.processDynamicConfig('configs.dynamic.global')
+    this.app.timeEnd('parsing dynamic global config(s)')
 
-    const builder = await new CLIConfig(
-      this.app,
-      this.app.project.get('configFiles.dynamic'),
-    ).get()
-
-    isFunction(builder) && builder(this.app)
+    this.app.time(`parsing dynamic ${this.app.mode} config(s)`)
+    await this.processDynamicConfig(
+      `configs.dynamic.conditional`,
+    )
+    this.app.timeEnd(
+      `parsing dynamic ${this.app.mode} config(s)`,
+    )
   }
 
   /**
@@ -329,11 +266,135 @@ export class Runner {
    */
   @bind
   public async doStatics() {
-    if (!this.app.project.has('configFiles.static')) return
+    if (
+      !this.app.project.has('configs.json.global') &&
+      !this.app.project.has('configs.json.conditional')
+    )
+      return
 
-    await new CLIConfig(
+    this.app.time('parsing static global config(s)')
+    await this.processStaticConfig('configs.json.global')
+    this.app.timeEnd('parsing static global config(s)')
+
+    this.app.time('parsing static global config(s)')
+    await this.processStaticConfig('configs.json.global')
+    this.app.timeEnd('parsing static global config(s)')
+  }
+
+  @bind
+  public async processDynamicConfig(configKey) {
+    const configs = this.app.project.get(configKey)
+    if (!configs) return Promise.resolve()
+
+    await Object.entries(configs).reduce(
+      async (p, [k, v]: [string, any]) => {
+        await p
+        if (!isFunction(v.module)) {
+          return
+        }
+
+        this.app.info(`tapping ${k} configuration`)
+
+        v.module(this.app)
+        return Promise.resolve()
+      },
+      Promise.resolve(),
+    )
+  }
+
+  @bind
+  public async processStaticConfig(configKey: string) {
+    const builder = new CLIConfig(
       this.app,
-      this.app.project.get('configFiles.static'),
-    ).apply()
+      this.app.project.get(configKey),
+    )
+
+    const res = await builder.get()
+
+    if (res === null) {
+      this.app.info('no static config to process')
+      return
+    }
+
+    Object.entries(config).forEach(([c, v]) => {
+      this.app.log(`parsed compiler ${c}`)
+
+      Object.entries(v).forEach(([k, v]) => {
+        this.app.log(`setting ${k} to`, typeof v)
+      })
+    })
+
+    await Object.entries(config).reduce(
+      async (
+        promised,
+        [name, values]: [string, Record<string, any>],
+      ) => {
+        await promised
+        this.app.log(
+          `parsing ${name} settings from static configuration(s)`,
+        )
+
+        await this.app.make(name, async instance => {
+          Object.entries(values)
+            .filter(([key]) => key !== 'extensions')
+            .forEach(([key, value]) => {
+              const item = instance[key]
+
+              if (key === 'settings') {
+                this.app.log(
+                  `setting ${key} on ${instance.name} to`,
+                  value,
+                )
+
+                return instance.store.set(key, value)
+              }
+
+              if (!item) {
+                return this.app.warn(
+                  `config key ${key} for ${instance} has no match and is ignored`,
+                )
+              }
+
+              if (isFunction(item)) {
+                this.app.log(
+                  `calling ${key} function on the ${instance.name} compiler`,
+                )
+
+                return item(value)
+              }
+            })
+        })
+
+        const instance = this.app.get(name)
+
+        if (values.extensions) {
+          await values.extensions.reduce(
+            async (promised, extension) => {
+              await promised
+
+              try {
+                const resolvedExtension = await import(extension)
+                instance.extensions.add(resolvedExtension)
+                instance.success(
+                  `importing ${extension} as an esmodule to ${instance.name}`,
+                )
+              } catch (e) {
+                instance.error(
+                  `failed to import ${extension} as an esmodule to ${instance.name}`,
+                )
+                instance.error(`invalidating cache`)
+                instance.cache.valid = false
+              }
+
+              return Promise.resolve()
+            },
+            Promise.resolve(),
+          )
+        }
+
+        return Promise.resolve()
+      },
+      Promise.resolve(),
+    )
   }
 }

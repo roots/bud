@@ -18,12 +18,7 @@ export default class Init extends Command {
 
   public getMissingPeers(): any[] {
     return this.app.project.has('peers')
-      ? this.app.project
-          .getValues('peers')
-          ?.filter(
-            (dep: {name: string}) =>
-              !this.app.project.hasPeerDependency(dep.name),
-          )
+      ? this.app.project.getValues('peers')
       : []
   }
 
@@ -31,8 +26,6 @@ export default class Init extends Command {
     const runner = new Runner(this.parse(Init))
     await runner.initialize()
     this.app = runner.app
-
-    this.app.project.findPeers()
 
     const pkgs = this.getMissingPeers().reduce(
       (acc, dependency) =>

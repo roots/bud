@@ -8,13 +8,6 @@ import {Service} from '../Service'
  */
 export abstract class Abstract extends Service<Peers.Repository> {
   /**
-   * Array of paths for webpack to resolve modules from
-   *
-   * @public
-   */
-  public resolveFrom: string[] = []
-
-  /**
    * Peer module related utilities
    *
    * @public

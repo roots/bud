@@ -25,7 +25,7 @@ export function dump(
   const ctx = this as Framework
   !isUndefined(ctx.dashboard.instance)
     ? ctx.dashboard.render(highlight(obj, options))
-    : console.log(highlight(obj, options))
+    : this.app.log(highlight(obj, options))
 }
 
 export function dd(

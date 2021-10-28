@@ -1,9 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 
-import {ensureDirSync, pathExistsSync} from './run.dependencies'
-
 export interface run {
-  (this: Framework): void
+  (this: Framework): Promise<void>
 }
 
 /**
@@ -16,9 +14,8 @@ export interface run {
  *
  * @public @config
  */
-export const run: run = function (): void {
-  !pathExistsSync(this.path('storage')) &&
-    ensureDirSync(this.path('storage'))
+export const run: run = async function (): Promise<void> {
+  this.hooks.filter('run')
 
   this.dashboard.run()
 
@@ -32,9 +29,12 @@ export const run: run = function (): void {
     this.server?.run()
   }
 
-  const prod = () => {
-    this.compiler.compile().run(this.compiler.callback)
+  const prod = async () => {
+    const compiler = await this.compiler.compile()
+    compiler.run(this.compiler.callback)
   }
 
-  this.when(isDev, dev, prod)
+  if (isDev) {
+    dev()
+  } else await prod()
 }

@@ -1,5 +1,5 @@
 import {INSTANCE_CONFIG} from './logger.constants'
-import {Signale} from './logger.dependencies'
+import {bind, Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
 /**
@@ -20,19 +20,21 @@ export class Logger {
    *
    * @public
    */
-  public constructor(app: Framework) {
+  public constructor(protected app: Framework) {
     this.instance = new Signale({
-      disabled: true,
-      interactive: false,
+      disabled: false,
+      interactive: !process.argv.includes('--log'),
       secrets: [process.cwd()],
-      scope: 'bud',
       stream: [process.stdout],
     })
 
     this.instance.config(INSTANCE_CONFIG)
+  }
 
-    if (process.argv.includes('--log')) {
-      this.instance.enable()
-    }
+  @bind
+  public getScope(): Array<string> {
+    return this.app.parent?.name
+      ? [this.app.parent.name, this.app.name]
+      : [this.app.name, 'root']
   }
 }

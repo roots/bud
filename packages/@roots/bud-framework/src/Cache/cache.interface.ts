@@ -1,3 +1,5 @@
+import {Repository} from '@roots/container'
+
 import type {Service} from '../Service'
 
 /**
@@ -7,25 +9,11 @@ import type {Service} from '../Service'
  */
 export interface CacheInterface extends Service {
   /**
-   * Cache path
+   * Is cache valid?
    *
    * @public
    */
-  cachePath: string
-
-  /**
-   * Is a cache file present
-   *
-   * @public
-   */
-  hasCache(): Promise<boolean>
-
-  /**
-   * Directory used to store cache files
-   *
-   * @public
-   */
-  directory(): string
+  valid: boolean
 
   /**
    * Hash of config files and build dependencies
@@ -35,23 +23,16 @@ export interface CacheInterface extends Service {
   hash(str: string): string
 
   /**
-   * Is cache valid?
-   *
-   * @public
-   */
-  valid: boolean
-
-  /**
-   * Update profile if needed
-   *
-   * @public
-   */
-  build(): Promise<void>
-
-  /**
    * Verify cache validity
    *
    * @public
    */
-  verify(): Promise<boolean>
+  verify(hash1: string, hash2: string): Promise<boolean>
+
+  /**
+   * @public
+   */
+  write(
+    callback: (cache: Repository) => Promise<Repository>,
+  ): Promise<boolean>
 }

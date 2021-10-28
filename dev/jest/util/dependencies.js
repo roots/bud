@@ -11,49 +11,22 @@ const manifestPath = path.resolve(
   'package.json',
 )
 
-const cachePath = path.resolve(
-  __dirname,
-  'resolver',
-  '.budfiles',
-  'bud.cache.json',
-)
+async function tasks() {
+  const init = execa.command(`yarn bud init`, {
+    cwd: path.dirname(manifestPath),
+  })
 
-async function build() {
-  console.log(
-    magenta`\n Producing resolver workspace bud.cache.json`,
-  )
-
-  const task = execa.command(
-    `yarn workspace bud-examples-resolver run bud build`,
-    {
-      cwd: path.dirname(manifestPath),
-    },
-  )
-  task.stdout.pipe(process.stdout)
-  task.stderr.pipe(process.stderr)
-  await task.finally(noop)
+  init.stdout.pipe(process.stdout)
+  init.stderr.pipe(process.stderr)
+  await init.finally(noop)
 }
 
 async function install() {
-  await build()
+  await tasks()
 
   console.log(
     magenta`\n Ensuring required dependencies are available to integration projects\n`,
   )
-  const cache = await readJson(cachePath)
-
-  const installString = Object.entries(
-    cache.project.peers,
-  ).reduce((acc, [k, {name, version}]) => {
-    return `${acc} ${name}@${version}`
-  }, `yarn workspace bud-examples-resolver add`)
-
-  console.log(` `.concat(installString).concat(`\n`))
-
-  const task = execa.command(installString)
-  task.stdout.pipe(process.stdout)
-  task.stderr.pipe(process.stderr)
-  await task.finally(noop)
 }
 
 module.exports = {install}

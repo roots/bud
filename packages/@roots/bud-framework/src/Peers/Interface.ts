@@ -21,13 +21,6 @@ export interface Interface {
   discover(type: 'dependencies' | 'devDependencies'): this
 
   /**
-   * Register discovered packages as extensions
-   *
-   * @public
-   */
-  registerDiscovered(): void
-
-  /**
    * Returns path for a module name (if findable)
    *
    * @public
@@ -47,18 +40,4 @@ export interface Interface {
    * @public
    */
   isExtension(name: string): boolean
-
-  /**
-   * Registers all bud related extensions with bud.extensions
-   *
-   * @public
-   */
-  registerDiscovered(): void
-
-  /**
-   * Install packages
-   *
-   * @public
-   */
-  install(): void
 }

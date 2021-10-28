@@ -116,6 +116,6 @@ export default class Build extends Command {
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])
-    this.app.run()
+    await this.app.run()
   }
 }

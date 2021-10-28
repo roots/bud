@@ -10,13 +10,6 @@ export interface Interface extends Service {
   manifestPath: string
 
   /**
-   * Array of paths for webpack to resolve modules from
-   *
-   * @public
-   */
-  resolveFrom: string[]
-
-  /**
    * Peer module related utilities
    *
    * @public

@@ -115,10 +115,7 @@ export default class
           compiler: this.app.compiler.instance,
         })
 
-        this.app.log(
-          `configured middleware: ${key}`,
-          configuredMiddleware,
-        )
+        this.app.log(`configured middleware: ${key}`)
 
         this.application.use(configuredMiddleware)
       }
@@ -161,11 +158,6 @@ export default class
           `Server listening on %s`,
           this.config.get('port'),
         )
-
-        this.app.log({
-          ...this.config.all(),
-          middleware,
-        })
       },
     )
 

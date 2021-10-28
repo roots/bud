@@ -201,7 +201,7 @@ export function config(app: Framework): void {
      * RecordsPath
      */
     .hooks.on('build/recordsPath', () =>
-      app.path('storage', `${app.name}-modules.json`),
+      app.path('storage', `${app.name}.modules.json`),
     )
 
     /**

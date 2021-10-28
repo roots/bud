@@ -1,5 +1,16 @@
-extensions:
-  - '@roots/bud-sass'
+app:
+  extensions:
+    - '@roots/bud-sass'
 
-entry:
-  app: app.scss
+  entry:
+    app: app.scss
+
+foo:
+  extensions:
+    - '@roots/bud-sass'
+
+  entry:
+    app: app.scss
+
+  setPath:
+    dist: 'public'

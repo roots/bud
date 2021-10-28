@@ -541,7 +541,7 @@ export abstract class Framework {
   public log(message?: any, ...optionalArgs: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
+        .scope(...this.logger.getScope())
         .log(message, ...optionalArgs)
   }
 
@@ -555,7 +555,7 @@ export abstract class Framework {
   public info(message?: any, ...optionalArgs: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
+        .scope(...this.logger.getScope())
         .info(message, ...optionalArgs)
   }
 
@@ -569,7 +569,7 @@ export abstract class Framework {
   public success(message?: any, ...optionalArgs: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
+        .scope(...this.logger.getScope())
         .success(message, ...optionalArgs)
   }
 
@@ -583,22 +583,64 @@ export abstract class Framework {
   public warn(message?: any, ...optionalArgs: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
+        .scope(...this.logger.getScope())
         .warn(message, ...optionalArgs)
   }
 
   /**
-   * Log a `debug` level message
+   * Log a `warning` level message
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public debug(message?: any, ...optionalArgs: any[]) {
+  public time(label: string) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .debug(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .time(label)
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public await(label: string) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.getScope())
+        .await(label)
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public complete(label: string) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.getScope())
+        .complete(label)
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public timeEnd(label: string) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.getScope())
+        .timeEnd(label)
   }
 
   /**
@@ -614,11 +656,8 @@ export abstract class Framework {
   public error(message?: any, ...optionalArgs: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
+        .scope(...this.logger.getScope())
         .error(message, ...optionalArgs)
-
-    this.dashboard?.instance &&
-      this.dashboard.renderError(message, optionalArgs.pop())
   }
 }
 

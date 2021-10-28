@@ -5,7 +5,6 @@ import {
   bind,
   pkgUp,
   readJsonSync,
-  safeRequire,
   safeResolve,
 } from './peers.dependencies'
 import type {Peers as Model, Project} from './peers.interface'
@@ -27,11 +26,6 @@ export class Peers implements Model.Interface {
 
     this.project.has('manifest.devDependencies') &&
       this.discover('devDependencies')
-
-    this.project.app.store.isTrue('discover') &&
-      this.registerDiscovered()
-
-    this.project.app.store.isTrue('install') && this.install()
   }
 
   /**
@@ -147,10 +141,12 @@ export class Peers implements Model.Interface {
       this.project.has(`extensions.${name}`)
     ) {
       return
-    } else {
-      const resolve = this.project.get('resolve')
-      this.project.set('resolve', [...resolve, path])
     }
+    this.project.app.log(`Profiling ${name}`)
+
+    const resolve = this.project.get('resolve')
+    this.project.set('resolve', [...resolve, path])
+    this.project.app.log(`Resolving modules from ${path}`)
 
     const manifest = this.getPeerManifest(name)
 
@@ -191,39 +187,5 @@ export class Peers implements Model.Interface {
 
       this.profileExtension(name)
     })
-  }
-
-  /**
-   * Registers all bud related extensions with bud.extensions
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public registerDiscovered() {
-    const extensions = this.project.getValues('extensions')
-
-    extensions?.forEach(pkg => {
-      if (!pkg?.name) return
-
-      this.project.app.extensions.add(safeRequire(pkg.name))
-      this.project.set(`registered.${pkg.name}`, pkg)
-    })
-  }
-
-  /**
-   * Installs all required peer dependencies
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public install(): void {
-    const required = this.project.get('peers')
-
-    required &&
-      this.project.app.dependencies.install(
-        Object.values(required),
-      )
   }
 }

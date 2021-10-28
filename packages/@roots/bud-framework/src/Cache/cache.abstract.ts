@@ -1,3 +1,5 @@
+import {Repository} from '@roots/container'
+
 import {Service} from '../Service'
 import {CacheInterface} from './cache.interface'
 
@@ -11,25 +13,9 @@ export abstract class CacheAbstract
   implements CacheInterface
 {
   /**
-   * Cache path
-   *
-   * @public
+   * Is cache valid?
    */
-  public abstract cachePath: string
-
-  /**
-   * Is a cache file present
-   *
-   * @public
-   */
-  public abstract hasCache(): Promise<boolean>
-
-  /**
-   * Directory used to store cache files
-   *
-   * @public
-   */
-  public abstract directory(): string
+  public abstract valid: boolean
 
   /**
    * Hash of config files and build dependencies
@@ -39,21 +25,19 @@ export abstract class CacheAbstract
   public abstract hash(str: string): string
 
   /**
-   * Is cache valid?
-   */
-  public abstract readonly valid: boolean
-
-  /**
-   * Update profile if needed
-   *
-   * @public
-   */
-  public abstract build(): Promise<void>
-
-  /**
    * Verify cache validity
    *
    * @public
    */
-  public abstract verify(): Promise<boolean>
+  public abstract verify(
+    hash1: string,
+    hash2: string,
+  ): Promise<boolean>
+
+  /**
+   * @public
+   */
+  public abstract write(
+    callback: (cache: Repository) => Promise<Repository>,
+  ): Promise<boolean>
 }

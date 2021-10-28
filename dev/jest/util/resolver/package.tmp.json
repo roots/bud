@@ -1,18 +1,6 @@
 {
   "name": "bud-examples-resolver",
   "private": true,
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
@@ -26,12 +14,9 @@
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "@roots/bud-sass": "workspace:*",
-    "@roots/bud-solid": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
-    "@roots/bud-vue": "workspace:*",
-    "@roots/sage": "workspace:*",
-    "@types/imagemin-gifsicle": "^7",
-    "@types/imagemin-svgo": "^10"
+    "@roots/bud-vue": "workspace:*"
   }
 }

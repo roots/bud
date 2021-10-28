@@ -20,7 +20,6 @@ const LIFECYCLE_EVENTS = [
 const PARENT_SERVICES: (string | number)[] = [
   'compiler',
   'dashboard',
-  'project',
   'server',
 ]
 

@@ -1,7 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
 
-interface persist {
+export interface persist {
   (this: Framework, enabled?: boolean): Framework
+}
+
+export interface persist {
+  (this: Framework, enabled?: string): Framework
 }
 
 /**
@@ -16,7 +20,19 @@ interface persist {
  *
  * @public @config
  */
-const persist: persist = function (enabled = true) {
+export const persist: persist = function (
+  enabled: string | boolean,
+) {
+  if (enabled === false) {
+    this.hooks.on('build/cache', false)
+  }
+
+  if (enabled === 'memory') {
+    this.hooks.on('build/cache', cache => ({
+      type: 'memory',
+    }))
+  }
+
   this.hooks
     .on('build/cache', () => ({
       type: this.hooks.filter('build/cache/type'),
@@ -31,29 +47,15 @@ const persist: persist = function (enabled = true) {
         'build/cache/buildDependencies',
       ),
     }))
-    .hooks.on(
-      'build/cache/version',
-      enabled ? this.project.get('version') : undefined,
-    )
-    .hooks.on('build/cache/type', () =>
-      enabled ? 'filesystem' : 'memory',
-    )
-    .hooks.on(
-      'build/cache/cacheDirectory',
-      enabled ? this.project.get('directory') : undefined,
-    )
-    .hooks.on('build/cache/buildDependencies', () =>
-      enabled
-        ? {
-            bud: this.project.get('dependencies'),
-          }
-        : undefined,
-    )
-    .hooks.on('build/cache/managedPaths', () =>
-      enabled ? [this.path('modules')] : undefined,
-    )
+    .hooks.on('build/cache/version', this.project.get('version'))
+    .hooks.on('build/cache/type', () => 'filesystem')
+    .hooks.on('build/cache/cacheDirectory', this.cache.directory)
+    .hooks.on('build/cache/buildDependencies', () => ({
+      bud: this.project.get('dependencies'),
+    }))
+    .hooks.on('build/cache/managedPaths', () => [
+      this.path('modules'),
+    ])
 
   return this
 }
-
-export {persist as default}

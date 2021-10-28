@@ -62,19 +62,16 @@ export class Build
    */
   @bind
   public make(): Webpack.Configuration {
-    this.app.log('build.config called')
+    this.app.time('build.make')
+    this.app.log(`preprocessing build`)
 
     const config = this.app.hooks.filter('build')
 
-    this.config = Object.entries(config).reduce((a, [k, v]) => {
-      if (v === undefined) {
-        return a
-      }
+    this.app.timeEnd('build.make')
 
-      return {...a, [k]: v}
-    }, {})
+    this.app.log('build entry', config.entry)
 
-    return this.config
+    return config
   }
 
   /**
@@ -84,7 +81,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public bootstrap(): void {
+  public bootstrap() {
     /**
      * Reduces components to their normalized form
      *

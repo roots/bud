@@ -4,7 +4,7 @@
 export const INSTANCE_CONFIG = {
   displayScope: true,
   displayBadge: true,
-  displayDate: false,
+  displayDate: true,
   displayFilename: false,
   displayLabel: false,
   displayTimestamp: false,

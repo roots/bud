@@ -59,7 +59,7 @@ class Hooks extends Service implements Contract {
       (v: T, cb?: CallableFunction) => {
         return isFunction(cb) ? cb(v) : cb
       },
-      null,
+      value ?? null,
     )
 
     return result

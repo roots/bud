@@ -1,4 +1,5 @@
 import {config, factory, Framework} from '@roots/bud'
+import {Peers} from '@roots/bud/src/services/Peers'
 import {readJson} from 'fs-extra'
 
 describe('bud.project', function () {
@@ -82,7 +83,7 @@ describe('bud.project', function () {
   })
 
   it('discover method gathers dep data', () => {
-    bud.project.peers.discover(`devDependencies`)
+    bud.project.peers = new Peers(bud.project)
 
     expect(
       bud.project.get(`extensions.@roots/bud-babel`),

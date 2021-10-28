@@ -13,7 +13,6 @@ import type {Container, DevProps, Server} from './dev.interface'
  */
 export default function dev({compiler, config}: DevProps) {
   const options = makeOptions(config)
-  this.log('dev middleware options', options)
   return WebpackDevMiddleware(compiler as any, options)
 }
 
