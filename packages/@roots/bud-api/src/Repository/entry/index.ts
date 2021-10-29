@@ -269,5 +269,7 @@ function getAssets(
        */
       entry.import
 
+  this.info(`entrypoint added`, entry)
+
   return entry
 }

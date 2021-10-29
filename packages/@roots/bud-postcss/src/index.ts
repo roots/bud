@@ -19,9 +19,6 @@
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * Configure postcss plugins and plugin options.
-     */
     postcss: PostCssConfig
   }
 

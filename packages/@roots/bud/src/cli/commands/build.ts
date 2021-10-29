@@ -23,7 +23,6 @@ export default class Build extends Command {
     }),
 
     clearCache: flags.boolean({
-      default: false,
       description: 'Clear the cache before compilation',
     }),
 

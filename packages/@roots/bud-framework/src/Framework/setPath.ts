@@ -31,13 +31,13 @@ export interface setPath {
 export function setPath(this: Framework, ...args): Framework {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, args[1])
+    this.info(`${args[0]} set to ${args[1]}`)
     return this
   }
 
   if (Object.entries(args[0]).length === 0) {
     this.error(
       `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project']`,
-      `Type error`,
     )
   }
 
@@ -54,7 +54,7 @@ export function setPath(this: Framework, ...args): Framework {
         v.startsWith('/'),
       () => {
         this.warn(
-          `Path: ${k} was defined as ${v}. This path should be relative to the project root. You should fix this.`,
+          `${k} was defined as ${v}. This path should be relative to the project root. You should fix this.`,
         )
 
         v = v.replace(this.hooks.filter('location.project'), '')
@@ -62,6 +62,7 @@ export function setPath(this: Framework, ...args): Framework {
     )
 
     this.hooks.on(`location/${k}`, v)
+    this.info(`${k} set to ${v}`)
   })
 
   return this

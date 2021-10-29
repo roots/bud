@@ -14,11 +14,18 @@ export const config: Configuration = {
   name: 'bud',
 
   /**
-   * Is caching enabled?
+   * Is webpack caching enabled?
    *
    * @public
    */
   cache: false,
+
+  /**
+   * Clear bud cache on framework initialization?
+   *
+   * @public
+   */
+  clearCache: false,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.ci}

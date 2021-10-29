@@ -38,22 +38,5 @@ export async function factory(
   const bud = new Bud(options)
 
   bud.time('bud')
-
-  await bud.bootstrap()
-
-  if (!bud.cache.valid) return bud
-
-  await bud.project
-    .getEntries('extensions')
-    .reduce(async (promised, [name, extension]) => {
-      await promised
-      bud.success(`importing ${name} as an esmodule`)
-
-      const resolvedExtension = await import(extension.name)
-      bud.extensions.add(resolvedExtension)
-      return Promise.resolve()
-    }, Promise.resolve())
-  bud.log('factory project check', bud.project.all())
-
-  return bud
+  return await bud.bootstrap()
 }

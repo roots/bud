@@ -28,8 +28,7 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public register(): void {
-    this.bindMacro({error: Error})
+  public bootstrap(): void {
     this.run()
   }
 

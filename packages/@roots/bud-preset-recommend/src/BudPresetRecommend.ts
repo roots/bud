@@ -14,9 +14,9 @@ import {Extension} from '@roots/bud-framework'
  *
  * @public
  */
+
 export interface BudPresetRecommend extends Extension.Module {
   name: '@roots/bud-preset-recommend'
-  register: any
 }
 
 /**
@@ -25,23 +25,5 @@ export interface BudPresetRecommend extends Extension.Module {
  * @public
  */
 export const BudPresetRecommend: BudPresetRecommend = {
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.Module.name}
-   *
-   * @public
-   */
   name: '@roots/bud-preset-recommend',
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.Module.register}
-   *
-   * @public
-   */
-  register: app => {
-    app.use([
-      '@roots/bud-babel',
-      '@roots/bud-postcss',
-      '@roots/bud-entrypoints',
-    ])
-  },
 }

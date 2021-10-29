@@ -236,6 +236,15 @@ export function config(app: Framework): void {
     )
 
     /**
+     * Target
+     */
+    .hooks.on(
+      'build/target',
+      (): Configuration['target'] =>
+        `browserslist:${app.path('project', 'package.json')}`,
+    )
+
+    /**
      * Watch
      */
     .hooks.on('build/watch', () => app.store.get('build.watch'))

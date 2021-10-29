@@ -20,7 +20,6 @@ export default class Config {
       loaders: {
         '.ts': cosmiconfigTsLoader,
       },
-      cache: this.app.cache.valid,
       ignoreEmptySearchPlaces: true,
       stopDir: this.app.path('project'),
       searchPlaces: searchPlaces,

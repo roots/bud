@@ -1,4 +1,4 @@
-import * as Project from '../Project'
+import {Framework} from '../Framework'
 import * as Peers from './'
 
 /**
@@ -8,11 +8,11 @@ import * as Peers from './'
  */
 export abstract class Abstract implements Peers.Interface {
   /**
-   * Project instance.
+   * App instance
    *
    * @public
    */
-  public abstract project: Project.Interface
+  public abstract app: Framework
 
   /**
    * Collect packages.
@@ -24,7 +24,7 @@ export abstract class Abstract implements Peers.Interface {
    */
   public abstract discover(
     type: 'dependencies' | 'devDependencies',
-  ): this
+  ): Promise<this>
 
   /**
    * Returns path for a module name (if findable)
@@ -34,7 +34,7 @@ export abstract class Abstract implements Peers.Interface {
    *
    * @public
    */
-  public abstract resolvePeerByName(name: string): string
+  public abstract getManifestPath(name: string): Promise<string>
 
   /**
    * Returns manifest for a module from name (if findable)
@@ -44,9 +44,9 @@ export abstract class Abstract implements Peers.Interface {
    *
    * @public
    */
-  public abstract getPeerManifest(name: string): {
-    [key: string]: any
-  }
+  public abstract getManifest(
+    name: string,
+  ): Promise<Record<string, any>>
 
   /**
    * Returns true if a module is bud-related

@@ -4,8 +4,8 @@ import {
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
-// import {ProgressPlugin} from 'webpack'
 const {isFunction} = lodash
+import {once} from 'helpful-decorators'
 
 /**
  * Initial state
@@ -64,10 +64,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public register() {
-    this.app.hooks.on('before', () => [])
-    this.app.hooks.on('after', () => [])
-  }
+  public register() {}
 
   /**
    * Initiates compilation
@@ -89,25 +86,31 @@ export class Compiler extends Service implements Contract {
   @bind
   public async invokeCompiler(config: any) {
     this.app.timeEnd('bud')
+    this.app.hooks.filter('before/compiler')
 
-    this.instance = this.app.isDevelopment
-      ? webpack(config)
-      : webpack(config, this.callback)
+    this.app.time(`webpack`)
+    this.instance = webpack(config)
 
-    this.instance.hooks.done.tap(this.app.name, stats => {
+    this.app.await(`tapping webpack instance.tap`)
+    this.instance.hooks.done.tap(config[0].name, stats => {
       stats && Object.assign(this.stats, stats.toJson())
 
       this.app.isProduction &&
         this.instance.close(err => {
-          this.app.hooks.filter('done')
-
-          err && this.stats.errors.push(err)
+          if (err) {
+            this.stats.errors.push(err)
+            this.app.error(err)
+          }
+          this.app.timeEnd(`webpack`)
         })
     })
 
+    this.app.await(`applying progress plugin`)
     new ProgressPlugin((...args): void => {
       this.progress = args
     }).apply(this.instance)
+
+    this.app.hooks.filter('after/compiler')
 
     return this.instance
   }
@@ -119,6 +122,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
+  @once
   public before() {
     const config = []
 
@@ -126,22 +130,20 @@ export class Compiler extends Service implements Contract {
 
     this.isCompiled = true
 
-    this.app.hooks.filter('before', this.app)
-
-    !this.app.parent &&
+    this.app.parent &&
       this.app.error(
         `Attempting to compile a child directly. Only the parent instance should be compiled.`,
       )
 
-    const instanceConfig = this.app.build.make()
+    this.app.build.make()
 
     /**
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
     if (!this.app.hasChildren) {
-      this.app.log(`using config from parent compiler`)
-      config.push(instanceConfig)
+      this.app.info(`using config from parent compiler`)
+      config.push(this.app.build.config)
     }
 
     /**
@@ -149,12 +151,12 @@ export class Compiler extends Service implements Contract {
      * them and add to `config`
      */
     this.app.hasChildren &&
-      this.app.children.getValues().map(({build, name}) => {
-        if (!name) return
+      this.app.children.getValues().map(child => {
+        if (!child.name) return
 
-        this.app.log(`using config from ${name}`)
-        const childConfig = build.make()
-        config.push(childConfig)
+        this.app.log(`using config from ${child.name}`)
+        child.build.make()
+        config.push(child.build.config)
       })
 
     return config
@@ -180,13 +182,13 @@ export class Compiler extends Service implements Contract {
 
     if (stats?.toJson && isFunction(stats.toJson)) {
       this.stats = stats.toJson(this.app.build.config.stats)
-      this.app.store.is('ci', true) &&
+      this.app.store.is('log', true) &&
         this.app.log(stats.toString())
     }
 
     if (err) {
       this.stats.errors.push(err)
-      this.app.store.is('ci', true) && this.app.error(err)
+      this.app.store.is('log', true) && this.app.error(err)
     }
   }
 }

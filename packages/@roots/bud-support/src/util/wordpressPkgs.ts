@@ -2,17 +2,24 @@ import {join} from 'lodash'
 
 export type WordPressScopePkg = `@wordpress/${string}`
 
-export type PkgName =
+export type WordPressProvidedPackages =
   | WordPressScopePkg
   | 'lodash'
   | 'react'
   | 'react-dom'
   | 'jquery'
 
+export interface Externals {
+  window: ['wp', string]
+  enqueue: string
+}
+
+export type PackageMapEntry = [string, Record<string, string>]
+
 /**
  * Pkg map
  */
-const pkgMap = new Map([
+const packageMap = new Map([
   [
     'jquery',
     {
@@ -44,39 +51,46 @@ const pkgMap = new Map([
 ])
 
 /**
- * Camelize @wordpress pkg names
+ * Camelize wordpress package name
  */
-const camelize = (pkg: string): string =>
-  pkg.replace(/-(.)/g, (_m: string, g: string): string =>
+const camelize = (packageName: string): string =>
+  packageName.replace(/-(.)/g, (_m: string, g: string): string =>
     g.toUpperCase(),
   )
 
 /**
- * Transform @wordpress pkg names
+ * Transform wordpress package name
  */
-const transformPkgName = pkg =>
-  pkg.replace(/^@wordpress\/(.*)$/, (_m, g) => g)
+const transformPackageName = (packageName: string) =>
+  packageName.replace(/^@wordpress\/(.*)$/, (_m, g) => g)
 
 /**
  * Is pkg string a wordpress window var match
  */
-const isProvided: (pkg: string) => boolean = pkg => {
-  if (!pkg) return false
+export const isProvided: (packageName: string) => boolean =
+  packageName => {
+    if (!packageName) return false
 
-  return (
-    pkg.includes('@wordpress') ||
-    ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
-  )
-}
+    return (
+      packageName.includes('@wordpress') ||
+      Array.from(packageMap.keys()).includes(packageName)
+    )
+  }
+
 /**
  * Transform pkg string request
  */
-const transform = (pkg: PkgName) => {
-  return pkgMap.has(pkg)
-    ? pkgMap.get(pkg)
-    : {
-        window: ['wp', camelize(transformPkgName(pkg))],
-        enqueue: join(['wp', transformPkgName(pkg)], '-'),
-      }
+export const transform = (packageName: string): any => {
+  const transformedPackageName =
+    transformPackageName(packageName)
+
+  if (packageMap.has(packageName))
+    return packageMap.get(packageName)
+
+  if (isProvided(packageName)) {
+    return {
+      window: ['wp', camelize(transformedPackageName)],
+      enqueue: join(['wp', transformedPackageName], '-'),
+    }
+  }
 }
-export {isProvided, transform}

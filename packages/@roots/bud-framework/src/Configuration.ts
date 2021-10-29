@@ -51,6 +51,13 @@ export interface Configuration {
   cache: boolean
 
   /**
+   * Clear caches before build?
+   *
+   * @public
+   */
+  clearCache: boolean
+
+  /**
    * Feature toggle: enable or disable the command line interface
    *
    * @defaultValue true

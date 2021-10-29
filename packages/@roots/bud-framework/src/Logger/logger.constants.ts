@@ -1,7 +1,9 @@
+import {SignaleConfig} from 'signale'
+
 /**
  * Instance configuration
  */
-export const INSTANCE_CONFIG = {
+export const INSTANCE_CONFIG: SignaleConfig = {
   displayScope: true,
   displayBadge: true,
   displayDate: true,

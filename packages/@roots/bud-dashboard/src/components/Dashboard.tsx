@@ -1,7 +1,12 @@
 import type {Framework} from '@roots/bud-framework'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, Newline, Static, Text, useStdin} from 'ink'
-import React, {Fragment, useRef, useState} from 'react'
+import React, {
+  Fragment,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
@@ -23,9 +28,10 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   const instance = useRef<Framework>(bud)
 
   /**
-   * Stderr stream
+   * stream
    */
   const [stderr, setStderr] = useState<string[]>([])
+  const [stdout, setStdout] = useState<string[]>([])
 
   /**
    * ProgressPlugin reportage
@@ -64,6 +70,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
    */
   patchConsole((stream, data) => {
     isEqual(stream, 'stderr') && setStderr([...stderr, data])
+    isEqual(stream, 'stdout') && setStdout([...stdout, data])
   })
 
   /**
@@ -75,7 +82,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
 
     instance?.current?.compiler?.progress &&
       setProgress(instance.current.compiler.progress)
-  }, 10)
+  }, 50)
 
   /**
    * Force React re-renders
@@ -87,26 +94,36 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   const hasStdErr = stderr && stderr.length > 0
   const hasErrors = hasStdErr || hasCompilerErrors
 
-  if (
-    progress &&
-    progress[0] &&
-    progress[0] == 1 &&
-    instance?.current?.isProduction
-  ) {
-    setTimeout(() =>
-      instance.current.close(() => process.exit(0)),
-    )
-  }
+  useLayoutEffect(() => {
+    if (
+      progress &&
+      progress[0] &&
+      progress[0] == 1 &&
+      instance?.current?.isProduction
+    ) {
+      instance.current.close(() => process.exit(0))
+    }
+  }, [progress])
 
   return (
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
-
-      {hasErrors && (
-        <Static items={stderr}>
+      {stdout && (
+        <Static items={stdout}>
           {(stdout, k) => (
             <Text key={`stdout-${k}`}>
               {stdout ?? ''}
+              <Newline />
+            </Text>
+          )}
+        </Static>
+      )}
+
+      {hasErrors && (
+        <Static items={stderr}>
+          {(stderr, k) => (
+            <Text key={`stderr-${k}`}>
+              {stderr ?? ''}
               <Newline />
             </Text>
           )}

@@ -1,6 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import type {PostCssConfig} from '@roots/bud-postcss'
-import {safeRequire} from '@roots/bud-support'
+import tailwindcss from 'tailwindcss'
 import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 export interface tailwindConfig {
@@ -34,7 +34,7 @@ export function tailwindConfig(
   postcss.setPlugins({
     'postcss-import': this.postcss.plugins['postcss-import'],
     tailwindcss: [
-      safeRequire('tailwindcss'),
+      tailwindcss,
       config ?? this.path('project', 'tailwind.config.js'),
     ],
     'postcss-nested': this.postcss.plugins['postcss-nested'],

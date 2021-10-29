@@ -7,7 +7,7 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export interface Interface extends Service {
-  manifestPath: string
+  [key: string]: any
 
   /**
    * Peer module related utilities
@@ -33,9 +33,4 @@ export interface Interface extends Service {
    * @public
    */
   hasPeerDependency(pkg: string): boolean
-
-  /**
-   * Build project profile
-   */
-  findPeers(): void
 }

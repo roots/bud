@@ -21,8 +21,8 @@ export const services = {
   env: Env,
   build: Build,
   compiler: Compiler,
-  dashboard: Dashboard,
   dependencies: Dependencies,
   extensions: Extensions,
   server: Server,
+  dashboard: Dashboard,
 }

@@ -84,6 +84,7 @@
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
+    "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"

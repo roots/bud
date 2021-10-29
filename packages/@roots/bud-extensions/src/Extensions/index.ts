@@ -10,7 +10,7 @@ import Controller from '../Controller'
 import {
   bind,
   isEqual,
-  isString,
+  isFunction,
   isUndefined,
 } from './extensions.dependencies'
 
@@ -28,25 +28,94 @@ export class Extensions
   implements Contract
 {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.register}
-   *
    * @override @public
    */
-  public register(): void {
+  @bind
+  public async register(): Promise<void> {
     this.every((_name: string, extension: Definition.Module) => {
-      return this.add(extension)
+      this.set(
+        extension.name,
+        new Controller(this.app, extension),
+      )
+      this.app.success(
+        `base extension ${extension.name} instantiated`,
+      )
     })
   }
 
+  public async boot(): Promise<void> {
+    this.app.time('adding extensions')
+
+    await Promise.all(
+      this.app.project
+        .getKeys('extensions')
+        .map(async (name: string) => {
+          this.app.time(name)
+
+          const extension = await import(name)
+          this.app.success(`import extension`, name)
+
+          this.add(extension)
+
+          this.app.timeEnd(extension)
+        }),
+    )
+
+    this.app.timeEnd('adding extensions')
+  }
+
   /**
-   * {@inheritDoc @roots/bud-framework#Service.boot}
-   *
-   * @override @public
+   * @public
    */
-  public boot(): void {
-    this.every((_name: string, extension: Definition.Module) => {
-      return this.bootExtension(extension)
-    })
+  @bind
+  public async registerExtensions(): Promise<void> {
+    this.app.time('registering extensions')
+
+    await Promise.all(
+      Object.values(this.repository).map(
+        async (controller: Controller): Promise<void> => {
+          this.app.time(controller.name)
+          this.repository[controller.name] =
+            await controller.register()
+          this.app.timeEnd(controller.name)
+        },
+      ),
+    )
+
+    this.app.timeEnd('registering extensions')
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async bootExtensions(): Promise<void> {
+    this.app.time('booting extensions')
+
+    await Promise.all(
+      Object.values(this.repository)
+        .filter(
+          controller =>
+            !isUndefined(controller._module.boot) &&
+            isFunction(controller._module.boot),
+        )
+        .map(async (controller: Controller) => {
+          this.app.time(controller.name)
+
+          isFunction(controller.register) &&
+            isEqual(controller.registered, false) &&
+            this.app.error(
+              'attempting to boot function before registering even though extension has a register method',
+            )
+
+          this.repository[controller.name] =
+            await controller.boot()
+
+          this.app.timeEnd(controller.name)
+        }),
+    )
+
+    this.app.timeEnd('booting extensions')
   }
 
   /**
@@ -58,8 +127,10 @@ export class Extensions
   @bind
   public add(extension: Definition.Module): void {
     this.set(extension.name, new Controller(this.app, extension))
-    this.registerExtension(extension)
-    this.bootExtension(extension)
+    this.app.success(
+      `added extension controller`,
+      extension.name,
+    )
   }
 
   /**
@@ -122,48 +193,5 @@ export class Extensions
         return true
       },
     )
-  }
-
-  /**
-   * Registers an extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public registerExtension(
-    extension:
-      | Definition.Module
-      | Definition.CompilerPlugin
-      | `${
-          | (keyof Definition.Module & string)
-          | (Definition.CompilerPlugin & string)}`,
-  ): void {
-    isString(extension)
-      ? this.set(extension, this.get(extension).register())
-      : this.set(
-          extension.name,
-          this.get(extension.name).register(),
-        )
-  }
-
-  /**
-   * Boots a registered extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public bootExtension(
-    extension:
-      | Definition.Module
-      | Definition.CompilerPlugin
-      | `${
-          | (keyof Definition.Module & string)
-          | (Definition.CompilerPlugin & string)}`,
-  ): void {
-    isString(extension)
-      ? this.set(extension, this.get(extension).boot())
-      : this.set(extension.name, this.get(extension.name).boot())
   }
 }

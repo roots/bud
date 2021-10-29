@@ -5,7 +5,6 @@
  */
 module.exports = (app) => {
   app
-    .use('@roots/sage')
     .setPath({
       storage: '.budfiles',
       dist: 'dist',
@@ -17,8 +16,4 @@ module.exports = (app) => {
     })
     .assets(['resources/images'])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php']);
-
-  app.entry({app: 'scripts/app.js'});
-  console.log(app.hooks.filter('build/entry'));
-  app.log();
 };

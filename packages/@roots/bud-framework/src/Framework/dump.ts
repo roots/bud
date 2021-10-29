@@ -13,7 +13,7 @@ export function dump(
     language
     ignoreIllegals
   },
-) {
+): Framework {
   options = {
     language: 'json',
     ignoreIllegals: true,
@@ -26,6 +26,8 @@ export function dump(
   !isUndefined(ctx.dashboard.instance)
     ? ctx.dashboard.render(highlight(obj, options))
     : this.app.log(highlight(obj, options))
+
+  return this
 }
 
 export function dd(

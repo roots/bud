@@ -1,4 +1,3 @@
-import {Cache} from '../Cache'
 import {
   bind,
   globby,
@@ -38,25 +37,25 @@ export class Project
    */
   public repository: Repository = {
     version: null,
-    cacheDirectory: null,
     cache: {
       file: null,
       directory: null,
     },
     configs: {
       dynamic: {
-        global: null,
-        conditional: null,
+        global: {},
+        conditional: {},
       },
       json: {
-        global: null,
-        conditional: null,
+        global: {},
+        conditional: {},
       },
     },
     manifestPath: null,
+    manifest: {},
+    installed: [],
     peers: {},
     extensions: {},
-    manifest: {},
     resolve: [],
     dependencies: [],
   }
@@ -67,22 +66,33 @@ export class Project
       'manifestPath',
       this.app.path('project', 'package.json'),
     )
+    this.set('dependencies', [this.get('manifestPath')])
 
     try {
       const manifest = await readJson(this.get('manifestPath'))
       this.set('manifest', manifest)
-      Object.entries(manifest).forEach(([k, v]) => {
-        this.app.log(`project manifest ${k} set as`, typeof v)
+
+      this.getEntries('manifest').forEach(([k, v]) => {
+        this.app.info(`project manifest ${k} set as`, typeof v)
       })
     } catch (e) {
-      return this.app.error('manifest file not found')
+      this.app.error('manifest file not found', e)
     }
 
-    if (this.has('manifest.bud.cacheDirectory')) {
-      this.app.setPath({
-        storage: this.get('manifest.bud.cacheDirectory'),
-      })
-    }
+    this.set('installed', {
+      ...(this.get('manifest.devDependencies') ?? {}),
+      ...(this.get('manifest.dependencies') ?? {}),
+    })
+
+    this.has('manifest.bud.locations.cache') &&
+      this.app
+        .setPath({
+          storage: this.get('manifest.bud.locations.cache'),
+        })
+        .info(
+          `project cache directory set as`,
+          this.app.path('storage'),
+        )
 
     this.mergeStore({
       cache: {
@@ -94,122 +104,61 @@ export class Project
       },
     })
 
-    /**
-     * Always applicable dynamic
-     */
-    const globalConfigPaths = await globby.globby(
-      this.app.path(
-        'project',
-        `${this.app.name}.config.{js,ts}`,
-      ),
+    await Promise.all(
+      [
+        {
+          key: 'configs.dynamic.global',
+          searchString: `${this.app.name}.config.{js,ts}`,
+        },
+        {
+          key: `configs.dynamic.conditional`,
+          searchString: `${this.app.name}.${this.app.mode}.config.{js,ts}`,
+        },
+        {
+          key: 'configs.json.global',
+          searchString: `${this.app.name}.config.{json,yml}`,
+        },
+        {
+          key: 'configs.json.conditional',
+          searchString: `${this.app.name}.${this.app.mode}.config.{json,yml}`,
+        },
+      ].map(this.setConfig),
     )
-    if (globalConfigPaths.filter(Boolean).length) {
-      const globalConfigs = await this.resolveConfigModules(
-        globalConfigPaths.filter(Boolean),
-      )
-      this.set('configs.dynamic.global', globalConfigs)
-    }
-
-    /**
-     * Conditional dynamic
-     */
-    const conditionalPaths = await globby.globby(
-      this.app.path(
-        'project',
-        `${this.app.name}.${this.app.mode}.config.{js,ts}`,
-      ),
-    )
-    if (conditionalPaths.filter(Boolean).length) {
-      const conditional = await this.resolveConfigModules(
-        conditionalPaths,
-      )
-      this.set('configs.dynamic.conditional', conditional)
-    } else {
-      this.app.log('no conditional paths')
-    }
-
-    /**
-     * Always applicable static
-     */
-    const globalStaticPaths = await globby.globby(
-      this.app.path(
-        'project',
-        `${this.app.name}.config.{json,yml}`,
-      ),
-    )
-    const globalStaticModules = await this.resolveConfigModules(
-      globalStaticPaths,
-    )
-    this.set('configs.json.global', globalStaticModules)
-
-    /**
-     * Conditional static
-     */
-    const conditionalStaticPaths = await globby.globby(
-      this.app.path(
-        'project',
-        `${this.app.name}.${this.app.mode}.config.{json,yml}`,
-      ),
-    )
-    if (conditionalStaticPaths.filter(Boolean).length) {
-      const conditionalStaticModules =
-        await this.resolveConfigModules(conditionalStaticPaths)
-      this.set(
-        'configs.json.conditional',
-        conditionalStaticModules,
-      )
-    } else {
-      this.app.log('no conditional static paths')
-    }
-
-    const hash = await Cache.version(this.get('dependencies'))
-    this.app.success(`project hash: ${hash}`)
-    this.app.project.set('version', hash)
-  }
-
-  public boot() {
-    if (this.app.cache.valid) {
-      this.setStore(this.app.cache.all())
-    }
-
-    this.app.log(
-      'cached project data flagged as invalid or inaccessible and must be rebuilt',
-    )
-
-    this.findPeers()
-
-    this.app.cache.write(async cache => ({
-      ...cache,
-      ...this.all(),
-    }))
   }
 
   @bind
-  public async resolveConfigModules(
-    paths: string[],
-  ): Promise<Record<string, {path: string; module: any}>> {
-    return await paths.reduce(async (p, f) => {
-      await p
+  public async boot() {
+    await this.resolvePeers()
+  }
 
-      const c = await import(f)
+  @bind
+  public async setConfig({key, searchString}) {
+    const paths = await globby.globby(
+      this.app.path('project', searchString),
+    )
 
-      const path = f.replace(
-        this.app.path('project').concat('/'),
-        '',
-      )
-      this.app.info(`${path} is resolvable`)
-      this.set('dependencies', [
-        ...(this.get('dependencies') ?? []),
-        f,
-      ])
-      return {
-        ...p,
-        [path]: {
-          path: f,
-          module: c,
-        },
-      }
-    }, Promise.resolve({}))
+    const configs = await Promise.all(
+      paths.map(async path => {
+        try {
+          const module = await import(path)
+          return {path, module}
+        } catch (e) {
+          this.app.error(`could not import `, e)
+        }
+      }),
+    )
+
+    if (!configs.length) return
+    const dependencies = this.get('dependencies') ?? []
+    Object.entries(configs).forEach(([_k, {path}]) => {
+      this.set('dependencies', [...dependencies, path])
+    })
+
+    this.set(key, configs)
+    this.app.success(
+      `imported config`,
+      ...configs.map(({path}) => path),
+    )
   }
 
   /**
@@ -230,9 +179,16 @@ export class Project
    * @decorator `@bind`
    */
   @bind
-  public findPeers(): void {
-    this.app.log('Analyzing peers')
-    this.peers = new Peers(this)
+  public async resolvePeers() {
+    this.peers = new Peers(this.app)
+
+    if (this.has('manifest.dependencies')) {
+      await this.peers.discover('dependencies')
+    }
+
+    if (this.has('manifest.devDependencies')) {
+      await this.peers.discover('devDependencies')
+    }
   }
 
   /**

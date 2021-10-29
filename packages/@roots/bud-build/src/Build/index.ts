@@ -28,13 +28,6 @@ export class Build
   public config: Webpack.Configuration
 
   /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.name}
-   *
-   * @public
-   */
-  public name = 'build'
-
-  /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}
    *
    * @public
@@ -62,16 +55,40 @@ export class Build
    */
   @bind
   public make(): Webpack.Configuration {
+    this.app.time('running build/before hooks')
+    this.app.hooks.filter('build/before')
+    this.app.timeEnd('running build/before hooks')
+
     this.app.time('build.make')
-    this.app.log(`preprocessing build`)
+    this.config = Object.entries(
+      this.app.hooks.filter('build'),
+    ).reduce(
+      (
+        all: Partial<Webpack.Configuration>,
+        [key, value]: [
+          `${keyof Webpack.Configuration & string}`,
+          any,
+        ],
+      ) => {
+        if (typeof value === 'undefined') {
+          return all
+        }
 
-    const config = this.app.hooks.filter('build')
-
+        this.app.info(`typeof ${key}`, typeof value)
+        return {
+          ...all,
+          [key]: value,
+        }
+      },
+      {},
+    )
     this.app.timeEnd('build.make')
 
-    this.app.log('build entry', config.entry)
+    this.app.time('running build/after hooks')
+    this.app.hooks.filter('build/after')
+    this.app.timeEnd('running build/after hooks')
 
-    return config
+    return this.config
   }
 
   /**

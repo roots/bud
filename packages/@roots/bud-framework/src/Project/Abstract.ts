@@ -7,6 +7,8 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export abstract class Abstract extends Service<Peers.Repository> {
+  [key: string]: any
+
   /**
    * Peer module related utilities
    *
@@ -31,6 +33,4 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * @public
    */
   public abstract hasPeerDependency(pkg: string): boolean
-
-  public abstract findPeers(): void
 }

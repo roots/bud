@@ -96,7 +96,7 @@ export async function bootstrap(
     await initializedServices.reduce(async (promised, key) => {
       await promised
 
-      this.log(`${event} ${key}`)
+      this.await(`${event} ${key}`)
 
       const service = this[key]
 

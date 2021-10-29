@@ -1,5 +1,3 @@
-import {Repository} from '@roots/container'
-
 import {Service} from '../Service'
 import {CacheInterface} from './cache.interface'
 
@@ -15,29 +13,14 @@ export abstract class CacheAbstract
   /**
    * Is cache valid?
    */
-  public abstract valid: boolean
+  public abstract version: string
 
   /**
    * Hash of config files and build dependencies
    *
    * @public
    */
-  public abstract hash(str: string): string
-
-  /**
-   * Verify cache validity
-   *
-   * @public
-   */
-  public abstract verify(
-    hash1: string,
-    hash2: string,
-  ): Promise<boolean>
-
-  /**
-   * @public
-   */
-  public abstract write(
-    callback: (cache: Repository) => Promise<Repository>,
-  ): Promise<boolean>
+  public abstract hashFileContents(
+    filePaths: Array<string>,
+  ): Promise<string>
 }

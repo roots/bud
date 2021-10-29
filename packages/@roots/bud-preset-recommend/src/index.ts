@@ -29,15 +29,7 @@
 import {BudPresetRecommend} from './BudPresetRecommend'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
-    /**
-     * {@inheritDoc @roots/bud-preset-recommend#BudPresetRecommend}
-     * @public
-     */
     '@roots/bud-preset-recommend': BudPresetRecommend
   }
 }

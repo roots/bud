@@ -15,6 +15,10 @@ export interface Extensions
    */
   add(extension: Extension): void
 
+  registerExtensions(): Promise<void>
+
+  bootExtensions(): Promise<void>
+
   /**
    * Get {@link ApplyPlugin} instances to be included in compilation
    *

@@ -1,13 +1,14 @@
+import {Framework} from '@roots/bud-framework'
 import {dirname, join} from 'path'
 
 import {CORE_MODULES} from './peers.constants'
 import {
   bind,
   pkgUp,
-  readJsonSync,
+  readJson,
   safeResolve,
 } from './peers.dependencies'
-import type {Peers as Model, Project} from './peers.interface'
+import type {Peers as Model} from './peers.interface'
 
 /**
  * Peers service class
@@ -20,13 +21,7 @@ export class Peers implements Model.Interface {
    *
    * @public
    */
-  public constructor(public project: Project.Interface) {
-    this.project.has('manifest.dependencies') &&
-      this.discover('dependencies')
-
-    this.project.has('manifest.devDependencies') &&
-      this.discover('devDependencies')
-  }
+  public constructor(public app: Framework) {}
 
   /**
    * Returns path for a module name (if findable)
@@ -35,17 +30,16 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public resolvePeerByName(name: string) {
+  public async getManifestPath(name: string) {
     try {
-      const dir = dirname(
-        pkgUp.sync({
-          cwd: dirname(safeResolve(name)),
-        }),
-      )
+      const packagePath = await pkgUp.default({
+        cwd: dirname(safeResolve(name)),
+      })
 
-      return dir
+      return dirname(packagePath)
     } catch (err) {
-      return null
+      this.app.error(`${name} manifest cannot be resolved`)
+      return
     }
   }
 
@@ -56,9 +50,26 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getPeerManifest(name: string) {
-    const path = this.resolvePeerByName(name)
-    return path ? readJsonSync(join(path, '/package.json')) : {}
+  public async getManifest(name: string) {
+    try {
+      const manifestPath = await this.getManifestPath(name)
+
+      if (!manifestPath) {
+        this.app.error(
+          `manifest for ${name} could not be resolved`,
+        )
+        return null
+      }
+      const manifest = await readJson(
+        join(manifestPath, '/package.json'),
+      )
+
+      return manifest
+    } catch (err) {
+      this.app.error(
+        `manifest for ${name} could not be resolved`,
+      )
+    }
   }
 
   /**
@@ -83,34 +94,31 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public discover(
+  public async discover(
     projectModuleType: 'dependencies' | 'devDependencies',
-  ): this {
-    this.project.logger.log(`Analyzing ${projectModuleType}`)
+  ) {
+    this.app.await(`analyzing ${projectModuleType}`)
 
-    this.project
+    const dependencies = this.app.project
       .getKeys(`manifest.${projectModuleType}`)
       .filter((name: string) => {
-        if (!this.isExtension(name)) {
-          this.project.app.log(
-            `${name} is not an extension. Skipping.`,
-          )
-          return false
-        }
-
-        if (this.project.has(`extensions.${name}`)) {
-          this.project.app.log(
-            `${name} already included. Skipping.`,
-          )
+        if (
+          !this.isExtension(name) ||
+          this.app.project.has(`extensions.${name}`)
+        ) {
           return false
         }
 
         return true
       })
-      .map((name: string) => {
-        this.project.app.log(`Profiling ${name}`)
-        return this.profileExtension(name)
-      })
+
+    await Promise.all(
+      dependencies.map(async (name: string) => {
+        this.app.success(`new project dependency found`, name)
+        await this.profileExtension(name)
+        return
+      }),
+    )
 
     return this
   }
@@ -133,59 +141,91 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public profileExtension(name: string) {
-    const path = this.resolvePeerByName(name)
-
-    if (
-      this.project.get('resolve').includes(path) ||
-      this.project.has(`extensions.${name}`)
-    ) {
-      return
+  public async profileExtension(name: string) {
+    const path = await this.getManifestPath(name)
+    if (this.app.project.get(`resolve`).includes(path)) {
+      return this.app.info(`${name} already profiled. skipping.`)
     }
-    this.project.app.log(`Profiling ${name}`)
 
-    const resolve = this.project.get('resolve')
-    this.project.set('resolve', [...resolve, path])
-    this.project.app.log(`Resolving modules from ${path}`)
+    /**
+     * Add path to app.project resolutions array
+     */
+    const resolvePaths = this.app.project.get('resolve')
+    this.app.project.set('resolve', [...resolvePaths, path])
+    this.app.success(`resolution path added`, name)
 
-    const manifest = this.getPeerManifest(name)
-
-    const extension = {
+    /**
+     * Get the extension manifest
+     * and add to app.project extensions object
+     */
+    const manifest = await this.getManifest(name)
+    this.app.project.set(`extensions.${name}`, {
       name: manifest.name,
-      bud: manifest.bud,
-      path: path,
-      dependsOn: manifest.peerDependencies,
-      provides: manifest.dependencies,
       version: manifest.version,
-    }
+      peerDependencies: manifest.peerDependencies,
+      devDependencies: manifest.devDependencies,
+      dependencies: manifest.dependencies,
+      bud: manifest.bud,
+      path,
+    })
 
-    this.project.set(`extensions.${name}`, extension)
-
-    extension.dependsOn &&
-      Object.entries(extension.dependsOn)
-        .filter(([name, version]) => {
-          if (this.project.has(`peers.${name}`)) {
+    /**
+     * If extension has dependencies, recurse and profile them
+     */
+    if (manifest.peerDependencies) {
+      Object.entries(manifest.peerDependencies).forEach(
+        ([peerName, peerVersion]) => {
+          /**
+           * If peer dependency is already profiled, skip
+           */
+          if (this.app.project.has(`peers.${peerName}`)) {
             return false
           }
-          this.project.app.log(
-            `New peer dependency found: ${name}@${version}`,
+
+          this.app.info('analyzing', peerName, peerVersion)
+          this.app.project.set(`peers.${peerName}`, {
+            name: peerName,
+            version: peerVersion,
+          })
+
+          /**
+           * If peer dependency is present in project, skip
+           */
+          if (!this.app.project.has(`installed.${peerName}`)) {
+            this.app.error(
+              `peer requirement unmet`,
+              `${peerName}@${peerVersion}`,
+            )
+
+            return
+          }
+
+          this.app.success(
+            `peer requirement met`,
+            `${name}@${peerVersion}`,
           )
+        },
+      )
+    }
 
-          return true
-        })
-        .forEach(([name, version]) => {
-          this.project.set(`peers.${name}`, {name, version})
-        })
+    if (this.app.project.has(`extensions.${name}.bud.peers`)) {
+      await Promise.all(
+        this.app.project
+          .get(`extensions.${name}.bud.peers`)
+          .map(async name => {
+            if (
+              !this.isExtension(name) ||
+              this.app.project.has(`extensions.${name}`)
+            ) {
+              return
+            }
 
-    extension.bud.peers?.forEach(name => {
-      if (
-        !this.isExtension(name) ||
-        this.project.has(`extensions.${name}`)
-      ) {
-        return
-      }
+            await this.profileExtension(name)
+            return
+          }),
+      )
+    }
 
-      this.profileExtension(name)
-    })
+    return
   }
 }

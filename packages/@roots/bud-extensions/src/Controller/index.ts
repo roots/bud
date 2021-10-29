@@ -24,6 +24,9 @@ export default class Controller implements Extension.Controller {
    */
   protected _app: () => Framework
 
+  public registered: boolean = false
+  public booted: boolean = false
+
   /**
    * The {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin}
    *
@@ -158,7 +161,7 @@ export default class Controller implements Extension.Controller {
   }
 
   /**
-   * Get a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value
+   * Get a {@link @roots/bud-framework#Module} or {@link @roots/bud-framework#WebpackPlugin} property value
    * after it has been passed through any {@link @roots/bud-framework#Hooks.filter | filter callbacks}
    *
    * @param key - The {@link Extension.name}
@@ -177,7 +180,7 @@ export default class Controller implements Extension.Controller {
   }
 
   /**
-   * Set a {@link @roots/bud-framework#Module | Module} or {@link @roots/bud-framework#WebpackPlugin | WebpackPlugin} property value
+   * Set a {@link @roots/bud-framework#Module} or {@link @roots/bud-framework#WebpackPlugin} property value
    * after passing it through any {@link @roots/bud-framework#Hooks.on | hooks callbacks}
    *
    * @param key - The {@link Extension.name}
@@ -210,7 +213,7 @@ export default class Controller implements Extension.Controller {
    * @decorator `@bind`
    */
   @bind
-  public register(): this {
+  public async register(): Promise<this> {
     this.app.when(this.module.options as any, () =>
       this.set('options', () => this.module.options),
     )
@@ -224,12 +227,13 @@ export default class Controller implements Extension.Controller {
       )
     })
 
-    this.app.when(this.module.register as any, () => {
-      this.module.register(this.app)
-    })
+    if (isFunction(this.module.register))
+      await this.module.register(this.app)
 
     this.set('when', () => this.module.when)
     this.set('make', () => this.module.make)
+
+    this.registered = true
 
     return this
   }
@@ -246,10 +250,10 @@ export default class Controller implements Extension.Controller {
    * @decorator `@bind`
    */
   @bind
-  public boot() {
-    this.app.when(this.module.boot as any, () => {
-      this.module.boot(this.app)
-    })
+  public async boot(): Promise<this> {
+    await this.module.boot(this.app)
+
+    this.booted = true
 
     return this
   }

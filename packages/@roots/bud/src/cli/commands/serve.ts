@@ -10,8 +10,9 @@ export default class Serve extends Build {
   public static aliases = ['dev', 'start']
 
   public async run() {
-    const cli = this.parse(Build)
-    const runner = new Runner(cli, {mode: 'development'})
+    const options = this.parse(Build)
+    const runner = new Runner(options, {mode: 'development'})
+
     await runner.initialize()
     this.app = await runner.make()
 

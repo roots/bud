@@ -4,7 +4,6 @@ export {createHash} from 'crypto'
 
 import {fs} from '@roots/bud-support'
 export const {
-  exists,
   ensureFile,
   readFile,
   readJson,

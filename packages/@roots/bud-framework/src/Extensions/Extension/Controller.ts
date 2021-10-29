@@ -16,6 +16,20 @@ export interface Controller {
   app: Framework
 
   /**
+   * Has controller registered the extension
+   *
+   * @public
+   */
+  registered: boolean
+
+  /**
+   * Has controller booted the extension
+   *
+   * @public
+   */
+  booted: boolean
+
+  /**
    * {@inheritDoc Extension.Module}
    *
    * @public
@@ -64,7 +78,7 @@ export interface Controller {
    *
    * @public
    */
-  register(): this
+  register(): Promise<this>
 
   /**
    * An extension boot function
@@ -73,7 +87,7 @@ export interface Controller {
    *
    * @public
    */
-  boot(): this
+  boot(): Promise<this>
 
   /**
    * Make a {@link @roots/bud-framework#Hooks.name | hook name} from a

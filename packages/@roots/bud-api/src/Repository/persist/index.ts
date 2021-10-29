@@ -47,7 +47,7 @@ export const persist: persist = function (
         'build/cache/buildDependencies',
       ),
     }))
-    .hooks.on('build/cache/version', this.project.get('version'))
+    .hooks.on('build/cache/version', this.cache.version)
     .hooks.on('build/cache/type', () => 'filesystem')
     .hooks.on('build/cache/cacheDirectory', this.cache.directory)
     .hooks.on('build/cache/buildDependencies', () => ({

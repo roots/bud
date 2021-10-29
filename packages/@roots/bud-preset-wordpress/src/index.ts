@@ -49,14 +49,7 @@
 import type {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
-    /**
-     * @public {@inheritDoc BudWordPressPreset}
-     */
     '@roots/bud-preset-wordpress': BudWordPressPreset
   }
 }
@@ -78,13 +71,3 @@ type BudWordPressPreset = Extension.Module
 
 export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
-
-export const register: BudWordPressPreset['register'] = app => {
-  app.use([
-    '@roots/bud-preset-recommend',
-    '@roots/bud-react',
-    '@roots/bud-wordpress-dependencies',
-    '@roots/bud-wordpress-externals',
-    '@roots/bud-wordpress-manifests',
-  ])
-}

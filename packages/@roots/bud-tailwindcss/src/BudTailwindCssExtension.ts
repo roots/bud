@@ -1,5 +1,4 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import {safeRequire} from '@roots/bud-support'
 
 import {tailwindConfig} from './tailwindConfig'
 
@@ -15,7 +14,15 @@ const BudTailwindCssExtension: BudTailwindCssExtension = {
   api: {tailwind: tailwindConfig},
 
   boot: app => {
-    safeRequire('tailwindcss') && tailwindConfig.bind(app)()
+    const isInstalled = name =>
+      app.project.getKeys('installed').includes(name)
+
+    const ensureAllInstalled = modules =>
+      modules.every(isInstalled)
+
+    ensureAllInstalled(['tailwindcss', 'postcss']) &&
+      app.hasOwnProperty('postcss') &&
+      tailwindConfig.bind(app)()
   },
 }
 

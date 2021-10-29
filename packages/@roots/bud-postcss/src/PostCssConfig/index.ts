@@ -14,17 +14,12 @@ interface PostCssConfig {
   /**
    * Set a plugin
    */
-  setPlugin(
-    name: string,
-    plugin: [PluginCreator<any>, any] | PluginCreator<any>,
-  ): this
+  setPlugin(name: string, plugin: any): this
 
   /**
    * Set plugins
    */
-  setPlugins(plugins: {
-    [key: string]: [PluginCreator<any>, any] | PluginCreator<any>
-  }): this
+  setPlugins(plugins: {[key: string]: any}): this
 
   /**
    * Set plugin options

@@ -26,6 +26,7 @@ import {container} from './container'
 import {dd, dump} from './dump'
 import {
   bind,
+  chalk,
   isNull,
   isUndefined,
 } from './framework.dependencies'
@@ -538,11 +539,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public log(message?: any, ...optionalArgs: any[]) {
+  public log(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .log(message, ...optionalArgs)
+        .log(...messages)
+
+    return this
   }
 
   /**
@@ -552,11 +555,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public info(message?: any, ...optionalArgs: any[]) {
+  public info(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .info(message, ...optionalArgs)
+        .info(...messages)
+
+    return this
   }
 
   /**
@@ -566,11 +571,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public success(message?: any, ...optionalArgs: any[]) {
+  public success(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .success(message, ...optionalArgs)
+        .success(...this.colorize('green', ...messages))
+
+    return this
   }
 
   /**
@@ -580,11 +587,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public warn(message?: any, ...optionalArgs: any[]) {
+  public warn(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .warn(message, ...optionalArgs)
+        .warn(...this.colorize('yellow', ...messages))
+
+    return this
   }
 
   /**
@@ -594,11 +603,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public time(label: string) {
+  public time(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .time(label)
+        .time(...messages)
+
+    return this
   }
 
   /**
@@ -608,11 +619,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public await(label: string) {
+  public await(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .await(label)
+        .await(...messages)
+
+    return this
   }
 
   /**
@@ -622,11 +635,12 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public complete(label: string) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.getScope())
-        .complete(label)
+  public complete(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .complete(...messages)
+
+    return this
   }
 
   /**
@@ -636,11 +650,12 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public timeEnd(label: string) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.getScope())
-        .timeEnd(label)
+  public timeEnd(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .timeEnd(...messages)
+
+    return this
   }
 
   /**
@@ -653,11 +668,19 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public error(message?: any, ...optionalArgs: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.getScope())
-        .error(message, ...optionalArgs)
+  public error(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .error(...this.colorize('red', ...messages))
+
+    return this
+  }
+
+  @bind
+  private colorize(color: string, ...messages: string[]) {
+    return messages.map((msg, i) => {
+      return chalk[color]`${msg}`
+    })
   }
 }
 
