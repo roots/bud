@@ -111,7 +111,9 @@ export const use: use = function (
 
   source.map(extension => {
     if (extension.name && bud.extensions.has(extension.name)) {
-      bud.log(`${source} already included in compilation`)
+      bud.log(
+        `${extension.name} already included in compilation`,
+      )
       return
     }
 

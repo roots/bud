@@ -2,8 +2,7 @@
 // @ts-check
 
 const execa = require('execa')
-const {bold} = require('chalk')
-const fs = require('fs-extra')
+const chalk = require('chalk')
 const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
@@ -14,29 +13,20 @@ module.exports = async () => {
 
   await Promise.all(
     examples.map(async ex => {
-      console.log(
-        `\n${bold.underline`${ex.name}`}\npath: ${ex.cwd}\n`,
-      )
-
-      try {
-        const install = execa.command(`yarn`, {
-          cwd: ex.cwd,
-        })
-        await install
-      } catch (err) {
-        console.log(err)
-      }
-
-      return ex
-    }),
-  )
-
-  await Promise.all(
-    examples.map(async ex => {
       try {
         const init = execa.command(`yarn bud init`, {
           cwd: ex.cwd,
         })
+        init.on('data', data =>
+          process.stdout.write(
+            chalk.blue`${ex.name}`.concat(` | `).concat(data),
+          ),
+        )
+        init.on('err', data =>
+          process.stdout.write(
+            chalk.blue`${ex.name}`.concat(` | `).concat(data),
+          ),
+        )
         await init
       } catch (err) {
         console.log(err)

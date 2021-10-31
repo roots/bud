@@ -3082,15 +3082,6 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-    "@types/react": 17.0.32
-    "@types/react-dom": 17.0.10
-    "@wordpress/browserslist-config": 4.1.0
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    react: 17.0.2
-    react-dom: 17.0.2
-    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -3254,7 +3245,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 5.5.0
     "@tsconfig/docusaurus": 1.0.4
-    "@types/jest": 27.0.2
     "@types/node": 16.11.4
     "@types/react": 17.0.32
     "@types/react-dom": 17.0.10
@@ -3263,7 +3253,7 @@ __metadata:
     "@types/react-router-dom": 5.3.1
     clsx: 1.1.1
     file-loader: 6.2.0
-    jest: 27.3.1
+    jest: ^27.3.1
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
@@ -4565,7 +4555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7, @types/eslint@npm:^7.2.14":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7.2.14":
   version: 7.28.2
   resolution: "@types/eslint@npm:7.28.2"
   dependencies:
@@ -7532,6 +7522,7 @@ __metadata:
     "@typescript-eslint/parser": 5.1.0
     "@vercel/ncc": 0.31.1
     "@yarnpkg/builder": 3.1.0-rc.10
+    chalk: 4.1.2
     codecov: 3.8.3
     dotenv: 10.0.0
     esbuild: 0.13.9
@@ -10600,7 +10591,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.32.0, eslint@npm:^7":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -10795,10 +10786,6 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -10849,13 +10836,6 @@ __metadata:
     "@roots/bud-mdx": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
     "@roots/bud-react": "workspace:*"
-    "@types/react": 17.0.32
-    "@types/react-dom": 17.0.10
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    react: 17.0.2
-    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -10892,9 +10872,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -10915,19 +10892,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
-    "@types/eslint": 7.28.2
-    "@types/prettier": 2.4.1
-    "@types/react": 17.0.32
-    "@types/react-dom": 17.0.10
-    "@wordpress/browserslist-config": 4.1.0
-    eslint: 7.32.0
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    prettier: 2.4.1
-    react: 17.0.2
-    react-dom: 17.0.2
-    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -10960,10 +10924,6 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -10982,9 +10942,6 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-typescript": "workspace:*"
-    "@types/eslint": ^7
-    eslint: ^7
-    typescript: ^4
   languageName: unknown
   linkType: soft
 
@@ -11003,14 +10960,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-preset-wordpress": "workspace:*"
-    "@types/react": 17.0.32
-    "@types/react-dom": 17.0.10
-    "@wordpress/browserslist-config": 4.1.0
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
-    react: 17.0.2
-    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -14692,7 +14641,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest@npm:27.3.1":
+"jest@npm:27.3.1, jest@npm:^27.3.1":
   version: 27.3.1
   resolution: "jest@npm:27.3.1"
   dependencies:
@@ -22076,51 +22025,6 @@ resolve@~1.19.0:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
   checksum: a0bff1a014f5283676faca321a60c6e97c5512d42f3fe89aae04dffde2b1425c47b7cc3562ee16a9d748fb5cb3a2b8782845c6d8c815de293c4ed6c035b024b0
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:2.2.8":
-  version: 2.2.8
-  resolution: "tailwindcss@npm:2.2.8"
-  dependencies:
-    arg: ^5.0.1
-    bytes: ^3.0.0
-    chalk: ^4.1.2
-    chokidar: ^3.5.2
-    color: ^4.0.1
-    cosmiconfig: ^7.0.0
-    detective: ^5.2.0
-    didyoumean: ^1.2.2
-    dlv: ^1.1.3
-    fast-glob: ^3.2.7
-    fs-extra: ^10.0.0
-    glob-parent: ^6.0.1
-    html-tags: ^3.1.0
-    is-glob: ^4.0.1
-    lodash: ^4.17.21
-    lodash.topath: ^4.5.2
-    modern-normalize: ^1.1.0
-    node-emoji: ^1.11.0
-    normalize-path: ^3.0.0
-    object-hash: ^2.2.0
-    postcss-js: ^3.0.3
-    postcss-load-config: ^3.1.0
-    postcss-nested: 5.0.6
-    postcss-selector-parser: ^6.0.6
-    postcss-value-parser: ^4.1.0
-    pretty-hrtime: ^1.0.3
-    purgecss: ^4.0.3
-    quick-lru: ^5.1.1
-    reduce-css-calc: ^2.1.8
-    resolve: ^1.20.0
-    tmp: ^0.2.1
-  peerDependencies:
-    autoprefixer: ^10.0.2
-    postcss: ^8.0.9
-  bin:
-    tailwind: lib/cli.js
-    tailwindcss: lib/cli.js
-  checksum: 13a77e79b8bbc83c2e952f2e69c2811c3a332808354c8d70d86c79b4c9cb513c42ea3b5c09a77b4655c3dbed92dbd0227043cba3dc68bb8928601388aec82b06
   languageName: node
   linkType: hard
 

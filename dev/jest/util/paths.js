@@ -2,7 +2,7 @@
 // @ts-check
 
 const globby = require('globby')
-const {dirname} = require('path')
+const {dirname, join} = require('path')
 const {readFileSync} = require('fs-extra')
 
 const IGNORE_LIST = []
@@ -13,9 +13,9 @@ module.exports = async () => {
   const paths = search
     .filter(path => !IGNORE_LIST.includes(path))
     .map(manifest => ({
-      manifest: manifest,
+      manifest,
       manifestStr: readFileSync(manifest),
-      cwd: process.cwd().concat(`/${dirname(manifest)}`),
+      cwd: join(process.cwd(), dirname(manifest)),
     }))
     .map(manifest => ({
       ...manifest,

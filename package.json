@@ -53,6 +53,7 @@
     "@typescript-eslint/parser": "5.1.0",
     "@vercel/ncc": "0.31.1",
     "@yarnpkg/builder": "3.1.0-rc.10",
+    "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
     "esbuild": "0.13.9",

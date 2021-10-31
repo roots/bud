@@ -1,5 +1,6 @@
 const fs = require('fs-extra')
 const globby = require('globby')
+const path = require('path')
 
 const OPTIONS = {onlyDirectories: true}
 
@@ -19,9 +20,12 @@ module.exports = async () => {
     OPTIONS,
   )
 
+  await fs.remove(
+    path.join(process.cwd(), 'dev', 'jest', 'util', '.tmp/'),
+  )
   await fs.copy(
-    `${process.cwd()}/examples/`,
-    __dirname.concat('tmp'),
+    path.join(process.cwd(), 'examples/'),
+    path.join(process.cwd(), 'dev', 'jest', 'util', '.tmp/'),
   )
 
   await Promise.all(
