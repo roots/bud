@@ -101,7 +101,6 @@ export class Compiler extends Service implements Contract {
             this.stats.errors.push(err)
             this.app.error(err)
           }
-          this.app.timeEnd(`webpack`)
         })
     })
 
@@ -112,6 +111,7 @@ export class Compiler extends Service implements Contract {
 
     this.app.hooks.filter('after/compiler')
 
+    this.app.await(`running webpack`)
     return this.instance
   }
 
@@ -182,13 +182,13 @@ export class Compiler extends Service implements Contract {
 
     if (stats?.toJson && isFunction(stats.toJson)) {
       this.stats = stats.toJson(this.app.build.config.stats)
-      this.app.store.is('log', true) &&
+      this.app.store.is('ci', true) &&
         this.app.log(stats.toString())
     }
 
     if (err) {
       this.stats.errors.push(err)
-      this.app.store.is('log', true) && this.app.error(err)
+      this.app.store.is('ci', true) && this.app.error(err)
     }
   }
 }

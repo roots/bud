@@ -25,12 +25,15 @@ export const persist: persist = function (
 ) {
   if (enabled === false) {
     this.hooks.on('build/cache', false)
+    return this
   }
 
   if (enabled === 'memory') {
-    this.hooks.on('build/cache', cache => ({
+    this.hooks.on('build/cache', {
       type: 'memory',
-    }))
+    })
+
+    return this
   }
 
   this.hooks
@@ -49,7 +52,7 @@ export const persist: persist = function (
     }))
     .hooks.on('build/cache/version', this.cache.version)
     .hooks.on('build/cache/type', () => 'filesystem')
-    .hooks.on('build/cache/cacheDirectory', this.cache.directory)
+    .hooks.on('build/cache/cacheDirectory', this.path('storage'))
     .hooks.on('build/cache/buildDependencies', () => ({
       bud: this.project.get('dependencies'),
     }))

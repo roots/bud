@@ -1,4 +1,4 @@
-import {Framework, WebpackPlugin} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import {DEVELOPMENT_CONFIG, PRODUCTION_CONFIG} from './constants'
@@ -13,7 +13,10 @@ interface Options {
 }
 
 interface BudTypeCheckPlugin
-  extends WebpackPlugin<ForkTsCheckerWebpackPlugin, Options> {}
+  extends Extension.CompilerPlugin<
+    ForkTsCheckerWebpackPlugin,
+    Options
+  > {}
 
 const name: BudTypeCheckPlugin['name'] = 'fork-ts-checker-plugin'
 

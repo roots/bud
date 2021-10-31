@@ -1,6 +1,6 @@
+import {Config} from './config'
 import {
   bind,
-  globby,
   Peers,
   Project as FrameworkProject,
   readJson,
@@ -43,12 +43,12 @@ export class Project
     },
     configs: {
       dynamic: {
-        global: {},
-        conditional: {},
+        global: [],
+        conditional: [],
       },
       json: {
-        global: {},
-        conditional: {},
+        global: [],
+        conditional: [],
       },
     },
     manifestPath: null,
@@ -84,10 +84,12 @@ export class Project
       ...(this.get('manifest.dependencies') ?? {}),
     })
 
-    this.has('manifest.bud.locations.cache') &&
+    this.get(`manifest.${this.app.name}.locations.cache`) &&
       this.app
         .setPath({
-          storage: this.get('manifest.bud.locations.cache'),
+          storage: this.get(
+            `manifest.${this.app.name}.locations.cache`,
+          ),
         })
         .info(
           `project cache directory set as`,
@@ -99,7 +101,7 @@ export class Project
         directory: this.app.path('storage'),
         file: this.app.path(
           'storage',
-          `/${this.app.name}.profile.json`,
+          `${this.app.name}.profile.json`,
         ),
       },
     })
@@ -108,21 +110,33 @@ export class Project
       [
         {
           key: 'configs.dynamic.global',
-          searchString: `${this.app.name}.config.{js,ts}`,
+          searchStrings: [
+            `${this.app.name}.config.ts`,
+            `${this.app.name}.config.js`,
+          ],
         },
         {
           key: `configs.dynamic.conditional`,
-          searchString: `${this.app.name}.${this.app.mode}.config.{js,ts}`,
+          searchStrings: [
+            `${this.app.name}.${this.app.mode}.config.ts`,
+            `${this.app.name}.${this.app.mode}.config.js`,
+          ],
         },
         {
           key: 'configs.json.global',
-          searchString: `${this.app.name}.config.{json,yml}`,
+          searchStrings: [
+            `${this.app.name}.config.json`,
+            `${this.app.name}.config.yml`,
+          ],
         },
         {
           key: 'configs.json.conditional',
-          searchString: `${this.app.name}.${this.app.mode}.config.{json,yml}`,
+          searchStrings: [
+            `${this.app.name}.${this.app.mode}.config.json`,
+            `${this.app.name}.${this.app.mode}.config.yml`,
+          ],
         },
-      ].map(this.setConfig),
+      ].map(this.searchConfig),
     )
   }
 
@@ -132,33 +146,17 @@ export class Project
   }
 
   @bind
-  public async setConfig({key, searchString}) {
-    const paths = await globby.globby(
-      this.app.path('project', searchString),
-    )
+  public async searchConfig({key, searchStrings}) {
+    const explorer = new Config(this.app, searchStrings)
+    const result = await explorer.search()
 
-    const configs = await Promise.all(
-      paths.map(async path => {
-        try {
-          const module = await import(path)
-          return {path, module}
-        } catch (e) {
-          this.app.error(`could not import `, e)
-        }
-      }),
-    )
+    this.set(key, result)
 
-    if (!configs.length) return
+    if (result === null) return
+
     const dependencies = this.get('dependencies') ?? []
-    Object.entries(configs).forEach(([_k, {path}]) => {
-      this.set('dependencies', [...dependencies, path])
-    })
-
-    this.set(key, configs)
-    this.app.success(
-      `imported config`,
-      ...configs.map(({path}) => path),
-    )
+    this.set('dependencies', [...dependencies, result.filepath])
+    this.app.success(`imported config`, result.filepath)
   }
 
   /**

@@ -26,13 +26,11 @@ export function define(
   this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
-  this.hooks.on(
-    'extension/webpack-define-plugin/options',
-    (existant: DefinePlugin['definitions']) => ({
-      ...existant,
+  this.extensions
+    .get('webpack-define-plugin')
+    .options.mergeStore({
       ...values,
-    }),
-  )
+    })
 
   return this
 }

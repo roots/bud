@@ -93,8 +93,6 @@ describe('bud.template', function () {
 
     beforeAll(async () => {
       bud = await factory()
-      bud.extensions.remove('html-webpack-plugin')
-      bud.store.set('html', false)
     })
 
     afterAll(done => {
@@ -102,21 +100,23 @@ describe('bud.template', function () {
     })
 
     it('does not register plugin when explicitly disabled', () => {
-      bud.template({enabled: false})
+      bud.template(false)
       expect(bud.store.is('html', false)).toEqual(true)
     })
 
     it('changes the template when template options is passed', () => {
       bud.template({template: 'src/foo.html'})
+
       expect(
         bud.extensions.get('html-webpack-plugin').options
           .template,
       ).toBe('src/foo.html')
     })
 
-    it('has expected options after changes', () => {
+    it('has expected options after changes', async () => {
+      bud.template({template: 'src/foo.html'})
       expect(
-        bud.extensions.get('html-webpack-plugin').options,
+        bud.extensions.get('html-webpack-plugin').get('options'),
       ).toEqual({
         alwaysWriteToDisk: true,
         inject: true,

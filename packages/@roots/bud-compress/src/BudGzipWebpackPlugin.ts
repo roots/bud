@@ -31,11 +31,10 @@ const api: BudGzipWebpackPlugin['api'] = {
   gzip: function (options) {
     this.store.set('gzip', true)
 
-    options &&
-      this.hooks.on(
-        'extension/compression-webpack-plugin-gzip/options',
-        () => options,
-      )
+    if (options)
+      this.extensions
+        .get('compression-webpack-plugin-gzip')
+        .options.setStore(options)
 
     return this
   },

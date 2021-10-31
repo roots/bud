@@ -21,7 +21,7 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
       )
 
     const fromStore = app.store.get(
-      'extension.webpackDefinePlugin',
+      'extension.webpack-define-plugin',
     )
 
     return {

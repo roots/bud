@@ -1,14 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 
-/**
- * Hash function interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param enabled - should filenames be hashed
- *
- * @public @config
- */
-interface hash {
+export interface hash {
   (this: Framework, enabled?: boolean): Framework
 }
 
@@ -20,11 +12,13 @@ interface hash {
  * bud.hash()
  * ```
  *
- * @public @config
+ * @public
  */
-const hash: hash = function (enabled = true) {
+export const hash: hash = function (enabled = true) {
+  this.info(
+    `file hashing is ${enabled ? 'enabled' : 'disabled'}`,
+  )
+
   this.store.set('hash', enabled)
   return this
 }
-
-export {hash as default}

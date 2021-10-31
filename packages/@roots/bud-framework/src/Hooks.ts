@@ -11,7 +11,7 @@ import {
   Rules,
   Service,
 } from './'
-import {Extension} from './Extensions/Extension'
+import * as Extension from './Extensions/Extension'
 
 /**
  * Service allowing for fitering {@link Framework} values through callbacks.
@@ -206,7 +206,7 @@ namespace Hooks {
       | `extension/${K}/${
           | `${keyof Modules | keyof Plugins}`
           | (`${keyof Modules | keyof Plugins}/${string}` &
-              string)}`]: Extension
+              string)}`]: Extension.Module
   }
 
   /**

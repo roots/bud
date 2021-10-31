@@ -17,8 +17,6 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   this.hooks.filter('run')
 
-  this.dashboard.run()
-
   const isDev =
     this.isDevelopment &&
     this.server?.run &&

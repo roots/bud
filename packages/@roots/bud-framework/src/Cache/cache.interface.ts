@@ -14,6 +14,13 @@ export interface CacheInterface extends Service {
   version: string
 
   /**
+   * Cache directory
+   *
+   * @public
+   */
+  directory: string
+
+  /**
    * Hash of config files and build dependencies
    *
    * @public

@@ -15,12 +15,10 @@ describe('bud.use', function () {
 
   beforeEach(() => {
     bud.extensions.setStore({})
-    bud
-      .use({
-        name: 'css-minimizer-webpack-plugin',
-        options: {},
-      })
-      .build.make()
+    bud.use({
+      name: 'css-minimizer-webpack-plugin',
+      options: {},
+    })
   })
 
   it('is a function', () => {
@@ -45,13 +43,11 @@ describe('bud.use', function () {
 
   it('registers an anonymous extension', () => {
     bud.use({options: {}}).build.make()
-
     expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
   it('registers a webpack plugin', () => {
     bud.use(new HtmlWebpackPlugin()).build.make()
-
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
@@ -80,14 +76,14 @@ describe('bud.use', function () {
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
-  it('adds an apply plugin to the config', () => {
+  it('adds an apply plugin to the config', async () => {
     const plugin = {
       name: 'my-plugin',
       apply(compiler) {
         // noop
       },
     }
-    bud.use(plugin).build.make()
-    expect(bud.build.config.plugins).toContain(plugin)
+    bud.use(plugin)
+    expect(bud.extensions.has('my-plugin')).toBe(true)
   })
 })

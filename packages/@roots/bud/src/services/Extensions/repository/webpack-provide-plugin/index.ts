@@ -10,7 +10,7 @@ const BudWebpackProvidePlugin: Model = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>
-    store.get('extension.webpackProvidePlugin'),
+    store.get('extension.webpack-provide-plugin'),
 
   make: options => new Plugin(options.all()),
 

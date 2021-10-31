@@ -81,7 +81,7 @@ const esbuild: Extension.Module = {
 
     hooks.on('build/optimization/minimizer', () => [
       new ESBuildMinifyPlugin(
-        hooks.filter('extension/@roots/bud-esbuild/options'),
+        extensions.get('@roots/bud-esbuild').options.all(),
       ),
     ])
   },

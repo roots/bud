@@ -51,28 +51,22 @@ export const use: use = function (
   const bud = this as Framework
 
   const addExtension = (source: Source) => {
-    if (!source?.name && !source?.apply) {
-      source.name = generateName(source)
-    }
+    source = isCompilerPlugin(source)
+      ? {
+          name: source.name ?? generateName(source),
+          make: () => source,
+        }
+      : {
+          name: source.name ?? generateName(source),
+          ...source,
+        }
 
     if (bud.extensions.has(source.name)) {
       bud.log(`${source.name} already included in compilation`)
       return this
     }
 
-    if (!bud.project.has(`extensions.${source.name}`)) {
-      bud.error(
-        `${source.name} is not a resolvable extension. Check the package name or install the package.`,
-      )
-
-      return this
-    }
-
-    const extension = isCompilerPlugin(source)
-      ? {...source, make: () => source}
-      : source
-
-    bud.extensions.add(extension)
+    bud.extensions.add(source)
   }
 
   if (
@@ -92,31 +86,22 @@ export const use: use = function (
     return this
   }
 
-  if (isArray(source) && source.every(isString)) {
-    source = source.map(s => {
-      const extension = require(s)
-      addExtension(extension)
-    })
-
-    return this
-  }
-
   if (isString(source)) {
     addExtension(require(source))
     return this
   }
 
+  if (isArray(source) && source.every(isString)) {
+    source = source.map(s => {
+      const extension = require(s)
+      addExtension(extension)
+    })
+    return this
+  }
+
   if (!isArray(source) && !isString(source)) {
-    if (bud.extensions.has(source.name)) {
+    if (source.name && bud.extensions.has(source.name)) {
       bud.log(`${source} already included in compilation`)
-      return this
-    }
-
-    if (!this.project.has(`extensions.${source}`)) {
-      bud.error(
-        `${source} is not a resolvable extension. Check the package name or install the package.`,
-      )
-
       return this
     }
 
@@ -125,7 +110,7 @@ export const use: use = function (
   }
 
   source.map(extension => {
-    if (bud.extensions.has(extension.name)) {
+    if (extension.name && bud.extensions.has(extension.name)) {
       bud.log(`${source} already included in compilation`)
       return
     }

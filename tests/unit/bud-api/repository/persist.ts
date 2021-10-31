@@ -1,10 +1,15 @@
-import {factory, Framework} from '@roots/bud'
+import {config, factory, Framework} from '@roots/bud'
 
 describe('bud.persist', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        ...config,
+        ci: true,
+      },
+    })
   })
 
   afterAll(done => {
@@ -19,7 +24,7 @@ describe('bud.persist', function () {
     bud.persist()
 
     expect(bud.hooks.filter('build/cache/version')).toBe(
-      bud.cache.get('version'),
+      bud.cache.version,
     )
 
     expect(bud.hooks.filter('build/cache/type')).toBe(
@@ -28,36 +33,26 @@ describe('bud.persist', function () {
 
     expect(
       bud.hooks.filter('build/cache/cacheDirectory'),
-    ).toEqual(bud.cache.directory())
+    ).toEqual(bud.project.get('cache.directory'))
 
     expect(
       bud.hooks.filter('build/cache/buildDependencies').bud,
-    ).toEqual(bud.cache.get('dependencies'))
+    ).toEqual(bud.project.get('dependencies'))
 
     expect(bud.hooks.filter('build/cache/managedPaths')).toEqual(
       [bud.path('modules')],
     )
   })
 
-  it('disables persistant caching', () => {
+  it('disables caching', () => {
     bud.persist(false)
 
-    expect(bud.hooks.filter('build/cache/version')).toBe(
-      undefined,
-    )
+    expect(bud.hooks.filter('build/cache')).toBe(false)
+  })
 
-    expect(bud.hooks.filter('build/cache/type')).toBe('memory')
+  it('memory caching', () => {
+    bud.persist('memory')
 
-    expect(
-      bud.hooks.filter('build/cache/cacheDirectory'),
-    ).toEqual(undefined)
-
-    expect(
-      bud.hooks.filter('build/cache/buildDependencies'),
-    ).toBe(undefined)
-
-    expect(bud.hooks.filter('build/cache/managedPaths')).toBe(
-      undefined,
-    )
+    expect(bud.hooks.filter('build/cache').type).toBe('memory')
   })
 })

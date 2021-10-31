@@ -7,42 +7,44 @@ import {Framework} from './'
 
 const {isUndefined} = lodash
 
-export function dump(
-  obj: any,
-  options?: {
-    language
-    ignoreIllegals
-  },
-): Framework {
-  options = {
-    language: 'json',
-    ignoreIllegals: true,
-
-    ...(options ?? {}),
-  }
-  obj = format(obj)
-
-  const ctx = this as Framework
-  !isUndefined(ctx.dashboard.instance)
-    ? ctx.dashboard.render(highlight(obj, options))
-    : this.app.log(highlight(obj, options))
-
-  return this
+interface Options {
+  prefix?: any
+  language?: string
+  ignoreIllegals?: boolean
+  callToJSON?: boolean
+  printFunctionName?: boolean
 }
 
-export function dd(
+export function dump(
   obj: any,
-  options?: {
-    language
-    ignoreIllegals
-  },
-) {
+  options?: Options,
+  maxDepth?,
+): Framework {
+  return this.log(
+    ...[
+      `${options.prefix ?? ''}\n`,
+      highlight(
+        format(obj, {
+          callToJSON: options?.callToJSON ?? false,
+          maxDepth: maxDepth ?? Infinity,
+          printFunctionName: options?.printFunctionName ?? false,
+        }),
+        {
+          language: options?.language ?? 'js',
+          ignoreIllegals: options?.ignoreIllegals ?? true,
+        },
+      ),
+    ].filter(Boolean),
+  )
+}
+
+export function dd(...params: any[]) {
   const ctx = this as Framework
 
-  ctx.dump(obj, options)
+  ctx.dump(params)
 
   !isUndefined(ctx.dashboard.instance) &&
     ctx.dashboard.instance.unmount()
 
-  ctx.close(process.exit)
+  ctx.close()
 }

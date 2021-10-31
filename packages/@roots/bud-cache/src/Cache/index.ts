@@ -25,6 +25,11 @@ export class Cache
   /**
    * @public
    */
+  public directory: string
+
+  /**
+   * @public
+   */
   public version: string
 
   /**
@@ -32,14 +37,13 @@ export class Cache
    */
   @bind
   public async register(): Promise<void> {
-    const version = await this.hashFileContents(
+    this.version = await this.hashFileContents(
       this.app.project.get('dependencies'),
     )
-    this.version = version
   }
 
   @bind
-  public booted() {
+  public boot() {
     this.app.hooks
       .on('build/cache', () => ({
         type: this.app.hooks.filter('build/cache/type'),
@@ -60,16 +64,12 @@ export class Cache
 
     try {
       const argv = await hash(process.argv.slice(3).join(''))
-      const str = await filePaths.reduce(
-        async (promised, filePath) => {
-          await promised
-
-          const file = await readFile(filePath, 'utf8')
-          return `${promised}${file}`
-        },
-        Promise.resolve(``),
+      const str = await Promise.all(
+        filePaths.map(async filePath => {
+          return await readFile(filePath, 'utf8')
+        }),
       )
-      return hash(str.concat(argv) ?? '')
+      return hash(str.join('').concat(argv) ?? '')
     } catch (e) {
       throw new Error(e)
     }

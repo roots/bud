@@ -16,6 +16,13 @@ export abstract class CacheAbstract
   public abstract version: string
 
   /**
+   * Cache directory
+   *
+   * @public
+   */
+  public abstract directory: string
+
+  /**
    * Hash of config files and build dependencies
    *
    * @public

@@ -1,7 +1,7 @@
 import {Container} from '@roots/container'
 
 import {Factory, Framework, Index, Loose, Maybe} from '../..'
-import {ApplyPlugin, Name} from './'
+import {Name} from './'
 
 /**
  * Bud extension interface
@@ -10,8 +10,7 @@ import {ApplyPlugin, Name} from './'
  *
  * @public @core
  */
-export default interface Module<Options = unknown>
-  extends Loose {
+export interface Module<Options = unknown> extends Loose {
   /**
    * The module name
    *
@@ -51,32 +50,6 @@ export default interface Module<Options = unknown>
    * @public
    */
   api?: Maybe<[Framework], Index<unknown>>
-
-  /**
-   * Either a function returning a finalized {@link ApplyPlugin} or a literal {@link ApplyPlugin}.
-   *
-   * @deprecated Convert this to a {@link @roots/bud-framework#Extension.CompilerPlugin | CompilerPlugin}
-   *
-   * @remarks
-   * If a factory is implemented, it will be passed a {@link Container} instance holding
-   * the {@link Module.options} (if any) as well as the {@link Framework} instance.
-   *
-   * @public
-   */
-  make?: Maybe<[Container<Options>, Framework], ApplyPlugin>
-
-  /**
-   * The {@link ApplyPlugin.apply} method
-   *
-   * @deprecated Convert this to a {@link @roots/bud-framework#Extension.CompilerPlugin | CompilerPlugin}
-   *
-   * @remarks
-   * This function makes the {@link @roots/bud-framework#Extension.Module} interoperable with
-   * the Webpack plugin interface
-   *
-   * @public
-   */
-  apply?: ApplyPlugin
 
   /**
    * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.

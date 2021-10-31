@@ -63,25 +63,18 @@ export class Build
     this.config = Object.entries(
       this.app.hooks.filter('build'),
     ).reduce(
-      (
-        all: Partial<Webpack.Configuration>,
-        [key, value]: [
-          `${keyof Webpack.Configuration & string}`,
-          any,
-        ],
-      ) => {
+      (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
+          this.app.warn(
+            `webpack ${key} is undefined. excluding.`,
+          )
           return all
         }
-
-        this.app.info(`typeof ${key}`, typeof value)
-        return {
-          ...all,
-          [key]: value,
-        }
+        return {...all, [key]: value}
       },
       {},
     )
+
     this.app.timeEnd('build.make')
 
     this.app.time('running build/after hooks')

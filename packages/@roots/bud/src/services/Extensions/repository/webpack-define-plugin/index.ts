@@ -15,5 +15,5 @@ export const options: BudWebpackDefinePlugin['options'] = ({
   store,
 }) => ({
   ...env.getPublicEnv(),
-  ...store.get('extension.webpackDefinePlugin'),
+  ...store.get('extension.webpack-define-plugin'),
 })

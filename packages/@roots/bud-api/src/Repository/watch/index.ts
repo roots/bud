@@ -9,15 +9,15 @@ import type {Framework, Server} from '@roots/bud-framework'
  * app.watch(['templates/*.html'])
  * ```
  */
-interface watch {
+export interface watch {
   (files: Server.Configuration['watch']['files']): Framework
 }
 
-const watch: watch = function (files) {
+export const watch: watch = function (files) {
   const target = this.isChild ? this.parent : this
 
   if (!target.isDevelopment || !target.server) {
-    target.log('Skipping watched files in production')
+    target.warn('Skipping watched files in production')
     return this
   }
 
@@ -25,5 +25,3 @@ const watch: watch = function (files) {
 
   return this
 }
-
-export {watch as default}

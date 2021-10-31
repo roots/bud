@@ -35,10 +35,9 @@ const provide: provide = function (
   this: Framework,
   packages: mappedPackages,
 ) {
-  this.hooks.on(
-    'extension/webpack-provide-plugin/options',
-    mappedPackagesReducer.bind(packages),
-  )
+  this.extensions
+    .get('webpack-provide-plugin')
+    .options.setStore(mappedPackagesReducer.bind(packages))
 
   return this
 }

@@ -242,16 +242,3 @@ export interface PluginInstance {
  */
 export interface Module<P = any, O = any>
   extends Extension.Module<O> {}
-
-/**
- * Module
- *
- * @deprecated Use {@link Extension.CompilerPlugin} instead
- *
- * @public
- */
-export interface WebpackPlugin<P = any, O = any>
-  extends Extension.CompilerPlugin<
-    Extension.ApplyPlugin,
-    unknown
-  > {}

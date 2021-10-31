@@ -12,15 +12,9 @@ interface reactRefresh {
 }
 
 const reactRefresh: reactRefresh = function (userOptions) {
-  this.hooks.on(
-    'extension/@pmmmwh/react-refresh-webpack-plugin/options',
-    (
-      options: ReactRefreshPluginOptions,
-    ): ReactRefreshPluginOptions => ({
-      ...options,
-      ...userOptions,
-    }),
-  )
+  this.extensions
+    .get('@pmmmwh/react-refresh-webpack-plugin')
+    .options.merge(userOptions)
 
   return this
 }

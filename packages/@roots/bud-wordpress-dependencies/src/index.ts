@@ -30,4 +30,4 @@ export const name: Extension.CompilerPlugin['name'] =
 export const make: Extension.CompilerPlugin<
   Plugin,
   null
->['make'] = new Plugin()
+>['make'] = () => new Plugin()

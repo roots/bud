@@ -1,13 +1,11 @@
 import {Dashboard as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import {Box, Instance, render, Text} from 'ink'
+import {Instance, render} from 'ink'
 import React from 'react'
 
 import {Dashboard as DashboardComponent} from '../components/Dashboard'
 import {Screen} from '../components/Screen'
-import {Error} from '../Error'
-import {isString} from '../services/lodash'
 
 /**
  * Dashboard service container implementation
@@ -41,33 +39,7 @@ export class Dashboard extends Service implements Contract {
   @bind
   public run(): void {
     if (this.app.store.isTrue('ci')) return
-
-    if (!this.instance) {
-      this.instance = render(
-        <DashboardComponent bud={this.app} />,
-      )
-    } else {
-      this.instance?.rerender(
-        <DashboardComponent bud={this.app} />,
-      )
-    }
-  }
-
-  /**
-   * Renders an error message and title to the screen.
-   *
-   * @see {@link Framework.error}
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public renderError(body: string, title?: string): void {
-    this.render(
-      <Screen app={this.app}>
-        <Error body={body} title={title ?? 'Error'} />
-      </Screen>,
-    )
+    this.instance = render(<DashboardComponent bud={this.app} />)
   }
 
   /**
@@ -82,31 +54,10 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public render(Component: any, title?: string): void {
-    const Output = () =>
-      isString(Component) ? (
-        <Text>{Component}</Text>
-      ) : Array.isArray(Component) ? (
-        <Box flexDirection="column">
-          {Component.map((c, id) => (
-            <Text key={id}>{c}</Text>
-          ))}
-        </Box>
-      ) : (
-        Component
-      )
-
-    if (!this.instance) {
-      this.instance = render(
-        <Screen app={this.app} title={title ?? null}>
-          <Output />
-        </Screen>,
-      )
-    } else {
-      this.instance.rerender(
-        <Screen app={this.app} title={title ?? null}>
-          <Output />
-        </Screen>,
-      )
-    }
+    this.instance = render(
+      <Screen app={this.app} title={title ?? null}>
+        <Component />
+      </Screen>,
+    )
   }
 }

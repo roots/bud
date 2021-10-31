@@ -205,12 +205,12 @@ export const config: Configuration = {
       keepCircularReferences: true,
       depth: 8,
     },
-    webpackDefinePlugin: {},
-    webpackManifestPlugin: {
+    'webpack-define-plugin': {},
+    'webpack-manifest-plugin': {
       fileName: 'manifest.json',
       writeToFileEmit: true,
     },
-    webpackProvidePlugin: {},
+    'webpack-provide-plugin': {},
   },
 
   server: {

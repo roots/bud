@@ -37,17 +37,5 @@ export function close(this: Framework, done = process.exit) {
     this.dashboard.instance.unmount()
   }
 
-  if (existsAndIsCallable(this.compiler.instance?.close)) {
-    this.compiler.instance.close(() => {
-      if (existsAndIsCallable(this.server?.instance?.close)) {
-        this.server.instance.close(() => {
-          if (existsAndIsCallable(this.server?.watcher?.close)) {
-            this.server.watcher.close()
-          }
-        })
-      }
-    })
-  }
-
-  process.exit(0)
+  done()
 }

@@ -82,7 +82,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
 
     instance?.current?.compiler?.progress &&
       setProgress(instance.current.compiler.progress)
-  }, 50)
+  }, 10)
 
   /**
    * Force React re-renders
@@ -108,27 +108,6 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   return (
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
-      {stdout && (
-        <Static items={stdout}>
-          {(stdout, k) => (
-            <Text key={`stdout-${k}`}>
-              {stdout ?? ''}
-              <Newline />
-            </Text>
-          )}
-        </Static>
-      )}
-
-      {hasErrors && (
-        <Static items={stderr}>
-          {(stderr, k) => (
-            <Text key={`stderr-${k}`}>
-              {stderr ?? ''}
-              <Newline />
-            </Text>
-          )}
-        </Static>
-      )}
 
       {hasCompilerErrors && (
         <Static items={stats?.errors ?? []}>

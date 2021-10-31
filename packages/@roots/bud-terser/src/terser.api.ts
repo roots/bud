@@ -8,10 +8,9 @@ export const terser: terser = function (
   this: Framework,
   options: Terser.Options,
 ): Framework {
-  this.hooks.on(
-    'extension/terser-webpack-plugin/options',
-    () => options,
-  )
+  this.extensions
+    .get('terser-webpack-plugin')
+    .options.setStore(options)
 
   return this
 }

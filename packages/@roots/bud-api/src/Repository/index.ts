@@ -1,12 +1,12 @@
 import {alias} from './alias'
-import assets from './assets'
+import {assets} from './assets'
 import {config} from './config'
 import {define} from './define'
 import {devtool} from './devtool'
 import {entry} from './entry'
 import experiments from './experiments'
 import externals from './externals'
-import hash from './hash'
+import {hash} from './hash'
 import {minimize} from './minimize'
 import {persist} from './persist'
 import provide from './provide'
@@ -19,7 +19,7 @@ import setPublicPath from './setPublicPath'
 import {splitChunks} from './splitChunks'
 import {template} from './template'
 import {use} from './use'
-import watch from './watch'
+import {watch} from './watch'
 
 export interface Repository {
   alias: alias

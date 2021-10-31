@@ -1,5 +1,4 @@
 import type {Framework} from '@roots/bud-framework'
-import type {PluginOptions} from 'image-minimizer-webpack-plugin/types'
 
 export class Config {
   public _app: () => Framework
@@ -13,16 +12,9 @@ export class Config {
   }
 
   public plugins(plugins: Array<[string, any]>) {
-    this.app.hooks.on(
-      'extension/image-minimizer-webpack-plugin/options',
-      (options: PluginOptions) => ({
-        ...(options ?? {}),
-        minimizerOptions: {
-          ...(options.minimizerOptions ?? {}),
-          plugins: [...plugins],
-        },
-      }),
-    )
+    this.app.extensions
+      .get('image-minimizer-webpack-plugin')
+      .options.merge({plugins}, 'minimizerOptions')
 
     return this.app
   }
