@@ -19,8 +19,8 @@ module.exports = async () => {
     },
     moduleNameMapper,
     rootDir: process.cwd(),
-    //globalSetup: '<rootDir>/dev/jest/util/setup.js',
-    //globalTeardown: '<rootDir>/dev/jest/util/teardown.js',
+    globalSetup: '<rootDir>/dev/jest/util/setup.js',
+    globalTeardown: '<rootDir>/dev/jest/util/teardown.js',
     preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: [

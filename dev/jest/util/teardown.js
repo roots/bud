@@ -1,41 +1,20 @@
 /* eslint-disable no-console */
 // @ts-check
 
-const execa = require('execa')
-const {noop} = require('lodash')
-const {magenta} = require('chalk')
-const {copy} = require('fs-extra')
-const path = require('path')
-
-const manifestTmpPath = path.resolve(
-  __dirname,
-  'util',
-  'resolver',
-  'package.tmp.json',
-)
-
-const manifestPath = path.resolve(
-  __dirname,
-  'util',
-  'resolver',
-  'package.json',
-)
+const {blue} = require('chalk')
+const {writeFile} = require('fs-extra')
 
 module.exports = async () => {
-  try {
-    console.log(magenta`\n Restoring resolver package.json`)
-
-    await copy(manifestTmpPath, manifestPath, {overwrite: true})
-
-    console.log(magenta`\n Restoring yarn.lock`)
-    console.log(
-      `\n Console output silenced. Practice patience\n`,
-    )
-    const task = execa.command(`yarn`)
-    task.stderr.pipe(process.stderr)
-    await task.finally(noop)
-  } catch (e) {
-    console.info('yarn.lock could not be restored')
-    console.log(e)
-  }
+  await Promise.all(
+    global.examples.map(
+      async ({name, manifest, manifestStr}) => {
+        console.log(blue`\n${name} Restoring manifest`)
+        try {
+          await writeFile(manifest, manifestStr)
+        } catch (err) {
+          console.error(name, 'writeFile', err)
+        }
+      },
+    ),
+  )
 }

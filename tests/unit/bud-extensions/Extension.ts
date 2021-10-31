@@ -1,6 +1,7 @@
 import {Bud, factory} from '@roots/bud'
 import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {WebpackPluginInstance} from 'webpack/types'
 
 describe('@roots/bud-extensions Controller', function () {
@@ -75,35 +76,15 @@ describe('@roots/bud-extensions Controller', function () {
     expect(controller.module.boot).toHaveBeenCalled()
   })
 
-  it('returns expected unique id', () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
-
-    expect(controller.makeKey('options')).toEqual(
-      'extension/@roots/bud-postcss/options',
-    )
-  })
-
   it('set fn returns expected value', () => {
     const controller: Controller = new Controller(
       bud,
       mockModule,
     )
-    controller.set('options', {foo: 'bap'})
+    const container = new Container({foo: 'bap'})
+    controller.options = container
 
-    expect(controller.options).toEqual({foo: 'bap'})
-  })
-
-  it('get fn returns expected value', () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
-    controller.options = {foo: 'baz'}
-
-    expect(controller.get('options')).toEqual({foo: 'baz'})
+    expect(controller.options).toEqual(container)
   })
 
   it('module options are registered', () => {

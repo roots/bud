@@ -1,10 +1,10 @@
-import {Bud, config, factory, Framework} from '@roots/bud'
+import {Bud, config, factory} from '@roots/bud'
 import * as BudSassExtension from '@roots/bud-sass'
 
 jest.setTimeout(20000)
 
 describe('@roots/bud-sass', () => {
-  let bud: Framework
+  let bud: Bud
 
   let expectedSassLoaderOptions = {
     implementation: {
@@ -21,7 +21,7 @@ describe('@roots/bud-sass', () => {
   }
 
   beforeAll(async () => {
-    bud = factory({
+    bud = await factory({
       config: {
         ...config,
         location: {

@@ -1,77 +1,64 @@
 /* eslint-disable no-console */
 // @ts-check
 
-const globby = require('globby')
 const execa = require('execa')
-const {dirname} = require('path')
-const {noop} = require('lodash')
-const {bold, blue} = require('chalk')
-const {readFileSync, writeFile} = require('fs-extra')
+const {bold} = require('chalk')
 const clearArtifacts = require('./clearArtifacts')
-
-const IGNORE_LIST = [
-  'examples/bedrock/package.json',
-  'examples/node-api/package.json',
-  'examples/multi-compiler/package.json',
-  'examples/sass/package.json',
-  'examples/basic/package.json',
-  'examples/preset-recommend/package.json',
-  'examples/typescript/package.json',
-]
+const paths = require('./paths')
 
 module.exports = async () => {
   await clearArtifacts()
 
-  const search = await globby(`examples/*/package.json`)
-
-  const paths = search
-    .filter(path => !IGNORE_LIST.includes(path))
-    .map(manifest => ({
-      manifest: manifest,
-      manifestStr: readFileSync(manifest),
-      cwd: process.cwd().concat(`/${dirname(manifest)}`),
-    }))
-    .map(manifest => ({
-      ...manifest,
-      name: manifest.cwd.split('examples/')[1],
-    }))
+  const examples = await paths()
 
   await Promise.all(
-    paths.map(async ({name, cwd}) => {
+    examples.map(async ex => {
       console.log(
-        `\n${bold.underline`${name}`}\npath: ${cwd}\n${blue`\n${name} Installing`}`,
+        `\n${bold.underline`${ex.name}`}\npath: ${ex.cwd}\n`,
       )
 
       try {
-        const install = execa.command(`yarn bud init`, {cwd})
-        install.stdout.pipe(process.stdout)
-        install.stderr.pipe(process.stderr)
-        await install.finally(noop)
+        const install = execa.command(`yarn`, {
+          cwd: ex.cwd,
+        })
+        await install
       } catch (err) {
-        console.error(name, 'init', err)
+        console.log(err)
       }
 
-      try {
-        const build = execa.command(`yarn bud build`, {
-          cwd,
-        })
-        build.stdout.pipe(process.stdout)
-        build.stderr.pipe(process.stderr)
-        await build.finally(noop)
-      } catch (err) {
-        console.error(name, 'build', err)
-      }
+      return ex
     }),
   )
 
   await Promise.all(
-    paths.map(async ({name, manifest, manifestStr}) => {
-      console.log(blue`\n${name} Restoring manifest`)
+    examples.map(async ex => {
       try {
-        await writeFile(manifest, manifestStr)
+        const init = execa.command(`yarn bud init`, {
+          cwd: ex.cwd,
+        })
+        await init
       } catch (err) {
-        console.error(name, 'writeFile', err)
+        console.log(err)
       }
+
+      return ex
     }),
   )
+
+  await Promise.all(
+    examples.map(async ex => {
+      try {
+        const build = execa.command(`yarn bud build`, {
+          cwd: ex.cwd,
+        })
+        await build
+      } catch (err) {
+        console.log(err)
+      }
+
+      return ex
+    }),
+  )
+
+  global.examples = examples
 }

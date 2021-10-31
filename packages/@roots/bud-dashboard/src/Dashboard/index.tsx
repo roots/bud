@@ -26,7 +26,7 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public bootstrap(): void {
+  public boot(): void {
     this.run()
   }
 

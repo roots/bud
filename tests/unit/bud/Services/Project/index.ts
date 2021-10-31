@@ -27,17 +27,21 @@ describe('bud.project', function () {
 
   it('contains a repository', () => {
     expect(bud.project.repository).toMatchSnapshot({
-      browserslist: {
-        development: [
-          'last 1 chrome version',
-          'last 1 firefox version',
-          'last 1 safari version',
-        ],
-        production: ['>0.5%', 'not dead', 'not op_mini all'],
-      },
-      devDependencies: {
-        '@roots/bud': 'workspace:*',
-        '@roots/bud-babel': 'workspace:*',
+      manifest: {
+        name: 'example-babel',
+        private: true,
+        devDependencies: {
+          '@roots/bud': 'workspace:*',
+          '@roots/bud-babel': 'workspace:*',
+        },
+        browserslist: {
+          development: [
+            'last 1 chrome version',
+            'last 1 firefox version',
+            'last 1 safari version',
+          ],
+          production: ['>0.5%', 'not dead', 'not op_mini all'],
+        },
       },
       extensions: {
         '@roots/bud-babel': {
@@ -71,8 +75,9 @@ describe('bud.project', function () {
       manifestPath: expect.stringContaining(
         'babel/package.json',
       ),
-      name: 'example-babel',
-      private: true,
+      cache: {
+        directory: expect.any(String),
+      },
     })
   })
 
@@ -83,7 +88,7 @@ describe('bud.project', function () {
   })
 
   it('discover method gathers dep data', () => {
-    bud.project.peers = new Peers(bud.project)
+    bud.project.peers = new Peers(bud)
 
     expect(
       bud.project.get(`extensions.@roots/bud-babel`),
@@ -113,10 +118,6 @@ describe('bud.project', function () {
 
   it('contains project level name', () => {
     expect(bud.project.get('name')).toEqual(json.name)
-  })
-
-  it('has install function', () => {
-    expect(bud.project.peers.install).toBeInstanceOf(Function)
   })
 
   it('has resolveFrom property', () => {

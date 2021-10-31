@@ -19,7 +19,7 @@ describe('bud.config', function () {
     bud.define({foo: 'bar'})
 
     expect(
-      bud.extensions.get('webpack-define-plugin').options,
+      bud.extensions.get('webpack-define-plugin').options.all(),
     ).toEqual({foo: 'bar'})
   })
 })

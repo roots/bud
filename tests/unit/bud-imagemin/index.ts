@@ -60,15 +60,7 @@ describe('@roots/bud-imagemin', () => {
     bud.use(imagemin)
 
     expect(
-      bud.extensions.get(PLUGIN_HANDLE).get('options'),
-    ).toMatchSnapshot()
-  })
-
-  it('options filter is functioning', () => {
-    bud.use(imagemin)
-
-    expect(
-      bud.hooks.filter(`extension/${PLUGIN_HANDLE}/options`),
+      bud.extensions.get(PLUGIN_HANDLE).options,
     ).toMatchSnapshot()
   })
 
@@ -83,9 +75,7 @@ describe('@roots/bud-imagemin', () => {
     bud.use(imagemin)
     bud.imagemin.plugins([['svgo', {interlaced: true}]])
 
-    const options = bud.extensions
-      .get(PLUGIN_HANDLE)
-      .get('options')
+    const options = bud.extensions.get(PLUGIN_HANDLE).options
 
     expect(options).toMatchSnapshot()
   })
@@ -96,9 +86,7 @@ describe('@roots/bud-imagemin', () => {
     bud.imagemin.plugins([['foo', {options: 'boom'}]])
     bud.imagemin.plugins([['bar', {interlaced: true}]])
 
-    const options = bud.extensions
-      .get(PLUGIN_HANDLE)
-      .get('options')
+    const options = bud.extensions.get(PLUGIN_HANDLE).options
 
     expect(options).toMatchSnapshot()
   })

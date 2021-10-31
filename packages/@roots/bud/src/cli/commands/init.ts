@@ -23,7 +23,9 @@ export default class Init extends Command {
   }
 
   public async run() {
-    const runner = new Runner(this.parse(Init))
+    const runner = new Runner(this.parse(Init), {
+      config: {ci: true},
+    })
     await runner.initialize()
     this.app = runner.app
 
@@ -34,10 +36,11 @@ export default class Init extends Command {
     )
 
     if (!pkgs.length) {
-      this.app.dashboard.render(
+      this.app.dump(
         `All peer dependencies met. Nothing to install.`,
-        '$ bud init',
+        {prefix: `$ bud init`},
       )
+
       process.exit()
     }
 
@@ -47,22 +50,24 @@ export default class Init extends Command {
 
     const output = [chalk.blue`${cmd}\n`]
 
-    this.app.dashboard.render(output, `$bud init`)
+    this.app.dump(output, {prefix: `$ bud init`})
 
     const task = execa.command(cmd)
     task.stdout.on('data', data => {
       output.push(data.toString())
-      this.app.dashboard.render(output, `$ bud init`)
+      this.app.dump(output, {prefix: `$ bud init`})
     })
+
     task.stderr.on('data', data => {
       output.push(data.toString())
-      this.app.dashboard.render(output, `$ bud init`)
+      this.app.dump(output, {prefix: `$ bud init`})
     })
+
     await task.finally()
 
     output.push(chalk.green`✨ All peer packages installed`)
 
-    this.app.dashboard.render(output, '$ bud init')
+    this.app.dump(output, {prefix: `$ bud init`})
     process.exit()
   }
 }
