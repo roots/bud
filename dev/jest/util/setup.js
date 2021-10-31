@@ -3,6 +3,7 @@
 
 const execa = require('execa')
 const {bold} = require('chalk')
+const fs = require('fs-extra')
 const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 

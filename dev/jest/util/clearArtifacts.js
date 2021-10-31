@@ -1,4 +1,4 @@
-const {remove} = require('fs-extra')
+const fs = require('fs-extra')
 const globby = require('globby')
 
 const OPTIONS = {onlyDirectories: true}
@@ -19,9 +19,14 @@ module.exports = async () => {
     OPTIONS,
   )
 
+  await fs.copy(
+    `${process.cwd()}/examples/`,
+    __dirname.concat('tmp'),
+  )
+
   await Promise.all(
     [...caches, ...sageCache, ...dists].map(
-      async path => await remove(path),
+      async path => await fs.remove(path),
     ),
   )
 }
