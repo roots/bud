@@ -7,8 +7,7 @@ const {dirname} = require('path')
 const {noop} = require('lodash')
 const {bold, blue} = require('chalk')
 const {readFileSync, writeFile} = require('fs-extra')
-const clearBudfiles = require('./util/clearBudfiles')
-const {install} = require('./util/dependencies')
+const clearArtifacts = require('./clearArtifacts')
 
 const IGNORE_LIST = [
   'examples/bedrock/package.json',
@@ -21,12 +20,12 @@ const IGNORE_LIST = [
 ]
 
 module.exports = async () => {
-  await clearBudfiles()
-  await install()
+  await clearArtifacts()
 
   const search = await globby(`examples/*/package.json`)
+
   const paths = search
-    .filter(IGNORE_LIST.includes)
+    .filter(path => !IGNORE_LIST.includes(path))
     .map(manifest => ({
       manifest: manifest,
       manifestStr: readFileSync(manifest),
@@ -43,22 +42,36 @@ module.exports = async () => {
         `\n${bold.underline`${name}`}\npath: ${cwd}\n${blue`\n${name} Installing`}`,
       )
 
-      const install = execa.command(`yarn bud init`, {cwd})
-      install.stdout.pipe(process.stdout)
-      install.stderr.pipe(process.stderr)
-      await install.finally(noop)
+      try {
+        const install = execa.command(`yarn bud init`, {cwd})
+        install.stdout.pipe(process.stdout)
+        install.stderr.pipe(process.stderr)
+        await install.finally(noop)
+      } catch (err) {
+        console.error(name, 'init', err)
+      }
 
-      const build = execa.command(`yarn bud build`, {cwd})
-      build.stdout.pipe(process.stdout)
-      build.stderr.pipe(process.stderr)
-      await build.finally(noop)
+      try {
+        const build = execa.command(`yarn bud build`, {
+          cwd,
+        })
+        build.stdout.pipe(process.stdout)
+        build.stderr.pipe(process.stderr)
+        await build.finally(noop)
+      } catch (err) {
+        console.error(name, 'build', err)
+      }
     }),
   )
 
   await Promise.all(
     paths.map(async ({name, manifest, manifestStr}) => {
       console.log(blue`\n${name} Restoring manifest`)
-      await writeFile(manifest, manifestStr)
+      try {
+        await writeFile(manifest, manifestStr)
+      } catch (err) {
+        console.error(name, 'writeFile', err)
+      }
     }),
   )
 }

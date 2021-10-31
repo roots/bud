@@ -1,8 +1,8 @@
 // @ts-check
 
-const mapModuleNames = require('./moduleNameMapper')
+const mapModuleNames = require('./util/moduleNameMapper')
 
-module.exports = async function config() {
+module.exports = async () => {
   const moduleNameMapper = await mapModuleNames()
 
   return {
@@ -18,10 +18,10 @@ module.exports = async function config() {
       },
     },
     moduleNameMapper,
-    globalSetup: '<rootDir>/dev/jest/jest.setup.js',
-    globalTeardown: '<rootDir>/dev/jest/jest.teardown.js',
-    preset: 'ts-jest',
     rootDir: process.cwd(),
+    //globalSetup: '<rootDir>/dev/jest/util/setup.js',
+    //globalTeardown: '<rootDir>/dev/jest/util/teardown.js',
+    preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: [
       `<rootDir>/tests/unit/**/*.ts`,

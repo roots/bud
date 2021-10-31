@@ -1,4 +1,4 @@
-const {globby} = require('@roots/bud-support')
+const globby = require('globby')
 
 /**
  * Map module names to their respective paths.
@@ -6,11 +6,11 @@ const {globby} = require('@roots/bud-support')
  * @returns {Promise<InitialOptionsTsJest['moduleNameMapper']>} - The jest module name mapper.
  */
 module.exports = async () => {
-  const pkgs = await globby.globby('packages/@roots/*', {
+  const packages = await globby('packages/@roots/*', {
     onlyDirectories: true,
   })
 
-  return pkgs
+  return packages
     .map(pkg => pkg.replace('packages/', ''))
     .reduce(
       (mapping, pkg) => ({

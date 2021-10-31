@@ -3,12 +3,9 @@
  *
  * @param {Bud} app
  */
+
 module.exports = (app) => {
   app
-    .setPath({
-      storage: '.budfiles',
-      dist: 'dist',
-    })
     .entry({
       app: '**/app.{js,css}',
       editor: '**/editor.{js,css}',
