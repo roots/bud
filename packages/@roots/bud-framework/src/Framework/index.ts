@@ -1,4 +1,6 @@
 import {Container} from '@roots/container'
+import {highlight} from 'cli-highlight'
+import {format} from 'pretty-format'
 
 import {
   Api,
@@ -23,7 +25,6 @@ import {access} from './access'
 import {bootstrap} from './bootstrap'
 import {close} from './close'
 import {container} from './container'
-import {dd, dump} from './dump'
 import {
   bind,
   chalk,
@@ -276,8 +277,6 @@ export abstract class Framework {
       .bindMethod<bootstrap>('bootstrap', bootstrap)
       .bindMethod<close>('close', close)
       .bindMethod<container>('container', container)
-      .bindMethod<close>('dump', dump)
-      .bindMethod<close>('dd', dd)
       .bindMethod<get>('get', get)
       .bindMethod<make>('make', make)
       .bindMethod<path>('path', path)
@@ -522,17 +521,6 @@ export abstract class Framework {
   public when: when
 
   /**
-   *
-   */
-  public dump: typeof dump = dump
-
-  /**
-   * Dumps object to console and then
-   * gracefully exits bud and kills the process.
-   */
-  public dd: typeof dd = dd
-
-  /**
    * Log a message
    *
    * @public
@@ -674,6 +662,37 @@ export abstract class Framework {
       .error(...this.colorize('red', ...messages))
 
     return this
+  }
+
+  @bind
+  public dump(
+    obj: any,
+    options?: {
+      prefix?: any
+      language?: string
+      ignoreIllegals?: boolean
+      callToJSON?: boolean
+      printFunctionName?: boolean
+    },
+    maxDepth?,
+  ): Framework {
+    return this.log(
+      ...[
+        `${options.prefix ?? ''}\n`,
+        highlight(
+          format(obj, {
+            callToJSON: options?.callToJSON ?? false,
+            maxDepth: maxDepth ?? Infinity,
+            printFunctionName:
+              options?.printFunctionName ?? false,
+          }),
+          {
+            language: options?.language ?? 'js',
+            ignoreIllegals: options?.ignoreIllegals ?? true,
+          },
+        ),
+      ].filter(Boolean),
+    )
   }
 
   @bind

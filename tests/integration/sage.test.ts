@@ -17,18 +17,6 @@ describe('examples/sage', () => {
     await project.setup()
   })
 
-  it('package.json is unchanged', async () => {
-    expect(project.packageJson).toMatchSnapshot({
-      browserslist: ['extends @wordpress/browserslist-config'],
-      devDependencies: {
-        '@roots/bud': 'workspace:*',
-        '@roots/sage': 'workspace:*',
-      },
-      name: 'example-sage',
-      private: true,
-    })
-  })
-
   it('[project.entrypoints.json] has expected app entries', () => {
     expect(project.entrypoints.app.js).toBeInstanceOf(Array)
     expect(project.entrypoints.app.js).toHaveLength(2)

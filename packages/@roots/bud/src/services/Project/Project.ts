@@ -1,9 +1,12 @@
+import {ensureFile} from 'fs-extra'
+
 import {Config} from './config'
 import {
   bind,
   Peers,
   Project as FrameworkProject,
   readJson,
+  writeFile,
 } from './project.dependencies'
 import type {Repository} from './project.interface'
 
@@ -143,6 +146,13 @@ export class Project
   @bind
   public async boot() {
     await this.resolvePeers()
+    await ensureFile(
+      this.app.path('storage', 'bud.profile.json'),
+    )
+    await writeFile(
+      this.app.path('storage', 'bud.profile.json'),
+      JSON.stringify(this.all()),
+    )
   }
 
   @bind

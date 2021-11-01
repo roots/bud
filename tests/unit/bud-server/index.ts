@@ -6,6 +6,9 @@ describe('@roots/bud-server', function () {
   beforeAll(async () => {
     bud = await factory({
       mode: 'development',
+      config: {
+        ci: true,
+      },
     })
   })
 

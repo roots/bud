@@ -1,33 +1,11 @@
-import {factory, Framework} from '@roots/bud'
-import * as BudPostCssExtension from '@roots/bud-postcss'
+import BudPostCssExtension from '@roots/bud-postcss'
+import {PostCssConfig} from '@roots/bud-postcss/src/PostCssConfig/index'
 
 describe('@roots/bud-postcss', () => {
-  let bud: Framework
-
-  let mock = {
-    plugins: {
-      'postcss-import': require.resolve('postcss-import'),
-      'postcss-nested': require.resolve('postcss-nested'),
-      'postcss-preset-env': [
-        require.resolve('postcss-preset-env'),
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ],
-    },
-  }
+  let config: PostCssConfig
 
   beforeAll(async () => {
-    bud = await factory()
-    bud.use([BudPostCssExtension])
-    bud.postcss.setPlugins(mock.plugins as any)
-  })
-
-  afterAll(done => {
-    bud.close(done)
+    config = new PostCssConfig()
   })
 
   it('has @roots/bud-postcss name', () => {
@@ -39,14 +17,10 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('exports api', () => {
-    expect(BudPostCssExtension.api.postcss).toBeInstanceOf(
-      BudPostCssExtension.PostCssConfig,
-    )
+    expect(BudPostCssExtension.api).toBeDefined()
   })
 
-  it('exports and registers a bud extension', () => {
-    expect(BudPostCssExtension).toEqual(
-      bud.extensions.get('@roots/bud-postcss').module,
-    )
+  it('config is instantiable', () => {
+    expect(config).toBeInstanceOf(PostCssConfig)
   })
 })

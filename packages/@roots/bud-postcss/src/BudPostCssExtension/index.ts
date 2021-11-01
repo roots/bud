@@ -16,8 +16,6 @@ export const BudPostCssExtension: Extension.Module = {
     postcss: new PostCssConfig(),
   },
 
-  register: async () => {},
-
   boot: async function ({build, path, postcss, warn, project}) {
     const hasPostCssConfig = await pathExists(
       path('project', 'postcss.config.js'),

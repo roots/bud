@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import execa from 'execa'
 
 import type {Bud} from '../../Bud'
@@ -37,11 +36,9 @@ export default class Init extends Command {
     )
 
     if (!pkgs.length) {
-      this.app.dump(
-        `All peer dependencies met. Nothing to install.`,
-        {prefix: `$ bud init`},
+      this.app.success(
+        'All peer dependencies met. Nothing to install',
       )
-
       process.exit()
     }
 
@@ -49,26 +46,14 @@ export default class Init extends Command {
       ? `yarn add${pkgs} --dev`
       : `npm install${pkgs} --save-dev`
 
-    const output = [chalk.blue`${cmd}\n`]
-
-    this.app.dump(output, {prefix: `$ bud init`})
+    this.app.info(cmd)
 
     const task = execa.command(cmd)
-    task.stdout.on('data', data => {
-      output.push(data.toString())
-      this.app.dump(output, {prefix: `$ bud init`})
-    })
-
-    task.stderr.on('data', data => {
-      output.push(data.toString())
-      this.app.dump(output, {prefix: `$ bud init`})
-    })
-
+    task.stdout.pipe(process.stdout)
+    task.stderr.pipe(process.stderr)
     await task.finally()
 
-    output.push(chalk.green`✨ All peer packages installed`)
-
-    this.app.dump(output, {prefix: `$ bud init`})
+    this.app.success(`✨ All peer packages installed`)
     process.exit()
   }
 }

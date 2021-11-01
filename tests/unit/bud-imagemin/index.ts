@@ -8,7 +8,7 @@ describe('@roots/bud-imagemin', () => {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   afterAll(done => {

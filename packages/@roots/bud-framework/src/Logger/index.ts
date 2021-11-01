@@ -33,8 +33,9 @@ export class Logger {
 
   @bind
   public getScope(): Array<string> {
-    return this.app.parent?.name
-      ? [this.app.parent.name, this.app.name]
-      : [this.app.name, 'root']
+    const scope = []
+    this.app.parent?.name && scope.push(this.app.parent.name)
+    this.app.name && scope.push(this.app.name)
+    return scope
   }
 }

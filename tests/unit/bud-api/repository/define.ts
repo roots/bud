@@ -1,26 +1,24 @@
-import {define} from '@roots/bud-api/src/Repository/define'
-import {Store} from '@roots/bud-framework'
+import {define} from '@roots/bud-api/src/Repository/define/index'
 
 describe('bud.config', function () {
-  const definition = {foo: 'bar'}
-  const all = jest.fn(() => definition)
-  const get = (name: string) => {
-    let store = {}
-    return {
-      options: {
-        all: () => store,
-        mergeStore: values => {
-          store = values
-        },
+  const bud = new (class {
+    public value = {}
+
+    public extensions = {
+      get: (key: string) => {
+        return {
+          options: {
+            mergeStore: values => {
+              this.value = {...this.value, ...values}
+            },
+            all: () => {
+              return this.value
+            },
+          },
+        }
       },
     }
-  }
-
-  const bud = {
-    extensions: {
-      get: jest.fn(get),
-    },
-  }
+  })()
 
   it('is a function', () => {
     expect(define).toBeInstanceOf(Function)

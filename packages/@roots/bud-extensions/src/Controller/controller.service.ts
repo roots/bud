@@ -58,6 +58,10 @@ export class Controller {
     return this.module[key]
   }
 
+  public set(key: string, value: any) {
+    this.module[key] = value
+  }
+
   public get name(): string {
     return this.module.name
   }
@@ -119,6 +123,10 @@ export class Controller {
    * @public
    */
   public get when() {
+    if (this.module.when === undefined) return true
+    if (typeof this.module.when === 'boolean')
+      return this.module.when
+
     return isFunction(this.module.when)
       ? this.module.when(this.app, this.options)
       : this.module.when
@@ -149,6 +157,7 @@ export class Controller {
         : this.module.api
 
       this.app.info('extending api', ...Object.keys(assignment))
+
       Object.assign(this.app, assignment)
     }
 
@@ -177,8 +186,8 @@ export class Controller {
     if (this.module.boot) await this.module.boot(this.app)
 
     this.booted = true
-
     this.app.success(this.name, 'booted')
+
     return this
   }
 }

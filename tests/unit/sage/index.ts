@@ -9,7 +9,8 @@ describe('@roots/sage', () => {
   let SAGE_CFG = {
     config: {
       ...config,
-      cache: false,
+      ci: true,
+      log: false,
       location: {
         ...config.location,
         project: SAGE_DIR,

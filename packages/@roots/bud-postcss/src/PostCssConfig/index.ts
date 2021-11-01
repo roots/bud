@@ -5,34 +5,7 @@ interface Registry {
   [key: string]: [PluginCreator<any>, any]
 }
 
-interface PostCssConfig {
-  /**
-   * Registered plugins
-   */
-  plugins: Registry
-
-  /**
-   * Set a plugin
-   */
-  setPlugin(name: string, plugin: any): this
-
-  /**
-   * Set plugins
-   */
-  setPlugins(plugins: {[key: string]: any}): this
-
-  /**
-   * Set plugin options
-   */
-  setPluginOptions(plugin: string, options: any): this
-
-  /**
-   * Remove a plugin
-   */
-  unsetPlugin(plugin: string): this
-}
-
-class PostCssConfig {
+export class PostCssConfig {
   public plugins: Registry = {}
 
   @bind
@@ -86,5 +59,3 @@ class PostCssConfig {
     return this
   }
 }
-
-export {PostCssConfig}

@@ -8,7 +8,7 @@ describe.skip('@roots/bud-tailwindcss', () => {
   let bud
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
 
     bud.project.set('devDependencies', {
       '@roots/bud-tailwindcss':

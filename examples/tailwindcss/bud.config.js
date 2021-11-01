@@ -1,7 +1,2 @@
 module.exports = bud =>
-  bud
-    .entry({
-      app: ['app.css', 'app.js'],
-    })
-    .minimize()
-    .template()
+  bud.entry('app', ['app.css', 'app.js']).minimize().template()

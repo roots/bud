@@ -77,9 +77,7 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.4",
-    "jest": "27.3.1"
+    "@types/node": "16.11.4"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",

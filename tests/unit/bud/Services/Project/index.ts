@@ -13,6 +13,7 @@ describe('bud.project', function () {
     bud = await factory({
       config: {
         ...config,
+        ci: true,
         location: {
           ...config.location,
           project,
@@ -96,42 +97,26 @@ describe('bud.project', function () {
       name: '@roots/bud-babel',
       bud: {type: 'extension'},
       path: expect.stringContaining('@roots/bud-babel'),
-      dependsOn: [],
-      provides: {
-        '@babel/core': expect.any(String),
-        '@babel/plugin-proposal-class-properties':
-          expect.any(String),
-        '@babel/plugin-proposal-object-rest-spread':
-          expect.any(String),
-        '@babel/plugin-syntax-dynamic-import':
-          expect.any(String),
-        '@babel/plugin-transform-runtime': expect.any(String),
-        '@babel/preset-env': expect.any(String),
-        '@roots/bud-build': expect.any(String),
-        'babel-loader': expect.any(String),
-        'babel-plugin-add-module-exports': expect.any(String),
-        tslib: expect.any(String),
-      },
       version: expect.any(String),
     })
   })
 
   it('contains project level name', () => {
-    expect(bud.project.get('name')).toEqual(json.name)
+    expect(bud.project.get('manifest.name')).toEqual(json.name)
   })
 
   it('has resolveFrom property', () => {
-    expect(bud.project.resolveFrom).toBeInstanceOf(Array)
+    expect(bud.project.get('dependencies')).toBeInstanceOf(Array)
   })
 
   it('resolveFrom contains paths of found peers', () => {
-    expect(bud.project.resolveFrom).toMatchSnapshot([
+    expect(bud.project.get('dependencies')).toMatchSnapshot([
       expect.stringContaining('@roots/bud-babel'),
     ])
 
-    const config = bud.build.make()
+    bud.build.make()
 
-    expect(config.resolve.modules).toMatchSnapshot([
+    expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
       expect.stringContaining('@roots/bud-babel'),

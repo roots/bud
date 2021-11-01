@@ -88,30 +88,29 @@ export class Compiler extends Service implements Contract {
     this.app.timeEnd('bud')
     this.app.hooks.filter('before/compiler')
 
-    this.app.time(`webpack`)
     this.instance = webpack(config)
 
-    this.app.await(`tapping webpack instance.tap`)
-    this.instance.hooks.done.tap(config[0].name, stats => {
+    this.instance.hooks.done.tap(config[0].name, async stats => {
       stats && Object.assign(this.stats, stats.toJson())
 
-      this.app.isProduction &&
-        this.instance.close(err => {
-          if (err) {
-            this.stats.errors.push(err)
-            this.app.error(err)
-          }
+      if (this.app.isProduction) {
+        this.app.close(() => {
+          this.instance.close(err => {
+            if (err) {
+              this.stats.errors.push(err)
+              this.app.error(err)
+            }
+          })
         })
+      }
     })
 
-    this.app.await(`applying progress plugin`)
     new ProgressPlugin((...args): void => {
       this.progress = args
     }).apply(this.instance)
 
     this.app.hooks.filter('after/compiler')
 
-    this.app.await(`running webpack`)
     return this.instance
   }
 
@@ -144,6 +143,10 @@ export class Compiler extends Service implements Contract {
     if (!this.app.hasChildren) {
       this.app.info(`using config from parent compiler`)
       config.push(this.app.build.config)
+    } else {
+      this.app.warn(
+        `root compiler will not be tapped (child compilers in use)`,
+      )
     }
 
     /**
@@ -154,7 +157,9 @@ export class Compiler extends Service implements Contract {
       this.app.children.getValues().map(child => {
         if (!child.name) return
 
-        this.app.log(`using config from ${child.name}`)
+        this.app.success(
+          `\`${child.name}\` compiler will be tapped`,
+        )
         child.build.make()
         config.push(child.build.config)
       })
@@ -181,7 +186,9 @@ export class Compiler extends Service implements Contract {
       args.length > 1 ? args : [null, args.pop()]
 
     if (stats?.toJson && isFunction(stats.toJson)) {
-      this.stats = stats.toJson(this.app.build.config.stats)
+      this.stats = stats.toJson(
+        this.app.build.config.stats ?? {preset: 'normal'},
+      )
       this.app.store.is('ci', true) &&
         this.app.log(stats.toString())
     }

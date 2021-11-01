@@ -10,8 +10,8 @@ describe('@roots/bud-babel', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
-    Config = new BudBabelExtension.Config(bud)
+    bud = await factory({config: {ci: true, log: false}})
+    Config = new BudBabelExtension.Config()
   })
 
   afterAll(done => {
@@ -54,64 +54,21 @@ describe('@roots/bud-babel', function () {
     expect(Config.setPresetOptions).toBeInstanceOf(Function)
   })
 
-  it('has expected default plugins', () => {
-    expect(BudBabelExtension.DEFAULT_PLUGINS).toMatchSnapshot([
-      ['@babel/plugin-transform-runtime', {helpers: false}],
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-class-properties',
-    ])
-  })
-
-  it('has correctly interpreted default plugins', () => {
-    Config.setPlugins(BudBabelExtension.DEFAULT_PLUGINS)
-
-    expect(Config.plugins).toMatchSnapshot({
-      '@babel/plugin-transform-runtime': [
-        '@babel/plugin-transform-runtime',
-        {helpers: false},
-      ],
-      '@babel/plugin-proposal-object-rest-spread': [
-        '@babel/plugin-proposal-object-rest-spread',
-        {},
-      ],
-      '@babel/plugin-syntax-dynamic-import': [
-        '@babel/plugin-syntax-dynamic-import',
-        {},
-      ],
-      '@babel/plugin-proposal-class-properties': [
-        '@babel/plugin-proposal-class-properties',
-        {},
-      ],
-    })
-  })
-
-  it('has expected default presets', () => {
-    expect(BudBabelExtension.DEFAULT_PRESETS).toMatchSnapshot([
-      '@babel/preset-env',
-    ])
-  })
-
-  it('has correctly interpreted default plugins', () => {
-    Config.setPresets(BudBabelExtension.DEFAULT_PRESETS)
-
-    expect(Config.presets).toMatchSnapshot({
-      '@babel/preset-env': ['@babel/preset-env', {}],
-    })
-  })
-
   it('bud.babel.setPreset functions', () => {
     Config.presets = {}
 
-    Config.setPreset('@babel/preset-env')
+    Config.setPreset('@babel/preset-env', '@babel/preset-env')
 
     expect(Config.presets).toEqual({
-      '@babel/preset-env': ['@babel/preset-env', {}],
+      '@babel/preset-env': ['@babel/preset-env', undefined],
     })
 
     Config.presets = {}
 
-    Config.setPreset(['@babel/preset-env', {foo: 'bar'}])
+    Config.setPreset('@babel/preset-env', [
+      '@babel/preset-env',
+      {foo: 'bar'},
+    ])
 
     expect(Config.presets).toEqual({
       '@babel/preset-env': ['@babel/preset-env', {foo: 'bar'}],
@@ -121,15 +78,18 @@ describe('@roots/bud-babel', function () {
   it('bud.babel.setPlugin functions', () => {
     Config.plugins = {}
 
-    Config.setPlugin('someBabelPlugin')
+    Config.setPlugin('someBabelPlugin', 'someBabelPlugin')
 
     expect(Config.plugins).toEqual({
-      someBabelPlugin: ['someBabelPlugin', {}],
+      someBabelPlugin: ['someBabelPlugin', undefined],
     })
 
     Config.plugins = {}
 
-    Config.setPlugin(['someBabelPlugin', {foo: 'bar'}])
+    Config.setPlugin('someBabelPlugin', [
+      'someBabelPlugin',
+      {foo: 'bar'},
+    ])
 
     expect(Config.plugins).toEqual({
       someBabelPlugin: ['someBabelPlugin', {foo: 'bar'}],
@@ -138,7 +98,7 @@ describe('@roots/bud-babel', function () {
 
   it('bud.babel.unsetPlugin functions', () => {
     Config.plugins = {
-      someBabelPlugin: ['someBabelPlugin', {}],
+      someBabelPlugin: ['someBabelPlugin', undefined],
     }
 
     Config.unsetPlugin('someBabelPlugin')
@@ -148,26 +108,11 @@ describe('@roots/bud-babel', function () {
 
   it('bud.babel.unsetPreset functions', () => {
     Config.presets = {
-      someBabelPreset: ['someBabelPreset', {}],
+      someBabelPreset: ['someBabelPreset', undefined],
     }
 
     Config.unsetPreset('someBabelPreset')
 
     expect(Config.presets).toEqual({})
-  })
-
-  it('bud.babel.normalizeEntry is a function', () => {
-    expect(Config.normalizeEntry).toBeInstanceOf(Function)
-  })
-
-  it('bud.babel.normalizeEntry normalizes plugins', () => {
-    const plugin = 'foo'
-    const result = Config.normalizeEntry(plugin)
-
-    expect(result).toMatchSnapshot(['foo', {}])
-  })
-
-  it('bud.babel.app returns app', () => {
-    expect(Config.app).toBeInstanceOf(Framework)
   })
 })

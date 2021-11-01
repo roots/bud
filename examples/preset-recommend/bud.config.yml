@@ -1,4 +1,6 @@
 app:
+  entry:
+    main: 'index.{js,css}'
   extensions:
     - '@roots/bud-preset-recommend'
   minimize: true

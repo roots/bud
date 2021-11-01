@@ -21,6 +21,10 @@ export const BudBabelExtension: Extension.Module = {
    */
   name: '@roots/bud-babel',
 
+  api: (app: Framework) => ({
+    babel: new Config(),
+  }),
+
   /**
    * Extension register event
    *

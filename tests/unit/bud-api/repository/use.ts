@@ -1,12 +1,12 @@
 import {factory, Framework} from '@roots/bud'
-import Babel from '@roots/bud-babel'
+import * as Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 describe('bud.use', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   afterAll(done => {

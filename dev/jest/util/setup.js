@@ -4,63 +4,46 @@
 const chalk = require('chalk')
 const fs = require('fs-extra')
 const execa = require('execa')
-const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
+// const clearArtifacts = require('./clearArtifacts')
+
+const task = async (cmd, paths) => {
+  console.log(chalk.blue`\nyarn bud ${cmd} \n`)
+
+  await Promise.all(
+    paths.map(async ex => {
+      const task = execa.command(`yarn bud ${cmd}`, {
+        cwd: ex.cwd,
+      })
+
+      task
+        .then(() => console.log(chalk.green`${ex.name}`))
+        .catch(async err => {
+          await fs.writeFile(
+            ex.cwd.concat(`/err.${cmd}.log`),
+            err.stdout,
+          )
+          console.log(chalk.red`${ex.name}`)
+        })
+        .finally(() => {
+          const killed = task.kill()
+          killed &&
+            console.log(`${ex.name} yarn bud ${cmd} killed`)
+        })
+
+      await task
+    }),
+  )
+}
+
 module.exports = async () => {
-  await clearArtifacts()
+  // await clearArtifacts()
 
   const examples = await paths()
 
-  console.log(chalk.blue`\ninitializing\n`)
-
-  await Promise.allSettled(
-    examples.map(async ex => {
-      const init = execa.command(`yarn bud init`, {
-        cwd: ex.cwd,
-      })
-
-      await init
-        .then(() => console.log(chalk.green`${ex.name}`))
-        .catch(async err => {
-          await fs.writeFile(
-            ex.cwd.concat('/err.log'),
-            err.stdout,
-          )
-          console.log(chalk.red`${ex.name}`)
-        })
-
-      const killed = init.kill()
-      killed && console.log(`${ex.name} build killed`)
-
-      Promise.resolve()
-    }),
-  )
-
-  console.log(chalk.blue`\nbuilding\n`)
-
-  await Promise.allSettled(
-    examples.map(async ex => {
-      const build = execa.command(`yarn bud build`, {
-        cwd: ex.cwd,
-      })
-
-      await build
-        .then(() => console.log(chalk.green`${ex.name}`))
-        .catch(async err => {
-          await fs.writeFile(
-            ex.cwd.concat('/err.log'),
-            err.stdout,
-          )
-          console.log(chalk.red`${ex.name}`)
-        })
-
-      const killed = build.kill()
-      killed && console.log(`${ex.name} build killed`)
-
-      Promise.resolve()
-    }),
-  )
+  // await task('init', examples)
+  await task('build', examples)
 
   global.examples = examples
 }

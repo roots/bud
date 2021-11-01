@@ -1,11 +1,8 @@
-import {Bud} from '../..'
 import {isFunction} from '../cli.dependencies'
 
-export const config = async (app: Bud) => {
-  if (app.project.has('configs.static.conditional.config')) {
-    const config = app.project.get(
-      'configs.static.conditional.config',
-    )
+export const config = async (app, configKey) => {
+  if (app.project.has(configKey)) {
+    const config = app.project.get(configKey)
 
     Object.entries(config).forEach(([c, v]) => {
       app.log(`parsed compiler ${c}`)

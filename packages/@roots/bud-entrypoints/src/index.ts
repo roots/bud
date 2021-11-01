@@ -14,19 +14,7 @@
 import {BudEntrypointsPlugin} from './BudEntrypointsPlugin'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Plugins}
-   *
-   * @override
-   */
   interface Plugins {
-    /**
-     * Adapter for {@link @roots/entrypoints-webpack-plugin# | @roots/entrypoints-webpack-plugin}.
-     *
-     * @see {@link BudEntrypointsPlugin}
-     *
-     * @public
-     */
     '@roots/bud-entrypoints': BudEntrypointsPlugin
   }
 }

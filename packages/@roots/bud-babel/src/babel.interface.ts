@@ -3,7 +3,7 @@ export type Options = {
   config?: boolean | string
 }
 
-export type NormalizedPlugin = [string, {[key: string]: any}]
+export type NormalizedPlugin = [any, Record<string, any>]
 
 export type Plugin = string | NormalizedPlugin | CallableFunction
 

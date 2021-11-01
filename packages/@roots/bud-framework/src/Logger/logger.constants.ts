@@ -6,10 +6,10 @@ import {SignaleConfig} from 'signale'
 export const INSTANCE_CONFIG: SignaleConfig = {
   displayScope: true,
   displayBadge: true,
-  displayDate: true,
+  displayDate: false,
   displayFilename: false,
-  displayLabel: false,
-  displayTimestamp: false,
+  displayLabel: true,
+  displayTimestamp: true,
   underlineLabel: false,
   underlineMessage: false,
   underlinePrefix: false,

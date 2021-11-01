@@ -6,7 +6,7 @@ describe('bud.build', function () {
   let initialBuildConfig
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
     initialBuildConfig = {...bud.build.config}
   })
 

@@ -31,7 +31,7 @@ describe('bud.run', function () {
   }
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
 
     run.bind(MOCK_BUD)()
   })

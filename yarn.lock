@@ -1584,7 +1584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:^7.12.13, @babel/preset-react@npm:^7.12.5":
+"@babel/preset-react@npm:^7.12.13, @babel/preset-react@npm:^7.12.5, @babel/preset-react@npm:^7.16.0":
   version: 7.16.0
   resolution: "@babel/preset-react@npm:7.16.0"
   dependencies:
@@ -3584,9 +3584,7 @@ __metadata:
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/jest": 27.0.2
     "@types/node": 16.11.4
-    jest: 27.3.1
     tslib: 2.3.1
   languageName: unknown
   linkType: soft
@@ -3656,7 +3654,8 @@ __metadata:
   resolution: "@roots/bud-react@workspace:packages/@roots/bud-react"
   dependencies:
     "@babel/core": 7.15.8
-    "@babel/preset-react": 7.14.5
+    "@babel/plugin-syntax-jsx": ^7.16.0
+    "@babel/preset-react": ^7.16.0
     "@pmmmwh/react-refresh-webpack-plugin": 0.5.1
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
@@ -7267,7 +7266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.30.0":
+"babel-plugin-jsx-dom-expressions@npm:^0.30.3":
   version: 0.30.3
   resolution: "babel-plugin-jsx-dom-expressions@npm:0.30.3"
   dependencies:
@@ -7372,11 +7371,11 @@ __metadata:
   linkType: hard
 
 "babel-preset-solid@npm:^1.1.7":
-  version: 1.2.0
-  resolution: "babel-preset-solid@npm:1.2.0"
+  version: 1.2.1
+  resolution: "babel-preset-solid@npm:1.2.1"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.30.0
-  checksum: fcfe9fc4dfaefa14e303f44723e27d9d0000aa6f93660f12fdb8067e9973e80fd1e7af22b5e768328bf9da25579007bf51ec10f00556fc497000b06ccc682fb2
+    babel-plugin-jsx-dom-expressions: ^0.30.3
+  checksum: adc1540f1f34385842adcdbb561f474b635da36d13bf324ae9115cc9875ae91ad61be4fc112a6c450d9ee345ae7b005b68a42ce28a6d1dbf0fb1022a89dd58e2
   languageName: node
   linkType: hard
 
@@ -11234,6 +11233,9 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -11245,6 +11247,13 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@types/react": 17.0.32
+    "@types/react-dom": 17.0.10
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    react: 17.0.2
+    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -11299,6 +11308,10 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 

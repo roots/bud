@@ -41,5 +41,3 @@ declare module '@roots/bud-framework' {
 }
 
 export const {name, api, boot} = BudPostCssExtension
-export {PostCssConfig}
-export type {BudPostCssExtension}

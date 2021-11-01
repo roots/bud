@@ -30,7 +30,7 @@ describe('@roots/bud-extensions Controller', function () {
   }
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   afterAll(done => {

@@ -8,6 +8,4 @@
  * @packageDocumentation
  */
 
-import {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'
-
-export {EntrypointsWebpackPlugin}
+export {EntrypointsWebpackPlugin} from './EntrypointsWebpackPlugin'

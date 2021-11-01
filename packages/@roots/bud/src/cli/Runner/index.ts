@@ -93,7 +93,11 @@ export class Runner {
     await this.app.extensions.registerExtensions()
     await this.app.extensions.bootExtensions()
     await dynamic.config(this.app)
-    await manifest.config(this.app)
+    await manifest.config(this.app, 'configs.json.global.config')
+    await manifest.config(
+      this.app,
+      'configs.json.conditional.config',
+    )
     await flags.config(this.app, this.flags)
 
     return this.app

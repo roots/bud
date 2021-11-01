@@ -5,7 +5,7 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(async () => {
-      bud = await factory()
+      bud = await factory({config: {ci: true, log: false}})
     })
 
     afterAll(done => {
@@ -55,7 +55,7 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(async () => {
-      bud = await factory()
+      bud = await factory({config: {ci: true, log: false}})
       bud.extensions.remove('html-webpack-plugin')
       bud.store.set('html', false)
     })
@@ -92,7 +92,7 @@ describe('bud.template', function () {
     let bud: Framework
 
     beforeAll(async () => {
-      bud = await factory()
+      bud = await factory({config: {ci: true, log: false}})
     })
 
     afterAll(done => {

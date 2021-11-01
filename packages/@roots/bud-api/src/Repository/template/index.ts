@@ -1,12 +1,12 @@
 import type {Framework} from '@roots/bud-framework'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import {isBoolean, isUndefined} from 'lodash'
 
+import {isUndefined} from '../../services/lodash'
 import {BudHtmlWebpackPlugin} from './BudHtmlWebpackPlugin'
 import * as BudInterpolateHtmlPlugin from './BudInterpolateHtmlPlugin'
 
 export interface template {
-  (this: Framework, userOptions?: Options | boolean): Framework
+  (this: Framework, userOptions?: Options): Framework
 }
 
 /**
@@ -15,6 +15,11 @@ export interface template {
  * @public @config
  */
 interface Options extends HtmlOptions {
+  /**
+   * Explicitly enable or disable html templating.
+   */
+  enabled?: boolean
+
   /**
    * Path to an HTML template to use. If none is supplied
    * one is provided as a default.
@@ -53,18 +58,11 @@ interface Options extends HtmlOptions {
  * })
  * ```
  *
- * @public
+ * @public @config
  */
 export const template: template = function (
-  options?: Options | boolean,
+  userOptions?: Options,
 ): Framework {
-  if (options === false) {
-    this.store.set('html', false)
-    return this
-  }
-
-  this.store.set('html', true)
-
   /**
    * Add {@link BudHtmlWebpackPlugin} if it isn't already added
    */
@@ -77,17 +75,54 @@ export const template: template = function (
   !this.extensions.has('interpolate-html-plugin') &&
     this.extensions.add(BudInterpolateHtmlPlugin)
 
-  if (isUndefined(options) || isBoolean(options)) return this
+  /**
+   * Set {@link Framework.store.repository.html} to true if the {@link Options.enabled}
+   * property was left unspecified.
+   */
+  this.store.set(
+    'html',
+    isUndefined(userOptions?.enabled) ||
+      userOptions.enabled === true,
+  )
 
-  this.extensions
-    .get('html-webpack-plugin')
-    .options.merge(options)
+  /**
+   * If there were no {@link Options} specified, we're done.
+   */
+  if (!userOptions) return this
 
-  if (!options.replace) return this
+  /**
+   * Remove the {@link Options.enabled} property
+   */
+  Object.assign(userOptions, {
+    ...userOptions,
+    enabled: undefined,
+  })
 
-  this.extensions
-    .get('interpolate-html-plugin')
-    .options.merge(options.replace)
+  /**
+   * Set {@link HtmlOptions}
+   */
+  const htmlPlugin = this.extensions.get('html-webpack-plugin')
+  htmlPlugin.set('options', {
+    ...htmlPlugin.options.all(),
+    ...userOptions,
+  })
+
+  /**
+   * If there are no {@link Options.replace} specified, we're done.
+   */
+  if (!userOptions.replace) return this
+
+  /**
+   * Set {@link InterpolateHtmlPlugin.Options}
+   */
+  const interpolatePlugin = this.extensions.get(
+    'interpolate-html-plugin',
+  )
+
+  interpolatePlugin.set('options', {
+    ...interpolatePlugin.options.all(),
+    ...userOptions.replace,
+  })
 
   return this
 }

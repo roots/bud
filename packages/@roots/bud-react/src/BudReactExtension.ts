@@ -1,3 +1,4 @@
+import * as Babel from '@roots/bud-babel'
 import type {Extension} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
@@ -28,8 +29,8 @@ export const BudReactExtension: BudReactExtension = {
    */
   name: '@roots/bud-react',
 
-  register: app => {
-    app.use(['@roots/bud-babel'])
+  register(app) {
+    app.use(Babel)
   },
 
   /**
@@ -37,7 +38,10 @@ export const BudReactExtension: BudReactExtension = {
    * @public
    */
   boot: app => {
-    app.babel.setPresets(['@babel/preset-react'])
+    app.babel.setPreset(
+      '@babel/preset-react',
+      require.resolve('@babel/preset-react'),
+    )
 
     app.when(app.isDevelopment, app => {
       app.hooks

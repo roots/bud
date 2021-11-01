@@ -76,6 +76,7 @@ export class Extensions
 
     await Promise.all(
       this.getValues().map(async (controller: Controller) => {
+        this.app.await(controller.name)
         await controller.register()
       }),
     )
@@ -90,11 +91,16 @@ export class Extensions
   public async bootExtensions(): Promise<void> {
     this.app.time('booting extensions')
 
-    await Promise.all(
-      this.getValues().map(async (controller: Controller) => {
-        await controller.boot()
-      }),
-    )
+    try {
+      await Promise.all(
+        this.getValues().map(async (controller: Controller) => {
+          this.app.await(controller.name)
+          await controller.boot()
+        }),
+      )
+    } catch (err) {
+      this.app.error(err)
+    }
 
     this.app.timeEnd('booting extensions')
   }
@@ -129,7 +135,8 @@ export class Extensions
     const plugins = [
       ...extensions
         .filter(
-          (controller: Controller) => controller.module.make,
+          (controller: Controller) =>
+            controller.module.make && controller.when,
         )
         .map((controller: Controller) => {
           this.app.info(

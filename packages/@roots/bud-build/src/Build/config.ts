@@ -219,12 +219,11 @@ export function config(app: Framework): void {
     )
     .hooks.on('build/resolve/modules', () => [
       ...new Set([
-        app.path('src'),
-        app.path('modules'),
+        app.hooks.filter('location/src'),
+        app.hooks.filter('location/modules'),
         ...(app.project?.get('resolve') ??
           app.parent?.project.get('resolve') ??
           []),
-        app.hooks.filter('location/modules'),
       ]),
     ])
 
