@@ -1,2 +1,1 @@
-module.exports = app =>
-  app.use('@roots/bud-vue').entry('app', ['app.vue']).minimize()
+module.exports = app => app.entry('app', ['app.vue']).minimize()

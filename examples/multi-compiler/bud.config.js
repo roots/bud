@@ -1,10 +1,4 @@
 module.exports = async app => {
-  app
-    .use('@roots/bud-babel')
-    .setPath('dist', 'dist/global')
-    .entry('global', ['global.js', 'global.css'])
-    .minimize()
-
   await app.make('theme', async theme => {
     theme
       .use('@roots/bud-babel')

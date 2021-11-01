@@ -1,7 +1,7 @@
 import '@roots/bud-api'
 
 import {config, factory, Framework} from '@roots/bud'
-import * as Sage from '@roots/sage'
+import Sage from '@roots/sage'
 
 describe('@roots/sage', () => {
   let SAGE_DIR = process.cwd().concat('/examples/sage')

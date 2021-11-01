@@ -1,5 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import * as BudPostCssExtension from '@roots/bud-postcss'
+import BudPostCssExtension from '@roots/bud-postcss'
 
 describe('@roots/bud-postcss', () => {
   let bud: Framework
@@ -23,7 +23,7 @@ describe('@roots/bud-postcss', () => {
   beforeAll(async () => {
     bud = await factory()
 
-    bud.use([BudPostCssExtension])
+    bud.use(BudPostCssExtension)
     bud.postcss.setPlugins(mock.plugins as any)
   })
 

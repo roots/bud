@@ -1,22 +1,33 @@
-import {factory, Framework} from '@roots/bud'
+import {define} from '@roots/bud-api/src/Repository/define'
+import {Store} from '@roots/bud-framework'
 
 describe('bud.config', function () {
-  let bud: Framework
+  const definition = {foo: 'bar'}
+  const all = jest.fn(() => definition)
+  const get = (name: string) => {
+    let store = {}
+    return {
+      options: {
+        all: () => store,
+        mergeStore: values => {
+          store = values
+        },
+      },
+    }
+  }
 
-  beforeAll(async () => {
-    bud = await factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
-  })
+  const bud = {
+    extensions: {
+      get: jest.fn(get),
+    },
+  }
 
   it('is a function', () => {
-    expect(bud.define).toBeInstanceOf(Function)
+    expect(define).toBeInstanceOf(Function)
   })
 
   it('modifies bud.store', () => {
-    bud.define({foo: 'bar'})
+    define.bind(bud)({foo: 'bar'})
 
     expect(
       bud.extensions.get('webpack-define-plugin').options.all(),

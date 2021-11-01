@@ -108,15 +108,16 @@ describe('bud.template', function () {
       bud.template({template: 'src/foo.html'})
 
       expect(
-        bud.extensions.get('html-webpack-plugin').options
-          .template,
+        bud.extensions
+          .get('html-webpack-plugin')
+          .options.get('template'),
       ).toBe('src/foo.html')
     })
 
     it('has expected options after changes', async () => {
       bud.template({template: 'src/foo.html'})
       expect(
-        bud.extensions.get('html-webpack-plugin').get('options'),
+        bud.extensions.get('html-webpack-plugin').options,
       ).toEqual({
         alwaysWriteToDisk: true,
         inject: true,

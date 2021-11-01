@@ -1,6 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import * as BudBabel from '@roots/bud-babel'
-import * as BudReact from '@roots/bud-react'
+import BudReact from '@roots/bud-react'
 
 describe('@roots/bud-react', () => {
   let bud: Framework = null
@@ -20,12 +19,6 @@ describe('@roots/bud-react', () => {
 
   beforeAll(async () => {
     bud = await factory()
-
-    bud.project
-      .set('manifest.devDependencies', mock.devDependencies)
-      .set('manifest.dependencies', mock.dependencies)
-
-    bud.use([BudBabel, BudReact])
   })
 
   afterAll(done => {
@@ -36,10 +29,8 @@ describe('@roots/bud-react', () => {
     expect(BudReact.name).toBe('@roots/bud-react')
   })
 
-  it('sets up babel plugin', () => {
-    expect(bud.babel.presets['@babel/preset-react']).toEqual([
-      '@babel/preset-react',
-      {},
-    ])
-  })
+  test.todo('react-refresh')
+  test.todo('react')
+  test.todo('register')
+  test.todo('boot')
 })

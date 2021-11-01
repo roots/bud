@@ -1,5 +1,5 @@
 import {Bud, config, factory} from '@roots/bud'
-import * as BudSassExtension from '@roots/bud-sass'
+import BudSassExtension from '@roots/bud-sass'
 
 jest.setTimeout(20000)
 
@@ -30,6 +30,7 @@ describe('@roots/bud-sass', () => {
         },
       },
     })
+
     bud.use([BudSassExtension])
   })
 

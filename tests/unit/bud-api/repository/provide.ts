@@ -19,9 +19,7 @@ describe('bud.provide', function () {
     bud.provide({jQuery: '$'})
 
     expect(
-      bud.hooks.filter(
-        'extension/webpack-provide-plugin/options',
-      ),
+      bud.extensions.get('webpack-provide-plugin').options.all(),
     ).toEqual({$: 'jQuery'})
   })
 
@@ -29,9 +27,7 @@ describe('bud.provide', function () {
     bud.provide({jQuery: ['$', 'jquery']})
 
     expect(
-      bud.hooks.filter(
-        'extension/webpack-provide-plugin/options',
-      ),
+      bud.extensions.get('webpack-provide-plugin').options.all(),
     ).toEqual({
       $: 'jQuery',
       jquery: 'jQuery',

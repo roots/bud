@@ -54,6 +54,10 @@ export class Controller {
     this.module = module
   }
 
+  public get(key: string): any {
+    return this.module[key]
+  }
+
   public get name(): string {
     return this.module.name
   }

@@ -1,4 +1,4 @@
-import {isArray, isString} from './use.dependencies'
+import {isArray} from './use.dependencies'
 import type {Framework, Source} from './use.interface'
 import {generateName, isCompilerPlugin} from './use.utilities'
 
@@ -45,80 +45,22 @@ export interface use {
  *
  * @public
  */
-export const use: use = function (
-  source: Source | string | Array<string>,
-): Framework {
-  const bud = this as Framework
-
+export const use: use = function (source) {
   const addExtension = (source: Source) => {
-    source = isCompilerPlugin(source)
-      ? {
-          name: source.name ?? generateName(source),
-          make: () => source,
-        }
-      : {
-          name: source.name ?? generateName(source),
-          ...source,
-        }
-
-    if (bud.extensions.has(source.name)) {
-      bud.log(`${source.name} already included in compilation`)
-      return this
+    if (!source.hasOwnProperty('name')) {
+      source.name = generateName(source)
     }
 
-    bud.extensions.add(source)
-  }
-
-  if (
-    (isString(source) && bud.extensions.has(source)) ||
-    (isArray(source) &&
-      source.every(isString) &&
-      source.every(bud.extensions.has))
-  ) {
-    source = isArray(source) ? source : [source]
-
-    source.forEach(source =>
-      bud.info(
-        `extension ${source} already included in compilation. skipping.`,
-      ),
+    this.extensions.add(
+      isCompilerPlugin(source)
+        ? {...source, make: () => source}
+        : source,
     )
-
-    return this
   }
 
-  if (isString(source)) {
-    addExtension(require(source))
-    return this
-  }
-
-  if (isArray(source) && source.every(isString)) {
-    source = source.map(s => {
-      const extension = require(s)
-      addExtension(extension)
-    })
-    return this
-  }
-
-  if (!isArray(source) && !isString(source)) {
-    if (source.name && bud.extensions.has(source.name)) {
-      bud.log(`${source} already included in compilation`)
-      return this
-    }
-
-    addExtension(source)
-    return this
-  }
-
-  source.map(extension => {
-    if (extension.name && bud.extensions.has(extension.name)) {
-      bud.log(
-        `${extension.name} already included in compilation`,
-      )
-      return
-    }
-
-    addExtension(extension)
-  })
+  !isArray(source)
+    ? addExtension(source)
+    : source.forEach(addExtension)
 
   return this
 }

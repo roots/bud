@@ -1,5 +1,5 @@
 import {factory, Framework} from '@roots/bud'
-import * as Babel from '@roots/bud-babel'
+import Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 describe('bud.use', function () {

@@ -725,7 +725,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Configuration
+  config?: Partial<Configuration>
 
   /**
    * Framework services
