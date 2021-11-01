@@ -11233,9 +11233,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 
