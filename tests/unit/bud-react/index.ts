@@ -22,8 +22,8 @@ describe('@roots/bud-react', () => {
     bud = await factory()
 
     bud.project
-      .set('devDependencies', mock.devDependencies)
-      .set('dependencies', mock.dependencies)
+      .set('manifest.devDependencies', mock.devDependencies)
+      .set('manifest.dependencies', mock.dependencies)
 
     bud.use([BudBabel, BudReact])
   })

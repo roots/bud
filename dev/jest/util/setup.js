@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 // @ts-check
 
-const execa = require('execa')
 const chalk = require('chalk')
+const fs = require('fs-extra')
+const execa = require('execa')
 const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
@@ -11,43 +12,53 @@ module.exports = async () => {
 
   const examples = await paths()
 
-  await Promise.all(
-    examples.map(async ex => {
-      try {
-        const init = execa.command(`yarn bud init`, {
-          cwd: ex.cwd,
-        })
-        init.on('data', data =>
-          process.stdout.write(
-            chalk.blue`${ex.name}`.concat(` | `).concat(data),
-          ),
-        )
-        init.on('err', data =>
-          process.stdout.write(
-            chalk.blue`${ex.name}`.concat(` | `).concat(data),
-          ),
-        )
-        await init
-      } catch (err) {
-        console.log(err)
-      }
+  console.log(chalk.blue`\ninitializing\n`)
 
-      return ex
+  await Promise.allSettled(
+    examples.map(async ex => {
+      const init = execa.command(`yarn bud init`, {
+        cwd: ex.cwd,
+      })
+
+      await init
+        .then(() => console.log(chalk.green`${ex.name}`))
+        .catch(async err => {
+          await fs.writeFile(
+            ex.cwd.concat('/err.log'),
+            err.stdout,
+          )
+          console.log(chalk.red`${ex.name}`)
+        })
+
+      const killed = init.kill()
+      killed && console.log(`${ex.name} build killed`)
+
+      Promise.resolve()
     }),
   )
 
-  await Promise.all(
-    examples.map(async ex => {
-      try {
-        const build = execa.command(`yarn bud build`, {
-          cwd: ex.cwd,
-        })
-        await build
-      } catch (err) {
-        console.log(err)
-      }
+  console.log(chalk.blue`\nbuilding\n`)
 
-      return ex
+  await Promise.allSettled(
+    examples.map(async ex => {
+      const build = execa.command(`yarn bud build`, {
+        cwd: ex.cwd,
+      })
+
+      await build
+        .then(() => console.log(chalk.green`${ex.name}`))
+        .catch(async err => {
+          await fs.writeFile(
+            ex.cwd.concat('/err.log'),
+            err.stdout,
+          )
+          console.log(chalk.red`${ex.name}`)
+        })
+
+      const killed = build.kill()
+      killed && console.log(`${ex.name} build killed`)
+
+      Promise.resolve()
     }),
   )
 

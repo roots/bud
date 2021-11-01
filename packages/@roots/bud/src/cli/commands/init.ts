@@ -1,4 +1,5 @@
-import {chalk, execa} from '@roots/bud-support'
+import chalk from 'chalk'
+import execa from 'execa'
 
 import type {Bud} from '../../Bud'
 import {Command} from '../Command'

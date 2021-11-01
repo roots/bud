@@ -8,7 +8,7 @@
 /.npmrc
 /packages/@roots/*/types
 /site/api/*
-/dev/jest/util/.tmp
+/examples/*/*.bkup.json
 
 # jest
 coverage

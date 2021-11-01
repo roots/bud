@@ -860,7 +860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.14.5":
+"@babel/plugin-syntax-jsx@npm:7.14.5, @babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.14.5":
   version: 7.14.5
   resolution: "@babel/plugin-syntax-jsx@npm:7.14.5"
   dependencies:
@@ -3082,6 +3082,15 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    "@types/react": 17.0.32
+    "@types/react-dom": 17.0.10
+    "@wordpress/browserslist-config": 4.1.0
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    react: 17.0.2
+    react-dom: 17.0.2
+    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -3102,6 +3111,7 @@ __metadata:
     html-webpack-plugin: 5.4.0
     lodash: 4.17.21
     nanoid: 3.1.30
+    npm-run-path: ^5.0.1
     tslib: ^2.3.1
     webpack: 5.59.1
   languageName: unknown
@@ -3253,7 +3263,7 @@ __metadata:
     "@types/react-router-dom": 5.3.1
     clsx: 1.1.1
     file-loader: 6.2.0
-    jest: ^27.3.1
+    jest: 27.3.1
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
@@ -3897,6 +3907,7 @@ __metadata:
     "@types/node": 16.11.4
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: ^9.0.1
+    execa: 5.1.1
     helpful-decorators: ^2.1.0
     html-webpack-plugin: ^5.4.0
     mini-css-extract-plugin: ^2.4.3
@@ -4050,15 +4061,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/eslint": 7.28.2
-    "@types/jest": 27.0.2
     "@types/lodash": 4.14.176
     "@types/node": 16.11.4
-    autobind-decorator: ^2.4.0
-    eslint: 7.32.0
-    jest: 27.3.1
+    helpful-decorators: ^2.1.0
     lodash: ^4.17.21
     tslib: ^2.3.1
     webpack: 5.59.1
@@ -4555,7 +4561,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7.2.14":
+"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7, @types/eslint@npm:^7.2.14":
   version: 7.28.2
   resolution: "@types/eslint@npm:7.28.2"
   dependencies:
@@ -4887,7 +4893,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.10":
+"@types/react-dom@npm:17.0.10, @types/react-dom@npm:^17":
   version: 17.0.10
   resolution: "@types/react-dom@npm:17.0.10"
   dependencies:
@@ -4984,11 +4990,11 @@ __metadata:
   linkType: hard
 
 "@types/sass@npm:^1":
-  version: 1.16.1
-  resolution: "@types/sass@npm:1.16.1"
+  version: 1.43.0
+  resolution: "@types/sass@npm:1.43.0"
   dependencies:
     "@types/node": "*"
-  checksum: 3f86d2eaf4988a2775fc0fc164d35e73ce82d71228191da7b11d97ad5e8ac129f1c5f798307e31482f8cfebab758bd3b24e731860bed81afe5a1bbe13fa2b2df
+  checksum: a362349c157fb319f2f27fa1fc0f2e0dee3d8fb249b6914047a227319f08197bc3f0a5e909a520478ed9048a241dbf53b75ecb58b299077bd3efd8324a44f297
   languageName: node
   linkType: hard
 
@@ -7541,12 +7547,14 @@ __metadata:
     ink-testing-library: 2.1.0
     jest: 27.3.1
     lodash: 4.17.21
+    npm-run-path: ^5.0.1
     prettier: 2.4.1
     pretty-format: ^27.3.1
     react: 17.0.2
     react-dom: 17.0.2
     react-reconciler: 0.26.2
     rimraf: 3.0.2
+    shebang-command: ^2.0.0
     signale: 1.4.0
     ts-jest: 27.0.7
     ts-node: 10.4.0
@@ -10591,7 +10599,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.32.0":
+"eslint@npm:7.32.0, eslint@npm:^7":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -10786,6 +10794,10 @@ __metadata:
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -10793,10 +10805,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-emotion@workspace:examples/emotion"
   dependencies:
+    "@emotion/css": 11.5.0
+    "@emotion/react": 11.5.0
+    "@emotion/styled": 11.3.0
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@types/react": ^17
+    "@types/react-dom": ^17
+    react: ">=17.0.2"
+    react-dom: ">=17.0.2"
   languageName: unknown
   linkType: soft
 
@@ -10883,6 +10902,13 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@types/react": 17.0.32
+    "@types/react-dom": 17.0.10
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    react: 17.0.2
+    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -10892,6 +10918,19 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
+    "@types/eslint": 7.28.2
+    "@types/prettier": 2.4.1
+    "@types/react": 17.0.32
+    "@types/react-dom": 17.0.10
+    "@wordpress/browserslist-config": 4.1.0
+    eslint: 7.32.0
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-preset-env: 6.7.0
+    prettier: 2.4.1
+    react: 17.0.2
+    react-dom: 17.0.2
+    tailwindcss: 2.2.8
   languageName: unknown
   linkType: soft
 
@@ -10910,9 +10949,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-solid@workspace:examples/solid"
   dependencies:
+    "@babel/plugin-syntax-jsx": 7.14.5
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-solid": "workspace:*"
+    solid-js: ^1.1.7
   languageName: unknown
   linkType: soft
 
@@ -10942,6 +10983,9 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-typescript": "workspace:*"
+    "@types/eslint": ^7
+    eslint: ^7
+    typescript: ^4
   languageName: unknown
   linkType: soft
 
@@ -10951,6 +10995,9 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-vue": "workspace:*"
+    "@vue/compiler-sfc": 3.2.20
+    "@vue/runtime-dom": 3.2.20
+    vue: 3.2.20
   languageName: unknown
   linkType: soft
 
@@ -14641,7 +14688,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest@npm:27.3.1, jest@npm:^27.3.1":
+"jest@npm:27.3.1":
   version: 27.3.1
   resolution: "jest@npm:27.3.1"
   dependencies:
@@ -16885,6 +16932,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"npm-run-path@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "npm-run-path@npm:5.0.1"
+  dependencies:
+    path-key: ^4.0.0
+  checksum: 176daed52660122c1c56be3dbc13b8199b5ad29243fc11836856bb9acf9dc333d9c80b1b734212db5e0bc7f0517df0fb6ae59096f193da8ea9844a590e17de9d
+  languageName: node
+  linkType: hard
+
 "npmlog@npm:^4.1.2":
   version: 4.1.2
   resolution: "npmlog@npm:4.1.2"
@@ -17630,6 +17686,13 @@ fsevents@^1.2.7:
   version: 3.1.1
   resolution: "path-key@npm:3.1.1"
   checksum: 55cd7a9dd4b343412a8386a743f9c746ef196e57c823d90ca3ab917f90ab9f13dd0ded27252ba49dbdfcab2b091d998bc446f6220cd3cea65db407502a740020
+  languageName: node
+  linkType: hard
+
+"path-key@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "path-key@npm:4.0.0"
+  checksum: 8e6c314ae6d16b83e93032c61020129f6f4484590a777eed709c4a01b50e498822b00f76ceaf94bc64dbd90b327df56ceadce27da3d83393790f1219e07721d7
   languageName: node
   linkType: hard
 
@@ -21105,6 +21168,13 @@ resolve@~1.19.0:
   languageName: node
   linkType: hard
 
+"solid-js@npm:^1.1.7":
+  version: 1.2.0
+  resolution: "solid-js@npm:1.2.0"
+  checksum: a462ba6ea10139c728eca7f280fd08535079b762b77a7afd9071644cae4fa3ef5554342696da9fcb8fc8ee5bb214eb517c1f2b0f3d0905b94bb795f701e136b0
+  languageName: node
+  linkType: hard
+
 "sort-css-media-queries@npm:2.0.4":
   version: 2.0.4
   resolution: "sort-css-media-queries@npm:2.0.4"
@@ -22025,6 +22095,51 @@ resolve@~1.19.0:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
   checksum: a0bff1a014f5283676faca321a60c6e97c5512d42f3fe89aae04dffde2b1425c47b7cc3562ee16a9d748fb5cb3a2b8782845c6d8c815de293c4ed6c035b024b0
+  languageName: node
+  linkType: hard
+
+"tailwindcss@npm:2.2.8":
+  version: 2.2.8
+  resolution: "tailwindcss@npm:2.2.8"
+  dependencies:
+    arg: ^5.0.1
+    bytes: ^3.0.0
+    chalk: ^4.1.2
+    chokidar: ^3.5.2
+    color: ^4.0.1
+    cosmiconfig: ^7.0.0
+    detective: ^5.2.0
+    didyoumean: ^1.2.2
+    dlv: ^1.1.3
+    fast-glob: ^3.2.7
+    fs-extra: ^10.0.0
+    glob-parent: ^6.0.1
+    html-tags: ^3.1.0
+    is-glob: ^4.0.1
+    lodash: ^4.17.21
+    lodash.topath: ^4.5.2
+    modern-normalize: ^1.1.0
+    node-emoji: ^1.11.0
+    normalize-path: ^3.0.0
+    object-hash: ^2.2.0
+    postcss-js: ^3.0.3
+    postcss-load-config: ^3.1.0
+    postcss-nested: 5.0.6
+    postcss-selector-parser: ^6.0.6
+    postcss-value-parser: ^4.1.0
+    pretty-hrtime: ^1.0.3
+    purgecss: ^4.0.3
+    quick-lru: ^5.1.1
+    reduce-css-calc: ^2.1.8
+    resolve: ^1.20.0
+    tmp: ^0.2.1
+  peerDependencies:
+    autoprefixer: ^10.0.2
+    postcss: ^8.0.9
+  bin:
+    tailwind: lib/cli.js
+    tailwindcss: lib/cli.js
+  checksum: 13a77e79b8bbc83c2e952f2e69c2811c3a332808354c8d70d86c79b4c9cb513c42ea3b5c09a77b4655c3dbed92dbd0227043cba3dc68bb8928601388aec82b06
   languageName: node
   linkType: hard
 
@@ -24484,5 +24599,8 @@ yoga-layout-prebuilt@*:
   version: 2.0.2
   resolution: "zwitch@npm:2.0.2"
   checksum: 8edd7af8375f12f64d8dbef815af32cd77bd9237d0b013210ba4e3aef25fdc460fe264cd0a19deabe9f86ef0c607240ebac1a336bf4a70bf06ef53e0652de116
+  languageName: node
+  linkType: hard
+264cd0a19deabe9f86ef0c607240ebac1a336bf4a70bf06ef53e0652de116
   languageName: node
   linkType: hard

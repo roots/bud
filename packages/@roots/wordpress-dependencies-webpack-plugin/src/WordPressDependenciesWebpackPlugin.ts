@@ -1,6 +1,6 @@
 import {wpPkgs} from '@roots/bud-support'
-import {boundMethod as bind} from 'autobind-decorator'
-import * as Webpack from 'webpack'
+import {bind} from 'helpful-decorators'
+import Webpack from 'webpack'
 
 namespace WordPressDependencies {
   export interface Manifest {

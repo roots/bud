@@ -20,12 +20,17 @@ module.exports = async () => {
     OPTIONS,
   )
 
-  await fs.remove(
-    path.join(process.cwd(), 'dev', 'jest', 'util', '.tmp/'),
+  const manifests = await globby(
+    path.join(process.cwd(), 'examples', '*', 'package.json'),
   )
-  await fs.copy(
-    path.join(process.cwd(), 'examples/'),
-    path.join(process.cwd(), 'dev', 'jest', 'util', '.tmp/'),
+  await Promise.all(
+    manifests.map(async manifestPath => {
+      const manifest = await fs.readFile(manifestPath, 'utf8')
+      await fs.writeFile(
+        manifestPath.replace('.json', '.bkup.json'),
+        manifest,
+      )
+    }),
   )
 
   await Promise.all(

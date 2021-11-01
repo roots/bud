@@ -17,13 +17,18 @@
  * @packageDocumentation @betaDocumentation
  */
 
+import type {Item, Loader} from '@roots/bud-build'
+
+import {BudPostCssExtension} from './BudPostCssExtension'
+import {PostCssConfig} from './PostCssConfig'
+
 declare module '@roots/bud-framework' {
   interface Framework {
     postcss: PostCssConfig
   }
 
   interface Modules {
-    '@roots/bud-postcss': BudPostCssExtension
+    '@roots/bud-postcss': typeof BudPostCssExtension
   }
 
   interface Loaders {
@@ -34,11 +39,6 @@ declare module '@roots/bud-framework' {
     postcss: Item
   }
 }
-
-import type {Item, Loader} from '@roots/bud-build'
-
-import {BudPostCssExtension} from './BudPostCssExtension'
-import {PostCssConfig} from './PostCssConfig'
 
 export const {name, api, boot} = BudPostCssExtension
 export {PostCssConfig}

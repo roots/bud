@@ -9,24 +9,14 @@ import {PostCssConfig} from '../PostCssConfig'
 
 const {pathExists} = fs
 
-export interface BudPostCssExtension extends Extension.Module {
-  name: Extension.Module['name'] & '@roots/bud-postcss'
-
-  api: Extension.Module['api'] & {
-    postcss: PostCssConfig
-  }
-
-  boot: Extension.Module['boot']
-}
-
-export const BudPostCssExtension: BudPostCssExtension = {
+export const BudPostCssExtension: Extension.Module = {
   name: '@roots/bud-postcss',
 
   api: {
     postcss: new PostCssConfig(),
   },
 
-  register: function () {},
+  register: async () => {},
 
   boot: async function ({build, path, postcss, warn, project}) {
     const hasPostCssConfig = await pathExists(
