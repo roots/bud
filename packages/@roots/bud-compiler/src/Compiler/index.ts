@@ -95,13 +95,12 @@ export class Compiler extends Service implements Contract {
       stats && Object.assign(this.stats, stats.toJson())
 
       if (this.app.isProduction) {
-        this.app.close(() => {
-          this.instance.close(err => {
-            if (err) {
-              this.stats.errors.push(err)
-              this.app.error(err)
-            }
-          })
+        this.instance.close(err => {
+          if (err) {
+            this.stats.errors.push(err)
+            this.app.error(err)
+          }
+          this.app.close(() => {})
         })
       }
     })

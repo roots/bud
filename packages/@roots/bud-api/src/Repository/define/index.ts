@@ -26,11 +26,13 @@ export function define(
   this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
-  this.extensions
-    .get('webpack-define-plugin')
-    .options.mergeStore({
-      ...values,
-    })
+  const options = this.extensions.get(
+    'webpack-define-plugin',
+  ).options
+
+  Object.entries(values).forEach(([k, v]) => {
+    options.set(k, v)
+  })
 
   return this
 }

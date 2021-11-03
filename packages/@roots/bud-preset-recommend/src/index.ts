@@ -34,6 +34,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, register} = BudPresetRecommend
-
+export const {name} = BudPresetRecommend
 export type {BudPresetRecommend}

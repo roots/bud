@@ -11225,10 +11225,6 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
-    postcss: 8.3.11
-    postcss-import: 14.0.2
-    postcss-nested: 5.0.6
-    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -11238,6 +11234,10 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 6.7.0
   languageName: unknown
   linkType: soft
 

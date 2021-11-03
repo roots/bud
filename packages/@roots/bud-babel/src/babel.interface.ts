@@ -10,5 +10,5 @@ export type Plugin = string | NormalizedPlugin | CallableFunction
 export type Registrable = string | NormalizedPlugin
 
 export interface Registry {
-  [key: string]: [string, any]
+  [key: string]: [string, any?]
 }

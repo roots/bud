@@ -1,7 +1,6 @@
 import {Bud, factory} from '@roots/bud'
 import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
-import {Container} from '@roots/container'
 import {WebpackPluginInstance} from 'webpack/types'
 
 describe('@roots/bud-extensions Controller', function () {
@@ -78,30 +77,12 @@ describe('@roots/bud-extensions Controller', function () {
     expect(controller.module.boot).toHaveBeenCalled()
   })
 
-  it('set fn returns expected value', () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
-
-    const container = new Container({foo: 'bap'})
-    controller.options = container
-
-    expect(controller.options).toEqual(container)
-  })
-
   it('module options are registered', () => {
     bud.use(mockModule)
 
     expect(
       bud.extensions.get('@roots/bud-postcss').get('options'),
-    ).toBeInstanceOf(Container)
-
-    expect(
-      bud.extensions.get('@roots/bud-postcss').options,
-    ).toBe(
-      bud.extensions.get('@roots/bud-postcss').get('options'),
-    )
+    ).toBeInstanceOf(Object)
   })
 
   it('Controller options are undefined when not set in module', () => {
@@ -109,12 +90,12 @@ describe('@roots/bud-extensions Controller', function () {
       name: '@roots/bud-null',
     })
 
-    expect(controller.options).toEqual(undefined)
+    expect(controller.options.all()).toEqual({})
   })
 
   it('controller.make returns webpack plugin', () => {
     const controller = new Controller(bud, mockModule)
 
-    expect(controller.make).toBe(mockWebpackPlugin)
+    expect(controller.make()).toBe(mockWebpackPlugin)
   })
 })

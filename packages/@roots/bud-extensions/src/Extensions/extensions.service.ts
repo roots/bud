@@ -42,7 +42,7 @@ export class Extensions
   public async register(): Promise<void> {
     this.app.time('registering base extensions')
     this.getValues().map(extension => {
-      this.add(extension)
+      this.set(extension.name, this.makeController(extension))
     })
     this.app.timeEnd('registering base extensions')
   }
@@ -133,7 +133,10 @@ export class Extensions
    */
   @bind
   public add(extension: Framework.Extension.Module): void {
+    if (this.has(extension.name)) return
+
     this.set(extension.name, this.makeController(extension))
+
     this.app.success(
       extension.name,
       'added to extensions container',

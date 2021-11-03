@@ -91,7 +91,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public bootstrap() {
+  public register() {
     /**
      * Reduces components to their normalized form
      *
@@ -110,19 +110,19 @@ export class Build
     this.loaders = this.app
       .container(loaders)
       .getEntries()
-      .reduce(componentReducer, {}) as Loaders
+      .reduce(componentReducer, this.loaders) as Loaders
 
     // Reduce rules
     this.rules = this.app
       .container(rules)
       .getEntries()
-      .reduce(componentReducer, {}) as Rules
+      .reduce(componentReducer, this.rules) as Rules
 
     // Reduce items
     this.items = this.app
       .container(items)
       .getEntries()
-      .reduce(componentReducer, {}) as Items
+      .reduce(componentReducer, this.items) as Items
 
     config(this.app)
   }

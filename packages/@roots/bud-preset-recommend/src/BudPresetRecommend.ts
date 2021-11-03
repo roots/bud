@@ -1,19 +1,6 @@
+import * as babel from '@roots/bud-babel'
 import {Extension} from '@roots/bud-framework'
-
-/**
- * Recommended preset configuration for Bud.
- *
- * @remarks
- * This preset is a wrapper for the following presets:
- *
- * - {@link @roots/bud-babel# | @roots/bud-babel}
- *
- * - {@link @roots/bud-postcss# | @roots/bud-postcss}
- *
- * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
- *
- * @public
- */
+import * as postcss from '@roots/bud-postcss'
 
 export interface BudPresetRecommend extends Extension.Module {
   name: '@roots/bud-preset-recommend'
@@ -26,4 +13,8 @@ export interface BudPresetRecommend extends Extension.Module {
  */
 export const BudPresetRecommend: BudPresetRecommend = {
   name: '@roots/bud-preset-recommend',
+
+  register: app => {
+    app.use([babel, postcss])
+  },
 }

@@ -24,9 +24,9 @@ export function close(done = process.exit) {
   const ctx = this as Framework
 
   if (ctx.dashboard?.instance?.unmount) {
-    setTimeout(ctx.dashboard?.instance?.unmount, 20)
-    ctx.dashboard?.instance?.waitUntilExit().then(() => done())
-  } else {
-    done()
+    setTimeout(ctx.dashboard?.instance?.unmount, 30)
+    ctx.dashboard?.instance?.waitUntilExit().then(() => {
+      done()
+    })
   }
 }

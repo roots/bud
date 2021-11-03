@@ -1,3 +1,3 @@
 module.exports = async app => {
-  app.entry('main', 'index.{js,css}').minimize()
+  app.entry('app', ['index.{js,css}']).minimize()
 }

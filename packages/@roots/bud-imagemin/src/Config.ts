@@ -14,7 +14,7 @@ export class Config {
   public plugins(plugins: Array<[string, any]>) {
     this.app.extensions
       .get('image-minimizer-webpack-plugin')
-      .options.set('minimizerOptions.plugins', {plugins})
+      .options.set('minimizerOptions.plugins', plugins)
 
     return this.app
   }

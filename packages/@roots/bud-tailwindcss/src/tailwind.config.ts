@@ -37,7 +37,7 @@ export function tailwind(config?: TailwindConfig): Framework {
       : [`config object`]),
   )
 
-  ctx.postcss.plugins = {
+  ctx.postcss.setPlugins({
     'postcss-import': ctx.postcss.plugins['postcss-import'],
     tailwindcss: [
       tailwindcss,
@@ -46,7 +46,7 @@ export function tailwind(config?: TailwindConfig): Framework {
     'postcss-nested': ctx.postcss.plugins['postcss-nested'],
     'postcss-preset-env':
       ctx.postcss.plugins['postcss-preset-env'],
-  }
+  })
 
   return ctx
 }

@@ -1,8 +1,5 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
-import postcssImport from 'postcss-import'
-import postcssNested from 'postcss-nested'
-import postcssPreset from 'postcss-preset-env'
 
 import {PostCssConfig} from '../PostCssConfig'
 
@@ -14,8 +11,6 @@ export const BudPostCssExtension: Extension.Module = {
   }),
 
   register: (app: Framework) => {
-    const {warn, project} = app
-
     app.build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
@@ -38,28 +33,22 @@ export const BudPostCssExtension: Extension.Module = {
       app.build.items.postcss,
     ])
 
-    const installed = project.getKeys('installed')
-    const isInstalled = (plugin: string) =>
-      installed.includes(plugin)
+    app.postcss.setPlugin('postcss-import', [
+      require.resolve('postcss-import'),
+    ])
 
-    isInstalled('postcss-import')
-      ? app.postcss.setPlugin('postcss-import', postcssImport)
-      : warn(`PostCSS plugin 'postcss-import' is not installed`)
+    app.postcss.setPlugin('postcss-nested', [
+      require.resolve('postcss-nested'),
+    ])
 
-    isInstalled('postcss-nested')
-      ? app.postcss.setPlugin('postcss-nested', postcssNested)
-      : warn(`PostCSS plugin 'postcss-nested' is not installed`)
-
-    isInstalled('postcss-preset-env')
-      ? app.postcss.setPlugin('postcss-preset-env', [
-          postcssPreset,
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
-          },
-        ])
-      : warn(`PostCSS plugin 'postcss-nested' is not installed`)
+    app.postcss.setPlugin('postcss-preset-env', [
+      require.resolve('postcss-preset-env'),
+      {
+        stage: 1,
+        features: {
+          'focus-within-pseudo-class': false,
+        },
+      },
+    ])
   },
 }

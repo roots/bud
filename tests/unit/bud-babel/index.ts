@@ -79,7 +79,7 @@ describe('@roots/bud-babel', function () {
     Config.setPlugin('someBabelPlugin', 'someBabelPlugin')
 
     expect(Config.plugins).toEqual({
-      someBabelPlugin: ['someBabelPlugin', undefined],
+      someBabelPlugin: ['someBabelPlugin'],
     })
 
     Config.plugins = {}
@@ -96,7 +96,7 @@ describe('@roots/bud-babel', function () {
 
   it('bud.babel.unsetPlugin functions', () => {
     Config.plugins = {
-      someBabelPlugin: ['someBabelPlugin', undefined],
+      someBabelPlugin: ['someBabelPlugin'],
     }
 
     Config.unsetPlugin('someBabelPlugin')
@@ -106,7 +106,7 @@ describe('@roots/bud-babel', function () {
 
   it('bud.babel.unsetPreset functions', () => {
     Config.presets = {
-      someBabelPreset: ['someBabelPreset', undefined],
+      someBabelPreset: ['someBabelPreset'],
     }
 
     Config.unsetPreset('someBabelPreset')

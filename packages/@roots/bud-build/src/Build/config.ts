@@ -209,14 +209,13 @@ export function config(app: Framework): void {
      */
     .hooks.on('build/resolve', () => ({
       alias: app.hooks.filter('build/resolve/alias'),
-      extensions: app.hooks.filter('build/resolve/extensions'),
+      extensions: app.hooks.filter(
+        'build/resolve/extensions',
+        app.store.get('build.resolve.extensions'),
+      ),
       modules: app.hooks.filter('build/resolve/modules'),
     }))
     .hooks.on('build/resolve/alias', {})
-    .hooks.on(
-      'build/resolve/extensions',
-      app.store.get('build.resolve.extensions'),
-    )
     .hooks.on('build/resolve/modules', () => [
       ...new Set([
         app.hooks.filter('location/src'),

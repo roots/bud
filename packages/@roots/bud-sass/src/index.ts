@@ -36,4 +36,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot} = BudSassExtension
+export const {name, register} = BudSassExtension

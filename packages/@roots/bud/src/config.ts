@@ -155,7 +155,6 @@ export const config: Configuration = {
     parallelism: cpus().length - 1,
     resolve: {
       extensions: [
-        '.html',
         '.wasm',
         '.mjs',
         '.js',
@@ -166,7 +165,6 @@ export const config: Configuration = {
         '.toml',
         '.xml',
         '.csv',
-        '.tsv',
         '.yml',
         '.yaml',
         '.xml',

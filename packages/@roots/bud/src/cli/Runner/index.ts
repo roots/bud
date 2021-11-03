@@ -76,8 +76,8 @@ export class Runner {
       config: {
         ...config,
         ci: this.flags?.ci ?? false,
-        cache: this.flags?.cache !== 'false',
-        clean: this.flags?.clean !== 'false',
+        cache: this.flags?.cache ?? false,
+        clean: this.flags?.clean ?? false,
         ...(this.options?.config ?? {}),
       },
     })
@@ -90,8 +90,6 @@ export class Runner {
    */
   @bind
   public async make() {
-    await this.app.extensions.registerExtensions()
-    await this.app.extensions.bootExtensions()
     await dynamic.config(this.app)
     await manifest.config(this.app, 'configs.json.global.config')
     await manifest.config(

@@ -130,7 +130,8 @@ export class Controller {
    * @public
    */
   public get when() {
-    if (this.module.when === undefined) return true
+    if (typeof this.module.when === 'undefined') return true
+
     if (typeof this.module.when === 'boolean')
       return this.module.when
 
@@ -158,6 +159,8 @@ export class Controller {
    */
   @bind
   public async register(): Promise<this> {
+    if (this.registered || !this.module.register) return this
+
     await this.module.register(this.app)
     this.registered = true
     this.app.success(this.name, 'registered')
@@ -167,6 +170,8 @@ export class Controller {
 
   @bind
   public async api(): Promise<this> {
+    if (!this.module.api) return this
+
     const assignment = isFunction(this.module.api)
       ? this.module.api(this.app)
       : this.module.api
@@ -178,7 +183,8 @@ export class Controller {
 
   @bind
   public async mixin(): Promise<this> {
-    if (!this.module.mixin) return
+    if (!this.module.mixin) return this
+
     try {
       const classMap = await this.module.mixin(this.app)
 
@@ -201,17 +207,17 @@ export class Controller {
    */
   @bind
   public async boot(): Promise<this> {
-    if (this.booted) return this
+    if (this.booted || !this.module.boot) return this
 
     try {
-      if (this.module.boot) await this.module.boot(this.app)
+      await this.module.boot(this.app)
     } catch (err) {
       this.app.error(this.module.name, 'boot', err)
       return this
     }
 
     this.booted = true
-    this.app.success(this.name, 'booted')
+    this.app.success(this.name)
 
     return this
   }

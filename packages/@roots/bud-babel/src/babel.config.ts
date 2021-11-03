@@ -16,7 +16,6 @@ export class Config {
     }
 
     this.presets[name] = [preset, undefined]
-
     return this
   }
 
@@ -59,21 +58,20 @@ export class Config {
   @bind
   public setPlugin(
     name: string,
-    plugin: [string, any] | string,
+    plugin: [any, any] | string,
   ): this {
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
       return this
     }
 
-    this.plugins[name] = [plugin, undefined]
-
+    this.plugins[name] = [plugin]
     return this
   }
 
   @bind
   public setPlugins(plugins: {
-    [key: string]: [string, any] | string
+    [key: string]: [any, any] | string
   }): this {
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => {
@@ -82,7 +80,7 @@ export class Config {
           return plugins
         }
 
-        plugins[name] = [plugin, undefined]
+        plugins[name] = [plugin]
         return plugins
       },
       {},

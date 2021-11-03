@@ -311,10 +311,6 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[10],
-    ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.(js|jsx)$/,
-      use: [],
-    })
+    ).toMatchSnapshot()
   })
 })

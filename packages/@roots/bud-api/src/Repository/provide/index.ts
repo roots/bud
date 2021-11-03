@@ -30,8 +30,9 @@ const provide: provide = function (
   const plugin = ctx.extensions.get('webpack-provide-plugin')
 
   Object.entries(packages).forEach(([k, v]) => {
-    v.forEach(alias => ctx.info(`providing`, k, `=>`, alias))
-    plugin.options.set(k, v)
+    v.forEach(alias => {
+      plugin.options.set(alias, k)
+    })
   })
 
   return ctx

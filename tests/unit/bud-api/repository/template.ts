@@ -100,7 +100,7 @@ describe('bud.template', function () {
     })
 
     it('does not register plugin when explicitly disabled', () => {
-      bud.template({enabled: false})
+      bud.template(false)
       expect(bud.store.is('html', false)).toEqual(true)
     })
 
