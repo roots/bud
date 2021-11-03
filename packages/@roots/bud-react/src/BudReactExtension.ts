@@ -1,4 +1,3 @@
-import * as Babel from '@roots/bud-babel'
 import type {Extension} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
@@ -28,10 +27,6 @@ export const BudReactExtension: BudReactExtension = {
    * @public
    */
   name: '@roots/bud-react',
-
-  register(app) {
-    app.use(Babel)
-  },
 
   /**
    * {@inheritDoc @roots/bud-framework#Extension.Module.boot}

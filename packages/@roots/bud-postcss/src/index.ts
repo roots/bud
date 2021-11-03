@@ -40,4 +40,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, api, boot} = BudPostCssExtension
+export const {name, mixin, register} = BudPostCssExtension

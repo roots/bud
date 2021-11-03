@@ -114,7 +114,7 @@ export class Peers implements Model.Interface {
 
     await Promise.all(
       dependencies.map(async (name: string) => {
-        this.app.success(`new project dependency found`, name)
+        this.app.info(`new project dependency found`, name)
         await this.profileExtension(name)
         return
       }),
@@ -193,6 +193,7 @@ export class Peers implements Model.Interface {
            */
           if (!this.app.project.has(`installed.${peerName}`)) {
             this.app.error(
+              name,
               `peer requirement unmet`,
               `${peerName}@${peerVersion}`,
             )
@@ -201,8 +202,9 @@ export class Peers implements Model.Interface {
           }
 
           this.app.success(
+            name,
             `peer requirement met`,
-            `${name}@${peerVersion}`,
+            `${peerName}@${peerVersion}`,
           )
         },
       )

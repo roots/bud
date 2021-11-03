@@ -2,16 +2,15 @@ import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe('examples/sage', () => {
+describe.skip('examples/sage', () => {
   let project: Project
 
   beforeAll(async () => {
     project = new Project({
       name: 'sage',
       dir: 'examples/sage',
-      dist: 'dist',
-      public: 'public',
-      storage: '.budfiles',
+      dist: 'public',
+      storage: 'storage/bud',
     })
 
     await project.setup()

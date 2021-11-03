@@ -47,14 +47,35 @@ export interface use {
  */
 export const use: use = function (source) {
   const addExtension = (source: Source) => {
+    if (!source) {
+      this.error(`extension source is not defined. skipping`)
+    }
+
     if (!source.hasOwnProperty('name')) {
       source.name = generateName(source)
+    }
+
+    if (this.extensions.has(source.name)) {
+      this.warn(
+        `extension "${source.name}" is already registered. skipping`,
+      )
+
+      return this
     }
 
     this.extensions.add(
       isCompilerPlugin(source)
         ? {...source, make: () => source}
         : source,
+    )
+
+    const controller = this.extensions.get(source.name)
+
+    return (
+      !controller.registered &&
+      controller.register(this).then(() => {
+        return this
+      })
     )
   }
 

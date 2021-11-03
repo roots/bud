@@ -1,24 +1,29 @@
+import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {PluginCreator} from 'postcss'
 
 interface Registry {
-  [key: string]: [PluginCreator<any>, any]
+  [key: string]: [PluginCreator<any>, any] | [PluginCreator<any>]
 }
 
 export class PostCssConfig {
   public plugins: Registry = {}
+
+  public constructor(public app: Framework) {}
 
   @bind
   public setPlugin(
     name: string,
     plugin: [PluginCreator<any>, any] | PluginCreator<any>,
   ): this {
+    this.app.success(`postcss plugin set: ${name}`)
+
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
       return this
     }
 
-    this.plugins[name] = [plugin, undefined]
+    this.plugins[name] = [plugin]
 
     return this
   }
@@ -34,7 +39,7 @@ export class PostCssConfig {
           return plugins
         }
 
-        plugins[name] = [plugin, undefined]
+        plugins[name] = [plugin]
         return plugins
       },
       {},

@@ -13,6 +13,7 @@ describe('bud.entry', function () {
           project: `${process.cwd()}/examples/sage`,
           src: 'resources',
         },
+        log: false,
       },
     })
 

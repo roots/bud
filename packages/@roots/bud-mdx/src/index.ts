@@ -51,12 +51,12 @@ declare module '@roots/bud-framework' {
 const extension: Extension.Module = {
   name: '@roots/bud-mdx',
 
+  mixin: async app => ({
+    mdx: [MdxConfig, app],
+  }),
+
   boot: (app: Framework) => {
     const {build, store, hooks} = app
-
-    app.extensions.bindClass({
-      mdx: [MdxConfig, app],
-    })
 
     store.set('patterns.mdx', /\.mdx?$/)
 
@@ -85,4 +85,4 @@ const extension: Extension.Module = {
   },
 }
 
-export const {name, boot} = extension
+export const {name, boot, mixin} = extension

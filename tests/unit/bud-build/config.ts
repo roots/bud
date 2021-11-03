@@ -128,7 +128,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected target default', () => {
-    expect(bud.build.config.target).toBeUndefined()
+    expect(bud.build.config.target).toMatch(/browserslist.*/)
   })
 
   it('has expected watch default', () => {

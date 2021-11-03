@@ -2,7 +2,7 @@ import {Project} from '../util/integration'
 
 jest.setTimeout(60000)
 
-describe('examples/markdown', () => {
+describe.skip('examples/markdown', () => {
   let project: Project
 
   beforeAll(async () => {

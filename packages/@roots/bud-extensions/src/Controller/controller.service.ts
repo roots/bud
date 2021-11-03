@@ -1,3 +1,5 @@
+import {Container} from '@roots/container'
+
 import {bind, isFunction} from './controller.dependencies'
 import {
   Extension,
@@ -79,6 +81,11 @@ export class Controller {
   }
 
   public set options(options) {
+    if (options instanceof Container) {
+      this.module.options = options.all()
+      return
+    }
+
     this.module.options = options
   }
 
@@ -151,21 +158,32 @@ export class Controller {
    */
   @bind
   public async register(): Promise<this> {
-    if (this.module.api) {
-      const assignment = isFunction(this.module.api)
-        ? this.module.api(this.app)
-        : this.module.api
-
-      this.app.info('extending api', ...Object.keys(assignment))
-
-      Object.assign(this.app, assignment)
-    }
-
-    if (this.module.register)
-      await this.module.register(this.app)
-
+    await this.module.register(this.app)
     this.registered = true
     this.app.success(this.name, 'registered')
+
+    return this
+  }
+
+  @bind
+  public async api(): Promise<this> {
+    const assignment = isFunction(this.module.api)
+      ? this.module.api(this.app)
+      : this.module.api
+
+    Object.assign(this.app, assignment)
+
+    return this
+  }
+
+  @bind
+  public async mixin(): Promise<this> {
+    if (!this.module.mixin) return
+    try {
+      const classMap = await this.module.mixin(this.app)
+
+      this.app.mixin(classMap)
+    } catch (err) {}
 
     return this
   }
@@ -183,7 +201,14 @@ export class Controller {
    */
   @bind
   public async boot(): Promise<this> {
-    if (this.module.boot) await this.module.boot(this.app)
+    if (this.booted) return this
+
+    try {
+      if (this.module.boot) await this.module.boot(this.app)
+    } catch (err) {
+      this.app.error(this.module.name, 'boot', err)
+      return this
+    }
 
     this.booted = true
     this.app.success(this.name, 'booted')

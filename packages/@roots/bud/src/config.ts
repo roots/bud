@@ -155,6 +155,7 @@ export const config: Configuration = {
     parallelism: cpus().length - 1,
     resolve: {
       extensions: [
+        '.html',
         '.wasm',
         '.mjs',
         '.js',
@@ -186,19 +187,8 @@ export const config: Configuration = {
     'html-webpack-plugin': {
       alwaysWriteToDisk: true,
       inject: true,
-      minify: {
-        collapseWhitespace: false,
-        keepClosingSlash: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      },
     },
-    'interpolate-html-plugin': {
-      replace: {},
-    },
+    'interpolate-html-plugin': {},
     'mini-css-extract-plugin': {},
     'webpack-config-dump-plugin': {
       showFunctionNames: true,

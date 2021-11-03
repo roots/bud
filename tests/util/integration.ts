@@ -163,7 +163,7 @@ class Project {
   public async setModules(): Promise<void> {
     try {
       const modules = await readJson(
-        this.projectPath(`${this.storage}/bud-modules.json`),
+        this.projectPath(`${this.storage}/bud.modules.json`),
       )
 
       Object.assign(this, {modules})

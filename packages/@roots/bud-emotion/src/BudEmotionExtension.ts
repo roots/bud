@@ -25,7 +25,7 @@ export const BudEmotionExtension: BudEmotionExtension = {
    *
    * @public
    */
-  boot({babel}: Framework) {
+  async boot({babel}: Framework) {
     babel?.setPlugins &&
       babel.setPlugin(
         '@emotion/babel-plugin',

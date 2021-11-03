@@ -100,7 +100,7 @@ describe('bud.template', function () {
     })
 
     it('does not register plugin when explicitly disabled', () => {
-      bud.template(false)
+      bud.template({enabled: false})
       expect(bud.store.is('html', false)).toEqual(true)
     })
 
@@ -146,7 +146,9 @@ describe('bud.template', function () {
       })
 
       expect(
-        bud.extensions.get('interpolate-html-plugin').options,
+        bud.extensions
+          .get('interpolate-html-plugin')
+          .options.all(),
       ).toEqual({
         foo: 'bar',
       })

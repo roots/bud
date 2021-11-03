@@ -30,7 +30,9 @@ describe('@roots/bud-extensions Controller', function () {
   }
 
   beforeAll(async () => {
-    bud = await factory({config: {ci: true, log: false}})
+    bud = await factory({
+      config: {ci: true, log: false},
+    })
   })
 
   afterAll(done => {
@@ -46,32 +48,32 @@ describe('@roots/bud-extensions Controller', function () {
     expect(controller).toBeInstanceOf(Controller)
   })
 
-  it('register fn returns self', () => {
+  it('register fn returns self', async () => {
     const controller: Controller = new Controller(
       bud,
       mockModule,
     )
-    controller.register()
+    const registerReturn = await controller.register()
 
-    expect(controller.register()).toBeInstanceOf(Controller)
+    expect(registerReturn).toBeInstanceOf(Controller)
   })
 
-  it('calls module register fn', () => {
+  it('calls module register fn', async () => {
     const controller: Controller = new Controller(
       bud,
       mockModule,
     )
-    controller.register()
+    await controller.register()
 
     expect(controller.module.register).toHaveBeenCalled()
   })
 
-  it('calls module boot fn', () => {
+  it('calls module boot fn', async () => {
     const controller: Controller = new Controller(
       bud,
       mockModule,
     )
-    controller.boot()
+    await controller.boot()
 
     expect(controller.module.boot).toHaveBeenCalled()
   })
@@ -81,6 +83,7 @@ describe('@roots/bud-extensions Controller', function () {
       bud,
       mockModule,
     )
+
     const container = new Container({foo: 'bap'})
     controller.options = container
 
@@ -91,14 +94,14 @@ describe('@roots/bud-extensions Controller', function () {
     bud.use(mockModule)
 
     expect(
-      bud.extensions.get('@roots/bud-postcss').get('options')(
-        bud,
-      ),
-    ).toEqual(options)
+      bud.extensions.get('@roots/bud-postcss').get('options'),
+    ).toBeInstanceOf(Container)
 
     expect(
       bud.extensions.get('@roots/bud-postcss').options,
-    ).toEqual(options)
+    ).toBe(
+      bud.extensions.get('@roots/bud-postcss').get('options'),
+    )
   })
 
   it('Controller options are undefined when not set in module', () => {

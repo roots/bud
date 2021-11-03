@@ -9,6 +9,7 @@ import {
   writeFile,
 } from './project.dependencies'
 import type {Repository} from './project.interface'
+import {repository} from './project.repository'
 
 /**
  * Project service class
@@ -38,30 +39,7 @@ export class Project
    *
    * @public
    */
-  public repository: Repository = {
-    version: null,
-    cache: {
-      file: null,
-      directory: null,
-    },
-    configs: {
-      dynamic: {
-        global: [],
-        conditional: [],
-      },
-      json: {
-        global: [],
-        conditional: [],
-      },
-    },
-    manifestPath: null,
-    manifest: {},
-    installed: [],
-    peers: {},
-    extensions: {},
-    resolve: [],
-    dependencies: [],
-  }
+  public repository: Repository = repository
 
   @bind
   public async register(): Promise<void> {

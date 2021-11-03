@@ -125,5 +125,5 @@ export const js: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.js'),
     exclude: ({store}) => store.get('patterns.modules'),
-    use: [],
+    use: () => [],
   })

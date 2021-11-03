@@ -23,13 +23,13 @@ describe('@roots/bud-framework child', () => {
     expect(bud.parent).toBe(null)
   })
 
-  it('bud can make a child compiler', () => {
-    bud.make('child')
+  it('bud can make a child compiler', async () => {
+    await bud.make('child')
     expect(bud.children.has('child')).toBe(true)
   })
 
-  it('bud can set a child compiler', () => {
-    bud.make('setChild')
+  it('bud can set a child compiler', async () => {
+    await bud.make('setChild')
     const {name} = bud.children.get('setChild')
     expect(name).toBe('setChild')
   })

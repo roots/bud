@@ -16,21 +16,10 @@ describe('bud.provide', function () {
   })
 
   it('modifies webpack-provide-plugin options', () => {
-    bud.provide({jQuery: '$'})
+    bud.provide({jQuery: ['$']})
 
     expect(
       bud.extensions.get('webpack-provide-plugin').options.all(),
-    ).toEqual({$: 'jQuery'})
-  })
-
-  it('modifies webpack-provide-plugin options', () => {
-    bud.provide({jQuery: ['$', 'jquery']})
-
-    expect(
-      bud.extensions.get('webpack-provide-plugin').options.all(),
-    ).toEqual({
-      $: 'jQuery',
-      jquery: 'jQuery',
-    })
+    ).toEqual({$: ['jQuery']})
   })
 })

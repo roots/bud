@@ -7,6 +7,7 @@ describe('@roots/bud-server', function () {
     bud = await factory({
       mode: 'development',
       config: {
+        log: false,
         ci: true,
       },
     })

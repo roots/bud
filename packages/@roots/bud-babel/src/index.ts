@@ -40,4 +40,4 @@ declare module '@roots/bud-framework' {
 
 export {Config}
 export {DEFAULT_PLUGINS, DEFAULT_PRESETS}
-export const {name, register, boot} = BudBabelExtension
+export const {name, mixin, register} = BudBabelExtension

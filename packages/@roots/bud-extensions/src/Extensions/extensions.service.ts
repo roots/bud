@@ -40,31 +40,29 @@ export class Extensions
    */
   @bind
   public async register(): Promise<void> {
+    this.app.time('registering base extensions')
     this.getValues().map(extension => {
       this.add(extension)
-      this.app.success(
-        `base extension ${extension.name} instantiated`,
-      )
     })
+    this.app.timeEnd('registering base extensions')
   }
 
   /**
    * @override @public
    */
+  @bind
   public async booted(): Promise<void> {
-    this.app.time('adding extensions')
-
+    this.app.time('instantiating project extensions')
     await Promise.all(
       this.app.project
         .getValues('extensions')
         .map(async profile => {
-          this.app.await(`importing ${profile.name}`)
           const extension = await import(profile.path)
           this.add(extension)
         }),
     )
 
-    this.app.timeEnd('adding extensions')
+    await this.registerExtensions()
   }
 
   /**
@@ -72,15 +70,39 @@ export class Extensions
    */
   @bind
   public async registerExtensions(): Promise<void> {
-    this.app.time('registering extensions')
-
+    this.app.time('processing mixins')
     await Promise.all(
       this.getValues().map(async (controller: Controller) => {
-        this.app.await(controller.name)
-        await controller.register()
+        if (!controller.module.mixin) return
+        await controller.mixin()
       }),
     )
 
+    this.app.timeEnd('processing mixins')
+
+    this.app.time('registering apis')
+    try {
+      await Promise.all(
+        this.getValues().map(async (controller: Controller) => {
+          await controller.api()
+        }),
+      )
+    } catch (err) {
+      this.app.error(`registering apis`, err)
+    }
+    this.app.timeEnd('registering apis')
+
+    this.app.time('registering extensions')
+    try {
+      await Promise.all(
+        this.getValues().map(async (controller: Controller) => {
+          if (!controller.module.register) return
+          await controller.register()
+        }),
+      )
+    } catch (err) {
+      this.app.error(`registering extensions`, err)
+    }
     this.app.timeEnd('registering extensions')
   }
 
@@ -94,7 +116,6 @@ export class Extensions
     try {
       await Promise.all(
         this.getValues().map(async (controller: Controller) => {
-          this.app.await(controller.name)
           await controller.boot()
         }),
       )
@@ -113,6 +134,10 @@ export class Extensions
   @bind
   public add(extension: Framework.Extension.Module): void {
     this.set(extension.name, this.makeController(extension))
+    this.app.success(
+      extension.name,
+      'added to extensions container',
+    )
   }
 
   /**

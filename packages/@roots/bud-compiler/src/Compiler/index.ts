@@ -76,7 +76,9 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async compile() {
-    return await this.invokeCompiler(this.before())
+    const compiler = await this.invokeCompiler(this.before())
+    this.app.timeEnd('bud')
+    return compiler
   }
 
   /**
@@ -85,7 +87,6 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invokeCompiler(config: any) {
-    this.app.timeEnd('bud')
     this.app.hooks.filter('before/compiler')
 
     this.instance = webpack(config)

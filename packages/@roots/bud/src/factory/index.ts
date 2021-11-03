@@ -1,3 +1,5 @@
+import {isUndefined} from 'lodash'
+
 import {Bud} from '../Bud'
 import {config} from '../config'
 import {services} from '../services'
@@ -20,17 +22,17 @@ export async function factory(
   overrides?: Options,
 ): Promise<Bud> {
   const options: FrameworkOptions = {
-    name: overrides?.name ?? 'bud',
+    name: !isUndefined(overrides?.name) ? overrides.name : 'bud',
     mode: overrides?.mode ?? 'production',
-    config,
-    services,
+    services: {
+      ...(overrides?.services ?? {}),
+      ...services,
+    },
+    config: {
+      ...config,
+      ...(overrides?.config ?? {}),
+    },
   }
-
-  overrides?.services &&
-    Object.assign(options.services, overrides.services)
-
-  overrides?.config &&
-    Object.assign(options.config, overrides.config)
 
   process.env.BABEL_ENV = options.mode
   process.env.NODE_ENV = options.mode

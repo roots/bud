@@ -1,16 +1,11 @@
-import {Extension, Index} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import type {WebpackPluginInstance} from 'webpack'
 
-export interface BudImageMinPlugin
-  extends Extension.CompilerPlugin<WebpackPluginInstance, any> {
-  name: 'image-minimizer-webpack-plugin'
-  options: Index<any>
-  make(options: any): WebpackPluginInstance
-  when: Extension.CompilerPlugin['when']
-}
-
-export const BudImageMinPlugin: BudImageMinPlugin = {
+export const BudImageMinPlugin: Extension.CompilerPlugin<
+  WebpackPluginInstance,
+  any
+> = {
   name: 'image-minimizer-webpack-plugin',
 
   options: {

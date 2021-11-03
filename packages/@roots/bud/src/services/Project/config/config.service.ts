@@ -14,10 +14,6 @@ export class Config {
     public app: Bud,
     searchPlaces: cosmiconfig.Options['searchPlaces'],
   ) {
-    searchPlaces.forEach(s =>
-      this.app.info(`Processing ${s} configuration`),
-    )
-
     this.explorer = this.cosmiconfig(this.app.name, {
       loaders: {'.ts': cosmiconfigTsLoader},
       ignoreEmptySearchPlaces: true,

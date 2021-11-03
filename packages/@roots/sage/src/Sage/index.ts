@@ -36,7 +36,7 @@ export const Sage: Preset = {
         '@scripts': app.path('src', 'scripts'),
         '@styles': app.path('src', 'styles'),
       })
-      .provide({jquery: ['$', 'jQuery']})
+      .provide({$: ['jquery'], jQuery: ['jquery']})
       .when(
         app.isProduction,
         app => app.minimize().hash().runtime('single'),

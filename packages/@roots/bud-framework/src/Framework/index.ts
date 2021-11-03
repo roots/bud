@@ -22,6 +22,7 @@ import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import * as Project from '../Project'
 import {access} from './access'
+import {bindMethod} from './bindMethod'
 import {bootstrap} from './bootstrap'
 import {close} from './close'
 import {container} from './container'
@@ -33,6 +34,7 @@ import {
 } from './framework.dependencies'
 import {get} from './get'
 import {make} from './make'
+import {mixin} from './mixin'
 import {path} from './path'
 import {pipe} from './pipe'
 import {sequence} from './sequence'
@@ -272,26 +274,31 @@ export abstract class Framework {
    * @public
    */
   public constructor(options: Options) {
-    // This foolishness is basically mandated by tsc
-    this.bindMethod<access>('access', access)
-      .bindMethod<bootstrap>('bootstrap', bootstrap)
-      .bindMethod<close>('close', close)
-      .bindMethod<container>('container', container)
-      .bindMethod<get>('get', get)
-      .bindMethod<make>('make', make)
-      .bindMethod<path>('path', path)
-      .bindMethod<pipe>('pipe', pipe)
-      .bindMethod<setPath>('setPath', setPath)
-      .bindMethod<sequence>('sequence', sequence)
-      .bindMethod<tap>('tap', tap)
-      .bindMethod<when>('when', when)
-
     // Assign to instance
     this.name = options.name
     this.mode = options.mode ?? options.parent.mode
     this.services = options.services ?? options.parent.services
     this.store = new Store<Configuration>(this).setStore({
       ...(options.config ?? options.parent.store.all()),
+    })
+
+    this.bindMethod = this.bindMethod.bind(this)
+
+    // This foolishness is basically mandated by tsc
+    this.bindMethod({
+      access,
+      bootstrap,
+      close,
+      container,
+      get,
+      make,
+      mixin,
+      path,
+      pipe,
+      setPath,
+      sequence,
+      tap,
+      when,
     })
 
     // Parent & child instance exclusive settings
@@ -305,14 +312,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod<T = Function>(
-    key: string,
-    method: T & Function,
-  ): Framework {
-    this[key] = method.bind(this) as T
-
-    return this
-  }
+  public bindMethod: typeof bindMethod = bindMethod
+  public mixin: typeof mixin = mixin
 
   /**
    * @internal
@@ -563,7 +564,7 @@ export abstract class Framework {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .success(...this.colorize('green', ...messages))
+        .success(...messages)
 
     return this
   }

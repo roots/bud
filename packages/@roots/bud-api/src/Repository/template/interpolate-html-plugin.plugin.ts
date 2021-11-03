@@ -6,7 +6,7 @@ import type {
   WebpackPluginInstance,
 } from 'webpack'
 
-import {HtmlWebpackPlugin} from './BudHtmlWebpackPlugin'
+import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 
 /**
  * Template variable interpolation plugin for {@link webpack}

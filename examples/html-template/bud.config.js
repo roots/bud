@@ -8,11 +8,15 @@
 module.exports = app =>
   app
     .template({
-      favicon: app.path('src', 'favicon.ico'),
-      minify: false,
+      template: app.path('project', 'public/index.html'),
       replace: {
         APP_TITLE: 'Demo',
         APP_DESCRIPTION: 'html templating example',
       },
+      favicon: 'public/favicon.ico',
+    })
+    .define({
+      APP_TITLE: 'Demo',
+      APP_DESCRIPTION: 'html templating example',
     })
     .entry('app', 'index.js')

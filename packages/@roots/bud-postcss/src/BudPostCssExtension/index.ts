@@ -1,62 +1,57 @@
 import {Item, Loader} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
+import {Extension, Framework} from '@roots/bud-framework'
 import postcssImport from 'postcss-import'
 import postcssNested from 'postcss-nested'
 import postcssPreset from 'postcss-preset-env'
 
 import {PostCssConfig} from '../PostCssConfig'
 
-const {pathExists} = fs
-
 export const BudPostCssExtension: Extension.Module = {
   name: '@roots/bud-postcss',
 
-  api: {
-    postcss: new PostCssConfig(),
-  },
+  mixin: async (app: Framework) => ({
+    postcss: [PostCssConfig, app],
+  }),
 
-  boot: async function ({build, path, postcss, warn, project}) {
-    const hasPostCssConfig = await pathExists(
-      path('project', 'postcss.config.js'),
+  register: (app: Framework) => {
+    const {warn, project} = app
+
+    app.build.loaders.postcss = new Loader(
+      require.resolve('postcss-loader'),
     )
 
-    build.loaders.postcss = new Loader('postcss-loader')
-
-    build.items.postcss = new Item({
-      loader: ({build}) => build.loaders.postcss,
+    app.build.items.postcss = new Item({
+      loader: app.build.loaders.postcss,
       options: ({postcss}) => ({
         postcssOptions: {
-          config: hasPostCssConfig,
           plugins: Object.values(postcss.plugins),
         },
         sourceMap: true,
       }),
     })
 
-    build.rules.css.setUse(({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.css,
-      build.items.postcss,
+    app.build.rules.css.setUse(app => [
+      app.isProduction
+        ? app.build.items.minicss
+        : app.build.items.style,
+      app.build.items.css,
+      app.build.items.postcss,
     ])
 
-    if (hasPostCssConfig) return
-
     const installed = project.getKeys('installed')
-
     const isInstalled = (plugin: string) =>
       installed.includes(plugin)
 
     isInstalled('postcss-import')
-      ? postcss.setPlugin('postcss-import', postcssImport)
+      ? app.postcss.setPlugin('postcss-import', postcssImport)
       : warn(`PostCSS plugin 'postcss-import' is not installed`)
 
-    isInstalled('postcss-import')
-      ? postcss.setPlugin('postcss-nested', postcssNested)
+    isInstalled('postcss-nested')
+      ? app.postcss.setPlugin('postcss-nested', postcssNested)
       : warn(`PostCSS plugin 'postcss-nested' is not installed`)
 
-    isInstalled('postcss-import')
-      ? postcss.setPlugin('postcss-preset-env', [
+    isInstalled('postcss-preset-env')
+      ? app.postcss.setPlugin('postcss-preset-env', [
           postcssPreset,
           {
             stage: 1,

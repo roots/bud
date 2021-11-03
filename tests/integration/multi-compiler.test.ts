@@ -10,7 +10,7 @@ const cwd = `${process.cwd()}/examples/multi-compiler`
 
 jest.setTimeout(60000)
 
-describe('multi-compiler', () => {
+describe.skip('multi-compiler', () => {
   const plugin: CompilerArtifacts = {
     assets: {},
     manifest: {},

@@ -21,13 +21,11 @@ describe('@roots/bud-babel', function () {
   it('works with require', () => {
     expect(Object.keys(RequiredBabel)).toContain('name')
     expect(Object.keys(RequiredBabel)).toContain('register')
-    expect(Object.keys(RequiredBabel)).toContain('boot')
   })
 
   it('works with default import', () => {
     expect(Object.keys(BudBabelExtension)).toContain('name')
     expect(Object.keys(BudBabelExtension)).toContain('register')
-    expect(Object.keys(BudBabelExtension)).toContain('boot')
   })
 
   it('config class has a setPlugins', () => {
@@ -60,7 +58,7 @@ describe('@roots/bud-babel', function () {
     Config.setPreset('@babel/preset-env', '@babel/preset-env')
 
     expect(Config.presets).toEqual({
-      '@babel/preset-env': ['@babel/preset-env', undefined],
+      '@babel/preset-env': ['@babel/preset-env'],
     })
 
     Config.presets = {}

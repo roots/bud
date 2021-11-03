@@ -8,6 +8,7 @@ describe('bud.persist', function () {
       config: {
         ...config,
         ci: true,
+        log: false,
       },
     })
   })

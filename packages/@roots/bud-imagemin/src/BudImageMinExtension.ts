@@ -3,19 +3,16 @@ import type {Extension} from '@roots/bud-framework'
 import {BudImageMinPlugin} from './BudImageMinPlugin'
 import {Config} from './Config'
 
-export interface BudImageMinExtension extends Extension.Module {}
-
-export const BudImageMinExtension: BudImageMinExtension = {
+export const BudImageMinExtension: Extension.Module = {
   name: '@roots/bud-imagemin',
+
+  api: app => ({
+    imagemin: new Config(app),
+  }),
 
   register: app => {
     app.extensions.add(BudImageMinPlugin)
-    app.extensions.bindClass({
-      imagemin: [Config, app],
-    })
-  },
 
-  boot: ({imagemin}) => {
     const plugins: Array<[string, {[key: string]: any}]> = [
       ['imagemin-gifsicle', {interlaced: true}],
       ['imagemin-jpegtran', {progressive: true}],
@@ -33,6 +30,6 @@ export const BudImageMinExtension: BudImageMinExtension = {
       }
     })
 
-    imagemin.plugins(eligiblePlugins)
+    app.imagemin.plugins(eligiblePlugins)
   },
 }

@@ -6,7 +6,6 @@ import {
   DEFAULT_PLUGINS,
   DEFAULT_PRESETS,
 } from './babel.constants'
-import {existsSync} from './babel.dependencies'
 
 /**
  * Adds Babel transpiler support to Framework projects
@@ -21,8 +20,8 @@ export const BudBabelExtension: Extension.Module = {
    */
   name: '@roots/bud-babel',
 
-  api: (app: Framework) => ({
-    babel: new Config(),
+  mixin: async app => ({
+    babel: [Config, app],
   }),
 
   /**
@@ -30,12 +29,8 @@ export const BudBabelExtension: Extension.Module = {
    *
    * @public
    */
-  register: (app: Framework): void => {
-    app.extensions.bindClass({
-      babel: [Config, app],
-    })
-
-    app.build.loaders.babel = new Loader(
+  register: async (app: Framework) => {
+    app.build.loaders.babel = new Loader(() =>
       require.resolve('babel-loader'),
     )
 
@@ -70,18 +65,10 @@ export const BudBabelExtension: Extension.Module = {
       },
     })
 
-    app.build.rules.js.setUse(({build}) => [build.items.babel])
-  },
+    app.build.rules.js.use = app => [app.build.items.babel]
 
-  /**
-   * Extension boot event
-   *
-   * @public
-   */
-  boot(app: Framework): void {
-    !existsSync(app.path('project', 'babel.config.js')) &&
-      app.babel
-        .setPresets(DEFAULT_PRESETS)
-        .setPlugins(DEFAULT_PLUGINS)
+    app.babel
+      .setPresets(DEFAULT_PRESETS)
+      .setPlugins(DEFAULT_PLUGINS)
   },
 }

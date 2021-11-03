@@ -45,11 +45,7 @@ type EntryValue =
  * @public @config
  */
 export interface entry {
-  (
-    this: Framework,
-    name: string,
-    entrypoint: EntryValue,
-  ): Framework
+  (name: string, entrypoint: EntryValue): Framework
 }
 
 /**
@@ -64,7 +60,7 @@ export interface entry {
  * @public @config
  */
 export interface entry {
-  (this: Framework, entrypoints: EntryInput): Framework
+  (entrypoints: EntryInput): Framework
 }
 
 /**
@@ -133,6 +129,8 @@ export interface entry {
  * @public @config
  */
 export const entry: entry = function (...args) {
+  const ctx = this as Framework
+
   /**
    * Ducktype entrypoint to determine if it was called like
    * `entry(name, ...assets)` or `entry({[name]: ...assets})`
@@ -150,7 +148,7 @@ export const entry: entry = function (...args) {
    * Make the entrypoints and return the framework
    * to the builder
    */
-  return makeEntrypoints.bind(this)(...entrypoints)
+  return makeEntrypoints.bind(ctx)(...entrypoints)
 }
 
 /**
@@ -160,7 +158,10 @@ export const entry: entry = function (...args) {
  *
  * @internal
  */
-function makeEntrypoints(entry: EntryObject): Framework {
+function makeEntrypoints(
+  this: Framework,
+  entry: EntryObject,
+): Framework {
   /**
    * Reduce entrypoints to {@link EntryObject}
    *

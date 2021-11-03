@@ -1,28 +1,6 @@
-import {bind, lodash} from '@roots/bud-support'
-import type {Class} from 'type-fest'
-
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
 import {Logger} from './Logger'
-
-const {isArray} = lodash
-
-/**
- * Generic type defining the {@link Service.bindClass} map of classes to {@link Framework} property keys
- *
- * @public
- */
-interface GenericClassMap {
-  [key: string]: Class<any> | [Class<any>, any[]]
-}
-
-/**
- * Generic type defining the {@link Service.bindMacro} map of
- * callable function interfaces to {@link Framework} property keys
- */
-interface GenericFunctionMap {
-  [key: string]: CallableFunction
-}
 
 /**
  * Atomic unit of {@link Framework} functionality.
@@ -142,97 +120,5 @@ export abstract class Service<
    */
   public constructor(app: Framework) {
     super(app)
-  }
-
-  /**
-   * Bind a {@link CallableFunction} to the {@link Framework}
-   *
-   * @example
-   * Bind a function named `fooFn` to `app.foo`
-   *
-   * ```js
-   * app.service.bindClass({foo: fooFn})
-   * ```
-   *
-   * @remarks
-   * You should also override the {@link @roots/bud-framework# | '@roots/bud-framework' module} to ensure
-   * that your function typings are correctly implemented and exported.
-   *
-   * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public bindMacro<FunctionMap = GenericFunctionMap>(
-    properties: FunctionMap,
-  ): void {
-    this.app
-      .container(properties)
-      .getEntries()
-      .map(([name, value]) => {
-        this.app.bindMethod(name, value)
-      })
-  }
-
-  /**
-   * Bind a {@link Class} to the {@link Framework}.
-   *
-   * @remarks
-   * Constructor parameters can be specified using an array.
-   *
-   * @example
-   * Bind a Class named `FooClass` to `app.Foo`:
-   *
-   * ```js
-   * app.service.bindClass({Foo: FooClass})
-   * ```
-   *
-   * Specify constructor parameters with a tuple:
-   *
-   * ```js
-   * app.service.bindClass({
-   *   bindingName: [BindingClass, foo, bar]
-   * })
-   * ```
-   *
-   * @typeParam Binding - Map of {@link Framework} keys to classes
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public bindClass<ClassMap = GenericClassMap>(
-    properties: ClassMap,
-  ): void {
-    /**
-     *
-     * @param accumulator - {@link ClassMap}
-     * @param param - Tuple of {@link Framework} prop names and provided {@link Class} definitions
-     *
-     * @internal
-     */
-    const bindingReducer = (
-      accumulator: ClassMap,
-      [name, value]: [string, Class<any> | [Class<any>, any]],
-    ) => {
-      const [ClassObj, constructorParams] = isArray(value)
-        ? value
-        : [value, []]
-
-      return {
-        ...accumulator,
-        [`${name}`]: new ClassObj(
-          ...(isArray(constructorParams)
-            ? constructorParams
-            : [constructorParams]),
-        ),
-      }
-    }
-
-    Object.assign(
-      this.app,
-      Object.entries(properties).reduce(bindingReducer, {}),
-    )
   }
 }
