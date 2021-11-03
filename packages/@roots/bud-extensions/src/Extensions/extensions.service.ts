@@ -63,6 +63,7 @@ export class Extensions
     )
 
     await this.registerExtensions()
+    await this.bootExtensions()
   }
 
   /**

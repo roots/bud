@@ -14,6 +14,11 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
 
   api: {tailwind},
 
+  register: async app => {
+    const postcss = import('@roots/bud-postcss')
+    app.use(postcss)
+  },
+
   boot: app => {
     const isInstalled = name =>
       app.project.getKeys('installed').includes(name)

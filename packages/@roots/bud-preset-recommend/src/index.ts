@@ -26,7 +26,7 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import {BudPresetRecommend} from './BudPresetRecommend'
+import {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -34,5 +34,13 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name} = BudPresetRecommend
-export type {BudPresetRecommend}
+export interface BudPresetRecommend extends Extension.Module {
+  name: '@roots/bud-preset-recommend'
+}
+
+/**
+ * Recommended preset configuration for Bud.
+ *
+ * @public
+ */
+export const name = '@roots/bud-preset-recommend'

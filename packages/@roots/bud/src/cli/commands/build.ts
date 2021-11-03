@@ -32,6 +32,7 @@ export default class Build extends Command {
 
     clean: flags.boolean({
       allowNo: true,
+      default: true,
       description: 'clean distributables on compilation',
     }),
 
