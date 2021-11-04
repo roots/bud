@@ -5,8 +5,8 @@
     "extends @wordpress/browserslist-config"
   ],
   "bud": {
-    "locations": {
-      "cache": "storage/bud"
+    "paths": {
+      "storage": "storage/bud"
     }
   },
   "devDependencies": {

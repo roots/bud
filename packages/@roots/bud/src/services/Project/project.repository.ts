@@ -31,13 +31,14 @@ export interface repository {
   manifestPath: string
   manifest: Record<string, any>
   installed: Record<string, string>
-  unmet: Record<string, string>
+  unmet: Array<string>
   peers: {
     [key: string]: {
       name: string
       version: string
     }
   }
+
   /**
    * Installed extensions
    */
@@ -54,10 +55,12 @@ export interface repository {
       dependencies: Record<string, string>
     }
   }
+
   /**
    * @see webpack.resolve.modules
    */
   resolve: Array<string>
+
   /**
    * @see webpack.cache.buildDependencies
    */
@@ -82,7 +85,7 @@ export const repository: repository = {
   manifestPath: null,
   manifest: {},
   installed: {},
-  unmet: {},
+  unmet: [],
   peers: {},
   extensions: {},
   resolve: [],

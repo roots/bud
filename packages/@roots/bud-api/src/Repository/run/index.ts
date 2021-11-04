@@ -15,7 +15,7 @@ export interface run {
  * @public @config
  */
 export const run: run = async function (): Promise<void> {
-  this.hooks.filter('run')
+  this.hooks.filter('run', this)
 
   const isDev =
     this.isDevelopment &&

@@ -29,6 +29,13 @@ export class Env
   @bind
   public bootstrap() {
     this.setStore(this.getParsedEnv())
+    if (!this.getEntries().length) {
+      this.app.warn('no env values found')
+    }
+
+    this.getEntries().forEach(([k, v]) => {
+      this.app.info(`env value set`, k, '=>', v)
+    })
   }
 
   /**

@@ -1,4 +1,7 @@
-import {Dashboard as Contract} from '@roots/bud-framework'
+import {
+  Dashboard as Contract,
+  Framework,
+} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {Instance, render} from 'ink'
@@ -26,8 +29,8 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public boot(): void {
-    this.run()
+  public async registered(): Promise<void> {
+    this.app.hooks.on('run', this.run)
   }
 
   /**
@@ -37,9 +40,11 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public run(): void {
-    if (this.app.store.isTrue('ci')) return
+  public run(): Framework {
+    if (this.app.store.isTrue('ci')) return this.app
     this.instance = render(<DashboardComponent bud={this.app} />)
+    this.app.success('dashboard booted')
+    return this.app
   }
 
   /**

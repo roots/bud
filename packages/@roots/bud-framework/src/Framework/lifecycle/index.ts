@@ -96,11 +96,10 @@ export async function lifecycle(
     await Promise.all(
       initializedServices.map(async key => {
         try {
-          this.await(key)
-
           const service = this[key]
 
           if (!service || !service[event]) return
+          this.await(key)
 
           await service[event](this)
         } catch (error) {

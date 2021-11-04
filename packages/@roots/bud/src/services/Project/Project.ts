@@ -26,7 +26,7 @@ export class Project extends Framework.Project.Abstract {
 
   public repository = repository
 
-  public async bootstrap() {
+  public async register() {
     this.peers = new Peers(this.app)
 
     this.setStore({
@@ -49,20 +49,18 @@ export class Project extends Framework.Project.Abstract {
 
     this.app
       .when(
-        this.has(`manifest.${this.app.name}.project.inject`),
+        this.has(`manifest.${this.app.name}.inject`),
         ({store}) =>
           store.set(
             'inject',
-            this.get(`manifest.${this.app.name}.project.inject`),
+            this.get(`manifest.${this.app.name}.inject`),
           ),
       )
-      .when(
-        this.has(`manifest.${this.app.name}.project.paths`),
-        ({store}) =>
-          store.merge(
-            'location',
-            this.get(`manifest.${this.app.name}.project.paths`),
-          ),
+      .when(this.has(`manifest.${this.app.name}.paths`), () =>
+        this.app.store.merge(
+          'location',
+          this.get(`manifest.${this.app.name}.paths`),
+        ),
       )
 
     this.set('installed', {
@@ -94,19 +92,7 @@ export class Project extends Framework.Project.Abstract {
         `project cache directory set as`,
         this.app.store.get('location.storage'),
       )
-  }
 
-  @bind
-  public async clearCaches() {
-    this.app.warn('Removing storage', this.app.path('storage'))
-    await remove(this.app.path('storage'))
-    await ensureFile(
-      this.app.path('storage', 'bud.profile.json'),
-    )
-  }
-
-  @bind
-  public async register(): Promise<void> {
     this.mergeStore({
       cache: {
         directory: this.app.path('storage'),
@@ -116,9 +102,14 @@ export class Project extends Framework.Project.Abstract {
         ),
       },
     })
+  }
 
-    if (this.app.store.is('cache', false))
+  @bind
+  public async registered(): Promise<void> {
+    if (this.app.store.is('cache', false)) {
+      this.app.warn('caching disabled. flushing.')
       await this.clearCaches()
+    }
 
     await Promise.all(
       [
@@ -154,20 +145,41 @@ export class Project extends Framework.Project.Abstract {
     )
 
     await this.resolvePeers()
+  }
+
+  @bind
+  public async booted() {
     await this.writeProfile()
   }
 
   @bind
+  public async clearCaches() {
+    this.app.warn('Removing storage', this.app.path('storage'))
+    await remove(this.app.path('storage'))
+    await ensureFile(
+      this.app.path('storage', 'bud.profile.json'),
+    )
+  }
+
+  @bind
   public async writeProfile() {
+    await ensureFile(
+      this.app.path('storage', 'bud.profile.json'),
+    )
     await writeFile(
       this.app.path('storage', 'bud.profile.json'),
       JSON.stringify(this.all()),
+    )
+    this.app.success(
+      `project profile saved to disk`,
+      this.app.path('storage', 'bud.profile.json'),
     )
   }
 
   @bind
   public async searchConfig({key, searchStrings}) {
     const explorer = new Config(this.app, searchStrings)
+
     if (this.app.store.is('cache', false)) {
       this.app.warn(`clearing ${key} config cache`)
       explorer.clearCaches()
