@@ -17,15 +17,6 @@ export interface Interface extends Service {
   peers: Peers.Interface
 
   /**
-   * Get aggregated project info
-   *
-   * @public
-   */
-  getProjectInfo(): {
-    [key: string]: any
-  }
-
-  /**
    * Returns a boolean representing if
    * the project has a given pkg listed as a dependency
    * or devDependency

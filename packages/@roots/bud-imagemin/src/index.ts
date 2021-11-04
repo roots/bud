@@ -17,9 +17,9 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import {BudImageMinExtension} from './BudImageMinExtension'
-import {BudImageMinPlugin} from './BudImageMinPlugin'
-import {Config} from './Config'
+import {Config} from './imagemin.config'
+import {BudImageMinExtension} from './imagemin.extension'
+import {BudImageMinPlugin} from './imagemin.plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {

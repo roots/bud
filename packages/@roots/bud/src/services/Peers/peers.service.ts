@@ -182,7 +182,6 @@ export class Peers implements Model.Interface {
             return false
           }
 
-          this.app.info('analyzing', peerName, peerVersion)
           this.app.project.set(`peers.${peerName}`, {
             name: peerName,
             version: peerVersion,
@@ -192,6 +191,10 @@ export class Peers implements Model.Interface {
            * If peer dependency is present in project, skip
            */
           if (!this.app.project.has(`installed.${peerName}`)) {
+            this.app.project.merge(`unmet.${peerName}`, [
+              `${peerName}@${peerVersion}`,
+            ])
+
             this.app.error(
               name,
               `peer requirement unmet`,

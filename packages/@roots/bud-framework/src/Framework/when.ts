@@ -1,26 +1,24 @@
 import type {Framework} from './'
 import {isFunction} from './framework.dependencies'
 
-interface when {
+export interface when {
   (
-    this: Framework,
     test: ((app: Framework) => boolean) | boolean,
     trueCase: (app: Framework) => any,
     falseCase?: (app: Framework) => any,
   ): Framework
 }
 
-function when(
-  this: Framework,
+export function when(
   test: ((app: Framework) => boolean) | boolean,
   trueCase: (app: Framework) => any,
   falseCase?: (app: Framework) => any,
 ): Framework {
-  this.access(test)
-    ? trueCase && isFunction(trueCase) && this.tap(trueCase)
-    : falseCase && isFunction(falseCase) && this.tap(falseCase)
+  const ctx = this as Framework
 
-  return this
+  ctx.access(test)
+    ? trueCase && isFunction(trueCase) && ctx.tap(trueCase)
+    : falseCase && isFunction(falseCase) && ctx.tap(falseCase)
+
+  return ctx
 }
-
-export {when}

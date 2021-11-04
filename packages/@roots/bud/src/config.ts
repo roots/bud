@@ -33,18 +33,6 @@ export const config: Configuration = {
   clean: true,
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.debug}
-   * @public
-   */
-  debug: true,
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.dev}
-   * @public
-   */
-  discover: false,
-
-  /**
    * {@inheritDoc @roots/bud-framework#Configuration.hash}
    * @public
    */
@@ -99,6 +87,17 @@ export const config: Configuration = {
    * @public
    */
   hashFormat: '[name].[contenthash:6]',
+
+  /**
+   * @public
+   */
+  cli: {
+    args: {},
+    argv: [],
+    flags: {},
+    raw: [],
+    metadata: {},
+  },
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.patterns}

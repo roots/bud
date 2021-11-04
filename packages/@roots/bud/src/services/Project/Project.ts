@@ -1,15 +1,14 @@
+import * as Framework from '@roots/bud-framework'
 import {ensureFile} from 'fs-extra'
 
 import {Config} from './config'
 import {
   bind,
   Peers,
-  Project as FrameworkProject,
   readJson,
   remove,
   writeFile,
 } from './project.dependencies'
-import type {Repository} from './project.interface'
 import {repository} from './project.repository'
 
 /**
@@ -17,17 +16,7 @@ import {repository} from './project.repository'
  *
  * @public
  */
-export class Project
-  extends FrameworkProject.Abstract
-  implements FrameworkProject.Interface
-{
-  /**
-   * Project package.json location
-   *
-   * @public
-   */
-  public manifestPath: string
-
+export class Project extends Framework.Project.Abstract {
   /**
    * Project peer dependencies manager
    *
@@ -35,75 +24,89 @@ export class Project
    */
   public peers: Peers
 
-  /**
-   * Project repository
-   *
-   * @public
-   */
-  public repository: Repository = repository
+  public repository = repository
 
   public async bootstrap() {
-    this.set(
-      'manifestPath',
-      this.app.path('project', 'package.json'),
-    )
-    this.set('dependencies', [this.get('manifestPath')])
+    this.peers = new Peers(this.app)
+
+    this.setStore({
+      ...repository,
+      cli: this.app.store.get('cli'),
+      env: {
+        public: this.app.env.getPublicEnv(),
+        all: this.app.env.all(),
+      },
+      manifestPath: this.app.path('project', 'package.json'),
+      dependencies: [this.app.path('project', 'package.json')],
+    })
 
     try {
       const manifest = await readJson(this.get('manifestPath'))
       this.set('manifest', manifest)
-
-      this.getEntries('manifest').forEach(([k, v]) => {
-        this.app.info(`project manifest ${k} set as`, typeof v)
-      })
     } catch (e) {
       this.app.error('manifest file not found', e)
     }
 
-    this.has(`manifest.${this.app.name}.project.inject`) &&
-      this.app.store.set(
-        'inject',
-        this.get(`manifest.${this.app.name}.project.inject`),
+    this.app
+      .when(
+        this.has(`manifest.${this.app.name}.project.inject`),
+        ({store}) =>
+          store.set(
+            'inject',
+            this.get(`manifest.${this.app.name}.project.inject`),
+          ),
+      )
+      .when(
+        this.has(`manifest.${this.app.name}.project.paths`),
+        ({store}) =>
+          store.merge(
+            'location',
+            this.get(`manifest.${this.app.name}.project.paths`),
+          ),
       )
 
-    this.has(`manifest.${this.app.name}.project.cache`) &&
-      this.app.store.set(
-        'cache',
-        this.get(`manifest.${this.app.name}.project.cache`),
-      )
-
-    this.has(`manifest.${this.app.name}.project.cache`) &&
-      this.app
-        .setPath({
-          storage: this.get(
-            `manifest.${this.app.name}.project.cache`,
-          ),
-        })
-        .info(
-          `project cache directory set as`,
-          this.app.path('storage'),
-        )
-
-    this.has(`manifest.${this.app.name}.project.storagePath`) &&
-      this.app
-        .setPath({
-          storage: this.get(
-            `manifest.${this.app.name}.project.storagePath`,
-          ),
-        })
-        .info(
-          `project storage directory set as`,
-          this.app.path('storage'),
-        )
-  }
-
-  @bind
-  public async register(): Promise<void> {
     this.set('installed', {
       ...(this.get('manifest.devDependencies') ?? {}),
       ...(this.get('manifest.dependencies') ?? {}),
     })
 
+    this.app
+      .info(
+        `inject feature is ${
+          this.app.store.is(`inject`, true)
+            ? `enabled`
+            : `disabled`
+        }`,
+      )
+      .info(
+        `project directory set as`,
+        this.app.store.get('location.project'),
+      )
+      .info(
+        `project src directory set as`,
+        this.app.store.get('location.src'),
+      )
+      .info(
+        `project dist directory set as`,
+        this.app.store.get('location.dist'),
+      )
+      .info(
+        `project cache directory set as`,
+        this.app.store.get('location.storage'),
+      )
+  }
+
+  @bind
+  public async clearCaches() {
+    this.app.warn('Removing storage', this.app.path('storage'))
+    await remove(this.app.path('storage'))
+    await ensureFile(
+      this.app.path('storage', 'bud.profile.json'),
+    )
+  }
+
+  @bind
+  public async register(): Promise<void> {
     this.mergeStore({
       cache: {
         directory: this.app.path('storage'),
@@ -114,10 +117,8 @@ export class Project
       },
     })
 
-    if (this.app.store.is('cache', false)) {
-      this.app.warn('Removing storage', this.app.path('storage'))
-      await remove(this.app.path('storage'))
-    }
+    if (this.app.store.is('cache', false))
+      await this.clearCaches()
 
     await Promise.all(
       [
@@ -151,14 +152,13 @@ export class Project
         },
       ].map(this.searchConfig),
     )
+
+    await this.resolvePeers()
+    await this.writeProfile()
   }
 
   @bind
-  public async boot() {
-    await this.resolvePeers()
-    await ensureFile(
-      this.app.path('storage', 'bud.profile.json'),
-    )
+  public async writeProfile() {
     await writeFile(
       this.app.path('storage', 'bud.profile.json'),
       JSON.stringify(this.all()),
@@ -185,17 +185,6 @@ export class Project
   }
 
   /**
-   * Returns all gathered project data
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public getProjectInfo(): {[key: string]: any} {
-    return this.all()
-  }
-
-  /**
    * Read project package.json and set peer deps
    *
    * @public
@@ -203,8 +192,6 @@ export class Project
    */
   @bind
   public async resolvePeers() {
-    this.peers = new Peers(this.app)
-
     if (this.has('manifest.dependencies')) {
       await this.peers.discover('dependencies')
     }

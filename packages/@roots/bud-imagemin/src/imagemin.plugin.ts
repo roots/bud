@@ -8,17 +8,15 @@ export const BudImageMinPlugin: Extension.CompilerPlugin<
 > = {
   name: 'image-minimizer-webpack-plugin',
 
-  options: {
+  options: () => ({
     minimizerOptions: {
       plugins: [],
     },
-  },
+  }),
 
   make: options => {
     return new ImageMinimizerPlugin(options.all())
   },
 
-  when: ({hooks}, options) =>
-    hooks.filter('build/optimization/minimize') &&
-    options.get('minimizerOptions.plugins').length > 0,
+  when: ({store}, options) => store.isTrue('minimize'),
 }

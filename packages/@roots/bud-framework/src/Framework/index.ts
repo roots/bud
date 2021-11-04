@@ -23,7 +23,6 @@ import {Logger} from '../Logger'
 import * as Project from '../Project'
 import {access} from './access'
 import {bindMethod} from './bindMethod'
-import {bootstrap} from './bootstrap'
 import {close} from './close'
 import {container} from './container'
 import {
@@ -33,6 +32,7 @@ import {
   isUndefined,
 } from './framework.dependencies'
 import {get} from './get'
+import {lifecycle} from './lifecycle'
 import {make} from './make'
 import {mixin} from './mixin'
 import {path} from './path'
@@ -282,29 +282,12 @@ export abstract class Framework {
       ...(options.config ?? options.parent.store.all()),
     })
 
-    this.bindMethod = this.bindMethod.bind(this)
-
-    // This foolishness is basically mandated by tsc
-    this.bindMethod({
-      access,
-      bootstrap,
-      close,
-      container,
-      get,
-      make,
-      mixin,
-      path,
-      pipe,
-      setPath,
-      sequence,
-      tap,
-      when,
-    })
-
     // Parent & child instance exclusive settings
     if (isNull(this.parent) && isUndefined(options.parent)) {
       this.children = new Container()
     } else this.parent = options.parent
+
+    this.mixin = this.mixin.bind(this)
   }
 
   /**
@@ -312,13 +295,17 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod: typeof bindMethod = bindMethod
-  public mixin: typeof mixin = mixin
+  public bindMethod: typeof bindMethod = bindMethod.bind(this)
+
+  /**
+   * @public
+   */
+  public mixin = mixin.bind(this)
 
   /**
    * @internal
    */
-  public bootstrap: bootstrap
+  public lifecycle: lifecycle = lifecycle.bind(this)
 
   /**
    * Access a value which may or may not be a function.
@@ -339,7 +326,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public access: access
+  public access: access = access.bind(this)
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
@@ -351,7 +338,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public close: close
+  public close: close = close.bind(this)
 
   /**
    * Create a new {@link Container} instance
@@ -365,7 +352,7 @@ export abstract class Framework {
    *
    * @public @container
    */
-  public container: container
+  public container: container = container.bind(this)
 
   /**
    * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
@@ -383,7 +370,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public get: get
+  public get: get = get.bind(this)
 
   /**
    * Instantiate a child instance and add to {@link Framework.children} container
@@ -401,14 +388,14 @@ export abstract class Framework {
    *
    * @public
    */
-  public make: make
+  public make: make = make.bind(this)
 
   /**
    * Returns a {@link Locations} value as an absolute path
    *
    * @public
    */
-  public path: path
+  public path: path = path.bind(this)
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
@@ -431,7 +418,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public pipe: pipe
+  public pipe: pipe = pipe.bind(this)
 
   /**
    * Set a {@link @roots/bud-framework#Location | Location} value
@@ -452,7 +439,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public setPath: setPath
+  public setPath: setPath = setPath.bind(this)
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.
@@ -462,7 +449,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public sequence = sequence
+  public sequence: sequence = sequence.bind(this)
 
   /**
    * Execute a callback
@@ -489,7 +476,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public tap: tap
+  public tap: tap = tap.bind(this)
 
   /**
    * Executes a function if a given test is `true`.
@@ -519,7 +506,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public when: when
+  public when: when = when.bind(this)
 
   /**
    * Log a message
@@ -683,7 +670,7 @@ export abstract class Framework {
         highlight(
           format(obj, {
             callToJSON: options?.callToJSON ?? false,
-            maxDepth: maxDepth ?? Infinity,
+            maxDepth: maxDepth ?? 2,
             printFunctionName:
               options?.printFunctionName ?? false,
           }),

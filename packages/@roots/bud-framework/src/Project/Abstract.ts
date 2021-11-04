@@ -1,3 +1,5 @@
+import {Repository} from '@roots/container'
+
 import * as Peers from '../Peers'
 import {Service} from '../Service'
 
@@ -7,7 +9,7 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export abstract class Abstract extends Service<Peers.Repository> {
-  [key: string]: any
+  public abstract repository: Repository
 
   /**
    * Peer module related utilities
@@ -15,15 +17,6 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * @public
    */
   public abstract peers: Peers.Interface
-
-  /**
-   * Get aggregated project info
-   *
-   * @public
-   */
-  public abstract getProjectInfo(): {
-    [key: string]: any
-  }
 
   /**
    * Returns a boolean representing if

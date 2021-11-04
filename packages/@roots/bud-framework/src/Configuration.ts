@@ -73,30 +73,6 @@ export interface Configuration {
   clean: boolean
 
   /**
-   * Feature: produce webpack.debug.js artifact
-   *
-   * When enabled a `webpack.debug.js` artifact will be
-   * emitted to the `location/storage` directory.
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  debug: boolean
-
-  /**
-   * Discover: automatically register locatable extensions
-   *
-   * When enabled, any discovered extensions will be automatically
-   * initialized.
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  discover: boolean
-
-  /**
    * Enable or disable filename hashing
    *
    * @defaultValue false
@@ -180,6 +156,17 @@ export interface Configuration {
    * @public
    */
   hashFormat: string
+
+  /**
+   * @public
+   */
+  cli?: {
+    args: Record<string, any>
+    argv: Array<string>
+    flags: Record<string, any>
+    raw: Array<Record<string, string>>
+    metadata: Record<string, Record<string, any>>
+  }
 
   /**
    * Initial webpack configuration values

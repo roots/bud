@@ -5,17 +5,6 @@ import {Bud, createHash, readFile} from './cache.dependencies'
 /**
  * Cache service class
  *
- * @remarks
- * Interfaces with:
- *
- *  - {@link @roots/bud-framework#Project} to determine project dependencies for snapshotting/validation.
- *
- *  - {@link @roots/bud-framework#Build} via {@link @roots/bud-framework#Hooks} to update config.
- *
- * Facades:
- *
- *  - {@link @roots/bud-framework#Api} can toggle cache settings with {@link Bud.Persist}
- *
  * @public
  */
 export class Cache
@@ -36,14 +25,11 @@ export class Cache
    * @public
    */
   @bind
-  public async register(): Promise<void> {
+  public async boot() {
     this.version = await this.hashFileContents(
       this.app.project.get('dependencies'),
     )
-  }
 
-  @bind
-  public boot() {
     this.app.hooks
       .on('build/cache', () => ({
         type: this.app.hooks.filter('build/cache/type'),
@@ -51,6 +37,9 @@ export class Cache
       .hooks.on('build/cache/type', () => 'memory')
   }
 
+  /**
+   * @public
+   */
   @bind
   public async hashFileContents(
     filePaths: Array<string>,
@@ -63,13 +52,17 @@ export class Cache
         .toLowerCase()
 
     try {
-      const argv = await hash(process.argv.slice(3).join(''))
+      const argv = JSON.stringify(this.app.project.get('cli'))
       const str = await Promise.all(
         filePaths.map(async filePath => {
           return await readFile(filePath, 'utf8')
         }),
       )
-      return hash(str.join('').concat(argv) ?? '')
+      const finalHash = await hash(
+        str.join('').concat(argv) ?? '',
+      )
+
+      return finalHash
     } catch (e) {
       throw new Error(e)
     }

@@ -1,5 +1,3 @@
-import {isUndefined} from 'lodash'
-
 import {Bud} from '../Bud'
 import {config} from '../config'
 import {services} from '../services'
@@ -22,7 +20,7 @@ export async function factory(
   overrides?: Options,
 ): Promise<Bud> {
   const options: FrameworkOptions = {
-    name: !isUndefined(overrides?.name) ? overrides.name : 'bud',
+    name: overrides?.name ?? 'bud',
     mode: overrides?.mode ?? 'production',
     services: {
       ...(overrides?.services ?? {}),
@@ -30,6 +28,10 @@ export async function factory(
     },
     config: {
       ...config,
+      location: {
+        ...config.location,
+        ...(overrides?.config?.location ?? {}),
+      },
       ...(overrides?.config ?? {}),
     },
   }
@@ -40,5 +42,7 @@ export async function factory(
   const bud = new Bud(options)
 
   bud.time('bud')
-  return await bud.bootstrap()
+
+  await bud.lifecycle()
+  return bud
 }

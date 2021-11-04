@@ -3,6 +3,7 @@ import {Registry} from './babel.interface'
 
 export class Config {
   public plugins: Registry = {}
+
   public presets: Registry = {}
 
   @bind

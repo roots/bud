@@ -52,7 +52,6 @@ export const config = async (app, configKey) => {
               }
             })
         })
-
         return Promise.resolve()
       },
       Promise.resolve(),

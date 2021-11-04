@@ -23,7 +23,7 @@ export const Sage: Preset = {
    *
    * @public
    */
-  register: app => {
+  boot: async app => {
     app
       .setPath({
         storage: 'storage/bud',

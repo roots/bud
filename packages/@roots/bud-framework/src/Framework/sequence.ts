@@ -4,22 +4,16 @@ interface Callback {
   <T>(value: T): any
 }
 
-interface sequence {
-  <T = Framework>(
-    this: Framework,
-    fns: Callback[],
-    value?: T,
-  ): Framework
+export interface sequence {
+  <T = Framework>(fns: Callback[], value?: T): Framework
 }
 
-function sequence<T = Framework>(
-  this: Framework,
+export function sequence<T = Framework>(
   fns: Callback[],
   value?: T,
 ): Framework {
-  value ? fns.map(fn => fn(value)) : fns.map(fn => fn(this))
+  const ctx = this as Framework
+  value ? fns.map(fn => fn(value)) : fns.map(fn => fn(ctx))
 
-  return this
+  return ctx
 }
-
-export {sequence}

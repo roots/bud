@@ -1,3 +1,4 @@
+import {Configuration} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 
 import {Bud} from '../../Bud'
@@ -12,92 +13,72 @@ import * as manifest from './manifest.config'
  */
 export class Runner {
   /**
-   * {@link Bud} application instance
+   * @public
    */
   public app: Bud
-
-  /**
-   * Constructor options
-   */
-  public options: {
-    mode?: 'production' | 'development'
-    config?: Partial<typeof config>
-  }
-
-  /**
-   * CLI state
-   */
-  public flags: {[key: string]: any}
-  public args: {[key: string]: any}
-
-  /**
-   * Requested {@link Bud.mode}
-   */
-  public mode: 'development' | 'production'
-
-  public cli: {
-    args: Record<string, any>
-    argv: Array<string>
-    flags: Record<string, any>
-    raw: Array<Record<string, string>>
-    metadata: Record<string, Record<string, any>>
-  }
 
   /**
    * Class constructor
    *
    * @param cli - CLI state
    * @param options - Bud options
-   * @param app - Instance of {@link Bud}
    */
   public constructor(
-    cli: {
-      args: Record<string, any>
-      argv: Array<string>
-      flags: Record<string, any>
-      raw: Array<Record<string, string>>
-      metadata: Record<string, Record<string, any>>
+    public cli: Configuration['cli'],
+    public options: {
+      mode?: 'production' | 'development'
+      config?: Partial<typeof config>
+    } = {
+      mode: 'production',
+      config: {},
     },
-    options: Runner['options'] = {},
-  ) {
-    Object.assign(this, {...cli})
-    options && Object.assign(this, options)
-  }
+  ) {}
 
   /**
    * Initialize bud application
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public async initialize() {
     this.app = await factory({
-      mode: this.mode,
+      mode: this.options.mode,
       ...this.options,
       config: {
         ...config,
-        ci: this.flags?.ci,
-        cache: this.flags?.cache,
-        clean: this.flags?.clean,
-        inject: this.flags?.inject,
+        ci: this.cli?.flags?.ci,
+        cache: this.cli?.flags?.cache,
+        clean: this.cli?.flags?.clean,
+        inject: this.cli?.flags?.inject,
+        cli: this.cli,
         ...(this.options?.config ?? {}),
       },
     })
+
+    return this.app
   }
 
   /**
    * Main process
    *
    * @param build - Boolean value indicating if compilation should occur
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async make() {
     await dynamic.config(this.app)
+
     await manifest.config(this.app, 'configs.json.global.config')
+
     await manifest.config(
       this.app,
       'configs.json.conditional.config',
     )
-    await flags.config(this.app, this.flags)
+
+    await flags.config(this.app, this.cli.flags)
 
     return this.app
   }

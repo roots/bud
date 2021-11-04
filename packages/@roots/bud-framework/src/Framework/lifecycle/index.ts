@@ -1,18 +1,18 @@
-import {Services} from '..'
-import {Service} from '../Service'
-import {Framework} from './'
+import {Services} from '../..'
+import {Service} from '../../Service'
+import {Framework} from '..'
 import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
-} from './constants'
+} from '../constants'
 
 /**
  * Bootstrap interface
  *
  * @internal
  */
-export interface bootstrap {
+export interface lifecycle {
   (this: Framework): Promise<Framework>
 }
 
@@ -29,7 +29,7 @@ export interface bootstrap {
  *
  * @public
  */
-export async function bootstrap(
+export async function lifecycle(
   this: Framework,
 ): Promise<Framework> {
   this.time('lifecycle')
@@ -93,19 +93,22 @@ export async function bootstrap(
 
     this.time(`lifecycle event: ${event}`)
 
-    await initializedServices.reduce(async (promised, key) => {
-      await promised
+    await Promise.all(
+      initializedServices.map(async key => {
+        try {
+          this.await(key)
 
-      this.await(key)
+          const service = this[key]
 
-      const service = this[key]
+          if (!service || !service[event]) return
 
-      if (!service || !service[event]) return
-
-      await service[event](this)
-
-      return Promise.resolve()
-    }, Promise.resolve())
+          await service[event](this)
+        } catch (error) {
+          this.error(error, key, event)
+          this.dump(this[key])
+        }
+      }),
+    )
 
     this.timeEnd(`lifecycle event: ${event}`)
 

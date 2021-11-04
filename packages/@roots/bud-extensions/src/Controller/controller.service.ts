@@ -1,4 +1,5 @@
 import {Container} from '@roots/container'
+import {isUndefined} from 'lodash'
 
 import {bind, isFunction} from './controller.dependencies'
 import {
@@ -32,14 +33,14 @@ export class Controller {
    *
    * @public
    */
-  public registered: boolean = false
+  public registered: boolean
 
   /**
    * Has booted
    *
    * @public
    */
-  public booted: boolean = false
+  public booted: boolean
 
   /**
    * @internal
@@ -54,8 +55,13 @@ export class Controller {
   public constructor(_app: Framework, module: Extension) {
     this._app = () => _app
     this.module = module
+
+    if (!this.module) {
+      this.app.error(this.name, 'module not found')
+    }
   }
 
+  @bind
   public get(key: string): any {
     return this.module[key]
   }
@@ -63,6 +69,7 @@ export class Controller {
   /**
    * Overwrite
    */
+  @bind
   public set(key: string, value: any) {
     this.module[key] = value
   }
@@ -80,68 +87,52 @@ export class Controller {
   }
 
   /**
+   * @public
+   */
+  @bind
+  public filter(key, object) {
+    return this.app.hooks.filter(
+      `extension.${this.name}.${key}`,
+      object,
+    )
+  }
+
+  /**
    * Extension module options
    *
    * @public
    */
   public get options() {
-    return this.app.container(
-      isFunction(this.module.options)
-        ? this.module.options(this.app)
-        : this.module.options,
+    if (isUndefined(this.module.options))
+      return this.filter('options', this.app.container({}))
+
+    if (isFunction(this.module.options))
+      return this.filter(
+        'options',
+        this.app.container(this.module.options(this.app)),
+      )
+
+    if (this.module.options instanceof Container)
+      return this.filter('options', this.module.options)
+
+    return this.filter(
+      'options',
+      this.app.container(this.module.options),
     )
   }
+
   public set options(options) {
-    if (options instanceof Container) {
-      this.module.options = options.all()
+    if (isFunction(options)) {
+      this.module.options = this.options(this.app)
       return
     }
 
-    this.module.options = options
-  }
+    if (options instanceof Container) {
+      this.module.options = options
+      return
+    }
 
-  /**
-   * Merge an extension option value with the supplied value
-   *
-   * @public
-   */
-  public mergeOptions(options: any) {
-    this.options.setStore({
-      ...this.options.all(),
-      ...options,
-    })
-  }
-
-  /**
-   * Merge extension options with supplied values
-   *
-   * @public
-   */
-  public mergeOption(key: string, value: any) {
-    this.options.set(key, {
-      ...this.options.get(key),
-      ...value,
-    })
-  }
-
-  /**
-   * Modify an extension module property with a callback
-   *
-   * @public
-   */
-  public mutateProp(prop: string, mutator: (prop: any) => any) {
-    this.module[prop] = mutator(this.module[prop])
-    return this
-  }
-
-  /**
-   * Modify the extension module with a callback
-   *
-   * @public
-   */
-  public mutate(cb: (module: Extension) => Extension) {
-    this.module = cb(this.module)
-    return this
+    this.module.options = this.app.container(options)
   }
 
   /**
@@ -149,33 +140,16 @@ export class Controller {
    *
    * @public
    */
+  @bind
   public make() {
     if (this.when === false) return false
-    if (!this.module.make) return false
+    if (!this.module.make && !this.module.apply) return false
 
-    const options = this.app.hooks.filter(
-      `extension.${this.name}.options`,
-      this.options,
-    )
+    if (this.module.apply) {
+      return this.module
+    }
 
-    const value = this.module.make(options, this.app)
-
-    return this.app.hooks.filter(
-      `extension.${this.name}.make`,
-      value,
-    )
-  }
-
-  /**
-   * The extension name
-   *
-   * @public
-   */
-  public apply(): Plugin {
-    return this.app.hooks.filter(
-      `extension.${this.name}.apply`,
-      this.module,
-    )
+    return this.module.make(this.options, this.app)
   }
 
   /**
@@ -184,16 +158,12 @@ export class Controller {
    * @public
    */
   public get when() {
-    if (typeof this.module.when === 'undefined') return true
+    if (isUndefined(this.module.when)) return true
 
-    if (typeof this.module.when === 'boolean')
-      return this.module.when
+    if (isFunction(this.module.when))
+      return this.module.when(this.app, this.options)
 
-    const value = isFunction(this.module.when)
-      ? this.module.when(this.app, this.options)
-      : this.module.when
-
-    return value
+    return this.module.when
   }
 
   /**
@@ -214,44 +184,47 @@ export class Controller {
    * @public
    */
   @bind
-  public async register(): Promise<this> {
-    if (this.registered || !this.module.register) return this
-
-    await this.module.register(this.app)
+  public async register(): Promise<Controller> {
+    if (this.registered === true) {
+      this.app.warn(this.name, 'already registered')
+      return this
+    }
     this.registered = true
-    this.app.success(this.name, 'registered')
 
+    await this.mixin()
+
+    await this.api()
+
+    if (isFunction(this.module.register))
+      await this.module.register(this.app)
+
+    this.app.success(this.name, 'registered')
     return this
   }
 
   @bind
-  public async api(): Promise<this> {
-    if (!this.module.api) return this
+  public async api(): Promise<Controller> {
+    if (isUndefined(this.module.api)) return this
 
-    const assignment = isFunction(this.module.api)
+    const methodMap = isFunction(this.module.api)
       ? this.module.api(this.app)
       : this.module.api
 
-    if (!Object.keys(assignment).every(key => !this.app[key])) {
-      this.app.error(
-        `${this.name} api tried to overwrite a property of ${this.app.name}`,
-      )
-      return this
-    }
+    this.app.bindMethod(methodMap)
 
-    Object.assign(this.app, assignment)
     return this
   }
 
   @bind
   public async mixin(): Promise<this> {
-    if (!this.module.mixin) return this
+    if (isUndefined(this.module.mixin)) return this
+    this.app.info(this.name, 'mixin found')
 
-    try {
-      const classMap = await this.module.mixin(this.app)
+    const classMap = isFunction(this.module.mixin)
+      ? await this.module.mixin(this.app)
+      : this.module.mixin
 
-      this.app.mixin(classMap)
-    } catch (err) {}
+    this.app.mixin(classMap)
 
     return this
   }
@@ -270,15 +243,9 @@ export class Controller {
   @bind
   public async boot(): Promise<this> {
     if (this.booted || !this.module.boot) return this
-
-    try {
-      await this.module.boot(this.app)
-    } catch (err) {
-      this.app.error(this.module.name, 'boot', err)
-      return this
-    }
-
     this.booted = true
+
+    await this.module.boot(this.app)
     this.app.success(this.name)
 
     return this

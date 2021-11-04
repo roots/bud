@@ -1,7 +1,5 @@
 import type {Class} from 'type-fest'
 
-import {Framework} from '.'
-
 /**
  * Generic type defining the {@link Service.bindClass} map of classes to {@link Framework} property keys
  *
@@ -18,16 +16,16 @@ interface GenericClassMap {
  * Constructor parameters can be specified using an array.
  *
  * @example
- * Bind a Class named `FooClass` to `app.Foo`:
+ * Bind a class named `FooClass` and expose `app.propertyName`:
  *
  * ```js
- * app.service.bindClass({Foo: FooClass})
+ * app.mixin({propertyName: [FooClass]})
  * ```
  *
  * Specify constructor parameters with a tuple:
  *
  * ```js
- * app.service.bindClass({
+ * app.mixin({
  *   bindingName: [BindingClass, foo, bar]
  * })
  * ```
@@ -40,15 +38,19 @@ interface GenericClassMap {
 export function mixin<ClassMap = GenericClassMap>(
   properties: ClassMap,
 ): void {
-  const ctx = this as Framework
+  Object.entries(properties).map(
+    ([name, [ClassObj, ...params]]) => {
+      this[name] = new ClassObj(...params)
 
-  Object.entries(properties).map(([name, value]) => {
-    const ClassObj = value[0]
-    const param = value[1]
-    ctx[`${name}`] = new ClassObj(param)
-  })
-
-  ctx.success(
-    `Assigned ${Object.keys(properties).length} classes`,
+      if (this[name] instanceof ClassObj) {
+        this.success(`instantiated ${this.name}.${name}`)
+      } else {
+        this.error(
+          `${name} not properly bound to ${this.name} framework instance`,
+        )
+        this.dump(this.name)
+        this.dump(ClassObj)
+      }
+    },
   )
 }

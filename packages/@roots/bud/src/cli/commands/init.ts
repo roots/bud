@@ -27,6 +27,7 @@ export default class Init extends Command {
       config: {ci: true},
     })
     await runner.initialize()
+
     this.app = runner.app
 
     const pkgs = this.getMissingPeers().reduce(
