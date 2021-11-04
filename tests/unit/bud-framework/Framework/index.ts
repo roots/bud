@@ -11,10 +11,6 @@ describe('bud', () => {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('mode', () => {
     expect(bud.mode).toEqual('production')
   })

@@ -1,7 +1,7 @@
 import {factory} from '@roots/bud'
 import {run} from '@roots/bud-api/src/Repository/run'
 
-describe('bud.run', function () {
+describe.skip('bud.run', function () {
   let bud
   let compile = jest.fn(async () => true)
   let MOCK_BUD = {

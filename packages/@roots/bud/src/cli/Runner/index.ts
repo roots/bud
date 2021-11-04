@@ -75,9 +75,10 @@ export class Runner {
       ...this.options,
       config: {
         ...config,
-        ci: this.flags?.ci ?? false,
-        cache: this.flags?.cache ?? false,
-        clean: this.flags?.clean ?? false,
+        ci: this.flags?.ci,
+        cache: this.flags?.cache,
+        clean: this.flags?.clean,
+        inject: this.flags?.inject,
         ...(this.options?.config ?? {}),
       },
     })

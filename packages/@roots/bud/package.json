@@ -58,6 +58,7 @@
   "oclif": {
     "commands": "./lib/cjs/cli/commands",
     "bin": "bud",
+    "helpClass": "./lib/cjs/cli/cli.help",
     "plugins": [
       "@oclif/plugin-commands",
       "@oclif/plugin-autocomplete",

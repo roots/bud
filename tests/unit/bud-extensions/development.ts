@@ -10,10 +10,6 @@ describe('Extensions', function () {
     bud
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('[development] bud.extensions.repository matches snapshot', () => {
     expect(bud.extensions.all()).toMatchSnapshot()
   })

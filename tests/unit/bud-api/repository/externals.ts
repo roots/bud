@@ -1,6 +1,6 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.externals', function () {
+describe.skip('bud.externals', function () {
   let bud: Framework
 
   beforeAll(async () => {

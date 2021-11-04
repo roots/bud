@@ -1,6 +1,6 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.minimize', function () {
+describe.skip('bud.minimize', function () {
   let bud: Framework
 
   beforeAll(async () => {

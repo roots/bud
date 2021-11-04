@@ -17,8 +17,8 @@ function when(
   falseCase?: (app: Framework) => any,
 ): Framework {
   this.access(test)
-    ? trueCase && isFunction(trueCase) && trueCase(this)
-    : falseCase && isFunction(falseCase) && falseCase(this)
+    ? trueCase && isFunction(trueCase) && this.tap(trueCase)
+    : falseCase && isFunction(falseCase) && this.tap(falseCase)
 
   return this
 }

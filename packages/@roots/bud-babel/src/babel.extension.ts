@@ -20,6 +20,11 @@ export const BudBabelExtension: Extension.Module = {
    */
   name: '@roots/bud-babel',
 
+  /**
+   * Exposes app.babel configuration utility
+   *
+   * @public
+   */
   mixin: async app => ({
     babel: [Config, app],
   }),

@@ -1,6 +1,6 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.template', function () {
+describe.skip('bud.template', function () {
   describe('default', () => {
     let bud: Framework
 

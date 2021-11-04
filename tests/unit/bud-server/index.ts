@@ -13,10 +13,6 @@ describe('@roots/bud-server', function () {
     })
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('has expected defaults', () => {
     expect(bud.server.config.all()).toMatchSnapshot({
       browser: {

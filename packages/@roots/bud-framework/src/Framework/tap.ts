@@ -5,13 +5,14 @@ export interface tap<T = Framework> {
 }
 
 /**
- * Execute a callback
+ * Execute a callback function to contain code execution
+ * side effects
  *
  * @remarks
- * Callback is provided {@link Framework | the Framework instance} as a parameter.
+ * Callback is provided {@link Framework} as a parameter.
  *
  * @example
- * ```js
+ * ```ts
  * bud.tap(bud => {
  *   // do something with bud
  * })
@@ -21,9 +22,9 @@ export interface tap<T = Framework> {
  * Lexical scope is bound to Framework where applicable, so it
  * is possible to reference the Framework using `this`.
  *
- * ```js
+ * ```ts
  * bud.tap(function () {
- *  // do something with this
+ *  this.log('this references bud from the outer scope')
  * })
  * ```
  *

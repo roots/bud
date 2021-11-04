@@ -51,13 +51,6 @@ export interface Configuration {
   cache: boolean
 
   /**
-   * Clear caches before build?
-   *
-   * @public
-   */
-  clearCache: boolean
-
-  /**
    * Feature toggle: enable or disable the command line interface
    *
    * @defaultValue true
@@ -120,6 +113,13 @@ export interface Configuration {
    * @public
    */
   html: boolean
+
+  /**
+   * Automatically inject installed extensions
+   *
+   * @public
+   */
+  inject: boolean
 
   /**
    * Automatically install peer dependencies

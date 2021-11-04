@@ -7,10 +7,6 @@ describe('@roots/bud-framework child', () => {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it("parent compiler's name is this", () => {
     expect(bud.name).toBe('bud')
   })

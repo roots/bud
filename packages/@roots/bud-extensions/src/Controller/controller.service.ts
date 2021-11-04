@@ -28,11 +28,6 @@ export class Controller {
   }
 
   /**
-   * @internal
-   */
-  public module: Extension | Plugin
-
-  /**
    * Has registered
    *
    * @public
@@ -45,6 +40,11 @@ export class Controller {
    * @public
    */
   public booted: boolean = false
+
+  /**
+   * @internal
+   */
+  public module: Extension | Plugin
 
   /**
    * Controller constructor
@@ -60,18 +60,30 @@ export class Controller {
     return this.module[key]
   }
 
+  /**
+   * Overwrite
+   */
   public set(key: string, value: any) {
     this.module[key] = value
   }
 
+  /**
+   * Extension module name
+   *
+   * @public
+   */
   public get name(): string {
     return this.module.name
   }
-
   public set name(name: string) {
     this.module.name = name
   }
 
+  /**
+   * Extension module options
+   *
+   * @public
+   */
   public get options() {
     return this.app.container(
       isFunction(this.module.options)
@@ -79,7 +91,6 @@ export class Controller {
         : this.module.options,
     )
   }
-
   public set options(options) {
     if (options instanceof Container) {
       this.module.options = options.all()
@@ -89,14 +100,44 @@ export class Controller {
     this.module.options = options
   }
 
-  public edit(prop: string, mutator: (prop: any) => any) {
-    this.module[prop] = mutator(this.module[prop])
+  /**
+   * Merge an extension option value with the supplied value
+   *
+   * @public
+   */
+  public mergeOptions(options: any) {
+    this.options.setStore({
+      ...this.options.all(),
+      ...options,
+    })
+  }
 
+  /**
+   * Merge extension options with supplied values
+   *
+   * @public
+   */
+  public mergeOption(key: string, value: any) {
+    this.options.set(key, {
+      ...this.options.get(key),
+      ...value,
+    })
+  }
+
+  /**
+   * Modify an extension module property with a callback
+   *
+   * @public
+   */
+  public mutateProp(prop: string, mutator: (prop: any) => any) {
+    this.module[prop] = mutator(this.module[prop])
     return this
   }
 
   /**
    * Modify the extension module with a callback
+   *
+   * @public
    */
   public mutate(cb: (module: Extension) => Extension) {
     this.module = cb(this.module)
@@ -112,7 +153,17 @@ export class Controller {
     if (this.when === false) return false
     if (!this.module.make) return false
 
-    return this.module.make(this.options, this.app)
+    const options = this.app.hooks.filter(
+      `extension.${this.name}.options`,
+      this.options,
+    )
+
+    const value = this.module.make(options, this.app)
+
+    return this.app.hooks.filter(
+      `extension.${this.name}.make`,
+      value,
+    )
   }
 
   /**
@@ -121,7 +172,10 @@ export class Controller {
    * @public
    */
   public apply(): Plugin {
-    return this.module
+    return this.app.hooks.filter(
+      `extension.${this.name}.apply`,
+      this.module,
+    )
   }
 
   /**
@@ -135,9 +189,11 @@ export class Controller {
     if (typeof this.module.when === 'boolean')
       return this.module.when
 
-    return isFunction(this.module.when)
+    const value = isFunction(this.module.when)
       ? this.module.when(this.app, this.options)
       : this.module.when
+
+    return value
   }
 
   /**
@@ -176,8 +232,14 @@ export class Controller {
       ? this.module.api(this.app)
       : this.module.api
 
-    Object.assign(this.app, assignment)
+    if (!Object.keys(assignment).every(key => !this.app[key])) {
+      this.app.error(
+        `${this.name} api tried to overwrite a property of ${this.app.name}`,
+      )
+      return this
+    }
 
+    Object.assign(this.app, assignment)
     return this
   }
 

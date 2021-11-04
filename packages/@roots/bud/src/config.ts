@@ -21,13 +21,6 @@ export const config: Configuration = {
   cache: false,
 
   /**
-   * Clear bud cache on framework initialization?
-   *
-   * @public
-   */
-  clearCache: false,
-
-  /**
    * {@inheritDoc @roots/bud-framework#Configuration.ci}
    * @public
    */
@@ -62,6 +55,13 @@ export const config: Configuration = {
    * @public
    */
   html: false,
+
+  /**
+   * Automatically register installed extensions
+   *
+   * @public
+   */
+  inject: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.install}

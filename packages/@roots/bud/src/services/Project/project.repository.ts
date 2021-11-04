@@ -4,7 +4,6 @@
  * @public
  */
 export const repository = {
-  version: null,
   cache: {
     file: null,
     directory: null,

@@ -22,10 +22,6 @@ describe('bud.project', function () {
     })
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('contains a repository', () => {
     expect(bud.project.repository).toMatchSnapshot({
       manifest: {

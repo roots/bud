@@ -19,10 +19,6 @@ describe('bud.build.config', function () {
     bud.build.make()
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it(`doesn't include deprecated properties`, () => {
     expect(bud.build.config.hasOwnProperty('devServer')).toBe(
       false,
@@ -311,6 +307,15 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[10],
-    ).toMatchSnapshot()
+    ).toMatchSnapshot({
+      exclude: /(node_modules|bower_components)/,
+      test: /\.(js|jsx)/,
+      use: [
+        {
+          loader: expect.any(String),
+          options: expect.any(Object),
+        },
+      ],
+    })
   })
 })

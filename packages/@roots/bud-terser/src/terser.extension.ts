@@ -29,7 +29,7 @@ export const boot = ({extensions, hooks, store}) => {
   hooks.on('build/optimization/minimizer', minimizer => {
     minimizer.push(
       new TerserPlugin(
-        extensions.get('terser-webpack-plugin').options,
+        extensions.get('terser-webpack-plugin').options.all(),
       ),
     )
     return minimizer

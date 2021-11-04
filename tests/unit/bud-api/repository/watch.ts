@@ -1,6 +1,6 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.watch', function () {
+describe.skip('bud.watch', function () {
   let bud: Framework
 
   let serverConfig

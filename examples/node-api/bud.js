@@ -1,6 +1,9 @@
 const {factory} = require('@roots/bud')
+const postcss = require('@roots/bud-postcss')
 
 ;(async () => {
   const bud = await factory({mode: 'production'})
-  bud.entry('app', 'index.js').minimize().splitChunks()
+  await bud.use(postcss)
+  bud.entry('app', 'index.js').minimize().splitChunks().run()
+  bud.dump(bud.store.get('inject'))
 })()

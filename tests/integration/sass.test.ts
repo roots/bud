@@ -17,14 +17,6 @@ describe('examples/sass', () => {
     await project.setup()
   })
 
-  it('manifest.yml is unchanged', async () => {
-    const artifact = await readFile(
-      join(process.cwd(), 'examples/sass/bud.config.yml'),
-    )
-
-    expect(artifact.toString()).toMatchSnapshot()
-  })
-
   it('src/app.scss is unchanged', async () => {
     const artifact = await readFile(
       join(process.cwd(), 'examples/sass/src/app.scss'),

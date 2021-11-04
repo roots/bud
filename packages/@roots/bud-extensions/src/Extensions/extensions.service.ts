@@ -52,13 +52,21 @@ export class Extensions
    */
   @bind
   public async booted(): Promise<void> {
-    this.app.time('instantiating project extensions')
+    if (this.app.store.is('inject', false)) {
+      this.app.warn('extension injection disabled')
+      return
+    }
+
+    this.app.time('injecting project extensions')
     await Promise.all(
       this.app.project
         .getValues('extensions')
         .map(async profile => {
           const extension = await import(profile.path)
-          this.add(extension)
+          this.set(
+            extension.name,
+            this.makeController(extension),
+          )
         }),
     )
 
@@ -78,7 +86,6 @@ export class Extensions
         await controller.mixin()
       }),
     )
-
     this.app.timeEnd('processing mixins')
 
     this.app.time('registering apis')
@@ -133,10 +140,22 @@ export class Extensions
    * @public
    */
   @bind
-  public add(extension: Framework.Extension.Module): void {
-    if (this.has(extension.name)) return
+  public async add(
+    extension: Framework.Extension.Module,
+  ): Promise<void> {
+    if (this.has(extension.name)) {
+      this.app.warn(`${extension.name} already added. skipping.`)
+      return
+    }
 
-    this.set(extension.name, this.makeController(extension))
+    const controller = this.makeController(extension)
+
+    await controller.mixin()
+    await controller.api()
+    await controller.register()
+    await controller.boot()
+
+    this.set(extension.name, controller)
 
     this.app.success(
       extension.name,

@@ -15,7 +15,7 @@ export class Config {
       return this
     }
 
-    this.presets[name] = [preset, undefined]
+    this.presets[name] = [preset]
     return this
   }
 
@@ -30,7 +30,7 @@ export class Config {
           return presets
         }
 
-        presets[name] = [preset, undefined]
+        presets[name] = [preset]
         return presets
       },
       {},

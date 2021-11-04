@@ -34,10 +34,6 @@ describe('@roots/bud-extensions Controller', function () {
     })
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is constructable', () => {
     const controller: Controller = new Controller(
       bud,
@@ -81,7 +77,7 @@ describe('@roots/bud-extensions Controller', function () {
     bud.use(mockModule)
 
     expect(
-      bud.extensions.get('@roots/bud-postcss').get('options'),
+      bud.extensions.get('@roots/bud-postcss').options.all(),
     ).toBeInstanceOf(Object)
   })
 

@@ -679,7 +679,7 @@ export abstract class Framework {
   ): Framework {
     return this.log(
       ...[
-        `${options.prefix ?? ''}\n`,
+        `${options?.prefix ?? ''}\n`,
         highlight(
           format(obj, {
             callToJSON: options?.callToJSON ?? false,

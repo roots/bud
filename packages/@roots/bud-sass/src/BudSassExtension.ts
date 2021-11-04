@@ -6,7 +6,7 @@ export interface BudSassExtension extends Extension.Module {}
 export const BudSassExtension: BudSassExtension = {
   name: '@roots/bud-sass',
 
-  register: async ({hooks, build}) => {
+  boot: async ({hooks, build}) => {
     build.loaders.sass = new Loader(
       require.resolve('sass-loader'),
     )

@@ -36,10 +36,6 @@ describe('Extensions', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is constructable', () => {
     const extensions: Extensions = new Extensions(bud)
     expect(extensions).toBeInstanceOf(Extensions)

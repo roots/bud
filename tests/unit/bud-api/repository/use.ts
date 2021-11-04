@@ -2,7 +2,7 @@ import {factory, Framework} from '@roots/bud'
 import Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-describe('bud.use', function () {
+describe.skip('bud.use', function () {
   let bud: Framework
 
   beforeAll(async () => {

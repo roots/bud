@@ -22,11 +22,8 @@ export default class Build extends Command {
       description: 'cache built modules to the filesystem.',
     }),
 
-    clearCache: flags.boolean({
-      description: 'Clear the cache before compilation',
-    }),
-
     ci: flags.boolean({
+      default: false,
       description: 'non raw mode tty interoperable output',
     }),
 
@@ -36,12 +33,14 @@ export default class Build extends Command {
       description: 'clean distributables on compilation',
     }),
 
-    devtool: flags.string({
-      description: 'specify source-map type',
+    version: flags.version(),
+
+    config: flags.string({
+      description: 'path to config file',
     }),
 
-    discover: flags.boolean({
-      description: 'automatically utilize installed extensions',
+    devtool: flags.string({
+      description: 'specify source-map type',
     }),
 
     html: flags.boolean({
@@ -58,8 +57,13 @@ export default class Build extends Command {
       description: 'hash compiled filenames',
     }),
 
+    inject: flags.boolean({
+      allowNo: true,
+      default: true,
+      description: 'automatically register & boot extensions',
+    }),
+
     install: flags.boolean({
-      char: 'i',
       description: 'ensure peer dependencies are installed',
     }),
 
@@ -70,7 +74,6 @@ export default class Build extends Command {
     }),
 
     minimize: flags.boolean({
-      char: 'm',
       allowNo: true,
       description: 'minimize file size of compiled assets',
     }),
@@ -99,7 +102,6 @@ export default class Build extends Command {
     }),
 
     target: flags.string({
-      char: 't',
       description: 'limit compilation to this compiler',
       multiple: true,
       default: [],

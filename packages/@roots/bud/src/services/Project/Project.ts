@@ -6,6 +6,7 @@ import {
   Peers,
   Project as FrameworkProject,
   readJson,
+  remove,
   writeFile,
 } from './project.dependencies'
 import type {Repository} from './project.interface'
@@ -41,8 +42,7 @@ export class Project
    */
   public repository: Repository = repository
 
-  @bind
-  public async register(): Promise<void> {
+  public async bootstrap() {
     this.set(
       'manifestPath',
       this.app.path('project', 'package.json'),
@@ -60,22 +60,49 @@ export class Project
       this.app.error('manifest file not found', e)
     }
 
-    this.set('installed', {
-      ...(this.get('manifest.devDependencies') ?? {}),
-      ...(this.get('manifest.dependencies') ?? {}),
-    })
+    this.has(`manifest.${this.app.name}.project.inject`) &&
+      this.app.store.set(
+        'inject',
+        this.get(`manifest.${this.app.name}.project.inject`),
+      )
 
-    this.get(`manifest.${this.app.name}.locations.cache`) &&
+    this.has(`manifest.${this.app.name}.project.cache`) &&
+      this.app.store.set(
+        'cache',
+        this.get(`manifest.${this.app.name}.project.cache`),
+      )
+
+    this.has(`manifest.${this.app.name}.project.cache`) &&
       this.app
         .setPath({
           storage: this.get(
-            `manifest.${this.app.name}.locations.cache`,
+            `manifest.${this.app.name}.project.cache`,
           ),
         })
         .info(
           `project cache directory set as`,
           this.app.path('storage'),
         )
+
+    this.has(`manifest.${this.app.name}.project.storagePath`) &&
+      this.app
+        .setPath({
+          storage: this.get(
+            `manifest.${this.app.name}.project.storagePath`,
+          ),
+        })
+        .info(
+          `project storage directory set as`,
+          this.app.path('storage'),
+        )
+  }
+
+  @bind
+  public async register(): Promise<void> {
+    this.set('installed', {
+      ...(this.get('manifest.devDependencies') ?? {}),
+      ...(this.get('manifest.dependencies') ?? {}),
+    })
 
     this.mergeStore({
       cache: {
@@ -86,6 +113,11 @@ export class Project
         ),
       },
     })
+
+    if (this.app.store.is('cache', false)) {
+      this.app.warn('Removing storage', this.app.path('storage'))
+      await remove(this.app.path('storage'))
+    }
 
     await Promise.all(
       [
@@ -136,6 +168,11 @@ export class Project
   @bind
   public async searchConfig({key, searchStrings}) {
     const explorer = new Config(this.app, searchStrings)
+    if (this.app.store.is('cache', false)) {
+      this.app.warn(`clearing ${key} config cache`)
+      explorer.clearCaches()
+    }
+
     const result = await explorer.search()
 
     this.set(key, result)
@@ -171,7 +208,6 @@ export class Project
     if (this.has('manifest.dependencies')) {
       await this.peers.discover('dependencies')
     }
-
     if (this.has('manifest.devDependencies')) {
       await this.peers.discover('devDependencies')
     }

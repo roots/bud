@@ -1,4 +1,3 @@
-import {factory, Framework} from '@roots/bud'
 import * as BudBabelExtension from '@roots/bud-babel'
 import {Config} from '@roots/bud-babel/src/babel.config'
 
@@ -7,15 +6,8 @@ const RequiredBabel = require('@roots/bud-babel')
 describe('@roots/bud-babel', function () {
   let Config: Config
 
-  let bud: Framework
-
   beforeAll(async () => {
-    bud = await factory({config: {ci: true, log: false}})
     Config = new BudBabelExtension.Config()
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('works with require', () => {

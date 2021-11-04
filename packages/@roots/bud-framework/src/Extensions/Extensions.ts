@@ -12,7 +12,7 @@ export interface Extensions extends Service {
    *
    * @public
    */
-  add(extension: CompilerPlugin | Module): void
+  add(extension: CompilerPlugin | Module): Promise<void>
 
   /**
    * Register event for all extensions

@@ -11,6 +11,7 @@ export const config = async (app: Bud) => {
       app.info(
         `Running ${app.name} global configuration callback`,
       )
+
       await config(app)
     }
   }
@@ -21,6 +22,12 @@ export const config = async (app: Bud) => {
     const config = app.project.get(
       'configs.dynamic.conditional.config',
     )
-    await config(app)
+    if (isFunction(config)) {
+      app.info(
+        `Running ${app.name} ${app.mode} configuration callback`,
+      )
+
+      await config(app)
+    }
   }
 }

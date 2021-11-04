@@ -3,7 +3,7 @@ import type {Framework, Source} from './use.interface'
 import {generateName, isCompilerPlugin} from './use.utilities'
 
 export interface use {
-  (source: Source): Framework
+  (source: Source): Promise<Framework>
 }
 
 /**
@@ -45,8 +45,8 @@ export interface use {
  *
  * @public
  */
-export const use: use = function (source) {
-  const addExtension = (source: Source) => {
+export const use: use = async function (source) {
+  const addExtension = async (source: Source) => {
     if (!source) {
       this.error(`extension source is not defined. skipping`)
     }
@@ -63,25 +63,18 @@ export const use: use = function (source) {
       return this
     }
 
-    this.extensions.add(
+    await this.extensions.add(
       isCompilerPlugin(source)
         ? {...source, make: () => source}
         : source,
     )
-
-    const controller = this.extensions.get(source.name)
-
-    return (
-      !controller.registered &&
-      controller.register(this).then(() => {
-        return this
-      })
-    )
   }
 
   !isArray(source)
-    ? addExtension(source)
-    : source.forEach(addExtension)
+    ? await addExtension(source)
+    : await Promise.all(
+        source.map(async ext => await addExtension(ext)),
+      )
 
   return this
 }
