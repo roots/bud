@@ -5,7 +5,7 @@
  *
  * @param {Bud} app
  */
-modulee.exports = app => {
+module.exports = app => {
   app
     .template({
       template: 'public/index.html',
