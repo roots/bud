@@ -7,21 +7,15 @@ import {bind} from './extensions.dependencies'
  * Extensions Service
  *
  * @remarks
- * This class is a {@link @roots/bud-framework#Service | Service instance} for
- * managing {@link @roots/bud-framework#Framework | Framework} extensions
+ * Manages extension controllers
  *
- * @core @public @container
+ * @public
  */
 export class Extensions
   extends Framework.Service
   implements Framework.Extensions
 {
-  /**
-   * Extensions controller constructor
-   *
-   * @public
-   */
-  public controller = Controller
+  public repository = {}
 
   /**
    * Controller factory
@@ -30,49 +24,75 @@ export class Extensions
    */
   @bind
   public makeController(
-    extension: Framework.Extension.Module,
+    extension:
+      | Framework.Extension.Module
+      | Promise<Framework.Extension.Module>,
   ): Controller {
-    return new this.controller(this.app, extension)
+    const controller = new Controller(this.app, extension)
+    return controller
   }
 
   /**
    * @override @public
    */
   @bind
-  public async register(): Promise<void> {
-    this.app.time('registering base extensions')
-    this.getValues().map(extension => {
-      const controller = this.makeController(extension)
-      this.set(controller.name, controller)
-    })
-    this.app.timeEnd('registering base extensions')
-  }
+  public async registered(): Promise<void> {
+    this.log('time', 'instantiating built-ins')
 
-  /**
-   * @override @public
-   */
-  @bind
-  public async boot(app: Framework.Framework): Promise<void> {
-    if (app.store.is('inject', false)) {
-      app.warn('extension injection disabled')
-      return
-    } else {
-      app.info(`extension injection enabled`)
-    }
-
-    app.time('injecting project extensions')
     await Promise.all(
-      app.project.getValues('extensions').map(async pkg => {
-        try {
-          const resolvedPkg = await import(pkg.name)
-          const controller = this.makeController(resolvedPkg)
-          this.set(resolvedPkg.name, controller)
-        } catch (err) {
-          this.app.error(err)
-        }
+      this.getEntries().map(async ([key, extension]) => {
+        this.set(key, this.makeController(extension))
+        this.log('success', `${key} instantiated`)
       }),
     )
-    app.timeEnd('injecting project extensions')
+
+    this.log('timeEnd', 'instantiating built-ins')
+  }
+
+  /**
+   * @override @public
+   */
+  @bind
+  public async boot(): Promise<void> {
+    if (!this.app.isRoot) return
+    if (this.app.store.is('inject', false)) {
+      this.log('info', 'injection disabled')
+      return
+    } else {
+      this.log('info', `extension injection enabled`)
+    }
+
+    this.log('time', 'injecting project extensions')
+    await Promise.all(
+      this.app.project.getKeys('extensions').map(async pkg => {
+        const importResult = await import(pkg)
+
+        this.log('success', `${importResult.name} resolved`)
+        const tuples = Object.entries(importResult)
+
+        tuples.forEach(([key, value], i) => {
+          this.log(
+            'info',
+            `[${i + 1}/${tuples.length}]`,
+            `${key}`,
+            value,
+          )
+        })
+
+        const controller = await this.makeController(
+          importResult,
+        )
+        if (this.get(importResult) instanceof Controller)
+          this.log(
+            'success',
+            `${importResult.name} added to container`,
+          )
+
+        this.set(controller.name, controller)
+      }),
+    )
+
+    this.log('timeEnd', 'injecting project extensions')
   }
 
   @bind
@@ -82,14 +102,14 @@ export class Extensions
   }
 
   @bind
-  public async registerExtension(
-    key: keyof Controller,
-  ): Promise<void> {
+  public async registerExtension(key: string): Promise<void> {
     try {
       const controller = this.get<Controller>(key)
       await controller.register()
+
+      this.log('success', `${key} registered`)
     } catch (err) {
-      this.app.error(key, err)
+      this.log('error', key, err)
     }
   }
 
@@ -98,8 +118,9 @@ export class Extensions
     try {
       const controller = this.get<Controller>(key)
       await controller.boot()
+      this.log('success', `${key} booted`)
     } catch (err) {
-      this.app.error(err, key)
+      this.log('error', err, key)
     }
   }
 
@@ -108,9 +129,9 @@ export class Extensions
    */
   @bind
   public async registerExtensions(): Promise<void> {
-    this.app.time('registering extensions')
+    this.log('time', 'registering')
     await Promise.all(this.getKeys().map(this.registerExtension))
-    this.app.timeEnd('registering extensions')
+    this.log('timeEnd', 'registering')
   }
 
   /**
@@ -118,33 +139,40 @@ export class Extensions
    */
   @bind
   public async bootExtensions(): Promise<void> {
-    this.app.time('booting extensions')
+    this.log('time', 'booting')
     await Promise.all(this.getKeys().map(this.bootExtension))
-    this.app.timeEnd('booting extensions')
+    this.log('timeEnd', 'booting')
   }
 
   /**
    * Add a {@link Controller} to the container
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async add(
     extension: Framework.Extension.Module,
   ): Promise<void> {
     if (this.has(extension.name)) {
-      this.app.warn(`${extension.name} already added. skipping.`)
+      this.log(
+        'warn',
+        `${extension.name} already added. skipping.`,
+      )
       return
     }
 
-    const controller = this.makeController(extension)
-
+    const controller = await this.makeController(extension)
+    this.log('await', '[1/3]', controller.name, 'instantiated')
     await controller.register()
+    this.log('await', '[2/3]', controller.name, 'registered')
     await controller.boot()
+    this.log('await', '[3/3]', controller.name, 'booted')
 
     this.set(controller.name, controller)
 
-    this.app.success(
+    this.log(
+      'success',
       controller.name,
       'added to extensions container',
     )
@@ -164,7 +192,7 @@ export class Extensions
     [key: string]: any
     apply: CallableFunction
   }[] {
-    this.app.time('extensions.make')
+    this.log('time', 'extensions.make')
 
     const plugins = this.getValues()
       .map((controller: Controller) => {
@@ -172,7 +200,7 @@ export class Extensions
       })
       .filter(Boolean)
 
-    this.app.timeEnd('extensions.make')
+    this.log('timeEnd', 'extensions.make')
 
     return plugins
   }

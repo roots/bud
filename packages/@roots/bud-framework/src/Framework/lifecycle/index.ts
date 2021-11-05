@@ -1,4 +1,5 @@
-import {Services} from '../..'
+import {isUndefined} from 'lodash'
+
 import {Service} from '../../Service'
 import {Framework} from '..'
 import {
@@ -32,88 +33,72 @@ export interface lifecycle {
 export async function lifecycle(
   this: Framework,
 ): Promise<Framework> {
-  this.time('lifecycle')
+  const logger = this.logger.instance.scope(
+    ...this.logger.getScope(),
+    'lifecycle',
+  )
+  logger.time('lifecycle')
 
   /**
    * Get bindable services
    */
-  const validServices = this.container<Services>({
-    ...this.services,
-  })
-    .getEntries()
-    .filter(
-      ([name, _service]: [keyof Services, Service]): boolean => {
-        /**
-         * - No reason to start server for production
-         * - No reason to boot expensive parent services for child compilation instantances
-         */
-        return (this.isProduction &&
-          DEVELOPMENT_SERVICES.includes(name)) ||
-          (!this.isParent && PARENT_SERVICES.includes(name))
-          ? false
-          : true
-      },
-    )
-
-  this.container<Services>({
-    ...this.services,
-  })
-    .getKeys()
-    .filter(
-      (name: keyof Services): boolean =>
-        !this.isParent &&
-        PARENT_SERVICES.includes(name) &&
-        this.parent[name],
-    )
-    .map((name: keyof Services) => {
-      Object.assign(this, {[name]: this.parent[name]})
-    })
-
-  /**
-   * Initialize services
-   */
-  const initializedServices = validServices.map(
-    ([name, Service]: [
-      string,
-      new (app: Framework) => Service,
-    ]) => {
-      Object.assign(this, {
-        [name]: new Service(this),
-      })
-
-      return name
+  const validServices = Object.entries(this.services).filter(
+    ([name]): boolean => {
+      /**
+       * - No reason to start server for production
+       * - No reason to boot expensive parent services for child compilation instantances
+       */
+      return (this.isProduction &&
+        DEVELOPMENT_SERVICES.includes(name)) ||
+        (!this.isRoot && PARENT_SERVICES.includes(name))
+        ? false
+        : true
     },
   )
 
   /**
+   * Initialize services
+   */
+  const initializedServices = validServices
+    .filter(([name]) => isUndefined(this[name]))
+    .map(
+      ([name, Service]: [
+        string,
+        new (app: Framework) => Service,
+      ]) => {
+        this[name] = new Service(this)
+        return this[name]
+      },
+    )
+
+  /**
    * Service lifecycle
    */
-  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
+  await LIFECYCLE_EVENTS.reduce(async (promised, event, i) => {
     await promised
 
-    this.time(`lifecycle event: ${event}`)
+    const eligibleServices = initializedServices.filter(
+      service => service[event],
+    )
+
+    if (!eligibleServices.length) return
+
+    logger.time(`lifecycle event: ${event}`)
 
     await Promise.all(
-      initializedServices.map(async key => {
-        try {
-          const service = this[key]
+      eligibleServices.map(async (service: Service, i) => {
+        logger.await(
+          `[%d/%d] ${service.constructor.name.toLowerCase()}.${event}`,
+          i + 1,
+          eligibleServices.length,
+        )
 
-          if (!service || !service[event]) return
-          this.await(key)
-
-          await service[event](this)
-        } catch (error) {
-          this.error(error, key, event)
-          this.dump(this[key])
-        }
+        await service[event](this)
       }),
     )
 
-    this.timeEnd(`lifecycle event: ${event}`)
-
-    return Promise.resolve()
+    logger.timeEnd(`lifecycle event: ${event}`)
   }, Promise.resolve())
 
-  this.timeEnd('lifecycle')
   return this
 }

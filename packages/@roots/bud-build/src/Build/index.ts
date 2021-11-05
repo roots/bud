@@ -9,8 +9,8 @@ import {bind} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
-import * as items from './items'
-import * as loaders from './loaders'
+import items from './items'
+import loaders from './loaders'
 import * as rules from './rules'
 
 /**
@@ -55,17 +55,18 @@ export class Build
    */
   @bind
   public make(): Webpack.Configuration {
-    this.app.time('running build/before hooks')
-    this.app.hooks.filter('build/before')
-    this.app.timeEnd('running build/before hooks')
+    this.log('time', 'running build.before hooks')
+    this.app.hooks.filter('build.before')
+    this.log('timeEnd', 'running build.before hooks')
 
-    this.app.time('build.make')
+    this.log('time', 'build.make')
     this.config = Object.entries(
       this.app.hooks.filter('build'),
     ).reduce(
       (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
-          this.app.warn(
+          this.log(
+            `warn`,
             `webpack ${key} is undefined. excluding.`,
           )
           return all
@@ -75,11 +76,11 @@ export class Build
       {},
     )
 
-    this.app.timeEnd('build.make')
+    this.log('timeEnd', 'build.make')
 
-    this.app.time('running build/after hooks')
-    this.app.hooks.filter('build/after')
-    this.app.timeEnd('running build/after hooks')
+    this.log('time', 'running build.after hooks')
+    this.app.hooks.filter('build.after', this.app)
+    this.log('timeEnd', 'running build.after hooks')
 
     return this.config
   }
@@ -91,7 +92,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public register() {
+  public async register() {
     /**
      * Reduces components to their normalized form
      *

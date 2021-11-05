@@ -1,4 +1,9 @@
-import {INSTANCE_CONFIG} from './logger.constants'
+import {SignaleConfig, SignaleOptions} from 'signale'
+
+import {
+  INSTANCE_CONFIG,
+  INSTANCE_TYPES,
+} from './logger.constants'
 import {bind, Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
@@ -36,6 +41,16 @@ export class Logger {
   public stream = [process.stdout]
 
   /**
+   * Config
+   */
+  public config: INSTANCE_CONFIG = INSTANCE_CONFIG
+
+  /**
+   * Config
+   */
+  public types: INSTANCE_TYPES = INSTANCE_TYPES
+
+  /**
    * Class constructor
    *
    * @public
@@ -46,14 +61,38 @@ export class Logger {
 
   @bind
   public instantiate() {
-    this.instance = new Signale({
+    this.instance = this.makeInstance(
+      {
+        disabled: !this.enabled,
+        interactive: this.interactive,
+        secrets: this.secrets,
+        stream: this.stream,
+        types: this.types,
+      },
+      this.config,
+    )
+  }
+
+  @bind
+  public makeInstance(
+    options?: SignaleOptions,
+    config?: SignaleConfig,
+  ) {
+    const instance = new Signale({
       disabled: !this.enabled,
       interactive: this.interactive,
       secrets: this.secrets,
       stream: this.stream,
+      types: this.types,
+      ...options,
     })
 
-    this.instance.config(INSTANCE_CONFIG)
+    instance.config({
+      ...this.config,
+      ...config,
+    })
+
+    return instance
   }
 
   /**
@@ -62,8 +101,12 @@ export class Logger {
   @bind
   public getScope(): Array<string> {
     const scope = []
-    this.app.parent?.name && scope.push(this.app.parent.name)
-    this.app.name && scope.push(this.app.name)
+
+    this.app.isRoot && scope.push('root')
+
+    !this.app.isRoot &&
+      this.app.name &&
+      scope.push(this.app.name)
 
     return scope
   }

@@ -64,7 +64,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public register() {}
+  public async register() {}
 
   /**
    * Initiates compilation
@@ -87,7 +87,7 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invokeCompiler(config: any) {
-    this.app.hooks.filter('before/compiler')
+    this.app.hooks.filter('before.compiler')
 
     this.instance = webpack(config)
 
@@ -98,7 +98,7 @@ export class Compiler extends Service implements Contract {
         this.instance.close(err => {
           if (err) {
             this.stats.errors.push(err)
-            this.app.error(err)
+            this.log('error', err)
           }
           this.app.close(() => {})
         })
@@ -109,7 +109,7 @@ export class Compiler extends Service implements Contract {
       this.progress = args
     }).apply(this.instance)
 
-    this.app.hooks.filter('after/compiler')
+    this.app.hooks.filter('after.compiler')
 
     return this.instance
   }
@@ -129,8 +129,9 @@ export class Compiler extends Service implements Contract {
 
     this.isCompiled = true
 
-    this.app.parent &&
-      this.app.error(
+    !this.app.isRoot &&
+      this.log(
+        'error',
         `Attempting to compile a child directly. Only the parent instance should be compiled.`,
       )
 
@@ -140,9 +141,10 @@ export class Compiler extends Service implements Contract {
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (!this.app.hasChildren) {
+    if (this.app.children.getEntries().length === 0) {
       this.app.info(`using config from parent compiler`)
       config.push(this.app.build.config)
+      return config
     } else {
       this.app.warn(
         `root compiler will not be tapped (child compilers in use)`,
@@ -153,16 +155,17 @@ export class Compiler extends Service implements Contract {
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`
      */
-    this.app.hasChildren &&
-      this.app.children.getValues().map(child => {
-        if (!child.name) return
+    this.app.children.getEntries().map(([key, instance]) => {
+      if (!instance.name) return
 
-        this.app.success(
-          `\`${child.name}\` compiler will be tapped`,
-        )
-        child.build.make()
-        config.push(child.build.config)
-      })
+      this.log(
+        'success',
+        `\`${instance.name}\` compiler will be tapped`,
+      )
+
+      instance.build.make()
+      config.push(instance.build.config)
+    })
 
     return config
   }
@@ -195,7 +198,7 @@ export class Compiler extends Service implements Contract {
 
     if (err) {
       this.stats.errors.push(err)
-      this.app.store.is('ci', true) && this.app.error(err)
+      this.app.store.is('ci', true) && this.log('error', err)
     }
   }
 }

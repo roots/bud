@@ -6,7 +6,7 @@ import {TerserPlugin} from './terser.dependencies'
 export const name = '@roots/bud-terser'
 
 export const options = (app: Framework) => ({
-  parallel: app.hooks.filter('build/parallelism'),
+  parallel: app.hooks.filter('build.parallelism'),
   include: app.store.get('patterns.js'),
   extractComments: false,
   terserOptions: {
@@ -26,7 +26,7 @@ export const options = (app: Framework) => ({
 })
 
 export const boot = ({extensions, hooks, store}) => {
-  hooks.on('build/optimization/minimizer', minimizer => {
+  hooks.on('build.optimization.minimizer', minimizer => {
     minimizer.push(
       new TerserPlugin(
         extensions.get('terser-webpack-plugin').options.all(),

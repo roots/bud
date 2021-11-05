@@ -76,7 +76,7 @@ const extension: Extension.Module = {
     })
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (exts: Webpack.Configuration['resolve']['extensions']) => [
         ...exts,
         '.mdx',

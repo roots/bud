@@ -34,7 +34,7 @@ import * as Extension from './Extensions/Extension'
  *
  * ```ts
  * hooks.on(
- *   'build/output/filename',
+ *   'build.output.filename',
  *   () => '[name].[hash:4]',
  * )
  * ```
@@ -105,24 +105,28 @@ namespace Hooks {
 
   export type Key = `${keyof Repository}`
 
-  export type LocationKeys = `location/${keyof Locations &
+  export type LocationKeys = `location.${keyof Locations &
     string}`
 
-  export type LoaderKeys = `loader` | `loader/${keyof Loaders}`
+  export type LoaderKeys =
+    | `loader`
+    | `loader/${keyof Loaders & string}`
 
   export type ItemKeys =
     | `item`
-    | `item/${keyof Items}`
-    | `item/${keyof Items}/loader`
-    | `item/${keyof Items}/options`
-    | `item/${keyof Items}/options/${string}`
+    | `item.${keyof Items & string}`
+    | `item.${keyof Items & string}.loader`
+    | `item.${keyof Items & string}.options`
+    | `item.${keyof Items & string}.options.${string}`
 
   export type RuleKeys =
     | `rule`
-    | `rule/${keyof Rules}`
-    | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule}`
-    | `rule/${keyof Rules}/${keyof Webpack.RuleSetRule &
-        `options`}/${string}`
+    | `rule/${keyof Rules & string}`
+    | `rule/${keyof Rules & string}.${keyof Webpack.RuleSetRule &
+        string}`
+    | `rule/${keyof Rules & string}.${keyof Webpack.RuleSetRule &
+        `options` &
+        string}.${string}`
 
   namespace BuildHooks {
     type Rules = Webpack.Configuration['module']['rules']
@@ -153,31 +157,31 @@ namespace Hooks {
     }
 
     type Dive<T, S> = {
-      [K in keyof T as `build/${S & string}/${K & string}`]: T[K]
+      [K in keyof T as `build/${S & string}.${K & string}`]: T[K]
     }
 
     export type Keys =
       | `build`
       | `build/${keyof Config}`
       | keyof Dive<Config['output'], 'output'>
-      | 'build/output/pathInfo'
+      | 'build.output.pathInfo'
       | keyof Dive<Config['module'], 'module'>
-      | keyof Dive<Config['module']['rules'], 'module/rules'>
+      | keyof Dive<Config['module']['rules'], 'module.rules'>
       | keyof Dive<
           Config['module']['rules']['oneOf'],
-          'module/rules/oneOf'
+          'module.rules.oneOf'
         >
-      | 'build/module/rules/parser'
+      | 'build.module.rules.parser'
       | keyof Dive<Config['resolve'], 'resolve'>
       | keyof Dive<Config['resolveLoader'], 'resolveLoader'>
-      | 'build/cache/name'
-      | 'build/cache/cacheLocation'
-      | 'build/cache/cacheDirectory'
-      | 'build/cache/hashAlgorithm'
-      | 'build/cache/managedPaths'
-      | 'build/cache/version'
-      | 'build/cache/type'
-      | 'build/cache/buildDependencies'
+      | 'build.cache.name'
+      | 'build.cache.cacheLocation'
+      | 'build.cache.cacheDirectory'
+      | 'build.cache.hashAlgorithm'
+      | 'build.cache.managedPaths'
+      | 'build.cache.version'
+      | 'build.cache.type'
+      | 'build.cache.buildDependencies'
       | keyof Dive<Config['experiments'], 'experiments'>
       | keyof Dive<Config['watchOptions'], 'watchOptions'>
       | keyof Dive<Config['performance'], 'performance'>
@@ -200,12 +204,16 @@ namespace Hooks {
    * Hooks.Extension
    */
   export type Keys = keyof {
-    [K in keyof Modules | keyof Plugins as
+    [K in (keyof Modules & string) | (keyof Plugins & string) as
       | `extension`
-      | `extension/${K}`
-      | `extension/${K}/${
-          | `${keyof Modules | keyof Plugins}`
-          | (`${keyof Modules | keyof Plugins}/${string}` &
+      | `extension.${K & string}`
+      | `extension.${K}/${
+          | `${
+              | (keyof Modules & string)
+              | (keyof Plugins & string)}`
+          | (`${
+              | (keyof Modules & string)
+              | (keyof Plugins & string)}.${string}` &
               string)}`]: Extension.Module
   }
 

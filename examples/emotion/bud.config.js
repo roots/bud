@@ -1,17 +1,12 @@
 // @ts-check
 
-const babel = require('@roots/bud-babel')
-const react = require('@roots/bud-react')
-const emotion = require('@roots/bud-emotion')
-
 /**
  * @typedef {import('@roots/bud').Bud} Bud
  *
  * @param {Bud} app
  */
-function config(app) {
+modulee.exports = app => {
   app
-    .use([babel, react, emotion])
     .template({
       template: 'public/index.html',
     })
@@ -20,5 +15,3 @@ function config(app) {
       app.runtime('single').splitChunks().minimize()
     })
 }
-
-module.exports = config

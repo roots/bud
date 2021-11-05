@@ -37,7 +37,7 @@ export const BudSassExtension: BudSassExtension = {
     })
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (extensions: string[]) => [
         ...new Set([...extensions, '.scss']),
       ],

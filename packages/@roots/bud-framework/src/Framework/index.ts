@@ -10,8 +10,8 @@ import {
   Dashboard,
   Dependencies,
   Env,
+  Extension,
   Hooks,
-  Index,
   Mode,
   Server,
   Services,
@@ -25,12 +25,7 @@ import {access} from './access'
 import {bindMethod} from './bindMethod'
 import {close} from './close'
 import {container} from './container'
-import {
-  bind,
-  chalk,
-  isNull,
-  isUndefined,
-} from './framework.dependencies'
+import {bind, isUndefined} from './framework.dependencies'
 import {get} from './get'
 import {lifecycle} from './lifecycle'
 import {make} from './make'
@@ -85,15 +80,22 @@ export abstract class Framework {
    *
    * @defaultValue null
    */
-  public parent: Framework | null = null
+  public root: Framework | null = null
+  public get parent(): Framework {
+    return this.root
+  }
 
   /**
    * True when current instance is the parent instance
    *
    * @readonly
    */
-  public get isParent(): boolean {
-    return isNull(this.parent)
+  public get isRoot(): boolean {
+    return this.root.name === this.name
+  }
+
+  public get isChild(): boolean {
+    return this.root.name !== this.name
   }
 
   /**
@@ -104,7 +106,7 @@ export abstract class Framework {
    *
    * @defaultValue null
    */
-  public children: Container<Index<Framework>> = null
+  public children: Container<Record<string, Framework>> = null
 
   /**
    * True when {@link Framework} has children
@@ -112,10 +114,7 @@ export abstract class Framework {
    * @readonly
    */
   public get hasChildren(): boolean {
-    return (
-      !isNull(this.children) &&
-      this.children.getEntries().length > 0
-    )
+    return this.children?.getEntries().length > 0
   }
 
   /**
@@ -218,7 +217,7 @@ export abstract class Framework {
    * @example Change the `webpack.output.filename` format:
    * ```ts
    * hooks.on(
-   *   'build/output/filename',
+   *   'build.output.filename',
    *   () => '[name].[hash:4]',
    * )
    * ```
@@ -267,6 +266,11 @@ export abstract class Framework {
   }
 
   /**
+   * @public
+   */
+  public options: Options
+
+  /**
    * Class constructor
    *
    * @param options - {@link Framework.Options | Framework constructor options}
@@ -274,20 +278,40 @@ export abstract class Framework {
    * @public
    */
   public constructor(options: Options) {
+    this.options = options
+
+    if (isUndefined(options.name)) {
+      throw Error(`instance name is required`)
+    }
+
+    if (!options.childOf) {
+      // Parent & child instance exclusive settings
+      this.children = new Container()
+      this.root = this
+    } else {
+      this.root = options.childOf
+    }
+
     // Assign to instance
     this.name = options.name
-    this.mode = options.mode ?? options.parent.mode
-    this.services = options.services ?? options.parent.services
-    this.store = new Store<Configuration>(this).setStore({
-      ...(options.config ?? options.parent.store.all()),
-    })
+    this.mode = options.mode
+    this.services = options.services
 
-    // Parent & child instance exclusive settings
-    if (isNull(this.parent) && isUndefined(options.parent)) {
-      this.children = new Container()
-    } else this.parent = options.parent
+    this.store = new Store<Configuration>(this)
+    this.store.setStore(options.config)
 
-    this.mixin = this.mixin.bind(this)
+    this.access = access.bind(this)
+    this.bindMethod = bindMethod.bind(this)
+    this.close = close.bind(this)
+    this.get = get.bind(this)
+    this.lifecycle = lifecycle.bind(this)
+    this.make = make.bind(this)
+    this.mixin = mixin.bind(this)
+    this.path = path.bind(this)
+    this.pipe = pipe.bind(this)
+    this.setPath = setPath.bind(this)
+    this.tap = tap.bind(this)
+    this.when = when.bind(this)
   }
 
   /**
@@ -295,17 +319,17 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod: typeof bindMethod = bindMethod.bind(this)
+  public bindMethod: typeof bindMethod
 
   /**
    * @public
    */
-  public mixin = mixin.bind(this)
+  public mixin: typeof mixin
 
   /**
    * @internal
    */
-  public lifecycle: lifecycle = lifecycle.bind(this)
+  public lifecycle: lifecycle
 
   /**
    * Access a value which may or may not be a function.
@@ -326,7 +350,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public access: access = access.bind(this)
+  public access: access
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
@@ -338,7 +362,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public close: close = close.bind(this)
+  public close: close
 
   /**
    * Create a new {@link Container} instance
@@ -352,7 +376,7 @@ export abstract class Framework {
    *
    * @public @container
    */
-  public container: container = container.bind(this)
+  public container: container = container
 
   /**
    * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
@@ -370,7 +394,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public get: get = get.bind(this)
+  public get: get
 
   /**
    * Instantiate a child instance and add to {@link Framework.children} container
@@ -388,14 +412,14 @@ export abstract class Framework {
    *
    * @public
    */
-  public make: make = make.bind(this)
+  public make: make = make
 
   /**
    * Returns a {@link Locations} value as an absolute path
    *
    * @public
    */
-  public path: path = path.bind(this)
+  public path: path
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
@@ -418,7 +442,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public pipe: pipe = pipe.bind(this)
+  public pipe: pipe
 
   /**
    * Set a {@link @roots/bud-framework#Location | Location} value
@@ -439,7 +463,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public setPath: setPath = setPath.bind(this)
+  public setPath: setPath
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.
@@ -476,7 +500,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public tap: tap = tap.bind(this)
+  public tap: tap
 
   /**
    * Executes a function if a given test is `true`.
@@ -506,7 +530,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public when: when = when.bind(this)
+  public when: when
 
   /**
    * Log a message
@@ -567,7 +591,7 @@ export abstract class Framework {
     this.logger?.instance &&
       this.logger.instance
         .scope(...this.logger.getScope())
-        .warn(...this.colorize('yellow', ...messages))
+        .warn(...messages)
 
     return this
   }
@@ -647,7 +671,7 @@ export abstract class Framework {
   public error(...messages: any[]) {
     this.logger.instance
       .scope(...this.logger.getScope())
-      .error(...this.colorize('red', ...messages))
+      .error(...messages)
 
     return this
   }
@@ -681,13 +705,6 @@ export abstract class Framework {
         ),
       ].filter(Boolean),
     )
-  }
-
-  @bind
-  private colorize(color: string, ...messages: string[]) {
-    return messages.map((msg, i) => {
-      return chalk[color]`${msg}`
-    })
   }
 }
 
@@ -741,12 +758,17 @@ export interface Options {
   services?: Services
 
   /**
-   * Should only be used by the main {@link Framework} instance.
-   *
-   * This constructor option is used to determine if a given {@link Framework} instance
-   * is the parent compiler.
-   *
    * @internal
    */
-  parent?: Framework
+  childOf?: Framework
+
+  /**
+   * Extensions to be registered
+   *
+   * @public
+   */
+  extensions?: () => Record<
+    string,
+    Extension.Module | Extension.CompilerPlugin
+  >
 }

@@ -44,7 +44,7 @@ export class Project extends Framework.Project.Abstract {
       const manifest = await readJson(this.get('manifestPath'))
       this.set('manifest', manifest)
     } catch (e) {
-      this.app.error('manifest file not found', e)
+      this.log('error', 'manifest file not found', e)
     }
 
     this.app
@@ -68,27 +68,31 @@ export class Project extends Framework.Project.Abstract {
       ...(this.get('manifest.dependencies') ?? {}),
     })
 
-    this.app
-      .info(
-        `inject feature is ${
-          this.app.store.is(`inject`, true)
-            ? `enabled`
-            : `disabled`
-        }`,
-      )
-      .info(
+    this.log(
+      'info',
+      `inject feature is ${
+        this.app.store.is(`inject`, true)
+          ? `enabled`
+          : `disabled`
+      }`,
+    )
+      .log(
+        'info',
         `project directory set as`,
         this.app.store.get('location.project'),
       )
-      .info(
+      .log(
+        'info',
         `project src directory set as`,
         this.app.store.get('location.src'),
       )
-      .info(
+      .log(
+        'info',
         `project dist directory set as`,
         this.app.store.get('location.dist'),
       )
-      .info(
+      .log(
+        'info',
         `project cache directory set as`,
         this.app.store.get('location.storage'),
       )
@@ -107,7 +111,7 @@ export class Project extends Framework.Project.Abstract {
   @bind
   public async registered(): Promise<void> {
     if (this.app.store.is('cache', false)) {
-      this.app.warn('caching disabled. flushing.')
+      this.log('warn', 'caching disabled. flushing.')
       await this.clearCaches()
     }
 
@@ -154,25 +158,27 @@ export class Project extends Framework.Project.Abstract {
 
   @bind
   public async clearCaches() {
-    this.app.warn('Removing storage', this.app.path('storage'))
-    await remove(this.app.path('storage'))
-    await ensureFile(
-      this.app.path('storage', 'bud.profile.json'),
+    this.log(
+      'warn',
+      'Removing storage',
+      this.app.path('storage'),
     )
+    await remove(this.app.path('storage'))
+    await ensureFile(this.get('cache.file'))
   }
 
   @bind
   public async writeProfile() {
-    await ensureFile(
-      this.app.path('storage', 'bud.profile.json'),
-    )
+    await ensureFile(this.get('cache.file'))
     await writeFile(
-      this.app.path('storage', 'bud.profile.json'),
+      this.get('cache.file'),
       JSON.stringify(this.all()),
     )
-    this.app.success(
+
+    this.log(
+      'success',
       `project profile saved to disk`,
-      this.app.path('storage', 'bud.profile.json'),
+      this.get('cache.file'),
     )
   }
 
@@ -181,7 +187,7 @@ export class Project extends Framework.Project.Abstract {
     const explorer = new Config(this.app, searchStrings)
 
     if (this.app.store.is('cache', false)) {
-      this.app.warn(`clearing ${key} config cache`)
+      this.log('warn', `clearing ${key} config cache`)
       explorer.clearCaches()
     }
 
@@ -193,7 +199,7 @@ export class Project extends Framework.Project.Abstract {
 
     const dependencies = this.get('dependencies') ?? []
     this.set('dependencies', [...dependencies, result.filepath])
-    this.app.success(`imported config`, result.filepath)
+    this.log('success', `imported config`, result.filepath)
   }
 
   /**

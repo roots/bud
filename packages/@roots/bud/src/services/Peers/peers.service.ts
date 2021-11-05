@@ -16,12 +16,16 @@ import type {Peers as Model} from './peers.interface'
  * @public
  */
 export class Peers implements Model.Interface {
+  public log
+
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public app: Framework) {}
+  public constructor(public app: Framework) {
+    this.log = this.app.project.log
+  }
 
   /**
    * Returns path for a module name (if findable)
@@ -38,7 +42,7 @@ export class Peers implements Model.Interface {
 
       return dirname(packagePath)
     } catch (err) {
-      this.app.error(`${name} manifest cannot be resolved`)
+      this.log('error', `${name} manifest cannot be resolved`)
       return
     }
   }
@@ -55,7 +59,8 @@ export class Peers implements Model.Interface {
       const manifestPath = await this.getManifestPath(name)
 
       if (!manifestPath) {
-        this.app.error(
+        this.log(
+          'error',
           `manifest for ${name} could not be resolved`,
         )
         return null
@@ -66,7 +71,8 @@ export class Peers implements Model.Interface {
 
       return manifest
     } catch (err) {
-      this.app.error(
+      this.log(
+        'error',
         `manifest for ${name} could not be resolved`,
       )
     }
@@ -97,7 +103,7 @@ export class Peers implements Model.Interface {
   public async discover(
     projectModuleType: 'dependencies' | 'devDependencies',
   ) {
-    this.app.await(`analyzing ${projectModuleType}`)
+    this.log('await', `analyzing ${projectModuleType}`)
 
     const dependencies = this.app.project
       .getKeys(`manifest.${projectModuleType}`)
@@ -114,7 +120,7 @@ export class Peers implements Model.Interface {
 
     await Promise.all(
       dependencies.map(async (name: string) => {
-        this.app.info(`new project dependency found`, name)
+        this.log('info', `new project dependency found`, name)
         await this.profileExtension(name)
         return
       }),
@@ -144,7 +150,10 @@ export class Peers implements Model.Interface {
   public async profileExtension(name: string) {
     const path = await this.getManifestPath(name)
     if (this.app.project.get(`resolve`).includes(path)) {
-      return this.app.info(`${name} already profiled. skipping.`)
+      return this.log(
+        'info',
+        `${name} already profiled. skipping.`,
+      )
     }
 
     /**
@@ -152,7 +161,7 @@ export class Peers implements Model.Interface {
      */
     const resolvePaths = this.app.project.get('resolve')
     this.app.project.set('resolve', [...resolvePaths, path])
-    this.app.success(`resolution path added`, name)
+    this.log('success', `resolution path added`, name)
 
     /**
      * Get the extension manifest
@@ -195,7 +204,8 @@ export class Peers implements Model.Interface {
               `${peerName}@${peerVersion}`,
             ])
 
-            this.app.error(
+            this.log(
+              'error',
               name,
               `peer requirement unmet`,
               `${peerName}@${peerVersion}`,
@@ -204,7 +214,8 @@ export class Peers implements Model.Interface {
             return
           }
 
-          this.app.success(
+          this.log(
+            'success',
             name,
             `peer requirement met`,
             `${peerName}@${peerVersion}`,

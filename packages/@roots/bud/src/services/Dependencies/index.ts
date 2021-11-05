@@ -47,7 +47,7 @@ export class Dependencies extends Service<null> {
    * @decorator `@bind`
    */
   @bind
-  public register() {
+  public async register(): Promise<void> {
     this.manager = new DependenciesManager(
       this.app.path('project'),
     )

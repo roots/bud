@@ -19,5 +19,5 @@ export interface publicPath {
  * @public @config
  */
 export const publicPath: publicPath = function () {
-  return this.hooks.filter('build/output/publicPath')
+  return this.hooks.filter('build.output.publicPath')
 }

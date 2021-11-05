@@ -14,7 +14,7 @@ import {Items, Loaders, Rules, Service} from '../..'
  * If the configuration has changed {@link Build.rebuild} can be called to regenerate the configuration.
  *
  * Most configuration values are produced using {@link (Framework:class).hooks} callbacks. They are keyed with strings starting `build/`.
- * So, you could access the webpack entry with `bud.hooks.filter('build/entry')`
+ * So, you could access the webpack entry with `bud.hooks.filter('build.entry')`
  *
  * For typescript users who wish to maintain typing accuracy while adding support for
  * various loaders, items and rules:
@@ -43,7 +43,7 @@ import {Items, Loaders, Rules, Service} from '../..'
  * Filter the Webpack configuration.entry value
  *
  * ```js
- * bud.hooks.filter('build/entry')
+ * bud.hooks.filter('build.entry')
  * ```
  *
  * @public @core @container

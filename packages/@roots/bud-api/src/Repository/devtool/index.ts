@@ -19,12 +19,10 @@ export interface devtool {
  * app.devtool('inline-cheap-module-source-map')
  * ```
  *
- * @hook build/devtool
- *
  * @public @config
  */
 export const devtool: devtool = function (devtool = false) {
-  this.hooks.on('build/devtool', () => devtool)
+  this.hooks.on('build.devtool', () => devtool)
 
   return this
 }

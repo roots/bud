@@ -14,15 +14,15 @@ import {Server} from './Server'
  * @public
  */
 export const services = {
-  cache: Cache,
   api: Api,
   hooks: Hooks,
   project: Project,
   env: Env,
   build: Build,
   compiler: Compiler,
+  cache: Cache,
   dependencies: Dependencies,
-  extensions: Extensions,
   server: Server,
   dashboard: Dashboard,
+  extensions: Extensions,
 }

@@ -13,13 +13,6 @@ const {get} = lodash
  */
 export class Store<T = Configuration> extends Service<T> {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
-   *
-   * @override @public
-   */
-  public name = 'store'
-
-  /**
    * Repository
    *
    * @public

@@ -42,9 +42,7 @@ export function mixin<ClassMap = GenericClassMap>(
     ([name, [ClassObj, ...params]]) => {
       this[name] = new ClassObj(...params)
 
-      if (this[name] instanceof ClassObj) {
-        this.success(`instantiated ${this.name}.${name}`)
-      } else {
+      if (!(this[name] instanceof ClassObj)) {
         this.error(
           `${name} not properly bound to ${this.name} framework instance`,
         )

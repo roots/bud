@@ -1,10 +1,7 @@
 import {Configuration, Framework} from '@roots/bud-framework'
 
 export interface proxy {
-  (
-    this: Framework,
-    config?: Configuration['server']['proxy'] | false,
-  ): Framework
+  (config?: Configuration['server']['proxy'] | false): Framework
 }
 
 /**
@@ -43,14 +40,14 @@ export interface proxy {
  * @public @config
  */
 export const proxy: proxy = function (options = undefined) {
-  const target = this.parent ?? this
+  const ctx = this as Framework
 
-  if (!target.server) return this
+  if (!ctx.root.server) return this
   if (typeof options === 'undefined') return this
 
   if (options === false)
-    target.server.config.set('middleware.proxy', false)
-  else target.server.config.merge('proxy', options)
+    ctx.root.server.config.set('middleware.proxy', false)
+  else ctx.root.server.config.merge('proxy', options)
 
   return this
 }

@@ -21,9 +21,9 @@ const path: path = function (
   return join(
     ...[
       key !== 'project'
-        ? this.hooks.filter('location/project')
+        ? this.hooks.filter('location.project')
         : false,
-      this.hooks.filter(`location/${key}`),
+      this.hooks.filter(`location.${key}`),
       ...(path ?? []),
     ].filter(Boolean),
   )

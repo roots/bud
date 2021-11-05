@@ -18,7 +18,7 @@ export interface make {
  * @internal
  */
 function handleChildNestingError(this: Framework) {
-  !this.isParent &&
+  !this.isRoot &&
     this.error(
       `\`${this.name}\` is a child compiler but you tried to call make from it. Try \`${this.name}.parent.make\` instead.`,
       `${this.name}.make`,
@@ -45,21 +45,24 @@ export async function make(
   name: string,
   tap?: (app: Framework) => any,
 ): Promise<Framework> {
-  const parent = this as Framework
+  const ctx = this as Framework
 
-  handleChildNestingError.bind(parent)()
-  parent.info(`Making child compiler: ${name}`)
+  handleChildNestingError.bind(ctx)()
+  ctx.logger.instance.fav(`new instance:`, name)
 
-  const instance = new this.constructor({
+  const instance = new ctx.implementation({
     name,
-    parent,
+    childOf: this,
+    config: ctx.options.config,
+    mode: ctx.options.mode,
+    services: ctx.options.services,
   })
 
-  await instance.bootstrap()
+  await instance.lifecycle()
 
-  if (tap) tap.bind(this)(instance)
+  if (tap) await tap(instance)
 
-  parent.children.set(name, instance)
+  ctx.children.set(name, instance)
 
-  return parent
+  return ctx
 }

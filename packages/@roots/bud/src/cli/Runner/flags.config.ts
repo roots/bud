@@ -107,7 +107,7 @@ export const config = async (app, flags) => {
      * Handle parent if applicable
      */
     !flags?.target?.includes('bud') &&
-      app.hooks.on('build/entry', false)
+      app.hooks.on('build.entry', false)
 
     /**
      * And children if applicable

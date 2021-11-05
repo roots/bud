@@ -31,7 +31,7 @@ export const tsFeature: Extension.CompilerPlugin = {
     })
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (exts: string & `.${string}`) => ['.ts', '.tsx', ...exts],
     )
   },

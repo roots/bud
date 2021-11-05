@@ -16,7 +16,7 @@ export const VueExtension: Extension.Module = {
       return
 
     hooks.on(
-      'build/module/rules',
+      'build.module.rules',
       (rules: Configuration['module']['rules']) => [
         {
           test: store.get('patterns.vue'),
@@ -32,7 +32,7 @@ export const VueExtension: Extension.Module = {
     })
 
     hooks.on(
-      'build/resolve/alias',
+      'build.resolve.alias',
       (aliases: Configuration['resolve']['alias']) => ({
         ...aliases,
         vue: '@vue/runtime-dom',
@@ -40,7 +40,7 @@ export const VueExtension: Extension.Module = {
     )
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (extensions: Configuration['resolve']['extensions']) => [
         ...extensions,
         '.vue',

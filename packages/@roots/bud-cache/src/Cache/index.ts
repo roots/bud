@@ -31,10 +31,10 @@ export class Cache
     )
 
     this.app.hooks
-      .on('build/cache', () => ({
-        type: this.app.hooks.filter('build/cache/type'),
+      .on('build.cache', () => ({
+        type: this.app.hooks.filter('build.cache.type'),
       }))
-      .hooks.on('build/cache/type', () => 'memory')
+      .hooks.on('build.cache.type', () => 'memory')
   }
 
   /**

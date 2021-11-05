@@ -32,7 +32,7 @@ export function setPath(...args): Framework {
   const ctx = this as Framework
 
   if (typeof args[0] == 'string') {
-    ctx.hooks.on(`location/${args[0]}`, args[1])
+    ctx.hooks.on(`location.${args[0]}`, args[1])
     ctx.info(`${args[0]} set to ${args[1]}`)
     return this
   }
@@ -63,7 +63,7 @@ export function setPath(...args): Framework {
       },
     )
 
-    ctx.hooks.on(`location/${k}`, v)
+    ctx.hooks.on(`location.${k}`, v)
     ctx.info(`${k} set to ${v}`)
   })
 

@@ -44,5 +44,6 @@ export async function factory(
   bud.time('bud')
 
   await bud.lifecycle()
+
   return bud
 }

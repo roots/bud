@@ -7,7 +7,7 @@ import {bind, lodash} from '@roots/bud-support'
 
 const {get, isArray, isFunction, noop, set} = lodash
 
-class Hooks extends Service implements Contract {
+export class Hooks extends Service implements Contract {
   public name = 'hooks'
 
   @bind
@@ -65,5 +65,3 @@ class Hooks extends Service implements Contract {
     return result
   }
 }
-
-export {Hooks}

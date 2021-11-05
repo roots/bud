@@ -63,6 +63,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@types/lodash": "4.14.176",
     "@types/node": "16.11.4",
     "ink": "3.2.0",
     "webpack": "5.59.1"
@@ -71,6 +72,8 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "cli-highlight": "^2.1.11",
+    "figures": "^4.0.0",
+    "lodash": "^4.17.21",
     "pretty-format": "^27.3.1",
     "signale": "^1.4.0",
     "tslib": "^2.3.1"

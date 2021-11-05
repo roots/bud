@@ -11,7 +11,7 @@ export class Server extends Base {
    *
    * @public
    */
-  public register({container, store}): void {
+  public async register({container, store}): Promise<void> {
     this.application = Application()
     this.config = container(store.get('server'))
   }

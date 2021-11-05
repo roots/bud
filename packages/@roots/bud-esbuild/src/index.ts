@@ -79,7 +79,7 @@ const esbuild: Extension.Module = {
 
     features.forEach(feature => extensions.add(feature))
 
-    hooks.on('build/optimization/minimizer', () => [
+    hooks.on('build.optimization.minimizer', () => [
       new ESBuildMinifyPlugin(
         extensions.get('@roots/bud-esbuild').options.all(),
       ),

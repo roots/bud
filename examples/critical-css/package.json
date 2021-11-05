@@ -13,6 +13,9 @@
       "last 1 safari version"
     ]
   },
+  "bud": {
+    "inject": false
+  },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss",

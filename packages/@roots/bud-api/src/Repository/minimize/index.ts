@@ -8,7 +8,7 @@ import {Framework} from './minimize.interface'
  * @param this - {@link @roots/bud-framework#Framework}
  * @param enabled - Should assets be minimized
  *
- * @hook build/optimization/minimize
+ * @hook build.optimization.minimize
  *
  * @public @config
  */
@@ -52,11 +52,11 @@ export const minimize: minimize = function (
 ) {
   enabled = enabled !== false
 
-  this.hooks.on('build/optimization/minimize', () => enabled)
+  this.hooks.on('build.optimization.minimize', () => enabled)
 
   if (enabled) {
     this.hooks.on(
-      'build/optimization/minimizer',
+      'build.optimization.minimizer',
       (minimizer: any[]) => {
         minimizer.push(
           ...(minimizer.includes('...') ? [] : ['...']),

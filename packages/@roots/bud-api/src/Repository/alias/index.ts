@@ -39,7 +39,7 @@ export const alias: alias = function (alias) {
   )
 
   this.hooks.on(
-    'build/resolve/alias',
+    'build.resolve.alias',
     (aliases: Configuration['resolve']['alias']) => ({
       ...aliases,
       ...mergeAliases,

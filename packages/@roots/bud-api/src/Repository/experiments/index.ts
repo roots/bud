@@ -2,7 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 /**
- * @hook build/experiments
+ * @hook build.experiments
  *
  * @public @config
  */
@@ -26,7 +26,7 @@ interface experiments {
  * @public @config
  */
 const experiments: experiments = function (settings) {
-  this.hooks.on('build/experiments', settings)
+  this.hooks.on('build.experiments', settings)
 
   return this
 }

@@ -7,7 +7,7 @@ import type {Configuration} from 'webpack'
  * @param this - {@link @roots/bud-framework#Framework}
  * @param externals - {@link webpack#Configuration.externals}
  *
- * @hook build/externals
+ * @hook build.externals
  *
  * @public @config
  */
@@ -32,7 +32,7 @@ interface externals {
  */
 const externals: externals = function (externals) {
   this.hooks.on(
-    'build/externals',
+    'build.externals',
     (existant: Configuration['externals']) =>
       ({
         ...(existant as any),

@@ -40,7 +40,7 @@ type EntryValue =
  * @param name - Entrypoint name
  * @param entrypoint - Entrypoint value
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @public @config
  */
@@ -55,7 +55,7 @@ export interface entry {
  * @param this - {@link @roots/bud-framework#Framework | Framework instandce}
  * @param entrypoints - {@link EntryInput | Entrypoint mapping}
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @public @config
  */
@@ -154,7 +154,7 @@ export const entry: entry = function (...args) {
 /**
  * Make entrypoints
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @internal
  */
@@ -193,7 +193,7 @@ function makeEntrypoints(
     }
   }
 
-  this.hooks.on('build/entry', buildEntryHook)
+  this.hooks.on('build.entry', buildEntryHook)
 
   return this
 }

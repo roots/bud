@@ -40,7 +40,7 @@ export const BudReactExtension: BudReactExtension = {
 
     app.when(app.isDevelopment, app => {
       app.hooks
-        .on('build/entry', entryHook)
+        .on('build.entry', entryHook)
         .extensions.add(BudReactRefreshPlugin)
     })
   },

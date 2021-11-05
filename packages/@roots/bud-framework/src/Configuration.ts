@@ -63,7 +63,7 @@ export interface Configuration {
    * Feature toggle: Clean dist before compilation
    *
    * When enabled stale assets will be removed from
-   * the `location/dist` directory prior to the next
+   * the `location.dist` directory prior to the next
    * compilation.
    *
    * @defaultValue true

@@ -3451,9 +3451,12 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/lodash": 4.14.176
     "@types/node": 16.11.4
     cli-highlight: ^2.1.11
+    figures: ^4.0.0
     ink: 3.2.0
+    lodash: ^4.17.21
     pretty-format: ^27.3.1
     signale: ^1.4.0
     tslib: ^2.3.1
@@ -11073,6 +11076,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"escape-string-regexp@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "escape-string-regexp@npm:5.0.0"
+  checksum: 20daabe197f3cb198ec28546deebcf24b3dbb1a5a269184381b3116d12f0532e06007f4bc8da25669d6a7f8efb68db0758df4cd981f57bc5b57f521a3e12c59e
+  languageName: node
+  linkType: hard
+
 "escodegen@npm:^2.0.0":
   version: 2.0.0
   resolution: "escodegen@npm:2.0.0"
@@ -12171,6 +12181,16 @@ __metadata:
   dependencies:
     escape-string-regexp: ^1.0.5
   checksum: 85a6ad29e9aca80b49b817e7c89ecc4716ff14e3779d9835af554db91bac41c0f289c418923519392a1e582b4d10482ad282021330cd045bb7b80c84152f2a2b
+  languageName: node
+  linkType: hard
+
+"figures@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "figures@npm:4.0.0"
+  dependencies:
+    escape-string-regexp: ^5.0.0
+    is-unicode-supported: ^1.0.0
+  checksum: 508234a6e01e5919d7a94e10c65181c8f04b0dfae185870ffcb88290906160c25b7b604e54ed28a790b60f61f6c7fc930a2334c9d56f2f768a528b3e7d262530
   languageName: node
   linkType: hard
 
@@ -15201,6 +15221,13 @@ __metadata:
   version: 1.0.0
   resolution: "is-typedarray@npm:1.0.0"
   checksum: 3508c6cd0a9ee2e0df2fa2e9baabcdc89e911c7bd5cf64604586697212feec525aa21050e48affb5ffc3df20f0f5d2e2cf79b08caa64e1ccc9578e251763aef7
+  languageName: node
+  linkType: hard
+
+"is-unicode-supported@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "is-unicode-supported@npm:1.1.0"
+  checksum: 1f2504d94383ea180ea25e729b40b1d97398a37325c2e62db96a3e98b457c767259dd5bbf9ab2815e83e5012dc4b61d533e75d12df7f208c470474d821bd5f24
   languageName: node
   linkType: hard
 
@@ -26461,7 +26488,7 @@ __metadata:
 
 "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch::locator=bud.js%40workspace%3A.":
   version: 1.10.0
-  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#.yarn/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=4029b6&locator=bud.js%40workspace%3A."
+  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#.yarn/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=8c2d4c&locator=bud.js%40workspace%3A."
   dependencies:
     "@types/yoga-layout": 1.9.2
   checksum: e659d239b6f0a38a70d24e33802f906bf7e78654de91dde99bf59cc2e12a26f7102c57032428312c6c1646a956335157df3bdf06a70a9f5e6974e7dfb6460539

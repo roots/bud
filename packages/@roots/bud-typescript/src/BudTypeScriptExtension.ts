@@ -39,7 +39,7 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
     })
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (e: Configuration['resolve']['extensions']) => [
         ...e,
         '.ts',
