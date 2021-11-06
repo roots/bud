@@ -1,7 +1,7 @@
 import {Bud, factory} from '@roots/bud'
 import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
-import {WebpackPluginInstance} from 'webpack/types'
+import {WebpackPluginInstance} from 'webpack'
 
 describe.skip('@roots/bud-extensions Controller', function () {
   let bud: Bud = null

@@ -36,4 +36,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, api, register, boot} = BudImageMinExtension
+export const {name, mixin, register, boot} = BudImageMinExtension

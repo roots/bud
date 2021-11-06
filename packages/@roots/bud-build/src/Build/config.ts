@@ -57,14 +57,7 @@ export function config(app: Framework): void {
     /**
      * Experiments
      */
-    .hooks.on('build.experiments', () => ({
-      lazyCompilation: app.hooks.filter(
-        'build.experiments.lazyCompilation',
-      ),
-    }))
-    .hooks.on('build.experiments.lazyCompilation', () =>
-      app.store.get('build.experiments.lazyCompilation'),
-    )
+    .hooks.on('build.experiments', () => undefined)
 
     /**
      * InfrastructureLogging
@@ -206,9 +199,8 @@ export function config(app: Framework): void {
      * RecordsPath
      */
     .hooks.on('build.recordsPath', () =>
-      app.path('storage', `${app.name}.modules.json`),
+      app.path('storage', app.name, `modules.json`),
     )
-
     /**
      * Resolve
      */

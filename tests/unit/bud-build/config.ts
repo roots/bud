@@ -50,12 +50,6 @@ describe('bud.build.config', function () {
     expect(bud.build.config.entry).toBeUndefined()
   })
 
-  it('has expected experiments default', () => {
-    expect(bud.build.config.experiments).toMatchSnapshot({
-      lazyCompilation: undefined,
-    })
-  })
-
   it('has expected infrastructureLogging default', () => {
     expect(bud.build.config.infrastructureLogging).toEqual({
       console: false,
@@ -79,9 +73,9 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect(bud.build.config.optimization.emitOnErrors).toEqual(
-      false,
-    )
+    expect(
+      (bud.build.config.optimization as any).emitOnErrors,
+    ).toEqual(false)
   })
 
   it('has expected optimization.runtimeChunk default', () => {
@@ -110,17 +104,10 @@ describe('bud.build.config', function () {
       '.toml',
       '.xml',
       '.csv',
-      '.tsv',
       '.yml',
       '.yaml',
       '.xml',
     ])
-  })
-
-  it('has expected stats default', () => {
-    expect(bud.build.config.stats).toMatchSnapshot({
-      logging: false,
-    })
   })
 
   it('has expected target default', () => {

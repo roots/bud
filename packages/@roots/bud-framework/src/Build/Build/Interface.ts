@@ -82,5 +82,5 @@ export default interface Build extends Service {
    *
    * @public
    */
-  make(): Webpack.Configuration
+  make(): Promise<Webpack.Configuration>
 }

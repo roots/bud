@@ -12,7 +12,7 @@ describe.skip('bud.experiments', function () {
   })
 
   it('enables build.config.experiments', () => {
-    bud.experiments({lazyCompilation: true})
+    bud.experiments('lazyCompilation', true)
 
     expect(bud.hooks.filter('build/experiments')).toEqual({
       lazyCompilation: true,

@@ -3228,6 +3228,7 @@ __metadata:
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.4.3
     mini-svg-data-uri: ^1.4.3
+    pretty-format: ^27.3.1
     remark: 14.0.1
     remark-html: ^15.0.0
     remark-loader: 4.0.0
@@ -3796,7 +3797,7 @@ __metadata:
     nanoid: 3.1.30
     node-notifier: 10.0.0
     pkg-up: 3.1.0
-    prettier: 2.4.1
+    prettier: ^2.4.1
     pretty-format: 27.3.1
     remark: 14.0.1
     remark-html: 15.0.0
@@ -11700,7 +11701,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-template@workspace:examples/html-template"
   dependencies:
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "workspace:packages/@roots/bud"
   languageName: unknown
   linkType: soft
 

@@ -76,7 +76,8 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async compile() {
-    const compiler = await this.invokeCompiler(this.before())
+    const config = await this.before()
+    const compiler = await this.invokeCompiler(config)
     this.app.timeEnd('bud')
     return compiler
   }
@@ -122,7 +123,7 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   @once
-  public before() {
+  public async before() {
     const config = []
 
     this.stats = INITIAL_STATS
@@ -135,7 +136,7 @@ export class Compiler extends Service implements Contract {
         `Attempting to compile a child directly. Only the parent instance should be compiled.`,
       )
 
-    this.app.build.make()
+    await this.app.build.make()
 
     /**
      * Attempt to use the parent instance in the compilation if there are entries
@@ -155,17 +156,19 @@ export class Compiler extends Service implements Contract {
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`
      */
-    this.app.children.getEntries().map(([key, instance]) => {
-      if (!instance.name) return
+    await Promise.all(
+      this.app.children.getValues().map(async instance => {
+        if (!instance.name) return
 
-      this.log(
-        'success',
-        `\`${instance.name}\` compiler will be tapped`,
-      )
+        this.log(
+          'success',
+          `\`${instance.name}\` compiler will be tapped`,
+        )
 
-      instance.build.make()
-      config.push(instance.build.config)
-    })
+        await instance.build.make()
+        config.push(instance.build.config)
+      }),
+    )
 
     return config
   }

@@ -17,6 +17,9 @@ export const BudImageMinExtension: Extension.Module = {
 
   register: async app => {
     await app.extensions.add(BudImageMinPlugin)
+  },
+
+  boot: async app => {
     const plugins: Array<[string, {[key: string]: any}]> = [
       ['imagemin-gifsicle', {interlaced: true}],
       ['imagemin-jpegtran', {progressive: true}],

@@ -3,7 +3,7 @@ import {ensureFile} from 'fs-extra'
 
 import {Config} from './config'
 import {Peers} from './peers'
-import {bind, remove, writeFile} from './project.dependencies'
+import {bind, writeFile} from './project.dependencies'
 import {initializeStore, repository} from './project.repository'
 
 /**
@@ -131,7 +131,7 @@ export class Project
       'Removing storage',
       this.app.path('storage'),
     )
-    await remove(this.app.path('storage'))
+    // await remove(this.app.path('storage'))
     await ensureFile(this.get('cache.file'))
   }
 

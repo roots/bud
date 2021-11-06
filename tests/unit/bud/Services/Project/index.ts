@@ -58,8 +58,6 @@ describe('bud.project', function () {
             '@babel/plugin-transform-runtime':
               expect.any(String),
             '@babel/preset-env': expect.any(String),
-            '@roots/bud-build':
-              'workspace:packages/@roots/bud-build',
             'babel-loader': expect.any(String),
             'babel-plugin-add-module-exports':
               expect.any(String),
@@ -106,7 +104,7 @@ describe('bud.project', function () {
 
   it('resolveFrom contains paths of found peers', () => {
     expect(bud.project.get('dependencies')).toMatchSnapshot([
-      expect.stringContaining('@roots/bud-babel'),
+      expect.stringContaining('babel/package.json'),
     ])
 
     bud.build.make()

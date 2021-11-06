@@ -18,5 +18,5 @@ export const BudImageMinPlugin: Extension.CompilerPlugin<
     return new ImageMinimizerPlugin(options.all())
   },
 
-  when: ({store}, options) => store.isTrue('minimize'),
+  when: app => app.isProduction,
 }

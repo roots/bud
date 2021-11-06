@@ -6,6 +6,7 @@ import {
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
+import {ensureFile, writeFile} from 'fs-extra'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
@@ -54,7 +55,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public make(): Webpack.Configuration {
+  public async make(): Promise<Webpack.Configuration> {
     this.log('time', 'running build.before hooks')
     this.app.hooks.filter('build.before')
     this.log('timeEnd', 'running build.before hooks')
@@ -75,12 +76,13 @@ export class Build
       },
       {},
     )
-
     this.log('timeEnd', 'build.make')
 
     this.log('time', 'running build.after hooks')
     this.app.hooks.filter('build.after', this.app)
     this.log('timeEnd', 'running build.after hooks')
+
+    await this.writeFinalConfig(this.config)
 
     return this.config
   }
@@ -126,5 +128,25 @@ export class Build
       .reduce(componentReducer, this.items) as Items
 
     config(this.app)
+  }
+
+  @bind
+  public async writeFinalConfig(config: Webpack.Configuration) {
+    try {
+      const filePath = this.app.path(
+        'storage',
+        config.name,
+        'webpack.config.js',
+      )
+
+      await ensureFile(filePath)
+      await writeFile(
+        filePath,
+        `module.exports = (${JSON.stringify(config, null, 2)})`,
+      )
+    } catch (error) {
+      this.log('error', `failed to write webpack.config.json`)
+      this.log(`error`, error)
+    }
   }
 }

@@ -17,7 +17,10 @@ export const VueExtension: Extension.Module = {
       hooks,
     } = app
 
-    await use(new VueLoaderPlugin())
+    await use({
+      name: 'vue-loader-plugin',
+      make: () => new VueLoaderPlugin(),
+    })
 
     hooks.on(
       'build.module.rules.before',
@@ -26,7 +29,7 @@ export const VueExtension: Extension.Module = {
           test: store.get('patterns.vue'),
           use: [{loader: require.resolve('vue-loader')}],
         },
-        ...rules,
+        ...(rules ?? []),
       ],
     )
     hooks.on(

@@ -6,10 +6,10 @@ import type {Configuration} from 'webpack'
  *
  * @public @config
  */
-interface experiments {
+export interface experiments {
   (
-    this: Framework,
-    settings: Configuration['experiments'],
+    key: keyof Configuration['experiments'],
+    setting: boolean,
   ): Framework
 }
 
@@ -25,10 +25,12 @@ interface experiments {
  *
  * @public @config
  */
-const experiments: experiments = function (settings) {
-  this.hooks.on('build.experiments', settings)
+export const experiments: experiments = function (key, setting) {
+  const ctx = this as Framework
+  ctx.hooks.on('build.experiments', experiments => ({
+    ...(experiments ?? {}),
+    [key]: setting,
+  }))
 
-  return this
+  return ctx
 }
-
-export {experiments as default}

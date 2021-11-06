@@ -52,7 +52,7 @@ describe('examples/babel', () => {
     expect(project.manifest).toMatchSnapshot()
   })
 
-  it('.budfiles/bud.webpack.config.js', async () => {
+  it('.budfiles/bud/webpack.config.js', async () => {
     expect(project.webpackConfig.entry).toMatchSnapshot()
     expect(project.webpackConfig.mode).toMatchSnapshot()
     expect(project.webpackConfig.optimization).toMatchSnapshot()

@@ -148,22 +148,18 @@ class Project {
 
   public async setWebpackConfig(): Promise<void> {
     try {
-      const webpackConfig: Webpack.Configuration = (
-        await import(
-          this.projectPath(
-            `${this.storage}/bud.webpack.config.js`,
-          )
-        )
-      ).default()
+      const webpackConfig: Webpack.Configuration = await import(
+        this.projectPath(`${this.storage}/bud/webpack.config.js`)
+      )
 
-      Object.assign(this, {webpackConfig})
+      this.webpackConfig = webpackConfig
     } catch (e) {}
   }
 
   public async setModules(): Promise<void> {
     try {
       const modules = await readJson(
-        this.projectPath(`${this.storage}/bud.modules.json`),
+        this.projectPath(`${this.storage}/bud/modules.json`),
       )
 
       Object.assign(this, {modules})
