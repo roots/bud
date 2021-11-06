@@ -2,21 +2,19 @@ import * as Framework from '@roots/bud-framework'
 import {ensureFile} from 'fs-extra'
 
 import {Config} from './config'
-import {
-  bind,
-  Peers,
-  readJson,
-  remove,
-  writeFile,
-} from './project.dependencies'
-import {repository} from './project.repository'
+import {Peers} from './peers'
+import {bind, remove, writeFile} from './project.dependencies'
+import {initializeStore, repository} from './project.repository'
 
 /**
  * Project service class
  *
  * @public
  */
-export class Project extends Framework.Project.Abstract {
+export class Project
+  extends Framework.Service
+  implements Framework.Project.Interface
+{
   /**
    * Project peer dependencies manager
    *
@@ -24,44 +22,14 @@ export class Project extends Framework.Project.Abstract {
    */
   public peers: Peers
 
+  public initializeStore = initializeStore.bind(this)
+
   public repository = repository
 
   public async register() {
     this.peers = new Peers(this.app)
 
-    this.setStore({
-      ...repository,
-      cli: this.app.store.get('cli'),
-      env: {
-        public: this.app.env.getPublicEnv(),
-        all: this.app.env.all(),
-      },
-      manifestPath: this.app.path('project', 'package.json'),
-      dependencies: [this.app.path('project', 'package.json')],
-    })
-
-    try {
-      const manifest = await readJson(this.get('manifestPath'))
-      this.set('manifest', manifest)
-    } catch (e) {
-      this.log('error', 'manifest file not found', e)
-    }
-
-    this.app
-      .when(
-        this.has(`manifest.${this.app.name}.inject`),
-        ({store}) =>
-          store.set(
-            'inject',
-            this.get(`manifest.${this.app.name}.inject`),
-          ),
-      )
-      .when(this.has(`manifest.${this.app.name}.paths`), () =>
-        this.app.store.merge(
-          'location',
-          this.get(`manifest.${this.app.name}.paths`),
-        ),
-      )
+    await this.initializeStore()
 
     this.set('installed', {
       ...(this.get('manifest.devDependencies') ?? {}),

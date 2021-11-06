@@ -1,5 +1,8 @@
 import {Framework} from '@roots/bud-framework'
 
+import {readJson} from './project.dependencies'
+import {Project} from './project.interface'
+
 export interface repository {
   cache: {
     file: string
@@ -90,4 +93,48 @@ export const repository: repository = {
   extensions: {},
   resolve: [],
   dependencies: [],
+}
+
+/**
+ * @public
+ */
+export async function initializeStore(this: Project.Interface) {
+  this.setStore({
+    ...repository,
+    cli: this.app.store.get('cli'),
+    env: {
+      public: this.app.env.getPublicEnv(),
+      all: this.app.env.all(),
+    },
+    manifestPath: this.app.path('project', 'package.json'),
+    dependencies: [this.app.path('project', 'package.json')],
+  })
+
+  try {
+    const manifest = await readJson(this.get('manifestPath'))
+    this.set('manifest', manifest)
+  } catch (e) {
+    this.log('error', 'manifest file not found', e)
+  }
+
+  this.app
+    .when(
+      this.has(`manifest.${this.app.name}.inject`),
+      ({store}) =>
+        store.set(
+          'inject',
+          this.get(`manifest.${this.app.name}.inject`),
+        ),
+    )
+    .when(this.has(`manifest.${this.app.name}.paths`), () =>
+      this.app.store.merge(
+        'location',
+        this.get(`manifest.${this.app.name}.paths`),
+      ),
+    )
+
+  this.set('installed', {
+    ...(this.get('manifest.devDependencies') ?? {}),
+    ...(this.get('manifest.dependencies') ?? {}),
+  })
 }

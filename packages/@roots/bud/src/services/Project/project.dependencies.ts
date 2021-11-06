@@ -7,5 +7,3 @@ import globby from 'globby'
 export {globby}
 
 export {Project} from '@roots/bud-framework'
-
-export {Peers} from '../Peers'

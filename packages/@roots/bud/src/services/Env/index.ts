@@ -1,6 +1,7 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, dotenv, dotenvExpand} from '@roots/bud-support'
+import {isString} from 'lodash'
 
 /**
  * Env service
@@ -64,10 +65,15 @@ export class Env
           .filter(([k]: [string, string]) =>
             k.includes('APP_PUBLIC'),
           )
-          .reduce(
-            (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
-            {},
-          )
+          .map(([k, v]: [string, string]) => [
+            k.replace('APP_PUBLIC_', ''),
+            v,
+          ])
+          .map(([k, v]: [string, string]) => [
+            k.replace('APP_PUBLIC_', ''),
+            isString(v) ? v : JSON.stringify(v),
+          ])
+          .reduce((a, [k, v]) => ({...a, [k]: v}), {})
       : {}
   }
 }

@@ -1,1 +1,1 @@
-export {Project} from './Project'
+export {Project} from './project.service'
