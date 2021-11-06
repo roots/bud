@@ -3,7 +3,7 @@
 set -e
 
 WORKFLOW_FILE=./.github/workflows/main.yml
-WORKFLOW_CHECKSUM=0a5957adcd769dd87e29d6d6e4bc8978
+WORKFLOW_CHECKSUM=db14cd3e816a63f23cdb9011f3e83210
 
 md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
 
@@ -16,8 +16,5 @@ yarn kjo build
 echo Lint
 yarn kjo lint --eslint --skypack
 
-echo Unit Tests
-yarn kjo test --unit
-
-echo Integration Tests
-yarn kjo test --integration
+echo Test
+yarn kjo test
