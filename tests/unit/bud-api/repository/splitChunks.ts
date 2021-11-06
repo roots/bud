@@ -7,10 +7,6 @@ describe.skip('bud.splitChunks', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   beforeEach(() => {
     bud.hooks.on('build/optimization/splitChunks', undefined)
   })

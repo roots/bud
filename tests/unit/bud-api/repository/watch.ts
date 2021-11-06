@@ -13,10 +13,6 @@ describe.skip('bud.watch', function () {
     serverConfig = {...bud.server.config.all()}
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   beforeEach(() => {
     bud.extensions.setStore({})
   })

@@ -8,10 +8,6 @@ describe.skip('bud.publicPath', function () {
     bud.build.make()
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('publicPath: is a function', () => {
     expect(bud.publicPath).toBeInstanceOf(Function)
   })

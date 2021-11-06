@@ -7,10 +7,6 @@ describe.skip('bud.runtime', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is a function', () => {
     expect(bud.runtime).toBeInstanceOf(Function)
   })

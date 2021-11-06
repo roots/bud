@@ -13,10 +13,6 @@ describe.skip('bud.persist', function () {
     })
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is a function', () => {
     expect(bud.persist).toBeInstanceOf(Function)
   })

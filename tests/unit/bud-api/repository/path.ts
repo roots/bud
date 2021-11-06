@@ -7,10 +7,6 @@ describe.skip('bud.path', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   beforeEach(() => {
     bud.hooks.on('location/project', config.location.project)
   })

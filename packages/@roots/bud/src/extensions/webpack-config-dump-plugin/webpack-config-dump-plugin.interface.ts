@@ -9,8 +9,7 @@ export interface Options {
   includeFalseValues?: boolean
 }
 
-export interface Plugin
-  extends Extension.CompilerPlugin<
-    WebpackConfigDumpPlugin,
-    Options
-  > {}
+export type Plugin = Extension.CompilerPlugin<
+  WebpackConfigDumpPlugin,
+  Options
+>

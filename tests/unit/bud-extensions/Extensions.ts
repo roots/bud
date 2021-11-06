@@ -7,7 +7,7 @@ import {
 } from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
-describe('Extensions', function () {
+describe.skip('Extensions', function () {
   let bud: Framework = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {

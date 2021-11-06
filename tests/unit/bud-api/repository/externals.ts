@@ -7,10 +7,6 @@ describe.skip('bud.externals', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is a function', () => {
     expect(bud.externals).toBeInstanceOf(Function)
   })

@@ -1,5 +1,5 @@
 import {config, factory, Framework} from '@roots/bud'
-import {Peers} from '@roots/bud/src/services/Peers'
+import {Peers} from '@roots/bud/src/services/Project/peers/peers.service'
 import {readJson} from 'fs-extra'
 
 describe('bud.project', function () {
@@ -45,10 +45,9 @@ describe('bud.project', function () {
           bud: {
             type: 'extension',
           },
-          dependsOn: [],
           name: '@roots/bud-babel',
           path: expect.stringContaining('@roots/bud-babel'),
-          provides: {
+          dependencies: {
             '@babel/core': expect.any(String),
             '@babel/plugin-proposal-class-properties':
               expect.any(String),
@@ -116,7 +115,6 @@ describe('bud.project', function () {
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
       expect.stringContaining('@roots/bud-babel'),
-      expect.stringContaining('node_modules'),
     ])
   })
 })

@@ -9,10 +9,6 @@ describe.skip('bud.serve', function () {
     })
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('sets host', () => {
     bud.serve({host: 'bar.com'})
     expect(bud.server.config.get('host')).toEqual('bar.com')

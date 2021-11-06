@@ -1,6 +1,5 @@
 import {
   ensureDirSync,
-  isUndefined,
   WebpackConfigDumpPlugin,
 } from './webpack-config-dump-plugin.dependencies'
 import type {Plugin} from './webpack-config-dump-plugin.interface'
@@ -15,9 +14,6 @@ const BudConfigDumpPlugin: Plugin = {
       ...options.all(),
     })
   },
-
-  when: ({cache, store}) =>
-    store.isTrue('debug') && !isUndefined(cache),
 
   options: app => ({
     name: `${app.name}.webpack.config.js`,

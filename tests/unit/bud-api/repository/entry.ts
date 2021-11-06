@@ -20,10 +20,6 @@ describe.skip('bud.entry', function () {
     bud.build.make()
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   beforeEach(() => {
     bud.hooks.on('build/entry', {})
   })

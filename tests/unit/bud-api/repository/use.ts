@@ -9,12 +9,9 @@ describe.skip('bud.use', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   beforeEach(() => {
     bud.extensions.setStore({})
+
     bud.use({
       name: 'css-minimizer-webpack-plugin',
       options: {},
@@ -25,52 +22,57 @@ describe.skip('bud.use', function () {
     expect(bud.use).toBeInstanceOf(Function)
   })
 
-  it('registers an imported extension', () => {
-    bud.use(Babel).build.make()
+  it('registers an imported extension', async () => {
+    await bud.use(Babel)
+
+    bud.build.make()
 
     expect(bud.extensions.has('@roots/bud-babel'))
   })
 
-  it('registers an inline extension', () => {
-    bud
-      .use({
-        name: 'inline-extension',
-      })
-      .build.make()
+  it('registers an inline extension', async () => {
+    await bud.use({
+      name: 'inline-extension',
+    })
+
+    bud.build.make()
 
     expect(bud.extensions.has('inline-extension'))
   })
 
-  it('registers an anonymous extension', () => {
-    bud.use({options: {}}).build.make()
+  it('registers an anonymous extension', async () => {
+    await bud.use({options: {}})
+
+    bud.build.make()
     expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
-  it('registers a webpack plugin', () => {
-    bud.use(new HtmlWebpackPlugin()).build.make()
+  it('registers a webpack plugin', async () => {
+    await bud.use(new HtmlWebpackPlugin())
+
+    bud.build.make()
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
-  it('registers an inline webpack plugin', () => {
-    bud
-      .use({
-        apply() {
-          return null
-        },
-      })
-      .build.make()
+  it('registers an inline webpack plugin', async () => {
+    await bud.use({
+      apply() {
+        return null
+      },
+    })
 
+    bud.build.make()
     expect(bud.extensions.getEntries().length).toEqual(2)
   })
 
-  it('registers an imported webpack plugin', () => {
-    bud.use(new HtmlWebpackPlugin())
+  it('registers an imported webpack plugin', async () => {
+    await bud.use(new HtmlWebpackPlugin())
 
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
   })
 
-  it('registers multiple extensions', () => {
-    bud.use([Babel, new HtmlWebpackPlugin()])
+  it('registers multiple extensions', async () => {
+    await bud.use([Babel, new HtmlWebpackPlugin()])
 
     expect(bud.extensions.has('@roots/bud-babel')).toBe(true)
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)
@@ -83,7 +85,7 @@ describe.skip('bud.use', function () {
         // noop
       },
     }
-    bud.use(plugin)
+    await bud.use(plugin)
     expect(bud.extensions.has('my-plugin')).toBe(true)
   })
 })

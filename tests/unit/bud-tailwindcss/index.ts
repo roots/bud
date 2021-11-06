@@ -22,10 +22,6 @@ describe.skip('@roots/bud-tailwindcss', () => {
     bud.use([BudPostCssExtension, BudTailwindCssExtension])
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('has name prop', () => {
     expect(BudTailwindCssExtension.name).toBe(
       '@roots/bud-tailwindcss',

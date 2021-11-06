@@ -4,10 +4,10 @@ import {Config} from '@roots/bud-babel/src/babel.config'
 const RequiredBabel = require('@roots/bud-babel')
 
 describe('@roots/bud-babel', function () {
-  let Config: Config
+  let config: Config
 
   beforeAll(async () => {
-    Config = new BudBabelExtension.Config()
+    config = new Config()
   })
 
   it('works with require', () => {
@@ -21,88 +21,88 @@ describe('@roots/bud-babel', function () {
   })
 
   it('config class has a setPlugins', () => {
-    expect(Config.setPlugins).toBeInstanceOf(Function)
+    expect(config.setPlugins).toBeInstanceOf(Function)
   })
 
   it('config class has a setPresets', () => {
-    expect(Config.setPresets).toBeInstanceOf(Function)
+    expect(config.setPresets).toBeInstanceOf(Function)
   })
 
   it('config class has a setPlugin', () => {
-    expect(Config.setPlugin).toBeInstanceOf(Function)
+    expect(config.setPlugin).toBeInstanceOf(Function)
   })
 
   it('config class has a setPreset', () => {
-    expect(Config.setPreset).toBeInstanceOf(Function)
+    expect(config.setPreset).toBeInstanceOf(Function)
   })
 
   it('config class has a setPluginOptions', () => {
-    expect(Config.setPluginOptions).toBeInstanceOf(Function)
+    expect(config.setPluginOptions).toBeInstanceOf(Function)
   })
 
   it('config class has a setPluginOptions', () => {
-    expect(Config.setPresetOptions).toBeInstanceOf(Function)
+    expect(config.setPresetOptions).toBeInstanceOf(Function)
   })
 
   it('bud.babel.setPreset functions', () => {
-    Config.presets = {}
+    config.presets = {}
 
-    Config.setPreset('@babel/preset-env', '@babel/preset-env')
+    config.setPreset('@babel/preset-env', '@babel/preset-env')
 
-    expect(Config.presets).toEqual({
+    expect(config.presets).toEqual({
       '@babel/preset-env': ['@babel/preset-env'],
     })
 
-    Config.presets = {}
+    config.presets = {}
 
-    Config.setPreset('@babel/preset-env', [
+    config.setPreset('@babel/preset-env', [
       '@babel/preset-env',
       {foo: 'bar'},
     ])
 
-    expect(Config.presets).toEqual({
+    expect(config.presets).toEqual({
       '@babel/preset-env': ['@babel/preset-env', {foo: 'bar'}],
     })
   })
 
   it('bud.babel.setPlugin functions', () => {
-    Config.plugins = {}
+    config.plugins = {}
 
-    Config.setPlugin('someBabelPlugin', 'someBabelPlugin')
+    config.setPlugin('someBabelPlugin', 'someBabelPlugin')
 
-    expect(Config.plugins).toEqual({
+    expect(config.plugins).toEqual({
       someBabelPlugin: ['someBabelPlugin'],
     })
 
-    Config.plugins = {}
+    config.plugins = {}
 
-    Config.setPlugin('someBabelPlugin', [
+    config.setPlugin('someBabelPlugin', [
       'someBabelPlugin',
       {foo: 'bar'},
     ])
 
-    expect(Config.plugins).toEqual({
+    expect(config.plugins).toEqual({
       someBabelPlugin: ['someBabelPlugin', {foo: 'bar'}],
     })
   })
 
   it('bud.babel.unsetPlugin functions', () => {
-    Config.plugins = {
+    config.plugins = {
       someBabelPlugin: ['someBabelPlugin'],
     }
 
-    Config.unsetPlugin('someBabelPlugin')
+    config.unsetPlugin('someBabelPlugin')
 
-    expect(Config.plugins).toEqual({})
+    expect(config.plugins).toEqual({})
   })
 
   it('bud.babel.unsetPreset functions', () => {
-    Config.presets = {
+    config.presets = {
       someBabelPreset: ['someBabelPreset'],
     }
 
-    Config.unsetPreset('someBabelPreset')
+    config.unsetPreset('someBabelPreset')
 
-    expect(Config.presets).toEqual({})
+    expect(config.presets).toEqual({})
   })
 })

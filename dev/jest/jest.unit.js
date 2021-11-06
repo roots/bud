@@ -29,10 +29,6 @@ module.exports = async () => {
     ],
     testPathIgnorePatterns: [
       '/node_modules/',
-      '/examples/',
-      '/docs/',
-      '/dev/',
-      '/site/',
       '/tests/util/',
       '/tests/.*?/__mocks__/',
     ],

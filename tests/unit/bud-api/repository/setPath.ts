@@ -9,10 +9,6 @@ describe.skip('bud.setPath', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is a function', () => {
     expect(bud.setPath).toBeInstanceOf(Function)
   })

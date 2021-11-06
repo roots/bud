@@ -7,15 +7,11 @@ describe('@roots/bud-framework child', () => {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  it("parent compiler's name is this", () => {
+  it("root compiler's name is this", () => {
     expect(bud.name).toBe('bud')
   })
 
-  it('parent.isParent is false', () => {
-    expect(bud.isParent).toBe(true)
-  })
-
-  it('parent compiler has no parent', () => {
-    expect(bud.parent).toBe(null)
+  it('root.isRoot is false', () => {
+    expect(bud.isRoot).toBe(true)
   })
 })
