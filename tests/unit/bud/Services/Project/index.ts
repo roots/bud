@@ -24,29 +24,39 @@ describe('bud.project', function () {
 
   it('contains a repository', () => {
     expect(bud.project.repository).toMatchSnapshot({
-      manifest: {
-        name: 'example-babel',
-        private: true,
-        devDependencies: {
-          '@roots/bud': 'workspace:*',
-          '@roots/bud-babel': 'workspace:*',
+      cache: {
+        directory: expect.any(String),
+        file: expect.stringContaining('bud.profile.json'),
+      },
+      cli: {
+        args: {},
+        argv: [],
+        flags: {},
+        metadata: {},
+        raw: [],
+      },
+      configs: {
+        dynamic: {
+          conditional: null,
+          global: null,
         },
-        browserslist: {
-          development: [
-            'last 1 chrome version',
-            'last 1 firefox version',
-            'last 1 safari version',
-          ],
-          production: ['>0.5%', 'not dead', 'not op_mini all'],
+        json: {
+          conditional: null,
+          global: null,
         },
+      },
+      dependencies: [
+        expect.stringContaining('babel/package.json'),
+      ],
+      env: {
+        all: undefined,
+        public: {},
       },
       extensions: {
         '@roots/bud-babel': {
           bud: {
             type: 'extension',
           },
-          name: '@roots/bud-babel',
-          path: expect.stringContaining('@roots/bud-babel'),
           dependencies: {
             '@babel/core': expect.any(String),
             '@babel/plugin-proposal-class-properties':
@@ -63,15 +73,18 @@ describe('bud.project', function () {
               expect.any(String),
             tslib: expect.any(String),
           },
+          name: '@roots/bud-babel',
+          path: expect.stringContaining('@roots/bud-babel'),
+          peerDependencies: undefined,
           version: expect.any(String),
         },
       },
       manifestPath: expect.stringContaining(
         'babel/package.json',
       ),
-      cache: {
-        directory: expect.any(String),
-      },
+      peers: {},
+      resolve: [expect.stringContaining('@roots/bud-babel')],
+      unmet: [],
     })
   })
 

@@ -4,7 +4,7 @@ exports[`bud.project contains a repository 1`] = `
 Object {
   "cache": Object {
     "directory": Any<String>,
-    "file": "/Users/kellymears/code/roots/dev/bud/examples/babel/.budfiles/bud.profile.json",
+    "file": StringContaining "bud.profile.json",
   },
   "cli": Object {
     "args": Object {},
@@ -24,7 +24,7 @@ Object {
     },
   },
   "dependencies": Array [
-    "/Users/kellymears/code/roots/dev/bud/examples/babel/package.json",
+    StringContaining "babel/package.json",
   ],
   "env": Object {
     "all": undefined,
@@ -89,7 +89,7 @@ Object {
   "manifestPath": StringContaining "babel/package.json",
   "peers": Object {},
   "resolve": Array [
-    "/Users/kellymears/code/roots/dev/bud/packages/@roots/bud-babel",
+    StringContaining "@roots/bud-babel",
   ],
   "unmet": Array [],
 }
