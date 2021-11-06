@@ -8,10 +8,6 @@ describe('Build Rule', function () {
     bud = await factory({config: {ci: true, log: false}})
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('is constructable', () => {
     const rule = {test: /.foo$/}
     expect(new Rule(rule)).toBeInstanceOf(Rule)

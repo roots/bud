@@ -1,5 +1,5 @@
+import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
-import {safeResolve} from '@roots/bud-support'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Configuration} from 'webpack'
 
@@ -9,14 +9,18 @@ import {Configuration} from 'webpack'
 export const VueExtension: Extension.Module = {
   name: '@roots/bud-vue',
 
-  boot: app => {
-    const {extensions, store, hooks} = app
+  boot: async app => {
+    const {
+      build: {loaders, items, rules},
+      use,
+      store,
+      hooks,
+    } = app
 
-    if (!safeResolve('vue') || !safeResolve('@vue/compiler-sfc'))
-      return
+    await use(new VueLoaderPlugin())
 
     hooks.on(
-      'build.module.rules',
+      'build.module.rules.before',
       (rules: Configuration['module']['rules']) => [
         {
           test: store.get('patterns.vue'),
@@ -25,12 +29,6 @@ export const VueExtension: Extension.Module = {
         ...rules,
       ],
     )
-
-    extensions.add({
-      name: 'vue-loader-plugin',
-      make: () => new VueLoaderPlugin(),
-    })
-
     hooks.on(
       'build.resolve.alias',
       (aliases: Configuration['resolve']['alias']) => ({
@@ -38,7 +36,6 @@ export const VueExtension: Extension.Module = {
         vue: '@vue/runtime-dom',
       }),
     )
-
     hooks.on(
       'build.resolve.extensions',
       (extensions: Configuration['resolve']['extensions']) => [
@@ -46,5 +43,18 @@ export const VueExtension: Extension.Module = {
         '.vue',
       ],
     )
+
+    loaders['vue-style'] = new Loader(
+      require.resolve('vue-style-loader'),
+    )
+    items['vue-style'] = new Item({
+      loader: ({build}) => build.loaders['vue-style'],
+    })
+
+    const existingCssRules = rules.css.getUse(app)
+    rules.css.setUse(({build}) => [
+      build.items['vue-style'],
+      ...(existingCssRules ?? []),
+    ])
   },
 }

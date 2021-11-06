@@ -17,10 +17,6 @@ describe('bud.project', function () {
     manager = new DependenciesManager(bud.path('project'))
   })
 
-  afterAll(done => {
-    bud.close(done)
-  })
-
   it('has dependencies name', () => {
     expect(dependencies.name).toBe('dependencies')
   })

@@ -10,6 +10,8 @@
  * @packageDocumentation @betaDocumentation
  */
 
+import '@roots/bud-api'
+
 import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 
@@ -20,6 +22,7 @@ declare module '@roots/bud-framework' {
     '@roots/bud-vue': Extension.Module
     'vue-loader-plugin': Extension.Module
   }
+
   interface Loaders {
     vue: Loader
     'vue-style': Loader

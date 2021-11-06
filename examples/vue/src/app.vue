@@ -7,13 +7,13 @@
 </template>
 
 <style lang="css">
-  .custom-class {
-    color: 'white';
-  }
+.custom-class {
+  color: 'white';
+}
 
-  h1 {
-    font-size: 24px;
-  }
+h1 {
+  font-size: 24px;
+}
 </style>
 
 <script>

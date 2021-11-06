@@ -6,12 +6,6 @@ const path = require('path')
  * @param {Bud} bud
  */
 module.exports = bud => {
-  await bud.use([
-    require('@roots/bud-preset-wordpress'),
-    require('@roots/bud-eslint'),
-    require('@roots/bud-tailwindcss'),
-  ])
-
   bud
     .setPath({
       project: path.resolve('web/app/themes/sage'),

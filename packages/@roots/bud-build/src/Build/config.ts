@@ -85,17 +85,22 @@ export function config(app: Framework): void {
       rules: app.hooks.filter('build.module.rules'),
     }))
     .hooks.on('build.module.rules', () => [
-      {
-        test: /\.[cm]?(jsx?|tsx?)$/,
-        parser: {requireEnsure: false},
-      },
+      ...app.hooks.filter('build.module.rules.before'),
       {
         oneOf: app.hooks.filter('build.module.rules.oneOf'),
       },
+      ...app.hooks.filter('build.module.rules.after'),
     ])
     .hooks.on('build.module.rules.oneOf', () =>
       Object.values(app.build.rules).map(rule => rule.make(app)),
     )
+    .hooks.on('build.module.rules.before', () => [
+      {
+        test: /\.[cm]?(jsx?|tsx?)$/,
+        parser: {requireEnsure: false},
+      },
+    ])
+    .hooks.on('build.module.rules.after', () => [])
 
     /**
      * Name
