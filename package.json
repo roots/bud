@@ -56,7 +56,7 @@
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
-    "esbuild": "0.13.9",
+    "esbuild": "0.13.12",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.2",
