@@ -7865,7 +7865,7 @@ __metadata:
     tsconfig-paths: 3.11.0
     tslib: 2.3.1
     type-fest: 2.5.1
-    typedoc: 0.22.6
+    typedoc: 0.22.8
     typescript: 4.4.4
     weak-napi: 2.0.2
   languageName: unknown
@@ -17038,7 +17038,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^3.0.4":
+"marked@npm:^3.0.8":
   version: 3.0.8
   resolution: "marked@npm:3.0.8"
   bin:
@@ -22617,7 +22617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shiki@npm:^0.9.11":
+"shiki@npm:^0.9.12":
   version: 0.9.12
   resolution: "shiki@npm:0.9.12"
   dependencies:
@@ -24747,20 +24747,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.22.6":
-  version: 0.22.6
-  resolution: "typedoc@npm:0.22.6"
+"typedoc@npm:0.22.8":
+  version: 0.22.8
+  resolution: "typedoc@npm:0.22.8"
   dependencies:
     glob: ^7.2.0
     lunr: ^2.3.9
-    marked: ^3.0.4
+    marked: ^3.0.8
     minimatch: ^3.0.4
-    shiki: ^0.9.11
+    shiki: ^0.9.12
   peerDependencies:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: bdf099fffbe77bd173164ac9d3700ed88e4eb021ce402a255492065f6cbd03f8f420297743616791062f5d2c3e32b0fa061c52f360956f54306b3cd0719ec702
+  checksum: c54929f219f6663b55ce1314742467d621371c6e063cd41ec79bc5c2e30ddf2736d0ca5e32b22d5a1775e7ff60a6c0bc8d10d929c4955cdc90c681fa4612dcb6
   languageName: node
   linkType: hard
 
