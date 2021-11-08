@@ -64,11 +64,9 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "27.0.2",
     "@types/node": "16.11.6",
     "@types/prettier": "2.4.1",
-    "@types/react": "17.0.34",
-    "jest": "27.3.1"
+    "@types/react": "17.0.34"
   },
   "peerDependencies": {
     "ink": "^3.0.9",

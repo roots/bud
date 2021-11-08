@@ -3258,6 +3258,7 @@ __metadata:
     ink: 3.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
+    ink-use-stdout-dimensions: ^1.0.5
     patch-console: 1.0.0
     react: 17.0.2
     tslib: ^2.3.1
@@ -4024,11 +4025,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
-    "@types/jest": 27.0.2
     "@types/node": 16.11.6
     "@types/prettier": 2.4.1
     "@types/react": 17.0.34
-    jest: 27.3.1
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
@@ -4043,10 +4042,13 @@ __metadata:
   dependencies:
     "@types/node": 16.11.6
     autobind-decorator: ^2.4.0
+    ink: ^3.0.9
     ink-use-stdout-dimensions: ^1.0.5
+    react: ^17.0.2
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
+    ink-use-stdout-dimensions: ^1.0.5
     react: ^17.0.2
   languageName: unknown
   linkType: soft

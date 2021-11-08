@@ -62,15 +62,18 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "16.11.6"
+    "@types/node": "16.11.6",
+    "ink": "^3.0.9",
+    "ink-use-stdout-dimensions": "^1.0.5",
+    "react": "^17.0.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "ink-use-stdout-dimensions": "^1.0.5",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "ink": "^3.0.9",
+    "ink-use-stdout-dimensions": "^1.0.5",
     "react": "^17.0.2"
   },
   "stableVersion": "4.6.0"
