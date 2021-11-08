@@ -26,9 +26,9 @@
     "hoistingLimits": "workspaces"
   },
   "devDependencies": {
-    "@docusaurus/core": "2.0.0-beta.8",
-    "@docusaurus/module-type-aliases": "2.0.0-beta.8",
-    "@docusaurus/preset-classic": "2.0.0-beta.8",
+    "@docusaurus/core": "2.0.0-beta.9",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.9",
+    "@docusaurus/preset-classic": "2.0.0-beta.9",
     "@easyops-cn/docusaurus-search-local": "0.19.1",
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
