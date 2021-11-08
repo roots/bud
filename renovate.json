@@ -13,6 +13,10 @@
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "matchPackagePrefixes": ["@yarnpkg/"],
+      "groupName": "yarnpkg monorepo"
     }
   ]
 }
