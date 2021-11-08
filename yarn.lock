@@ -3699,7 +3699,7 @@ __metadata:
     babel-preset-solid: ^1.1.7
     eslint: 7.32.0
     jest: 27.3.1
-    solid-js: 1.1.7
+    solid-js: 1.2.2
     tslib: ^2.3.1
     type-fest: 2.5.1
     webpack: 5.62.1
@@ -22678,10 +22678,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.1.7":
-  version: 1.1.7
-  resolution: "solid-js@npm:1.1.7"
-  checksum: 796ebdccf0ebde6c5db619e85d4e1f83ca03b3a35cdb1debd476f1aeae5e9fe9f741433d3169bd2f3372286212b143604f154a4c1426f927fe880540e50f3e9f
+"solid-js@npm:1.2.2":
+  version: 1.2.2
+  resolution: "solid-js@npm:1.2.2"
+  checksum: 6c74e3391b67ab7ac0f3b9407d0bee95428ea60c92e0e715e0d5230d338a5be43e0cbd1b3ee1d467f576f4fc81bdb684d98b63b23cb6cc350abf2b6601b50983
   languageName: node
   linkType: hard
 
