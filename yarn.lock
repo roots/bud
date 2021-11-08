@@ -4172,7 +4172,7 @@ __metadata:
     "@yarnpkg/builder": 3.1.0-rc.10
     "@yarnpkg/cli": 3.1.0
     "@yarnpkg/core": 3.1.0-rc.13
-    "@yarnpkg/shell": 3.1.0-rc.9
+    "@yarnpkg/shell": 3.1.0
     clipanion: 3.2.0-rc.3
     esbuild: 0.13.9
     jest: 27.3.1
@@ -6335,26 +6335,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:3.1.0-rc.9":
-  version: 3.1.0-rc.9
-  resolution: "@yarnpkg/shell@npm:3.1.0-rc.9"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.0-rc.12
-    "@yarnpkg/parsers": ^2.4.1-rc.12
-    chalk: ^3.0.0
-    clipanion: ^3.0.1
-    cross-spawn: 7.0.3
-    fast-glob: ^3.2.2
-    micromatch: ^4.0.2
-    stream-buffers: ^3.0.2
-    tslib: ^1.13.0
-  bin:
-    shell: ./lib/cli.js
-  checksum: 8d25080f5f93a880738531c35f72f6683c13d2f2a19d1e8d3b11411e2181445e82a36eac7f611caff0f791e7852f8e962afad8a1140ff1bb8d9d428fa773e451
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/shell@npm:^3.1.0, @yarnpkg/shell@npm:^3.1.0-rc.9":
+"@yarnpkg/shell@npm:3.1.0, @yarnpkg/shell@npm:^3.1.0, @yarnpkg/shell@npm:^3.1.0-rc.9":
   version: 3.1.0
   resolution: "@yarnpkg/shell@npm:3.1.0"
   dependencies:
