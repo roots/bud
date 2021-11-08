@@ -3742,7 +3742,7 @@ __metadata:
     chalk: 4.1.2
     chokidar: 3.5.2
     cosmiconfig: 7.0.1
-    css-minimizer-webpack-plugin: 3.1.1
+    css-minimizer-webpack-plugin: 3.1.2
     dotenv: 10.0.0
     dotenv-expand: 5.1.0
     execa: 5.1.1
@@ -9185,13 +9185,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:3.1.1, css-minimizer-webpack-plugin@npm:^3.0.2, css-minimizer-webpack-plugin@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "css-minimizer-webpack-plugin@npm:3.1.1"
+"css-minimizer-webpack-plugin@npm:3.1.2, css-minimizer-webpack-plugin@npm:^3.0.2, css-minimizer-webpack-plugin@npm:^3.1.1":
+  version: 3.1.2
+  resolution: "css-minimizer-webpack-plugin@npm:3.1.2"
   dependencies:
     cssnano: ^5.0.6
     jest-worker: ^27.0.2
-    p-limit: ^3.0.2
     postcss: ^8.3.5
     schema-utils: ^3.1.0
     serialize-javascript: ^6.0.0
@@ -9205,7 +9204,7 @@ __metadata:
       optional: true
     esbuild:
       optional: true
-  checksum: 9f0c7ec9367c13dc1fa22847949d33237bcf50f55941727608871af0ccae8ed5e281c2e99622d4dc4fedb696def40af03cb8be9be2d44bf15eb521dee938ef92
+  checksum: 4a72fe764da2fbec23ccff281e59c44e11bdea214cec75120facd6882d26b976ee15284c80f1b8507a8164d0e5c4cbd0b0a858e6cb58a09b7e3bead400cbcce8
   languageName: node
   linkType: hard
 
