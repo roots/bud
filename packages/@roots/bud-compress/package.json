@@ -73,7 +73,7 @@
     "@types/jest": "27.0.2",
     "@types/node": "16.11.4",
     "jest": "27.3.1",
-    "webpack": "5.59.1"
+    "webpack": "5.62.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

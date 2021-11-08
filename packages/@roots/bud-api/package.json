@@ -94,7 +94,7 @@
     "lodash": "4.17.21",
     "nanoid": "3.1.30",
     "npm-run-path": "5.0.1",
-    "webpack": "5.59.1"
+    "webpack": "5.62.1"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
