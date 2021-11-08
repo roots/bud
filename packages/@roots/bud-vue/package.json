@@ -68,7 +68,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.28.2",
     "@types/jest": "27.0.2",
-    "@types/node": "16.11.4",
+    "@types/node": "16.11.6",
     "@vue/compiler-sfc": "3.2.20",
     "css-loader": "6.5.1",
     "jest": "27.3.1",

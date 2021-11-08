@@ -62,7 +62,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "16.11.4"
+    "@types/node": "16.11.6"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
