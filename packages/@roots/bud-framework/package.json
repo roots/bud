@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "5.0.0-next.7",
+  "version": "5.0.0-next.8",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
