@@ -2801,20 +2801,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:7.13.63":
-  version: 7.13.63
-  resolution: "@microsoft/api-documenter@npm:7.13.63"
+"@microsoft/api-documenter@npm:7.13.67":
+  version: 7.13.67
+  resolution: "@microsoft/api-documenter@npm:7.13.67"
   dependencies:
-    "@microsoft/api-extractor-model": 7.13.13
+    "@microsoft/api-extractor-model": 7.13.16
     "@microsoft/tsdoc": 0.13.2
-    "@rushstack/node-core-library": 3.42.3
-    "@rushstack/ts-command-line": 4.10.2
+    "@rushstack/node-core-library": 3.43.2
+    "@rushstack/ts-command-line": 4.10.4
     colors: ~1.2.1
     js-yaml: ~3.13.1
     resolve: ~1.17.0
   bin:
     api-documenter: bin/api-documenter
-  checksum: affd80d3d09558c1d387687eedd3ddb90102101fd0ac183a38df38853a1206aba155741fb22267cc06ad53d2c586eb849b7ab094389d7850a14280a8bc4039a7
+  checksum: 31ab6ebb7ec36a4f22fa4e411865216dfdd624d53d6698d6656798a47d3a40e3d221c5c84414af510332fa0c0bc44477f8f5f1ff80c0a473bb2fd5e935ef536a
   languageName: node
   linkType: hard
 
@@ -2826,6 +2826,17 @@ __metadata:
     "@microsoft/tsdoc-config": ~0.15.2
     "@rushstack/node-core-library": 3.42.3
   checksum: b3043f561f1a8fbe80806c4f6714afc40a16ba8d2e20cdfbd64164ccfbebfadd82f5bba37bc97746ee22baf891517920990590de3d887f37149fd2d5e4922ac4
+  languageName: node
+  linkType: hard
+
+"@microsoft/api-extractor-model@npm:7.13.16":
+  version: 7.13.16
+  resolution: "@microsoft/api-extractor-model@npm:7.13.16"
+  dependencies:
+    "@microsoft/tsdoc": 0.13.2
+    "@microsoft/tsdoc-config": ~0.15.2
+    "@rushstack/node-core-library": 3.43.2
+  checksum: 7066cecc24c7e66d6018fa23ea109c375e9d0f1f58f8858872ff8fea2d479c6e99f6569fd452718507cf05ee901b2e5370e18b02aee2c525a6efb445269684b7
   languageName: node
   linkType: hard
 
@@ -3957,7 +3968,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": 7.13.63
+    "@microsoft/api-documenter": 7.13.67
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": 1.26.0
@@ -4198,6 +4209,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rushstack/node-core-library@npm:3.43.2":
+  version: 3.43.2
+  resolution: "@rushstack/node-core-library@npm:3.43.2"
+  dependencies:
+    "@types/node": 12.20.24
+    colors: ~1.2.1
+    fs-extra: ~7.0.1
+    import-lazy: ~4.0.0
+    jju: ~1.4.0
+    resolve: ~1.17.0
+    semver: ~7.3.0
+    timsort: ~0.3.0
+    z-schema: ~3.18.3
+  checksum: a3aa5bf7ce07a547469827c14cf53057dcb6bdff47461a991a4e52076d1f36287814a46045cae1597bbc878061ac6d2e5097157c4d281fcbc5a8a769481511b6
+  languageName: node
+  linkType: hard
+
 "@rushstack/rig-package@npm:0.3.3":
   version: 0.3.3
   resolution: "@rushstack/rig-package@npm:0.3.3"
@@ -4217,6 +4245,18 @@ __metadata:
     colors: ~1.2.1
     string-argv: ~0.3.1
   checksum: 52f419b3217f731343b05a690de08250f35771e8933e2be075600ff3ccf6fcd76368de886150ea10337aea3ae698c69413358aa15621ac5ffb1d9cfc05a6464b
+  languageName: node
+  linkType: hard
+
+"@rushstack/ts-command-line@npm:4.10.4":
+  version: 4.10.4
+  resolution: "@rushstack/ts-command-line@npm:4.10.4"
+  dependencies:
+    "@types/argparse": 1.0.38
+    argparse: ~1.0.9
+    colors: ~1.2.1
+    string-argv: ~0.3.1
+  checksum: 8f5f086b946ce7f67621cc6f03c6e4f51c1834522cf4b3b070671d785782681ec8c7f68a04c7d345f298780da6586ea0a38b550256e426f10d735618c9942505
   languageName: node
   linkType: hard
 
@@ -7805,7 +7845,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": 7.13.63
+    "@microsoft/api-documenter": 7.13.67
     "@microsoft/api-extractor": 7.18.16
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
@@ -17971,13 +18011,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanocolors@npm:^0.1.12":
-  version: 0.1.12
-  resolution: "nanocolors@npm:0.1.12"
-  checksum: 2ce58f57006ddd1d2680d05fe21f54d858db8ba81bd13381598ddc546f7637e33c4407da2ea7da40ea1c96794250e7c14a4d00358b48eeae4d917d6a92bafe4c
-  languageName: node
-  linkType: hard
-
 "nanoid@npm:3.1.30, nanoid@npm:^3.1.30":
   version: 3.1.30
   resolution: "nanoid@npm:3.1.30"
@@ -23764,24 +23797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svgo@npm:^2.3.0, svgo@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "svgo@npm:2.7.0"
-  dependencies:
-    "@trysound/sax": 0.2.0
-    commander: ^7.2.0
-    css-select: ^4.1.3
-    css-tree: ^1.1.3
-    csso: ^4.2.0
-    nanocolors: ^0.1.12
-    stable: ^0.1.8
-  bin:
-    svgo: bin/svgo
-  checksum: 7da6574958185368356d1e0f50d7860afc01d9fffb0f75c8aab87d1af237d27d8a838c7f09e6829a0e81b1952cf6c4e12abe1bd3920a526ea0f0ca9dd1cd59c5
-  languageName: node
-  linkType: hard
-
-"svgo@npm:^2.5.0":
+"svgo@npm:^2.3.0, svgo@npm:^2.5.0, svgo@npm:^2.7.0":
   version: 2.8.0
   resolution: "svgo@npm:2.8.0"
   dependencies:
