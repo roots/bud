@@ -1,24 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/babel .budfiles/bud/webpack.config.js 1`] = `undefined`;
+exports[`examples/babel .budfiles/bud/webpack.config.js 1`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "app.js",
+      "demo.js",
+      "foo.css",
+      "global.css",
+    ],
+  },
+}
+`;
 
 exports[`examples/babel .budfiles/bud/webpack.config.js 2`] = `"production"`;
 
 exports[`examples/babel .budfiles/bud/webpack.config.js 3`] = `
 Object {
   "emitOnErrors": false,
-  "minimize": false,
+  "minimize": true,
   "minimizer": Array [
     "...",
+    Object {
+      "options": Object {
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": Object {},
+      },
+    },
   ],
   "moduleIds": "deterministic",
-  "splitChunks": false,
+  "splitChunks": Object {
+    "cacheGroups": Object {
+      "bud": Object {
+        "chunks": "all",
+        "priority": -10,
+        "reuseExistingChunk": true,
+        "test": Object {},
+      },
+      "vendor": Object {
+        "chunks": "all",
+        "priority": -20,
+        "reuseExistingChunk": true,
+        "test": Object {},
+      },
+    },
+  },
 }
 `;
 
 exports[`examples/babel .budfiles/bud/webpack.config.js 4`] = `true`;
 
-exports[`examples/babel .budfiles/bud/webpack.config.js 5`] = `"memory"`;
+exports[`examples/babel .budfiles/bud/webpack.config.js 5`] = `"filesystem"`;
 
 exports[`examples/babel app.css matches snapshot 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 
