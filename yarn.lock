@@ -4170,7 +4170,7 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/node": 16.11.4
     "@yarnpkg/builder": 3.1.0-rc.10
-    "@yarnpkg/cli": 3.1.0-rc.12
+    "@yarnpkg/cli": 3.1.0
     "@yarnpkg/core": 3.1.0-rc.13
     "@yarnpkg/shell": 3.1.0-rc.9
     clipanion: 3.2.0-rc.3
@@ -5861,45 +5861,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:3.1.0-rc.12":
-  version: 3.1.0-rc.12
-  resolution: "@yarnpkg/cli@npm:3.1.0-rc.12"
-  dependencies:
-    "@yarnpkg/core": ^3.1.0-rc.13
-    "@yarnpkg/fslib": ^2.6.0-rc.12
-    "@yarnpkg/libzip": ^2.2.2
-    "@yarnpkg/parsers": ^2.4.1-rc.12
-    "@yarnpkg/plugin-compat": ^3.1.0-rc.11
-    "@yarnpkg/plugin-dlx": ^3.1.0-rc.2
-    "@yarnpkg/plugin-essentials": ^3.1.0-rc.12
-    "@yarnpkg/plugin-file": ^2.3.0-rc.9
-    "@yarnpkg/plugin-git": ^2.5.0-rc.2
-    "@yarnpkg/plugin-github": ^2.3.0-rc.2
-    "@yarnpkg/plugin-http": ^2.2.0-rc.2
-    "@yarnpkg/plugin-init": ^3.1.0-rc.2
-    "@yarnpkg/plugin-link": ^2.2.0-rc.9
-    "@yarnpkg/plugin-nm": ^3.1.0-rc.2
-    "@yarnpkg/plugin-npm": ^2.6.0-rc.9
-    "@yarnpkg/plugin-npm-cli": ^3.1.0-rc.2
-    "@yarnpkg/plugin-pack": ^3.1.0-rc.12
-    "@yarnpkg/plugin-patch": ^3.1.0-rc.2
-    "@yarnpkg/plugin-pnp": ^3.1.0-rc.5
-    "@yarnpkg/plugin-pnpm": ^1.0.0-rc.8
-    "@yarnpkg/shell": ^3.1.0-rc.9
-    chalk: ^3.0.0
-    ci-info: ^3.2.0
-    clipanion: ^3.0.1
-    semver: ^7.1.2
-    tslib: ^1.13.0
-    typanion: ^3.3.0
-    yup: ^0.32.9
-  peerDependencies:
-    "@yarnpkg/core": ^3.1.0-rc.13
-  checksum: c92eb112ee8e2140dcc7bcfee6cbd8916aca56c00547532d511e5d60367f985ac504ce68385599202d4f012b2c92dfce842082b986035f81938a93f2abc432f2
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/cli@npm:^3.1.0-rc.13":
+"@yarnpkg/cli@npm:3.1.0, @yarnpkg/cli@npm:^3.1.0-rc.13":
   version: 3.1.0
   resolution: "@yarnpkg/cli@npm:3.1.0"
   dependencies:
@@ -5978,7 +5940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.1.0, @yarnpkg/core@npm:^3.1.0-rc.13, @yarnpkg/core@npm:^3.1.0-rc.14":
+"@yarnpkg/core@npm:^3.1.0, @yarnpkg/core@npm:^3.1.0-rc.14":
   version: 3.1.0
   resolution: "@yarnpkg/core@npm:3.1.0"
   dependencies:
@@ -6080,7 +6042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-compat@npm:^3.1.0, @yarnpkg/plugin-compat@npm:^3.1.0-rc.11":
+"@yarnpkg/plugin-compat@npm:^3.1.0":
   version: 3.1.1
   resolution: "@yarnpkg/plugin-compat@npm:3.1.1"
   peerDependencies:
@@ -6090,7 +6052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-dlx@npm:^3.1.0, @yarnpkg/plugin-dlx@npm:^3.1.0-rc.2":
+"@yarnpkg/plugin-dlx@npm:^3.1.0":
   version: 3.1.1
   resolution: "@yarnpkg/plugin-dlx@npm:3.1.1"
   dependencies:
@@ -6105,7 +6067,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-essentials@npm:^3.1.0, @yarnpkg/plugin-essentials@npm:^3.1.0-rc.12":
+"@yarnpkg/plugin-essentials@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/plugin-essentials@npm:3.1.0"
   dependencies:
@@ -6128,7 +6090,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-file@npm:^2.3.0, @yarnpkg/plugin-file@npm:^2.3.0-rc.9":
+"@yarnpkg/plugin-file@npm:^2.3.0":
   version: 2.3.0
   resolution: "@yarnpkg/plugin-file@npm:2.3.0"
   dependencies:
@@ -6140,7 +6102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-git@npm:^2.5.0, @yarnpkg/plugin-git@npm:^2.5.0-rc.2":
+"@yarnpkg/plugin-git@npm:^2.5.0":
   version: 2.5.0
   resolution: "@yarnpkg/plugin-git@npm:2.5.0"
   dependencies:
@@ -6156,7 +6118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-github@npm:^2.3.0, @yarnpkg/plugin-github@npm:^2.3.0-rc.2":
+"@yarnpkg/plugin-github@npm:^2.3.0":
   version: 2.3.0
   resolution: "@yarnpkg/plugin-github@npm:2.3.0"
   dependencies:
@@ -6169,7 +6131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-http@npm:^2.2.0, @yarnpkg/plugin-http@npm:^2.2.0-rc.2":
+"@yarnpkg/plugin-http@npm:^2.2.0":
   version: 2.2.0
   resolution: "@yarnpkg/plugin-http@npm:2.2.0"
   dependencies:
@@ -6181,7 +6143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-init@npm:^3.1.0, @yarnpkg/plugin-init@npm:^3.1.0-rc.2":
+"@yarnpkg/plugin-init@npm:^3.1.0":
   version: 3.1.1
   resolution: "@yarnpkg/plugin-init@npm:3.1.1"
   dependencies:
@@ -6196,7 +6158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-link@npm:^2.2.0, @yarnpkg/plugin-link@npm:^2.2.0-rc.9":
+"@yarnpkg/plugin-link@npm:^2.2.0":
   version: 2.2.0
   resolution: "@yarnpkg/plugin-link@npm:2.2.0"
   dependencies:
@@ -6208,7 +6170,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-nm@npm:^3.1.0, @yarnpkg/plugin-nm@npm:^3.1.0-rc.2":
+"@yarnpkg/plugin-nm@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/plugin-nm@npm:3.1.0"
   dependencies:
@@ -6229,7 +6191,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-npm-cli@npm:^3.1.0, @yarnpkg/plugin-npm-cli@npm:^3.1.0-rc.2":
+"@yarnpkg/plugin-npm-cli@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/plugin-npm-cli@npm:3.1.0"
   dependencies:
@@ -6248,7 +6210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-npm@npm:^2.6.0, @yarnpkg/plugin-npm@npm:^2.6.0-rc.9":
+"@yarnpkg/plugin-npm@npm:^2.6.0":
   version: 2.6.0
   resolution: "@yarnpkg/plugin-npm@npm:2.6.0"
   dependencies:
@@ -6264,7 +6226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pack@npm:^3.1.0, @yarnpkg/plugin-pack@npm:^3.1.0-rc.12":
+"@yarnpkg/plugin-pack@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/plugin-pack@npm:3.1.0"
   dependencies:
@@ -6280,7 +6242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-patch@npm:^3.1.0, @yarnpkg/plugin-patch@npm:^3.1.0-rc.2":
+"@yarnpkg/plugin-patch@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/plugin-patch@npm:3.1.0"
   dependencies:
@@ -6295,7 +6257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pnp@npm:^3.1.0, @yarnpkg/plugin-pnp@npm:^3.1.0-rc.5, @yarnpkg/plugin-pnp@npm:^3.1.1":
+"@yarnpkg/plugin-pnp@npm:^3.1.0, @yarnpkg/plugin-pnp@npm:^3.1.1":
   version: 3.1.1
   resolution: "@yarnpkg/plugin-pnp@npm:3.1.1"
   dependencies:
@@ -6314,7 +6276,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pnpm@npm:^1.0.0, @yarnpkg/plugin-pnpm@npm:^1.0.0-rc.8":
+"@yarnpkg/plugin-pnpm@npm:^1.0.0":
   version: 1.0.1
   resolution: "@yarnpkg/plugin-pnpm@npm:1.0.1"
   dependencies:
