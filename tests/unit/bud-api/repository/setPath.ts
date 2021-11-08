@@ -2,15 +2,11 @@ import {factory, Framework} from '@roots/bud'
 
 const NEW_PATH = `${process.cwd()}/foo`
 
-describe('bud.setPath', function () {
+describe.skip('bud.setPath', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('is a function', () => {

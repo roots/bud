@@ -1,13 +1,17 @@
-import type {Env as Base, Index} from '@roots/bud-framework'
+import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, dotenv, dotenvExpand} from '@roots/bud-support'
+import {isString} from 'lodash'
 
 /**
  * Env service
  *
  * @public
  */
-export class Env extends Service<Index<any>> implements Base {
+export class Env
+  extends Service<Record<string, any>>
+  implements Base
+{
   /**
    * Path to .env file
    *
@@ -24,8 +28,15 @@ export class Env extends Service<Index<any>> implements Base {
    * @decorator `@bind`
    */
   @bind
-  public bootstrap() {
+  public async bootstrap() {
     this.setStore(this.getParsedEnv())
+    if (!this.getEntries().length) {
+      this.app.warn('no env values found')
+    }
+
+    this.getEntries().forEach(([k, v]) => {
+      this.log('info', `value set`, k, '=', v)
+    })
   }
 
   /**
@@ -35,7 +46,7 @@ export class Env extends Service<Index<any>> implements Base {
    * @decorator `@bind`
    */
   @bind
-  public getParsedEnv(): Index<any> {
+  public getParsedEnv(): Record<string, any> {
     return dotenv?.config
       ? dotenvExpand(dotenv.config({path: this.envPath})).parsed
       : {}
@@ -48,16 +59,21 @@ export class Env extends Service<Index<any>> implements Base {
    * @decorator `@bind`
    */
   @bind
-  public getPublicEnv(): Index<any> {
+  public getPublicEnv(): Record<string, any> {
     return this.repository
       ? this.getEntries()
           .filter(([k]: [string, string]) =>
             k.includes('APP_PUBLIC'),
           )
-          .reduce(
-            (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
-            {},
-          )
+          .map(([k, v]: [string, string]) => [
+            k.replace('APP_PUBLIC_', ''),
+            v,
+          ])
+          .map(([k, v]: [string, string]) => [
+            k.replace('APP_PUBLIC_', ''),
+            isString(v) ? v : JSON.stringify(v),
+          ])
+          .reduce((a, [k, v]) => ({...a, [k]: v}), {})
       : {}
   }
 }

@@ -1,26 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/preset-recommend [main.css] is transpiled 1`] = `"h2 h3{margin-top:5rem}"`;
-
-exports[`examples/preset-recommend package.json matches snapshot 1`] = `
-Object {
-  "browserslist": Object {
-    "development": Array [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-    ],
-    "production": Array [
-      ">0.5%",
-      "not dead",
-      "not op_mini all",
-    ],
-  },
-  "devDependencies": Object {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
-  },
-  "name": "example-preset-recommend",
-  "private": true,
-}
-`;
+exports[`examples/preset-recommend [app.css] is transpiled 1`] = `"h2 .class{margin-top:5rem}"`;

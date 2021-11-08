@@ -63,7 +63,7 @@ export interface Configuration {
    * Feature toggle: Clean dist before compilation
    *
    * When enabled stale assets will be removed from
-   * the `location/dist` directory prior to the next
+   * the `location.dist` directory prior to the next
    * compilation.
    *
    * @defaultValue true
@@ -71,30 +71,6 @@ export interface Configuration {
    * @public
    */
   clean: boolean
-
-  /**
-   * Feature: produce webpack.debug.js artifact
-   *
-   * When enabled a `webpack.debug.js` artifact will be
-   * emitted to the `location/storage` directory.
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  debug: boolean
-
-  /**
-   * Discover: automatically register locatable extensions
-   *
-   * When enabled, any discovered extensions will be automatically
-   * initialized.
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  discover: boolean
 
   /**
    * Enable or disable filename hashing
@@ -113,6 +89,13 @@ export interface Configuration {
    * @public
    */
   html: boolean
+
+  /**
+   * Automatically inject installed extensions
+   *
+   * @public
+   */
+  inject: boolean
 
   /**
    * Automatically install peer dependencies
@@ -173,6 +156,17 @@ export interface Configuration {
    * @public
    */
   hashFormat: string
+
+  /**
+   * @public
+   */
+  cli?: {
+    args: Record<string, any>
+    argv: Array<string>
+    flags: Record<string, any>
+    raw: Array<Record<string, string>>
+    metadata: Record<string, Record<string, any>>
+  }
 
   /**
    * Initial webpack configuration values

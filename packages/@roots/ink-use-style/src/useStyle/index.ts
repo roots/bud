@@ -55,7 +55,10 @@ const useStyle: useStyle = (initialData = defaultTheme) => {
   /**
    * Width and height of terminal viewport.
    */
-  const [width, height]: ComponentState = useStdoutDimensions()
+  const [stdoutWidth, stdoutHeight]: ComponentState =
+    useStdoutDimensions()
+  const [width, setWidth]: ComponentState = useState(null)
+  const [height, setHeight]: ComponentState = useState(null)
 
   /**
    * Active screen size
@@ -74,6 +77,14 @@ const useStyle: useStyle = (initialData = defaultTheme) => {
     width,
     height,
   })
+
+  useEffect(() => {
+    typeof stdoutWidth === 'number' &&
+      setWidth(stdoutWidth > 0 ? stdoutWidth : 70)
+
+    typeof stdoutHeight === 'number' &&
+      setHeight(stdoutHeight > 0 ? stdoutHeight : 25)
+  }, [stdoutWidth, stdoutHeight])
 
   /**
    * Set application based on viewport size.

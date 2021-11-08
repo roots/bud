@@ -1,4 +1,4 @@
-import * as Project from '../Project'
+import {Framework} from '../Framework'
 
 /**
  * Peer dependencies interface
@@ -7,39 +7,34 @@ import * as Project from '../Project'
  */
 export interface Interface {
   /**
-   * Project instance.
+   * Application framework instance
    *
    * @public
    */
-  project: Project.Interface
+  app: Framework
 
   /**
    * Collect packages.
    *
    * @public
    */
-  discover(type: 'dependencies' | 'devDependencies'): this
-
-  /**
-   * Register discovered packages as extensions
-   *
-   * @public
-   */
-  registerDiscovered(): void
+  discover(
+    type: 'dependencies' | 'devDependencies',
+  ): Promise<this>
 
   /**
    * Returns path for a module name (if findable)
    *
    * @public
    */
-  resolvePeerByName(name: string): string
+  getManifestPath(name: string): Promise<string>
 
   /**
    * Returns manifest for a module from name (if findable)
    *
    * @public
    */
-  getPeerManifest(name: string): {[key: string]: any}
+  getManifest(name: string): Promise<Record<string, any>>
 
   /**
    * Returns true if a module is a bud
@@ -47,18 +42,4 @@ export interface Interface {
    * @public
    */
   isExtension(name: string): boolean
-
-  /**
-   * Registers all bud related extensions with bud.extensions
-   *
-   * @public
-   */
-  registerDiscovered(): void
-
-  /**
-   * Install packages
-   *
-   * @public
-   */
-  install(): void
 }

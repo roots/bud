@@ -1,15 +1,7 @@
-import {factory, Framework} from '@roots/bud'
+import {Framework} from '@roots/bud'
 
-describe('webpack.resolve.alias', function () {
+describe.skip('webpack.resolve.alias', function () {
   let bud: Framework
-
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
-  })
 
   it('is a function', () => {
     expect(bud.alias).toBeInstanceOf(Function)

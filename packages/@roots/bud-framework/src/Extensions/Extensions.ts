@@ -1,31 +1,37 @@
-import {Modules, Plugins, Service} from '../'
-import {ApplyPlugin, Extension} from './Extension'
+import {Service} from '../'
+import {CompilerPlugin, Module} from './Extension'
 
 /**
  * Extensions Service interface
  *
  * @core @public @container
  */
-export interface Extensions
-  extends Service<Partial<Plugins | Modules>> {
+export interface Extensions extends Service {
   /**
    * Add an extension
    *
    * @public
    */
-  add(extension: Extension): void
+  add(extension: CompilerPlugin | Module): Promise<void>
+
+  /**
+   * Register event for all extensions
+   *
+   * @public
+   */
+  registerExtensions(): Promise<void>
+
+  /**
+   * Boot event for all extensions
+   *
+   * @public
+   */
+  bootExtensions(): Promise<void>
 
   /**
    * Get {@link ApplyPlugin} instances to be included in compilation
    *
    * @public
    */
-  make(): ApplyPlugin[]
-
-  /**
-   * Get {@link Extension} instances slated for inclusion in compilation
-   *
-   * @public
-   */
-  getEligibleWebpackModules(): Extension[]
+  make(): {[key: string]: any; apply: CallableFunction}[]
 }

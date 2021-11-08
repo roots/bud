@@ -1,6 +1,7 @@
 import {Service} from '@roots/bud-framework'
 
 import {
+  $,
   bind,
   DependenciesManager,
 } from './dependencies.dependencies'
@@ -46,7 +47,7 @@ export class Dependencies extends Service<null> {
    * @decorator `@bind`
    */
   @bind
-  public register() {
+  public async register(): Promise<void> {
     this.manager = new DependenciesManager(
       this.app.path('project'),
     )
@@ -70,26 +71,14 @@ export class Dependencies extends Service<null> {
       version: string
     }[],
   ): void {
-    dependencies
-      .map(dependency => {
-        this.installing.push([
-          dependency.name,
-          dependency.version,
-        ])
-        return dependency
-      })
-      .map((dependency, i) => {
-        this.manager.client.install(
-          true,
-          `${dependency.name}@${dependency.version}`,
-        )
+    const installStr = dependencies.reduce(
+      (acc, dependency) =>
+        `${acc} ${dependency.name}@${dependency.version}`,
+      ``,
+    )
 
-        this.installed.push([
-          dependency.name,
-          dependency.version,
-        ])
-
-        return dependency
-      })
+    this.manager.isYarn()
+      ? $(`yarn add ${installStr} --dev`)
+      : $(`npm install ${installStr} --save-dev`)
   }
 }

@@ -8,37 +8,20 @@ import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
  */
 export interface PluginAdapter
   extends Extension.CompilerPlugin<WordPressExternals> {
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.name}
-   *
-   * @public
-   */
   name: '@roots/wordpress-externals-webpack-plugin'
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.make}
-   *
-   * @public
-   */
   make: () => WordPressExternals
 }
 
 /**
- * {@inheritDoc PluginAdapter}
- *
  * @public
  */
 export const PluginAdapter: PluginAdapter = {
   /**
-   * {@inheritDoc PluginAdapter.name}
-   *
    * @public
    */
   name: '@roots/wordpress-externals-webpack-plugin',
 
   /**
-   * {@inheritDoc PluginAdapter.make}
-   *
    * @public
    */
   make: () => new WordPressExternals(),

@@ -3,12 +3,13 @@ import {factory, Framework} from '@roots/bud'
 describe('Extensions', function () {
   let bud: Framework = null
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({
+      config: {
+        ci: true,
+        log: false,
+      },
+    })
   })
 
   it('[production] bud.extensions.repository matches snapshot', () => {

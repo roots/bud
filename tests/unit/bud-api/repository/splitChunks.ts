@@ -1,14 +1,10 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.splitChunks', function () {
+describe.skip('bud.splitChunks', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   beforeEach(() => {

@@ -1,20 +1,16 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.watch', function () {
+describe.skip('bud.watch', function () {
   let bud: Framework
 
   let serverConfig
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'development',
     })
 
     serverConfig = {...bud.server.config.all()}
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   beforeEach(() => {

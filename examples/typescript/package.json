@@ -16,6 +16,9 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-typescript": "workspace:*"
+    "@roots/bud-typescript": "workspace:*",
+    "@types/eslint": "^7",
+    "eslint": "^7",
+    "typescript": "^4"
   }
 }

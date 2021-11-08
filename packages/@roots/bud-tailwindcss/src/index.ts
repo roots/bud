@@ -17,9 +17,12 @@
  * @packageDocumentation @betaDocumentation
  */
 
+import type {tailwind} from './tailwind.config'
+import {BudTailwindCssExtension} from './tailwind.service'
+
 declare module '@roots/bud-framework' {
   interface Framework {
-    tailwind: tailwindConfig
+    tailwind: tailwind
   }
 
   interface Modules {
@@ -27,8 +30,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-import {BudTailwindCssExtension} from './BudTailwindCssExtension'
-import type {tailwindConfig} from './tailwindConfig'
-
 export const {name, api, boot} = BudTailwindCssExtension
-export type {BudTailwindCssExtension}

@@ -1,15 +1,11 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.publicPath', function () {
+describe.skip('bud.publicPath', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
     bud.build.make()
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('publicPath: is a function', () => {

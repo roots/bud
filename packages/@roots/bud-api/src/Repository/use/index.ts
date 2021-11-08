@@ -1,9 +1,9 @@
 import {isArray} from './use.dependencies'
 import type {Framework, Source} from './use.interface'
-import {generateName, isWebpackPlugin} from './use.utilities'
+import {generateName, isCompilerPlugin} from './use.utilities'
 
 export interface use {
-  (source: Source): Framework
+  (source: Source): Promise<Framework>
 }
 
 /**
@@ -45,22 +45,36 @@ export interface use {
  *
  * @public
  */
-export const use: use = function (source) {
-  const addExtension = (source: Source) => {
+export const use: use = async function (source) {
+  const addExtension = async (source: Source) => {
+    if (!source) {
+      this.error(`extension source is not defined. skipping`)
+    }
+
     if (!source.hasOwnProperty('name')) {
       source.name = generateName(source)
     }
 
-    this.extensions.add(
-      isWebpackPlugin(source)
+    if (this.extensions.has(source.name)) {
+      this.warn(
+        `extension "${source.name}" is already registered. skipping`,
+      )
+
+      return this
+    }
+
+    await this.extensions.add(
+      isCompilerPlugin(source)
         ? {...source, make: () => source}
         : source,
     )
   }
 
   !isArray(source)
-    ? addExtension(source)
-    : source.forEach(addExtension)
+    ? await addExtension(source)
+    : await Promise.all(
+        source.map(async ext => await addExtension(ext)),
+      )
 
   return this
 }

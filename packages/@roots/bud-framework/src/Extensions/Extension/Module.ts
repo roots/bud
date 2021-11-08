@@ -1,7 +1,7 @@
 import {Container} from '@roots/container'
 
-import {Factory, Framework, Index, Loose, Maybe} from '../..'
-import {ApplyPlugin, Name} from './'
+import {Factory, Framework, Loose, Maybe} from '../..'
+import {Name} from './'
 
 /**
  * Bud extension interface
@@ -10,8 +10,7 @@ import {ApplyPlugin, Name} from './'
  *
  * @public @core
  */
-export default interface Module<Options = unknown>
-  extends Loose {
+export interface Module<Options = any> extends Loose {
   /**
    * The module name
    *
@@ -31,52 +30,38 @@ export default interface Module<Options = unknown>
    *
    * @public
    */
-  register?: Factory<[Framework], unknown>
+  register?: Factory<[Framework], any>
 
   /**
    * General purpose callback. Called after everything else.
    *
    * @public
    */
-  boot?: Factory<[Framework], unknown>
+  boot?: Factory<[Framework], any>
 
   /**
    * Objects to bind to the framework. May be expressed as an object literal or a factory function.
    *
    * @remarks
-   * You might also use {@link @roots/bud-framework#Service.bindMacro | bindMacro} to accomplish the same thing.
+   * You might also use {@link @roots/bud-framework#Service.bindMethod | bindMethod} to accomplish the same thing.
    *
    * If expressed as a factory function, the function will be called with the {@link Framework} as the first parameter.
    *
    * @public
    */
-  api?: Maybe<[Framework], Index<unknown>>
+  api?: Maybe<[Framework], Record<string, any>>
 
   /**
-   * Either a function returning a finalized {@link ApplyPlugin} or a literal {@link ApplyPlugin}.
-   *
-   * @deprecated Convert this to a {@link @roots/bud-framework#Extension.CompilerPlugin | CompilerPlugin}
+   * Objects to bind to the framework. May be expressed as an object literal or a factory function.
    *
    * @remarks
-   * If a factory is implemented, it will be passed a {@link Container} instance holding
-   * the {@link Module.options} (if any) as well as the {@link Framework} instance.
+   * You might also use {@link @roots/bud-framework#Service.bindClass | bindClass} to accomplish the same thing.
+   *
+   * If expressed as a factory function, the function will be called with the {@link Framework} as the first parameter.
    *
    * @public
    */
-  make?: Maybe<[Container<Options>, Framework], ApplyPlugin>
-
-  /**
-   * The {@link ApplyPlugin.apply} method
-   *
-   * @deprecated Convert this to a {@link @roots/bud-framework#Extension.CompilerPlugin | CompilerPlugin}
-   *
-   * @remarks
-   * This function makes the {@link @roots/bud-framework#Extension.Module} interoperable with
-   * the Webpack plugin interface
-   *
-   * @public
-   */
-  apply?: ApplyPlugin
+  mixin?: (app: Framework) => Promise<Record<string, any>>
 
   /**
    * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.

@@ -31,11 +31,10 @@ const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
   api: {
     brotli: function (options) {
       this.store.set('brotli', true)
-      options &&
-        this.hooks.on(
-          'extension/compression-webpack-plugin-brotli/options',
-          () => options,
-        )
+      if (options)
+        this.extensions
+          .get('compression-webpack-plugin-brotli')
+          .options.setStore(options)
 
       return this
     },

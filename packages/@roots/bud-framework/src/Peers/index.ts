@@ -37,55 +37,7 @@ export interface Peer {
  * @public
  */
 export interface Repository {
-  /**
-   * The project name
-   *
-   * @public
-   */
-  name: string
-
-  /**
-   * The project manifest path
-   *
-   * @public
-   */
-  manifestPath: string
-
-  /**
-   * Peers of this peer
-   *
-   * @public
-   */
-  peers: {
-    [key: string]: Peer
-  }
-
-  /**
-   * Extensions of this peer
-   *
-   * @public
-   */
-  extensions: {
-    [key: string]: Peer
-  }
-
-  /**
-   * Dependencies
-   *
-   * @public
-   */
-  dependencies: {
-    [key: string]: string
-  }
-
-  /**
-   * Development dependencies
-   *
-   * @public
-   */
-  devDependencies: {
-    [key: string]: string
-  }
+  [key: string]: any
 }
 
 export {Abstract} from './Abstract'

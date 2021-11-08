@@ -60,7 +60,7 @@
     "webpack": "5.59.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
+    "helpful-decorators": "^2.1.0",
     "image-minimizer-webpack-plugin": "^2.2.0",
     "imagemin": "^8.0.1",
     "tslib": "^2.3.1"

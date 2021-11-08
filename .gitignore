@@ -5,9 +5,10 @@
 *.log
 **/lib
 *.tsbuildinfo
-packages/@roots/*/types
-site/api/*
 /.npmrc
+/packages/@roots/*/types
+/site/api/*
+/examples/*/*.bkup.json
 
 # jest
 coverage

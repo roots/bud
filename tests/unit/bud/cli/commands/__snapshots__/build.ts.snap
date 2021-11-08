@@ -11,15 +11,24 @@ Object {
   },
   "ci": Object {
     "allowNo": false,
+    "default": false,
     "description": "non raw mode tty interoperable output",
     "parse": [Function],
     "type": "boolean",
   },
   "clean": Object {
     "allowNo": true,
+    "default": true,
     "description": "clean distributables on compilation",
     "parse": [Function],
     "type": "boolean",
+  },
+  "config": Object {
+    "description": "path to config file",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
   },
   "devtool": Object {
     "description": "specify source-map type",
@@ -27,12 +36,6 @@ Object {
     "multiple": false,
     "parse": [Function],
     "type": "option",
-  },
-  "discover": Object {
-    "allowNo": false,
-    "description": "automatically utilize installed extensions",
-    "parse": [Function],
-    "type": "boolean",
   },
   "dist": Object {
     "description": "specify directory to emit assets to",
@@ -60,9 +63,15 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
+  "inject": Object {
+    "allowNo": true,
+    "default": true,
+    "description": "automatically register & boot extensions",
+    "parse": [Function],
+    "type": "boolean",
+  },
   "install": Object {
     "allowNo": false,
-    "char": "i",
     "description": "ensure peer dependencies are installed",
     "parse": [Function],
     "type": "boolean",
@@ -82,7 +91,6 @@ Object {
   },
   "minimize": Object {
     "allowNo": true,
-    "char": "m",
     "description": "minimize file size of compiled assets",
     "parse": [Function],
     "type": "boolean",
@@ -108,7 +116,6 @@ Object {
     "type": "option",
   },
   "target": Object {
-    "char": "t",
     "default": Array [],
     "description": "limit compilation to this compiler",
     "input": Array [],
@@ -119,6 +126,12 @@ Object {
   "vendor": Object {
     "allowNo": true,
     "description": "create separate chunks for vendor and app code",
+    "parse": [Function],
+    "type": "boolean",
+  },
+  "version": Object {
+    "allowNo": false,
+    "description": "show CLI version",
     "parse": [Function],
     "type": "boolean",
   },

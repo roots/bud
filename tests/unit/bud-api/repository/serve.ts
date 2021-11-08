@@ -1,16 +1,12 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.serve', function () {
+describe.skip('bud.serve', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'development',
     })
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('sets host', () => {

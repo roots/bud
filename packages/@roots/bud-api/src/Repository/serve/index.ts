@@ -1,10 +1,7 @@
 import type {Framework, Server} from '@roots/bud-framework'
 
 export interface serve {
-  (
-    this: Framework,
-    config?: Partial<Server.Configuration>,
-  ): Framework
+  (config?: Partial<Server.Configuration>): Framework
 }
 
 /**
@@ -21,10 +18,11 @@ export interface serve {
  * @public @config
  */
 export const serve: serve = function (config) {
-  const target = this.parent ?? this
-  if (!target.server) return this
+  const ctx = this as Framework
 
-  target.server.config.mutateStore(
+  if (!ctx.root.server) return this
+
+  ctx.root.server.config.mutateStore(
     (store: Server.Configuration) => ({
       ...store,
       ...config,

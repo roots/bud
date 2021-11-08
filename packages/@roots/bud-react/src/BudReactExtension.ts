@@ -33,11 +33,14 @@ export const BudReactExtension: BudReactExtension = {
    * @public
    */
   boot: app => {
-    app.babel.setPresets(['@babel/preset-react'])
+    app.babel.setPreset(
+      '@babel/preset-react',
+      require.resolve('@babel/preset-react'),
+    )
 
     app.when(app.isDevelopment, app => {
       app.hooks
-        .on('build/entry', entryHook)
+        .on('build.entry', entryHook)
         .extensions.add(BudReactRefreshPlugin)
     })
   },

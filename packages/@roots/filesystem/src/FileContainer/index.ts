@@ -184,7 +184,7 @@ export class FileContainer extends Container {
    *
    * @example
    * ```js
-   * fsInstance.readJson('some/file.json')
+   * fsInstance.readJson('some.file.json')
    * // => {json: 'contents', as: 'an object'}
    * ```
    */

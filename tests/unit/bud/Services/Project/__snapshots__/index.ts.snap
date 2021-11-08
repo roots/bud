@@ -2,48 +2,96 @@
 
 exports[`bud.project contains a repository 1`] = `
 Object {
-  "browserslist": Object {
-    "development": Array [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-    ],
-    "production": Array [
-      ">0.5%",
-      "not dead",
-      "not op_mini all",
-    ],
+  "cache": Object {
+    "directory": Any<String>,
+    "file": StringContaining "bud.profile.json",
   },
-  "devDependencies": Object {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
+  "cli": Object {
+    "args": Object {},
+    "argv": Array [],
+    "flags": Object {},
+    "metadata": Object {},
+    "raw": Array [],
+  },
+  "configs": Object {
+    "dynamic": Object {
+      "conditional": null,
+      "global": null,
+    },
+    "json": Object {
+      "conditional": null,
+      "global": null,
+    },
+  },
+  "dependencies": Array [
+    StringContaining "babel/package.json",
+  ],
+  "env": Object {
+    "all": undefined,
+    "public": Object {},
   },
   "extensions": Object {
     "@roots/bud-babel": Object {
       "bud": Object {
         "type": "extension",
       },
-      "dependsOn": Array [],
-      "name": "@roots/bud-babel",
-      "path": StringContaining "@roots/bud-babel",
-      "provides": Object {
+      "dependencies": Object {
         "@babel/core": Any<String>,
         "@babel/plugin-proposal-class-properties": Any<String>,
         "@babel/plugin-proposal-object-rest-spread": Any<String>,
         "@babel/plugin-syntax-dynamic-import": Any<String>,
         "@babel/plugin-transform-runtime": Any<String>,
         "@babel/preset-env": Any<String>,
-        "@roots/bud-build": "workspace:packages/@roots/bud-build",
         "babel-loader": Any<String>,
         "babel-plugin-add-module-exports": Any<String>,
         "tslib": Any<String>,
       },
+      "devDependencies": Object {
+        "@roots/bud": "workspace:packages/@roots/bud",
+        "@roots/bud-api": "workspace:packages/@roots/bud-api",
+        "@roots/bud-build": "workspace:packages/@roots/bud-build",
+        "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+        "@types/fs-extra": "9.0.13",
+        "@types/node": "16.11.4",
+        "webpack": "5.59.1",
+      },
+      "name": "@roots/bud-babel",
+      "path": StringContaining "@roots/bud-babel",
+      "peerDependencies": undefined,
       "version": Any<String>,
     },
   },
+  "hash": null,
+  "installed": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+  },
+  "manifest": Object {
+    "browserslist": Object {
+      "development": Array [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version",
+      ],
+      "production": Array [
+        ">0.5%",
+        "not dead",
+        "not op_mini all",
+      ],
+    },
+    "devDependencies": Object {
+      "@roots/bud": "workspace:*",
+      "@roots/bud-babel": "workspace:*",
+    },
+    "name": "example-babel",
+    "private": true,
+  },
   "manifestPath": StringContaining "babel/package.json",
-  "name": "example-babel",
-  "private": true,
+  "peers": Object {},
+  "resolve": Array [
+    StringContaining "@roots/bud-babel",
+  ],
+  "unmet": Array [],
 }
 `;
 
@@ -52,28 +100,36 @@ Object {
   "bud": Object {
     "type": "extension",
   },
-  "dependsOn": Array [],
+  "dependencies": Object {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "tslib": "^2.3.1",
+  },
+  "devDependencies": Object {
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
+    "@roots/bud-build": "workspace:packages/@roots/bud-build",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/fs-extra": "9.0.13",
+    "@types/node": "16.11.4",
+    "webpack": "5.59.1",
+  },
   "name": "@roots/bud-babel",
   "path": StringContaining "@roots/bud-babel",
-  "provides": Object {
-    "@babel/core": Any<String>,
-    "@babel/plugin-proposal-class-properties": Any<String>,
-    "@babel/plugin-proposal-object-rest-spread": Any<String>,
-    "@babel/plugin-syntax-dynamic-import": Any<String>,
-    "@babel/plugin-transform-runtime": Any<String>,
-    "@babel/preset-env": Any<String>,
-    "@roots/bud-build": Any<String>,
-    "babel-loader": Any<String>,
-    "babel-plugin-add-module-exports": Any<String>,
-    "tslib": Any<String>,
-  },
+  "peerDependencies": undefined,
   "version": Any<String>,
 }
 `;
 
 exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
-  StringContaining "@roots/bud-babel",
+  StringContaining "babel/package.json",
 ]
 `;
 
@@ -82,6 +138,5 @@ Array [
   StringContaining "src",
   StringContaining "node_modules",
   StringContaining "@roots/bud-babel",
-  StringContaining "node_modules",
 ]
 `;

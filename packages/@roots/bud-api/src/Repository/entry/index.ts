@@ -40,16 +40,12 @@ type EntryValue =
  * @param name - Entrypoint name
  * @param entrypoint - Entrypoint value
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @public @config
  */
 export interface entry {
-  (
-    this: Framework,
-    name: string,
-    entrypoint: EntryValue,
-  ): Framework
+  (name: string, entrypoint: EntryValue): Framework
 }
 
 /**
@@ -59,12 +55,12 @@ export interface entry {
  * @param this - {@link @roots/bud-framework#Framework | Framework instandce}
  * @param entrypoints - {@link EntryInput | Entrypoint mapping}
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @public @config
  */
 export interface entry {
-  (this: Framework, entrypoints: EntryInput): Framework
+  (entrypoints: EntryInput): Framework
 }
 
 /**
@@ -133,6 +129,8 @@ export interface entry {
  * @public @config
  */
 export const entry: entry = function (...args) {
+  const ctx = this as Framework
+
   /**
    * Ducktype entrypoint to determine if it was called like
    * `entry(name, ...assets)` or `entry({[name]: ...assets})`
@@ -150,17 +148,20 @@ export const entry: entry = function (...args) {
    * Make the entrypoints and return the framework
    * to the builder
    */
-  return makeEntrypoints.bind(this)(...entrypoints)
+  return makeEntrypoints.bind(ctx)(...entrypoints)
 }
 
 /**
  * Make entrypoints
  *
- * @hook build/entry
+ * @hook build.entry
  *
  * @internal
  */
-function makeEntrypoints(entry: EntryObject): Framework {
+function makeEntrypoints(
+  this: Framework,
+  entry: EntryObject,
+): Framework {
   /**
    * Reduce entrypoints to {@link EntryObject}
    *
@@ -192,7 +193,7 @@ function makeEntrypoints(entry: EntryObject): Framework {
     }
   }
 
-  this.hooks.on('build/entry', buildEntryHook)
+  this.hooks.on('build.entry', buildEntryHook)
 
   return this
 }

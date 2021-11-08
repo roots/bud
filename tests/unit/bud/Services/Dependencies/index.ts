@@ -9,16 +9,12 @@ describe('bud.project', function () {
   let manager: DependenciesManager
 
   beforeAll(async () => {
-    bud = factory()
+    bud = await factory({config: {ci: true, log: false}})
 
     dependencies = new Dependencies(bud)
     dependencies.register()
 
     manager = new DependenciesManager(bud.path('project'))
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('has dependencies name', () => {

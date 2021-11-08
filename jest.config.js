@@ -1,4 +1,4 @@
-const mapModuleNames = require('./dev/jest/moduleNameMapper')
+const mapModuleNames = require('./dev/jest/util/moduleNameMapper')
 
 /**
  * Jest configuration
@@ -25,17 +25,8 @@ module.exports = async function config() {
     },
     moduleNameMapper,
     projects: [
-      '<rootDir>/jest.unit.js',
-      '<rootDir>/jest.integration.js',
-    ],
-    testPathIgnorePatterns: [
-      '/node_modules/',
-      '/examples/',
-      '/docs/',
-      '/dev/',
-      '/site/',
-      '/tests/util/',
-      '/tests/.*?/__mocks__/',
+      '<rootDir>/dev/jest/jest.unit.js',
+      '<rootDir>/dev/jest/jest.integration.js',
     ],
     verbose: true,
   }

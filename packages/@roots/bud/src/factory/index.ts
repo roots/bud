@@ -16,23 +16,34 @@ import type {
  *
  * @public
  */
-export function factory(overrides?: Options): Bud {
+export async function factory(
+  overrides?: Options,
+): Promise<Bud> {
   const options: FrameworkOptions = {
     name: overrides?.name ?? 'bud',
     mode: overrides?.mode ?? 'production',
-    config,
-    services,
+    services: {
+      ...(overrides?.services ?? {}),
+      ...services,
+    },
+    config: {
+      ...config,
+      location: {
+        ...config.location,
+        ...(overrides?.config?.location ?? {}),
+      },
+      ...(overrides?.config ?? {}),
+    },
   }
-
-  overrides?.services &&
-    Object.assign(options.services, overrides.services)
-
-  overrides?.config &&
-    Object.assign(options.config, overrides.config)
 
   process.env.BABEL_ENV = options.mode
   process.env.NODE_ENV = options.mode
 
   const bud = new Bud(options)
-  return bud.bootstrap()
+
+  bud.time('bud')
+
+  await bud.lifecycle()
+
+  return bud
 }

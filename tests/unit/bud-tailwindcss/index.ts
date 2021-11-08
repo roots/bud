@@ -1,14 +1,14 @@
 import {factory} from '@roots/bud'
 import {BudPostCssExtension} from '@roots/bud-postcss/src/BudPostCssExtension'
-import {BudTailwindCssExtension} from '@roots/bud-tailwindcss/src/BudTailwindCssExtension'
+import {BudTailwindCssExtension} from '@roots/bud-tailwindcss/src/tailwind.service'
 
 process.env.BUD_KEEP_ALIVE = 'true'
 
 describe.skip('@roots/bud-tailwindcss', () => {
   let bud
 
-  beforeAll(() => {
-    bud = factory()
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
 
     bud.project.set('devDependencies', {
       '@roots/bud-tailwindcss':
@@ -20,10 +20,6 @@ describe.skip('@roots/bud-tailwindcss', () => {
     bud.project.discover('devDependencies')
 
     bud.use([BudPostCssExtension, BudTailwindCssExtension])
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('has name prop', () => {

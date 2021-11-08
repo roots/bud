@@ -26,13 +26,13 @@ export function define(
   this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
-  this.hooks.on(
-    'extension/webpack-define-plugin/options',
-    (existant: DefinePlugin['definitions']) => ({
-      ...existant,
-      ...values,
-    }),
-  )
+  const options = this.extensions.get(
+    'webpack-define-plugin',
+  ).options
+
+  Object.entries(values).forEach(([k, v]) => {
+    options.set(k, v)
+  })
 
   return this
 }

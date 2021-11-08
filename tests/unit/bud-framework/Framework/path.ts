@@ -3,12 +3,8 @@ import {factory, Framework} from '@roots/bud'
 describe('bud.path', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('path: is a function', () => {

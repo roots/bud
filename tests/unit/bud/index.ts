@@ -4,12 +4,8 @@ import type {Framework} from '@roots/bud-framework'
 describe('factory', () => {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('is a function', () => {

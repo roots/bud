@@ -1,22 +1,7 @@
-import {Bud, factory} from '@roots/bud'
 import {Hooks} from '@roots/bud-hooks'
 
-describe('@roots/bud-hooks', function () {
-  let bud: Bud
+describe.skip('@roots/bud-hooks', function () {
   let hooks: Hooks
-
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
-  })
-
-  it('is constructable', () => {
-    hooks = new Hooks(bud)
-    expect(hooks.app).toBeInstanceOf(Bud)
-  })
 
   it('has an on method', () => {
     expect(hooks.on).toBeInstanceOf(Function)
@@ -37,6 +22,6 @@ describe('@roots/bud-hooks', function () {
   })
 
   it('hooks repository matches snapshot', () => {
-    expect(bud.hooks.repository).toMatchSnapshot()
+    expect(hooks.repository).toMatchSnapshot()
   })
 })

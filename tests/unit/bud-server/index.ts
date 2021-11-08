@@ -3,14 +3,14 @@ import {factory, Framework} from '@roots/bud'
 describe('@roots/bud-server', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       mode: 'development',
+      config: {
+        log: false,
+        ci: true,
+      },
     })
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   it('has expected defaults', () => {

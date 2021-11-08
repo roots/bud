@@ -7,14 +7,7 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export interface Interface extends Service {
-  manifestPath: string
-
-  /**
-   * Array of paths for webpack to resolve modules from
-   *
-   * @public
-   */
-  resolveFrom: string[]
+  [key: string]: any
 
   /**
    * Peer module related utilities
@@ -24,15 +17,6 @@ export interface Interface extends Service {
   peers: Peers.Interface
 
   /**
-   * Get aggregated project info
-   *
-   * @public
-   */
-  getProjectInfo(): {
-    [key: string]: any
-  }
-
-  /**
    * Returns a boolean representing if
    * the project has a given pkg listed as a dependency
    * or devDependency
@@ -40,9 +24,4 @@ export interface Interface extends Service {
    * @public
    */
   hasPeerDependency(pkg: string): boolean
-
-  /**
-   * Build project profile
-   */
-  initialize(): void
 }

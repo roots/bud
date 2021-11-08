@@ -36,10 +36,10 @@ interface setPublicPath {
  */
 const setPublicPath: setPublicPath = function (publicPath) {
   isString(publicPath) &&
-    this.hooks.on('build/output/publicPath', () => publicPath)
+    this.hooks.on('build.output.publicPath', () => publicPath)
 
   isFunction(publicPath) &&
-    this.hooks.on('build/output/publicPath', publicPath)
+    this.hooks.on('build.output.publicPath', publicPath)
 
   return this
 }

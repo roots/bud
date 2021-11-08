@@ -1,5 +1,0 @@
-extensions:
-  - '@roots/bud-sass'
-
-entry:
-  app: app.scss

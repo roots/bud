@@ -119,17 +119,3 @@ Array [
   "images/image.jpeg",
 ]
 `;
-
-exports[`examples/sage package.json is unchanged 1`] = `
-Object {
-  "browserslist": Array [
-    "extends @wordpress/browserslist-config",
-  ],
-  "devDependencies": Object {
-    "@roots/bud": "workspace:*",
-    "@roots/sage": "workspace:*",
-  },
-  "name": "example-sage",
-  "private": true,
-}
-`;

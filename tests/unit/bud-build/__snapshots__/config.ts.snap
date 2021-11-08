@@ -79,7 +79,12 @@ exports[`bud.build.config has expected default js rule 1`] = `
 Object {
   "exclude": Object {},
   "test": Object {},
-  "use": Array [],
+  "use": Array [
+    Object {
+      "loader": Any<String>,
+      "options": Any<Object>,
+    },
+  ],
 }
 `;
 
@@ -144,13 +149,7 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected experiments default 1`] = `
-Object {
-  "lazyCompilation": undefined,
-}
-`;
-
-exports[`bud.build.config has expected number of plugins 1`] = `5`;
+exports[`bud.build.config has expected number of plugins 1`] = `4`;
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
@@ -164,15 +163,8 @@ Array [
   ".toml",
   ".xml",
   ".csv",
-  ".tsv",
   ".yml",
   ".yaml",
   ".xml",
 ]
-`;
-
-exports[`bud.build.config has expected stats default 1`] = `
-Object {
-  "logging": false,
-}
 `;

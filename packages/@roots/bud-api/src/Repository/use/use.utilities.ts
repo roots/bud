@@ -10,17 +10,14 @@ import {isEqual, isFunction, nanoid} from './use.dependencies'
  *
  * @example
  * ```ts
- * isWebpackPlugin(new WebpackPlugin())
+ * isCompilerPlugin(new WebpackPlugin())
  * // => true
  * ```
  *
  * @internal
  */
-export const isWebpackPlugin = (
-  extension:
-    | Extension.Module
-    | Extension.CompilerPlugin
-    | Extension.ApplyPlugin,
+export const isCompilerPlugin = (
+  extension: Extension.Module | Extension.CompilerPlugin,
 ): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
@@ -40,16 +37,13 @@ export const isWebpackPlugin = (
  *
  * @internal
  */
-export const hasValidConstructorName = ({
-  constructor,
-}:
-  | Extension.Module
-  | Extension.CompilerPlugin
-  | Extension.ApplyPlugin): boolean =>
-  constructor?.name &&
-  typeof constructor.name == 'string' &&
-  constructor.name !== 'default' &&
-  constructor.name !== 'Object'
+export const hasValidConstructorName = (
+  input: Extension.Module | Extension.CompilerPlugin,
+): boolean =>
+  input?.constructor?.name &&
+  typeof input.constructor.name == 'string' &&
+  input.constructor.name !== 'default' &&
+  input.constructor.name !== 'Object'
 
 /**
  * Generates a unique name for extensions which do not
@@ -68,10 +62,7 @@ export const hasValidConstructorName = ({
  * @internal
  */
 export const generateName = (
-  input:
-    | Extension.Module
-    | Extension.ApplyPlugin
-    | Extension.CompilerPlugin,
+  input: Extension.Module | Extension.CompilerPlugin,
 ) =>
   hasValidConstructorName(input)
     ? input.constructor.name

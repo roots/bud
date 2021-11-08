@@ -5,8 +5,8 @@ import {RuleSetRule} from 'webpack'
 describe('bud.build.config', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       config: {
         ...config,
         location: {
@@ -15,11 +15,8 @@ describe('bud.build.config', function () {
         },
       },
     })
-    bud.build.make()
-  })
 
-  afterAll(done => {
-    bud.close(done)
+    bud.build.make()
   })
 
   it(`doesn't include deprecated properties`, () => {
@@ -53,12 +50,6 @@ describe('bud.build.config', function () {
     expect(bud.build.config.entry).toBeUndefined()
   })
 
-  it('has expected experiments default', () => {
-    expect(bud.build.config.experiments).toMatchSnapshot({
-      lazyCompilation: undefined,
-    })
-  })
-
   it('has expected infrastructureLogging default', () => {
     expect(bud.build.config.infrastructureLogging).toEqual({
       console: false,
@@ -82,9 +73,9 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect(bud.build.config.optimization.emitOnErrors).toEqual(
-      false,
-    )
+    expect(
+      (bud.build.config.optimization as any).emitOnErrors,
+    ).toEqual(false)
   })
 
   it('has expected optimization.runtimeChunk default', () => {
@@ -113,21 +104,14 @@ describe('bud.build.config', function () {
       '.toml',
       '.xml',
       '.csv',
-      '.tsv',
       '.yml',
       '.yaml',
       '.xml',
     ])
   })
 
-  it('has expected stats default', () => {
-    expect(bud.build.config.stats).toMatchSnapshot({
-      logging: false,
-    })
-  })
-
   it('has expected target default', () => {
-    expect(bud.build.config.target).toBeUndefined()
+    expect(bud.build.config.target).toMatch(/browserslist.*/)
   })
 
   it('has expected watch default', () => {
@@ -312,8 +296,13 @@ describe('bud.build.config', function () {
         .oneOf[10],
     ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
-      test: /\.(js|jsx)$/,
-      use: [],
+      test: /\.(js|jsx)/,
+      use: [
+        {
+          loader: expect.any(String),
+          options: expect.any(Object),
+        },
+      ],
     })
   })
 })

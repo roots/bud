@@ -30,7 +30,7 @@ export const splitChunks: splitChunks = function (
 ) {
   if (isUndefined(options) || options === true) {
     this.hooks.on(
-      'build/optimization/splitChunks',
+      'build.optimization.splitChunks',
       () => splitChunksDefault,
     )
     return this
@@ -38,13 +38,13 @@ export const splitChunks: splitChunks = function (
 
   if (options === false) {
     this.hooks.on(
-      'build/optimization/splitChunks',
+      'build.optimization.splitChunks',
       () => undefined,
     )
     return this
   }
 
-  this.hooks.on('build/optimization/splitChunks', () => options)
+  this.hooks.on('build.optimization.splitChunks', () => options)
 
   return this
 }

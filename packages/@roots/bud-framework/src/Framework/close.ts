@@ -1,16 +1,4 @@
 import {Framework} from './'
-import {isFunction} from './framework.dependencies'
-
-/**
- * Check if object is a callable function
- *
- * @param obj - Some unknown object
- * @returns boolean showing if object exists and is callable
- *
- * @internal
- */
-const existsAndIsCallable = (obj: unknown): boolean =>
-  obj && isFunction(obj)
 
 /**
  * Close interface
@@ -21,7 +9,7 @@ const existsAndIsCallable = (obj: unknown): boolean =>
  * @public
  */
 export interface close {
-  (this: Framework, done?: CallableFunction): void
+  (done?: CallableFunction): void
 }
 
 /**
@@ -32,26 +20,13 @@ export interface close {
  *
  * @public
  */
-export function close(this: Framework, done = process.exit) {
-  if (existsAndIsCallable(this.dashboard?.instance?.unmount)) {
-    this.dashboard.instance.unmount()
+export function close(done = process.exit) {
+  const ctx = this as Framework
+
+  if (ctx.dashboard?.instance?.unmount) {
+    setTimeout(ctx.dashboard?.instance?.unmount, 30)
+    ctx.dashboard?.instance?.waitUntilExit().then(() => {
+      done()
+    })
   }
-
-  setTimeout(() => {
-    if (existsAndIsCallable(this.compiler.instance?.close)) {
-      this.compiler.instance.close(() => {
-        if (existsAndIsCallable(this.server?.instance?.close)) {
-          this.server.instance.close(() => {
-            if (
-              existsAndIsCallable(this.server?.watcher?.close)
-            ) {
-              this.server.watcher.close()
-            }
-          })
-        }
-      })
-    }
-
-    done()
-  }, 10)
 }

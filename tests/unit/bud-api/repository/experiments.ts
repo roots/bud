@@ -1,14 +1,10 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.experiments', function () {
+describe.skip('bud.experiments', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('is a function', () => {
@@ -16,7 +12,7 @@ describe('bud.experiments', function () {
   })
 
   it('enables build.config.experiments', () => {
-    bud.experiments({lazyCompilation: true})
+    bud.experiments('lazyCompilation', true)
 
     expect(bud.hooks.filter('build/experiments')).toEqual({
       lazyCompilation: true,

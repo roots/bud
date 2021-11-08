@@ -16,13 +16,13 @@ import {Server} from './Server'
 export const services = {
   api: Api,
   hooks: Hooks,
-  cache: Cache,
   project: Project,
   env: Env,
   build: Build,
   compiler: Compiler,
-  dashboard: Dashboard,
+  cache: Cache,
   dependencies: Dependencies,
-  extensions: Extensions,
   server: Server,
+  dashboard: Dashboard,
+  extensions: Extensions,
 }

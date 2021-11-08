@@ -17,9 +17,9 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import {BudImageMinExtension} from './BudImageMinExtension'
-import {BudImageMinPlugin} from './BudImageMinPlugin'
-import {Config} from './Config'
+import {Config} from './imagemin.config'
+import {BudImageMinExtension} from './imagemin.extension'
+import {BudImageMinPlugin} from './imagemin.plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -27,13 +27,13 @@ declare module '@roots/bud-framework' {
   }
 
   interface Plugins {
-    '@roots/bud-imagemin': BudImageMinPlugin
-    'image-minimizer-webpack-plugin': BudImageMinPlugin
+    '@roots/bud-imagemin': typeof BudImageMinPlugin
+    'image-minimizer-webpack-plugin': typeof BudImageMinPlugin
   }
 
   interface Modules {
-    '@roots/bud-imagemin': BudImageMinExtension
+    '@roots/bud-imagemin': typeof BudImageMinExtension
   }
 }
 
-export const {name, api, register, boot} = BudImageMinExtension
+export const {name, mixin, register, boot} = BudImageMinExtension

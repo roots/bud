@@ -14,7 +14,7 @@ export const config: Configuration = {
   name: 'bud',
 
   /**
-   * Is caching enabled?
+   * Is webpack caching enabled?
    *
    * @public
    */
@@ -33,18 +33,6 @@ export const config: Configuration = {
   clean: true,
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.debug}
-   * @public
-   */
-  debug: true,
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.dev}
-   * @public
-   */
-  discover: false,
-
-  /**
    * {@inheritDoc @roots/bud-framework#Configuration.hash}
    * @public
    */
@@ -55,6 +43,13 @@ export const config: Configuration = {
    * @public
    */
   html: false,
+
+  /**
+   * Automatically register installed extensions
+   *
+   * @public
+   */
+  inject: true,
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.install}
@@ -92,6 +87,17 @@ export const config: Configuration = {
    * @public
    */
   hashFormat: '[name].[contenthash:6]',
+
+  /**
+   * @public
+   */
+  cli: {
+    args: {},
+    argv: [],
+    flags: {},
+    raw: [],
+    metadata: {},
+  },
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.patterns}
@@ -158,7 +164,6 @@ export const config: Configuration = {
         '.toml',
         '.xml',
         '.csv',
-        '.tsv',
         '.yml',
         '.yaml',
         '.xml',
@@ -179,31 +184,20 @@ export const config: Configuration = {
     'html-webpack-plugin': {
       alwaysWriteToDisk: true,
       inject: true,
-      minify: {
-        collapseWhitespace: false,
-        keepClosingSlash: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      },
     },
-    'interpolate-html-plugin': {
-      replace: {},
-    },
+    'interpolate-html-plugin': {},
     'mini-css-extract-plugin': {},
     'webpack-config-dump-plugin': {
       showFunctionNames: true,
       keepCircularReferences: true,
       depth: 8,
     },
-    webpackDefinePlugin: {},
-    webpackManifestPlugin: {
+    'webpack-define-plugin': {},
+    'webpack-manifest-plugin': {
       fileName: 'manifest.json',
       writeToFileEmit: true,
     },
-    webpackProvidePlugin: {},
+    'webpack-provide-plugin': {},
   },
 
   server: {

@@ -1,12 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
-import type {CopyPluginOptions} from 'copy-webpack-plugin'
 
 import {globby} from './assets.dependencies'
 
 /**
  * @public @config
  */
-interface assets {
+export interface assets {
   (this: Framework, from: string[]): Framework
 }
 
@@ -25,7 +24,10 @@ interface assets {
  *
  * @public @config
  */
-function assets(this: Framework, paths: string[]): Framework {
+export function assets(
+  this: Framework,
+  paths: string[],
+): Framework {
   globby.globbySync(paths).map((from: string) => {
     const dirName = from.split('/')[from.split('/').length - 2]
 
@@ -33,21 +35,19 @@ function assets(this: Framework, paths: string[]): Framework {
       ? this.store.get('hashFormat')
       : this.store.get('fileFormat')
 
-    const pattern = {
-      from,
-      to: `${dirName}/${format}[ext]`,
-      noErrorOnMissing: true,
-    }
+    const plugin = this.extensions.get('copy-webpack-plugin')
 
-    this.extensions
-      .get('copy-webpack-plugin')
-      .set('options', (options: CopyPluginOptions) => ({
-        ...options,
-        patterns: [...(options.patterns ?? []), pattern],
-      }))
+    plugin.options.mergeStore({
+      patterns: [
+        ...plugin.options.get('patterns'),
+        {
+          from,
+          to: `${dirName}/${format}[ext]`,
+          noErrorOnMissing: true,
+        },
+      ],
+    })
   })
 
   return this
 }
-
-export {assets as default}

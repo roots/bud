@@ -1,3 +1,5 @@
+import {Repository} from '@roots/container'
+
 import * as Peers from '../Peers'
 import {Service} from '../Service'
 
@@ -7,19 +9,7 @@ import {Service} from '../Service'
  * @public @core @container
  */
 export abstract class Abstract extends Service<Peers.Repository> {
-  /**
-   * Project package.json location
-   *
-   * @public
-   */
-  public manifestPath: string
-
-  /**
-   * Array of paths for webpack to resolve modules from
-   *
-   * @public
-   */
-  public resolveFrom: string[] = []
+  public abstract repository: Repository
 
   /**
    * Peer module related utilities
@@ -29,15 +19,6 @@ export abstract class Abstract extends Service<Peers.Repository> {
   public abstract peers: Peers.Interface
 
   /**
-   * Get aggregated project info
-   *
-   * @public
-   */
-  public abstract getProjectInfo(): {
-    [key: string]: any
-  }
-
-  /**
    * Returns a boolean representing if
    * the project has a given pkg listed as a dependency
    * or devDependency
@@ -45,6 +26,4 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * @public
    */
   public abstract hasPeerDependency(pkg: string): boolean
-
-  public abstract initialize(): void
 }

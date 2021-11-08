@@ -1,76 +1,37 @@
+import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import {PluginCreator} from 'postcss'
 
 interface Registry {
-  [key: string]: [PluginCreator<any>, any]
+  [key: string]: [any, any?]
 }
 
-interface PostCssConfig {
-  /**
-   * Registered plugins
-   */
-  plugins: Registry
-
-  /**
-   * Set a plugin
-   */
-  setPlugin(
-    name: string,
-    plugin: [PluginCreator<any>, any] | PluginCreator<any>,
-  ): this
-
-  /**
-   * Set plugins
-   */
-  setPlugins(plugins: {
-    [key: string]: [PluginCreator<any>, any] | PluginCreator<any>
-  }): this
-
-  /**
-   * Set plugin options
-   */
-  setPluginOptions(plugin: string, options: any): this
-
-  /**
-   * Remove a plugin
-   */
-  unsetPlugin(plugin: string): this
-}
-
-class PostCssConfig {
+export class PostCssConfig {
   public plugins: Registry = {}
+
+  public constructor(public app: Framework) {}
 
   @bind
   public setPlugin(
     name: string,
-    plugin: [PluginCreator<any>, any] | PluginCreator<any>,
+    plugin: [any, any?] | [any],
   ): this {
+    this.app.success(`postcss plugin set: ${name}`)
+
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
       return this
     }
 
-    this.plugins[name] = [plugin, undefined]
+    this.plugins[name] = [plugin]
 
     return this
   }
 
   @bind
   public setPlugins(plugins: {
-    [key: string]: [PluginCreator<any>, any] | PluginCreator<any>
+    [key: string]: [any, any?]
   }): this {
-    this.plugins = Object.entries(plugins).reduce(
-      (plugins, [name, plugin]) => {
-        if (Array.isArray(plugin)) {
-          plugins[name] = plugin
-          return plugins
-        }
-
-        plugins[name] = [plugin, undefined]
-        return plugins
-      },
-      {},
-    )
+    this.plugins = plugins
 
     return this
   }
@@ -91,5 +52,3 @@ class PostCssConfig {
     return this
   }
 }
-
-export {PostCssConfig}

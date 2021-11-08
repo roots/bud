@@ -3,13 +3,9 @@
  *
  * @param {Bud} app
  */
-module.exports = (app) => {
+
+module.exports = async (app) => {
   app
-    .use(require('@roots/sage'))
-    .setPath({
-      storage: '.budfiles',
-      dist: 'dist',
-    })
     .entry({
       app: '**/app.{js,css}',
       editor: '**/editor.{js,css}',

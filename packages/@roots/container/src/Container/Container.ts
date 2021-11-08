@@ -157,7 +157,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(key: string | number) {
+  public get<T = any>(key: string) {
     return _.get(this.repository, key) as T
   }
 
@@ -182,7 +182,7 @@ export class Container<I = any> {
    */
   @bind
   public getEntries<T = any>(
-    key?: string | number,
+    key?: string,
   ): [string, ValueOf<T>][] {
     let data = []
 
@@ -235,10 +235,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public each(
-    key: string | number,
-    callFn: (key, value) => void,
-  ): this {
+  public each(key: string, callFn: (key, value) => void): this {
     this.getEntries(key).forEach(([key, value]) => [
       key,
       callFn(key, value),
@@ -260,9 +257,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public every(
-    fn: (key: string | number, value: any) => any,
-  ): this {
+  public every(fn: (key: string, value: any) => any): this {
     this.getEntries().forEach(([key, value]: [string, any]) => {
       fn(key, value)
     })
@@ -290,10 +285,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public findKeyIn(
-    key: string | number,
-    ...searchItem: any[]
-  ): any {
+  public findKeyIn(key: string, ...searchItem: any[]): any {
     const parseInner = v =>
       (!_.isArray(v) ? Object.entries(v) : v).reduce(
         (a, [k, v]) => ({
@@ -404,7 +396,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public set(key: string | number, value: any): this {
+  public set(key: string, value: any): this {
     _.set(this.repository, key, value)
 
     return this
@@ -429,7 +421,7 @@ export class Container<I = any> {
    */
   @bind
   public transform(
-    key: string | number,
+    key: string,
     mutationFn: (value?: any) => any,
   ): any {
     return mutationFn(this.get(key))
@@ -451,7 +443,7 @@ export class Container<I = any> {
    */
   @bind
   public mutate(
-    key: string | number,
+    key: string,
     mutationFn: (value?: any) => any,
   ): this {
     this.set(key, this.transform(key, mutationFn))
@@ -474,7 +466,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public merge(key: string | number, value: any): this {
+  public merge(key: string, value: any): this {
     this.set(key, _.merge(this.get(key), value))
 
     return this
@@ -493,7 +485,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public has(key: string | number | number): boolean {
+  public has(key: string): boolean {
     return _.has(this.repository, key)
   }
 
@@ -512,7 +504,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public remove(key: string | number): this {
+  public remove(key: string): this {
     delete this.repository[key]
 
     return this
@@ -531,7 +523,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public is(key: string | number, value: any): boolean {
+  public is(key: string, value: any): boolean {
     return _.isEqual(this.get(key), value)
   }
 
@@ -551,7 +543,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isTrue(key: string | number): boolean {
+  public isTrue(key: string): boolean {
     return this.is(key, true)
   }
 
@@ -571,7 +563,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isFalse(key: string | number): boolean {
+  public isFalse(key: string): boolean {
     return this.is(key, false)
   }
 
@@ -591,7 +583,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isIndexed(key?: string | number): boolean {
+  public isIndexed(key?: string): boolean {
     const value = key ? this.get(key) : this.all()
     return (
       this.has(key) &&
@@ -616,7 +608,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isArray(key: string | number): boolean {
+  public isArray(key: string): boolean {
     return this.has(key) && _.isArray(this.get(key))
   }
 
@@ -636,7 +628,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNotArray(key: string | number): boolean {
+  public isNotArray(key: string): boolean {
     return this.has(key) && !_.isArray(this.get(key))
   }
 
@@ -656,7 +648,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isString(key: string | number): boolean {
+  public isString(key: string): boolean {
     return this.has(key) && _.isString(this.get(key))
   }
 
@@ -676,7 +668,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNotString(key: string | number): boolean {
+  public isNotString(key: string): boolean {
     return this.has(key) && !_.isString(this.get(key))
   }
 
@@ -696,7 +688,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNumber(key: string | number): boolean {
+  public isNumber(key: string): boolean {
     return this.has(key) && _.isNumber(this.get(key))
   }
 
@@ -716,7 +708,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNotNumber(key: string | number): boolean {
+  public isNotNumber(key: string): boolean {
     return this.has(key) && !_.isNumber(this.get(key))
   }
 
@@ -733,7 +725,7 @@ export class Container<I = any> {
    * @returns True if object is null
    */
   @bind
-  public isNull(key: string | number): boolean {
+  public isNull(key: string): boolean {
     return this.has(key) && _.isNull(this.get(key))
   }
 
@@ -753,7 +745,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNotNull(key: string | number): boolean {
+  public isNotNull(key: string): boolean {
     return this.has(key) && !_.isNull(this.get(key))
   }
 
@@ -774,7 +766,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isDefined(key: string | number): boolean {
+  public isDefined(key: string): boolean {
     return this.has(key) && !_.isUndefined(this.get(key))
   }
 
@@ -794,7 +786,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isUndefined(key: string | number): boolean {
+  public isUndefined(key: string): boolean {
     return !this.has(key) || _.isUndefined(this.get(key))
   }
 
@@ -814,7 +806,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isFunction(key: string | number): boolean {
+  public isFunction(key: string): boolean {
     return this.has(key) && _.isFunction(this.get(key))
   }
 }

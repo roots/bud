@@ -46,22 +46,10 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import type {Extension, Framework} from '@roots/bud-framework'
-import * as BudRecommendPreset from '@roots/bud-preset-recommend'
-import * as BudReactExtension from '@roots/bud-react'
-import * as BudWordPressDependenciesExtension from '@roots/bud-wordpress-dependencies'
-import * as BudWordPressExternalsExtension from '@roots/bud-wordpress-externals'
-import * as BudWordPressManifestsExtension from '@roots/bud-wordpress-manifests'
+import type {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
-    /**
-     * @public {@inheritDoc BudWordPressPreset}
-     */
     '@roots/bud-preset-wordpress': BudWordPressPreset
   }
 }
@@ -79,20 +67,7 @@ declare module '@roots/bud-framework' {
  *
  * @public
  */
-interface BudWordPressPreset extends Extension.Module {
-  name: '@roots/bud-preset-wordpress'
-  register: (app: Framework) => void
-}
+type BudWordPressPreset = Extension.Module
 
 export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
-
-export const register: BudWordPressPreset['register'] = app => {
-  app.use([
-    BudRecommendPreset,
-    BudReactExtension,
-    BudWordPressDependenciesExtension,
-    BudWordPressExternalsExtension,
-    BudWordPressManifestsExtension,
-  ])
-}

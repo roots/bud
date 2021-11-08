@@ -11,43 +11,23 @@ export abstract class CacheAbstract
   implements CacheInterface
 {
   /**
-   * Cached data.
-   *
-   * @public
+   * Is cache valid?
    */
-  public abstract data: Record<string, any>
+  public abstract version: string
 
   /**
-   * Directory used to store cache files
+   * Cache directory
    *
    * @public
    */
-  public abstract directory(): string
+  public abstract directory: string
 
   /**
    * Hash of config files and build dependencies
    *
    * @public
    */
-  public abstract hash(): string
-
-  /**
-   * Is cache valid?
-   */
-  public abstract readonly valid: boolean
-
-  /**
-   * A short, unique string created from the hashed contents of the project
-   * config files and build dependencies.
-   *
-   * @public
-   */
-  public abstract version(): string
-
-  /**
-   * Update profile if needed
-   *
-   * @public
-   */
-  public abstract updateProfile(): void
+  public abstract hashFileContents(
+    filePaths: Array<string>,
+  ): Promise<string>
 }

@@ -1,28 +1,8 @@
-import {bind, lodash} from '@roots/bud-support'
-import type {Class} from 'type-fest'
+import {bind} from 'helpful-decorators'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
 import {Logger} from './Logger'
-
-const {isArray} = lodash
-
-/**
- * Generic type defining the {@link Service.bindClass} map of classes to {@link Framework} property keys
- *
- * @public
- */
-interface GenericClassMap {
-  [key: string]: Class<any> | [Class<any>, any[]]
-}
-
-/**
- * Generic type defining the {@link Service.bindMacro} map of
- * callable function interfaces to {@link Framework} property keys
- */
-interface GenericFunctionMap {
-  [key: string]: CallableFunction
-}
 
 /**
  * Atomic unit of {@link Framework} functionality.
@@ -55,82 +35,16 @@ export abstract class Service<
   Repository = Record<string, any>,
 > extends Bootstrapper<Repository> {
   /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   *
-   * @virtual @public
-   */
-  public bootstrap?(app: Framework): any
-
-  /**
-   * Lifecycle method: bootstrapped
-   *
-   * @remarks
-   * Called once all {@link Service} instances are available.
-   *
-   * @param app - {@link Framework}
-   *
-   * @virtual @public
-   */
-  public bootstrapped?(app: Framework): any
-
-  /**
-   * Lifecycle method: register
-   *
-   * @remarks
-   * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Framework}
-   *
-   * @param app - {@link Framework}
-   *
-   * @virtual @public
-   */
-  public register?(app: Framework): any
-
-  /**
-   * Lifecycle method: registered
-   *
-   * @remarks
-   * `registered` is called after all {@link Service.register} callbacks are complete.
-   *
-   * @param app - {@link Framework}
-   *
-   * @virtual @public
-   */
-  public registered?(app: Framework): any
-
-  /**
-   * Lifecycle method: boot
-   *
-   * @remarks
-   * `boot` is called once all services are registered. It should be safe for Services to reference one another.
-   *
-   * @param app - {@link Framework}
-   *
-   * @virtual @public
-   */
-  public boot?(app: Framework): any
-
-  /**
-   * Lifecycle method: booted
-   *
-   * @remarks
-   * `booted` is called after all {@link Service.boot} callbacks are complete.
-   *
-   * @param app - {@link Framework}
-   *
-   * @virtual @public
-   */
-  public booted?(app: Framework): any
-
-  /**
    * Service scoped logger
    *
    * @public
    */
+  protected _logger: Logger['instance']
   public get logger(): Logger['instance'] {
-    return this.app.logger.instance
+    return this._logger
+  }
+  public set logger(logger: Logger['instance']) {
+    this._logger = logger
   }
 
   /**
@@ -142,97 +56,100 @@ export abstract class Service<
    */
   public constructor(app: Framework) {
     super(app)
+    this.initialized()
   }
 
   /**
-   * Bind a {@link CallableFunction} to the {@link Framework}
-   *
-   * @example
-   * Bind a function named `fooFn` to `app.foo`
-   *
-   * ```js
-   * app.service.bindClass({foo: fooFn})
-   * ```
-   *
-   * @remarks
-   * You should also override the {@link @roots/bud-framework# | '@roots/bud-framework' module} to ensure
-   * that your function typings are correctly implemented and exported.
-   *
-   * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
+   * @internal
+   */
+  public initialized(): void {
+    this.logger = this.app.logger
+      .makeInstance()
+      .scope(
+        ...this.app.logger.getScope(),
+        this.constructor.name.toLowerCase(),
+      )
+  }
+
+  /**
+   * Log a message
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public bindMacro<FunctionMap = GenericFunctionMap>(
-    properties: FunctionMap,
-  ): void {
-    this.app
-      .container(properties)
-      .getEntries()
-      .map(([name, value]) => {
-        this.app.bindMethod(name, value)
-      })
+  public log(type: string, ...messages: any[]) {
+    this.logger[type](...messages)
+    return this
   }
 
   /**
-   * Bind a {@link Class} to the {@link Framework}.
+   * Lifecycle method: bootstrap
    *
    * @remarks
-   * Constructor parameters can be specified using an array.
+   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
    *
-   * @example
-   * Bind a Class named `FooClass` to `app.Foo`:
-   *
-   * ```js
-   * app.service.bindClass({Foo: FooClass})
-   * ```
-   *
-   * Specify constructor parameters with a tuple:
-   *
-   * ```js
-   * app.service.bindClass({
-   *   bindingName: [BindingClass, foo, bar]
-   * })
-   * ```
-   *
-   * @typeParam Binding - Map of {@link Framework} keys to classes
-   *
-   * @public
-   * @decorator `@bind`
+   * @virtual @public
    */
-  @bind
-  public bindClass<ClassMap = GenericClassMap>(
-    properties: ClassMap,
-  ): void {
-    /**
-     *
-     * @param accumulator - {@link ClassMap}
-     * @param param - Tuple of {@link Framework} prop names and provided {@link Class} definitions
-     *
-     * @internal
-     */
-    const bindingReducer = (
-      accumulator: ClassMap,
-      [name, value]: [string, Class<any> | [Class<any>, any]],
-    ) => {
-      const [ClassObj, constructorParams] = isArray(value)
-        ? value
-        : [value, []]
+  public bootstrap?(app: Framework): Promise<any>
 
-      return {
-        ...accumulator,
-        [`${name}`]: new ClassObj(
-          ...(isArray(constructorParams)
-            ? constructorParams
-            : [constructorParams]),
-        ),
-      }
-    }
+  /**
+   * Lifecycle method: bootstrapped
+   *
+   * @remarks
+   * Called once all {@link Service} instances are available.
+   *
+   * @param app - {@link Framework}
+   *
+   * @virtual @public
+   */
+  public bootstrapped?(app: Framework): Promise<any>
 
-    Object.assign(
-      this.app,
-      Object.entries(properties).reduce(bindingReducer, {}),
-    )
-  }
+  /**
+   * Lifecycle method: register
+   *
+   * @remarks
+   * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Framework}
+   *
+   * @param app - {@link Framework}
+   *
+   * @virtual @public
+   */
+  public register?(app: Framework): Promise<any>
+
+  /**
+   * Lifecycle method: registered
+   *
+   * @remarks
+   * `registered` is called after all {@link Service.register} callbacks are complete.
+   *
+   * @param app - {@link Framework}
+   *
+   * @virtual @public
+   */
+  public registered?(app: Framework): Promise<any>
+
+  /**
+   * Lifecycle method: boot
+   *
+   * @remarks
+   * `boot` is called once all services are registered. It should be safe for Services to reference one another.
+   *
+   * @param app - {@link Framework}
+   *
+   * @virtual @public
+   */
+  public boot?(app: Framework): Promise<any>
+
+  /**
+   * Lifecycle method: booted
+   *
+   * @remarks
+   * `booted` is called after all {@link Service.boot} callbacks are complete.
+   *
+   * @param app - {@link Framework}
+   *
+   * @virtual @public
+   */
+  public booted?(app: Framework): Promise<any>
 }

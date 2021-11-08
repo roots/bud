@@ -1,5 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+
 /**
  * Extract critical CSS
  *
@@ -10,26 +11,20 @@ import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
  * })
  * ```
  */
-interface critical {
+export interface critical {
   (
     this: Framework,
     userOptions: Partial<CriticalCssWebpackPlugin['options']>,
   ): Framework
 }
 
-const critical: critical = function (
+export const critical: critical = function (
   this: Framework,
   userOptions: CriticalCssWebpackPlugin['options'],
 ) {
-  this.hooks.on(
-    'extension/@roots/bud-criticalcss/options',
-    (options: CriticalCssWebpackPlugin['options']) => ({
-      ...userOptions,
-      ...options,
-    }),
-  )
+  this.extensions
+    .get('@roots/bud-criticalcss')
+    .options.merge(userOptions)
 
   return this
 }
-
-export {critical}

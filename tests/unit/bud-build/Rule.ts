@@ -4,12 +4,8 @@ import {Rule} from '@roots/bud-build'
 describe('Build Rule', function () {
   let bud: Framework = null
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('is constructable', () => {

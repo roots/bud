@@ -26,22 +26,21 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import {BudPresetRecommend} from './BudPresetRecommend'
+import {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
-    /**
-     * {@inheritDoc @roots/bud-preset-recommend#BudPresetRecommend}
-     * @public
-     */
     '@roots/bud-preset-recommend': BudPresetRecommend
   }
 }
 
-export const {name, register} = BudPresetRecommend
+export interface BudPresetRecommend extends Extension.Module {
+  name: '@roots/bud-preset-recommend'
+}
 
-export type {BudPresetRecommend}
+/**
+ * Recommended preset configuration for Bud.
+ *
+ * @public
+ */
+export const name = '@roots/bud-preset-recommend'

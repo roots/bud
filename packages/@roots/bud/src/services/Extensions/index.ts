@@ -1,6 +1,6 @@
 import {Extensions as Base} from '@roots/bud-extensions'
 
-import {repository} from './repository'
+import {extensions} from '../../extensions'
 
 /**
  * Extensions service
@@ -8,5 +8,5 @@ import {repository} from './repository'
  * @public
  */
 export class Extensions extends Base {
-  public repository = repository
+  public repository = extensions()
 }

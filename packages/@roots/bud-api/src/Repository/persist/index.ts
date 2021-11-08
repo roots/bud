@@ -1,7 +1,11 @@
 import type {Framework} from '@roots/bud-framework'
 
-interface persist {
-  (this: Framework, enabled?: boolean): Framework
+export interface persist {
+  (enabled?: boolean): Framework
+}
+
+export interface persist {
+  (enabled?: string): Framework
 }
 
 /**
@@ -16,44 +20,45 @@ interface persist {
  *
  * @public @config
  */
-const persist: persist = function (enabled = true) {
-  this.hooks
-    .on('build/cache', () => ({
-      type: this.hooks.filter('build/cache/type'),
-      version: this.hooks.filter('build/cache/version'),
-      cacheDirectory: this.hooks.filter(
-        'build/cache/cacheDirectory',
+export const persist: persist = function (
+  enabled: string | boolean,
+) {
+  const ctx = this as Framework
+
+  if (enabled === false) {
+    ctx.hooks.on('build.cache', false)
+    return this
+  }
+
+  if (enabled === 'memory') {
+    ctx.hooks.on('build.cache', {
+      type: 'memory',
+    })
+
+    return this
+  }
+
+  ctx.hooks
+    .on('build.cache', () => ({
+      type: ctx.hooks.filter('build.cache.type'),
+      version: ctx.hooks.filter('build.cache.version'),
+      cacheDirectory: ctx.hooks.filter(
+        'build.cache.cacheDirectory',
       ),
-      managedPaths: this.hooks.filter(
-        'build/cache/managedPaths',
-      ),
-      buildDependencies: this.hooks.filter(
-        'build/cache/buildDependencies',
+      managedPaths: ctx.hooks.filter('build.cache.managedPaths'),
+      buildDependencies: ctx.hooks.filter(
+        'build.cache.buildDependencies',
       ),
     }))
-    .hooks.on(
-      'build/cache/version',
-      enabled ? this.cache.version : undefined,
-    )
-    .hooks.on('build/cache/type', () =>
-      enabled ? 'filesystem' : 'memory',
-    )
-    .hooks.on(
-      'build/cache/cacheDirectory',
-      enabled ? this.cache.directory : undefined,
-    )
-    .hooks.on('build/cache/buildDependencies', () =>
-      enabled
-        ? {
-            bud: this.cache.data.dependencies,
-          }
-        : undefined,
-    )
-    .hooks.on('build/cache/managedPaths', () =>
-      enabled ? [this.path('modules')] : undefined,
-    )
+    .hooks.on('build.cache.version', ctx.cache.version)
+    .hooks.on('build.cache.type', () => 'filesystem')
+    .hooks.on('build.cache.cacheDirectory', ctx.path('storage'))
+    .hooks.on('build.cache.buildDependencies', () => ({
+      bud: ctx.project.get('dependencies'),
+    }))
+    .hooks.on('build.cache.managedPaths', () => [
+      ctx.path('modules'),
+    ])
 
   return this
 }
-
-export {persist as default}

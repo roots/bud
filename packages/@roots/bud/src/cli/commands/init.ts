@@ -1,4 +1,4 @@
-import {chalk} from '@roots/bud-support'
+import execa from 'execa'
 
 import type {Bud} from '../../Bud'
 import {Command} from '../Command'
@@ -18,54 +18,43 @@ export default class Init extends Command {
 
   public getMissingPeers(): any[] {
     return this.app.project.has('peers')
-      ? this.app.project
-          .getValues('peers')
-          ?.filter(
-            (dep: {name: string}) =>
-              !this.app.project.hasPeerDependency(dep.name),
-          )
+      ? this.app.project.getValues('peers')
       : []
   }
 
   public async run() {
-    this.app = new Runner(this.parse(Init)).app
-    this.app.cache.updateProfile()
-
-    const output = []
-
-    this.getMissingPeers().map(pkg => {
-      this.app.dashboard.render(
-        [
-          ...output,
-          chalk
-            .yellow(`↯`)
-            .concat(
-              `  ...Installing ${chalk.blue(
-                `${pkg.name}@${pkg.version}`,
-              )}`,
-            ),
-        ],
-        'Installing',
-      )
-
-      this.app.dependencies.install([pkg])
-
-      output.push(
-        chalk
-          .green(`✓`)
-          .concat(
-            `  Installed ${chalk.blue(
-              `${pkg.name}@${pkg.version}`,
-            )}`,
-          ),
-      )
+    const runner = new Runner(this.parse(Init), {
+      config: {ci: true},
     })
+    await runner.initialize()
 
-    this.app.dashboard.render(
-      [...output, '\n✨ All peer packages installed'],
-      'Installation complete',
+    this.app = runner.app
+
+    const pkgs = this.getMissingPeers().reduce(
+      (acc, dependency) =>
+        `${acc} ${dependency.name}@${dependency.version}`,
+      ``,
     )
 
+    if (!pkgs.length) {
+      this.app.success(
+        'All peer dependencies met. Nothing to install',
+      )
+      process.exit()
+    }
+
+    const cmd = this.app.dependencies.manager.isYarn()
+      ? `yarn add${pkgs} --dev`
+      : `npm install${pkgs} --save-dev`
+
+    this.app.info(cmd)
+
+    const task = execa.command(cmd)
+    task.stdout.pipe(process.stdout)
+    task.stderr.pipe(process.stderr)
+    await task.finally()
+
+    this.app.success(`✨ All peer packages installed`)
     process.exit()
   }
 }

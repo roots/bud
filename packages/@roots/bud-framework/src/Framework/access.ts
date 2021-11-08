@@ -5,7 +5,7 @@ import {isFunction} from './framework.dependencies'
  * @internal
  */
 export interface access<I = any> {
-  (this: I, value: Tapable | I): I
+  (value: Tapable | I): I
 }
 
 /**
@@ -21,5 +21,6 @@ export interface access<I = any> {
  * @public
  */
 export function access<I = any>(value: Tapable | I) {
-  return isFunction(value) ? value.bind(this)(this) : value
+  const ctx = this as I
+  return isFunction(value) ? value.bind(ctx)(ctx) : value
 }

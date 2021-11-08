@@ -5,8 +5,4 @@
  *
  * @param {Bud} app
  */
-module.exports = app =>
-  app
-    .use([require('@roots/bud-eslint')])
-    .template()
-    .entry('app', 'app.js')
+module.exports = app => app.template().entry('app', 'app.js')

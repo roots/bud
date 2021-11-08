@@ -1,14 +1,10 @@
 import {factory, Framework} from '@roots/bud'
 
-describe('bud.hash', function () {
+describe.skip('bud.hash', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory()
-  })
-
-  afterAll(done => {
-    bud.close(done)
+  beforeAll(async () => {
+    bud = await factory({config: {ci: true, log: false}})
   })
 
   it('is a function', () => {

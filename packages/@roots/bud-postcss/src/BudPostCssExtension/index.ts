@@ -1,76 +1,54 @@
 import {Item, Loader} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework'
-import {fs, safeRequire, safeResolve} from '@roots/bud-support'
+import {Extension, Framework} from '@roots/bud-framework'
 
 import {PostCssConfig} from '../PostCssConfig'
 
-const {pathExistsSync} = fs
-
-export interface BudPostCssExtension extends Extension.Module {
-  name: Extension.Module['name'] & '@roots/bud-postcss'
-
-  api: Extension.Module['api'] & {
-    postcss: PostCssConfig
-  }
-
-  boot: Extension.Module['boot']
-}
-
-export const BudPostCssExtension: BudPostCssExtension = {
+export const BudPostCssExtension: Extension.Module = {
   name: '@roots/bud-postcss',
 
-  api: {
-    postcss: new PostCssConfig(),
-  },
+  mixin: async (app: Framework) => ({
+    postcss: [PostCssConfig, app],
+  }),
 
-  boot: function ({build, path, postcss}) {
-    build.loaders.postcss = new Loader(
+  register: (app: Framework) => {
+    app.build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
 
-    build.items.postcss = new Item({
-      loader: ({build}) => build.loaders.postcss,
-      options: ({path, postcss}) => ({
+    app.build.items.postcss = new Item({
+      loader: app.build.loaders.postcss,
+      options: ({postcss}) => ({
         postcssOptions: {
-          config: pathExistsSync(
-            path('project', 'postcss.config.js'),
-          ),
           plugins: Object.values(postcss.plugins),
         },
         sourceMap: true,
       }),
     })
 
-    build.rules.css.setUse(({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.css,
-      build.items.postcss,
+    app.build.rules.css.setUse(app => [
+      app.isProduction
+        ? app.build.items.minicss
+        : app.build.items.style,
+      app.build.items.css,
+      app.build.items.postcss,
     ])
 
-    if (pathExistsSync(path('project', 'postcss.config.js')))
-      return
+    app.postcss.setPlugin('postcss-import', [
+      require.resolve('postcss-import'),
+    ])
 
-    safeResolve('postcss-import') &&
-      postcss.setPlugin(
-        'postcss-import',
-        safeRequire('postcss-import'),
-      )
+    app.postcss.setPlugin('postcss-nested', [
+      require.resolve('postcss-nested'),
+    ])
 
-    safeResolve('postcss-nested') &&
-      postcss.setPlugin(
-        'postcss-nested',
-        safeRequire('postcss-nested'),
-      )
-
-    safeResolve('postcss-preset-env') &&
-      postcss.setPlugin('postcss-preset-env', [
-        safeRequire('postcss-preset-env'),
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
+    app.postcss.setPlugin('postcss-preset-env', [
+      require.resolve('postcss-preset-env'),
+      {
+        stage: 1,
+        features: {
+          'focus-within-pseudo-class': false,
         },
-      ])
+      },
+    ])
   },
 }

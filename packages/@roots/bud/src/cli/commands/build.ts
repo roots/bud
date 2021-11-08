@@ -23,20 +23,24 @@ export default class Build extends Command {
     }),
 
     ci: flags.boolean({
+      default: false,
       description: 'non raw mode tty interoperable output',
     }),
 
     clean: flags.boolean({
       allowNo: true,
+      default: true,
       description: 'clean distributables on compilation',
+    }),
+
+    version: flags.version(),
+
+    config: flags.string({
+      description: 'path to config file',
     }),
 
     devtool: flags.string({
       description: 'specify source-map type',
-    }),
-
-    discover: flags.boolean({
-      description: 'automatically utilize installed extensions',
     }),
 
     html: flags.boolean({
@@ -53,8 +57,13 @@ export default class Build extends Command {
       description: 'hash compiled filenames',
     }),
 
+    inject: flags.boolean({
+      allowNo: true,
+      default: true,
+      description: 'automatically register & boot extensions',
+    }),
+
     install: flags.boolean({
-      char: 'i',
       description: 'ensure peer dependencies are installed',
     }),
 
@@ -65,7 +74,6 @@ export default class Build extends Command {
     }),
 
     minimize: flags.boolean({
-      char: 'm',
       allowNo: true,
       description: 'minimize file size of compiled assets',
     }),
@@ -94,7 +102,6 @@ export default class Build extends Command {
     }),
 
     target: flags.string({
-      char: 't',
       description: 'limit compilation to this compiler',
       multiple: true,
       default: [],
@@ -107,9 +114,10 @@ export default class Build extends Command {
     const options = this.parse(Build)
     const runner = new Runner(options, {mode: 'production'})
 
+    await runner.initialize()
     this.app = await runner.make()
 
     this.app.hooks.on('done', [this.notifier.notify])
-    this.app.run()
+    await this.app.run()
   }
 }

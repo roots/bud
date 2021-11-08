@@ -34,15 +34,4 @@ export interface Dashboard extends Service {
    * @public
    */
   render(Component: any, title?: string): void
-
-  /**
-   * Render error
-   *
-   * @param body - body of the error message
-   * @param title - title of the error message
-   * @returns void
-   *
-   * @public
-   */
-  renderError(body: string, title: string): void
 }

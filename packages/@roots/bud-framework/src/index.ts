@@ -110,6 +110,15 @@ export interface Factory<P extends any[], T> {
 }
 
 /**
+ * Framework async factory
+ *
+ * @public
+ */
+export interface AsyncFactory<P extends any[], T> {
+  (...args: P): Promise<T>
+}
+
+/**
  * Callback which accepts Framework as a parameter
  *
  * @public
@@ -233,16 +242,3 @@ export interface PluginInstance {
  */
 export interface Module<P = any, O = any>
   extends Extension.Module<O> {}
-
-/**
- * Module
- *
- * @deprecated Use {@link Extension.CompilerPlugin} instead
- *
- * @public
- */
-export interface WebpackPlugin<P = any, O = any>
-  extends Extension.CompilerPlugin<
-    Extension.ApplyPlugin,
-    unknown
-  > {}

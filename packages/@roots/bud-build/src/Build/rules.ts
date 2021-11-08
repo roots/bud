@@ -26,7 +26,7 @@ export const font = () =>
   new Rule({
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
-    use: ({build}) => [build.items['resolveUrl']],
+    use: ({build}) => [build.items['resolve-url']],
   })
 
 /**
@@ -125,5 +125,5 @@ export const js: () => Rule = () =>
   new Rule({
     test: ({store}) => store.get('patterns.js'),
     exclude: ({store}) => store.get('patterns.modules'),
-    use: [],
+    use: () => [],
   })

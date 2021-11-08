@@ -1,4 +1,6 @@
 import {Container} from '@roots/container'
+import {highlight} from 'cli-highlight'
+import {format} from 'pretty-format'
 
 import {
   Api,
@@ -8,8 +10,8 @@ import {
   Dashboard,
   Dependencies,
   Env,
+  Extension,
   Hooks,
-  Index,
   Mode,
   Server,
   Services,
@@ -20,17 +22,14 @@ import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import * as Project from '../Project'
 import {access} from './access'
-import {bootstrap} from './bootstrap'
+import {bindMethod} from './bindMethod'
 import {close} from './close'
 import {container} from './container'
-import {dd, dump} from './dump'
-import {
-  bind,
-  isNull,
-  isUndefined,
-} from './framework.dependencies'
+import {bind, isUndefined} from './framework.dependencies'
 import {get} from './get'
+import {lifecycle} from './lifecycle'
 import {make} from './make'
+import {mixin} from './mixin'
 import {path} from './path'
 import {pipe} from './pipe'
 import {sequence} from './sequence'
@@ -81,15 +80,22 @@ export abstract class Framework {
    *
    * @defaultValue null
    */
-  public parent: Framework | null = null
+  public root: Framework | null = null
+  public get parent(): Framework {
+    return this.root
+  }
 
   /**
    * True when current instance is the parent instance
    *
    * @readonly
    */
-  public get isParent(): boolean {
-    return isNull(this.parent)
+  public get isRoot(): boolean {
+    return this.root.name === this.name
+  }
+
+  public get isChild(): boolean {
+    return this.root.name !== this.name
   }
 
   /**
@@ -100,7 +106,7 @@ export abstract class Framework {
    *
    * @defaultValue null
    */
-  public children: Container<Index<Framework>> = null
+  public children: Container<Record<string, Framework>> = null
 
   /**
    * True when {@link Framework} has children
@@ -108,10 +114,7 @@ export abstract class Framework {
    * @readonly
    */
   public get hasChildren(): boolean {
-    return (
-      !isNull(this.children) &&
-      this.children.getEntries().length > 0
-    )
+    return this.children?.getEntries().length > 0
   }
 
   /**
@@ -214,7 +217,7 @@ export abstract class Framework {
    * @example Change the `webpack.output.filename` format:
    * ```ts
    * hooks.on(
-   *   'build/output/filename',
+   *   'build.output.filename',
    *   () => '[name].[hash:4]',
    * )
    * ```
@@ -263,6 +266,11 @@ export abstract class Framework {
   }
 
   /**
+   * @public
+   */
+  public options: Options
+
+  /**
    * Class constructor
    *
    * @param options - {@link Framework.Options | Framework constructor options}
@@ -270,34 +278,40 @@ export abstract class Framework {
    * @public
    */
   public constructor(options: Options) {
-    // This foolishness is basically mandated by tsc
-    this.bindMethod<access>('access', access)
-      .bindMethod<bootstrap>('bootstrap', bootstrap)
-      .bindMethod<close>('close', close)
-      .bindMethod<container>('container', container)
-      .bindMethod<close>('dump', dump)
-      .bindMethod<close>('dd', dd)
-      .bindMethod<get>('get', get)
-      .bindMethod<make>('make', make)
-      .bindMethod<path>('path', path)
-      .bindMethod<pipe>('pipe', pipe)
-      .bindMethod<setPath>('setPath', setPath)
-      .bindMethod<sequence>('sequence', sequence)
-      .bindMethod<tap>('tap', tap)
-      .bindMethod<when>('when', when)
+    this.options = options
+
+    if (isUndefined(options.name)) {
+      throw Error(`instance name is required`)
+    }
+
+    if (!options.childOf) {
+      // Parent & child instance exclusive settings
+      this.children = new Container()
+      this.root = this
+    } else {
+      this.root = options.childOf
+    }
 
     // Assign to instance
     this.name = options.name
-    this.mode = options.mode ?? options.parent.mode
-    this.services = options.services ?? options.parent.services
-    this.store = new Store<Configuration>(this).setStore({
-      ...(options.config ?? options.parent.store.all()),
-    })
+    this.mode = options.mode
+    this.services = options.services
 
-    // Parent & child instance exclusive settings
-    if (isNull(this.parent) && isUndefined(options.parent)) {
-      this.children = new Container()
-    } else this.parent = options.parent
+    this.store = new Store<Configuration>(this)
+    this.store.setStore(options.config)
+
+    this.access = access.bind(this)
+    this.bindMethod = bindMethod.bind(this)
+    this.close = close.bind(this)
+    this.get = get.bind(this)
+    this.lifecycle = lifecycle.bind(this)
+    this.make = make.bind(this)
+    this.mixin = mixin.bind(this)
+    this.path = path.bind(this)
+    this.pipe = pipe.bind(this)
+    this.setPath = setPath.bind(this)
+    this.tap = tap.bind(this)
+    this.when = when.bind(this)
   }
 
   /**
@@ -305,19 +319,17 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod<T = Function>(
-    key: string,
-    method: T & Function,
-  ): Framework {
-    this[key] = method.bind(this) as T
+  public bindMethod: typeof bindMethod
 
-    return this
-  }
+  /**
+   * @public
+   */
+  public mixin: typeof mixin
 
   /**
    * @internal
    */
-  public bootstrap: bootstrap
+  public lifecycle: lifecycle
 
   /**
    * Access a value which may or may not be a function.
@@ -364,7 +376,7 @@ export abstract class Framework {
    *
    * @public @container
    */
-  public container: container
+  public container: container = container
 
   /**
    * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
@@ -400,7 +412,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public make: make
+  public make: make = make
 
   /**
    * Returns a {@link Locations} value as an absolute path
@@ -461,7 +473,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public sequence = sequence
+  public sequence: sequence = sequence.bind(this)
 
   /**
    * Execute a callback
@@ -521,28 +533,19 @@ export abstract class Framework {
   public when: when
 
   /**
-   *
-   */
-  public dump: typeof dump = dump
-
-  /**
-   * Dumps object to console and then
-   * gracefully exits bud and kills the process.
-   */
-  public dd: typeof dd = dd
-
-  /**
    * Log a message
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public log(message?: any, ...optionalArgs: any[]) {
+  public log(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .log(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .log(...messages)
+
+    return this
   }
 
   /**
@@ -552,11 +555,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public info(message?: any, ...optionalArgs: any[]) {
+  public info(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .info(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .info(...messages)
+
+    return this
   }
 
   /**
@@ -566,11 +571,13 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public success(message?: any, ...optionalArgs: any[]) {
+  public success(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .success(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .success(...messages)
+
+    return this
   }
 
   /**
@@ -580,25 +587,75 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public warn(message?: any, ...optionalArgs: any[]) {
+  public warn(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .warn(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .warn(...messages)
+
+    return this
   }
 
   /**
-   * Log a `debug` level message
+   * Log a `warning` level message
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public debug(message?: any, ...optionalArgs: any[]) {
+  public time(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(this.name)
-        .debug(message, ...optionalArgs)
+        .scope(...this.logger.getScope())
+        .time(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public await(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.getScope())
+        .await(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public complete(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .complete(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public timeEnd(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .timeEnd(...messages)
+
+    return this
   }
 
   /**
@@ -611,14 +668,43 @@ export abstract class Framework {
    * @decorator `@bind`
    */
   @bind
-  public error(message?: any, ...optionalArgs: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(this.name)
-        .error(message, ...optionalArgs)
+  public error(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.getScope())
+      .error(...messages)
 
-    this.dashboard?.instance &&
-      this.dashboard.renderError(message, optionalArgs.pop())
+    return this
+  }
+
+  @bind
+  public dump(
+    obj: any,
+    options?: {
+      prefix?: any
+      language?: string
+      ignoreIllegals?: boolean
+      callToJSON?: boolean
+      printFunctionName?: boolean
+    },
+    maxDepth?,
+  ): Framework {
+    return this.log(
+      ...[
+        `${options?.prefix ?? ''}\n`,
+        highlight(
+          format(obj, {
+            callToJSON: options?.callToJSON ?? false,
+            maxDepth: maxDepth ?? 2,
+            printFunctionName:
+              options?.printFunctionName ?? false,
+          }),
+          {
+            language: options?.language ?? 'js',
+            ignoreIllegals: options?.ignoreIllegals ?? true,
+          },
+        ),
+      ].filter(Boolean),
+    )
   }
 }
 
@@ -663,7 +749,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Configuration
+  config?: Partial<Configuration>
 
   /**
    * Framework services
@@ -672,12 +758,17 @@ export interface Options {
   services?: Services
 
   /**
-   * Should only be used by the main {@link Framework} instance.
-   *
-   * This constructor option is used to determine if a given {@link Framework} instance
-   * is the parent compiler.
-   *
    * @internal
    */
-  parent?: Framework
+  childOf?: Framework
+
+  /**
+   * Extensions to be registered
+   *
+   * @public
+   */
+  extensions?: () => Record<
+    string,
+    Extension.Module | Extension.CompilerPlugin
+  >
 }

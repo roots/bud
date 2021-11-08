@@ -11,7 +11,7 @@ import {isUndefined} from '../../services/lodash'
  *
  * @returns {@link @roots/bud-framework#Framework}
  *
- * @hook build/optimization/runtime
+ * @hook build.optimization.runtime
  *
  * @public @config
  */
@@ -46,17 +46,17 @@ const DEFAULT_OPTIONS: Configuration['optimization']['runtimeChunk'] =
 export const runtime: runtime = function (runtime?) {
   if (isUndefined(runtime) || runtime === true) {
     this.hooks.on(
-      'build/optimization/runtimeChunk',
+      'build.optimization.runtimeChunk',
       () => DEFAULT_OPTIONS,
     )
     return this
   }
 
   if (runtime === false) {
-    this.hooks.on('build/optimization/runtimeChunk', () => false)
+    this.hooks.on('build.optimization.runtimeChunk', () => false)
     return this
   }
 
-  this.hooks.on('build/optimization/runtimeChunk', () => runtime)
+  this.hooks.on('build.optimization.runtimeChunk', () => runtime)
   return this
 }

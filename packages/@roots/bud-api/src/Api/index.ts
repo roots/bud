@@ -26,7 +26,7 @@ export class Api extends Service<Repository> {
    *
    * @public
    */
-  public bootstrap() {
-    this.bindMacro(this.all())
+  public async bootstrap() {
+    this.app.bindMethod(this.all())
   }
 }

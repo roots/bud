@@ -1,27 +1,23 @@
 import {config, factory, Framework} from '@roots/bud'
 
-describe('bud.entry', function () {
+describe.skip('bud.entry', function () {
   let bud: Framework
 
-  beforeAll(() => {
-    bud = factory({
+  beforeAll(async () => {
+    bud = await factory({
       config: {
         ...config,
-        cache: false,
         ci: true,
         location: {
           ...config.location,
           project: `${process.cwd()}/examples/sage`,
           src: 'resources',
         },
+        log: false,
       },
     })
 
     bud.build.make()
-  })
-
-  afterAll(done => {
-    bud.close(done)
   })
 
   beforeEach(() => {

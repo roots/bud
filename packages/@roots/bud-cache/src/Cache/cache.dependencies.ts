@@ -4,11 +4,10 @@ export {createHash} from 'crypto'
 
 import {fs} from '@roots/bud-support'
 export const {
-  existsSync,
-  ensureFileSync,
-  readFileSync,
-  readJsonSync,
-  removeSync,
-  writeJsonSync,
-  writeFileSync,
+  ensureFile,
+  readFile,
+  readJson,
+  remove,
+  writeJson,
+  writeFile,
 } = fs

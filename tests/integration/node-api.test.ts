@@ -4,9 +4,9 @@ import {join} from 'path'
 
 jest.setTimeout(60000)
 
-describe('node-api', () => {
+describe.skip('node-api', () => {
   beforeAll(async () => {
-    await execa('yarn', ['node', './bud.config.js'], {
+    await execa('yarn', ['node', './bud.js'], {
       cwd: `${process.cwd()}/examples/node-api`,
     })
   })

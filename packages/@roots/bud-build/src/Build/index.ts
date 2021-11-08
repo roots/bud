@@ -6,11 +6,12 @@ import {
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
+import {ensureFile, writeFile} from 'fs-extra'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
-import * as items from './items'
-import * as loaders from './loaders'
+import items from './items'
+import loaders from './loaders'
 import * as rules from './rules'
 
 /**
@@ -26,13 +27,6 @@ export class Build
    * @internal
    */
   public config: Webpack.Configuration
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.name}
-   *
-   * @public
-   */
-  public name = 'build'
 
   /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}
@@ -61,18 +55,34 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public make(): Webpack.Configuration {
-    this.app.log('build.config called')
+  public async make(): Promise<Webpack.Configuration> {
+    this.log('time', 'running build.before hooks')
+    this.app.hooks.filter('build.before')
+    this.log('timeEnd', 'running build.before hooks')
 
-    const config = this.app.hooks.filter('build')
+    this.log('time', 'build.make')
+    this.config = Object.entries(
+      this.app.hooks.filter('build'),
+    ).reduce(
+      (all: Partial<Webpack.Configuration>, [key, value]) => {
+        if (typeof value === 'undefined') {
+          this.log(
+            `warn`,
+            `webpack ${key} is undefined. excluding.`,
+          )
+          return all
+        }
+        return {...all, [key]: value}
+      },
+      {},
+    )
+    this.log('timeEnd', 'build.make')
 
-    this.config = Object.entries(config).reduce((a, [k, v]) => {
-      if (v === undefined) {
-        return a
-      }
+    this.log('time', 'running build.after hooks')
+    this.app.hooks.filter('build.after', this.app)
+    this.log('timeEnd', 'running build.after hooks')
 
-      return {...a, [k]: v}
-    }, {})
+    await this.writeFinalConfig(this.config)
 
     return this.config
   }
@@ -84,7 +94,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public bootstrap(): void {
+  public async register() {
     /**
      * Reduces components to their normalized form
      *
@@ -103,20 +113,40 @@ export class Build
     this.loaders = this.app
       .container(loaders)
       .getEntries()
-      .reduce(componentReducer, {}) as Loaders
+      .reduce(componentReducer, this.loaders) as Loaders
 
     // Reduce rules
     this.rules = this.app
       .container(rules)
       .getEntries()
-      .reduce(componentReducer, {}) as Rules
+      .reduce(componentReducer, this.rules) as Rules
 
     // Reduce items
     this.items = this.app
       .container(items)
       .getEntries()
-      .reduce(componentReducer, {}) as Items
+      .reduce(componentReducer, this.items) as Items
 
     config(this.app)
+  }
+
+  @bind
+  public async writeFinalConfig(config: Webpack.Configuration) {
+    try {
+      const filePath = this.app.path(
+        'storage',
+        config.name,
+        'webpack.config.js',
+      )
+
+      await ensureFile(filePath)
+      await writeFile(
+        filePath,
+        `module.exports = (${JSON.stringify(config, null, 2)})`,
+      )
+    } catch (error) {
+      this.log('error', `failed to write webpack.config.json`)
+      this.log(`error`, error)
+    }
   }
 }

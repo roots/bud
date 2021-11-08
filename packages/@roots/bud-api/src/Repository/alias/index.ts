@@ -25,17 +25,24 @@ export interface alias {
  * @public @config
  */
 export const alias: alias = function (alias) {
+  const mergeAliases = Object.entries(alias).reduce(
+    (a, [k, v]: [string, string]) => {
+      const path = resolve(this.path('project'), v)
+      this.info(`aliasing ${k} to ${path}`)
+
+      return {
+        ...a,
+        [k]: resolve(this.path('project'), v),
+      }
+    },
+    {},
+  )
+
   this.hooks.on(
-    'build/resolve/alias',
+    'build.resolve.alias',
     (aliases: Configuration['resolve']['alias']) => ({
       ...aliases,
-      ...Object.entries(alias).reduce(
-        (a, [k, v]: [string, string]) => ({
-          ...a,
-          [k]: resolve(v),
-        }),
-        {},
-      ),
+      ...mergeAliases,
     }),
   )
 

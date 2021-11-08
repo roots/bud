@@ -1,7 +1,7 @@
-import {Loose, Modules, Plugins} from '../..'
-import {CompilerPlugin} from './CompilerPlugin'
-import Controller from './Controller'
-import Module from './Module'
+import {Container} from '@roots/container'
+
+import {Framework, Maybe, Modules, Plugins} from '../..'
+import {Module} from './Module'
 
 /**
  * Registered extension names
@@ -17,18 +17,6 @@ export type Name = `${
   | (keyof Plugins & string)}`
 
 /**
- * Generic extension module
- *
- * @typeParam P - {@link ApplyPlugin}
- * @typeParam O - Extension options
- *
- * @public
- */
-export type Extension<P = ApplyPlugin, O = unknown> =
-  | Module<O>
-  | CompilerPlugin<P, O>
-
-/**
  * Apply plugin interface
  *
  * @remarks
@@ -36,8 +24,31 @@ export type Extension<P = ApplyPlugin, O = unknown> =
  *
  * @public
  */
-export interface ApplyPlugin extends Loose {
-  apply(...args: any[]): unknown
+export interface CompilerPlugin<
+  Plugin = any,
+  Options = Record<string, any>,
+> extends Module {
+  /**
+   * Either a function returning a finalized {@link ApplyPlugin} or a literal {@link ApplyPlugin}.
+   *
+   * @remarks
+   * If a factory is implemented, it will be passed a {@link Container} instance holding
+   * the {@link Module.options} (if any) as well as the {@link Framework} instance.
+   *
+   * @public
+   */
+  make?: Maybe<[Container<Options>, Framework], Plugin>
+
+  /**
+   * Compiler plugin `apply` method
+   *
+   * @remarks
+   * This function makes the {@link @roots/bud-framework#Extension.Module} interoperable with
+   * the Webpack plugin interface
+   *
+   * @public
+   */
+  apply?: CallableFunction
 }
 
-export {CompilerPlugin, Controller, Module}
+export {Module}

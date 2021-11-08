@@ -1,4 +1,3 @@
-import {Tapable} from '../'
 import {Framework} from './'
 
 /**
@@ -7,7 +6,10 @@ import {Framework} from './'
  * @internal
  */
 export interface make {
-  (name: string, tap?: Tapable): Framework
+  (
+    name: string,
+    tap?: (app: Framework) => any,
+  ): Promise<Framework>
 }
 
 /**
@@ -16,7 +18,7 @@ export interface make {
  * @internal
  */
 function handleChildNestingError(this: Framework) {
-  !this.isParent &&
+  !this.isRoot &&
     this.error(
       `\`${this.name}\` is a child compiler but you tried to call make from it. Try \`${this.name}.parent.make\` instead.`,
       `${this.name}.make`,
@@ -39,28 +41,28 @@ function handleChildNestingError(this: Framework) {
  *
  * @public
  */
-export function make(name: string, tap?: Tapable): Framework {
-  handleChildNestingError.bind(this)()
-  this.info(`Making child compiler: ${name}`)
+export async function make(
+  name: string,
+  tap?: (app: Framework) => any,
+): Promise<Framework> {
+  const ctx = this as Framework
 
-  /**
-   * Instantiate a new instance
-   */
-  this.children.set(
+  handleChildNestingError.bind(ctx)()
+  ctx.logger.instance.fav(`new instance:`, name)
+
+  const instance = new ctx.implementation({
     name,
-    new this.implementation({
-      name,
-      parent: this,
-    }).bootstrap(),
-  )
+    childOf: this,
+    config: ctx.options.config,
+    mode: ctx.options.mode,
+    services: ctx.options.services,
+  })
 
-  /**
-   * Tap, if applicable
-   */
-  tap && this.get(name, tap)
+  await instance.lifecycle()
 
-  /**
-   * Return Framework
-   */
-  return this
+  if (tap) await tap(instance)
+
+  ctx.children.set(name, instance)
+
+  return ctx
 }

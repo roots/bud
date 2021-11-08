@@ -35,7 +35,7 @@ import * as Rule from '../Rule'
  * Filter the Webpack configuration.entry value
  *
  * ```js
- * bud.hooks.filter('build/entry')
+ * bud.hooks.filter('build.entry')
  * ```
  *
  * @public @core @container

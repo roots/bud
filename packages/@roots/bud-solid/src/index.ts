@@ -36,7 +36,10 @@ const BudSolidExtension: BudSolidExtension = {
         'babel-preset-solid is required by @roots/bud-solid-js but is not resolvable.',
       )
 
-    babel.setPreset('babel-preset-solid')
+    babel.setPreset(
+      'babel-preset-solid',
+      require.resolve('babel-preset-solid'),
+    )
   },
 }
 
