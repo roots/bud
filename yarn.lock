@@ -3695,7 +3695,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": 16.11.4
     postcss: 8.3.11
-    postcss-scss: 4.0.1
+    postcss-scss: 4.0.2
     resolve-cwd: 3.0.0
     sass-loader: 12.2.0
     tslib: 2.3.1
@@ -20250,12 +20250,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:4.0.1":
-  version: 4.0.1
-  resolution: "postcss-scss@npm:4.0.1"
+"postcss-scss@npm:4.0.2":
+  version: 4.0.2
+  resolution: "postcss-scss@npm:4.0.2"
   peerDependencies:
     postcss: ^8.3.3
-  checksum: af85bdd4af17344703c9d1404e96295c5d25683bd0356ea1ddc0ce2fe9d893dd88808143376c13ebacb61b549333afc4c7d88967f383f84936f3052ce2cf0d9c
+  checksum: b6506c1d9bc86f056e34c537447a35d2a90bc9f6afcffea9c5a8bf265334234592150c862351db9334e9b9109209ada023783ce22e56ca51221c1106591423d4
   languageName: node
   linkType: hard
 
