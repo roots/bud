@@ -66,7 +66,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.176",
-    "@types/node": "16.11.4",
+    "@types/node": "16.11.6",
     "jest": "27.3.1"
   },
   "dependencies": {
