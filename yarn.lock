@@ -4169,7 +4169,7 @@ __metadata:
   dependencies:
     "@types/jest": 27.0.2
     "@types/node": 16.11.4
-    "@yarnpkg/builder": 3.1.0-rc.10
+    "@yarnpkg/builder": 3.1.0
     "@yarnpkg/cli": 3.1.0-rc.12
     "@yarnpkg/core": 3.1.0-rc.13
     "@yarnpkg/shell": 3.1.0-rc.9
@@ -5830,16 +5830,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/builder@npm:3.1.0-rc.10":
-  version: 3.1.0-rc.10
-  resolution: "@yarnpkg/builder@npm:3.1.0-rc.10"
+"@yarnpkg/builder@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@yarnpkg/builder@npm:3.1.0"
   dependencies:
     "@babel/core": ^7.10.2
-    "@yarnpkg/cli": ^3.1.0-rc.13
-    "@yarnpkg/core": ^3.1.0-rc.14
-    "@yarnpkg/esbuild-plugin-pnp": ^2.0.0-rc.6
-    "@yarnpkg/fslib": ^2.6.0-rc.13
-    "@yarnpkg/pnpify": ^3.1.0-rc.3
+    "@yarnpkg/cli": ^3.1.0
+    "@yarnpkg/core": ^3.1.0
+    "@yarnpkg/esbuild-plugin-pnp": ^2.0.0
+    "@yarnpkg/fslib": ^2.6.0
+    "@yarnpkg/pnpify": ^3.1.0
     babel-loader: ^8.1.0
     chalk: ^3.0.0
     clipanion: ^3.0.1
@@ -5857,7 +5857,7 @@ __metadata:
     typescript: "*"
   bin:
     builder: ./lib/cli.js
-  checksum: 8da6934b37870ae9bb2b56c02ab34866a6790b1957c166f7237d60f04a6c416afea3294bf6ed1e40ad842c02531dda3c9816b02465df78a1962358da271b5f3c
+  checksum: fe0da261f505a307c41c88d72ed27693607901338bbdc94295244367d40f5bc4a4cad7202263d9acbcb2e4d842df69e7d0596b2106543a68d53b262ba267caa8
   languageName: node
   linkType: hard
 
@@ -5899,7 +5899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:^3.1.0-rc.13":
+"@yarnpkg/cli@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/cli@npm:3.1.0"
   dependencies:
@@ -5978,7 +5978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.1.0, @yarnpkg/core@npm:^3.1.0-rc.13, @yarnpkg/core@npm:^3.1.0-rc.14":
+"@yarnpkg/core@npm:^3.1.0, @yarnpkg/core@npm:^3.1.0-rc.13":
   version: 3.1.0
   resolution: "@yarnpkg/core@npm:3.1.0"
   dependencies:
@@ -6019,7 +6019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/esbuild-plugin-pnp@npm:^2.0.0-rc.6":
+"@yarnpkg/esbuild-plugin-pnp@npm:^2.0.0":
   version: 2.0.0
   resolution: "@yarnpkg/esbuild-plugin-pnp@npm:2.0.0"
   dependencies:
@@ -6030,7 +6030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.6.0, @yarnpkg/fslib@npm:^2.6.0-rc.12, @yarnpkg/fslib@npm:^2.6.0-rc.13":
+"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.6.0, @yarnpkg/fslib@npm:^2.6.0-rc.12":
   version: 2.6.0
   resolution: "@yarnpkg/fslib@npm:2.6.0"
   dependencies:
@@ -6357,7 +6357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnpify@npm:^3.1.0-rc.3":
+"@yarnpkg/pnpify@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/pnpify@npm:3.1.0"
   dependencies:
@@ -7831,7 +7831,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.1.0
     "@typescript-eslint/parser": 5.1.0
     "@vercel/ncc": 0.31.1
-    "@yarnpkg/builder": 3.1.0-rc.10
+    "@yarnpkg/builder": 3.1.0
     chalk: 4.1.2
     codecov: 3.8.3
     dotenv: 10.0.0
