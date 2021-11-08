@@ -67,7 +67,7 @@
     "@types/lodash": "4.14.176",
     "@types/mini-css-extract-plugin": "2.4.0",
     "@types/node": "16.11.4",
-    "@types/svgo": "^2",
+    "@types/svgo": "2.6.0",
     "jest": "27.3.1",
     "remark": "14.0.1",
     "webpack": "5.59.1"
