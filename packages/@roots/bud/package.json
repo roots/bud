@@ -85,7 +85,7 @@
     "@oclif/dev-cli": "1.26.0",
     "@oclif/test": "1.2.8",
     "@types/mini-css-extract-plugin": "2.4.0",
-    "@types/node": "16.11.6"
+    "@types/node": "16.11.7"
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",

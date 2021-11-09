@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/node": "16.11.6",
+    "@types/node": "16.11.7",
     "autobind-decorator": "2.4.0",
     "fs-extra": "10.0.0",
     "globby": "11.0.4",
