@@ -2751,9 +2751,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:7.13.67":
-  version: 7.13.67
-  resolution: "@microsoft/api-documenter@npm:7.13.67"
+"@microsoft/api-documenter@npm:7.13.68":
+  version: 7.13.68
+  resolution: "@microsoft/api-documenter@npm:7.13.68"
   dependencies:
     "@microsoft/api-extractor-model": 7.13.16
     "@microsoft/tsdoc": 0.13.2
@@ -2764,7 +2764,7 @@ __metadata:
     resolve: ~1.17.0
   bin:
     api-documenter: bin/api-documenter
-  checksum: 31ab6ebb7ec36a4f22fa4e411865216dfdd624d53d6698d6656798a47d3a40e3d221c5c84414af510332fa0c0bc44477f8f5f1ff80c0a473bb2fd5e935ef536a
+  checksum: e0e5a6710a4add129021457c4eff53d17faf299309e3da09f497065ad4ee25018597c44b2fbee43b3415a07a838fc22a0f6a4d91c22d4a5dd4b6f0c1a569e96a
   languageName: node
   linkType: hard
 
@@ -3908,7 +3908,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": 7.13.67
+    "@microsoft/api-documenter": 7.13.68
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": 1.26.0
@@ -7578,7 +7578,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": 7.13.67
+    "@microsoft/api-documenter": 7.13.68
     "@microsoft/api-extractor": 7.18.19
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
