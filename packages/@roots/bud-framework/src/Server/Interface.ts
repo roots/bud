@@ -1,12 +1,6 @@
-import {Container} from '@roots/container'
-
 import {Service} from '..'
-import {
-  Application,
-  Configuration,
-  Instance,
-  Middleware,
-} from '.'
+import {Configuration} from '../Configuration'
+import {Application, Instance, Middleware} from '.'
 
 /**
  * Server service interface
@@ -20,6 +14,16 @@ export default interface Interface extends Service {
    * @public
    */
   application: Application
+
+  /**
+   * Server configuration
+   *
+   * @remarks
+   * Aliases for `store.config.repository.server`
+   *
+   * @public
+   */
+  config: Configuration['server']
 
   /**
    * Server instance
@@ -41,13 +45,6 @@ export default interface Interface extends Service {
    * @public
    */
   assets: string[]
-
-  /**
-   * Server configuration
-   *
-   * @public @container
-   */
-  config: Container<Configuration>
 
   /**
    * Has files to watch and watch is enabled

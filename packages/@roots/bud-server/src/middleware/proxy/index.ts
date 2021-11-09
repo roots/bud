@@ -1,33 +1,23 @@
 import zlib from 'zlib'
 
 import {createProxyMiddleware} from './proxy.dependencies'
-import type {
-  Container,
-  Framework,
-  ProxyMiddleware,
-  Server,
-} from './proxy.interface'
+import type {Framework, ProxyMiddleware} from './proxy.interface'
 
 /**
  * Proxy middleware factory
  *
  * @public
  */
-export default function proxy({
-  config,
-}: {
-  this: Framework
-  config: Container<Server.Configuration>
-}) {
-  const port = config.is('port', 8080)
+export default function proxy(app: Framework) {
+  const port = app.store.is('server.port', 8080)
     ? null
-    : config.get('port')
+    : app.store.get('server.port')
 
   const dev = port
-    ? config.get('host').concat(`:`, port)
-    : config.get('host')
+    ? app.store.get('server.host').concat(`:`, port)
+    : app.store.get('server.host')
 
-  const target = config.get('proxy.target')
+  const target = app.store.get('server.proxy.target')
 
   // Headers
   const headers = {

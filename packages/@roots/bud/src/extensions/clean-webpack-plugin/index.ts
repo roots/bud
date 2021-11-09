@@ -14,7 +14,7 @@ const BudCleanWebpackPlugin: Extension = {
   make: (options: Container<Options>) =>
     new Plugin(options.all()),
 
-  when: ({store}) => store.isTrue('clean'),
+  when: ({store}) => store.is('clean', true),
 }
 
 const {name, options, when, make} = BudCleanWebpackPlugin

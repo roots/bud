@@ -13,6 +13,5 @@ export class Server extends Base {
    */
   public async register({container, store}): Promise<void> {
     this.application = Application()
-    this.config = container(store.get('server'))
   }
 }

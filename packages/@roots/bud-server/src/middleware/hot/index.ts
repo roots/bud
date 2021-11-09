@@ -1,10 +1,5 @@
 import {WebpackHotMiddleware} from './hot.dependencies'
-import type {
-  Container,
-  Framework,
-  Server,
-  Webpack,
-} from './hot.interface'
+import type {Framework, Server} from './hot.interface'
 
 /**
  * Hot middleware options
@@ -12,7 +7,7 @@ import type {
  * @public
  */
 const options: (
-  config: Container<Server.Configuration>,
+  config: Server.Configuration,
 ) => WebpackHotMiddleware.MiddlewareOptions = config => ({
   path: `/__webpack_hmr`,
   heartbeat: 10 * 1000,
@@ -23,14 +18,10 @@ const options: (
  *
  * @public
  */
-export default function hot({
-  config,
-  compiler,
-}: {
-  this: Framework
-  config: Container<Server.Configuration>
-  compiler: Webpack.Compiler | Webpack.MultiCompiler
-}) {
+export default function hot(app: Framework) {
   this.log('hot middleware options', options)
-  return WebpackHotMiddleware(compiler, options(config))
+  return WebpackHotMiddleware(
+    app.compiler.instance,
+    options(app.store.get('server')),
+  )
 }

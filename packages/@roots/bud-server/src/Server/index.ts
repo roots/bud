@@ -1,19 +1,19 @@
-import {Server, Service} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 import {bind, chokidar, globby} from './server.dependencies'
-import type {Container, Watcher} from './server.interface'
+import type {Watcher} from './server.interface'
 
 /**
  * Server service class
  *
  * @public
  */
-export default class
-  extends Service<Server.Configuration>
-  implements Server.Interface
+export class Server
+  extends Framework.Service
+  implements Framework.Server.Interface
 {
   /**
    * @internal @readonly
@@ -27,28 +27,25 @@ export default class
    *
    * @public
    */
-  public application: Server.Application
+  public application: Framework.Server.Application
+
+  public get config(): Framework.Server.Configuration {
+    return this.app.store.get('server')
+  }
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface."instance"}
    *
    * @public
    */
-  public instance: Server.Instance
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.config}
-   *
-   * @public
-   */
-  public config: Container<Server.Configuration>
+  public instance: Framework.Server.Instance
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.middleware}
    *
    * @public
    */
-  public middleware: Server.Middleware = {}
+  public middleware: Framework.Server.Middleware = {}
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
@@ -86,7 +83,8 @@ export default class
    */
   @bind
   public getWatchedFilesArray(): string[] {
-    const [files, options] = this.config.getValues('watch')
+    const [files, options] =
+      this.app.store.getValues('server.watch')
 
     return files?.length > 0
       ? (globby.globbySync(
@@ -107,13 +105,10 @@ export default class
   @bind
   public processMiddlewares() {
     Object.entries(middleware).map(([key, generate]) => {
-      if (this.config.isTrue(`middleware.${key}`)) {
+      if (this.app.store.isTrue(`server.middleware.${key}`)) {
         this.app.log(`Enabling middleware: ${key}`)
 
-        const configuredMiddleware = generate.bind(this.app)({
-          config: this.config,
-          compiler: this.app.compiler.instance,
-        })
+        const configuredMiddleware = generate(this.app)
 
         this.app.log(`configured middleware: ${key}`)
 
@@ -140,7 +135,7 @@ export default class
       .get((_req, res) => {
         res.send({
           ...this.app.store.all(),
-          ...this.config.all(),
+          ...this.app.store.get('server'),
         })
 
         res.end()
@@ -152,11 +147,11 @@ export default class
      * Listen
      */
     this.instance = this.application.listen(
-      this.config.get('port'),
+      this.app.store.get('server.port'),
       () => {
         this.app.log(
           `Server listening on %s`,
-          this.config.get('port'),
+          this.app.store.get('server.port'),
         )
       },
     )

@@ -11,7 +11,7 @@ describe.skip('bud.serve', function () {
 
   it('sets host', () => {
     bud.serve({host: 'bar.com'})
-    expect(bud.server.config.get('host')).toEqual('bar.com')
+    expect(bud.store.get('server.host')).toEqual('bar.com')
   })
 
   it('sets proxy', () => {
@@ -24,7 +24,7 @@ describe.skip('bud.serve', function () {
       },
     })
 
-    expect(bud.server.config.get('proxy.target')).toEqual({
+    expect(bud.store.get('server.proxy.target')).toEqual({
       host: 'bar.com',
       port: 9000,
     })

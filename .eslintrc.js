@@ -56,4 +56,12 @@ module.exports = {
     'simple-import-sort/imports': ERROR,
     'tsdoc/syntax': WARN,
   },
+  overrides: [
+    {
+      files: ['examples/**/*.js'],
+      rules: {
+        'tsdoc/syntax': 'off',
+      },
+    },
+  ],
 }

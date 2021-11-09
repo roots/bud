@@ -4,16 +4,19 @@ import {
   isUndefined,
   WebpackDevMiddleware,
 } from './dev.dependencies'
-import type {Container, DevProps, Server} from './dev.interface'
+import type {Framework} from './dev.interface'
 
 /**
  * Dev middleware factory
  *
  * @public
  */
-export default function dev({compiler, config}: DevProps) {
-  const options = makeOptions(config)
-  return WebpackDevMiddleware(compiler as any, options)
+export default function dev(app: Framework) {
+  const options = makeOptions(app)
+  return WebpackDevMiddleware(
+    app.compiler.instance as any,
+    options,
+  )
 }
 
 /**
@@ -22,16 +25,19 @@ export default function dev({compiler, config}: DevProps) {
  * @public
  */
 const makeOptions = (
-  config: Container<Server.Configuration>,
+  app: Framework,
 ): WebpackDevMiddleware.Options => ({
   writeToDisk: true,
   index: 'index.html',
   ...Object.fromEntries(
-    config
-      .mutate('headers', (headers: Record<string, string>) => ({
-        ...headers,
-        ['X-Server']: '@roots/bud',
-      }))
+    app.store
+      .mutate(
+        'server.headers',
+        (headers: Record<string, string>) => ({
+          ...headers,
+          ['X-Server']: '@roots/bud',
+        }),
+      )
       .getEntries()
       .filter(
         ([key, option]: [string, unknown]) =>

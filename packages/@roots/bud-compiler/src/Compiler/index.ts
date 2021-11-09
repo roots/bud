@@ -195,13 +195,14 @@ export class Compiler extends Service implements Contract {
       this.stats = stats.toJson(
         this.app.build.config.stats ?? {preset: 'normal'},
       )
-      this.app.store.is('ci', true) &&
+      this.app.store.is('dashboard', true) &&
         this.app.log(stats.toString())
     }
 
     if (err) {
       this.stats.errors.push(err)
-      this.app.store.is('ci', true) && this.log('error', err)
+      this.app.store.is('dashboard', true) &&
+        this.log('error', err)
     }
   }
 }

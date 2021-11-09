@@ -217,9 +217,8 @@ export function config(app: Framework): void {
       ...new Set([
         app.hooks.filter('location.src'),
         app.hooks.filter('location.modules'),
-        ...(app.project?.get('resolve') ??
-          app.parent?.project.get('resolve') ??
-          []),
+        ...(app.project?.get('resolve') ?? []),
+        ...(app.root?.project.get('resolve') ?? []),
       ]),
     ])
 

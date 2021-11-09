@@ -80,10 +80,7 @@ export abstract class Framework {
    *
    * @defaultValue null
    */
-  public root: Framework | null = null
-  public get parent(): Framework {
-    return this.root
-  }
+  public root: Framework | null = this
 
   /**
    * True when current instance is the parent instance
@@ -238,7 +235,13 @@ export abstract class Framework {
    *
    * @public
    */
-  public server: Server.Interface
+  public _server: Server.Interface
+  public get server(): Server.Interface {
+    return this.root._server
+  }
+  public set server(server: Server.Interface) {
+    this.root._server = server
+  }
 
   /**
    * Container service for holding configuration values

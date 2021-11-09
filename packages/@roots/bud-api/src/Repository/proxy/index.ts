@@ -42,12 +42,12 @@ export interface proxy {
 export const proxy: proxy = function (options = undefined) {
   const ctx = this as Framework
 
-  if (!ctx.root.server) return this
+  if (!ctx.server) return this
   if (typeof options === 'undefined') return this
 
   if (options === false)
-    ctx.root.server.config.set('middleware.proxy', false)
-  else ctx.root.server.config.merge('proxy', options)
+    ctx.store.set('server.middleware.proxy', false)
+  else ctx.store.merge('server.proxy', options)
 
   return this
 }

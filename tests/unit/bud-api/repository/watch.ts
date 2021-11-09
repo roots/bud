@@ -10,7 +10,7 @@ describe.skip('bud.watch', function () {
       mode: 'development',
     })
 
-    serverConfig = {...bud.server.config.all()}
+    serverConfig = {...bud.store.get('server')}
   })
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe.skip('bud.watch', function () {
 
     bud.watch(files)
 
-    expect(bud.server.config.all()).toMatchSnapshot({
+    expect(bud.store.get('server')).toMatchSnapshot({
       ...serverConfig,
       watch: {
         ...serverConfig.watch,

@@ -14,7 +14,7 @@ describe('@roots/bud-server', function () {
   })
 
   it('has expected defaults', () => {
-    expect(bud.server.config.all()).toMatchSnapshot({
+    expect(bud.store.get('server')).toMatchSnapshot({
       browser: {
         indicator: true,
         log: true,
@@ -38,11 +38,9 @@ describe('@roots/bud-server', function () {
   })
 
   it('is modifiable', () => {
-    expect(bud.server.config.get('browser.indicator')).toBe(true)
-    bud.server.config.set('browser.indicator', false)
-    expect(bud.server.config.get('browser.indicator')).toBe(
-      false,
-    )
+    expect(bud.store.get('server.browser.indicator')).toBe(true)
+    bud.store.set('server.browser.indicator', false)
+    expect(bud.store.get('server.browser.indicator')).toBe(false)
   })
 
   it('has run method', () => {

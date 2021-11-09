@@ -4,6 +4,8 @@
 const chalk = require('chalk')
 const fs = require('fs-extra')
 const execa = require('execa')
+
+const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
 // const clearArtifacts = require('./clearArtifacts')
@@ -28,6 +30,7 @@ const task = async (cmd, paths) => {
         })
         .finally(() => {
           const killed = task.kill()
+
           killed &&
             console.log(`${ex.name} yarn bud ${cmd} killed`)
         })
@@ -38,12 +41,9 @@ const task = async (cmd, paths) => {
 }
 
 module.exports = async () => {
-  // await clearArtifacts()
+  await clearArtifacts()
 
   const examples = await paths()
 
-  // await task('init', examples)
   await task('build', examples)
-
-  global.examples = examples
 }

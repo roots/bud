@@ -6,31 +6,18 @@ const OPTIONS = {onlyDirectories: true}
 
 module.exports = async () => {
   const caches = await globby(
-    `${process.cwd()}/examples/*/.budfiles`,
+    path.join(process.cwd(), 'examples/*/.budfiles'),
     OPTIONS,
   )
 
   const sageCache = await globby(
-    `${process.cwd()}/examples/*/resources/storage/bud/`,
+    path.join(process.cwd(), 'examples/*/resources/storage'),
     OPTIONS,
   )
 
   const dists = await globby(
-    `${process.cwd()}/examples/*/dist`,
+    path.join(process.cwd(), 'examples/*/dist'),
     OPTIONS,
-  )
-
-  const manifests = await globby(
-    path.join(process.cwd(), 'examples', '*', 'package.json'),
-  )
-  await Promise.all(
-    manifests.map(async manifestPath => {
-      const manifest = await fs.readFile(manifestPath, 'utf8')
-      await fs.writeFile(
-        manifestPath.replace('.json', '.bkup.json'),
-        manifest,
-      )
-    }),
   )
 
   await Promise.all(
