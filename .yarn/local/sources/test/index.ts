@@ -10,20 +10,16 @@ export class TestCommand extends Command {
   public integration = Option.Boolean(`-i,--integration`, false)
 
   async execute() {
-    let all = false
-
     if (!this.unit && !this.integration) {
-      await this.$(
+      return await this.$(
         `yarn jest --verbose --maxWorkers=${this.workers} ${
           this.update ? `--updateSnapshot` : `--coverage`
         }`,
       )
-
-      return
     }
 
     if (this.unit) {
-      await this.$(
+      return await this.$(
         `yarn jest --projects dev/jest/jest.unit.js --verbose --maxWorkers=${
           this.workers
         } ${this.update ? `--updateSnapshot` : `--coverage`}`,
@@ -31,7 +27,7 @@ export class TestCommand extends Command {
     }
 
     if (this.integration) {
-      await this.$(
+      return await this.$(
         `yarn jest --projects dev/jest/jest.integration.js --verbose --maxWorkers=${
           this.workers
         } ${this.update ? `--updateSnapshot` : `--coverage`}`,

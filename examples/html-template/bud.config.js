@@ -5,7 +5,7 @@
  *
  * @param {Bud} app
  */
-module.exports = app =>
+module.exports = async app =>
   app
     .template({
       template: app.path('project', 'public/index.html'),

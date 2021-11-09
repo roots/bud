@@ -11,8 +11,8 @@
  * JavaScript:
  *
  * ```js
- * module exports = bud => {
- *  bud.use(require('@roots/bud-react'));
+ * module exports = async bud => {
+ *  await bud.use(require('@roots/bud-react'));
  * }
  * ```
  *

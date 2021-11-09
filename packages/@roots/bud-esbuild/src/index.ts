@@ -77,7 +77,11 @@ const esbuild: Extension.Module = {
       require.resolve('esbuild-loader'),
     )
 
-    features.forEach(feature => extensions.add(feature))
+    Promise.all(
+      features.map(
+        async feature => await extensions.add(feature),
+      ),
+    )
 
     hooks.on('build.optimization.minimizer', () => [
       new ESBuildMinifyPlugin(

@@ -5,4 +5,5 @@
  *
  * @param {Bud} app
  */
-module.exports = app => app.template().entry('app', 'app.js')
+module.exports = async app =>
+  app.template().entry('app', 'app.js')

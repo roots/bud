@@ -2,18 +2,16 @@ import {Framework} from '@roots/bud-framework'
 
 import * as BudTypeCheckPlugin from './BudTypeCheckPlugin'
 
-interface typecheck {
+export interface typecheck {
   (this: Framework, enabled?: boolean): Framework
 }
 
-const typecheck: typecheck = function (enabled = true) {
+export const typecheck: typecheck = function (enabled = true) {
   !enabled &&
     this.extensions.has('fork-ts-checker-plugin') &&
     this.extensions.remove('fork-ts-checker-plugin')
 
-  this.extensions.add(BudTypeCheckPlugin)
+  this.extensions.enqueue(BudTypeCheckPlugin)
 
   return this
 }
-
-export {typecheck}

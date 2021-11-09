@@ -15,6 +15,8 @@ export class Extensions
   extends Framework.Service
   implements Framework.Extensions
 {
+  public queue = []
+
   public repository = {}
 
   /**
@@ -95,12 +97,18 @@ export class Extensions
     this.log('timeEnd', 'injecting project extensions')
   }
 
+  /**
+   * @public
+   */
   @bind
-  public async booted(_app: Framework.Framework): Promise<void> {
+  public async booted(): Promise<void> {
     await this.registerExtensions()
     await this.bootExtensions()
   }
 
+  /**
+   * @public
+   */
   @bind
   public async registerExtension(key: string): Promise<void> {
     try {
@@ -113,6 +121,9 @@ export class Extensions
     }
   }
 
+  /**
+   * @public
+   */
   @bind
   public async bootExtension(key: string): Promise<void> {
     try {
@@ -145,6 +156,31 @@ export class Extensions
   }
 
   /**
+   * Queue an extension to be added to the container before the build process.
+   *
+   * @remarks
+   * Useful for extensions which cannot be added in an awaitable context (like a user config)
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public enqueue(extension: Framework.Extension.Module): void {
+    if (
+      this.has(extension.name) ||
+      this.queue.some(queued => queued.name === extension.name)
+    ) {
+      this.log(
+        'warn',
+        `${extension.name} already added. skipping.`,
+      )
+      return
+    }
+
+    this.queue.push(extension)
+  }
+
+  /**
    * Add a {@link Controller} to the container
    *
    * @public
@@ -164,8 +200,10 @@ export class Extensions
 
     const controller = await this.makeController(extension)
     this.log('await', '[1/3]', controller.name, 'instantiated')
+
     await controller.register()
     this.log('await', '[2/3]', controller.name, 'registered')
+
     await controller.boot()
     this.log('await', '[3/3]', controller.name, 'booted')
 
@@ -176,6 +214,51 @@ export class Extensions
       controller.name,
       'added to extensions container',
     )
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async processQueue(): Promise<void> {
+    if (!this.queue.length) return
+
+    this.queue = await Promise.all(
+      this.queue.map(async extension => {
+        this.log(
+          'await',
+          '[1/3]',
+          extension.name,
+          'instantiated',
+        )
+        return await this.makeController(extension)
+      }),
+    )
+
+    this.queue = await Promise.all(
+      this.queue.map(async controller => {
+        this.log('await', '[2/3]', controller.name, 'registered')
+        return await controller.register()
+      }),
+    )
+
+    this.queue = await Promise.all(
+      this.queue.map(async controller => {
+        this.log('await', '[3/3]', controller.name, 'booted')
+        return await controller.boot()
+      }),
+    )
+
+    this.queue.map(controller => {
+      this.set(controller.name, controller)
+      this.log(
+        'success',
+        controller.name,
+        `added to the extensions container`,
+      )
+    })
+
+    this.queue = []
   }
 
   /**

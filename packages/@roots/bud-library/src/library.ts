@@ -25,14 +25,12 @@ import {BudDllPluginConstructor} from './BudDllPlugin'
  *
  * @public @config @extension
  */
-interface library {
+export interface library {
   (this: Framework, modules: string | string[]): Framework
 }
 
-const library: library = function (modules) {
-  this.extensions.add(BudDllPluginConstructor(modules))
+export const library: library = function (modules) {
+  this.extensions.enqueue(BudDllPluginConstructor(modules))
 
   return this
 }
-
-export {library}

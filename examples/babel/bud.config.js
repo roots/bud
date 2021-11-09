@@ -8,7 +8,7 @@
 /**
  * @param {Bud} app
  */
-module.exports = app => {
+module.exports = async app => {
   app.babel
     .setPresets({
       '@babel/preset-env': require.resolve('@babel/preset-env'),

@@ -1,4 +1,4 @@
-module.exports = app =>
+module.exports = async app =>
   app
     .entry({
       app: ['app.js', 'app.css'],

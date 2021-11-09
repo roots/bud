@@ -17,6 +17,8 @@ export const config = async (app: Bud) => {
     }
   }
 
+  await app.extensions.processQueue()
+
   if (
     app.project.isFunction('configs.dynamic.conditional.config')
   ) {
@@ -32,4 +34,6 @@ export const config = async (app: Bud) => {
       await config(app)
     }
   }
+
+  await app.extensions.processQueue()
 }

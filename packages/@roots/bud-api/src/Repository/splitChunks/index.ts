@@ -8,7 +8,6 @@ const {isUndefined} = lodash
 
 export interface splitChunks {
   (
-    this: Framework,
     options?: Configuration['optimization']['splitChunks'],
   ): Framework
 }
@@ -28,23 +27,25 @@ export interface splitChunks {
 export const splitChunks: splitChunks = function (
   options?: Configuration['optimization']['splitChunks'],
 ) {
+  const ctx = this as Framework
+
   if (isUndefined(options) || options === true) {
-    this.hooks.on(
+    ctx.hooks.on(
       'build.optimization.splitChunks',
       () => splitChunksDefault,
     )
-    return this
+    return ctx
   }
 
   if (options === false) {
-    this.hooks.on(
+    ctx.hooks.on(
       'build.optimization.splitChunks',
       () => undefined,
     )
-    return this
+    return ctx
   }
 
-  this.hooks.on('build.optimization.splitChunks', () => options)
+  ctx.hooks.on('build.optimization.splitChunks', () => options)
 
-  return this
+  return ctx
 }

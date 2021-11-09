@@ -12,11 +12,10 @@ interface BudCompressionExtension
 const name: BudCompressionExtension['name'] =
   '@roots/bud-compress'
 
-const boot: BudCompressionExtension['boot'] = function boot({
-  use,
-}: Framework): any {
-  use([BudBrotliWebpackPlugin, BudGzipWebpackPlugin])
-}
+const boot: BudCompressionExtension['boot'] =
+  async function boot({use}: Framework): Promise<void> {
+    await use([BudBrotliWebpackPlugin, BudGzipWebpackPlugin])
+  }
 
 const BudCompressionExtension: BudCompressionExtension = {
   name,

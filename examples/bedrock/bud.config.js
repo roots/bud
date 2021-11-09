@@ -5,7 +5,7 @@ const path = require('path')
  *
  * @param {Bud} bud
  */
-module.exports = bud => {
+module.exports = async bud => {
   bud
     .setPath({
       project: path.resolve('web/app/themes/sage'),

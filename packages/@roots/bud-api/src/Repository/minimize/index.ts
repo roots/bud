@@ -13,11 +13,7 @@ import {Framework} from './minimize.interface'
  * @public @config
  */
 export interface minimize {
-  (
-    this: Framework,
-    enabled?: boolean,
-    options?: {css: any},
-  ): Framework
+  (enabled?: boolean, options?: {css: any}): Framework
 }
 
 /**
@@ -50,11 +46,13 @@ export const minimize: minimize = function (
   enabled = true,
   options?: {css: any},
 ) {
+  const ctx = this as Framework
+
   enabled = enabled !== false
 
-  this.hooks.on('build.optimization.minimize', () => enabled)
+  ctx.hooks.on('build.optimization.minimize', () => enabled)
 
-  this.hooks.on(
+  ctx.hooks.on(
     'build.optimization.minimizer',
     (minimizer: any[]) => {
       minimizer.push(
@@ -69,5 +67,5 @@ export const minimize: minimize = function (
     },
   )
 
-  return this
+  return ctx
 }

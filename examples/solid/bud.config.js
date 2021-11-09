@@ -1,1 +1,2 @@
-module.exports = app => app.template().entry({app: '*.{js,css}'})
+module.exports = async app =>
+  app.template().entry({app: '*.{js,css}'})

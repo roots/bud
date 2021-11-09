@@ -5,7 +5,7 @@ import type {Sage as Preset} from './sage.interface'
  *
  * @example
  * ```ts
- * app.use(require('@roots/sage')
+ * await app.use(require('@roots/sage')
  * ```
  *
  * @public @config
