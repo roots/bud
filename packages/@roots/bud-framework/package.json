@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.176",
-    "@types/node": "16.11.6",
+    "@types/node": "16.11.7",
     "ink": "3.2.0",
     "webpack": "5.62.1"
   },
