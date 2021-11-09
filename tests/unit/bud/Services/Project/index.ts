@@ -2,7 +2,7 @@ import {config, factory, Framework} from '@roots/bud'
 import {Peers} from '@roots/bud/src/services/Project/peers/peers.service'
 import {readJson} from 'fs-extra'
 
-describe('bud.project', function () {
+describe.skip('bud.project', function () {
   let bud: Framework
   let json: any
 
