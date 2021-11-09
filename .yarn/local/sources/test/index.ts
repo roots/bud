@@ -11,7 +11,16 @@ export class TestCommand extends Command {
 
   async execute() {
     let all = false
-    if (!this.unit && !this.integration) all = true
+
+    if (!this.unit && !this.integration) {
+      await this.$(
+        `yarn jest --verbose --maxWorkers=${this.workers} ${
+          this.update ? `--updateSnapshot` : `--coverage`
+        }`,
+      )
+
+      return
+    }
 
     if (this.unit) {
       await this.$(
@@ -24,14 +33,6 @@ export class TestCommand extends Command {
     if (this.integration) {
       await this.$(
         `yarn jest --projects dev/jest/jest.integration.js --verbose --maxWorkers=${
-          this.workers
-        } ${this.update ? `--updateSnapshot` : `--coverage`}`,
-      )
-    }
-
-    if (all) {
-      await this.$(
-        `yarn jest --projects dev/jest/jest.all.js --verbose --maxWorkers=${
           this.workers
         } ${this.update ? `--updateSnapshot` : `--coverage`}`,
       )

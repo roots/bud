@@ -19,7 +19,7 @@ module.exports = async function config() {
     coverageReporters: ['lcov', 'text', 'text-summary'],
     globals: {
       'ts-jest': {
-        tsconfig: '<rootDir>/tsconfig.jest.json',
+        tsconfig: '<rootDir>/dev/jest/tsconfig.jest.json',
         compiler: 'typescript',
       },
     },

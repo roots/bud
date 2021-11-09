@@ -7,6 +7,7 @@ export const config = async (app: Bud) => {
     const config = app.project.get(
       'configs.dynamic.global.config',
     )
+
     if (isFunction(config)) {
       app.info(
         `Running ${app.name} global configuration callback`,
@@ -22,6 +23,7 @@ export const config = async (app: Bud) => {
     const config = app.project.get(
       'configs.dynamic.conditional.config',
     )
+
     if (isFunction(config)) {
       app.info(
         `Running ${app.name} ${app.mode} configuration callback`,
