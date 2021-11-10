@@ -34,6 +34,8 @@ export class EslintConfig {
    */
   @bind
   public config(userOptions: Options): Framework {
+    this.app.info('modifying eslint user configuration')
+
     this.app.extensions
       .get('eslint-webpack-plugin')
       .options.setStore(userOptions)

@@ -30,6 +30,7 @@ module.exports = async app => {
     )
     .template()
     .entry('app', '*.{js,css}')
-    .splitChunks()
-    .minimize()
+    .when(app.isProduction, app => {
+      app.splitChunks().minimize().runtime('single')
+    })
 }

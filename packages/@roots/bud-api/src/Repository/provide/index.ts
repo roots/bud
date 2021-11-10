@@ -5,7 +5,7 @@ import type {Framework} from '@roots/bud-framework'
  *
  * @public @config
  */
-interface provide {
+export interface provide {
   (packages?: Record<string, Array<string>>): Framework
 }
 
@@ -22,7 +22,7 @@ interface provide {
  *
  * @public @config
  */
-const provide: provide = function (
+export const provide: provide = function (
   packages: Record<string, Array<string>>,
 ) {
   const ctx = this as Framework
@@ -37,5 +37,3 @@ const provide: provide = function (
 
   return ctx
 }
-
-export {provide as default}

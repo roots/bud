@@ -31,9 +31,10 @@ export const injectClient: InjectClient = (app, injection) => {
         }),
   })
 
-  app.hooks.on('build.entry', addScript)
+  !app.root.hasChildren &&
+    app.root.hooks.on('build.entry', addScript)
 
-  app.children.every((_name: string, child: Framework) => {
+  app.root.children.every((_name: string, child: Framework) => {
     child.hooks.on('build.entry', addScript)
   })
 }

@@ -40,18 +40,16 @@ export default interface Interface extends Service {
   middleware: Middleware
 
   /**
+   * Server middleware stack
+   */
+  middlewareStack: Middleware
+
+  /**
    * Assets
    *
    * @public
    */
   assets: string[]
-
-  /**
-   * Has files to watch and watch is enabled
-   *
-   * @public
-   */
-  isWatchable: boolean
 
   /**
    * Watcher instance
@@ -69,14 +67,14 @@ export default interface Interface extends Service {
    *
    * @public
    */
-  getWatchedFilesArray(): string[]
+  getWatchedFiles(): Promise<Array<string>>
 
   /**
    * Run the server instance
    *
    * @public
    */
-  run(): this
+  run(): Promise<this>
 
   /**
    * Inject client scripts into compilation

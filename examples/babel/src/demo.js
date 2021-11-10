@@ -1,3 +1,2 @@
-const features = ['fancy', 'ecma']
-
+const features = ['fancy', 'ecma!']
 features.map(console.log)

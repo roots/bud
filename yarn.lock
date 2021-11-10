@@ -3670,7 +3670,7 @@ __metadata:
     tslib: ^2.3.1
     webpack: 5.62.1
     webpack-dev-middleware: 5.2.1
-    webpack-hot-middleware: 2.25.1
+    webpack-hot-middleware: ^2.25.1
   languageName: unknown
   linkType: soft
 
@@ -24422,7 +24422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-hot-middleware@npm:2.25.1":
+"webpack-hot-middleware@npm:^2.25.1":
   version: 2.25.1
   resolution: "webpack-hot-middleware@npm:2.25.1"
   dependencies:

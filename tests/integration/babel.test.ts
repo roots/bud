@@ -68,7 +68,7 @@ describe('examples/babel', () => {
       bySource: {
         '0 app': expect.any(Number),
       },
-      usedIds: [expect.any(Number)],
+      usedIds: expect.any(Array),
     })
   })
 })

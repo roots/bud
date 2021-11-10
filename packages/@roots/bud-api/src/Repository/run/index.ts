@@ -22,9 +22,9 @@ export const run: run = async function (): Promise<void> {
     this.server?.run &&
     this.root.store.is('server.middleware.hot', true)
 
-  const dev = () => {
-    this.server?.inject()
-    this.server?.run()
+  const dev = async () => {
+    this.server.inject()
+    await this.server.run()
   }
 
   const prod = async () => {
@@ -32,7 +32,5 @@ export const run: run = async function (): Promise<void> {
     compiler.run(this.compiler.callback)
   }
 
-  if (isDev) {
-    dev()
-  } else await prod()
+  isDev ? await dev() : await prod()
 }

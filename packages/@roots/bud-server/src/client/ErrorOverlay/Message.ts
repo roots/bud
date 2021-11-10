@@ -22,7 +22,7 @@ export class Message extends HTMLElement {
   public render(): void {
     this.innerHTML = `
       <span>
-        <code>${this.innerHTML.replace(process.cwd(), '')}</code>
+        <code>${this.innerHTML}</code>
       </span>
     `
 

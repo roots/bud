@@ -1,3 +1,6 @@
+require('@roots/bud');
+require('@roots/sage');
+
 /**
  * @typedef {import('@roots/bud').Bud} Bud
  *
@@ -11,6 +14,7 @@ module.exports = async (app) => {
       editor: '**/editor.{js,css}',
       customizer: '**/customizer.{js,css}',
     })
+    .externals()
     .assets(['resources/images'])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php']);
 };

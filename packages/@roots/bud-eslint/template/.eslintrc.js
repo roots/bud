@@ -6,7 +6,6 @@ module.exports = {
     es6: true,
     amd: true,
     browser: true,
-    jquery: true,
   },
   parser: 'babel-eslint',
   parserOptions: {

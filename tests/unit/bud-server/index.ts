@@ -53,11 +53,7 @@ describe('@roots/bud-server', function () {
 
   it('has expected assets property', () => {
     expect(bud.server.assets).toEqual([
-      `${process.cwd()}/packages/@roots/bud-server/src/client/index.js`,
+      `@roots/bud-server/client.js`,
     ])
-  })
-
-  it('is not watching by default', () => {
-    expect(bud.server.isWatchable).toBe(false)
   })
 })

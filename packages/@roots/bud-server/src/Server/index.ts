@@ -1,5 +1,4 @@
 import * as Framework from '@roots/bud-framework'
-import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
@@ -18,9 +17,7 @@ export class Server
   /**
    * @internal @readonly
    */
-  public readonly _assets = [
-    resolve(__dirname, '../client/index.js'),
-  ]
+  public readonly _assets = ['@roots/bud-server/client.js']
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.application}
@@ -48,6 +45,14 @@ export class Server
   public middleware: Framework.Server.Middleware = {}
 
   /**
+   * Utilized middleware
+   *
+   * @public
+   */
+  public middlewareStack: Framework.Server.Middleware =
+    middleware
+
+  /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
    *
    * @public
@@ -64,36 +69,26 @@ export class Server
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.isWatchable}
-   *
-   * @readonly @public
-   */
-  public get isWatchable(): boolean {
-    return (
-      Array.isArray(this.getWatchedFilesArray()) &&
-      this.getWatchedFilesArray().length > 0
-    )
-  }
-
-  /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.getWatchedFilesArray}
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public getWatchedFilesArray(): string[] {
+  public async getWatchedFiles(): Promise<Array<string>> {
     const [files, options] =
       this.app.store.getValues('server.watch')
 
-    return files?.length > 0
-      ? (globby.globbySync(
-          files.map((file: string) =>
-            this.app.path('project', file),
-          ),
-          options,
-        ) as unknown as string[])
-      : []
+    if (!files?.length) return []
+
+    const globResults = await globby.globby(
+      files.map((file: string) =>
+        this.app.path('project', file),
+      ),
+      options,
+    )
+
+    return globResults as unknown as Array<string>
   }
 
   /**
@@ -104,17 +99,24 @@ export class Server
    */
   @bind
   public processMiddlewares() {
-    Object.entries(middleware).map(([key, generate]) => {
-      if (this.app.store.isTrue(`server.middleware.${key}`)) {
-        this.app.log(`Enabling middleware: ${key}`)
+    this.middleware = Object.entries(this.middlewareStack)
+      .filter(([k, v]) => {
+        if (this.app.store.is(`server.middleware.${k}`, true)) {
+          this.log('info', `middleware ${k} is enabled.`)
+          return true
+        }
 
-        const configuredMiddleware = generate(this.app)
+        return false
+      })
+      .reduce((acc, [key, generate]) => {
+        const middleware = generate(this.app)
 
-        this.app.log(`configured middleware: ${key}`)
+        this.log(`info`, `configured middleware: ${key}`)
 
-        this.application.use(configuredMiddleware)
-      }
-    })
+        this.application.use(middleware)
+
+        return {...acc, [key]: middleware}
+      }, {})
   }
 
   /**
@@ -124,8 +126,8 @@ export class Server
    * @decorator `@bind`
    */
   @bind
-  public run(): this {
-    this.app.compiler.compile()
+  public async run(): Promise<this> {
+    await this.app.compiler.compile()
 
     /**
      * __roots route
@@ -135,7 +137,7 @@ export class Server
       .get((_req, res) => {
         res.send({
           ...this.app.store.all(),
-          ...this.app.store.get('server'),
+          config: this.app.build.config,
         })
 
         res.end()
@@ -148,10 +150,13 @@ export class Server
      */
     this.instance = this.application.listen(
       this.app.store.get('server.port'),
-      () => {
-        this.app.log(
-          `Server listening on %s`,
-          this.app.store.get('server.port'),
+      (error: string) => {
+        if (error) this.log('error', error)
+
+        this.log(
+          'info',
+          'Listening at %s',
+          this.instance.address(),
         )
       },
     )
@@ -159,15 +164,18 @@ export class Server
     /**
      * Initialize Watcher
      */
-    this.watcher = chokidar.watch(this.getWatchedFilesArray())
+    const watchFiles = await this.getWatchedFiles()
+    if (watchFiles.length) {
+      this.watcher = chokidar.watch(watchFiles)
+    }
 
     /**
      * If Watcher is watching and a file it is watching
      * is touched, reload the window.
      */
-    this.isWatchable &&
-      this.watcher?.on('change', path => {
-        this.middleware.hot.publish({
+    this.watcher?.on &&
+      this.watcher.on('change', path => {
+        this.middlewareStack.hot.publish({
           action: 'reload',
           message: `Detected file change: ${path}. Reloading window.`,
         })

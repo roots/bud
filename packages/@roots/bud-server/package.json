@@ -41,8 +41,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./client.js": "./lib/cjs/client/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -75,7 +75,7 @@
     "lodash.isequal": "^4.5.0",
     "tslib": "^2.3.1",
     "webpack-dev-middleware": "5.2.1",
-    "webpack-hot-middleware": "2.25.1"
+    "webpack-hot-middleware": "^2.25.1"
   },
   "stableVersion": "4.6.0"
 }

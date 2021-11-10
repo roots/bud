@@ -41,9 +41,12 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public run(): Framework {
-    if (this.app.store.isTrue('dashboard')) return this.app
-    this.instance = render(<DashboardComponent bud={this.app} />)
-    this.app.success('dashboard booted')
+    if (!this.app.store.is('ci', true)) {
+      this.instance = render(
+        <DashboardComponent bud={this.app} />,
+      )
+      this.app.success('dashboard booted')
+    }
     return this.app
   }
 

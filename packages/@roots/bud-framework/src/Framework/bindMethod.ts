@@ -32,14 +32,14 @@ interface GenericFunctionMap {
 export function bindMethod<FunctionMap = GenericFunctionMap>(
   properties: FunctionMap,
 ): Framework {
-  const ctx = this as Framework
+  this as Framework
 
   Object.entries(properties).map(([name, value]) => {
-    ctx[name] = value.bind(this)
-    if (isFunction(ctx[name])) {
-      ctx.success(`${name} bound to ${ctx.name}`)
+    this[name] = value.bind(this)
+    if (isFunction(this[name])) {
+      this.success(`${name} bound to ${this.name}`)
     }
   })
 
-  return ctx
+  return this
 }

@@ -2,7 +2,10 @@ import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import type {Configuration} from 'webpack'
 
-import {splitChunksDefault} from './splitChunks.constant'
+import {
+  budChunk,
+  splitChunksDefault,
+} from './splitChunks.constant'
 
 const {isUndefined} = lodash
 
@@ -32,7 +35,13 @@ export const splitChunks: splitChunks = function (
   if (isUndefined(options) || options === true) {
     ctx.hooks.on(
       'build.optimization.splitChunks',
-      () => splitChunksDefault,
+      splitChunks => ({
+        ...(splitChunks ?? {}),
+        cacheGroups: {
+          ...(splitChunksDefault.cacheGroups ?? {}),
+          bud: budChunk,
+        },
+      }),
     )
     return ctx
   }
@@ -40,12 +49,22 @@ export const splitChunks: splitChunks = function (
   if (options === false) {
     ctx.hooks.on(
       'build.optimization.splitChunks',
-      () => undefined,
+      _splitChunks => undefined,
     )
+
     return ctx
   }
 
-  ctx.hooks.on('build.optimization.splitChunks', () => options)
+  ctx.hooks.on(
+    'build.optimization.splitChunks',
+    _splitChunks => ({
+      ...(options ?? {}),
+      cacheGroups: {
+        ...(options.cacheGroups ?? {}),
+        bud: budChunk,
+      },
+    }),
+  )
 
   return ctx
 }

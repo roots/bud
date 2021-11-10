@@ -2,10 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 
 import {isFunction, isString} from '../../services/lodash'
 
-/**
- * @public @config
- */
-interface setPublicPath {
+export interface setPublicPath {
   (
     publicPath: string | ((publicPath: string) => string),
   ): Framework
@@ -34,14 +31,16 @@ interface setPublicPath {
  *
  * @public @config
  */
-const setPublicPath: setPublicPath = function (publicPath) {
+export const setPublicPath: setPublicPath = function (
+  publicPath,
+) {
+  const ctx = this as Framework
+
   isString(publicPath) &&
-    this.hooks.on('build.output.publicPath', () => publicPath)
+    ctx.hooks.on('build.output.publicPath', () => publicPath)
 
   isFunction(publicPath) &&
-    this.hooks.on('build.output.publicPath', publicPath)
+    ctx.hooks.on('build.output.publicPath', publicPath)
 
-  return this
+  return ctx
 }
-
-export {setPublicPath as default}

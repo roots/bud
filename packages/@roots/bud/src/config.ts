@@ -137,9 +137,6 @@ export const config: Configuration = {
   build: {
     bail: true,
     devtool: false,
-    infrastructureLogging: {
-      console: false,
-    },
     node: false,
     output: {
       publicPath: '',
@@ -147,9 +144,8 @@ export const config: Configuration = {
     optimization: {
       emitOnErrors: false,
       minimizer: ['...'],
-      moduleIds: 'deterministic',
       removeEmptyChunks: true,
-      splitChunks: false,
+      splitChunks: {},
     },
     parallelism: cpus().length - 1,
     resolve: {
@@ -168,9 +164,6 @@ export const config: Configuration = {
         '.yaml',
         '.xml',
       ],
-    },
-    stats: {
-      logging: false,
     },
   },
 

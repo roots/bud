@@ -322,7 +322,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod: typeof bindMethod
+  public bindMethod = bindMethod.bind(this)
 
   /**
    * @public

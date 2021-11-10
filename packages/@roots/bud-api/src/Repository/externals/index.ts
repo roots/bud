@@ -11,11 +11,8 @@ import type {Configuration} from 'webpack'
  *
  * @public @config
  */
-interface externals {
-  (
-    this: Framework,
-    externals: Configuration['externals'],
-  ): Framework
+export interface externals {
+  (externals: Configuration['externals']): Framework
 }
 
 /**
@@ -30,8 +27,10 @@ interface externals {
  *
  * @public @config
  */
-const externals: externals = function (externals) {
-  this.hooks.on(
+export const externals: externals = function (externals) {
+  const ctx = this as Framework
+
+  ctx.hooks.on(
     'build.externals',
     (existant: Configuration['externals']) =>
       ({
@@ -40,7 +39,5 @@ const externals: externals = function (externals) {
       } as Configuration['externals']),
   )
 
-  return this
+  return ctx
 }
-
-export {externals as default}

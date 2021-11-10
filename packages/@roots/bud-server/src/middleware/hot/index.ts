@@ -10,7 +10,7 @@ const options: (
   config: Server.Configuration,
 ) => WebpackHotMiddleware.MiddlewareOptions = config => ({
   path: `/__webpack_hmr`,
-  heartbeat: 10 * 1000,
+  heartbeat: 2000,
 })
 
 /**
@@ -19,7 +19,6 @@ const options: (
  * @public
  */
 export default function hot(app: Framework) {
-  this.log('hot middleware options', options)
   return WebpackHotMiddleware(
     app.compiler.instance,
     options(app.store.get('server')),
