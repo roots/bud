@@ -23,41 +23,43 @@ export interface persist {
 export const persist: persist = function (
   enabled: string | boolean,
 ) {
-  const ctx = this as Framework
+  this as Framework
 
   if (enabled === false) {
-    ctx.hooks.on('build.cache', false)
+    this.hooks.on('build.cache', false)
     return this
   }
 
   if (enabled === 'memory') {
-    ctx.hooks.on('build.cache', {
+    this.hooks.on('build.cache', {
       type: 'memory',
     })
 
     return this
   }
 
-  ctx.hooks
+  this.hooks
     .on('build.cache', () => ({
-      type: ctx.hooks.filter('build.cache.type'),
-      version: ctx.hooks.filter('build.cache.version'),
-      cacheDirectory: ctx.hooks.filter(
+      type: this.hooks.filter('build.cache.type'),
+      version: this.hooks.filter('build.cache.version'),
+      cacheDirectory: this.hooks.filter(
         'build.cache.cacheDirectory',
       ),
-      managedPaths: ctx.hooks.filter('build.cache.managedPaths'),
-      buildDependencies: ctx.hooks.filter(
+      managedPaths: this.hooks.filter(
+        'build.cache.managedPaths',
+      ),
+      buildDependencies: this.hooks.filter(
         'build.cache.buildDependencies',
       ),
     }))
-    .hooks.on('build.cache.version', ctx.cache.version)
+    .hooks.on('build.cache.version', this.cache.version)
     .hooks.on('build.cache.type', () => 'filesystem')
-    .hooks.on('build.cache.cacheDirectory', ctx.path('storage'))
+    .hooks.on('build.cache.cacheDirectory', this.path('storage'))
     .hooks.on('build.cache.buildDependencies', () => ({
-      bud: ctx.project.get('dependencies'),
+      bud: this.project.get('dependencies'),
     }))
     .hooks.on('build.cache.managedPaths', () => [
-      ctx.path('modules'),
+      this.path('modules'),
     ])
 
   return this

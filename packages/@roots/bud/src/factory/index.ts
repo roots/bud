@@ -28,6 +28,10 @@ export async function factory(
     },
     config: {
       ...config,
+      features: {
+        ...config.features,
+        ...(overrides?.config?.features ?? {}),
+      },
       location: {
         ...config.location,
         ...(overrides?.config?.location ?? {}),

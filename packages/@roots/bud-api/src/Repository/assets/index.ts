@@ -31,7 +31,7 @@ export function assets(
   globby.globbySync(paths).map((from: string) => {
     const dirName = from.split('/')[from.split('/').length - 2]
 
-    const format = this.store.isTrue('hash')
+    const format = this.store.is('features.hash', true)
       ? this.store.get('hashFormat')
       : this.store.get('fileFormat')
 

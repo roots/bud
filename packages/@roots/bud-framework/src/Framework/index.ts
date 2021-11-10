@@ -29,6 +29,7 @@ import {bind, isUndefined} from './framework.dependencies'
 import {get} from './get'
 import {lifecycle} from './lifecycle'
 import {make} from './make'
+import * as methods from './methods'
 import {mixin} from './mixin'
 import {path} from './path'
 import {pipe} from './pipe'
@@ -274,6 +275,13 @@ export abstract class Framework {
   public options: Options
 
   /**
+   * True if ts-node has been invoked
+   *
+   * @public
+   */
+  public usingTsNode: boolean = false
+
+  /**
    * Class constructor
    *
    * @param options - {@link Framework.Options | Framework constructor options}
@@ -316,18 +324,6 @@ export abstract class Framework {
     this.tap = tap.bind(this)
     this.when = when.bind(this)
   }
-
-  /**
-   * Bind method to {@link Framework | Framework instance}
-   *
-   * @public
-   */
-  public bindMethod = bindMethod.bind(this)
-
-  /**
-   * @public
-   */
-  public mixin: typeof mixin
 
   /**
    * @internal
@@ -536,6 +532,43 @@ export abstract class Framework {
   public when: when
 
   /**
+   * Bind method to {@link Framework | Framework instance}
+   *
+   * @public
+   */
+  public bindMethod = bindMethod.bind(this)
+
+  /**
+   * Adds a class as a property of the Framework
+   *
+   * @public
+   */
+  public mixin: typeof mixin
+
+  /**
+   * Read and write json files
+   *
+   * @public
+   */
+  public json: typeof methods.json = methods.json
+
+  /**
+   * Read and write yaml files
+   *
+   * @public
+   */
+  public yml: typeof methods.yaml = methods.yaml
+
+  /**
+   * Read and write typescript files
+   *
+   * @public
+   */
+  public ts: typeof methods.ts = {
+    read: methods.ts.read.bind(this),
+  }
+
+  /**
    * Log a message
    *
    * @public
@@ -697,7 +730,7 @@ export abstract class Framework {
         highlight(
           format(obj, {
             callToJSON: options?.callToJSON ?? false,
-            maxDepth: maxDepth ?? 2,
+            maxDepth: maxDepth ?? Infinity,
             printFunctionName:
               options?.printFunctionName ?? false,
           }),

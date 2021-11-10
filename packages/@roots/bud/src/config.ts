@@ -13,68 +13,77 @@ export const config: Configuration = {
    */
   name: 'bud',
 
+  mode: 'production',
+
   /**
-   * Is webpack caching enabled?
+   * Enabled features
    *
    * @public
    */
-  cache: false,
+  features: {
+    /**
+     * Is webpack caching enabled?
+     *
+     * @public
+     */
+    cache: false,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.ci}
-   * @public
-   */
-  ci: true,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.ci}
+     * @public
+     */
+    dashboard: true,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.clean}
-   * @public
-   */
-  clean: true,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.clean}
+     * @public
+     */
+    clean: true,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.hash}
-   * @public
-   */
-  hash: false,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.hash}
+     * @public
+     */
+    hash: false,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.html}
-   * @public
-   */
-  html: false,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.html}
+     * @public
+     */
+    html: false,
 
-  /**
-   * Automatically register installed extensions
-   *
-   * @public
-   */
-  inject: true,
+    /**
+     * Automatically register installed extensions
+     *
+     * @public
+     */
+    inject: true,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.install}
-   * @public
-   */
-  install: false,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.install}
+     * @public
+     */
+    install: false,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.log}
-   * @public
-   */
-  log: false,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.log}
+     * @public
+     */
+    log: false,
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Configuration.manifest}
-   * @public
-   */
-  manifest: true,
+    /**
+     * {@inheritDoc @roots/bud-framework#Configuration.manifest}
+     * @public
+     */
+    manifest: true,
 
-  /**
-   * Split chunks?
-   *
-   * @public
-   */
-  splitChunks: false,
+    /**
+     * Split chunks?
+     *
+     * @public
+     */
+    splitChunks: false,
+  },
 
   /**
    * {@inheritDoc @roots/bud-framework#Configuration.fileFormat}

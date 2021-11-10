@@ -23,9 +23,9 @@ export default class Init extends Command {
   }
 
   public async run() {
-    const runner = new Runner(this.parse(Init), {
-      config: {ci: true},
-    })
+    const options = this.parse(Init)
+    options.flags.dashboard = true
+    const runner = new Runner(options)
     await runner.initialize()
 
     this.app = runner.app

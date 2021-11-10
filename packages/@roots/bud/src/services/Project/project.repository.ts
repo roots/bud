@@ -1,36 +1,27 @@
-import {Framework} from '@roots/bud-framework'
-
-import {readJson} from './project.dependencies'
-import {Project} from './project.interface'
-
 export interface repository {
   cache: {
     file: string
     directory: string
+    valid: boolean
+    hash: null
+  }
+  cli: {
+    args: any
+    argv: Array<string>
+    flags: Record<string, any>
+    metadata: Record<string, any>
+    raw: Array<Record<string, string>>
   }
   configs: {
     dynamic: {
-      global?: {
-        filepath: string
-        config: (app: Framework) => Promise<any>
-      }
-      conditional?: {
-        filepath: string
-        config: (app: Framework) => Promise<any>
-      }
+      global?: Array<string>
+      conditional?: Array<string>
     }
     json: {
-      global?: {
-        filepath: string
-        config: Record<string, any>
-      }
-      conditional?: {
-        filepath: string
-        config: Record<string, any>
-      }
+      global: Array<Record<string, any>>
+      conditional: Array<Record<string, any>>
     }
   }
-  hash: null
   manifestPath: string
   manifest: Record<string, any>
   installed: Record<string, string>
@@ -79,12 +70,26 @@ export const repository: repository = {
   cache: {
     file: null,
     directory: null,
+    valid: null,
+    hash: null,
   },
   configs: {
-    dynamic: {},
-    json: {},
+    dynamic: {
+      global: [],
+      conditional: [],
+    },
+    json: {
+      global: [],
+      conditional: [],
+    },
   },
-  hash: null,
+  cli: {
+    args: {},
+    argv: [],
+    flags: {},
+    metadata: {},
+    raw: [],
+  },
   manifestPath: null,
   manifest: {},
   installed: {},
@@ -93,48 +98,4 @@ export const repository: repository = {
   extensions: {},
   resolve: [],
   dependencies: [],
-}
-
-/**
- * @public
- */
-export async function initializeStore(this: Project.Interface) {
-  this.setStore({
-    ...repository,
-    cli: this.app.store.get('cli'),
-    env: {
-      public: this.app.env.getPublicEnv(),
-      all: this.app.env.all(),
-    },
-    manifestPath: this.app.path('project', 'package.json'),
-    dependencies: [this.app.path('project', 'package.json')],
-  })
-
-  try {
-    const manifest = await readJson(this.get('manifestPath'))
-    this.set('manifest', manifest)
-  } catch (e) {
-    this.log('error', 'manifest file not found', e)
-  }
-
-  this.app
-    .when(
-      this.has(`manifest.${this.app.name}.inject`),
-      ({store}) =>
-        store.set(
-          'inject',
-          this.get(`manifest.${this.app.name}.inject`),
-        ),
-    )
-    .when(this.has(`manifest.${this.app.name}.paths`), () =>
-      this.app.store.merge(
-        'location',
-        this.get(`manifest.${this.app.name}.paths`),
-      ),
-    )
-
-  this.set('installed', {
-    ...(this.get('manifest.devDependencies') ?? {}),
-    ...(this.get('manifest.dependencies') ?? {}),
-  })
 }

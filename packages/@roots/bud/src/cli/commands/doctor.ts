@@ -2,7 +2,6 @@ import {flags} from '@oclif/command'
 import type Parser from '@oclif/parser'
 
 import {Bud} from '../../Bud'
-import {config} from '../../config'
 import {Command} from '../Command'
 import {Runner} from '../Runner'
 
@@ -66,9 +65,7 @@ export default class Doctor extends Command {
   }
 
   public async run(): Promise<void> {
-    const runner = new Runner(this.parse(Doctor), {
-      config,
-    })
+    const runner = new Runner(this.parse(Doctor))
     await runner.initialize()
     this.app = runner.app
 

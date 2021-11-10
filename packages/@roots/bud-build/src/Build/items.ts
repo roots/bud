@@ -11,7 +11,7 @@ export default {
       loader: ({build}) => build.loaders.file,
       options: ({store}) => ({
         name: `assets/${
-          store.isTrue('hash')
+          store.is('features.hash', true)
             ? store.get('hashFormat')
             : store.get('fileFormat')
         }.[ext]`,
@@ -87,7 +87,7 @@ export default {
       loader: ({build}) => build.loaders.file,
       options: ({store}) => ({
         name: `${
-          store.isTrue('hash')
+          store.is('features.hash', true)
             ? store.get('hashFormat')
             : store.get('fileFormat')
         }.[ext]`,

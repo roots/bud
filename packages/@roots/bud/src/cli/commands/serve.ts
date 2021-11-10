@@ -6,12 +6,13 @@ export default class Serve extends Build {
   public static title = 'serve'
   public static description = 'compile assets'
   public static examples = [`$ bud serve --cache`]
-  public static args = [{name: 'mode', default: 'development'}]
   public static aliases = ['dev', 'start']
 
   public async run() {
     const options = this.parse(Build)
-    const runner = new Runner(options, {mode: 'development'})
+    options.flags.mode = 'development'
+
+    const runner = new Runner(options)
 
     await runner.initialize()
     this.app = await runner.make()

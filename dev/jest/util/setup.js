@@ -15,7 +15,7 @@ const task = async (cmd, paths) => {
 
   await Promise.all(
     paths.map(async ex => {
-      const task = execa.command(`yarn bud ${cmd}`, {
+      const task = execa.command(`yarn bud ${cmd} --flush`, {
         cwd: ex.cwd,
       })
 

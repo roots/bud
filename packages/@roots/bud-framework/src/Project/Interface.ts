@@ -24,4 +24,6 @@ export interface Interface extends Service {
    * @public
    */
   hasPeerDependency(pkg: string): boolean
+
+  readProfile(): Promise<any>
 }

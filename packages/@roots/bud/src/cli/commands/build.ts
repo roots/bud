@@ -43,6 +43,11 @@ export default class Build extends Command {
       description: 'specify source-map type',
     }),
 
+    flush: flags.boolean({
+      description: 'flush internal bud cache',
+      default: false,
+    }),
+
     html: flags.boolean({
       allowNo: true,
       description: 'generate an html template',
@@ -78,6 +83,12 @@ export default class Build extends Command {
       description: 'minimize file size of compiled assets',
     }),
 
+    mode: flags.string({
+      description: 'compiler mode',
+      default: 'production',
+      options: ['development', 'production'],
+    }),
+
     runtime: flags.boolean({
       allowNo: true,
       description: 'Create a runtime chunk',
@@ -93,6 +104,12 @@ export default class Build extends Command {
 
     publicPath: flags.string({
       description: 'specify public path',
+    }),
+
+    splitChunks: flags.boolean({
+      allowNo: true,
+      description:
+        'create separate chunks for vendor and app code. alias for vendor',
     }),
 
     vendor: flags.boolean({
@@ -112,7 +129,7 @@ export default class Build extends Command {
 
   public async run() {
     const options = this.parse(Build)
-    const runner = new Runner(options, {mode: 'production'})
+    const runner = new Runner(options)
 
     await runner.initialize()
     this.app = await runner.make()

@@ -1,10 +1,11 @@
 import * as Framework from '@roots/bud-framework'
-import {ensureFile} from 'fs-extra'
+import {ensureFile, readJson} from 'fs-extra'
+import globby from 'globby'
+import {join} from 'path'
 
-import {Config} from './config'
 import {Peers} from './peers'
 import {bind, writeFile} from './project.dependencies'
-import {initializeStore, repository} from './project.repository'
+import {repository} from './project.repository'
 
 /**
  * Project service class
@@ -22,24 +23,47 @@ export class Project
    */
   public peers: Peers
 
-  public initializeStore = initializeStore.bind(this)
-
   public repository = repository
 
-  public async register() {
+  public savedProfile: Record<string, any>
+
+  public async bootstrap() {
     this.peers = new Peers(this.app)
+  }
 
-    await this.initializeStore()
+  public async register() {
+    await this.addManifestDataToStore()
+    this.savedProfile = await this.readProfile()
 
-    this.set('installed', {
-      ...(this.get('manifest.devDependencies') ?? {}),
-      ...(this.get('manifest.dependencies') ?? {}),
+    this.setStore({
+      ...this.repository,
+      cli: this.app.store.get('cli'),
+      env: {
+        public: this.app.env.getPublicEnv(),
+        all: this.app.env.all(),
+      },
+      manifestPath: this.app.path('project', 'package.json'),
+      dependencies: [this.app.path('project', 'package.json')],
     })
+
+    const shouldLoadProfileFromDisk =
+      this.app.store.is('cli.flags.flush', false) &&
+      this.app.store.is('cli.flags.cache', true) &&
+      this.savedProfile
+
+    if (shouldLoadProfileFromDisk) {
+      this.setStore(this.savedProfile)
+      this.log('success', 'profile loaded from disk')
+    }
+
+    if (!shouldLoadProfileFromDisk) {
+      await this.refreshProfile()
+    }
 
     this.log(
       'info',
       `inject feature is ${
-        this.app.store.is(`inject`, true)
+        this.app.store.is('features.inject', true)
           ? `enabled`
           : `disabled`
       }`,
@@ -64,24 +88,159 @@ export class Project
         `project cache directory set as`,
         this.app.store.get('location.storage'),
       )
-
-    this.mergeStore({
-      cache: {
-        directory: this.app.path('storage'),
-        file: this.app.path(
-          'storage',
-          `${this.app.name}.profile.json`,
-        ),
-      },
-    })
   }
 
   @bind
-  public async registered(): Promise<void> {
-    if (this.app.store.is('cache', false)) {
-      this.log('warn', 'caching disabled. flushing.')
-      await this.clearCaches()
+  public async registered(): Promise<void> {}
+
+  /**
+   * Read project package.json and set peer deps
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async resolvePeers() {
+    if (this.has('manifest.dependencies')) {
+      await this.peers.discover('dependencies')
     }
+    if (this.has('manifest.devDependencies')) {
+      await this.peers.discover('devDependencies')
+    }
+  }
+
+  @bind
+  public async addManifestDataToStore() {
+    try {
+      this.set(
+        'manifestPath',
+        join(process.cwd(), 'package.json'),
+      )
+      const manifest = await readJson(this.get('manifestPath'))
+      this.set('manifest', manifest)
+    } catch (e) {
+      this.log('error', 'manifest file not found', e)
+    }
+
+    this.set('installed', {
+      ...(this.get('manifest.devDependencies') ?? {}),
+      ...(this.get('manifest.dependencies') ?? {}),
+    })
+
+    this.app
+      .when(
+        this.has(`manifest.${this.app.name}.features.inject`),
+        ({store}) =>
+          store.set(
+            'inject',
+            this.get(
+              `manifest.${this.app.name}.features.inject`,
+            ),
+          ),
+      )
+      .when(
+        this.has(`manifest.${this.app.name}.locations`),
+        () =>
+          this.app.store.merge(
+            'location',
+            this.get(`manifest.${this.app.name}.locations`),
+          ),
+      )
+  }
+
+  /**
+   * Returns true if a dependency is listed in the project manifest
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public hasPeerDependency(pkg: string): boolean {
+    return this.has(`peers.${pkg}`)
+  }
+
+  @bind
+  public getProfileLocation(): string {
+    return this.app.path(
+      'storage',
+      `${this.app.name}/profile.json`,
+    )
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async refreshProfile() {
+    !this.savedProfile &&
+      this.log('await', 'building project profile.')
+
+    this.is('cli.flags.flush', true) &&
+      this.log('await', 'rebuilding project profile')
+
+    try {
+      await this.resolvePeers()
+      await this.searchConfigs()
+      await this.writeProfile()
+    } catch (e) {
+      this.log('error', e)
+    }
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async writeProfile() {
+    this.log(
+      'await',
+      'writing profile to disk',
+      this.getProfileLocation(),
+    )
+    await ensureFile(this.getProfileLocation())
+
+    await writeFile(
+      this.getProfileLocation(),
+      JSON.stringify(this.all()),
+    )
+
+    this.log(
+      'success',
+      `project profile saved to`,
+      this.getProfileLocation(),
+    )
+  }
+
+  @bind
+  public async readProfile() {
+    const location = this.getProfileLocation()
+
+    this.log('await', 'reading profile from location', location)
+
+    if (location === null) return
+
+    try {
+      const res = await readJson(location)
+      this.log(
+        'success',
+        `project profile loaded from`,
+        location,
+      )
+      return res
+    } catch (e) {
+      this.log(
+        'warn',
+        'failed to load project profile from',
+        location,
+      )
+
+      return false
+    }
+  }
+
+  @bind
+  public async searchConfigs() {
+    this.log('await', 'reading project configuration files')
 
     await Promise.all(
       [
@@ -113,87 +272,65 @@ export class Project
             `${this.app.name}.${this.app.mode}.config.yml`,
           ],
         },
-      ].map(this.searchConfig),
+      ].map(
+        async function findConfig({key, searchStrings}) {
+          const search = await globby(searchStrings, {
+            cwd: this.app.path('project'),
+          })
+
+          if (!search || !search?.length) return
+
+          await Promise.all(
+            search.map(async result => {
+              this.log('note', 'imported', key, result)
+
+              let config
+              if (key.startsWith('configs.json')) {
+                config = result
+              } else {
+                config = this.app.path('project', result)
+              }
+
+              const existing = this.get('dependencies')
+              this.set(
+                'dependencies',
+                Array.from(new Set([...existing, config])),
+              )
+
+              if (
+                !result.endsWith('json') &&
+                !result.endsWith('yml')
+              ) {
+                this.set(key, this.app.path('project', result))
+                return
+              }
+
+              let resultObj
+              if (result.endsWith('.json')) {
+                resultObj = await this.app.json.read(result)
+              }
+
+              if (result.endsWith('.yml')) {
+                resultObj = await this.app.yml.read(result)
+              }
+
+              const existingStatic = this.get(key)
+              this.set(
+                key,
+                Array.from(
+                  new Set([...existingStatic, resultObj]),
+                ),
+              )
+            }),
+          )
+
+          this.log(
+            'success',
+            'imported configs',
+            `(${search.length})`,
+          )
+        }.bind(this),
+      ),
     )
-
-    await this.resolvePeers()
-  }
-
-  @bind
-  public async booted() {
-    await this.writeProfile()
-  }
-
-  @bind
-  public async clearCaches() {
-    this.log(
-      'warn',
-      'Removing storage',
-      this.app.path('storage'),
-    )
-    // await remove(this.app.path('storage'))
-    await ensureFile(this.get('cache.file'))
-  }
-
-  @bind
-  public async writeProfile() {
-    await ensureFile(this.get('cache.file'))
-    await writeFile(
-      this.get('cache.file'),
-      JSON.stringify(this.all()),
-    )
-
-    this.log(
-      'success',
-      `project profile saved to disk`,
-      this.get('cache.file'),
-    )
-  }
-
-  @bind
-  public async searchConfig({key, searchStrings}) {
-    const explorer = new Config(this.app, searchStrings)
-
-    if (this.app.store.is('cache', false)) {
-      this.log('warn', `clearing ${key} config cache`)
-      explorer.clearCaches()
-    }
-
-    const result = await explorer.search()
-
-    this.set(key, result)
-
-    if (result === null) return
-
-    const dependencies = this.get('dependencies') ?? []
-    this.set('dependencies', [...dependencies, result.filepath])
-    this.log('success', `imported config`, result.filepath)
-  }
-
-  /**
-   * Read project package.json and set peer deps
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async resolvePeers() {
-    if (this.has('manifest.dependencies')) {
-      await this.peers.discover('dependencies')
-    }
-    if (this.has('manifest.devDependencies')) {
-      await this.peers.discover('devDependencies')
-    }
-  }
-
-  /**
-   * Returns true if a dependency is listed in the project manifest
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public hasPeerDependency(pkg: string): boolean {
-    return this.has(`peers.${pkg}`)
   }
 }

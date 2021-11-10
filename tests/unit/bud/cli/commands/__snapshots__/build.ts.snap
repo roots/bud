@@ -44,6 +44,13 @@ Object {
     "parse": [Function],
     "type": "option",
   },
+  "flush": Object {
+    "allowNo": false,
+    "default": false,
+    "description": "flush internal bud cache",
+    "parse": [Function],
+    "type": "boolean",
+  },
   "hash": Object {
     "allowNo": true,
     "description": "hash compiled filenames",
@@ -95,6 +102,18 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
+  "mode": Object {
+    "default": "production",
+    "description": "compiler mode",
+    "input": Array [],
+    "multiple": false,
+    "options": Array [
+      "development",
+      "production",
+    ],
+    "parse": [Function],
+    "type": "option",
+  },
   "publicPath": Object {
     "description": "specify public path",
     "input": Array [],
@@ -105,6 +124,12 @@ Object {
   "runtime": Object {
     "allowNo": true,
     "description": "Create a runtime chunk",
+    "parse": [Function],
+    "type": "boolean",
+  },
+  "splitChunks": Object {
+    "allowNo": true,
+    "description": "create separate chunks for vendor and app code. alias for vendor",
     "parse": [Function],
     "type": "boolean",
   },

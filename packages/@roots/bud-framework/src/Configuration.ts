@@ -25,6 +25,110 @@ export interface Configuration {
   name: string
 
   /**
+   * Mode
+   *
+   * @public
+   */
+  mode: 'production' | 'development'
+
+  /**
+   * Features to enable
+   *
+   * @public
+   */
+  features: {
+    /**
+     * Is caching enabled?
+     *
+     * @public
+     */
+    cache: boolean
+
+    /**
+     * Feature toggle: enable or disable the command line interface
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    dashboard: boolean
+
+    /**
+     * Feature toggle: Clean dist before compilation
+     *
+     * When enabled stale assets will be removed from
+     * the `location.dist` directory prior to the next
+     * compilation.
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    clean: boolean
+
+    /**
+     * Enable or disable filename hashing
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    hash: boolean
+
+    /**
+     * Emit html template
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    html: boolean
+
+    /**
+     * Automatically inject installed extensions
+     *
+     * @public
+     */
+    inject: boolean
+
+    /**
+     * Automatically install peer dependencies
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    install: boolean
+
+    /**
+     * Log to console
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    log: boolean
+
+    /**
+     * Enable or disable producing a manifest.json file
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    manifest: boolean
+
+    /**
+     * Enable or disable chunk splitting
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    splitChunks: boolean
+  }
+
+  /**
    * Shared regular expressions for pattern matching.
    *
    * @example
@@ -44,97 +148,7 @@ export interface Configuration {
   location: Locations
 
   /**
-   * Is caching enabled?
-   *
-   * @public
-   */
-  cache: boolean
-
-  /**
-   * Feature toggle: enable or disable the command line interface
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  ci: boolean
-
-  /**
-   * Feature toggle: Clean dist before compilation
-   *
-   * When enabled stale assets will be removed from
-   * the `location.dist` directory prior to the next
-   * compilation.
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  clean: boolean
-
-  /**
-   * Enable or disable filename hashing
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  hash: boolean
-
-  /**
-   * Emit html template
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  html: boolean
-
-  /**
-   * Automatically inject installed extensions
-   *
-   * @public
-   */
-  inject: boolean
-
-  /**
-   * Automatically install peer dependencies
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  install: boolean
-
-  /**
-   * Log to console
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  log: boolean
-
-  /**
-   * Enable or disable producing a manifest.json file
-   *
-   * @defaultValue true
-   *
-   * @public
-   */
-  manifest: boolean
-
-  /**
-   * Enable or disable chunk splitting
-   *
-   * @defaultValue false
-   *
-   * @public
-   */
-  splitChunks: boolean
-
-  /**
-   * File format
+   * File format (when hashing is disabled)
    *
    * @remarks
    * do not include extension
@@ -144,7 +158,6 @@ export interface Configuration {
    * @public
    */
   fileFormat: string
-
   /**
    * File format when hashing is enabled
    *

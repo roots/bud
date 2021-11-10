@@ -1,60 +1,35 @@
+import {Bud} from '../..'
 import {isFunction} from '../cli.dependencies'
 
-export const config = async (app, configKey) => {
-  if (app.project.has(configKey)) {
-    const config = app.project.get(configKey)
+export const configSet = async (app: Bud, key: string) => {
+  if (!app.project.has(key)) return
 
-    Object.entries(config).forEach(([c, v]) => {
-      app.log(`parsed compiler ${c}`)
+  const configs = app.project.get(key)
+  if (!configs || !configs.length) return
 
-      Object.entries(v).forEach(([k, v]) => {
-        app.log(`setting ${k} to`, typeof v)
-      })
-    })
+  await Promise.all(
+    configs.map(async config => {
+      await Promise.all(
+        Object.entries(config).map(async ([key, value]) => {
+          const request = app[key]
 
-    await Object.entries(config).reduce(
-      async (
-        promised,
-        [name, values]: [string, Record<string, any>],
-      ) => {
-        await promised
-        app.log(
-          `parsing ${name} settings from static configuration(s)`,
-        )
+          app.log(key, `called on`, app.name)
 
-        await app.make(name, async instance => {
-          Object.entries(values)
-            .filter(([key]) => key !== 'extensions')
-            .forEach(([key, value]) => {
-              const item = instance[key]
+          if (isFunction(request)) {
+            await request(value)
+          }
 
-              if (key === 'settings') {
-                app.log(
-                  `setting ${key} on ${instance.name} to`,
-                  value,
-                )
+          return
+        }),
+      )
+    }),
+  )
+}
 
-                return instance.store.set(key, value)
-              }
+export const configs = async (app, configKey) => {
+  await configSet(app, 'configs.json.global')
+  await app.extensions.processQueue()
 
-              if (!item) {
-                return app.warn(
-                  `config key ${key} for ${instance} has no match and is ignored`,
-                )
-              }
-
-              if (isFunction(item)) {
-                app.log(
-                  `calling ${key} function on the ${instance.name} compiler`,
-                )
-
-                return item(value)
-              }
-            })
-        })
-        return Promise.resolve()
-      },
-      Promise.resolve(),
-    )
-  }
+  await configSet(app, 'configs.json.conditional')
+  await app.extensions.processQueue()
 }

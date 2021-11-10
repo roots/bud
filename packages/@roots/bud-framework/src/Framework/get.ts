@@ -32,9 +32,11 @@ const get: get = function (
   name: string,
   tap?: (app: Framework) => Framework,
 ): Framework {
-  this.log('get request', name)
+  const ctx = this.root
 
-  const instance = this.children.get(name)
+  ctx.log('get request', name)
+
+  const instance = ctx.children.get(name)
 
   if (tap && isFunction(tap)) {
     tap(instance)

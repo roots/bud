@@ -1,6 +1,3 @@
-require('@roots/bud');
-require('@roots/sage');
-
 /**
  * @typedef {import('@roots/bud').Bud} Bud
  *

@@ -4,11 +4,11 @@ import type {Plugin} from './mini-css-extract-plugin.interface'
 export const name: Plugin['name'] = 'mini-css-extract-plugin'
 
 export const options: Plugin['options'] = ({store}) => ({
-  filename: store.is('hash', true)
+  filename: store.is('features.hash', true)
     ? `${store.get('hashFormat')}.css`
     : `${store.get('fileFormat')}.css`,
 
-  chunkFilename: store.is('hash', true)
+  chunkFilename: store.is('features.hash', true)
     ? `${store.get('hashFormat')}.[id].css`
     : `${store.get('fileFormat')}.[id].css`,
 

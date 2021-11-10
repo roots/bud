@@ -102,7 +102,7 @@ export const config = async (app, flags) => {
    *
    * @example `$ bud build --target plugin`
    */
-  if (flags.target.length > 0) {
+  if (flags.target.length) {
     /**
      * Handle parent if applicable
      */

@@ -117,7 +117,7 @@ export function config(app: Framework): void {
       'build.output.filename',
       () =>
         `${
-          app.store.get('hash')
+          app.store.get('features.hash')
             ? app.store.get('hashFormat')
             : app.store.get('fileFormat')
         }.js`,
@@ -164,7 +164,7 @@ export function config(app: Framework): void {
     )
     .hooks.on('build.optimization.runtimeChunk', () => undefined)
     .hooks.on('build.optimization.splitChunks', () =>
-      app.store.is('splitChunks', true)
+      app.store.is('features.splitChunks', true)
         ? app.store.get('build.optimization.splitChunks')
         : false,
     )

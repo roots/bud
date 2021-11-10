@@ -36,6 +36,7 @@ export class Store<T = Configuration> extends Service<T> {
  */
 type Keys =
   | `${keyof Configuration & string}`
+  | `features.${keyof Configuration['features']}`
   | `theme.${keyof Configuration['theme'] & string}`
   | `theme.screens`
   | `theme.colors.${keyof Configuration['theme']['colors'] &
@@ -54,6 +55,14 @@ type Keys =
   | `build.module.${keyof Webpack.Configuration['module']}.${string}`
   | `extension.${string}`
   | `build.${keyof Webpack.Configuration}.${string}`
+  | `cli`
+  | `cli.${'flags' | 'args' | 'argv' | 'raw' | 'metadata'}`
+  | `cli.${
+      | 'flags'
+      | 'args'
+      | 'argv'
+      | 'raw'
+      | 'metadata'}.${string}`
 
 /**
  * Store repository

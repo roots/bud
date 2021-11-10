@@ -52,7 +52,7 @@ export class Cache
         .toLowerCase()
 
     try {
-      const argv = JSON.stringify(this.app.project.get('cli'))
+      const argv = JSON.stringify(this.app.project.all())
       const str = await Promise.all(
         filePaths.map(async filePath => {
           return await readFile(filePath, 'utf8')

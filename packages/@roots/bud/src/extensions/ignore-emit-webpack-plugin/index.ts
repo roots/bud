@@ -5,7 +5,9 @@ const plugin: Model = {
   name: 'ignore-emit-webpack-plugin',
 
   options: ({store}) => ({
-    ignore: store.isFalse('devtool') ? [] : [/.?.map$/],
+    ignore: store.is('features.devtool', false)
+      ? []
+      : [/.?.map$/],
   }),
 
   make: options => new Plugin(options.get('ignore')),
