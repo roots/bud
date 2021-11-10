@@ -3258,7 +3258,7 @@ __metadata:
     ink: 3.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
-    ink-use-stdout-dimensions: ^1.0.5
+    ink-use-stdout-dimensions: 1.0.5
     patch-console: 1.0.0
     react: 17.0.2
     tslib: ^2.3.1
@@ -4042,9 +4042,9 @@ __metadata:
   dependencies:
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
-    ink: ^3.0.9
-    ink-use-stdout-dimensions: ^1.0.5
-    react: ^17.0.2
+    ink: 3.2.0
+    ink-use-stdout-dimensions: 1.0.5
+    react: 17.0.2
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
@@ -13648,7 +13648,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-use-stdout-dimensions@npm:^1.0.5":
+"ink-use-stdout-dimensions@npm:1.0.5":
   version: 1.0.5
   resolution: "ink-use-stdout-dimensions@npm:1.0.5"
   peerDependencies:
