@@ -63,9 +63,9 @@
   },
   "devDependencies": {
     "@types/node": "16.11.7",
-    "ink": "^3.0.9",
-    "ink-use-stdout-dimensions": "^1.0.5",
-    "react": "^17.0.2"
+    "ink": "3.2.0",
+    "ink-use-stdout-dimensions": "1.0.5",
+    "react": "17.0.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
