@@ -65,7 +65,7 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.2",
-    "@types/node": "16.11.6",
+    "@types/node": "16.11.7",
     "jest": "27.3.1",
     "webpack": "5.62.1"
   },
