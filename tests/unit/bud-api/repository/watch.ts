@@ -7,7 +7,7 @@ describe.skip('bud.watch', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      mode: 'development',
+      config: {mode: 'development'},
     })
 
     serverConfig = {...bud.store.get('server')}

@@ -5,10 +5,13 @@ describe('Runner', () => {
   let runner: Runner
 
   beforeEach(async () => {
-    runner = new Runner(
-      {args: [], argv: [], flags: {}, raw: [], metadata: {}},
-      {},
-    )
+    runner = new Runner({
+      args: [],
+      argv: [],
+      flags: {},
+      raw: [],
+      metadata: {},
+    })
   })
 
   afterEach(() => {

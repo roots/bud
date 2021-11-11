@@ -5,7 +5,7 @@ describe('Extensions', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      mode: 'development',
+      config: {mode: 'development'},
     })
     bud
   })
