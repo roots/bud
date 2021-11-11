@@ -72,7 +72,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.11.7",
-    "webpack": "5.62.1"
+    "webpack": "5.63.0"
   },
   "dependencies": {
     "@babel/core": "^7.15.8",
