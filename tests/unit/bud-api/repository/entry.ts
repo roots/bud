@@ -7,13 +7,15 @@ describe.skip('bud.entry', function () {
     bud = await factory({
       config: {
         ...config,
-        ci: true,
+        features: {
+          dashboard: false,
+          log: false,
+        },
         location: {
           ...config.location,
           project: `${process.cwd()}/examples/sage`,
           src: 'resources',
         },
-        log: false,
       },
     })
 

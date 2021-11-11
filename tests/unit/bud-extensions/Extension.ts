@@ -30,7 +30,7 @@ describe.skip('@roots/bud-extensions Controller', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      config: {ci: true, log: false},
+      config: {features: {dashboard: false, log: false}},
     })
   })
 

@@ -2,30 +2,40 @@ export const config = async (app, flags) => {
   /**
    * Handle --src flag
    */
-  if (typeof flags.src !== 'undefined') {
-    app.setPath('src', flags.src)
+  if (typeof flags['location.src'] !== 'undefined') {
+    app.setPath('src', flags['location.src'])
     app.children.every((_name, child) =>
-      child.setPath('src', flags.src),
+      child.setPath('src', flags['location.src']),
     )
   }
 
   /**
    * Handle --dist flag
    */
-  if (typeof flags.dist !== 'undefined') {
-    app.setPath('dist', flags.dist)
+  if (typeof flags['location.dist'] !== 'undefined') {
+    app.setPath('dist', flags['location.dist'])
     app.children.every((_name, child) =>
-      child.setPath('dist', flags.dist),
+      child.setPath('dist', flags['location.dist']),
+    )
+  }
+
+  /**
+   * Handle --dist flag
+   */
+  if (typeof flags['location.project'] !== 'undefined') {
+    app.setPath('project', flags['location.project'])
+    app.children.every((_name, child) =>
+      child.setPath('project', flags['location.project']),
     )
   }
 
   /**
    * Handle --publicPath flag
    */
-  if (typeof flags.publicPath !== 'undefined') {
-    app.setPublicPath(flags.publicPath)
+  if (typeof flags['location.publicPath'] !== 'undefined') {
+    app.setPublicPath(flags['location.publicPath'])
     app.children.every((_name, child) =>
-      child.setPublicPath(flags.publicPath),
+      child.setPublicPath(flags['location.publicPath']),
     )
   }
 

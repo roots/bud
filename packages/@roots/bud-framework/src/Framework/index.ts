@@ -15,7 +15,6 @@ import {
   Mode,
   Server,
   Services,
-  Store,
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
@@ -25,7 +24,7 @@ import {access} from './access'
 import {bindMethod} from './bindMethod'
 import {close} from './close'
 import {container} from './container'
-import {bind, isUndefined} from './framework.dependencies'
+import {bind} from './framework.dependencies'
 import {get} from './get'
 import {lifecycle} from './lifecycle'
 import {make} from './make'
@@ -61,7 +60,12 @@ export abstract class Framework {
    *
    * @public
    */
-  public name: string
+  public get name(): string {
+    return this.store.get('name')
+  }
+  public set name(name: string) {
+    this.store.set('name', name)
+  }
 
   /**
    * Compilation mode
@@ -71,7 +75,12 @@ export abstract class Framework {
    *
    * @defaultValue 'production'
    */
-  public mode: Mode = 'production'
+  public get mode(): Mode {
+    return this.store.get('mode')
+  }
+  public set mode(mode: Mode) {
+    this.store.set('mode', mode)
+  }
 
   /**
    * Parent {@link Framework} instance
@@ -249,7 +258,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public store: Store
+  public store: Container
 
   /**
    * True when {@link Framework.mode} is `production`
@@ -291,25 +300,20 @@ export abstract class Framework {
   public constructor(options: Options) {
     this.options = options
 
-    if (isUndefined(options.name)) {
-      throw Error(`instance name is required`)
-    }
+    this.store = this.container(options.config)
+    this.store.setStore(options.config)
 
     if (!options.childOf) {
       // Parent & child instance exclusive settings
-      this.children = new Container()
+      this.children = this.container()
       this.root = this
     } else {
       this.root = options.childOf
+      this.logger.context = [this.root.name, this.name]
     }
 
     // Assign to instance
-    this.name = options.name
-    this.mode = options.mode
     this.services = options.services
-
-    this.store = new Store<Configuration>(this)
-    this.store.setStore(options.config)
 
     this.access = access.bind(this)
     this.bindMethod = bindMethod.bind(this)
@@ -578,7 +582,7 @@ export abstract class Framework {
   public log(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .log(...messages)
 
     return this
@@ -594,7 +598,7 @@ export abstract class Framework {
   public info(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .info(...messages)
 
     return this
@@ -610,7 +614,7 @@ export abstract class Framework {
   public success(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .success(...messages)
 
     return this
@@ -626,7 +630,7 @@ export abstract class Framework {
   public warn(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .warn(...messages)
 
     return this
@@ -642,7 +646,7 @@ export abstract class Framework {
   public time(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .time(...messages)
 
     return this
@@ -658,7 +662,7 @@ export abstract class Framework {
   public await(...messages: any[]) {
     this.logger?.instance &&
       this.logger.instance
-        .scope(...this.logger.getScope())
+        .scope(...this.logger.context)
         .await(...messages)
 
     return this
@@ -673,7 +677,7 @@ export abstract class Framework {
   @bind
   public complete(...messages: any[]) {
     this.logger.instance
-      .scope(...this.logger.getScope())
+      .scope(...this.logger.context)
       .complete(...messages)
 
     return this
@@ -688,7 +692,7 @@ export abstract class Framework {
   @bind
   public timeEnd(...messages: any[]) {
     this.logger.instance
-      .scope(...this.logger.getScope())
+      .scope(...this.logger.context)
       .timeEnd(...messages)
 
     return this
@@ -706,7 +710,7 @@ export abstract class Framework {
   @bind
   public error(...messages: any[]) {
     this.logger.instance
-      .scope(...this.logger.getScope())
+      .scope(...this.logger.context)
       .error(...messages)
 
     return this
@@ -753,27 +757,6 @@ export type Constructor = new (options: Options) => Framework
  * Constructor options
  */
 export interface Options {
-  /**
-   * Application name
-   *
-   * @remarks
-   * In the context of the parent compiler this options is used
-   * for many things, including determining where to look for configuration
-   * files and fundamental, related conventions.
-   *
-   * @defaultValue 'bud'
-   *
-   * @internal
-   */
-  name: string
-
-  /**
-   * The mode to run the application in. Either `production` or `development`.
-   *
-   * @public
-   */
-  mode?: Mode
-
   /**
    * The object providing initial configuration values.
    *

@@ -21,7 +21,7 @@ export const Progress = ({progress, theme}) => {
   }, [progress])
 
   return (
-    <Box flexDirection="column">
+    <Box marginLeft={1} flexDirection="column">
       <Bar
         character={'▉'}
         maxWidth={theme.bounds.width - 10}

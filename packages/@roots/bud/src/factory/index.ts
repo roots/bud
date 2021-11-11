@@ -1,10 +1,7 @@
 import {Bud} from '../Bud'
 import {config} from '../config'
 import {services} from '../services'
-import type {
-  FrameworkOptions,
-  Options,
-} from './factory.interface'
+import type {Framework, Options} from './factory.interface'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -19,15 +16,17 @@ import type {
 export async function factory(
   overrides?: Options,
 ): Promise<Bud> {
-  const options: FrameworkOptions = {
-    name: overrides?.name ?? 'bud',
-    mode: overrides?.mode ?? 'production',
+  const options: Framework.Options = {
+    ...(overrides ?? {}),
     services: {
-      ...(overrides?.services ?? {}),
       ...services,
+      ...(overrides?.services ?? {}),
     },
     config: {
       ...config,
+      cli: overrides?.config?.cli ?? config.cli,
+      mode: overrides?.config?.mode ?? config.mode,
+      name: overrides?.config?.name ?? config.name,
       features: {
         ...config.features,
         ...(overrides?.config?.features ?? {}),
@@ -36,12 +35,11 @@ export async function factory(
         ...config.location,
         ...(overrides?.config?.location ?? {}),
       },
-      ...(overrides?.config ?? {}),
     },
   }
 
-  process.env.BABEL_ENV = options.mode
-  process.env.NODE_ENV = options.mode
+  process.env.BABEL_ENV = options.config.mode
+  process.env.NODE_ENV = options.config.mode
 
   const bud = new Bud(options)
 

@@ -1,3 +1,4 @@
+import {truncate} from 'lodash'
 import zlib from 'zlib'
 
 import {createProxyMiddleware} from './proxy.dependencies'
@@ -66,6 +67,14 @@ export default function proxy(app: Framework) {
         res.send(Buffer.from(transformBody(body.toString())))
       }
 
+      app.server.log(
+        'success',
+        'proxied response',
+        truncate(body.toString(), {
+          length: process.stdout.columns ?? 70,
+        }),
+      )
+
       /**
        * Send response to client.
        */
@@ -84,11 +93,12 @@ export default function proxy(app: Framework) {
     cookieDomainRewrite: {
       [target]: dev,
     },
+    logProvider: () => app.server.logger,
     onProxyRes,
     selfHandleResponse: true,
     target,
     headers,
-    logLevel: 'warn',
+    logLevel: 'info',
     ssl: false,
     secure: false,
     ws: true,

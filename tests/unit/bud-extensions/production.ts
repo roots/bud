@@ -6,8 +6,10 @@ describe('Extensions', function () {
   beforeAll(async () => {
     bud = await factory({
       config: {
-        ci: true,
-        log: false,
+        features: {
+          dashboard: false,
+          log: false,
+        },
       },
     })
   })

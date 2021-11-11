@@ -135,9 +135,9 @@ export class Server
     this.application
       .route('/__roots/config.json')
       .get((_req, res) => {
+        this.log('success', 'GET', '/__roots/config.json')
         res.send({
           ...this.app.store.all(),
-          config: this.app.build.config,
         })
 
         res.end()
@@ -154,9 +154,9 @@ export class Server
         if (error) this.log('error', error)
 
         this.log(
-          'info',
-          'Listening at %s',
-          this.instance.address(),
+          'success',
+          'listening on port %s',
+          (this.instance.address() as any).port,
         )
       },
     )
@@ -166,6 +166,9 @@ export class Server
      */
     const watchFiles = await this.getWatchedFiles()
     if (watchFiles.length) {
+      watchFiles.forEach(file => {
+        this.log('info', `watching`, file, `for changes`)
+      })
       this.watcher = chokidar.watch(watchFiles)
     }
 

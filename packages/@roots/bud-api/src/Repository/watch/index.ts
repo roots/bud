@@ -21,7 +21,7 @@ export const watch: watch = function (files) {
     return ctx
   }
 
-  files && ctx.root.store.set('server.watch.files', files)
+  files && ctx.store.set('server.watch.files', files)
 
   return ctx
 }

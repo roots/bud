@@ -22,11 +22,6 @@ export default class Build extends Command {
       description: 'cache built modules to the filesystem.',
     }),
 
-    ci: flags.boolean({
-      default: false,
-      description: 'non raw mode tty interoperable output',
-    }),
-
     clean: flags.boolean({
       allowNo: true,
       default: true,
@@ -70,6 +65,7 @@ export default class Build extends Command {
 
     install: flags.boolean({
       description: 'ensure peer dependencies are installed',
+      default: false,
     }),
 
     manifest: flags.boolean({
@@ -94,28 +90,31 @@ export default class Build extends Command {
       description: 'Create a runtime chunk',
     }),
 
-    src: flags.string({
-      description: 'specify directory containing source assets',
+    ['location.src']: flags.string({
+      description: 'directory containing source assets',
     }),
 
-    dist: flags.string({
-      description: 'specify directory to emit assets to',
+    ['location.dist']: flags.string({
+      description: 'directory to emit assets to',
     }),
 
-    publicPath: flags.string({
+    ['location.project']: flags.string({
+      description: 'project directory',
+    }),
+
+    ['location.publicPath']: flags.string({
       description: 'specify public path',
     }),
 
-    splitChunks: flags.boolean({
+    ['splitChunks']: flags.boolean({
       allowNo: true,
       description:
         'create separate chunks for vendor and app code. alias for vendor',
     }),
-
     vendor: flags.boolean({
       allowNo: true,
       description:
-        'create separate chunks for vendor and app code',
+        'create separate chunks for vendor and app code. alias for splitChunks',
     }),
 
     target: flags.string({

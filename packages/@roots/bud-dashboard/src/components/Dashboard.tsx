@@ -1,6 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, Newline, Static, Text, useStdin} from 'ink'
+import {isString} from 'lodash'
 import React, {
   Fragment,
   useLayoutEffect,
@@ -11,7 +12,6 @@ import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import {useFormatter} from '../hooks/useFormatter'
-import {isEqual} from '../services/lodash'
 import {patchConsole} from '../services/patch-console'
 import {Input} from './Input'
 import {Progress} from './Progress'
@@ -30,8 +30,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   /**
    * stream
    */
-  const [stderr, setStderr] = useState<string[]>([])
-  const [stdout, setStdout] = useState<string[]>([])
+  const [stdio, setStdio] = useState<string[]>([])
 
   /**
    * ProgressPlugin reportage
@@ -69,8 +68,9 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
    * also keeping the terminal clean
    */
   patchConsole((stream, data) => {
-    isEqual(stream, 'stderr') && setStderr([...stderr, data])
-    isEqual(stream, 'stdout') && setStdout([...stdout, data])
+    if (stream === 'stdout') {
+      setStdio([...stdio, data])
+    }
   })
 
   /**
@@ -89,10 +89,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
    */
   useForceUpdate()
 
-  const hasCompilerErrors =
-    stats && stats?.errors && stats?.errors?.length > 0
-  const hasStdErr = stderr && stderr.length > 0
-  const hasErrors = hasStdErr || hasCompilerErrors
+  const hasErrors = stats?.errors?.length > 0
 
   useLayoutEffect(() => {
     if (
@@ -109,23 +106,28 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
 
-      {hasCompilerErrors && (
-        <Static items={stats?.errors ?? []}>
-          {(err, k) =>
-            err ? (
-              <Fragment key={`stats-err-${k}`}>
-                <Text>
-                  <Newline />
-                  {err.file ? `Error in ${err.file}` : ``}
-                </Text>
+      {hasErrors && (
+        <Box marginTop={1}>
+          <Static items={[...stdio, ...stats.errors]}>
+            {(out, k) => (
+              <Text key={`stdio-${k}`}>
+                {' '}
+                <Newline />
+                {isString(out) && out}
+                {!isString(out) && (
+                  <Fragment>
+                    <Text>
+                      <Newline />
+                      {out.file ? `Error in ${out.file}` : ``}
+                    </Text>
 
-                <Text>{err.message ?? ''}</Text>
-              </Fragment>
-            ) : (
-              []
-            )
-          }
-        </Static>
+                    <Text>{out.message ?? ''}</Text>
+                  </Fragment>
+                )}
+              </Text>
+            )}
+          </Static>
+        </Box>
       )}
 
       {/**
@@ -138,7 +140,6 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
         stats?.children?.map((child, id) => (
           <Box
             key={`stats-${child.name}-${id}`}
-            marginBottom={1}
             flexDirection={'column'}
           >
             <Text backgroundColor={theme.colors.primary}>
@@ -198,7 +199,13 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
                 ))}
             </Box>
 
-            <Text> Compiled in {duration(child.time)} </Text>
+            <Text>
+              {' '}
+              compiled in{' '}
+              <Text color={theme.colors.flavor}>
+                {duration(child.time)}
+              </Text>{' '}
+            </Text>
           </Box>
         ))}
 
@@ -206,20 +213,55 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
        * #todo this type-guarding is stanky
        */}
       {instance &&
-      theme &&
-      progress &&
-      progress[0] &&
-      progress[0] < 1 ? (
-        <Progress progress={progress} theme={theme} />
-      ) : (
-        instance.current.mode == 'development' && (
+        theme &&
+        progress &&
+        typeof progress[0] === 'number' && (
           <Box flexDirection="column" marginBottom={1}>
+            {progress[0] < 1 && progress[0] > 0 && (
+              <Progress progress={progress} theme={theme} />
+            )}
+
+            {instance.current.mode == 'development' && (
+              <>
+                <Text color={theme?.colors.text}>
+                  <Newline /> dev:{' '}
+                  <Text color={theme?.colors.primary}>
+                    http://
+                    {instance.current.store.get('server.host')}:
+                    {instance.current.store.get('server.port')}
+                  </Text>
+                </Text>
+
+                {instance.current.store.is(
+                  'server.middleware.proxy',
+                  true,
+                ) && (
+                  <Text color={theme?.colors.text}>
+                    {' '}
+                    proxy target:{' '}
+                    <Text color={theme?.colors.primaryAlt}>
+                      {instance.current.store.isString(
+                        'server.proxy.target',
+                      )
+                        ? instance.current.store.get(
+                            'server.proxy.target',
+                          )
+                        : JSON.stringify(
+                            instance.current.store.get(
+                              'server.proxy.target',
+                            ),
+                          )}
+                    </Text>
+                  </Text>
+                )}
+              </>
+            )}
+
             <Text color={theme?.colors.faded}>
-              Press Q to exit
+              <Newline /> 🆀 to exit
             </Text>
           </Box>
-        )
-      )}
+        )}
     </Box>
   )
 }

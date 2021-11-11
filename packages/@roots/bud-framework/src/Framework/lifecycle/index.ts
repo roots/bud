@@ -34,7 +34,7 @@ export async function lifecycle(
   this: Framework,
 ): Promise<Framework> {
   const logger = this.logger.instance.scope(
-    ...this.logger.getScope(),
+    ...this.logger.context,
     'lifecycle',
   )
   logger.time('lifecycle')

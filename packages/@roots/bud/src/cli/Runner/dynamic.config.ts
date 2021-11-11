@@ -8,8 +8,6 @@ export const config = async (app: Bud, key: string) => {
   const configs = app.project.get(key)
   if (!configs || !configs.length) return
 
-  app.dump(configs)
-
   const handleConfig = async config => {
     app.await('Reading', config)
 
@@ -25,8 +23,6 @@ export const config = async (app: Bud, key: string) => {
     const rawImport = config.endsWith('.ts')
       ? await app.ts.read(config)
       : await import(config)
-
-    app.dump(rawImport)
 
     const configTap = isFunction(rawImport?.default)
       ? rawImport.default

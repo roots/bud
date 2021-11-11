@@ -34,45 +34,43 @@ export class Runner {
    */
   @bind
   public async initialize() {
-    const determineDefaultValue = (value, fallback = true) =>
+    const determineDefaultBool = (value, fallback = true) =>
       isUndefined(value) ? fallback : value === true
 
     this.app = await factory({
-      ...config,
-      mode: this.cli.flags.mode,
       config: {
-        ...config,
-        mode: this.cli.flags.mode,
         cli: this.cli,
+        mode: this.cli.flags.mode ?? 'production',
+        location: {
+          project:
+            this.cli.flags['location.project'] ??
+            config.location.project,
+          src:
+            this.cli.flags['location.src'] ??
+            config.location.src,
+          dist:
+            this.cli.flags['location.dist'] ??
+            config.location.dist,
+          storage:
+            this.cli.flags['location.storage'] ??
+            config.location.storage,
+        },
         features: {
-          ...(config.features ?? {}),
-          cache: determineDefaultValue(this.cli.flags.cache),
-          clean: determineDefaultValue(this.cli?.flags?.clean),
-          dashboard: determineDefaultValue(
-            this.cli?.flags?.dashboard,
+          cache: determineDefaultBool(this.cli.flags.cache),
+          clean: determineDefaultBool(this.cli?.flags.clean),
+          dashboard: determineDefaultBool(
+            this.cli.flags.dashboard,
           ),
-          hash: determineDefaultValue(
-            this.cli?.flags?.hash,
-            false,
+          hash: determineDefaultBool(this.cli.flags.hash, false),
+          html: determineDefaultBool(this.cli.flags.html, false),
+          inject: determineDefaultBool(this.cli.flags.inject),
+          install: determineDefaultBool(this.cli.flags.install),
+          log: determineDefaultBool(this.cli.flags.log, false),
+          manifest: determineDefaultBool(
+            this.cli.flags.manifest,
           ),
-          html: determineDefaultValue(
-            this.cli?.flags?.html,
-            false,
-          ),
-          install: determineDefaultValue(
-            this.cli?.flags?.install,
-            false,
-          ),
-          inject: determineDefaultValue(this.cli?.flags?.inject),
-          log: determineDefaultValue(
-            this.cli?.flags?.log,
-            false,
-          ),
-          manifest: determineDefaultValue(
-            this.cli?.flags?.manifest,
-          ),
-          splitChunks: determineDefaultValue(
-            this.cli?.flags?.splitChunks,
+          splitChunks: determineDefaultBool(
+            this.cli.flags.splitChunks,
             false,
           ),
         },

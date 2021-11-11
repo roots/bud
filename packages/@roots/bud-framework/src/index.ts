@@ -204,7 +204,13 @@ export interface Rules extends Partial<Index<Rule.Interface>> {}
  *
  * @virtual @public
  */
-export interface Locations extends Partial<Index<string>> {}
+export interface Locations
+  extends Partial<Record<string, string>> {
+  [key: string]: string
+  project?: string
+  src?: string
+  dist?: string
+}
 
 /**
  * Registered services

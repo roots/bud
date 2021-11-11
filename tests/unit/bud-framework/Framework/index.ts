@@ -8,7 +8,9 @@ describe('bud', () => {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory({config: {ci: true, log: false}})
+    bud = await factory({
+      config: {features: {dashboard: false, log: false}},
+    })
   })
 
   it('mode', () => {

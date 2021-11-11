@@ -14,6 +14,11 @@ import type {Framework} from './logger.interface'
  */
 export class Logger {
   /**
+   * Context
+   */
+  public context: Array<string> = ['root']
+
+  /**
    * Logger instance
    *
    * @public
@@ -93,21 +98,5 @@ export class Logger {
     })
 
     return instance
-  }
-
-  /**
-   * Scope of logger labels
-   */
-  @bind
-  public getScope(): Array<string> {
-    const scope = []
-
-    this.app.isRoot && scope.push('root')
-
-    !this.app.isRoot &&
-      this.app.name &&
-      scope.push(this.app.name)
-
-    return scope
   }
 }

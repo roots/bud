@@ -13,6 +13,11 @@ export const config: Configuration = {
    */
   name: 'bud',
 
+  /**
+   * Mode
+   *
+   * @public
+   */
   mode: 'production',
 
   /**

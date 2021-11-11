@@ -9,13 +9,6 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
-  "ci": Object {
-    "allowNo": false,
-    "default": false,
-    "description": "non raw mode tty interoperable output",
-    "parse": [Function],
-    "type": "boolean",
-  },
   "clean": Object {
     "allowNo": true,
     "default": true,
@@ -32,13 +25,6 @@ Object {
   },
   "devtool": Object {
     "description": "specify source-map type",
-    "input": Array [],
-    "multiple": false,
-    "parse": [Function],
-    "type": "option",
-  },
-  "dist": Object {
-    "description": "specify directory to emit assets to",
     "input": Array [],
     "multiple": false,
     "parse": [Function],
@@ -79,9 +65,38 @@ Object {
   },
   "install": Object {
     "allowNo": false,
+    "default": false,
     "description": "ensure peer dependencies are installed",
     "parse": [Function],
     "type": "boolean",
+  },
+  "location.dist": Object {
+    "description": "directory to emit assets to",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
+  "location.project": Object {
+    "description": "project directory",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
+  "location.publicPath": Object {
+    "description": "specify public path",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
+  },
+  "location.src": Object {
+    "description": "directory containing source assets",
+    "input": Array [],
+    "multiple": false,
+    "parse": [Function],
+    "type": "option",
   },
   "log": Object {
     "allowNo": false,
@@ -114,13 +129,6 @@ Object {
     "parse": [Function],
     "type": "option",
   },
-  "publicPath": Object {
-    "description": "specify public path",
-    "input": Array [],
-    "multiple": false,
-    "parse": [Function],
-    "type": "option",
-  },
   "runtime": Object {
     "allowNo": true,
     "description": "Create a runtime chunk",
@@ -133,13 +141,6 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
-  "src": Object {
-    "description": "specify directory containing source assets",
-    "input": Array [],
-    "multiple": false,
-    "parse": [Function],
-    "type": "option",
-  },
   "target": Object {
     "default": Array [],
     "description": "limit compilation to this compiler",
@@ -150,7 +151,7 @@ Object {
   },
   "vendor": Object {
     "allowNo": true,
-    "description": "create separate chunks for vendor and app code",
+    "description": "create separate chunks for vendor and app code. alias for splitChunks",
     "parse": [Function],
     "type": "boolean",
   },

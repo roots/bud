@@ -66,7 +66,7 @@ export abstract class Service<
     this.logger = this.app.logger
       .makeInstance()
       .scope(
-        ...this.app.logger.getScope(),
+        ...this.app.logger.context,
         this.constructor.name.toLowerCase(),
       )
   }

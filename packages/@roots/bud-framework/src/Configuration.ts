@@ -42,7 +42,7 @@ export interface Configuration {
      *
      * @public
      */
-    cache: boolean
+    cache?: boolean
 
     /**
      * Feature toggle: enable or disable the command line interface
@@ -51,7 +51,7 @@ export interface Configuration {
      *
      * @public
      */
-    dashboard: boolean
+    dashboard?: boolean
 
     /**
      * Feature toggle: Clean dist before compilation
@@ -64,7 +64,7 @@ export interface Configuration {
      *
      * @public
      */
-    clean: boolean
+    clean?: boolean
 
     /**
      * Enable or disable filename hashing
@@ -73,7 +73,7 @@ export interface Configuration {
      *
      * @public
      */
-    hash: boolean
+    hash?: boolean
 
     /**
      * Emit html template
@@ -82,14 +82,14 @@ export interface Configuration {
      *
      * @public
      */
-    html: boolean
+    html?: boolean
 
     /**
      * Automatically inject installed extensions
      *
      * @public
      */
-    inject: boolean
+    inject?: boolean
 
     /**
      * Automatically install peer dependencies
@@ -98,7 +98,7 @@ export interface Configuration {
      *
      * @public
      */
-    install: boolean
+    install?: boolean
 
     /**
      * Log to console
@@ -107,7 +107,7 @@ export interface Configuration {
      *
      * @public
      */
-    log: boolean
+    log?: boolean
 
     /**
      * Enable or disable producing a manifest.json file
@@ -116,7 +116,7 @@ export interface Configuration {
      *
      * @public
      */
-    manifest: boolean
+    manifest?: boolean
 
     /**
      * Enable or disable chunk splitting
@@ -125,7 +125,7 @@ export interface Configuration {
      *
      * @public
      */
-    splitChunks: boolean
+    splitChunks?: boolean
   }
 
   /**
@@ -138,7 +138,7 @@ export interface Configuration {
    *
    * @public
    */
-  patterns: Index<RegExp>
+  patterns: Record<string, RegExp>
 
   /**
    * Registered fs directories

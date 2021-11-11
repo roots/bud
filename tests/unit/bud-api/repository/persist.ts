@@ -1,4 +1,4 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
 
 describe.skip('bud.persist', function () {
   let bud: Framework
@@ -6,9 +6,7 @@ describe.skip('bud.persist', function () {
   beforeAll(async () => {
     bud = await factory({
       config: {
-        ...config,
-        ci: true,
-        log: false,
+        features: {dashboard: false, log: false},
       },
     })
   })

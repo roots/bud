@@ -51,10 +51,11 @@ export async function make(
   ctx.logger.instance.fav(`new instance:`, name)
 
   const instance = new ctx.implementation({
-    name,
     childOf: this,
-    config: ctx.options.config,
-    mode: ctx.options.mode,
+    config: {
+      ...ctx.options.config,
+      name,
+    },
     services: ctx.options.services,
   })
 

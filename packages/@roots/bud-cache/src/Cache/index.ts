@@ -52,14 +52,14 @@ export class Cache
         .toLowerCase()
 
     try {
-      const argv = JSON.stringify(this.app.project.all())
+      const project = JSON.stringify(this.app.project.all())
       const str = await Promise.all(
         filePaths.map(async filePath => {
           return await readFile(filePath, 'utf8')
         }),
       )
       const finalHash = await hash(
-        str.join('').concat(argv) ?? '',
+        str.join('').concat(project) ?? '',
       )
 
       return finalHash

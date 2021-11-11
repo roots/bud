@@ -62,8 +62,11 @@ export function config(app: Framework): void {
     /**
      * InfrastructureLogging
      */
-    .hooks.on('build.infrastructureLogging', () =>
-      app.store.get('build.infrastructureLogging'),
+    .hooks.on(
+      'build.infrastructureLogging',
+      (): Configuration['infrastructureLogging'] => ({
+        ...app.store.get('build.infrastructureLogging'),
+      }),
     )
 
     /**

@@ -40,7 +40,7 @@ export const Sage: Preset = {
       .when(
         app.isProduction,
         app => app.minimize().hash().runtime('single'),
-        app => app.proxy().devtool(),
+        app => app.devtool(),
       )
   },
 }
