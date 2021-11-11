@@ -29,43 +29,47 @@ export interface setPath {
  * @public
  */
 export function setPath(...args): Framework {
-  const ctx = this as Framework
+  this as Framework
 
   if (typeof args[0] == 'string') {
-    ctx.hooks.on(`location.${args[0]}`, args[1])
-    ctx.info(`${args[0]} set to ${args[1]}`)
+    this.hooks.on(`location.${args[0]}`, args[1])
+    this.info(`${args[0]} set to ${args[1]}`)
     return this
   }
 
   if (Object.entries(args[0]).length === 0) {
-    ctx.error(
-      `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project']`,
-    )
+    this.error({
+      prefix: 'setPath',
+      message: `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations`,
+      suffix: `['src', 'dist', 'storage', 'publicPath', 'project']`,
+    })
   }
 
   Object.entries(args[0]).map(([k, v]: [string, string]) => {
-    ctx.when(k == 'project' && !v.startsWith('/'), () => {
-      ctx.error(
-        'The project path must be absolute',
-        'Type error',
-      )
+    this.when(k == 'project' && !v.startsWith('/'), () => {
+      this.error({
+        prefix: 'setPath',
+        message: 'The project path must be absolute',
+      })
     })
 
-    ctx.when(
+    this.when(
       !['project', 'publicPath'].includes(k) &&
         v.startsWith('/'),
       () => {
-        ctx.warn(
-          `${k} was defined as ${v}. This path should be relative to the project root. You should fix ctx.`,
-        )
+        this.warn({
+          prefix: 'setPath',
+          message: `${k} was defined as ${v}.`,
+          suffix: `This path should be relative to the project root. You should fix this.`,
+        })
 
-        v = v.replace(ctx.hooks.filter('location.project'), '')
+        v = v.replace(this.hooks.filter('location.project'), '')
       },
     )
 
-    ctx.hooks.on(`location.${k}`, v)
-    ctx.info(`${k} set to ${v}`)
+    this.hooks.on(`location.${k}`, v)
+    this.info({prefix: 'setPath', message: `${k} set to ${v}`})
   })
 
-  return ctx
+  return this
 }

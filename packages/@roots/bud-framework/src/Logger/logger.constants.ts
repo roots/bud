@@ -1,17 +1,22 @@
 import {SignaleConfig} from 'signale'
 
+import type {Configuration} from '../Configuration'
 import {figures} from './figures'
+
+export type INSTANCE_CONFIG = SignaleConfig
 
 /**
  * Instance configuration
+ *
+ * @internal
  */
 export const INSTANCE_CONFIG: SignaleConfig = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
   displayFilename: false,
-  displayLabel: true,
-  displayTimestamp: false,
+  displayLabel: false,
+  displayTimestamp: true,
   underlineLabel: false,
   underlineMessage: false,
   underlinePrefix: false,
@@ -19,8 +24,9 @@ export const INSTANCE_CONFIG: SignaleConfig = {
   uppercaseLabel: false,
 }
 
-export type INSTANCE_CONFIG = SignaleConfig
-
+/**
+ * @internal
+ */
 interface Type {
   /** The icon corresponding to the logger. */
   badge: string
@@ -35,110 +41,119 @@ interface Type {
   stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined
 }
 
-export interface INSTANCE_TYPES extends Record<string, Type> {}
+/**
+ * @internal
+ */
+export interface types {
+  [key: string]: Type
+}
 
-export const INSTANCE_TYPES: INSTANCE_TYPES = {
+/**
+ * @internal
+ */
+export interface TypesFactory {
+  (config: Partial<Configuration>): types
+}
+
+export const enum LEVEL {
+  'vvvv' = 'info',
+  'vvv' = 'timer',
+  'vv' = 'warn',
+  'v' = 'error',
+}
+
+export const types: TypesFactory = (
+  config: Configuration,
+): types => ({
   error: {
     badge: figures.cross,
     color: 'red',
     label: 'error',
-    logLevel: 'error',
+    logLevel: LEVEL['v'],
   },
   fatal: {
     badge: figures.cross,
     color: 'red',
     label: 'fatal',
-    logLevel: 'error',
-  },
-  fav: {
-    badge: `\n${figures.heart}`,
-    color: 'magenta',
-    label: 'bootstrapping',
-    logLevel: 'info',
-  },
-  info: {
-    badge: figures.info,
-    color: 'blue',
-    label: 'info',
-    logLevel: 'info',
+    logLevel: LEVEL['v'],
   },
   star: {
     badge: figures.star,
-    color: 'yellow',
-    label: 'star',
-    logLevel: 'info',
+    color: 'cyan',
+    label: 'instantiate',
+    logLevel: LEVEL['vvv'],
+  },
+  info: {
+    badge: figures.info,
+    color: 'magenta',
+    label: 'info',
+    logLevel: LEVEL['vvv'],
   },
   success: {
     badge: figures.tick,
     color: 'green',
     label: 'success',
-    logLevel: 'info',
-  },
-  wait: {
-    badge: figures.ellipsis,
-    color: 'blue',
-    label: 'waiting',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   warn: {
     badge: figures.warning,
     color: 'yellow',
     label: 'warning',
-    logLevel: 'warn',
+    logLevel: LEVEL['vv'],
   },
   complete: {
     badge: figures.circleFilled,
     color: 'cyan',
     label: 'complete',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   pending: {
     badge: figures.ellipsis,
-    color: 'magenta',
+    color: 'cyan',
     label: 'pending',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
     stream: process.stdout,
   },
   note: {
     badge: figures.bullet,
     color: 'blue',
     label: 'note',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   start: {
     badge: figures.play,
     color: 'green',
     label: 'start',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   pause: {
     badge: figures.squareSmallFilled,
     color: 'yellow',
     label: 'pause',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   debug: {
     badge: figures.circleFilled,
     color: 'red',
-    label: 'debug',
-    logLevel: 'debug',
+    label: 'info',
+    logLevel: LEVEL['vvvv'],
   },
   await: {
     badge: figures.ellipsis,
-    color: 'magenta',
-    label: 'processing',
-    logLevel: 'info',
+    color: 'cyan',
+    label: 'awaiting',
+    logLevel: LEVEL['vvv'],
   },
   watch: {
     badge: figures.ellipsis,
     color: 'yellow',
     label: 'watching',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
   log: {
-    badge: figures.dot,
+    badge: figures.pointer,
     color: 'blue',
     label: 'log',
-    logLevel: 'info',
+    logLevel: LEVEL['vvv'],
   },
-}
+})

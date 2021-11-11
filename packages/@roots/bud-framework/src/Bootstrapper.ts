@@ -22,7 +22,7 @@ export abstract class Bootstrapper<
    *
    * @public
    */
-  public name: any
+  public abstract ident?: string
 
   /**
    * Access {@link Framework}

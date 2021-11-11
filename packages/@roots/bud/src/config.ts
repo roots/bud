@@ -21,6 +21,20 @@ export const config: Configuration = {
   mode: 'production',
 
   /**
+   * Logger settings
+   *
+   * @public
+   */
+  log: {
+    /**
+     * Log level
+     *
+     * @public
+     */
+    level: 'vvv',
+  },
+
+  /**
    * Enabled features
    *
    * @public
@@ -31,13 +45,13 @@ export const config: Configuration = {
      *
      * @public
      */
-    cache: false,
+    cache: true,
 
     /**
      * {@inheritDoc @roots/bud-framework#Configuration.ci}
      * @public
      */
-    dashboard: true,
+    dashboard: false,
 
     /**
      * {@inheritDoc @roots/bud-framework#Configuration.clean}
@@ -88,6 +102,23 @@ export const config: Configuration = {
      * @public
      */
     splitChunks: false,
+  },
+
+  /**
+   * Cache settings
+   *
+   * @public
+   */
+  cache: {
+    /**
+     * Cache strategy
+     *
+     * @remarks
+     * One of: 'filesystem', 'memory', or false
+     *
+     * @public
+     */
+    type: 'filesystem',
   },
 
   /**

@@ -14,6 +14,13 @@ import {LOCATIONS} from './hooks.constants'
  */
 export class Hooks extends Base implements Contract, Service {
   /**
+   * Service identifier
+   *
+   * @public
+   */
+  public ident: string = 'bud.hooks'
+
+  /**
    * Registr lifecycle hook
    *
    * @remarks
@@ -26,7 +33,9 @@ export class Hooks extends Base implements Contract, Service {
       name: keyof Configuration['location'],
     ) => {
       this.on(`location.${name}`, () =>
-        store.get(`location.${name}`),
+        !store.isUndefined(`cli.flags.location.${name}`)
+          ? store.get(`cli.flags.location.${name}`)
+          : store.get(`location.${name}`),
       )
     }
 

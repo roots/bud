@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import chalk from 'chalk'
 import type {GlobTask} from 'globby'
 
 import {globby, isArray, isString} from './entry.dependencies'
@@ -192,6 +193,15 @@ function makeEntrypoints(
       ...Object.entries(entry).reduce(buildEntryReducer, {}),
     }
   }
+
+  Object.entries(entry).map(([k, v]) => {
+    this.api.log('success', {
+      prefix: 'entry',
+      message: `entrypoint ${k} added`,
+      suffix: chalk.dim(v),
+    })
+    this.dump(entry)
+  })
 
   this.hooks.on('build.entry', buildEntryHook)
 

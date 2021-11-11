@@ -1,11 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 
 export interface persist {
-  (enabled?: boolean): Framework
-}
-
-export interface persist {
-  (enabled?: string): Framework
+  (type?: 'memory' | 'filesystem' | false): Framework
 }
 
 /**
@@ -13,30 +9,51 @@ export interface persist {
  *
  * @example
  * ```js
- * app.persist({
- *   type: 'memory',
- * })
+ * app.persist('memory')
+ * ```
+ *
+ * @example
+ * ```js
+ * app.persist('filesystem')
+ * ```
+ *
+ * @example
+ * ```js
+ * app.persist(false)
  * ```
  *
  * @public @config
  */
 export const persist: persist = function (
-  enabled: string | boolean,
+  type?: 'memory' | 'filesystem' | false,
 ) {
   this as Framework
 
-  if (enabled === false) {
+  if (type === false) {
+    this.api.log('success', {
+      prefix: 'cache',
+      message: 'disabled',
+    })
     this.hooks.on('build.cache', false)
     return this
   }
 
-  if (enabled === 'memory') {
+  if (type === 'memory') {
+    this.api.log('success', {
+      prefix: 'cache',
+      message: 'memory cache enabled',
+    })
     this.hooks.on('build.cache', {
       type: 'memory',
     })
 
     return this
   }
+
+  this.api.log('success', {
+    prefix: 'cache',
+    message: 'filesystem cache enabled',
+  })
 
   this.hooks
     .on('build.cache', () => ({
@@ -53,7 +70,7 @@ export const persist: persist = function (
       ),
     }))
     .hooks.on('build.cache.version', this.cache.version)
-    .hooks.on('build.cache.type', () => 'filesystem')
+    .hooks.on('build.cache.type', 'filesystem')
     .hooks.on('build.cache.cacheDirectory', this.path('storage'))
     .hooks.on('build.cache.buildDependencies', () => ({
       bud: this.project.get('dependencies'),

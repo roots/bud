@@ -13,11 +13,11 @@ import {
  */
 export class Dependencies extends Service<null> {
   /**
-   * {@inheritDoc @roots/bud-framework#Service.name}
+   * Service ident
    *
-   * @public @override
+   * @public
    */
-  public name = 'dependencies'
+  public ident = 'bud.dependencies'
 
   /**
    * Dependencies installation manager

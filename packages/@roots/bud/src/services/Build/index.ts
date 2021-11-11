@@ -5,4 +5,11 @@ import {Build as Base} from '@roots/bud-build'
  *
  * @public
  */
-export class Build extends Base {}
+export class Build extends Base {
+  /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.build'
+}

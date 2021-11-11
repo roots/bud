@@ -8,5 +8,12 @@ import {extensions} from '../../extensions'
  * @public
  */
 export class Extensions extends Base {
+  /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.extensions'
+
   public repository = extensions()
 }

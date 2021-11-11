@@ -1,6 +1,7 @@
 import {Service} from '@roots/bud-framework'
 import {Container} from '@roots/container'
-import {isUndefined} from 'lodash'
+import {isObject, isUndefined} from 'lodash'
+import {Signale} from 'signale'
 
 import {bind, isFunction} from './controller.dependencies'
 import {
@@ -35,6 +36,12 @@ export class Controller {
     booted: boolean
   }
 
+  public get moduleLogger(): Signale {
+    return this.app.logger.scoped(
+      this._module?.name ?? 'anonymous',
+    )
+  }
+
   /**
    * Has registered
    *
@@ -54,6 +61,9 @@ export class Controller {
    */
   public _module: Extension | Plugin
 
+  /**
+   * @public
+   */
   public log: typeof Service.prototype.log
 
   /**
@@ -223,12 +233,15 @@ export class Controller {
     this.registered = true
 
     await this.mixin()
-
     await this.api()
 
     if (isFunction(this._module.register))
-      await this._module.register(this.app)
+      await this._module.register(this.app, this.moduleLogger)
 
+    this.moduleLogger.success({
+      prefix: this.name,
+      message: 'registered',
+    })
     return this
   }
 
@@ -243,7 +256,17 @@ export class Controller {
       ? this._module.api(this.app)
       : this._module.api
 
+    if (!isObject(methodMap)) return
+
     this.app.bindMethod(methodMap)
+
+    Object.entries(methodMap).forEach(([k, v]) => {
+      this.moduleLogger.success({
+        prefix: this.name,
+        message: 'registered function',
+        suffix: `${this.app.name}.${k}`,
+      })
+    })
 
     return this
   }
@@ -262,15 +285,16 @@ export class Controller {
       classMap = this._module.mixin
     }
 
+    if (!isObject(classMap)) return
+
     this.app.mixin(classMap)
 
     Object.entries(classMap).forEach(([k, v]) => {
-      this.log(
-        'success',
-        `${this.app.name}.${k}`,
-        'registered by',
-        this._module.name,
-      )
+      this.moduleLogger.success({
+        prefix: this._module.name,
+        message: 'registered class',
+        suffix: `${this.app.name}.${k}`,
+      })
     })
   }
 
@@ -291,8 +315,12 @@ export class Controller {
     this.booted = true
 
     if (isFunction(this._module.boot)) {
-      await this._module.boot(this.app)
-      this.log('success', this._module.name)
+      await this._module.boot(this.app, this.moduleLogger)
+
+      this.moduleLogger.success({
+        prefix: this._module.name,
+        message: `booted`,
+      })
     }
 
     return this

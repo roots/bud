@@ -14,24 +14,60 @@ export default class Build extends Command {
   public static examples = [`$ bud build`, `$ bud build --cache`]
 
   public static flags = {
-    help: flags.help({char: 'h'}),
+    version: flags.version(),
+
+    log: flags.boolean({
+      description: 'log to console',
+      default: true,
+      allowNo: true,
+    }),
+    ['log.level']: flags.string({
+      description:
+        'set log verbosity. `v` is error level. `vv` is warning level. `vvv` is log level. `vvvv` is debug level.',
+      default: 'vvv',
+      options: ['v', 'vv', 'vvv', 'vvvv'],
+    }),
+    ['log.papertrail']: flags.boolean({
+      allowNo: true,
+      default: true,
+      description: 'preserve logger output',
+    }),
+    ['log.secret']: flags.string({
+      default: [process.cwd()],
+      multiple: true,
+      description: 'hide matching strings from logging output',
+    }),
+
+    mode: flags.string({
+      description: 'compiler mode',
+      default: 'production',
+      options: ['development', 'production'],
+    }),
 
     cache: flags.boolean({
       allowNo: true,
       default: true,
-      description: 'cache built modules to the filesystem.',
+      description: 'cache built modules to the filesystem',
+    }),
+    ['cache.type']: flags.string({
+      default: 'filesystem',
+      options: ['filesystem', 'memory', 'false'],
     }),
 
     clean: flags.boolean({
       allowNo: true,
       default: true,
-      description: 'clean distributables on compilation',
+      description: 'clean dist directory before compiling',
     }),
-
-    version: flags.version(),
 
     config: flags.string({
       description: 'path to config file',
+    }),
+
+    dashboard: flags.boolean({
+      allowNo: true,
+      default: true,
+      description: 'enable bud dashboard',
     }),
 
     devtool: flags.string({
@@ -46,10 +82,6 @@ export default class Build extends Command {
     html: flags.boolean({
       allowNo: true,
       description: 'generate an html template',
-    }),
-
-    log: flags.boolean({
-      description: 'log to console',
     }),
 
     hash: flags.boolean({
@@ -71,23 +103,12 @@ export default class Build extends Command {
     manifest: flags.boolean({
       allowNo: true,
       default: true,
-      description: 'produce a manifest',
+      description: 'emit manifest.json',
     }),
 
     minimize: flags.boolean({
       allowNo: true,
       description: 'minimize file size of compiled assets',
-    }),
-
-    mode: flags.string({
-      description: 'compiler mode',
-      default: 'production',
-      options: ['development', 'production'],
-    }),
-
-    runtime: flags.boolean({
-      allowNo: true,
-      description: 'Create a runtime chunk',
     }),
 
     ['location.src']: flags.string({
@@ -103,18 +124,22 @@ export default class Build extends Command {
     }),
 
     ['location.publicPath']: flags.string({
-      description: 'specify public path',
+      description: 'public path',
     }),
 
     ['splitChunks']: flags.boolean({
       allowNo: true,
       description:
-        'create separate chunks for vendor and app code. alias for vendor',
+        'create separate chunks for vendor and app code',
     }),
     vendor: flags.boolean({
       allowNo: true,
       description:
-        'create separate chunks for vendor and app code. alias for splitChunks',
+        'create separate chunks for vendor and app code; alias for splitChunks',
+    }),
+    runtime: flags.boolean({
+      allowNo: true,
+      description: 'Create a runtime chunk',
     }),
 
     target: flags.string({

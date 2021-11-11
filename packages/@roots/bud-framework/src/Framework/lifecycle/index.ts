@@ -83,7 +83,11 @@ export async function lifecycle(
 
     if (!eligibleServices.length) return
 
-    logger.time(`lifecycle event: ${event}`)
+    logger.time(
+      `[${i + 1}/${
+        LIFECYCLE_EVENTS.length
+      }] lifecycle event: ${event}`,
+    )
 
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
@@ -94,10 +98,20 @@ export async function lifecycle(
         )
 
         await service[event](this)
+
+        logger.complete(
+          `[%d/%d] ${service.constructor.name.toLowerCase()}.${event}`,
+          i + 1,
+          eligibleServices.length,
+        )
       }),
     )
 
-    logger.timeEnd(`lifecycle event: ${event}`)
+    logger.timeEnd(
+      `[${i + 1}/${
+        LIFECYCLE_EVENTS.length
+      }] lifecycle event: ${event}`,
+    )
   }, Promise.resolve())
 
   return this

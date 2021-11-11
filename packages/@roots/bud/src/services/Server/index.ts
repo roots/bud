@@ -7,6 +7,13 @@ import {Application, Base} from './server.dependencies'
  */
 export class Server extends Base {
   /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.server'
+
+  /**
    * Service register callback
    *
    * @public

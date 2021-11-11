@@ -15,10 +15,10 @@ export interface hash {
  * @public
  */
 export const hash: hash = function (enabled = true) {
-  this.info(
-    `file hashing is ${enabled ? 'enabled' : 'disabled'}`,
-  )
-
   this.store.set('hash', enabled)
+  this.api.log('success', {
+    prefix: 'hash',
+    message: `file hashing ${enabled ? 'enabled' : 'disabled'}`,
+  })
   return this
 }

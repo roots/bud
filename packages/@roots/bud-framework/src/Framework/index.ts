@@ -61,7 +61,11 @@ export abstract class Framework {
    * @public
    */
   public get name(): string {
-    return this.store.get('name')
+    return (
+      this.store?.get('name') ??
+      this.options.config.name ??
+      'bud'
+    )
   }
   public set name(name: string) {
     this.store.set('name', name)
@@ -238,7 +242,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public logger: Logger = new Logger(this)
+  public logger: Logger
 
   /**
    * Development server and browser devtools
@@ -279,16 +283,13 @@ export abstract class Framework {
   }
 
   /**
-   * @public
-   */
-  public options: Options
-
-  /**
    * True if ts-node has been invoked
    *
    * @public
    */
   public usingTsNode: boolean = false
+
+  public options: Options
 
   /**
    * Class constructor
@@ -299,6 +300,7 @@ export abstract class Framework {
    */
   public constructor(options: Options) {
     this.options = options
+    this.logger = new Logger(this)
 
     this.store = this.container(options.config)
     this.store.setStore(options.config)
@@ -309,7 +311,6 @@ export abstract class Framework {
       this.root = this
     } else {
       this.root = options.childOf
-      this.logger.context = [this.root.name, this.name]
     }
 
     // Assign to instance
@@ -699,6 +700,24 @@ export abstract class Framework {
   }
 
   /**
+   * Log and display a debug message.
+   *
+   * @remarks
+   * This error is fatal and will kill the process
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public debug(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.context)
+      .debug(...messages)
+
+    return this
+  }
+
+  /**
    * Log and display an error.
    *
    * @remarks
@@ -728,23 +747,25 @@ export abstract class Framework {
     },
     maxDepth?,
   ): Framework {
-    return this.log(
-      ...[
-        `${options?.prefix ?? ''}\n`,
-        highlight(
-          format(obj, {
-            callToJSON: options?.callToJSON ?? false,
-            maxDepth: maxDepth ?? Infinity,
-            printFunctionName:
-              options?.printFunctionName ?? false,
-          }),
-          {
-            language: options?.language ?? 'js',
-            ignoreIllegals: options?.ignoreIllegals ?? true,
-          },
-        ),
-      ].filter(Boolean),
+    if (this.logger.level !== 'info') return
+
+    // eslint-disable-next-line no-console
+    console.log(
+      options?.prefix ?? '',
+      highlight(
+        format(obj, {
+          callToJSON: options?.callToJSON ?? false,
+          maxDepth: maxDepth ?? 8,
+          printFunctionName: options?.printFunctionName ?? false,
+        }),
+        {
+          language: options?.language ?? 'typescript',
+          ignoreIllegals: options?.ignoreIllegals ?? true,
+        },
+      ),
     )
+
+    return this
   }
 }
 

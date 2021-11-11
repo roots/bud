@@ -32,6 +32,31 @@ export interface Configuration {
   mode: 'production' | 'development'
 
   /**
+   * Logger settings
+   *
+   * @public
+   */
+  log?: {
+    /**
+     * Log level
+     *
+     * @remarks
+     * This is a little weird. It is not a standard log level (working around
+     * Signale stuff). It would be better if 'info' and 'debug' were swapped.
+     *
+     * Map of levels:
+     * - 'error' (least verbose)
+     * - 'warn'
+     * - 'debug' (default)
+     * - 'timer'
+     * - 'info' (most verbose)
+     *
+     * @public
+     */
+    level?: 'v' | 'vv' | 'vvv' | 'vvvv'
+  }
+
+  /**
    * Features to enable
    *
    * @public
@@ -126,6 +151,15 @@ export interface Configuration {
      * @public
      */
     splitChunks?: boolean
+  }
+
+  /**
+   * Cache settings
+   *
+   * @public
+   */
+  cache: {
+    type?: 'filesystem' | 'memory' | false
   }
 
   /**

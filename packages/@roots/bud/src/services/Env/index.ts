@@ -13,6 +13,13 @@ export class Env
   implements Base
 {
   /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.env'
+
+  /**
    * Path to .env file
    *
    * @public @readonly
@@ -31,7 +38,7 @@ export class Env
   public async bootstrap() {
     this.setStore(this.getParsedEnv())
     if (!this.getEntries().length) {
-      this.app.warn('no env values found')
+      this.log('warn', 'no env values found')
     }
 
     this.getEntries().forEach(([k, v]) => {

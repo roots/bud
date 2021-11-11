@@ -1,4 +1,5 @@
 import {Container} from '@roots/container'
+import {Signale} from 'signale'
 
 import {Factory, Framework, Loose, Maybe} from '../..'
 import {Name} from './'
@@ -30,14 +31,14 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  register?: Factory<[Framework], any>
+  register?: Factory<[Framework, Signale], any>
 
   /**
    * General purpose callback. Called after everything else.
    *
    * @public
    */
-  boot?: Factory<[Framework], any>
+  boot?: Factory<[Framework, Signale], any>
 
   /**
    * Objects to bind to the framework. May be expressed as an object literal or a factory function.

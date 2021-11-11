@@ -25,10 +25,17 @@ export interface alias {
  * @public @config
  */
 export const alias: alias = function (alias) {
+  this as Framework
+
   const mergeAliases = Object.entries(alias).reduce(
     (a, [k, v]: [string, string]) => {
       const path = resolve(this.path('project'), v)
-      this.info(`aliasing ${k} to ${path}`)
+
+      this.api.log('info', {
+        prefix: 'alias',
+        message: `aliasing ${k}`,
+        suffix: path,
+      })
 
       return {
         ...a,

@@ -1,4 +1,6 @@
+import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
+import {isObject, isUndefined} from 'lodash'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
@@ -35,40 +37,21 @@ export abstract class Service<
   Repository = Record<string, any>,
 > extends Bootstrapper<Repository> {
   /**
+   * Service identifier
+   *
+   * @public
+   */
+  public ident?: string = 'service'
+
+  /**
    * Service scoped logger
    *
    * @public
    */
-  protected _logger: Logger['instance']
   public get logger(): Logger['instance'] {
-    return this._logger
-  }
-  public set logger(logger: Logger['instance']) {
-    this._logger = logger
-  }
-
-  /**
-   * Class constructor
-   *
-   * @param app - {@link Framework}
-   *
-   * @public
-   */
-  public constructor(app: Framework) {
-    super(app)
-    this.initialized()
-  }
-
-  /**
-   * @internal
-   */
-  public initialized(): void {
-    this.logger = this.app.logger
-      .makeInstance()
-      .scope(
-        ...this.app.logger.context,
-        this.constructor.name.toLowerCase(),
-      )
+    return this.app.logger.scoped(
+      this.ident ?? this.constructor.name.toLowerCase(),
+    )
   }
 
   /**
@@ -79,7 +62,21 @@ export abstract class Service<
    */
   @bind
   public log(type: string, ...messages: any[]) {
-    this.logger[type](...messages)
+    this.logger[type](
+      ...messages.reduce(
+        (acc, message: string | {suffix?: string}) => {
+          if (
+            isObject(message) &&
+            !isUndefined(message.suffix)
+          ) {
+            message.suffix = chalk.dim`${message.suffix}`
+          }
+
+          return [...acc, message]
+        },
+        [],
+      ),
+    )
     return this
   }
 

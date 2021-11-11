@@ -15,7 +15,7 @@ export class Container<I = any> {
    *
    * @public
    */
-  public ident: string = 'container'
+  public ident?: string = 'container'
 
   /**
    * The container store

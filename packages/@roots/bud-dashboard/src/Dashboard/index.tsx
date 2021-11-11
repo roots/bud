@@ -45,7 +45,10 @@ export class Dashboard extends Service implements Contract {
       this.instance = render(
         <DashboardComponent bud={this.app} />,
       )
-      this.app.success('dashboard booted')
+      this.log('success', {
+        prefix: 'run',
+        message: 'dashboard instantiated',
+      })
     }
     return this.app
   }

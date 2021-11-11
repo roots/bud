@@ -17,6 +17,13 @@ export class Project
   implements Framework.Project.Interface
 {
   /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.project'
+
+  /**
    * Project peer dependencies manager
    *
    * @public
@@ -31,8 +38,13 @@ export class Project
     this.peers = new Peers(this.app)
   }
 
+  public get flush(): boolean {
+    return this.is('cli.flags.flush', true)
+  }
+
   public async register() {
     await this.addManifestDataToStore()
+    await ensureFile(this.getProfileLocation())
     this.savedProfile = await this.readProfile()
 
     this.setStore({
@@ -47,9 +59,7 @@ export class Project
     })
 
     const shouldLoadProfileFromDisk =
-      this.app.store.is('cli.flags.flush', false) &&
-      this.app.store.is('cli.flags.cache', true) &&
-      this.savedProfile
+      this.flush || this.savedProfile
 
     if (shouldLoadProfileFromDisk) {
       this.setStore(this.savedProfile)
@@ -172,16 +182,13 @@ export class Project
    */
   @bind
   public async refreshProfile() {
-    !this.savedProfile &&
-      this.log('await', 'building project profile.')
-
-    this.is('cli.flags.flush', true) &&
-      this.log('await', 'rebuilding project profile')
+    this.log('time', 'rebuilding project profile')
 
     try {
       await this.resolvePeers()
       await this.searchConfigs()
       await this.writeProfile()
+      this.log('timeEnd', 'rebuilding project profile')
     } catch (e) {
       this.log('error', e)
     }
@@ -206,7 +213,7 @@ export class Project
 
     this.log(
       'success',
-      `project profile saved to`,
+      'writing profile to disk',
       this.getProfileLocation(),
     )
   }
@@ -215,24 +222,16 @@ export class Project
   public async readProfile() {
     const location = this.getProfileLocation()
 
-    this.log('await', 'reading profile from location', location)
+    this.log('await', 'read profile from', location)
 
     if (location === null) return
 
     try {
       const res = await readJson(location)
-      this.log(
-        'success',
-        `project profile loaded from`,
-        location,
-      )
+      this.log('success', 'read profile from', location)
       return res
     } catch (e) {
-      this.log(
-        'warn',
-        'failed to load project profile from',
-        location,
-      )
+      this.log('error', 'read profile from', location)
 
       return false
     }

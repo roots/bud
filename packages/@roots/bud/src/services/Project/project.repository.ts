@@ -1,8 +1,5 @@
 export interface repository {
   cache: {
-    file: string
-    directory: string
-    valid: boolean
     hash: null
   }
   cli: {
@@ -68,9 +65,6 @@ export interface repository {
  */
 export const repository: repository = {
   cache: {
-    file: null,
-    directory: null,
-    valid: null,
     hash: null,
   },
   configs: {

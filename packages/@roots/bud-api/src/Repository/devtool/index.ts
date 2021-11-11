@@ -24,5 +24,7 @@ export interface devtool {
 export const devtool: devtool = function (devtool = false) {
   this.hooks.on('build.devtool', () => devtool)
 
+  this.api.log('success', {prefix: 'devtool', message: devtool})
+
   return this
 }

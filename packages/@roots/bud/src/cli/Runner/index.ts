@@ -37,7 +37,7 @@ export class Runner {
     const determineDefaultBool = (value, fallback = true) =>
       isUndefined(value) ? fallback : value === true
 
-    this.app = await factory({
+    const settings = {
       config: {
         cli: this.cli,
         mode: this.cli.flags.mode ?? 'production',
@@ -54,6 +54,10 @@ export class Runner {
           storage:
             this.cli.flags['location.storage'] ??
             config.location.storage,
+        },
+        cache: {
+          type:
+            this.cli.flags['cache.type'] ?? config.cache.type,
         },
         features: {
           cache: determineDefaultBool(this.cli.flags.cache),
@@ -75,7 +79,26 @@ export class Runner {
           ),
         },
       },
-    })
+    }
+
+    this.app = await factory(settings)
+
+    this.app.dump(settings, {prefix: 'cli settings'})
+
+    this.app.logger.instance
+      .scope('cli', 'runner')
+      .success('framework pre-compilation lifecycle complete.')
+
+    this.app.dump(
+      this.app,
+      {
+        prefix: 'bud post lifecycle',
+        printFunctionName: true,
+        language: 'typescript',
+        callToJSON: false,
+      },
+      3,
+    )
 
     return this.app
   }

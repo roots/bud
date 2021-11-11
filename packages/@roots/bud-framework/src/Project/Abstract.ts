@@ -26,4 +26,6 @@ export abstract class Abstract extends Service<Peers.Repository> {
    * @public
    */
   public abstract hasPeerDependency(pkg: string): boolean
+
+  public flush: boolean
 }

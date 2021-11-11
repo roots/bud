@@ -1,9 +1,7 @@
+import {isUndefined} from 'lodash'
 import {SignaleConfig, SignaleOptions} from 'signale'
 
-import {
-  INSTANCE_CONFIG,
-  INSTANCE_TYPES,
-} from './logger.constants'
+import {INSTANCE_CONFIG, LEVEL, types} from './logger.constants'
 import {bind, Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
@@ -16,7 +14,30 @@ export class Logger {
   /**
    * Context
    */
-  public context: Array<string> = ['root']
+  public get context(): Array<string> {
+    const ctx = []
+    this.app.options.config.location.project &&
+      ctx.push(
+        this.app.options.config.location.project
+          .split('/')
+          .pop(),
+      )
+
+    !this.app.isRoot && this.app.name && ctx.push(this.app.name)
+
+    return ctx
+  }
+
+  /**
+   * Scoped logger
+   *
+   * @public
+   */
+  public scoped(...scope: Array<string>) {
+    return this.instance.scope(
+      ...[...this.context, ...(scope ?? [])],
+    )
+  }
 
   /**
    * Logger instance
@@ -27,75 +48,120 @@ export class Logger {
 
   /**
    * Logger enabled
+   *
+   * @public
    */
-  public enabled: boolean = true
+  public get enabled(): boolean {
+    return !isUndefined(this.flags.log) ? this.flags.log : true
+  }
+
+  /**
+   * Logger level
+   *
+   * @public
+   */
+  public get level(): string {
+    if (isUndefined(this.flags['log.level'])) return LEVEL['vvv']
+    if (this.flags['log.level'] === 'v') return LEVEL['v']
+    if (this.flags['log.level'] === 'vv') return LEVEL['vv']
+    if (this.flags['log.level'] === 'vvv') return LEVEL['vvv']
+    if (this.flags['log.level'] === 'vvvv') return LEVEL['vvvv']
+  }
 
   /**
    * Logger interactive mode
+   *
+   * @public
    */
-  public interactive: boolean = !process.argv.includes('--log')
+  public get interactive(): boolean {
+    return !isUndefined(this.flags['log.papertrail'])
+      ? !this.flags['log.papertrail']
+      : false
+  }
+
+  /**
+   * Logging flags
+   *
+   * @public
+   */
+  public get flags(): Record<string, any> {
+    return this.app.options.config.cli.flags
+  }
 
   /**
    * Logger secrets hidden in process stdout
+   *
+   * @public
    */
-  public secrets: Array<string> = [process.cwd()]
+  public secrets: Array<string> = [
+    process.cwd(),
+    ...(this.flags['log.secret'] ?? []),
+  ]
 
   /**
    * Stream destinations
+   *
+   * @public
    */
   public stream = [process.stdout]
 
   /**
    * Config
+   *
+   * @public
    */
   public config: INSTANCE_CONFIG = INSTANCE_CONFIG
-
-  /**
-   * Config
-   */
-  public types: INSTANCE_TYPES = INSTANCE_TYPES
+  public options: SignaleOptions
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(protected app: Framework) {
+  public constructor(private app: Framework) {
     this.instantiate()
+    this.scoped('logger').debug('config', this.instance.config)
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public instantiate() {
-    this.instance = this.makeInstance(
-      {
-        disabled: !this.enabled,
-        interactive: this.interactive,
-        secrets: this.secrets,
-        stream: this.stream,
-        types: this.types,
-      },
-      this.config,
-    )
+    this.options = {
+      disabled: !this.enabled,
+      interactive: this.interactive,
+      secrets: this.secrets,
+      stream: this.stream,
+      types: types(this.app.options.config),
+      logLevel: this.level,
+    }
+
+    this.instance = this.makeInstance()
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public makeInstance(
     options?: SignaleOptions,
     config?: SignaleConfig,
   ) {
-    const instance = new Signale({
-      disabled: !this.enabled,
-      interactive: this.interactive,
-      secrets: this.secrets,
-      stream: this.stream,
-      types: this.types,
-      ...options,
-    })
+    options = {
+      ...this.options,
+      ...(options ?? {}),
+    }
 
-    instance.config({
+    config = {
       ...this.config,
-      ...config,
-    })
+      ...(config ?? {}),
+    }
+
+    const instance = new Signale(options)
+    instance.config(config)
 
     return instance
   }

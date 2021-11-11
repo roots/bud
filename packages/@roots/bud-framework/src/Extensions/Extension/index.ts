@@ -1,4 +1,5 @@
 import {Container} from '@roots/container'
+import {Signale} from 'signale'
 
 import {Framework, Maybe, Modules, Plugins} from '../..'
 import {Module} from './Module'
@@ -37,7 +38,7 @@ export interface CompilerPlugin<
    *
    * @public
    */
-  make?: Maybe<[Container<Options>, Framework], Plugin>
+  make?: Maybe<[Container<Options>, Framework, Signale], Plugin>
 
   /**
    * Compiler plugin `apply` method

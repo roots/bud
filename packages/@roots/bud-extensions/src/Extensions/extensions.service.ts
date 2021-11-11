@@ -63,37 +63,24 @@ export class Extensions
       this.log('info', `extension injection enabled`)
     }
 
-    this.log('time', 'injecting project extensions')
+    this.log('await', 'injecting project extensions')
+    this.app.dump(this.app, {}, 4)
+
     await Promise.all(
       this.app.project.getKeys('extensions').map(async pkg => {
         const importResult = await import(pkg)
 
         this.log('success', `${importResult.name} resolved`)
-        const tuples = Object.entries(importResult)
-
-        tuples.forEach(([key, value], i) => {
-          this.log(
-            'info',
-            `[${i + 1}/${tuples.length}]`,
-            `${key}`,
-            value,
-          )
-        })
 
         const controller = await this.makeController(
           importResult,
         )
-        if (this.get(importResult) instanceof Controller)
-          this.log(
-            'success',
-            `${importResult.name} added to container`,
-          )
 
         this.set(controller.name, controller)
       }),
     )
 
-    this.log('timeEnd', 'injecting project extensions')
+    this.log('complete', 'injecting project extensions')
   }
 
   /**
@@ -113,8 +100,6 @@ export class Extensions
     try {
       const controller = this.get<Controller>(key)
       await controller.register()
-
-      this.log('success', `${key} registered`)
     } catch (err) {
       this.log('error', key, err)
     }
@@ -128,7 +113,6 @@ export class Extensions
     try {
       const controller = this.get<Controller>(key)
       await controller.boot()
-      this.log('success', `${key} booted`)
     } catch (err) {
       this.log('error', err, key)
     }
@@ -198,21 +182,12 @@ export class Extensions
     }
 
     const controller = await this.makeController(extension)
-    this.log('await', '[1/3]', controller.name, 'instantiated')
 
     await controller.register()
-    this.log('await', '[2/3]', controller.name, 'registered')
 
     await controller.boot()
-    this.log('await', '[3/3]', controller.name, 'booted')
 
     this.set(controller.name, controller)
-
-    this.log(
-      'success',
-      controller.name,
-      'added to extensions container',
-    )
   }
 
   /**
@@ -224,37 +199,24 @@ export class Extensions
 
     this.queue = await Promise.all(
       this.queue.map(async extension => {
-        this.log(
-          'await',
-          '[1/3]',
-          extension.name,
-          'instantiated',
-        )
         return await this.makeController(extension)
       }),
     )
 
     this.queue = await Promise.all(
       this.queue.map(async controller => {
-        this.log('await', '[2/3]', controller.name, 'registered')
         return await controller.register()
       }),
     )
 
     this.queue = await Promise.all(
       this.queue.map(async controller => {
-        this.log('await', '[3/3]', controller.name, 'booted')
         return await controller.boot()
       }),
     )
 
     this.queue.map(controller => {
       this.set(controller.name, controller)
-      this.log(
-        'success',
-        controller.name,
-        `added to the extensions container`,
-      )
     })
 
     this.queue = []

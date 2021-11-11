@@ -36,6 +36,7 @@ export function bindMethod<FunctionMap = GenericFunctionMap>(
 
   Object.entries(properties).map(([name, value]) => {
     this[name] = value.bind(this)
+
     if (isFunction(this[name])) {
       this.logger.instance
         .scope(...this.logger.context, 'bindMethod')

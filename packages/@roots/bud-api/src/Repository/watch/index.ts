@@ -1,4 +1,5 @@
 import type {Framework, Server} from '@roots/bud-framework'
+import chalk from 'chalk'
 
 /**
  * Configure the list of files that, when modified,
@@ -14,14 +15,23 @@ export interface watch {
 }
 
 export const watch: watch = function (files) {
-  const ctx = this.root as Framework
+  this.root as Framework
+  this.root.api.log('success', {
+    prefix: 'watch',
+    message: `files added`,
+    suffix: chalk.dim(files.join(', ')),
+  })
 
-  if (!ctx.isDevelopment || !ctx.server) {
-    ctx.warn('Skipping watched files in production')
-    return ctx
+  if (!this.root.isDevelopment || !this.root.server) {
+    this.root.api.log('info', {
+      prefix: 'watch',
+      message: 'skipping',
+      suffix: 'production mode is set',
+    })
+    return this.root
   }
 
-  files && ctx.store.set('server.watch.files', files)
+  files && this.root.store.set('server.watch.files', files)
 
-  return ctx
+  return this
 }

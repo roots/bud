@@ -13,6 +13,13 @@ const {get} = lodash
  */
 export class Store<T = Configuration> extends Service<T> {
   /**
+   * Service identifier
+   *
+   * @public
+   */
+  public ident: string = 'store'
+
+  /**
    * Repository
    *
    * @public
