@@ -1,7 +1,14 @@
 import {flags} from '@oclif/command'
 
-export const log = {
-  log: flags.boolean({
+export interface log {
+  ['log']: flags.IFlag<boolean>
+  ['log.level']: flags.IFlag<string>
+  ['log.papertrail']: flags.IFlag<boolean>
+  ['log.secret']: flags.IFlag<Array<string>>
+}
+
+export const log: log = {
+  ['log']: flags.boolean({
     description: 'log to console',
     default: true,
     allowNo: true,

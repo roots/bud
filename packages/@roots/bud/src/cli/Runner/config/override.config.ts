@@ -1,5 +1,15 @@
 export const config = async (app, flags) => {
   /**
+   * Handle --dist flag
+   */
+  if (typeof flags['location.project'] !== 'undefined') {
+    app.setPath('project', flags['location.project'])
+    app.children.every((_name, child) =>
+      child.setPath('project', flags['location.project']),
+    )
+  }
+
+  /**
    * Handle --src flag
    */
   if (typeof flags['location.src'] !== 'undefined') {
@@ -20,16 +30,6 @@ export const config = async (app, flags) => {
   }
 
   /**
-   * Handle --dist flag
-   */
-  if (typeof flags['location.project'] !== 'undefined') {
-    app.setPath('project', flags['location.project'])
-    app.children.every((_name, child) =>
-      child.setPath('project', flags['location.project']),
-    )
-  }
-
-  /**
    * Handle --publicPath flag
    */
   if (typeof flags['location.publicPath'] !== 'undefined') {
@@ -42,11 +42,17 @@ export const config = async (app, flags) => {
   /**
    * Handle --cache flag
    */
-  if (typeof flags.cache !== 'undefined') {
-    app.persist(flags.cache)
-    app.children.every((_name, child) =>
-      child.persist(flags.cache),
-    )
+  if (
+    typeof flags.cache === 'boolean' ||
+    typeof flags['cache.type'] === 'string'
+  ) {
+    const value =
+      typeof flags['cache.type'] !== 'undefined'
+        ? flags['cache.type']
+        : flags.cache
+
+    app.persist(value)
+    app.children.getValues().map(child => child.persist(value))
   }
 
   /**

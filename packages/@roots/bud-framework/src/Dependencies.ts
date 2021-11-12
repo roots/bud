@@ -21,6 +21,13 @@ export interface Dependencies extends Service {
   manager: any
 
   /**
+   * Package manager
+   *
+   * @public
+   */
+  packageManager: any
+
+  /**
    * Install dependencies
    *
    * @param dependencies - Array of dependencies to install

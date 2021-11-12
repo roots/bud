@@ -2885,7 +2885,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.5.12, @oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
+"@oclif/command@npm:^1.5.12, @oclif/command@npm:^1.5.13, @oclif/command@npm:^1.5.2, @oclif/command@npm:^1.5.20, @oclif/command@npm:^1.5.4, @oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0":
   version: 1.8.0
   resolution: "@oclif/command@npm:1.8.0"
   dependencies:
@@ -2901,7 +2901,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/config@npm:^1.13.0, @oclif/config@npm:^1.15.1, @oclif/config@npm:^1.17.0, @oclif/config@npm:^1.8.7":
+"@oclif/config@npm:^1.13.0, @oclif/config@npm:^1.15.1, @oclif/config@npm:^1.17.0, @oclif/config@npm:^1.8.6, @oclif/config@npm:^1.8.7":
   version: 1.17.0
   resolution: "@oclif/config@npm:1.17.0"
   dependencies:
@@ -2994,6 +2994,22 @@ __metadata:
     cli-ux: ^5.4.5
     lodash: ^4.17.11
   checksum: 763f047380d5d0c75251ab3132915c9f6dd13b27ba7711ca762253c5a0d8099acc4e1baa474dc12706492711ce46ef091e5ae6161f430147b9d60d2331da02c8
+  languageName: node
+  linkType: hard
+
+"@oclif/plugin-help@npm:^2.1.2":
+  version: 2.2.3
+  resolution: "@oclif/plugin-help@npm:2.2.3"
+  dependencies:
+    "@oclif/command": ^1.5.13
+    chalk: ^2.4.1
+    indent-string: ^4.0.0
+    lodash.template: ^4.4.0
+    string-width: ^3.0.0
+    strip-ansi: ^5.0.0
+    widest-line: ^2.0.1
+    wrap-ansi: ^4.0.0
+  checksum: 733d43684d50040beea982f6c188699053fe9761d1cff3a75d3b863fcce499fee1d0ca02054296d65a4e8b987cfcd5728c0f7c5a63104c1f298fc9af1f9aaa81
   languageName: node
   linkType: hard
 
@@ -3942,7 +3958,9 @@ __metadata:
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.7
+    "@webpack-cli/configtest": ^1.1.0
     clean-webpack-plugin: ^4.0.0
+    conf-cli: ^0.1.9
     copy-webpack-plugin: ^9.0.1
     execa: 5.1.1
     helpful-decorators: ^2.1.0
@@ -8711,6 +8729,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"conf-cli@npm:^0.1.9":
+  version: 0.1.9
+  resolution: "conf-cli@npm:0.1.9"
+  dependencies:
+    "@oclif/command": ^1.5.2
+    "@oclif/config": ^1.8.6
+    "@oclif/plugin-help": ^2.1.2
+    conf: ^4.1.0
+    tslib: ^1.9.3
+  bin:
+    conf: ./bin/run
+  checksum: d95c9812876e8222c80c29d596b561855c070bfef04baf346c266dc5c5a559e3b9f1d5e36436611922c2c121dd2be998fa2716df7dd4cfe17360fced2ab11119
+  languageName: node
+  linkType: hard
+
+"conf@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "conf@npm:4.1.0"
+  dependencies:
+    ajv: ^6.10.0
+    dot-prop: ^5.0.0
+    env-paths: ^2.2.0
+    json-schema-typed: ^7.0.0
+    make-dir: ^3.0.0
+    pkg-up: ^3.0.1
+    write-file-atomic: ^3.0.0
+  checksum: 789dd1ae1081eae1fbce6c5b3664d5c16a64eb5ccabce2d90fe62ee0b1563ebf64e1768c1684bdb888b4732715264f6098bacbdfc3ea18e445acff2b821c7691
+  languageName: node
+  linkType: hard
+
 "config-chain@npm:^1.1.11":
   version: 1.1.13
   resolution: "config-chain@npm:1.1.13"
@@ -10045,7 +10093,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-prop@npm:^5.2.0":
+"dot-prop@npm:^5.0.0, dot-prop@npm:^5.2.0":
   version: 5.3.0
   resolution: "dot-prop@npm:5.3.0"
   dependencies:
@@ -10139,6 +10187,13 @@ __metadata:
   version: 0.8.1
   resolution: "emittery@npm:0.8.1"
   checksum: 2457e8c7b0688bb006126f2c025b2655abe682f66b184954122a8a065b5277f9813d49d627896a10b076b81c513ec5f491fd9c14fbd42c04b95ca3c9f3c365ee
+  languageName: node
+  linkType: hard
+
+"emoji-regex@npm:^7.0.1":
+  version: 7.0.3
+  resolution: "emoji-regex@npm:7.0.3"
+  checksum: 9159b2228b1511f2870ac5920f394c7e041715429a68459ebe531601555f11ea782a8e1718f969df2711d38c66268174407cbca57ce36485544f695c2dfdc96e
   languageName: node
   linkType: hard
 
@@ -15328,6 +15383,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-schema-typed@npm:^7.0.0":
+  version: 7.0.3
+  resolution: "json-schema-typed@npm:7.0.3"
+  checksum: e861b19e97e3cc2b29a429147890157827eeda16ab639a0765b935cf3e22aeb6abbba108e23aef442da806bb1f402bdff21da9c5cb30015f8007594565e110b5
+  languageName: node
+  linkType: hard
+
 "json-stable-stringify-without-jsonify@npm:^1.0.1":
   version: 1.0.1
   resolution: "json-stable-stringify-without-jsonify@npm:1.0.1"
@@ -18412,7 +18474,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-up@npm:3.1.0, pkg-up@npm:^3.1.0":
+"pkg-up@npm:3.1.0, pkg-up@npm:^3.0.1, pkg-up@npm:^3.1.0":
   version: 3.1.0
   resolution: "pkg-up@npm:3.1.0"
   dependencies:
@@ -22025,6 +22087,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-width@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "string-width@npm:3.1.0"
+  dependencies:
+    emoji-regex: ^7.0.1
+    is-fullwidth-code-point: ^2.0.0
+    strip-ansi: ^5.1.0
+  checksum: 57f7ca73d201682816d573dc68bd4bb8e1dff8dc9fcf10470fdfc3474135c97175fec12ea6a159e67339b41e86963112355b64529489af6e7e70f94a7caf08b2
+  languageName: node
+  linkType: hard
+
 "string-width@npm:^5.0.0":
   version: 5.0.1
   resolution: "string-width@npm:5.0.1"
@@ -22149,7 +22222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:^5.2.0":
+"strip-ansi@npm:^5.0.0, strip-ansi@npm:^5.1.0, strip-ansi@npm:^5.2.0":
   version: 5.2.0
   resolution: "strip-ansi@npm:5.2.0"
   dependencies:
@@ -24769,6 +24842,15 @@ __metadata:
   dependencies:
     string-width: ^1.0.2 || 2 || 3 || 4
   checksum: d5fc37cd561f9daee3c80e03b92ed3e84d80dde3365a8767263d03dacfc8fa06b065ffe1df00d8c2a09f731482fcacae745abfbb478d4af36d0a891fad4834d3
+  languageName: node
+  linkType: hard
+
+"widest-line@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "widest-line@npm:2.0.1"
+  dependencies:
+    string-width: ^2.1.1
+  checksum: 6245b1f2cff418107f937691d1cafd0e416b9e350aa79e3853dc0759ad20849451d7126c2f06d0a13286d37b44b8e79e4220df09630bce1e4722d9808bc7bfd2
   languageName: node
   linkType: hard
 

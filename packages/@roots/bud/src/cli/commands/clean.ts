@@ -35,10 +35,16 @@ export default class Clean extends Command {
    */
   public static flags = {
     ...Command.flags,
-    log: flags.boolean({
-      type: 'boolean',
+    ['log']: flags.boolean({
       default: false,
-      description: 'enable logging',
+      hidden: true,
+    }),
+    ['log.papertrail']: flags.boolean({
+      default: true,
+      hidden: true,
+    }),
+    ['dashboard']: flags.boolean({
+      default: false,
       hidden: true,
     }),
   }
@@ -53,6 +59,8 @@ export default class Clean extends Command {
    */
   public async run() {
     await this.prime(Clean)
+    this.logger.enable()
+
     this.logger.info(`clearing artifacts`)
 
     try {

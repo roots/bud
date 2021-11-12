@@ -2,6 +2,7 @@ import Base from '@oclif/command'
 import * as Framework from '@roots/bud-framework'
 
 import {Bud} from '..'
+import * as CLI from './cli.interface'
 import * as flags from './flags'
 import {Notifier} from './Notifier'
 import {Runner} from './Runner'
@@ -38,6 +39,15 @@ export abstract class Command extends Base {
   public notifier: Notifier
 
   /**
+   * oclif parser output
+   *
+   * @public
+   */
+  public cli: CLI.Options
+
+  /**
+   * Command flags
+   *
    * @public
    */
   public static flags = {
@@ -70,20 +80,24 @@ export abstract class Command extends Base {
    *
    * @public
    */
-  public async prime(ConcreteCommand: typeof Command) {
-    const options = this.parse(ConcreteCommand)
+  public async prime(
+    ConcreteCommand: typeof Command,
+  ): Promise<void> {
+    this.cli = this.parse(ConcreteCommand)
+    this.runner = new Runner(this.cli)
 
-    this.runner = new Runner(options)
+    this.app = await this.runner.initialize()
 
-    await this.runner.initialize()
+    this.logger = this.app.logger.makeInstance()
+    this.logger = this.logger.scope(
+      ...this.app.logger.context,
+      `$ ${ConcreteCommand.title}`,
+    )
 
-    this.app = await this.runner.make()
+    this.runner.logger = this.logger
+  }
 
-    this.logger = this.app.logger.makeInstance({
-      interactive: false,
-    })
-
-    this.logger.enable()
-    this.logger.scope(ConcreteCommand.title)
+  public async build() {
+    await this.runner.make()
   }
 }

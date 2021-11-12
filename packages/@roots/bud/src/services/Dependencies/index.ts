@@ -30,6 +30,15 @@ export class Dependencies
   public manager: DependenciesManager
 
   /**
+   * Package manager
+   *
+   * @public
+   */
+  public get packageManager(): 'yarn' | 'npm' {
+    return this.manager.isYarn() ? `yarn` : `npm`
+  }
+
+  /**
    * Record of installed packages
    *
    * @public

@@ -1,5 +1,5 @@
-import {Bud} from '../..'
-import {isFunction} from '../cli.dependencies'
+import {Bud} from '../../..'
+import {isFunction} from '../../cli.dependencies'
 
 export const configSet = async (app: Bud, key: string) => {
   if (!app.project.has(key)) return

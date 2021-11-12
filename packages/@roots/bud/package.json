@@ -62,7 +62,8 @@
     "plugins": [
       "@oclif/plugin-commands",
       "@oclif/plugin-autocomplete",
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "conf-cli"
     ]
   },
   "scripts": {
@@ -107,7 +108,9 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
+    "@webpack-cli/configtest": "^1.1.0",
     "clean-webpack-plugin": "^4.0.0",
+    "conf-cli": "^0.1.9",
     "copy-webpack-plugin": "^9.0.1",
     "execa": "5.1.1",
     "helpful-decorators": "^2.1.0",

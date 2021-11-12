@@ -1,19 +1,46 @@
 import {flags} from '@oclif/command'
+import path from 'path'
 
-export const location = {
+export interface location {
+  ['location.project']: flags.IFlag<string>
+  ['location.src']: flags.IFlag<string>
+  ['location.dist']: flags.IFlag<string>
+  ['location.publicPath']: flags.IFlag<string>
+  ['location.storage']: flags.IFlag<string>
+  ['location.modules']: flags.IFlag<string>
+}
+
+export const location: location = {
   ['location.src']: flags.string({
-    description: 'directory containing source assets',
+    description: 'source directory',
   }),
 
   ['location.dist']: flags.string({
-    description: 'directory to emit assets to',
+    description: 'distribution directory',
   }),
 
   ['location.project']: flags.string({
-    description: 'project directory',
+    description: 'repo root path',
+    parse: (value: string) => {
+      if (value.startsWith('~')) {
+        return value.replace('~', process.env.HOME || '')
+      } else if (!value.startsWith('/')) {
+        return path.resolve(process.cwd(), value)
+      }
+
+      return value
+    },
   }),
 
   ['location.publicPath']: flags.string({
+    description: 'public path',
+  }),
+
+  ['location.storage']: flags.string({
+    description: 'storage directory',
+  }),
+
+  ['location.modules']: flags.string({
     description: 'public path',
   }),
 }

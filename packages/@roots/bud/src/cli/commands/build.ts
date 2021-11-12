@@ -32,9 +32,7 @@ export default class Build extends Command {
    */
   public static flags = {
     ...Command.flags,
-
     ...flags.target,
-
     ...flags.location,
 
     mode: Oclif.flags.string({
@@ -136,6 +134,8 @@ export default class Build extends Command {
 
   public async run() {
     await this.prime(Build)
+    await this.build()
+
     this.app.hooks.on('done', [this.notifier.notify])
     await this.app.run()
   }
