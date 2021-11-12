@@ -37,9 +37,7 @@ export class Controller {
   }
 
   public get moduleLogger(): Signale {
-    return this.app.logger.scoped(
-      this._module?.name ?? 'anonymous',
-    )
+    return this.app.extensions.logger
   }
 
   /**
@@ -226,11 +224,11 @@ export class Controller {
    */
   @bind
   public async register(): Promise<Controller> {
-    if (this.registered === true) {
+    if (this.meta.registered === true) {
       this.log('warn', this._module.name, 'already registered')
       return this
     }
-    this.registered = true
+    this.meta.registered = true
 
     await this.mixin()
     await this.api()
@@ -263,7 +261,7 @@ export class Controller {
     Object.entries(methodMap).forEach(([k, v]) => {
       this.moduleLogger.success({
         prefix: this.name,
-        message: 'registered function',
+        message: 'set function',
         suffix: `${this.app.name}.${k}`,
       })
     })
@@ -291,7 +289,7 @@ export class Controller {
 
     Object.entries(classMap).forEach(([k, v]) => {
       this.moduleLogger.success({
-        prefix: this._module.name,
+        prefix: this.name,
         message: 'registered class',
         suffix: `${this.app.name}.${k}`,
       })
@@ -311,15 +309,15 @@ export class Controller {
    */
   @bind
   public async boot(): Promise<this> {
-    if (this.booted || !this._module.boot) return this
-    this.booted = true
+    if (this.meta.booted || !this._module.boot) return this
+    this.meta.booted = true
 
     if (isFunction(this._module.boot)) {
       await this._module.boot(this.app, this.moduleLogger)
 
       this.moduleLogger.success({
-        prefix: this._module.name,
-        message: `booted`,
+        prefix: this.name,
+        message: 'booted',
       })
     }
 

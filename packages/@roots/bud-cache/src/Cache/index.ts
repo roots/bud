@@ -19,20 +19,20 @@ export class Cache
    */
   public get enabled(): boolean {
     if (this.app.store.is('cli.flags.cache', true)) {
-      this.log(
-        'info',
-        'cache enabled via --cache flag',
-        this.app.store.get('cli.flags.cache'),
-      )
+      this.log('info', {
+        message: '--cache',
+        suffix: this.app.store.get('cli.flags.cache'),
+      })
+
       return this.app.store.get('cli.flags.cache')
     }
 
     if (this.app.store.is('features.cache', true)) {
-      this.log(
-        'info',
-        'cache enabled via config store setting',
-        this.app.store.get('features.cache'),
-      )
+      this.log('info', {
+        message: 'bud.store',
+        suffix: this.app.store.get('features.cache'),
+      })
+
       return this.app.store.get('features.cache')
     }
 
@@ -49,20 +49,20 @@ export class Cache
     const cache = this.app.store.get('cache')
 
     if (!isUndefined(flags['cache.type'])) {
-      this.log(
-        'info',
-        'cache type set from cli:',
-        `"${flags['cache.type']}"`,
-      )
+      this.log('info', {
+        message: '--cache.type flag',
+        suffix: flags['cache.type'],
+      })
+
       return flags['cache.type']
     }
 
     if (!isUndefined(cache.type)) {
-      this.log(
-        'info',
-        'cache type set from config store:',
-        `"${cache.type}"`,
-      )
+      this.log('info', {
+        message: 'bud.store',
+        suffix: cache.type,
+      })
+
       return cache.type
     }
 
@@ -88,12 +88,13 @@ export class Cache
    */
   @bind
   public async register() {
-    this.version = await this.hashFileContents([
-      this.app.path('project', 'package.json'),
-      this.app.path('project', 'bud.config.js'),
-    ])
+    this.version = await this.hashFileContents(
+      this.app.project.get('dependencies'),
+    )
 
-    if (this.enabled) this.app.persist(this.type)
+    if (this.enabled) {
+      this.app.persist(this.type)
+    }
   }
 
   /**

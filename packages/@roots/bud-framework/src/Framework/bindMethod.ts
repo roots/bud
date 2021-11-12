@@ -40,7 +40,10 @@ export function bindMethod<FunctionMap = GenericFunctionMap>(
     if (isFunction(this[name])) {
       this.logger.instance
         .scope(...this.logger.context, 'bindMethod')
-        .success(`${this.name}.${name} bound to ${this.name}`)
+        .success({
+          prefix: `${this.name}.${name}`,
+          message: `bound`,
+        })
     }
   })
 

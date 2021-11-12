@@ -30,7 +30,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async registered(): Promise<void> {
-    this.app.hooks.on('run', this.run)
+    this.run()
   }
 
   /**
@@ -45,11 +45,13 @@ export class Dashboard extends Service implements Contract {
       this.instance = render(
         <DashboardComponent bud={this.app} />,
       )
+
       this.log('success', {
         prefix: 'run',
-        message: 'dashboard instantiated',
+        message: 'rendering',
       })
     }
+
     return this.app
   }
 

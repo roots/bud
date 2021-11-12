@@ -68,7 +68,10 @@ export class Runner {
           hash: determineDefaultBool(this.cli.flags.hash, false),
           html: determineDefaultBool(this.cli.flags.html, false),
           inject: determineDefaultBool(this.cli.flags.inject),
-          install: determineDefaultBool(this.cli.flags.install),
+          install: determineDefaultBool(
+            this.cli.flags.install,
+            false,
+          ),
           log: determineDefaultBool(this.cli.flags.log, false),
           manifest: determineDefaultBool(
             this.cli.flags.manifest,

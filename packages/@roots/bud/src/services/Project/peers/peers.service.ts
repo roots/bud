@@ -59,22 +59,26 @@ export class Peers implements Model.Interface {
       const manifestPath = await this.getManifestPath(name)
 
       if (!manifestPath) {
-        this.log(
-          'error',
-          `manifest for ${name} could not be resolved`,
-        )
+        this.log('error', {
+          prefix: name,
+          message: `manifest could not be resolved`,
+        })
         return null
       }
       const manifest = await readJson(
         join(manifestPath, '/package.json'),
       )
+      this.log('success', {
+        prefix: name,
+        message: `manifest resolved`,
+      })
 
       return manifest
     } catch (err) {
-      this.log(
-        'error',
-        `manifest for ${name} could not be resolved`,
-      )
+      this.log('error', {
+        prefix: name,
+        message: `manifest could not be resolved`,
+      })
     }
   }
 
@@ -120,7 +124,11 @@ export class Peers implements Model.Interface {
 
     await Promise.all(
       dependencies.map(async (name: string) => {
-        this.log('info', `new project dependency found`, name)
+        this.log('info', {
+          prefix: projectModuleType,
+          message: `project dependency`,
+          suffix: name,
+        })
         await this.profileExtension(name)
         return
       }),
@@ -150,10 +158,7 @@ export class Peers implements Model.Interface {
   public async profileExtension(name: string) {
     const path = await this.getManifestPath(name)
     if (this.app.project.get(`resolve`).includes(path)) {
-      return this.log(
-        'info',
-        `${name} already profiled. skipping.`,
-      )
+      return
     }
 
     /**
@@ -161,7 +166,10 @@ export class Peers implements Model.Interface {
      */
     const resolvePaths = this.app.project.get('resolve')
     this.app.project.set('resolve', [...resolvePaths, path])
-    this.log('success', `resolution path added`, name)
+    this.log('success', {
+      prefix: name,
+      message: `registered resolution path`,
+    })
 
     /**
      * Get the extension manifest
@@ -182,45 +190,52 @@ export class Peers implements Model.Interface {
      * If extension has dependencies, recurse and profile them
      */
     if (manifest.peerDependencies) {
-      Object.entries(manifest.peerDependencies).forEach(
-        ([peerName, peerVersion]) => {
-          /**
-           * If peer dependency is already profiled, skip
-           */
-          if (this.app.project.has(`peers.${peerName}`)) {
-            return false
-          }
+      await Promise.all(
+        Object.entries(manifest.peerDependencies).map(
+          async ([peerName, peerVersion]: [string, string]) => {
+            /**
+             * If peer dependency is already profiled, skip
+             */
+            if (this.app.project.has(`peers.${peerName}`)) {
+              return false
+            }
 
-          this.app.project.set(`peers.${peerName}`, {
-            name: peerName,
-            version: peerVersion,
-          })
+            this.log('await', {
+              prefix: name,
+              message: `required`,
+              suffix: `${peerName}@${peerVersion}`,
+            })
 
-          /**
-           * If peer dependency is present in project, skip
-           */
-          if (!this.app.project.has(`installed.${peerName}`)) {
-            this.app.project.merge(`unmet.${peerName}`, [
-              `${peerName}@${peerVersion}`,
-            ])
+            this.app.project.set(`peers.${peerName}`, {
+              name: peerName,
+              version: peerVersion,
+            })
 
-            this.log(
-              'error',
-              name,
-              `peer requirement unmet`,
-              `${peerName}@${peerVersion}`,
-            )
+            /**
+             * If peer dependency is present in project, skip
+             */
+            if (!this.app.project.has(`installed.${peerName}`)) {
+              this.app.project.mutate(`unmet`, unmet => [
+                ...unmet,
+                {name: peerName, version: peerVersion},
+              ])
 
-            return
-          }
+              this.log('error', {
+                prefix: name,
+                message: `not installed`,
+                suffix: `${peerName}@${peerVersion}`,
+              })
 
-          this.log(
-            'success',
-            name,
-            `peer requirement met`,
-            `${peerName}@${peerVersion}`,
-          )
-        },
+              return
+            }
+
+            this.log('success', {
+              prefix: name,
+              message: `verified`,
+              suffix: `${peerName}@${peerVersion}`,
+            })
+          },
+        ),
       )
     }
 

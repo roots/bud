@@ -29,7 +29,7 @@ export default class Build extends Command {
     }),
     ['log.papertrail']: flags.boolean({
       allowNo: true,
-      default: true,
+      default: false,
       description: 'preserve logger output',
     }),
     ['log.secret']: flags.string({

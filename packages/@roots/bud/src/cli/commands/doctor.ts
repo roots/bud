@@ -1,5 +1,5 @@
 import {flags} from '@oclif/command'
-import type Parser from '@oclif/parser'
+import chalk from 'chalk'
 
 import {Bud} from '../../Bud'
 import {Command} from '../Command'
@@ -19,58 +19,73 @@ export default class Doctor extends Command {
       multiple: true,
       default: [],
     }),
+    log: flags.boolean({
+      description: 'log to console',
+      default: true,
+      allowNo: true,
+    }),
+    ['log.level']: flags.string({
+      description:
+        'set log verbosity. `v` is error level. `vv` is warning level. `vvv` is log level. `vvvv` is debug level.',
+      default: 'vvv',
+      options: ['v', 'vv', 'vvv', 'vvvv'],
+    }),
+    ['log.papertrail']: flags.boolean({
+      allowNo: true,
+      default: false,
+      description: 'preserve logger output',
+    }),
+    ['log.secret']: flags.string({
+      default: [process.cwd()],
+      multiple: true,
+      description: 'hide matching strings from logging output',
+    }),
   }
 
   public static args = []
 
   public app: Bud
 
-  public cli: Parser.Output<
-    {
-      help: void
-      target: string[]
-    },
-    any[]
-  >
-
   public hasMissingPeers(): boolean {
-    return this.getMissingPeers()?.length > 0
+    return this.getMissingPeers().length > 0
   }
 
-  public getMissingPeers(): {name: string}[] {
-    return this.app.project.has('peers')
-      ? this.app.project
-          .getValues('peers')
-          ?.filter(
-            (dep: {name: string}) =>
-              !this.app.project.hasPeerDependency(dep.name),
-          )
-      : []
-  }
-
-  public displayFeedback(missing: {name: string}[]): void {
-    missing.length < 1
-      ? this.app.dashboard.render(
-          'All checks are O.K.',
-          'bud doctor',
-        )
-      : this.app.dashboard.render(
-          [
-            ...missing?.map(({name}) => `❌ ${name}`),
-            '\n',
-            'Run `bud init` to install missing dependencies',
-          ],
-          'Missing dependencies',
-        )
+  public getMissingPeers(): {name: string; version: string}[] {
+    return this.app.project.get('unmet')
   }
 
   public async run(): Promise<void> {
-    const runner = new Runner(this.parse(Doctor))
+    const options = this.parse(Doctor)
+    const runner = new Runner({
+      ...options,
+      flags: {...options.flags, log: false},
+    })
     await runner.initialize()
+
     this.app = runner.app
 
-    this.displayFeedback(this.getMissingPeers())
+    const logger = this.app.logger.makeInstance({
+      interactive: false,
+    })
+    logger.enable()
+    logger.scope('doctor')
 
-    process.exit()
+    logger.info(`validating project`)
+
+    !this.hasMissingPeers()
+      ? logger.success('All checks are O.K.')
+      : (() => {
+          this.getMissingPeers().map(({name, version}) =>
+            logger.error(
+              chalk.red`missing `.concat(`${name}@${version}`),
+            ),
+          )
+
+          logger.warn(
+            chalk.yellow`Run \`bud init\` to install missing dependencies`,
+          )
+        })()
+
+    return process.exit()
   }
 }

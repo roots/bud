@@ -44,7 +44,10 @@ export class Extensions
     await Promise.all(
       this.getEntries().map(async ([key, extension]) => {
         this.set(key, this.makeController(extension))
-        this.log('success', `${key} instantiated`)
+        this.log('success', {
+          prefix: key,
+          message: `instantiated`,
+        })
       }),
     )
 
@@ -56,7 +59,10 @@ export class Extensions
    */
   @bind
   public async boot(): Promise<void> {
-    if (this.app.store.is('features.inject', false)) {
+    if (
+      this.app.store.is('features.inject', false) ||
+      !this.app.project?.has('extensions')
+    ) {
       this.log('info', 'injection disabled')
       return
     } else {
@@ -70,7 +76,10 @@ export class Extensions
       this.app.project.getKeys('extensions').map(async pkg => {
         const importResult = await import(pkg)
 
-        this.log('success', `${importResult.name} resolved`)
+        this.log('success', {
+          prefix: importResult.name,
+          message: 'resolved',
+        })
 
         const controller = await this.makeController(
           importResult,
@@ -174,10 +183,10 @@ export class Extensions
     extension: Framework.Extension.Module,
   ): Promise<void> {
     if (this.has(extension.name)) {
-      this.log(
-        'warn',
-        `${extension.name} already added. skipping.`,
-      )
+      this.log('warn', {
+        prefix: extension.name,
+        message: 'already added. skipping.',
+      })
       return
     }
 

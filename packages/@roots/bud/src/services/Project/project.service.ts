@@ -43,65 +43,40 @@ export class Project
   }
 
   public async register() {
-    await this.addManifestDataToStore()
-    await ensureFile(this.getProfileLocation())
+    const manifestPath = join(
+      this.app.options.config.location.project,
+      'package.json',
+    )
+    await this.addManifestDataToStore(manifestPath)
     this.savedProfile = await this.readProfile()
 
     this.setStore({
-      ...this.repository,
+      ...(this.repository ?? {}),
       cli: this.app.store.get('cli'),
       env: {
         public: this.app.env.getPublicEnv(),
         all: this.app.env.all(),
       },
-      manifestPath: this.app.path('project', 'package.json'),
-      dependencies: [this.app.path('project', 'package.json')],
+      dependencies: [this.get('manifestPath')],
     })
 
-    const shouldLoadProfileFromDisk =
-      this.flush || this.savedProfile
-
-    if (shouldLoadProfileFromDisk) {
-      this.setStore(this.savedProfile)
-      this.log('success', 'profile loaded from disk')
-    }
-
-    if (!shouldLoadProfileFromDisk) {
+    if (this.app.store.is('features.install', true)) {
       await this.refreshProfile()
+      if (!this.get('unmet').length) return
+
+      await this.app.dependencies.install(this.get('unmet'))
+      await this.addManifestDataToStore(manifestPath)
+      await this.refreshProfile()
+      this.savedProfile = await this.readProfile()
+      this.setStore(this.savedProfile)
+    } else if (!this.flush && this.savedProfile) {
+      this.setStore(this.savedProfile)
+    } else {
+      await this.refreshProfile()
+      this.savedProfile = await this.readProfile()
+      this.setStore(this.savedProfile)
     }
-
-    this.log(
-      'info',
-      `inject feature is ${
-        this.app.store.is('features.inject', true)
-          ? `enabled`
-          : `disabled`
-      }`,
-    )
-      .log(
-        'info',
-        `project directory set as`,
-        this.app.store.get('location.project'),
-      )
-      .log(
-        'info',
-        `project src directory set as`,
-        this.app.store.get('location.src'),
-      )
-      .log(
-        'info',
-        `project dist directory set as`,
-        this.app.store.get('location.dist'),
-      )
-      .log(
-        'info',
-        `project cache directory set as`,
-        this.app.store.get('location.storage'),
-      )
   }
-
-  @bind
-  public async registered(): Promise<void> {}
 
   /**
    * Read project package.json and set peer deps
@@ -120,16 +95,22 @@ export class Project
   }
 
   @bind
-  public async addManifestDataToStore() {
+  public async addManifestDataToStore(manifestPath: string) {
     try {
-      this.set(
-        'manifestPath',
-        join(process.cwd(), 'package.json'),
-      )
-      const manifest = await readJson(this.get('manifestPath'))
+      this.set('manifestPath', manifestPath)
+      const manifest = await readJson(manifestPath)
       this.set('manifest', manifest)
+      this.log('success', {
+        prefix: 'manifest',
+        message: 'added to project store',
+      })
     } catch (e) {
-      this.log('error', 'manifest file not found', e)
+      this.log('error', {
+        prefix: 'manifest',
+        message: 'read',
+        suffix: manifestPath,
+      })
+      return
     }
 
     this.set('installed', {
@@ -137,25 +118,25 @@ export class Project
       ...(this.get('manifest.dependencies') ?? {}),
     })
 
-    this.app
-      .when(
-        this.has(`manifest.${this.app.name}.features.inject`),
-        ({store}) =>
-          store.set(
-            'inject',
-            this.get(
-              `manifest.${this.app.name}.features.inject`,
-            ),
-          ),
-      )
-      .when(
-        this.has(`manifest.${this.app.name}.locations`),
-        () =>
-          this.app.store.merge(
-            'location',
-            this.get(`manifest.${this.app.name}.locations`),
-          ),
-      )
+    const featuresKey = `manifest.${this.app.name}.features`
+    if (this.has(featuresKey)) {
+      this.log('info', {
+        prefix: 'manifest',
+        message: 'merging features',
+        suffix: featuresKey,
+      })
+      this.app.store.merge('features', this.get(featuresKey))
+    }
+
+    const locationKey = `manifest.${this.app.name}.location`
+    if (this.has(locationKey)) {
+      this.log('info', {
+        prefix: 'manifest',
+        message: 'merging locations',
+        suffix: locationKey,
+      })
+      this.app.store.merge('location', this.get(locationKey))
+    }
   }
 
   /**
@@ -171,8 +152,13 @@ export class Project
 
   @bind
   public getProfileLocation(): string {
-    return this.app.path(
-      'storage',
+    return join(
+      this.app.options.config.cli.flags['location.project'] ??
+        this.get('manifest.location.project') ??
+        this.app.options.config.location.project,
+      this.app.options.config.cli.flags['location.storage'] ??
+        this.get('manifest.location.storage') ??
+        this.app.options.config.location.storage,
       `${this.app.name}/profile.json`,
     )
   }
@@ -182,15 +168,24 @@ export class Project
    */
   @bind
   public async refreshProfile() {
-    this.log('time', 'rebuilding project profile')
+    const profileLocation = this.getProfileLocation()
+
+    this.log('time', `building profile`)
+
+    await ensureFile(profileLocation)
 
     try {
       await this.resolvePeers()
       await this.searchConfigs()
       await this.writeProfile()
-      this.log('timeEnd', 'rebuilding project profile')
+      this.log('timeEnd', `building profile`)
     } catch (e) {
-      this.log('error', e)
+      this.log('error', {
+        prefix: 'profile',
+        message: 'building',
+        suffix: e,
+      })
+      this.log('timeEnd', `building profile`)
     }
   }
 
@@ -199,41 +194,49 @@ export class Project
    */
   @bind
   public async writeProfile() {
-    this.log(
-      'await',
-      'writing profile to disk',
-      this.getProfileLocation(),
-    )
-    await ensureFile(this.getProfileLocation())
+    const profileLocation = this.getProfileLocation()
 
-    await writeFile(
-      this.getProfileLocation(),
-      JSON.stringify(this.all()),
-    )
+    this.log('await', {
+      prefix: 'profile',
+      message: 'writing',
+      suffix: profileLocation,
+    })
 
-    this.log(
-      'success',
-      'writing profile to disk',
-      this.getProfileLocation(),
-    )
+    await ensureFile(profileLocation)
+
+    await writeFile(profileLocation, JSON.stringify(this.all()))
+
+    this.log('success', {
+      prefix: 'profile',
+      message: 'writing',
+      suffix: profileLocation,
+    })
   }
 
   @bind
   public async readProfile() {
     const location = this.getProfileLocation()
 
-    this.log('await', 'read profile from', location)
-
-    if (location === null) return
+    this.log('await', {
+      prefix: 'profile',
+      message: 'read',
+      suffix: location,
+    })
 
     try {
       const res = await readJson(location)
-      this.log('success', 'read profile from', location)
+      this.log('success', {
+        prefix: 'profile',
+        message: 'read',
+        suffix: location,
+      })
       return res
     } catch (e) {
-      this.log('error', 'read profile from', location)
-
-      return false
+      this.log('error', {
+        prefix: 'profile',
+        message: 'read',
+        suffix: location,
+      })
     }
   }
 

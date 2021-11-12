@@ -66,10 +66,11 @@ export class Build
     ).reduce(
       (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
-          this.log(
-            `warn`,
-            `webpack ${key} is undefined. excluding.`,
-          )
+          this.log(`warn`, {
+            prefix: 'bud.build.config',
+            message: `excluding ${key}`,
+            suffix: `value is undefined`,
+          })
           return all
         }
         return {...all, [key]: value}
@@ -78,9 +79,9 @@ export class Build
     )
     this.log('timeEnd', 'build.make')
 
-    this.log('time', 'running build.after hooks')
+    this.log('time', {prefix: 'hook', message: 'build.after'})
     this.app.hooks.filter('build.after', this.app)
-    this.log('timeEnd', 'running build.after hooks')
+    this.log('timeEnd', {prefix: 'hook', message: 'build.after'})
 
     await this.writeFinalConfig(this.config)
 

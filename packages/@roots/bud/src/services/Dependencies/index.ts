@@ -1,4 +1,4 @@
-import {Service} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
 import {
   $,
@@ -11,7 +11,10 @@ import {
  *
  * @public
  */
-export class Dependencies extends Service<null> {
+export class Dependencies
+  extends Framework.Service
+  implements Framework.Dependencies
+{
   /**
    * Service ident
    *
@@ -32,13 +35,6 @@ export class Dependencies extends Service<null> {
    * @public
    */
   public installed: Array<[string, string]> = []
-
-  /**
-   * Current pkg and version being installed
-   *
-   * @public
-   */
-  public installing: Array<[string, string]> = []
 
   /**
    * {@link @roots/bud-framework#Service.register}
@@ -65,20 +61,33 @@ export class Dependencies extends Service<null> {
    * @decorator `@bind`
    */
   @bind
-  public install(
+  public async install(
     dependencies: {
       name: string
       version: string
     }[],
-  ): void {
-    const installStr = dependencies.reduce(
+  ): Promise<void> {
+    const install = dependencies.reduce(
       (acc, dependency) =>
         `${acc} ${dependency.name}@${dependency.version}`,
       ``,
     )
+    const pkgManager = this.manager.isYarn() ? `yarn` : `npm`
+    const command = `${pkgManager} add ${install} --dev`
 
-    this.manager.isYarn()
-      ? $(`yarn add ${installStr} --dev`)
-      : $(`npm install ${installStr} --save-dev`)
+    this.log(`await`, {
+      prefix: 'install',
+      message: install,
+    })
+
+    const installation = $(command)
+    installation.stderr.pipe(process.stderr)
+
+    await installation
+
+    this.log(`success`, {
+      prefix: 'install',
+      message: install,
+    })
   }
 }

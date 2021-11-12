@@ -68,6 +68,14 @@ export const config = async (app, flags) => {
   }
 
   /**
+   * Handle --devtool flag
+   */
+  if (typeof flags.html !== 'undefined') {
+    app.html(flags.html)
+    app.children.every((_name, child) => child.html(flags.html))
+  }
+
+  /**
    * Handle --runtime flag
    */
   if (typeof flags.runtime !== 'undefined') {

@@ -5,7 +5,7 @@
     "extends @wordpress/browserslist-config"
   ],
   "bud": {
-    "paths": {
+    "location": {
       "storage": "storage/bud"
     }
   },
@@ -14,8 +14,6 @@
     "@roots/sage": "workspace:*",
     "@types/eslint": "7.28.2",
     "@types/prettier": "2.4.1",
-    "@types/react": "17.0.32",
-    "@types/react-dom": "17.0.10",
     "@wordpress/browserslist-config": "4.1.0",
     "eslint": "7.32.0",
     "postcss": "8.3.11",
@@ -25,6 +23,6 @@
     "prettier": "2.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tailwindcss": "2.2.8"
+    "tailwindcss": "2.2.19"
   }
 }

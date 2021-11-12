@@ -41,14 +41,15 @@ export const config: Configuration = {
    */
   features: {
     /**
-     * Is webpack caching enabled?
+     * Webpack caching enabled
      *
      * @public
      */
     cache: true,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.ci}
+     * Dashboard enabled
+     *
      * @public
      */
     dashboard: false,

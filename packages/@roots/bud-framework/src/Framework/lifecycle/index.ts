@@ -83,35 +83,29 @@ export async function lifecycle(
 
     if (!eligibleServices.length) return
 
-    logger.time(
-      `[${i + 1}/${
-        LIFECYCLE_EVENTS.length
-      }] lifecycle event: ${event}`,
-    )
+    logger.time(`precompilation > ${event}`)
 
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
-        logger.await(
-          `[%d/%d] ${service.constructor.name.toLowerCase()}.${event}`,
-          i + 1,
-          eligibleServices.length,
-        )
+        logger.await({
+          prefix: `[${i + 1}/${
+            eligibleServices.length
+          }] ${event}`,
+          message: service.constructor.name.toLowerCase(),
+        })
 
         await service[event](this)
 
-        logger.complete(
-          `[%d/%d] ${service.constructor.name.toLowerCase()}.${event}`,
-          i + 1,
-          eligibleServices.length,
-        )
+        logger.complete({
+          prefix: `[${i + 1}/${
+            eligibleServices.length
+          }] ${event}`,
+          message: service.constructor.name.toLowerCase(),
+        })
       }),
     )
 
-    logger.timeEnd(
-      `[${i + 1}/${
-        LIFECYCLE_EVENTS.length
-      }] lifecycle event: ${event}`,
-    )
+    logger.timeEnd(`precompilation > ${event}`)
   }, Promise.resolve())
 
   return this

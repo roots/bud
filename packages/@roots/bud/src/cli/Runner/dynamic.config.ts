@@ -8,16 +8,24 @@ export const config = async (app: Bud, key: string) => {
   const configs = app.project.get(key)
   if (!configs || !configs.length) return
 
+  const logger = app.logger.scoped('cli')
+
   const handleConfig = async config => {
-    app.await('Reading', config)
+    const logPrefix = config.split('/').pop()
+    logger.await({prefix: logPrefix, message: 'import'})
 
     try {
       config.endsWith('.ts')
         ? await app.ts.read(config)
         : await import(config)
+
+      logger.success({prefix: logPrefix, message: 'import'})
     } catch (e) {
-      app.error(`${config} could not be imported`)
-      app.error(e)
+      logger.error({
+        prefix: logPrefix,
+        message: 'error',
+        suffix: e,
+      })
     }
 
     const rawImport = config.endsWith('.ts')
@@ -29,18 +37,15 @@ export const config = async (app: Bud, key: string) => {
       : rawImport
 
     if (isFunction(configTap)) {
-      app.info(
-        `Running ${app.name} global configuration callback`,
-        key,
-      )
-
+      logger.await({prefix: logPrefix, message: 'callback'})
       await configTap(app)
+      logger.success({prefix: logPrefix, message: 'callback'})
     }
   }
 
   Array.isArray(configs)
     ? await Promise.all(configs.map(handleConfig))
-    : handleConfig(configs)
+    : await handleConfig(configs)
 }
 
 export const configs = async (app: Bud) => {

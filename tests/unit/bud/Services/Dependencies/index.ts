@@ -20,7 +20,7 @@ describe('bud.project', function () {
   })
 
   it('has dependencies name', () => {
-    expect(dependencies.name).toBe('dependencies')
+    expect(dependencies.ident).toBe('bud.dependencies')
   })
 
   it('has a register method', () => {

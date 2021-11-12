@@ -5,7 +5,7 @@ describe.skip('bud.experiments', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      config: {features: {dashboard: false, log: false}},
+      config: {features: {log: false}},
     })
   })
 
