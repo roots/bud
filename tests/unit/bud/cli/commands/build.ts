@@ -18,6 +18,10 @@ describe('Build Command', () => {
   })
 
   it('has expected flags', () => {
-    expect(build.flags).toMatchSnapshot()
+    expect(build.flags).toMatchSnapshot({
+      'log.secret': {
+        default: [expect.any(String)],
+      },
+    })
   })
 })
