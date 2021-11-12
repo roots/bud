@@ -57,60 +57,60 @@ interface Options extends HtmlOptions {
 export const template: template = function (
   userOptions?: Options | boolean,
 ): Framework {
-  const ctx = this as Framework
+  this as Framework
 
   /**
    * If there were no {@link Options} specified, we're done.
    */
   if (userOptions === false) {
-    ctx.store.set('html', false)
-    return ctx
+    this.store.set('features.html', false)
+    return this
   }
-  ctx.store.set('html', true)
+  this.store.set('features.html', true)
 
   /**
    * Add {@link BudHtmlWebpackPlugin} if it isn't already added
    */
   if (
-    !ctx.extensions.has('html-webpack-plugin') &&
-    !ctx.extensions.queue.some(
+    !this.extensions.has('html-webpack-plugin') &&
+    !this.extensions.queue.some(
       extension => extension.name === 'html-webpack-plugin',
     )
   ) {
-    ctx.info('enqueuing html-webpack-plugin')
-    ctx.extensions.enqueue(BudHtmlWebpackPlugin)
+    this.info('enqueuing html-webpack-plugin')
+    this.extensions.enqueue(BudHtmlWebpackPlugin)
   }
 
   /**
    * Add {@link BudInterpolateHtmlPlugin} if it isn't already added
    */
   if (
-    !ctx.extensions.has('interpolate-html-plugin') &&
-    !ctx.extensions.queue.some(
+    !this.extensions.has('interpolate-html-plugin') &&
+    !this.extensions.queue.some(
       extension => extension.name === 'interpolate-html-plugin',
     )
   ) {
-    ctx.info('enqueuing bud-interpolate-html-plugin')
-    ctx.extensions.enqueue(BudInterpolateHtmlPlugin)
+    this.info('enqueuing bud-interpolate-html-plugin')
+    this.extensions.enqueue(BudInterpolateHtmlPlugin)
   }
 
   /**
    * If there were no {@link Options} specified, we're done.
    */
-  if (!userOptions || userOptions === true) return ctx
+  if (!userOptions || userOptions === true) return this
 
-  ctx.info('processing html-webpack-plugin options')
+  this.info('processing html-webpack-plugin options')
 
-  ctx.store.merge('extension.html-webpack-plugin', userOptions)
+  this.store.merge('extension.html-webpack-plugin', userOptions)
 
-  if (!userOptions.replace) return ctx
+  if (!userOptions.replace) return this
 
-  ctx.info('processing bud-interpolate-html-plugin options')
+  this.info('processing bud-interpolate-html-plugin options')
 
-  ctx.store.merge(
+  this.store.merge(
     'extension.interpolate-html-plugin',
     userOptions.replace,
   )
 
-  return ctx
+  return this
 }

@@ -6,15 +6,13 @@ describe.skip('bud.use', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {features: {dashboard: false, log: false}},
-    })
+    bud = await factory()
   })
 
-  beforeEach(() => {
+  beforeEach(async () => {
     bud.extensions.setStore({})
 
-    bud.use({
+    await bud.use({
       name: 'css-minimizer-webpack-plugin',
       options: {},
     })

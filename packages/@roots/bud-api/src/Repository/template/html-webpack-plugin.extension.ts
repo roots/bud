@@ -24,5 +24,5 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
 
   make: options => new HtmlWebpackPlugin(options.all()),
 
-  when: ({store}) => store.is('html', true),
+  when: ({store}) => store.is('features.html', true),
 }

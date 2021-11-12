@@ -19,12 +19,32 @@ export class Runner {
   public app: Bud
 
   /**
+   * @public
+   */
+  public get jest() {
+    return process.env.JEST_WORKER_ID !== undefined
+  }
+
+  /**
    * Class constructor
    *
    * @param cli - CLI state
    * @param options - Bud options
    */
   public constructor(public cli: Configuration['cli']) {}
+
+  public get parsedCli() {
+    return !this.jest
+      ? this.cli
+      : {
+          ...this.cli,
+          flags: {
+            ...this.cli.flags,
+            dashboard: false,
+            log: false,
+          },
+        }
+  }
 
   /**
    * Initialize bud application
@@ -39,7 +59,7 @@ export class Runner {
 
     const settings = {
       config: {
-        cli: this.cli,
+        cli: this.parsedCli,
         mode: this.cli.flags.mode ?? 'production',
         location: {
           project:
@@ -62,9 +82,9 @@ export class Runner {
         features: {
           cache: determineDefaultBool(this.cli.flags.cache),
           clean: determineDefaultBool(this.cli?.flags.clean),
-          dashboard: determineDefaultBool(
-            this.cli.flags.dashboard,
-          ),
+          dashboard: this.jest
+            ? true
+            : determineDefaultBool(this.cli.flags.dashboard),
           hash: determineDefaultBool(this.cli.flags.hash, false),
           html: determineDefaultBool(this.cli.flags.html, false),
           inject: determineDefaultBool(this.cli.flags.inject),

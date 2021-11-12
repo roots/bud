@@ -1,163 +1,141 @@
-import {flags} from '@oclif/command'
+import * as Oclif from '@oclif/command'
 
-import {Bud} from '../../Bud'
 import {Command} from '../Command'
-import {Runner} from '../Runner'
+import * as flags from '../flags'
 
+/**
+ * @public
+ */
 export default class Build extends Command {
+  /**
+   * @public
+   */
   public static id = 'build'
 
+  /**
+   * @public
+   */
   public static title = 'build'
 
+  /**
+   * @public
+   */
   public static description = 'compile source assets'
 
+  /**
+   * @public
+   */
   public static examples = [`$ bud build`, `$ bud build --cache`]
 
+  /**
+   * @public
+   */
   public static flags = {
-    version: flags.version(),
+    ...Command.flags,
 
-    log: flags.boolean({
-      description: 'log to console',
-      default: true,
-      allowNo: true,
-    }),
-    ['log.level']: flags.string({
-      description:
-        'set log verbosity. `v` is error level. `vv` is warning level. `vvv` is log level. `vvvv` is debug level.',
-      default: 'vvv',
-      options: ['v', 'vv', 'vvv', 'vvvv'],
-    }),
-    ['log.papertrail']: flags.boolean({
-      allowNo: true,
-      default: false,
-      description: 'preserve logger output',
-    }),
-    ['log.secret']: flags.string({
-      default: [process.cwd()],
-      multiple: true,
-      description: 'hide matching strings from logging output',
-    }),
+    ...flags.target,
 
-    mode: flags.string({
+    ...flags.location,
+
+    mode: Oclif.flags.string({
       description: 'compiler mode',
       default: 'production',
       options: ['development', 'production'],
     }),
 
-    cache: flags.boolean({
+    cache: Oclif.flags.boolean({
       allowNo: true,
       default: true,
       description: 'cache built modules to the filesystem',
     }),
-    ['cache.type']: flags.string({
+    ['cache.type']: Oclif.flags.string({
       default: 'filesystem',
       options: ['filesystem', 'memory', 'false'],
     }),
 
-    clean: flags.boolean({
+    clean: Oclif.flags.boolean({
       allowNo: true,
       default: true,
       description: 'clean dist directory before compiling',
     }),
 
-    config: flags.string({
+    config: Oclif.flags.string({
       description: 'path to config file',
     }),
 
-    dashboard: flags.boolean({
+    dashboard: Oclif.flags.boolean({
       allowNo: true,
       default: true,
       description: 'enable bud dashboard',
     }),
 
-    devtool: flags.string({
+    devtool: Oclif.flags.string({
       description: 'specify source-map type',
     }),
 
-    flush: flags.boolean({
+    flush: Oclif.flags.boolean({
       description: 'flush internal bud cache',
       default: false,
     }),
 
-    html: flags.boolean({
+    html: Oclif.flags.boolean({
       allowNo: true,
       description: 'generate an html template',
     }),
 
-    hash: flags.boolean({
+    hash: Oclif.flags.boolean({
       allowNo: true,
       description: 'hash compiled filenames',
     }),
 
-    inject: flags.boolean({
+    inject: Oclif.flags.boolean({
       allowNo: true,
       default: true,
       description: 'automatically register & boot extensions',
     }),
 
-    install: flags.boolean({
+    install: Oclif.flags.boolean({
       description: 'ensure peer dependencies are installed',
       default: false,
     }),
 
-    manifest: flags.boolean({
+    manifest: Oclif.flags.boolean({
       allowNo: true,
       default: true,
       description: 'emit manifest.json',
     }),
 
-    minimize: flags.boolean({
+    minimize: Oclif.flags.boolean({
       allowNo: true,
       description: 'minimize file size of compiled assets',
     }),
 
-    ['location.src']: flags.string({
-      description: 'directory containing source assets',
-    }),
-
-    ['location.dist']: flags.string({
-      description: 'directory to emit assets to',
-    }),
-
-    ['location.project']: flags.string({
-      description: 'project directory',
-    }),
-
-    ['location.publicPath']: flags.string({
-      description: 'public path',
-    }),
-
-    ['splitChunks']: flags.boolean({
+    ['splitChunks']: Oclif.flags.boolean({
       allowNo: true,
       description:
         'create separate chunks for vendor and app code',
     }),
-    vendor: flags.boolean({
+
+    vendor: Oclif.flags.boolean({
       allowNo: true,
       description:
         'create separate chunks for vendor and app code; alias for splitChunks',
     }),
-    runtime: flags.boolean({
+
+    runtime: Oclif.flags.boolean({
       allowNo: true,
       description: 'Create a runtime chunk',
     }),
 
-    target: flags.string({
+    target: Oclif.flags.string({
       description: 'limit compilation to this compiler',
       multiple: true,
       default: [],
     }),
   }
 
-  public app: Bud
-
   public async run() {
-    const options = this.parse(Build)
-    const runner = new Runner(options)
-
-    await runner.initialize()
-    this.app = await runner.make()
-
+    await this.prime(Build)
     this.app.hooks.on('done', [this.notifier.notify])
     await this.app.run()
   }

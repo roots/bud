@@ -4,9 +4,7 @@ describe.skip('bud.publicPath', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {features: {dashboard: false, log: false}},
-    })
+    bud = await factory()
     bud.build.make()
   })
 

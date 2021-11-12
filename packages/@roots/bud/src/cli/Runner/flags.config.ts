@@ -89,9 +89,9 @@ export const config = async (app, flags) => {
    * Handle --manifest flag
    */
   if (typeof flags.manifest !== 'undefined') {
-    app.store.set('manifest', flags.manifest)
+    app.store.set('features.manifest', flags.manifest)
     app.children.every((_name, child) =>
-      child.store.set('manifest', flags.manifest),
+      child.store.set('features.manifest', flags.manifest),
     )
   }
 

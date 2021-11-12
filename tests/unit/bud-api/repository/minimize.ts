@@ -4,9 +4,7 @@ describe.skip('bud.minimize', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {features: {dashboard: false, log: false}},
-    })
+    bud = await factory()
   })
 
   it('is a function', () => {

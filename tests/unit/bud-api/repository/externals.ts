@@ -1,20 +1,19 @@
 import {factory, Framework} from '@roots/bud'
 
-describe.skip('bud.externals', function () {
+describe('bud.externals', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {features: {dashboard: false, log: false}},
-    })
+    bud = await factory()
   })
 
   it('is a function', () => {
     expect(bud.externals).toBeInstanceOf(Function)
   })
 
-  it('modifies build.config.externals', () => {
-    bud.externals({react: 'window.React'}).build.make()
+  it('modifies build.config.externals', async () => {
+    bud.externals({react: 'window.React'})
+    await bud.build.make()
 
     expect(bud.build.config.externals).toEqual({
       react: 'window.React',

@@ -26,11 +26,11 @@ export interface experiments {
  * @public @config
  */
 export const experiments: experiments = function (key, setting) {
-  const ctx = this as Framework
-  ctx.hooks.on('build.experiments', experiments => ({
+  this as Framework
+  this.hooks.on('build.experiments', experiments => ({
     ...(experiments ?? {}),
     [key]: setting,
   }))
 
-  return ctx
+  return this
 }

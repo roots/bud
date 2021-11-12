@@ -62,6 +62,13 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
+  "help": Object {
+    "allowNo": false,
+    "char": "h",
+    "description": "show CLI help",
+    "parse": [Function],
+    "type": "boolean",
+  },
   "html": Object {
     "allowNo": true,
     "description": "generate an html template",
