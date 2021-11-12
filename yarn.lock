@@ -3264,7 +3264,7 @@ __metadata:
     "@types/react": 17.0.34
     ink: 3.2.0
     ink-gradient: 2.0.0
-    ink-spinner: ^4.0.3
+    ink-spinner: 4.0.3
     ink-use-stdout-dimensions: 1.0.5
     patch-console: 1.0.0
     react: 17.0.2
@@ -13693,7 +13693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-spinner@npm:^4.0.3":
+"ink-spinner@npm:4.0.3":
   version: 4.0.3
   resolution: "ink-spinner@npm:4.0.3"
   dependencies:
