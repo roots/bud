@@ -66,7 +66,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "16.11.7",
     "eslint": "7.32.0",
-    "webpack": "5.63.0"
+    "webpack": "5.64.0"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
