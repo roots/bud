@@ -71,7 +71,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/node": "16.11.7",
-    "webpack": "5.62.1"
+    "webpack": "5.63.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",

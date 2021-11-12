@@ -75,9 +75,9 @@
     "@types/node": "16.11.7",
     "eslint": "7.32.0",
     "jest": "27.3.1",
-    "solid-js": "1.2.2",
-    "type-fest": "2.5.2",
-    "webpack": "5.62.1"
+    "solid-js": "1.2.3",
+    "type-fest": "2.5.3",
+    "webpack": "5.63.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
