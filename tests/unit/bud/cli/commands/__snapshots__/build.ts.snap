@@ -140,7 +140,7 @@ Object {
   },
   "log.secret": Object {
     "default": Array [
-      "/Users/kellymears/code/roots/dev/bud",
+      Any<String>,
     ],
     "description": "hide matching strings from logging output",
     "input": Array [],
