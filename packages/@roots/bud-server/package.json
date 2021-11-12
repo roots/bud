@@ -67,7 +67,7 @@
     "@types/node": "16.11.7",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.5",
-    "webpack": "5.63.0"
+    "webpack": "5.64.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
