@@ -1,5 +1,4 @@
 import {flags} from '@oclif/command'
-import chalk from 'chalk'
 import {ensureDir} from 'fs-extra'
 
 import {Bud} from '../../Bud'
@@ -7,15 +6,39 @@ import {remove} from '../cli.dependencies'
 import {Command} from '../Command'
 import {Runner} from '../Runner'
 
+/**
+ * @public
+ */
 export default class Clean extends Command {
-  public static id: string = 'Clean'
-  public static title: string | undefined = 'Clean'
+  /**
+   * @public
+   */
+  public static id: string = 'clean'
+
+  /**
+   * @public
+   */
+  public static title: string | undefined = 'clean'
+
+  /**
+   * @public
+   */
   public static description =
     'clean project distributables and caches'
+
+  /**
+   * @public
+   */
   public static examples = [`$ bud clean`]
 
+  /**
+   * @public
+   */
   public app: Bud
 
+  /**
+   * @public
+   */
   public static flags = {
     help: flags.help({char: 'h'}),
     target: flags.string({
@@ -47,6 +70,9 @@ export default class Clean extends Command {
     }),
   }
 
+  /**
+   * @public
+   */
   public async run() {
     const options = this.parse(Clean)
     const runner = new Runner({
@@ -61,13 +87,14 @@ export default class Clean extends Command {
       interactive: false,
     })
     logger.enable()
-
     logger.info(`clearing artifacts`)
 
     try {
       logger.pending(`emptying ${this.app.path('storage')}`)
+
       await ensureDir(this.app.path('storage'))
       await remove(this.app.path('storage'))
+
       logger.success(`emptying ${this.app.path('storage')}`)
     } catch (err) {
       logger.error(err)
@@ -75,7 +102,9 @@ export default class Clean extends Command {
 
     try {
       logger.pending(`emptying ${this.app.path('dist')}`)
+
       await remove(this.app.path('dist'))
+
       logger.success(`emptying ${this.app.path('dist')}`)
     } catch (err) {
       logger.error(err)
