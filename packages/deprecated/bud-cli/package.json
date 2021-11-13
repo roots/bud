@@ -78,7 +78,7 @@
     "@types/eslint": "7.28.2",
     "@types/lodash": "4.14.176",
     "@types/node": "16.11.7",
-    "@types/prettier": "2.4.1",
+    "@types/prettier": "2.4.2",
     "eslint": "7.32.0"
   },
   "dependencies": {

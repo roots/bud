@@ -3751,7 +3751,7 @@ __metadata:
     "@types/express": 4.17.13
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
-    "@types/prettier": 2.4.1
+    "@types/prettier": 2.4.2
     "@types/signale": 1.4.2
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
@@ -4055,7 +4055,7 @@ __metadata:
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
     "@types/node": 16.11.7
-    "@types/prettier": 2.4.1
+    "@types/prettier": 2.4.2
     "@types/react": 17.0.34
     tslib: ^2.3.1
   peerDependencies:
@@ -4088,7 +4088,7 @@ __metadata:
   dependencies:
     "@types/fs-extra": 9.0.13
     "@types/node": 16.11.7
-    "@types/prettier": 2.4.1
+    "@types/prettier": 2.4.2
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     prettier: ^2.4.1
@@ -4957,10 +4957,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.4.1, @types/prettier@npm:^2.1.5":
+"@types/prettier@npm:2.4.1":
   version: 2.4.1
   resolution: "@types/prettier@npm:2.4.1"
   checksum: df330c2d6fe7c282839b0f17701e069a9c6c96d2ff54704e933a1b3c1b98844d963a7cb00c5629d173604892ceee802312bbaeb8a97f5da21e13db8f653b519e
+  languageName: node
+  linkType: hard
+
+"@types/prettier@npm:2.4.2, @types/prettier@npm:^2.1.5":
+  version: 2.4.2
+  resolution: "@types/prettier@npm:2.4.2"
+  checksum: 76e230b2d11028af11fe12e09b2d5b10b03738e9abf819ae6ebb0f78cac13d39f860755ce05ac3855b608222518d956628f5d00322dc206cc6d1f2d8d1519f1e
   languageName: node
   linkType: hard
 
