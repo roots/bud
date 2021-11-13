@@ -1,10 +1,21 @@
 import {factory, Framework} from '@roots/bud'
+import {join} from 'path'
 
 describe('bud.externals', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+        location: {
+          project: join(process.cwd(), 'examples/sage'),
+        },
+      },
+    })
   })
 
   it('is a function', () => {

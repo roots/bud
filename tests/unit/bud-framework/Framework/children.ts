@@ -4,7 +4,16 @@ describe('@roots/bud-framework child', () => {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+      },
+    })
+
+    bud.logger.instance.scope('test', 'bud.framework.children')
   })
 
   it("root compiler's name is this", () => {

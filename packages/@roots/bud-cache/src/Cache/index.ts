@@ -87,9 +87,8 @@ export class Cache
    * @public
    */
   @bind
-  public async register() {
+  public async boot() {
     this.version = await this.hashFileContents()
-
     if (this.enabled) {
       this.app.persist(this.type)
     }

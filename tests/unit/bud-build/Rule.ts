@@ -5,7 +5,14 @@ describe('Build Rule', function () {
   let bud: Framework = null
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+      },
+    })
   })
 
   it('is constructable', () => {

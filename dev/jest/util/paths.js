@@ -27,6 +27,7 @@ module.exports = async () => {
 
   console.log('\nprojects')
   paths.forEach(path => console.log(`- ${path.name}`))
+
   console.log('\nignoring')
   IGNORE_LIST.forEach(path => console.log(`- ${path}`))
   return paths

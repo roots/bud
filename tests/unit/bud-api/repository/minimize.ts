@@ -1,25 +1,36 @@
 import {factory, Framework} from '@roots/bud'
+import {join} from 'path'
 
-describe.skip('bud.minimize', function () {
+describe('bud.minimize', function () {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+        location: {
+          project: join(process.cwd(), 'examples/sage'),
+        },
+      },
+    })
   })
 
   it('is a function', () => {
     expect(bud.minimize).toBeInstanceOf(Function)
   })
 
-  it('enables minimizing when called', () => {
+  it('enables minimizing when called', async () => {
     bud.minimize()
-    bud.build.make()
+    await bud.build.make()
     expect(bud.build.config.optimization.minimize).toEqual(true)
   })
 
-  it('disables minimizing when false is passed as param', () => {
+  it('disables minimizing when false is passed as param', async () => {
     bud.minimize(false)
-    bud.build.make()
+    await bud.build.make()
     expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })

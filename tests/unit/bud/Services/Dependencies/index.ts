@@ -9,7 +9,14 @@ describe('bud.project', function () {
   let manager: DependenciesManager
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+      },
+    })
 
     dependencies = new Dependencies(bud)
     dependencies.register()

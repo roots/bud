@@ -185,6 +185,7 @@ Object {
   "mode": Object {
     "default": "production",
     "description": "compiler mode",
+    "hidden": true,
     "input": Array [],
     "multiple": false,
     "options": Array [

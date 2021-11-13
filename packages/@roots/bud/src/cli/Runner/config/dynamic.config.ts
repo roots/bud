@@ -4,108 +4,111 @@ import {Signale} from 'signale'
 
 import {Bud} from '../../..'
 
-/**
- * @internal
- */
-async function callConfig(callback, path) {
-  try {
-    this.logger.await({
-      message: `calling exported function`,
-      suffix: chalk.dim(path),
+class Configuration {
+  /**
+   * Class constructor
+   *
+   * @param app - Bud instance
+   * @param logger - Logger instance
+   * @param key - configuration key (project service repository)
+   */
+  public constructor(
+    public app: Bud,
+    public logger: Signale,
+    public paths: Array<string>,
+  ) {
+    paths.map(path => {
+      this.logger.log(`processing ${path}`)
     })
-
-    await callback(this.app)
-
-    this.logger.success({
-      message: `calling exported function`,
-      suffix: chalk.dim(path),
-    })
-  } catch (error) {
-    this.logger.error({message: error})
   }
-}
 
-export async function importConfig(config: string) {
-  try {
-    this.logger.await({
-      message: 'importing module',
-      suffix: chalk.dim(config),
-    })
+  public async run(): Promise<void> {
+    await Promise.all(
+      this.paths.map(async path => {
+        const callback = await this.import(path)
+        await this.invoke(callback, path)
+      }),
+    )
+  }
 
-    this.logger.log(config)
+  public async import(config: string) {
+    try {
+      this.logger.await({
+        message: 'importing module',
+        suffix: chalk.dim(config),
+      })
 
-    const raw = config.endsWith('.ts')
-      ? await this.app.ts.read(config)
-      : await import(config)
+      this.logger.log(config)
 
-    const result = isFunction(raw?.default) ? raw.default : raw
+      const raw = config.endsWith('.ts')
+        ? await this.app.ts.read(config)
+        : await import(config)
 
-    if (!isFunction(result)) {
-      this.logger.error({message: config})
-      throw new Error(`${config} is not a function`)
+      const result = isFunction(raw?.default) ? raw.default : raw
+
+      if (!isFunction(result)) {
+        this.logger.error({message: config})
+        throw new Error(`${config} is not a function`)
+      }
+
+      this.logger.success({
+        message: 'importing module',
+        suffix: chalk.dim(config),
+      })
+
+      return result
+    } catch (e) {
+      this.logger.error('error', e)
     }
-
-    this.logger.success({
-      message: 'importing module',
-      suffix: chalk.dim(config),
-    })
-
-    return result
-  } catch (e) {
-    this.logger.error('error', e)
   }
-}
 
-/**
- * @internal
- */
-async function handleConfig(path: string) {
-  const callback = await this.importConfig(path)
-  await this.callConfig(callback, path)
-}
+  public async invoke(callback, path) {
+    try {
+      this.logger.await({
+        message: `calling exported function`,
+        suffix: chalk.dim(path),
+      })
 
-/**
- * @internal
- */
-export async function run(): Promise<void> {
-  this.logger.log(this.paths)
+      await callback(this.app)
 
-  if (
-    this.paths === undefined ||
-    (Array.isArray(this.paths) && this.paths.length === 0)
-  )
-    return
-
-  this.paths.length
-    ? await Promise.all(this.paths.map(this.handleConfig))
-    : await this.handleConfig(this.paths)
-}
-
-function configuration(app, logger: Signale, key) {
-  this.app = app
-  this.paths = app.project.get(key)
-  this.handleConfig = handleConfig.bind(this)
-  this.run = run.bind(this)
-  this.importConfig = importConfig.bind(this)
-  this.callConfig = callConfig.bind(this)
-  this.logger = logger
+      this.logger.success({
+        message: `calling exported function`,
+        suffix: chalk.dim(path),
+      })
+    } catch (error) {
+      this.logger.error({message: error})
+    }
+  }
 }
 
 /**
  * @public
  */
-export async function configs(app: Bud, logger: Signale) {
-  await new configuration(
-    app,
-    logger,
+export const configs = async (app: Bud, logger: Signale) => {
+  const generalConfigs = app.project.get(
     'configs.dynamic.global',
-  ).run()
-  await app.extensions.processQueue()
-
-  await new configuration(
-    app,
-    logger,
+  )
+  const conditionalConfigs = app.project.get(
     'configs.dynamic.conditional',
-  ).run()
-  await app.extensions.processQueue()
+  )
+
+  if (generalConfigs?.length) {
+    const config = new Configuration(app, logger, generalConfigs)
+    await config.run()
+
+    // run extensions before processing next config
+    await app.extensions.processQueue()
+  }
+
+  if (conditionalConfigs?.length) {
+    const config = new Configuration(
+      app,
+      logger,
+      conditionalConfigs,
+    )
+    await config.run()
+
+    // run extensions before processing next config
+    await app.extensions.processQueue()
+  }
 }

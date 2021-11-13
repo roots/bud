@@ -103,7 +103,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   }, [progress])
 
   return (
-    <Box flexDirection="column" marginTop={1}>
+    <Box flexDirection="column">
       {isRawModeSupported && <Input bud={instance.current} />}
 
       {hasErrors && (
@@ -141,6 +141,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
           <Box
             key={`stats-${child.name}-${id}`}
             flexDirection={'column'}
+            marginTop={1}
           >
             <Text backgroundColor={theme.colors.primary}>
               {' '}
@@ -216,7 +217,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
         theme &&
         progress &&
         typeof progress[0] === 'number' && (
-          <Box flexDirection="column" marginBottom={1}>
+          <Box flexDirection="column" marginY={1}>
             {progress[0] < 1 && progress[0] > 0 && (
               <Progress progress={progress} theme={theme} />
             )}

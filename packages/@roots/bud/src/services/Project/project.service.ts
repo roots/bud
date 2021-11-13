@@ -60,14 +60,10 @@ export class Project
   }
 
   public get projectPath(): string {
-    const manifestValues = this.manifest[`${this.app.name}`]
-
-    const fromCli =
-      this.app.options.config.cli.flags['location.project']
-    const fromManifest = manifestValues?.location?.project
-    const fromSeed = this.app.options.config.location.project
-
-    return fromCli ?? fromManifest ?? fromSeed
+    return (
+      this.app.options.config.cli.flags['location.project'] ??
+      this.app.options.config.location.project
+    )
   }
 
   public get storagePath(): string {
@@ -81,6 +77,7 @@ export class Project
   }
 
   public previous: Record<string, any>
+
   public manifest: Record<string, any>
 
   @bind
@@ -152,7 +149,7 @@ export class Project
     }
 
     const profile = await this.refreshProfile()
-    this.setStore(profile)
+    this.mergeStore(profile)
   }
 
   /**
@@ -356,43 +353,56 @@ export class Project
                 suffix: result,
               })
 
-              let config
-              if (key.startsWith('configs.json')) {
-                config = result
-              } else {
-                config = this.app.path('project', result)
-              }
+              if (!result || !result.length) return
 
-              const existing = this.get('dependencies')
-              this.set(
-                'dependencies',
-                Array.from(new Set([...existing, config])),
+              this.mutate('dependencies', i =>
+                Array.from(
+                  new Set([
+                    ...i,
+                    this.app.path('project', result),
+                  ]),
+                ),
               )
 
               if (
                 !result.endsWith('json') &&
                 !result.endsWith('yml')
               ) {
-                this.set(key, this.app.path('project', result))
-                return
+                return this.mutate(key, i =>
+                  Array.from(
+                    new Set([
+                      ...i,
+                      this.app.path('project', result),
+                    ]),
+                  ),
+                )
               }
 
-              let resultObj
               if (result.endsWith('.json')) {
-                resultObj = await this.app.json.read(result)
+                return this.mutate(key, i =>
+                  Array.from(
+                    new Set([
+                      ...i,
+                      this.app.json.read(
+                        this.app.path('project', result),
+                      ),
+                    ]),
+                  ),
+                )
               }
 
               if (result.endsWith('.yml')) {
-                resultObj = await this.app.yml.read(result)
+                return this.mutate(key, i =>
+                  Array.from(
+                    new Set([
+                      ...i,
+                      this.app.yml.read(
+                        this.app.path('project', result),
+                      ),
+                    ]),
+                  ),
+                )
               }
-
-              const existingStatic = this.get(key)
-              this.set(
-                key,
-                Array.from(
-                  new Set([...existingStatic, resultObj]),
-                ),
-              )
             }),
           )
         }.bind(this),

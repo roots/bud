@@ -56,11 +56,8 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    this.log('time', 'running build.before hooks')
     this.app.hooks.filter('build.before')
-    this.log('timeEnd', 'running build.before hooks')
 
-    this.log('time', 'build.make')
     this.config = Object.entries(
       this.app.hooks.filter('build'),
     ).reduce(
@@ -77,11 +74,8 @@ export class Build
       },
       {},
     )
-    this.log('timeEnd', 'build.make')
 
-    this.log('time', {prefix: 'hook', message: 'build.after'})
     this.app.hooks.filter('build.after', this.app)
-    this.log('timeEnd', {prefix: 'hook', message: 'build.after'})
 
     await this.writeFinalConfig(this.config)
 

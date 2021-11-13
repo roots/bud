@@ -1,29 +1,32 @@
-import {config, factory, Framework} from '@roots/bud'
+import {factory, Framework} from '@roots/bud'
+import {join} from 'path'
 
-describe.skip('bud.entry', function () {
+describe('bud.entry', function () {
   let bud: Framework
 
   beforeAll(async () => {
     bud = await factory({
       config: {
-        ...config,
+        features: {
+          dashboard: false,
+          log: false,
+        },
         location: {
-          ...config.location,
-          project: `${process.cwd()}/examples/sage`,
-          src: 'resources',
+          project: join(process.cwd(), 'examples/sage'),
         },
       },
     })
 
-    bud.build.make()
+    bud.logger.instance.scope('bud.entry test')
   })
 
   beforeEach(() => {
     bud.hooks.on('build/entry', {})
   })
 
-  it('sets an entrypoint using (string, string) fn signature', () => {
-    bud.entry('app', 'scripts/app.js').build.make()
+  it('sets an entrypoint using (string, string) fn signature', async () => {
+    bud.entry('app', 'scripts/app.js')
+    await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -32,8 +35,9 @@ describe.skip('bud.entry', function () {
     })
   })
 
-  it('sets an entrypoint using (string, string) fn signature with globbing', () => {
-    bud.entry('app', '**/app.{css,js}').build.make()
+  it('sets an entrypoint using (string, string) fn signature with globbing', async () => {
+    bud.entry('app', '**/app.{css,js}').build
+    await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -42,10 +46,9 @@ describe.skip('bud.entry', function () {
     })
   })
 
-  it('sets an entrypoint using (string, string[]) fn signature', () => {
-    bud
-      .entry('app', ['scripts/app.js', 'styles/app.css'])
-      .build.make()
+  it('sets an entrypoint using (string, string[]) fn signature', async () => {
+    bud.entry('app', ['scripts/app.js', 'styles/app.css'])
+    await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -54,8 +57,10 @@ describe.skip('bud.entry', function () {
     })
   })
 
-  it('sets an entrypoint using (string, string[]) fn signature with globbing', () => {
-    bud.entry('app', ['**/app.js', '**/editor.css']).build.make()
+  it('sets an entrypoint using (string, string[]) fn signature with globbing', async () => {
+    bud.entry('app', ['**/app.js', '**/editor.css'])
+    await bud.build.make()
+
     expect(bud.build.config.entry).toEqual({
       app: {
         import: ['scripts/app.js', 'styles/editor.css'],
@@ -77,12 +82,12 @@ describe.skip('bud.entry', function () {
     })
   })
 
-  it('sets a single entrypoint using k, v fn signature with globbing', () => {
+  it('sets a single entrypoint using k, v fn signature with globbing', async () => {
     bud.entry({
       app: ['**/app.js', 'styles/*.css'],
     })
 
-    bud.build.make()
+    await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {
@@ -95,13 +100,13 @@ describe.skip('bud.entry', function () {
     })
   })
 
-  it('sets multiple entrypoints using k, v fn signature', () => {
+  it('sets multiple entrypoints using k, v fn signature', async () => {
     bud.entry({
       app: ['scripts/app.js', 'styles/app.css'],
       editor: ['scripts/editor.js', 'styles/editor.css'],
     })
 
-    bud.build.make()
+    await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
       app: {

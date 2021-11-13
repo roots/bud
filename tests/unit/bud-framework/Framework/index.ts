@@ -8,7 +8,14 @@ describe('bud', () => {
   let bud: Framework
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+      },
+    })
   })
 
   it('mode', () => {

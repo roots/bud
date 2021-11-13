@@ -46,7 +46,6 @@ export const persist: persist = function (
     this.hooks.on('build.cache', {
       type: 'memory',
     })
-
     return this
   }
 

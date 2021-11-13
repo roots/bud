@@ -33,11 +33,6 @@ export interface lifecycle {
 export async function lifecycle(
   this: Framework,
 ): Promise<Framework> {
-  const logger = this.logger.instance.scope(
-    ...this.logger.context,
-    'lifecycle',
-  )
-  logger.time('lifecycle')
   this.dump(this.store.all(), {prefix: 'store'})
 
   /**
@@ -84,11 +79,9 @@ export async function lifecycle(
 
     if (!eligibleServices.length) return
 
-    logger.time(`precompile > ${event}`)
-
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
-        logger.await({
+        this.await({
           message: `[${i + 1}/${
             eligibleServices.length
           }] ${event}`,
@@ -96,17 +89,8 @@ export async function lifecycle(
         })
 
         await service[event](this)
-
-        logger.complete({
-          message: `[${i + 1}/${
-            eligibleServices.length
-          }] ${event}`,
-          suffix: service.constructor.name.toLowerCase(),
-        })
       }),
     )
-
-    logger.timeEnd(`precompile > ${event}`)
   }, Promise.resolve())
 
   return this
