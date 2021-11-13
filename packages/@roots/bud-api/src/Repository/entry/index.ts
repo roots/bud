@@ -196,8 +196,7 @@ function makeEntrypoints(
 
   Object.entries(entry).map(([k, v]) => {
     this.api.log('success', {
-      prefix: 'entry',
-      message: `entrypoint ${k} added`,
+      message: `entrypoint added: ${k}`,
       suffix: chalk.dim(v),
     })
     this.dump(entry)

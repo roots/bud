@@ -39,16 +39,13 @@ export function setPath(...args): Framework {
 
   if (Object.entries(args[0]).length === 0) {
     this.error({
-      prefix: 'setPath',
       message: `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations`,
-      suffix: `['src', 'dist', 'storage', 'publicPath', 'project']`,
     })
   }
 
   Object.entries(args[0]).map(([k, v]: [string, string]) => {
     this.when(k == 'project' && !v.startsWith('/'), () => {
       this.error({
-        prefix: 'setPath',
         message: 'The project path must be absolute',
       })
     })
@@ -58,7 +55,6 @@ export function setPath(...args): Framework {
         v.startsWith('/'),
       () => {
         this.warn({
-          prefix: 'setPath',
           message: `${k} was defined as ${v}.`,
           suffix: `This path should be relative to the project root. You should fix this.`,
         })
@@ -68,7 +64,7 @@ export function setPath(...args): Framework {
     )
 
     this.hooks.on(`location.${k}`, v)
-    this.info({prefix: 'setPath', message: `${k} set to ${v}`})
+    this.info({message: `${k} set`, suffix: v})
   })
 
   return this

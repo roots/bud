@@ -39,6 +39,7 @@ export default class Build extends Command {
       description: 'compiler mode',
       default: 'production',
       options: ['development', 'production'],
+      hidden: true,
     }),
 
     cache: Oclif.flags.boolean({

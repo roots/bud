@@ -34,7 +34,7 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async getManifestPath(name: string) {
+  public async getPackageManifestPath(name: string) {
     try {
       const packagePath = await pkgUp.default({
         cwd: dirname(safeResolve(name)),
@@ -56,12 +56,14 @@ export class Peers implements Model.Interface {
   @bind
   public async getManifest(name: string) {
     try {
-      const manifestPath = await this.getManifestPath(name)
+      const manifestPath = await this.getPackageManifestPath(
+        name,
+      )
 
       if (!manifestPath) {
         this.log('error', {
-          prefix: name,
           message: `manifest could not be resolved`,
+          suffix: name,
         })
         return null
       }
@@ -69,15 +71,15 @@ export class Peers implements Model.Interface {
         join(manifestPath, '/package.json'),
       )
       this.log('success', {
-        prefix: name,
         message: `manifest resolved`,
+        suffix: name,
       })
 
       return manifest
     } catch (err) {
       this.log('error', {
-        prefix: name,
         message: `manifest could not be resolved`,
+        suffix: name,
       })
     }
   }
@@ -123,15 +125,10 @@ export class Peers implements Model.Interface {
       })
 
     await Promise.all(
-      dependencies.map(async (name: string) => {
-        this.log('info', {
-          prefix: projectModuleType,
-          message: `project dependency`,
-          suffix: name,
-        })
-        await this.profileExtension(name)
-        return
-      }),
+      dependencies.map(
+        async (name: string) =>
+          await this.profileExtension(name),
+      ),
     )
 
     return this
@@ -156,19 +153,19 @@ export class Peers implements Model.Interface {
    */
   @bind
   public async profileExtension(name: string) {
-    const path = await this.getManifestPath(name)
-    if (this.app.project.get(`resolve`).includes(path)) {
-      return
-    }
+    const path = await this.getPackageManifestPath(name)
+    if (this.app.project.get(`resolve`).includes(path)) return
 
     /**
      * Add path to app.project resolutions array
      */
-    const resolvePaths = this.app.project.get('resolve')
-    this.app.project.set('resolve', [...resolvePaths, path])
+    this.app.project.mutate(
+      'resolve',
+      (paths: Array<string>) => [...paths, path],
+    )
     this.log('success', {
-      prefix: name,
-      message: `registered resolution path`,
+      message: `resolving ${name}`,
+      suffix: path,
     })
 
     /**
@@ -196,15 +193,8 @@ export class Peers implements Model.Interface {
             /**
              * If peer dependency is already profiled, skip
              */
-            if (this.app.project.has(`peers.${peerName}`)) {
+            if (this.app.project.has(`peers.${peerName}`))
               return false
-            }
-
-            this.log('await', {
-              prefix: name,
-              message: `required`,
-              suffix: `${peerName}@${peerVersion}`,
-            })
 
             this.app.project.set(`peers.${peerName}`, {
               name: peerName,
@@ -212,7 +202,7 @@ export class Peers implements Model.Interface {
             })
 
             /**
-             * If peer dependency is present in project, skip
+             * Flag unmmet dependencies
              */
             if (!this.app.project.has(`installed.${peerName}`)) {
               this.app.project.mutate(`unmet`, unmet => [
@@ -221,8 +211,7 @@ export class Peers implements Model.Interface {
               ])
 
               this.log('error', {
-                prefix: name,
-                message: `not installed`,
+                message: `required peer dependency is unmet`,
                 suffix: `${peerName}@${peerVersion}`,
               })
 
@@ -230,8 +219,7 @@ export class Peers implements Model.Interface {
             }
 
             this.log('success', {
-              prefix: name,
-              message: `verified`,
+              message: `required peer dependency is met`,
               suffix: `${peerName}@${peerVersion}`,
             })
           },
@@ -243,7 +231,7 @@ export class Peers implements Model.Interface {
       await Promise.all(
         this.app.project
           .get(`extensions.${name}.bud.peers`)
-          .map(async name => {
+          .map(async (name: string) => {
             if (
               !this.isExtension(name) ||
               this.app.project.has(`extensions.${name}`)

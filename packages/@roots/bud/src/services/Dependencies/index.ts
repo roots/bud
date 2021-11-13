@@ -1,4 +1,6 @@
 import * as Framework from '@roots/bud-framework'
+import chalk from 'chalk'
+import {truncate} from 'lodash'
 
 import {
   $,
@@ -76,27 +78,37 @@ export class Dependencies
       version: string
     }[],
   ): Promise<void> {
-    const install = dependencies.reduce(
-      (acc, dependency) =>
-        `${acc} ${dependency.name}@${dependency.version}`,
-      ``,
-    )
+    const install = dependencies.reduce((acc, dependency) => {
+      this.log(`info`, {
+        message: `${chalk.blue`${dependency.name}@${dependency.version}`}`,
+      })
+
+      return `${acc} ${dependency.name}@${dependency.version}`
+    }, ``)
+
     const pkgManager = this.manager.isYarn() ? `yarn` : `npm`
     const command = `${pkgManager} add ${install} --dev`
 
     this.log(`await`, {
-      prefix: 'install',
-      message: install,
+      message: 'installing packages',
     })
 
     const installation = $(command)
+
+    installation.stdout.on('data', data =>
+      this.log(
+        'pending',
+        truncate(data.toString().replace(/\n$/, ``), {
+          length: 100,
+        }),
+      ),
+    )
     installation.stderr.pipe(process.stderr)
 
     await installation
 
     this.log(`success`, {
-      prefix: 'install',
-      message: install,
+      message: 'installing packages',
     })
   }
 }

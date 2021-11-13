@@ -27,7 +27,7 @@ export interface Interface {
    *
    * @public
    */
-  getManifestPath(name: string): Promise<string>
+  getPackageManifestPath(name: string): Promise<string>
 
   /**
    * Returns manifest for a module from name (if findable)

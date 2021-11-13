@@ -1,6 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import {ensureFile, readJson} from 'fs-extra'
 import globby from 'globby'
+import {once} from 'helpful-decorators'
 import {join} from 'path'
 
 import {Peers} from './peers'
@@ -32,7 +33,7 @@ export class Project
 
   public repository = repository
 
-  public savedProfile: Record<string, any>
+  public lastProfile: Record<string, any>
 
   public async bootstrap() {
     this.peers = new Peers(this.app)
@@ -42,13 +43,60 @@ export class Project
     return this.is('cli.flags.flush', true)
   }
 
-  public async register() {
-    const manifestPath = join(
+  public get manifestPath(): string {
+    return join(
       this.app.options.config.location.project,
       'package.json',
     )
-    await this.addManifestDataToStore(manifestPath)
-    this.savedProfile = await this.readProfile()
+  }
+
+  public get profilePath(): string {
+    return join(
+      this.projectPath,
+      this.storagePath,
+      this.app.name,
+      `profile.json`,
+    )
+  }
+
+  public get projectPath(): string {
+    const manifestValues = this.manifest[`${this.app.name}`]
+
+    const fromCli =
+      this.app.options.config.cli.flags['location.project']
+    const fromManifest = manifestValues?.location?.project
+    const fromSeed = this.app.options.config.location.project
+
+    return fromCli ?? fromManifest ?? fromSeed
+  }
+
+  public get storagePath(): string {
+    const manifestValues = this.manifest[`${this.app.name}`]
+
+    return (
+      this.app.options.config.cli.flags['location.storage'] ??
+      manifestValues?.location?.storage ??
+      this.app.options.config.location.storage
+    )
+  }
+
+  public previous: Record<string, any>
+  public manifest: Record<string, any>
+
+  @bind
+  public async register() {
+    /**
+     * We'll need an unmodified
+     */
+    this.manifest = await this.readManifest()
+    this.previous = await this.readProfile()
+
+    const manifestUnchanged =
+      JSON.stringify(this.manifest, null, 2) ===
+      JSON.stringify(this.previous?.manifest, null, 2)
+
+    this.app.store.set('location.storage', this.storagePath)
+    this.app.store.set('location.project', this.projectPath)
 
     this.setStore({
       ...(this.repository ?? {}),
@@ -57,25 +105,54 @@ export class Project
         public: this.app.env.getPublicEnv(),
         all: this.app.env.all(),
       },
-      dependencies: [this.get('manifestPath')],
+      manifest: this.manifest,
+      dependencies: [this.manifestPath],
     })
+
+    if (this.flush)
+      this.logger.note({
+        message:
+          'will rebuild profile because --flush was passed',
+      })
+
+    if (!this.previous)
+      this.logger.note({
+        message:
+          'will rebuild profile because there is no stored profile data',
+      })
+
+    if (!manifestUnchanged) {
+      this.logger.note({
+        message:
+          'will rebuild profile because the manifest has changed between builds',
+      })
+    }
+
+    if (
+      !this.flush &&
+      this.previous &&
+      manifestUnchanged &&
+      !this.app.store.is('features.install', true)
+    ) {
+      this.logger.info({
+        message:
+          'saved profile is still valid. run with `--flush` to force a rebuild.',
+      })
+      this.setStore(this.previous)
+    }
 
     if (this.app.store.is('features.install', true)) {
       await this.refreshProfile()
+
       if (!this.get('unmet').length) return
 
       await this.app.dependencies.install(this.get('unmet'))
-      await this.addManifestDataToStore(manifestPath)
-      await this.refreshProfile()
-      this.savedProfile = await this.readProfile()
-      this.setStore(this.savedProfile)
-    } else if (!this.flush && this.savedProfile) {
-      this.setStore(this.savedProfile)
-    } else {
-      await this.refreshProfile()
-      this.savedProfile = await this.readProfile()
-      this.setStore(this.savedProfile)
+
+      await this.refreshManifest()
     }
+
+    const profile = await this.refreshProfile()
+    this.setStore(profile)
   }
 
   /**
@@ -94,24 +171,38 @@ export class Project
     }
   }
 
+  /**
+   * Read manifest
+   *
+   * @public
+   */
   @bind
-  public async addManifestDataToStore(manifestPath: string) {
-    try {
-      this.set('manifestPath', manifestPath)
-      const manifest = await readJson(manifestPath)
-      this.set('manifest', manifest)
-      this.log('success', {
-        prefix: 'manifest',
-        message: 'added to project store',
-      })
-    } catch (e) {
+  public async readManifest(): Promise<Record<string, any>> {
+    return await readJson(this.manifestPath)
+  }
+
+  /**
+   * Update manifest data
+   *
+   * @public
+   */
+  @bind
+  public async refreshManifest() {
+    if (!this.manifest) {
       this.log('error', {
-        prefix: 'manifest',
-        message: 'read',
-        suffix: manifestPath,
+        message: 'manifest not available',
+        suffix: this.manifestPath,
       })
-      return
+      return this.app.dump(this.manifest, {
+        prefix: 'project.manifest',
+      })
     }
+
+    this.set('manifest', this.manifest)
+    this.log('success', {
+      message: 'profiled manifest',
+      suffix: this.manifest.name,
+    })
 
     this.set('installed', {
       ...(this.get('manifest.devDependencies') ?? {}),
@@ -129,10 +220,12 @@ export class Project
     }
 
     const locationKey = `manifest.${this.app.name}.location`
-    if (this.has(locationKey)) {
+    const locationOverriden =
+      this.get('cli.flags')[`location.${locationKey}`]
+
+    if (this.has(locationKey) && !locationOverriden) {
       this.log('info', {
-        prefix: 'manifest',
-        message: 'merging locations',
+        message: 'setting location from manifest',
         suffix: locationKey,
       })
       this.app.store.merge('location', this.get(locationKey))
@@ -150,42 +243,30 @@ export class Project
     return this.has(`peers.${pkg}`)
   }
 
-  @bind
-  public getProfileLocation(): string {
-    return join(
-      this.app.options.config.cli.flags['location.project'] ??
-        this.get('manifest.location.project') ??
-        this.app.options.config.location.project,
-      this.app.options.config.cli.flags['location.storage'] ??
-        this.get('manifest.location.storage') ??
-        this.app.options.config.location.storage,
-      `${this.app.name}/profile.json`,
-    )
-  }
-
   /**
    * @public
    */
   @bind
   public async refreshProfile() {
-    const profileLocation = this.getProfileLocation()
+    await this.refreshManifest()
 
-    this.log('time', `building profile`)
-
-    await ensureFile(profileLocation)
+    this.log('time', 'building profile')
+    await ensureFile(this.profilePath)
 
     try {
       await this.resolvePeers()
       await this.searchConfigs()
       await this.writeProfile()
+
       this.log('timeEnd', `building profile`)
+
+      return this.readProfile()
     } catch (e) {
       this.log('error', {
-        prefix: 'profile',
-        message: 'building',
+        message: 'building profile',
         suffix: e,
       })
-      this.log('timeEnd', `building profile`)
+      this.log('timeEnd', 'building profile')
     }
   }
 
@@ -194,53 +275,39 @@ export class Project
    */
   @bind
   public async writeProfile() {
-    const profileLocation = this.getProfileLocation()
-
-    this.log('await', {
-      prefix: 'profile',
-      message: 'writing',
-      suffix: profileLocation,
-    })
-
-    await ensureFile(profileLocation)
-
-    await writeFile(profileLocation, JSON.stringify(this.all()))
-
+    await ensureFile(this.profilePath)
+    await writeFile(this.profilePath, JSON.stringify(this.all()))
     this.log('success', {
-      prefix: 'profile',
-      message: 'writing',
-      suffix: profileLocation,
+      message: 'writing profile to disk',
+      suffix: this.profilePath,
     })
   }
 
   @bind
+  @once
   public async readProfile() {
-    const location = this.getProfileLocation()
-
     this.log('await', {
-      prefix: 'profile',
-      message: 'read',
-      suffix: location,
+      message: 'read profile',
+      suffix: this.profilePath,
     })
 
     try {
-      const res = await readJson(location)
+      const res = await readJson(this.profilePath)
       this.log('success', {
-        prefix: 'profile',
-        message: 'read',
-        suffix: location,
+        message: 'read profile',
+        suffix: this.profilePath,
       })
       return res
     } catch (e) {
       this.log('error', {
-        prefix: 'profile',
-        message: 'read',
-        suffix: location,
+        message: 'read profile',
+        suffix: this.profilePath,
       })
     }
   }
 
   @bind
+  @once
   public async searchConfigs() {
     this.log('await', 'reading project configuration files')
 
@@ -284,7 +351,10 @@ export class Project
 
           await Promise.all(
             search.map(async result => {
-              this.log('note', 'imported', key, result)
+              this.log('note', {
+                message: 'located user config',
+                suffix: result,
+              })
 
               let config
               if (key.startsWith('configs.json')) {
@@ -324,12 +394,6 @@ export class Project
                 ),
               )
             }),
-          )
-
-          this.log(
-            'success',
-            'imported configs',
-            `(${search.length})`,
           )
         }.bind(this),
       ),

@@ -38,4 +38,11 @@ export interface Interface extends Service {
    * @public
    */
   writeProfile(): Promise<any>
+
+  /**
+   * Refresh project json artifact
+   *
+   * @public
+   */
+  refreshProfile(): Promise<any>
 }

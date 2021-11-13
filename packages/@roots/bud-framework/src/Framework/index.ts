@@ -301,9 +301,7 @@ export abstract class Framework {
   public constructor(options: Options) {
     this.options = options
     this.logger = new Logger(this)
-
     this.store = this.container(options.config)
-    this.store.setStore(options.config)
 
     if (!options.childOf) {
       // Parent & child instance exclusive settings

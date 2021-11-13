@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import chalk from 'chalk'
 
 export interface persist {
   (type?: 'memory' | 'filesystem' | false): Framework
@@ -31,8 +32,7 @@ export const persist: persist = function (
 
   if (type === false) {
     this.api.log('success', {
-      prefix: 'cache',
-      message: 'disabled',
+      message: 'cache disabled',
     })
     this.hooks.on('build.cache', false)
     return this
@@ -40,8 +40,8 @@ export const persist: persist = function (
 
   if (type === 'memory') {
     this.api.log('success', {
-      prefix: 'cache',
-      message: 'memory cache enabled',
+      message: 'cache enabled',
+      suffix: chalk.dim('memory'),
     })
     this.hooks.on('build.cache', {
       type: 'memory',
@@ -51,8 +51,8 @@ export const persist: persist = function (
   }
 
   this.api.log('success', {
-    prefix: 'cache',
-    message: 'filesystem cache enabled',
+    message: 'cache enabled',
+    suffix: chalk.dim('filesystem'),
   })
 
   this.hooks

@@ -17,15 +17,13 @@ export interface watch {
 export const watch: watch = function (files) {
   this.root as Framework
   this.root.api.log('success', {
-    prefix: 'watch',
-    message: `files added`,
+    message: `watch files added`,
     suffix: chalk.dim(files.join(', ')),
   })
 
   if (!this.root.isDevelopment || !this.root.server) {
     this.root.api.log('info', {
-      prefix: 'watch',
-      message: 'skipping',
+      message: 'skipping watch files',
       suffix: 'production mode is set',
     })
     return this.root

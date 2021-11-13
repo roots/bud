@@ -47,7 +47,6 @@ export class Dashboard extends Service implements Contract {
       )
 
       this.log('success', {
-        prefix: 'run',
         message: 'rendering',
       })
     }

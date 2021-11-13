@@ -24,11 +24,7 @@ export async function factory(
     },
     config: {
       ...config,
-      cli: overrides?.config?.cli ?? config.cli,
-      mode:
-        overrides?.config?.mode ?? config.mode ?? 'production',
-      name: overrides?.config?.name ?? config.name ?? 'bud',
-      cache: overrides?.config?.cache ?? config.cache,
+      ...(overrides?.config ?? {}),
       features: {
         ...config.features,
         ...(overrides?.config?.features ?? {}),
@@ -46,7 +42,7 @@ export async function factory(
   const bud = new Bud(options)
 
   bud.time('bud')
-
+  bud.dump(options)
   bud.dump(process.env, {prefix: 'process.env'})
 
   await bud.lifecycle()

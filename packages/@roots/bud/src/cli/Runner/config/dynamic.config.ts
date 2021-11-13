@@ -10,7 +10,6 @@ import {Bud} from '../../..'
 async function callConfig(callback, path) {
   try {
     this.logger.await({
-      prefix: 'user config',
       message: `calling exported function`,
       suffix: chalk.dim(path),
     })
@@ -18,19 +17,17 @@ async function callConfig(callback, path) {
     await callback(this.app)
 
     this.logger.success({
-      prefix: 'user config',
       message: `calling exported function`,
       suffix: chalk.dim(path),
     })
   } catch (error) {
-    this.logger.error({prefix: 'user config', message: error})
+    this.logger.error({message: error})
   }
 }
 
 export async function importConfig(config: string) {
   try {
     this.logger.await({
-      prefix: 'user config',
       message: 'importing module',
       suffix: chalk.dim(config),
     })
@@ -42,18 +39,18 @@ export async function importConfig(config: string) {
     const result = isFunction(raw?.default) ? raw.default : raw
 
     if (!isFunction(result)) {
+      this.logger.error({message: config})
       throw new Error(`${config} is not a function`)
     }
 
     this.logger.success({
-      prefix: 'user config',
       message: 'importing module',
       suffix: chalk.dim(config),
     })
 
     return result
   } catch (e) {
-    this.log.import('error', e)
+    this.logger.error('error', e)
   }
 }
 
@@ -62,7 +59,7 @@ export async function importConfig(config: string) {
  */
 async function handleConfig(path: string) {
   const callback = await this.importConfig(path)
-  await this.processConfig(callback, path)
+  await this.callConfig(callback, path)
 }
 
 /**
@@ -80,7 +77,7 @@ function configuration(app, logger: Signale, key) {
   this.handleConfig = handleConfig.bind(this)
   this.run = run.bind(this)
   this.importConfig = importConfig.bind(this)
-  this.processConfig = callConfig.bind(this)
+  this.callConfig = callConfig.bind(this)
   this.logger = logger
 }
 

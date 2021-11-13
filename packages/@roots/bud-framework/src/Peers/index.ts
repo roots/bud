@@ -40,5 +40,4 @@ export interface Repository {
   [key: string]: any
 }
 
-export {Abstract} from './Abstract'
 export {Interface} from './Interface'

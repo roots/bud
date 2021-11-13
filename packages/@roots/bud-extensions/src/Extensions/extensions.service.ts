@@ -45,8 +45,7 @@ export class Extensions
       this.getEntries().map(async ([key, extension]) => {
         this.set(key, this.makeController(extension))
         this.log('success', {
-          prefix: key,
-          message: `instantiated`,
+          message: `${key} instantiated`,
         })
       }),
     )
@@ -77,8 +76,7 @@ export class Extensions
         const importResult = await import(pkg)
 
         this.log('success', {
-          prefix: importResult.name,
-          message: 'resolved',
+          message: `${importResult.name} resolved`,
         })
 
         const controller = await this.makeController(
@@ -184,13 +182,12 @@ export class Extensions
   ): Promise<void> {
     if (this.has(extension.name)) {
       this.log('warn', {
-        prefix: extension.name,
-        message: 'already added. skipping.',
+        message: `${extension.name} already added. skipping.`,
       })
       return
     }
 
-    const controller = await this.makeController(extension)
+    const controller = this.makeController(extension)
 
     await controller.register()
 

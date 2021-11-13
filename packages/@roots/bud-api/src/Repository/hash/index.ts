@@ -18,7 +18,6 @@ export const hash: hash = function (enabled = true) {
   this.store.set('features.hash', enabled)
 
   this.api.log('success', {
-    prefix: 'hash',
     message: `file hashing ${enabled ? 'enabled' : 'disabled'}`,
   })
 

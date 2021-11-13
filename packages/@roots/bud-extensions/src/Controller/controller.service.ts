@@ -1,5 +1,6 @@
 import {Service} from '@roots/bud-framework'
 import {Container} from '@roots/container'
+import chalk from 'chalk'
 import {isObject, isUndefined} from 'lodash'
 import {Signale} from 'signale'
 
@@ -237,8 +238,8 @@ export class Controller {
       await this._module.register(this.app, this.moduleLogger)
 
     this.moduleLogger.success({
-      prefix: this.name,
-      message: 'registered',
+      message: `register called`,
+      suffix: chalk.dim`${this.name}`,
     })
     return this
   }
@@ -260,9 +261,8 @@ export class Controller {
 
     Object.entries(methodMap).forEach(([k, v]) => {
       this.moduleLogger.success({
-        prefix: this.name,
-        message: 'set function',
-        suffix: `${this.app.name}.${k}`,
+        message: `registered ${this.app.name}.${k}`,
+        suffix: chalk.dim`${this.name}`,
       })
     })
 
@@ -289,9 +289,8 @@ export class Controller {
 
     Object.entries(classMap).forEach(([k, v]) => {
       this.moduleLogger.success({
-        prefix: this.name,
-        message: 'registered class',
-        suffix: `${this.app.name}.${k}`,
+        message: `registered ${this.app.name}.${k}`,
+        suffix: chalk.dim`${this.name}`,
       })
     })
   }
@@ -316,8 +315,7 @@ export class Controller {
       await this._module.boot(this.app, this.moduleLogger)
 
       this.moduleLogger.success({
-        prefix: this.name,
-        message: 'booted',
+        message: `${this.name} booted`,
       })
     }
 

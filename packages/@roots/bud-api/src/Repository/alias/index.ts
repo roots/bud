@@ -32,7 +32,6 @@ export const alias: alias = function (alias) {
       const path = resolve(this.path('project'), v)
 
       this.api.log('info', {
-        prefix: 'alias',
         message: `aliasing ${k}`,
         suffix: path,
       })

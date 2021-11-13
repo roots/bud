@@ -1,7 +1,7 @@
 import {bind} from 'helpful-decorators'
 import {isUndefined} from 'lodash'
 
-import {Bud, createHash, readFile} from './cache.dependencies'
+import {Bud, createHash} from './cache.dependencies'
 
 /**
  * Cache service class
@@ -88,9 +88,7 @@ export class Cache
    */
   @bind
   public async register() {
-    this.version = await this.hashFileContents(
-      this.app.project.get('dependencies'),
-    )
+    this.version = await this.hashFileContents()
 
     if (this.enabled) {
       this.app.persist(this.type)
@@ -101,9 +99,7 @@ export class Cache
    * @public
    */
   @bind
-  public async hashFileContents(
-    filePaths: Array<string>,
-  ): Promise<string> {
+  public async hashFileContents(): Promise<string> {
     const hash: (str: string) => Promise<string> = async str =>
       createHash('sha1')
         .update(str)
@@ -112,17 +108,19 @@ export class Cache
         .toLowerCase()
 
     try {
-      const project = JSON.stringify(this.app.store.get('cli'))
-      const str = await Promise.all(
-        filePaths.map(async filePath => {
-          return await readFile(filePath, 'utf8')
+      return await hash(
+        JSON.stringify({
+          checks: [
+            this.app.mode,
+            this.app.store.get('cli.flags.features'),
+            this.app.store.get('cli.flags.location'),
+            this.app.project.get('manifest'),
+            this.app.project.get('configs'),
+            this.app.project.get('resolve'),
+            this.app.project.get('dependencies'),
+          ],
         }),
       )
-      const finalHash = await hash(
-        str.join('').concat(project) ?? '',
-      )
-
-      return finalHash
     } catch (e) {
       this.app.error('error hashing file contents for cache')
       throw new Error(e)

@@ -30,15 +30,19 @@ export default class Init extends Command {
   public static flags = {
     ...Command.flags,
     ['log']: flags.boolean({
-      default: false,
+      default: true,
       hidden: true,
     }),
     ['log.papertrail']: flags.boolean({
-      default: true,
+      default: false,
       hidden: true,
     }),
     ['dashboard']: flags.boolean({
       default: false,
+      hidden: true,
+    }),
+    ['flush']: flags.boolean({
+      default: true,
       hidden: true,
     }),
   }
@@ -48,18 +52,16 @@ export default class Init extends Command {
    */
   public async run() {
     await this.prime(Init)
-    this.logger.enable()
+    await this.app.project.refreshProfile()
 
-    !this.app.project.get('unmet').length &&
-      this.logger.info(
-        chalk.green`${this.app.name} is up to date`,
-      )
+    this.app.logger.instance.enable()
 
-    this.app.project.get('unmet').length &&
-      this.app.dependencies.install(
-        this.app.project.get('unmet'),
-      )
-
-    process.exit()
+    !this.app.project.get('unmet').length
+      ? this.app.success(
+          chalk.green`${this.app.name} is up to date`,
+        )
+      : await this.app.dependencies.install(
+          this.app.project.get('unmet'),
+        )
   }
 }

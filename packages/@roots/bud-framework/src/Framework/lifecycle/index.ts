@@ -38,6 +38,7 @@ export async function lifecycle(
     'lifecycle',
   )
   logger.time('lifecycle')
+  this.dump(this.store.all(), {prefix: 'store'})
 
   /**
    * Get bindable services
@@ -83,29 +84,29 @@ export async function lifecycle(
 
     if (!eligibleServices.length) return
 
-    logger.time(`precompilation > ${event}`)
+    logger.time(`precompile > ${event}`)
 
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
         logger.await({
-          prefix: `[${i + 1}/${
+          message: `[${i + 1}/${
             eligibleServices.length
           }] ${event}`,
-          message: service.constructor.name.toLowerCase(),
+          suffix: service.constructor.name.toLowerCase(),
         })
 
         await service[event](this)
 
         logger.complete({
-          prefix: `[${i + 1}/${
+          message: `[${i + 1}/${
             eligibleServices.length
           }] ${event}`,
-          message: service.constructor.name.toLowerCase(),
+          suffix: service.constructor.name.toLowerCase(),
         })
       }),
     )
 
-    logger.timeEnd(`precompilation > ${event}`)
+    logger.timeEnd(`precompile > ${event}`)
   }, Promise.resolve())
 
   return this

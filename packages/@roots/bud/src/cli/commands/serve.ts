@@ -48,11 +48,9 @@ export default class Serve extends Build {
    */
   public async run() {
     await this.prime(Serve)
-
-    await this.runner.initialize()
-    this.app = await this.runner.make()
+    await this.build()
 
     this.app.hooks.on('done', [this.notifier.notify])
-    this.app.run()
+    await this.app.run()
   }
 }

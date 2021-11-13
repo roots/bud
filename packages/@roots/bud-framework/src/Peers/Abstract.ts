@@ -34,7 +34,9 @@ export abstract class Abstract implements Peers.Interface {
    *
    * @public
    */
-  public abstract getManifestPath(name: string): Promise<string>
+  public abstract getPackageManifestPath(
+    name: string,
+  ): Promise<string>
 
   /**
    * Returns manifest for a module from name (if findable)

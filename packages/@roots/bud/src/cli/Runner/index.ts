@@ -36,19 +36,6 @@ export class Runner {
    */
   public constructor(public cli: CLI.Options) {}
 
-  public get parsedCli() {
-    return !this.jest
-      ? this.cli
-      : {
-          ...this.cli,
-          flags: {
-            ...this.cli.flags,
-            dashboard: false,
-            log: false,
-          },
-        }
-  }
-
   /**
    * Initialize bud application
    *
@@ -57,12 +44,19 @@ export class Runner {
    */
   @bind
   public async initialize() {
-    const parse = (value, fallback?) =>
-      isUndefined(value) ? fallback ?? true : value
+    if (this.jest) {
+      this.cli.flags['dashboard'] = false
+      this.cli.flags['log'] = false
+    }
+
+    const parse = (value, fallback) =>
+      isUndefined(value) ? fallback : value
 
     const settings = {
       config: {
-        cli: this.parsedCli,
+        cli: {
+          ...this.cli,
+        },
         mode: parse(this.cli.flags.mode, 'production'),
         location: {
           project: parse(
@@ -80,6 +74,10 @@ export class Runner {
           storage: parse(
             this.cli.flags['location.storage'],
             config.location.storage,
+          ),
+          publicPath: parse(
+            this.cli.flags['location.publicPath'],
+            config.location.publicPath,
           ),
         },
         cache: {
