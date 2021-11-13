@@ -32,6 +32,8 @@ export async function importConfig(config: string) {
       suffix: chalk.dim(config),
     })
 
+    this.logger.log(config)
+
     const raw = config.endsWith('.ts')
       ? await this.app.ts.read(config)
       : await import(config)
@@ -66,7 +68,15 @@ async function handleConfig(path: string) {
  * @internal
  */
 export async function run(): Promise<void> {
-  Array.isArray(this.paths)
+  this.logger.log(this.paths)
+
+  if (
+    this.paths === undefined ||
+    (Array.isArray(this.paths) && this.paths.length === 0)
+  )
+    return
+
+  this.paths.length
     ? await Promise.all(this.paths.map(this.handleConfig))
     : await this.handleConfig(this.paths)
 }
