@@ -260,6 +260,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
 
             <Text color={theme?.colors.faded}>
               <Newline /> 🆀 to exit
+              <Newline />
             </Text>
           </Box>
         )}

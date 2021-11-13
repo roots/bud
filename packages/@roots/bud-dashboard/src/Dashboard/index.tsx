@@ -11,13 +11,14 @@ import {Dashboard as DashboardComponent} from '../components/Dashboard'
 import {Screen} from '../components/Screen'
 
 /**
- * Dashboard service container implementation
+ * Dashboard service
  *
- * @public @core @container
+ * @public
  */
 export class Dashboard extends Service implements Contract {
   /**
-   * The {@link Ink} instance
+   * The Ink instance
+   *
    * @public
    */
   public instance: Instance
@@ -46,9 +47,11 @@ export class Dashboard extends Service implements Contract {
         <DashboardComponent bud={this.app} />,
       )
 
-      this.log('success', {
-        message: 'rendering',
-      })
+      this.log('success', {message: 'rendering'})
+    }
+
+    if (this.app.store.is('cli.flags.log.interactive', true)) {
+      this.instance.clear()
     }
 
     return this.app

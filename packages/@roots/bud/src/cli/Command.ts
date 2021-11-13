@@ -84,14 +84,16 @@ export abstract class Command extends Base {
     ConcreteCommand: typeof Command,
   ): Promise<void> {
     this.cli = this.parse(ConcreteCommand)
+
     this.runner = new Runner(this.cli)
 
     this.app = await this.runner.initialize()
 
     this.logger = this.app.logger.makeInstance()
+
     this.logger = this.logger.scope(
       ...this.app.logger.context,
-      `$ ${ConcreteCommand.title}`,
+      `${ConcreteCommand.title}`,
     )
 
     this.runner.logger = this.logger

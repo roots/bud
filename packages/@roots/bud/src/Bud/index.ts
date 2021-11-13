@@ -7,11 +7,6 @@ import {Constructor, Framework} from '@roots/bud-framework'
  */
 export class Bud extends Framework {
   /**
-   * {@link Bud} class definition
-   *
-   * @remarks
-   * Used internally when creating child Bud instances
-   *
    * @public
    */
   public implementation: Constructor = Bud

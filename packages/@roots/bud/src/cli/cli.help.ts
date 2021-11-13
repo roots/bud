@@ -27,9 +27,9 @@ export default class Help extends BaseHelp {
   // the formatting responsible for the header
   // displayed for the root help
   public formatRoot(): string {
-    return `\n${chalk.bold.underline`${this.config.name}`} (${
+    return `\n${chalk.bold.underline`${this.config.name}`} v${
       this.config.version
-    })\n\n${
+    }\n\n${
       this.config.pjson.description
     }.\n\nUsage details available at ${
       this.config.pjson.homepage

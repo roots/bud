@@ -11,7 +11,8 @@
     ]
   },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.json"
   ],
   "references": [
     {

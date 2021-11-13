@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {flags} from '@oclif/command'
+import {Webpack} from '@roots/bud-server/src/util/inject-client.interface'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {join} from 'path'
@@ -42,7 +43,7 @@ export default class Doctor extends Command {
       hidden: true,
     }),
     ['log.papertrail']: flags.boolean({
-      default: true,
+      default: false,
       hidden: true,
     }),
     ['dashboard']: flags.boolean({
@@ -55,12 +56,13 @@ export default class Doctor extends Command {
 
   public checks: Array<Promise<any>> = []
 
+  public conf: Array<Webpack.Configuration>
+
   /**
    * @public
    */
   public async run(): Promise<void> {
     await this.prime(Doctor)
-    this.logger.enable()
     await this.app.project.refreshProfile()
 
     this.logger = new Signale({scope: 'doctor'})
@@ -144,12 +146,16 @@ export default class Doctor extends Command {
   @bind
   public async checkConfiguration(logger: Signale) {
     try {
+      /* Instantiate webpack-cli */
       const cli = new webpackcli()
       const webpack = await cli.loadWebpack()
+
+      /* Build webpack configuration */
+      await this.build()
       const conf = await this.app.compiler.before()
 
+      /* Validate */
       webpack.validate(conf)
-
       logger.success(`webpack configuration is valid`)
     } catch (error) {
       this.failures.push(`webpack configuration is invalid`)
