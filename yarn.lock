@@ -3352,7 +3352,7 @@ __metadata:
     "@types/node": 16.11.7
     cli-highlight: ^2.1.11
     figures: ^4.0.0
-    http-proxy-middleware: ^2.0.1
+    http-proxy-middleware: 2.0.1
     ink: 3.2.0
     js-yaml: ^4.1.0
     json5: ^2.2.0
@@ -13218,7 +13218,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:2.0.1, http-proxy-middleware@npm:^2.0.0, http-proxy-middleware@npm:^2.0.1":
+"http-proxy-middleware@npm:2.0.1, http-proxy-middleware@npm:^2.0.0":
   version: 2.0.1
   resolution: "http-proxy-middleware@npm:2.0.1"
   dependencies:
