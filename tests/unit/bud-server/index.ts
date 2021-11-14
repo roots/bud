@@ -23,7 +23,7 @@ describe('@roots/bud-server', function () {
         overlay: true,
       },
       host: 'localhost',
-      port: 3000,
+      port: 8080,
       methods: ['GET', 'HEAD'],
       middleware: {
         dev: true,
