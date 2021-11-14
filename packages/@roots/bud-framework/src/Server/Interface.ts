@@ -40,11 +40,6 @@ export default interface Interface extends Service {
   middleware: Middleware
 
   /**
-   * Server middleware stack
-   */
-  middlewareStack: Middleware
-
-  /**
    * Assets
    *
    * @public

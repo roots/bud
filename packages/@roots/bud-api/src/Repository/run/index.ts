@@ -20,7 +20,7 @@ export const run: run = async function (): Promise<void> {
   const isDev =
     this.isDevelopment &&
     this.server?.run &&
-    this.root.store.is('server.middleware.hot', true)
+    this.store.is('server.middleware.hot', true)
 
   const dev = async () => {
     this.server.inject()

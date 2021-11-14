@@ -39,13 +39,13 @@ export async function factory(
   process.env.BABEL_ENV = options.config.mode
   process.env.NODE_ENV = options.config.mode
 
-  const bud = new Bud(options)
+  const project = new Bud(options)
 
-  bud.time('bud')
-  bud.dump(options)
-  bud.dump(process.env, {prefix: 'process.env'})
+  project.time(project.name)
+  project.dump(options)
+  project.dump(process.env, {prefix: 'process.env'})
 
-  await bud.lifecycle()
+  await project.lifecycle()
 
-  return bud
+  return project
 }

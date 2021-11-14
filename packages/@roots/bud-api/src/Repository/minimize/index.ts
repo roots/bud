@@ -46,13 +46,13 @@ export const minimize: minimize = function (
   enabled = true,
   options?: {css: any},
 ) {
-  const ctx = this as Framework
+  this as Framework
 
   enabled = enabled !== false
 
-  ctx.hooks.on('build.optimization.minimize', () => enabled)
+  this.hooks.on('build.optimization.minimize', () => enabled)
 
-  ctx.hooks.on(
+  this.hooks.on(
     'build.optimization.minimizer',
     (minimizer: any[]) => {
       minimizer.push(
@@ -67,5 +67,5 @@ export const minimize: minimize = function (
     },
   )
 
-  return ctx
+  return this
 }

@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Framework, Service} from '@roots/bud-framework'
 import {dirname, join} from 'path'
 
 import {CORE_MODULES} from './peers.constants'
@@ -16,7 +16,12 @@ import type {Peers as Model} from './peers.interface'
  * @public
  */
 export class Peers implements Model.Interface {
-  public log
+  /**
+   * Log helper
+   *
+   * @public
+   */
+  public log: Service['log']
 
   /**
    * Class constructor

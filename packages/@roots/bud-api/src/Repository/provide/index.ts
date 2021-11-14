@@ -25,9 +25,9 @@ export interface provide {
 export const provide: provide = function (
   packages: Record<string, Array<string>>,
 ) {
-  const ctx = this as Framework
+  this as Framework
 
-  const plugin = ctx.extensions.get('webpack-provide-plugin')
+  const plugin = this.extensions.get('webpack-provide-plugin')
 
   Object.entries(packages).forEach(([k, v]) => {
     v.forEach(alias => {
@@ -35,5 +35,5 @@ export const provide: provide = function (
     })
   })
 
-  return ctx
+  return this
 }

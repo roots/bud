@@ -38,19 +38,11 @@ export class Server
   public instance: Framework.Server.Instance
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.middleware}
-   *
-   * @public
-   */
-  public middleware: Framework.Server.Middleware = {}
-
-  /**
    * Utilized middleware
    *
    * @public
    */
-  public middlewareStack: Framework.Server.Middleware =
-    middleware
+  public middleware: Framework.Server.Middleware = {}
 
   /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
@@ -99,7 +91,7 @@ export class Server
    */
   @bind
   public processMiddlewares() {
-    this.middleware = Object.entries(this.middlewareStack)
+    this.middleware = Object.entries(middleware)
       .filter(([k, v]) => {
         if (this.app.store.is(`server.middleware.${k}`, true)) {
           this.log('info', `middleware ${k} is enabled.`)
@@ -178,7 +170,7 @@ export class Server
      */
     this.watcher?.on &&
       this.watcher.on('change', path => {
-        this.middlewareStack.hot.publish({
+        this.middleware?.hot?.publish({
           action: 'reload',
           message: `Detected file change: ${path}. Reloading window.`,
         })

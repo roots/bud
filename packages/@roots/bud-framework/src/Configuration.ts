@@ -47,9 +47,8 @@ export interface Configuration {
      * Map of levels:
      * - 'error' (least verbose)
      * - 'warn'
-     * - 'debug' (default)
-     * - 'timer'
-     * - 'info' (most verbose)
+     * - 'info' (default)
+     * - 'debug' (most verbose)
      *
      * @public
      */
@@ -154,15 +153,6 @@ export interface Configuration {
   }
 
   /**
-   * Cache settings
-   *
-   * @public
-   */
-  cache: {
-    type?: 'filesystem' | 'memory' | false
-  }
-
-  /**
    * Shared regular expressions for pattern matching.
    *
    * @example
@@ -221,6 +211,15 @@ export interface Configuration {
    * @public
    */
   build: CompilerConfig
+
+  /**
+   * Cache settings
+   *
+   * @public
+   */
+  cache: {
+    type?: 'filesystem' | 'memory' | false
+  }
 
   /**
    * Initial options for registered extensions

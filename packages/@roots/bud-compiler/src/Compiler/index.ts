@@ -103,12 +103,6 @@ export class Compiler extends Service implements Contract {
           }
           this.app.close(() => {})
         })
-      } else {
-        this.app.server.middlewareStack?.hot?.publish &&
-          this.app.server.middlewareStack.hot.publish({
-            action: 'webpack_stats',
-            data: {stats: this.stats},
-          })
       }
     })
 

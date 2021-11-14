@@ -8,4 +8,4 @@ export const make: Plugin['make'] = () =>
 
 export const when: Plugin['when'] = app =>
   app.isDevelopment &&
-  app.root.store.is('server.middleware.hot', true)
+  app.store.is('server.middleware.hot', true)
