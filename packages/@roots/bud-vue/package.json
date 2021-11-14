@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "5.0.0-next.11",
+  "version": "5.0.0-next.12",
   "description": "Adds @vue/vue support to @roots/bud projects",
   "repository": {
     "type": "git",
