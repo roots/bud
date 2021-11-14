@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "5.0.0-next.9",
+  "version": "5.0.0-next.10",
   "description": "Sass support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
