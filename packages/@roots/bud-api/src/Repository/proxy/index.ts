@@ -42,15 +42,14 @@ export interface proxy {
 export const proxy: proxy = function (options) {
   this as Framework
 
-  if (!this.server) return this
-
-  if (options === false)
+  if (options === false) {
     this.store.set('server.middleware.proxy', false)
-  else this.store.set('server.middleware.proxy', true)
-
-  if (typeof options !== 'boolean') {
-    this.store.set('server.proxy.target', options)
+    return this
   }
+
+  this.store.set('server.middleware.proxy', true)
+
+  this.store.merge('server.proxy', options)
 
   return this
 }

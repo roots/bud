@@ -1,4 +1,5 @@
 import {Server as HttpServer} from 'http'
+import {Options as ProxyOptions} from 'http-proxy-middleware'
 
 import {Loose} from '../'
 import {Configuration} from './Config'
@@ -34,26 +35,11 @@ export interface Middleware {
 }
 
 /**
- * Proxy target
+ * Proxy Options
  *
  * @public
  */
-export type Target =
-  | string
-  | {
-      host: string
-      port: number
-      protocol?: string
-      hostname?: string
-      socketPath?: string
-      key?: string
-      passphrase?: string
-      pfx?: Buffer | string
-      cert?: string
-      ca?: string
-      ciphers?: string
-      secureProtocol?: string
-    }
+export {ProxyOptions}
 
 export {Interface}
 

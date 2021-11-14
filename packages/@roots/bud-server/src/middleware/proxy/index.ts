@@ -1,8 +1,8 @@
-import {truncate} from 'lodash'
-import zlib from 'zlib'
-
-import {createProxyMiddleware} from './proxy.dependencies'
-import type {Framework, ProxyMiddleware} from './proxy.interface'
+import {
+  createProxyMiddleware,
+  responseInterceptor,
+} from './proxy.dependencies'
+import type {Framework} from './proxy.interface'
 
 /**
  * Proxy middleware factory
@@ -14,95 +14,58 @@ export default function proxy(app: Framework) {
     ? null
     : app.store.get('server.port')
 
-  const dev = port
-    ? app.store.get('server.host').concat(`:`, port)
-    : app.store.get('server.host')
-
-  const target = app.store.get('server.proxy.target')
-
-  // Headers
-  const headers = {
-    'X-Powered-By': '@roots/bud',
-  }
+  /**
+   * @filter proxy.dev
+   */
+  const dev = app.hooks.filter('proxy.dev', () =>
+    port
+      ? app.store.get('server.host').concat(`:`, port)
+      : app.store.get('server.host'),
+  )
 
   /**
-   * Rewrite hostname in body contents
-   *
-   * @public
+   * @filter proxy.target
    */
-  const transformBody = (body: string): string =>
-    body.replace(new RegExp(target, 'g'), dev)
+  const target = app.hooks.filter('proxy.target', () =>
+    app.store.get('server.proxy.target'),
+  )
 
   /**
-   * Proxy response handler
-   *
-   * @public
+   * @filter proxy.interceptor
    */
-  const onProxyRes = (proxyRes, req, res) => {
-    let body = Buffer.from([])
+  const interceptor = app.hooks.filter(
+    'proxy.interceptor',
+    () => async buffer => {
+      let response = buffer.toString('utf8')
 
-    proxyRes.on('data', data => {
-      body = Buffer.concat([body, data])
-    })
-
-    proxyRes.on('end', () => {
-      res.set({
-        ...proxyRes.headers,
-        'content-type': proxyRes.headers['content-type'],
-        ...headers,
-      })
-
-      /**
-       * Handle gzipped responses
-       */
-      if (proxyRes.headers['content-encoding'] == 'gzip') {
-        res.set({'content-encoding': 'gzip'})
-
-        res.send(
-          zlib.gzipSync(
-            transformBody(zlib.gunzipSync(body).toString()),
-          ),
-        )
-      } else {
-        res.send(Buffer.from(transformBody(body.toString())))
-      }
-
-      app.server.log(
-        'success',
-        'proxied response',
-        truncate(body.toString(), {
-          length: process.stdout.columns ?? 70,
-        }),
-      )
-
-      /**
-       * Send response to client.
-       */
-      res.end()
-    })
-  }
+      return app.hooks
+        .filter('proxy.replace', [[target, dev]])
+        .reduce((a, [from, to]) => a.replace(from, to), response)
+    },
+  )
 
   /**
-   * Proxy middleware configuration
-   *
-   * @public
+   * @filter proxy.options
    */
-  const options: ProxyMiddleware.Options = {
+  const options = app.hooks.filter('proxy.options', {
     autoRewrite: true,
     changeOrigin: true,
+    target,
     cookieDomainRewrite: {
       [target]: dev,
     },
     logProvider: () => app.server.logger,
-    onProxyRes,
+    onProxyRes: responseInterceptor(interceptor),
     selfHandleResponse: true,
-    target,
-    headers,
+    headers: {
+      'X-Proxy-By': '@roots/bud',
+    },
     logLevel: 'info',
     ssl: false,
     secure: false,
     ws: true,
-  }
+    ...(app.store.get('server.proxy') ?? {}),
+  })
 
   return createProxyMiddleware(options)
 }

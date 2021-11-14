@@ -28,9 +28,17 @@ module.exports = async app => {
             ),
         }),
     )
-    .template()
     .entry('app', '*.{js,css}')
     .when(app.isProduction, app => {
       app.splitChunks().minimize().runtime('single')
     })
+    .proxy({
+      target: 'http://localhost:8080',
+    })
+    .tap(app =>
+      app.hooks.on('proxy.replace', replacements => [
+        ...(replacements ?? []),
+        ['some', 'proxied'],
+      ]),
+    )
 }

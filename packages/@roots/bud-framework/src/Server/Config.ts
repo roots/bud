@@ -1,5 +1,5 @@
 import {Index} from '../'
-import {Target} from './'
+import {ProxyOptions} from './'
 
 /**
  * Server configuration
@@ -35,9 +35,7 @@ export interface Configuration {
    *
    * @public
    */
-  proxy: {
-    target: Target
-  }
+  proxy: ProxyOptions
 
   /**
    * Files which should reload the browser when changed.
