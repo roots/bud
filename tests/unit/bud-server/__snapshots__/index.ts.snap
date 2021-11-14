@@ -19,7 +19,7 @@ Object {
   },
   "port": 3000,
   "proxy": Object {
-    "target": "localhost:3000",
+    "target": "localhost:8080",
   },
   "watch": Object {
     "files": Array [],

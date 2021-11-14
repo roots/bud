@@ -254,7 +254,7 @@ export const config: Configuration = {
       log: true,
     },
     proxy: {
-      target: ' localhost:8080',
+      target: 'localhost:8080',
     },
     host: 'localhost',
     port: 3000,
