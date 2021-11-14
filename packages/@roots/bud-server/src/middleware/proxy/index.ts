@@ -40,7 +40,10 @@ export default function proxy(app: Framework) {
 
       return app.hooks
         .filter('proxy.replace', [[target, dev]])
-        .reduce((a, [from, to]) => a.replace(from, to), response)
+        .reduce(
+          (html, [from, to]) => html.replaceAll(from, to),
+          response,
+        )
     },
   )
 
