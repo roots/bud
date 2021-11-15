@@ -49,38 +49,25 @@ It's a good idea after installing a new extension to run [bud init](/guides/bud-
   ]}>
   <TabItem value="yarn">
 
-    yarn bud init
+    yarn bud install
 
   </TabItem>
   <TabItem value="npm">
 
-    npm run bud init
+    npm run bud install
 
   </TabItem>
 </Tabs>
 
-Now our project is guaranteed to meet the requirements of whatever we have installed.
+This guarantees our project meets the requirements of our installed extensions.
 
 :::info Protip
 
-It's also a good idea to run [bud init](/guides/bud-cli/extensions#bud-extensionsinstall) after upgrading extensions in case requirements have changed.
+It's also a good idea to run [bud install](/guides/bud-cli/extensions#bud-extensionsinstall) after upgrading extensions in case requirements have changed.
 
 :::
 
-## Adding the extension to your config
-
-Once installed and initialized, add the extension to your **bud.config.js** file with [bud.use](/docs/bud.use).
-
-```js {3} title='bud.config.js'
-module.exports = bud =>
-  bud
-    .use(require('@roots/bud-babel'))
-    .entry('main', 'index.js')
-    .entry('landing', 'landing.js')
-    .template()
-```
-
-All done! Your js will now be transpiled with babel.
+Your scripts will now be transpiled with babel.
 
 You can see for yourself by modifying `src/index.js` so that it contains some fancy stuff:
 
@@ -99,7 +86,3 @@ console.log(cool.sayHello())
 ```
 
 Run a build and check `dist/main.js`. You should find the class declaration has been transpiled away.
-
-## Next steps
-
-Before moving on, add PostCSS support in the same manner that we added Babel, using the [@roots/bud-postcss](extensions/bud-postcss) extension.

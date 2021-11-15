@@ -13,15 +13,11 @@ We're now compilnig project assets with babel and postcss.
 
 ## Minimizing filesizes
 
-Let's minify our css and js output using [bud.minimize](/docs/bud.minimize)
+Minify css and js output using [bud.minimize](/docs/bud.minimize)
 
 ```js {13} title='bud.config.js'
-module.exports = bud =>
+module.exports = async bud =>
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
@@ -33,15 +29,11 @@ module.exports = bud =>
 
 ## Hashing filenames
 
-Next, add filename hashing to our build using [bud.hash](/docs/bud.hash)
+Add filename hashing using [bud.hash](/docs/bud.hash)
 
 ```js {14} title='bud.config.js'
-module.exports = bud =>
+module.exports = async bud =>
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
@@ -54,15 +46,11 @@ module.exports = bud =>
 
 ## Create a runtime
 
-For faster load times let's also code split our common application code using [bud.runtime](/docs/bud.runtime)
+We can leverage code splitting using [bud.runtime](/docs/bud.runtime)
 
 ```js {15} title='bud.config.js'
-module.exports = bud =>
+module.exports = async bud =>
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
@@ -80,12 +68,8 @@ We'll probably end up installing additional packages in our project. We can use 
 they are always packaged separately from our application code
 
 ```js {16} title='bud.config.js'
-module.exports = bud =>
+module.exports = async bud =>
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
@@ -121,44 +105,19 @@ Image optimization can be added using the [@roots/bud-imagemin](/extensions/bud-
   </TabItem>
 </Tabs>
 
-Remember to run **bud init** after installing to ensure you have the proper peer dependencies. Then, add the extension to your config.
+Remember to run **bud install** after installing to ensure you have the proper peer dependencies. Then, add the extension to your config.
 
-```js {6} title='bud.config.js'
-module.exports = bud =>
-  bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-      require('@roots/bud-imagemin'),
-    ])
-    .entry({
-      main: ['index.js', 'index.css'],
-      landing: 'landing.js',
-    })
-    .assets(['images/**/*.{png,gif,jpg}'])
-    .template()
-    .minimize()
-    .hash()
-    .runtime()
-    .splitChunks()
-```
-
-You can provide additional configuration to the [@roots/bud-imagemin](/extensions/bud-imagemin) but we won't get into that.
+You can provide additional configuration to the [@roots/bud-imagemin](/extensions/bud-imagemin) extension using `bud.imagemin`. but we won't get into that.
 
 ## Applying optimizations conditionally
 
-Admittedly, that was kind of a lot, but we also got a out of it. We have made a small problem for ourselves, though. All of these optimizations
-are slowing down our dev builds for no reason. Worse still, the [bud.hash](/docs/bud.hash) function is breaking our hot reloading.
+All of these optimizations are slowing down our dev builds for no reason. Worse still, the [bud.hash](/docs/bud.hash) function is breaking our hot reloading.
 
 Let's use [bud.mode](/docs/bud.mode/) to only apply these optimizations for production builds.
 
 ```js {14-21} title='bud.config.js'
-module.exports = bud => {
+module.exports = async bud => {
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
@@ -167,12 +126,7 @@ module.exports = bud => {
     .template()
 
   if (bud.mode === 'production') {
-    bud
-      .use(require('@roots/bud-imagemin'))
-      .minimize()
-      .hash()
-      .runtime()
-      .splitChunks()
+    bud.minimize().hash().runtime().splitChunks()
   }
 }
 ```
@@ -180,7 +134,7 @@ module.exports = bud => {
 That's better. Hot reloading works again and our build has been restored to its former, snappy glory. But, sadly,
 we broke our impressive looking function chain to get back to this point.
 
-Let's fix that using another helpful bud property: [bud.isProduction](/docs/bud.mode/bud.isProduction). This property is a boolean and is **true**
+We can fix that using another helpful bud property: [bud.isProduction](/docs/bud.mode/bud.isProduction). This property is a boolean and is **true**
 when bud is being run in `production` mode. This can help us replace that `if` statement.
 
 We'll pair [bud.isProduction](/docs/bud.mode/bud.isProduction) up with a utility function called [bud.when](/docs/bud.when),
@@ -189,12 +143,8 @@ which allows us to do things only when certain conditions are met.
 Check the documentation for additional clarity on how they work (and work together!) but this is how we'll use them in our config to get everything cleaned up:
 
 ```js {13-20} title='bud.config.js'
-module.exports = bud =>
+module.exports = async bud =>
   bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-    ])
     .entry({
       main: ['index.js', 'index.css'],
       landing: 'landing.js',

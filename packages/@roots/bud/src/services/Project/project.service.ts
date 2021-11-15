@@ -223,7 +223,7 @@ export class Project
     if (this.has(locationKey) && !locationOverriden) {
       this.log('info', {
         message: 'setting location from manifest',
-        suffix: locationKey,
+        suffix: JSON.stringify(this.get(locationKey)),
       })
       this.app.store.merge('location', this.get(locationKey))
     }

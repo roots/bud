@@ -116,8 +116,8 @@ export class Container<I = any> {
   }
 
   /**
-   * Runs the entire {@link (Repository:interface) | Repository} through the supplied fn and returns
-   * the transformed value. The transformed {@link (Repository:interface) | Repository} replaces the
+   * Runs the entire repository through the supplied fn and returns
+   * the transformed value. The transformed repository replaces the
    * original.
    *
    * @example
@@ -162,7 +162,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Returns a {@link (Repository:interface) | Repository} key and value as a tuple
+   * Returns a repository key and value as a tuple
    *
    * @remarks
    * If no key is passed the container store will be used.
@@ -201,7 +201,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Merges object created from an array of tuples with the {@link (Repository:interface) | Repository}.
+   * Merges object created from an array of tuples with the repository.
    *
    * @example
    * ```js
@@ -245,7 +245,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Calls a supplied function for every {@link (Repository:interface) | Repository} value, passing
+   * Calls a supplied function for every repository value, passing
    * the item's key and value as callback parameters.
    *
    * @example
@@ -273,7 +273,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Gets a nested value from the {@link (Repository:interface) | Repository}
+   * Gets a nested value from the repository
    *
    * @example
    * ```js
@@ -299,7 +299,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Returns an array of values of the enumerable properties of a {@link (Repository:interface) | Repository} object
+   * Returns an array of values of the enumerable properties of a repository object
    *
    * @example
    * ```js
@@ -321,7 +321,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Returns an array of values of the enumerable keys of a {@link (Repository:interface) | Repository} object
+   * Returns an array of values of the enumerable keys of a repository object
    *
    * @example
    * ```js
@@ -344,7 +344,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Get a {@link (Repository:interface) | Repository} item as a {@link MapConstructor}.
+   * Get a repository item as a {@link MapConstructor}.
    *
    * @remarks
    * If no key is passed the container store is mapped.
@@ -385,7 +385,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Set a {@link (Repository:interface) | Repository} value
+   * Set a repository value
    *
    * @example
    * ```js
@@ -428,7 +428,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Mutate a {@link (Repository:interface) | Repository} item
+   * Mutate a repository item
    *
    * @example
    * ```js
@@ -452,7 +452,7 @@ export class Container<I = any> {
   }
 
   /**
-   * Merge a supplied value with an existing {@link (Repository:interface) | Repository} value
+   * Merge a supplied value with an existing repository value
    *
    * @example
    * ```js
@@ -467,7 +467,40 @@ export class Container<I = any> {
    */
   @bind
   public merge(key: string, value: any): this {
-    this.set(key, _.merge(this.get(key), value))
+    const existent = this.get(key)
+
+    const mergeable = thing =>
+      !_.isString(thing) ||
+      !_.isNumber(thing) ||
+      !_.isNull(thing) ||
+      !_.isBoolean(thing) ||
+      !_.isWeakMap(thing) ||
+      !_.isMap(thing) ||
+      !_.isSet(thing) ||
+      !_.isWeakSet(thing)
+
+    if (typeof existent !== typeof value) {
+      throw new Error(
+        `Cannot merge ${typeof value} with ${typeof existent}`,
+      )
+    }
+
+    if (!mergeable(existent))
+      throw new Error(
+        `${key} is a ${typeof existent} and cannot be merged with`,
+      )
+
+    if (_.isArray(value)) {
+      if (!_.isArray(existent)) {
+        throw new Error(
+          `${key} is not an array and cannot have an array merged onto it`,
+        )
+      }
+
+      this.set(key, [...existent, ...value])
+    } else {
+      this.set(key, {...existent, ...value})
+    }
 
     return this
   }

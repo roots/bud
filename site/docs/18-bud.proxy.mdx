@@ -10,17 +10,16 @@ Users building on top of a server-side framework like WordPress, Laravel, RoR, e
 
 ## Usage
 
-[bud.proxy](/docs/bud.proxy), with nothing passed, will proxy `localhost:8000`.
+[bud.proxy](/docs/bud.proxy), with nothing passed, will proxy `localhost:8080`.
 
 ```ts title='bud.config.ts'
 bud.proxy()
 ```
 
-Optionally, you may also use [bud.proxy](/docs/bud.proxy) to configure the host and port:
+Optionally, you may also use [bud.proxy](/docs/bud.proxy) to further configure the middleware options to meet your project requirements.
 
 ```ts title='bud.config.ts'
-bud.proxy({
-  host: 'example.test',
-  port: 8000,
-})
+bud.proxy({target: 'localhost:8080'})
 ```
+
+These options are passed through to http-proxy-middleware.

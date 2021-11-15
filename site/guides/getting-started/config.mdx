@@ -29,7 +29,7 @@ This file exports a single function that will tell **bud** to generate an html f
   <TabItem value="js">
 
 ```js title='bud.config.js'
-module.exports = bud => bud.template()
+module.exports = async bud => bud.template()
 ```
 
   </TabItem>
@@ -38,7 +38,7 @@ module.exports = bud => bud.template()
 ```ts title='bud.config.ts'
 import type {Framework} from '@roots/bud'
 
-export default function (bud: Framework): void {
+export default async function (bud: Framework): void {
   bud.template()
 }
 ```
@@ -48,7 +48,7 @@ export default function (bud: Framework): void {
 
 ## Rerun the build
 
-With the **bud.config.js** in place re-run the build using **bud build**.
+Re-run the build using **bud build**.
 
 You'll see output indicating **index.html** has been generated.
 

@@ -10,8 +10,7 @@ export interface log {
 export const log: log = {
   ['log']: flags.boolean({
     description: 'log to console',
-    default: true,
-    allowNo: true,
+    default: false,
   }),
 
   ['log.level']: flags.string({
@@ -22,8 +21,8 @@ export const log: log = {
   }),
 
   ['log.papertrail']: flags.boolean({
+    default: true,
     allowNo: true,
-    default: false,
     description: 'preserve logger output',
   }),
 

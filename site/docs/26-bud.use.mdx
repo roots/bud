@@ -6,14 +6,19 @@ sidebar_label: bud.use
 image: 'https://budjs.netlify.app/img/share/docs/bud.use.png'
 ---
 
-Register an extension or set of extensions
+Register an extension or set of extensions.
+
+`bud.use` is an asyncronous function that takes a single argument, `extensions`. It returns a `Promise` that resolves to the `bud` instance.
+You can register multiple extensions at once by passing an array of extensions.
+
+It is not necessary to call `bud.use` to use an extension. The extensions will be discovered automatically before the configuration file is even loaded.
 
 ## Usage
 
 Add packaged bud extensions:
 
 ```js
-bud.use([
+await bud.use([
   require('@roots/bud-babel'),
   require('@roots/bud-react'),
 ])
@@ -22,7 +27,7 @@ bud.use([
 Add an extension inline (also works with an array of extensions):
 
 ```js
-bud.use({
+await bud.use({
   name: 'my-webpack-plugin',
   make: () => new MyWebpackPlugin(),
 })
@@ -31,7 +36,7 @@ bud.use({
 Add a webpack plugin inline (also work with an array of plugins):
 
 ```js
-bud.use(new MyWebpackPlugin())
+await bud.use(new MyWebpackPlugin())
 ```
 
 ## Signature
@@ -39,7 +44,7 @@ bud.use(new MyWebpackPlugin())
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 namespace Repository {
   interface Use {
-    (this: Framework, source: Use.Input): Framework
+    (this: Framework, source: Use.Input): Promise<Framework>
   }
 
   namespace Use {

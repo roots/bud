@@ -15,32 +15,18 @@ For more context on how this might be useful check out [the guide on multi-compi
 
 ## Usage
 
-**bud.make** takes two parameters:
+**bud.make** is an asyncronous function that takes two parameters:
 
 - The **name** of the new compiler
 - An optional callback to use for configuring the compiler.
 
 ```js
-bud.make('scripts', child => child.entry('app', 'app.js'))
+await bud.make('scripts', async child =>
+  child.entry('app', 'app.js'),
+)
 ```
 
-This function returns the parent bud instance for further chaining.
-
-It is also possible to reference the parent instance using `bud.parent`.
-
-```js
-bud.make('scripts', child => {
-  child.entry('app', 'app.js')
-
-  /**
-   * This is a reference to the parent instance
-   * @const {import('@roots/bud').Framework} parent
-   */
-  const {parent} = child
-
-  return child
-})
-```
+It returns a `Promise` which resolves to the root instance for further chaining.
 
 Related:
 

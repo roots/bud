@@ -1,9 +1,7 @@
 import * as Framework from '@roots/bud-framework'
-import chalk from 'chalk'
-import {truncate} from 'lodash'
+import {Signale} from 'signale'
 
 import {
-  $,
   bind,
   DependenciesManager,
 } from './dependencies.dependencies'
@@ -29,16 +27,7 @@ export class Dependencies
    *
    * @public
    */
-  public manager: DependenciesManager
-
-  /**
-   * Package manager
-   *
-   * @public
-   */
-  public get packageManager(): 'yarn' | 'npm' {
-    return this.manager.isYarn() ? `yarn` : `npm`
-  }
+  public client: DependenciesManager['client']
 
   /**
    * Record of installed packages
@@ -55,16 +44,13 @@ export class Dependencies
    */
   @bind
   public async register(): Promise<void> {
-    this.manager = new DependenciesManager(
+    this.client = new DependenciesManager(
       this.app.path('project'),
-    )
+    ).client
   }
 
   /**
    * Installs all the things
-   *
-   * @internalRemarks
-   * #TODO: Fix this mess of a function and make it better. It's not good. -- GPT3
    *
    * @param deps - dependencies to install
    *
@@ -78,37 +64,27 @@ export class Dependencies
       version: string
     }[],
   ): Promise<void> {
-    const install = dependencies.reduce((acc, dependency) => {
-      this.log(`info`, {
-        message: `${chalk.blue`${dependency.name}@${dependency.version}`}`,
+    const logger = new Signale({interactive: true})
+
+    try {
+      logger.await({
+        message: 'installing packages',
+        suffix: dependencies,
       })
 
-      return `${acc} ${dependency.name}@${dependency.version}`
-    }, ``)
+      await this.client.install(
+        dependencies.map(v => [v.name, v.version]),
+        true,
+        message => {
+          logger.log(message)
+        },
+      )
 
-    const pkgManager = this.manager.isYarn() ? `yarn` : `npm`
-    const command = `${pkgManager} add ${install} --dev`
-
-    this.log(`await`, {
-      message: 'installing packages',
-    })
-
-    const installation = $(command)
-
-    installation.stdout.on('data', data =>
-      this.log(
-        'pending',
-        truncate(data.toString().replace(/\n$/, ``), {
-          length: 100,
-        }),
-      ),
-    )
-    installation.stderr.pipe(process.stderr)
-
-    await installation
-
-    this.log(`success`, {
-      message: 'installing packages',
-    })
+      logger.success({
+        message: 'installing packages',
+      })
+    } catch (err) {
+      logger.error(err)
+    }
   }
 }

@@ -7,25 +7,11 @@ import {Service} from './Service'
  */
 export interface Dependencies extends Service {
   /**
-   * Record of installed packages
-   *
-   * @public
-   */
-  installed: Array<[string, string]>
-
-  /**
    * Dependency manager
    *
    * @public
    */
-  manager: any
-
-  /**
-   * Package manager
-   *
-   * @public
-   */
-  packageManager: any
+  client: any
 
   /**
    * Install dependencies

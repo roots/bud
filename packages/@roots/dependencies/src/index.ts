@@ -15,12 +15,27 @@
  * @packageDocumentation @betaDocumentation
  */
 
-export {Npm} from './npm'
-export {Yarn} from './yarn'
+export {Npm, Yarn} from './command'
 export {Dependencies} from './dependencies'
 
+interface Install {
+  (
+    dependencies: Array<string | [string, string]>,
+    dev?: boolean,
+    onMessage?: (message: string) => void,
+  ): Promise<any>
+}
+
+interface Uninstall {
+  (
+    dependencies: Array<string | [string, string]>,
+    onMessage?: (message: string) => void,
+  ): Promise<any>
+}
+
 export interface IDependencyManager {
+  onMessage?: (message: string) => void
   path: string
-  install(dev: boolean, dependency: string): string
-  uninstall(dependency: string): string
+  install: Install
+  uninstall: Uninstall
 }

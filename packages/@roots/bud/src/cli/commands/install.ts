@@ -1,6 +1,7 @@
 import {flags} from '@oclif/command'
 import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
+import {Signale} from 'signale'
+import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies'
 
 import {Command} from '../Command'
 
@@ -43,14 +44,6 @@ export default class Install extends Command {
       default: false,
       hidden: true,
     }),
-    ['dashboard']: flags.boolean({
-      default: false,
-      hidden: true,
-    }),
-    ['flush']: flags.boolean({
-      default: true,
-      hidden: true,
-    }),
   }
 
   /**
@@ -59,46 +52,39 @@ export default class Install extends Command {
   public async run() {
     await this.prime(Install)
     await this.app.project.refreshProfile()
-    this.logger.enable()
 
-    if (!this.hasUnmet) {
-      return await this.allInstalled()
-    }
+    const logger = new Signale()
+    const manager = new DependenciesManager(
+      this.app.path('project'),
+    )
+    const dependencies: Array<[string, string]> =
+      this.app.project
+        .get('unmet')
+        .map(({name, version}) => [name, version])
 
-    return await this.installUnmet()
-  }
+    logger.await({
+      message: `installing dependencies`,
+      suffix: chalk.dim(dependencies),
+    })
 
-  /**
-   * @public
-   */
-  public get hasUnmet(): boolean {
-    return this.app.project.get('unmet').length
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async installUnmet() {
     try {
-      await this.app.dependencies.install(
-        this.app.project.get('unmet'),
+      await manager.client.install(
+        dependencies,
+        true,
+        (message: string) => {
+          logger.log({
+            prefix: chalk.blue(manager.isYarn ? 'yarn' : 'npm'),
+            message: chalk.dim(message),
+          })
+        },
       )
-      this.allInstalled()
+
+      logger.success(chalk.green`installation complete`)
     } catch (error) {
-      this.logger.error(error)
+      logger.error(error)
       this.exit(1)
     }
-  }
 
-  /**
-   * @public
-   */
-  @bind
-  public async allInstalled() {
-    this.logger.success(
-      chalk.green`${this.app.name} is up to date`,
-    )
-    this.exit(0)
+    this.exit()
   }
 }
