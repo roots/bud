@@ -69,10 +69,10 @@
     "@types/eslint": "7.28.2",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
-    "@vue/compiler-sfc": "3.2.21",
+    "@vue/compiler-sfc": "3.2.22",
     "css-loader": "6.5.1",
     "jest": "27.3.1",
-    "vue": "3.2.21",
+    "vue": "3.2.22",
     "webpack": "5.64.0"
   },
   "bud": {
@@ -90,9 +90,9 @@
     "vue-template-compiler": "^2.6.14"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "3.2.21",
-    "@vue/runtime-dom": "3.2.21",
-    "vue": "3.2.21"
+    "@vue/compiler-sfc": "3.2.22",
+    "@vue/runtime-dom": "3.2.22",
+    "vue": "3.2.22"
   },
   "stableVersion": "4.6.0"
 }
