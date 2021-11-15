@@ -8,9 +8,8 @@ const path = require('path')
 module.exports = async bud => {
   bud
     .setPath({
-      project: path.resolve('web/app/themes/sage'),
-      src: 'resources',
-      dist: 'public',
+      src: 'web/app/themes/sage/resources',
+      dist: 'web/app/themes/sage/public',
     })
     .entry({
       app: '**/app.{js,css}',

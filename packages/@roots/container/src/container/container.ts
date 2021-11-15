@@ -1,8 +1,8 @@
 import {bind} from 'helpful-decorators'
 import * as _ from 'lodash'
-import type {ValueOf} from 'type-fest'
 
-import type {Repository} from './Repository'
+import type {Repository, ValueOf} from './container.interface'
+import {mergeable} from './utilities'
 
 /**
  * Provides a simple chainable interface for working with collections of data
@@ -22,7 +22,7 @@ export class Container<I = any> {
    *
    * @public
    */
-  public repository: {[key: string]: any}
+  public repository: Record<string, any>
 
   /**
    * Class constructor
@@ -66,6 +66,10 @@ export class Container<I = any> {
    */
   @bind
   public setStore(repository: Repository): this {
+    if (_.isUndefined(repository)) {
+      throw new Error('Repository cannot be empty')
+    }
+
     this.repository = repository
 
     return this
@@ -184,20 +188,16 @@ export class Container<I = any> {
   public getEntries<T = any>(
     key?: string,
   ): [string, ValueOf<T>][] {
-    let data = []
+    if (!key) return Object.entries(this.repository)
 
-    if (!key) {
-      this.all() &&
-        Object.entries(this.all()).map(entry => data.push(entry))
-    } else {
-      this.has(key) &&
-        this.isIndexed(key) &&
-        Object.entries(this.get(key)).map(entry =>
-          data.push(entry),
-        )
+    if (!this.has(key)) {
+      throw new Error(`Key ${key} does not exist`)
     }
 
-    return data as [string, ValueOf<T>][]
+    return Object.entries(this.get(key)) as [
+      string,
+      ValueOf<T>,
+    ][]
   }
 
   /**
@@ -263,39 +263,6 @@ export class Container<I = any> {
     })
 
     return this
-  }
-
-  /**
-   * Find
-   */
-  public findKey(...searchItem: any): any {
-    return _.findKey(this.repository, ...searchItem)
-  }
-
-  /**
-   * Gets a nested value from the repository
-   *
-   * @example
-   * ```js
-   * container.findKeyIn('top-level-key', 'inner', 'nested', 'item')
-   * // returns repository['top-level-key'].inner.nested.item
-   * ```
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public findKeyIn(key: string, ...searchItem: any[]): any {
-    const parseInner = v =>
-      (!_.isArray(v) ? Object.entries(v) : v).reduce(
-        (a, [k, v]) => ({
-          ...a,
-          [k]: v,
-        }),
-        {},
-      )
-
-    return _.findKey(parseInner(this.get(key)), ...searchItem)
   }
 
   /**
@@ -403,6 +370,32 @@ export class Container<I = any> {
   }
 
   /**
+   * Returns unique elements of an array item
+   *
+   * @example
+   * ```js
+   * container.unique('item')
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public unique(key: string): any {
+    if (!this.has(key)) {
+      throw new Error(`${key} does not exist in the container`)
+    }
+
+    const value = this.get(key)
+
+    if (!_.isArray(value)) {
+      throw new Error(`${key} is not an array`)
+    }
+
+    return _.uniq(value)
+  }
+
+  /**
    * Retrieve a container item, running it through the supplied fn.
    *
    * @remarks
@@ -468,16 +461,6 @@ export class Container<I = any> {
   @bind
   public merge(key: string, value: any): this {
     const existent = this.get(key)
-
-    const mergeable = thing =>
-      !_.isString(thing) ||
-      !_.isNumber(thing) ||
-      !_.isNull(thing) ||
-      !_.isBoolean(thing) ||
-      !_.isWeakMap(thing) ||
-      !_.isMap(thing) ||
-      !_.isSet(thing) ||
-      !_.isWeakSet(thing)
 
     if (typeof existent !== typeof value) {
       throw new Error(
@@ -561,6 +544,31 @@ export class Container<I = any> {
   }
 
   /**
+   * Return a number indicating the length of a matched key
+   * in the repository.
+   *
+   * If no key is provided, returns the length of the repository.
+   *
+   * @param key - search key
+   * @returns count of items
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public count(key?: string): number {
+    if (key) {
+      if (!this.has(key)) {
+        throw new Error(`${key} does not exist in the container`)
+      }
+
+      return _.size(this.get(key))
+    }
+
+    return _.size(this.repository)
+  }
+
+  /**
    * Return a boolean indicating if the given key's value is true
    *
    * @example
@@ -598,31 +606,6 @@ export class Container<I = any> {
   @bind
   public isFalse(key: string): boolean {
     return this.is(key, false)
-  }
-
-  /**
-   * Return true if object is likely a vanilla object with string keys.
-   *
-   * @example
-   * ```js
-   * container.isIndexed('my-key')
-   * // True if container.repository['my-key'] appears to be an object.
-   * ```
-   *
-   * @param key - The key to check
-   * @returns True if the key is likely an object.
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public isIndexed(key?: string): boolean {
-    const value = key ? this.get(key) : this.all()
-    return (
-      this.has(key) &&
-      _.isObject(value) &&
-      !_.isArrayLikeObject(value)
-    )
   }
 
   /**
@@ -841,5 +824,175 @@ export class Container<I = any> {
   @bind
   public isFunction(key: string): boolean {
     return this.has(key) && _.isFunction(this.get(key))
+  }
+
+  /**
+   * Return true if object is not a function
+   *
+   * @example
+   * ```js
+   * container.isNotFunction('my-key')
+   * // True if object associated with 'my-key' is not a fn.
+   * ```
+   *
+   * @param key - The key to check.
+   * @returns True if object is not a function.
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isNotFunction(key: string): boolean {
+    return this.has(key) && !_.isFunction(this.get(key))
+  }
+
+  /**
+   * Return true if object is an instance of a class.
+   *
+   * @example
+   * ```js
+   * container.isInstanceOf('my-key', MyClass)
+   * // True if object associated with 'my-key' is an instance of MyClass.
+   * ```
+   *
+   * @param key - The key to check.
+   * @param instance - The class to check.
+   * @returns True if object is an instance of the class.
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isInstanceOf(key: string, instance: any): boolean {
+    return this.has(key) && this.get(key) instanceof instance
+  }
+
+  /**
+   * Return true if object is not an instance of a class.
+   *
+   * @example
+   * ```js
+   * container.isNotInstanceOf('my-key', MyClass)
+   * // True if object associated with 'my-key' is not an instance of MyClass.
+   * ```
+   *
+   * @param key
+   * @param instance
+   * @returns
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isNotInstanceOf(key: string, instance: any): boolean {
+    return this.has(key) && !(this.get(key) instanceof instance)
+  }
+
+  /**
+   * Return true if object is an instance of any of the classes.
+   *
+   * @example
+   * ```js
+   * container.isInstanceOfAny('my-key', [MyClass, MyOtherClass])
+   * // True if object associated with 'my-key' is an instance of MyClass or MyOtherClass.
+   * ```
+   *
+   * @param key
+   * @param instances
+   * @returns
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isInstanceOfAny(
+    key: string,
+    instances: any[],
+  ): boolean {
+    return (
+      this.has(key) &&
+      instances.some(
+        instance => this.get(key) instanceof instance,
+      )
+    )
+  }
+
+  /**
+   * Return true if object is not an instance of any of the classes.
+   *
+   * @example
+   * ```js
+   * container.isNotInstanceOfAny('my-key', [MyClass, MyOtherClass])
+   * // True if object associated with 'my-key' is not an instance of MyClass or MyOtherClass.
+   * ```
+   *
+   * @param key - search key
+   * @param instances - classes
+   * @returns
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isNotInstanceOfAny(
+    key: string,
+    instances: any[],
+  ): boolean {
+    return (
+      this.has(key) &&
+      !instances.some(
+        instance => this.get(key) instanceof instance,
+      )
+    )
+  }
+
+  /**
+   * Checks if value is empty. A value is considered empty unless
+   * it’s an arguments object, array, string, or jQuery-like
+   * collection with a length greater than 0 or an object with
+   * own enumerable properties.
+   *
+   * @example
+   * ```js
+   * container.isEmpty('my-key')
+   * // True if object associated with 'my-key' is empty.
+   * ```
+   *
+   * @param key - search key
+   * @returns True if object is empty.
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isEmpty(key?: string): boolean {
+    if (key) {
+      return this.has(key) && _.isEmpty(this.get(key))
+    }
+
+    return _.isEmpty(this.repository)
+  }
+
+  /**
+   * Checks if value is not empty. A value is considered empty unless
+   * it’s an arguments object, array, string, or jQuery-like
+   * collection with a length greater than 0 or an object with
+   * own enumerable properties.
+   *
+   * @example
+   * ```js
+   * container.isNotEmpty('my-key')
+   * // True if object associated with 'my-key' is not empty.
+   * ```
+   *
+   * @param key - search key
+   * @returns True if object is not empty.
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public isNotEmpty(key: string): boolean {
+    return this.has(key) && !_.isEmpty(this.get(key))
   }
 }

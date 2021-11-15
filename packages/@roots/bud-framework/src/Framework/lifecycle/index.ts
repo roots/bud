@@ -113,6 +113,13 @@ export async function lifecycle(
         })
 
         await service[event](this)
+
+        this.success({
+          message: `[${i + 1}/${
+            eligibleServices.length
+          }] ${event}`,
+          suffix: service.constructor.name.toLowerCase(),
+        })
       }),
     )
   }, Promise.resolve())

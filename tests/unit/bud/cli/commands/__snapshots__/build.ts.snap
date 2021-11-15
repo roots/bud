@@ -132,8 +132,8 @@ Object {
     "type": "option",
   },
   "log": Object {
-    "allowNo": true,
-    "default": true,
+    "allowNo": false,
+    "default": false,
     "description": "log to console",
     "parse": [Function],
     "type": "boolean",
@@ -154,7 +154,7 @@ Object {
   },
   "log.papertrail": Object {
     "allowNo": true,
-    "default": false,
+    "default": true,
     "description": "preserve logger output",
     "parse": [Function],
     "type": "boolean",

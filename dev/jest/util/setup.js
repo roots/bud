@@ -3,19 +3,34 @@
 
 const chalk = require('chalk')
 const execa = require('execa')
+const {Signale} = require('signale')
 
 const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
 const task = async (cmd, paths) => {
-  console.log(chalk.blue`\nyarn bud ${cmd}\n`)
-
   await Promise.all(
     paths.map(async ex => {
+      const logger = new Signale()
+
       const task = execa.command(`yarn bud ${cmd}`, {
         cwd: ex.cwd,
       })
-      task.stdout.pipe(process.stdout)
+
+      task.stdout?.on('data', message => {
+        logger.log({
+          message: message.toString(),
+          prefix: ex.name,
+        })
+      })
+
+      task.stdout?.on('error', message => {
+        logger.log({
+          message: message.toString(),
+          prefix: ex.name,
+        })
+      })
+
       await task
     }),
   )
@@ -26,5 +41,8 @@ module.exports = async () => {
 
   const examples = await paths()
 
-  await task('build --no-dashboard', examples)
+  await task(
+    'build --no-dashboard --log --log.papertrail',
+    examples,
+  )
 }

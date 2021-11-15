@@ -8,6 +8,4 @@
  * @packageDocumentation @betaDocumentation
  */
 
-export {Container} from './Container'
-
-export type {Repository} from './Container/Repository'
+export {Container, Repository} from './container'

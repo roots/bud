@@ -384,56 +384,6 @@ describe('container', function () {
     })
   })
 
-  describe('findKey', () => {
-    it('finds matching items', () => {
-      const repo = {
-        bud: {
-          name: 'bud',
-          type: 'tooling',
-        },
-        sage: {
-          name: 'sage',
-          type: 'theme',
-        },
-      }
-      const container = new Container(repo)
-
-      expect(
-        container.findKey(({type}) => type == 'theme'),
-      ).toEqual('sage')
-    })
-  })
-
-  describe('findKeyIn', () => {
-    it('finds matching nested items', () => {
-      const repo = {
-        deep: {
-          name: 'bud',
-          type: 'tooling',
-          nested: {
-            prop: {
-              count: 8,
-            },
-            ergo: {
-              count: 12,
-            },
-            dox: {
-              count: undefined,
-            },
-          },
-        },
-      }
-      const container = new Container(repo)
-
-      expect(
-        container.findKeyIn(
-          'deep.nested',
-          ({count}) => count > 10,
-        ),
-      ).toEqual('ergo')
-    })
-  })
-
   describe('getKeys', () => {
     it('returns array of keys', () => {
       const repo = {key: 'value', anotherKey: 'value'}

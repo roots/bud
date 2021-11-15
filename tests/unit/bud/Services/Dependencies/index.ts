@@ -1,7 +1,6 @@
 import {Bud, factory} from '@roots/bud'
 import {Dependencies} from '@roots/bud/src/services/Dependencies'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
-import {Yarn} from '@roots/dependencies/src/yarn'
 
 describe('bud.project', function () {
   let bud: Bud
@@ -26,20 +25,6 @@ describe('bud.project', function () {
 
   it('has dependencies name', () => {
     expect(dependencies.ident).toBe('bud.dependencies')
-  })
-
-  it('has a register method', () => {
-    expect(dependencies.manager).toBeInstanceOf(
-      DependenciesManager,
-    )
-  })
-
-  it('isYarn is true', () => {
-    expect(dependencies.manager.isYarn()).toBe(true)
-  })
-
-  it('dependencies manager returns yarn', () => {
-    expect(dependencies.manager.client).toBeInstanceOf(Yarn)
   })
 
   it('dependencies manager client has path registered', () => {

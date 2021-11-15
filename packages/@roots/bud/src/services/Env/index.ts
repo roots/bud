@@ -36,8 +36,13 @@ export class Env
    */
   @bind
   public async bootstrap() {
-    this.setStore(this.getParsedEnv())
-    if (!this.getEntries().length) {
+    const values = this.getParsedEnv()
+
+    this.log('log', {message: 'loading env', values})
+
+    if (values) this.setStore(values)
+
+    if (this.isEmpty()) {
       this.log('warn', 'no env values found')
     }
 
@@ -54,9 +59,16 @@ export class Env
    */
   @bind
   public getParsedEnv(): Record<string, any> {
-    return dotenv?.config
-      ? dotenvExpand(dotenv.config({path: this.envPath})).parsed
-      : {}
+    const raw = dotenv.config({path: this.envPath})
+    if (!raw) return {}
+
+    const {parsed, error} = raw
+    if (error || !parsed) return {}
+
+    const expanded = dotenvExpand(parsed)
+    if (!expanded) return {}
+
+    return expanded
   }
 
   /**
@@ -67,20 +79,18 @@ export class Env
    */
   @bind
   public getPublicEnv(): Record<string, any> {
-    return this.repository
-      ? this.getEntries()
-          .filter(([k]: [string, string]) =>
-            k.includes('APP_PUBLIC'),
-          )
-          .map(([k, v]: [string, string]) => [
-            k.replace('APP_PUBLIC_', ''),
-            v,
-          ])
-          .map(([k, v]: [string, string]) => [
-            k.replace('APP_PUBLIC_', ''),
-            isString(v) ? v : JSON.stringify(v),
-          ])
-          .reduce((a, [k, v]) => ({...a, [k]: v}), {})
-      : {}
+    if (this.isEmpty()) {
+      return {}
+    }
+
+    return this.getEntries()
+      .filter(([k]: [string, string]) =>
+        k.includes('APP_PUBLIC'),
+      )
+      .map(([k, v]: [string, string]) => [
+        k.replace('APP_PUBLIC_', ''),
+        isString(v) ? v : JSON.stringify(v),
+      ])
+      .reduce((a, [k, v]) => ({...a, [k]: v}), {})
   }
 }
