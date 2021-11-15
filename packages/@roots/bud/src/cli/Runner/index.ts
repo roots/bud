@@ -54,9 +54,7 @@ export class Runner {
 
     const settings = {
       config: {
-        cli: {
-          ...this.cli,
-        },
+        cli: this.cli,
         mode: parse(this.cli.flags.mode, 'production'),
         location: {
           project: parse(

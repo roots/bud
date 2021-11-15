@@ -50,6 +50,10 @@ export default class Doctor extends Command {
       default: false,
       hidden: true,
     }),
+    ['flush']: flags.boolean({
+      default: true,
+      hidden: true,
+    }),
   }
 
   private failures = []
@@ -94,6 +98,8 @@ export default class Doctor extends Command {
       : console.log(
           chalk.red`\n${this.failures.length} checks failed`,
         )
+
+    await this.app.project.refreshProfile()
   }
 
   @bind

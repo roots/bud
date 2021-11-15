@@ -209,7 +209,7 @@ export class Peers implements Model.Interface {
             /**
              * Flag unmmet dependencies
              */
-            if (!this.app.project.has(`installed.${peerName}`)) {
+            if (!this.app.project.get(`installed.${peerName}`)) {
               this.app.project.mutate(`unmet`, unmet => [
                 ...unmet,
                 {name: peerName, version: peerVersion},

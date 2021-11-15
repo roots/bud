@@ -1,11 +1,10 @@
 import * as Framework from '@roots/bud-framework'
-import {ensureFile, readJson} from 'fs-extra'
+import {ensureFile, readJson, writeJson} from 'fs-extra'
 import globby from 'globby'
-import {once} from 'helpful-decorators'
-import {join} from 'path'
+import {bind} from 'helpful-decorators'
 
 import {Peers} from './peers'
-import {bind, writeFile} from './project.dependencies'
+import {writeFile} from './project.dependencies'
 import {repository} from './project.repository'
 
 /**
@@ -40,29 +39,15 @@ export class Project
   }
 
   public get flush(): boolean {
-    return this.is('cli.flags.flush', true)
-  }
-
-  public get manifestPath(): string {
-    return join(
-      this.app.options.config.location.project,
-      'package.json',
-    )
+    return this.app.options.config.cli.flags.flush
   }
 
   public get profilePath(): string {
-    return join(
-      this.projectPath,
+    return this.app.path(
+      'project',
       this.storagePath,
       this.app.name,
-      `profile.json`,
-    )
-  }
-
-  public get projectPath(): string {
-    return (
-      this.app.options.config.cli.flags['location.project'] ??
-      this.app.options.config.location.project
+      'profile.json',
     )
   }
 
@@ -80,30 +65,28 @@ export class Project
 
   public manifest: Record<string, any>
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async register() {
-    /**
-     * We'll need an unmodified
-     */
     this.manifest = await this.readManifest()
     this.previous = await this.readProfile()
+    this.flush && writeJson(this.profilePath, {})
 
     const manifestUnchanged =
       JSON.stringify(this.manifest, null, 2) ===
       JSON.stringify(this.previous?.manifest, null, 2)
 
-    this.app.store.set('location.storage', this.storagePath)
-    this.app.store.set('location.project', this.projectPath)
-
-    this.setStore({
-      ...(this.repository ?? {}),
+    this.mergeStore({
       cli: this.app.store.get('cli'),
       env: {
         public: this.app.env.getPublicEnv(),
         all: this.app.env.all(),
       },
       manifest: this.manifest,
-      dependencies: [this.manifestPath],
+      dependencies: [this.app.path('project', 'package.json')],
     })
 
     if (this.flush)
@@ -126,9 +109,9 @@ export class Project
     }
 
     if (
-      !this.flush &&
       this.previous &&
       manifestUnchanged &&
+      !this.app.options.config.cli.flags.flush &&
       !this.app.store.is('features.install', true)
     ) {
       this.logger.info({
@@ -139,6 +122,7 @@ export class Project
     }
 
     if (this.app.store.is('features.install', true)) {
+      await this.refreshManifest()
       await this.refreshProfile()
 
       if (!this.get('unmet').length) return
@@ -149,7 +133,7 @@ export class Project
     }
 
     const profile = await this.refreshProfile()
-    this.mergeStore(profile)
+    this.setStore(profile)
   }
 
   /**
@@ -175,7 +159,9 @@ export class Project
    */
   @bind
   public async readManifest(): Promise<Record<string, any>> {
-    return await readJson(this.manifestPath)
+    return await readJson(
+      this.app.path('project', 'package.json'),
+    )
   }
 
   /**
@@ -188,7 +174,7 @@ export class Project
     if (!this.manifest) {
       this.log('error', {
         message: 'manifest not available',
-        suffix: this.manifestPath,
+        suffix: this.app.path('project', 'package.json'),
       })
       return this.app.dump(this.manifest, {
         prefix: 'project.manifest',
@@ -245,14 +231,18 @@ export class Project
    */
   @bind
   public async refreshProfile() {
+    await ensureFile(this.profilePath)
+
     await this.refreshManifest()
 
     this.log('time', 'building profile')
-    await ensureFile(this.profilePath)
 
     try {
       await this.resolvePeers()
       await this.searchConfigs()
+      const newProfile = await this.readProfile()
+      this.mergeStore(newProfile)
+
       await this.writeProfile()
 
       this.log('timeEnd', `building profile`)
@@ -281,7 +271,6 @@ export class Project
   }
 
   @bind
-  @once
   public async readProfile() {
     this.log('await', {
       message: 'read profile',
@@ -304,7 +293,6 @@ export class Project
   }
 
   @bind
-  @once
   public async searchConfigs() {
     this.log('await', 'reading project configuration files')
 

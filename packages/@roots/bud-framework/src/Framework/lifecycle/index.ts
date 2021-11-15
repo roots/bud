@@ -33,6 +33,30 @@ export interface lifecycle {
 export async function lifecycle(
   this: Framework,
 ): Promise<Framework> {
+  this.store.set(
+    'location.project',
+    this.options.config.cli.flags['location.project'] ??
+      this.options.config.location.project,
+  )
+
+  this.store.set(
+    'location.src',
+    this.options.config.cli.flags['location.src'] ??
+      this.options.config.location.src,
+  )
+
+  this.store.set(
+    'location.dist',
+    this.options.config.cli.flags['location.dist'] ??
+      this.options.config.location.dist,
+  )
+
+  this.store.set(
+    'location.storage',
+    this.options.config.cli.flags['location.storage'] ??
+      this.options.config.location.storage,
+  )
+
   this.dump(this.store.all(), {prefix: 'store'})
 
   /**

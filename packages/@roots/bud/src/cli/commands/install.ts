@@ -1,8 +1,8 @@
 import {flags} from '@oclif/command'
 import chalk from 'chalk'
 import {Signale} from 'signale'
-import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies'
 
+import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies'
 import {Command} from '../Command'
 
 export default class Install extends Command {
@@ -52,11 +52,8 @@ export default class Install extends Command {
   public async run() {
     await this.prime(Install)
     await this.app.project.refreshProfile()
-
     const logger = new Signale()
-    const manager = new DependenciesManager(
-      this.app.path('project'),
-    )
+
     const dependencies: Array<[string, string]> =
       this.app.project
         .get('unmet')
@@ -66,6 +63,10 @@ export default class Install extends Command {
       message: `installing dependencies`,
       suffix: chalk.dim(dependencies),
     })
+
+    const manager = new DependenciesManager(
+      this.app.path('project'),
+    )
 
     try {
       await manager.client.install(
