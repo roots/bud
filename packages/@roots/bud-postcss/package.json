@@ -70,7 +70,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.2",
-    "@types/lodash": "4.14.176",
+    "@types/lodash": "4.14.177",
     "@types/node": "16.11.7",
     "@types/signale": "1.4.2",
     "jest": "27.3.1",
