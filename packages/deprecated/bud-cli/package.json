@@ -76,7 +76,7 @@
     "@oclif/test": "1.2.8",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.29.0",
-    "@types/lodash": "4.14.176",
+    "@types/lodash": "4.14.177",
     "@types/node": "16.11.7",
     "@types/prettier": "2.4.2",
     "eslint": "7.32.0"
