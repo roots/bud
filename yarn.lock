@@ -3120,7 +3120,7 @@ __metadata:
     nanoid: 3.1.30
     npm-run-path: 5.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3143,7 +3143,7 @@ __metadata:
     babel-loader: ^8.2.3
     babel-plugin-add-module-exports: ^1.0.4
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3176,7 +3176,7 @@ __metadata:
     svgo: ^2.7.0
     tslib: ^2.3.1
     url-loader: ^4.1.1
-    webpack: 5.64.0
+    webpack: 5.64.1
     xml-loader: ^1.2.1
   languageName: unknown
   linkType: soft
@@ -3200,7 +3200,7 @@ __metadata:
     "@types/lodash": 4.14.176
     "@types/node": 16.11.7
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3217,7 +3217,7 @@ __metadata:
     compression-webpack-plugin: ^9.0.0
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3251,7 +3251,7 @@ __metadata:
     patch-console: 1.0.0
     react: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3281,7 +3281,7 @@ __metadata:
     tslib: 2.3.1
     typescript: 4.4.4
     url-loader: 4.1.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3343,7 +3343,7 @@ __metadata:
     jest: 27.3.1
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3363,7 +3363,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     eslint-webpack-plugin: ^3.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     eslint: 7.32.0
     prettier: 2.4.1
@@ -3382,7 +3382,7 @@ __metadata:
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3406,7 +3406,7 @@ __metadata:
     signale: ^1.4.0
     ts-node: ^10.4.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3440,7 +3440,7 @@ __metadata:
     imagemin: ^8.0.1
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     imagemin-gifsicle: 7.0.0
     imagemin-jpegtran: 7.0.0
@@ -3470,7 +3470,7 @@ __metadata:
     autodll-webpack-plugin: ^0.4.2
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3490,7 +3490,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3511,7 +3511,7 @@ __metadata:
     postcss-loader: 6.2.0
     postcss-preset-env: 6.7.0
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     postcss: 8.3.11
     postcss-import: 14.0.2
@@ -3559,7 +3559,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     "@wordpress/browserslist-config": 4.1.0
   languageName: unknown
@@ -3623,7 +3623,7 @@ __metadata:
     react-refresh: 0.11.0
     tslib: 2.3.1
     type-fest: 2.5.3
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     react: 17.0.2
     react-dom: 17.0.2
@@ -3644,7 +3644,7 @@ __metadata:
     resolve-cwd: 3.0.0
     sass-loader: 12.3.0
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     sass: 1.43.4
   languageName: unknown
@@ -3662,7 +3662,7 @@ __metadata:
     http-proxy-middleware: 2.0.1
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
     webpack-dev-middleware: 5.2.1
     webpack-hot-middleware: ^2.25.1
   languageName: unknown
@@ -3686,7 +3686,7 @@ __metadata:
     solid-js: 1.2.3
     tslib: ^2.3.1
     type-fest: 2.5.3
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     "@babel/plugin-syntax-jsx": 7.16.0
     solid-js: ^1.1.7
@@ -3707,7 +3707,7 @@ __metadata:
     stylelint-config-standard: ^24.0.0
     stylelint-webpack-plugin: ^3.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3754,7 +3754,7 @@ __metadata:
     tslib: 2.3.1
     typescript: 4.4.4
     vfile-reporter: 7.0.2
-    webpack: 5.64.0
+    webpack: 5.64.1
     webpack-config-dump-plugin: 3.0.1
     yamljs: 0.3.0
   languageName: unknown
@@ -3790,7 +3790,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     terser-webpack-plugin: ^5.2.4
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3813,7 +3813,7 @@ __metadata:
     ts-node: ^10.4.0
     tslib: ^2.3.1
     typescript: 4.4.4
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     eslint: ^7
     typescript: ^4
@@ -3847,7 +3847,7 @@ __metadata:
     vue-loader: ^16.8.1
     vue-style-loader: ^4.1.3
     vue-template-compiler: ^2.6.14
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     "@vue/compiler-sfc": 3.2.22
     "@vue/runtime-dom": 3.2.22
@@ -3992,7 +3992,7 @@ __metadata:
     jest: 27.3.1
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     webpack: ">=5"
   languageName: unknown
@@ -4056,7 +4056,7 @@ __metadata:
     helpful-decorators: ^2.1.0
     prettier: ^2.4.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -4087,7 +4087,7 @@ __metadata:
     helpful-decorators: ^2.1.0
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -24561,16 +24561,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.0":
-  version: 3.2.1
-  resolution: "webpack-sources@npm:3.2.1"
-  checksum: 438ee4759f70ee2d5ae17a2fc5e66a1f71f0ba8ad9de77edfaf4180c82925f6504790c5a1ddfa2a6d409212cd9e7332a6822d6acabb0f39303bc3b14354872e6
+"webpack-sources@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "webpack-sources@npm:3.2.2"
+  checksum: cc81f1f1bfd1c25c7a565598850294b515bcccf7974d0249b4a0c8c607307866ce3f9e8cdef1c74d5facfb0d993944c499cfd4b7c8f52d01359b6671cc5823d4
   languageName: node
   linkType: hard
 
-"webpack@npm:5.64, webpack@npm:5.64.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.59.1, webpack@npm:^5.61.0":
-  version: 5.64.0
-  resolution: "webpack@npm:5.64.0"
+"webpack@npm:5.64, webpack@npm:5.64.1, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.59.1, webpack@npm:^5.61.0":
+  version: 5.64.1
+  resolution: "webpack@npm:5.64.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -24595,13 +24595,13 @@ __metadata:
     tapable: ^2.1.1
     terser-webpack-plugin: ^5.1.3
     watchpack: ^2.2.0
-    webpack-sources: ^3.2.0
+    webpack-sources: ^3.2.2
   peerDependenciesMeta:
     webpack-cli:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 9d32a61d988b0cd34f7c2b9006ac2eec81c36a72acf3b7f01c6c567c2ebc95bb75d422a53a5bea69c36dbfc50c11ac953ec07742da43c55beb512d0f2d4bb400
+  checksum: d2a1baddaed03f2ce70c13501b89935d4bb4af30b4accb0d2dfbd00ec6f491eaf46272346cedcf013b477e131c8cc202ee0b2d2c51ece1cfb713fd2d98b80a52
   languageName: node
   linkType: hard
 
