@@ -77,13 +77,13 @@
     "@types/babel__core": "7.1.16",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
-    "@types/react": "17.0.34",
+    "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "jest": "27.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "type-fest": "2.5.3",
-    "webpack": "5.64.0"
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",

@@ -64,11 +64,11 @@
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.4",
-    "@types/lodash": "4.14.176",
+    "@types/lodash": "4.14.177",
     "@types/node": "16.11.7",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",
-    "webpack": "5.64.0"
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

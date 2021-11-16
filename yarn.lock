@@ -3110,7 +3110,7 @@ __metadata:
     "@types/copy-webpack-plugin": 8.0.1
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     copy-webpack-plugin: 9.1.0
     css-minimizer-webpack-plugin: ^3.1.1
@@ -3120,7 +3120,7 @@ __metadata:
     nanoid: 3.1.30
     npm-run-path: 5.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3141,7 +3141,7 @@ __metadata:
     babel-loader: ^8.2.3
     babel-plugin-add-module-exports: ^1.0.4
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3152,7 +3152,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.7
     "@types/safe-json-stringify": ^1
@@ -3176,7 +3176,7 @@ __metadata:
     svgo: ^2.7.0
     tslib: ^2.3.1
     url-loader: ^4.1.1
-    webpack: 5.64.0
+    webpack: 5.64.1
     xml-loader: ^1.2.1
   languageName: unknown
   linkType: soft
@@ -3197,10 +3197,10 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3217,7 +3217,7 @@ __metadata:
     compression-webpack-plugin: ^9.0.0
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3243,7 +3243,7 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/node": 16.11.7
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     ink: 3.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
@@ -3251,7 +3251,7 @@ __metadata:
     patch-console: 1.0.0
     react: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3267,7 +3267,7 @@ __metadata:
     "@svgr/webpack": 5.5.0
     "@tsconfig/docusaurus": 1.0.4
     "@types/node": 16.11.7
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     "@types/react-helmet": 6.1.4
     "@types/react-reconciler": 0.26.4
@@ -3281,7 +3281,7 @@ __metadata:
     tslib: 2.3.1
     typescript: 4.4.4
     url-loader: 4.1.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3297,7 +3297,7 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -3335,7 +3335,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
     esbuild-loader: ^2.16.0
@@ -3343,7 +3343,7 @@ __metadata:
     jest: 27.3.1
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3363,7 +3363,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     eslint-webpack-plugin: ^3.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     eslint: 7.32.0
     prettier: 2.4.1
@@ -3382,7 +3382,7 @@ __metadata:
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3393,7 +3393,7 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
     "@types/js-yaml": 4.0.4
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     cli-highlight: ^2.1.11
     figures: ^4.0.0
@@ -3406,7 +3406,7 @@ __metadata:
     signale: ^1.4.0
     ts-node: ^10.4.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3417,7 +3417,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/container": "workspace:packages/@roots/container"
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
     jest: 27.3.1
@@ -3440,7 +3440,7 @@ __metadata:
     imagemin: ^8.0.1
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     imagemin-gifsicle: 7.0.0
     imagemin-jpegtran: 7.0.0
@@ -3470,7 +3470,7 @@ __metadata:
     autodll-webpack-plugin: ^0.4.2
     jest: 27.3.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3490,7 +3490,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3502,7 +3502,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     "@types/signale": 1.4.2
     jest: 27.3.1
@@ -3511,7 +3511,7 @@ __metadata:
     postcss-loader: 6.2.0
     postcss-preset-env: 6.7.0
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     postcss: 8.3.11
     postcss-import: 14.0.2
@@ -3552,14 +3552,14 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     "@wordpress/browserslist-config": 4.1.0
     jest: 27.3.1
     react: 17.0.2
     react-dom: 17.0.2
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     "@wordpress/browserslist-config": 4.1.0
   languageName: unknown
@@ -3613,7 +3613,7 @@ __metadata:
     "@types/babel__core": 7.1.16
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     autobind-decorator: 2.4.0
     jest: 27.3.1
@@ -3623,7 +3623,7 @@ __metadata:
     react-refresh: 0.11.0
     tslib: 2.3.1
     type-fest: 2.5.3
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     react: 17.0.2
     react-dom: 17.0.2
@@ -3644,7 +3644,7 @@ __metadata:
     resolve-cwd: 3.0.0
     sass-loader: 12.3.0
     tslib: 2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     sass: 1.43.4
   languageName: unknown
@@ -3662,7 +3662,7 @@ __metadata:
     http-proxy-middleware: 2.0.1
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
     webpack-dev-middleware: 5.2.1
     webpack-hot-middleware: ^2.25.1
   languageName: unknown
@@ -3676,7 +3676,7 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -3686,7 +3686,7 @@ __metadata:
     solid-js: 1.2.3
     tslib: ^2.3.1
     type-fest: 2.5.3
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     "@babel/plugin-syntax-jsx": 7.16.0
     solid-js: ^1.1.7
@@ -3704,10 +3704,10 @@ __metadata:
     autobind-decorator: ^2.4.0
     jest: 27.3.1
     stylelint: ^14.0.0
-    stylelint-config-standard: ^23.0.0
+    stylelint-config-standard: ^24.0.0
     stylelint-webpack-plugin: ^3.0.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3754,7 +3754,7 @@ __metadata:
     tslib: 2.3.1
     typescript: 4.4.4
     vfile-reporter: 7.0.2
-    webpack: 5.64.0
+    webpack: 5.64.1
     webpack-config-dump-plugin: 3.0.1
     yamljs: 0.3.0
   languageName: unknown
@@ -3790,7 +3790,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     terser-webpack-plugin: ^5.2.4
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -3801,7 +3801,7 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     "@typescript-eslint/parser": ^5.1.0
@@ -3813,7 +3813,7 @@ __metadata:
     ts-node: ^10.4.0
     tslib: ^2.3.1
     typescript: 4.4.4
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     eslint: ^7
     typescript: ^4
@@ -3831,10 +3831,10 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
-    "@vue/compiler-sfc": 3.2.21
+    "@vue/compiler-sfc": 3.2.22
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
     babel-plugin-transform-vue-jsx: ^3.7.0
@@ -3843,15 +3843,15 @@ __metadata:
     he: ^1.2.0
     jest: 27.3.1
     tslib: ^2.3.1
-    vue: 3.2.21
+    vue: 3.2.22
     vue-loader: ^16.8.1
     vue-style-loader: ^4.1.3
     vue-template-compiler: ^2.6.14
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
-    "@vue/compiler-sfc": 3.2.21
-    "@vue/runtime-dom": 3.2.21
-    vue: 3.2.21
+    "@vue/compiler-sfc": 3.2.22
+    "@vue/runtime-dom": 3.2.22
+    vue: 3.2.22
   languageName: unknown
   linkType: soft
 
@@ -3862,7 +3862,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
     jest: 27.3.1
@@ -3943,7 +3943,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/container@workspace:packages/@roots/container"
   dependencies:
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     helpful-decorators: 2.1.0
     lodash: 4.17.21
@@ -3957,7 +3957,7 @@ __metadata:
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     "@types/vinyl": 2.0.6
     autobind-decorator: ^2.4.0
@@ -3992,7 +3992,7 @@ __metadata:
     jest: 27.3.1
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   peerDependencies:
     webpack: ">=5"
   languageName: unknown
@@ -4019,7 +4019,7 @@ __metadata:
   dependencies:
     "@types/node": 16.11.7
     "@types/prettier": 2.4.2
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
@@ -4056,7 +4056,7 @@ __metadata:
     helpful-decorators: ^2.1.0
     prettier: ^2.4.1
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -4082,12 +4082,12 @@ __metadata:
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
     helpful-decorators: ^2.1.0
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.64.0
+    webpack: 5.64.1
   languageName: unknown
   linkType: soft
 
@@ -4096,7 +4096,7 @@ __metadata:
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin"
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -4118,7 +4118,7 @@ __metadata:
     "@yarnpkg/core": 3.1.0
     "@yarnpkg/shell": 3.1.0
     clipanion: 3.2.0-rc.3
-    esbuild: 0.13.13
+    esbuild: 0.13.14
     jest: 27.3.1
     tslib: 2.3.1
     typescript: 4.4.4
@@ -4588,7 +4588,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7, @types/eslint@npm:^7.28.2":
+"@types/eslint@npm:*, @types/eslint@npm:7.29.0, @types/eslint@npm:^7, @types/eslint@npm:^7.28.2":
+  version: 7.29.0
+  resolution: "@types/eslint@npm:7.29.0"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: df13991c554954353ce8f3bb03e19da6cc71916889443d68d178d4f858b561ba4cc4a4f291c6eb9eebb7f864b12b9b9313051b3a8dfea3e513dadf3188a77bdf
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:7.28.2":
   version: 7.28.2
   resolution: "@types/eslint@npm:7.28.2"
   dependencies:
@@ -4802,10 +4812,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*, @types/lodash@npm:4.14.176, @types/lodash@npm:^4.14.175":
-  version: 4.14.176
-  resolution: "@types/lodash@npm:4.14.176"
-  checksum: 9e949704dfffab60365b5cdca0477926af6eabe82c64b7be8f74b3a117bb373d58371be962c2b159dd0cf8fad49a7dcacc748564aea4ce6b6883c197a6f0bfa8
+"@types/lodash@npm:*, @types/lodash@npm:4.14.177, @types/lodash@npm:^4.14.175":
+  version: 4.14.177
+  resolution: "@types/lodash@npm:4.14.177"
+  checksum: 00f9eb300ed5219cfbabb3448d4a71744895edad60dcfda9f028c0808a50eb6ad1ca9f673b56a85f85668a4ea54b9870643625468a747039c435643e52253a75
   languageName: node
   linkType: hard
 
@@ -5023,14 +5033,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.34":
-  version: 17.0.34
-  resolution: "@types/react@npm:17.0.34"
+"@types/react@npm:17.0.35":
+  version: 17.0.35
+  resolution: "@types/react@npm:17.0.35"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 16729ad7d50922ccbf8eb93874d7781dc2f1c64edc78134b5edc7154839d41e9fe320eb1c11ad2d1c9bf28b99cb1febda344509c1fda025955a5c2b43c688c8f
+  checksum: 33e2bf8068ccc5330f089f5d4bee54649c2d5b512edee4a9e44c113271a69ea8c71ddbd3103b205eb971fd4c358e9f69d707df08bec90b3c33492db374614eb7
   languageName: node
   linkType: hard
 
@@ -5310,12 +5320,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/eslint-plugin@npm:5.3.1"
+"@typescript-eslint/eslint-plugin@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/eslint-plugin@npm:5.4.0"
   dependencies:
-    "@typescript-eslint/experimental-utils": 5.3.1
-    "@typescript-eslint/scope-manager": 5.3.1
+    "@typescript-eslint/experimental-utils": 5.4.0
+    "@typescript-eslint/scope-manager": 5.4.0
     debug: ^4.3.2
     functional-red-black-tree: ^1.0.1
     ignore: ^5.1.8
@@ -5328,66 +5338,66 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 084cac897b5f72a7abaea43e29e8a0dd47b1f13904637957e149ad1a8501e777200ae1c7ac13428be7a33490459867eec5848c6d281130f5b064ec52e6b90f6d
+  checksum: 83e8d5ab66405b9ff9a63dfc66ff45870c2ede6f7ef3368f57fa6140f97c4aac28d9e44b71f6443b004f41b5b36003a4609dc3bd51bcc96c72bd1f4d42af1d7b
   languageName: node
   linkType: hard
 
-"@typescript-eslint/experimental-utils@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/experimental-utils@npm:5.3.1"
+"@typescript-eslint/experimental-utils@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/experimental-utils@npm:5.4.0"
   dependencies:
     "@types/json-schema": ^7.0.9
-    "@typescript-eslint/scope-manager": 5.3.1
-    "@typescript-eslint/types": 5.3.1
-    "@typescript-eslint/typescript-estree": 5.3.1
+    "@typescript-eslint/scope-manager": 5.4.0
+    "@typescript-eslint/types": 5.4.0
+    "@typescript-eslint/typescript-estree": 5.4.0
     eslint-scope: ^5.1.1
     eslint-utils: ^3.0.0
   peerDependencies:
     eslint: "*"
-  checksum: 638829731400d3f654fdfb7ec173fc568f65cc9fbaaacffa8aa369411ba33acf9220bde9981a1226789fe15a1a1738c1840f5f26841bdc6583df5c72a90f01d7
+  checksum: 85c818a147e86bfde3db8b2ed3f3a79855f9baf539a0f4796715b1632afdd79638bc5bb525ce9e616ee3a0f549889b5e8049a51801ff75eabf13ab4ba474e0f1
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.3.1, @typescript-eslint/parser@npm:^5.1.0":
-  version: 5.3.1
-  resolution: "@typescript-eslint/parser@npm:5.3.1"
+"@typescript-eslint/parser@npm:5.4.0, @typescript-eslint/parser@npm:^5.1.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/parser@npm:5.4.0"
   dependencies:
-    "@typescript-eslint/scope-manager": 5.3.1
-    "@typescript-eslint/types": 5.3.1
-    "@typescript-eslint/typescript-estree": 5.3.1
+    "@typescript-eslint/scope-manager": 5.4.0
+    "@typescript-eslint/types": 5.4.0
+    "@typescript-eslint/typescript-estree": 5.4.0
     debug: ^4.3.2
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 9ca2928ca3400898a16700deb5deb5aeb2e45c9f430e243be78e6aefa8e515edcb0d210e8ad2b195894a228a7d9c9355906cb68b9c7ed6b23642672465e501a3
+  checksum: d76732469cb100426fb9574713c1065c14969a502214b8b400e4829e5c01b1fe4744ce59a86ef9fd4ac5baf620454c517975b136b8735881f617e53322325cd7
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/scope-manager@npm:5.3.1"
+"@typescript-eslint/scope-manager@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/scope-manager@npm:5.4.0"
   dependencies:
-    "@typescript-eslint/types": 5.3.1
-    "@typescript-eslint/visitor-keys": 5.3.1
-  checksum: 336bb99351be878c62c591c408bce24ee08fb3eef76595175263ac906d6153e1b75000696c093b869d904b9a3e80b8d2e550df5f52996c77f702be69c8c4c28d
+    "@typescript-eslint/types": 5.4.0
+    "@typescript-eslint/visitor-keys": 5.4.0
+  checksum: 681007e727f01b694a8dbec79eba993479eb2c8aa26a0e02832d9e99bca4ba97258d8a2845bd6fb8ab461081a268d5db9b0b67385d357a07d58f78a9386f4682
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/types@npm:5.3.1"
-  checksum: ccba0a505b96860b9a29f8cd1cd3c9dc7903fd21274c538ee988a4cf69c24274822e12ade61d05088626e43e3159ef5a9f5c0f4344d2c2223c6b3649cc70efb7
+"@typescript-eslint/types@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/types@npm:5.4.0"
+  checksum: 8d1dc7149e597ae98917cc109136b8c081682158f688b2ca76256493e46b4acfda2135e30258200e83a40492678683393f0eb4d508d43b80b321ea006fc11a38
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/typescript-estree@npm:5.3.1"
+"@typescript-eslint/typescript-estree@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/typescript-estree@npm:5.4.0"
   dependencies:
-    "@typescript-eslint/types": 5.3.1
-    "@typescript-eslint/visitor-keys": 5.3.1
+    "@typescript-eslint/types": 5.4.0
+    "@typescript-eslint/visitor-keys": 5.4.0
     debug: ^4.3.2
     globby: ^11.0.4
     is-glob: ^4.0.3
@@ -5396,17 +5406,17 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: cc29aabda0e2f86783d82455a790deaa0b66b74373ae76709846d29eccce4fe7e942596e9329df39ad1ad44e7360100e9d0372e21ac66a0ab018ca8c10094c43
+  checksum: 2f818c629c2b43b5cb669e9d950b9afadbad94275ef867308f8544277631f723ffd769852a522012c1aef12a9bba11ae46e72469187e3630f7ae373bc8c8a1c0
   languageName: node
   linkType: hard
 
-"@typescript-eslint/visitor-keys@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@typescript-eslint/visitor-keys@npm:5.3.1"
+"@typescript-eslint/visitor-keys@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@typescript-eslint/visitor-keys@npm:5.4.0"
   dependencies:
-    "@typescript-eslint/types": 5.3.1
+    "@typescript-eslint/types": 5.4.0
     eslint-visitor-keys: ^3.0.0
-  checksum: e2a2fb9dfa77d1db685540dd65c7fc8477ad910459cfdfe3600fff4ed27105f5a976cf1cfddc588f9231d74287e722b038ea17ba7b3ccff672642b492222f303
+  checksum: a0c1c5e3fbe2fb6d49e240603f7f613e071a9b5a5a7dd41b7a10cf4d71fbda522c1d3af8389efafd7c03cacd5d2ab9286d6e805d530957aba3a6538b9d248a3a
   languageName: node
   linkType: hard
 
@@ -5433,15 +5443,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-core@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/compiler-core@npm:3.2.21"
+"@vue/compiler-core@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/compiler-core@npm:3.2.22"
   dependencies:
     "@babel/parser": ^7.15.0
-    "@vue/shared": 3.2.21
+    "@vue/shared": 3.2.22
     estree-walker: ^2.0.2
     source-map: ^0.6.1
-  checksum: 8fa2e02cfec836c6b5259a954beafaf558e0fdf6402feeb26a51fb2c7e06e512a24a59f19b6b4f972f1b587019fe156ff1a517bb1e6dd772925681396ed6d13c
+  checksum: 9a0d796c8533b921ee43ea0c5de73eafdec5a42d9cd1cff8badb0335047daf4392bb933b8e128b18ac29f550c17ec744d153d43749e07f0cd4ae6e7ca8316d59
   languageName: node
   linkType: hard
 
@@ -5455,13 +5465,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-dom@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/compiler-dom@npm:3.2.21"
+"@vue/compiler-dom@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/compiler-dom@npm:3.2.22"
   dependencies:
-    "@vue/compiler-core": 3.2.21
-    "@vue/shared": 3.2.21
-  checksum: 7f0c71605d3b480cc1aa129c45ab0d34726fffa8e2095405b064a5a147ab3fb8198152c12afb2cdc836bdbb4e34ab9619fe0015c5e8f74d56b51f565ca57e742
+    "@vue/compiler-core": 3.2.22
+    "@vue/shared": 3.2.22
+  checksum: e11c5bfdb855fbe8ed05552143ae115b175321c444df813f4168483ee23b9a66f839d55feb4081e872faa988e1bce7f5160f7605f5c0e7beb012f9674c17f37b
   languageName: node
   linkType: hard
 
@@ -5483,21 +5493,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-sfc@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/compiler-sfc@npm:3.2.21"
+"@vue/compiler-sfc@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/compiler-sfc@npm:3.2.22"
   dependencies:
     "@babel/parser": ^7.15.0
-    "@vue/compiler-core": 3.2.21
-    "@vue/compiler-dom": 3.2.21
-    "@vue/compiler-ssr": 3.2.21
-    "@vue/ref-transform": 3.2.21
-    "@vue/shared": 3.2.21
+    "@vue/compiler-core": 3.2.22
+    "@vue/compiler-dom": 3.2.22
+    "@vue/compiler-ssr": 3.2.22
+    "@vue/ref-transform": 3.2.22
+    "@vue/shared": 3.2.22
     estree-walker: ^2.0.2
     magic-string: ^0.25.7
     postcss: ^8.1.10
     source-map: ^0.6.1
-  checksum: b55f576330acec96f50325aff439be41dcf47f0e7ed8717f39111ddaef1aeeb58f9b0550e28580967e88226384f59ccacfbd20ad1ea7ed4f6f0b7e524be76324
+  checksum: f69ea6c5ec0a3445a2e2f1badc561557c419c977e7a25fec05d8b7fed538f507c09dae56dc6062bd9652b0fcd1b399a3084a63ecb3e8d6ec8c2823b4caaeeded
   languageName: node
   linkType: hard
 
@@ -5511,13 +5521,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-ssr@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/compiler-ssr@npm:3.2.21"
+"@vue/compiler-ssr@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/compiler-ssr@npm:3.2.22"
   dependencies:
-    "@vue/compiler-dom": 3.2.21
-    "@vue/shared": 3.2.21
-  checksum: 9e7c1133ef8a05c94c28494e45c0ef16c0a5e88c1bc015c9555446d9eba759d0b33688772988afb196411b7e4dd9d45bacc1ac0c08078a9f392bc59dcb56314e
+    "@vue/compiler-dom": 3.2.22
+    "@vue/shared": 3.2.22
+  checksum: 38cc6334484ae75059b18661f5a26d21c5b796befcf58e7cb8ed4ea05b58b0e81b089dcf6d7140c555798300d6e8d6eb7178391c97c592b278951167aedaae16
   languageName: node
   linkType: hard
 
@@ -5530,12 +5540,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/reactivity@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/reactivity@npm:3.2.21"
+"@vue/reactivity@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/reactivity@npm:3.2.22"
   dependencies:
-    "@vue/shared": 3.2.21
-  checksum: a9347a2f86485364c0dbb82cc0e0b810fd6fb01dd08ff1b3f5ed2d7bb657cf55c04ffe990f03a3f6e44c26b4dcbaebd934182cdd9600338a2b6697049500ff21
+    "@vue/shared": 3.2.22
+  checksum: 9cae5b98dc4b042309c0e66baa9c7787265d2a7304df5935bfa51ff2988b48367f1d1d0d78fc38352d392fbfc6a5dc96570247d32927bf73094add915d488398
   languageName: node
   linkType: hard
 
@@ -5552,16 +5562,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/ref-transform@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/ref-transform@npm:3.2.21"
+"@vue/ref-transform@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/ref-transform@npm:3.2.22"
   dependencies:
     "@babel/parser": ^7.15.0
-    "@vue/compiler-core": 3.2.21
-    "@vue/shared": 3.2.21
+    "@vue/compiler-core": 3.2.22
+    "@vue/shared": 3.2.22
     estree-walker: ^2.0.2
     magic-string: ^0.25.7
-  checksum: d73605e845d95aea0e07dbefa4cbc7e3746b322c32dd0f10e55a3a5151d4fa1406318dc863b9544037f7ccdf3bf8ddc53c4c776e62f13a5e32fdad39ed2eb6d3
+  checksum: 018154299d78bd2cd35cd79f01e98dee660403e6467912a1021eaba63a4ca8cb658547c9a152863e9ee1c1e538b1d77dab10b2560a450035707a03fa3d8633b1
   languageName: node
   linkType: hard
 
@@ -5575,13 +5585,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/runtime-core@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/runtime-core@npm:3.2.21"
+"@vue/runtime-core@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/runtime-core@npm:3.2.22"
   dependencies:
-    "@vue/reactivity": 3.2.21
-    "@vue/shared": 3.2.21
-  checksum: fba39089dd82b5575da4eb9408e81548c3453c80fcdf3526d47360d4289683dd53427374d2527dec8c19c4d7dfd353f8b1ae5667fb115105aaa4e24005f781a8
+    "@vue/reactivity": 3.2.22
+    "@vue/shared": 3.2.22
+  checksum: ad8182be53b1d5242020b77cbdaf088a39495e228a786532c81b3530909027778f3a6509fe5b63f454c11b0fc1c6962bd8b6510f65eedf6696651381cb8795ac
   languageName: node
   linkType: hard
 
@@ -5596,14 +5606,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/runtime-dom@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/runtime-dom@npm:3.2.21"
+"@vue/runtime-dom@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/runtime-dom@npm:3.2.22"
   dependencies:
-    "@vue/runtime-core": 3.2.21
-    "@vue/shared": 3.2.21
+    "@vue/runtime-core": 3.2.22
+    "@vue/shared": 3.2.22
     csstype: ^2.6.8
-  checksum: 235845277fb70f002325e32b71c9431fe4f0c62c4c9105eefdbd5ba5508956f8d73f148c7ba1e34b55578f989302fa50a7a4b4e8e51c93c1a437232d32ae736c
+  checksum: e9a9b2190ea363111512ebb71bf7821fadc1d54f1846e6c1da8caea78510c9a4f9c87b406c522a96aea4260db606c1e6c21bfbb3845cdac9573419b1095397c0
   languageName: node
   linkType: hard
 
@@ -5619,15 +5629,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/server-renderer@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/server-renderer@npm:3.2.21"
+"@vue/server-renderer@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/server-renderer@npm:3.2.22"
   dependencies:
-    "@vue/compiler-ssr": 3.2.21
-    "@vue/shared": 3.2.21
+    "@vue/compiler-ssr": 3.2.22
+    "@vue/shared": 3.2.22
   peerDependencies:
-    vue: 3.2.21
-  checksum: 504d79e4b32b9df2df0dd9331acffe77f3dd131040eeef77a80e19c4e72c82a7c01bc01699b72b13325425416e41d83938edf5b70de10d7f6bb97c2a146fb00f
+    vue: 3.2.22
+  checksum: 4c67212d2bab4e2f085aecb5062d2e06b0f34d6f433d439c0206ebac106da9e5627237340f9fc36985a1086f20953103c81d8a83b822468e63476df255dfbd3e
   languageName: node
   linkType: hard
 
@@ -5638,10 +5648,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/shared@npm:3.2.21":
-  version: 3.2.21
-  resolution: "@vue/shared@npm:3.2.21"
-  checksum: 78d3f08b8bb168437a2a66a416de8a3f91e4a15f0fc9def297bc11b6b15c8978005a56c310ebbc7af8f9fdae6b6929f2c291301a099e17ab1a4e43edf68a6f67
+"@vue/shared@npm:3.2.22":
+  version: 3.2.22
+  resolution: "@vue/shared@npm:3.2.22"
+  checksum: 91e562a5b2543313de63dab40ebad41f1ae46fbf860d1f09a019ebc02b11c124952b603d4b774ebb8803f94f52d670a75c4677be30ecf51cea7e97abfcb7304b
   languageName: node
   linkType: hard
 
@@ -7615,23 +7625,23 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
-    "@types/lodash": 4.14.176
+    "@types/lodash": 4.14.177
     "@types/node": 16.11.7
-    "@types/react": 17.0.34
+    "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     "@types/react-helmet": 6.1.4
     "@types/react-reconciler": 0.26.4
     "@types/react-router-dom": 5.3.2
     "@types/signale": 1.4.2
     "@types/weak-napi": 2.0.0
-    "@typescript-eslint/eslint-plugin": 5.3.1
-    "@typescript-eslint/parser": 5.3.1
+    "@typescript-eslint/eslint-plugin": 5.4.0
+    "@typescript-eslint/parser": 5.4.0
     "@vercel/ncc": 0.31.1
     "@yarnpkg/builder": 3.1.0
     chalk: 4.1.2
     codecov: 3.8.3
     dotenv: 10.0.0
-    esbuild: 0.13.13
+    esbuild: 0.13.14
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-import: 2.25.3
@@ -7661,7 +7671,7 @@ __metadata:
     tsconfig-paths: 3.11.0
     tslib: 2.3.1
     type-fest: 2.5.3
-    typedoc: 0.22.8
+    typedoc: 0.22.9
     typescript: 4.4.4
     weak-napi: 2.0.2
   languageName: unknown
@@ -10327,79 +10337,79 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-android-arm64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-android-arm64@npm:0.13.13"
+"esbuild-android-arm64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-android-arm64@npm:0.13.14"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"esbuild-darwin-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-darwin-64@npm:0.13.13"
+"esbuild-darwin-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-darwin-64@npm:0.13.14"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-darwin-arm64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-darwin-arm64@npm:0.13.13"
+"esbuild-darwin-arm64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-darwin-arm64@npm:0.13.14"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"esbuild-freebsd-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-freebsd-64@npm:0.13.13"
+"esbuild-freebsd-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-freebsd-64@npm:0.13.14"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-freebsd-arm64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-freebsd-arm64@npm:0.13.13"
+"esbuild-freebsd-arm64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-freebsd-arm64@npm:0.13.14"
   conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
 
-"esbuild-linux-32@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-32@npm:0.13.13"
+"esbuild-linux-32@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-32@npm:0.13.14"
   conditions: os=linux & cpu=ia32
   languageName: node
   linkType: hard
 
-"esbuild-linux-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-64@npm:0.13.13"
+"esbuild-linux-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-64@npm:0.13.14"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-linux-arm64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-arm64@npm:0.13.13"
+"esbuild-linux-arm64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-arm64@npm:0.13.14"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"esbuild-linux-arm@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-arm@npm:0.13.13"
+"esbuild-linux-arm@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-arm@npm:0.13.14"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"esbuild-linux-mips64le@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-mips64le@npm:0.13.13"
+"esbuild-linux-mips64le@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-mips64le@npm:0.13.14"
   conditions: os=linux & cpu=mips64el
   languageName: node
   linkType: hard
 
-"esbuild-linux-ppc64le@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-linux-ppc64le@npm:0.13.13"
+"esbuild-linux-ppc64le@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-linux-ppc64le@npm:0.13.14"
   conditions: os=linux & cpu=ppc64
   languageName: node
   linkType: hard
@@ -10421,69 +10431,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-netbsd-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-netbsd-64@npm:0.13.13"
+"esbuild-netbsd-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-netbsd-64@npm:0.13.14"
   conditions: os=netbsd & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-openbsd-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-openbsd-64@npm:0.13.13"
+"esbuild-openbsd-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-openbsd-64@npm:0.13.14"
   conditions: os=openbsd & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-sunos-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-sunos-64@npm:0.13.13"
+"esbuild-sunos-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-sunos-64@npm:0.13.14"
   conditions: os=sunos & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-windows-32@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-windows-32@npm:0.13.13"
+"esbuild-windows-32@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-windows-32@npm:0.13.14"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"esbuild-windows-64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-windows-64@npm:0.13.13"
+"esbuild-windows-64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-windows-64@npm:0.13.14"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"esbuild-windows-arm64@npm:0.13.13":
-  version: 0.13.13
-  resolution: "esbuild-windows-arm64@npm:0.13.13"
+"esbuild-windows-arm64@npm:0.13.14":
+  version: 0.13.14
+  resolution: "esbuild-windows-arm64@npm:0.13.14"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.13.13, esbuild@npm:^0.13.4":
-  version: 0.13.13
-  resolution: "esbuild@npm:0.13.13"
+"esbuild@npm:0.13.14, esbuild@npm:^0.13.4":
+  version: 0.13.14
+  resolution: "esbuild@npm:0.13.14"
   dependencies:
-    esbuild-android-arm64: 0.13.13
-    esbuild-darwin-64: 0.13.13
-    esbuild-darwin-arm64: 0.13.13
-    esbuild-freebsd-64: 0.13.13
-    esbuild-freebsd-arm64: 0.13.13
-    esbuild-linux-32: 0.13.13
-    esbuild-linux-64: 0.13.13
-    esbuild-linux-arm: 0.13.13
-    esbuild-linux-arm64: 0.13.13
-    esbuild-linux-mips64le: 0.13.13
-    esbuild-linux-ppc64le: 0.13.13
-    esbuild-netbsd-64: 0.13.13
-    esbuild-openbsd-64: 0.13.13
-    esbuild-sunos-64: 0.13.13
-    esbuild-windows-32: 0.13.13
-    esbuild-windows-64: 0.13.13
-    esbuild-windows-arm64: 0.13.13
+    esbuild-android-arm64: 0.13.14
+    esbuild-darwin-64: 0.13.14
+    esbuild-darwin-arm64: 0.13.14
+    esbuild-freebsd-64: 0.13.14
+    esbuild-freebsd-arm64: 0.13.14
+    esbuild-linux-32: 0.13.14
+    esbuild-linux-64: 0.13.14
+    esbuild-linux-arm: 0.13.14
+    esbuild-linux-arm64: 0.13.14
+    esbuild-linux-mips64le: 0.13.14
+    esbuild-linux-ppc64le: 0.13.14
+    esbuild-netbsd-64: 0.13.14
+    esbuild-openbsd-64: 0.13.14
+    esbuild-sunos-64: 0.13.14
+    esbuild-windows-32: 0.13.14
+    esbuild-windows-64: 0.13.14
+    esbuild-windows-arm64: 0.13.14
   dependenciesMeta:
     esbuild-android-arm64:
       optional: true
@@ -10521,7 +10531,7 @@ __metadata:
       optional: true
   bin:
     esbuild: bin/esbuild
-  checksum: 403ffcf8dbb2c2961e216b4b275e810173da705394958b05da15bbc5b42f3e33a13a661ee39de88caa9af5f4c79a9f883e82b19c3ef387992a7e3a9aedf30870
+  checksum: 8277ea74d04919cfa0c63bb181baa0142737f1e2a40ba80e6f45ebbe72df9d2b42f3f0f374789f1b5aa3d71ebc3e136c3d80946661edb09e4ed782d61cb389dc
   languageName: node
   linkType: hard
 
@@ -12176,7 +12186,7 @@ __metadata:
   resolution: "g@workspace:packages/base"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/replacestream": 4.0.1
     eslint: 7.32.0
@@ -22294,14 +22304,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-standard@npm:^23.0.0":
-  version: 23.0.0
-  resolution: "stylelint-config-standard@npm:23.0.0"
+"stylelint-config-standard@npm:^24.0.0":
+  version: 24.0.0
+  resolution: "stylelint-config-standard@npm:24.0.0"
   dependencies:
     stylelint-config-recommended: ^6.0.0
   peerDependencies:
     stylelint: ^14.0.0
-  checksum: 96b6292d1408d762cb18c01eaf63faf8bafd740d897b4b3c519bb50eefc356e09ea300737c78b842b27b0c2a135c1c6a3ea86d12e2f969caeb4e2f22d857eb97
+  checksum: 5993ede913d81410830639db054a7a3f5c87e56254368be45ce876321106fad1c11ee4cb77247049aaf22e283a393dd90d93dec8f796f8f139ed21eb86a9a168
   languageName: node
   linkType: hard
 
@@ -23419,9 +23429,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.22.8":
-  version: 0.22.8
-  resolution: "typedoc@npm:0.22.8"
+"typedoc@npm:0.22.9":
+  version: 0.22.9
+  resolution: "typedoc@npm:0.22.9"
   dependencies:
     glob: ^7.2.0
     lunr: ^2.3.9
@@ -23432,7 +23442,7 @@ __metadata:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: c54929f219f6663b55ce1314742467d621371c6e063cd41ec79bc5c2e30ddf2736d0ca5e32b22d5a1775e7ff60a6c0bc8d10d929c4955cdc90c681fa4612dcb6
+  checksum: a9728074a357fd48fdcbd661ced298f37e2f5b366e5eb921cf06767eabf87fada30ffe791059272e2336cb1d02f1034116a72ca6f159df811906eb82e03071e3
   languageName: node
   linkType: hard
 
@@ -24260,16 +24270,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:3.2.21":
-  version: 3.2.21
-  resolution: "vue@npm:3.2.21"
+"vue@npm:3.2.22":
+  version: 3.2.22
+  resolution: "vue@npm:3.2.22"
   dependencies:
-    "@vue/compiler-dom": 3.2.21
-    "@vue/compiler-sfc": 3.2.21
-    "@vue/runtime-dom": 3.2.21
-    "@vue/server-renderer": 3.2.21
-    "@vue/shared": 3.2.21
-  checksum: 2c68558f22d784da10b324b914a8f9508cbd3212a003fccb8c17613a300da6929ce71236268c87ee15b64ad8d87db7299619313731496c0656d98d00b01a70b7
+    "@vue/compiler-dom": 3.2.22
+    "@vue/compiler-sfc": 3.2.22
+    "@vue/runtime-dom": 3.2.22
+    "@vue/server-renderer": 3.2.22
+    "@vue/shared": 3.2.22
+  checksum: 30c18428c95f086c6dcef06e39d16feced4d8fd98629df1bc3920bf9d4014e7d97bdbff9f998485fcdc6c00672a04da5e730cafde958fa51b795f17e4e5493ca
   languageName: node
   linkType: hard
 
@@ -24565,16 +24575,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.0":
-  version: 3.2.1
-  resolution: "webpack-sources@npm:3.2.1"
-  checksum: 438ee4759f70ee2d5ae17a2fc5e66a1f71f0ba8ad9de77edfaf4180c82925f6504790c5a1ddfa2a6d409212cd9e7332a6822d6acabb0f39303bc3b14354872e6
+"webpack-sources@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "webpack-sources@npm:3.2.2"
+  checksum: cc81f1f1bfd1c25c7a565598850294b515bcccf7974d0249b4a0c8c607307866ce3f9e8cdef1c74d5facfb0d993944c499cfd4b7c8f52d01359b6671cc5823d4
   languageName: node
   linkType: hard
 
-"webpack@npm:5.64, webpack@npm:5.64.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.59.1, webpack@npm:^5.61.0":
-  version: 5.64.0
-  resolution: "webpack@npm:5.64.0"
+"webpack@npm:5.64, webpack@npm:5.64.1, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.59.1, webpack@npm:^5.61.0":
+  version: 5.64.1
+  resolution: "webpack@npm:5.64.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -24599,13 +24609,13 @@ __metadata:
     tapable: ^2.1.1
     terser-webpack-plugin: ^5.1.3
     watchpack: ^2.2.0
-    webpack-sources: ^3.2.0
+    webpack-sources: ^3.2.2
   peerDependenciesMeta:
     webpack-cli:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 9d32a61d988b0cd34f7c2b9006ac2eec81c36a72acf3b7f01c6c567c2ebc95bb75d422a53a5bea69c36dbfc50c11ac953ec07742da43c55beb512d0f2d4bb400
+  checksum: d2a1baddaed03f2ce70c13501b89935d4bb4af30b4accb0d2dfbd00ec6f491eaf46272346cedcf013b477e131c8cc202ee0b2d2c51ece1cfb713fd2d98b80a52
   languageName: node
   linkType: hard
 

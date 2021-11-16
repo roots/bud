@@ -66,7 +66,7 @@
   "devDependencies": {
     "@types/node": "16.11.7",
     "@types/prettier": "2.4.2",
-    "@types/react": "17.0.34"
+    "@types/react": "17.0.35"
   },
   "peerDependencies": {
     "ink": "^3.0.9",
