@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "7.28.2",
+    "@types/eslint": "7.29.0",
     "@types/jest": "27.0.2",
     "@types/replacestream": "4.0.1",
     "eslint": "7.32.0",

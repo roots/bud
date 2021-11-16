@@ -3297,7 +3297,7 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -3676,7 +3676,7 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -3801,7 +3801,7 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     "@typescript-eslint/parser": ^5.1.0
@@ -3831,7 +3831,7 @@ __metadata:
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     "@vue/compiler-sfc": 3.2.22
@@ -4096,7 +4096,7 @@ __metadata:
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin"
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     autobind-decorator: ^2.4.0
@@ -4588,7 +4588,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:7.28.2, @types/eslint@npm:^7, @types/eslint@npm:^7.28.2":
+"@types/eslint@npm:*, @types/eslint@npm:7.29.0, @types/eslint@npm:^7, @types/eslint@npm:^7.28.2":
+  version: 7.29.0
+  resolution: "@types/eslint@npm:7.29.0"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: df13991c554954353ce8f3bb03e19da6cc71916889443d68d178d4f858b561ba4cc4a4f291c6eb9eebb7f864b12b9b9313051b3a8dfea3e513dadf3188a77bdf
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:7.28.2":
   version: 7.28.2
   resolution: "@types/eslint@npm:7.28.2"
   dependencies:
@@ -12169,7 +12179,7 @@ __metadata:
   resolution: "g@workspace:packages/base"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 7.28.2
+    "@types/eslint": 7.29.0
     "@types/jest": 27.0.2
     "@types/replacestream": 4.0.1
     eslint: 7.32.0
