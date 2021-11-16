@@ -42,12 +42,12 @@ export interface Configuration {
      *
      * @remarks
      * This is a little weird. It is not a standard log level (working around
-     * Signale stuff). It would be better if 'info' and 'debug' were swapped.
+     * Signale stuff). It would be better if 'log' and 'debug' were swapped.
      *
      * Map of levels:
      * - 'error' (least verbose)
      * - 'warn'
-     * - 'info' (default)
+     * - 'log' (default)
      * - 'debug' (most verbose)
      *
      * @public

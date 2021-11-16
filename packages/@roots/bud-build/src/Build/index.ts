@@ -5,7 +5,7 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, format} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
 import chalk from 'chalk'
 import {ensureFile, writeFile} from 'fs-extra'
 import type * as Webpack from 'webpack'
@@ -57,7 +57,7 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.promised('build.make', this.app)
+    await this.app.hooks.promised('event.build.make', this.app)
 
     const build = await this.app.hooks.promised('build')
 
@@ -80,7 +80,10 @@ export class Build
       {},
     )
 
-    await this.app.hooks.promised('build.after', this.app)
+    await this.app.hooks.promised(
+      'event.build.make.after',
+      this.app,
+    )
 
     await this.writeFinalConfig(this.config)
 
@@ -142,7 +145,7 @@ export class Build
       await ensureFile(filePath)
       await writeFile(
         filePath,
-        `module.exports = (${format(config)})`,
+        `module.exports = (${JSON.stringify(config, null, 2)})`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

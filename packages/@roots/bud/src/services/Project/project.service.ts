@@ -197,7 +197,7 @@ export class Project
     const locationKey = `manifest.${this.app.name}.location`
 
     if (this.has(featuresKey)) {
-      this.log('info', {
+      this.log('log', {
         message: 'merging manifest features key',
         suffix: featuresKey,
       })
@@ -208,7 +208,7 @@ export class Project
       this.get('cli.flags')[`location.${locationKey}`]
 
     if (this.has(locationKey) && !locationOverriden) {
-      this.log('info', {
+      this.log('log', {
         message: 'setting location from manifest',
         suffix: JSON.stringify(this.get(locationKey)),
       })

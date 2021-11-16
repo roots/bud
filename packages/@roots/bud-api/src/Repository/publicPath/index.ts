@@ -22,7 +22,7 @@ export const publicPath: publicPath = function () {
   this as Framework
 
   const value = this.hooks.filter('build.output.publicPath')
-  this.api.log('info', {
+  this.api.log('log', {
     message: 'publicPath',
     suffix: value,
   })

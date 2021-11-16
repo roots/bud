@@ -61,10 +61,10 @@ export class Api
   public async registered() {
     await this.callAll()
 
-    this.app.hooks.promise('build.make', async app => {
+    this.app.hooks.promise('event.build.make', async app => {
       await app
 
-      app.log('build.make.promise api calls')
+      app.log('event.build.make.promise api calls')
 
       await this.callAll()
       this.dump(app)
@@ -98,7 +98,7 @@ export class Api
       this: Framework.Framework,
       ...args: any[]
     ): Framework.Framework {
-      this.api.log('info', {
+      this.api.log('log', {
         message: `enqueueing ${chalk.cyan(name)}`,
         suffix: JSON.stringify(args),
       })
@@ -114,7 +114,7 @@ export class Api
    */
   @bind
   public async call(name: string, ...args: any[]) {
-    this.log('info', {
+    this.log('log', {
       message: `executing ${chalk.blue(name)}`,
       suffix: !isEmpty(args) ? JSON.stringify(args) : 'none',
     })

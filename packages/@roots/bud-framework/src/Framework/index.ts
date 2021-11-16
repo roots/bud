@@ -741,7 +741,7 @@ export abstract class Framework {
     options?: PrettyFormatOptions &
       HighlightOptions & {prefix: string},
   ): Framework {
-    if (this.logger.level !== 'info') return
+    if (this.logger.level !== 'log') return
 
     const prettyFormatOptions = omit(options, [
       'prefix',

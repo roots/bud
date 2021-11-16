@@ -41,11 +41,6 @@ export async function config(app: Framework): Promise<void> {
     .on('build.bail', () => app.store.get('build.bail'))
 
     /**
-     * Cache
-     */
-    .hooks.on('build.cache', () => undefined)
-
-    /**
      * Context
      */
     .hooks.on('build.context', () => app.path('project'))
@@ -56,11 +51,6 @@ export async function config(app: Framework): Promise<void> {
     .hooks.on('build.devtool', () =>
       app.store.get('build.devtool'),
     )
-
-    /**
-     * Experiments
-     */
-    .hooks.on('build.experiments', () => undefined)
 
     /**
      * InfrastructureLogging

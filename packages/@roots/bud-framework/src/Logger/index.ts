@@ -75,16 +75,13 @@ export class Logger {
    * @public
    */
   public get interactive(): boolean {
-    const dashboardEnabled =
-      this.app.options.config.features.dashboard
-
     const usesPapertrail = !isUndefined(
       this.flags['log.papertrail'],
     )
       ? !this.flags['log.papertrail']
       : false
 
-    return dashboardEnabled || usesPapertrail
+    return usesPapertrail
   }
 
   /**

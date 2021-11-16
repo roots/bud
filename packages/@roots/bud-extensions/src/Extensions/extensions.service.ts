@@ -62,10 +62,10 @@ export class Extensions
       this.app.store.is('features.inject', false) ||
       !this.app.project?.has('extensions')
     ) {
-      this.log('info', 'injection disabled')
+      this.log('log', 'injection disabled')
       return
     } else {
-      this.log('info', `extension injection enabled`)
+      this.log('log', `extension injection enabled`)
     }
 
     this.log('await', 'injecting project extensions')
@@ -250,7 +250,7 @@ export class Extensions
 
         if (!result) {
           this.log(
-            'info',
+            'log',
             `${controller.name} will not be used in the compilation`,
           )
 

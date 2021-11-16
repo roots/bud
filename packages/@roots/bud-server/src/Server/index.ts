@@ -94,7 +94,7 @@ export class Server
     this.middleware = Object.entries(middleware)
       .filter(([k, v]) => {
         if (this.app.store.is(`server.middleware.${k}`, true)) {
-          this.log('info', `middleware ${k} is enabled.`)
+          this.log('log', `middleware ${k} is enabled.`)
           return true
         }
 
@@ -126,7 +126,10 @@ export class Server
     this.application
       .route('/__roots/config.json')
       .get((_req, res) => {
-        this.log('success', 'GET', '/__roots/config.json')
+        this.log('success', {
+          message: 'GET',
+          suffix: '/__roots/config.json',
+        })
         res.send({
           ...this.app.store.all(),
         })
@@ -158,7 +161,7 @@ export class Server
     const watchFiles = await this.getWatchedFiles()
     if (watchFiles.length) {
       watchFiles.forEach(file => {
-        this.log('info', `watching`, file, `for changes`)
+        this.log('log', `watching`, file, `for changes`)
       })
       this.watcher = chokidar.watch(watchFiles)
     }

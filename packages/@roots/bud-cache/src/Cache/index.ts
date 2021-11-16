@@ -19,7 +19,7 @@ export class Cache
    */
   public get enabled(): boolean {
     if (this.app.store.is('cli.flags.cache', true)) {
-      this.log('info', {
+      this.log('log', {
         message: '--cache',
         suffix: this.app.store.get('cli.flags.cache'),
       })
@@ -28,7 +28,7 @@ export class Cache
     }
 
     if (this.app.store.is('features.cache', true)) {
-      this.log('info', {
+      this.log('log', {
         message: 'bud.store',
         suffix: this.app.store.get('features.cache'),
       })
@@ -49,7 +49,7 @@ export class Cache
     const cache = this.app.store.get('cache')
 
     if (!isUndefined(flags['cache.type'])) {
-      this.log('info', {
+      this.log('log', {
         message: '--cache.type flag',
         suffix: flags['cache.type'],
       })
@@ -58,7 +58,7 @@ export class Cache
     }
 
     if (!isUndefined(cache.type)) {
-      this.log('info', {
+      this.log('log', {
         message: 'bud.store',
         suffix: cache.type,
       })

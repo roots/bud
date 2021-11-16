@@ -48,7 +48,7 @@ export class Env
     }
 
     this.getEntries().forEach(([k, v]) => {
-      this.log('info', `value set`, k, '=', v)
+      this.log('log', `value set`, k, '=', v)
     })
   }
 
@@ -87,7 +87,7 @@ export class Env
 
         if (!isPublic) return false
 
-        this.log('info', {
+        this.log('log', {
           message: 'public env',
           suffix: JSON.stringify({key: k, value: v, isPublic}),
         })
@@ -100,7 +100,7 @@ export class Env
           ? rawValue
           : JSON.stringify(rawValue)
 
-        this.log('info', {
+        this.log('log', {
           message: `public env retrieved ${interpolated} => ${value}`,
         })
 

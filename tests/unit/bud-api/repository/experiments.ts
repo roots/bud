@@ -23,11 +23,12 @@ describe('bud.experiments', function () {
     expect(bud.experiments).toBeInstanceOf(Function)
   })
 
-  it('enables build.config.experiments', () => {
+  it('enables build.config.experiments', async () => {
     bud.experiments('lazyCompilation', true)
+    await bud.build.make()
 
-    expect(bud.hooks.filter('build.experiments')).toEqual({
-      lazyCompilation: true,
-    })
+    const output = await bud.hooks.promised('build.experiments')
+
+    expect(output).toEqual({lazyCompilation: true})
   })
 })

@@ -30,7 +30,7 @@ export class Notifier {
   }
 
   public notify(app: Bud, props) {
-    const group = app.project.getProjectInfo().name ?? app.name
+    const group = app.name
 
     const title =
       props?.title || app.compiler.stats.errors.length > 0
@@ -46,6 +46,7 @@ export class Notifier {
       title,
       message,
       group,
+
       contentImage: resolve(__dirname, '../assets/bud-icon.jpg'),
     })
   }

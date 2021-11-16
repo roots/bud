@@ -137,7 +137,9 @@ export default class Build extends Command {
     await this.prime(Build)
     await this.build()
 
-    this.app.hooks.on('done', [this.notifier.notify])
+    this.app.hooks.on('event.compiler.done', stats =>
+      this.notifier.notify(this.app, stats),
+    )
     await this.app.api.call('run', [])
   }
 }

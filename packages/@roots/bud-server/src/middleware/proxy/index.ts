@@ -1,3 +1,4 @@
+import {Options} from 'http-proxy-middleware'
 import {
   createProxyMiddleware,
   responseInterceptor,
@@ -50,25 +51,28 @@ export default function proxy(app: Framework) {
   /**
    * @filter proxy.options
    */
-  const options = app.hooks.filter('proxy.options', {
-    autoRewrite: true,
-    changeOrigin: true,
-    target,
-    cookieDomainRewrite: {
-      [target]: dev,
-    },
-    logProvider: () => app.server.logger,
-    onProxyRes: responseInterceptor(interceptor),
-    selfHandleResponse: true,
-    headers: {
-      'X-Proxy-By': '@roots/bud',
-    },
-    logLevel: 'info',
-    ssl: false,
-    secure: false,
-    ws: true,
-    ...(app.store.get('server.proxy') ?? {}),
-  })
+  const options = app.hooks.filter(
+    'proxy.options',
+    (): Options => ({
+      autoRewrite: true,
+      changeOrigin: true,
+      target,
+      cookieDomainRewrite: {
+        [target]: dev,
+      },
+      logProvider: () => app.server.logger,
+      onProxyRes: responseInterceptor(interceptor),
+      selfHandleResponse: true,
+      headers: {
+        'X-Proxy-By': '@roots/bud',
+      },
+      logLevel: 'info',
+      ssl: false,
+      secure: false,
+      ws: true,
+      ...(app.store.get('server.proxy') ?? {}),
+    }),
+  )
 
   return createProxyMiddleware(options)
 }

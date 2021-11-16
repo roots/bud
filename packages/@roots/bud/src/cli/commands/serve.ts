@@ -50,7 +50,10 @@ export default class Serve extends Build {
     await this.prime(Serve)
     await this.build()
 
-    this.app.hooks.on('done', [this.notifier.notify])
-    await this.app.run()
+    this.app.hooks.on('event.compiler.done', stats =>
+      this.notifier.notify(this.app, stats),
+    )
+
+    await this.app.api.call('run', [])
   }
 }

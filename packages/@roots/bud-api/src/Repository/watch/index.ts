@@ -22,7 +22,7 @@ export const watch: watch = function (files) {
   })
 
   if (!this.root.isDevelopment || !this.root.server) {
-    this.root.api.log('info', {
+    this.root.api.log('log', {
       message: 'skipping watch files',
       suffix: 'production mode is set',
     })

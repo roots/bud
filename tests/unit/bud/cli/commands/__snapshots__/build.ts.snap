@@ -152,6 +152,13 @@ Object {
     "parse": [Function],
     "type": "option",
   },
+  "log.min": Object {
+    "allowNo": true,
+    "default": true,
+    "description": "remove formatting from logged objects",
+    "parse": [Function],
+    "type": "boolean",
+  },
   "log.papertrail": Object {
     "allowNo": true,
     "default": true,

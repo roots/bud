@@ -15,7 +15,7 @@ export const INSTANCE_CONFIG: SignaleConfig = {
   displayBadge: true,
   displayDate: false,
   displayFilename: false,
-  displayLabel: true,
+  displayLabel: false,
   displayTimestamp: false,
   underlineLabel: false,
   underlineMessage: false,
@@ -56,7 +56,7 @@ export interface TypesFactory {
 }
 
 export const LEVEL = {
-  vvvv: 'info',
+  vvvv: 'log',
   vvv: 'timer',
   vv: 'warn',
   v: 'error',
@@ -86,7 +86,7 @@ export const types: TypesFactory = (
   info: {
     badge: figures.info,
     color: 'magenta',
-    label: 'info',
+    label: 'log',
     logLevel: LEVEL['vvv'],
   },
   success: {
@@ -135,7 +135,7 @@ export const types: TypesFactory = (
   debug: {
     badge: figures.circleFilled,
     color: 'red',
-    label: 'info',
+    label: 'log',
     logLevel: LEVEL['vvvv'],
   },
   await: {

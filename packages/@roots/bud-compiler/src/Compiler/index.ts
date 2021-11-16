@@ -89,11 +89,16 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invoke(config: any) {
-    await this.app.hooks.promised('compiler.invoke', config)
+    await this.app.hooks.promised(
+      'event.compiler.invoke',
+      config,
+    )
 
     this.instance = webpack(config)
 
     this.instance.hooks.done.tap(config[0].name, async stats => {
+      this.app.hooks.filter('event.compiler.done', stats)
+
       stats && Object.assign(this.stats, stats.toJson())
 
       if (this.app.isProduction) {
@@ -111,7 +116,7 @@ export class Compiler extends Service implements Contract {
       this.progress = args
     }).apply(this.instance)
 
-    this.app.hooks.filter('after.compiler')
+    this.app.hooks.filter('event.compiler.after')
 
     return this.instance
   }

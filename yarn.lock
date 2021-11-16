@@ -3135,8 +3135,6 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.15.8
     "@babel/preset-env": ^7.15.8
     "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-api": "workspace:packages/@roots/bud-api"
-    "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/fs-extra": 9.0.13
     "@types/node": 16.11.7
@@ -3157,6 +3155,7 @@ __metadata:
     "@types/lodash": 4.14.176
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.7
+    "@types/safe-json-stringify": ^1
     "@types/svgo": 2.6.0
     autobind-decorator: ^2.4.0
     css-loader: ^6.4.0
@@ -3172,6 +3171,7 @@ __metadata:
     remark-html: ^15.0.0
     remark-loader: 4.0.0
     resolve-url-loader: ^4.0.0
+    safe-json-stringify: ^1.2.0
     style-loader: ^3.3.1
     svgo: ^2.7.0
     tslib: ^2.3.1
@@ -5054,6 +5054,13 @@ __metadata:
   version: 0.12.1
   resolution: "@types/retry@npm:0.12.1"
   checksum: 5f46b2556053655f78262bb33040dc58417c900457cc63ff37d6c35349814471453ef511af0cec76a540c601296cd2b22f64bab1ab649c0dacc0223765ba876c
+  languageName: node
+  linkType: hard
+
+"@types/safe-json-stringify@npm:^1":
+  version: 1.1.2
+  resolution: "@types/safe-json-stringify@npm:1.1.2"
+  checksum: 2dabb5b02bf32fc1a0e7f51f4e66c22778b811790e9d433a39389941f1719dab4b9287ee658134b3985e5b2c716786b3d614ddb6cf842d4d43906584085bb03f
   languageName: node
   linkType: hard
 
@@ -21010,6 +21017,13 @@ __metadata:
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: b99c4b41fdd67a6aaf280fcd05e9ffb0813654894223afb78a31f14a19ad220bba8aba1cb14eddce1fcfb037155fe6de4e861784eb434f7d11ed58d1e70dd491
+  languageName: node
+  linkType: hard
+
+"safe-json-stringify@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "safe-json-stringify@npm:1.2.0"
+  checksum: 5bb32db6d6a3ceb3752df51f4043a412419cd3d4fcd5680a865dfa34cd7e575ba659c077d13f52981ced084061df9c75c7fb12e391584d4264e6914c1cd3d216
   languageName: node
   linkType: hard
 
