@@ -45,25 +45,31 @@ export interface use {
  *
  * @public
  */
-export const use: use = async function (source) {
-  const addExtension = async (source: Source) => {
+export const use: use = async function (
+  source,
+): Promise<Framework> {
+  const bud = this as Framework
+
+  const addExtension = async (
+    source: Source,
+  ): Promise<Framework> => {
     if (!source) {
-      this.error(`extension source is not defined. skipping`)
+      bud.error(`extension source is not defined. skipping`)
     }
 
     if (!source.hasOwnProperty('name')) {
       source.name = generateName(source)
     }
 
-    if (this.extensions.has(source.name)) {
-      this.warn(
+    if (bud.extensions.has(source.name)) {
+      bud.warn(
         `extension "${source.name}" is already registered. skipping`,
       )
 
-      return this
+      return bud
     }
 
-    await this.extensions.add(
+    await bud.extensions.add(
       isCompilerPlugin(source)
         ? {...source, make: () => source}
         : source,
@@ -76,5 +82,5 @@ export const use: use = async function (source) {
         source.map(async ext => await addExtension(ext)),
       )
 
-  return this
+  return bud
 }

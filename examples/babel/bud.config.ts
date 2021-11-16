@@ -1,8 +1,22 @@
-// @ts-check
+import '@roots/bud-babel'
+import {Bud} from '@roots/bud'
 
-module.exports = async app => {
-  app
-    .tap(({babel}) =>
+module.exports = async (app: Bud) => {
+  await app
+    .entry('app', '*.{js,css}')
+    .when(app.isProduction, app => {
+      app.splitChunks().minimize().runtime('single')
+    })
+    .proxy({
+      target: 'http://localhost:8080',
+    })
+    .tap(app => {
+      app.hooks.on('proxy.replace', replacements => [
+        ...(replacements ?? []),
+        ['some', 'proxied'],
+      ])
+    })
+    .tap(({babel}: Bud) =>
       babel
         .setPresets({
           '@babel/preset-env': require.resolve(
@@ -21,24 +35,10 @@ module.exports = async app => {
           '@babel/plugin-syntax-dynamic-import': require.resolve(
             '@babel/plugin-syntax-dynamic-import',
           ),
-
           '@babel/plugin-proposal-class-properties':
             require.resolve(
               '@babel/plugin-proposal-class-properties',
             ),
         }),
-    )
-    .entry('app', '*.{js,css}')
-    .when(app.isProduction, app => {
-      app.splitChunks().minimize().runtime('single')
-    })
-    .proxy({
-      target: 'http://localhost:8080',
-    })
-    .tap(app =>
-      app.hooks.on('proxy.replace', replacements => [
-        ...(replacements ?? []),
-        ['some', 'proxied'],
-      ]),
     )
 }

@@ -5,8 +5,9 @@ import {Service} from './Service'
  *
  * @public @core @container
  */
-interface Api extends Service {
-  name: string
+export interface Api extends Service {
+  trace: Array<[string, ...any[]]>
+  queue: Array<[string, ...any[]]>
+  call: (name: string, args: any) => Promise<void>
+  callAll: () => Promise<void>
 }
-
-export {Api}

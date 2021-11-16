@@ -1,6 +1,8 @@
 import {Container} from '@roots/container'
-import {highlight} from 'cli-highlight'
+import {highlight, HighlightOptions} from 'cli-highlight'
+import {omit} from 'lodash'
 import {format} from 'pretty-format'
+import {PrettyFormatOptions} from 'pretty-format/build/types'
 
 import {
   Api,
@@ -736,25 +738,28 @@ export abstract class Framework {
   @bind
   public dump(
     obj: any,
-    options?: {
-      prefix?: any
-      language?: string
-      ignoreIllegals?: boolean
-      callToJSON?: boolean
-      printFunctionName?: boolean
-    },
-    maxDepth?,
+    options?: PrettyFormatOptions &
+      HighlightOptions & {prefix: string},
   ): Framework {
     if (this.logger.level !== 'info') return
+
+    const prettyFormatOptions = omit(options, [
+      'prefix',
+      'language',
+      'ignoreIllegals',
+    ])
 
     // eslint-disable-next-line no-console
     console.log(
       options?.prefix ?? '',
       highlight(
         format(obj, {
-          callToJSON: options?.callToJSON ?? false,
-          maxDepth: maxDepth ?? 8,
-          printFunctionName: options?.printFunctionName ?? false,
+          callToJSON: false,
+          maxDepth: 8,
+          printFunctionName: false,
+          escapeString: false,
+          min: this.options.config.cli.flags['log.min'],
+          ...prettyFormatOptions,
         }),
         {
           language: options?.language ?? 'typescript',

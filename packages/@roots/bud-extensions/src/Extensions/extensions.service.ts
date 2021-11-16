@@ -69,7 +69,6 @@ export class Extensions
     }
 
     this.log('await', 'injecting project extensions')
-    this.app.dump(this.app, {}, 4)
 
     await Promise.all(
       this.app.project.getKeys('extensions').map(async pkg => {
@@ -245,8 +244,25 @@ export class Extensions
     this.log('time', 'extensions.make')
 
     const plugins = this.getValues()
+      .filter(controller => controller._module.make)
       .map((controller: Controller) => {
-        return controller.make()
+        const result = controller.make()
+
+        if (!result) {
+          this.log(
+            'info',
+            `${controller.name} will not be used in the compilation`,
+          )
+
+          return result
+        }
+
+        this.log(
+          'success',
+          `${controller.name} will be used in the compilation`,
+        )
+
+        return result
       })
       .filter(Boolean)
 

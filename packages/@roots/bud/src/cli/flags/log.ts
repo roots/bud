@@ -5,6 +5,7 @@ export interface log {
   ['log.level']: flags.IFlag<string>
   ['log.papertrail']: flags.IFlag<boolean>
   ['log.secret']: flags.IFlag<Array<string>>
+  ['log.min']: flags.IFlag<boolean>
 }
 
 export const log: log = {
@@ -24,6 +25,12 @@ export const log: log = {
     default: true,
     allowNo: true,
     description: 'preserve logger output',
+  }),
+
+  ['log.min']: flags.boolean({
+    default: true,
+    allowNo: true,
+    description: 'remove formatting from logged objects',
   }),
 
   ['log.secret']: flags.string({

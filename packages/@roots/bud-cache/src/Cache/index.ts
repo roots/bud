@@ -90,7 +90,7 @@ export class Cache
   public async boot() {
     this.version = await this.hashFileContents()
     if (this.enabled) {
-      this.app.persist(this.type)
+      this.app.api.call('persist', this.type)
     }
   }
 

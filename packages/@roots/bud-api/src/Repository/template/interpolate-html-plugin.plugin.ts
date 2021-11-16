@@ -1,10 +1,6 @@
-import type {Index} from '@roots/bud-framework'
+import type {Framework, Index} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import type {
-  Compilation,
-  Compiler,
-  WebpackPluginInstance,
-} from 'webpack'
+import type {Compilation, Compiler} from 'webpack'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 
@@ -21,20 +17,7 @@ export class InterpolateHtmlPlugin {
    */
   public name = 'interpolate-html-plugin'
 
-  /**
-   * {@link HtmlWebpackPlugin}
-   *
-   * @public
-   */
-  public htmlWebpackPlugin: HtmlWebpackPlugin &
-    WebpackPluginInstance
-
-  /**
-   * {@link Index} of regular expressions
-   *
-   * @public
-   */
-  public replacements: Index<RegExp>
+  public bud?: () => Framework
 
   /**
    * Class constructor
@@ -45,22 +28,13 @@ export class InterpolateHtmlPlugin {
    * @public
    */
   public constructor(
-    htmlWebpackPlugin: HtmlWebpackPlugin,
-    replacements: Index<RegExp>,
+    public htmlWebpackPlugin: HtmlWebpackPlugin,
+    public replacements: Index<RegExp>,
+    bud?: Framework,
   ) {
-    this.htmlWebpackPlugin = htmlWebpackPlugin
-    this.replacements = replacements
-  }
-
-  /**
-   * Returns an escaped regular expression string
-   *
-   * @public
-   */
-  public escapeRegExp(string: string): string {
-    return string
-      .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
-      .replace(/-/g, '\\x2d')
+    if (bud) {
+      this.bud = () => bud
+    }
   }
 
   /**
@@ -87,20 +61,39 @@ export class InterpolateHtmlPlugin {
   public modifyHtmlWebpackPluginOptions(
     compilation: Compilation,
   ): void {
-    this.htmlWebpackPlugin
-      .getHooks(compilation)
-      .afterTemplateExecution.tap(
-        'InterpolateHtmlPlugin',
-        (data: any) => {
-          Object.entries(this.replacements).forEach(
-            ([key, value]) => {
-              data.html = data.html.replace(
-                new RegExp(`%${this.escapeRegExp(key)}%`, 'g'),
-                value,
-              )
-            },
-          )
-        },
-      )
+    HtmlWebpackPlugin.getHooks(
+      compilation,
+    ).afterTemplateExecution.tap(
+      'InterpolateHtmlPlugin',
+      (data: any) => {
+        this.bud().dump(this.replacements, {
+          prefix: 'template replacements',
+          language: 'html',
+          callToJSON: false,
+        })
+        this.bud().dump(data.html, {
+          prefix: 'html data',
+          language: 'html',
+          callToJSON: false,
+        })
+        Object.entries(this.replacements).forEach(
+          ([key, value]) => {
+            data.html = data.html.replaceAll(
+              new RegExp(`%${key}%`, 'g'),
+              value,
+            )
+          },
+        )
+
+        this.bud().dump(data.html, {
+          prefix: 'html with replacements',
+          language: 'html',
+          callToJSON: false,
+          escapeString: false,
+        })
+
+        return data
+      },
+    )
   }
 }

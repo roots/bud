@@ -223,6 +223,7 @@ export const config: Configuration = {
     'html-webpack-plugin': {
       alwaysWriteToDisk: true,
       inject: true,
+      template: 'auto',
     },
     'interpolate-html-plugin': {},
     'mini-css-extract-plugin': {},
@@ -260,13 +261,17 @@ export const config: Configuration = {
     port: 3000,
     methods: ['GET', 'HEAD'],
   },
+
+  /**
+   * Terminal styling
+   */
   theme: {
     spacing: 1,
     colors: {
       foreground: '#FFFFFF',
       faded: '#6C758F',
-      primary: '#545DD7',
-      primaryAlt: '#663399',
+      primary: '#663399',
+      primaryAlt: '#545DD7',
       error: '#dc3545',
       errorAlt: '#b22222',
       warning: '#FF611A',

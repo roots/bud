@@ -1,9 +1,13 @@
 import type {Framework} from '@roots/bud-framework'
+import {dirname} from 'path/posix'
+import pkgUp from 'pkg-up'
 import type {Configuration} from 'webpack'
 
-export function config(app: Framework): void {
-  app.hooks
-    .on('build', () => ({
+export async function config(app: Framework): Promise<void> {
+  await app.hooks.promised('build', async () => {
+    const resolve = await app.hooks.promised('build.resolve')
+
+    return {
       bail: app.hooks.filter('build.bail'),
       cache: app.hooks.filter('build.cache'),
       context: app.hooks.filter('build.context'),
@@ -25,17 +29,16 @@ export function config(app: Framework): void {
       plugins: app.hooks.filter('build.plugins'),
       profile: app.hooks.filter('build.profile'),
       recordsPath: app.hooks.filter('build.recordsPath'),
-      resolve: app.hooks.filter('build.resolve'),
+      resolve,
       stats: app.hooks.filter('build.stats'),
       target: app.hooks.filter('build.target'),
       watch: app.hooks.filter('build.watch'),
       watchOptions: app.hooks.filter('build.watchOptions'),
-    }))
+    }
+  })
 
-    /**
-     * Bail
-     */
-    .hooks.on('build.bail', () => app.store.get('build.bail'))
+  app.hooks
+    .on('build.bail', () => app.store.get('build.bail'))
 
     /**
      * Cache
@@ -207,23 +210,50 @@ export function config(app: Framework): void {
     /**
      * Resolve
      */
-    .hooks.on('build.resolve', () => ({
-      alias: app.hooks.filter('build.resolve.alias'),
-      extensions: app.hooks.filter(
+    .hooks.on('build.resolve', async () => {
+      const modules = await app.hooks.promised(
+        'build.resolve.modules',
+      )
+      const alias = await app.hooks.filter('build.resolve.alias')
+      const extensions = app.hooks.filter(
         'build.resolve.extensions',
         app.store.get('build.resolve.extensions'),
-      ),
-      modules: app.hooks.filter('build.resolve.modules'),
-    }))
+      )
+
+      return {modules, alias, extensions}
+    })
     .hooks.on('build.resolve.alias', {})
-    .hooks.on('build.resolve.modules', () => [
-      ...new Set([
-        app.hooks.filter('location.src'),
-        app.hooks.filter('location.modules'),
-        ...(app.project?.get('resolve') ?? []),
-        ...(app.root?.project.get('resolve') ?? []),
-      ]),
-    ])
+    .hooks.promise(
+      'build.resolve.modules',
+      async (value?: any): Promise<any> => {
+        const budPkg = await pkgUp({
+          cwd: require.resolve('@roots/bud'),
+        })
+
+        const bud = dirname(budPkg)
+
+        const roots = bud
+          .split('/')
+          .splice(0, bud.split('/').length - 1)
+          .join('/')
+
+        const peers = roots
+          .split('/')
+          .splice(0, roots.split('/').length - 1)
+          .join('/')
+
+        return [
+          ...new Set([
+            ...(value ?? []),
+            app.hooks.filter('location.src'),
+            app.hooks.filter('location.modules'),
+            peers,
+            ...(app.project?.get('resolve') ?? []),
+            ...(app.root?.project.get('resolve') ?? []),
+          ]),
+        ]
+      },
+    )
 
     /**
      * Stats

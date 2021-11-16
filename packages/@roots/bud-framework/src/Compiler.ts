@@ -65,7 +65,7 @@ interface Compiler extends Service {
    *
    * @public
    */
-  compile(): Promise<Compiler.Instance>
+  compile(): Promise<any>
 
   /**
    * Callback for {@link (Framework:namespace).Hooks | Framework.Hooks} `before` filter

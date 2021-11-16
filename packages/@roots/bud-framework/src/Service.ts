@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
-import {isObject, isUndefined} from 'lodash'
+import {isString, isUndefined} from 'lodash'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
@@ -62,21 +62,30 @@ export abstract class Service<
    */
   @bind
   public log(type: string, ...messages: any[]) {
-    this.logger[type](
-      ...messages.reduce(
-        (acc, message: string | {suffix?: string}) => {
-          if (
-            isObject(message) &&
-            !isUndefined(message.suffix)
-          ) {
-            message.suffix = chalk.dim`${message.suffix}`
-          }
+    this.app.store.is('features.log', true) &&
+      this.logger[type](
+        ...messages.reduce(
+          (
+            acc,
+            loggedItem:
+              | string
+              | {message?: string; suffix?: string},
+          ) => {
+            if (
+              typeof loggedItem !== 'string' &&
+              !isUndefined(loggedItem?.suffix) &&
+              isString(loggedItem?.suffix)
+            ) {
+              loggedItem.suffix = chalk.dim(
+                loggedItem.suffix.replace(process.cwd(), '.'),
+              )
+            }
 
-          return [...acc, message]
-        },
-        [],
-      ),
-    )
+            return [...acc, loggedItem]
+          },
+          [],
+        ),
+      )
     return this
   }
 

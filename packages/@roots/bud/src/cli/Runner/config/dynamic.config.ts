@@ -64,12 +64,19 @@ class Configuration {
 
   public async invoke(callback, path) {
     try {
+      if (!isFunction(callback)) {
+        this.logger.error({message: path})
+        throw new Error(`${path} is not a function`)
+      }
+
       this.logger.await({
         message: `calling exported function`,
         suffix: chalk.dim(path),
       })
 
       await callback(this.app)
+      await this.app.extensions.processQueue()
+      await this.app.api.callAll()
 
       this.logger.success({
         message: `calling exported function`,

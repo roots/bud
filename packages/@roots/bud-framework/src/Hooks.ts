@@ -39,7 +39,7 @@ import * as Extension from './Extensions/Extension'
  * )
  * ```
  *
- * @public @core
+ * @public
  */
 interface Hooks extends Service<Hooks.Repository> {
   /**
@@ -65,6 +65,21 @@ interface Hooks extends Service<Hooks.Repository> {
   on(id: Hooks.Name, callback: Hooks.Hook): Framework
 
   /**
+   * Async version of hook.on
+   *
+   * @example
+   * ```js
+   * app.hooks.on(
+   *   'namespace.name.value',
+   *   value => 'replaced by this string',
+   * )
+   * ```
+   *
+   * @public
+   */
+  promise(id: Hooks.Name, callback: Hooks.PromiseHook): Framework
+
+  /**
    * The other side of bud.hooks.on. Passes a key and a value. If
    * any filters are registered on that key they will transform
    * the output before it is returned.
@@ -80,6 +95,24 @@ interface Hooks extends Service<Hooks.Repository> {
    * @public
    */
   filter<T = any>(id: Hooks.Name, seed?: any): T
+
+  /**
+   * Async version of hook.filter
+   *
+   * @example
+   * ```js
+   * bud.hooks.filter(
+   *   'namespace.name.event',
+   *   ['array', 'of', 'items'],
+   * )
+   * ```
+   *
+   * @public
+   */
+  promised<T = any>(
+    id: `${Hooks.Name & string}`,
+    value?: any,
+  ): Promise<T>
 }
 
 /**
@@ -92,6 +125,8 @@ namespace Hooks {
    * Hook signature
    */
   export type Hook<T = any> = ((value?: T) => T) | T
+
+  export type PromiseHook<T = any> = (value?: T) => Promise<T>
 
   /**
    * Hooks repository

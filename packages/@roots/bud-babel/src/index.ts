@@ -34,4 +34,22 @@ declare module '@roots/bud-framework' {
   }
 }
 
+declare module '@roots/bud' {
+  interface Bud {
+    babel: Config
+  }
+
+  interface Modules {
+    '@roots/bud-babel': typeof BudBabelExtension
+  }
+
+  interface Loaders {
+    babel: Loader
+  }
+
+  interface Items {
+    babel: Item
+  }
+}
+
 export const {name, mixin, register} = BudBabelExtension

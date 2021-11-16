@@ -5,7 +5,8 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, format} from '@roots/bud-support'
+import chalk from 'chalk'
 import {ensureFile, writeFile} from 'fs-extra'
 import type * as Webpack from 'webpack'
 
@@ -56,11 +57,11 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    this.app.hooks.filter('build.before')
+    await this.app.hooks.promised('build.make', this.app)
 
-    this.config = Object.entries(
-      this.app.hooks.filter('build'),
-    ).reduce(
+    const build = await this.app.hooks.promised('build')
+
+    this.config = Object.entries(build).reduce(
       (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
           this.log(`warn`, {
@@ -70,12 +71,16 @@ export class Build
           })
           return all
         }
+
+        this.app.dump(value, {
+          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
+        })
         return {...all, [key]: value}
       },
       {},
     )
 
-    this.app.hooks.filter('build.after', this.app)
+    await this.app.hooks.promised('build.after', this.app)
 
     await this.writeFinalConfig(this.config)
 
@@ -122,7 +127,7 @@ export class Build
       .getEntries()
       .reduce(componentReducer, this.items) as Items
 
-    config(this.app)
+    await config(this.app)
   }
 
   @bind
@@ -137,7 +142,7 @@ export class Build
       await ensureFile(filePath)
       await writeFile(
         filePath,
-        `module.exports = (${JSON.stringify(config, null, 2)})`,
+        `module.exports = (${format(config)})`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

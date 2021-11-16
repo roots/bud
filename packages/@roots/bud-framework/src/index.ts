@@ -124,7 +124,9 @@ export interface AsyncFactory<P extends any[], T> {
  * @public
  */
 export interface Tapable<P extends any[] = [Framework], T = any>
-  extends Factory<[P], T> {}
+  extends Factory<[P], T> {
+  (this: P, ...args: P): T
+}
 
 /**
  * At least one parameter is required

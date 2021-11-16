@@ -55,11 +55,11 @@ export interface TypesFactory {
   (config: Partial<Configuration>): types
 }
 
-export const enum LEVEL {
-  'vvvv' = 'info',
-  'vvv' = 'timer',
-  'vv' = 'warn',
-  'v' = 'error',
+export const LEVEL = {
+  vvvv: 'info',
+  vvv: 'timer',
+  vv: 'warn',
+  v: 'error',
 }
 
 export const types: TypesFactory = (

@@ -4,6 +4,7 @@ module.exports = async app => {
       .setPath('dist', 'dist/theme')
       .entry('theme', ['theme.js', 'theme.css'])
       .minimize()
+      .template()
   })
 
   await app.make('plugin', async plugin => {

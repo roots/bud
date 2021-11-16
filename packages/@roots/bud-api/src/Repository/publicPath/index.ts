@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 
 export interface publicPath {
-  (this: Framework): string
+  (): string
 }
 
 /**
@@ -19,5 +19,12 @@ export interface publicPath {
  * @public @config
  */
 export const publicPath: publicPath = function () {
-  return this.hooks.filter('build.output.publicPath')
+  this as Framework
+
+  const value = this.hooks.filter('build.output.publicPath')
+  this.api.log('info', {
+    message: 'publicPath',
+    suffix: value,
+  })
+  return value
 }

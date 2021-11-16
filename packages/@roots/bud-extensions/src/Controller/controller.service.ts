@@ -187,6 +187,13 @@ export class Controller {
       return this._module
     }
 
+    if (!this.options.isEmpty())
+      this.app.dump(this.options.all(), {
+        prefix: `${chalk.bgBlue(`${this.app.name}`)} ${
+          this.name
+        } ctor options`,
+      })
+
     return isFunction(this._module.make)
       ? this._module.make(this.options, this.app)
       : this._module.make
@@ -241,6 +248,7 @@ export class Controller {
       message: `register called`,
       suffix: chalk.dim`${this.name}`,
     })
+
     return this
   }
 
@@ -254,6 +262,8 @@ export class Controller {
     const methodMap = isFunction(this._module.api)
       ? this._module.api(this.app)
       : this._module.api
+
+    await this.app.api.callAll()
 
     if (!isObject(methodMap)) return
 

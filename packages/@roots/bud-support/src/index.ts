@@ -38,6 +38,7 @@ export {
 export {dotenv} from './external/dotenv'
 export {dotenvExpand} from './external/dotenv-expand'
 export {Express} from './external/express'
+export {format, prettyFormat} from './external/pretty-format'
 export {fs} from './external/fs-extra'
 export * as globby from './external/globby'
 export {humanReadable} from './external/human-readable'

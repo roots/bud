@@ -52,11 +52,17 @@ export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin =
      *
      * @public
      */
-    make: options =>
-      new InterpolateHtmlPlugin(
+    make: (options, app) => {
+      app.dump(options.all(), {
+        prefix: `${app.name} interpolate-html-plugin made with options`,
+      })
+
+      return new InterpolateHtmlPlugin(
         HtmlWebpackPlugin as any,
         options.all(),
-      ),
+        app,
+      )
+    },
 
     /**
      * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.when}

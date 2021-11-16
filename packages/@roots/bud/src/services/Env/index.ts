@@ -1,6 +1,7 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, dotenv, dotenvExpand} from '@roots/bud-support'
+import {dotenv, dotenvExpand} from '@roots/bud-support'
+import {bind, once} from 'helpful-decorators'
 import {isString} from 'lodash'
 
 /**
@@ -78,19 +79,33 @@ export class Env
    * @decorator `@bind`
    */
   @bind
+  @once
   public getPublicEnv(): Record<string, any> {
-    if (this.isEmpty()) {
-      return {}
-    }
-
     return this.getEntries()
-      .filter(([k]: [string, string]) =>
-        k.includes('APP_PUBLIC'),
-      )
-      .map(([k, v]: [string, string]) => [
-        k.replace('APP_PUBLIC_', ''),
-        isString(v) ? v : JSON.stringify(v),
-      ])
+      .filter(([k, v]: [string, string]) => {
+        const isPublic = k.startsWith('PUBLIC_')
+
+        if (!isPublic) return false
+
+        this.log('info', {
+          message: 'public env',
+          suffix: JSON.stringify({key: k, value: v, isPublic}),
+        })
+
+        return isPublic
+      })
+      .map(([rawKey, rawValue]: [string, string]) => {
+        const interpolated = rawKey.replace('PUBLIC_', '')
+        const value = isString(rawValue)
+          ? rawValue
+          : JSON.stringify(rawValue)
+
+        this.log('info', {
+          message: `public env retrieved ${interpolated} => ${value}`,
+        })
+
+        return [interpolated, value]
+      })
       .reduce((a, [k, v]) => ({...a, [k]: v}), {})
   }
 }

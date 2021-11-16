@@ -138,6 +138,6 @@ export default class Build extends Command {
     await this.build()
 
     this.app.hooks.on('done', [this.notifier.notify])
-    await this.app.run()
+    await this.app.api.call('run', [])
   }
 }

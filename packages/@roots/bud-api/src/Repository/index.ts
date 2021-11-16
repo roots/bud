@@ -46,7 +46,7 @@ export interface Repository {
   watch: watch
 }
 
-export const Repository: Repository = {
+export const repository: Repository = {
   alias,
   assets,
   config,
@@ -69,4 +69,12 @@ export const Repository: Repository = {
   template,
   use,
   watch,
+}
+
+export interface ImmediateExecution {
+  publicPath: publicPath
+}
+
+export const immediateExecution = {
+  publicPath,
 }

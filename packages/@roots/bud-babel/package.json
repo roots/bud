@@ -67,8 +67,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-api": "workspace:packages/@roots/bud-api",
-    "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.11.7",

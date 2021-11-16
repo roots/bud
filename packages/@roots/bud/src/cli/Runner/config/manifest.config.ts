@@ -28,8 +28,5 @@ export const configSet = async (app: Bud, key: string) => {
 
 export const configs = async (app, configKey) => {
   await configSet(app, 'configs.json.global')
-  await app.extensions.processQueue()
-
   await configSet(app, 'configs.json.conditional')
-  await app.extensions.processQueue()
 }

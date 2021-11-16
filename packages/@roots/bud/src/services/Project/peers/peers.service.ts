@@ -21,16 +21,16 @@ export class Peers implements Model.Interface {
    *
    * @public
    */
-  public log: Service['log']
+  public get log(): Service['log'] {
+    return this.app.project.log
+  }
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public app: Framework) {
-    this.log = this.app.project.log
-  }
+  public constructor(public app: Framework) {}
 
   /**
    * Returns path for a module name (if findable)
@@ -164,13 +164,10 @@ export class Peers implements Model.Interface {
     /**
      * Add path to app.project resolutions array
      */
-    this.app.project.mutate(
-      'resolve',
-      (paths: Array<string>) => [...paths, path],
-    )
+    this.app.project.merge('resolve', [path])
     this.log('success', {
-      message: `resolving ${name}`,
-      suffix: path,
+      message: `resolved ${name}`,
+      suffix: path.replace(process.cwd(), '.'),
     })
 
     /**

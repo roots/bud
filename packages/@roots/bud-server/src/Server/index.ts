@@ -120,7 +120,6 @@ export class Server
   @bind
   public async run(): Promise<this> {
     await this.app.compiler.compile()
-
     /**
      * __roots route
      */

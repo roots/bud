@@ -1,7 +1,7 @@
-import {Framework, Tapable} from '..'
+import {Framework} from '..'
 
 export interface tap<T = Framework> {
-  (fn: Tapable<[T]>, bound?: boolean): T
+  (fn: (app: Framework) => any, bound?: boolean): T
 }
 
 /**
@@ -30,8 +30,8 @@ export interface tap<T = Framework> {
  *
  * @public
  */
-export const tap: tap<Framework> = function (
-  fn: Tapable<[Framework]>,
+export const tap: tap = function (
+  fn: (app: Framework) => any,
   bound: boolean = true,
 ): Framework {
   fn.call(bound ? this : null, this)

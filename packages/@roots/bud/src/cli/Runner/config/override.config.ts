@@ -1,4 +1,6 @@
-export const config = async (app, flags) => {
+import {Framework} from '../../../'
+
+export const config = async (app: Framework, flags) => {
   /**
    * Handle --dist flag
    */
@@ -51,17 +53,19 @@ export const config = async (app, flags) => {
         ? flags['cache.type']
         : flags.cache
 
-    app.persist(value)
-    app.children.getValues().map(child => child.persist(value))
+    app.api.call('persist', value)
+    app.children
+      .getValues()
+      .map(child => child.api.call('persist', value))
   }
 
   /**
    * Handle --devtool flag
    */
   if (typeof flags.devtool !== 'undefined') {
-    app.devtool(flags.devtool)
+    app.api.call('devtool', flags.devtool)
     app.children.every((_name, child) =>
-      child.devtool(flags.devtool),
+      child.api.call('devtool', flags.devtool),
     )
   }
 
@@ -69,25 +73,29 @@ export const config = async (app, flags) => {
    * Handle --devtool flag
    */
   if (typeof flags.hash !== 'undefined') {
-    app.hash(flags.hash)
-    app.children.every((_name, child) => child.hash(flags.hash))
+    app.api.call('hash', flags.hash)
+    app.children.every((_name, child) =>
+      child.api.call('hash', flags.hash),
+    )
   }
 
   /**
    * Handle --devtool flag
    */
   if (typeof flags.html !== 'undefined') {
-    app.html(flags.html)
-    app.children.every((_name, child) => child.html(flags.html))
+    app.api.call('html', flags.html)
+    app.children.every((_name, child) =>
+      child.api.call('html', flags.html),
+    )
   }
 
   /**
    * Handle --runtime flag
    */
   if (typeof flags.runtime !== 'undefined') {
-    app.runtime(flags.runtime)
+    app.api.call('runtime', flags.runtime)
     app.children.every((_name, child) =>
-      child.runtime(flags.runtime),
+      child.api.call('runtime', flags.runtime),
     )
   }
 
@@ -105,9 +113,9 @@ export const config = async (app, flags) => {
    * Handle --minimize flag
    */
   if (typeof flags.minimize !== 'undefined') {
-    app.minimize(flags.minimize)
+    app.api.call('minimize', flags.minimize)
     app.children.every((_name, child) => {
-      child.minimize(flags.minimize)
+      child.api.call('minimize', flags.minimize)
     })
   }
 
@@ -115,9 +123,9 @@ export const config = async (app, flags) => {
    * Handle --minimize flag
    */
   if (typeof flags.vendor !== 'undefined') {
-    app.splitChunks(flags.vendor)
+    app.api.call('splitChunks', flags.vendor)
     app.children.every((_name, child) => {
-      child.splitChunks(flags.vendor)
+      child.api.call('splitChunks', flags.vendor)
     })
   }
 

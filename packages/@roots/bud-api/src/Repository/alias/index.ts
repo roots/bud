@@ -31,8 +31,8 @@ export const alias: alias = function (alias) {
     (a, [k, v]: [string, string]) => {
       const path = resolve(this.path('project'), v)
 
-      this.api.log('info', {
-        message: `aliasing ${k}`,
+      this.api.log('success', {
+        message: `alias ${k}`,
         suffix: path,
       })
 

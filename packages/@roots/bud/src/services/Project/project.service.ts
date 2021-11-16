@@ -122,10 +122,9 @@ export class Project
     }
 
     if (this.app.store.is('features.install', true)) {
-      await this.refreshManifest()
       await this.refreshProfile()
 
-      if (!this.get('unmet').length) return
+      if (this.isEmpty('unmet')) return
 
       await this.app.dependencies.install(this.get('unmet'))
 
@@ -133,6 +132,7 @@ export class Project
     }
 
     const profile = await this.refreshProfile()
+
     this.setStore(profile)
   }
 
@@ -182,6 +182,7 @@ export class Project
     }
 
     this.set('manifest', this.manifest)
+
     this.log('success', {
       message: 'profiled manifest',
       suffix: this.manifest.name,
@@ -193,16 +194,16 @@ export class Project
     })
 
     const featuresKey = `manifest.${this.app.name}.features`
+    const locationKey = `manifest.${this.app.name}.location`
+
     if (this.has(featuresKey)) {
       this.log('info', {
-        prefix: 'manifest',
-        message: 'merging features',
+        message: 'merging manifest features key',
         suffix: featuresKey,
       })
       this.app.store.merge('features', this.get(featuresKey))
     }
 
-    const locationKey = `manifest.${this.app.name}.location`
     const locationOverriden =
       this.get('cli.flags')[`location.${locationKey}`]
 
@@ -242,19 +243,16 @@ export class Project
       await this.searchConfigs()
       const newProfile = await this.readProfile()
       this.mergeStore(newProfile)
-
       await this.writeProfile()
-
-      this.log('timeEnd', `building profile`)
-
       return this.readProfile()
     } catch (e) {
       this.log('error', {
         message: 'building profile',
         suffix: e,
       })
-      this.log('timeEnd', 'building profile')
     }
+
+    this.log('timeEnd', 'building profile')
   }
 
   /**
@@ -272,6 +270,8 @@ export class Project
 
   @bind
   public async readProfile() {
+    ensureFile(this.profilePath)
+
     this.log('await', {
       message: 'read profile',
       suffix: this.profilePath,
@@ -279,10 +279,12 @@ export class Project
 
     try {
       const res = await readJson(this.profilePath)
+
       this.log('success', {
         message: 'read profile',
         suffix: this.profilePath,
       })
+
       return res
     } catch (e) {
       this.log('error', {
@@ -296,105 +298,102 @@ export class Project
   public async searchConfigs() {
     this.log('await', 'reading project configuration files')
 
-    await Promise.all(
-      [
-        {
-          key: 'configs.dynamic.global',
-          searchStrings: [
-            `${this.app.name}.config.ts`,
-            `${this.app.name}.config.js`,
-          ],
-        },
-        {
-          key: `configs.dynamic.conditional`,
-          searchStrings: [
-            `${this.app.name}.${this.app.mode}.config.ts`,
-            `${this.app.name}.${this.app.mode}.config.js`,
-          ],
-        },
-        {
-          key: 'configs.json.global',
-          searchStrings: [
-            `${this.app.name}.config.json`,
-            `${this.app.name}.config.yml`,
-          ],
-        },
-        {
-          key: 'configs.json.conditional',
-          searchStrings: [
-            `${this.app.name}.${this.app.mode}.config.json`,
-            `${this.app.name}.${this.app.mode}.config.yml`,
-          ],
-        },
-      ].map(
-        async function findConfig({key, searchStrings}) {
-          const search = await globby(searchStrings, {
-            cwd: this.app.path('project'),
+    const configs = [
+      {
+        key: 'configs.dynamic.global',
+        searchStrings: [
+          `${this.app.name}.config.ts`,
+          `${this.app.name}.config.js`,
+        ],
+      },
+      {
+        key: `configs.dynamic.conditional`,
+        searchStrings: [
+          `${this.app.name}.${this.app.mode}.config.ts`,
+          `${this.app.name}.${this.app.mode}.config.js`,
+        ],
+      },
+      {
+        key: 'configs.json.global',
+        searchStrings: [
+          `${this.app.name}.config.json`,
+          `${this.app.name}.config.yml`,
+        ],
+      },
+      {
+        key: 'configs.json.conditional',
+        searchStrings: [
+          `${this.app.name}.${this.app.mode}.config.json`,
+          `${this.app.name}.${this.app.mode}.config.yml`,
+        ],
+      },
+    ]
+
+    const findConfig = async function ({key, searchStrings}) {
+      const search = await globby(searchStrings, {
+        cwd: this.app.path('project'),
+      })
+
+      if (!search || !search?.length) return
+
+      await Promise.all(
+        search.map(async result => {
+          this.log('note', {
+            message: 'located user config',
+            suffix: result,
           })
 
-          if (!search || !search?.length) return
+          if (!result || !result.length) return
 
-          await Promise.all(
-            search.map(async result => {
-              this.log('note', {
-                message: 'located user config',
-                suffix: result,
-              })
-
-              if (!result || !result.length) return
-
-              this.mutate('dependencies', i =>
-                Array.from(
-                  new Set([
-                    ...i,
-                    this.app.path('project', result),
-                  ]),
-                ),
-              )
-
-              if (
-                !result.endsWith('json') &&
-                !result.endsWith('yml')
-              ) {
-                return this.mutate(key, i =>
-                  Array.from(
-                    new Set([
-                      ...i,
-                      this.app.path('project', result),
-                    ]),
-                  ),
-                )
-              }
-
-              if (result.endsWith('.json')) {
-                return this.mutate(key, i =>
-                  Array.from(
-                    new Set([
-                      ...i,
-                      this.app.json.read(
-                        this.app.path('project', result),
-                      ),
-                    ]),
-                  ),
-                )
-              }
-
-              if (result.endsWith('.yml')) {
-                return this.mutate(key, i =>
-                  Array.from(
-                    new Set([
-                      ...i,
-                      this.app.yml.read(
-                        this.app.path('project', result),
-                      ),
-                    ]),
-                  ),
-                )
-              }
-            }),
+          this.mutate('dependencies', i =>
+            Array.from(
+              new Set([...i, this.app.path('project', result)]),
+            ),
           )
-        }.bind(this),
-      ),
-    )
+
+          if (
+            !result.endsWith('json') &&
+            !result.endsWith('yml')
+          ) {
+            return this.mutate(key, i =>
+              Array.from(
+                new Set([
+                  ...i,
+                  this.app.path('project', result),
+                ]),
+              ),
+            )
+          }
+
+          if (result.endsWith('.json')) {
+            return this.mutate(key, i =>
+              Array.from(
+                new Set([
+                  ...i,
+                  this.app.json.read(
+                    this.app.path('project', result),
+                  ),
+                ]),
+              ),
+            )
+          }
+
+          if (result.endsWith('.yml')) {
+            return this.mutate(key, i =>
+              Array.from(
+                new Set([
+                  ...i,
+                  this.app.yml.read(
+                    this.app.path('project', result),
+                  ),
+                ]),
+              ),
+            )
+          }
+        }),
+      )
+    }
+
+    await Promise.all(configs.map(findConfig.bind(this)))
   }
 }

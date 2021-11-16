@@ -52,7 +52,11 @@ export class Logger {
    * @public
    */
   public get enabled(): boolean {
-    return !isUndefined(this.flags.log) ? this.flags.log : true
+    const logEnabled = !isUndefined(this.flags.log)
+      ? this.flags.log
+      : true
+
+    return logEnabled
   }
 
   /**
@@ -61,11 +65,8 @@ export class Logger {
    * @public
    */
   public get level(): string {
-    if (isUndefined(this.flags['log.level'])) return LEVEL['vvv']
-    if (this.flags['log.level'] === 'v') return LEVEL['v']
-    if (this.flags['log.level'] === 'vv') return LEVEL['vv']
-    if (this.flags['log.level'] === 'vvv') return LEVEL['vvv']
-    if (this.flags['log.level'] === 'vvvv') return LEVEL['vvvv']
+    if (isUndefined(this.flags['log.level'])) return LEVEL['v']
+    return LEVEL[this.flags['log.level']]
   }
 
   /**
@@ -74,9 +75,16 @@ export class Logger {
    * @public
    */
   public get interactive(): boolean {
-    return !isUndefined(this.flags['log.papertrail'])
+    const dashboardEnabled =
+      this.app.options.config.features.dashboard
+
+    const usesPapertrail = !isUndefined(
+      this.flags['log.papertrail'],
+    )
       ? !this.flags['log.papertrail']
       : false
+
+    return dashboardEnabled || usesPapertrail
   }
 
   /**

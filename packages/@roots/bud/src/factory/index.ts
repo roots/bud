@@ -42,10 +42,15 @@ export async function factory(
   const project = new Bud(options)
 
   project.time(project.name)
-  project.dump(options)
-  project.dump(process.env, {prefix: 'process.env'})
+  project.log({
+    message: 'process.env.NODE_ENV',
+    suffix: process.env.NODE_ENV,
+  })
+  project.log({
+    message: 'process.env.BABEL_ENV',
+    suffix: process.env.NODE_ENV,
+  })
 
   await project.lifecycle()
-
   return project
 }

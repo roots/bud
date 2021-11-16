@@ -19,6 +19,7 @@ declare module '@roots/bud-framework' {
     'webpack-manifest-plugin': Extension.CompilerPlugin
     'mini-css-extract-plugin': Extension.CompilerPlugin
   }
+
   interface Loaders {
     css: Loader.Interface
     csv: Loader.Interface
@@ -31,6 +32,7 @@ declare module '@roots/bud-framework' {
     url: Loader.Interface
     xml: Loader.Interface
   }
+
   interface Items {
     css: Item.Interface
     csv: Item.Interface
@@ -45,6 +47,7 @@ declare module '@roots/bud-framework' {
     style: Item.Interface
     xml: Item.Interface
   }
+
   interface Rules {
     js: Rule.Interface
     css: Rule.Interface

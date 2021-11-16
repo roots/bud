@@ -57,7 +57,7 @@ export async function lifecycle(
       this.options.config.location.storage,
   )
 
-  this.dump(this.store.all(), {prefix: 'store'})
+  this.logger.instance.time(`building ${this.name}`)
 
   /**
    * Get bindable services
@@ -123,6 +123,18 @@ export async function lifecycle(
       }),
     )
   }, Promise.resolve())
+
+  this.timeEnd(`building ${this.name}`)
+
+  this.hooks.promise('compiler.invoke', async config => {
+    const multiConfig = await config
+
+    multiConfig.forEach(config => {
+      this.dump(config, {prefix: config.name, maxDepth: 3})
+    })
+
+    return config
+  })
 
   return this
 }

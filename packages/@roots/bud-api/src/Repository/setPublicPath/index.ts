@@ -34,13 +34,13 @@ export interface setPublicPath {
 export const setPublicPath: setPublicPath = function (
   publicPath,
 ) {
-  const ctx = this as Framework
+  this as Framework
 
   isString(publicPath) &&
-    ctx.hooks.on('build.output.publicPath', () => publicPath)
+    this.hooks.on('build.output.publicPath', () => publicPath)
 
   isFunction(publicPath) &&
-    ctx.hooks.on('build.output.publicPath', publicPath)
+    this.hooks.on('build.output.publicPath', publicPath)
 
-  return ctx
+  return this
 }

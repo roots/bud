@@ -8,9 +8,8 @@
     "esModuleInterop": true,
     "types": [
       "node",
-      "jest",
-      "@roots/bud-api",
-      "@roots/bud-build"
+      "@roots/bud",
+      "@roots/bud-framework"
     ]
   },
   "include": [
@@ -27,12 +26,6 @@
     },
     {
       "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-build/tsconfig.json"
     }
   ]
 }
