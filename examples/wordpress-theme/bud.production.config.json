@@ -4,5 +4,5 @@
     // runtime
     runtime: 'single',
     // proxy over localhost:3000
-    proxy: true
+    proxy:
 }

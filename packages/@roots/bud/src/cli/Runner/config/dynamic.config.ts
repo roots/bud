@@ -76,7 +76,6 @@ class Configuration {
 
       await callback(this.app)
       await this.app.extensions.processQueue()
-      await this.app.api.callAll()
 
       this.logger.success({
         message: `calling exported function`,
@@ -103,6 +102,7 @@ export const configs = async (app: Bud, logger: Signale) => {
     const config = new Configuration(app, logger, generalConfigs)
     await config.run()
 
+    await app.api.callAll()
     // run extensions before processing next config
     await app.extensions.processQueue()
   }
@@ -115,6 +115,7 @@ export const configs = async (app: Bud, logger: Signale) => {
     )
     await config.run()
 
+    await app.api.callAll()
     // run extensions before processing next config
     await app.extensions.processQueue()
   }

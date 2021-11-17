@@ -124,12 +124,7 @@ export class Runner {
     try {
       this.logger.time('process user configs')
       await dynamic.configs(this.app, this.logger)
-
-      await manifest.configs(this.app, 'configs.json.global')
-      await manifest.configs(
-        this.app,
-        'configs.json.conditional',
-      )
+      await manifest.configs(this.app, this.logger)
       this.logger.timeEnd('process user configs')
     } catch (error) {
       this.logger.error(error)

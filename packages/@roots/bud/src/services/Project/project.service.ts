@@ -79,15 +79,15 @@ export class Project
       JSON.stringify(this.manifest, null, 2) ===
       JSON.stringify(this.previous?.manifest, null, 2)
 
-    this.mergeStore({
-      cli: this.app.store.get('cli'),
-      env: {
-        public: this.app.env.getPublicEnv(),
-        all: this.app.env.all(),
-      },
-      manifest: this.manifest,
-      dependencies: [this.app.path('project', 'package.json')],
+    this.set('cli', this.app.store.get('cli'))
+    this.set('env', {
+      public: this.app.env.getPublicEnv(),
+      all: this.app.env.all(),
     })
+    this.set('manifest', this.manifest)
+    this.set('dependencies', [
+      this.app.path('project', 'package.json'),
+    ])
 
     if (this.flush)
       this.logger.note({
@@ -111,19 +111,21 @@ export class Project
     if (
       this.previous &&
       manifestUnchanged &&
-      !this.app.options.config.cli.flags.flush &&
+      !this.flush &&
       !this.app.store.is('features.install', true)
     ) {
       this.logger.info({
         message:
           'saved profile is still valid. run with `--flush` to force a rebuild.',
       })
-      this.setStore(this.previous)
+
+      this.mergeStore(this.previous)
+
+      return
     }
 
     if (this.app.store.is('features.install', true)) {
       await this.refreshProfile()
-
       if (this.isEmpty('unmet')) return
 
       await this.app.dependencies.install(this.get('unmet'))
@@ -131,9 +133,7 @@ export class Project
       await this.refreshManifest()
     }
 
-    const profile = await this.refreshProfile()
-
-    this.setStore(profile)
+    await this.refreshProfile()
   }
 
   /**
@@ -233,18 +233,14 @@ export class Project
   @bind
   public async refreshProfile() {
     await ensureFile(this.profilePath)
-
     await this.refreshManifest()
-
     this.log('time', 'building profile')
 
     try {
       await this.resolvePeers()
       await this.searchConfigs()
-      const newProfile = await this.readProfile()
-      this.mergeStore(newProfile)
+
       await this.writeProfile()
-      return this.readProfile()
     } catch (e) {
       this.log('error', {
         message: 'building profile',
@@ -270,7 +266,7 @@ export class Project
 
   @bind
   public async readProfile() {
-    ensureFile(this.profilePath)
+    await ensureFile(this.profilePath)
 
     this.log('await', {
       message: 'read profile',
@@ -345,37 +341,25 @@ export class Project
 
           if (!result || !result.length) return
 
-          this.mutate('dependencies', i =>
-            Array.from(
-              new Set([...i, this.app.path('project', result)]),
-            ),
-          )
+          this.merge('dependencies', [
+            this.app.path('project', result),
+          ])
 
           if (
             !result.endsWith('json') &&
             !result.endsWith('yml')
           ) {
-            return this.mutate(key, i =>
-              Array.from(
-                new Set([
-                  ...i,
-                  this.app.path('project', result),
-                ]),
-              ),
-            )
+            return this.merge(key, [
+              this.app.path('project', result),
+            ])
           }
 
           if (result.endsWith('.json')) {
-            return this.mutate(key, i =>
-              Array.from(
-                new Set([
-                  ...i,
-                  this.app.json.read(
-                    this.app.path('project', result),
-                  ),
-                ]),
-              ),
+            const json = await this.app.json.read(
+              this.app.path('project', result),
             )
+            this.app.dump(json)
+            return this.merge(key, json)
           }
 
           if (result.endsWith('.yml')) {
@@ -395,5 +379,9 @@ export class Project
     }
 
     await Promise.all(configs.map(findConfig.bind(this)))
+
+    this.app.dump(this.get('configs'), {
+      prefix: 'project config results',
+    })
   }
 }
