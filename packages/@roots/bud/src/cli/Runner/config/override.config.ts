@@ -136,12 +136,6 @@ export const config = async (app: Framework, flags) => {
    */
   if (flags.target?.length) {
     /**
-     * Handle parent if applicable
-     */
-    !flags?.target?.includes('bud') &&
-      app.hooks.on('build.entry', false)
-
-    /**
      * And children if applicable
      */
     app.children.getKeys().forEach(name => {

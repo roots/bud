@@ -10,6 +10,10 @@ export interface template {
   (userOptions?: Options | boolean): Promise<Framework>
 }
 
+export interface facade {
+  (userOptions?: Options | boolean): Framework
+}
+
 /**
  * Template function options
  *

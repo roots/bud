@@ -3,7 +3,7 @@ import {assets} from './assets'
 import {config} from './config'
 import {define} from './define'
 import {devtool} from './devtool'
-import {entry} from './entry'
+import {entry, facade as entryFacade} from './entry'
 import {experiments} from './experiments'
 import {externals} from './externals'
 import {hash} from './hash'
@@ -17,7 +17,7 @@ import {runtime} from './runtime'
 import {serve} from './serve'
 import {setPublicPath} from './setPublicPath'
 import {splitChunks} from './splitChunks'
-import {template} from './template'
+import {facade as templateFacade, template} from './template'
 import {use} from './use'
 import {watch} from './watch'
 
@@ -27,7 +27,7 @@ export interface Repository {
   config: config
   define: define
   devtool: devtool
-  entry: entry
+  entry: entryFacade
   experiments: experiments
   externals: externals
   hash: hash
@@ -41,7 +41,7 @@ export interface Repository {
   serve: serve
   setPublicPath: setPublicPath
   splitChunks: splitChunks
-  template: template
+  template: templateFacade
   use: use
   watch: watch
 }
@@ -52,7 +52,7 @@ export const repository: Repository = {
   config,
   define,
   devtool,
-  entry,
+  entry: entry as unknown as entryFacade,
   experiments,
   externals,
   hash,
@@ -66,7 +66,7 @@ export const repository: Repository = {
   serve,
   setPublicPath,
   splitChunks,
-  template,
+  template: template as unknown as templateFacade,
   use,
   watch,
 }

@@ -2,10 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 export interface devtool {
-  (
-    this: Framework,
-    devtool?: Configuration['devtool'],
-  ): Framework
+  (devtool?: Configuration['devtool']): Promise<Framework>
 }
 
 /**
@@ -21,8 +18,12 @@ export interface devtool {
  *
  * @public @config
  */
-export const devtool: devtool = function (devtool = false) {
-  this.hooks.on('build.devtool', () => devtool)
+export const devtool: devtool = async function (
+  devtool = false,
+) {
+  this as Framework
+
+  this.hooks.promise('build.devtool', async () => devtool)
 
   this.api.log('success', {prefix: 'devtool', message: devtool})
 

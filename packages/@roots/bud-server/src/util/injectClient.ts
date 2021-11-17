@@ -12,7 +12,9 @@ import {
  * @public
  */
 export const injectClient: InjectClient = (app, injection) => {
-  const addScript = (entry: Webpack.Entry): Webpack.Entry => ({
+  const addScript = async (
+    entry: Webpack.Entry,
+  ): Promise<Webpack.Entry> => ({
     ...(entry
       ? Object.entries(entry).reduce(
           (entries, [name, asset]) => ({
@@ -32,9 +34,15 @@ export const injectClient: InjectClient = (app, injection) => {
   })
 
   !app.root.hasChildren &&
-    app.root.hooks.on('build.entry', addScript)
+    app.root.hooks.promise('build.entry', async entries => {
+      const current = await entries
+      return addScript(current)
+    })
 
   app.root.children.every((_name: string, child: Framework) => {
-    child.hooks.on('build.entry', addScript)
+    child.hooks.promise('build.entry', async entries => {
+      const current = await entries
+      return addScript(current)
+    })
   })
 }

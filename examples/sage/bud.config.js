@@ -9,7 +9,7 @@ module.exports = async (app) => {
     .entry({
       app: '**/app.{js,css}',
       editor: '**/editor.{js,css}',
-      customizer: '**/customizer.{js,css}',
+      customizer: '**/customizer.js',
     })
     .externals()
     .assets(['resources/images'])

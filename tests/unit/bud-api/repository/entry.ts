@@ -21,7 +21,7 @@ describe('bud.entry', function () {
   })
 
   beforeEach(async () => {
-    await bud.hooks.promise('build/entry', async entry => ({}))
+    await bud.hooks.promise('build.entry', async entry => ({}))
   })
 
   it('sets an entrypoint using (string, string) fn signature', async () => {

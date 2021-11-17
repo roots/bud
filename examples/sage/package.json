@@ -6,7 +6,8 @@
   ],
   "bud": {
     "location": {
-      "storage": "storage/bud"
+      "storage": "storage/bud",
+      "src": "resources"
     }
   },
   "devDependencies": {

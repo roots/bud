@@ -44,12 +44,15 @@ export const alias: alias = function (alias) {
     {},
   )
 
-  this.hooks.on(
+  this.hooks.promise(
     'build.resolve.alias',
-    (aliases: Configuration['resolve']['alias']) => ({
-      ...aliases,
-      ...mergeAliases,
-    }),
+    async (aliases: Configuration['resolve']['alias']) => {
+      const current = await aliases
+      return {
+        ...current,
+        ...mergeAliases,
+      }
+    },
   )
 
   return this

@@ -32,17 +32,16 @@ export const BudReactExtension: BudReactExtension = {
    * {@inheritDoc @roots/bud-framework#Extension.Module.boot}
    * @public
    */
-  boot: app => {
+  boot: async app => {
     app.babel.setPreset(
       '@babel/preset-react',
       require.resolve('@babel/preset-react'),
     )
 
-    app.when(app.isDevelopment, app => {
-      app.hooks
-        .on('build.entry', entryHook)
-        .extensions.add(BudReactRefreshPlugin)
-    })
+    if (app.isDevelopment) {
+      app.hooks.promise('build.entry', entryHook)
+      await app.extensions.add(BudReactRefreshPlugin)
+    }
   },
 }
 

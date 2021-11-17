@@ -5,6 +5,7 @@ import type {Configuration} from 'webpack'
 
 export async function config(app: Framework): Promise<void> {
   await app.hooks.promised('build', async () => {
+    const entry = await app.hooks.promised('build.entry')
     const resolve = await app.hooks.promised('build.resolve')
 
     return {
@@ -12,7 +13,7 @@ export async function config(app: Framework): Promise<void> {
       cache: app.hooks.filter('build.cache'),
       context: app.hooks.filter('build.context'),
       devtool: app.hooks.filter('build.devtool'),
-      entry: app.hooks.filter('build.entry'),
+      entry,
       experiments: app.hooks.filter('build.experiments'),
       externals: app.hooks.filter('build.externals'),
       infrastructureLogging: app.hooks.filter(

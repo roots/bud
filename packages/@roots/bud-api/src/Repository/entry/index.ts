@@ -36,31 +36,30 @@ type EntryValue =
   | Array<GlobTask['pattern']>
 
 /**
- * {@link entry} interface supporting the definition of a single entrypoint
- *
- * @param name - Entrypoint name
- * @param entrypoint - Entrypoint value
- *
- * @hook build.entry
- *
- * @public @config
+ * entry interfaces
  */
+//
+
 export interface entry {
-  (name: string, entrypoint: EntryValue): Framework
+  (name: string, entrypoint: EntryValue): Promise<Framework>
+}
+export interface entry {
+  (entrypoints: EntryInput): Promise<Framework>
 }
 
 /**
- * {@link entry} interface supporting the definition of multiple
- * entrypoints using a key-value mapping
+ * sync facade interfaces
  *
- * @param this - {@link @roots/bud-framework#Framework | Framework instandce}
- * @param entrypoints - {@link EntryInput | Entrypoint mapping}
+ * @remarks
  *
- * @hook build.entry
- *
- * @public @config
  */
-export interface entry {
+//
+
+export interface facade {
+  (name: string, entrypoint: EntryValue): Framework
+}
+
+export interface facade {
   (entrypoints: EntryInput): Framework
 }
 
@@ -129,8 +128,10 @@ export interface entry {
  *
  * @public @config
  */
-export const entry: entry = function (...args) {
-  const ctx = this as Framework
+export const entry: entry = async function (
+  ...args
+): Promise<Framework> {
+  this as Framework
 
   /**
    * Ducktype entrypoint to determine if it was called like
@@ -149,7 +150,9 @@ export const entry: entry = function (...args) {
    * Make the entrypoints and return the framework
    * to the builder
    */
-  return makeEntrypoints.bind(ctx)(...entrypoints)
+  await makeEntrypoints.bind(this)(...entrypoints)
+
+  return this
 }
 
 /**
@@ -159,10 +162,10 @@ export const entry: entry = function (...args) {
  *
  * @internal
  */
-function makeEntrypoints(
+async function makeEntrypoints(
   this: Framework,
   entry: EntryObject,
-): Framework {
+): Promise<Framework> {
   /**
    * Reduce entrypoints to {@link EntryObject}
    *
@@ -171,113 +174,73 @@ function makeEntrypoints(
    *
    * @returns {@link EntryObject | accumulator}
    */
-  const buildEntryReducer = (
-    entrypoints,
+  const reducer = async (
+    promised,
     [name, entry]: [string, EntryObject | EntryObject['import']],
   ) => {
+    const entrypoints = await promised
+
     entry = isString(entry) ? {import: [entry]} : entry
     entry = isArray(entry) ? {import: entry} : entry
+
+    entry.import = await getAssets.bind(this)(entry.import)
+
+    this.api.log('success', {
+      message: `entrypoints added ${name}`,
+      suffix: chalk.dim(JSON.stringify(entry)),
+    })
 
     return {
       ...entrypoints,
       [name]: {
         ...(entrypoints[name] ?? {}),
-        ...getAssets.bind(this)(name, entry),
+        import: [
+          ...new Set([
+            ...(entrypoints[name]?.import ?? []),
+            ...entry.import,
+          ]),
+        ],
       },
     }
   }
 
-  const buildEntryHook = (existant: EntryObject) => {
+  const hook = async (entries: Promise<EntryObject>) => {
+    const current = await entries
+
+    const newItems = await Object.entries(entry).reduce(
+      reducer,
+      Promise.resolve(current ?? {}),
+    )
+
     return {
-      ...existant,
-      ...Object.entries(entry).reduce(buildEntryReducer, {}),
+      ...(current ?? {}),
+      ...newItems,
     }
   }
 
-  Object.entries(entry).map(([k, v]) => {
-    this.api.log('success', {
-      message: `entrypoint added: ${k}`,
-      suffix: chalk.dim(v),
-    })
-    this.dump(entry)
-  })
-
-  this.hooks.on('build.entry', buildEntryHook)
+  this.hooks.promise('build.entry', hook)
 
   return this
 }
 
-/**
- * Normalize an entrypoint expression
- *
- * @internal
- */
-const normalize = (
-  assets: string | string[],
-): EntryObject['import'] => (isArray(assets) ? assets : [assets])
+async function getAssets(
+  imports: EntryObject['import'],
+): Promise<EntryObject['import']> {
+  const globDir = this.path('src')
+  const results = await globby.globby(imports, {
+    cwd: globDir,
+    expandDirectories: true,
+  })
 
-/**
- * Get entrypoint assets as their final object representation
- *
- * @remarks
- * We test to see if the entrypoints are resolvable but we don't fail if they aren't. For two reasons:
- *
- * 1. The entrypoint might not exist on disk yet.
- * 2. The entrypoint might be a glob pattern.
- *
- * @param name - Entrypoint name
- * @param entry - {@link EntryObject}
- *
- * @returns {@link EntryObject}
- *
- * @internal
- */
-function getAssets(
-  _name: string,
-  entry: EntryObject,
-): EntryObject {
-  /**
-   * Take an entry and see if all assets are resolvable.
-   *
-   * @param resolvable - {@link resolvable | boolean accumulator that is true if entrypoint is resolvable on disk}
-   * @param asset - {@link asset | string asset to check}
-   *
-   * @returns
-   */
-  const isResolvable = (
-    resolvable: boolean,
-    asset: string,
-  ): boolean => {
-    if (!resolvable) return false
+  this.info({
+    message: 'glob results',
+    suffix: JSON.stringify(results),
+  })
+  this.info({
+    message: 'glob search',
+    suffix: JSON.stringify(imports),
+  })
+  this.info({message: 'glob directory', suffix: globDir})
 
-    try {
-      require.resolve(asset)
-      return true
-    } catch {
-      return false
-    }
-  }
-
-  /**
-   * If the supplied strings are ALL directly resolvable, use them.
-   * Otherwise, treat as glob.
-   */
-  entry.import = normalize(entry.import).reduce(
-    isResolvable,
-    true,
-  )
-    ? entry.import // all specified files were directly resolvable
-    : /**
-       * ...instead, try for glob
-       */
-      globby.globbySync(entry.import, {
-        cwd: this.path('src'),
-        expandDirectories: true,
-      }) ??
-      /**
-       * Fallback to import as specified
-       */
-      entry.import
-
-  return entry
+  return results
 }
