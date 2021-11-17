@@ -5,15 +5,15 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
-import chalk from 'chalk'
-import {ensureFile, writeFile} from 'fs-extra'
+import {bind, chalk, fs} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
 import items from './items'
 import loaders from './loaders'
 import * as rules from './rules'
+
+const {ensureFile, writeFile} = fs
 
 /**
  * Framework configuration builder class
@@ -141,37 +141,22 @@ export class Build
    */
   @bind
   public async init() {
-    /**
-     * Reduces components to their normalized form
-     *
-     * @returns normalized loaders
-     *
-     * @internal
-     */
-    function componentReducer<T = any>(
-      a,
-      [k, v]: [string, () => T],
-    ) {
-      return {...a, [k]: v()}
-    }
+    const reduce = (a, [k, v]) => ({...a, [k]: v()})
 
-    // Reduce loaders
-    this.loaders = this.app
-      .container(loaders)
-      .getEntries()
-      .reduce(componentReducer, this.loaders) as Loaders
-
-    // Reduce rules
-    this.rules = this.app
-      .container(rules)
-      .getEntries()
-      .reduce(componentReducer, this.rules) as Rules
-
-    // Reduce items
-    this.items = this.app
-      .container(items)
-      .getEntries()
-      .reduce(componentReducer, this.items) as Items
+    Object.assign(this, {
+      loaders: this.app
+        .container(loaders)
+        .getEntries()
+        .reduce(reduce, this.loaders),
+      rules: this.app
+        .container(rules)
+        .getEntries()
+        .reduce(reduce, this.rules),
+      items: this.app
+        .container(items)
+        .getEntries()
+        .reduce(reduce, this.items),
+    })
 
     await config(this.app)
   }

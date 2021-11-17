@@ -1,9 +1,9 @@
 import * as Framework from '@roots/bud-framework'
-import {Signale} from 'signale'
 
 import {
   bind,
   DependenciesManager,
+  Signale,
 } from './dependencies.dependencies'
 
 /**

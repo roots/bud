@@ -1,5 +1,5 @@
 import type {Framework, Server} from '@roots/bud-framework'
-import chalk from 'chalk'
+import {chalk} from '@roots/bud-support'
 
 /**
  * Configure the list of files that, when modified,

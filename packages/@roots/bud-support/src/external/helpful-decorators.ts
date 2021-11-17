@@ -1,3 +1,1 @@
-import {bind} from 'helpful-decorators'
-
-export {bind}
+export * from 'helpful-decorators'

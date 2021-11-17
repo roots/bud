@@ -1,10 +1,14 @@
 import {Service} from '@roots/bud-framework'
 import {Container} from '@roots/container'
-import chalk from 'chalk'
-import {isObject, isUndefined} from 'lodash'
-import {Signale} from 'signale'
 
-import {bind, isFunction} from './controller.dependencies'
+import {
+  bind,
+  chalk,
+  isFunction,
+  isObject,
+  isUndefined,
+  Signale,
+} from './controller.dependencies'
 import {
   Extension,
   Framework,

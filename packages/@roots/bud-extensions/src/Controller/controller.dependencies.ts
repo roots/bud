@@ -1,5 +1,5 @@
-import {bind, lodash} from '@roots/bud-support'
+import {bind, chalk, lodash, Signale} from '@roots/bud-support'
 
-export const {isFunction, isUndefined} = lodash
+const {isObject, isUndefined, isFunction} = lodash
 
-export {bind}
+export {bind, chalk, Signale, isObject, isUndefined, isFunction}

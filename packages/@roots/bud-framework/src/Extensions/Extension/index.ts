@@ -1,5 +1,5 @@
+import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
-import {Signale} from 'signale'
 
 import {Framework, Maybe, Modules, Plugins} from '../..'
 import {Module} from './Module'

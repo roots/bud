@@ -3203,9 +3203,11 @@ __metadata:
   resolution: "@roots/bud-compiler@workspace:packages/@roots/bud-compiler"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-support": "workspace:^"
     "@types/jest": 27.0.2
     "@types/lodash": 4.14.177
     "@types/node": 16.11.7
+    helpful-decorators: ^2.1.0
     tslib: ^2.3.1
     webpack: 5.64.1
   languageName: unknown
@@ -3663,6 +3665,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
+    "@roots/container": "workspace:packages/@roots/container"
     "@types/node": 16.11.7
     "@types/webpack-dev-middleware": 5.0.2
     "@types/webpack-hot-middleware": 2.25.5
@@ -3718,7 +3721,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-support@workspace:packages/@roots/bud-support":
+"@roots/bud-support@workspace:^, @roots/bud-support@workspace:packages/@roots/bud-support":
   version: 0.0.0-use.local
   resolution: "@roots/bud-support@workspace:packages/@roots/bud-support"
   dependencies:
@@ -3748,6 +3751,7 @@ __metadata:
     lodash: 4.17.21
     nanoid: 3.1.30
     node-notifier: 10.0.0
+    patch-console: ^1.0.0
     pkg-up: 3.1.0
     prettier: 2.4.1
     pretty-format: 27.3.1
@@ -3929,15 +3933,20 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:packages/@roots/dependencies"
+    "@types/fs-extra": 9.0.13
+    "@types/lodash": 4.14.177
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.7
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: ^9.0.1
     execa: 5.1.1
+    fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     html-webpack-plugin: ^5.4.0
+    lodash: ^4.17.21
     mini-css-extract-plugin: ^2.4.3
     tslib: ^2.3.1
+    type-fest: ^2.5.4
     webpack: 5.64
     webpack-cli: ^4.9.1
     webpack-manifest-plugin: ^4.0.2
@@ -4934,6 +4943,15 @@ __metadata:
   version: 5.0.3
   resolution: "@types/parse5@npm:5.0.3"
   checksum: d6b7495cb1850f9f2e9c5e103ede9f2d30a5320669707b105c403868adc9e4bf8d3a7ff314cc23f67826bbbbbc0e6147346ce9062ab429f099dba7a01f463919
+  languageName: node
+  linkType: hard
+
+"@types/postcss-import@npm:^14":
+  version: 14.0.0
+  resolution: "@types/postcss-import@npm:14.0.0"
+  dependencies:
+    postcss: ^8.0.0
+  checksum: cfcf93f5fb7e8100e0414cc2f244b9080165e1cbaaee857ac65701c213a2ee65a905a2650f66f79633848b824a1bbf92e048662b7b4943d4b05417a4deb4747b
   languageName: node
   linkType: hard
 
@@ -11124,6 +11142,15 @@ __metadata:
     "@roots/bud-mdx": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
     "@roots/bud-react": "workspace:*"
+    "@types/postcss-import": ^14
+    "@types/react": 17.0.35
+    "@types/react-dom": 17.0.11
+    postcss: 8.3.11
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.0
+    react: 17.0.2
+    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -19739,7 +19766,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.3.11, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.3, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
+"postcss@npm:8.3.11, postcss@npm:^8.0.0, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.15, postcss@npm:^8.2.4, postcss@npm:^8.3, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
   version: 8.3.11
   resolution: "postcss@npm:8.3.11"
   dependencies:
@@ -23789,6 +23816,13 @@ __metadata:
   version: 1.4.0
   resolution: "type-fest@npm:1.4.0"
   checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "type-fest@npm:2.5.4"
+  checksum: ced03d6d01dd1040f3c53458d333c657d1cae0bc0331e8aacedb4c880919eb3013ce0aff8afdb8ce51718d34fc98637333ea43b3bcb29c63c7f3e1c149ddb9c3
   languageName: node
   linkType: hard
 

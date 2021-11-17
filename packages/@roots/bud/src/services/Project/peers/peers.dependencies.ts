@@ -1,11 +1,22 @@
-import {chalk, fs} from '@roots/bud-support'
+import {
+  bind,
+  chalk,
+  fs,
+  pkgUp,
+  safeRequire,
+  safeResolve,
+} from '@roots/bud-support'
 
-export const {readJson} = fs
-export const {green, yellow, red} = chalk
+const {readJson} = fs
+const {green, yellow, red} = chalk
 
 export {
   bind,
   pkgUp,
   safeRequire,
   safeResolve,
-} from '@roots/bud-support'
+  green,
+  yellow,
+  red,
+  readJson,
+}

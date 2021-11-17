@@ -1,13 +1,13 @@
 import * as Framework from '@roots/bud-framework'
-import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
-import {isEmpty, isFunction} from 'lodash'
+import {bind, chalk, lodash} from '@roots/bud-support'
 
 import {
   immediateExecution,
   Repository,
   repository,
 } from '../Repository'
+
+const {isEmpty, isFunction} = lodash
 
 /**
  * API service

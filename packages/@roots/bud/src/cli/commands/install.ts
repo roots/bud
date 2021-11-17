@@ -1,6 +1,5 @@
 import {flags} from '@oclif/command'
-import chalk from 'chalk'
-import {Signale} from 'signale'
+import {chalk, Signale} from '@roots/bud-support'
 
 import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies'
 import {Command} from '../Command'
@@ -51,7 +50,7 @@ export default class Install extends Command {
    */
   public async run() {
     await this.prime(Install)
-    await this.app.project.refreshProfile()
+    await this.app.project.buildProfile()
     const logger = new Signale()
 
     const dependencies: Array<[string, string]> =

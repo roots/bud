@@ -1,9 +1,12 @@
-import chalk from 'chalk'
-import {isFunction} from 'lodash'
-import {Signale} from 'signale'
+import {chalk, lodash, Signale} from '@roots/bud-support'
 
 import {Bud} from '../../..'
 
+const {isFunction} = lodash
+
+/**
+ * @internal
+ */
 class Configuration {
   /**
    * Class constructor
@@ -22,6 +25,9 @@ class Configuration {
     })
   }
 
+  /**
+   * @internal
+   */
   public async run(): Promise<void> {
     await Promise.all(
       this.paths.map(async path => {
@@ -31,6 +37,9 @@ class Configuration {
     )
   }
 
+  /**
+   * @internal
+   */
   public async import(config: string) {
     try {
       this.logger.await({
@@ -62,6 +71,9 @@ class Configuration {
     }
   }
 
+  /**
+   * @internal
+   */
   public async invoke(callback, path) {
     try {
       if (!isFunction(callback)) {
@@ -88,7 +100,7 @@ class Configuration {
 }
 
 /**
- * @public
+ * @internal
  */
 export const configs = async (app: Bud, logger: Signale) => {
   const generalConfigs = app.project.get(

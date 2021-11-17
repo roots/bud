@@ -1,5 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import chalk from 'chalk'
+import {chalk} from '@roots/bud-support'
 import type {GlobTask} from 'globby'
 
 import {globby, isArray, isString} from './entry.dependencies'
@@ -237,7 +237,7 @@ async function getAssets(
   this.info({message: 'glob directory', suffix: globDir})
 
   try {
-    const results = await globby.globby(imports, {
+    const results = await globby(imports, {
       cwd: this.path('src'),
     })
 

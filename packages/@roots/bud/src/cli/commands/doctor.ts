@@ -1,10 +1,8 @@
 /* eslint-disable no-console */
 import {flags} from '@oclif/command'
 import {Webpack} from '@roots/bud-server/src/util/inject-client.interface'
-import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
+import {bind, chalk, Signale} from '@roots/bud-support'
 import {join} from 'path'
-import {Signale} from 'signale'
 import webpackcli from 'webpack-cli'
 
 import {Command} from '../Command'

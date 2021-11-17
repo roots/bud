@@ -1,5 +1,5 @@
 import BaseHelp from '@oclif/plugin-help'
-import chalk from 'chalk'
+import {chalk} from '@roots/bud-support'
 
 export default class Help extends BaseHelp {
   // acts as a "router"

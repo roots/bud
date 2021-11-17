@@ -1,10 +1,10 @@
-import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
-import {isString, isUndefined} from 'lodash'
+import {bind, chalk, lodash} from '@roots/bud-support'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
 import {Logger} from './Logger'
+
+const {isString, isUndefined} = lodash
 
 /**
  * Atomic unit of {@link Framework} functionality.

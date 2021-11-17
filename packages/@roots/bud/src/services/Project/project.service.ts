@@ -1,11 +1,11 @@
 import * as Framework from '@roots/bud-framework'
-import {ensureFile, readJson} from 'fs-extra'
-import globby from 'globby'
-import {bind} from 'helpful-decorators'
+import {bind, fs, globby} from '@roots/bud-support'
 
 import {Peers} from './peers'
 import {writeFile} from './project.dependencies'
 import {repository} from './project.repository'
+
+const {ensureFile, readJson} = fs
 
 /**
  * Project service class

@@ -5,8 +5,12 @@ import {globby} from './assets.dependencies'
 /**
  * @public @config
  */
-export interface assets {
+export interface assets<T> {
   (this: Framework, from: string[]): Framework
+}
+
+export interface facade {
+  (this: Framework, from: string[]): Promise<Framework>
 }
 
 /**
@@ -24,11 +28,13 @@ export interface assets {
  *
  * @public @config
  */
-export function assets(
+export async function assets(
   this: Framework,
   paths: string[],
-): Framework {
-  globby.globbySync(paths).map((from: string) => {
+): Promise<Framework> {
+  paths = await globby(paths)
+
+  paths.map((from: string) => {
     const dirName = from.split('/')[from.split('/').length - 2]
 
     const format = this.store.is('features.hash', true)
@@ -37,16 +43,13 @@ export function assets(
 
     const plugin = this.extensions.get('copy-webpack-plugin')
 
-    plugin.options.mergeStore({
-      patterns: [
-        ...plugin.options.get('patterns'),
-        {
-          from,
-          to: `${dirName}/${format}[ext]`,
-          noErrorOnMissing: true,
-        },
-      ],
-    })
+    plugin.options.merge('patterns', [
+      {
+        from,
+        to: `${dirName}/${format}[ext]`,
+        noErrorOnMissing: true,
+      },
+    ])
   })
 
   return this

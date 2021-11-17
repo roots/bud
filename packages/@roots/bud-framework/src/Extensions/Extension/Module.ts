@@ -1,5 +1,5 @@
+import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
-import {Signale} from 'signale'
 
 import {Factory, Framework, Loose, Maybe} from '../..'
 import {Name} from './'

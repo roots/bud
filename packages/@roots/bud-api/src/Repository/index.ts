@@ -1,5 +1,5 @@
 import {alias} from './alias'
-import {assets} from './assets'
+import {assets, facade as assetsFacade} from './assets'
 import {config} from './config'
 import {define} from './define'
 import {devtool} from './devtool'
@@ -23,7 +23,7 @@ import {watch} from './watch'
 
 export interface Repository {
   alias: alias
-  assets: assets
+  assets: assetsFacade
   config: config
   define: define
   devtool: devtool
@@ -48,7 +48,7 @@ export interface Repository {
 
 export const repository: Repository = {
   alias,
-  assets,
+  assets: assets as unknown as assetsFacade,
   config,
   define,
   devtool,

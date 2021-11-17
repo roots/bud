@@ -1,5 +1,5 @@
 import {Framework, Service} from '@roots/bud-framework'
-import {dirname, join} from 'path'
+import {posix} from 'path'
 
 import {CORE_MODULES} from './peers.constants'
 import {
@@ -9,6 +9,8 @@ import {
   safeResolve,
 } from './peers.dependencies'
 import type {Peers as Model} from './peers.interface'
+
+const {dirname, join} = posix
 
 /**
  * Peers service class
@@ -41,7 +43,7 @@ export class Peers implements Model.Interface {
   @bind
   public async getPackageManifestPath(name: string) {
     try {
-      const packagePath = await pkgUp.default({
+      const packagePath = await pkgUp({
         cwd: dirname(safeResolve(name)),
       })
 

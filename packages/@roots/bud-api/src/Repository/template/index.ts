@@ -1,10 +1,12 @@
 import type {Framework} from '@roots/bud-framework'
+import {pkgUp} from '@roots/bud-support'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import {dirname, join} from 'path'
-import pkgUp from 'pkg-up'
+import {posix as path} from 'path'
 
 import {BudHtmlWebpackPlugin} from './html-webpack-plugin.extension'
 import {BudInterpolateHtmlPlugin} from './interpolate-html-plugin.extension'
+
+const {dirname, join} = path
 
 export interface template {
   (userOptions?: Options | boolean): Promise<Framework>

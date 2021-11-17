@@ -69,6 +69,8 @@
     "@types/node": "16.11.7"
   },
   "dependencies": {
+    "@roots/bud-support": "workspace:^",
+    "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1",
     "webpack": "5.64.1"
   },

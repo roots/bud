@@ -29,41 +29,38 @@
  */
 //
 
-export {chalk} from './external/chalk'
-export {chokidar} from './external/chokidar'
-export {
-  cosmiconfig,
-  cosmiconfigTsLoader,
-} from './external/cosmiconfig'
-export {dotenv} from './external/dotenv'
-export {dotenvExpand} from './external/dotenv-expand'
-export {Express} from './external/express'
-export {format, prettyFormat} from './external/pretty-format'
-export {fs} from './external/fs-extra'
-export * as globby from './external/globby'
-export {humanReadable} from './external/human-readable'
-export {IgnoreEmitWebpackPlugin} from './external/ignore-emit-webpack-plugin'
-export {json5} from './external/json5'
-export {lodash} from './external/lodash'
-export {nanoid} from './external/nanoid'
-export {NodeNotifier} from './external/node-notifier'
-export {patchConsole} from './external/patch-console'
-export {pkgUp} from './external/pkg-up'
-export {prettier} from './external/prettier'
-export {ProvidePlugin} from './external/webpack-provide-plugin'
-export {safeResolve} from './external/safe-resolve'
-export {safeRequire} from './external/safe-require'
-export {Signale} from './external/signale'
-export {toml} from './external/toml'
-export {yaml} from './external/yaml'
+export * from './external/chalk'
+export * from './external/chokidar'
+export * from './external/cosmiconfig'
+export * from './external/dotenv'
+export * from './external/dotenv-expand'
+export * from './external/express'
+export * from './external/pretty-format'
+export * from './external/fs-extra'
+export * from './external/globby'
+export * from './external/human-readable'
+export * from './external/ignore-emit-webpack-plugin'
+export * from './external/json5'
+export * from './external/lodash'
+export * from './external/nanoid'
+export * from './external/node-notifier'
+export * from './external/patch-console'
+export * from './external/pkg-up'
+export * from './external/prettier'
+export * from './external/webpack-provide-plugin'
+export * from './external/safe-resolve'
+export * from './external/safe-require'
+export * from './external/signale'
+export * from './external/toml'
+export * from './external/yaml'
 
 /**
  * Utilities
  */
 //
 
-export {dump} from './util/dump'
-export {killPort} from './util/killPort'
+export * from './util/dump'
+export * from './util/killPort'
 export * as wpPkgs from './util/wordpressPkgs'
 
 /**
@@ -71,4 +68,4 @@ export * as wpPkgs from './util/wordpressPkgs'
  */
 //
 
-export {bind} from './external/helpful-decorators'
+export * from './external/helpful-decorators'

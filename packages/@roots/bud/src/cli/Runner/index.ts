@@ -1,6 +1,4 @@
-import {bind} from '@roots/bud-support'
-import {isUndefined} from 'lodash'
-import {Signale} from 'signale'
+import {bind, lodash, Signale} from '@roots/bud-support'
 
 import {Bud} from '../../Bud'
 import {config} from '../../config'
@@ -9,6 +7,8 @@ import * as CLI from '../cli.interface'
 import * as dynamic from './config/dynamic.config'
 import * as manifest from './config/manifest.config'
 import * as flags from './config/override.config'
+
+const {isUndefined} = lodash
 
 /**
  * @internal

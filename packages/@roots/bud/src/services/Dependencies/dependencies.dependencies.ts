@@ -1,9 +1,8 @@
-export {readJsonSync} from 'fs-extra'
-export {isEqual} from 'lodash'
-export {bind} from 'helpful-decorators'
+import {bind, fs, lodash, Signale} from '@roots/bud-support'
 
-import execa from 'execa'
-const {command: $} = execa
-export {$}
+const {isEqual} = lodash
+const {readJsonSync} = fs
+
+export {bind, isEqual, readJsonSync, Signale}
 
 export {Dependencies as DependenciesManager} from '@roots/dependencies'

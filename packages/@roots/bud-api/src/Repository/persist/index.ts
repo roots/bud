@@ -1,5 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import chalk from 'chalk'
+import {chalk} from '@roots/bud-support'
 
 export interface persist {
   (type?: 'memory' | 'filesystem' | false): Framework

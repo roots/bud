@@ -1,8 +1,11 @@
-import {Signale} from 'signale'
+import {Signale} from '@roots/bud-support'
 
 import {Bud} from '../../..'
 import {isFunction} from '../../cli.dependencies'
 
+/**
+ * @internal
+ */
 export const configSet = async (
   app: Bud,
   logger: Signale,
@@ -24,7 +27,7 @@ export const configSet = async (
 }
 
 /**
- * @public
+ * @internal
  */
 export const configs = async (app: Bud, logger: Signale) => {
   const generalConfigs = app.project.get('configs.json.global')

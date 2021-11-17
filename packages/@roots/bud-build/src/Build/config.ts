@@ -1,10 +1,12 @@
 import type {Framework} from '@roots/bud-framework'
-import {dirname} from 'path/posix'
-import pkgUp from 'pkg-up'
+import {pkgUp} from '@roots/bud-support'
+import {posix} from 'path'
 import type {Configuration} from 'webpack'
 
+const {dirname} = posix
+
 export async function config(app: Framework): Promise<void> {
-  await app.hooks.promised('build', async () => {
+  app.hooks.promise('build', async () => {
     const entry = await app.hooks.promised('build.entry')
     const resolve = await app.hooks.promised('build.resolve')
 

@@ -1,7 +1,11 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {dotenv, dotenvExpand} from '@roots/bud-support'
-import {bind, once} from 'helpful-decorators'
+import {
+  bind,
+  dotenv,
+  dotenvExpand,
+  once,
+} from '@roots/bud-support'
 import {isString} from 'lodash'
 
 /**

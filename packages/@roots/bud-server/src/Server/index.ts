@@ -73,7 +73,7 @@ export class Server
 
     if (!files?.length) return []
 
-    const globResults = await globby.globby(
+    const globResults = await globby(
       files.map((file: string) =>
         this.app.path('project', file),
       ),

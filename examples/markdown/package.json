@@ -17,6 +17,15 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-mdx": "workspace:*",
     "@roots/bud-preset-recommend": "workspace:*",
-    "@roots/bud-react": "workspace:*"
+    "@roots/bud-react": "workspace:*",
+    "@types/postcss-import": "^14",
+    "@types/react": "17.0.35",
+    "@types/react-dom": "17.0.11",
+    "postcss": "8.3.11",
+    "postcss-import": "14.0.2",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.0.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   }
 }

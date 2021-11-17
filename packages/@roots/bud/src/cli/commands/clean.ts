@@ -1,9 +1,11 @@
 import {flags} from '@oclif/command'
-import {ensureDir} from 'fs-extra'
+import {fs} from '@roots/bud-support'
 
 import {Bud} from '../../Bud'
 import {remove} from '../cli.dependencies'
 import {Command} from '../Command'
+
+const {ensureDir} = fs
 
 /**
  * @public
