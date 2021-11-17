@@ -51,7 +51,10 @@ export interface entry {
  * sync facade interfaces
  *
  * @remarks
+ * prevent intellisense from complaining about bud being a promise
  *
+ * @todo
+ * probably this could be mapped with a generic type
  */
 //
 

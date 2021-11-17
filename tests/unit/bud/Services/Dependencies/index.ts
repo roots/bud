@@ -18,7 +18,7 @@ describe('bud.project', function () {
     })
 
     dependencies = new Dependencies(bud)
-    dependencies.register()
+    await dependencies.register()
 
     manager = new DependenciesManager(bud.path('project'))
   })

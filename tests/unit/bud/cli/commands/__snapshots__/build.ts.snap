@@ -132,8 +132,8 @@ Object {
     "type": "option",
   },
   "log": Object {
-    "allowNo": false,
-    "default": false,
+    "allowNo": true,
+    "default": true,
     "description": "log to console",
     "parse": [Function],
     "type": "boolean",
