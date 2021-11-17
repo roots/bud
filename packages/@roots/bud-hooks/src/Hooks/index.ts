@@ -36,7 +36,7 @@ export class Hooks extends Service implements Contract {
       ? id
       : ['anonymous', id]
 
-    const current = this.get(name)
+    const current = this.get(name) ?? []
 
     if (!isArray(current)) {
       this.set(name, [callback])
@@ -56,7 +56,7 @@ export class Hooks extends Service implements Contract {
       ? id
       : ['anonymous', id]
 
-    const current = this.get(name)
+    const current = this.get(name) ?? []
 
     if (!isArray(current)) {
       this.set(name, [callback])
@@ -108,7 +108,7 @@ export class Hooks extends Service implements Contract {
 
         return isFunction(cb) ? await cb(value) : cb
       },
-      Promise.resolve(value ?? null),
+      value ?? null,
     )
 
     return result

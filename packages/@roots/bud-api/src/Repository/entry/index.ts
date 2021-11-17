@@ -230,20 +230,32 @@ async function getAssets(
   imports: EntryObject['import'],
 ): Promise<EntryObject['import']> {
   const globDir = this.path('src')
-  const results = await globby.globby(imports, {
-    cwd: globDir,
-    expandDirectories: true,
-  })
-
-  this.info({
-    message: 'glob results',
-    suffix: JSON.stringify(results),
-  })
   this.info({
     message: 'glob search',
     suffix: JSON.stringify(imports),
   })
   this.info({message: 'glob directory', suffix: globDir})
 
-  return results
+  try {
+    const results = await globby.globby(imports, {
+      cwd: this.path('src'),
+    })
+
+    this.info({
+      message: 'glob results',
+      suffix: JSON.stringify(results),
+    })
+
+    if (!results.length) {
+      throw new Error(
+        `nothing resolvable for ${JSON.stringify(
+          imports,
+        )} query of results for ${globDir}`,
+      )
+    }
+
+    return results
+  } catch (error) {
+    throw new Error(error)
+  }
 }

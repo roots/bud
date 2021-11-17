@@ -50,10 +50,6 @@ export default class Doctor extends Command {
       default: false,
       hidden: true,
     }),
-    ['flush']: flags.boolean({
-      default: true,
-      hidden: true,
-    }),
   }
 
   private failures = []

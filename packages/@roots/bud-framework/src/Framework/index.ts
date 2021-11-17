@@ -304,6 +304,10 @@ export abstract class Framework {
     this.options = options
     this.logger = new Logger(this)
     this.store = this.container(options.config)
+    this.store.set(
+      'log.level',
+      this.options.config.cli.flags['log.level'],
+    )
 
     if (!options.childOf) {
       // Parent & child instance exclusive settings

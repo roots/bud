@@ -30,7 +30,7 @@ export interface Interface extends Service {
    *
    * @public
    */
-  readProfile(): Promise<any>
+  buildProfile(): Promise<any>
 
   /**
    * Write profile to filesystem
@@ -44,5 +44,5 @@ export interface Interface extends Service {
    *
    * @public
    */
-  refreshProfile(): Promise<any>
+  buildProfile(): Promise<any>
 }

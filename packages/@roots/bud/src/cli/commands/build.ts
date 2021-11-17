@@ -72,11 +72,6 @@ export default class Build extends Command {
       description: 'specify source-map type',
     }),
 
-    flush: Oclif.flags.boolean({
-      description: 'flush internal bud cache',
-      default: false,
-    }),
-
     html: Oclif.flags.boolean({
       allowNo: true,
       description: 'generate an html template',

@@ -74,18 +74,14 @@ export class Build
 
         this.app.dump(value, {
           prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
+          maxDepth: 2,
         })
         return {...all, [key]: value}
       },
       {},
     )
 
-    await this.app.hooks.promised(
-      'event.build.make.after',
-      this.app,
-    )
-
-    await this.writeFinalConfig(this.config)
+    await this.app.hooks.promised('event.build.make.after')
 
     return this.config
   }
@@ -98,6 +94,53 @@ export class Build
    */
   @bind
   public async register() {
+    await this.init()
+  }
+
+  @bind
+  public async booted() {
+    this.app.hooks.promise(
+      'event.build.make.after',
+      this.writeFinalConfig,
+    )
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async writeFinalConfig() {
+    try {
+      const filePath = this.app.path(
+        'storage',
+        this.config.name,
+        'webpack.config.js',
+      )
+
+      this.log('info', {
+        message: `writing webpack dump to disk`,
+        suffix: filePath,
+      })
+      await ensureFile(filePath)
+      await writeFile(
+        filePath,
+        `module.exports = (${JSON.stringify(
+          this.config,
+          null,
+          2,
+        )})`,
+      )
+    } catch (error) {
+      this.log('error', `failed to write webpack.config.json`)
+      this.log(`error`, error)
+    }
+  }
+
+  /**
+   * @public
+   */
+  @bind
+  public async init() {
     /**
      * Reduces components to their normalized form
      *
@@ -131,25 +174,5 @@ export class Build
       .reduce(componentReducer, this.items) as Items
 
     await config(this.app)
-  }
-
-  @bind
-  public async writeFinalConfig(config: Webpack.Configuration) {
-    try {
-      const filePath = this.app.path(
-        'storage',
-        config.name,
-        'webpack.config.js',
-      )
-
-      await ensureFile(filePath)
-      await writeFile(
-        filePath,
-        `module.exports = (${JSON.stringify(config, null, 2)})`,
-      )
-    } catch (error) {
-      this.log('error', `failed to write webpack.config.json`)
-      this.log(`error`, error)
-    }
   }
 }

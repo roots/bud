@@ -68,7 +68,7 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
    * also keeping the terminal clean
    */
   patchConsole((stream, data) => {
-    if (stream === 'stdout') {
+    if (stream === 'stderr') {
       setStdio([...stdio, data])
     }
   })
@@ -105,6 +105,23 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
   return (
     <Box flexDirection="column">
       {isRawModeSupported && <Input bud={instance.current} />}
+
+      {stdio.length > 0 && (
+        <Static items={stdio}>
+          {(message, id) => (
+            <Box
+              key={`error-${id}`}
+              marginTop={1}
+              padding={1}
+              flexDirection="column"
+              borderStyle="round"
+              borderColor="red"
+            >
+              <Text>{message.trim()}</Text>
+            </Box>
+          )}
+        </Static>
+      )}
 
       {hasErrors && (
         <Box marginTop={1}>

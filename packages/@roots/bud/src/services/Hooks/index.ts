@@ -28,7 +28,7 @@ export class Hooks extends Base implements Contract, Service {
    *
    * @public
    */
-  public async register({store}) {
+  public async bootstrap({store}) {
     const mapLocale = (
       name: keyof Configuration['location'],
     ) => {

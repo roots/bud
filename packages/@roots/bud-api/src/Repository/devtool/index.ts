@@ -23,7 +23,9 @@ export const devtool: devtool = async function (
 ) {
   this as Framework
 
-  this.hooks.promise('build.devtool', async () => devtool)
+  const value = devtool ?? 'cheap-module-source-map'
+
+  this.hooks.on('build.devtool', value)
 
   this.api.log('success', {prefix: 'devtool', message: devtool})
 

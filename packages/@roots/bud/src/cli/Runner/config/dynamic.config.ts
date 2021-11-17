@@ -70,7 +70,7 @@ class Configuration {
       }
 
       this.logger.await({
-        message: `calling exported function`,
+        message: `processing user config`,
         suffix: chalk.dim(path),
       })
 
@@ -78,7 +78,7 @@ class Configuration {
       await this.app.extensions.processQueue()
 
       this.logger.success({
-        message: `calling exported function`,
+        message: `processing user config`,
         suffix: chalk.dim(path),
       })
     } catch (error) {
@@ -101,8 +101,8 @@ export const configs = async (app: Bud, logger: Signale) => {
   if (generalConfigs?.length) {
     const config = new Configuration(app, logger, generalConfigs)
     await config.run()
-
     await app.api.callAll()
+
     // run extensions before processing next config
     await app.extensions.processQueue()
   }
@@ -114,8 +114,8 @@ export const configs = async (app: Bud, logger: Signale) => {
       conditionalConfigs,
     )
     await config.run()
-
     await app.api.callAll()
+
     // run extensions before processing next config
     await app.extensions.processQueue()
   }

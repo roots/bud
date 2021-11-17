@@ -18,15 +18,17 @@ const path: path = function (
   key: keyof Locations & string,
   ...path: string[]
 ): string {
-  return join(
-    ...[
-      key !== 'project'
-        ? this.hooks.filter('location.project')
-        : false,
-      this.hooks.filter(`location.${key}`),
-      ...(path ?? []),
-    ].filter(Boolean),
-  )
+  const project = this.hooks.filter(`location.project`)
+  const partial = this.hooks.filter(`location.${key}`)
+
+  const useAbsolute =
+    project === partial || partial.startsWith('/')
+
+  return useAbsolute
+    ? join(...[partial, ...(path ?? [])].filter(Boolean))
+    : join(
+        ...[project, partial, ...(path ?? [])].filter(Boolean),
+      )
 }
 
 export {path}

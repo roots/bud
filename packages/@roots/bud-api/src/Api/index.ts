@@ -128,7 +128,7 @@ export class Api
     }
 
     // execute the callable
-    await method(...args)
+    return await method(...args)
   }
 
   /**
@@ -146,8 +146,13 @@ export class Api
     // execute all enqueued function calls
     await Promise.all(
       this.queue.map(async ([name, args]) => {
-        await this.call(name, ...args)
         this.trace.push([name, args])
+
+        try {
+          await this.call(name, ...args)
+        } catch (error) {
+          throw new Error(error)
+        }
       }),
     )
 

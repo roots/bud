@@ -1,3 +1,4 @@
+import {readFile} from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {isUndefined} from 'lodash'
 
@@ -70,6 +71,7 @@ export class Cache
       'warn',
       'no cache setting was passed from cli flags or from settings',
     )
+
     return false
   }
 
@@ -99,27 +101,34 @@ export class Cache
    */
   @bind
   public async hashFileContents(): Promise<string> {
-    const hash: (str: string) => Promise<string> = async str =>
-      createHash('sha1')
-        .update(str)
-        .digest('base64')
-        .replace(/[^a-z0-9]/gi, '_')
-        .toLowerCase()
+    const makeHash: (str: string) => Promise<string> =
+      async str =>
+        createHash('sha1')
+          .update(str)
+          .digest('base64')
+          .replace(/[^a-z0-9]/gi, '_')
+          .toLowerCase()
 
     try {
-      return await hash(
-        JSON.stringify({
-          checks: [
-            this.app.mode,
-            this.app.store.get('cli.flags.features'),
-            this.app.store.get('cli.flags.location'),
-            this.app.project.get('manifest'),
-            this.app.project.get('configs'),
-            this.app.project.get('resolve'),
-            this.app.project.get('dependencies'),
-          ],
-        }),
+      const paths = this.app.project.get('dependencies')
+      const strings = await Promise.all(
+        paths.map(async path => readFile(path, 'utf8')),
       )
+
+      const hash = await makeHash(
+        `${strings}${JSON.stringify(
+          this.app.project.get('cli'),
+        )}`,
+      )
+
+      this.log('info', {
+        message: 'cache hash generated',
+        suffix: hash,
+      })
+
+      this.app.project.set('cache.hash', hash)
+
+      return hash
     } catch (e) {
       this.app.error('error hashing file contents for cache')
       throw new Error(e)

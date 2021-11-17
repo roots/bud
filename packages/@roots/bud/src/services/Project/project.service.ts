@@ -1,5 +1,5 @@
 import * as Framework from '@roots/bud-framework'
-import {ensureFile, readJson, writeJson} from 'fs-extra'
+import {ensureFile, readJson} from 'fs-extra'
 import globby from 'globby'
 import {bind} from 'helpful-decorators'
 
@@ -32,38 +32,31 @@ export class Project
 
   public repository = repository
 
-  public lastProfile: Record<string, any>
-
-  public async bootstrap() {
-    this.peers = new Peers(this.app)
-  }
-
-  public get flush(): boolean {
-    return this.app.options.config.cli.flags.flush
-  }
-
   public get profilePath(): string {
     return this.app.path(
-      'project',
-      this.storagePath,
+      'storage',
       this.app.name,
       'profile.json',
     )
   }
 
-  public get storagePath(): string {
-    const manifestValues = this.manifest[`${this.app.name}`]
+  public async bootstrap() {
+    this.peers = new Peers(this.app)
 
-    return (
-      this.app.options.config.cli.flags['location.storage'] ??
-      manifestValues?.location?.storage ??
-      this.app.options.config.location.storage
-    )
+    await this.loadManifest()
+
+    const setLocale = key =>
+      this.app.store.set(
+        `location.${key}`,
+        this.app.options.config.cli.flags[`location.${key}`] ??
+          this.get(
+            `manifest.${this.app.name}.location.${key}`,
+          ) ??
+          this.app.options.config.location[key],
+      )
+
+    ;['src', 'dist', 'storage', 'modules'].map(setLocale)
   }
-
-  public previous: Record<string, any>
-
-  public manifest: Record<string, any>
 
   /**
    * @public
@@ -71,69 +64,29 @@ export class Project
    */
   @bind
   public async register() {
-    this.manifest = await this.readManifest()
-    this.previous = await this.readProfile()
-    this.flush && writeJson(this.profilePath, {})
-
-    const manifestUnchanged =
-      JSON.stringify(this.manifest, null, 2) ===
-      JSON.stringify(this.previous?.manifest, null, 2)
-
-    this.set('cli', this.app.store.get('cli'))
     this.set('env', {
       public: this.app.env.getPublicEnv(),
       all: this.app.env.all(),
     })
-    this.set('manifest', this.manifest)
     this.set('dependencies', [
       this.app.path('project', 'package.json'),
     ])
 
-    if (this.flush)
-      this.logger.note({
-        message:
-          'will rebuild profile because --flush was passed',
-      })
-
-    if (!this.previous)
-      this.logger.note({
-        message:
-          'will rebuild profile because there is no stored profile data',
-      })
-
-    if (!manifestUnchanged) {
-      this.logger.note({
-        message:
-          'will rebuild profile because the manifest has changed between builds',
-      })
-    }
-
-    if (
-      this.previous &&
-      manifestUnchanged &&
-      !this.flush &&
-      !this.app.store.is('features.install', true)
-    ) {
-      this.logger.info({
-        message:
-          'saved profile is still valid. run with `--flush` to force a rebuild.',
-      })
-
-      this.mergeStore(this.previous)
-
-      return
-    }
+    await this.buildProfile()
 
     if (this.app.store.is('features.install', true)) {
-      await this.refreshProfile()
       if (this.isEmpty('unmet')) return
-
       await this.app.dependencies.install(this.get('unmet'))
-
-      await this.refreshManifest()
+      await this.loadManifest()
     }
+  }
 
-    await this.refreshProfile()
+  @bind
+  public async booted() {
+    this.app.hooks.promise(
+      'event.build.make.after',
+      this.writeProfile,
+    )
   }
 
   /**
@@ -158,62 +111,16 @@ export class Project
    * @public
    */
   @bind
-  public async readManifest(): Promise<Record<string, any>> {
-    return await readJson(
+  public async loadManifest(): Promise<void> {
+    const manifest = await readJson(
       this.app.path('project', 'package.json'),
     )
-  }
 
-  /**
-   * Update manifest data
-   *
-   * @public
-   */
-  @bind
-  public async refreshManifest() {
-    if (!this.manifest) {
-      this.log('error', {
-        message: 'manifest not available',
-        suffix: this.app.path('project', 'package.json'),
-      })
-      return this.app.dump(this.manifest, {
-        prefix: 'project.manifest',
-      })
-    }
-
-    this.set('manifest', this.manifest)
-
-    this.log('success', {
-      message: 'profiled manifest',
-      suffix: this.manifest.name,
-    })
-
-    this.set('installed', {
+    this.set('manifest', manifest)
+    this.merge('installed', {
       ...(this.get('manifest.devDependencies') ?? {}),
       ...(this.get('manifest.dependencies') ?? {}),
     })
-
-    const featuresKey = `manifest.${this.app.name}.features`
-    const locationKey = `manifest.${this.app.name}.location`
-
-    if (this.has(featuresKey)) {
-      this.log('log', {
-        message: 'merging manifest features key',
-        suffix: featuresKey,
-      })
-      this.app.store.merge('features', this.get(featuresKey))
-    }
-
-    const locationOverriden =
-      this.get('cli.flags')[`location.${locationKey}`]
-
-    if (this.has(locationKey) && !locationOverriden) {
-      this.log('log', {
-        message: 'setting location from manifest',
-        suffix: JSON.stringify(this.get(locationKey)),
-      })
-      this.app.store.merge('location', this.get(locationKey))
-    }
   }
 
   /**
@@ -231,16 +138,14 @@ export class Project
    * @public
    */
   @bind
-  public async refreshProfile() {
+  public async buildProfile() {
     await ensureFile(this.profilePath)
-    await this.refreshManifest()
     this.log('time', 'building profile')
 
     try {
+      await this.loadManifest()
       await this.resolvePeers()
       await this.searchConfigs()
-
-      await this.writeProfile()
     } catch (e) {
       this.log('error', {
         message: 'building profile',
@@ -257,7 +162,14 @@ export class Project
   @bind
   public async writeProfile() {
     await ensureFile(this.profilePath)
-    await writeFile(this.profilePath, JSON.stringify(this.all()))
+
+    this.set('store', this.app.store.all())
+
+    await writeFile(
+      this.profilePath,
+      JSON.stringify(this.all(), null, 2),
+    )
+
     this.log('success', {
       message: 'writing profile to disk',
       suffix: this.profilePath,

@@ -49,13 +49,6 @@ Object {
     "parse": [Function],
     "type": "option",
   },
-  "flush": Object {
-    "allowNo": false,
-    "default": false,
-    "description": "flush internal bud cache",
-    "parse": [Function],
-    "type": "boolean",
-  },
   "hash": Object {
     "allowNo": true,
     "description": "hash compiled filenames",
