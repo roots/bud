@@ -3162,7 +3162,7 @@ __metadata:
     "@types/lodash": 4.14.177
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.7
-    "@types/safe-json-stringify": ^1
+    "@types/safe-json-stringify": 1.1.2
     "@types/svgo": 2.6.0
     autobind-decorator: ^2.4.0
     css-loader: ^6.4.0
@@ -5074,7 +5074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/safe-json-stringify@npm:^1":
+"@types/safe-json-stringify@npm:1.1.2":
   version: 1.1.2
   resolution: "@types/safe-json-stringify@npm:1.1.2"
   checksum: 2dabb5b02bf32fc1a0e7f51f4e66c22778b811790e9d433a39389941f1719dab4b9287ee658134b3985e5b2c716786b3d614ddb6cf842d4d43906584085bb03f
