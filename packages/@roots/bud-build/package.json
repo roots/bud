@@ -67,7 +67,7 @@
     "@types/lodash": "4.14.177",
     "@types/mini-css-extract-plugin": "2.4.0",
     "@types/node": "16.11.7",
-    "@types/safe-json-stringify": "^1",
+    "@types/safe-json-stringify": "1.1.2",
     "@types/svgo": "2.6.0",
     "jest": "27.3.1",
     "remark": "14.0.1",
