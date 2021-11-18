@@ -17,13 +17,5 @@
     "lib",
     "node_modules",
     "types"
-  ],
-  "references": [
-    {
-      "path": "./../ink-use-style/tsconfig.json"
-    },
-    {
-      "path": "./../container/tsconfig.json"
-    }
   ]
 }
