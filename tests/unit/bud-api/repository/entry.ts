@@ -20,8 +20,8 @@ describe('bud.entry', function () {
     bud.logger.instance.scope('bud.entry test')
   })
 
-  beforeEach(async () => {
-    await bud.hooks.promise('build.entry', async entry => ({}))
+  beforeEach(() => {
+    bud.hooks.on('build.entry', {})
   })
 
   it('sets an entrypoint using (string, string) fn signature', async () => {
@@ -50,7 +50,7 @@ describe('bud.entry', function () {
     bud.entry('app', ['scripts/app.js', 'styles/app.css'])
     await bud.build.make()
 
-    expect(bud.build.config.entry).toEqual({
+    expect(bud.build.config.entry).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
       },
@@ -61,7 +61,7 @@ describe('bud.entry', function () {
     bud.entry('app', ['**/app.js', '**/editor.css'])
     await bud.build.make()
 
-    expect(bud.build.config.entry).toEqual({
+    expect(bud.build.config.entry).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/editor.css'],
       },

@@ -14,11 +14,11 @@ export function when(
   trueCase: (app: Framework) => any,
   falseCase?: (app: Framework) => any,
 ): Framework {
-  const ctx = this as Framework
+  this as Framework
 
-  ctx.access(test)
-    ? trueCase && isFunction(trueCase) && ctx.tap(trueCase)
-    : falseCase && isFunction(falseCase) && ctx.tap(falseCase)
+  this.access(test)
+    ? trueCase && isFunction(trueCase) && this.tap(trueCase)
+    : falseCase && isFunction(falseCase) && this.tap(falseCase)
 
-  return ctx
+  return this
 }

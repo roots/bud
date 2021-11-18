@@ -14,7 +14,5 @@ module.exports = async (app) => {
     .externals()
     .assets(['resources/images'])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
-    .proxy({
-      target: 'http://localhost:8000',
-    });
+    .proxy('http://localhost:8000');
 };

@@ -5,12 +5,12 @@ import {globby} from './assets.dependencies'
 /**
  * @public @config
  */
-export interface assets<T> {
-  (this: Framework, from: string[]): Framework
+export interface assets {
+  (this: Framework, from: string[]): Promise<Framework>
 }
 
 export interface facade {
-  (this: Framework, from: string[]): Promise<Framework>
+  (this: Framework, from: string[]): Framework
 }
 
 /**

@@ -61,7 +61,6 @@ export const proxy: proxy = function (options) {
   }
 
   this.store.set('server.middleware.proxy', true)
-
   if (options === true || isUndefined(options)) {
     return this
   }

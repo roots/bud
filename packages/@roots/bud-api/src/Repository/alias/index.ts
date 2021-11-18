@@ -3,10 +3,7 @@ import {resolve} from 'path'
 import type {Configuration, Framework} from './alias.interface'
 
 export interface alias {
-  (
-    this: Framework,
-    alias: Configuration['resolve']['alias'],
-  ): Framework
+  (alias: Configuration['resolve']['alias']): Framework
 }
 
 /**
@@ -44,7 +41,7 @@ export const alias: alias = function (alias) {
     {},
   )
 
-  this.hooks.promise(
+  this.hooks.on(
     'build.resolve.alias',
     async (aliases: Configuration['resolve']['alias']) => {
       const current = await aliases

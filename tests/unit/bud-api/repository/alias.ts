@@ -5,5 +5,5 @@ describe('webpack.resolve.alias', function () {
     expect(alias).toBeInstanceOf(Function)
   })
 
-  test.todo('build/alias hook')
+  test.todo('build.alias hook')
 })

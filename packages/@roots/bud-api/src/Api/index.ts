@@ -146,7 +146,7 @@ export class Api
     // execute all enqueued function calls
     await Promise.all(
       this.queue.map(async ([name, args]) => {
-        this.trace.push([name, args])
+        this.trace.push([name, ...args])
 
         try {
           await this.call(name, ...args)

@@ -1,120 +1,58 @@
 import {globby} from '@roots/bud-support'
-import {readFile, readJsonSync} from 'fs-extra'
-import {join} from 'path'
+import {readJson} from 'fs-extra'
 
 describe('repo', function () {
-  describe('publish check: */lib/cjs/index.js', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
+  let packageRoots
 
-        it(`${name} has cjs`, done => {
-          const cjs = globby.globbySync(
-            pkg.concat('/lib/cjs/index.js'),
-          )
-
-          expect(cjs.length).toBe(1)
-          done()
-        })
-      })
+  beforeAll(async () => {
+    packageRoots = await globby('packages/@roots/*', {
+      absolute: true,
+      onlyDirectories: true,
+    })
   })
 
-  describe('publish check: */lib/esm/index.js', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
+  it('publish check: */lib/cjs/index.js', async () => {
+    await Promise.all(
+      packageRoots.map(async pkg => {
+        const cjs = await globby(pkg.concat('/lib/cjs/index.js'))
 
-        it(`${name} has esm`, done => {
-          const esm = globby.globbySync(
-            pkg.concat('/lib/esm/index.js'),
-          )
-
-          expect(esm.length).toBe(1)
-          done()
-        })
-      })
+        expect(cjs.length).toBe(1)
+      }),
+    )
   })
 
-  describe('publish check: */LICENSE.md', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
+  it('publish check: */lib/esm/index.js', async () => {
+    await Promise.all(
+      packageRoots.map(async pkg => {
+        const esm = await globby(pkg.concat('/lib/esm/index.js'))
 
-        it(`${name} has LICENSE.md`, done => {
-          const esm = globby.globbySync(
-            pkg.concat('/LICENSE.md'),
-          )
-
-          expect(esm.length).toBe(1)
-          done()
-        })
-      })
+        expect(esm.length).toBe(1)
+      }),
+    )
   })
 
-  describe('publish check: */README.md', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
+  it('publish check: */lib/esm/index.js', async () => {
+    await Promise.all(
+      packageRoots.map(async pkg => {
+        const types = await globby(
+          pkg.concat('/types/index.d.ts'),
+        )
 
-        it(`${name} has README.md`, done => {
-          const esm = globby.globbySync(pkg.concat('/README.md'))
-
-          expect(esm.length).toBe(1)
-          done()
-        })
-      })
+        expect(types.length).toBe(1)
+      }),
+    )
   })
 
-  describe('publish check: types', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
-
-        it(`${name} esm types`, done => {
-          const esm = globby.globbySync(
-            pkg.concat('/types/index.d.ts'),
-          )
-
-          expect(esm.length).toBe(1)
-          done()
-        })
-      })
-  })
-
-  describe('publish check: project references', () => {
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
-        const name = pkg.split(`packages/`).pop()
-
-        const pkgJson = readJsonSync(pkg.concat('/package.json'))
-        const esmJson = readJsonSync(
+  it('publish check: project references', async () => {
+    Promise.all(
+      packageRoots.map(async pkg => {
+        const pkgJson = await readJson(
+          pkg.concat('/package.json'),
+        )
+        const esmJson = await readJson(
           pkg.concat('/tsconfig-esm.json'),
         )
-        const cjsJson = readJsonSync(
+        const cjsJson = await readJson(
           pkg.concat('/tsconfig.json'),
         )
 
@@ -123,102 +61,76 @@ describe('repo', function () {
           ...(pkgJson.devDependencies ?? {}),
         }).filter(k => k.includes('@roots/'))
 
-        workspaceDeps.map(dependency => {
-          it(`[${name}] ${dependency} has a ts reference (cjs)`, done => {
-            const refPath = `${dependency
+        await Promise.all(
+          workspaceDeps.map(async dependency => {
+            const cjsRefPath = `${dependency
               .split('@roots/')
               .pop()}/tsconfig.json`
 
             expect(
               cjsJson.references.filter(
                 ({path}: {path: string}) => {
-                  return path.includes(refPath)
+                  return path.includes(cjsRefPath)
                 },
               ).length,
             ).toEqual(1)
 
-            done()
-          })
-
-          it(`[${name}] ${dependency} has a ts reference (esm)`, done => {
-            const refPath = `${dependency
+            const esmRefPath = `${dependency
               .split('@roots/')
               .pop()}/tsconfig-esm.json`
 
             expect(
               esmJson.references.filter(
                 ({path}: {path: string}) => {
-                  return path.includes(refPath)
+                  return path.includes(esmRefPath)
                 },
               ).length,
             ).toEqual(1)
-
-            done()
-          })
-        })
-      })
-  })
-
-  it('root: LICENSE.md matches snapshot', async () => {
-    const artifact = await readFile(
-      join(process.cwd(), 'LICENSE.md'),
+          }),
+        )
+      }),
     )
-
-    expect(artifact.toString()).toMatchSnapshot()
   })
 
-  describe('root: project references', () => {
-    const tsConfCjs = readJsonSync(
+  it('root: project references', async () => {
+    const tsConfCjs = await readJson(
       process.cwd().concat('/tsconfig.json'),
     )
-    const tsConfEsm = readJsonSync(
-      process.cwd().concat('/tsconfig.esm.json'),
-    )
-
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
+    await Promise.all(
+      packageRoots.map(async pkg => {
         const name = pkg
           .split(`packages/`)
           .pop()
           .concat('/tsconfig.json')
 
-        it(`has cjs ref for ${name}`, done => {
-          expect(
-            tsConfCjs.references.filter(
-              ({path}: {path: string}) => {
-                return path.includes(name)
-              },
-            ).length,
-          ).toBe(1)
-          done()
-        })
-      })
+        expect(
+          tsConfCjs.references.filter(
+            ({path}: {path: string}) => {
+              return path.includes(name)
+            },
+          ).length,
+        ).toBe(1)
+      }),
+    )
 
-    globby
-      .globbySync('packages/@roots/*', {
-        absolute: true,
-        onlyDirectories: true,
-      })
-      .map(pkg => {
+    const tsConfEsm = await readJson(
+      process.cwd().concat('/tsconfig.esm.json'),
+    )
+    await Promise.all(
+      packageRoots.map(async pkg => {
         const name = pkg
           .split(`packages/`)
           .pop()
           .concat('/tsconfig-esm.json')
 
-        it(`has esm ref for ${name}`, done => {
-          expect(
-            tsConfEsm.references.filter(
-              ({path}: {path: string}) => {
-                return path.includes(name)
-              },
-            ).length,
-          ).toBe(1)
-          done()
-        })
-      })
+        expect(
+          tsConfEsm.references.filter(
+            ({path}: {path: string}) => {
+              return path.includes(name)
+            },
+          ).length,
+        ).toBe(1)
+      }),
+    )
   })
 })
