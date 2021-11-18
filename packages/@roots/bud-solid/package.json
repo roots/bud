@@ -75,7 +75,7 @@
     "@types/node": "16.11.7",
     "eslint": "7.32.0",
     "jest": "27.3.1",
-    "solid-js": "1.2.3",
+    "solid-js": "1.2.4",
     "type-fest": "2.5.3",
     "webpack": "5.64.1"
   },
