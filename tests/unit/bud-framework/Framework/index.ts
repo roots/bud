@@ -40,18 +40,18 @@ describe('bud', () => {
     done()
   })
 
-  it('access processes a literal value', done => {
-    expect(bud.access(true)).toEqual(true)
+  it('maybeCall processes a literal value', done => {
+    expect(bud.maybeCall(true)).toEqual(true)
     done()
   })
 
-  it('access processes a fn', done => {
-    expect(bud.access(() => true)).toEqual(true)
+  it('maybeCall processes a fn', done => {
+    expect(bud.maybeCall(() => true)).toEqual(true)
     done()
   })
 
-  it('access passes bud as a param', done => {
-    expect(bud.access(bud => bud)).toEqual(bud)
+  it('maybeCall passes bud as a param', done => {
+    expect(bud.maybeCall(bud => bud)).toEqual(bud)
     done()
   })
 

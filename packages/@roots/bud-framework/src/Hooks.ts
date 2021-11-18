@@ -145,7 +145,7 @@ namespace Hooks {
 
   export type LoaderKeys =
     | `loader`
-    | `loader/${keyof Loaders & string}`
+    | `loader.${keyof Loaders & string}`
 
   export type ItemKeys =
     | `item`
@@ -156,10 +156,10 @@ namespace Hooks {
 
   export type RuleKeys =
     | `rule`
-    | `rule/${keyof Rules & string}`
-    | `rule/${keyof Rules & string}.${keyof Webpack.RuleSetRule &
+    | `rule.${keyof Rules & string}`
+    | `rule.${keyof Rules & string}.${keyof Webpack.RuleSetRule &
         string}`
-    | `rule/${keyof Rules & string}.${keyof Webpack.RuleSetRule &
+    | `rule.${keyof Rules & string}.${keyof Webpack.RuleSetRule &
         `options` &
         string}.${string}`
 
@@ -192,12 +192,12 @@ namespace Hooks {
     }
 
     type Dive<T, S> = {
-      [K in keyof T as `build/${S & string}.${K & string}`]: T[K]
+      [K in keyof T as `build.${S & string}.${K & string}`]: T[K]
     }
 
     export type Keys =
       | `build`
-      | `build/${keyof Config}`
+      | `build.${keyof Config}`
       | keyof Dive<Config['output'], 'output'>
       | 'build.output.pathInfo'
       | keyof Dive<Config['module'], 'module'>
@@ -223,15 +223,15 @@ namespace Hooks {
       | keyof Dive<Config['optimization'], 'optimization'>
       | keyof Dive<
           Config['optimization']['splitChunks'],
-          'optimization/splitChunks'
+          'optimization.splitChunks'
         >
       | keyof Dive<
           Config['optimization']['splitChunks']['cacheGroups'],
-          'optimization/splitChunks/cacheGroups'
+          'optimization.splitChunks.cacheGroups'
         >
       | keyof Dive<
           Config['optimization']['splitChunks']['cacheGroups']['vendor'],
-          'optimization/splitChunks/cacheGroups/vendor'
+          'optimization.splitChunks.cacheGroups.vendor'
         >
   }
 
@@ -242,7 +242,7 @@ namespace Hooks {
     [K in (keyof Modules & string) | (keyof Plugins & string) as
       | `extension`
       | `extension.${K & string}`
-      | `extension.${K}/${
+      | `extension.${K}.${
           | `${
               | (keyof Modules & string)
               | (keyof Plugins & string)}`
@@ -256,9 +256,13 @@ namespace Hooks {
    * @internal
    */
   export type Name =
-    | `before`
-    | `after`
-    | `done`
+    | `event.build.make.before`
+    | `event.build.make.after`
+    | `event.compiler.before`
+    | `event.compiler.after`
+    | `event.compiler.done`
+    | `compiler.stats`
+    | `compiler.error`
     | `${ItemKeys}`
     | `${LocationKeys}`
     | `${LoaderKeys}`

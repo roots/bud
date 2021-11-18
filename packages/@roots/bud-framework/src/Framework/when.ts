@@ -16,9 +16,9 @@ export function when(
 ): Framework {
   this as Framework
 
-  this.access(test)
-    ? trueCase && isFunction(trueCase) && this.tap(trueCase)
-    : falseCase && isFunction(falseCase) && this.tap(falseCase)
+  this.maybeCall(test)
+    ? trueCase && isFunction(trueCase) && trueCase(this)
+    : falseCase && isFunction(falseCase) && trueCase(this)
 
   return this
 }

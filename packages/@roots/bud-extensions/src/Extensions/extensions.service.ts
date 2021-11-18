@@ -85,8 +85,6 @@ export class Extensions
         this.set(controller.name, controller)
       }),
     )
-
-    this.log('complete', 'injecting project extensions')
   }
 
   /**
@@ -108,6 +106,7 @@ export class Extensions
       await controller.register()
     } catch (err) {
       this.log('error', key, err)
+      throw new Error(err)
     }
   }
 
@@ -121,6 +120,7 @@ export class Extensions
       await controller.boot()
     } catch (err) {
       this.log('error', err, key)
+      throw new Error(err)
     }
   }
 

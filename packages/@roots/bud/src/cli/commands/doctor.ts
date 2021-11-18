@@ -61,7 +61,6 @@ export default class Doctor extends Command {
    */
   public async run(): Promise<void> {
     await this.prime(Doctor)
-    await this.app.project.refreshProfile()
 
     this.logger = new Signale({scope: 'doctor'})
 
@@ -93,7 +92,8 @@ export default class Doctor extends Command {
           chalk.red`\n${this.failures.length} checks failed`,
         )
 
-    await this.app.project.refreshProfile()
+    await this.app.project.buildProfile()
+    await this.app.project.writeProfile()
   }
 
   @bind

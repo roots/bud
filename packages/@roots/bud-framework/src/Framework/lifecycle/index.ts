@@ -102,7 +102,7 @@ export async function lifecycle(
 
   this.timeEnd(`building ${this.name}`)
 
-  this.hooks.promise('event.compiler.invoke', async config => {
+  this.hooks.promise('event.compiler.before', async config => {
     const multiConfig = await config
 
     multiConfig.forEach(config => {

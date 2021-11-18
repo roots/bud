@@ -135,6 +135,7 @@ export default class Build extends Command {
     this.app.hooks.on('event.compiler.done', stats =>
       this.notifier.notify(this.app, stats),
     )
+
     await this.app.api.call('run', [])
   }
 }

@@ -3424,6 +3424,7 @@ __metadata:
   resolution: "@roots/bud-hooks@workspace:packages/@roots/bud-hooks"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
     "@types/jest": 27.0.2
     "@types/lodash": 4.14.177
@@ -3731,6 +3732,7 @@ __metadata:
     "@types/jest": 27.0.2
     "@types/node": 16.11.7
     "@types/prettier": 2.4.2
+    "@types/safe-json-stringify": 1.1.2
     "@types/signale": 1.4.2
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
@@ -3757,6 +3759,7 @@ __metadata:
     pretty-format: 27.3.1
     remark: 14.0.1
     remark-html: 15.0.0
+    safe-json-stringify: ^1.2.0
     safe-resolve: 1.0.0
     signale: 1.4.0
     strip-ansi: 7.0.1
@@ -11219,6 +11222,7 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
     "@types/eslint": 7.28.2
+    "@types/postcss-import": ^14
     "@types/prettier": 2.4.2
     "@types/react": 17.0.34
     "@types/react-dom": 17.0.11

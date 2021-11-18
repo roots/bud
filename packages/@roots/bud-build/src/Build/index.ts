@@ -57,7 +57,10 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.promised('event.build.make', this.app)
+    await this.app.hooks.promised(
+      'event.build.make.before',
+      this.app,
+    )
 
     const build = await this.app.hooks.promised('build')
 

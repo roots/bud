@@ -1,5 +1,10 @@
 import * as Framework from '@roots/bud-framework'
-import {bind, fs, globby} from '@roots/bud-support'
+import {
+  bind,
+  fs,
+  globby,
+  jsonStringify,
+} from '@roots/bud-support'
 
 import {Peers} from './peers'
 import {writeFile} from './project.dependencies'
@@ -83,10 +88,10 @@ export class Project
 
   @bind
   public async booted() {
-    this.app.hooks.promise(
-      'event.build.make.after',
-      this.writeProfile,
-    )
+    this.app.hooks.on('event.build.make.after', async () => {
+      await this.app.hooks.promised('event.project.write', this)
+      await this.writeProfile()
+    })
   }
 
   /**
@@ -167,7 +172,7 @@ export class Project
 
     await writeFile(
       this.profilePath,
-      JSON.stringify(this.all(), null, 2),
+      jsonStringify(this.repository, null, 2),
     )
 
     this.log('success', {

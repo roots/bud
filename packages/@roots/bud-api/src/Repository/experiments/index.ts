@@ -10,7 +10,7 @@ export interface experiments {
   (
     key: keyof Configuration['experiments'],
     setting: boolean,
-  ): Promise<Framework>
+  ): Framework
 }
 
 /**
@@ -25,28 +25,18 @@ export interface experiments {
  *
  * @public @config
  */
-export const experiments: experiments = async function (
+export const experiments: experiments = function (
   key,
   setting,
-): Promise<Framework> {
+): Framework {
   this as Framework
 
-  await this.hooks.promise(
-    'build.experiments',
-    async experiments => {
-      if (experiments) {
-        const current = await experiments
-        return {
-          ...(current ?? {}),
-          [key]: setting,
-        }
-      }
-
-      return {
-        [key]: setting,
-      }
-    },
-  )
+  this.hooks.on('build.experiments', experiments => {
+    return {
+      ...(experiments ?? {}),
+      [key]: setting,
+    }
+  })
 
   return this
 }

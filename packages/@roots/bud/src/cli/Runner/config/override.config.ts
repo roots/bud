@@ -42,24 +42,6 @@ export const config = async (app: Framework, flags) => {
   }
 
   /**
-   * Handle --cache flag
-   */
-  if (
-    typeof flags.cache === 'boolean' ||
-    typeof flags['cache.type'] === 'string'
-  ) {
-    const value =
-      typeof flags['cache.type'] !== 'undefined'
-        ? flags['cache.type']
-        : flags.cache
-
-    app.api.call('persist', value)
-    app.children
-      .getValues()
-      .map(child => child.api.call('persist', value))
-  }
-
-  /**
    * Handle --devtool flag
    */
   if (typeof flags.devtool !== 'undefined') {

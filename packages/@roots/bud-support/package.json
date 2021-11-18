@@ -72,6 +72,7 @@
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@types/prettier": "2.4.2",
+    "@types/safe-json-stringify": "1.1.2",
     "@types/signale": "1.4.2",
     "@types/yamljs": "0.2.31",
     "chalk": "4.1.2",
@@ -111,6 +112,7 @@
   "stableVersion": "4.6.0",
   "dependencies": {
     "patch-console": "^1.0.0",
+    "safe-json-stringify": "^1.2.0",
     "tslib": "2.3.1"
   }
 }

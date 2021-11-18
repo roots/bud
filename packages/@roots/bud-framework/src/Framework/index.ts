@@ -22,7 +22,6 @@ import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import * as Project from '../Project'
-import {access} from './access'
 import {bindMethod} from './bindMethod'
 import {close} from './close'
 import {container} from './container'
@@ -31,6 +30,7 @@ import {get} from './get'
 import {lifecycle} from './lifecycle'
 import {make} from './make'
 import * as methods from './methods'
+import {maybeCall} from './methods/maybeCall'
 import {mixin} from './mixin'
 import {path} from './path'
 import {pipe} from './pipe'
@@ -320,7 +320,7 @@ export abstract class Framework {
     // Assign to instance
     this.services = options.services
 
-    this.access = access.bind(this)
+    this.maybeCall = maybeCall.bind(this)
     this.bindMethod = bindMethod.bind(this)
     this.close = close.bind(this)
     this.get = get.bind(this)
@@ -358,7 +358,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public access: access
+  public maybeCall: maybeCall
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}

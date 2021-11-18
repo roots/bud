@@ -90,7 +90,7 @@ export class Compiler extends Service implements Contract {
   @bind
   public async invoke(config: any) {
     await this.app.hooks.promised(
-      'event.compiler.invoke',
+      'event.compiler.before',
       config,
     )
 
@@ -104,6 +104,8 @@ export class Compiler extends Service implements Contract {
       if (this.app.isProduction) {
         this.instance.close(err => {
           if (err) {
+            this.app.hooks.filter('compiler.error', err)
+
             this.stats.errors.push(err)
             this.log('error', err)
           }
@@ -201,6 +203,7 @@ export class Compiler extends Service implements Contract {
       this.stats = stats.toJson(
         this.app.build.config.stats ?? {preset: 'normal'},
       )
+
       this.app.store.is('features.dashboard', false) &&
         this.app.log(stats.toString())
     }

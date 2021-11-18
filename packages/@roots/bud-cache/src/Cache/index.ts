@@ -19,25 +19,19 @@ export class Cache
    * @public
    */
   public get enabled(): boolean {
-    if (this.app.store.is('cli.flags.cache', true)) {
-      this.log('log', {
-        message: '--cache',
-        suffix: this.app.store.get('cli.flags.cache'),
-      })
+    this.log('info', {
+      message: `cache feature flag: ${this.app.store.get(
+        'features.cache',
+      )}`,
+    })
 
-      return this.app.store.get('cli.flags.cache')
-    }
+    this.log('info', {
+      message: `--cache flag: ${this.app.store.get(
+        'cli.flags.cache',
+      )}`,
+    })
 
-    if (this.app.store.is('features.cache', true)) {
-      this.log('log', {
-        message: 'bud.store',
-        suffix: this.app.store.get('features.cache'),
-      })
-
-      return this.app.store.get('features.cache')
-    }
-
-    return false
+    return this.app.store.get('features.cache') ? true : false
   }
 
   /**
@@ -91,6 +85,7 @@ export class Cache
   @bind
   public async boot() {
     this.version = await this.hashFileContents()
+
     if (this.enabled) {
       this.app.api.call('persist', this.type)
     }
@@ -126,7 +121,10 @@ export class Cache
         suffix: hash,
       })
 
-      this.app.project.set('cache.hash', hash)
+      this.app.hooks.on('event.project.write', async project => {
+        project.set('cache.hash', hash)
+        return project
+      })
 
       return hash
     } catch (e) {

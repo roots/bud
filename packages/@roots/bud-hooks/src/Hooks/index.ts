@@ -1,6 +1,7 @@
 import {
   Framework,
   Hooks as Contract,
+  Project,
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
@@ -12,6 +13,15 @@ export class Hooks extends Service implements Contract {
    * @public
    */
   public name = 'hooks'
+
+  @bind
+  public async boot() {
+    this.app.hooks.on(
+      'event.project.write',
+      async (project: Project.Interface) =>
+        project.set('hooks', this.all()),
+    )
+  }
 
   @bind
   public get<T = any>(path: `${Contract.Name & string}`) {

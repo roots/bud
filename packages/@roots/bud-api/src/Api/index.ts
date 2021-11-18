@@ -61,16 +61,19 @@ export class Api
   public async registered() {
     await this.callAll()
 
-    this.app.hooks.promise('event.build.make', async app => {
-      await app
+    this.app.hooks.promise(
+      'event.build.make.before',
+      async app => {
+        await app
 
-      app.log('event.build.make.promise api calls')
+        app.log('event.build.make.promise api calls')
 
-      await this.callAll()
-      this.dump(app)
+        await this.callAll()
+        this.dump(app)
 
-      return app
-    })
+        return app
+      },
+    )
   }
 
   /**
@@ -166,8 +169,8 @@ export class Api
    * @public
    */
   @bind
-  public async dump(app: Framework.Framework) {
-    app.dump(
+  public dump(options: any) {
+    this.app.dump(
       this.trace.reduce(
         (a, t) => [
           ...a,
@@ -179,13 +182,11 @@ export class Api
         [],
       ),
       {
-        prefix: `${app.name} config traced calls`,
+        prefix: `${this.app.name} config traced calls`,
         printBasicPrototype: false,
         callToJSON: true,
         min: true,
       },
     )
-
-    return app
   }
 }

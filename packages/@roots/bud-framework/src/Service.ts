@@ -1,4 +1,7 @@
+import {format} from '@roots/bud-support'
 import {bind, chalk, lodash} from '@roots/bud-support'
+import highlight from 'cli-highlight'
+import {PrettyFormatOptions} from 'pretty-format/build/types'
 
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
@@ -158,4 +161,19 @@ export abstract class Service<
    * @virtual @public
    */
   public booted?(app: Framework): Promise<any>
+
+  /**
+   * Dump the service repository
+   */
+  public dump(options?: PrettyFormatOptions) {
+    this.app.log({
+      message: highlight(
+        format(this.repository, {
+          maxDepth: 2,
+          ...options,
+        }),
+      ),
+      prefix: this.ident,
+    })
+  }
 }
