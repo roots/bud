@@ -70,7 +70,7 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "@wordpress/browserslist-config": "4.1.0",
