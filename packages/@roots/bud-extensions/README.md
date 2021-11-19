@@ -24,12 +24,12 @@
   </a>
 </p>
 
+
 <h1 align="center">
   <strong>@roots/bud-extensions</strong>
 </h1>
 
 > Bud extensions controller
-
 ## Installation
 
 Install **@roots/bud-extensions** to your project.

@@ -8,15 +8,15 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import type { Configuration } from 'webpack';
-import type { Configuration as Configuration_2 } from '@roots/bud-framework';
-import type { DefinePlugin } from 'webpack';
-import { Extension } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
-import type { GlobTask } from 'globby';
-import type { Options as Options_2 } from 'html-webpack-plugin';
-import { Server } from '@roots/bud-framework';
-import { Service } from '@roots/bud-framework';
+import type {Configuration} from 'webpack'
+import type {Configuration as Configuration_2} from '@roots/bud-framework'
+import type {DefinePlugin} from 'webpack'
+import {Extension} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import type {GlobTask} from 'globby'
+import type {Options as Options_2} from 'html-webpack-plugin'
+import {Server} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
 
 /**
  * Alias interface
@@ -29,7 +29,10 @@ import { Service } from '@roots/bud-framework';
  * @public @config
  */
 declare interface alias {
-    (this: Framework, alias: Configuration['resolve']['alias']): Framework;
+  (
+    this: Framework,
+    alias: Configuration['resolve']['alias'],
+  ): Framework
 }
 
 /**
@@ -47,7 +50,7 @@ declare interface alias {
  *
  * @public @config
  */
-declare const alias: alias;
+declare const alias: alias
 
 /**
  * The API class binds all the functions from the {@link @roots/bud-api#Repository}
@@ -57,25 +60,25 @@ declare const alias: alias;
  * @public @core
  */
 export declare class Api extends Service<Repository> {
-    /**
-     * {@inheritDoc @roots/bud-framework#Service.name}
-     *
-     * @public
-     */
-    name: string;
-    /**
-     * A {@link @roots/container#Repository | Repository} of high-level functions used to
-     * configure the project
-     *
-     * @override @public
-     */
-    repository: Repository;
-    /**
-     * {@inheritDoc}
-     *
-     * @public
-     */
-    bootstrap(): void;
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.name}
+   *
+   * @public
+   */
+  name: string
+  /**
+   * A {@link @roots/container#Repository | Repository} of high-level functions used to
+   * configure the project
+   *
+   * @override @public
+   */
+  repository: Repository
+  /**
+   * {@inheritDoc}
+   *
+   * @public
+   */
+  bootstrap(): void
 }
 
 /**
@@ -93,13 +96,16 @@ export declare class Api extends Service<Repository> {
  *
  * @public @config
  */
-declare function assets(this: Framework, paths: string[]): Framework;
+declare function assets(
+  this: Framework,
+  paths: string[],
+): Framework
 
 /**
  * @public @config
  */
 declare interface assets {
-    (this: Framework, from: string[]): Framework;
+  (this: Framework, from: string[]): Framework
 }
 
 /**
@@ -118,13 +124,19 @@ declare interface assets {
  *
  * @public
  */
-declare function config(this: Framework, overrides: Partial<Configuration_2>): Framework;
+declare function config(
+  this: Framework,
+  overrides: Partial<Configuration_2>,
+): Framework
 
 /**
  * @privateRemarks Should this function be nixxed entirely?
  */
 declare interface config {
-    (this: Framework, overrides: Partial<Configuration_2>): Framework;
+  (
+    this: Framework,
+    overrides: Partial<Configuration_2>,
+  ): Framework
 }
 
 /**
@@ -141,14 +153,23 @@ declare interface config {
  *
  * @public @config
  */
-declare function define(this: Framework, values: DefinePlugin['definitions']): Framework;
+declare function define(
+  this: Framework,
+  values: DefinePlugin['definitions'],
+): Framework
 
 declare interface define {
-    (this: Framework, values: DefinePlugin['definitions']): Framework;
+  (
+    this: Framework,
+    values: DefinePlugin['definitions'],
+  ): Framework
 }
 
 declare interface dev {
-    (this: Framework, config?: Partial<Server.Configuration>): Framework;
+  (
+    this: Framework,
+    config?: Partial<Server.Configuration>,
+  ): Framework
 }
 
 /**
@@ -164,10 +185,13 @@ declare interface dev {
  *
  * @public @config
  */
-declare const dev: dev;
+declare const dev: dev
 
 declare interface devtool {
-    (this: Framework, devtool?: Configuration['devtool']): Framework;
+  (
+    this: Framework,
+    devtool?: Configuration['devtool'],
+  ): Framework
 }
 
 /**
@@ -185,7 +209,7 @@ declare interface devtool {
  *
  * @public @config
  */
-declare const devtool: devtool;
+declare const devtool: devtool
 
 /**
  * {@link entry} interface supporting the definition of a single entrypoint
@@ -198,7 +222,11 @@ declare const devtool: devtool;
  * @public @config
  */
 declare interface entry {
-    (this: Framework, name: string, entrypoint: EntryValue): Framework;
+  (
+    this: Framework,
+    name: string,
+    entrypoint: EntryValue,
+  ): Framework
 }
 
 /**
@@ -213,7 +241,7 @@ declare interface entry {
  * @public @config
  */
 declare interface entry {
-    (this: Framework, entrypoints: EntryInput): Framework;
+  (this: Framework, entrypoints: EntryInput): Framework
 }
 
 /**
@@ -281,33 +309,38 @@ declare interface entry {
  *
  * @public @config
  */
-declare const entry: entry;
+declare const entry: entry
 
 /**
  * Entry assets expressed as a key-value mapping
  */
 declare interface EntryInput {
-    [k: string]: EntryObject | EntryObject['import'] | GlobTask['pattern'];
+  [k: string]:
+    | EntryObject
+    | EntryObject['import']
+    | GlobTask['pattern']
 }
 
 /**
  * A singular entrypoint asset value
  */
 declare interface EntryObject {
-    /**
-     * Lower-level representation of entrypoint
-     */
-    import?: string[];
-    /**
-     * Array of modules the entrypoint explicitly depends on
-     */
-    dependsOn?: string[];
+  /**
+   * Lower-level representation of entrypoint
+   */
+  import?: string[]
+  /**
+   * Array of modules the entrypoint explicitly depends on
+   */
+  dependsOn?: string[]
 }
 
 /**
  * An entry asset or an array of entry assets expressed with fast-glob syntax.
  */
-declare type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>;
+declare type EntryValue =
+  | GlobTask['pattern']
+  | Array<GlobTask['pattern']>
 
 /**
  * @hook build/experiments
@@ -315,7 +348,10 @@ declare type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>;
  * @public @config
  */
 declare interface experiments {
-    (this: Framework, settings: Configuration['experiments']): Framework;
+  (
+    this: Framework,
+    settings: Configuration['experiments'],
+  ): Framework
 }
 
 /**
@@ -330,7 +366,7 @@ declare interface experiments {
  *
  * @public @config
  */
-declare const experiments: experiments;
+declare const experiments: experiments
 
 /**
  * Externals function interface
@@ -343,7 +379,10 @@ declare const experiments: experiments;
  * @public @config
  */
 declare interface externals {
-    (this: Framework, externals: Configuration['externals']): Framework;
+  (
+    this: Framework,
+    externals: Configuration['externals'],
+  ): Framework
 }
 
 /**
@@ -358,7 +397,7 @@ declare interface externals {
  *
  * @public @config
  */
-declare const externals: externals;
+declare const externals: externals
 
 /**
  * Hash function interface
@@ -369,7 +408,7 @@ declare const externals: externals;
  * @public @config
  */
 declare interface hash {
-    (this: Framework, enabled?: boolean): Framework;
+  (this: Framework, enabled?: boolean): Framework
 }
 
 /**
@@ -382,7 +421,7 @@ declare interface hash {
  *
  * @public @config
  */
-declare const hash: hash;
+declare const hash: hash
 
 /**
  * Package/definition mappings
@@ -390,7 +429,7 @@ declare const hash: hash;
  * @public @config
  */
 declare interface mappedPackages {
-    [key: string]: string | string[];
+  [key: string]: string | string[]
 }
 
 /**
@@ -404,7 +443,7 @@ declare interface mappedPackages {
  * @public @config
  */
 declare interface minimize {
-    (enabled?: boolean): Framework;
+  (enabled?: boolean): Framework
 }
 
 /**
@@ -433,7 +472,7 @@ declare interface minimize {
  *
  * @public @config
  */
-declare const minimize: minimize;
+declare const minimize: minimize
 
 /**
  * Template function options
@@ -441,22 +480,22 @@ declare const minimize: minimize;
  * @public @config
  */
 declare interface Options extends Options_2 {
-    /**
-     * Explicitly enable or disable html templating.
-     */
-    enabled?: boolean;
-    /**
-     * Path to an HTML template to use. If none is supplied
-     * one is provided as a default.
-     */
-    template?: string;
-    /**
-     * Template variable names are used as keys.
-     * Each key is associated with a replacement value.
-     */
-    replace?: {
-        [key: string]: string;
-    };
+  /**
+   * Explicitly enable or disable html templating.
+   */
+  enabled?: boolean
+  /**
+   * Path to an HTML template to use. If none is supplied
+   * one is provided as a default.
+   */
+  template?: string
+  /**
+   * Template variable names are used as keys.
+   * Each key is associated with a replacement value.
+   */
+  replace?: {
+    [key: string]: string
+  }
 }
 
 /**
@@ -477,7 +516,7 @@ declare interface Options extends Options_2 {
  * @public @config
  */
 declare interface persist {
-    (this: Framework, enabled?: boolean): Framework;
+  (this: Framework, enabled?: boolean): Framework
 }
 
 /**
@@ -492,7 +531,7 @@ declare interface persist {
  *
  * @public @config
  */
-declare const persist: persist;
+declare const persist: persist
 
 /**
  * Wrapper function for {@link webpack#ProvidePlugin}.
@@ -500,7 +539,7 @@ declare const persist: persist;
  * @public @config
  */
 declare interface provide {
-    (this: Framework, packages?: mappedPackages): Framework;
+  (this: Framework, packages?: mappedPackages): Framework
 }
 
 /**
@@ -516,7 +555,7 @@ declare interface provide {
  *
  * @public @config
  */
-declare const provide: provide;
+declare const provide: provide
 
 /**
  * Configures proxy settings
@@ -524,20 +563,23 @@ declare const provide: provide;
  * @public @config
  */
 declare interface proxy {
-    (this: Framework, config?: {
-        /**
-         * Explicity enable or disable proxy service
-         */
-        enabled?: boolean;
-        /**
-         * Hostname of the proxy target
-         */
-        host?: Server.Configuration['proxy']['host'];
-        /**
-         * Port of the proxy target
-         */
-        port?: Server.Configuration['proxy']['port'];
-    }): Framework;
+  (
+    this: Framework,
+    config?: {
+      /**
+       * Explicity enable or disable proxy service
+       */
+      enabled?: boolean
+      /**
+       * Hostname of the proxy target
+       */
+      host?: Server.Configuration['proxy']['host']
+      /**
+       * Port of the proxy target
+       */
+      port?: Server.Configuration['proxy']['port']
+    },
+  ): Framework
 }
 
 /**
@@ -575,13 +617,13 @@ declare interface proxy {
  *
  * @public @config
  */
-declare const proxy: proxy;
+declare const proxy: proxy
 
 /**
  * @public @config
  */
 declare interface publicPath {
-    (this: Framework): string;
+  (this: Framework): string
 }
 
 /**
@@ -598,7 +640,7 @@ declare interface publicPath {
  *
  * @public @config
  */
-declare const publicPath: publicPath;
+declare const publicPath: publicPath
 
 /**
  * API repository interface
@@ -606,35 +648,35 @@ declare const publicPath: publicPath;
  * @public
  */
 export declare interface Repository {
-    alias: alias;
-    assets: assets;
-    config: config;
-    define: define;
-    dev: dev;
-    devtool: devtool;
-    entry: entry;
-    experiments: experiments;
-    externals: externals;
-    hash: hash;
-    minimize: minimize;
-    persist: persist;
-    provide: provide;
-    proxy: proxy;
-    publicPath: publicPath;
-    run: run;
-    runtime: runtime;
-    setPublicPath: setPublicPath;
-    splitChunks: splitChunks;
-    template: template;
-    use: use;
-    watch: watch;
+  alias: alias
+  assets: assets
+  config: config
+  define: define
+  dev: dev
+  devtool: devtool
+  entry: entry
+  experiments: experiments
+  externals: externals
+  hash: hash
+  minimize: minimize
+  persist: persist
+  provide: provide
+  proxy: proxy
+  publicPath: publicPath
+  run: run
+  runtime: runtime
+  setPublicPath: setPublicPath
+  splitChunks: splitChunks
+  template: template
+  use: use
+  watch: watch
 }
 
 /**
  * @public @config
  */
 declare interface run {
-    (this: Framework): void;
+  (this: Framework): void
 }
 
 /**
@@ -647,7 +689,7 @@ declare interface run {
  *
  * @public @config
  */
-declare const run: run;
+declare const run: run
 
 /**
  * Runtime function interface
@@ -656,182 +698,195 @@ declare const run: run;
  * @param runtime - {@link webpack#Configuration.optimization.runtimeChunk}
  *
  * @returns {@link @roots/bud-framework#Framework}
-     *
-     * @hook build/optimization/runtime
-     *
-     * @public @config
-     */
- declare interface runtime {
-     (this: Framework, runtime?: Configuration['optimization']['runtimeChunk']): Framework;
- }
+ *
+ * @hook build/optimization/runtime
+ *
+ * @public @config
+ */
+declare interface runtime {
+  (
+    this: Framework,
+    runtime?: Configuration['optimization']['runtimeChunk'],
+  ): Framework
+}
 
- /**
-  * Generate a runtime chunk intended to be inlined on the page.
-  *
-  * Useful for code splitting and dynamic imports.
-  *
-  * @example
-  * ```js
-  * bud.runtime()
-  * ```
-  *
-  * @public @config
-  */
- declare const runtime: runtime;
+/**
+ * Generate a runtime chunk intended to be inlined on the page.
+ *
+ * Useful for code splitting and dynamic imports.
+ *
+ * @example
+ * ```js
+ * bud.runtime()
+ * ```
+ *
+ * @public @config
+ */
+declare const runtime: runtime
 
- /**
-  * @public @config
-  */
- declare interface setPublicPath {
-     (publicPath: string | ((publicPath: string) => string)): Framework;
- }
+/**
+ * @public @config
+ */
+declare interface setPublicPath {
+  (
+    publicPath: string | ((publicPath: string) => string),
+  ): Framework
+}
 
- /**
-  * By default it is assumed that assets are served from webroot (`/`).
-  * You can use this method to replace this value for apps served from
-  * a subdirectory.
-  *
-  * @example
-  * Set the default path using a string
-  *
-  * ```js
-  * app.setPublicPath('/app/themes/sage/dist')
-  * ```
-  *
-  * @example
-  * Set the publicPath using a function.
-  *
-  * ```js
-  * app.setPublicPath(publicPath => {
-  *   return `web/assets/${publicPath}`
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const setPublicPath: setPublicPath;
+/**
+ * By default it is assumed that assets are served from webroot (`/`).
+ * You can use this method to replace this value for apps served from
+ * a subdirectory.
+ *
+ * @example
+ * Set the default path using a string
+ *
+ * ```js
+ * app.setPublicPath('/app/themes/sage/dist')
+ * ```
+ *
+ * @example
+ * Set the publicPath using a function.
+ *
+ * ```js
+ * app.setPublicPath(publicPath => {
+ *   return `web/assets/${publicPath}`
+ * })
+ * ```
+ *
+ * @public @config
+ */
+declare const setPublicPath: setPublicPath
 
- /**
-  * Wrapper configuring {@link webpack#Configuration.optimization.splitChunks} settings
-  *
-  * @param this - {@link @roots/bud-framework#Framework | Framework instance}
-  * @param options - {@link webpack#Configuration.optimization.splitChunks | webpack splitchunks options}
-  *
-  * @hook build/optimization/splitChunks
-  *
-  * @public @config
-  */
- declare interface splitChunks {
-     (this: Framework, options?: Configuration['optimization']['splitChunks']): Framework;
- }
+/**
+ * Wrapper configuring {@link webpack#Configuration.optimization.splitChunks} settings
+ *
+ * @param this - {@link @roots/bud-framework#Framework | Framework instance}
+ * @param options - {@link webpack#Configuration.optimization.splitChunks | webpack splitchunks options}
+ *
+ * @hook build/optimization/splitChunks
+ *
+ * @public @config
+ */
+declare interface splitChunks {
+  (
+    this: Framework,
+    options?: Configuration['optimization']['splitChunks'],
+  ): Framework
+}
 
- /**
-  * Bundle vendor modules separately from application code.
-  *
-  * @example
-  * ```js
-  * bud.splitChunks({
-  *  chunks: 'all',
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const splitChunks: splitChunks;
+/**
+ * Bundle vendor modules separately from application code.
+ *
+ * @example
+ * ```js
+ * bud.splitChunks({
+ *  chunks: 'all',
+ * })
+ * ```
+ *
+ * @public @config
+ */
+declare const splitChunks: splitChunks
 
- /**
-  * Template function interface
-  *
-  * @param this - {@link Framework}
-  * @param userOptions - {@link Options}
-  *
-  * @public @config
-  */
- declare interface template {
-     (this: Framework, userOptions?: Options): Framework;
- }
+/**
+ * Template function interface
+ *
+ * @param this - {@link Framework}
+ * @param userOptions - {@link Options}
+ *
+ * @public @config
+ */
+declare interface template {
+  (this: Framework, userOptions?: Options): Framework
+}
 
- /**
-  * Enable and/or configure a generated HTML template
-  *
-  * @example
-  *
-  * ```ts
-  * app.template()
-  * ```
-  *
-  * With configuration defaults:
-  *
-  * ```ts
-  * app.template({
-  *   enabled: true,
-  *   template: 'public/index.html',
-  *   replace: {
-  *     APP_NAME: name,
-  *     APP_DESCRIPTION: description,
-  *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
-  *   },
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const template: template;
+/**
+ * Enable and/or configure a generated HTML template
+ *
+ * @example
+ *
+ * ```ts
+ * app.template()
+ * ```
+ *
+ * With configuration defaults:
+ *
+ * ```ts
+ * app.template({
+ *   enabled: true,
+ *   template: 'public/index.html',
+ *   replace: {
+ *     APP_NAME: name,
+ *     APP_DESCRIPTION: description,
+ *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
+ *   },
+ * })
+ * ```
+ *
+ * @public @config
+ */
+declare const template: template
 
- /**
-  * @public @config
-  */
- declare interface use {
-     (source: Extension.Module | Extension.CompilerPlugin | Extension.Module): Framework;
- }
+/**
+ * @public @config
+ */
+declare interface use {
+  (
+    source:
+      | Extension.Module
+      | Extension.CompilerPlugin
+      | Extension.Module,
+  ): Framework
+}
 
- /**
-  * Register an extension or set of extensions
-  *
-  * @example
-  * Add packaged bud extensions:
-  *
-  * ```js
-  * bud.use([
-  *   require('@roots/bud-babel'),
-  *   require('@roots/bud-react'),
-  * ])
-  * ```
-  *
-  * @example
-  * Add an extension inline (also works with an array of extensions):
-  *
-  * ```js
-  * bud.use({
-  *  name: 'my-webpack-plugin',
-  *  make: () => new MyWebpackPlugin(),
-  * })
-  * ```
-  *
-  * @example
-  * Add a webpack plugin inline (also work with an array of plugins):
-  *
-  * ```js
-  * bud.use(new MyWebpackPlugin())
-  * ```
-  *
-  * @public @config
-  */
- declare const use: use;
+/**
+ * Register an extension or set of extensions
+ *
+ * @example
+ * Add packaged bud extensions:
+ *
+ * ```js
+ * bud.use([
+ *   require('@roots/bud-babel'),
+ *   require('@roots/bud-react'),
+ * ])
+ * ```
+ *
+ * @example
+ * Add an extension inline (also works with an array of extensions):
+ *
+ * ```js
+ * bud.use({
+ *  name: 'my-webpack-plugin',
+ *  make: () => new MyWebpackPlugin(),
+ * })
+ * ```
+ *
+ * @example
+ * Add a webpack plugin inline (also work with an array of plugins):
+ *
+ * ```js
+ * bud.use(new MyWebpackPlugin())
+ * ```
+ *
+ * @public @config
+ */
+declare const use: use
 
- /**
-  * Configure the list of files that, when modified,
-  * will force the browser to reload (even in hot mode).
-  *
-  * @example
-  * ```js
-  * app.watch(['templates/*.html'])
-  * ```
-  */
- declare interface watch {
-     (files: Server.Configuration['watch']['files']): Framework;
- }
+/**
+ * Configure the list of files that, when modified,
+ * will force the browser to reload (even in hot mode).
+ *
+ * @example
+ * ```js
+ * app.watch(['templates/*.html'])
+ * ```
+ */
+declare interface watch {
+  (files: Server.Configuration['watch']['files']): Framework
+}
 
- declare const watch: watch;
+declare const watch: watch
 
- export { }
+export {}

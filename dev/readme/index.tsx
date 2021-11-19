@@ -1,7 +1,7 @@
 import {readJson} from 'fs-extra'
-import * as React from 'react'
+import React from 'react'
 
-import render from './renderer'
+import {render} from './renderer'
 import {CoreTemplate} from './templates/CoreTemplate'
 import {ExtensionTemplate} from './templates/ExtensionTemplate'
 import {LibraryTemplate} from './templates/LibraryTemplate'

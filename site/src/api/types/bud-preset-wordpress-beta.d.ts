@@ -43,8 +43,8 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Extension } from '@roots/bud-framework';
-import type { Framework } from '@roots/bud-framework';
+import type {Extension} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 /**
  * Preset config for WordPress plugins & themes
@@ -60,13 +60,13 @@ import type { Framework } from '@roots/bud-framework';
  * @public
  */
 declare interface BudWordPressPreset extends Extension.Module {
-    name: '@roots/bud-preset-wordpress';
-    register: (app: Framework) => void;
+  name: '@roots/bud-preset-wordpress'
+  register: (app: Framework) => void
 }
 
-declare const name_2: BudWordPressPreset['name'];
-export { name_2 as name }
+declare const name_2: BudWordPressPreset['name']
+export {name_2 as name}
 
-export declare const register: BudWordPressPreset['register'];
+export declare const register: BudWordPressPreset['register']
 
-export { }
+export {}

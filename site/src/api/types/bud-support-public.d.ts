@@ -21,106 +21,109 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import * as chalk from 'chalk';
-import * as cosmiconfig from 'cosmiconfig';
-import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader';
-import * as dotenv from 'dotenv';
-import dotenvExpand from 'dotenv-expand';
-import { default as Express_2 } from 'express';
-import { default as globby_2 } from 'globby';
-import * as Ink from 'ink';
-import InkGradient from 'ink-gradient';
-import InkSpinner from 'ink-spinner';
-import * as InkUseStyle from '@roots/ink-use-style';
-import * as json5 from 'json5';
-import * as Notifier from 'node-notifier';
-import { OptionsReceived } from 'pretty-format';
-import * as pkgUp from 'pkg-up';
-import { stream } from 'globby';
-import { sync } from 'globby';
-import * as toml from 'toml';
-import * as yaml from 'yamljs';
+import * as chalk from 'chalk'
+import * as cosmiconfig from 'cosmiconfig'
+import cosmiconfigTsLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
+import * as dotenv from 'dotenv'
+import dotenvExpand from 'dotenv-expand'
+import {default as Express_2} from 'express'
+import {default as globby_2} from 'globby'
+import * as Ink from 'ink'
+import InkGradient from 'ink-gradient'
+import InkSpinner from 'ink-spinner'
+import * as InkUseStyle from '@roots/ink-use-style'
+import * as json5 from 'json5'
+import * as Notifier from 'node-notifier'
+import {OptionsReceived} from 'pretty-format'
+import * as pkgUp from 'pkg-up'
+import {stream} from 'globby'
+import {sync} from 'globby'
+import * as toml from 'toml'
+import * as yaml from 'yamljs'
 
-export { chalk }
+export {chalk}
 
-export { cosmiconfig }
+export {cosmiconfig}
 
-export { cosmiconfigTsLoader }
+export {cosmiconfigTsLoader}
 
-export { dotenv }
+export {dotenv}
 
-export { dotenvExpand }
+export {dotenvExpand}
 
-declare type Dump = (obj: unknown, options?: OptionsReceived) => void;
+declare type Dump = (
+  obj: unknown,
+  options?: OptionsReceived,
+) => void
 
-export declare const dump: Dump;
+export declare const dump: Dump
 
-export { Express_2 as Express }
+export {Express_2 as Express}
 
 declare namespace globby {
-    export {
-        globby_2 as globby,
-        stream as globbyStream,
-        sync as globbySync
-    }
+  export {
+    globby_2 as globby,
+    stream as globbyStream,
+    sync as globbySync,
+  }
 }
-export { globby }
+export {globby}
 
-export { Ink }
+export {Ink}
 
-export { InkGradient }
+export {InkGradient}
 
-export { InkSpinner }
+export {InkSpinner}
 
-export { InkUseStyle }
+export {InkUseStyle}
 
 /**
  * Is pkg string a wordpress window var match
  */
-declare const isProvided: (pkg: string) => boolean;
+declare const isProvided: (pkg: string) => boolean
 
-export { json5 }
+export {json5}
 
-export declare const killPort: (port: number) => void;
+export declare const killPort: (port: number) => void
 
-export { Notifier }
+export {Notifier}
 
-declare type PkgName = WordPressScopePkg | 'lodash' | 'react' | 'react-dom' | 'jquery';
+declare type PkgName =
+  | WordPressScopePkg
+  | 'lodash'
+  | 'react'
+  | 'react-dom'
+  | 'jquery'
 
-export { pkgUp }
+export {pkgUp}
 
 declare namespace React_2 {
-    export {
-
-    }
+  export {}
 }
-export { React_2 as React }
+export {React_2 as React}
 
-export { toml }
+export {toml}
 
 /**
  * Transform pkg string request
  */
-declare const transform: (pkg: PkgName) => {
-    window: string;
-    enqueue: string;
-} | {
-    window: string[];
-    enqueue: string;
-};
+declare const transform: (pkg: PkgName) =>
+  | {
+      window: string
+      enqueue: string
+    }
+  | {
+      window: string[]
+      enqueue: string
+    }
 
-declare type WordPressScopePkg = `@wordpress/${string}`;
+declare type WordPressScopePkg = `@wordpress/${string}`
 
 declare namespace wpPkgs {
-    export {
-        WordPressScopePkg,
-        PkgName,
-        isProvided,
-        transform
-    }
+  export {WordPressScopePkg, PkgName, isProvided, transform}
 }
-export { wpPkgs }
+export {wpPkgs}
 
-export { yaml }
+export {yaml}
 
-export { }
+export {}

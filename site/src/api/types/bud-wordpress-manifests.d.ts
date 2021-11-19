@@ -11,15 +11,18 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Container } from '@roots/container';
-import { Extension } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
-import { Maybe } from '@roots/bud-framework';
-import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin';
+import {Container} from '@roots/container'
+import {Extension} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {Maybe} from '@roots/bud-framework'
+import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 
-export declare const make: Maybe<[Container<null>, Framework], MergedManifestPlugin & Extension.ApplyPlugin>;
+export declare const make: Maybe<
+  [Container<null>, Framework],
+  MergedManifestPlugin & Extension.ApplyPlugin
+>
 
-declare const name_2: string;
-export { name_2 as name }
+declare const name_2: string
+export {name_2 as name}
 
-export { }
+export {}

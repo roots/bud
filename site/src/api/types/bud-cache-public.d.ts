@@ -7,8 +7,8 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import { Cache as Cache_3 } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
+import {Cache as Cache_3} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * Service class handling cache concerns
@@ -23,45 +23,48 @@ import { Framework } from '@roots/bud-framework';
  *
  * @public
  */
-declare class extends Cache_3.Abstract implements Cache_3.Interface {
-    /**
-     * {@inheritDoc}
-     */
-    name: string;
-    /**
-     * {@inheritDoc}
-     *
-     * @decorator `@bind`
-     */
-    register(app: Framework): void;
-    /**
-     * Returns sha1 hash as a version string
-     *
-     * @decorator `@bind`
-     */
-    version(): string;
-    /**
-     * Returns cache storage directory
-     *
-     * @decorator `@bind`
-     */
-    directory(): string;
-    /**
-     * Returns array of build dependency paths
-     *
-     * @remarks
-     * @see https://webpack.js.org/configuration/cache/#cachebuilddependencies
-     *
-     * @decorator `@bind`
-     */
-    buildDependencies(): string[];
-    /**
-     * Returns hash of all build dependencies and parsed CLI arguments
-     *
-     * @decorator `@bind`
-     */
-    hash(): string;
+declare class
+  extends Cache_3.Abstract
+  implements Cache_3.Interface
+{
+  /**
+   * {@inheritDoc}
+   */
+  name: string
+  /**
+   * {@inheritDoc}
+   *
+   * @decorator `@bind`
+   */
+  register(app: Framework): void
+  /**
+   * Returns sha1 hash as a version string
+   *
+   * @decorator `@bind`
+   */
+  version(): string
+  /**
+   * Returns cache storage directory
+   *
+   * @decorator `@bind`
+   */
+  directory(): string
+  /**
+   * Returns array of build dependency paths
+   *
+   * @remarks
+   * @see https://webpack.js.org/configuration/cache/#cachebuilddependencies
+   *
+   * @decorator `@bind`
+   */
+  buildDependencies(): string[]
+  /**
+   * Returns hash of all build dependencies and parsed CLI arguments
+   *
+   * @decorator `@bind`
+   */
+  hash(): string
 }
-export { Cache_2 as Cache }
+export {Cache_2 as Cache}
 
-export { }
+export {}

@@ -20,7 +20,7 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-declare const name_2: string;
-export { name_2 as name }
+declare const name_2: string
+export {name_2 as name}
 
-export { }
+export {}

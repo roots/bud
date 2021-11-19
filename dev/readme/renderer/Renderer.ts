@@ -1,10 +1,7 @@
-import * as Reconciler from 'react-reconciler'
+import Reconciler from 'react-reconciler'
 
 import {createElement} from './createElement'
 
-/**
- * @const {Reconciler.Config} HostConfig
- */
 const HostConfig: any = {
   appendInitialChild(instance, child) {
     if (child?.append) {
@@ -73,12 +70,4 @@ const HostConfig: any = {
   appendAllChildren(parent, children) {},
 }
 
-/**
- * @const {Reconciler} MarkdownRenderer
- */
-const MarkdownRenderer = Reconciler(HostConfig)
-
-/**
- * @exports MarkdownRenderer
- */
-export {MarkdownRenderer}
+export const MarkdownRenderer = Reconciler(HostConfig)

@@ -54,8 +54,8 @@ There are also [example implementations available in the /examples directory of 
 
 ### Zero-config presets
 
-| Name                                                                      | Usage                                                        | Latest                                                                                                   
-| ------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | 
+| Name                                                                      | Usage                                                        | Latest
+| ------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](/packages/@roots/bud-preset-recommend)  | [📚 Usage](https://budjs.netlify.app/extensions/presets/bud-preset-recommend)  | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-preset-wordpress**](/packages/@roots/bud-preset-wordpress)  |[📚 Usage](https://budjs.netlify.app/extensions/presets/bud-preset-wordpress)  | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
 
@@ -88,13 +88,13 @@ There are also [example implementations available in the /examples directory of 
 | [**@roots/bud-wordpress-externals**](/packages/@roots/bud-wordpress-externals)       | [**@roots/wordpress-externals-webpack-plugin**](/packages/@roots/wordpress-externals-webpack-plugin)       | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-manifests**](/packages/@roots/bud-wordpress-manifests)       | [**@roots/merged-manifest-webpack-plugin**](/packages/@roots/merged-manifest-webpack-plugin)               | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
-Have you produced a Bud extension and want to share it here? 
+Have you produced a Bud extension and want to share it here?
 Please, create an issue sharing information about your project.
 
 ## Licensing
 
 Bud is licensed MIT.
-    
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_large) 
 ## Community
 

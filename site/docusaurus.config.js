@@ -162,16 +162,6 @@ module.exports = {
     [
       require.resolve('@docusaurus/plugin-content-docs'),
       {
-        id: 'recipes',
-        path: './recipes',
-        routeBasePath: 'recipes',
-        sidebarPath: './sidebars/docs.js',
-        include: ['**/*.md', '**/*.mdx'],
-      },
-    ],
-    [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
         id: 'extensions',
         path: './extensions',
         routeBasePath: 'extensions',
@@ -180,26 +170,11 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
-        id: 'api',
-        path: './api',
-        routeBasePath: 'api',
-        sidebarPath: false,
-        include: ['**/*.md', '**/*.mdx'],
-      },
-    ],
-    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsDir: ['extensions', 'guides', 'recipes', 'docs'],
-        docsRouteBasePath: [
-          'extensions',
-          'guides',
-          'recipes',
-          'docs',
-        ],
+        docsDir: ['extensions', 'guides', 'docs'],
+        docsRouteBasePath: ['extensions', 'guides', 'docs'],
       },
     ],
   ],

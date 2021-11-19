@@ -17,21 +17,23 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Framework } from '@roots/bud-framework';
+import {Framework} from '@roots/bud-framework'
 
 export declare const api: {
-    purge: purge;
-};
-
-declare type ExtractorFunction<T = string> = (content: T) => string[];
-
-declare interface Extractors {
-    extensions: string[];
-    extractor: ExtractorFunction;
+  purge: purge
 }
 
-declare const name_2 = "@roots/bud-purgecss";
-export { name_2 as name }
+declare type ExtractorFunction<T = string> = (
+  content: T,
+) => string[]
+
+declare interface Extractors {
+  extensions: string[]
+  extractor: ExtractorFunction
+}
+
+declare const name_2 = '@roots/bud-purgecss'
+export {name_2 as name}
 
 /**
  * Purge unused CSS from compiled stylesheets
@@ -49,36 +51,38 @@ export { name_2 as name }
  * ```
  */
 declare interface purge {
-    (this: Framework, userOptions: UserOptions): Framework;
+  (this: Framework, userOptions: UserOptions): Framework
 }
 
-declare const purge: purge;
+declare const purge: purge
 
 declare interface RawContent<T = string> {
-    extension: string;
-    raw: T;
+  extension: string
+  raw: T
 }
 
 declare interface RawCSS {
-    raw: string;
+  raw: string
 }
 
 declare interface UserOptions {
-    content?: Array<string | RawContent>;
-    contentFunction?: (sourceFile: string) => Array<string | RawContent>;
-    css: Array<string | RawCSS>;
-    defaultExtractor?: ExtractorFunction;
-    extractors?: Array<Extractors>;
-    fontFace?: boolean;
-    keyframes?: boolean;
-    output?: string;
-    rejected?: boolean;
-    stdin?: boolean;
-    stdout?: boolean;
-    variables?: boolean;
-    whitelist?: string[];
-    whitelistPatterns?: Array<RegExp>;
-    whitelistPatternsChildren?: Array<RegExp>;
+  content?: Array<string | RawContent>
+  contentFunction?: (
+    sourceFile: string,
+  ) => Array<string | RawContent>
+  css: Array<string | RawCSS>
+  defaultExtractor?: ExtractorFunction
+  extractors?: Array<Extractors>
+  fontFace?: boolean
+  keyframes?: boolean
+  output?: string
+  rejected?: boolean
+  stdin?: boolean
+  stdout?: boolean
+  variables?: boolean
+  whitelist?: string[]
+  whitelistPatterns?: Array<RegExp>
+  whitelistPatternsChildren?: Array<RegExp>
 }
 
-export { }
+export {}

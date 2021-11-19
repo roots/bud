@@ -15,18 +15,21 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Container } from '@roots/container';
-import EslintPlugin from 'eslint-webpack-plugin';
-import { Extension } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
-import { Maybe } from '@roots/bud-framework';
-import { Options } from 'eslint-webpack-plugin/declarations/options';
+import {Container} from '@roots/container'
+import EslintPlugin from 'eslint-webpack-plugin'
+import {Extension} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {Maybe} from '@roots/bud-framework'
+import {Options} from 'eslint-webpack-plugin/declarations/options'
 
-export declare const make: Maybe<[Container<Options>, Framework], EslintPlugin & Extension.ApplyPlugin>;
+export declare const make: Maybe<
+  [Container<Options>, Framework],
+  EslintPlugin & Extension.ApplyPlugin
+>
 
-declare const name_2: string;
-export { name_2 as name }
+declare const name_2: string
+export {name_2 as name}
 
-export declare const options: Maybe<[Framework], Options>;
+export declare const options: Maybe<[Framework], Options>
 
-export { }
+export {}

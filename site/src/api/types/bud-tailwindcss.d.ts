@@ -14,32 +14,36 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Extension } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
-import { TailwindConfig } from 'tailwindcss/tailwind-config';
+import type {Extension} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {TailwindConfig} from 'tailwindcss/tailwind-config'
 
 export declare const api: {
-    tailwind: tailwindConfig;
-};
-
-export declare const boot: (app: Framework) => void;
-
-export declare interface BudTailwindCssExtension extends Extension.Module {
-    api: {
-        tailwind: tailwindConfig;
-    };
-    boot: (app: Framework) => void;
+  tailwind: tailwindConfig
 }
 
-export declare const BudTailwindCssExtension: BudTailwindCssExtension;
+export declare const boot: (app: Framework) => void
 
-declare const name_2: string;
-export { name_2 as name }
+export declare interface BudTailwindCssExtension
+  extends Extension.Module {
+  api: {
+    tailwind: tailwindConfig
+  }
+  boot: (app: Framework) => void
+}
 
-declare function tailwindConfig(this: Framework, config?: TailwindConfig): Framework;
+export declare const BudTailwindCssExtension: BudTailwindCssExtension
+
+declare const name_2: string
+export {name_2 as name}
+
+declare function tailwindConfig(
+  this: Framework,
+  config?: TailwindConfig,
+): Framework
 
 declare interface tailwindConfig {
-    (this: Framework, config?: TailwindConfig): Framework;
+  (this: Framework, config?: TailwindConfig): Framework
 }
 
-export { }
+export {}

@@ -1,5 +1,4 @@
-import * as React from 'react'
-
+import React from 'react'
 const Grid = ({project}) =>
   project.sponsors.map((sponsor, id) => (
     <span

@@ -46,15 +46,15 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import type { Configuration } from '@roots/bud-framework';
-import { Constructor } from '@roots/bud-framework';
-import { Extension } from '@roots/bud-framework';
-import { Framework as Framework_2 } from '@roots/bud-framework';
-import { Item } from '@roots/bud-framework';
-import { Loader } from '@roots/bud-framework';
-import { Options } from '@roots/bud-framework';
-import { Rule } from '@roots/bud-framework';
-import { SetOptional } from 'type-fest';
+import type {Configuration} from '@roots/bud-framework'
+import {Constructor} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {Framework as Framework_2} from '@roots/bud-framework'
+import {Item} from '@roots/bud-framework'
+import {Loader} from '@roots/bud-framework'
+import {Options} from '@roots/bud-framework'
+import {Rule} from '@roots/bud-framework'
+import {SetOptional} from 'type-fest'
 
 /**
  * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
@@ -62,31 +62,31 @@ import { SetOptional } from 'type-fest';
  * @public @core
  */
 declare class Bud extends Framework_2 implements Contract {
-    /**
-     * {@link Bud} class definition
-     *
-     * @remarks
-     * Used internally when creating child Bud instances
-     *
-     * @public
-     */
-    implementation: Constructor;
-    /**
-     * Class constructor
-     *
-     * @param options - {@link @roots/bud-framework#Options}
-     */
-    constructor(options: Options);
+  /**
+   * {@link Bud} class definition
+   *
+   * @remarks
+   * Used internally when creating child Bud instances
+   *
+   * @public
+   */
+  implementation: Constructor
+  /**
+   * Class constructor
+   *
+   * @param options - {@link @roots/bud-framework#Options}
+   */
+  constructor(options: Options)
 }
-export { Bud }
-export { Bud as Framework }
+export {Bud}
+export {Bud as Framework}
 
 /**
  * {@inheritDoc @roots/bud-framework#Configuration}
  *
  * @public @config
  */
-export declare const config: Configuration;
+export declare const config: Configuration
 
 /**
  * Implements {@link @roots/bud-framework#Framework | the Framework abstract class}
@@ -94,15 +94,15 @@ export declare const config: Configuration;
  * @public @core
  */
 declare interface Contract extends Framework_2 {
-    /**
-     * {@inheritDoc @roots/bud-framework#implementation}
-     *
-     * @public
-     */
-    implementation: Constructor;
+  /**
+   * {@inheritDoc @roots/bud-framework#implementation}
+   *
+   * @public
+   */
+  implementation: Constructor
 }
 
-export { Extension }
+export {Extension}
 
 /**
  * Create a {@link Bud} instance programatically
@@ -114,20 +114,20 @@ export { Extension }
  *
  * @public @core @config
  */
-export declare function factory(overrides?: Options_2): Bud;
+export declare function factory(overrides?: Options_2): Bud
 
-export { Item }
+export {Item}
 
-export { Loader }
+export {Loader}
 
 /**
  * {@link Bud} constructor property overrides
  *
  * @core @public
  */
-declare interface Options_2 extends SetOptional<Options, 'name'> {
-}
+declare interface Options_2
+  extends SetOptional<Options, 'name'> {}
 
-export { Rule }
+export {Rule}
 
-export { }
+export {}

@@ -19,7 +19,8 @@ const PeerDependencies = () => (
       values={[
         {label: 'yarn', value: 'yarn'},
         {label: 'npm', value: 'npm'},
-      ]}>
+      ]}
+    >
       <TabItem value="yarn">
         <CodeBlock className="language-shell">{`yarn bud init`}</CodeBlock>
       </TabItem>

@@ -24,12 +24,12 @@
   </a>
 </p>
 
+
 <h1 align="center">
   <strong>@roots/filesystem</strong>
 </h1>
 
-> Automated package installation
-
+> A simple, high-level virtual filesystem
 ## Installation
 
 Install **@roots/filesystem** to your project.

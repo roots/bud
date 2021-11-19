@@ -3,7 +3,7 @@ import {writeFile} from 'fs-extra'
 import {createElement} from './createElement'
 import {MarkdownRenderer} from './Renderer'
 
-async function render(element, filePath) {
+export async function render(element, filePath) {
   const container = createElement('ROOT', null, null)
 
   const node = MarkdownRenderer.createContainer(
@@ -19,5 +19,3 @@ async function render(element, filePath) {
 
   await writeFile(filePath, out, {encoding: 'utf8'})
 }
-
-export default render

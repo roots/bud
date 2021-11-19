@@ -29,7 +29,7 @@
   <strong>@roots/bud</strong>
 </h1>
 
-> A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
+> Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
 ## Installation
 
 Install **@roots/bud** to your project.

@@ -14,25 +14,25 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Factory } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
-import { Index } from '@roots/bud-framework';
-import { Maybe } from '@roots/bud-framework';
+import {Factory} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {Index} from '@roots/bud-framework'
+import {Maybe} from '@roots/bud-framework'
 
-export declare const api: Maybe<[Framework], Index<unknown>>;
+export declare const api: Maybe<[Framework], Index<unknown>>
 
-export declare const boot: Factory<[Framework], unknown>;
+export declare const boot: Factory<[Framework], unknown>
 
 export declare class Config {
-    _app: () => Framework;
-    get app(): Framework;
-    constructor(app: Framework);
-    plugins(plugins: [string, any][]): Framework;
+  _app: () => Framework
+  get app(): Framework
+  constructor(app: Framework)
+  plugins(plugins: [string, any][]): Framework
 }
 
-declare const name_2: string;
-export { name_2 as name }
+declare const name_2: string
+export {name_2 as name}
 
-export declare const register: Factory<[Framework], unknown>;
+export declare const register: Factory<[Framework], unknown>
 
-export { }
+export {}

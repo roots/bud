@@ -6,32 +6,30 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import * as Webpack from 'webpack';
+import * as Webpack from 'webpack'
 
 declare namespace WordPressDependencies {
-    interface Manifest {
-        [key: string]: any;
-    }
-    interface Options {
-        fileName: string;
-    }
+  interface Manifest {
+    [key: string]: any
+  }
+  interface Options {
+    fileName: string
+  }
 }
 
 export declare class WordPressDependenciesWebpackPlugin {
-    plugin: {
-        name: string;
-        stage: number;
-    };
-    protected compilation: Webpack.Compilation;
-    fileName: string;
-    manifest: WordPressDependencies.Manifest;
-    usedDependencies: {};
-    constructor(options?: {
-        fileName: string;
-    });
-    apply(compiler: Webpack.Compiler): void;
-    normalModuleFactory(factory: any): void;
-    processAssets(assets: Webpack.Compilation['assets']): void;
+  plugin: {
+    name: string
+    stage: number
+  }
+  protected compilation: Webpack.Compilation
+  fileName: string
+  manifest: WordPressDependencies.Manifest
+  usedDependencies: {}
+  constructor(options?: {fileName: string})
+  apply(compiler: Webpack.Compiler): void
+  normalModuleFactory(factory: any): void
+  processAssets(assets: Webpack.Compilation['assets']): void
 }
 
-export { }
+export {}

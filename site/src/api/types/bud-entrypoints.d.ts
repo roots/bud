@@ -8,14 +8,17 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { ApplyPlugin } from '@roots/bud-framework/types/Extensions';
-import { Container } from '@roots/container';
-import { Framework } from '@roots/bud-framework';
-import { Maybe } from '@roots/bud-framework';
+import {ApplyPlugin} from '@roots/bud-framework/types/Extensions'
+import {Container} from '@roots/container'
+import {Framework} from '@roots/bud-framework'
+import {Maybe} from '@roots/bud-framework'
 
-export declare const make: Maybe<[Container<unknown>, Framework], ApplyPlugin>;
+export declare const make: Maybe<
+  [Container<unknown>, Framework],
+  ApplyPlugin
+>
 
-declare const name_2: string;
-export { name_2 as name }
+declare const name_2: string
+export {name_2 as name}
 
-export { }
+export {}

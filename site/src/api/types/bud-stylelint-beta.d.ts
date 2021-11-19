@@ -14,18 +14,22 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Container } from '@roots/container';
-import type { Framework } from '@roots/bud-framework';
-import { LinterOptions } from 'stylelint';
-import { Options } from 'stylelint-webpack-plugin';
-import { PluginOptions } from 'stylelint-webpack-plugin/declarations/options';
-import StylelintWebpackPlugin from 'stylelint-webpack-plugin';
+import type {Container} from '@roots/container'
+import type {Framework} from '@roots/bud-framework'
+import {LinterOptions} from 'stylelint'
+import {Options} from 'stylelint-webpack-plugin'
+import {PluginOptions} from 'stylelint-webpack-plugin/declarations/options'
+import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
 
-export declare const make: (options: Container<Options>) => StylelintWebpackPlugin;
+export declare const make: (
+  options: Container<Options>,
+) => StylelintWebpackPlugin
 
-declare const name_2: "stylelint-webpack-plugin";
-export { name_2 as name }
+declare const name_2: 'stylelint-webpack-plugin'
+export {name_2 as name}
 
-export declare const options: (app: Framework) => Partial<PluginOptions & LinterOptions>;
+export declare const options: (
+  app: Framework,
+) => Partial<PluginOptions & LinterOptions>
 
-export { }
+export {}

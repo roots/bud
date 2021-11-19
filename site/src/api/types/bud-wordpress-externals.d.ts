@@ -14,32 +14,33 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Extension } from '@roots/bud-framework';
-import { WordPressExternals } from '@roots/wordpress-externals-webpack-plugin';
+import type {Extension} from '@roots/bud-framework'
+import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
 
-export declare const make: () => WordPressExternals;
+export declare const make: () => WordPressExternals
 
-declare const name_2: "@roots/wordpress-externals-webpack-plugin";
-export { name_2 as name }
+declare const name_2: '@roots/wordpress-externals-webpack-plugin'
+export {name_2 as name}
 
 /**
  * Adapter for {@link @roots/wordpress-externals-webpack-plugin#Plugin | WordPressExternalsWebpackPlugin}
  *
  * @public
  */
-export declare interface PluginAdapter extends Extension.CompilerPlugin<WordPressExternals> {
-    /**
-     * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.name}
-     *
-     * @public
-     */
-    name: '@roots/wordpress-externals-webpack-plugin';
-    /**
-     * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.make}
-     *
-     * @public
-     */
-    make: () => WordPressExternals;
+export declare interface PluginAdapter
+  extends Extension.CompilerPlugin<WordPressExternals> {
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.name}
+   *
+   * @public
+   */
+  name: '@roots/wordpress-externals-webpack-plugin'
+  /**
+   * {@inheritDoc @roots/bud-framework#Extension.CompilerPlugin.make}
+   *
+   * @public
+   */
+  make: () => WordPressExternals
 }
 
 /**
@@ -47,6 +48,6 @@ export declare interface PluginAdapter extends Extension.CompilerPlugin<WordPres
  *
  * @public
  */
-export declare const PluginAdapter: PluginAdapter;
+export declare const PluginAdapter: PluginAdapter
 
-export { }
+export {}

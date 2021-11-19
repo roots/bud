@@ -24,12 +24,12 @@
   </a>
 </p>
 
+
 <h1 align="center">
   <strong>@roots/bud-solid</strong>
 </h1>
 
 > solid-js support for @roots/bud projects.
-
 ## Installation
 
 Install **@roots/bud-solid** to your project.

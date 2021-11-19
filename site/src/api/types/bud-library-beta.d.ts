@@ -14,13 +14,13 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Framework } from '@roots/bud-framework';
-import { Index } from '@roots/bud-framework';
-import { Maybe } from '@roots/bud-framework';
+import {Framework} from '@roots/bud-framework'
+import {Index} from '@roots/bud-framework'
+import {Maybe} from '@roots/bud-framework'
 
 export declare const api: Maybe<[Framework], Index<unknown>> & {
-    library: library;
-};
+  library: library
+}
 
 /**
  * Cache modules in a DLL
@@ -46,12 +46,12 @@ export declare const api: Maybe<[Framework], Index<unknown>> & {
  * @public @config @extension
  */
 declare interface library {
-    (this: Framework, modules: string | string[]): Framework;
+  (this: Framework, modules: string | string[]): Framework
 }
 
-declare const library: library;
+declare const library: library
 
-declare const name_2: "@roots/bud-library";
-export { name_2 as name }
+declare const name_2: '@roots/bud-library'
+export {name_2 as name}
 
-export { }
+export {}

@@ -12,31 +12,35 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import type { Extension } from '@roots/bud-framework';
-import type { Framework } from '@roots/bud-framework';
-import TerserPlugin from 'terser-webpack-plugin';
-import type { TerserPluginOptions } from 'terser-webpack-plugin';
+import type {Extension} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
+import TerserPlugin from 'terser-webpack-plugin'
+import type {TerserPluginOptions} from 'terser-webpack-plugin'
 
-export declare const api: BudTerserPlugin['api'];
+export declare const api: BudTerserPlugin['api']
 
-export declare const boot: BudTerserPlugin['boot'];
+export declare const boot: BudTerserPlugin['boot']
 
-export declare interface BudTerserPlugin extends Extension.CompilerPlugin<TerserPlugin, TerserPluginOptions> {
-    name: '@roots/bud-terser';
-    api: {
-        terser: terser;
-    };
+export declare interface BudTerserPlugin
+  extends Extension.CompilerPlugin<
+    TerserPlugin,
+    TerserPluginOptions
+  > {
+  name: '@roots/bud-terser'
+  api: {
+    terser: terser
+  }
 }
 
-declare const name_2: BudTerserPlugin['name'];
-export { name_2 as name }
+declare const name_2: BudTerserPlugin['name']
+export {name_2 as name}
 
-export declare const options: BudTerserPlugin['options'];
+export declare const options: BudTerserPlugin['options']
 
 declare interface terser {
-    (this: Framework, options: TerserPluginOptions): Framework;
+  (this: Framework, options: TerserPluginOptions): Framework
 }
 
-declare const terser: terser;
+declare const terser: terser
 
-export { }
+export {}

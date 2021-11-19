@@ -1,5 +1,4 @@
-import * as React from 'react'
-
+import React from 'react'
 export const Contributing = () => (
   <>
     <h2>Contributing</h2>

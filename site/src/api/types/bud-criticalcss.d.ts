@@ -11,15 +11,15 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Container } from '@roots/container';
-import { CriticalCssWebpackPlugin } from '@roots/critical-css-webpack-plugin';
-import { CriticalCssWebpackPlugin as CriticalCssWebpackPlugin_2 } from '@roots/critical-css-webpack-plugin/types/CriticalCssWebpackPlugin';
-import { Framework } from '@roots/bud-framework';
-import { Options } from '@roots/critical-css-webpack-plugin';
+import {Container} from '@roots/container'
+import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+import {CriticalCssWebpackPlugin as CriticalCssWebpackPlugin_2} from '@roots/critical-css-webpack-plugin/types/CriticalCssWebpackPlugin'
+import {Framework} from '@roots/bud-framework'
+import {Options} from '@roots/critical-css-webpack-plugin'
 
 export declare const api: {
-    critical: critical;
-};
+  critical: critical
+}
 
 /**
  * Extract critical CSS
@@ -32,16 +32,22 @@ export declare const api: {
  * ```
  */
 declare interface critical {
-    (this: Framework, userOptions: Partial<CriticalCssWebpackPlugin['options']>): Framework;
+  (
+    this: Framework,
+    userOptions: Partial<CriticalCssWebpackPlugin['options']>,
+  ): Framework
 }
 
-declare const critical: critical;
+declare const critical: critical
 
-export declare const make: (options: Container<Partial<Options>>, app: Framework) => CriticalCssWebpackPlugin_2;
+export declare const make: (
+  options: Container<Partial<Options>>,
+  app: Framework,
+) => CriticalCssWebpackPlugin_2
 
-declare const name_2: "@roots/bud-criticalcss";
-export { name_2 as name }
+declare const name_2: '@roots/bud-criticalcss'
+export {name_2 as name}
 
-export declare const options: Partial<Options>;
+export declare const options: Partial<Options>
 
-export { }
+export {}

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import {
   Banner,
@@ -38,8 +38,8 @@ There are also [example implementations available in the /examples directory of 
 
 ### Zero-config presets
 
-| Name                                                                      | Usage                                                        | Latest                                                                                                   
-| ------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | 
+| Name                                                                      | Usage                                                        | Latest
+| ------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](/packages/@roots/bud-preset-recommend)  | [📚 Usage](${
         project.url.docs
       }/extensions/presets/bud-preset-recommend)  | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
@@ -124,7 +124,7 @@ There are also [example implementations available in the /examples directory of 
         project.url.docs
       }/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
-Have you produced a Bud extension and want to share it here? 
+Have you produced a Bud extension and want to share it here?
 Please, create an issue sharing information about your project.
 `}
     </span>

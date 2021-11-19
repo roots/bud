@@ -23,9 +23,9 @@
  * @extension @packageDocumentation @betaDocumentation
  */
 
-import { Extension } from '@roots/bud-framework';
-import { Factory } from '@roots/bud-framework';
-import { Framework } from '@roots/bud-framework';
+import {Extension} from '@roots/bud-framework'
+import {Factory} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * Recommended preset configuration for Bud.
@@ -41,9 +41,10 @@ import { Framework } from '@roots/bud-framework';
  *
  * @public
  */
-export declare interface BudPresetRecommend extends Extension.Module {
-    name: '@roots/bud-preset-recommend';
-    register: Factory<[Framework], unknown>;
+export declare interface BudPresetRecommend
+  extends Extension.Module {
+  name: '@roots/bud-preset-recommend'
+  register: Factory<[Framework], unknown>
 }
 
 /**
@@ -51,11 +52,11 @@ export declare interface BudPresetRecommend extends Extension.Module {
  *
  * @public
  */
-export declare const BudPresetRecommend: BudPresetRecommend;
+export declare const BudPresetRecommend: BudPresetRecommend
 
-declare const name_2: "@roots/bud-preset-recommend";
-export { name_2 as name }
+declare const name_2: '@roots/bud-preset-recommend'
+export {name_2 as name}
 
-export declare const register: Factory<[Framework], unknown>;
+export declare const register: Factory<[Framework], unknown>
 
-export { }
+export {}

@@ -1,5 +1,4 @@
-import * as React from 'react'
-
+import React from 'react'
 export const Community = () => (
   <>
     <h2>Community</h2>

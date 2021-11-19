@@ -7,15 +7,15 @@
  * @packageDocumentation @betaDocumentation
  */
 
-import { Compiler } from 'webpack';
-import { ExternalsPlugin } from 'webpack';
+import {Compiler} from 'webpack'
+import {ExternalsPlugin} from 'webpack'
 
 export declare class WordPressExternals {
-    name: string;
-    stage: number;
-    externals: ExternalsPlugin;
-    constructor();
-    apply(compiler: Compiler): void;
+  name: string
+  stage: number
+  externals: ExternalsPlugin
+  constructor()
+  apply(compiler: Compiler): void
 }
 
-export { }
+export {}

@@ -14,16 +14,16 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import { Framework } from '@roots/bud-framework';
-import { Hooks as Hooks_2 } from '@roots/bud-framework';
-import { Service } from '@roots/bud-framework';
+import {Framework} from '@roots/bud-framework'
+import {Hooks as Hooks_2} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
 
 export declare class Hooks extends Service implements Hooks_2 {
-    name: string;
-    get<T = any>(path: `${Hooks_2.Name & string}`): T;
-    set(key: `${Hooks_2.Name & string}`, value: any): this;
-    on(id: Hooks_2.Name, callback: Hooks_2.Hook): Framework;
-    filter<T = any>(id: `${Hooks_2.Name & string}`, value?: any): T;
+  name: string
+  get<T = any>(path: `${Hooks_2.Name & string}`): T
+  set(key: `${Hooks_2.Name & string}`, value: any): this
+  on(id: Hooks_2.Name, callback: Hooks_2.Hook): Framework
+  filter<T = any>(id: `${Hooks_2.Name & string}`, value?: any): T
 }
 
-export { }
+export {}
