@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-solid",
-  "version": "5.0.0-next.13",
+  "version": "5.0.0-next.14",
   "description": "solid-js support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -71,11 +71,11 @@
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.29.0",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "eslint": "7.32.0",
     "jest": "27.3.1",
-    "solid-js": "1.2.3",
+    "solid-js": "1.2.4",
     "type-fest": "2.5.3",
     "webpack": "5.64.1"
   },

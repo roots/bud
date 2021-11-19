@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "5.0.0-next.13",
+  "version": "5.0.0-next.14",
   "description": "A simple, high-level virtual filesystem",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "autobind-decorator": "2.4.0",
     "fs-extra": "10.0.0",
     "globby": "11.0.4",

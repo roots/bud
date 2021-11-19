@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "5.0.0-next.13",
+  "version": "5.0.0-next.14",
   "description": "Adds prettier support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -68,8 +68,8 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "jest": "27.3.1"
   },
   "dependencies": {

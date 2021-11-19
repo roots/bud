@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "Bud webpack config build controller",
-  "version": "5.0.0-next.13",
+  "version": "5.0.0-next.14",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -63,14 +63,14 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/mini-css-extract-plugin": "2.4.0",
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "@types/safe-json-stringify": "1.1.2",
     "@types/svgo": "2.6.0",
     "jest": "27.3.1",
-    "remark": "14.0.1",
+    "remark": "14.0.2",
     "webpack": "5.64.1"
   },
   "dependencies": {
