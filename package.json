@@ -105,7 +105,7 @@
     "organization": {
       "name": "Roots Foundation, LLC",
       "site": "https://roots.io",
-      "twitter": "https://twitter.com/roots",
+      "twitter": "https://twitter.com/rootswp",
       "favicon": "https://roots.io/favicon.ico"
     },
     "contributors": {
@@ -405,29 +405,9 @@
         "url": "https://wordpress.com/"
       },
       {
-        "image": "https://cdn.roots.io/app/uploads/icons8.svg",
-        "title": "Icons8",
-        "url": "https://icons8.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/harness-software.svg",
-        "title": "Harness Software",
-        "url": "https://www.harnessup.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/coders-clan.svg",
-        "title": "Coders Clan",
-        "url": "https://www.codersclan.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/genero.svg",
-        "title": "Genero",
-        "url": "https://generodigital.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/motto.svg",
-        "title": "Motto",
-        "url": "https://motto.ca/roots"
+        "image": "https://cdn.roots.io/app/uploads/pantheon.svg",
+        "title": "Pantheon",
+        "url": "https://pantheon.io/"
       }
     ]
   }
