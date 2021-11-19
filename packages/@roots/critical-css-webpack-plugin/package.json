@@ -61,7 +61,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.7",
     "@types/vinyl": "2.0.6",
