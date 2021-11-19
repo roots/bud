@@ -68,8 +68,7 @@ export class Build
       (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
           this.log(`warn`, {
-            prefix: 'bud.build.config',
-            message: `excluding ${key}`,
+            message: `build.make: excluding ${key}`,
             suffix: `value is undefined`,
           })
           return all

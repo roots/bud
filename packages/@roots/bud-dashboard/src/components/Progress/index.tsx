@@ -24,7 +24,7 @@ export const Progress = ({progress, theme}) => {
     <Box marginLeft={1} flexDirection="column">
       <Bar
         character={'▉'}
-        maxWidth={theme.bounds.width - 10}
+        maxWidth={theme.bounds.width}
         colors={[theme.colors.primary, theme.colors.primaryAlt]}
         percent={number}
       />

@@ -1,9 +1,5 @@
-import {
-  Factory,
-  Framework,
-  Loader,
-  Maybe,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
+import {Framework as Bud} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 const {isFunction} = lodash
 
@@ -12,14 +8,16 @@ const {isFunction} = lodash
  *
  * @public
  */
-export default class
-  extends Loader.Abstract
-  implements Loader.Interface
+export class Loader
+  extends Framework.Loader.Abstract
+  implements Framework.Loader.Interface
 {
   /**
-   * {@link @roots/bud-framework#Factory | Factory} returning the loader path
+   * Factory returning the loader path
+   *
+   * @public
    */
-  public src: Factory<[Framework], string>
+  public src: Framework.Factory<[Bud], string>
 
   /**
    * Class constructor
@@ -28,28 +26,28 @@ export default class
    *
    * @public
    */
-  public constructor(src: Maybe<[Framework], string>) {
+  public constructor(src: Framework.Maybe<[Bud], string>) {
     super()
 
     this.src = this.normalizeInput<string>(src)
   }
 
   /**
-   * {@link @roots/bud-framework#Factory | Factory} producing the final loader path
+   * Factory producing the final loader path
    *
-   * @param app - {@link @roots/bud-framework#Framework}
+   * @param app - {@link @roots/bud-Bud#Bud}
    * @returns final loader path
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public make(app: Framework): string {
+  public make(app: Bud): string {
     return this.src(app)
   }
 
   /**
-   * Ensure that a userInput is assigned to the class as a {@link @roots/bud-framework#Factory | Factory}
+   * Ensure that a userInput is assigned to the class as a {@link @roots/bud-Bud#Factory | Factory}
    *
    * @param input - input value
    * @returns normalized value from user input
@@ -57,8 +55,8 @@ export default class
    * @public
    */
   public normalizeInput<T = any>(
-    input: Maybe<[Framework], T>,
-  ): Factory<[Framework], T> {
+    input: Framework.Maybe<[Bud], T>,
+  ): Framework.Factory<[Bud], T> {
     return isFunction(input) ? input : () => input
   }
 }

@@ -28,7 +28,7 @@ export interface facade {
  *
  * @public @config
  */
-export async function assets(
+export const assets = async function assets(
   this: Framework,
   paths: string[],
 ): Promise<Framework> {
@@ -54,3 +54,20 @@ export async function assets(
 
   return this
 }
+
+/**
+ * Copy static assets during compilation.
+ *
+ * @remarks
+ * You may specify paths with a string literal or glob pattern.
+ *
+ * @example
+ * Copy **src/images** to **dist/images**
+ *
+ * ```js
+ * app.assets(['src/images'])
+ * ```
+ *
+ * @public @config
+ */
+export const copy = assets

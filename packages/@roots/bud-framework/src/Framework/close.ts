@@ -21,12 +21,9 @@ export interface close {
  * @public
  */
 export function close(done = process.exit) {
-  const ctx = this as Framework
+  this as Framework
 
-  if (ctx.dashboard?.instance?.unmount) {
-    setTimeout(ctx.dashboard?.instance?.unmount, 30)
-    ctx.dashboard?.instance?.waitUntilExit().then(() => {
-      done()
-    })
-  }
+  this.hooks.filter('event.app.close')
+
+  setTimeout(done, 30)
 }

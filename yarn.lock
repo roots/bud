@@ -3737,6 +3737,7 @@ __metadata:
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
     chokidar: 3.5.2
+    cli-highlight: ^2.1.11
     cosmiconfig: 7.0.1
     css-minimizer-webpack-plugin: 3.1.3
     dotenv: 10.0.0

@@ -1,8 +1,9 @@
+import type {
+  HighlightOptions,
+  PrettyFormatOptions,
+} from '@roots/bud-support'
+import {format, highlight, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
-import {highlight, HighlightOptions} from 'cli-highlight'
-import {omit} from 'lodash'
-import {format} from 'pretty-format'
-import {PrettyFormatOptions} from 'pretty-format/build/types'
 
 import {
   Api,
@@ -38,6 +39,8 @@ import {sequence} from './sequence'
 import {setPath} from './setPath'
 import {tap} from './tap'
 import {when} from './when'
+
+const {omit} = lodash
 
 /**
  * Base {@link Framework} class
@@ -291,6 +294,11 @@ export abstract class Framework {
    */
   public usingTsNode: boolean = false
 
+  /**
+   * Initially received options
+   *
+   * @public
+   */
   public options: Options
 
   /**
@@ -302,24 +310,19 @@ export abstract class Framework {
    */
   public constructor(options: Options) {
     this.options = options
+
     this.logger = new Logger(this)
+
     this.store = this.container(options.config)
-    this.store.set(
-      'log.level',
-      this.options.config.cli.flags['log.level'],
-    )
 
     if (!options.childOf) {
-      // Parent & child instance exclusive settings
       this.children = this.container()
       this.root = this
     } else {
       this.root = options.childOf
     }
 
-    // Assign to instance
     this.services = options.services
-
     this.maybeCall = maybeCall.bind(this)
     this.bindMethod = bindMethod.bind(this)
     this.close = close.bind(this)

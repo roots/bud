@@ -35,6 +35,10 @@ export class Dashboard extends Service implements Contract {
       this.run()
       return config
     })
+
+    this.app.hooks.on('event.app.close', () => {
+      this.instance.unmount()
+    })
   }
 
   /**
@@ -51,10 +55,6 @@ export class Dashboard extends Service implements Contract {
       )
 
       this.log('success', {message: 'rendering'})
-    }
-
-    if (this.app.store.is('cli.flags.log.interactive', true)) {
-      this.instance.clear()
     }
 
     return this.app

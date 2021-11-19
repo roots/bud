@@ -98,7 +98,9 @@ export const Dashboard = ({bud}: {bud: Framework}) => {
       progress[0] == 1 &&
       instance?.current?.isProduction
     ) {
-      instance.current.close(() => process.exit(0))
+      ;(async () => {
+        await instance.current.close(() => process.exit(0))
+      })()
     }
   }, [progress])
 

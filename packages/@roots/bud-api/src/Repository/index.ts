@@ -1,5 +1,5 @@
 import {alias} from './alias'
-import {assets, facade as assetsFacade} from './assets'
+import {assets, copy, facade as assetsFacade} from './assets'
 import {config} from './config'
 import {define} from './define'
 import {devtool} from './devtool'
@@ -23,14 +23,32 @@ import {watch} from './watch'
 
 export interface Repository {
   alias: alias
+
   assets: assetsFacade
+  copy: assetsFacade
+
   config: config
-  define: define
+  webpackConfig: config
+  override: config
+
   devtool: devtool
+
+  splitChunks: splitChunks
+  extract: splitChunks
+
   entry: entryFacade
+  js: entryFacade
+  css: entryFacade
+
   experiments: experiments
   externals: externals
+
   hash: hash
+  version: hash
+
+  define: define
+  autoload: define
+
   minimize: minimize
   persist: persist
   provide: provide
@@ -40,7 +58,6 @@ export interface Repository {
   runtime: runtime
   serve: serve
   setPublicPath: setPublicPath
-  splitChunks: splitChunks
   template: templateFacade
   use: use
   watch: watch
@@ -48,14 +65,30 @@ export interface Repository {
 
 export const repository: Repository = {
   alias,
+
   assets: assets as unknown as assetsFacade,
+  copy: copy as unknown as assetsFacade,
+
   config,
-  define,
-  devtool,
+  webpackConfig: config,
+  override: config,
+
   entry: entry as unknown as entryFacade,
+  css: entry as unknown as entryFacade,
+  js: entry as unknown as entryFacade,
+
+  hash,
+  version: hash,
+
+  splitChunks,
+  extract: splitChunks,
+
+  define,
+  autoload: define,
+
+  devtool,
   experiments,
   externals,
-  hash,
   minimize,
   persist,
   provide,
@@ -65,7 +98,6 @@ export const repository: Repository = {
   runtime,
   serve,
   setPublicPath,
-  splitChunks,
   template: template as unknown as templateFacade,
   use,
   watch,

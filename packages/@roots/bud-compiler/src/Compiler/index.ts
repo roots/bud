@@ -2,10 +2,9 @@ import {
   Compiler as Contract,
   Service,
 } from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind, lodash, once} from '@roots/bud-support'
 import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
 const {isFunction} = lodash
-import {once} from 'helpful-decorators'
 
 /**
  * Initial state
@@ -58,13 +57,23 @@ export class Compiler extends Service implements Contract {
   public config: any = []
 
   /**
-   * {@inheritDoc @roots/bud-framework#Service.register}
+   * Service register event
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async register() {}
+  public async register() {
+    this.app.hooks.filter(
+      'event.compiler.register.before',
+      this.app,
+    )
+
+    this.app.hooks.filter(
+      'event.compiler.register.after',
+      this.app,
+    )
+  }
 
   /**
    * Initiates compilation
@@ -79,6 +88,7 @@ export class Compiler extends Service implements Contract {
   public async compile() {
     const config = await this.before()
     const compiler = await this.invoke(config)
+
     this.app.timeEnd('bud')
     return compiler
   }
@@ -89,27 +99,30 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invoke(config: any) {
-    await this.app.hooks.promised(
+    config = await this.app.hooks.promised(
       'event.compiler.before',
       config,
     )
 
+    config = this.app.hooks.filter('config.override', config)
+
     this.instance = webpack(config)
 
     this.instance.hooks.done.tap(config[0].name, async stats => {
-      this.app.hooks.filter('event.compiler.done', stats)
+      await this.app.hooks.filter('event.compiler.done', stats)
 
       stats && Object.assign(this.stats, stats.toJson())
 
       if (this.app.isProduction) {
         this.instance.close(err => {
           if (err) {
-            this.app.hooks.filter('compiler.error', err)
+            err = this.app.hooks.filter('compiler.error', err)
 
             this.stats.errors.push(err)
             this.log('error', err)
           }
-          this.app.close(() => {})
+
+          this.app.close()
         })
       }
     })
@@ -196,7 +209,7 @@ export class Compiler extends Service implements Contract {
      * here we parse the callback args so that we dont have to
      * duplicate the callback.
      */
-    const [err, stats] =
+    let [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
     if (stats?.toJson && isFunction(stats.toJson)) {
@@ -204,11 +217,18 @@ export class Compiler extends Service implements Contract {
         this.app.build.config.stats ?? {preset: 'normal'},
       )
 
+      this.stats = this.app.hooks.filter(
+        'compiler.stats',
+        this.stats,
+      )
+
       this.app.store.is('features.dashboard', false) &&
         this.app.log(stats.toString())
     }
 
     if (err) {
+      err = this.app.hooks.filter('compiler.error', err)
+
       this.stats.errors.push(err)
       this.app.store.is('features.dashboard', false) &&
         this.log('error', err)

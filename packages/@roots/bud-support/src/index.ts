@@ -32,6 +32,7 @@
 export * from './external/chalk'
 export * from './external/chokidar'
 export * from './external/cosmiconfig'
+export * from './external/cli-highlight'
 export * from './external/dotenv'
 export * from './external/dotenv-expand'
 export * from './external/express'

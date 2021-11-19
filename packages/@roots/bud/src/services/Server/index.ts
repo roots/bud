@@ -18,7 +18,7 @@ export class Server extends Base {
    *
    * @public
    */
-  public async register({container, store}): Promise<void> {
+  public async bootstrap(): Promise<void> {
     this.application = Application()
   }
 }

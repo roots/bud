@@ -1,6 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 
-import Item from '../Item'
+import {Item} from '../Item'
 
 /**
  * .asset handler factory

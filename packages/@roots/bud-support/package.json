@@ -111,6 +111,7 @@
   },
   "stableVersion": "4.6.0",
   "dependencies": {
+    "cli-highlight": "^2.1.11",
     "patch-console": "^1.0.0",
     "safe-json-stringify": "^1.2.0",
     "tslib": "2.3.1"

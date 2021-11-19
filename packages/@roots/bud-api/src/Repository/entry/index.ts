@@ -234,6 +234,7 @@ async function getAssets(
     message: 'glob search',
     suffix: JSON.stringify(imports),
   })
+
   this.info({message: 'glob directory', suffix: globDir})
 
   try {

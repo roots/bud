@@ -17,13 +17,11 @@
  * @core @packageDocumentation @betaDocumentation
  */
 
-import {Build} from './Build'
-import * as items from './Build/items'
-import * as loaders from './Build/loaders'
-import * as rules from './Build/rules'
-import Item from './Item'
-import Loader from './Loader'
-import Rule from './Rule'
+export {Build} from './Build'
+export {Loader} from './Loader'
+export {Item} from './Item'
+export {Rule} from './Rule'
 
-export {Build, Item, Loader, Rule}
-export {items, loaders, rules}
+export * as items from './Build/items'
+export * as loaders from './Build/loaders'
+export * as rules from './Build/rules'

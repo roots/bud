@@ -1,7 +1,7 @@
 export {
   Factory,
   Framework,
-  Item,
+  Item as Base,
   Loader,
   Maybe,
 } from '@roots/bud-framework'
