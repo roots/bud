@@ -12,7 +12,10 @@ describe('entrypoints.json', () => {
       chunks: [chonk],
     })
 
-    expect(files).toEqual(['foo.js', 'bar.js'])
+    expect(files).toMatchSnapshot([
+      {file: 'foo.js'},
+      {file: 'bar.js'},
+    ])
   })
 
   it('should create manifest object', () => {
@@ -47,6 +50,47 @@ describe('entrypoints.json', () => {
           '/public/vendor/foobar.js',
         ],
         css: ['/public/app.css'],
+      },
+    })
+  })
+
+  it('should create manifest object with keyed file list', () => {
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
+      type: 'object',
+    })
+
+    entrypoints.assets = {}
+
+    entrypoints.addToManifest({
+      key: 'runtime',
+      entry: 'app',
+      file: 'runtime.js',
+    })
+    entrypoints.addToManifest({
+      key: 'app',
+      entry: 'app',
+      file: 'app.js',
+    })
+    entrypoints.addToManifest({
+      key: 'app',
+      entry: 'app',
+      file: 'app.css',
+    })
+    entrypoints.addToManifest({
+      key: 'vendor/foobar',
+      entry: 'app',
+      file: 'vendor/foobar.js',
+    })
+
+    expect(entrypoints.assets).toEqual({
+      app: {
+        js: {
+          runtime: '/public/runtime.js',
+          app: '/public/app.js',
+          'vendor/foobar': '/public/vendor/foobar.js',
+        },
+        css: {app: '/public/app.css'},
       },
     })
   })
