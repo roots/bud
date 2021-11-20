@@ -3401,7 +3401,7 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
-    "@types/js-yaml": 4.0.4
+    "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.177
     "@types/node": 16.11.9
     cli-highlight: ^2.1.11
@@ -4802,10 +4802,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-yaml@npm:4.0.4":
-  version: 4.0.4
-  resolution: "@types/js-yaml@npm:4.0.4"
-  checksum: de38075a6bde3efdd27415714f3bfd2fe43b62bb655cb1d6b89976557c18db3f468d33767857c9627b29bf185c575093e535c9a6e3b215559b715a9dc520f878
+"@types/js-yaml@npm:4.0.5":
+  version: 4.0.5
+  resolution: "@types/js-yaml@npm:4.0.5"
+  checksum: 7dcac8c50fec31643cc9d6444b5503239a861414cdfaa7ae9a38bc22597c4d850c4b8cec3d82d73b3fbca408348ce223b0408d598b32e094470dfffc6d486b4d
   languageName: node
   linkType: hard
 
