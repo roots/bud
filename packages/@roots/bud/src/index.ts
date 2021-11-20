@@ -4,16 +4,11 @@
 /**
  * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
  *
+ * This package provides the Bud class and is the main entrypoint for most projects
+ * interfacing with Bud.
+ *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
- *
- * @remarks
- * The {@link @roots/bud# | @roots/bud} package provides the `Bud` class, a concrete implementation
- * of the {@link @roots/bud-framework#Framework} interface.
- *
- * {@link factory} is exported to simplify instantiation for direct use with Node.
- *
- * This package also provides a CLI which can is invoked with `bud`.
  *
  * @example
  * Example configuration file (`bud.config.js`).
@@ -54,8 +49,9 @@ import './interface'
 
 export {Bud} from './Bud'
 
-export {config} from './config'
-
-export {factory} from './factory'
-
 export {Framework} from '@roots/bud-framework'
+
+export {config} from './config'
+export {extensions} from './extensions'
+export {services} from './services'
+export {factory} from './factory'

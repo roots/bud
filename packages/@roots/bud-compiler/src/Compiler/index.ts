@@ -112,6 +112,20 @@ export class Compiler extends Service implements Contract {
       await this.app.hooks.filter('event.compiler.done', stats)
 
       stats && Object.assign(this.stats, stats.toJson())
+      if (this.app.store.is('features.dashboard', false)) {
+        this.log(
+          'log',
+          stats.toString({
+            colors: true,
+            modules: false,
+            children: false,
+            chunks: false,
+            chunkModules: false,
+            entrypoints: false,
+            performance: false,
+          }),
+        )
+      }
 
       if (this.app.isProduction) {
         this.instance.close(err => {
@@ -122,7 +136,7 @@ export class Compiler extends Service implements Contract {
             this.log('error', err)
           }
 
-          this.app.close()
+          !this.app.dashboard.instance && this.app.close()
         })
       }
     })
@@ -221,9 +235,6 @@ export class Compiler extends Service implements Contract {
         'compiler.stats',
         this.stats,
       )
-
-      this.app.store.is('features.dashboard', false) &&
-        this.app.log(stats.toString())
     }
 
     if (err) {

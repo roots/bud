@@ -152,6 +152,16 @@ module.exports = {
     [
       require.resolve('@docusaurus/plugin-content-docs'),
       {
+        id: 'api',
+        path: './api',
+        routeBasePath: 'api',
+        sidebarPath: './sidebars/docs.js',
+        include: ['**/*.md', '**/*.mdx'],
+      },
+    ],
+    [
+      require.resolve('@docusaurus/plugin-content-docs'),
+      {
         id: 'guides',
         path: './guides',
         routeBasePath: 'guides',

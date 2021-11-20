@@ -25,5 +25,5 @@ export function close(done = process.exit) {
 
   this.hooks.filter('event.app.close')
 
-  setTimeout(done, 30)
+  done()
 }

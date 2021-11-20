@@ -1,23 +1,21 @@
 import type {SetOptional} from 'type-fest'
 export type {SetOptional}
 
-import * as Framework from '@roots/bud-framework'
+import {Bud} from '../Bud'
 
 /**
  * {@link Bud} constructor property overrides
  *
- * @core @public
+ * @public
  */
-export interface Options extends Partial<Framework.Options> {
-  config: Partial<Framework.Options> & {
-    features?: Partial<Framework.Options['config']['features']>
-    location?: Partial<Framework.Options['config']['location']>
-    cache?: Partial<Framework.Options['config']['cache']>
-    mode?: Framework.Options['config']['mode']
-    cli?: Framework.Options['config']['cli']
-    name?: Framework.Options['config']['name']
+export interface Options extends Partial<Bud.Options> {
+  config: Partial<Bud.Options> & {
+    features?: Partial<Bud.Options['config']['features']>
+    location?: Partial<Bud.Options['config']['location']>
+    cache?: Partial<Bud.Options['config']['cache']>
+    mode?: Bud.Options['config']['mode']
+    cli?: Bud.Options['config']['cli']
+    name?: Bud.Options['config']['name']
   }
-  services?: Partial<Framework.Options['services']>
+  services?: Partial<Bud.Options['services']>
 }
-
-export {Framework}

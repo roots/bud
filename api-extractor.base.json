@@ -26,21 +26,21 @@
   "apiReport": {
     "enabled": true,
     "reportFileName": "<unscopedPackageName>.api.md",
-    "reportFolder": "<projectFolder>/site/src/api/markdown/",
-    "reportTempFolder": "<projectFolder>/site/src/api/temp/"
+    "reportFolder": "<projectFolder>/site/src/api/<unscopedPackageName>/md/",
+    "reportTempFolder": "<projectFolder>/site/src/api/<unscopedPackageName>/tmp/"
   },
   "docModel": {
     "enabled": true,
-    "apiJsonFilePath": "<projectFolder>/site/src/api/input/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "<projectFolder>/site/src/api/<unscopedPackageName>/input.api.json"
   },
   "dtsRollup": {
     "enabled": true,
-    "untrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>.d.ts",
-    "betaTrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-beta.d.ts",
-    "publicTrimmedFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-public.d.ts"
+    "untrimmedFilePath": "<projectFolder>/site/src/api/<unscopedPackageName>/types/untrimmed.d.ts",
+    "betaTrimmedFilePath": "<projectFolder>/site/src/api/<unscopedPackageName>/types/beta.d.ts",
+    "publicTrimmedFilePath": "<projectFolder>/site/src/api/<unscopedPackageName>/types/public.d.ts"
   },
   "tsdocMetadata": {
     "enabled": true,
-    "tsdocMetadataFilePath": "<projectFolder>/site/src/api/types/<unscopedPackageName>-tsdoc-metadata.json"
+    "tsdocMetadataFilePath": "<projectFolder>/site/src/api/<unscopedPackageName>/tsdoc-metadata.json"
   }
 }

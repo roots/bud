@@ -4,9 +4,10 @@ const {
   createReadStream,
   ensureDir,
   writeFile,
+  remove,
 } = require('fs-extra')
 const {createInterface} = require('readline')
-const {dirname, parse} = require('path')
+const {parse, join} = require('path')
 const globby = require('globby')
 const execa = require('execa')
 
@@ -16,9 +17,12 @@ const execa = require('execa')
  */
 
 const getPkgs = async () => {
-  pkgs = await globby(`packages/@roots/*`, {
-    onlyDirectories: true,
-  })
+  pkgs = await globby(
+    [`packages/@roots/*`, `!packages/@roots/bud-support`],
+    {
+      onlyDirectories: true,
+    },
+  )
 
   return pkgs
     .filter(pkg => pkg !== 'packages/@roots')
@@ -32,44 +36,62 @@ const getPkgs = async () => {
 const runExtractor = async () => {
   const pkgs = await getPkgs()
 
-  pkgs.reduce(
-    async (promised, pkg) => {
-      await promised
+  try {
+    await Promise.all(
+      pkgs.map(async pkg => {
+        console.log(
+          `Running api-extractor on ${pkg.extractorConfig}`,
+        )
+        const child = execa('yarn', [
+          'api-extractor',
+          'run',
+          '--local',
+          '--verbose',
+          '--config',
+          pkg.extractorConfig,
+        ])
 
-      console.log(
-        `Running api-extractor on ${pkg.extractorConfig}`,
-      )
-      return execa('yarn', [
-        'api-extractor',
-        'run',
-        '--local',
-        '--verbose',
-        '--config',
-        pkg.extractorConfig,
-      ])
-    },
-    async () => Promise.resolve(),
-  )
+        child.stdout.pipe(process.stdout)
+        child.stderr.pipe(process.stderr)
+        await child
+      }),
+    )
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 async function runDocumenter() {
   console.log('Running api-documentor')
 
-  await execa('yarn', [
-    'api-documenter',
-    'markdown',
-    '-i',
-    'site/src/api/input/',
-    '-o',
-    'site/api/',
-  ])
+  const projects = await globby(
+    join(process.cwd(), 'site/src/api/*'),
+    {
+      onlyDirectories: true,
+    },
+  )
 
-  const dir = `${process.cwd()}/site/api`
-  const files = await globby(dir)
+  await Promise.all(
+    projects.map(async project => {
+      project = project.split('/').pop()
+      await execa('yarn', [
+        'api-documenter',
+        'markdown',
+        '-i',
+        `site/src/api/${project}/`,
+        '-o',
+        `site/api/${project}/`,
+      ])
+    }),
+  )
+
+  const files = await globby(`${process.cwd()}/site/api/*/*`, {
+    onlyFiles: true,
+  })
 
   for (const file of files) {
     try {
-      const {name: id, ext} = parse(file)
+      const {name: id, ext, dir} = parse(file)
 
       const input = createReadStream(file)
 
@@ -126,15 +148,9 @@ async function runDocumenter() {
 
         /**
          * This tag `<void>` is used, totally unescaped because... 🤷🏼‍♂️
-         * It causes a pretty obvious issues with mdx so
-         * I escape with backticks.
+         * It causes a pretty obvious issues with mdx.
          */
-        line = line.replaceAll(
-          /\<void\>/g,
-          '{`<`}{`void`}{`>`}',
-          'g',
-        )
-
+        line = line.replaceAll(/\<void\>/g, '', 'g')
         if (!skip) {
           output.push(line)
         }
@@ -150,17 +166,13 @@ async function runDocumenter() {
         `title: ${title}`,
         `hide_title: true`,
         `sidebar: 'api'`,
+        id === 'index' ? `order: 1` : false,
         '---',
-      ]
+      ].filter(Boolean)
 
-      await ensureDir(dirname(`${process.cwd()}/site/api/${id}`))
-
-      const writePath = `${process.cwd()}/site/api/${id}.md`
-
-      await writeFile(
-        writePath,
-        header.concat(output).join('\n'),
-      )
+      const writePath = join(dir, `${id}.md`)
+      const final = header.concat(output).join('\n')
+      await writeFile(writePath, final)
     } catch (err) {
       console.error(`Could not process ${file}: ${err}`)
     }
@@ -168,9 +180,34 @@ async function runDocumenter() {
 }
 
 const main = async () => {
-  await runExtractor()
+  try {
+    const apiOuts = await globby(
+      join(process.cwd(), 'site/src/api/*'),
+      {onlyDirectories: true, absolute: true},
+    )
+    await Promise.all(
+      apiOuts.map(async out => {
+        const path = join(out, 'md')
+        console.log(`ensuring ${path} exists`)
+        await ensureDir(join(out, 'md'))
+        return
+      }),
+    )
+  } catch (e) {
+    console.error(e)
+  }
 
-  await runDocumenter()
+  try {
+    await runExtractor()
+  } catch (e) {
+    console.error(e)
+  }
+
+  try {
+    await runDocumenter()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 main()

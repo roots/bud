@@ -11,6 +11,8 @@ import {Project} from './Project'
 import {Server} from './Server'
 
 /**
+ * Bud application services
+ *
  * @public
  */
 export const services = {
