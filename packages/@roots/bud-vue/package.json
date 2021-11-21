@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "Adds @vue/vue support to @roots/bud projects",
   "repository": {
     "type": "git",
@@ -73,7 +73,7 @@
     "css-loader": "6.5.1",
     "jest": "27.3.1",
     "vue": "3.2.22",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "bud": {
     "type": "extensions"

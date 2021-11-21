@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -75,7 +75,7 @@
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
     "jest": "27.3.1",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

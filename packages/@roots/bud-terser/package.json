@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-terser",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "Adds terser support to Bud",
   "repository": {
     "type": "git",
@@ -64,7 +64,7 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "16.11.9",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
