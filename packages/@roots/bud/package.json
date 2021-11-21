@@ -106,7 +106,7 @@
     "@roots/dependencies": "workspace:packages/@roots/dependencies",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.1",
-    "execa": "5.1.1",
+    "execa": "6.0.0",
     "fs-extra": "^10.0.0",
     "helpful-decorators": "^2.1.0",
     "html-webpack-plugin": "^5.4.0",
