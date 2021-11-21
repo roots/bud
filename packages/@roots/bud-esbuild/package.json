@@ -75,7 +75,7 @@
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
     "jest": "27.3.1",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
