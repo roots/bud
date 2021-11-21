@@ -3674,7 +3674,7 @@ __metadata:
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
     webpack: 5.64.2
-    webpack-dev-middleware: 5.2.1
+    webpack-dev-middleware: 5.2.2
     webpack-hot-middleware: ^2.25.1
   languageName: unknown
   linkType: soft
@@ -24967,18 +24967,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.2.1, webpack-dev-middleware@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "webpack-dev-middleware@npm:5.2.1"
+"webpack-dev-middleware@npm:5.2.2, webpack-dev-middleware@npm:^5.2.1":
+  version: 5.2.2
+  resolution: "webpack-dev-middleware@npm:5.2.2"
   dependencies:
     colorette: ^2.0.10
     memfs: ^3.2.2
     mime-types: ^2.1.31
     range-parser: ^1.2.1
-    schema-utils: ^3.1.0
+    schema-utils: ^4.0.0
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 06f3ef14ec983d115d7109f37312fc691c867c95fe7579784c7b80db0a2be77392fa27de444d0a937546da68c7e99640c13df73dc1351bbed7ebab4cc5569f14
+  checksum: 8dfcb1244ba564e525f9d6644174a558cebd4857317bbdbcd394848641f7f0c0aeb0e7b2803dd56286b4820a7f66d27b8e58e8f1dec5515417ffa40da1f6197d
   languageName: node
   linkType: hard
 
