@@ -88,7 +88,7 @@
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
-    "copy-webpack-plugin": "9.1.0",
+    "copy-webpack-plugin": "10.0.0",
     "fs-extra": "10.0.0",
     "html-webpack-plugin": "5.5.0",
     "lodash": "4.17.21",
