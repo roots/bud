@@ -8,7 +8,7 @@ export const make: BudWebpackDefinePlugin['make'] = options =>
   new DefinePlugin(options.all())
 
 export const when: BudWebpackDefinePlugin['when'] = (_, opts) =>
-  opts.getEntries()?.length > 0
+  opts?.getEntries()?.length > 0
 
 export const options: BudWebpackDefinePlugin['options'] = ({
   env,

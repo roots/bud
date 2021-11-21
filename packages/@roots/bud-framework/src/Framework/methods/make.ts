@@ -1,4 +1,4 @@
-import {Framework} from './'
+import {Framework} from '../'
 
 /**
  * make function interface
@@ -45,25 +45,25 @@ export async function make(
   name: string,
   tap?: (app: Framework) => any,
 ): Promise<Framework> {
-  const ctx = this as Framework
+  this as Framework
 
-  handleChildNestingError.bind(ctx)()
-  ctx.logger.instance.fav(`new instance:`, name)
+  handleChildNestingError.bind(this)()
+  this.logger.instance.fav(`new instance:`, name)
 
-  const instance = new ctx.implementation({
+  const instance = new this.implementation({
     childOf: this,
     config: {
-      ...ctx.options.config,
+      ...this.options.config,
       name,
     },
-    services: ctx.options.services,
+    services: this.options.services,
   })
 
   await instance.lifecycle()
 
   if (tap) await tap(instance)
 
-  ctx.children.set(name, instance)
+  this.children?.set(name, instance)
 
-  return ctx
+  return this
 }

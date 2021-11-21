@@ -10,11 +10,10 @@
  * @packageDocumentation
  */
 
-import {Api} from './api'
-import {ConfigFacade} from './api/api.config'
+import {Api, Facade} from './api'
 
 declare module '@roots/bud-framework' {
-  interface Framework extends ConfigFacade {}
+  interface Framework extends Facade {}
 }
 
-export {Api, ConfigFacade}
+export {Api, Facade}

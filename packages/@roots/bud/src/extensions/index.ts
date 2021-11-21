@@ -13,6 +13,8 @@ import * as WebpackProvidePlugin from './webpack-provide-plugin'
  * Built-in extensions factory
  *
  * @returns Records of built-in compiler plugins
+ *
+ * @public
  */
 export function extensions(): Record<
   string,

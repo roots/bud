@@ -1,4 +1,4 @@
-import {Framework} from './'
+import {Framework} from '..'
 
 /**
  * Close interface

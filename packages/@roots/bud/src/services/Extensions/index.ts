@@ -11,9 +11,14 @@ export class Extensions extends Base {
   /**
    * Service ident
    *
-   * @public
+   * @internal
    */
   public ident = 'bud.extensions'
 
+  /**
+   * Extensions repository
+   *
+   * @internal
+   */
   public repository = extensions()
 }

@@ -31,7 +31,7 @@ const INIT_OPTIONS = {
  *
  * @public
  */
-class CriticalCssWebpackPlugin {
+export class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
    *
@@ -106,7 +106,6 @@ class CriticalCssWebpackPlugin {
    * Webpack compiler callback
    *
    * @param compiler - Webpack compiler
-   * @returns {Promise<void>}
    *
    * @public
    * @decorator `@bind`
@@ -250,7 +249,7 @@ class CriticalCssWebpackPlugin {
    */
   @bind
   public async generateCritical(
-    entry: string,
+    _entry: string,
     file: string,
     contents: string,
   ) {
@@ -293,5 +292,3 @@ class CriticalCssWebpackPlugin {
     }
   }
 }
-
-export {CriticalCssWebpackPlugin}

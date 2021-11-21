@@ -7,7 +7,7 @@
  * @beta
  * This package is provided as-is.
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 export {FileContainer} from './FileContainer'

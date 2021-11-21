@@ -18,7 +18,6 @@ export abstract class Abstract implements Peers.Interface {
    * Collect packages.
    *
    * @param type - type of packages to discover (devDependencies or dependencies)
-   * @returns {@link Peers}
    *
    * @public
    */

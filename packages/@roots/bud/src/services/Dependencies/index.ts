@@ -7,7 +7,7 @@ import {
 } from './dependencies.dependencies'
 
 /**
- * Bud Dependencies Service class
+ * Dependencies management service
  *
  * @public
  */
@@ -18,28 +18,21 @@ export class Dependencies
   /**
    * Service ident
    *
-   * @public
+   * @internal
    */
   public ident = 'bud.dependencies'
 
   /**
-   * Dependencies installation manager
+   * Package manager client interface
    *
    * @public
    */
   public client: DependenciesManager['client']
 
   /**
-   * Record of installed packages
+   * Service registration event
    *
-   * @public
-   */
-  public installed: Array<[string, string]> = []
-
-  /**
-   * {@link @roots/bud-framework#Service.register}
-   *
-   * @public
+   * @internal
    * @decorator `@bind`
    */
   @bind
@@ -52,14 +45,14 @@ export class Dependencies
   /**
    * Installs all the things
    *
-   * @param deps - dependencies to install
+   * @param dep - dependencies to install
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async install(
-    dependencies: {
+    packages: {
       name: string
       version: string
     }[],
@@ -69,11 +62,11 @@ export class Dependencies
     try {
       logger.await({
         message: 'installing packages',
-        suffix: dependencies,
+        suffix: packages,
       })
 
       await this.client.install(
-        dependencies.map(v => [v.name, v.version]),
+        packages.map(v => [v.name, v.version]),
         true,
         message => {
           logger.log(message)

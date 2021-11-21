@@ -1,25 +1,25 @@
-import type * as alias from './methods/alias'
-import type * as assets from './methods/assets'
-import type {config} from './methods/config'
-import type {define} from './methods/define'
-import type {devtool} from './methods/devtool'
-import type {facade as entryFacade} from './methods/entry'
-import type {experiments} from './methods/experiments'
-import type {externals} from './methods/externals'
-import type {hash} from './methods/hash'
-import type {minimize} from './methods/minimize'
-import type {persist} from './methods/persist'
-import type {provide} from './methods/provide'
-import type {proxy} from './methods/proxy'
-import {publicPath} from './methods/publicPath'
-import type {run} from './methods/run'
-import type {runtime} from './methods/runtime'
-import type {serve} from './methods/serve'
-import {setPublicPath} from './methods/setPublicPath'
-import type {splitChunks} from './methods/splitChunks'
-import type {facade as templateFacade} from './methods/template'
-import type {use} from './methods/use'
-import type {watch} from './methods/watch'
+import type * as alias from '../methods/alias'
+import type * as assets from '../methods/assets'
+import type {config} from '../methods/config'
+import type {define} from '../methods/define'
+import type {devtool} from '../methods/devtool'
+import type {facade as entryFacade} from '../methods/entry'
+import type {experiments} from '../methods/experiments'
+import type {externals} from '../methods/externals'
+import type {hash} from '../methods/hash'
+import type {minimize} from '../methods/minimize'
+import type {persist} from '../methods/persist'
+import type {provide} from '../methods/provide'
+import type {proxy} from '../methods/proxy'
+import {publicPath} from '../methods/publicPath'
+import type {run} from '../methods/run'
+import type {runtime} from '../methods/runtime'
+import type {serve} from '../methods/serve'
+import {setPublicPath} from '../methods/setPublicPath'
+import type {splitChunks} from '../methods/splitChunks'
+import type {facade as templateFacade} from '../methods/template'
+import type {use} from '../methods/use'
+import type {watch} from '../methods/watch'
 
 /**
  * Public interface for the Bud API
@@ -30,7 +30,7 @@ import type {watch} from './methods/watch'
  *
  * @public
  */
-export class ConfigFacade {
+export class Facade {
   /**
    * Register shorthand for resolving modules using webpack aliases.
    *

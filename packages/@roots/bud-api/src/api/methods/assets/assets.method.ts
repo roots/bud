@@ -1,6 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
+import {globby} from '@roots/bud-support'
 
-export {globby} from '@roots/bud-support'
 import type {method} from './assets.interface'
 
 export const assets: method = async function assets(

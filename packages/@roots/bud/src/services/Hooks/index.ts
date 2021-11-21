@@ -16,17 +16,17 @@ export class Hooks extends Base implements Contract, Service {
   /**
    * Service identifier
    *
-   * @public
+   * @internal
    */
-  public ident: string = 'bud.hooks'
+  public ident: string = 'hooks'
 
   /**
    * Registr lifecycle hook
    *
    * @remarks
-   * Register hooks for each {@link Framework.Locations} key
+   * Register hooks for each disk key
    *
-   * @public
+   * @internal
    */
   public async bootstrap({store}) {
     const mapLocale = (

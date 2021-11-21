@@ -69,7 +69,7 @@ export class Server
    */
   @bind
   public async register() {
-    this.app.hooks.promise('event.compiler.done', async () => {
+    this.app.hooks.on('event.compiler.done', async () => {
       await fs.writeJson(this.app.path('dist', 'hmr.json'), {
         host: this.app.store.get('server.host'),
         port: this.app.store.get('server.port'),

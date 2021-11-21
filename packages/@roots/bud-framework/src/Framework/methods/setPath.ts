@@ -1,4 +1,4 @@
-import {Framework} from '.'
+import {Framework} from '..'
 
 /**
  * setPath function interface
@@ -24,7 +24,6 @@ export interface setPath {
  *
  * @param this - {@link Framework}
  * @param args - path parts
- * @returns {@link Framework}
  *
  * @public
  */

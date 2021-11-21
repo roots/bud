@@ -42,14 +42,12 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import './interface'
 
 export {Bud} from './Bud'
-
-export {Framework} from '@roots/bud-framework'
 
 export {config} from './config'
 export {extensions} from './extensions'

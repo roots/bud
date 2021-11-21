@@ -1,6 +1,6 @@
 import {join} from 'path'
 
-import {Framework, Locations} from '..'
+import {Framework, Locations} from '../..'
 
 interface path {
   (

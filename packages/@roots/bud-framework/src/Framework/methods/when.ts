@@ -1,5 +1,5 @@
-import type {Framework} from './'
-import {isFunction} from './framework.dependencies'
+import type {Framework} from '../'
+import {isFunction} from '../framework.dependencies'
 
 export interface when {
   (

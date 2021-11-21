@@ -6,5 +6,5 @@ export class Dashboard extends Base {
    *
    * @public
    */
-  public ident = 'bud.dashboard'
+  public ident = 'dashboard'
 }

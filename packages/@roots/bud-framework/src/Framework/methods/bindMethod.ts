@@ -1,13 +1,22 @@
-import {isFunction} from 'lodash'
-
-import {Framework} from './'
+import {Framework} from '../'
 
 /**
  * Generic type defining the {@link Service.bindMacro} map of
  * callable function interfaces to {@link Framework} property keys
+ *
+ * @internal
  */
-interface GenericFunctionMap {
+export interface GenericFunctionMap {
   [key: string]: CallableFunction
+}
+
+/**
+ * @internal
+ */
+export interface bindMethod {
+  <FunctionMap = GenericFunctionMap>(
+    properties: FunctionMap,
+  ): Framework
 }
 
 /**
@@ -34,16 +43,12 @@ export function bindMethod<FunctionMap = GenericFunctionMap>(
 ): Framework {
   this as Framework
 
-  Object.entries(properties).map(([name, value]) => {
-    this[name] = value.bind(this)
+  Object.entries(properties).forEach(([key, value]) => {
+    this[key] = value.bind(this)
+  })
 
-    if (isFunction(this[name])) {
-      this.logger.instance
-        .scope(...this.logger.context, 'bindMethod')
-        .success({
-          message: `bound method: ${this.name}.${name}`,
-        })
-    }
+  Object.keys(properties).forEach(key => {
+    this.success(`bound ${key}`)
   })
 
   return this

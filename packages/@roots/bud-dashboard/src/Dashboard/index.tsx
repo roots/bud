@@ -30,7 +30,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async registered(): Promise<void> {
-    this.app.hooks.promise('event.compiler.before', config => {
+    this.app.hooks.on('event.compiler.before', config => {
       this.run()
       return config
     })

@@ -4,7 +4,7 @@ export type {SetOptional}
 import {Bud} from '../Bud'
 
 /**
- * {@link Bud} constructor property overrides
+ * Bud constructor property overrides
  *
  * @public
  */

@@ -177,7 +177,7 @@ export class Compiler extends Service implements Contract {
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (this.app.children.getEntries().length === 0) {
+    if (!this.app.hasChildren) {
       this.app.info(`using config from parent compiler`)
       config.push(this.app.build.config)
       return config
@@ -192,7 +192,7 @@ export class Compiler extends Service implements Contract {
      * them and add to `config`
      */
     await Promise.all(
-      this.app.children.getValues().map(async instance => {
+      this.app.children?.getValues().map(async instance => {
         if (!instance.name) return
 
         this.log(

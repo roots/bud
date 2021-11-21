@@ -2,7 +2,12 @@ import type {
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
-import {format, highlight, lodash} from '@roots/bud-support'
+import {
+  bind,
+  format,
+  highlight,
+  lodash,
+} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {
@@ -23,35 +28,22 @@ import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import * as Project from '../Project'
-import {bindMethod} from './bindMethod'
-import {close} from './close'
-import {container} from './container'
-import {bind} from './framework.dependencies'
-import {get} from './get'
 import {lifecycle} from './lifecycle'
-import {make} from './make'
 import * as methods from './methods'
-import {maybeCall} from './methods/maybeCall'
-import {mixin} from './mixin'
-import {path} from './path'
-import {pipe} from './pipe'
-import {sequence} from './sequence'
-import {setPath} from './setPath'
-import {tap} from './tap'
-import {when} from './when'
+import * as parser from './parser'
 
 const {omit} = lodash
 
 /**
  * Base {@link Framework} class
  *
- * @core @public
+ * @public
  */
 export abstract class Framework {
   /**
    * Concrete implementation of the {@link Framework}
    *
-   * @public
+   * @internal @virtual
    */
   public abstract implementation: Constructor
 
@@ -110,6 +102,11 @@ export abstract class Framework {
     return this.root.name === this.name
   }
 
+  /**
+   * True when current instance is a child instance
+   *
+   * @readonly
+   */
   public get isChild(): boolean {
     return this.root.name !== this.name
   }
@@ -146,7 +143,7 @@ export abstract class Framework {
   /**
    * Macros for assisting with common config tasks
    *
-   * @public @container
+   * @public
    */
   public api: Api
 
@@ -196,7 +193,7 @@ export abstract class Framework {
   /**
    * .env container
    *
-   * @public @container
+   * @public
    */
   public env: Env
 
@@ -322,25 +319,26 @@ export abstract class Framework {
       this.root = options.childOf
     }
 
-    this.services = options.services
-    this.maybeCall = maybeCall.bind(this)
-    this.bindMethod = bindMethod.bind(this)
-    this.close = close.bind(this)
-    this.get = get.bind(this)
     this.lifecycle = lifecycle.bind(this)
-    this.make = make.bind(this)
-    this.mixin = mixin.bind(this)
-    this.path = path.bind(this)
-    this.pipe = pipe.bind(this)
-    this.setPath = setPath.bind(this)
-    this.tap = tap.bind(this)
-    this.when = when.bind(this)
+    this.services = options.services
+
+    this.maybeCall = methods.maybeCall.bind(this)
+    this.bindMethod = methods.bindMethod.bind(this)
+    this.close = methods.close.bind(this)
+    this.get = methods.get.bind(this)
+    this.make = methods.make.bind(this)
+    this.mixin = methods.mixin.bind(this)
+    this.path = methods.path.bind(this)
+    this.pipe = methods.pipe.bind(this)
+    this.setPath = methods.setPath.bind(this)
+    this.tap = methods.tap.bind(this)
+    this.when = methods.when.bind(this)
   }
 
   /**
    * @internal
    */
-  public lifecycle: lifecycle
+  public lifecycle: lifecycle = lifecycle.bind(this)
 
   /**
    * Access a value which may or may not be a function.
@@ -361,7 +359,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public maybeCall: maybeCall
+  public maybeCall: methods.maybeCall =
+    methods.maybeCall.bind(this)
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
@@ -373,21 +372,22 @@ export abstract class Framework {
    *
    * @public
    */
-  public close: close
+  public close: methods.close = methods.close.bind(this)
 
   /**
    * Create a new {@link Container} instance
    *
    * @example
    * ```js
-   * const myContainer = bud.container({key: 'value'})
+   * const myContainer = bud.container({key: methods.'value'})
    *
    * myContainer.get('key') // returns 'value'
    * ```
    *
-   * @public @container
+   * @public
    */
-  public container: container = container
+  public container: methods.container =
+    methods.container.bind(this)
 
   /**
    * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
@@ -405,7 +405,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public get: get
+  public get: methods.get = methods.get.bind(this)
 
   /**
    * Instantiate a child instance and add to {@link Framework.children} container
@@ -423,14 +423,14 @@ export abstract class Framework {
    *
    * @public
    */
-  public make: make = make
+  public make: methods.make = methods.make.bind(this)
 
   /**
    * Returns a {@link Locations} value as an absolute path
    *
    * @public
    */
-  public path: path
+  public path: methods.path = methods.path.bind(this)
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
@@ -453,7 +453,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public pipe: pipe
+  public pipe: methods.pipe = methods.pipe.bind(this)
 
   /**
    * Set a {@link @roots/bud-framework#Location | Location} value
@@ -470,11 +470,10 @@ export abstract class Framework {
    *
    * @param this - {@link Framework}
    * @param args - path parts
-   * @returns {@link Framework}
    *
    * @public
    */
-  public setPath: setPath
+  public setPath: methods.setPath = methods.setPath.bind(this)
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.
@@ -484,7 +483,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public sequence: sequence = sequence.bind(this)
+  public sequence: methods.sequence = methods.sequence.bind(this)
 
   /**
    * Execute a callback
@@ -511,7 +510,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public tap: tap
+  public tap: methods.tap = methods.tap.bind(this)
 
   /**
    * Executes a function if a given test is `true`.
@@ -541,43 +540,44 @@ export abstract class Framework {
    *
    * @public
    */
-  public when: when
+  public when: methods.when = methods.when.bind(this)
 
   /**
    * Bind method to {@link Framework | Framework instance}
    *
    * @public
    */
-  public bindMethod = bindMethod.bind(this)
+  public bindMethod: methods.bindMethod =
+    methods.bindMethod.bind(this)
 
   /**
    * Adds a class as a property of the Framework
    *
    * @public
    */
-  public mixin: typeof mixin
+  public mixin: typeof methods.mixin
 
   /**
    * Read and write json files
    *
    * @public
    */
-  public json: typeof methods.json = methods.json
+  public json: typeof parser.json = parser.json
 
   /**
    * Read and write yaml files
    *
    * @public
    */
-  public yml: typeof methods.yaml = methods.yaml
+  public yml: typeof parser.yml = parser.yml
 
   /**
    * Read and write typescript files
    *
    * @public
    */
-  public ts: typeof methods.ts = {
-    read: methods.ts.read.bind(this),
+  public ts: typeof parser.ts = {
+    read: parser.ts.read.bind(this),
   }
 
   /**

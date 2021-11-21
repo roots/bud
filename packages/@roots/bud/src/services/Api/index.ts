@@ -12,5 +12,5 @@ export class Api extends Base {
    *
    * @public
    */
-  public ident = 'bud.api'
+  public ident = 'api'
 }

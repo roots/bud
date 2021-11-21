@@ -10,6 +10,8 @@ import {services} from '../services'
  * const bud = factory()
  * ```
  *
+ * @returns Bud instance
+ *
  * @public
  */
 export async function factory(

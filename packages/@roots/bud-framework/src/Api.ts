@@ -1,13 +1,29 @@
+import {Framework} from './Framework'
 import {Service} from './Service'
 
 /**
- * API service container
- *
- * @public @core @container
+ * @internal
  */
-export interface Api extends Service {
+export interface Api<
+  T = Record<string, (...args: unknown[]) => Framework>,
+> extends Service<T> {
+  /**
+   * @internal
+   */
   trace: Array<[string, ...any[]]>
+
+  /**
+   * @internal
+   */
   queue: Array<[string, ...any[]]>
+
+  /**
+   * @internal
+   */
   call: (name: string, ...args: any[]) => Promise<void>
-  callAll: () => Promise<void>
+
+  /**
+   * @internal
+   */
+  processQueue: () => Promise<void>
 }
