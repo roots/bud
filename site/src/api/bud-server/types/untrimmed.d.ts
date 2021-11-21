@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 /// <reference types="node" />

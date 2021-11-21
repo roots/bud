@@ -8,7 +8,7 @@
  *
  * @see https://roots.io/bud
 
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { Container } from '@roots/container';

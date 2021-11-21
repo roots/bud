@@ -91,7 +91,7 @@ export interface useStyle {
     (themeProps?: Theme): Styles;
 }
 
-// @public (undocumented)
+// @public
 export const useStyle: useStyle;
 
 ```

@@ -12,7 +12,7 @@
  * @remarks
  * You should absolutely use this extension
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { DefaultMethods } from 'signale';

@@ -4,7 +4,7 @@
  * @beta
  * This package is provided as-is.
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 /// <reference types="node" />

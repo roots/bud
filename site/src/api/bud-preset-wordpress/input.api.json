@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-preset-wordpress!",
-  "docComment": "/**\n * Preset config for WordPress plugins & themes.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @example\n * ```js\n * const wp = require('@roots/bud-preset-wordpress')\n *\n * module.exports = (app: Framework) => {\n *   app.use(wp)\n * }\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Preset config for WordPress plugins & themes.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @example\n * ```js\n * const wp = require('@roots/bud-preset-wordpress')\n *\n * module.exports = (app: Framework) => {\n *   app.use(wp)\n * }\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/bud-preset-wordpress",
   "members": [
     {

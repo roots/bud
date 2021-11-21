@@ -1,7 +1,7 @@
 /**
  * React hook for easy styling of Ink components.
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 declare const colors: Theme['colors'];
@@ -29,7 +29,9 @@ declare const screens: Theme['screens'];
 declare const spacing: Theme['spacing'];
 
 /**
- * Return value
+ * Object returned by hook
+ *
+ * @public
  */
 export declare interface Styles {
     /**
@@ -84,12 +86,16 @@ export declare namespace Theme {
 /**
  * useStyle hook
  *
- * @returns {Styles}
+ * @public
  */
 export declare interface useStyle {
     (themeProps?: Theme): Styles;
 }
 
+/**
+ * useStyle hook
+ *
+ */
 export declare const useStyle: useStyle;
 
 export { }

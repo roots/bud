@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-framework!",
-  "docComment": "/**\n * ⚡️ Bud/Framework - Extensible build tooling for modern web development\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * ⚡️ Bud/Framework - Extensible build tooling for modern web development\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
   "name": "@roots/bud-framework",
   "members": [
     {
@@ -204,11 +204,33 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/bud-framework!Api:interface",
-          "docComment": "/**\n * API service container\n *\n * @public @core @container\n */\n",
+          "docComment": "/**\n * API service\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Api extends "
+              "text": "export interface Api<T = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Framework",
+              "canonicalReference": "!unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": "> extends "
             },
             {
               "kind": "Reference",
@@ -217,16 +239,29 @@
             },
             {
               "kind": "Content",
-              "text": " "
+              "text": "<T> "
             }
           ],
           "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              }
+            }
+          ],
           "name": "Api",
           "members": [
             {
               "kind": "PropertySignature",
               "canonicalReference": "@roots/bud-framework!Api#call:member",
-              "docComment": "",
+              "docComment": "/**\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -260,12 +295,12 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Api#callAll:member",
-              "docComment": "",
+              "canonicalReference": "@roots/bud-framework!Api#processQueue:member",
+              "docComment": "/**\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "callAll: "
+                  "text": "processQueue: "
                 },
                 {
                   "kind": "Content",
@@ -287,79 +322,17 @@
               ],
               "isOptional": false,
               "releaseTag": "Public",
-              "name": "callAll",
+              "name": "processQueue",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 4
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Api#queue:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "queue: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Array",
-                  "canonicalReference": "!Array:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[string, ...any[]]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "queue",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-framework!Api#trace:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "trace: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Array",
-                  "canonicalReference": "!Array:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[string, ...any[]]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "trace",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
               }
             }
           ],
           "extendsTokenRanges": [
             {
-              "startIndex": 1,
-              "endIndex": 3
+              "startIndex": 6,
+              "endIndex": 8
             }
           ]
         },
@@ -3475,7 +3448,7 @@
         {
           "kind": "Class",
           "canonicalReference": "@roots/bud-framework!Framework:class",
-          "docComment": "/**\n * Base {@link Framework} class\n *\n * @core @public\n */\n",
+          "docComment": "/**\n * Base {@link Framework} class\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4252,34 +4225,6 @@
               "isStatic": false
             },
             {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud-framework!Framework#implementation:member",
-              "docComment": "/**\n * Concrete implementation of the {@link Framework}\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "abstract implementation: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Constructor",
-                  "canonicalReference": "@roots/bud-framework!Constructor:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "implementation",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
               "kind": "Method",
               "canonicalReference": "@roots/bud-framework!Framework#info:member(1)",
               "docComment": "/**\n * Log an `info` level message\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
@@ -4327,7 +4272,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#isChild:member",
-              "docComment": "",
+              "docComment": "/**\n * True when current instance is a child instance\n *\n * @readonly\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4944,7 +4889,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-framework!Framework#setPath:member",
-              "docComment": "/**\n * Set a {@link @roots/bud-framework#Location | Location} value\n *\n * @remarks\n *\n * The {@link Locations.project} should be an absolute path. All other directories should be relative (src, dist, etc.)\n *\n * @param this - {@link Framework}\n *\n * @param args - path parts\n *\n * @returns {@link Framework}\n *\n * @example\n * ```js\n * bud.setPath('src', 'custom/src')\n * ```\n *\n * @see\n *\n * {@link Locations}\n *\n * @public\n */\n",
+              "docComment": "/**\n * Set a {@link @roots/bud-framework#Location | Location} value\n *\n * @remarks\n *\n * The {@link Locations.project} should be an absolute path. All other directories should be relative (src, dist, etc.)\n *\n * @param this - {@link Framework}\n *\n * @param args - path parts\n *\n * @example\n * ```js\n * bud.setPath('src', 'custom/src')\n * ```\n *\n * @see\n *\n * {@link Locations}\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5490,68 +5435,6 @@
                 }
               ],
               "name": "on"
-            },
-            {
-              "kind": "MethodSignature",
-              "canonicalReference": "@roots/bud-framework!Hooks#promise:member(1)",
-              "docComment": "/**\n * Async version of hook.on\n *\n * @example\n * ```js\n * app.hooks.on(\n *   'namespace.name.value',\n *   value => 'replaced by this string',\n * )\n * ```\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "promise(id: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Hooks.Name",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.Name:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", callback: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Hooks.PromiseHook",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.PromiseHook:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "id",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "callback",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ],
-              "name": "promise"
             },
             {
               "kind": "MethodSignature",
@@ -13878,7 +13761,7 @@
         {
           "kind": "Class",
           "canonicalReference": "@roots/bud-framework!Service:class",
-          "docComment": "/**\n * Atomic unit of {@link Framework} functionality.\n *\n * @remarks\n *\n * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework} access\n *\n * A {@link Service} is tapped through a series of callbacks at different points in the build.\n *\n * All of the callbacks are optional:\n *\n * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).\n *\n * - {@link Service.bootstrapped} is called once all Services have been instantiated.\n *\n * - {@link Service.register} is intended for Services to register functionalities, modules, and bind functions and classes.\n *\n * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.\n *\n * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.\n *\n * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.\n *\n * @typeParam Repository - {@link Repository} typing, if applicable\n *\n * @public @core @container\n */\n",
+          "docComment": "/**\n * Atomic unit of {@link Framework} functionality.\n *\n * @remarks\n *\n * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container} and {@link Framework} access\n *\n * A {@link Service} is tapped through a series of callbacks at different points in the build.\n *\n * All of the callbacks are optional:\n *\n * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).\n *\n * - {@link Service.bootstrapped} is called once all Services have been instantiated.\n *\n * - {@link Service.register} is intended for Services to register functionalities, modules, and bind functions and classes.\n *\n * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.\n *\n * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.\n *\n * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.\n *\n * @typeParam Repository - {@link Repository} typing, if applicable\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -14130,7 +14013,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-framework!Service#dump:member(1)",
-              "docComment": "/**\n * Dump the service repository\n */\n",
+              "docComment": "/**\n * Dump the service repository\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

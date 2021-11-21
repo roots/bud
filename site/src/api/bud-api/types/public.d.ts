@@ -1,14 +1,13 @@
 /**
- * Repository of high-level facades
- * which simplify common configuration tasks
+ * Repository of high-level facades which simplify common configuration tasks
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 import { Configuration as Configuration_2 } from '@roots/bud-framework';
 import type { DefinePlugin } from 'webpack';
 import type { Extension } from '@roots/bud-framework';
@@ -19,8 +18,15 @@ import type { Options as Options_2 } from 'html-webpack-plugin';
 import type { Server } from '@roots/bud-framework';
 import Webpack from 'webpack';
 
-declare interface alias {
-    (alias: Configuration['resolve']['alias']): Framework_2;
+declare type Alias = Configuration['resolve']['alias'] & {
+    [index: string]: string | false | string[];
+};
+
+declare namespace alias {
+    export {
+        facade,
+        alias_2 as method
+    }
 }
 
 /**
@@ -36,105 +42,64 @@ declare interface alias {
  * })
  * ```
  *
- * @public @config
+ * @param alias - module redirections
+ * @returns configuration instance
+ *
+ * @public
  */
-declare const alias: alias;
+declare const alias_2: method;
 
 /**
  * API service
  *
  * @remarks
- * The API class binds all the facade functions provided by the package
- * and exposes them as a single object.
+ * Binds facade methods to the framework
+ * and provides a means to call the methods
+ * directly for immediate execution.
  *
  * @public
  */
-export declare class Api extends Framework.Service<Repository> implements Framework.Api {
+export declare class Api extends Framework.Service implements Framework.Api {
+    /* Excluded from this release type: queue */
+    /* Excluded from this release type: trace */
+    /* Excluded from this release type: bootstrap */
+    /* Excluded from this release type: registered */
+    /* Excluded from this release type: bindFacade */
     /**
-     * Calls queue
-     * @public
-     */
-    queue: Array<[string, ...any[]]>;
-    /**
-     * Record of all completed calls
-     * @public
-     */
-    trace: Array<[string, ...any[]]>;
-    /* Excluded from this release type: repository */
-    /**
-     * Service bootstrap event
+     * Call an api method directly
      *
-     * @public
-     */
-    bootstrap(): Promise<void>;
-    /**
-     * @public
-     */
-    registered(): Promise<void>;
-    /**
-     * @public
-     */
-    bindToApi(name: any, method: any): void;
-    /**
-     * @public
-     */
-    bindToBud(name: string, method: CallableFunction): void;
-    /**
-     * @public
-     */
-    bindProxy(name: string): void;
-    /**
      * @public
      */
     call(name: string, ...args: any[]): Promise<any>;
     /**
-     * @public
-     */
-    callAll(): Promise<void>;
-    /**
-     * debug logger
+     * Execute all queued method calls
      *
      * @public
      */
-    dump(options: any): void;
+    processQueue(): Promise<void>;
+    /**
+     * dump the method call trace
+     *
+     * @public
+     */
+    dump(): void;
 }
 
-/**
- * Modify the {@link Framework} baseline config.
- *
- * @remarks
- * Override generated webpack config with custom config.
- *
- * @example
- * ```ts
- * app.config({entry: './src/index.js'})
- * ```
- *
- * @public
- */
+declare namespace assets {
+    export {
+        assets_2 as method,
+        facade_2 as facade
+    }
+}
+
+declare const assets_2: method_2;
+
 declare function config(overrides: Partial<Webpack.Configuration>): Framework_2;
 
-/**
- * @privateRemarks Should this function be nixxed entirely?
- */
 declare interface config {
     (overrides: Partial<Webpack.Configuration>): Framework_2;
 }
 
-/**
- * Define application variables
- *
- * @example
- * ```ts
- * app.define({
- *   APP_NAME: 'My Application',
- * })
- * ```
- *
- * @hook extension/webpack-define-plugin/options
- *
- * @public @config
- */
 declare function define(this: Framework_2, values: DefinePlugin['definitions']): Framework_2;
 
 declare interface define {
@@ -145,19 +110,6 @@ declare interface devtool {
     (devtool?: Configuration['devtool']): Promise<Framework_2>;
 }
 
-/**
- * Configure sourcemaps
- *
- * @remarks
- * Compatible with any of [Webpack's devtool options](https://webpack.js.org/configuration/devtool/).
- *
- * @example
- * ```js
- * app.devtool('inline-cheap-module-source-map')
- * ```
- *
- * @public @config
- */
 declare const devtool: devtool;
 
 /**
@@ -186,79 +138,700 @@ declare interface EntryObject {
  */
 declare type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>;
 
-/**
- * @hook build.experiments
- *
- * @public @config
- */
 declare interface experiments {
     (key: keyof Configuration['experiments'], setting: boolean): Framework_2;
 }
 
-/**
- * Configure experimental webpack options.
- *
- * @example
- * ```js
- * bud.experiments({
- *  lazyCompilation: true,
- * })
- * ```
- *
- * @public @config
- */
 declare const experiments: experiments;
 
-/**
- * Externals function interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param externals - {@link webpack#Configuration.externals}
- *
- * @hook build.externals
- *
- * @public @config
- */
 declare interface externals {
     (externals: Configuration['externals']): Framework_2;
 }
 
-/**
- * Specify a non-standard resolution strategy for modules with a matching name.
- *
- * @example
- * ```js
- * bud.externals({
- *   'jQuery': 'window.jquery',
- * })
- * ```
- *
- * @public @config
- */
 declare const externals: externals;
 
-declare interface facade {
-    (this: Framework_2, from: string[]): Framework_2;
-}
-
 /**
- * sync facade interfaces
+ * Public interface for the Bud API
  *
  * @remarks
- * prevent intellisense from complaining about bud being a promise
+ * Virtual class representing a synchronous interface for use in consumer configs.
+ * these type signatures are synchronous regardless of if the underlying method is.
  *
- * @todo
- * probably this could be mapped with a generic type
+ * @public
  */
-declare interface facade_2 {
-    (name: string, entrypoint: EntryValue): Framework_2;
+export declare class Facade {
+    /**
+     * Register shorthand for resolving modules using webpack aliases.
+     *
+     * @remarks
+     * Useful for situations that may otherwise require brittle relative paths.
+     *
+     * @example
+     * ```js
+     * app.alias({
+     *   '@scripts': app.path('src', 'scripts'),
+     * })
+     * ```
+     *
+     * @public
+     */
+    alias: alias.facade;
+    /**
+     * Copy static assets during compilation.
+     *
+     * @remarks
+     * You may specify paths with a string literal or glob pattern.
+     *
+     * @example
+     * Copy **src/images** to **dist/images**
+     *
+     * ```js
+     * app.assets(['src/images'])
+     * ```
+     *
+     * @public
+     */
+    assets: assets.facade;
+    /**
+     * Copy static assets during compilation.
+     *
+     * @remarks
+     * You may specify paths with a string literal or glob pattern.
+     *
+     * @example
+     * Copy **src/images** to **dist/images**
+     *
+     * ```js
+     * app.assets(['src/images'])
+     * ```
+     *
+     * @public
+     */
+    copy: assets.facade;
+    /**
+     * Modify the generated webpack config prior to compilation.
+     *
+     * @remarks
+     * Override generated webpack config with custom config.
+     *
+     * @example
+     * ```ts
+     * app.config({entry: './src/index.js'})
+     * ```
+     *
+     * @public
+     */
+    config: config;
+    /**
+     * Modify the generated webpack config prior to compilation.
+     *
+     * @remarks
+     * Override generated webpack config with custom config.
+     *
+     * @example
+     * ```ts
+     * app.config({entry: './src/index.js'})
+     * ```
+     *
+     * @public
+     */
+    webpackConfig: config;
+    /**
+     * Modify the generated webpack config prior to compilation.
+     *
+     * @remarks
+     * Override generated webpack config with custom config.
+     *
+     * @example
+     * ```ts
+     * app.config({entry: './src/index.js'})
+     * ```
+     *
+     * @public
+     */
+    override: config;
+    /**
+     * Define application variables
+     *
+     * @example
+     * ```ts
+     * app.define({
+     *   APP_NAME: 'My Application',
+     * })
+     * ```
+     *
+     * @public
+     */
+    define: define;
+    /**
+     * Enable filename hashing of built assets.
+     *
+     * @example
+     * ```js
+     * bud.hash()
+     * ```
+     *
+     * @public
+     */
+    autoload: define;
+    /**
+     * Configure sourcemaps
+     *
+     * @remarks
+     * Compatible with any of [Webpack's devtool options](https://webpack.js.org/configuration/devtool/).
+     *
+     * @example
+     * ```js
+     * app.devtool('inline-cheap-module-source-map')
+     * ```
+     *
+     * @public
+     */
+    devtool: devtool;
+    /**
+     * Bundle vendor modules separately from application code.
+     *
+     * @example
+     * ```js
+     * bud.splitChunks({
+     *  chunks: 'all',
+     * })
+     * ```
+     *
+     * @public
+     */
+    splitChunks: splitChunks;
+    /**
+     * Bundle vendor modules separately from application code.
+     *
+     * @example
+     * ```js
+     * bud.splitChunks({
+     *  chunks: 'all',
+     * })
+     * ```
+     *
+     * @public
+     */
+    extract: splitChunks;
+    /**
+     * Generate application entrypoints from source asset paths.
+     *
+     * @remarks
+     * **Globbing**
+     *
+     * Uses [fast-glob](https://git.io/JkGbw) syntax.
+     *
+     * **Supported patterns**
+     *
+     * - `*` matches any number of characters, but not `/`
+     * - `?` matches a single character, but not `/`
+     * - `**` matches any number of characters, including `/`,
+     *   as long as it's the only thing in a path part
+     * - `{}` allows for a comma-separated list  of "or" expressions
+     * - `!` at the beginning of a pattern will negate the match
+     *
+     * @example
+     * Create an entrypoint from a single file:
+     *
+     * ```js
+     * app.entry('app', 'app.js')
+     * ```
+     *
+     * @example
+     * Create an entrypoint from multiple files:
+     *
+     * ```js
+     * app.entry('app', ['js/app.js', 'css/app.css'])
+     * ```
+     *
+     * @example
+     * Create an entrypoint comprised of all js assets:
+     *
+     * ```js
+     * app.entry('app', '*.js')
+     * ```
+     *
+     * @example
+     * You may create more than one entrypoint using object syntax:
+     *
+     * ```js
+     * app.entry({
+     *   scripts: '*.js',
+     *   styles: ['*.css', '*.scss'],
+     * })
+     * ```
+     *
+     * @example
+     * Declare entrypoint dependencies:
+     *
+     * ```js
+     * app.entry({
+     *  react: {
+     *    import: ['react', 'react-dom']
+     *  },
+     *  app: {
+     *    import: ['app.js'],
+     *    dependOn: ['react'],
+     *  },
+     * })
+     * ```
+     *
+     * @public
+     */
+    entry: facade_3;
+    /**
+     * Generate application entrypoints from source asset paths.
+     *
+     * @remarks
+     * **Globbing**
+     *
+     * Uses [fast-glob](https://git.io/JkGbw) syntax.
+     *
+     * **Supported patterns**
+     *
+     * - `*` matches any number of characters, but not `/`
+     * - `?` matches a single character, but not `/`
+     * - `**` matches any number of characters, including `/`,
+     *   as long as it's the only thing in a path part
+     * - `{}` allows for a comma-separated list  of "or" expressions
+     * - `!` at the beginning of a pattern will negate the match
+     *
+     * @example
+     * Create an entrypoint from a single file:
+     *
+     * ```js
+     * app.entry('app', 'app.js')
+     * ```
+     *
+     * @example
+     * Create an entrypoint from multiple files:
+     *
+     * ```js
+     * app.entry('app', ['js/app.js', 'css/app.css'])
+     * ```
+     *
+     * @example
+     * Create an entrypoint comprised of all js assets:
+     *
+     * ```js
+     * app.entry('app', '*.js')
+     * ```
+     *
+     * @example
+     * You may create more than one entrypoint using object syntax:
+     *
+     * ```js
+     * app.entry({
+     *   scripts: '*.js',
+     *   styles: ['*.css', '*.scss'],
+     * })
+     * ```
+     *
+     * @example
+     * Declare entrypoint dependencies:
+     *
+     * ```js
+     * app.entry({
+     *  react: {
+     *    import: ['react', 'react-dom']
+     *  },
+     *  app: {
+     *    import: ['app.js'],
+     *    dependOn: ['react'],
+     *  },
+     * })
+     * ```
+     *
+     * @public
+     */
+    js: facade_3;
+    /**
+     * Generate application entrypoints from source asset paths.
+     *
+     * @remarks
+     * **Globbing**
+     *
+     * Uses [fast-glob](https://git.io/JkGbw) syntax.
+     *
+     * **Supported patterns**
+     *
+     * - `*` matches any number of characters, but not `/`
+     * - `?` matches a single character, but not `/`
+     * - `**` matches any number of characters, including `/`,
+     *   as long as it's the only thing in a path part
+     * - `{}` allows for a comma-separated list  of "or" expressions
+     * - `!` at the beginning of a pattern will negate the match
+     *
+     * @example
+     * Create an entrypoint from a single file:
+     *
+     * ```js
+     * app.entry('app', 'app.js')
+     * ```
+     *
+     * @example
+     * Create an entrypoint from multiple files:
+     *
+     * ```js
+     * app.entry('app', ['js/app.js', 'css/app.css'])
+     * ```
+     *
+     * @example
+     * Create an entrypoint comprised of all js assets:
+     *
+     * ```js
+     * app.entry('app', '*.js')
+     * ```
+     *
+     * @example
+     * You may create more than one entrypoint using object syntax:
+     *
+     * ```js
+     * app.entry({
+     *   scripts: '*.js',
+     *   styles: ['*.css', '*.scss'],
+     * })
+     * ```
+     *
+     * @example
+     * Declare entrypoint dependencies:
+     *
+     * ```js
+     * app.entry({
+     *  react: {
+     *    import: ['react', 'react-dom']
+     *  },
+     *  app: {
+     *    import: ['app.js'],
+     *    dependOn: ['react'],
+     *  },
+     * })
+     * ```
+     *
+     * @public
+     */
+    css: facade_3;
+    /**
+     * Configure experimental webpack options.
+     *
+     * @example
+     * ```js
+     * bud.experiments({
+     *  lazyCompilation: true,
+     * })
+     * ```
+     *
+     * @public
+     */
+    experiments: experiments;
+    /**
+     * Specify a non-standard resolution strategy for modules with a matching name.
+     *
+     * @example
+     * ```js
+     * bud.externals({
+     *   'jQuery': 'window.jquery',
+     * })
+     * ```
+     *
+     * @public
+     */
+    externals: externals;
+    /**
+     * Enable filename hashing of built assets.
+     *
+     * @example
+     * ```js
+     * bud.hash()
+     * ```
+     *
+     * @public
+     */
+    hash: hash;
+    /**
+     * Enable filename hashing of built assets.
+     *
+     * @example
+     * ```js
+     * bud.hash()
+     * ```
+     *
+     * @public
+     */
+    version: hash;
+    /**
+     * Enables minification of built assets.
+     *
+     * @example
+     * Enable:
+     *
+     * ```js
+     * bud.minimize()
+     * ```
+     *
+     * @example
+     * Explicitly disable:
+     *
+     * ```js
+     * bud.minimize(false)
+     * ```
+     *
+     * @example
+     * Explicitly enable:
+     *
+     * ```js
+     * bud.minimize(true)
+     * ```
+     *
+     * @public
+     */
+    minimize: minimize;
+    /**
+     * Cache webpack builds to the filesystem.
+     *
+     * @example
+     * ```js
+     * app.persist('memory')
+     * ```
+     *
+     * @example
+     * ```js
+     * app.persist('filesystem')
+     * ```
+     *
+     * @example
+     * ```js
+     * app.persist(false)
+     * ```
+     *
+     * @public
+     */
+    persist: persist;
+    /**
+     * Make a variable/module available throughout the entire
+     * application without needing to import it explicitly.
+     *
+     * @example
+     * ```js
+     * bud.provide({
+     *   jquery: '$',
+     * })
+     * ```
+     *
+     * @public
+     */
+    provide: provide;
+    /**
+     * Set proxy settings for the development server.
+     *
+     * @remarks
+     *
+     * - By default there is no proxy enabled.
+     *
+     * - If enabled with no  proxies whatever is running on localhost on port 8000.
+     *
+     * @example
+     * Enable:
+     *
+     * ```js
+     * bud.proxy()
+     * ```
+     *
+     * @example
+     * Disable:
+     *
+     * ```js
+     * bud.proxy({enabled: false})
+     * ```
+     *
+     * @example
+     * Specify host and port:
+     *
+     * ```js
+     * bud.proxy({
+     *  host: 'example.test',
+     *  port: 3000,
+     * })
+     * ```
+     *
+     * @public
+     */
+    proxy: proxy;
+    /**
+     * By default it is assumed that assets are served from webroot (`/`).
+     * You can use this method to replace this value for apps  served from
+     * a subdirectory.
+     *
+     * @example
+     * Set the default path for a Sage project:
+     *
+     * ```js
+     * bud.publicPath('/app/themes/sage/dist')
+     * ```
+     *
+     * @public
+     */
+    publicPath: publicPath;
+    /**
+     * Run the build
+     *
+     * @example
+     * ```js
+     * bud.run()
+     * ```
+     *
+     * @public
+     */
+    run: run;
+    /**
+     * Generate a runtime chunk intended to be inlined on the page.
+     *
+     * Useful for code splitting and dynamic imports.
+     *
+     * @example
+     * ```js
+     * bud.runtime()
+     * ```
+     *
+     * @public
+     */
+    runtime: runtime;
+    /**
+     * Configure development server.
+     *
+     * @example
+     * ```js
+     * app.serve({
+     *   host: 'my-local-site.example',
+     *   port: 5000,
+     * })
+     * ```
+     *
+     * @public
+     */
+    serve: serve;
+    /**
+     * By default it is assumed that assets are served from webroot (`/`).
+     * You can use this method to replace this value for apps served from
+     * a subdirectory.
+     *
+     * @example
+     * Set the default path using a string
+     *
+     * ```js
+     * app.setPublicPath('/app/themes/sage/dist')
+     * ```
+     *
+     * @example
+     * Set the publicPath using a function.
+     *
+     * ```js
+     * app.setPublicPath(publicPath => {
+     *   return `web/assets/${publicPath}`
+     * })
+     * ```
+     *
+     * @public
+     */
+    setPublicPath: setPublicPath;
+    /**
+     * Enable and/or configure a generated HTML template
+     *
+     * @example
+     *
+     * ```ts
+     * app.template()
+     * ```
+     *
+     * With configuration defaults:
+     *
+     * ```ts
+     * app.template({
+     *   enabled: true,
+     *   template: 'public/index.html',
+     *   replace: {
+     *     APP_NAME: name,
+     *     APP_DESCRIPTION: description,
+     *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
+     *   },
+     * })
+     * ```
+     *
+     * @public
+     */
+    template: facade_4;
+    /**
+     * Register an extension or set of extensions
+     *
+     * @remarks
+     * This function is used to register an extension or set of extensions.
+     *
+     *  - If the extension is a webpack plugin, it will be registered as a webpack plugin
+     *
+     *  - If the extension is an array of extensions, they will be registered as webpack plugins
+     *
+     * @example
+     * Add packaged bud extensions
+     *
+     * ```ts
+     * bud.use([
+     *   require('@roots/bud-babel'),
+     *   require('@roots/bud-react'),
+     * ])
+     * ```
+     *
+     * @example
+     * Add a bud extension inline
+
+     * ```ts
+     * bud.use({
+     *  name: 'my-webpack-plugin',
+     *  make: () => new MyWebpackPlugin(),
+     * })
+     * ```
+     *
+     * @example
+     * Add a webpack plugin inline
+     *
+     * ```ts
+     * bud.use(new MyWebpackPlugin())
+     * ```
+     *
+     * @public
+     */
+    use: use;
+    /**
+     * Configure the list of files that, when modified,
+     * will force the browser to reload (even in hot mode).
+     *
+     * @example
+     * ```js
+     * app.watch(['templates/*.html'])
+     * ```
+     *
+     * @public
+     */
+    watch: watch;
+}
+
+declare interface facade {
+    (alias: Configuration['resolve']['alias']): Framework_2;
 }
 
 declare interface facade_2 {
-    (entrypoints: EntryInput): Framework_2;
+    (from: string[]): Framework_2;
 }
 
 declare interface facade_3 {
+    (name: string, entrypoint: EntryValue): Framework_2;
+}
+
+declare interface facade_3 {
+    (entrypoints: EntryInput): Framework_2;
+}
+
+declare interface facade_4 {
     (userOptions?: Options | boolean): Framework_2;
 }
 
@@ -266,17 +839,15 @@ declare interface hash {
     (this: Framework_2, enabled?: boolean): Framework_2;
 }
 
-/**
- * Enable filename hashing of built assets.
- *
- * @example
- * ```js
- * bud.hash()
- * ```
- *
- * @public
- */
 declare const hash: hash;
+
+declare interface method {
+    (alias: Alias): Framework_2;
+}
+
+declare interface method_2 {
+    (from: string[]): Promise<Framework_2>;
+}
 
 /**
  * Minimize function interface
@@ -346,50 +917,12 @@ declare interface persist {
     (type?: 'memory' | 'filesystem' | false): Framework_2;
 }
 
-/**
- * Cache webpack builds to the filesystem.
- *
- * @example
- * ```js
- * app.persist('memory')
- * ```
- *
- * @example
- * ```js
- * app.persist('filesystem')
- * ```
- *
- * @example
- * ```js
- * app.persist(false)
- * ```
- *
- * @public @config
- */
 declare const persist: persist;
 
-/**
- * Wrapper function for {@link webpack#ProvidePlugin}.
- *
- * @public @config
- */
 declare interface provide {
     (packages?: Record<string, Array<string>>): Framework_2;
 }
 
-/**
- * Make a variable/module available throughout the entire
- * application without needing to import it explicitly.
- *
- * @example
- * ```js
- * bud.provide({
- *   jquery: '$',
- * })
- * ```
- *
- * @public @config
- */
 declare const provide: provide;
 
 declare interface proxy {
@@ -404,277 +937,77 @@ declare interface proxy {
     (options?: Configuration_2['server']['proxy']['target']): Framework_2;
 }
 
-/**
- * Set proxy settings for the development server.
- *
- * @remarks
- *
- * - By default there is no proxy enabled.
- *
- * - If enabled with no  proxies whatever is running on localhost on port 8000.
- *
- * @example
- * Enable:
- *
- * ```js
- * bud.proxy()
- * ```
- *
- * @example
- * Disable:
- *
- * ```js
- * bud.proxy({enabled: false})
- * ```
- *
- * @example
- * Specify host and port:
- *
- * ```js
- * bud.proxy({
- *  host: 'example.test',
- *  port: 3000,
- * })
- * ```
- *
- * @public @config
- */
 declare const proxy: proxy;
 
 declare interface publicPath {
     (): string;
 }
 
-/**
- * By default it is assumed that assets are served from webroot (`/`).
- * You can use this method to replace this value for apps  served from
- * a subdirectory.
- *
- * @example
- * Set the default path for a Sage project:
- *
- * ```js
- * bud.publicPath('/app/themes/sage/dist')
- * ```
- *
- * @public @config
- */
 declare const publicPath: publicPath;
-
-export declare interface Repository {
-    alias: alias;
-    assets: facade;
-    copy: facade;
-    config: config;
-    webpackConfig: config;
-    override: config;
-    devtool: devtool;
-    splitChunks: splitChunks;
-    extract: splitChunks;
-    entry: facade_2;
-    js: facade_2;
-    css: facade_2;
-    experiments: experiments;
-    externals: externals;
-    hash: hash;
-    version: hash;
-    define: define;
-    autoload: define;
-    minimize: minimize;
-    persist: persist;
-    provide: provide;
-    proxy: proxy;
-    publicPath: publicPath;
-    run: run;
-    runtime: runtime;
-    serve: serve;
-    setPublicPath: setPublicPath;
-    template: facade_3;
-    use: use;
-    watch: watch;
-}
 
 declare interface run {
     (this: Framework_2): Promise<void>;
 }
 
+declare const run: run;
+
+declare interface runtime {
+    (this: Framework_2, runtime?: Configuration['optimization']['runtimeChunk']): Framework_2;
+}
+
+declare const runtime: runtime;
+
+declare interface serve {
+    (config?: Partial<Server.Configuration>): Framework_2;
+}
+
+declare const serve: serve;
+
+declare interface setPublicPath {
+    (publicPath: string | ((publicPath: string) => string)): Framework_2;
+}
+
+declare const setPublicPath: setPublicPath;
+
 /**
- * Run the build
+ * Extension source interface
+ *
+ * @remarks
+ * This interface is used to define a webpack plugin
+ * or bud extension registrable with the `use` method.
+ *
+ * @public
+ */
+declare type Source = Extension.Module | Extension.CompilerPlugin | Extension.Module;
+
+declare interface splitChunks {
+    (options?: Configuration['optimization']['splitChunks']): Framework_2;
+}
+
+/**
+ * Bundle vendor modules separately from application code.
  *
  * @example
  * ```js
- * bud.run()
+ * bud.splitChunks({
+ *  chunks: 'all',
+ * })
  * ```
  *
  * @public @config
  */
-declare const run: run;
+declare const splitChunks: splitChunks;
 
-/**
- * Runtime function interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param runtime - {@link webpack#Configuration.optimization.runtimeChunk}
- *
- * @returns {@link @roots/bud-framework#Framework}
-     *
-     * @hook build.optimization.runtime
-     *
-     * @public @config
-     */
- declare interface runtime {
-     (this: Framework_2, runtime?: Configuration['optimization']['runtimeChunk']): Framework_2;
- }
+declare interface use {
+    (source: Source): Promise<Framework_2>;
+}
 
- /**
-  * Generate a runtime chunk intended to be inlined on the page.
-  *
-  * Useful for code splitting and dynamic imports.
-  *
-  * @example
-  * ```js
-  * bud.runtime()
-  * ```
-  *
-  * @public @config
-  */
- declare const runtime: runtime;
+declare const use: use;
 
- declare interface serve {
-     (config?: Partial<Server.Configuration>): Framework_2;
- }
+declare interface watch {
+    (files: Server.Configuration['watch']['files']): Framework_2;
+}
 
- /**
-  * Configure development server.
-  *
-  * @example
-  * ```js
-  * app.serve({
-  *   host: 'my-local-site.example',
-  *   port: 5000,
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const serve: serve;
+declare const watch: watch;
 
- declare interface setPublicPath {
-     (publicPath: string | ((publicPath: string) => string)): Framework_2;
- }
-
- /**
-  * By default it is assumed that assets are served from webroot (`/`).
-  * You can use this method to replace this value for apps served from
-  * a subdirectory.
-  *
-  * @example
-  * Set the default path using a string
-  *
-  * ```js
-  * app.setPublicPath('/app/themes/sage/dist')
-  * ```
-  *
-  * @example
-  * Set the publicPath using a function.
-  *
-  * ```js
-  * app.setPublicPath(publicPath => {
-  *   return `web/assets/${publicPath}`
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const setPublicPath: setPublicPath;
-
- /**
-  * Extension source interface
-  *
-  * @remarks
-  * This interface is used to define a webpack plugin
-  * or bud extension registrable with the `use` method.
-  *
-  * @public
-  */
- declare type Source = Extension.Module | Extension.CompilerPlugin | Extension.Module;
-
- declare interface splitChunks {
-     (options?: Configuration['optimization']['splitChunks']): Framework_2;
- }
-
- /**
-  * Bundle vendor modules separately from application code.
-  *
-  * @example
-  * ```js
-  * bud.splitChunks({
-  *  chunks: 'all',
-  * })
-  * ```
-  *
-  * @public @config
-  */
- declare const splitChunks: splitChunks;
-
- declare interface use {
-     (source: Source): Promise<Framework_2>;
- }
-
- /**
-  * Register an extension or set of extensions
-  *
-  * @remarks
-  * This function is used to register an extension or set of extensions.
-  *
-  *  - If the extension is a webpack plugin, it will be registered as a webpack plugin
-  *
-  *  - If the extension is an array of extensions, they will be registered as webpack plugins
-  *
-  * @example
-  * Add packaged bud extensions
-  *
-  * ```ts
-  * bud.use([
-  *   require('@roots/bud-babel'),
-  *   require('@roots/bud-react'),
-  * ])
-  * ```
-  *
-  * @example
-  * Add a bud extension inline
-
-  * ```ts
-  * bud.use({
-  *  name: 'my-webpack-plugin',
-  *  make: () => new MyWebpackPlugin(),
-  * })
-  * ```
-  *
-  * @example
-  * Add a webpack plugin inline
-  *
-  * ```ts
-  * bud.use(new MyWebpackPlugin())
-  * ```
-  *
-  * @public
-  */
- declare const use: use;
-
- /**
-  * Configure the list of files that, when modified,
-  * will force the browser to reload (even in hot mode).
-  *
-  * @example
-  * ```js
-  * app.watch(['templates/*.html'])
-  * ```
-  */
- declare interface watch {
-     (files: Server.Configuration['watch']['files']): Framework_2;
- }
-
- declare const watch: watch;
-
- export { }
+export { }

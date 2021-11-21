@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/critical-css-webpack-plugin!",
-  "docComment": "/**\n * CriticalCssWebpackPlugin\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * CriticalCssWebpackPlugin\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/critical-css-webpack-plugin",
   "members": [
     {
@@ -208,7 +208,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class CriticalCssWebpackPlugin "
+              "text": "export declare class CriticalCssWebpackPlugin "
             }
           ],
           "releaseTag": "Public",
@@ -248,7 +248,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#apply:member(1)",
-              "docComment": "/**\n * Webpack apply hook\n *\n * @remarks\n *\n * Webpack compiler callback\n *\n * @param compiler - Webpack compiler\n *\n * @returns {Promise<void>}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "docComment": "/**\n * Webpack apply hook\n *\n * @remarks\n *\n * Webpack compiler callback\n *\n * @param compiler - Webpack compiler\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -442,7 +442,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "generateCritical(entry: "
+                  "text": "generateCritical(_entry: "
                 },
                 {
                   "kind": "Content",
@@ -492,7 +492,7 @@
               "overloadIndex": 1,
               "parameters": [
                 {
-                  "parameterName": "entry",
+                  "parameterName": "_entry",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
                     "endIndex": 2

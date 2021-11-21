@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-extensions!",
-  "docComment": "/**\n * The {@link @roots/bud-extensions#} package implements the {@link @roots/bud-framework#Extensions | Extensions interface}\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/bud-extensions#} package implements the {@link @roots/bud-framework#Extensions | Extensions interface}\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
   "name": "@roots/bud-extensions",
   "members": [
     {
@@ -335,7 +335,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-extensions!Controller#boot:member(1)",
-              "docComment": "/**\n * Extension boot event\n *\n * @remarks\n *\n * Calls the {@link @roots/bud-framework#Module.boot} callback\n *\n * @returns {@link Extension}\n *\n * @decorator\n *\n * `@bind`\n *\n * @public @core\n */\n",
+              "docComment": "/**\n * Extension boot event\n *\n * @remarks\n *\n * Calls the {@link @roots/bud-framework#Module.boot} callback\n *\n * @decorator\n *\n * `@bind`\n *\n * @public @core\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

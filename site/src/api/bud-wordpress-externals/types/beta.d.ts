@@ -11,7 +11,7 @@
  * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension}
  * as a peer extension.
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { WordPressExternals } from '@roots/wordpress-externals-webpack-plugin';

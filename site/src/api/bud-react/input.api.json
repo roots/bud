@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-react!",
-  "docComment": "/**\n * Add React to Bud\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @example\n *\n * JavaScript:\n * ```js\n * module exports = async bud => {\n *  await bud.use(require('@roots/bud-react'));\n * }\n * ```\n *\n * @example\n *\n * Typescript:\n * ```ts\n * import type {Bud} from '@roots/bud\n * import * as ReactExtension from '@roots/bud-react';\n *\n * export default (bud: Bud) => {\n *   bud.use(ReactExtension);\n * }\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Add React to Bud\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @example\n *\n * JavaScript:\n * ```js\n * module exports = async bud => {\n *  await bud.use(require('@roots/bud-react'));\n * }\n * ```\n *\n * @example\n *\n * Typescript:\n * ```ts\n * import type {Bud} from '@roots/bud\n * import * as ReactExtension from '@roots/bud-react';\n *\n * export default (bud: Bud) => {\n *   bud.use(ReactExtension);\n * }\n * ```\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/bud-react",
   "members": [
     {

@@ -4,29 +4,32 @@
 
 ```ts
 
-import { Container } from '@roots/container';
+import type { Container } from '@roots/container';
 import { CriticalCssWebpackPlugin } from '@roots/critical-css-webpack-plugin';
-import { CriticalCssWebpackPlugin as CriticalCssWebpackPlugin_2 } from '@roots/critical-css-webpack-plugin/types/CriticalCssWebpackPlugin';
-import { Framework } from '@roots/bud-framework';
+import type { Extension } from '@roots/bud-framework';
+import type { Framework } from '@roots/bud-framework';
 import { Options } from '@roots/critical-css-webpack-plugin';
 
-// @public (undocumented)
-export const api: {
-    critical: critical;
-};
+// @public
+interface BudCriticalCssPlugin extends Extension.CompilerPlugin<CriticalCssWebpackPlugin, Partial<Options>> {
+    // (undocumented)
+    api: {
+        critical: critical;
+    };
+    // (undocumented)
+    make: (options: Container<Partial<Options>>, app: Framework) => CriticalCssWebpackPlugin;
+    // (undocumented)
+    name: '@roots/bud-criticalcss';
+    // (undocumented)
+    options: Partial<Options>;
+}
 
-// @public (undocumented)
-export const make: (options: Container<Partial<Options>>, app: Framework) => CriticalCssWebpackPlugin_2;
-
-// @public (undocumented)
-const name_2: "@roots/bud-criticalcss";
-export { name_2 as name }
-
-// @public (undocumented)
-export const options: Partial<Options>;
+// @public
+const BudCriticalCssPlugin: BudCriticalCssPlugin;
+export default BudCriticalCssPlugin;
 
 // Warnings were encountered during analysis:
 //
-// src/index.ts:30:18 - (ae-forgotten-export) The symbol "critical" needs to be exported by the entry point index.d.ts
+// src/BudCriticalCssPlugin.ts:22:9 - (ae-forgotten-export) The symbol "critical" needs to be exported by the entry point index.d.ts
 
 ```

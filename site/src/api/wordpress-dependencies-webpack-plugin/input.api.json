@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/wordpress-dependencies-webpack-plugin!",
-  "docComment": "/**\n * Extracts the dependencies from a WordPress plugin or theme which are provided by WordPress' enqueue API. The assets which are extracted are made available in a manifest file which can be read server-side.\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Extracts the dependencies from a WordPress plugin or theme which are provided by WordPress' enqueue API. The assets which are extracted are made available in a manifest file which can be read server-side.\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/wordpress-dependencies-webpack-plugin",
   "members": [
     {

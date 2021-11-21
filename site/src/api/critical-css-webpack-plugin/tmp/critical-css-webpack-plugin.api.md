@@ -18,7 +18,7 @@ export class CriticalCssWebpackPlugin {
     entrypoints: {
         [key: string]: any;
     };
-    generateCritical(entry: string, file: string, contents: string): Promise<any>;
+    generateCritical(_entry: string, file: string, contents: string): Promise<any>;
     getMergedCssModules(chunk: any): Webpack.Module[];
     htmlInject(css: string): (data: {
         html: string;

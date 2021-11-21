@@ -17,7 +17,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 declare const name_2: string;

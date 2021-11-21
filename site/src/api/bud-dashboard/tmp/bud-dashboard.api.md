@@ -15,9 +15,11 @@ export const Boot: () => Ink.Instance;
 
 // @public
 export class Dashboard extends Service implements Dashboard_2 {
+    // (undocumented)
+    close(): void;
     instance: Instance;
     registered(): Promise<void>;
-    render(Component: any, title?: string): void;
+    render(Component: any): void;
     run(): Framework;
 }
 

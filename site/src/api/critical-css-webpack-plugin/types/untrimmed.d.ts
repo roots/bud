@@ -1,7 +1,7 @@
 /**
  * CriticalCssWebpackPlugin
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 /// <reference types="node" />
@@ -71,7 +71,6 @@ export declare class CriticalCssWebpackPlugin {
      * Webpack compiler callback
      *
      * @param compiler - Webpack compiler
-     * @returns {Promise<void>}
      *
      * @public
      * @decorator `@bind`
@@ -115,7 +114,7 @@ export declare class CriticalCssWebpackPlugin {
     /**
      * Generates critical css
      */
-    generateCritical(entry: string, file: string, contents: string): Promise<any>;
+    generateCritical(_entry: string, file: string, contents: string): Promise<any>;
     /**
      * Vinyl adapter
      */

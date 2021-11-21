@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/wordpress-externals-webpack-plugin!",
-  "docComment": "/**\n * The {@link @roots/wordpress-externals-webpack-plugin# | @roots/wordpress-externals-webpack-plugin} externalizes dependencies which should be enqueued through WordPress' API\n *\n * @see\n *\n * https://github.com/roots/bud/tree/stable/packages/wordpress-externals-webpack-plugin\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/wordpress-externals-webpack-plugin# | @roots/wordpress-externals-webpack-plugin} externalizes dependencies which should be enqueued through WordPress' API\n *\n * @see\n *\n * https://github.com/roots/bud/tree/stable/packages/wordpress-externals-webpack-plugin\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/wordpress-externals-webpack-plugin",
   "members": [
     {

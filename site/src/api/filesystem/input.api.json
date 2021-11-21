@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/filesystem!",
-  "docComment": "/**\n * A simple, high-level virtual filesystem.\n *\n * This package is provided as-is.\n *\n * @beta @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * A simple, high-level virtual filesystem.\n *\n * This package is provided as-is.\n *\n * @beta @packageDocumentation\n */\n",
   "name": "@roots/filesystem",
   "members": [
     {

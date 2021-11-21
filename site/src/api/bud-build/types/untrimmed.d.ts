@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 import { Build as Build_2 } from '@roots/bud-framework';
@@ -29,7 +29,7 @@ import { Service } from '@roots/bud-framework';
 import type * as Webpack from 'webpack';
 
 /**
- * Framework configuration builder class
+ * Webpack configuration builder class
  *
  * @public
  */
@@ -45,37 +45,50 @@ export declare class Build extends Service implements Build_2.Interface {
      */
     loaders: Loaders;
     /**
-     * {@inheritDoc @roots/bud-framework#Build.Interface.rules}
+     * Registered rules
      *
      * @public
      */
     rules: Rules;
     /**
-     * {@inheritDoc @roots/bud-framework#Build.Interface.items}
+     * Registered items
      *
      * @public
      */
     items: Items;
     /**
-     * Make build
+     * Make webpack configuration
+     *
      * @public
      * @decorator `@bind`
      */
     make(): Promise<Webpack.Configuration>;
     /**
-     * {@inheritDoc @roots/bud-framework#Build.Interface.bootstrap}
+     * Service register event
      *
      * @public
      * @decorator `@bind`
      */
     register(): Promise<void>;
+    /**
+     * Service booted event
+     *
+     * @public
+     * @decorator `@bind`
+     */
     booted(): Promise<void>;
     /**
+     * Write final configuration to storage directory
+     *
      * @public
+     * @decorator `@bind`
      */
     writeFinalConfig(): Promise<void>;
     /**
+     * Initialize the build rules, loaders, items
+     *
      * @public
+     * @decorator `@bind`
      */
     init(): Promise<void>;
 }
@@ -91,45 +104,70 @@ declare const css: () => Rule;
 declare const csv: () => Rule;
 
 declare const _default: {
+    /**
+     * asset handler factory
+     *
+     * @public
+     */
     asset: () => Item;
     /**
      * .css handler factory
+     *
+     * @public
      */
     css: () => Item;
     /**
      * .csv handler factory
+     *
+     * @public
      */
     csv: () => Item;
     /**
      * .html handler factory
+     *
+     * @public
      */
     html: () => Item;
     /**
      * Factory {@link Item} for style
+     *
+     * @public
      */
     style: () => Item;
     /**
      * Factory {@link Item} for markdown
+     *
+     * @public
      */
     md: () => Item;
     /**
      * Factory {@link Item} for minicss-extract-plugin
+     *
+     * @public
      */
     minicss: () => Item;
     /**
      * Factory {@link Item} for raw
+     *
+     * @public
      */
     raw: () => Item;
     /**
      * Factory {@link Item} for file
+     *
+     * @public
      */
     file: () => Item;
     /**
      * Factory {@link Item} resolve-url
+     *
+     * @public
      */
     "resolve-url": () => Item;
     /**
      * Factory {@link Item} for xml
+     *
+     * @public
      */
     xml: () => Item;
 };

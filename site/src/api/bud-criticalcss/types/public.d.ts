@@ -8,18 +8,36 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
-import { Container } from '@roots/container';
+import type { Container } from '@roots/container';
 import { CriticalCssWebpackPlugin } from '@roots/critical-css-webpack-plugin';
-import { CriticalCssWebpackPlugin as CriticalCssWebpackPlugin_2 } from '@roots/critical-css-webpack-plugin/types/CriticalCssWebpackPlugin';
-import { Framework } from '@roots/bud-framework';
+import type { Extension } from '@roots/bud-framework';
+import type { Framework } from '@roots/bud-framework';
 import { Options } from '@roots/critical-css-webpack-plugin';
 
-export declare const api: {
-    critical: critical;
-};
+/**
+ * Extends bud with critical css
+ *
+ * @public
+ */
+declare interface BudCriticalCssPlugin extends Extension.CompilerPlugin<CriticalCssWebpackPlugin, Partial<Options>> {
+    name: '@roots/bud-criticalcss';
+    options: Partial<Options>;
+    api: {
+        critical: critical;
+    };
+    make: (options: Container<Partial<Options>>, app: Framework) => CriticalCssWebpackPlugin;
+}
+
+/**
+ * Adds critical css webpack plugin to compilation
+ *
+ * @public
+ */
+declare const BudCriticalCssPlugin: BudCriticalCssPlugin;
+export default BudCriticalCssPlugin;
 
 /**
  * Extract critical CSS
@@ -30,18 +48,16 @@ export declare const api: {
  *  // ...
  * })
  * ```
+ *
+ * @public
  */
 declare interface critical {
     (this: Framework, userOptions: Partial<CriticalCssWebpackPlugin['options']>): Framework;
 }
 
+/**
+ * @public
+ */
 declare const critical: critical;
-
-export declare const make: (options: Container<Partial<Options>>, app: Framework) => CriticalCssWebpackPlugin_2;
-
-declare const name_2: "@roots/bud-criticalcss";
-export { name_2 as name }
-
-export declare const options: Partial<Options>;
 
 export { }

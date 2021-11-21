@@ -5,7 +5,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { Framework } from '@roots/bud-framework';

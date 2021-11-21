@@ -8,23 +8,18 @@ import { Framework } from '@roots/bud-framework';
 import { Hooks as Hooks_2 } from '@roots/bud-framework';
 import { Service } from '@roots/bud-framework';
 
-// @public (undocumented)
+// @public
 export class Hooks extends Service implements Hooks_2 {
-    // (undocumented)
+    // @internal
     boot(): Promise<void>;
-    // (undocumented)
     filter<T = any>(id: `${Hooks_2.Name & string}`, value?: any): T;
-    // (undocumented)
+    // @internal
     get<T = any>(path: `${Hooks_2.Name & string}`): T;
-    // (undocumented)
-    name: string;
-    // (undocumented)
+    // @internal (undocumented)
+    ident: string;
     on(id: Hooks_2.Name, callback: Hooks_2.Hook): Framework;
-    // (undocumented)
-    promise(id: Hooks_2.Name, callback: Hooks_2.PromiseHook): Framework;
-    // (undocumented)
     promised<T = any>(id: `${Hooks_2.Name & string}`, value?: any): Promise<T>;
-    // (undocumented)
+    // @internal
     set(key: `${Hooks_2.Name & string}`, value: any): this;
 }
 

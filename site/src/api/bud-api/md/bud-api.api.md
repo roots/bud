@@ -4,7 +4,7 @@
 
 ```ts
 
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 import { Configuration as Configuration_2 } from '@roots/bud-framework';
 import type { DefinePlugin } from 'webpack';
 import type { Extension } from '@roots/bud-framework';
@@ -15,134 +15,99 @@ import type { Options as Options_2 } from 'html-webpack-plugin';
 import type { Server } from '@roots/bud-framework';
 import Webpack from 'webpack';
 
+// Warning: (ae-forgotten-export) The symbol "method" needs to be exported by the entry point index.d.ts
+//
 // @public
-export class Api extends Framework.Service<Repository> implements Framework.Api {
-    // (undocumented)
-    bindProxy(name: string): void;
-    // (undocumented)
-    bindToApi(name: any, method: any): void;
-    // (undocumented)
-    bindToBud(name: string, method: CallableFunction): void;
+const alias_2: method;
+
+// @public
+export class Api extends Framework.Service implements Framework.Api {
+    // @internal (undocumented)
+    bindFacade(name: string): void;
+    // @internal
     bootstrap(): Promise<void>;
-    // (undocumented)
     call(name: string, ...args: any[]): Promise<any>;
-    // (undocumented)
-    callAll(): Promise<void>;
-    dump(options: any): void;
+    dump(): void;
+    processQueue(): Promise<void>;
+    // @internal
     queue: Array<[string, ...any[]]>;
-    // (undocumented)
+    // @internal
     registered(): Promise<void>;
-    // @internal @override
-    repository: Repository;
+    // @internal
     trace: Array<[string, ...any[]]>;
 }
 
+// Warning: (ae-forgotten-export) The symbol "method" needs to be exported by the entry point index.d.ts
+//
 // @public (undocumented)
-export interface Repository {
+const assets_2: method_2;
+
+// @public
+export class Facade {
     // Warning: (ae-forgotten-export) The symbol "alias" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    alias: alias;
-    // Warning: (ae-forgotten-export) The symbol "facade" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    assets: facade;
-    // (undocumented)
+    alias: alias.facade;
+    // Warning: (ae-forgotten-export) The symbol "assets" needs to be exported by the entry point index.d.ts
+    assets: assets.facade;
     autoload: define;
     // Warning: (ae-forgotten-export) The symbol "config" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     config: config;
-    // (undocumented)
-    copy: facade;
-    // (undocumented)
-    css: facade_2;
+    copy: assets.facade;
+    css: facade_3;
     // Warning: (ae-forgotten-export) The symbol "define" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     define: define;
     // Warning: (ae-forgotten-export) The symbol "devtool" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     devtool: devtool;
     // Warning: (ae-forgotten-export) The symbol "facade" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    entry: facade_2;
+    entry: facade_3;
     // Warning: (ae-forgotten-export) The symbol "experiments" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     experiments: experiments;
     // Warning: (ae-forgotten-export) The symbol "externals" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     externals: externals;
-    // (undocumented)
     extract: splitChunks;
     // Warning: (ae-forgotten-export) The symbol "hash" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     hash: hash;
-    // (undocumented)
-    js: facade_2;
+    js: facade_3;
     // Warning: (ae-forgotten-export) The symbol "minimize" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     minimize: minimize;
-    // (undocumented)
     override: config;
     // Warning: (ae-forgotten-export) The symbol "persist" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     persist: persist;
     // Warning: (ae-forgotten-export) The symbol "provide" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     provide: provide;
     // Warning: (ae-forgotten-export) The symbol "proxy" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     proxy: proxy;
     // Warning: (ae-forgotten-export) The symbol "publicPath" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     publicPath: publicPath;
     // Warning: (ae-forgotten-export) The symbol "run" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     run: run;
     // Warning: (ae-forgotten-export) The symbol "runtime" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     runtime: runtime;
     // Warning: (ae-forgotten-export) The symbol "serve" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     serve: serve;
     // Warning: (ae-forgotten-export) The symbol "setPublicPath" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     setPublicPath: setPublicPath;
     // Warning: (ae-forgotten-export) The symbol "splitChunks" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     splitChunks: splitChunks;
     // Warning: (ae-forgotten-export) The symbol "facade" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    template: facade_3;
+    template: facade_4;
     // Warning: (ae-forgotten-export) The symbol "use" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     use: use;
-    // (undocumented)
     version: hash;
     // Warning: (ae-forgotten-export) The symbol "watch" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
     watch: watch;
-    // (undocumented)
     webpackConfig: config;
+}
+
+// @public (undocumented)
+interface facade {
+    // (undocumented)
+    (alias: Configuration['resolve']['alias']): Framework_2;
+}
+
+// @public (undocumented)
+interface facade_2 {
+    // (undocumented)
+    (from: string[]): Framework_2;
 }
 
 ```

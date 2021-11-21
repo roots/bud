@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-entrypoints!",
-  "docComment": "/**\n * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter for {@link @roots/entrypoints-webpack-plugin# | @roots/entrypoints-webpack-plugin}.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter for {@link @roots/entrypoints-webpack-plugin# | @roots/entrypoints-webpack-plugin}.\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/bud-entrypoints",
   "members": [
     {

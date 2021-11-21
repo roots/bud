@@ -4,7 +4,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import * as Bud from '@roots/bud-framework';

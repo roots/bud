@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-api!",
-  "docComment": "/**\n * Repository of high-level facades which simplify common configuration tasks\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Repository of high-level facades which simplify common configuration tasks\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/bud-api",
   "members": [
     {
@@ -204,7 +204,7 @@
         {
           "kind": "Class",
           "canonicalReference": "@roots/bud-api!Api:class",
-          "docComment": "/**\n * API service\n *\n * @remarks\n *\n * The API class binds all the facade functions provided by the package and exposes them as a single object.\n *\n * @public\n */\n",
+          "docComment": "/**\n * API service\n *\n * @remarks\n *\n * Binds facade methods to the framework and provides a means to call the methods directly for immediate execution.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -221,16 +221,7 @@
             },
             {
               "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "Repository",
-              "canonicalReference": "@roots/bud-api!Repository:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "> "
+              "text": " "
             },
             {
               "kind": "Content",
@@ -255,208 +246,8 @@
           "members": [
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#bindProxy:member(1)",
-              "docComment": "/**\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "bindProxy(name: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "name",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "bindProxy"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#bindToApi:member(1)",
-              "docComment": "/**\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "bindToApi(name: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", method: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "name",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "method",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ],
-              "name": "bindToApi"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#bindToBud:member(1)",
-              "docComment": "/**\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "bindToBud(name: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", method: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CallableFunction",
-                  "canonicalReference": "!CallableFunction:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "name",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "method",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ],
-              "name": "bindToBud"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#bootstrap:member(1)",
-              "docComment": "/**\n * Service bootstrap event\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "bootstrap(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<void>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "bootstrap"
-            },
-            {
-              "kind": "Method",
               "canonicalReference": "@roots/bud-api!Api#call:member(1)",
-              "docComment": "/**\n * @public\n */\n",
+              "docComment": "/**\n * Call an api method directly\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -520,54 +311,12 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#callAll:member(1)",
-              "docComment": "/**\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "callAll(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<void>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "callAll"
-            },
-            {
-              "kind": "Method",
               "canonicalReference": "@roots/bud-api!Api#dump:member(1)",
-              "docComment": "/**\n * debug logger\n *\n * @public\n */\n",
+              "docComment": "/**\n * dump the method call trace\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "dump(options: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
+                  "text": "dump(): "
                 },
                 {
                   "kind": "Content",
@@ -581,62 +330,22 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
+                "startIndex": 1,
+                "endIndex": 2
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "options",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
+              "parameters": [],
               "name": "dump"
             },
             {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud-api!Api#queue:member",
-              "docComment": "/**\n * Calls queue\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "queue: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Array",
-                  "canonicalReference": "!Array:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[string, ...any[]]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "queue",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-api!Api#registered:member(1)",
-              "docComment": "/**\n * @public\n */\n",
+              "canonicalReference": "@roots/bud-api!Api#processQueue:member(1)",
+              "docComment": "/**\n * Execute all queued method calls\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "registered(): "
+                  "text": "processQueue(): "
                 },
                 {
                   "kind": "Reference",
@@ -661,78 +370,50 @@
               "releaseTag": "Public",
               "overloadIndex": 1,
               "parameters": [],
-              "name": "registered"
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud-api!Api#trace:member",
-              "docComment": "/**\n * Record of all completed calls\n *\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "trace: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Array",
-                  "canonicalReference": "!Array:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[string, ...any[]]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "trace",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
+              "name": "processQueue"
             }
           ],
           "extendsTokenRange": {
             "startIndex": 1,
-            "endIndex": 6
+            "endIndex": 4
           },
           "implementsTokenRanges": [
             {
-              "startIndex": 7,
-              "endIndex": 10
+              "startIndex": 5,
+              "endIndex": 8
             }
           ]
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@roots/bud-api!Repository:interface",
-          "docComment": "",
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-api!Facade:class",
+          "docComment": "/**\n * Public interface for the Bud API\n *\n * @remarks\n *\n * Virtual class representing a synchronous interface for use in consumer configs. these type signatures are synchronous regardless of if the underlying method is.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Repository "
+              "text": "export declare class Facade "
             }
           ],
           "releaseTag": "Public",
-          "name": "Repository",
+          "name": "Facade",
           "members": [
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#alias:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#alias:member",
+              "docComment": "/**\n * Register shorthand for resolving modules using webpack aliases.\n *\n * @remarks\n *\n * Useful for situations that may otherwise require brittle relative paths.\n *\n * @example\n * ```js\n * app.alias({\n *   '@scripts': app.path('src', 'scripts'),\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
                   "text": "alias: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "alias."
+                },
+                {
                   "kind": "Reference",
-                  "text": "alias",
-                  "canonicalReference": "@roots/bud-api!alias:interface"
+                  "text": "facade",
+                  "canonicalReference": "@roots/bud-api!facade:interface"
                 },
                 {
                   "kind": "Content",
@@ -744,21 +425,26 @@
               "name": "alias",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
-              }
+                "endIndex": 3
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#assets:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#assets:member",
+              "docComment": "/**\n * Copy static assets during compilation.\n *\n * @remarks\n *\n * You may specify paths with a string literal or glob pattern.\n *\n * @example\n *\n * Copy **src/images** to **dist/images**\n * ```js\n * app.assets(['src/images'])\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
                   "text": "assets: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "assets."
+                },
+                {
                   "kind": "Reference",
-                  "text": "assetsFacade",
+                  "text": "facade",
                   "canonicalReference": "@roots/bud-api!facade:interface"
                 },
                 {
@@ -771,13 +457,14 @@
               "name": "assets",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
-              }
+                "endIndex": 3
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#autoload:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#autoload:member",
+              "docComment": "/**\n * Enable filename hashing of built assets.\n *\n * @example\n * ```js\n * bud.hash()\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -799,12 +486,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#config:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#config:member",
+              "docComment": "/**\n * Modify the generated webpack config prior to compilation.\n *\n * @remarks\n *\n * Override generated webpack config with custom config.\n *\n * @example\n * ```ts\n * app.config({entry: './src/index.js'})\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -826,20 +514,25 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#copy:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#copy:member",
+              "docComment": "/**\n * Copy static assets during compilation.\n *\n * @remarks\n *\n * You may specify paths with a string literal or glob pattern.\n *\n * @example\n *\n * Copy **src/images** to **dist/images**\n * ```js\n * app.assets(['src/images'])\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
                   "text": "copy: "
                 },
                 {
+                  "kind": "Content",
+                  "text": "assets."
+                },
+                {
                   "kind": "Reference",
-                  "text": "assetsFacade",
+                  "text": "facade",
                   "canonicalReference": "@roots/bud-api!facade:interface"
                 },
                 {
@@ -852,13 +545,14 @@
               "name": "copy",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
-              }
+                "endIndex": 3
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#css:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#css:member",
+              "docComment": "/**\n * Generate application entrypoints from source asset paths.\n *\n * @remarks\n *\n * **Globbing**\n *\n * Uses [fast-glob](https://git.io/JkGbw) syntax.\n *\n * **Supported patterns**\n *\n * - `*` matches any number of characters, but not `/` - `?` matches a single character, but not `/` - `**` matches any number of characters, including `/`, as long as it's the only thing in a path part - `{}` allows for a comma-separated list of \"or\" expressions - `!` at the beginning of a pattern will negate the match\n *\n * @example\n *\n * Create an entrypoint from a single file:\n * ```js\n * app.entry('app', 'app.js')\n * ```\n *\n * @example\n *\n * Create an entrypoint from multiple files:\n * ```js\n * app.entry('app', ['js/app.js', 'css/app.css'])\n * ```\n *\n * @example\n *\n * Create an entrypoint comprised of all js assets:\n * ```js\n * app.entry('app', '*.js')\n * ```\n *\n * @example\n *\n * You may create more than one entrypoint using object syntax:\n * ```js\n * app.entry({\n *   scripts: '*.js',\n *   styles: ['*.css', '*.scss'],\n * })\n * ```\n *\n * @example\n *\n * Declare entrypoint dependencies:\n * ```js\n * app.entry({\n *  react: {\n *    import: ['react', 'react-dom']\n *  },\n *  app: {\n *    import: ['app.js'],\n *    dependOn: ['react'],\n *  },\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -880,12 +574,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#define:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#define:member",
+              "docComment": "/**\n * Define application variables\n *\n * @example\n * ```ts\n * app.define({\n *   APP_NAME: 'My Application',\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -907,12 +602,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#devtool:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#devtool:member",
+              "docComment": "/**\n * Configure sourcemaps\n *\n * @remarks\n *\n * Compatible with any of [Webpack's devtool options](https://webpack.js.org/configuration/devtool/).\n *\n * @example\n * ```js\n * app.devtool('inline-cheap-module-source-map')\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -934,12 +630,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#entry:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#entry:member",
+              "docComment": "/**\n * Generate application entrypoints from source asset paths.\n *\n * @remarks\n *\n * **Globbing**\n *\n * Uses [fast-glob](https://git.io/JkGbw) syntax.\n *\n * **Supported patterns**\n *\n * - `*` matches any number of characters, but not `/` - `?` matches a single character, but not `/` - `**` matches any number of characters, including `/`, as long as it's the only thing in a path part - `{}` allows for a comma-separated list of \"or\" expressions - `!` at the beginning of a pattern will negate the match\n *\n * @example\n *\n * Create an entrypoint from a single file:\n * ```js\n * app.entry('app', 'app.js')\n * ```\n *\n * @example\n *\n * Create an entrypoint from multiple files:\n * ```js\n * app.entry('app', ['js/app.js', 'css/app.css'])\n * ```\n *\n * @example\n *\n * Create an entrypoint comprised of all js assets:\n * ```js\n * app.entry('app', '*.js')\n * ```\n *\n * @example\n *\n * You may create more than one entrypoint using object syntax:\n * ```js\n * app.entry({\n *   scripts: '*.js',\n *   styles: ['*.css', '*.scss'],\n * })\n * ```\n *\n * @example\n *\n * Declare entrypoint dependencies:\n * ```js\n * app.entry({\n *  react: {\n *    import: ['react', 'react-dom']\n *  },\n *  app: {\n *    import: ['app.js'],\n *    dependOn: ['react'],\n *  },\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -961,12 +658,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#experiments:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#experiments:member",
+              "docComment": "/**\n * Configure experimental webpack options.\n *\n * @example\n * ```js\n * bud.experiments({\n *  lazyCompilation: true,\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -988,12 +686,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#externals:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#externals:member",
+              "docComment": "/**\n * Specify a non-standard resolution strategy for modules with a matching name.\n *\n * @example\n * ```js\n * bud.externals({\n *   'jQuery': 'window.jquery',\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1015,12 +714,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#extract:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#extract:member",
+              "docComment": "/**\n * Bundle vendor modules separately from application code.\n *\n * @example\n * ```js\n * bud.splitChunks({\n *  chunks: 'all',\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1042,12 +742,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#hash:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#hash:member",
+              "docComment": "/**\n * Enable filename hashing of built assets.\n *\n * @example\n * ```js\n * bud.hash()\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1069,12 +770,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#js:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#js:member",
+              "docComment": "/**\n * Generate application entrypoints from source asset paths.\n *\n * @remarks\n *\n * **Globbing**\n *\n * Uses [fast-glob](https://git.io/JkGbw) syntax.\n *\n * **Supported patterns**\n *\n * - `*` matches any number of characters, but not `/` - `?` matches a single character, but not `/` - `**` matches any number of characters, including `/`, as long as it's the only thing in a path part - `{}` allows for a comma-separated list of \"or\" expressions - `!` at the beginning of a pattern will negate the match\n *\n * @example\n *\n * Create an entrypoint from a single file:\n * ```js\n * app.entry('app', 'app.js')\n * ```\n *\n * @example\n *\n * Create an entrypoint from multiple files:\n * ```js\n * app.entry('app', ['js/app.js', 'css/app.css'])\n * ```\n *\n * @example\n *\n * Create an entrypoint comprised of all js assets:\n * ```js\n * app.entry('app', '*.js')\n * ```\n *\n * @example\n *\n * You may create more than one entrypoint using object syntax:\n * ```js\n * app.entry({\n *   scripts: '*.js',\n *   styles: ['*.css', '*.scss'],\n * })\n * ```\n *\n * @example\n *\n * Declare entrypoint dependencies:\n * ```js\n * app.entry({\n *  react: {\n *    import: ['react', 'react-dom']\n *  },\n *  app: {\n *    import: ['app.js'],\n *    dependOn: ['react'],\n *  },\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1096,12 +798,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#minimize:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#minimize:member",
+              "docComment": "/**\n * Enables minification of built assets.\n *\n * @example\n *\n * Enable:\n * ```js\n * bud.minimize()\n * ```\n *\n * @example\n *\n * Explicitly disable:\n * ```js\n * bud.minimize(false)\n * ```\n *\n * @example\n *\n * Explicitly enable:\n * ```js\n * bud.minimize(true)\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1123,12 +826,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#override:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#override:member",
+              "docComment": "/**\n * Modify the generated webpack config prior to compilation.\n *\n * @remarks\n *\n * Override generated webpack config with custom config.\n *\n * @example\n * ```ts\n * app.config({entry: './src/index.js'})\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1150,12 +854,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#persist:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#persist:member",
+              "docComment": "/**\n * Cache webpack builds to the filesystem.\n *\n * @example\n * ```js\n * app.persist('memory')\n * ```\n *\n * @example\n * ```js\n * app.persist('filesystem')\n * ```\n *\n * @example\n * ```js\n * app.persist(false)\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1177,12 +882,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#provide:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#provide:member",
+              "docComment": "/**\n * Make a variable/module available throughout the entire application without needing to import it explicitly.\n *\n * @example\n * ```js\n * bud.provide({\n *   jquery: '$',\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1204,12 +910,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#proxy:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#proxy:member",
+              "docComment": "/**\n * Set proxy settings for the development server.\n *\n * @remarks\n *\n * - By default there is no proxy enabled.\n *\n * - If enabled with no proxies whatever is running on localhost on port 8000.\n *\n * @example\n *\n * Enable:\n * ```js\n * bud.proxy()\n * ```\n *\n * @example\n *\n * Disable:\n * ```js\n * bud.proxy({enabled: false})\n * ```\n *\n * @example\n *\n * Specify host and port:\n * ```js\n * bud.proxy({\n *  host: 'example.test',\n *  port: 3000,\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1231,12 +938,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#publicPath:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#publicPath:member",
+              "docComment": "/**\n * By default it is assumed that assets are served from webroot (`/`). You can use this method to replace this value for apps served from a subdirectory.\n *\n * @example\n *\n * Set the default path for a Sage project:\n * ```js\n * bud.publicPath('/app/themes/sage/dist')\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1258,12 +966,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#run:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#run:member",
+              "docComment": "/**\n * Run the build\n *\n * @example\n * ```js\n * bud.run()\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1285,12 +994,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#runtime:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#runtime:member",
+              "docComment": "/**\n * Generate a runtime chunk intended to be inlined on the page.\n *\n * Useful for code splitting and dynamic imports.\n *\n * @example\n * ```js\n * bud.runtime()\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1312,12 +1022,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#serve:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#serve:member",
+              "docComment": "/**\n * Configure development server.\n *\n * @example\n * ```js\n * app.serve({\n *   host: 'my-local-site.example',\n *   port: 5000,\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1339,12 +1050,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#setPublicPath:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#setPublicPath:member",
+              "docComment": "/**\n * By default it is assumed that assets are served from webroot (`/`). You can use this method to replace this value for apps served from a subdirectory.\n *\n * @example\n *\n * Set the default path using a string\n * ```js\n * app.setPublicPath('/app/themes/sage/dist')\n * ```\n *\n * @example\n *\n * Set the publicPath using a function.\n * ```js\n * app.setPublicPath(publicPath => {\n *   return `web/assets/${publicPath}`\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1366,12 +1078,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#splitChunks:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#splitChunks:member",
+              "docComment": "/**\n * Bundle vendor modules separately from application code.\n *\n * @example\n * ```js\n * bud.splitChunks({\n *  chunks: 'all',\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1393,12 +1106,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#template:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#template:member",
+              "docComment": "/**\n * Enable and/or configure a generated HTML template\n *\n * @example\n * ```ts\n * app.template()\n * ```\n *\n * With configuration defaults:\n * ```ts\n * app.template({\n *   enabled: true,\n *   template: 'public/index.html',\n *   replace: {\n *     APP_NAME: name,\n *     APP_DESCRIPTION: description,\n *     PUBLIC_URL: app.env.get('PUBLIC_URL'),\n *   },\n * })\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1420,12 +1134,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#use:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#use:member",
+              "docComment": "/**\n * Register an extension or set of extensions\n *\n * @remarks\n *\n * This function is used to register an extension or set of extensions.\n *\n * - If the extension is a webpack plugin, it will be registered as a webpack plugin\n *\n * - If the extension is an array of extensions, they will be registered as webpack plugins\n *\n * @example\n *\n * Add packaged bud extensions\n * ```ts\n * bud.use([\n *   require('@roots/bud-babel'),\n *   require('@roots/bud-react'),\n * ])\n * ```\n *\n * @example\n *\n * Add a bud extension inline\n * ```ts\n * bud.use({\n *  name: 'my-webpack-plugin',\n *  make: () => new MyWebpackPlugin(),\n * })\n * ```\n *\n * @example\n *\n * Add a webpack plugin inline\n * ```ts\n * bud.use(new MyWebpackPlugin())\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1447,12 +1162,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#version:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#version:member",
+              "docComment": "/**\n * Enable filename hashing of built assets.\n *\n * @example\n * ```js\n * bud.hash()\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1474,12 +1190,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#watch:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#watch:member",
+              "docComment": "/**\n * Configure the list of files that, when modified, will force the browser to reload (even in hot mode).\n *\n * @example\n * ```js\n * app.watch(['templates/*.html'])\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1501,12 +1218,13 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@roots/bud-api!Repository#webpackConfig:member",
-              "docComment": "",
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-api!Facade#webpackConfig:member",
+              "docComment": "/**\n * Modify the generated webpack config prior to compilation.\n *\n * @remarks\n *\n * Override generated webpack config with custom config.\n *\n * @example\n * ```ts\n * app.config({entry: './src/index.js'})\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1528,10 +1246,11 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              }
+              },
+              "isStatic": false
             }
           ],
-          "extendsTokenRanges": []
+          "implementsTokenRanges": []
         }
       ]
     }

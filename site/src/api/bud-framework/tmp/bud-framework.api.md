@@ -11,6 +11,7 @@ import { Compiler as Compiler_2 } from 'webpack';
 import { Configuration as Configuration_2 } from 'webpack';
 import { Container } from '@roots/container';
 import { DefaultMethods } from 'signale';
+import { Framework as Framework_2 } from 'src';
 import type { HighlightOptions } from '@roots/bud-support';
 import type Ink from 'ink';
 import { MultiCompiler } from 'webpack';
@@ -39,14 +40,14 @@ abstract class Abstract extends Service<Peers.Repository> {
 }
 
 // @public
-export interface Api extends Service {
+export interface Api<T = Record<string, (...args: unknown[]) => Framework_2>> extends Service<T> {
     // (undocumented)
     call: (name: string, ...args: any[]) => Promise<void>;
     // (undocumented)
-    callAll: () => Promise<void>;
-    // (undocumented)
+    processQueue: () => Promise<void>;
+    // @internal (undocumented)
     queue: Array<[string, ...any[]]>;
-    // (undocumented)
+    // @internal (undocumented)
     trace: Array<[string, ...any[]]>;
 }
 
@@ -350,9 +351,9 @@ export abstract class Framework {
     get: get;
     get hasChildren(): boolean;
     hooks: Hooks;
+    // @internal
     abstract implementation: Constructor;
     info(...messages: any[]): this;
-    // (undocumented)
     get isChild(): boolean;
     get isDevelopment(): boolean;
     get isProduction(): boolean;
@@ -409,7 +410,6 @@ export abstract class Framework {
 export interface Hooks extends Service<Hooks.Repository> {
     filter<T = any>(id: Hooks.Name, seed?: any): T;
     on(id: Hooks.Name, callback: Hooks.Hook): Framework;
-    promise(id: Hooks.Name, callback: Hooks.PromiseHook): Framework;
     promised<T = any>(id: `${Hooks.Name & string}`, value?: any): Promise<T>;
 }
 

@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-hooks!",
-  "docComment": "/**\n * Hooks system used for framework eventing.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Hooks system used for framework eventing.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
   "name": "@roots/bud-hooks",
   "members": [
     {
@@ -204,7 +204,7 @@
         {
           "kind": "Class",
           "canonicalReference": "@roots/bud-hooks!Hooks:class",
-          "docComment": "",
+          "docComment": "/**\n * Service allowing for fitering values through callbacks.\n *\n * @example\n *\n * Add a new entry to the `webpack.externals` configuration:\n * ```ts\n * hooks.on(\n *   'build/externals',\n *   externals => ({\n *     ...externals,\n *     $: 'jquery',\n *   }),\n * )\n * ```\n *\n * @example\n *\n * Change the `webpack.output.filename` format:\n * ```ts\n * hooks.on(\n *   'build.output.filename',\n *   () => '[name].[hash:4]',\n * )\n * ```\n *\n * @example\n *\n * Create a new filter for a value:\n * ```ts\n * hooks.filter('my-event-name', DEFAULT_VALUE)\n * ```\n *\n * @example\n *\n * Create a new async filter for a value:\n * ```ts\n * await hooks.promised('my-event-name', async () => DEFAULT_VALUE)\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -238,42 +238,8 @@
           "members": [
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-hooks!Hooks#boot:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "boot(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<void>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "boot"
-            },
-            {
-              "kind": "Method",
               "canonicalReference": "@roots/bud-hooks!Hooks#filter:member(1)",
-              "docComment": "",
+              "docComment": "/**\n * Hooks filter\n *\n * @remarks\n *\n * The other side of bud.hooks.on. Passes a key and a value. If any filters are registered on that key they will transform the output before it is returned.\n *\n * @example\n * ```js\n * bud.hooks.filter(\n *   'namespace.name.event',\n *   ['array', 'of', 'items'],\n * )\n * ```\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -362,110 +328,8 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-hooks!Hooks#get:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "get<T = "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ">(path: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "`${"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Contract.Name",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.Name:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string}`"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "T"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "path",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 6
-                  }
-                }
-              ],
-              "typeParameters": [
-                {
-                  "typeParameterName": "T",
-                  "constraintTokenRange": {
-                    "startIndex": 0,
-                    "endIndex": 0
-                  },
-                  "defaultTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                }
-              ],
-              "name": "get"
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "@roots/bud-hooks!Hooks#name:member",
-              "docComment": "/**\n * @public\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "name: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "name",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
               "canonicalReference": "@roots/bud-hooks!Hooks#on:member(1)",
-              "docComment": "",
+              "docComment": "/**\n * Register a function to filter a value.\n *\n * @remarks\n *\n * If a filter calls for this name the function is then run, passing whatever data along for modification. If more than one hook is registered to a name, they will be called sequentially in the order they were registered, with each hook's output used as the input for the next.\n *\n * @example\n * ```js\n * app.hooks.on(\n *   'namespace.name.value',\n *   value => 'replaced by this string',\n * )\n * ```\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -527,71 +391,8 @@
             },
             {
               "kind": "Method",
-              "canonicalReference": "@roots/bud-hooks!Hooks#promise:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "promise(id: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Contract.Name",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.Name:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", callback: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Contract.PromiseHook",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.PromiseHook:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Framework",
-                  "canonicalReference": "@roots/bud-framework!Framework:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "id",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 2
-                  }
-                },
-                {
-                  "parameterName": "callback",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
-                }
-              ],
-              "name": "promise"
-            },
-            {
-              "kind": "Method",
               "canonicalReference": "@roots/bud-hooks!Hooks#promised:member(1)",
-              "docComment": "",
+              "docComment": "/**\n * Asyncronous hook filter\n *\n * @remarks\n *\n * This method is used to filter a hook event.\n *\n * @example\n * ```js\n * bud.hooks.filter(\n *   'namespace.name.event',\n *   ['array', 'of', 'items'],\n * )\n * ```\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -682,75 +483,6 @@
                 }
               ],
               "name": "promised"
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "@roots/bud-hooks!Hooks#set:member(1)",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "set(key: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "`${"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Contract.Name",
-                  "canonicalReference": "@roots/bud-framework!~Hooks.Name:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": " & string}`"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", value: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": "): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "this"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": false,
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [
-                {
-                  "parameterName": "key",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 1,
-                    "endIndex": 4
-                  }
-                },
-                {
-                  "parameterName": "value",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 5,
-                    "endIndex": 6
-                  }
-                }
-              ],
-              "name": "set"
             }
           ],
           "extendsTokenRange": {

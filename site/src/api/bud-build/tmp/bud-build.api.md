@@ -20,22 +20,16 @@ import type * as Webpack from 'webpack';
 
 // @public
 export class Build extends Service implements Build_2.Interface {
-    // (undocumented)
     booted(): Promise<void>;
     // @internal (undocumented)
     config: Webpack.Configuration;
-    // (undocumented)
     init(): Promise<void>;
-    // (undocumented)
     items: Items;
     // (undocumented)
     loaders: Loaders;
     make(): Promise<Webpack.Configuration>;
-    // (undocumented)
     register(): Promise<void>;
-    // (undocumented)
     rules: Rules;
-    // (undocumented)
     writeFinalConfig(): Promise<void>;
 }
 

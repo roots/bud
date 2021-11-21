@@ -3,7 +3,7 @@
  *
  * @see https://roots.io/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import type { Extension } from '@roots/bud-framework';

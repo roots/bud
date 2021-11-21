@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-build!",
-  "docComment": "/**\n * Compiler configuration builder\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Compiler configuration builder\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
   "name": "@roots/bud-build",
   "members": [
     {
@@ -204,7 +204,7 @@
         {
           "kind": "Class",
           "canonicalReference": "@roots/bud-build!Build:class",
-          "docComment": "/**\n * Framework configuration builder class\n *\n * @public\n */\n",
+          "docComment": "/**\n * Webpack configuration builder class\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -243,7 +243,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-build!Build#booted:member(1)",
-              "docComment": "",
+              "docComment": "/**\n * Service booted event\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -277,7 +277,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-build!Build#init:member(1)",
-              "docComment": "/**\n * @public\n */\n",
+              "docComment": "/**\n * Initialize the build rules, loaders, items\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -311,7 +311,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-build!Build#items:member",
-              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Build.Interface.items}\n *\n * @public\n */\n",
+              "docComment": "/**\n * Registered items\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -367,7 +367,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-build!Build#make:member(1)",
-              "docComment": "/**\n * Make build\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "docComment": "/**\n * Make webpack configuration\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -410,7 +410,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-build!Build#register:member(1)",
-              "docComment": "/**\n * @decorator\n *\n * `@bind`\n * {@inheritDoc @roots/bud-framework#Build.Interface.bootstrap}\n *\n * @public\n */\n",
+              "docComment": "/**\n * Service register event\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -444,7 +444,7 @@
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-build!Build#rules:member",
-              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Build.Interface.rules}\n *\n * @public\n */\n",
+              "docComment": "/**\n * Registered rules\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -472,7 +472,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-build!Build#writeFinalConfig:member(1)",
-              "docComment": "/**\n * @public\n */\n",
+              "docComment": "/**\n * Write final configuration to storage directory\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

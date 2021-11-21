@@ -32,7 +32,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { DefaultMethods } from 'signale';

@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/ink-use-style!",
-  "docComment": "/**\n * React hook for easy styling of Ink components.\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * React hook for easy styling of Ink components.\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/ink-use-style",
   "members": [
     {
@@ -352,11 +352,11 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/ink-use-style!Styles:interface",
-          "docComment": "/**\n * Return value\n */\n",
+          "docComment": "/**\n * Object returned by hook\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "interface Styles "
+              "text": "export interface Styles "
             }
           ],
           "releaseTag": "Public",
@@ -872,11 +872,11 @@
         {
           "kind": "Interface",
           "canonicalReference": "@roots/ink-use-style!useStyle:interface",
-          "docComment": "/**\n * useStyle hook\n *\n * @returns {Styles}\n */\n",
+          "docComment": "/**\n * useStyle hook\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "interface useStyle "
+              "text": "export interface useStyle "
             }
           ],
           "releaseTag": "Public",
@@ -903,7 +903,7 @@
                 {
                   "kind": "Reference",
                   "text": "Styles",
-                  "canonicalReference": "@roots/ink-use-style!~Styles:interface"
+                  "canonicalReference": "@roots/ink-use-style!Styles:interface"
                 },
                 {
                   "kind": "Content",
@@ -932,7 +932,7 @@
         {
           "kind": "Variable",
           "canonicalReference": "@roots/ink-use-style!useStyle:var",
-          "docComment": "",
+          "docComment": "/**\n * useStyle hook\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -941,7 +941,7 @@
             {
               "kind": "Reference",
               "text": "useStyle",
-              "canonicalReference": "@roots/ink-use-style!~useStyle:interface"
+              "canonicalReference": "@roots/ink-use-style!useStyle:interface"
             }
           ],
           "releaseTag": "Public",

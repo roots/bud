@@ -4,7 +4,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 import { Extension as Extension_2 } from '@roots/bud-framework';
@@ -125,97 +125,95 @@ export declare class Controller {
      * @remarks
      * Calls the {@link @roots/bud-framework#Module.boot} callback
      *
-     * @returns {@link Extension}
-         *
-         * @public @core
-         * @decorator `@bind`
-         */
-     boot(): Promise<this>;
-    }
+     * @public @core
+     * @decorator `@bind`
+     */
+    boot(): Promise<this>;
+}
 
-    declare type Extension = Extension_2.Module;
+declare type Extension = Extension_2.Module;
 
+/**
+ * Extensions Service
+ *
+ * @remarks
+ * Manages extension controllers
+ *
+ * @public
+ */
+export declare class Extensions extends Framework_2.Service implements Framework_2.Extensions {
+    queue: any[];
+    repository: {};
     /**
-     * Extensions Service
-     *
-     * @remarks
-     * Manages extension controllers
+     * Controller factory
      *
      * @public
      */
-    export declare class Extensions extends Framework_2.Service implements Framework_2.Extensions {
-        queue: any[];
-        repository: {};
-        /**
-         * Controller factory
-         *
-         * @public
-         */
-        makeController(extension: Framework_2.Extension.Module | Promise<Framework_2.Extension.Module>): Controller;
-        /**
-         * @override @public
-         */
-        registered(): Promise<void>;
-        /**
-         * @override @public
-         */
-        boot(): Promise<void>;
-        /**
-         * @public
-         */
-        booted(): Promise<void>;
-        /**
-         * @public
-         */
-        registerExtension(key: string): Promise<void>;
-        /**
-         * @public
-         */
-        bootExtension(key: string): Promise<void>;
-        /**
-         * @public
-         */
-        registerExtensions(): Promise<void>;
-        /**
-         * @public
-         */
-        bootExtensions(): Promise<void>;
-        /**
-         * Queue an extension to be added to the container before the build process.
-         *
-         * @remarks
-         * Useful for extensions which cannot be added in an awaitable context (like a user config)
-         *
-         * @public
-         * @decorator `@bind`
-         */
-        enqueue(extension: Framework_2.Extension.Module): void;
-        /**
-         * Add a {@link Controller} to the container
-         *
-         * @public
-         * @decorator `@bind`
-         */
-        add(extension: Framework_2.Extension.Module): Promise<void>;
-        /**
-         * @public
-         */
-        processQueue(): Promise<void>;
-        /**
-         * Returns an array of plugin instances which have been registered to the
-         * Extensions container and are set to be used in the compilation
-         *
-         * @returns An array of plugin instances
-         *
-         * @public
-         * @decorator `@bind`
-         */
-        make(): {
-            [key: string]: any;
-            apply: CallableFunction;
-        }[];
-    }
+    makeController(extension: Framework_2.Extension.Module | Promise<Framework_2.Extension.Module>): Controller;
+    /**
+     * @override @public
+     */
+    registered(): Promise<void>;
+    /**
+     * @override @public
+     */
+    boot(): Promise<void>;
+    /**
+     * @public
+     */
+    booted(): Promise<void>;
+    /**
+     * @public
+     */
+    registerExtension(key: string): Promise<void>;
+    /**
+     * @public
+     */
+    bootExtension(key: string): Promise<void>;
+    /**
+     * @public
+     */
+    registerExtensions(): Promise<void>;
+    /**
+     * @public
+     */
+    bootExtensions(): Promise<void>;
+    /**
+     * Queue an extension to be added to the container before the build process.
+     *
+     * @remarks
+     * Useful for extensions which cannot be added in an awaitable context (like a user config)
+     *
+     * @public
+     * @decorator `@bind`
+     */
+    enqueue(extension: Framework_2.Extension.Module): void;
+    /**
+     * Add a {@link Controller} to the container
+     *
+     * @public
+     * @decorator `@bind`
+     */
+    add(extension: Framework_2.Extension.Module): Promise<void>;
+    /**
+     * @public
+     */
+    processQueue(): Promise<void>;
+    /**
+     * Returns an array of plugin instances which have been registered to the
+     * Extensions container and are set to be used in the compilation
+     *
+     * @returns An array of plugin instances
+     *
+     * @public
+     * @decorator `@bind`
+     */
+    make(): {
+        [key: string]: any;
+        apply: CallableFunction;
+    }[];
+}
 
-    declare type Plugin_2 = Extension_2.CompilerPlugin;
+declare type Plugin_2 = Extension_2.CompilerPlugin;
 
-    export { }
+export { }

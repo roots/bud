@@ -1,17 +1,8 @@
-// @ts-check
-/**
- * \@typedef {import('@docusaurus/types').DocusaurusConfig} Config
- *
- */
-
 const {posix: path} = require('path')
 const darkTheme = require('prism-react-renderer/themes/dracula')
 const theme = require('prism-react-renderer/themes/github')
 const {manifest} = require('../package.json')
 
-/**
- * \@type {Partial<Config>} config
- */
 module.exports = {
   title: manifest.name,
   tagline: manifest.description,
@@ -62,6 +53,13 @@ module.exports = {
           docsPluginId: 'extensions',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          href: '/api',
+          label: 'GitHub',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
+        },
         {
           href: manifest.url.web,
           label: 'GitHub',

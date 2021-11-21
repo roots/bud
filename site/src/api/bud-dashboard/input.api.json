@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/bud-dashboard!",
-  "docComment": "/**\n * The {@link @roots/bud-dashboard#} package implements the {@link @roots/bud-framework#Dashboard} interface.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/bud-dashboard#} package implements the {@link @roots/bud-framework#Dashboard} interface.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
   "name": "@roots/bud-dashboard",
   "members": [
     {
@@ -262,6 +262,35 @@
           "releaseTag": "Public",
           "name": "Dashboard",
           "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-dashboard!Dashboard#close:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n *\n * @decorator\n *\n * `@once`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "close(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "close"
+            },
             {
               "kind": "Property",
               "canonicalReference": "@roots/bud-dashboard!Dashboard#instance:member",
@@ -339,14 +368,6 @@
                 },
                 {
                   "kind": "Content",
-                  "text": ", title?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
                   "text": "): "
                 },
                 {
@@ -361,8 +382,8 @@
               "isOptional": false,
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
+                "startIndex": 3,
+                "endIndex": 4
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -373,13 +394,6 @@
                     "startIndex": 1,
                     "endIndex": 2
                   }
-                },
-                {
-                  "parameterName": "title",
-                  "parameterTypeTokenRange": {
-                    "startIndex": 3,
-                    "endIndex": 4
-                  }
                 }
               ],
               "name": "render"
@@ -387,7 +401,7 @@
             {
               "kind": "Method",
               "canonicalReference": "@roots/bud-dashboard!Dashboard#run:member(1)",
-              "docComment": "/**\n * Run the dashboard\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "docComment": "/**\n * Run the dashboard\n *\n * @decorator\n *\n * `@bind`\n *\n * @decorator\n *\n * `@once`\n *\n * @public\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

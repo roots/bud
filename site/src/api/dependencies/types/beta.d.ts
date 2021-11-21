@@ -9,7 +9,7 @@
  * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 /**

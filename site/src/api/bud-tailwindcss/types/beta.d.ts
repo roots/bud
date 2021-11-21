@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { Framework } from '@roots/bud-framework';

@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 import { Dashboard as Dashboard_2 } from '@roots/bud-framework';
@@ -46,8 +46,15 @@ export declare class Dashboard extends Service implements Dashboard_2 {
      *
      * @public
      * @decorator `@bind`
+     * @decorator `@once`
      */
     run(): Framework;
+    /**
+     * @public
+     * @decorator `@bind`
+     * @decorator `@once`
+     */
+    close(): void;
     /**
      * Renders to the screen. It will rerender the existing
      * component if already initialized.
@@ -58,7 +65,7 @@ export declare class Dashboard extends Service implements Dashboard_2 {
      * @public
      * @decorator `@bind`
      */
-    render(Component: any, title?: string): void;
+    render(Component: any): void;
 }
 
 /**

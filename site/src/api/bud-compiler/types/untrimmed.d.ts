@@ -5,7 +5,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 import { Compiler as Compiler_2 } from '@roots/bud-framework';

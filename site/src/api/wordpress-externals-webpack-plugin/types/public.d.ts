@@ -4,7 +4,7 @@
  *
  * @see https://github.com/roots/bud/tree/stable/packages/wordpress-externals-webpack-plugin
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import { Compiler } from 'webpack';

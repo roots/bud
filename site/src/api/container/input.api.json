@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/container!",
-  "docComment": "/**\n * The {@link @roots/container# | @roots/container} package provides a simple chainable interface for working with collections of data\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * The {@link @roots/container# | @roots/container} package provides a simple chainable interface for working with collections of data\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/container",
   "members": [
     {

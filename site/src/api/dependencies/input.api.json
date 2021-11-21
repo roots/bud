@@ -193,7 +193,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@roots/dependencies!",
-  "docComment": "/**\n * Easy programmatic package management for yarn and npm.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional web applications using a modular, hackable build system - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code - 🌱 Easy - Low bundle size and fast build times with little to no configuration\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation @betaDocumentation\n */\n",
+  "docComment": "/**\n * Easy programmatic package management for yarn and npm.\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional web applications using a modular, hackable build system - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code - 🌱 Easy - Low bundle size and fast build times with little to no configuration\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
   "name": "@roots/dependencies",
   "members": [
     {

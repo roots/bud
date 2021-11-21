@@ -1,30 +1,52 @@
 /* eslint-disable tsdoc/syntax */
 /* eslint-disable no-console */
 const {
-  createReadStream,
   ensureDir,
+  ensureFile,
   writeFile,
+  createReadStream,
   remove,
 } = require('fs-extra')
 const {createInterface} = require('readline')
 const {parse, join} = require('path')
 const globby = require('globby')
 const execa = require('execa')
+const {prettier} = require('@roots/bud-support')
 
 /**
  * Adapted from faast.js' api-extractor/docusaurus adapter
  * {@link https://github.com/faastjs/faast.js/blob/master/build/make-docs.js}
  */
 
-const getPkgs = async () => {
-  pkgs = await globby(
+const ensureDirs = async () => {
+  try {
+    const apiOuts = await globby(
+      join(process.cwd(), 'site/src/api/*'),
+      {onlyDirectories: true, absolute: true},
+    )
+
+    await Promise.all(
+      apiOuts.map(async out => {
+        const path = join(out, 'md')
+        console.log(`ensuring ${path} exists`)
+        await ensureDir(join(out, 'md'))
+        return
+      }),
+    )
+  } catch (e) {
+    throw new Error(e)
+  }
+}
+
+const getPackages = async () => {
+  packages = await globby(
     [`packages/@roots/*`, `!packages/@roots/bud-support`],
     {
       onlyDirectories: true,
     },
   )
 
-  return pkgs
+  return packages
     .filter(pkg => pkg !== 'packages/@roots')
     .map(pkg => ({
       name: pkg.replace(/^packages\/@roots\//, '@roots/'),
@@ -34,14 +56,15 @@ const getPkgs = async () => {
 }
 
 const runExtractor = async () => {
-  const pkgs = await getPkgs()
+  const packages = await getPackages()
 
   try {
     await Promise.all(
-      pkgs.map(async pkg => {
+      packages.map(async pkg => {
         console.log(
           `Running api-extractor on ${pkg.extractorConfig}`,
         )
+
         const child = execa('yarn', [
           'api-extractor',
           'run',
@@ -61,15 +84,20 @@ const runExtractor = async () => {
   }
 }
 
-async function runDocumenter() {
+const runDocumenter = async () => {
   console.log('Running api-documentor')
 
   const projects = await globby(
-    join(process.cwd(), 'site/src/api/*'),
+    join(
+      process.cwd(),
+      'site/src/api/{bud-hooks,bud-api,bud-extensions}',
+    ),
     {
       onlyDirectories: true,
     },
   )
+
+  console.log(projects)
 
   await Promise.all(
     projects.map(async project => {
@@ -80,119 +108,162 @@ async function runDocumenter() {
         '-i',
         `site/src/api/${project}/`,
         '-o',
-        `site/api/${project}/`,
+        `site/api/raw/${project}/`,
       ])
     }),
   )
+}
 
-  const files = await globby(`${process.cwd()}/site/api/*/*`, {
-    onlyFiles: true,
-  })
+async function formatMarkdown() {
+  const files = await globby(
+    `${process.cwd()}/site/api/raw/{bud-hooks,bud-api,bud-extensions}/**/*`,
+    `!${process.cwd()}/site/api/raw/index`,
+    `!${process.cwd()}/site/api/raw/{bud-hooks,bud-api,bud-extensions}/index`,
+    {
+      onlyFiles: true,
+    },
+  )
 
-  for (const file of files) {
-    try {
-      const {name: id, ext, dir} = parse(file)
+  console.log(files)
 
-      const input = createReadStream(file)
+  await Promise.all(
+    files.map(async file => {
+      try {
+        let {name: filename, dir, ext} = parse(file)
 
-      const output = []
+        if (filename == 'index') return
 
-      const lines = createInterface({
-        input,
-        crlfDelay: Infinity,
-      })
+        const input = await createReadStream(file)
 
-      let title = ''
+        const lines = createInterface({
+          input,
+          crlfDelay: Infinity,
+        })
 
-      lines.on('line', async line => {
-        let skip = false
+        let title = ''
 
-        if (!title) {
-          const titleLine = line.match(/## (.*)/)
+        const pathParts = filename.split('.').filter(Boolean)
+        const outputFile = [
+          process.cwd(),
+          'site',
+          'api',
+          ...pathParts,
+        ]
+          .join('/')
+          .concat(ext)
+          .replaceAll(/\_/g, '', 'g')
 
-          if (titleLine) {
-            title = titleLine[1]
+        const output = []
+
+        lines.on('line', async line => {
+          let skip = false
+
+          if (line.match(/\[Home\]\((.*)\).*?/)) {
+            skip = true
           }
-        }
 
-        /**
-         * faast.js wrote:
-         *
-         * See issue #4. api-documenter expects \| to escape table
-         * column delimiters, but docusaurus uses a markdown processor
-         * that doesn't support this. Replace with an escape sequence
-         * that renders |.
-         */
-        if (line.startsWith('|')) {
-          line = line.replaceAll(/\\\|/g, '&#124;', 'g')
-        }
+          if (!title) {
+            const titleLine = line.match(/## (.*)/)
 
-        /**
-         * For no reason that I can discern, api-documenter
-         * outputs blank html comments in the markdown file.
-         *
-         * This removes them (they break mdx).
-         */
-        line = line.replaceAll(/<!-- -->/g, '', 'g')
+            if (titleLine) {
+              title = titleLine[1]
+                .replace(/## (.*)/, '# $1')
+                .toLowerCase()
+            }
+          }
 
-        /**
-         * This fixes the `returns` and `params` lines.
-         * They try to escape the { and } characters with
-         * literals `{` and `}`, which breaks mdx
-         */
-        if (line.startsWith('<b') || line.startsWith('<p')) {
           line = line
-            .replaceAll(/\{/g, '`&#123;`', 'g')
-            .replaceAll(/\}/g, `&#125;`, 'g')
-        }
+            .replaceAll(
+              /\.\/(.*)\.md/g,
+              (match, p1) => `/api/${p1.split('.').join('/')}`,
+              'g',
+            )
+            .replaceAll(/\/md/g, '', 'g')
+            .replaceAll(/_constructor_/g, 'constructor', 'g')
 
-        /**
-         * This tag `<void>` is used, totally unescaped because... 🤷🏼‍♂️
-         * It causes a pretty obvious issues with mdx.
-         */
-        line = line.replaceAll(/\<void\>/g, '', 'g')
-        if (!skip) {
-          output.push(line)
-        }
-      })
+          /**
+           * faast.js wrote:
+           *
+           * See issue #4. api-documenter expects \| to escape table
+           * column delimiters, but docusaurus uses a markdown processor
+           * that doesn't support this. Replace with an escape sequence
+           * that renders |.
+           */
+          if (line.startsWith('|')) {
+            line = line.replaceAll(/\\\|/g, '&#124;', 'g')
+          }
 
-      await new Promise(resolve => lines.once('close', resolve))
+          /**
+           * For no reason that I can discern, api-documenter
+           * outputs blank html comments in the markdown file.
+           *
+           * This removes them (they break mdx).
+           */
+          line = line
+            .replaceAll(/<!--(.*?)-->/g, '', 'g')
+            .replaceAll(/\\n\\n/g, /\\n/, 'g')
 
-      input.close()
+          /**
+           * This tag `<void>` is used, totally unescaped because... 🤷🏼‍♂️
+           * It causes a pretty obvious issues with mdx.
+           */
+          line = line
+            .replaceAll(/\<b\>/g, '', 'g')
+            .replaceAll(/\<\/b\>/g, '', 'g')
+            .replaceAll(/\/_/g, '_', 'g')
 
-      const header = [
-        '---',
-        `id: ${id}`,
-        `title: ${title}`,
-        `hide_title: true`,
-        `sidebar: 'api'`,
-        id === 'index' ? `order: 1` : false,
-        '---',
-      ].filter(Boolean)
+          if (!skip) {
+            output.push(line)
+          }
+        })
 
-      const writePath = join(dir, `${id}.md`)
-      const final = header.concat(output).join('\n')
-      await writeFile(writePath, final)
-    } catch (err) {
-      console.error(`Could not process ${file}: ${err}`)
-    }
-  }
+        await new Promise(resolve =>
+          lines.once('close', resolve),
+        )
+
+        const shortTitle = (
+          title
+            .split('.')
+            .splice(title.split('.').length - 1)
+            .join('.') ?? title
+        ).toLowerCase()
+
+        const frontmatter = [
+          '---',
+          `id: ${filename}`,
+          `title: ${shortTitle}`,
+          `sidebar_label: ${shortTitle}`,
+          `hide_title: true`,
+          `sidebar: 'api'`,
+          `slug: ${outputFile
+            .split('/')
+            .pop()
+            .replace('.md', '')
+            .replaceAll(/\_/g, '', 'g')}`,
+          '---',
+        ].filter(Boolean)
+
+        await ensureFile(outputFile)
+
+        await writeFile(
+          outputFile,
+          prettier.format(
+            frontmatter.concat(output).join('\n').trim(),
+            {
+              parser: 'mdx',
+            },
+          ),
+        )
+      } catch (err) {
+        throw new Error(err)
+      }
+    }),
+  )
 }
 
 const main = async () => {
   try {
-    const apiOuts = await globby(
-      join(process.cwd(), 'site/src/api/*'),
-      {onlyDirectories: true, absolute: true},
-    )
-    await Promise.all(
-      apiOuts.map(async out => {
-        const path = join(out, 'md')
-        console.log(`ensuring ${path} exists`)
-        await ensureDir(join(out, 'md'))
-        return
-      }),
-    )
+    await ensureDirs()
   } catch (e) {
     console.error(e)
   }
@@ -204,7 +275,11 @@ const main = async () => {
   }
 
   try {
+    console.log('documenting')
     await runDocumenter()
+
+    console.log('formatting')
+    await formatMarkdown()
   } catch (e) {
     console.error(e)
   }

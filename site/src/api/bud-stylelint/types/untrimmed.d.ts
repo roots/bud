@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 /// <reference types="stylelint" />
