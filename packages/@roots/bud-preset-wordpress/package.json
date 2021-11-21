@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-wordpress",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "WordPress-ready preset for Bud projects",
   "repository": {
     "type": "git",
