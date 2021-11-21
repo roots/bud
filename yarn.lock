@@ -3632,7 +3632,7 @@ __metadata:
     react-hot-loader: 4.13.0
     react-refresh: 0.11.0
     tslib: 2.3.1
-    type-fest: 2.5.3
+    type-fest: 2.5.4
     webpack: 5.64.2
   peerDependencies:
     react: 17.0.2
@@ -3696,7 +3696,7 @@ __metadata:
     jest: 27.3.1
     solid-js: 1.2.5
     tslib: ^2.3.1
-    type-fest: 2.5.3
+    type-fest: 2.5.4
     webpack: 5.64.2
   peerDependencies:
     "@babel/plugin-syntax-jsx": 7.16.0
@@ -3968,7 +3968,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: ^2.3.1
-    type-fest: 2.5.3
+    type-fest: 2.5.4
   languageName: unknown
   linkType: soft
 
@@ -7724,7 +7724,7 @@ __metadata:
     ts-node: 10.4.0
     tsconfig-paths: 3.12.0
     tslib: 2.3.1
-    type-fest: 2.5.3
+    type-fest: 2.5.4
     typedoc: 0.22.9
     typescript: 4.4.4
     weak-napi: 2.0.2
@@ -23847,10 +23847,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:2.5.3":
-  version: 2.5.3
-  resolution: "type-fest@npm:2.5.3"
-  checksum: ad27aaf1b2917530bd66472881d53584812a12c6a6e9ca6fc00ce295e9cf9e48182ca25ad8cb429dad0a2ce324a71415d07f09d2ddec000e21f542bdb055977f
+"type-fest@npm:2.5.4, type-fest@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "type-fest@npm:2.5.4"
+  checksum: ced03d6d01dd1040f3c53458d333c657d1cae0bc0331e8aacedb4c880919eb3013ce0aff8afdb8ce51718d34fc98637333ea43b3bcb29c63c7f3e1c149ddb9c3
   languageName: node
   linkType: hard
 
@@ -23914,13 +23914,6 @@ __metadata:
   version: 1.4.0
   resolution: "type-fest@npm:1.4.0"
   checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^2.5.4":
-  version: 2.5.4
-  resolution: "type-fest@npm:2.5.4"
-  checksum: ced03d6d01dd1040f3c53458d333c657d1cae0bc0331e8aacedb4c880919eb3013ce0aff8afdb8ce51718d34fc98637333ea43b3bcb29c63c7f3e1c149ddb9c3
   languageName: node
   linkType: hard
 
