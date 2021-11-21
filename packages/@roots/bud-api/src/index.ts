@@ -2,20 +2,19 @@
 // Licensed under the MIT license.
 
 /**
- * Repository of high-level facades
- * which simplify common configuration tasks
+ * Repository of high-level facades which simplify common configuration tasks
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
-import {Repository} from './Repository'
+import {Api} from './api'
+import {ConfigFacade} from './api/api.config'
 
 declare module '@roots/bud-framework' {
-  interface Framework extends Repository {}
+  interface Framework extends ConfigFacade {}
 }
 
-export {Api} from './Api'
-export {Repository} from './Repository'
+export {Api, ConfigFacade}
