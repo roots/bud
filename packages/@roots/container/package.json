@@ -67,7 +67,7 @@
     "@types/node": "16.11.9",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "type-fest": "2.5.3"
+    "type-fest": "2.5.4"
   },
   "dependencies": {
     "tslib": "^2.3.1"
