@@ -75,7 +75,7 @@
     "http-proxy-middleware": "2.0.1",
     "lodash.isequal": "^4.5.0",
     "tslib": "^2.3.1",
-    "webpack-dev-middleware": "5.2.1",
+    "webpack-dev-middleware": "5.2.2",
     "webpack-hot-middleware": "^2.25.1"
   },
   "stableVersion": "4.6.0"
