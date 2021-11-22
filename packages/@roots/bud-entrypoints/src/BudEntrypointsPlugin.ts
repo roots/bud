@@ -17,7 +17,7 @@ interface BudEntrypointsPlugin
 const BudEntrypointsPlugin: BudEntrypointsPlugin = {
   name: '@roots/bud-entrypoints',
   make(options) {
-    new EntrypointsWebpackPlugin(options.all())
+    return new EntrypointsWebpackPlugin(options.all())
   },
 }
 
