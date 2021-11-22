@@ -17,14 +17,14 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
-    "@types/react": "17.0.32",
-    "@types/react-dom": "17.0.10",
+    "@types/react": "17.0.35",
+    "@types/react-dom": "17.0.11",
     "@wordpress/browserslist-config": "4.1.0",
     "postcss": "8.3.11",
     "postcss-import": "14.0.2",
     "postcss-preset-env": "6.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "tailwindcss": "2.2.8"
+    "tailwindcss": "2.2.19"
   }
 }
