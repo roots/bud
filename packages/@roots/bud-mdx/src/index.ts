@@ -1,42 +1,88 @@
-import './interface'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-import {Framework, Module} from '@roots/bud-framework'
-import {Loader, Item, Rule} from '@roots/bud-build'
-import {MdxConfig} from './api'
+/**
+ * Adds MDX support to Bud
 
-const extension: Module = {
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Extension, Framework} from '@roots/bud-framework'
+import type * as Webpack from 'webpack'
+
+import {MdxConfig} from './MdxConfig'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Configure mdx to suit your application needs
+     */
+    mdx: MdxConfig
+  }
+
+  interface Loaders {
+    mdx: Loader
+  }
+
+  interface Items {
+    mdx: Item
+  }
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
+    '@roots/bud-mdx': Extension.Module
+  }
+}
+
+const extension: Extension.Module = {
   name: '@roots/bud-mdx',
+
+  mixin: async app => ({
+    mdx: [MdxConfig, app],
+  }),
+
   boot: (app: Framework) => {
-    Object.assign(app, {
-      mdx: new MdxConfig(app),
-    })
+    const {build, store, hooks} = app
 
-    app.store.set('patterns.mdx', /\.mdx$/)
+    store.set('patterns.mdx', /\.mdx?$/)
 
-    app.build.loaders.mdx = new Loader(app =>
+    build.loaders.mdx = new Loader(
       require.resolve('@mdx-js/loader'),
     )
 
-    app.build.items.mdx = new Item({
-      loader: ({build}) => build.loader.get('mdx'),
+    build.items.mdx = new Item({
+      loader: ({build}) => build.loaders.mdx,
       options: ({mdx}) => mdx.options,
     })
 
-    app.build.rules.mdx = new Rule({
+    build.rules.mdx = new Rule({
       test: ({store}) => store.get('patterns.mdx'),
       exclude: ({store}) => store.get('patterns.modules'),
       use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
-    /**
-     * .mdx extension
-     */
-    app.hooks.on(
-      'build/resolve/extensions',
-      (exts: `.${string}`[]) => [...exts, '.mdx'],
+    hooks.on(
+      'build.resolve.extensions',
+      (exts: Webpack.Configuration['resolve']['extensions']) => [
+        ...exts,
+        '.mdx',
+      ],
     )
   },
 }
 
-export default extension
-export const {name, boot} = extension
+export const {name, boot, mixin} = extension

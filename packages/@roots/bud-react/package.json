@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -31,10 +35,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -61,39 +63,40 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel"
+    ]
+  },
   "devDependencies": {
+    "@babel/core": "7.16.0",
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "@types/react": "^17.0.8",
-    "@types/react-dom": "^17.0.5",
-    "type-fest": "^1.2.0",
-    "webpack": "^5.38.1"
+    "@types/babel__core": "7.1.16",
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "@types/react": "17.0.35",
+    "@types/react-dom": "17.0.11",
+    "jest": "27.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "type-fest": "2.5.3",
+    "webpack": "5.64.1"
   },
   "dependencies": {
-    "@babel/core": "^7.14.5",
-    "@babel/preset-react": "^7.14.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.8",
-    "autobind-decorator": "^2.4.0",
-    "react-hot-loader": "^4.13.0",
-    "react-refresh": "^0.10.0"
+    "@babel/plugin-syntax-jsx": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.1",
+    "autobind-decorator": "2.4.0",
+    "react-hot-loader": "4.13.0",
+    "react-refresh": "0.11.0",
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@types/react": "^17.0.8",
-    "@types/react-dom": "^17.0.5",
-    "react": ">=17",
-    "react-dom": ">=17"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
-  "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    },
-    "@types/react-dom": {
-      "optional": true
-    }
-  }
+  "stableVersion": "4.6.0"
 }

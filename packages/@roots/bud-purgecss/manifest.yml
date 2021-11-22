@@ -1,6 +1,0 @@
-name: '@roots/bud-purgecss'
-type: extension
-
-peers:
-  - '@roots/bud'
-  - '@roots/bud-postcss'

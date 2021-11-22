@@ -1,4 +1,0 @@
-name: '@roots/bud-wordpress-manifests'
-type: extension
-peers:
-  - '@roots/merged-manifest-webpack-plugin'

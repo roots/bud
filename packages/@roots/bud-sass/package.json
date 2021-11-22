@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-sass",
-  "version": "4.6.0",
-  "description": "Sass support",
+  "version": "5.0.0-next.14",
+  "description": "Sass support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -31,10 +35,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -61,24 +63,26 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "^15.12.2",
-    "postcss": "^8.3.0",
-    "sass": "^1.34.1",
-    "webpack": "^5.38.1"
+    "@types/node": "16.11.7",
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "autobind-decorator": "^2.4.0",
-    "postcss-scss": "^3.0.5",
-    "sass-loader": "^12.1.0"
+    "postcss": "8.3.11",
+    "postcss-scss": "4.0.2",
+    "resolve-cwd": "3.0.0",
+    "sass-loader": "12.3.0",
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
-    "sass": "^1.34.0"
-  }
+    "sass": "1.43.4"
+  },
+  "stableVersion": "4.6.0"
 }

@@ -1,9 +1,19 @@
+import {Component} from './Component'
 import {Inner} from './Inner'
 import {Message} from './Message'
-import {Component} from './Component'
 import {template} from './template'
 
-const client = {
+/**
+ * Client controller for ErrorOverlay component
+ *
+ * @public
+ */
+export const overlay = {
+  /**
+   * Initialize component
+   *
+   * @public
+   */
   init() {
     customElements.define('bud-overlay', Component)
     customElements.define('bud-inner', Inner)
@@ -14,7 +24,12 @@ const client = {
     return this
   },
 
-  showProblems(type, lines) {
+  /**
+   * Render errors to DOM
+   *
+   * @public
+   */
+  showProblems(type: string, lines: string[]): void {
     this.node.innerHTML = template(
       lines.reduce(
         (all: string, current: string) => `
@@ -27,11 +42,14 @@ const client = {
     document.body && document.body.appendChild(this.node)
   },
 
+  /**
+   * Clear component
+   *
+   * @public
+   */
   clear() {
     document.body &&
       this.node.parentNode &&
       document.body.removeChild(this.node)
   },
 }
-
-export const overlay = client.init()

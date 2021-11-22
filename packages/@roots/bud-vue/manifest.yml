@@ -1,6 +1,0 @@
-name: '@roots/bud-vue'
-type: extension
-
-dependencies:
-  dev:
-    vue: ^2.6.12

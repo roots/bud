@@ -1,0 +1,29 @@
+{
+  "name": "plugin",
+  "private": true,
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "dev": "bud build development",
+    "build": "bud build",
+    "build:theme": "bud build --target sage",
+    "build:plugin": "bud build --target plugin"
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/sage": "workspace:packages/@roots/sage",
+    "@tailwindcss/typography": "^0.4.1",
+    "@wordpress/browserslist-config": "^4.1.0",
+    "eslint": "^7.0.0",
+    "postcss": "8.3.9",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "6.7.0",
+    "react": ">=17",
+    "react-dom": ">=17",
+    "tailwindcss": "^2.2.8"
+  }
+}

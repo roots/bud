@@ -1,7 +1,12 @@
 import {wpPkgs} from '@roots/bud-support'
 
 /**
- * @todo less lazy typings
+ * Externals plugin
+ *
+ * @internalRemarks
+ * #todo - Bad typing
+ *
+ * @public
  */
 export const externals = (
   {_context, request},

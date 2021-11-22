@@ -1,9 +1,12 @@
-const imagemin = require('@roots/bud-imagemin')
+// @ts-check
 
-module.exports = app =>
+/**
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
+ */
+module.exports = async app =>
   app
-    .use([imagemin])
-    .template({
-      template: app.path('src', 'index.html'),
-    })
+    .template({template: app.path('src', 'index.html')})
     .entry({app: 'app.js'})
+    .minimize()

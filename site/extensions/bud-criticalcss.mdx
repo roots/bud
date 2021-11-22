@@ -1,0 +1,37 @@
+---
+title: '@roots/bud-criticalcss'
+description: Generate above-the-fold CSS
+sidebar_label: '@roots/bud-criticalcss'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-criticalcss.png'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
+import {PeerDependencies} from '@site/src/docs/PeerDependencies'
+
+:::warning
+
+This extension is experimental.
+
+:::
+
+[@roots/bud-criticalcss](/extensions/bud-criticalcss) generates 'above-the-fold' css from your application styles.
+
+For more information on this technique check out this [web.dev article](https://web.dev/extract-critical-css/).
+
+## Installation
+
+<Install packages="@roots/bud-criticalcss" />
+
+## Installing peer dependencies
+
+<PeerDependencies />
+
+## Usage
+
+Include [@roots/bud-criticalcss](/extensions/bud-criticalcss) in your config.
+
+```js {2} title='bud.config.js'
+bud.use([require('@roots/bud-criticalcss')])
+```

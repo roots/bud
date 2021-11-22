@@ -1,15 +1,16 @@
-import {ProvidePlugin as Plugin} from 'webpack'
-import type {Module} from '@roots/bud-framework'
+import {Plugin} from './webpack-provide-plugin.dependencies'
+import {Model} from './webpack-provide-plugin.interface'
 
-interface Index<T> {
-  [key: string]: T
-}
-
-const extension: Module<Plugin, Index<{[key: string]: any}>> = {
+/**
+ * BudWebpackProvidePlugin
+ *
+ * @public
+ */
+const BudWebpackProvidePlugin: Model = {
   name: 'webpack-provide-plugin',
 
   options: ({store}) =>
-    store.get('extension.webpackProvidePlugin'),
+    store.get('extension.webpack-provide-plugin'),
 
   make: options => new Plugin(options.all()),
 
@@ -17,4 +18,5 @@ const extension: Module<Plugin, Index<{[key: string]: any}>> = {
     options && options.getEntries().length > 0,
 }
 
-export const {name, options, make, when} = extension
+export const {name, options, make, when} =
+  BudWebpackProvidePlugin

@@ -1,10 +1,26 @@
+/**
+ * Component container
+ *
+ * @public
+ */
 export class Component extends HTMLElement {
+  /**
+   * `true` if component has been rendered
+   *
+   * @public
+   */
   public rendered: boolean
 
+  /**
+   * @public
+   */
   public static get observedAttributes() {
     return ['type']
   }
 
+  /**
+   * @public
+   */
   public render() {
     this.innerHTML = `
       <style>
@@ -39,6 +55,9 @@ export class Component extends HTMLElement {
     `
   }
 
+  /**
+   * @public
+   */
   public connectedCallback() {
     if (!this.rendered) {
       this.render()

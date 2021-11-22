@@ -9,7 +9,7 @@
       "type": "pwa-node"
     },
     {
-      "command": "cd ./docs/examples/sass && node ./bud.config.js --mode production",
+      "command": "cd ./examples/basic && yarn bud build",
       "name": "Run yarn build",
       "request": "launch",
       "type": "node-terminal"

@@ -1,5 +1,9 @@
-import type {Module} from '@roots/bud-framework'
-import {tsFeature} from './esbuild-ts'
-import {jsFeature} from './esbuild-js'
+import type {Extension} from '@roots/bud-framework'
 
-export const features: Module[] = [tsFeature, jsFeature]
+import {jsFeature} from './esbuild-js'
+import {tsFeature} from './esbuild-ts'
+
+export const features: Extension.CompilerPlugin[] = [
+  tsFeature,
+  jsFeature,
+]

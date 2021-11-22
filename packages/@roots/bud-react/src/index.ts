@@ -1,27 +1,67 @@
-import './interface'
-import {Module} from '@roots/bud-framework'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-import RefreshExtension from './react-refresh'
-import devScriptReducer from './util'
+/**
+ * Add React to Bud
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @example
+ * JavaScript:
+ *
+ * ```js
+ * module exports = async bud => {
+ *  await bud.use(require('@roots/bud-react'));
+ * }
+ * ```
+ *
+ * @example
+ * Typescript:
+ *
+ * ```ts
+ * import type {Bud} from '@roots/bud
+ * import * as ReactExtension from '@roots/bud-react';
+ *
+ * export default (bud: Bud) => {
+ *   bud.use(ReactExtension);
+ * }
+ * ```
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-const extension: Module = {
-  name: '@roots/bud-react',
-  boot: app => {
-    /**
-     * Exit early if peerDepenedencies unmet
-     */
-    if (!app.discovery.hasPeerDependency('react')) return
+import {BudReactExtension} from './BudReactExtension'
+import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
+import {reactRefresh} from './reactRefresh'
 
-    app.babel.setPresets(['@babel/preset-react'])
+/**
+ * Framework interface
+ */
 
-    app.when(app.isDevelopment, () => {
-      app.extensions.add(RefreshExtension)
+declare module '@roots/bud-framework' {
+  interface Framework {
+    reactRefresh: reactRefresh
+  }
 
-      app.isDevelopment &&
-        app.hooks.on('build/entry', devScriptReducer)
-    })
-  },
+  interface Modules {
+    '@roots/bud-react': BudReactExtension
+  }
+
+  interface CompilerPlugin {
+    '@pmmmwh/react-refresh-webpack-plugin': BudReactRefreshPlugin
+  }
 }
 
-export default extension
-export const {name, boot} = extension
+/**
+ * Export
+ */
+
+export const {name, boot} = BudReactExtension

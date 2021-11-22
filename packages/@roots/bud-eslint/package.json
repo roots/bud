@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -9,8 +9,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -26,11 +30,9 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/",
-    "template/",
-    "manifest.yml"
+    "template/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -57,26 +59,34 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "eslint": "^7.28.0",
-    "webpack": "^5.38.1"
+    "@types/node": "16.11.7",
+    "eslint": "7.32.0",
+    "webpack": "5.64.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
     "babel-eslint": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-webpack-plugin": "^2.5.4"
+    "eslint-webpack-plugin": "^3.0.1",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "eslint": "^7"
+    "eslint": "7.32.0",
+    "prettier": "2.4.1"
+  },
+  "stableVersion": "4.6.0",
+  "peerDependenciesMeta": {
+    "prettier": {
+      "optional": true
+    }
   }
 }

@@ -1,23 +1,40 @@
-import {helper, Assets} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('basic', 'examples/basic')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/basic', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
-    return
+    project = new Project({
+      name: 'basic',
+      dir: 'examples/basic',
+    })
+
+    await project.setup()
+  })
+
+  describe('package.json', () => {
+    it('matches snapshot', () => {
+      expect(project.packageJson).toMatchSnapshot()
+    })
   })
 
   describe('main.js', () => {
     it('has contents', () => {
-      expect(assets['main.js'].length).toBeGreaterThan(10)
+      expect(project.assets['main.js'].length).toBeGreaterThan(
+        10,
+      )
     })
+
     it('is transpiled', () => {
-      expect(assets['main.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['main.js'].includes('import'),
+      ).toBeFalsy()
+    })
+
+    it('matches snapshot', () => {
+      expect(project.assets['main.js']).toMatchSnapshot()
     })
   })
 })

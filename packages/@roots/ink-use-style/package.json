@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-use-style",
   "description": "Themes and styles for React Ink",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -29,9 +33,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -60,13 +62,19 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2"
+    "@types/node": "16.11.7",
+    "ink": "3.2.0",
+    "ink-use-stdout-dimensions": "1.0.5",
+    "react": "17.0.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "ink": "^3.0.8",
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "ink": "^3.0.9",
     "ink-use-stdout-dimensions": "^1.0.5",
     "react": "^17.0.2"
-  }
+  },
+  "stableVersion": "4.6.0"
 }

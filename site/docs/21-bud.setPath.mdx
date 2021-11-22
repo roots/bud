@@ -1,0 +1,43 @@
+---
+slug: bud.setPath
+title: bud.setPath
+description: Set application paths
+sidebar_label: bud.setPath
+image: 'https://budjs.netlify.app/img/share/docs/bud.setPath.png'
+---
+
+Configures registered project paths.
+
+Once set, this directory may be utilitized using [bud.path](/docs/bud.path).
+
+## Params
+
+The first is a location registered with the framework:
+
+- `project`
+- `src`
+- `dist`
+- `storage`
+
+It is possible for extensions to register additional locations.
+
+- The second is the path being assigned to this location. If `project` is being defined this path should be absolute. All other paths should be supplied as relative to `project`.
+
+Alternatively, this function may also accept a key-value object, so that multiple locations can be defined at once.
+
+## Usage
+
+Define the `src` directory as `scripts` (relative to project root).
+
+```js
+bud.setPath('src', 'scripts')
+```
+
+Define both the `src` and `dist` directories in one call:
+
+```js
+bud.setPath({
+  src: 'scripts',
+  dist: 'public',
+})
+```

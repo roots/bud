@@ -1,57 +1,43 @@
-import './interface'
-import {Item, Loader} from '@roots/bud-build'
-import {Module} from '@roots/bud-framework'
-import {pathExistsSync} from 'fs-extra'
-import {Config} from './Config'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const extension: Module = {
-  name: '@roots/bud-postcss',
+/**
+ * Adds PostCSS support to Bud
 
-  api: () => ({
-    postcss: new Config(),
-  }),
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-  boot: ({build, discovery, path, postcss}) => {
-    build.loaders.postcss = new Loader(
-      require.resolve('postcss-loader'),
-    )
+import type {Item, Loader} from '@roots/bud-build'
 
-    build.items.postcss = new Item({
-      loader: ({build}) => build.loaders.postcss,
-      options: ({path, postcss}) => ({
-        postcssOptions: {
-          config: pathExistsSync(
-            path('project', 'postcss.config.js'),
-          ),
-          plugins: Object.values(postcss.plugins),
-        },
-        sourceMap: true,
-      }),
-    })
+import {BudPostCssExtension} from './BudPostCssExtension'
+import {PostCssConfig} from './PostCssConfig'
 
-    build.rules.css.setUse(({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.css,
-      build.items.postcss,
-    ])
+declare module '@roots/bud-framework' {
+  interface Framework {
+    postcss: PostCssConfig
+  }
 
-    !pathExistsSync(path('project', 'postcss.config.js')) &&
-      discovery.hasPeerDependency('postcss-import') &&
-      discovery.hasPeerDependency('postcss-preset-env') &&
-      postcss.setPlugins({
-        import: 'postcss-import',
-        'preset-env': [
-          'postcss-preset-env',
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
-          },
-        ],
-      })
-  },
+  interface Modules {
+    '@roots/bud-postcss': typeof BudPostCssExtension
+  }
+
+  interface Loaders {
+    postcss: Loader
+  }
+
+  interface Items {
+    postcss: Item
+  }
 }
 
-export default extension
-export const {name, boot, api} = extension
+export const {name, mixin, register} = BudPostCssExtension

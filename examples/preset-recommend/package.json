@@ -1,9 +1,24 @@
 {
   "name": "example-preset-recommend",
   "private": true,
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
-    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
+    "postcss": "8.3.11",
+    "postcss-import": "14.0.2",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "6.7.0"
   }
 }

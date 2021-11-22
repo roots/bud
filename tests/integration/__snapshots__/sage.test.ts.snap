@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 1`] = `"bud"`;
+
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 2`] = `
+Object {
+  "app": Object {
+    "import": Array [
+      "scripts/app.js",
+      "styles/app.css",
+    ],
+  },
+  "customizer": Object {
+    "import": Array [
+      "scripts/customizer.js",
+    ],
+  },
+  "editor": Object {
+    "import": Array [
+      "scripts/editor.js",
+      "styles/editor.css",
+    ],
+  },
+}
+`;
+
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 3`] = `"production"`;
+
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 4`] = `
+Object {
+  "minimize": true,
+  "minimizer": Array [
+    "...",
+    Object {
+      "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
+        "minimizerOptions": Object {
+          "preset": Array [
+            "default",
+            Object {
+              "discardComments": Object {
+                "removeAll": true,
+              },
+            },
+          ],
+        },
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
+      },
+    },
+    Object {
+      "options": Object {
+        "minify": "<<Function 'cssnanoMinify'>>",
+        "minimizerOptions": "<<Circular reference to 'config.optimization.minimizer.[1].options.minimizerOptions'>>",
+        "parallel": true,
+        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        "warningsFilter": "<<Function 'warningsFilter'>>",
+      },
+    },
+  ],
+  "moduleIds": "deterministic",
+  "runtimeChunk": Object {
+    "name": "<<Function 'name'>>",
+  },
+}
+`;
+
+exports[`examples/sage [snapshots] .budfiles/bud.webpack.config.js 5`] = `true`;
+
+exports[`examples/sage [snapshots] module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "app": Any<Number>,
+    "customizer": Any<Number>,
+    "editor": Any<Number>,
+    "runtime": Any<Number>,
+  },
+  "bySource": Object {
+    "0 app": Any<Number>,
+    "0 customizer": Any<Number>,
+    "0 editor": Any<Number>,
+    "1 app": Any<Number>,
+    "1 customizer": Any<Number>,
+    "1 editor": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+    Any<Number>,
+    Any<Number>,
+    Any<Number>,
+  ],
+}
+`;
+
+exports[`examples/sage [snapshots] package.json is unchanged 1`] = `
+Object {
+  "browserslist": Array [
+    "extends @wordpress/browserslist-config",
+  ],
+  "devDependencies": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/sage": "workspace:*",
+  },
+  "name": "example-sage",
+  "private": true,
+}
+`;
+
+exports[`examples/sage [snapshots] public/manifest.json matches expectations 1`] = `
+Array [
+  "app.css",
+  "app.js",
+  "editor.css",
+  "editor.js",
+  "customizer.js",
+  "runtime.js",
+  "assets/image.jpeg",
+  "images/image.jpeg",
+]
+`;

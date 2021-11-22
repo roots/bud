@@ -1,8 +1,8 @@
 module.exports = {
   purge: {
-    content: ['./{app,resources}/**/*.php', './resources/**/*.{js,css}'],
+    enabled: true,
+    content: ['./resources/**/*.{js,css}'],
   },
-  darkMode: false,
   theme: {
     extend: {
       colors: {},

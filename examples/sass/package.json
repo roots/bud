@@ -1,10 +1,22 @@
 {
   "name": "example-sass",
   "private": true,
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-sass": "workspace:*"
+    "@roots/bud-sass": "workspace:*",
+    "@types/sass": "^1",
+    "sass": "1.43.3"
   }
 }

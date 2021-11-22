@@ -1,0 +1,139 @@
+---
+title: Node API
+description: Overview of instantiating Bud directly from Node
+sidebar_label: Node API
+sidebar_position: 2
+image: 'https://budjs.netlify.app/img/share/guides/advanced-use__node.png'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+**bud** is designed to be a CLI but it is possible to use it as a node API directly. This makes it easier to:
+
+- Use **bud** as part of an existing asset pipeline
+- Use **bud** to generate a configuration to be consumed by **webpack** directly
+- Modify the **bud** object before running a build
+
+## Using Bud with Node
+
+The easiest way to get going is calling the **factory** helper exported from **@roots/bud**.
+
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='config/build.js'
+import {factory} from '@roots/bud'
+
+const app = factory()
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='config/build.ts'
+import {factory} from '@roots/bud'
+import type {Framework} from '@roots/bud'
+
+const app: Framework = factory()
+```
+
+  </TabItem>
+</Tabs>
+
+You may wish to override **bud** services, its base configuration, or programatically set
+the compiler mode to `production` or `development`. These can all be specified with optional factory config properties.
+
+You may also wish to import the `config` and `services` objects from `@roots/bud` to merge your overrides with
+the defaults. This way, you don't have to reimplement the entire framework.
+
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='config/build.js'
+import {config, factory, services} from '@roots/bud'
+
+const app = factory({
+  name: 'bud'
+  mode: 'production'
+  config: {
+    ...config,
+    // config overrides
+  },
+  services: {
+    ...services,
+    // service overrides
+  }
+})
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```js title='config/build.ts'
+import {config, factory, services} from '@roots/bud'
+import type {Framework} from '@roots/bud'
+
+const app: Framework = factory({
+  name: 'bud'
+  mode: 'production'
+  config: {
+    ...config,
+    // config overrides
+  },
+  services: {
+    ...services,
+    // service overrides
+  }
+})
+```
+
+  </TabItem>
+</Tabs>
+
+The return value of **factory** is an instance of **Bud**, just as it is passed to the callback function exported by `bud.config.js`.
+Configuration from that point on should be identical, with the exception of you needing to run the build and/or development server.
+
+## Running a build from Node
+
+Once configured, simply call **bud.run** to run the build. In `development` the server will be instantiated for you.
+
+```js
+import {factory} from '@roots/bud'
+
+const app = factory()
+
+app.entry('app', 'app.js').run()
+```
+
+## Exporting a webpack config
+
+It's possible to utilize **bud** to create a config to be used with **webpack** directly should you not want to use
+the **bud** CLI.
+
+This is done by exporting the **bud.build.config** accessor from a file called `webpack.config.js`.
+
+```js title='webpack.config.js'
+import {factory} from '@roots/bud'
+
+const app = factory()
+const config = app.entry('app', 'app.js').build.config
+
+export default config
+```
+
+Now, you can use the webpack cli as per their documentation to run your build while still taking advantage of all
+the quality of life improvements afforded by **bud**.

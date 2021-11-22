@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multi-compiler module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "global": Any<Number>,
+  },
+  "bySource": Object {
+    "0 global": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+  ],
+}
+`;

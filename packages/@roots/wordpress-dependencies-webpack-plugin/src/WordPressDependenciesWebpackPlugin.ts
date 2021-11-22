@@ -1,14 +1,24 @@
-import Webpack, {Compiler, Compilation} from 'webpack'
-import {boundMethod as bind} from 'autobind-decorator'
 import {wpPkgs} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import Webpack from 'webpack'
 
-class WordPressDependenciesWebpackPlugin {
+namespace WordPressDependencies {
+  export interface Manifest {
+    [key: string]: any
+  }
+
+  export interface Options {
+    fileName: string
+  }
+}
+
+export class WordPressDependenciesWebpackPlugin {
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',
     stage: Infinity,
   }
 
-  protected compilation: Compilation
+  protected compilation: Webpack.Compilation
 
   public fileName: string
 
@@ -21,7 +31,7 @@ class WordPressDependenciesWebpackPlugin {
   }
 
   @bind
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.normalModuleFactory.tap(
       this.plugin.name,
       this.normalModuleFactory,
@@ -62,7 +72,7 @@ class WordPressDependenciesWebpackPlugin {
   }
 
   @bind
-  public processAssets(assets: Compilation['assets']) {
+  public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {
       this.manifest[entry.name] = []
 
@@ -73,14 +83,16 @@ class WordPressDependenciesWebpackPlugin {
             this.usedDependencies[userRequest]
               ?.map(req => wpPkgs.transform(req).enqueue)
               .forEach(req => {
-                this.manifest[entry.name].push(req)
+                !this.manifest[entry.name].includes(req) &&
+                  this.manifest[entry.name].push(req)
               })
 
             _modules?.forEach(({userRequest}) => {
               this.usedDependencies[userRequest]
                 ?.map(req => wpPkgs.transform(req).enqueue)
                 .forEach(req => {
-                  this.manifest[entry.name].push(req)
+                  !this.manifest[entry.name].includes(req) &&
+                    this.manifest[entry.name].push(req)
                 })
             })
           })
@@ -93,5 +105,3 @@ class WordPressDependenciesWebpackPlugin {
     )
   }
 }
-
-export {WordPressDependenciesWebpackPlugin}

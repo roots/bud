@@ -1,15 +1,33 @@
-import {Tailwind} from './interface'
-import {tailwind} from './api'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const tailwindcss: Tailwind.Extension = {
-  name: '@roots/bud-tailwindcss',
-  api: {
-    tailwind,
-  },
-  boot: app => {
-    app.tailwind()
-  },
+/**
+ * Adds tailwindcss support to Bud
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
+ *
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ *
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import type {tailwind} from './tailwind.config'
+import {BudTailwindCssExtension} from './tailwind.service'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    tailwind: tailwind
+  }
+
+  interface Modules {
+    '@roots/bud-tailwindcss': BudTailwindCssExtension
+  }
 }
 
-export const {name, api, boot} = tailwindcss
-export default tailwindcss
+export const {name, api, boot} = BudTailwindCssExtension

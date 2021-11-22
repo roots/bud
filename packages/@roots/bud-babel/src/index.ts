@@ -1,48 +1,55 @@
-import './interface'
-import type {Framework, Module} from '@roots/bud-framework'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
+/**
+ * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel
+ * transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.
+
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
 import {Item, Loader} from '@roots/bud-build'
-import {Config} from './Config'
-import {existsSync} from 'fs-extra'
 
-const babel: Module = {
-  name: '@roots/bud-babel',
+import {Config} from './babel.config'
+import * as BudBabelExtension from './babel.extension'
 
-  api: (app: Framework) => ({
-    babel: new Config().init(app),
-  }),
+declare module '@roots/bud-framework' {
+  interface Framework {
+    babel: Config
+  }
 
-  register: ({build}) => {
-    build.loaders.babel = new Loader(
-      require.resolve('babel-loader'),
-    )
+  interface Modules {
+    '@roots/bud-babel': typeof BudBabelExtension
+  }
 
-    build.items.babel = new Item({
-      loader: ({build}) => build.loaders.babel,
-      options: ({path, babel}) => ({
-        cacheDirectory: path('storage', 'babel'),
-        root: path('src'),
-        presets: Object.values(babel.presets),
-        plugins: Object.values(babel.plugins),
-      }),
-    })
+  interface Loaders {
+    babel: Loader
+  }
 
-    build.rules.js.setUse(({build}) => [build.items.babel])
-  },
-
-  boot: app =>
-    !existsSync(app.path('project', 'babel.config.js')) &&
-    app.babel.setPresets(['@babel/preset-env']).setPlugins([
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          helpers: false,
-        },
-      ],
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-class-properties',
-    ]),
+  interface Items {
+    babel: Item
+  }
 }
 
-export default babel
-export const {name, api, register, boot} = babel
+declare module '@roots/bud' {
+  interface Bud {
+    babel: Config
+  }
+
+  interface Modules {
+    '@roots/bud-babel': typeof BudBabelExtension
+  }
+
+  interface Loaders {
+    babel: Loader
+  }
+
+  interface Items {
+    babel: Item
+  }
+}
+
+export const {name, mixin, register} = BudBabelExtension

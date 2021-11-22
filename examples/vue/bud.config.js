@@ -1,2 +1,3 @@
-module.exports = app =>
-  app.use(require('@roots/bud-vue')).entry('app', ['app.vue'])
+module.exports = async app => {
+  app.entry('app', ['app.vue']).minimize()
+}

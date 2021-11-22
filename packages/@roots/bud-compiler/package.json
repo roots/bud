@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-compiler",
   "description": "Compilation handler",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -30,7 +34,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/"
   ],
@@ -61,12 +64,15 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@types/jest": "27.0.2",
+    "@types/lodash": "4.14.177",
+    "@types/node": "16.11.7"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
-    "lodash": "^4.17.21"
-  }
+    "@roots/bud-support": "workspace:^",
+    "helpful-decorators": "^2.1.0",
+    "tslib": "^2.3.1",
+    "webpack": "5.64.1"
+  },
+  "stableVersion": "4.6.0"
 }

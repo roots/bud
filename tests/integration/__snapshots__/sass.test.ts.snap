@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`examples/sass scss is transpiled 1`] = `
+"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
+"
+`;
+
+exports[`examples/sass src/app.scss is unchanged 1`] = `
+"$blue: blue;
+$white: white;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: $blue;
+
+  div {
+    border: $white;
+  }
+}
+"
+`;

@@ -1,5 +1,9 @@
-module.exports = app =>
-  app
-    .use([require('@roots/bud-eslint')])
-    .template()
-    .entry('app', 'app.js')
+// @ts-check
+
+/**
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
+ */
+module.exports = async app =>
+  app.template().entry('app', 'app.js')

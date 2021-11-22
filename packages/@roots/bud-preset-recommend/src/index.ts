@@ -1,23 +1,46 @@
-import '@roots/bud-api'
-import {Module} from '@roots/bud-framework'
-import babel from '@roots/bud-babel'
-import postcss from '@roots/bud-postcss'
-import entrypoints from '@roots/bud-entrypoints'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
+/**
+ * Recommended preset configuration for Bud.
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * This preset is a wrapper for the following presets:
+ *
+ * - {@link @roots/bud-babel# | @roots/bud-babel}
+ *
+ * - {@link @roots/bud-postcss# | @roots/bud-postcss}
+ *
+ * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Extensions {
-    interface Definitions {
-      '@roots/bud-preset-recommend': Module
-    }
+  interface Modules {
+    '@roots/bud-preset-recommend': BudPresetRecommend
   }
 }
 
-const extension: Module = {
-  name: '@roots/bud-preset-recommend',
-  register: ({use}) => {
-    use([babel, postcss, entrypoints]).template().persist()
-  },
+export interface BudPresetRecommend extends Extension.Module {
+  name: '@roots/bud-preset-recommend'
 }
 
-export default extension
-export const {name, register} = extension
+/**
+ * Recommended preset configuration for Bud.
+ *
+ * @public
+ */
+export const name = '@roots/bud-preset-recommend'

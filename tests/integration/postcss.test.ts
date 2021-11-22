@@ -1,27 +1,36 @@
-import {helper, Assets} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('postcss', 'examples/postcss')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/postcss', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'postcss',
+      dir: 'examples/postcss',
+    })
+
+    await project.setup()
   })
 
   describe('main.css', () => {
     it('has contents', () => {
-      expect(assets['app.css'].length).toBeGreaterThan(10)
+      expect(project.assets['app.css'].length).toBeGreaterThan(
+        10,
+      )
     })
 
     it('is transpiled', () => {
-      expect(assets['app.css'].includes('@import')).toBeFalsy()
+      expect(
+        project.assets['app.css'].includes('@import'),
+      ).toBeFalsy()
     })
 
     it('successfully used @import', () => {
-      expect(assets['app.css'].includes('h2')).toBeTruthy()
+      expect(
+        project.assets['app.css'].includes('h2'),
+      ).toBeTruthy()
     })
   })
 })

@@ -1,21 +1,32 @@
-module.exports = bud =>
-  bud
+// @ts-check
+
+/**
+ * @typedef {import('@roots/bud').Bud} Bud
+ *
+ * @param {Bud} app
+ */
+module.exports = async app => {
+  await app
     .use([
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
       require('@roots/bud-criticalcss'),
     ])
-    .template({
-      template: 'public/index.html',
+    .then(app => {
+      app
+        .template({
+          template: app.path('project', 'public', 'index.html'),
+        })
+        .critical({
+          replace: '%INLINE_CSS%',
+          criticalOptions: {
+            html: app.path('project', 'public', 'index.html'),
+            base: '/',
+          },
+        })
+        .hash()
+        .entry('app', ['app.css'])
+        .entry('app2', ['app2.css'])
+        .splitChunks()
     })
-    .critical({
-      replace: '%INLINE_CSS%',
-      criticalOptions: {
-        html: 'public/index.html',
-      },
-    })
-    .hash()
-    .entry('app', ['app.css'])
-    .entry('app2', ['app2.css'])
-    .splitChunks()
-    .minimize()
+}

@@ -1,16 +1,21 @@
-import './interface'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-import {Framework, Module} from '@roots/bud-framework'
+/**
+ * The `@roots/bud-emotion` package adds emotioncss support to {@link @roots/bud-framework# | the Framework}
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-export const name: Module['name'] = '@roots/bud-emotion'
+import {BudEmotionExtension} from './BudEmotionExtension'
 
-export const boot: Module['boot'] = (app: Framework) => {
-  app.babel?.setPlugins &&
-    app.babel.setPlugins([
-      ['@emotion', {}],
-      ...app.hooks.filter('item/babel/options/plugins'),
-    ])
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-emotion': BudEmotionExtension
+  }
 }
 
-const extension: Module = {name, boot}
-export default extension
+export const {name, boot} = BudEmotionExtension

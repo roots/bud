@@ -1,6 +1,21 @@
+/**
+ * Blur HTML component
+ *
+ * @public
+ */
 export class Blur extends HTMLElement {
+  /**
+   * Is `true` if component has already been rendered
+   *
+   * @public
+   */
   public rendered: boolean
 
+  /**
+   * Render component
+   *
+   * @public
+   */
   public render() {
     this.style.width = `100%`
     this.style.height = `100%`
@@ -16,6 +31,11 @@ export class Blur extends HTMLElement {
     this.style.filter = `saturate(0)`
   }
 
+  /**
+   * Component reactivity
+   *
+   * @public
+   */
   public connectedCallback() {
     if (!this.rendered) {
       this.render()

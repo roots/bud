@@ -1,6 +1,0 @@
-name: '@roots/bud-entrypoints'
-type: extension
-
-dependencies:
-  transitive:
-    '@roots/entrypoints-webpack-plugin': latest

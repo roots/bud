@@ -5,7 +5,14 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "types": [
+      "node"
+    ]
   },
   "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "references": [
+    {
+      "path": "./../container/tsconfig.json"
+    }
+  ]
 }

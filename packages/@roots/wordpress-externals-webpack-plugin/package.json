@@ -1,6 +1,6 @@
 {
   "name": "@roots/wordpress-externals-webpack-plugin",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -8,8 +8,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -28,10 +32,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -59,11 +61,18 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2"
+    "@types/eslint": "7.29.0",
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "eslint": "7.32.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
-    "webpack": "^5.38.1"
-  }
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "webpack": "^5.47.1"
+  },
+  "stableVersion": "4.6.0"
 }

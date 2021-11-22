@@ -1,76 +1,54 @@
-const client = require('webpack-hot-middleware/client?quiet=true')
-const {overlay} = require('./ErrorOverlay')
-const {indicator} = require('./Indicator')
+/* eslint-disable react-hooks/rules-of-hooks */
 
 /**
- * Client
+ * Retrieves data on running application
+ *
+ * @public
  */
-const run = async () => {
+
+;(async () => {
+  const {overlay} = await import('./ErrorOverlay')
+  const {indicator} = await import('./Indicator')
+
+  const {
+    setOptionsAndConnect,
+    useCustomOverlay,
+    subscribeAll,
+  } = require('webpack-hot-middleware/client?autoConnect=false')
+
+  const indicatorEl = indicator.init()
+  const overlayEl = overlay.init()
+
   const res = await fetch('/__roots/config.json')
-  const server = await res.json()
+  const {server, ...app} = await res.json()
 
-  server.browser.log &&
-    (() => {
-      console.info(`[Bud] Development mode`)
-      console.info(
-        `[Bud] You should NOT be seeing this message in production.`,
-      )
-    })()
+  const {log} = server.browser.log
+    ? await import('./logger')
+    : {log: () => {}}
 
-  /**
-   * Instantiate overlay
-   */
-  server.browser.overlay && client.useCustomOverlay(overlay)
+  setOptionsAndConnect({
+    name: app.name,
+    overlay: true,
+    overlayWarnings: true,
+    quiet: true,
+    reload: false,
+  })
 
-  /**
-   * Loading indicator
-   */
-  server.browser.indicator &&
-    (() => {
-      indicator.init()
+  server.browser.overlay && useCustomOverlay(overlayEl)
 
-      client.subscribeAll(payload => {
-        const reload = payload?.action == 'reload'
-        const complete = payload?.action == 'built'
-        const pending = payload?.action == 'building'
-        const hasWarnings = payload?.warnings?.length > 0
-        const hasErrors = payload?.errors?.length > 0
+  subscribeAll(payload => {
+    log(
+      `${payload.action}${
+        payload.time ? ` (${payload.time}ms)` : ``
+      }`,
+    )
 
-        server.browser.log &&
-          (() => {
-            hasWarnings &&
-              console.warn('[Bud] Warning', payload.warnings)
+    server.browser.indicator && indicatorEl.update(payload)
 
-            hasErrors &&
-              console.error('[Bud] Error', payload.errors)
+    server.browser.overlay &&
+      payload?.errors?.length &&
+      overlay.showProblems('errors', payload.errors)
 
-            pending && console.log('[Bud] Compiling...')
-
-            complete &&
-              !hasErrors &&
-              !hasWarnings &&
-              console.log(
-                `[Bud] Compilation success [${payload.hash}] (${payload.time}ms)`,
-              )
-
-            reload &&
-              console.log(
-                `[Bud] Project template modified. Reloading now.`,
-              )
-          })()
-
-        reload && indicator.reload()
-
-        payload &&
-          indicator.update({
-            payload,
-            complete,
-            pending,
-            hasWarnings,
-            hasErrors,
-          })
-      })
-    })()
-}
-
-run()
+    if (payload.action === 'reload') window.location.reload()
+  })
+})()

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -31,10 +35,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -61,19 +63,27 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-postcss"
+    ]
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@fullhuman/postcss-purgecss": "4.0.3",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "^15.12.2",
-    "postcss": "^8.3.0"
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "jest": "27.3.1",
+    "postcss": "8.3.11"
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^4.0.3",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*"
-  }
+    "@fullhuman/postcss-purgecss": "4.0.3"
+  },
+  "stableVersion": "4.6.0"
 }

@@ -1,19 +1,12 @@
-const babel = require('@roots/bud-babel')
-const postcss = require('@roots/bud-postcss')
-const react = require('@roots/bud-react')
-
-const extensions = [babel, postcss, react]
-
-module.exports = app => {
-  return app
-    .use(extensions)
+module.exports = async app => {
+  app
     .template({
       template: 'public/index.html',
     })
     .entry({
-      app: ['app.{js,css}'],
+      app: ['app.js', 'app.css'],
     })
     .when(app.isProduction, () => {
-      app.runtime('single').splitChunks()
+      app.runtime('single').splitChunks().minimize()
     })
 }

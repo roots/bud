@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -9,8 +9,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -30,9 +34,8 @@
   },
   "files": [
     "lib/",
-    "publish/",
     "types/",
-    "manifest/"
+    "templates/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -59,23 +62,29 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "peers": [
+      "@roots/bud-postcss"
+    ]
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "^15.12.2",
-    "postcss": "^8.3.0"
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "@types/tailwindcss": "2.2.4",
+    "jest": "27.3.1",
+    "postcss": "8.3.11",
+    "tailwindcss": "2.2.19"
   },
   "dependencies": {
-    "@types/tailwindcss": "^2.0.5",
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^10.2.6"
+    "autoprefixer": "^10.3.7",
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
-    "autoprefixer": "^10.2.5",
-    "tailwindcss": "^2.1.2"
-  }
+    "tailwindcss": "2.2.19"
+  },
+  "stableVersion": "4.6.0"
 }

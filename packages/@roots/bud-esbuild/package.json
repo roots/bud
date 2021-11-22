@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -31,9 +35,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -61,22 +63,26 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/fs-extra": "^9.0.11",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@types/fs-extra": "9.0.13",
+    "@types/jest": "27.0.2",
+    "@types/lodash": "4.14.177",
+    "@types/node": "16.11.7",
+    "jest": "27.3.1",
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "esbuild-loader": "^2.13.1",
+    "esbuild-loader": "^2.16.0",
     "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tslib": "^2.3.1"
   },
-  "peerDependencies": {
-    "@roots/bud": "*"
-  }
+  "stableVersion": "4.6.0"
 }

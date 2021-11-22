@@ -1,84 +1,126 @@
-import {Framework, Hooks, Service} from '@roots/bud-framework'
-import prettyFormat from 'pretty-format'
-import _ from 'lodash'
-import {boundMethod as bind} from 'autobind-decorator'
+import {
+  Framework,
+  Hooks as Contract,
+  Project,
+  Service,
+} from '@roots/bud-framework'
+import {bind, lodash} from '@roots/bud-support'
 
-export default class extends Service implements Hooks {
-  public name = '@roots/bud-hooks'
+const {get, isArray, isFunction, noop, set} = lodash
+
+export class Hooks extends Service implements Contract {
+  /**
+   * @public
+   */
+  public name = 'hooks'
 
   @bind
-  public get<T = any>(path: `${Hooks.Name & string}`) {
-    return _.get(this.repository, path) as T
+  public async boot() {
+    this.app.hooks.on(
+      'event.project.write',
+      async (project: Project.Interface) =>
+        project.set('hooks', this.all()),
+    )
   }
 
   @bind
-  public set(key: `${Hooks.Name & string}`, value: any): this {
-    _.set(this.repository, key, value)
+  public get<T = any>(path: `${Contract.Name & string}`) {
+    return get(this.repository, path) as T
+  }
+
+  @bind
+  public set(
+    key: `${Contract.Name & string}`,
+    value: any,
+  ): this {
+    set(this.repository, key, value)
     return this
   }
 
   @bind
-  public on(id: Hooks.Name, callback: Hooks.Hook): Framework {
-    const [publisher, name] = _.isArray(id)
+  public on(
+    id: Contract.Name,
+    callback: Contract.Hook,
+  ): Framework {
+    const [_publisher, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
-    const current = this.get(name)
+    const current = this.get(name) ?? []
 
-    if (!_.isArray(current)) {
+    if (!isArray(current)) {
       this.set(name, [callback])
     } else {
       this.set(name, [...current, callback])
     }
 
-    this.logger.scope(name, publisher).success({
-      message: `${name} updated`,
-    })
+    return this.app
+  }
+
+  @bind
+  public promise(
+    id: Contract.Name,
+    callback: Contract.PromiseHook,
+  ): Framework {
+    const [_publisher, name] = isArray(id)
+      ? id
+      : ['anonymous', id]
+
+    const current = this.get(name) ?? []
+
+    if (!isArray(current)) {
+      this.set(name, [callback])
+    } else {
+      this.set(name, [...current, callback])
+    }
 
     return this.app
   }
 
   @bind
-  public filter<T = any>(id: `${Hooks.Name & string}`): T {
-    const [subscriber, name] = _.isArray(id)
+  public filter<T = any>(
+    id: `${Contract.Name & string}`,
+    value?: any,
+  ): T {
+    const [_subscriber, name] = isArray(id)
       ? id
       : ['anonymous', id]
 
-    !this.has(name) && this.set(name, [_.noop])
+    !this.has(name) && this.set(name, [value ?? noop])
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
-        return _.isFunction(cb) ? cb(v) : cb
+        return isFunction(cb) ? cb(v) : cb
       },
-      null,
+      value ?? null,
     )
-
-    this.logger.scope(name, subscriber).success({
-      message: `${name} retrieved`,
-      suffix: prettyFormat(result, {
-        highlight: true,
-      }),
-    })
 
     return result
   }
 
   @bind
-  public link(
-    target: `${Hooks.Name}`,
-    links: string[],
-  ): Framework {
-    this.on(target, () =>
-      links.reduce(
-        (a, link) => ({
-          ...a,
-          [link]: (() =>
-            this.filter(`${target}/${link}` as Hooks.Name))(),
-        }),
-        {},
-      ),
+  public async promised<T = any>(
+    id: `${Contract.Name & string}`,
+    value?: any,
+  ): Promise<T> {
+    const [_subscriber, name] = isArray(id)
+      ? id
+      : ['anonymous', id]
+
+    !this.has(name) && this.set(name, [value ?? noop])
+
+    const result = await this.get(name).reduce(
+      async (
+        promised: Promise<T>,
+        cb?: (value: T) => Promise<T>,
+      ) => {
+        const value = await promised
+
+        return isFunction(cb) ? await cb(value) : cb
+      },
+      value ?? null,
     )
 
-    return this.app
+    return result
   }
 }

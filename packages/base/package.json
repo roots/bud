@@ -21,13 +21,20 @@
     "g:pkg": "cd $INIT_CWD && package-check --verbose"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
-    "@types/replacestream": "^4.0.0",
-    "globby": "^11.0.3",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.0",
-    "replacestream": "^4.0.3",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.3.2"
+    "@skypack/package-check": "0.2.2",
+    "@types/eslint": "7.29.0",
+    "@types/jest": "27.0.2",
+    "@types/replacestream": "4.0.1",
+    "eslint": "7.32.0",
+    "globby": "12.0.2",
+    "jest": "27.3.1",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.4.1",
+    "replacestream": "4.0.3",
+    "rimraf": "3.0.2",
+    "typescript": "4.4.4"
+  },
+  "dependencies": {
+    "tslib": "2.3.1"
   }
 }

@@ -1,55 +1,33 @@
-import './interface'
-import {Framework, Terser, Module} from '@roots/bud-framework'
-import TerserPlugin from 'terser-webpack-plugin'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-export const name: Module['name'] = 'terser-webpack-plugin'
+/**
+ * Adds terser minification support to Bud
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
+ *
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ *
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-export const options: Module.Options<TerserPlugin.Options> =
-  app => ({
-    parallel: app.hooks.filter('build/parallelism'),
-    include: app.store.get('patterns.js'),
-    extractComments: false,
-    terserOptions: {
-      parse: {
-        ecma: 2018,
-      },
-      compress: false,
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-        ascii_only: true,
-      },
-    },
-  })
+import type {terser} from './terser.api'
+import type {Extension} from './terser.interface'
 
-export const boot: Module.Boot = ({
-  extensions,
-  hooks,
-  isProduction,
-}) => {
-  hooks.on('build/optimization/minimize', isProduction)
-  hooks.on('build/optimization/minimizer', minimizer => {
-    return [
-      new TerserPlugin(
-        extensions.get('terser-webpack-plugin').options,
-      ),
-      ...(minimizer ?? []),
-    ]
-  })
+declare module '@roots/bud-framework' {
+  interface Framework {
+    terser: terser
+  }
+
+  interface Modules {
+    'terser-webpack-plugin': Extension
+  }
 }
 
-export const api = {
-  terser: function (options: Terser.Options): Framework {
-    this.hooks.on(
-      'extension/terser-webpack-plugin/options',
-      () => options,
-    )
-    return this
-  },
-}
-
-const extension: Module = {name, options, api, boot}
-export default extension
+export {name, api, options, boot} from './terser.extension'

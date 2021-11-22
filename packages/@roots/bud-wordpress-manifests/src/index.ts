@@ -1,10 +1,35 @@
-import './interface'
-import type {Module} from '@roots/bud-framework'
-import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const extension: Module<MergedManifestPlugin, null> = {
-  name: '@roots/bud-wordpress-manifests',
-  make: () => new MergedManifestPlugin(),
+/**
+ * {@link @roots/merged-manifest-webpack-plugin# | @roots/merged-manifest-webpack-plugin} adapter
+ *
+ * @remarks
+ * Wordpress manifests are a JSON representation of assets which will
+ * need to be enqueued using WordPress PHP APIs for inclusion in a theme
+ * or plugin.
+ *
+ * @see https://roots.io/bud
+
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Extension} from '@roots/bud-framework'
+import {MergedManifestWebpackPlugin} from '@roots/merged-manifest-webpack-plugin'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
+    '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
+  }
 }
 
-export const {name, make} = extension
+const BudMergedManifestAdapter: Extension.CompilerPlugin<
+  MergedManifestWebpackPlugin,
+  null
+> = {
+  name: '@roots/bud-wordpress-manifests',
+  make: () => new MergedManifestWebpackPlugin(),
+}
+
+export const {name, make} = BudMergedManifestAdapter

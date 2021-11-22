@@ -1,7 +1,7 @@
 {
   "name": "@roots/filesystem",
-  "version": "4.6.0",
-  "description": "Automated package installation",
+  "version": "5.0.0-next.14",
+  "description": "A simple, high-level virtual filesystem",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -11,8 +11,12 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "bugs": {
@@ -29,9 +33,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -59,15 +61,17 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
-  "dependencies": {
-    "@roots/container": "workspace:packages/@roots/container",
-    "autobind-decorator": "^2.4.0",
-    "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
-    "lodash": "^4.17.21",
-    "resolve-from": "^5.0.0"
-  },
   "devDependencies": {
-    "@types/node": "^15.12.2"
-  }
+    "@roots/container": "workspace:packages/@roots/container",
+    "@types/node": "16.11.7",
+    "autobind-decorator": "2.4.0",
+    "fs-extra": "10.0.0",
+    "globby": "11.0.4",
+    "lodash": "4.17.21",
+    "resolve-from": "5.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
+  "stableVersion": "4.6.0"
 }

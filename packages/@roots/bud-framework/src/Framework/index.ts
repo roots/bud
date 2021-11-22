@@ -1,493 +1,821 @@
-import {Api} from '../Api'
-import {Build} from '../Build'
-import {Cache} from '../Cache'
-import {Compiler} from '../Compiler'
 import {Container} from '@roots/container'
-import {Dashboard} from '../Dashboard'
-import {Dependencies} from '../Dependencies'
-import {Discovery} from '../Discovery'
-import {Disk} from '../Disk'
-import {Env} from '../Env'
+import {highlight, HighlightOptions} from 'cli-highlight'
+import {omit} from 'lodash'
+import {format} from 'pretty-format'
+import {PrettyFormatOptions} from 'pretty-format/build/types'
+
+import {
+  Api,
+  Build,
+  Compiler,
+  Configuration,
+  Dashboard,
+  Dependencies,
+  Env,
+  Extension,
+  Hooks,
+  Mode,
+  Server,
+  Services,
+} from '../'
+import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
-import {Hooks} from '../Hooks'
-import {Item} from '../Build/Item'
-import {Loader} from '../Build/Loader'
 import {Logger} from '../Logger'
-import {Mode} from '../Mode'
-import {Module} from '../Extensions/Module'
-import {Rule} from '../Build/Rule'
-import {Server} from '../Server'
-import {Service, Bootstrapper} from '../Service'
-import {Store} from '../Store'
+import * as Project from '../Project'
+import {bindMethod} from './bindMethod'
+import {close} from './close'
+import {container} from './container'
+import {bind} from './framework.dependencies'
+import {get} from './get'
+import {lifecycle} from './lifecycle'
+import {make} from './make'
+import * as methods from './methods'
+import {maybeCall} from './methods/maybeCall'
+import {mixin} from './mixin'
+import {path} from './path'
+import {pipe} from './pipe'
+import {sequence} from './sequence'
+import {setPath} from './setPath'
+import {tap} from './tap'
+import {when} from './when'
 
-import {isFunction} from 'lodash'
-import {join} from 'path'
-import {boundMethod as bind} from 'autobind-decorator'
-
-interface Framework {
+/**
+ * Base {@link Framework} class
+ *
+ * @core @public
+ */
+export abstract class Framework {
   /**
-   * Application name
-   * @default 'bud'
+   * Concrete implementation of the {@link Framework}
+   *
+   * @public
    */
-  name: string
+  public abstract implementation: Constructor
 
   /**
-   * Multi-compiler instances
-   * @note multi-compiler api is experimental
+   * Framework name
+   *
+   * @remarks
+   * The name of the parent compiler is used as a base when sourcing configuration files.
+   * So, in an implementation that uses the name `app`, the Framework will be sourcing
+   * `app.config.js`, `app.development.config.js`, etc.
+   *
+   * @public
    */
-  instance: Container<Framework>
+  public get name(): string {
+    return (
+      this.store?.get('name') ??
+      this.options.config.name ??
+      'bud'
+    )
+  }
+  public set name(name: string) {
+    this.store.set('name', name)
+  }
 
   /**
-   * API service
+   * Compilation mode
+   *
+   * @remarks
+   * Either `production` or `development`. Unlike webpack, there is no 'none' mode.
+   *
+   * @defaultValue 'production'
    */
-  api: Api
+  public get mode(): Mode {
+    return this.store.get('mode')
+  }
+  public set mode(mode: Mode) {
+    this.store.set('mode', mode)
+  }
+
+  /**
+   * Parent {@link Framework} instance
+   *
+   * @remarks
+   * Is `null` if the current instance is the parent instance.
+   *
+   * @defaultValue null
+   */
+  public root: Framework | null = this
+
+  /**
+   * True when current instance is the parent instance
+   *
+   * @readonly
+   */
+  public get isRoot(): boolean {
+    return this.root.name === this.name
+  }
+
+  public get isChild(): boolean {
+    return this.root.name !== this.name
+  }
+
+  /**
+   * {@link @roots/container#Container} of child {@link Framework} instances
+   *
+   * @remarks
+   * Is `null` if the current instance is a child instance.
+   *
+   * @defaultValue null
+   */
+  public children: Container<Record<string, Framework>> = null
+
+  /**
+   * True when {@link Framework} has children
+   *
+   * @readonly
+   */
+  public get hasChildren(): boolean {
+    return this.children?.getEntries().length > 0
+  }
+
+  /**
+   * Framework services
+   *
+   * @remarks
+   * Can be set directly on the child instance or passed as a property in the {@link Options}.
+   *
+   * @public
+   */
+  public services: Services
+
+  /**
+   * Macros for assisting with common config tasks
+   *
+   * @public @container
+   */
+  public api: Api
 
   /**
    * Build service
-   */
-  build: Build
-
-  /**
-   * Cache service
-   */
-  cache: Cache
-
-  /**
-   * Compiler service
-   */
-  compiler: Compiler
-
-  /**
-   * Dashboard service
-   */
-  dashboard: Dashboard
-
-  /**
-   * Dependencies service
-   */
-  dependencies: Dependencies
-
-  /**
-   * Discovery service
-   */
-  discovery: Discovery
-
-  /**
-   * Disk service
-   */
-  disk: Disk
-
-  /**
-   * Envvar service
-   */
-  env: Env
-
-  /**
-   * Extensions service
-   */
-  extensions: Extensions
-
-  /**
-   * Hooks service
-   */
-  hooks: Hooks
-
-  /**
-   * Logger service
-   */
-  logger: Logger
-
-  /**
-   * Dev server service
-   */
-  server: Server
-
-  /**
-   * Key Value store service
-   */
-  store: Store
-
-  /**
-   * app.access
    *
-   * If a value is a function it will call that
-   * function and return the result.
+   * @public
+   */
+  public build: Build.Interface
+
+  /**
+   * Determines cache validity and generates cache keys.
    *
-   * If the value is not a function it will return its value.
+   * @public
+   */
+  public cache: Cache.Interface
+
+  /**
+   * Compiles {@link @roots/bud-framework#Build | Build} configuration and stats/errors/progress reporting.
    *
-   * ```js
-   * const isAFunction = (option) => `option value: ${option}`
-   * const isAValue = 'option value: true'
-   *
-   * access(isAFunction, true)
-   * // => `option value: true`
-   *
-   * access(isAValue)
-   * // => `option value: true`
-   * ```
+   * @public
    */
-  access<I = any>(value: ((app: this) => I) | I): I
-
-  /**
-   * app.container
-   */
-  container(repository?: Container['repository']): Container
-
-  /**
-   * app.get
-   */
-  get(): Framework
-
-  /**
-   * app.getInstance
-   * @note multi-compiler api is experimental
-   */
-  getInstance(key: string): Framework
-
-  /**
-   * app.setInstance
-   * @note multi-compiler api is experimental
-   */
-  setInstance(key: string, framework: Framework): void
-
-  /**
-   * Get the compiler mode
-   */
-  getMode(): Mode
-
-  /**
-   * Set the compiler mode
-   */
-  setMode(mode: Mode): void
-
-  /**
-   * app.bootstrap
-   */
-  bootstrap(services: {
-    [key: string]: new (app: any) => Service | Bootstrapper
-  }): Framework
-
-  /**
-   * app.lifecycle
-   */
-  lifecycle(): Framework
-
-  /**
-   * app.path
-   */
-  path(
-    key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
-  ): string
-
-  /**
-   * app.pipe
-   */
-  pipe<I = any, R = any>(fns: CallableFunction[], value: I): R
-
-  /**
-   * app.sequence
-   */
-  sequence(fns: Array<(app: Framework) => any>): Framework
-
-  /**
-   * app.tap
-   */
-  tap(
-    fn:
-      | ((app?: Framework) => any)
-      | ((this: Framework, app?: Framework) => any),
-    bound?: boolean,
-  ): Framework
-
-  /**
-   * app.when
-   */
-  when(
-    test: ((app: Framework) => boolean) | boolean,
-    trueCase: (app: Framework) => any,
-    falseCase?: (app: Framework) => any,
-  ): Framework
-
-  /**
-   * log a message
-   */
-  log(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: warn)
-   */
-  warn(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: info)
-   */
-  info(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: debug)
-   */
-  debug(message?: any, ...optionalArgs: any[]): void
-
-  /**
-   * log (log level: error)
-   */
-  error(message: any, title: string): void
-}
-
-namespace Framework {
-  export interface Extensions {
-    [key: string]: Module
-  }
-
-  export interface Rules {
-    [key: string]: Rule
-  }
-
-  export interface Items {
-    [key: string]: Item
-  }
-
-  export interface Loaders {
-    [key: string]: Loader
-  }
-}
-
-abstract class Framework {
-  public name = 'bud'
-
-  public _services: Container<Service>
-
-  public _instance: Container<this>
-
-  public _mode: Mode
-
-  public api: Api
-
-  public build: Build
-
-  public cache: Cache
-
   public compiler: Compiler
 
+  /**
+   * Presents build progress, stats and errors from {@link Compiler} and {@link Server}
+   * over the CLI.
+   *
+   * @public
+   */
   public dashboard: Dashboard
 
+  /**
+   * Utilities for interfacing with user package manager software
+   *
+   * @public
+   */
   public dependencies: Dependencies
 
-  public discovery: Discovery
+  /**
+   * Project information and peer dependency management utilities
+   *
+   * @public
+   */
+  public project: Project.Interface
 
-  public disk: Disk
-
+  /**
+   * .env container
+   *
+   * @public @container
+   */
   public env: Env
 
+  /**
+   * Container service for {@link Framework} extensions.
+   *
+   * @remarks
+   * Extensions can be defined as a {@link Module}, which is more generic.
+   *
+   * They can also be defined as a {@link WebpackPlugin} which is a {@link Module}
+   * specifically yielding a {@link WebpackPluginInstance}.
+   *
+   * When adding a {@link Module} or {@link Plugin} to the container
+   * with {@link Extensions.add} it is cast to the {@link Extension} type.
+   *
+   * @public
+   */
   public extensions: Extensions
 
+  /**
+   * Service allowing for fitering {@link Framework} values through callbacks.
+   *
+   * @example Add a new entry to the `webpack.externals` configuration:
+   * ```ts
+   * hooks.on(
+   *   'build/externals',
+   *   externals => ({
+   *     ...externals,
+   *     $: 'jquery',
+   *   })
+   * )
+   * ```
+   *
+   * @example Change the `webpack.output.filename` format:
+   * ```ts
+   * hooks.on(
+   *   'build.output.filename',
+   *   () => '[name].[hash:4]',
+   * )
+   * ```
+   *
+   * @public
+   */
   public hooks: Hooks
 
+  /**
+   * Logging service
+   *
+   * @public
+   */
   public logger: Logger
 
-  public server: Server
-
-  public store: Store
-
-  public get services(): Container<Service> {
-    return this._services
+  /**
+   * Development server and browser devtools
+   *
+   * @public
+   */
+  public _server: Server.Interface
+  public get server(): Server.Interface {
+    return this.root._server
+  }
+  public set server(server: Server.Interface) {
+    this.root._server = server
   }
 
-  public set services(services: Container<Service>) {
-    this._services = services
-  }
+  /**
+   * Container service for holding configuration values
+   *
+   * @public
+   */
+  public store: Container
 
-  public get mode(): Mode {
-    return this._mode
-  }
-
-  public set mode(mode: Mode) {
-    this._mode = mode
-  }
-
-  public getMode(): Mode {
-    return this.mode
-  }
-
-  public setMode(mode: Mode): void {
-    this.mode = mode
-  }
-
+  /**
+   * True when {@link Framework.mode} is `production`
+   *
+   * @public
+   */
   public get isProduction(): boolean {
     return this.mode === 'production'
   }
 
+  /**
+   * True when {@link Framework.mode} is `development`
+   *
+   * @public
+   */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
   }
 
-  public constructor(config?: Store['repository']) {
-    this.mode = (
-      process.env.NODE_ENV && process.env.NODE_ENV !== 'test'
-        ? process.env.NODE_ENV
-        : 'production'
-    ) as 'production' | 'development'
+  /**
+   * True if ts-node has been invoked
+   *
+   * @public
+   */
+  public usingTsNode: boolean = false
 
-    this.store = new Store(this.get).setStore(config ?? {})
-  }
+  public options: Options
 
-  public access<I = any>(value: ((app: this) => I) | I): I {
-    return isFunction(value)
-      ? (value as CallableFunction)(this)
-      : value
-  }
-
-  public container(
-    repository?: Container['repository'],
-  ): Container {
-    return new Container(repository ?? {})
-  }
-
-  @bind
-  public get(): this {
-    return this
-  }
-
-  @bind
-  public getInstance(key: string): Framework {
-    return this._instance.get(key)
-  }
-
-  @bind
-  public setInstance(key: string, app: Framework) {
-    Object.assign(this, {
-      _instance: {
-        [key]: app,
-      },
-    })
-  }
-
-  @bind
-  public bootstrap(services: {
-    [key: string]: new (app: any) => Service | Bootstrapper
-  }): Framework {
-    this.services = this.container(services)
-
-    this.services.getEntries().map(([key, Instance]) => {
-      this[key] = new Instance(this.get)
-    })
-
-    return this
-  }
-
-  @bind
-  public lifecycle(): Framework {
-    const events = [
-      'bootstrap',
-      'bootstrapped',
-      'register',
-      'registered',
-      'boot',
-      'booted',
-    ]
-
-    events.forEach(event => {
-      this.services.getKeys().forEach(serviceName => {
-        const service = this[serviceName]
-        service && service[event] && service[event](this)
-      })
-    })
-
-    return this
-  }
-
-  @bind
-  public path(
-    key: `${keyof Hooks.Locale.Definitions & string}`,
-    path?: string,
-  ): string {
-    return join(
-      ...[
-        key !== 'project'
-          ? this.hooks.filter('location/project')
-          : false,
-        this.hooks.filter(`location/${key}` as Hooks.Name),
-        path ?? false,
-      ].filter(Boolean),
+  /**
+   * Class constructor
+   *
+   * @param options - {@link Framework.Options | Framework constructor options}
+   *
+   * @public
+   */
+  public constructor(options: Options) {
+    this.options = options
+    this.logger = new Logger(this)
+    this.store = this.container(options.config)
+    this.store.set(
+      'log.level',
+      this.options.config.cli.flags['log.level'],
     )
+
+    if (!options.childOf) {
+      // Parent & child instance exclusive settings
+      this.children = this.container()
+      this.root = this
+    } else {
+      this.root = options.childOf
+    }
+
+    // Assign to instance
+    this.services = options.services
+
+    this.maybeCall = maybeCall.bind(this)
+    this.bindMethod = bindMethod.bind(this)
+    this.close = close.bind(this)
+    this.get = get.bind(this)
+    this.lifecycle = lifecycle.bind(this)
+    this.make = make.bind(this)
+    this.mixin = mixin.bind(this)
+    this.path = path.bind(this)
+    this.pipe = pipe.bind(this)
+    this.setPath = setPath.bind(this)
+    this.tap = tap.bind(this)
+    this.when = when.bind(this)
   }
 
-  @bind
-  public pipe<I = any, R = any>(
-    fns: CallableFunction[],
-    value: I,
-  ): R {
-    return (value = fns.reduce((val, fn) => {
-      return fn(val)
-    }, value))
+  /**
+   * @internal
+   */
+  public lifecycle: lifecycle
+
+  /**
+   * Access a value which may or may not be a function.
+   *
+   * @remarks
+   * If a value is a function **access** will call that function and return the result.
+   *
+   * If the value is not a function **access** will return its value.
+   *
+   * @example
+   * ```js
+   * const isAFunction = (option) => `option value: ${option}`
+   * const isAValue = 'option value: true'
+   *
+   * access(isAFunction, true) // => `option value: true`
+   * access(isAValue) // => `option value: true`
+   * ```
+   *
+   * @public
+   */
+  public maybeCall: maybeCall
+
+  /**
+   * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
+   *
+   * @example
+   * ```js
+   * bud.close()
+   * ```
+   *
+   * @public
+   */
+  public close: close
+
+  /**
+   * Create a new {@link Container} instance
+   *
+   * @example
+   * ```js
+   * const myContainer = bud.container({key: 'value'})
+   *
+   * myContainer.get('key') // returns 'value'
+   * ```
+   *
+   * @public @container
+   */
+  public container: container = container
+
+  /**
+   * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
+   *
+   * @remarks
+   * An optional {@link tap} function can be provided to configure the {@link Framework} instance.
+   *
+   * @example
+   * ```js
+   * const name = 'plugin'
+   * const tapFn = plugin => plugin.entry('main', 'main.js')
+   *
+   * bud.get(name, tapFn)
+   * ```
+   *
+   * @public
+   */
+  public get: get
+
+  /**
+   * Instantiate a child instance and add to {@link Framework.children} container
+   *
+   * @remarks
+   * **make** takes two parameters:
+   *
+   * - The **name** of the new compiler
+   * - An optional callback to use for configuring the compiler.
+   *
+   * @example
+   * ```js
+   * bud.make('scripts', child => child.entry('app', 'app.js'))
+   * ```
+   *
+   * @public
+   */
+  public make: make = make
+
+  /**
+   * Returns a {@link Locations} value as an absolute path
+   *
+   * @public
+   */
+  public path: path
+
+  /**
+   * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
+   *
+   * @remarks
+   * If no value is provided the value is assumed to be the {@link Framework} itself
+   *
+   * {@link sequence} is a non-mutational version of this method.
+   *
+   * @example
+   * ```js
+   * app.pipe(
+   *   [
+   *     value => value + 1,
+   *     value => value + 1,
+   *   ],
+   *   1, // initial value
+   * ) // resulting value is 3
+   * ```
+   *
+   * @public
+   */
+  public pipe: pipe
+
+  /**
+   * Set a {@link @roots/bud-framework#Location | Location} value
+   *
+   * @remarks
+   * The {@link Locations.project} should be an absolute path.
+   * All other directories should be relative (src, dist, etc.)
+   * @see {@link Locations}
+   *
+   * @example
+   * ```js
+   * bud.setPath('src', 'custom/src')
+   * ```
+   *
+   * @param this - {@link Framework}
+   * @param args - path parts
+   * @returns {@link Framework}
+   *
+   * @public
+   */
+  public setPath: setPath
+
+  /**
+   * Run a value through an array of syncronous, non-mutational functions.
+   *
+   * @remarks
+   * Unlike {@link pipe} the value returned from each function is ignored.
+   *
+   * @public
+   */
+  public sequence: sequence = sequence.bind(this)
+
+  /**
+   * Execute a callback
+   *
+   * @remarks
+   * Callback is provided {@link Framework | the Framework instance} as a parameter.
+   *
+   * @example
+   * ```js
+   * bud.tap(bud => {
+   *   // do something with bud
+   * })
+   * ```
+   *
+   * @example
+   * Lexical scope is bound to Framework where applicable, so it
+   * is possible to reference the Framework using `this`.
+   *
+   * ```js
+   * bud.tap(function () {
+   *  // do something with this
+   * })
+   * ```
+   *
+   * @public
+   */
+  public tap: tap
+
+  /**
+   * Executes a function if a given test is `true`.
+   *
+   * @remarks
+   * - The first parameter is the conditional check.
+   * - The second parameter is the function to run if `true`.
+   * - The third parameter is optional; executed if the conditional is not `true`.
+   *
+   * @example
+   * Only produce a vendor bundle when running in `production` {@link Mode}:
+   *
+   * ```js
+   * bud.when(bud.isProduction, () => bud.vendor())
+   * ```
+   *
+   * @example
+   * Use `eval` sourcemap in development mode and `hidden-source-map` in production:
+   *
+   * ```js
+   * bud.when(
+   *   bud.isDevelopment,
+   *   () => bud.devtool('eval'),
+   *   () => bud.devtool('hidden-source-map'),
+   * )
+   * ```
+   *
+   * @public
+   */
+  public when: when
+
+  /**
+   * Bind method to {@link Framework | Framework instance}
+   *
+   * @public
+   */
+  public bindMethod = bindMethod.bind(this)
+
+  /**
+   * Adds a class as a property of the Framework
+   *
+   * @public
+   */
+  public mixin: typeof mixin
+
+  /**
+   * Read and write json files
+   *
+   * @public
+   */
+  public json: typeof methods.json = methods.json
+
+  /**
+   * Read and write yaml files
+   *
+   * @public
+   */
+  public yml: typeof methods.yaml = methods.yaml
+
+  /**
+   * Read and write typescript files
+   *
+   * @public
+   */
+  public ts: typeof methods.ts = {
+    read: methods.ts.read.bind(this),
   }
 
+  /**
+   * Log a message
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public sequence(fns: Array<(app: this) => any>): Framework {
-    fns.reduce((_val, fn) => this.tap(fn), this)
+  public log(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .log(...messages)
+
+    return this
+  }
+
+  /**
+   * Log an `info` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public info(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .info(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `success` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public success(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .success(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public warn(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .warn(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public time(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .time(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public await(...messages: any[]) {
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        .await(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public complete(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.context)
+      .complete(...messages)
+
+    return this
+  }
+
+  /**
+   * Log a `warning` level message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public timeEnd(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.context)
+      .timeEnd(...messages)
+
+    return this
+  }
+
+  /**
+   * Log and display a debug message.
+   *
+   * @remarks
+   * This error is fatal and will kill the process
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public debug(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.context)
+      .debug(...messages)
+
+    return this
+  }
+
+  /**
+   * Log and display an error.
+   *
+   * @remarks
+   * This error is fatal and will kill the process
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public error(...messages: any[]) {
+    this.logger.instance
+      .scope(...this.logger.context)
+      .error(...messages)
 
     return this
   }
 
   @bind
-  public tap(
-    fn:
-      | ((app: Framework) => any)
-      | ((this: Framework, app?: Framework) => any),
-    bound: boolean = true,
-  ) {
-    fn.call(bound ? this : null, this)
-
-    return this
-  }
-
-  @bind
-  public when(
-    test: ((app: Framework) => boolean) | boolean,
-    trueCase: (app: Framework) => any,
-    falseCase?: (app: Framework) => any,
+  public dump(
+    obj: any,
+    options?: PrettyFormatOptions &
+      HighlightOptions & {prefix: string},
   ): Framework {
-    this.access(test)
-      ? trueCase && isFunction(trueCase) && trueCase(this)
-      : falseCase && isFunction(falseCase) && falseCase(this)
+    if (this.logger.level !== 'log') return
+
+    const prettyFormatOptions = omit(options, [
+      'prefix',
+      'language',
+      'ignoreIllegals',
+    ])
+
+    // eslint-disable-next-line no-console
+    console.log(
+      options?.prefix ?? '',
+      highlight(
+        format(obj, {
+          callToJSON: false,
+          maxDepth: 8,
+          printFunctionName: false,
+          escapeString: false,
+          min: this.options.config.cli.flags['log.min'],
+          ...prettyFormatOptions,
+        }),
+        {
+          language: options?.language ?? 'typescript',
+          ignoreIllegals: options?.ignoreIllegals ?? true,
+        },
+      ),
+    )
 
     return this
-  }
-
-  @bind
-  public log(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .log(message, optionalArgs)
-  }
-
-  @bind
-  public info(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .info(message, optionalArgs)
-  }
-
-  @bind
-  public warn(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .warn(message, optionalArgs)
-  }
-
-  @bind
-  public debug(message?: any, ...optionalArgs: any[]) {
-    this.logger.instance
-      .scope(this.name)
-      .debug(message, optionalArgs)
-  }
-
-  @bind
-  public error(message: string, title: string) {
-    const instance = this.dashboard.renderError(message, title)
-    setTimeout(instance.unmount, 2000)
   }
 }
 
-export {Framework}
+/**
+ * Framework Constructor
+ */
+export type Constructor = new (options: Options) => Framework
+
+/*
+ * Constructor options
+ */
+export interface Options {
+  /**
+   * The object providing initial configuration values.
+   *
+   * @remarks
+   * It is probable that extensions and services will modify
+   * values introduced in this object. If you are looking to simply modify
+   * configuration values it is generally a better idea to use the
+   * {@link @roots/bud-hooks#Hooks | Hooks class} instead.
+   *
+   * @public
+   */
+  config?: Partial<Configuration>
+
+  /**
+   * Framework services
+   * @public
+   */
+  services?: Services
+
+  /**
+   * @internal
+   */
+  childOf?: Framework
+
+  /**
+   * Extensions to be registered
+   *
+   * @public
+   */
+  extensions?: () => Record<
+    string,
+    Extension.Module | Extension.CompilerPlugin
+  >
+}

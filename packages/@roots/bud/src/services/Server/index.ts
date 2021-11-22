@@ -1,13 +1,24 @@
-import {Server as Base} from '@roots/bud-server'
-import express from 'express'
-import {boundMethod as bind} from 'autobind-decorator'
+import {Application, Base} from './server.dependencies'
 
+/**
+ * Server service
+ *
+ * @public
+ */
 export class Server extends Base {
-  public name = 'service/server'
+  /**
+   * Service ident
+   *
+   * @public
+   */
+  public ident = 'bud.server'
 
-  @bind
-  public register({container, store}): void {
-    this.instance = express()
-    this.config = container(store.get('server'))
+  /**
+   * Service register callback
+   *
+   * @public
+   */
+  public async register({container, store}): Promise<void> {
+    this.application = Application()
   }
 }

@@ -6,13 +6,13 @@
   </div>
 </template>
 
-<style>
+<style lang="css">
 .custom-class {
   color: 'white';
+}
 
-  h1 {
-    font-size: 24px;
-  }
+h1 {
+  font-size: 24px;
 }
 </style>
 

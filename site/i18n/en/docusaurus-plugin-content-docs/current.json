@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.category.bud.hooks": {
+    "message": "bud.hooks",
+    "description": "The label for category bud.hooks in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.bud.mode": {
+    "message": "bud.mode",
+    "description": "The label for category bud.mode in sidebar sidebar"
+  }
+}

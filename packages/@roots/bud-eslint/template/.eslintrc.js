@@ -6,7 +6,6 @@ module.exports = {
     es6: true,
     amd: true,
     browser: true,
-    jquery: true,
   },
   parser: 'babel-eslint',
   parserOptions: {
@@ -20,7 +19,7 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module',
   },
-  plugins: ['import', 'plugin:prettier/recommended'],
+  plugins: ['import', 'prettier'],
   settings: {
     'import/core-modules': [],
     'import/ignore': [

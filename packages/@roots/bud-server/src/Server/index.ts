@@ -1,105 +1,137 @@
-import {Service, Server as Contract} from '@roots/bud-framework'
-import chokidar from 'chokidar'
-import {sync} from 'globby'
-import {FSWatcher} from 'fs-extra'
-import {resolve} from 'path'
-import {boundMethod as bind} from 'autobind-decorator'
+import * as Framework from '@roots/bud-framework'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
+import {bind, chokidar, globby} from './server.dependencies'
+import type {Watcher} from './server.interface'
 
-export class Server extends Service implements Contract {
-  public name = '@roots/bud-server'
+/**
+ * Server service class
+ *
+ * @public
+ */
+export class Server
+  extends Framework.Service
+  implements Framework.Server.Interface
+{
+  /**
+   * @internal @readonly
+   */
+  public readonly _assets = ['@roots/bud-server/client.js']
 
-  public middleware: Contract.Middleware.Inventory = {}
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.application}
+   *
+   * @public
+   */
+  public application: Framework.Server.Application
 
-  public config: Contract.Config
-
-  public _instance: Contract.Instance
-
-  public _watcher: FSWatcher
-
-  public get instance() {
-    return this._instance
+  public get config(): Framework.Server.Configuration {
+    return this.app.store.get('server')
   }
 
-  public set instance(instance) {
-    this._instance = instance
-  }
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface."instance"}
+   *
+   * @public
+   */
+  public instance: Framework.Server.Instance
 
-  public get watcher() {
-    return this._watcher
-  }
+  /**
+   * Utilized middleware
+   *
+   * @public
+   */
+  public middleware: Framework.Server.Middleware = {}
 
-  public set watcher(watcher: FSWatcher) {
-    this._watcher = watcher
-  }
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
+   *
+   * @public
+   */
+  public watcher: Watcher
 
-  public readonly _assets = [
-    resolve(__dirname, '../client/index.js'),
-  ]
-
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.assets}
+   *
+   * @public
+   */
   public get assets() {
     return this._assets
   }
 
-  public get isWatchable(): boolean {
-    return (
-      Array.isArray(this.getWatchedFilesArray()) &&
-      this.getWatchedFilesArray().length > 0
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.getWatchedFilesArray}
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async getWatchedFiles(): Promise<Array<string>> {
+    const [files, options] =
+      this.app.store.getValues('server.watch')
+
+    if (!files?.length) return []
+
+    const globResults = await globby(
+      files.map((file: string) =>
+        this.app.path('project', file),
+      ),
+      options,
     )
+
+    return globResults as unknown as Array<string>
   }
 
-  @bind
-  public getWatchedFilesArray(): string[] {
-    const [files, options] = this.config.getValues('watch')
-
-    return files?.length > 0
-      ? sync(
-          files.map((file: string) =>
-            this.app.path('project', file),
-          ),
-          options,
-        )
-      : []
-  }
-
-  @bind
-  public booted() {
-    this.watcher = chokidar.watch(this.getWatchedFilesArray())
-  }
-
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.processMiddlewares}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public processMiddlewares() {
-    Object.entries(middleware).map(([key, generate]) => {
-      if (this.config.isTrue(`middleware.${key}`)) {
-        this.info(`Enabling ${key}`)
+    this.middleware = Object.entries(middleware)
+      .filter(([k, v]) => {
+        if (this.app.store.is(`server.middleware.${k}`, true)) {
+          this.log('log', `middleware ${k} is enabled.`)
+          return true
+        }
 
-        this.middleware[key] = generate({
-          config: this.config,
-          compiler: this.app.compiler.instance,
-        })
-      }
-    })
+        return false
+      })
+      .reduce((acc, [key, generate]) => {
+        const middleware = generate(this.app)
 
-    Object.values(this.middleware).forEach(middleware =>
-      this.instance.use(middleware),
-    )
+        this.log(`info`, `configured middleware: ${key}`)
+
+        this.application.use(middleware)
+
+        return {...acc, [key]: middleware}
+      }, {})
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.run}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public run(): this {
-    this.app.compiler.compile()
-
+  public async run(): Promise<this> {
+    await this.app.compiler.compile()
     /**
      * __roots route
      */
-    this.instance
+    this.application
       .route('/__roots/config.json')
       .get((_req, res) => {
+        this.log('success', {
+          message: 'GET',
+          suffix: '/__roots/config.json',
+        })
         res.send({
           ...this.app.store.all(),
-          ...this.config.all(),
         })
 
         res.end()
@@ -110,21 +142,37 @@ export class Server extends Service implements Contract {
     /**
      * Listen
      */
-    this.instance.listen(this.config.get('port'), () => {
-      this.info(
-        `Server listening on %s`,
-        this.config.get('port'),
-      )
+    this.instance = this.application.listen(
+      this.app.store.get('server.port'),
+      (error: string) => {
+        if (error) this.log('error', error)
 
-      this.info({
-        ...this.config.all(),
-        middleware,
+        this.log(
+          'success',
+          'listening on port %s',
+          (this.instance.address() as any).port,
+        )
+      },
+    )
+
+    /**
+     * Initialize Watcher
+     */
+    const watchFiles = await this.getWatchedFiles()
+    if (watchFiles.length) {
+      watchFiles.forEach(file => {
+        this.log('log', `watching`, file, `for changes`)
       })
-    })
+      this.watcher = chokidar.watch(watchFiles)
+    }
 
-    this.isWatchable &&
-      this.watcher?.on('change', path => {
-        this.middleware.hot.publish({
+    /**
+     * If Watcher is watching and a file it is watching
+     * is touched, reload the window.
+     */
+    this.watcher?.on &&
+      this.watcher.on('change', path => {
+        this.middleware?.hot?.publish({
           action: 'reload',
           message: `Detected file change: ${path}. Reloading window.`,
         })
@@ -133,8 +181,23 @@ export class Server extends Service implements Contract {
     return this
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.inject}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public inject(): void {
     injectClient(this.app, this.assets)
   }
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.inject}
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public close(): void {}
 }

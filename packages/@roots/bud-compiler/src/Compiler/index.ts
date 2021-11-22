@@ -1,91 +1,192 @@
-import {Compiler, Service} from '@roots/bud-framework'
-import webpack, {ProgressPlugin, StatsCompilation} from 'webpack'
-import {noop} from 'lodash'
-import {boundMethod as bind} from 'autobind-decorator'
+import {
+  Compiler as Contract,
+  Service,
+} from '@roots/bud-framework'
+import {bind, lodash} from '@roots/bud-support'
+import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
+const {isFunction} = lodash
+import {once} from 'helpful-decorators'
 
-export default class extends Service implements Compiler {
-  public name = '@roots/bud-compiler'
+/**
+ * Initial state
+ *
+ * @public
+ */
+const INITIAL_STATS = {
+  assets: [],
+  errors: [],
+  warnings: [],
+}
 
-  public _instance: Compiler.Instance
+/**
+ * Wepback compilation controller class
+ *
+ * @public
+ */
+export class Compiler extends Service implements Contract {
+  /**
+   * Compiler instance
+   *
+   * @public
+   */
+  public instance: Contract.Instance
 
-  public _stats: StatsCompilation = {
-    assets: [],
-    errors: [],
-    warnings: [],
-  }
+  /**
+   * Compilation stats
+   *
+   * @public
+   */
+  public stats: StatsCompilation = INITIAL_STATS
 
-  public _progress: Compiler.Progress
+  /**
+   * Compilation progress
+   *
+   * @public
+   */
+  public progress: Contract.Progress
 
+  /**
+   * True if compiler is already instantiated
+   *
+   * @public
+   */
   public isCompiled: boolean = false
 
-  public get stats(): StatsCompilation {
-    return this._stats
-  }
+  /**
+   * @public
+   */
+  public config: any = []
 
-  public set stats(stats: StatsCompilation) {
-    this._stats = stats
-  }
-
-  public get progress(): Compiler['progress'] {
-    return this._progress
-  }
-
-  public set progress(progress: Compiler['progress']) {
-    this._progress = progress
-  }
-
-  public get instance(): Compiler.Instance {
-    return this._instance
-  }
-
-  public set instance(instance: Compiler.Instance) {
-    this._instance = instance
-  }
-
+  /**
+   * {@inheritDoc @roots/bud-framework#Service.register}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public compile(): Compiler.Instance {
-    if (this.isCompiled) {
-      this.instance.close(noop)
-    }
+  public async register() {}
 
-    this.app.hooks.filter('before')
+  /**
+   * Initiates compilation
+   *
+   * @returns the compiler instance
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  @once
+  public async compile() {
+    const config = await this.before()
+    const compiler = await this.invoke(config)
+    this.app.timeEnd('bud')
+    return compiler
+  }
 
-    this.instance = webpack(this.app.hooks.filter('after'))
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async invoke(config: any) {
+    await this.app.hooks.promised(
+      'event.compiler.before',
+      config,
+    )
 
-    this.instance.hooks.done.tap(this.app.name, stats => {
-      if (stats) {
-        this.stats = stats.toJson()
+    this.instance = webpack(config)
+
+    this.instance.hooks.done.tap(config[0].name, async stats => {
+      this.app.hooks.filter('event.compiler.done', stats)
+
+      stats && Object.assign(this.stats, stats.toJson())
+
+      if (this.app.isProduction) {
+        this.instance.close(err => {
+          if (err) {
+            this.app.hooks.filter('compiler.error', err)
+
+            this.stats.errors.push(err)
+            this.log('error', err)
+          }
+          this.app.close(() => {})
+        })
       }
-
-      this.instance.close(err => {
-        if (err) {
-          this.stats.errors.push(err)
-        }
-
-        if (this.app.mode == 'production') {
-          setTimeout(() => process.exit(), 1000)
-        }
-      })
     })
 
-    new ProgressPlugin((percentage, message): void => {
-      const decimal =
-        percentage && typeof percentage === 'number'
-          ? percentage
-          : 0
-
-      this.progress = {
-        decimal,
-        percentage: `${Math.floor(decimal * 100)}%`,
-        message,
-      }
+    new ProgressPlugin((...args): void => {
+      this.progress = args
     }).apply(this.instance)
 
-    this.isCompiled = true
+    this.app.hooks.filter('event.compiler.after')
 
     return this.instance
   }
 
+  /**
+   * Returns final webpack configuration
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  @once
+  public async before() {
+    const config = []
+
+    this.stats = INITIAL_STATS
+
+    this.isCompiled = true
+
+    !this.app.isRoot &&
+      this.log(
+        'error',
+        `Attempting to compile a child directly. Only the parent instance should be compiled.`,
+      )
+
+    await this.app.build.make()
+
+    /**
+     * Attempt to use the parent instance in the compilation if there are entries
+     * registered to it or if it has no child instances registered.
+     */
+    if (this.app.children.getEntries().length === 0) {
+      this.app.info(`using config from parent compiler`)
+      config.push(this.app.build.config)
+      return config
+    } else {
+      this.app.warn(
+        `root compiler will not be tapped (child compilers in use)`,
+      )
+    }
+
+    /**
+     * If there are {@link Framework.children} instances, iterate through
+     * them and add to `config`
+     */
+    await Promise.all(
+      this.app.children.getValues().map(async instance => {
+        if (!instance.name) return
+
+        this.log(
+          'success',
+          `\`${instance.name}\` compiler will be tapped`,
+        )
+
+        await instance.build.make()
+        config.push(instance.build.config)
+      }),
+    )
+
+    return config
+  }
+
+  /**
+   * Compilation callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public callback(...args: any[]) {
     /**
@@ -98,17 +199,19 @@ export default class extends Service implements Compiler {
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    this.app.when(stats, () => {
-      this.stats = stats.toJson(this.app.build.config.stats)
-    })
+    if (stats?.toJson && isFunction(stats.toJson)) {
+      this.stats = stats.toJson(
+        this.app.build.config.stats ?? {preset: 'normal'},
+      )
 
-    this.app.when(err, () => {
+      this.app.store.is('features.dashboard', false) &&
+        this.app.log(stats.toString())
+    }
+
+    if (err) {
       this.stats.errors.push(err)
-    })
-
-    this.app.when(this.app.store.get('ci'), () => {
-      stats && console.log(stats.toString())
-      err && console.error(err)
-    })
+      this.app.store.is('features.dashboard', false) &&
+        this.log('error', err)
+    }
   }
 }

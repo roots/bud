@@ -1,5 +1,6 @@
-node_modules
-dist
-**/*.map
-tsconfig.json
-dev/docs/src/templates/*
+**/bin
+**/lib
+**/*.json
+**/node_modules
+**/package.json
+**/tsconfig.json

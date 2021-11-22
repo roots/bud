@@ -1,14 +1,22 @@
-import {Module} from '@roots/bud-framework'
-import {
+import {Plugin} from './clean-webpack-plugin.dependencies'
+import type {
+  Container,
+  Extension,
   Options,
-  CleanWebpackPlugin as Plugin,
-} from 'clean-webpack-plugin'
+} from './clean-webpack-plugin.interface'
 
-const extension: Module<Plugin, Options> = {
+const BudCleanWebpackPlugin: Extension = {
   name: 'clean-webpack-plugin',
+
   options: ({store}) =>
-    store.get('extension.cleanWebpackPlugin'),
-  make: opts => new Plugin(opts.all()),
+    store.get('extension.clean-webpack-plugin'),
+
+  make: (options: Container<Options>) =>
+    new Plugin(options.all()),
+
+  when: ({store}) => store.is('features.clean', true),
 }
 
-export const {name, options, make} = extension
+const {name, options, when, make} = BudCleanWebpackPlugin
+
+export {name, options, when, make}

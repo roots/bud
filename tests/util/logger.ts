@@ -4,7 +4,7 @@ const logger = new Signale({
   interactive: false,
   types: {
     log: {
-      badge: '📝',
+      badge: '',
       label: '',
       color: 'white',
     },

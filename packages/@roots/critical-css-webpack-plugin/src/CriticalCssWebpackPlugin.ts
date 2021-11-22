@@ -1,18 +1,41 @@
-import type {Options} from './interface'
-import Webpack, {Module} from 'webpack'
-import critical from 'critical'
 import {boundMethod as bind} from 'autobind-decorator'
-import vinyl from 'vinyl'
+import critical from 'critical'
 import safeRequire from 'safe-require'
+import vinyl from 'vinyl'
+import * as Webpack from 'webpack'
 
+import type {Options} from './interface'
+
+/**
+ * HtmlWebpackPlugin
+ *
+ * @public
+ */
 const HtmlWebpackPlugin = safeRequire('html-webpack-plugin')
 
 /**
- * CriticalCSSWebpackPlugin
+ * Default options
+ *
+ * @public
  */
-export class CriticalCssWebpackPlugin {
+const INIT_OPTIONS = {
+  criticalOptions: {
+    extract: true,
+    width: 375,
+    height: 565,
+  },
+}
+
+/**
+ * CriticalCSSWebpackPlugin
+ *
+ * @public
+ */
+class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
+   *
+   * @public
    */
   public plugin = {
     name: 'CriticalCssWebpackPlugin',
@@ -21,6 +44,8 @@ export class CriticalCssWebpackPlugin {
 
   /**
    * Webpack lifecycle events
+   *
+   * @public
    */
   public webpack: {
     compiler: Webpack.Compiler
@@ -31,41 +56,22 @@ export class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Options
+   * Plugin options
+   *
+   * @defaultValue {@link INIT_OPTIONS}
+   *
+   * @internal
    */
-  public _options: Options = {
-    criticalOptions: {
-      minify: true,
-      extract: true,
-      width: 375,
-      height: 565,
-    },
-  }
+  public _options: Options = INIT_OPTIONS
 
   /**
-   * Entrypoint css mapping
-   */
-  public entrypoints: {
-    [key: string]: any
-  } = {}
-
-  /**
-   * Constructor
-   */
-  public constructor(options?: Options) {
-    Object.assign(this, {options})
-  }
-
-  /**
-   * Access: get options
+   * Accessor: get options
+   *
+   * @public
    */
   public get options(): Options {
     return this._options
   }
-
-  /**
-   * Access: set options
-   */
   public set options(options: Options) {
     this._options = {
       ...this._options,
@@ -74,7 +80,36 @@ export class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Webpack apply plugin
+   * chunks to be written to json
+   *
+   * @public
+   */
+  public entrypoints: {
+    [key: string]: any
+  } = {}
+
+  /**
+   * Class constructor
+   *
+   * @param options - {@link Options}
+   *
+   * @public
+   */
+  public constructor(options?: Options) {
+    Object.assign(this, {options})
+  }
+
+  /**
+   * Webpack apply hook
+   *
+   * @remarks
+   * Webpack compiler callback
+   *
+   * @param compiler - Webpack compiler
+   * @returns {Promise<void>}
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async apply(compiler: Webpack.Compiler): Promise<void> {
@@ -87,7 +122,10 @@ export class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Compilation
+   * Compilation hook
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public compilation(compilation: Webpack.Compilation): void {
@@ -101,6 +139,9 @@ export class CriticalCssWebpackPlugin {
 
   /**
    * Process assets
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async processAssets(
@@ -125,9 +166,15 @@ export class CriticalCssWebpackPlugin {
 
   /**
    * Critical css from aggregated entrypoint css sources
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
-  public async criticalEntry(entry: string, module: Module) {
+  public async criticalEntry(
+    entry: string,
+    module: Webpack.Module,
+  ) {
     const name = this.maybeHashName(module, entry)
 
     const {css, uncritical} = await this.generateCritical(
@@ -153,6 +200,9 @@ export class CriticalCssWebpackPlugin {
 
   /**
    * Get merged css modules
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public getMergedCssModules(chunk) {
@@ -167,6 +217,9 @@ export class CriticalCssWebpackPlugin {
 
   /**
    * Returns either the entrypoint name or the entrypoint name with a hash
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public maybeHashName(
@@ -240,3 +293,5 @@ export class CriticalCssWebpackPlugin {
     }
   }
 }
+
+export {CriticalCssWebpackPlugin}

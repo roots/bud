@@ -1,51 +1,39 @@
-import './interface'
-import {Module} from '@roots/bud-framework'
-import {Loader, Item, Rule} from '@roots/bud-build'
+/**
+ * Add sass support to Bud projects
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-const extension: Module = {
-  name: '@roots/bud-sass',
-  boot: ({hooks, build, discovery, error}) => {
-    try {
-      require.resolve('sass')
-    } catch (err) {
-      error(
-        "sass can't be found. Run `bud init`",
-        'Peer dependency missing',
-      )
-    }
-    build.loaders['sass'] = new Loader(
-      require.resolve('sass-loader'),
-    )
+import type {Item, Loader, Rule} from '@roots/bud-build'
 
-    build.items['sass'] = new Item({
-      loader: app => app.build.loaders['sass'],
-      options: app => ({
-        implementation: (() =>
-          require(require.resolve('sass')))(),
-        sourceMap: true,
-      }),
-    })
+import {BudSassExtension} from './BudSassExtension'
 
-    build.rules['sass'] = new Rule({
-      test: app => app.store.get('patterns.sass'),
-      exclude: app => app.store.get('patterns.modules'),
-      use: app => [
-        app.isProduction
-          ? app.build.items['minicss']
-          : app.build.items['style'],
-        app.build.items['css'],
-        app.build.items['postcss'],
-        app.build.items['sass'],
-        app.build.items['resolve-url'],
-      ],
-    })
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-sass': BudSassExtension
+  }
 
-    hooks.on('build/resolve/extensions', (exts: string[]) => [
-      ...exts,
-      '.scss',
-    ])
-  },
+  interface Loaders {
+    sass: Loader
+  }
+
+  interface Items {
+    sass: Item
+  }
+
+  interface Rules {
+    sass: Rule
+  }
 }
 
-export default extension
-export const {name, boot} = extension
+export const {name, register} = BudSassExtension

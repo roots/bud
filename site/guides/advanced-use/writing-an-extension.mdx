@@ -1,0 +1,106 @@
+---
+title: Writing an extension
+description: Create and package an extension to reuse across projects and share with other users
+sidebar_label: Writing an extension
+sidebar_position: 3
+image: 'https://budjs.netlify.app/img/share/guides/advanced-use__writing-an-extension.png'
+---
+
+import ModuleDefinition from '!!raw-loader!@site/../packages/@roots/bud-framework/src/Extensions/Extension/Module.ts'
+
+import TailwindCssIndex from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/index.ts'
+import BudTailwindCssExtension from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/BudTailwindCssExtension.ts'
+import BudTailwindCssConfig from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/tailwindConfig.ts'
+
+import EslintDefinition from '!!raw-loader!@site/../packages/@roots/bud-imagemin/src/index.ts'
+
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+:::note
+
+Extensions documentation is a work-in-progress.
+
+:::
+
+There are two types of extensions:
+
+- A [Module](#module): A generic extension. Used for adding config functions, loaders, rules, etc.
+- A [WebpackPlugin](#webpackplugin): An extension providing a proper `Webpack.WebpackPluginInstance`.
+
+Regardless of your use case, the [WebpackPlugin](#webpackplugin) type extends the [Module](#module) type, so everything in this guide should still be relevant.
+
+## Module
+
+### Example (@roots/bud-tailwindcss)
+
+The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
+
+- registers a function `bud.tailwind` that configures [@roots/bud-postcss](/extensions/bud-postcss).
+- On `boot` it calls that function.
+
+<Tabs
+  defaultValue="index.ts"
+  values={[
+    {label: 'index.ts', value: 'index.ts'},
+     {label: 'BudTailwindCssExtension.ts', value: 'BudTailwindCssExtension.ts'},
+    {label: 'tailwindConfig.ts', value: 'tailwindConfig.ts'},
+    {label: 'tsconfig.json', value: 'tsconfig.json'},
+  ]}>
+
+{' '}
+
+<TabItem value="index.ts">
+  <CodeBlock className="language-ts" title="index.js">
+    {TailwindCssIndex}
+  </CodeBlock>
+</TabItem>
+
+{' '}
+
+<TabItem value="BudTailwindCssExtension.ts">
+  <CodeBlock
+    className="language-ts"
+    title="BudTailwindCssExtension.ts"
+  >
+    {BudTailwindCssExtension}
+  </CodeBlock>
+</TabItem>
+
+{' '}
+
+<TabItem value="tailwindConfig.ts">
+  <CodeBlock className="language-ts" title="tailwindConfig.ts">
+    {BudTailwindCssConfig}
+  </CodeBlock>
+</TabItem>
+
+  <TabItem value="tsconfig.json">
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-framework",
+      "@roots/bud-postcss"
+    ]
+  }
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## WebpackPlugin
+
+A [WebpackPlugin](#webpackplugin) extends the [Module](#module) type, so it can do everything a [Module](#module) can. But it _must_ fulfill one of two requirements:
+
+- Include a `make` function returning a `Webpack.WebpackPluginInstance`, or;
+- Include a `apply` function returning a `Webpack.WebpackPluginInstance['apply']` method directly
+
+In general, you would include `make` if you are wrapping a webpack plugin and `apply` if you are writing a `Webpack.WebpackPlugin` specific to your extension.
+
+None of [the first-party extensions](/extensions) use `apply` even though some of them have an accompanying `Webpack.WebpackPlugin`. Instead, the plugin is packaged separately from
+the extension (in case someone wants to use the plugin directly).

@@ -1,7 +1,6 @@
-const foo: string = 'baz'
+const foo: string = 'black'
 
-document.querySelector('body').style.backgroundColor = 'black'
+document.querySelector('body').style.backgroundColor = foo
 
-module?.hot?.accept((err: Error) => {
-  console.error(err)
-})
+// @ts-ignore
+import.meta.webpackHot?.accept(console.error)

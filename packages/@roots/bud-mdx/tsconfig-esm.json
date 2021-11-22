@@ -2,6 +2,20 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib/esm",
-    "module": "ES2020"
-  }
+    "module": "esnext"
+  },
+  "references": [
+    {
+      "path": "./../bud-framework/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-babel/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-build/tsconfig-esm.json"
+    },
+    {
+      "path": "./../bud-react/tsconfig-esm.json"
+    }
+  ]
 }

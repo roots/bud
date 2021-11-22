@@ -24,7 +24,7 @@ code {
   display: flex;
   justify-content: center;
   align-content: center;
-  background-color: rgb(4, 1, 17);
+  background-color: rgba(4, 1, 17, 1);
 
   & .logo {
     height: 30vmin;

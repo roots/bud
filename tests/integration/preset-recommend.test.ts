@@ -1,27 +1,30 @@
-import {helper, Assets} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper(
-  'preset-recommend',
-  'examples/preset-recommend',
-)
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe('examples/preset-recommend', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
-    return
+    project = new Project({
+      name: 'preset-recommend',
+      dir: 'examples/preset-recommend',
+    })
+
+    await project.setup()
   })
 
-  describe('main.js', () => {
-    it('has contents', () => {
-      expect(assets['main.js'].length).toBeGreaterThan(10)
-    })
+  it('[app.js] has contents', () => {
+    expect(project.assets['app.js'].length).toBeGreaterThan(10)
+  })
 
-    it('is transpiled', () => {
-      expect(assets['main.js'].includes('import')).toBeFalsy()
-    })
+  it('[app.js] is transpiled', () => {
+    expect(
+      project.assets['app.js'].includes('import'),
+    ).toBeFalsy()
+  })
+
+  it('[app.css] is transpiled', () => {
+    expect(project.assets['app.css']).toMatchSnapshot()
   })
 })

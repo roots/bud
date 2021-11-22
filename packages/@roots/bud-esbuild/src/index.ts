@@ -1,24 +1,91 @@
-import './interface'
-import type {Module} from '@roots/bud-framework'
-import {ESBuildMinifyPlugin} from 'esbuild-loader'
-import {features} from './features/index'
-import {setOptions} from './api/index'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const esbuild: Module = {
+/**
+ * ESBuild support for Bud projects
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @beta
+ * This plugin is much more limited in terms of supporting essential dev-focused features
+ * like hot-reloading. It is provided as-is for use in Bud projects. It is not currently a focus
+ * of our development efforts.
+ *
+ * @remarks
+ * If you would like to contribute to the development of this plugin (especially if you have experience
+ * with module reloading in an ESBuild context), please open an issue on Github.
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Extension} from '@roots/bud-framework'
+import {ESBuildMinifyPlugin} from 'esbuild-loader'
+
+import {setOptions} from './api'
+import {features} from './features'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    esbuild: {setOptions: typeof setOptions}
+  }
+
+  interface Modules {
+    '@roots/bud-esbuild': Extension.Module
+    '@roots/bud-esbuild/js': Extension.Module
+    '@roots/bud-esbuild/ts': Extension.Module
+  }
+
+  interface Loaders {
+    'esbuild-js': Loader
+    'esbuild-ts': Loader
+  }
+
+  interface Items {
+    'esbuild-js': Item
+    'esbuild-ts': Item
+  }
+
+  interface Rules {
+    ts: Rule
+  }
+}
+
+/**
+ * ESBuild base extension
+ *
+ * @beta
+ */
+const esbuild: Extension.Module = {
   name: '@roots/bud-esbuild',
 
-  options: ({hooks, store}) => ({
+  options: ({store}) => ({
     target: store.get('patterns.js'),
     exclude: store.get('patterns.modules'),
   }),
 
-  boot: ({extensions, hooks, store}) => {
-    features.forEach(feature => extensions.add(feature))
+  boot: ({build, extensions, hooks}) => {
+    build.loaders.esbuild = new Loader(
+      require.resolve('esbuild-loader'),
+    )
 
-    hooks.on('build/optimization/minimizer', minimizer => [
-      ...(minimizer ?? []),
+    Promise.all(
+      features.map(
+        async feature => await extensions.add(feature),
+      ),
+    )
+
+    hooks.on('build.optimization.minimizer', () => [
       new ESBuildMinifyPlugin(
-        hooks.filter('extension/@roots/bud-esbuild/options'),
+        extensions.get('@roots/bud-esbuild').options.all(),
       ),
     ])
   },
@@ -28,5 +95,4 @@ const esbuild: Module = {
   }),
 }
 
-export default esbuild
-export const {name, boot, api} = esbuild
+export const {name, boot, options, api} = esbuild

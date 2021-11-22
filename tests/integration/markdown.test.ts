@@ -1,23 +1,28 @@
-import {helper, Assets} from '../util/integration'
+import {Project} from '../util/integration'
 
-const suite = helper('md', 'examples/markdown')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
+describe.skip('examples/markdown', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
+    project = new Project({
+      name: 'markdown',
+      dir: 'examples/markdown',
+    })
+
+    await project.setup()
   })
 
-  describe('main.js', () => {
+  describe('app.js', () => {
     it('has contents', () => {
-      expect(assets['main.js'].length).toBeGreaterThan(10)
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(assets['main.js'].includes('import')).toBeFalsy()
+      expect(
+        project.assets['app.js'].includes('import'),
+      ).toBeFalsy()
     })
   })
 })

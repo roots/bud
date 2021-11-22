@@ -1,6 +1,6 @@
 {
   "name": "@roots/critical-css-webpack-plugin",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -9,8 +9,12 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "bugs": {
@@ -28,10 +32,8 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "types/",
-    "manifest.yml"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -59,17 +61,20 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "@types/vinyl": "^2.0.4"
+    "@types/jest": "27.0.2",
+    "@types/lodash": "4.14.177",
+    "@types/node": "16.11.7",
+    "@types/vinyl": "2.0.6",
+    "jest": "27.3.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "critical": "^3.1.0",
+    "critical": "^4.0.1",
     "lodash": "^4.17.21",
     "safe-require": "^1.0.4",
+    "tslib": "^2.3.1",
     "vinyl": "^2.2.1",
-    "webpack": "^5.38.1"
-  }
+    "webpack": "^5.59.1"
+  },
+  "stableVersion": "4.6.0"
 }

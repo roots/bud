@@ -1,8 +1,20 @@
-export {WordPressExternals} from './interface'
-import {externals} from './externals'
-import Webpack, {ExternalsPlugin} from 'webpack'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-export class Plugin {
+/**
+ * The {@link @roots/wordpress-externals-webpack-plugin# | @roots/wordpress-externals-webpack-plugin} externalizes
+ * dependencies which should be enqueued through WordPress' API
+ *
+ * @see https://github.com/roots/bud/tree/stable/packages/wordpress-externals-webpack-plugin
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Compiler, ExternalsPlugin} from 'webpack'
+
+import {externals} from './externals'
+
+export class WordPressExternals {
   public name = 'WordPressExternalsWebpackPlugin'
 
   public stage = Infinity
@@ -13,7 +25,7 @@ export class Plugin {
     this.externals = new ExternalsPlugin('window', externals)
   }
 
-  public apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     this.externals.apply(compiler)
   }
 }

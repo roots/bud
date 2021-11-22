@@ -1,18 +1,54 @@
-import {Framework} from '../Framework'
-import {Service} from '../Service'
-import {Module} from './Module'
-import {WebpackPluginInstance} from 'webpack/types'
+import {Service} from '../'
+import {CompilerPlugin, Module} from './Extension'
 
-interface Extensions extends Service {
-  add(extension: Module): void
+/**
+ * Extensions Service interface
+ *
+ * @core @public @container
+ */
+export interface Extensions extends Service {
+  /**
+   * Extensions to be processed before build
+   *
+   * @public
+   */
+  queue: Array<CompilerPlugin | Module>
 
-  make(): Extensions.PluginOutput[]
+  /**
+   * Add an extension
+   *
+   * @public
+   */
+  add(extension: CompilerPlugin | Module): Promise<void>
 
-  discard(pkg: string): Framework
+  /**
+   * @public
+   */
+  enqueue(extension: CompilerPlugin | Module): void
+
+  /**
+   * Register event for all extensions
+   *
+   * @public
+   */
+  registerExtensions(): Promise<void>
+
+  /**
+   * Boot event for all extensions
+   *
+   * @public
+   */
+  bootExtensions(): Promise<void>
+
+  /**
+   * Get {@link ApplyPlugin} instances to be included in compilation
+   *
+   * @public
+   */
+  make(): {[key: string]: any; apply: CallableFunction}[]
+
+  /**
+   * @public
+   */
+  processQueue(): Promise<void>
 }
-
-namespace Extensions {
-  export type PluginOutput = WebpackPluginInstance[]
-}
-
-export {Extensions}

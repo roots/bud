@@ -1,24 +1,59 @@
-import Webpack from 'webpack'
-import fs from 'fs-extra'
-import path from 'path'
-import {format} from 'prettier'
-import {boundMethod as bind} from 'autobind-decorator'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-class MergedManifestWebpackPlugin {
+import * as fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import * as path from 'path'
+import {format} from 'prettier'
+import * as Webpack from 'webpack'
+
+/**
+ * MergedManifestWebpackPlugin
+ *
+ * @public
+ */
+export class MergedManifestWebpackPlugin {
+  /**
+   * Plugin ident
+   *
+   * @public
+   */
   public plugin = {
     name: 'MergedManifestPlugin',
   }
 
+  /**
+   * Directory where the manifest will be written.
+   *
+   * @public
+   */
   public dir: string
 
+  /**
+   * @public
+   */
   public path: string
 
+  /**
+   * @public
+   */
   public file = 'entrypoints.json'
 
+  /**
+   * @public
+   */
   public entrypointsName = 'entrypoints.json'
 
+  /**
+   * @public
+   */
   public wordpressName = 'wordpress.json'
 
+  /**
+   * Plugin constructor
+   *
+   * @public
+   */
   public constructor(options?: {
     entrypointsName?: string
     wordpressName?: string
@@ -30,6 +65,9 @@ class MergedManifestWebpackPlugin {
       })
   }
 
+  /**
+   * @public
+   */
   @bind
   public apply(compiler: Webpack.Compiler): void {
     this.dir = compiler.options.output.path
@@ -38,6 +76,9 @@ class MergedManifestWebpackPlugin {
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
 
+  /**
+   * @public
+   */
   @bind
   public async done(
     _compilation,
@@ -88,14 +129,17 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove wordpress.json manifest.
        */
-      // await fs.remove(this.manifestPath(this.wordpressName))
+      await fs.remove(this.manifestPath(this.wordpressName))
     } catch (err) {
-      console.error(err)
+      throw new Error(err)
     }
 
     return callback()
   }
 
+  /**
+   * @public
+   */
   @bind
   public format(object: {
     [key: string]: {
@@ -108,6 +152,9 @@ class MergedManifestWebpackPlugin {
     })
   }
 
+  /**
+   * @public
+   */
   @bind
   public isBuildable(): boolean {
     return (
@@ -116,20 +163,27 @@ class MergedManifestWebpackPlugin {
     )
   }
 
+  /**
+   * @public
+   */
   @bind
   public manifestPath(file: string): string {
     return path.resolve(this.dir, file)
   }
 
+  /**
+   * @public
+   */
   @bind
   public manifestExists(file: string): boolean {
     return fs.existsSync(this.manifestPath(file))
   }
 
+  /**
+   * @public
+   */
   @bind
   public async manifestContent(file: string): Promise<any> {
     return await fs.readJson(this.manifestPath(file))
   }
 }
-
-export {MergedManifestWebpackPlugin as default}

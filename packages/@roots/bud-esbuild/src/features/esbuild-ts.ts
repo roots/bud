@@ -1,24 +1,21 @@
-import type {Module, Framework} from '@roots/bud-framework'
-import {Item, Loader, Rule} from '@roots/bud-build'
+import {Item, Rule} from '@roots/bud-build'
+import type {Extension, Framework} from '@roots/bud-framework'
 import {pathExistsSync, readJson} from 'fs-extra'
 
-export const tsFeature: Module = {
+export const tsFeature: Extension.CompilerPlugin = {
   name: '@roots/bud-esbuild/ts',
 
   boot: ({build, hooks}: Framework) => {
-    build.loaders.esbuild = new Loader(app =>
-      require.resolve('esbuild-loader'),
-    )
-
     build.items['esbuild-ts'] = new Item({
-      loader: app => app.build.loaders.esbuild,
-      options: app => ({
+      loader: ({build}) => build.loaders.esbuild,
+
+      options: ({path}) => ({
         loader: 'tsx',
         target: 'es2015',
         tsconfigRaw: pathExistsSync(
-          app.path('project', 'tsconfig.json'),
+          path('project', 'tsconfig.json'),
         )
-          ? readJson(app.path('project', 'tsconfig.json'))
+          ? readJson(path('project', 'tsconfig.json'))
           : {
               compilerOptions: {
                 importsNotUsedAsValues: 'remove',
@@ -34,7 +31,7 @@ export const tsFeature: Module = {
     })
 
     hooks.on(
-      'build/resolve/extensions',
+      'build.resolve.extensions',
       (exts: string & `.${string}`) => ['.ts', '.tsx', ...exts],
     )
   },

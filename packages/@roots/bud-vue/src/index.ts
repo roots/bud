@@ -1,75 +1,41 @@
-import './interface'
-import {VueLoaderPlugin} from 'vue-loader'
-import {Configuration} from 'webpack'
-import {Module} from '@roots/bud-framework'
-import {Loader, Item} from '@roots/bud-build'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const extension: Module = {
-  name: '@roots/bud-vue',
+/**
+ * Adds vue sfc support to Bud projects
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
 
-  boot: app => {
-    const {build, discovery, extensions, store, hooks} = app
-    if (!discovery.hasPeerDependency('vue')) return
+ * @packageDocumentation @betaDocumentation
+ */
 
-    build.loaders['vue-style'] = new Loader(
-      require.resolve('vue-style-loader'),
-    )
+import '@roots/bud-api'
 
-    build.items['vue-style'] = new Item({
-      loader: ({build}) => build.loaders['vue-style'],
-    })
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Extension} from '@roots/bud-framework'
 
-    hooks.on(
-      'build/module/rules',
-      (rules: Configuration['module']['rules']) => [
-        {
-          test: store.get('patterns.vue'),
-          use: [{loader: require.resolve('vue-loader')}],
-        },
-        ...rules,
-      ],
-    )
+import {VueExtension} from './vue.extension'
 
-    const cssItems = build.rules['css'].getUse(app)
-    build.rules['css'].setUse(({isProduction, build}) => [
-      isProduction
-        ? build.items['minicss']
-        : build.items['vue-style'],
-      ...cssItems.splice(1),
-    ])
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-vue': Extension.Module
+    'vue-loader-plugin': Extension.Module
+  }
 
-    if (app.build.rules['sass']) {
-      const sassItems = app.build.rules['sass'].getUse(app)
-      build.rules['css'].setUse(({isProduction, build}) => [
-        isProduction
-          ? build.items['minicss']
-          : build.items['vue-style'],
-        ...sassItems.splice(1),
-      ])
-    }
+  interface Loaders {
+    vue: Loader
+    'vue-style': Loader
+  }
 
-    extensions.add({
-      name: 'vue-loader-plugin',
-      make: () => new VueLoaderPlugin(),
-    })
+  interface Items {
+    vue: Item
+    'vue-style': Item
+  }
 
-    hooks.on(
-      'build/resolve/alias',
-      (aliases: Configuration['resolve']['alias']) => ({
-        ...aliases,
-        vue$: 'vue/dist/vue.esm.js',
-      }),
-    )
-
-    hooks.on(
-      'build/resolve/extensions',
-      (extensions: Configuration['resolve']['extensions']) => [
-        ...extensions,
-        '.vue',
-      ],
-    )
-  },
+  interface Rules {
+    vue: Rule
+  }
 }
 
-export default extension
-export const {name, boot} = extension
+export const {name, boot} = VueExtension

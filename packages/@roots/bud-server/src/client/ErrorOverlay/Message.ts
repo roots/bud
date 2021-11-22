@@ -1,10 +1,28 @@
+/**
+ * Error message
+ *
+ * @remarks
+ * sub-component of the ErrorOverlay component.
+ *
+ * @public
+ */
 export class Message extends HTMLElement {
+  /**
+   * True if component has rendered
+   *
+   * @public
+   */
   public rendered: boolean
 
-  public render() {
+  /**
+   * Render component
+   *
+   * @public
+   */
+  public render(): void {
     this.innerHTML = `
       <span>
-        <code>${this.innerHTML.replace(process.cwd(), '')}</code>
+        <code>${this.innerHTML}</code>
       </span>
     `
 
@@ -28,6 +46,11 @@ export class Message extends HTMLElement {
     this.style.transitionDelay = `0.15s`
   }
 
+  /**
+   * Component reactivity handler
+   *
+   * @public
+   */
   public connectedCallback() {
     if (!this.rendered) {
       this.render()

@@ -1,0 +1,56 @@
+---
+id: bud.serve
+title: bud.serve
+description: Configure the development server.
+sidebar_label: bud.serve
+image: 'https://budjs.netlify.app/img/share/docs/bud.serve.png'
+---
+
+Configure the development server.
+
+## Server information
+
+By default the server is available at this address:
+
+| Property | Value     |
+| -------- | --------- |
+| host     | localhost |
+| port     | 3000      |
+
+## Usage
+
+There is no need to call this function in order to use the development server. Development server functionality is automatically enabled when
+the `bud serve` cli command is invoked.
+
+This function is used to configure the development server to run at a different address or port, or to disable certain middleware functions.
+
+## Specifying host and port
+
+:::warning
+
+You will need to handle resolving custom domains yourself if you don't want to use localhost.
+
+:::
+
+```ts title='bud.config.js'
+bud.serve({
+  host: 'my-local-site.example',
+  port: 5000,
+})
+```
+
+## Middleware
+
+You may enable or disable middleware using the middleware key.
+
+Example disabling all server middleware:
+
+```ts title='bud.config.js'
+bud.serve({
+  middleware: {
+    dev: false,
+    hot: false,
+    proxy: false,
+  },
+})
+```

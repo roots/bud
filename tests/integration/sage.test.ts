@@ -1,119 +1,216 @@
-import {helper, Assets, Entrypoints} from '../util/integration'
-import {readJson} from 'fs-extra'
+import {Project} from '../util/integration'
 
-const suite = helper('sage', 'examples/sage', 'public', 'public')
+jest.setTimeout(60000)
 
-jest.setTimeout(1000000)
-
-describe(suite.name, () => {
-  let assets: Assets
-  let entrypoints: Entrypoints
+describe.skip('examples/sage', () => {
+  let project: Project
 
   beforeAll(async () => {
-    assets = await suite.setup()
-    entrypoints = await readJson(
-      suite.distPath('entrypoints.json'),
+    project = new Project({
+      name: 'sage',
+      dir: 'examples/sage',
+      dist: 'public',
+      storage: 'storage/bud',
+    })
+
+    await project.setup()
+  })
+
+  it('[project.entrypoints.json] has expected app entries', () => {
+    expect(project.entrypoints.app.js).toBeInstanceOf(Array)
+    expect(project.entrypoints.app.js).toHaveLength(2)
+    expect(project.entrypoints.app.css).toBeInstanceOf(Array)
+    expect(project.entrypoints.app.css).toHaveLength(1)
+    expect(project.entrypoints.app.dependencies).toEqual([])
+  })
+
+  it('[project.entrypoints.json] has expected editor entries', () => {
+    expect(project.entrypoints.editor.js).toBeInstanceOf(Array)
+    expect(project.entrypoints.editor.js).toHaveLength(2)
+    expect(project.entrypoints.editor.css).toBeInstanceOf(Array)
+    expect(project.entrypoints.editor.css).toHaveLength(1)
+    expect(project.entrypoints.editor.dependencies).toEqual([
+      'wp-edit-post',
+      'wp-dom-ready',
+      'wp-blocks',
+    ])
+  })
+
+  it('[project.entrypoints.json] has expected customizer entries', () => {
+    expect(project.entrypoints.customizer.js).toBeInstanceOf(
+      Array,
     )
-    return
+    expect(project.entrypoints.customizer.js).toHaveLength(2)
+    expect(project.entrypoints.customizer.dependencies).toEqual([
+      'jquery',
+    ])
   })
 
-  describe('entrypoints.json', () => {
-    it('has expected app entries', () => {
-      expect(entrypoints.app.js).toBeInstanceOf(Array)
-      expect(entrypoints.app.js).toHaveLength(2)
-      expect(entrypoints.app.css).toBeInstanceOf(Array)
-      expect(entrypoints.app.css).toHaveLength(1)
-      expect(entrypoints.app.dependencies).toEqual([])
-    })
+  it('[runtime] has contents', () => {
+    expect(project.assets['runtime.js'].length).toBeGreaterThan(
+      10,
+    )
+  })
 
-    it('has expected editor entries', () => {
-      expect(entrypoints.editor.js).toBeInstanceOf(Array)
-      expect(entrypoints.editor.js).toHaveLength(2)
-      expect(entrypoints.editor.css).toBeInstanceOf(Array)
-      expect(entrypoints.editor.css).toHaveLength(1)
-      expect(entrypoints.editor.dependencies).toEqual([
-        'wp-edit-post',
-        'wp-dom-ready',
-        'wp-blocks',
-      ])
-    })
+  it('[runtime] is transpiled', () => {
+    expect(
+      project.assets['runtime.js'].includes('import'),
+    ).toBeFalsy()
+  })
 
-    it('has expected customizer entries', () => {
-      expect(entrypoints.customizer.js).toBeInstanceOf(Array)
-      expect(entrypoints.customizer.js).toHaveLength(2)
-      expect(entrypoints.customizer.dependencies).toEqual([
-        'jquery',
-      ])
+  it('[app] has contents', () => {
+    expect(project.assets['app.js'].length).toBeGreaterThan(10)
+  })
+
+  it('[app] is transpiled', () => {
+    expect(
+      project.assets['app.js'].includes('import'),
+    ).toBeFalsy()
+  })
+
+  it('[app] css: has contents', () => {
+    expect(project.assets['app.css'].length).toBeGreaterThan(10)
+  })
+
+  it('[app] css: is transpiled', () => {
+    expect(project.assets['app.css'].includes('@import')).toBe(
+      false,
+    )
+  })
+
+  it('[app] css: @tailwind directive is transpiled', () => {
+    expect(project.assets['app.css'].includes('@apply')).toBe(
+      false,
+    )
+  })
+
+  it('[app] css: has whitespace removed', () => {
+    expect(project.assets['app.css'].match(/    /)).toBeFalsy()
+  })
+
+  it('[app] css: has breaks removed', () => {
+    expect(project.assets['app.css'].match(/\\n/)).toBeFalsy()
+  })
+
+  it('[editor] has contents', () => {
+    expect(project.assets['editor.js'].length).toBeGreaterThan(
+      10,
+    )
+  })
+
+  it('[editor] is transpiled', () => {
+    expect(
+      project.assets['editor.js'].includes('import'),
+    ).toBeFalsy()
+  })
+
+  it('[editor] css: has contents', () => {
+    expect(project.assets['editor.css'].length).toBeGreaterThan(
+      10,
+    )
+  })
+
+  it('[editor] css: is transpiled', () => {
+    expect(
+      project.assets['editor.css'].includes('@import'),
+    ).toBe(false)
+  })
+
+  it('[editor] css: @tailwind directive is transpiled', () => {
+    expect(project.assets['editor.css'].includes('@apply')).toBe(
+      false,
+    )
+  })
+
+  it('[editor] css: has whitespace removed', () => {
+    expect(
+      project.assets['editor.css'].match(/    /),
+    ).toBeFalsy()
+  })
+
+  it('[editor] css: has breaks removed', () => {
+    expect(project.assets['editor.css'].match(/\\n/)).toBeFalsy()
+  })
+
+  it('[customizer] has contents', () => {
+    expect(
+      project.assets['customizer.js'].length,
+    ).toBeGreaterThan(10)
+  })
+
+  it('[customizer] is transpiled', () => {
+    expect(
+      project.assets['customizer.js'].includes('import'),
+    ).toBeFalsy()
+  })
+
+  it('[snapshots] package.json is unchanged', async () => {
+    expect(project.packageJson).toMatchSnapshot({
+      browserslist: ['extends @wordpress/browserslist-config'],
+      devDependencies: {
+        '@roots/bud': 'workspace:*',
+        '@roots/sage': 'workspace:*',
+      },
+      name: 'example-sage',
+      private: true,
     })
   })
 
-  describe('runtime', () => {
-    it('has contents', () => {
-      expect(assets['runtime.js'].length).toBeGreaterThan(10)
-    })
-    it('is transpiled', () => {
-      expect(assets['runtime.js'].includes('import')).toBeFalsy()
-    })
+  it('[snapshots] public/manifest.json matches expectations', async () => {
+    expect(Object.entries(project.manifest).length).toEqual(8)
+
+    expect(project.manifest['app.js']).toMatch(
+      /app\.[\d|\w]*\.js/,
+    )
+    expect(project.manifest['app.css']).toMatch(
+      /app\.[\d|\w]*\.css/,
+    )
+    expect(project.manifest['editor.js']).toMatch(
+      /editor\.[\d|\w]*\.js/,
+    )
+    expect(project.manifest['editor.css']).toMatch(
+      /editor\.[\d|\w]*\.css/,
+    )
+    expect(project.manifest['customizer.js']).toMatch(
+      /customizer\.[\d|\w]*\.js/,
+    )
+    expect(project.manifest['runtime.js']).toMatch(
+      /runtime\.[\d|\w]*\.js/,
+    )
+
+    expect(Object.keys(project.manifest)).toMatchSnapshot()
   })
 
-  describe('app', () => {
-    it('has contents', () => {
-      expect(assets['app.js'].length).toBeGreaterThan(10)
-    })
-    it('is transpiled', () => {
-      expect(assets['app.js'].includes('import')).toBeFalsy()
-    })
-    it('css: has contents', () => {
-      expect(assets['app.css'].length).toBeGreaterThan(10)
-    })
-    it('css: is transpiled', () => {
-      expect(assets['app.css'].includes('@import')).toBe(false)
-    })
-    it('css: @tailwind directive is transpiled', () => {
-      expect(assets['app.css'].includes('@apply')).toBe(false)
-    })
-    it('css: has whitespace removed', () => {
-      expect(assets['app.css'].match(/    /)).toBeFalsy()
-    })
-    it('css: has breaks removed', () => {
-      expect(assets['app.css'].match(/\\n/)).toBeFalsy()
-    })
+  it('[snapshots] .budfiles/bud.webpack.config.js', async () => {
+    expect(project.webpackConfig.name).toMatchSnapshot()
+    expect(project.webpackConfig.entry).toMatchSnapshot()
+    expect(project.webpackConfig.mode).toMatchSnapshot()
+    expect(project.webpackConfig.optimization).toMatchSnapshot()
+    expect(project.webpackConfig.bail).toMatchSnapshot()
   })
 
-  describe('editor', () => {
-    it('has contents', () => {
-      expect(assets['editor.js'].length).toBeGreaterThan(10)
-    })
-    it('is transpiled', () => {
-      expect(assets['editor.js'].includes('import')).toBeFalsy()
-    })
-    it('css: has contents', () => {
-      expect(assets['editor.css'].length).toBeGreaterThan(10)
-    })
-    it('css: is transpiled', () => {
-      expect(assets['editor.css'].includes('@import')).toBe(
-        false,
-      )
-    })
-    it('css: @tailwind directive is transpiled', () => {
-      expect(assets['editor.css'].includes('@apply')).toBe(false)
-    })
-    it('css: has whitespace removed', () => {
-      expect(assets['editor.css'].match(/    /)).toBeFalsy()
-    })
-    it('css: has breaks removed', () => {
-      expect(assets['editor.css'].match(/\\n/)).toBeFalsy()
-    })
-  })
-
-  describe('customizer', () => {
-    it('has contents', () => {
-      expect(assets['customizer.js'].length).toBeGreaterThan(10)
-    })
-    it('is transpiled', () => {
-      expect(
-        assets['customizer.js'].includes('import'),
-      ).toBeFalsy()
+  it('[snapshots] module map matches snapshot', async () => {
+    expect(project.modules.chunks).toMatchSnapshot({
+      byName: {
+        app: expect.any(Number),
+        customizer: expect.any(Number),
+        editor: expect.any(Number),
+        runtime: expect.any(Number),
+      },
+      bySource: {
+        '0 app': expect.any(Number),
+        '0 customizer': expect.any(Number),
+        '0 editor': expect.any(Number),
+        '1 app': expect.any(Number),
+        '1 customizer': expect.any(Number),
+        '1 editor': expect.any(Number),
+      },
+      usedIds: [
+        expect.any(Number),
+        expect.any(Number),
+        expect.any(Number),
+        expect.any(Number),
+      ],
     })
   })
 })

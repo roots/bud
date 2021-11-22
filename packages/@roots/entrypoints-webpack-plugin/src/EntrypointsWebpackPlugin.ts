@@ -1,32 +1,109 @@
-import Webpack, {Chunk, Compiler, Compilation} from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 import {uniq} from 'lodash'
+import type * as Webpack from 'webpack'
+import {sources} from 'webpack'
 
-class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
+interface EntrypointsPlugin {
+  name: string
+  assets: Entry
+}
+
+interface Entry {
+  [entry: string]: {
+    [type: string]: string[]
+  }
+}
+
+interface Options {
+  name?: string
+  writeToFileEmit?: boolean
+  publicPath?: string
+  outputPath?: string
+}
+
+/**
+ * Produces `entrypoints.json` artifact with compiled assets broken down
+ * by entrypoint and then filetype.
+ *
+ * @example
+ * ```
+ * import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
+ *
+ * const config = {
+ *   plugins: [new EntrypointsWebpackPlugin()]
+ * }
+ * ```
+ *
+ * @sealed
+ */
+export class EntrypointsWebpackPlugin
+  implements EntrypointsPlugin
+{
+  /**
+   * Plugin compiler ident
+   *
+   * @public
+   */
   protected plugin = {
     name: 'EntrypointsManifestPlugin',
     stage: Infinity,
   }
 
+  /**
+   * Artifact filename
+   *
+   * @public
+   */
   public name: string = 'entrypoints.json'
 
-  public compiler: Compiler
+  /**
+   * Webpack compiler instance
+   *
+   * @public
+   */
+  public compiler: Webpack.Compiler
 
-  public compilation: Compilation
+  /**
+   * Webpack compilation instance
+   *
+   * @public
+   */
+  public compilation: Webpack.Compilation
 
+  /**
+   * Project publicPath
+   *
+   * @public
+   */
   public publicPath: string
 
-  public assets: Entrypoints.Entry
+  /**
+   * Collected assets
+   *
+   * @public
+   */
+  public assets: Entry
 
-  public constructor(options?: Entrypoints.Options) {
+  /**
+   * Class constructor
+   *
+   * @public
+   */
+  public constructor(options?: Options) {
     options &&
       Object.keys(options).map(prop => {
         Object.assign(this, {[prop]: options[prop]})
       })
   }
 
+  /**
+   * Webpack plugin API's `apply` hook
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     this.assets = {}
 
     this.compiler = compiler
@@ -36,7 +113,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,
-      (compilation: Compilation) => {
+      (compilation: Webpack.Compilation) => {
         this.compilation = compilation
 
         this.compilation.hooks.processAssets.tap(
@@ -47,6 +124,12 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
     )
   }
 
+  /**
+   * Runs through each entrypoint entry and adds to the
+   * manifest
+   *
+   * @decorator `@bind`
+   */
   @bind
   public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
@@ -59,13 +142,17 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
       })
     })
 
-    this.compilation.assets[this.name] =
-      new Webpack.sources.RawSource(
-        JSON.stringify({...this.assets}),
-        true,
-      )
+    this.compilation.assets[this.name] = new sources.RawSource(
+      JSON.stringify({...this.assets}),
+      true,
+    )
   }
 
+  /**
+   * Adds an entry to the manifest
+   *
+   * @decorator `@bind`
+   */
   @bind
   public addToManifest({entry, file}) {
     const type = file.split('.').pop()
@@ -85,10 +172,14 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
     }
   }
 
+  /**
+   * Get assets from an entrypoint
+   *
+   * @decorator `@bind`
+   */
   @bind
   public getEntrypointFiles(entry: {
-    chunks: Chunk[]
-    origins: any[]
+    chunks: Webpack.Chunk[]
   }): string[] {
     const files = []
     for (const chunk of entry.chunks) {
@@ -100,5 +191,3 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
     return files
   }
 }
-
-export {EntrypointsWebpackPlugin}

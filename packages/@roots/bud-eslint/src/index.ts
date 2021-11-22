@@ -1,36 +1,34 @@
-import {Extension} from './interface'
-import EslintPlugin from 'eslint-webpack-plugin'
-import {Eslint} from './api'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const extension: Extension = {
-  name: 'eslint-webpack-plugin',
+/**
+ * Provides eslint integration for Bud.
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-  register: ({cache, path}) => {
-    cache.cacheFiles = [
-      ...cache.cacheFiles,
-      path('storage', 'cache/eslint.json'),
-    ]
-  },
+import {EslintConfig} from './eslint.api'
+import {BudEslintWebpackPlugin} from './eslint.extension'
 
-  options: ({path, store}) => ({
-    extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-    cache: true,
-    cacheLocation: path('storage', 'cache/eslint.json'),
-    context: path('src'),
-    cwd: path('project'),
-    exclude: store.get('patterns.module'),
-    failOnError: true,
-  }),
+declare module '@roots/bud-framework' {
+  interface Framework {
+    eslint: EslintConfig
+  }
 
-  make: options => new EslintPlugin(options.all()),
-
-  api: app => ({
-    eslint: new Eslint(app),
-  }),
-
-  when: app => app.discovery.hasPeerDependency('eslint'),
+  interface Plugins {
+    'eslint-webpack-plugin': BudEslintWebpackPlugin
+  }
 }
 
-export default extension
-export const {name, options, make} = extension
-export type {Extension}
+export const {name, options, make, mixin} =
+  BudEslintWebpackPlugin

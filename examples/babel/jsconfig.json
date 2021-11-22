@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "types": [
+      "@roots/bud",
+      "@roots/bud-api",
+      "@roots/bud-babel",
+      "@roots/bud-framework",
+    ],
+  },
+  "typeAcquisition": {
+    "enable": true
+  }
+}

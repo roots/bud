@@ -1,20 +1,34 @@
-.docs
-*.log
-node_modules
-coverage
-dist
-**/lib
-**/types
-!**/src/types
-*.tsbuildinfo
+# secret
+.env
 
-# Yarn
+# artifacts
+*.log
+**/lib
+*.tsbuildinfo
+/.npmrc
+/packages/@roots/*/types
+/site/api/*
+/examples/*/*.bkup.json
+
+# jest
+coverage
+
+# pacman
+node_modules
 .yarn/*
 !.yarn/patches
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+!.yarn/local
 .pnp.*
 
-/profiles
+# bud
+**/.budfiles
+
+# Profiles
+**/profiles
+
+# Netlify
+**/.netlify

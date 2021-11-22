@@ -1,49 +1,93 @@
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
-import {Base} from '../shared/Base'
-
-import type {
+import {bind, isFunction} from './item.dependencies'
+import {
+  Factory,
   Framework,
+  Item,
   Loader,
-  Item as Contract,
-} from '@roots/bud-framework'
+  Maybe,
+} from './item.interface'
 
-export class Item extends Base implements Contract {
-  protected loader: Contract.LoaderFn
-  protected options: Contract.OptionsFn
+/**
+ * Item class
+ *
+ * @public
+ */
+export default class
+  extends Item.Abstract
+  implements Item.Interface
+{
+  /**
+   * Loader
+   *
+   * @public
+   */
+  public loader: Factory<[Framework], Loader.Interface>
 
+  /**
+   * Loader options
+   *
+   * @public
+   */
+  public options: Factory<[Framework], Item.Options>
+
+  /**
+   * Class constructor
+   *
+   * @param options - {@link Item.Options}
+   */
   public constructor({
     loader,
     options,
-  }: Contract.ConstructorOptions) {
+  }: Item.ConstructorOptions) {
     super()
 
     this.setLoader(loader)
     options && this.setOptions(options)
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Item.Abstract.getLoader}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getLoader(app: Framework) {
     return this.loader(app)
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Item.Abstract.setLoader}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setLoader(loader: Loader | Contract.LoaderFn) {
+  public setLoader(
+    loader: Maybe<[Framework], Loader.Interface>,
+  ) {
     this.loader = isFunction(loader) ? loader : () => loader
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Item.Abstract.seOptions}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setOptions(
-    options: Contract.OptionsFn | Contract.Options,
-  ) {
+  public setOptions(options: Maybe<[Framework], Item.Options>) {
     this.options = isFunction(options) ? options : () => options
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Item.Abstract.mergeOptions}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public mergeOptions(
-    options: Contract.Options,
-    app: Framework,
-  ) {
+  public mergeOptions(options: Item.Options, app: Framework) {
     options = {
       ...this.options(app),
       ...options,
@@ -52,9 +96,15 @@ export class Item extends Base implements Contract {
     this.setOptions((app: Framework) => options)
   }
 
+  /**
+   * {@inheritDoc @roots/bud-framework#Item.Abstract.make}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public make(app: Framework): Contract.Output {
-    const output: Contract.Output = {
+  public make(app: Framework): Item.Output {
+    const output: Item.Output = {
       loader: this.loader(app).make(app),
     }
 

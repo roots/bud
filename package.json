@@ -1,124 +1,196 @@
 {
-  "name": "bud",
+  "name": "bud.js",
+  "packageManager": "yarn@3.1.0",
+  "version": "5.0.0-next.14",
   "private": true,
-  "description": "A friendly build tool to help manage your project assets.",
-  "homepage": "https://roots.io/bud",
+  "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git"
   },
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Kelly Mears",
-      "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    }
-  ],
   "engines": {
     "node": "^16.3.0"
   },
+  "volta": {
+    "node": "16.13.0"
+  },
   "workspaces": {
     "packages": [
+      "dev/jest/util/resolver",
       "examples/*",
       "packages/@roots/*",
-      "packages/base"
+      "packages/base",
+      "site",
+      ".yarn/local"
     ]
   },
-  "scripts": {
-    "build": "yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build",
-    "build:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:cjs",
-    "build:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:esm",
-    "build:ci": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build",
-    "build:ci:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:cjs",
-    "build:ci:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:esm",
-    "profile": "yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings run profile",
-    "profile:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile:cjs",
-    "profile:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run profile:esm",
-    "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
-    "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
-    "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
-    "docs": "yarn node ./dev/docs/gen/cli.js",
-    "test:pre": "yarn node ./jest.pre.js",
-    "test:post": "yarn node ./jest.post.js",
-    "test:spec:ci": "yarn run jest --coverage --maxWorkers=1 --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "test:spec": "yarn run jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "test:integration": "yarn node ./jest.integration.js",
-    "test:ci": "yarn run-s test:spec:ci test:integration",
-    "test:all": "yarn run-s test:spec test:integration",
-    "test": "yarn jest --coverage --testPathIgnorePatterns='tests/integration' --testPathIgnorePatterns='tests/util'",
-    "majestic": "yarn dlx majestic"
-  },
   "resolutions": {
-    "@babel/core": "^7.14.3",
-    "@babel/types": "^7.14.2",
-    "@types/react": "^17.0.8",
-    "@types/react-dom": "^17.0.5",
-    "chokidar": "^3.5.1",
-    "dotenv": "^10.0.0",
-    "eslint": "^7.27.0",
-    "fs-extra": "^10.0.0",
-    "ink": "^3.0.8",
-    "ink-spinner": "^4.0.2",
-    "lodash": "^4.17.21",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "remark": "^13.0.0",
-    "typescript": "^4.3.2",
-    "webpack": "^5.37.1",
-    "webpack-dev-middleware": "^4.3.0",
-    "webpack-hot-client": "^4.2.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "@types/react": "17.0.35",
+    "ink": "3.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "typescript": "4.4.4",
+    "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch",
+    "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
-    "@types/fs-extra": "^9.0.11",
-    "@types/jest": "^26.0.23",
-    "@types/mdx-js__react": "^1.5.3",
-    "@types/node": "^15.12.2",
-    "@types/react": "^17.0.8",
-    "@types/react-dom": "^17.0.5",
-    "@types/signale": "^1.4.1",
-    "@types/weak-napi": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "chokidar": "^3.5.1",
-    "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "execa": "^5.1.1",
-    "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
-    "ink": "^3.0.8",
-    "ink-testing-library": "^2.1.0",
-    "jest": "^27.0.4",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "remark": "^13.0.0",
-    "remark-emoji": "^2.2.0",
-    "remark-github": "^10.1.0",
-    "remark-toc": "^7.2.0",
-    "rimraf": "^3.0.2",
-    "signale": "^1.4.0",
-    "to-vfile": "^6.1.0",
-    "ts-jest": "^27.0.3",
-    "ts-node": "^10.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "type-fest": "^1.2.0",
-    "typescript": "^4.3.2",
-    "weak-napi": "^2.0.2"
+    "@microsoft/api-documenter": "7.13.68",
+    "@microsoft/api-extractor": "7.18.19",
+    "@skypack/package-check": "0.2.2",
+    "@types/fs-extra": "9.0.13",
+    "@types/jest": "27.0.2",
+    "@types/lodash": "4.14.177",
+    "@types/node": "16.11.7",
+    "@types/react": "17.0.35",
+    "@types/react-dom": "17.0.11",
+    "@types/react-helmet": "6.1.4",
+    "@types/react-reconciler": "0.26.4",
+    "@types/react-router-dom": "5.3.2",
+    "@types/signale": "1.4.2",
+    "@types/weak-napi": "2.0.0",
+    "@typescript-eslint/eslint-plugin": "5.4.0",
+    "@typescript-eslint/parser": "5.4.0",
+    "@vercel/ncc": "0.32.0",
+    "@yarnpkg/builder": "3.1.0",
+    "chalk": "4.1.2",
+    "codecov": "3.8.3",
+    "dotenv": "10.0.0",
+    "esbuild": "0.13.14",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.27.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-tsdoc": "0.2.14",
+    "execa": "5.1.1",
+    "fs-extra": "10.0.0",
+    "globby": "11.0.4",
+    "ink": "3.2.0",
+    "ink-testing-library": "2.1.0",
+    "jest": "27.3.1",
+    "lodash": "4.17.21",
+    "npm-run-path": "5.0.1",
+    "prettier": "2.4.1",
+    "pretty-format": "27.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-reconciler": "0.26.2",
+    "rimraf": "3.0.2",
+    "shebang-command": "2.0.0",
+    "signale": "1.4.0",
+    "ts-jest": "27.0.7",
+    "ts-node": "10.4.0",
+    "tsconfig-paths": "3.11.0",
+    "type-fest": "2.5.3",
+    "typedoc": "0.22.9",
+    "typescript": "4.4.4",
+    "weak-napi": "2.0.2"
   },
-  "volta": {
-    "node": "16.3.0"
+  "dependencies": {
+    "tslib": "2.3.1"
+  },
+  "manifest": {
+    "name": "bud.js",
+    "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+    "logo": "https://cdn.roots.io/app/uploads/logo-bud.svg",
+    "url": {
+      "discourse": "https://discourse.roots.io/c/bud/24",
+      "docs": "https://budjs.netlify.app",
+      "git": "git@github.com:roots/bud",
+      "web": "https://github.com/roots/bud"
+    },
+    "organization": {
+      "name": "Roots Foundation, LLC",
+      "site": "https://roots.io",
+      "twitter": "https://twitter.com/roots",
+      "favicon": "https://roots.io/favicon.ico"
+    },
+    "contributors": {
+      "kellymears": {
+        "type": [
+          "🚀 steward",
+          "💻 dev",
+          "✍🏽 docs"
+        ]
+      },
+      "qwp6t": {
+        "type": [
+          "🚀 steward",
+          "💻 dev",
+          "✍🏽 docs"
+        ]
+      },
+      "swalkinshaw": {
+        "type": [
+          "🚀 steward",
+          "✍🏽 docs"
+        ]
+      },
+      "clayrisser": {
+        "type": [
+          "✍🏽 docs"
+        ]
+      },
+      "catgofire": {
+        "type": [
+          "✍🏽 docs"
+        ]
+      }
+    },
+    "sponsors": [
+      {
+        "image": "https://cdn.roots.io/app/uploads/kinsta.svg",
+        "title": "Kinsta",
+        "url": "https://kinsta.com/?kaid=OFDHAJIXUDIV"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/km-digital.svg",
+        "title": "KM Digital",
+        "url": "https://k-m.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/carrot.svg",
+        "title": "Carrot",
+        "url": "https://carrot.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/c21redwood.svg",
+        "title": "C21 Redwood Realty",
+        "url": "https://www.c21redwood.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/wordpress.svg",
+        "title": "WordPress.com",
+        "url": "https://wordpress.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/icons8.svg",
+        "title": "Icons8",
+        "url": "https://icons8.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/harness-software.svg",
+        "title": "Harness Software",
+        "url": "https://www.harnessup.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/coders-clan.svg",
+        "title": "Coders Clan",
+        "url": "https://www.codersclan.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/genero.svg",
+        "title": "Genero",
+        "url": "https://generodigital.com/"
+      },
+      {
+        "image": "https://cdn.roots.io/app/uploads/motto.svg",
+        "title": "Motto",
+        "url": "https://motto.ca/roots"
+      }
+    ]
   }
 }

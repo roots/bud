@@ -8,7 +8,7 @@ export const dump: Dump = (
     indent: 2,
   },
 ) => {
-  console.log(prettyFormat(obj, options))
+  process.stdout.write(prettyFormat(obj, options))
 }
 
 declare type Dump = (

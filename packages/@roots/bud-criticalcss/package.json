@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-criticalcss",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds critical.css support to Bud",
   "repository": {
     "type": "git",
@@ -9,12 +9,12 @@
   },
   "contributors": [
     {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
     },
     {
-      "name": "Kelly Mears",
-      "url": "https://github.com/kellymears"
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -30,9 +30,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -60,13 +58,19 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2"
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "jest": "27.3.1"
   },
   "dependencies": {
     "@roots/critical-css-webpack-plugin": "workspace:packages/@roots/critical-css-webpack-plugin",
-    "autobind-decorator": "^2.4.0"
-  }
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
+  },
+  "stableVersion": "4.6.0"
 }

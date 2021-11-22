@@ -1,70 +1,114 @@
-import React from 'react'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import type {ComponentState} from 'react'
+import {useEffect, useState} from 'react'
 
-import type {Styles, Theme, UseStyle} from '../typings'
-import {defaultTheme} from '../themes/index'
+import type {Theme} from '..'
+import {defaultTheme} from '../themes'
 
 /**
- * Use style.
+ * useStyle hook
+ *
+ * @returns {Styles}
  */
-export const useStyle: UseStyle = (
-  initialData = defaultTheme,
-) => {
+interface useStyle {
+  (themeProps?: Theme): Styles
+}
+
+/**
+ * Return value
+ */
+interface Styles {
+  /**
+   * Spacing value (total character width)
+   */
+  spacing: number
+
+  /**
+   * Maximum width and height of display area
+   */
+  bounds: {
+    /**
+     * Maximum width
+     */
+    width: number
+
+    /**
+     * Maximum height
+     */
+    height: number
+  }
+
+  screen: number
+  colors: {[key: string]: string}
+  ctx: (screens: Array<any>) => any
+  col: (count: number) => number
+  setColors: (colors: Theme['colors']) => void
+  setScreens: (screens: Theme['screens']) => void
+}
+
+const useStyle: useStyle = (initialData = defaultTheme) => {
   /**
    * Theme values
    */
-  const [theme, setTheme] = React.useState<Theme>(initialData)
+  const [theme, setTheme] = useState<Theme>(initialData)
 
   /**
    * Width and height of terminal viewport.
    */
-  const [width, height]: React.ComponentState =
+  const [stdoutWidth, stdoutHeight]: ComponentState =
     useStdoutDimensions()
+  const [width, setWidth]: ComponentState = useState(null)
+  const [height, setHeight]: ComponentState = useState(null)
 
   /**
    * Active screen size
    */
-  const [screen, setScreen]: React.ComponentState =
-    React.useState()
+  const [screen, setScreen]: ComponentState = useState(null)
 
   /**
    * Width of one column.
    */
-  const [unit, setUnit]: React.ComponentState =
-    React.useState(null)
+  const [unit, setUnit]: ComponentState = useState(null)
 
   /**
    * Width and height of application.
    */
-  const [bounds, setBounds]: React.ComponentState =
-    React.useState({
-      width,
-      height,
-    })
+  const [bounds, setBounds]: ComponentState = useState({
+    width,
+    height,
+  })
+
+  useEffect(() => {
+    typeof stdoutWidth === 'number' &&
+      setWidth(stdoutWidth > 0 ? stdoutWidth : 70)
+
+    typeof stdoutHeight === 'number' &&
+      setHeight(stdoutHeight > 0 ? stdoutHeight : 25)
+  }, [stdoutWidth, stdoutHeight])
 
   /**
    * Set application based on viewport size.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     setBounds({
       width: width > theme.maxWidth ? theme.maxWidth : width,
       height:
         height > theme.maxHeight ? theme.maxHeight : height,
     })
-  }, [width, height])
+  }, [width, height, theme.maxHeight, theme.maxWidth])
 
   /**
    * Set unit to be the total application width available
    * divided by the column count
    */
-  React.useEffect(() => {
+  useEffect(() => {
     setUnit(bounds.width / theme.columns)
-  }, [bounds])
+  }, [bounds.width, theme.columns])
 
   /**
    * Determine which screen size is currently active.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     theme.screens.forEach(([lower, upper], iteration) => {
       bounds.width > lower &&
         bounds.width < upper &&
@@ -128,3 +172,6 @@ export const useStyle: UseStyle = (
     ctx,
   }
 }
+
+export {useStyle}
+export type {Styles}

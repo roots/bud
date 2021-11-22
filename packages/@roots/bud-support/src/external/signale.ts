@@ -1,0 +1,1 @@
+export {Signale} from 'signale'

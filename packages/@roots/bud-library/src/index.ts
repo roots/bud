@@ -1,58 +1,46 @@
-import './interface'
-
-import {Framework, Library, Module} from '@roots/bud-framework'
-import AutoDllPlugin from 'autodll-webpack-plugin'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
- * @module @roots/bud-library
- * @description Wrapper for autodll-webpack-plugin
+ * Adds dynamic link library (DLL) support to Bud
+
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @packageDocumentation @betaDocumentation
  */
-interface Extension {
-  name: Module.Name
-  api: Module.Api &
-    ((app: Framework) => {
-      library: Library.Configure
-    })
+
+import {BudDllExtension} from './BudDllExtension'
+import {BudDllPlugin} from './BudDllPlugin'
+import {library} from './library'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    library: library
+  }
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
+    '@roots/bud-library': BudDllExtension
+  }
+
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
+   */
+  interface Plugins {
+    'autodll-webpack-plugin': BudDllPlugin
+  }
 }
 
-/**
- * bud-library extension
- */
-const extension: Extension = {
-  /**
-   * @property name
-   */
-  name: '@roots/bud-library',
-
-  /**
-   * @property api
-   */
-  api: app => ({
-    library(modules) {
-      this.extensions.add({
-        name: 'autodll-webpack-plugin',
-
-        options: (app: Framework) => ({
-          debug: false,
-          inject: false,
-          filename: this.store.isTrue('hash')
-            ? this.store.get('hashFormat')
-            : this.store.get('fileFormat'),
-          entry: {
-            library:
-              typeof modules == 'string' ? [modules] : modules,
-          },
-          path: 'dll',
-          inherit: false,
-          context: app.path('project'),
-        }),
-
-        make: options => new AutoDllPlugin(options.all()),
-      })
-
-      return this
-    },
-  }),
-}
-
-export {extension as default}
+export const {name, api} = BudDllExtension

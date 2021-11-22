@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -9,8 +9,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -30,11 +34,9 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/",
-    "templates/",
-    "manifest.yml"
+    "templates/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -61,16 +63,23 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@roots/container": "workspace:packages/@roots/container",
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "jest": "27.3.1",
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
-    "stylelint-webpack-plugin": "^2.1.1"
-  }
+    "stylelint": "^14.0.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-webpack-plugin": "^3.0.1",
+    "tslib": "^2.3.1"
+  },
+  "stableVersion": "4.6.0"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-extensions",
   "description": "Bud extensions controller",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -18,8 +18,12 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "keywords": [
@@ -30,7 +34,6 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
     "types/"
   ],
@@ -61,13 +64,13 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "webpack": "^5.38.1"
+    "@types/node": "16.11.7",
+    "webpack": "5.64.1"
   },
   "dependencies": {
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
-    "lodash": "^4.17.21"
-  }
+    "tslib": "^2.3.1"
+  },
+  "stableVersion": "4.6.0"
 }

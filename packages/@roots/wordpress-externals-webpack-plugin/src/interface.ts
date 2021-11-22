@@ -1,4 +1,10 @@
-export namespace WordPressExternals {
+/**
+ * WordPressExternals
+ *
+ * @public
+ * @todo remove namespacing
+ */
+namespace WordPressExternals {
   export type Output = {
     dir: string
     name: string
@@ -38,3 +44,8 @@ export namespace WordPressExternals {
     [key: string]: any
   }
 }
+
+/**
+ * @exports WordPressExternals
+ */
+export {WordPressExternals}

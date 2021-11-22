@@ -1,28 +1,72 @@
-/**
- * Util: dump
- */
-import {dump} from './util/dump'
-export {dump}
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
 /**
- * Interpolate HTML Webpack Plugin
+ * This package is a collection of internal dependencies utilized by the build system.
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * This package is bundled with \@vercel/ncc. Sometimes type definitions can be a little iffy.
+ *
+ * It is recommended for extension authors to include their type definitions separately. You can
+ * ensure that these packages are included in the runtime by specifying your type imports with
+ * `import type` syntax.
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional applications with a modular, configurable build system
+ *
+ * - 💪 Modern - Modern framework written in TypeScript with an expressive API
+ *
+ * - 🌱 Easy - Low bundle size and fast build times
+ *
+ * @core @packageDocumentation @betaDocumentation
  */
-import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
-export {InterpolateHtmlPlugin}
 
 /**
- * Util: killPort
+ * Dependencies
  */
-import {killPort} from './util/killPort'
-export {killPort}
+//
+
+export * from './external/chalk'
+export * from './external/chokidar'
+export * from './external/cosmiconfig'
+export * from './external/dotenv'
+export * from './external/dotenv-expand'
+export * from './external/express'
+export * from './external/pretty-format'
+export * from './external/fs-extra'
+export * from './external/globby'
+export * from './external/human-readable'
+export * from './external/ignore-emit-webpack-plugin'
+export * from './external/json5'
+export * from './external/lodash'
+export * from './external/nanoid'
+export * from './external/node-notifier'
+export * from './external/patch-console'
+export * from './external/pkg-up'
+export * from './external/prettier'
+export * from './external/webpack-provide-plugin'
+export * from './external/safe-resolve'
+export * from './external/safe-require'
+export * from './external/safe-json-stringify'
+export * from './external/signale'
+export * from './external/toml'
+export * from './external/yaml'
 
 /**
- * Util: notify
+ * Utilities
  */
-import {notify} from './util/notify'
-export {notify}
+//
 
-/**
- * Util: WordPress packages
- */
+export * from './util/dump'
+export * from './util/killPort'
 export * as wpPkgs from './util/wordpressPkgs'
+
+/**
+ * Decorators
+ */
+//
+
+export * from './external/helpful-decorators'

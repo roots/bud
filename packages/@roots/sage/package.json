@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
     },
     {
@@ -35,8 +35,7 @@
   "files": [
     "bin/",
     "types/",
-    "lib/",
-    "manifest.yml"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -63,84 +62,30 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "preset",
+    "peers": [
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-eslint",
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-prettier",
+      "@roots/bud-stylelint",
+      "@roots/bud-tailwindcss"
+    ]
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "^7.2.13",
-    "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.2",
-    "@types/tailwindcss": "^2.0.5",
-    "@wordpress/browserslist-config": "^4.0.1"
+    "@types/node": "16.11.7"
   },
   "dependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
-    "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild",
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
+    "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
-    "@roots/bud-typescript": "workspace:packages/@roots/bud-typescript",
-    "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",
-    "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
-    "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests",
-    "@roots/container": "workspace:packages/@roots/container",
-    "@roots/filesystem": "workspace:packages/@roots/filesystem"
+    "helpful-decorators": "^2.1.0",
+    "tslib": "^2.3.1"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-cli": "*",
-    "@types/eslint": "^7.2.11",
-    "@types/node": "^15",
-    "@types/tailwindcss": "^2",
-    "eslint": "^7.27.0",
-    "postcss": "^8.3.0",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwindcss": "^2",
-    "typescript": "^4"
-  },
-  "peerDependenciesMeta": {
-    "@types/eslint": {
-      "optional": true
-    },
-    "@types/node": {
-      "optional": true
-    },
-    "@types/tailwindcss": {
-      "optional": true
-    },
-    "@wordpress/browserslist-config": {
-      "optional": true
-    },
-    "eslint": {
-      "optional": true
-    },
-    "postcss": {
-      "optional": true
-    },
-    "postcss-import": {
-      "optional": true
-    },
-    "postcss-preset-env": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
-    },
-    "typescript": {
-      "optional": true
-    }
-  }
+  "stableVersion": "4.6.0"
 }

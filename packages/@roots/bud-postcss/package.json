@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -18,8 +18,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "keywords": [
@@ -31,9 +35,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -61,30 +63,32 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/fs-extra": "^9.0.11",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.2",
-    "@types/signale": "^1.4.1",
-    "postcss": "^8.3.2",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "webpack": "5.38.1"
+    "@types/fs-extra": "9.0.13",
+    "@types/jest": "27.0.2",
+    "@types/lodash": "4.14.177",
+    "@types/node": "16.11.7",
+    "@types/signale": "1.4.2",
+    "jest": "27.3.1",
+    "postcss": "8.3.11",
+    "postcss-import": "14.0.2",
+    "postcss-preset-env": "7.0.0",
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "autobind-decorator": "^2.4.0",
-    "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21",
-    "postcss-loader": "^5.3.0"
+    "postcss-loader": "6.2.0",
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "postcss": "^8",
-    "postcss-import": "^14",
-    "postcss-preset-env": "^6"
+    "postcss": "8.3.11",
+    "postcss-import": "14.0.2",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.0.0"
   },
   "peerDependenciesMeta": {
     "postcss-import": {
@@ -93,5 +97,6 @@
     "postcss-preset-env": {
       "optional": true
     }
-  }
+  },
+  "stableVersion": "4.6.0"
 }

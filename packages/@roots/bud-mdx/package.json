@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "description": "mdx extension for @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -10,8 +10,12 @@
   },
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -31,9 +35,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -61,24 +63,29 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel",
+      "@roots/bud-react"
+    ]
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.12.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "webpack": "^5.38.1"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "@types/jest": "27.0.2",
+    "@types/node": "16.11.7",
+    "jest": "27.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "webpack": "5.64.1"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "autobind-decorator": "^2.4.0"
+    "autobind-decorator": "^2.4.0",
+    "tslib": "^2.3.1"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-react": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  }
+  "stableVersion": "4.6.0"
 }

@@ -1,48 +1,74 @@
-import './interface'
-import {Module} from '@roots/bud-framework'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
+
+/**
+ * Adds TypeScript support to Bud
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @remarks
+ * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
+ * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
+ * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
+ *
+ * @remarks
+ * You should absolutely use this extension
+ *
+ * @packageDocumentation @betaDocumentation
+ */
+
+import {Item, Loader, Rule} from '@roots/bud-build'
+import {Extension} from '@roots/bud-framework'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+
 import {typecheck} from './api'
-import {Loader, Item, Rule} from '@roots/bud-build'
-import {Configuration} from 'webpack/types'
+import {BudTypeScriptExtension} from './BudTypeScriptExtension'
 
-const extension: Module = {
-  name: '@roots/bud-typescript',
-  api: {
-    typecheck,
-  },
-  boot: ({build, discovery, hooks, store}) => {
-    store.set('patterns.ts', /\.tsx?$/)
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * Enable typescript type checking
+     *
+     * @example
+     * ```js
+     * bud.typecheck()
+     * ```
+     *
+     * @public
+     */
+    typecheck: typecheck
+  }
 
-    build.loaders['ts'] = new Loader(
-      require.resolve('ts-loader'),
-    )
+  /**
+   * {@inheritDoc @roots/bud-framework#Modules}
+   * @public @override
+   */
+  interface Modules {
+    '@roots/bud-typescript': Extension.Module
+  }
 
-    build.items['ts'] = new Item({
-      loader: build.loaders['ts'],
-      options: {
-        transpileOnly: true,
-        happyPackMode: true,
-      },
-    })
+  /**
+   * {@inheritDoc @roots/bud-framework#Plugins}
+   * @public @override
+   */
+  interface Plugins {
+    'fork-ts-checker-plugin': Extension.CompilerPlugin<
+      typeof ForkTsCheckerWebpackPlugin
+    >
+  }
 
-    build.rules['ts'] = new Rule({
-      test: store.get('patterns.ts'),
-      exclude: store.get('patterns.modules'),
-      use: ({build}) => [
-        build.items['babel'],
-        build.items['ts'],
-      ],
-    })
+  interface Loaders {
+    ts: Loader
+  }
 
-    hooks.on(
-      'build/resolve/extensions',
-      (e: Configuration['resolve']['extensions']) => [
-        ...e,
-        '.ts',
-        '.tsx',
-      ],
-    )
-  },
+  interface Items {
+    ts: Item
+  }
+
+  interface Rules {
+    ts: Rule
+  }
 }
 
-export default extension
-export const {name, boot, api} = extension
+export const {name, boot, api} = BudTypeScriptExtension

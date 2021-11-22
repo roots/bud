@@ -1,5 +1,0 @@
-name: '@roots/bud-mdx'
-type: extension
-
-peers:
-  - '@roots/bud-babel'

@@ -2,6 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib/esm",
-    "module": "ES2020"
-  }
+    "module": "esnext"
+  },
+  "references": [
+    {
+      "path": "./../bud-support/tsconfig-esm.json"
+    }
+  ]
 }

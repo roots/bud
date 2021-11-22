@@ -1,7 +1,0 @@
-name: '@roots/bud-preset-recommend'
-type: preset
-
-peers:
-  - '@roots/bud-babel'
-  - '@roots/bud-postcss'
-  - '@roots/bud-entrypoints'

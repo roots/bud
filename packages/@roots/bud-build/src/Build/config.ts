@@ -1,158 +1,274 @@
 import type {Framework} from '@roots/bud-framework'
+import {pkgUp} from '@roots/bud-support'
+import {posix} from 'path'
 import type {Configuration} from 'webpack'
 
-export function config(this: Framework): void {
-  this.hooks
-    .link('build', [
-      'bail',
-      'cache',
-      'context',
-      'devtool',
-      'entry',
-      'experiments',
-      'externals',
-      'infrastructureLogging',
-      'mode',
-      'module',
-      'name',
-      'node',
-      'output',
-      'optimization',
-      'parallelism',
-      'performance',
-      'plugins',
-      'profile',
-      'recordsPath',
-      'resolve',
-      'stats',
-      'target',
-      'watch',
-      'watchOptions',
-    ])
-    .hooks.link('build/optimization', [
-      'emitOnErrors',
-      'minimize',
-      'minimizer',
-      'moduleIds',
-      'runtimeChunk',
-      'splitChunks',
-    ])
-    .hooks.link('build/resolve', [
-      'alias',
-      'extensions',
-      'modules',
-    ])
-    .hooks.link('build/module', ['rules'])
-    .hooks.link('build/output', [
-      'path',
-      'pathinfo',
-      'publicPath',
-      'filename',
-    ])
+const {dirname} = posix
 
-  this.hooks
-    .on('build/bail', true)
-    .hooks.on('build/experiments', () => ({
-      lazyCompilation: this.hooks.filter(
-        'build/experiments/lazyCompilation',
+export async function config(app: Framework): Promise<void> {
+  app.hooks.promise('build', async () => {
+    const entry = await app.hooks.promised('build.entry')
+    const resolve = await app.hooks.promised('build.resolve')
+
+    return {
+      bail: app.hooks.filter('build.bail'),
+      cache: app.hooks.filter('build.cache'),
+      context: app.hooks.filter('build.context'),
+      devtool: app.hooks.filter('build.devtool'),
+      entry,
+      experiments: app.hooks.filter('build.experiments'),
+      externals: app.hooks.filter('build.externals'),
+      infrastructureLogging: app.hooks.filter(
+        'build.infrastructureLogging',
       ),
-    }))
-    .hooks.on('build/experiments/lazyCompilation', () => false)
+      mode: app.hooks.filter('build.mode'),
+      module: app.hooks.filter('build.module'),
+      name: app.hooks.filter('build.name'),
+      node: app.hooks.filter('build.node'),
+      output: app.hooks.filter('build.output'),
+      optimization: app.hooks.filter('build.optimization'),
+      parallelism: app.hooks.filter('build.parallelism'),
+      performance: app.hooks.filter('build.performance'),
+      plugins: app.hooks.filter('build.plugins'),
+      profile: app.hooks.filter('build.profile'),
+      recordsPath: app.hooks.filter('build.recordsPath'),
+      resolve,
+      stats: app.hooks.filter('build.stats'),
+      target: app.hooks.filter('build.target'),
+      watch: app.hooks.filter('build.watch'),
+      watchOptions: app.hooks.filter('build.watchOptions'),
+    }
+  })
+
+  app.hooks
+    .on('build.bail', () => app.store.get('build.bail'))
 
     /**
-     * cache
-     * @see @roots/bud-cache
+     * Context
      */
-    .hooks.on('build/cache', () => ({
-      name: this.hooks.filter('build/cache/name'),
-      version: this.hooks.filter('build/cache/version'),
-      type: this.hooks.filter('build/cache/type'),
-      cacheDirectory: this.hooks.filter(
-        'build/cache/cacheDirectory',
-      ),
-      cacheLocation: this.hooks.filter(
-        'build/cache/cacheLocation',
-      ),
-      buildDependencies: this.hooks.filter(
-        'build/cache/buildDependencies',
-      ),
-      managedPaths: this.hooks.filter(
-        'build/cache/managedPaths',
-      ),
+    .hooks.on('build.context', () => app.path('project'))
+
+    /**
+     * Devtool
+     */
+    .hooks.on('build.devtool', () =>
+      app.store.get('build.devtool'),
+    )
+
+    /**
+     * InfrastructureLogging
+     */
+    .hooks.on(
+      'build.infrastructureLogging',
+      (): Configuration['infrastructureLogging'] => ({
+        ...app.store.get('build.infrastructureLogging'),
+      }),
+    )
+
+    /**
+     * Mode
+     */
+    .hooks.on('build.mode', () => app.mode)
+
+    /**
+     * Module
+     */
+    .hooks.on('build.module', () => ({
+      rules: app.hooks.filter('build.module.rules'),
     }))
-
-    .hooks.on('build/infrastructureLogging', () => ({}))
-
-    .hooks.on('build/node', false)
-
-    .hooks.on('build/context', () => this.path('project'))
-
-    .hooks.on('build/devtool', false)
-
-    .hooks.on('build/mode', () => this.mode)
-
-    .hooks.on('build/module/rules', () => [
+    .hooks.on('build.module.rules', () => [
+      ...app.hooks.filter('build.module.rules.before'),
       {
+        oneOf: app.hooks.filter('build.module.rules.oneOf'),
+      },
+      ...app.hooks.filter('build.module.rules.after'),
+    ])
+    .hooks.on('build.module.rules.oneOf', () =>
+      Object.values(app.build.rules).map(rule => rule.make(app)),
+    )
+    .hooks.on('build.module.rules.before', () => [
+      {
+        test: /\.[cm]?(jsx?|tsx?)$/,
         parser: {requireEnsure: false},
-        oneOf: this.hooks.filter('build/module/rules/oneOf'),
       },
     ])
-    .hooks.on('build/module/rules/oneOf', () =>
-      Object.values(this.build.rules).map(rule =>
-        rule.make(this),
-      ),
-    )
+    .hooks.on('build.module.rules.after', () => [])
 
-    .hooks.on('build/name', () => this.name)
+    /**
+     * Name
+     */
+    .hooks.on('build.name', () => app.name)
 
+    /**
+     * Node
+     */
+    .hooks.on('build.node', false)
+
+    /**
+     * Output
+     */
+    .hooks.on('build.output', () => ({
+      path: app.hooks.filter('build.output.path'),
+      publicPath: app.hooks.filter('build.output.publicPath'),
+      filename: app.hooks.filter('build.output.filename'),
+    }))
     .hooks.on(
-      'build/optimization/emitOnErrors',
-      this.store.get('build.optimization.emitOnErrors'),
-    )
-    .hooks.on(
-      'build/optimization/minimize',
-      () => this.isProduction,
-    )
-    .hooks.on('build/optimization/minimizer', () => ['...'])
-    .hooks.on(
-      'build/optimization/moduleIds',
-      () => 'deterministic',
-    )
-    .hooks.on('build/optimization/removeEmptyChunks', () => true)
-    .hooks.on(
-      'build/output/filename',
+      'build.output.filename',
       () =>
         `${
-          this.store.get('hash')
-            ? this.store.get('hashFormat')
-            : this.store.get('fileFormat')
+          app.store.get('features.hash')
+            ? app.store.get('hashFormat')
+            : app.store.get('fileFormat')
         }.js`,
     )
-    .hooks.on('build/output/path', () => this.path('dist'))
-    .hooks.on('build/output/pathinfo', () => false)
-    .hooks.on('build/output/publicPath', () =>
-      this.store.get('location.publicPath'),
+    .hooks.on('build.output.path', () => app.path('dist'))
+    .hooks.on('build.output.pathinfo', () =>
+      app.store.get('build.output.pathinfo'),
     )
-    .hooks.on('build/parallelism', () =>
-      this.store.get('build.parallelism'),
+    .hooks.on('build.output.publicPath', () =>
+      app.store.get('location.publicPath'),
     )
-    .hooks.on('build/performance', () => ({}))
-    .hooks.on('build/plugins', () => this.extensions.make())
-    .hooks.on('build/profile', () => true)
-    .hooks.on('build/recordsPath', () =>
-      this.path('storage', 'records.json'),
+
+    /**
+     * Optimization
+     */
+    .hooks.on('build.optimization', () => ({
+      emitOnErrors: app.hooks.filter(
+        'build.optimization.emitOnErrors',
+      ),
+      minimize: app.hooks.filter('build.optimization.minimize'),
+      minimizer: app.hooks.filter(
+        'build.optimization.minimizer',
+      ),
+      moduleIds: app.hooks.filter(
+        'build.optimization.moduleIds',
+      ),
+      runtimeChunk: app.hooks.filter(
+        'build.optimization.runtimeChunk',
+      ),
+      splitChunks: app.hooks.filter(
+        'build.optimization.splitChunks',
+      ),
+    }))
+    .hooks.on('build.optimization.emitOnErrors', () =>
+      app.store.get('build.optimization.emitOnErrors'),
     )
-    .hooks.on('build/resolve/alias', {})
+    .hooks.on('build.optimization.minimize', () => false)
+    .hooks.on('build.optimization.minimizer', () => ['...'])
+    .hooks.on('build.optimization.moduleIds', () =>
+      app.store.get('build.optimization.moduleIds'),
+    )
+    .hooks.on('build.optimization.removeEmptyChunks', () =>
+      app.store.get('build.optimization.removeEmptyChunks'),
+    )
+    .hooks.on('build.optimization.runtimeChunk', () => undefined)
+    .hooks.on('build.optimization.splitChunks', () =>
+      app.store.is('features.splitChunks', true)
+        ? app.store.get('build.optimization.splitChunks')
+        : false,
+    )
+
+    /**
+     * Parallelism
+     */
+    .hooks.on('build.parallelism', () =>
+      app.store.get('build.parallelism'),
+    )
+
+    /**
+     * Performance
+     */
+    .hooks.on('build.performance', () =>
+      app.store.get('build.performance'),
+    )
+
+    /**
+     * Plugins
+     */
+    .hooks.on('build.plugins', () => app.extensions.make())
+
+    /**
+     * Profile
+     */
+    .hooks.on('build.profile', () =>
+      app.store.get('build.profile'),
+    )
+
+    /**
+     * RecordsPath
+     */
+    .hooks.on('build.recordsPath', () =>
+      app.path('storage', app.name, `modules.json`),
+    )
+    /**
+     * Resolve
+     */
+    .hooks.on('build.resolve', async () => {
+      const modules = await app.hooks.promised(
+        'build.resolve.modules',
+      )
+      const alias = await app.hooks.filter('build.resolve.alias')
+      const extensions = app.hooks.filter(
+        'build.resolve.extensions',
+        app.store.get('build.resolve.extensions'),
+      )
+
+      return {modules, alias, extensions}
+    })
+    .hooks.on('build.resolve.alias', {})
+    .hooks.promise(
+      'build.resolve.modules',
+      async (value?: any): Promise<any> => {
+        const budPkg = await pkgUp({
+          cwd: require.resolve('@roots/bud'),
+        })
+
+        const bud = dirname(budPkg)
+
+        const roots = bud
+          .split('/')
+          .splice(0, bud.split('/').length - 1)
+          .join('/')
+
+        const peers = roots
+          .split('/')
+          .splice(0, roots.split('/').length - 1)
+          .join('/')
+
+        return [
+          ...new Set([
+            ...(value ?? []),
+            app.hooks.filter('location.src'),
+            app.hooks.filter('location.modules'),
+            peers,
+            ...(app.project?.get('resolve') ?? []),
+            ...(app.root?.project.get('resolve') ?? []),
+          ]),
+        ]
+      },
+    )
+
+    /**
+     * Stats
+     */
+    .hooks.on('build.stats', (): Configuration['stats'] =>
+      app.store.get('build.stats'),
+    )
+
+    /**
+     * Target
+     */
     .hooks.on(
-      'build/resolve/extensions',
-      this.store.get('build.resolve.extensions'),
+      'build.target',
+      (): Configuration['target'] =>
+        `browserslist:${app.path('project', 'package.json')}`,
     )
-    .hooks.on('build/resolve/modules', () => [
-      this.hooks.filter('location/src'),
-      this.hooks.filter('location/modules'),
-      ...this.discovery.resolveFrom,
-    ])
-    .hooks.on('build/stats', (): Configuration['stats'] => ({}))
-    .hooks.on('build/target', () => 'web')
-    .hooks.on('build/watch', false)
+
+    /**
+     * Watch
+     */
+    .hooks.on('build.watch', () => app.store.get('build.watch'))
+    .hooks.on('build.watchOptions', () =>
+      app.store.get('build.watchOptions'),
+    )
 }

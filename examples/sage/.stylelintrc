@@ -1,10 +1,6 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "declaration-colon-newline-after": null,
-    "value-list-comma-newline-after": null,
-    "no-empty-source": null,
-    "no-descending-specificity": null,
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": [
       true,
@@ -32,6 +28,13 @@
           "function"
         ]
       }
-    ]
+    ],
+    "declaration-colon-newline-after": null,
+    "function-url-quotes": "never",
+    "value-list-comma-newline-after": null,
+    "string-quotes": null,
+    "selector-class-pattern": null,
+    "no-empty-source": null,
+    "no-descending-specificity": null
   }
 }

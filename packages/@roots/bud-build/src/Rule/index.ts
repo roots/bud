@@ -1,25 +1,70 @@
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
-
-import type {
+import {
+  Factory,
   Framework,
-  Rule as Contract,
   Item,
+  Maybe,
+  Rule as Base,
 } from '@roots/bud-framework'
+import {bind, lodash} from '@roots/bud-support'
 
-class Rule implements Contract {
-  public test: Contract.TestFn
+const {isFunction} = lodash
 
-  public use: Contract.UseFn
+/**
+ * Framework Rule
+ *
+ * @public
+ */
+export default class Rule
+  extends Base.Abstract
+  implements Base.Interface
+{
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
+   *
+   * @public
+   */
+  public test: Factory<[Framework], RegExp>
 
-  public exclude: Contract.ExcludeFn
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
+   *
+   * @public
+   */
+  public use: Factory<[Framework], Item.Interface[]>
 
-  public type: Contract.TypeFn
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
+   *
+   * @public
+   */
+  public exclude: Factory<[Framework], RegExp>
 
-  public parser: Contract.ParserFn
+  /**
+   * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
+   *
+   * @public
+   */
+  public type: Factory<[Framework], string>
 
-  public generator: any
+  /**
+   * Generator factory
+   *
+   * @public
+   */
+  public parser: Factory<[Framework], Base.Parser>
 
+  /**
+   * Generator factory
+   *
+   * @public
+   */
+  public generator: Factory<[Framework], any>
+
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor({
     test,
     use = null,
@@ -27,7 +72,9 @@ class Rule implements Contract {
     type = null,
     parser = null,
     generator = null,
-  }: Contract.Options) {
+  }: Base.Options) {
+    super()
+
     this.test = isFunction(test) ? test : () => test
 
     if (use) {
@@ -55,6 +102,14 @@ class Rule implements Contract {
     }
   }
 
+  /**
+   *
+   * @param app - {@link @roots/bud-framework#Framework | Framework}
+   * @returns
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getTest(app: Framework): RegExp {
     return this.test ? this.test(app) : null
@@ -68,34 +123,36 @@ class Rule implements Contract {
   }
 
   @bind
-  public getParser(app: Framework): Contract.Parser {
+  public getParser(app: Framework): Base.Parser {
     return this.parser ? this.parser(app) : null
   }
 
   @bind
-  public setParser(parser: Contract.ParserFn): void {
+  public setParser(
+    parser: Maybe<[Framework], Base.Parser>,
+  ): void {
     this.parser = isFunction(parser) ? parser : () => parser
   }
 
   @bind
-  public getUse(app: Framework): Item[] {
+  public getUse(app: Framework): Item.Interface[] {
     return this.use ? this.use(app) : null
   }
 
   @bind
-  public setUse(use: Contract.UseFn | Item[]): void {
+  public setUse(
+    use: Maybe<[Framework], Item.Interface[]>,
+  ): void {
     this.use = isFunction(use) ? use : () => use
   }
 
   @bind
-  public getExclude(app: Framework): Contract.Output['exclude'] {
+  public getExclude(app: Framework): RegExp {
     return this.exclude ? this.exclude(app) : null
   }
 
   @bind
-  public setExclude(
-    exclude: RegExp | ((app: Framework) => RegExp),
-  ): void {
+  public setExclude(exclude: Maybe<[Framework], RegExp>): void {
     this.exclude = isFunction(exclude) ? exclude : () => exclude
   }
 
@@ -121,9 +178,18 @@ class Rule implements Contract {
       : () => generator
   }
 
+  /**
+   * Produce final Base output
+   *
+   * @param app - {@link @roots/bud-framework#Framework}
+   * @returns finalized rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public make(app: Framework) {
-    const output: Contract.Output = {
+    const output: Base.Output = {
       test: this.test(app),
     }
 
@@ -150,5 +216,3 @@ class Rule implements Contract {
     return output
   }
 }
-
-export {Rule}

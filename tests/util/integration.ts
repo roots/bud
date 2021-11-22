@@ -1,12 +1,12 @@
-import {readFileSync} from 'fs'
-import {posix} from 'path'
+/* eslint-disable no-console */
 import execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
-import {log} from './index'
+import Webpack from 'webpack'
 
 export interface Assets {
-  [key: string]: string
+  [key: string]: any
 }
+
 export interface Entrypoints {
   [key: string]: {
     js?: string[]
@@ -15,71 +15,115 @@ export interface Entrypoints {
   }
 }
 
-export function helper(
-  name: string,
-  dir?: string,
-  dist?: string,
-  publicPath?: string,
-) {
-  const project: {
+export interface SomeJson {
+  [key: string]: any
+}
+
+class Project {
+  public name: string
+
+  public mode: 'development' | 'production' = 'production'
+
+  public dir: string = ''
+
+  public dist: string = 'dist'
+
+  public storage: string = '.budfiles'
+
+  public public: string = ''
+
+  public assets: Assets = {}
+
+  public entrypoints: Assets = {}
+
+  public manifest: SomeJson = {}
+
+  public modules: SomeJson = {}
+
+  public webpackConfig: SomeJson = {}
+
+  public packageJson: SomeJson = {}
+
+  public constructor(options: {
     name: string
-    json: string
-    dir: string
-    dist: string
-  } = {
-    name,
-    json: '',
-    dir: dir ? `${process.cwd()}/${dir}` : process.cwd(),
-    dist: dist ?? 'dist',
+    mode?: 'development' | 'production'
+    dir?: string
+    dist?: string
+    public?: string
+    storage?: string
+  }) {
+    Object.assign(this, {
+      ...options,
+      dir: options.dir
+        ? process.cwd().concat(`/${options.dir}`)
+        : process.cwd(),
+    })
+
+    this.setup = this.setup.bind(this)
+    this.projectPath = this.projectPath.bind(this)
+    this.publicPath = this.publicPath.bind(this)
+    this.setPackageJson = this.setPackageJson.bind(this)
+    this.setManifest = this.setManifest.bind(this)
+    this.setAssets = this.setAssets.bind(this)
+    this.setEntrypoints = this.setEntrypoints.bind(this)
+    this.setWebpackConfig = this.setWebpackConfig.bind(this)
+    this.setModules = this.setModules.bind(this)
+    this.yarn = this.yarn.bind(this)
   }
 
-  project.json = readFileSync(
-    projectPath('package.json'),
-    'utf8',
-  )
-
-  function projectPath(file: string): string {
-    return posix.normalize(`${project.dir}/${file}`)
+  public async setup(this: Project): Promise<void> {
+    await this.setPackageJson()
+    await this.setManifest()
+    await this.setAssets()
+    await this.setModules()
+    await this.setEntrypoints()
+    await this.setWebpackConfig()
   }
 
-  function distPath(file: string) {
-    return posix.normalize(
-      projectPath(`${project.dist}/${file}`),
+  public projectPath(file: string): string {
+    return `${this.dir}/${file}`
+  }
+
+  public publicPath(file: string) {
+    return `${this.public}/${file}`
+  }
+
+  public async setPackageJson() {
+    let packageJson: SomeJson = await readJson(
+      this.projectPath('package.json'),
     )
+
+    Object.assign(this, {packageJson})
   }
 
-  const usedPublicPath = (): string | false =>
-    publicPath ? publicPath : false
-
-  async function manifest() {
-    let json: {[key: string]: any} = await readJson(
-      distPath('manifest.json'),
+  public async setManifest() {
+    let manifest: SomeJson = await readJson(
+      this.projectPath(`${this.dist}/manifest.json`),
     )
 
     /**
      * If publicPath is configured, we need to remove from
      * entries or they won't resolve
      */
-    if (usedPublicPath()) {
-      json = Object.entries(json).reduce(
-        (a, [k, v]): Assets => ({
-          ...a,
-          [k]: v.replace(usedPublicPath(), ''),
-        }),
-        {},
-      )
-    }
+    manifest = Object.entries(manifest).reduce(
+      (a, [k, v]): Assets => ({
+        ...a,
+        [k]: v.replace(this.public, ''),
+      }),
+      {},
+    )
 
-    return json
+    Object.assign(this, {manifest})
   }
 
-  async function assets() {
-    let assetHash: {[key: string]: string} = await manifest()
-
-    const built = await Object.entries(assetHash).reduce(
+  public async setAssets(): Promise<void> {
+    const assets = await Object.entries(this.manifest).reduce(
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
-        const buffer = await readFile(distPath(path), 'utf8')
+        const buffer = await readFile(
+          this.projectPath(`${this.dist}/${path}`),
+          'utf8',
+        )
 
         return {
           ...assets,
@@ -89,44 +133,48 @@ export function helper(
       Promise.resolve(),
     )
 
-    return built
+    Object.assign(this, {assets})
   }
 
-  async function yarn(...opts: string[]): Promise<void> {
-    log(name, `yarn ${opts.join(' ')}`)
+  public async setEntrypoints(): Promise<void> {
+    try {
+      const entrypoints = await readJson(
+        this.projectPath(`${this.dist}/entrypoints.json`),
+      )
 
+      Object.assign(this, {entrypoints})
+    } catch (e) {}
+  }
+
+  public async setWebpackConfig(): Promise<void> {
+    try {
+      const webpackConfig: Webpack.Configuration = await import(
+        this.projectPath(`${this.storage}/bud/webpack.config.js`)
+      )
+
+      this.webpackConfig = webpackConfig
+    } catch (e) {}
+  }
+
+  public async setModules(): Promise<void> {
+    try {
+      const modules = await readJson(
+        this.projectPath(`${this.storage}/bud/modules.json`),
+      )
+
+      Object.assign(this, {modules})
+    } catch (e) {}
+  }
+
+  public async yarn(...opts: string[]): Promise<void> {
     const res = execa('yarn', opts, {
-      cwd: project.dir,
+      cwd: this.dir,
     })
 
-    res.stdout.pipe(process.stdout)
-    res.stderr.pipe(process.stderr)
-
-    const run = async () => {
-      await res
-      return Promise.resolve()
-    }
-
-    await run()
+    await res
 
     return Promise.resolve()
   }
-
-  async function setup(mode = 'production') {
-    await yarn('bud', 'extensions:install')
-    await yarn('bud', `build:${mode}`, '--ci', '--debug')
-
-    const built = await assets()
-    return built
-  }
-
-  return {
-    name,
-    project,
-    projectPath,
-    distPath,
-    yarn,
-    manifest,
-    setup,
-  }
 }
+
+export {Project}

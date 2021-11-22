@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "4.6.0",
+  "version": "5.0.0-next.14",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -9,8 +9,12 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Kelly Mears",
+      "name": "kellymears",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "bugs": {
@@ -28,9 +32,7 @@
     "node": ">=14"
   },
   "files": [
-    "docs/",
     "lib/",
-    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -59,15 +61,16 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
-    "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.12.2",
-    "@types/prettier": "^2.3.0",
-    "webpack": "^5.38.1"
+    "@types/fs-extra": "9.0.13",
+    "@types/node": "16.11.7",
+    "@types/prettier": "2.4.2",
+    "webpack": "5.64.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
     "fs-extra": "^10.0.0",
-    "prettier": "^2.3.0"
-  }
+    "helpful-decorators": "^2.1.0",
+    "prettier": "^2.4.1",
+    "tslib": "^2.3.1"
+  },
+  "stableVersion": "4.6.0"
 }

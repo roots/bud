@@ -1,28 +1,38 @@
-import {
-  WebpackManifestPlugin,
-  Options,
-} from 'webpack-manifest-plugin'
-import {Module} from '@roots/bud-framework'
+import {WebpackManifestPlugin} from './webpack-manifest-plugin.dependencies'
+import type {Plugin} from './webpack-manifest-plugin.interface'
 
-const extension: Module = {
+/**
+ * Webpack Manifest Plugin adapter
+ *
+ * @public
+ */
+const BudWebpackManifestPlugin: Plugin = {
+  /**
+   * @public
+   */
   name: 'webpack-manifest-plugin',
 
-  options: app =>
-    app.store.get('extension.webpackManifestPlugin'),
+  /**
+   * @public
+   */
+  options: ({store}) =>
+    store.get('extension.webpack-manifest-plugin'),
 
-  make: (options, {publicPath}) => {
-    const pluginOptions: Options = {
-      publicPath: publicPath(),
+  /**
+   * @public
+   */
+  make: (options, {store}) => {
+    return new WebpackManifestPlugin({
+      publicPath: store.get('location.publicPath'),
       ...options.all(),
-    }
-
-    const plugin = new WebpackManifestPlugin(pluginOptions)
-
-    return plugin
+    })
   },
 
-  when: app => app.store.isTrue('manifest'),
+  /**
+   * @public
+   */
+  when: app => app.store.is('features.manifest', true),
 }
 
-export default extension
-export const {name, options, make, when} = extension
+export const {name, options, make, when} =
+  BudWebpackManifestPlugin

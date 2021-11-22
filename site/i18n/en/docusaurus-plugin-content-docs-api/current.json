@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.category.Namespaces": {
+    "message": "Namespaces",
+    "description": "The label for category Namespaces in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Classes": {
+    "message": "Classes",
+    "description": "The label for category Classes in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Interfaces": {
+    "message": "Interfaces",
+    "description": "The label for category Interfaces in sidebar sidebar"
+  }
+}

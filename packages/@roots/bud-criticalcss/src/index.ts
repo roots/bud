@@ -1,23 +1,30 @@
-import {Extension} from './interface'
-import {CriticalCss} from '@roots/bud-framework'
-import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Licensed under the MIT license.
 
-const extension: Extension = {
-  name: '@roots/bud-criticalcss',
-  options: (): CriticalCss.Options => ({}),
-  make: options => new CriticalCssWebpackPlugin(options.all()),
-  when: ({isProduction}) => isProduction,
-  api: {
-    critical: function (options) {
-      this.hooks.on(
-        'extension/@roots/bud-criticalcss/options',
-        () => options,
-      )
+/**
+ * This extension wraps {@link @roots/critical-css-webpack-plugin#CriticalCSSPlugin | @roots/critical-css-webpack-plugin}
+ * and provides criticalcss support.
+ *
+ * @beta
+ * This extension is under active development. But it should not be considered stable and there may be breaking changes.
+ *
+ * @see https://roots.io/bud
+ * @see https://github.com/roots/bud
+ *
+ * @packageDocumentation @betaDocumentation
+ */
 
-      return this
-    },
-  },
+import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
+import {critical} from './critical'
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    critical: critical
+  }
+
+  interface Plugins {
+    '@roots/bud-criticalcss': BudCriticalCssPlugin
+  }
 }
 
-export default extension
-export const {name, options, make, when, api} = extension
+export const {api, make, name, options} = BudCriticalCssPlugin

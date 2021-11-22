@@ -1,28 +1,47 @@
+import {
+  Configuration,
+  Hooks as Contract,
+  Service,
+} from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
-import {boundMethod as bind} from 'autobind-decorator'
 
-export class Hooks extends Base {
-  public name = 'service/hooks'
+import {LOCATIONS} from './hooks.constants'
 
-  @bind
-  public register({store}) {
-    this.on('location/project', () =>
-      store.get('location.project'),
-    )
+/**
+ * Hooks service
+ *
+ * @public
+ */
+export class Hooks extends Base implements Contract, Service {
+  /**
+   * Service identifier
+   *
+   * @public
+   */
+  public ident: string = 'bud.hooks'
 
-    this.on('location/src', () => store.get('location.src'))
-    this.on('location/dist', () => store.get('location.dist'))
+  /**
+   * Registr lifecycle hook
+   *
+   * @remarks
+   * Register hooks for each {@link Framework.Locations} key
+   *
+   * @public
+   */
+  public async bootstrap({store}) {
+    const mapLocale = (
+      name: keyof Configuration['location'],
+    ) => {
+      this.on(`location.${name}`, () =>
+        !store.isUndefined(`cli.flags.location.${name}`)
+          ? store.get(`cli.flags.location.${name}`)
+          : store.get(`location.${name}`),
+      )
+    }
 
-    this.on('location/storage', () =>
-      store.get('location.storage'),
-    )
+    const locales: (keyof Configuration['location'] & string)[] =
+      LOCATIONS
 
-    this.on('location/modules', () =>
-      store.get('location.modules'),
-    )
-
-    this.on('location/records', () =>
-      store.get('location.records'),
-    )
+    locales.map(mapLocale)
   }
 }

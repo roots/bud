@@ -1,10 +1,5 @@
-import {Framework} from '@roots/bud'
+import '@roots/bud-typescript'
+import {Bud} from '@roots/bud'
 
-import babel from '@roots/bud-babel'
-import typescript from '@roots/bud-typescript'
-
-export default (bud: Framework) =>
-  bud
-    .use([babel, typescript])
-    .entry({app: ['app.ts']})
-    .template()
+export default async (bud: Bud) =>
+  bud.entry({app: 'app.ts'}).template().typecheck()

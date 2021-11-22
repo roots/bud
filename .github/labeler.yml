@@ -1,3 +1,49 @@
+'ci':
+  - .github/**/*
+  - codecov.yml
+  - renovate.json
+  - netlify.toml
+
+'dev':
+  - .yarn/local/**/*
+  - dev/**/*
+  - docker-compose.yml
+
+'docs':
+  - site/*
+  - site/**
+  - README.md
+  - packages/@roots/*/README.md
+  - dev/site/*
+  - dev/site/**/*
+  - dev/readme/*
+  - dev/readme/**/*
+
+'dependencies':
+  - packages/**/package.json
+  - examples/**/package.json
+  - package.json
+  - yarn.lock
+
+'deprecated':
+  - packages/deprecated/*
+  - packages/deprecated/**
+
+'examples':
+  - examples/*
+  - examples/**
+
+'test':
+  - dev/jest/**/*
+  - packages/**/*.test.js
+  - tests/*
+  - tests/**
+  - jest.config.ts
+
+'roots-notifier':
+  - packages/roots-notifier/*
+  - packages/roots-notifier/**
+
 '@roots/bud':
   - packages/@roots/bud/*
   - packages/@roots/bud/**
@@ -18,13 +64,13 @@
   - packages/@roots/bud-cache/*
   - packages/@roots/bud-cache/**
 
-'@roots/bud-cli':
-  - packages/@roots/bud-cli/*
-  - packages/@roots/bud-cli/**
-
 '@roots/bud-compiler':
   - packages/@roots/bud-compiler/*
   - packages/@roots/bud-compiler/**
+
+'@roots/bud-compress':
+  - packages/@roots/bud-compress/*
+  - packages/@roots/bud-compress/**
 
 '@roots/bud-criticalcss':
   - packages/@roots/bud-criticalcss/*
@@ -57,6 +103,7 @@
 '@roots/bud-framework':
   - packages/@roots/bud-framework/*
   - packages/@roots/bud-framework/**
+
 '@roots/bud-hooks':
   - packages/@roots/bud-hooks/*
   - packages/@roots/bud-hooks/**
@@ -81,6 +128,10 @@
   - packages/@roots/bud-preset-recommend/*
   - packages/@roots/bud-preset-recommend/**
 
+'@roots/bud-preset-wordpress':
+  - packages/@roots/bud-preset-wordpress/*
+  - packages/@roots/bud-preset-wordpress/**
+
 '@roots/bud-prettier':
   - packages/@roots/bud-prettier/*
   - packages/@roots/bud-prettier/**
@@ -101,6 +152,10 @@
   - packages/@roots/bud-server/*
   - packages/@roots/bud-server/**
 
+'@roots/bud-solid':
+  - packages/@roots/bud-solid/*
+  - packages/@roots/bud-solid/**
+
 '@roots/bud-stylelint':
   - packages/@roots/bud-stylelint/*
   - packages/@roots/bud-stylelint/**
@@ -120,10 +175,6 @@
 '@roots/bud-typescript':
   - packages/@roots/bud-typescript/*
   - packages/@roots/bud-typescript/**
-
-'@roots/bud-typings':
-  - packages/@roots/bud-typings/*
-  - packages/@roots/bud-typings/**
 
 '@roots/bud-vue':
   - packages/@roots/bud-vue/*
@@ -185,28 +236,10 @@
   - packages/@roots/wordpress-externals-webpack-plugin/*
   - packages/@roots/wordpress-externals-webpack-plugin/**
 
-'examples':
-  - examples/*
-  - examples/**
+'@roots/bud-typings':
+  - packages/deprecated/bud-typings/*
+  - packages/deprecated/bud-typings/**
 
-'docs':
-  - docs/*
-  - docs/**
-  - packages/**/docs/*
-  - packages/**/docs/**
-  - dev/docs/*
-  - dev/docs/**/*
-
-'dependencies':
-  - packages/**/package.json
-  - examples/**/package.json
-  - package.json
-  - yarn.lock
-
-'test':
-  - packages/**/*.test.js
-  - tests/*
-  - tests/**
-  - jest.config.ts
-  - jest.setup.ts
-  - jest.types.ts
+'@roots/bud-cli':
+  - packages/deprecated/bud-cli/*
+  - packages/deprecated/bud-cli/**
