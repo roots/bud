@@ -1,7 +1,7 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 
 describe('Extensions', function () {
-  let bud: Framework = null
+  let bud: Bud = null
 
   beforeAll(async () => {
     bud = await factory({

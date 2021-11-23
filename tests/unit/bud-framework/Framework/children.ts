@@ -1,7 +1,7 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 
 describe('@roots/bud-framework child', () => {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({

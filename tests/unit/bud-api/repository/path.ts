@@ -1,7 +1,7 @@
-import {config, factory, Framework} from '@roots/bud'
+import {Bud, config, factory} from '@roots/bud'
 
 describe.skip('bud.path', function () {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()

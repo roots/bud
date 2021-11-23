@@ -11828,6 +11828,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-webpack-plugin@workspace:examples/webpack-plugin":
+  version: 0.0.0-use.local
+  resolution: "example-webpack-plugin@workspace:examples/webpack-plugin"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "example-wordpress-theme@workspace:examples/wordpress-theme":
   version: 0.0.0-use.local
   resolution: "example-wordpress-theme@workspace:examples/wordpress-theme"

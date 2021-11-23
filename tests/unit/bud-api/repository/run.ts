@@ -1,5 +1,5 @@
 import {factory} from '@roots/bud'
-import {run} from '@roots/bud-api/src/Api/methods/run'
+import {run} from '@roots/bud-api/src/api/methods/run'
 
 describe.skip('bud.run', function () {
   let bud

@@ -16,6 +16,7 @@ export async function config(app: Framework): Promise<void> {
   app.hooks
     .on('build', async () => {
       const entry = await app.hooks.promised('build.entry')
+      const plugins = await app.hooks.promised('build.plugins')
       const resolve = await app.hooks.promised('build.resolve')
 
       return {
@@ -37,7 +38,7 @@ export async function config(app: Framework): Promise<void> {
         optimization: app.hooks.filter('build.optimization'),
         parallelism: app.hooks.filter('build.parallelism'),
         performance: app.hooks.filter('build.performance'),
-        plugins: app.hooks.filter('build.plugins'),
+        plugins,
         profile: app.hooks.filter('build.profile'),
         recordsPath: app.hooks.filter('build.recordsPath'),
         resolve,
@@ -192,7 +193,10 @@ export async function config(app: Framework): Promise<void> {
     /**
      * Plugins
      */
-    .hooks.on('build.plugins', () => app.extensions.make())
+    .hooks.on(
+      'build.plugins',
+      async () => await app.extensions.make(),
+    )
 
     /**
      * Profile

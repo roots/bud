@@ -1,4 +1,5 @@
-import {Service} from '../'
+import {Framework} from '../Framework'
+import {Service} from '../Service'
 import {CompilerPlugin, Module} from './Extension'
 
 /**
@@ -24,7 +25,7 @@ export interface Extensions extends Service {
   /**
    * @public
    */
-  enqueue(extension: CompilerPlugin | Module): void
+  enqueue(extension: CompilerPlugin | Module): Framework
 
   /**
    * Register event for all extensions
@@ -45,7 +46,9 @@ export interface Extensions extends Service {
    *
    * @public
    */
-  make(): {[key: string]: any; apply: CallableFunction}[]
+  make(): Promise<
+    {[key: string]: any; apply: CallableFunction}[]
+  >
 
   /**
    * @public
