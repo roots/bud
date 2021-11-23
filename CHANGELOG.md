@@ -9,6 +9,7 @@
 - `bud.use` is an explicitly asynchronous method
 - Hook key `build.plugins` now refers to an explicitly asynchronous filter
 - `bud.extensions.enqueue` returns the Bud instance for chaining
+- `@roots/bud` no longer exports `Framework`. Use `Bud` or import `Framework` from `@roots/bud-framework` instead.
 
 ## v5.0.0
 
