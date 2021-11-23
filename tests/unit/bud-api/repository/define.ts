@@ -1,4 +1,4 @@
-import {define} from '@roots/bud-api/src/Api/methods/define/index'
+import {define} from '@roots/bud-api/src/api/methods/define/index'
 
 describe('bud.config', function () {
   it('is a function', () => {

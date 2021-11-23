@@ -1,9 +1,9 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 
 const NEW_PATH = `${process.cwd()}/foo`
 
 describe.skip('bud.setPath', function () {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
@@ -13,10 +13,8 @@ describe.skip('bud.setPath', function () {
     expect(bud.setPath).toBeInstanceOf(Function)
   })
 
-  it('returns the Framework', () => {
-    expect(bud.setPath('project', NEW_PATH)).toBeInstanceOf(
-      Framework,
-    )
+  it('returns Bud', () => {
+    expect(bud.setPath('project', NEW_PATH)).toBeInstanceOf(Bud)
   })
 
   it('properly sets path', () => {
