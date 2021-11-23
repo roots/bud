@@ -1,11 +1,17 @@
 import {
+  A,
   Break,
   Code,
+  Em,
   File,
   Image,
+  Li,
   Markdown,
+  Ol,
   P,
+  S,
   Span,
+  Strong,
 } from './components'
 
 export function createElement(type, props?, root?) {
@@ -13,13 +19,16 @@ export function createElement(type, props?, root?) {
     ROOT: () => {
       return new Markdown(props)
     },
-    File: () => {
+    raw: () => {
+      return new S(props)
+    },
+    file: () => {
       return new File(props)
     },
     code: () => {
       return new Code(props)
     },
-    Fragment: () => {
+    fragment: () => {
       return new P(props)
     },
     br: () => {
@@ -52,14 +61,32 @@ export function createElement(type, props?, root?) {
     p: () => {
       return new P({...props})
     },
+    li: () => {
+      return new Li(props)
+    },
+    ol: () => {
+      return new Ol(props)
+    },
+    a: () => {
+      return new A({...props})
+    },
+    em: () => {
+      return new Em({...props})
+    },
+    strong: () => {
+      return new Strong({...props})
+    },
     span: () => {
       return new Span({...props})
     },
     img: () => {
       return new Image({...props})
     },
+    ['']: () => {
+      return `${props.children}`
+    },
     default: () => {
-      return new P(props)
+      return `${props.children}`
     },
   }
 

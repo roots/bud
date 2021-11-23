@@ -1,4 +1,4 @@
-export class P {
+export class Strong {
   public props
 
   public constructor(props?) {
@@ -6,12 +6,12 @@ export class P {
   }
 
   public render() {
-    return `${this.children}`
+    return `**${this.children}**`
   }
 
   public get children() {
     return Array.isArray(this.props.children)
-      ? this.props.children.join('').concat('\n')
+      ? this.props.children.join('')
       : this.props.children
   }
 }
