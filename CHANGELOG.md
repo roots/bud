@@ -1,4 +1,18 @@
+## Unreleased
+
+### Added
+
+- [example project](https://github.com/roots/bud/tree/main/examples/webpack-plugin) demonstrating how to use off-the-shelf webpack plugins with `bud.use`
+
+### Breaking
+
+- `bud.use` is an explicitly asynchronous method
+- Hook key `build.plugins` now refers to an explicitly asynchronous filter
+- `bud.extensions.enqueue` returns the Bud instance for chaining
+
 ## v5.0.0
+
+These notes are incomplete
 
 ### Breaking
 
@@ -24,7 +38,6 @@
 - **bud.use** now supports using Webpack plugins directly.
 - The CLI has a fresh coat of paint and some performance related enhancements.
 - New notification center integration (MacOS only)
-- Added `@roots/yarn-plugin-kjo` to provide utilities in the `yarn kjo` namespace
 
 ### Internal
 

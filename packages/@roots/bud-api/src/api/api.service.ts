@@ -3,11 +3,7 @@ import {bind, chalk, lodash} from '@roots/bud-support'
 
 import * as facade from './facade'
 import * as methods from './methods'
-
-export const immediateExecution = {
-  publicPath: methods.publicPath,
-  setPublicPath: methods.setPublicPath,
-}
+import * as immediate from './methods/immediate'
 
 const {isEmpty, isFunction} = lodash
 
@@ -55,7 +51,7 @@ export class Api
 
     this.getKeys().map(key => this.bindFacade(key))
 
-    this.app.bindMethod(immediateExecution)
+    this.app.bindMethod(immediate)
   }
 
   /**
@@ -149,7 +145,7 @@ export class Api
   }
 
   /**
-   * dump the method call trace
+   * Dump the method call trace
    *
    * @public
    */
