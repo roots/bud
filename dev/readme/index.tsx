@@ -60,7 +60,7 @@ async function getReadmeProps(
 
   signale.success(`[${packageName}] get json`)
 
-  return {...json, project: manifest}
+  return {...json, manifest}
 }
 
 /**
