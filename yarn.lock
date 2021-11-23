@@ -2879,23 +2879,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.6.0, @oclif/command@npm:^1.8.0, @oclif/command@npm:^1.8.3":
-  version: 1.8.3
-  resolution: "@oclif/command@npm:1.8.3"
+"@oclif/command@npm:^1.8.3, @oclif/command@npm:^1.8.4":
+  version: 1.8.4
+  resolution: "@oclif/command@npm:1.8.4"
   dependencies:
-    "@oclif/config": ^1.15.1
+    "@oclif/config": ^1.17.1
     "@oclif/errors": ^1.3.5
-    "@oclif/parser": ^3.8.5
-    "@oclif/plugin-help": ^3.2.4
+    "@oclif/parser": ^3.8.6
+    "@oclif/plugin-help": ^3.2.6
     debug: ^4.1.1
     semver: ^7.3.2
   peerDependencies:
     "@oclif/config": ^1
-  checksum: 8abe84ee0898ba0d3790049fa55110454bc81bff9cbb5a07e4eeb626ca1d05cdc113c0a5ef7d6f45ee615f9255b44c458b02410c68fe1a3045372927f8599e90
+  checksum: 9f87a838f72e066bbd7719a9217ad03bf999163553a40a84bf4c544ecb9517bc74d7373f48f7b4f96b63d5448c1d1bcae9b7f6ce372361370457acfee8ed21e8
   languageName: node
   linkType: hard
 
-"@oclif/config@npm:^1.15.1, @oclif/config@npm:^1.17.0, @oclif/config@npm:^1.17.1":
+"@oclif/config@npm:^1.17.1":
   version: 1.17.1
   resolution: "@oclif/config@npm:1.17.1"
   dependencies:
@@ -2909,15 +2909,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/dev-cli@npm:1.26.0":
-  version: 1.26.0
-  resolution: "@oclif/dev-cli@npm:1.26.0"
+"@oclif/dev-cli@npm:1.26.1":
+  version: 1.26.1
+  resolution: "@oclif/dev-cli@npm:1.26.1"
   dependencies:
-    "@oclif/command": ^1.8.0
-    "@oclif/config": ^1.17.0
-    "@oclif/errors": ^1.3.3
-    "@oclif/plugin-help": ^3.2.0
-    cli-ux: ^5.2.1
+    "@oclif/command": ^1.8.3
+    "@oclif/config": ^1.17.1
+    "@oclif/errors": ^1.3.5
+    "@oclif/plugin-help": ^3.2.5
+    cli-ux: ^5.6.3
     debug: ^4.1.1
     find-yarn-workspace-root: ^2.0.0
     fs-extra: ^8.1
@@ -2927,12 +2927,12 @@ __metadata:
     qqjs: ^0.3.10
     tslib: ^2.0.3
   bin:
-    oclif-dev: ./bin/run
-  checksum: 9fd94d4fc992b2f908a0d4122e36c369860da491445249650cada2d4ac2ab82ef96f502f58f29bf3e26e0bbc4fdac7fcee818e192ba9ca9771df7f1b3d2b938b
+    oclif-dev: bin/run
+  checksum: d07afee58245827d3cbc9eccba005195259a83e8753ec6b18994eca4f023253c14cb0eff0927bca5df7191b9a66a9f72bf88351b7dd262c9e7915f6f60c4b9f6
   languageName: node
   linkType: hard
 
-"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.5":
+"@oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.5":
   version: 1.3.5
   resolution: "@oclif/errors@npm:1.3.5"
   dependencies:
@@ -2952,7 +2952,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/parser@npm:^3.8.5, @oclif/parser@npm:^3.8.6":
+"@oclif/parser@npm:^3.8.6":
   version: 3.8.6
   resolution: "@oclif/parser@npm:3.8.6"
   dependencies:
@@ -2964,9 +2964,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^3.2.0, @oclif/plugin-help@npm:^3.2.4, @oclif/plugin-help@npm:^3.2.5":
-  version: 3.2.5
-  resolution: "@oclif/plugin-help@npm:3.2.5"
+"@oclif/plugin-help@npm:^3.2.5, @oclif/plugin-help@npm:^3.2.6":
+  version: 3.2.6
+  resolution: "@oclif/plugin-help@npm:3.2.6"
   dependencies:
     "@oclif/command": ^1.8.3
     "@oclif/config": ^1.17.1
@@ -2978,7 +2978,7 @@ __metadata:
     strip-ansi: ^6.0.0
     widest-line: ^3.1.0
     wrap-ansi: ^4.0.0
-  checksum: f6dcdc112fb3f671a687bc756ef6abc5a50299538ef3390ede635f6e802118971cd089b56a356abb0b7285a6dd0c391ccf5f56440e8641947b1c593075184fa9
+  checksum: 2782bcec284b162e7761e2acea2797d29757dc98e32926f5609702549d3e7211e3daef7be72e6686019213fc4e2035b425ad1814b951cc3ac3aeb5e6468b0a37
   languageName: node
   linkType: hard
 
@@ -3878,7 +3878,7 @@ __metadata:
     "@microsoft/api-documenter": 7.13.68
     "@oclif/command": ^1.8.3
     "@oclif/config": ^1.17.1
-    "@oclif/dev-cli": 1.26.0
+    "@oclif/dev-cli": 1.26.1
     "@oclif/errors": ^1.3.5
     "@oclif/plugin-help": ^3.2.5
     "@oclif/test": 1.2.8
@@ -8431,12 +8431,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-ux@npm:^5.2.1":
-  version: 5.6.3
-  resolution: "cli-ux@npm:5.6.3"
+"cli-ux@npm:^5.6.3":
+  version: 5.6.4
+  resolution: "cli-ux@npm:5.6.4"
   dependencies:
-    "@oclif/command": ^1.6.0
-    "@oclif/errors": ^1.2.1
+    "@oclif/command": ^1.8.4
+    "@oclif/errors": ^1.3.5
     "@oclif/linewrap": ^1.0.0
     "@oclif/screen": ^1.0.3
     ansi-escapes: ^4.3.0
@@ -8461,7 +8461,7 @@ __metadata:
     supports-color: ^8.1.0
     supports-hyperlinks: ^2.1.0
     tslib: ^2.0.0
-  checksum: 793238fcc864e77660072db798d1527a8f4a3c0322e3d171c0d824e60ff855a9edaf515ec82b00c954f317195a3fca540b289c541fc829fdc56ec3934175b787
+  checksum: 49d4f8cf4cff97299f1051056e906be0ecf0db9728d1f387c7986f70b473e9ff326ed473989aa6c0e9167e53409b66dc2eaa5a28f006aa9732fceddec6b37f22
   languageName: node
   linkType: hard
 
