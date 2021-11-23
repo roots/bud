@@ -1,7 +1,7 @@
 /**
  * CriticalCssWebpackPlugin
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 export {CriticalCssWebpackPlugin} from './CriticalCssWebpackPlugin'

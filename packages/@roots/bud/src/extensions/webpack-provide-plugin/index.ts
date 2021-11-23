@@ -14,8 +14,7 @@ const BudWebpackProvidePlugin: Model = {
 
   make: options => new Plugin(options.all()),
 
-  when: (_app, options) =>
-    options && options.getEntries().length > 0,
+  when: (_app, options) => options?.getEntries().length > 0,
 }
 
 export const {name, options, make, when} =

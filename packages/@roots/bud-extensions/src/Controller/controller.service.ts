@@ -145,19 +145,20 @@ export class Controller {
     if (isUndefined(this._module.options))
       return this.filter('options', this.app.container({}))
 
-    if (isFunction(this._module.options))
-      return this.filter(
-        'options',
-        this.app.container(this._module.options(this.app)),
+    const options = this.app.maybeCall(this._module.options)
+
+    if (isUndefined(options))
+      return this.filter('options', this.app.container({}))
+
+    if (options instanceof Container)
+      return this.filter('options', options)
+
+    if (!isObject(options))
+      throw new Error(
+        `${this.name} options must be an object or Container instance`,
       )
 
-    if (this._module.options instanceof Container)
-      return this.filter('options', this._module.options)
-
-    return this.filter(
-      'options',
-      this.app.container(this._module.options),
-    )
+    return this.filter('options', this.app.container(options))
   }
 
   /**
@@ -267,7 +268,7 @@ export class Controller {
       ? this._module.api(this.app)
       : this._module.api
 
-    await this.app.api.callAll()
+    await this.app.api.processQueue()
 
     if (!isObject(methodMap)) return
 
@@ -314,8 +315,6 @@ export class Controller {
    *
    * @remarks
    * Calls the {@link @roots/bud-framework#Module.boot} callback
-   *
-   * @returns {@link Extension}
    *
    * @public @core
    * @decorator `@bind`

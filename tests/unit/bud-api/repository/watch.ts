@@ -1,7 +1,7 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 
 describe.skip('bud.watch', function () {
-  let bud: Framework
+  let bud: Bud
 
   let serverConfig
 
@@ -28,7 +28,7 @@ describe.skip('bud.watch', function () {
   })
 
   it("doesn't throw when called in production", () => {
-    expect(bud.watch(['**/*.js'])).toBeInstanceOf(Framework)
+    expect(bud.watch(['**/*.js'])).toBeInstanceOf(Bud)
   })
 
   it('sets watch files', () => {

@@ -34,7 +34,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import Build, {Item, Loader, Rule} from './Build'
@@ -50,12 +50,14 @@ import {Service} from './Service'
 /**
  * Concrete classes
  */
+//
 
 export {Store} from './Store'
 
 /**
  * Abstract classes
  */
+//
 
 export {Build}
 export {Cache}
@@ -77,6 +79,7 @@ export {Bootstrapper} from './Bootstrapper'
 /**
  * Types and interfaces
  */
+//
 
 export {Api} from './Api'
 export {Compiler} from './Compiler'
@@ -86,10 +89,6 @@ export {Dependencies} from './Dependencies'
 export {Env} from './Env'
 export {Hooks} from './Hooks'
 export {Logger} from './Logger'
-
-/**
- * Util
- */
 
 /**
  * Loosely typed interface

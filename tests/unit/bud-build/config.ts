@@ -1,9 +1,9 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
 describe.skip('bud.build.config', function () {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({

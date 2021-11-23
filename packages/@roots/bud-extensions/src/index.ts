@@ -10,7 +10,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
 export {Controller} from './Controller'

@@ -24,7 +24,7 @@ describe('bud.project', function () {
   })
 
   it('has dependencies name', () => {
-    expect(dependencies.ident).toBe('bud.dependencies')
+    expect(dependencies.ident).toBe('dependencies')
   })
 
   it('dependencies manager client has path registered', () => {

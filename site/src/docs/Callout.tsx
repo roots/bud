@@ -7,7 +7,8 @@ const Callout = ({children}) => (
       fontSize: '1.4rem',
       paddingBottom: '1.4rem',
       fontStyle: 'italic',
-    }}>
+    }}
+  >
     {children}
   </span>
 )

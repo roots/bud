@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-use-style",
   "description": "Themes and styles for React Ink",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -62,7 +62,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "ink": "3.2.0",
     "ink-use-stdout-dimensions": "1.0.5",
     "react": "17.0.2"

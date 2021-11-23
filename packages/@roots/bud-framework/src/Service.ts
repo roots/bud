@@ -34,7 +34,7 @@ const {isString, isUndefined} = lodash
  *
  * @typeParam Repository - {@link Repository} typing, if applicable
  *
- * @public @core @container
+ * @public
  */
 export abstract class Service<
   Repository = Record<string, any>,
@@ -55,41 +55,6 @@ export abstract class Service<
     return this.app.logger.scoped(
       this.ident ?? this.constructor.name.toLowerCase(),
     )
-  }
-
-  /**
-   * Log a message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
-      this.logger[type](
-        ...messages.reduce(
-          (
-            acc,
-            loggedItem:
-              | string
-              | {message?: string; suffix?: string},
-          ) => {
-            if (
-              typeof loggedItem !== 'string' &&
-              !isUndefined(loggedItem?.suffix) &&
-              isString(loggedItem?.suffix)
-            ) {
-              loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(process.cwd(), '.'),
-              )
-            }
-
-            return [...acc, loggedItem]
-          },
-          [],
-        ),
-      )
-    return this
   }
 
   /**
@@ -164,7 +129,11 @@ export abstract class Service<
 
   /**
    * Dump the service repository
+   *
+   * @public
+   * @decorator `@bind`
    */
+  @bind
   public dump(options?: PrettyFormatOptions) {
     this.app.log({
       message: highlight(
@@ -175,5 +144,41 @@ export abstract class Service<
       ),
       prefix: this.ident,
     })
+  }
+
+  /**
+   * Log a message
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public log(type: string, ...messages: any[]) {
+    this.app.store.is('features.log', true) &&
+      this.logger[type](
+        ...messages.reduce(
+          (
+            acc,
+            loggedItem:
+              | string
+              | {message?: string; suffix?: string},
+          ) => {
+            if (
+              typeof loggedItem !== 'string' &&
+              !isUndefined(loggedItem?.suffix) &&
+              isString(loggedItem?.suffix)
+            ) {
+              loggedItem.suffix = chalk.dim(
+                loggedItem.suffix.replace(process.cwd(), '.'),
+              )
+            }
+
+            return [...acc, loggedItem]
+          },
+          [],
+        ),
+      )
+
+    return this
   }
 }

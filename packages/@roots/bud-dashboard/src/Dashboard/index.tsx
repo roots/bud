@@ -3,12 +3,11 @@ import {
   Framework,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, once} from '@roots/bud-support'
 import {Instance, render} from 'ink'
 import React from 'react'
 
 import {Dashboard as DashboardComponent} from '../components/Dashboard'
-import {Screen} from '../components/Screen'
 
 /**
  * Dashboard service
@@ -31,7 +30,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async registered(): Promise<void> {
-    this.app.hooks.promise('event.compiler.before', config => {
+    this.app.hooks.on('event.compiler.before', config => {
       this.run()
       return config
     })
@@ -42,22 +41,35 @@ export class Dashboard extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public run(): Framework {
+    this.app.hooks.on('event.dashboard.done', this.close)
+
     if (this.app.store.is('features.dashboard', true)) {
-      this.instance = render(
-        <DashboardComponent bud={this.app} />,
-      )
+      this.render(<DashboardComponent bud={this.app} />)
 
-      this.log('success', {message: 'rendering'})
-    }
-
-    if (this.app.store.is('cli.flags.log.interactive', true)) {
-      this.instance.clear()
+      this.log('success', {
+        message: 'rendering dashboard',
+      })
     }
 
     return this.app
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public close(): void {
+    this.log('success', {message: 'shutting down dashboard'})
+    this.instance?.unmount()
+    this.app.close()
   }
 
   /**
@@ -71,11 +83,7 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public render(Component: any, title?: string): void {
-    this.instance = render(
-      <Screen app={this.app} title={title ?? null}>
-        <Component />
-      </Screen>,
-    )
+  public render(Component: any): void {
+    this.instance = render(Component)
   }
 }

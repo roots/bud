@@ -3,7 +3,7 @@
  *
  * @public
  */
-const LIFECYCLE_EVENTS = [
+export const LIFECYCLE_EVENTS = [
   'bootstrap',
   'bootstrapped',
   'register',
@@ -17,7 +17,7 @@ const LIFECYCLE_EVENTS = [
  *
  * @public
  */
-const PARENT_SERVICES: (string | number)[] = [
+export const PARENT_SERVICES: (string | number)[] = [
   'compiler',
   'dashboard',
   'server',
@@ -28,6 +28,6 @@ const PARENT_SERVICES: (string | number)[] = [
  *
  * @public
  */
-const DEVELOPMENT_SERVICES: (string | number)[] = ['server']
-
-export {DEVELOPMENT_SERVICES, LIFECYCLE_EVENTS, PARENT_SERVICES}
+export const DEVELOPMENT_SERVICES: (string | number)[] = [
+  'server',
+]

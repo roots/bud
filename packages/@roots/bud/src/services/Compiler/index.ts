@@ -6,5 +6,5 @@ export class Compiler extends Base {
    *
    * @public
    */
-  public ident = 'bud.compiler'
+  public ident = 'compiler'
 }

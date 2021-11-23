@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -69,8 +69,8 @@
     "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/express": "4.17.13",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "@types/prettier": "2.4.2",
     "@types/safe-json-stringify": "1.1.2",
     "@types/signale": "1.4.2",
@@ -96,7 +96,7 @@
     "pkg-up": "3.1.0",
     "prettier": "2.4.1",
     "pretty-format": "27.3.1",
-    "remark": "14.0.1",
+    "remark": "14.0.2",
     "remark-html": "15.0.0",
     "safe-resolve": "1.0.0",
     "signale": "1.4.0",
@@ -105,12 +105,13 @@
     "ts-node": "10.4.0",
     "typescript": "4.4.4",
     "vfile-reporter": "7.0.2",
-    "webpack": "5.64.1",
+    "webpack": "5.64.2",
     "webpack-config-dump-plugin": "3.0.1",
     "yamljs": "0.3.0"
   },
   "stableVersion": "4.6.0",
   "dependencies": {
+    "cli-highlight": "^2.1.11",
     "patch-console": "^1.0.0",
     "safe-json-stringify": "^1.2.0",
     "tslib": "2.3.1"

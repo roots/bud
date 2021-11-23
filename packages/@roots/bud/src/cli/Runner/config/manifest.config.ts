@@ -44,13 +44,13 @@ export const configs = async (app: Bud, logger: Signale) => {
 
   if (generalConfigs) {
     await configSet(app, logger, generalConfigs)
-    await app.api.callAll()
+    await app.api.processQueue()
     await app.extensions.processQueue()
   }
 
   if (conditionalConfigs) {
     await configSet(app, logger, conditionalConfigs)
-    await app.api.callAll()
+    await app.api.processQueue()
     await app.extensions.processQueue()
   }
 }

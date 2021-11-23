@@ -11,7 +11,9 @@ import {Project} from './Project'
 import {Server} from './Server'
 
 /**
- * @public
+ * Bud application services
+ *
+ * @internal
  */
 export const services = {
   api: Api,
@@ -25,4 +27,18 @@ export const services = {
   server: Server,
   dashboard: Dashboard,
   extensions: Extensions,
+}
+
+export {
+  Api,
+  Build,
+  Cache,
+  Compiler,
+  Dashboard,
+  Dependencies,
+  Env,
+  Extensions,
+  Hooks,
+  Project,
+  Server,
 }

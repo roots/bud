@@ -11,7 +11,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
@@ -27,4 +27,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {api, make, name, options} = BudCriticalCssPlugin
+export default BudCriticalCssPlugin

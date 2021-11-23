@@ -1,0 +1,2935 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.18.19",
+    "schemaVersion": 1004,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@container",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@core",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@extension",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@config",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true,
+        "@container": true,
+        "@core": true,
+        "@extension": true,
+        "@config": true,
+        "@hook": true,
+        "@filter": true
+      }
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@roots/bud-build!",
+  "docComment": "/**\n * Compiler configuration builder\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @core @packageDocumentation\n */\n",
+  "name": "@roots/bud-build",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@roots/bud-build!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-build!Build:class",
+          "docComment": "/**\n * Webpack configuration builder class\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class Build extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Service",
+              "canonicalReference": "@roots/bud-framework!Service:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Content",
+              "text": "Contract."
+            },
+            {
+              "kind": "Reference",
+              "text": "Interface",
+              "canonicalReference": "@roots/bud-framework!default:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Build",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Build#booted:member(1)",
+              "docComment": "/**\n * Service booted event\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "booted(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "booted"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Build#init:member(1)",
+              "docComment": "/**\n * Initialize the build rules, loaders, items\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "init(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "init"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Build#items:member",
+              "docComment": "/**\n * Registered items\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "items: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Items",
+                  "canonicalReference": "@roots/bud-framework!Items:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "items",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Build#loaders:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "loaders: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loaders",
+                  "canonicalReference": "@roots/bud-framework!Loaders:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "loaders",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Build#make:member(1)",
+              "docComment": "/**\n * Make webpack configuration\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "make(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Configuration",
+                  "canonicalReference": "webpack!~Configuration:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "make"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Build#register:member(1)",
+              "docComment": "/**\n * Service register event\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "register(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "register"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Build#rules:member",
+              "docComment": "/**\n * Registered rules\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "rules: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rules",
+                  "canonicalReference": "@roots/bud-framework!Rules:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "rules",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Build#writeFinalConfig:member(1)",
+              "docComment": "/**\n * Write final configuration to storage directory\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "writeFinalConfig(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "writeFinalConfig"
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 4,
+              "endIndex": 7
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-build!Item:class",
+          "docComment": "/**\n * Item class\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class Item extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Base."
+            },
+            {
+              "kind": "Reference",
+              "text": "Abstract",
+              "canonicalReference": "@roots/bud-framework!default:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Content",
+              "text": "Base."
+            },
+            {
+              "kind": "Reference",
+              "text": "Interface",
+              "canonicalReference": "@roots/bud-framework!default:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Item",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "@roots/bud-build!Item:constructor(1)",
+              "docComment": "/**\n * Class constructor\n *\n * @param options - {@link Base.Options}\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor({ loader, options, }: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ConstructorOptions",
+                  "canonicalReference": "@roots/bud-framework!ConstructorOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "{ loader, options, }",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Item#getLoader:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n * {@inheritDoc @roots/Framework-Framework#Item.Abstract.getLoader}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getLoader(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Loader."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getLoader"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Item#loader:member",
+              "docComment": "/**\n * Loader\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "loader: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Loader."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "loader",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Item#make:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "make(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Output",
+                  "canonicalReference": "@roots/bud-framework!Output:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "make"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Item#mergeOptions:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "mergeOptions(options: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/bud-framework!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                },
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 5
+                  }
+                }
+              ],
+              "name": "mergeOptions"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Item#options:member",
+              "docComment": "/**\n * Loader options\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "options: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/bud-framework!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "options",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Item#setLoader:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setLoader(loader: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Loader."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "loader",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setLoader"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Item#setOptions:member(1)",
+              "docComment": "/**\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setOptions(options: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/bud-framework!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setOptions"
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 5,
+              "endIndex": 8
+            }
+          ]
+        },
+        {
+          "kind": "Namespace",
+          "canonicalReference": "@roots/bud-build!items:namespace",
+          "docComment": "",
+          "excerptTokens": [],
+          "releaseTag": "None",
+          "name": "items",
+          "members": [
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!items.default:var",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "_default: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n    asset: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    css: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    csv: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    html: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    style: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    md: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    minicss: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    raw: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    file: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    \"resolve-url\": () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    xml: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Item",
+                  "canonicalReference": "@roots/bud-build!Item:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n}"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "default",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 24
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-build!Loader:class",
+          "docComment": "/**\n * Framework Loader\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class Loader extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Framework.Loader."
+            },
+            {
+              "kind": "Reference",
+              "text": "Abstract",
+              "canonicalReference": "@roots/bud-framework!default:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Content",
+              "text": "Framework.Loader."
+            },
+            {
+              "kind": "Reference",
+              "text": "Interface",
+              "canonicalReference": "@roots/bud-framework!default:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Loader",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "@roots/bud-build!Loader:constructor(1)",
+              "docComment": "/**\n * Class constructor\n *\n * @param src - Either a factory returning a string or a literal string\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(src: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Framework."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Bud",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "src",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 6
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Loader#make:member(1)",
+              "docComment": "/**\n * Factory producing the final loader path\n *\n * @param app - {@link @roots/bud-Bud#Bud}\n *\n * @returns final loader path\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "make(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Bud",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "make"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Loader#normalizeInput:member(1)",
+              "docComment": "/**\n * Ensure that a userInput is assigned to the class as a {@link @roots/bud-Bud#Factory | Factory}\n *\n * @param input - input value\n *\n * @returns normalized value from user input\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "normalizeInput<T = "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(input: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Framework."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Bud",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], T>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Framework."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Bud",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], T>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 14
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "input",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 8
+                  }
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "T",
+                  "constraintTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "normalizeInput"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Loader#src:member",
+              "docComment": "/**\n * Factory returning the loader path\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "src: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Framework."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Bud",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "src",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 5,
+              "endIndex": 8
+            }
+          ]
+        },
+        {
+          "kind": "Namespace",
+          "canonicalReference": "@roots/bud-build!loaders:namespace",
+          "docComment": "",
+          "excerptTokens": [],
+          "releaseTag": "None",
+          "name": "loaders",
+          "members": [
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!loaders.default:var",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "_default: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n    css: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    csv: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    file: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    html: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    md: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    minicss: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    \"resolve-url\": () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    style: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    url: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    xml: () => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Loader",
+                  "canonicalReference": "@roots/bud-build!Loader:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n}"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "default",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 22
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/bud-build!Rule:class",
+          "docComment": "/**\n * Framework Rule\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class Rule extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Base."
+            },
+            {
+              "kind": "Reference",
+              "text": "Abstract",
+              "canonicalReference": "@roots/bud-framework!default:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Content",
+              "text": "Base."
+            },
+            {
+              "kind": "Reference",
+              "text": "Interface",
+              "canonicalReference": "@roots/bud-framework!default:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Rule",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "@roots/bud-build!Rule:constructor(1)",
+              "docComment": "/**\n * Class constructor\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor({ test, use, exclude, type, parser, generator, }: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/bud-framework!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "{ test, use, exclude, type, parser, generator, }",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#exclude:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "exclude: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "exclude",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#generator:member",
+              "docComment": "/**\n * Generator factory\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "generator: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], any>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "generator",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getExclude:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getExclude(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getExclude"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getGenerator:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getGenerator(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getGenerator"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getParser:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getParser(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Parser",
+                  "canonicalReference": "@roots/bud-framework!Parser:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getParser"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getTest:member(1)",
+              "docComment": "/**\n * @param app - {@link @roots/bud-framework#Framework | Framework}\n *\n * @returns \n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getTest(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getTest"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getType:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getType(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getType"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#getUse:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getUse(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Item."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getUse"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#make:member(1)",
+              "docComment": "/**\n * Produce final Base output\n *\n * @param app - {@link @roots/bud-framework#Framework}\n *\n * @returns finalized rule\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "make(app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Output",
+                  "canonicalReference": "@roots/bud-framework!Output:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "app",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "make"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#parser:member",
+              "docComment": "/**\n * Generator factory\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "parser: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Parser",
+                  "canonicalReference": "@roots/bud-framework!Parser:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "parser",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setExclude:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setExclude(exclude: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "exclude",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setExclude"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setGenerator:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setGenerator(generator: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "generator",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "setGenerator"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setParser:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setParser(parser: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Base."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Parser",
+                  "canonicalReference": "@roots/bud-framework!Parser:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "parser",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setParser"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setTest:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setTest(test: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | ((app: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ")"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "test",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setTest"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setType:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setType(type: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "type",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "setType"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/bud-build!Rule#setUse:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setUse(use: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Maybe",
+                  "canonicalReference": "@roots/bud-framework!Maybe:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Item."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "use",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 7
+                  }
+                }
+              ],
+              "name": "setUse"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#test:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "test: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "test",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#type:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Rule.Abstract.\"type\"}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "type: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "type",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/bud-build!Rule#use:member",
+              "docComment": "/**\n * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "use: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Factory",
+                  "canonicalReference": "@roots/bud-framework!Factory:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<["
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Framework",
+                  "canonicalReference": "@roots/bud-framework!Framework:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "], Item."
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Interface",
+                  "canonicalReference": "@roots/bud-framework!default:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "use",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 7
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 5,
+              "endIndex": 8
+            }
+          ]
+        },
+        {
+          "kind": "Namespace",
+          "canonicalReference": "@roots/bud-build!rules:namespace",
+          "docComment": "",
+          "excerptTokens": [],
+          "releaseTag": "None",
+          "name": "rules",
+          "members": [
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.css:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.css` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "css: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "css",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.csv:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.csv` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "csv: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "csv",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.font:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.woff`/`.otf` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "font: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "font",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.html:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.html` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "html: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "html",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.image:var",
+              "docComment": "/**\n * Returns {@link Rule} for `asset/resource`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "image: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "image",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.js:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.js` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "js: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "js",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.json5:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.jsonc` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "json5: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "json5",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.svg:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.svg` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "svg: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "svg",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.toml:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.toml` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toml: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "toml",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.xml:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.xml` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "xml: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "xml",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "Variable",
+              "canonicalReference": "@roots/bud-build!rules.yml:var",
+              "docComment": "/**\n * Returns {@link Rule} for `.yml` / `.yaml` handling\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "yml: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@roots/bud-build!Rule:class"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "yml",
+              "variableTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

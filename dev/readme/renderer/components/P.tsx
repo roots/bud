@@ -6,12 +6,12 @@ export class P {
   }
 
   public render() {
-    return `${this.children}\n`
+    return `${this.children}`
   }
 
   public get children() {
     return Array.isArray(this.props.children)
-      ? this.props.children.join('')
+      ? this.props.children.join('').concat('\n')
       : this.props.children
   }
 }

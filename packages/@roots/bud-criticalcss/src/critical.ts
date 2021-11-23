@@ -10,6 +10,8 @@ import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
  *  // ...
  * })
  * ```
+ *
+ * @public
  */
 export interface critical {
   (
@@ -18,6 +20,9 @@ export interface critical {
   ): Framework
 }
 
+/**
+ * @public
+ */
 export const critical: critical = function (
   this: Framework,
   userOptions: CriticalCssWebpackPlugin['options'],

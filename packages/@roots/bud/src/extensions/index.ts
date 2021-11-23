@@ -9,7 +9,17 @@ import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-pl
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-export function extensions(): Record<string, Extension.Module> {
+/**
+ * Built-in extensions factory
+ *
+ * @returns Records of built-in compiler plugins
+ *
+ * @public
+ */
+export function extensions(): Record<
+  string,
+  Extension.CompilerPlugin
+> {
   return {
     ['webpack-provide-plugin']: WebpackProvidePlugin,
     ['clean-webpack-plugin']: CleanWebpackPlugin,

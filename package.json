@@ -1,7 +1,7 @@
 {
   "name": "bud.js",
   "packageManager": "yarn@3.1.0",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
@@ -39,9 +39,9 @@
     "@microsoft/api-extractor": "7.18.19",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "@types/react-helmet": "6.1.4",
@@ -56,12 +56,12 @@
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
-    "esbuild": "0.13.14",
+    "esbuild": "0.13.15",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-react": "7.27.0",
+    "eslint-plugin-react": "7.27.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.14",
@@ -83,8 +83,8 @@
     "signale": "1.4.0",
     "ts-jest": "27.0.7",
     "ts-node": "10.4.0",
-    "tsconfig-paths": "3.11.0",
-    "type-fest": "2.5.3",
+    "tsconfig-paths": "3.12.0",
+    "type-fest": "2.5.4",
     "typedoc": "0.22.9",
     "typescript": "4.4.4",
     "weak-napi": "2.0.2"
@@ -105,7 +105,7 @@
     "organization": {
       "name": "Roots Foundation, LLC",
       "site": "https://roots.io",
-      "twitter": "https://twitter.com/roots",
+      "twitter": "https://twitter.com/rootswp",
       "favicon": "https://roots.io/favicon.ico"
     },
     "contributors": {
@@ -140,6 +140,54 @@
         ]
       }
     },
+    "core": [
+      "@roots/bud",
+      "@roots/bud-api",
+      "@roots/bud-build",
+      "@roots/bud-cache",
+      "@roots/bud-compiler",
+      "@roots/bud-dashboard",
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "@roots/bud-hooks",
+      "@roots/bud-server",
+      "@roots/bud-support"
+    ],
+    "extensions": [
+      "@roots/bud-babel",
+      "@roots/bud-compress",
+      "@roots/bud-criticalcss",
+      "@roots/bud-emotion",
+      "@roots/bud-entrypoints",
+      "@roots/bud-esbuild",
+      "@roots/bud-eslint",
+      "@roots/bud-library",
+      "@roots/bud-mdx",
+      "@roots/bud-postcss",
+      "@roots/bud-preset-recommend",
+      "@roots/bud-prettier",
+      "@roots/bud-purgecss",
+      "@roots/bud-react",
+      "@roots/bud-sass",
+      "@roots/bud-solid",
+      "@roots/bud-stylelint",
+      "@roots/bud-tailwindcss",
+      "@roots/bud-terser",
+      "@roots/bud-typescript",
+      "@roots/bud-vue",
+      "@roots/bud-wordpress-dependencies",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-manifests",
+      "@roots/sage"
+    ],
+    "libraries": [
+      "@roots/container",
+      "@roots/critical-css-webpack-plugin",
+      "@roots/dependencies",
+      "@roots/entrypoints-webpack-plugin",
+      "@roots/filesystem",
+      "@roots/ink-prettier"
+    ],
     "sponsors": [
       {
         "image": "https://cdn.roots.io/app/uploads/kinsta.svg",
@@ -167,29 +215,9 @@
         "url": "https://wordpress.com/"
       },
       {
-        "image": "https://cdn.roots.io/app/uploads/icons8.svg",
-        "title": "Icons8",
-        "url": "https://icons8.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/harness-software.svg",
-        "title": "Harness Software",
-        "url": "https://www.harnessup.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/coders-clan.svg",
-        "title": "Coders Clan",
-        "url": "https://www.codersclan.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/genero.svg",
-        "title": "Genero",
-        "url": "https://generodigital.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/motto.svg",
-        "title": "Motto",
-        "url": "https://motto.ca/roots"
+        "image": "https://cdn.roots.io/app/uploads/pantheon.svg",
+        "title": "Pantheon",
+        "url": "https://pantheon.io/"
       }
     ]
   }

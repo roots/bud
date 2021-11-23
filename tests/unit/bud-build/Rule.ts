@@ -1,8 +1,8 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {Rule} from '@roots/bud-build'
 
 describe('Build Rule', function () {
-  let bud: Framework = null
+  let bud: Bud = null
 
   beforeAll(async () => {
     bud = await factory({

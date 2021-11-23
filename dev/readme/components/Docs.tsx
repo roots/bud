@@ -1,10 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 
 export const Docs = ({url}) => (
-  <span>
-    {`## Documentation
+  <>
+    <h2>Documentation</h2>
 
-For more information on utilizing this package [check out our dedicated docs](${url})
-`}
-  </span>
+    <p>
+      For more information on utilizing this package [check out
+      our dedicated docs]({url})
+    </p>
+  </>
 )

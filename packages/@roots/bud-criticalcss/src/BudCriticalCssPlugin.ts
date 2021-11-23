@@ -12,7 +12,7 @@ import {critical} from './critical'
  *
  * @public
  */
-interface BudCriticalCssPlugin
+export interface BudCriticalCssPlugin
   extends Extension.CompilerPlugin<
     CriticalCssWebpackPlugin,
     Partial<Options>
@@ -26,18 +26,46 @@ interface BudCriticalCssPlugin
   ) => CriticalCssWebpackPlugin
 }
 
-const BudCriticalCssPlugin: BudCriticalCssPlugin = {
+/**
+ * Adds critical css webpack plugin to compilation
+ *
+ * @public
+ */
+export const BudCriticalCssPlugin: BudCriticalCssPlugin = {
+  /**
+   * Extension identifier
+   *
+   * @public
+   */
   name: '@roots/bud-criticalcss',
 
+  /**
+   * Extension api functions
+   *
+   * @public
+   */
   api: {critical},
 
+  /**
+   * Extension options
+   *
+   * @public
+   */
   options: {},
 
+  /**
+   * Makes compiler plugin
+   *
+   * @public
+   */
   make(options): CriticalCssWebpackPlugin {
     return new CriticalCssWebpackPlugin(options.all())
   },
 
+  /**
+   * Prerequiste criteria for plugin usage
+   *
+   * @public
+   */
   when: app => app.isProduction,
 }
-
-export {BudCriticalCssPlugin}

@@ -1,0 +1,254 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.18.19",
+    "schemaVersion": 1004,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@container",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@core",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@extension",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@config",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@hook",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@filter",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true,
+        "@container": true,
+        "@core": true,
+        "@extension": true,
+        "@config": true,
+        "@hook": true,
+        "@filter": true
+      }
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@roots/bud-purgecss!",
+  "docComment": "/**\n * Adds purgecss support to Bud\n *\n * @remarks\n *\n * - 💁 Composable - Build exceptional applications with a modular, configurable build system\n *\n * - 💪 Modern - Modern framework written in TypeScript with an expressive API\n *\n * - 🌱 Easy - Low bundle size and fast build times\n *\n * @see\n *\n * https://roots.io/bud\n *\n * @see\n *\n * https://github.com/roots/bud\n *\n * @packageDocumentation\n */\n",
+  "name": "@roots/bud-purgecss",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@roots/bud-purgecss!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-purgecss!api:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "api: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    purge: "
+            },
+            {
+              "kind": "Reference",
+              "text": "purge",
+              "canonicalReference": "@roots/bud-purgecss!~purge:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "api",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@roots/bud-purgecss!name_2:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "name = \"@roots/bud-purgecss\""
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "name_2",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        }
+      ]
+    }
+  ]
+}

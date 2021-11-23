@@ -10,3 +10,5 @@ export const format = (
 ) => prettyFormat(obj, options)
 
 export {prettyFormat}
+
+export {PrettyFormatOptions} from 'pretty-format/build/types'

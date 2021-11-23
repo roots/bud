@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@emotion/css": "11.5.0",
-    "@emotion/react": "11.5.0",
-    "@emotion/styled": "11.3.0",
+    "@emotion/react": "11.6.0",
+    "@emotion/styled": "11.6.0",
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion",

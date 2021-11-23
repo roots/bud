@@ -1,7 +1,7 @@
 {
   "name": "@roots/entrypoints-webpack-plugin",
   "description": "Manifest with assets grouped by entrypoint",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -62,10 +62,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "jest": "27.3.1",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

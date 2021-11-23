@@ -33,7 +33,8 @@
     "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "5.5.0",
     "@tsconfig/docusaurus": "1.0.4",
-    "@types/node": "16.11.7",
+    "@types/jsesc": "^3",
+    "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "@types/react-helmet": "6.1.4",
@@ -44,10 +45,11 @@
     "raw-loader": "4.0.2",
     "typescript": "4.4.4",
     "url-loader": "4.1.1",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "clsx": "1.1.1",
+    "jsesc": "^3.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tslib": "2.3.1"

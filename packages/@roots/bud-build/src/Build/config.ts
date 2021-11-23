@@ -5,43 +5,51 @@ import type {Configuration} from 'webpack'
 
 const {dirname} = posix
 
+/**
+ * Filters framework values and returns a webpack configuration
+ *
+ * @param app - the Framework instance
+ *
+ * @public
+ */
 export async function config(app: Framework): Promise<void> {
-  app.hooks.promise('build', async () => {
-    const entry = await app.hooks.promised('build.entry')
-    const resolve = await app.hooks.promised('build.resolve')
-
-    return {
-      bail: app.hooks.filter('build.bail'),
-      cache: app.hooks.filter('build.cache'),
-      context: app.hooks.filter('build.context'),
-      devtool: app.hooks.filter('build.devtool'),
-      entry,
-      experiments: app.hooks.filter('build.experiments'),
-      externals: app.hooks.filter('build.externals'),
-      infrastructureLogging: app.hooks.filter(
-        'build.infrastructureLogging',
-      ),
-      mode: app.hooks.filter('build.mode'),
-      module: app.hooks.filter('build.module'),
-      name: app.hooks.filter('build.name'),
-      node: app.hooks.filter('build.node'),
-      output: app.hooks.filter('build.output'),
-      optimization: app.hooks.filter('build.optimization'),
-      parallelism: app.hooks.filter('build.parallelism'),
-      performance: app.hooks.filter('build.performance'),
-      plugins: app.hooks.filter('build.plugins'),
-      profile: app.hooks.filter('build.profile'),
-      recordsPath: app.hooks.filter('build.recordsPath'),
-      resolve,
-      stats: app.hooks.filter('build.stats'),
-      target: app.hooks.filter('build.target'),
-      watch: app.hooks.filter('build.watch'),
-      watchOptions: app.hooks.filter('build.watchOptions'),
-    }
-  })
-
   app.hooks
-    .on('build.bail', () => app.store.get('build.bail'))
+    .on('build', async () => {
+      const entry = await app.hooks.promised('build.entry')
+      const plugins = await app.hooks.promised('build.plugins')
+      const resolve = await app.hooks.promised('build.resolve')
+
+      return {
+        bail: app.hooks.filter('build.bail'),
+        cache: app.hooks.filter('build.cache'),
+        context: app.hooks.filter('build.context'),
+        devtool: app.hooks.filter('build.devtool'),
+        entry,
+        experiments: app.hooks.filter('build.experiments'),
+        externals: app.hooks.filter('build.externals'),
+        infrastructureLogging: app.hooks.filter(
+          'build.infrastructureLogging',
+        ),
+        mode: app.hooks.filter('build.mode'),
+        module: app.hooks.filter('build.module'),
+        name: app.hooks.filter('build.name'),
+        node: app.hooks.filter('build.node'),
+        output: app.hooks.filter('build.output'),
+        optimization: app.hooks.filter('build.optimization'),
+        parallelism: app.hooks.filter('build.parallelism'),
+        performance: app.hooks.filter('build.performance'),
+        plugins,
+        profile: app.hooks.filter('build.profile'),
+        recordsPath: app.hooks.filter('build.recordsPath'),
+        resolve,
+        stats: app.hooks.filter('build.stats'),
+        target: app.hooks.filter('build.target'),
+        watch: app.hooks.filter('build.watch'),
+        watchOptions: app.hooks.filter('build.watchOptions'),
+      }
+    })
+
+    .hooks.on('build.bail', () => app.store.get('build.bail'))
 
     /**
      * Context
@@ -185,7 +193,10 @@ export async function config(app: Framework): Promise<void> {
     /**
      * Plugins
      */
-    .hooks.on('build.plugins', () => app.extensions.make())
+    .hooks.on(
+      'build.plugins',
+      async () => await app.extensions.make(),
+    )
 
     /**
      * Profile
@@ -216,7 +227,7 @@ export async function config(app: Framework): Promise<void> {
       return {modules, alias, extensions}
     })
     .hooks.on('build.resolve.alias', {})
-    .hooks.promise(
+    .hooks.on(
       'build.resolve.modules',
       async (value?: any): Promise<any> => {
         const budPkg = await pkgUp({

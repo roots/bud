@@ -1,4 +1,5 @@
 import * as Framework from '@roots/bud-framework'
+import {fs} from '@roots/bud-support'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
@@ -61,6 +62,31 @@ export class Server
   }
 
   /**
+   * Register service event
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register() {
+    this.app.hooks.on('event.compiler.done', async () => {
+      await fs.writeJson(this.app.path('dist', 'hmr.json'), {
+        host: this.app.store.get('server.host'),
+        port: this.app.store.get('server.port'),
+      })
+    })
+
+    this.app.hooks.on('event.app.close', () => {
+      const exists = fs.pathExistsSync(
+        this.app.path('dist', 'hmr.json'),
+      )
+
+      if (exists)
+        fs.removeSync(this.app.path('dist', 'hmr.json'))
+    })
+  }
+
+  /**
    * {@inheritDoc @roots/bud-framework#Server.Interface.getWatchedFilesArray}
    *
    * @public
@@ -119,6 +145,11 @@ export class Server
    */
   @bind
   public async run(): Promise<this> {
+    await this.app.hooks.promised(
+      'event.server.run.before',
+      this.app,
+    )
+
     await this.app.compiler.compile()
     /**
      * __roots route
@@ -144,8 +175,10 @@ export class Server
      */
     this.instance = this.application.listen(
       this.app.store.get('server.port'),
-      (error: string) => {
+      async (error: string) => {
         if (error) this.log('error', error)
+
+        this.app.hooks.filter('event.server.listen')
 
         this.log(
           'success',
@@ -177,6 +210,11 @@ export class Server
           message: `Detected file change: ${path}. Reloading window.`,
         })
       })
+
+    await this.app.hooks.promised(
+      'event.server.run.after',
+      this.app,
+    )
 
     return this
   }

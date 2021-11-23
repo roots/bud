@@ -1,11 +1,10 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
 
-process.env.BUD_KEEP_ALIVE = 'true'
-
 describe('bud', () => {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({
@@ -119,16 +118,16 @@ describe('bud', () => {
   it('when calls fns conditionally', done => {
     bud.when(
       () => true,
-      (app: Framework) => {
-        expect(app).toBeInstanceOf(Framework)
+      (app: Bud) => {
+        expect(app).toBeInstanceOf(Bud)
       },
     )
 
     bud.when(
       () => false,
       noop,
-      (app: Framework) => {
-        expect(app).toBeInstanceOf(Framework)
+      (app: Bud) => {
+        expect(app).toBeInstanceOf(Bud)
       },
     )
 

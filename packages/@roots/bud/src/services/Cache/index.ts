@@ -7,5 +7,5 @@ export class Cache extends Base implements Service {
    *
    * @public
    */
-  public ident = 'bud.cache'
+  public ident = 'cache'
 }

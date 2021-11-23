@@ -1,13 +1,28 @@
-import {Constructor, Framework} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
+import {Framework as Base} from '@roots/bud-framework'
 
 /**
- * ⚡️ Bud - Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * ⚡️ Bud
  *
- * @public @core
+ * @public
  */
-export class Bud extends Framework {
+export class Bud extends Base {
   /**
+   * Constructor for producing additional Bud instances.
+   *
+   * @internal
+   */
+  public implementation: Framework.Constructor = Bud
+}
+
+/**
+ * @public
+ */
+export namespace Bud {
+  /**
+   * Bud constructor options
+   *
    * @public
    */
-  public implementation: Constructor = Bud
+  export type Options = Framework.Options
 }

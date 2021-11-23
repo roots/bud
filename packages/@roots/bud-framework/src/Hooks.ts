@@ -65,21 +65,6 @@ interface Hooks extends Service<Hooks.Repository> {
   on(id: Hooks.Name, callback: Hooks.Hook): Framework
 
   /**
-   * Async version of hook.on
-   *
-   * @example
-   * ```js
-   * app.hooks.on(
-   *   'namespace.name.value',
-   *   value => 'replaced by this string',
-   * )
-   * ```
-   *
-   * @public
-   */
-  promise(id: Hooks.Name, callback: Hooks.PromiseHook): Framework
-
-  /**
    * The other side of bud.hooks.on. Passes a key and a value. If
    * any filters are registered on that key they will transform
    * the output before it is returned.

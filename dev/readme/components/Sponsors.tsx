@@ -1,13 +1,13 @@
-import * as React from 'react'
+import React from 'react'
 
-const Grid = ({project}) =>
-  project.sponsors.map((sponsor, id) => (
+const Grid = ({sponsors}) =>
+  sponsors.map((sponsor, id) => (
     <span
       key={id}
     >{`<a href="${sponsor.url}"><img src="${sponsor.image}" alt="${sponsor.title}" width="200" height="150"/></a>`}</span>
   ))
 
-export const Sponsors = ({project}) => (
+export const Sponsors = props => (
   <>
     <h2>Sponsors</h2>
 
@@ -16,6 +16,6 @@ export const Sponsors = ({project}) => (
       [becoming a patron](https://www.patreon.com/rootsdev).
     </p>
 
-    <Grid project={project} />
+    <Grid {...props} />
   </>
 )

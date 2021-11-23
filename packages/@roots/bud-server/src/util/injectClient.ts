@@ -34,15 +34,18 @@ export const injectClient: InjectClient = (app, injection) => {
   })
 
   !app.root.hasChildren &&
-    app.root.hooks.promise('build.entry', async entries => {
+    app.root.hooks.on('build.entry', async entries => {
       const current = await entries
       return addScript(current)
     })
 
-  app.root.children.every((_name: string, child: Framework) => {
-    child.hooks.promise('build.entry', async entries => {
-      const current = await entries
-      return addScript(current)
-    })
-  })
+  app.root.hasChildren &&
+    app.root.children?.every(
+      (_name: string, child: Framework) => {
+        child.hooks.on('build.entry', async entries => {
+          const current = await entries
+          return addScript(current)
+        })
+      },
+    )
 }

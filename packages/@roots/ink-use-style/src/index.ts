@@ -4,7 +4,7 @@
 /**
  * React hook for easy styling of Ink components.
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 /**

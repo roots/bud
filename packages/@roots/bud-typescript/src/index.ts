@@ -15,7 +15,7 @@
  * @remarks
  * You should absolutely use this extension
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import {Item, Loader, Rule} from '@roots/bud-build'

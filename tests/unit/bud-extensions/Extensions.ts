@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {Extensions} from '@roots/bud-extensions'
 import {
   Extension,
@@ -8,7 +8,7 @@ import {
 import {WebpackPluginInstance} from 'webpack'
 
 describe.skip('Extensions', function () {
-  let bud: Framework = null
+  let bud: Bud = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {
     apply: jest.fn(),

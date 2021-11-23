@@ -154,7 +154,9 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public enqueue(extension: Framework.Extension.Module): void {
+  public enqueue(
+    extension: Framework.Extension.Module,
+  ): Framework.Framework {
     if (
       this.has(extension.name) ||
       this.queue.some(queued => queued.name === extension.name)
@@ -167,6 +169,8 @@ export class Extensions
     }
 
     this.queue.push(extension)
+
+    return this.app
   }
 
   /**
@@ -204,25 +208,9 @@ export class Extensions
 
     this.queue = await Promise.all(
       this.queue.map(async extension => {
-        return await this.makeController(extension)
+        await (this.app as any).use(extension)
       }),
     )
-
-    this.queue = await Promise.all(
-      this.queue.map(async controller => {
-        return await controller.register()
-      }),
-    )
-
-    this.queue = await Promise.all(
-      this.queue.map(async controller => {
-        return await controller.boot()
-      }),
-    )
-
-    this.queue.map(controller => {
-      this.set(controller.name, controller)
-    })
 
     this.queue = []
   }
@@ -237,11 +225,17 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public make(): {
-    [key: string]: any
-    apply: CallableFunction
-  }[] {
+  public async make(): Promise<
+    {
+      [key: string]: any
+      apply: CallableFunction
+    }[]
+  > {
     this.log('time', 'extensions.make')
+
+    await this.processQueue()
+
+    this.app.dump(this.getKeys())
 
     const plugins = this.getValues()
       .filter(controller => controller._module.make)

@@ -1,4 +1,4 @@
-import {Framework} from '../../../'
+import {Framework} from '@roots/bud-framework'
 
 export const config = async (app: Framework, flags) => {
   /**
@@ -6,7 +6,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags['location.project'] !== 'undefined') {
     app.setPath('project', flags['location.project'])
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.setPath('project', flags['location.project']),
     )
   }
@@ -16,7 +16,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags['location.src'] !== 'undefined') {
     app.setPath('src', flags['location.src'])
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.setPath('src', flags['location.src']),
     )
   }
@@ -26,7 +26,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags['location.dist'] !== 'undefined') {
     app.setPath('dist', flags['location.dist'])
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.setPath('dist', flags['location.dist']),
     )
   }
@@ -36,7 +36,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags['location.publicPath'] !== 'undefined') {
     app.setPublicPath(flags['location.publicPath'])
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.setPublicPath(flags['location.publicPath']),
     )
   }
@@ -46,7 +46,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.devtool !== 'undefined') {
     app.api.call('devtool', flags.devtool)
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.api.call('devtool', flags.devtool),
     )
   }
@@ -56,7 +56,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.hash !== 'undefined') {
     app.api.call('hash', flags.hash)
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.api.call('hash', flags.hash),
     )
   }
@@ -66,7 +66,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.html !== 'undefined') {
     app.api.call('html', flags.html)
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.api.call('html', flags.html),
     )
   }
@@ -76,7 +76,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.runtime !== 'undefined') {
     app.api.call('runtime', flags.runtime)
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.api.call('runtime', flags.runtime),
     )
   }
@@ -86,7 +86,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.manifest !== 'undefined') {
     app.store.set('features.manifest', flags.manifest)
-    app.children.every((_name, child) =>
+    app.children?.every((_name, child) =>
       child.store.set('features.manifest', flags.manifest),
     )
   }
@@ -96,7 +96,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.minimize !== 'undefined') {
     app.api.call('minimize', flags.minimize)
-    app.children.every((_name, child) => {
+    app.children?.every((_name, child) => {
       child.api.call('minimize', flags.minimize)
     })
   }
@@ -106,7 +106,7 @@ export const config = async (app: Framework, flags) => {
    */
   if (typeof flags.vendor !== 'undefined') {
     app.api.call('splitChunks', flags.vendor)
-    app.children.every((_name, child) => {
+    app.children?.every((_name, child) => {
       child.api.call('splitChunks', flags.vendor)
     })
   }
@@ -120,8 +120,9 @@ export const config = async (app: Framework, flags) => {
     /**
      * And children if applicable
      */
-    app.children.getKeys().forEach(name => {
-      !flags?.target?.includes(name) && app.children.remove(name)
+    app.children?.getKeys().forEach(name => {
+      !flags?.target?.includes(name) &&
+        app.children?.remove(name)
     })
   }
 }
