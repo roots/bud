@@ -3,10 +3,10 @@ name: Build & Test
 on:
   push:
     branches:
-      - stable
+      - main
   pull_request:
     branches:
-      - stable
+      - main
       - next
   workflow_dispatch:
 
