@@ -16,7 +16,7 @@ import * as rules from './rules'
 const {ensureFile, writeFile} = fs
 
 /**
- * Framework configuration builder class
+ * Webpack configuration builder class
  *
  * @public
  */
@@ -37,21 +37,22 @@ export class Build
   public loaders: Loaders
 
   /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.rules}
+   * Registered rules
    *
    * @public
    */
   public rules: Rules
 
   /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.items}
+   * Registered items
    *
    * @public
    */
   public items: Items
 
   /**
-   * Make build
+   * Make webpack configuration
+   *
    * @public
    * @decorator `@bind`
    */
@@ -68,8 +69,7 @@ export class Build
       (all: Partial<Webpack.Configuration>, [key, value]) => {
         if (typeof value === 'undefined') {
           this.log(`warn`, {
-            prefix: 'bud.build.config',
-            message: `excluding ${key}`,
+            message: `build.make: excluding ${key}`,
             suffix: `value is undefined`,
           })
           return all
@@ -90,26 +90,55 @@ export class Build
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.bootstrap}
+   * Service register event
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async register() {
-    await this.init()
+    const reducer = (a: Rules | Items | Loaders, [k, v]) => ({
+      ...a,
+      [k]: v(),
+    })
+
+    Object.assign(this, {
+      loaders: this.app
+        .container(loaders)
+        .getEntries()
+        .reduce(reducer, this.loaders),
+      rules: this.app
+        .container(rules)
+        .getEntries()
+        .reduce(reducer, this.rules),
+      items: this.app
+        .container(items)
+        .getEntries()
+        .reduce(reducer, this.items),
+    })
+
+    await config(this.app)
   }
 
+  /**
+   * Service booted event
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async booted() {
-    this.app.hooks.promise(
+    this.app.hooks.on(
       'event.build.make.after',
       this.writeFinalConfig,
     )
   }
 
   /**
+   * Write final configuration to storage directory
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async writeFinalConfig() {
@@ -124,7 +153,9 @@ export class Build
         message: `writing webpack dump to disk`,
         suffix: filePath,
       })
+
       await ensureFile(filePath)
+
       await writeFile(
         filePath,
         `module.exports = (${JSON.stringify(
@@ -140,27 +171,11 @@ export class Build
   }
 
   /**
+   * Initialize the build rules, loaders, items
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public async init() {
-    const reduce = (a, [k, v]) => ({...a, [k]: v()})
-
-    Object.assign(this, {
-      loaders: this.app
-        .container(loaders)
-        .getEntries()
-        .reduce(reduce, this.loaders),
-      rules: this.app
-        .container(rules)
-        .getEntries()
-        .reduce(reduce, this.rules),
-      items: this.app
-        .container(items)
-        .getEntries()
-        .reduce(reduce, this.items),
-    })
-
-    await config(this.app)
-  }
+  public async init() {}
 }

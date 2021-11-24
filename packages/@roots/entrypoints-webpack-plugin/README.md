@@ -7,14 +7,17 @@
     alt="MIT License"
     src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
   />
-  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_small" alt="FOSSA Status">
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=small"/>
+  <a
+    href="https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_small"
+    alt="FOSSA Status"
+  >
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=small" />
   </a>
   <a href="https://www.npmjs.com/package/@roots/bud">
     <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codecov.io/gh/roots/bud">
-    <img src="https://codecov.io/gh/roots/bud/branch/next/graph/badge.svg?token=DRJ28OD8XD"/>
+    <img src="https://codecov.io/gh/roots/bud/branch/next/graph/badge.svg?token=DRJ28OD8XD" />
   </a>
   <a href="https://twitter.com/rootswp">
     <img
@@ -24,12 +27,12 @@
   </a>
 </p>
 
-
 <h1 align="center">
   <strong>@roots/entrypoints-webpack-plugin</strong>
 </h1>
 
-> Manifest with assets grouped by entrypoint
+Manifest with assets grouped by entrypoint
+
 ## Installation
 
 Install **@roots/entrypoints-webpack-plugin** to your project.
@@ -51,20 +54,14 @@ Keep track of development and community news.
 ## Contributing
 
 Contributions are welcome from everyone.
-
 We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
 ## Sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
-
 <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>
 <a href="https://www.c21redwood.com/"><img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/></a>
 <a href="https://wordpress.com/"><img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150"/></a>
-<a href="https://icons8.com/"><img src="https://cdn.roots.io/app/uploads/icons8.svg" alt="Icons8" width="200" height="150"/></a>
-<a href="https://www.harnessup.com/"><img src="https://cdn.roots.io/app/uploads/harness-software.svg" alt="Harness Software" width="200" height="150"/></a>
-<a href="https://www.codersclan.com/"><img src="https://cdn.roots.io/app/uploads/coders-clan.svg" alt="Coders Clan" width="200" height="150"/></a>
-<a href="https://generodigital.com/"><img src="https://cdn.roots.io/app/uploads/genero.svg" alt="Genero" width="200" height="150"/></a>
-<a href="https://motto.ca/roots"><img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150"/></a>
+<a href="https://pantheon.io/"><img src="https://cdn.roots.io/app/uploads/pantheon.svg" alt="Pantheon" width="200" height="150"/></a>

@@ -1,8 +1,8 @@
 import {bind, isFunction} from './item.dependencies'
 import {
+  Base,
   Factory,
   Framework,
-  Item,
   Loader,
   Maybe,
 } from './item.interface'
@@ -12,9 +12,9 @@ import {
  *
  * @public
  */
-export default class
-  extends Item.Abstract
-  implements Item.Interface
+export class Item
+  extends Base.Abstract
+  implements Base.Interface
 {
   /**
    * Loader
@@ -28,17 +28,17 @@ export default class
    *
    * @public
    */
-  public options: Factory<[Framework], Item.Options>
+  public options: Factory<[Framework], Base.Options>
 
   /**
    * Class constructor
    *
-   * @param options - {@link Item.Options}
+   * @param options - {@link Base.Options}
    */
   public constructor({
     loader,
     options,
-  }: Item.ConstructorOptions) {
+  }: Base.ConstructorOptions) {
     super()
 
     this.setLoader(loader)
@@ -46,7 +46,7 @@ export default class
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Item.Abstract.getLoader}
+   * {@inheritDoc @roots/Framework-Framework#Item.Abstract.getLoader}
    *
    * @public
    * @decorator `@bind`
@@ -57,8 +57,6 @@ export default class
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Item.Abstract.setLoader}
-   *
    * @public
    * @decorator `@bind`
    */
@@ -70,24 +68,20 @@ export default class
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Item.Abstract.seOptions}
-   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setOptions(options: Maybe<[Framework], Item.Options>) {
+  public setOptions(options: Maybe<[Framework], Base.Options>) {
     this.options = isFunction(options) ? options : () => options
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Item.Abstract.mergeOptions}
-   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public mergeOptions(options: Item.Options, app: Framework) {
+  public mergeOptions(options: Base.Options, app: Framework) {
     options = {
       ...this.options(app),
       ...options,
@@ -97,14 +91,12 @@ export default class
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Item.Abstract.make}
-   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public make(app: Framework): Item.Output {
-    const output: Item.Output = {
+  public make(app: Framework): Base.Output {
+    const output: Base.Output = {
       loader: this.loader(app).make(app),
     }
 

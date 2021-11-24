@@ -47,8 +47,6 @@ class Configuration {
         suffix: chalk.dim(config),
       })
 
-      this.logger.log(config)
-
       const raw = config.endsWith('.ts')
         ? await this.app.ts.read(config)
         : await import(config)
@@ -59,11 +57,6 @@ class Configuration {
         this.logger.error({message: config})
         throw new Error(`${config} is not a function`)
       }
-
-      this.logger.success({
-        message: 'importing module',
-        suffix: chalk.dim(config),
-      })
 
       return result
     } catch (e) {
@@ -82,17 +75,11 @@ class Configuration {
       }
 
       this.logger.await({
-        message: `processing user config`,
+        message: `calling user config`,
         suffix: chalk.dim(path),
       })
 
       await callback(this.app)
-      await this.app.extensions.processQueue()
-
-      this.logger.success({
-        message: `processing user config`,
-        suffix: chalk.dim(path),
-      })
     } catch (error) {
       this.logger.error({message: error})
     }
@@ -113,9 +100,7 @@ export const configs = async (app: Bud, logger: Signale) => {
   if (generalConfigs?.length) {
     const config = new Configuration(app, logger, generalConfigs)
     await config.run()
-    await app.api.callAll()
-
-    // run extensions before processing next config
+    await app.api.processQueue()
     await app.extensions.processQueue()
   }
 
@@ -126,7 +111,7 @@ export const configs = async (app: Bud, logger: Signale) => {
       conditionalConfigs,
     )
     await config.run()
-    await app.api.callAll()
+    await app.api.processQueue()
 
     // run extensions before processing next config
     await app.extensions.processQueue()

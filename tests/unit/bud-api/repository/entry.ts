@@ -1,8 +1,8 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 import {join} from 'path'
 
 describe('bud.entry', function () {
-  let bud: Framework
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({
@@ -39,11 +39,12 @@ describe('bud.entry', function () {
     bud.entry('app', '**/app.{css,js}')
     await bud.build.make()
 
-    expect(bud.build.config.entry).toEqual({
-      app: {
-        import: ['scripts/app.js', 'styles/app.css'],
-      },
-    })
+    expect((bud.build.config.entry as any).app.import).toContain(
+      'scripts/app.js',
+    )
+    expect((bud.build.config.entry as any).app.import).toContain(
+      'styles/app.css',
+    )
   })
 
   it('sets an entrypoint using (string, string[]) fn signature', async () => {

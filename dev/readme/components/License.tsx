@@ -1,13 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 
 export const License = () => (
   <span>
-    {`\
-## Licensing
+    <h2>Licensing</h2>
 
-Bud is licensed MIT.
-    
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_large) \
-`}
+    <p>Bud is licensed MIT.</p>
+
+    <p>
+      [![FOSSA
+      Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_large)
+    </p>
   </span>
 )

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-compress",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "Adds gzip and brotli compression to Bud",
   "repository": {
     "type": "git",
@@ -70,14 +70,14 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "jest": "27.3.1",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "compression-webpack-plugin": "^9.0.0",
+    "compression-webpack-plugin": "^9.0.1",
     "tslib": "^2.3.1"
   },
   "stableVersion": "4.6.0"

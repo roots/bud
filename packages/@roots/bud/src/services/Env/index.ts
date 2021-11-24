@@ -20,9 +20,9 @@ export class Env
   /**
    * Service ident
    *
-   * @public
+   * @internal
    */
-  public ident = 'bud.env'
+  public ident = 'env'
 
   /**
    * Path to .env file
@@ -36,7 +36,7 @@ export class Env
   /**
    * Bootstrap event callback
    *
-   * @public
+   * @internal
    * @decorator `@bind`
    */
   @bind

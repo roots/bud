@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-wordpress",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "WordPress-ready preset for Bud projects",
   "repository": {
     "type": "git",
@@ -69,15 +69,15 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/jest": "27.0.2",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "@wordpress/browserslist-config": "4.1.0",
     "jest": "27.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",

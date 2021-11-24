@@ -2,6 +2,7 @@ export class Image {
   public props: {
     title: string
     src: string
+    width: number
   }
 
   public constructor(props?) {
@@ -9,6 +10,6 @@ export class Image {
   }
 
   public render() {
-    return `\[${this.props.title}](${this.props.src}})`
+    return `<img src="${this.props.src}" title="${this.props.title}" width="${this.props.width}" />`
   }
 }

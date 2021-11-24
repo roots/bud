@@ -17,6 +17,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-sass": "workspace:*",
     "@types/sass": "^1",
-    "sass": "1.43.3"
+    "sass": "1.43.4"
   }
 }

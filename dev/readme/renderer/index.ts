@@ -1,9 +1,10 @@
 import {writeFile} from 'fs-extra'
+import {format} from 'prettier'
 
 import {createElement} from './createElement'
 import {MarkdownRenderer} from './Renderer'
 
-async function render(element, filePath) {
+export async function render(element, filePath) {
   const container = createElement('ROOT', null, null)
 
   const node = MarkdownRenderer.createContainer(
@@ -15,9 +16,13 @@ async function render(element, filePath) {
 
   MarkdownRenderer.updateContainer(element, node, null, null)
 
-  const out = container.render()
+  const result = container.render()
 
-  await writeFile(filePath, out, {encoding: 'utf8'})
+  await writeFile(
+    filePath,
+    format(result, {parser: 'markdown'}),
+    {
+      encoding: 'utf8',
+    },
+  )
 }
-
-export default render

@@ -11,5 +11,5 @@ export class Build extends Base {
    *
    * @public
    */
-  public ident = 'bud.build'
+  public ident = 'build'
 }

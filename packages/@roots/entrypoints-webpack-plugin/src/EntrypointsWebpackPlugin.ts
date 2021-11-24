@@ -16,7 +16,7 @@ interface Entry {
 
 interface Options {
   name?: string
-  writeToFileEmit?: boolean
+  type?: 'array' | 'object'
   publicPath?: string
   outputPath?: string
 }
@@ -55,6 +55,15 @@ export class EntrypointsWebpackPlugin
    * @public
    */
   public name: string = 'entrypoints.json'
+
+  /**
+   * Entrypoints type.
+   *
+   * Object type will key files by chunk name
+   *
+   * @public
+   */
+  public type: 'array' | 'object' = 'array'
 
   /**
    * Webpack compiler instance
@@ -133,9 +142,10 @@ export class EntrypointsWebpackPlugin
   @bind
   public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
-      this.getEntrypointFiles(entry).map(file => {
+      this.getEntrypointFiles(entry).map(({key, file}) => {
         !file.includes('hot-update') &&
           this.addToManifest({
+            key,
             entry: entry.name,
             file,
           })
@@ -154,7 +164,7 @@ export class EntrypointsWebpackPlugin
    * @decorator `@bind`
    */
   @bind
-  public addToManifest({entry, file}) {
+  public addToManifest({key = null, entry, file}) {
     const type = file.split('.').pop()
 
     if (!this.assets[entry]) {
@@ -165,10 +175,16 @@ export class EntrypointsWebpackPlugin
 
     this.assets[entry] = {
       ...this.assets[entry],
-      [type]: uniq([
-        ...(this.assets[entry][type] ?? []),
-        this.publicPath.concat(file),
-      ]),
+      [type]:
+        this.type === 'object' && key
+          ? {
+              ...(this.assets[entry][type] ?? {}),
+              [key]: this.publicPath.concat(file),
+            }
+          : uniq([
+              ...(this.assets[entry][type] ?? []),
+              this.publicPath.concat(file),
+            ]),
     }
   }
 
@@ -180,11 +196,14 @@ export class EntrypointsWebpackPlugin
   @bind
   public getEntrypointFiles(entry: {
     chunks: Webpack.Chunk[]
-  }): string[] {
+  }): {[key: string]: string}[] {
     const files = []
     for (const chunk of entry.chunks) {
       Array.from(chunk.files).map(file => {
-        files.push(file)
+        files.push({
+          key: chunk.name,
+          file,
+        })
       })
     }
 

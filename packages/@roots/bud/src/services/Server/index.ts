@@ -9,16 +9,16 @@ export class Server extends Base {
   /**
    * Service ident
    *
-   * @public
+   * @internal
    */
-  public ident = 'bud.server'
+  public ident = 'server'
 
   /**
    * Service register callback
    *
-   * @public
+   * @internal
    */
-  public async register({container, store}): Promise<void> {
+  public async bootstrap(): Promise<void> {
     this.application = Application()
   }
 }

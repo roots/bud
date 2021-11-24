@@ -1,17 +1,8 @@
-// @ts-check
-/**
- * \@typedef {import('@docusaurus/types').DocusaurusConfig} Config
- *
- */
-
 const {posix: path} = require('path')
 const darkTheme = require('prism-react-renderer/themes/dracula')
 const theme = require('prism-react-renderer/themes/github')
 const {manifest} = require('../package.json')
 
-/**
- * \@type {Partial<Config>} config
- */
 module.exports = {
   title: manifest.name,
   tagline: manifest.description,
@@ -63,6 +54,20 @@ module.exports = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
+          href: '/api',
+          label: 'Api',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'Bud API documentation',
+        },
+        {
+          href: '/releases',
+          label: 'Releases',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'Release notes',
+        },
+        {
           href: manifest.url.web,
           label: 'GitHub',
           position: 'right',
@@ -88,6 +93,10 @@ module.exports = {
             {
               label: 'Extensions',
               to: '/extensions/',
+            },
+            {
+              label: 'Releases',
+              to: '/releases/',
             },
           ],
         },
@@ -150,11 +159,20 @@ module.exports = {
   ],
   plugins: [
     [
+      require.resolve('@docusaurus/plugin-content-blog'),
+      {
+        id: 'releases',
+        path: './releases',
+        routeBasePath: 'releases',
+        include: ['**/*.md', '**/*.mdx'],
+      },
+    ],
+    [
       require.resolve('@docusaurus/plugin-content-docs'),
       {
-        id: 'guides',
-        path: './guides',
-        routeBasePath: 'guides',
+        id: 'api',
+        path: './api',
+        routeBasePath: 'api',
         sidebarPath: './sidebars/docs.js',
         include: ['**/*.md', '**/*.mdx'],
       },
@@ -162,9 +180,9 @@ module.exports = {
     [
       require.resolve('@docusaurus/plugin-content-docs'),
       {
-        id: 'recipes',
-        path: './recipes',
-        routeBasePath: 'recipes',
+        id: 'guides',
+        path: './guides',
+        routeBasePath: 'guides',
         sidebarPath: './sidebars/docs.js',
         include: ['**/*.md', '**/*.mdx'],
       },
@@ -180,26 +198,11 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
-        id: 'api',
-        path: './api',
-        routeBasePath: 'api',
-        sidebarPath: false,
-        include: ['**/*.md', '**/*.mdx'],
-      },
-    ],
-    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsDir: ['extensions', 'guides', 'recipes', 'docs'],
-        docsRouteBasePath: [
-          'extensions',
-          'guides',
-          'recipes',
-          'docs',
-        ],
+        docsDir: ['extensions', 'guides', 'docs'],
+        docsRouteBasePath: ['extensions', 'guides', 'docs'],
       },
     ],
   ],

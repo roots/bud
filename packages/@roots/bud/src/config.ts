@@ -2,26 +2,27 @@ import type {Configuration} from '@roots/bud-framework'
 import {cpus} from 'os'
 
 /**
- * {@inheritDoc @roots/bud-framework#Configuration}
+ * Bud configuration defaults
  *
- * @public @config
+ * @public
  */
 export const config: Configuration = {
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.name}
+   * bud.name property
+   *
    * @public
    */
   name: 'bud',
 
   /**
-   * Mode
+   * Compilation mode
    *
    * @public
    */
   mode: 'production',
 
   /**
-   * Logger settings
+   * Logging settings
    *
    * @public
    */
@@ -35,7 +36,7 @@ export const config: Configuration = {
   },
 
   /**
-   * Enabled features
+   * Feature flags
    *
    * @public
    */
@@ -55,19 +56,22 @@ export const config: Configuration = {
     dashboard: false,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.clean}
+     * Clean dist directory prior to compilation
+     *
      * @public
      */
     clean: true,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.hash}
+     * Hash emitted filenames
+     *
      * @public
      */
     hash: false,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.html}
+     * Emit an html file during compilation
+     *
      * @public
      */
     html: false,
@@ -80,25 +84,28 @@ export const config: Configuration = {
     inject: true,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.install}
+     * Install missing dependencies
+     *
      * @public
      */
     install: false,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.log}
+     * Log build status informatino to the terminal
+     *
      * @public
      */
     log: false,
 
     /**
-     * {@inheritDoc @roots/bud-framework#Configuration.manifest}
+     * Emit a manifest.json with references to emitted assets
+     *
      * @public
      */
     manifest: true,
 
     /**
-     * Split chunks?
+     * Enable code splitting
      *
      * @public
      */
@@ -123,30 +130,60 @@ export const config: Configuration = {
   },
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.fileFormat}
+   * Filename format for emitted assets when hashing is disabled
+   *
    * @public
    */
   fileFormat: '[name]',
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.hashFormat}
+   * Filename format for emitted assets when hashing is enabled
+   *
    * @public
    */
   hashFormat: '[name].[contenthash:6]',
 
   /**
+   * Received command line arguments and flags
+   *
    * @public
    */
   cli: {
+    /**
+     * Arguments
+     *
+     * @public
+     */
     args: {},
+    /**
+     * Argv object reference
+     *
+     * @public
+     */
     argv: [],
+    /**
+     * Flags
+     *
+     * @public
+     */
     flags: {},
+    /**
+     * Raw data from oclif
+     *
+     * @public
+     */
     raw: [],
+    /**
+     * Additional information on received CLI data
+     *
+     * @public
+     */
     metadata: {},
   },
 
   /**
-   * {@inheritDoc @roots/bud-framework#Configuration.patterns}
+   * Regular expression records
+   *
    * @public
    */
   patterns: {
@@ -171,6 +208,11 @@ export const config: Configuration = {
     json5: /\.json5$/,
   },
 
+  /**
+   * Project disk locations
+   *
+   * @public
+   */
   location: {
     project: process.cwd(),
     src: 'src',
@@ -180,6 +222,11 @@ export const config: Configuration = {
     storage: '.budfiles',
   },
 
+  /**
+   * Baseline webpack configuration
+   *
+   * @public
+   */
   build: {
     bail: true,
     devtool: false,
@@ -194,6 +241,9 @@ export const config: Configuration = {
       splitChunks: {},
     },
     parallelism: cpus().length - 1,
+    performance: {
+      hints: false,
+    },
     resolve: {
       extensions: [
         '.wasm',

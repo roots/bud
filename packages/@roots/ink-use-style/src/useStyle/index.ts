@@ -8,16 +8,18 @@ import {defaultTheme} from '../themes'
 /**
  * useStyle hook
  *
- * @returns {Styles}
+ * @public
  */
-interface useStyle {
+export interface useStyle {
   (themeProps?: Theme): Styles
 }
 
 /**
- * Return value
+ * Object returned by hook
+ *
+ * @public
  */
-interface Styles {
+export interface Styles {
   /**
    * Spacing value (total character width)
    */
@@ -46,7 +48,13 @@ interface Styles {
   setScreens: (screens: Theme['screens']) => void
 }
 
-const useStyle: useStyle = (initialData = defaultTheme) => {
+/**
+ * useStyle hook
+ *
+ */
+export const useStyle: useStyle = (
+  initialData = defaultTheme,
+) => {
   /**
    * Theme values
    */
@@ -125,7 +133,7 @@ const useStyle: useStyle = (initialData = defaultTheme) => {
   }
 
   /**
-   * Ctx
+   * ctx
    *
    * Function that takes an array of possible display values
    * and returns the one that matches the current screen size.
@@ -172,6 +180,3 @@ const useStyle: useStyle = (initialData = defaultTheme) => {
     ctx,
   }
 }
-
-export {useStyle}
-export type {Styles}

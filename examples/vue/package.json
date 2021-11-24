@@ -16,8 +16,8 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-vue": "workspace:*",
-    "@vue/compiler-sfc": "3.2.20",
-    "@vue/runtime-dom": "3.2.20",
-    "vue": "3.2.20"
+    "@vue/compiler-sfc": "3.2.22",
+    "@vue/runtime-dom": "3.2.22",
+    "vue": "3.2.22"
   }
 }

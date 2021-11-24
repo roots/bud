@@ -1,6 +1,6 @@
 {
   "name": "@roots/wordpress-dependencies-webpack-plugin",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -62,8 +62,8 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.7",
-    "webpack": "5.64.1"
+    "@types/node": "16.11.9",
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

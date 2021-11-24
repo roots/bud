@@ -14,7 +14,7 @@ const {isFunction} = lodash
  *
  * @public
  */
-export default class Rule
+export class Rule
   extends Base.Abstract
   implements Base.Interface
 {

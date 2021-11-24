@@ -8,11 +8,9 @@ image: 'https://budjs.netlify.app/img/share/guides/advanced-use__writing-an-exte
 
 import ModuleDefinition from '!!raw-loader!@site/../packages/@roots/bud-framework/src/Extensions/Extension/Module.ts'
 
-import TailwindCssIndex from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/index.ts'
-import BudTailwindCssExtension from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/BudTailwindCssExtension.ts'
-import BudTailwindCssConfig from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/tailwindConfig.ts'
-
-import EslintDefinition from '!!raw-loader!@site/../packages/@roots/bud-imagemin/src/index.ts'
+import Index from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/index.ts'
+import Extension from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/tailwind.service.ts'
+import Config from '!!raw-loader!@site/../packages/@roots/bud-tailwindcss/src/tailwind.config.ts'
 
 import CodeBlock from '@theme/CodeBlock'
 import Tabs from '@theme/Tabs'
@@ -26,81 +24,61 @@ Extensions documentation is a work-in-progress.
 
 There are two types of extensions:
 
-- A [Module](#module): A generic extension. Used for adding config functions, loaders, rules, etc.
-- A [WebpackPlugin](#webpackplugin): An extension providing a proper `Webpack.WebpackPluginInstance`.
+- A [Module](#extensions.module): A generic extension. Used for adding config functions, loaders, rules, etc.
+- A [WebpackPlugin](#extensions.webpackplugin): An extension wrapping a `Webpack.WebpackPluginInstance`.
 
-Regardless of your use case, the [WebpackPlugin](#webpackplugin) type extends the [Module](#module) type, so everything in this guide should still be relevant.
-
-## Module
+## Extensions.Module
 
 ### Example (@roots/bud-tailwindcss)
 
-The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss):
+The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension:
 
 - registers a function `bud.tailwind` that configures [@roots/bud-postcss](/extensions/bud-postcss).
-- On `boot` it calls that function.
+- On `boot` it calls that `function` if peer requirements are met.
 
 <Tabs
   defaultValue="index.ts"
   values={[
     {label: 'index.ts', value: 'index.ts'},
-     {label: 'BudTailwindCssExtension.ts', value: 'BudTailwindCssExtension.ts'},
-    {label: 'tailwindConfig.ts', value: 'tailwindConfig.ts'},
+    {label: 'tailwind.service.ts', value: 'tailwind.service.ts'},
+    {label: 'tailwind.config.ts', value: 'tailwind.config.ts'},
     {label: 'tsconfig.json', value: 'tsconfig.json'},
   ]}>
 
-{' '}
-
 <TabItem value="index.ts">
   <CodeBlock className="language-ts" title="index.js">
-    {TailwindCssIndex}
+    {Index}
   </CodeBlock>
 </TabItem>
 
-{' '}
-
-<TabItem value="BudTailwindCssExtension.ts">
-  <CodeBlock
-    className="language-ts"
-    title="BudTailwindCssExtension.ts"
-  >
-    {BudTailwindCssExtension}
+<TabItem value="tailwind.service.ts">
+  <CodeBlock className="language-ts" title="tailwind.service.ts">
+    {Extension}
   </CodeBlock>
 </TabItem>
 
-{' '}
-
-<TabItem value="tailwindConfig.ts">
-  <CodeBlock className="language-ts" title="tailwindConfig.ts">
-    {BudTailwindCssConfig}
+<TabItem value="tailwind.config.ts">
+  <CodeBlock className="language-ts" title="tailwind.config.ts">
+    {Config}
   </CodeBlock>
 </TabItem>
 
-  <TabItem value="tsconfig.json">
-
-```json
-{
-  "compilerOptions": {
-    "types": [
-      "@roots/bud-api",
-      "@roots/bud-framework",
-      "@roots/bud-postcss"
-    ]
-  }
-}
-```
-
-  </TabItem>
 </Tabs>
 
-## WebpackPlugin
+## Extensions.WebpackPlugin
 
-A [WebpackPlugin](#webpackplugin) extends the [Module](#module) type, so it can do everything a [Module](#module) can. But it _must_ fulfill one of two requirements:
+A [WebpackPlugin](#extensions.webpackplugin) extends the [Module](#extensions.module) type, so it can do everything a [Module](#extensions.module) can.
 
-- Include a `make` function returning a `Webpack.WebpackPluginInstance`, or;
-- Include a `apply` function returning a `Webpack.WebpackPluginInstance['apply']` method directly
+It _must_ fulfill one of two requirements:
+
+- Use `make` and return a `Webpack.WebpackPluginInstance`, or;
+- Use `apply` (`Webpack.WebpackPluginInstance['apply']`) directly (the extension is essentially a superset of `Webpack.WebpackPluginInstance`).
 
 In general, you would include `make` if you are wrapping a webpack plugin and `apply` if you are writing a `Webpack.WebpackPlugin` specific to your extension.
 
-None of [the first-party extensions](/extensions) use `apply` even though some of them have an accompanying `Webpack.WebpackPlugin`. Instead, the plugin is packaged separately from
-the extension (in case someone wants to use the plugin directly).
+None of [the first-party extensions](/extensions) use `apply` even though some of them have an accompanying `Webpack.WebpackPlugin`.
+Instead, the plugin is packaged separately from the extension (in case someone wants to use the plugin directly). This is the recommended approach.
+
+```
+
+```

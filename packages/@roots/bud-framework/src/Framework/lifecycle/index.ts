@@ -6,7 +6,7 @@ import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
-} from '../constants'
+} from './constants'
 
 /**
  * Bootstrap interface
@@ -102,7 +102,7 @@ export async function lifecycle(
 
   this.timeEnd(`building ${this.name}`)
 
-  this.hooks.promise('event.compiler.before', async config => {
+  this.hooks.on('event.compiler.before', async config => {
     const multiConfig = await config
 
     multiConfig.forEach(config => {

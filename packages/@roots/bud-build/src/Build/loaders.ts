@@ -1,6 +1,6 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-import Loader from '../Loader'
+import {Loader} from '../Loader'
 
 /**
  * @remarks default export because of the `resolve-url` name

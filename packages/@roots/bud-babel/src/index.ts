@@ -8,7 +8,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import {Item, Loader} from '@roots/bud-build'

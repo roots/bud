@@ -9,7 +9,10 @@ import {isEqual} from '../services/lodash'
  */
 export const Input = ({bud}) => {
   useInput(input => {
-    isEqual(input, 'q') && bud.close()
+    if (isEqual(input, 'q')) {
+      bud.hooks.filter('event.dashboard.q')
+      bud.close()
+    }
   })
 
   return null

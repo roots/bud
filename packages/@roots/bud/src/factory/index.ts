@@ -1,7 +1,6 @@
 import {Bud} from '../Bud'
 import {config} from '../config'
 import {services} from '../services'
-import type {Framework, Options} from './factory.interface'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -11,12 +10,14 @@ import type {Framework, Options} from './factory.interface'
  * const bud = factory()
  * ```
  *
+ * @returns Bud instance
+ *
  * @public
  */
 export async function factory(
-  overrides?: Options,
+  overrides?: Bud.Options,
 ): Promise<Bud> {
-  const options: Framework.Options = {
+  const options: Bud.Options = {
     ...(overrides ?? {}),
     services: {
       ...services,

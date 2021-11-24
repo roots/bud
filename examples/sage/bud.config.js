@@ -11,7 +11,7 @@ module.exports = async (app) => {
       editor: '**/editor.{js,css}',
       customizer: '**/customizer.js',
     })
-    .assets(['resources/images'])
+    .copy(['resources/images'])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
     .proxy('http://localhost:8000');
 };

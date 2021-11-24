@@ -1,7 +1,7 @@
-import {Framework} from '@roots/bud'
+import {Bud} from '@roots/bud'
 
 describe.skip('webpack.resolve.alias', function () {
-  let bud: Framework
+  let bud: Bud
 
   it('is a function', () => {
     expect(bud.alias).toBeInstanceOf(Function)

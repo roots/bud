@@ -1,8 +1,8 @@
-import {factory, Framework} from '@roots/bud'
+import {Bud, factory} from '@roots/bud'
 
 describe.skip('bud.template', function () {
   describe('default', () => {
-    let bud: Framework
+    let bud: Bud
 
     beforeAll(async () => {
       bud = await factory({
@@ -54,7 +54,7 @@ describe.skip('bud.template', function () {
   })
 
   describe('called', () => {
-    let bud: Framework
+    let bud: Bud
 
     beforeAll(async () => {
       bud = await factory({
@@ -69,7 +69,7 @@ describe.skip('bud.template', function () {
     })
 
     it('returns bud', () => {
-      expect(bud.template()).toBeInstanceOf(Framework)
+      expect(bud.template()).toBeInstanceOf(Bud)
     })
 
     it('adds html webpack plugin', () => {
@@ -93,7 +93,7 @@ describe.skip('bud.template', function () {
   })
 
   describe('called with options', () => {
-    let bud: Framework
+    let bud: Bud
 
     beforeAll(async () => {
       bud = await factory({

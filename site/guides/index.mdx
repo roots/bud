@@ -11,12 +11,12 @@ image: 'https://budjs.netlify.app/img/share/guides/index.png'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-import {Callout} from '@site/src/docs/Callout'
+import {Callout} from '@site/src/docs/callout'
 
-<Callout>
+<Callout.Component>
   Lightning fast frontend build tools combining the best parts of
   Symfony Encore and Laravel Mix.
-</Callout>
+</Callout.Component>
 
 What Bud provides:
 
@@ -26,9 +26,8 @@ What Bud provides:
 
 What Bud does not provide:
 
-- **Out-of-the-box support for everything under the sun.** A fresh Bud install doesn't support sass, babel, react, etc. That said,
-  all of those things can be easily installed thanks to [a rich library of first-party extensions](/extensions). _Waste not, want not_.
--
+- **Out-of-the-box support for everything under the sun.** A fresh Bud install doesn't support sass, babel, react, etc.
+  Instead, those things are installed from a [a rich library of first-party extensions](/extensions).
 
 ## Installation
 
@@ -50,7 +49,6 @@ Check out the [bud cli guide](/guides/bud-cli/) for usage instructions.
 - [Environment specific configuration](/guides/general-use/config-env)
 - [Running multiple compilers](/guides/general-use/multi-compiler)
 - [Using as a node library](/guides/advanced-use/node)
-- [Writing your own extension](/guides/advanced-use/writing-an-extension)
 
 ## Configuration function reference
 

@@ -13,7 +13,7 @@ import {repository} from './project.repository'
 const {ensureFile, readJson} = fs
 
 /**
- * Project service class
+ * Project service
  *
  * @public
  */
@@ -24,9 +24,9 @@ export class Project
   /**
    * Service ident
    *
-   * @public
+   * @internal
    */
-  public ident = 'bud.project'
+  public ident = 'project'
 
   /**
    * Project peer dependencies manager
@@ -35,8 +35,18 @@ export class Project
    */
   public peers: Peers
 
-  public repository = repository
+  /**
+   * Repository values
+   *
+   * @public
+   */
+  public repository: repository = repository
 
+  /**
+   * Path to profile.json reference file
+   *
+   * @public
+   */
   public get profilePath(): string {
     return this.app.path(
       'storage',
@@ -45,6 +55,12 @@ export class Project
     )
   }
 
+  /**
+   * Service bootstrap event
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   public async bootstrap() {
     this.peers = new Peers(this.app)
 
@@ -64,7 +80,9 @@ export class Project
   }
 
   /**
-   * @public
+   * Service register event
+   *
+   * @internal
    * @decorator `@bind`
    */
   @bind
@@ -77,7 +95,11 @@ export class Project
       this.app.path('project', 'package.json'),
     ])
 
-    await this.buildProfile()
+    try {
+      await this.buildProfile()
+    } catch (e) {
+      this.log('error', e)
+    }
 
     if (this.app.store.is('features.install', true)) {
       if (this.isEmpty('unmet')) return
@@ -86,8 +108,14 @@ export class Project
     }
   }
 
+  /**
+   * Service boot event
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
-  public async booted() {
+  public async boot() {
     this.app.hooks.on('event.build.make.after', async () => {
       await this.app.hooks.promised('event.project.write', this)
       await this.writeProfile()
@@ -95,7 +123,7 @@ export class Project
   }
 
   /**
-   * Read project package.json and set peer deps
+   * Read project package.json and record peer dependencies
    *
    * @public
    * @decorator `@bind`
@@ -111,7 +139,7 @@ export class Project
   }
 
   /**
-   * Read manifest
+   * Read manifest from disk
    *
    * @public
    */

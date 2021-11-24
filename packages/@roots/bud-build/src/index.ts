@@ -14,16 +14,15 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation @betaDocumentation
+ * @core @packageDocumentation
  */
 
-import {Build} from './Build'
+export {Build} from './Build'
+export {Loader} from './Loader'
+export {Item} from './Item'
+export {Rule} from './Rule'
+
 import * as items from './Build/items'
 import * as loaders from './Build/loaders'
 import * as rules from './Build/rules'
-import Item from './Item'
-import Loader from './Loader'
-import Rule from './Rule'
-
-export {Build, Item, Loader, Rule}
 export {items, loaders, rules}

@@ -14,7 +14,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
  *
- * @packageDocumentation @betaDocumentation
+ * @packageDocumentation
  */
 
 import type {tailwind} from './tailwind.config'

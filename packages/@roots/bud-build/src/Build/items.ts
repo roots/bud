@@ -1,11 +1,18 @@
 import type {Framework} from '@roots/bud-framework'
 
-import Item from '../Item'
+import {Item} from '../Item'
 
 /**
- * .asset handler factory
+ * Items
+ *
+ * @public
  */
 export default {
+  /**
+   * asset handler factory
+   *
+   * @public
+   */
   asset: () =>
     new Item({
       loader: ({build}) => build.loaders.file,
@@ -20,6 +27,8 @@ export default {
 
   /**
    * .css handler factory
+   *
+   * @public
    */
   css: () =>
     new Item({
@@ -32,6 +41,8 @@ export default {
 
   /**
    * .csv handler factory
+   *
+   * @public
    */
   csv: () =>
     new Item({
@@ -40,6 +51,8 @@ export default {
 
   /**
    * .html handler factory
+   *
+   * @public
    */
   html: () =>
     new Item({
@@ -48,6 +61,8 @@ export default {
 
   /**
    * Factory {@link Item} for style
+   *
+   * @public
    */
   style: () =>
     new Item({
@@ -56,6 +71,8 @@ export default {
 
   /**
    * Factory {@link Item} for markdown
+   *
+   * @public
    */
   md: () =>
     new Item({
@@ -64,6 +81,8 @@ export default {
 
   /**
    * Factory {@link Item} for minicss-extract-plugin
+   *
+   * @public
    */
   minicss: () =>
     new Item({
@@ -73,6 +92,8 @@ export default {
 
   /**
    * Factory {@link Item} for raw
+   *
+   * @public
    */
   raw: () =>
     new Item({
@@ -81,6 +102,8 @@ export default {
 
   /**
    * Factory {@link Item} for file
+   *
+   * @public
    */
   file: () =>
     new Item({
@@ -96,6 +119,8 @@ export default {
 
   /**
    * Factory {@link Item} resolve-url
+   *
+   * @public
    */
   [`resolve-url`]: () =>
     new Item({
@@ -108,6 +133,8 @@ export default {
 
   /**
    * Factory {@link Item} for xml
+   *
+   * @public
    */
   xml: () =>
     new Item({

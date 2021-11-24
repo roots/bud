@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "5.0.0-next.14",
+  "version": "5.0.0-next.15",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -64,19 +64,19 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.11.7",
+    "@types/node": "16.11.9",
     "eslint": "7.32.0",
-    "webpack": "5.64.1"
+    "webpack": "5.64.2"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-webpack-plugin": "^3.0.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-webpack-plugin": "^3.1.1",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

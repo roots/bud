@@ -1,4 +1,4 @@
-export * as Bud from '@roots/bud-framework'
+import * as Bud from '@roots/bud-framework'
 export {bind, globby} from '@roots/bud-support'
 export {createHash} from 'crypto'
 
@@ -11,3 +11,4 @@ export const {
   writeJson,
   writeFile,
 } = fs
+export {Bud}

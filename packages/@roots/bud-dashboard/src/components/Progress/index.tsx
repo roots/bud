@@ -15,7 +15,6 @@ export const Progress = ({progress, theme}) => {
   useEffect(() => {
     if (!progress) return
     const formattedMessage = progress[1].replace(/\[.*\]\s/, '')
-
     setNumber(progress[0])
     setMessage(formattedMessage)
   }, [progress])
@@ -29,9 +28,11 @@ export const Progress = ({progress, theme}) => {
         percent={number}
       />
 
-      <Box marginTop={1}>
-        <Text>{message}</Text>
-      </Box>
+      {number < 100 && (
+        <Box marginTop={1}>
+          <Text>{message}</Text>
+        </Box>
+      )}
     </Box>
   )
 }

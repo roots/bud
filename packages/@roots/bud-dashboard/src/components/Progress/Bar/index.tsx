@@ -1,6 +1,9 @@
+import {lodash} from '@roots/bud-support'
 import {Text} from 'ink'
 import Gradient from 'ink-gradient'
 import React, {useEffect, useState} from 'react'
+
+const {isNumber} = lodash
 
 /**
  * Bar component
@@ -21,12 +24,16 @@ export const Bar: React.FunctionComponent<{
 
     const lower = valid ? maxWidth : 0
     const chars = valid ? percent : 0
-    const upper = Math.floor(lower * chars)
+    const upper = Math.ceil(lower * chars)
 
     setFill(Math.min(lower, upper))
   }, [maxWidth, percent])
 
-  return fill <= 0 ? null : (
+  if (!isNumber(fill) || fill <= 0) {
+    return null
+  }
+
+  return (
     <Text wrap="truncate">
       <Gradient colors={colors}>
         {character.repeat(fill) ?? ''}
