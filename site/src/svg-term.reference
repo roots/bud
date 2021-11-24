@@ -1,0 +1,2 @@
+svg-term --out ../../site/static/casts/build.svg --from 4000 --to 15000 --window --padding-x 1 --padding-y 1 --in /var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/tmpl9lrfv9c-ascii.cast
+svg-term --out ../../site/static/casts/multi-compiler.svg --from 12000 --to 21000 --window --padding-x 1 --padding-y 1 --in /var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/tmpdl3hz0od-ascii.cast

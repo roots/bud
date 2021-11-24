@@ -1,0 +1,33 @@
+{
+  "login": "retlehs",
+  "avatar_url": "https://avatars.githubusercontent.com/u/115911?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/retlehs",
+  "html_url": "https://github.com/retlehs",
+  "followers_url": "https://api.github.com/users/retlehs/followers",
+  "following_url": "https://api.github.com/users/retlehs/following{/other_user}",
+  "gists_url": "https://api.github.com/users/retlehs/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/retlehs/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/retlehs/subscriptions",
+  "organizations_url": "https://api.github.com/users/retlehs/orgs",
+  "repos_url": "https://api.github.com/users/retlehs/repos",
+  "events_url": "https://api.github.com/users/retlehs/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/retlehs/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "Ben Word",
+  "company": "@roots ",
+  "blog": "https://roots.io",
+  "email": "ben@roots.io",
+  "hireable": true,
+  "twitter_username": null,
+  "public_repos": 83,
+  "public_gists": 83,
+  "followers": 86,
+  "following": 26,
+  "created_at": "2010-09-13T15:00:39Z",
+  "updated_at": "2021-08-11T05:03:39Z",
+  "contributions": [
+    "@roots/bud"
+  ]
+}

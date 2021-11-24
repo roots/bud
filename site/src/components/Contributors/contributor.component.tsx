@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 
-import * as Icon from '../Icon'
+import * as Icon from '../icon'
 import styles from './style.module.css'
 
-function Contributor({id, ...props}) {
+export const Component = ({id}) => {
   const [user, setUser] = useState<any>(null)
   useEffect(() => {
     !user &&
@@ -30,5 +30,3 @@ function Contributor({id, ...props}) {
     </>
   )
 }
-
-export {Contributor}

@@ -3,20 +3,9 @@ import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import React from 'react'
 
-import {Contributors} from '../src/components/Contributors'
+import {Contributors} from '../src/components/contributors'
+import {Header} from '../src/components/header'
 import styles from './index.module.css'
-
-function Header() {
-  return (
-    <header
-      className={clsx('hero hero--primary', styles.heroBanner)}
-    >
-      <div className="container">
-        <h1 className="hero__title">Contributors</h1>
-      </div>
-    </header>
-  )
-}
 
 function Page() {
   const {
@@ -28,11 +17,11 @@ function Page() {
       title={`${manifest.name} Contributors`}
       description="Thanks to everyone who made this happen"
     >
-      <Header />
+      <Header.Component title="Contributors" />
 
       <main>
         <section className={styles.features}>
-          <Contributors />
+          <Contributors.Component />
         </section>
       </main>
     </Layout>

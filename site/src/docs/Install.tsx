@@ -3,7 +3,7 @@ import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 import React from 'react'
 
-const Install = ({packages}: {packages: string}) => (
+export const Install = ({packages}: {packages: string}) => (
   <Tabs
     defaultValue="yarn"
     groupId="pacman"
@@ -24,5 +24,3 @@ const Install = ({packages}: {packages: string}) => (
     </TabItem>
   </Tabs>
 )
-
-export {Install}

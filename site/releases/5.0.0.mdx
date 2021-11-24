@@ -1,11 +1,27 @@
-## v5.0.0 (2021-11-22)
+---
+slug: 5.0.0
+title: 'Release: 5.0.0'
+description: 'Release notes for 5.0.0'
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
 
-Bud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0).
+import {Callout} from '@site/src/docs/callout'
 
-**The most important change**
-You no longer need to explicitly require an extension in your configuration file or call `bud.use` to load it. Bud will automatically load the extensions you have installed. This feature can be circumvented with the **--no-inject** flag but this is not as well tested as the default behavior.
+Bud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0")
 
-### Breaking
+** The most important change**
+
+You no longer need to explicitly require an extension in your
+configuration file or call `bud.use` to load it. Bud will
+automatically load the extensions you have installed. This
+feature can be circumvented with the **--no-inject** flag but
+this is not as well tested as the default behavior.
+
+## Breaking
 
 - `@roots/bud-cli` has been deprecated. CLI functionality is packaged with `@roots/bud`.
 - `bud.use` method is now asynchronous.
@@ -15,7 +31,7 @@ You no longer need to explicitly require an extension in your configuration file
 - `bud.extensions.enqueue` can be used to enqueue a plugin and returns Bud instance for chaining.
 - `@roots/bud` no longer exports `Framework`. Use `Bud` or import `Framework` from `@roots/bud-framework` instead.
 
-### Added
+## Added
 
 - Yaml, json5 and TypeScript config file support.
 
@@ -57,7 +73,7 @@ You no longer need to explicitly require an extension in your configuration file
 
 - [example project](https://github.com/roots/bud/tree/main/examples/webpack-plugin) demonstrating how to use off-the-shelf webpack plugins with `bud.use`
 
-### Improved
+## Improved
 
 - Greatly improved performance. The entire Bud lifecycle is asynchronous.
 - Extensions that follow the `bud-*` naming convention are now automatically registered and booted.
@@ -67,13 +83,11 @@ You no longer need to explicitly require an extension in your configuration file
 - The CLI and dashboard have a fresh coat of paint.
 - New notification center integration (MacOS only)
 
-### Internal
+## Internal
 
 - `@roots/bud-typings` has been deprecated.
 - Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/stable/.yarn/local) to provide utilities in the `yarn kjo` namespace.
 
 ## Contributors
 
-- [kellymears](kelly@roots.io)
-- [QWp6t](hi@qwp6t.me)
-- [benword](ben@roots.io)
+Thanks [to all the contributors](/contributors)!

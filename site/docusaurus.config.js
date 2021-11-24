@@ -55,10 +55,17 @@ module.exports = {
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: '/api',
-          label: 'GitHub',
+          label: 'Api',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          'aria-label': 'Bud API documentation',
+        },
+        {
+          href: '/releases',
+          label: 'Releases',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'Release notes',
         },
         {
           href: manifest.url.web,
@@ -86,6 +93,10 @@ module.exports = {
             {
               label: 'Extensions',
               to: '/extensions/',
+            },
+            {
+              label: 'Releases',
+              to: '/releases/',
             },
           ],
         },
@@ -147,6 +158,15 @@ module.exports = {
     ],
   ],
   plugins: [
+    [
+      require.resolve('@docusaurus/plugin-content-blog'),
+      {
+        id: 'releases',
+        path: './releases',
+        routeBasePath: 'releases',
+        include: ['**/*.md', '**/*.mdx'],
+      },
+    ],
     [
       require.resolve('@docusaurus/plugin-content-docs'),
       {

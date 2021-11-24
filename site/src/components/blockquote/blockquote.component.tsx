@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Blockquote = ({children, cite, src}) => {
+export const Component = ({children, cite, src}) => {
   return (
     <blockquote>
       <p>{children}</p>
@@ -12,5 +12,3 @@ const Blockquote = ({children, cite, src}) => {
     </blockquote>
   )
 }
-
-export default Blockquote
