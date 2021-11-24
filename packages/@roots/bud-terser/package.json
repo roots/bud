@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-terser",
-  "version": "5.0.0-next.15",
+  "version": "5.0.0-next.16",
   "description": "Adds terser support to Bud",
   "repository": {
     "type": "git",
