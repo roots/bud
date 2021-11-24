@@ -63,7 +63,7 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "@types/node": "16.11.10",
-    "@types/react": "17.0.35",
+    "@types/react": "17.0.36",
     "ink": "3.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.3",
