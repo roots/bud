@@ -33,7 +33,7 @@
 
 Sass support for @roots/bud projects.
 
-## Documentation
+## Installation
 
 Install **@roots/bud-sass** to your project.
 

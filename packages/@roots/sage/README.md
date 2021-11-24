@@ -27,7 +27,6 @@
   </a>
 </p>
 
-
 <h1 align="center">
   <strong>@roots/sage</strong>
 </h1>

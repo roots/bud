@@ -16,6 +16,6 @@ export class MdCommand extends Command {
       )
 
     if (this.readme || all)
-      await this.$(`yarn ts-node ./dev/readme`)
+      await this.$(`yarn ts-node-transpile-only ./dev/readme`)
   }
 }

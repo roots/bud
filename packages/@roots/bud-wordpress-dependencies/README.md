@@ -27,14 +27,13 @@
   </a>
 </p>
 
-
 <h1 align="center">
   <strong>@roots/bud-wordpress-dependencies</strong>
 </h1>
 
 Webpack tools
 
-Run `bud init` after installation to ensure peer dependencies are met.
+## Installation
 
 Install **@roots/bud-wordpress-dependencies** to your project.
 
