@@ -3,7 +3,7 @@
 set -e
 
 WORKFLOW_FILE=./.github/workflows/main.yml
-WORKFLOW_CHECKSUM=db14cd3e816a63f23cdb9011f3e83210
+WORKFLOW_CHECKSUM=41dc361ce840e2dfb3dcaea5875c7f33
 
 md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
 
