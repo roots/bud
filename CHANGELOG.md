@@ -70,7 +70,7 @@ You no longer need to explicitly require an extension in your configuration file
 ### Internal
 
 - `@roots/bud-typings` has been deprecated.
-- Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/stable/.yarn/local) to provide utilities in the `yarn kjo` namespace.
+- Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/main/.yarn/local) to provide utilities in the `yarn kjo` namespace.
 
 ## Contributors
 
