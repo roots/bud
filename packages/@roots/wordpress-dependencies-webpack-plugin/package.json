@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.10",
     "webpack": "5.64.2"
   },
   "dependencies": {
