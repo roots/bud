@@ -1,4 +1,4 @@
-import {chokidar} from '@roots/bud-support'
+import chokidar from 'chokidar'
 export {chokidar}
 
 import {globby} from '@roots/bud-support'

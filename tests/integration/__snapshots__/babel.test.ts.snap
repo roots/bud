@@ -23,15 +23,17 @@ Object {
     "...",
     Object {
       "options": Object {
-        "minimizerOptions": Object {
-          "preset": Array [
-            "default",
-            Object {
-              "discardComments": Object {
-                "removeAll": true,
+        "minimizer": Object {
+          "options": Object {
+            "preset": Array [
+              "default",
+              Object {
+                "discardComments": Object {
+                  "removeAll": true,
+                },
               },
-            },
-          ],
+            ],
+          },
         },
         "parallel": true,
         "test": Object {},

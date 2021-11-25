@@ -3332,7 +3332,7 @@ __metadata:
     "@types/lodash": 4.14.177
     "@types/node": 16.11.9
     copy-webpack-plugin: 10.0.0
-    css-minimizer-webpack-plugin: ^3.1.4
+    css-minimizer-webpack-plugin: ^3.2.0
     fs-extra: 10.0.0
     html-webpack-plugin: 5.5.0
     lodash: 4.17.21
@@ -3733,6 +3733,7 @@ __metadata:
     postcss: 8.3.11
     postcss-import: 14.0.2
     postcss-loader: 6.2.0
+    postcss-nested: 5.0.6
     postcss-preset-env: 7.0.1
     tslib: 2.3.1
     webpack: 5.64.2
@@ -3884,6 +3885,7 @@ __metadata:
     "@types/node": 16.11.9
     "@types/webpack-dev-middleware": 5.0.2
     "@types/webpack-hot-middleware": 2.25.5
+    chokidar: ^3.5.2
     http-proxy-middleware: 2.0.1
     lodash.isequal: ^4.5.0
     tslib: ^2.3.1
@@ -3950,10 +3952,8 @@ __metadata:
     "@types/signale": 1.4.2
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
-    chokidar: 3.5.2
     cli-highlight: ^2.1.11
     cosmiconfig: 7.0.1
-    css-minimizer-webpack-plugin: 3.1.4
     dotenv: 10.0.0
     dotenv-expand: 5.1.0
     execa: 5.1.1
@@ -3962,7 +3962,6 @@ __metadata:
     globby: 11.0.4
     helpful-decorators: 2.1.0
     human-readable: 0.2.1
-    ignore-emit-webpack-plugin: 2.0.6
     jest: 27.3.1
     json5: 2.2.0
     lodash: 4.17.21
@@ -3970,10 +3969,7 @@ __metadata:
     node-notifier: 10.0.0
     patch-console: ^1.0.0
     pkg-up: 3.1.0
-    prettier: 2.4.1
     pretty-format: 27.3.1
-    remark: 14.0.2
-    remark-html: 15.0.0
     safe-json-stringify: ^1.2.0
     safe-resolve: 1.0.0
     signale: 1.4.0
@@ -3996,13 +3992,9 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/jest": 27.0.3
     "@types/node": 16.11.9
     "@types/tailwindcss": 2.2.4
-    autobind-decorator: ^2.4.0
     autoprefixer: ^10.4.0
-    jest: 27.3.1
-    postcss: 8.3.11
     tailwindcss: 2.2.19
     tslib: ^2.3.1
   peerDependencies:
@@ -4793,6 +4785,15 @@ __metadata:
     tapable: ^2.0.0
     webpack: ^5.1.0
   checksum: e921a28fca72bf1708d51ffad06ee2a4b80b8de7e748639588681ea1912413b92dbd433627f3b7eb51c14b9254a1d9c13cf037f25ca08a718df005871454a696
+  languageName: node
+  linkType: hard
+
+"@types/cssnano@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@types/cssnano@npm:4.0.1"
+  dependencies:
+    postcss: 5 - 7
+  checksum: 183fa4c41d82c32ef4ddd7ead1eabfa911d0c4ecdcbe78d0289167bf83b129fee0c7160c7247f07163579a4b584b92eda664bbf021b14836370e00c0e437ae19
   languageName: node
   linkType: hard
 
@@ -8590,7 +8591,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.5.2, chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.2":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -9599,7 +9600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:3.1.4, css-minimizer-webpack-plugin@npm:^3.0.2, css-minimizer-webpack-plugin@npm:^3.1.4":
+"css-minimizer-webpack-plugin@npm:^3.0.2":
   version: 3.1.4
   resolution: "css-minimizer-webpack-plugin@npm:3.1.4"
   dependencies:
@@ -9619,6 +9620,30 @@ __metadata:
     esbuild:
       optional: true
   checksum: 7b9101d397a20e541eef8e3f2bc1b2853b13bc3fb2ec5d557affd1161b04a5a4f5d0b669a54ef6872c1ca2e08b999f3a92bd135c3a04f44906a9910bac460aed
+  languageName: node
+  linkType: hard
+
+"css-minimizer-webpack-plugin@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "css-minimizer-webpack-plugin@npm:3.2.0"
+  dependencies:
+    "@types/cssnano": ^4.0.1
+    cssnano: ^5.0.6
+    jest-worker: ^27.0.2
+    postcss: ^8.3.5
+    schema-utils: ^4.0.0
+    serialize-javascript: ^6.0.0
+    source-map: ^0.6.1
+  peerDependencies:
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    clean-css:
+      optional: true
+    csso:
+      optional: true
+    esbuild:
+      optional: true
+  checksum: 97f783d8adc82f0e95a53dd324af9b4d19ca8b50a07358990bd86a41d305717d86e36bacdec931b01276471f9a26aa0f998c9646d9bc091d56a7b0d01c750a07
   languageName: node
   linkType: hard
 
@@ -11799,6 +11824,7 @@ __metadata:
     "@roots/bud-tailwindcss": "workspace:*"
     postcss: 8.3.11
     postcss-import: 14.0.2
+    postcss-nested: 5.0.6
     postcss-preset-env: 6.7.0
     tailwindcss: 2.2.19
   languageName: unknown
@@ -14008,13 +14034,6 @@ __metadata:
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 5144c0c9815e54ada181d80a0b810221a253562422e7c6c3a60b1901154184f49326ec239d618c416c1c5945a2e197107aee8d986a3dd836b53dffefd99b5e7e
-  languageName: node
-  linkType: hard
-
-"ignore-emit-webpack-plugin@npm:2.0.6":
-  version: 2.0.6
-  resolution: "ignore-emit-webpack-plugin@npm:2.0.6"
-  checksum: 544fd16d598e4d6733a4e828e3f2a22bad04ed365a6a6d46c452959575b8bf130127a9175968c7f8461cd439d0b7363eadfe5af28f930532b52157f23d30bbf6
   languageName: node
   linkType: hard
 
@@ -20424,7 +20443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:7.x.x, postcss@npm:^7.0.14, postcss@npm:^7.0.17, postcss@npm:^7.0.2, postcss@npm:^7.0.32, postcss@npm:^7.0.35, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
+"postcss@npm:5 - 7, postcss@npm:7.x.x, postcss@npm:^7.0.14, postcss@npm:^7.0.17, postcss@npm:^7.0.2, postcss@npm:^7.0.32, postcss@npm:^7.0.35, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
   version: 7.0.39
   resolution: "postcss@npm:7.0.39"
   dependencies:
@@ -21605,7 +21624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-html@npm:15.0.0, remark-html@npm:^15.0.0":
+"remark-html@npm:^15.0.0":
   version: 15.0.0
   resolution: "remark-html@npm:15.0.0"
   dependencies:

@@ -1,4 +1,4 @@
-import {join} from 'lodash'
+import join from 'lodash/join'
 
 export type WordPressScopePkg = `@wordpress/${string}`
 

@@ -72,6 +72,7 @@
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
+    "chokidar": "^3.5.2",
     "http-proxy-middleware": "2.0.1",
     "lodash.isequal": "^4.5.0",
     "tslib": "^2.3.1",
