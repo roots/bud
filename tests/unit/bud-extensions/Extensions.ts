@@ -22,11 +22,6 @@ describe.skip('Extensions', function () {
     name: '@roots/bud-postcss',
     register: jest.fn(() => null),
     boot: jest.fn(() => null),
-    api: jest.fn(() => ({
-      foo: jest.fn(function (this: Framework) {
-        return this
-      }),
-    })),
     options: jest.fn(() => options),
     make: jest.fn(() => mockWebpackPlugin),
     when: jest.fn(() => true),
