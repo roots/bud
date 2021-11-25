@@ -3733,6 +3733,7 @@ __metadata:
     postcss: 8.3.11
     postcss-import: 14.0.2
     postcss-loader: 6.2.0
+    postcss-nested: 5.0.6
     postcss-preset-env: 7.0.1
     tslib: 2.3.1
     webpack: 5.64.2
@@ -3996,13 +3997,9 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/jest": 27.0.3
     "@types/node": 16.11.9
     "@types/tailwindcss": 2.2.4
-    autobind-decorator: ^2.4.0
     autoprefixer: ^10.4.0
-    jest: 27.3.1
-    postcss: 8.3.11
     tailwindcss: 2.2.19
     tslib: ^2.3.1
   peerDependencies:
