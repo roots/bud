@@ -2,7 +2,7 @@ import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {Factory, Framework, Loose, Maybe} from '../..'
-import {Name} from './'
+import {Name} from '.'
 
 /**
  * Bud extension interface
@@ -50,7 +50,11 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  api?: Maybe<[Framework], Record<string, any>>
+  api?:
+    | ((
+        app: Framework,
+      ) => Promise<Record<string, CallableFunction>>)
+    | Record<string, CallableFunction>
 
   /**
    * Objects to bind to the framework. May be expressed as an object literal or a factory function.

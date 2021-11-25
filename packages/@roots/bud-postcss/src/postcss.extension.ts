@@ -1,7 +1,7 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
 
-import {PostCssConfig} from '../PostCssConfig'
+import {PostCssConfig} from './bud.postcss'
 
 export const BudPostCssExtension: Extension.Module = {
   name: '@roots/bud-postcss',
@@ -17,21 +17,23 @@ export const BudPostCssExtension: Extension.Module = {
 
     app.build.items.postcss = new Item({
       loader: app.build.loaders.postcss,
-      options: ({postcss}) => ({
-        postcssOptions: {
-          plugins: Object.values(postcss.plugins),
-        },
-        sourceMap: true,
-      }),
+      options: ({postcss}) => {
+        return {
+          postcssOptions: {
+            plugins: postcss.getValues(),
+          },
+          sourceMap: true,
+        }
+      },
     })
 
-    app.build.rules.css.setUse(app => [
+    app.build.rules.css.use = app => [
       app.isProduction
         ? app.build.items.minicss
         : app.build.items.style,
       app.build.items.css,
       app.build.items.postcss,
-    ])
+    ]
 
     app.postcss.setPlugin('postcss-import', [
       require.resolve('postcss-import'),

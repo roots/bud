@@ -19,8 +19,8 @@
 
 import type {Item, Loader} from '@roots/bud-build'
 
-import {BudPostCssExtension} from './BudPostCssExtension'
-import {PostCssConfig} from './PostCssConfig'
+import {PostCssConfig} from './bud.postcss'
+import {BudPostCssExtension} from './postcss.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {

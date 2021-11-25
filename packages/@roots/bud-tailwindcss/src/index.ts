@@ -17,16 +17,16 @@
  * @packageDocumentation
  */
 
-import type {tailwind} from './tailwind.config'
-import {BudTailwindCssExtension} from './tailwind.service'
+import type {tailwind} from './bud.tailwind'
+import {BudTailwindCssExtension} from './tailwind.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    tailwind: tailwind
+    tailwind: typeof tailwind
   }
 
   interface Modules {
-    '@roots/bud-tailwindcss': BudTailwindCssExtension
+    '@roots/bud-tailwindcss': typeof BudTailwindCssExtension
   }
 }
 

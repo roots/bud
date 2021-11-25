@@ -35,10 +35,17 @@ export class Controller {
     return this._app()
   }
 
+  /**
+   * @public
+   */
   public meta: {
     instance: string
     registered: boolean
     booted: boolean
+  } = {
+    instance: null,
+    registered: false,
+    booted: false,
   }
 
   public get moduleLogger(): Signale {
@@ -78,12 +85,7 @@ export class Controller {
     this._app = () => _app
     this._module = _module
     this.log = this.app.extensions.log
-
-    this.meta = {
-      instance: this.app.name,
-      registered: false,
-      booted: false,
-    }
+    this.meta.instance = this.app.name
 
     if (!this._module) {
       throw Error(
@@ -264,22 +266,19 @@ export class Controller {
   public async api(): Promise<Controller> {
     if (!this._module.api) return this
 
-    const methodMap = isFunction(this._module.api)
-      ? this._module.api(this.app)
-      : this._module.api
+    const methodMap: Record<string, CallableFunction> =
+      isFunction(this._module.api)
+        ? await this._module.api(this.app)
+        : this._module.api
 
     await this.app.api.processQueue()
 
-    if (!isObject(methodMap)) return
+    if (!isObject(methodMap))
+      throw new Error(
+        `${this.name}] api must be an object or return an object`,
+      )
 
     this.app.bindMethod(methodMap)
-
-    Object.entries(methodMap).forEach(([k, v]) => {
-      this.moduleLogger.success({
-        message: `registered ${this.app.name}.${k}`,
-        suffix: chalk.dim`${this.name}`,
-      })
-    })
 
     return this
   }
@@ -292,6 +291,7 @@ export class Controller {
     if (!this._module.mixin) return this
 
     let classMap
+
     if (isFunction(this._module.mixin)) {
       classMap = await this._module.mixin(this.app)
     } else {
