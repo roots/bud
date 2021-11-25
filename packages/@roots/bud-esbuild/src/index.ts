@@ -30,12 +30,12 @@ import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-import {setOptions} from './api'
+import {esbuild} from './bud.esbuild'
 import {features} from './features'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    esbuild: {setOptions: typeof setOptions}
+    esbuild: esbuild
   }
 
   interface Modules {
@@ -64,7 +64,7 @@ declare module '@roots/bud-framework' {
  *
  * @beta
  */
-const esbuild: Extension.Module = {
+const extension: Extension.Module = {
   name: '@roots/bud-esbuild',
 
   options: ({store}) => ({
@@ -90,9 +90,7 @@ const esbuild: Extension.Module = {
     ])
   },
 
-  api: app => ({
-    esbuild: setOptions.bind(app),
-  }),
+  api: {esbuild},
 }
 
-export const {name, boot, options, api} = esbuild
+export const {name, boot, options, api} = extension
