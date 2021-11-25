@@ -1,6 +1,9 @@
 import type {Framework} from '@roots/bud-framework'
+import type {TailwindConfig} from 'tailwindcss/tailwind-config'
 
-import * as Tailwind from './tailwind.interface'
+export interface tailwind {
+  (config?: TailwindConfig): Framework
+}
 
 /**
  * Configure tailwindcss.
@@ -20,7 +23,7 @@ import * as Tailwind from './tailwind.interface'
  *
  * @public
  */
-export const tailwind: Tailwind.ConfigFn = function (config?) {
+export const tailwind: tailwind = function (config?) {
   this as Framework
 
   try {

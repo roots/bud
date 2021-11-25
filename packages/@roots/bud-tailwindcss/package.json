@@ -71,15 +71,11 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/jest": "27.0.3",
     "@types/node": "16.11.9",
     "@types/tailwindcss": "2.2.4",
-    "jest": "27.3.1",
-    "postcss": "8.3.11",
     "tailwindcss": "2.2.19"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
     "autoprefixer": "^10.4.0",
     "tslib": "^2.3.1"
   },
