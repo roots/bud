@@ -1,10 +1,6 @@
 import {Bud, factory} from '@roots/bud'
 import {Extensions} from '@roots/bud-extensions'
-import {
-  Extension,
-  Framework,
-  Modules,
-} from '@roots/bud-framework'
+import {Extension, Modules} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
 describe.skip('Extensions', function () {
@@ -20,8 +16,8 @@ describe.skip('Extensions', function () {
 
   let mockModule: Extension.Module = {
     name: '@roots/bud-postcss',
-    register: jest.fn(() => null),
-    boot: jest.fn(() => null),
+    register: jest.fn(async () => null),
+    boot: jest.fn(async () => null),
     options: jest.fn(() => options),
     make: jest.fn(() => mockWebpackPlugin),
     when: jest.fn(() => true),
