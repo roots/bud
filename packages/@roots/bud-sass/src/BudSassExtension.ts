@@ -13,8 +13,15 @@ export const BudSassExtension: BudSassExtension = {
 
     build.items.sass = new Item({
       loader: ({build}) => build.loaders.sass,
-      options: () => ({
-        implementation: (() => require('sass'))(),
+      options: app => ({
+        implementation: (() => {
+          try {
+            const sass = require('sass')
+            return sass
+          } catch (e) {
+            app.error(e)
+          }
+        })(),
         sourceMap: true,
       }),
     })
@@ -30,8 +37,8 @@ export const BudSassExtension: BudSassExtension = {
               : build.items.style,
             build.items.css,
             build.items.postcss ?? undefined,
-            build.items.sass,
             build.items['resolve-url'],
+            build.items.sass,
           ]),
         ).filter(Boolean),
     })

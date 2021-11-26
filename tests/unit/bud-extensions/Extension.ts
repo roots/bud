@@ -10,19 +10,17 @@ describe.skip('@roots/bud-extensions Controller', function () {
     apply: jest.fn(),
   }
 
-  let options = {
-    test: 'foo',
-  }
+  let options = {test: 'foo'}
 
   let mockModule: Extension.Module = {
     name: '@roots/bud-postcss',
     register: jest.fn(() => null),
     boot: jest.fn(() => null),
-    api: jest.fn(() => ({
+    api: {
       foo: jest.fn(function (this: Bud) {
         return this
       }),
-    })),
+    },
     options: jest.fn(() => options),
     make: jest.fn(() => mockWebpackPlugin),
     when: jest.fn(() => true),
