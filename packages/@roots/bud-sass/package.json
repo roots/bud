@@ -71,7 +71,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/node": "16.11.9",
-    "webpack": "5.64.2"
+    "webpack": "5.64.4"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
@@ -82,7 +82,7 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "sass": "1.43.4"
+    "sass": "1.43.5"
   },
   "stableVersion": "4.6.0"
 }

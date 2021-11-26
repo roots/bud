@@ -26,7 +26,7 @@
     ]
   },
   "resolutions": {
-    "@types/react": "17.0.35",
+    "@types/react": "17.0.37",
     "ink": "3.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -42,7 +42,7 @@
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
-    "@types/react": "17.0.35",
+    "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
     "@types/react-helmet": "6.1.4",
     "@types/react-reconciler": "0.26.4",
@@ -85,7 +85,7 @@
     "ts-node": "10.4.0",
     "tsconfig-paths": "3.12.0",
     "type-fest": "2.5.4",
-    "typedoc": "0.22.9",
+    "typedoc": "0.22.10",
     "typescript": "4.4.4",
     "weak-napi": "2.0.2"
   },

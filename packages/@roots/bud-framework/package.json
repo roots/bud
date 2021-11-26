@@ -67,7 +67,8 @@
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
     "http-proxy-middleware": "2.0.1",
-    "webpack": "5.64.2"
+    "ink": "3.2.0",
+    "webpack": "5.64.4"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
