@@ -1,4 +1,4 @@
-import {Inner} from './inner.web-component.'
+import {Inner} from './inner.web-component'
 import {Message} from './messages.web-component'
 import {Component} from './overlay.web-component'
 import {template} from './template.web-component'
