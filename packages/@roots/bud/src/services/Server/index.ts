@@ -1,4 +1,4 @@
-export {Server as Base} from '@roots/bud-server'
+import {Server as Base} from '@roots/bud-server'
 
 /**
  * Server service
