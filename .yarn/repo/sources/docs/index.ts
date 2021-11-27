@@ -50,12 +50,14 @@ export class MdCommand extends Command {
     }
 
     await this.$(
-      this.site
-        ? `yarn workspace @roots/bud-docs run docusaurus build`
-        : null,
-      this.readme
-        ? `yarn ts-node-transpile-only ./dev/readme`
-        : null,
+      ...[
+        this.site
+          ? `yarn workspace @roots/bud-docs run docusaurus build`
+          : null,
+        this.readme
+          ? `yarn ts-node-transpile-only ./dev/readme`
+          : null,
+      ].filter(Boolean),
     )
   }
 }
