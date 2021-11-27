@@ -84,6 +84,11 @@ export class Build
       {},
     )
 
+    this.config = this.app.hooks.filter(
+      'build.override',
+      this.config,
+    )
+
     await this.app.hooks.promised('event.build.make.after')
 
     return this.config

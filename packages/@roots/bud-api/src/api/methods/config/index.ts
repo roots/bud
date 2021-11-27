@@ -12,10 +12,10 @@ export function config(
 ): Framework {
   if (!overrides)
     throw new Error(
-      'configuration overrides must pass a callback function that returns a webpack configuration',
+      'config overrides must pass a callback function that returns a webpack configuration',
     )
 
-  this.hooks.on('config.override', overrides)
+  this.hooks.on('build.override', overrides)
 
   return this
 }
