@@ -1,52 +1,50 @@
-import {flags} from '@oclif/command'
+import * as oclif from '@oclif/core'
 import {chalk, Signale} from '@roots/bud-support'
 
-import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies'
-import {Command} from '../Command'
+import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies.js'
+import {Command} from '../Command/index.js'
 
+/**
+ * @internal
+ */
 export default class Install extends Command {
   /**
-   * @public
+   * @internal
    */
-  public static id = 'install'
+  public static id: string = 'install'
 
   /**
-   * @public
-   */
-  public static title = 'install'
-
-  /**
-   * @public
+   * @internal
    */
   public static description = 'install peer dependencies'
 
   /**
-   * @public
+   * @internal
    */
   public static examples = ['$ bud install']
 
   /**
-   * @public
+   * @internal
    */
   public static aliases = ['init']
 
   /**
-   * @public
+   * @internal
    */
   public static flags = {
     ...Command.flags,
-    ['log']: flags.boolean({
+    ['log']: oclif.Flags.boolean({
       default: false,
       hidden: true,
     }),
-    ['log.papertrail']: flags.boolean({
+    ['log.papertrail']: oclif.Flags.boolean({
       default: false,
       hidden: true,
     }),
   }
 
   /**
-   * @public
+   * @internal
    */
   public async run() {
     await this.prime(Install)
@@ -85,6 +83,6 @@ export default class Install extends Command {
       this.exit(1)
     }
 
-    this.exit()
+    this.exit(0)
   }
 }

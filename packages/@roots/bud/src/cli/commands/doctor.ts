@@ -1,63 +1,69 @@
 /* eslint-disable no-console */
-import {flags} from '@oclif/command'
-import {Webpack} from '@roots/bud-server/src/util/inject-client.interface'
+import * as oclif from '@oclif/core'
 import {bind, chalk, Signale} from '@roots/bud-support'
 import {join} from 'path'
+import Webpack from 'webpack'
 import webpackcli from 'webpack-cli'
 
-import {Command} from '../Command'
+import {Command} from '../Command/index.js'
 
 /**
- * @public
+ * @internal
  */
 export default class Doctor extends Command {
   /**
-   * @public
+   * @internal
    */
   public static id = 'doctor'
 
   /**
-   * @public
-   */
-  public static title = 'doctor'
-
-  /**
-   * @public
+   * @internal
    */
   public static description = 'diagnose issues'
 
   /**
-   * @public
+   * @internal
    */
   public static examples = [`$ bud doctor`]
 
   /**
-   * @public
+   * @internal
    */
   public static flags = {
     ...Command.flags,
-    ['log']: flags.boolean({
+    ['log']: oclif.Flags.boolean({
       default: false,
       hidden: true,
     }),
-    ['log.papertrail']: flags.boolean({
+
+    ['log.papertrail']: oclif.Flags.boolean({
       default: false,
       hidden: true,
     }),
-    ['dashboard']: flags.boolean({
+
+    ['dashboard']: oclif.Flags.boolean({
       default: false,
       hidden: true,
     }),
   }
 
+  /**
+   * @internal
+   */
   private failures = []
 
+  /**
+   * @internal
+   */
   public checks: Array<Promise<any>> = []
 
+  /**
+   * @internal
+   */
   public conf: Array<Webpack.Configuration>
 
   /**
-   * @public
+   * @internal
    */
   public async run(): Promise<void> {
     await this.prime(Doctor)
@@ -67,6 +73,10 @@ export default class Doctor extends Command {
     await this.main()
   }
 
+  /**
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
   public async main() {
     this.checks.push(
@@ -96,11 +106,23 @@ export default class Doctor extends Command {
     await this.app.project.writeProfile()
   }
 
+  /**
+   * @returns true if there are errors
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
-  public hasErrors() {
+  public hasErrors(): boolean {
     return this.failures.length > 0
   }
 
+  /**
+   * @param logger - logger instance
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
   public async checkDependencies(logger: Signale) {
     if (!this.app.project.getValues('unmet').length) {
@@ -112,13 +134,19 @@ export default class Doctor extends Command {
       logger.error(chalk.red`missing ${name}@${version}`)
     })
 
-    return logger.warn(
+    logger.warn(
       chalk.yellow(
         'Run `bud init` to install missing dependencies',
       ),
     )
   }
 
+  /**
+   * @param logger - logger instance
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
   public async checkPaths(logger: Signale) {
     const paths = await this.app.project.get('resolve')
@@ -143,6 +171,12 @@ export default class Doctor extends Command {
     } catch (error) {}
   }
 
+  /**
+   * @param logger - logger instance
+   *
+   * @internal
+   * @decorator `@bind`
+   */
   @bind
   public async checkConfiguration(logger: Signale) {
     try {

@@ -1,16 +1,11 @@
-import {flags} from '@oclif/command'
+import * as oclif from '@oclif/core'
 
-import Build from './build'
+import Build from './build.js'
 
 /**
  * @public
  */
 export default class Serve extends Build {
-  /**
-   * @public
-   */
-  public static id = 'serve'
-
   /**
    * @public
    */
@@ -36,7 +31,7 @@ export default class Serve extends Build {
    */
   public static flags = {
     ...Build.flags,
-    mode: flags.string({
+    mode: oclif.Flags.string({
       default: 'development',
       options: ['development', 'production'],
       hidden: true,
