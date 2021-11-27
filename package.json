@@ -22,7 +22,7 @@
       "packages/@roots/*",
       "packages/base",
       "site",
-      ".yarn/local"
+      ".yarn/repo"
     ]
   },
   "resolutions": {
