@@ -73,7 +73,7 @@
     "jest": "27.3.1",
     "lodash": "4.17.21",
     "npm-run-path": "5.0.1",
-    "prettier": "2.4.1",
+    "prettier": "2.5.0",
     "pretty-format": "27.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",

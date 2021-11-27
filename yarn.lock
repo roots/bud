@@ -3382,7 +3382,7 @@ __metadata:
     webpack: 5.64.4
   peerDependencies:
     eslint: 7.32.0
-    prettier: 2.4.1
+    prettier: 2.5.0
   peerDependenciesMeta:
     prettier:
       optional: true
@@ -3592,10 +3592,10 @@ __metadata:
     "@types/node": 16.11.9
     autobind-decorator: 2.4.0
     jest: 27.3.1
-    prettier: 2.4.1
+    prettier: 2.5.0
     tslib: 2.3.1
   peerDependencies:
-    prettier: 2.4.1
+    prettier: 2.5.0
   languageName: unknown
   linkType: soft
 
@@ -3764,7 +3764,7 @@ __metadata:
     node-notifier: 10.0.0
     patch-console: ^1.0.0
     pkg-up: 3.1.0
-    prettier: 2.4.1
+    prettier: 2.5.0
     pretty-format: 27.3.1
     remark: 14.0.2
     remark-html: 15.0.0
@@ -8008,7 +8008,7 @@ __metadata:
     jest: 27.3.1
     lodash: 4.17.21
     npm-run-path: 5.0.1
-    prettier: 2.4.1
+    prettier: 2.5.0
     pretty-format: 27.3.1
     react: 17.0.2
     react-dom: 17.0.2
@@ -12613,7 +12613,7 @@ __metadata:
     globby: 12.0.2
     jest: 27.3.1
     npm-run-all: 4.1.5
-    prettier: 2.4.1
+    prettier: 2.5.0
     replacestream: 4.0.3
     rimraf: 3.0.2
     tslib: 2.3.1
@@ -20137,12 +20137,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.4.1, prettier@npm:^2.4.1":
+"prettier@npm:2.4.1":
   version: 2.4.1
   resolution: "prettier@npm:2.4.1"
   bin:
     prettier: bin-prettier.js
   checksum: cc6830588b401b0d742862fe9c46bc9118204fb307c3abe0e49e95b35ed23629573807ffdf9cdd65289c252a0bb51fc0171437f6626ee36378dea80f0ee80b91
+  languageName: node
+  linkType: hard
+
+"prettier@npm:2.5.0, prettier@npm:^2.4.1":
+  version: 2.5.0
+  resolution: "prettier@npm:2.5.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: aad1b35b73e7c14596d389d90977a83dad0db689ba5802a0ef319c357b7867f55b885db197972aa6a56c30f53088c9f8e0d7f7930ae074c275a4e9cbe091d21d
   languageName: node
   linkType: hard
 
