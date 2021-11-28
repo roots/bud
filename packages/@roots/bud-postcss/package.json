@@ -74,7 +74,7 @@
     "@types/node": "16.11.9",
     "@types/signale": "1.4.2",
     "jest": "27.3.1",
-    "postcss": "8.4.3",
+    "postcss": "8.4.4",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
     "postcss-preset-env": "7.0.1",
@@ -86,7 +86,7 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "postcss": "8.4.3",
+    "postcss": "8.4.4",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
     "postcss-preset-env": "7.0.1"
