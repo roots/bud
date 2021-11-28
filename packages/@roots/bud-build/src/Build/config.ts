@@ -262,8 +262,10 @@ export async function config(app: Framework): Promise<void> {
     /**
      * Stats
      */
-    .hooks.on('build.stats', (): Configuration['stats'] =>
-      app.store.get('build.stats'),
+    .hooks.on(
+      'build.stats',
+      (stats?: Configuration['stats']): Configuration['stats'] =>
+        stats ?? app.store.get('build.stats'),
     )
 
     /**
