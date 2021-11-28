@@ -7,6 +7,7 @@ import {
   isFunction,
   isObject,
   isUndefined,
+  omit,
   Signale,
 } from './controller.dependencies'
 import {
@@ -49,7 +50,9 @@ export class Controller {
   }
 
   public get moduleLogger(): Signale {
-    return this.app.extensions.logger
+    const logger = new Signale()
+    logger.scope(...this.app.logger.context, this.name)
+    return logger
   }
 
   /**
@@ -69,7 +72,7 @@ export class Controller {
   /**
    * @internal
    */
-  public _module: Extension | Plugin
+  public _module: Extension | Plugin = {}
 
   /**
    * @public
@@ -81,22 +84,29 @@ export class Controller {
    *
    * @public
    */
-  public constructor(_app: Framework, _module: Extension) {
+  public constructor(_app: Framework, extension: Extension) {
     this._app = () => _app
-    this._module = _module
     this.log = this.app.extensions.log
     this.meta.instance = this.app.name
 
-    if (!this._module) {
+    if (!extension) {
       throw Error(
         `extension controller constructor: missing module`,
       )
     }
 
-    if (!this._module.name) {
-      this.app.dump(this._module)
+    if (!extension.name) {
+      this.app.dump(extension)
       throw Error(`name is a required property for extensions`)
     }
+
+    this.name = extension.name
+    this.options = extension.options
+
+    Object.assign(
+      this._module,
+      omit(extension, ['name', 'options']),
+    )
   }
 
   /**
@@ -144,23 +154,28 @@ export class Controller {
    * @public
    */
   public get options() {
-    if (isUndefined(this._module.options))
-      return this.filter('options', this.app.container({}))
+    if (isUndefined(this._module.options)) {
+      this._module.options = this.app.container()
+    }
 
-    const options = this.app.maybeCall(this._module.options)
+    if (this._module.options instanceof Container) {
+      return this.filter('options', this._module.options)
+    }
 
-    if (isUndefined(options))
-      return this.filter('options', this.app.container({}))
-
-    if (options instanceof Container)
-      return this.filter('options', options)
-
-    if (!isObject(options))
+    if (!isObject(this._module.options))
       throw new Error(
         `${this.name} options must be an object or Container instance`,
       )
 
-    return this.filter('options', this.app.container(options))
+    if (this._module.options instanceof Container) {
+      return this.filter('options', this._module.options)
+    }
+
+    this._module.options = this.app.container(
+      this._module.options,
+    )
+
+    return this.filter('options', this._module.options)
   }
 
   /**
@@ -168,12 +183,14 @@ export class Controller {
    */
   public set options(options) {
     if (isFunction(options)) {
-      this._module.options = this.options(this.app)
+      this._module.options = options(this.app)
+
       return
     }
 
     if (options instanceof Container) {
       this._module.options = options
+
       return
     }
 
