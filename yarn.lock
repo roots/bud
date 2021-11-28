@@ -11506,6 +11506,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-postcss-sass@workspace:examples/postcss-sass":
+  version: 0.0.0-use.local
+  resolution: "example-postcss-sass@workspace:examples/postcss-sass"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-sass": "workspace:*"
+    "@types/sass": ^1
+    sass: 1.43.4
+  languageName: unknown
+  linkType: soft
+
 "example-postcss@workspace:examples/postcss":
   version: 0.0.0-use.local
   resolution: "example-postcss@workspace:examples/postcss"
