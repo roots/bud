@@ -5,7 +5,13 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs} from '@roots/bud-support'
+import {
+  bind,
+  chalk,
+  fs,
+  lodash,
+  prettyFormat,
+} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
@@ -13,6 +19,7 @@ import items from './items'
 import loaders from './loaders'
 import * as rules from './rules'
 
+const {isNull, isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -65,32 +72,32 @@ export class Build
 
     const build = await this.app.hooks.promised('build')
 
-    this.config = Object.entries(build).reduce(
-      (all: Partial<Webpack.Configuration>, [key, value]) => {
-        if (typeof value === 'undefined') {
-          this.log(`warn`, {
-            message: `build.make: excluding ${key}`,
-            suffix: `value is undefined`,
-          })
-          return all
-        }
-
-        this.app.dump(value, {
-          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
-          maxDepth: 2,
-        })
-        return {...all, [key]: value}
-      },
-      {},
-    )
-
     this.config = this.app.hooks.filter(
-      'build.override',
-      this.config,
+      'event.build.override',
+      Object.entries(build).reduce(
+        (all: Partial<Webpack.Configuration>, [key, value]) => {
+          if (isUndefined(value) || isNull(value)) {
+            this.log(`warn`, {
+              message: `build.make: excluding ${key}`,
+              suffix: `value is undefined`,
+            })
+
+            return all
+          }
+
+          this.app.dump(value, {
+            prefix: `${chalk.bgBlue(
+              this.app.name,
+            )} config.${key}`,
+            maxDepth: 2,
+          })
+          return {...all, [key]: value}
+        },
+        {},
+      ),
     )
 
     await this.app.hooks.promised('event.build.make.after')
-
     return this.config
   }
 
@@ -163,11 +170,7 @@ export class Build
 
       await writeFile(
         filePath,
-        `module.exports = (${JSON.stringify(
-          this.config,
-          null,
-          2,
-        )})`,
+        `module.exports = (${prettyFormat(this.config)})`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)
