@@ -15,7 +15,7 @@ export function config(
       'config overrides must pass a callback function that returns a webpack configuration',
     )
 
-  this.hooks.on('build.override', overrides)
+  this.hooks.on('event.build.override', overrides)
 
   return this
 }
