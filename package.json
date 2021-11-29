@@ -35,7 +35,7 @@
     "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.68",
+    "@microsoft/api-documenter": "7.13.69",
     "@microsoft/api-extractor": "7.18.19",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
