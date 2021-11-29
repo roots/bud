@@ -75,6 +75,7 @@
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "postcss": "8.4.4",
     "postcss-scss": "4.0.2",
     "resolve-cwd": "3.0.0",

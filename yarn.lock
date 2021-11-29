@@ -3656,6 +3656,7 @@ __metadata:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/node": 16.11.9
     postcss: 8.4.4
     postcss-scss: 4.0.2
