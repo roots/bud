@@ -2929,19 +2929,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.8.3, @oclif/command@npm:^1.8.4":
-  version: 1.8.4
-  resolution: "@oclif/command@npm:1.8.4"
+"@oclif/command@npm:^1.8.3, @oclif/command@npm:^1.8.4, @oclif/command@npm:^1.8.5, @oclif/command@npm:^1.8.6":
+  version: 1.8.6
+  resolution: "@oclif/command@npm:1.8.6"
   dependencies:
     "@oclif/config": ^1.17.1
     "@oclif/errors": ^1.3.5
     "@oclif/parser": ^3.8.6
-    "@oclif/plugin-help": ^3.2.6
+    "@oclif/plugin-help": ^3.2.8
     debug: ^4.1.1
     semver: ^7.3.2
   peerDependencies:
     "@oclif/config": ^1
-  checksum: 9f87a838f72e066bbd7719a9217ad03bf999163553a40a84bf4c544ecb9517bc74d7373f48f7b4f96b63d5448c1d1bcae9b7f6ce372361370457acfee8ed21e8
+  checksum: f335ae5a097ef90cf90820258ca5286a39bc42b77d2557128432caabbe4283d4de8fc68fa8a4aef43ea91461d25c90a5109c3ad5705e30d67b01ef5bd823fb70
   languageName: node
   linkType: hard
 
@@ -2959,14 +2959,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/dev-cli@npm:1.26.3":
-  version: 1.26.3
-  resolution: "@oclif/dev-cli@npm:1.26.3"
+"@oclif/dev-cli@npm:1.26.5":
+  version: 1.26.5
+  resolution: "@oclif/dev-cli@npm:1.26.5"
   dependencies:
-    "@oclif/command": ^1.8.4
+    "@oclif/command": ^1.8.6
     "@oclif/config": ^1.17.1
     "@oclif/errors": ^1.3.5
-    "@oclif/plugin-help": ^3.2.7
+    "@oclif/plugin-help": ^3.2.8
     cli-ux: ^5.6.4
     debug: ^4.1.1
     find-yarn-workspace-root: ^2.0.0
@@ -2978,7 +2978,7 @@ __metadata:
     tslib: ^2.0.3
   bin:
     oclif-dev: bin/run
-  checksum: 426ce8329172fc26a03c8f4845ad11aed3f394492f2ed1deab29972be69bb4c95e2516d8dbb3262a91a1a8a06d113b1513b5393102a444e122815d9095cbce8a
+  checksum: 7ee96fdeab67066e30c079a23ffac8f24ee6f82196353213a2493942e70dafb0aac9ce5585c3c7f9c02e50f286b977499fa9b690d5e5e0102a206c6cda956d90
   languageName: node
   linkType: hard
 
@@ -3014,11 +3014,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^3.2.5, @oclif/plugin-help@npm:^3.2.6, @oclif/plugin-help@npm:^3.2.7":
-  version: 3.2.7
-  resolution: "@oclif/plugin-help@npm:3.2.7"
+"@oclif/plugin-help@npm:^3.2.5, @oclif/plugin-help@npm:^3.2.8":
+  version: 3.2.9
+  resolution: "@oclif/plugin-help@npm:3.2.9"
   dependencies:
-    "@oclif/command": ^1.8.4
+    "@oclif/command": ^1.8.5
     "@oclif/config": ^1.17.1
     "@oclif/errors": ^1.3.5
     chalk: ^4.1.2
@@ -3028,7 +3028,7 @@ __metadata:
     strip-ansi: ^6.0.0
     widest-line: ^3.1.0
     wrap-ansi: ^4.0.0
-  checksum: 6710ef0000fa00c08a151e4fd38b9d9608683bde62034a17eb1b577cd84a0185b9336694b2a85da789ef36828c3f630f4cd29f5abd8d9f81e33a27819b99c195
+  checksum: dbb5326d736a12fd15a203b7018b93f2119025d7d1e1f64595c09f7afb901e317639c2a511c9b24b35ec78d65c8c4e586363b4e254d8acb50ef5acb13d823c05
   languageName: node
   linkType: hard
 
@@ -3925,7 +3925,7 @@ __metadata:
     "@microsoft/api-documenter": 7.13.69
     "@oclif/command": ^1.8.3
     "@oclif/config": ^1.17.1
-    "@oclif/dev-cli": 1.26.3
+    "@oclif/dev-cli": 1.26.5
     "@oclif/errors": ^1.3.5
     "@oclif/plugin-help": ^3.2.5
     "@oclif/test": 1.2.8
