@@ -76,7 +76,7 @@
     "@types/jest": "27.0.3",
     "@types/node": "16.11.9",
     "jest": "27.3.1",
-    "postcss": "8.3.11"
+    "postcss": "8.4.4"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
