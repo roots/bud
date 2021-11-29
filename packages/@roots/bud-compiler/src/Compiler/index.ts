@@ -109,7 +109,7 @@ export class Compiler extends Service implements Contract {
     this.instance = webpack(config)
 
     this.instance.hooks.done.tap(config[0].name, async stats => {
-      await this.app.hooks.filter('event.compiler.done', stats)
+      this.app.hooks.filter('event.compiler.done', stats)
 
       stats && Object.assign(this.stats, stats.toJson())
       if (this.app.store.is('features.dashboard', false)) {

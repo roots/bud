@@ -66,12 +66,9 @@ export async function config(app: Framework): Promise<void> {
     /**
      * InfrastructureLogging
      */
-    .hooks.on(
-      'build.infrastructureLogging',
-      (): Configuration['infrastructureLogging'] => ({
-        ...app.store.get('build.infrastructureLogging'),
-      }),
-    )
+    .hooks.on('build.infrastructureLogging', () => ({
+      ...app.store.get('build.infrastructureLogging'),
+    }))
 
     /**
      * Mode

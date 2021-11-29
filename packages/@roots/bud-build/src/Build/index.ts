@@ -58,6 +58,20 @@ export class Build
   public items: Items
 
   /**
+   * Service booted event
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async registered() {
+    this.app.hooks.on(
+      'event.build.make.after',
+      this.writeFinalConfig,
+    )
+  }
+
+  /**
    * Make webpack configuration
    *
    * @public
@@ -67,7 +81,7 @@ export class Build
   public async make(): Promise<Webpack.Configuration> {
     await this.app.hooks.promised(
       'event.build.make.before',
-      this.app,
+      () => this.app,
     )
 
     const build = await this.app.hooks.promised('build')
@@ -133,20 +147,6 @@ export class Build
   }
 
   /**
-   * Service booted event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async booted() {
-    this.app.hooks.on(
-      'event.build.make.after',
-      this.writeFinalConfig,
-    )
-  }
-
-  /**
    * Write final configuration to storage directory
    *
    * @public
@@ -161,7 +161,7 @@ export class Build
         'webpack.config.js',
       )
 
-      this.log('info', {
+      this.log('log', {
         message: `writing webpack dump to disk`,
         suffix: filePath,
       })

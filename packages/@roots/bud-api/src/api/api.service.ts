@@ -66,7 +66,7 @@ export class Api
     this.app.hooks.on('event.build.make.before', async app => {
       await app
 
-      app.log('event.build.make.promise api calls')
+      this.log('log', 'event.build.make.promise api calls')
 
       await this.processQueue()
       this.dump()

@@ -85,8 +85,16 @@ export class Env
   @bind
   @once
   public getPublicEnv(): Record<string, any> {
+    this.log('log', 'getting publicEnv', this.all())
+
+    if (this.isEmpty()) {
+      return {}
+    }
+
     return this.getEntries()
       .filter(([k, v]: [string, string]) => {
+        if (!k) return false
+
         const isPublic = k.startsWith('PUBLIC_')
 
         if (!isPublic) return false

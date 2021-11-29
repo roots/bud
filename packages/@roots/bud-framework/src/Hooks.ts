@@ -241,6 +241,7 @@ namespace Hooks {
    * @internal
    */
   export type Name =
+    | `config.override`
     | `event.build.make.before`
     | `event.build.make.after`
     | `event.compiler.before`

@@ -5,10 +5,7 @@ Object {
   "clean-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "clean-webpack-plugin",
       "options": Object {
         "cleanOnceBeforeBuildPatterns": Array [
@@ -18,7 +15,6 @@ Object {
         "cleanStaleWebpackAssets": true,
         "protectWebpackAssets": true,
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -31,15 +27,11 @@ Object {
   "copy-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "copy-webpack-plugin",
       "options": Object {
         "patterns": Array [],
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -52,17 +44,13 @@ Object {
   "ignore-emit-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "ignore-emit-webpack-plugin",
       "options": Object {
         "ignore": Array [
           /\\.\\?\\.map\\$/,
         ],
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -75,16 +63,12 @@ Object {
   "mini-css-extract-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "mini-css-extract-plugin",
       "options": Object {
         "chunkFilename": "[name].[id].css",
         "filename": "[name].css",
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -97,13 +81,9 @@ Object {
   "webpack-define-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "webpack-define-plugin",
       "options": Object {},
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -116,16 +96,12 @@ Object {
   "webpack-hot-module-replacement-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "webpack-hot-module-replacement-plugin",
       "options": Container {
         "ident": "container",
         "repository": Object {},
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -138,16 +114,12 @@ Object {
   "webpack-manifest-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "webpack-manifest-plugin",
       "options": Object {
         "fileName": "manifest.json",
         "writeToFileEmit": true,
       },
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],
@@ -160,13 +132,9 @@ Object {
   "webpack-provide-plugin": Controller {
     "_app": [Function],
     "_module": Object {
-      "api": undefined,
-      "boot": undefined,
       "make": [Function],
-      "mixin": undefined,
       "name": "webpack-provide-plugin",
       "options": Object {},
-      "register": undefined,
       "when": [Function],
     },
     "log": [Function],

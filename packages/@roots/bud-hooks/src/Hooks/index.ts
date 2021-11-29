@@ -138,7 +138,7 @@ export class Hooks extends Service implements Contract {
     value: T = null,
   ): T {
     if (!this.has(id)) {
-      return value
+      return isFunction(value) ? value() : value
     }
 
     return this.get(id).reduce(
@@ -171,7 +171,7 @@ export class Hooks extends Service implements Contract {
     value: T = null,
   ): Promise<T> {
     if (!this.has(id)) {
-      return value
+      return isFunction(value) ? await value() : value
     }
 
     return await this.get(id).reduce(

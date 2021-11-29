@@ -2,7 +2,7 @@ import {join} from 'path'
 
 import {Framework, Locations} from '../..'
 
-interface path {
+export interface path {
   (
     this: Framework,
     key: keyof Locations & string,
@@ -10,14 +10,13 @@ interface path {
   ): string
 }
 
-interface path {
-  (key: keyof Locations & string, ...path: string[]): string
+export interface path {
+  (key: `${keyof Locations & string}`, ...path: string[]): string
 }
 
-const path: path = function (
-  key: keyof Locations & string,
-  ...path: string[]
-): string {
+export const path: path = function (key, ...path): string {
+  this.log(`getting path ${key}: ${path.join('/')}`)
+
   const project = this.hooks.filter(`location.project`)
   const partial = this.hooks.filter(`location.${key}`)
 
@@ -30,5 +29,3 @@ const path: path = function (
         ...[project, partial, ...(path ?? [])].filter(Boolean),
       )
 }
-
-export {path}

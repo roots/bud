@@ -96,13 +96,14 @@ export class Cache
    */
   @bind
   public async hashFileContents(): Promise<string> {
-    const makeHash: (str: string) => Promise<string> =
-      async str =>
-        createHash('sha1')
-          .update(str)
-          .digest('base64')
-          .replace(/[^a-z0-9]/gi, '_')
-          .toLowerCase()
+    const makeHash: (
+      str: string,
+    ) => Promise<string> = async str =>
+      createHash('sha1')
+        .update(str)
+        .digest('base64')
+        .replace(/[^a-z0-9]/gi, '_')
+        .toLowerCase()
 
     try {
       const paths = this.app.project.get('dependencies')

@@ -2,28 +2,28 @@ import type {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import type {Options} from 'eslint-webpack-plugin'
 
-export interface EslintConfig {
+export interface eslint {
   config(userOptions: Options): Framework
 }
 
 /**
  * @public
  */
-export class EslintConfig {
+export class eslint {
   /**
    * @internal
    */
   public _app: () => Framework
 
   /**
-   * @public
+   * @internal
    */
   public get app() {
     return this._app()
   }
 
   /**
-   * @public
+   * @internal
    */
   public constructor(app: Framework) {
     this._app = () => app
@@ -34,11 +34,14 @@ export class EslintConfig {
    */
   @bind
   public config(userOptions: Options): Framework {
-    this.app.info('modifying eslint user configuration')
-
     this.app.extensions
       .get('eslint-webpack-plugin')
       .options.setStore(userOptions)
+
+    this.app.info({
+      message: 'overriding eslint by user configuration',
+      value: userOptions,
+    })
 
     return this.app
   }
