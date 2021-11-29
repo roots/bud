@@ -25,12 +25,15 @@ describe('bud.minimize', function () {
   it('enables minimizing when called', async () => {
     bud.minimize()
     await bud.build.make()
+
     expect(bud.build.config.optimization.minimize).toEqual(true)
   })
 
   it('disables minimizing when false is passed as param', async () => {
     bud.minimize(false)
+
     await bud.build.make()
+
     expect(bud.build.config.optimization.minimize).toEqual(false)
   })
 })

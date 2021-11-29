@@ -1,12 +1,11 @@
 import {
   Framework,
   Hooks as Contract,
-  Project,
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-const {get, isArray, isFunction, noop, set} = lodash
+const {get, isFunction, set} = lodash
 
 /**
  * Service allowing for fitering values through callbacks.
@@ -55,21 +54,6 @@ export class Hooks extends Service implements Contract {
    * @internal
    */
   public ident = 'hooks'
-
-  /**
-   * Service boot method
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  @bind
-  public async boot() {
-    this.app.hooks.on(
-      'event.project.write',
-      async (project: Project.Interface) =>
-        project.set('hooks', this.all()),
-    )
-  }
 
   /**
    * hook getter
@@ -123,17 +107,9 @@ export class Hooks extends Service implements Contract {
     id: Contract.Name,
     callback: Contract.Hook,
   ): Framework {
-    const [_publisher, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+    const current = this.has(id) ? this.get(id) : []
 
-    const current = this.get(name) ?? []
-
-    if (!isArray(current)) {
-      this.set(name, [callback])
-    } else {
-      this.set(name, [...current, callback])
-    }
+    this.set(id, [...current, callback])
 
     return this.app
   }
@@ -159,22 +135,17 @@ export class Hooks extends Service implements Contract {
   @bind
   public filter<T = any>(
     id: `${Contract.Name & string}`,
-    value?: any,
+    value: T = null,
   ): T {
-    const [_subscriber, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+    if (!this.has(id)) {
+      return isFunction(value) ? value() : value
+    }
 
-    !this.has(name) && this.set(name, [value ?? noop])
-
-    const result = this.get(name).reduce(
-      (v: T, cb?: CallableFunction) => {
-        return isFunction(cb) ? cb(v) : cb
-      },
-      value ?? null,
+    return this.get(id).reduce(
+      (v: T, cb?: CallableFunction) =>
+        isFunction(cb) ? cb(v) : cb,
+      value,
     )
-
-    return result
   }
 
   /**
@@ -197,26 +168,21 @@ export class Hooks extends Service implements Contract {
   @bind
   public async promised<T = any>(
     id: `${Contract.Name & string}`,
-    value?: any,
+    value: T = null,
   ): Promise<T> {
-    const [_subscriber, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+    if (!this.has(id)) {
+      return isFunction(value) ? await value() : value
+    }
 
-    !this.has(name) && this.set(name, [value ?? noop])
-
-    const result = await this.get(name).reduce(
+    return await this.get(id).reduce(
       async (
         promised: Promise<T>,
         cb?: (value: T) => Promise<T>,
       ) => {
         const value = await promised
-
         return isFunction(cb) ? await cb(value) : cb
       },
-      value ?? null,
+      value,
     )
-
-    return result
   }
 }

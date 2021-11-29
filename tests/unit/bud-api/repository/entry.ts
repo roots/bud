@@ -49,6 +49,7 @@ describe('bud.entry', function () {
 
   it('sets an entrypoint using (string, string[]) fn signature', async () => {
     bud.entry('app', ['scripts/app.js', 'styles/app.css'])
+
     await bud.build.make()
 
     expect(bud.build.config.entry).toStrictEqual({
@@ -86,9 +87,9 @@ describe('bud.entry', function () {
     bud.entry({
       app: ['**/app.js', 'styles/*.css'],
     })
-    await bud.build.make()
+    const config = await bud.build.make()
 
-    expect(bud.build.config.entry).toEqual({
+    expect(config.entry).toEqual({
       app: {
         import: [
           'scripts/app.js',

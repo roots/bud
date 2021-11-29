@@ -4,6 +4,7 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
+import {bind} from '@roots/bud-support'
 
 import {LOCATIONS} from './hooks.constants'
 
@@ -20,6 +21,9 @@ export class Hooks extends Base implements Contract, Service {
    */
   public ident: string = 'hooks'
 
+  public locations: Array<`${keyof Configuration['location'] &
+    string}`> = LOCATIONS
+
   /**
    * Registr lifecycle hook
    *
@@ -28,6 +32,7 @@ export class Hooks extends Base implements Contract, Service {
    *
    * @internal
    */
+  @bind
   public async bootstrap({store}) {
     const mapLocale = (
       name: keyof Configuration['location'],
@@ -40,7 +45,7 @@ export class Hooks extends Base implements Contract, Service {
     }
 
     const locales: (keyof Configuration['location'] & string)[] =
-      LOCATIONS
+      this.locations
 
     locales.map(mapLocale)
   }

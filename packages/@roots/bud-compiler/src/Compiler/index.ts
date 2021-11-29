@@ -109,21 +109,23 @@ export class Compiler extends Service implements Contract {
     this.instance = webpack(config)
 
     this.instance.hooks.done.tap(config[0].name, async stats => {
-      await this.app.hooks.filter('event.compiler.done', stats)
+      this.app.hooks.filter('event.compiler.done', stats)
 
       stats && Object.assign(this.stats, stats.toJson())
       if (this.app.store.is('features.dashboard', false)) {
         this.log(
           'log',
-          stats.toString({
-            colors: true,
-            modules: false,
-            children: false,
-            chunks: false,
-            chunkModules: false,
-            entrypoints: false,
-            performance: false,
-          }),
+          stats.toString(
+            config.stats ?? {
+              colors: true,
+              modules: false,
+              children: false,
+              chunks: false,
+              chunkModules: false,
+              entrypoints: false,
+              performance: false,
+            },
+          ),
         )
       }
 
@@ -238,9 +240,10 @@ export class Compiler extends Service implements Contract {
     }
 
     if (err) {
-      err = this.app.hooks.filter('compiler.error', err)
+      this.stats.errors.push(
+        this.app.hooks.filter('compiler.error', err),
+      )
 
-      this.stats.errors.push(err)
       this.app.store.is('features.dashboard', false) &&
         this.log('error', err)
     }

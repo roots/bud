@@ -66,12 +66,9 @@ export async function config(app: Framework): Promise<void> {
     /**
      * InfrastructureLogging
      */
-    .hooks.on(
-      'build.infrastructureLogging',
-      (): Configuration['infrastructureLogging'] => ({
-        ...app.store.get('build.infrastructureLogging'),
-      }),
-    )
+    .hooks.on('build.infrastructureLogging', () => ({
+      ...app.store.get('build.infrastructureLogging'),
+    }))
 
     /**
      * Mode
@@ -262,8 +259,10 @@ export async function config(app: Framework): Promise<void> {
     /**
      * Stats
      */
-    .hooks.on('build.stats', (): Configuration['stats'] =>
-      app.store.get('build.stats'),
+    .hooks.on(
+      'build.stats',
+      (stats?: Configuration['stats']): Configuration['stats'] =>
+        stats ?? app.store.get('build.stats'),
     )
 
     /**

@@ -876,8 +876,8 @@ export class Container<I = any> {
    * // True if object associated with 'my-key' is not an instance of MyClass.
    * ```
    *
-   * @param key
-   * @param instance
+   * @param key - The key to check.
+   * @param instance - The class to check against
    * @returns
    *
    * @public
@@ -897,8 +897,8 @@ export class Container<I = any> {
    * // True if object associated with 'my-key' is an instance of MyClass or MyOtherClass.
    * ```
    *
-   * @param key
-   * @param instances
+   * @param key - the key to check
+   * @param instances - The classes to check against
    * @returns
    *
    * @public

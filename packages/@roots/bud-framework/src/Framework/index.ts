@@ -459,7 +459,7 @@ export abstract class Framework {
    * Set a {@link @roots/bud-framework#Location | Location} value
    *
    * @remarks
-   * The {@link Locations.project} should be an absolute path.
+   * The {@link Location.project} should be an absolute path.
    * All other directories should be relative (src, dist, etc.)
    * @see {@link Locations}
    *
