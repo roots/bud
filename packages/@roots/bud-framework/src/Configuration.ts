@@ -143,7 +143,14 @@ export interface Configuration {
     manifest?: boolean
 
     /**
-     * Enable or disable chunk splitting
+     * Enable or disable runtime chunk
+     *
+     * @public
+     */
+    runtimeChunk?: boolean
+
+    /**
+     * Enable or disable chunk splitting (vendor)
      *
      * @defaultValue false
      *

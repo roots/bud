@@ -105,6 +105,11 @@ export const config: Configuration = {
     manifest: true,
 
     /**
+     * @public
+     */
+    runtimeChunk: false,
+
+    /**
      * Enable code splitting
      *
      * @public

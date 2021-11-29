@@ -14,9 +14,13 @@ export const image = () =>
     test: ({store}) => store.get('patterns.image'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
-    generator: {
-      filename: 'assets/[hash][ext][query]',
-    },
+    generator: app => ({
+      filename: `assets/${
+        app.store.is('features.hash', true) && app.isProduction
+          ? app.store.get('hashFormat')
+          : app.store.get('fileFormat')
+      }[ext]`,
+    }),
   })
 
 /**
@@ -37,9 +41,13 @@ export const svg = () =>
     test: ({store}) => store.get('patterns.svg'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
-    generator: {
-      filename: 'assets/[hash][ext][query]',
-    },
+    generator: app => ({
+      filename: `assets/${
+        app.store.is('features.hash', true) && app.isProduction
+          ? app.store.get('hashFormat')
+          : app.store.get('fileFormat')
+      }[ext]`,
+    }),
   })
 
 /**
