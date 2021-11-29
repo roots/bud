@@ -5,7 +5,13 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs} from '@roots/bud-support'
+import {
+  bind,
+  chalk,
+  fs,
+  lodash,
+  prettyFormat,
+} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 
 import {config} from './config'
@@ -13,6 +19,7 @@ import items from './items'
 import loaders from './loaders'
 import * as rules from './rules'
 
+const {isNull, isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -51,6 +58,20 @@ export class Build
   public items: Items
 
   /**
+   * Service booted event
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async registered() {
+    this.app.hooks.on(
+      'event.build.make.after',
+      this.writeFinalConfig,
+    )
+  }
+
+  /**
    * Make webpack configuration
    *
    * @public
@@ -60,32 +81,37 @@ export class Build
   public async make(): Promise<Webpack.Configuration> {
     await this.app.hooks.promised(
       'event.build.make.before',
-      this.app,
+      () => this.app,
     )
 
     const build = await this.app.hooks.promised('build')
 
-    this.config = Object.entries(build).reduce(
-      (all: Partial<Webpack.Configuration>, [key, value]) => {
-        if (typeof value === 'undefined') {
-          this.log(`warn`, {
-            message: `build.make: excluding ${key}`,
-            suffix: `value is undefined`,
-          })
-          return all
-        }
+    this.config = this.app.hooks.filter(
+      'event.build.override',
+      Object.entries(build).reduce(
+        (all: Partial<Webpack.Configuration>, [key, value]) => {
+          if (isUndefined(value) || isNull(value)) {
+            this.log(`warn`, {
+              message: `build.make: excluding ${key}`,
+              suffix: `value is undefined`,
+            })
 
-        this.app.dump(value, {
-          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
-          maxDepth: 2,
-        })
-        return {...all, [key]: value}
-      },
-      {},
+            return all
+          }
+
+          this.app.dump(value, {
+            prefix: `${chalk.bgBlue(
+              this.app.name,
+            )} config.${key}`,
+            maxDepth: 2,
+          })
+          return {...all, [key]: value}
+        },
+        {},
+      ),
     )
 
     await this.app.hooks.promised('event.build.make.after')
-
     return this.config
   }
 
@@ -121,20 +147,6 @@ export class Build
   }
 
   /**
-   * Service booted event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async booted() {
-    this.app.hooks.on(
-      'event.build.make.after',
-      this.writeFinalConfig,
-    )
-  }
-
-  /**
    * Write final configuration to storage directory
    *
    * @public
@@ -149,7 +161,7 @@ export class Build
         'webpack.config.js',
       )
 
-      this.log('info', {
+      this.log('log', {
         message: `writing webpack dump to disk`,
         suffix: filePath,
       })
@@ -158,11 +170,7 @@ export class Build
 
       await writeFile(
         filePath,
-        `module.exports = (${JSON.stringify(
-          this.config,
-          null,
-          2,
-        )})`,
+        `module.exports = (${prettyFormat(this.config)})`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

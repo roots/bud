@@ -6,15 +6,16 @@ export interface config {
 }
 
 export function config(
-  overrides: Partial<Webpack.Configuration>,
+  overrides: (
+    config: Partial<Webpack.Configuration>,
+  ) => Partial<Webpack.Configuration>,
 ): Framework {
   if (!overrides)
-    throw new Error('config() requires a config object')
+    throw new Error(
+      'config overrides must pass a callback function that returns a webpack configuration',
+    )
 
-  this.hooks.on('config.override', config => ({
-    ...config,
-    ...overrides,
-  }))
+  this.hooks.on('event.build.override', overrides)
 
   return this
 }

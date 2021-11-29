@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 // @ts-check
 
-const chalk = require('chalk')
 const execa = require('execa')
 const {Signale} = require('signale')
 
@@ -42,7 +41,7 @@ module.exports = async () => {
   const examples = await paths()
 
   await task(
-    'build --no-dashboard --log --log.papertrail',
+    'build --no-dashboard --log --log.papertrail --log.level vvvv',
     examples,
   )
 }

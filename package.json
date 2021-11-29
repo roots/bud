@@ -1,7 +1,7 @@
 {
   "name": "bud.js",
-  "packageManager": "yarn@3.1.0",
-  "version": "5.0.0-next.16",
+  "packageManager": "yarn@3.1.1",
+  "version": "5.0.0-next.17",
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
@@ -26,7 +26,7 @@
     ]
   },
   "resolutions": {
-    "@types/react": "17.0.35",
+    "@types/react": "17.0.37",
     "ink": "3.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -35,14 +35,14 @@
     "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.68",
+    "@microsoft/api-documenter": "7.13.69",
     "@microsoft/api-extractor": "7.18.19",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.9",
-    "@types/react": "17.0.35",
+    "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
     "@types/react-helmet": "6.1.4",
     "@types/react-reconciler": "0.26.4",
@@ -56,7 +56,7 @@
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
-    "esbuild": "0.13.15",
+    "esbuild": "0.14.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.3",
@@ -73,7 +73,7 @@
     "jest": "27.3.1",
     "lodash": "4.17.21",
     "npm-run-path": "5.0.1",
-    "prettier": "2.4.1",
+    "prettier": "2.5.0",
     "pretty-format": "27.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -84,8 +84,8 @@
     "ts-jest": "27.0.7",
     "ts-node": "10.4.0",
     "tsconfig-paths": "3.12.0",
-    "type-fest": "2.5.4",
-    "typedoc": "0.22.9",
+    "type-fest": "2.6.0",
+    "typedoc": "0.22.10",
     "typescript": "4.4.4",
     "weak-napi": "2.0.2"
   },

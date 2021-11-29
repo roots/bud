@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "mdx extension for @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -79,7 +79,7 @@
     "jest": "27.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.64.2"
+    "webpack": "5.64.4"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",

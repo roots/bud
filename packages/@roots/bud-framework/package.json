@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -68,7 +68,7 @@
     "@types/node": "16.11.9",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",
-    "webpack": "5.64.2"
+    "webpack": "5.64.4"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

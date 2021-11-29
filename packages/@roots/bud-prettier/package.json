@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "Adds prettier support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -74,11 +74,11 @@
   },
   "dependencies": {
     "autobind-decorator": "2.4.0",
-    "prettier": "2.4.1",
+    "prettier": "2.5.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "prettier": "2.4.1"
+    "prettier": "2.5.0"
   },
   "stableVersion": "4.6.0"
 }

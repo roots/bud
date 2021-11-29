@@ -30,10 +30,15 @@ export const BudImageMinExtension: Extension.Module = {
       plugins.map(
         async ([name, options]): Promise<Array<any>> => {
           try {
-            const pluginModule = await import(name)
+            const pluginImport = await import(name)
+
+            const pluginModule =
+              pluginImport.default || pluginImport
+
             return pluginModule ? [name, options] : []
           } catch (e) {
             app.error(e)
+
             return []
           }
         },

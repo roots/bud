@@ -1,10 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 
-type setOptions = (
-  type: 'js' | 'ts',
-  opts: LoaderOptions,
-) => Framework
-
 interface LoaderOptions {
   target?:
     | 'es2015'
@@ -28,6 +23,9 @@ interface LoaderOptions {
   jsxFragment?: string
 }
 
+export interface esbuild {
+  (type: 'js' | 'ts', opts: LoaderOptions): Framework
+}
 /**
  * Configure esbuild-loader options
  *
@@ -43,14 +41,14 @@ interface LoaderOptions {
  * })
  * ```
  *
- * @beta @config
+ * @beta
  */
-export const setOptions: setOptions = function (
+export const esbuild: esbuild = function (
   type,
   opts,
 ): Framework {
-  this.items[`item/esbuild-${type}`].setOptions(app => ({
-    ...app.build.items[`item/esbuild-${type}`].options,
+  this.items[`esbuild-${type}`].setOptions(app => ({
+    ...app.build.items[`esbuild-${type}`].options,
     ...opts,
   }))
 

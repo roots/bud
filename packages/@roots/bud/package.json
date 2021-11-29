@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -79,8 +79,8 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.68",
-    "@oclif/dev-cli": "1.26.0",
+    "@microsoft/api-documenter": "7.13.69",
+    "@oclif/dev-cli": "1.26.5",
     "@oclif/test": "1.2.8",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.177",
@@ -114,7 +114,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "tslib": "^2.3.1",
     "type-fest": "^2.5.4",
-    "webpack": "5.64.2",
+    "webpack": "5.64.4",
     "webpack-cli": "^4.9.1",
     "webpack-manifest-plugin": "^4.0.2"
   },

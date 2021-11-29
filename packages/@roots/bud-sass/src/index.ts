@@ -16,11 +16,11 @@
 
 import type {Item, Loader, Rule} from '@roots/bud-build'
 
-import {BudSassExtension} from './BudSassExtension'
+import {extension} from './sass.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-sass': BudSassExtension
+    '@roots/bud-sass': extension
   }
 
   interface Loaders {
@@ -36,4 +36,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, register} = BudSassExtension
+export const {name, boot, register} = extension

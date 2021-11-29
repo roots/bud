@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -78,7 +78,7 @@
     "chalk": "4.1.2",
     "chokidar": "3.5.2",
     "cosmiconfig": "7.0.1",
-    "css-minimizer-webpack-plugin": "3.1.4",
+    "css-minimizer-webpack-plugin": "3.2.0",
     "dotenv": "10.0.0",
     "dotenv-expand": "5.1.0",
     "execa": "5.1.1",
@@ -94,7 +94,7 @@
     "nanoid": "3.1.30",
     "node-notifier": "10.0.0",
     "pkg-up": "3.1.0",
-    "prettier": "2.4.1",
+    "prettier": "2.5.0",
     "pretty-format": "27.3.1",
     "remark": "14.0.2",
     "remark-html": "15.0.0",
@@ -105,7 +105,7 @@
     "ts-node": "10.4.0",
     "typescript": "4.4.4",
     "vfile-reporter": "7.0.2",
-    "webpack": "5.64.2",
+    "webpack": "5.64.4",
     "webpack-config-dump-plugin": "3.0.1",
     "yamljs": "0.3.0"
   },
