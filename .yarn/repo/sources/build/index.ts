@@ -82,7 +82,6 @@ export class BuildCommand extends Command {
 
     await this.$(
       `yarn repo compile @roots/container`,
-      `yarn repo compile @roots/filesystem`,
       `yarn repo compile @roots/bud-dashboard`,
       `yarn repo compile @roots/bud-support`,
     )
