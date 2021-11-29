@@ -50,8 +50,8 @@ export class Controller {
   }
 
   public get moduleLogger(): Signale {
-    const logger = new Signale()
-    logger.scope(...this.app.logger.context, this.name)
+    let logger = new Signale()
+    logger = logger.scope(...this.app.logger.context, this.name)
     return logger
   }
 
