@@ -8,14 +8,14 @@ describe.skip('bud.splitChunks', function () {
   })
 
   beforeEach(() => {
-    bud.hooks.on('build/optimization/splitChunks', undefined)
+    bud.hooks.on('build.optimization.splitChunks', undefined)
   })
 
   it('sets default options when called', () => {
     bud.splitChunks()
 
     expect(
-      bud.hooks.filter('build/optimization/splitChunks'),
+      bud.hooks.filter('build.optimization.splitChunks'),
     ).toMatchSnapshot()
   })
 
@@ -29,7 +29,7 @@ describe.skip('bud.splitChunks', function () {
     bud.splitChunks(param)
 
     expect(
-      bud.hooks.filter('build/optimization/splitChunks'),
+      bud.hooks.filter('build.optimization.splitChunks'),
     ).toBe(param)
   })
 })
