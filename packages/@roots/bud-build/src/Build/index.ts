@@ -13,6 +13,7 @@ import {
   prettyFormat,
 } from '@roots/bud-support'
 import type * as Webpack from 'webpack'
+import {Configuration} from 'webpack'
 
 import {config} from './config'
 import items from './items'
@@ -34,7 +35,7 @@ export class Build
   /**
    * @internal
    */
-  public config: Webpack.Configuration
+  public config: Partial<Configuration>
 
   /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}
@@ -65,7 +66,7 @@ export class Build
    */
   @bind
   public async registered() {
-    this.app.hooks.on(
+    this.app.hooks.on<'event.build.make.after'>(
       'event.build.make.after',
       this.writeFinalConfig,
     )
@@ -79,39 +80,51 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.promised(
+    await this.app.hooks.filterAsync<'event.build.make.before'>(
       'event.build.make.before',
-      () => this.app,
+      this.app,
     )
 
-    const build = await this.app.hooks.promised('build')
+    const build = await this.app.hooks.filterAsync<'build'>(
+      'build',
+    )
 
-    this.config = this.app.hooks.filter(
-      'event.build.override',
-      Object.entries(build).reduce(
-        (all: Partial<Webpack.Configuration>, [key, value]) => {
-          if (isUndefined(value) || isNull(value)) {
-            this.log(`warn`, {
-              message: `build.make: excluding ${key}`,
-              suffix: `value is undefined`,
+    if (!build) {
+      throw new Error('Configuration could not be processed')
+    }
+
+    this.config =
+      await this.app.hooks.filterAsync<'event.build.override'>(
+        'event.build.override',
+        Object.entries(build).reduce(
+          (all: Configuration, [key, value]) => {
+            if (isUndefined(value) || isNull(value)) {
+              this.log(`warn`, {
+                message: `build.make: excluding ${key}`,
+                suffix: `value is undefined`,
+              })
+
+              return all
+            }
+
+            this.app.dump(value, {
+              prefix: `${chalk.bgBlue(
+                this.app.name,
+              )} config.${key}`,
+              maxDepth: 2,
             })
 
-            return all
-          }
+            return {...all, [key]: value}
+          },
+          {},
+        ),
+      )
 
-          this.app.dump(value, {
-            prefix: `${chalk.bgBlue(
-              this.app.name,
-            )} config.${key}`,
-            maxDepth: 2,
-          })
-          return {...all, [key]: value}
-        },
-        {},
-      ),
+    await this.app.hooks.filterAsync<'event.build.make.after'>(
+      'event.build.make.after',
+      async () => null,
     )
 
-    await this.app.hooks.promised('event.build.make.after')
     return this.config
   }
 
@@ -153,7 +166,7 @@ export class Build
    * @decorator `@bind`
    */
   @bind
-  public async writeFinalConfig() {
+  public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
         'storage',

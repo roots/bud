@@ -30,10 +30,13 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async registered(): Promise<void> {
-    this.app.hooks.on('event.compiler.before', config => {
-      this.run()
-      return config
-    })
+    this.app.hooks.on<'event.compiler.before'>(
+      'event.compiler.before',
+      config => {
+        this.run()
+        return config
+      },
+    )
   }
 
   /**
@@ -46,7 +49,10 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public run(): Framework {
-    this.app.hooks.on('event.dashboard.done', this.close)
+    this.app.hooks.on<'event.dashboard.done'>(
+      'event.dashboard.done',
+      this.close,
+    )
 
     if (this.app.store.is('features.dashboard', true)) {
       this.render(<DashboardComponent bud={this.app} />)

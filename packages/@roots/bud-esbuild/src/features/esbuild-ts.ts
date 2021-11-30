@@ -30,9 +30,9 @@ export const tsFeature: Extension.CompilerPlugin = {
       use: app => [app.build.items['esbuild-ts']],
     })
 
-    hooks.on(
+    hooks.on<'build.resolve.extensions'>(
       'build.resolve.extensions',
-      (exts: string & `.${string}`) => ['.ts', '.tsx', ...exts],
+      exts => ['.ts', '.tsx', ...exts],
     )
   },
 }

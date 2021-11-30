@@ -1,5 +1,6 @@
 import {
   Compiler as Contract,
+  Framework,
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash, once} from '@roots/bud-support'
@@ -57,25 +58,6 @@ export class Compiler extends Service implements Contract {
   public config: any = []
 
   /**
-   * Service register event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    this.app.hooks.filter(
-      'event.compiler.register.before',
-      this.app,
-    )
-
-    this.app.hooks.filter(
-      'event.compiler.register.after',
-      this.app,
-    )
-  }
-
-  /**
    * Initiates compilation
    *
    * @returns the compiler instance
@@ -99,17 +81,21 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invoke(config: any) {
-    config = await this.app.hooks.promised(
-      'event.compiler.before',
-      config,
-    )
+    config =
+      await this.app.hooks.filterAsync<'event.compiler.before'>(
+        'event.compiler.before',
+        config,
+      )
 
     config = this.app.hooks.filter('config.override', config)
 
     this.instance = webpack(config)
 
     this.instance.hooks.done.tap(config[0].name, async stats => {
-      this.app.hooks.filter('event.compiler.done', stats)
+      this.app.hooks.filter<'event.compiler.done'>(
+        'event.compiler.done',
+        stats,
+      )
 
       stats && Object.assign(this.stats, stats.toJson())
       if (this.app.store.is('features.dashboard', false)) {
@@ -132,7 +118,10 @@ export class Compiler extends Service implements Contract {
       if (this.app.isProduction) {
         this.instance.close(err => {
           if (err) {
-            err = this.app.hooks.filter('compiler.error', err)
+            err = this.app.hooks.filter<'event.compiler.error'>(
+              'event.compiler.error',
+              err,
+            )
 
             this.stats.errors.push(err)
             this.log('error', err)
@@ -147,7 +136,10 @@ export class Compiler extends Service implements Contract {
       this.progress = args
     }).apply(this.instance)
 
-    this.app.hooks.filter('event.compiler.after')
+    this.app.hooks.filter<'event.compiler.after'>(
+      'event.compiler.after',
+      this.app,
+    )
 
     return this.instance
   }
@@ -194,17 +186,19 @@ export class Compiler extends Service implements Contract {
      * them and add to `config`
      */
     await Promise.all(
-      this.app.children?.getValues().map(async instance => {
-        if (!instance.name) return
+      this.app.children
+        ?.getValues()
+        .map(async (instance: Framework) => {
+          if (!instance.name) return
 
-        this.log(
-          'success',
-          `\`${instance.name}\` compiler will be tapped`,
-        )
+          this.log(
+            'success',
+            `\`${instance.name}\` compiler will be tapped`,
+          )
 
-        await instance.build.make()
-        config.push(instance.build.config)
-      }),
+          await instance.build.make()
+          config.push(instance.build.config)
+        }),
     )
 
     return config
@@ -233,15 +227,18 @@ export class Compiler extends Service implements Contract {
         this.app.build.config.stats ?? {preset: 'normal'},
       )
 
-      this.stats = this.app.hooks.filter(
-        'compiler.stats',
+      this.stats = this.app.hooks.filter<'event.compiler.stats'>(
+        'event.compiler.stats',
         this.stats,
       )
     }
 
     if (err) {
       this.stats.errors.push(
-        this.app.hooks.filter('compiler.error', err),
+        this.app.hooks.filter<'event.compiler.error'>(
+          'event.compiler.error',
+          err,
+        ),
       )
 
       this.app.store.is('features.dashboard', false) &&

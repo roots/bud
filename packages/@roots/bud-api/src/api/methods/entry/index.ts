@@ -98,7 +98,13 @@ async function makeEntrypoints(
    */
   const reducer = async (
     promised,
-    [name, entry]: [string, EntryObject | EntryObject['import']],
+    [name, entry]: [
+      string,
+      {
+        import?: string[]
+        dependsOn?: string[]
+      },
+    ],
   ) => {
     const entrypoints = await promised
 
@@ -126,7 +132,15 @@ async function makeEntrypoints(
     }
   }
 
-  const hook = async (entries: Promise<EntryObject>) => {
+  const hook = async (
+    entries: Record<
+      string,
+      {
+        import?: string[]
+        dependsOn?: string[]
+      }
+    >,
+  ) => {
     const current = await entries
 
     const newItems = await Object.entries(entry).reduce(
@@ -140,7 +154,7 @@ async function makeEntrypoints(
     }
   }
 
-  this.hooks.on('build.entry', hook)
+  this.hooks.async<'build.entry'>('build.entry', hook)
 
   return this
 }
