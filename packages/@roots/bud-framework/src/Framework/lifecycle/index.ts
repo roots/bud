@@ -102,15 +102,5 @@ export async function lifecycle(
 
   this.timeEnd(`building ${this.name}`)
 
-  this.hooks.on('event.compiler.before', async config => {
-    const multiConfig = await config
-
-    multiConfig.forEach(config => {
-      this.dump(config, {prefix: config.name, maxDepth: 3})
-    })
-
-    return config
-  })
-
   return this
 }
