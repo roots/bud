@@ -8,7 +8,6 @@ import {
 
 import {
   Configuration as FrameworkConfig,
-  Extension,
   Framework,
   Modules,
   Plugins,
@@ -16,7 +15,7 @@ import {
 } from './'
 
 /**
- * Service allowing for fitering {@link Framework} values through callbacks.
+ * Assign and filter callback to values.
  *
  * @example
  * Add a new entry to the `webpack.externals` configuration:
@@ -129,6 +128,22 @@ export interface Hooks extends Service {
  */
 export namespace Hooks {
   /**
+   * Bud does not support all the entry types of Webpack
+   */
+  type LimitedEntryObject = Record<
+    string,
+    {
+      import?: string[]
+      dependsOn?: string[]
+    }
+  >
+
+  /**
+   * Same with plugins
+   */
+  type LimitedPlugin = Array<{apply: any}>
+
+  /**
    * Hook signature
    *
    * @public
@@ -142,15 +157,7 @@ export namespace Hooks {
   export type Map = {
     [`build`]: Record<string, any>
     [`build.bail`]: boolean
-    [`build.cache`]:
-      | {
-          buildDependencies: Map['build.cache.buildDependencies']
-          cacheDirectory: Map['build.cache.cacheDirectory']
-          version: Map['build.cache.version']
-          managedPaths: Map['build.cache.managedPaths']
-          type: Map['build.cache.type']
-        }
-      | false
+    [`build.cache`]: any
     ['build.cache.buildDependencies']: Record<
       string,
       Array<string>
@@ -161,13 +168,7 @@ export namespace Hooks {
     ['build.cache.managedPaths']: Array<string>
     [`build.context`]: Configuration['context']
     [`build.devtool`]: Configuration['devtool']
-    [`build.entry`]: Record<
-      string,
-      {
-        import?: string[]
-        dependsOn?: string[]
-      }
-    >
+    [`build.entry`]: LimitedEntryObject
     [`build.experiments`]: Configuration['experiments']
     [`build.externals`]: Configuration['externals']
     [`build.infrastructureLogging`]: Configuration['infrastructureLogging']
@@ -196,7 +197,7 @@ export namespace Hooks {
     [`build.output.publicPath`]: Configuration['output']['publicPath']
     [`build.parallelism`]: Configuration['parallelism']
     [`build.performance`]: Configuration['performance']
-    [`build.plugins`]: Array<{apply: any}>
+    [`build.plugins`]: LimitedPlugin
     [`build.profile`]: Configuration['profile']
     [`build.recordsPath`]: Configuration['recordsPath']
     [`build.resolve`]: Configuration['resolve']
@@ -236,8 +237,8 @@ export namespace Hooks {
     [`proxy.interceptor`]: any
     [`proxy.replace`]: Array<[string, string]>
     [`proxy.options`]?: FrameworkConfig['server']['proxy']
-    [
-      key: `extension.${keyof Modules & string}.options`
-    ]: Extension.Module['options']
+
+    // this is wack
+    [key: `extension.${string}`]: any
   }
 }
