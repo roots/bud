@@ -5,7 +5,7 @@ import {
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-const {get, isFunction, set} = lodash
+const {get, isFunction, isUndefined, set} = lodash
 
 /**
  * Service allowing for fitering values through callbacks.
@@ -44,7 +44,7 @@ const {get, isFunction, set} = lodash
  * Create a new async filter for a value:
  *
  * ```ts
- * await hooks.promised('my-event-name', async () => DEFAULT_VALUE)
+ * await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
  * ```
  *
  * @public
@@ -62,7 +62,7 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(path: `${Contract.Name & string}`) {
+  public get<T = any>(path: `${keyof Contract.Map & string}`) {
     return get(this.repository, path) as T
   }
 
@@ -74,7 +74,7 @@ export class Hooks extends Service implements Contract {
    */
   @bind
   public set(
-    key: `${Contract.Name & string}`,
+    key: `${keyof Contract.Map & string}`,
     value: any,
   ): this {
     set(this.repository, key, value)
@@ -94,7 +94,7 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * app.hooks.on(
-   *   'namespace.name.value',
+   *   'namespace.key',
    *   value => 'replaced by this string',
    * )
    * ```
@@ -103,9 +103,46 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public on(
-    id: Contract.Name,
-    callback: Contract.Hook,
+  public on<T extends keyof Contract.Map & string>(
+    id: T,
+    callback:
+      | Contract.Map[T]
+      | ((value: Contract.Map[T]) => any),
+  ): Framework {
+    const current = this.has(id) ? this.get(id) : []
+
+    this.set(id, [...current, callback])
+
+    return this.app
+  }
+
+  /**
+   * Register a function to filter a value.
+   *
+   * @remarks
+   * If a filter calls for this name the function is then run,
+   * passing whatever data along for modification. If more than one
+   * hook is registered to a name, they will be called sequentially
+   * in the order they were registered, with each hook's output used
+   * as the input for the next.
+   *
+   * @example
+   * ```js
+   * app.hooks.on(
+   *   'namespace.key',
+   *   value => 'replaced by this string',
+   * )
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async<T extends keyof Contract.Map & string>(
+    id: T,
+    callback:
+      | Contract.Map[T]
+      | ((value: Contract.Map[T]) => Promise<Contract.Map[T]>),
   ): Framework {
     const current = this.has(id) ? this.get(id) : []
 
@@ -125,19 +162,21 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * bud.hooks.filter(
-   *   'namespace.name.event',
+   *   'namespace.Key.event',
    *   ['array', 'of', 'items'],
    * )
    * ```
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public filter<T = any>(
-    id: `${Contract.Name & string}`,
-    value: T = null,
-  ): T {
+  public filter<T extends keyof Contract.Map & string>(
+    id: T,
+    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
+  ): Contract.Map[T] {
     if (!this.has(id)) {
+      if (isUndefined(value)) return
       return isFunction(value) ? value() : value
     }
 
@@ -157,7 +196,7 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * bud.hooks.filter(
-   *   'namespace.name.event',
+   *   'namespace.Key.event',
    *   ['array', 'of', 'items'],
    * )
    * ```
@@ -166,11 +205,14 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async promised<T = any>(
-    id: `${Contract.Name & string}`,
-    value: T = null,
-  ): Promise<T> {
+  public async filterAsync<
+    T extends keyof Contract.Map & string,
+  >(
+    id: T,
+    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
+  ): Promise<Contract.Map[T]> {
     if (!this.has(id)) {
+      if (isUndefined(value)) return
       return isFunction(value) ? await value() : value
     }
 
