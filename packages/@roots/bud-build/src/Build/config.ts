@@ -66,9 +66,12 @@ export async function config(app: Framework): Promise<void> {
     /**
      * InfrastructureLogging
      */
-    .hooks.on('build.infrastructureLogging', () => ({
-      ...app.store.get('build.infrastructureLogging'),
-    }))
+    .hooks.on(
+      'build.infrastructureLogging',
+      (): Configuration['infrastructureLogging'] => ({
+        ...app.store.get('build.infrastructureLogging'),
+      }),
+    )
 
     /**
      * Mode
@@ -113,26 +116,34 @@ export async function config(app: Framework): Promise<void> {
      * Output
      */
     .hooks.on('build.output', () => ({
-      path: app.hooks.filter('build.output.path'),
-      publicPath: app.hooks.filter('build.output.publicPath'),
-      filename: app.hooks.filter('build.output.filename'),
+      path: app.hooks.filter('build.output.path', () =>
+        app.path('dist'),
+      ),
+      publicPath: app.hooks.filter(
+        'build.output.publicPath',
+        () => app.store.get('location.publicPath'),
+      ),
+      filename: app.hooks.filter(
+        'build.output.filename',
+        () =>
+          `${
+            app.store.is('features.hash', true) &&
+            app.isProduction
+              ? app.store.get('hashFormat')
+              : app.store.get('fileFormat')
+          }.js`,
+      ),
+      assetModuleFilename: app.hooks.filter(
+        'build.output.assetModuleFilename',
+        () =>
+          app.isProduction && app.store.is('features.hash', true)
+            ? `assets/${app.store.get('hashFormat')}[ext]`
+            : app.store.get('fileFormat'),
+      ),
+      pathinfo: app.hooks.filter('build.output.pathinfo', () =>
+        app.store.get('build.output.pathinfo'),
+      ),
     }))
-    .hooks.on(
-      'build.output.filename',
-      () =>
-        `${
-          app.store.get('features.hash')
-            ? app.store.get('hashFormat')
-            : app.store.get('fileFormat')
-        }.js`,
-    )
-    .hooks.on('build.output.path', () => app.path('dist'))
-    .hooks.on('build.output.pathinfo', () =>
-      app.store.get('build.output.pathinfo'),
-    )
-    .hooks.on('build.output.publicPath', () =>
-      app.store.get('location.publicPath'),
-    )
 
     /**
      * Optimization
@@ -158,7 +169,9 @@ export async function config(app: Framework): Promise<void> {
     .hooks.on('build.optimization.emitOnErrors', () =>
       app.store.get('build.optimization.emitOnErrors'),
     )
-    .hooks.on('build.optimization.minimize', () => false)
+    .hooks.on('build.optimization.minimize', () =>
+      app.store.is('features.minimize', true),
+    )
     .hooks.on('build.optimization.minimizer', () => ['...'])
     .hooks.on('build.optimization.moduleIds', () =>
       app.store.get('build.optimization.moduleIds'),
@@ -166,11 +179,11 @@ export async function config(app: Framework): Promise<void> {
     .hooks.on('build.optimization.removeEmptyChunks', () =>
       app.store.get('build.optimization.removeEmptyChunks'),
     )
-    .hooks.on('build.optimization.runtimeChunk', () => undefined)
+    .hooks.on('build.optimization.runtimeChunk', () =>
+      app.store.is('features.runtimeChunk', true),
+    )
     .hooks.on('build.optimization.splitChunks', () =>
-      app.store.is('features.splitChunks', true)
-        ? app.store.get('build.optimization.splitChunks')
-        : false,
+      app.store.is('features.splitChunks', true),
     )
 
     /**
@@ -259,10 +272,8 @@ export async function config(app: Framework): Promise<void> {
     /**
      * Stats
      */
-    .hooks.on(
-      'build.stats',
-      (stats?: Configuration['stats']): Configuration['stats'] =>
-        stats ?? app.store.get('build.stats'),
+    .hooks.on('build.stats', (): Configuration['stats'] =>
+      app.store.get('build.stats'),
     )
 
     /**
