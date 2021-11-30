@@ -68,7 +68,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.11",
-    "jest": "27.3.1"
+    "jest": "27.4.2"
   },
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
