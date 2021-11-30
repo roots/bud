@@ -64,7 +64,7 @@
   "devDependencies": {
     "@types/jest": "27.0.3",
     "@types/node": "16.11.11",
-    "jest": "27.3.1",
+    "jest": "27.4.2",
     "webpack": "5.64.4"
   },
   "dependencies": {
