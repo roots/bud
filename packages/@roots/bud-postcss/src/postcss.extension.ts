@@ -1,6 +1,5 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
-import postcssReporter from 'postcss-reporter'
 
 import {PostCssConfig} from './bud.postcss'
 
@@ -41,12 +40,7 @@ export const BudPostCssExtension: Extension.Module = {
               'extension.@roots/bud-postcss.options',
               {},
             ) ?? {}),
-            plugins: [
-              ...(postcss.getValues() ?? []),
-              postcssReporter({
-                filter: message => true,
-              }),
-            ],
+            plugins: [...(postcss.getValues() ?? [])],
           },
           sourceMap: true,
         }

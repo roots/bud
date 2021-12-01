@@ -2,8 +2,6 @@ import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, Newline, Text, useApp, useStdin} from 'ink'
-import Gradient from 'ink-gradient'
-import Spinner from 'ink-spinner'
 import React, {useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
@@ -79,17 +77,9 @@ export const Dashboard = ({
     updateProgress()
     updateComplete()
     updateExit()
-  }, 1)
+  }, 50)
 
-  return !instance.current?.compiler?.progress ? (
-    <Text>
-      <Gradient
-        colors={[theme.colors.primary, theme.colors.primaryAlt]}
-      >
-        <Spinner /> commencing launch sequence
-      </Gradient>
-    </Text>
-  ) : (
+  return !instance.current?.compiler?.progress ? null : (
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
       <Events
@@ -195,7 +185,6 @@ export const Dashboard = ({
             true,
           ) && (
             <Text color={theme?.colors.text}>
-              {' '}
               proxy target:{' '}
               <Text color={theme?.colors.primaryAlt}>
                 {instance.current.store.isString(
