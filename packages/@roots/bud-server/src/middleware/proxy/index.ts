@@ -38,7 +38,7 @@ export default function proxy(app: Framework) {
    */
   const interceptor = app.hooks.filter<'proxy.interceptor'>(
     'proxy.interceptor',
-    async buffer => {
+    () => async (buffer: Buffer) => {
       let response = buffer.toString('utf8')
 
       return app.hooks

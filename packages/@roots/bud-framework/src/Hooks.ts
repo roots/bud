@@ -234,7 +234,9 @@ export namespace Hooks {
     [`event.run`]: Framework
     [`proxy.dev`]: FrameworkConfig['server']['host']
     [`proxy.target`]: string
-    [`proxy.interceptor`]: any
+    [`proxy.interceptor`]: (
+      buffer: Buffer,
+    ) => Promise<string | Buffer>
     [`proxy.replace`]: Array<[string, string]>
     [`proxy.options`]?: FrameworkConfig['server']['proxy']
 
