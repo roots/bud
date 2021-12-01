@@ -3665,7 +3665,7 @@ __metadata:
     tslib: 2.3.1
     webpack: 5.64.4
   peerDependencies:
-    sass: 1.43.5
+    sass: 1.44.0
   languageName: unknown
   linkType: soft
 
