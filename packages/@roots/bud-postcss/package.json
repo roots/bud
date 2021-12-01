@@ -72,6 +72,7 @@
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.11",
+    "@types/postcss-reporter": "^7",
     "@types/signale": "1.4.2",
     "jest": "27.4.2",
     "postcss": "8.4.4",
@@ -83,6 +84,7 @@
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "postcss-loader": "6.2.1",
+    "postcss-reporter": "^7.0.4",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

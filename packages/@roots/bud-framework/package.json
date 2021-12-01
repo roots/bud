@@ -66,6 +66,7 @@
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.11",
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",
     "webpack": "5.64.4"

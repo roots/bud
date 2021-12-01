@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*"
   }
 }

@@ -15,8 +15,6 @@ export interface path {
 }
 
 export const path: path = function (key, ...path): string {
-  this.log(`getting path ${key}: ${path.join('/')}`)
-
   const project = this.hooks.filter(`location.project`)
   const partial = this.hooks.filter(`location.${key}`)
 

@@ -4,3 +4,7 @@
 
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+class {
+  color: '' fooooo '';
+}

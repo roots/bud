@@ -52,6 +52,11 @@ export class Controller {
   public get moduleLogger(): Signale {
     let logger = new Signale()
     logger = logger.scope(...this.app.logger.context, this.name)
+
+    if (this.app.store.is('features.log', false)) {
+      logger.disable()
+    }
+
     return logger
   }
 

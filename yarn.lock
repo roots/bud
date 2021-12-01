@@ -3264,6 +3264,7 @@ __metadata:
     ink-use-stdout-dimensions: 1.0.5
     patch-console: 1.0.0
     react: 17.0.2
+    trim-newlines: ^4.0.2
     tslib: ^2.3.1
     webpack: 5.64.4
   languageName: unknown
@@ -3413,6 +3414,7 @@ __metadata:
     "@types/node": 16.11.11
     cli-highlight: ^2.1.11
     figures: ^4.0.0
+    friendly-errors-webpack-plugin: ^1.7.0
     http-proxy-middleware: 2.0.1
     ink: 3.2.0
     js-yaml: ^4.1.0
@@ -3521,6 +3523,7 @@ __metadata:
     "@types/jest": 27.0.3
     "@types/lodash": 4.14.177
     "@types/node": 16.11.11
+    "@types/postcss-reporter": ^7
     "@types/signale": 1.4.2
     jest: 27.4.2
     postcss: 8.4.4
@@ -3528,6 +3531,7 @@ __metadata:
     postcss-loader: 6.2.1
     postcss-nested: 5.0.6
     postcss-preset-env: 7.0.1
+    postcss-reporter: ^7.0.4
     tslib: 2.3.1
     webpack: 5.64.4
   peerDependencies:
@@ -3713,7 +3717,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-stylelint@workspace:packages/@roots/bud-stylelint":
+"@roots/bud-stylelint@workspace:*, @roots/bud-stylelint@workspace:packages/@roots/bud-stylelint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:packages/@roots/bud-stylelint"
   dependencies:
@@ -5140,6 +5144,15 @@ __metadata:
   dependencies:
     postcss: ^8.0.0
   checksum: cfcf93f5fb7e8100e0414cc2f244b9080165e1cbaaee857ac65701c213a2ee65a905a2650f66f79633848b824a1bbf92e048662b7b4943d4b05417a4deb4747b
+  languageName: node
+  linkType: hard
+
+"@types/postcss-reporter@npm:^7":
+  version: 7.0.1
+  resolution: "@types/postcss-reporter@npm:7.0.1"
+  dependencies:
+    postcss: ^8.2.10
+  checksum: d793ae39aad11fe34bf40d31922a15f914b11d752fc727e0a56d7a8e9818e8fa7a3a927e0731f22a391b963c5156d5f93905d2c12730e83b85ba277d5e185d03
   languageName: node
   linkType: hard
 
@@ -8527,7 +8540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^1.0.0":
+"chalk@npm:^1.0.0, chalk@npm:^1.1.3":
   version: 1.1.3
   resolution: "chalk@npm:1.1.3"
   dependencies:
@@ -10894,7 +10907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"error-stack-parser@npm:^2.0.6":
+"error-stack-parser@npm:^2.0.0, error-stack-parser@npm:^2.0.6":
   version: 2.0.6
   resolution: "error-stack-parser@npm:2.0.6"
   dependencies:
@@ -11783,6 +11796,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -12006,6 +12020,7 @@ __metadata:
     "@roots/bud-tailwindcss": "workspace:*"
     postcss: 8.3.11
     postcss-import: 14.0.2
+    postcss-nested: 5.0.6
     postcss-preset-env: 6.7.0
     tailwindcss: 2.2.19
   languageName: unknown
@@ -12864,6 +12879,19 @@ __metadata:
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
   checksum: 13ea8b08f91e669a64e3ba3a20eb79d7ca5379a81f1ff7f4310d54e2320645503cc0c78daedc93dfb6191287295f6479544a649c64d8e41a1c0fb0c221552346
+  languageName: node
+  linkType: hard
+
+"friendly-errors-webpack-plugin@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "friendly-errors-webpack-plugin@npm:1.7.0"
+  dependencies:
+    chalk: ^1.1.3
+    error-stack-parser: ^2.0.0
+    string-width: ^2.0.0
+  peerDependencies:
+    webpack: ^2.0.0 || ^3.0.0 || ^4.0.0
+  checksum: 3b11fe92a12633d6db4b6e825cb837358b068f84ed081dcf36a720cbe783768eadf7daab8c4034125af976b08c73f8709d5b3e6e0c1578295ea7367719932369
   languageName: node
   linkType: hard
 
@@ -16561,6 +16589,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.difference@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.difference@npm:4.5.0"
+  checksum: ecee276aa578f300e79350805a14a51be8d1f12b3c1389a19996d8ab516f814211a5f65c68331571ecdad96522b863ccc484b55504ce8c9947212a29f8857d5a
+  languageName: node
+  linkType: hard
+
 "lodash.escaperegexp@npm:^4.1.2":
   version: 4.1.2
   resolution: "lodash.escaperegexp@npm:4.1.2"
@@ -16596,10 +16631,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.get@npm:^4, lodash.get@npm:^4.0.0":
+"lodash.forown@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "lodash.forown@npm:4.4.0"
+  checksum: 2a18fd3dd9aea605f48fc1d70a925f3b42ccece80349933ac1dad6384f3019e9216baac67ca73d27533c9dd84132a603aa84d1ff0f9b212a0539fe9be65f1114
+  languageName: node
+  linkType: hard
+
+"lodash.get@npm:^4, lodash.get@npm:^4.0.0, lodash.get@npm:^4.4.2":
   version: 4.4.2
   resolution: "lodash.get@npm:4.4.2"
   checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
+  languageName: node
+  linkType: hard
+
+"lodash.groupby@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "lodash.groupby@npm:4.6.0"
+  checksum: e2d4d13d12790a1cacab3f5f120b7c072a792224e83b2f403218866d18efde76024b2579996dfebb230a61ce06469332e16639103669a35a605287e19ced6b9b
   languageName: node
   linkType: hard
 
@@ -16691,6 +16740,13 @@ __metadata:
   version: 4.6.0
   resolution: "lodash.some@npm:4.6.0"
   checksum: 4469e76a389446d1166a29f844fb21398c36060d00258ce799710e046c55ed3c1af150c31b4856504e252bc813ba3fdcb6f255c490d9846738dd363a44665322
+  languageName: node
+  linkType: hard
+
+"lodash.sortby@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "lodash.sortby@npm:4.7.0"
+  checksum: db170c9396d29d11fe9a9f25668c4993e0c1331bcb941ddbd48fb76f492e732add7f2a47cfdf8e9d740fa59ac41bbfaf931d268bc72aab3ab49e9f89354d718c
   languageName: node
   linkType: hard
 
@@ -20301,6 +20357,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-reporter@npm:^7.0.4":
+  version: 7.0.4
+  resolution: "postcss-reporter@npm:7.0.4"
+  dependencies:
+    lodash.difference: ^4.5.0
+    lodash.forown: ^4.4.0
+    lodash.get: ^4.4.2
+    lodash.groupby: ^4.6.0
+    lodash.sortby: ^4.7.0
+    picocolors: ^1.0.0
+  peerDependencies:
+    postcss: ^8.1.0
+  checksum: 43eea7c0906ccbbeba106572e8ba6133fdf6fff4365ef17866ff8ab0bb439ff25790989d700f1c956e5e70c79dc6177b5ab1017e40741e92fa47260aa0d00848
+  languageName: node
+  linkType: hard
+
 "postcss-resolve-nested-selector@npm:^0.1.1":
   version: 0.1.1
   resolution: "postcss-resolve-nested-selector@npm:0.1.1"
@@ -20495,7 +20567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.4, postcss@npm:^8.0.0, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.15, postcss@npm:^8.3, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
+"postcss@npm:8.4.4, postcss@npm:^8.0.0, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.10, postcss@npm:^8.2.15, postcss@npm:^8.3, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
   version: 8.4.4
   resolution: "postcss@npm:8.4.4"
   dependencies:
@@ -23165,7 +23237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^2.1.1":
+"string-width@npm:^2.0.0, string-width@npm:^2.1.1":
   version: 2.1.1
   resolution: "string-width@npm:2.1.1"
   dependencies:
@@ -24199,6 +24271,13 @@ __metadata:
   version: 3.0.1
   resolution: "trim-newlines@npm:3.0.1"
   checksum: b530f3fadf78e570cf3c761fb74fef655beff6b0f84b29209bac6c9622db75ad1417f4a7b5d54c96605dcd72734ad44526fef9f396807b90839449eb543c6206
+  languageName: node
+  linkType: hard
+
+"trim-newlines@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "trim-newlines@npm:4.0.2"
+  checksum: 1eef206eb77361856dff0b827e5811baf64574bb21e81b7ad643fe321c5c19b0a452dd83e9afc31206993fcff9bb90a379925d7b5915f887de1ca7da5b57933a
   languageName: node
   linkType: hard
 

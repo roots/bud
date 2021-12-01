@@ -1,7 +1,10 @@
+import {lodash} from '@roots/bud-support'
 import {Box, Text} from 'ink'
 import React, {useEffect, useState} from 'react'
 
 import {Bar} from './Bar'
+
+const {isUndefined} = lodash
 
 /**
  * Progress component
@@ -13,17 +16,25 @@ export const Progress = ({progress, theme}) => {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    if (!progress) return
+    if (
+      isUndefined(progress) ||
+      isUndefined(progress[0]) ||
+      isUndefined(progress[1])
+    )
+      return
+
     const formattedMessage = progress[1].replace(/\[.*\]\s/, '')
+
     setNumber(progress[0])
+
     setMessage(formattedMessage)
   }, [progress])
 
   return (
-    <Box marginLeft={1} flexDirection="column">
+    <Box flexDirection="column" marginTop={1}>
       <Bar
         character={'▉'}
-        maxWidth={theme.bounds.width - 10}
+        maxWidth={theme.bounds.width}
         colors={[theme.colors.primary, theme.colors.primaryAlt]}
         percent={number}
       />
