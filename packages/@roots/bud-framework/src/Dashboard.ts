@@ -15,6 +15,10 @@ export interface Dashboard extends Service {
    */
   instance: Ink.Instance
 
+  stdout?: Array<string>
+
+  stderr?: Array<string>
+
   /**
    * Mount and render the {@link Dashboard}
    *

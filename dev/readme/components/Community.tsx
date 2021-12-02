@@ -19,10 +19,12 @@ export const Community = () => (
       Read and subscribe to the [Roots
       blog](https://roots.io/blog/)
     </li>
+
     <li>
       Subscribe to the [Roots
       Newsletter](https://roots.io/subscribe/)
     </li>
+
     <li>
       Listen to the [Roots Radio
       podcast](https://roots.io/podcast/)

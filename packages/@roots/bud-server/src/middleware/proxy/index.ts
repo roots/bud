@@ -19,7 +19,7 @@ export default function proxy(app: Framework) {
   /**
    * @filter proxy.dev
    */
-  const dev = app.hooks.filter('proxy.dev', () =>
+  const dev = app.hooks.filter<'proxy.dev'>('proxy.dev', () =>
     port
       ? app.store.get('server.host').concat(`:`, port)
       : app.store.get('server.host'),
@@ -28,20 +28,23 @@ export default function proxy(app: Framework) {
   /**
    * @filter proxy.target
    */
-  const target = app.hooks.filter('proxy.target', () =>
-    app.store.get('server.proxy.target'),
+  const target = app.hooks.filter<'proxy.target'>(
+    'proxy.target',
+    () => app.store.get('server.proxy.target'),
   )
 
   /**
    * @filter proxy.interceptor
    */
-  const interceptor = app.hooks.filter(
+  const interceptor = app.hooks.filter<'proxy.interceptor'>(
     'proxy.interceptor',
-    () => async buffer => {
+    () => async (buffer: Buffer) => {
       let response = buffer.toString('utf8')
 
       return app.hooks
-        .filter('proxy.replace', [[target, dev]])
+        .filter<'proxy.replace'>('proxy.replace', () => [
+          [target, dev],
+        ])
         .reduce(
           (html, [from, to]) => html.replaceAll(from, to),
           response,

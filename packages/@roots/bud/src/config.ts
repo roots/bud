@@ -266,6 +266,20 @@ export const config: Configuration = {
         '.xml',
       ],
     },
+    stats: {
+      assets: true,
+      cached: true,
+      chunks: false,
+      chunkModules: false,
+      colors: true,
+      children: true,
+      errors: true,
+      hash: true,
+      modules: false,
+      entrypoints: false,
+      performance: false,
+      warnings: true,
+    },
   },
 
   extension: {

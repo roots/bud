@@ -122,10 +122,13 @@ export class Cache
         suffix: hash,
       })
 
-      this.app.hooks.on('event.project.write', async project => {
-        project.set('cache.hash', hash)
-        return project
-      })
+      this.app.hooks.async(
+        'event.project.write',
+        async project => {
+          project.set('cache.hash', hash)
+          return project
+        },
+      )
 
       return hash
     } catch (e) {

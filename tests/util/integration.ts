@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import execa from 'execa'
 import {readFile, readJson} from 'fs-extra'
-import Webpack from 'webpack'
 
 export interface Assets {
   [key: string]: any
@@ -40,7 +39,7 @@ class Project {
 
   public modules: SomeJson = {}
 
-  public webpackConfig: SomeJson = {}
+  public webpackConfig: string
 
   public packageJson: SomeJson = {}
 
@@ -148,8 +147,11 @@ class Project {
 
   public async setWebpackConfig(): Promise<void> {
     try {
-      const webpackConfig: Webpack.Configuration = await import(
-        this.projectPath(`${this.storage}/bud/webpack.config.js`)
+      const webpackConfig: string = await readFile(
+        this.projectPath(
+          `${this.storage}/bud/webpack.config.js`,
+        ),
+        'utf8',
       )
 
       this.webpackConfig = webpackConfig

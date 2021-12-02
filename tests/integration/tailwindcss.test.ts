@@ -51,10 +51,4 @@ describe('examples/tailwindcss', () => {
   it('[app.css] matches snapshot', () => {
     expect(project.assets['app.css']).toMatchSnapshot()
   })
-
-  it('[jit] is used to build css', () => {
-    expect(
-      project.assets['app.css'].match(/w-\\\[800px\\\]/),
-    ).toBeTruthy()
-  })
 })

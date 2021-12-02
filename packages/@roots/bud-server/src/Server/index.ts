@@ -69,21 +69,29 @@ export class Server
    */
   @bind
   public async register() {
-    this.app.hooks.on('event.compiler.done', async () => {
-      await fs.writeJson(this.app.path('dist', 'hmr.json'), {
-        host: this.app.store.get('server.host'),
-        port: this.app.store.get('server.port'),
-      })
-    })
+    this.app.hooks.async<'event.compiler.done'>(
+      'event.compiler.done',
+      async stats => {
+        await fs.writeJson(this.app.path('dist', 'hmr.json'), {
+          host: this.app.store.get('server.host'),
+          port: this.app.store.get('server.port'),
+        })
 
-    this.app.hooks.on('event.app.close', () => {
-      const exists = fs.pathExistsSync(
-        this.app.path('dist', 'hmr.json'),
-      )
+        return stats
+      },
+    )
 
-      if (exists)
-        fs.removeSync(this.app.path('dist', 'hmr.json'))
-    })
+    this.app.hooks.on<'event.app.close'>(
+      'event.app.close',
+      () => {
+        const exists = fs.pathExistsSync(
+          this.app.path('dist', 'hmr.json'),
+        )
+
+        if (exists)
+          fs.removeSync(this.app.path('dist', 'hmr.json'))
+      },
+    )
   }
 
   /**
@@ -145,8 +153,8 @@ export class Server
    */
   @bind
   public async run(): Promise<this> {
-    await this.app.hooks.promised(
-      'event.server.run.before',
+    await this.app.hooks.filterAsync<'event.server.before'>(
+      'event.server.before',
       this.app,
     )
 
@@ -211,8 +219,8 @@ export class Server
         })
       })
 
-    await this.app.hooks.promised(
-      'event.server.run.after',
+    await this.app.hooks.filterAsync<'event.server.after'>(
+      'event.server.after',
       this.app,
     )
 
