@@ -74,9 +74,9 @@
     "@types/jest": "27.0.3",
     "@types/node": "16.11.11",
     "eslint": "7.32.0",
-    "jest": "27.4.2",
+    "jest": "27.4.3",
     "solid-js": "1.2.5",
-    "type-fest": "2.6.0",
+    "type-fest": "2.8.0",
     "webpack": "5.64.4"
   },
   "dependencies": {
