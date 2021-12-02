@@ -5,14 +5,22 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs} from '@roots/bud-support'
+import {
+  bind,
+  chalk,
+  fs,
+  lodash,
+  prettyFormat,
+} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
+import {Configuration} from 'webpack'
 
 import {config} from './config'
 import items from './items'
 import loaders from './loaders'
 import * as rules from './rules'
 
+const {isNull, isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -27,7 +35,7 @@ export class Build
   /**
    * @internal
    */
-  public config: Webpack.Configuration
+  public config: Partial<Configuration>
 
   /**
    * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}
@@ -51,6 +59,20 @@ export class Build
   public items: Items
 
   /**
+   * Service booted event
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async registered() {
+    this.app.hooks.on<'event.build.make.after'>(
+      'event.build.make.after',
+      this.writeFinalConfig,
+    )
+  }
+
+  /**
    * Make webpack configuration
    *
    * @public
@@ -58,33 +80,50 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.promised(
+    await this.app.hooks.filterAsync<'event.build.make.before'>(
       'event.build.make.before',
       this.app,
     )
 
-    const build = await this.app.hooks.promised('build')
-
-    this.config = Object.entries(build).reduce(
-      (all: Partial<Webpack.Configuration>, [key, value]) => {
-        if (typeof value === 'undefined') {
-          this.log(`warn`, {
-            message: `build.make: excluding ${key}`,
-            suffix: `value is undefined`,
-          })
-          return all
-        }
-
-        this.app.dump(value, {
-          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
-          maxDepth: 2,
-        })
-        return {...all, [key]: value}
-      },
-      {},
+    const build = await this.app.hooks.filterAsync<'build'>(
+      'build',
     )
 
-    await this.app.hooks.promised('event.build.make.after')
+    if (!build) {
+      throw new Error('Configuration could not be processed')
+    }
+
+    this.config =
+      await this.app.hooks.filterAsync<'event.build.override'>(
+        'event.build.override',
+        Object.entries(build).reduce(
+          (all: Configuration, [key, value]) => {
+            if (isUndefined(value) || isNull(value)) {
+              this.log(`warn`, {
+                message: `build.make: excluding ${key}`,
+                suffix: `value is undefined`,
+              })
+
+              return all
+            }
+
+            this.app.dump(value, {
+              prefix: `${chalk.bgBlue(
+                this.app.name,
+              )} config.${key}`,
+              maxDepth: 2,
+            })
+
+            return {...all, [key]: value}
+          },
+          {},
+        ),
+      )
+
+    await this.app.hooks.filterAsync<'event.build.make.after'>(
+      'event.build.make.after',
+      async () => null,
+    )
 
     return this.config
   }
@@ -121,27 +160,13 @@ export class Build
   }
 
   /**
-   * Service booted event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async booted() {
-    this.app.hooks.on(
-      'event.build.make.after',
-      this.writeFinalConfig,
-    )
-  }
-
-  /**
    * Write final configuration to storage directory
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async writeFinalConfig() {
+  public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
         'storage',
@@ -149,7 +174,7 @@ export class Build
         'webpack.config.js',
       )
 
-      this.log('info', {
+      this.log('log', {
         message: `writing webpack dump to disk`,
         suffix: filePath,
       })
@@ -158,11 +183,7 @@ export class Build
 
       await writeFile(
         filePath,
-        `module.exports = (${JSON.stringify(
-          this.config,
-          null,
-          2,
-        )})`,
+        `module.exports = (${prettyFormat(this.config)})`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

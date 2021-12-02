@@ -21,9 +21,10 @@ export interface close {
  * @public
  */
 export function close(done = process.exit) {
-  this as Framework
+  const ctx = this as Framework
+  ctx.hooks.filter('event.app.close')
 
-  this.hooks.filter('event.app.close')
+  ctx.success('exiting application')
 
   done()
 }

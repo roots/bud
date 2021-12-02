@@ -67,15 +67,16 @@ const transformPackageName = (packageName: string) =>
 /**
  * Is pkg string a wordpress window var match
  */
-export const isProvided: (packageName: string) => boolean =
-  packageName => {
-    if (!packageName) return false
+export const isProvided: (
+  packageName: string,
+) => boolean = packageName => {
+  if (!packageName) return false
 
-    return (
-      packageName.includes('@wordpress') ||
-      Array.from(packageMap.keys()).includes(packageName)
-    )
-  }
+  return (
+    packageName.includes('@wordpress') ||
+    Array.from(packageMap.keys()).includes(packageName)
+  )
+}
 
 /**
  * Transform pkg string request

@@ -63,44 +63,43 @@ export const template: template = async function (
     await this.extensions.add(BudInterpolateHtmlPlugin)
   }
 
-  if (
-    !this.store.has('extensions.html-webpack-plugin.template')
-  ) {
-    const supportManifest = await pkgUp({
-      cwd: require.resolve('@roots/bud-support'),
-    })
-    const supportDir = dirname(supportManifest)
-    const template = join(
-      supportDir,
-      'templates',
-      'template.html',
-    )
-
-    this.store.merge('extension.html-webpack-plugin', {
-      template,
-    })
+  /**
+   * Plugin references
+   */
+  const plugins = {
+    html: this.extensions.get('html-webpack-plugin'),
+    interpolate: this.extensions.get('interpolate-html-plugin'),
   }
 
   /**
-   * If there were no {@link Options} specified, we're done.
+   * If no template is known, provides a default
+   */
+  if (!plugins.html.options.has('template')) {
+    const manifest = await pkgUp({
+      cwd: require.resolve('@roots/bud-support'),
+    })
+
+    plugins.html.options.set(
+      'template',
+      join(dirname(manifest), 'templates', 'template.html'),
+    )
+  }
+
+  /**
+   * If there were no options specified, we're done.
    */
   if (!userOptions || userOptions === true) return this
 
   this.info('processing html-webpack-plugin options')
+  plugins.html.options.mergeStore(userOptions)
 
-  this.store.merge('extension.html-webpack-plugin', {
-    template,
-    ...userOptions,
-  })
-
+  /**
+   * If there were no replacements specified, we're done.
+   */
   if (!userOptions.replace) return this
 
   this.info('processing bud-interpolate-html-plugin options')
-
-  this.store.merge(
-    'extension.interpolate-html-plugin',
-    userOptions.replace,
-  )
+  plugins.interpolate.options.mergeStore(userOptions.replace)
 
   return this
 }

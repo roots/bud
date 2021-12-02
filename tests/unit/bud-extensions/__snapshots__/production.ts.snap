@@ -7,7 +7,14 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "clean-webpack-plugin",
-      "options": [Function],
+      "options": Object {
+        "cleanOnceBeforeBuildPatterns": Array [
+          "**/*",
+          "!dll",
+        ],
+        "cleanStaleWebpackAssets": true,
+        "protectWebpackAssets": true,
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -22,7 +29,9 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "copy-webpack-plugin",
-      "options": [Function],
+      "options": Object {
+        "patterns": Array [],
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -37,7 +46,11 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "ignore-emit-webpack-plugin",
-      "options": [Function],
+      "options": Object {
+        "ignore": Array [
+          /\\.\\?\\.map\\$/,
+        ],
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -52,7 +65,10 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "mini-css-extract-plugin",
-      "options": [Function],
+      "options": Object {
+        "chunkFilename": "[name].[id].css",
+        "filename": "[name].css",
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -67,7 +83,7 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "webpack-define-plugin",
-      "options": [Function],
+      "options": Object {},
       "when": [Function],
     },
     "log": [Function],
@@ -82,6 +98,10 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "webpack-hot-module-replacement-plugin",
+      "options": Container {
+        "ident": "container",
+        "repository": Object {},
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -96,7 +116,10 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "webpack-manifest-plugin",
-      "options": [Function],
+      "options": Object {
+        "fileName": "manifest.json",
+        "writeToFileEmit": true,
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -111,7 +134,7 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "webpack-provide-plugin",
-      "options": [Function],
+      "options": Object {},
       "when": [Function],
     },
     "log": [Function],

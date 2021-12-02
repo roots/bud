@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
@@ -76,7 +76,7 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.11.9"
+    "@types/node": "16.11.11"
   },
   "dependencies": {
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",

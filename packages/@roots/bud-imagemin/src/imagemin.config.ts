@@ -14,13 +14,25 @@ export class Config {
 
   @bind
   public setPlugins(plugins: Array<[any, any]> | any) {
-    this.app.info('bud.imagemin called')
+    this.app.info({
+      message: 'bud.imagemin called',
+      suffix: JSON.stringify(plugins),
+    })
 
     const imagemin = this.app.extensions.get(
       'image-minimizer-webpack-plugin',
     )
-    if (plugins && plugins.length && imagemin?.options)
-      imagemin.options.merge('minimizerOptions.plugins', plugins)
+
+    if (plugins && plugins.length) {
+      imagemin.options.set('minimizerOptions.plugins', plugins)
+
+      this.app.log({
+        message: 'plugins',
+        suffix: JSON.stringify(
+          imagemin.options.get('minimizerOptions.plugins'),
+        ),
+      })
+    }
 
     return this.app
   }

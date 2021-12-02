@@ -52,14 +52,6 @@ describe('examples/babel', () => {
     expect(project.manifest).toMatchSnapshot()
   })
 
-  it('.budfiles/bud/webpack.config.js', async () => {
-    expect(project.webpackConfig.entry).toMatchSnapshot()
-    expect(project.webpackConfig.mode).toMatchSnapshot()
-    expect(project.webpackConfig.optimization).toMatchSnapshot()
-    expect(project.webpackConfig.bail).toMatchSnapshot()
-    expect(project.webpackConfig.cache.type).toMatchSnapshot()
-  })
-
   it('module map matches snapshot', async () => {
     expect(project.modules.chunks).toMatchSnapshot({
       byName: {

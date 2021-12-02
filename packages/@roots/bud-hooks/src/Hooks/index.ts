@@ -1,12 +1,11 @@
 import {
   Framework,
   Hooks as Contract,
-  Project,
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-const {get, isArray, isFunction, noop, set} = lodash
+const {get, isFunction, isUndefined, set} = lodash
 
 /**
  * Service allowing for fitering values through callbacks.
@@ -45,7 +44,7 @@ const {get, isArray, isFunction, noop, set} = lodash
  * Create a new async filter for a value:
  *
  * ```ts
- * await hooks.promised('my-event-name', async () => DEFAULT_VALUE)
+ * await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
  * ```
  *
  * @public
@@ -57,28 +56,13 @@ export class Hooks extends Service implements Contract {
   public ident = 'hooks'
 
   /**
-   * Service boot method
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  @bind
-  public async boot() {
-    this.app.hooks.on(
-      'event.project.write',
-      async (project: Project.Interface) =>
-        project.set('hooks', this.all()),
-    )
-  }
-
-  /**
    * hook getter
    *
    * @internal
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(path: `${Contract.Name & string}`) {
+  public get<T = any>(path: `${keyof Contract.Map & string}`) {
     return get(this.repository, path) as T
   }
 
@@ -90,7 +74,7 @@ export class Hooks extends Service implements Contract {
    */
   @bind
   public set(
-    key: `${Contract.Name & string}`,
+    key: `${keyof Contract.Map & string}`,
     value: any,
   ): this {
     set(this.repository, key, value)
@@ -110,7 +94,7 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * app.hooks.on(
-   *   'namespace.name.value',
+   *   'namespace.key',
    *   value => 'replaced by this string',
    * )
    * ```
@@ -119,21 +103,50 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public on(
-    id: Contract.Name,
-    callback: Contract.Hook,
+  public on<T extends keyof Contract.Map & string>(
+    id: T,
+    callback:
+      | Contract.Map[T]
+      | ((value: Contract.Map[T]) => any),
   ): Framework {
-    const [_publisher, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+    const current = this.has(id) ? this.get(id) : []
 
-    const current = this.get(name) ?? []
+    this.set(id, [...current, callback])
 
-    if (!isArray(current)) {
-      this.set(name, [callback])
-    } else {
-      this.set(name, [...current, callback])
-    }
+    return this.app
+  }
+
+  /**
+   * Register a function to filter a value.
+   *
+   * @remarks
+   * If a filter calls for this name the function is then run,
+   * passing whatever data along for modification. If more than one
+   * hook is registered to a name, they will be called sequentially
+   * in the order they were registered, with each hook's output used
+   * as the input for the next.
+   *
+   * @example
+   * ```js
+   * app.hooks.on(
+   *   'namespace.key',
+   *   value => 'replaced by this string',
+   * )
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async<T extends keyof Contract.Map & string>(
+    id: T,
+    callback:
+      | Contract.Map[T]
+      | ((value: Contract.Map[T]) => Promise<Contract.Map[T]>),
+  ): Framework {
+    const current = this.has(id) ? this.get(id) : []
+
+    this.set(id, [...current, callback])
 
     return this.app
   }
@@ -149,32 +162,29 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * bud.hooks.filter(
-   *   'namespace.name.event',
+   *   'namespace.Key.event',
    *   ['array', 'of', 'items'],
    * )
    * ```
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public filter<T = any>(
-    id: `${Contract.Name & string}`,
-    value?: any,
-  ): T {
-    const [_subscriber, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+  public filter<T extends keyof Contract.Map & string>(
+    id: T,
+    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
+  ): Contract.Map[T] {
+    if (!this.has(id)) {
+      if (isUndefined(value)) return
+      return isFunction(value) ? value() : value
+    }
 
-    !this.has(name) && this.set(name, [value ?? noop])
-
-    const result = this.get(name).reduce(
-      (v: T, cb?: CallableFunction) => {
-        return isFunction(cb) ? cb(v) : cb
-      },
-      value ?? null,
+    return this.get(id).reduce(
+      (v: T, cb?: CallableFunction) =>
+        isFunction(cb) ? cb(v) : cb,
+      value,
     )
-
-    return result
   }
 
   /**
@@ -186,7 +196,7 @@ export class Hooks extends Service implements Contract {
    * @example
    * ```js
    * bud.hooks.filter(
-   *   'namespace.name.event',
+   *   'namespace.Key.event',
    *   ['array', 'of', 'items'],
    * )
    * ```
@@ -195,28 +205,26 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async promised<T = any>(
-    id: `${Contract.Name & string}`,
-    value?: any,
-  ): Promise<T> {
-    const [_subscriber, name] = isArray(id)
-      ? id
-      : ['anonymous', id]
+  public async filterAsync<
+    T extends keyof Contract.Map & string,
+  >(
+    id: T,
+    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
+  ): Promise<Contract.Map[T]> {
+    if (!this.has(id)) {
+      if (isUndefined(value)) return
+      return isFunction(value) ? await value() : value
+    }
 
-    !this.has(name) && this.set(name, [value ?? noop])
-
-    const result = await this.get(name).reduce(
+    return await this.get(id).reduce(
       async (
         promised: Promise<T>,
         cb?: (value: T) => Promise<T>,
       ) => {
         const value = await promised
-
         return isFunction(cb) ? await cb(value) : cb
       },
-      value ?? null,
+      value,
     )
-
-    return result
   }
 }

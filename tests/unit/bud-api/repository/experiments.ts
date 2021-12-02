@@ -27,7 +27,9 @@ describe('bud.experiments', function () {
     bud.experiments('lazyCompilation', true)
     await bud.build.make()
 
-    const output = await bud.hooks.promised('build.experiments')
+    const output = await bud.hooks.filterAsync(
+      'build.experiments',
+    )
 
     expect(output).toEqual({lazyCompilation: true})
   })

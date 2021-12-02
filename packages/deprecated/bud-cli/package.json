@@ -72,22 +72,22 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "1.26.3",
+    "@oclif/dev-cli": "1.26.6",
     "@oclif/test": "1.2.8",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.29.0",
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.11",
     "@types/prettier": "2.4.2",
     "eslint": "7.32.0"
   },
   "dependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
-    "@oclif/command": "1.8.4",
+    "@oclif/command": "1.8.7",
     "@oclif/errors": "1.3.5",
     "@oclif/plugin-autocomplete": "0.3.0",
     "@oclif/plugin-commands": "1.3.0",
-    "@oclif/plugin-help": "3.2.7",
+    "@oclif/plugin-help": "3.2.10",
     "@oclif/plugin-update": "1.5.0",
     "@roots/bud": "workspace:packages/@roots/bud",
     "autobind-decorator": "2.4.0",
@@ -96,7 +96,7 @@
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",
     "prettier": "2.5.0",
-    "pretty-format": "27.3.1",
+    "pretty-format": "27.4.2",
     "serialize-javascript": "6.0.0",
     "tslib": "2.3.1"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-emotion",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "CSS-in-JS support for the @roots/bud framework",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -81,8 +81,8 @@
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@types/eslint": "7.29.0",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
-    "jest": "27.3.1"
+    "@types/node": "16.11.11",
+    "jest": "27.4.3"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

@@ -10,12 +10,6 @@ module.exports = async (app: Bud) => {
     .proxy({
       target: 'http://localhost:8080',
     })
-    .tap(app => {
-      app.hooks.on('proxy.replace', replacements => [
-        ...(replacements ?? []),
-        ['some', 'proxied'],
-      ])
-    })
     .tap(({babel}: Bud) =>
       babel
         .setPresets({

@@ -17,12 +17,12 @@
  * @packageDocumentation
  */
 
-import {EslintConfig} from './eslint.api'
+import * as api from './eslint.api'
 import {BudEslintWebpackPlugin} from './eslint.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    eslint: EslintConfig
+    eslint: api.eslint
   }
 
   interface Plugins {

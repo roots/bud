@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -70,20 +70,20 @@
     ]
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "4.0.3",
+    "@fullhuman/postcss-purgecss": "4.1.3",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
-    "jest": "27.3.1",
-    "postcss": "8.4.3"
+    "@types/node": "16.11.11",
+    "jest": "27.4.3",
+    "postcss": "8.4.4"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@fullhuman/postcss-purgecss": "4.0.3"
+    "@fullhuman/postcss-purgecss": "4.1.3"
   },
   "stableVersion": "4.6.0"
 }

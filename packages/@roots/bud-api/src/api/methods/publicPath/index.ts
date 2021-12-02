@@ -1,16 +1,20 @@
 import type {Framework} from '@roots/bud-framework'
+import {Configuration} from 'webpack'
 
 export interface publicPath {
-  (): string
+  (): Configuration['output']['publicPath']
 }
 
-export const publicPath: publicPath = function () {
-  this as Framework
+export const publicPath: publicPath =
+  function (): Configuration['output']['publicPath'] {
+    const ctx: Framework = this as Framework
 
-  const value = this.hooks.filter('build.output.publicPath')
-  this.api.log('log', {
-    message: 'publicPath',
-    suffix: value,
-  })
-  return value
-}
+    const value: Configuration['output']['publicPath'] =
+      ctx.hooks.filter<'build.output.publicPath'>(
+        'build.output.publicPath',
+      )
+
+    ctx.api.log('log', {message: 'publicPath', suffix: value})
+
+    return value
+  }
