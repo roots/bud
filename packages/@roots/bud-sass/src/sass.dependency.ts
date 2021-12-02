@@ -19,8 +19,7 @@ export async function importSassImplementation(logger: Signale) {
   } catch (e) {
     logger.error(e)
     throw new Error(
-      'sass not found. Install it with `yarn add sass --dev` or `npm i sass --save-dev`. \n\
-      This may be a problem with bud; please let us know what you experienced by filing an issue at https://github.com/roots/bud',
+      'sass not found. Install it with `yarn add sass --dev` or `npm i sass --save-dev`. This may be a problem with bud; please let us know what you experienced by filing an issue at https://github.com/roots/bud',
     )
   }
 }
@@ -37,8 +36,7 @@ export function resolveLoader(logger: Signale): string {
   } catch (e) {
     logger.error(e)
     throw new Error(
-      'sass-loader not found. Install it with `yarn add sass-loader --dev` or `npm i sass-loader --save-dev`. \n\
-      This may be a problem with bud; please let us know what you experienced by filing an issue at https://github.com/roots/bud',
+      'sass-loader not found. Install it with `yarn add sass-loader --dev` or `npm i sass-loader --save-dev`. This may be a problem with bud; please let us know what you experienced by filing an issue at https://github.com/roots/bud',
     )
   }
 }

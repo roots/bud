@@ -167,6 +167,13 @@ async function getAssets(
     })
 
     if (!results.length) {
+      this.error(
+        `bud.entry found no files matching ${JSON.stringify(
+          imports,
+        )}. check your config for errors. files should be specified relative to ${this.path(
+          'src',
+        )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
+      )
       throw new Error(
         `nothing resolvable for ${JSON.stringify(
           imports,
