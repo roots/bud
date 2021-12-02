@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class TestCommand extends Command {
-  static paths = [[`repo`, `test`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `test`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     details: `test files with jest`,
     examples: [

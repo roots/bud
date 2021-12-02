@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class MdCommand extends Command {
-  static paths = [[`repo`, `docs`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `docs`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     description: `build docs and readme files. no flags builds everything. running with the --site flag will also build api docs.`,
     examples: [
@@ -17,26 +17,20 @@ export class MdCommand extends Command {
     ],
   }
 
-  public api = Option.Boolean(
-    `-a,--api`,
-    false,
-    `build api docs`,
-  )
+  public api = Option.Boolean(`-a,--api`, false, {
+    description: `build api docs`,
+  })
 
-  public site = Option.Boolean(
-    `-s,--site`,
-    false,
-    `build site files`,
-  )
+  public site = Option.Boolean(`-s,--site`, false, {
+    description: `build site files`,
+  })
 
-  public readme = Option.Boolean(
-    `-r,--readme`,
-    false,
-    `build readme files`,
-  )
+  public readme = Option.Boolean(`-r,--readme`, false, {
+    description: `build readme files`,
+  })
 
   async execute() {
-    if (!this.site && !this.readme && !this.docs) {
+    if (!this.site && !this.readme && !this.api) {
       await this.$(`yarn node ./site/api-documenter.build.js`)
 
       await this.$(
@@ -45,7 +39,7 @@ export class MdCommand extends Command {
       )
     }
 
-    if (this.docs || this.site) {
+    if (this.api || this.site) {
       await this.$(`yarn node ./site/api-documenter.build.js`)
     }
 

@@ -1,12 +1,14 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass} from 'clipanion'
 
 export class MakeCommand extends Command {
-  static paths = [[`repo`, `make`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `make`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     description: `make project files same as ci`,
-    examples: [[`yarn repo make`]],
+    examples: [
+      [`install/build repo packages`, `yarn repo make`],
+    ],
   }
 
   async execute() {

@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class CleanCommand extends Command {
-  static paths = [[`repo`, `clean`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `clean`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     details: `clean project artifacts files`,
     examples: [

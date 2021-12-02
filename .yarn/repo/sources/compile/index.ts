@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class CompileCommand extends Command {
-  static paths = [[`repo`, `compile`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `compile`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     description: `compile a package`,
     details: `compiles as both cjs and esm with ncc`,

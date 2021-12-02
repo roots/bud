@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class BuildCommand extends Command {
-  static paths = [[`repo`, `build`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `build`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     details: `build project packages.`,
     examples: [
@@ -52,12 +52,14 @@ export class BuildCommand extends Command {
   })
 
   async execute() {
-    if (this.clean) this.verbose = false
-    if (this.clean && this.force) {
-      console.error('--clean and --force are mutually exclusive')
-    }
+    console.log(JSON.stringify(this.context))
 
     const all = !this.cjs && !this.esm
+
+    if (this.clean) {
+      this.verbose = false
+      this.force = false
+    }
 
     const tsc = {
       cjs: `yarn tsc -b tsconfig.json${
@@ -72,7 +74,7 @@ export class BuildCommand extends Command {
       }${this.watch ? ` --watch` : ``}`,
     }
 
-    if (this.all) {
+    if (all) {
       await this.$(tsc.cjs, tsc.esm)
     } else if (this.cjs) {
       await this.$(tsc.cjs)

@@ -1,9 +1,9 @@
 import {Command} from '../Command'
-import {Option} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 export class LintCommand extends Command {
-  static paths = [[`repo`, `lint`]]
-  static usage = {
+  static paths: CommandClass['paths'] = [[`repo`, `lint`]]
+  static usage: CommandClass['usage'] = {
     category: `repo`,
     description: `lint repo files. run all linters by passing no flags.`,
     examples: [
