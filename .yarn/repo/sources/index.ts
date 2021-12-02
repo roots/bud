@@ -6,7 +6,7 @@ import {CompileCommand} from './compile'
 import {LintCommand} from './lint'
 import {TestCommand} from './test'
 import {MakeCommand} from './make'
-import {MdCommand} from './md'
+import {MdCommand} from './docs'
 
 const plugin: Plugin = {
   hooks: {
