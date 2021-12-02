@@ -22,9 +22,9 @@ export const VueExtension: Extension.Module = {
       make: () => new VueLoaderPlugin(),
     })
 
-    hooks.on(
+    hooks.on<'build.module.rules.before'>(
       'build.module.rules.before',
-      (rules: Configuration['module']['rules']) => [
+      rules => [
         {
           test: store.get('patterns.vue'),
           use: [{loader: require.resolve('vue-loader')}],
@@ -32,14 +32,16 @@ export const VueExtension: Extension.Module = {
         ...(rules ?? []),
       ],
     )
-    hooks.on(
+
+    hooks.on<'build.resolve.alias'>(
       'build.resolve.alias',
-      (aliases: Configuration['resolve']['alias']) => ({
-        ...aliases,
+      aliases => ({
+        ...(aliases ?? {}),
         vue: '@vue/runtime-dom',
       }),
     )
-    hooks.on(
+
+    hooks.on<'build.resolve.extensions'>(
       'build.resolve.extensions',
       (extensions: Configuration['resolve']['extensions']) => [
         ...extensions,

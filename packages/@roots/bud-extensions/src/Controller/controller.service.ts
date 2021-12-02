@@ -1,4 +1,4 @@
-import {Service} from '@roots/bud-framework'
+import {Modules, Service} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 
 import {
@@ -131,17 +131,6 @@ export class Controller {
   }
 
   /**
-   * @public
-   */
-  @bind
-  public filter(key: string, object: any) {
-    return this.app.hooks.filter(
-      `extension.${this._module.name}.${key}`,
-      object,
-    )
-  }
-
-  /**
    * Extension module name
    *
    * @public
@@ -164,7 +153,12 @@ export class Controller {
     }
 
     if (this._module.options instanceof Container) {
-      return this.filter('options', this._module.options)
+      return this.app.hooks.filter(
+        `extension.${
+          this._module.name as keyof Modules & string
+        }.options`,
+        this._module.options,
+      )
     }
 
     if (!isObject(this._module.options))
@@ -173,14 +167,24 @@ export class Controller {
       )
 
     if (this._module.options instanceof Container) {
-      return this.filter('options', this._module.options)
+      return this.app.hooks.filter(
+        `extension.${
+          this._module.name as keyof Modules & string
+        }.options`,
+        this._module.options,
+      )
     }
 
     this._module.options = this.app.container(
       this._module.options,
     )
 
-    return this.filter('options', this._module.options)
+    return this.app.hooks.filter(
+      `extension.${
+        this._module.name as keyof Modules & string
+      }.options`,
+      this._module.options,
+    )
   }
 
   /**

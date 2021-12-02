@@ -8,54 +8,68 @@ export interface persist {
 export const persist: persist = function (
   type?: 'memory' | 'filesystem' | false,
 ) {
-  this as Framework
+  const ctx = this as Framework
 
   if (type === false) {
-    this.api.log('success', {
+    ctx.api.log('success', {
       message: 'cache disabled',
     })
-    this.hooks.on('build.cache', false)
+    ctx.hooks.on<'build.cache'>('build.cache', () => false)
     return this
   }
 
   if (type === 'memory') {
-    this.api.log('success', {
+    ctx.api.log('success', {
       message: 'cache enabled',
       suffix: chalk.dim('memory'),
     })
-    this.hooks.on('build.cache', {
-      type: 'memory',
-    })
+
+    ctx.hooks.on<'build.cache.type'>(
+      'build.cache.type',
+      () => 'memory',
+    )
     return this
   }
 
-  this.api.log('success', {
+  ctx.api.log('success', {
     message: 'cache enabled',
     suffix: chalk.dim('filesystem'),
   })
 
-  this.hooks
+  ctx.hooks
     .on('build.cache', () => ({
-      type: this.hooks.filter('build.cache.type'),
-      version: this.hooks.filter('build.cache.version'),
-      cacheDirectory: this.hooks.filter(
+      type: ctx.hooks.filter('build.cache.type'),
+      version: ctx.hooks.filter('build.cache.version'),
+      cacheDirectory: ctx.hooks.filter(
         'build.cache.cacheDirectory',
       ),
-      managedPaths: this.hooks.filter(
+      managedPaths: ctx.hooks.filter<'build.cache.managedPaths'>(
         'build.cache.managedPaths',
       ),
-      buildDependencies: this.hooks.filter(
-        'build.cache.buildDependencies',
-      ),
+      buildDependencies:
+        ctx.hooks.filter<'build.cache.buildDependencies'>(
+          'build.cache.buildDependencies',
+        ),
     }))
-    .hooks.on('build.cache.version', this.cache.version)
-    .hooks.on('build.cache.type', 'filesystem')
-    .hooks.on('build.cache.cacheDirectory', this.path('storage'))
-    .hooks.on('build.cache.buildDependencies', () => ({
-      bud: this.project.get('dependencies'),
-    }))
+    .hooks.on<'build.cache.version'>(
+      'build.cache.version',
+      () => ctx.cache.version,
+    )
+    .hooks.on<'build.cache.type'>(
+      'build.cache.type',
+      () => 'filesystem',
+    )
+    .hooks.on('build.cache.cacheDirectory', () =>
+      ctx.path('storage'),
+    )
+    .hooks.on<'build.cache.buildDependencies'>(
+      'build.cache.buildDependencies',
+      () => ({
+        bud: ctx.project.get('dependencies'),
+      }),
+    )
     .hooks.on('build.cache.managedPaths', () => [
-      this.path('modules'),
+      ctx.path('modules'),
     ])
 
   return this

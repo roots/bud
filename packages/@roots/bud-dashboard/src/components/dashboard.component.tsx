@@ -68,9 +68,8 @@ export const Dashboard = ({
       )
         return
 
-      instance.current.hooks.filter(
-        'event.dashboard.done',
-        ink.exit,
+      instance.current.hooks.filter('event.dashboard.done', () =>
+        ink.exit(),
       )
     }
 

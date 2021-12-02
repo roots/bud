@@ -53,6 +53,7 @@ export class Dashboard extends Service implements Contract {
   @bind
   public async bootstrap(): Promise<void> {
     this.log('log', chalk.green('initializing dashboard'))
+
     this.run()
   }
 
@@ -66,7 +67,10 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public run(): Framework {
-    this.app.hooks.on('event.dashboard.done', this.close)
+    this.app.hooks.on<'event.dashboard.done'>(
+      'event.dashboard.done',
+      this.close,
+    )
 
     if (this.app.store.is('features.dashboard', true)) {
       /** Patch console enables intercepting stdout/stderr */

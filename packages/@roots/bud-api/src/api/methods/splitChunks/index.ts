@@ -33,7 +33,7 @@ export const splitChunks: splitChunks = function (
   const ctx = this as Framework
 
   if (isUndefined(options) || options === true) {
-    ctx.hooks.on(
+    ctx.hooks.on<'build.optimization.splitChunks'>(
       'build.optimization.splitChunks',
       splitChunks => ({
         ...(splitChunks ?? {}),

@@ -63,16 +63,18 @@ export class Api
   public async registered() {
     await this.processQueue()
 
-    this.app.hooks.on('event.build.make.before', async app => {
-      await app
+    this.app.hooks.async<'event.build.make.before'>(
+      'event.build.make.before',
+      async app => {
+        this.log('log', 'event.build.make.promise api calls')
 
-      this.log('log', 'event.build.make.promise api calls')
+        await this.processQueue()
 
-      await this.processQueue()
-      this.dump()
+        this.dump()
 
-      return app
-    })
+        return app
+      },
+    )
   }
 
   /**

@@ -1,20 +1,21 @@
-import * as Webpack from 'webpack'
+import {ValueOf} from 'type-fest'
+import {
+  Configuration,
+  RuleSetRule,
+  Stats,
+  StatsCompilation,
+} from 'webpack'
 
 import {
+  Configuration as FrameworkConfig,
   Framework,
-  Items,
-  Loaders,
-  Locations,
-  Mode,
   Modules,
   Plugins,
-  Rules,
   Service,
 } from './'
-import * as Extension from './Extensions/Extension'
 
 /**
- * Service allowing for fitering {@link Framework} values through callbacks.
+ * Assign and filter callback to values.
  *
  * @example
  * Add a new entry to the `webpack.externals` configuration:
@@ -41,16 +42,9 @@ import * as Extension from './Extensions/Extension'
  *
  * @public
  */
-interface Hooks extends Service<Hooks.Repository> {
+export interface Hooks extends Service {
   /**
-   * Register a function to filter a value.
-   *
-   * @remarks
-   * If a filter calls for this name the function is then run,
-   * passing whatever data along for modification. If more than one
-   * hook is registered to a name, they will be called sequentially
-   * in the order they were registered, with each hook's output used
-   * as the input for the next.
+   * Register a function to modify a filtered value
    *
    * @example
    * ```js
@@ -62,12 +56,31 @@ interface Hooks extends Service<Hooks.Repository> {
    *
    * @public
    */
-  on(id: Hooks.Name, callback: Hooks.Hook): Framework
+  on<T extends keyof Hooks.Map & string>(
+    id: T,
+    callback?: (param?: Hooks.Map[T]) => Hooks.Map[T],
+  ): Framework
 
   /**
-   * The other side of bud.hooks.on. Passes a key and a value. If
-   * any filters are registered on that key they will transform
-   * the output before it is returned.
+   * Register an async function to filter a value.
+   *
+   * @example
+   * ```js
+   * app.hooks.on(
+   *   'namespace.name.value',
+   *   value => 'replaced by this string',
+   * )
+   * ```
+   *
+   * @public
+   */
+  async<T extends keyof Hooks.Map & string>(
+    id: T,
+    callback?: (param?: Hooks.Map[T]) => Promise<Hooks.Map[T]>,
+  ): Framework
+
+  /**
+   * Filter a value
    *
    * @example
    * ```js
@@ -79,11 +92,19 @@ interface Hooks extends Service<Hooks.Repository> {
    *
    * @public
    */
-  filter<T = any>(id: Hooks.Name, seed?: any): T
+  filter<T extends keyof Hooks.Map & string>(
+    id: T,
+    value?:
+      | Hooks.Map[T]
+      | ((value?: Hooks.Map[T]) => Hooks.Map[T]),
+  ): Hooks.Map[T]
 
   /**
    * Async version of hook.filter
    *
+   * @remarks
+   * Hooks are processed as a waterfall.
+   *
    * @example
    * ```js
    * bud.hooks.filter(
@@ -94,167 +115,132 @@ interface Hooks extends Service<Hooks.Repository> {
    *
    * @public
    */
-  promised<T = any>(
-    id: `${Hooks.Name & string}`,
-    value?: any,
-  ): Promise<T>
+  filterAsync<T extends keyof Hooks.Map & string>(
+    id: T,
+    value?:
+      | Hooks.Map[T]
+      | ((param?: Hooks.Map[T]) => Promise<Hooks.Map[T]>),
+  ): Promise<Hooks.Map[T]>
 }
 
 /**
- * Hooks namespace
- *
  * @public
  */
-namespace Hooks {
+export namespace Hooks {
+  /**
+   * Bud does not support all the entry types of Webpack
+   */
+  type LimitedEntryObject = Record<
+    string,
+    {
+      import?: string[]
+      dependsOn?: string[]
+    }
+  >
+
+  /**
+   * Same with plugins
+   */
+  type LimitedPlugin = Array<{apply: any}>
+
   /**
    * Hook signature
-   */
-  export type Hook<T = any> = ((value?: T) => T) | T
-
-  export type PromiseHook<T = any> = (value?: T) => Promise<T>
-
-  /**
-   * Hooks repository
    *
-   * @remarks
-   * Mapped type for ensuring proper references throughout the application
+   * @public
    */
-  export type Repository = {
-    [K in Name as `${K & string}`]?: Hook[]
+  export type Hook<T extends keyof Map & string> =
+    | ((value?: T) => Map[T])
+    | ((value?: T) => Partial<Map[T]>)
+    | Map[T]
+    | Partial<Map[T]>
+
+  export type Map = {
+    [`build`]: Record<string, any>
+    [`build.bail`]: boolean
+    [`build.cache`]: any
+    ['build.cache.buildDependencies']: Record<
+      string,
+      Array<string>
+    >
+    ['build.cache.cacheDirectory']: string
+    [`build.cache.version`]: string
+    ['build.cache.type']: 'memory' | 'filesystem'
+    ['build.cache.managedPaths']: Array<string>
+    [`build.context`]: Configuration['context']
+    [`build.devtool`]: Configuration['devtool']
+    [`build.entry`]: LimitedEntryObject
+    [`build.experiments`]: Configuration['experiments']
+    [`build.externals`]: Configuration['externals']
+    [`build.infrastructureLogging`]: Configuration['infrastructureLogging']
+    [`build.mode`]: Configuration['mode']
+    [`build.module`]: Configuration['module']
+    [`build.module.rules`]: Configuration['module']['rules']
+    [`build.module.rules.oneOf`]: Array<RuleSetRule>
+    [`build.module.rules.before`]: Array<RuleSetRule>
+    [`build.module.rules.after`]: Array<RuleSetRule>
+    [`build.name`]: Configuration['name']
+    [`build.node`]: Configuration['node']
+    [`build.optimization`]: Configuration['optimization']
+    [`build.optimization.emitOnErrors`]: Configuration['optimization']['emitOnErrors']
+    [`build.optimization.minimize`]: Configuration['optimization']['minimize']
+    [`build.optimization.minimizer`]: Configuration['optimization']['minimizer']
+    [`build.optimization.moduleIds`]: Configuration['optimization']['moduleIds']
+    [`build.optimization.removeEmptyChunks`]: Configuration['optimization']['removeEmptyChunks']
+    [`build.optimization.runtimeChunk`]: Configuration['optimization']['runtimeChunk']
+    [`build.optimization.splitChunks`]: any
+    [`build.output`]: Configuration['output']
+    [`build.output.assetModuleFilename`]: Configuration['output']['assetModuleFilename']
+    [`build.output.chunkFilename`]: Configuration['output']['chunkFilename']
+    [`build.output.filename`]: Configuration['output']['filename']
+    [`build.output.path`]: Configuration['output']['path']
+    [`build.output.pathinfo`]: Configuration['output']['pathinfo']
+    [`build.output.publicPath`]: Configuration['output']['publicPath']
+    [`build.parallelism`]: Configuration['parallelism']
+    [`build.performance`]: Configuration['performance']
+    [`build.plugins`]: LimitedPlugin
+    [`build.profile`]: Configuration['profile']
+    [`build.recordsPath`]: Configuration['recordsPath']
+    [`build.resolve`]: Configuration['resolve']
+    [`build.resolve.alias`]: {
+      [index: string]: string | false | string[]
+    }
+    [`build.resolve.extensions`]: Configuration['resolve']['extensions']
+    [`build.resolve.modules`]: Configuration['resolve']['modules']
+    [`build.stats`]: Configuration['stats']
+    [`build.target`]: Configuration['target']
+    [`build.watch`]: Configuration['watch']
+    [`build.watchOptions`]: Configuration['watchOptions']
+    [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
+    [`location.src`]: string
+    [`location.dist`]: string
+    [`location.project`]: string
+    [`location.modules`]: string
+    [`location.storage`]: string
+    [`config.override`]: Configuration
+    [`event.app.close`]: unknown
+    [`event.build.make.before`]: unknown
+    [`event.build.make.after`]: unknown
+    [`event.build.override`]: Configuration
+    [`event.compiler.before`]: Array<Framework>
+    [`event.compiler.done`]: Stats
+    [`event.compiler.after`]: Framework
+    [`event.compiler.stats`]: StatsCompilation
+    [`event.compiler.error`]: Error
+    [`event.dashboard.done`]: void
+    [`event.project.write`]: Framework['project']
+    [`event.server.listen`]: Framework['server']
+    [`event.server.before`]: Framework
+    [`event.server.after`]: Framework
+    [`event.run`]: Framework
+    [`proxy.dev`]: FrameworkConfig['server']['host']
+    [`proxy.target`]: string
+    [`proxy.interceptor`]: (
+      buffer: Buffer,
+    ) => Promise<string | Buffer>
+    [`proxy.replace`]: Array<[string, string]>
+    [`proxy.options`]?: FrameworkConfig['server']['proxy']
+
+    // this is wack
+    [key: `extension.${string}`]: any
   }
-
-  export type Key = `${keyof Repository}`
-
-  export type LocationKeys = `location.${keyof Locations &
-    string}`
-
-  export type LoaderKeys =
-    | `loader`
-    | `loader.${keyof Loaders & string}`
-
-  export type ItemKeys =
-    | `item`
-    | `item.${keyof Items & string}`
-    | `item.${keyof Items & string}.loader`
-    | `item.${keyof Items & string}.options`
-    | `item.${keyof Items & string}.options.${string}`
-
-  export type RuleKeys =
-    | `rule`
-    | `rule.${keyof Rules & string}`
-    | `rule.${keyof Rules & string}.${keyof Webpack.RuleSetRule &
-        string}`
-    | `rule.${keyof Rules & string}.${keyof Webpack.RuleSetRule &
-        `options` &
-        string}.${string}`
-
-  namespace BuildHooks {
-    type Rules = Webpack.Configuration['module']['rules']
-
-    interface RulesOverride extends Rules {
-      oneOf: Webpack.RuleSetRule
-    }
-
-    type Optimization = Webpack.Configuration['optimization']
-    interface OptimizationOverride extends Optimization {
-      splitChunks: {
-        cacheGroups: any
-      }
-    }
-
-    interface Config extends Webpack.Configuration {
-      mode?: Mode
-      module?: {
-        noParse?:
-          | RegExp
-          | RegExp[]
-          | ((content: string) => boolean)
-        parser: any
-        rules?: RulesOverride
-      }
-      optimization?: OptimizationOverride
-      parallelism?: Webpack.Configuration['parallelism']
-    }
-
-    type Dive<T, S> = {
-      [K in keyof T as `build.${S & string}.${K & string}`]: T[K]
-    }
-
-    export type Keys =
-      | `build`
-      | `build.${keyof Config}`
-      | keyof Dive<Config['output'], 'output'>
-      | 'build.output.pathInfo'
-      | keyof Dive<Config['module'], 'module'>
-      | keyof Dive<Config['module']['rules'], 'module.rules'>
-      | keyof Dive<
-          Config['module']['rules']['oneOf'],
-          'module.rules.oneOf'
-        >
-      | 'build.module.rules.parser'
-      | keyof Dive<Config['resolve'], 'resolve'>
-      | keyof Dive<Config['resolveLoader'], 'resolveLoader'>
-      | 'build.cache.name'
-      | 'build.cache.cacheLocation'
-      | 'build.cache.cacheDirectory'
-      | 'build.cache.hashAlgorithm'
-      | 'build.cache.managedPaths'
-      | 'build.cache.version'
-      | 'build.cache.type'
-      | 'build.cache.buildDependencies'
-      | keyof Dive<Config['experiments'], 'experiments'>
-      | keyof Dive<Config['watchOptions'], 'watchOptions'>
-      | keyof Dive<Config['performance'], 'performance'>
-      | keyof Dive<Config['optimization'], 'optimization'>
-      | keyof Dive<
-          Config['optimization']['splitChunks'],
-          'optimization.splitChunks'
-        >
-      | keyof Dive<
-          Config['optimization']['splitChunks']['cacheGroups'],
-          'optimization.splitChunks.cacheGroups'
-        >
-      | keyof Dive<
-          Config['optimization']['splitChunks']['cacheGroups']['vendor'],
-          'optimization.splitChunks.cacheGroups.vendor'
-        >
-  }
-
-  /**
-   * Hooks.Extension
-   */
-  export type Keys = keyof {
-    [K in (keyof Modules & string) | (keyof Plugins & string) as
-      | `extension`
-      | `extension.${K & string}`
-      | `extension.${K}.${
-          | `${
-              | (keyof Modules & string)
-              | (keyof Plugins & string)}`
-          | (`${
-              | (keyof Modules & string)
-              | (keyof Plugins & string)}.${string}` &
-              string)}`]: Extension.Module
-  }
-
-  /**
-   * @internal
-   */
-  export type Name =
-    | `config.override`
-    | `event.build.make.before`
-    | `event.build.make.after`
-    | `event.compiler.before`
-    | `event.compiler.after`
-    | `event.compiler.done`
-    | `compiler.stats`
-    | `compiler.error`
-    | `${ItemKeys}`
-    | `${LocationKeys}`
-    | `${LoaderKeys}`
-    | `${Keys}`
-    | `${RuleKeys}`
-    | `${BuildHooks.Keys}`
 }
-
-export {Hooks}

@@ -32,7 +32,7 @@ import {lifecycle} from './lifecycle'
 import * as methods from './methods'
 import * as parser from './parser'
 
-const {omit} = lodash
+const {isFunction, omit} = lodash
 
 /**
  * Base {@link Framework} class
@@ -322,17 +322,16 @@ export abstract class Framework {
     this.lifecycle = lifecycle.bind(this)
     this.services = options.services
 
-    this.maybeCall = methods.maybeCall.bind(this)
-    this.bindMethod = methods.bindMethod.bind(this)
-    this.close = methods.close.bind(this)
-    this.get = methods.get.bind(this)
-    this.make = methods.make.bind(this)
-    this.mixin = methods.mixin.bind(this)
-    this.path = methods.path.bind(this)
-    this.pipe = methods.pipe.bind(this)
-    this.setPath = methods.setPath.bind(this)
-    this.tap = methods.tap.bind(this)
-    this.when = methods.when.bind(this)
+    Object.entries(methods).map(([key, method]) => {
+      if (!isFunction(method)) {
+        this.error(
+          `framework ctor`,
+          `method "${key}" is not a function`,
+        )
+      }
+
+      this[key] = method.bind(this)
+    })
   }
 
   /**
