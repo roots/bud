@@ -73,7 +73,7 @@
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.11",
     "@types/signale": "1.4.2",
-    "jest": "27.4.2",
+    "jest": "27.4.3",
     "postcss": "8.4.4",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",

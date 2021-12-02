@@ -70,7 +70,7 @@
     "globby": "11.0.4",
     "ink": "3.2.0",
     "ink-testing-library": "2.1.0",
-    "jest": "27.4.2",
+    "jest": "27.4.3",
     "lodash": "4.17.21",
     "npm-run-path": "5.0.1",
     "prettier": "2.5.0",
