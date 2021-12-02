@@ -7,12 +7,6 @@
     alt="MIT License"
     src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
   />
-  <a
-    href="https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_small"
-    alt="FOSSA Status"
-  >
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=small" />
-  </a>
   <a href="https://www.npmjs.com/package/@roots/bud">
     <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
   </a>
@@ -42,14 +36,13 @@
 - Luxury dev tooling including semi-automated dependency management.
 - Supports configuration with TypeScript.
 - Customizable and extensible. Add new features. Swap our core components with your own.
-
-![Image](https://raw.githubusercontent.com/roots/bud/next/site/static/casts/babel-build--cache.svg)
+  <img src="https://raw.githubusercontent.com/roots/bud/next/site/static/casts/babel-build--cache.svg" title="bud.js build" width="undefined" />
 
 ## Requirements
 
-- Node v14+. Bud is developed using Node v16.
+- Node 16+
 
-## Getting Started
+## Getting started
 
 Check out our [dedicated documentation](https://budjs.netlify.app) to get started.
 
@@ -93,10 +86,11 @@ There are also [example implementations available in the /examples directory of 
 | [**@roots/bud-wordpress-externals**](/packages/@roots/bud-wordpress-externals)       | [**@roots/wordpress-externals-webpack-plugin**](/packages/@roots/wordpress-externals-webpack-plugin)                     | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-manifests**](/packages/@roots/bud-wordpress-manifests)       | [**@roots/merged-manifest-webpack-plugin**](/packages/@roots/merged-manifest-webpack-plugin)                             | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
-Have you produced a Bud extension and want to share it here?
-Please, create an issue sharing information about your project.
+Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
-[object Object][object object][object Object]
+## Licensing
+
+Bud is licensed MIT.
 
 ## Community
 
@@ -111,11 +105,13 @@ Keep track of development and community news.
 ## Contributing
 
 Contributions are welcome from everyone.
+
 We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
 ## Sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+
 <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>

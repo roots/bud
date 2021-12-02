@@ -53,8 +53,8 @@ export function createElement(type, props?, root?) {
     },
     h3: () => {
       const children = Array.isArray(props.children)
-        ? (props.children[0] = `## ${props.children.shift()}`)
-        : `## ${props.children}`
+        ? (props.children[0] = `### ${props.children.shift()}`)
+        : `### ${props.children}`
 
       return new P({...props, children})
     },
