@@ -1,7 +1,6 @@
-import {
-  durationFormatter,
-  sizeFormatter,
-} from '../services/human-readable'
+import {humanReadable} from '@roots/bud-support'
+
+const {durationFormatter, sizeFormatter} = humanReadable
 
 /**
  * Formats filesize and duration

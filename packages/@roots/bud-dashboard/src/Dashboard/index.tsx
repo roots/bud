@@ -13,7 +13,7 @@ import {
 import {Instance, render} from 'ink'
 import React from 'react'
 
-import {Dashboard as DashboardComponent} from '../components/Dashboard'
+import {Dashboard as DashboardComponent} from '../components/dashboard.component'
 
 const {isUndefined} = lodash
 
@@ -24,14 +24,24 @@ const {isUndefined} = lodash
  */
 export class Dashboard extends Service implements Contract {
   /**
-   * The Ink instance
+   * ink instance
    *
    * @public
    */
   public instance: Instance
 
+  /**
+   * Stderr buffer
+   *
+   * @public
+   */
   public stderr: string[] = []
 
+  /**
+   * Stdout buffer
+   *
+   * @public
+   */
   public stdout: string[] = []
 
   /**
@@ -42,8 +52,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async bootstrap(): Promise<void> {
-    this.log('log', chalk.green('Initializing dashboard'))
-
+    this.log('log', chalk.green('initializing dashboard'))
     this.run()
   }
 
@@ -93,7 +102,7 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public close(): void {
-    this.log('success', {message: 'shutting down dashboard'})
+    this.log('await', {message: 'exiting cli'})
     this.app.close()
   }
 

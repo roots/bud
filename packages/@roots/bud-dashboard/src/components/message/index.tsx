@@ -1,1 +1,1 @@
-export {Dashboard} from './message.dashboard'
+export {Dashboard} from './messages.component'

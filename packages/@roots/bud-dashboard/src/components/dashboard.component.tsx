@@ -7,7 +7,7 @@ import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
 import * as Assets from './assets'
-import {Input} from './Input'
+import {Input} from './input.component'
 import * as Messages from './message'
 import {Progress} from './progress'
 import {Serve} from './serve'

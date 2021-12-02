@@ -1,10 +1,12 @@
+import {lodash} from '@roots/bud-support'
 import {useInput} from 'ink'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
-import {isEqual} from '../services/lodash'
+
+const {isEqual} = lodash
 
 /**
- * KBD input handler
+ * stdio handler
  *
  * @public
  */

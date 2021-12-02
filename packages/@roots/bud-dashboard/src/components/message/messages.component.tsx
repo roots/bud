@@ -4,7 +4,7 @@ import {Box, Static} from 'ink'
 import React from 'react'
 import {StatsCompilation} from 'webpack'
 
-import {Message} from './message.message'
+import {Message} from './message.component'
 
 const {isString} = lodash
 

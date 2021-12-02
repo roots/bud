@@ -1,6 +1,3 @@
 export {Bar, Progress} from './progress'
-export {Dashboard} from './Dashboard'
-export {Input} from './Input'
-export {Main} from './Main'
-export {Performance} from './Performance'
-export {Screen} from './Screen'
+export {Dashboard} from './dashboard.component'
+export {Input} from './input.component'
