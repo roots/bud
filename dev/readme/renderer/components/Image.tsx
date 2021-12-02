@@ -1,15 +1,18 @@
 export class Image {
-  public props: {
-    title: string
-    src: string
-    width: number
-  }
-
-  public constructor(props?) {
-    if (props) this.props = props
-  }
+  public constructor(
+    public props: {
+      title: string
+      src: string
+      width: number
+      html?: boolean
+    },
+  ) {}
 
   public render() {
-    return `<img src="${this.props.src}" title="${this.props.title}" width="${this.props.width}" />`
+    if (this.props.html) {
+      return `<img src="${this.props.src}" title="${this.props.title}" width="${this.props.width}" />`
+    }
+
+    return `![${this.props.title}](${this.props.src})`
   }
 }

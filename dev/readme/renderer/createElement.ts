@@ -4,12 +4,14 @@ import {
   Code,
   Em,
   File,
+  Heading,
+  Hr,
+  Html,
   Image,
   Li,
   Markdown,
   Ol,
   P,
-  S,
   Span,
   Strong,
 } from './components'
@@ -19,53 +21,38 @@ export function createElement(type, props?, root?) {
     ROOT: () => {
       return new Markdown(props)
     },
-    raw: () => {
-      return new S(props)
-    },
     file: () => {
       return new File(props)
     },
     code: () => {
       return new Code(props)
     },
-    fragment: () => {
-      return new P(props)
-    },
     br: () => {
-      return new Break()
+      return new Break({...props})
+    },
+    hr: () => {
+      return new Hr({...props})
     },
     h1: () => {
-      const children = Array.isArray(props.children)
-        ? (props.children[0] = `# ${props.children[0]}`)
-        : `# ${props.children}`
-
-      return new P({
-        ...props,
-        children,
-      })
+      return new Heading({...props, level: 1})
     },
     h2: () => {
-      const children = Array.isArray(props.children)
-        ? (props.children[0] = `## ${props.children.shift()}`)
-        : `## ${props.children}`
-
-      return new P({...props, children})
+      return new Heading({...props, level: 2})
     },
     h3: () => {
-      const children = Array.isArray(props.children)
-        ? (props.children[0] = `## ${props.children.shift()}`)
-        : `## ${props.children}`
-
-      return new P({...props, children})
+      return new Heading({...props, level: 3})
+    },
+    h4: () => {
+      return new Heading({...props, level: 4})
     },
     p: () => {
       return new P({...props})
     },
     li: () => {
-      return new Li(props)
+      return new Li({...props})
     },
     ol: () => {
-      return new Ol(props)
+      return new Ol({...props})
     },
     a: () => {
       return new A({...props})
@@ -82,13 +69,21 @@ export function createElement(type, props?, root?) {
     img: () => {
       return new Image({...props})
     },
+    h: () => {
+      return new Html({...props})
+    },
+    fragment: () => {
+      return new Span({...props})
+    },
     ['']: () => {
-      return `${props.children}`
+      return '\n'
     },
     default: () => {
-      return `${props.children}`
+      return new Span({...props})
     },
   }
 
-  return COMPONENTS[type]() || COMPONENTS.default()
+  return COMPONENTS[type]
+    ? COMPONENTS[type]()
+    : COMPONENTS.default()
 }
