@@ -17,6 +17,15 @@ export interface Externals {
 export type PackageMapEntry = [string, Record<string, string>]
 
 /**
+ * Packages in the `@wordpress` namespace which
+ * are should not be considered as external
+ */
+const OMIT_PACKAGE_MATCHES = [
+  '@wordpress/icons',
+  '@wordpress/interface',
+]
+
+/**
  * Pkg map
  */
 const packageMap = new Map([
@@ -70,7 +79,8 @@ const transformPackageName = (packageName: string) =>
 export const isProvided: (
   packageName: string,
 ) => boolean = packageName => {
-  if (!packageName) return false
+  if (!packageName || OMIT_PACKAGE_MATCHES.includes(packageName))
+    return false
 
   return (
     packageName.includes('@wordpress') ||
