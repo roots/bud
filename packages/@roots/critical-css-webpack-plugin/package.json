@@ -63,9 +63,9 @@
   "devDependencies": {
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.11",
     "@types/vinyl": "2.0.6",
-    "jest": "27.3.1"
+    "jest": "27.4.3"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

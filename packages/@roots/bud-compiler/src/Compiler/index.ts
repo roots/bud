@@ -4,7 +4,12 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {bind, lodash, once} from '@roots/bud-support'
-import {ProgressPlugin, StatsCompilation, webpack} from 'webpack'
+import {
+  ProgressPlugin,
+  StatsCompilation,
+  StatsError,
+  webpack,
+} from 'webpack'
 const {isFunction} = lodash
 
 /**
@@ -37,6 +42,11 @@ export class Compiler extends Service implements Contract {
    * @public
    */
   public stats: StatsCompilation = INITIAL_STATS
+
+  /**
+   * Compiler errors
+   */
+  public errors: Array<StatsError> = []
 
   /**
    * Compilation progress
@@ -101,17 +111,7 @@ export class Compiler extends Service implements Contract {
       if (this.app.store.is('features.dashboard', false)) {
         this.log(
           'log',
-          stats.toString(
-            config.stats ?? {
-              colors: true,
-              modules: false,
-              children: false,
-              chunks: false,
-              chunkModules: false,
-              entrypoints: false,
-              performance: false,
-            },
-          ),
+          stats.toString(this.app.store.get('build.stats')),
         )
       }
 
@@ -224,7 +224,7 @@ export class Compiler extends Service implements Contract {
 
     if (stats?.toJson && isFunction(stats.toJson)) {
       this.stats = stats.toJson(
-        this.app.build.config.stats ?? {preset: 'normal'},
+        this.app.store.get('build.stats'),
       )
 
       this.stats = this.app.hooks.filter<'event.compiler.stats'>(
@@ -234,11 +234,8 @@ export class Compiler extends Service implements Contract {
     }
 
     if (err) {
-      this.stats.errors.push(
-        this.app.hooks.filter<'event.compiler.error'>(
-          'event.compiler.error',
-          err,
-        ),
+      this.errors.push(
+        this.app.hooks.filter('event.compiler.error', err),
       )
 
       this.app.store.is('features.dashboard', false) &&
