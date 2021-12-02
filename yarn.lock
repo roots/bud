@@ -4133,9 +4133,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/yarn-plugin-kjo@workspace:.yarn/local":
+"@roots/yarn-plugin-repo@workspace:.yarn/repo":
   version: 0.0.0-use.local
-  resolution: "@roots/yarn-plugin-kjo@workspace:.yarn/local"
+  resolution: "@roots/yarn-plugin-repo@workspace:.yarn/repo"
   dependencies:
     "@types/jest": 27.0.3
     "@types/node": 16.11.11

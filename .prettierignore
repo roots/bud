@@ -1,5 +1,4 @@
 **/bin
-**/lib
 **/*.json
 **/node_modules
 **/package.json

@@ -50,7 +50,7 @@ const HostConfig: any = {
   },
 
   shouldSetTextContent(type, props) {
-    return false
+    return type == 'span' ? true : false
   },
 
   now() {

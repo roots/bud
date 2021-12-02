@@ -1,5 +1,5 @@
 {
-  "name": "@roots/yarn-plugin-kjo",
+  "name": "@roots/yarn-plugin-repo",
   "private": true,
   "main": "./sources/index.ts",
   "dependencies": {

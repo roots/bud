@@ -21,10 +21,10 @@ echo Install
 yarn install --immutable
 
 echo Build
-yarn kjo build
+yarn repo build
 
 echo Lint
-yarn kjo lint --eslint --skypack
+yarn repo lint --eslint --skypack
 
 echo Tests
-yarn kjo test
+yarn repo test

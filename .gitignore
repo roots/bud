@@ -21,7 +21,7 @@ node_modules
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-!.yarn/local
+!.yarn/repo
 .pnp.*
 
 # bud
