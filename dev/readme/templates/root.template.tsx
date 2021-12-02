@@ -20,12 +20,12 @@ export const Body = ({url}) => (
     <h2>Features</h2>
 
     <li>
-      Zero config by default (seriously, you don't even _need_ a
-      config file).
+      Zero config by default (seriously, you don&rsquo;t even
+      _need_ a config file).
     </li>
     <li>Modular by design. Use only what you need.</li>
     <li>Easily implementable multi-compiler support.</li>
-    <li>Heckin' fast.</li>
+    <li>Heckin&rsquo; fast.</li>
     <li>
       Luxury dev tooling including semi-automated dependency
       management.
@@ -35,6 +35,8 @@ export const Body = ({url}) => (
       Customizable and extensible. Add new features. Swap our
       core components with your own.
     </li>
+
+    <br />
 
     <img
       src="https://raw.githubusercontent.com/roots/bud/next/site/static/casts/babel-build--cache.svg"
