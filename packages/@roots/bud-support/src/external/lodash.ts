@@ -12,7 +12,23 @@ import noop from 'lodash/noop'
 import omit from 'lodash/omit'
 import set from 'lodash/set'
 
-const lodash = {
+export interface lodash {
+  isFunction: typeof isFunction
+  isNull: typeof isNull
+  isNumber: typeof isNumber
+  isObject: typeof isObject
+  isString: typeof isString
+  isUndefined: typeof isUndefined
+  noop: typeof noop
+  omit: typeof omit
+  set: typeof set
+  get: typeof get
+  isArray: typeof isArray
+  isEmpty: typeof isEmpty
+  isEqual: typeof isEqual
+}
+
+export const lodash: lodash = {
   isFunction,
   isObject,
   isArray,
@@ -27,5 +43,3 @@ const lodash = {
   omit,
   noop,
 }
-
-export {lodash}

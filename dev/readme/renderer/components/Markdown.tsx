@@ -6,10 +6,10 @@ export class Markdown {
   }
 
   public append(el: any) {
-    el && this.blocks.push(el)
+    el && this.blocks?.push(el)
   }
 
   public render() {
-    return this.blocks.map(block => block.render()).join('\n')
+    return this.blocks?.map(block => block.render()).join('\n')
   }
 }

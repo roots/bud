@@ -13,7 +13,7 @@ export interface setPath {
  * Set a {@link @roots/bud-framework#Location | Location} value
  *
  * @remarks
- * The {@link Locations.project} should be an absolute path.
+ * The {@link Location.project} should be an absolute path.
  * All other directories should be relative (src, dist, etc.)
  * @see {@link Locations}
  *
@@ -33,6 +33,7 @@ export function setPath(...args): Framework {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location.${args[0]}`, args[1])
     this.info(`${args[0]} set to ${args[1]}`)
+
     return this
   }
 

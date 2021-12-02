@@ -36,7 +36,11 @@ export const BudPostCssExtension: Extension.Module = {
       options: ({postcss}) => {
         return {
           postcssOptions: {
-            plugins: postcss.getValues(),
+            ...(app.hooks.filter(
+              'extension.@roots/bud-postcss.options',
+              {},
+            ) ?? {}),
+            plugins: [...(postcss.getValues() ?? [])],
           },
           sourceMap: true,
         }

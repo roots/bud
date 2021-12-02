@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typescript",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
@@ -73,9 +73,9 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.29.0",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.11",
     "eslint": "7.32.0",
-    "jest": "27.3.1",
+    "jest": "27.4.3",
     "typescript": "4.4.4",
     "webpack": "5.64.4"
   },

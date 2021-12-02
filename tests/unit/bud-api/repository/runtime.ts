@@ -15,8 +15,8 @@ describe.skip('bud.runtime', function () {
     bud.runtime({name: 'test'})
 
     const runtimeChunk = bud.hooks.filter(
-      'build/optimization/runtimeChunk',
-    )
+      'build.optimization.runtimeChunk',
+    ) as {name: string}
 
     expect(runtimeChunk.name).toEqual(`test`)
   })
@@ -25,7 +25,7 @@ describe.skip('bud.runtime', function () {
     bud.runtime('single')
 
     expect(
-      bud.hooks.filter('build/optimization/runtimeChunk'),
+      bud.hooks.filter('build.optimization.runtimeChunk'),
     ).toEqual('single')
   })
 
@@ -33,7 +33,7 @@ describe.skip('bud.runtime', function () {
     bud.runtime(false)
 
     expect(
-      bud.hooks.filter('build/optimization/runtimeChunk'),
+      bud.hooks.filter('build.optimization.runtimeChunk'),
     ).toEqual(false)
   })
 })

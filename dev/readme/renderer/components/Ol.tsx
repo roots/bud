@@ -2,7 +2,7 @@ export class Ol {
   public constructor(public props) {}
 
   public render() {
-    return `- ${this.children}\n`
+    return `1. ${this.children}\n`
   }
 
   public get children() {

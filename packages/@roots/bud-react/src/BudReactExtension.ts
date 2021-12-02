@@ -1,5 +1,4 @@
 import type {Extension} from '@roots/bud-framework'
-import type {Configuration} from 'webpack'
 
 import {BudReactRefreshPlugin} from './BudReactRefreshPlugin'
 
@@ -39,7 +38,7 @@ export const BudReactExtension: BudReactExtension = {
     )
 
     if (app.isDevelopment) {
-      app.hooks.on('build.entry', entryHook)
+      app.hooks.async<'build.entry'>('build.entry', entryHook)
       await app.extensions.add(BudReactRefreshPlugin)
     }
   },
@@ -68,7 +67,7 @@ function addRefresh(entries, [name, assets]) {
  *
  * @public
  */
-function entryHook(entry: Configuration['entry']) {
+function entryHook(entry) {
   return entry
     ? Object.entries(entry).reduce(addRefresh, entry)
     : {}

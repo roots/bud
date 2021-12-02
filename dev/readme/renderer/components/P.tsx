@@ -1,17 +1,15 @@
 export class P {
-  public props
-
-  public constructor(props?) {
-    this.props = props
-  }
+  public constructor(public props?) {}
 
   public render() {
-    return `${this.children}`
+    return `${this.children}\n`
   }
 
   public get children() {
     return Array.isArray(this.props.children)
-      ? this.props.children.join('').concat('\n')
+      ? this.props.children
+          .map(child => (child?.render ? child.render() : child))
+          .join('')
       : this.props.children
   }
 }

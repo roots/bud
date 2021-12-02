@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0-next.17",
   "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -76,13 +76,13 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/babel__core": "7.1.16",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.11",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
-    "jest": "27.3.1",
+    "jest": "27.4.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "type-fest": "2.6.0",
+    "type-fest": "2.8.0",
     "webpack": "5.64.4"
   },
   "dependencies": {
