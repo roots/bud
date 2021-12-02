@@ -73,8 +73,8 @@
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
-    "jest": "27.3.1",
+    "@types/node": "16.11.11",
+    "jest": "27.4.3",
     "webpack": "5.64.4"
   },
   "dependencies": {

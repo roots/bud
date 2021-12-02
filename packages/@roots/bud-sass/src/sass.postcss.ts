@@ -62,13 +62,11 @@ export function verify(app: Framework, logger: Signale): void {
     'extension.@roots/bud-postcss.options',
   )
 
-  if (options.syntax == 'postcss-scss') {
+  if (options?.syntax == 'postcss-scss') {
     logger.success('postcss configured to handle scss syntax')
   } else {
     logger.warn(
-      'There was a problem adding postcss-scss to the build. \
-      Consider filing an issue at https://github.com/roots/bud. You may be fine as long as you are not using postcss syntax in \
-      your scss stylesheets.',
+      'There was a problem adding postcss-scss to the build. Consider filing an issue at https://github.com/roots/bud. You may be fine as long as you are not using postcss syntax in your scss stylesheets.',
     )
   }
 }
