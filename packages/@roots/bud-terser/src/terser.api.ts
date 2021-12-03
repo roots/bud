@@ -10,7 +10,7 @@ export const terser: terser = function (
 ): Framework {
   this.extensions
     .get('terser-webpack-plugin')
-    .options.setStore(options)
+    .setOptions(options)
 
   return this
 }

@@ -17,15 +17,15 @@ export const assets: method = async function assets(
         ? `assets/${dirName}/${this.store.get('hashFormat')}`
         : `assets/${dirName}/${this.store.get('fileFormat')}`
 
-    const plugin = this.extensions.get('copy-webpack-plugin')
-
-    plugin.options.merge('patterns', [
-      {
-        from: src,
-        to: `${fileName}[ext]`,
-        noErrorOnMissing: true,
-      },
-    ])
+    this.extensions
+      .get('copy-webpack-plugin')
+      .mergeOption('patterns', [
+        {
+          from: src,
+          to: `${fileName}[ext]`,
+          noErrorOnMissing: true,
+        },
+      ])
   })
 
   return this

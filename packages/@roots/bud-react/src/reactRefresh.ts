@@ -14,7 +14,7 @@ interface reactRefresh {
 const reactRefresh: reactRefresh = function (userOptions) {
   this.extensions
     .get('@pmmmwh/react-refresh-webpack-plugin')
-    .options.merge(userOptions)
+    .mergeOptions(userOptions)
 
   return this
 }

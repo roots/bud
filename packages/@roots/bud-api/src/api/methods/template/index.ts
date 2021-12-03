@@ -79,7 +79,7 @@ export const template: template = async function (
       cwd: require.resolve('@roots/bud-support'),
     })
 
-    plugins.html.options.set(
+    plugins.html.setOption(
       'template',
       join(dirname(manifest), 'templates', 'template.html'),
     )
@@ -91,7 +91,7 @@ export const template: template = async function (
   if (!userOptions || userOptions === true) return this
 
   this.info('processing html-webpack-plugin options')
-  plugins.html.options.mergeStore(userOptions)
+  plugins.html.mergeOptions(userOptions)
 
   /**
    * If there were no replacements specified, we're done.
@@ -99,7 +99,7 @@ export const template: template = async function (
   if (!userOptions.replace) return this
 
   this.info('processing bud-interpolate-html-plugin options')
-  plugins.interpolate.options.mergeStore(userOptions.replace)
+  plugins.interpolate.mergeOptions(userOptions.replace)
 
   return this
 }

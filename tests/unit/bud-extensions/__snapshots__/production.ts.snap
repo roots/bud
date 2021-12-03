@@ -146,3 +146,78 @@ Object {
   },
 }
 `;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 2`] = `
+Container {
+  "ident": "container",
+  "repository": Object {},
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 3`] = `
+Container {
+  "ident": "container",
+  "repository": Object {
+    "cleanOnceBeforeBuildPatterns": Array [
+      "**/*",
+      "!dll",
+    ],
+    "cleanStaleWebpackAssets": true,
+    "protectWebpackAssets": true,
+  },
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 4`] = `
+Container {
+  "ident": "container",
+  "repository": Object {
+    "patterns": Array [],
+  },
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 5`] = `
+Container {
+  "ident": "container",
+  "repository": Object {},
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 6`] = `
+Container {
+  "ident": "container",
+  "repository": Object {},
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 7`] = `
+Container {
+  "ident": "container",
+  "repository": Object {
+    "ignore": Array [
+      /\\.\\?\\.map\\$/,
+    ],
+  },
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 8`] = `
+Container {
+  "ident": "container",
+  "repository": Object {
+    "fileName": "manifest.json",
+    "writeToFileEmit": true,
+  },
+}
+`;
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 9`] = `
+Container {
+  "ident": "container",
+  "repository": Object {
+    "chunkFilename": "[name].css",
+    "filename": "[name].css",
+  },
+}
+`;

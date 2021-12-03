@@ -9,13 +9,17 @@ export const provide: provide = function (
 ) {
   this as Framework
 
-  const plugin = this.extensions.get('webpack-provide-plugin')
+  this.extensions
+    .get('webpack-provide-plugin')
+    .mutateOptions(options => {
+      Object.entries(packages).forEach(([k, v]) => {
+        v.forEach(alias => {
+          options.set(alias, k)
+        })
+      })
 
-  Object.entries(packages).forEach(([k, v]) => {
-    v.forEach(alias => {
-      plugin.options.set(alias, k)
+      return options
     })
-  })
 
   return this
 }

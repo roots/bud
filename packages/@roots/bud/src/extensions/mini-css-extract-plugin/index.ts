@@ -7,9 +7,10 @@ export const options: Plugin['options'] = ({
   store,
   isProduction,
 }) => ({
-  filename: store.is('features.hash', true)
-    ? `${store.get('hashFormat')}.css`
-    : `${store.get('fileFormat')}.css`,
+  filename:
+    store.is('features.hash', true) && isProduction
+      ? `${store.get('hashFormat')}.css`
+      : `${store.get('fileFormat')}.css`,
 
   chunkFilename:
     store.is('features.hash', true) && isProduction
