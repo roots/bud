@@ -63,7 +63,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/express": "^4",
+    "@types/express": "4.17.13",
     "@types/node": "16.11.11",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.5",
