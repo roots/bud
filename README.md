@@ -1,42 +1,30 @@
 <p align="center">
-  <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100" />
+  <img src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100" alt="Bud" />
 </p>
 
 <p align="center">
-  <img
-    alt="MIT License"
-    src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
-  />
-  <a href="https://www.npmjs.com/package/@roots/bud">
-    <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
-  </a>
-  <a href="https://codecov.io/gh/roots/bud">
-    <img src="https://codecov.io/gh/roots/bud/branch/next/graph/badge.svg?token=DRJ28OD8XD" />
-  </a>
-  <a href="https://twitter.com/rootswp">
-    <img
-      alt="Follow Roots"
-      src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square"
-    />
-  </a>
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square" /> <img alt="npm" src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" /> <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
 <h1 align="center">
   <strong>bud.js</strong>
 </h1>
 
-⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+<p align="center">
+  ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+</p>
 
 ## Features
 
-- Zero config by default (seriously, you don't even _need_ a config file).
+- Zero config by default (seriously, you don’t even _need_ a config file).
 - Modular by design. Use only what you need.
 - Easily implementable multi-compiler support.
-- Heckin' fast.
+- Heckin’ fast.
 - Luxury dev tooling including semi-automated dependency management.
 - Supports configuration with TypeScript.
 - Customizable and extensible. Add new features. Swap our core components with your own.
-  <img src="https://raw.githubusercontent.com/roots/bud/next/site/static/casts/babel-build--cache.svg" title="bud.js build" width="undefined" />
+
+![bud.js build](https://raw.githubusercontent.com/roots/bud/next/site/static/casts/babel-build--cache.svg)
 
 ## Requirements
 
