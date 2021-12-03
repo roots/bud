@@ -32,21 +32,6 @@ Object {
       "registered": true,
     },
   },
-  "ignore-emit-webpack-plugin": Controller {
-    "_app": [Function],
-    "_module": Object {
-      "make": [Function],
-      "name": "ignore-emit-webpack-plugin",
-      "options": [Function],
-      "when": [Function],
-    },
-    "log": [Function],
-    "meta": Object {
-      "booted": false,
-      "instance": "bud",
-      "registered": true,
-    },
-  },
   "mini-css-extract-plugin": Controller {
     "_app": [Function],
     "_module": Object {
@@ -173,24 +158,13 @@ exports[`Extensions [production] bud.extensions.repository matches snapshot 7`] 
 Container {
   "ident": "container",
   "repository": Object {
-    "ignore": Array [
-      /\\.\\?\\.map\\$/,
-    ],
-  },
-}
-`;
-
-exports[`Extensions [production] bud.extensions.repository matches snapshot 8`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
     "fileName": "manifest.json",
     "writeToFileEmit": true,
   },
 }
 `;
 
-exports[`Extensions [production] bud.extensions.repository matches snapshot 9`] = `
+exports[`Extensions [production] bud.extensions.repository matches snapshot 8`] = `
 Container {
   "ident": "container",
   "repository": Object {

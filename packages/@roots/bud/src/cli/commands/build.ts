@@ -1,127 +1,117 @@
-import * as Oclif from '@oclif/command'
+import * as oclif from '@oclif/core'
 
 import {Command} from '../Command'
 import * as flags from '../flags'
 
 /**
- * @public
+ * @internal
  */
 export default class Build extends Command {
   /**
-   * @public
-   */
-  public static id = 'build'
-
-  /**
-   * @public
-   */
-  public static title = 'build'
-
-  /**
-   * @public
+   * @internal
    */
   public static description = 'compile source assets'
 
   /**
-   * @public
+   * @internal
    */
   public static examples = [`$ bud build`, `$ bud build --cache`]
 
   /**
-   * @public
+   * @internal
    */
   public static flags = {
     ...Command.flags,
     ...flags.target,
     ...flags.location,
 
-    mode: Oclif.flags.string({
+    mode: oclif.Flags.string({
       description: 'compiler mode',
       default: 'production',
       options: ['development', 'production'],
       hidden: true,
     }),
 
-    cache: Oclif.flags.boolean({
+    cache: oclif.Flags.boolean({
       allowNo: true,
       default: true,
       description: 'cache built modules to the filesystem',
     }),
-    ['cache.type']: Oclif.flags.string({
+    ['cache.type']: oclif.Flags.string({
       default: 'filesystem',
       options: ['filesystem', 'memory', 'false'],
     }),
 
-    clean: Oclif.flags.boolean({
+    clean: oclif.Flags.boolean({
       allowNo: true,
       default: true,
       description: 'clean dist directory before compiling',
     }),
 
-    config: Oclif.flags.string({
+    config: oclif.Flags.string({
       description: 'path to config file',
     }),
 
-    dashboard: Oclif.flags.boolean({
+    dashboard: oclif.Flags.boolean({
       allowNo: true,
       default: true,
       description: 'enable bud dashboard',
     }),
 
-    devtool: Oclif.flags.string({
+    devtool: oclif.Flags.string({
       description: 'specify source-map type',
     }),
 
-    html: Oclif.flags.boolean({
+    html: oclif.Flags.boolean({
       allowNo: true,
       description: 'generate an html template',
     }),
 
-    hash: Oclif.flags.boolean({
+    hash: oclif.Flags.boolean({
       allowNo: true,
       description: 'hash compiled filenames',
     }),
 
-    inject: Oclif.flags.boolean({
+    inject: oclif.Flags.boolean({
       allowNo: true,
       default: true,
       description: 'automatically register & boot extensions',
     }),
 
-    install: Oclif.flags.boolean({
+    install: oclif.Flags.boolean({
       description: 'ensure peer dependencies are installed',
       default: false,
     }),
 
-    manifest: Oclif.flags.boolean({
+    manifest: oclif.Flags.boolean({
       allowNo: true,
       default: true,
       description: 'emit manifest.json',
     }),
 
-    minimize: Oclif.flags.boolean({
+    minimize: oclif.Flags.boolean({
       allowNo: true,
       description: 'minimize file size of compiled assets',
     }),
 
-    ['splitChunks']: Oclif.flags.boolean({
+    ['splitChunks']: oclif.Flags.boolean({
       allowNo: true,
       description:
         'create separate chunks for vendor and app code',
     }),
 
-    vendor: Oclif.flags.boolean({
+    vendor: oclif.Flags.boolean({
       allowNo: true,
       description:
         'create separate chunks for vendor and app code; alias for splitChunks',
     }),
 
-    runtime: Oclif.flags.boolean({
+    runtime: oclif.Flags.boolean({
       allowNo: true,
       description: 'Create a runtime chunk',
     }),
 
-    target: Oclif.flags.string({
+    target: oclif.Flags.string({
       description: 'limit compilation to this compiler',
       multiple: true,
       default: [],

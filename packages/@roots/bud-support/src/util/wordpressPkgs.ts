@@ -1,4 +1,4 @@
-import {join} from 'lodash'
+import join from 'lodash/join'
 
 export type WordPressScopePkg = `@wordpress/${string}`
 
@@ -15,6 +15,15 @@ export interface Externals {
 }
 
 export type PackageMapEntry = [string, Record<string, string>]
+
+/**
+ * Packages in the `@wordpress` namespace which
+ * should not be considered as external
+ */
+const OMIT_PACKAGE_MATCHES = [
+  '@wordpress/icons',
+  '@wordpress/interface',
+]
 
 /**
  * Pkg map
@@ -70,7 +79,8 @@ const transformPackageName = (packageName: string) =>
 export const isProvided: (
   packageName: string,
 ) => boolean = packageName => {
-  if (!packageName) return false
+  if (!packageName || OMIT_PACKAGE_MATCHES.includes(packageName))
+    return false
 
   return (
     packageName.includes('@wordpress') ||

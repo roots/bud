@@ -1,4 +1,4 @@
-import {Application, Base} from './server.dependencies'
+import {Server as Base} from '@roots/bud-server'
 
 /**
  * Server service
@@ -12,13 +12,4 @@ export class Server extends Base {
    * @internal
    */
   public ident = 'server'
-
-  /**
-   * Service register callback
-   *
-   * @internal
-   */
-  public async bootstrap(): Promise<void> {
-    this.application = Application()
-  }
 }

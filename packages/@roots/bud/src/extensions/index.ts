@@ -2,7 +2,6 @@ import {Extension} from '@roots/bud-framework'
 
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
-import * as IgnoreEmitWebpackPlugin from './ignore-emit-webpack-plugin'
 import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
 import * as DefineWebpackPlugin from './webpack-define-plugin'
 import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
@@ -27,7 +26,6 @@ export function extensions(): Record<
     ['webpack-define-plugin']: DefineWebpackPlugin,
     ['webpack-hot-module-replacement-plugin']:
       HotModuleReplacementPlugin,
-    ['ignore-emit-webpack-plugin']: IgnoreEmitWebpackPlugin,
     ['webpack-manifest-plugin']: WebpackManifestPlugin,
     ['mini-css-extract-plugin']: MiniCssExtractPlugin,
   }

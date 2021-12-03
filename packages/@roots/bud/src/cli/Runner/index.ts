@@ -15,17 +15,13 @@ const {isUndefined} = lodash
  */
 export class Runner {
   /**
-   * @public
+   * @internal
    */
   public app: Bud
 
   /**
-   * @public
+   * @internal
    */
-  public get jest() {
-    return process.env.JEST_WORKER_ID !== undefined
-  }
-
   public logger: Signale
 
   /**
@@ -33,22 +29,18 @@ export class Runner {
    *
    * @param cli - CLI state
    * @param options - Bud options
+   * @internal
    */
   public constructor(public cli: CLI.Options) {}
 
   /**
    * Initialize bud application
    *
-   * @public
+   * @internal
    * @decorator `@bind`
    */
   @bind
   public async initialize() {
-    if (this.jest) {
-      this.cli.flags['dashboard'] = false
-      this.cli.flags['log'] = false
-    }
-
     const parse = (value, fallback) =>
       isUndefined(value) ? fallback : value
 
@@ -87,10 +79,7 @@ export class Runner {
         features: {
           cache: parse(this.cli.flags.cache, true),
           clean: parse(this.cli?.flags.clean, true),
-          dashboard: parse(
-            this.cli?.flags?.dashboard,
-            this.jest ? false : true,
-          ),
+          dashboard: parse(this.cli?.flags?.dashboard, true),
           hash: parse(this.cli.flags.hash, false),
           html: parse(this.cli.flags.html, false),
           inject: parse(this.cli.flags.inject, true),
@@ -111,7 +100,7 @@ export class Runner {
    *
    * @param build - Boolean value indicating if compilation should occur
    *
-   * @public
+   * @internal
    * @decorator `@bind`
    */
   @bind

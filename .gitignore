@@ -7,7 +7,7 @@
 *.tsbuildinfo
 /.npmrc
 /packages/@roots/*/types
-/site/api/*
+/site/src/api/*
 /examples/*/*.bkup.json
 
 # jest
