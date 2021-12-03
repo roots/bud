@@ -2929,23 +2929,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.8.4":
-  version: 1.8.4
-  resolution: "@oclif/command@npm:1.8.4"
-  dependencies:
-    "@oclif/config": ^1.17.1
-    "@oclif/errors": ^1.3.5
-    "@oclif/parser": ^3.8.6
-    "@oclif/plugin-help": ^3.2.8
-    debug: ^4.1.1
-    semver: ^7.3.2
-  peerDependencies:
-    "@oclif/config": ^1
-  checksum: 9f87a838f72e066bbd7719a9217ad03bf999163553a40a84bf4c544ecb9517bc74d7373f48f7b4f96b63d5448c1d1bcae9b7f6ce372361370457acfee8ed21e8
-  languageName: node
-  linkType: hard
-
-"@oclif/command@npm:^1.8.6":
+"@oclif/command@npm:^1.8.4, @oclif/command@npm:^1.8.6":
   version: 1.8.6
   resolution: "@oclif/command@npm:1.8.6"
   dependencies:
@@ -3715,7 +3699,7 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
-    "@types/express": ^4
+    "@types/express": 4.17.13
     "@types/node": 16.11.11
     "@types/webpack-dev-middleware": 5.0.2
     "@types/webpack-hot-middleware": 2.25.5
@@ -3785,7 +3769,7 @@ __metadata:
     "@types/signale": 1.4.2
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
-    cli-highlight: ^2.1.11
+    cli-highlight: 2.1.11
     cosmiconfig: 7.0.1
     dotenv: 10.0.0
     dotenv-expand: 5.1.0
@@ -3798,14 +3782,14 @@ __metadata:
     lodash: 4.17.21
     nanoid: 3.1.30
     node-notifier: 10.0.0
-    patch-console: ^1.0.0
+    patch-console: 1.0.0
     pkg-up: 3.1.0
     pretty-format: 27.4.2
-    safe-json-stringify: ^1.2.0
+    safe-json-stringify: 1.2.0
     safe-resolve: 1.0.0
     signale: 1.4.0
     strip-ansi: 7.0.1
-    toml: ^3.0.0
+    toml: 3.0.0
     tslib: 2.3.1
     typescript: 4.4.4
     webpack: 5.64.4
@@ -4838,7 +4822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:4.17.13, @types/express@npm:^4":
+"@types/express@npm:4.17.13":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
   dependencies:
@@ -8780,7 +8764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-highlight@npm:^2.1.11":
+"cli-highlight@npm:2.1.11, cli-highlight@npm:^2.1.11":
   version: 2.1.11
   resolution: "cli-highlight@npm:2.1.11"
   dependencies:
@@ -9652,7 +9636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:3.2.0":
+"css-minimizer-webpack-plugin@npm:3.2.0, css-minimizer-webpack-plugin@npm:^3.0.2":
   version: 3.2.0
   resolution: "css-minimizer-webpack-plugin@npm:3.2.0"
   dependencies:
@@ -9673,30 +9657,6 @@ __metadata:
     esbuild:
       optional: true
   checksum: 97f783d8adc82f0e95a53dd324af9b4d19ca8b50a07358990bd86a41d305717d86e36bacdec931b01276471f9a26aa0f998c9646d9bc091d56a7b0d01c750a07
-  languageName: node
-  linkType: hard
-
-"css-minimizer-webpack-plugin@npm:^3.0.2":
-  version: 3.1.4
-  resolution: "css-minimizer-webpack-plugin@npm:3.1.4"
-  dependencies:
-    "@types/cssnano": ^4.0.1
-    cssnano: ^5.0.6
-    jest-worker: ^27.0.2
-    postcss: ^8.3.5
-    schema-utils: ^4.0.0
-    serialize-javascript: ^6.0.0
-    source-map: ^0.6.1
-  peerDependencies:
-    webpack: ^5.0.0
-  peerDependenciesMeta:
-    clean-css:
-      optional: true
-    csso:
-      optional: true
-    esbuild:
-      optional: true
-  checksum: 7b9101d397a20e541eef8e3f2bc1b2853b13bc3fb2ec5d557affd1161b04a5a4f5d0b669a54ef6872c1ca2e08b999f3a92bd135c3a04f44906a9910bac460aed
   languageName: node
   linkType: hard
 
@@ -22140,7 +22100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-json-stringify@npm:^1.2.0":
+"safe-json-stringify@npm:1.2.0, safe-json-stringify@npm:^1.2.0":
   version: 1.2.0
   resolution: "safe-json-stringify@npm:1.2.0"
   checksum: 5bb32db6d6a3ceb3752df51f4043a412419cd3d4fcd5680a865dfa34cd7e575ba659c077d13f52981ced084061df9c75c7fb12e391584d4264e6914c1cd3d216
@@ -24046,7 +24006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"toml@npm:^3.0.0":
+"toml@npm:3.0.0":
   version: 3.0.0
   resolution: "toml@npm:3.0.0"
   checksum: 5d7f1d8413ad7780e9bdecce8ea4c3f5130dd53b0a4f2e90b93340979a137739879d7b9ce2ce05c938b8cc828897fe9e95085197342a1377dd8850bf5125f15f
