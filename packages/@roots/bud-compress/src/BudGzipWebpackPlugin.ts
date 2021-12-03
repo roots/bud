@@ -34,7 +34,7 @@ const api: BudGzipWebpackPlugin['api'] = {
     if (options)
       this.extensions
         .get('compression-webpack-plugin-gzip')
-        .options.setStore(options)
+        .setOptions(options)
 
     return this
   },

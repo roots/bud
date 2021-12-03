@@ -34,7 +34,7 @@ const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
       if (options)
         this.extensions
           .get('compression-webpack-plugin-brotli')
-          .options.setStore(options)
+          .setOptions(options)
 
       return this
     },

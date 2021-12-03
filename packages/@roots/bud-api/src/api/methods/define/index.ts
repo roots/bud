@@ -12,13 +12,15 @@ export function define(
   this: Framework,
   values: DefinePlugin['definitions'],
 ): Framework {
-  const options = this.extensions.get(
-    'webpack-define-plugin',
-  ).options
+  this.extensions
+    .get('webpack-define-plugin')
+    .mutateOptions(options => {
+      Object.entries(values).forEach(([k, v]) => {
+        options.set(k, v)
+      })
 
-  Object.entries(values).forEach(([k, v]) => {
-    options.set(k, v)
-  })
+      return options
+    })
 
   return this
 }

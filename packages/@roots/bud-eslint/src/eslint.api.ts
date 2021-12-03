@@ -36,7 +36,7 @@ export class eslint {
   public config(userOptions: Options): Framework {
     this.app.extensions
       .get('eslint-webpack-plugin')
-      .options.setStore(userOptions)
+      .setOptions(userOptions)
 
     this.app.info({
       message: 'overriding eslint by user configuration',

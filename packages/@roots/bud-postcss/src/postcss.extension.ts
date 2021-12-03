@@ -57,6 +57,7 @@ export const BudPostCssExtension: Extension.Module = {
 
     try {
       log.await('resolving postcss plugins')
+
       app.postcss.setPlugins({
         'postcss-import': require.resolve('postcss-import'),
         'postcss-nested': require.resolve('postcss-nested'),
@@ -70,6 +71,7 @@ export const BudPostCssExtension: Extension.Module = {
           },
         ],
       })
+
       log.success('resolving postcss plugins')
     } catch (e) {
       app.error(e)

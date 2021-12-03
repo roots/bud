@@ -9,22 +9,23 @@ export const assets: method = async function assets(
   this as Framework
   paths = await globby(paths)
 
-  paths.map((from: string) => {
-    const dirName = from.split('/')[from.split('/').length - 2]
+  paths.map((src: string) => {
+    const dirName = src.split('/')[src.split('/').length - 2]
 
-    const format = this.store.is('features.hash', true)
-      ? this.store.get('hashFormat')
-      : this.store.get('fileFormat')
+    const fileName =
+      this.store.is('features.hash', true) && this.isProduction
+        ? `assets/${dirName}/${this.store.get('hashFormat')}`
+        : `assets/${dirName}/${this.store.get('fileFormat')}`
 
-    const plugin = this.extensions.get('copy-webpack-plugin')
-
-    plugin.options.merge('patterns', [
-      {
-        from,
-        to: `${dirName}/${format}[ext]`,
-        noErrorOnMissing: true,
-      },
-    ])
+    this.extensions
+      .get('copy-webpack-plugin')
+      .mergeOption('patterns', [
+        {
+          from: src,
+          to: `${fileName}[ext]`,
+          noErrorOnMissing: true,
+        },
+      ])
   })
 
   return this

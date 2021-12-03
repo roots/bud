@@ -245,6 +245,7 @@ export async function config(app: Framework): Promise<void> {
       'build.optimization.moduleIds',
       () => app.store.get('build.optimization.moduleIds'),
     )
+
     /**
      * build.optimization.removeEmptyChunks
      */

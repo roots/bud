@@ -24,12 +24,12 @@ export class Config {
     )
 
     if (plugins && plugins.length) {
-      imagemin.options.set('minimizerOptions.plugins', plugins)
+      imagemin.setOption('minimizerOptions.plugins', plugins)
 
       this.app.log({
         message: 'plugins',
         suffix: JSON.stringify(
-          imagemin.options.get('minimizerOptions.plugins'),
+          imagemin.getOption('minimizerOptions.plugins'),
         ),
       })
     }

@@ -16,11 +16,11 @@ export default {
   asset: () =>
     new Item({
       loader: ({build}) => build.loaders.file,
-      options: ({store}) => ({
+      options: app => ({
         name: `assets/${
-          store.is('features.hash', true)
-            ? store.get('hashFormat')
-            : store.get('fileFormat')
+          app.store.is('features.hash', true) && app.isProduction
+            ? app.store.get('hashFormat')
+            : app.store.get('fileFormat')
         }.[ext]`,
       }),
     }),
@@ -108,11 +108,11 @@ export default {
   file: () =>
     new Item({
       loader: ({build}) => build.loaders.file,
-      options: ({store}) => ({
+      options: app => ({
         name: `${
-          store.is('features.hash', true)
-            ? store.get('hashFormat')
-            : store.get('fileFormat')
+          app.store.is('features.hash', true) && app.isProduction
+            ? app.store.get('hashFormat')
+            : app.store.get('fileFormat')
         }.[ext]`,
       }),
     }),

@@ -29,7 +29,7 @@ export const critical: critical = function (
 ) {
   this.extensions
     .get('@roots/bud-criticalcss')
-    .options.merge(userOptions)
+    .mergeOptions(userOptions)
 
   return this
 }
