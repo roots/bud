@@ -18,7 +18,7 @@ export type PackageMapEntry = [string, Record<string, string>]
 
 /**
  * Packages in the `@wordpress` namespace which
- * are should not be considered as external
+ * should not be considered as external
  */
 const OMIT_PACKAGE_MATCHES = [
   '@wordpress/icons',
