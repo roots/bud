@@ -2813,20 +2813,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:7.13.70":
-  version: 7.13.70
-  resolution: "@microsoft/api-documenter@npm:7.13.70"
+"@microsoft/api-documenter@npm:7.13.71":
+  version: 7.13.71
+  resolution: "@microsoft/api-documenter@npm:7.13.71"
   dependencies:
-    "@microsoft/api-extractor-model": 7.13.16
+    "@microsoft/api-extractor-model": 7.13.17
     "@microsoft/tsdoc": 0.13.2
-    "@rushstack/node-core-library": 3.43.2
+    "@rushstack/node-core-library": 3.44.0
     "@rushstack/ts-command-line": 4.10.4
     colors: ~1.2.1
     js-yaml: ~3.13.1
     resolve: ~1.17.0
   bin:
     api-documenter: bin/api-documenter
-  checksum: 6ee9b48e05fbbd4f598c23301bf4ea424a4663ea01b44eabae98f856d3bc2449f620349c62c6da7f868d8170d0f9c100afaf452b15e8f77eb7ca2ab0555d328e
+  checksum: 090b560f46bbe329fc2bdb5cd7ca53ddaf343a09d3f891dc54f0b7a64c4322bae08a6b5da4c3cd74f1f065d7a45ecf74ffa42824d46f71498cdfe3f1705cc21a
   languageName: node
   linkType: hard
 
@@ -2838,6 +2838,17 @@ __metadata:
     "@microsoft/tsdoc-config": ~0.15.2
     "@rushstack/node-core-library": 3.43.2
   checksum: 7066cecc24c7e66d6018fa23ea109c375e9d0f1f58f8858872ff8fea2d479c6e99f6569fd452718507cf05ee901b2e5370e18b02aee2c525a6efb445269684b7
+  languageName: node
+  linkType: hard
+
+"@microsoft/api-extractor-model@npm:7.13.17":
+  version: 7.13.17
+  resolution: "@microsoft/api-extractor-model@npm:7.13.17"
+  dependencies:
+    "@microsoft/tsdoc": 0.13.2
+    "@microsoft/tsdoc-config": ~0.15.2
+    "@rushstack/node-core-library": 3.44.0
+  checksum: 765b2a5dde61d55b72d8a1561aaef53eabd7e9ad86ecbf57789a55ac2d9de8efc9e0d1f75c6c00c27cfcd30776784e30fef88fc6355791df28fde433e9b779ed
   languageName: node
   linkType: hard
 
@@ -3937,7 +3948,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": 7.13.70
+    "@microsoft/api-documenter": 7.13.71
     "@oclif/core": ^1.0.4
     "@oclif/dev-cli": 1.26.6
     "@oclif/test": 1.2.8
@@ -4175,6 +4186,23 @@ __metadata:
     timsort: ~0.3.0
     z-schema: ~3.18.3
   checksum: a3aa5bf7ce07a547469827c14cf53057dcb6bdff47461a991a4e52076d1f36287814a46045cae1597bbc878061ac6d2e5097157c4d281fcbc5a8a769481511b6
+  languageName: node
+  linkType: hard
+
+"@rushstack/node-core-library@npm:3.44.0":
+  version: 3.44.0
+  resolution: "@rushstack/node-core-library@npm:3.44.0"
+  dependencies:
+    "@types/node": 12.20.24
+    colors: ~1.2.1
+    fs-extra: ~7.0.1
+    import-lazy: ~4.0.0
+    jju: ~1.4.0
+    resolve: ~1.17.0
+    semver: ~7.3.0
+    timsort: ~0.3.0
+    z-schema: ~3.18.3
+  checksum: 39b26cda7341dde5207fd0bb79ae22eb3a320967a3e5e84155695a24cf06699a48b9635876085f79dfe9f84dab5418b14555db34b18d114548708e0d2988b448
   languageName: node
   linkType: hard
 
@@ -8151,7 +8179,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": 7.13.70
+    "@microsoft/api-documenter": 7.13.71
     "@microsoft/api-extractor": 7.18.19
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
