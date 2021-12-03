@@ -58,7 +58,7 @@ Object {
   "help": Object {
     "allowNo": false,
     "char": "h",
-    "description": "show CLI help",
+    "description": "Show CLI help.",
     "parse": [Function],
     "type": "boolean",
   },
@@ -223,7 +223,7 @@ Object {
   },
   "version": Object {
     "allowNo": false,
-    "description": "show CLI version",
+    "description": "Show CLI version.",
     "parse": [Function],
     "type": "boolean",
   },

@@ -1,11 +1,13 @@
-import {flags} from '@oclif/command'
+import * as oclif from '@oclif/core'
+
+import {Option} from './flags.interface'
 
 export interface target {
-  ['target']: flags.IFlag<Array<string>>
+  ['target']: Option<Array<string>>
 }
 
 export const target: target = {
-  target: flags.string({
+  target: oclif.Flags.string({
     char: 't',
     description: 'limit compilation to this compiler',
     multiple: true,

@@ -1,3 +1,3 @@
 @echo off
 
-node "%~dp0\bud" %*
+node "%~dp0\bud.js" %*

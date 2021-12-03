@@ -2929,7 +2929,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.8.3, @oclif/command@npm:^1.8.4, @oclif/command@npm:^1.8.6":
+"@oclif/command@npm:^1.8.4":
+  version: 1.8.4
+  resolution: "@oclif/command@npm:1.8.4"
+  dependencies:
+    "@oclif/config": ^1.17.1
+    "@oclif/errors": ^1.3.5
+    "@oclif/parser": ^3.8.6
+    "@oclif/plugin-help": ^3.2.8
+    debug: ^4.1.1
+    semver: ^7.3.2
+  peerDependencies:
+    "@oclif/config": ^1
+  checksum: 9f87a838f72e066bbd7719a9217ad03bf999163553a40a84bf4c544ecb9517bc74d7373f48f7b4f96b63d5448c1d1bcae9b7f6ce372361370457acfee8ed21e8
+  languageName: node
+  linkType: hard
+
+"@oclif/command@npm:^1.8.6":
   version: 1.8.6
   resolution: "@oclif/command@npm:1.8.6"
   dependencies:
@@ -2956,6 +2972,31 @@ __metadata:
     is-wsl: ^2.1.1
     tslib: ^2.0.0
   checksum: e74949eabfd1937689ed6f87a713def5fb07430860a01ecc8eb3b10f83187e99d865f2b9253e8114e00d0752ee9945f5f5906b20d7c9f404d9bdc0c3ff72a5d2
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@oclif/core@npm:1.0.4"
+  dependencies:
+    "@oclif/linewrap": ^1.0.0
+    chalk: ^4.1.0
+    clean-stack: ^3.0.0
+    cli-ux: ^5.1.0
+    debug: ^4.1.1
+    fs-extra: ^9.0.1
+    get-package-type: ^0.1.0
+    globby: ^11.0.1
+    indent-string: ^4.0.0
+    is-wsl: ^2.1.1
+    lodash: ^4.17.21
+    semver: ^7.3.2
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    tslib: ^2.0.0
+    widest-line: ^3.1.0
+    wrap-ansi: ^7.0.0
+  checksum: cb0c2006fe14cc209f8ea5f69e05e8a56e4bd5be9d78e1b550d5f4a4b3450900ff01bcc7b5026913d4e92e6af81645223bbb85e4d7d84d7b25470cebcfb80b00
   languageName: node
   linkType: hard
 
@@ -3014,7 +3055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^3.2.10, @oclif/plugin-help@npm:^3.2.5, @oclif/plugin-help@npm:^3.2.8":
+"@oclif/plugin-help@npm:^3.2.10, @oclif/plugin-help@npm:^3.2.8":
   version: 3.2.10
   resolution: "@oclif/plugin-help@npm:3.2.10"
   dependencies:
@@ -3913,11 +3954,8 @@ __metadata:
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
     "@microsoft/api-documenter": 7.13.70
-    "@oclif/command": ^1.8.3
-    "@oclif/config": ^1.17.1
+    "@oclif/core": ^1.0.4
     "@oclif/dev-cli": 1.26.6
-    "@oclif/errors": ^1.3.5
-    "@oclif/plugin-help": ^3.2.5
     "@oclif/test": 1.2.8
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
@@ -3949,7 +3987,7 @@ __metadata:
     webpack-cli: ^4.9.1
     webpack-manifest-plugin: ^4.0.2
   bin:
-    bud: ./bin/bud
+    bud: ./bin/bud.js
   languageName: unknown
   linkType: soft
 
@@ -8785,7 +8823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-ux@npm:^5.6.4":
+"cli-ux@npm:^5.1.0, cli-ux@npm:^5.6.4":
   version: 5.6.4
   resolution: "cli-ux@npm:5.6.4"
   dependencies:
@@ -17826,14 +17864,14 @@ __metadata:
   linkType: hard
 
 "nock@npm:^13.0.0":
-  version: 13.1.4
-  resolution: "nock@npm:13.1.4"
+  version: 13.2.1
+  resolution: "nock@npm:13.2.1"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
     lodash.set: ^4.3.2
     propagate: ^2.0.0
-  checksum: 2452150f52991229dcba1ee5f32870e7db7ef338fa7a0d4b73f6c034a8df22da076b9569ec04e3c1cdaa919a4657aad702b8eb20ada81b0f43c2feb9c6ae4b48
+  checksum: b401fb8143ca88095ee34c715e2806eda2813dace4f4c4798961ad961c18003d1529f4507a79c429d2c3c768e136632ee19ee9ebfef71f0cb022df152594df1d
   languageName: node
   linkType: hard
 

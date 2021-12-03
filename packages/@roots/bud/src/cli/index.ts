@@ -1,1 +1,2 @@
-export {run} from '@oclif/command'
+import * as oclif from '@oclif/core'
+export const {run} = oclif
