@@ -7,7 +7,7 @@
  */
 
 ;(async () => {
-  const {overlay} = await import('./ErrorOverlay')
+  const {overlay} = await import('./overlay')
   const {indicator} = await import('./Indicator')
 
   const {

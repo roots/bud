@@ -1,2 +1,2 @@
-import {ProvidePlugin} from '@roots/bud-support'
+import {ProvidePlugin} from 'webpack'
 export {ProvidePlugin as Plugin}

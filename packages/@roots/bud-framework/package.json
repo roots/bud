@@ -74,11 +74,8 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "cli-highlight": "^2.1.11",
-    "figures": "^4.0.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.0",
-    "lodash": "^4.17.21",
-    "pretty-format": "^27.3.1",
     "signale": "^1.4.0",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1"

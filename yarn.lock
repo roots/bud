@@ -3125,7 +3125,7 @@ __metadata:
     "@types/lodash": 4.14.177
     "@types/node": 16.11.11
     copy-webpack-plugin: 10.0.0
-    css-minimizer-webpack-plugin: ^3.1.4
+    css-minimizer-webpack-plugin: 3.2.0
     fs-extra: 10.0.0
     html-webpack-plugin: 5.5.0
     lodash: 4.17.21
@@ -3413,13 +3413,10 @@ __metadata:
     "@types/lodash": 4.14.177
     "@types/node": 16.11.11
     cli-highlight: ^2.1.11
-    figures: ^4.0.0
     http-proxy-middleware: 2.0.1
     ink: 3.2.0
     js-yaml: ^4.1.0
     json5: ^2.2.0
-    lodash: ^4.17.21
-    pretty-format: ^27.3.1
     signale: ^1.4.0
     ts-node: ^10.4.0
     tslib: ^2.3.1
@@ -3677,11 +3674,13 @@ __metadata:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/container": "workspace:packages/@roots/container"
+    "@types/express": ^4
     "@types/node": 16.11.11
     "@types/webpack-dev-middleware": 5.0.2
     "@types/webpack-hot-middleware": 2.25.5
+    chokidar: ^3.5.2
+    express: ^4.17.1
     http-proxy-middleware: 2.0.1
-    lodash.isequal: ^4.5.0
     tslib: ^2.3.1
     webpack: 5.64.4
     webpack-dev-middleware: 5.2.2
@@ -3739,46 +3738,35 @@ __metadata:
     "@endemolshinegroup/cosmiconfig-typescript-loader": 3.0.2
     "@types/copy-webpack-plugin": 8.0.1
     "@types/express": 4.17.13
-    "@types/jest": 27.0.3
     "@types/node": 16.11.11
     "@types/prettier": 2.4.2
     "@types/safe-json-stringify": 1.1.2
     "@types/signale": 1.4.2
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
-    chokidar: 3.5.2
     cli-highlight: ^2.1.11
     cosmiconfig: 7.0.1
-    css-minimizer-webpack-plugin: 3.2.0
     dotenv: 10.0.0
     dotenv-expand: 5.1.0
     execa: 5.1.1
-    express: 4.17.1
     fs-extra: 10.0.0
     globby: 11.0.4
     helpful-decorators: 2.1.0
     human-readable: 0.2.1
-    ignore-emit-webpack-plugin: 2.0.6
-    jest: 27.4.3
     json5: 2.2.0
     lodash: 4.17.21
     nanoid: 3.1.30
     node-notifier: 10.0.0
     patch-console: ^1.0.0
     pkg-up: 3.1.0
-    prettier: 2.5.0
     pretty-format: 27.4.2
-    remark: 14.0.2
-    remark-html: 15.0.1
     safe-json-stringify: ^1.2.0
     safe-resolve: 1.0.0
     signale: 1.4.0
     strip-ansi: 7.0.1
-    toml: 3.0.0
-    ts-node: 10.4.0
+    toml: ^3.0.0
     tslib: 2.3.1
     typescript: 4.4.4
-    vfile-reporter: 7.0.2
     webpack: 5.64.4
     webpack-config-dump-plugin: 3.0.1
     yamljs: 0.3.0
@@ -4812,7 +4800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:4.17.13":
+"@types/express@npm:4.17.13, @types/express@npm:^4":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
   dependencies:
@@ -5341,13 +5329,6 @@ __metadata:
     globby: 11.x.x
     postcss: 7.x.x
   checksum: b624d01baf1434246c899891e3b26703421db71a14a9fe825a37e30e53607fbffddd6d300b9b631c4ec6666c79bce9846b8c28b89599294603e8df1269217775
-  languageName: node
-  linkType: hard
-
-"@types/supports-color@npm:^8.0.0":
-  version: 8.1.1
-  resolution: "@types/supports-color@npm:8.1.1"
-  checksum: 6f35588fc423bf6b511167b4aaa0348638567f7a74de24d77dfb930d2053757585e1799d9c903f3db7a23a9ef2518878de9427b20d2f4476899aaf923e98de11
   languageName: node
   linkType: hard
 
@@ -8648,7 +8629,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.5.2, chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.2":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -9633,7 +9614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:3.2.0, css-minimizer-webpack-plugin@npm:^3.0.2, css-minimizer-webpack-plugin@npm:^3.1.4":
+"css-minimizer-webpack-plugin@npm:3.2.0":
   version: 3.2.0
   resolution: "css-minimizer-webpack-plugin@npm:3.2.0"
   dependencies:
@@ -9654,6 +9635,30 @@ __metadata:
     esbuild:
       optional: true
   checksum: 97f783d8adc82f0e95a53dd324af9b4d19ca8b50a07358990bd86a41d305717d86e36bacdec931b01276471f9a26aa0f998c9646d9bc091d56a7b0d01c750a07
+  languageName: node
+  linkType: hard
+
+"css-minimizer-webpack-plugin@npm:^3.0.2":
+  version: 3.1.4
+  resolution: "css-minimizer-webpack-plugin@npm:3.1.4"
+  dependencies:
+    "@types/cssnano": ^4.0.1
+    cssnano: ^5.0.6
+    jest-worker: ^27.0.2
+    postcss: ^8.3.5
+    schema-utils: ^4.0.0
+    serialize-javascript: ^6.0.0
+    source-map: ^0.6.1
+  peerDependencies:
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    clean-css:
+      optional: true
+    csso:
+      optional: true
+    esbuild:
+      optional: true
+  checksum: 7b9101d397a20e541eef8e3f2bc1b2853b13bc3fb2ec5d557affd1161b04a5a4f5d0b669a54ef6872c1ca2e08b999f3a92bd135c3a04f44906a9910bac460aed
   languageName: node
   linkType: hard
 
@@ -11347,13 +11352,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-string-regexp@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "escape-string-regexp@npm:5.0.0"
-  checksum: 20daabe197f3cb198ec28546deebcf24b3dbb1a5a269184381b3116d12f0532e06007f4bc8da25669d6a7f8efb68db0758df4cd981f57bc5b57f521a3e12c59e
-  languageName: node
-  linkType: hard
-
 "escodegen@npm:^2.0.0":
   version: 2.0.0
   resolution: "escodegen@npm:2.0.0"
@@ -12153,7 +12151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:4.17.1, express@npm:^4.17.1":
+"express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
   dependencies:
@@ -12456,16 +12454,6 @@ __metadata:
   dependencies:
     escape-string-regexp: ^1.0.5
   checksum: 85a6ad29e9aca80b49b817e7c89ecc4716ff14e3779d9835af554db91bac41c0f289c418923519392a1e582b4d10482ad282021330cd045bb7b80c84152f2a2b
-  languageName: node
-  linkType: hard
-
-"figures@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "figures@npm:4.0.0"
-  dependencies:
-    escape-string-regexp: ^5.0.0
-    is-unicode-supported: ^1.0.0
-  checksum: 508234a6e01e5919d7a94e10c65181c8f04b0dfae185870ffcb88290906160c25b7b604e54ed28a790b60f61f6c7fc930a2334c9d56f2f768a528b3e7d262530
   languageName: node
   linkType: hard
 
@@ -13538,13 +13526,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"has-flag@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "has-flag@npm:5.0.1"
-  checksum: e0a151db8e43b528258c4269c23224c691b42c1f5168f6d88b61c3f9398ef16d44226a78a0596642da55851cf306a8afe57d6936d4d69a24b66fd10de1373da8
-  languageName: node
-  linkType: hard
-
 "has-symbol-support-x@npm:^1.4.1":
   version: 1.4.2
   resolution: "has-symbol-support-x@npm:1.4.2"
@@ -14184,13 +14165,6 @@ __metadata:
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 5144c0c9815e54ada181d80a0b810221a253562422e7c6c3a60b1901154184f49326ec239d618c416c1c5945a2e197107aee8d986a3dd836b53dffefd99b5e7e
-  languageName: node
-  linkType: hard
-
-"ignore-emit-webpack-plugin@npm:2.0.6":
-  version: 2.0.6
-  resolution: "ignore-emit-webpack-plugin@npm:2.0.6"
-  checksum: 544fd16d598e4d6733a4e828e3f2a22bad04ed365a6a6d46c452959575b8bf130127a9175968c7f8461cd439d0b7363eadfe5af28f930532b52157f23d30bbf6
   languageName: node
   linkType: hard
 
@@ -14877,13 +14851,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-fullwidth-code-point@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "is-fullwidth-code-point@npm:4.0.0"
-  checksum: 8ae89bf5057bdf4f57b346fb6c55e9c3dd2549983d54191d722d5c739397a903012cc41a04ee3403fd872e811243ef91a7c5196da7b5841dc6b6aae31a264a8d
-  languageName: node
-  linkType: hard
-
 "is-generator-fn@npm:^2.0.0":
   version: 2.1.0
   resolution: "is-generator-fn@npm:2.1.0"
@@ -15235,13 +15202,6 @@ __metadata:
   version: 1.0.0
   resolution: "is-typedarray@npm:1.0.0"
   checksum: 3508c6cd0a9ee2e0df2fa2e9baabcdc89e911c7bd5cf64604586697212feec525aa21050e48affb5ffc3df20f0f5d2e2cf79b08caa64e1ccc9578e251763aef7
-  languageName: node
-  linkType: hard
-
-"is-unicode-supported@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "is-unicode-supported@npm:1.1.0"
-  checksum: 1f2504d94383ea180ea25e729b40b1d97398a37325c2e62db96a3e98b457c767259dd5bbf9ab2815e83e5012dc4b61d533e75d12df7f208c470474d821bd5f24
   languageName: node
   linkType: hard
 
@@ -16564,7 +16524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isequal@npm:^4.0.0, lodash.isequal@npm:^4.5.0":
+"lodash.isequal@npm:^4.0.0":
   version: 4.5.0
   resolution: "lodash.isequal@npm:4.5.0"
   checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
@@ -21636,16 +21596,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-html@npm:15.0.1, remark-html@npm:^15.0.0":
-  version: 15.0.1
-  resolution: "remark-html@npm:15.0.1"
+"remark-html@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "remark-html@npm:15.0.0"
   dependencies:
     "@types/mdast": ^3.0.0
     hast-util-sanitize: ^4.0.0
     hast-util-to-html: ^8.0.0
     mdast-util-to-hast: ^12.0.0
     unified: ^10.0.0
-  checksum: da9a7ee71b470d21d4d74eb841fd6c340396ebe3e7488fc70d5471bf25bcaf2cb0a25a5d034ead1f1ac9612df2f703705acfd16e6f6b60696f40b788abf2b174
+  checksum: 731360b464ae42711f4f7b66c65a3d5c98445f803f0b7a8e8fbbb3031a1edf81f4c0527b6bfa308cbae49a864231a15bbeaf0cc0987e71b3c7b803f54ddf2b49
   languageName: node
   linkType: hard
 
@@ -23126,17 +23086,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "string-width@npm:5.0.1"
-  dependencies:
-    emoji-regex: ^9.2.2
-    is-fullwidth-code-point: ^4.0.0
-    strip-ansi: ^7.0.1
-  checksum: 2a7cbd6a4180f8215553fc0dfe8fe62d2ba76d141b0a6fca44df7b81f0089613d0b115bd67bb293ea7e8c5f8295525014a3562cce28d0e06caa6f626980e9c7e
-  languageName: node
-  linkType: hard
-
 "string.prototype.matchall@npm:^4.0.6":
   version: 4.0.6
   resolution: "string.prototype.matchall@npm:4.0.6"
@@ -23223,7 +23172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:7.0.1, strip-ansi@npm:^7.0.0, strip-ansi@npm:^7.0.1":
+"strip-ansi@npm:7.0.1, strip-ansi@npm:^7.0.0":
   version: 7.0.1
   resolution: "strip-ansi@npm:7.0.1"
   dependencies:
@@ -23539,15 +23488,6 @@ __metadata:
   dependencies:
     has-flag: ^4.0.0
   checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:^9.0.0":
-  version: 9.0.2
-  resolution: "supports-color@npm:9.0.2"
-  dependencies:
-    has-flag: ^5.0.0
-  checksum: 690c21f61945a1ebab61fbc9dc861672b1d9678359ce75312b8b7ecb873f37f2ed2df56daa4ef4265300bea2e51f8285831ffb0a190ac46aaeed1d5b44fd51fe
   languageName: node
   linkType: hard
 
@@ -24068,7 +24008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"toml@npm:3.0.0":
+"toml@npm:^3.0.0":
   version: 3.0.0
   resolution: "toml@npm:3.0.0"
   checksum: 5d7f1d8413ad7780e9bdecce8ea4c3f5130dd53b0a4f2e90b93340979a137739879d7b9ce2ce05c938b8cc828897fe9e95085197342a1377dd8850bf5125f15f
@@ -25177,20 +25117,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vfile-reporter@npm:7.0.2":
-  version: 7.0.2
-  resolution: "vfile-reporter@npm:7.0.2"
-  dependencies:
-    "@types/supports-color": ^8.0.0
-    string-width: ^5.0.0
-    supports-color: ^9.0.0
-    unist-util-stringify-position: ^3.0.0
-    vfile-sort: ^3.0.0
-    vfile-statistics: ^2.0.0
-  checksum: 9234da3a125345e06b89e25d024d6ac91b8e39aad92f2606720736d152f2e04ac1ac8bd31ede9c1570fb3fc4f33984954bcfef2a541d94136a753149e779d448
-  languageName: node
-  linkType: hard
-
 "vfile-reporter@npm:^6.0.2":
   version: 6.0.2
   resolution: "vfile-reporter@npm:6.0.2"
@@ -25212,28 +25138,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vfile-sort@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "vfile-sort@npm:3.0.0"
-  dependencies:
-    vfile-message: ^3.0.0
-  checksum: 9a41f7ddded1e2e850736d1b9710ff86c9ace226bee1534eb3ea1591c99cd1a9792dee22c9013f89523d918cd179457e57f4958363b45611231503b62d1fe59b
-  languageName: node
-  linkType: hard
-
 "vfile-statistics@npm:^1.1.0":
   version: 1.1.4
   resolution: "vfile-statistics@npm:1.1.4"
   checksum: bbd625d6f34fbc6c29d564b1e6335d747c32a3134a6630de6d888bf907c96e23236e87e62c2b51b07c1057891492baf9d7bd37d2e867f8e6c1c86dee40aca1d6
-  languageName: node
-  linkType: hard
-
-"vfile-statistics@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "vfile-statistics@npm:2.0.0"
-  dependencies:
-    vfile-message: ^3.0.0
-  checksum: d392a610f8260482b43e1bf74163b5294391d3875676badf12afc94b354fbc6c87713945c2d40053f2da6b2c8a4e1d8d44ca308d40760759865c94dc2f8026b6
   languageName: node
   linkType: hard
 

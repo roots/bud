@@ -1,5 +1,6 @@
 import * as Framework from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
+import Express from 'express'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
@@ -59,6 +60,15 @@ export class Server
    */
   public get assets() {
     return this._assets
+  }
+
+  /**
+   * Service register callback
+   *
+   * @internal
+   */
+  public async bootstrap(): Promise<void> {
+    this.application = Express()
   }
 
   /**

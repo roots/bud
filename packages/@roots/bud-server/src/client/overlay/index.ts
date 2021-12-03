@@ -1,7 +1,7 @@
-import {Component} from './Component'
-import {Inner} from './Inner'
-import {Message} from './Message'
-import {template} from './template'
+import {Inner} from './inner.web-component'
+import {Message} from './messages.web-component'
+import {Component} from './overlay.web-component'
+import {template} from './template.web-component'
 
 /**
  * Client controller for ErrorOverlay component
