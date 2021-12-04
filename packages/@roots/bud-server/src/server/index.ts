@@ -1,5 +1,4 @@
 import * as Framework from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
 import Express from 'express'
 
 import * as middleware from '../middleware'
@@ -22,18 +21,23 @@ export class Server
   public readonly _assets = ['@roots/bud-server/client.js']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.application}
+   * Express instance
    *
    * @public
    */
   public application: Framework.Server.Application
 
+  /**
+   * Server config accessor
+   *
+   * @public
+   */
   public get config(): Framework.Server.Configuration {
     return this.app.store.get('server')
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface."instance"}
+   * Express instance
    *
    * @public
    */
@@ -69,39 +73,6 @@ export class Server
    */
   public async bootstrap(): Promise<void> {
     this.application = Express()
-  }
-
-  /**
-   * Register service event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    this.app.hooks.async<'event.compiler.done'>(
-      'event.compiler.done',
-      async stats => {
-        await fs.writeJson(this.app.path('dist', 'hmr.json'), {
-          host: this.app.store.get('server.host'),
-          port: this.app.store.get('server.port'),
-        })
-
-        return stats
-      },
-    )
-
-    this.app.hooks.on<'event.app.close'>(
-      'event.app.close',
-      () => {
-        const exists = fs.pathExistsSync(
-          this.app.path('dist', 'hmr.json'),
-        )
-
-        if (exists)
-          fs.removeSync(this.app.path('dist', 'hmr.json'))
-      },
-    )
   }
 
   /**
@@ -218,7 +189,7 @@ export class Server
     }
 
     /**
-     * If Watcher is watching and a file it is watching
+     * If watching and a file it is watching
      * is touched, reload the window.
      */
     this.watcher?.on &&

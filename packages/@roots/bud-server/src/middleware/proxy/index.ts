@@ -1,4 +1,5 @@
 import {Options} from 'http-proxy-middleware'
+import {URL} from 'url'
 
 import {
   createProxyMiddleware,
@@ -12,38 +13,20 @@ import type {Framework} from './proxy.interface'
  * @public
  */
 export default function proxy(app: Framework) {
-  const port = app.store.is('server.port', 8080)
-    ? null
-    : app.store.get('server.port')
-
-  /**
-   * @filter proxy.dev
-   */
-  const dev = app.hooks.filter<'proxy.dev'>('proxy.dev', () =>
-    port
-      ? app.store.get('server.host').concat(`:`, port)
-      : app.store.get('server.host'),
-  )
-
-  /**
-   * @filter proxy.target
-   */
-  const target = app.hooks.filter<'proxy.target'>(
-    'proxy.target',
-    () => app.store.get('server.proxy.target'),
-  )
+  const dev = new URL(app.store.get('server.proxy'))
+  const proxy = new URL(app.store.get('server.dev'))
 
   /**
    * @filter proxy.interceptor
    */
   const interceptor = app.hooks.filter<'proxy.interceptor'>(
     'proxy.interceptor',
-    () => async (buffer: Buffer) => {
+    async (buffer: Buffer) => {
       let response = buffer.toString('utf8')
 
       return app.hooks
         .filter<'proxy.replace'>('proxy.replace', () => [
-          [target, dev],
+          [proxy.href, dev.href],
         ])
         .reduce(
           (html, [from, to]) => html.replaceAll(from, to),
@@ -60,9 +43,9 @@ export default function proxy(app: Framework) {
     (): Options => ({
       autoRewrite: true,
       changeOrigin: true,
-      target,
+      target: proxy.href,
       cookieDomainRewrite: {
-        [target]: dev,
+        [proxy.href]: dev.href,
       },
       logProvider: () => app.server.logger,
       onProxyRes: responseInterceptor(interceptor),

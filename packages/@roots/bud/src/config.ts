@@ -313,22 +313,21 @@ export const config: Configuration = {
     watch: {
       files: [],
     },
+
     middleware: {
       dev: true,
       hot: true,
       proxy: false,
     },
+
     browser: {
       indicator: true,
       overlay: true,
       log: true,
     },
-    proxy: {
-      target: 'localhost:8080',
-    },
-    host: 'localhost',
-    port: 3000,
-    methods: ['GET', 'HEAD'],
+
+    dev: 'http://localhost:3000',
+    proxy: 'http://localhost:8080',
   },
 
   /**

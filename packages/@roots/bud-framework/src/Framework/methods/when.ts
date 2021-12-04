@@ -1,5 +1,5 @@
 import type {Framework} from '../'
-import {isFunction} from '../framework.dependencies'
+import {isBoolean, isFunction} from '../framework.dependencies'
 
 export interface when {
   (
@@ -14,11 +14,18 @@ export function when(
   trueCase: (app: Framework) => any,
   falseCase?: (app: Framework) => any,
 ): Framework {
-  this as Framework
+  const ctx = this as Framework
+
+  const conditionalResult = ctx.maybeCall(test)
+
+  if (!isBoolean(conditionalResult)) {
+    ctx.error('[when] test must be a boolean or a function')
+    throw new Error(conditionalResult)
+  }
 
   this.maybeCall(test)
     ? trueCase && isFunction(trueCase) && trueCase(this)
-    : falseCase && isFunction(falseCase) && trueCase(this)
+    : falseCase && isFunction(falseCase) && falseCase(this)
 
   return this
 }

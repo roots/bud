@@ -756,9 +756,10 @@ export abstract class Framework {
     ])
 
     // eslint-disable-next-line no-console
-    console.log(
-      options?.prefix ?? '',
-      highlight(
+    process.stdout.write(
+      `${
+        options?.prefix ? `\n${options.prefix}\n` : `\n`
+      }${highlight(
         format(obj, {
           callToJSON: false,
           maxDepth: 8,
@@ -771,7 +772,7 @@ export abstract class Framework {
           language: options?.language ?? 'typescript',
           ignoreIllegals: options?.ignoreIllegals ?? true,
         },
-      ),
+      )}`,
     )
 
     return this

@@ -25,4 +25,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot} = Sage
+export const {name, register} = Sage

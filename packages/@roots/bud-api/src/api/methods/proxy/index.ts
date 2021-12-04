@@ -1,41 +1,13 @@
-import {Configuration, Framework} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
-
-const {isUndefined} = lodash
+import type {Framework, Server} from '@roots/bud-framework'
 
 export interface proxy {
-  (options?: Configuration['server']['proxy']): Framework
+  (config?: Partial<Server.Configuration['proxy']>): Framework
 }
 
-export interface proxy {
-  (options?: boolean): Framework
-}
+export const proxy: proxy = function (config) {
+  const ctx = this as Framework
 
-export interface proxy {
-  (
-    options?: Configuration['server']['proxy']['target'],
-  ): Framework
-}
+  config && ctx.store.set('server.proxy', config)
 
-export const proxy: proxy = function (options) {
-  this as Framework
-
-  if (options === false) {
-    this.store.set('server.middleware.proxy', false)
-    return this
-  }
-
-  this.store.set('server.middleware.proxy', true)
-  if (options === true || isUndefined(options)) {
-    return this
-  }
-
-  if (typeof options === 'string') {
-    this.store.set('server.proxy.target', options)
-    return this
-  }
-
-  this.store.merge('server.proxy', options)
-
-  return this
+  return ctx
 }
