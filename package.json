@@ -51,7 +51,7 @@
     "@types/weak-napi": "2.0.0",
     "@typescript-eslint/eslint-plugin": "5.5.0",
     "@typescript-eslint/parser": "5.5.0",
-    "@vercel/ncc": "0.32.0",
+    "@vercel/ncc": "0.33.0",
     "@yarnpkg/builder": "3.1.0",
     "chalk": "4.1.2",
     "codecov": "3.8.3",
