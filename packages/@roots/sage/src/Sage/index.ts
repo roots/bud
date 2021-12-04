@@ -1,6 +1,6 @@
 import {Extension, Framework} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
-import {URL} from 'url'
+import {URL, urlToHttpOptions} from 'url'
 
 const {pathExistsSync, writeJson, removeSync} = fs
 
@@ -21,9 +21,10 @@ const inDevelopment = (app: Framework) => {
 
         try {
           await writeJson(app.path('dist', 'hmr.json'), {
-            dev,
+            dev: urlToHttpOptions(dev),
+
             proxy: app.store.is('features.proxy', true)
-              ? proxy
+              ? urlToHttpOptions(proxy)
               : false,
           })
         } catch (error) {
