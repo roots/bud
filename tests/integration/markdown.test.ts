@@ -1,9 +1,9 @@
-import {Project} from '../util/integration'
+import Project from '../../dev/jest/util/project'
 
 jest.setTimeout(60000)
 
 describe.skip('examples/markdown', () => {
-  let project: Project
+  let project
 
   beforeAll(async () => {
     project = new Project({

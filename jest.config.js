@@ -25,7 +25,7 @@ module.exports = async function config() {
         compiler: 'typescript',
       },
     },
-    globalSetup: '<rootDir>/dev/jest/util/setup.js',
+    globalSetup: '<rootDir>/dev/jest/util/setup.global.js',
     moduleNameMapper,
     name: 'bud',
     preset: 'ts-jest',

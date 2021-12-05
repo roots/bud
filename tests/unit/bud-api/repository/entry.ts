@@ -1,21 +1,10 @@
-import {Bud, factory} from '@roots/bud'
-import {join} from 'path'
+import {Bud, factory} from '../../../util/bud'
 
 describe('bud.entry', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-        location: {
-          project: join(process.cwd(), 'examples/sage'),
-        },
-      },
-    })
+    bud = await factory()
 
     bud.logger.instance.scope('bud.entry test')
   })
@@ -103,7 +92,7 @@ describe('bud.entry', function () {
   it('sets multiple entrypoints using k, v fn signature', async () => {
     bud.entry({
       app: ['scripts/app.js', 'styles/app.css'],
-      editor: ['scripts/editor.js', 'styles/editor.css'],
+      editor: ['styles/editor.css'],
     })
     await bud.build.make()
 
@@ -112,7 +101,7 @@ describe('bud.entry', function () {
         import: ['scripts/app.js', 'styles/app.css'],
       },
       editor: {
-        import: ['scripts/editor.js', 'styles/editor.css'],
+        import: ['styles/editor.css'],
       },
     })
   })

@@ -4106,6 +4106,7 @@ __metadata:
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress"
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier"
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint"
+    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
     "@types/node": 16.11.11
     helpful-decorators: ^2.1.0
@@ -23813,6 +23814,15 @@ __metadata:
   checksum: 11c1246b1991015a8881742878af779e3863fad42f626ffda957dbf28c94bf51e7994cffb9ffbec86ff3c23ab45ffa6d79d453c15e664306e35fc7b2c4eee5f4
   languageName: node
   linkType: hard
+
+"test-empty@workspace:tests/util/project":
+  version: 0.0.0-use.local
+  resolution: "test-empty@workspace:tests/util/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+  languageName: unknown
+  linkType: soft
 
 "test-exclude@npm:^6.0.0":
   version: 6.0.0

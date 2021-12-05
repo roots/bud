@@ -116,20 +116,13 @@ describe('bud', () => {
   })
 
   it('when calls fns conditionally', done => {
-    bud.when(
-      () => true,
-      (app: Bud) => {
-        expect(app).toBeInstanceOf(Bud)
-      },
-    )
+    const whenTrue = jest.fn((app: Bud) => {})
+    bud.when(() => true, whenTrue)
+    expect(whenTrue).toHaveBeenCalledTimes(1)
 
-    bud.when(
-      () => false,
-      noop,
-      (app: Bud) => {
-        expect(app).toBeInstanceOf(Bud)
-      },
-    )
+    const whenFalse = jest.fn((app: Bud) => {})
+    bud.when(() => false, noop, whenFalse)
+    expect(whenFalse).toHaveBeenCalledTimes(1)
 
     done()
   })

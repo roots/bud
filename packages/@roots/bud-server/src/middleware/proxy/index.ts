@@ -1,4 +1,5 @@
 import {Options} from 'http-proxy-middleware'
+import {URL} from 'url'
 
 import {
   createProxyMiddleware,
@@ -12,26 +13,24 @@ import type {Framework} from './proxy.interface'
  * @public
  */
 export default function proxy(app: Framework) {
-  const port = app.store.is('server.port', 8080)
-    ? null
-    : app.store.get('server.port')
+  let dev = new URL(app.store.get('server.dev')).origin
+  let proxy = new URL(app.store.get('server.proxy')).origin
 
-  /**
-   * @filter proxy.dev
-   */
-  const dev = app.hooks.filter<'proxy.dev'>('proxy.dev', () =>
-    port
-      ? app.store.get('server.host').concat(`:`, port)
-      : app.store.get('server.host'),
-  )
+  if (
+    dev.endsWith(':80') ||
+    dev.endsWith(':443') ||
+    dev.endsWith(':8080')
+  ) {
+    dev = dev.split(':').slice(0, 2).join(':')
+  }
 
-  /**
-   * @filter proxy.target
-   */
-  const target = app.hooks.filter<'proxy.target'>(
-    'proxy.target',
-    () => app.store.get('server.proxy.target'),
-  )
+  if (
+    proxy.endsWith(':80') ||
+    proxy.endsWith(':443') ||
+    proxy.endsWith(':8080')
+  ) {
+    proxy = proxy.split(':').slice(0, 2).join(':')
+  }
 
   /**
    * @filter proxy.interceptor
@@ -39,11 +38,18 @@ export default function proxy(app: Framework) {
   const interceptor = app.hooks.filter<'proxy.interceptor'>(
     'proxy.interceptor',
     () => async (buffer: Buffer) => {
-      let response = buffer.toString('utf8')
+      let response = buffer?.toString('utf8')
+
+      if (!response) {
+        app.warn(
+          `proxy interceptor had a problem with a buffer val`,
+        )
+        return
+      }
 
       return app.hooks
         .filter<'proxy.replace'>('proxy.replace', () => [
-          [target, dev],
+          [proxy, dev],
         ])
         .reduce(
           (html, [from, to]) => html.replaceAll(from, to),
@@ -60,9 +66,9 @@ export default function proxy(app: Framework) {
     (): Options => ({
       autoRewrite: true,
       changeOrigin: true,
-      target,
+      target: proxy,
       cookieDomainRewrite: {
-        [target]: dev,
+        [proxy]: dev,
       },
       logProvider: () => app.server.logger,
       onProxyRes: responseInterceptor(interceptor),
@@ -71,12 +77,12 @@ export default function proxy(app: Framework) {
         'X-Proxy-By': '@roots/bud',
       },
       logLevel: 'info',
-      ssl: false,
-      secure: false,
+
       ws: true,
-      ...(app.store.get('server.proxy') ?? {}),
     }),
   )
+
+  app.info({message: 'proxy config', suffix: options})
 
   return createProxyMiddleware(options)
 }

@@ -7,20 +7,13 @@ Object {
     "log": true,
     "overlay": true,
   },
-  "host": "localhost",
-  "methods": Array [
-    "GET",
-    "HEAD",
-  ],
+  "dev": "http://localhost:3000",
   "middleware": Object {
     "dev": true,
     "hot": true,
     "proxy": false,
   },
-  "port": 3000,
-  "proxy": Object {
-    "target": "localhost:8080",
-  },
+  "proxy": "http://localhost:8080",
   "watch": Object {
     "files": Array [],
   },

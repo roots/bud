@@ -1,5 +1,6 @@
 import get from 'lodash/get'
 import isArray from 'lodash/isArray'
+import isBoolean from 'lodash/isBoolean'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import isFunction from 'lodash/isFunction'
@@ -13,6 +14,7 @@ import omit from 'lodash/omit'
 import set from 'lodash/set'
 
 export interface lodash {
+  isBoolean: typeof isBoolean
   isFunction: typeof isFunction
   isNull: typeof isNull
   isNumber: typeof isNumber
@@ -29,6 +31,7 @@ export interface lodash {
 }
 
 export const lodash: lodash = {
+  isBoolean,
   isFunction,
   isObject,
   isArray,

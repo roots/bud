@@ -1,12 +1,12 @@
 import {readFile} from 'fs-extra'
 import {join} from 'path'
 
-import {Project} from '../util/integration'
+import Project from '../../dev/jest/util/project'
 
 jest.setTimeout(60000)
 
 describe('examples/sass', () => {
-  let project: Project
+  let project
 
   beforeAll(async () => {
     project = new Project({

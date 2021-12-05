@@ -1,32 +1,29 @@
 import {Bud, factory} from '@roots/bud'
+import {join} from 'path'
 
-describe.skip('bud.serve', function () {
+describe('bud.serve', function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({
-      config: {mode: 'development'},
-    })
-  })
-
-  it('sets host', () => {
-    bud.serve({host: 'bar.com'})
-    expect(bud.store.get('server.host')).toEqual('bar.com')
-  })
-
-  it('sets proxy', () => {
-    bud.serve({
-      proxy: {
-        target: {
-          host: 'bar.com',
-          port: 9000,
+      config: {
+        features: {
+          dashboard: false,
+          log: false,
+        },
+        location: {
+          project: join(process.cwd(), 'examples/sage'),
         },
       },
     })
+  })
 
-    expect(bud.store.get('server.proxy.target')).toEqual({
-      host: 'bar.com',
-      port: 9000,
-    })
+  it('sets host', async () => {
+    bud.serve('http://example.com')
+    await bud.api.processQueue()
+
+    expect(bud.store.get('server.dev')).toEqual(
+      'http://example.com',
+    )
   })
 })

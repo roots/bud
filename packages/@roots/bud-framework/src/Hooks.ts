@@ -232,7 +232,6 @@ export namespace Hooks {
     [`event.server.before`]: Framework
     [`event.server.after`]: Framework
     [`event.run`]: Framework
-    [`proxy.dev`]: FrameworkConfig['server']['host']
     [`proxy.target`]: string
     [`proxy.interceptor`]: (
       buffer: Buffer,

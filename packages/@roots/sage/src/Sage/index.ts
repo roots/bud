@@ -1,24 +1,73 @@
-import type {Sage as Preset} from './sage.interface'
+import {Extension, Framework} from '@roots/bud-framework'
+import {fs} from '@roots/bud-support'
+import {URL, urlToHttpOptions} from 'url'
+
+const {pathExistsSync, writeJson, removeSync} = fs
 
 /**
- * Sage preset configuration for bud.js
+ * Development configuration
+ *
+ * @param app - bud instance
+ */
+const inDevelopment = (app: Framework) => {
+  app.devtool()
+
+  app.hooks
+    .async<'event.compiler.done'>(
+      'event.compiler.done',
+      async stats => {
+        const dev = new URL(app.store.get('server.dev'))
+        const proxy = new URL(app.store.get('server.proxy'))
+
+        try {
+          await writeJson(app.path('dist', 'hmr.json'), {
+            dev: urlToHttpOptions(dev),
+
+            proxy: app.store.is('server.middleware.proxy', true)
+              ? urlToHttpOptions(proxy)
+              : false,
+          })
+        } catch (error) {
+          throw new Error(error)
+        }
+
+        return stats
+      },
+    )
+    .hooks.on('event.app.close', () => {
+      const path = app.path('dist', 'hmr.json')
+      pathExistsSync(path) && removeSync(path)
+    })
+}
+
+/**
+ * Production configuration
+ *
+ * @param app - bud instance
+ */
+const inProduction = (app: Framework) => {
+  app.minimize().hash().runtime('single')
+}
+
+/**
+ * Sage preset
  *
  * @public
  */
-export const Sage: Preset = {
+export const Sage: Extension.Module = {
   /**
-   * Identifier
+   * Extension identifier
    *
    * @public
    */
   name: '@roots/sage',
 
   /**
-   * Boot event callback
+   * Extension boot
    *
    * @public
    */
-  boot: async app => {
+  register: async (app, logger) => {
     app
       .alias({
         '@fonts': app.path('src', 'fonts'),
@@ -27,10 +76,7 @@ export const Sage: Preset = {
         '@styles': app.path('src', 'styles'),
       })
       .provide({$: ['jquery'], jQuery: ['jquery']})
-      .when(
-        app.isProduction,
-        app => app.minimize().hash().runtime('single'),
-        app => app.devtool(),
-      )
+
+      .when(app.isProduction, inProduction, inDevelopment)
   },
 }

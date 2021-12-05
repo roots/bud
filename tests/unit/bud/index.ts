@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('factory', () => {
   let bud: Bud
