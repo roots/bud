@@ -13,24 +13,8 @@ import type {Framework} from './proxy.interface'
  * @public
  */
 export default function proxy(app: Framework) {
-  let dev = new URL(app.store.get('server.dev')).origin
-  let proxy = new URL(app.store.get('server.proxy')).origin
-
-  if (
-    dev.endsWith(':80') ||
-    dev.endsWith(':443') ||
-    dev.endsWith(':8080')
-  ) {
-    dev = dev.split(':').slice(0, 2).join(':')
-  }
-
-  if (
-    proxy.endsWith(':80') ||
-    proxy.endsWith(':443') ||
-    proxy.endsWith(':8080')
-  ) {
-    proxy = proxy.split(':').slice(0, 2).join(':')
-  }
+  const dev = new URL(app.store.get('server.dev'))
+  const proxy = new URL(app.store.get('server.proxy'))
 
   /**
    * @filter proxy.interceptor
@@ -44,17 +28,57 @@ export default function proxy(app: Framework) {
         app.warn(
           `proxy interceptor had a problem with a buffer val`,
         )
-        return
+
+        return buffer
       }
 
-      return app.hooks
-        .filter<'proxy.replace'>('proxy.replace', () => [
-          [proxy, dev],
-        ])
-        .reduce(
-          (html, [from, to]) => html.replaceAll(from, to),
-          response,
-        )
+      const replacements = app.hooks.filter<'proxy.replace'>(
+        'proxy.replace',
+        () => {
+          const replacements = []
+
+          /**
+           * Replace href attributes containing proxied origin
+           */
+          replacements.push(
+            [
+              new RegExp(`href="${proxy.origin}(.*)"`, 'g'),
+              `href="${dev.origin}$1"`,
+            ],
+            [
+              new RegExp(`href='${proxy.origin}(.*)'`, 'g'),
+              `href='${dev.origin}$1'`,
+            ],
+          )
+
+          /**
+           * Replace window.location assignments containing proxied origin
+           */
+          replacements.push(
+            [
+              new RegExp(
+                `window.location.(.*) = "${proxy.origin}(.*)"`,
+                'g',
+              ),
+              `window.location.$1 = "${dev.origin}$2"`,
+            ],
+            [
+              new RegExp(
+                `window.location\[(.*)\] = "${proxy.origin}(.*)"`,
+                'g',
+              ),
+              `window.location[$1] = "${dev.origin}$2"`,
+            ],
+          )
+
+          return replacements
+        },
+      )
+
+      return replacements.reduce(
+        (html: string, [from, to]) => html.replaceAll(from, to),
+        response,
+      )
     },
   )
 
@@ -66,9 +90,9 @@ export default function proxy(app: Framework) {
     (): Options => ({
       autoRewrite: true,
       changeOrigin: true,
-      target: proxy,
+      target: proxy.origin,
       cookieDomainRewrite: {
-        [proxy]: dev,
+        [proxy.origin]: dev.origin,
       },
       logProvider: () => app.server.logger,
       onProxyRes: responseInterceptor(interceptor),
@@ -77,12 +101,9 @@ export default function proxy(app: Framework) {
         'X-Proxy-By': '@roots/bud',
       },
       logLevel: 'info',
-
       ws: true,
     }),
   )
-
-  app.info({message: 'proxy config', suffix: options})
 
   return createProxyMiddleware(options)
 }

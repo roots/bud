@@ -236,7 +236,7 @@ export namespace Hooks {
     [`proxy.interceptor`]: (
       buffer: Buffer,
     ) => Promise<string | Buffer>
-    [`proxy.replace`]: Array<[string, string]>
+    [`proxy.replace`]: Array<[string | RegExp, string]>
     [`proxy.options`]?: FrameworkConfig['server']['proxy']
 
     // this is wack
