@@ -1,20 +1,13 @@
-import {Bud, factory} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
-describe.skip('bud.build.config', function () {
+import {Bud, factory} from '../../util/bud'
+
+describe('bud.build.config', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
-
+    bud = await factory()
     await bud.build.make()
   })
 
@@ -33,7 +26,13 @@ describe.skip('bud.build.config', function () {
 
   it('has expected cache default', () => {
     expect(bud.build.config.cache).toMatchSnapshot({
-      type: 'memory',
+      type: 'filesystem',
+      buildDependencies: {
+        bud: expect.any(Array),
+      },
+      cacheDirectory: expect.stringContaining('.budfiles'),
+      managedPaths: expect.any(Array),
+      version: expect.any(String),
     })
   })
 
@@ -79,7 +78,7 @@ describe.skip('bud.build.config', function () {
 
   it('has expected optimization.runtimeChunk default', () => {
     expect(bud.build.config.optimization.runtimeChunk).toEqual(
-      undefined,
+      false,
     )
   })
 
@@ -144,7 +143,7 @@ describe.skip('bud.build.config', function () {
     ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       generator: {
-        filename: 'assets/[hash][ext][query]',
+        filename: 'assets/[name][ext]',
       },
       test: /\.(png|jpe?g|gif)$/,
       type: 'asset/resource',
@@ -179,7 +178,7 @@ describe.skip('bud.build.config', function () {
       test: /\.svg$/,
       type: 'asset/resource',
       generator: {
-        filename: 'assets/[hash][ext][query]',
+        filename: 'assets/[name][ext]',
       },
     })
   })
@@ -283,6 +282,14 @@ describe.skip('bud.build.config', function () {
           options: {
             importLoaders: 1,
             sourceMap: false,
+          },
+        },
+        {
+          loader: expect.stringContaining(
+            'postcss-loader/dist/cjs.js',
+          ),
+          options: {
+            postcssOptions: expect.any(Object),
           },
         },
       ],

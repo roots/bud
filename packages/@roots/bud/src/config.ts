@@ -235,6 +235,7 @@ export const config: Configuration = {
   build: {
     bail: true,
     devtool: false,
+    infrastructureLogging: {console: false},
     node: false,
     output: {
       publicPath: '',

@@ -1,6 +1,7 @@
-import {Bud, factory} from '@roots/bud'
 import {Peers} from '@roots/bud/src/services/Project/peers/peers.service'
 import {readJson} from 'fs-extra'
+
+import {Bud, factory} from '../../../../util/bud'
 
 describe.skip('bud.project', function () {
   let bud: Bud
@@ -10,16 +11,7 @@ describe.skip('bud.project', function () {
     const project = process.cwd().concat('/examples/babel')
     json = await readJson(project.concat('/package.json'))
 
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-        },
-        location: {
-          project,
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('contains a repository', () => {

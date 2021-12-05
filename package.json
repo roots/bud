@@ -19,6 +19,7 @@
     "packages": [
       "dev/jest/util/resolver",
       "examples/*",
+      "tests/util/project",
       "packages/@roots/*",
       "packages/base",
       "site",

@@ -1,3 +1,5 @@
+import '@roots/bud'
+
 import * as BudBabelExtension from '@roots/bud-babel'
 import {Config} from '@roots/bud-babel/src/babel.config'
 

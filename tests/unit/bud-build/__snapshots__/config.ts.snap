@@ -2,7 +2,13 @@
 
 exports[`bud.build.config has expected cache default 1`] = `
 Object {
-  "type": "memory",
+  "buildDependencies": Object {
+    "bud": Any<Array>,
+  },
+  "cacheDirectory": StringContaining ".budfiles",
+  "managedPaths": Any<Array>,
+  "type": "filesystem",
+  "version": Any<String>,
 }
 `;
 
@@ -10,7 +16,7 @@ exports[`bud.build.config has expected default asset/image rule 1`] = `
 Object {
   "exclude": Object {},
   "generator": Object {
-    "filename": "assets/[hash][ext][query]",
+    "filename": "assets/[name][ext]",
   },
   "test": Object {},
   "type": "asset/resource",
@@ -31,6 +37,13 @@ Object {
       "options": Object {
         "importLoaders": 1,
         "sourceMap": false,
+      },
+    },
+    Object {
+      "loader": StringContaining "postcss-loader/dist/cjs.js",
+      "options": Object {
+        "postcssOptions": Any<Object>,
+        "sourceMap": true,
       },
     },
   ],
@@ -111,7 +124,7 @@ exports[`bud.build.config has expected default svg rule 1`] = `
 Object {
   "exclude": Object {},
   "generator": Object {
-    "filename": "assets/[hash][ext][query]",
+    "filename": "assets/[name][ext]",
   },
   "test": Object {},
   "type": "asset/resource",

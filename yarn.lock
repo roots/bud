@@ -23843,6 +23843,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"test-empty@workspace:tests/util/project":
+  version: 0.0.0-use.local
+  resolution: "test-empty@workspace:tests/util/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "test-exclude@npm:^6.0.0":
   version: 6.0.0
   resolution: "test-exclude@npm:6.0.0"

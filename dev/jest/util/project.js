@@ -1,56 +1,31 @@
 /* eslint-disable no-console */
-import execa from 'execa'
-import {readFile, readJson} from 'fs-extra'
-
-export interface Assets {
-  [key: string]: any
-}
-
-export interface Entrypoints {
-  [key: string]: {
-    js?: string[]
-    css?: string[]
-    dependencies?: string[]
-  }
-}
-
-export interface SomeJson {
-  [key: string]: any
-}
+const execa = require('execa')
+const {readFile, readJson} = require('fs-extra')
 
 class Project {
-  public name: string
+  name
 
-  public mode: 'development' | 'production' = 'production'
+  mode = 'production'
 
-  public dir: string = ''
+  dir = ''
 
-  public dist: string = 'dist'
+  dist = 'dist'
 
-  public storage: string = '.budfiles'
+  storage = '.budfiles'
 
-  public public: string = ''
+  assets = {}
 
-  public assets: Assets = {}
+  entrypoints = {}
 
-  public entrypoints: Assets = {}
+  manifest = {}
 
-  public manifest: SomeJson = {}
+  modules = {}
 
-  public modules: SomeJson = {}
+  webpackConfig
 
-  public webpackConfig: string
+  packageJson = {}
 
-  public packageJson: SomeJson = {}
-
-  public constructor(options: {
-    name: string
-    mode?: 'development' | 'production'
-    dir?: string
-    dist?: string
-    public?: string
-    storage?: string
-  }) {
+  constructor(options) {
     Object.assign(this, {
       ...options,
       dir: options.dir
@@ -70,7 +45,7 @@ class Project {
     this.yarn = this.yarn.bind(this)
   }
 
-  public async setup(this: Project): Promise<void> {
+  async setup() {
     await this.setPackageJson()
     await this.setManifest()
     await this.setAssets()
@@ -79,24 +54,24 @@ class Project {
     await this.setWebpackConfig()
   }
 
-  public projectPath(file: string): string {
+  projectPath(file) {
     return `${this.dir}/${file}`
   }
 
-  public publicPath(file: string) {
+  publicPath(file) {
     return `${this.public}/${file}`
   }
 
-  public async setPackageJson() {
-    let packageJson: SomeJson = await readJson(
+  async setPackageJson() {
+    let packageJson = await readJson(
       this.projectPath('package.json'),
     )
 
     Object.assign(this, {packageJson})
   }
 
-  public async setManifest() {
-    let manifest: SomeJson = await readJson(
+  async setManifest() {
+    let manifest = await readJson(
       this.projectPath(`${this.dist}/manifest.json`),
     )
 
@@ -105,7 +80,7 @@ class Project {
      * entries or they won't resolve
      */
     manifest = Object.entries(manifest).reduce(
-      (a, [k, v]): Assets => ({
+      (a, [k, v]) => ({
         ...a,
         [k]: v.replace(this.public, ''),
       }),
@@ -115,9 +90,9 @@ class Project {
     Object.assign(this, {manifest})
   }
 
-  public async setAssets(): Promise<void> {
+  async setAssets() {
     const assets = await Object.entries(this.manifest).reduce(
-      async (promised: Promise<any>, [name, path]) => {
+      async (promised, [name, path]) => {
         const assets = await promised
         const buffer = await readFile(
           this.projectPath(`${this.dist}/${path}`),
@@ -135,7 +110,7 @@ class Project {
     Object.assign(this, {assets})
   }
 
-  public async setEntrypoints(): Promise<void> {
+  async setEntrypoints() {
     try {
       const entrypoints = await readJson(
         this.projectPath(`${this.dist}/entrypoints.json`),
@@ -145,9 +120,9 @@ class Project {
     } catch (e) {}
   }
 
-  public async setWebpackConfig(): Promise<void> {
+  async setWebpackConfig() {
     try {
-      const webpackConfig: string = await readFile(
+      const webpackConfig = await readFile(
         this.projectPath(
           `${this.storage}/bud/webpack.config.js`,
         ),
@@ -158,7 +133,7 @@ class Project {
     } catch (e) {}
   }
 
-  public async setModules(): Promise<void> {
+  async setModules() {
     try {
       const modules = await readJson(
         this.projectPath(`${this.storage}/bud/modules.json`),
@@ -168,7 +143,7 @@ class Project {
     } catch (e) {}
   }
 
-  public async yarn(...opts: string[]): Promise<void> {
+  async yarn(...opts) {
     const res = execa('yarn', opts, {
       cwd: this.dir,
     })
@@ -179,4 +154,4 @@ class Project {
   }
 }
 
-export {Project}
+module.exports = Project
