@@ -3304,7 +3304,7 @@ __metadata:
     "@docusaurus/preset-classic": 2.0.0-beta.9
     "@easyops-cn/docusaurus-search-local": 0.20.0
     "@skypack/package-check": 0.2.2
-    "@svgr/webpack": 6.1.0
+    "@svgr/webpack": 6.1.1
     "@tsconfig/docusaurus": 1.0.4
     "@types/jsesc": 3.0.1
     "@types/node": 16.11.11
@@ -4469,14 +4469,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@svgr/core@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@svgr/core@npm:6.1.0"
+"@svgr/core@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "@svgr/core@npm:6.1.1"
   dependencies:
     "@svgr/plugin-jsx": ^6.1.0
     camelcase: ^6.2.0
     cosmiconfig: ^7.0.1
-  checksum: e876fe17282c747f4b6c35a1060078d3545fd479965044850a0c686b14acf178080463a03a2e855a264177c7e9e554523e941a6edc3d4092abc5b378eba320f7
+  checksum: c66837ce2e5263efc2758fc436d7512d8577c56e8c8a2ec081de13d70c11ac34169f4ddd6f76def0e4a897acf2bc94ac61e7ecbcc2993e45e55dd835753e7497
   languageName: node
   linkType: hard
 
@@ -4549,19 +4549,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@svgr/webpack@npm:6.1.0":
-  version: 6.1.0
-  resolution: "@svgr/webpack@npm:6.1.0"
+"@svgr/webpack@npm:6.1.1":
+  version: 6.1.1
+  resolution: "@svgr/webpack@npm:6.1.1"
   dependencies:
     "@babel/core": ^7.15.5
     "@babel/plugin-transform-react-constant-elements": ^7.14.5
     "@babel/preset-env": ^7.15.6
     "@babel/preset-react": ^7.14.5
     "@babel/preset-typescript": ^7.15.0
-    "@svgr/core": ^6.1.0
+    "@svgr/core": ^6.1.1
     "@svgr/plugin-jsx": ^6.1.0
     "@svgr/plugin-svgo": ^6.1.0
-  checksum: e0af1106e0e66b378f4be797c2e39378b69fe95bd1757c02aaa60fe442f7f02ef341aa8c6086e4f7c9990ce29f8a74c2fb777e21f5902e39c9358262178e1360
+  checksum: 7ac185942416afa00657e370aac2e1aec279ab9d0e69a5fb223ce52bfd2e9ecab9a917d722e2f644d758ccc15bad75c977189c3c99adb1691bf164a07109fe51
   languageName: node
   linkType: hard
 
