@@ -13,20 +13,43 @@ import type {Framework} from './proxy.interface'
  * @public
  */
 export default function proxy(app: Framework) {
-  const dev = new URL(app.store.get('server.proxy'))
-  const proxy = new URL(app.store.get('server.dev'))
+  let dev = new URL(app.store.get('server.dev')).origin
+  let proxy = new URL(app.store.get('server.proxy')).origin
+
+  if (
+    dev.endsWith(':80') ||
+    dev.endsWith(':443') ||
+    dev.endsWith(':8080')
+  ) {
+    dev = dev.split(':').slice(0, 2).join(':')
+  }
+
+  if (
+    proxy.endsWith(':80') ||
+    proxy.endsWith(':443') ||
+    proxy.endsWith(':8080')
+  ) {
+    proxy = proxy.split(':').slice(0, 2).join(':')
+  }
 
   /**
    * @filter proxy.interceptor
    */
   const interceptor = app.hooks.filter<'proxy.interceptor'>(
     'proxy.interceptor',
-    async (buffer: Buffer) => {
-      let response = buffer.toString('utf8')
+    () => async (buffer: Buffer) => {
+      let response = buffer?.toString('utf8')
+
+      if (!response) {
+        app.warn(
+          `proxy interceptor had a problem with a buffer val`,
+        )
+        return
+      }
 
       return app.hooks
         .filter<'proxy.replace'>('proxy.replace', () => [
-          [proxy.href, dev.href],
+          [proxy, dev],
         ])
         .reduce(
           (html, [from, to]) => html.replaceAll(from, to),
@@ -43,9 +66,9 @@ export default function proxy(app: Framework) {
     (): Options => ({
       autoRewrite: true,
       changeOrigin: true,
-      target: proxy.href,
+      target: proxy,
       cookieDomainRewrite: {
-        [proxy.href]: dev.href,
+        [proxy]: dev,
       },
       logProvider: () => app.server.logger,
       onProxyRes: responseInterceptor(interceptor),
@@ -54,12 +77,12 @@ export default function proxy(app: Framework) {
         'X-Proxy-By': '@roots/bud',
       },
       logLevel: 'info',
-      ssl: false,
-      secure: false,
+
       ws: true,
-      ...(app.store.get('server.proxy') ?? {}),
     }),
   )
+
+  app.info({message: 'proxy config', suffix: options})
 
   return createProxyMiddleware(options)
 }

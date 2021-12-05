@@ -1,8 +1,20 @@
-import {lodash} from '@roots/bud-support'
 import {Newline, Text} from 'ink'
 import React from 'react'
+import {URL} from 'url'
 
-const {isString} = lodash
+const Url = ({href}) => {
+  let url = new URL(href).origin
+
+  url = [
+    url.endsWith(':80'),
+    url.endsWith(':443'),
+    url.endsWith(':8080'),
+  ].find(Boolean)
+    ? url.split(':').slice(0, 2).join(':')
+    : url
+
+  return <Text>{url}</Text>
+}
 
 export const Serve = ({theme, server}) => {
   return (
@@ -10,7 +22,7 @@ export const Serve = ({theme, server}) => {
       <Text color={theme?.colors.text}>
         dev:{' '}
         <Text color={theme?.colors.accent}>
-          {server.host}:{server.port}
+          <Url href={server.dev} />
         </Text>
       </Text>
       <Newline />
@@ -19,9 +31,7 @@ export const Serve = ({theme, server}) => {
         <Text color={theme?.colors.text}>
           proxy:{' '}
           <Text color={theme?.colors.accent}>
-            {isString(server.proxy.target)
-              ? server.proxy.target
-              : JSON.stringify(server.proxy.target)}
+            <Url href={server.proxy} />
           </Text>
         </Text>
       )}

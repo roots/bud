@@ -23,7 +23,7 @@ const inDevelopment = (app: Framework) => {
           await writeJson(app.path('dist', 'hmr.json'), {
             dev: urlToHttpOptions(dev),
 
-            proxy: app.store.is('features.proxy', true)
+            proxy: app.store.is('server.middleware.proxy', true)
               ? urlToHttpOptions(proxy)
               : false,
           })

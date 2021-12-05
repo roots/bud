@@ -1,5 +1,6 @@
 import * as Framework from '@roots/bud-framework'
 import Express from 'express'
+import {URL} from 'url'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
@@ -163,7 +164,7 @@ export class Server
      * Listen
      */
     this.instance = this.application.listen(
-      this.app.store.get('server.port'),
+      new URL(this.app.store.get('server.dev')).port,
       async (error: string) => {
         if (error) this.log('error', error)
 
