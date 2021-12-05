@@ -7,7 +7,7 @@ export interface serve {
 export const serve: serve = function (config) {
   const ctx = this as Framework
 
-  config && ctx.store.set('server.dev', config)
+  ctx.store.set('server.dev', config)
 
   return ctx
 }
