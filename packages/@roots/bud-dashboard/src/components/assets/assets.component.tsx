@@ -45,14 +45,18 @@ export const Dashboard = ({progress, stats, theme}: Props) => {
         </Box>
       )) ?? (
         <Text>
-          <Spinner />{' '}
-          {progress && progress[0]
-            ? `${(progress[0] * 100).toFixed(0)}% `
-            : ``}
-          {progress && progress[1]
-            ? formatProgress(progress[1])
-            : 'compiling'}
-          <Newline />
+          {progress && progress[0] ? (
+            <Text>
+              {' '}
+              <Spinner />{' '}
+              {` ${(progress[0] * 100).toFixed(
+                0,
+              )}% ${formatProgress(progress[1])}`}{' '}
+              <Newline />
+            </Text>
+          ) : (
+            ' '
+          )}
         </Text>
       )}
     </Box>

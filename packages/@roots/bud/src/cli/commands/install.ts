@@ -1,7 +1,5 @@
 import * as oclif from '@oclif/core'
-import {chalk, Signale} from '@roots/bud-support'
 
-import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies.js'
 import {Command} from '../Command/index.js'
 
 /**
@@ -37,10 +35,6 @@ export default class Install extends Command {
       default: false,
       hidden: true,
     }),
-    ['log.papertrail']: oclif.Flags.boolean({
-      default: false,
-      hidden: true,
-    }),
   }
 
   /**
@@ -48,41 +42,11 @@ export default class Install extends Command {
    */
   public async run() {
     await this.prime(Install)
-    await this.app.project.buildProfile()
-    const logger = new Signale()
 
-    const dependencies: Array<[string, string]> =
-      this.app.project
-        .get('unmet')
-        .map(({name, version}) => [name, version])
-
-    logger.await({
-      message: `installing dependencies`,
-      suffix: chalk.dim(dependencies),
-    })
-
-    const manager = new DependenciesManager(
-      this.app.path('project'),
+    await this.app.dependencies.install(
+      this.app.project.get('unmet'),
     )
 
-    try {
-      await manager.client.install(
-        dependencies,
-        true,
-        (message: string) => {
-          logger.log({
-            prefix: chalk.blue(manager.isYarn ? 'yarn' : 'npm'),
-            message: chalk.dim(message),
-          })
-        },
-      )
-
-      logger.success(chalk.green`installation complete`)
-    } catch (error) {
-      logger.error(error)
-      this.exit(1)
-    }
-
-    this.exit(0)
+    process.exit(0)
   }
 }
