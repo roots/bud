@@ -76,7 +76,7 @@ export default interface Interface extends Service {
    *
    * @public
    */
-  inject(): void
+  inject(): Promise<void>
 
   /**
    * Close the server connection

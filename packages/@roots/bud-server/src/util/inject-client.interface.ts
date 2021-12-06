@@ -7,4 +7,4 @@ export {Webpack}
 export type InjectClient = (
   app: Framework,
   injection: string[],
-) => void
+) => Promise<void>

@@ -16,8 +16,8 @@ const inDevelopment = (app: Framework) => {
     .async<'event.compiler.done'>(
       'event.compiler.done',
       async stats => {
-        const dev = new URL(app.store.get('server.dev'))
-        const proxy = new URL(app.store.get('server.proxy'))
+        const dev = new URL(app.store.get('server.dev.url'))
+        const proxy = new URL(app.store.get('server.proxy.url'))
 
         try {
           await writeJson(app.path('dist', 'hmr.json'), {

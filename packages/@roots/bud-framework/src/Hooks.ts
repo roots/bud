@@ -6,13 +6,8 @@ import {
   StatsCompilation,
 } from 'webpack'
 
-import {
-  Configuration as FrameworkConfig,
-  Framework,
-  Modules,
-  Plugins,
-  Service,
-} from './'
+import {Framework, Modules, Plugins, Service} from './'
+import {ProxyOptions} from './Server'
 
 /**
  * Assign and filter callback to values.
@@ -237,7 +232,7 @@ export namespace Hooks {
       buffer: Buffer,
     ) => Promise<string | Buffer>
     [`proxy.replace`]: Array<[string | RegExp, string]>
-    [`proxy.options`]?: FrameworkConfig['server']['proxy']
+    [`proxy.options`]?: ProxyOptions
 
     // this is wack
     [key: `extension.${string}`]: any

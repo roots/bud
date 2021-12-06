@@ -164,7 +164,7 @@ export class Server
      * Listen
      */
     this.instance = this.application.listen(
-      new URL(this.app.store.get('server.dev')).port,
+      new URL(this.app.store.get('server.dev.url')).port ?? 3000,
       async (error: string) => {
         if (error) this.log('error', error)
 
@@ -216,8 +216,8 @@ export class Server
    * @decorator `@bind`
    */
   @bind
-  public inject(): void {
-    injectClient(this.app, this.assets)
+  public async inject(): Promise<void> {
+    await injectClient(this.app, this.assets)
   }
 
   /**

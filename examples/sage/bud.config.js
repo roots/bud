@@ -13,6 +13,9 @@ module.exports = async (app) => {
     })
     .copy(['resources/images'])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
-    .serve('http://localhost:3000')
-    .proxy('http://localhost:8080');
+    .setPath('dist', 'public')
+    .setPublicPath('/app/themes/sage/public/')
+    .serve('http://example.test:3000')
+
+    .proxy('http://example.test');
 };

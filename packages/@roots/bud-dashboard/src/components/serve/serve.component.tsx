@@ -22,7 +22,7 @@ export const Serve = ({theme, server}) => {
       <Text color={theme?.colors.text}>
         dev:{' '}
         <Text color={theme?.colors.accent}>
-          <Url href={server.dev} />
+          <Url href={server.dev.url} />
         </Text>
       </Text>
       <Newline />
@@ -31,7 +31,7 @@ export const Serve = ({theme, server}) => {
         <Text color={theme?.colors.text}>
           proxy:{' '}
           <Text color={theme?.colors.accent}>
-            <Url href={server.proxy} />
+            <Url href={server.proxy.url} />
           </Text>
         </Text>
       )}

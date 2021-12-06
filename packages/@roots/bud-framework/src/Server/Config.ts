@@ -17,14 +17,23 @@ export interface Configuration {
    *
    * @public
    */
-  dev: UrlObject | string
+  dev: {
+    url: UrlObject | string
+  }
 
   /**
    * Development server URL
    *
    * @public
    */
-  proxy: UrlObject | string
+  proxy: {
+    url: UrlObject | string
+    replace: {
+      href: true
+      window: true
+      publicPath: true
+    }
+  }
 
   /**
    * Files which should reload the browser when changed.
