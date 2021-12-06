@@ -28,8 +28,17 @@ describe('@roots/bud-server', function () {
         proxy: false,
       },
 
-      dev: 'http://localhost:3000',
-      proxy: 'http://localhost:8080',
+      dev: {
+        url: 'http://localhost:3000',
+      },
+      proxy: {
+        url: 'http://localhost:8080',
+        replace: {
+          href: true,
+          window: true,
+          publicPath: true,
+        },
+      },
 
       watch: {
         files: [],

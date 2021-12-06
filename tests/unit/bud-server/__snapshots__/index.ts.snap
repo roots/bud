@@ -7,13 +7,22 @@ Object {
     "log": true,
     "overlay": true,
   },
-  "dev": "http://localhost:3000",
+  "dev": Object {
+    "url": "http://localhost:3000",
+  },
   "middleware": Object {
     "dev": true,
     "hot": true,
     "proxy": false,
   },
-  "proxy": "http://localhost:8080",
+  "proxy": Object {
+    "replace": Object {
+      "href": true,
+      "publicPath": true,
+      "window": true,
+    },
+    "url": "http://localhost:8080",
+  },
   "watch": Object {
     "files": Array [],
   },
