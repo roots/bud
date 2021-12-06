@@ -40,16 +40,13 @@ export default function proxy(app: Framework) {
           /**
            * Replace href attributes containing proxied origin
            */
-          replacements.push(
-            [
-              new RegExp(`href="${proxy.origin}(.*)"`, 'g'),
-              `href="${dev.origin}$1"`,
-            ],
-            [
-              new RegExp(`href='${proxy.origin}(.*)'`, 'g'),
-              `href='${dev.origin}$1'`,
-            ],
-          )
+          replacements.push([
+            new RegExp(
+              `href=['|"]${proxy.origin}(.*)['|"]`,
+              'g',
+            ),
+            `href="${dev.origin}$1"`,
+          ])
 
           /**
            * Replace window.location assignments containing proxied origin
@@ -57,17 +54,17 @@ export default function proxy(app: Framework) {
           replacements.push(
             [
               new RegExp(
-                `window.location.(.*) = "${proxy.origin}(.*)"`,
-                'g',
-              ),
-              `window.location.$1 = "${dev.origin}$2"`,
-            ],
-            [
-              new RegExp(
-                `window.location\[(.*)\] = "${proxy.origin}(.*)"`,
+                `window\.location\[['|"](.*)['|"]\]\s*?=\s*?"${proxy.origin}(.*)"`,
                 'g',
               ),
               `window.location[$1] = "${dev.origin}$2"`,
+            ],
+            [
+              new RegExp(
+                `window\.location\.(.*)\s*?=\s*?"${proxy.origin}(.*)"`,
+                'g',
+              ),
+              `window.location.$1 = "${dev.origin}$2"`,
             ],
           )
 
