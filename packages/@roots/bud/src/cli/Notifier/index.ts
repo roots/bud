@@ -1,3 +1,4 @@
+import {bind} from '@roots/bud-support'
 import {resolve} from 'path'
 
 import {Bud} from '../../Bud'
@@ -25,20 +26,19 @@ export class Notifier {
     this.instance = new NodeNotifier.NotificationCenter({
       customPath: MACOS_NOTIFIER_PATH,
     })
-
-    this.notify = this.notify.bind(this)
   }
 
+  @bind
   public notify(app: Bud, props) {
-    const group = app.name
+    const group = app.path('project').split('/').pop()
 
     const title =
-      props?.title || app.compiler.stats.errors.length > 0
+      props?.title ?? app.compiler.stats.errors.length > 0
         ? `Build error`
         : `Build success`
 
     const message =
-      props?.message || app.compiler.stats.errors.length > 0
+      props?.message ?? app.compiler.stats.errors.length > 0
         ? `${group} couldn't be compiled`
         : `${group} compiled successfully`
 

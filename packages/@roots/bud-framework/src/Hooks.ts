@@ -3,7 +3,6 @@ import {ValueOf} from 'type-fest'
 import {
   Configuration,
   RuleSetRule,
-  Stats,
   StatsCompilation,
 } from 'webpack'
 
@@ -219,7 +218,7 @@ export namespace Hooks {
     [`event.build.make.after`]: unknown
     [`event.build.override`]: Configuration
     [`event.compiler.before`]: Array<Framework>
-    [`event.compiler.done`]: Stats
+    [`event.compiler.done`]: StatsCompilation
     [`event.compiler.after`]: Framework
     [`event.compiler.stats`]: StatsCompilation
     [`event.compiler.error`]: Error
