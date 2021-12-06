@@ -6,6 +6,7 @@ import {
   responseInterceptor,
 } from './proxy.dependencies'
 import type {Framework} from './proxy.interface'
+import {replace} from './proxy.replace'
 
 /**
  * Proxy middleware factory
@@ -34,42 +35,7 @@ export default function proxy(app: Framework) {
 
       const replacements = app.hooks.filter<'proxy.replace'>(
         'proxy.replace',
-        () => {
-          const replacements = []
-
-          /**
-           * Replace href attributes containing proxied origin
-           */
-          replacements.push([
-            new RegExp(
-              `href=['|"]${proxy.origin}(.*)['|"]`,
-              'g',
-            ),
-            `href="${dev.origin}$1"`,
-          ])
-
-          /**
-           * Replace window.location assignments containing proxied origin
-           */
-          replacements.push(
-            [
-              new RegExp(
-                `window\.location\[['|"](.*)['|"]\]\s*?=\s*?"${proxy.origin}(.*)"`,
-                'g',
-              ),
-              `window.location[$1] = "${dev.origin}$2"`,
-            ],
-            [
-              new RegExp(
-                `window\.location\.(.*)\s*?=\s*?"${proxy.origin}(.*)"`,
-                'g',
-              ),
-              `window.location.$1 = "${dev.origin}$2"`,
-            ],
-          )
-
-          return replacements
-        },
+        replace(proxy, dev),
       )
 
       return replacements.reduce(
