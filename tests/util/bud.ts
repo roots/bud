@@ -1,6 +1,3 @@
-import '@roots/bud-api'
-import '@roots/bud-babel'
-
 import {factory as budFactory} from '@roots/bud'
 import {join} from 'path'
 

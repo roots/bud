@@ -6,7 +6,7 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "esModuleInterop": true,
-    "types": ["node", "@roots/bud", "@roots/bud-framework"]
+    "types": ["node"]
   },
   "include": ["./**/*.ts", "./**/*.js"],
   "exclude": [

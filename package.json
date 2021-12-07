@@ -75,6 +75,7 @@
     "js-yaml": "^4.1.0",
     "json5": "^2.2.0",
     "lodash": "4.17.21",
+    "npm-auth-to-token": "^1.0.0",
     "npm-run-path": "5.0.1",
     "prettier": "2.5.1",
     "pretty-format": "27.4.2",

@@ -24,7 +24,7 @@ echo Build
 yarn repo build
 
 echo Lint
-yarn repo lint --eslint --skypack
+yarn repo lint
 
 echo Tests
 yarn repo test

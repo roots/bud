@@ -1,7 +1,7 @@
-import CodeBlock from '@theme/CodeBlock'
-import TabItem from '@theme/TabItem'
-import Tabs from '@theme/Tabs'
-import React from 'react'
+import CodeBlock from '@theme/CodeBlock';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+import React from 'react';
 
 const PeerDependencies = () => (
   <div>
@@ -17,9 +17,10 @@ const PeerDependencies = () => (
       groupId="pacman"
       defaultValue="yarn"
       values={[
-        {label: 'yarn', value: 'yarn'},
-        {label: 'npm', value: 'npm'},
-      ]}>
+        { label: 'yarn', value: 'yarn' },
+        { label: 'npm', value: 'npm' },
+      ]}
+    >
       <TabItem value="yarn">
         <CodeBlock className="language-shell">{`yarn bud init`}</CodeBlock>
       </TabItem>
@@ -29,6 +30,6 @@ const PeerDependencies = () => (
       </TabItem>
     </Tabs>
   </div>
-)
+);
 
-export {PeerDependencies}
+export { PeerDependencies };

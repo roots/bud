@@ -48,19 +48,19 @@ export class LintCommand extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint packages/@roots/*/src/**/*.{js,jsx,ts,tsx} --config config/.eslintrc.js --ignore-path config/.eslintignore --fix`,
-              `yarn eslint dev/**/*.{js,jsx,ts,tsx} --config config/.eslintrc.js --ignore-path config/.eslintignore  --fix`,
-              `yarn eslint site/src/**/*.{js,jsx,ts,tsx} --config config/.eslintrc.js --ignore-path config/.eslintignore  --fix`,
+              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore --fix`,
+              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore  --fix`,
+              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore  --fix`,
             ]
           : []),
         ...(this.prettier
           ? [
-              `yarn prettier packages/@roots/*/src/**/* --config config/prettier.config.js --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+              `yarn prettier ./packages/@roots/*/src/**/* --config ./config/prettier.config.js --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
               this.lib
-                ? `yarn prettier packages/@roots/*/lib/**/* --config config/prettier.config.js  --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+                ? `yarn prettier ./packages/@roots/*/lib/**/* --config ./config/prettier.config.js  --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
                 : ``,
               this.types
-                ? `yarn prettier packages/@roots/*/types/**/*.d.ts --config config/prettier.config.js --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+                ? `yarn prettier ./packages/@roots/*/types/**/*.d.ts --config ./config/prettier.config.js --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
                 : null,
             ].filter(Boolean)
           : []),

@@ -1,5 +1,5 @@
-**/bin
-**/*.json
-**/node_modules
-**/package.json
-**/tsconfig.json
+../**/bin
+../**/*.json
+../**/node_modules
+../**/package.json
+../**/tsconfig.json
