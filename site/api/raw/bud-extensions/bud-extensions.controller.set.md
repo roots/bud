@@ -4,12 +4,14 @@
 
 ## Controller.set() method
 
-
 <b>Signature:</b>
 
 ```typescript
 set(key: string, value: any): void;
 ```
+<b>Decorators:</b>
+
+`@bind`
 
 ## Parameters
 

@@ -39,13 +39,18 @@ export declare class Controller
 
 ## Methods
 
-| Method                                                       | Modifiers | Description                                           |
-| ------------------------------------------------------------ | --------- | ----------------------------------------------------- |
-| [api()](/api/bud-extensions/controller/api)                  |           |                                                       |
-| [boot()](/api/bud-extensions/controller/boot)                |           | Extension boot event                                  |
-| [filter(key, object)](/api/bud-extensions/controller/filter) |           |                                                       |
-| [get(key)](/api/bud-extensions/controller/get)               |           |                                                       |
-| [make()](/api/bud-extensions/controller/make)                |           | Value determining if the extension should be utilized |
-| [mixin()](/api/bud-extensions/controller/mixin)              |           |                                                       |
-| [register()](/api/bud-extensions/controller/register)        |           | Extension registration event                          |
-| [set(key, value)](/api/bud-extensions/controller/set)        |           |                                                       |
+| Method                                                                  | Modifiers | Description                                           |
+| ----------------------------------------------------------------------- | --------- | ----------------------------------------------------- |
+| [api()](/api/bud-extensions/controller/api)                             |           |                                                       |
+| [boot()](/api/bud-extensions/controller/boot)                           |           | Extension boot event                                  |
+| [get(key)](/api/bud-extensions/controller/get)                          |           |                                                       |
+| [getOption(key)](/api/bud-extensions/controller/getoption)              |           | Get an extension option                               |
+| [make()](/api/bud-extensions/controller/make)                           |           | Value determining if the extension should be utilized |
+| [mergeOption(key, options)](/api/bud-extensions/controller/mergeoption) |           | Merge option                                          |
+| [mergeOptions(options)](/api/bud-extensions/controller/mergeoptions)    |           | Merge options                                         |
+| [mixin()](/api/bud-extensions/controller/mixin)                         |           |                                                       |
+| [mutateOptions(options)](/api/bud-extensions/controller/mutateoptions)  |           | Mutate options                                        |
+| [register()](/api/bud-extensions/controller/register)                   |           | Extension registration event                          |
+| [set(key, value)](/api/bud-extensions/controller/set)                   |           |                                                       |
+| [setOption(key, value)](/api/bud-extensions/controller/setoption)       |           | Set an extension option                               |
+| [setOptions(value)](/api/bud-extensions/controller/setoptions)          |           | Set an extension option                               |

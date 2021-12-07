@@ -1,6 +1,30 @@
 export class Inner extends HTMLElement {
+  /**
+   * Has been rendered
+   *
+   * @public
+   */
   public rendered: boolean
 
+  /**
+   * Inner HTML
+   *
+   * @public
+   */
+  public innerHTML: string = ``
+
+  /**
+   * Style props
+   *
+   * @public
+   */
+  public style: CSSStyleDeclaration
+
+  /**
+   * Render component
+   *
+   * @public
+   */
   public render() {
     this.innerHTML = `
       ${this.innerHTML}
@@ -24,6 +48,11 @@ export class Inner extends HTMLElement {
     this.style.maxHeight = `100%`
   }
 
+  /**
+   * Connected callback
+   *
+   * @public
+   */
   public connectedCallback() {
     if (!this.rendered) {
       this.render()
@@ -31,6 +60,11 @@ export class Inner extends HTMLElement {
     }
   }
 
+  /**
+   * Attribute changed callback
+   *
+   * @public
+   */
   public attributeChangedCallback() {
     this.render()
   }

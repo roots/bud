@@ -38,10 +38,15 @@ export declare class Controller
 |  --- | --- | --- |
 |  [api()](./bud-extensions.controller.api.md) |  |  |
 |  [boot()](./bud-extensions.controller.boot.md) |  | Extension boot event |
-|  [filter(key, object)](./bud-extensions.controller.filter.md) |  |  |
 |  [get(key)](./bud-extensions.controller.get.md) |  |  |
+|  [getOption(key)](./bud-extensions.controller.getoption.md) |  | Get an extension option |
 |  [make()](./bud-extensions.controller.make.md) |  | Value determining if the extension should be utilized |
+|  [mergeOption(key, options)](./bud-extensions.controller.mergeoption.md) |  | Merge option |
+|  [mergeOptions(options)](./bud-extensions.controller.mergeoptions.md) |  | Merge options |
 |  [mixin()](./bud-extensions.controller.mixin.md) |  |  |
+|  [mutateOptions(options)](./bud-extensions.controller.mutateoptions.md) |  | Mutate options |
 |  [register()](./bud-extensions.controller.register.md) |  | Extension registration event |
 |  [set(key, value)](./bud-extensions.controller.set.md) |  |  |
+|  [setOption(key, value)](./bud-extensions.controller.setoption.md) |  | Set an extension option |
+|  [setOptions(value)](./bud-extensions.controller.setoptions.md) |  | Set an extension option |
 

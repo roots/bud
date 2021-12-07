@@ -12,6 +12,13 @@ export class Blur extends HTMLElement {
   public rendered: boolean
 
   /**
+   * Style props
+   *
+   * @public
+   */
+  public style: CSSStyleDeclaration
+
+  /**
    * Render component
    *
    * @public

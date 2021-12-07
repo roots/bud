@@ -1,9 +1,0 @@
-{
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "./../",
-    "outDir": "./types",
-    "declaration": true,
-    "declarationDir": "./types"
-  }
-}

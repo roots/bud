@@ -15,6 +15,10 @@ Signature:
 get(key: string): any;
 ```
 
+Decorators:
+
+`@bind`
+
 ## Parameters
 
 | Parameter | Type   | Description |

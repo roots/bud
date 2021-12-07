@@ -4144,9 +4144,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/yarn-plugin-repo@workspace:.yarn/repo":
+"@roots/yarn-plugin-repo@workspace:config/yarn/repo":
   version: 0.0.0-use.local
-  resolution: "@roots/yarn-plugin-repo@workspace:.yarn/repo"
+  resolution: "@roots/yarn-plugin-repo@workspace:config/yarn/repo"
   dependencies:
     "@types/jest": 27.0.3
     "@types/node": 16.11.11
@@ -8157,6 +8157,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.3
+    "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.177
     "@types/node": 16.11.11
     "@types/react": 17.0.37
@@ -8188,6 +8189,8 @@ __metadata:
     ink: 3.2.0
     ink-testing-library: 2.1.0
     jest: 27.4.3
+    js-yaml: ^4.1.0
+    json5: ^2.2.0
     lodash: 4.17.21
     npm-run-path: 5.0.1
     prettier: 2.5.1
@@ -26016,9 +26019,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yoga-layout-prebuilt@patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch::locator=bud.js%40workspace%3A.":
+"yoga-layout-prebuilt@patch:yoga-layout-prebuilt@*#config/yarn/patches/yoga-layout-prebuilt.patch::locator=bud.js%40workspace%3A.":
   version: 1.10.0
-  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#.yarn/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=8c2d4c&locator=bud.js%40workspace%3A."
+  resolution: "yoga-layout-prebuilt@patch:yoga-layout-prebuilt@npm%3A1.10.0#config/yarn/patches/yoga-layout-prebuilt.patch::version=1.10.0&hash=8c2d4c&locator=bud.js%40workspace%3A."
   dependencies:
     "@types/yoga-layout": 1.9.2
   checksum: e659d239b6f0a38a70d24e33802f906bf7e78654de91dde99bf59cc2e12a26f7102c57032428312c6c1646a956335157df3bdf06a70a9f5e6974e7dfb6460539

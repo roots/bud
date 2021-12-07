@@ -4,12 +4,14 @@
 
 ## Controller.get() method
 
-
 <b>Signature:</b>
 
 ```typescript
 get(key: string): any;
 ```
+<b>Decorators:</b>
+
+`@bind`
 
 ## Parameters
 

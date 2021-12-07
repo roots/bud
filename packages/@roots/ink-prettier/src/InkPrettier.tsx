@@ -15,8 +15,7 @@ const InkPrettier: InkPrettier = props => (
     flexDirection="column"
     justifyContent="flex-start"
     alignItems="flex-start"
-    alignSelf="flex-start"
-  >
+    alignSelf="flex-start">
     <Text>
       {prettier.format(props.children, {
         parser: props.parser ?? 'babel',

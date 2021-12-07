@@ -9,19 +9,22 @@ Hooks filter
 <b>Signature:</b>
 
 ```typescript
-filter<T = any>(id: `${Contract.Name & string}`, value?: T): T;
+filter<T extends keyof Contract.Map & string>(id: T, value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any)): Contract.Map[T];
 ```
+<b>Decorators:</b>
+
+`@bind`
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  id | \`${Contract.Name &amp; string}\` |  |
-|  value | T |  |
+|  id | T |  |
+|  value | Contract.Map\[T\] \| ((value?: Contract.Map\[T\]) =&gt; any) |  |
 
 <b>Returns:</b>
 
-T
+Contract.Map\[T\]
 
 ## Remarks
 
@@ -32,7 +35,7 @@ The other side of bud.hooks.on. Passes a key and a value. If any filters are reg
 
 ```js
 bud.hooks.filter(
-  'namespace.name.event',
+  'namespace.Key.event',
   ['array', 'of', 'items'],
 )
 ```

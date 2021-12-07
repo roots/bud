@@ -1,5 +1,6 @@
 import {globby} from '@roots/bud-support'
-import {pathExists, readJson} from 'fs-extra'
+import {pathExists, readFile} from 'fs-extra'
+import {parse} from 'json5'
 import {posix as path} from 'path'
 
 describe('repo', function () {
@@ -62,15 +63,21 @@ describe('repo', function () {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
-          const pkgJson = await readJson(
+          const pkgString = await readFile(
             path.join(pkg, 'package.json'),
+            'utf8',
           )
-          const esmJson = await readJson(
+          const pkgJson = parse(pkgString)
+          const esmString = await readFile(
             path.join(pkg, 'tsconfig-esm.json'),
+            'utf8',
           )
-          const cjsJson = await readJson(
+          const esmJson = parse(esmString)
+          const cjsString = await readFile(
             path.join(pkg, 'tsconfig.json'),
+            'utf8',
           )
+          const cjsJson = parse(cjsString)
 
           const workspaceDeps = Object.keys({
             ...(pkgJson.dependencies ?? {}),
@@ -128,9 +135,12 @@ describe('repo', function () {
 
   it('root: project references', async () => {
     try {
-      const tsConfCjs = await readJson(
-        process.cwd().concat('/tsconfig.json'),
+      const tsConfCjsString = await readFile(
+        process.cwd().concat('/config/tsconfig.json'),
+        'utf8',
       )
+      const tsConfCjs = parse(tsConfCjsString)
+
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
@@ -148,9 +158,12 @@ describe('repo', function () {
         }),
       )
 
-      const tsConfEsm = await readJson(
-        process.cwd().concat('/tsconfig.esm.json'),
+      const tsConfEsmString = await readFile(
+        process.cwd().concat('/config/tsconfig.esm.json'),
+        'utf8',
       )
+      const tsConfEsm = parse(tsConfEsmString)
+
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
