@@ -52,7 +52,7 @@ jobs:
         run: yarn repo build
 
       - name: Lint
-        run: yarn repo lint --eslint --skypack
+        run: yarn repo lint
 
       - name: Test
         run: yarn repo test
