@@ -1,5 +1,4 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
-  "extends": ["../../../config/tsdoc.json"],
-  "tsConfigFilePath": "../../../config/tsconfig.json"
+  "extends": ["../../../config/tsdoc.json"]
 }
