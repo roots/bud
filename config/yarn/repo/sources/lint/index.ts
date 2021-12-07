@@ -62,8 +62,6 @@ export class LintCommand extends Command {
               this.types
                 ? `yarn prettier packages/@roots/*/types/**/*.d.ts --config config/prettier.config.js --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
                 : null,
-              `yarn prettier site/src/**/*.{js,ts} --config config/prettier.config.js --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
-              `yarn prettier site/{blog,docs,extensions,guides,i18n,pages,recipes,releases,sidebars}/*.mdx --config config/prettier.config.js --ignore-path config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
             ].filter(Boolean)
           : []),
         this.skypack
