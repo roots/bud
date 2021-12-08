@@ -1,0 +1,13 @@
+name: 'Pull Request Labeler'
+on:
+  - pull_request_target
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: crastos/labeler@main
+        with:
+          configuration-path: config/labeler.config.yml
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          sync-labels: true
