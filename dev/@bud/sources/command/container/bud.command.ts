@@ -2,12 +2,13 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from '../base.command'
 
-export class DockerBud extends Command {
+export class ContainerBud extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `:`]]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run a @bud command inside the container`,
+    description: `run a @bud command inside the container.`,
+    details: `equivalent to \`docker compose run bud yarn @bud [...]\``,
     examples: [
       [
         `run \`yarn @bud make\` within the container`,
@@ -16,14 +17,13 @@ export class DockerBud extends Command {
     ],
   }
 
-  public rest = Option.Rest()
+  public passthrough = Option.Proxy({
+    name: `@bud options`,
+  })
 
   public async execute() {
     await this.$(
-      `docker compose run bud yarn @bud ${this.rest.reduce(
-        (a, c) => `${a} ${c}`,
-        ``,
-      )}`,
+      this.withPassthrough(`docker compose run bud yarn @bud`),
     )
   }
 }

@@ -2,10 +2,11 @@ import {Bud} from './bud.command'
 import {Build} from './build.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
-import {DockerBud} from './docker/bud.command'
-import {DockerDown} from './docker/down.command'
-import {DockerExec} from './docker/sh.command'
-import {DockerUp} from './docker/up.command'
+import {ContainerBud} from './container/bud.command'
+import {ContainerDown} from './container/down.command'
+import {ContainerRun} from './container/run.command'
+import {ContainerBash} from './container/bash.command'
+import {ContainerUp} from './container/up.command'
 import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
@@ -17,10 +18,11 @@ export const Commands = {
   Build,
   Clean,
   Compile,
-  DockerBud,
-  DockerDown,
-  DockerExec,
-  DockerUp,
+  ContainerBud,
+  ContainerDown,
+  ContainerRun,
+  ContainerBash,
+  ContainerUp,
   Docs,
   Lint,
   Make,

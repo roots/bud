@@ -1,22 +1,28 @@
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
+import {Option} from 'clipanion'
 
 /**
  * Base class
  *
- * @public
+ * @internal
  */
 export abstract class Command extends BaseCommand {
   /**
    * Get manifest contents
    *
-   * @public
+   * @internal
    */
   public async getManifest(): Promise<Manifest> {
     return await Manifest.tryFind(this.context.cwd)
   }
 
+  /**
+   * Get project configuration
+   *
+   * @internal
+   */
   public async getConfiguration() {
     const configuration = await Configuration.find(
       this.context.cwd,
@@ -29,7 +35,7 @@ export abstract class Command extends BaseCommand {
   /**
    * Get project info
    *
-   * @public
+   * @internal
    */
   public async getProject() {
     const configuration = await this.getConfiguration()
@@ -45,7 +51,7 @@ export abstract class Command extends BaseCommand {
   /**
    * Get workspace info
    *
-   * @public
+   * @internal
    */
   public async getWorkspace() {
     const configuration = await this.getConfiguration()
@@ -59,12 +65,33 @@ export abstract class Command extends BaseCommand {
   }
 
   /**
+   * Variadic arguments
+   *
+   * @internal
+   */
+  public passthrough?: Array<string>
+
+  /**
+   * Append passthrough arguments to the command
+   *
+   * @internal
+   */
+  public withPassthrough(str: string): string {
+    return this.passthrough.length
+      ? this.passthrough.reduce(
+          (a, c) => (!c ? `${a}` : `${a} ${c}`),
+          str,
+        )
+      : str
+  }
+
+  /**
    * Execute a shell command or series of shell commands
    *
    * @remarks
    * Commands are executed in parallel
    *
-   * @public
+   * @internal
    */
   public async $(...tasks: Array<string>): Promise<void> {
     const project = await this.getProject()
