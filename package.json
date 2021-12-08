@@ -22,7 +22,7 @@
       "packages/@roots/*",
       "packages/base",
       "site",
-      "config/yarn/repo"
+      "dev/@bud"
     ]
   },
   "devDependencies": {

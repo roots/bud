@@ -1,14 +1,14 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class TestCommand extends Command {
+export class Test extends Command {
   /**
    * Command paths
    *
    * @public
    */
-  public static paths: CommandClass['paths'] = [[`repo`, `test`]]
+  public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
   /**
    * Command usage
@@ -16,11 +16,11 @@ export class TestCommand extends Command {
    * @public
    */
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
+    category: `@bud`,
     details: `test files with jest`,
     examples: [
-      [`test`, `yarn repo test`],
-      [`update snapshots`, `yarn repo test --update`],
+      [`test`, `yarn @bud test`],
+      [`update snapshots`, `yarn @bud test --update`],
     ],
   }
 

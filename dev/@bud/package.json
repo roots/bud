@@ -1,5 +1,5 @@
 {
-  "name": "@roots/yarn-plugin-repo",
+  "name": "@roots/yarn-plugin-bud",
   "private": true,
   "main": "./sources/index.ts",
   "dependencies": {

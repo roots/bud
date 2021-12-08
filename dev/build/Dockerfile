@@ -18,3 +18,6 @@ RUN apt-get update \
     fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils --no-install-recommends \
   # && apt-get install -yq google-chrome-stable \
   && apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["tail"]
+CMD ["-f","/dev/null"]

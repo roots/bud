@@ -73,7 +73,7 @@ export abstract class Command extends BaseCommand {
       tasks.map(async task => {
         if (!task) return
 
-        process.stdout.write(`[repo] ${task}\n`)
+        process.stdout.write(`@bud | ${task}\n`)
 
         try {
           const code = await execute(task, [], {
@@ -82,11 +82,11 @@ export abstract class Command extends BaseCommand {
 
           if (code !== 0)
             throw new Error(
-              `[repo] ${task} failed with code ${code}\n`,
+              `@bud | ${task} failed with code ${code}\n`,
             )
 
           process.stdout.write(
-            `[repo] ${task} completed with code ${code}\n`,
+            `@bud | ${task} completed with code ${code}\n`,
           )
         } catch (e) {
           throw new Error(e)

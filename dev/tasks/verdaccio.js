@@ -18,7 +18,21 @@ const commands = {
     ],
   ],
   setRegistry: ['npm', ['set', 'registry', registry]],
-  publish: ['npm', ['--registry', registry, 'publish']],
+  publish: [
+    'yarn',
+    [
+      'workspaces',
+      'foreach',
+      '--no-private',
+      'npm',
+      'publish',
+      '--registry',
+      registry,
+      '--access',
+      'public',
+      'publish',
+    ],
+  ],
 }
 
 const $ = async (...command) => {

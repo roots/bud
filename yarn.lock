@@ -4144,9 +4144,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/yarn-plugin-repo@workspace:config/yarn/repo":
+"@roots/yarn-plugin-bud@workspace:dev/@bud":
   version: 0.0.0-use.local
-  resolution: "@roots/yarn-plugin-repo@workspace:config/yarn/repo"
+  resolution: "@roots/yarn-plugin-bud@workspace:dev/@bud"
   dependencies:
     "@types/jest": 27.0.3
     "@types/node": 16.11.11

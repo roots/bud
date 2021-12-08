@@ -1,6 +1,6 @@
 #!/bin/bash
 
-registry=http://localhost:4873
+registry=http://verdaccio:4873
 user=test
 password=test
 
@@ -17,14 +17,4 @@ echo "verdaccio auth"
 echo "bud make"
 cd /bud
 
-echo Install
-yarn install --immutable
-
-echo Build
-yarn repo build
-
-echo Lint
-yarn repo lint
-
-echo Tests
-yarn repo test
+yarn @bud make

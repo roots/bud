@@ -1,19 +1,19 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class MdCommand extends Command {
-  public static paths: CommandClass['paths'] = [[`repo`, `docs`]]
+export class Docs extends Command {
+  public static paths: CommandClass['paths'] = [[`@bud`, `docs`]]
 
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
+    category: `@bud`,
     description: `build docs and readme files. no flags builds everything. running with the --site flag will also build api docs.`,
     examples: [
-      [`build all`, `yarn repo docs`],
-      [`build api documentation`, `yarn repo docs --api`],
+      [`build all`, `yarn @bud docs`],
+      [`build api documentation`, `yarn @bud docs --api`],
       [
         `build api documentation and site files`,
-        `yarn repo docs --site`,
+        `yarn @bud docs --site`,
       ],
       [`build readme files`, `yarn docs --readme`],
     ],

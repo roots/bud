@@ -1,20 +1,20 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class CompileCommand extends Command {
+export class Compile extends Command {
   public static paths: CommandClass['paths'] = [
-    [`repo`, `compile`],
+    [`@bud`, `compile`],
   ]
 
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
+    category: `@bud`,
     description: `compile a package`,
     details: `compiles as both cjs and esm with ncc`,
     examples: [
       [
         `compile {package name}`,
-        `yarn repo compile @roots/bud-support`,
+        `yarn @bud compile @roots/bud-support`,
       ],
     ],
   }

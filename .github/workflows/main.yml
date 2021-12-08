@@ -49,10 +49,10 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn repo build
+        run: yarn @bud build
 
       - name: Lint
-        run: yarn repo lint
+        run: yarn @bud lint
 
       - name: Test
-        run: yarn repo test
+        run: yarn @bud test

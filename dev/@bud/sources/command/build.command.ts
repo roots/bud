@@ -1,37 +1,37 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class BuildCommand extends Command {
+export class Build extends Command {
   public static paths: CommandClass['paths'] = [
-    [`repo`, `build`],
+    [`@bud`, `build`],
   ]
 
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
-    details: `build project packages.`,
+    category: `@bud`,
+    description: `build project packages`,
     examples: [
-      [`build packages as commonjs`, `yarn repo build --cjs`],
-      [`build packages as esm`, `yarn repo build --esm`],
+      [`build packages as commonjs`, `yarn @bud build --cjs`],
+      [`build packages as esm`, `yarn @bud build --esm`],
       [
         `build packages with tsc --clean flag`,
-        `yarn repo build --clean`,
+        `yarn @bud build --clean`,
       ],
       [
         `build packages with tsc --force flag`,
-        `yarn repo build --force`,
+        `yarn @bud build --force`,
       ],
       [
         `build packages with tsc --verbose flag`,
-        `yarn repo build --verbose`,
+        `yarn @bud build --verbose`,
       ],
       [
         `build packages with tsc --watch flag`,
-        `yarn repo build --watch`,
+        `yarn @bud build --watch`,
       ],
       [
         `force build commonjs verbosely`,
-        `yarn repo build --cjs --verbose --force`,
+        `yarn @bud build --cjs --verbose --force`,
       ],
     ],
   }
@@ -85,9 +85,9 @@ export class BuildCommand extends Command {
     }
 
     await this.$(
-      `yarn repo compile @roots/container`,
-      `yarn repo compile @roots/bud-dashboard`,
-      `yarn repo compile @roots/bud-support`,
+      `yarn @bud compile @roots/container`,
+      `yarn @bud compile @roots/bud-dashboard`,
+      `yarn @bud compile @roots/bud-support`,
     )
   }
 }

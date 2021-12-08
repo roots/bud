@@ -1,20 +1,20 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class LintCommand extends Command {
-  public static paths: CommandClass['paths'] = [[`repo`, `lint`]]
+export class Lint extends Command {
+  public static paths: CommandClass['paths'] = [[`@bud`, `lint`]]
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
+    category: `@bud`,
     description: `lint repo files. run all linters by passing no flags.`,
     examples: [
-      [`run all linters`, `yarn repo lint`],
-      [`run prettier`, `yarn repo lint --prettier`],
-      [`run eslint`, `yarn repo lint --eslint`],
-      [`run skypack`, `yarn repo lint --skypack`],
+      [`run all linters`, `yarn @bud lint`],
+      [`run prettier`, `yarn @bud lint --prettier`],
+      [`run eslint`, `yarn @bud lint --eslint`],
+      [`run skypack`, `yarn @bud lint --skypack`],
       [
         `lint on type definitions as well`,
-        `yarn repo lint --types`,
+        `yarn @bud lint --types`,
       ],
     ],
   }

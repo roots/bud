@@ -1,17 +1,18 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../Command'
+import {Command} from './base.command'
 
-export class CleanCommand extends Command {
+export class Clean extends Command {
   public static paths: CommandClass['paths'] = [
-    [`repo`, `clean`],
+    [`@bud`, `clean`],
   ]
+
   public static usage: CommandClass['usage'] = {
-    category: `repo`,
-    details: `clean project artifacts files`,
+    category: `@bud`,
+    description: `clean project artifacts`,
     examples: [
-      [`delete all project artifacts`, `yarn repo clean`],
-      [`delete all untracked files`, `yarn repo clean --dfx`],
+      [`delete all project artifacts`, `yarn @bud clean`],
+      [`delete all untracked files`, `yarn @bud clean --dfx`],
     ],
   }
 
