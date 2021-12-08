@@ -12,6 +12,6 @@ export class DockerUp extends Command {
   }
 
   public async execute() {
-    await this.$(`docker compose up -t -d`)
+    await this.$(`docker compose up -d`)
   }
 }

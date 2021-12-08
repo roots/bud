@@ -3,6 +3,27 @@ const execa = require('execa')
 const {readFile} = require('fs-extra')
 const json5 = require('json5')
 
+/**
+ * This class is used to represent an example project being used
+ * as the subject of an integration test.
+ *
+ * @usage
+ * ```ts
+ *  project = new Project({
+ *    name: 'basic',
+ *    dir: 'examples/basic',
+ *  })
+
+ *  await project.setup()
+ *
+ *  ...
+ *  expect(project.packageJson).toMatchSnapshot()
+ *  expect(project.assets['main.js'].length).toBeGreaterThan(10)
+ *  ...
+ * ```
+ *
+ * @internal
+ */
 class Project {
   name
 
