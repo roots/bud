@@ -4,14 +4,12 @@ import {Command} from './base.command'
 
 export class Proxy extends Command {
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `verdaccio`],
+    [`@bud`, `proxy`],
   ]
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `publish packages to verdaccio proxy`,
-    examples: [
-      [`publish packages to proxy`, `yarn @bud verdaccio`],
-    ],
+    description: `publish packages to proxy repo`,
+    examples: [[`publish packages to proxy`, `yarn @bud proxy`]],
   }
 
   public registry = Option.String(
@@ -22,9 +20,13 @@ export class Proxy extends Command {
     },
   )
 
+  public version = Option.String('-v,--version', null, {
+    description: 'version',
+  })
+
   public async auth() {
     await this.$(
-      `npm-auth-to-token -u test -p test -e -test@test.com -r ${this.registry}`,
+      `yarn npm-auth-to-token -u test -p test -e -test@test.com -r ${this.registry}`,
     )
   }
 
@@ -32,15 +34,24 @@ export class Proxy extends Command {
     await this.$(`npm set registry ${this.registry}`)
   }
 
+  public async npmVersion() {
+    if (this.version) {
+      await this.$(
+        `yarn workspaces foreach --no-private exec npm version ${this.version}`,
+      )
+    }
+  }
+
   public async publish() {
     await this.$(
-      `yarn workspaces foreach --no-private npm --registry ${this.registry} --access public publish`,
+      `yarn workspaces foreach --no-private npm publish --access public`,
     )
   }
 
   public async execute() {
     await this.auth()
     await this.setRegistry()
+    await this.npmVersion()
     await this.publish()
   }
 }
