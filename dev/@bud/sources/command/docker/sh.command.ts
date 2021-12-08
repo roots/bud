@@ -20,7 +20,7 @@ export class DockerExec extends Command {
 
   public async execute() {
     await this.$(
-      `docker compose exec bud sh ${this.rest.reduce(
+      `docker compose run bud ${this.rest.reduce(
         (a, c) => `${a} ${c}`,
         ``,
       )}`,

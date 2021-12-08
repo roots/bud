@@ -10,11 +10,13 @@ const plugin: Plugin = {
       )
     },
   },
+
   commands: [
     Commands.Bud,
     Commands.Build,
     Commands.Clean,
     Commands.Compile,
+    Commands.DockerBud,
     Commands.DockerExec,
     Commands.DockerDown,
     Commands.DockerUp,
