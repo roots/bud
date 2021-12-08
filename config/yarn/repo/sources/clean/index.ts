@@ -15,21 +15,19 @@ export class CleanCommand extends Command {
     ],
   }
 
-  public options = {
-    dfx: Option.Boolean(`-d,--dfx`, false, {
-      description: `use with caution. alias for git clean -dfx. removes all files not tracked in repo. default false.`,
-    }),
-  }
+  public dfx = Option.Boolean(`-d,--dfx`, false, {
+    description: `use with caution. alias for git clean -dfx. removes all files not tracked in repo. default false.`,
+  })
 
   public async execute() {
     await this.$(`yarn cache clean`)
 
-    if (this.options.dfx) {
+    if (this.dfx) {
       await this.$(`git clean -dfx`)
       return
     }
 
-    if (!this.options.dfx) {
+    if (!this.dfx) {
       await this.$(`yarn rimraf **/.budfiles`)
       await this.$(`yarn rimraf **/node_modules`)
       await this.$(`yarn rimraf packages/@roots/*/lib`)

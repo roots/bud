@@ -21,7 +21,8 @@ export const Dashboard = ({progress, stats, theme}: Props) => {
       {stats?.children?.map((child, id) => (
         <Box
           flexDirection={'column'}
-          key={`stats-${child.name}-${id}`}>
+          key={`stats-${child.name}-${id}`}
+        >
           <Text color={theme.colors.accent}>
             ❯ {child.name} <Newline />
           </Text>

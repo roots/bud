@@ -6,7 +6,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
-    'prettier',
     'react',
     'react-hooks',
     'simple-import-sort',
@@ -24,7 +23,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: ['prettier', 'plugin:react/recommended'],
+  extends: ['plugin:react/recommended'],
   rules: {
     '@typescript-eslint/explicit-member-accessibility': ERROR,
     'arrow-body-style': OFF,
@@ -40,7 +39,6 @@ module.exports = {
     ],
     'no-console': ERROR,
     'no-extra-semi': WARN,
-    'prettier/prettier': ERROR,
     quotes: [
       'error',
       'single',
