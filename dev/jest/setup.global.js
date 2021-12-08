@@ -3,8 +3,6 @@
 
 const execa = require('execa')
 const {Signale} = require('signale')
-
-const clearArtifacts = require('./clearArtifacts')
 const paths = require('./paths')
 
 const task = async (cmd, paths) => {
@@ -36,8 +34,6 @@ const task = async (cmd, paths) => {
 }
 
 module.exports = async () => {
-  await clearArtifacts()
-
   const examples = await paths()
 
   await task(
