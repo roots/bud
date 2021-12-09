@@ -11,6 +11,9 @@
  * @packageDocumentation
  */
 
+import '@roots/bud'
+import '@roots/bud-framework'
+
 import {Item, Loader} from '@roots/bud-build'
 
 import {Config} from './babel.config'

@@ -15,6 +15,10 @@ Signature:
 set(key: string, value: any): void;
 ```
 
+Decorators:
+
+`@bind`
+
 ## Parameters
 
 | Parameter | Type   | Description |

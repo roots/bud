@@ -14,6 +14,9 @@ import {Compiler, ExternalsPlugin} from 'webpack'
 
 import {externals} from './externals'
 
+/**
+ * @public
+ */
 export class WordPressExternals {
   public name = 'WordPressExternalsWebpackPlugin'
 

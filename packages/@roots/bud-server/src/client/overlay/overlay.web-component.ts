@@ -12,6 +12,13 @@ export class Component extends HTMLElement {
   public rendered: boolean
 
   /**
+   * Inner HTML
+   *
+   * @public
+   */
+  public innerHTML: string = ''
+
+  /**
    * @public
    */
   public static get observedAttributes() {
@@ -56,6 +63,8 @@ export class Component extends HTMLElement {
   }
 
   /**
+   * Connected callback
+   *
    * @public
    */
   public connectedCallback() {

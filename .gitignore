@@ -7,21 +7,27 @@
 *.tsbuildinfo
 /.npmrc
 /packages/@roots/*/types
-/site/src/api/*
-/examples/*/*.bkup.json
+
+# Docusaurus
+/site/.docusaurus
+/site/.cache-loader
+/site/build
+/site/.netlify
+/site/src/api/**/*.*
 
 # jest
 coverage
 
 # pacman
 node_modules
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-!.yarn/repo
+/config/yarn/*
+!/config/yarn/patches
+!/config/yarn/releases
+!/config/yarn/plugins
+!/config/yarn/sdks
+!/config/yarn/versions
+!/config/yarn/@bud
+!/config/yarn/yarnrc.yml
 .pnp.*
 
 # bud

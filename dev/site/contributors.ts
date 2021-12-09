@@ -17,12 +17,12 @@ const TOKEN =
     .pop()
     .replace('token=', '')
 
-const packages = (user: any) => {
+const packages = async (user: any) => {
   if (user.login.includes('bot') || user.login.includes('Bot')) {
     return []
   }
 
-  const list = globby.globbySync(`packages/@roots/*`, {
+  const list = await globby(`packages/@roots/*`, {
     absolute: false,
     cwd: process.cwd(),
     onlyFiles: false,
@@ -70,18 +70,16 @@ const makeOptions = (
 const curryRequestCb =
   (user: string): ((res: IncomingMessage) => void) =>
   async res => {
-    let buffer = ``
+    let buffer: string
 
     res.setEncoding('utf8')
-
     res.on('data', (chunk: string): void => {
       buffer = `${buffer}${chunk}`
     })
-
     res.on('end', async (): Promise<void> => {
       const userData = JSON.parse(buffer)
 
-      userData.contributions = packages(userData)
+      userData.contributions = await packages(userData)
 
       if (userData.contributions.length > 0) {
         userData.contributions.map(pkgPath => {

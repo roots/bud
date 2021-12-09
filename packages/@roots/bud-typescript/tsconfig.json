@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -8,9 +8,7 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-babel"
+      "node"
     ]
   },
   "include": [

@@ -11,10 +11,10 @@ echo Install
 yarn install --immutable
 
 echo Build
-yarn repo build
+yarn @bud build
 
 echo Lint
-yarn repo lint --eslint --skypack
+yarn @bud lint --eslint --skypack
 
 echo Test
-yarn repo test
+yarn @bud test

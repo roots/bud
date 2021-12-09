@@ -53,14 +53,15 @@ hooks.filter('my-event-name', DEFAULT_VALUE)
 Create a new async filter for a value:
 
 ```ts
-await hooks.promised('my-event-name', async () => DEFAULT_VALUE)
+await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
 ```
 
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
+|  [async(id, callback)](./bud-hooks.hooks.async.md) |  | Register a function to filter a value. |
 |  [filter(id, value)](./bud-hooks.hooks.filter.md) |  | Hooks filter |
+|  [filterAsync(id, value)](./bud-hooks.hooks.filterasync.md) |  | Asyncronous hook filter |
 |  [on(id, callback)](./bud-hooks.hooks.on.md) |  | Register a function to filter a value. |
-|  [promised(id, value)](./bud-hooks.hooks.promised.md) |  | Asyncronous hook filter |
 

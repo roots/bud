@@ -17,23 +17,13 @@
   },
   "workspaces": {
     "packages": [
-      "dev/jest/util/resolver",
       "examples/*",
       "tests/util/project",
       "packages/@roots/*",
       "packages/base",
       "site",
-      ".yarn/repo"
+      "dev/@bud"
     ]
-  },
-  "resolutions": {
-    "@types/react": "17.0.37",
-    "ink": "3.2.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "typescript": "4.4.4",
-    "yoga-layout-prebuilt": "patch:yoga-layout-prebuilt@*#.yarn/patches/yoga-layout-prebuilt.patch",
-    "@oclif/config@1.17.0": "patch:@oclif/config@npm:1.17.0#.yarn/patches/@oclif-config-npm-1.17.0-acbde241aa.patch"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.13.75",
@@ -41,6 +31,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
+    "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
@@ -59,9 +50,7 @@
     "dotenv": "10.0.0",
     "esbuild": "0.14.2",
     "eslint": "7.32.0",
-    "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.3",
-    "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.27.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
@@ -72,7 +61,10 @@
     "ink": "3.2.0",
     "ink-testing-library": "2.1.0",
     "jest": "27.4.3",
+    "js-yaml": "^4.1.0",
+    "json5": "^2.2.0",
     "lodash": "4.17.21",
+    "npm-auth-to-token": "^1.0.0",
     "npm-run-path": "5.0.1",
     "prettier": "2.5.1",
     "pretty-format": "27.4.2",

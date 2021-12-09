@@ -1,34 +1,13 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "src",
     "declarationDir": "./types",
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "types": [
-      "node",
-      "@roots/bud-api"
-    ],
-    "paths": {
-      "@roots/bud": [
-        "./lib/cjs"
-      ],
-      "@roots/bud/*": [
-        "./lib/cjs/*"
-      ]
-    }
+    "types": ["node", "@roots/bud-api"]
   },
-  "include": [
-    "./**/*.ts",
-    "./**/*.js"
-  ],
-  "exclude": [
-    "./node_modules/**/*",
-    "./lib/**/*",
-    "./types/**/*",
-    "./vendor/roots-notifier.app/**/*"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"

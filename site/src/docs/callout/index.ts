@@ -1,1 +1,1 @@
-export * as Callout from './callout.component'
+export * as Callout from './callout.component';

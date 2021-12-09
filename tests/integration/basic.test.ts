@@ -1,4 +1,4 @@
-import Project from '../../dev/jest/util/project'
+import Project from '../../dev/jest/project'
 
 jest.setTimeout(60000)
 
