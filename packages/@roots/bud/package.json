@@ -83,7 +83,7 @@
     "@oclif/dev-cli": "1.26.9",
     "@oclif/test": "1.2.9",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.177",
+    "@types/lodash": "4.14.178",
     "@types/mini-css-extract-plugin": "2.4.0",
     "@types/node": "16.11.11"
   },
