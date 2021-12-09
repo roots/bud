@@ -2813,11 +2813,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-documenter@npm:7.13.72":
-  version: 7.13.72
-  resolution: "@microsoft/api-documenter@npm:7.13.72"
+"@microsoft/api-documenter@npm:7.13.75":
+  version: 7.13.75
+  resolution: "@microsoft/api-documenter@npm:7.13.75"
   dependencies:
-    "@microsoft/api-extractor-model": 7.13.18
+    "@microsoft/api-extractor-model": 7.15.0
     "@microsoft/tsdoc": 0.13.2
     "@rushstack/node-core-library": 3.44.1
     "@rushstack/ts-command-line": 4.10.5
@@ -2826,7 +2826,7 @@ __metadata:
     resolve: ~1.17.0
   bin:
     api-documenter: bin/api-documenter
-  checksum: 1e361df9e9c183f76a5aa28a3c11b39fd51d22e24b4a8ed5899be2f8cff59ce079ebf74979580c3fd1f411a46f770af00038101c217855e76da6265f05fa7fe9
+  checksum: 502c57ce86234f465e5f994a062f30d09de9c1467fc596fc6aab6c54c6e41eeacfdf1990f2e0c8b70035eae65bc98304e072d024189f6bcc909bf7a3cfcd7aa0
   languageName: node
   linkType: hard
 
@@ -2841,14 +2841,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor-model@npm:7.13.18":
-  version: 7.13.18
-  resolution: "@microsoft/api-extractor-model@npm:7.13.18"
+"@microsoft/api-extractor-model@npm:7.15.0":
+  version: 7.15.0
+  resolution: "@microsoft/api-extractor-model@npm:7.15.0"
   dependencies:
     "@microsoft/tsdoc": 0.13.2
     "@microsoft/tsdoc-config": ~0.15.2
     "@rushstack/node-core-library": 3.44.1
-  checksum: 9375e0aec52c2f8668f15b7073941b373aa4b283b0ebada310a222d3418e811e70aaad9241cbc4320d4db2e134b8ef30e6c2a0de49462f0cb3725fd7be1dc6ee
+  checksum: 9fea62df573ef18f7c2a5662da92c25fe2fb7f2e1d650424fde8c2f9bbe7aae488679391705b36f0b1aa4c38b8a30210957f66b1fb7d295581fc78e57385d74e
   languageName: node
   linkType: hard
 
@@ -3948,7 +3948,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:packages/@roots/bud"
   dependencies:
-    "@microsoft/api-documenter": 7.13.72
+    "@microsoft/api-documenter": 7.13.75
     "@oclif/core": ^1.0.4
     "@oclif/dev-cli": 1.26.6
     "@oclif/test": 1.2.8
@@ -8192,7 +8192,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud.js@workspace:."
   dependencies:
-    "@microsoft/api-documenter": 7.13.72
+    "@microsoft/api-documenter": 7.13.75
     "@microsoft/api-extractor": 7.18.20
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
