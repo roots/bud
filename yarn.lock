@@ -2940,25 +2940,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/command@npm:^1.8.4, @oclif/command@npm:^1.8.6":
-  version: 1.8.6
-  resolution: "@oclif/command@npm:1.8.6"
+"@oclif/command@npm:^1.8.9":
+  version: 1.8.10
+  resolution: "@oclif/command@npm:1.8.10"
   dependencies:
-    "@oclif/config": ^1.17.1
+    "@oclif/config": ^1.18.2
     "@oclif/errors": ^1.3.5
     "@oclif/parser": ^3.8.6
-    "@oclif/plugin-help": ^3.2.8
+    "@oclif/plugin-help": 3.2.14
     debug: ^4.1.1
     semver: ^7.3.2
   peerDependencies:
     "@oclif/config": ^1
-  checksum: f335ae5a097ef90cf90820258ca5286a39bc42b77d2557128432caabbe4283d4de8fc68fa8a4aef43ea91461d25c90a5109c3ad5705e30d67b01ef5bd823fb70
+  checksum: 6a0506b79d61ed5814515cd3a1be0f17cd3d3123b19016bde1386414205dbb0e41b98d87040ff331c9ef4b4c67680f5484565c1ad913e16a504e94225bf9bb1e
   languageName: node
   linkType: hard
 
-"@oclif/config@npm:^1.17.1, @oclif/config@npm:^1.18.1":
-  version: 1.18.1
-  resolution: "@oclif/config@npm:1.18.1"
+"@oclif/config@npm:^1.18.2":
+  version: 1.18.2
+  resolution: "@oclif/config@npm:1.18.2"
   dependencies:
     "@oclif/errors": ^1.3.3
     "@oclif/parser": ^3.8.0
@@ -2966,7 +2966,7 @@ __metadata:
     globby: ^11.0.1
     is-wsl: ^2.1.1
     tslib: ^2.0.0
-  checksum: e74949eabfd1937689ed6f87a713def5fb07430860a01ecc8eb3b10f83187e99d865f2b9253e8114e00d0752ee9945f5f5906b20d7c9f404d9bdc0c3ff72a5d2
+  checksum: edb82ae885bb5a7a244d99707f837f8f0c7a3286a9f19e6cda2af599a06c189c21221082acde9927dadf951d060bdc05bee9ea5f9e8223c12688956b94c3b1e0
   languageName: node
   linkType: hard
 
@@ -3027,12 +3027,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^3.2.8":
-  version: 3.2.10
-  resolution: "@oclif/plugin-help@npm:3.2.10"
+"@oclif/plugin-help@npm:3.2.14":
+  version: 3.2.14
+  resolution: "@oclif/plugin-help@npm:3.2.14"
   dependencies:
-    "@oclif/command": ^1.8.6
-    "@oclif/config": ^1.18.1
+    "@oclif/command": ^1.8.9
+    "@oclif/config": ^1.18.2
     "@oclif/errors": ^1.3.5
     chalk: ^4.1.2
     indent-string: ^4.0.0
@@ -3041,11 +3041,11 @@ __metadata:
     strip-ansi: ^6.0.0
     widest-line: ^3.1.0
     wrap-ansi: ^6.2.0
-  checksum: e9db3386f115645973936ce4b1923512b487419576742b5c5e8198d450c7eabfb0e1ebbec4891a585cd9e85800831c6bccce6ea21b978ff7f44622865c595643
+  checksum: 5dbb0265b9edb88d35b948e8795b5aeed8370dff0bc6c4053fb5191983f2cdc3b9345ecc7f8a9415821c25fea9668ef9e6894dfae8e160606931364bcc6549b6
   languageName: node
   linkType: hard
 
-"@oclif/screen@npm:^1.0.3":
+"@oclif/screen@npm:^1.0.4":
   version: 1.0.4
   resolution: "@oclif/screen@npm:1.0.4"
   checksum: 13e64efb1a6b4cf89989dd3e96cc78751193257694f9f104d3d41f7f8d12e217297d3c2983ed972d84d43ff3b50ceff50529996ee6bc6764f01ed90aa39a83cb
@@ -8860,13 +8860,13 @@ __metadata:
   linkType: hard
 
 "cli-ux@npm:^5.1.0":
-  version: 5.6.4
-  resolution: "cli-ux@npm:5.6.4"
+  version: 5.6.6
+  resolution: "cli-ux@npm:5.6.6"
   dependencies:
-    "@oclif/command": ^1.8.4
+    "@oclif/command": ^1.8.9
     "@oclif/errors": ^1.3.5
     "@oclif/linewrap": ^1.0.0
-    "@oclif/screen": ^1.0.3
+    "@oclif/screen": ^1.0.4
     ansi-escapes: ^4.3.0
     ansi-styles: ^4.2.0
     cardinal: ^2.1.1
@@ -8879,7 +8879,7 @@ __metadata:
     indent-string: ^4.0.0
     is-wsl: ^2.2.0
     js-yaml: ^3.13.1
-    lodash: ^4.17.11
+    lodash: ^4.17.21
     natural-orderby: ^2.0.1
     object-treeify: ^1.1.4
     password-prompt: ^1.1.2
@@ -8889,7 +8889,7 @@ __metadata:
     supports-color: ^8.1.0
     supports-hyperlinks: ^2.1.0
     tslib: ^2.0.0
-  checksum: 49d4f8cf4cff97299f1051056e906be0ecf0db9728d1f387c7986f70b473e9ff326ed473989aa6c0e9167e53409b66dc2eaa5a28f006aa9732fceddec6b37f22
+  checksum: 1a6e4e1c87c14f333d1a7d0440b667729a2b783bec0c67bd0390c9384158e6059edf5abc0d2ffa11b9361698262fbce07af2bac342e954f3756ad049653778fd
   languageName: node
   linkType: hard
 
@@ -16772,7 +16772,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.11.1, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0, lodash@npm:~4.17.15":
+"lodash@npm:4.17.21, lodash@npm:^4.11.1, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0, lodash@npm:~4.17.15":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -17543,14 +17543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-db@npm:1.50.0, mime-db@npm:>= 1.43.0 < 2, mime-db@npm:^1.28.0":
-  version: 1.50.0
-  resolution: "mime-db@npm:1.50.0"
-  checksum: 95fcc19c3664ae72391c8a7e4015dde7fb6817c98c951493ca3a1d48050feb8ee08810a372ce7d9e16310042d26e5bda168916f600583a9a583655eeea8ff5f5
-  languageName: node
-  linkType: hard
-
-"mime-db@npm:1.51.0":
+"mime-db@npm:1.51.0, mime-db@npm:>= 1.43.0 < 2, mime-db@npm:^1.28.0":
   version: 1.51.0
   resolution: "mime-db@npm:1.51.0"
   checksum: 613b1ac9d6e725cc24444600b124a7f1ce6c60b1baa654f39a3e260d0995a6dffc5693190217e271af7e2a5612dae19f2a73f3e316707d797a7391165f7ef423
@@ -17573,16 +17566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:^2.1.12, mime-types@npm:^2.1.25, mime-types@npm:^2.1.27, mime-types@npm:^2.1.31, mime-types@npm:~2.1.17, mime-types@npm:~2.1.24":
-  version: 2.1.33
-  resolution: "mime-types@npm:2.1.33"
-  dependencies:
-    mime-db: 1.50.0
-  checksum: 05f2a0b3f169fbc51d79bdc7674ceb379dd07dbeadb0143059a7def865224686ee9f9051aeb340e98b6c11dbc06794ce0122181db4312cb1ad054fd90b0d510e
-  languageName: node
-  linkType: hard
-
-"mime-types@npm:~2.1.19":
+"mime-types@npm:^2.1.12, mime-types@npm:^2.1.25, mime-types@npm:^2.1.27, mime-types@npm:^2.1.31, mime-types@npm:~2.1.17, mime-types@npm:~2.1.19, mime-types@npm:~2.1.24":
   version: 2.1.34
   resolution: "mime-types@npm:2.1.34"
   dependencies:
