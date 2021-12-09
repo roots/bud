@@ -37,7 +37,7 @@ async function main() {
     await $(`yarn config set registry http://localhost:4873`)
   }
 
-  await $('yarn repo make')
+  await $('yarn @bud make')
   await $('yarn install')
   await $(
     `yarn workspaces foreach --no-private exec npm version ${getFlag(

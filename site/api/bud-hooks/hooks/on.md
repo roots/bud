@@ -14,7 +14,7 @@ Register a function to filter a value.
 Signature:
 
 ```typescript
-on(id: Contract.Name, callback: Contract.Hook): Framework;
+on<T extends keyof Contract.Map & string>(id: T, callback: Contract.Map[T] | ((value: Contract.Map[T]) => any)): Framework;
 ```
 
 Decorators:
@@ -23,10 +23,10 @@ Decorators:
 
 ## Parameters
 
-| Parameter | Type          | Description |
-| --------- | ------------- | ----------- |
-| id        | Contract.Name |             |
-| callback  | Contract.Hook |             |
+| Parameter | Type                                                            | Description |
+| --------- | --------------------------------------------------------------- | ----------- |
+| id        | T                                                               |             |
+| callback  | Contract.Map\[T\] &#124; ((value: Contract.Map\[T\]) =&gt; any) |             |
 
 Returns:
 
@@ -39,5 +39,5 @@ If a filter calls for this name the function is then run, passing whatever data 
 ## Example
 
 ```js
-app.hooks.on("namespace.name.value", (value) => "replaced by this string");
+app.hooks.on("namespace.key", (value) => "replaced by this string");
 ```

@@ -16,8 +16,7 @@ export const Component = ({
 }: Props) => {
   return (
     <header
-      className={clsx('hero hero--primary', styles.heroBanner)}
-    >
+      className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         {title && <h1 className="hero__title">{title}</h1>}
 

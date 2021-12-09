@@ -9,7 +9,7 @@ Register a function to filter a value.
 <b>Signature:</b>
 
 ```typescript
-on(id: Contract.Name, callback: Contract.Hook): Framework;
+on<T extends keyof Contract.Map & string>(id: T, callback: Contract.Map[T] | ((value: Contract.Map[T]) => any)): Framework;
 ```
 <b>Decorators:</b>
 
@@ -19,8 +19,8 @@ on(id: Contract.Name, callback: Contract.Hook): Framework;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  id | Contract.Name |  |
-|  callback | Contract.Hook |  |
+|  id | T |  |
+|  callback | Contract.Map\[T\] \| ((value: Contract.Map\[T\]) =&gt; any) |  |
 
 <b>Returns:</b>
 
@@ -35,7 +35,7 @@ If a filter calls for this name the function is then run, passing whatever data 
 
 ```js
 app.hooks.on(
-  'namespace.name.value',
+  'namespace.key',
   value => 'replaced by this string',
 )
 ```

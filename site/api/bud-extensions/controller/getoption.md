@@ -1,0 +1,28 @@
+---
+id: bud-extensions.controller.getoption
+title: getoption() method
+sidebar_label: getoption() method
+hide_title: true
+sidebar: "api"
+slug: getoption
+---
+
+## Controller.getOption() method
+
+Get an extension option
+
+Signature:
+
+```typescript
+getOption(key: any): any;
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| key       | any  | option key  |
+
+Returns:
+
+any

@@ -10,8 +10,7 @@ export const Install = ({packages}: {packages: string}) => (
     values={[
       {label: 'yarn', value: 'yarn'},
       {label: 'npm', value: 'npm'},
-    ]}
-  >
+    ]}>
     <TabItem value="yarn">
       <CodeBlock className="language-shell">
         {`yarn add ${packages} --dev`}

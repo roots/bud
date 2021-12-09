@@ -15,6 +15,20 @@ export class Message extends HTMLElement {
   public rendered: boolean
 
   /**
+   * Inner HTML
+   *
+   * @public
+   */
+  public innerHTML: string = ''
+
+  /**
+   * Style props
+   *
+   * @public
+   */
+  public style: CSSStyleDeclaration
+
+  /**
    * Render component
    *
    * @public

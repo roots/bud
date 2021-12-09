@@ -7,6 +7,12 @@
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.associations": {
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact",
+    "*.mdx": "markdown",
+    "bud.config.json": "json5"
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

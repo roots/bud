@@ -1,3 +1,5 @@
+# Changelog
+
 ## v5.0.0 (2021-11-22)
 
 Bud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0).
