@@ -74,7 +74,7 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/babel__core": "7.1.16",
+    "@types/babel__core": "7.1.17",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
