@@ -61,7 +61,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.177",
+    "@types/lodash": "4.14.178",
     "@types/node": "16.11.11",
     "webpack": "5.64.4"
   },
