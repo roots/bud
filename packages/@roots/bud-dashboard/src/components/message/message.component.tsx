@@ -19,12 +19,12 @@ export const Message = ({
   return (
     <Box flexDirection="column">
       <Text>
-        <Newline />
         <Text color={`${colors[0]}`}>{icon ?? ''}</Text>{' '}
         {file ? `${file}:\n` : ``}
         <Gradient colors={colors}>
           {message ? message : ''}
         </Gradient>
+        <Newline />
       </Text>
     </Box>
   )

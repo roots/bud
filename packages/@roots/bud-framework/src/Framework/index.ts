@@ -720,7 +720,7 @@ export abstract class Framework {
       .scope(...this.logger.context)
       .debug(...messages)
 
-    return this
+    process.exit(1)
   }
 
   /**

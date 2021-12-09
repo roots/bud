@@ -57,11 +57,7 @@
   "types": "./types/index.d.ts",
   "oclif": {
     "commands": "lib/cjs/cli/commands",
-    "bin": "bud",
-    "helpClass": "lib/cjs/cli/cli.help",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
+    "bin": "bud"
   },
   "scripts": {
     "profile": "yarn g:profile",
@@ -80,8 +76,6 @@
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.13.75",
-    "@oclif/dev-cli": "1.26.6",
-    "@oclif/test": "1.2.8",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.177",
     "@types/mini-css-extract-plugin": "2.4.0",

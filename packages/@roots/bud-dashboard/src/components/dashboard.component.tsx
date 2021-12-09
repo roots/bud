@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
-import {Box, Newline, Text, useApp, useStdin} from 'ink'
+import {Box, Text, Newline, useApp, useStdin} from 'ink'
 import React, {useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
@@ -90,29 +90,24 @@ export const Dashboard = ({
         theme={theme}
       />
 
-      <Assets.Dashboard
-        stats={stats}
-        theme={theme}
-        progress={progress}
-      />
+      <Assets.Dashboard stats={stats} theme={theme} />
 
       <Progress progress={progress} theme={theme} />
 
-      {instance.current.mode == 'development' && (
-        <Serve
-          theme={theme}
-          server={instance.current.store.get('server')}
-        />
-      )}
+      {instance.current.isDevelopment &&
+        instance.current.compiler.instance &&
+        stats?.assets && (
+          <Serve
+            theme={theme}
+            server={instance.current.store.get('server')}
+          />
+        )}
 
-      {instance.current.compiler.instance && (
-        <Box flexDirection="column">
-          <Text color={theme?.colors.faded}>
-            🆀 to exit
-            <Newline />
-          </Text>
-        </Box>
-      )}
+      {instance.current.isDevelopment && isRawModeSupported ? (
+        <Text color={theme?.colors.faded}>
+          🆀 to exit <Newline />
+        </Text>
+      ) : null}
     </Box>
   )
 }

@@ -18,6 +18,11 @@ export const Input = ({bud}) => {
       bud.hooks.filter('event.dashboard.q')
       bud.close()
     }
+    if (isEqual(input, 'c')) {
+      ;(async () => {
+        await bud.dashboard.rerender()
+      })()
+    }
   })
 
   return null

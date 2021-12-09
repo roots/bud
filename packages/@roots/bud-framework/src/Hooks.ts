@@ -222,6 +222,8 @@ export namespace Hooks {
     [`event.compiler.stats`]: StatsCompilation
     [`event.compiler.error`]: Error
     [`event.dashboard.done`]: void
+    [`event.dashboard.q`]: void
+    [`event.dashboard.c`]: void
     [`event.project.write`]: Framework['project']
     [`event.server.listen`]: Framework['server']
     [`event.server.before`]: Framework

@@ -37,18 +37,7 @@ export default function proxy(app: Framework) {
   /**
    * publicPath
    */
-  const publicPath = app.maybeCall(
-    app.hooks.filter<'build.output.publicPath'>(
-      'build.output.publicPath',
-    ),
-  )
-
-  /**
-   * True if publicPath is defined and not `''` or `'auto'`
-   */
-  const hasPublicPath =
-    publicPath &&
-    ![undefined, null, '', 'auto'].includes(publicPath)
+  const publicPath = proxy.pathname.replace(`:${proxy.port}`, '')
 
   /**
    * Log info to console
@@ -79,12 +68,10 @@ export default function proxy(app: Framework) {
   /**
    * Replace proxy server values matching [origin][publicPath]
    */
-  if (hasPublicPath && config.proxy.replace.publicPath) {
-    replacements.push([
-      `${proxy.origin}${publicPath}`,
-      `${dev.origin}${publicPath}`,
-    ])
-  }
+  replacements.push([
+    `${proxy.origin}${publicPath}`,
+    `${dev.origin}${publicPath}`,
+  ])
 
   /**
    * replace href="" values matching proxy origin
@@ -144,6 +131,11 @@ export default function proxy(app: Framework) {
   const options = app.hooks.filter(
     'proxy.options',
     (): Options => ({
+      target: `${proxy.origin}`,
+      router: {...({[`${publicPath}`]: '/'} ?? {})},
+      cookieDomainRewrite: {[proxy.origin]: dev.origin},
+      logProvider: () => app.server.logger,
+      onProxyRes: responseInterceptor(interceptor),
       autoRewrite: true,
       changeOrigin: true,
       followRedirects: true,
@@ -156,25 +148,8 @@ export default function proxy(app: Framework) {
         'Access-Control-Allow-Credentials': '*',
         'Access-Control-Allow-Methods': '*',
       },
-      target: `${proxy.origin}`,
-      router: {
-        ...(hasPublicPath ? {[`${publicPath}`]: '/'} : {}),
-      },
-      cookieDomainRewrite: {
-        [proxy.origin]: dev.origin,
-      },
-      logProvider: () => app.server.logger,
-      onProxyRes: responseInterceptor(interceptor),
     }),
   )
-
-  /**
-   * log assembled options
-   */
-  app.server.log('info', {
-    message: 'proxy options',
-    suffix: JSON.stringify(options),
-  })
 
   /**
    * Return configured middleware

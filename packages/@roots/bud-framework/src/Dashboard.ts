@@ -38,4 +38,15 @@ export interface Dashboard extends Service {
    * @public
    */
   render(Component: any, title?: string): void
+
+  /**
+   * Rerender
+   *
+   * @param Component - Component or string to render
+   * @param title - Title to render
+   * @returns void
+   *
+   * @public
+   */
+  rerender(Component: any, title?: string): Promise<void>
 }

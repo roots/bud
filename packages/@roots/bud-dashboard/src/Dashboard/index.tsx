@@ -127,4 +127,21 @@ export class Dashboard extends Service implements Contract {
       stream: this.app.logger.stream,
     })
   }
+
+  @bind
+  public async rerender(): Promise<void> {
+    console.clear()
+    this.app.dashboard.stdout = []
+    this.app.dashboard.stderr = []
+    this.instance.unmount()
+    setTimeout(() => {
+      this.instance = render(
+        <DashboardComponent application={this.app} />,
+        {
+          patchConsole: false,
+          stream: this.app.logger.stream,
+        },
+      )
+    }, 500)
+  }
 }
