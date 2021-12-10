@@ -79,7 +79,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.75",
+    "@microsoft/api-documenter": "7.13.76",
     "@oclif/dev-cli": "1.26.9",
     "@oclif/test": "2.0.3",
     "@types/fs-extra": "9.0.13",
