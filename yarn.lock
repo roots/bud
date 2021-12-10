@@ -3077,12 +3077,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/test@npm:1.2.9":
-  version: 1.2.9
-  resolution: "@oclif/test@npm:1.2.9"
+"@oclif/test@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@oclif/test@npm:2.0.3"
   dependencies:
-    fancy-test: ^1.4.10
-  checksum: 37961d7a332e4425e5c8e670bd38615498cab1e7cf7ff9938630191114231413b859f7bff76961bfcb9463851002653259d3f6e8d4763438ec42dd6302710352
+    fancy-test: ^2.0.0
+  checksum: 914584720bbc5f0011ac45d09acf2ccec8ba084015356a39acf085ddfbc4f5cbfd35b59f00eaa19960f4ab1eab8c09bad0fedda803914bcf56ee9121ac5e646f
   languageName: node
   linkType: hard
 
@@ -3953,7 +3953,7 @@ __metadata:
     "@microsoft/api-documenter": 7.13.75
     "@oclif/core": ^1.0.4
     "@oclif/dev-cli": 1.26.9
-    "@oclif/test": 1.2.9
+    "@oclif/test": 2.0.3
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-cache": "workspace:packages/@roots/bud-cache"
@@ -12237,9 +12237,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fancy-test@npm:^1.4.10":
-  version: 1.4.10
-  resolution: "fancy-test@npm:1.4.10"
+"fancy-test@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "fancy-test@npm:2.0.0"
   dependencies:
     "@types/chai": "*"
     "@types/lodash": "*"
@@ -12249,7 +12249,7 @@ __metadata:
     mock-stdin: ^1.0.0
     nock: ^13.0.0
     stdout-stderr: ^0.1.9
-  checksum: 7dac3a47e71cbdeb52d52b6010c60b4c868d4210376d697f0ed240e73a1a73afad2393bd0730f807f83dc5235dd3a275ed1df0cd9de617110b572400a51df9b3
+  checksum: 77082b8da3fdfc1d333e51e4d71a440a0bbe5a5147c4e54bda8dfc6c807bd3610726c0d2676b97dd0f4b55d37807168ee4f9ccfb51902e27d4ca8a908f68f110
   languageName: node
   linkType: hard
 
