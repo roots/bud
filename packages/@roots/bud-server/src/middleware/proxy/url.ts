@@ -21,11 +21,9 @@ export class URL {
   public constructor(public _app: () => Framework) {}
 
   public get publicPath(): string {
-    return this.app.maybeCall(
-      this.app.hooks.filter<'build.output.publicPath'>(
-        'build.output.publicPath',
-      ),
-    )
+    return this.app.hooks.filter<'build.output.publicPath'>(
+      'build.output.publicPath',
+    ) as string
   }
 
   public hasPublicPath(): boolean {

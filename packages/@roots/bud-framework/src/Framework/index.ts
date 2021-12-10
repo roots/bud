@@ -716,9 +716,18 @@ export abstract class Framework {
    */
   @bind
   public debug(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .debug(...messages)
+    // eslint-disable-next-line no-console
+    process.stdout.write(
+      `${highlight(
+        format(messages, {
+          callToJSON: false,
+          maxDepth: 8,
+          printFunctionName: false,
+          escapeString: false,
+          min: this.options.config.cli.flags['log.min'],
+        }),
+      )}`,
+    )
 
     process.exit(1)
   }

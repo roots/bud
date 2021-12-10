@@ -130,10 +130,14 @@ export class Dashboard extends Service implements Contract {
 
   @bind
   public async rerender(): Promise<void> {
+    // eslint-disable-next-line
     console.clear()
+
     this.app.dashboard.stdout = []
     this.app.dashboard.stderr = []
+
     this.instance.unmount()
+
     setTimeout(() => {
       this.instance = render(
         <DashboardComponent application={this.app} />,

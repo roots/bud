@@ -1,5 +1,6 @@
-import {Options as ProxyOptions} from 'http-proxy-middleware'
 import {bind} from '@roots/bud-support'
+import {Options as ProxyOptions} from 'http-proxy-middleware'
+
 import {URL} from './url'
 
 export class OptionsFactory {
@@ -7,15 +8,15 @@ export class OptionsFactory {
     autoRewrite: true,
     changeOrigin: true,
     followRedirects: true,
+    selfHandleResponse: true,
+    ws: false,
+    logLevel: 'debug',
     headers: {
       'X-Proxy-By': '@roots/bud',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': '*',
       'Access-Control-Allow-Methods': '*',
     },
-    logLevel: 'info',
-    selfHandleResponse: true,
-    ws: true,
   }
 
   public constructor(
@@ -26,15 +27,11 @@ export class OptionsFactory {
       [url.proxy.origin]: url.dev.origin,
     }
 
-    this.options.logProvider = () => url.app.server.logger
+    this.options.logProvider = () => url.app.logger.instance
 
     this.options.onProxyRes = interceptor
 
-    this.options.router = url.hasPublicPath
-      ? {[`${url.publicPath}`]: '/'}
-      : {}
-
-    this.options.target = url.proxy.origin
+    this.options.target = url.proxy.href
   }
 
   @bind

@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
-import {Box, Text, Newline, useApp, useStdin} from 'ink'
+import {Box, Newline, Text, useApp, useStdin} from 'ink'
 import React, {useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
@@ -84,7 +84,7 @@ export const Dashboard = ({
       {isRawModeSupported && <Input bud={instance.current} />}
 
       <Messages.Dashboard
-        stats={stats}
+        stats={instance.current.compiler.stats}
         stdout={instance.current.dashboard.stdout}
         stderr={instance.current.dashboard.stderr}
         theme={theme}

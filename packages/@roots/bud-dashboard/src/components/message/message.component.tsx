@@ -1,6 +1,5 @@
 import {Styles} from '@roots/ink-use-style'
 import {Box, Newline, Text} from 'ink'
-import Gradient from 'ink-gradient'
 import React from 'react'
 
 export interface Props {
@@ -21,9 +20,7 @@ export const Message = ({
       <Text>
         <Text color={`${colors[0]}`}>{icon ?? ''}</Text>{' '}
         {file ? `${file}:\n` : ``}
-        <Gradient colors={colors}>
-          {message ? message : ''}
-        </Gradient>
+        <Text>{message}</Text>
         <Newline />
       </Text>
     </Box>

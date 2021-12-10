@@ -163,8 +163,10 @@ export class Server
     /**
      * Listen
      */
+    const url = new URL(this.app.store.get('server.dev.url'))
+    this.log('info', `starting server on %s`, url.port)
     this.instance = this.application.listen(
-      new URL(this.app.store.get('server.dev.url')).port ?? 3000,
+      url.port,
       async (error: string) => {
         if (error) this.log('error', error)
 
@@ -172,8 +174,8 @@ export class Server
 
         this.log(
           'success',
-          'listening on port %s',
-          (this.instance.address() as any).port,
+          'listening on %s',
+          JSON.stringify(this.instance.address()),
         )
       },
     )

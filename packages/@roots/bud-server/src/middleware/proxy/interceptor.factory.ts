@@ -1,5 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
+import {responseInterceptor} from 'http-proxy-middleware'
 
 import {URL} from './url'
 
@@ -13,59 +14,58 @@ export class InterceptorFactory {
     public url: URL,
   ) {}
 
+  @bind
   public async _interceptor(
     buffer: Buffer,
   ): Promise<string | Buffer> {
-    const response = buffer?.toString('utf8')
+    try {
+      const response = buffer?.toString('utf8')
 
-    return !response
-      ? buffer
-      : this.replacements.reduce(
-          (
-            html: string,
-            [from, to]: [string | RegExp, string],
-          ) => html.replaceAll(from, to),
-          response,
-        )
-  }
-
-  public get _replacements() {
-    const replacements = []
-
-    if (
-      this.url.hasPublicPath &&
-      this.app.store.is('server.proxy.replace.publicPath', true)
-    ) {
-      replacements.push([
-        `${this.url.proxy.origin}${this.url.publicPath}`,
-        `${this.url.dev.origin}${this.url.publicPath}`,
-      ])
+      return !response
+        ? buffer
+        : this.replacements?.reduce(
+            (html, [from, to]: [string | RegExp, string]) =>
+              html.replaceAll(from, to),
+            response,
+          ) ?? buffer
+    } catch (err) {
+      return buffer
     }
-
-    if (this.app.store.is('server.proxy.replace.href', true)) {
-      replacements.push(this.replaceHref)
-    }
-
-    if (this.url.config.proxy.replace.window == true) {
-      replacements.push(this.replaceWindow)
-    }
-
-    return replacements
   }
 
   @bind
-  public make(): (buffer: Buffer) => Promise<string | Buffer> {
-    return this.app.hooks.filter(
-      'proxy.interceptor',
-      this._interceptor,
+  public make() {
+    return responseInterceptor(
+      this.app.hooks.filter(
+        'proxy.interceptor',
+        () => this._interceptor,
+      ),
     )
   }
 
   public get replacements() {
-    return this.app.hooks.filter(
-      'proxy.replace',
-      this._replacements,
-    )
+    const replacements = [this.replaceAssetPath()]
+
+    if (this.app.store.is('server.proxy.replace.href', true)) {
+      replacements.push(this.replaceHref())
+    }
+
+    if (this.app.store.is('server.proxy.replace.href', true)) {
+      replacements.push(this.replaceWindow())
+    }
+
+    return this.app.hooks.filter('proxy.replace', replacements)
+  }
+
+  @bind
+  public replaceAssetPath(): [string | RegExp, string] {
+    return [
+      new RegExp(
+        `${this.url.proxy.origin}${this.url.publicPath}(.*)?`,
+        'g',
+      ),
+      `${this.url.dev.origin}/$1`,
+    ]
   }
 
   @bind

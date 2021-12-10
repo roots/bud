@@ -26,6 +26,10 @@ const inDevelopment = (app: Framework) => {
             proxy: app.store.is('server.middleware.proxy', true)
               ? urlToHttpOptions(proxy)
               : false,
+
+            publicPath: app.hooks.filter(
+              'build.output.publicPath',
+            ),
           })
         } catch (error) {
           throw new Error(error)

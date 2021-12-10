@@ -6,7 +6,7 @@
  * @public
  */
 
-;(async () => {
+(async () => {
   const {overlay} = await import('./overlay')
   const {indicator} = await import('./Indicator')
 

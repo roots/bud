@@ -8,6 +8,13 @@
 /.npmrc
 /packages/@roots/*/types
 
+# verdaccio
+/dev/build/verdaccio/conf/htpasswd
+/dev/build/verdaccio/plugins/*
+!/dev/build/verdaccio/plugins/.gitkeep
+/dev/build/verdaccio/storage/*
+!/dev/build/verdaccio/storage/.gitkeep
+
 # Docusaurus
 /site/.docusaurus
 /site/.cache-loader

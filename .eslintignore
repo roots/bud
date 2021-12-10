@@ -1,0 +1,11 @@
+**/bin
+**/lib
+**/*.json
+**/node_modules
+**/package.json
+**/tsconfig.json
+**/*.d.ts
+examples/*/src/**/*
+examples/*/bud.config.*
+dev/**/*
+site/**/*

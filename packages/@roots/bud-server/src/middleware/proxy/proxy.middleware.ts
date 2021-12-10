@@ -2,8 +2,8 @@ import type {Framework} from '@roots/bud-framework'
 import {createProxyMiddleware} from 'http-proxy-middleware'
 
 import {InterceptorFactory} from './interceptor.factory'
-import {URL} from './url'
 import {OptionsFactory} from './proxy.options'
+import {URL} from './url'
 
 /**
  * Proxy middleware factory
@@ -13,7 +13,7 @@ import {OptionsFactory} from './proxy.options'
 export const middleware = (app: Framework) => {
   const url = new URL(() => app)
   const interceptor = new InterceptorFactory(() => app, url)
-  const options = new OptionsFactory(url, interceptor.make)
+  const options = new OptionsFactory(url, interceptor.make())
 
   return createProxyMiddleware(
     app.hooks.filter('proxy.options', options.make),

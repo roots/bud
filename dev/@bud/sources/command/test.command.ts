@@ -2,18 +2,23 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
+/**
+ * Test command class
+ *
+ * @internal
+ */
 export class Test extends Command {
   /**
    * Command paths
    *
-   * @public
+   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
   /**
    * Command usage
    *
-   * @public
+   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -27,7 +32,7 @@ export class Test extends Command {
   /**
    * Number of workers
    *
-   * @public
+   * @internal
    */
   public workers = Option.String(`-w,--workers`, '50%', {
     description: `number of workers. default 50%.`,
@@ -36,7 +41,7 @@ export class Test extends Command {
   /**
    * Update snapshots
    *
-   * @public
+   * @internal
    */
   public update = Option.Boolean(`--update`, false, {
     description: `update snapshots. default false.`,
@@ -45,7 +50,7 @@ export class Test extends Command {
   /**
    * Execute command
    *
-   * @public
+   * @internal
    */
   public async execute() {
     await this.$(
