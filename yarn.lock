@@ -8161,7 +8161,7 @@ __metadata:
     rimraf: 3.0.2
     shebang-command: 2.0.0
     signale: 1.4.0
-    ts-jest: 27.1.0
+    ts-jest: 27.1.1
     ts-node: 10.4.0
     tsconfig-paths: 3.12.0
     tslib: 2.3.1
@@ -11145,7 +11145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.14.2, esbuild@npm:~0.14.0":
+"esbuild@npm:0.14.2":
   version: 0.14.2
   resolution: "esbuild@npm:0.14.2"
   dependencies:
@@ -24237,12 +24237,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:27.1.0":
-  version: 27.1.0
-  resolution: "ts-jest@npm:27.1.0"
+"ts-jest@npm:27.1.1":
+  version: 27.1.1
+  resolution: "ts-jest@npm:27.1.1"
   dependencies:
     bs-logger: 0.x
-    esbuild: ~0.14.0
     fast-json-stable-stringify: 2.x
     jest-util: ^27.0.0
     json5: 2.x
@@ -24254,6 +24253,7 @@ __metadata:
     "@babel/core": ">=7.0.0-beta.0 <8"
     "@types/jest": ^27.0.0
     babel-jest: ">=27.0.0 <28"
+    esbuild: ~0.14.0
     jest: ^27.0.0
     typescript: ">=3.8 <5.0"
   peerDependenciesMeta:
@@ -24263,9 +24263,11 @@ __metadata:
       optional: true
     babel-jest:
       optional: true
+    esbuild:
+      optional: true
   bin:
     ts-jest: cli.js
-  checksum: ff59267dc93dde03b0cabc0c0ca44e1322ac1abc8401187dc687c2b539c6cd2f95400418855a9f4154bff7043caa6e84765f5bb02624f4b40df6bba9e8af555f
+  checksum: 3aea68083399c49e9079dbd1583ee5cce7da9648a6cdaef96c2b5f2f85de375c186227724336f359ecd2bc7871bff0911667d1f4867e0e275417b3e4887841d9
   languageName: node
   linkType: hard
 
