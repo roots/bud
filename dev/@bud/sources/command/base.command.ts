@@ -1,7 +1,6 @@
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
-import {Option} from 'clipanion'
 
 /**
  * Base class

@@ -1,5 +1,3 @@
-import {UrlObject} from 'url'
-
 /**
  * Server configuration
  *
@@ -18,7 +16,7 @@ export interface Configuration {
    * @public
    */
   dev: {
-    url: UrlObject | string
+    url: string
   }
 
   /**
@@ -27,7 +25,7 @@ export interface Configuration {
    * @public
    */
   proxy: {
-    url: UrlObject | string
+    url: string
     replace: {
       href: true
       window: true
