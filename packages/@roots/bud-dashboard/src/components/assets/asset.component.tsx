@@ -36,8 +36,8 @@ export const Asset = ({asset, theme}) => {
       </Box>
 
       <Box
-        display={theme.ctx(['none', 'none', 'flex'])}
-        width={theme.ctx([0, 0, theme.col(4), theme.col(3)])}>
+        display={theme.ctx(['none', 'none', 'none', 'flex'])}
+        width={theme.ctx([0, 0, 0, theme.col(3)])}>
         {asset.chunkNames?.length ? (
           <Text color={theme.colors.faded}>
             {' '}

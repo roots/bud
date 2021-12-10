@@ -24,10 +24,10 @@ export const Dashboard = ({
 }: {
   application: Framework
 }) => {
+  useForceUpdate()
+
   const ink = useApp()
   const {isRawModeSupported} = useStdin()
-
-  useForceUpdate()
 
   const instance = useRef<Framework>(application)
 

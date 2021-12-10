@@ -48,5 +48,5 @@ export interface Dashboard extends Service {
    *
    * @public
    */
-  rerender(Component: any, title?: string): Promise<void>
+  rerender(): Promise<void>
 }
