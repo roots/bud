@@ -77,7 +77,7 @@
     "jest": "27.4.3",
     "solid-js": "1.2.6",
     "type-fest": "2.8.0",
-    "webpack": "5.64.4"
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
