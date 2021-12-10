@@ -81,7 +81,7 @@
   "devDependencies": {
     "@microsoft/api-documenter": "7.13.75",
     "@oclif/dev-cli": "1.26.9",
-    "@oclif/test": "1.2.9",
+    "@oclif/test": "2.0.3",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
     "@types/mini-css-extract-plugin": "2.4.0",
