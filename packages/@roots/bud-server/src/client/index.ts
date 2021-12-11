@@ -6,7 +6,7 @@
  * @public
  */
 
-(async () => {
+;(async () => {
   const {overlay} = await import('./overlay')
   const {indicator} = await import('./Indicator')
 
@@ -14,27 +14,22 @@
     setOptionsAndConnect,
     useCustomOverlay,
     subscribeAll,
-  } = require('webpack-hot-middleware/client?autoConnect=false')
+  } = require('webpack-hot-middleware/client?path=/__bud/hmr')
 
   const indicatorEl = indicator.init()
   const overlayEl = overlay.init()
 
-  const res = await fetch('/__roots/config.json')
-  const {server, ...app} = await res.json()
-
-  const {log} = server.browser.log
-    ? await import('./logger')
-    : {log: () => {}}
+  const res = await fetch('/__bud/config.json')
+  const config = await res.json()
+  const {log} = await import('./logger')
 
   setOptionsAndConnect({
-    name: app.name,
-    overlay: true,
-    overlayWarnings: true,
-    quiet: true,
+    quiet: false,
     reload: false,
+    path: config.hmr,
   })
 
-  server.browser.overlay && useCustomOverlay(overlayEl)
+  useCustomOverlay(overlayEl)
 
   subscribeAll(payload => {
     log(
@@ -43,10 +38,9 @@
       }`,
     )
 
-    server.browser.indicator && indicatorEl.update(payload)
+    indicatorEl.update(payload)
 
-    server.browser.overlay &&
-      payload?.errors?.length &&
+    payload?.errors?.length &&
       overlay.showProblems('errors', payload.errors)
 
     if (payload.action === 'reload') window.location.reload()

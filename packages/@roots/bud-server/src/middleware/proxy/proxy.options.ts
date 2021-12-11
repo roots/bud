@@ -17,9 +17,8 @@ export class OptionsFactory {
   public options: Partial<ProxyOptions> = {
     autoRewrite: true,
     changeOrigin: true,
-    followRedirects: true,
+    followRedirects: false,
     selfHandleResponse: true,
-    ws: false,
     logLevel: 'debug',
     headers: {
       'X-Proxy-By': '@roots/bud',
@@ -28,6 +27,8 @@ export class OptionsFactory {
       'Access-Control-Allow-Methods': '*',
     },
   }
+
+  public url: URL
 
   /**
    * Class constructor
@@ -39,8 +40,10 @@ export class OptionsFactory {
     interceptor: ProxyOptions['onProxyRes'],
     request: ProxyOptions['onProxyReq'],
   ) {
+    this.url = url
+
     this.options.cookieDomainRewrite = {
-      [url.proxy.origin]: url.dev.origin,
+      [url.proxy.host]: url.dev.host,
     }
 
     this.options.onProxyReq = request

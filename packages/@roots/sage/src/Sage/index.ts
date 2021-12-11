@@ -11,6 +11,9 @@ const {pathExistsSync, writeJson, removeSync} = fs
  */
 const inDevelopment = (app: Framework) => {
   app.devtool()
+  app.extensions.get('@roots/bud-entrypoints').setOptions({
+    publicPath: '',
+  })
 
   app.hooks
     .async<'event.compiler.done'>(

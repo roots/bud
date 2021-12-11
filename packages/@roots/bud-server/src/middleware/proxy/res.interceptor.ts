@@ -2,6 +2,7 @@ import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {IncomingMessage, ServerResponse} from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
+import {URL as NodeURL} from 'url'
 
 import {URL} from './url'
 
@@ -26,7 +27,7 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public proxyPath: string
+  public proxyPath: NodeURL
 
   /**
    * Boolean indicating if the proxied server
@@ -68,7 +69,7 @@ export class ResponseInterceptorFactory {
   public async _interceptor(
     buffer: Buffer,
     proxyRes: IncomingMessage,
-    _req: IncomingMessage,
+    req: IncomingMessage,
     res: ServerResponse,
   ): Promise<Buffer | string> {
     try {
@@ -80,13 +81,9 @@ export class ResponseInterceptorFactory {
        * publicPath.
        */
       if (proxyRes.headers['x-bud-proxy-path']) {
-        res.setHeader('x-bud-proxy-path', this.proxyPath)
-        this.app.info(
-          `proxying: ${this.proxyPath} => ${this.url.dev.href}`,
+        this.proxyPath = new NodeURL(
+          proxyRes.headers['x-bud-proxy-path'] as string,
         )
-        this.proxyPath = proxyRes.headers[
-          'x-bud-proxy-path'
-        ] as string
       }
 
       /**
@@ -111,11 +108,36 @@ export class ResponseInterceptorFactory {
        * If proxy is overriding the publicPath...
        */
       if (this.proxyPath) {
+        res.setHeader(
+          'x-bud-proxy-origin',
+          this.proxyPath.origin,
+        )
+        res.setHeader(
+          'x-bud-proxy-path',
+          this.proxyPath.pathname,
+        )
+
+        this.app.info(
+          `proxying: ${this.proxyPath.origin} => ${this.url.dev.href}`,
+        )
+
+        const requestUrl = new NodeURL(
+          req.url,
+          `http://${req.headers['host'] as string}`,
+        )
+
+        this.app.server.log('info', requestUrl.toString())
+
+        if (req.headers['accept'].startsWith('text/css')) {
+          this.app.server.log('info', 'catching css response')
+          return `// this is a proxied connection for development. css is served from the js bundle.`
+        }
+
         /**
          * ...make the replacements as requested by proxy
          */
         body = body.replaceAll(
-          new RegExp(this.proxyPath, 'g'),
+          new RegExp(this.proxyPath.href, 'g'),
           this.url.dev.href,
         )
 
@@ -179,7 +201,7 @@ export class ResponseInterceptorFactory {
       replacements.push(this.replaceHref())
     }
 
-    if (this.app.store.is('server.proxy.replace.href', true)) {
+    if (this.app.store.is('server.proxy.replace.window', true)) {
       replacements.push(this.replaceWindow())
     }
 
@@ -199,7 +221,7 @@ export class ResponseInterceptorFactory {
         `${this.url.proxy.origin}${this.url.publicPath}(.*)?`,
         'g',
       ),
-      `${this.url.dev.origin}/$1`,
+      `${this.url.dev.origin}$1`,
     ]
   }
 

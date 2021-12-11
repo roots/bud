@@ -223,7 +223,6 @@ export const config: Configuration = {
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
-    publicPath: '',
     storage: '.budfiles',
   },
 

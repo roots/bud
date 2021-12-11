@@ -11,16 +11,8 @@ import type {Framework} from './hot.interface'
 const options: (
   app: Framework,
 ) => WebpackHotMiddleware.MiddlewareOptions = app => {
-  // const devUrl = new URL(app.store.get('server.dev.url'))
-  const heartbeatUrl = `/__webpack_hmr`
-
-  app.server.log('info', {
-    message: 'heartbeat url',
-    suffix: heartbeatUrl,
-  })
-
   return {
-    path: heartbeatUrl,
+    path: `/__bud/hmr`,
     heartbeat: 2000,
   }
 }

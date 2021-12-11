@@ -17,9 +17,9 @@ export class Server
   implements Framework.Server.Interface
 {
   /**
-   * @internal @readonly
+   * @internal
    */
-  public readonly _assets = ['@roots/bud-server/client.js']
+  public _assets = [`@roots/bud-server/client.js`]
 
   /**
    * Express instance
@@ -65,6 +65,14 @@ export class Server
    */
   public get assets() {
     return this._assets
+  }
+  /**
+   * {@inheritDoc @roots/bud-framework#Server.Interface.assets}
+   *
+   * @public
+   */
+  public set assets(assets: Array<string>) {
+    this._assets = assets
   }
 
   /**
@@ -135,36 +143,36 @@ export class Server
    */
   @bind
   public async run(): Promise<this> {
+    this.app.hooks.on('build.output.publicPath', () => `/`)
+
     await this.app.hooks.filterAsync<'event.server.before'>(
       'event.server.before',
       this.app,
     )
-
     await this.app.compiler.compile()
+
+    this.processMiddlewares()
+
     /**
      * __roots route
      */
     this.application
-      .route('/__roots/config.json')
+      .route('/__bud/config.json')
       .get((_req, res) => {
-        this.log('success', {
-          message: 'GET',
-          suffix: '/__roots/config.json',
-        })
         res.send({
-          ...this.app.store.all(),
+          name: this.app.name,
+          hmr: `/__bud/hmr`,
         })
 
         res.end()
       })
-
-    this.processMiddlewares()
 
     /**
      * Listen
      */
     const url = new URL(this.app.store.get('server.dev.url'))
     this.log('info', `starting server on %s`, url.port)
+
     this.instance = this.application.listen(
       url.port,
       async (error: string) => {

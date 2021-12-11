@@ -51,8 +51,7 @@ export function setPath(...args): Framework {
     })
 
     this.when(
-      !['project', 'publicPath'].includes(k) &&
-        v.startsWith('/'),
+      !['project'].includes(k) && v.startsWith('/'),
       () => {
         this.warn({
           message: `${k} was defined as ${v}.`,

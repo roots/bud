@@ -5,7 +5,6 @@ import {
   IncomingMessage,
   ServerResponse,
 } from 'http'
-import {join} from 'path'
 
 import {URL} from './url'
 
@@ -51,10 +50,7 @@ export class RequestInterceptorFactory {
     res: ServerResponse,
   ) {
     try {
-      proxyReq.setHeader(
-        'x-bud-forward-href',
-        join(this.url.dev.href, req.url),
-      )
+      proxyReq.setHeader('x-bud-forward-href', req.url)
       proxyReq.setHeader(
         'x-bud-forward-origin',
         this.url.dev.origin,

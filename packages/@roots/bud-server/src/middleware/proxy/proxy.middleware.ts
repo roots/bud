@@ -26,6 +26,7 @@ export const middleware = (app: Framework) => {
   )
 
   return createProxyMiddleware(
+    ['*', '/**/*', '!/__bud/**/*', '!/**/*.hot-update.*'],
     app.hooks.filter('proxy.options', options.make),
   )
 }

@@ -190,7 +190,7 @@ export namespace Hooks {
     [`build.output.filename`]: Configuration['output']['filename']
     [`build.output.path`]: Configuration['output']['path']
     [`build.output.pathinfo`]: Configuration['output']['pathinfo']
-    [`build.output.publicPath`]: Configuration['output']['publicPath']
+    [`build.output.publicPath`]: string
     [`build.parallelism`]: Configuration['parallelism']
     [`build.performance`]: Configuration['performance']
     [`build.plugins`]: LimitedPlugin

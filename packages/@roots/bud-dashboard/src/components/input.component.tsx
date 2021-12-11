@@ -19,7 +19,7 @@ export const Input = ({bud}) => {
       bud.close()
     }
     if (isEqual(input, 'c')) {
-      ;(async () => {
+      (async () => {
         await bud.dashboard.rerender()
       })()
     }
