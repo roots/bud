@@ -1,8 +1,9 @@
 import type {Framework} from '@roots/bud-framework'
 import {createProxyMiddleware} from 'http-proxy-middleware'
 
-import {InterceptorFactory} from './interceptor.factory'
 import {OptionsFactory} from './proxy.options'
+import {RequestInterceptorFactory} from './req.interceptor'
+import {ResponseInterceptorFactory} from './res.interceptor'
 import {URL} from './url'
 
 /**
@@ -12,8 +13,17 @@ import {URL} from './url'
  */
 export const middleware = (app: Framework) => {
   const url = new URL(() => app)
-  const interceptor = new InterceptorFactory(() => app, url)
-  const options = new OptionsFactory(url, interceptor.make())
+  const interceptor = new ResponseInterceptorFactory(
+    () => app,
+    url,
+  )
+  const request = new RequestInterceptorFactory(() => app, url)
+
+  const options = new OptionsFactory(
+    url,
+    interceptor.make(),
+    request.make(),
+  )
 
   return createProxyMiddleware(
     app.hooks.filter('proxy.options', options.make),

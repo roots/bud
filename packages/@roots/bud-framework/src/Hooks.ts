@@ -1,3 +1,4 @@
+import {IncomingMessage, ServerResponse} from 'http'
 import {ValueOf} from 'type-fest'
 import {
   Configuration,
@@ -232,7 +233,10 @@ export namespace Hooks {
     [`proxy.target`]: string
     [`proxy.interceptor`]: (
       buffer: Buffer,
-    ) => Promise<string | Buffer>
+      proxyRes: IncomingMessage,
+      req: IncomingMessage,
+      res: ServerResponse,
+    ) => Promise<Buffer | string>
     [`proxy.replace`]: Array<[string | RegExp, string]>
     [`proxy.options`]?: ProxyOptions
 
