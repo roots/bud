@@ -1,40 +1,11 @@
-/**
- * CSS animation for reload indicator
- *
- * @public
- */
-const makePulse = (name: string, color: number[]): string => `
-  .${name} {
-    transform: scale(1);
-    background: rgba(${color[0]}, ${color[1]}, ${color[2]}, 1);
-    box-shadow: 0 0 0 0 rgba(${color[0]}, ${color[1]}, ${color[2]}, 1);
-    animation: ${name}__pulse 2s infinite;
-  }
-
-  @keyframes ${name}__pulse {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.7);
-    }
-
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(${color[0]}, ${color[1]}, ${color[2]}, 0);
-    }
-
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(${color[0]}, ${color[1]}, ${color[2]}, 0);
-    }
-  }
-`
+import {pulse} from './pulse.component'
 
 /**
  * Indicator web component
  *
  * @public
  */
-export class Indicator extends HTMLElement {
+export class IndicatorComponent extends HTMLElement {
   /**
    * Has component rendered
    *
@@ -56,6 +27,9 @@ export class Indicator extends HTMLElement {
    */
   public hideTimeout: NodeJS.Timer
 
+  /**
+   * hmr status payload
+   */
   public payload: any
 
   /**
@@ -125,10 +99,10 @@ export class Indicator extends HTMLElement {
         border-radius: 50%;
       }
 
-      ${makePulse(`${this.name}__success`, this.colors.success)}
-      ${makePulse(`${this.name}__error`, this.colors.error)}
-      ${makePulse(`${this.name}__warning`, this.colors.warn)}
-      ${makePulse(`${this.name}__pending`, this.colors.pending)}
+      ${pulse(`${this.name}__success`, this.colors.success)}
+      ${pulse(`${this.name}__error`, this.colors.error)}
+      ${pulse(`${this.name}__warning`, this.colors.warn)}
+      ${pulse(`${this.name}__pending`, this.colors.pending)}
 
       .${this.name}__visible {
         opacity: 1;
@@ -237,8 +211,6 @@ export class Indicator extends HTMLElement {
     )
 
     this.classList.add(`${this.name}__warning`)
-
-    this.hide()
   }
 
   /**

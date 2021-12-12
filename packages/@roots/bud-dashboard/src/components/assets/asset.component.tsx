@@ -3,16 +3,14 @@ import React from 'react'
 
 import {useFormatter} from '../../hooks'
 
-export const Asset = ({asset, theme}) => {
+export const Asset = ({compilation, asset, theme}) => {
   const {fileSize} = useFormatter()
 
   return (
-    <Box
-      flexDirection={theme.ctx(['column', 'row'])}
-      marginBottom={theme.ctx([1, 0])}
-      justifyContent="flex-start">
-      <Box width={theme.ctx([theme.col(12), theme.col(9)])}>
+    <Box flexDirection="row" justifyContent="flex-start">
+      <Box display={'flex'} width={theme.col(8)}>
         <Text wrap="truncate-end">
+          {compilation.name}{' '}
           <Text
             color={
               asset.emitted
@@ -21,18 +19,14 @@ export const Asset = ({asset, theme}) => {
             }>
             {asset.emitted ? '✔ ' : '… '}
           </Text>
-
           {asset.name}
-
           {asset.cached && (
             <Text color={theme.colors.faded}> cached</Text>
           )}
         </Text>
       </Box>
 
-      <Box
-        display={theme.ctx(['none', 'none', 'flex'])}
-        width={theme.ctx([0, 0, theme.col(1)])}>
+      <Box display={'flex'} width={theme.col(1)}>
         {asset?.info?.minimized ? (
           <Text wrap="truncate-end" color={theme.colors.success}>
             ✔ min
@@ -44,7 +38,7 @@ export const Asset = ({asset, theme}) => {
         )}
       </Box>
 
-      <Box width={theme.ctx([theme.col(12), theme.col(2)])}>
+      <Box display={'flex'} width={theme.col(2)}>
         <Text wrap="truncate-end" color={theme.colors.faded}>
           {fileSize(asset.size)}
         </Text>

@@ -56,7 +56,7 @@ export class RequestInterceptorFactory {
         this.url.dev.origin,
       )
     } catch (err) {
-      this.app.error(err)
+      process.stderr.write(`${err}\n`)
     }
   }
 

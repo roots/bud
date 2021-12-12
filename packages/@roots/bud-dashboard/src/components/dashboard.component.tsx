@@ -1,8 +1,8 @@
 import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
-import {Box, Newline, Text, useApp, useStdin} from 'ink'
-import React, {useRef, useState} from 'react'
+import {Box, useApp, useStdin} from 'ink'
+import React, {useEffect, useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
@@ -31,6 +31,7 @@ export const Dashboard = ({
 
   const instance = useRef<Framework>(application)
 
+  const [cleared, setCleared] = useState(false)
   const [isComplete, setIsComplete] = useState<boolean>(false)
   const [progress, setProgress] = useState<any>(null)
   const [stats, setStats] = useState<StatsCompilation>(null)
@@ -79,6 +80,28 @@ export const Dashboard = ({
     updateExit()
   }, 50)
 
+  useEffect(() => {
+    if (isComplete && !cleared) {
+      if (
+        stats?.errors?.length > 0 ||
+        instance.current.dashboard.stderr?.length > 0 ||
+        instance.current.store.is('features.log', true)
+      )
+        return
+      setCleared(true)
+      // eslint-disable-next-line no-console
+      console.clear()
+    }
+    if (!isComplete && cleared) {
+      setCleared(false)
+    }
+  }, [
+    cleared,
+    stats,
+    isComplete,
+    instance.current.dashboard.stderr,
+  ])
+
   return (
     <Box flexDirection="column" marginTop={1}>
       {isRawModeSupported && <Input bud={instance.current} />}
@@ -90,24 +113,22 @@ export const Dashboard = ({
         theme={theme}
       />
 
-      <Assets.Dashboard stats={stats} theme={theme} />
+      {stats?.errors?.length <= 0 && (
+        <Assets.Dashboard stats={stats} theme={theme} />
+      )}
 
       <Progress progress={progress} theme={theme} />
 
       {instance.current.isDevelopment &&
-        instance.current.compiler.instance &&
-        stats?.assets && (
+        stats?.assets &&
+        progress &&
+        progress[0] == 1 &&
+        stats?.errors?.length <= 0 && (
           <Serve
             theme={theme}
             server={instance.current.store.get('server')}
           />
         )}
-
-      {instance.current.isDevelopment && isRawModeSupported ? (
-        <Text color={theme?.colors.faded}>
-          🆀 to exit <Newline />
-        </Text>
-      ) : null}
     </Box>
   )
 }

@@ -1,46 +1,42 @@
-import {Indicator} from './Indicator'
+import {Component} from './'
 
 /**
  * Activity indicator controller
  *
  * @public
  */
-export const indicator = {
+export class IndicatorController {
   /**
    * DOM node
    *
    * @public
    */
-  node: null,
+  public node = null
 
   /**
    * Active WHM payload
    *
    * @public
    */
-  payload: null,
+  public payload = null
 
   /**
    * Initialization
    *
    * @public
    */
-  init() {
-    customElements.define('bud-activity-indicator', Indicator)
-
+  public constructor() {
     this.node = document.createElement('bud-activity-indicator')
-
     document.body && document.body.appendChild(this.node)
-
-    return this
-  },
+    customElements.define('bud-activity-indicator', Component)
+  }
 
   /**
    * Update activity indicator
    *
    * @public
    */
-  update(payload) {
+  public update(payload) {
     this.node.payload = payload
 
     this.node.setAttribute(
@@ -52,5 +48,5 @@ export const indicator = {
       'has-errors',
       payload.warnings?.length,
     )
-  },
+  }
 }

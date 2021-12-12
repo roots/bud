@@ -1,5 +1,6 @@
 import {Extension, Framework} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
+import {ensureDir} from 'fs-extra'
 import {URL, urlToHttpOptions} from 'url'
 
 const {pathExistsSync, writeJson, removeSync} = fs
@@ -11,6 +12,7 @@ const {pathExistsSync, writeJson, removeSync} = fs
  */
 const inDevelopment = (app: Framework) => {
   app.devtool()
+
   app.extensions.get('@roots/bud-entrypoints').setOptions({
     publicPath: '',
   })
@@ -23,6 +25,7 @@ const inDevelopment = (app: Framework) => {
         const proxy = new URL(app.store.get('server.proxy.url'))
 
         try {
+          await ensureDir(app.path('dist'))
           await writeJson(app.path('dist', 'hmr.json'), {
             dev: urlToHttpOptions(dev),
 

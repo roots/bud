@@ -276,6 +276,7 @@ export const config: Configuration = {
       errors: true,
       hash: true,
       modules: false,
+      outputPath: true,
       entrypoints: false,
       performance: false,
       warnings: true,

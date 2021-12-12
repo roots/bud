@@ -187,6 +187,7 @@ export namespace Hooks {
     [`build.output`]: Configuration['output']
     [`build.output.assetModuleFilename`]: Configuration['output']['assetModuleFilename']
     [`build.output.chunkFilename`]: Configuration['output']['chunkFilename']
+    [`build.output.clean`]: Configuration['output']['clean']
     [`build.output.filename`]: Configuration['output']['filename']
     [`build.output.path`]: Configuration['output']['path']
     [`build.output.pathinfo`]: Configuration['output']['pathinfo']
@@ -212,7 +213,7 @@ export namespace Hooks {
     [`location.project`]: string
     [`location.modules`]: string
     [`location.storage`]: string
-    [`config.override`]: Configuration
+    [`config.override`]: Configuration[]
     [`event.app.close`]: unknown
     [`event.build.make.before`]: unknown
     [`event.build.make.after`]: unknown

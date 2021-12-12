@@ -13,6 +13,7 @@ const options: (
 ) => WebpackHotMiddleware.MiddlewareOptions = app => {
   return {
     path: `/__bud/hmr`,
+    log: false,
     heartbeat: 2000,
   }
 }

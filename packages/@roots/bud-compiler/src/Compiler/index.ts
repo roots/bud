@@ -234,6 +234,13 @@ export class Compiler extends Service implements Contract {
     }
 
     if (err) {
+      if (this.app.isDevelopment) {
+        this.app.server.middleware?.hot?.publish({
+          errors: stats.toJson(this.app.store.get('build.stats'))
+            .errors,
+        })
+      }
+
       this.errors.push(
         this.app.hooks.filter('event.compiler.error', err),
       )

@@ -18,8 +18,7 @@ export type BudEntrypointsPlugin = Extension.CompilerPlugin<
  */
 export const BudEntrypointsPlugin: BudEntrypointsPlugin = {
   name: '@roots/bud-entrypoints',
-  options: () => ({}),
   make: options => {
-    return new EntrypointsWebpackPlugin(options.all())
+    return new EntrypointsWebpackPlugin()
   },
 }

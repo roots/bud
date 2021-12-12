@@ -31,6 +31,9 @@ export default class Serve extends Build {
    */
   public static flags = {
     ...Build.flags,
+    log: oclif.Flags.boolean({
+      default: false,
+    }),
     mode: oclif.Flags.string({
       default: 'development',
       options: ['development', 'production'],

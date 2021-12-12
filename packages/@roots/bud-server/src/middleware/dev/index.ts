@@ -23,7 +23,8 @@ const makeOptions = (
   app: Framework,
 ): WebpackDevMiddleware.Options => ({
   writeToDisk: true,
-  publicPath: `/`,
+  publicPath: `/__bud/`,
+  stats: false,
   headers: {
     ['X-Server']: '@roots/bud',
   },

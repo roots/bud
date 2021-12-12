@@ -1,6 +1,6 @@
 import {Styles} from '@roots/ink-use-style'
-import {Box, Newline, Text} from 'ink'
-import React from 'react'
+import {Newline, Text} from 'ink'
+import React, {Fragment} from 'react'
 import {StatsCompilation} from 'webpack'
 
 import {Asset} from './asset.component'
@@ -13,15 +13,13 @@ export interface Props {
 
 export const Dashboard = ({stats, theme}: Props) => {
   return (
-    <Box flexDirection="column">
+    <Fragment>
       {stats?.children?.map((child, id) => (
-        <Box
-          flexDirection="column"
-          key={`stats-${child.name}-${id}`}>
-          <Text color={theme.colors.accent}>
-            ❯ {child.name} <Newline />
+        <Fragment key={`stats-${child.name}-${id}`}>
+          <Text backgroundColor={theme.colors.secondaryAlt} bold>
+            {child.outputPath.replace(process.cwd(), '.')}
+            <Newline />
           </Text>
-
           {child.assets
             .filter(
               ({name, size}) =>
@@ -32,13 +30,14 @@ export const Dashboard = ({stats, theme}: Props) => {
             .map((asset, id) => (
               <Asset
                 key={`asset-${id}`}
+                compilation={child}
                 theme={theme}
                 asset={asset}
               />
             ))}
           <Summary theme={theme} compilation={child} />
-        </Box>
-      ))}
-    </Box>
+        </Fragment>
+      )) ?? null}
+    </Fragment>
   )
 }

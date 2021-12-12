@@ -20,13 +20,20 @@ export const middleware = (app: Framework) => {
   const request = new RequestInterceptorFactory(() => app, url)
 
   const options = new OptionsFactory(
+    app,
     url,
     interceptor.make(),
     request.make(),
   )
 
   return createProxyMiddleware(
-    ['*', '/**/*', '!/__bud/**/*', '!/**/*.hot-update.*'],
+    [
+      '*',
+      '/**/*',
+      '!/__bud/*',
+      '!/__bud/**/*',
+      '!/**/*.hot-update.*',
+    ],
     app.hooks.filter('proxy.options', options.make),
   )
 }

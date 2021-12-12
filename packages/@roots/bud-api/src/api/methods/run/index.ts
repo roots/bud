@@ -21,7 +21,6 @@ export const run: run = async function (): Promise<void> {
     ctx.store.is('server.middleware.hot', true)
 
   const development = async () => {
-    await ctx.server.inject()
     await ctx.server.run()
   }
 

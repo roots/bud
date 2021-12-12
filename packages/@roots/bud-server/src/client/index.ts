@@ -1,48 +1,51 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* global __resourceQuery */
 
-/**
- * Retrieves data on running application
- *
- * @public
- */
+// @ts-ignore
+const resourceQuery = __resourceQuery as string
 
-;(async () => {
-  const {overlay} = await import('./overlay')
-  const {indicator} = await import('./Indicator')
+;(async (query: string) => {
+  const querystring = await import('querystring')
+  const {hmr} = await import('./bridge')
+  const {IndicatorController} = await import(
+    './indicator/indicator.controller'
+  )
+  const {OverlayController} = await import(
+    './overlay/overlay.controller'
+  )
 
-  const {
-    setOptionsAndConnect,
-    useCustomOverlay,
-    subscribeAll,
-  } = require('webpack-hot-middleware/client?path=/__bud/hmr')
+  const indicator = new IndicatorController()
+  const overlay = new OverlayController()
 
-  const indicatorEl = indicator.init()
-  const overlayEl = overlay.init()
-
-  const res = await fetch('/__bud/config.json')
-  const config = await res.json()
-  const {log} = await import('./logger')
-
-  setOptionsAndConnect({
-    quiet: false,
+  const instance = {
+    path: '/__bud/hmr',
+    timeout: 20 * 1000,
+    overlay: true,
     reload: false,
-    path: config.hmr,
-  })
+    log: false,
+    warn: true,
+    name: '',
+    autoConnect: false,
+    overlayWarnings: false,
+    ...querystring.parse(query.slice(1)),
+  }
 
-  useCustomOverlay(overlayEl)
+  hmr.setOptionsAndConnect(instance)
 
-  subscribeAll(payload => {
-    log(
-      `${payload.action}${
-        payload.time ? ` (${payload.time}ms)` : ``
-      }`,
-    )
-
-    indicatorEl.update(payload)
-
-    payload?.errors?.length &&
-      overlay.showProblems('errors', payload.errors)
-
+  hmr.subscribeAll(payload => {
     if (payload.action === 'reload') window.location.reload()
+
+    indicator.update(payload)
+    overlay.update(payload)
+
+    // eslint-disable-next-line no-console
+    console.log(
+      `%c [bud-server] %c %c ${payload.action}`,
+      'background: #525ddc; color: #ffffff;',
+      'background: transparent;',
+      'background: white; color: #343a40;',
+    )
   })
-})()
+})(resourceQuery)
+
+// @ts-ignore
+import.meta.webpackHot.decline()

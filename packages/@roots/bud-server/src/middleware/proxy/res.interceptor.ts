@@ -37,6 +37,10 @@ export class ResponseInterceptorFactory {
    */
   public exitEarly: boolean
 
+  public get assetBase() {
+    return `${this.url.dev.origin}/__bud/`
+  }
+
   /**
    * Class constructor
    *
@@ -93,7 +97,6 @@ export class ResponseInterceptorFactory {
        */
       if (proxyRes.headers['x-bud-proxy-no-process']) {
         res.setHeader('x-bud-proxy-path-no-process', 'true')
-        this.app.info(`proxied app handling response body`)
         this.exitEarly = true
       }
 
@@ -117,19 +120,7 @@ export class ResponseInterceptorFactory {
           this.proxyPath.pathname,
         )
 
-        this.app.info(
-          `proxying: ${this.proxyPath.origin} => ${this.url.dev.href}`,
-        )
-
-        const requestUrl = new NodeURL(
-          req.url,
-          `http://${req.headers['host'] as string}`,
-        )
-
-        this.app.server.log('info', requestUrl.toString())
-
         if (req.headers['accept'].startsWith('text/css')) {
-          this.app.server.log('info', 'catching css response')
           return `// this is a proxied connection for development. css is served from the js bundle.`
         }
 
@@ -138,7 +129,7 @@ export class ResponseInterceptorFactory {
          */
         body = body.replaceAll(
           new RegExp(this.proxyPath.href, 'g'),
-          this.url.dev.href,
+          `${this.assetBase}`,
         )
 
         /**

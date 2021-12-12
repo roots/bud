@@ -10,7 +10,6 @@ interface IndicatorProps {
 }
 
 export const Indicator = ({url, label}: IndicatorProps) => {
-  const [res, setRes] = useState<any>(null)
   const [status, setStatus] = useState(null)
 
   useEffect(() => {
@@ -20,9 +19,7 @@ export const Indicator = ({url, label}: IndicatorProps) => {
         const res = await axios(url.toString())
 
         setStatus(res.status)
-        setRes(res.headers)
       } catch (error) {
-        setRes(error.response?.headers)
         error?.response?.status
           ? setStatus(error.response.status)
           : setStatus(400)
@@ -32,7 +29,6 @@ export const Indicator = ({url, label}: IndicatorProps) => {
 
   return status == null ? (
     <Text>
-      {JSON.stringify(res)}
       <Spinner /> {status} [{label}]
     </Text>
   ) : status == 200 ? (

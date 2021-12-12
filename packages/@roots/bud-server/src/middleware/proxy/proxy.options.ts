@@ -1,5 +1,7 @@
+import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
+import {Signale} from 'signale'
 
 import {URL} from './url'
 
@@ -36,6 +38,7 @@ export class OptionsFactory {
    * @public
    */
   public constructor(
+    app: Framework,
     url: URL,
     interceptor: ProxyOptions['onProxyRes'],
     request: ProxyOptions['onProxyReq'],
@@ -49,8 +52,14 @@ export class OptionsFactory {
     this.options.onProxyReq = request
     this.options.onProxyRes = interceptor
     this.options.target = url.proxy.href
+    this.options.logLevel = app.store.is('features.log', true)
+      ? 'debug'
+      : 'silent'
 
-    this.options.logProvider = () => url.app.logger.instance
+    this.options.logProvider = () => {
+      let logger = new Signale()
+      return logger.scope('server', 'proxy')
+    }
   }
 
   /**

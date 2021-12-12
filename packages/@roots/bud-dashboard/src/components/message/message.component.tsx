@@ -1,5 +1,5 @@
 import {Styles} from '@roots/ink-use-style'
-import {Box, Newline, Text} from 'ink'
+import {Text} from 'ink'
 import React from 'react'
 
 export interface Props {
@@ -9,20 +9,14 @@ export interface Props {
   icon: string
 }
 
-export const Message = ({
-  message,
-  file,
-  icon,
-  colors,
-}: Props) => {
+export const Message = ({message, icon, colors}: Props) => {
   return (
-    <Box flexDirection="column">
-      <Text>
-        <Text color={`${colors[0]}`}>{icon ?? ''}</Text>{' '}
-        {file ? `${file}:\n` : ``}
-        <Text>{message}</Text>
-        <Newline />
-      </Text>
-    </Box>
+    <Text>
+      <Text color={`${colors[0]}`}>{icon ?? ''}</Text>{' '}
+      {(message.startsWith('\n')
+        ? message.slice(1)
+        : message
+      ).replace(process.cwd(), '.')}
+    </Text>
   )
 }
