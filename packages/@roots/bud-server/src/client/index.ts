@@ -1,4 +1,5 @@
 /* global __resourceQuery */
+/* istanbul ignore file */
 
 // @ts-ignore
 const resourceQuery = __resourceQuery as string
@@ -46,6 +47,3 @@ const resourceQuery = __resourceQuery as string
     )
   })
 })(resourceQuery)
-
-// @ts-ignore
-import.meta.webpackHot.decline()

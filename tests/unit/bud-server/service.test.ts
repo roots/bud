@@ -55,14 +55,4 @@ describe('@roots/bud-server', function () {
   it('has run method', () => {
     expect(bud.server.run).toBeInstanceOf(Function)
   })
-
-  it('has inject method', () => {
-    expect(bud.server.inject).toBeInstanceOf(Function)
-  })
-
-  it('has expected assets property', () => {
-    expect(bud.server.assets).toEqual([
-      `@roots/bud-server/client.js`,
-    ])
-  })
 })

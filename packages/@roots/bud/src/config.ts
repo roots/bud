@@ -224,6 +224,7 @@ export const config: Configuration = {
     dist: 'dist',
     modules: 'node_modules',
     storage: '.budfiles',
+    publicPath: '',
   },
 
   /**

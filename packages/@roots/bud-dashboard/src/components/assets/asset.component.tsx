@@ -16,7 +16,8 @@ export const Asset = ({compilation, asset, theme}) => {
               asset.emitted
                 ? theme.colors.success
                 : theme.colors.faded
-            }>
+            }
+          >
             {asset.emitted ? '✔ ' : '… '}
           </Text>
           {asset.name}
