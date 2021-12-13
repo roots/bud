@@ -86,14 +86,14 @@
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
-    "@types/lodash": "4.14.177",
-    "@types/node": "16.11.11",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.12",
     "fs-extra": "10.0.0",
     "html-webpack-plugin": "5.5.0",
     "lodash": "4.17.21",
     "nanoid": "3.1.30",
     "npm-run-path": "5.0.1",
-    "webpack": "5.64.4"
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",

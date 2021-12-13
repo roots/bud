@@ -62,7 +62,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
-    "@types/node": "16.11.11",
+    "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "axios": "^0.24.0",
     "ink": "3.2.0",
@@ -71,7 +71,7 @@
     "node-fetch": "^3.1.0",
     "patch-console": "1.0.0",
     "react": "17.0.2",
-    "webpack": "5.64.4"
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "trim-newlines": "^4.0.2",

@@ -64,10 +64,10 @@
   },
   "devDependencies": {
     "@types/express": "4.17.13",
-    "@types/node": "16.11.11",
+    "@types/node": "16.11.12",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.5",
-    "webpack": "5.64.4"
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",

@@ -55,9 +55,9 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.11",
-    "jest": "27.4.3",
-    "webpack": "5.64.4"
+    "@types/node": "16.11.12",
+    "jest": "27.4.4",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "helpful-decorators": "^2.1.0",
