@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, prettyFormat} from '@roots/bud-support'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 import {Signale} from 'signale'
 
@@ -19,7 +19,7 @@ export class OptionsFactory {
   public options: Partial<ProxyOptions> = {
     autoRewrite: true,
     changeOrigin: true,
-    followRedirects: false,
+    followRedirects: true,
     selfHandleResponse: true,
     logLevel: 'debug',
     headers: {
@@ -49,8 +49,10 @@ export class OptionsFactory {
       [url.proxy.host]: url.dev.host,
     }
 
+    this.options.hostRewrite = url.dev.host
     this.options.onProxyReq = request
     this.options.onProxyRes = interceptor
+    this.options.secure = false
     this.options.target = url.proxy.href
     this.options.logLevel = app.store.is('features.log', true)
       ? 'debug'
@@ -60,6 +62,10 @@ export class OptionsFactory {
       let logger = new Signale()
       return logger.scope('server', 'proxy')
     }
+
+    Object.entries(this.options).forEach(([key, value]) => {
+      app.log(`proxy.${key}`, prettyFormat(value))
+    })
   }
 
   /**

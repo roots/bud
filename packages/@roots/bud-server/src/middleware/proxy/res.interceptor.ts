@@ -85,6 +85,8 @@ export class ResponseInterceptorFactory {
   ): Promise<Buffer | string> {
     try {
       res.setHeader('x-proxy-by', '@roots/bud')
+      res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
+      res.setHeader('x-bud-dev-origin', this.url.dev.origin)
 
       /**
        * css is not handled by the proxy
