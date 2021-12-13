@@ -37,8 +37,15 @@ export class ResponseInterceptorFactory {
    */
   public exitEarly: boolean
 
+  /**
+   * Asset base path (for dev server hosted assets)
+   *
+   * @public
+   */
   public get assetBase() {
-    return `${this.url.dev.origin}/__bud/`
+    return `${this.url.dev.origin}${this.app.hooks.filter(
+      'build.output.publicPath',
+    )}`
   }
 
   /**
@@ -78,6 +85,15 @@ export class ResponseInterceptorFactory {
   ): Promise<Buffer | string> {
     try {
       res.setHeader('x-proxy-by', '@roots/bud')
+      res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
+      res.setHeader('x-bud-dev-origin', this.url.dev.origin)
+
+      /**
+       * css is not handled by the proxy
+       */
+      if (req.headers['accept'].startsWith('text/css')) {
+        return `// this is a proxied connection for development. css is served from the js bundle.`
+      }
 
       /**
        * If this header is set the proxy is indicating
@@ -85,6 +101,11 @@ export class ResponseInterceptorFactory {
        * publicPath.
        */
       if (proxyRes.headers['x-bud-proxy-path']) {
+        res.setHeader(
+          'x-bud-proxy-path',
+          proxyRes.headers['x-bud-proxy-path'],
+        )
+
         this.proxyPath = new NodeURL(
           proxyRes.headers['x-bud-proxy-path'] as string,
         )
@@ -120,17 +141,15 @@ export class ResponseInterceptorFactory {
           this.proxyPath.pathname,
         )
 
-        if (req.headers['accept'].startsWith('text/css')) {
-          return `// this is a proxied connection for development. css is served from the js bundle.`
-        }
-
         /**
          * ...make the replacements as requested by proxy
          */
-        body = body.replaceAll(
-          new RegExp(this.proxyPath.href, 'g'),
-          `${this.assetBase}`,
-        )
+        if (typeof body === 'string') {
+          body = body.replaceAll(
+            new RegExp(this.proxyPath.href, 'g'),
+            `${this.assetBase}`,
+          )
+        }
 
         /**
          * ...and return early (if requested)
@@ -140,8 +159,6 @@ export class ResponseInterceptorFactory {
         /**
          * Otherwise, proceedwith the default asset replacement strategy
          */
-      } else {
-        body = body.replaceAll(...this.replaceAssetPath())
       }
 
       /**
@@ -159,6 +176,7 @@ export class ResponseInterceptorFactory {
        */
       return body
     } catch (err) {
+      this.app.error(err)
       return buffer
     }
   }
@@ -188,6 +206,12 @@ export class ResponseInterceptorFactory {
   public get replacements() {
     const replacements = []
 
+    if (
+      this.app.store.is('server.proxy.replace.publicPath', true)
+    ) {
+      replacements.push(this.replaceAssetPath())
+    }
+
     if (this.app.store.is('server.proxy.replace.href', true)) {
       replacements.push(this.replaceHref())
     }
@@ -207,13 +231,11 @@ export class ResponseInterceptorFactory {
    */
   @bind
   public replaceAssetPath(): [string | RegExp, string] {
-    return [
-      new RegExp(
-        `${this.url.proxy.origin}${this.url.publicPath}(.*)?`,
-        'g',
-      ),
-      `${this.url.dev.origin}$1`,
-    ]
+    const search = `${this.url.proxy.origin}${this.url.publicPath}(.*)?`
+    const replacement = `${this.assetBase}$1`
+
+    this.app.log(`Replacing '${search}' with '${replacement}'`)
+    return [new RegExp(search, 'g'), replacement]
   }
 
   /**

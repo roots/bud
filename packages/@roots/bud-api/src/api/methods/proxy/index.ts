@@ -38,19 +38,23 @@ export const proxy: proxy = function (
   ctx.store.set('server.middleware.proxy', true)
   ctx.api.log('log', 'enabling proxy')
 
+  if (typeof config === 'number') {
+    ctx.store.set(
+      'server.proxy.url',
+      `http://localhost:${config}`,
+    )
+    return ctx
+  }
+
   if (typeof config === 'string') {
     ctx.store.set('server.proxy.url', config)
-    ctx.api.log('log', {
-      message: 'proxy url set',
-      suffix: config,
-    })
-
     return ctx
   }
 
   ctx.store.set('server.proxy', config)
+
   ctx.api.log('log', {
-    message: 'proxy config set',
+    message: 'proxy url set',
     suffix: config,
   })
 

@@ -1,7 +1,11 @@
 import type {Framework, Server} from '@roots/bud-framework'
 
 export interface serve {
-  (config: Server.Configuration['dev']['url']): Framework
+  (port: number): Framework
+}
+
+export interface serve {
+  (url: Server.Configuration['dev']['url']): Framework
 }
 
 export interface serve {
@@ -10,6 +14,11 @@ export interface serve {
 
 export const serve: serve = function (config) {
   const ctx = this as Framework
+
+  if (typeof config === 'number') {
+    ctx.store.set('server.dev.url', `http://localhost:${config}`)
+    return ctx
+  }
 
   if (typeof config === 'string') {
     ctx.store.set('server.dev.url', config)

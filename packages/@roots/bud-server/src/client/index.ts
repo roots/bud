@@ -40,7 +40,7 @@ const resourceQuery = __resourceQuery as string
 
     // eslint-disable-next-line no-console
     console.log(
-      `%c [bud-server] %c %c ${payload.action}`,
+      `%c[bud]%c %c${payload.action}`,
       'background: #525ddc; color: #ffffff;',
       'background: transparent;',
       'background: white; color: #343a40;',
