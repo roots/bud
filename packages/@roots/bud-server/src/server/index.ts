@@ -142,9 +142,6 @@ export class Server
     this.app.hooks.on('config.override', config => {
       return config.map(compilerConfiguration => {
         compilerConfiguration.bail = false
-        compilerConfiguration.output.path = this.app.path('dist')
-        compilerConfiguration.optimization.emitOnErrors = true
-
         return compilerConfiguration
       })
     })
@@ -152,10 +149,6 @@ export class Server
     await this.app.compiler.compile()
     this.processMiddlewares()
 
-    /**
-     * __roots route
-     */
-    this.application.use('/__bud', __BudRouter)
     this.application.use((req, res, next) => {
       res.status(404).send("Sorry can't find that!")
     })
