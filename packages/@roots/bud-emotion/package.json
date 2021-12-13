@@ -73,8 +73,8 @@
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/preset-react": "7.16.0",
-    "@emotion/css": "11.5.0",
-    "@emotion/react": "11.7.0",
+    "@emotion/css": "11.7.1",
+    "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
@@ -89,8 +89,8 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@emotion/css": "11.5.0",
-    "@emotion/react": "11.7.0",
+    "@emotion/css": "11.7.1",
+    "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"
