@@ -2237,9 +2237,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@easyops-cn/docusaurus-search-local@npm:0.21.1":
-  version: 0.21.1
-  resolution: "@easyops-cn/docusaurus-search-local@npm:0.21.1"
+"@easyops-cn/docusaurus-search-local@npm:0.21.2":
+  version: 0.21.2
+  resolution: "@easyops-cn/docusaurus-search-local@npm:0.21.2"
   dependencies:
     "@docusaurus/utils": ^2.0.0-beta.4
     "@docusaurus/utils-validation": ^2.0.0-beta.4
@@ -2253,7 +2253,7 @@ __metadata:
     lunr-languages: ^1.4.0
     mark.js: ^8.11.1
     tslib: ^2.2.0
-  checksum: 0cf5f8ca290f0303e2368fe9383cd73bb4a3df3b615ea59ff0822bbc69de56a1632cf56c012bf4bdda199519bcf5148c5f0d7481120e8a6bf93297b2c3191db4
+  checksum: 5c7fccbb1600804548eeb7f1aa2bea9f10ecb101fa7fde91c7c7a06146529d4c830d24dff9fec2d9aaabf9a55b04a98cef07a229aeeb5f3932bc661d87b3d9f2
   languageName: node
   linkType: hard
 
@@ -3271,7 +3271,7 @@ __metadata:
     "@docusaurus/core": 2.0.0-beta.13
     "@docusaurus/module-type-aliases": 2.0.0-beta.13
     "@docusaurus/preset-classic": 2.0.0-beta.13
-    "@easyops-cn/docusaurus-search-local": 0.21.1
+    "@easyops-cn/docusaurus-search-local": 0.21.2
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 6.1.1
     "@tsconfig/docusaurus": 1.0.4
@@ -4829,17 +4829,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.14.178":
+"@types/lodash@npm:4.14.178, @types/lodash@npm:^4.14.175":
   version: 4.14.178
   resolution: "@types/lodash@npm:4.14.178"
   checksum: a69a04a60bfc5257c3130a554b4efa0c383f0141b7b3db8ab7cf07ad2a46ea085fce66d0242da41da7e5647b133d5dfb2c15add9cbed8d7fef955e4a1e5b3128
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:^4.14.175":
-  version: 4.14.177
-  resolution: "@types/lodash@npm:4.14.177"
-  checksum: 00f9eb300ed5219cfbabb3448d4a71744895edad60dcfda9f028c0808a50eb6ad1ca9f673b56a85f85668a4ea54b9870643625468a747039c435643e52253a75
   languageName: node
   linkType: hard
 
@@ -12618,17 +12611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0":
-  version: 1.14.5
-  resolution: "follow-redirects@npm:1.14.5"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: f004a76b2ee3a849772c2816e30928253bf47537b0f00184d89f4966413add96a228a4d96ca8c702bc045a683c52c2ba41545c915cc1a5e33bf8fd9d07b59aee
-  languageName: node
-  linkType: hard
-
-"follow-redirects@npm:^1.14.4":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.4":
   version: 1.14.6
   resolution: "follow-redirects@npm:1.14.6"
   peerDependenciesMeta:
