@@ -1,5 +1,3 @@
-import {UrlObject} from 'url'
-
 /**
  * Server configuration
  *
@@ -17,14 +15,23 @@ export interface Configuration {
    *
    * @public
    */
-  dev: UrlObject | string
+  dev: {
+    url: string
+  }
 
   /**
    * Development server URL
    *
    * @public
    */
-  proxy: UrlObject | string
+  proxy: {
+    url: string
+    replace: {
+      href: true
+      window: true
+      publicPath: true
+    }
+  }
 
   /**
    * Files which should reload the browser when changed.

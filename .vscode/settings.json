@@ -1,10 +1,19 @@
 {
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
+  "eslint.nodePath": "config/yarn/sdks/eslint",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": false
   },
-  "eslint.nodePath": ".yarn/sdks",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "prettier.prettierPath": "config/yarn/sdks/prettier/index.js",
+  "search.exclude": {
+    "config/yarn": true,
+    "**/pnp.*": true,
+    "**/node_modules": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "files.associations": {
@@ -12,13 +21,5 @@
     "*.tsx": "typescriptreact",
     "*.mdx": "markdown",
     "bud.config.json": "json5"
-  },
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/node_modules": false,
   }
 }

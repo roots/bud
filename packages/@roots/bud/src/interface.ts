@@ -5,7 +5,6 @@ import * as Framework from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Plugins {
     'webpack-provide-plugin': Framework.Extension.CompilerPlugin
-    'clean-webpack-plugin': Framework.Extension.CompilerPlugin
     'webpack-config-dump-plugin': Framework.Extension.CompilerPlugin
     'copy-webpack-plugin': Framework.Extension.CompilerPlugin
     'webpack-define-plugin': Framework.Extension.CompilerPlugin

@@ -2,8 +2,24 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
+/**
+ * Lint command class
+ *
+ * @internal
+ */
 export class Lint extends Command {
+  /**
+   * Command paths
+   *
+   * @internal
+   */
   public static paths: CommandClass['paths'] = [[`@bud`, `lint`]]
+
+  /**
+   * Command usage
+   *
+   * @internal
+   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `lint repo files. run all linters by passing no flags.`,
@@ -19,22 +35,56 @@ export class Lint extends Command {
     ],
   }
 
+  /**
+   * --prettier
+   *
+   * @internal
+   */
   public prettier = Option.Boolean(`-p,--prettier`, false, {
     description: 'run prettier',
   })
+
+  /**
+   * --eslint
+   *
+   * @internal
+   */
   public eslint = Option.Boolean(`-e,--eslint`, false, {
     description: 'run eslint',
   })
+
+  /**
+   * --skypack
+   *
+   * @internal
+   */
   public skypack = Option.Boolean(`-s,--skypack`, false, {
     description: 'run skypack',
   })
+
+  /**
+   * --types
+   *
+   * @internal
+   */
   public types = Option.Boolean(`-t,--types`, false, {
     description: 'includes types (prettier)',
   })
+
+  /**
+   * --lib
+   *
+   * @internal
+   */
   public lib = Option.Boolean(`-l,--lib`, false, {
     description: 'includes lib (prettier)',
   })
 
+  /**
+   * Execute command
+   *
+   * @internal
+   */
   public async execute() {
     const all = !this.prettier && !this.skypack && !this.eslint
 
@@ -48,19 +98,19 @@ export class Lint extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore --fix`,
-              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore  --fix`,
-              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx} --config ./config/.eslintrc.js --ignore-path ./config/.eslintignore  --fix`,
+              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx} --fix`,
+              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx} --fix`,
+              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx} --fix`,
             ]
           : []),
         ...(this.prettier
           ? [
-              `yarn prettier ./packages/@roots/*/src/**/* --config ./config/prettier.config.js --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+              `yarn prettier ./packages/@roots/*/src/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
               this.lib
-                ? `yarn prettier ./packages/@roots/*/lib/**/* --config ./config/prettier.config.js  --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+                ? `yarn prettier ./packages/@roots/*/lib/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
                 : ``,
               this.types
-                ? `yarn prettier ./packages/@roots/*/types/**/*.d.ts --config ./config/prettier.config.js --ignore-path ./config/.prettierignore --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+                ? `yarn prettier ./packages/@roots/*/types/**/*.d.ts --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
                 : null,
             ].filter(Boolean)
           : []),

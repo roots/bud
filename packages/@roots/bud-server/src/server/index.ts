@@ -3,7 +3,8 @@ import Express from 'express'
 import {URL} from 'url'
 
 import * as middleware from '../middleware'
-import {injectClient} from '../util/injectClient'
+import __BudRouter from '../router/__bud'
+import {inject} from '../util/inject'
 import {bind, chokidar, globby} from './server.dependencies'
 import type {Watcher} from './server.interface'
 
@@ -16,11 +17,6 @@ export class Server
   extends Framework.Service
   implements Framework.Server.Interface
 {
-  /**
-   * @internal @readonly
-   */
-  public readonly _assets = ['@roots/bud-server/client.js']
-
   /**
    * Express instance
    *
@@ -52,20 +48,11 @@ export class Server
   public middleware: Framework.Server.Middleware = {}
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.watcher}
+   * Watcher instance
    *
    * @public
    */
   public watcher: Watcher
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.assets}
-   *
-   * @public
-   */
-  public get assets() {
-    return this._assets
-  }
 
   /**
    * Service register callback
@@ -100,7 +87,7 @@ export class Server
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.processMiddlewares}
+   * Process middlewares
    *
    * @public
    * @decorator `@bind`
@@ -140,31 +127,47 @@ export class Server
       this.app,
     )
 
+    await Promise.all(
+      [this.app, ...this.app.children.getValues()].map(
+        async (instance: Framework.Framework) => {
+          await inject(
+            instance,
+            (instance: Framework.Framework) =>
+              `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
+          )
+        },
+      ),
+    )
+
+    this.app.hooks.on('config.override', config => {
+      return config.map(compilerConfiguration => {
+        compilerConfiguration.bail = false
+        compilerConfiguration.output.path = this.app.path('dist')
+        compilerConfiguration.optimization.emitOnErrors = true
+
+        return compilerConfiguration
+      })
+    })
+
     await this.app.compiler.compile()
+    this.processMiddlewares()
+
     /**
      * __roots route
      */
-    this.application
-      .route('/__roots/config.json')
-      .get((_req, res) => {
-        this.log('success', {
-          message: 'GET',
-          suffix: '/__roots/config.json',
-        })
-        res.send({
-          ...this.app.store.all(),
-        })
-
-        res.end()
-      })
-
-    this.processMiddlewares()
+    this.application.use('/__bud', __BudRouter)
+    this.application.use((req, res, next) => {
+      res.status(404).send("Sorry can't find that!")
+    })
 
     /**
      * Listen
      */
+    const url = new URL(this.app.store.get('server.dev.url'))
+    this.log('info', `starting server on %s`, url.port)
+
     this.instance = this.application.listen(
-      new URL(this.app.store.get('server.dev')).port,
+      url.port,
       async (error: string) => {
         if (error) this.log('error', error)
 
@@ -172,8 +175,8 @@ export class Server
 
         this.log(
           'success',
-          'listening on port %s',
-          (this.instance.address() as any).port,
+          'listening on %s',
+          JSON.stringify(this.instance.address()),
         )
       },
     )
@@ -182,6 +185,7 @@ export class Server
      * Initialize Watcher
      */
     const watchFiles = await this.getWatchedFiles()
+
     if (watchFiles.length) {
       watchFiles.forEach(file => {
         this.log('log', `watching`, file, `for changes`)
@@ -207,17 +211,6 @@ export class Server
     )
 
     return this
-  }
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.inject}
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public inject(): void {
-    injectClient(this.app, this.assets)
   }
 
   /**

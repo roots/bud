@@ -3,19 +3,11 @@ import {
   Framework,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {
-  bind,
-  chalk,
-  lodash,
-  once,
-  patchConsole,
-} from '@roots/bud-support'
+import {bind, chalk, once} from '@roots/bud-support'
 import {Instance, render} from 'ink'
 import React from 'react'
 
 import {Dashboard as DashboardComponent} from '../components/dashboard.component'
-
-const {isUndefined} = lodash
 
 /**
  * Dashboard service
@@ -54,7 +46,9 @@ export class Dashboard extends Service implements Contract {
   public async bootstrap(): Promise<void> {
     this.log('log', chalk.green('initializing dashboard'))
 
-    this.run()
+    !this.app.isDevelopment
+      ? this.run()
+      : this.app.hooks.on('event.server.after', this.run)
   }
 
   /**
@@ -73,21 +67,6 @@ export class Dashboard extends Service implements Contract {
     )
 
     if (this.app.store.is('features.dashboard', true)) {
-      /** Patch console enables intercepting stdout/stderr */
-      const restore = patchConsole((stream, data) => {
-        if (!data || data == '\n' || isUndefined(data)) return
-
-        data = data.replaceAll(/\n/g, '')
-
-        if (stream === 'stderr') {
-          this.stderr = [...(this.stderr ?? []), data]
-        } else {
-          this.stdout = [...(this.stdout ?? []), data]
-        }
-      })
-
-      this.app.hooks.on('event.app.close', restore)
-
       this.render(<DashboardComponent application={this.app} />)
 
       this.log('success', {
@@ -122,9 +101,15 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public render(Component: any): void {
-    this.instance = render(Component, {
-      patchConsole: false,
-      stream: this.app.logger.stream,
-    })
+    this.instance = render(Component)
+  }
+
+  @bind
+  public async rerender(): Promise<void> {
+    setTimeout(() => {
+      this.instance.rerender(
+        render(<DashboardComponent application={this.app} />),
+      )
+    }, 500)
   }
 }

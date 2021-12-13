@@ -28,8 +28,17 @@ describe('@roots/bud-server', function () {
         proxy: false,
       },
 
-      dev: 'http://localhost:3000',
-      proxy: 'http://localhost:8080',
+      dev: {
+        url: 'http://localhost:3000',
+      },
+      proxy: {
+        url: 'http://localhost:8080',
+        replace: {
+          href: true,
+          window: true,
+          publicPath: true,
+        },
+      },
 
       watch: {
         files: [],
@@ -45,15 +54,5 @@ describe('@roots/bud-server', function () {
 
   it('has run method', () => {
     expect(bud.server.run).toBeInstanceOf(Function)
-  })
-
-  it('has inject method', () => {
-    expect(bud.server.inject).toBeInstanceOf(Function)
-  })
-
-  it('has expected assets property', () => {
-    expect(bud.server.assets).toEqual([
-      `@roots/bud-server/client.js`,
-    ])
   })
 })

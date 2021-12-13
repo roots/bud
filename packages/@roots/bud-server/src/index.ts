@@ -11,7 +11,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation
+ * @packageDocumentation
  */
 
 export {Server} from './server'

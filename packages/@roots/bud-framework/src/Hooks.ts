@@ -1,3 +1,4 @@
+import {IncomingMessage, ServerResponse} from 'http'
 import {ValueOf} from 'type-fest'
 import {
   Configuration,
@@ -6,13 +7,8 @@ import {
   StatsCompilation,
 } from 'webpack'
 
-import {
-  Configuration as FrameworkConfig,
-  Framework,
-  Modules,
-  Plugins,
-  Service,
-} from './'
+import {Framework, Modules, Plugins, Service} from './'
+import {ProxyOptions} from './Server'
 
 /**
  * Assign and filter callback to values.
@@ -191,10 +187,11 @@ export namespace Hooks {
     [`build.output`]: Configuration['output']
     [`build.output.assetModuleFilename`]: Configuration['output']['assetModuleFilename']
     [`build.output.chunkFilename`]: Configuration['output']['chunkFilename']
+    [`build.output.clean`]: Configuration['output']['clean']
     [`build.output.filename`]: Configuration['output']['filename']
     [`build.output.path`]: Configuration['output']['path']
     [`build.output.pathinfo`]: Configuration['output']['pathinfo']
-    [`build.output.publicPath`]: Configuration['output']['publicPath']
+    [`build.output.publicPath`]: string
     [`build.parallelism`]: Configuration['parallelism']
     [`build.performance`]: Configuration['performance']
     [`build.plugins`]: LimitedPlugin
@@ -216,7 +213,7 @@ export namespace Hooks {
     [`location.project`]: string
     [`location.modules`]: string
     [`location.storage`]: string
-    [`config.override`]: Configuration
+    [`config.override`]: Configuration[]
     [`event.app.close`]: unknown
     [`event.build.make.before`]: unknown
     [`event.build.make.after`]: unknown
@@ -227,6 +224,8 @@ export namespace Hooks {
     [`event.compiler.stats`]: StatsCompilation
     [`event.compiler.error`]: Error
     [`event.dashboard.done`]: void
+    [`event.dashboard.q`]: void
+    [`event.dashboard.c`]: void
     [`event.project.write`]: Framework['project']
     [`event.server.listen`]: Framework['server']
     [`event.server.before`]: Framework
@@ -235,9 +234,12 @@ export namespace Hooks {
     [`proxy.target`]: string
     [`proxy.interceptor`]: (
       buffer: Buffer,
-    ) => Promise<string | Buffer>
-    [`proxy.replace`]: Array<[string, string]>
-    [`proxy.options`]?: FrameworkConfig['server']['proxy']
+      proxyRes: IncomingMessage,
+      req: IncomingMessage,
+      res: ServerResponse,
+    ) => Promise<Buffer | string>
+    [`proxy.replace`]: Array<[string | RegExp, string]>
+    [`proxy.options`]?: ProxyOptions
 
     // this is wack
     [key: `extension.${string}`]: any

@@ -1,5 +1,5 @@
 import {Styles} from '@roots/ink-use-style'
-import {Newline, Text} from 'ink'
+import {Box, Text} from 'ink'
 import React from 'react'
 import {StatsCompilation} from 'webpack'
 
@@ -13,16 +13,17 @@ export interface Props {
 export const Summary = ({theme, compilation}: Props) => {
   const {duration} = useFormatter()
   return (
-    <Text color={theme.colors.faded}>
-      <Newline />… compiled in{' '}
-      <Text color={theme.colors.flavor}>
-        {duration(compilation.time)}
-      </Text>{' '}
-      using{' '}
-      <Text color={theme.colors.accent}>
-        webpack v{compilation.version}
+    <Box flexDirection="column" marginTop={1} marginBottom={1}>
+      <Text color={theme.colors.faded}>
+        … compiled in{' '}
+        <Text color={theme.colors.flavor}>
+          {duration(compilation.time)}
+        </Text>{' '}
+        using{' '}
+        <Text color={theme.colors.accent}>
+          webpack v{compilation.version}
+        </Text>
       </Text>
-      <Newline />
-    </Text>
+    </Box>
   )
 }

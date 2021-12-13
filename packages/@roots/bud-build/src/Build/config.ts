@@ -280,6 +280,9 @@ export async function config(app: Framework): Promise<void> {
       chunkFilename: app.hooks.filter(
         'build.output.chunkFilename',
       ),
+      clean: app.hooks.filter<'build.output.clean'>(
+        'build.output.clean',
+      ),
       filename: app.hooks.filter<'build.output.filename'>(
         'build.output.filename',
       ),
@@ -301,6 +304,10 @@ export async function config(app: Framework): Promise<void> {
       app.isProduction && app.store.is('features.hash', true)
         ? `assets/${app.store.get('hashFormat')}[ext]`
         : app.store.get('fileFormat'),
+    )
+
+    .hooks.on('build.output.clean', () =>
+      app.store.get('build.output.clean'),
     )
 
     /**

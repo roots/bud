@@ -1,54 +1,49 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* global __resourceQuery */
+/* istanbul ignore file */
 
-/**
- * Retrieves data on running application
- *
- * @public
- */
+// @ts-ignore
+const resourceQuery = __resourceQuery as string
 
-;(async () => {
-  const {overlay} = await import('./overlay')
-  const {indicator} = await import('./Indicator')
+;(async (query: string) => {
+  const querystring = await import('querystring')
+  const {hmr} = await import('./bridge')
+  const {IndicatorController} = await import(
+    './indicator/indicator.controller'
+  )
+  const {OverlayController} = await import(
+    './overlay/overlay.controller'
+  )
 
-  const {
-    setOptionsAndConnect,
-    useCustomOverlay,
-    subscribeAll,
-  } = require('webpack-hot-middleware/client?autoConnect=false')
+  const indicator = new IndicatorController()
+  const overlay = new OverlayController()
 
-  const indicatorEl = indicator.init()
-  const overlayEl = overlay.init()
-
-  const res = await fetch('/__roots/config.json')
-  const {server, ...app} = await res.json()
-
-  const {log} = server.browser.log
-    ? await import('./logger')
-    : {log: () => {}}
-
-  setOptionsAndConnect({
-    name: app.name,
+  const instance = {
+    path: '/__bud/hmr',
+    timeout: 20 * 1000,
     overlay: true,
-    overlayWarnings: true,
-    quiet: true,
     reload: false,
-  })
+    log: false,
+    warn: true,
+    name: '',
+    autoConnect: false,
+    overlayWarnings: false,
+    ...querystring.parse(query.slice(1)),
+  }
 
-  server.browser.overlay && useCustomOverlay(overlayEl)
+  hmr.setOptionsAndConnect(instance)
 
-  subscribeAll(payload => {
-    log(
-      `${payload.action}${
-        payload.time ? ` (${payload.time}ms)` : ``
-      }`,
-    )
-
-    server.browser.indicator && indicatorEl.update(payload)
-
-    server.browser.overlay &&
-      payload?.errors?.length &&
-      overlay.showProblems('errors', payload.errors)
-
+  hmr.subscribeAll(payload => {
     if (payload.action === 'reload') window.location.reload()
+
+    indicator.update(payload)
+    overlay.update(payload)
+
+    // eslint-disable-next-line no-console
+    console.log(
+      `%c [bud-server] %c %c ${payload.action}`,
+      'background: #525ddc; color: #ffffff;',
+      'background: transparent;',
+      'background: white; color: #343a40;',
+    )
   })
-})()
+})(resourceQuery)

@@ -42,7 +42,7 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./client.js": "./lib/cjs/client/index.js"
+    "./client/*": "./lib/cjs/client/*"
   },
   "scripts": {
     "build": "yarn g:build",

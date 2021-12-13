@@ -1,6 +1,6 @@
 import {lodash} from '@roots/bud-support'
 import {Styles} from '@roots/ink-use-style'
-import {Box, Static} from 'ink'
+import {Static} from 'ink'
 import React from 'react'
 import {StatsCompilation} from 'webpack'
 
@@ -22,13 +22,12 @@ export const Dashboard = ({
   theme,
 }: Props) => {
   return (
-    <Box flexDirection="column">
-      {stats?.errorsCount > 0 && (
+    <>
+      {stats?.errors?.length > 0 && (
         <Static items={stats.errors}>
           {(message, id) => (
             <Message
               key={`webpack-error-${id}`}
-              file={message.file}
               message={
                 isString(message) ? message : message.message
               }
@@ -42,11 +41,11 @@ export const Dashboard = ({
         </Static>
       )}
 
-      {stderr?.length > 0 && (
+      {stderr.length > 0 && (
         <Static items={stderr}>
           {(message, id) => (
             <Message
-              key={`stderr-${id}`}
+              key={`webpack-error-${id}`}
               message={message}
               colors={[
                 theme.colors.error,
@@ -59,26 +58,23 @@ export const Dashboard = ({
       )}
 
       {stats?.warningsCount > 0 && (
-        <Box marginTop={1}>
-          <Static items={stats.warnings}>
-            {(webpackWarning, id) => (
-              <Message
-                key={`webpack-warn-${id}`}
-                file={webpackWarning.file}
-                message={
-                  isString(webpackWarning)
-                    ? webpackWarning
-                    : webpackWarning.message
-                }
-                colors={[
-                  theme.colors.warn,
-                  theme.colors.foreground,
-                ]}
-                icon={'⚠'}
-              />
-            )}
-          </Static>
-        </Box>
+        <Static items={stats.warnings}>
+          {(webpackWarning, id) => (
+            <Message
+              key={`webpack-warn-${id}`}
+              message={
+                isString(webpackWarning)
+                  ? webpackWarning
+                  : webpackWarning.message
+              }
+              colors={[
+                theme.colors.warn,
+                theme.colors.foreground,
+              ]}
+              icon={'⚠'}
+            />
+          )}
+        </Static>
       )}
 
       {stdout?.length > 0 && (
@@ -96,6 +92,6 @@ export const Dashboard = ({
           )}
         </Static>
       )}
-    </Box>
+    </>
   )
 }

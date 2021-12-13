@@ -117,8 +117,9 @@ export class EntrypointsWebpackPlugin
 
     this.compiler = compiler
     this.publicPath =
-      this.publicPath ||
-      (this.compiler.options.output.publicPath as string)
+      this.publicPath ??
+      (this.compiler.options.output.publicPath as string) ??
+      ''
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,

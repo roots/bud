@@ -1,5 +1,7 @@
+// import {URL} from 'url'
+
 import {WebpackHotMiddleware} from './hot.dependencies'
-import type {Framework, Server} from './hot.interface'
+import type {Framework} from './hot.interface'
 
 /**
  * Hot middleware options
@@ -7,11 +9,14 @@ import type {Framework, Server} from './hot.interface'
  * @public
  */
 const options: (
-  config: Server.Configuration,
-) => WebpackHotMiddleware.MiddlewareOptions = config => ({
-  path: `/__webpack_hmr`,
-  heartbeat: 2000,
-})
+  app: Framework,
+) => WebpackHotMiddleware.MiddlewareOptions = app => {
+  return {
+    path: `/__bud/hmr`,
+    log: false,
+    heartbeat: 2000,
+  }
+}
 
 /**
  * Hot middleware factory
@@ -21,6 +26,6 @@ const options: (
 export default function hot(app: Framework) {
   return WebpackHotMiddleware(
     app.compiler.instance,
-    options(app.store.get('server')),
+    options(app),
   )
 }
