@@ -87,16 +87,19 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
 
     try {
       const tailwindcss = await import('tailwindcss')
+      const {default: nesting} = await import(
+        'tailwindcss/nesting/index.js'
+      )
 
       const config: string | null =
         await getVerifiedUserConfigPath.bind(app)()
 
       app.postcss.setPlugins({
         'postcss-import': app.postcss.get('postcss-import'),
+        'tailwindcss-nesting': [nesting],
         tailwindcss: config
           ? [tailwindcss.default, config]
           : tailwindcss.default,
-        'postcss-nested': app.postcss.get('postcss-nested'),
         'postcss-preset-env': app.postcss.get(
           'postcss-preset-env',
         ),
