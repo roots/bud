@@ -64,7 +64,7 @@
     "@types/eslint": "7.29.0",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.12",
-    "autobind-decorator": "^2.4.0",
+    "autobind-decorator": "2.4.0",
     "eslint": "7.32.0"
   },
   "dependencies": {
