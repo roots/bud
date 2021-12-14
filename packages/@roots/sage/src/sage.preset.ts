@@ -1,5 +1,8 @@
 import {Extension, Framework} from '@roots/bud-framework'
 
+import eventAppClose from './hooks/event.app.close'
+import eventCompilerDone from './hooks/event.compiler.done'
+
 /**
  * Development configuration
  *
@@ -11,6 +14,13 @@ const inDevelopment = (app: Framework) => {
   app.extensions.get('@roots/bud-entrypoints').setOptions({
     publicPath: 'auto',
   })
+
+  app.hooks
+    .async<'event.compiler.done'>(
+      'event.compiler.done',
+      eventCompilerDone(app),
+    )
+    .hooks.on('event.app.close', eventAppClose(app))
 }
 
 /**
