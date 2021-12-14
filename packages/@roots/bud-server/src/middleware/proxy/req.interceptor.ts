@@ -5,6 +5,7 @@ import {
   IncomingMessage,
   ServerResponse,
 } from 'http'
+import {URL as nodeUrl} from 'url'
 
 import {URL} from './url'
 
@@ -50,10 +51,10 @@ export class RequestInterceptorFactory {
     res: ServerResponse,
   ) {
     try {
-      proxyReq.setHeader('x-bud-forward-href', req.url)
+      proxyReq.setHeader('x-bud-dev-origin', this.url.dev.origin)
       proxyReq.setHeader(
-        'x-bud-forward-origin',
-        this.url.dev.origin,
+        'x-bud-dev-pathname',
+        new nodeUrl(req.url).pathname,
       )
     } catch (err) {
       process.stderr.write(`${err}\n`)
