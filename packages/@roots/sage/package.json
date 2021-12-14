@@ -76,7 +76,8 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.11.12"
+    "@types/node": "16.11.12",
+    "webpack": "^5.65.0"
   },
   "dependencies": {
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",

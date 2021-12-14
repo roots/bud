@@ -4096,6 +4096,7 @@ __metadata:
     "@types/node": 16.11.12
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
+    webpack: ^5.65.0
   languageName: unknown
   linkType: soft
 
@@ -25519,7 +25520,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.65.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
+"webpack@npm:5.65.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2, webpack@npm:^5.65.0":
   version: 5.65.0
   resolution: "webpack@npm:5.65.0"
   dependencies:
