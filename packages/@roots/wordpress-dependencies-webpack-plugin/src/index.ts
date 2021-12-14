@@ -9,4 +9,4 @@
  * @packageDocumentation
  */
 
-export {WordPressDependenciesWebpackPlugin} from './WordPressDependenciesWebpackPlugin'
+export {WordPressDependenciesWebpackPlugin} from './plugin'

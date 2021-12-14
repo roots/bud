@@ -4010,7 +4010,6 @@ __metadata:
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
     autobind-decorator: ^2.4.0
-    jest: 27.4.4
     lodash: ^4.17.21
     tslib: ^2.3.1
     webpack: 5.65.0
@@ -4075,7 +4074,6 @@ __metadata:
     "@types/prettier": 2.4.2
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
-    prettier: ^2.4.1
     tslib: ^2.3.1
     webpack: 5.65.0
   languageName: unknown
@@ -4104,7 +4102,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:packages/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/lodash": 4.14.178
     "@types/node": 16.11.12
     helpful-decorators: ^2.1.0
@@ -4118,7 +4115,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin"
   dependencies:
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/eslint": 7.29.0
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
@@ -20394,7 +20390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.5.1, prettier@npm:^2.4.1":
+"prettier@npm:2.5.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
   bin:

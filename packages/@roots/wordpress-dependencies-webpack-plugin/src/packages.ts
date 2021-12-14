@@ -105,16 +105,3 @@ export const transform = (packageName: string): any => {
     }
   }
 }
-
-/**
- * Externals plugin
- *
- * @public
- */
-export const externals = (
-  {_context, request},
-  callback: CallableFunction,
-) =>
-  isProvided(request)
-    ? callback(null, transform(request).window)
-    : callback()

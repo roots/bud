@@ -5,13 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "jest",
-      "webpack"
-    ]
+    "types": ["node", "webpack"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
