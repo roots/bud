@@ -66,7 +66,6 @@
     "webpack": "5.65.0"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "helpful-decorators": "^2.1.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"

@@ -83,6 +83,7 @@
     "weak-napi": "2.0.2"
   },
   "dependencies": {
+    "@roots/bud-typescript": "workspace:^",
     "tslib": "2.3.1"
   },
   "manifest": {

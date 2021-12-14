@@ -4,11 +4,10 @@
 import * as fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import * as path from 'path'
-import {format} from 'prettier'
 import * as Webpack from 'webpack'
 
 /**
- * MergedManifestWebpackPlugin
+ * Merged Manifest Webpack Plugin
  *
  * @public
  */
@@ -146,10 +145,7 @@ export class MergedManifestWebpackPlugin {
       [key: string]: string[]
     }
   }): string {
-    return format(JSON.stringify(object), {
-      parser: 'json',
-      printWidth: 40,
-    })
+    return JSON.stringify(object, null, 2)
   }
 
   /**

@@ -1,35 +1,54 @@
-import {wpPkgs} from '@roots/bud-support'
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
 
-namespace WordPressDependencies {
-  export interface Manifest {
-    [key: string]: any
-  }
+import * as wpPkgs from './packages'
 
-  export interface Options {
-    fileName: string
-  }
+interface Manifest {
+  [key: string]: any
 }
 
+/**
+ * @public
+ */
 export class WordPressDependenciesWebpackPlugin {
+  /**
+   * @public
+   */
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',
     stage: Infinity,
   }
 
+  /**
+   * @public
+   */
   protected compilation: Webpack.Compilation
 
+  /**
+   * @public
+   */
   public fileName: string
 
-  public manifest: WordPressDependencies.Manifest = {}
+  /**
+   * @public
+   */
+  public manifest: Manifest = {}
 
+  /**
+   * @public
+   */
   public usedDependencies = {}
 
+  /**
+   * @public
+   */
   public constructor(options?: {fileName: string}) {
     this.fileName = options?.fileName ?? 'wordpress.json'
   }
 
+  /**
+   * @public
+   */
   @bind
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.normalModuleFactory.tap(
@@ -49,6 +68,9 @@ export class WordPressDependenciesWebpackPlugin {
     )
   }
 
+  /**
+   * @public
+   */
   @bind
   public normalModuleFactory(factory) {
     factory.hooks.beforeResolve.tap(
@@ -71,6 +93,9 @@ export class WordPressDependenciesWebpackPlugin {
     )
   }
 
+  /**
+   * @public
+   */
   @bind
   public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {

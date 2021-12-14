@@ -5,9 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": ["src"]
 }
