@@ -88,6 +88,9 @@ export class Build extends Command {
       `yarn @bud compile @roots/container`,
       `yarn @bud compile @roots/bud-dashboard`,
       `yarn @bud compile @roots/bud-support`,
+      `yarn @bud compile @roots/wordpress-dependencies-webpack-plugin`,
+      `yarn @bud compile @roots/wordpress-externals-webpack-plugin`,
+      `yarn @bud compile @roots/entrypoints-webpack-plugin`,
     )
   }
 }

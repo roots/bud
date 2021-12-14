@@ -3815,7 +3815,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-typescript@workspace:*, @roots/bud-typescript@workspace:^, @roots/bud-typescript@workspace:packages/@roots/bud-typescript":
+"@roots/bud-typescript@workspace:*, @roots/bud-typescript@workspace:packages/@roots/bud-typescript":
   version: 0.0.0-use.local
   resolution: "@roots/bud-typescript@workspace:packages/@roots/bud-typescript"
   dependencies:
@@ -4010,7 +4010,6 @@ __metadata:
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
     autobind-decorator: ^2.4.0
-    jest: 27.4.4
     lodash: ^4.17.21
     tslib: ^2.3.1
     webpack: 5.65.0
@@ -4115,7 +4114,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin"
   dependencies:
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/eslint": 7.29.0
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
@@ -8059,7 +8057,6 @@ __metadata:
   dependencies:
     "@microsoft/api-documenter": 7.13.76
     "@microsoft/api-extractor": 7.19.2
-    "@roots/bud-typescript": "workspace:^"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.3
