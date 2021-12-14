@@ -71,7 +71,7 @@
     "@types/node": "16.11.13",
     "@vue/compiler-sfc": "3.2.26",
     "css-loader": "6.5.1",
-    "jest": "27.4.4",
+    "jest": "27.4.5",
     "vue": "3.2.26",
     "webpack": "5.65.0"
   },

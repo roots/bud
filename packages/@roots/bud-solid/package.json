@@ -74,7 +74,7 @@
     "@types/jest": "27.0.3",
     "@types/node": "16.11.13",
     "eslint": "7.32.0",
-    "jest": "27.4.4",
+    "jest": "27.4.5",
     "solid-js": "1.2.6",
     "type-fest": "2.8.0",
     "webpack": "5.65.0"
