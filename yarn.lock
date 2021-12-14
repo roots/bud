@@ -3269,11 +3269,11 @@ __metadata:
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/node": 16.11.12
     "@types/react": 17.0.37
-    axios: ^0.24.0
+    axios: 0.24.0
     ink: 3.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
-    node-fetch: ^3.1.0
+    node-fetch: 3.1.0
     patch-console: 1.0.0
     react: 17.0.2
     trim-newlines: ^4.0.2
@@ -4009,8 +4009,8 @@ __metadata:
   dependencies:
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
-    autobind-decorator: ^2.4.0
-    lodash: ^4.17.21
+    autobind-decorator: 2.4.0
+    lodash: 4.17.21
     tslib: ^2.3.1
     webpack: 5.65.0
   peerDependencies:
@@ -4094,7 +4094,7 @@ __metadata:
     "@types/node": 16.11.12
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
-    webpack: ^5.65.0
+    webpack: 5.65.0
   languageName: unknown
   linkType: soft
 
@@ -4104,8 +4104,8 @@ __metadata:
   dependencies:
     "@types/lodash": 4.14.178
     "@types/node": 16.11.12
-    helpful-decorators: ^2.1.0
-    lodash: ^4.17.21
+    helpful-decorators: 2.1.0
+    lodash: 4.17.21
     tslib: ^2.3.1
     webpack: 5.65.0
   languageName: unknown
@@ -4118,7 +4118,7 @@ __metadata:
     "@types/eslint": 7.29.0
     "@types/jest": 27.0.3
     "@types/node": 16.11.12
-    autobind-decorator: ^2.4.0
+    autobind-decorator: 2.4.0
     eslint: 7.32.0
     tslib: ^2.3.1
   peerDependencies:
@@ -7462,21 +7462,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
+  dependencies:
+    follow-redirects: ^1.14.4
+  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
+  languageName: node
+  linkType: hard
+
 "axios@npm:^0.21.1":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
   dependencies:
     follow-redirects: ^1.14.0
   checksum: 44245f24ac971e7458f3120c92f9d66d1fc695e8b97019139de5b0cc65d9b8104647db01e5f46917728edfc0cfd88eb30fc4c55e6053eef4ace76768ce95ff3c
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.24.0":
-  version: 0.24.0
-  resolution: "axios@npm:0.24.0"
-  dependencies:
-    follow-redirects: ^1.14.4
-  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
   languageName: node
   linkType: hard
 
@@ -17699,16 +17699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.1":
-  version: 2.6.6
-  resolution: "node-fetch@npm:2.6.6"
-  dependencies:
-    whatwg-url: ^5.0.0
-  checksum: ee8290626bdb73629c59722b75dcf4b9b6a67c1ed7eb9102e368479c4a13b56a48c2bb3ad71571e378e98c8b2c64c820e11f9cd39e4b8557dd138ad571ef9a42
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:^3.1.0":
+"node-fetch@npm:3.1.0":
   version: 3.1.0
   resolution: "node-fetch@npm:3.1.0"
   dependencies:
@@ -17716,6 +17707,15 @@ __metadata:
     fetch-blob: ^3.1.2
     formdata-polyfill: ^4.0.10
   checksum: 23b5977554d21b72d7d99145d00bcf06e463fa621bf0afc276ad121a79509a133f38c7e470b34aad45d4032d3315bf5584ff6a1cb83e8f01be7a44cc7ac72693
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.1":
+  version: 2.6.6
+  resolution: "node-fetch@npm:2.6.6"
+  dependencies:
+    whatwg-url: ^5.0.0
+  checksum: ee8290626bdb73629c59722b75dcf4b9b6a67c1ed7eb9102e368479c4a13b56a48c2bb3ad71571e378e98c8b2c64c820e11f9cd39e4b8557dd138ad571ef9a42
   languageName: node
   linkType: hard
 
@@ -25516,7 +25516,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.65.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2, webpack@npm:^5.65.0":
+"webpack@npm:5.65.0, webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.1.1, webpack@npm:^5.37.0, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
   version: 5.65.0
   resolution: "webpack@npm:5.65.0"
   dependencies:

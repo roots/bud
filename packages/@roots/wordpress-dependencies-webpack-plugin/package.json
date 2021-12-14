@@ -63,8 +63,8 @@
   "devDependencies": {
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.12",
-    "helpful-decorators": "^2.1.0",
-    "lodash": "^4.17.21",
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
     "webpack": "5.65.0"
   },
   "dependencies": {
