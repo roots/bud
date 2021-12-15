@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "5.0.0-next.17",
+  "version": "5.0.0",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
@@ -88,6 +88,5 @@
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-entrypoints",
-  "version": "5.0.0-next.17",
+  "version": "5.0.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -74,6 +74,5 @@
     "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

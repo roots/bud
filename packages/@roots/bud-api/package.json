@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "5.0.0-next.17",
+  "version": "5.0.0",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -100,6 +100,5 @@
     "copy-webpack-plugin": "10.0.0",
     "css-minimizer-webpack-plugin": "3.2.0",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

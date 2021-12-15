@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "5.0.0-next.17",
+  "version": "5.0.0",
   "description": "Adds @vue/vue support to @roots/bud projects",
   "repository": {
     "type": "git",
@@ -93,6 +93,5 @@
     "@vue/compiler-sfc": "3.2.26",
     "@vue/runtime-dom": "3.2.26",
     "vue": "3.2.26"
-  },
-  "stableVersion": "4.6.0"
+  }
 }
