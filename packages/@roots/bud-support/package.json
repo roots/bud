@@ -69,7 +69,7 @@
     "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/express": "4.17.13",
-    "@types/node": "16.11.13",
+    "@types/node": "16.11.14",
     "@types/prettier": "2.4.2",
     "@types/safe-json-stringify": "1.1.2",
     "@types/signale": "1.4.2",
