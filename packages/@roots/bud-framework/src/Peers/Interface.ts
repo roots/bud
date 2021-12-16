@@ -27,7 +27,7 @@ export interface Interface {
    *
    * @public
    */
-  getPackageManifestPath(name: string): Promise<string>
+  resolveModulePath(name: string): Promise<string>
 
   /**
    * Returns manifest for a module from name (if findable)
@@ -41,5 +41,5 @@ export interface Interface {
    *
    * @public
    */
-  isExtension(name: string): boolean
+  isExtension(manifest: Record<string, any>): boolean
 }

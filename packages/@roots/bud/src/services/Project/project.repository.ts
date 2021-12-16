@@ -47,6 +47,8 @@ export interface repository {
     }
   }
 
+  missingExtensions: Array<string>
+
   /**
    * @see webpack.resolve.modules
    */
@@ -90,6 +92,7 @@ export const repository: repository = {
   unmet: [],
   peers: {},
   extensions: {},
+  missingExtensions: [],
   resolve: [],
   dependencies: [],
 }

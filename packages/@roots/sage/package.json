@@ -63,11 +63,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "preset",
+    "type": "extension",
     "peers": [
       "@roots/bud-preset-wordpress",
       "@roots/bud-eslint",
-      "@roots/bud-preset-wordpress",
       "@roots/bud-prettier",
       "@roots/bud-stylelint",
       "@roots/bud-tailwindcss"

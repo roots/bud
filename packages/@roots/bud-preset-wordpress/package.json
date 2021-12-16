@@ -58,7 +58,6 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "preset",
     "peers": [
       "@roots/bud-preset-recommend",
       "@roots/bud-react",
@@ -80,7 +79,6 @@
     "webpack": "5.65.0"
   },
   "dependencies": {
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:packages/@roots/bud-wordpress-dependencies",

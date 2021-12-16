@@ -1,15 +1,17 @@
 import {Framework, Service} from '@roots/bud-framework'
-import {posix} from 'path'
-
-import {CORE_MODULES} from './peers.constants'
 import {
   bind,
+  fs,
+  lodash,
   pkgUp,
-  readJson,
   safeResolve,
-} from './peers.dependencies'
+} from '@roots/bud-support'
+import {posix} from 'path'
+
 import type {Peers as Model} from './peers.interface'
 
+const {isString, isUndefined} = lodash
+const {readJson} = fs
 const {dirname, join} = posix
 
 /**
@@ -27,6 +29,8 @@ export class Peers implements Model.Interface {
     return this.app.project.log
   }
 
+  public profiled = []
+
   /**
    * Class constructor
    *
@@ -41,13 +45,23 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async getPackageManifestPath(name: string) {
+  public async resolveModulePath(name: string) {
     try {
-      const packagePath = await pkgUp({
-        cwd: dirname(safeResolve(name)),
+      this.log('info', {
+        message: `resolving ${name} manifest path`,
       })
 
-      return dirname(packagePath)
+      const result = await pkgUp({
+        cwd: dirname(safeResolve(name)),
+      })
+      const packagePath = dirname(result)
+
+      this.log('success', {
+        message: `resolved ${name}`,
+        suffix: packagePath,
+      })
+
+      return packagePath
     } catch (err) {
       this.log('error', `${name} manifest cannot be resolved`)
       return
@@ -61,32 +75,31 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async getManifest(name: string) {
+  public async getManifest(manifestPath: string) {
     try {
-      const manifestPath = await this.getPackageManifestPath(
-        name,
-      )
-
       if (!manifestPath) {
         this.log('error', {
           message: `manifest could not be resolved`,
-          suffix: name,
+          suffix: manifestPath,
         })
+
         return null
       }
+
       const manifest = await readJson(
         join(manifestPath, '/package.json'),
       )
+
       this.log('success', {
         message: `manifest resolved`,
-        suffix: name,
+        suffix: manifestPath,
       })
 
       return manifest
     } catch (err) {
       this.log('error', {
         message: `manifest could not be resolved`,
-        suffix: name,
+        suffix: manifestPath,
       })
     }
   }
@@ -98,11 +111,8 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public isExtension(name: string): boolean {
-    return (
-      (name.includes('@roots') || name.includes('bud-')) &&
-      !CORE_MODULES.includes(name)
-    )
+  public isExtension(manifest: Record<string, any>): boolean {
+    return manifest?.bud?.type === 'extension'
   }
 
   /**
@@ -118,31 +128,70 @@ export class Peers implements Model.Interface {
   ) {
     this.log('await', `analyzing ${projectModuleType}`)
 
-    const dependencies = this.app.project
-      .getKeys(`manifest.${projectModuleType}`)
-      .filter((name: string) => {
-        if (
-          !this.isExtension(name) ||
-          this.app.project.has(`extensions.${name}`)
-        ) {
-          return false
-        }
-
-        return true
-      })
-
-    await Promise.all(
-      dependencies.map(
-        async (name: string) =>
-          await this.profileExtension(name),
-      ),
+    const packages = this.app.project.getKeys(
+      `manifest.${projectModuleType}`,
     )
+
+    this.log('info', {
+      message: `found ${packages.length} packages`,
+      suffix: projectModuleType,
+    })
+
+    const eligible = packages.filter((name: string) => {
+      return (
+        !isUndefined(name) &&
+        isString(name) &&
+        !name.includes('@types') &&
+        !this.profiled.includes(name) &&
+        !this.app.project.has(`extensions.${name}`)
+      )
+    })
+
+    this.log('info', {
+      message: `found ${eligible.length} potentially unprofiled extensions`,
+      suffix: projectModuleType,
+    })
+
+    await Promise.all(eligible.map(this.profileExtension))
 
     return this
   }
 
   /**
    * Profile extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async profileExtension(name: string) {
+    if (this.profiled.includes(name)) {
+      this.log('info', `${name} is already profiled. skipping`)
+      return
+    }
+    this.profiled.push(name)
+
+    this.log('info', {
+      message: `profiling ${name}`,
+      suffix: `${this.profiled.length} packages profiled`,
+    })
+
+    const path = await this.resolveModulePath(name)
+    const manifest = await this.getManifest(path)
+    const records = {path, ...manifest}
+
+    if (isUndefined(records?.bud)) {
+      this.log('info', `${name} is not an extension`)
+      return
+    }
+
+    this.app.project.set(`extensions.${name}`, records)
+
+    await this.profileDependencies(records)
+  }
+
+  /**
+   * Profile extended dependencies
    *
    * @remarks
    * Given a manifest, will separate peers
@@ -159,44 +208,33 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async profileExtension(name: string) {
-    const path = await this.getPackageManifestPath(name)
-    if (this.app.project.get(`resolve`).includes(path)) return
-
-    /**
-     * Add path to app.project resolutions array
-     */
-    this.app.project.merge('resolve', [path])
-    this.log('success', {
-      message: `resolved ${name}`,
-      suffix: path.replace(process.cwd(), '.'),
+  public async profileDependencies(
+    manifest: Record<string, any>,
+  ) {
+    this.log('info', {
+      message: `profiling dependencies`,
+      suffix: manifest.name,
     })
 
-    /**
-     * Get the extension manifest
-     * and add to app.project extensions object
-     */
-    const manifest = await this.getManifest(name)
-    this.app.project.set(`extensions.${name}`, {
-      name: manifest.name,
-      version: manifest.version,
-      peerDependencies: manifest.peerDependencies,
-      devDependencies: manifest.devDependencies,
-      dependencies: manifest.dependencies,
-      bud: manifest.bud,
-      path,
-    })
+    if (manifest.bud?.peers?.length) {
+      await Promise.all(
+        manifest.bud.peers.map(async (peer: string) => {
+          try {
+            await import(peer)
+          } catch {
+            this.app.project.merge('missingExtensions', [name])
+            return
+          }
 
-    /**
-     * If extension has dependencies, recurse and profile them
-     */
+          await this.profileExtension(peer)
+        }),
+      )
+    }
+
     if (manifest.peerDependencies) {
       await Promise.all(
         Object.entries(manifest.peerDependencies).map(
           async ([peerName, peerVersion]: [string, string]) => {
-            /**
-             * If peer dependency is already profiled, skip
-             */
             if (this.app.project.has(`peers.${peerName}`))
               return false
 
@@ -230,25 +268,5 @@ export class Peers implements Model.Interface {
         ),
       )
     }
-
-    if (this.app.project.has(`extensions.${name}.bud.peers`)) {
-      await Promise.all(
-        this.app.project
-          .get(`extensions.${name}.bud.peers`)
-          .map(async (name: string) => {
-            if (
-              !this.isExtension(name) ||
-              this.app.project.has(`extensions.${name}`)
-            ) {
-              return
-            }
-
-            await this.profileExtension(name)
-            return
-          }),
-      )
-    }
-
-    return
   }
 }

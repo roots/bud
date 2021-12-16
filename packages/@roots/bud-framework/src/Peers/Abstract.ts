@@ -33,7 +33,7 @@ export abstract class Abstract implements Peers.Interface {
    *
    * @public
    */
-  public abstract getPackageManifestPath(
+  public abstract resolveModulePath(
     name: string,
   ): Promise<string>
 
@@ -57,5 +57,7 @@ export abstract class Abstract implements Peers.Interface {
    *
    * @public
    */
-  public abstract isExtension(name: string): boolean
+  public abstract isExtension(
+    manifest: Record<string, any>,
+  ): boolean
 }

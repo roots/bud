@@ -67,7 +67,6 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "preset",
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",

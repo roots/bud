@@ -183,6 +183,14 @@ export class Extensions
   public async add(
     extension: Framework.Extension.Module,
   ): Promise<void> {
+    if (
+      this.app.project
+        .get('missingExtensions')
+        .includes(extension.name)
+    ) {
+      this.log('error', `${extension.name} is missing`)
+    }
+
     if (this.has(extension.name)) {
       this.log('warn', {
         message: `${extension.name} already added. skipping.`,
