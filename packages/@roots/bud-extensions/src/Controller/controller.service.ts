@@ -378,11 +378,28 @@ export class Controller {
    */
   @bind
   public async register(): Promise<Controller> {
-    if (
-      this.meta.registered === true ||
-      this.meta.valid !== true
-    ) {
+    if (!this._module.register) return this
+
+    if (this.meta.registered === true) {
       this.log('warn', this._module.name, 'already registered')
+      return this
+    }
+
+    if (this.meta.valid !== true) {
+      this.log(
+        'warn',
+        this._module.name,
+        'marked as invalid. will not be registered',
+      )
+
+      this.app.project
+        .get(`extensions.${this.name}.peers`)
+        .forEach(peer => {
+          if (this.app.extensions.has(peer)) {
+            this.app.extensions.get(peer).meta.valid = false
+          }
+        })
+
       return this
     }
 
@@ -396,6 +413,22 @@ export class Controller {
             !this.app.extensions.has(key) ||
             this.app.extensions.get(key).meta.registered !== true
           ) {
+            if (
+              this.app.project.get(
+                `extensions.${key}.missingExtensions`,
+              )?.length ||
+              this.app.project.get(
+                `extensions.${key}.missingPeers`,
+              )?.length
+            ) {
+              this.log(
+                'error',
+                `${key} is missing extensions or peers`,
+              )
+              this.meta.valid = false
+              return
+            }
+
             if (!this.app.extensions.has(key)) {
               this.log('log', {
                 message: `${this.name} requires ${key} and it has not yet been imported. importing now.`,
@@ -414,31 +447,12 @@ export class Controller {
               }
             }
 
-            if (
-              this.app.project.get(
-                `extensions.${key}.missingExtensions`,
-              )?.length ||
-              this.app.project.get(
-                `extensions.${key}.missingPeers`,
-              )?.length
-            ) {
-              this.log(
-                'error',
-                `${key} is missing extensions or peers`,
-              )
-              this.meta.valid = false
-              return
-            }
-
             await this.app.extensions.registerExtension(key)
           }
         }),
     )
 
     if (this.meta.valid !== true) return
-
-    await this.mixin()
-    await this.api()
 
     if (isFunction(this._module.register))
       await this._module.register(this.app, this.moduleLogger)
@@ -464,14 +478,20 @@ export class Controller {
         ? await this._module.api(this.app)
         : this._module.api
 
-    await this.app.api.processQueue()
-
     if (!isObject(methodMap))
       throw new Error(
         `${this.name}] api must be an object or return an object`,
       )
 
-    this.app.bindMethod(methodMap)
+    Object.entries(methodMap).forEach(([key, value]) => {
+      if (!isFunction(value))
+        throw new Error(
+          `${this.name}] api.${key} must be a function or return a function`,
+        )
+
+      this.app.api.set(key, value.bind(this.app))
+      this.app.api.bindFacade(key)
+    })
 
     return this
   }

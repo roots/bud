@@ -50,7 +50,6 @@ export class Api
     )
 
     this.getKeys().map(key => this.bindFacade(key))
-
     this.app.bindMethod(immediate)
   }
 

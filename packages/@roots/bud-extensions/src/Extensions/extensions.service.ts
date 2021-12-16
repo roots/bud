@@ -66,8 +66,6 @@ export class Extensions extends Service implements Base {
     if (this.app.store.is('features.inject', false)) {
       this.log('log', 'injection disabled')
       return
-    } else {
-      this.log('log', `extension injection enabled`)
     }
 
     this.log('await', 'injecting project extensions')
@@ -77,32 +75,33 @@ export class Extensions extends Service implements Base {
         .getEntries('extensions')
         .map(async ([k, extension]) => {
           this.log('log', `...importing ${extension.name}`)
+
           const importedExt = await import(extension.name)
+
           if (this.has(importedExt.name)) {
             this.log(
               'log',
               `...${importedExt.name} already added`,
             )
           }
+
           await this.setController(importedExt)
         }),
     )
 
-    if (this.app.project.get('extensions')?.length) {
-      await this.app.project
-        .getKeys('extensions')
-        .reduce(async (promised, key) => {
-          await promised
-          return this.registerExtension(key)
-        }, Promise.resolve())
+    await this.app.project
+      .getKeys('extensions')
+      .reduce(async (promised, key) => {
+        await promised
+        return this.registerExtension(key)
+      }, Promise.resolve())
 
-      await this.app.project
-        .getKeys('extensions')
-        .reduce(async (promised, key) => {
-          await promised
-          await this.bootExtension(key)
-        }, Promise.resolve())
-    }
+    await this.app.project
+      .getKeys('extensions')
+      .reduce(async (promised, key) => {
+        await promised
+        await this.bootExtension(key)
+      }, Promise.resolve())
   }
 
   @bind
@@ -184,10 +183,10 @@ ${
   public async registerExtension(key: string): Promise<void> {
     try {
       const controller = this.get<Controller>(key)
-      if (!controller) {
-        return
-      }
+      if (!controller) return
 
+      await controller.mixin()
+      await controller.api()
       await controller.register()
     } catch (err) {
       throw new Error(err)
@@ -287,7 +286,7 @@ ${
     await Promise.all(
       Object.entries(this.all()).map(
         async ([name, controller]: [string, Controller]) => {
-          await controller.register()
+          await this.registerExtension(name)
         },
       ),
     )
@@ -295,7 +294,7 @@ ${
     await Promise.all(
       Object.entries(this.all()).map(
         async ([name, controller]: [string, Controller]) => {
-          await controller.boot()
+          await this.bootExtension(name)
         },
       ),
     )

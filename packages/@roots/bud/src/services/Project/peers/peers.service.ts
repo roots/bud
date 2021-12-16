@@ -250,34 +250,32 @@ export class Peers implements Model.Interface {
       await Promise.all(
         Object.entries(manifest.peerDependencies).map(
           async ([peerName, peerVersion]: [string, string]) => {
-            if (this.app.project.has(`peers.${peerName}`)) return
-
-            this.app.project.set(`peers.${peerName}`, {
-              name: peerName,
-              version: peerVersion,
-            })
-
-            /**
-             * Flag unmmet dependencies
-             */
-            if (!this.app.project.get(`installed.${peerName}`)) {
-              this.app.project.merge(
-                `extensions.${manifest.name}.missingPeers`,
-                [{name: peerName, version: peerVersion}],
-              )
-
-              this.log('error', {
-                message: `required peer dependency is unmet`,
+            if (this.app.project.has(`peers.${peerName}`)) {
+              this.log('success', {
+                message: `required peer dependency is met`,
                 suffix: `${peerName}@${peerVersion}`,
               })
 
               return
             }
 
-            this.log('success', {
-              message: `required peer dependency is met`,
+            this.app.project.set(`peers.${peerName}`, {
+              name: peerName,
+              version: peerVersion,
+            })
+
+            if (this.app.project.get(`installed.${peerName}`))
+              return
+
+            this.log('error', {
+              message: `required peer dependency is unmet`,
               suffix: `${peerName}@${peerVersion}`,
             })
+
+            this.app.project.merge(
+              `extensions.${manifest.name}.missingPeers`,
+              [{name: peerName, version: peerVersion}],
+            )
           },
         ),
       )

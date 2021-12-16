@@ -14,7 +14,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "copy-webpack-plugin": Controller {
@@ -29,7 +30,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "mini-css-extract-plugin": Controller {
@@ -44,7 +46,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "webpack-define-plugin": Controller {
@@ -59,7 +62,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "webpack-hot-module-replacement-plugin": Controller {
@@ -74,7 +78,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "webpack-manifest-plugin": Controller {
@@ -89,7 +94,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
   "webpack-provide-plugin": Controller {
@@ -104,7 +110,8 @@ Object {
     "meta": Object {
       "booted": false,
       "instance": "bud",
-      "registered": true,
+      "registered": false,
+      "valid": true,
     },
   },
 }

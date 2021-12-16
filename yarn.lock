@@ -889,7 +889,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.5":
+"@babel/plugin-syntax-jsx@npm:7.16.5, @babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.5":
   version: 7.16.5
   resolution: "@babel/plugin-syntax-jsx@npm:7.16.5"
   dependencies:
@@ -11786,6 +11786,12 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
+    "@types/postcss-import": ^14
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.1
+    sass: 1.45.0
   languageName: unknown
   linkType: soft
 
@@ -11796,6 +11802,11 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
+    "@types/postcss-import": ^14
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.1
   languageName: unknown
   linkType: soft
 
@@ -11824,6 +11835,7 @@ __metadata:
     "@types/react-dom": 17.0.11
     postcss: 8.3.11
     postcss-import: 14.0.2
+    postcss-nested: 5.0.6
     postcss-preset-env: 6.7.0
     react: 17.0.2
     react-dom: 17.0.2
@@ -11873,9 +11885,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-solid@workspace:examples/solid"
   dependencies:
+    "@babel/plugin-syntax-jsx": 7.16.5
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-solid": "workspace:*"
+    solid-js: ^1.1.7
   languageName: unknown
   linkType: soft
 
@@ -22599,7 +22613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.2.6":
+"solid-js@npm:1.2.6, solid-js@npm:^1.1.7":
   version: 1.2.6
   resolution: "solid-js@npm:1.2.6"
   checksum: 63c5c6e34430d5d68e1d14b23ea82a327065cfa9908b3f1f6cf36366f937022b06ab1712a8e6a22ed7ca31769c85848cba55cebc8efc61d338979f8063f7b6c7
@@ -23749,6 +23763,11 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
+    "@types/postcss-import": ^14
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.1
   languageName: unknown
   linkType: soft
 

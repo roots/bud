@@ -45,7 +45,6 @@ export function bindMethod<FunctionMap = GenericFunctionMap>(
 
   Object.entries(properties).forEach(([key, value]) => {
     this[key] = value.bind(this)
-    this.api.set(key, value)
   })
 
   Object.keys(properties).forEach(key => {
