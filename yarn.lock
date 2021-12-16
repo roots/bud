@@ -3581,7 +3581,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-wordpress@workspace:packages/@roots/bud-preset-wordpress"
   dependencies:
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
@@ -11847,18 +11846,16 @@ __metadata:
     "@types/eslint": 7.29.0
     "@types/postcss-import": ^14
     "@types/prettier": 2.4.2
-    "@types/react": 17.0.35
+    "@types/react": 17.0.37
     "@types/react-dom": 17.0.11
     "@wordpress/browserslist-config": 4.1.0
     eslint: 7.32.0
-    postcss: 8.3.11
+    postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
-    postcss-preset-env: 6.7.0
-    prettier: 2.4.1
+    postcss-preset-env: 7.0.1
     react: 17.0.2
     react-dom: 17.0.2
-    tailwindcss: 3.0.0
   languageName: unknown
   linkType: soft
 
@@ -20388,15 +20385,6 @@ __metadata:
   dependencies:
     fast-diff: ^1.1.2
   checksum: 00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
-  languageName: node
-  linkType: hard
-
-"prettier@npm:2.4.1":
-  version: 2.4.1
-  resolution: "prettier@npm:2.4.1"
-  bin:
-    prettier: bin-prettier.js
-  checksum: cc6830588b401b0d742862fe9c46bc9118204fb307c3abe0e49e95b35ed23629573807ffdf9cdd65289c252a0bb51fc0171437f6626ee36378dea80f0ee80b91
   languageName: node
   linkType: hard
 

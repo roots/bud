@@ -26,6 +26,13 @@ export abstract class Abstract implements Peers.Interface {
   ): Promise<this>
 
   /**
+   * Packages already checked
+   *
+   * @public
+   */
+  public abstract profiled: Array<string>
+
+  /**
    * Returns path for a module name (if findable)
    *
    * @param name - peer module name

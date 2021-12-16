@@ -44,10 +44,10 @@ export interface repository {
       path: string
       devDependencies: Record<string, string>
       dependencies: Record<string, string>
+      missingExtensions: Array<string>
+      missingPeers: Array<{name: string; version: string}>
     }
   }
-
-  missingExtensions: Array<string>
 
   /**
    * @see webpack.resolve.modules
@@ -92,7 +92,6 @@ export const repository: repository = {
   unmet: [],
   peers: {},
   extensions: {},
-  missingExtensions: [],
   resolve: [],
   dependencies: [],
 }

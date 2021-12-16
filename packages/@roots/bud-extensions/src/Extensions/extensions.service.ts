@@ -1,4 +1,10 @@
-import * as Framework from '@roots/bud-framework'
+import {
+  Extension,
+  Extensions as Base,
+  Framework,
+  Service,
+} from '@roots/bud-framework'
+import {chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
@@ -11,10 +17,7 @@ import {bind} from './extensions.dependencies'
  *
  * @public
  */
-export class Extensions
-  extends Framework.Service
-  implements Framework.Extensions
-{
+export class Extensions extends Service implements Base {
   public queue = []
 
   public repository = {}
@@ -26,9 +29,7 @@ export class Extensions
    */
   @bind
   public makeController(
-    extension:
-      | Framework.Extension.Module
-      | Promise<Framework.Extension.Module>,
+    extension: Extension.Module | Promise<Extension.Module>,
   ): Controller {
     const controller = new Controller(this.app, extension)
     return controller
@@ -72,6 +73,55 @@ export class Extensions
 
     await Promise.all(
       this.app.project.getKeys('extensions').map(async pkg => {
+        if (
+          this.app.project.isNotEmpty(
+            `extensions.${pkg}.missingExtensions`,
+          ) ||
+          this.app.project.isNotEmpty(
+            `extensions.${pkg}.missingPeers`,
+          )
+        ) {
+          this.log(
+            'error',
+            `
+
+${chalk.underline`${pkg} has missing dependencies`}
+
+To prevent errors this extension will not be booted. However, bud will still continue trying to build the project.
+
+You should fix this by running:
+
+$ bud install
+
+Alternatively...
+${
+  this.app.project.get(`extensions.${pkg}.missingExtensions`)
+    .length
+    ? `Ensure the following extensions are installed:
+  ${this.app.project
+    .getEntries(`extensions.${pkg}.missingExtensions`)
+    .reduce(
+      (acc, curr) => (curr ? `${acc}- ${curr}\n` : acc),
+      `\n`,
+    )}`
+    : ``
+}
+${
+  this.app.project.get(`extensions.${pkg}.missingPeers`).length
+    ? `Ensure the following peers are installed:
+  ${this.app.project
+    .getValues(`extensions.${pkg}.missingPeers`)
+    .reduce(
+      (acc, pkg) => `${acc}- ${pkg.name}@${pkg.version}\n`,
+      `\n`,
+    )}`
+    : ``
+}`,
+          )
+
+          return
+        }
+
         const importResult = await import(pkg)
 
         this.log('success', {
@@ -154,9 +204,7 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public enqueue(
-    extension: Framework.Extension.Module,
-  ): Framework.Framework {
+  public enqueue(extension: Extension.Module): Framework {
     if (
       this.has(extension.name) ||
       this.queue.some(queued => queued.name === extension.name)
@@ -180,21 +228,46 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async add(
-    extension: Framework.Extension.Module,
-  ): Promise<void> {
-    if (
-      this.app.project
-        .get('missingExtensions')
-        .includes(extension.name)
-    ) {
-      this.log('error', `${extension.name} is missing`)
-    }
-
+  public async add(extension: Extension.Module): Promise<void> {
     if (this.has(extension.name)) {
       this.log('warn', {
         message: `${extension.name} already added. skipping.`,
       })
+      return
+    }
+
+    if (
+      this.app.project.isNotEmpty(
+        `extensions.${extension.name}.missingExtensions`,
+      ) ||
+      this.app.project.isNotEmpty(
+        `extensions.${extension.name}.missingPeers`,
+      )
+    ) {
+      this.log(
+        'error',
+        chalk.red`
+**********************************
+${extension.name} has missing dependencies
+${extension.name} will not be booted
+**********************************
+`,
+      )
+
+      return
+    }
+
+    if (
+      this.app.project.isNotEmpty(
+        `extensions.${extension.name}.missingExtensions`,
+      )
+    ) {
+      this.log('error', chalk.red`${extension.name} is missing`)
+      this.log(
+        'error',
+        chalk.red`${extension.name} will not be booted`,
+      )
+
       return
     }
 

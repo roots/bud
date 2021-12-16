@@ -142,8 +142,7 @@ export class Peers implements Model.Interface {
         !isUndefined(name) &&
         isString(name) &&
         !name.includes('@types') &&
-        !this.profiled.includes(name) &&
-        !this.app.project.has(`extensions.${name}`)
+        !this.profiled.includes(name)
       )
     })
 
@@ -169,6 +168,7 @@ export class Peers implements Model.Interface {
       this.log('info', `${name} is already profiled. skipping`)
       return
     }
+
     this.profiled.push(name)
 
     this.log('info', {
@@ -178,7 +178,12 @@ export class Peers implements Model.Interface {
 
     const path = await this.resolveModulePath(name)
     const manifest = await this.getManifest(path)
-    const records = {path, ...manifest}
+    const records = {
+      path,
+      ...manifest,
+      missingExtensions: [],
+      missingPeers: [],
+    }
 
     if (isUndefined(records?.bud)) {
       this.log('info', `${name} is not an extension`)
@@ -222,7 +227,10 @@ export class Peers implements Model.Interface {
           try {
             await import(peer)
           } catch {
-            this.app.project.merge('missingExtensions', [name])
+            this.app.project.merge(
+              `extensions.${manifest.name}.missingExtensions`,
+              [peer],
+            )
             return
           }
 
@@ -247,10 +255,10 @@ export class Peers implements Model.Interface {
              * Flag unmmet dependencies
              */
             if (!this.app.project.get(`installed.${peerName}`)) {
-              this.app.project.mutate(`unmet`, unmet => [
-                ...unmet,
-                {name: peerName, version: peerVersion},
-              ])
+              this.app.project.merge(
+                `extensions.${manifest.name}.missingPeers`,
+                [{name: peerName, version: peerVersion}],
+              )
 
               this.log('error', {
                 message: `required peer dependency is unmet`,

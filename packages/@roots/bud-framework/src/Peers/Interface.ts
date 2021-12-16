@@ -14,6 +14,13 @@ export interface Interface {
   app: Framework
 
   /**
+   * Packages which have already been checked
+   *
+   * @public
+   */
+  profiled: Array<string>
+
+  /**
    * Collect packages.
    *
    * @public
