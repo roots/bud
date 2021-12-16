@@ -1,8 +1,9 @@
 import * as oclif from '@oclif/core'
-import {chalk, Signale} from '@roots/bud-support'
+import {fs, pkgUp} from '@roots/bud-support'
 
-import {DependenciesManager} from '../../services/Dependencies/dependencies.dependencies.js'
 import {Command} from '../Command/index.js'
+
+const {readJson, writeFile} = fs
 
 /**
  * @internal
@@ -49,39 +50,42 @@ export default class Install extends Command {
   public async run() {
     await this.prime(Install)
     await this.app.project.buildProfile()
-    const logger = new Signale()
 
-    const dependencies: Array<[string, string]> =
-      this.app.project
-        .get('unmet')
-        .map(({name, version}) => [name, version])
+    if (this.app.project.get('unmet').length === 0) {
+      process.stdout.write('\n✅ nothing to install\n')
+      this.exit(0)
+    }
 
-    logger.await({
-      message: `installing dependencies`,
-      suffix: chalk.dim(dependencies),
-    })
+    const manifestPath = await pkgUp()
+    process.stdout.write(
+      `\nupdating ${manifestPath.replace(process.cwd(), '')}\n`,
+    )
+    const manifest = await readJson(manifestPath)
 
-    const manager = new DependenciesManager(
-      this.app.path('project'),
+    manifest.devDependencies = {
+      ...manifest.devDependencies,
+      ...this.app.project.get('unmet').reduce(
+        (a, {name, version}) => ({
+          ...a,
+          [name]: version,
+        }),
+        {},
+      ),
+    }
+
+    await writeFile(
+      manifestPath,
+      JSON.stringify(manifest, null, 2),
     )
 
-    try {
-      await manager.client.install(
-        dependencies,
-        true,
-        (message: string) => {
-          logger.log({
-            prefix: chalk.blue(manager.isYarn ? 'yarn' : 'npm'),
-            message: chalk.dim(message),
-          })
-        },
-      )
-
-      logger.success(chalk.green`installation complete`)
-    } catch (error) {
-      logger.error(error)
-      this.exit(1)
-    }
+    process.stdout.write(
+      `\nadded ${this.app.project
+        .get('unmet')
+        .reduce(
+          (a, {name, version}) => `${a} - ${name}@${version}\n`,
+          `\n`,
+        )}\n run yarn/npm install to finalize\n`,
+    )
 
     this.exit(0)
   }

@@ -78,11 +78,6 @@ export default class Build extends Command {
       description: 'automatically register & boot extensions',
     }),
 
-    install: oclif.Flags.boolean({
-      description: 'ensure peer dependencies are installed',
-      default: false,
-    }),
-
     manifest: oclif.Flags.boolean({
       allowNo: true,
       default: true,

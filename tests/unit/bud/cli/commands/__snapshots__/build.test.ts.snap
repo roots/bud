@@ -75,13 +75,6 @@ Object {
     "parse": [Function],
     "type": "boolean",
   },
-  "install": Object {
-    "allowNo": false,
-    "default": false,
-    "description": "ensure peer dependencies are installed",
-    "parse": [Function],
-    "type": "boolean",
-  },
   "location.dist": Object {
     "description": "distribution directory",
     "input": Array [],
