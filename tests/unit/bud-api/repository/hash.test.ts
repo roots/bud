@@ -1,5 +1,5 @@
 import {Bud, factory} from '@roots/bud'
-import {join} from 'path/posix'
+import {join} from 'path'
 
 describe('bud.hash', function () {
   let bud: Bud
