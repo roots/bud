@@ -1,12 +1,8 @@
 module.exports = {
-  purge: {
-    content: [
-      './web/app/plugins/example-plugin/resources/**/*.{php,vue,js}',
-      './web/app/themes/sage/resources/**/*.{php,vue,js}',
-    ],
-  },
-  jit: true,
-  darkMode: false,
+  content: [
+    './web/app/plugins/example-plugin/resources/**/*.{php,vue,js}',
+    './web/app/themes/sage/resources/**/*.{php,vue,js}',
+  ],
   theme: {
     extend: {
       colors: {},
