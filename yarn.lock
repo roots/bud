@@ -2247,9 +2247,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@easyops-cn/docusaurus-search-local@npm:0.21.3":
-  version: 0.21.3
-  resolution: "@easyops-cn/docusaurus-search-local@npm:0.21.3"
+"@easyops-cn/docusaurus-search-local@npm:0.21.4":
+  version: 0.21.4
+  resolution: "@easyops-cn/docusaurus-search-local@npm:0.21.4"
   dependencies:
     "@docusaurus/utils": ^2.0.0-beta.4
     "@docusaurus/utils-validation": ^2.0.0-beta.4
@@ -2263,7 +2263,7 @@ __metadata:
     lunr-languages: ^1.4.0
     mark.js: ^8.11.1
     tslib: ^2.2.0
-  checksum: 019e8ffacb4c512f7026ec4653d55390c0743b3acb681e120eabd3837fe3edb8949fd882f5af77b78f7d18a769a42ec028a9371b0dd5b9dd936884b5cdde1b64
+  checksum: f96eb0ddbbd0b9bac9ea23da16741850f3a74b58bcaaccd1a3024668b08f49091e751e9f6a5795e64182de6c43008f51a33a33dc182154f1f7b68a06af6b66bd
   languageName: node
   linkType: hard
 
@@ -3299,7 +3299,7 @@ __metadata:
     "@docusaurus/core": 2.0.0-beta.13
     "@docusaurus/module-type-aliases": 2.0.0-beta.13
     "@docusaurus/preset-classic": 2.0.0-beta.13
-    "@easyops-cn/docusaurus-search-local": 0.21.3
+    "@easyops-cn/docusaurus-search-local": 0.21.4
     "@skypack/package-check": 0.2.2
     "@svgr/webpack": 6.1.2
     "@tsconfig/docusaurus": 1.0.4
