@@ -28,11 +28,20 @@ export interface Extensions extends Service {
   enqueue(extension: CompilerPlugin | Module): Framework
 
   /**
+   * @public
+   */
+  setController(
+    extension: CompilerPlugin | Module,
+  ): Promise<void>
+
+  /**
    * Register event for all extensions
    *
    * @public
    */
   registerExtensions(): Promise<void>
+
+  registerExtension(key: string): Promise<void>
 
   /**
    * Boot event for all extensions
@@ -40,6 +49,8 @@ export interface Extensions extends Service {
    * @public
    */
   bootExtensions(): Promise<void>
+
+  bootExtension(key: string): Promise<void>
 
   /**
    * Get {@link ApplyPlugin} instances to be included in compilation

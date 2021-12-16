@@ -4,6 +4,7 @@ import {
   fs,
   globby,
   jsonStringify,
+  pkgUp,
 } from '@roots/bud-support'
 
 import {Peers} from './peers'
@@ -43,6 +44,11 @@ export class Project
   public repository: repository = repository
 
   /**
+   * Framework version
+   */
+  public version: string
+
+  /**
    * Path to profile.json reference file
    *
    * @public
@@ -62,7 +68,10 @@ export class Project
    * @decorator `@bind`
    */
   public async bootstrap() {
-    this.peers = new Peers(this.app)
+    const packagePath = await pkgUp()
+    const {version} = await readJson(packagePath)
+
+    this.peers = new Peers(this.app, version)
 
     await this.loadManifest()
 

@@ -3555,11 +3555,6 @@ __metadata:
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
     postcss-preset-env: 7.0.1
-  peerDependenciesMeta:
-    postcss-import:
-      optional: true
-    postcss-preset-env:
-      optional: true
   languageName: unknown
   linkType: soft
 
@@ -3677,13 +3672,13 @@ __metadata:
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/node": 16.11.13
-    postcss: 8.4.5
     postcss-scss: 4.0.2
     resolve-cwd: 3.0.0
     sass-loader: 12.4.0
     tslib: 2.3.1
     webpack: 5.65.0
   peerDependencies:
+    postcss: 8.4.5
     sass: 1.45.0
   languageName: unknown
   linkType: soft
@@ -5123,15 +5118,6 @@ __metadata:
   version: 1.1.2
   resolution: "@types/safe-json-stringify@npm:1.1.2"
   checksum: 2dabb5b02bf32fc1a0e7f51f4e66c22778b811790e9d433a39389941f1719dab4b9287ee658134b3985e5b2c716786b3d614ddb6cf842d4d43906584085bb03f
-  languageName: node
-  linkType: hard
-
-"@types/sass@npm:^1":
-  version: 1.43.0
-  resolution: "@types/sass@npm:1.43.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: a362349c157fb319f2f27fa1fc0f2e0dee3d8fb249b6914047a227319f08197bc3f0a5e909a520478ed9048a241dbf53b75ecb58b299077bd3efd8324a44f297
   languageName: node
   linkType: hard
 
@@ -11729,6 +11715,15 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:*"
+    "@types/eslint": 7.29.0
+    "@types/postcss-import": ^14
+    "@types/prettier": 2.4.2
+    eslint: 7.32.0
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.1
+    prettier: 2.5.1
   languageName: unknown
   linkType: soft
 
@@ -11791,8 +11786,6 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
-    "@types/sass": ^1
-    sass: 1.43.4
   languageName: unknown
   linkType: soft
 
@@ -11854,8 +11847,10 @@ __metadata:
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
     postcss-preset-env: 7.0.1
+    prettier: 2.5.1
     react: 17.0.2
     react-dom: 17.0.2
+    tailwindcss: 3.0.5
   languageName: unknown
   linkType: soft
 
@@ -11865,8 +11860,12 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-sass": "workspace:*"
-    "@types/sass": ^1
-    sass: 1.43.4
+    "@types/postcss-import": ^14
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.0.1
+    sass: 1.45.0
   languageName: unknown
   linkType: soft
 
@@ -14209,6 +14208,13 @@ __metadata:
   version: 9.0.6
   resolution: "immer@npm:9.0.6"
   checksum: 75da22f3b32f3f14604eb389b4f50e84a14f2e42f306f0cbe4d2969aed54ec7fda9a7e9ca42ebae2ba73ec9bb6ec1001fafbac535accaf03860054ab0f7e8388
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "immutable@npm:4.0.0"
+  checksum: 4b5e9181e4d5fa06728a481835ec09c86367e5d03268666c95b522b7644ab891098022e4479a43c4c81a68f2ed82f10751ce5d33e208d7b873b6e7f9dfaf4d87
   languageName: node
   linkType: hard
 
@@ -22050,14 +22056,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.43.4":
-  version: 1.43.4
-  resolution: "sass@npm:1.43.4"
+"sass@npm:1.45.0":
+  version: 1.45.0
+  resolution: "sass@npm:1.45.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 9af80105dabd32752c60b4557115832982cf1019c02c952db6a26c61a3e18dc95044c896685e6e9a6d6dd6643fc411ecf2ea4a8a431a8a08a7510a45d5a492ae
+  checksum: f20d22ddf91e3571926535cdec9e1092780b0bf133ee6a68d25ee21fd3fcb94f4b1df90823fdc60cabf468776d3a6bb693fd89305698e70609eb47bcfb905f10
   languageName: node
   linkType: hard
 
@@ -22639,17 +22647,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "source-map-js@npm:1.0.1"
+  checksum: 22606113d62bbd468712b0cb0c46e9a8629de7eb081049c62a04d977a211abafd7d61455617f8b78daba0b6c0c7e7c88f8c6b5aaeacffac0a6676ecf5caac5ce
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:^0.6.2":
   version: 0.6.2
   resolution: "source-map-js@npm:0.6.2"
   checksum: 9c8151a29e00fd8d3ba87709fdf9a9ce48313d653f4a29a39b4ae53d346ac79e005de624796ff42eff55cbaf26d2e87f4466001ca87831d400d818c5cf146a0e
-  languageName: node
-  linkType: hard
-
-"source-map-js@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "source-map-js@npm:1.0.1"
-  checksum: 22606113d62bbd468712b0cb0c46e9a8629de7eb081049c62a04d977a211abafd7d61455617f8b78daba0b6c0c7e7c88f8c6b5aaeacffac0a6676ecf5caac5ce
   languageName: node
   linkType: hard
 

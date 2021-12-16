@@ -9,7 +9,7 @@ import {Name} from '.'
  *
  * @typeParam Options - Extension options
  *
- * @public @core
+ * @public
  */
 export interface Module<Options = any> extends Loose {
   /**

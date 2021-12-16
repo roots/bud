@@ -26,4 +26,6 @@ export interface Api<
    * @internal
    */
   processQueue: () => Promise<void>
+
+  bindFacade: (name: string) => void
 }

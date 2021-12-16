@@ -66,12 +66,10 @@ export class Api
     this.app.hooks.async<'event.build.make.before'>(
       'event.build.make.before',
       async app => {
-        this.log('log', 'event.build.make.promise api calls')
-
+        this.log('log', 'processing queue prior to final build')
         await this.processQueue()
 
         this.dump()
-
         return app
       },
     )
@@ -82,14 +80,7 @@ export class Api
    */
   @bind
   public bindFacade(name: string) {
-    this.log('log', `binding ${this.app.name}.${name} facade`)
-
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
-
-    this.log(
-      'success',
-      `binding ${this.app.name}.${name} facade`,
-    )
   }
 
   /**
@@ -110,7 +101,10 @@ export class Api
 
     // check if the callable exists
     if (!isFunction(method)) {
-      throw new Error(`${name} is not a method`)
+      this.log('error', {
+        message: 'error calling api method',
+        suffix: `${name} is not a method of ${this.app.name}`,
+      })
     }
 
     // execute the callable
@@ -138,7 +132,10 @@ export class Api
         try {
           await this.call(name, ...args)
         } catch (error) {
-          throw new Error(error)
+          this.log('error', {
+            message: 'error processing queued api calls',
+            suffix: error,
+          })
         }
       }),
     )

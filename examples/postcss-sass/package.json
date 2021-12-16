@@ -16,8 +16,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-sass": "workspace:*",
-    "@types/sass": "^1",
-    "sass": "1.43.4"
+    "@roots/bud-sass": "workspace:*"
   }
 }

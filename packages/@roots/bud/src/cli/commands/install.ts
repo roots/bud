@@ -1,5 +1,5 @@
 import * as oclif from '@oclif/core'
-import {pkgUp, prettyFormat} from '@roots/bud-support'
+import {pkgUp} from '@roots/bud-support'
 import {readJson} from 'fs-extra'
 
 import {Command} from '../Command/index.js'
@@ -51,46 +51,41 @@ export default class Install extends Command {
       manifestPath,
     )
 
-    await Promise.all(
-      this.app.project
-        .getEntries('extensions')
-        .map(async ([name, extension]) => {
-          this.app.log(`checking ${name}`)
-          this.app.log(prettyFormat(extension.missingExtensions))
-          if (extension.missingExtensions?.length) {
-            await this.app.dependencies.install(
-              extension.missingExtensions.map(ext => ({
+    process.stdout.write('Installing extensions...\n')
+
+    const installExtensions = this.app.project
+      .getEntries('extensions')
+      .reduce((a, [name, extension]) => {
+        return [
+          ...a,
+          ...extension.missingExtensions.map(
+            ext =>
+              ({
                 name: ext,
                 version: frameworkVersion,
-              })),
-            )
-          }
-        }),
-    )
+              } ?? null),
+          ),
+        ]
+      }, [])
+      .filter(Boolean)
+
+    process.stdout.write('Installing peers...\n')
+
+    if (installExtensions?.length) {
+      await this.app.dependencies.install(installExtensions)
+    }
 
     this.app.project.buildProfile()
 
-    await Promise.all(
-      this.app.project
-        .getEntries('extensions')
-        .map(async ([name, extension]) => {
-          if (extension.missingPeers?.length) {
-            this.log(
-              extension.missingPeers.reduce(
-                (a, c) =>
-                  c
-                    ? `${a} [${name}] ${c.name}@${c.version}\n`
-                    : a,
-                `installing:\n`,
-              ),
-            )
+    const installPeers = this.app.project
+      .getEntries('extensions')
+      .reduce((a, [name, extension]) => {
+        return [...a, ...(extension.missingPeers ?? [])]
+      }, [])
 
-            await this.app.dependencies.install(
-              extension.missingPeers,
-            )
-          }
-        }),
-    )
+    if (installPeers?.length) {
+      await this.app.dependencies.install(installPeers)
+    }
 
     process.exit(0)
   }

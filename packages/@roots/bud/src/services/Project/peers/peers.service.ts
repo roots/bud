@@ -36,7 +36,10 @@ export class Peers implements Model.Interface {
    *
    * @public
    */
-  public constructor(public app: Framework) {}
+  public constructor(
+    public app: Framework,
+    public version: string,
+  ) {}
 
   /**
    * Returns path for a module name (if findable)
@@ -179,15 +182,19 @@ export class Peers implements Model.Interface {
     const path = await this.resolveModulePath(name)
     const manifest = await this.getManifest(path)
     const records = {
-      path,
-      ...manifest,
       missingExtensions: [],
       missingPeers: [],
+      path,
+      ...manifest,
     }
 
     if (isUndefined(records?.bud)) {
       this.log('info', `${name} is not an extension`)
       return
+    }
+
+    if (isUndefined(records?.bud?.peers)) {
+      records.bud.peers = []
     }
 
     this.app.project.set(`extensions.${name}`, records)
@@ -229,7 +236,7 @@ export class Peers implements Model.Interface {
           } catch {
             this.app.project.merge(
               `extensions.${manifest.name}.missingExtensions`,
-              [peer],
+              [{name: peer, version: this.version}],
             )
             return
           }
@@ -243,8 +250,7 @@ export class Peers implements Model.Interface {
       await Promise.all(
         Object.entries(manifest.peerDependencies).map(
           async ([peerName, peerVersion]: [string, string]) => {
-            if (this.app.project.has(`peers.${peerName}`))
-              return false
+            if (this.app.project.has(`peers.${peerName}`)) return
 
             this.app.project.set(`peers.${peerName}`, {
               name: peerName,

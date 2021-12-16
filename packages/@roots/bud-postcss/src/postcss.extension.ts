@@ -1,5 +1,6 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
+import {Signale} from 'signale'
 
 import {PostCssConfig} from './bud.postcss'
 
@@ -21,10 +22,9 @@ export const BudPostCssExtension: Extension.Module = {
     postcss: [PostCssConfig],
   }),
 
-  register: async (app: Framework) => {
-    const log = app.logger.scoped('@roots/bud-postcss')
-
+  register: async (app: Framework, logger: Signale) => {
     const postcssLoaded = await ensureDependencies.bind(app)()
+
     if (!postcssLoaded) return
 
     app.build.loaders.postcss = new Loader(
@@ -56,7 +56,7 @@ export const BudPostCssExtension: Extension.Module = {
     ])
 
     try {
-      log.await('resolving postcss plugins')
+      logger.await('resolving postcss plugins')
 
       app.postcss.setPlugins({
         'postcss-import': require.resolve('postcss-import'),
@@ -72,7 +72,7 @@ export const BudPostCssExtension: Extension.Module = {
         ],
       })
 
-      log.success('resolving postcss plugins')
+      logger.success('resolving postcss plugins')
     } catch (e) {
       app.error(e)
     }

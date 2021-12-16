@@ -14,7 +14,7 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
     typecheck,
   },
 
-  boot: ({build, hooks, store}) => {
+  boot: async ({build, hooks, store}) => {
     store.set('patterns.ts', /\.tsx?$/)
 
     build.loaders['ts'] = new Loader(

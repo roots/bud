@@ -37,6 +37,11 @@ module.exports = async () => {
   const examples = await paths()
 
   await task(
+    'install --log --log.papertrail --log.level vvvv',
+    examples,
+  )
+
+  await task(
     'build --no-dashboard --log --log.papertrail --log.level vvvv',
     examples,
   )

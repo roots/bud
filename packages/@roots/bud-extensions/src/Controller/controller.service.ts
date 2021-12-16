@@ -19,7 +19,7 @@ import {
 /**
  * Extension instance controller
  *
- * @public @core
+ * @public
  */
 export class Controller {
   /**
@@ -41,12 +41,14 @@ export class Controller {
    */
   public meta: {
     instance: string
+    valid: boolean
     registered: boolean
     booted: boolean
   } = {
     instance: null,
     registered: false,
     booted: false,
+    valid: true,
   }
 
   public get moduleLogger(): Signale {
@@ -93,16 +95,11 @@ export class Controller {
     this._app = () => _app
     this.log = this.app.extensions.log
     this.meta.instance = this.app.name
+    this.meta.valid = true
 
     if (!extension) {
-      throw Error(
-        `extension controller constructor: missing module`,
-      )
-    }
-
-    if (!extension.name) {
-      this.app.dump(extension)
-      throw Error(`name is a required property for extensions`)
+      this.log('log', this.app.extensions.getKeys())
+      throw new Error(`extension not found`)
     }
 
     this.name = extension.name
@@ -381,11 +378,64 @@ export class Controller {
    */
   @bind
   public async register(): Promise<Controller> {
-    if (this.meta.registered === true) {
+    if (
+      this.meta.registered === true ||
+      this.meta.valid !== true
+    ) {
       this.log('warn', this._module.name, 'already registered')
       return this
     }
+
     this.meta.registered = true
+
+    await Promise.all(
+      this.app.project
+        .get(`extensions.${this.name}.bud.peers`)
+        ?.map(async key => {
+          if (
+            !this.app.extensions.has(key) ||
+            this.app.extensions.get(key).meta.registered !== true
+          ) {
+            if (!this.app.extensions.has(key)) {
+              this.log('log', {
+                message: `${this.name} requires ${key} and it has not yet been imported. importing now.`,
+              })
+
+              try {
+                const importedExt = await import(key)
+                await this.app.extensions.setController(
+                  importedExt,
+                )
+              } catch (e) {
+                this.log('error', {
+                  message: `ERROR: ${this.name} transitive import of ${key}`,
+                  error: e,
+                })
+              }
+            }
+
+            if (
+              this.app.project.get(
+                `extensions.${key}.missingExtensions`,
+              )?.length ||
+              this.app.project.get(
+                `extensions.${key}.missingPeers`,
+              )?.length
+            ) {
+              this.log(
+                'error',
+                `${key} is missing extensions or peers`,
+              )
+              this.meta.valid = false
+              return
+            }
+
+            await this.app.extensions.registerExtension(key)
+          }
+        }),
+    )
+
+    if (this.meta.valid !== true) return
 
     await this.mixin()
     await this.api()
@@ -394,7 +444,7 @@ export class Controller {
       await this._module.register(this.app, this.moduleLogger)
 
     this.moduleLogger.success({
-      message: `register called`,
+      message: `registered`,
       suffix: chalk.dim`${this.name}`,
     })
 
@@ -406,7 +456,8 @@ export class Controller {
    */
   @bind
   public async api(): Promise<Controller> {
-    if (!this._module.api) return this
+    if (this.meta.valid !== true || !this._module.api)
+      return this
 
     const methodMap: Record<string, CallableFunction> =
       isFunction(this._module.api)
@@ -430,7 +481,8 @@ export class Controller {
    */
   @bind
   public async mixin(): Promise<this> {
-    if (!this._module.mixin) return this
+    if (this.meta.valid !== true || !this._module.mixin)
+      return this
 
     let classMap
 
@@ -458,12 +510,17 @@ export class Controller {
    * @remarks
    * Calls the {@link @roots/bud-framework#Module.boot} callback
    *
-   * @public @core
+   * @public
    * @decorator `@bind`
    */
   @bind
   public async boot(): Promise<this> {
-    if (this.meta.booted || !this._module.boot) return this
+    if (
+      this.meta.booted ||
+      !this._module.boot ||
+      this.meta.valid !== true
+    )
+      return this
     this.meta.booted = true
 
     if (isFunction(this._module.boot)) {

@@ -87,7 +87,7 @@ describe.skip('bud.project', function () {
   })
 
   it('discover method gathers dep data', () => {
-    bud.project.peers = new Peers(bud)
+    bud.project.peers = new Peers(bud, '0.0.0')
 
     expect(
       bud.project.get(`extensions.@roots/bud-babel`),

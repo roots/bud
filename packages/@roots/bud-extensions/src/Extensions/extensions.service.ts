@@ -22,6 +22,8 @@ export class Extensions extends Service implements Base {
 
   public repository = {}
 
+  public rejected = []
+
   /**
    * Controller factory
    *
@@ -36,7 +38,8 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @override @public
+   * @override
+   * @public
    */
   @bind
   public async registered(): Promise<void> {
@@ -44,7 +47,7 @@ export class Extensions extends Service implements Base {
 
     await Promise.all(
       this.getEntries().map(async ([key, extension]) => {
-        this.set(key, this.makeController(extension))
+        this.setController(extension)
         this.log('success', {
           message: `${key} instantiated`,
         })
@@ -55,14 +58,12 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @override @public
+   * @override
+   * @public
    */
   @bind
   public async boot(): Promise<void> {
-    if (
-      this.app.store.is('features.inject', false) ||
-      !this.app.project?.has('extensions')
-    ) {
+    if (this.app.store.is('features.inject', false)) {
       this.log('log', 'injection disabled')
       return
     } else {
@@ -72,20 +73,56 @@ export class Extensions extends Service implements Base {
     this.log('await', 'injecting project extensions')
 
     await Promise.all(
-      this.app.project.getKeys('extensions').map(async pkg => {
-        if (
-          this.app.project.isNotEmpty(
-            `extensions.${pkg}.missingExtensions`,
-          ) ||
-          this.app.project.isNotEmpty(
-            `extensions.${pkg}.missingPeers`,
-          )
-        ) {
-          this.log(
-            'error',
-            `
+      this.app.project
+        .getEntries('extensions')
+        .map(async ([k, extension]) => {
+          this.log('log', `...importing ${extension.name}`)
+          const importedExt = await import(extension.name)
+          if (this.has(importedExt.name)) {
+            this.log(
+              'log',
+              `...${importedExt.name} already added`,
+            )
+          }
+          await this.setController(importedExt)
+        }),
+    )
 
-${chalk.underline`${pkg} has missing dependencies`}
+    if (this.app.project.get('extensions')?.length) {
+      await this.app.project
+        .getKeys('extensions')
+        .reduce(async (promised, key) => {
+          await promised
+          return this.registerExtension(key)
+        }, Promise.resolve())
+
+      await this.app.project
+        .getKeys('extensions')
+        .reduce(async (promised, key) => {
+          await promised
+          await this.bootExtension(key)
+        }, Promise.resolve())
+    }
+  }
+
+  @bind
+  public async setController(extension): Promise<void> {
+    if (this.rejected.includes(extension.name)) {
+      return
+    }
+
+    if (
+      this.app.project.get(
+        `extensions.${extension.name}.missingExtensions`,
+      )?.length > 0 ||
+      this.app.project.get(
+        `extensions.${extension.name}.missingPeers`,
+      )?.length > 0
+    ) {
+      this.log(
+        'error',
+        `
+${chalk.underline`${extension.name} has missing dependencies`}
 
 To prevent errors this extension will not be booted. However, bud will still continue trying to build the project.
 
@@ -95,11 +132,12 @@ $ bud install
 
 Alternatively...
 ${
-  this.app.project.get(`extensions.${pkg}.missingExtensions`)
-    .length
+  this.app.project.get(
+    `extensions.${extension.name}.missingExtensions`,
+  ).length
     ? `Ensure the following extensions are installed:
   ${this.app.project
-    .getEntries(`extensions.${pkg}.missingExtensions`)
+    .getEntries(`extensions.${extension.name}.missingExtensions`)
     .reduce(
       (acc, curr) => (curr ? `${acc}- ${curr}\n` : acc),
       `\n`,
@@ -107,41 +145,34 @@ ${
     : ``
 }
 ${
-  this.app.project.get(`extensions.${pkg}.missingPeers`).length
+  this.app.project.get(
+    `extensions.${extension.name}.missingPeers`,
+  ).length
     ? `Ensure the following peers are installed:
   ${this.app.project
-    .getValues(`extensions.${pkg}.missingPeers`)
+    .getValues(`extensions.${extension.name}.missingPeers`)
     .reduce(
       (acc, pkg) => `${acc}- ${pkg.name}@${pkg.version}\n`,
       `\n`,
     )}`
     : ``
 }`,
-          )
+      )
 
-          return
-        }
+      this.rejected.push(extension.name)
+      return
+    }
 
-        const importResult = await import(pkg)
+    const controller = this.makeController(extension)
 
-        this.log('success', {
-          message: `${importResult.name} resolved`,
-        })
-
-        const controller = await this.makeController(
-          importResult,
-        )
-
-        this.set(controller.name, controller)
-      }),
-    )
+    this.set(controller.name, controller)
   }
 
   /**
    * @public
    */
   @bind
-  public async booted(): Promise<void> {
+  public async extensionLifecycle(): Promise<void> {
     await this.registerExtensions()
     await this.bootExtensions()
   }
@@ -153,9 +184,12 @@ ${
   public async registerExtension(key: string): Promise<void> {
     try {
       const controller = this.get<Controller>(key)
+      if (!controller) {
+        return
+      }
+
       await controller.register()
     } catch (err) {
-      this.log('error', key, err)
       throw new Error(err)
     }
   }
@@ -167,9 +201,11 @@ ${
   public async bootExtension(key: string): Promise<void> {
     try {
       const controller = this.get<Controller>(key)
+      if (!controller) {
+        return
+      }
       await controller.boot()
     } catch (err) {
-      this.log('error', err, key)
       throw new Error(err)
     }
   }
@@ -180,7 +216,12 @@ ${
   @bind
   public async registerExtensions(): Promise<void> {
     this.log('time', 'registering')
-    await Promise.all(this.getKeys().map(this.registerExtension))
+
+    await this.getKeys().reduce(async (promised, controller) => {
+      await promised
+      await this.registerExtension(controller)
+    }, Promise.resolve())
+
     this.log('timeEnd', 'registering')
   }
 
@@ -190,7 +231,10 @@ ${
   @bind
   public async bootExtensions(): Promise<void> {
     this.log('time', 'booting')
-    await Promise.all(this.getKeys().map(this.bootExtension))
+    await this.getKeys().reduce(async (promised, controller) => {
+      await promised
+      await this.bootExtension(controller)
+    }, Promise.resolve())
     this.log('timeEnd', 'booting')
   }
 
@@ -230,54 +274,31 @@ ${
   @bind
   public async add(extension: Extension.Module): Promise<void> {
     if (this.has(extension.name)) {
-      this.log('warn', {
-        message: `${extension.name} already added. skipping.`,
-      })
       return
     }
 
-    if (
-      this.app.project.isNotEmpty(
-        `extensions.${extension.name}.missingExtensions`,
-      ) ||
-      this.app.project.isNotEmpty(
-        `extensions.${extension.name}.missingPeers`,
-      )
-    ) {
-      this.log(
-        'error',
-        chalk.red`
-**********************************
-${extension.name} has missing dependencies
-${extension.name} will not be booted
-**********************************
-`,
-      )
+    await this.setController(extension)
+    await this.registerExtension(extension.name)
+    await this.bootExtension(extension.name)
+  }
 
-      return
-    }
+  @bind
+  public async lifecycle() {
+    await Promise.all(
+      Object.entries(this.all()).map(
+        async ([name, controller]: [string, Controller]) => {
+          await controller.register()
+        },
+      ),
+    )
 
-    if (
-      this.app.project.isNotEmpty(
-        `extensions.${extension.name}.missingExtensions`,
-      )
-    ) {
-      this.log('error', chalk.red`${extension.name} is missing`)
-      this.log(
-        'error',
-        chalk.red`${extension.name} will not be booted`,
-      )
-
-      return
-    }
-
-    const controller = this.makeController(extension)
-
-    await controller.register()
-
-    await controller.boot()
-
-    this.set(controller.name, controller)
+    await Promise.all(
+      Object.entries(this.all()).map(
+        async ([name, controller]: [string, Controller]) => {
+          await controller.boot()
+        },
+      ),
+    )
   }
 
   /**
