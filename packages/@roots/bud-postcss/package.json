@@ -63,7 +63,9 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
-  "bud": {},
+  "bud": {
+    "type": "extension"
+  },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",

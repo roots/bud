@@ -2,6 +2,7 @@ import * as oclif from '@oclif/core'
 import {pkgUp} from '@roots/bud-support'
 import {readJson} from 'fs-extra'
 
+import {Peers} from '../../services/Project/peers/peers.service'
 import {Command} from '../Command/index.js'
 
 /**
@@ -44,48 +45,27 @@ export default class Install extends Command {
    */
   public async run() {
     await this.prime(Install)
-
     const manifestPath = await pkgUp()
 
-    const {version: frameworkVersion} = await readJson(
-      manifestPath,
-    )
+    const {version} = await readJson(manifestPath)
 
-    process.stdout.write('Installing extensions...\n')
+    const peers = new Peers(this.app, version)
 
-    const installExtensions = this.app.project
-      .getEntries('extensions')
-      .reduce((a, [name, extension]) => {
-        return [
-          ...a,
-          ...extension.missingExtensions.map(
-            ext =>
-              ({
-                name: ext,
-                version: frameworkVersion,
-              } ?? null),
-          ),
-        ]
-      }, [])
-      .filter(Boolean)
+    console.log(peers.graph.inspect())
+
+    const installExtensions = peers.graph
+      .getAttribute('missingPeers')
+      .reduce(
+        (acc, {peer, version}) => [
+          ...acc,
+          {name: peer, version},
+        ],
+        [],
+      )
 
     process.stdout.write('Installing peers...\n')
 
-    if (installExtensions?.length) {
-      await this.app.dependencies.install(installExtensions)
-    }
-
-    this.app.project.buildProfile()
-
-    const installPeers = this.app.project
-      .getEntries('extensions')
-      .reduce((a, [name, extension]) => {
-        return [...a, ...(extension.missingPeers ?? [])]
-      }, [])
-
-    if (installPeers?.length) {
-      await this.app.dependencies.install(installPeers)
-    }
+    await this.app.dependencies.install(installExtensions)
 
     process.exit(0)
   }

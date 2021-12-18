@@ -1,3 +1,5 @@
+import {DirectedGraph} from 'graphology'
+
 import {Framework} from '../Framework'
 
 /**
@@ -14,20 +16,11 @@ export interface Interface {
   app: Framework
 
   /**
-   * Packages which have already been checked
-   *
-   * @public
-   */
-  profiled: Array<string>
-
-  /**
    * Collect packages.
    *
    * @public
    */
-  discover(
-    type: 'dependencies' | 'devDependencies',
-  ): Promise<this>
+  discover(): Promise<this>
 
   /**
    * Returns path for a module name (if findable)
@@ -49,4 +42,9 @@ export interface Interface {
    * @public
    */
   isExtension(manifest: Record<string, any>): boolean
+
+  /**
+   * Graph of peers
+   */
+  graph: DirectedGraph
 }

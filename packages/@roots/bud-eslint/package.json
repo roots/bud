@@ -82,10 +82,5 @@
   "peerDependencies": {
     "eslint": "7.32.0",
     "prettier": "2.5.1"
-  },
-  "peerDependenciesMeta": {
-    "prettier": {
-      "optional": true
-    }
   }
 }

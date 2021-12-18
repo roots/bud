@@ -74,6 +74,8 @@
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "cli-highlight": "^2.1.11",
+    "graphology": "^0.23.2",
+    "graphology-types": "^0.23.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.0",
     "signale": "^1.4.0",

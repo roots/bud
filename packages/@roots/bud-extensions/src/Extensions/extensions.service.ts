@@ -4,7 +4,6 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
@@ -71,22 +70,24 @@ export class Extensions extends Service implements Base {
     this.log('await', 'injecting project extensions')
 
     await Promise.all(
-      this.app.project
-        .getEntries('extensions')
-        .map(async ([k, extension]) => {
-          this.log('log', `...importing ${extension.name}`)
+      this.app.project.get('extensions').map(async extension => {
+        if (!extension.resolvable) {
+          this.app.error(
+            extension.name,
+            `is not resolvable due to missing dependencies`,
+          )
+        }
 
-          const importedExt = await import(extension.name)
+        this.log('log', `...importing ${extension.name}`)
 
-          if (this.has(importedExt.name)) {
-            this.log(
-              'log',
-              `...${importedExt.name} already added`,
-            )
-          }
+        const importedExt = await import(extension.name)
 
-          await this.setController(importedExt)
-        }),
+        if (this.has(importedExt.name)) {
+          this.log('log', `...${importedExt.name} already added`)
+        }
+
+        await this.setController(importedExt)
+      }),
     )
 
     await this.app.project
@@ -107,58 +108,6 @@ export class Extensions extends Service implements Base {
   @bind
   public async setController(extension): Promise<void> {
     if (this.rejected.includes(extension.name)) {
-      return
-    }
-
-    if (
-      this.app.project.get(
-        `extensions.${extension.name}.missingExtensions`,
-      )?.length > 0 ||
-      this.app.project.get(
-        `extensions.${extension.name}.missingPeers`,
-      )?.length > 0
-    ) {
-      this.log(
-        'error',
-        `
-${chalk.underline`${extension.name} has missing dependencies`}
-
-To prevent errors this extension will not be booted. However, bud will still continue trying to build the project.
-
-You should fix this by running:
-
-$ bud install
-
-Alternatively...
-${
-  this.app.project.get(
-    `extensions.${extension.name}.missingExtensions`,
-  ).length
-    ? `Ensure the following extensions are installed:
-  ${this.app.project
-    .getEntries(`extensions.${extension.name}.missingExtensions`)
-    .reduce(
-      (acc, curr) => (curr ? `${acc}- ${curr}\n` : acc),
-      `\n`,
-    )}`
-    : ``
-}
-${
-  this.app.project.get(
-    `extensions.${extension.name}.missingPeers`,
-  ).length
-    ? `Ensure the following peers are installed:
-  ${this.app.project
-    .getValues(`extensions.${extension.name}.missingPeers`)
-    .reduce(
-      (acc, pkg) => `${acc}- ${pkg.name}@${pkg.version}\n`,
-      `\n`,
-    )}`
-    : ``
-}`,
-      )
-
-      this.rejected.push(extension.name)
       return
     }
 

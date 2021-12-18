@@ -1,16 +1,12 @@
+/* eslint-disable simple-import-sort/imports */
 import {Framework, Service} from '@roots/bud-framework'
-import {
-  bind,
-  fs,
-  lodash,
-  pkgUp,
-  safeResolve,
-} from '@roots/bud-support'
+import {bind, fs, pkgUp, safeResolve} from '@roots/bud-support'
 import {posix} from 'path'
 
 import type {Peers as Model} from './peers.interface'
 
-const {isString, isUndefined} = lodash
+import {graph, graphPath} from './graph'
+
 const {readJson} = fs
 const {dirname, join} = posix
 
@@ -29,7 +25,9 @@ export class Peers implements Model.Interface {
     return this.app.project.log
   }
 
-  public profiled = []
+  public graph: graph = graph
+  public rootManifest: Record<string, any> = {}
+  public mergedDependencies: Record<string, any> = {}
 
   /**
    * Class constructor
@@ -50,21 +48,11 @@ export class Peers implements Model.Interface {
   @bind
   public async resolveModulePath(name: string) {
     try {
-      this.log('info', {
-        message: `resolving ${name} manifest path`,
-      })
-
       const result = await pkgUp({
         cwd: dirname(safeResolve(name)),
       })
-      const packagePath = dirname(result)
 
-      this.log('success', {
-        message: `resolved ${name}`,
-        suffix: packagePath,
-      })
-
-      return packagePath
+      return dirname(result)
     } catch (err) {
       this.log('error', `${name} manifest cannot be resolved`)
       return
@@ -78,31 +66,13 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async getManifest(manifestPath: string) {
+  public async getManifest(directoryPath: string) {
     try {
-      if (!manifestPath) {
-        this.log('error', {
-          message: `manifest could not be resolved`,
-          suffix: manifestPath,
-        })
-
-        return null
-      }
-
-      const manifest = await readJson(
-        join(manifestPath, '/package.json'),
-      )
-
-      this.log('success', {
-        message: `manifest resolved`,
-        suffix: manifestPath,
-      })
-
-      return manifest
+      return await readJson(join(directoryPath, '/package.json'))
     } catch (err) {
       this.log('error', {
         message: `manifest could not be resolved`,
-        suffix: manifestPath,
+        suffix: directoryPath,
       })
     }
   }
@@ -118,6 +88,20 @@ export class Peers implements Model.Interface {
     return manifest?.bud?.type === 'extension'
   }
 
+  @bind
+  public async setProjectJson() {
+    this.rootManifest = await this.getManifest(
+      this.app.path('project'),
+    )
+
+    this.mergedDependencies = Object.entries({
+      ...(this.rootManifest.devDependencies ?? {}),
+      ...(this.rootManifest.dependencies ?? {}),
+    }).reduce((a, [k, v]) => {
+      return k.startsWith('@types') ? a : {...a, [k]: v}
+    }, {})
+  }
+
   /**
    * Plumbs project dependencies and gathers data
    * on bud related modules
@@ -126,159 +110,158 @@ export class Peers implements Model.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async discover(
-    projectModuleType: 'dependencies' | 'devDependencies',
-  ) {
-    this.log('await', `analyzing ${projectModuleType}`)
+  public async discover() {
+    await this.setProjectJson()
 
-    const packages = this.app.project.getKeys(
-      `manifest.${projectModuleType}`,
+    this.graph.addNode('root', {
+      ...this.rootManifest,
+      mergedDependencies: this.mergedDependencies,
+      resolvable: true,
+    })
+
+    await Promise.all(
+      Object.entries(this.mergedDependencies).map(
+        async ([pkg, version]) => {
+          const resolvable = await this.collectNodes('root', pkg)
+
+          this.graph.setNodeAttribute(
+            pkg,
+            'resolvable',
+            resolvable,
+          )
+
+          this.graph.setEdgeAttribute(
+            'root',
+            pkg,
+            'resolvable',
+            resolvable,
+          )
+        },
+      ),
     )
 
-    this.log('info', {
-      message: `found ${packages.length} packages`,
-      suffix: projectModuleType,
-    })
-
-    const eligible = packages.filter((name: string) => {
-      return (
-        !isUndefined(name) &&
-        isString(name) &&
-        !name.includes('@types') &&
-        !this.profiled.includes(name)
-      )
-    })
-
-    this.log('info', {
-      message: `found ${eligible.length} potentially unprofiled extensions`,
-      suffix: projectModuleType,
-    })
-
-    await Promise.all(eligible.map(this.profileExtension))
+    this.app.project.set(
+      'extensions',
+      this.graph
+        .neighbors('root')
+        .filter(
+          node =>
+            this.graph.getNodeAttribute(node, 'type') ==
+            'extension',
+        )
+        .map(extension => {
+          return this.graph.getNodeAttributes(extension)
+        }),
+    )
 
     return this
   }
 
-  /**
-   * Profile extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
-  public async profileExtension(name: string) {
-    if (this.profiled.includes(name)) {
-      this.log('info', `${name} is already profiled. skipping`)
-      return
+  public async collectNodes(origin: string, target: string) {
+    !this.graph.hasNode(target) && this.graph.addNode(target)
+
+    const path = await this.resolveModulePath(target)
+    if (!path) {
+      this.graph.setNodeAttribute(origin, 'resolvable', false)
+      return false
     }
 
-    this.profiled.push(name)
+    let json = await this.getManifest(path)
+    if (!json) {
+      this.graph.setNodeAttribute(origin, 'resolvable', false)
+      return false
+    }
 
-    this.log('info', {
-      message: `profiling ${name}`,
-      suffix: `${this.profiled.length} packages profiled`,
-    })
-
-    const path = await this.resolveModulePath(name)
-    const manifest = await this.getManifest(path)
-    const records = {
-      missingExtensions: [],
-      missingPeers: [],
+    const type = json?.bud ? 'extension' : 'dependency'
+    json = {
+      ...(json ?? {}),
       path,
-      ...manifest,
+      peerDependencies: json?.peerDependencies ?? {},
+      extensions: json?.bud?.peers ?? [],
+      type,
+      resolvable: this.graph.getNodeAttribute(
+        origin,
+        'resolvable',
+      ),
     }
 
-    if (isUndefined(records?.bud)) {
-      this.log('info', `${name} is not an extension`)
-      return
+    this.graph.updateNodeAttributes(target, attr => ({
+      ...(attr ?? {}),
+      ...(json ?? {}),
+    }))
+
+    !this.graph.hasDirectedEdge(origin, target) &&
+      this.graph.addDirectedEdge(origin, target)
+
+    /**
+     * Regular dependency so we simply return whether or not its present
+     */
+    if (
+      this.graph.getNodeAttribute(target, 'type') !== 'extension'
+    ) {
+      return this.mergedDependencies[target] ? true : false
     }
 
-    if (isUndefined(records?.bud?.peers)) {
-      records.bud.peers = []
-    }
+    try {
+      /**
+       * Check the peerDependencies of the extension
+       */
+      const missingPeers = await Object.entries(
+        json.peerDependencies,
+      ).reduce(async (missing, [peer, version]) => {
+        const allMissing = await missing
 
-    this.app.project.set(`extensions.${name}`, records)
+        if (!this.mergedDependencies[peer]) {
+          allMissing.push({peer, version})
+        }
 
-    await this.profileDependencies(records)
-  }
+        return allMissing
+      }, Promise.resolve([]))
 
-  /**
-   * Profile extended dependencies
-   *
-   * @remarks
-   * Given a manifest, will separate peers
-   * and extensions for further processing.
-   *
-   * If an extension requires another extension, it will call
-   * itself recursively until it reaches bottom.
-   *
-   * If two extensions require one another it will not iterate
-   * infinitely as it checks if an extension exists before
-   * recursing.
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async profileDependencies(
-    manifest: Record<string, any>,
-  ) {
-    this.log('info', {
-      message: `profiling dependencies`,
-      suffix: manifest.name,
-    })
+      /**
+       * Check the extensions of the extension
+       */
+      const validExtensions = json.extensions.reduce(
+        async (resolvable, extension: string) => {
+          const allResolved = await resolvable
 
-    if (manifest.bud?.peers?.length) {
-      await Promise.all(
-        manifest.bud.peers.map(async (peer: string) => {
-          try {
-            await import(peer)
-          } catch {
-            this.app.project.merge(
-              `extensions.${manifest.name}.missingExtensions`,
-              [{name: peer, version: this.version}],
-            )
-            return
-          }
+          const extensionResolved = await this.collectNodes(
+            target,
+            extension,
+          )
 
-          await this.profileExtension(peer)
-        }),
+          const extensionsResolved =
+            allResolved === false ? false : extensionResolved
+
+          return Promise.resolve(extensionsResolved)
+        },
+        Promise.resolve(true),
       )
-    }
 
-    if (manifest.peerDependencies) {
-      await Promise.all(
-        Object.entries(manifest.peerDependencies).map(
-          async ([peerName, peerVersion]: [string, string]) => {
-            if (this.app.project.has(`peers.${peerName}`)) {
-              this.log('success', {
-                message: `required peer dependency is met`,
-                suffix: `${peerName}@${peerVersion}`,
-              })
+      const goodToGo =
+        missingPeers.length == 0 && validExtensions
 
-              return
-            }
+      if (!goodToGo) {
+        this.app.error(
+          target,
+          'has missing dependencies in its path',
+        )
+        graphPath(this.graph, 'root', target).map(node =>
+          this.graph.setNodeAttribute(node, 'resolvable', false),
+        )
+        this.app.error(missingPeers)
+        this.graph.updateAttribute('missingPeers', peers =>
+          Array.from(
+            new Set([...(peers ?? []), ...missingPeers]),
+          ),
+        )
+      }
 
-            this.app.project.set(`peers.${peerName}`, {
-              name: peerName,
-              version: peerVersion,
-            })
-
-            if (this.app.project.get(`installed.${peerName}`))
-              return
-
-            this.log('error', {
-              message: `required peer dependency is unmet`,
-              suffix: `${peerName}@${peerVersion}`,
-            })
-
-            this.app.project.merge(
-              `extensions.${manifest.name}.missingPeers`,
-              [{name: peerName, version: peerVersion}],
-            )
-          },
-        ),
-      )
+      return goodToGo
+    } catch (err) {
+      this.app.error(err)
+      return false
     }
   }
 }

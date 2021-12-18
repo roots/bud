@@ -138,22 +138,6 @@ export class Project
   }
 
   /**
-   * Read project package.json and record peer dependencies
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async resolvePeers() {
-    if (this.has('manifest.dependencies')) {
-      await this.peers.discover('dependencies')
-    }
-    if (this.has('manifest.devDependencies')) {
-      await this.peers.discover('devDependencies')
-    }
-  }
-
-  /**
    * Read manifest from disk
    *
    * @public
@@ -192,7 +176,7 @@ export class Project
 
     try {
       await this.loadManifest()
-      await this.resolvePeers()
+      await this.peers.discover()
       await this.searchConfigs()
     } catch (e) {
       this.log('error', {
@@ -213,7 +197,14 @@ export class Project
 
     await writeFile(
       this.profilePath,
-      jsonStringify(this.repository, null, 2),
+      jsonStringify(
+        {
+          ...this.repository,
+          graph: this.peers.graph.toJSON(),
+        },
+        null,
+        2,
+      ),
     )
 
     this.log('success', {
