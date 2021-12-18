@@ -11825,6 +11825,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+    "@types/postcss-import": ^14
     postcss: 8.3.11
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
