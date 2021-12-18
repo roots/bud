@@ -9,6 +9,10 @@ export type Plugin = string | NormalizedPlugin | CallableFunction
 
 export type Registrable = string | NormalizedPlugin
 
-export interface Registry {
-  [key: string]: [string, any?]
-}
+export interface Registry extends Record<string, any> {}
+
+export interface UserInput
+  extends Record<
+    string,
+    string | any | [string, any?] | [any, any?]
+  > {}

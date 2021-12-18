@@ -1,5 +1,5 @@
 import {bind} from './babel.dependencies'
-import {Registry} from './babel.interface'
+import {Registry, UserInput} from './babel.interface'
 
 export class Config {
   public plugins: Registry = {}
@@ -9,7 +9,7 @@ export class Config {
   @bind
   public setPreset(
     name: string,
-    preset: [string, any] | string,
+    preset: [string, any?] | string | any | [any, any?],
   ): this {
     if (Array.isArray(preset)) {
       this.presets[name] = preset
@@ -21,9 +21,7 @@ export class Config {
   }
 
   @bind
-  public setPresets(presets: {
-    [key: string]: [string, any] | string
-  }): this {
+  public setPresets(presets: UserInput): this {
     this.presets = Object.entries(presets).reduce(
       (presets, [name, preset]) => {
         if (Array.isArray(preset)) {
@@ -59,7 +57,7 @@ export class Config {
   @bind
   public setPlugin(
     name: string,
-    plugin: [any, any] | string,
+    plugin: string | any | [string, any?] | [any, any?],
   ): this {
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
@@ -71,9 +69,7 @@ export class Config {
   }
 
   @bind
-  public setPlugins(plugins: {
-    [key: string]: [any, any] | string
-  }): this {
+  public setPlugins(plugins: UserInput): this {
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => {
         if (Array.isArray(plugin)) {

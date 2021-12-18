@@ -256,6 +256,10 @@ export class Peers implements Model.Interface {
             new Set([...(peers ?? []), ...missingPeers]),
           ),
         )
+      } else {
+        this.graph.updateAttribute('extensions', extensions =>
+          Array.from(new Set([target, ...(extensions ?? [])])),
+        )
       }
 
       return goodToGo

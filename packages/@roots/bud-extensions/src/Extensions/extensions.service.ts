@@ -21,8 +21,6 @@ export class Extensions extends Service implements Base {
 
   public repository = {}
 
-  public rejected = []
-
   /**
    * Controller factory
    *
@@ -41,78 +39,103 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async registered(): Promise<void> {
-    this.log('time', 'instantiating built-ins')
-
+  public async boot(): Promise<void> {
+    /**
+     * Handle in-built extensions
+     */
     await Promise.all(
       this.getEntries().map(async ([key, extension]) => {
         this.setController(extension)
-        this.log('success', {
-          message: `${key} instantiated`,
-        })
+        this.log('success', {message: `${key} instantiated`})
       }),
     )
 
-    this.log('timeEnd', 'instantiating built-ins')
-  }
+    await this.registerExtensions()
+    await this.bootExtensions()
 
-  /**
-   * @override
-   * @public
-   */
-  @bind
-  public async boot(): Promise<void> {
     if (this.app.store.is('features.inject', false)) {
       this.log('log', 'injection disabled')
       return
     }
 
-    this.log('await', 'injecting project extensions')
+    const missingPeers =
+      this.app.project.peers.graph.getAttribute(
+        'missingPeers',
+      ) ?? []
 
-    await Promise.all(
-      this.app.project.get('extensions').map(async extension => {
-        if (!extension.resolvable) {
-          this.app.error(
-            extension.name,
-            `is not resolvable due to missing dependencies`,
+    const valid = await this.app.project.peers.graph
+      .getAttribute('extensions')
+      .reduce(async (promised, extension) => {
+        const valid = await promised
+
+        const attr =
+          this.app.project.peers.graph.getNodeAttributes(
+            extension,
+          )
+        const peers = attr.peerDependencies
+          ? Object.entries(attr.peerDependencies)
+          : []
+
+        const missing = peers.reduce((a, [k, v]) => {
+          if (missingPeers.includes(k)) a.push(k)
+          return a
+        }, [])
+
+        if (missing.length == 0) {
+          valid.push(attr)
+        } else {
+          this.log(
+            'error',
+            `${extension} missing dependencies. extension will not be used.`,
           )
         }
 
-        this.log('log', `...importing ${extension.name}`)
+        return valid
+      }, Promise.resolve([]))
 
-        const importedExt = await import(extension.name)
-
-        if (this.has(importedExt.name)) {
-          this.log('log', `...${importedExt.name} already added`)
-        }
-
-        await this.setController(importedExt)
+    /**
+     * Handle in-built extensions
+     */
+    await Promise.all(
+      valid.map(async extension => {
+        await this.importExtension(extension)
       }),
     )
 
-    await this.app.project
-      .getKeys('extensions')
-      .reduce(async (promised, key) => {
-        await promised
-        return this.registerExtension(key)
-      }, Promise.resolve())
+    await valid.reduce(async (promised, extension) => {
+      await promised
+      await this.registerExtension(this.get(extension.name))
+    }, Promise.resolve())
 
-    await this.app.project
-      .getKeys('extensions')
-      .reduce(async (promised, key) => {
-        await promised
-        await this.bootExtension(key)
-      }, Promise.resolve())
+    await valid.reduce(async (promised, extension) => {
+      await promised
+      await this.bootExtension(this.get(extension.name))
+    }, Promise.resolve())
+  }
+
+  @bind
+  public async importExtension(
+    extension: Record<string, any>,
+  ): Promise<void> {
+    if (!extension.resolvable) {
+      this.app.error(
+        extension.name,
+        `is not resolvable due to missing dependencies`,
+      )
+
+      return
+    }
+
+    this.log('log', `...importing ${extension.name}`)
+    const importedExt = await import(extension.name)
+
+    if (this.has(importedExt.name)) return
+    await this.setController(importedExt)
   }
 
   @bind
   public async setController(extension): Promise<void> {
-    if (this.rejected.includes(extension.name)) {
-      return
-    }
-
     const controller = this.makeController(extension)
-
     this.set(controller.name, controller)
   }
 
@@ -120,24 +143,18 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async extensionLifecycle(): Promise<void> {
-    await this.registerExtensions()
-    await this.bootExtensions()
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async registerExtension(key: string): Promise<void> {
+  public async registerExtension(
+    extension: Controller,
+  ): Promise<void> {
     try {
-      const controller = this.get<Controller>(key)
-      if (!controller) return
+      if (!extension) return
+      this.app.log('registering', extension.name)
 
-      await controller.mixin()
-      await controller.api()
-      await controller.register()
+      await extension.mixin()
+      await extension.api()
+      await extension.register()
     } catch (err) {
+      this.app.log(extension)
       throw new Error(err)
     }
   }
@@ -146,13 +163,13 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async bootExtension(key: string): Promise<void> {
+  public async bootExtension(
+    extension: Controller,
+  ): Promise<void> {
     try {
-      const controller = this.get<Controller>(key)
-      if (!controller) {
-        return
-      }
-      await controller.boot()
+      if (!extension) return
+
+      await extension.boot()
     } catch (err) {
       throw new Error(err)
     }
@@ -165,10 +182,13 @@ export class Extensions extends Service implements Base {
   public async registerExtensions(): Promise<void> {
     this.log('time', 'registering')
 
-    await this.getKeys().reduce(async (promised, controller) => {
-      await promised
-      await this.registerExtension(controller)
-    }, Promise.resolve())
+    await this.getEntries().reduce(
+      async (promised, [key, controller]) => {
+        await promised
+        await this.registerExtension(controller)
+      },
+      Promise.resolve(),
+    )
 
     this.log('timeEnd', 'registering')
   }
@@ -179,10 +199,14 @@ export class Extensions extends Service implements Base {
   @bind
   public async bootExtensions(): Promise<void> {
     this.log('time', 'booting')
-    await this.getKeys().reduce(async (promised, controller) => {
-      await promised
-      await this.bootExtension(controller)
-    }, Promise.resolve())
+    await this.getEntries().reduce(
+      async (promised, [key, controller]) => {
+        await promised
+        await this.bootExtension(controller)
+      },
+      Promise.resolve(),
+    )
+
     this.log('timeEnd', 'booting')
   }
 
@@ -221,32 +245,11 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      return
-    }
+    if (this.has(extension.name)) return
 
     await this.setController(extension)
-    await this.registerExtension(extension.name)
-    await this.bootExtension(extension.name)
-  }
-
-  @bind
-  public async lifecycle() {
-    await Promise.all(
-      Object.entries(this.all()).map(
-        async ([name, controller]: [string, Controller]) => {
-          await this.registerExtension(name)
-        },
-      ),
-    )
-
-    await Promise.all(
-      Object.entries(this.all()).map(
-        async ([name, controller]: [string, Controller]) => {
-          await this.bootExtension(name)
-        },
-      ),
-    )
+    await this.registerExtension(this.get(extension.name))
+    await this.bootExtension(this.get(extension.name))
   }
 
   /**
@@ -256,9 +259,11 @@ export class Extensions extends Service implements Base {
   public async processQueue(): Promise<void> {
     if (!this.queue.length) return
 
-    this.queue = await Promise.all(
+    await Promise.all(
       this.queue.map(async extension => {
-        await (this.app as any).use(extension)
+        await this.setController(extension)
+        await this.registerExtension(this.get(extension.name))
+        await this.bootExtension(this.get(extension.name))
       }),
     )
 

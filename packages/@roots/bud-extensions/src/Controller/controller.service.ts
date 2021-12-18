@@ -41,14 +41,12 @@ export class Controller {
    */
   public meta: {
     instance: string
-    valid: boolean
     registered: boolean
     booted: boolean
   } = {
     instance: null,
     registered: false,
     booted: false,
-    valid: true,
   }
 
   public get moduleLogger(): Signale {
@@ -95,7 +93,6 @@ export class Controller {
     this._app = () => _app
     this.log = this.app.extensions.log
     this.meta.instance = this.app.name
-    this.meta.valid = true
 
     if (!extension) {
       this.log('log', this.app.extensions.getKeys())
@@ -378,81 +375,16 @@ export class Controller {
    */
   @bind
   public async register(): Promise<Controller> {
-    if (!this._module.register) return this
+    if (!this._module.register) {
+      this.meta.registered = true
+      return this
+    }
 
     if (this.meta.registered === true) {
       this.log('warn', this._module.name, 'already registered')
       return this
     }
-
-    if (this.meta.valid !== true) {
-      this.log(
-        'warn',
-        this._module.name,
-        'marked as invalid. will not be registered',
-      )
-
-      this.app.project
-        .get(`extensions.${this.name}.peers`)
-        .forEach(peer => {
-          if (this.app.extensions.has(peer)) {
-            this.app.extensions.get(peer).meta.valid = false
-          }
-        })
-
-      return this
-    }
-
     this.meta.registered = true
-
-    await Promise.all(
-      this.app.project
-        .get(`extensions.${this.name}.bud.peers`)
-        ?.map(async key => {
-          if (
-            !this.app.extensions.has(key) ||
-            this.app.extensions.get(key).meta.registered !== true
-          ) {
-            if (
-              this.app.project.get(
-                `extensions.${key}.missingExtensions`,
-              )?.length ||
-              this.app.project.get(
-                `extensions.${key}.missingPeers`,
-              )?.length
-            ) {
-              this.log(
-                'error',
-                `${key} is missing extensions or peers`,
-              )
-              this.meta.valid = false
-              return
-            }
-
-            if (!this.app.extensions.has(key)) {
-              this.log('log', {
-                message: `${this.name} requires ${key} and it has not yet been imported. importing now.`,
-              })
-
-              try {
-                const importedExt = await import(key)
-                await this.app.extensions.setController(
-                  importedExt,
-                )
-              } catch (e) {
-                this.log('error', {
-                  message: `ERROR: ${this.name} transitive import of ${key}`,
-                  error: e,
-                })
-              }
-            }
-
-            await this.app.extensions.registerExtension(key)
-          }
-        }),
-    )
-
-    if (this.meta.valid !== true) return
 
     if (isFunction(this._module.register))
       await this._module.register(this.app, this.moduleLogger)
@@ -470,8 +402,7 @@ export class Controller {
    */
   @bind
   public async api(): Promise<Controller> {
-    if (this.meta.valid !== true || !this._module.api)
-      return this
+    if (!this._module.api) return this
 
     const methodMap: Record<string, CallableFunction> =
       isFunction(this._module.api)
@@ -501,8 +432,9 @@ export class Controller {
    */
   @bind
   public async mixin(): Promise<this> {
-    if (this.meta.valid !== true || !this._module.mixin)
+    if (!this._module.mixin) {
       return this
+    }
 
     let classMap
 
@@ -535,12 +467,11 @@ export class Controller {
    */
   @bind
   public async boot(): Promise<this> {
-    if (
-      this.meta.booted ||
-      !this._module.boot ||
-      this.meta.valid !== true
-    )
+    if (this.meta.booted || !this._module.boot) {
+      this.meta.booted = true
       return this
+    }
+
     this.meta.booted = true
 
     if (isFunction(this._module.boot)) {

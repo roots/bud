@@ -41,7 +41,7 @@ export interface Extensions extends Service {
    */
   registerExtensions(): Promise<void>
 
-  registerExtension(key: string): Promise<void>
+  registerExtension(controller: any): Promise<void>
 
   /**
    * Boot event for all extensions
@@ -50,7 +50,7 @@ export interface Extensions extends Service {
    */
   bootExtensions(): Promise<void>
 
-  bootExtension(key: string): Promise<void>
+  bootExtension(controller: any): Promise<void>
 
   /**
    * Get {@link ApplyPlugin} instances to be included in compilation
