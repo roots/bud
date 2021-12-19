@@ -22,10 +22,10 @@ Install **@roots/bud-postcss** to your project.
 yarn add @roots/bud-postcss --dev
 ```
 
-Run `bud init` after installation to ensure peer dependencies are met.
+Run `bud install` after installation to ensure peer dependencies are met.
 
 ```shell
-yarn bud init
+yarn bud install
 ```
 
 ## Documentation

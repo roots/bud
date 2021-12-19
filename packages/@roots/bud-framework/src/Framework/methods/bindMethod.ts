@@ -1,18 +1,9 @@
 import {Framework} from '../'
 
-/**
- * Generic type defining the {@link Service.bindMacro} map of
- * callable function interfaces to {@link Framework} property keys
- *
- * @internal
- */
 export interface GenericFunctionMap {
   [key: string]: CallableFunction
 }
 
-/**
- * @internal
- */
 export interface bindMethod {
   <FunctionMap = GenericFunctionMap>(
     properties: FunctionMap,

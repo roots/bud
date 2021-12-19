@@ -16,7 +16,7 @@ import {Service} from './'
  * Compiles {@link @roots/bud-framework#Build.config | Build config}
  * and reports on stats, progress, and errors encountered during compilation.
  *
- * @public @core @container
+ * @public
  */
 interface Compiler extends Service {
   /**

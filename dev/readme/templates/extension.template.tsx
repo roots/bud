@@ -23,11 +23,11 @@ export const Extension = ({name, description, manifest}) => (
     <code lang="shell">yarn add {name} --dev</code>
 
     <p>
-      Run `bud init` after installation to ensure peer
+      Run `bud install` after installation to ensure peer
       dependencies are met.
     </p>
 
-    <code lang="shell">yarn bud init</code>
+    <code lang="shell">yarn bud install</code>
 
     <Docs url={manifest.url.docs} />
 

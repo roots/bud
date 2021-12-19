@@ -10,7 +10,7 @@ import {
 /**
  * Adds Babel transpiler support to Framework projects
  *
- * @public @config
+ * @public
  */
 export const name = '@roots/bud-babel'
 

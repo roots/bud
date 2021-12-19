@@ -4,7 +4,7 @@ import * as Peers from './'
 /**
  * Peer dependencies abstract class
  *
- * @public @core
+ * @public
  */
 export abstract class Abstract implements Peers.Interface {
   /**

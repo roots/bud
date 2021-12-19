@@ -3,7 +3,7 @@ import {Service} from './Service'
 /**
  * Dependencies service container
  *
- * @public @core @container
+ * @public
  */
 export interface Dependencies extends Service {
   /**
