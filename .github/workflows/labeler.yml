@@ -8,5 +8,6 @@ jobs:
     steps:
       - uses: crastos/labeler@main
         with:
+          configuration-path: config/labeler.config.yml
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
           sync-labels: true

@@ -76,7 +76,9 @@ export class Project
           this.app.options.config.location[key],
       )
 
-    ;['src', 'dist', 'storage', 'modules'].map(setLocale)
+    ;['project', 'src', 'dist', 'storage', 'modules'].map(
+      setLocale,
+    )
   }
 
   /**
@@ -117,7 +119,11 @@ export class Project
   @bind
   public async boot() {
     this.app.hooks.on('event.build.make.after', async () => {
-      await this.app.hooks.promised('event.project.write', this)
+      await this.app.hooks.filterAsync(
+        'event.project.write',
+        this,
+      )
+
       await this.writeProfile()
     })
   }
@@ -196,15 +202,13 @@ export class Project
   public async writeProfile() {
     await ensureFile(this.profilePath)
 
-    this.set('store', this.app.store.all())
-
     await writeFile(
       this.profilePath,
       jsonStringify(this.repository, null, 2),
     )
 
     this.log('success', {
-      message: 'writing profile to disk',
+      message: 'write profile',
       suffix: this.profilePath,
     })
   }

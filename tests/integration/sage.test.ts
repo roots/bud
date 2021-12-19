@@ -1,4 +1,4 @@
-import {Project} from '../util/integration'
+import Project from '../../dev/jest/project'
 
 jest.setTimeout(60000)
 
@@ -179,14 +179,6 @@ describe.skip('examples/sage', () => {
     )
 
     expect(Object.keys(project.manifest)).toMatchSnapshot()
-  })
-
-  it('[snapshots] .budfiles/bud.webpack.config.js', async () => {
-    expect(project.webpackConfig.name).toMatchSnapshot()
-    expect(project.webpackConfig.entry).toMatchSnapshot()
-    expect(project.webpackConfig.mode).toMatchSnapshot()
-    expect(project.webpackConfig.optimization).toMatchSnapshot()
-    expect(project.webpackConfig.bail).toMatchSnapshot()
   })
 
   it('[snapshots] module map matches snapshot', async () => {

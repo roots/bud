@@ -1,0 +1,33 @@
+---
+id: bud-extensions.controller.mergeoption
+title: mergeoption() method
+sidebar_label: mergeoption() method
+hide_title: true
+sidebar: "api"
+slug: mergeoption
+---
+
+## Controller.mergeOption() method
+
+Merge option
+
+Signature:
+
+```typescript
+mergeOption(key: any, options: any): void;
+```
+
+## Parameters
+
+| Parameter | Type | Description    |
+| --------- | ---- | -------------- |
+| key       | any  | option key     |
+| options   | any  | value to merge |
+
+Returns:
+
+void
+
+## Remarks
+
+Supplied options must be an object or container of options to merge

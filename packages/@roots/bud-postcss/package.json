@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -70,25 +70,26 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
-    "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.14",
     "@types/signale": "1.4.2",
-    "jest": "27.3.1",
-    "postcss": "8.3.11",
+    "jest": "27.4.5",
+    "postcss": "8.4.5",
     "postcss-import": "14.0.2",
-    "postcss-preset-env": "7.0.1",
-    "webpack": "5.64.2"
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.0.2",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "postcss-loader": "6.2.0",
+    "postcss-loader": "6.2.1",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "postcss": "8.3.11",
+    "postcss": "8.4.5",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
-    "postcss-preset-env": "7.0.1"
+    "postcss-preset-env": "7.0.2"
   },
   "peerDependenciesMeta": {
     "postcss-import": {
@@ -97,6 +98,5 @@
     "postcss-preset-env": {
       "optional": true
     }
-  },
-  "stableVersion": "4.6.0"
+  }
 }

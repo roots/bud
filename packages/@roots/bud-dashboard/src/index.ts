@@ -14,9 +14,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation
+ *  @packageDocumentation
  */
 
 export {Dashboard} from './Dashboard'
-export {Error} from './Error'
-export {Boot} from './Boot'

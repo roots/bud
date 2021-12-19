@@ -7,21 +7,34 @@
 *.tsbuildinfo
 /.npmrc
 /packages/@roots/*/types
-/site/api/*
-/examples/*/*.bkup.json
+
+# verdaccio
+/dev/build/verdaccio/conf/htpasswd
+/dev/build/verdaccio/plugins/*
+!/dev/build/verdaccio/plugins/.gitkeep
+/dev/build/verdaccio/storage/*
+!/dev/build/verdaccio/storage/.gitkeep
+
+# Docusaurus
+/site/.docusaurus
+/site/.cache-loader
+/site/build
+/site/.netlify
+/site/src/api/**/*.*
 
 # jest
 coverage
 
 # pacman
 node_modules
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-!.yarn/local
+/config/yarn/*
+!/config/yarn/patches
+!/config/yarn/releases
+!/config/yarn/plugins
+!/config/yarn/sdks
+!/config/yarn/versions
+!/config/yarn/@bud
+!/config/yarn/yarnrc.yml
 .pnp.*
 
 # bud

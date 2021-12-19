@@ -1,17 +1,30 @@
 import type {Framework, Server} from '@roots/bud-framework'
 
 export interface serve {
-  (config?: Partial<Server.Configuration>): Framework
+  (port: number): Framework
+}
+
+export interface serve {
+  (url: Server.Configuration['dev']['url']): Framework
+}
+
+export interface serve {
+  (config: Partial<Server.Configuration['dev']>): Framework
 }
 
 export const serve: serve = function (config) {
-  this as Framework
+  const ctx = this as Framework
 
-  config.host && this.store.set('server.host', config.host)
-  config.port && this.store.set('server.port', config.port)
+  if (typeof config === 'number') {
+    ctx.store.set('server.dev.url', `http://localhost:${config}`)
+    return ctx
+  }
 
-  config.middleware &&
-    this.store.merge('server.middleware', config.middleware)
+  if (typeof config === 'string') {
+    ctx.store.set('server.dev.url', config)
+    return ctx
+  }
 
-  return this
+  ctx.store.set('server.dev', config)
+  return ctx
 }

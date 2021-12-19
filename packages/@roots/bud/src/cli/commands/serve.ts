@@ -1,16 +1,11 @@
-import {flags} from '@oclif/command'
+import * as oclif from '@oclif/core'
 
-import Build from './build'
+import Build from './build.js'
 
 /**
  * @public
  */
 export default class Serve extends Build {
-  /**
-   * @public
-   */
-  public static id = 'serve'
-
   /**
    * @public
    */
@@ -36,7 +31,10 @@ export default class Serve extends Build {
    */
   public static flags = {
     ...Build.flags,
-    mode: flags.string({
+    log: oclif.Flags.boolean({
+      default: false,
+    }),
+    mode: oclif.Flags.string({
       default: 'development',
       options: ['development', 'production'],
       hidden: true,
@@ -50,9 +48,10 @@ export default class Serve extends Build {
     await this.prime(Serve)
     await this.build()
 
-    this.app.hooks.on('event.compiler.done', stats =>
-      this.notifier.notify(this.app, stats),
-    )
+    this.app.hooks.on('event.compiler.done', stats => {
+      this.notifier.notify(this.app, stats)
+      return stats
+    })
 
     await this.app.api.call('run', [])
   }

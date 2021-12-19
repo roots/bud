@@ -11,7 +11,9 @@ export class Span {
 
   public get children() {
     return Array.isArray(this.props.children)
-      ? this.props.children.join('')
+      ? this.props.children
+          .map(child => (child.render ? child.render() : child))
+          .join('')
       : this.props.children
   }
 }

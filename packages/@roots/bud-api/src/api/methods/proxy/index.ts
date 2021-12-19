@@ -1,41 +1,62 @@
-import {Configuration, Framework} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
-
-const {isUndefined} = lodash
+import type {Framework, Server} from '@roots/bud-framework'
 
 export interface proxy {
-  (options?: Configuration['server']['proxy']): Framework
+  (config?: Server.Configuration['proxy']['url']): Framework
 }
 
 export interface proxy {
-  (options?: boolean): Framework
+  (config?: boolean): Framework
 }
 
 export interface proxy {
-  (
-    options?: Configuration['server']['proxy']['target'],
-  ): Framework
+  (config?: Partial<Server.Configuration['proxy']>): Framework
 }
 
-export const proxy: proxy = function (options) {
-  this as Framework
+export const proxy: proxy = function (
+  config:
+    | Server.Configuration['proxy']['url']
+    | Partial<Server.Configuration['proxy']>
+    | boolean,
+) {
+  const ctx = this as Framework
 
-  if (options === false) {
-    this.store.set('server.middleware.proxy', false)
-    return this
+  if (typeof config === 'undefined') {
+    ctx.api.log('log', 'enabling proxy')
+    ctx.store.set('server.middleware.proxy', true)
   }
 
-  this.store.set('server.middleware.proxy', true)
-  if (options === true || isUndefined(options)) {
-    return this
+  if (typeof config === 'boolean') {
+    ctx.api.log(
+      'log',
+      config ? 'enabling' : 'disabling',
+      'proxy',
+    )
+    ctx.store.set('server.middleware.proxy', config)
+    return ctx
   }
 
-  if (typeof options === 'string') {
-    this.store.set('server.proxy.target', options)
-    return this
+  ctx.store.set('server.middleware.proxy', true)
+  ctx.api.log('log', 'enabling proxy')
+
+  if (typeof config === 'number') {
+    ctx.store.set(
+      'server.proxy.url',
+      `http://localhost:${config}`,
+    )
+    return ctx
   }
 
-  this.store.merge('server.proxy', options)
+  if (typeof config === 'string') {
+    ctx.store.set('server.proxy.url', config)
+    return ctx
+  }
 
-  return this
+  ctx.store.set('server.proxy', config)
+
+  ctx.api.log('log', {
+    message: 'proxy url set',
+    suffix: config,
+  })
+
+  return ctx
 }

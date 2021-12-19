@@ -17,7 +17,7 @@
  * @packageDocumentation
  */
 
-import {Sage} from './Sage'
+import {Sage} from './sage.preset'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -25,4 +25,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot} = Sage
+export const {name, register} = Sage

@@ -5,7 +5,7 @@ import {Application, Instance, Middleware} from '.'
 /**
  * Server service interface
  *
- * @core @public @container
+ *  @public
  */
 export default interface Interface extends Service {
   /**
@@ -40,13 +40,6 @@ export default interface Interface extends Service {
   middleware: Middleware
 
   /**
-   * Assets
-   *
-   * @public
-   */
-  assets: string[]
-
-  /**
    * Watcher instance
    *
    * @public
@@ -70,13 +63,6 @@ export default interface Interface extends Service {
    * @public
    */
   run(): Promise<this>
-
-  /**
-   * Inject client scripts into compilation
-   *
-   * @public
-   */
-  inject(): void
 
   /**
    * Close the server connection

@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
@@ -7,7 +7,6 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
       "tailwindcss",
       "@roots/bud-api",
       "@roots/bud-postcss"

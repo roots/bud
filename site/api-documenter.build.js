@@ -5,13 +5,12 @@ const {
   ensureFile,
   writeFile,
   createReadStream,
-  remove,
 } = require('fs-extra')
 const {createInterface} = require('readline')
 const {parse, join} = require('path')
 const globby = require('globby')
 const execa = require('execa')
-const {prettier} = require('@roots/bud-support')
+const {format} = require('prettier')
 
 /**
  * Adapted from faast.js' api-extractor/docusaurus adapter
@@ -28,8 +27,13 @@ const ensureDirs = async () => {
     await Promise.all(
       apiOuts.map(async out => {
         const path = join(out, 'md')
+        const tmpPath = join(out, 'tmp')
+
         console.log(`ensuring ${path} exists`)
-        await ensureDir(join(out, 'md'))
+        await ensureDir(path)
+
+        console.log(`ensuring ${path} exists`)
+        await ensureDir(tmpPath)
         return
       }),
     )
@@ -247,12 +251,9 @@ async function formatMarkdown() {
 
         await writeFile(
           outputFile,
-          prettier.format(
-            frontmatter.concat(output).join('\n').trim(),
-            {
-              parser: 'mdx',
-            },
-          ),
+          format(frontmatter.concat(output).join('\n').trim(), {
+            parser: 'mdx',
+          }),
         )
       } catch (err) {
         throw new Error(err)

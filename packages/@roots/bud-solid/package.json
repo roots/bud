@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-solid",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "solid-js support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -66,18 +66,18 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
+    "@babel/core": "7.16.5",
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "7.29.0",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.14",
     "eslint": "7.32.0",
-    "jest": "27.3.1",
-    "solid-js": "1.2.5",
-    "type-fest": "2.5.4",
-    "webpack": "5.64.2"
+    "jest": "27.4.5",
+    "solid-js": "1.2.6",
+    "type-fest": "2.8.0",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
@@ -85,8 +85,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@babel/plugin-syntax-jsx": "7.16.0",
+    "@babel/plugin-syntax-jsx": "7.16.5",
     "solid-js": "^1.1.7"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

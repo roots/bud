@@ -1,6 +1,12 @@
 #!/bin/bash
 
-registry=http://localhost:4873
+# arm64 compatibility fix
+# implicating optipng
+# @see https://git.io/JDU41
+
+export CPPFLAGS=-DPNG_ARM_NEON_OPT=0
+
+registry=http://verdaccio:4873
 user=test
 password=test
 
@@ -9,22 +15,11 @@ echo "Installing yarn"
 
 cd /bud
 
-echo "verdaccio auth"
-  npm config set registry $registry
-  npm config set user $user
-  npm config set password $password
-
 echo "bud make"
 cd /bud
 
-echo Install
-yarn install --immutable
+yarn @bud make
 
-echo Build
-yarn kjo build
-
-echo Lint
-yarn kjo lint --eslint --skypack
-
-echo Tests
-yarn kjo test
+while true; do
+  sleep 100
+done

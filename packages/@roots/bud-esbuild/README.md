@@ -1,37 +1,18 @@
 <p align="center">
-  <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100" />
+  <img src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100" alt="Bud" />
 </p>
 
 <p align="center">
-  <img
-    alt="MIT License"
-    src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
-  />
-  <a
-    href="https://app.fossa.com/projects/git%2Bgithub.com%2Froots%2Fbud?ref=badge_small"
-    alt="FOSSA Status"
-  >
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Froots%2Fbud.svg?type=small" />
-  </a>
-  <a href="https://www.npmjs.com/package/@roots/bud">
-    <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
-  </a>
-  <a href="https://codecov.io/gh/roots/bud">
-    <img src="https://codecov.io/gh/roots/bud/branch/next/graph/badge.svg?token=DRJ28OD8XD" />
-  </a>
-  <a href="https://twitter.com/rootswp">
-    <img
-      alt="Follow Roots"
-      src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square"
-    />
-  </a>
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square" /> <img alt="npm" src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" /> <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
 <h1 align="center">
   <strong>@roots/bud-esbuild</strong>
 </h1>
 
-ESBuild transpilation extension for Bud projects
+<p align="center">
+  ESBuild transpilation extension for Bud projects
+</p>
 
 ## Installation
 
@@ -41,10 +22,10 @@ Install **@roots/bud-esbuild** to your project.
 yarn add @roots/bud-esbuild --dev
 ```
 
-Run `bud init` after installation to ensure peer dependencies are met.
+Run `bud install` after installation to ensure peer dependencies are met.
 
 ```shell
-yarn bud init
+yarn bud install
 ```
 
 ## Documentation
@@ -64,11 +45,13 @@ Keep track of development and community news.
 ## Contributing
 
 Contributions are welcome from everyone.
+
 We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
 ## Sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+
 <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>

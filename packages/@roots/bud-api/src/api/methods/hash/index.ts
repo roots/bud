@@ -5,6 +5,10 @@ export interface hash {
 }
 
 export const hash: hash = function (enabled = true) {
+  this as Framework
+
+  enabled = this.isProduction && enabled
+
   this.store.set('features.hash', enabled)
 
   this.api.log('success', {

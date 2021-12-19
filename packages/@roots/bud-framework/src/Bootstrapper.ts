@@ -7,7 +7,7 @@ import {Framework} from './'
  * functionality and access to {@link Framework}
 .
  *
- * @public @core @container
+ * @public
  */
 export abstract class Bootstrapper<
   T = any,

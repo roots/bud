@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "Image minification for `@roots/bud` projects",
   "repository": {
     "type": "git",
@@ -55,9 +55,9 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
-    "jest": "27.3.1",
-    "webpack": "5.64.2"
+    "@types/node": "16.11.14",
+    "jest": "27.4.5",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "helpful-decorators": "^2.1.0",
@@ -69,7 +69,7 @@
     "imagemin-gifsicle": "7.0.0",
     "imagemin-jpegtran": "7.0.0",
     "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "10.0.0"
+    "imagemin-svgo": "10.0.1"
   },
   "peerDependenciesMeta": {
     "imagemin-gifsicle": {
@@ -85,7 +85,6 @@
       "optional": true
     }
   },
-  "stableVersion": "4.6.0",
   "contributors": [
     {
       "name": "kellymears",

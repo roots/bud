@@ -37,7 +37,7 @@ export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin =
      *
      * @public
      */
-    options(app: Framework) {
+    options: (app: Framework) => {
       return {
         ...(app.env.getPublicEnv() ?? {}),
         ...(app.store.get(`extension.webpack-define-plugin`) ??

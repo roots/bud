@@ -105,6 +105,11 @@ export const config: Configuration = {
     manifest: true,
 
     /**
+     * @public
+     */
+    runtimeChunk: false,
+
+    /**
      * Enable code splitting
      *
      * @public
@@ -218,8 +223,8 @@ export const config: Configuration = {
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
-    publicPath: '',
     storage: '.budfiles',
+    publicPath: '',
   },
 
   /**
@@ -230,6 +235,7 @@ export const config: Configuration = {
   build: {
     bail: true,
     devtool: false,
+    infrastructureLogging: {console: false},
     node: false,
     output: {
       publicPath: '',
@@ -260,6 +266,21 @@ export const config: Configuration = {
         '.yaml',
         '.xml',
       ],
+    },
+    stats: {
+      assets: true,
+      cached: true,
+      chunks: false,
+      chunkModules: false,
+      colors: true,
+      children: true,
+      errors: true,
+      hash: true,
+      modules: false,
+      outputPath: true,
+      entrypoints: false,
+      performance: false,
+      warnings: true,
     },
   },
 
@@ -294,22 +315,31 @@ export const config: Configuration = {
     watch: {
       files: [],
     },
+
     middleware: {
       dev: true,
       hot: true,
       proxy: false,
     },
+
     browser: {
       indicator: true,
       overlay: true,
       log: true,
     },
-    proxy: {
-      target: 'localhost:8080',
+
+    dev: {
+      url: 'http://localhost:3000',
     },
-    host: 'localhost',
-    port: 3000,
-    methods: ['GET', 'HEAD'],
+
+    proxy: {
+      url: 'http://localhost:8080',
+      replace: {
+        href: true,
+        window: true,
+        publicPath: true,
+      },
+    },
   },
 
   /**

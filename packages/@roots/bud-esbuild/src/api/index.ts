@@ -1,1 +1,0 @@
-export {setOptions} from './setOptions'

@@ -1,7 +1,7 @@
-import Base from '@oclif/command'
+import * as oclif from '@oclif/core'
 import * as Framework from '@roots/bud-framework'
 
-import {Bud} from '../..'
+import {Bud} from '../../'
 import * as CLI from '../cli.interface'
 import * as flags from '../flags'
 import {Notifier} from '../Notifier'
@@ -10,55 +10,41 @@ import {Runner} from '../Runner'
 /**
  * cli base command
  *
- * @public @virtual
+ * @internal
  */
-export abstract class Command extends Base {
-  /**
-   * Command title
-   *
-   * @public
-   */
-  public static title: typeof Base.title
-
-  /**
-   * Command description
-   *
-   * @public
-   */
-  public static description: typeof Base.description = ''
-
+export abstract class Command extends oclif.Command {
   /**
    * Application instance
    *
-   * @public
+   * @internal
    */
   public app: Bud
 
   /**
    * Build helper
    *
-   * @public
+   * @internal
    */
   public runner: Runner
 
   /**
    * Node notifier
    *
-   * @public
+   * @internal
    */
   public notifier: Notifier
 
   /**
    * Command parser output object
    *
-   * @public
+   * @internal
    */
   public cli: CLI.Options
 
   /**
    * Command flags
    *
-   * @public
+   * @internal
    */
   public static flags = {
     ...flags.base,
@@ -68,13 +54,13 @@ export abstract class Command extends Base {
   /**
    * Command logging instance
    *
-   * @public
+   * @internal
    */
   public logger: Framework.Logger['instance']
 
   /**
    * True if running in jest env
-   * @public
+   * @internal
    */
   public get jest() {
     return process.env.JEST_WORKER_ID !== undefined
@@ -83,7 +69,7 @@ export abstract class Command extends Base {
   /**
    * Initialize command
    *
-   * @public
+   * @internal
    */
   public async init() {
     this.notifier = new Notifier()
@@ -93,27 +79,19 @@ export abstract class Command extends Base {
    * @remarks
    * this should be an oclif hook (plugin api)
    *
-   * @public
+   * @internal
    */
-  public async prime(
-    ConcreteCommand: typeof Command,
-  ): Promise<void> {
-    this.cli = this.parse(ConcreteCommand)
-
+  public async prime(command): Promise<void> {
+    this.cli = await this.parse(command)
     this.runner = new Runner(this.cli)
-
     this.app = await this.runner.initialize()
-
     this.logger = this.app.logger.makeInstance()
-
-    this.logger = this.logger.scope(
-      ...this.app.logger.context,
-      `${ConcreteCommand.title}`,
-    )
-
     this.runner.logger = this.logger
   }
 
+  /**
+   * @internal
+   */
   public async build() {
     await this.runner.make()
   }

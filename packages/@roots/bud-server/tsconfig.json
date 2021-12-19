@@ -1,17 +1,13 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "allowJs": true,
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "types": [
-      "node"
-    ]
+    "declarationDir": "./types"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"

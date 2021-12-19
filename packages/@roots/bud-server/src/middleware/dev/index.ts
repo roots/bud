@@ -1,9 +1,4 @@
-import {middlewareConfigKeys} from './dev.constants'
-import {
-  isNull,
-  isUndefined,
-  WebpackDevMiddleware,
-} from './dev.dependencies'
+import {WebpackDevMiddleware} from './dev.dependencies'
 import type {Framework} from './dev.interface'
 
 /**
@@ -28,22 +23,9 @@ const makeOptions = (
   app: Framework,
 ): WebpackDevMiddleware.Options => ({
   writeToDisk: true,
-  index: 'index.html',
-  ...Object.fromEntries(
-    app.store
-      .mutate(
-        'server.headers',
-        (headers: Record<string, string>) => ({
-          ...headers,
-          ['X-Server']: '@roots/bud',
-        }),
-      )
-      .getEntries()
-      .filter(
-        ([key, option]: [string, unknown]) =>
-          middlewareConfigKeys.includes(key) &&
-          !isUndefined(option) &&
-          !isNull(option),
-      ),
-  ),
+  publicPath: app.hooks.filter('build.output.publicPath'),
+  stats: false,
+  headers: {
+    ['X-Server']: '@roots/bud',
+  },
 })

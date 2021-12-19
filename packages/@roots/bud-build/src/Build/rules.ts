@@ -8,19 +8,27 @@ import {Rule} from '../Rule'
 
 /**
  * Returns {@link Rule} for `asset/resource`
+ *
+ * @public
  */
 export const image = () =>
   new Rule({
     test: ({store}) => store.get('patterns.image'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
-    generator: {
-      filename: 'assets/[hash][ext][query]',
-    },
+    generator: app => ({
+      filename: `assets/${
+        app.store.is('features.hash', true) && app.isProduction
+          ? app.store.get('hashFormat')
+          : app.store.get('fileFormat')
+      }[ext]`,
+    }),
   })
 
 /**
  * Returns {@link Rule} for `.woff`/`.otf` handling
+ *
+ * @public
  */
 export const font = () =>
   new Rule({
@@ -31,19 +39,27 @@ export const font = () =>
 
 /**
  * Returns {@link Rule} for `.svg` handling
+ *
+ * @public
  */
 export const svg = () =>
   new Rule({
     test: ({store}) => store.get('patterns.svg'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
-    generator: {
-      filename: 'assets/[hash][ext][query]',
-    },
+    generator: app => ({
+      filename: `assets/${
+        app.store.is('features.hash', true) && app.isProduction
+          ? app.store.get('hashFormat')
+          : app.store.get('fileFormat')
+      }[ext]`,
+    }),
   })
 
 /**
  * Returns {@link Rule} for `.html` handling
+ *
+ * @public
  */
 export const html = () =>
   new Rule({
@@ -53,6 +69,8 @@ export const html = () =>
 
 /**
  * Returns {@link Rule} for `.csv` handling
+ *
+ * @public
  */
 export const csv = () =>
   new Rule({
@@ -62,6 +80,8 @@ export const csv = () =>
 
 /**
  * Returns {@link Rule} for `.xml` handling
+ *
+ * @public
  */
 export const xml = () =>
   new Rule({
@@ -71,6 +91,8 @@ export const xml = () =>
 
 /**
  * Returns {@link Rule} for `.toml` handling
+ *
+ * @public
  */
 export const toml: () => Rule = () =>
   new Rule({
@@ -83,6 +105,8 @@ export const toml: () => Rule = () =>
 
 /**
  * Returns {@link Rule} for `.yml` / `.yaml` handling
+ *
+ * @public
  */
 export const yml: () => Rule = () =>
   new Rule({
@@ -95,6 +119,8 @@ export const yml: () => Rule = () =>
 
 /**
  * Returns {@link Rule} for `.jsonc` handling
+ *
+ * @public
  */
 export const json5: () => Rule = () =>
   new Rule({
@@ -107,6 +133,8 @@ export const json5: () => Rule = () =>
 
 /**
  * Returns {@link Rule} for `.css` handling
+ *
+ * @public
  */
 export const css: () => Rule = () =>
   new Rule({
@@ -120,6 +148,8 @@ export const css: () => Rule = () =>
 
 /**
  * Returns {@link Rule} for `.js` handling
+ *
+ * @public
  */
 export const js: () => Rule = () =>
   new Rule({

@@ -8,9 +8,7 @@ import {Framework} from './minimize.interface'
  * @param this - {@link @roots/bud-framework#Framework}
  * @param enabled - Should assets be minimized
  *
- * @hook build.optimization.minimize
- *
- * @public @config
+ * @public
  */
 export interface minimize {
   (enabled?: boolean, options?: {css: any}): Framework
@@ -40,7 +38,7 @@ export interface minimize {
  * bud.minimize(true)
  * ```
  *
- * @public @config
+ * @public
  */
 export const minimize: minimize = function (
   enabled = true,

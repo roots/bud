@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -70,25 +70,25 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
+    "@babel/core": "7.16.5",
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/babel__core": "7.1.16",
+    "@types/babel__core": "7.1.17",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
-    "@types/react": "17.0.35",
+    "@types/node": "16.11.14",
+    "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
-    "jest": "27.3.1",
+    "jest": "27.4.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "type-fest": "2.5.4",
-    "webpack": "5.64.2"
+    "type-fest": "2.8.0",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.5.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.3",
     "autobind-decorator": "2.4.0",
     "react-hot-loader": "4.13.0",
     "react-refresh": "0.11.0",
@@ -97,6 +97,5 @@
   "peerDependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

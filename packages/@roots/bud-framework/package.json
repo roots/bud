@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -64,24 +64,20 @@
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
-    "@types/lodash": "4.14.177",
-    "@types/node": "16.11.9",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.14",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",
-    "webpack": "5.64.2"
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "workspace:packages/@roots/container",
     "cli-highlight": "^2.1.11",
-    "figures": "^4.0.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.0",
-    "lodash": "^4.17.21",
-    "pretty-format": "^27.3.1",
     "signale": "^1.4.0",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

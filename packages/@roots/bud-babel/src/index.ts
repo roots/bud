@@ -11,10 +11,19 @@
  * @packageDocumentation
  */
 
+import '@roots/bud'
+import '@roots/bud-framework'
+
 import {Item, Loader} from '@roots/bud-build'
 
 import {Config} from './babel.config'
-import * as BudBabelExtension from './babel.extension'
+import {mixin, name, register} from './babel.extension'
+
+interface BabelExtension {
+  name: typeof name
+  mixin: typeof mixin
+  register: typeof register
+}
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -22,7 +31,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-babel': typeof BudBabelExtension
+    '@roots/bud-babel': BabelExtension
   }
 
   interface Loaders {
@@ -40,7 +49,7 @@ declare module '@roots/bud' {
   }
 
   interface Modules {
-    '@roots/bud-babel': typeof BudBabelExtension
+    '@roots/bud-babel': BabelExtension
   }
 
   interface Loaders {
@@ -52,4 +61,4 @@ declare module '@roots/bud' {
   }
 }
 
-export const {name, mixin, register} = BudBabelExtension
+export {name, mixin, register}

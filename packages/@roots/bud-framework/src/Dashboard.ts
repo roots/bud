@@ -5,7 +5,7 @@ import type {Service} from './Service'
 /**
  * Dashboard service container
  *
- * @public @core @container
+ * @public
  */
 export interface Dashboard extends Service {
   /**
@@ -14,6 +14,10 @@ export interface Dashboard extends Service {
    * @public
    */
   instance: Ink.Instance
+
+  stdout?: Array<string>
+
+  stderr?: Array<string>
 
   /**
    * Mount and render the {@link Dashboard}
@@ -34,4 +38,15 @@ export interface Dashboard extends Service {
    * @public
    */
   render(Component: any, title?: string): void
+
+  /**
+   * Rerender
+   *
+   * @param Component - Component or string to render
+   * @param title - Title to render
+   * @returns void
+   *
+   * @public
+   */
+  rerender(): Promise<void>
 }

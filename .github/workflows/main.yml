@@ -49,10 +49,10 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn kjo build
+        run: yarn @bud build
 
       - name: Lint
-        run: yarn kjo lint --eslint --skypack
+        run: yarn @bud lint
 
       - name: Test
-        run: yarn kjo test
+        run: yarn @bud test

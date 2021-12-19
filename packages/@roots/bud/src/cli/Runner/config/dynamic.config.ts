@@ -5,6 +5,8 @@ import {Bud} from '../../..'
 const {isFunction} = lodash
 
 /**
+ * User config parser
+ *
  * @internal
  */
 class Configuration {
@@ -14,6 +16,8 @@ class Configuration {
    * @param app - Bud instance
    * @param logger - Logger instance
    * @param key - configuration key (project service repository)
+   *
+   * @internal
    */
   public constructor(
     public app: Bud,
@@ -98,22 +102,24 @@ export const configs = async (app: Bud, logger: Signale) => {
   )
 
   if (generalConfigs?.length) {
-    const config = new Configuration(app, logger, generalConfigs)
-    await config.run()
+    const dynamicConfig = new Configuration(
+      app,
+      logger,
+      generalConfigs,
+    )
+    await dynamicConfig.run()
     await app.api.processQueue()
     await app.extensions.processQueue()
   }
 
   if (conditionalConfigs?.length) {
-    const config = new Configuration(
+    const staticConfig = new Configuration(
       app,
       logger,
       conditionalConfigs,
     )
-    await config.run()
+    await staticConfig.run()
     await app.api.processQueue()
-
-    // run extensions before processing next config
     await app.extensions.processQueue()
   }
 }

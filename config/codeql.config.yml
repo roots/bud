@@ -1,0 +1,9 @@
+paths:
+  - packages
+paths-ignore:
+  - packages/deprecated
+  - '**/types'
+  - '**/.budfiles'
+  - '**/lib'
+  - '**/node_modules'
+  - '**/*.test.js'

@@ -5,12 +5,10 @@ import * as Framework from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Plugins {
     'webpack-provide-plugin': Framework.Extension.CompilerPlugin
-    'clean-webpack-plugin': Framework.Extension.CompilerPlugin
     'webpack-config-dump-plugin': Framework.Extension.CompilerPlugin
     'copy-webpack-plugin': Framework.Extension.CompilerPlugin
     'webpack-define-plugin': Framework.Extension.CompilerPlugin
     'webpack-hot-module-replacement-plugin': Framework.Extension.CompilerPlugin
-    'ignore-emit-webpack-plugin': Framework.Extension.CompilerPlugin
     'webpack-manifest-plugin': Framework.Extension.CompilerPlugin
     'mini-css-extract-plugin': Framework.Extension.CompilerPlugin
   }

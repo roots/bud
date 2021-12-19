@@ -1,11 +1,11 @@
 import {readFile} from 'fs-extra'
 
-import {Project} from '../util/integration'
+import Project from '../../dev/jest/project'
 
 jest.setTimeout(60000)
 
 describe('examples/imagemin', () => {
-  let project: Project
+  let project
 
   beforeAll(async () => {
     project = new Project({

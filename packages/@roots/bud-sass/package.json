@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "Sass support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -70,19 +70,19 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "16.11.9",
-    "webpack": "5.64.2"
+    "@types/node": "16.11.14",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "postcss": "8.3.11",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "postcss": "8.4.5",
     "postcss-scss": "4.0.2",
     "resolve-cwd": "3.0.0",
-    "sass-loader": "12.3.0",
+    "sass-loader": "12.4.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "sass": "1.43.4"
-  },
-  "stableVersion": "4.6.0"
+    "sass": "1.45.0"
+  }
 }

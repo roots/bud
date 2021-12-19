@@ -25,7 +25,9 @@ export const Core = ({name, description, manifest}) => (
     <Docs url={manifest.url.docs} />
 
     <Community />
+
     <Contributing />
+
     <Sponsors {...manifest} />
   </>
 )

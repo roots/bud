@@ -1,9 +1,9 @@
-import {Project} from '../util/integration'
+import Project from '../../dev/jest/project'
 
 jest.setTimeout(60000)
 
 describe('examples/babel', () => {
-  let project: Project
+  let project
 
   beforeAll(async () => {
     project = new Project({
@@ -50,14 +50,6 @@ describe('examples/babel', () => {
 
   it('manifest.json', async () => {
     expect(project.manifest).toMatchSnapshot()
-  })
-
-  it('.budfiles/bud/webpack.config.js', async () => {
-    expect(project.webpackConfig.entry).toMatchSnapshot()
-    expect(project.webpackConfig.mode).toMatchSnapshot()
-    expect(project.webpackConfig.optimization).toMatchSnapshot()
-    expect(project.webpackConfig.bail).toMatchSnapshot()
-    expect(project.webpackConfig.cache.type).toMatchSnapshot()
   })
 
   it('module map matches snapshot', async () => {

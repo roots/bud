@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "Adds babel support to @roots/bud",
   "repository": {
     "type": "git",
@@ -69,8 +69,8 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.9",
-    "webpack": "5.64.2"
+    "@types/node": "16.11.14",
+    "webpack": "5.65.0"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -82,6 +82,5 @@
     "babel-loader": "^8.2.3",
     "babel-plugin-add-module-exports": "^1.0.4",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

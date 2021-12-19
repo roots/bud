@@ -80,8 +80,6 @@ export const entry: entry = async function (
 /**
  * Make entrypoints
  *
- * @hook build.entry
- *
  * @internal
  */
 async function makeEntrypoints(
@@ -98,7 +96,13 @@ async function makeEntrypoints(
    */
   const reducer = async (
     promised,
-    [name, entry]: [string, EntryObject | EntryObject['import']],
+    [name, entry]: [
+      string,
+      {
+        import?: string[]
+        dependsOn?: string[]
+      },
+    ],
   ) => {
     const entrypoints = await promised
 
@@ -126,7 +130,15 @@ async function makeEntrypoints(
     }
   }
 
-  const hook = async (entries: Promise<EntryObject>) => {
+  const hook = async (
+    entries: Record<
+      string,
+      {
+        import?: string[]
+        dependsOn?: string[]
+      }
+    >,
+  ) => {
     const current = await entries
 
     const newItems = await Object.entries(entry).reduce(
@@ -140,7 +152,7 @@ async function makeEntrypoints(
     }
   }
 
-  this.hooks.on('build.entry', hook)
+  this.hooks.async<'build.entry'>('build.entry', hook)
 
   return this
 }
@@ -167,6 +179,13 @@ async function getAssets(
     })
 
     if (!results.length) {
+      this.error(
+        `bud.entry found no files matching ${JSON.stringify(
+          imports,
+        )}. check your config for errors. files should be specified relative to ${this.path(
+          'src',
+        )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
+      )
       throw new Error(
         `nothing resolvable for ${JSON.stringify(
           imports,

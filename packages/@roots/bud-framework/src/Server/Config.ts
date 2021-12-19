@@ -1,6 +1,3 @@
-import {Index} from '../'
-import {ProxyOptions} from './'
-
 /**
  * Server configuration
  *
@@ -12,30 +9,29 @@ export interface Configuration {
    *
    * @public
    */
-  middleware: Index<boolean>
-
+  middleware: Record<string, boolean>
   /**
-   * The development server host
-   *
-   * @defaultValue localhost
-   */
-  host: string
-
-  /**
-   * The development server port
-   *
-   * @defaultValue 3000
+   * Development server URL
    *
    * @public
    */
-  port: number
+  dev: {
+    url: string
+  }
 
   /**
-   * Proxy destination
+   * Development server URL
    *
    * @public
    */
-  proxy: ProxyOptions
+  proxy: {
+    url: string
+    replace: {
+      href: true
+      window: true
+      publicPath: true
+    }
+  }
 
   /**
    * Files which should reload the browser when changed.
@@ -48,7 +44,7 @@ export interface Configuration {
      *
      * @public
      */
-    files: string[]
+    files: Array<string>
   }
 
   /**
@@ -71,13 +67,6 @@ export interface Configuration {
   }
 
   /**
-   * The index path for web server, defaults to "index.html".
-   *
-   * @public
-   */
-  index?: string
-
-  /**
    * The publicPath to serve from.
    *
    * @public
@@ -92,39 +81,6 @@ export interface Configuration {
    * @public
    */
   filename?: string
-
-  /**
-   * Include HTTP headers on each request.
-   *
-   * @example
-   * ```json
-   * { "X-Custom-Header": "yes" }
-   * ```
-   *
-   * @public
-   */
-  headers?: Index<string>
-
-  /**
-   * Request methods accepted by the server.
-   *
-   * @example
-   * ```json
-   * ['GET', 'HEAD']
-   * ```
-   *
-   * @public
-   */
-  methods?: string[]
-
-  /**
-   * Map Mimetypes to extensions
-   *
-   * @public
-   */
-  mimeTypes?: {
-    [type: string]: string
-  }
 
   /**
    * Disable host check security features

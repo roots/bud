@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "5.0.0-next.16",
+  "version": "5.0.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -67,13 +67,12 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
-    "jest": "27.3.1"
+    "@types/node": "16.11.14",
+    "jest": "27.4.5"
   },
   "dependencies": {
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
-  },
-  "stableVersion": "4.6.0"
+  }
 }

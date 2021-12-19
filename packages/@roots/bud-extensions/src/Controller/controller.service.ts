@@ -1,4 +1,4 @@
-import {Service} from '@roots/bud-framework'
+import {Modules, Service} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 
 import {
@@ -7,6 +7,7 @@ import {
   isFunction,
   isObject,
   isUndefined,
+  omit,
   Signale,
 } from './controller.dependencies'
 import {
@@ -18,7 +19,7 @@ import {
 /**
  * Extension instance controller
  *
- * @public @core
+ * @public
  */
 export class Controller {
   /**
@@ -35,14 +36,28 @@ export class Controller {
     return this._app()
   }
 
+  /**
+   * @public
+   */
   public meta: {
     instance: string
     registered: boolean
     booted: boolean
+  } = {
+    instance: null,
+    registered: false,
+    booted: false,
   }
 
   public get moduleLogger(): Signale {
-    return this.app.extensions.logger
+    let logger = new Signale()
+    logger = logger.scope(...this.app.logger.context, this.name)
+
+    if (this.app.store.is('features.log', false)) {
+      logger.disable()
+    }
+
+    return logger
   }
 
   /**
@@ -62,7 +77,7 @@ export class Controller {
   /**
    * @internal
    */
-  public _module: Extension | Plugin
+  public _module: Extension | Plugin = {}
 
   /**
    * @public
@@ -74,31 +89,34 @@ export class Controller {
    *
    * @public
    */
-  public constructor(_app: Framework, _module: Extension) {
+  public constructor(_app: Framework, extension: Extension) {
     this._app = () => _app
-    this._module = _module
     this.log = this.app.extensions.log
+    this.meta.instance = this.app.name
 
-    this.meta = {
-      instance: this.app.name,
-      registered: false,
-      booted: false,
-    }
-
-    if (!this._module) {
+    if (!extension) {
       throw Error(
         `extension controller constructor: missing module`,
       )
     }
 
-    if (!this._module.name) {
-      this.app.dump(this._module)
+    if (!extension.name) {
+      this.app.dump(extension)
       throw Error(`name is a required property for extensions`)
     }
+
+    this.name = extension.name
+    this.options = extension.options
+
+    Object.assign(
+      this._module,
+      omit(extension, ['name', 'options']),
+    )
   }
 
   /**
    * @public
+   * @decorator `@bind`
    */
   @bind
   public get(key: string): any {
@@ -107,21 +125,11 @@ export class Controller {
 
   /**
    * @public
+   * @decorator `@bind`
    */
   @bind
   public set(key: string, value: any) {
     this._module[key] = value
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public filter(key: string, object: any) {
-    return this.app.hooks.filter(
-      `extension.${this._module.name}.${key}`,
-      object,
-    )
   }
 
   /**
@@ -142,40 +150,176 @@ export class Controller {
    * @public
    */
   public get options() {
-    if (isUndefined(this._module.options))
-      return this.filter('options', this.app.container({}))
+    if (isUndefined(this._module.options)) {
+      return this.app.container()
+    }
 
-    const options = this.app.maybeCall(this._module.options)
+    if (isFunction(this._module.options)) {
+      return this.app.container(this._module.options(this.app))
+    }
 
-    if (isUndefined(options))
-      return this.filter('options', this.app.container({}))
+    if (this._module.options instanceof Container) {
+      return this.app.hooks.filter(
+        `extension.${
+          this._module.name as keyof Modules & string
+        }.options`,
+        () => this._module.options,
+      )
+    }
 
-    if (options instanceof Container)
-      return this.filter('options', options)
-
-    if (!isObject(options))
+    if (!isObject(this._module.options))
       throw new Error(
         `${this.name} options must be an object or Container instance`,
       )
 
-    return this.filter('options', this.app.container(options))
+    return this.app.hooks.filter(
+      `extension.${
+        this._module.name as keyof Modules & string
+      }.options`,
+      () => this.app.container(this._module.options),
+    )
   }
 
   /**
    * @public
    */
   public set options(options) {
-    if (isFunction(options)) {
-      this._module.options = this.options(this.app)
-      return
+    this._module.options = options
+  }
+
+  /**
+   * Mutate options
+   *
+   * @remarks
+   * mutation fn receives a container of existing options and returns
+   * an object or container of mutated options
+   *
+   * @param options - mutation fn
+   * @public
+   */
+  @bind
+  public mutateOptions(options) {
+    if (!isFunction(options)) {
+      throw new Error(
+        `mutation must be a function that receives a container and returns an object or container`,
+      )
     }
 
+    const result = options(this.options)
+
+    if (!(result instanceof Container) || !isObject(result)) {
+      throw new Error(
+        `mutation must return an object or container`,
+      )
+    }
+
+    this.options = result
+  }
+
+  /**
+   * Merge options
+   *
+   * @remarks
+   * Supplied options must be an object or container of options to merge
+   *
+   * @param options - options to merge
+   * @public
+   */
+  @bind
+  public mergeOptions(options) {
     if (options instanceof Container) {
-      this._module.options = options
-      return
+      const optionsContainer = this.options
+      optionsContainer.mergeStore(options.all())
+      this.options = optionsContainer
     }
 
-    this._module.options = this.app.container(options)
+    if (!isObject(options)) {
+      throw new Error(
+        `merged options must be an object or container`,
+      )
+    }
+
+    const optionsContainer = this.options
+    optionsContainer.mergeStore(options)
+    this.options = optionsContainer
+  }
+
+  /**
+   * Merge option
+   *
+   * @remarks
+   * Supplied options must be an object or container of options to merge
+   *
+   * @param key - option key
+   * @param options - value to merge
+   * @public
+   */
+  @bind
+  public mergeOption(key, options) {
+    if (!this.options.has(key)) {
+      this.app.error(`[${this.name}] key ${key} does not exist`)
+      throw new Error(`[${this.name}] key ${key} does not exist`)
+    }
+
+    const optionsContainer = this.options
+    optionsContainer.merge(key, options)
+    this.options = optionsContainer
+  }
+
+  /**
+   * Set an extension option
+   *
+   * @param key - option key
+   * @param value - options value
+   * @public
+   */
+  @bind
+  public setOptions(value): Controller {
+    if (value instanceof Container) {
+      this.options = value
+      return this
+    }
+
+    if (isObject(value)) {
+      this.options = this.app.container(value)
+      return this
+    }
+
+    this.app.error(
+      `[${this.name}] options must be a container or an object`,
+    )
+    throw new Error(
+      `[${this.name}] options must be a container or an object`,
+    )
+  }
+
+  /**
+   * Set an extension option
+   *
+   * @param key - option key
+   * @param value - options value
+   * @public
+   */
+  @bind
+  public setOption(key, value) {
+    const optionsContainer = this.options
+    optionsContainer.set(key, value)
+    this.options = optionsContainer
+  }
+
+  /**
+   * Get an extension option
+   *
+   * @param key - option key
+   * @public
+   */
+  @bind
+  public getOption(key) {
+    if (!this.options.has(key)) {
+      throw new Error(`key ${key} does not exist`)
+    }
+
+    return this.options.get(key)
   }
 
   /**
@@ -264,22 +408,19 @@ export class Controller {
   public async api(): Promise<Controller> {
     if (!this._module.api) return this
 
-    const methodMap = isFunction(this._module.api)
-      ? this._module.api(this.app)
-      : this._module.api
+    const methodMap: Record<string, CallableFunction> =
+      isFunction(this._module.api)
+        ? await this._module.api(this.app)
+        : this._module.api
 
     await this.app.api.processQueue()
 
-    if (!isObject(methodMap)) return
+    if (!isObject(methodMap))
+      throw new Error(
+        `${this.name}] api must be an object or return an object`,
+      )
 
     this.app.bindMethod(methodMap)
-
-    Object.entries(methodMap).forEach(([k, v]) => {
-      this.moduleLogger.success({
-        message: `registered ${this.app.name}.${k}`,
-        suffix: chalk.dim`${this.name}`,
-      })
-    })
 
     return this
   }
@@ -292,6 +433,7 @@ export class Controller {
     if (!this._module.mixin) return this
 
     let classMap
+
     if (isFunction(this._module.mixin)) {
       classMap = await this._module.mixin(this.app)
     } else {
@@ -316,7 +458,7 @@ export class Controller {
    * @remarks
    * Calls the {@link @roots/bud-framework#Module.boot} callback
    *
-   * @public @core
+   * @public
    * @decorator `@bind`
    */
   @bind

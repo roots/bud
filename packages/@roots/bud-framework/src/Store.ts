@@ -9,7 +9,7 @@ const {get} = lodash
 /**
  * Container store for initial configuration and general options
  *
- * @public @core @config
+ * @public
  */
 export class Store<T = Configuration> extends Service<T> {
   /**
@@ -32,7 +32,7 @@ export class Store<T = Configuration> extends Service<T> {
    * @override
    */
   public get<T = any>(path: keyof Repository) {
-    return get(this.repository, path) as T
+    return get(this.repository, path) as unknown as T
   }
 }
 

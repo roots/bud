@@ -3,7 +3,7 @@
 set -e
 
 WORKFLOW_FILE=./.github/workflows/main.yml
-WORKFLOW_CHECKSUM=41dc361ce840e2dfb3dcaea5875c7f33
+WORKFLOW_CHECKSUM=e4b17a9ebd2ab631a69f4f6e3185f6ae
 
 md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
 
@@ -11,10 +11,10 @@ echo Install
 yarn install --immutable
 
 echo Build
-yarn kjo build
+yarn @bud build
 
 echo Lint
-yarn kjo lint --eslint --skypack
+yarn @bud lint --eslint --skypack
 
 echo Test
-yarn kjo test
+yarn @bud test

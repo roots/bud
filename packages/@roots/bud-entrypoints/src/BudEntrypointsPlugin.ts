@@ -6,19 +6,19 @@ import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
  *
  * @public
  */
-interface BudEntrypointsPlugin
-  extends Extension.CompilerPlugin {}
+export type BudEntrypointsPlugin = Extension.CompilerPlugin<
+  EntrypointsWebpackPlugin,
+  Record<string, any>
+>
 
 /**
  * BudEntrypointsPlugin
  *
  * @public
  */
-const BudEntrypointsPlugin: BudEntrypointsPlugin = {
+export const BudEntrypointsPlugin: BudEntrypointsPlugin = {
   name: '@roots/bud-entrypoints',
-  make(options) {
-    return new EntrypointsWebpackPlugin(options.all())
+  make: options => {
+    return new EntrypointsWebpackPlugin()
   },
 }
-
-export {BudEntrypointsPlugin}

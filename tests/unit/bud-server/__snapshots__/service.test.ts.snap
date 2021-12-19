@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/bud-server has expected defaults 1`] = `
+Object {
+  "browser": Object {
+    "indicator": true,
+    "log": true,
+    "overlay": true,
+  },
+  "dev": Object {
+    "url": "http://localhost:3000",
+  },
+  "middleware": Object {
+    "dev": true,
+    "hot": true,
+    "proxy": false,
+  },
+  "proxy": Object {
+    "replace": Object {
+      "href": true,
+      "publicPath": true,
+      "window": true,
+    },
+    "url": "http://localhost:8080",
+  },
+  "watch": Object {
+    "files": Array [],
+  },
+}
+`;
