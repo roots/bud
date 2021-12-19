@@ -12,10 +12,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "copy-webpack-plugin": Controller {
@@ -28,10 +27,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "mini-css-extract-plugin": Controller {
@@ -44,10 +42,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "webpack-define-plugin": Controller {
@@ -60,10 +57,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "webpack-hot-module-replacement-plugin": Controller {
@@ -76,10 +72,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "webpack-manifest-plugin": Controller {
@@ -92,10 +87,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
   "webpack-provide-plugin": Controller {
@@ -108,10 +102,9 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
       "instance": "bud",
-      "registered": false,
-      "valid": true,
+      "registered": true,
     },
   },
 }
