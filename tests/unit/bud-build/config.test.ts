@@ -156,17 +156,12 @@ describe('bud.build.config', function () {
     ).toMatchSnapshot({
       exclude: /(node_modules|bower_components)/,
       test: /\.(ttf|otf|eot|woff2?|ico)$/,
-      use: [
-        {
-          loader: expect.stringContaining(
-            'resolve-url-loader/index.js',
-          ),
-          options: {
-            root: expect.stringContaining('src'),
-            sourceMap: false,
-          },
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 50000,
         },
-      ],
+      },
     })
   })
 

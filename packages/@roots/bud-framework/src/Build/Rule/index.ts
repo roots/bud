@@ -11,9 +11,7 @@ export {Abstract}
  *
  * @public
  */
-export interface Parser {
-  parse: (input?: string) => any
-}
+export interface Parser extends Record<string, any> {}
 
 /**
  * Options interface

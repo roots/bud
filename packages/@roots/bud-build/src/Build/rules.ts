@@ -30,7 +30,12 @@ export const font = () =>
   new Rule({
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
-    type: 'asset/resource',
+    type: 'asset',
+    parser: {
+      dataUrlCondition: {
+        maxSize: 50000,
+      },
+    },
   })
 
 /**
