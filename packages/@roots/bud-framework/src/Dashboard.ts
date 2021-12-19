@@ -5,7 +5,7 @@ import type {Service} from './Service'
 /**
  * Dashboard service container
  *
- * @public @core @container
+ * @public
  */
 export interface Dashboard extends Service {
   /**

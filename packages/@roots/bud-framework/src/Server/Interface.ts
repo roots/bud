@@ -5,7 +5,7 @@ import {Application, Instance, Middleware} from '.'
 /**
  * Server service interface
  *
- * @core @public @container
+ *  @public
  */
 export default interface Interface extends Service {
   /**

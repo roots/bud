@@ -23,7 +23,7 @@ import {BudDllPluginConstructor} from './BudDllPlugin'
  * app.library(['react', 'react-dom'])
  * ```
  *
- * @public @config @extension
+ * @public
  */
 export interface library {
   (this: Framework, modules: string | string[]): Framework

@@ -80,8 +80,6 @@ export const entry: entry = async function (
 /**
  * Make entrypoints
  *
- * @hook build.entry
- *
  * @internal
  */
 async function makeEntrypoints(
