@@ -52,62 +52,81 @@ export class Extensions extends Service implements Base {
 
     await this.registerExtensions()
     await this.bootExtensions()
+    await this.injectExtensions()
+  }
 
+  /**
+   * Inject extension modules
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async injectExtensions() {
     if (this.app.store.is('features.inject', false)) {
       this.log('log', 'injection disabled')
       return
     }
 
-    const missingPeers =
-      this.app.project.peers.graph.getAttribute(
-        'missingPeers',
-      ) ?? []
+    const graphAttributes =
+      this.app.project.peers.graph.getAttributes()
 
-    const valid = await this.app.project.peers.graph
-      .getAttribute('extensions')
-      .reduce(async (promised, extension) => {
+    const extensions = await graphAttributes.extensions?.reduce(
+      async (
+        promised: Promise<Array<Record<string, any>>>,
+        extension: string,
+      ) => {
         const valid = await promised
 
-        const attr =
+        const nodeAttributes =
           this.app.project.peers.graph.getNodeAttributes(
             extension,
           )
-        const peers = attr.peerDependencies
-          ? Object.entries(attr.peerDependencies)
-          : []
 
-        const missing = peers.reduce((a, [k, v]) => {
-          if (missingPeers.includes(k)) a.push(k)
-          return a
-        }, [])
-
-        if (missing.length == 0) {
-          valid.push(attr)
-        } else {
-          this.log(
-            'error',
-            `${extension} missing dependencies. extension will not be used.`,
-          )
+        if (!nodeAttributes.peerDependencies.length) {
+          valid.push(nodeAttributes)
+          return valid
         }
 
-        return valid
-      }, Promise.resolve([]))
+        const missingPeersCount = Object.entries(
+          nodeAttributes.peerDependencies,
+        ).reduce((a, [k, v]) => {
+          if (graphAttributes.missingPeers.includes(k)) a.push(k)
+          return a
+        }, []).length
 
-    /**
-     * Handle in-built extensions
-     */
+        if (missingPeersCount == 0) {
+          valid.push(nodeAttributes)
+          return valid
+        }
+
+        this.log(
+          'error',
+          `${extension} missing dependencies. extension will not be used.`,
+        )
+
+        return valid
+      },
+      Promise.resolve([]),
+    )
+
+    if (!extensions?.length) {
+      this.log('log', 'no installed extensions.')
+      return
+    }
+
     await Promise.all(
-      valid.map(async extension => {
+      extensions.map(async extension => {
         await this.importExtension(extension)
       }),
     )
 
-    await valid.reduce(async (promised, extension) => {
+    await extensions.reduce(async (promised, extension) => {
       await promised
       await this.registerExtension(this.get(extension.name))
     }, Promise.resolve())
 
-    await valid.reduce(async (promised, extension) => {
+    await extensions.reduce(async (promised, extension) => {
       await promised
       await this.bootExtension(this.get(extension.name))
     }, Promise.resolve())
@@ -126,7 +145,7 @@ export class Extensions extends Service implements Base {
       return
     }
 
-    this.log('log', `...importing ${extension.name}`)
+    this.log('log', `importing ${extension.name}`)
     const importedExt = await import(extension.name)
 
     if (this.has(importedExt.name)) return
@@ -168,6 +187,7 @@ export class Extensions extends Service implements Base {
   ): Promise<void> {
     try {
       if (!extension) return
+      this.app.log('booting', extension.name)
 
       await extension.boot()
     } catch (err) {
@@ -211,6 +231,27 @@ export class Extensions extends Service implements Base {
   }
 
   /**
+   * Add a {@link Controller} to the container
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async add(extension: Extension.Module): Promise<void> {
+    if (this.has(extension.name)) {
+      this.log(
+        'info',
+        `${extension.name} already exists. skipping.`,
+      )
+      return
+    }
+
+    await this.setController(extension)
+    await this.registerExtension(this.get(extension.name))
+    await this.bootExtension(this.get(extension.name))
+  }
+
+  /**
    * Queue an extension to be added to the container before the build process.
    *
    * @remarks
@@ -221,35 +262,8 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public enqueue(extension: Extension.Module): Framework {
-    if (
-      this.has(extension.name) ||
-      this.queue.some(queued => queued.name === extension.name)
-    ) {
-      this.log(
-        'warn',
-        `${extension.name} already added. skipping.`,
-      )
-      return
-    }
-
     this.queue.push(extension)
-
     return this.app
-  }
-
-  /**
-   * Add a {@link Controller} to the container
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) return
-
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
   }
 
   /**
@@ -258,21 +272,13 @@ export class Extensions extends Service implements Base {
   @bind
   public async processQueue(): Promise<void> {
     if (!this.queue.length) return
-
-    await Promise.all(
-      this.queue.map(async extension => {
-        await this.setController(extension)
-        await this.registerExtension(this.get(extension.name))
-        await this.bootExtension(this.get(extension.name))
-      }),
-    )
-
+    await Promise.all(this.queue.map(this.add))
     this.queue = []
   }
 
   /**
    * Returns an array of plugin instances which have been registered to the
-   * Extensions container and are set to be used in the compilation
+   * container and are set to be used in the compilation
    *
    * @returns An array of plugin instances
    *

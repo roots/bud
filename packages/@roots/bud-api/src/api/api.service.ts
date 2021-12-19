@@ -129,6 +129,10 @@ export class Api
         this.trace.push([name, ...args])
 
         try {
+          this.app.log('log', {
+            message: `calling ${name}`,
+            suffix: args,
+          })
           await this.call(name, ...args)
         } catch (error) {
           this.log('error', {
@@ -139,6 +143,7 @@ export class Api
       }),
     )
 
+    this.app.log('log', 'queue processed. clearing queue.')
     this.queue = []
   }
 
@@ -149,6 +154,7 @@ export class Api
    */
   @bind
   public dump() {
+    if (!this.trace || !this.trace.length) return
     this.app.dump(
       this.trace.reduce(
         (a, t) => [

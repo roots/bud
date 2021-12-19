@@ -5,7 +5,7 @@ import {Index} from './'
 /**
  * Env container interface
  *
- * @public @core @container
+ * @public
  */
 export interface Env extends Container {
   /**

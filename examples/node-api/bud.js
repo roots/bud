@@ -1,11 +1,10 @@
 const {factory} = require('@roots/bud')
-const postcss = require('@roots/bud-postcss')
 
 ;(async () => {
   /**
    * Use the factory export to create a bud instance
    */
-  const bud = await factory({mode: 'production'})
+  const bud = await factory({config: {mode: 'production'}})
 
   /**
    * Configure bud using normal config api
@@ -15,5 +14,5 @@ const postcss = require('@roots/bud-postcss')
   /**
    * Run compiler
    */
-  await bud.run()
+  await bud.api.call('run')
 })()

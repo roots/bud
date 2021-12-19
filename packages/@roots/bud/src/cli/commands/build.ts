@@ -7,19 +7,13 @@ import * as flags from '../flags'
  * @internal
  */
 export default class Build extends Command {
-  /**
-   * @internal
-   */
+  /** @internal */
   public static description = 'compile source assets'
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static examples = [`$ bud build`, `$ bud build --cache`]
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static flags = {
     ...Command.flags,
     ...flags.target,
@@ -37,6 +31,7 @@ export default class Build extends Command {
       default: true,
       description: 'cache built modules to the filesystem',
     }),
+
     ['cache.type']: oclif.Flags.string({
       default: 'filesystem',
       options: ['filesystem', 'memory', 'false'],
@@ -127,6 +122,6 @@ export default class Build extends Command {
       return stats
     })
 
-    await this.app.api.call('run', [])
+    await this.app.api.call('run')
   }
 }

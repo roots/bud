@@ -186,7 +186,7 @@ export default class Doctor extends Command {
 
       /* Build webpack configuration */
       await this.build()
-      const conf = await this.app.compiler.before()
+      const conf = await this.app.compiler.precompile()
 
       /* Validate */
       webpack.validate(conf)

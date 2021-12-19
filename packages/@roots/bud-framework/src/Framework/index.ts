@@ -4,6 +4,7 @@ import type {
 } from '@roots/bud-support'
 import {
   bind,
+  chalk,
   format,
   highlight,
   lodash,
@@ -315,6 +316,13 @@ export abstract class Framework {
     if (!options.childOf) {
       this.children = this.container()
       this.root = this
+      Object.entries(options.config.cli.flags).forEach(flag =>
+        this.info({
+          prefix: 'flag',
+          message: flag.shift(),
+          suffix: chalk.dim`${flag.shift()}`,
+        }),
+      )
     } else {
       this.root = options.childOf
     }
@@ -582,17 +590,48 @@ export abstract class Framework {
   /**
    * Log a message
    *
-   * @public
+   * @internal
+   * @decorator `@bind`
+   */
+  @bind
+  public _log(
+    method:
+      | 'log'
+      | 'info'
+      | 'warn'
+      | 'error'
+      | 'success'
+      | 'await'
+      | 'complete'
+      | 'time'
+      | 'timeEnd'
+      | 'debug',
+    ...messages: any[]
+  ) {
+    messages = messages.map(message => {
+      if (message.suffix) {
+        message.suffix = chalk.dim(message.suffix)
+      }
+      return message
+    })
+
+    this.logger?.instance &&
+      this.logger.instance
+        .scope(...this.logger.context)
+        [method](...messages)
+
+    return this
+  }
+
+  /**
+   * Log a message
+   *
+   * @internal
    * @decorator `@bind`
    */
   @bind
   public log(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .log(...messages)
-
-    return this
+    return this._log('log', ...messages)
   }
 
   /**
@@ -603,12 +642,7 @@ export abstract class Framework {
    */
   @bind
   public info(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .info(...messages)
-
-    return this
+    return this._log('info', ...messages)
   }
 
   /**
@@ -619,12 +653,7 @@ export abstract class Framework {
    */
   @bind
   public success(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .success(...messages)
-
-    return this
+    return this._log('info', ...messages)
   }
 
   /**
@@ -635,12 +664,7 @@ export abstract class Framework {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .warn(...messages)
-
-    return this
+    return this._log('warn', ...messages)
   }
 
   /**
@@ -651,12 +675,7 @@ export abstract class Framework {
    */
   @bind
   public time(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .time(...messages)
-
-    return this
+    return this._log('time', ...messages)
   }
 
   /**
@@ -667,12 +686,7 @@ export abstract class Framework {
    */
   @bind
   public await(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .await(...messages)
-
-    return this
+    return this._log('await', ...messages)
   }
 
   /**
@@ -683,11 +697,7 @@ export abstract class Framework {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .complete(...messages)
-
-    return this
+    return this._log('complete', ...messages)
   }
 
   /**
@@ -698,11 +708,7 @@ export abstract class Framework {
    */
   @bind
   public timeEnd(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .timeEnd(...messages)
-
-    return this
+    return this._log('timeEnd', ...messages)
   }
 
   /**
@@ -718,7 +724,7 @@ export abstract class Framework {
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
     process.stdout.write(
-      `${highlight(
+      `\n\n${highlight(
         format(messages, {
           callToJSON: false,
           maxDepth: 8,
@@ -726,10 +732,10 @@ export abstract class Framework {
           escapeString: false,
           min: this.options.config.cli.flags['log.min'],
         }),
-      )}`,
+      )}\n\n`,
     )
 
-    process.exit(1)
+    return this
   }
 
   /**

@@ -51,7 +51,7 @@ export default class Install extends Command {
 
     const peers = new Peers(this.app, version)
 
-    const installExtensions = peers.graph
+    const missing = peers.graph
       .getAttribute('missingPeers')
       ?.reduce(
         (acc, {peer, version}) => [
@@ -61,15 +61,14 @@ export default class Install extends Command {
         [],
       )
 
-    if (!installExtensions) {
+    if (!missing) {
       process.stdout.write('Nothing to install...\n')
-
       this.exit(0)
     }
+
     process.stdout.write('Installing peers...\n')
+    await this.app.dependencies.install(missing)
 
-    await this.app.dependencies.install(installExtensions)
-
-    process.exit(0)
+    this.exit(0)
   }
 }

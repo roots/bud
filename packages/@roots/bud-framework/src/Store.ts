@@ -9,7 +9,7 @@ const {get} = lodash
 /**
  * Container store for initial configuration and general options
  *
- * @public @core @config
+ * @public  @config
  */
 export class Store<T = Configuration> extends Service<T> {
   /**

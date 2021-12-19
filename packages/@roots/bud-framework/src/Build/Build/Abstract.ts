@@ -38,7 +38,7 @@ import * as Rule from '../Rule'
  * bud.hooks.filter('build.entry')
  * ```
  *
- * @public @core @container
+ * @public
  */
 export default abstract class Build extends Service {
   /**

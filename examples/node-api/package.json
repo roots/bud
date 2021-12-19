@@ -14,6 +14,7 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "workspace:*",
+    "webpack": "^5.65.0"
   }
 }

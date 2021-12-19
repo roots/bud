@@ -16,7 +16,7 @@ import {Service} from './'
  * Compiles {@link @roots/bud-framework#Build.config | Build config}
  * and reports on stats, progress, and errors encountered during compilation.
  *
- * @public @core @container
+ * @public
  */
 interface Compiler extends Service {
   /**
@@ -48,8 +48,7 @@ interface Compiler extends Service {
   progress: Compiler.Progress
 
   /**
-   * Returns a {@link @roots/bud-framework#Compiler."instance" | Compiler instance}
-   * when provided with a valid {@link Configuration}
+   * Runs compiler.
    *
    * @example
    * ```js
@@ -68,15 +67,15 @@ interface Compiler extends Service {
   compile(): Promise<any>
 
   /**
-   * Callback for {@link (Framework:namespace).Hooks | Framework.Hooks} `before` filter
+   * Make webpack configuration
    *
    * @remarks
-   * Parses {@link (Framework:namespace).Build.config} instances and generates
-   * final input for {@link (Compiler:interface).compile | Compiler.compile}
+   * Runs bud.build.make on every bud instance and generates
+   * final multiconfiguration for compilation.
    *
    * @public
    */
-  before(): any
+  precompile(): any
 
   /**
    * Compilation callback

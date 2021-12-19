@@ -78,7 +78,7 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async compile() {
-    const config = await this.before()
+    const config = await this.precompile()
     const compiler = await this.invoke(config)
 
     this.app.timeEnd('bud')
@@ -152,7 +152,7 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   @once
-  public async before() {
+  public async precompile() {
     const config = []
 
     this.stats = INITIAL_STATS

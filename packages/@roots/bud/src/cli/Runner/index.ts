@@ -10,35 +10,18 @@ import * as flags from './config/override.config'
 
 const {isUndefined} = lodash
 
-/**
- * @internal
- */
+/** @internal */
 export class Runner {
-  /**
-   * @internal
-   */
+  /** @internal */
   public app: Bud
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public logger: Signale
 
-  /**
-   * Class constructor
-   *
-   * @param cli - CLI state
-   * @param options - Bud options
-   * @internal
-   */
+  /** @internal */
   public constructor(public cli: CLI.Options) {}
 
-  /**
-   * Initialize bud application
-   *
-   * @internal
-   * @decorator `@bind`
-   */
+  /** @internal */
   @bind
   public async initialize() {
     const parse = (value, fallback) =>

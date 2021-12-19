@@ -46,7 +46,7 @@ import {Items, Loaders, Rules, Service} from '../..'
  * bud.hooks.filter('build.entry')
  * ```
  *
- * @public @core @container
+ * @public
  */
 export default interface Build extends Service {
   /**
