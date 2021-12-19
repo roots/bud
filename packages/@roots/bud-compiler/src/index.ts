@@ -8,7 +8,7 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @core @packageDocumentation
+ *  @packageDocumentation
  */
 
 export {Compiler} from './Compiler'

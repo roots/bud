@@ -9,54 +9,27 @@ import * as Rule from '../Rule'
  * Build container service interface
  *
  * @remarks
- * The most current config is accessible through {@link @roots/bud-framework#Build | Build.config}.
- * If it has never been built before, accessing the property will automatically build it.
+ * Most configuration values are run through {@link Hooks.filter} and {@link Hooks.promised} callbacks.
  *
- * If the configuration has changed {@link @roots/bud-framework#Build| Build.rebuild}
- * can be called to regenerate the configuration.
- *
- * Most configuration values are produced using {@link @roots/bud-framework#(Hooks:interface) | Hooks}.
- *
- * @example
- * Access the config
- *
- * ```js
- * build.config
- * ```
- *
- * @example
- * Rebuild the configuration
- *
- * ```js
- * build.rebuild()
- * ```
- *
- * @example
- * Filter the Webpack configuration.entry value
- *
- * ```js
- * bud.hooks.filter('build.entry')
- * ```
- *
- * @public @core @container
+ * @public
  */
 export default abstract class Build extends Service {
   /**
-   * {@link Loader.Interface} array
+   * {@link Build.loader} array
    *
    * @public
    */
   public loaders: Loader.Interface[]
 
   /**
-   * {@link Item.Interface} array
+   * {@link Build.item} array
    *
    * @public
    */
   public items: Item.Interface[]
 
   /**
-   * {@link Rule.Interface} array
+   * {@link Build.rule} array
    *
    * @public
    */

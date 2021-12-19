@@ -19,7 +19,7 @@ import {
 /**
  * Extension instance controller
  *
- * @public @core
+ * @public
  */
 export class Controller {
   /**
@@ -458,7 +458,7 @@ export class Controller {
    * @remarks
    * Calls the {@link @roots/bud-framework#Module.boot} callback
    *
-   * @public @core
+   * @public
    * @decorator `@bind`
    */
   @bind

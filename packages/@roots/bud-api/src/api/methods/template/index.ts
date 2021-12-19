@@ -19,7 +19,7 @@ export interface facade {
 /**
  * Template function options
  *
- * @public @config
+ * @public
  */
 interface Options extends HtmlOptions {
   /**

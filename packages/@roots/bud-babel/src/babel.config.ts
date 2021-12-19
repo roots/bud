@@ -1,11 +1,46 @@
 import {bind} from './babel.dependencies'
 import {Registry} from './babel.interface'
 
+/**
+ * Babel configuration class
+ *
+ * @remarks
+ * This class is used to configure the Babel transpiler.
+ *
+ * @example
+ * ```ts
+ * bud.babel.setPreset(
+ *   '@babel/preset-env',
+ *   require.resolve('@babel/preset-env'),
+ * )
+ * ```
+ *
+ * @public
+ */
 export class Config {
+  /**
+   * Plugins registry
+   *
+   * @public
+   */
   public plugins: Registry = {}
 
+  /**
+   * Presets registry
+   *
+   * @public
+   */
   public presets: Registry = {}
 
+  /**
+   * Set a babel preset
+   *
+   * @param name - babel preset name
+   * @param preset - path to the babel preset or the preset itself
+   * @returns The babel configuration class
+   *
+   * @public
+   */
   @bind
   public setPreset(
     name: string,

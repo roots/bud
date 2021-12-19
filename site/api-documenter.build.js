@@ -27,8 +27,13 @@ const ensureDirs = async () => {
     await Promise.all(
       apiOuts.map(async out => {
         const path = join(out, 'md')
+        const tmpPath = join(out, 'tmp')
+
         console.log(`ensuring ${path} exists`)
-        await ensureDir(join(out, 'md'))
+        await ensureDir(path)
+
+        console.log(`ensuring ${path} exists`)
+        await ensureDir(tmpPath)
         return
       }),
     )

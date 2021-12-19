@@ -6,7 +6,7 @@ import {Service} from '../Service'
 /**
  * Peer service abstract class
  *
- * @public @core @container
+ * @public
  */
 export abstract class Abstract extends Service<Peers.Repository> {
   public abstract repository: Repository

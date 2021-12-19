@@ -5,7 +5,7 @@ import {CompilerPlugin, Module} from './Extension'
 /**
  * Extensions Service interface
  *
- * @core @public @container
+ *  @public
  */
 export interface Extensions extends Service {
   /**

@@ -4,7 +4,7 @@ import {Service} from '../Service'
 /**
  * Peer service interface
  *
- * @public @core @container
+ * @public
  */
 export interface Interface extends Service {
   [key: string]: any

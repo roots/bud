@@ -25,7 +25,7 @@ export interface splitChunks {
  * })
  * ```
  *
- * @public @config
+ * @public
  */
 export const splitChunks: splitChunks = function (
   options?: Configuration['optimization']['splitChunks'],

@@ -5,7 +5,7 @@
 Bud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0).
 
 **The most important change**
-You no longer need to explicitly require an extension in your configuration file or call `bud.use` to load it. Bud will automatically load the extensions you have installed. This feature can be circumvented with the **--no-inject** flag but this is not as well tested as the default behavior.
+You no longer need to explicitly require an extension in your configuration file or call `bud.use` to load it. Bud will automatically load the extensions you have installed.
 
 ### Breaking
 
@@ -62,17 +62,31 @@ You no longer need to explicitly require an extension in your configuration file
 ### Improved
 
 - Greatly improved performance. The entire Bud lifecycle is asynchronous.
-- Extensions that follow the `bud-*` naming convention are now automatically registered and booted.
+- Installed extensions are now automatically registered and booted.
 - Peer dependency requirements are now checked. Missing dependencies will not throw an error but will be logged.
 - **bud.use** now supports using Webpack plugins directly.
 - Informative logging.
 - The CLI and dashboard have a fresh coat of paint.
 - New notification center integration (MacOS only)
+- Dashboard warnings and errors are now better displayed in the console.
+
+## Fixed
+
+- **bud.proxy** - fixed proxy interceptor
+- **bud.serve** - fixed development server public path
+- **bud.serve** - disables module hashing in development mode. this is enforced
 
 ### Internal
 
 - `@roots/bud-typings` has been deprecated.
-- Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/main/.yarn/local) to provide utilities in the `yarn kjo` namespace.
+- Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/main/dev/@bud) to provide utilities in the `yarn @bud` namespace.
+
+## Extension specific notes
+
+The following notes only apply to specific extensions:
+
+- [`@roots/bud-tailwindcss`](https://github.com/roots/bud/tree/main/packages/@roots/bud-tailwindcss) - updated to version 3.
+- [`@roots/bud-sass`](https://github.com/roots/bud/tree/main/packages/@roots/bud-sass) - uses `postcss-scss` to avoid syntax conflicts between sass and postcss.
 
 ## Contributors
 

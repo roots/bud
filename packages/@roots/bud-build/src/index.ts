@@ -14,7 +14,7 @@
  *
  * - 🌱 Easy - Low bundle size and fast build times
  *
- * @core @packageDocumentation
+ *  @packageDocumentation
  */
 
 export {Build} from './Build'
