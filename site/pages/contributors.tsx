@@ -15,8 +15,7 @@ function Page() {
   return (
     <Layout
       title={`${manifest.name} Contributors`}
-      description="Thanks to everyone who made this happen"
-    >
+      description="Thanks to everyone who made this happen">
       <Header.Component title="Contributors" />
 
       <main>

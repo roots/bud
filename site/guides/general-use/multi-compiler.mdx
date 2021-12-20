@@ -8,9 +8,6 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
-import BuildTargetTheme from '!!raw-loader!@site/src/components/cli-output/multi-compiler-build--target-theme.md'
-import BuildTargetThemePlugin from '!!raw-loader!@site/src/components/cli-output/multi-compiler-build--target-theme--target-plugin.md'
-
 It is possible to configure more than one Webpack compiler from a single bud config file.
 
 For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; anything with very different
@@ -85,24 +82,22 @@ but our `theme` compiler does not.
 Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
 build into two distinct compilations we've all but guaranteed that it won't.
 
-## Improved workflow with `--target`
+## Using the `--target` flag
 
 The other benefit is a potentially massive workflow improvement. Let's say that we have to work on the `theme` more often than the `plugin`.
 With the above config we don't have to rebuild the `plugin` code again just to work on our `theme` code.
 
-We can use the `bud` cli to only run the compiler we need using [the `--target` flag](/guides/bud-cli/build#--target).
+We can use the `bud` cli to only run the compiler we need using [the `--target` flag](/guides/bud-cli/build).
 
-So, to only rebuild the `theme`:
-
-<CodeBlock title="$ yarn bud build --target theme">
-  {BuildTargetTheme}
-</CodeBlock>
+```sh
+$ yarn bud build --target theme
+```
 
 If you had more than two instances it might make sense to want to target more than one compiler, and `--target` supports that:
 
-<CodeBlock title="$ yarn bud build --target theme --target plugin">
-  {BuildTargetThemePlugin}
-</CodeBlock>
+```sh
+$ yarn bud build --target theme --target plugin
+```
 
 ## Compilers can only be made from the parent context
 

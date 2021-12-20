@@ -19,7 +19,7 @@
   "files.associations": {
     "*.ts": "typescript",
     "*.tsx": "typescriptreact",
-    "*.mdx": "markdown",
+    "*.mdx": "mdx",
     "bud.config.json": "json5"
   }
 }

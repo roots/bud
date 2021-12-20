@@ -1,15 +1,13 @@
 ---
-title: bud init
+title: bud install
 description: Install dependencies registered by extensions
-sidebar_label: bud init
-slug: init
+sidebar_label: bud install
+slug: install
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
-import Init from '!!raw-loader!@site/src/components/cli-output/babel-init--help.md'
+import Help from '!!raw-loader!@site/src/components/cli-output/install.help.md'
 
-Installs any packages registered as dependencies by extensions listed in `package.json`.
-
-<CodeBlock title="$ yarn bud init --help">{Init}</CodeBlock>
+<CodeBlock title="$ yarn bud install --help">{Help}</CodeBlock>
