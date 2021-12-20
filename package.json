@@ -1,5 +1,5 @@
 {
-  "name": "bud.js",
+  "name": "bud",
   "packageManager": "yarn@3.1.1",
   "version": "5.0.0",
   "private": true,
@@ -12,6 +12,7 @@
   "engines": {
     "node": "^16.3.0"
   },
+  "typings": "./global.d.ts",
   "volta": {
     "node": "16.13.1"
   },

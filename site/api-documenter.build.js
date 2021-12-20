@@ -5,18 +5,25 @@ const {
   ensureFile,
   writeFile,
   createReadStream,
+  remove,
 } = require('fs-extra')
 const {createInterface} = require('readline')
 const {parse, join} = require('path')
 const globby = require('globby')
 const execa = require('execa')
 const {format} = require('prettier')
+const {chunk} = require('lodash')
 
 /**
  * Adapted from faast.js' api-extractor/docusaurus adapter
  * {@link https://github.com/faastjs/faast.js/blob/master/build/make-docs.js}
  */
+//
 
+/**
+ * Ensure the directories exist
+ * @internal
+ */
 const ensureDirs = async () => {
   try {
     const apiOuts = await globby(
@@ -60,29 +67,35 @@ const getPackages = async () => {
 }
 
 const runExtractor = async () => {
+  console.log(`Running api-extractor`)
+
   const packages = await getPackages()
 
   try {
-    await Promise.all(
-      packages.map(async pkg => {
-        console.log(
-          `Running api-extractor on ${pkg.extractorConfig}`,
-        )
+    await chunk(packages, 5).reduce(async (promised, chunk) => {
+      await promised
 
-        const child = execa('yarn', [
-          'api-extractor',
-          'run',
-          '--local',
-          '--verbose',
-          '--config',
-          pkg.extractorConfig,
-        ])
+      await Promise.all(
+        chunk.map(async pkg => {
+          console.log(
+            `Running api-extractor on ${pkg.extractorConfig}`,
+          )
 
-        child.stdout.pipe(process.stdout)
-        child.stderr.pipe(process.stderr)
-        await child
-      }),
-    )
+          const child = execa('yarn', [
+            'api-extractor',
+            'run',
+            '--local',
+            '--verbose',
+            '--config',
+            pkg.extractorConfig,
+          ])
+
+          child.stdout.pipe(process.stdout)
+          child.stderr.pipe(process.stderr)
+          await child
+        }),
+      )
+    }, Promise.resolve())
   } catch (e) {
     console.error(e)
   }
@@ -101,21 +114,22 @@ const runDocumenter = async () => {
     },
   )
 
-  console.log(projects)
-
-  await Promise.all(
-    projects.map(async project => {
-      project = project.split('/').pop()
-      await execa('yarn', [
-        'api-documenter',
-        'markdown',
-        '-i',
-        `site/src/api/${project}/`,
-        '-o',
-        `site/api/raw/${project}/`,
-      ])
-    }),
-  )
+  await chunk(projects, 5).reduce(async (promised, chunk) => {
+    await promised
+    await Promise.all(
+      chunk.map(async project => {
+        project = project.split('/').pop()
+        await execa('yarn', [
+          'api-documenter',
+          'markdown',
+          '-i',
+          `site/src/api/${project}/`,
+          '-o',
+          `site/api/raw/${project}/`,
+        ])
+      }),
+    )
+  }, Promise.resolve())
 }
 
 async function formatMarkdown() {
@@ -128,17 +142,14 @@ async function formatMarkdown() {
     },
   )
 
-  console.log(files)
-
   await Promise.all(
     files.map(async file => {
       try {
-        let {name: filename, dir, ext} = parse(file)
+        let {name: filename, ext} = parse(file)
 
         if (filename == 'index') return
 
-        const input = await createReadStream(file)
-
+        const input = createReadStream(file)
         const lines = createInterface({
           input,
           crlfDelay: Infinity,
@@ -204,7 +215,7 @@ async function formatMarkdown() {
            * This removes them (they break mdx).
            */
           line = line
-            .replaceAll(/<!--(.*?)-->/g, '', 'g')
+            .replaceAll(/\<!-- --\>/g, '')
             .replaceAll(/\\n\\n/g, /\\n/, 'g')
 
           /**
@@ -260,6 +271,8 @@ async function formatMarkdown() {
       }
     }),
   )
+
+  await remove('site/api/raw')
 }
 
 const main = async () => {

@@ -3,9 +3,7 @@
     "allowJs": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": [
-      "DOM"
-    ],
+    "lib": ["DOM"],
     "noEmit": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
@@ -16,6 +14,9 @@
     ]
   },
   "include": [
-    "./"
-  ],
+    "./",
+    "../api-documenter.build.js",
+    "../api-documenter.unified.build.js",
+    "../lib/bud.d.ts"
+  ]
 }

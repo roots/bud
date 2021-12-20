@@ -70,19 +70,33 @@ export class Docs extends Command {
   public async execute() {
     const all = !this.site && !this.readme && !this.api
 
-    if (this.api || this.site || all) {
-      await this.$('yarn node ./site/api-documenter.build.js')
+    if (all) {
+      await this.$(
+        `yarn node ./site/api-documenter.build.js`,
+        `yarn ts-node ./dev/site/cli-examples`,
+      )
+      await this.$(
+        `yarn workspace @roots/bud-docs run docusaurus build`,
+        `yarn ts-node-transpile-only --project ./config/tsconfig.json ./dev/readme`,
+      )
+      return
     }
 
-    await this.$(
-      ...[
-        this.site || all
-          ? 'yarn workspace @roots/bud-docs run docusaurus build'
-          : null,
-        this.readme || all
-          ? 'yarn ts-node-transpile-only --project ./config/tsconfig.json ./dev/readme'
-          : null,
-      ].filter(Boolean),
-    )
+    if (this.api || this.site) {
+      await this.$(`yarn node ./site/api-documenter.build.js`)
+    }
+
+    if (this.site) {
+      await this.$(`yarn ts-node ./dev/site/cli-examples`)
+      await this.$(
+        `yarn workspace @roots/bud-docs run docusaurus build`,
+      )
+    }
+
+    if (this.readme) {
+      await this.$(
+        `yarn ts-node-transpile-only --project ./config/tsconfig.json ./dev/readme`,
+      )
+    }
   }
 }

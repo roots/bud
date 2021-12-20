@@ -20,30 +20,28 @@ export interface Parser {
  *
  * @public
  */
-export interface Options
-  extends Partial<{
-    test: Maybe<Array<Framework>, RegExp>
-    use: Maybe<Array<Framework>, Array<Item.Interface>>
-    exclude: Maybe<Array<Framework>, RegExp>
-    type: Maybe<Array<Framework>, string>
-    parser: Maybe<Array<Framework>, Parser>
-    generator: Maybe<Array<Framework>, any>
-  }> {}
+export type Options = Partial<{
+  test: Maybe<Array<Framework>, RegExp>
+  use: Maybe<Array<Framework>, Array<Item.Interface>>
+  exclude: Maybe<Array<Framework>, RegExp>
+  type: Maybe<Array<Framework>, string>
+  parser: Maybe<Array<Framework>, Parser>
+  generator: Maybe<Array<Framework>, any>
+}>
 
 /**
  * Output
  *
  * @public
  */
-export interface Output
-  extends Partial<{
-    test: RegExp
-    use?: {
-      loader: string
-      options?: {[key: string]: any}
-    }[]
-    exclude?: RegExp
-    type?: string
-    parser?: Parser
-    generator?: any
-  }> {}
+export type Output = Partial<{
+  test: RegExp
+  use?: {
+    loader: string
+    options?: {[key: string]: any}
+  }[]
+  exclude?: RegExp
+  type?: string
+  parser?: Parser
+  generator?: any
+}>

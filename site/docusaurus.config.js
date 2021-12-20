@@ -1,7 +1,17 @@
 const {posix: path} = require('path')
-const darkTheme = require('prism-react-renderer/themes/dracula')
-const theme = require('prism-react-renderer/themes/github')
 const {manifest} = require('../package.json')
+const themeConfig = require('./docusaurus.theme')
+const pluginBlog = require.resolve(
+  '@docusaurus/plugin-content-blog',
+)
+const pluginDocs = require.resolve(
+  '@docusaurus/plugin-content-docs',
+)
+const pluginSearch = require.resolve('docusaurus-lunr-search')
+
+const presetClassic = require.resolve(
+  '@docusaurus/preset-classic',
+)
 
 module.exports = {
   title: manifest.name,
@@ -14,127 +24,10 @@ module.exports = {
   organizationName: manifest.organization.name,
   projectName: manifest.name,
   customFields: manifest,
-  themeConfig: {
-    announcementBar: {
-      id: 'announcementBar-1', // Increment on change
-      content: `⭐️ If you like Bud.js, give it a star on <a target="_blank" rel="noopener noreferrer" href="${manifest.url.web}">GitHub</a>! ⭐`,
-    },
-    hideableSidebar: true,
-    prism: {
-      additionalLanguages: ['php'],
-      darkTheme,
-      theme,
-    },
-    navbar: {
-      hideOnScroll: true,
-      logo: {
-        alt: manifest.name,
-        src: manifest.logo,
-      },
-      items: [
-        {
-          type: 'doc',
-          docId: 'introduction',
-          position: 'left',
-          label: 'Guides',
-          docsPluginId: 'guides',
-        },
-        {
-          type: 'doc',
-          docId: 'index',
-          position: 'left',
-          label: 'Docs',
-        },
-        {
-          type: 'doc',
-          docId: 'index',
-          position: 'left',
-          label: 'Extensions',
-          docsPluginId: 'extensions',
-        },
-        {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          href: '/api',
-          label: 'Api',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'Bud API documentation',
-        },
-        {
-          href: '/releases',
-          label: 'Releases',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'Release notes',
-        },
-        {
-          href: manifest.url.web,
-          label: 'GitHub',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Links',
-          items: [
-            {
-              label: 'Getting started',
-              to: '/guides/getting-started/',
-            },
-            {
-              label: 'Documentation',
-              to: '/docs/',
-            },
-            {
-              label: 'Extensions',
-              to: '/extensions/',
-            },
-            {
-              label: 'Releases',
-              to: '/releases/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Twitter',
-              href: manifest.organization.twitter,
-            },
-            {
-              label: 'Discourse',
-              href: manifest.url.discourse,
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: manifest.url.web,
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} ${
-        manifest.organization.name
-      }.`,
-    },
-  },
+  themeConfig: themeConfig,
   presets: [
     [
-      '@docusaurus/preset-classic',
+      presetClassic,
       {
         docs: {
           path: 'docs',
@@ -159,7 +52,7 @@ module.exports = {
   ],
   plugins: [
     [
-      require.resolve('@docusaurus/plugin-content-blog'),
+      pluginBlog,
       {
         id: 'releases',
         path: './releases',
@@ -168,7 +61,7 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
+      pluginDocs,
       {
         id: 'api',
         path: './api',
@@ -178,7 +71,7 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
+      pluginDocs,
       {
         id: 'guides',
         path: './guides',
@@ -188,7 +81,7 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@docusaurus/plugin-content-docs'),
+      pluginDocs,
       {
         id: 'extensions',
         path: './extensions',
@@ -198,11 +91,9 @@ module.exports = {
       },
     ],
     [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
+      pluginSearch,
       {
-        hashed: true,
-        docsDir: ['extensions', 'guides', 'docs'],
-        docsRouteBasePath: ['extensions', 'guides', 'docs'],
+        excludeRoutes: ['blog/**/*', 'pages/**/*'],
       },
     ],
   ],
