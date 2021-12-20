@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "helpful-decorators": "^2.1.0",
-    "image-minimizer-webpack-plugin": "^2.2.0",
+    "image-minimizer-webpack-plugin": "^3.0.0",
     "imagemin": "^8.0.1",
     "tslib": "^2.3.1"
   },
