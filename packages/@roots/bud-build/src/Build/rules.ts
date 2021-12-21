@@ -35,6 +35,7 @@ export const font = () =>
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset',
+    generator: {filename: 'assets/[name][ext]'},
     parser: {
       dataUrlCondition: {
         maxSize: 50000,
