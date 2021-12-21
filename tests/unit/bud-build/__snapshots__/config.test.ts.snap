@@ -64,16 +64,16 @@ Object {
 exports[`bud.build.config has expected default font rule 1`] = `
 Object {
   "exclude": Object {},
-  "test": Object {},
-  "use": Array [
-    Object {
-      "loader": StringContaining "resolve-url-loader/index.js",
-      "options": Object {
-        "root": StringContaining "src",
-        "sourceMap": false,
-      },
+  "generator": Object {
+    "filename": "assets/[name][ext]",
+  },
+  "parser": Object {
+    "dataUrlCondition": Object {
+      "maxSize": 50000,
     },
-  ],
+  },
+  "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
+  "type": "asset",
 }
 `;
 

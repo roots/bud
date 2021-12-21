@@ -154,19 +154,14 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.(ttf|otf|eot|woff2?|ico)$/,
-      use: [
-        {
-          loader: expect.stringContaining(
-            'resolve-url-loader/index.js',
-          ),
-          options: {
-            root: expect.stringContaining('src'),
-            sourceMap: false,
-          },
+      exclude: bud.store.get('patterns.modules'),
+      type: 'asset',
+      generator: {filename: 'assets/[name][ext]'},
+      parser: {
+        dataUrlCondition: {
+          maxSize: 50000,
         },
-      ],
+      },
     })
   })
 

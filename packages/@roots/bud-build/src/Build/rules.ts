@@ -34,7 +34,13 @@ export const font = () =>
   new Rule({
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
-    use: ({build}) => [build.items['resolve-url']],
+    type: 'asset',
+    generator: {filename: 'assets/[name][ext]'},
+    parser: {
+      dataUrlCondition: {
+        maxSize: 50000,
+      },
+    },
   })
 
 /**
