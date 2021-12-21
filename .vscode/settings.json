@@ -6,11 +6,13 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
+    "**/Thumbs.db": true,
     "**/node_modules": false
   },
   "prettier.prettierPath": "config/yarn/sdks/prettier/index.js",
   "search.exclude": {
     "config/yarn": true,
+    "coverage": true,
     "**/pnp.*": true,
     "**/node_modules": true
   },

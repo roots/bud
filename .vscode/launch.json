@@ -19,13 +19,15 @@
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "outFiles": ["${workspaceFolder}/.netlify/functions-serve/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/.netlify/functions-serve/**/*.js"
+      ],
       "program": "${workspaceFolder}/node_modules/.bin/netlify",
       "args": ["dev"],
       "console": "integratedTerminal",
-      "env": { "BROWSER": "none" },
+      "env": {"BROWSER": "none"},
       "serverReadyAction": {
-        "pattern": "Server now ready on (https?://[\w:.-]+)",
+        "pattern": "Server now ready on (https?://[w:.-]+)",
         "uriFormat": "%s",
         "action": "debugWithChrome"
       }
@@ -35,7 +37,9 @@
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "outFiles": ["${workspaceFolder}/.netlify/functions-serve/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/.netlify/functions-serve/**/*.js"
+      ],
       "program": "${workspaceFolder}/node_modules/.bin/netlify",
       "args": ["functions:serve"],
       "console": "integratedTerminal"
