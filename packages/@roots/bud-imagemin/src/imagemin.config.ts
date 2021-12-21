@@ -1,39 +1,54 @@
-import type {Framework} from '@roots/bud-framework'
-import {bind} from 'helpful-decorators'
+import {Framework} from '@roots/bud-framework'
+import {Container} from '@roots/container'
+import {isString} from 'lodash'
 
-export class Config {
-  public _app: () => Framework
+import * as BudImagemin from './imagemin.extension'
 
-  public get app(): Framework {
-    return this._app()
+export interface imagemin {
+  (
+    callback: (options: Container) => typeof BudImagemin.options,
+  ): Framework
+}
+export interface imagemin {
+  (setting: 'lossless' | 'lossy'): Framework
+}
+
+const lossless = {
+  encodeOptions: {
+    mozjpeg: {quality: 100},
+    webp: {lossless: 1},
+    avif: {cqLevel: 0},
+  },
+}
+
+export const imagemin: imagemin = function (
+  option:
+    | 'lossless'
+    | 'lossy'
+    | ((options: Container) => typeof BudImagemin.options),
+): Framework {
+  const ctx = this as Framework
+
+  if (isString(option) && option == 'lossy') {
+    ctx.extensions
+      .get('@roots/bud-imagemin')
+      .setOption('minimizer.options', {})
+    return ctx
   }
 
-  public constructor(app: Framework) {
-    this._app = () => app
+  if (isString(option) && option == 'lossless') {
+    ctx.extensions
+      .get('@roots/bud-imagemin')
+      .setOption('minimizer.options', lossless)
+    return ctx
   }
 
-  @bind
-  public setPlugins(plugins: Array<[any, any]> | any) {
-    this.app.info({
-      message: 'bud.imagemin called',
-      suffix: JSON.stringify(plugins),
-    })
-
-    const imagemin = this.app.extensions.get(
-      'image-minimizer-webpack-plugin',
+  ctx.extensions
+    .get('@roots/bud-imagemin')
+    .setOption(
+      'minimizer',
+      option(ctx.extensions.get('@roots/bud-imagemin').options),
     )
 
-    if (plugins && plugins.length) {
-      imagemin.setOption('minimizerOptions.plugins', plugins)
-
-      this.app.log({
-        message: 'plugins',
-        suffix: JSON.stringify(
-          imagemin.getOption('minimizerOptions.plugins'),
-        ),
-      })
-    }
-
-    return this.app
-  }
+  return ctx
 }

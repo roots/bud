@@ -15,12 +15,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-imagemin": "workspace:*",
-    "@types/imagemin-gifsicle": "^7",
-    "@types/imagemin-svgo": "^10",
-    "imagemin-gifsicle": "7.0.0",
-    "imagemin-jpegtran": "7.0.0",
-    "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "10.0.0"
+    "@roots/bud-imagemin": "workspace:*"
   }
 }

@@ -17,23 +17,17 @@
  * @packageDocumentation
  */
 
-import {Config} from './imagemin.config'
-import {BudImageMinExtension} from './imagemin.extension'
-import {BudImageMinPlugin} from './imagemin.plugin'
+import {imagemin} from './imagemin.config'
+import * as BudImagemin from './imagemin.extension'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    imagemin: Config
-  }
-
-  interface Plugins {
-    '@roots/bud-imagemin': typeof BudImageMinPlugin
-    'image-minimizer-webpack-plugin': typeof BudImageMinPlugin
+    imagemin: imagemin
   }
 
   interface Modules {
-    '@roots/bud-imagemin': typeof BudImageMinExtension
+    '@roots/bud-imagemin': typeof BudImagemin
   }
 }
 
-export const {name, mixin, register, boot} = BudImageMinExtension
+export const {name, options, register, boot} = BudImagemin
