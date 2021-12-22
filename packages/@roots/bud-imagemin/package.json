@@ -16,8 +16,18 @@
     "bud-extension",
     "imagemin"
   ],
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
     "lib/",
@@ -60,39 +70,9 @@
     "webpack": "5.65.0"
   },
   "dependencies": {
+    "@squoosh/lib": "^0.4.0",
     "helpful-decorators": "^2.1.0",
-    "image-minimizer-webpack-plugin": "^2.2.0",
-    "imagemin": "^8.0.1",
+    "image-minimizer-webpack-plugin": "^3.0.0",
     "tslib": "^2.3.1"
-  },
-  "peerDependencies": {
-    "imagemin-gifsicle": "7.0.0",
-    "imagemin-jpegtran": "7.0.0",
-    "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "10.0.1"
-  },
-  "peerDependenciesMeta": {
-    "imagemin-gifsicle": {
-      "optional": true
-    },
-    "imagemin-jpegtran": {
-      "optional": true
-    },
-    "imagemin-optipng": {
-      "optional": true
-    },
-    "imagemin-svgo": {
-      "optional": true
-    }
-  },
-  "contributors": [
-    {
-      "name": "kellymears",
-      "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    }
-  ]
+  }
 }

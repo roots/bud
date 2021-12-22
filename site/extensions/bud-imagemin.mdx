@@ -9,6 +9,9 @@ import TabItem from '@theme/TabItem'
 
 [@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
 
+The extension uses [squoosh](https://squoosh.app) under the hood and can be configured for
+lossless or lossy compression.
+
 ## Installation
 
 <Tabs
@@ -29,55 +32,31 @@ import TabItem from '@theme/TabItem'
   </TabItem>
 </Tabs>
 
-## Installing peer dependencies
-
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
-
-## Usage
-
-Add the extension to your config:
-
-```js {2} title='bud.config.js'
-module.exports = bud => bud.use(['@roots/bud-imagemin'])
-```
-
 ## Configuration
 
-By default, [@roots/bud-imagemin](/extensions/bud-imagemin) applies the following configuration:
+Without any configuration, the image minimizer extension will compress nearly all
+image asset types and compress them very well.
 
-| Plugin   | Options                               |
-| -------- | ------------------------------------- |
-| gifsicle | `{interlaced: true}`                  |
-| jpegtran | `{progressive: true}`                 |
-| optipng  | `{optimizationLevel: 5}`              |
-| svgo     | `{plugins: [{removeViewBox: false}]}` |
+To compress assets losslessly:
 
-If you'd like to make changes you can do so using a the **bud.imagemin** utility function registered by the extension.
+```ts
+bud.imagemin('lossless')
+```
 
-```js {4-9} title='bud.config.js'
-module.exports = bud =>
-  bud.use([require('@roots/bud-imagemin')]).imagemin([
-    ['gifsicle', {interlaced: true}],
-    ['jpegtran', {progressive: true}],
-    ['optipng', {optimizationLevel: 5}],
-    ['svgo', {plugins: [{removeViewBox: false}]}],
-  ])
+To compress assets in a lossy manner:
+
+```ts
+bud.imagemin('lossy')
+```
+
+### Custom config
+
+To provide your own configuration options you can pass a callback which
+will receive and should return the options.
+
+```ts
+bud.imagemin(options => ({
+  ...options,
+  // ...override
+}))
 ```

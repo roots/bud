@@ -1,52 +1,44 @@
-import type {Extension} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
+import ImageMinimizerPlugin, {
+  squooshGenerate,
+  squooshMinify,
+} from 'image-minimizer-webpack-plugin'
 
-import {Config} from './imagemin.config'
-import {BudImageMinPlugin} from './imagemin.plugin'
+import {imagemin} from './imagemin.config'
 
-export const BudImageMinExtension: Extension.Module = {
-  name: '@roots/bud-imagemin',
+export const name: Extension.Module['name'] =
+  '@roots/bud-imagemin'
 
-  /**
-   * Exposes app.babel configuration utility
-   *
-   * @public
-   */
-  mixin: async app => ({
-    imagemin: [Config, app],
-  }),
-
-  register: async app => {
-    await app.extensions.add(BudImageMinPlugin)
+export const options: Extension.Module['options'] = {
+  test: /.(jpe?g|png|gif|tif|webp|svg|avif)$/i,
+  minimizer: {
+    implementation: squooshMinify,
+    options: {},
   },
+  generator: [
+    {
+      preset: 'webp',
+      implementation: squooshGenerate,
+      options: {
+        encodeOptions: {webp: {quality: 90}},
+      },
+    },
+  ],
+}
 
-  boot: async app => {
-    const plugins: Array<[string, {[key: string]: any}]> = [
-      ['imagemin-gifsicle', {interlaced: true}],
-      ['imagemin-jpegtran', {progressive: true}],
-      ['imagemin-optipng', {optimizationLevel: 7}],
-    ]
+export const register: Extension.Module['register'] = async (
+  app: Framework,
+) => {
+  app.api.set('imagemin', imagemin.bind(app))
+  // @ts-ignore
+  app.api.bindFacade('imagemin')
+}
 
-    const eligiblePlugins = await Promise.all(
-      plugins.map(
-        async ([name, options]): Promise<Array<any>> => {
-          try {
-            const pluginImport = await import(name)
-
-            const pluginModule =
-              pluginImport.default || pluginImport
-
-            return pluginModule ? [name, options] : []
-          } catch (e) {
-            app.error(e)
-
-            return []
-          }
-        },
-      ),
-    )
-
-    app.imagemin.setPlugins(
-      eligiblePlugins.filter(plugin => plugin !== []),
-    )
-  },
+export const boot = async (app: Framework): Promise<void> => {
+  app.hooks.on('build.optimization.minimizer', minimizer => [
+    ...minimizer,
+    new ImageMinimizerPlugin(
+      app.extensions.get('@roots/bud-imagemin').options.all(),
+    ),
+  ])
 }
