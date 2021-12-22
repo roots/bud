@@ -3484,7 +3484,7 @@ __metadata:
     "@types/jest": 27.0.3
     "@types/node": 16.11.15
     helpful-decorators: ^2.1.0
-    image-minimizer-webpack-plugin: ^2.2.0
+    image-minimizer-webpack-plugin: ^3.0.0
     imagemin: ^8.0.1
     jest: 27.4.5
     tslib: ^2.3.1
@@ -12318,7 +12318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.0.3, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.7":
+"fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.7":
   version: 3.2.7
   resolution: "fast-glob@npm:3.2.7"
   dependencies:
@@ -12531,13 +12531,6 @@ __metadata:
   version: 10.11.0
   resolution: "file-type@npm:10.11.0"
   checksum: cadd8cd187692dcde637a3ff53bb51c5d935633fc8085e7d25bfb3b4bf995e14a43f2baf71bdcb9d7235b3e725bd158b75d25911fa2f73e5812955382228c511
-  languageName: node
-  linkType: hard
-
-"file-type@npm:^12.0.0":
-  version: 12.4.2
-  resolution: "file-type@npm:12.4.2"
-  checksum: 67c8d7f8f032fd8cf4d14016d96567d20eeb7bf3524915f2c5d79337ca4e5338032d373a5fe827610eaf4ab7eb80629ff868331a66f63d1f9e9cc4c433e3f047
   languageName: node
   linkType: hard
 
@@ -13364,22 +13357,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^10.0.0":
-  version: 10.0.2
-  resolution: "globby@npm:10.0.2"
-  dependencies:
-    "@types/glob": ^7.1.1
-    array-union: ^2.1.0
-    dir-glob: ^3.0.1
-    fast-glob: ^3.0.3
-    glob: ^7.1.3
-    ignore: ^5.1.1
-    merge2: ^1.2.3
-    slash: ^3.0.0
-  checksum: 167cd067f2cdc030db2ec43232a1e835fa06217577d545709dbf29fd21631b30ff8258705172069c855dc4d5766c3b2690834e35b936fbff01ad0329fb95a26f
-  languageName: node
-  linkType: hard
-
 "globby@npm:^6.1.0":
   version: 6.1.0
   resolution: "globby@npm:6.1.0"
@@ -13485,7 +13462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.10, graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.2, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.8":
+"graceful-fs@npm:^4.1.10, graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.8":
   version: 4.2.8
   resolution: "graceful-fs@npm:4.2.8"
   checksum: 5d224c8969ad0581d551dfabdb06882706b31af2561bd5e2034b4097e67cc27d05232849b8643866585fd0a41c7af152950f8776f4dd5579e9853733f31461c6
@@ -14325,25 +14302,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.1.1, ignore@npm:^5.1.4, ignore@npm:^5.1.8, ignore@npm:^5.1.9":
+"ignore@npm:^5.1.4, ignore@npm:^5.1.8, ignore@npm:^5.1.9":
   version: 5.1.9
   resolution: "ignore@npm:5.1.9"
   checksum: 6f6b2235f4e63648116c5814f76b2d3d63fae9c21b8a466862e865732f59e787c9938a9042f9457091db6f0d811508ea3c8c6a60f35bafc4ceea08bbe8f96fd5
   languageName: node
   linkType: hard
 
-"image-minimizer-webpack-plugin@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "image-minimizer-webpack-plugin@npm:2.2.0"
+"image-minimizer-webpack-plugin@npm:^3.0.0":
+  version: 3.1.2
+  resolution: "image-minimizer-webpack-plugin@npm:3.1.2"
   dependencies:
-    imagemin: ^7.0.1
-    klona: ^2.0.4
-    p-limit: ^3.1.0
-    schema-utils: ^3.0.0
-    serialize-javascript: ^5.0.1
+    schema-utils: ^4.0.0
+    serialize-javascript: ^6.0.0
   peerDependencies:
     webpack: ^5.1.0
-  checksum: f145ab15cf9a2d97a30caf2b2b1f5ac3e82fd28c44541122d8e6fac43226996b4b4837114f89853db8dff5460b27817818ddb1a512320d39448bcaaa5a9a537d
+  peerDependenciesMeta:
+    "@squoosh/lib":
+      optional: true
+    imagemin:
+      optional: true
+  checksum: 73a936b7c4757a9c4dc8a0288c11e598c8369595202ee1fa5b86d8cb25aa3c578968240db3a35f43c258e81074e2be5000bbba1a1300f4bd894ec6c149a2b94f
   languageName: node
   linkType: hard
 
@@ -14387,21 +14366,6 @@ __metadata:
     is-svg: ^4.3.1
     svgo: ^2.5.0
   checksum: 63b981b55bab9dc09c9894506ed39467c4aa9852c1edc76798fac954f5b76a3c7cb9d6f70f57cd69d3efb3d2b8595b73ebe6ff482ce214c6c180bda7fa6d0b29
-  languageName: node
-  linkType: hard
-
-"imagemin@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "imagemin@npm:7.0.1"
-  dependencies:
-    file-type: ^12.0.0
-    globby: ^10.0.0
-    graceful-fs: ^4.2.2
-    junk: ^3.1.0
-    make-dir: ^3.0.0
-    p-pipe: ^3.0.0
-    replace-ext: ^1.0.0
-  checksum: 66af34cb1ec91df94bb7ce9420625d1e6545ed22fb41182bf4e3516d6d494a45005a242d217e6c5b63ca4599fb19cda4bec5737bba248fb703a9dc1533798317
   languageName: node
   linkType: hard
 
@@ -17245,7 +17209,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge2@npm:^1.2.3, merge2@npm:^1.3.0, merge2@npm:^1.4.1":
+"merge2@npm:^1.3.0, merge2@npm:^1.4.1":
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 7268db63ed5169466540b6fb947aec313200bcf6d40c5ab722c22e242f651994619bcd85601602972d3c85bd2cc45a358a4c61937e9f11a061919a1da569b0c2
@@ -18679,7 +18643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^3.0.2, p-limit@npm:^3.1.0":
+"p-limit@npm:^3.0.2":
   version: 3.1.0
   resolution: "p-limit@npm:3.1.0"
   dependencies:
@@ -18753,13 +18717,6 @@ __metadata:
   dependencies:
     aggregate-error: ^3.0.0
   checksum: cb0ab21ec0f32ddffd31dfc250e3afa61e103ef43d957cc45497afe37513634589316de4eb88abdfd969fe6410c22c0b93ab24328833b8eb1ccc087fc0442a1c
-  languageName: node
-  linkType: hard
-
-"p-pipe@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "p-pipe@npm:3.1.0"
-  checksum: ee9a2609685f742c6ceb3122281ec4453bbbcc80179b13e66fd139dcf19b1c327cf6c2fdfc815b548d6667e7eaefe5396323f6d49c4f7933e4cef47939e3d65c
   languageName: node
   linkType: hard
 
@@ -22581,15 +22538,6 @@ __metadata:
   dependencies:
     randombytes: ^2.1.0
   checksum: 3273b3394b951671fcf388726e9577021870dfbf85e742a1183fb2e91273e6101bdccea81ff230724f6659a7ee4cef924b0ff9baca32b79d9384ec37caf07302
-  languageName: node
-  linkType: hard
-
-"serialize-javascript@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "serialize-javascript@npm:5.0.1"
-  dependencies:
-    randombytes: ^2.1.0
-  checksum: bb45a427690c3d2711e28499de0fbf25036af1e23c63c6a9237ed0aa572fd0941fcdefe50a2dccf26d9df8c8b86ae38659e19d8ba7afd3fbc1f1c7539a2a48d2
   languageName: node
   linkType: hard
 
