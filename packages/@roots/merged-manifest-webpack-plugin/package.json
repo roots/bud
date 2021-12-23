@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.16",
+    "@types/node": "16.11.17",
     "@types/prettier": "2.4.2",
     "webpack": "5.65.0"
   },
