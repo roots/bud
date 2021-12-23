@@ -3288,7 +3288,7 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/node": 16.11.17
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     axios: 0.24.0
     ink: 3.2.0
     ink-gradient: 2.0.0
@@ -3315,7 +3315,7 @@ __metadata:
     "@tsconfig/docusaurus": 1.0.4
     "@types/jsesc": 3.0.1
     "@types/node": 16.11.17
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/react-helmet": 6.1.4
     "@types/react-reconciler": 0.26.4
@@ -3587,7 +3587,7 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests"
     "@types/jest": 27.0.3
     "@types/node": 16.11.17
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@wordpress/browserslist-config": 4.1.0
     jest: 27.4.5
@@ -3648,7 +3648,7 @@ __metadata:
     "@types/babel__core": 7.1.17
     "@types/jest": 27.0.3
     "@types/node": 16.11.17
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     autobind-decorator: 2.4.0
     jest: 27.4.5
@@ -4046,7 +4046,7 @@ __metadata:
   dependencies:
     "@types/node": 16.11.17
     "@types/prettier": 2.4.2
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
@@ -5040,14 +5040,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.37, @types/react@npm:^17":
-  version: 17.0.37
-  resolution: "@types/react@npm:17.0.37"
+"@types/react@npm:*, @types/react@npm:17.0.38, @types/react@npm:^17":
+  version: 17.0.38
+  resolution: "@types/react@npm:17.0.38"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: e68b0d59aa69577fc6a6d654b25d5d8408625498f4c483f160b557fac21e840f6e8807cbde93e9f039949b6d624a019b1990d18499c1d65aecf3605c25e30242
+  checksum: 4079f4f959cd4a4bfaeda8b89fe8a1b1f8bdc9d87acfdc5f74a0b39cec9ec6a470724357c62778c0f063180b360c250e920c5a142f1dbcda67d9cc25a6d43a85
   languageName: node
   linkType: hard
 
@@ -7957,7 +7957,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.178
     "@types/node": 16.11.17
-    "@types/react": 17.0.37
+    "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/react-helmet": 6.1.4
     "@types/react-reconciler": 0.26.4
