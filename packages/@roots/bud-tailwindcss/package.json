@@ -71,7 +71,7 @@
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "16.11.15",
+    "@types/node": "16.11.16",
     "@types/tailwindcss": "2.2.4",
     "tailwindcss": "3.0.7"
   },
