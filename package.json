@@ -35,7 +35,7 @@
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.17",
-    "@types/react": "17.0.37",
+    "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "@types/react-helmet": "6.1.4",
     "@types/react-reconciler": "0.26.4",
