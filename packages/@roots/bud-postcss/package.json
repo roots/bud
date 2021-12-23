@@ -77,7 +77,7 @@
     "postcss": "8.4.5",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
-    "postcss-preset-env": "7.0.2",
+    "postcss-preset-env": "7.1.0",
     "webpack": "5.65.0"
   },
   "dependencies": {
@@ -89,7 +89,7 @@
     "postcss": "8.4.5",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
-    "postcss-preset-env": "7.0.2"
+    "postcss-preset-env": "7.1.0"
   },
   "peerDependenciesMeta": {
     "postcss-import": {
