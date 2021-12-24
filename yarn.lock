@@ -3566,7 +3566,7 @@ __metadata:
     "@types/jest": 27.0.3
     "@types/lodash": 4.14.178
     "@types/node": 16.11.17
-    "@types/signale": 1.4.2
+    "@types/signale": 1.4.3
     jest: 27.4.5
     postcss: 8.4.5
     postcss-import: 14.0.2
@@ -3788,7 +3788,7 @@ __metadata:
     "@types/node": 16.11.17
     "@types/prettier": 2.4.2
     "@types/safe-json-stringify": 1.1.2
-    "@types/signale": 1.4.2
+    "@types/signale": 1.4.3
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
     cli-highlight: 2.1.11
@@ -5163,12 +5163,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/signale@npm:1.4.2":
-  version: 1.4.2
-  resolution: "@types/signale@npm:1.4.2"
+"@types/signale@npm:1.4.3":
+  version: 1.4.3
+  resolution: "@types/signale@npm:1.4.3"
   dependencies:
     "@types/node": "*"
-  checksum: efe07631afcf4708fb2f9b1be6e8b1e92ad511fe3ee5ced827ab2f7c3909e6646104aa4b25f164e5b52562a0df2af9ae469fb81bc21b2e95a7d3fbc075787e9c
+  checksum: 9c0af58a34211d73060c86665bf429bebdbcdc021ca92d0f353f1ce9094b6554bd4c072e04b2839b9c9e8aff5158deac074c3848b383cf0390fc44dbbbddf72b
   languageName: node
   linkType: hard
 
@@ -7991,7 +7991,7 @@ __metadata:
     "@types/react-helmet": 6.1.5
     "@types/react-reconciler": 0.26.4
     "@types/react-router-dom": 5.3.2
-    "@types/signale": 1.4.2
+    "@types/signale": 1.4.3
     "@types/weak-napi": 2.0.0
     "@typescript-eslint/eslint-plugin": 5.8.0
     "@typescript-eslint/parser": 5.8.0
