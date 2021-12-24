@@ -8,7 +8,13 @@ body:
     attributes:
       value: |
         This form is for reporting technical issues.
-        If you have a question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
+        If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
+
+        Please attempt the following before filing an issue:
+          - Run bud using the `--no-cache` flag to force modules to recompile from scratch.
+          - Run `bud clean` to remove any stale `.budfiles`.
+          - Run `yarn build` again (even if your problem is not related to the `build` command). This will ensure any submitted files are pertitent to your issue.
+          - If, at this point, `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
 
   - type: checkboxes
     id: terms
@@ -72,15 +78,39 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: package-manager-version
+    attributes:
+      label: version
+      description: What version are you using? (`yarn -v` or `npm -v`)
+      placeholder: '3.1.1'
+
+  - type: checkboxes
+    id: pnpm
+    attributes:
+      label: Are you using pnpm?
+      options:
+        - label: yes
+        - label: no
+
   - type: textarea
     id: logs
     attributes:
-      label: Relevant Log Output
+      label: Logs
       description: |
-        Copy/paste any logging output. If applicable, run the
-        command with `--no-dashboard` and --log.level vvvv` flags for better
-        reporting. Please review what you are submitting to ensure it doesn't
-        contain any sensitive information.
+        Copy/paste any logging output. If applicable, run the command with `--no-dashboard` and `--log.level vvvv` flags for better reporting.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: configs
+    attributes:
+      label: Configuration
+      description: |
+        Please attach your bud configuration file(s). Review what you are submitting to ensure it doesn't contain any sensitive information.
+        It is okay to redact information as necessary.
       render: shell
     validations:
       required: false
@@ -89,9 +119,11 @@ body:
     attributes:
       label: Relevant .budfiles
       description: |
-        If possible please attach `.budfiles/bud/profile.json` and
-        `.budfiles/bud/webpack.config.js`. Please review what you are
-        submitting to ensure it doesn't contain any sensitive information.
+        If they were emitted, please attach:
+          - `.budfiles/bud/profile.json`, and;
+          - `.budfiles/bud/webpack.config.js`
+
+        Review what you are submitting to ensure it doesn't contain any sensitive information.
     validations:
       required: false
 

@@ -35,7 +35,6 @@ This PR includes breaking changes to the follow extensions:
 <!--
 - fix(package): description of the fix
 - feat(package): description of the feature
-- perf(package): description of the performance improvement
 - docs(package): description of the documentation change
 - style(package): description of the style change
 - refactor(package): description of the refactoring
