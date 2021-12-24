@@ -1,0 +1,101 @@
+name: Bug Report
+title: '[bug] <title>'
+description: Report a bug. Please provide enough information so that we can reproduce the problem.
+labels: [bug]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for reporting technical issues.
+        If you have a question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agreement
+      options:
+        - label: This is not a duplicate of an existing issue
+          required: true
+        - label: I have read the [guidelines for Contributing to Roots Projects](https://github.com/roots/.github/blob/master/CONTRIBUTING.md)
+          required: true
+        - label: This is not a personal support request that should be posted on the [Roots Discourse](https://discourse.roots.io/) community
+          required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      placeholder: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      placeholder: What actually happens?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps To Reproduce
+      description: |
+        Non-reproducible issues may be immediately closed as not actionable.
+        Please provide reproduction steps as detailed as possible.
+      value: |
+        1.
+        1.
+        1.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: version
+      description: Please provide the output of `bud --version`
+      placeholder: '@roots/bud/5.0.0 darwin-arm64 node-v16.13.1'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: What package manager are you using?
+      options:
+        - yarn classic
+        - yarn berry
+        - npm
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: |
+        Copy/paste any logging output. If applicable, run the
+        command with `--no-dashboard` and --log.level vvvv` flags for better
+        reporting. Please review what you are submitting to ensure it doesn't
+        contain any sensitive information.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Relevant .budfiles
+      description: |
+        If possible please attach `.budfiles/bud/profile.json` and
+        `.budfiles/bud/webpack.config.js`. Please review what you are
+        submitting to ensure it doesn't contain any sensitive information.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
