@@ -111,8 +111,8 @@ body:
     attributes:
       label: Configuration
       description: |
-        Please attach your bud configuration file(s). Review what you are submitting to ensure it doesn't contain any sensitive information.
-        It is okay to redact information as necessary.
+        Please attach your bud configuration file(s).
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
       render: shell
     validations:
       required: false
@@ -125,7 +125,7 @@ body:
           - `.budfiles/bud/profile.json`, and;
           - `.budfiles/bud/webpack.config.js`
 
-        Review what you are submitting to ensure it doesn't contain any sensitive information.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
     validations:
       required: false
 
