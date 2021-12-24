@@ -91,7 +91,9 @@ body:
       label: Are you using pnpm?
       options:
         - label: yes
+          required: false
         - label: no
+          required: false
 
   - type: textarea
     id: logs
