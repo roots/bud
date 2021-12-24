@@ -90,9 +90,9 @@ body:
     attributes:
       label: Are you using pnpm?
       options:
-        - label: yes
+        - label: 'yes'
           required: false
-        - label: no
+        - label: 'no'
           required: false
 
   - type: textarea
