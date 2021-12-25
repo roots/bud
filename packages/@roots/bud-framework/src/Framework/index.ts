@@ -27,7 +27,7 @@ import {
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
-import * as Project from '../Project'
+import {Project} from '../Project'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
 import * as parser from './parser'
@@ -188,7 +188,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public project: Project.Interface
+  public project: Project
 
   /**
    * .env container

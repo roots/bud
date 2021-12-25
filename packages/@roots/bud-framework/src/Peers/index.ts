@@ -1,43 +1,53 @@
-/**
- * A Bud related peer dependency
- */
-export interface Peer {
-  /**
-   * The module/extension which uses this peer
-   *
-   * @public
-   */
-  source: string
-
-  /**
-   * The peer module name
-   *
-   * @public
-   */
-  name: string
-
-  /**
-   * The peer module version
-   *
-   * @public
-   */
-  ver: string
-
-  /**
-   * The peer module type
-   *
-   * @public
-   */
-  type: 'dependencies' | 'devDependencies'
-}
+import {Framework} from '../Framework'
 
 /**
- * Peer repository
+ * Peer dependencies manager
  *
  * @public
  */
-export interface Repository {
-  [key: string]: any
-}
+export interface Peers {
+  /**
+   * App instance
+   *
+   * @public
+   */
+  app: Framework
 
-export {Interface} from './Interface'
+  /**
+   * Module load order
+   *
+   * @public
+   */
+  adjacents: any
+
+  /**
+   * Collect packages.
+   *
+   * @param type - type of packages to discover (devDependencies or dependencies)
+   *
+   * @public
+   */
+  discover(
+    type: 'dependencies' | 'devDependencies',
+  ): Promise<this>
+
+  /**
+   * Returns path from a module name
+   *
+   * @param name - peer module name
+   * @returns path to peer module
+   *
+   * @public
+   */
+  resolveModulePath(name: string): Promise<string>
+
+  /**
+   * Returns manifest from a module name
+   *
+   * @param name - peer module name
+   * @returns manifest for peer module
+   *
+   * @public
+   */
+  getManifest(name: string): Promise<Record<string, any>>
+}

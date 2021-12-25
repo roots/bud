@@ -63,6 +63,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
+    "type": "extension",
     "peers": [
       "@roots/bud-postcss"
     ]
