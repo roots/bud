@@ -14,7 +14,6 @@ import CodeBlock from '@theme/CodeBlock'
 
 - Use **bud** as part of an existing asset pipeline
 - Use **bud** to generate a configuration to be consumed by **webpack** directly
-- Modify the **bud** object before running a build
 
 ## Using Bud with Node
 
@@ -30,9 +29,13 @@ The easiest way to get going is calling the **factory** helper exported from **@
   <TabItem value="js">
 
 ```js title='config/build.js'
-import {factory} from '@roots/bud'
+const {factory} = require('@roots/bud')
 
-const app = factory()
+const build = async () => {
+  const app = await factory()
+}
+
+build()
 ```
 
   </TabItem>
@@ -42,7 +45,11 @@ const app = factory()
 import {factory} from '@roots/bud'
 import type {Framework} from '@roots/bud'
 
-const app: Framework = factory()
+const build = async () => {
+  const app: Framework = await factory()
+}
+
+build()
 ```
 
   </TabItem>
@@ -64,76 +71,68 @@ the defaults. This way, you don't have to reimplement the entire framework.
   <TabItem value="js">
 
 ```js title='config/build.js'
-import {config, factory, services} from '@roots/bud'
+const {config, factory, services} = require('@roots/bud')
 
-const app = factory({
-  name: 'bud'
-  mode: 'production'
-  config: {
-    ...config,
-    // config overrides
-  },
-  services: {
-    ...services,
-    // service overrides
-  }
-})
+const build = async () => {
+  const app = await factory({
+    name: 'bud'
+    mode: 'production'
+    config: {
+      ...config,
+      // config overrides
+    },
+    services: {
+      ...services,
+      // service overrides
+    }
+  })
+}
+
+build()
 ```
 
   </TabItem>
   <TabItem value="ts">
 
-```js title='config/build.ts'
+```ts title='config/build.ts'
 import {config, factory, services} from '@roots/bud'
 import type {Framework} from '@roots/bud'
 
-const app: Framework = factory({
-  name: 'bud'
-  mode: 'production'
-  config: {
-    ...config,
-    // config overrides
-  },
-  services: {
-    ...services,
-    // service overrides
-  }
-})
+const build = async () => {
+  const app: Framework = await factory({
+    name: 'bud'
+    mode: 'production'
+    config: {
+      ...config,
+      // config overrides
+    },
+    services: {
+      ...services,
+      // service overrides
+    }
+  })
+}
+
+build()
 ```
 
   </TabItem>
 </Tabs>
 
 The return value of **factory** is an instance of **Bud**, just as it is passed to the callback function exported by `bud.config.js`.
-Configuration from that point on should be identical, with the exception of you needing to run the build and/or development server.
-
-## Running a build from Node
-
-Once configured, simply call **bud.run** to run the build. In `development` the server will be instantiated for you.
-
-```js
-import {factory} from '@roots/bud'
-
-const app = factory()
-
-app.entry('app', 'app.js').run()
-```
 
 ## Exporting a webpack config
 
-It's possible to utilize **bud** to create a config to be used with **webpack** directly should you not want to use
-the **bud** CLI.
-
-This is done by exporting the **bud.build.config** accessor from a file called `webpack.config.js`.
+Call `bud.build.make` and return the configuration. For more information see the webpack documentation on
+configuring webpack with a promise.
 
 ```js title='webpack.config.js'
-import {factory} from '@roots/bud'
+const {factory} = require('@roots/bud')
 
-const app = factory()
-const config = app.entry('app', 'app.js').build.config
+module.exports = async () => {
+  const app = await factory()
+  // configure
 
-export default config
+  return await app.build.make()
+}
 ```
-
-Now, you can use the webpack cli as per their documentation to run your build while still taking advantage of all
-the quality of life improvements afforded by **bud**.

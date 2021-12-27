@@ -11681,6 +11681,8 @@ __metadata:
   resolution: "example-node-api@workspace:examples/node-api"
   dependencies:
     "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    webpack: 5.65.0
   languageName: unknown
   linkType: soft
 
