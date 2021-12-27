@@ -108,9 +108,11 @@ export class Peers implements PeersInterface {
         Object.entries({
           ...(manifest?.dependencies ?? {}),
           ...(manifest?.devDependencies ?? {}),
-        }).map(async ([name, version]) => {
-          await this.collect(name, 'root')
-        }),
+        })
+          .filter(([name]) => !name.startsWith('@types'))
+          .map(async ([name, version]) => {
+            await this.collect(name, 'root')
+          }),
       )
 
       this.adjacents = new AdjacencyList(this.modules)
