@@ -1,4 +1,4 @@
-import {main} from '@scripts/components/main'
+import {main} from './components/main'
 
 const init = () =>
   window.requestAnimationFrame(function ready() {

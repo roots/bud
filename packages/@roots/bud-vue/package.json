@@ -76,7 +76,7 @@
     "webpack": "5.65.0"
   },
   "bud": {
-    "type": "extensions"
+    "type": "extension"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

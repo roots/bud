@@ -1,5 +1,3 @@
-import {Signale} from '@roots/bud-support'
-
 import {AdjacentMap, Dependency} from './peers.interface'
 
 export class AdjacencyList {
@@ -10,7 +8,7 @@ export class AdjacencyList {
     return new Map(
       Object.values(this.manifests)
         .sort((z: Dependency, y: Dependency) =>
-          z.name.localeCompare(y.name),
+          z.name?.localeCompare(y.name),
         )
         .map((manifest: Dependency) => {
           return [manifest.name, manifest]
@@ -39,18 +37,12 @@ export class AdjacencyList {
     list: Array<string> = [],
     queue: Set<string> = new Set([key]),
   ): Array<Dependency> {
-    const {log} = new Signale({scope: 'adjacencyList'})
-
     try {
-      const enqueue = (name: string) => queue.add(name)
-
       for (const peer of queue) {
         if (peer in list) continue
-        const peerValue = this.adjacentTo(peer)
-        peerValue?.requires.forEach(([peer]) => {
-          enqueue(peer)
-        })
 
+        const peerValue = this.adjacentTo(peer)
+        peerValue?.requires.forEach(([peer]) => queue.add(peer))
         list.unshift(peer)
       }
 
@@ -58,7 +50,6 @@ export class AdjacencyList {
         .flatMap(item => this.adjacentTo(item))
         .filter(Boolean)
     } catch (e) {
-      log(e)
       throw new Error(e)
     }
   }
