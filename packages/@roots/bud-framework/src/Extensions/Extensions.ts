@@ -28,6 +28,12 @@ export interface Extensions extends Service {
   enqueue(extension: CompilerPlugin | Module): Framework
 
   /**
+   * Auto install and register discovered extensions
+   * @public
+   */
+  injectExtensions(): Promise<void>
+
+  /**
    * Register event for all extensions
    *
    * @public

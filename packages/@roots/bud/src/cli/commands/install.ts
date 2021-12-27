@@ -51,21 +51,20 @@ export default class Install extends Command {
     await this.prime(Install)
     await this.app.project.buildProfile()
 
-    if (this.app.project.get('unmet').length === 0) {
-      process.stdout.write('\n✅ nothing to install\n')
-      this.exit(0)
-    }
-
     const manifestPath = await pkgUp()
     process.stdout.write(
       `\nupdating ${manifestPath.replace(process.cwd(), '')}\n`,
     )
     const manifest = await readJson(manifestPath)
 
+    const peerDependencies = Array.from(
+      this.app.project.peers.peerDependencies.entries(),
+    )
+
     manifest.devDependencies = {
       ...manifest.devDependencies,
-      ...this.app.project.get('unmet').reduce(
-        (a, {name, version}) => ({
+      ...peerDependencies.reduce(
+        (a, [name, version]) => ({
           ...a,
           [name]: version,
         }),
@@ -79,12 +78,10 @@ export default class Install extends Command {
     )
 
     process.stdout.write(
-      `\nadded ${this.app.project
-        .get('unmet')
-        .reduce(
-          (a, {name, version}) => `${a} - ${name}@${version}\n`,
-          `\n`,
-        )}\n run yarn/npm install to finalize\n`,
+      `\nadded ${peerDependencies.reduce(
+        (a, [name, version]) => `${a} - ${name}@${version}\n`,
+        `\n`,
+      )}\n run yarn/npm install to finalize\n`,
     )
 
     this.exit(0)

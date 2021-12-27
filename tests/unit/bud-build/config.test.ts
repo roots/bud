@@ -8,6 +8,8 @@ describe('bud.build.config', function () {
 
   beforeAll(async () => {
     bud = await factory()
+    await bud.project.buildProfile()
+    await bud.extensions.injectExtensions()
     await bud.build.make()
   })
 
@@ -121,7 +123,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins.length).toMatchSnapshot()
+    expect(bud.build.config.plugins?.length).toMatchSnapshot()
   })
 
   it('has valid plugins', () => {
