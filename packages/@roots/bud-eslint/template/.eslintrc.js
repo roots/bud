@@ -7,7 +7,7 @@ module.exports = {
     amd: true,
     browser: true,
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
@@ -15,8 +15,10 @@ module.exports = {
       generators: false,
       impliedStrict: true,
       objectLiteralDuplicateProperties: false,
+      jsx: true,
     },
     ecmaVersion: 2017,
+    requireConfigFile: false,
     sourceType: 'module',
   },
   plugins: ['import', 'prettier'],
