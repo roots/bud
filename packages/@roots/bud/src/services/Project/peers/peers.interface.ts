@@ -12,4 +12,4 @@ export interface Dependency {
   }
 }
 
-export interface AdjacentMap extends Map<string, Dependency> {}
+export interface AdjacentMap extends Map<string, Set<string>> {}

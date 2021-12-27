@@ -1,56 +1,77 @@
 import {AdjacentMap, Dependency} from './peers.interface'
 
+/**
+ * Directed adjacency list for project modules
+ *
+ * @public
+ */
 export class AdjacencyList {
   /**
+   * Map of module keys to adjacent required modules
+   *
    * @public
    */
-  public get mapping(): AdjacentMap {
+  public get modules(): AdjacentMap {
     return new Map(
       Object.values(this.manifests)
-        .sort((z: Dependency, y: Dependency) =>
-          z.name?.localeCompare(y.name),
-        )
-        .map((manifest: Dependency) => {
-          return [manifest.name, manifest]
+        .sort((a, b) => a.name?.localeCompare(b.name))
+        .map(manifest => {
+          return [
+            manifest.name,
+            new Set(manifest.requires.map(r => r[0])),
+          ]
         }),
     )
   }
 
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor(
-    public manifests: Record<string, Record<string, any>>,
+    public manifests: Record<string, Dependency>,
   ) {
     this.has = this.has.bind(this)
     this.adjacentTo = this.adjacentTo.bind(this)
     this.fromRoot = this.fromRoot.bind(this)
   }
 
+  /**
+   * Whether a given key exists
+   *
+   * @public
+   */
   public has(key: string): Boolean {
-    return this.mapping.has(key)
+    return this.modules.has(key)
   }
 
-  public adjacentTo(name: string): Record<string, any> {
-    return this.mapping.get(name)
+  /**
+   * Dependencies adjacent to a given key
+   *
+   * @public
+   */
+  public adjacentTo(name: string): Set<string> {
+    return this.modules.get(name) ?? new Set([])
   }
 
-  public fromRoot(
-    key: string,
-    list: Array<string> = [],
-    queue: Set<string> = new Set([key]),
-  ): Array<Dependency> {
-    try {
-      for (const peer of queue) {
-        if (peer in list) continue
+  /**
+   * Ordered dependencies from a given key
+   *
+   * @public
+   */
+  public fromRoot(root: string): Array<Dependency> {
+    if (!this.has(root)) return []
 
-        const peerValue = this.adjacentTo(peer)
-        peerValue?.requires.forEach(([peer]) => queue.add(peer))
-        list.unshift(peer)
-      }
+    const ordered: Array<string> = []
+    const unordered: Set<string> = this.adjacentTo(root)
 
-      return list
-        .flatMap(item => this.adjacentTo(item))
-        .filter(Boolean)
-    } catch (e) {
-      throw new Error(e)
-    }
+    unordered.forEach(dependency => {
+      if (ordered.includes(dependency)) return
+      this.adjacentTo(dependency).forEach(d => unordered.add(d))
+      ordered.unshift(dependency)
+    })
+
+    return ordered.map(name => this.manifests[name])
   }
 }
