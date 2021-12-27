@@ -16,6 +16,7 @@ module.exports = {
       impliedStrict: true,
       jsx: true,
       objectLiteralDuplicateProperties: false,
+      jsx: true,
     },
     requireConfigFile: false,
   },
