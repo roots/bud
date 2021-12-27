@@ -137,18 +137,8 @@ export class Project
   @bind
   public async resolvePeers() {
     await this.peers.discover()
-
-    this.set(
-      'modules',
-      this.peers.adjacents
-        .fromRoot('root')
-        .map(({name, bud, requires, version}) => ({
-          name,
-          bud,
-          version,
-          requires: [...requires],
-        })),
-    )
+    this.set('modules', this.peers.modules)
+    this.set('adjacents', this.peers.adjacents.fromRoot('root'))
   }
 
   /**

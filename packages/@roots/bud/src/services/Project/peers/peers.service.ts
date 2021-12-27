@@ -98,25 +98,23 @@ export class Peers implements PeersInterface {
         name: 'root',
         version: manifest.version ?? '0.0.0',
         bud: manifest.bud ?? null,
+        parent: null,
         resolvable: manifest ? true : false,
         requires: Object.entries<string>({
           ...(manifest.devDependencies ?? {}),
           ...(manifest.dependencies ?? {}),
         }),
       }
+
       await Promise.all(
-        Object.entries({
-          ...(manifest?.dependencies ?? {}),
-          ...(manifest?.devDependencies ?? {}),
-        })
+        this.modules['root'].requires
           .filter(([name]) => !name.startsWith('@types'))
-          .map(async ([name, version]) => {
-            await this.collect(name, 'root')
+          .map(async ([name]) => {
+            await this.collect(name)
           }),
       )
 
       this.adjacents = new AdjacencyList(this.modules)
-      this.app.log(this.adjacents.fromRoot('root'))
     } catch (e) {
       this.app.error(e)
     }
@@ -133,9 +131,11 @@ export class Peers implements PeersInterface {
   }
 
   @bind
-  public async collect(name: string, parent: string) {
+  public async collect(name: string) {
     const manifest = await this.retrieveManifest(name)
-    if (!manifest) this.hasMissingDependencies = true
+    if (!manifest) {
+      this.hasMissingDependencies = true
+    }
 
     const dependency: Dependency = {
       name: manifest.name ?? name,
@@ -159,7 +159,7 @@ export class Peers implements PeersInterface {
 
     if (dependency.bud?.type !== 'extension') return
 
-    if (parent === 'root' && dependency.peerDependencies) {
+    if (dependency.peerDependencies) {
       Object.entries(dependency.peerDependencies).forEach(
         ([name, version]) =>
           this.peerDependencies.set(name, version),
@@ -170,8 +170,8 @@ export class Peers implements PeersInterface {
       await Promise.all(
         Array.from(dependency.requires)
           .filter(([key]) => !key.startsWith('@types/'))
-          .map(async ([key, version]) => {
-            await this.collect(key, parent)
+          .map(async ([key]) => {
+            await this.collect(key)
           }),
       )
     }
