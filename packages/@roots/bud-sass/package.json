@@ -64,7 +64,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "extension"
+    "type": "extension",
+    "peers": [
+      "@roots/bud-postcss"
+    ]
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
@@ -76,7 +79,6 @@
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "postcss": "8.4.5",
     "postcss-scss": "4.0.2",
     "resolve-cwd": "3.0.0",
     "sass-loader": "12.4.0",

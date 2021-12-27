@@ -28,10 +28,6 @@ export const extension: extension = {
    * @public
    */
   async register(app: Framework, logger: Signale) {
-    // ensure that postcss is available
-    if (!app.build.items.postcss) await postcss.use(app, logger)
-    else logger.success('postcss is available')
-
     // add webpack loaders and rules
     app.build.loaders.sass = webpack.loader(logger)
     app.build.items.sass = await webpack.item(logger)
