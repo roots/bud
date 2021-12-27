@@ -2,7 +2,7 @@ import {factory as budFactory} from '@roots/bud'
 import {join} from 'path'
 
 export const factory = async () => {
-  return await budFactory({
+  const bud = await budFactory({
     config: {
       features: {
         dashboard: false,
@@ -13,6 +13,13 @@ export const factory = async () => {
       },
     },
   })
+
+  bud.setPath(
+    'location',
+    join(process.cwd(), 'tests/util/project'),
+  )
+
+  return bud
 }
 
 export {Bud} from '@roots/bud'

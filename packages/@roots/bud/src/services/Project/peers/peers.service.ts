@@ -29,7 +29,11 @@ export class Peers implements PeersInterface {
 
   public adjacents: AdjacencyList
 
+  public hasMissingDependencies: boolean = false
+
   public modules: Record<string, Dependency> = {}
+
+  public peerDependencies: Map<string, string> = new Map()
 
   /**
    * Class constructor
@@ -86,78 +90,88 @@ export class Peers implements PeersInterface {
   @bind
   public async discover() {
     try {
-      await this.collect('root', true)
+      const manifest = await this.getManifest(
+        this.app.path('project'),
+      )
+      this.modules['root'] = {
+        ...manifest,
+        name: 'root',
+        version: manifest.version ?? '0.0.0',
+        bud: manifest.bud ?? null,
+        resolvable: manifest ? true : false,
+        requires: Object.entries<string>({
+          ...(manifest.devDependencies ?? {}),
+          ...(manifest.dependencies ?? {}),
+        }),
+      }
+      await Promise.all(
+        Object.entries({
+          ...(manifest?.dependencies ?? {}),
+          ...(manifest?.devDependencies ?? {}),
+        }).map(async ([name, version]) => {
+          await this.collect(name, 'root')
+        }),
+      )
 
       this.adjacents = new AdjacencyList(this.modules)
+      this.app.log(this.adjacents.fromRoot('root'))
     } catch (e) {
       this.app.error(e)
-      throw new Error(e)
     }
 
     return this
   }
 
   @bind
-  public async retrieveManifest(name: string, path?: string) {
-    const searchDir =
-      path ?? name == 'root'
-        ? process.cwd()
-        : await this.resolveModulePath(name)
+  public async retrieveManifest(name: string) {
+    const searchDir = await this.resolveModulePath(name)
+    if (!searchDir) return false
 
     return await this.getManifest(searchDir)
   }
 
   @bind
-  public async collect(name: string, includeAll = false) {
+  public async collect(name: string, parent: string) {
     const manifest = await this.retrieveManifest(name)
-    if (name === 'root') manifest.name = 'root'
-    const dependency = this.makeDependency(manifest, includeAll)
-    this.modules[name] = dependency
+    if (!manifest) this.hasMissingDependencies = true
 
-    if (
-      !dependency.bud &&
-      name !== 'root' &&
-      !name.includes('@roots')
-    )
-      return
-
-    await Promise.all(
-      Array.from(dependency.requires)
-        .filter(([key]) => !key.startsWith('@types/'))
-        .map(async ([key, version]) => {
-          this.app.log(name, key)
-          await this.collect(key)
-        }),
-    )
-  }
-
-  @bind
-  public makeDependency(
-    manifest: Dependency,
-    includeAll = false,
-  ): Dependency {
-    return {
-      name: manifest.name,
+    const dependency: Dependency = {
+      name: manifest.name ?? name,
       version: manifest.version ?? '0.0.0',
       bud: manifest.bud ?? null,
-      requires: new Set<[string, string]>(
-        Object.entries({
-          ...(includeAll === true && manifest.devDependencies
-            ? manifest.devDependencies
-            : {}),
-          ...(includeAll === true && manifest.dependencies
-            ? manifest.dependencies
-            : {}),
-          ...(manifest.peerDependencies ?? {}),
-          ...(manifest.bud?.peers?.reduce(
-            (a, peer) => ({
-              ...a,
-              [peer]: manifest.version,
-            }),
-            {},
-          ) ?? {}),
-        }),
-      ),
+      resolvable: manifest ? true : false,
+      peerDependencies: manifest.peerDependencies ?? {},
+      requires: Object.entries<string>({
+        ...(manifest.peerDependencies ?? {}),
+        ...manifest.bud?.peers?.reduce(
+          (a: Record<string, any>, k: string) => ({
+            ...a,
+            [k]: manifest.version,
+          }),
+          {},
+        ),
+      }),
+    }
+
+    this.modules[name] = dependency
+
+    if (dependency.bud?.type !== 'extension') return
+
+    if (parent === 'root' && dependency.peerDependencies) {
+      Object.entries(dependency.peerDependencies).forEach(
+        ([name, version]) =>
+          this.peerDependencies.set(name, version),
+      )
+    }
+
+    if (dependency.requires) {
+      await Promise.all(
+        Array.from(dependency.requires)
+          .filter(([key]) => !key.startsWith('@types/'))
+          .map(async ([key, version]) => {
+            await this.collect(key, parent)
+          }),
+      )
     }
   }
 }

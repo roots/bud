@@ -21,6 +21,20 @@ export interface Peers {
   adjacents: any
 
   /**
+   * True if project is missing dependencies
+   *
+   * @public
+   */
+  hasMissingDependencies: boolean
+
+  /**
+   * Expected project dependencies
+   *
+   * @public
+   */
+  peerDependencies: Map<string, string>
+
+  /**
    * Collect packages.
    *
    * @param type - type of packages to discover (devDependencies or dependencies)
