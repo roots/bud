@@ -1,0 +1,406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.project contains a repository 1`] = `
+Object {
+  "adjacents": Array [
+    Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-entrypoints",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    Object {
+      "bud": null,
+      "name": "postcss-preset-env",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "6.7.0",
+    },
+    Object {
+      "bud": null,
+      "name": "postcss-nested",
+      "peerDependencies": Object {
+        "postcss": "^8.2.14",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "^8.2.14",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.6",
+    },
+    Object {
+      "bud": null,
+      "name": "postcss-import",
+      "peerDependencies": Object {
+        "postcss": "^8.0.0",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "^8.0.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "14.0.2",
+    },
+    Object {
+      "bud": null,
+      "name": "postcss",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "8.4.5",
+    },
+    Object {
+      "bud": Object {
+        "peers": Array [
+          "@roots/bud-babel",
+          "@roots/bud-entrypoints",
+          "@roots/bud-postcss",
+        ],
+        "type": "extension",
+      },
+      "name": "@roots/bud-preset-recommend",
+      "peerDependencies": Object {},
+      "requires": Array [
+        Array [
+          "@roots/bud-babel",
+          "5.0.0",
+        ],
+        Array [
+          "@roots/bud-entrypoints",
+          "5.0.0",
+        ],
+        Array [
+          "@roots/bud-postcss",
+          "5.0.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-postcss",
+      "peerDependencies": Object {
+        "postcss": "8.4.5",
+        "postcss-import": "14.0.2",
+        "postcss-nested": "5.0.6",
+        "postcss-preset-env": "7.1.0",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "8.4.5",
+        ],
+        Array [
+          "postcss-import",
+          "14.0.2",
+        ],
+        Array [
+          "postcss-nested",
+          "5.0.6",
+        ],
+        Array [
+          "postcss-preset-env",
+          "7.1.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-babel",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    Object {
+      "bud": null,
+      "name": "@roots/bud",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+  ],
+  "cache": Object {
+    "hash": Any<String>,
+  },
+  "cli": Object {
+    "args": Object {},
+    "argv": Array [],
+    "flags": Object {},
+    "metadata": Object {},
+    "raw": Array [],
+  },
+  "configs": Object {
+    "dynamic": Object {
+      "conditional": Array [],
+      "global": Array [
+        StringContaining "project/bud.config.js",
+      ],
+    },
+    "json": Object {
+      "conditional": Array [],
+      "global": Array [],
+    },
+  },
+  "dependencies": Array [
+    StringContaining "project/package.json",
+    StringContaining "project/bud.config.js",
+  ],
+  "env": Object {
+    "all": Object {},
+    "public": Object {},
+  },
+  "installed": Object {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
+    "postcss": "8.4.5",
+    "postcss-import": "14.0.2",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.1.0",
+  },
+  "manifest": Object {
+    "browserslist": Array [
+      "extends @wordpress/browserslist-config",
+    ],
+    "devDependencies": Object {
+      "@roots/bud": "workspace:*",
+      "@roots/bud-babel": "workspace:*",
+      "@roots/bud-postcss": "workspace:*",
+      "@roots/bud-preset-recommend": "workspace:*",
+      "postcss": "8.4.5",
+      "postcss-import": "14.0.2",
+      "postcss-nested": "5.0.6",
+      "postcss-preset-env": "7.1.0",
+    },
+    "name": "test-empty",
+    "private": true,
+  },
+  "manifestPath": null,
+  "modules": Object {
+    "@roots/bud": Object {
+      "bud": null,
+      "name": "@roots/bud",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    "@roots/bud-babel": Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-babel",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    "@roots/bud-entrypoints": Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-entrypoints",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    "@roots/bud-postcss": Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-postcss",
+      "peerDependencies": Object {
+        "postcss": "8.4.5",
+        "postcss-import": "14.0.2",
+        "postcss-nested": "5.0.6",
+        "postcss-preset-env": "7.1.0",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "8.4.5",
+        ],
+        Array [
+          "postcss-import",
+          "14.0.2",
+        ],
+        Array [
+          "postcss-nested",
+          "5.0.6",
+        ],
+        Array [
+          "postcss-preset-env",
+          "7.1.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    "@roots/bud-preset-recommend": Object {
+      "bud": Object {
+        "peers": Array [
+          "@roots/bud-babel",
+          "@roots/bud-entrypoints",
+          "@roots/bud-postcss",
+        ],
+        "type": "extension",
+      },
+      "name": "@roots/bud-preset-recommend",
+      "peerDependencies": Object {},
+      "requires": Array [
+        Array [
+          "@roots/bud-babel",
+          "5.0.0",
+        ],
+        Array [
+          "@roots/bud-entrypoints",
+          "5.0.0",
+        ],
+        Array [
+          "@roots/bud-postcss",
+          "5.0.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    "postcss": Object {
+      "bud": null,
+      "name": "postcss",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "8.4.5",
+    },
+    "postcss-import": Object {
+      "bud": null,
+      "name": "postcss-import",
+      "peerDependencies": Object {
+        "postcss": "^8.0.0",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "^8.0.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "14.0.2",
+    },
+    "postcss-nested": Object {
+      "bud": null,
+      "name": "postcss-nested",
+      "peerDependencies": Object {
+        "postcss": "^8.2.14",
+      },
+      "requires": Array [
+        Array [
+          "postcss",
+          "^8.2.14",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.6",
+    },
+    "postcss-preset-env": Object {
+      "bud": null,
+      "name": "postcss-preset-env",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "6.7.0",
+    },
+    "root": Object {
+      "browserslist": Array [
+        "extends @wordpress/browserslist-config",
+      ],
+      "bud": null,
+      "devDependencies": Object {
+        "@roots/bud": "workspace:*",
+        "@roots/bud-babel": "workspace:*",
+        "@roots/bud-postcss": "workspace:*",
+        "@roots/bud-preset-recommend": "workspace:*",
+        "postcss": "8.4.5",
+        "postcss-import": "14.0.2",
+        "postcss-nested": "5.0.6",
+        "postcss-preset-env": "7.1.0",
+      },
+      "name": "root",
+      "parent": null,
+      "private": true,
+      "requires": Array [
+        Array [
+          "@roots/bud",
+          "workspace:*",
+        ],
+        Array [
+          "@roots/bud-babel",
+          "workspace:*",
+        ],
+        Array [
+          "@roots/bud-postcss",
+          "workspace:*",
+        ],
+        Array [
+          "@roots/bud-preset-recommend",
+          "workspace:*",
+        ],
+        Array [
+          "postcss",
+          "8.4.5",
+        ],
+        Array [
+          "postcss-import",
+          "14.0.2",
+        ],
+        Array [
+          "postcss-nested",
+          "5.0.6",
+        ],
+        Array [
+          "postcss-preset-env",
+          "7.1.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "0.0.0",
+    },
+  },
+}
+`;
+
+exports[`bud.project resolveFrom contains paths of found peers 1`] = `
+Array [
+  StringContaining "project/package.json",
+  StringContaining "project/bud.config.js",
+]
+`;
+
+exports[`bud.project resolveFrom contains paths of found peers 2`] = `
+Array [
+  StringContaining "src",
+  StringContaining "node_modules",
+  StringContaining "/packages",
+]
+`;
