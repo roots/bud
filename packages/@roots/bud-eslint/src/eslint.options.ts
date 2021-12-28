@@ -21,12 +21,16 @@ export const options: options = ({path, store}) => ({
       amd: true,
       browser: true,
     },
-    parser: 'babel-eslint',
-    parserOptions: {
-      ecmaVersion: 2017,
-      sourceType: 'module',
+    parser: '@babel/eslint-parser',
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      globalReturn: true,
+      generators: false,
+      impliedStrict: true,
+      objectLiteralDuplicateProperties: false,
+      requireConfigFile: false,
     },
-    plugins: ['import', 'prettier'],
+    plugins: ['import'],
     settings: {
       'import/core-modules': [],
       'import/ignore': [

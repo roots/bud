@@ -11,7 +11,7 @@ module.exports = {
     browser: true,
     jquery: true,
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
