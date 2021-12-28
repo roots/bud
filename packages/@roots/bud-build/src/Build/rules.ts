@@ -1,3 +1,4 @@
+import {Framework} from '@roots/bud-framework'
 import {
   json5 as json5Parser,
   toml as tomlParser,
@@ -11,45 +12,45 @@ import {Rule} from '../Rule'
  *
  * @public
  */
-export const image = () =>
-  new Rule({
-    test: ({store}) => store.get('patterns.image'),
-    exclude: ({store}) => store.get('patterns.modules'),
-    type: 'asset/resource',
-    generator: app => ({
-      filename: `assets/${
-        app.store.is('features.hash', true) && app.isProduction
-          ? app.store.get('hashFormat')
-          : app.store.get('fileFormat')
-      }[ext]`,
-    }),
-  })
+export const image = (app: Framework): Rule =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.image'))
+    .setExclude(({store}) => store.get('patterns.modules'))
+    .setType('asset/resource')
+    .setGenerator(app => ({
+      filename: app.when(
+        app.store.is('features.hash', true) && app.isProduction,
+        `assets/${app.store.get('hashFormat')}[ext]`,
+        `assets/${app.store.get('fileFormat')}[ext]`,
+      ),
+    }))
 
 /**
  * Returns {@link Rule} for `.woff`/`.otf` handling
  *
  * @public
  */
-export const font = () =>
-  new Rule({
-    test: ({store}) => store.get('patterns.font'),
-    exclude: ({store}) => store.get('patterns.modules'),
-    type: 'asset',
-    generator: {filename: 'assets/[name][ext]'},
-    parser: {
+export const font = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.font'))
+    .setExclude(({store}) => store.get('patterns.modules'))
+    .setType('asset')
+    .setGenerator({filename: 'assets/[name][ext]'})
+    .setParser({
       dataUrlCondition: {
         maxSize: 50000,
       },
-    },
-  })
+    })
 
 /**
  * Returns {@link Rule} for `.svg` handling
  *
  * @public
  */
-export const svg = () =>
-  new Rule({
+export const svg = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.svg'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
@@ -67,8 +68,8 @@ export const svg = () =>
  *
  * @public
  */
-export const html = () =>
-  new Rule({
+export const html = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.html'),
     use: ({build}) => [build.items.html],
   })
@@ -78,8 +79,8 @@ export const html = () =>
  *
  * @public
  */
-export const csv = () =>
-  new Rule({
+export const csv = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.csv'),
     use: ({build}) => [build.items.csv],
   })
@@ -89,8 +90,8 @@ export const csv = () =>
  *
  * @public
  */
-export const xml = () =>
-  new Rule({
+export const xml = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.xml'),
     use: ({build}) => [build.items.xml],
   })
@@ -100,8 +101,8 @@ export const xml = () =>
  *
  * @public
  */
-export const toml: () => Rule = () =>
-  new Rule({
+export const toml = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.toml'),
     type: () => 'json',
     parser: () => ({
@@ -114,8 +115,8 @@ export const toml: () => Rule = () =>
  *
  * @public
  */
-export const yml: () => Rule = () =>
-  new Rule({
+export const yml = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.yml'),
     type: 'json',
     parser: () => ({
@@ -128,8 +129,8 @@ export const yml: () => Rule = () =>
  *
  * @public
  */
-export const json5: () => Rule = () =>
-  new Rule({
+export const json5 = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.json5'),
     type: 'json',
     parser: () => ({
@@ -142,8 +143,8 @@ export const json5: () => Rule = () =>
  *
  * @public
  */
-export const css: () => Rule = () =>
-  new Rule({
+export const css = (app: Framework) =>
+  new Rule(app, {
     test: ({store}) => store.get('patterns.css'),
     exclude: ({store}) => store.get('patterns.modules'),
     use: ({isProduction, build}) => [
@@ -157,8 +158,8 @@ export const css: () => Rule = () =>
  *
  * @public
  */
-export const js: () => Rule = () =>
-  new Rule({
+export const js = (app: Framework) =>
+  app.build.makeRule({
     test: ({store}) => store.get('patterns.js'),
     exclude: ({store}) => store.get('patterns.modules'),
     use: () => [],
