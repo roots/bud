@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Improved
+
+- `$ bud install` installs all required dependencies regardless of their current installation state. this keeps versions in sync.
+
+### Fixed
+
+- [fix(@roots/bud) module imports (#886)](https://github.com/roots/bud/pull/886)
+
 ## v5.0.0 (2021-11-22)
 
 Bud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0).
