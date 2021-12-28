@@ -1,40 +1,9 @@
-import {Item, Loader, Rule} from '@roots/bud-build'
+import {Item, Loader} from '@roots/bud-build'
 import {Signale} from 'signale'
 
 import {importSassImplementation} from './sass.dependency'
 
-/**
- * Webpack rule factory
- *
- * @param logger - Bud logger
- * @returns sass webpack rule
- *
- * @internal
- */
-export function rule(logger: Signale): Rule {
-  logger.await('configuring scss webpack rule')
-
-  const rule = new Rule({
-    test: app => app.store.get('patterns.sass'),
-    exclude: app => app.store.get('patterns.modules'),
-    use: ({build, isProduction}) =>
-      Array.from(
-        new Set([
-          isProduction ? build.items.minicss : build.items.style,
-          build.items.css,
-          build.items.postcss ?? undefined,
-          build.items['resolve-url'],
-          build.items.sass,
-        ]),
-      ).filter(Boolean),
-  })
-
-  logger.success('configuring scss webpack rule')
-
-  return rule
-}
-
-/**
+/*
  * Webpack item factory
  *
  * @remarks

@@ -1,4 +1,4 @@
-import {Item, Loader, Rule} from '@roots/bud-build'
+import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {Configuration} from 'webpack'
 
@@ -29,7 +29,7 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
       },
     })
 
-    build.rules['ts'] = new Rule({
+    build.setRule('ts', {
       test: store.get('patterns.ts'),
       exclude: store.get('patterns.modules'),
       use: ({build}) => [
