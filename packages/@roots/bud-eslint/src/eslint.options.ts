@@ -22,12 +22,14 @@ export const options: options = ({path, store}) => ({
       browser: true,
     },
     parser: '@babel/eslint-parser',
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-      globalReturn: true,
-      generators: false,
-      impliedStrict: true,
-      objectLiteralDuplicateProperties: false,
+    parserOptions: {
+      ecmaFeatures: {
+        experimentalObjectRestSpread: true,
+        globalReturn: true,
+        generators: false,
+        impliedStrict: true,
+        objectLiteralDuplicateProperties: false,
+      },
       requireConfigFile: false,
     },
     plugins: ['import'],
