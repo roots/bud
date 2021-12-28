@@ -19,11 +19,10 @@ export const image = (app: Framework): Rule =>
     .setExclude(({store}) => store.get('patterns.modules'))
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename: app.when(
-        app.store.is('features.hash', true) && app.isProduction,
-        `assets/${app.store.get('hashFormat')}[ext]`,
-        `assets/${app.store.get('fileFormat')}[ext]`,
-      ),
+      filename:
+        app.store.is('features.hash', true) && app.isProduction
+          ? `assets/${app.store.get('hashFormat')}[ext]`
+          : `assets/${app.store.get('fileFormat')}[ext]`,
     }))
 
 /**
