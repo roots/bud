@@ -11,12 +11,12 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
   name: 'html-webpack-plugin',
 
   options(app: Framework) {
-    const options = {
+    return {
       publicPath: app.publicPath(),
-      ...(app.store.get('extension.html-webpack-plugin') ?? {}),
+      alwaysWriteToDisk: true,
+      inject: true,
+      template: 'auto',
     }
-
-    return options
   },
 
   make: (options, app) => {
@@ -24,6 +24,7 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
     app.dump(constructorOptions, {
       prefix: 'html-webpack-plugin constructor args',
     })
+
     return new HtmlWebpackPlugin(constructorOptions)
   },
 

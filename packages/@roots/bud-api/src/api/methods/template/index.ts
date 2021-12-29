@@ -64,6 +64,11 @@ export const template: template = async function (
   }
 
   /**
+   * If there were no options specified, we're done.
+   */
+  if (!userOptions || userOptions === true) return this
+
+  /**
    * Plugin references
    */
   const plugins = {
@@ -71,10 +76,13 @@ export const template: template = async function (
     interpolate: this.extensions.get('interpolate-html-plugin'),
   }
 
+  this.info('processing html-webpack-plugin options')
+  plugins.html.mergeOptions(userOptions)
+
   /**
    * If no template is known, provides a default
    */
-  if (!plugins.html.options.has('template')) {
+  if (!plugins.html?.options.has('template')) {
     const manifest = await pkgUp({
       cwd: require.resolve('@roots/bud-support'),
     })
@@ -84,14 +92,6 @@ export const template: template = async function (
       join(dirname(manifest), 'templates', 'template.html'),
     )
   }
-
-  /**
-   * If there were no options specified, we're done.
-   */
-  if (!userOptions || userOptions === true) return this
-
-  this.info('processing html-webpack-plugin options')
-  plugins.html.mergeOptions(userOptions)
 
   /**
    * If there were no replacements specified, we're done.

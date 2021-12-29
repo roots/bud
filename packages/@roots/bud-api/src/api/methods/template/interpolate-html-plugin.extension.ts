@@ -1,8 +1,4 @@
-import type {
-  Extension,
-  Framework,
-  Index,
-} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
@@ -15,7 +11,7 @@ import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
 export interface BudInterpolateHtmlPlugin
   extends Extension.CompilerPlugin<
     InterpolateHtmlPlugin,
-    Index<RegExp>
+    Record<string, RegExp>
   > {}
 
 /**
@@ -40,10 +36,9 @@ export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin =
     options: (app: Framework) => {
       return {
         ...(app.env.getPublicEnv() ?? {}),
-        ...(app.store.get(`extension.webpack-define-plugin`) ??
-          {}),
-        ...(app.store.get(`extension.interpolate-html-plugin`) ??
-          {}),
+        ...app.extensions
+          .get(`webpack-define-plugin`)
+          .options.all(),
       }
     },
 
