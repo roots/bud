@@ -32,7 +32,7 @@ describe('@roots/bud-server', function () {
         url: 'http://localhost:3000',
       },
       proxy: {
-        url: 'http://localhost:8080',
+        url: 'http://localhost',
         replace: {
           href: true,
           window: true,

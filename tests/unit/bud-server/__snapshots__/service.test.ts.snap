@@ -21,7 +21,7 @@ Object {
       "publicPath": true,
       "window": true,
     },
-    "url": "http://localhost:8080",
+    "url": "http://localhost",
   },
   "watch": Object {
     "files": Array [],
