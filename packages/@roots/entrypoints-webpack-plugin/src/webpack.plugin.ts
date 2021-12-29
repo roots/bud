@@ -3,22 +3,47 @@ import {uniq} from 'lodash'
 import type * as Webpack from 'webpack'
 import {sources} from 'webpack'
 
-interface EntrypointsPlugin {
-  name: string
-  assets: Entry
-}
+import {InlineEmitter} from './inline.emitter'
 
-interface Entry {
+/**
+ * Entrypoints
+ *
+ * @public
+ */
+export interface Entry extends Record<string, unknown> {
   [entry: string]: {
     [type: string]: string[]
   }
 }
 
-interface Options {
+/**
+ * EntrypointsWebpackPlugin options
+ *
+ * @public
+ */
+export interface Options {
+  /**
+   * Name of the file to emit (default: `entrypoints.json`)
+   */
   name?: string
+  /**
+   * Emit entrypoints as an array or an object (default: `array`)
+   */
   type?: 'array' | 'object'
+  /**
+   * Override the public path (default is from webpack)
+   */
   publicPath?: string
+  /**
+   * Path to emit entrypoints.json
+   */
   outputPath?: string
+  /**
+   * Emit html with inlined runtime, script and style tags
+   *
+   * @public
+   */
+  emitHtml?: boolean
 }
 
 /**
@@ -34,11 +59,9 @@ interface Options {
  * }
  * ```
  *
- * @sealed
+ * @public
  */
-export class EntrypointsWebpackPlugin
-  implements EntrypointsPlugin
-{
+export class EntrypointsWebpackPlugin {
   /**
    * Plugin compiler ident
    *
@@ -78,6 +101,13 @@ export class EntrypointsWebpackPlugin
    * @public
    */
   public compilation: Webpack.Compilation
+
+  /**
+   * Emit html
+   *
+   * @public
+   */
+  public emitHtml: boolean = false
 
   /**
    * Project publicPath
@@ -138,30 +168,38 @@ export class EntrypointsWebpackPlugin
    * Runs through each entrypoint entry and adds to the
    * manifest
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
   public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
-      this.getEntrypointFiles(entry).map(({key, file}) => {
-        !file.includes('hot-update') &&
-          this.addToManifest({
-            key,
-            entry: entry.name,
-            file,
-          })
-      })
+      this.getEntrypointFiles(entry)
+        .filter(({file}) => !file.includes('hot-update'))
+        .map(({key, file}) => {
+          this.addToManifest({key, entry: entry.name, file})
+        })
     })
 
-    this.compilation.assets[this.name] = new sources.RawSource(
-      JSON.stringify({...this.assets}),
-      true,
-    )
+    this.emitHtml &&
+      new InlineEmitter(
+        this.compilation,
+        this.assets,
+        this.publicPath,
+      ).emitHtmlTags()
+
+    Object.assign(this.compilation.assets, {
+      [this.name]: new sources.RawSource(
+        JSON.stringify(this.assets),
+        true,
+      ),
+    })
   }
 
   /**
    * Adds an entry to the manifest
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
@@ -192,6 +230,7 @@ export class EntrypointsWebpackPlugin
   /**
    * Get assets from an entrypoint
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
