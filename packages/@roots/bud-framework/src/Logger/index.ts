@@ -139,7 +139,7 @@ export class Logger {
       interactive: this.interactive,
       secrets: this.secrets,
       stream: this.stream,
-      types: types(this.app.options.config),
+      types: types(),
       logLevel: this.level,
     }
 

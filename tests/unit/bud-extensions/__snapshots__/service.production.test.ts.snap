@@ -7,7 +7,14 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "clean-webpack-plugin",
-      "options": [Function],
+      "options": Object {
+        "cleanOnceBeforeBuildPatterns": Array [
+          "**/*",
+          "!dll",
+        ],
+        "cleanStaleWebpackAssets": true,
+        "protectWebpackAssets": true,
+      },
       "when": [Function],
     },
     "log": [Function],
@@ -97,7 +104,7 @@ Object {
     "_module": Object {
       "make": [Function],
       "name": "webpack-provide-plugin",
-      "options": [Function],
+      "options": undefined,
       "when": [Function],
     },
     "log": [Function],

@@ -150,7 +150,7 @@ export namespace Hooks {
     | Map[T]
     | Partial<Map[T]>
 
-  export type Map = {
+  export interface Map {
     [`build`]: Record<string, any>
     [`build.bail`]: boolean
     [`build.cache`]: any

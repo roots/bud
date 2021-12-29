@@ -3,9 +3,7 @@ import {Container} from '@roots/container'
 import {Framework} from './'
 
 /**
- * Provides {@link @roots/container# | Container}
- * functionality and access to {@link Framework}
-.
+ * Base service class
  *
  * @public
  */

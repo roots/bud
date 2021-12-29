@@ -3,8 +3,9 @@ import type {Extension} from './copy-webpack-plugin.interface'
 const BudCopyWebpackPlugin: Extension = {
   name: 'copy-webpack-plugin',
 
-  options: ({store}) =>
-    store.get('extension.copy-webpack-plugin'),
+  options: () => ({
+    patterns: [],
+  }),
 
   make: options =>
     new (require('copy-webpack-plugin'))({

@@ -1,5 +1,5 @@
 import {Bud} from '../Bud'
-import {config} from '../config'
+import {seed} from '../seed'
 import {services} from '../services'
 
 /**
@@ -24,14 +24,14 @@ export async function factory(
       ...(overrides?.services ?? {}),
     },
     config: {
-      ...config,
+      ...seed,
       ...(overrides?.config ?? {}),
       features: {
-        ...config.features,
+        ...seed.features,
         ...(overrides?.config?.features ?? {}),
       },
       location: {
-        ...config.location,
+        ...seed.location,
         ...(overrides?.config?.location ?? {}),
       },
     },

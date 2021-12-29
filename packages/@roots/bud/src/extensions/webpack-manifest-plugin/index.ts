@@ -15,8 +15,10 @@ const BudWebpackManifestPlugin: Plugin = {
   /**
    * @public
    */
-  options: ({store}) =>
-    store.get('extension.webpack-manifest-plugin'),
+  options: () => ({
+    fileName: 'manifest.json',
+    writeToFileEmit: true,
+  }),
 
   /**
    * @public

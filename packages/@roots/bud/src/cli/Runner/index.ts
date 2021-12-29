@@ -1,8 +1,8 @@
 import {bind, lodash, Signale} from '@roots/bud-support'
 
 import {Bud} from '../../Bud'
-import {config} from '../../config'
 import {factory} from '../../factory'
+import {seed} from '../../seed'
 import * as CLI from '../cli.interface'
 import * as dynamic from './config/dynamic.config'
 import * as manifest from './config/manifest.config'
@@ -51,29 +51,29 @@ export class Runner {
         location: {
           project: parse(
             this.cli.flags['location.project'],
-            config.location.project,
+            seed.location.project,
           ),
           src: parse(
             this.cli.flags['location.src'],
-            config.location.src,
+            seed.location.src,
           ),
           dist: parse(
             this.cli.flags['location.dist'],
-            config.location.dist,
+            seed.location.dist,
           ),
           storage: parse(
             this.cli.flags['location.storage'],
-            config.location.storage,
+            seed.location.storage,
           ),
           publicPath: parse(
             this.cli.flags['location.publicPath'],
-            config.location.publicPath,
+            seed.location.publicPath,
           ),
         },
         cache: {
           type: parse(
             this.cli.flags['cache.type'],
-            config.cache.type,
+            seed.cache.type,
           ),
         },
         features: {
