@@ -1,13 +1,11 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('bud.template', function () {
+describe('bud.template', function () {
   describe('default', () => {
     let bud: Bud
 
     beforeAll(async () => {
-      bud = await factory({
-        config: {features: {dashboard: false, log: false}},
-      })
+      bud = await factory()
     })
 
     afterAll(done => {
@@ -16,28 +14,6 @@ describe.skip('bud.template', function () {
 
     it('is a function', () => {
       expect(bud.template).toBeInstanceOf(Function)
-    })
-
-    it('html feature flag off', () => {
-      expect(bud.store.get('html')).toBe(false)
-    })
-
-    it('has expected default options', () => {
-      expect(
-        bud.store.get('extension.html-webpack-plugin'),
-      ).toEqual({
-        alwaysWriteToDisk: true,
-        inject: true,
-        minify: {
-          collapseWhitespace: false,
-          keepClosingSlash: true,
-          removeComments: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          useShortDoctype: true,
-        },
-      })
     })
 
     it('html-webpack-plugin not set', () => {
@@ -57,23 +33,24 @@ describe.skip('bud.template', function () {
     let bud: Bud
 
     beforeAll(async () => {
-      bud = await factory({
-        config: {features: {dashboard: false, log: false}},
-      })
+      bud = await factory()
       bud.extensions.remove('html-webpack-plugin')
-      bud.store.set('html', false)
+      bud.store.set('features.html', false)
     })
 
     afterAll(done => {
       bud.close(done)
     })
 
-    it('returns bud', () => {
+    it('returns bud', async () => {
+      const apiReturns = await bud.api.call('template')
+
       expect(bud.template()).toBeInstanceOf(Bud)
+      expect(bud.template()).toBe(apiReturns)
     })
 
-    it('adds html webpack plugin', () => {
-      bud.template()
+    it('adds html webpack plugin', async () => {
+      await bud.api.call('template')
 
       expect(bud.extensions.has('html-webpack-plugin')).toEqual(
         true,
@@ -86,9 +63,9 @@ describe.skip('bud.template', function () {
       )
     })
 
-    it('enables html feature flag', () => {
-      bud.template()
-      expect(bud.store.is('html', true)).toEqual(true)
+    it('enables html feature flag', async () => {
+      await bud.api.call('template')
+      expect(bud.store.is('features.html', true)).toEqual(true)
     })
   })
 
@@ -96,68 +73,29 @@ describe.skip('bud.template', function () {
     let bud: Bud
 
     beforeAll(async () => {
-      bud = await factory({
-        config: {features: {dashboard: false, log: false}},
-      })
+      bud = await factory()
     })
 
     afterAll(done => {
       bud.close(done)
     })
 
-    it('does not register plugin when explicitly disabled', () => {
-      bud.template(false)
-      expect(bud.store.is('html', false)).toEqual(true)
+    it('does not register plugin when explicitly disabled', async () => {
+      await bud.api.call('template', false)
+
+      expect(bud.store.is('features.html', false)).toEqual(true)
     })
 
-    it('changes the template when template options is passed', () => {
-      bud.template({template: 'src/foo.html'})
+    it('changes the template when template options is passed', async () => {
+      const props = {template: 'src/foo.html'}
+      await bud.api.call('template', false)
+      await bud.api.call('template', props)
 
       expect(
         bud.extensions
           .get('html-webpack-plugin')
           .options.get('template'),
-      ).toBe('src/foo.html')
-    })
-
-    it('has expected options after changes', async () => {
-      bud.template({template: 'src/foo.html'})
-      expect(
-        bud.extensions.get('html-webpack-plugin').options,
-      ).toEqual({
-        alwaysWriteToDisk: true,
-        inject: true,
-        minify: {
-          collapseWhitespace: false,
-          keepClosingSlash: true,
-          removeComments: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          useShortDoctype: true,
-        },
-        publicPath: '',
-        template: 'src/foo.html',
-        window: {
-          env: {},
-        },
-      })
-    })
-
-    it('has expected options after changes', () => {
-      bud.template({
-        replace: {
-          foo: 'bar',
-        },
-      })
-
-      expect(
-        bud.extensions
-          .get('interpolate-html-plugin')
-          .options.all(),
-      ).toEqual({
-        foo: 'bar',
-      })
+      ).toBe(props.template)
     })
   })
 })
