@@ -11,12 +11,12 @@
  * @packageDocumentation
  */
 
-import {BudEntrypointsPlugin} from './BudEntrypointsPlugin'
+import {BudEntrypointsExtension} from './entrypoints.extension'
 
 declare module '@roots/bud-framework' {
   interface Plugins {
-    '@roots/bud-entrypoints': BudEntrypointsPlugin
+    '@roots/bud-entrypoints': BudEntrypointsExtension
   }
 }
 
-export const {name, make} = BudEntrypointsPlugin
+export const {name, make} = BudEntrypointsExtension
