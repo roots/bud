@@ -49,7 +49,7 @@ import './interface'
 
 export {Bud} from './Bud'
 
-export {config} from './config'
+export {seed} from './seed'
 export {extensions} from './extensions'
 export {services} from './services'
 export {factory} from './factory'

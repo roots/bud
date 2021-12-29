@@ -1,4 +1,4 @@
-import type {Configuration} from '@roots/bud-framework'
+import type {Store} from '@roots/bud-framework'
 import {cpus} from 'os'
 
 /**
@@ -6,7 +6,7 @@ import {cpus} from 'os'
  *
  * @public
  */
-export const config: Configuration = {
+export const seed: Partial<Store.Repository> = {
   /**
    * bud.name property
    *
@@ -82,13 +82,6 @@ export const config: Configuration = {
      * @public
      */
     inject: true,
-
-    /**
-     * Install missing dependencies
-     *
-     * @public
-     */
-    install: false,
 
     /**
      * Log build status informatino to the terminal
@@ -284,33 +277,6 @@ export const config: Configuration = {
     },
   },
 
-  extension: {
-    'clean-webpack-plugin': {
-      cleanStaleWebpackAssets: true,
-      protectWebpackAssets: true,
-      cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
-    },
-    'copy-webpack-plugin': {patterns: []},
-    'html-webpack-plugin': {
-      alwaysWriteToDisk: true,
-      inject: true,
-      template: 'auto',
-    },
-    'interpolate-html-plugin': {},
-    'mini-css-extract-plugin': {},
-    'webpack-config-dump-plugin': {
-      showFunctionNames: true,
-      keepCircularReferences: true,
-      depth: 8,
-    },
-    'webpack-define-plugin': {},
-    'webpack-manifest-plugin': {
-      fileName: 'manifest.json',
-      writeToFileEmit: true,
-    },
-    'webpack-provide-plugin': {},
-  },
-
   server: {
     watch: {
       files: [],
@@ -333,7 +299,7 @@ export const config: Configuration = {
     },
 
     proxy: {
-      url: 'http://localhost:8080',
+      url: 'http://localhost',
       replace: {
         href: true,
         window: true,

@@ -9,15 +9,13 @@ export const options: Plugin['options'] = ({
 }) => ({
   filename:
     store.is('features.hash', true) && isProduction
-      ? `${store.get('hashFormat')}.css`
-      : `${store.get('fileFormat')}.css`,
+      ? `styles/${store.get('hashFormat')}.css`
+      : `styles/${store.get('fileFormat')}.css`,
 
   chunkFilename:
     store.is('features.hash', true) && isProduction
-      ? `${store.get('hashFormat')}.css`
-      : `${store.get('fileFormat')}.css`,
-
-  ...(store.get('extension.mini-css-extract-plugin') ?? {}),
+      ? `styles/${store.get('hashFormat')}.css`
+      : `sytles/${store.get('fileFormat')}.css`,
 })
 
 export const make: Plugin['make'] = options =>

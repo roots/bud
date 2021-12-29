@@ -5,18 +5,29 @@ import type {
   Options,
 } from './clean-webpack-plugin.interface'
 
-const BudCleanWebpackPlugin: Extension = {
-  name: 'clean-webpack-plugin',
+/**
+ * @public
+ */
+export const name: Extension['name'] = 'clean-webpack-plugin'
 
-  options: ({store}) =>
-    store.get('extension.clean-webpack-plugin'),
-
-  make: (options: Container<Options>) =>
-    new Plugin(options.all()),
-
-  when: ({store}) => store.is('features.clean', true),
+/**
+ * @public
+ */
+export const options: Extension['options'] = {
+  cleanStaleWebpackAssets: true,
+  protectWebpackAssets: true,
+  cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
 }
 
-const {name, options, when, make} = BudCleanWebpackPlugin
+/**
+ * @public
+ */
+export const make: Extension['make'] = (
+  options: Container<Options>,
+) => new Plugin(options.all())
 
-export {name, options, when, make}
+/**
+ * @public
+ */
+export const when: Extension['when'] = ({store}) =>
+  store.is('features.clean', true)
