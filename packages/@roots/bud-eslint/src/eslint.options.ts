@@ -5,13 +5,12 @@ export interface options {
   (app: Framework): Options
 }
 
-export const options: options = ({path, store}) => ({
+export const options: options = ({path}) => ({
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
   cache: true,
   cacheLocation: path('storage', 'cache', 'eslint.json'),
   context: path('src'),
   cwd: path('project'),
-  exclude: store.get('patterns.module'),
   failOnError: true,
   baseConfig: {
     extends: ['eslint:recommended'],
