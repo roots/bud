@@ -46,6 +46,12 @@ declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/bud-mdx': Extension.Module
   }
+
+  namespace Store {
+    interface Repository {
+      'patterns.mdx': RegExp
+    }
+  }
 }
 
 const extension: Extension.Module = {
