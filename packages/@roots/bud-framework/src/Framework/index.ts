@@ -14,7 +14,6 @@ import {
   Api,
   Build,
   Compiler,
-  Configuration,
   Dashboard,
   Dependencies,
   Env,
@@ -23,6 +22,7 @@ import {
   Mode,
   Server,
   Services,
+  Store,
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
@@ -162,7 +162,7 @@ export abstract class Framework {
   public cache: Cache.Interface
 
   /**
-   * Compiles {@link @roots/bud-framework#Build | Build} configuration and stats/errors/progress reporting.
+   * Compiles configuration and stats/errors/progress reporting.
    *
    * @public
    */
@@ -264,7 +264,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public store: Container
+  public store: Store
 
   /**
    * True when {@link Framework.mode} is `production`
@@ -310,7 +310,7 @@ export abstract class Framework {
 
     this.logger = new Logger(this)
 
-    this.store = this.container(options.config)
+    this.store = new Store(this, options.config)
 
     if (!options.childOf) {
       this.children = this.container()
@@ -808,7 +808,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Partial<Configuration>
+  config?: Partial<Store['repository']>
 
   /**
    * Framework services

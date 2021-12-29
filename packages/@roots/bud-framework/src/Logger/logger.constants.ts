@@ -1,6 +1,5 @@
 import {SignaleConfig} from 'signale'
 
-import type {Configuration} from '../Configuration'
 import {figures} from './figures'
 
 export type INSTANCE_CONFIG = SignaleConfig
@@ -48,13 +47,6 @@ export interface types {
   [key: string]: Type
 }
 
-/**
- * @internal
- */
-export interface TypesFactory {
-  (config: Partial<Configuration>): types
-}
-
 export const LEVEL = {
   vvvv: 'log',
   vvv: 'timer',
@@ -62,9 +54,7 @@ export const LEVEL = {
   v: 'error',
 }
 
-export const types: TypesFactory = (
-  config: Configuration,
-): types => ({
+export const types = () => ({
   error: {
     badge: figures.cross,
     color: 'red',

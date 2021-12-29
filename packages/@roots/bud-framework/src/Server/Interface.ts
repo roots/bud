@@ -1,5 +1,5 @@
-import {Service} from '..'
-import {Configuration} from '../Configuration'
+import {Service} from '../Service'
+import {Store} from '../Store'
 import {Application, Instance, Middleware} from '.'
 
 /**
@@ -23,7 +23,7 @@ export default interface Interface extends Service {
    *
    * @public
    */
-  config: Configuration['server']
+  config: Store.Repository['server']
 
   /**
    * Server instance

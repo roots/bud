@@ -83,7 +83,6 @@ export {Bootstrapper} from './Bootstrapper'
 
 export {Api} from './Api'
 export {Compiler} from './Compiler'
-export {Configuration} from './Configuration'
 export {Dashboard} from './Dashboard'
 export {Dependencies} from './Dependencies'
 export {Env} from './Env'
