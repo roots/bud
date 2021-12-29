@@ -1,11 +1,18 @@
+/**
+ * Sage default eslint config
+ */
+
 module.exports = {
-  root: true,
-  extends: ['eslint:recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  globals: {
+    wp: true,
+  },
   env: {
     node: true,
     es6: true,
     amd: true,
     browser: true,
+    jquery: true,
   },
   parser: '@babel/eslint-parser',
   parserOptions: {
@@ -17,10 +24,15 @@ module.exports = {
       jsx: true,
       objectLiteralDuplicateProperties: false,
     },
+    ecmaVersion: 2017,
     requireConfigFile: false,
+    sourceType: 'module',
   },
-  plugins: ['import', 'prettier'],
+  plugins: ['import', 'react-hooks'],
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/core-modules': [],
     'import/ignore': [
       'node_modules',

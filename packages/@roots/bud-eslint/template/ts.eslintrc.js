@@ -13,7 +13,6 @@ module.exports = {
     },
   },
   extends: [
-    'prettier',
     'plugin:react/recommended',
     'plugin:import/typescript',
   ],
