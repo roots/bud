@@ -17,7 +17,7 @@ export const image = () =>
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
     generator: app => ({
-      filename: `assets/${
+      filename: `images/${
         app.store.is('features.hash', true) && app.isProduction
           ? app.store.get('hashFormat')
           : app.store.get('fileFormat')
@@ -35,7 +35,7 @@ export const font = () =>
     test: ({store}) => store.get('patterns.font'),
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset',
-    generator: {filename: 'assets/[name][ext]'},
+    generator: {filename: 'fonts/[name][ext]'},
     parser: {
       dataUrlCondition: {
         maxSize: 50000,
@@ -54,7 +54,7 @@ export const svg = () =>
     exclude: ({store}) => store.get('patterns.modules'),
     type: 'asset/resource',
     generator: app => ({
-      filename: `assets/${
+      filename: `images/${
         app.store.is('features.hash', true) && app.isProduction
           ? app.store.get('hashFormat')
           : app.store.get('fileFormat')

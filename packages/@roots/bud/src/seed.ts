@@ -231,7 +231,7 @@ export const seed: Partial<Store.Repository> = {
     infrastructureLogging: {console: false},
     node: false,
     output: {
-      publicPath: '',
+      publicPath: 'auto',
     },
     optimization: {
       emitOnErrors: false,
