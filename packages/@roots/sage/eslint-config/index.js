@@ -1,44 +1,13 @@
 /**
  * Sage default eslint config
+ *
+ * @public
  */
-
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
-  globals: {
-    wp: true,
-  },
-  env: {
-    node: true,
-    es6: true,
-    amd: true,
-    browser: true,
-    jquery: true,
-  },
-  parser: '@babel/eslint-parser',
-  parserOptions: {
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-      globalReturn: true,
-      generators: false,
-      impliedStrict: true,
-      jsx: true,
-      objectLiteralDuplicateProperties: false,
-    },
-    ecmaVersion: 2017,
-    requireConfigFile: false,
-    sourceType: 'module',
-  },
-  plugins: ['import', 'react-hooks'],
-  settings: {
-    react: {
-      version: 'detect',
-    },
-    'import/core-modules': [],
-    'import/ignore': [
-      'node_modules',
-      '\\.(coffee|scss|css|less|hbs|svg|json)$',
-    ],
-  },
+  extends: [
+    require.resolve('@roots/bud-preset-wordpress/eslint-config'),
+    require.resolve('@roots/bud-prettier/eslint-config'),
+  ],
   rules: {
     'no-console': 0,
     'comma-dangle': [
