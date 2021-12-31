@@ -33,7 +33,7 @@
     "node": ">=14"
   },
   "files": [
-    "eslint/",
+    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -67,7 +67,6 @@
     "peers": [
       "@roots/bud-preset-wordpress",
       "@roots/bud-eslint",
-      "@roots/bud-preset-wordpress",
       "@roots/bud-prettier",
       "@roots/bud-stylelint",
       "@roots/bud-tailwindcss"
