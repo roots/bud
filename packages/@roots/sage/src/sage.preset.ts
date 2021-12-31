@@ -1,8 +1,9 @@
 import {Extension, Framework} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
+import {eventBuildMakeBeforeDevelopment} from './hooks/event.build.make.before.dev'
+import {eventBuildMakeBeforeProduction} from './hooks/event.build.make.before.production'
 import eventCompilerDone from './hooks/event.compiler.done'
-
 /**
  * Development configuration
  *
@@ -11,15 +12,18 @@ import eventCompilerDone from './hooks/event.compiler.done'
 const inDevelopment = (app: Framework) => {
   app.devtool()
 
-  app.extensions.get('@roots/bud-entrypoints').setOptions({
-    publicPath: 'auto',
-  })
-
   app.hooks
-    .async<'event.compiler.done'>(
+    /** Use full URL for development */
+    .async(
+      'event.build.make.before',
+      eventBuildMakeBeforeDevelopment,
+    )
+    /** Write hmr.json after compilation */
+    .hooks.async<'event.compiler.done'>(
       'event.compiler.done',
       eventCompilerDone(app),
     )
+    /** rm hmr.json when app is closed */
     .hooks.on('event.app.close', eventAppClose(app))
 }
 
@@ -30,6 +34,11 @@ const inDevelopment = (app: Framework) => {
  */
 const inProduction = (app: Framework) => {
   app.minimize().hash().runtime('single')
+
+  app.hooks.async(
+    'event.build.make.before',
+    eventBuildMakeBeforeProduction,
+  )
 }
 
 /**
@@ -50,7 +59,7 @@ export const Sage: Extension.Module = {
    *
    * @public
    */
-  register: async (app, logger) => {
+  register: async app => {
     app
       .alias({
         '@fonts': app.path('src', 'fonts'),
@@ -59,7 +68,6 @@ export const Sage: Extension.Module = {
         '@styles': app.path('src', 'styles'),
       })
       .provide({$: ['jquery'], jQuery: ['jquery']})
-
       .when(app.isProduction, inProduction, inDevelopment)
   },
 }
