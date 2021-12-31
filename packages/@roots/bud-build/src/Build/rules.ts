@@ -8,7 +8,49 @@ import {
 import {Rule} from '../Rule'
 
 /**
- * Returns {@link Rule} for `asset/resource`
+ * .js rule
+ *
+ * @public
+ */
+export const js = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.js'))
+    .setInclude(({path}) => path('src'))
+    .setUse([])
+
+/**
+ * .css rule
+ *
+ * @public
+ */
+export const css = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.css'))
+    .setInclude(({path}) => path('src'))
+    .setUse(({isProduction, build}) => [
+      isProduction ? build.items.minicss : build.items.style,
+      build.items.css,
+    ])
+
+/**
+ * .module.css rule
+ *
+ * @public
+ */
+export const cssModule = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.cssModule'))
+    .setInclude(({path}) => path('src'))
+    .setUse(({isProduction, build}) => [
+      isProduction ? build.items.minicss : build.items.style,
+      build.items.cssModule,
+    ])
+
+/**
+ * .jpg, .jpeg, .png, .gif rule
  *
  * @public
  */
@@ -26,38 +68,14 @@ export const image = (app: Framework): Rule =>
     }))
 
 /**
- * Returns {@link Rule} for `.woff`/`.otf` handling
- *
- * @public
- */
-export const font = (app: Framework) =>
-  app.build
-    .makeRule()
-    .setTest(({store}) => store.get('patterns.font'))
-    .setExclude(({store}) => store.get('patterns.modules'))
-    .setType('asset')
-    .setGenerator(app => ({
-      filename:
-        app.store.is('features.hash', true) && app.isProduction
-          ? `fonts/${app.store.get('hashFormat')}[ext]`
-          : `fonts/${app.store.get('fileFormat')}[ext]`,
-    }))
-    .setParser({
-      dataUrlCondition: {
-        maxSize: 50000,
-      },
-    })
-
-/**
- * Returns {@link Rule} for `.svg` handling
+ * .svg rule
  *
  * @public
  */
 export const svg = (app: Framework) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.image'))
-    .setExclude(({store}) => store.get('patterns.modules'))
+    .setTest(({store}) => store.get('patterns.svg'))
     .setType('asset/resource')
     .setGenerator(app => ({
       filename:
@@ -67,51 +85,36 @@ export const svg = (app: Framework) =>
     }))
 
 /**
- * Returns {@link Rule} for `.html` handling
+ * .woff, .woff2, .otf rule
  *
  * @public
  */
-export const html = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.html'),
-    use: ({build}) => [build.items.html],
-  })
+export const font = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setType('asset')
+    .setTest(({store}) => store.get('patterns.font'))
+    .setInclude(({path}) => path('src'))
+    .setGenerator(app => ({
+      filename:
+        app.store.is('features.hash', true) && app.isProduction
+          ? `fonts/${app.store.get('hashFormat')}[ext]`
+          : `fonts/${app.store.get('fileFormat')}[ext]`,
+    }))
+    .setParser({dataUrlCondition: {maxSize: 50000}})
 
 /**
- * Returns {@link Rule} for `.csv` handling
+ * Returns {@link Rule} for `.jsonc` handling
  *
  * @public
  */
-export const csv = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.csv'),
-    use: ({build}) => [build.items.csv],
-  })
-
-/**
- * Returns {@link Rule} for `.xml` handling
- *
- * @public
- */
-export const xml = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.xml'),
-    use: ({build}) => [build.items.xml],
-  })
-
-/**
- * Returns {@link Rule} for `.toml` handling
- *
- * @public
- */
-export const toml = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.toml'),
-    type: () => 'json',
-    parser: () => ({
-      parse: tomlParser.parse,
-    }),
-  })
+export const json = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setType('json')
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.json'))
+    .setParser({parse: json5Parser.parse})
 
 /**
  * Returns {@link Rule} for `.yml` / `.yaml` handling
@@ -119,51 +122,58 @@ export const toml = (app: Framework) =>
  * @public
  */
 export const yml = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.yml'),
-    type: 'json',
-    parser: () => ({
-      parse: yamlParser.parse,
-    }),
-  })
+  app.build
+    .makeRule()
+    .setType('json')
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.yml'))
+    .setParser({parse: yamlParser.parse})
 
 /**
- * Returns {@link Rule} for `.jsonc` handling
+ * Returns {@link Rule} for `.html` handling
  *
  * @public
  */
-export const json5 = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.json5'),
-    type: 'json',
-    parser: () => ({
-      parse: json5Parser.parse,
-    }),
-  })
+export const html = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.html'))
+    .setUse(({build}) => [build.items.html])
 
 /**
- * Returns {@link Rule} for `.css` handling
+ * Returns {@link Rule} for `.csv` handling
  *
  * @public
  */
-export const css = (app: Framework) =>
-  new Rule(app, {
-    test: ({store}) => store.get('patterns.css'),
-    exclude: ({store}) => store.get('patterns.modules'),
-    use: ({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.css,
-    ],
-  })
+export const csv = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.csv'))
+    .setUse(({build}) => [build.items.csv])
 
 /**
- * Returns {@link Rule} for `.js` handling
+ * Returns {@link Rule} for `.xml` handling
  *
  * @public
  */
-export const js = (app: Framework) =>
-  app.build.makeRule({
-    test: ({store}) => store.get('patterns.js'),
-    exclude: ({store}) => store.get('patterns.modules'),
-    use: () => [],
-  })
+export const xml = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.xml'))
+    .setUse(({build}) => [build.items.xml])
+
+/**
+ * Returns {@link Rule} for `.toml` handling
+ *
+ * @public
+ */
+export const toml = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setType('json')
+    .setInclude(({path}) => path('src'))
+    .setTest(({store}) => store.get('patterns.html'))
+    .setParser({parse: tomlParser.parse})
