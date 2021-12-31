@@ -1,6 +1,7 @@
 import * as Webpack from 'webpack'
 
 import {Items, Loaders, Rules, Service} from '../..'
+import * as Rule from '../Rule'
 
 /**
  * Build container service interface
@@ -83,4 +84,23 @@ export default interface Build extends Service {
    * @public
    */
   make(): Promise<Webpack.Configuration>
+
+  /**
+   * Set a rule
+   *
+   * @public
+   */
+  setRule(
+    name: string,
+    constructorProperties?: Partial<Rule.Options>,
+  ): Rule.Interface
+
+  /**
+   * Make a new rule
+   *
+   * @public
+   */
+  makeRule(
+    constructorProperties?: Partial<Rule.Options>,
+  ): Rule.Interface
 }

@@ -140,9 +140,7 @@ export async function config(app: Framework): Promise<void> {
     .hooks.on<'build.module.rules.oneOf'>(
       'build.module.rules.oneOf',
       () =>
-        Object.values(app.build.rules).map(rule =>
-          rule.make(app),
-        ),
+        Object.values(app.build.rules).map(rule => rule.make()),
     )
 
     /**

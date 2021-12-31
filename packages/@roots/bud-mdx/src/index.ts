@@ -17,7 +17,7 @@
  * @packageDocumentation
  */
 
-import {Item, Loader, Rule} from '@roots/bud-build'
+import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
 import type * as Webpack from 'webpack'
 
@@ -75,7 +75,7 @@ const extension: Extension.Module = {
       options: ({mdx}) => mdx.options,
     })
 
-    build.rules.mdx = new Rule({
+    build.setRule('mdx', {
       test: ({store}) => store.get('patterns.mdx'),
       exclude: ({store}) => store.get('patterns.modules'),
       use: ({build}) => [build.items.babel, build.items.mdx],

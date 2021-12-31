@@ -37,7 +37,8 @@
  * @packageDocumentation
  */
 
-import Build, {Item, Loader, Rule} from './Build'
+import Build, {Item, Loader} from './Build'
+import * as Rule from './Build/Rule'
 import * as Cache from './Cache'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
@@ -197,7 +198,8 @@ export interface Items extends Partial<Index<Item.Interface>> {}
  *
  * @virtual @public
  */
-export interface Rules extends Partial<Index<Rule.Interface>> {}
+export interface Rules
+  extends Partial<Record<string, Rule.Interface>> {}
 
 /**
  * Registered locations

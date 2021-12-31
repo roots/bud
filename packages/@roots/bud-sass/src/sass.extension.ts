@@ -35,7 +35,22 @@ export const extension: extension = {
     // add webpack loaders and rules
     app.build.loaders.sass = webpack.loader(logger)
     app.build.items.sass = await webpack.item(logger)
-    app.build.rules.sass = webpack.rule(logger)
+    app.build.setRule('sass', {
+      test: app => app.store.get('patterns.sass'),
+      exclude: app => app.store.get('patterns.modules'),
+      use: ({build, isProduction}) =>
+        Array.from(
+          new Set([
+            isProduction
+              ? build.items.minicss
+              : build.items.style,
+            build.items.css,
+            build.items.postcss ?? undefined,
+            build.items['resolve-url'],
+            build.items.sass,
+          ]),
+        ).filter(Boolean),
+    })
 
     // add .scss extension
     app.hooks.on(

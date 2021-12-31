@@ -15,6 +15,7 @@ import {
 import type * as Webpack from 'webpack'
 import {Configuration} from 'webpack'
 
+import {Rule} from '../Rule'
 import {config} from './config'
 import items from './items'
 import loaders from './loaders'
@@ -138,7 +139,7 @@ export class Build
   public async register() {
     const reducer = (a: Rules | Items | Loaders, [k, v]) => ({
       ...a,
-      [k]: v(),
+      [k]: v(this.app),
     })
 
     Object.assign(this, {
@@ -157,6 +158,39 @@ export class Build
     })
 
     await config(this.app)
+  }
+
+  /**
+   * Set a rule
+   *
+   * @param name - rule key
+   * @param constructorProperties - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setRule(name: string, constructorProperties?): Rule {
+    Object.assign(this.rules, {
+      [name]: this.makeRule(constructorProperties),
+    })
+
+    return this.rules[name]
+  }
+
+  /**
+   * Make a rule
+   *
+   * @param constructorProperties - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeRule(constructorProperties?): Rule {
+    return new Rule(this.app, constructorProperties)
   }
 
   /**
@@ -190,13 +224,4 @@ export class Build
       this.log(`error`, error)
     }
   }
-
-  /**
-   * Initialize the build rules, loaders, items
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async init() {}
 }

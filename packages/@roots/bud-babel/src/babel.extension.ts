@@ -64,7 +64,7 @@ export const register = async (app: Framework) => {
     },
   })
 
-  app.build.rules.js.use = app => [app.build.items.babel]
+  app.build.rules.js.setUse([app.build.items.babel])
 
   app.babel
     .setPresets(DEFAULT_PRESETS)
