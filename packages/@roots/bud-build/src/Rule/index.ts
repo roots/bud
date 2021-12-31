@@ -1,13 +1,12 @@
 import {
-  Factory,
   Framework,
   Item,
   Maybe,
-  Rule as Base,
+  Rule as FrameworkRule,
 } from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
 
-const {isFunction} = lodash
+import {Base} from '../shared/Base'
 
 /**
  * Framework Rule
@@ -15,167 +14,213 @@ const {isFunction} = lodash
  * @public
  */
 export class Rule
-  extends Base.Abstract
-  implements Base.Interface
+  extends Base
+  implements FrameworkRule.Interface
 {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
    * @public
    */
-  public test: Factory<[Framework], RegExp>
+  public test?: (app: Framework) => RegExp
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public use: Factory<[Framework], Item.Interface[]>
+  public use?: (app: Framework) => Item.Interface[]
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude: Factory<[Framework], RegExp>
+  public exclude?: (app: Framework) => RegExp
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
    *
    * @public
    */
-  public type: Factory<[Framework], string>
+  public type?: (app: Framework) => string
 
   /**
    * Generator factory
    *
    * @public
    */
-  public parser: Factory<[Framework], Base.Parser>
+  public parser?: (app: Framework) => FrameworkRule.Parser
 
   /**
    * Generator factory
    *
    * @public
    */
-  public generator: Factory<[Framework], any>
+  public generator?: (app: Framework) => any
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor({
-    test,
-    use = null,
-    exclude = null,
-    type = null,
-    parser = null,
-    generator = null,
-  }: Base.Options) {
+  public constructor(
+    public app: Framework,
+    options: FrameworkRule.Options,
+  ) {
     super()
+    if (!options) return
 
-    this.test = isFunction(test) ? test : () => test
-
-    if (use) {
-      this.use = isFunction(use) ? use : () => use
-    }
-
-    if (exclude) {
-      this.exclude = isFunction(exclude)
-        ? exclude
-        : () => exclude
-    }
-
-    if (type) {
-      this.type = isFunction(type) ? type : () => type
-    }
-
-    if (parser) {
-      this.parser = isFunction(parser) ? parser : () => parser
-    }
-
-    if (generator) {
-      this.generator = isFunction(generator)
-        ? generator
-        : () => generator
-    }
+    options.test && this.setTest(options.test)
+    options.use && this.setUse(options.use)
+    options.exclude && this.setExclude(options.exclude)
+    options.type && this.setType(options.type)
+    options.parser && this.setParser(options.parser)
+    options.generator && this.setGenerator(options.generator)
   }
 
   /**
+   * Test value
    *
-   * @param app - {@link @roots/bud-framework#Framework | Framework}
-   * @returns
+   * @param app - Framework instance
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public getTest(app: Framework): RegExp {
-    return this.test ? this.test(app) : null
+  public getTest(): RegExp {
+    return this.test ? this.test(this.app) : null
   }
 
+  /**
+   * Set test value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setTest(
-    test: RegExp | ((app: Framework) => RegExp),
-  ): void {
-    this.test = isFunction(test) ? test : () => test
+  public setTest(test: RegExp | (() => RegExp)): Rule {
+    this.test = this.normalizeInput(test)
+    return this
   }
 
+  /**
+   * Get parser value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public getParser(app: Framework): Base.Parser {
-    return this.parser ? this.parser(app) : null
+  public getParser(): FrameworkRule.Parser {
+    return this.parser ? this.parser(this.app) : null
   }
 
+  /**
+   * Set parser value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setParser(
-    parser: Maybe<[Framework], Base.Parser>,
-  ): void {
-    this.parser = isFunction(parser) ? parser : () => parser
+    parser: Maybe<[Framework], FrameworkRule.Parser>,
+  ): Rule {
+    this.parser = this.normalizeInput(parser)
+    return this
   }
 
+  /**
+   * Get use value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public getUse(app: Framework): Item.Interface[] {
-    return this.use ? this.use(app) : null
+  public getUse(): Item.Interface[] {
+    return this.use ? this.use(this.app) : null
   }
 
+  /**
+   * Set use value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setUse(
     use: Maybe<[Framework], Item.Interface[]>,
-  ): void {
-    this.use = isFunction(use) ? use : () => use
+  ): Rule {
+    this.use = this.normalizeInput(use)
+    return this
   }
 
+  /**
+   * Get exclude value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public getExclude(app: Framework): RegExp {
-    return this.exclude ? this.exclude(app) : null
+  public getExclude(): RegExp {
+    return this.exclude ? this.exclude(this.app) : null
   }
 
+  /**
+   * Set exclude value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setExclude(exclude: Maybe<[Framework], RegExp>): void {
-    this.exclude = isFunction(exclude) ? exclude : () => exclude
+  public setExclude(exclude: Maybe<[Framework], RegExp>): Rule {
+    this.exclude = this.normalizeInput(exclude)
+    return this
   }
 
+  /**
+   * Get type value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public getType(app: Framework) {
-    return this.type ? this.type(app) : null
+  public getType() {
+    return this.type ? this.type(this.app) : null
   }
 
+  /**
+   * Set type value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setType(type) {
-    this.type = isFunction(type) ? type : () => type
+  public setType(type): Rule {
+    this.type = this.normalizeInput(type)
+    return this
   }
 
+  /**
+   * Get generator value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public getGenerator(app: Framework) {
-    return this.generator ? this.generator(app) : null
+  public getGenerator() {
+    return this.generator ? this.generator(this.app) : null
   }
 
+  /**
+   * Set generator value
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setGenerator(generator) {
-    this.generator = isFunction(generator)
-      ? generator
-      : () => generator
+  public setGenerator(generator): Rule {
+    this.generator = this.normalizeInput(generator)
+    return this
   }
 
   /**
@@ -188,30 +233,35 @@ export class Rule
    * @decorator `@bind`
    */
   @bind
-  public make(app: Framework) {
-    const output: Base.Output = {
-      test: this.test(app),
+  public make() {
+    const output: FrameworkRule.Output = {
+      test: this.test(this.app),
     }
 
-    if (this.use) {
-      output.use = this.use(app).map(item => item.make(app))
-    }
+    this.use &&
+      Object.assign(output, {
+        use: this.use(this.app).map(item => item.make(this.app)),
+      })
 
-    if (this.exclude) {
-      output.exclude = this.exclude(app)
-    }
+    this.exclude &&
+      Object.assign(output, {
+        exclude: this.exclude(this.app),
+      })
 
-    if (this.type) {
-      output.type = this.type(app)
-    }
+    this.type &&
+      Object.assign(output, {
+        type: this.type(this.app),
+      })
 
-    if (this.parser) {
-      output.parser = this.parser(app)
-    }
+    this.parser &&
+      Object.assign(output, {
+        parser: this.parser(this.app),
+      })
 
-    if (this.generator) {
-      output.generator = this.generator(app)
-    }
+    this.generator &&
+      Object.assign(output, {
+        generator: this.generator(this.app),
+      })
 
     return output
   }

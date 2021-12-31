@@ -1,4 +1,4 @@
-import {Item, Rule} from '@roots/bud-build'
+import {Item} from '@roots/bud-build'
 import type {Extension, Framework} from '@roots/bud-framework'
 import {pathExistsSync, readJson} from 'fs-extra'
 
@@ -24,7 +24,7 @@ export const tsFeature: Extension.CompilerPlugin = {
       }),
     })
 
-    build.rules.ts = new Rule({
+    build.setRule('ts', {
       test: app => app.store.get('patterns.ts'),
       exclude: app => app.store.get('patterns.modules'),
       use: app => [app.build.items['esbuild-ts']],

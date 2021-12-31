@@ -56,7 +56,7 @@ export const VueExtension: Extension.Module = {
       loader: ({build}) => build.loaders['vue-style'],
     })
 
-    const existingCssRules = rules.css.getUse(app)
+    const existingCssRules = rules.css.getUse()
     rules.css.setUse(({build}) => [
       build.items['vue-style'],
       ...(existingCssRules ?? []),
