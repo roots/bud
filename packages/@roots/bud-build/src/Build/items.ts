@@ -1,5 +1,3 @@
-import type {Framework} from '@roots/bud-framework'
-
 import {Item} from '../Item'
 
 /**
@@ -17,7 +15,7 @@ export default {
     new Item({
       loader: ({build}) => build.loaders.file,
       options: app => ({
-        name: `assets/${
+        name: `static/${
           app.store.is('features.hash', true) && app.isProduction
             ? app.store.get('hashFormat')
             : app.store.get('fileFormat')
@@ -87,7 +85,6 @@ export default {
   minicss: () =>
     new Item({
       loader: ({build}) => build.loaders.minicss,
-      options: ({store}: Framework) => ({}),
     }),
 
   /**
