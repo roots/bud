@@ -162,7 +162,7 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected number of plugins 1`] = `4`;
+exports[`bud.build.config has expected number of plugins 1`] = `5`;
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [

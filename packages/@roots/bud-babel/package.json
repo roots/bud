@@ -34,6 +34,7 @@
     "node": ">=14"
   },
   "files": [
+    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -41,8 +42,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
   },
   "scripts": {
     "build": "yarn g:build",

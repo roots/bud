@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['@roots/sage/eslint-config'],
+  extends: [require.resolve('@roots/sage/eslint-config')],
 };
