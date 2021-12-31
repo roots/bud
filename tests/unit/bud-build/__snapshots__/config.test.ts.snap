@@ -61,7 +61,7 @@ Object {
 
 exports[`bud.build.config has expected default csv rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -76,7 +76,7 @@ Object {
   "generator": Object {
     "filename": "fonts/[name][ext]",
   },
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "parser": Object {
     "dataUrlCondition": Object {
       "maxSize": 50000,
@@ -89,7 +89,7 @@ Object {
 
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -125,7 +125,7 @@ Object {
 
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },
@@ -155,7 +155,7 @@ Object {
 
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },
@@ -166,7 +166,7 @@ Object {
 
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -178,7 +178,7 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
-  "include": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },

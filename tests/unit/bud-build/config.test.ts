@@ -241,6 +241,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
     ).toMatchSnapshot({
       type: 'asset',
+      include: expect.stringContaining('src'),
       generator: {filename: 'fonts/[name][ext]'},
       parser: {
         dataUrlCondition: {
@@ -254,8 +255,9 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
     ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
       parser: {parse: json5.parse},
-      test: /\.json5$/,
+      test: /\.json$/,
       type: 'json',
     })
   })
@@ -264,6 +266,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
       parser: {parse: yaml.parse},
       test: /\.ya?ml$/,
       type: 'json',
@@ -275,6 +278,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
+      include: expect.stringContaining('src'),
       use: [
         {
           loader: expect.stringContaining(
@@ -290,6 +294,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
+      include: expect.stringContaining('src'),
       use: [
         {
           loader: expect.stringContaining('csv-loader/index.js'),
@@ -304,6 +309,7 @@ describe('bud.build.config', function () {
         .oneOf[10],
     ).toMatchSnapshot({
       test: /\.xml$/,
+      include: expect.stringContaining('src'),
       use: [
         {
           loader: expect.stringContaining(
@@ -319,6 +325,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[11],
     ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
       parser: {
         parse: toml.parse,
       },
