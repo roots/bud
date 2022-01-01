@@ -7,7 +7,7 @@
     {
       "tagName": "@todo",
       "allowMultiple": true,
-      "syntaxKind": "inline"
+      "syntaxKind": "block"
     }
   ],
   "supportForTags": {
