@@ -3652,17 +3652,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-purgecss@workspace:packages/@roots/bud-purgecss":
+"@roots/bud-purgecss@workspace:*, @roots/bud-purgecss@workspace:packages/@roots/bud-purgecss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-purgecss@workspace:packages/@roots/bud-purgecss"
   dependencies:
     "@fullhuman/postcss-purgecss": 4.1.3
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@types/jest": 27.0.3
     "@types/node": 16.11.17
     autobind-decorator: ^2.4.0
-    jest: 27.4.5
     postcss: 8.4.5
     tslib: ^2.3.1
   peerDependencies:
@@ -11677,6 +11675,21 @@ __metadata:
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
     postcss-preset-env: 6.7.0
+  languageName: unknown
+  linkType: soft
+
+"example-purgecss@workspace:examples/purgecss":
+  version: 0.0.0-use.local
+  resolution: "example-purgecss@workspace:examples/purgecss"
+  dependencies:
+    "@fullhuman/postcss-purgecss": 4.1.3
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-purgecss": "workspace:*"
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.1.0
   languageName: unknown
   linkType: soft
 
