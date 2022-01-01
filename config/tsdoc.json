@@ -3,6 +3,14 @@
   "extends": [
     "@microsoft/api-extractor/extends/tsdoc-base.json"
   ],
-  "tagDefinitions": [],
-  "supportForTags": {}
+  "tagDefinitions": [
+    {
+      "tagName": "@todo",
+      "allowMultiple": true,
+      "syntaxKind": "inline"
+    }
+  ],
+  "supportForTags": {
+    "@todo": true
+  }
 }
