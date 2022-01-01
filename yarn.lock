@@ -3741,7 +3741,7 @@ __metadata:
     http-proxy-middleware: 2.0.1
     tslib: ^2.3.1
     webpack: 5.65.0
-    webpack-dev-middleware: 5.2.2
+    webpack-dev-middleware: 5.3.0
     webpack-hot-middleware: ^2.25.1
   languageName: unknown
   linkType: soft
@@ -24329,9 +24329,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.2.2, webpack-dev-middleware@npm:^5.2.1":
-  version: 5.2.2
-  resolution: "webpack-dev-middleware@npm:5.2.2"
+"webpack-dev-middleware@npm:5.3.0, webpack-dev-middleware@npm:^5.2.1":
+  version: 5.3.0
+  resolution: "webpack-dev-middleware@npm:5.3.0"
   dependencies:
     colorette: ^2.0.10
     memfs: ^3.2.2
@@ -24340,7 +24340,7 @@ __metadata:
     schema-utils: ^4.0.0
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 8dfcb1244ba564e525f9d6644174a558cebd4857317bbdbcd394848641f7f0c0aeb0e7b2803dd56286b4820a7f66d27b8e58e8f1dec5515417ffa40da1f6197d
+  checksum: 01f9e11583bb682cd5ab5a1b9d6dc99545f777513c4c15aa67d10f5d057fc3d0c6f9365e02c07792d3c9b17bd47a16c8185e66eb66e9de74d8ccf561e75085e7
   languageName: node
   linkType: hard
 
