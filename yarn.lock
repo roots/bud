@@ -3681,7 +3681,7 @@ __metadata:
     "@roots/bud-api": "workspace:packages/@roots/bud-api"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/babel__core": 7.1.17
+    "@types/babel__core": 7.1.18
     "@types/jest": 27.0.3
     "@types/node": 16.11.17
     "@types/react": 17.0.38
@@ -4547,16 +4547,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:7.1.17, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.14":
-  version: 7.1.17
-  resolution: "@types/babel__core@npm:7.1.17"
+"@types/babel__core@npm:7.1.18, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.14":
+  version: 7.1.18
+  resolution: "@types/babel__core@npm:7.1.18"
   dependencies:
     "@babel/parser": ^7.1.0
     "@babel/types": ^7.0.0
     "@types/babel__generator": "*"
     "@types/babel__template": "*"
     "@types/babel__traverse": "*"
-  checksum: 0108efab8acb6a8e0aab6f8113d5ef1fc4b58d40737aa70a3ee83112959e0880e5548374e7edb562e4e837cde4ae47265348b04eb7e684283b0dea418d013420
+  checksum: 2e5b5d7c84f347d3789575486e58b0df5c91613abc3d27e716274aba3048518e07e1f068250ba829e2ed58532ccc88da595ce95ba2688e7bbcd7c25a3c6627ed
   languageName: node
   linkType: hard
 
