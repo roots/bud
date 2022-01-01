@@ -1,5 +1,3 @@
-import type {Framework} from '@roots/bud-framework'
-
 import {Item} from '../Item'
 
 /**
@@ -9,23 +7,6 @@ import {Item} from '../Item'
  */
 export default {
   /**
-   * asset handler factory
-   *
-   * @public
-   */
-  asset: () =>
-    new Item({
-      loader: ({build}) => build.loaders.file,
-      options: app => ({
-        name: `assets/${
-          app.store.is('features.hash', true) && app.isProduction
-            ? app.store.get('hashFormat')
-            : app.store.get('fileFormat')
-        }.[ext]`,
-      }),
-    }),
-
-  /**
    * .css handler factory
    *
    * @public
@@ -34,8 +15,24 @@ export default {
     new Item({
       loader: ({build}) => build.loaders.css,
       options: ({hooks}) => ({
-        sourceMap: hooks.filter('build.devtool') ? true : false,
         importLoaders: 1,
+        sourceMap: hooks.filter('build.devtool') ? true : false,
+      }),
+    }),
+
+  /**
+   * .css handler factory
+   *
+   * @public
+   */
+  cssModule: () =>
+    new Item({
+      loader: ({build}) => build.loaders.css,
+      options: ({hooks}) => ({
+        importLoaders: 1,
+        localIdentName: '[name]__[local]___[hash:base64:5]',
+        modules: true,
+        sourceMap: hooks.filter('build.devtool') ? true : false,
       }),
     }),
 
@@ -87,7 +84,6 @@ export default {
   minicss: () =>
     new Item({
       loader: ({build}) => build.loaders.minicss,
-      options: ({store}: Framework) => ({}),
     }),
 
   /**

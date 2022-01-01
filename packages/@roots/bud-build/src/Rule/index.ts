@@ -32,6 +32,11 @@ export class Rule
   public use?: (app: Framework) => Item.Interface[]
 
   /**
+   * Include paths
+   */
+  public include?: (app: Framework) => string
+
+  /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
@@ -73,6 +78,7 @@ export class Rule
 
     options.test && this.setTest(options.test)
     options.use && this.setUse(options.use)
+    options.include && this.setInclude(options.include)
     options.exclude && this.setExclude(options.exclude)
     options.type && this.setType(options.type)
     options.parser && this.setParser(options.parser)
@@ -161,6 +167,29 @@ export class Rule
    * @decorator `@bind`
    */
   @bind
+  public getInclude(): string {
+    return this.include ? this.include(this.app) : null
+  }
+
+  /**
+   * Set exclude value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setInclude(include: Maybe<[Framework], string>): Rule {
+    this.include = this.normalizeInput(include)
+    return this
+  }
+
+  /**
+   * Get exclude value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
   public getExclude(): RegExp {
     return this.exclude ? this.exclude(this.app) : null
   }
@@ -218,7 +247,13 @@ export class Rule
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator): Rule {
+  public setGenerator(
+    generator:
+      | FrameworkRule.Interface['generator']
+      | ((
+          app: Framework,
+        ) => FrameworkRule.Interface['generator']),
+  ): Rule {
     this.generator = this.normalizeInput(generator)
     return this
   }
@@ -241,6 +276,11 @@ export class Rule
     this.use &&
       Object.assign(output, {
         use: this.use(this.app).map(item => item.make(this.app)),
+      })
+
+    this.include &&
+      Object.assign(output, {
+        include: this.include(this.app),
       })
 
     this.exclude &&
