@@ -26,4 +26,11 @@ export interface Api<
    * @internal
    */
   processQueue: () => Promise<void>
+
+  /**
+   * @internal
+   */
+  bindFacade: (
+    key: `${keyof Api['repository'] & string}`,
+  ) => void
 }
