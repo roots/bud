@@ -66,10 +66,8 @@ export const proxy: proxy = function (
     return ctx
   }
 
-  ctx.store.set('server.proxy', config)
-
-  ctx.api.log('log', {
-    message: 'proxy url set',
+  ctx.api.log('error', {
+    message: 'proxy fallthrough! maybe misconfiguration.',
     suffix: config,
   })
 
