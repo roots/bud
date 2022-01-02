@@ -155,7 +155,7 @@ export class Server
      * If watching and a file it is watching
      * is touched, reload the window.
      */
-    this.instance.on('change', path => {
+    this.watcher.instance.on('change', path => {
       this.middleware?.hot?.publish({
         action: 'reload',
         message: `Detected file change: ${path}. Reloading window.`,
