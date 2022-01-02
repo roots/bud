@@ -23,7 +23,7 @@ describe('bud.serve', function () {
     await bud.api.processQueue()
 
     expect(bud.store.get('server.dev.url')).toEqual(
-      'http://example.com',
+      new URL('http://example.com'),
     )
   })
 })
