@@ -65,7 +65,7 @@
     "@types/jest": "27.0.3",
     "@types/node": "16.11.17",
     "autobind-decorator": "2.4.0",
-    "eslint": "8.5.0"
+    "eslint": "8.6.0"
   },
   "dependencies": {
     "tslib": "^2.3.1"

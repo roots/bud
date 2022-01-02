@@ -66,7 +66,7 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "16.11.17",
-    "eslint": "8.5.0",
+    "eslint": "8.6.0",
     "webpack": "5.65.0"
   },
   "dependencies": {
@@ -76,6 +76,6 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "eslint": "8.5.0"
+    "eslint": "8.6.0"
   }
 }

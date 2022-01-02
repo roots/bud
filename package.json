@@ -50,7 +50,7 @@
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
     "esbuild": "0.14.10",
-    "eslint": "8.5.0",
+    "eslint": "8.6.0",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
