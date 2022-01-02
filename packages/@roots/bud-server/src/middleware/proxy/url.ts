@@ -31,7 +31,7 @@ export class URL {
    * @public
    */
   public get dev(): nodeUrl {
-    return new nodeUrl(this.config.dev.url)
+    return this.config.dev.url
   }
 
   /**
@@ -40,7 +40,7 @@ export class URL {
    * @public
    */
   public get proxy(): nodeUrl {
-    return new nodeUrl(this.config.proxy.url)
+    return this.config.proxy.url
   }
 
   /**
@@ -59,6 +59,7 @@ export class URL {
     const publicPath = this.app.hooks.filter(
       'build.output.publicPath',
     )
+
     return publicPath !== 'auto' ? publicPath : '/'
   }
 

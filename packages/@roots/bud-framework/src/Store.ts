@@ -578,8 +578,5 @@ export namespace Store {
     ['server.browser.log']: Repository['server']['browser']['log']
     ['server.dev.url']: Repository['server']['dev']['url']
     ['server.proxy.url']: Repository['server']['proxy']['url']
-    ['server.proxy.replace.href']: Repository['server']['proxy']['replace']['href']
-    ['server.proxy.replace.window']: Repository['server']['proxy']['replace']['window']
-    ['server.proxy.replace.publicPath']: Repository['server']['proxy']['replace']['publicPath']
   }
 }
