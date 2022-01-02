@@ -1,5 +1,6 @@
 /* global __resourceQuery */
 /* eslint-disable no-console, no-extra-semi */
+// @ts-check
 
 ;(async () => {
   const main = async () => {
@@ -21,10 +22,18 @@
       'background: transparent;',
     )
 
-    document.addEventListener('click', e => {
-      const target = e.target.closest('a')
-      if (!target || target.href.includes(origin.dev)) return
-      target.href = target.href.replace(origin.proxy, origin.dev)
+    document.addEventListener('click', event => {
+      event.preventDefault()
+
+      if (!(event.target instanceof HTMLAnchorElement)) return
+
+      const el = event.target.closest('a')
+      const href = el?.getAttribute('href')
+      if (!href || href.includes(origin.dev)) return
+
+      Object.assign(el, {
+        href: href.replace(origin.proxy, origin.dev),
+      })
     })
   }
 
