@@ -77,12 +77,15 @@ export class Server
   public async boot(): Promise<void> {
     this.application = Express()
 
-    this.app.hooks
-      .on('server.inject', () => [
-        instance =>
-          `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
-      ])
-      .when(
+    this.app.hooks.on('server.middleware', () => middleware)
+
+    this.app.hooks.on('server.inject', () => [
+      instance =>
+        `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
+    ])
+
+    this.app.hooks.async('event.server.before', async app => {
+      app.when(
         ({store}) => store.is('features.proxy', true),
         ({hooks}) =>
           hooks.on('server.inject', inject => [
@@ -91,7 +94,9 @@ export class Server
               `@roots/bud-server/client/proxy-click-interceptor.js`,
           ]),
       )
-      .hooks.on('server.middleware', () => middleware)
+
+      return app
+    })
   }
 
   /**
@@ -158,9 +163,10 @@ export class Server
     )
 
     /**
-     * If watching and a file it is watching
-     * is touched, reload the window.
+     * If watching and a watched file is touched, update hmr websocket
+     * event subscribers.
      */
+    await this.watcher.watch()
     this.watcher.instance.on('change', path => {
       this.middleware?.hot?.publish({
         action: 'reload',
