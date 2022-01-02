@@ -73,7 +73,7 @@
     "@types/eslint": "8.2.1",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.17",
-    "eslint": "8.5.0",
+    "eslint": "8.6.0",
     "jest": "27.4.5",
     "solid-js": "1.2.6",
     "type-fest": "2.8.0",
