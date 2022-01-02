@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:packages/@roots/container",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.17",
     "jest": "27.4.5"
