@@ -29,15 +29,10 @@ describe('@roots/bud-server', function () {
       },
 
       dev: {
-        url: 'http://localhost:3000',
+        url: new URL('http://localhost:3000/'),
       },
       proxy: {
-        url: 'http://localhost',
-        replace: {
-          href: true,
-          window: true,
-          publicPath: true,
-        },
+        url: new URL('http://localhost/'),
       },
 
       watch: {

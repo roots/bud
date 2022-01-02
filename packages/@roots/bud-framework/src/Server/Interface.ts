@@ -40,22 +40,19 @@ export default interface Interface extends Service {
   middleware: Middleware
 
   /**
+   * Server port
+   */
+  port: string
+
+  /**
    * Watcher instance
    *
    * @public
    */
   watcher: {
-    [key: string]: any
-    close: CallableFunction
-    on: CallableFunction
+    getWatchedFiles(): Promise<Array<string>>
+    watch(): Promise<void>
   }
-
-  /**
-   * Retrieve an array of watched files.
-   *
-   * @public
-   */
-  getWatchedFiles(): Promise<Array<string>>
 
   /**
    * Run the server instance

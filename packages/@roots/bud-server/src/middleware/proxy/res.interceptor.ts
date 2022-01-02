@@ -68,18 +68,14 @@ export class ResponseInterceptorFactory {
       if (!body) return buffer
 
       /**
-       * Process replacements
+       * Process replacements and return body
        */
-      body = this.replacements?.reduce(
-        (html: string, [from, to]) => html.replaceAll(from, to),
-        body,
-      )
-
-      /**
-       * Send string body back to http-proxy-middleware
-       * it will be converted to Buffer on our behalf
-       */
-      return body
+      return this.app.hooks
+        .filter('proxy.replace', () => [this.replaceAssetPath()])
+        ?.reduce(
+          (html, [from, to]) => html.replaceAll(from, to),
+          body,
+        )
     } catch (err) {
       this.app.error(err)
       return buffer
@@ -100,17 +96,6 @@ export class ResponseInterceptorFactory {
         () => this._interceptor,
       ),
     )
-  }
-
-  /**
-   * Replacements to make on the response body
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  public get replacements() {
-    const replacements = [this.replaceAssetPath()]
-    return this.app.hooks.filter('proxy.replace', replacements)
   }
 
   /**
