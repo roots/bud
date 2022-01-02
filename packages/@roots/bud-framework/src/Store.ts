@@ -202,6 +202,11 @@ export namespace Store {
       manifest?: boolean
 
       /**
+       * Enable or disable proxy
+       */
+      proxy?: boolean
+
+      /**
        * Enable or disable runtime chunk
        *
        * @public

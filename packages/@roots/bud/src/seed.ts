@@ -99,6 +99,13 @@ export const seed: Partial<Store.Repository> = {
     manifest: true,
 
     /**
+     * Proxy enabled
+     *
+     * @public
+     */
+    proxy: false,
+
+    /**
      * @public
      */
     runtimeChunk: false,

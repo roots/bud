@@ -77,16 +77,21 @@ export class Server
   public async boot(): Promise<void> {
     this.application = Express()
 
-    this.app.hooks.on('server.inject', () => [
-      instance =>
-        `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
-      () =>
-        `@roots/bud-server/client/proxy-click-interceptor.js`,
-    ])
-
-    this.app.hooks.on('server.middleware', () => {
-      return middleware
-    })
+    this.app.hooks
+      .on('server.inject', () => [
+        instance =>
+          `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
+      ])
+      .when(
+        ({store}) => store.is('features.proxy', true),
+        ({hooks}) =>
+          hooks.on('server.inject', inject => [
+            ...inject,
+            () =>
+              `@roots/bud-server/client/proxy-click-interceptor.js`,
+          ]),
+      )
+      .hooks.on('server.middleware', () => middleware)
   }
 
   /**
@@ -122,7 +127,8 @@ export class Server
       this.app.hooks.filter('server.middleware'),
     ).map(([key, factory]) => {
       this.log(`info`, `using middleware: ${key}`)
-      this.application.use(factory(this.app))
+      const middleware = factory(this.app)
+      middleware && this.application.use(middleware)
     })
 
     /**

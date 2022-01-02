@@ -32,7 +32,8 @@ export const proxy: proxy = function (
 
   if (typeof config === 'undefined') {
     ctx.api.log('log', 'enabling proxy')
-    ctx.store.set('server.middleware.proxy', true)
+    ctx.store.set('features.proxy', true)
+    return ctx
   }
 
   if (typeof config === 'boolean') {
@@ -41,11 +42,11 @@ export const proxy: proxy = function (
       config ? 'enabling' : 'disabling',
       'proxy',
     )
-    ctx.store.set('server.middleware.proxy', config)
+    ctx.store.set('features.proxy', config)
     return ctx
   }
 
-  ctx.store.set('server.middleware.proxy', true)
+  ctx.store.set('features.proxy', true)
   ctx.api.log('log', 'enabling proxy')
 
   if (typeof config === 'number') {
@@ -61,7 +62,7 @@ export const proxy: proxy = function (
   }
 
   if (config instanceof URL) {
-    ctx.store.set('server.dev.url', config)
+    ctx.store.set('server.proxy.url', config)
     return ctx
   }
 

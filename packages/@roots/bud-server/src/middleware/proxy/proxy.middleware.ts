@@ -12,6 +12,8 @@ import {URL} from './url'
  * @public
  */
 export const middleware = (app: Framework) => {
+  if (app.store.is('features.proxy', false)) return
+
   const url = new URL(() => app)
   const interceptor = new ResponseInterceptorFactory(
     () => app,
