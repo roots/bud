@@ -12,6 +12,10 @@ module.exports = async function config() {
       'packages/@roots/**/*.{ts,tsx}',
       '!packages/@roots/**/*.d.ts',
     ],
+    coveragePathIgnorePatterns: [
+      'packages/@roots/bud-support/',
+      'packages/@roots/filesystem/',
+    ],
     coverageReporters: ['lcov', 'text', 'text-summary'],
     displayName: {
       name: 'bud',
