@@ -1,15 +1,12 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import {chalk, lodash} from '@roots/bud-support'
+import {chalk} from '@roots/bud-support'
 
 import {tailwind} from './bud.tailwind'
-import * as requirements from './tailwind.requirements'
-
-const {isUndefined} = lodash
 
 export interface BudTailwindCssExtension
   extends Extension.Module {
   name: '@roots/bud-tailwindcss'
-  api: {tailwind}
+  api: {tailwind: tailwind}
   boot: (app: Framework) => Promise<void>
 }
 
@@ -67,23 +64,6 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
       'extensions',
       'tailwindcss',
     )
-
-    if (isUndefined(app.postcss)) {
-      log.error(
-        '@roots/bud-tailwindcss has missing dependencies',
-        'exiting early.',
-      )
-      return
-    }
-
-    const meetsRequirements = await requirements.verify()
-    if (!meetsRequirements) {
-      log.error(
-        '@roots/bud-tailwindcss has missing dependencies',
-        'exiting early.',
-      )
-      return
-    }
 
     try {
       const tailwindcss = await import('tailwindcss')
