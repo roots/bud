@@ -1,26 +1,12 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('bud.watch', function () {
+describe('bud.watch', function () {
   let bud: Bud
-
-  let serverConfig
 
   beforeAll(async () => {
     bud = await factory({
-      config: {
-        mode: 'development',
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
+      mode: 'development',
     })
-
-    serverConfig = {...bud.store.get('server')}
-  })
-
-  beforeEach(() => {
-    bud.extensions.setStore({})
   })
 
   it('is a function', () => {
@@ -31,17 +17,15 @@ describe.skip('bud.watch', function () {
     expect(bud.watch(['**/*.js'])).toBeInstanceOf(Bud)
   })
 
-  it('sets watch files', () => {
+  it('sets watch files', async () => {
     const files = ['**/*.js']
 
     bud.watch(files)
 
-    expect(bud.store.get('server')).toMatchSnapshot({
-      ...serverConfig,
-      watch: {
-        ...serverConfig.watch,
-        files,
-      },
-    })
+    await bud.api.processQueue()
+
+    expect(bud.store.get('server.watch.files')).toMatchSnapshot(
+      files,
+    )
   })
 })
