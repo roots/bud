@@ -1,21 +1,10 @@
-import {Bud, factory} from '@roots/bud'
-import {join} from 'path'
+import {Bud, factory} from '../../../util/bud'
 
 describe('bud.minimize', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-        location: {
-          project: join(process.cwd(), 'examples/sage'),
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('is a function', () => {
