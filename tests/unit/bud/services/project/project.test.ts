@@ -40,7 +40,9 @@ describe('bud.project', function () {
         all: {},
         public: {},
       },
+      manifest: expect.any(Object),
       manifestPath: null,
+      adjacents: expect.any(Array),
     })
   })
 

@@ -10,7 +10,7 @@ const task = async (cmd, paths) => {
     paths.map(async ex => {
       const logger = new Signale()
 
-      const task = execa.command(`yarn bud ${cmd}`, {
+      const task = execa.command(cmd, {
         cwd: ex.cwd,
       })
 
@@ -36,5 +36,8 @@ const task = async (cmd, paths) => {
 module.exports = async () => {
   const examples = await paths()
 
-  await task('build --no-dashboard', examples)
+  await task('yarn bud install', examples)
+  await execa.command('yarn')
+
+  await task('yarn bud build --no-dashboard', examples)
 }

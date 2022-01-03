@@ -17,8 +17,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
-    "@types/eslint": "^7",
-    "eslint": "^7",
+    "eslint": "^7 || ^8.0.0",
     "typescript": "^4"
   }
 }
