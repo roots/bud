@@ -1,11 +1,15 @@
+// @ts-check
+
 const {Signale} = require('signale')
-const {prettyFormat} = require('pretty-format')
+const {default: prettyFormat} = require('pretty-format')
+const {noop} = require('lodash')
 
 const signale = new Signale({scope: 'jest'})
 
 global.console = {
   log: signale.log,
-  error: signale.error,
   warn: signale.warn,
-  dir: (...args) => signale.log(args.map(prettyFormat)),
+  dir: (a, _o) => signale.log(prettyFormat(a, {})),
+  info: signale.info,
+  ...global.console,
 }
