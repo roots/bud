@@ -22,6 +22,6 @@
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
     "postcss-preset-env": "7.1.0",
-    "sass": "1.45.1"
+    "sass": "1.45.2"
   }
 }

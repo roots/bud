@@ -174,15 +174,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:7.12.11":
-  version: 7.12.11
-  resolution: "@babel/code-frame@npm:7.12.11"
-  dependencies:
-    "@babel/highlight": ^7.10.4
-  checksum: 3963eff3ebfb0e091c7e6f99596ef4b258683e4ba8a134e4e95f77afe85be5c931e184fff6435fb4885d12eba04a5e25532f7fbc292ca13b48e7da943474e2f3
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.7, @babel/code-frame@npm:^7.8.3":
   version: 7.16.7
   resolution: "@babel/code-frame@npm:7.16.7"
@@ -559,7 +550,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/highlight@npm:^7.10.4, @babel/highlight@npm:^7.16.7":
+"@babel/highlight@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/highlight@npm:7.16.7"
   dependencies:
@@ -903,7 +894,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.7":
+"@babel/plugin-syntax-jsx@npm:7.16.7, @babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/plugin-syntax-jsx@npm:7.16.7"
   dependencies:
@@ -2291,7 +2282,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin@npm:^11.0.0, @emotion/babel-plugin@npm:^11.3.0, @emotion/babel-plugin@npm:^11.7.1":
+"@emotion/babel-plugin@npm:^11.3.0, @emotion/babel-plugin@npm:^11.7.1":
   version: 11.7.1
   resolution: "@emotion/babel-plugin@npm:11.7.1"
   dependencies:
@@ -2313,7 +2304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:^11.5.0, @emotion/cache@npm:^11.6.0, @emotion/cache@npm:^11.7.1":
+"@emotion/cache@npm:^11.7.1":
   version: 11.7.1
   resolution: "@emotion/cache@npm:11.7.1"
   dependencies:
@@ -2323,24 +2314,6 @@ __metadata:
     "@emotion/weak-memoize": ^0.2.5
     stylis: 4.0.13
   checksum: cf7aa8fe3bacfdedcda94b53e76a7635e122043439715fcfbf7f1a81340cfe6099a59134481a03ec3e0437466566d18528577d1e6ea92f5b98c372b8b38a8f35
-  languageName: node
-  linkType: hard
-
-"@emotion/css@npm:11.5.0":
-  version: 11.5.0
-  resolution: "@emotion/css@npm:11.5.0"
-  dependencies:
-    "@emotion/babel-plugin": ^11.0.0
-    "@emotion/cache": ^11.5.0
-    "@emotion/serialize": ^1.0.0
-    "@emotion/sheet": ^1.0.3
-    "@emotion/utils": ^1.0.0
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-  checksum: 45d01333c36a6449fcc4415470088ef2ee515d48a76d054bce9cf5c45fba17e5eec661aed34b4ea38f7003fd6a7e15ddf781e921977b4428875674621ef037f0
   languageName: node
   linkType: hard
 
@@ -2382,29 +2355,6 @@ __metadata:
   version: 0.7.5
   resolution: "@emotion/memoize@npm:0.7.5"
   checksum: 83da8d4a7649a92c72f960817692bc6be13cc13e107b9f7e878d63766525ed4402881bfeb3cda61145c050281e7e260f114a0a2870515527346f2ef896b915b3
-  languageName: node
-  linkType: hard
-
-"@emotion/react@npm:11.6.0":
-  version: 11.6.0
-  resolution: "@emotion/react@npm:11.6.0"
-  dependencies:
-    "@babel/runtime": ^7.13.10
-    "@emotion/cache": ^11.6.0
-    "@emotion/serialize": ^1.0.2
-    "@emotion/sheet": ^1.1.0
-    "@emotion/utils": ^1.0.0
-    "@emotion/weak-memoize": ^0.2.5
-    hoist-non-react-statics: ^3.3.1
-  peerDependencies:
-    "@babel/core": ^7.0.0
-    react: ">=16.8.0"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@types/react":
-      optional: true
-  checksum: 4fb2d108dc32716d1f162026ac5fdbd0662e3b435a34fb324629d72bb6bff61b18ac8975b51457c16ffa41543bade5d07558566ab76420b3926fbb9159441232
   languageName: node
   linkType: hard
 
@@ -2508,23 +2458,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^0.4.3":
-  version: 0.4.3
-  resolution: "@eslint/eslintrc@npm:0.4.3"
-  dependencies:
-    ajv: ^6.12.4
-    debug: ^4.1.1
-    espree: ^7.3.0
-    globals: ^13.9.0
-    ignore: ^4.0.6
-    import-fresh: ^3.2.1
-    js-yaml: ^3.13.1
-    minimatch: ^3.0.4
-    strip-json-comments: ^3.1.1
-  checksum: 03a7704150b868c318aab6a94d87a33d30dc2ec579d27374575014f06237ba1370ae11178db772f985ef680d469dc237e7b16a1c5d8edaaeb8c3733e7a95a6d3
-  languageName: node
-  linkType: hard
-
 "@eslint/eslintrc@npm:^1.0.5":
   version: 1.0.5
   resolution: "@eslint/eslintrc@npm:1.0.5"
@@ -2576,17 +2509,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@humanwhocodes/config-array@npm:0.5.0"
-  dependencies:
-    "@humanwhocodes/object-schema": ^1.2.0
-    debug: ^4.1.1
-    minimatch: ^3.0.4
-  checksum: 44ee6a9f05d93dd9d5935a006b17572328ba9caff8002442f601736cbda79c580cc0f5a49ce9eb88fbacc5c3a6b62098357c2e95326cd17bb9f1a6c61d6e95e7
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.9.2":
   version: 0.9.2
   resolution: "@humanwhocodes/config-array@npm:0.9.2"
@@ -2598,7 +2520,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/object-schema@npm:^1.2.0, @humanwhocodes/object-schema@npm:^1.2.1":
+"@humanwhocodes/object-schema@npm:^1.2.1":
   version: 1.2.1
   resolution: "@humanwhocodes/object-schema@npm:1.2.1"
   checksum: a824a1ec31591231e4bad5787641f59e9633827d0a2eaae131a288d33c9ef0290bd16fda8da6f7c0fcb014147865d12118df10db57f27f41e20da92369fcb3f1
@@ -4663,7 +4585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^7, @types/eslint@npm:^7.28.2":
+"@types/eslint@npm:^7.28.2":
   version: 7.29.0
   resolution: "@types/eslint@npm:7.29.0"
   dependencies:
@@ -5018,7 +4940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.11, @types/react-dom@npm:^17":
+"@types/react-dom@npm:17.0.11":
   version: 17.0.11
   resolution: "@types/react-dom@npm:17.0.11"
   dependencies:
@@ -5077,7 +4999,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.38, @types/react@npm:^17":
+"@types/react@npm:*, @types/react@npm:17.0.38":
   version: 17.0.38
   resolution: "@types/react@npm:17.0.38"
   dependencies:
@@ -6675,7 +6597,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^7.0.0, acorn@npm:^7.1.1, acorn@npm:^7.4.0":
+"acorn@npm:^7.0.0, acorn@npm:^7.1.1":
   version: 7.4.1
   resolution: "acorn@npm:7.4.1"
   bin:
@@ -9147,17 +9069,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-blank-pseudo@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "css-blank-pseudo@npm:2.0.0"
-  peerDependencies:
-    postcss: ^8.3
-  bin:
-    css-blank-pseudo: cli.js
-  checksum: e4e036f6ea017c1eb23f3c2964cb14bb2d7478c9b7f88be38ac3b5e71e574eb8d4e446a35fcbab9de77e4c5702c1bec789e23e1a47b5ce21683ea58fa662d546
-  languageName: node
-  linkType: hard
-
 "css-blank-pseudo@npm:^3.0.0":
   version: 3.0.0
   resolution: "css-blank-pseudo@npm:3.0.0"
@@ -9191,19 +9102,6 @@ __metadata:
   bin:
     css-has-pseudo: cli.js
   checksum: 88d891ba18f821e8a94d821ecdd723c606019462664c7d86e7d8731622bd26f9d55582e494bcc2a62f9399cc7b89049ddc8a9d1e8f1bf1a133c2427739d2d334
-  languageName: node
-  linkType: hard
-
-"css-has-pseudo@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "css-has-pseudo@npm:2.0.0"
-  dependencies:
-    postcss-selector-parser: ^6
-  peerDependencies:
-    postcss: ">=8.3"
-  bin:
-    css-has-pseudo: cli.js
-  checksum: 79c9039a287cb8df7dc06af929dfc310c9abee4331bb4a5a04b2c9b40219e6fc76c48d585b14646e7fb6b9503f16394858ec16d76d747761a71f20b73568e4db
   languageName: node
   linkType: hard
 
@@ -9296,17 +9194,6 @@ __metadata:
   bin:
     css-prefers-color-scheme: cli.js
   checksum: ba69a86b006818ffe3548bcbeb5e4e8139b8b6cf45815a3b3dddd12cd9acf3d8ac3b94e63fe0abd34e0683cf43ed8c2344e3bd472bbf02a6eb40c7bbf565d587
-  languageName: node
-  linkType: hard
-
-"css-prefers-color-scheme@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "css-prefers-color-scheme@npm:5.0.0"
-  peerDependencies:
-    postcss: ^8.3
-  bin:
-    css-prefers-color-scheme: cli.js
-  checksum: 1e7e7c5f0f44e1abd49ae4c4c4edc0f3b87137967182167f960f51daddd7d038e3f23020840368d205634cda6a5f020541dd6c43acee87b1e68e967c057befef
   languageName: node
   linkType: hard
 
@@ -9671,7 +9558,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.0.0, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:^4.3.2":
+"debug@npm:4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -11132,15 +11019,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-utils@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "eslint-utils@npm:2.1.0"
-  dependencies:
-    eslint-visitor-keys: ^1.1.0
-  checksum: 27500938f348da42100d9e6ad03ae29b3de19ba757ae1a7f4a087bdcf83ac60949bbb54286492ca61fac1f5f3ac8692dd21537ce6214240bf95ad0122f24d71d
-  languageName: node
-  linkType: hard
-
 "eslint-utils@npm:^3.0.0":
   version: 3.0.0
   resolution: "eslint-utils@npm:3.0.0"
@@ -11149,13 +11027,6 @@ __metadata:
   peerDependencies:
     eslint: ">=5"
   checksum: 0668fe02f5adab2e5a367eee5089f4c39033af20499df88fe4e6aba2015c20720404d8c3d6349b6f716b08fdf91b9da4e5d5481f265049278099c4c836ccb619
-  languageName: node
-  linkType: hard
-
-"eslint-visitor-keys@npm:^1.1.0, eslint-visitor-keys@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "eslint-visitor-keys@npm:1.3.0"
-  checksum: 37a19b712f42f4c9027e8ba98c2b06031c17e0c0a4c696cd429bd9ee04eb43889c446f2cd545e1ff51bef9593fcec94ecd2c2ef89129fcbbf3adadbef520376a
   languageName: node
   linkType: hard
 
@@ -11189,55 +11060,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.5.0":
-  version: 8.5.0
-  resolution: "eslint@npm:8.5.0"
-  dependencies:
-    "@eslint/eslintrc": ^1.0.5
-    "@humanwhocodes/config-array": ^0.9.2
-    ajv: ^6.10.0
-    chalk: ^4.0.0
-    cross-spawn: ^7.0.2
-    debug: ^4.3.2
-    doctrine: ^3.0.0
-    enquirer: ^2.3.5
-    escape-string-regexp: ^4.0.0
-    eslint-scope: ^7.1.0
-    eslint-utils: ^3.0.0
-    eslint-visitor-keys: ^3.1.0
-    espree: ^9.2.0
-    esquery: ^1.4.0
-    esutils: ^2.0.2
-    fast-deep-equal: ^3.1.3
-    file-entry-cache: ^6.0.1
-    functional-red-black-tree: ^1.0.1
-    glob-parent: ^6.0.1
-    globals: ^13.6.0
-    ignore: ^4.0.6
-    import-fresh: ^3.0.0
-    imurmurhash: ^0.1.4
-    is-glob: ^4.0.0
-    js-yaml: ^4.1.0
-    json-stable-stringify-without-jsonify: ^1.0.1
-    levn: ^0.4.1
-    lodash.merge: ^4.6.2
-    minimatch: ^3.0.4
-    natural-compare: ^1.4.0
-    optionator: ^0.9.1
-    progress: ^2.0.0
-    regexpp: ^3.2.0
-    semver: ^7.2.1
-    strip-ansi: ^6.0.1
-    strip-json-comments: ^3.1.0
-    text-table: ^0.2.0
-    v8-compile-cache: ^2.0.3
-  bin:
-    eslint: bin/eslint.js
-  checksum: c1a9e26070520a308cc30b62ba0d37d5b115ed23987a93219819537bdea9398e6ebe57c27d97be36ecc83b5162c72e82ecb0a9e5b44b7992980f9be90eb5c4b3
-  languageName: node
-  linkType: hard
-
-"eslint@npm:8.6.0":
+"eslint@npm:8.6.0, eslint@npm:^7 || ^8.0.0":
   version: 8.6.0
   resolution: "eslint@npm:8.6.0"
   dependencies:
@@ -11282,67 +11105,6 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: 19ed82fa872ebb45d0f10c2514975b85ab37e78e9b562a5aa3abdbe7802111d65f7d5a8563e394a975337b403163b40624c2cc8bfa585a061e8c7dc55def39b5
-  languageName: node
-  linkType: hard
-
-"eslint@npm:^7":
-  version: 7.32.0
-  resolution: "eslint@npm:7.32.0"
-  dependencies:
-    "@babel/code-frame": 7.12.11
-    "@eslint/eslintrc": ^0.4.3
-    "@humanwhocodes/config-array": ^0.5.0
-    ajv: ^6.10.0
-    chalk: ^4.0.0
-    cross-spawn: ^7.0.2
-    debug: ^4.0.1
-    doctrine: ^3.0.0
-    enquirer: ^2.3.5
-    escape-string-regexp: ^4.0.0
-    eslint-scope: ^5.1.1
-    eslint-utils: ^2.1.0
-    eslint-visitor-keys: ^2.0.0
-    espree: ^7.3.1
-    esquery: ^1.4.0
-    esutils: ^2.0.2
-    fast-deep-equal: ^3.1.3
-    file-entry-cache: ^6.0.1
-    functional-red-black-tree: ^1.0.1
-    glob-parent: ^5.1.2
-    globals: ^13.6.0
-    ignore: ^4.0.6
-    import-fresh: ^3.0.0
-    imurmurhash: ^0.1.4
-    is-glob: ^4.0.0
-    js-yaml: ^3.13.1
-    json-stable-stringify-without-jsonify: ^1.0.1
-    levn: ^0.4.1
-    lodash.merge: ^4.6.2
-    minimatch: ^3.0.4
-    natural-compare: ^1.4.0
-    optionator: ^0.9.1
-    progress: ^2.0.0
-    regexpp: ^3.1.0
-    semver: ^7.2.1
-    strip-ansi: ^6.0.0
-    strip-json-comments: ^3.1.0
-    table: ^6.0.9
-    text-table: ^0.2.0
-    v8-compile-cache: ^2.0.3
-  bin:
-    eslint: bin/eslint.js
-  checksum: cc85af9985a3a11085c011f3d27abe8111006d34cc274291b3c4d7bea51a4e2ff6135780249becd919ba7f6d6d1ecc38a6b73dacb6a7be08d38453b344dc8d37
-  languageName: node
-  linkType: hard
-
-"espree@npm:^7.3.0, espree@npm:^7.3.1":
-  version: 7.3.1
-  resolution: "espree@npm:7.3.1"
-  dependencies:
-    acorn: ^7.4.0
-    acorn-jsx: ^5.3.1
-    eslint-visitor-keys: ^1.3.0
-  checksum: aa9b50dcce883449af2e23bc2b8d9abb77118f96f4cb313935d6b220f77137eaef7724a83c3f6243b96bc0e4ab14766198e60818caad99f9519ae5a336a39b45
   languageName: node
   linkType: hard
 
@@ -11493,17 +11255,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-emotion@workspace:examples/emotion"
   dependencies:
-    "@emotion/css": 11.5.0
-    "@emotion/react": 11.6.0
+    "@emotion/css": 11.7.1
+    "@emotion/react": 11.7.1
     "@emotion/styled": 11.6.0
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
     "@roots/bud-emotion": "workspace:packages/@roots/bud-emotion"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
-    "@types/react": ^17
-    "@types/react-dom": ^17
-    react: ">=17.0.2"
-    react-dom: ">=17.0.2"
+    react: 17.0.2
+    react-dom: 17.0.2
   languageName: unknown
   linkType: soft
 
@@ -11522,7 +11282,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
-    eslint: 8.5.0
+    eslint: 8.6.0
     postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
@@ -11550,10 +11310,11 @@ __metadata:
     "@types/postcss-import": ^14
     "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
-    postcss: 8.3.11
+    eslint: 8.6.0
+    postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
-    postcss-preset-env: 7.0.1
+    postcss-preset-env: 7.1.0
     react: 17.0.2
     react-dom: 17.0.2
   languageName: unknown
@@ -11586,7 +11347,11 @@ __metadata:
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
     "@types/sass": ^1
-    sass: 1.43.4
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.1.0
+    sass: 1.45.2
   languageName: unknown
   linkType: soft
 
@@ -11597,6 +11362,10 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
+    postcss: 8.4.5
+    postcss-import: 14.0.2
+    postcss-nested: 5.0.6
+    postcss-preset-env: 7.1.0
   languageName: unknown
   linkType: soft
 
@@ -11606,10 +11375,11 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
-    postcss: 8.3.11
+    eslint: 8.6.0
+    postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
-    postcss-preset-env: 6.7.0
+    postcss-preset-env: 7.1.0
   languageName: unknown
   linkType: soft
 
@@ -11654,7 +11424,7 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/sage": "workspace:*"
     "@wordpress/browserslist-config": 4.1.0
-    eslint: 8.5.0
+    eslint: 8.6.0
     postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
@@ -11662,7 +11432,7 @@ __metadata:
     prettier: 2.5.1
     react: 17.0.2
     react-dom: 17.0.2
-    tailwindcss: 3.0.7
+    tailwindcss: 3.0.8
   languageName: unknown
   linkType: soft
 
@@ -11678,7 +11448,7 @@ __metadata:
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
     postcss-preset-env: 7.1.0
-    sass: 1.45.1
+    sass: 1.45.2
   languageName: unknown
   linkType: soft
 
@@ -11686,9 +11456,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-solid@workspace:examples/solid"
   dependencies:
+    "@babel/plugin-syntax-jsx": 7.16.7
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-solid": "workspace:*"
+    solid-js: ^1.1.7
   languageName: unknown
   linkType: soft
 
@@ -11700,11 +11472,11 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
-    postcss: 8.3.11
+    postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
-    postcss-preset-env: 6.7.0
-    tailwindcss: 3.0.0
+    postcss-preset-env: 7.1.0
+    tailwindcss: 3.0.8
   languageName: unknown
   linkType: soft
 
@@ -11723,8 +11495,7 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-typescript": "workspace:*"
-    "@types/eslint": ^7
-    eslint: ^7
+    eslint: ^7 || ^8.0.0
     typescript: ^4
   languageName: unknown
   linkType: soft
@@ -11758,10 +11529,11 @@ __metadata:
     "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     "@wordpress/browserslist-config": 4.1.0
-    postcss: 8.3.11
+    eslint: 8.6.0
+    postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6
-    postcss-preset-env: 6.7.0
+    postcss-preset-env: 7.1.0
     react: 17.0.2
     react-dom: 17.0.2
   languageName: unknown
@@ -18251,7 +18023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-color-functional-notation@npm:^4.0.1, postcss-color-functional-notation@npm:^4.1.0":
+"postcss-color-functional-notation@npm:^4.1.0":
   version: 4.1.0
   resolution: "postcss-color-functional-notation@npm:4.1.0"
   dependencies:
@@ -18285,7 +18057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-color-hex-alpha@npm:^8.0.0, postcss-color-hex-alpha@npm:^8.0.1":
+"postcss-color-hex-alpha@npm:^8.0.1":
   version: 8.0.1
   resolution: "postcss-color-hex-alpha@npm:8.0.1"
   dependencies:
@@ -18319,7 +18091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-color-rebeccapurple@npm:^7.0.0, postcss-color-rebeccapurple@npm:^7.0.1":
+"postcss-color-rebeccapurple@npm:^7.0.1":
   version: 7.0.1
   resolution: "postcss-color-rebeccapurple@npm:7.0.1"
   dependencies:
@@ -18375,7 +18147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-custom-properties@npm:^12.0.0, postcss-custom-properties@npm:^12.0.1":
+"postcss-custom-properties@npm:^12.0.1":
   version: 12.0.1
   resolution: "postcss-custom-properties@npm:12.0.1"
   dependencies:
@@ -18429,7 +18201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-dir-pseudo-class@npm:^6.0.0, postcss-dir-pseudo-class@npm:^6.0.1":
+"postcss-dir-pseudo-class@npm:^6.0.1":
   version: 6.0.1
   resolution: "postcss-dir-pseudo-class@npm:6.0.1"
   dependencies:
@@ -18511,7 +18283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-double-position-gradients@npm:^3.0.1, postcss-double-position-gradients@npm:^3.0.3":
+"postcss-double-position-gradients@npm:^3.0.3":
   version: 3.0.3
   resolution: "postcss-double-position-gradients@npm:3.0.3"
   dependencies:
@@ -18534,7 +18306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-env-function@npm:^4.0.2, postcss-env-function@npm:^4.0.3":
+"postcss-env-function@npm:^4.0.3":
   version: 4.0.3
   resolution: "postcss-env-function@npm:4.0.3"
   dependencies:
@@ -18556,7 +18328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-focus-visible@npm:^6.0.1, postcss-focus-visible@npm:^6.0.2":
+"postcss-focus-visible@npm:^6.0.2":
   version: 6.0.2
   resolution: "postcss-focus-visible@npm:6.0.2"
   dependencies:
@@ -18578,7 +18350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-focus-within@npm:^5.0.1, postcss-focus-within@npm:^5.0.2":
+"postcss-focus-within@npm:^5.0.2":
   version: 5.0.2
   resolution: "postcss-focus-within@npm:5.0.2"
   dependencies:
@@ -18618,7 +18390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-gap-properties@npm:^3.0.0, postcss-gap-properties@npm:^3.0.1":
+"postcss-gap-properties@npm:^3.0.1":
   version: 3.0.1
   resolution: "postcss-gap-properties@npm:3.0.1"
   peerDependencies:
@@ -18654,7 +18426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-image-set-function@npm:^4.0.2, postcss-image-set-function@npm:^4.0.3":
+"postcss-image-set-function@npm:^4.0.3":
   version: 4.0.3
   resolution: "postcss-image-set-function@npm:4.0.3"
   dependencies:
@@ -18719,7 +18491,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-lab-function@npm:^4.0.1, postcss-lab-function@npm:^4.0.2":
+"postcss-lab-function@npm:^4.0.2":
   version: 4.0.2
   resolution: "postcss-lab-function@npm:4.0.2"
   dependencies:
@@ -18771,7 +18543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-logical@npm:^5.0.0, postcss-logical@npm:^5.0.1":
+"postcss-logical@npm:^5.0.1":
   version: 5.0.1
   resolution: "postcss-logical@npm:5.0.1"
   peerDependencies:
@@ -18950,7 +18722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-nesting@npm:^10.0.2, postcss-nesting@npm:^10.0.3":
+"postcss-nesting@npm:^10.0.3":
   version: 10.0.3
   resolution: "postcss-nesting@npm:10.0.3"
   dependencies:
@@ -19096,7 +18868,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-overflow-shorthand@npm:^3.0.0, postcss-overflow-shorthand@npm:^3.0.1":
+"postcss-overflow-shorthand@npm:^3.0.1":
   version: 3.0.1
   resolution: "postcss-overflow-shorthand@npm:3.0.1"
   peerDependencies:
@@ -19135,7 +18907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-place@npm:^7.0.1, postcss-place@npm:^7.0.2":
+"postcss-place@npm:^7.0.2":
   version: 7.0.2
   resolution: "postcss-place@npm:7.0.2"
   dependencies:
@@ -19190,50 +18962,6 @@ __metadata:
     postcss-selector-matches: ^4.0.0
     postcss-selector-not: ^4.0.0
   checksum: 209cbb63443a1631aa97ccfc3b95b1ff519ddaeb672f84d6af501bd9e9ad6727680b5b1bffb8209322e47d93029a69df6064f75cd0b7633b6df943cbef33f22e
-  languageName: node
-  linkType: hard
-
-"postcss-preset-env@npm:7.0.1":
-  version: 7.0.1
-  resolution: "postcss-preset-env@npm:7.0.1"
-  dependencies:
-    autoprefixer: ^10.4.0
-    browserslist: ^4.17.5
-    caniuse-lite: ^1.0.30001272
-    css-blank-pseudo: ^2.0.0
-    css-has-pseudo: ^2.0.0
-    css-prefers-color-scheme: ^5.0.0
-    cssdb: ^5.0.0
-    postcss: ^8.3
-    postcss-attribute-case-insensitive: ^5.0.0
-    postcss-color-functional-notation: ^4.0.1
-    postcss-color-hex-alpha: ^8.0.0
-    postcss-color-rebeccapurple: ^7.0.0
-    postcss-custom-media: ^8.0.0
-    postcss-custom-properties: ^12.0.0
-    postcss-custom-selectors: ^6.0.0
-    postcss-dir-pseudo-class: ^6.0.0
-    postcss-double-position-gradients: ^3.0.1
-    postcss-env-function: ^4.0.2
-    postcss-focus-visible: ^6.0.1
-    postcss-focus-within: ^5.0.1
-    postcss-font-variant: ^5.0.0
-    postcss-gap-properties: ^3.0.0
-    postcss-image-set-function: ^4.0.2
-    postcss-initial: ^4.0.1
-    postcss-lab-function: ^4.0.1
-    postcss-logical: ^5.0.0
-    postcss-media-minmax: ^5.0.0
-    postcss-nesting: ^10.0.2
-    postcss-overflow-shorthand: ^3.0.0
-    postcss-page-break: ^3.0.4
-    postcss-place: ^7.0.1
-    postcss-pseudo-class-any-link: ^7.0.0
-    postcss-replace-overflow-wrap: ^4.0.0
-    postcss-selector-not: ^5.0.0
-  peerDependencies:
-    postcss: ^8.3
-  checksum: 822a17d5bc5b1e52e1dca68ed9b64062acce1b2067f5d8dcefc7b97972c1bc5a9e3f46d03868b3d7501699e3a2954f247c8c25430ca13ca52d4297c7f23abf80
   languageName: node
   linkType: hard
 
@@ -19292,7 +19020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-pseudo-class-any-link@npm:^7.0.0, postcss-pseudo-class-any-link@npm:^7.0.1":
+"postcss-pseudo-class-any-link@npm:^7.0.1":
   version: 7.0.1
   resolution: "postcss-pseudo-class-any-link@npm:7.0.1"
   dependencies:
@@ -19425,7 +19153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4, postcss-selector-parser@npm:^6.0.5, postcss-selector-parser@npm:^6.0.6, postcss-selector-parser@npm:^6.0.7":
+"postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4, postcss-selector-parser@npm:^6.0.5, postcss-selector-parser@npm:^6.0.6, postcss-selector-parser@npm:^6.0.7":
   version: 6.0.7
   resolution: "postcss-selector-parser@npm:6.0.7"
   dependencies:
@@ -19532,7 +19260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.5, postcss@npm:^8.0.0, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.15, postcss@npm:^8.3, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
+"postcss@npm:8.4.5, postcss@npm:^8.0.0, postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.15, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7":
   version: 8.4.5
   resolution: "postcss@npm:8.4.5"
   dependencies:
@@ -20053,7 +19781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.2, react-dom@npm:>=17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -20263,7 +19991,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.2, react@npm:>=17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -20482,7 +20210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexpp@npm:^3.1.0, regexpp@npm:^3.2.0":
+"regexpp@npm:^3.2.0":
   version: 3.2.0
   resolution: "regexpp@npm:3.2.0"
   checksum: a78dc5c7158ad9ddcfe01aa9144f46e192ddbfa7b263895a70a5c6c73edd9ce85faf7c0430e59ac38839e1734e275b9c3de5c57ee3ab6edc0e0b1bdebefccef8
@@ -21164,27 +20892,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.43.4":
-  version: 1.43.4
-  resolution: "sass@npm:1.43.4"
-  dependencies:
-    chokidar: ">=3.0.0 <4.0.0"
-  bin:
-    sass: sass.js
-  checksum: 9af80105dabd32752c60b4557115832982cf1019c02c952db6a26c61a3e18dc95044c896685e6e9a6d6dd6643fc411ecf2ea4a8a431a8a08a7510a45d5a492ae
-  languageName: node
-  linkType: hard
-
-"sass@npm:1.45.1":
-  version: 1.45.1
-  resolution: "sass@npm:1.45.1"
+"sass@npm:1.45.2":
+  version: 1.45.2
+  resolution: "sass@npm:1.45.2"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 5c310b9d6260a304520678442f5814bd54c8068b659f54ae51ccb9156168811abf4e48eae4f857a5feb2958c4c07eacd5812e28018749ab25fdb40200c5bdd65
+  checksum: 7041ae5532b2a5dec10fe10d66cf2d1fc52f3f80ecedb5a6ffffdc5545eb996c12d3e749131778a765ada445f2a47671ab1bf13bf736cbbf9e71f29c592cb41d
   languageName: node
   linkType: hard
 
@@ -21681,7 +21398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.2.6":
+"solid-js@npm:1.2.6, solid-js@npm:^1.1.7":
   version: 1.2.6
   resolution: "solid-js@npm:1.2.6"
   checksum: 63c5c6e34430d5d68e1d14b23ea82a327065cfa9908b3f1f6cf36366f937022b06ab1712a8e6a22ed7ca31769c85848cba55cebc8efc61d338979f8063f7b6c7
@@ -22445,7 +22162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"table@npm:^6.0.9, table@npm:^6.7.3":
+"table@npm:^6.7.3":
   version: 6.7.3
   resolution: "table@npm:6.7.3"
   dependencies:
@@ -22490,41 +22207,6 @@ __metadata:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
   checksum: 7febd92d1dfbdb6988f3e7c0081aca526ccc520bc24e68bec3b86d4c212b33b2bec6558225c5ed8b65cb89eb83c579e3898f591d9ca07f46e980a3f58412852f
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:3.0.7":
-  version: 3.0.7
-  resolution: "tailwindcss@npm:3.0.7"
-  dependencies:
-    arg: ^5.0.1
-    chalk: ^4.1.2
-    chokidar: ^3.5.2
-    color-name: ^1.1.4
-    cosmiconfig: ^7.0.1
-    detective: ^5.2.0
-    didyoumean: ^1.2.2
-    dlv: ^1.1.3
-    fast-glob: ^3.2.7
-    glob-parent: ^6.0.2
-    is-glob: ^4.0.3
-    normalize-path: ^3.0.0
-    object-hash: ^2.2.0
-    postcss-js: ^3.0.3
-    postcss-load-config: ^3.1.0
-    postcss-nested: 5.0.6
-    postcss-selector-parser: ^6.0.7
-    postcss-value-parser: ^4.2.0
-    quick-lru: ^5.1.1
-    resolve: ^1.20.0
-    tmp: ^0.2.1
-  peerDependencies:
-    autoprefixer: ^10.0.2
-    postcss: ^8.0.9
-  bin:
-    tailwind: lib/cli.js
-    tailwindcss: lib/cli.js
-  checksum: 0b33d7c6a0860fae22bce9efbbd990ac635e1fc1a616eaca9ca5e7d3ed78c6efed5ca10ebcc186289cf731ece0769329eef715ca2cb641134550780e6ae39b39
   languageName: node
   linkType: hard
 
