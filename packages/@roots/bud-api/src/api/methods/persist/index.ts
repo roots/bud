@@ -2,39 +2,34 @@ import type {Framework} from '@roots/bud-framework'
 import {chalk} from '@roots/bud-support'
 
 export interface persist {
-  (type?: 'memory' | 'filesystem' | false): Framework
+  (cacheStrategy?: 'memory' | 'filesystem' | false): Framework
 }
 
 export const persist: persist = function (
-  type?: 'memory' | 'filesystem' | false,
+  cacheStrategy?: 'memory' | 'filesystem' | false,
 ) {
   const ctx = this as Framework
 
-  if (type === false) {
+  if (cacheStrategy === false) {
     ctx.api.log('success', {
       message: 'cache disabled',
     })
-    ctx.hooks.on<'build.cache'>('build.cache', () => false)
-    return this
+    ctx.hooks.on('build.cache', () => false)
+    return ctx
   }
 
-  if (type === 'memory') {
+  if (cacheStrategy === 'memory') {
     ctx.api.log('success', {
       message: 'cache enabled',
       suffix: chalk.dim('memory'),
     })
 
-    ctx.hooks.on<'build.cache.type'>(
-      'build.cache.type',
-      () => 'memory',
-    )
-    return this
+    ctx.hooks.on('build.cache', () => ({
+      type: ctx.hooks.filter('build.cache.type'),
+    }))
+    ctx.hooks.on('build.cache.type', (): 'memory' => 'memory')
+    return ctx
   }
-
-  ctx.api.log('success', {
-    message: 'cache enabled',
-    suffix: chalk.dim('filesystem'),
-  })
 
   ctx.hooks
     .on('build.cache', () => ({
@@ -43,34 +38,31 @@ export const persist: persist = function (
       cacheDirectory: ctx.hooks.filter(
         'build.cache.cacheDirectory',
       ),
-      managedPaths: ctx.hooks.filter<'build.cache.managedPaths'>(
-        'build.cache.managedPaths',
+      managedPaths: ctx.hooks.filter('build.cache.managedPaths'),
+      buildDependencies: ctx.hooks.filter(
+        'build.cache.buildDependencies',
       ),
-      buildDependencies:
-        ctx.hooks.filter<'build.cache.buildDependencies'>(
-          'build.cache.buildDependencies',
-        ),
     }))
-    .hooks.on<'build.cache.version'>(
-      'build.cache.version',
-      () => ctx.cache.version,
-    )
-    .hooks.on<'build.cache.type'>(
+
+    .hooks.on('build.cache.version', () => ctx.cache.version)
+    .hooks.on(
       'build.cache.type',
-      () => 'filesystem',
+      (): 'filesystem' => 'filesystem',
     )
     .hooks.on('build.cache.cacheDirectory', () =>
       ctx.path('storage'),
     )
-    .hooks.on<'build.cache.buildDependencies'>(
-      'build.cache.buildDependencies',
-      () => ({
-        bud: ctx.project.get('dependencies'),
-      }),
-    )
+    .hooks.on('build.cache.buildDependencies', () => ({
+      bud: ctx.project.get('dependencies'),
+    }))
     .hooks.on('build.cache.managedPaths', () => [
       ctx.path('modules'),
     ])
 
-  return this
+  ctx.api.log('success', {
+    message: 'cache enabled',
+    suffix: chalk.dim('filesystem'),
+  })
+
+  return ctx
 }
