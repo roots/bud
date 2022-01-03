@@ -1,20 +1,14 @@
-import {Bud, factory} from '@roots/bud'
 import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
+
+import {Bud, factory} from '../../util/bud'
 
 describe('bud', () => {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('mode', () => {

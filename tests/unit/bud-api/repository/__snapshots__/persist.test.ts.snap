@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.persist enables persistant caching 1`] = `
+Object {
+  "bud": Array [
+    StringContaining "project/package.json",
+    StringContaining "project/bud.config.js",
+  ],
+}
+`;

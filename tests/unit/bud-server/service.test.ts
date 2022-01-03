@@ -1,18 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('@roots/bud-server', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        mode: 'development',
-        features: {
-          log: false,
-          dashboard: false,
-        },
-      },
-    })
+    bud = await factory({mode: 'development'})
   })
 
   it('has expected defaults', () => {

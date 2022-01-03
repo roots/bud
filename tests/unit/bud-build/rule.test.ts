@@ -1,18 +1,12 @@
-import {Bud, factory} from '@roots/bud'
 import {Rule} from '@roots/bud-build'
+
+import {Bud, factory} from '../../util/bud'
 
 describe('Build Rule', function () {
   let bud: Bud = null
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('is constructable', () => {

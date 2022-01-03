@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.watch sets watch files 1`] = `
+Array [
+  "**/*.js",
+]
+`;
