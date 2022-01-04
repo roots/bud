@@ -68,6 +68,28 @@ export const image = (app: Framework): Rule =>
     }))
 
 /**
+ * .webp assets factorry
+ *
+ * @remarks
+ * Returns {@link Rule} for `asset/resource`
+ *
+ * @public
+ */
+export const webp = (app: Framework) =>
+  app.build
+    .makeRule()
+    .setTest(({store}) => store.get('patterns.webp'))
+    .setType('asset/resource')
+    .setGenerator(app => ({
+      filename: `webp/${
+        app.store.is('features.hash', true) && app.isProduction
+          ? app.store.get('hashFormat')
+          : app.store.get('fileFormat')
+      }[ext]`,
+    }))
+
+/**
+ * Returns {@link Rule} for `.woff`/`.otf` handling
  * .svg rule
  *
  * @public

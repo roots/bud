@@ -207,6 +207,7 @@ export const seed: Partial<Store.Repository> = {
     vue: /\.vue$/,
     md: /\.md$/,
     toml: /\.toml$/,
+    webp: /\.webp$/,
     yml: /\.ya?ml$/,
     xml: /\.xml$/,
     csv: /\.(csv|tsv)$/,

@@ -507,6 +507,7 @@ export namespace Store {
     | 'yml'
     | 'xml'
     | 'csv'
+    | 'webp'
 
   type PatternKeyMap = {
     [K in PatternKeys as `patterns.${K &
