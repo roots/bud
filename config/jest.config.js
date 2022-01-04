@@ -11,8 +11,10 @@ module.exports = async function config() {
     collectCoverageFrom: [
       'packages/@roots/**/*.{ts,tsx}',
       '!packages/@roots/**/*.d.ts',
-      '!packages/@roots/bud-support/**/*',
-      '!packages/@roots/filesystem/**/*',
+    ],
+    coveragePathIgnorePatterns: [
+      'packages/@roots/bud-support/',
+      'packages/@roots/filesystem/',
     ],
     coverageReporters: ['lcov', 'text', 'text-summary'],
     displayName: {
@@ -31,6 +33,7 @@ module.exports = async function config() {
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
+    setupFilesAfterEnv: ['<rootDir>/dev/jest/setup.afterEnv.js'],
     testEnvironment: 'node',
     testMatch: [
       `<rootDir>/tests/unit/**/*.ts`,
@@ -42,6 +45,5 @@ module.exports = async function config() {
       '/tests/util/',
       '/tests/.*?/__mocks__/',
     ],
-    verbose: true,
   }
 }

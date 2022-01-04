@@ -25,26 +25,12 @@ export class Test extends Command {
     details: `test files with jest`,
     examples: [
       [`test`, `yarn @bud test`],
-      [`update snapshots`, `yarn @bud test --update`],
+      [`update snapshots`, `yarn @bud test --updateSnapshot`],
     ],
   }
 
-  /**
-   * Number of workers
-   *
-   * @internal
-   */
-  public workers = Option.String(`-w,--workers`, '50%', {
-    description: `number of workers. default 50%.`,
-  })
-
-  /**
-   * Update snapshots
-   *
-   * @internal
-   */
-  public update = Option.Boolean(`--update`, false, {
-    description: `update snapshots. default false.`,
+  public passthrough = Option.Proxy({
+    name: `jest options`,
   })
 
   /**
@@ -54,9 +40,9 @@ export class Test extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn jest --config config/jest.config.js --verbose --maxWorkers=${
-        this.workers
-      } ${this.update ? `--updateSnapshot` : `--coverage`}`,
+      this.withPassthrough(
+        `yarn jest --config config/jest.config.js`,
+      ),
     )
   }
 }
