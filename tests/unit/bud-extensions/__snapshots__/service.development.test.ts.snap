@@ -190,158 +190,97 @@ Object {
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 1`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 2`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
-    "cleanOnceBeforeBuildPatterns": Array [
-      "**/*",
-      "!dll",
-    ],
-    "cleanStaleWebpackAssets": true,
-    "protectWebpackAssets": true,
-  },
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 3`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
-    "patterns": Array [],
-  },
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 4`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 5`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 6`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
-    "fileName": "manifest.json",
-    "writeToFileEmit": true,
-  },
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 7`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
-    "chunkFilename": "[name].css",
-    "filename": "[name].css",
-  },
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 8`] = `
-Container {
-  "ident": "container",
-  "repository": Object {
-    "baseConfig": Object {
-      "env": Object {
-        "amd": true,
-        "browser": true,
-        "es6": true,
-        "node": true,
-      },
-      "extends": Array [
-        "eslint:recommended",
-      ],
-      "parser": "@babel/eslint-parser",
-      "parserOptions": Object {
-        "ecmaFeatures": Object {
-          "experimentalObjectRestSpread": true,
-          "generators": false,
-          "globalReturn": true,
-          "impliedStrict": true,
-          "objectLiteralDuplicateProperties": false,
-        },
-        "requireConfigFile": false,
-      },
-      "plugins": Array [
-        "import",
-      ],
-      "rules": Object {
-        "comma-dangle": Array [
-          "error",
-          Object {
-            "arrays": "always-multiline",
-            "exports": "always-multiline",
-            "functions": "ignore",
-            "imports": "always-multiline",
-            "objects": "always-multiline",
-          },
-        ],
-        "no-console": 0,
-      },
-      "settings": Object {
-        "import/core-modules": Array [],
-        "import/ignore": Array [
-          "node_modules",
-          "\\\\.(coffee|scss|css|less|hbs|svg|json)$",
-        ],
-      },
-    },
-    "cache": true,
-    "cacheLocation": "/Users/kellymears/code/roots/dev/bud/tests/util/project/.budfiles/cache/eslint.json",
-    "context": "/Users/kellymears/code/roots/dev/bud/tests/util/project/src",
-    "cwd": "/Users/kellymears/code/roots/dev/bud/tests/util/project",
-    "extensions": Array [
-      "js",
-      "jsx",
-      "ts",
-      "tsx",
-      "vue",
-    ],
-    "failOnError": true,
-  },
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": false,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 9`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 10`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 11`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 12`] = `
-Container {
-  "ident": "container",
-  "repository": Object {},
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
 }
 `;

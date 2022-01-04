@@ -13,7 +13,7 @@ describe('Extensions', function () {
     expect(bud.extensions.all()).toMatchSnapshot()
 
     bud.extensions.every((key, controller) => {
-      expect(controller.options).toMatchSnapshot()
+      expect(controller.meta).toMatchSnapshot()
     })
   })
 })
