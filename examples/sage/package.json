@@ -12,6 +12,10 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
+    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
+    "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
+    "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
+    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "@roots/sage": "workspace:*",
     "@wordpress/browserslist-config": "4.1.0",
     "eslint": "8.6.0",

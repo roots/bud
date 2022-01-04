@@ -65,11 +65,7 @@
   "bud": {
     "type": "extension",
     "peers": [
-      "@roots/bud-preset-wordpress",
-      "@roots/bud-eslint",
-      "@roots/bud-prettier",
-      "@roots/bud-stylelint",
-      "@roots/bud-tailwindcss"
+      "@roots/bud-preset-wordpress"
     ]
   },
   "devDependencies": {
@@ -79,12 +75,8 @@
     "webpack": "5.65.0"
   },
   "dependencies": {
-    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
-    "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
-    "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1"
   }
