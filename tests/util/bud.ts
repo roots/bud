@@ -1,7 +1,7 @@
 import {factory as budFactory} from '@roots/bud'
 import {join} from 'path'
 
-export const factory = async () => {
+export const factory = async (config?) => {
   const bud = await budFactory({
     config: {
       features: {
@@ -11,6 +11,7 @@ export const factory = async () => {
       location: {
         project: join(process.cwd(), 'tests/util/project'),
       },
+      ...(config ?? {}),
     },
   })
 

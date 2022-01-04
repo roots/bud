@@ -1,25 +1,15 @@
-import {factory} from '@roots/bud'
+import '@roots/bud-postcss'
+
 import {BudPostCssExtension} from '@roots/bud-postcss/src/postcss.extension'
 import {BudTailwindCssExtension} from '@roots/bud-tailwindcss/src/tailwind.extension'
 
-process.env.BUD_KEEP_ALIVE = 'true'
+import {Bud, factory} from '../../util/bud'
 
-describe.skip('@roots/bud-tailwindcss', () => {
-  let bud
+describe('@roots/bud-tailwindcss', () => {
+  let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
-
-    bud.project.discover('devDependencies')
-
-    bud.use([BudPostCssExtension, BudTailwindCssExtension])
+    bud = await factory()
   })
 
   it('has name prop', () => {
@@ -34,12 +24,15 @@ describe.skip('@roots/bud-tailwindcss', () => {
     )
   })
 
-  it('sets up postcss plugins', () => {
-    expect(Object.keys(bud.postcss.plugins)).toEqual([
+  it('sets up postcss plugins', async () => {
+    await bud.use([BudPostCssExtension, BudTailwindCssExtension])
+    await bud.api.processQueue()
+
+    expect(bud.postcss.getKeys()).toEqual([
       'postcss-import',
-      'postcss-nested',
-      'postcss-preset-env',
+      'tailwindcss-nesting',
       'tailwindcss',
+      'postcss-preset-env',
     ])
   })
 })

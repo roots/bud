@@ -14,27 +14,6 @@ export class Cache
   implements Bud.Cache.Interface
 {
   /**
-   * True if cache is enabled
-   *
-   * @public
-   */
-  public get enabled(): boolean {
-    this.log('info', {
-      message: `cache feature flag: ${this.app.store.get(
-        'features.cache',
-      )}`,
-    })
-
-    this.log('info', {
-      message: `--cache flag: ${this.app.store.get(
-        'cli.flags.cache',
-      )}`,
-    })
-
-    return this.app.store.get('features.cache') ? true : false
-  }
-
-  /**
    * Type
    *
    * @public
@@ -86,7 +65,7 @@ export class Cache
   public async boot() {
     this.version = await this.hashFileContents()
 
-    if (this.enabled) {
+    if (this.app.store.get('features.cache')) {
       this.app.api.call('persist', this.type)
     }
   }
@@ -108,7 +87,9 @@ export class Cache
     try {
       const paths = this.app.project.get('dependencies')
       const strings = await Promise.all(
-        paths.map(async path => readFile(path, 'utf8')),
+        paths.map(async (path: string) =>
+          readFile(path, 'utf8'),
+        ),
       )
 
       const hash = await makeHash(
