@@ -33,8 +33,8 @@
     "node": ">=14"
   },
   "files": [
+    "eslint-config/",
     "lib/",
-    "templates/",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -71,13 +71,7 @@
   "devDependencies": {
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "8.2.1",
-    "@types/jest": "27.4.0",
-    "@types/node": "16.11.18",
-    "eslint": "8.6.0",
-    "jest": "27.4.5",
-    "typescript": "4.5.4",
-    "webpack": "5.65.0"
+    "@types/node": "16.11.18"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
@@ -89,12 +83,6 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "eslint": "^7 || ^8.0.0",
     "typescript": "^4"
-  },
-  "peerDependenciesMeta": {
-    "eslint": {
-      "optional": true
-    }
   }
 }
