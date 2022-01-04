@@ -4,6 +4,31 @@ exports[`bud.project contains a repository 1`] = `
 Object {
   "adjacents": Array [
     Object {
+      "bud": null,
+      "name": "eslint",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "8.6.0",
+    },
+    Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-eslint",
+      "peerDependencies": Object {
+        "eslint": "8.6.0",
+      },
+      "requires": Array [
+        Array [
+          "eslint",
+          "8.6.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
+    Object {
       "bud": Object {
         "type": "extension",
       },
@@ -64,6 +89,7 @@ Object {
         "peers": Array [
           "@roots/bud-babel",
           "@roots/bud-entrypoints",
+          "@roots/bud-eslint",
           "@roots/bud-postcss",
         ],
         "type": "extension",
@@ -77,6 +103,10 @@ Object {
         ],
         Array [
           "@roots/bud-entrypoints",
+          "5.0.0",
+        ],
+        Array [
+          "@roots/bud-eslint",
           "5.0.0",
         ],
         Array [
@@ -225,6 +255,23 @@ Object {
       "resolvable": true,
       "version": "5.0.0",
     },
+    "@roots/bud-eslint": Object {
+      "bud": Object {
+        "type": "extension",
+      },
+      "name": "@roots/bud-eslint",
+      "peerDependencies": Object {
+        "eslint": "8.6.0",
+      },
+      "requires": Array [
+        Array [
+          "eslint",
+          "8.6.0",
+        ],
+      ],
+      "resolvable": true,
+      "version": "5.0.0",
+    },
     "@roots/bud-postcss": Object {
       "bud": Object {
         "type": "extension",
@@ -262,6 +309,7 @@ Object {
         "peers": Array [
           "@roots/bud-babel",
           "@roots/bud-entrypoints",
+          "@roots/bud-eslint",
           "@roots/bud-postcss",
         ],
         "type": "extension",
@@ -278,12 +326,24 @@ Object {
           "5.0.0",
         ],
         Array [
+          "@roots/bud-eslint",
+          "5.0.0",
+        ],
+        Array [
           "@roots/bud-postcss",
           "5.0.0",
         ],
       ],
       "resolvable": true,
       "version": "5.0.0",
+    },
+    "eslint": Object {
+      "bud": null,
+      "name": "eslint",
+      "peerDependencies": Object {},
+      "requires": Array [],
+      "resolvable": true,
+      "version": "8.6.0",
     },
     "postcss": Object {
       "bud": null,
