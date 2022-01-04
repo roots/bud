@@ -1,6 +1,6 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('bud.persist', function () {
+describe('bud.persist', function () {
   let bud: Bud
 
   beforeAll(async () => {
@@ -11,46 +11,49 @@ describe.skip('bud.persist', function () {
     expect(bud.persist).toBeInstanceOf(Function)
   })
 
-  it('enables persistant caching', () => {
+  it('enables persistant caching', async () => {
     bud.persist()
+    await bud.api.processQueue()
 
     expect(bud.hooks.filter('build.cache.version')).toBe(
       bud.cache.version,
     )
 
-    expect(
-      bud.hooks.filter<'build.cache.type'>('build.cache.type'),
-    ).toBe('filesystem')
+    expect(bud.hooks.filter('build.cache.type')).toBe(
+      'filesystem',
+    )
 
     expect(
-      bud.hooks.filter<'build.cache.cacheDirectory'>(
-        'build.cache.cacheDirectory',
-      ),
-    ).toEqual(bud.project.get('cache.directory'))
+      bud.hooks.filter('build.cache.cacheDirectory'),
+    ).toEqual(bud.path('storage'))
 
     expect(
-      bud.hooks.filter<'build.cache.buildDependencies'>(
-        'build.cache.buildDependencies',
-      ),
-    ).toEqual(bud.project.get('dependencies'))
+      bud.hooks.filter('build.cache.buildDependencies'),
+    ).toMatchSnapshot({
+      bud: [
+        expect.stringContaining('project/package.json'),
+        expect.stringContaining('project/bud.config.js'),
+      ],
+    })
 
-    expect(
-      bud.hooks.filter<'build.cache.managedPaths'>(
-        'build.cache.managedPaths',
-      ),
-    ).toEqual([bud.path('modules')])
-  })
-
-  it('disables caching', () => {
-    bud.persist(false)
-
-    expect(bud.hooks.filter<'build.cache'>('build.cache')).toBe(
-      false,
+    expect(bud.hooks.filter('build.cache.managedPaths')).toEqual(
+      [bud.path('modules')],
     )
   })
 
-  it('memory caching', () => {
+  it('disables caching', async () => {
+    bud.persist(false)
+    await bud.api.processQueue()
+
+    expect(bud.hooks.filter('build.cache')).toBe(false)
+  })
+
+  it('memory caching', async () => {
     bud.persist('memory')
+    await bud.api.processQueue()
+
+    const value = await bud.hooks.filterAsync('build')
+    console.log(value)
 
     expect(bud.hooks.filter('build.cache').type).toBe('memory')
   })

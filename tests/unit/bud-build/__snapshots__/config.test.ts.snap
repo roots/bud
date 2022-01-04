@@ -12,25 +12,13 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected default asset/image rule 1`] = `
-Object {
-  "exclude": Object {},
-  "generator": Object {
-    "filename": "assets/[name][ext]",
-  },
-  "test": Object {},
-  "type": "asset/resource",
-}
-`;
-
 exports[`bud.build.config has expected default css rule 1`] = `
 Object {
-  "exclude": Object {},
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
       "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
-      "options": Object {},
     },
     Object {
       "loader": StringContaining "css-loader/dist/cjs.js",
@@ -50,8 +38,30 @@ Object {
 }
 `;
 
+exports[`bud.build.config has expected default cssModule rule 1`] = `
+Object {
+  "include": StringContaining "src",
+  "test": Object {},
+  "use": Array [
+    Object {
+      "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
+    },
+    Object {
+      "loader": StringContaining "css-loader/dist/cjs.js",
+      "options": Object {
+        "importLoaders": 1,
+        "localIdentName": "[name]__[local]___[hash:base64:5]",
+        "modules": true,
+        "sourceMap": false,
+      },
+    },
+  ],
+}
+`;
+
 exports[`bud.build.config has expected default csv rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -63,10 +73,10 @@ Object {
 
 exports[`bud.build.config has expected default font rule 1`] = `
 Object {
-  "exclude": Object {},
   "generator": Object {
-    "filename": "assets/[name][ext]",
+    "filename": "fonts/[name][ext]",
   },
+  "include": StringContaining "src",
   "parser": Object {
     "dataUrlCondition": Object {
       "maxSize": 50000,
@@ -79,6 +89,7 @@ Object {
 
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -88,9 +99,20 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected default js rule 1`] = `
+exports[`bud.build.config has expected default image rule 1`] = `
 Object {
   "exclude": Object {},
+  "generator": Object {
+    "filename": "images/[name][ext]",
+  },
+  "test": Object {},
+  "type": "asset/resource",
+}
+`;
+
+exports[`bud.build.config has expected default js rule 1`] = `
+Object {
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -103,6 +125,7 @@ Object {
 
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },
@@ -122,9 +145,8 @@ Object {
 
 exports[`bud.build.config has expected default svg rule 1`] = `
 Object {
-  "exclude": Object {},
   "generator": Object {
-    "filename": "assets/[name][ext]",
+    "filename": "svg/[name][ext]",
   },
   "test": Object {},
   "type": "asset/resource",
@@ -133,6 +155,7 @@ Object {
 
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },
@@ -143,6 +166,7 @@ Object {
 
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "test": Object {},
   "use": Array [
     Object {
@@ -154,6 +178,7 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
+  "include": StringContaining "src",
   "parser": Object {
     "parse": [Function],
   },
@@ -162,7 +187,7 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected number of plugins 1`] = `4`;
+exports[`bud.build.config has expected number of plugins 1`] = `5`;
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [

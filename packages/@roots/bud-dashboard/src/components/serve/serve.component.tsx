@@ -4,7 +4,7 @@ import React from 'react'
 
 import {Url} from './url.component'
 
-export const Serve = ({theme, server}) => {
+export const Serve = ({features, theme, server}) => {
   return (
     <Text>
       <Text color={theme?.colors.text}>
@@ -12,7 +12,7 @@ export const Serve = ({theme, server}) => {
       </Text>
       <Newline />
 
-      {server.middleware.proxy && (
+      {features.proxy && server.proxy.url && (
         <Text color={theme?.colors.text}>
           <Url label="proxy" value={server.proxy.url} />
         </Text>

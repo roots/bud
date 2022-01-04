@@ -1,18 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('@roots/bud-server', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        mode: 'development',
-        features: {
-          log: false,
-          dashboard: false,
-        },
-      },
-    })
+    bud = await factory({mode: 'development'})
   })
 
   it('has expected defaults', () => {
@@ -29,15 +21,10 @@ describe('@roots/bud-server', function () {
       },
 
       dev: {
-        url: 'http://localhost:3000',
+        url: new URL('http://localhost:3000/'),
       },
       proxy: {
-        url: 'http://localhost',
-        replace: {
-          href: true,
-          window: true,
-          publicPath: true,
-        },
+        url: new URL('http://localhost/'),
       },
 
       watch: {

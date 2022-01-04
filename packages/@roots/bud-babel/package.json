@@ -34,6 +34,7 @@
     "node": ">=14"
   },
   "files": [
+    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -41,8 +42,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -69,7 +70,7 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.17",
+    "@types/node": "16.11.18",
     "webpack": "5.65.0"
   },
   "dependencies": {

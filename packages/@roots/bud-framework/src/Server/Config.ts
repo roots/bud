@@ -1,3 +1,5 @@
+import {URL} from 'url'
+
 /**
  * Server configuration
  *
@@ -10,28 +12,20 @@ export interface Configuration {
    * @public
    */
   middleware: Record<string, boolean>
-  /**
-   * Development server URL
-   *
-   * @public
-   */
-  dev: {
-    url: string
-  }
 
   /**
    * Development server URL
    *
    * @public
    */
-  proxy: {
-    url: string
-    replace: {
-      href: true
-      window: true
-      publicPath: true
-    }
-  }
+  dev: {url: URL}
+
+  /**
+   * Development server URL
+   *
+   * @public
+   */
+  proxy: {url: URL}
 
   /**
    * Files which should reload the browser when changed.

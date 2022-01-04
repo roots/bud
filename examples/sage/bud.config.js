@@ -11,9 +11,10 @@ module.exports = async (app) => {
       editor: '**/editor.{js,css}',
       customizer: '**/customizer.js',
     })
-    .copy(['resources/images'])
+    .copy([app.path('src', 'images/**/*')])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
     .setPath('dist', 'public')
+    .setPublicPath('/app/themes/sage/public/')
     .serve('http://example.test:3000')
     .proxy('http://example.test');
 };

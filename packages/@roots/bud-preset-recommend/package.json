@@ -37,6 +37,7 @@
     "node": ">=14"
   },
   "files": [
+    "eslint-config/",
     "lib/",
     "types/",
     "index.d.ts"
@@ -45,8 +46,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -67,21 +68,23 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "preset",
+    "type": "extension",
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
+      "@roots/bud-eslint",
       "@roots/bud-postcss"
     ]
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.11.17"
+    "@types/node": "16.11.18"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
+    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "tslib": "2.3.1"
   }

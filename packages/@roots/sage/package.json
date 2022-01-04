@@ -33,7 +33,7 @@
     "node": ">=14"
   },
   "files": [
-    "eslint/",
+    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -63,29 +63,20 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "preset",
+    "type": "extension",
     "peers": [
-      "@roots/bud-preset-wordpress",
-      "@roots/bud-eslint",
-      "@roots/bud-preset-wordpress",
-      "@roots/bud-prettier",
-      "@roots/bud-stylelint",
-      "@roots/bud-tailwindcss"
+      "@roots/bud-preset-wordpress"
     ]
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "16.11.17",
+    "@types/node": "16.11.18",
     "webpack": "5.65.0"
   },
   "dependencies": {
-    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-preset-wordpress": "workspace:packages/@roots/bud-preset-wordpress",
-    "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
-    "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
     "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1"
   }

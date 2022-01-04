@@ -4,39 +4,49 @@
 /**
  * Adds purgecss support to Bud
  *
- * @remarks
- * Requires {@link @roots/bud-postcss# | @roots/bud-postcss} to be installed
+ * @example
+ * ```ts
+ * app.purge({
+ *  content: [app.path('project', 'resources/views/**')],
+ *  allow: require('purgecss-with-wordpress').whitelist,
+ *  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+ * })
+ * ```
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
+import './bud.env'
 
-import {purge} from './bud.purge'
+import {purgecss} from './bud.purge'
+import {Purge} from './purge.interface'
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    purge: purge
-  }
+/**
+ * Module name
+ *
+ * @public
+ */
+export const name: Purge['name'] = '@roots/bud-purgecss'
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
-  interface Modules {
-    '@roots/bud-purgecss': Extension.Module
-  }
+/**
+ * Module api
+ *
+ * @public
+ */
+export const api: Purge['api'] = {purgecss}
+
+/**
+ * Module registration
+ *
+ * @todo facade bindings to `@roots/bud-extension`
+ *
+ * @public
+ */
+export const register: Purge['register'] = async app => {
+  app.api.set('purgecss', purgecss.bind(app))
+  // @ts-ignore
+  app.api.bindFacade('purgecss')
 }
-
-export const name = '@roots/bud-purgecss'
-export const api = {purge}

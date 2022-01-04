@@ -240,6 +240,11 @@ export namespace Hooks {
     ) => Promise<Buffer | string>
     [`proxy.replace`]: Array<[string | RegExp, string]>
     [`proxy.options`]?: ProxyOptions
+    [`server.inject`]?: Array<(app: Framework) => string>
+    [`server.middleware`]?: Record<
+      string,
+      (app: Framework) => Express.Response
+    >
 
     // this is wack
     [key: `extension.${string}`]: any

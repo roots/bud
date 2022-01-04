@@ -63,10 +63,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/mini-css-extract-plugin": "2.4.0",
-    "@types/node": "16.11.17",
+    "@types/node": "16.11.18",
     "@types/safe-json-stringify": "1.1.2",
     "@types/svgo": "2.6.0",
     "jest": "27.4.5",

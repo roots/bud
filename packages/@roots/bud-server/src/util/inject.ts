@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 export interface inject {
   (
     app: Framework,
-    injection: (app: Framework) => string,
+    injection: Array<(app: Framework) => string>,
   ): Promise<void>
 }
 
@@ -23,7 +23,7 @@ export const inject: inject = async (
       (entrypoints, [name, entry]) => {
         entry.import = [
           ...new Set([
-            injection(instance),
+            ...injection.map(inject => inject(instance)),
             ...(entry.import ?? []),
           ]),
         ]

@@ -37,13 +37,14 @@
  * @packageDocumentation
  */
 
-import Build, {Item, Loader, Rule} from './Build'
+import Build, {Item, Loader} from './Build'
+import * as Rule from './Build/Rule'
 import * as Cache from './Cache'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
 import {Constructor, Framework, Options} from './Framework'
-import * as Peers from './Peers'
-import * as Project from './Project'
+import {Peers} from './Peers'
+import {Project} from './Project'
 import * as Server from './Server'
 import {Service} from './Service'
 
@@ -197,7 +198,8 @@ export interface Items extends Partial<Index<Item.Interface>> {}
  *
  * @virtual @public
  */
-export interface Rules extends Partial<Index<Rule.Interface>> {}
+export interface Rules
+  extends Partial<Record<string, Rule.Interface>> {}
 
 /**
  * Registered locations

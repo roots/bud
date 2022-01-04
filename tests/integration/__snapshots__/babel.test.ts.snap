@@ -2,7 +2,7 @@
 
 exports[`examples/babel app.css matches snapshot 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 
-exports[`examples/babel app.js matches snapshot 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{344:function(n,e,c){\\"use strict\\";c(755),(void 0).accept(console.error)},755:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},615:function(){},968:function(){}},function(n){var e=function(e){return n(n.s=e)};e(344),e(755),e(615),e(968)}]);"`;
+exports[`examples/babel app.js matches snapshot 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{490:function(n,e,c){\\"use strict\\";c(668),(void 0).accept(console.error)},668:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},582:function(){},152:function(){}},function(n){var e=function(e){return n(n.s=e)};e(490),e(668),e(582),e(152)}]);"`;
 
 exports[`examples/babel manifest.json 1`] = `
 Object {
