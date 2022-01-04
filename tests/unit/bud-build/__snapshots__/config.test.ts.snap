@@ -164,6 +164,16 @@ Object {
 }
 `;
 
+exports[`bud.build.config has expected default webp rule 1`] = `
+Object {
+  "generator": Object {
+    "filename": "webp/[name][ext]",
+  },
+  "test": Object {},
+  "type": "asset/resource",
+}
+`;
+
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
   "include": StringContaining "src",

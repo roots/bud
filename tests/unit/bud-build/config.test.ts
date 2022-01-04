@@ -226,9 +226,21 @@ describe('bud.build.config', function () {
     })
   })
 
-  it('has expected default svg rule', () => {
+  it('has expected default webp rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
+    ).toMatchSnapshot({
+      generator: {
+        filename: 'webp/[name][ext]',
+      },
+      test: /\.webp$/,
+      type: 'asset/resource',
+    })
+  })
+
+  it('has expected default svg rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
     ).toMatchSnapshot({
       test: /\.svg$/,
       type: 'asset/resource',
@@ -240,7 +252,7 @@ describe('bud.build.config', function () {
 
   it('has expected default font rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
     ).toMatchSnapshot({
       type: 'asset',
       include: expect.stringContaining('src'),
@@ -255,7 +267,7 @@ describe('bud.build.config', function () {
 
   it('has expected default json rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
       include: expect.stringContaining('src'),
       parser: {parse: json5.parse},
@@ -266,7 +278,7 @@ describe('bud.build.config', function () {
 
   it('has expected default yaml rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toMatchSnapshot({
       include: expect.stringContaining('src'),
       parser: {parse: yaml.parse},
@@ -277,7 +289,7 @@ describe('bud.build.config', function () {
 
   it('has expected default html rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
       include: expect.stringContaining('src'),
@@ -293,7 +305,8 @@ describe('bud.build.config', function () {
 
   it('has expected default csv rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
+      (bud.build.config.module.rules[1] as RuleSetRule)
+        .oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
       include: expect.stringContaining('src'),
@@ -308,7 +321,7 @@ describe('bud.build.config', function () {
   it('has expected default xml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
-        .oneOf[10],
+        .oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
       include: expect.stringContaining('src'),
@@ -325,7 +338,7 @@ describe('bud.build.config', function () {
   it('has expected default toml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
-        .oneOf[11],
+        .oneOf[12],
     ).toMatchSnapshot({
       include: expect.stringContaining('src'),
       parser: {
