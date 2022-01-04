@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The `@roots/bud-emotion` package adds emotioncss support to {@link @roots/bud-framework# | the Framework}
+ * The `@roots/bud-emotion` package adds emotioncss support to Bud.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -10,12 +10,12 @@
  * @packageDocumentation
  */
 
-import {BudEmotionExtension} from './BudEmotionExtension'
+import {EmotionExtension} from './emotion.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-emotion': BudEmotionExtension
+    '@roots/bud-emotion': EmotionExtension
   }
 }
 
-export const {name, boot} = BudEmotionExtension
+export {boot, name} from './emotion.extension'
