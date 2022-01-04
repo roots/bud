@@ -64,25 +64,27 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "bud": {
-    "type": "extension"
+    "type": "extension",
+    "peers": [
+      "@roots/bud-postcss"
+    ]
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@types/node": "16.11.17",
+    "@types/node": "16.11.18",
     "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "postcss": "8.4.5",
     "postcss-scss": "4.0.2",
     "resolve-cwd": "3.0.0",
     "sass-loader": "12.4.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "sass": "1.45.1"
+    "sass": "1.45.2"
   }
 }

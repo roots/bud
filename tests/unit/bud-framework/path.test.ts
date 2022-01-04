@@ -1,17 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('bud.path', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('path: is a function', () => {
@@ -19,18 +12,20 @@ describe('bud.path', function () {
   })
 
   it('path: returns the correct default context', () => {
-    expect(bud.path('project')).toEqual(process.cwd())
+    expect(bud.path('project')).toEqual(
+      `${process.cwd()}/tests/util/project`,
+    )
   })
 
   it('path: returns correct paths joined to context', () => {
     expect(bud.path('project', 'foo')).toEqual(
-      `${process.cwd()}/foo`,
+      `${process.cwd()}/tests/util/project/foo`,
     )
   })
 
   it('path: returns correct multipart paths joined to context', () => {
     expect(bud.path('project', 'foo', 'bar')).toEqual(
-      `${process.cwd()}/foo/bar`,
+      `${process.cwd()}/tests/util/project/foo/bar`,
     )
   })
 })

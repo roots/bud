@@ -69,5 +69,15 @@ export const Sage: Extension.Module = {
       })
       .provide({$: ['jquery'], jQuery: ['jquery']})
       .when(app.isProduction, inProduction, inDevelopment)
+
+    /**
+     * Override output directory for svg assets
+     */
+    app.build.rules.svg.setGenerator(app => ({
+      filename:
+        app.store.is('features.hash', true) && app.isProduction
+          ? `images/${app.store.get('hashFormat')}[ext]`
+          : `images/${app.store.get('fileFormat')}[ext]`,
+    }))
   },
 }

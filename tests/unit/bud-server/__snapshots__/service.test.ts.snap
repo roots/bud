@@ -8,7 +8,25 @@ Object {
     "overlay": true,
   },
   "dev": Object {
-    "url": "http://localhost:3000",
+    "url": Object {
+      Symbol(context): URLContext {
+        "flags": 400,
+        "fragment": null,
+        "host": "localhost",
+        "password": "",
+        "path": Array [
+          "",
+        ],
+        "port": 3000,
+        "query": null,
+        "scheme": "http:",
+        "username": "",
+      },
+      Symbol(query): URLSearchParams {
+        Symbol(query): Array [],
+        Symbol(context): "http://localhost:3000/",
+      },
+    },
   },
   "middleware": Object {
     "dev": true,
@@ -16,12 +34,25 @@ Object {
     "proxy": false,
   },
   "proxy": Object {
-    "replace": Object {
-      "href": true,
-      "publicPath": true,
-      "window": true,
+    "url": Object {
+      Symbol(context): URLContext {
+        "flags": 400,
+        "fragment": null,
+        "host": "localhost",
+        "password": "",
+        "path": Array [
+          "",
+        ],
+        "port": null,
+        "query": null,
+        "scheme": "http:",
+        "username": "",
+      },
+      Symbol(query): URLSearchParams {
+        Symbol(query): Array [],
+        Symbol(context): "http://localhost/",
+      },
     },
-    "url": "http://localhost",
   },
   "watch": Object {
     "files": Array [],

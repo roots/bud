@@ -14,8 +14,8 @@ export const assets: method = async function assets(
 
     const fileName =
       this.store.is('features.hash', true) && this.isProduction
-        ? `assets/${dirName}/${this.store.get('hashFormat')}`
-        : `assets/${dirName}/${this.store.get('fileFormat')}`
+        ? `${dirName}/${this.store.get('hashFormat')}`
+        : `${dirName}/${this.store.get('fileFormat')}`
 
     this.extensions
       .get('copy-webpack-plugin')

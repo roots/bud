@@ -5,8 +5,6 @@ describe('bud.entry', function () {
 
   beforeAll(async () => {
     bud = await factory()
-
-    bud.logger.instance.scope('bud.entry test')
   })
 
   beforeEach(() => {

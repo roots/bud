@@ -126,6 +126,7 @@ export const Dashboard = ({
         stats?.errors?.length <= 0 && (
           <Serve
             theme={theme}
+            features={instance.current.store.get('features')}
             server={instance.current.store.get('server')}
           />
         )}

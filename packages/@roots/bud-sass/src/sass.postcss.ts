@@ -13,39 +13,6 @@ export function configure(app: Framework): void {
 }
 
 /**
- * Attempt to add \@roots/bud-postcss if it is not already registered.
- *
- * @remarks
- * Both \@roots/bud-sass and \@roots/bud-postcss do stuff
- * on register, so there is a bit of a race going on.
- *
- * If \@roots/bud-sass wins the race we need to add
- * the plugin. When it is called again \@roots/bud-extensions
- * should ignore the request
- *
- * @param app - Bud instance
- * @param logger  - Bud logger
- *
- * @internal
- */
-export async function use(
-  app: Framework,
-  logger: Signale,
-): Promise<void> {
-  try {
-    logger.await(
-      'postcss not yet registered. registering from @roots/bud-sass',
-    )
-
-    const postcss = await import('@roots/bud-postcss')
-    await app.use(postcss)
-  } catch (error) {
-    logger.error(error)
-    throw new Error(error)
-  }
-}
-
-/**
  * Verifies that postcss-scss is installed
  *
  * @param app - Bud instance

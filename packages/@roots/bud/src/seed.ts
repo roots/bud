@@ -1,5 +1,6 @@
 import type {Store} from '@roots/bud-framework'
 import {cpus} from 'os'
+import {URL} from 'url'
 
 /**
  * Bud configuration defaults
@@ -96,6 +97,13 @@ export const seed: Partial<Store.Repository> = {
      * @public
      */
     manifest: true,
+
+    /**
+     * Proxy enabled
+     *
+     * @public
+     */
+    proxy: false,
 
     /**
      * @public
@@ -231,7 +239,7 @@ export const seed: Partial<Store.Repository> = {
     infrastructureLogging: {console: false},
     node: false,
     output: {
-      publicPath: '',
+      publicPath: 'auto',
     },
     optimization: {
       emitOnErrors: false,
@@ -295,16 +303,11 @@ export const seed: Partial<Store.Repository> = {
     },
 
     dev: {
-      url: 'http://localhost:3000',
+      url: new URL('http://localhost:3000'),
     },
 
     proxy: {
-      url: 'http://localhost',
-      replace: {
-        href: true,
-        window: true,
-        publicPath: true,
-      },
+      url: new URL('http://localhost'),
     },
   },
 

@@ -19,7 +19,7 @@ const {ensureFile, readJson} = fs
  */
 export class Project
   extends Framework.Service
-  implements Framework.Project.Interface
+  implements Framework.Project
 {
   /**
    * Service ident
@@ -136,12 +136,9 @@ export class Project
    */
   @bind
   public async resolvePeers() {
-    if (this.has('manifest.dependencies')) {
-      await this.peers.discover('dependencies')
-    }
-    if (this.has('manifest.devDependencies')) {
-      await this.peers.discover('devDependencies')
-    }
+    await this.peers.discover()
+    this.set('modules', this.peers.modules)
+    this.set('adjacents', this.peers.adjacents.fromRoot('root'))
   }
 
   /**
@@ -156,6 +153,7 @@ export class Project
     )
 
     this.set('manifest', manifest)
+
     this.merge('installed', {
       ...(this.get('manifest.devDependencies') ?? {}),
       ...(this.get('manifest.dependencies') ?? {}),

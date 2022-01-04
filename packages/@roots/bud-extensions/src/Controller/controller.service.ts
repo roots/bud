@@ -413,14 +413,30 @@ export class Controller {
         ? await this._module.api(this.app)
         : this._module.api
 
-    await this.app.api.processQueue()
-
     if (!isObject(methodMap))
       throw new Error(
         `${this.name}] api must be an object or return an object`,
       )
 
-    this.app.bindMethod(methodMap)
+    Object.entries(methodMap).forEach(([name, method]) => {
+      if (!isFunction(method))
+        throw new Error(`${name} must be a function`)
+
+      this.app.api.set(
+        name,
+        method.bind ? method.bind(this.app) : method,
+      )
+
+      this.app.api.bindFacade(name)
+
+      if (
+        isUndefined(this.app[name]) ||
+        !isFunction(this.app[name])
+      )
+        throw new Error(
+          `there was a problem binding the ${name} fn to bud (${this.name})`,
+        )
+    })
 
     return this
   }

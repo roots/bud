@@ -1,19 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('@roots/bud-framework child', () => {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
-
-    bud.logger.instance.scope('test', 'bud.framework.children')
+    bud = await factory()
   })
 
   it("root compiler's name is this", () => {
