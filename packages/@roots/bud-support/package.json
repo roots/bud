@@ -90,7 +90,7 @@
     "node-notifier": "10.0.0",
     "patch-console": "1.0.0",
     "pkg-up": "3.1.0",
-    "pretty-format": "27.4.2",
+    "pretty-format": "27.4.6",
     "safe-json-stringify": "1.2.0",
     "safe-resolve": "1.0.0",
     "signale": "1.4.0",
