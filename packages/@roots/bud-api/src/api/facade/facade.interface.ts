@@ -14,6 +14,7 @@ import type {proxy} from '../methods/proxy'
 import {publicPath} from '../methods/publicPath'
 import type {run} from '../methods/run'
 import type {runtime} from '../methods/runtime'
+import type {secure} from '../methods/secure'
 import type {serve} from '../methods/serve'
 import {setPublicPath} from '../methods/setPublicPath'
 import type {splitChunks} from '../methods/splitChunks'
@@ -586,6 +587,26 @@ export class Facade {
    * @public
    */
   public runtime: runtime
+
+  /**
+   * Configure ssl for development server.
+   *
+   * @example
+   * ```js
+   * app.secure({
+   *   key: app.path('project', 'config', 'ssl', 'key.pem'),
+   *   cert: app.path('project', 'config', 'ssl', 'cert.pem'),
+   * })
+   * ```
+   *
+   * @example
+   * ```js
+   * app.secure(false)
+   * ```
+   *
+   * @public
+   */
+  public secure: secure
 
   /**
    * Configure development server.
