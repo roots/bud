@@ -5,13 +5,7 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {
-  bind,
-  chalk,
-  fs,
-  lodash,
-  prettyFormat,
-} from '@roots/bud-support'
+import {bind, fs, lodash, prettyFormat} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 import {Configuration} from 'webpack'
 
@@ -81,52 +75,60 @@ export class Build
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.filterAsync<'event.build.make.before'>(
-      'event.build.make.before',
-      this.app,
-    )
-
-    const build = await this.app.hooks.filterAsync<'build'>(
-      'build',
-    )
-
-    if (!build) {
-      throw new Error('Configuration could not be processed')
-    }
-
-    this.config =
-      await this.app.hooks.filterAsync<'event.build.override'>(
-        'event.build.override',
-        Object.entries(build).reduce(
-          (all: Configuration, [key, value]) => {
-            if (isUndefined(value) || isNull(value)) {
-              this.log(`warn`, {
-                message: `build.make: excluding ${key}`,
-                suffix: `value is undefined`,
-              })
-
-              return all
-            }
-
-            this.app.dump(value, {
-              prefix: `${chalk.bgBlue(
-                this.app.name,
-              )} config.${key}`,
-              maxDepth: 2,
-            })
-
-            return {...all, [key]: value}
-          },
-          {},
-        ),
+    try {
+      await this.app.hooks.filterAsync<'event.build.make.before'>(
+        'event.build.make.before',
+        this.app,
       )
 
-    await this.app.hooks.filterAsync<'event.build.make.after'>(
-      'event.build.make.after',
-      async () => null,
-    )
+      const build = await this.app.hooks.filterAsync<'build'>(
+        'build',
+      )
 
-    return this.config
+      if (!build || isUndefined(build) || isNull(build)) {
+        throw new Error('bad build')
+      }
+
+      const processed = Object.entries(build).reduce(
+        (all: Configuration, [key, value]) => {
+          if (!value || isUndefined(value) || isNull(value)) {
+            this.log(`warn`, {
+              message: `build.make: excluding ${key}`,
+              suffix: `value is undefined`,
+            })
+
+            return all
+          }
+
+          this.log('info', key, prettyFormat(value))
+
+          return {...all, [key]: value}
+        },
+        {},
+      )
+
+      if (!processed.entry) processed.entry = {}
+
+      this.config = processed
+        ? await this.app.hooks.filterAsync<'event.build.override'>(
+            'event.build.override',
+            processed,
+          )
+        : {}
+
+      await this.app.hooks.filterAsync<'event.build.make.after'>(
+        'event.build.make.after',
+        async () => {},
+      )
+
+      return this.config
+    } catch (error) {
+      this.log('error', error)
+      this.app.timeEnd('bud')
+      this.app.debug({
+        config: this.config,
+      })
+    }
   }
 
   /**

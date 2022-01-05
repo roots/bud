@@ -78,11 +78,15 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async compile() {
-    const config = await this.before()
-    const compiler = await this.invoke(config)
+    try {
+      const config = await this.before()
 
-    this.app.timeEnd('bud')
-    return compiler
+      const compiler = await this.invoke(config)
+      this.app.timeEnd('bud')
+      return compiler
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   /**
@@ -151,55 +155,63 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  @once
   public async before() {
+    this.app.info(`compiler before`)
     const config = []
 
     this.stats = INITIAL_STATS
 
     this.isCompiled = true
 
-    !this.app.isRoot &&
+    if (!this.app.isRoot) {
       this.log(
         'error',
         `Attempting to compile a child directly. Only the parent instance should be compiled.`,
       )
-
-    await this.app.build.make()
+    }
 
     /**
      * Attempt to use the parent instance in the compilation if there are entries
      * registered to it or if it has no child instances registered.
      */
-    if (!this.app.hasChildren) {
-      this.app.info(`using config from parent compiler`)
+    try {
+      this.app.info(`no children. using root compiler directly.`)
+      await this.app.build.make()
+      if (!this.app.build.config) {
+        this.app.debug(this.app.build)
+        throw new Error('sole compiler has no build config')
+      }
       config.push(this.app.build.config)
-      return config
-    } else {
-      this.app.warn(
-        `root compiler will not be tapped (child compilers in use)`,
-      )
+    } catch (error) {
+      this.log(`${this.app.name} compiler.before error`, error)
     }
 
     /**
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`
      */
-    await Promise.all(
-      this.app.children
-        ?.getValues()
-        .map(async (instance: Framework) => {
-          if (!instance.name) return
+    this.app.children &&
+      (await Promise.all(
+        this.app.children
+          ?.getValues()
+          .map(async (instance: Framework) => {
+            if (!instance.name) return
 
-          this.log(
-            'success',
-            `\`${instance.name}\` compiler will be tapped`,
-          )
+            this.log(
+              'success',
+              `\`${instance.name}\` compiler will be tapped`,
+            )
 
-          await instance.build.make()
-          config.push(instance.build.config)
-        }),
-    )
+            await instance.build.make()
+            config.push(instance.build.config)
+          }),
+      ))
+
+    if (!config.length) {
+      throw new Error(
+        'no compiler configurations were generated',
+      )
+    }
 
     return config
   }
