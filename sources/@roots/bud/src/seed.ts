@@ -314,6 +314,13 @@ export const seed: Partial<Store.Repository> = {
     proxy: {
       url: new URL('http://localhost'),
     },
+
+    ssl: {
+      enabled: false,
+      key: null,
+      cert: null,
+      port: 443,
+    },
   },
 
   /**
