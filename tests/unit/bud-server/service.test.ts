@@ -14,6 +14,7 @@ describe('@roots/bud-server', function () {
         log: true,
         overlay: true,
       },
+
       middleware: {
         dev: true,
         hot: true,
@@ -23,8 +24,16 @@ describe('@roots/bud-server', function () {
       dev: {
         url: new URL('http://localhost:3000/'),
       },
+
       proxy: {
         url: new URL('http://localhost/'),
+      },
+
+      ssl: {
+        cert: null,
+        enabled: false,
+        key: null,
+        port: 443,
       },
 
       watch: {

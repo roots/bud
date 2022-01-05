@@ -54,6 +54,12 @@ Object {
       },
     },
   },
+  "ssl": Object {
+    "cert": null,
+    "enabled": false,
+    "key": null,
+    "port": 443,
+  },
   "watch": Object {
     "files": Array [],
   },
