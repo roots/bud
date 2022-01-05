@@ -1,6 +1,11 @@
 import {Service} from '../Service'
 import {Store} from '../Store'
-import {Application, Instance, Middleware} from '.'
+import {
+  Application,
+  HttpInstance,
+  HttpsInstance,
+  Middleware,
+} from '.'
 
 /**
  * Server service interface
@@ -30,7 +35,10 @@ export default interface Interface extends Service {
    *
    * @public
    */
-  instance: Instance
+  instance: {
+    http: HttpInstance
+    https: HttpsInstance
+  }
 
   /**
    * Server middleware
@@ -38,11 +46,6 @@ export default interface Interface extends Service {
    * @public
    */
   middleware: Middleware
-
-  /**
-   * Server port
-   */
-  port: string
 
   /**
    * Watcher instance

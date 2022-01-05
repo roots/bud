@@ -584,5 +584,9 @@ export namespace Store {
     ['server.browser.log']: Repository['server']['browser']['log']
     ['server.dev.url']: Repository['server']['dev']['url']
     ['server.proxy.url']: Repository['server']['proxy']['url']
+    ['server.ssl.cert']: Repository['server']['ssl']['cert']
+    ['server.ssl.key']: Repository['server']['ssl']['key']
+    ['server.ssl.port']: Repository['server']['ssl']['port']
+    ['server.ssl.enabled']: Repository['server']['ssl']['enabled']
   }
 }

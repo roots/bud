@@ -5,6 +5,8 @@ import * as middleware from '../middleware'
 import __BudRouter from '../router/__bud'
 import {inject} from '../util/inject'
 import {bind} from './server.dependencies'
+import {Http} from './server.http'
+import {Https} from './server.https'
 import {Watcher} from './server.watcher'
 
 /**
@@ -33,11 +35,31 @@ export class Server
   }
 
   /**
+   * HTTP connections
+   *
+   * @public
+   */
+  public http: Http
+
+  /**
+   * HTTPS connections
+   *
+   * @public
+   */
+  public https: Https
+
+  /**
    * Express instance
    *
    * @public
    */
-  public instance: Framework.Server.Instance
+  public instance: {
+    http: Framework.Server.HttpInstance
+    https: Framework.Server.HttpsInstance
+  } = {
+    http: null,
+    https: null,
+  }
 
   /**
    * Utilized middleware
@@ -52,20 +74,6 @@ export class Server
    * @public
    */
   public watcher: Watcher
-
-  /**
-   * Port
-   *
-   * @public
-   */
-  public get port(): string {
-    const url = this.app.store.get('server.dev.url')
-    if (!url.port || url.port == '') {
-      return url.protocol == 'https' ? '443' : '80'
-    }
-
-    return url.port
-  }
 
   /**
    * Service boot callback
@@ -100,34 +108,26 @@ export class Server
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.run}
+   * Run server
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async run(): Promise<this> {
-    /**
-     * Instantiate watcher
-     */
+    /* Instantiate watcher */
     this.watcher = new Watcher(this.app)
 
-    /**
-     * Filter server before
-     */
+    /* Filter server before */
     await this.app.hooks.filterAsync<'event.server.before'>(
       'event.server.before',
       this.app,
     )
 
-    /**
-     * Prep and run compilation
-     */
+    /* Prep and run compilation */
     await this.compile()
 
-    /**
-     * Apply middleware
-     */
+    /* Apply middleware */
     Object.entries(
       this.app.hooks.filter('server.middleware'),
     ).map(([key, factory]) => {
@@ -136,9 +136,7 @@ export class Server
       middleware && this.application.use(middleware)
     })
 
-    /**
-     * 404 middleware
-     */
+    /* 404 middleware */
     this.application.use(
       (
         _req: Express.Request,
@@ -149,18 +147,7 @@ export class Server
       },
     )
 
-    /**
-     * Listen
-     */
-    this.instance = this.application.listen(
-      this.port,
-      async (error: string) => {
-        this.log('info', `started server on %s`, this.port)
-        if (error) this.log('error', error)
-
-        this.app.hooks.filter('event.server.listen')
-      },
-    )
+    await this.initializeServers()
 
     /**
      * If watching and a watched file is touched, update hmr websocket
@@ -182,6 +169,55 @@ export class Server
     return this
   }
 
+  @bind
+  public async initializeServers(): Promise<void> {
+    this.http = new Http(this.app)
+    this.https = new Https(this.app)
+
+    if (
+      this.https.isEnabled() &&
+      this.https.hasKey() &&
+      this.https.hasCert()
+    ) {
+      const listener = await this.https.createServer(
+        this.application,
+      )
+
+      this.instance['https'] = listener.listen(
+        this.https.port,
+        () => {
+          this.log(
+            'info',
+            `started https server on %s`,
+            this.https.port,
+          )
+          this.app.hooks.filter('event.server.listen')
+        },
+      )
+    }
+
+    /**
+     * Instantiate HTTP
+     */
+    const listener = await this.http.createServer(
+      this.application,
+    )
+    this.instance['http'] = listener.listen(
+      this.http.port,
+      () => {
+        this.log(
+          'info',
+          `started http.server on %s`,
+          this.http.port,
+        )
+        this.app.hooks.filter('event.server.listen')
+      },
+    )
+  }
+
+  /**
+   * Compile
+   */
   @bind
   public async compile() {
     await Promise.all(

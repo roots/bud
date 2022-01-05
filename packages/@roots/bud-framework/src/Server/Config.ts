@@ -14,6 +14,16 @@ export interface Configuration {
   middleware: Record<string, boolean>
 
   /**
+   * SSL key file and certificate file
+   */
+  ssl: {
+    enabled: boolean
+    key: string
+    cert: string
+    port: number
+  }
+
+  /**
    * Development server URL
    *
    * @public
