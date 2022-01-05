@@ -68,7 +68,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/jest": "27.4.0",
     "@types/node": "16.11.19",
-    "jest": "27.4.5"
+    "jest": "27.4.7"
   },
   "dependencies": {
     "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",

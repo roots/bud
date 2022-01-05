@@ -96,7 +96,7 @@
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",
     "prettier": "2.5.1",
-    "pretty-format": "27.4.2",
+    "pretty-format": "27.4.6",
     "serialize-javascript": "6.0.0",
     "tslib": "2.3.1"
   },
