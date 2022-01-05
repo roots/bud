@@ -1,11 +1,11 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('bud.publicPath', function () {
+describe('bud.publicPath', function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    bud.build.make()
+    await bud.build.make()
   })
 
   it('publicPath: is a function', () => {
@@ -23,12 +23,12 @@ describe.skip('bud.publicPath', function () {
     expect(bud.setPublicPath).toBeInstanceOf(Function)
   })
 
-  it('setPublicPath: sets publicPath when called', () => {
+  it('setPublicPath: sets publicPath when called', async () => {
     const newPath = '/foo'
 
     bud.setPublicPath(newPath)
+    await bud.build.make()
 
-    bud.build.make()
     expect(bud.build.config.output.publicPath).toEqual(newPath)
   })
 })

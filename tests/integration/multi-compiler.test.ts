@@ -10,7 +10,7 @@ const cwd = `${process.cwd()}/examples/multi-compiler`
 
 jest.setTimeout(60000)
 
-describe.skip('multi-compiler', () => {
+describe('multi-compiler', () => {
   const plugin: CompilerArtifacts = {
     assets: {},
     manifest: {},
@@ -89,20 +89,39 @@ describe.skip('multi-compiler', () => {
     })
   })
 
-  it('module map matches snapshot', async () => {
+  it('plugin module map matches snapshot', async () => {
     const artifact = await readJson(
       join(
         process.cwd(),
-        'examples/multi-compiler/.budfiles/bud-modules.json',
+        'examples/multi-compiler/.budfiles/plugin/modules.json',
       ),
     )
 
     expect(artifact.chunks).toMatchSnapshot({
       byName: {
-        global: expect.any(Number),
+        plugin: expect.any(Number),
       },
       bySource: {
-        '0 global': expect.any(Number),
+        '0 plugin': expect.any(Number),
+      },
+      usedIds: [expect.any(Number)],
+    })
+  })
+
+  it('theme module map matches snapshot', async () => {
+    const artifact = await readJson(
+      join(
+        process.cwd(),
+        'examples/multi-compiler/.budfiles/theme/modules.json',
+      ),
+    )
+
+    expect(artifact.chunks).toMatchSnapshot({
+      byName: {
+        theme: expect.any(Number),
+      },
+      bySource: {
+        '0 theme': expect.any(Number),
       },
       usedIds: [expect.any(Number)],
     })

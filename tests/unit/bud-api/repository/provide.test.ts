@@ -1,6 +1,6 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('bud.provide', function () {
+describe('bud.provide', function () {
   let bud: Bud
 
   beforeAll(async () => {
@@ -11,11 +11,13 @@ describe.skip('bud.provide', function () {
     expect(bud.provide).toBeInstanceOf(Function)
   })
 
-  it('modifies webpack-provide-plugin options', () => {
+  it('modifies webpack-provide-plugin options', async () => {
     bud.provide({jQuery: ['$']})
+
+    await bud.api.processQueue()
 
     expect(
       bud.extensions.get('webpack-provide-plugin').options.all(),
-    ).toEqual({$: ['jQuery']})
+    ).toEqual({$: 'jQuery'})
   })
 })
