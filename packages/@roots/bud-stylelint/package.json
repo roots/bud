@@ -70,7 +70,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/container": "workspace:packages/@roots/container",
     "@types/jest": "27.4.0",
-    "@types/node": "16.11.18",
+    "@types/node": "16.11.19",
     "jest": "27.4.5",
     "webpack": "5.65.0"
   },
