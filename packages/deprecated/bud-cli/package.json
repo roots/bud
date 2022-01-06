@@ -77,7 +77,7 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/eslint": "8.2.1",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.18",
+    "@types/node": "16.11.19",
     "@types/prettier": "2.4.2",
     "eslint": "8.6.0"
   },
@@ -96,7 +96,7 @@
     "lodash": "4.17.21",
     "node-notifier": "10.0.0",
     "prettier": "2.5.1",
-    "pretty-format": "27.4.2",
+    "pretty-format": "27.4.6",
     "serialize-javascript": "6.0.0",
     "tslib": "2.3.1"
   },

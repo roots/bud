@@ -81,8 +81,8 @@
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@types/eslint": "8.2.1",
     "@types/jest": "27.4.0",
-    "@types/node": "16.11.18",
-    "jest": "27.4.5"
+    "@types/node": "16.11.19",
+    "jest": "27.4.7"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
