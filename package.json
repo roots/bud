@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.13.78",
-    "@microsoft/api-extractor": "7.19.3",
+    "@microsoft/api-extractor": "7.19.4",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.4.0",

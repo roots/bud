@@ -2843,14 +2843,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:7.19.3":
-  version: 7.19.3
-  resolution: "@microsoft/api-extractor@npm:7.19.3"
+"@microsoft/api-extractor-model@npm:7.15.3":
+  version: 7.15.3
+  resolution: "@microsoft/api-extractor-model@npm:7.15.3"
   dependencies:
-    "@microsoft/api-extractor-model": 7.15.2
     "@microsoft/tsdoc": 0.13.2
     "@microsoft/tsdoc-config": ~0.15.2
-    "@rushstack/node-core-library": 3.44.3
+    "@rushstack/node-core-library": 3.45.0
+  checksum: dfa706b1b2acac93c68afe0c7e119e45a95ab40e75b0d70fdb687ce263e22fd1a491a4f4ee1151d0ef059dfb35daef909b27f3608c67f542666623af6e953127
+  languageName: node
+  linkType: hard
+
+"@microsoft/api-extractor@npm:7.19.4":
+  version: 7.19.4
+  resolution: "@microsoft/api-extractor@npm:7.19.4"
+  dependencies:
+    "@microsoft/api-extractor-model": 7.15.3
+    "@microsoft/tsdoc": 0.13.2
+    "@microsoft/tsdoc-config": ~0.15.2
+    "@rushstack/node-core-library": 3.45.0
     "@rushstack/rig-package": 0.3.7
     "@rushstack/ts-command-line": 4.10.6
     colors: ~1.2.1
@@ -2861,7 +2872,7 @@ __metadata:
     typescript: ~4.5.2
   bin:
     api-extractor: bin/api-extractor
-  checksum: 83c0d5f7b3295fa2740cc7b552e215d791043d1b93b6dde8d271256fd631f6f7e72a87303a29b9d57deae94315c07350624fe992d97c308f10fd31169535361d
+  checksum: 15d1749e02053a7d70b43b87067b31055995bbe80acc888016612b8d61b6788e9f2619774982f7271c9c5271b512d1340fea609e4b001ab9e2347411d3c63fa2
   languageName: node
   linkType: hard
 
@@ -4119,6 +4130,23 @@ __metadata:
     timsort: ~0.3.0
     z-schema: ~5.0.2
   checksum: 5040fd91e5f437532cdd1bb84d81b91d19d1f680271ffa6c104d874824a2ccec26a50da2336d49f507ce44992862db73995d3a61a85ad23686a7224d3b6c7304
+  languageName: node
+  linkType: hard
+
+"@rushstack/node-core-library@npm:3.45.0":
+  version: 3.45.0
+  resolution: "@rushstack/node-core-library@npm:3.45.0"
+  dependencies:
+    "@types/node": 12.20.24
+    colors: ~1.2.1
+    fs-extra: ~7.0.1
+    import-lazy: ~4.0.0
+    jju: ~1.4.0
+    resolve: ~1.17.0
+    semver: ~7.3.0
+    timsort: ~0.3.0
+    z-schema: ~5.0.2
+  checksum: 1dc9dd7a042b33d891d4174369f8a63e70c76a2a502ef0a2d49993639d9722ff34eb149da7f06cd16ad069aa0d6045df8df9be27ab38fdad0fbc0349787d08b3
   languageName: node
   linkType: hard
 
@@ -7777,7 +7805,7 @@ __metadata:
   resolution: "bud@workspace:."
   dependencies:
     "@microsoft/api-documenter": 7.13.78
-    "@microsoft/api-extractor": 7.19.3
+    "@microsoft/api-extractor": 7.19.4
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.4.0
