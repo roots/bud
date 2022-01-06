@@ -61,7 +61,7 @@ export class Server
   public get port(): string {
     const url = this.app.store.get('server.dev.url')
     if (!url.port || url.port == '') {
-      return url.protocol == 'https' ? '443' : '80'
+      return url.protocol == 'https:' ? '443' : '80'
     }
 
     return url.port
