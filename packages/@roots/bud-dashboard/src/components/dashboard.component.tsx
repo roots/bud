@@ -2,7 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 import {Box, useApp, useStdin} from 'ink'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import {useForceUpdate} from '../hooks/useForceUpdate'
@@ -31,7 +31,6 @@ export const Dashboard = ({
 
   const instance = useRef<Framework>(application)
 
-  const [cleared, setCleared] = useState(false)
   const [isComplete, setIsComplete] = useState<boolean>(false)
   const [progress, setProgress] = useState<any>(null)
   const [stats, setStats] = useState<StatsCompilation>(null)
@@ -79,28 +78,6 @@ export const Dashboard = ({
     updateComplete()
     updateExit()
   }, 50)
-
-  useEffect(() => {
-    if (isComplete && !cleared) {
-      if (
-        stats?.errors?.length > 0 ||
-        instance.current.dashboard.stderr?.length > 0 ||
-        instance.current.store.is('features.log', true)
-      )
-        return
-      setCleared(true)
-      // eslint-disable-next-line no-console
-      console.clear()
-    }
-    if (!isComplete && cleared) {
-      setCleared(false)
-    }
-  }, [
-    cleared,
-    stats,
-    isComplete,
-    instance.current.dashboard.stderr,
-  ])
 
   return (
     <Box flexDirection="column" marginTop={1}>

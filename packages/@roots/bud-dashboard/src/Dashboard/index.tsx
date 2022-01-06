@@ -46,9 +46,7 @@ export class Dashboard extends Service implements Contract {
   public async bootstrap(): Promise<void> {
     this.log('log', chalk.green('initializing dashboard'))
 
-    !this.app.isDevelopment
-      ? this.run()
-      : this.app.hooks.on('event.server.after', this.run)
+    this.app.hooks.on('event.compiler.after', this.run)
   }
 
   /**
@@ -61,32 +59,12 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public run(): Framework {
-    this.app.hooks.on<'event.dashboard.done'>(
-      'event.dashboard.done',
-      this.close,
-    )
-
     if (this.app.store.is('features.dashboard', true)) {
+      this.app.logger.instance.disable()
       this.render(<DashboardComponent application={this.app} />)
-
-      this.log('success', {
-        message: 'rendering dashboard',
-      })
     }
 
     return this.app
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
-   */
-  @bind
-  @once
-  public close(): void {
-    this.log('await', {message: 'exiting cli'})
-    this.app.close()
   }
 
   /**
