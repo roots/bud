@@ -30,6 +30,8 @@ export const middleware = (app: Framework) => {
   )
 
   return createProxyMiddleware(
-    app.hooks.filter('proxy.options', options.make),
+    app.hooks.filter('server.middleware.proxy.options', () =>
+      options.make(),
+    ),
   )
 }

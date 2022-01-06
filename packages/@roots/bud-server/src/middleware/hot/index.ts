@@ -1,6 +1,5 @@
-// import {URL} from 'url'
+import WebpackHotMiddleware from 'webpack-hot-middleware'
 
-import {WebpackHotMiddleware} from './hot.dependencies'
 import type {Framework} from './hot.interface'
 
 /**
@@ -11,11 +10,11 @@ import type {Framework} from './hot.interface'
 const options: (
   app: Framework,
 ) => WebpackHotMiddleware.MiddlewareOptions = app => {
-  return {
+  return app.hooks.filter('server.middleware.hot.options', {
     path: `/__bud/hmr`,
     log: false,
     heartbeat: 2000,
-  }
+  })
 }
 
 /**

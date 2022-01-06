@@ -1,4 +1,8 @@
-import {IncomingMessage, ServerResponse} from 'http'
+import {
+  ClientRequest,
+  IncomingMessage,
+  ServerResponse,
+} from 'http'
 import {ValueOf} from 'type-fest'
 import {
   Configuration,
@@ -6,6 +10,8 @@ import {
   Stats,
   StatsCompilation,
 } from 'webpack'
+import WebpackDevMiddleware from 'webpack-dev-middleware'
+import WebpackHotMiddleware from 'webpack-hot-middleware'
 
 import {Framework, Modules, Plugins, Service} from './'
 import {ProxyOptions} from './Server'
@@ -231,20 +237,31 @@ export namespace Hooks {
     [`event.server.before`]: Framework
     [`event.server.after`]: Framework
     [`event.run`]: Framework
-    [`proxy.target`]: string
-    [`proxy.interceptor`]: (
-      buffer: Buffer,
-      proxyRes: IncomingMessage,
-      req: IncomingMessage,
-      res: ServerResponse,
-    ) => Promise<Buffer | string>
-    [`proxy.replace`]: Array<[string | RegExp, string]>
-    [`proxy.options`]?: ProxyOptions
     [`server.inject`]?: Array<(app: Framework) => string>
     [`server.middleware`]?: Record<
       string,
       (app: Framework) => Express.Response
     >
+    [`server.middleware.dev.options`]: WebpackDevMiddleware.Options<
+      any,
+      any
+    >
+    [`server.middleware.hot.options`]: WebpackHotMiddleware.MiddlewareOptions
+    [`server.middleware.proxy.options`]: ProxyOptions
+    [`server.middleware.proxy.response.replacements`]: Array<
+      [string | RegExp, string]
+    >
+    [`server.middleware.proxy.request.interceptor`]: (
+      proxyReq: ClientRequest,
+      req: IncomingMessage,
+      res: ServerResponse,
+    ) => unknown
+    [`server.middleware.proxy.response.interceptor`]: (
+      buffer: Buffer,
+      proxyRes: IncomingMessage,
+      req: IncomingMessage,
+      res: ServerResponse,
+    ) => Promise<Buffer | string>
 
     // this is wack
     [key: `extension.${string}`]: any

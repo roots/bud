@@ -13,6 +13,7 @@ import type {Framework} from './dev.interface'
  */
 export default function dev(app: Framework) {
   const options = makeOptions(app)
+
   return WebpackDevMiddleware(
     app.compiler.instance as any,
     options,
@@ -29,11 +30,12 @@ const makeOptions = (
 ): WebpackDevMiddleware.Options<
   IncomingMessage,
   ServerResponse
-> => ({
-  writeToDisk: true,
-  publicPath: app.hooks.filter('build.output.publicPath'),
-  stats: false,
-  headers: {
-    ['X-Server']: '@roots/bud',
-  },
-})
+> =>
+  app.hooks.filter('server.middleware.dev.options', {
+    writeToDisk: true,
+    publicPath: app.hooks.filter('build.output.publicPath'),
+    stats: false,
+    headers: {
+      ['X-Server']: '@roots/bud',
+    },
+  })

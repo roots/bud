@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {bind, prettyFormat} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 import {Signale} from 'signale'
 
@@ -21,7 +21,9 @@ export class OptionsFactory {
     changeOrigin: true,
     followRedirects: true,
     selfHandleResponse: true,
-    logLevel: 'debug',
+    secure: false,
+    xfwd: true,
+    logLevel: 'info',
     headers: {
       'X-Proxy-By': '@roots/bud',
       'Access-Control-Allow-Origin': '*',
@@ -30,6 +32,18 @@ export class OptionsFactory {
     },
   }
 
+  /**
+   * Logger instance
+   *
+   * @public
+   */
+  public logger: Signale
+
+  /**
+   * URL instance
+   *
+   * @public
+   */
   public url: URL
 
   /**
@@ -43,29 +57,24 @@ export class OptionsFactory {
     interceptor: ProxyOptions['onProxyRes'],
     request: ProxyOptions['onProxyReq'],
   ) {
+    this.logger = app.logger.scoped(app.name, 'proxy')
+
     this.url = url
 
     this.options.cookieDomainRewrite = {
       [url.proxy.host]: url.dev.host,
     }
 
-    this.options.hostRewrite = url.dev.host
     this.options.onProxyReq = request
     this.options.onProxyRes = interceptor
-    this.options.secure = false
+
+    this.options.hostRewrite = url.dev.host
     this.options.target = url.proxy.href
     this.options.logLevel = app.store.is('features.log', true)
       ? 'debug'
       : 'silent'
 
-    this.options.logProvider = () => {
-      let logger = new Signale()
-      return logger.scope('server', 'proxy')
-    }
-
-    Object.entries(this.options).forEach(([key, value]) => {
-      app.log(`proxy.${key}`, prettyFormat(value))
-    })
+    this.options.logProvider = () => this.logger
   }
 
   /**

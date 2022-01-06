@@ -71,7 +71,10 @@ export class ResponseInterceptorFactory {
        * Process replacements and return body
        */
       return this.app.hooks
-        .filter('proxy.replace', () => [this.replaceAssetPath()])
+        .filter(
+          'server.middleware.proxy.response.replacements',
+          () => [this.replaceAssetPath()],
+        )
         ?.reduce(
           (html, [from, to]) => html.replaceAll(from, to),
           body,
@@ -92,7 +95,7 @@ export class ResponseInterceptorFactory {
   public make() {
     return responseInterceptor(
       this.app.hooks.filter(
-        'proxy.interceptor',
+        'server.middleware.proxy.response.interceptor',
         () => this._interceptor,
       ),
     )

@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, Signale} from '@roots/bud-support'
 import {
   ClientRequest,
   IncomingMessage,
@@ -22,6 +22,14 @@ export class RequestInterceptorFactory {
    */
   public get app() {
     return this._app()
+  }
+
+  public get logger(): Signale {
+    return this.app.logger.scoped(
+      this.app.name,
+      'proxy',
+      'request',
+    )
   }
 
   /**
@@ -48,16 +56,17 @@ export class RequestInterceptorFactory {
   public async _interceptor(
     proxyReq: ClientRequest,
     req: IncomingMessage,
-    res: ServerResponse,
+    _res: ServerResponse,
   ) {
     try {
+      if (!req.url) return
+      const requestedPath = new nodeUrl(req.url).pathname
+
       proxyReq.setHeader('x-bud-dev-origin', this.url.dev.origin)
-      proxyReq.setHeader(
-        'x-bud-dev-pathname',
-        new nodeUrl(req.url).pathname,
-      )
+      proxyReq.setHeader('x-bud-dev-pathname', requestedPath)
+      this.logger.info(requestedPath)
     } catch (err) {
-      process.stderr.write(`${err}\n`)
+      this.logger.error(`${err}\n`)
     }
   }
 
@@ -66,6 +75,9 @@ export class RequestInterceptorFactory {
    */
   @bind
   public make() {
-    return this._interceptor
+    return this.app.hooks.filter(
+      'server.middleware.proxy.request.interceptor',
+      () => this._interceptor,
+    )
   }
 }

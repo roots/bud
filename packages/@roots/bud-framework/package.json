@@ -66,9 +66,12 @@
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.18",
+    "@types/webpack-hot-middleware": "2.25.5",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",
-    "webpack": "5.65.0"
+    "webpack": "5.65.0",
+    "webpack-dev-middleware": "^5.3.0",
+    "webpack-hot-middleware": "^2.25.1"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
