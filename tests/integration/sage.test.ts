@@ -2,7 +2,7 @@ import Project from '../../dev/jest/project'
 
 jest.setTimeout(60000)
 
-describe.skip('examples/sage', () => {
+describe('examples/sage', () => {
   let project: Project
 
   beforeAll(async () => {
@@ -41,9 +41,6 @@ describe.skip('examples/sage', () => {
       Array,
     )
     expect(project.entrypoints.customizer.js).toHaveLength(2)
-    expect(project.entrypoints.customizer.dependencies).toEqual([
-      'jquery',
-    ])
   })
 
   it('[runtime] has contents', () => {

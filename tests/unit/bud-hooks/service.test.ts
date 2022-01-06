@@ -1,7 +1,15 @@
 import {Hooks} from '@roots/bud-hooks'
 
-describe.skip('@roots/bud-hooks', function () {
+import {Bud, factory} from '../../util/bud'
+
+describe('@roots/bud-hooks', function () {
+  let bud: Bud
   let hooks: Hooks
+
+  beforeAll(async () => {
+    bud = await factory()
+    hooks = new Hooks(bud)
+  })
 
   it('has an on method', () => {
     expect(hooks.on).toBeInstanceOf(Function)
@@ -13,7 +21,9 @@ describe.skip('@roots/bud-hooks', function () {
 
   it('registers a hook', () => {
     const cb = () => 'bar'
+    // @ts-ignore
     hooks.on('build', cb)
+
     expect(hooks.repository.build).toStrictEqual([cb])
   })
 

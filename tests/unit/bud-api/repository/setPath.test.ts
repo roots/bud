@@ -1,8 +1,8 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
 const NEW_PATH = `${process.cwd()}/foo`
 
-describe.skip('bud.setPath', function () {
+describe('bud.setPath', function () {
   let bud: Bud
 
   beforeAll(async () => {
