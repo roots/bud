@@ -8,13 +8,6 @@
 /.npmrc
 /packages/@roots/*/types
 
-# verdaccio
-/dev/build/verdaccio/conf/htpasswd
-/dev/build/verdaccio/plugins/*
-!/dev/build/verdaccio/plugins/.gitkeep
-/dev/build/verdaccio/storage/*
-!/dev/build/verdaccio/storage/.gitkeep
-
 # Docusaurus
 /site/.docusaurus
 /site/.cache-loader
@@ -36,6 +29,13 @@ node_modules
 !/config/yarn/@bud
 !/config/yarn/yarnrc.yml
 .pnp.*
+
+# verdaccio
+/config/verdaccio/.htpasswd
+/config/verdaccio/plugins/*
+!/config/verdaccio/plugins/.gitkeep
+/config/verdaccio/storage/*
+!/config/verdaccio/storage/.gitkeep
 
 # bud
 **/.budfiles

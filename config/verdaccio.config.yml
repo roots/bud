@@ -1,0 +1,34 @@
+storage: ./verdaccio/storage
+
+auth:
+  htpasswd:
+    file: ./verdaccio/.htpasswd
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 60d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 7d
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@roots/*':
+    access: $all
+    publish: $all
+    storage: '@roots'
+
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+    storage: 'npm'
+
+logs:
+  - {type: stdout, format: pretty, level: trace}
