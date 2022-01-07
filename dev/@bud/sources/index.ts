@@ -25,7 +25,7 @@ const plugin: Plugin = {
     Commands.Make,
     Commands.Docs,
     Commands.Test,
-    Commands.Proxy,
+    Commands.Release,
   ],
 }
 

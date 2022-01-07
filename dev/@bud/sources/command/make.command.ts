@@ -39,5 +39,7 @@ export class Make extends Command {
     await this.$('yarn @bud build')
 
     await this.$('yarn @bud lint', 'yarn @bud test --coverage')
+
+    await this.$('yarn @bud docs')
   }
 }

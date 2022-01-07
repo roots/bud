@@ -10,7 +10,7 @@ import {ContainerUp} from './container/up.command'
 import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
-import {Proxy} from './proxy.command'
+import {Release} from './release.command'
 import {Test} from './test.command'
 
 export const Commands = {
@@ -27,5 +27,5 @@ export const Commands = {
   Lint,
   Make,
   Test,
-  Proxy,
+  Release,
 }
