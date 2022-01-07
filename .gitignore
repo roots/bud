@@ -37,6 +37,9 @@ node_modules
 /config/verdaccio/storage/*
 !/config/verdaccio/storage/.gitkeep
 
+# bin
+!bin/**/*
+
 # bud
 **/.budfiles
 
