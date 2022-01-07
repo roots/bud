@@ -35,6 +35,7 @@ export class ProxyConfig extends Command {
    * @internal
    */
   public async execute() {
+    await this.$(`yarn config set 'npmAuthToken' ''`)
     await this.$(
       `yarn config set npmRegistryServer ${REGISTRY_PROXY}`,
     )
@@ -42,7 +43,7 @@ export class ProxyConfig extends Command {
       `yarn config set npmPublishRegistry ${REGISTRY_PROXY}`,
     )
     await this.$(
-      `yarn config set unsafeHttpWhitelist --json '[localhost]'`,
+      `yarn config set unsafeHttpWhitelist --json '["localhost"]'`,
     )
   }
 }

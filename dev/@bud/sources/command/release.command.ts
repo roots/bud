@@ -97,7 +97,10 @@ export class Release extends Command {
    * @internal
    */
   public async preflight() {
-    if (!this.version) throw new Error(`--version is required`)
+    if (!this.version) {
+      const {version} = await this.getManifest()
+      this.version = version
+    }
 
     if (!this.token)
       throw new Error(
@@ -184,7 +187,7 @@ export class Release extends Command {
       `yarn config set unsafeHttpWhitelist --json '[]'`,
     )
     await this.$(
-      `yarn config set 'npmRegistries["${REGISTRY_NPM}"].npmAuthToken' "${this.token}"`,
+      `yarn config set 'npmAuthToken' "${this.token}"`,
     )
   }
 
