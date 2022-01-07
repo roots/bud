@@ -8,7 +8,7 @@ export class Release extends Command {
   ]
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run release`,
+    description: `do a release. if no registry is passed the proxy registry will be used (localhost:4873). if no token is passed, the env NPM_AUTH_TOKEN will be used.`,
     examples: [
       [
         `yarn @bud release --version x.y.z --tag latest --token <token> --registry https://registry.npmjs.org`,
@@ -28,35 +28,19 @@ export class Release extends Command {
       description: 'registry',
     },
   )
-  public token = Option.String('-t,--token', null, {
-    description: 'token',
-  })
+  public token = Option.String(
+    '-t,--token',
+    process.env.NPM_AUTH_TOKEN,
+    {
+      description: 'token',
+    },
+  )
   public version = Option.String(`-v,--version`, null, {
     description: `version`,
   })
   public tag = Option.String(`-t,--tag`, `dev`, {
     description: `tag`,
   })
-
-  /**
-   * current version
-   *
-   * @internal
-   */
-  public currentVersion = null
-
-  /**
-   * yarn config store
-   *
-   * @internal
-   */
-  public configStash = {
-    npmPublishAccess: null,
-    npmRegistryServer: null,
-    unsafeHttpWhitelist: null,
-    npmAuthIdent: null,
-    npmAuthToken: null,
-  }
 
   /**
    * execute command
@@ -70,77 +54,66 @@ export class Release extends Command {
    */
   public async execute() {
     try {
+      /**
+       * Check that nothing is obviously rekt
+       */
       await this.preflight()
 
+      /**
+       * Bump version across all public packages
+       */
       await this.bump()
 
+      /**
+       * Remake packages and build documentation
+       */
       await this.make()
 
+      /**
+       * Push tags or branch to github
+       */
+      await this.push()
+
+      /**
+       * Publish to npm or verdaccio
+       */
       await this.publish()
-
-      if (this.tag === 'latest') await this.push()
-      if (this.tag === 'next') await this.restoreBranch()
-
-      await this.restoreConfig()
     } catch (error) {
-      await this.restoreConfig()
       throw error
     }
   }
 
   /**
-   * Save yarn config values to stash
-   *
-   * @remarks
-   * The stash will be restored at the end of the command or
-   * if an error occurs.
+   * Preflight
    *
    * @internal
    */
   public async preflight() {
-    /** True if release is local dev proxy release */
-    const isProxyRelease =
-      this.npmRegistryServer === '//verdaccio:4873'
-
-    /** Checks */
+    /** check version */
     if (!this.version) throw new Error(`--version is required`)
-    if (!isProxyRelease && !this.token)
-      throw new Error(`--token is required for an npm release`)
 
-    /** Set auth for local proxy release */
-    const authVerdaccio = async () => {
-      await this.$(
-        `yarn config set unsafeHttpWhitelist --json '["verdaccio"]'`,
-      )
-      await this.$(`yarn config set npmAuthIdent test:test`)
-      await this.$(
-        `yarn npm-auth-to-token -u test -p test -e -test@test.com -r ${this.npmRegistryServer}`,
+    /** for a proxy release we're done */
+    if (this.isProxyRelease()) return
+
+    /** real deal release checks */
+    if (
+      this.npmRegistryServer !== 'https://registry.npmjs.org'
+    ) {
+      throw new Error(
+        `--registry must be https://registry.npmjs.org to publish an npm release`,
       )
     }
 
-    /** Set auth for npm release */
-    const authNpm = async () => {
-      await this.$(`yarn config set npmAuthToken ${this.token}`)
+    /** check token */
+    if (!this.token)
+      throw new Error(`--token is required to release on npm`)
+
+    /** check tag */
+    if (this.tag !== 'latest' && this.tag !== 'next') {
+      throw new Error(
+        `--tag must be 'latest' or 'next' to release on npm`,
+      )
     }
-
-    /** Stash original config values (to be restored later) */
-    await Promise.all(
-      Object.keys(this.configStash).map(async key => {
-        this.configStash[key] = await this.$(
-          `yarn config get ${key}`,
-        )
-      }),
-    )
-
-    /** Set config values for purposes of release */
-    await this.$(`yarn config set npmPublishAccess public`)
-    await this.$(
-      `yarn config set npmRegistryServer ${this.npmRegistryServer}`,
-    )
-
-    this.npmRegistryServer === '//verdaccio:4873'
-      ? await authVerdaccio()
-      : await authNpm()
   }
 
   /**
@@ -180,61 +153,89 @@ export class Release extends Command {
    * npm publish
    *
    * @remarks
-   * The code is committed, the tag is pushed, and the
-   * packages are published. Pay attention to the npm tag here.
-   * If this is a next version, then be sure to add the next
-   * tag instead of latest.
-   */
-  public async publish() {
-    await this.$(
-      `git commit -am 'chore: Bump @roots/bud to v${this.version}`,
-    )
-    await this.$(`git tag v${this.version}`)
-    await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
-    )
-    await this.$(`git push --tags`)
-  }
-
-  /**
-   * git push
-   *
-   * @remarks
-   * If this is a latest build, then push the branch and open a PR.
+   * The code is committed, the tag is pushed.
    *
    * @internal
    */
   public async push() {
-    await this.$(`git push -u origin v${this.version}`)
+    /* Don't push anything for a proxy release */
+    if (this.isProxyRelease()) return
+
+    /* Commit, tag and push tags */
+    await this.$(
+      `git commit -am 'chore: Bump @roots/bud to v${this.version}`,
+    )
+    await this.$(`git tag v${this.version}`)
+    await this.$(`git push --tags`)
+
+    /* If tagged latest push branch */
+    this.isTaggedLatest() &&
+      (await this.$(`git push -u origin v${this.version}`))
   }
 
   /**
-   * git branch -D
+   * npm publish
    *
    * @remarks
-   * If this is a next build, then don’t push it. Just delete the branch.
+   * The packages are published. Pay attention to the npm tag here.
+   * If this is a next version, then be sure to add the next
+   * tag instead of latest.
    *
    * @internal
    */
-  public async restoreBranch() {
-    await this.$(`git checkout next`)
-    await this.$(`git branch -D v${this.version}`)
+  public async publish() {
+    /* Set target registry */
+    await this.$(
+      `yarn config set npmRegistryServer ${this.npmRegistryServer}`,
+    )
+
+    /* Auth */
+    if (this.isProxyRelease()) {
+      await this.$(
+        `yarn config set unsafeHttpWhitelist --json '["verdaccio"]'`,
+      )
+      await this.$(`yarn config set npmAuthIdent test:test`)
+    } else {
+      await this.$(
+        `yarn config set unsafeHttpWhitelist --json '[]'`,
+      )
+      await this.$(`yarn config set npmAuthToken ${this.token}`)
+    }
+
+    /* Publish release */
+    await this.$(
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
+    )
+
+    /* Restore npmRegistryServer */
+    await this.$(
+      `yarn config set npmRegistryServer //verdaccio:4873`,
+    )
+    /* Restore unsafeHttpWhitelist */
+    await this.$(
+      `yarn config set unsafeHttpWhitelist --json '["verdaccio"]'`,
+    )
+    /* Restore npmAuthIdent */
+    await this.$(`yarn config set npmAuthIdent 'test:test'`)
+    /* Restore npmAuthToken */
+    await this.$(`yarn config set npmAuthToken ''`)
   }
 
   /**
-   * Restore yarn config values from stash
+   * Returns true if releasing to a local verdaccio server
    *
    * @internal
    */
-  public async restoreConfig() {
-    await this.$(
-      ...Object.entries(this.configStash).reduce(
-        (acc, [key, value]) => [
-          ...acc,
-          `yarn config set ${key} ${value}`,
-        ],
-        [],
-      ),
-    )
+  public isProxyRelease() {
+    return this.npmRegistryServer === '//verdaccio:4873'
+  }
+
+  /**
+   * Returns true if tagged `latest`
+   *
+   * @internal
+   */
+  public isTaggedLatest() {
+    return this.tag === 'latest'
   }
 }
