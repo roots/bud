@@ -1,25 +1,9 @@
 version: '3.2'
 
 services:
-  verdaccio:
-    image: verdaccio/verdaccio
-    container_name: verdaccio
-    networks:
-      - node-network
-    environment:
-      - VERDACCIO_PORT=4873
-    ports:
-      - 4873:4873
-    volumes:
-      - ./dev/build/verdaccio/storage:/verdaccio/storage
-      - ./dev/build/verdaccio/conf:/verdaccio/conf
-      - ./dev/build/verdaccio/plugins:/verdaccio/plugins
-
   bud:
     build: ./dev/build
     container_name: bud
-    depends_on:
-      - verdaccio
     networks:
       - node-network
     working_dir: /bud
@@ -32,8 +16,6 @@ services:
 
 volumes:
   bud:
-    driver: local
-  verdaccio:
     driver: local
 
 networks:
