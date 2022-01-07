@@ -47,7 +47,5 @@ jobs:
       - name: Release
         run: >
           yarn @bud release
-          --version ??
           --tag next
           --token ${{secrets.NPM_AUTH_TOKEN}}
-          --registry https://registry.npmjs.org/
