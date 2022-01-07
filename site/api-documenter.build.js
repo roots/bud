@@ -31,10 +31,28 @@ const ensureDirs = async () => {
       {onlyDirectories: true, absolute: true},
     )
 
+    const packages = await getPackages()
+
     await Promise.all(
-      apiOuts.map(async out => {
-        const path = join(out, 'md')
-        const tmpPath = join(out, 'tmp')
+      packages.map(async package => {
+        package.name = package.name.split('/').pop()
+
+        const path = join(
+          process.cwd(),
+          'site',
+          'src',
+          'api',
+          package.name,
+          'md',
+        )
+        const tmpPath = join(
+          process.cwd(),
+          'site',
+          'src',
+          'api',
+          package.name,
+          'tmp',
+        )
 
         console.log(`ensuring ${path} exists`)
         await ensureDir(path)
