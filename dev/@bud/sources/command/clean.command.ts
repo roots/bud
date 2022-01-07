@@ -16,7 +16,7 @@ export class Clean extends Command {
   }
 
   public async execute() {
-    await this.$(`yarn cache clean`)
+    await this.$(`yarn cache clean --all`)
     await this.$(`git clean -fxd`)
   }
 }

@@ -11,22 +11,7 @@ const plugin: Plugin = {
     },
   },
 
-  commands: [
-    Commands.Bud,
-    Commands.Build,
-    Commands.Clean,
-    Commands.Compile,
-    Commands.ContainerBud,
-    Commands.ContainerDown,
-    Commands.ContainerRun,
-    Commands.ContainerBash,
-    Commands.ContainerUp,
-    Commands.Lint,
-    Commands.Make,
-    Commands.Docs,
-    Commands.Test,
-    Commands.Release,
-  ],
+  commands: Object.values(Commands),
 }
 
 export default plugin

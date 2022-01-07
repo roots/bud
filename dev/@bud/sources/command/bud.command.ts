@@ -46,6 +46,10 @@ There are additional commands to assist with:
 📦  proxying packages in a local dev environment
 
 - \`yarn @bud proxy --help\`
+
+🚚  ship it
+
+- \`yarn @bud release --help\`
 `,
   }
 
