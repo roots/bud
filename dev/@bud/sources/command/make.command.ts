@@ -34,9 +34,7 @@ export class Make extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(`yarn cache clean --all`)
-
-    await this.$('yarn install --immutable')
+    await this.$(`yarn @bud proxy make`)
 
     await this.$('yarn @bud build')
 
