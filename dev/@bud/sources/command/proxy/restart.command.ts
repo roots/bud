@@ -15,7 +15,7 @@ export class ProxyRestart extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    ['@bud', 'proxy', 'start'],
+    ['@bud', 'proxy', 'restart'],
   ]
 
   /**
