@@ -1,9 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
-import {
-  PM2_BIN_PATH,
-  REGISTRY_NPM,
-  REGISTRY_PROXY,
-} from '../../constants'
+import {REGISTRY_NPM, REGISTRY_PROXY} from '../../constants'
 
 import {Command} from '../base.command'
 

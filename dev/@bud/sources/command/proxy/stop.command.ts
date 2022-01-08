@@ -1,5 +1,4 @@
 import {CommandClass} from 'clipanion'
-import {PM2_BIN_PATH} from '../../constants'
 
 import {Command} from '../base.command'
 
