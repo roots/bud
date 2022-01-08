@@ -1,5 +1,9 @@
-import {CommandClass} from 'clipanion'
-import {PM2_BIN_PATH, REGISTRY_PROXY} from '../../constants'
+import {CommandClass, Option} from 'clipanion'
+import {
+  PM2_BIN_PATH,
+  REGISTRY_NPM,
+  REGISTRY_PROXY,
+} from '../../constants'
 
 import {Command} from '../base.command'
 
@@ -18,6 +22,10 @@ export class ProxyConfig extends Command {
     ['@bud', 'proxy', 'config'],
   ]
 
+  public reset = Option.Boolean(`-r,--reset`, false, {
+    description: `reset proxy config`,
+  })
+
   /**
    * Command usage
    *
@@ -26,7 +34,13 @@ export class ProxyConfig extends Command {
   public static usage: CommandClass['usage'] = {
     category: '@bud',
     description: 'configure yarn to work with verdaccio',
-    examples: [['configure yarn', 'yarn @bud proxy config']],
+    examples: [
+      ['configure yarn', 'yarn @bud proxy config'],
+      [
+        'config yarn to npm defaults',
+        'yarn @bud proxy config --reset',
+      ],
+    ],
   }
 
   /**
@@ -37,13 +51,19 @@ export class ProxyConfig extends Command {
   public async execute() {
     await this.$(`yarn config set 'npmAuthToken' ''`)
     await this.$(
-      `yarn config set npmRegistryServer ${REGISTRY_PROXY}`,
+      `yarn config set npmRegistryServer ${
+        this.reset ? REGISTRY_NPM : REGISTRY_PROXY
+      }`,
     )
     await this.$(
-      `yarn config set npmPublishRegistry ${REGISTRY_PROXY}`,
+      `yarn config set npmPublishRegistry ${
+        this.reset ? REGISTRY_NPM : REGISTRY_PROXY
+      }`,
     )
     await this.$(
-      `yarn config set unsafeHttpWhitelist --json '["localhost"]'`,
+      `yarn config set unsafeHttpWhitelist --json '[${
+        this.reset ? `""` : `"localhost"`
+      }]'`,
     )
   }
 }

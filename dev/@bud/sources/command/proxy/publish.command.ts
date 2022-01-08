@@ -38,26 +38,29 @@ export class ProxyPublish extends Command {
     description: `version`,
   })
 
-  public tag = Option.String(`-t,--tag`, `dev`, {
-    description: `tag`,
-  })
-
   /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
+    if (!this.version) {
+      const {version} = await this.getManifest()
+      this.version = version
+    }
+
     await this.$(`yarn @bud proxy config`)
 
     await this.$(
       `yarn workspaces foreach --no-private exec npm version ${this.version}`,
     )
 
+    await this.$(`yarn @bud build`)
+
     await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
+      `yarn workspaces foreach --no-private npm publish --access public --tag dev`,
     )
 
-    await this.$(`yarn install --immutable`)
+    await this.$(`yarn @bud proxy config --reset`)
   }
 }

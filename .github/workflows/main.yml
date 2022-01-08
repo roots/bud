@@ -46,7 +46,10 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install
-        run: yarn @bud proxy make
+        run: yarn install --immutable
+
+      - name: Launch proxy
+        run: yarn @bud proxy start
 
       - name: Build
         run: yarn @bud build

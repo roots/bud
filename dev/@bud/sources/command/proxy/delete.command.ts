@@ -37,6 +37,6 @@ export class ProxyDelete extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(`yarn node ${PM2_BIN_PATH} delete verdaccio`)
+    await this.$(`yarn pm2 delete verdaccio`)
   }
 }

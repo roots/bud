@@ -60,7 +60,6 @@ export class Release extends Command {
     await this.executeStep(`push`)
     await this.executeStep(`prepublish`)
     await this.executeStep(`publish`)
-    await this.executeStep(`postpublish`)
   }
 
   /**
@@ -85,7 +84,7 @@ export class Release extends Command {
       process.stderr.write(`${error.stack}\n\n`)
 
       process.stderr.write(`Resettting yarnrc state\n`)
-      await this.postpublish()
+      await this.$(`yarn config set 'npmAuthToken' ''`)
 
       process.exit(1)
     }
@@ -205,18 +204,6 @@ export class Release extends Command {
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
-  }
-
-  /**
-   * npm postpublish
-   *
-   * @remarks
-   * Reconfigure the registry to verdaccio.
-   *
-   * @internal
-   */
-  public async postpublish() {
-    await this.$(`yarn @bud proxy config`)
   }
 
   /**

@@ -37,8 +37,6 @@ export class ProxyStart extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      `yarn node ${PM2_BIN_PATH} start ./config/pm2.config.js`,
-    )
+    await this.$(`yarn pm2 start ./config/pm2.config.js`)
   }
 }

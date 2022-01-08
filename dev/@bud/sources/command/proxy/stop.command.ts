@@ -35,6 +35,6 @@ export class ProxyStop extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(`yarn node ${PM2_BIN_PATH} stop verdaccio`)
+    await this.$(`yarn pm2 stop verdaccio`)
   }
 }

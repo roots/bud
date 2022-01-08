@@ -37,6 +37,6 @@ export class ProxyRestart extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(`yarn node ${PM2_BIN_PATH} restart verdaccio`)
+    await this.$(`yarn pm2 restart verdaccio`)
   }
 }
