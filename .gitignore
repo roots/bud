@@ -31,11 +31,11 @@ node_modules
 .pnp.*
 
 # verdaccio
-/config/verdaccio/.htpasswd
-/config/verdaccio/plugins/*
-!/config/verdaccio/plugins/.gitkeep
-/config/verdaccio/storage/*
-!/config/verdaccio/storage/.gitkeep
+/verdaccio/.htpasswd
+/verdaccio/plugins/*
+!/verdaccio/plugins/.gitkeep
+/verdaccio/storage/*
+!/verdaccio/storage/.gitkeep
 
 # bin
 !bin/**/*

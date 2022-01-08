@@ -2,6 +2,7 @@ import {Bud} from './bud.command'
 import {Build} from './build.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
+import {Config} from './config.command'
 import {ContainerBud} from './container/bud.command'
 import {ContainerDown} from './container/down.command'
 import {ContainerRun} from './container/run.command'
@@ -10,7 +11,6 @@ import {ContainerUp} from './container/up.command'
 import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
-import {ProxyConfig} from './proxy/config.command'
 import {ProxyDelete} from './proxy/delete.command'
 import {ProxyMake} from './proxy/make.command'
 import {ProxyPublish} from './proxy/publish.command'
@@ -31,10 +31,10 @@ export const Commands = {
   ContainerRun,
   ContainerBash,
   ContainerUp,
+  Config,
   Docs,
   Lint,
   Make,
-  ProxyConfig,
   ProxyDelete,
   ProxyMake,
   ProxyPublish,

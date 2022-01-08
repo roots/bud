@@ -60,6 +60,7 @@ export class Release extends Command {
     await this.executeStep(`push`)
     await this.executeStep(`prepublish`)
     await this.executeStep(`publish`)
+    await this.executeStep('postpublish')
   }
 
   /**
@@ -84,7 +85,7 @@ export class Release extends Command {
       process.stderr.write(`${error.stack}\n\n`)
 
       process.stderr.write(`Resettting yarnrc state\n`)
-      await this.$(`yarn config set 'npmAuthToken' ''`)
+      await this.$(`yarn @bud config`)
 
       process.exit(1)
     }
@@ -176,18 +177,7 @@ export class Release extends Command {
    * @internal
    */
   public async prepublish() {
-    await this.$(
-      `yarn config set npmRegistryServer ${REGISTRY_NPM}`,
-    )
-    await this.$(
-      `yarn config set npmPublishRegistry ${REGISTRY_NPM}`,
-    )
-    await this.$(
-      `yarn config set unsafeHttpWhitelist --json '[]'`,
-    )
-    await this.$(
-      `yarn config set 'npmAuthToken' "${this.token}"`,
-    )
+    await this.$(`yarn @bud config --token ${this.token}`)
   }
 
   /**
@@ -204,6 +194,18 @@ export class Release extends Command {
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
+  }
+
+  /**
+   * npm postpublish
+   *
+   * @remarks
+   * Reset auth token.
+   *
+   * @internal
+   */
+  public async resetAuthToken() {
+    await this.$(`yarn @bud config`)
   }
 
   /**

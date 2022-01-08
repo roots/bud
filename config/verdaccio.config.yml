@@ -1,18 +1,4 @@
-storage: ./config/verdaccio/storage
-
-auth:
-  htpasswd:
-    file: ./config/verdaccio/.htpasswd
-
-security:
-  api:
-    jwt:
-      sign:
-        expiresIn: 60d
-        notBefore: 1
-  web:
-    sign:
-      expiresIn: 7d
+storage: ../verdaccio/storage
 
 uplinks:
   npmjs:

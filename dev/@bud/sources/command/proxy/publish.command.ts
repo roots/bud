@@ -48,7 +48,7 @@ export class ProxyPublish extends Command {
       this.version = version
     }
 
-    await this.$(`yarn @bud proxy config`)
+    await this.$(`yarn @bud config --proxy`)
 
     await this.$(
       `yarn workspaces foreach --no-private exec npm version ${this.version}`,
@@ -60,6 +60,6 @@ export class ProxyPublish extends Command {
       `yarn workspaces foreach --no-private npm publish --access public --tag dev`,
     )
 
-    await this.$(`yarn @bud proxy config --reset`)
+    await this.$(`yarn @bud config`)
   }
 }

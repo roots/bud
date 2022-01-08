@@ -111,6 +111,7 @@ export abstract class Command extends BaseCommand {
               `@bud | ${task} failed with code ${code}\n`,
             )
         } catch (e) {
+          await this.$(`yarn @bud config`)
           throw new Error(e)
         }
       }),
