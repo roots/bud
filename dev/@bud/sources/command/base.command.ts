@@ -2,6 +2,9 @@ import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
 
+import {YarnRC} from '../yarnrc/yarnrc'
+import {Yml} from '../yarnrc/yml'
+
 /**
  * Base class
  *
@@ -15,6 +18,15 @@ export abstract class Command extends BaseCommand {
    */
   public async getManifest(): Promise<Manifest> {
     return await Manifest.tryFind(this.context.cwd)
+  }
+
+  /**
+   * Get yarnrc helper
+   *
+   * @internal
+   */
+  public async getYarnYml(): Promise<Yml> {
+    return await YarnRC.find(this.context)
   }
 
   /**
@@ -45,22 +57,6 @@ export abstract class Command extends BaseCommand {
     )
 
     return project
-  }
-
-  /**
-   * Get workspace info
-   *
-   * @internal
-   */
-  public async getWorkspace() {
-    const configuration = await this.getConfiguration()
-
-    const {workspace} = await Project.find(
-      configuration,
-      this.context.cwd,
-    )
-
-    return workspace
   }
 
   /**

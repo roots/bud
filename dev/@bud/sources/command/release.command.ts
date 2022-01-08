@@ -1,5 +1,4 @@
 import {CommandClass, Option} from 'clipanion'
-import {REGISTRY_NPM} from '../constants'
 
 import {Command} from './base.command'
 
@@ -12,10 +11,26 @@ type EXECUTION_STEPS =
   | 'publish'
   | 'postpublish'
 
+/**
+ * Release command
+ *
+ * @internal
+ */
 export class Release extends Command {
+  /**
+   * Command paths
+   *
+   * @internal
+   */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `release`],
   ]
+
+  /**
+   * Command usage
+   *
+   * @internal
+   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `do a release. if no token is passed, the env NPM_AUTH_TOKEN will be used.`,
@@ -27,6 +42,11 @@ export class Release extends Command {
     ],
   }
 
+  /**
+   * --token flag
+   *
+   * @internal
+   */
   public token = Option.String(
     '-t,--token',
     process.env.NPM_AUTH_TOKEN,
@@ -35,13 +55,32 @@ export class Release extends Command {
     },
   )
 
+  /**
+   * --version flag
+   *
+   * @internal
+   */
   public version = Option.String(`-v,--version`, null, {
     description: `version`,
   })
 
-  public tag = Option.String(`-t,--tag`, `dev`, {
+  /**
+   * --tag flag
+   *
+   * @internal
+   */
+  public tag = Option.String(`-t,--tag`, null, {
     description: `tag`,
   })
+
+  /**
+   * Returns true if tagged `latest`
+   *
+   * @internal
+   */
+  public isTaggedLatest() {
+    return this.tag === 'latest'
+  }
 
   /**
    * execute command
@@ -81,10 +120,12 @@ export class Release extends Command {
 
       await this[`${step}`]()
     } catch (error) {
-      process.stderr.write(`${step} failed: ${error.message}\n`)
+      process.stderr.write(
+        `[release] ${step} failed: ${error.message}\n`,
+      )
       process.stderr.write(`${error.stack}\n\n`)
 
-      process.stderr.write(`Resettting yarnrc state\n`)
+      process.stderr.write(`[release] resettting yarnrc state\n`)
       await this.$(`yarn @bud config`)
 
       process.exit(1)
@@ -206,14 +247,5 @@ export class Release extends Command {
    */
   public async resetAuthToken() {
     await this.$(`yarn @bud config`)
-  }
-
-  /**
-   * Returns true if tagged `latest`
-   *
-   * @internal
-   */
-  public isTaggedLatest() {
-    return this.tag === 'latest'
   }
 }

@@ -18,18 +18,6 @@ export class Config extends Command {
     ['@bud', 'config'],
   ]
 
-  public proxy = Option.Boolean('--proxy', false, {
-    description: 'configure for proxy',
-  })
-
-  public token = Option.String(
-    '-t,--token',
-    process.env.NPM_AUTH_TOKEN,
-    {
-      description: 'token',
-    },
-  )
-
   /**
    * Command usage
    *
@@ -45,16 +33,56 @@ export class Config extends Command {
     ],
   }
 
+  /**
+   * --proxy flag
+   *
+   * @internal
+   */
+  public proxy = Option.Boolean('--proxy', false, {
+    description: 'configure for proxy',
+  })
+
+  /**
+   * --token flag
+   *
+   * @internal
+   */
+  public token = Option.String(
+    '-t,--token',
+    process.env.NPM_AUTH_TOKEN,
+    {
+      description: 'token',
+    },
+  )
+
+  /**
+   * Registry value
+   *
+   * @remarks
+   * Set based on presence of `--proxy` flag
+   *
+   * @internal
+   */
   public get registry() {
     return this.proxy ? REGISTRY_PROXY : REGISTRY_NPM
   }
 
+  /**
+   * Get http allowlist
+   *
+   * @internal
+   */
   public get httpAllowlist() {
-    return this.proxy ? `"localhost"` : `''`
+    return this.proxy ? [`localhost`] : []
   }
 
+  /**
+   * Get npm auth token
+   *
+   * @internal
+   */
   public get npmAuthToken() {
-    return this.token ?? `''`
+    return this.token ?? ``
   }
 
   /**
@@ -63,17 +91,13 @@ export class Config extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      `yarn config set 'npmAuthToken' ${this.npmAuthToken}`,
-    )
-    await this.$(
-      `yarn config set npmRegistryServer ${this.registry}`,
-    )
-    await this.$(
-      `yarn config set npmPublishRegistry ${this.registry}`,
-    )
-    await this.$(
-      `yarn config set unsafeHttpWhitelist --json '[${this.httpAllowlist}]'`,
-    )
+    const yarnrc = await this.getYarnYml()
+
+    await yarnrc
+      .set('npmAuthToken', this.npmAuthToken)
+      .set('npmRegistryServer', this.registry)
+      .set('npmPublishRegistry', this.registry)
+      .set('unsafeHttpWhitelist', this.httpAllowlist)
+      .write()
   }
 }
