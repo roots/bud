@@ -1,8 +1,8 @@
-storage: ./verdaccio/storage
+storage: ./config/verdaccio/storage
 
 auth:
   htpasswd:
-    file: ./verdaccio/.htpasswd
+    file: ./config/verdaccio/.htpasswd
 
 security:
   api:
