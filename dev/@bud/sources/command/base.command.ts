@@ -1,6 +1,7 @@
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
+import {Option} from 'clipanion'
 
 import {YarnRC} from '../yarnrc/yarnrc'
 import {Yml} from '../yarnrc/yml'
@@ -67,6 +68,15 @@ export abstract class Command extends BaseCommand {
   public passthrough?: Array<string>
 
   /**
+   * --dry-run flag
+   *
+   * @internal
+   */
+  public dryRun = Option.Boolean('--dry-run', false, {
+    description: 'log output to console',
+  })
+
+  /**
    * Append passthrough arguments to the command
    *
    * @internal
@@ -81,14 +91,32 @@ export abstract class Command extends BaseCommand {
   }
 
   /**
-   * Execute a shell command or series of shell commands
+   * Logs message to process.stdout
    *
-   * @remarks
-   * Commands are executed in parallel
+   * @param message - message to log
    *
    * @internal
    */
-  public async $(...tasks: Array<string>): Promise<void> {
+  public log(message: string): void {
+    process.stdout.write(`[@bud] ${message}\n`)
+  }
+
+  /**
+   * Execute a dry run
+   *
+   * @internal
+   */
+  public async _dry(...tasks: Array<string>): Promise<void> {
+    tasks.forEach(this.log)
+  }
+
+  /**
+   * Execute a series of tasks
+   *
+   * @param tasks
+   * @internal
+   */
+  public async _$(...tasks: Array<string>): Promise<void> {
     const project = await this.getProject()
 
     await Promise.all(
@@ -112,5 +140,19 @@ export abstract class Command extends BaseCommand {
         }
       }),
     )
+  }
+
+  /**
+   * Execute a shell command or series of shell commands
+   *
+   * @remarks
+   * Commands are executed in parallel
+   *
+   * @internal
+   */
+  public async $(...tasks: Array<string>): Promise<void> {
+    this.dryRun
+      ? await this._dry(...tasks)
+      : await this._$(...tasks)
   }
 }
