@@ -11,7 +11,6 @@ services:
     command: bash -c /bud/dev/build/init.sh
     volumes:
       - ./:/bud
-      - ./dev/build/.yarnrc.yml:/bud/.yarnrc.yml
       - ./dev/build/.npmrc:/bud/.npmrc
 
 volumes:
