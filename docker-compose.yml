@@ -2,16 +2,20 @@ version: '3.2'
 
 services:
   bud:
-    build: ./dev/build
+    build: ./dev/docker/bud
     container_name: bud
     networks:
       - node-network
     working_dir: /bud
     user: node
-    command: bash -c /bud/dev/build/init.sh
+    command: bash -c /bud/dev/docker/bud/init.sh
     volumes:
       - ./:/bud
-      - ./dev/build/.npmrc:/bud/.npmrc
+      - ./dev/docker/bud/.npmrc:/bud/.npmrc
+      - ./dev/docker/npm/:/npm
+      - ./examples/:/npm/examples
+      - ./dev/docker/yarn/:/yarn
+      - ./examples/:/yarn/examples
 
 volumes:
   bud:
