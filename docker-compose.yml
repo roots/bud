@@ -13,7 +13,6 @@ services:
       - 4873:4873
     volumes:
       - ./:/bud
-      - ./dev/docker/bud/.npmrc:/bud/.npmrc
       - ./dev/docker/npm/:/npm
       - ./examples/:/npm/examples
       - ./dev/docker/yarn/:/yarn
