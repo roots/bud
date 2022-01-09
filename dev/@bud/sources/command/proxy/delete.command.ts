@@ -9,6 +9,13 @@ import {Command} from '../base.command'
  */
 export class ProxyDelete extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'proxy delete'
+
+  /**
    * Command paths
    *
    * @internal

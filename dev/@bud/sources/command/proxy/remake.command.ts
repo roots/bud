@@ -9,6 +9,13 @@ import {Command} from '../base.command'
  */
 export class ProxyRemake extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'proxy remake'
+
+  /**
    * Command paths
    *
    * @internal

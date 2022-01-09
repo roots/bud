@@ -9,6 +9,13 @@ import {Command} from './base.command'
  */
 export class Make extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'make'
+
+  /**
    * Command paths
    *
    * @internal

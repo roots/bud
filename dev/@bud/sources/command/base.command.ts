@@ -13,6 +13,34 @@ import {Yml} from '../yarnrc/yml'
  */
 export abstract class Command extends BaseCommand {
   /**
+   * Command paths
+   *
+   * @internal
+   */
+  public name: string
+
+  /**
+   * Variadic arguments
+   *
+   * @internal
+   */
+  public passthrough?: Array<string>
+
+  /**
+   * --dry-run flag
+   *
+   * @internal
+   */
+  public dryRun = Option.Boolean('--dry-run', false, {
+    description: 'log output to console',
+  })
+
+  public constructor() {
+    super()
+    this.log = this.log.bind(this)
+  }
+
+  /**
    * Get manifest contents
    *
    * @internal
@@ -61,22 +89,6 @@ export abstract class Command extends BaseCommand {
   }
 
   /**
-   * Variadic arguments
-   *
-   * @internal
-   */
-  public passthrough?: Array<string>
-
-  /**
-   * --dry-run flag
-   *
-   * @internal
-   */
-  public dryRun = Option.Boolean('--dry-run', false, {
-    description: 'log output to console',
-  })
-
-  /**
    * Append passthrough arguments to the command
    *
    * @internal
@@ -98,7 +110,20 @@ export abstract class Command extends BaseCommand {
    * @internal
    */
   public log(message: string): void {
-    process.stdout.write(`[@bud] ${message}\n`)
+    const label = this.name ?? '@bud'
+    process.stdout.write(`[${label}] ${message}\n`)
+  }
+
+  /**
+   * Logs message to process.stderr
+   *
+   * @param message - message to log
+   *
+   * @internal
+   */
+  public err(message: string): void {
+    const label = this.name ?? '@bud'
+    process.stderr.write(`[${label}] ${message}\n`)
   }
 
   /**
@@ -123,7 +148,7 @@ export abstract class Command extends BaseCommand {
       tasks.map(async task => {
         if (!task) return
 
-        console.log(`@bud | ${task}\n`)
+        this.log(task)
 
         try {
           const code = await execute(task, [], {
@@ -131,12 +156,11 @@ export abstract class Command extends BaseCommand {
           })
 
           if (code !== 0)
-            throw new Error(
-              `@bud | ${task} failed with code ${code}\n`,
-            )
+            throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
+          this.err(e)
           await this.$(`yarn @bud config`)
-          throw new Error(e)
+          process.exit(1)
         }
       }),
     )

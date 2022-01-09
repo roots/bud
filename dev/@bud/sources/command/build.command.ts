@@ -3,10 +3,27 @@ import {CommandClass, Option} from 'clipanion'
 import {Command} from './base.command'
 
 export class Build extends Command {
+  /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'build'
+
+  /**
+   * Command paths
+   *
+   * @internal
+   */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `build`],
   ]
 
+  /**
+   * Command usage
+   *
+   * @internal
+   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `build project packages`,

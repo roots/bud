@@ -9,6 +9,13 @@ import {Command} from '../base.command'
  */
 export class ProxyMake extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'proxy make'
+
+  /**
    * Command paths
    *
    * @internal

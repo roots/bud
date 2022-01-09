@@ -3,6 +3,13 @@ import {CommandClass, Option} from 'clipanion'
 import {Command} from './base.command'
 
 export class Compile extends Command {
+  /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'compile'
+
   public static paths: CommandClass['paths'] = [
     [`@bud`, `compile`],
   ]

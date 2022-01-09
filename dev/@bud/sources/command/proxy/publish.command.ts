@@ -9,6 +9,13 @@ import {Command} from '../base.command'
  */
 export class ProxyPublish extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'proxy publish'
+
+  /**
    * Command paths
    *
    * @internal

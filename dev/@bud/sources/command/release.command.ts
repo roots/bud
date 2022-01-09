@@ -1,5 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
-import { parse } from 'semver'
+import {parse} from 'semver'
 
 import {Command} from './base.command'
 
@@ -18,6 +18,13 @@ type EXECUTION_STEPS =
  * @internal
  */
 export class Release extends Command {
+  /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'release'
+
   /**
    * Command paths
    *
@@ -121,12 +128,10 @@ export class Release extends Command {
 
       await this[`${step}`]()
     } catch (error) {
-      process.stderr.write(
-        `[release] ${step} failed: ${error.message}\n`,
-      )
-      process.stderr.write(`${error.stack}\n\n`)
+      this.err(`${step} failed: ${error.message}\n`)
+      this.err(error.stack)
 
-      process.stderr.write(`[release] resettting yarnrc state\n`)
+      this.err(`[release] resettting yarnrc state\n`)
       await this.$(`yarn @bud config`)
 
       process.exit(1)
@@ -145,7 +150,9 @@ export class Release extends Command {
     }
 
     if (!this.tag) {
-      const [prerelease, iteration] = parse(this.version).prerelease;
+      const [prerelease, iteration] = parse(
+        this.version,
+      ).prerelease
       this.tag = `${prerelease ?? 'latest'}`
     }
 
@@ -155,7 +162,9 @@ export class Release extends Command {
       )
 
     if (this.tag !== 'latest' && this.tag !== 'next') {
-      throw new Error(`--tag [${this.tag}] must be 'latest' or 'next'`)
+      throw new Error(
+        `--tag [${this.tag}] must be 'latest' or 'next'`,
+      )
     }
   }
 

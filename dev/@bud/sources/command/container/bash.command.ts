@@ -3,9 +3,18 @@ import {CommandClass, Option} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
+ * Container bash command
  *
+ * @internal
  */
 export class ContainerBash extends Command {
+  /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = '@bud bash'
+
   /**
    * Command paths
    *
@@ -26,7 +35,7 @@ export class ContainerBash extends Command {
   }
 
   /**
-   * Command main
+   * Command execute
    *
    * @internal
    */

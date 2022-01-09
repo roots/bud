@@ -9,6 +9,13 @@ import {Command} from './base.command'
  */
 export class Docs extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'docs'
+
+  /**
    * Command paths
    *
    * @internal

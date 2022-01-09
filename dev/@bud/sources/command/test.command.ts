@@ -9,6 +9,13 @@ import {Command} from './base.command'
  */
 export class Test extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'test'
+
+  /**
    * Command paths
    *
    * @internal
@@ -29,6 +36,11 @@ export class Test extends Command {
     ],
   }
 
+  /**
+   * Passthrough args
+   *
+   * @internal
+   */
   public passthrough = Option.Proxy({
     name: `jest options`,
   })

@@ -9,6 +9,13 @@ import {Command} from './base.command'
  */
 export class Lint extends Command {
   /**
+   * Command name
+   *
+   * @internal
+   */
+  public name = 'lint'
+
+  /**
    * Command paths
    *
    * @internal
