@@ -105,9 +105,7 @@ export class Lint extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx}`,
-              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx}`,
-              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx}`,
+              `yarn eslint packages/@roots/ --config ./config/eslint.config.js --ignore-path config/.eslintignore`,
             ]
           : []),
         this.skypack

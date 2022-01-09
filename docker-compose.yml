@@ -9,6 +9,8 @@ services:
     working_dir: /bud
     user: node
     command: bash -c /bud/dev/docker/bud/init.sh
+    ports:
+      - 4873:4873
     volumes:
       - ./:/bud
       - ./dev/docker/bud/.npmrc:/bud/.npmrc
