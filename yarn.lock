@@ -4201,6 +4201,7 @@ __metadata:
   dependencies:
     "@types/jest": 27.4.0
     "@types/node": 16.11.19
+    "@types/semver": ^7
     "@yarnpkg/builder": 3.1.0
     "@yarnpkg/cli": 3.2.0-rc.10
     "@yarnpkg/core": 3.2.0-rc.10
@@ -4208,6 +4209,7 @@ __metadata:
     clipanion: 3.2.0-rc.4
     esbuild: 0.14.10
     jest: 27.4.7
+    semver: ^7.3.5
     tslib: 2.3.1
     typescript: 4.5.4
   languageName: unknown
@@ -5197,7 +5199,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:^7.1.0":
+"@types/semver@npm:^7, @types/semver@npm:^7.1.0":
   version: 7.3.9
   resolution: "@types/semver@npm:7.3.9"
   checksum: 60bfcfdfa7f937be2c6f4b37ddb6714fb0f27b05fe4cbdfdd596a97d35ed95d13ee410efdd88e72a66449d0384220bf20055ab7d6b5df10de4990fbd20e5cbe0

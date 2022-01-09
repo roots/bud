@@ -1,4 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
+import { parse } from 'semver'
 
 import {Command} from './base.command'
 
@@ -143,13 +144,18 @@ export class Release extends Command {
       this.version = version
     }
 
+    if (!this.tag) {
+      const [prerelease, iteration] = parse(this.version).prerelease;
+      this.tag = `${prerelease ?? 'latest'}`
+    }
+
     if (!this.token)
       throw new Error(
         `--token flag or NPM_AUTH_TOKEN env variable is required`,
       )
 
     if (this.tag !== 'latest' && this.tag !== 'next') {
-      throw new Error(`--tag must be 'latest' or 'next'`)
+      throw new Error(`--tag [${this.tag}] must be 'latest' or 'next'`)
     }
   }
 
@@ -163,7 +169,7 @@ export class Release extends Command {
    * @internal
    */
   public async bump() {
-    await this.$(`yarn @bud clean`)
+    await this.$(`yarn @bud clean --all`)
     await this.$(`git checkout -b v${this.version}`)
     await this.$(`yarn install --immutable`)
     await this.$(
@@ -184,7 +190,7 @@ export class Release extends Command {
    * @internal
    */
   public async make() {
-    await this.$(`yarn @bud clean`)
+    await this.$(`yarn @bud clean --all`)
     await this.$(`yarn @bud make`)
   }
 
@@ -245,7 +251,7 @@ export class Release extends Command {
    *
    * @internal
    */
-  public async resetAuthToken() {
+  public async postpublish() {
     await this.$(`yarn @bud config`)
   }
 }
