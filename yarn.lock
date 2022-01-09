@@ -3163,7 +3163,7 @@ __metadata:
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.19
     "@types/safe-json-stringify": 1.1.2
-    "@types/svgo": 2.6.0
+    "@types/svgo": 2.6.1
     autobind-decorator: ^2.4.0
     css-loader: ^6.5.1
     csv-loader: ^3.0.3
@@ -5122,12 +5122,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/svgo@npm:2.6.0":
-  version: 2.6.0
-  resolution: "@types/svgo@npm:2.6.0"
+"@types/svgo@npm:2.6.1":
+  version: 2.6.1
+  resolution: "@types/svgo@npm:2.6.1"
   dependencies:
     "@types/node": "*"
-  checksum: 2f42e70765d64812a23babf8ce80af947898935219dce858b92863fd0c2276936650ed34d72a7af0e03161646d2ff9cc7275447e04ec6753735f05318e66c422
+  checksum: 1858f44bb35250efa28be76f3e23d33e68bb4abee5edfd2e495ba80be8ba90ddaedbf28efeb712518d464215680cbcf19d11bf471ec293c78d6ae3304374ed3a
   languageName: node
   linkType: hard
 
