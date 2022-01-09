@@ -105,26 +105,29 @@ export class Lint extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx} --fix`,
-              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx} --fix`,
-              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx} --fix`,
+              `yarn eslint ./packages/@roots/*/src/**/*.{js,jsx,ts,tsx}`,
+              `yarn eslint ./dev/**/*.{js,jsx,ts,tsx}`,
+              `yarn eslint ./site/src/**/*.{js,jsx,ts,tsx}`,
             ]
-          : []),
-        ...(this.prettier
-          ? [
-              `yarn prettier ./packages/@roots/*/src/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
-              this.lib
-                ? `yarn prettier ./packages/@roots/*/lib/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
-                : ``,
-              this.types
-                ? `yarn prettier ./packages/@roots/*/types/**/*.d.ts --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
-                : null,
-            ].filter(Boolean)
           : []),
         this.skypack
           ? `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg`
           : null,
       ].filter(Boolean),
     )
+
+    if (this.prettier) {
+      await this.$(
+        ...[
+          `yarn prettier ./packages/@roots/*/src/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`,
+          this.lib
+            ? `yarn prettier ./packages/@roots/*/lib/**/* --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+            : null,
+          this.types
+            ? `yarn prettier ./packages/@roots/*/types/**/*.d.ts --write --ignore-unknown --loglevel silent --no-error-on-unmatched-pattern`
+            : null,
+        ].filter(Boolean),
+      )
+    }
   }
 }

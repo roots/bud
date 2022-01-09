@@ -3,11 +3,7 @@
     "experimentalDecorators": true,
     "module": "commonjs",
     "target": "es2018",
-    "lib": [
-      "es2018"
-    ]
+    "lib": ["es2018"]
   },
-  "include": [
-    "sources/**/*.ts"
-  ]
+  "include": ["sources/**/*.ts"]
 }
