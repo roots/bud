@@ -1,6 +1,6 @@
 import {resolve} from 'path'
 
-export const baseDir = resolve(__dirname, '../..')
+export const baseDir = resolve(__dirname, '../../')
 
 export const nccOptions = {
   externals: [
@@ -18,6 +18,7 @@ export const nccOptions = {
     '@roots/bud-framework',
     '@roots/bud-support',
   ],
+  cache: false,
   minify: false,
   sourceMap: false,
   sourceMapRegister: false,

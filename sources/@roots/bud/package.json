@@ -40,10 +40,10 @@
   },
   "bin": "./bin/bud.js",
   "files": [
-    "lib/",
-    "bin/",
-    "types/",
     "assets/",
+    "bin/",
+    "lib/",
+    "types/",
     "vendor/"
   ],
   "main": "./lib/cjs/index.js",
@@ -59,23 +59,9 @@
     "commands": "lib/cjs/cli/commands",
     "bin": "bud"
   },
-  "scripts": {
-    "profile": "yarn g:profile",
-    "profile:cjs": "yarn g:profile:cjs",
-    "profile:esm": "yarn g:profile:esm",
-    "lint": "yarn g:lint",
-    "lint:eslint": "yarn g:lint:eslint",
-    "lint:prettier": "yarn g:lint:prettier",
-    "clean": "yarn g:clean",
-    "clean:lib": "yarn g:clean:lib",
-    "clean:modules": "yarn g:clean:modules",
-    "clean:types": "yarn g:clean:types",
-    "pkg": "yarn g:pkg",
-    "pkg:check": "yarn g:pkg:check",
-    "pkg:format": "yarn g:pkg:format"
-  },
   "devDependencies": {
     "@microsoft/api-documenter": "7.13.78",
+    "@skypack/package-check": "^0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
     "@types/mini-css-extract-plugin": "2.4.0",

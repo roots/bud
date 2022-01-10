@@ -5,21 +5,11 @@
 *.log
 **/lib
 *.tsbuildinfo
-/.npmrc
-/sources/@roots/*/types
-
-# Docusaurus
-/sources/docs/.docusaurus
-/sources/docs/.cache-loader
-/sources/docs/build
-/sources/docs/.netlify
-/sources/docs/src/api/**/*.*
-
-# jest
+**/profiles
 coverage
+.budfiles
 
 # pacman
-node_modules
 /dev/yarn/*
 !/dev/yarn/patches
 !/dev/yarn/releases
@@ -27,9 +17,8 @@ node_modules
 !/dev/yarn/sdks
 !/dev/yarn/versions
 .pnp.*
-
-# verdaccio
-/verdaccio
+/.npmrc
+node_modules
 
 # bin
 !bin/**/*
@@ -37,8 +26,20 @@ node_modules
 # bud
 **/.budfiles
 
-# Profiles
-**/profiles
+.netlify
+.docusaurus
+.cache-loader
 
-# Netlify
-**/.netlify
+# verdaccio
+/verdaccio
+
+# Sources
+/sources/@roots/*/types
+
+# Docs
+/sources/docs/build
+/sources/docs/src/api/**/*.*
+
+# Examples
+/examples/*/dist
+/examples/*/.budfiles

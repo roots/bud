@@ -39,30 +39,13 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "scripts": {
-    "build": "yarn g:build",
-    "build:cjs": "yarn g:build:cjs",
-    "build:esm": "yarn g:build:esm",
-    "profile": "yarn g:profile",
-    "profile:cjs": "yarn g:profile:cjs",
-    "profile:esm": "yarn g:profile:esm",
-    "lint": "yarn g:lint",
-    "lint:eslint": "yarn g:lint:eslint",
-    "lint:prettier": "yarn g:lint:prettier",
-    "clean": "yarn g:clean",
-    "clean:lib": "yarn g:clean:lib",
-    "clean:modules": "yarn g:clean:modules",
-    "clean:types": "yarn g:clean:types",
-    "pkg": "yarn g:pkg",
-    "pkg:check": "yarn g:pkg:check",
-    "pkg:format": "yarn g:pkg:format"
-  },
   "bud": {
     "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
     "@types/jest": "27.4.0",
     "@types/node": "16.11.19",
     "jest": "27.4.7",

@@ -47,26 +47,9 @@
     }
   },
   "types": "./types/index.d.ts",
-  "scripts": {
-    "build": "yarn g:build",
-    "build:cjs": "yarn ts-node ./src/ncc/cjs",
-    "build:esm": "yarn ts-node ./src/ncc/esm",
-    "profile": "yarn g:profile",
-    "profile:cjs": "yarn g:profile:cjs",
-    "profile:esm": "yarn g:profile:esm",
-    "lint": "yarn g:lint",
-    "lint:eslint": "yarn g:lint:eslint",
-    "lint:prettier": "yarn g:lint:prettier",
-    "clean": "yarn g:clean",
-    "clean:lib": "yarn g:clean:lib",
-    "clean:modules": "yarn g:clean:modules",
-    "clean:types": "yarn g:clean:types",
-    "pkg": "yarn g:pkg",
-    "pkg:check": "yarn g:pkg:check",
-    "pkg:format": "yarn g:pkg:format"
-  },
   "devDependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
+    "@skypack/package-check": "^0.2.2",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/express": "4.17.13",
     "@types/node": "16.11.19",
