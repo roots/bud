@@ -47,7 +47,6 @@ If/when you are asked to use the vscode typescript server or the one bundled wit
 - `sources`: source code
 
   - `@roots`: public packages
-  - `base`: base package (all public packages "extend" this package)
   - `deprecated`: deprecated packages
   - `docs`: docusaurus site files
   - `roots-notifier`: macos notifier integration
@@ -60,7 +59,7 @@ If/when you are asked to use the vscode typescript server or the one bundled wit
 
 ## CLI
 
-The `@bud` CLI is a tool for managing the development environment and running project tasks.
+The `@bud` CLI is a yarn plugin for managing the development environment and running project tasks.
 
 You can run it from the command line with `yarn @bud`. Try `yarn @bud --help` for more information.
 
