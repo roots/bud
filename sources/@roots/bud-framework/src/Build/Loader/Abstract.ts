@@ -6,9 +6,7 @@ import LoaderInterface from './Interface'
  *
  * @public
  */
-export default abstract class LoaderAbstract
-  implements LoaderInterface
-{
+export default abstract class LoaderAbstract implements LoaderInterface {
   /**
    * Loader src
    *

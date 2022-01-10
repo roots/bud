@@ -6,10 +6,7 @@ import {Framework} from '../'
  * @internal
  */
 export interface make {
-  (
-    name: string,
-    tap?: (app: Framework) => any,
-  ): Promise<Framework>
+  (name: string, tap?: (app: Framework) => any): Promise<Framework>
 }
 
 /**

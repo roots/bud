@@ -35,29 +35,18 @@ export const persist: persist = function (
     .on('build.cache', () => ({
       type: ctx.hooks.filter('build.cache.type'),
       version: ctx.hooks.filter('build.cache.version'),
-      cacheDirectory: ctx.hooks.filter(
-        'build.cache.cacheDirectory',
-      ),
+      cacheDirectory: ctx.hooks.filter('build.cache.cacheDirectory'),
       managedPaths: ctx.hooks.filter('build.cache.managedPaths'),
-      buildDependencies: ctx.hooks.filter(
-        'build.cache.buildDependencies',
-      ),
+      buildDependencies: ctx.hooks.filter('build.cache.buildDependencies'),
     }))
 
     .hooks.on('build.cache.version', () => ctx.cache.version)
-    .hooks.on(
-      'build.cache.type',
-      (): 'filesystem' => 'filesystem',
-    )
-    .hooks.on('build.cache.cacheDirectory', () =>
-      ctx.path('storage'),
-    )
+    .hooks.on('build.cache.type', (): 'filesystem' => 'filesystem')
+    .hooks.on('build.cache.cacheDirectory', () => ctx.path('storage'))
     .hooks.on('build.cache.buildDependencies', () => ({
       bud: ctx.project.get('dependencies'),
     }))
-    .hooks.on('build.cache.managedPaths', () => [
-      ctx.path('modules'),
-    ])
+    .hooks.on('build.cache.managedPaths', () => [ctx.path('modules')])
 
   ctx.api.log('success', {
     message: 'cache enabled',

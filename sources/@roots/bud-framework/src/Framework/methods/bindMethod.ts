@@ -5,9 +5,7 @@ export interface GenericFunctionMap {
 }
 
 export interface bindMethod {
-  <FunctionMap = GenericFunctionMap>(
-    properties: FunctionMap,
-  ): Framework
+  <FunctionMap = GenericFunctionMap>(properties: FunctionMap): Framework
 }
 
 /**

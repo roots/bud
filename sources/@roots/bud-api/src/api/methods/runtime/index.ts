@@ -13,18 +13,13 @@ export interface runtime {
 /**
  * Default options for runtime if no options are passed as parameters.
  */
-const DEFAULT_OPTIONS: Configuration['optimization']['runtimeChunk'] =
-  {
-    name: (entrypoint: EntryObject) =>
-      `runtime/${entrypoint.name}`,
-  }
+const DEFAULT_OPTIONS: Configuration['optimization']['runtimeChunk'] = {
+  name: (entrypoint: EntryObject) => `runtime/${entrypoint.name}`,
+}
 
 export const runtime: runtime = function (runtime?) {
   if (isUndefined(runtime) || runtime === true) {
-    this.hooks.on(
-      'build.optimization.runtimeChunk',
-      () => DEFAULT_OPTIONS,
-    )
+    this.hooks.on('build.optimization.runtimeChunk', () => DEFAULT_OPTIONS)
     return this
   }
 

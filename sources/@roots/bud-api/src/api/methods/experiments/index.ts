@@ -2,10 +2,7 @@ import type {Framework} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 export interface experiments {
-  (
-    key: keyof Configuration['experiments'],
-    setting: boolean,
-  ): Framework
+  (key: keyof Configuration['experiments'], setting: boolean): Framework
 }
 
 export const experiments: experiments = function (

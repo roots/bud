@@ -43,10 +43,7 @@ export interface esbuild {
  *
  * @beta
  */
-export const esbuild: esbuild = function (
-  type,
-  opts,
-): Framework {
+export const esbuild: esbuild = function (type, opts): Framework {
   this.items[`esbuild-${type}`].setOptions(app => ({
     ...app.build.items[`esbuild-${type}`].options,
     ...opts,

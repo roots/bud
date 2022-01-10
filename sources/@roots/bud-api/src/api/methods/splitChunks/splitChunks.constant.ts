@@ -3,11 +3,7 @@ export const budChunk = {
   test: /([\\/]@roots|webpack|style-loader|tslib|ansi|html-entities|css-loader)/,
   reuseExistingChunk: true,
   priority: -10,
-  name(
-    _module: string,
-    chunks: {name: string}[],
-    cacheGroupKey: string,
-  ) {
+  name(_module: string, chunks: {name: string}[], cacheGroupKey: string) {
     const names = chunks.map(item => item.name).join('.')
 
     return `${cacheGroupKey}/${names}`

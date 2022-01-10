@@ -1,10 +1,5 @@
-import {
-  Extension as BudExtension,
-  Framework,
-} from '@roots/bud-framework'
-import TerserPlugin, {
-  TerserOptions,
-} from 'terser-webpack-plugin/types'
+import {Extension as BudExtension, Framework} from '@roots/bud-framework'
+import TerserPlugin, {TerserOptions} from 'terser-webpack-plugin/types'
 
 namespace Terser {
   export type Options = TerserOptions

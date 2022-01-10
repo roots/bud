@@ -2,10 +2,7 @@ import {Item, Loader} from '@roots/bud-build'
 import {Framework} from '@roots/bud-framework'
 
 import {Config} from './babel.config'
-import {
-  DEFAULT_PLUGINS,
-  DEFAULT_PRESETS,
-} from './babel.constants'
+import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
 
 /**
  * Adds Babel transpiler support to Framework projects
@@ -66,7 +63,5 @@ export const register = async (app: Framework) => {
 
   app.build.rules.js.setUse([app.build.items.babel])
 
-  app.babel
-    .setPresets(DEFAULT_PRESETS)
-    .setPlugins(DEFAULT_PLUGINS)
+  app.babel.setPresets(DEFAULT_PRESETS).setPlugins(DEFAULT_PLUGINS)
 }

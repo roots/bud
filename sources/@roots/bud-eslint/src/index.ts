@@ -30,5 +30,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, options, make, mixin} =
-  BudEslintWebpackPlugin
+export const {name, options, make, mixin} = BudEslintWebpackPlugin

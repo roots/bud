@@ -98,9 +98,7 @@ export default class Doctor extends Command {
 
     !this.hasErrors()
       ? console.log(chalk.green`\nall checks are O.K.`)
-      : console.log(
-          chalk.red`\n${this.failures.length} checks failed`,
-        )
+      : console.log(chalk.red`\n${this.failures.length} checks failed`)
 
     await this.app.project.buildProfile()
     await this.app.project.writeProfile()
@@ -135,9 +133,7 @@ export default class Doctor extends Command {
     })
 
     logger.warn(
-      chalk.yellow(
-        'Run `bud init` to install missing dependencies',
-      ),
+      chalk.yellow('Run `bud init` to install missing dependencies'),
     )
   }
 
@@ -157,12 +153,8 @@ export default class Doctor extends Command {
           try {
             await import(join(path, 'package.json'))
           } catch (error) {
-            logger.error(
-              chalk.red`${path} ${chalk.red`not resolved`}`,
-            )
-            this.failures.push(
-              `${path} ${chalk.red`not resolved`}`,
-            )
+            logger.error(chalk.red`${path} ${chalk.red`not resolved`}`)
+            this.failures.push(`${path} ${chalk.red`not resolved`}`)
           }
         }),
       )

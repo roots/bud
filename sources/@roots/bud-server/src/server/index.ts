@@ -90,8 +90,7 @@ export class Server
         ({hooks}) =>
           hooks.on('server.inject', inject => [
             ...inject,
-            () =>
-              `@roots/bud-server/client/proxy-click-interceptor.js`,
+            () => `@roots/bud-server/client/proxy-click-interceptor.js`,
           ]),
       )
 
@@ -128,13 +127,13 @@ export class Server
     /**
      * Apply middleware
      */
-    Object.entries(
-      this.app.hooks.filter('server.middleware'),
-    ).map(([key, factory]) => {
-      this.log(`info`, `using middleware: ${key}`)
-      const middleware = factory(this.app)
-      middleware && this.application.use(middleware)
-    })
+    Object.entries(this.app.hooks.filter('server.middleware')).map(
+      ([key, factory]) => {
+        this.log(`info`, `using middleware: ${key}`)
+        const middleware = factory(this.app)
+        middleware && this.application.use(middleware)
+      },
+    )
 
     /**
      * 404 middleware
@@ -187,10 +186,7 @@ export class Server
     await Promise.all(
       [this.app, ...this.app.children.getValues()].map(
         async (instance: Framework.Framework) => {
-          await inject(
-            instance,
-            this.app.hooks.filter('server.inject'),
-          )
+          await inject(instance, this.app.hooks.filter('server.inject'))
         },
       ),
     )

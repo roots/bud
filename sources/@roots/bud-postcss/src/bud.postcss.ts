@@ -22,10 +22,7 @@ export class PostCssConfig extends Container<Registry> {
    * @decorator `@bind` - binds the method to the class instance
    */
   @bind
-  public setPlugin(
-    name: string,
-    plugin: [any, any?] | any,
-  ): this {
+  public setPlugin(name: string, plugin: [any, any?] | any): this {
     this.set(name, Array.isArray(plugin) ? plugin : [plugin])
 
     return this

@@ -91,8 +91,7 @@ export default class Build extends Command {
 
     ['splitChunks']: oclif.Flags.boolean({
       allowNo: true,
-      description:
-        'create separate chunks for vendor and app code',
+      description: 'create separate chunks for vendor and app code',
     }),
 
     vendor: oclif.Flags.boolean({

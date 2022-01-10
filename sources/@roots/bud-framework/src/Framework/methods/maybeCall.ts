@@ -19,9 +19,7 @@ export interface maybeCall<I = any> {
  *
  * @public
  */
-export function maybeCall<I = any>(
-  value: (app: Framework) => I | I,
-) {
+export function maybeCall<I = any>(value: (app: Framework) => I | I) {
   this as Framework
   return isFunction(value) ? value.bind(this)(this) : value
 }

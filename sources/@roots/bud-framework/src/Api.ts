@@ -4,9 +4,8 @@ import {Service} from './Service'
 /**
  * @internal
  */
-export interface Api<
-  T = Record<string, (...args: unknown[]) => Framework>,
-> extends Service<T> {
+export interface Api<T = Record<string, (...args: unknown[]) => Framework>>
+  extends Service<T> {
   /**
    * @internal
    */
@@ -30,7 +29,5 @@ export interface Api<
   /**
    * @internal
    */
-  bindFacade: (
-    key: `${keyof Api['repository'] & string}`,
-  ) => void
+  bindFacade: (key: `${keyof Api['repository'] & string}`) => void
 }

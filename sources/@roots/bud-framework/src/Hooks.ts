@@ -1,11 +1,6 @@
 import {IncomingMessage, ServerResponse} from 'http'
 import {ValueOf} from 'type-fest'
-import {
-  Configuration,
-  RuleSetRule,
-  Stats,
-  StatsCompilation,
-} from 'webpack'
+import {Configuration, RuleSetRule, Stats, StatsCompilation} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
 import {ProxyOptions} from './Server'
@@ -90,9 +85,7 @@ export interface Hooks extends Service {
    */
   filter<T extends keyof Hooks.Map & string>(
     id: T,
-    value?:
-      | Hooks.Map[T]
-      | ((value?: Hooks.Map[T]) => Hooks.Map[T]),
+    value?: Hooks.Map[T] | ((value?: Hooks.Map[T]) => Hooks.Map[T]),
   ): Hooks.Map[T]
 
   /**
@@ -154,10 +147,7 @@ export namespace Hooks {
     [`build`]: Record<string, any>
     [`build.bail`]: boolean
     [`build.cache`]: any
-    ['build.cache.buildDependencies']: Record<
-      string,
-      Array<string>
-    >
+    ['build.cache.buildDependencies']: Record<string, Array<string>>
     ['build.cache.cacheDirectory']: string
     [`build.cache.version`]: string
     ['build.cache.type']: 'memory' | 'filesystem'

@@ -31,9 +31,7 @@ export const configSet = async (
  */
 export const configs = async (app: Bud, logger: Signale) => {
   const generalConfigs = app.project.get('configs.json.global')
-  const conditionalConfigs = app.project.get(
-    'configs.json.conditional',
-  )
+  const conditionalConfigs = app.project.get('configs.json.conditional')
 
   app.dump(generalConfigs, {
     prefix: 'retrieved static config (global)',

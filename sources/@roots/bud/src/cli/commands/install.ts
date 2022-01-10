@@ -72,10 +72,7 @@ export default class Install extends Command {
       ),
     }
 
-    await writeFile(
-      manifestPath,
-      JSON.stringify(manifest, null, 2),
-    )
+    await writeFile(manifestPath, JSON.stringify(manifest, null, 2))
 
     process.stdout.write(
       `\nadded ${peerDependencies.reduce(

@@ -27,7 +27,5 @@ export const name: Extension.CompilerPlugin['name'] =
 /**
  * @public
  */
-export const make: Extension.CompilerPlugin<
-  Plugin,
-  null
->['make'] = () => new Plugin()
+export const make: Extension.CompilerPlugin<Plugin, null>['make'] = () =>
+  new Plugin()

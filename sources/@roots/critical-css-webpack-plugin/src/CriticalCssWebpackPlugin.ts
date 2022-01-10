@@ -170,10 +170,7 @@ class CriticalCssWebpackPlugin {
    * @decorator `@bind`
    */
   @bind
-  public async criticalEntry(
-    entry: string,
-    module: Webpack.Module,
-  ) {
+  public async criticalEntry(entry: string, module: Webpack.Module) {
     const name = this.maybeHashName(module, entry)
 
     const {css, uncritical} = await this.generateCritical(
@@ -208,9 +205,7 @@ class CriticalCssWebpackPlugin {
     return this.webpack.compilation.chunkGraph
       .getChunkModules(chunk)
       .filter(module => {
-        return (
-          module?.type.includes('css') && (module as any).content
-        )
+        return module?.type.includes('css') && (module as any).content
       })
   }
 
@@ -221,10 +216,7 @@ class CriticalCssWebpackPlugin {
    * @decorator `@bind`
    */
   @bind
-  public maybeHashName(
-    module: Webpack.Module,
-    name: string,
-  ): string {
+  public maybeHashName(module: Webpack.Module, name: string): string {
     if (!this.options.hash) {
       return name
     }
@@ -279,10 +271,7 @@ class CriticalCssWebpackPlugin {
    */
   @bind
   public htmlInject(css: string) {
-    return async (
-      data: {html: string},
-      cb: (...args: any) => any,
-    ) => {
+    return async (data: {html: string}, cb: (...args: any) => any) => {
       data.html = data.html.replace(
         this.options.replace,
         `<style>${css}</style>`,

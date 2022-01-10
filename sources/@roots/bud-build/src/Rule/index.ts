@@ -13,10 +13,7 @@ import {Base} from '../shared/Base'
  *
  * @public
  */
-export class Rule
-  extends Base
-  implements FrameworkRule.Interface
-{
+export class Rule extends Base implements FrameworkRule.Interface {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
@@ -153,9 +150,7 @@ export class Rule
    * @decorator `@bind`
    */
   @bind
-  public setUse(
-    use: Maybe<[Framework], Item.Interface[]>,
-  ): Rule {
+  public setUse(use: Maybe<[Framework], Item.Interface[]>): Rule {
     this.use = this.normalizeInput(use)
     return this
   }
@@ -250,9 +245,7 @@ export class Rule
   public setGenerator(
     generator:
       | FrameworkRule.Interface['generator']
-      | ((
-          app: Framework,
-        ) => FrameworkRule.Interface['generator']),
+      | ((app: Framework) => FrameworkRule.Interface['generator']),
   ): Rule {
     this.generator = this.normalizeInput(generator)
     return this

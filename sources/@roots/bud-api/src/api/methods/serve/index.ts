@@ -18,11 +18,7 @@ export interface serve {
 }
 
 export const serve: serve = function (
-  config:
-    | URL
-    | string
-    | number
-    | Partial<Server.Configuration['dev']>,
+  config: URL | string | number | Partial<Server.Configuration['dev']>,
 ): Framework {
   const ctx = this as Framework
 

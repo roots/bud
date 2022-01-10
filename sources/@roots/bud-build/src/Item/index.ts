@@ -1,21 +1,12 @@
 import {bind, isFunction} from './item.dependencies'
-import {
-  Base,
-  Factory,
-  Framework,
-  Loader,
-  Maybe,
-} from './item.interface'
+import {Base, Factory, Framework, Loader, Maybe} from './item.interface'
 
 /**
  * Item class
  *
  * @public
  */
-export class Item
-  extends Base.Abstract
-  implements Base.Interface
-{
+export class Item extends Base.Abstract implements Base.Interface {
   /**
    * Loader
    *
@@ -35,10 +26,7 @@ export class Item
    *
    * @param options - {@link Base.Options}
    */
-  public constructor({
-    loader,
-    options,
-  }: Base.ConstructorOptions) {
+  public constructor({loader, options}: Base.ConstructorOptions) {
     super()
 
     this.setLoader(loader)
@@ -61,9 +49,7 @@ export class Item
    * @decorator `@bind`
    */
   @bind
-  public setLoader(
-    loader: Maybe<[Framework], Loader.Interface>,
-  ) {
+  public setLoader(loader: Maybe<[Framework], Loader.Interface>) {
     this.loader = isFunction(loader) ? loader : () => loader
   }
 

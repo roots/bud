@@ -22,9 +22,8 @@ export const options: Extension['options'] = {
 /**
  * @public
  */
-export const make: Extension['make'] = (
-  options: Container<Options>,
-) => new Plugin(options.all())
+export const make: Extension['make'] = (options: Container<Options>) =>
+  new Plugin(options.all())
 
 /**
  * @public

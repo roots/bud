@@ -94,30 +94,18 @@ class Configuration {
  * @internal
  */
 export const configs = async (app: Bud, logger: Signale) => {
-  const generalConfigs = app.project.get(
-    'configs.dynamic.global',
-  )
-  const conditionalConfigs = app.project.get(
-    'configs.dynamic.conditional',
-  )
+  const generalConfigs = app.project.get('configs.dynamic.global')
+  const conditionalConfigs = app.project.get('configs.dynamic.conditional')
 
   if (generalConfigs?.length) {
-    const dynamicConfig = new Configuration(
-      app,
-      logger,
-      generalConfigs,
-    )
+    const dynamicConfig = new Configuration(app, logger, generalConfigs)
     await dynamicConfig.run()
     await app.api.processQueue()
     await app.extensions.processQueue()
   }
 
   if (conditionalConfigs?.length) {
-    const staticConfig = new Configuration(
-      app,
-      logger,
-      conditionalConfigs,
-    )
+    const staticConfig = new Configuration(app, logger, conditionalConfigs)
     await staticConfig.run()
     await app.api.processQueue()
     await app.extensions.processQueue()

@@ -1,7 +1,4 @@
-import {
-  IncomingMessage,
-  ServerResponse,
-} from 'webpack-dev-middleware'
+import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
 
 import {WebpackDevMiddleware} from './dev.dependencies'
 import type {Framework} from './dev.interface'
@@ -13,10 +10,7 @@ import type {Framework} from './dev.interface'
  */
 export default function dev(app: Framework) {
   const options = makeOptions(app)
-  return WebpackDevMiddleware(
-    app.compiler.instance as any,
-    options,
-  )
+  return WebpackDevMiddleware(app.compiler.instance as any, options)
 }
 
 /**
@@ -26,10 +20,7 @@ export default function dev(app: Framework) {
  */
 const makeOptions = (
   app: Framework,
-): WebpackDevMiddleware.Options<
-  IncomingMessage,
-  ServerResponse
-> => ({
+): WebpackDevMiddleware.Options<IncomingMessage, ServerResponse> => ({
   writeToDisk: true,
   publicPath: app.hooks.filter('build.output.publicPath'),
   stats: false,

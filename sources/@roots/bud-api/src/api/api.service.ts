@@ -17,10 +17,7 @@ const {isEmpty, isFunction} = lodash
  *
  * @public
  */
-export class Api
-  extends Framework.Service
-  implements Framework.Api
-{
+export class Api extends Framework.Service implements Framework.Api {
   /**
    * Queued method calls
    *
@@ -86,10 +83,7 @@ export class Api
 
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
 
-    this.log(
-      'success',
-      `binding ${this.app.name}.${name} facade`,
-    )
+    this.log('success', `binding ${this.app.name}.${name} facade`)
   }
 
   /**
@@ -101,8 +95,7 @@ export class Api
   public async call(name: string, ...args: any[]) {
     this.log('log', {
       message: `executing ${chalk.blue(name)}`,
-      suffix:
-        args && !isEmpty(args) ? JSON.stringify(args) : 'none',
+      suffix: args && !isEmpty(args) ? JSON.stringify(args) : 'none',
     })
 
     // get a reference to the callable
@@ -126,10 +119,7 @@ export class Api
   public async processQueue() {
     if (!this.queue.length) return
 
-    this.log(
-      'await',
-      `Executing ${this.queue.length} enqueued functions`,
-    )
+    this.log('await', `Executing ${this.queue.length} enqueued functions`)
 
     await Promise.all(
       this.queue.map(async ([name, args]) => {

@@ -91,11 +91,10 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invoke(config: any) {
-    config =
-      await this.app.hooks.filterAsync<'event.compiler.before'>(
-        'event.compiler.before',
-        config,
-      )
+    config = await this.app.hooks.filterAsync<'event.compiler.before'>(
+      'event.compiler.before',
+      config,
+    )
 
     config = this.app.hooks.filter('config.override', config)
 
@@ -109,10 +108,7 @@ export class Compiler extends Service implements Contract {
 
       stats && Object.assign(this.stats, stats.toJson())
       if (this.app.store.is('features.dashboard', false)) {
-        this.log(
-          'log',
-          stats.toString(this.app.store.get('build.stats')),
-        )
+        this.log('log', stats.toString(this.app.store.get('build.stats')))
       }
 
       if (this.app.isProduction) {
@@ -186,19 +182,14 @@ export class Compiler extends Service implements Contract {
      * them and add to `config`
      */
     await Promise.all(
-      this.app.children
-        ?.getValues()
-        .map(async (instance: Framework) => {
-          if (!instance.name) return
+      this.app.children?.getValues().map(async (instance: Framework) => {
+        if (!instance.name) return
 
-          this.log(
-            'success',
-            `\`${instance.name}\` compiler will be tapped`,
-          )
+        this.log('success', `\`${instance.name}\` compiler will be tapped`)
 
-          await instance.build.make()
-          config.push(instance.build.config)
-        }),
+        await instance.build.make()
+        config.push(instance.build.config)
+      }),
     )
 
     return config
@@ -219,13 +210,10 @@ export class Compiler extends Service implements Contract {
      * here we parse the callback args so that we dont have to
      * duplicate the callback.
      */
-    let [err, stats] =
-      args.length > 1 ? args : [null, args.pop()]
+    let [err, stats] = args.length > 1 ? args : [null, args.pop()]
 
     if (stats?.toJson && isFunction(stats.toJson)) {
-      this.stats = stats.toJson(
-        this.app.store.get('build.stats'),
-      )
+      this.stats = stats.toJson(this.app.store.get('build.stats'))
 
       this.stats = this.app.hooks.filter<'event.compiler.stats'>(
         'event.compiler.stats',
@@ -236,14 +224,11 @@ export class Compiler extends Service implements Contract {
     if (err) {
       if (this.app.isDevelopment) {
         this.app.server.middleware?.hot?.publish({
-          errors: stats.toJson(this.app.store.get('build.stats'))
-            .errors,
+          errors: stats.toJson(this.app.store.get('build.stats')).errors,
         })
       }
 
-      this.errors.push(
-        this.app.hooks.filter('event.compiler.error', err),
-      )
+      this.errors.push(this.app.hooks.filter('event.compiler.error', err))
 
       this.app.store.is('features.dashboard', false) &&
         this.log('error', err)

@@ -42,8 +42,7 @@ export default {
    * Returns {@link Loader} for `resolve-url-loader`
    * @public
    */
-  [`resolve-url`]: () =>
-    new Loader(require.resolve('resolve-url-loader')),
+  [`resolve-url`]: () => new Loader(require.resolve('resolve-url-loader')),
 
   /**
    * Returns {@link Loader} for `style-loader`

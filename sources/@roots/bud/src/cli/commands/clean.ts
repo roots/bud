@@ -13,8 +13,7 @@ export default class Clean extends Command {
   /**
    * @internal
    */
-  public static description =
-    'clean project distributables and caches'
+  public static description = 'clean project distributables and caches'
 
   /**
    * @internal

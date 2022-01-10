@@ -1,8 +1,4 @@
-import {
-  Framework,
-  Hooks as Contract,
-  Service,
-} from '@roots/bud-framework'
+import {Framework, Hooks as Contract, Service} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
 const {get, isFunction, isUndefined, set} = lodash
@@ -73,10 +69,7 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public set(
-    key: `${keyof Contract.Map & string}`,
-    value: any,
-  ): this {
+  public set(key: `${keyof Contract.Map & string}`, value: any): this {
     set(this.repository, key, value)
     return this
   }
@@ -105,9 +98,7 @@ export class Hooks extends Service implements Contract {
   @bind
   public on<T extends keyof Contract.Map & string>(
     id: T,
-    callback:
-      | Contract.Map[T]
-      | ((value: Contract.Map[T]) => any),
+    callback: Contract.Map[T] | ((value: Contract.Map[T]) => any),
   ): Framework {
     const current = this.has(id) ? this.get(id) : []
 
@@ -181,8 +172,7 @@ export class Hooks extends Service implements Contract {
     }
 
     return this.get(id).reduce(
-      (v: T, cb?: CallableFunction) =>
-        isFunction(cb) ? cb(v) : cb,
+      (v: T, cb?: CallableFunction) => (isFunction(cb) ? cb(v) : cb),
       value,
     )
   }
@@ -205,9 +195,7 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<
-    T extends keyof Contract.Map & string,
-  >(
+  public async filterAsync<T extends keyof Contract.Map & string>(
     id: T,
     value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
   ): Promise<Contract.Map[T]> {
@@ -217,10 +205,7 @@ export class Hooks extends Service implements Contract {
     }
 
     return await this.get(id).reduce(
-      async (
-        promised: Promise<T>,
-        cb?: (value: T) => Promise<T>,
-      ) => {
+      async (promised: Promise<T>, cb?: (value: T) => Promise<T>) => {
         const value = await promised
         return isFunction(cb) ? await cb(value) : cb
       },

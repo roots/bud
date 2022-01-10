@@ -1,10 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import {
-  ClientRequest,
-  IncomingMessage,
-  ServerResponse,
-} from 'http'
+import {ClientRequest, IncomingMessage, ServerResponse} from 'http'
 import {URL as nodeUrl} from 'url'
 
 import {URL} from './url'
@@ -29,10 +25,7 @@ export class RequestInterceptorFactory {
    *
    * @public
    */
-  public constructor(
-    public _app: () => Framework,
-    public url: URL,
-  ) {}
+  public constructor(public _app: () => Framework, public url: URL) {}
 
   /**
    * Callback for `http-proxy-middleware` `onProxyReq`

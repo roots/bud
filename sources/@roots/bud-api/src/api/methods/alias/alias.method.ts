@@ -40,15 +40,12 @@ export const alias: method = function (alias: Alias) {
     {},
   )
 
-  this.hooks.on(
-    'build.resolve.alias',
-    async (aliases: Alias) => {
-      return {
-        ...aliases,
-        ...mergeAliases,
-      }
-    },
-  )
+  this.hooks.on('build.resolve.alias', async (aliases: Alias) => {
+    return {
+      ...aliases,
+      ...mergeAliases,
+    }
+  })
 
   return this
 }

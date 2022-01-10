@@ -6,14 +6,10 @@ export interface use {
   (source: Source): Promise<Framework>
 }
 
-export const use: use = async function (
-  source,
-): Promise<Framework> {
+export const use: use = async function (source): Promise<Framework> {
   const bud = this as Framework
 
-  const addExtension = async (
-    source: Source,
-  ): Promise<Framework> => {
+  const addExtension = async (source: Source): Promise<Framework> => {
     if (!source) {
       bud.error(`extension source is not defined. skipping`)
     }
@@ -31,17 +27,13 @@ export const use: use = async function (
     }
 
     await bud.extensions.add(
-      isCompilerPlugin(source)
-        ? {...source, make: () => source}
-        : source,
+      isCompilerPlugin(source) ? {...source, make: () => source} : source,
     )
   }
 
   !isArray(source)
     ? await addExtension(source)
-    : await Promise.all(
-        source.map(async ext => await addExtension(ext)),
-      )
+    : await Promise.all(source.map(async ext => await addExtension(ext)))
 
   return bud
 }

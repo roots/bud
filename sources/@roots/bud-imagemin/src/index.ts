@@ -44,8 +44,7 @@ export const name: Extension.Module['name'] = BudImagemin.name
  *
  * @public
  */
-export const options: Extension.Module['options'] =
-  BudImagemin.options
+export const options: Extension.Module['options'] = BudImagemin.options
 
 /**
  * Extension api

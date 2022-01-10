@@ -66,9 +66,7 @@ const extension: Extension.Module = {
 
     store.set('patterns.mdx', /\.mdx?$/)
 
-    build.loaders.mdx = new Loader(
-      require.resolve('@mdx-js/loader'),
-    )
+    build.loaders.mdx = new Loader(require.resolve('@mdx-js/loader'))
 
     build.items.mdx = new Item({
       loader: ({build}) => build.loaders.mdx,

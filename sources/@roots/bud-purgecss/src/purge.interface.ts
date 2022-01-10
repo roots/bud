@@ -77,9 +77,7 @@ export interface UserOptions {
   blocklist?: Array<RegExp | string>
 }
 
-export type ExtractorFunction<T = string> = (
-  content: T,
-) => string[]
+export type ExtractorFunction<T = string> = (content: T) => string[]
 
 export interface Extractors {
   extensions: string[]

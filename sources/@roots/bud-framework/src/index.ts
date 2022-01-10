@@ -167,8 +167,7 @@ export type Mode = 'production' | 'development'
  *
  * @virtual @public
  */
-export interface Modules
-  extends Partial<Index<Extension.Module>> {}
+export interface Modules extends Partial<Index<Extension.Module>> {}
 
 /**
  * Registered plugins
@@ -183,8 +182,7 @@ export interface Plugins
  *
  * @virtual @public
  */
-export interface Loaders
-  extends Partial<Index<Loader.Interface>> {}
+export interface Loaders extends Partial<Index<Loader.Interface>> {}
 
 /**
  * Registered items
@@ -198,16 +196,14 @@ export interface Items extends Partial<Index<Item.Interface>> {}
  *
  * @virtual @public
  */
-export interface Rules
-  extends Partial<Record<string, Rule.Interface>> {}
+export interface Rules extends Partial<Record<string, Rule.Interface>> {}
 
 /**
  * Registered locations
  *
  * @virtual @public
  */
-export interface Locations
-  extends Partial<Record<string, string>> {
+export interface Locations extends Partial<Record<string, string>> {
   [key: string]: string
   project?: string
   src?: string
@@ -220,9 +216,7 @@ export interface Locations
  * @virtual @public
  */
 export interface Services
-  extends Partial<
-    Record<string, new (app: Framework) => Service>
-  > {}
+  extends Partial<Record<string, new (app: Framework) => Service>> {}
 
 /**
  * Compiler plugin instance
@@ -248,5 +242,4 @@ export interface PluginInstance {
  *
  * @public
  */
-export interface Module<P = any, O = any>
-  extends Extension.Module<O> {}
+export interface Module<P = any, O = any> extends Extension.Module<O> {}

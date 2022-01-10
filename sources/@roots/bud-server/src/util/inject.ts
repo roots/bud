@@ -15,10 +15,7 @@ export interface inject {
  *
  * @public
  */
-export const inject: inject = async (
-  instance: Framework,
-  injection,
-) => {
+export const inject: inject = async (instance: Framework, injection) => {
   instance.hooks.on('build.entry', entrypoints => {
     if (instance.hasChildren) {
       instance.log(

@@ -9,9 +9,7 @@ import {Bud} from '@roots/bud'
  * @public
  */
 export async function eventBuildMakeBeforeProduction(app: Bud) {
-  app.extensions
-    .get('@roots/bud-entrypoints')
-    .setOption('publicPath', '')
+  app.extensions.get('@roots/bud-entrypoints').setOption('publicPath', '')
 
   return app
 }

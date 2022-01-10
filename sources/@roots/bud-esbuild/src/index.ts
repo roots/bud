@@ -73,14 +73,10 @@ const extension: Extension.Module = {
   }),
 
   boot: ({build, extensions, hooks}) => {
-    build.loaders.esbuild = new Loader(
-      require.resolve('esbuild-loader'),
-    )
+    build.loaders.esbuild = new Loader(require.resolve('esbuild-loader'))
 
     Promise.all(
-      features.map(
-        async feature => await extensions.add(feature),
-      ),
+      features.map(async feature => await extensions.add(feature)),
     )
 
     hooks.on('build.optimization.minimizer', () => [

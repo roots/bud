@@ -14,10 +14,6 @@ export interface container<T = any> {
  *
  * @public
  */
-export const container = function <T = any>(
-  repository?: T,
-): Container<T> {
-  return repository
-    ? new Container<T>(repository)
-    : new Container()
+export const container = function <T = any>(repository?: T): Container<T> {
+  return repository ? new Container<T>(repository) : new Container()
 }

@@ -121,8 +121,7 @@ export const config = async (app: Framework, flags) => {
      * And children if applicable
      */
     app.children?.getKeys().forEach(name => {
-      !flags?.target?.includes(name) &&
-        app.children?.remove(name)
+      !flags?.target?.includes(name) && app.children?.remove(name)
     })
   }
 }

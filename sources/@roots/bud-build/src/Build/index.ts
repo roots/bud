@@ -5,13 +5,7 @@ import {
   Rules,
 } from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {
-  bind,
-  chalk,
-  fs,
-  lodash,
-  prettyFormat,
-} from '@roots/bud-support'
+import {bind, chalk, fs, lodash, prettyFormat} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 import {Configuration} from 'webpack'
 
@@ -29,10 +23,7 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build
-  extends Service
-  implements Contract.Interface
-{
+export class Build extends Service implements Contract.Interface {
   /**
    * @internal
    */
@@ -86,40 +77,32 @@ export class Build
       this.app,
     )
 
-    const build = await this.app.hooks.filterAsync<'build'>(
-      'build',
-    )
+    const build = await this.app.hooks.filterAsync<'build'>('build')
 
     if (!build) {
       throw new Error('Configuration could not be processed')
     }
 
-    this.config =
-      await this.app.hooks.filterAsync<'event.build.override'>(
-        'event.build.override',
-        Object.entries(build).reduce(
-          (all: Configuration, [key, value]) => {
-            if (isUndefined(value) || isNull(value)) {
-              this.log(`warn`, {
-                message: `build.make: excluding ${key}`,
-                suffix: `value is undefined`,
-              })
+    this.config = await this.app.hooks.filterAsync<'event.build.override'>(
+      'event.build.override',
+      Object.entries(build).reduce((all: Configuration, [key, value]) => {
+        if (isUndefined(value) || isNull(value)) {
+          this.log(`warn`, {
+            message: `build.make: excluding ${key}`,
+            suffix: `value is undefined`,
+          })
 
-              return all
-            }
+          return all
+        }
 
-            this.app.dump(value, {
-              prefix: `${chalk.bgBlue(
-                this.app.name,
-              )} config.${key}`,
-              maxDepth: 2,
-            })
+        this.app.dump(value, {
+          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
+          maxDepth: 2,
+        })
 
-            return {...all, [key]: value}
-          },
-          {},
-        ),
-      )
+        return {...all, [key]: value}
+      }, {}),
+    )
 
     await this.app.hooks.filterAsync<'event.build.make.after'>(
       'event.build.make.after',

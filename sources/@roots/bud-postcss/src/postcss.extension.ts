@@ -48,9 +48,7 @@ export const BudPostCssExtension: Extension.Module = {
     })
 
     app.build.rules.css.setUse(app => [
-      app.isProduction
-        ? app.build.items.minicss
-        : app.build.items.style,
+      app.isProduction ? app.build.items.minicss : app.build.items.style,
       app.build.items.css,
       app.build.items.postcss,
     ])

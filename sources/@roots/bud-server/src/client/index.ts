@@ -10,9 +10,7 @@ const resourceQuery = __resourceQuery as string
   const {IndicatorController} = await import(
     './indicator/indicator.controller'
   )
-  const {OverlayController} = await import(
-    './overlay/overlay.controller'
-  )
+  const {OverlayController} = await import('./overlay/overlay.controller')
 
   const indicator = new IndicatorController()
   const overlay = new OverlayController()

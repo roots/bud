@@ -41,9 +41,7 @@ export interface Peers {
    *
    * @public
    */
-  discover(
-    type: 'dependencies' | 'devDependencies',
-  ): Promise<this>
+  discover(type: 'dependencies' | 'devDependencies'): Promise<this>
 
   /**
    * Returns path from a module name

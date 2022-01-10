@@ -13,17 +13,13 @@ export const Asset = ({compilation, asset, theme}) => {
           {compilation.name}{' '}
           <Text
             color={
-              asset.emitted
-                ? theme.colors.success
-                : theme.colors.faded
+              asset.emitted ? theme.colors.success : theme.colors.faded
             }
           >
             {asset.emitted ? '✔ ' : '… '}
           </Text>
           {asset.name}
-          {asset.cached && (
-            <Text color={theme.colors.faded}> cached</Text>
-          )}
+          {asset.cached && <Text color={theme.colors.faded}> cached</Text>}
         </Text>
       </Box>
 

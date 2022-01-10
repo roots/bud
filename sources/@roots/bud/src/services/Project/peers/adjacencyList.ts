@@ -16,10 +16,7 @@ export class AdjacencyList {
       Object.values(this.manifests)
         .sort((a, b) => a.name?.localeCompare(b.name))
         .map(manifest => {
-          return [
-            manifest.name,
-            new Set(manifest.requires.map(r => r[0])),
-          ]
+          return [manifest.name, new Set(manifest.requires.map(r => r[0]))]
         }),
     )
   }
@@ -29,9 +26,7 @@ export class AdjacencyList {
    *
    * @public
    */
-  public constructor(
-    public manifests: Record<string, Dependency>,
-  ) {
+  public constructor(public manifests: Record<string, Dependency>) {
     this.has = this.has.bind(this)
     this.adjacentTo = this.adjacentTo.bind(this)
     this.fromRoot = this.fromRoot.bind(this)

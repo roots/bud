@@ -56,9 +56,7 @@ export class URL {
    * @public
    */
   public get publicPath() {
-    const publicPath = this.app.hooks.filter(
-      'build.output.publicPath',
-    )
+    const publicPath = this.app.hooks.filter('build.output.publicPath')
 
     return publicPath !== 'auto' ? publicPath : '/'
   }

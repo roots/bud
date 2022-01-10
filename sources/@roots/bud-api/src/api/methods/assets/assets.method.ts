@@ -21,15 +21,13 @@ export const assets: method = async function assets(
         ? `${dirName}/${this.store.get('hashFormat')}[ext]`
         : `${dirName}/${this.store.get('fileFormat')}[ext]`
 
-    this.extensions
-      .get('copy-webpack-plugin')
-      .mergeOption('patterns', [
-        {
-          from: src,
-          to: fileName,
-          noErrorOnMissing: true,
-        },
-      ])
+    this.extensions.get('copy-webpack-plugin').mergeOption('patterns', [
+      {
+        from: src,
+        to: fileName,
+        noErrorOnMissing: true,
+      },
+    ])
   })
 
   return this

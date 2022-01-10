@@ -21,10 +21,7 @@ export interface pipe {
  *
  * @public
  */
-export function pipe<T = Framework>(
-  fns: Callback<T>[],
-  value?: T,
-): T {
+export function pipe<T = Framework>(fns: Callback<T>[], value?: T): T {
   const pipeReducer = (val: T, fn: Callback<T>) => {
     return fn(val)
   }

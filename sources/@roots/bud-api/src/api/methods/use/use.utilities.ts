@@ -63,7 +63,4 @@ export const hasValidConstructorName = (
  */
 export const generateName = (
   input: Extension.Module | Extension.CompilerPlugin,
-) =>
-  hasValidConstructorName(input)
-    ? input.constructor.name
-    : nanoid(4)
+) => (hasValidConstructorName(input) ? input.constructor.name : nanoid(4))

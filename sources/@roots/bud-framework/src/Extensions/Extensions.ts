@@ -52,9 +52,7 @@ export interface Extensions extends Service {
    *
    * @public
    */
-  make(): Promise<
-    {[key: string]: any; apply: CallableFunction}[]
-  >
+  make(): Promise<{[key: string]: any; apply: CallableFunction}[]>
 
   /**
    * @public

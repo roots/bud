@@ -17,14 +17,12 @@ export async function config(app: Framework): Promise<void> {
       const entry = await app.hooks.filterAsync<'build.entry'>(
         'build.entry',
       )
-      const plugins =
-        await app.hooks.filterAsync<'build.plugins'>(
-          'build.plugins',
-        )
-      const resolve =
-        await app.hooks.filterAsync<'build.resolve'>(
-          'build.resolve',
-        )
+      const plugins = await app.hooks.filterAsync<'build.plugins'>(
+        'build.plugins',
+      )
+      const resolve = await app.hooks.filterAsync<'build.resolve'>(
+        'build.resolve',
+      )
 
       return {
         entry,
@@ -32,16 +30,12 @@ export async function config(app: Framework): Promise<void> {
         resolve,
         bail: app.hooks.filter<'build.bail'>('build.bail'),
         cache: app.hooks.filter<'build.cache'>('build.cache'),
-        context:
-          app.hooks.filter<'build.context'>('build.context'),
-        devtool:
-          app.hooks.filter<'build.devtool'>('build.devtool'),
+        context: app.hooks.filter<'build.context'>('build.context'),
+        devtool: app.hooks.filter<'build.devtool'>('build.devtool'),
         experiments: app.hooks.filter<'build.experiments'>(
           'build.experiments',
         ),
-        externals: app.hooks.filter<'build.externals'>(
-          'build.externals',
-        ),
+        externals: app.hooks.filter<'build.externals'>('build.externals'),
         infrastructureLogging:
           app.hooks.filter<'build.infrastructureLogging'>(
             'build.infrastructureLogging',
@@ -60,8 +54,7 @@ export async function config(app: Framework): Promise<void> {
         performance: app.hooks.filter<'build.performance'>(
           'build.performance',
         ),
-        profile:
-          app.hooks.filter<'build.profile'>('build.profile'),
+        profile: app.hooks.filter<'build.profile'>('build.profile'),
         recordsPath: app.hooks.filter<'build.recordsPath'>(
           'build.recordsPath',
         ),
@@ -84,9 +77,7 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.context
      */
-    .hooks.on<'build.context'>('build.context', () =>
-      app.path('project'),
-    )
+    .hooks.on<'build.context'>('build.context', () => app.path('project'))
 
     /**
      * build.devtool
@@ -112,9 +103,7 @@ export async function config(app: Framework): Promise<void> {
      * build.module
      */
     .hooks.on<'build.module'>('build.module', () => ({
-      rules: app.hooks.filter<'build.module.rules'>(
-        'build.module.rules',
-      ),
+      rules: app.hooks.filter<'build.module.rules'>('build.module.rules'),
     }))
 
     /**
@@ -137,10 +126,8 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.module.rules[1].oneOf
      */
-    .hooks.on<'build.module.rules.oneOf'>(
-      'build.module.rules.oneOf',
-      () =>
-        Object.values(app.build.rules).map(rule => rule.make()),
+    .hooks.on<'build.module.rules.oneOf'>('build.module.rules.oneOf', () =>
+      Object.values(app.build.rules).map(rule => rule.make()),
     )
 
     /**
@@ -177,40 +164,31 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.optimization
      */
-    .hooks.on<'build.optimization'>(
-      'build.optimization',
-      () => ({
-        emitOnErrors:
-          app.hooks.filter<'build.optimization.emitOnErrors'>(
-            'build.optimization.emitOnErrors',
-          ),
+    .hooks.on<'build.optimization'>('build.optimization', () => ({
+      emitOnErrors: app.hooks.filter<'build.optimization.emitOnErrors'>(
+        'build.optimization.emitOnErrors',
+      ),
 
-        minimize:
-          app.hooks.filter<'build.optimization.minimize'>(
-            'build.optimization.minimize',
-          ),
+      minimize: app.hooks.filter<'build.optimization.minimize'>(
+        'build.optimization.minimize',
+      ),
 
-        minimizer:
-          app.hooks.filter<'build.optimization.minimizer'>(
-            'build.optimization.minimizer',
-          ),
+      minimizer: app.hooks.filter<'build.optimization.minimizer'>(
+        'build.optimization.minimizer',
+      ),
 
-        moduleIds:
-          app.hooks.filter<'build.optimization.moduleIds'>(
-            'build.optimization.moduleIds',
-          ),
+      moduleIds: app.hooks.filter<'build.optimization.moduleIds'>(
+        'build.optimization.moduleIds',
+      ),
 
-        runtimeChunk:
-          app.hooks.filter<'build.optimization.runtimeChunk'>(
-            'build.optimization.runtimeChunk',
-          ),
+      runtimeChunk: app.hooks.filter<'build.optimization.runtimeChunk'>(
+        'build.optimization.runtimeChunk',
+      ),
 
-        splitChunks:
-          app.hooks.filter<'build.optimization.splitChunks'>(
-            'build.optimization.splitChunks',
-          ),
-      }),
-    )
+      splitChunks: app.hooks.filter<'build.optimization.splitChunks'>(
+        'build.optimization.splitChunks',
+      ),
+    }))
 
     /**
      * build.optimization.emitOnErrors
@@ -249,8 +227,7 @@ export async function config(app: Framework): Promise<void> {
      */
     .hooks.on<'build.optimization.removeEmptyChunks'>(
       'build.optimization.removeEmptyChunks',
-      () =>
-        app.store.get('build.optimization.removeEmptyChunks'),
+      () => app.store.get('build.optimization.removeEmptyChunks'),
     )
 
     /**
@@ -275,18 +252,12 @@ export async function config(app: Framework): Promise<void> {
         app.hooks.filter<'build.output.assetModuleFilename'>(
           'build.output.assetModuleFilename',
         ),
-      chunkFilename: app.hooks.filter(
-        'build.output.chunkFilename',
-      ),
-      clean: app.hooks.filter<'build.output.clean'>(
-        'build.output.clean',
-      ),
+      chunkFilename: app.hooks.filter('build.output.chunkFilename'),
+      clean: app.hooks.filter<'build.output.clean'>('build.output.clean'),
       filename: app.hooks.filter<'build.output.filename'>(
         'build.output.filename',
       ),
-      path: app.hooks.filter<'build.output.path'>(
-        'build.output.path',
-      ),
+      path: app.hooks.filter<'build.output.path'>('build.output.path'),
       pathinfo: app.hooks.filter<'build.output.pathinfo'>(
         'build.output.pathinfo',
       ),
@@ -362,9 +333,7 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.profile
      */
-    .hooks.on('build.profile', () =>
-      app.store.get('build.profile'),
-    )
+    .hooks.on('build.profile', () => app.store.get('build.profile'))
 
     /**
      * build.recordsPath
@@ -374,20 +343,17 @@ export async function config(app: Framework): Promise<void> {
     )
 
     .hooks.async<'build.resolve'>('build.resolve', async () => {
-      const modules =
-        await app.hooks.filterAsync<'build.resolve.modules'>(
-          'build.resolve.modules',
-        )
+      const modules = await app.hooks.filterAsync<'build.resolve.modules'>(
+        'build.resolve.modules',
+      )
 
-      const alias =
-        await app.hooks.filter<'build.resolve.alias'>(
-          'build.resolve.alias',
-        )
+      const alias = await app.hooks.filter<'build.resolve.alias'>(
+        'build.resolve.alias',
+      )
 
-      const extensions =
-        app.hooks.filter<'build.resolve.extensions'>(
-          'build.resolve.extensions',
-        )
+      const extensions = app.hooks.filter<'build.resolve.extensions'>(
+        'build.resolve.extensions',
+      )
 
       return {modules, alias, extensions}
     })
@@ -395,10 +361,7 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.resolve.alias
      */
-    .hooks.on<'build.resolve.alias'>(
-      'build.resolve.alias',
-      () => ({}),
-    )
+    .hooks.on<'build.resolve.alias'>('build.resolve.alias', () => ({}))
 
     /**
      * build.resolve.modules
@@ -438,9 +401,8 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.resolve.extensions
      */
-    .hooks.on<'build.resolve.extensions'>(
-      'build.resolve.extensions',
-      () => app.store.get('build.resolve.extensions'),
+    .hooks.on<'build.resolve.extensions'>('build.resolve.extensions', () =>
+      app.store.get('build.resolve.extensions'),
     )
 
     /**
@@ -455,8 +417,7 @@ export async function config(app: Framework): Promise<void> {
      */
     .hooks.on<'build.target'>(
       'build.target',
-      () =>
-        `browserslist:${app.path('project', 'package.json')}`,
+      () => `browserslist:${app.path('project', 'package.json')}`,
     )
 
     /**

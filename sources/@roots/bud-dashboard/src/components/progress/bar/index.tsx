@@ -19,8 +19,7 @@ export const Bar: React.FunctionComponent<{
   const [fill, setFill] = useState(0)
 
   useEffect(() => {
-    const valid =
-      typeof maxWidth == 'number' && typeof percent == 'number'
+    const valid = typeof maxWidth == 'number' && typeof percent == 'number'
 
     const lower = valid ? maxWidth : 0
     const chars = valid ? percent : 0
@@ -35,9 +34,7 @@ export const Bar: React.FunctionComponent<{
 
   return (
     <Text wrap="truncate">
-      <Gradient colors={colors}>
-        {character.repeat(fill) ?? ''}
-      </Gradient>
+      <Gradient colors={colors}>{character.repeat(fill) ?? ''}</Gradient>
 
       {character.repeat(maxWidth - fill) ?? ''}
 

@@ -1,7 +1,6 @@
 import {bind, chalk, lodash, Signale} from '@roots/bud-support'
 
-const {isObject, isUndefined, isFunction, isString, omit} =
-  lodash
+const {isObject, isUndefined, isFunction, isString, omit} = lodash
 
 export {
   bind,

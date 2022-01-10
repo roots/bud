@@ -6,8 +6,7 @@ import * as requirements from './tailwind.requirements'
 
 const {isUndefined} = lodash
 
-export interface BudTailwindCssExtension
-  extends Extension.Module {
+export interface BudTailwindCssExtension extends Extension.Module {
   name: '@roots/bud-tailwindcss'
   api: {tailwind}
   boot: (app: Framework) => Promise<void>
@@ -27,16 +26,13 @@ const getVerifiedUserConfigPath = async function (
     await import(configPath)
 
     this.success(
-      `loaded user tailwindcss config from ${chalk.green(
-        configPath,
-      )}`,
+      `loaded user tailwindcss config from ${chalk.green(configPath)}`,
     )
 
     return configPath
   } catch (e) {
     this.error({
-      message:
-        '@roots/bud-tailwindcss failed to load user config',
+      message: '@roots/bud-tailwindcss failed to load user config',
     })
     return null
   }
@@ -91,8 +87,9 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
         'tailwindcss/nesting/index.js'
       )
 
-      const config: string | null =
-        await getVerifiedUserConfigPath.bind(app)()
+      const config: string | null = await getVerifiedUserConfigPath.bind(
+        app,
+      )()
 
       app.postcss.setPlugins({
         'postcss-import': app.postcss.get('postcss-import'),
@@ -100,9 +97,7 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
         tailwindcss: config
           ? [tailwindcss.default, config]
           : tailwindcss.default,
-        'postcss-preset-env': app.postcss.get(
-          'postcss-preset-env',
-        ),
+        'postcss-preset-env': app.postcss.get('postcss-preset-env'),
       })
 
       log.success('postcss has been configured for tailwindcss')

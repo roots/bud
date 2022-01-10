@@ -52,9 +52,7 @@ export interface Styles {
  * useStyle hook
  *
  */
-export const useStyle: useStyle = (
-  initialData = defaultTheme,
-) => {
+export const useStyle: useStyle = (initialData = defaultTheme) => {
   /**
    * Theme values
    */
@@ -63,8 +61,7 @@ export const useStyle: useStyle = (
   /**
    * Width and height of terminal viewport.
    */
-  const [stdoutWidth, stdoutHeight]: ComponentState =
-    useStdoutDimensions()
+  const [stdoutWidth, stdoutHeight]: ComponentState = useStdoutDimensions()
   const [width, setWidth]: ComponentState = useState(null)
   const [height, setHeight]: ComponentState = useState(null)
 
@@ -100,8 +97,7 @@ export const useStyle: useStyle = (
   useEffect(() => {
     setBounds({
       width: width > theme.maxWidth ? theme.maxWidth : width,
-      height:
-        height > theme.maxHeight ? theme.maxHeight : height,
+      height: height > theme.maxHeight ? theme.maxHeight : height,
     })
   }, [width, height, theme.maxHeight, theme.maxWidth])
 
@@ -118,9 +114,7 @@ export const useStyle: useStyle = (
    */
   useEffect(() => {
     theme.screens.forEach(([lower, upper], iteration) => {
-      bounds.width > lower &&
-        bounds.width < upper &&
-        setScreen(iteration)
+      bounds.width > lower && bounds.width < upper && setScreen(iteration)
     })
   }, [bounds, theme])
 

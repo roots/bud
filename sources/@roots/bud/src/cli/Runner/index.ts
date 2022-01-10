@@ -53,14 +53,8 @@ export class Runner {
             this.cli.flags['location.project'],
             seed.location.project,
           ),
-          src: parse(
-            this.cli.flags['location.src'],
-            seed.location.src,
-          ),
-          dist: parse(
-            this.cli.flags['location.dist'],
-            seed.location.dist,
-          ),
+          src: parse(this.cli.flags['location.src'], seed.location.src),
+          dist: parse(this.cli.flags['location.dist'], seed.location.dist),
           storage: parse(
             this.cli.flags['location.storage'],
             seed.location.storage,
@@ -71,10 +65,7 @@ export class Runner {
           ),
         },
         cache: {
-          type: parse(
-            this.cli.flags['cache.type'],
-            seed.cache.type,
-          ),
+          type: parse(this.cli.flags['cache.type'], seed.cache.type),
         },
         features: {
           cache: parse(this.cli.flags.cache, true),

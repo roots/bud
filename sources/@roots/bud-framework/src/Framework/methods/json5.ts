@@ -6,10 +6,7 @@ export const read = async (file: string): Promise<any> => {
   return json5.parse(source.trim())
 }
 
-export const write = async (
-  file: string,
-  data: any,
-): Promise<void> => {
+export const write = async (file: string, data: any): Promise<void> => {
   const source = json5.stringify(data)
   await writeFile(file, source)
 }

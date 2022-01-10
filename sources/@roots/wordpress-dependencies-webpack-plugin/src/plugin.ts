@@ -56,16 +56,13 @@ export class WordPressDependenciesWebpackPlugin {
       this.normalModuleFactory,
     )
 
-    compiler.hooks.thisCompilation.tap(
-      this.plugin,
-      compilation => {
-        this.compilation = compilation
-        this.compilation.hooks.processAssets.tap(
-          this.plugin,
-          this.processAssets,
-        )
-      },
-    )
+    compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
+      this.compilation = compilation
+      this.compilation.hooks.processAssets.tap(
+        this.plugin,
+        this.processAssets,
+      )
+    })
   }
 
   /**

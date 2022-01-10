@@ -17,11 +17,7 @@ export class Logger {
   public get context(): Array<string> {
     const ctx = []
     this.app.options.config.location.project &&
-      ctx.push(
-        this.app.options.config.location.project
-          .split('/')
-          .pop(),
-      )
+      ctx.push(this.app.options.config.location.project.split('/').pop())
 
     !this.app.isRoot && this.app.name && ctx.push(this.app.name)
 
@@ -34,9 +30,7 @@ export class Logger {
    * @public
    */
   public scoped(...scope: Array<string>) {
-    return this.instance.scope(
-      ...[...this.context, ...(scope ?? [])],
-    )
+    return this.instance.scope(...[...this.context, ...(scope ?? [])])
   }
 
   /**
@@ -52,9 +46,7 @@ export class Logger {
    * @public
    */
   public get enabled(): boolean {
-    const logEnabled = !isUndefined(this.flags.log)
-      ? this.flags.log
-      : true
+    const logEnabled = !isUndefined(this.flags.log) ? this.flags.log : true
 
     return logEnabled
   }
@@ -75,9 +67,7 @@ export class Logger {
    * @public
    */
   public get interactive(): boolean {
-    const usesPapertrail = !isUndefined(
-      this.flags['log.papertrail'],
-    )
+    const usesPapertrail = !isUndefined(this.flags['log.papertrail'])
       ? !this.flags['log.papertrail']
       : false
 
@@ -151,10 +141,7 @@ export class Logger {
    * @decorator `@bind`
    */
   @bind
-  public makeInstance(
-    options?: SignaleOptions,
-    config?: SignaleConfig,
-  ) {
+  public makeInstance(options?: SignaleOptions, config?: SignaleConfig) {
     options = {
       ...this.options,
       ...(options ?? {}),

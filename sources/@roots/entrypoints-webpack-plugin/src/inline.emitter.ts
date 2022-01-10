@@ -36,9 +36,7 @@ export class InlineEmitter {
   @bind
   public getCompiledAsset(file: string) {
     const raw =
-      this.compilation.assets[
-        file.replace(this.publicPath, '')
-      ]?.source()
+      this.compilation.assets[file.replace(this.publicPath, '')]?.source()
 
     return raw instanceof Buffer ? raw.toString() : raw
   }
@@ -77,10 +75,7 @@ export class InlineEmitter {
    * @decorator `@bind`
    */
   @bind
-  public styleReducer(
-    emittedHtml: string,
-    file: string,
-  ): string {
+  public styleReducer(emittedHtml: string, file: string): string {
     return `${emittedHtml}<link rel="stylesheet" href="${file}" />\n`
   }
 
@@ -96,9 +91,7 @@ export class InlineEmitter {
   @bind
   public scriptReducer(a: string, file: string): string {
     if (file.includes('runtime')) {
-      return `${a}\n<script>\n${this.getCompiledAsset(
-        file,
-      )}\n</script>\n`
+      return `${a}\n<script>\n${this.getCompiledAsset(file)}\n</script>\n`
     }
 
     return `${a}<script src="${file}" type="defer"></script>\n`

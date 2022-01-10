@@ -4,10 +4,7 @@ import AutoDllPlugin from 'autodll-webpack-plugin'
 import {library} from './library'
 
 export interface BudDllExtension
-  extends Extension.CompilerPlugin<
-    AutoDllPlugin,
-    AutoDllPlugin.Options
-  > {
+  extends Extension.CompilerPlugin<AutoDllPlugin, AutoDllPlugin.Options> {
   name: Extension.CompilerPlugin['name'] & '@roots/bud-library'
   api: Extension.CompilerPlugin['api'] & {
     library: library

@@ -1,7 +1,4 @@
-import {
-  Dashboard as Contract,
-  Framework,
-} from '@roots/bud-framework'
+import {Dashboard as Contract, Framework} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, chalk, once} from '@roots/bud-support'
 import {Instance, render} from 'ink'

@@ -19,15 +19,12 @@ export class Watcher {
    */
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
-    const [files, options] =
-      this.app.store.getValues('server.watch')
+    const [files, options] = this.app.store.getValues('server.watch')
 
     if (!files?.length) return []
 
     const globResults = await globby(
-      files.map((file: string) =>
-        this.app.path('project', file),
-      ),
+      files.map((file: string) => this.app.path('project', file)),
       options,
     )
 

@@ -50,17 +50,14 @@ export function setPath(...args): Framework {
       })
     })
 
-    this.when(
-      !['project'].includes(k) && v.startsWith('/'),
-      () => {
-        this.warn({
-          message: `${k} was defined as ${v}.`,
-          suffix: `This path should be relative to the project root. You should fix this.`,
-        })
+    this.when(!['project'].includes(k) && v.startsWith('/'), () => {
+      this.warn({
+        message: `${k} was defined as ${v}.`,
+        suffix: `This path should be relative to the project root. You should fix this.`,
+      })
 
-        v = v.replace(this.hooks.filter('location.project'), '')
-      },
-    )
+      v = v.replace(this.hooks.filter('location.project'), '')
+    })
 
     this.hooks.on(`location.${k}`, v)
     this.info({message: `${k} set`, suffix: v})

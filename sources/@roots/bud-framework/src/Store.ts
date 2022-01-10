@@ -26,10 +26,7 @@ export class Store<T = Store.Repository> extends Service<T> {
    * @param app - Framework
    * @param options - Partial framework config
    */
-  public constructor(
-    app: Framework,
-    options: Partial<Store.Repository>,
-  ) {
+  public constructor(app: Framework, options: Partial<Store.Repository>) {
     super(app)
     this.repository = options
   }
@@ -39,10 +36,9 @@ export class Store<T = Store.Repository> extends Service<T> {
    *
    * @override
    */
-  public get<
-    K extends keyof Store.Map & string,
-    T = Store.Map[K],
-  >(path: K): T {
+  public get<K extends keyof Store.Map & string, T = Store.Map[K]>(
+    path: K,
+  ): T {
     return get(this.repository, path)
   }
 
@@ -51,10 +47,10 @@ export class Store<T = Store.Repository> extends Service<T> {
    *
    * @override
    */
-  public set<
-    K extends keyof Store.Map & string,
-    T = Store.Map[K],
-  >(path: K, value: T) {
+  public set<K extends keyof Store.Map & string, T = Store.Map[K]>(
+    path: K,
+    value: T,
+  ) {
     set(this.repository, path, value)
     return this
   }
@@ -517,10 +513,7 @@ export namespace Store {
   type BuildKeyMap = {
     ['build.bail']: boolean
     [`build.cache`]: any
-    ['build.cache.buildDependencies']: Record<
-      string,
-      Array<string>
-    >
+    ['build.cache.buildDependencies']: Record<string, Array<string>>
     ['build.cache.cacheDirectory']: string
     [`build.cache.version`]: string
     ['build.cache.type']: 'memory' | 'filesystem'
@@ -556,10 +549,7 @@ export namespace Store {
     [`build.profile`]: Repository['build']['profile']
     [`build.recordsPath`]: Repository['build']['recordsPath']
     [`build.resolve`]: Repository['build']['resolve']
-    [`build.resolve.alias`]: Record<
-      string,
-      string | false | string[]
-    >
+    [`build.resolve.alias`]: Record<string, string | false | string[]>
     [`build.resolve.extensions`]: Repository['build']['resolve']['extensions']
     [`build.resolve.modules`]: Repository['build']['resolve']['modules']
     [`build.stats`]: Repository['build']['stats']

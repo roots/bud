@@ -3,17 +3,17 @@
   - codecov.yml
 
 'yarn':
-  - config/yarn/*
-  - config/yarn/**/*
+  - dev/yarn/*
+  - dev/yarn/**/*
 
 'dev':
-  - config/yarn/repo/**/*
   - dev/**/*
+  - sources/yarn-plugin-bud/**/*
   - docker-compose.yml
 
 'docs':
-  - site/*
-  - site/**
+  - sources/site/*
+  - sources/site/**
   - README.md
   - sources/@roots/*/README.md
   - dev/site/*
@@ -22,14 +22,14 @@
   - dev/readme/**/*
 
 'dependencies':
-  - packages/**/package.json
+  - sources/**/package.json
   - examples/**/package.json
   - package.json
   - yarn.lock
 
 'deprecated':
-  - packages/deprecated/*
-  - packages/deprecated/**
+  - sources/deprecated/*
+  - sources/deprecated/**
 
 'examples':
   - examples/*
@@ -37,14 +37,14 @@
 
 'test':
   - dev/jest/**/*
-  - packages/**/*.test.js
+  - sources/**/*.test.js
   - tests/*
   - tests/**
   - jest.config.ts
 
 'roots-notifier':
-  - packages/roots-notifier/*
-  - packages/roots-notifier/**
+  - sources/roots-notifier/*
+  - sources/roots-notifier/**
 
 '@roots/bud':
   - sources/@roots/bud/*
@@ -239,9 +239,9 @@
   - sources/@roots/wordpress-externals-webpack-plugin/**
 
 '@roots/bud-typings':
-  - packages/deprecated/bud-typings/*
-  - packages/deprecated/bud-typings/**
+  - sources/deprecated/bud-typings/*
+  - sources/deprecated/bud-typings/**
 
 '@roots/bud-cli':
-  - packages/deprecated/bud-cli/*
-  - packages/deprecated/bud-cli/**
+  - sources/deprecated/bud-cli/*
+  - sources/deprecated/bud-cli/**

@@ -15,12 +15,7 @@ export interface Props {
   theme: Styles
 }
 
-export const Dashboard = ({
-  stats,
-  stderr,
-  stdout,
-  theme,
-}: Props) => {
+export const Dashboard = ({stats, stderr, stdout, theme}: Props) => {
   return (
     <>
       {stats?.errors?.length > 0 && (
@@ -28,13 +23,8 @@ export const Dashboard = ({
           {(message, id) => (
             <Message
               key={`webpack-error-${id}`}
-              message={
-                isString(message) ? message : message.message
-              }
-              colors={[
-                theme.colors.error,
-                theme.colors.foreground,
-              ]}
+              message={isString(message) ? message : message.message}
+              colors={[theme.colors.error, theme.colors.foreground]}
               icon={`✘`}
             />
           )}
@@ -47,10 +37,7 @@ export const Dashboard = ({
             <Message
               key={`webpack-error-${id}`}
               message={message}
-              colors={[
-                theme.colors.error,
-                theme.colors.foreground,
-              ]}
+              colors={[theme.colors.error, theme.colors.foreground]}
               icon={`✘`}
             />
           )}
@@ -67,10 +54,7 @@ export const Dashboard = ({
                   ? webpackWarning
                   : webpackWarning.message
               }
-              colors={[
-                theme.colors.warn,
-                theme.colors.foreground,
-              ]}
+              colors={[theme.colors.warn, theme.colors.foreground]}
               icon={'⚠'}
             />
           )}
@@ -83,10 +67,7 @@ export const Dashboard = ({
             <Message
               key={`stdout-${id}`}
               message={message}
-              colors={[
-                theme.colors.foreground,
-                theme.colors.faded,
-              ]}
+              colors={[theme.colors.foreground, theme.colors.faded]}
               icon={'ℹ'}
             />
           )}

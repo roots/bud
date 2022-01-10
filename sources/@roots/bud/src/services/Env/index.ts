@@ -1,11 +1,6 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {
-  bind,
-  dotenv,
-  dotenvExpand,
-  once,
-} from '@roots/bud-support'
+import {bind, dotenv, dotenvExpand, once} from '@roots/bud-support'
 import {isString} from 'lodash'
 
 /**
@@ -13,10 +8,7 @@ import {isString} from 'lodash'
  *
  * @public
  */
-export class Env
-  extends Service<Record<string, any>>
-  implements Base
-{
+export class Env extends Service<Record<string, any>> implements Base {
   /**
    * Service ident
    *

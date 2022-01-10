@@ -13,10 +13,7 @@ interface Options {
 }
 
 interface BudTypeCheckPlugin
-  extends Extension.CompilerPlugin<
-    ForkTsCheckerWebpackPlugin,
-    Options
-  > {}
+  extends Extension.CompilerPlugin<ForkTsCheckerWebpackPlugin, Options> {}
 
 const name: BudTypeCheckPlugin['name'] = 'fork-ts-checker-plugin'
 

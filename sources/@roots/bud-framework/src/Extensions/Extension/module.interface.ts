@@ -51,9 +51,7 @@ export interface Module<Options = any> extends Loose {
    * @public
    */
   api?:
-    | ((
-        app: Framework,
-      ) => Promise<Record<string, CallableFunction>>)
+    | ((app: Framework) => Promise<Record<string, CallableFunction>>)
     | Record<string, CallableFunction>
 
   /**

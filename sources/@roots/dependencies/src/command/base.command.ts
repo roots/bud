@@ -33,9 +33,7 @@ export abstract class Command {
     return new Promise((resolve, reject) => {
       const command = spawn(commandArgs.shift(), commandArgs)
       onMessage &&
-        command.stdout.on('data', message =>
-          onMessage(message.toString()),
-        )
+        command.stdout.on('data', message => onMessage(message.toString()))
 
       command.on('close', resolve)
       command.on('error', reject)

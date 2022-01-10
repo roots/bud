@@ -54,10 +54,7 @@ function addRefresh(entries, [name, assets]) {
     ...(entries ?? {}),
     [name]: {
       ...assets,
-      import: [
-        'react-refresh/runtime',
-        ...(assets.import ?? []),
-      ],
+      import: ['react-refresh/runtime', ...(assets.import ?? [])],
     },
   }
 }
@@ -68,7 +65,5 @@ function addRefresh(entries, [name, assets]) {
  * @public
  */
 function entryHook(entry) {
-  return entry
-    ? Object.entries(entry).reduce(addRefresh, entry)
-    : {}
+  return entry ? Object.entries(entry).reduce(addRefresh, entry) : {}
 }

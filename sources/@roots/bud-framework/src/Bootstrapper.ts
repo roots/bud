@@ -7,9 +7,7 @@ import {Framework} from './'
  *
  * @public
  */
-export abstract class Bootstrapper<
-  T = any,
-> extends Container<T> {
+export abstract class Bootstrapper<T = any> extends Container<T> {
   /**
    * @internal
    */

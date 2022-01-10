@@ -11,7 +11,4 @@ export const dump: Dump = (
   process.stdout.write(prettyFormat(obj, options))
 }
 
-declare type Dump = (
-  obj: unknown,
-  options?: OptionsReceived,
-) => void
+declare type Dump = (obj: unknown, options?: OptionsReceived) => void

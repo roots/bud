@@ -50,10 +50,7 @@ export class ProxyPublish extends Command {
    * @internal
    */
   public async execute() {
-    if (!this.version) {
-      const {version} = await this.getManifest()
-      this.version = version
-    }
+    if (!this.version) this.version = '0.0.0'
 
     await this.$(`yarn @bud config --proxy`)
 

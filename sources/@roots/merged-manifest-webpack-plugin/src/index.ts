@@ -79,10 +79,7 @@ export class MergedManifestWebpackPlugin {
    * @public
    */
   @bind
-  public async done(
-    _compilation,
-    callback,
-  ): Promise<CallableFunction> {
+  public async done(_compilation, callback): Promise<CallableFunction> {
     if (!this.isBuildable()) {
       return callback()
     }

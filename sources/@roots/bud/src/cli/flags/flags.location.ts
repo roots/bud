@@ -8,9 +8,7 @@ import {Option, Parser} from './flags.interface'
  * @param value -
  * @returns
  */
-const parse: Parser<string> = async (
-  value: string,
-): Promise<string> => {
+const parse: Parser<string> = async (value: string): Promise<string> => {
   if (value.startsWith('~')) {
     return value.replace('~', process.env.HOME || '')
   } else if (value.startsWith('@')) {

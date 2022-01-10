@@ -10,26 +10,24 @@ interface BudDllPluginConstructor {
   (modules: string | string[]): BudDllPlugin
 }
 
-const BudDllPluginConstructor: BudDllPluginConstructor =
-  modules => ({
-    name: 'autodll-webpack-plugin',
+const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
+  name: 'autodll-webpack-plugin',
 
-    options: (app: Framework) => ({
-      debug: false,
-      inject: false,
-      filename: app.store.is('features.hash', true)
-        ? app.store.get('hashFormat')
-        : app.store.get('fileFormat'),
-      entry: {
-        library:
-          typeof modules == 'string' ? [modules] : modules,
-      },
-      path: 'dll',
-      inherit: false,
-      context: app.path('project'),
-    }),
+  options: (app: Framework) => ({
+    debug: false,
+    inject: false,
+    filename: app.store.is('features.hash', true)
+      ? app.store.get('hashFormat')
+      : app.store.get('fileFormat'),
+    entry: {
+      library: typeof modules == 'string' ? [modules] : modules,
+    },
+    path: 'dll',
+    inherit: false,
+    context: app.path('project'),
+  }),
 
-    make: options => new AutoDllPlugin(options.all()),
-  })
+  make: options => new AutoDllPlugin(options.all()),
+})
 
 export {BudDllPlugin, BudDllPluginConstructor}

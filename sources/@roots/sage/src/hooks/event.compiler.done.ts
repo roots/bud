@@ -9,9 +9,7 @@ const {writeJson} = fs
 export default (app: Framework) => async (stats: Stats) => {
   const contents = {
     dev: urlToHttpOptions(app.store.get('server.dev.url')),
-    proxy:
-      urlToHttpOptions(app.store.get('server.proxy.url')) ??
-      false,
+    proxy: urlToHttpOptions(app.store.get('server.proxy.url')) ?? false,
     publicPath: app.hooks.filter('build.output.publicPath'),
   }
 

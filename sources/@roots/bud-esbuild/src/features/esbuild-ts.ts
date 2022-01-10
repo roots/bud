@@ -12,9 +12,7 @@ export const tsFeature: Extension.CompilerPlugin = {
       options: ({path}) => ({
         loader: 'tsx',
         target: 'es2015',
-        tsconfigRaw: pathExistsSync(
-          path('project', 'tsconfig.json'),
-        )
+        tsconfigRaw: pathExistsSync(path('project', 'tsconfig.json'))
           ? readJson(path('project', 'tsconfig.json'))
           : {
               compilerOptions: {

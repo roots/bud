@@ -1,10 +1,5 @@
 import * as Framework from '@roots/bud-framework'
-import {
-  bind,
-  fs,
-  globby,
-  jsonStringify,
-} from '@roots/bud-support'
+import {bind, fs, globby, jsonStringify} from '@roots/bud-support'
 
 import {Peers} from './peers'
 import {writeFile} from './project.dependencies'
@@ -48,11 +43,7 @@ export class Project
    * @public
    */
   public get profilePath(): string {
-    return this.app.path(
-      'storage',
-      this.app.name,
-      'profile.json',
-    )
+    return this.app.path('storage', this.app.name, 'profile.json')
   }
 
   /**
@@ -70,15 +61,11 @@ export class Project
       this.app.store.set(
         `location.${key}`,
         this.app.options.config.cli.flags[`location.${key}`] ??
-          this.get(
-            `manifest.${this.app.name}.location.${key}`,
-          ) ??
+          this.get(`manifest.${this.app.name}.location.${key}`) ??
           this.app.options.config.location[key],
       )
 
-    ;['project', 'src', 'dist', 'storage', 'modules'].map(
-      setLocale,
-    )
+    ;['project', 'src', 'dist', 'storage', 'modules'].map(setLocale)
   }
 
   /**
@@ -93,9 +80,7 @@ export class Project
       public: this.app.env.getPublicEnv(),
       all: this.app.env.all(),
     })
-    this.set('dependencies', [
-      this.app.path('project', 'package.json'),
-    ])
+    this.set('dependencies', [this.app.path('project', 'package.json')])
 
     try {
       await this.buildProfile()
@@ -119,10 +104,7 @@ export class Project
   @bind
   public async boot() {
     this.app.hooks.on('event.build.make.after', async () => {
-      await this.app.hooks.filterAsync(
-        'event.project.write',
-        this,
-      )
+      await this.app.hooks.filterAsync('event.project.write', this)
 
       await this.writeProfile()
     })
@@ -288,17 +270,10 @@ export class Project
 
           if (!result || !result.length) return
 
-          this.merge('dependencies', [
-            this.app.path('project', result),
-          ])
+          this.merge('dependencies', [this.app.path('project', result)])
 
-          if (
-            !result.endsWith('json') &&
-            !result.endsWith('yml')
-          ) {
-            return this.merge(key, [
-              this.app.path('project', result),
-            ])
+          if (!result.endsWith('json') && !result.endsWith('yml')) {
+            return this.merge(key, [this.app.path('project', result)])
           }
 
           if (result.endsWith('.json')) {
@@ -314,9 +289,7 @@ export class Project
               Array.from(
                 new Set([
                   ...i,
-                  this.app.yml.read(
-                    this.app.path('project', result),
-                  ),
+                  this.app.yml.read(this.app.path('project', result)),
                 ]),
               ),
             )

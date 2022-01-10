@@ -38,17 +38,15 @@ interface GenericClassMap {
 export function mixin<ClassMap = GenericClassMap>(
   properties: ClassMap,
 ): void {
-  Object.entries(properties).map(
-    ([name, [ClassObj, ...params]]) => {
-      this[name] = new ClassObj(...params)
+  Object.entries(properties).map(([name, [ClassObj, ...params]]) => {
+    this[name] = new ClassObj(...params)
 
-      if (!(this[name] instanceof ClassObj)) {
-        this.error(
-          `${name} not properly bound to ${this.name} framework instance`,
-        )
-        this.dump(this.name)
-        this.dump(ClassObj)
-      }
-    },
-  )
+    if (!(this[name] instanceof ClassObj)) {
+      this.error(
+        `${name} not properly bound to ${this.name} framework instance`,
+      )
+      this.dump(this.name)
+      this.dump(ClassObj)
+    }
+  })
 }

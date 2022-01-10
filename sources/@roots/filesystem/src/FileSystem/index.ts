@@ -72,9 +72,7 @@ export class FileSystem extends Container<FileContainer> {
 
     this.set(
       key,
-      new FileContainer(baseDir).setDisk(
-        options?.glob ?? ['*', '**/*'],
-      ),
+      new FileContainer(baseDir).setDisk(options?.glob ?? ['*', '**/*']),
     )
 
     return this.get(key)

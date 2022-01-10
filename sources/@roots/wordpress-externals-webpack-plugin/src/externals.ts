@@ -20,10 +20,7 @@ export type PackageMapEntry = [string, Record<string, string>]
  * Packages in the `@wordpress` namespace which
  * should not be considered as external
  */
-const OMIT_PACKAGE_MATCHES = [
-  '@wordpress/icons',
-  '@wordpress/interface',
-]
+const OMIT_PACKAGE_MATCHES = ['@wordpress/icons', '@wordpress/interface']
 
 /**
  * Pkg map
@@ -92,11 +89,9 @@ export const isProvided: (
  * Transform pkg string request
  */
 export const transform = (packageName: string): any => {
-  const transformedPackageName =
-    transformPackageName(packageName)
+  const transformedPackageName = transformPackageName(packageName)
 
-  if (packageMap.has(packageName))
-    return packageMap.get(packageName)
+  if (packageMap.has(packageName)) return packageMap.get(packageName)
 
   if (isProvided(packageName)) {
     return {

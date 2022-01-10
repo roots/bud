@@ -14,10 +14,7 @@ const inDevelopment = (app: Framework) => {
 
   app.hooks
     /** Use full URL for development */
-    .async(
-      'event.build.make.before',
-      eventBuildMakeBeforeDevelopment,
-    )
+    .async('event.build.make.before', eventBuildMakeBeforeDevelopment)
     /** Write hmr.json after compilation */
     .hooks.async<'event.compiler.done'>(
       'event.compiler.done',

@@ -25,10 +25,7 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public constructor(
-    public _app: () => Framework,
-    public url: URL,
-  ) {}
+  public constructor(public _app: () => Framework, public url: URL) {}
 
   /**
    * Response interceptor
@@ -72,10 +69,7 @@ export class ResponseInterceptorFactory {
        */
       return this.app.hooks
         .filter('proxy.replace', () => [this.replaceAssetPath()])
-        ?.reduce(
-          (html, [from, to]) => html.replaceAll(from, to),
-          body,
-        )
+        ?.reduce((html, [from, to]) => html.replaceAll(from, to), body)
     } catch (err) {
       this.app.error(err)
       return buffer
@@ -91,10 +85,7 @@ export class ResponseInterceptorFactory {
   @bind
   public make() {
     return responseInterceptor(
-      this.app.hooks.filter(
-        'proxy.interceptor',
-        () => this._interceptor,
-      ),
+      this.app.hooks.filter('proxy.interceptor', () => this._interceptor),
     )
   }
 

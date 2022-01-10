@@ -13,10 +13,7 @@ const BudCopyWebpackPlugin: Extension = {
     }),
 
   when(_app, options) {
-    return (
-      options.has('patterns') &&
-      options.get('patterns')?.length > 0
-    )
+    return options.has('patterns') && options.get('patterns')?.length > 0
   },
 }
 

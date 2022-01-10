@@ -28,6 +28,4 @@ export const PARENT_SERVICES: (string | number)[] = [
  *
  * @public
  */
-export const DEVELOPMENT_SERVICES: (string | number)[] = [
-  'server',
-]
+export const DEVELOPMENT_SERVICES: (string | number)[] = ['server']

@@ -18,9 +18,7 @@
  */
 
 import type {Extension} from '@roots/bud-framework'
-import StylelintWebpackPlugin, {
-  Options,
-} from 'stylelint-webpack-plugin'
+import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {

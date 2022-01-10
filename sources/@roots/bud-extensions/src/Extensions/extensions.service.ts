@@ -104,9 +104,7 @@ export class Extensions extends Service implements Base {
   }
 
   @bind
-  public async importExtension(
-    extension: string,
-  ): Promise<void> {
+  public async importExtension(extension: string): Promise<void> {
     this.log('log', `importing ${extension}`)
     const importedExt = await import(extension)
 
@@ -125,9 +123,7 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async registerExtension(
-    extension: Controller,
-  ): Promise<void> {
+  public async registerExtension(extension: Controller): Promise<void> {
     try {
       if (!extension) return
       this.app.log('registering', extension.name)
@@ -145,9 +141,7 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async bootExtension(
-    extension: Controller,
-  ): Promise<void> {
+  public async bootExtension(extension: Controller): Promise<void> {
     try {
       if (!extension) return
       this.app.log('booting', extension.name)
@@ -165,13 +159,10 @@ export class Extensions extends Service implements Base {
   public async registerExtensions(): Promise<void> {
     this.log('time', 'registering')
 
-    await this.getEntries().reduce(
-      async (promised, [key, controller]) => {
-        await promised
-        await this.registerExtension(controller)
-      },
-      Promise.resolve(),
-    )
+    await this.getEntries().reduce(async (promised, [key, controller]) => {
+      await promised
+      await this.registerExtension(controller)
+    }, Promise.resolve())
 
     this.log('timeEnd', 'registering')
   }
@@ -182,13 +173,10 @@ export class Extensions extends Service implements Base {
   @bind
   public async bootExtensions(): Promise<void> {
     this.log('time', 'booting')
-    await this.getEntries().reduce(
-      async (promised, [key, controller]) => {
-        await promised
-        await this.bootExtension(controller)
-      },
-      Promise.resolve(),
-    )
+    await this.getEntries().reduce(async (promised, [key, controller]) => {
+      await promised
+      await this.bootExtension(controller)
+    }, Promise.resolve())
 
     this.log('timeEnd', 'booting')
   }
@@ -202,10 +190,7 @@ export class Extensions extends Service implements Base {
   @bind
   public async add(extension: Extension.Module): Promise<void> {
     if (this.has(extension.name)) {
-      this.log(
-        'info',
-        `${extension.name} already exists. skipping.`,
-      )
+      this.log('info', `${extension.name} already exists. skipping.`)
       return
     }
 

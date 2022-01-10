@@ -22,18 +22,13 @@ interface EntryObject {
  * Entry assets expressed as a key-value mapping
  */
 interface EntryInput {
-  [k: string]:
-    | EntryObject
-    | EntryObject['import']
-    | GlobTask['pattern']
+  [k: string]: EntryObject | EntryObject['import'] | GlobTask['pattern']
 }
 
 /**
  * An entry asset or an array of entry assets expressed with fast-glob syntax.
  */
-type EntryValue =
-  | GlobTask['pattern']
-  | Array<GlobTask['pattern']>
+type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>
 
 export interface entry {
   (name: string, entrypoint: EntryValue): Promise<Framework>
@@ -50,9 +45,7 @@ export interface facade {
   (entrypoints: EntryInput): Framework
 }
 
-export const entry: entry = async function (
-  ...args
-): Promise<Framework> {
+export const entry: entry = async function (...args): Promise<Framework> {
   this as Framework
 
   /**
@@ -64,9 +57,7 @@ export const entry: entry = async function (
   /**
    * Cast single assets to an array
    */
-  const entrypoints = isSingleEntry
-    ? [{[args[0]]: args[1]}]
-    : args
+  const entrypoints = isSingleEntry ? [{[args[0]]: args[1]}] : args
 
   /**
    * Make the entrypoints and return the framework

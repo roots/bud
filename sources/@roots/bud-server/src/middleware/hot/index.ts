@@ -24,8 +24,5 @@ const options: (
  * @public
  */
 export default function hot(app: Framework) {
-  return WebpackHotMiddleware(
-    app.compiler.instance,
-    options(app),
-  )
+  return WebpackHotMiddleware(app.compiler.instance, options(app))
 }

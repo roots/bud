@@ -61,14 +61,11 @@ export class FileContainer extends Container {
    */
   @bind
   public setDisk(glob: string[]): this {
-    globbySync(
-      glob ?? ['*', '**/*', '!vendor', '!node_modules'],
-      {
-        onlyFiles: false,
-        cwd: this._baseDir,
-        expandDirectories: true,
-      },
-    ).map((file: any) => {
+    globbySync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
+      onlyFiles: false,
+      cwd: this._baseDir,
+      expandDirectories: true,
+    }).map((file: any) => {
       this.set(file, path.join(this.baseDir, file))
     })
 

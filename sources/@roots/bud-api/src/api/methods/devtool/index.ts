@@ -5,9 +5,7 @@ export interface devtool {
   (devtool?: Configuration['devtool']): Promise<Framework>
 }
 
-export const devtool: devtool = async function (
-  devtool = false,
-) {
+export const devtool: devtool = async function (devtool = false) {
   this as Framework
 
   const value = devtool ?? 'cheap-module-source-map'

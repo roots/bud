@@ -50,20 +50,17 @@ export const minimize: minimize = function (
 
   this.hooks.on('build.optimization.minimize', () => enabled)
 
-  this.hooks.on(
-    'build.optimization.minimizer',
-    (minimizer: any[]) => {
-      minimizer.push(
-        ...(minimizer.includes('...') ? [] : ['...']),
-        new CssMinimizer({
-          ...cssMinimizerOptions,
-          ...(options?.css ?? {}),
-        }),
-      )
+  this.hooks.on('build.optimization.minimizer', (minimizer: any[]) => {
+    minimizer.push(
+      ...(minimizer.includes('...') ? [] : ['...']),
+      new CssMinimizer({
+        ...cssMinimizerOptions,
+        ...(options?.css ?? {}),
+      }),
+    )
 
-      return minimizer
-    },
-  )
+    return minimizer
+  })
 
   return this
 }

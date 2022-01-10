@@ -22,11 +22,7 @@ export interface proxy {
 }
 
 export const proxy: proxy = function (
-  config:
-    | URL
-    | Partial<Server.Configuration['proxy']>
-    | boolean
-    | number,
+  config: URL | Partial<Server.Configuration['proxy']> | boolean | number,
 ) {
   const ctx = this as Framework
 
@@ -37,11 +33,7 @@ export const proxy: proxy = function (
   }
 
   if (typeof config === 'boolean') {
-    ctx.api.log(
-      'log',
-      config ? 'enabling' : 'disabling',
-      'proxy',
-    )
+    ctx.api.log('log', config ? 'enabling' : 'disabling', 'proxy')
     ctx.store.set('features.proxy', config)
     return ctx
   }

@@ -15,17 +15,13 @@ import * as WebpackProvidePlugin from './webpack-provide-plugin'
  *
  * @public
  */
-export function extensions(): Record<
-  string,
-  Extension.CompilerPlugin
-> {
+export function extensions(): Record<string, Extension.CompilerPlugin> {
   return {
     ['webpack-provide-plugin']: WebpackProvidePlugin,
     ['clean-webpack-plugin']: CleanWebpackPlugin,
     ['copy-webpack-plugin']: CopyWebpackPlugin,
     ['webpack-define-plugin']: DefineWebpackPlugin,
-    ['webpack-hot-module-replacement-plugin']:
-      HotModuleReplacementPlugin,
+    ['webpack-hot-module-replacement-plugin']: HotModuleReplacementPlugin,
     ['webpack-manifest-plugin']: WebpackManifestPlugin,
     ['mini-css-extract-plugin']: MiniCssExtractPlugin,
   }

@@ -42,10 +42,7 @@ export class Config {
    * @public
    */
   @bind
-  public setPreset(
-    name: string,
-    preset: [string, any] | string,
-  ): this {
+  public setPreset(name: string, preset: [string, any] | string): this {
     if (Array.isArray(preset)) {
       this.presets[name] = preset
       return this
@@ -83,19 +80,13 @@ export class Config {
 
   @bind
   public setPresetOptions(preset: string, options: any): this {
-    this.presets[preset] = [
-      this.presets[preset].shift(),
-      options,
-    ]
+    this.presets[preset] = [this.presets[preset].shift(), options]
 
     return this
   }
 
   @bind
-  public setPlugin(
-    name: string,
-    plugin: [any, any] | string,
-  ): this {
+  public setPlugin(name: string, plugin: [any, any] | string): this {
     if (Array.isArray(plugin)) {
       this.plugins[name] = plugin
       return this
@@ -106,9 +97,7 @@ export class Config {
   }
 
   @bind
-  public setPlugins(plugins: {
-    [key: string]: [any, any] | string
-  }): this {
+  public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => {
         if (Array.isArray(plugin)) {
@@ -133,10 +122,7 @@ export class Config {
 
   @bind
   public setPluginOptions(plugin: string, options: any): this {
-    this.plugins[plugin] = [
-      this.plugins[plugin].shift(),
-      options,
-    ]
+    this.plugins[plugin] = [this.plugins[plugin].shift(), options]
 
     return this
   }

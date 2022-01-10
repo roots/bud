@@ -1,5 +1,7 @@
 import {resolve} from 'path'
-export const baseDir = resolve(__dirname, '../../..')
+
+export const baseDir = resolve(__dirname, '../..')
+
 export const nccOptions = {
   externals: [
     'css-loader',

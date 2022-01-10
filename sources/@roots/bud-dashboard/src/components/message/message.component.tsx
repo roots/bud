@@ -13,10 +13,10 @@ export const Message = ({message, icon, colors}: Props) => {
   return (
     <Text>
       <Text color={`${colors[0]}`}>{icon ?? ''}</Text>{' '}
-      {(message.startsWith('\n')
-        ? message.slice(1)
-        : message
-      ).replace(process.cwd(), '.')}
+      {(message.startsWith('\n') ? message.slice(1) : message).replace(
+        process.cwd(),
+        '.',
+      )}
     </Text>
   )
 }

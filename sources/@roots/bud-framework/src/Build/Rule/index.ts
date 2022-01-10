@@ -93,9 +93,7 @@ export interface Interface {
    *
    * @public
    */
-  setUse(
-    use: Maybe<[Framework], Item.Interface[]>,
-  ): Rule.Interface
+  setUse(use: Maybe<[Framework], Item.Interface[]>): Rule.Interface
 
   /**
    * Use item

@@ -16,10 +16,7 @@ export const middleware = (app: Framework) => {
 
   const url = new URL(() => app)
 
-  const interceptor = new ResponseInterceptorFactory(
-    () => app,
-    url,
-  )
+  const interceptor = new ResponseInterceptorFactory(() => app, url)
   const request = new RequestInterceptorFactory(() => app, url)
 
   const options = new OptionsFactory(

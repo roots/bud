@@ -100,7 +100,5 @@ export default interface Build extends Service {
    *
    * @public
    */
-  makeRule(
-    constructorProperties?: Partial<Rule.Options>,
-  ): Rule.Interface
+  makeRule(constructorProperties?: Partial<Rule.Options>): Rule.Interface
 }

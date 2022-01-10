@@ -75,9 +75,7 @@ export class Cache
    */
   @bind
   public async hashFileContents(): Promise<string> {
-    const makeHash: (
-      str: string,
-    ) => Promise<string> = async str =>
+    const makeHash: (str: string) => Promise<string> = async str =>
       createHash('sha1')
         .update(str)
         .digest('base64')
@@ -87,15 +85,11 @@ export class Cache
     try {
       const paths = this.app.project.get('dependencies')
       const strings = await Promise.all(
-        paths.map(async (path: string) =>
-          readFile(path, 'utf8'),
-        ),
+        paths.map(async (path: string) => readFile(path, 'utf8')),
       )
 
       const hash = await makeHash(
-        `${strings}${JSON.stringify(
-          this.app.project.get('cli'),
-        )}`,
+        `${strings}${JSON.stringify(this.app.project.get('cli'))}`,
       )
 
       this.log('info', {
@@ -103,13 +97,10 @@ export class Cache
         suffix: hash,
       })
 
-      this.app.hooks.async(
-        'event.project.write',
-        async project => {
-          project.set('cache.hash', hash)
-          return project
-        },
-      )
+      this.app.hooks.async('event.project.write', async project => {
+        project.set('cache.hash', hash)
+        return project
+      })
 
       return hash
     } catch (e) {

@@ -42,9 +42,7 @@ export default abstract class Item {
    *
    * @public
    */
-  public abstract setOptions(
-    factory: Maybe<[Framework], Options>,
-  ): void
+  public abstract setOptions(factory: Maybe<[Framework], Options>): void
 
   /**
    * Merge option
@@ -55,10 +53,7 @@ export default abstract class Item {
    *
    * @public
    */
-  public abstract mergeOptions(
-    options: Options,
-    app: Framework,
-  ): void
+  public abstract mergeOptions(options: Options, app: Framework): void
 
   /**
    * Makes final Item output

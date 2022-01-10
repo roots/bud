@@ -30,9 +30,7 @@ export interface lifecycle {
  *
  * @public
  */
-export async function lifecycle(
-  this: Framework,
-): Promise<Framework> {
+export async function lifecycle(this: Framework): Promise<Framework> {
   this.logger.instance.time(`building ${this.name}`)
 
   /**
@@ -44,8 +42,7 @@ export async function lifecycle(
        * - No reason to start server for production
        * - No reason to boot expensive parent services for child compilation instantances
        */
-      return (this.isProduction &&
-        DEVELOPMENT_SERVICES.includes(name)) ||
+      return (this.isProduction && DEVELOPMENT_SERVICES.includes(name)) ||
         (!this.isRoot && PARENT_SERVICES.includes(name))
         ? false
         : true
@@ -57,15 +54,10 @@ export async function lifecycle(
    */
   const initializedServices = validServices
     .filter(([name]) => isUndefined(this[name]))
-    .map(
-      ([name, Service]: [
-        string,
-        new (app: Framework) => Service,
-      ]) => {
-        this[name] = new Service(this)
-        return this[name]
-      },
-    )
+    .map(([name, Service]: [string, new (app: Framework) => Service]) => {
+      this[name] = new Service(this)
+      return this[name]
+    })
 
   /**
    * Service lifecycle
@@ -82,18 +74,14 @@ export async function lifecycle(
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
         this.await({
-          message: `[${i + 1}/${
-            eligibleServices.length
-          }] ${event}`,
+          message: `[${i + 1}/${eligibleServices.length}] ${event}`,
           suffix: service.constructor.name.toLowerCase(),
         })
 
         await service[event](this)
 
         this.success({
-          message: `[${i + 1}/${
-            eligibleServices.length
-          }] ${event}`,
+          message: `[${i + 1}/${eligibleServices.length}] ${event}`,
           suffix: service.constructor.name.toLowerCase(),
         })
       }),

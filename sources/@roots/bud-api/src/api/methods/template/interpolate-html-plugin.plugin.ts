@@ -58,12 +58,8 @@ export class InterpolateHtmlPlugin {
    * @decorator `@bind`
    */
   @bind
-  public modifyHtmlWebpackPluginOptions(
-    compilation: Compilation,
-  ): void {
-    HtmlWebpackPlugin.getHooks(
-      compilation,
-    ).afterTemplateExecution.tap(
+  public modifyHtmlWebpackPluginOptions(compilation: Compilation): void {
+    HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tap(
       'InterpolateHtmlPlugin',
       (data: any) => {
         this.bud().dump(this.replacements, {
@@ -76,14 +72,12 @@ export class InterpolateHtmlPlugin {
           language: 'html',
           callToJSON: false,
         })
-        Object.entries(this.replacements).forEach(
-          ([key, value]) => {
-            data.html = data.html.replaceAll(
-              new RegExp(`%${key}%`, 'g'),
-              value,
-            )
-          },
-        )
+        Object.entries(this.replacements).forEach(([key, value]) => {
+          data.html = data.html.replaceAll(
+            new RegExp(`%${key}%`, 'g'),
+            value,
+          )
+        })
 
         this.bud().dump(data.html, {
           prefix: 'html with replacements',

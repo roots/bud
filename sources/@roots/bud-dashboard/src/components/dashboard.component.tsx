@@ -19,11 +19,7 @@ const {isUndefined} = lodash
  *
  * @public
  */
-export const Dashboard = ({
-  application,
-}: {
-  application: Framework
-}) => {
+export const Dashboard = ({application}: {application: Framework}) => {
   useForceUpdate()
 
   const ink = useApp()
@@ -55,8 +51,7 @@ export const Dashboard = ({
     }
 
     const updateProgress = () => {
-      if (isUndefined(instance?.current?.compiler?.progress))
-        return
+      if (isUndefined(instance?.current?.compiler?.progress)) return
 
       setProgress(instance.current.compiler?.progress)
     }
@@ -95,12 +90,7 @@ export const Dashboard = ({
     if (!isComplete && cleared) {
       setCleared(false)
     }
-  }, [
-    cleared,
-    stats,
-    isComplete,
-    instance.current.dashboard.stderr,
-  ])
+  }, [cleared, stats, isComplete, instance.current.dashboard.stderr])
 
   return (
     <Box flexDirection="column" marginTop={1}>

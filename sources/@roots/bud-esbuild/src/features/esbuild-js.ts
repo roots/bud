@@ -13,8 +13,6 @@ export const jsFeature: Extension.CompilerPlugin = {
       }),
     })
 
-    app.build.rules.js.setUse(app => [
-      app.build.items['esbuild-js'],
-    ])
+    app.build.rules.js.setUse(app => [app.build.items['esbuild-js']])
   },
 }

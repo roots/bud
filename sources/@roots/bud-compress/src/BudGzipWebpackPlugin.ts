@@ -9,8 +9,7 @@ interface BudGzipWebpackPlugin
     BudCompressionExtension.Options
   > {}
 
-const name: BudGzipWebpackPlugin['name'] =
-  'bud-gzip-webpack-plugin'
+const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
 
 const options: BudGzipWebpackPlugin['options'] = {
   algorithm: 'gzip',

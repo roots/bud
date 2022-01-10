@@ -33,13 +33,10 @@ export const VueExtension: Extension.Module = {
       ],
     )
 
-    hooks.on<'build.resolve.alias'>(
-      'build.resolve.alias',
-      aliases => ({
-        ...(aliases ?? {}),
-        vue: '@vue/runtime-dom',
-      }),
-    )
+    hooks.on<'build.resolve.alias'>('build.resolve.alias', aliases => ({
+      ...(aliases ?? {}),
+      vue: '@vue/runtime-dom',
+    }))
 
     hooks.on<'build.resolve.extensions'>(
       'build.resolve.extensions',
@@ -49,9 +46,7 @@ export const VueExtension: Extension.Module = {
       ],
     )
 
-    loaders['vue-style'] = new Loader(
-      require.resolve('vue-style-loader'),
-    )
+    loaders['vue-style'] = new Loader(require.resolve('vue-style-loader'))
     items['vue-style'] = new Item({
       loader: ({build}) => build.loaders['vue-style'],
     })

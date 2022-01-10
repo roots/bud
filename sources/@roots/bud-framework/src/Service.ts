@@ -159,9 +159,7 @@ export abstract class Service<
         ...messages.reduce(
           (
             acc,
-            loggedItem:
-              | string
-              | {message?: string; suffix?: string},
+            loggedItem: string | {message?: string; suffix?: string},
           ) => {
             if (
               typeof loggedItem !== 'string' &&

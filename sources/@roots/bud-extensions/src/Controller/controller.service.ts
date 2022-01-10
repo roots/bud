@@ -10,11 +10,7 @@ import {
   omit,
   Signale,
 } from './controller.dependencies'
-import {
-  Extension,
-  Framework,
-  Plugin,
-} from './controller.interface'
+import {Extension, Framework, Plugin} from './controller.interface'
 
 /**
  * Extension instance controller
@@ -95,9 +91,7 @@ export class Controller {
     this.meta.instance = this.app.name
 
     if (!extension) {
-      throw Error(
-        `extension controller constructor: missing module`,
-      )
+      throw Error(`extension controller constructor: missing module`)
     }
 
     if (!extension.name) {
@@ -108,10 +102,7 @@ export class Controller {
     this.name = extension.name
     this.options = extension.options
 
-    Object.assign(
-      this._module,
-      omit(extension, ['name', 'options']),
-    )
+    Object.assign(this._module, omit(extension, ['name', 'options']))
   }
 
   /**
@@ -160,9 +151,7 @@ export class Controller {
 
     if (this._module.options instanceof Container) {
       return this.app.hooks.filter(
-        `extension.${
-          this._module.name as keyof Modules & string
-        }.options`,
+        `extension.${this._module.name as keyof Modules & string}.options`,
         () => this._module.options,
       )
     }
@@ -173,9 +162,7 @@ export class Controller {
       )
 
     return this.app.hooks.filter(
-      `extension.${
-        this._module.name as keyof Modules & string
-      }.options`,
+      `extension.${this._module.name as keyof Modules & string}.options`,
       () => this.app.container(this._module.options),
     )
   }
@@ -208,9 +195,7 @@ export class Controller {
     const result = options(this.options)
 
     if (!(result instanceof Container) || !isObject(result)) {
-      throw new Error(
-        `mutation must return an object or container`,
-      )
+      throw new Error(`mutation must return an object or container`)
     }
 
     this.options = result
@@ -234,9 +219,7 @@ export class Controller {
     }
 
     if (!isObject(options)) {
-      throw new Error(
-        `merged options must be an object or container`,
-      )
+      throw new Error(`merged options must be an object or container`)
     }
 
     const optionsContainer = this.options
@@ -408,10 +391,11 @@ export class Controller {
   public async api(): Promise<Controller> {
     if (!this._module.api) return this
 
-    const methodMap: Record<string, CallableFunction> =
-      isFunction(this._module.api)
-        ? await this._module.api(this.app)
-        : this._module.api
+    const methodMap: Record<string, CallableFunction> = isFunction(
+      this._module.api,
+    )
+      ? await this._module.api(this.app)
+      : this._module.api
 
     if (!isObject(methodMap))
       throw new Error(
@@ -422,17 +406,11 @@ export class Controller {
       if (!isFunction(method))
         throw new Error(`${name} must be a function`)
 
-      this.app.api.set(
-        name,
-        method.bind ? method.bind(this.app) : method,
-      )
+      this.app.api.set(name, method.bind ? method.bind(this.app) : method)
 
       this.app.api.bindFacade(name)
 
-      if (
-        isUndefined(this.app[name]) ||
-        !isFunction(this.app[name])
-      )
+      if (isUndefined(this.app[name]) || !isFunction(this.app[name]))
         throw new Error(
           `there was a problem binding the ${name} fn to bud (${this.name})`,
         )

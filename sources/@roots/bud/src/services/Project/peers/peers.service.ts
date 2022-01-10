@@ -90,9 +90,7 @@ export class Peers implements PeersInterface {
   @bind
   public async discover() {
     try {
-      const manifest = await this.getManifest(
-        this.app.path('project'),
-      )
+      const manifest = await this.getManifest(this.app.path('project'))
       this.modules['root'] = {
         ...manifest,
         name: 'root',
@@ -161,8 +159,7 @@ export class Peers implements PeersInterface {
 
     if (dependency.peerDependencies) {
       Object.entries(dependency.peerDependencies).forEach(
-        ([name, version]) =>
-          this.peerDependencies.set(name, version),
+        ([name, version]) => this.peerDependencies.set(name, version),
       )
     }
 

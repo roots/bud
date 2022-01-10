@@ -5,9 +5,7 @@ import {isString} from 'lodash'
 import * as BudImagemin from './imagemin.extension'
 
 export interface imagemin {
-  (
-    callback: (options: Container) => typeof BudImagemin.options,
-  ): Framework
+  (callback: (options: Container) => typeof BudImagemin.options): Framework
 }
 export interface imagemin {
   (setting: 'lossless' | 'lossy'): Framework

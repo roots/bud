@@ -9,9 +9,7 @@ import {Modules, Plugins} from '../..'
  *
  * @public
  */
-export type Name = `${
-  | (keyof Modules & string)
-  | (keyof Plugins & string)}`
+export type Name = `${(keyof Modules & string) | (keyof Plugins & string)}`
 
 export {CompilerPlugin} from './compiler-plugin.interface'
 export {Module} from './module.interface'

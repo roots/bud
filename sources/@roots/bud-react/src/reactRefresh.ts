@@ -5,10 +5,7 @@ import type {Framework} from '@roots/bud-framework'
  * Configure react-refresh-webpack-plugin options
  */
 interface reactRefresh {
-  (
-    this: Framework,
-    options: ReactRefreshPluginOptions,
-  ): Framework
+  (this: Framework, options: ReactRefreshPluginOptions): Framework
 }
 
 const reactRefresh: reactRefresh = function (userOptions) {
