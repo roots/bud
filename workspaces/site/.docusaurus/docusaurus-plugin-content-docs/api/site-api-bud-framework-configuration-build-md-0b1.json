@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.build",
+  "id": "bud-framework/configuration/bud-framework.configuration.build",
+  "title": "build property",
+  "description": "Configuration.build property",
+  "source": "@site/api/bud-framework/configuration/build.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/build",
+  "permalink": "/api/bud-framework/configuration/build",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.build",
+    "title": "build property",
+    "sidebar_label": "build property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "build"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getpublicenv() method",
+    "permalink": "/api/bud-framework/env/getpublicenv"
+  },
+  "next": {
+    "title": "cache property",
+    "permalink": "/api/bud-framework/configuration/cache"
+  }
+}

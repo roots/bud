@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.path",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.path",
+  "title": "path property",
+  "description": "FileContainer.path property",
+  "source": "@site/api/filesystem/filecontainer/path.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/path",
+  "permalink": "/api/filesystem/filecontainer/path",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.path",
+    "title": "path property",
+    "sidebar_label": "path property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "path"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ls() method",
+    "permalink": "/api/filesystem/filecontainer/ls"
+  },
+  "next": {
+    "title": "read() method",
+    "permalink": "/api/filesystem/filecontainer/read"
+  }
+}

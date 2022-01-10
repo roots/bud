@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem2/filesystem.filesystem_2.basedir",
+  "id": "filesystem/filesystem2/filesystem.filesystem_2.basedir",
+  "title": "basedir property",
+  "description": "FileSystem_2.baseDir property",
+  "source": "@site/api/filesystem/filesystem2/basedir.md",
+  "sourceDirName": "filesystem/filesystem2",
+  "slug": "/filesystem/filesystem2/basedir",
+  "permalink": "/api/filesystem/filesystem2/basedir",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filesystem_2.basedir",
+    "title": "basedir property",
+    "sidebar_label": "basedir property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "basedir"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filesystem\\_2 class",
+    "permalink": "/api/filesystem/filesystem2"
+  },
+  "next": {
+    "title": "get() method",
+    "permalink": "/api/filesystem/filesystem2/get"
+  }
+}

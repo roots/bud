@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/build/abstract/bud-framework.build.abstract.loaders",
+  "id": "bud-framework/build/abstract/bud-framework.build.abstract.loaders",
+  "title": "loaders property",
+  "description": "Build.Abstract.loaders property",
+  "source": "@site/api/bud-framework/build/abstract/loaders.md",
+  "sourceDirName": "bud-framework/build/abstract",
+  "slug": "/bud-framework/build/abstract/loaders",
+  "permalink": "/api/bud-framework/build/abstract/loaders",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.build.abstract.loaders",
+    "title": "loaders property",
+    "sidebar_label": "loaders property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loaders"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "items property",
+    "permalink": "/api/bud-framework/build/abstract/items"
+  },
+  "next": {
+    "title": "make property",
+    "permalink": "/api/bud-framework/build/abstract/make"
+  }
+}

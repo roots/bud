@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.getoption",
+  "id": "bud-extensions/controller/bud-extensions.controller.getoption",
+  "title": "getoption() method",
+  "description": "Controller.getOption() method",
+  "source": "@site/api/bud-extensions/controller/getoption.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/getoption",
+  "permalink": "/api/bud-extensions/controller/getoption",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.getoption",
+    "title": "getoption() method",
+    "sidebar_label": "getoption() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getoption"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "get() method",
+    "permalink": "/api/bud-extensions/controller/get"
+  },
+  "next": {
+    "title": "log property",
+    "permalink": "/api/bud-extensions/controller/log"
+  }
+}

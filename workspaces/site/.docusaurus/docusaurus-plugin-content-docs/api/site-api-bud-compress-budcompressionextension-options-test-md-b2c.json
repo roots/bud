@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.test",
+  "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.test",
+  "title": "test property",
+  "description": "BudCompressionExtension.Options.test property",
+  "source": "@site/api/bud-compress/budcompressionextension/options/test.md",
+  "sourceDirName": "bud-compress/budcompressionextension/options",
+  "slug": "/bud-compress/budcompressionextension/options/test",
+  "permalink": "/api/bud-compress/budcompressionextension/options/test",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.budcompressionextension.options.test",
+    "title": "test property",
+    "sidebar_label": "test property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "test"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "minratio property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/minratio"
+  },
+  "next": {
+    "title": "threshold property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/threshold"
+  }
+}

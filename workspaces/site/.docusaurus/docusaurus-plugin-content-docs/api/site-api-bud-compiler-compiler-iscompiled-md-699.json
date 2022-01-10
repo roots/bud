@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.iscompiled",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.iscompiled",
+  "title": "iscompiled property",
+  "description": "Compiler.isCompiled property",
+  "source": "@site/api/bud-compiler/compiler/iscompiled.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/iscompiled",
+  "permalink": "/api/bud-compiler/compiler/iscompiled",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.iscompiled",
+    "title": "iscompiled property",
+    "sidebar_label": "iscompiled property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "iscompiled"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "invoke() method",
+    "permalink": "/api/bud-compiler/compiler/invoke"
+  },
+  "next": {
+    "title": "progress property",
+    "permalink": "/api/bud-compiler/compiler/progress"
+  }
+}

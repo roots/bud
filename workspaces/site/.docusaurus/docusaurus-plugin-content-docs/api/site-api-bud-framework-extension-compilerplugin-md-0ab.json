@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/bud-framework.extension.compilerplugin",
+  "id": "bud-framework/extension/bud-framework.extension.compilerplugin",
+  "title": "compilerplugin interface",
+  "description": "Extension.CompilerPlugin interface",
+  "source": "@site/api/bud-framework/extension/compilerplugin.md",
+  "sourceDirName": "bud-framework/extension",
+  "slug": "/bud-framework/extension/compilerplugin",
+  "permalink": "/api/bud-framework/extension/compilerplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.compilerplugin",
+    "title": "compilerplugin interface",
+    "sidebar_label": "compilerplugin interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compilerplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "theme property",
+    "permalink": "/api/bud-framework/configuration/theme"
+  },
+  "next": {
+    "title": "module interface",
+    "permalink": "/api/bud-framework/extension/module"
+  }
+}

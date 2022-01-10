@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-server/server/bud-server.server.watcher",
+  "id": "bud-server/server/bud-server.server.watcher",
+  "title": "watcher property",
+  "description": "Server.watcher property",
+  "source": "@site/api/bud-server/server/watcher.md",
+  "sourceDirName": "bud-server/server",
+  "slug": "/bud-server/server/watcher",
+  "permalink": "/api/bud-server/server/watcher",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-server.server.watcher",
+    "title": "watcher property",
+    "sidebar_label": "watcher property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "watcher"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "run() method",
+    "permalink": "/api/bud-server/server/run"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-sass/boot"
+  }
+}

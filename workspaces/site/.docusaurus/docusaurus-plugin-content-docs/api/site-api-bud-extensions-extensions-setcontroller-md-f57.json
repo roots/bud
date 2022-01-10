@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.setcontroller",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.setcontroller",
+  "title": "setcontroller() method",
+  "description": "Extensions.setController() method",
+  "source": "@site/api/bud-extensions/extensions/setcontroller.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/setcontroller",
+  "permalink": "/api/bud-extensions/extensions/setcontroller",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.setcontroller",
+    "title": "setcontroller() method",
+    "sidebar_label": "setcontroller() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setcontroller"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "repository property",
+    "permalink": "/api/bud-extensions/extensions/repository"
+  },
+  "next": {
+    "title": "api() method",
+    "permalink": "/api/bud-extensions/controller/api"
+  }
+}

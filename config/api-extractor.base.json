@@ -20,27 +20,27 @@
       }
     }
   },
-  "mainEntryPointFilePath": "<projectFolder>/../packages/@roots/<unscopedPackageName>/types/index.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/../workspaces/@roots/<unscopedPackageName>/types/index.d.ts",
   "projectFolder": "./",
   "bundledPackages": ["react"],
   "apiReport": {
     "enabled": true,
     "reportFileName": "<unscopedPackageName>.api.md",
-    "reportFolder": "<projectFolder>/../site/src/api/<unscopedPackageName>/md/",
-    "reportTempFolder": "<projectFolder>/../site/src/api/<unscopedPackageName>/tmp/"
+    "reportFolder": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/md/",
+    "reportTempFolder": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/tmp/"
   },
   "docModel": {
     "enabled": true,
-    "apiJsonFilePath": "<projectFolder>/../site/src/api/<unscopedPackageName>/input.api.json"
+    "apiJsonFilePath": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/input.api.json"
   },
   "dtsRollup": {
     "enabled": true,
-    "untrimmedFilePath": "<projectFolder>/../site/src/api/<unscopedPackageName>/types/untrimmed.d.ts",
-    "betaTrimmedFilePath": "<projectFolder>/../site/src/api/<unscopedPackageName>/types/beta.d.ts",
-    "publicTrimmedFilePath": "<projectFolder>/../site/src/api/<unscopedPackageName>/types/public.d.ts"
+    "untrimmedFilePath": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/types/untrimmed.d.ts",
+    "betaTrimmedFilePath": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/types/beta.d.ts",
+    "publicTrimmedFilePath": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/types/public.d.ts"
   },
   "tsdocMetadata": {
     "enabled": true,
-    "tsdocMetadataFilePath": "<projectFolder>/../site/src/api/<unscopedPackageName>/tsdoc-metadata.json"
+    "tsdocMetadataFilePath": "<projectFolder>/../workspaces/site/src/api/<unscopedPackageName>/tsdoc-metadata.json"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.override",
+  "id": "bud-api/facade/bud-api.facade.override",
+  "title": "override property",
+  "description": "Facade.override property",
+  "source": "@site/api/bud-api/facade/override.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/override",
+  "permalink": "/api/bud-api/facade/override",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.override",
+    "title": "override property",
+    "sidebar_label": "override property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "override"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "minimize property",
+    "permalink": "/api/bud-api/facade/minimize"
+  },
+  "next": {
+    "title": "persist property",
+    "permalink": "/api/bud-api/facade/persist"
+  }
+}

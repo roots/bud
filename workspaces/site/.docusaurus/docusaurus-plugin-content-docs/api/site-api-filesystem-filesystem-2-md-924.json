@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem.filesystem_2",
+  "id": "filesystem/filesystem.filesystem_2",
+  "title": "filesystem\\_2 class",
+  "description": "FileSystem_2 class",
+  "source": "@site/api/filesystem/filesystem2.md",
+  "sourceDirName": "filesystem",
+  "slug": "/filesystem/filesystem2",
+  "permalink": "/api/filesystem/filesystem2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filesystem_2",
+    "title": "filesystem\\_2 class",
+    "sidebar_label": "filesystem\\_2 class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "filesystem2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filecontainer class",
+    "permalink": "/api/filesystem/filecontainer"
+  },
+  "next": {
+    "title": "basedir property",
+    "permalink": "/api/filesystem/filesystem2/basedir"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.application",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.application",
+  "title": "application property",
+  "description": "Server.Interface.application property",
+  "source": "@site/api/bud-framework/server/interface/application.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/application",
+  "permalink": "/api/bud-framework/server/interface/application",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.application",
+    "title": "application property",
+    "sidebar_label": "application property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "application"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "watch property",
+    "permalink": "/api/bud-framework/server/configuration/watch"
+  },
+  "next": {
+    "title": "close() method",
+    "permalink": "/api/bud-framework/server/interface/close"
+  }
+}

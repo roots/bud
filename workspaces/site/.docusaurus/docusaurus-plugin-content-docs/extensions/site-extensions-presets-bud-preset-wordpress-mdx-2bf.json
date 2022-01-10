@@ -1,0 +1,20 @@
+{
+  "unversionedId": "presets/bud-preset-wordpress",
+  "id": "presets/bud-preset-wordpress",
+  "title": "@roots/bud-preset-wordpress",
+  "description": "The @roots/bud-preset-wordpress package is a great starting point for WordPress plugins & themes.",
+  "source": "@site/extensions/presets/bud-preset-wordpress.mdx",
+  "sourceDirName": "presets",
+  "slug": "/presets/bud-preset-wordpress",
+  "permalink": "/extensions/presets/bud-preset-wordpress",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-preset-wordpress"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-preset-recommend",
+    "permalink": "/extensions/presets/bud-preset-recommend"
+  }
+}

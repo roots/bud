@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container.repository",
+  "id": "container/container.repository",
+  "title": "repository interface",
+  "description": "Repository interface",
+  "source": "@site/api/container/repository.md",
+  "sourceDirName": "container",
+  "slug": "/container/repository",
+  "permalink": "/api/container/repository",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.repository",
+    "title": "repository interface",
+    "sidebar_label": "repository interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "repository"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "container class",
+    "permalink": "/api/container/container"
+  },
+  "next": {
+    "title": "all() method",
+    "permalink": "/api/container/container/all"
+  }
+}

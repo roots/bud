@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-hooks/hooks/bud-hooks.hooks.async",
+  "id": "bud-hooks/hooks/bud-hooks.hooks.async",
+  "title": "async() method",
+  "description": "Hooks.async() method",
+  "source": "@site/api/bud-hooks/hooks/async.md",
+  "sourceDirName": "bud-hooks/hooks",
+  "slug": "/bud-hooks/hooks/async",
+  "permalink": "/api/bud-hooks/hooks/async",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-hooks.hooks.async",
+    "title": "async() method",
+    "sidebar_label": "async() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "async"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hooks class",
+    "permalink": "/api/bud-hooks/hooks"
+  },
+  "next": {
+    "title": "filter() method",
+    "permalink": "/api/bud-hooks/hooks/filter"
+  }
+}

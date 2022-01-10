@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.info",
+  "id": "bud-framework/framework/bud-framework.framework.info",
+  "title": "info() method",
+  "description": "Framework.info() method",
+  "source": "@site/api/bud-framework/framework/info.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/info",
+  "permalink": "/api/bud-framework/framework/info",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.info",
+    "title": "info() method",
+    "sidebar_label": "info() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "info"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hooks property",
+    "permalink": "/api/bud-framework/framework/hooks"
+  },
+  "next": {
+    "title": "ischild property",
+    "permalink": "/api/bud-framework/framework/ischild"
+  }
+}

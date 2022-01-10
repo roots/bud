@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.location",
+  "id": "bud-framework/configuration/bud-framework.configuration.location",
+  "title": "location property",
+  "description": "Configuration.location property",
+  "source": "@site/api/bud-framework/configuration/location.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/location",
+  "permalink": "/api/bud-framework/configuration/location",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.location",
+    "title": "location property",
+    "sidebar_label": "location property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "location"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hashformat property",
+    "permalink": "/api/bud-framework/configuration/hashformat"
+  },
+  "next": {
+    "title": "log property",
+    "permalink": "/api/bud-framework/configuration/log"
+  }
+}

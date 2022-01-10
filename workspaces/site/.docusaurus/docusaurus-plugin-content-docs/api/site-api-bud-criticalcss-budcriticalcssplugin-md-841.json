@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-criticalcss/bud-criticalcss.budcriticalcssplugin",
+  "id": "bud-criticalcss/bud-criticalcss.budcriticalcssplugin",
+  "title": "budcriticalcssplugin variable",
+  "description": "BudCriticalCssPlugin variable",
+  "source": "@site/api/bud-criticalcss/budcriticalcssplugin.md",
+  "sourceDirName": "bud-criticalcss",
+  "slug": "/bud-criticalcss/budcriticalcssplugin",
+  "permalink": "/api/bud-criticalcss/budcriticalcssplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-criticalcss.budcriticalcssplugin",
+    "title": "budcriticalcssplugin variable",
+    "sidebar_label": "budcriticalcssplugin variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "budcriticalcssplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "threshold property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/threshold"
+  },
+  "next": {
+    "title": "api property",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin/api"
+  }
+}

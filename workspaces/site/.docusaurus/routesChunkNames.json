@@ -1,0 +1,3470 @@
+{
+  "/blog-54c": {
+    "component": "a6aa9e1f",
+    "sidebar": "814f3328",
+    "items": [
+      {
+        "content": "1b33a81a"
+      }
+    ],
+    "metadata": "b2b675dd"
+  },
+  "/blog/archive-f4c": {
+    "component": "9e4087bc",
+    "archive": "b2f554cd"
+  },
+  "/blog/release-v5.0.0-165": {
+    "component": "ccc49370",
+    "sidebar": "814f3328",
+    "content": "b79710f0"
+  },
+  "/blog/tags-e13": {
+    "component": "01a85c17",
+    "sidebar": "814f3328",
+    "tags": "a7023ddc"
+  },
+  "/blog/tags/release-f3f": {
+    "component": "6875c492",
+    "sidebar": "814f3328",
+    "items": [
+      {
+        "content": "1b33a81a"
+      }
+    ],
+    "metadata": "83d480e9"
+  },
+  "/contributors-3e6": {
+    "component": "e4e82ca7",
+    "config": "5e9f5e1a"
+  },
+  "/releases-236": {
+    "component": "a6aa9e1f",
+    "sidebar": "78c39f1a",
+    "items": [
+      {
+        "content": "c9b7c7ce"
+      }
+    ],
+    "metadata": "f54fd0fb"
+  },
+  "/releases/5.0.0-0b1": {
+    "component": "ccc49370",
+    "sidebar": "78c39f1a",
+    "content": "6dbc9aa6"
+  },
+  "/releases/archive-d3c": {
+    "component": "9e4087bc",
+    "archive": "31f49b38"
+  },
+  "/releases/tags-8ac": {
+    "component": "01a85c17",
+    "sidebar": "78c39f1a",
+    "tags": "7aa5c72b"
+  },
+  "/releases/tags/release-b40": {
+    "component": "6875c492",
+    "sidebar": "78c39f1a",
+    "items": [
+      {
+        "content": "c9b7c7ce"
+      }
+    ],
+    "metadata": "2def2773"
+  },
+  "/api-a68": {
+    "component": "1be78505",
+    "versionMetadata": "654eb3dd"
+  },
+  "/api/-34b": {
+    "component": "17896441",
+    "content": "07305c4a"
+  },
+  "/api/bud-api-2c6": {
+    "component": "17896441",
+    "content": "3b81afc0"
+  },
+  "/api/bud-api/api-f78": {
+    "component": "17896441",
+    "content": "0dfc9dfa"
+  },
+  "/api/bud-api/api/call-10a": {
+    "component": "17896441",
+    "content": "2f18c392"
+  },
+  "/api/bud-api/api/dump-35a": {
+    "component": "17896441",
+    "content": "3b7c9afa"
+  },
+  "/api/bud-api/api/processqueue-ce7": {
+    "component": "17896441",
+    "content": "9ef1fa0c"
+  },
+  "/api/bud-api/facade-b91": {
+    "component": "17896441",
+    "content": "b058821b"
+  },
+  "/api/bud-api/facade/alias-0db": {
+    "component": "17896441",
+    "content": "02b42166"
+  },
+  "/api/bud-api/facade/assets-c91": {
+    "component": "17896441",
+    "content": "1fc2a8be"
+  },
+  "/api/bud-api/facade/autoload-dfa": {
+    "component": "17896441",
+    "content": "a6dc99ec"
+  },
+  "/api/bud-api/facade/config-39c": {
+    "component": "17896441",
+    "content": "1a7f5c74"
+  },
+  "/api/bud-api/facade/copy-fb7": {
+    "component": "17896441",
+    "content": "3b5c46a0"
+  },
+  "/api/bud-api/facade/css-07c": {
+    "component": "17896441",
+    "content": "39341bd2"
+  },
+  "/api/bud-api/facade/define-4f6": {
+    "component": "17896441",
+    "content": "8c851814"
+  },
+  "/api/bud-api/facade/devtool-929": {
+    "component": "17896441",
+    "content": "a7062c01"
+  },
+  "/api/bud-api/facade/entry-5cd": {
+    "component": "17896441",
+    "content": "9370c0fb"
+  },
+  "/api/bud-api/facade/experiments-795": {
+    "component": "17896441",
+    "content": "8bf27d70"
+  },
+  "/api/bud-api/facade/externals-2f0": {
+    "component": "17896441",
+    "content": "eacc3c41"
+  },
+  "/api/bud-api/facade/extract-e52": {
+    "component": "17896441",
+    "content": "9fd72975"
+  },
+  "/api/bud-api/facade/hash-23e": {
+    "component": "17896441",
+    "content": "2b600d76"
+  },
+  "/api/bud-api/facade/js-d3a": {
+    "component": "17896441",
+    "content": "d9781990"
+  },
+  "/api/bud-api/facade/minimize-e97": {
+    "component": "17896441",
+    "content": "a64fec6b"
+  },
+  "/api/bud-api/facade/override-941": {
+    "component": "17896441",
+    "content": "bc8147b6"
+  },
+  "/api/bud-api/facade/persist-282": {
+    "component": "17896441",
+    "content": "818fd5b9"
+  },
+  "/api/bud-api/facade/provide-77a": {
+    "component": "17896441",
+    "content": "6ca01c0c"
+  },
+  "/api/bud-api/facade/proxy-acc": {
+    "component": "17896441",
+    "content": "0ff9ab01"
+  },
+  "/api/bud-api/facade/publicpath-447": {
+    "component": "17896441",
+    "content": "d56a9eff"
+  },
+  "/api/bud-api/facade/run-0b3": {
+    "component": "17896441",
+    "content": "bf9269e5"
+  },
+  "/api/bud-api/facade/runtime-6e6": {
+    "component": "17896441",
+    "content": "0cf4d8a0"
+  },
+  "/api/bud-api/facade/serve-707": {
+    "component": "17896441",
+    "content": "d5a07aa7"
+  },
+  "/api/bud-api/facade/setpublicpath-b81": {
+    "component": "17896441",
+    "content": "be372f3a"
+  },
+  "/api/bud-api/facade/splitchunks-0de": {
+    "component": "17896441",
+    "content": "61c9f963"
+  },
+  "/api/bud-api/facade/template-33b": {
+    "component": "17896441",
+    "content": "6828df69"
+  },
+  "/api/bud-api/facade/use-32a": {
+    "component": "17896441",
+    "content": "26cc5a89"
+  },
+  "/api/bud-api/facade/version-255": {
+    "component": "17896441",
+    "content": "b3a645c1"
+  },
+  "/api/bud-api/facade/watch-de0": {
+    "component": "17896441",
+    "content": "619beda5"
+  },
+  "/api/bud-api/facade/webpackconfig-f50": {
+    "component": "17896441",
+    "content": "3e203ea5"
+  },
+  "/api/bud-babel/mixin-cd1": {
+    "component": "17896441",
+    "content": "a2b04a60"
+  },
+  "/api/bud-babel/name2-8a2": {
+    "component": "17896441",
+    "content": "16ef2e66"
+  },
+  "/api/bud-babel/register-360": {
+    "component": "17896441",
+    "content": "f9660a06"
+  },
+  "/api/bud-build/build-975": {
+    "component": "17896441",
+    "content": "802a35d3"
+  },
+  "/api/bud-build/build/init-809": {
+    "component": "17896441",
+    "content": "e0d4eea9"
+  },
+  "/api/bud-build/build/items-662": {
+    "component": "17896441",
+    "content": "07441878"
+  },
+  "/api/bud-build/build/loaders-76c": {
+    "component": "17896441",
+    "content": "f67343ba"
+  },
+  "/api/bud-build/build/make-c81": {
+    "component": "17896441",
+    "content": "3026dac6"
+  },
+  "/api/bud-build/build/register-58d": {
+    "component": "17896441",
+    "content": "f74a3c75"
+  },
+  "/api/bud-build/build/registered-c26": {
+    "component": "17896441",
+    "content": "1fe3e363"
+  },
+  "/api/bud-build/build/rules-919": {
+    "component": "17896441",
+    "content": "b6cff7f8"
+  },
+  "/api/bud-build/build/writefinalconfig-dc6": {
+    "component": "17896441",
+    "content": "3f63f891"
+  },
+  "/api/bud-build/item-108": {
+    "component": "17896441",
+    "content": "24fbe475"
+  },
+  "/api/bud-build/item/constructor-908": {
+    "component": "17896441",
+    "content": "f7c37195"
+  },
+  "/api/bud-build/item/getloader-ca9": {
+    "component": "17896441",
+    "content": "95a670a9"
+  },
+  "/api/bud-build/item/loader-87b": {
+    "component": "17896441",
+    "content": "434776e1"
+  },
+  "/api/bud-build/item/make-4fd": {
+    "component": "17896441",
+    "content": "eab6cf90"
+  },
+  "/api/bud-build/item/mergeoptions-2e0": {
+    "component": "17896441",
+    "content": "65a04d4c"
+  },
+  "/api/bud-build/item/options-202": {
+    "component": "17896441",
+    "content": "e0a4be89"
+  },
+  "/api/bud-build/item/setloader-062": {
+    "component": "17896441",
+    "content": "a7eef2cd"
+  },
+  "/api/bud-build/item/setoptions-a5a": {
+    "component": "17896441",
+    "content": "fe3d7cd1"
+  },
+  "/api/bud-build/items-8e0": {
+    "component": "17896441",
+    "content": "24c6f917"
+  },
+  "/api/bud-build/items/default-3a5": {
+    "component": "17896441",
+    "content": "5f950051"
+  },
+  "/api/bud-build/loader-82a": {
+    "component": "17896441",
+    "content": "1e517548"
+  },
+  "/api/bud-build/loader/constructor-c39": {
+    "component": "17896441",
+    "content": "1a60e630"
+  },
+  "/api/bud-build/loader/make-b8a": {
+    "component": "17896441",
+    "content": "d89c4f72"
+  },
+  "/api/bud-build/loader/normalizeinput-384": {
+    "component": "17896441",
+    "content": "6c0c2dfd"
+  },
+  "/api/bud-build/loader/src-132": {
+    "component": "17896441",
+    "content": "e8641691"
+  },
+  "/api/bud-build/loaders-f6f": {
+    "component": "17896441",
+    "content": "b265f59f"
+  },
+  "/api/bud-build/loaders/default-1a0": {
+    "component": "17896441",
+    "content": "a93ce490"
+  },
+  "/api/bud-build/rule-c72": {
+    "component": "17896441",
+    "content": "3c2854c8"
+  },
+  "/api/bud-build/rule/constructor-f65": {
+    "component": "17896441",
+    "content": "435331e7"
+  },
+  "/api/bud-build/rule/exclude-ee6": {
+    "component": "17896441",
+    "content": "3cad1221"
+  },
+  "/api/bud-build/rule/generator-84f": {
+    "component": "17896441",
+    "content": "ea819461"
+  },
+  "/api/bud-build/rule/getexclude-a33": {
+    "component": "17896441",
+    "content": "4cddb129"
+  },
+  "/api/bud-build/rule/getgenerator-05c": {
+    "component": "17896441",
+    "content": "c8140372"
+  },
+  "/api/bud-build/rule/getparser-89a": {
+    "component": "17896441",
+    "content": "1f73159f"
+  },
+  "/api/bud-build/rule/gettest-5ca": {
+    "component": "17896441",
+    "content": "2a51143d"
+  },
+  "/api/bud-build/rule/gettype-228": {
+    "component": "17896441",
+    "content": "a72c4849"
+  },
+  "/api/bud-build/rule/getuse-66a": {
+    "component": "17896441",
+    "content": "b93c8dfb"
+  },
+  "/api/bud-build/rule/make-f0d": {
+    "component": "17896441",
+    "content": "56438deb"
+  },
+  "/api/bud-build/rule/parser-1d9": {
+    "component": "17896441",
+    "content": "bf5bb276"
+  },
+  "/api/bud-build/rule/setexclude-181": {
+    "component": "17896441",
+    "content": "4fd186fb"
+  },
+  "/api/bud-build/rule/setgenerator-e52": {
+    "component": "17896441",
+    "content": "c1db65cc"
+  },
+  "/api/bud-build/rule/setparser-ef1": {
+    "component": "17896441",
+    "content": "dfa70ce8"
+  },
+  "/api/bud-build/rule/settest-c43": {
+    "component": "17896441",
+    "content": "72918792"
+  },
+  "/api/bud-build/rule/settype-fab": {
+    "component": "17896441",
+    "content": "660d882c"
+  },
+  "/api/bud-build/rule/setuse-28a": {
+    "component": "17896441",
+    "content": "a8f77a85"
+  },
+  "/api/bud-build/rule/test-418": {
+    "component": "17896441",
+    "content": "1815cad7"
+  },
+  "/api/bud-build/rule/type-46c": {
+    "component": "17896441",
+    "content": "5b6d0b3c"
+  },
+  "/api/bud-build/rule/use-a1c": {
+    "component": "17896441",
+    "content": "55fb0503"
+  },
+  "/api/bud-build/rules-c51": {
+    "component": "17896441",
+    "content": "db7a4272"
+  },
+  "/api/bud-build/rules/css-ec9": {
+    "component": "17896441",
+    "content": "5ec2ccc6"
+  },
+  "/api/bud-build/rules/csv-b24": {
+    "component": "17896441",
+    "content": "0e3f0385"
+  },
+  "/api/bud-build/rules/font-f24": {
+    "component": "17896441",
+    "content": "7856b03e"
+  },
+  "/api/bud-build/rules/html-1be": {
+    "component": "17896441",
+    "content": "02ffb217"
+  },
+  "/api/bud-build/rules/image-61d": {
+    "component": "17896441",
+    "content": "54fdee12"
+  },
+  "/api/bud-build/rules/js-2e2": {
+    "component": "17896441",
+    "content": "0cbca81f"
+  },
+  "/api/bud-build/rules/json5-b78": {
+    "component": "17896441",
+    "content": "165a76a6"
+  },
+  "/api/bud-build/rules/svg-520": {
+    "component": "17896441",
+    "content": "ccde6367"
+  },
+  "/api/bud-build/rules/toml-855": {
+    "component": "17896441",
+    "content": "271bc857"
+  },
+  "/api/bud-build/rules/xml-b42": {
+    "component": "17896441",
+    "content": "7d52303a"
+  },
+  "/api/bud-build/rules/yml-4cb": {
+    "component": "17896441",
+    "content": "8b382f17"
+  },
+  "/api/bud-cache/cache2-da1": {
+    "component": "17896441",
+    "content": "02ddf8d4"
+  },
+  "/api/bud-cache/cache2/boot-fad": {
+    "component": "17896441",
+    "content": "55cef059"
+  },
+  "/api/bud-cache/cache2/directory-bd6": {
+    "component": "17896441",
+    "content": "27c8c434"
+  },
+  "/api/bud-cache/cache2/enabled-05a": {
+    "component": "17896441",
+    "content": "2683705d"
+  },
+  "/api/bud-cache/cache2/hashfilecontents-3a6": {
+    "component": "17896441",
+    "content": "7de0b1f1"
+  },
+  "/api/bud-cache/cache2/type-8ec": {
+    "component": "17896441",
+    "content": "186032ab"
+  },
+  "/api/bud-cache/cache2/version-c58": {
+    "component": "17896441",
+    "content": "60012692"
+  },
+  "/api/bud-compiler/compiler-1f8": {
+    "component": "17896441",
+    "content": "b1cfd874"
+  },
+  "/api/bud-compiler/compiler/before-5f4": {
+    "component": "17896441",
+    "content": "40dbca81"
+  },
+  "/api/bud-compiler/compiler/callback-4fb": {
+    "component": "17896441",
+    "content": "6538b98f"
+  },
+  "/api/bud-compiler/compiler/compile-e55": {
+    "component": "17896441",
+    "content": "f2daf1cc"
+  },
+  "/api/bud-compiler/compiler/config-4b7": {
+    "component": "17896441",
+    "content": "c090df7f"
+  },
+  "/api/bud-compiler/compiler/errors-451": {
+    "component": "17896441",
+    "content": "1fdd2ff7"
+  },
+  "/api/bud-compiler/compiler/instance-835": {
+    "component": "17896441",
+    "content": "546d1474"
+  },
+  "/api/bud-compiler/compiler/invoke-79b": {
+    "component": "17896441",
+    "content": "61ecddca"
+  },
+  "/api/bud-compiler/compiler/iscompiled-70a": {
+    "component": "17896441",
+    "content": "699df5a7"
+  },
+  "/api/bud-compiler/compiler/progress-fb5": {
+    "component": "17896441",
+    "content": "e5d8be2a"
+  },
+  "/api/bud-compiler/compiler/stats-09c": {
+    "component": "17896441",
+    "content": "ea7a886a"
+  },
+  "/api/bud-compress/boot-be1": {
+    "component": "17896441",
+    "content": "514e66f9"
+  },
+  "/api/bud-compress/budcompressionextension-0b0": {
+    "component": "17896441",
+    "content": "06d03e7d"
+  },
+  "/api/bud-compress/budcompressionextension/options-4d1": {
+    "component": "17896441",
+    "content": "0b19543f"
+  },
+  "/api/bud-compress/budcompressionextension/options/algorithm-e76": {
+    "component": "17896441",
+    "content": "23e45cb6"
+  },
+  "/api/bud-compress/budcompressionextension/options/compressionoptions-0d3": {
+    "component": "17896441",
+    "content": "54e7efe1"
+  },
+  "/api/bud-compress/budcompressionextension/options/deleteoriginalassets-d06": {
+    "component": "17896441",
+    "content": "ddf0d32e"
+  },
+  "/api/bud-compress/budcompressionextension/options/filename-635": {
+    "component": "17896441",
+    "content": "1ae97b9e"
+  },
+  "/api/bud-compress/budcompressionextension/options/minratio-f88": {
+    "component": "17896441",
+    "content": "df6a8ecf"
+  },
+  "/api/bud-compress/budcompressionextension/options/test-f76": {
+    "component": "17896441",
+    "content": "b2c51780"
+  },
+  "/api/bud-compress/budcompressionextension/options/threshold-f61": {
+    "component": "17896441",
+    "content": "24b41e91"
+  },
+  "/api/bud-compress/name2-b8f": {
+    "component": "17896441",
+    "content": "7f4d3530"
+  },
+  "/api/bud-criticalcss/budcriticalcssplugin-5ca": {
+    "component": "17896441",
+    "content": "8418a575"
+  },
+  "/api/bud-criticalcss/budcriticalcssplugin/api-3a1": {
+    "component": "17896441",
+    "content": "4d586944"
+  },
+  "/api/bud-criticalcss/budcriticalcssplugin/make-88f": {
+    "component": "17896441",
+    "content": "63c493bc"
+  },
+  "/api/bud-criticalcss/budcriticalcssplugin/name-3d9": {
+    "component": "17896441",
+    "content": "a01407e2"
+  },
+  "/api/bud-criticalcss/budcriticalcssplugin/options-a66": {
+    "component": "17896441",
+    "content": "d8a1a404"
+  },
+  "/api/bud-dashboard/dashboard-4d1": {
+    "component": "17896441",
+    "content": "492fc096"
+  },
+  "/api/bud-dashboard/dashboard/bootstrap-98c": {
+    "component": "17896441",
+    "content": "c4dd0212"
+  },
+  "/api/bud-dashboard/dashboard/close-e62": {
+    "component": "17896441",
+    "content": "cf3dd929"
+  },
+  "/api/bud-dashboard/dashboard/instance-1d6": {
+    "component": "17896441",
+    "content": "393cf076"
+  },
+  "/api/bud-dashboard/dashboard/render-d3e": {
+    "component": "17896441",
+    "content": "89671285"
+  },
+  "/api/bud-dashboard/dashboard/rerender-6fc": {
+    "component": "17896441",
+    "content": "ac40e000"
+  },
+  "/api/bud-dashboard/dashboard/run-39f": {
+    "component": "17896441",
+    "content": "6b8dc18f"
+  },
+  "/api/bud-dashboard/dashboard/stderr-c61": {
+    "component": "17896441",
+    "content": "23371e6a"
+  },
+  "/api/bud-dashboard/dashboard/stdout-016": {
+    "component": "17896441",
+    "content": "4f2781bf"
+  },
+  "/api/bud-emotion/boot-73e": {
+    "component": "17896441",
+    "content": "fda4ba39"
+  },
+  "/api/bud-emotion/name2-65e": {
+    "component": "17896441",
+    "content": "a9d7319c"
+  },
+  "/api/bud-entrypoints/make-395": {
+    "component": "17896441",
+    "content": "17d44d6a"
+  },
+  "/api/bud-entrypoints/name2-f92": {
+    "component": "17896441",
+    "content": "474fffc7"
+  },
+  "/api/bud-esbuild/api-f04": {
+    "component": "17896441",
+    "content": "d4e045f3"
+  },
+  "/api/bud-esbuild/boot-506": {
+    "component": "17896441",
+    "content": "37d9ac95"
+  },
+  "/api/bud-esbuild/name2-01f": {
+    "component": "17896441",
+    "content": "01ee8cb0"
+  },
+  "/api/bud-esbuild/options-084": {
+    "component": "17896441",
+    "content": "6926ebe1"
+  },
+  "/api/bud-eslint/make-e34": {
+    "component": "17896441",
+    "content": "c63fe661"
+  },
+  "/api/bud-eslint/mixin-149": {
+    "component": "17896441",
+    "content": "b5041460"
+  },
+  "/api/bud-eslint/name2-1bf": {
+    "component": "17896441",
+    "content": "e1c173e8"
+  },
+  "/api/bud-eslint/options-f90": {
+    "component": "17896441",
+    "content": "9bbb69fb"
+  },
+  "/api/bud-extensions-2e3": {
+    "component": "17896441",
+    "content": "8ccbd35b"
+  },
+  "/api/bud-extensions/controller-bb5": {
+    "component": "17896441",
+    "content": "cc610ce0"
+  },
+  "/api/bud-extensions/controller/api-431": {
+    "component": "17896441",
+    "content": "05bf7c6c"
+  },
+  "/api/bud-extensions/controller/app-e75": {
+    "component": "17896441",
+    "content": "6f321ae3"
+  },
+  "/api/bud-extensions/controller/boot-a61": {
+    "component": "17896441",
+    "content": "9cef7c7c"
+  },
+  "/api/bud-extensions/controller/booted-c32": {
+    "component": "17896441",
+    "content": "7f3ace9c"
+  },
+  "/api/bud-extensions/controller/constructor-625": {
+    "component": "17896441",
+    "content": "22d6ddd1"
+  },
+  "/api/bud-extensions/controller/get-363": {
+    "component": "17896441",
+    "content": "8d74a1b2"
+  },
+  "/api/bud-extensions/controller/getoption-6a2": {
+    "component": "17896441",
+    "content": "e5efadde"
+  },
+  "/api/bud-extensions/controller/log-e15": {
+    "component": "17896441",
+    "content": "929680e4"
+  },
+  "/api/bud-extensions/controller/make-908": {
+    "component": "17896441",
+    "content": "17ffeafd"
+  },
+  "/api/bud-extensions/controller/mergeoption-a6a": {
+    "component": "17896441",
+    "content": "4f94d794"
+  },
+  "/api/bud-extensions/controller/mergeoptions-9fe": {
+    "component": "17896441",
+    "content": "0e681684"
+  },
+  "/api/bud-extensions/controller/meta-5d6": {
+    "component": "17896441",
+    "content": "dbdb7235"
+  },
+  "/api/bud-extensions/controller/mixin-29c": {
+    "component": "17896441",
+    "content": "4c8d29ac"
+  },
+  "/api/bud-extensions/controller/modulelogger-bed": {
+    "component": "17896441",
+    "content": "2e909f5b"
+  },
+  "/api/bud-extensions/controller/mutateoptions-8ae": {
+    "component": "17896441",
+    "content": "5c2da66c"
+  },
+  "/api/bud-extensions/controller/name-194": {
+    "component": "17896441",
+    "content": "3e153b78"
+  },
+  "/api/bud-extensions/controller/options-2dc": {
+    "component": "17896441",
+    "content": "922878c2"
+  },
+  "/api/bud-extensions/controller/register-986": {
+    "component": "17896441",
+    "content": "3a418fe8"
+  },
+  "/api/bud-extensions/controller/registered-894": {
+    "component": "17896441",
+    "content": "fad1d56d"
+  },
+  "/api/bud-extensions/controller/set-079": {
+    "component": "17896441",
+    "content": "f4e66c83"
+  },
+  "/api/bud-extensions/controller/setoption-30a": {
+    "component": "17896441",
+    "content": "dc173d09"
+  },
+  "/api/bud-extensions/controller/setoptions-1bd": {
+    "component": "17896441",
+    "content": "99f1ba2c"
+  },
+  "/api/bud-extensions/controller/when-259": {
+    "component": "17896441",
+    "content": "6f547246"
+  },
+  "/api/bud-extensions/extensions-eb1": {
+    "component": "17896441",
+    "content": "5e52af1c"
+  },
+  "/api/bud-extensions/extensions/add-6b7": {
+    "component": "17896441",
+    "content": "e3879ef8"
+  },
+  "/api/bud-extensions/extensions/boot-b6a": {
+    "component": "17896441",
+    "content": "8e4b0101"
+  },
+  "/api/bud-extensions/extensions/booted-6cf": {
+    "component": "17896441",
+    "content": "7c121b0b"
+  },
+  "/api/bud-extensions/extensions/bootextension-866": {
+    "component": "17896441",
+    "content": "818f8db5"
+  },
+  "/api/bud-extensions/extensions/bootextensions-00c": {
+    "component": "17896441",
+    "content": "5eb47db3"
+  },
+  "/api/bud-extensions/extensions/enqueue-e62": {
+    "component": "17896441",
+    "content": "c493ab41"
+  },
+  "/api/bud-extensions/extensions/importextension-aa4": {
+    "component": "17896441",
+    "content": "22e504f1"
+  },
+  "/api/bud-extensions/extensions/injectextensions-895": {
+    "component": "17896441",
+    "content": "a8954cc1"
+  },
+  "/api/bud-extensions/extensions/make-f9a": {
+    "component": "17896441",
+    "content": "6e6f843f"
+  },
+  "/api/bud-extensions/extensions/makecontroller-682": {
+    "component": "17896441",
+    "content": "17075fc5"
+  },
+  "/api/bud-extensions/extensions/processqueue-137": {
+    "component": "17896441",
+    "content": "adcc0f04"
+  },
+  "/api/bud-extensions/extensions/queue-584": {
+    "component": "17896441",
+    "content": "27253c9d"
+  },
+  "/api/bud-extensions/extensions/registered-f75": {
+    "component": "17896441",
+    "content": "146a6849"
+  },
+  "/api/bud-extensions/extensions/registerextension-c5a": {
+    "component": "17896441",
+    "content": "d9cf3c45"
+  },
+  "/api/bud-extensions/extensions/registerextensions-c74": {
+    "component": "17896441",
+    "content": "fcc6deba"
+  },
+  "/api/bud-extensions/extensions/repository-288": {
+    "component": "17896441",
+    "content": "ce3ad37c"
+  },
+  "/api/bud-extensions/extensions/setcontroller-6ac": {
+    "component": "17896441",
+    "content": "f574a05e"
+  },
+  "/api/bud-framework/asyncfactory-401": {
+    "component": "17896441",
+    "content": "2c0c581c"
+  },
+  "/api/bud-framework/atleastone-210": {
+    "component": "17896441",
+    "content": "ec8e3b5e"
+  },
+  "/api/bud-framework/bootstrapper-e9f": {
+    "component": "17896441",
+    "content": "7a3bde43"
+  },
+  "/api/bud-framework/bootstrapper/app-197": {
+    "component": "17896441",
+    "content": "8c9a3a2f"
+  },
+  "/api/bud-framework/bootstrapper/constructor-424": {
+    "component": "17896441",
+    "content": "4cd86ad9"
+  },
+  "/api/bud-framework/bootstrapper/ident-0cd": {
+    "component": "17896441",
+    "content": "8fa83a09"
+  },
+  "/api/bud-framework/build-833": {
+    "component": "17896441",
+    "content": "8c297b5c"
+  },
+  "/api/bud-framework/build/abstract-ac2": {
+    "component": "17896441",
+    "content": "6cdc4b8b"
+  },
+  "/api/bud-framework/build/abstract/items-cb6": {
+    "component": "17896441",
+    "content": "6c3b6e30"
+  },
+  "/api/bud-framework/build/abstract/loaders-341": {
+    "component": "17896441",
+    "content": "69929640"
+  },
+  "/api/bud-framework/build/abstract/make-0b3": {
+    "component": "17896441",
+    "content": "37f4b02d"
+  },
+  "/api/bud-framework/build/abstract/rules-4f6": {
+    "component": "17896441",
+    "content": "fecb74de"
+  },
+  "/api/bud-framework/build/interface-db8": {
+    "component": "17896441",
+    "content": "751cb3f5"
+  },
+  "/api/bud-framework/build/interface/config-278": {
+    "component": "17896441",
+    "content": "014cdc7a"
+  },
+  "/api/bud-framework/build/interface/items-5a6": {
+    "component": "17896441",
+    "content": "7e167751"
+  },
+  "/api/bud-framework/build/interface/loaders-8cf": {
+    "component": "17896441",
+    "content": "9e97939d"
+  },
+  "/api/bud-framework/build/interface/make-85b": {
+    "component": "17896441",
+    "content": "95f8f197"
+  },
+  "/api/bud-framework/build/interface/rules-6c4": {
+    "component": "17896441",
+    "content": "baaff263"
+  },
+  "/api/bud-framework/cache2-20f": {
+    "component": "17896441",
+    "content": "379160b1"
+  },
+  "/api/bud-framework/cache2/abstract-a8a": {
+    "component": "17896441",
+    "content": "c27aeb02"
+  },
+  "/api/bud-framework/cache2/abstract/directory-c35": {
+    "component": "17896441",
+    "content": "ab620af7"
+  },
+  "/api/bud-framework/cache2/abstract/hashfilecontents-ac9": {
+    "component": "17896441",
+    "content": "6a1a01b1"
+  },
+  "/api/bud-framework/cache2/abstract/version-be1": {
+    "component": "17896441",
+    "content": "24f3c5af"
+  },
+  "/api/bud-framework/cache2/interface-ebd": {
+    "component": "17896441",
+    "content": "90524e06"
+  },
+  "/api/bud-framework/cache2/interface/directory-a96": {
+    "component": "17896441",
+    "content": "700b1788"
+  },
+  "/api/bud-framework/cache2/interface/hashfilecontents-09d": {
+    "component": "17896441",
+    "content": "e7125c72"
+  },
+  "/api/bud-framework/cache2/interface/version-248": {
+    "component": "17896441",
+    "content": "fd1371f4"
+  },
+  "/api/bud-framework/compiler-7b4": {
+    "component": "17896441",
+    "content": "af7fc377"
+  },
+  "/api/bud-framework/compiler/before-d58": {
+    "component": "17896441",
+    "content": "06fd0f88"
+  },
+  "/api/bud-framework/compiler/callback-c76": {
+    "component": "17896441",
+    "content": "89269694"
+  },
+  "/api/bud-framework/compiler/compile-104": {
+    "component": "17896441",
+    "content": "ee5eab4f"
+  },
+  "/api/bud-framework/compiler/instance-3e0": {
+    "component": "17896441",
+    "content": "2087e7a7"
+  },
+  "/api/bud-framework/compiler/iscompiled-851": {
+    "component": "17896441",
+    "content": "4a8c863f"
+  },
+  "/api/bud-framework/compiler/progress-482": {
+    "component": "17896441",
+    "content": "2a9e3df5"
+  },
+  "/api/bud-framework/compiler/stats-3a1": {
+    "component": "17896441",
+    "content": "fd21eff6"
+  },
+  "/api/bud-framework/configuration-7f8": {
+    "component": "17896441",
+    "content": "19f9bd1a"
+  },
+  "/api/bud-framework/configuration/build-15e": {
+    "component": "17896441",
+    "content": "0b1f854a"
+  },
+  "/api/bud-framework/configuration/cache-bbe": {
+    "component": "17896441",
+    "content": "7f68c27c"
+  },
+  "/api/bud-framework/configuration/cli-958": {
+    "component": "17896441",
+    "content": "1960c065"
+  },
+  "/api/bud-framework/configuration/extension-9a5": {
+    "component": "17896441",
+    "content": "78d4460d"
+  },
+  "/api/bud-framework/configuration/features-09b": {
+    "component": "17896441",
+    "content": "c66f334b"
+  },
+  "/api/bud-framework/configuration/fileformat-94a": {
+    "component": "17896441",
+    "content": "3583a166"
+  },
+  "/api/bud-framework/configuration/hashformat-540": {
+    "component": "17896441",
+    "content": "6102e834"
+  },
+  "/api/bud-framework/configuration/location-34a": {
+    "component": "17896441",
+    "content": "c0afc6a8"
+  },
+  "/api/bud-framework/configuration/log-22d": {
+    "component": "17896441",
+    "content": "155a2cd2"
+  },
+  "/api/bud-framework/configuration/mode-d69": {
+    "component": "17896441",
+    "content": "89a97ce7"
+  },
+  "/api/bud-framework/configuration/name-f40": {
+    "component": "17896441",
+    "content": "92de1470"
+  },
+  "/api/bud-framework/configuration/patterns-3c8": {
+    "component": "17896441",
+    "content": "836356d6"
+  },
+  "/api/bud-framework/configuration/server-92f": {
+    "component": "17896441",
+    "content": "e26110ef"
+  },
+  "/api/bud-framework/configuration/theme-198": {
+    "component": "17896441",
+    "content": "ee46b023"
+  },
+  "/api/bud-framework/constructor-ad3": {
+    "component": "17896441",
+    "content": "e1f47e79"
+  },
+  "/api/bud-framework/dashboard-4f7": {
+    "component": "17896441",
+    "content": "0b4d390d"
+  },
+  "/api/bud-framework/dashboard/instance-8e8": {
+    "component": "17896441",
+    "content": "91b5ea4b"
+  },
+  "/api/bud-framework/dashboard/render-1f9": {
+    "component": "17896441",
+    "content": "78f9be7a"
+  },
+  "/api/bud-framework/dashboard/rerender-f8c": {
+    "component": "17896441",
+    "content": "2a63a2db"
+  },
+  "/api/bud-framework/dashboard/run-3a3": {
+    "component": "17896441",
+    "content": "b4cc48e0"
+  },
+  "/api/bud-framework/dashboard/stderr-89c": {
+    "component": "17896441",
+    "content": "bb894274"
+  },
+  "/api/bud-framework/dashboard/stdout-31e": {
+    "component": "17896441",
+    "content": "4c720db4"
+  },
+  "/api/bud-framework/dependencies-fb9": {
+    "component": "17896441",
+    "content": "128c8216"
+  },
+  "/api/bud-framework/dependencies/client-310": {
+    "component": "17896441",
+    "content": "83407b05"
+  },
+  "/api/bud-framework/dependencies/install-c2c": {
+    "component": "17896441",
+    "content": "8d72b922"
+  },
+  "/api/bud-framework/env-dcd": {
+    "component": "17896441",
+    "content": "94fe5818"
+  },
+  "/api/bud-framework/env/getpublicenv-2bd": {
+    "component": "17896441",
+    "content": "335fb177"
+  },
+  "/api/bud-framework/extension-c04": {
+    "component": "17896441",
+    "content": "4b50bbb1"
+  },
+  "/api/bud-framework/extension/compilerplugin-154": {
+    "component": "17896441",
+    "content": "0ab1529d"
+  },
+  "/api/bud-framework/extension/compilerplugin/apply-925": {
+    "component": "17896441",
+    "content": "e0579dd0"
+  },
+  "/api/bud-framework/extension/compilerplugin/make-9cf": {
+    "component": "17896441",
+    "content": "82b8de48"
+  },
+  "/api/bud-framework/extension/module-b4c": {
+    "component": "17896441",
+    "content": "807654db"
+  },
+  "/api/bud-framework/extension/module/api-bd6": {
+    "component": "17896441",
+    "content": "f5937d1b"
+  },
+  "/api/bud-framework/extension/module/boot-d96": {
+    "component": "17896441",
+    "content": "55b065f7"
+  },
+  "/api/bud-framework/extension/module/mixin-996": {
+    "component": "17896441",
+    "content": "518bb17b"
+  },
+  "/api/bud-framework/extension/module/name-69b": {
+    "component": "17896441",
+    "content": "4237e012"
+  },
+  "/api/bud-framework/extension/module/options-6e0": {
+    "component": "17896441",
+    "content": "80d28924"
+  },
+  "/api/bud-framework/extension/module/register-e93": {
+    "component": "17896441",
+    "content": "3eccd1e4"
+  },
+  "/api/bud-framework/extension/module/when-266": {
+    "component": "17896441",
+    "content": "8fcdc93d"
+  },
+  "/api/bud-framework/extension/name-818": {
+    "component": "17896441",
+    "content": "81368dc0"
+  },
+  "/api/bud-framework/extensions-3cb": {
+    "component": "17896441",
+    "content": "22473edc"
+  },
+  "/api/bud-framework/extensions/add-6bc": {
+    "component": "17896441",
+    "content": "6b07e3b7"
+  },
+  "/api/bud-framework/extensions/bootextensions-701": {
+    "component": "17896441",
+    "content": "3bc40fb1"
+  },
+  "/api/bud-framework/extensions/enqueue-8e0": {
+    "component": "17896441",
+    "content": "46e844e9"
+  },
+  "/api/bud-framework/extensions/make-8cc": {
+    "component": "17896441",
+    "content": "a7ab559e"
+  },
+  "/api/bud-framework/extensions/processqueue-26f": {
+    "component": "17896441",
+    "content": "74a07e80"
+  },
+  "/api/bud-framework/extensions/queue-8bc": {
+    "component": "17896441",
+    "content": "33a0b577"
+  },
+  "/api/bud-framework/extensions/registerextensions-6db": {
+    "component": "17896441",
+    "content": "02029d8c"
+  },
+  "/api/bud-framework/factory-c6a": {
+    "component": "17896441",
+    "content": "da431028"
+  },
+  "/api/bud-framework/framework-656": {
+    "component": "17896441",
+    "content": "846b0b79"
+  },
+  "/api/bud-framework/framework/api-02d": {
+    "component": "17896441",
+    "content": "50b90700"
+  },
+  "/api/bud-framework/framework/await-e03": {
+    "component": "17896441",
+    "content": "e6031d64"
+  },
+  "/api/bud-framework/framework/bindmethod-e96": {
+    "component": "17896441",
+    "content": "30fd1704"
+  },
+  "/api/bud-framework/framework/build-61f": {
+    "component": "17896441",
+    "content": "c1af985e"
+  },
+  "/api/bud-framework/framework/cache-d6a": {
+    "component": "17896441",
+    "content": "ad5e860e"
+  },
+  "/api/bud-framework/framework/children-13b": {
+    "component": "17896441",
+    "content": "b899ea53"
+  },
+  "/api/bud-framework/framework/close-01e": {
+    "component": "17896441",
+    "content": "a42e6691"
+  },
+  "/api/bud-framework/framework/compiler-6ee": {
+    "component": "17896441",
+    "content": "f9932129"
+  },
+  "/api/bud-framework/framework/complete-742": {
+    "component": "17896441",
+    "content": "b028fe1c"
+  },
+  "/api/bud-framework/framework/constructor-14a": {
+    "component": "17896441",
+    "content": "c7e17329"
+  },
+  "/api/bud-framework/framework/container-8d9": {
+    "component": "17896441",
+    "content": "f45f5a44"
+  },
+  "/api/bud-framework/framework/dashboard-daf": {
+    "component": "17896441",
+    "content": "00812317"
+  },
+  "/api/bud-framework/framework/debug-d3b": {
+    "component": "17896441",
+    "content": "e8e74799"
+  },
+  "/api/bud-framework/framework/dependencies-b96": {
+    "component": "17896441",
+    "content": "b074ec07"
+  },
+  "/api/bud-framework/framework/dump-b64": {
+    "component": "17896441",
+    "content": "55a17a38"
+  },
+  "/api/bud-framework/framework/env-885": {
+    "component": "17896441",
+    "content": "82d43398"
+  },
+  "/api/bud-framework/framework/error-628": {
+    "component": "17896441",
+    "content": "a5e8b28b"
+  },
+  "/api/bud-framework/framework/extensions-9ef": {
+    "component": "17896441",
+    "content": "e0cd98c4"
+  },
+  "/api/bud-framework/framework/get-5f6": {
+    "component": "17896441",
+    "content": "8298d671"
+  },
+  "/api/bud-framework/framework/haschildren-35a": {
+    "component": "17896441",
+    "content": "08a06115"
+  },
+  "/api/bud-framework/framework/hooks-dcc": {
+    "component": "17896441",
+    "content": "aac9f8e0"
+  },
+  "/api/bud-framework/framework/info-edd": {
+    "component": "17896441",
+    "content": "eab3a189"
+  },
+  "/api/bud-framework/framework/ischild-752": {
+    "component": "17896441",
+    "content": "1e643fbf"
+  },
+  "/api/bud-framework/framework/isdevelopment-985": {
+    "component": "17896441",
+    "content": "56ce6a8c"
+  },
+  "/api/bud-framework/framework/isproduction-87d": {
+    "component": "17896441",
+    "content": "b28241e1"
+  },
+  "/api/bud-framework/framework/isroot-6f2": {
+    "component": "17896441",
+    "content": "47eb9be9"
+  },
+  "/api/bud-framework/framework/json-5b1": {
+    "component": "17896441",
+    "content": "4277554e"
+  },
+  "/api/bud-framework/framework/log-db3": {
+    "component": "17896441",
+    "content": "b47124fe"
+  },
+  "/api/bud-framework/framework/logger-e55": {
+    "component": "17896441",
+    "content": "b9fdda6c"
+  },
+  "/api/bud-framework/framework/make-893": {
+    "component": "17896441",
+    "content": "6fd138bb"
+  },
+  "/api/bud-framework/framework/maybecall-8f2": {
+    "component": "17896441",
+    "content": "ddfdc0ec"
+  },
+  "/api/bud-framework/framework/mixin-14c": {
+    "component": "17896441",
+    "content": "bc551b6b"
+  },
+  "/api/bud-framework/framework/mode-c63": {
+    "component": "17896441",
+    "content": "ab446a2d"
+  },
+  "/api/bud-framework/framework/name-b46": {
+    "component": "17896441",
+    "content": "d05e34ff"
+  },
+  "/api/bud-framework/framework/options-a41": {
+    "component": "17896441",
+    "content": "60a1d43a"
+  },
+  "/api/bud-framework/framework/path-569": {
+    "component": "17896441",
+    "content": "7cc0f600"
+  },
+  "/api/bud-framework/framework/pipe-fd2": {
+    "component": "17896441",
+    "content": "90285370"
+  },
+  "/api/bud-framework/framework/project-09c": {
+    "component": "17896441",
+    "content": "b236075e"
+  },
+  "/api/bud-framework/framework/root-e66": {
+    "component": "17896441",
+    "content": "b2cd8723"
+  },
+  "/api/bud-framework/framework/sequence-c16": {
+    "component": "17896441",
+    "content": "073e2faa"
+  },
+  "/api/bud-framework/framework/server-9ed": {
+    "component": "17896441",
+    "content": "b95a9d81"
+  },
+  "/api/bud-framework/framework/services-0d1": {
+    "component": "17896441",
+    "content": "e8dc08ae"
+  },
+  "/api/bud-framework/framework/setpath-c0f": {
+    "component": "17896441",
+    "content": "bd954d34"
+  },
+  "/api/bud-framework/framework/store-f0b": {
+    "component": "17896441",
+    "content": "a75f5568"
+  },
+  "/api/bud-framework/framework/success-910": {
+    "component": "17896441",
+    "content": "f093acb7"
+  },
+  "/api/bud-framework/framework/tap-d8d": {
+    "component": "17896441",
+    "content": "6da692a7"
+  },
+  "/api/bud-framework/framework/time-9cb": {
+    "component": "17896441",
+    "content": "6cddee67"
+  },
+  "/api/bud-framework/framework/timeend-967": {
+    "component": "17896441",
+    "content": "ab58d727"
+  },
+  "/api/bud-framework/framework/ts-380": {
+    "component": "17896441",
+    "content": "eafef303"
+  },
+  "/api/bud-framework/framework/usingtsnode-7c6": {
+    "component": "17896441",
+    "content": "ba050979"
+  },
+  "/api/bud-framework/framework/warn-311": {
+    "component": "17896441",
+    "content": "94f9e40e"
+  },
+  "/api/bud-framework/framework/when-deb": {
+    "component": "17896441",
+    "content": "d062de03"
+  },
+  "/api/bud-framework/framework/yml-e4a": {
+    "component": "17896441",
+    "content": "48a4c6cb"
+  },
+  "/api/bud-framework/hooks-3e6": {
+    "component": "17896441",
+    "content": "ab6ca0ca"
+  },
+  "/api/bud-framework/hooks/async-b70": {
+    "component": "17896441",
+    "content": "17a8bfa9"
+  },
+  "/api/bud-framework/hooks/filter-a78": {
+    "component": "17896441",
+    "content": "8f504f19"
+  },
+  "/api/bud-framework/hooks/filterasync-595": {
+    "component": "17896441",
+    "content": "c61288ae"
+  },
+  "/api/bud-framework/hooks/hook-536": {
+    "component": "17896441",
+    "content": "6e1fea8b"
+  },
+  "/api/bud-framework/hooks/limitedentryobject-6fd": {
+    "component": "17896441",
+    "content": "21598c7b"
+  },
+  "/api/bud-framework/hooks/limitedplugin-b9a": {
+    "component": "17896441",
+    "content": "c1ca3ff7"
+  },
+  "/api/bud-framework/hooks/map-8b2": {
+    "component": "17896441",
+    "content": "0aac3299"
+  },
+  "/api/bud-framework/hooks/on-50c": {
+    "component": "17896441",
+    "content": "682ffebd"
+  },
+  "/api/bud-framework/index-b15": {
+    "component": "17896441",
+    "content": "f5f870c0"
+  },
+  "/api/bud-framework/item-392": {
+    "component": "17896441",
+    "content": "44535bfa"
+  },
+  "/api/bud-framework/item/abstract-3f4": {
+    "component": "17896441",
+    "content": "e0e84c15"
+  },
+  "/api/bud-framework/item/abstract/loader-1c5": {
+    "component": "17896441",
+    "content": "8c7c1f2c"
+  },
+  "/api/bud-framework/item/abstract/make-795": {
+    "component": "17896441",
+    "content": "2b8ac5df"
+  },
+  "/api/bud-framework/item/abstract/mergeoptions-074": {
+    "component": "17896441",
+    "content": "288e0c8a"
+  },
+  "/api/bud-framework/item/abstract/options-144": {
+    "component": "17896441",
+    "content": "79b1f5c0"
+  },
+  "/api/bud-framework/item/abstract/setloader-ef3": {
+    "component": "17896441",
+    "content": "07768b43"
+  },
+  "/api/bud-framework/item/abstract/setoptions-ec1": {
+    "component": "17896441",
+    "content": "a82fe297"
+  },
+  "/api/bud-framework/item/constructoroptions-e0b": {
+    "component": "17896441",
+    "content": "2fd695e3"
+  },
+  "/api/bud-framework/item/constructoroptions/loader-c92": {
+    "component": "17896441",
+    "content": "7d4facb0"
+  },
+  "/api/bud-framework/item/constructoroptions/options-2b3": {
+    "component": "17896441",
+    "content": "8fee39f3"
+  },
+  "/api/bud-framework/item/interface-094": {
+    "component": "17896441",
+    "content": "794afcf3"
+  },
+  "/api/bud-framework/item/interface/loader-d8e": {
+    "component": "17896441",
+    "content": "21c53197"
+  },
+  "/api/bud-framework/item/interface/make-958": {
+    "component": "17896441",
+    "content": "890ef9b8"
+  },
+  "/api/bud-framework/item/interface/mergeoptions-d93": {
+    "component": "17896441",
+    "content": "1f62374a"
+  },
+  "/api/bud-framework/item/interface/options-549": {
+    "component": "17896441",
+    "content": "34c7633e"
+  },
+  "/api/bud-framework/item/interface/setloader-d1a": {
+    "component": "17896441",
+    "content": "602c2fa1"
+  },
+  "/api/bud-framework/item/interface/setoptions-56e": {
+    "component": "17896441",
+    "content": "14b164cb"
+  },
+  "/api/bud-framework/item/options-3ce": {
+    "component": "17896441",
+    "content": "90f00d02"
+  },
+  "/api/bud-framework/item/output-eef": {
+    "component": "17896441",
+    "content": "a25a6c2b"
+  },
+  "/api/bud-framework/item/output/loader-dbe": {
+    "component": "17896441",
+    "content": "a1f3a335"
+  },
+  "/api/bud-framework/item/output/options-acc": {
+    "component": "17896441",
+    "content": "04c36851"
+  },
+  "/api/bud-framework/items-0c6": {
+    "component": "17896441",
+    "content": "6ea6d0eb"
+  },
+  "/api/bud-framework/loader-578": {
+    "component": "17896441",
+    "content": "5d040082"
+  },
+  "/api/bud-framework/loader/abstract-372": {
+    "component": "17896441",
+    "content": "0c710099"
+  },
+  "/api/bud-framework/loader/abstract/make-467": {
+    "component": "17896441",
+    "content": "2e9c8131"
+  },
+  "/api/bud-framework/loader/abstract/normalizeinput-916": {
+    "component": "17896441",
+    "content": "ff81b3aa"
+  },
+  "/api/bud-framework/loader/abstract/src-e6a": {
+    "component": "17896441",
+    "content": "ce67725d"
+  },
+  "/api/bud-framework/loader/factory-490": {
+    "component": "17896441",
+    "content": "25d80d61"
+  },
+  "/api/bud-framework/loader/interface-b3e": {
+    "component": "17896441",
+    "content": "cc817fc2"
+  },
+  "/api/bud-framework/loader/interface/make-c75": {
+    "component": "17896441",
+    "content": "ebe2bb59"
+  },
+  "/api/bud-framework/loader/interface/normalizeinput-a92": {
+    "component": "17896441",
+    "content": "ae270ef4"
+  },
+  "/api/bud-framework/loader/interface/src-7a9": {
+    "component": "17896441",
+    "content": "c98a2d5f"
+  },
+  "/api/bud-framework/loaders-60a": {
+    "component": "17896441",
+    "content": "eacf9008"
+  },
+  "/api/bud-framework/locations-881": {
+    "component": "17896441",
+    "content": "8d59c75c"
+  },
+  "/api/bud-framework/locations/dist-e88": {
+    "component": "17896441",
+    "content": "7217cbc0"
+  },
+  "/api/bud-framework/locations/project-00c": {
+    "component": "17896441",
+    "content": "ab93a959"
+  },
+  "/api/bud-framework/locations/src-52d": {
+    "component": "17896441",
+    "content": "08c4565f"
+  },
+  "/api/bud-framework/logger-d15": {
+    "component": "17896441",
+    "content": "e8f48ecd"
+  },
+  "/api/bud-framework/logger/config-8a6": {
+    "component": "17896441",
+    "content": "675aca81"
+  },
+  "/api/bud-framework/logger/constructor-0e8": {
+    "component": "17896441",
+    "content": "c6d3348e"
+  },
+  "/api/bud-framework/logger/context-18f": {
+    "component": "17896441",
+    "content": "100a17c5"
+  },
+  "/api/bud-framework/logger/enabled-2d0": {
+    "component": "17896441",
+    "content": "d7cc2cb3"
+  },
+  "/api/bud-framework/logger/flags-ffb": {
+    "component": "17896441",
+    "content": "dd25748b"
+  },
+  "/api/bud-framework/logger/instance-fb0": {
+    "component": "17896441",
+    "content": "915e16f6"
+  },
+  "/api/bud-framework/logger/instantiate-9d3": {
+    "component": "17896441",
+    "content": "cbac0107"
+  },
+  "/api/bud-framework/logger/interactive-608": {
+    "component": "17896441",
+    "content": "ffccf1c8"
+  },
+  "/api/bud-framework/logger/level-cce": {
+    "component": "17896441",
+    "content": "c1f2316b"
+  },
+  "/api/bud-framework/logger/makeinstance-bef": {
+    "component": "17896441",
+    "content": "91c0228b"
+  },
+  "/api/bud-framework/logger/options-873": {
+    "component": "17896441",
+    "content": "c9622110"
+  },
+  "/api/bud-framework/logger/scoped-1dc": {
+    "component": "17896441",
+    "content": "16e9dbc3"
+  },
+  "/api/bud-framework/logger/secrets-009": {
+    "component": "17896441",
+    "content": "6010066e"
+  },
+  "/api/bud-framework/logger/stream-1d2": {
+    "component": "17896441",
+    "content": "b6124dcc"
+  },
+  "/api/bud-framework/loose-627": {
+    "component": "17896441",
+    "content": "7ddf8032"
+  },
+  "/api/bud-framework/maybe-6b3": {
+    "component": "17896441",
+    "content": "fbf3080d"
+  },
+  "/api/bud-framework/mode-5c3": {
+    "component": "17896441",
+    "content": "703d2dba"
+  },
+  "/api/bud-framework/module-756": {
+    "component": "17896441",
+    "content": "669b5247"
+  },
+  "/api/bud-framework/modules-1a8": {
+    "component": "17896441",
+    "content": "506dcbd9"
+  },
+  "/api/bud-framework/options-83e": {
+    "component": "17896441",
+    "content": "f9fb4bba"
+  },
+  "/api/bud-framework/options/config-493": {
+    "component": "17896441",
+    "content": "7656dac4"
+  },
+  "/api/bud-framework/options/extensions-53b": {
+    "component": "17896441",
+    "content": "bb276017"
+  },
+  "/api/bud-framework/options/services-21d": {
+    "component": "17896441",
+    "content": "029c9016"
+  },
+  "/api/bud-framework/peers-4e7": {
+    "component": "17896441",
+    "content": "95bed11d"
+  },
+  "/api/bud-framework/peers/interface-390": {
+    "component": "17896441",
+    "content": "aad505d6"
+  },
+  "/api/bud-framework/peers/interface/app-849": {
+    "component": "17896441",
+    "content": "82b45a25"
+  },
+  "/api/bud-framework/peers/interface/discover-9ab": {
+    "component": "17896441",
+    "content": "72d1dd02"
+  },
+  "/api/bud-framework/peers/interface/getmanifest-862": {
+    "component": "17896441",
+    "content": "260efb10"
+  },
+  "/api/bud-framework/peers/interface/getpackagemanifestpath-b91": {
+    "component": "17896441",
+    "content": "de15e504"
+  },
+  "/api/bud-framework/peers/interface/isextension-3dc": {
+    "component": "17896441",
+    "content": "81662fff"
+  },
+  "/api/bud-framework/peers/peer-66d": {
+    "component": "17896441",
+    "content": "3e541a0d"
+  },
+  "/api/bud-framework/peers/peer/name-aee": {
+    "component": "17896441",
+    "content": "b85af815"
+  },
+  "/api/bud-framework/peers/peer/source-d4e": {
+    "component": "17896441",
+    "content": "c363e14c"
+  },
+  "/api/bud-framework/peers/peer/type-681": {
+    "component": "17896441",
+    "content": "56a62316"
+  },
+  "/api/bud-framework/peers/peer/ver-99a": {
+    "component": "17896441",
+    "content": "9159087d"
+  },
+  "/api/bud-framework/peers/repository-5bb": {
+    "component": "17896441",
+    "content": "a0bb68ef"
+  },
+  "/api/bud-framework/plugininstance-1fe": {
+    "component": "17896441",
+    "content": "b50ba59a"
+  },
+  "/api/bud-framework/plugininstance/apply-295": {
+    "component": "17896441",
+    "content": "e3894cab"
+  },
+  "/api/bud-framework/plugins-6d7": {
+    "component": "17896441",
+    "content": "cd3eb9d9"
+  },
+  "/api/bud-framework/project-0ba": {
+    "component": "17896441",
+    "content": "a1e09547"
+  },
+  "/api/bud-framework/project/abstract-c77": {
+    "component": "17896441",
+    "content": "524152b5"
+  },
+  "/api/bud-framework/project/abstract/haspeerdependency-a67": {
+    "component": "17896441",
+    "content": "804ad27a"
+  },
+  "/api/bud-framework/project/abstract/peers-e3e": {
+    "component": "17896441",
+    "content": "af4be527"
+  },
+  "/api/bud-framework/project/abstract/repository-a0f": {
+    "component": "17896441",
+    "content": "41ea2bf0"
+  },
+  "/api/bud-framework/project/interface-e03": {
+    "component": "17896441",
+    "content": "1bd2553c"
+  },
+  "/api/bud-framework/project/interface/buildprofile-a28": {
+    "component": "17896441",
+    "content": "4e3ecd5b"
+  },
+  "/api/bud-framework/project/interface/buildprofile1-a72": {
+    "component": "17896441",
+    "content": "d3d3e14f"
+  },
+  "/api/bud-framework/project/interface/haspeerdependency-ba6": {
+    "component": "17896441",
+    "content": "b29d1c06"
+  },
+  "/api/bud-framework/project/interface/peers-f73": {
+    "component": "17896441",
+    "content": "0d06e7db"
+  },
+  "/api/bud-framework/project/interface/writeprofile-a73": {
+    "component": "17896441",
+    "content": "c01bda94"
+  },
+  "/api/bud-framework/rule-4da": {
+    "component": "17896441",
+    "content": "4cff5eb9"
+  },
+  "/api/bud-framework/rule/abstract-0b2": {
+    "component": "17896441",
+    "content": "55bd8d40"
+  },
+  "/api/bud-framework/rule/abstract/getexclude-c9b": {
+    "component": "17896441",
+    "content": "a548f308"
+  },
+  "/api/bud-framework/rule/abstract/getgenerator-bd3": {
+    "component": "17896441",
+    "content": "e1df9945"
+  },
+  "/api/bud-framework/rule/abstract/getparser-868": {
+    "component": "17896441",
+    "content": "ef79b4d0"
+  },
+  "/api/bud-framework/rule/abstract/gettest-661": {
+    "component": "17896441",
+    "content": "29ce726d"
+  },
+  "/api/bud-framework/rule/abstract/gettype-085": {
+    "component": "17896441",
+    "content": "2878078d"
+  },
+  "/api/bud-framework/rule/abstract/getuse-f5c": {
+    "component": "17896441",
+    "content": "49439b11"
+  },
+  "/api/bud-framework/rule/abstract/make-030": {
+    "component": "17896441",
+    "content": "1e6becb7"
+  },
+  "/api/bud-framework/rule/abstract/setexclude-492": {
+    "component": "17896441",
+    "content": "5be94aca"
+  },
+  "/api/bud-framework/rule/abstract/setgenerator-508": {
+    "component": "17896441",
+    "content": "1aa05ff4"
+  },
+  "/api/bud-framework/rule/abstract/setparser-36b": {
+    "component": "17896441",
+    "content": "9618b2e9"
+  },
+  "/api/bud-framework/rule/abstract/settest-fac": {
+    "component": "17896441",
+    "content": "143345b4"
+  },
+  "/api/bud-framework/rule/abstract/settype-15b": {
+    "component": "17896441",
+    "content": "345c3a77"
+  },
+  "/api/bud-framework/rule/abstract/setuse-59a": {
+    "component": "17896441",
+    "content": "24cd1cee"
+  },
+  "/api/bud-framework/rule/abstract/test-4ed": {
+    "component": "17896441",
+    "content": "7cb7aae2"
+  },
+  "/api/bud-framework/rule/abstract/use-06c": {
+    "component": "17896441",
+    "content": "5eb6da39"
+  },
+  "/api/bud-framework/rule/interface-5e8": {
+    "component": "17896441",
+    "content": "644cf7a7"
+  },
+  "/api/bud-framework/rule/interface/getexclude-80c": {
+    "component": "17896441",
+    "content": "c6a4b14a"
+  },
+  "/api/bud-framework/rule/interface/getgenerator-69b": {
+    "component": "17896441",
+    "content": "3814d47a"
+  },
+  "/api/bud-framework/rule/interface/getparser-71a": {
+    "component": "17896441",
+    "content": "400a230a"
+  },
+  "/api/bud-framework/rule/interface/gettest-cec": {
+    "component": "17896441",
+    "content": "5490771d"
+  },
+  "/api/bud-framework/rule/interface/gettype-4aa": {
+    "component": "17896441",
+    "content": "da5f919b"
+  },
+  "/api/bud-framework/rule/interface/getuse-312": {
+    "component": "17896441",
+    "content": "c162a2d0"
+  },
+  "/api/bud-framework/rule/interface/make-c83": {
+    "component": "17896441",
+    "content": "32ed2b7e"
+  },
+  "/api/bud-framework/rule/interface/setexclude-90b": {
+    "component": "17896441",
+    "content": "35fca39f"
+  },
+  "/api/bud-framework/rule/interface/setgenerator-0fd": {
+    "component": "17896441",
+    "content": "aed78a63"
+  },
+  "/api/bud-framework/rule/interface/setparser-db1": {
+    "component": "17896441",
+    "content": "a5da2c29"
+  },
+  "/api/bud-framework/rule/interface/settest-f0e": {
+    "component": "17896441",
+    "content": "22eee46c"
+  },
+  "/api/bud-framework/rule/interface/settype-be0": {
+    "component": "17896441",
+    "content": "032cfc86"
+  },
+  "/api/bud-framework/rule/interface/setuse-3d9": {
+    "component": "17896441",
+    "content": "24278817"
+  },
+  "/api/bud-framework/rule/interface/test-69b": {
+    "component": "17896441",
+    "content": "7d22f40b"
+  },
+  "/api/bud-framework/rule/interface/use-511": {
+    "component": "17896441",
+    "content": "f1966b98"
+  },
+  "/api/bud-framework/rule/options-c60": {
+    "component": "17896441",
+    "content": "4033c6d2"
+  },
+  "/api/bud-framework/rule/options/exclude-159": {
+    "component": "17896441",
+    "content": "6d043029"
+  },
+  "/api/bud-framework/rule/options/generator-a55": {
+    "component": "17896441",
+    "content": "9533a2db"
+  },
+  "/api/bud-framework/rule/options/parser-2e1": {
+    "component": "17896441",
+    "content": "02299a51"
+  },
+  "/api/bud-framework/rule/options/test-a70": {
+    "component": "17896441",
+    "content": "cd01b197"
+  },
+  "/api/bud-framework/rule/options/type-935": {
+    "component": "17896441",
+    "content": "b3e74de5"
+  },
+  "/api/bud-framework/rule/options/use-a36": {
+    "component": "17896441",
+    "content": "9cd67c7e"
+  },
+  "/api/bud-framework/rule/output-b8e": {
+    "component": "17896441",
+    "content": "c5e82ed7"
+  },
+  "/api/bud-framework/rule/output/exclude-953": {
+    "component": "17896441",
+    "content": "b7619acc"
+  },
+  "/api/bud-framework/rule/output/generator-df7": {
+    "component": "17896441",
+    "content": "0979de3a"
+  },
+  "/api/bud-framework/rule/output/parser-cdd": {
+    "component": "17896441",
+    "content": "87c7715b"
+  },
+  "/api/bud-framework/rule/output/test-671": {
+    "component": "17896441",
+    "content": "a0a1c61c"
+  },
+  "/api/bud-framework/rule/output/type-00e": {
+    "component": "17896441",
+    "content": "b8fd1e53"
+  },
+  "/api/bud-framework/rule/output/use-d3b": {
+    "component": "17896441",
+    "content": "d861a811"
+  },
+  "/api/bud-framework/rule/parser-494": {
+    "component": "17896441",
+    "content": "3397375e"
+  },
+  "/api/bud-framework/rule/parser/parse-152": {
+    "component": "17896441",
+    "content": "4eeddf8d"
+  },
+  "/api/bud-framework/rules-515": {
+    "component": "17896441",
+    "content": "f2b2df35"
+  },
+  "/api/bud-framework/server-736": {
+    "component": "17896441",
+    "content": "9cbac63a"
+  },
+  "/api/bud-framework/server/application-3b1": {
+    "component": "17896441",
+    "content": "46e2b7fa"
+  },
+  "/api/bud-framework/server/application/listen-75e": {
+    "component": "17896441",
+    "content": "3d01b54c"
+  },
+  "/api/bud-framework/server/configuration-6ec": {
+    "component": "17896441",
+    "content": "958cc41a"
+  },
+  "/api/bud-framework/server/configuration/browser-51d": {
+    "component": "17896441",
+    "content": "8660d723"
+  },
+  "/api/bud-framework/server/configuration/dev-e62": {
+    "component": "17896441",
+    "content": "998eb18b"
+  },
+  "/api/bud-framework/server/configuration/disablehostcheck-ceb": {
+    "component": "17896441",
+    "content": "9afaf619"
+  },
+  "/api/bud-framework/server/configuration/filename-eb5": {
+    "component": "17896441",
+    "content": "ca10fb22"
+  },
+  "/api/bud-framework/server/configuration/middleware-5a8": {
+    "component": "17896441",
+    "content": "4df008f9"
+  },
+  "/api/bud-framework/server/configuration/proxy-b7e": {
+    "component": "17896441",
+    "content": "38795e3c"
+  },
+  "/api/bud-framework/server/configuration/publicpath-e1d": {
+    "component": "17896441",
+    "content": "bf3deaaf"
+  },
+  "/api/bud-framework/server/configuration/watch-d76": {
+    "component": "17896441",
+    "content": "ea6c557c"
+  },
+  "/api/bud-framework/server/instance-cbc": {
+    "component": "17896441",
+    "content": "5d60f327"
+  },
+  "/api/bud-framework/server/interface-4c3": {
+    "component": "17896441",
+    "content": "bb9c9d2b"
+  },
+  "/api/bud-framework/server/interface/application-8d5": {
+    "component": "17896441",
+    "content": "59d90051"
+  },
+  "/api/bud-framework/server/interface/close-6a0": {
+    "component": "17896441",
+    "content": "3bf6f35f"
+  },
+  "/api/bud-framework/server/interface/config-a6b": {
+    "component": "17896441",
+    "content": "14b886ba"
+  },
+  "/api/bud-framework/server/interface/getwatchedfiles-209": {
+    "component": "17896441",
+    "content": "319969cc"
+  },
+  "/api/bud-framework/server/interface/instance-607": {
+    "component": "17896441",
+    "content": "2a20568e"
+  },
+  "/api/bud-framework/server/interface/middleware-5ee": {
+    "component": "17896441",
+    "content": "212aae13"
+  },
+  "/api/bud-framework/server/interface/run-173": {
+    "component": "17896441",
+    "content": "2a604c56"
+  },
+  "/api/bud-framework/server/interface/watcher-afe": {
+    "component": "17896441",
+    "content": "242fc85c"
+  },
+  "/api/bud-framework/server/middleware-a63": {
+    "component": "17896441",
+    "content": "e3304a48"
+  },
+  "/api/bud-framework/service-dea": {
+    "component": "17896441",
+    "content": "1be804dc"
+  },
+  "/api/bud-framework/service/boot-4f7": {
+    "component": "17896441",
+    "content": "1a8b7410"
+  },
+  "/api/bud-framework/service/booted-5a0": {
+    "component": "17896441",
+    "content": "0f1bf201"
+  },
+  "/api/bud-framework/service/bootstrap-963": {
+    "component": "17896441",
+    "content": "06ac2a9c"
+  },
+  "/api/bud-framework/service/bootstrapped-9d8": {
+    "component": "17896441",
+    "content": "d44fe56a"
+  },
+  "/api/bud-framework/service/dump-c0d": {
+    "component": "17896441",
+    "content": "a6c033c0"
+  },
+  "/api/bud-framework/service/ident-9f0": {
+    "component": "17896441",
+    "content": "c7a0f100"
+  },
+  "/api/bud-framework/service/log-8d8": {
+    "component": "17896441",
+    "content": "5006bb1e"
+  },
+  "/api/bud-framework/service/logger-db1": {
+    "component": "17896441",
+    "content": "0fccda3c"
+  },
+  "/api/bud-framework/service/register-b3b": {
+    "component": "17896441",
+    "content": "e9a22268"
+  },
+  "/api/bud-framework/service/registered-4d2": {
+    "component": "17896441",
+    "content": "ca1e2e69"
+  },
+  "/api/bud-framework/services-963": {
+    "component": "17896441",
+    "content": "9102c2ed"
+  },
+  "/api/bud-framework/store-746": {
+    "component": "17896441",
+    "content": "e4a4e1f8"
+  },
+  "/api/bud-framework/store/get-c75": {
+    "component": "17896441",
+    "content": "adf9269c"
+  },
+  "/api/bud-framework/store/ident-c88": {
+    "component": "17896441",
+    "content": "15c3d1a2"
+  },
+  "/api/bud-framework/store/repository-72e": {
+    "component": "17896441",
+    "content": "b5805b30"
+  },
+  "/api/bud-framework/tapable-5b6": {
+    "component": "17896441",
+    "content": "2a5f664b"
+  },
+  "/api/bud-hooks-ed9": {
+    "component": "17896441",
+    "content": "8ce6ad67"
+  },
+  "/api/bud-hooks/hooks-8ff": {
+    "component": "17896441",
+    "content": "1a0c4c13"
+  },
+  "/api/bud-hooks/hooks/async-e24": {
+    "component": "17896441",
+    "content": "c53e17de"
+  },
+  "/api/bud-hooks/hooks/filter-3b9": {
+    "component": "17896441",
+    "content": "944aeca7"
+  },
+  "/api/bud-hooks/hooks/filterasync-adf": {
+    "component": "17896441",
+    "content": "4686acbb"
+  },
+  "/api/bud-hooks/hooks/on-562": {
+    "component": "17896441",
+    "content": "bf193f3b"
+  },
+  "/api/bud-imagemin/boot-32c": {
+    "component": "17896441",
+    "content": "76043d52"
+  },
+  "/api/bud-imagemin/mixin-5aa": {
+    "component": "17896441",
+    "content": "90be744b"
+  },
+  "/api/bud-imagemin/name2-2dc": {
+    "component": "17896441",
+    "content": "551784e9"
+  },
+  "/api/bud-imagemin/register-e58": {
+    "component": "17896441",
+    "content": "9109be7f"
+  },
+  "/api/bud-library/api-0eb": {
+    "component": "17896441",
+    "content": "40dd810a"
+  },
+  "/api/bud-library/name2-09a": {
+    "component": "17896441",
+    "content": "f40dc22a"
+  },
+  "/api/bud-mdx/boot-908": {
+    "component": "17896441",
+    "content": "bfff0422"
+  },
+  "/api/bud-mdx/mixin-816": {
+    "component": "17896441",
+    "content": "7c5b4fb9"
+  },
+  "/api/bud-mdx/name2-43e": {
+    "component": "17896441",
+    "content": "093cb848"
+  },
+  "/api/bud-postcss/mixin-a3c": {
+    "component": "17896441",
+    "content": "0363d683"
+  },
+  "/api/bud-postcss/name2-bf3": {
+    "component": "17896441",
+    "content": "955c2a88"
+  },
+  "/api/bud-postcss/register-d19": {
+    "component": "17896441",
+    "content": "88d42c0e"
+  },
+  "/api/bud-preset-recommend/budpresetrecommend-d92": {
+    "component": "17896441",
+    "content": "f14cc1ce"
+  },
+  "/api/bud-preset-recommend/budpresetrecommend/name-474": {
+    "component": "17896441",
+    "content": "3bc0fb1a"
+  },
+  "/api/bud-preset-recommend/name2-a24": {
+    "component": "17896441",
+    "content": "9c374f6b"
+  },
+  "/api/bud-preset-wordpress/name2-704": {
+    "component": "17896441",
+    "content": "7a14e426"
+  },
+  "/api/bud-prettier/name2-26f": {
+    "component": "17896441",
+    "content": "bb480328"
+  },
+  "/api/bud-purgecss/api-3ec": {
+    "component": "17896441",
+    "content": "c3df2a77"
+  },
+  "/api/bud-purgecss/name2-6ec": {
+    "component": "17896441",
+    "content": "af627dda"
+  },
+  "/api/bud-react/boot-f11": {
+    "component": "17896441",
+    "content": "965e19e1"
+  },
+  "/api/bud-react/name2-2fa": {
+    "component": "17896441",
+    "content": "de024346"
+  },
+  "/api/bud-sass/boot-bb0": {
+    "component": "17896441",
+    "content": "01207c31"
+  },
+  "/api/bud-sass/name2-0ad": {
+    "component": "17896441",
+    "content": "f6d94c40"
+  },
+  "/api/bud-sass/register-613": {
+    "component": "17896441",
+    "content": "5bb8422c"
+  },
+  "/api/bud-server/server-df7": {
+    "component": "17896441",
+    "content": "4de05beb"
+  },
+  "/api/bud-server/server/application-aa6": {
+    "component": "17896441",
+    "content": "6ecc4b7f"
+  },
+  "/api/bud-server/server/close-757": {
+    "component": "17896441",
+    "content": "79159e94"
+  },
+  "/api/bud-server/server/config-c50": {
+    "component": "17896441",
+    "content": "1f5f9079"
+  },
+  "/api/bud-server/server/getwatchedfiles-1b3": {
+    "component": "17896441",
+    "content": "3529f456"
+  },
+  "/api/bud-server/server/instance-206": {
+    "component": "17896441",
+    "content": "1925b3e3"
+  },
+  "/api/bud-server/server/middleware-bd8": {
+    "component": "17896441",
+    "content": "0934d466"
+  },
+  "/api/bud-server/server/processmiddlewares-a04": {
+    "component": "17896441",
+    "content": "4228cffb"
+  },
+  "/api/bud-server/server/run-472": {
+    "component": "17896441",
+    "content": "becb8fa9"
+  },
+  "/api/bud-server/server/watcher-da5": {
+    "component": "17896441",
+    "content": "18ec00aa"
+  },
+  "/api/bud-solid/boot-94a": {
+    "component": "17896441",
+    "content": "c49e0913"
+  },
+  "/api/bud-solid/name2-15d": {
+    "component": "17896441",
+    "content": "a263fa4b"
+  },
+  "/api/bud-stylelint/make-872": {
+    "component": "17896441",
+    "content": "fe6949c0"
+  },
+  "/api/bud-stylelint/name2-0a5": {
+    "component": "17896441",
+    "content": "d7a194e9"
+  },
+  "/api/bud-stylelint/options-2d7": {
+    "component": "17896441",
+    "content": "93e40319"
+  },
+  "/api/bud-tailwindcss/api-903": {
+    "component": "17896441",
+    "content": "05f856e4"
+  },
+  "/api/bud-tailwindcss/boot-cec": {
+    "component": "17896441",
+    "content": "be28795b"
+  },
+  "/api/bud-tailwindcss/name2-7ff": {
+    "component": "17896441",
+    "content": "0fe98a15"
+  },
+  "/api/bud-terser/api-14a": {
+    "component": "17896441",
+    "content": "a1fddb49"
+  },
+  "/api/bud-terser/api/terser-1ea": {
+    "component": "17896441",
+    "content": "e64b7e45"
+  },
+  "/api/bud-terser/boot-76b": {
+    "component": "17896441",
+    "content": "367f7370"
+  },
+  "/api/bud-terser/name2-a27": {
+    "component": "17896441",
+    "content": "fe4880eb"
+  },
+  "/api/bud-terser/options-e55": {
+    "component": "17896441",
+    "content": "4e9724f8"
+  },
+  "/api/bud-typescript/api-42b": {
+    "component": "17896441",
+    "content": "da0e06ce"
+  },
+  "/api/bud-typescript/boot-d2b": {
+    "component": "17896441",
+    "content": "9ad20581"
+  },
+  "/api/bud-typescript/name2-9b9": {
+    "component": "17896441",
+    "content": "b4936c44"
+  },
+  "/api/bud-vue/boot-9c8": {
+    "component": "17896441",
+    "content": "6aa550a1"
+  },
+  "/api/bud-vue/name2-d2c": {
+    "component": "17896441",
+    "content": "9ff97f63"
+  },
+  "/api/bud-wordpress-dependencies/make-698": {
+    "component": "17896441",
+    "content": "ddda1537"
+  },
+  "/api/bud-wordpress-dependencies/name2-b3b": {
+    "component": "17896441",
+    "content": "b5cb18a4"
+  },
+  "/api/bud-wordpress-externals/make-8a6": {
+    "component": "17896441",
+    "content": "6366f8d8"
+  },
+  "/api/bud-wordpress-externals/name2-a67": {
+    "component": "17896441",
+    "content": "8ff53040"
+  },
+  "/api/bud-wordpress-manifests/make-f6b": {
+    "component": "17896441",
+    "content": "30a81102"
+  },
+  "/api/bud-wordpress-manifests/name2-6e8": {
+    "component": "17896441",
+    "content": "164a3275"
+  },
+  "/api/bud/bud-741": {
+    "component": "17896441",
+    "content": "1cdc27a7"
+  },
+  "/api/bud/bud/options-db5": {
+    "component": "17896441",
+    "content": "3a5a3805"
+  },
+  "/api/bud/config-5ae": {
+    "component": "17896441",
+    "content": "f953cb0e"
+  },
+  "/api/bud/extensions-600": {
+    "component": "17896441",
+    "content": "c3d466e1"
+  },
+  "/api/bud/factory-fbc": {
+    "component": "17896441",
+    "content": "7da52069"
+  },
+  "/api/container/container-ab7": {
+    "component": "17896441",
+    "content": "96aa0556"
+  },
+  "/api/container/container/all-d8d": {
+    "component": "17896441",
+    "content": "84f7ad9c"
+  },
+  "/api/container/container/constructor-56f": {
+    "component": "17896441",
+    "content": "a9a525ad"
+  },
+  "/api/container/container/count-0fc": {
+    "component": "17896441",
+    "content": "d00a89eb"
+  },
+  "/api/container/container/each-df7": {
+    "component": "17896441",
+    "content": "31dfe799"
+  },
+  "/api/container/container/every-e5e": {
+    "component": "17896441",
+    "content": "1fe1ce0d"
+  },
+  "/api/container/container/fromentries-aa2": {
+    "component": "17896441",
+    "content": "909d3cff"
+  },
+  "/api/container/container/get-f5e": {
+    "component": "17896441",
+    "content": "6b28c3d1"
+  },
+  "/api/container/container/getentries-c4d": {
+    "component": "17896441",
+    "content": "2e13e8fd"
+  },
+  "/api/container/container/getkeys-0d7": {
+    "component": "17896441",
+    "content": "121412a1"
+  },
+  "/api/container/container/getmap-0bd": {
+    "component": "17896441",
+    "content": "ae659572"
+  },
+  "/api/container/container/getvalues-0c3": {
+    "component": "17896441",
+    "content": "f3a12fc1"
+  },
+  "/api/container/container/has-05d": {
+    "component": "17896441",
+    "content": "2163c15f"
+  },
+  "/api/container/container/ident-404": {
+    "component": "17896441",
+    "content": "39aee639"
+  },
+  "/api/container/container/is-65e": {
+    "component": "17896441",
+    "content": "5e0ff3ee"
+  },
+  "/api/container/container/isarray-e98": {
+    "component": "17896441",
+    "content": "6327c9f1"
+  },
+  "/api/container/container/isdefined-305": {
+    "component": "17896441",
+    "content": "0df635a7"
+  },
+  "/api/container/container/isempty-7de": {
+    "component": "17896441",
+    "content": "f0c1e34e"
+  },
+  "/api/container/container/isfalse-bd5": {
+    "component": "17896441",
+    "content": "710b7590"
+  },
+  "/api/container/container/isfunction-bcf": {
+    "component": "17896441",
+    "content": "ccf53cd9"
+  },
+  "/api/container/container/isinstanceof-a10": {
+    "component": "17896441",
+    "content": "616ca95c"
+  },
+  "/api/container/container/isinstanceofany-f82": {
+    "component": "17896441",
+    "content": "81755329"
+  },
+  "/api/container/container/isnotarray-770": {
+    "component": "17896441",
+    "content": "3d8e84c0"
+  },
+  "/api/container/container/isnotempty-186": {
+    "component": "17896441",
+    "content": "4752b7c5"
+  },
+  "/api/container/container/isnotfunction-83a": {
+    "component": "17896441",
+    "content": "1145dcd1"
+  },
+  "/api/container/container/isnotinstanceof-66f": {
+    "component": "17896441",
+    "content": "682b4f40"
+  },
+  "/api/container/container/isnotinstanceofany-51e": {
+    "component": "17896441",
+    "content": "1138324d"
+  },
+  "/api/container/container/isnotnull-6f7": {
+    "component": "17896441",
+    "content": "b5057336"
+  },
+  "/api/container/container/isnotnumber-ed7": {
+    "component": "17896441",
+    "content": "2f917442"
+  },
+  "/api/container/container/isnotstring-631": {
+    "component": "17896441",
+    "content": "1691b054"
+  },
+  "/api/container/container/isnull-1a0": {
+    "component": "17896441",
+    "content": "7b6e7f3a"
+  },
+  "/api/container/container/isnumber-6db": {
+    "component": "17896441",
+    "content": "2331a37d"
+  },
+  "/api/container/container/isstring-838": {
+    "component": "17896441",
+    "content": "aeacb075"
+  },
+  "/api/container/container/istrue-849": {
+    "component": "17896441",
+    "content": "96c8fe2c"
+  },
+  "/api/container/container/isundefined-68a": {
+    "component": "17896441",
+    "content": "2ac78049"
+  },
+  "/api/container/container/merge-bcb": {
+    "component": "17896441",
+    "content": "ed5705ae"
+  },
+  "/api/container/container/mergestore-e81": {
+    "component": "17896441",
+    "content": "7970d836"
+  },
+  "/api/container/container/mutate-4bb": {
+    "component": "17896441",
+    "content": "dd439d4f"
+  },
+  "/api/container/container/mutatestore-3c7": {
+    "component": "17896441",
+    "content": "1ce2616e"
+  },
+  "/api/container/container/remove-e05": {
+    "component": "17896441",
+    "content": "bea9fb0e"
+  },
+  "/api/container/container/repository-ca2": {
+    "component": "17896441",
+    "content": "14451bb2"
+  },
+  "/api/container/container/set-4ef": {
+    "component": "17896441",
+    "content": "a348cabc"
+  },
+  "/api/container/container/setstore-904": {
+    "component": "17896441",
+    "content": "9c11be11"
+  },
+  "/api/container/container/transform-66f": {
+    "component": "17896441",
+    "content": "12fdf91b"
+  },
+  "/api/container/container/transformstore-11a": {
+    "component": "17896441",
+    "content": "677ae0d4"
+  },
+  "/api/container/container/unique-a7a": {
+    "component": "17896441",
+    "content": "35571213"
+  },
+  "/api/container/repository-b55": {
+    "component": "17896441",
+    "content": "9c244bf2"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin-7d5": {
+    "component": "17896441",
+    "content": "56e5b6a1"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/apply-480": {
+    "component": "17896441",
+    "content": "e27126fb"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation-122": {
+    "component": "17896441",
+    "content": "71d571e3"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor-b8f": {
+    "component": "17896441",
+    "content": "badb96be"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/criticalentry-5a0": {
+    "component": "17896441",
+    "content": "43b1df82"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints-8e6": {
+    "component": "17896441",
+    "content": "c9856f7e"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical-254": {
+    "component": "17896441",
+    "content": "f9b3828e"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules-c50": {
+    "component": "17896441",
+    "content": "8a26a4e5"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject-ce2": {
+    "component": "17896441",
+    "content": "a96700d9"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname-7cc": {
+    "component": "17896441",
+    "content": "c2aa2533"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/options-fa0": {
+    "component": "17896441",
+    "content": "9b716971"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/plugin-2b9": {
+    "component": "17896441",
+    "content": "1cfe09a6"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/processassets-43f": {
+    "component": "17896441",
+    "content": "93e9cfe0"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile-f58": {
+    "component": "17896441",
+    "content": "8f406d43"
+  },
+  "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack-145": {
+    "component": "17896441",
+    "content": "2136ca50"
+  },
+  "/api/critical-css-webpack-plugin/options-813": {
+    "component": "17896441",
+    "content": "e8aec577"
+  },
+  "/api/critical-css-webpack-plugin/options/criticaloptions-5b0": {
+    "component": "17896441",
+    "content": "09f956b5"
+  },
+  "/api/critical-css-webpack-plugin/options/hash-60f": {
+    "component": "17896441",
+    "content": "49569448"
+  },
+  "/api/critical-css-webpack-plugin/options/replace-2cd": {
+    "component": "17896441",
+    "content": "7e5fa5e6"
+  },
+  "/api/dependencies/dependencies-1cc": {
+    "component": "17896441",
+    "content": "61d0face"
+  },
+  "/api/dependencies/dependencies/client-b35": {
+    "component": "17896441",
+    "content": "865d42b2"
+  },
+  "/api/dependencies/dependencies/constructor-44d": {
+    "component": "17896441",
+    "content": "a99d1374"
+  },
+  "/api/dependencies/dependencies/isyarn-2aa": {
+    "component": "17896441",
+    "content": "67395069"
+  },
+  "/api/dependencies/dependencies/path-4cc": {
+    "component": "17896441",
+    "content": "2b14aee4"
+  },
+  "/api/dependencies/idependencymanager-bdc": {
+    "component": "17896441",
+    "content": "cc4706ef"
+  },
+  "/api/dependencies/idependencymanager/install-811": {
+    "component": "17896441",
+    "content": "4f47a800"
+  },
+  "/api/dependencies/idependencymanager/onmessage-9a9": {
+    "component": "17896441",
+    "content": "90536e3e"
+  },
+  "/api/dependencies/idependencymanager/path-dc2": {
+    "component": "17896441",
+    "content": "48fe6d88"
+  },
+  "/api/dependencies/idependencymanager/uninstall-354": {
+    "component": "17896441",
+    "content": "b53fbccf"
+  },
+  "/api/dependencies/npm-f16": {
+    "component": "17896441",
+    "content": "73989c9e"
+  },
+  "/api/dependencies/npm/install-507": {
+    "component": "17896441",
+    "content": "7eddc3b4"
+  },
+  "/api/dependencies/npm/uninstall-f0b": {
+    "component": "17896441",
+    "content": "10521c05"
+  },
+  "/api/dependencies/yarn-3b6": {
+    "component": "17896441",
+    "content": "fe4dccf3"
+  },
+  "/api/dependencies/yarn/install-198": {
+    "component": "17896441",
+    "content": "d4a10d76"
+  },
+  "/api/dependencies/yarn/uninstall-9c0": {
+    "component": "17896441",
+    "content": "4556ffd9"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin-e5b": {
+    "component": "17896441",
+    "content": "ea7f7de8"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/addtomanifest-d5d": {
+    "component": "17896441",
+    "content": "9ccf48f7"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/apply-5ff": {
+    "component": "17896441",
+    "content": "2d933f03"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/assets-047": {
+    "component": "17896441",
+    "content": "e4ff1b7c"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compilation-1d7": {
+    "component": "17896441",
+    "content": "b2e64c38"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compiler-4d9": {
+    "component": "17896441",
+    "content": "1d107cbf"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/constructor-472": {
+    "component": "17896441",
+    "content": "a44d1557"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/getentrypointfiles-322": {
+    "component": "17896441",
+    "content": "0d695337"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/name-56a": {
+    "component": "17896441",
+    "content": "42cf4f96"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/plugin-8a2": {
+    "component": "17896441",
+    "content": "af06e210"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/processassets-e92": {
+    "component": "17896441",
+    "content": "21dcd28a"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/publicpath-d2d": {
+    "component": "17896441",
+    "content": "32564c3d"
+  },
+  "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/type-e2b": {
+    "component": "17896441",
+    "content": "385fce5b"
+  },
+  "/api/filesystem/filecontainer-c7b": {
+    "component": "17896441",
+    "content": "c525185c"
+  },
+  "/api/filesystem/filecontainer/basedir-0ff": {
+    "component": "17896441",
+    "content": "1dd82340"
+  },
+  "/api/filesystem/filecontainer/constructor-365": {
+    "component": "17896441",
+    "content": "b41f30b5"
+  },
+  "/api/filesystem/filecontainer/ensure-836": {
+    "component": "17896441",
+    "content": "256d912a"
+  },
+  "/api/filesystem/filecontainer/ensuredir-b7d": {
+    "component": "17896441",
+    "content": "48740754"
+  },
+  "/api/filesystem/filecontainer/exists-706": {
+    "component": "17896441",
+    "content": "164870ca"
+  },
+  "/api/filesystem/filecontainer/fs-b77": {
+    "component": "17896441",
+    "content": "033a14e4"
+  },
+  "/api/filesystem/filecontainer/has-0db": {
+    "component": "17896441",
+    "content": "31d59532"
+  },
+  "/api/filesystem/filecontainer/ls-bcd": {
+    "component": "17896441",
+    "content": "ca406726"
+  },
+  "/api/filesystem/filecontainer/path-3b1": {
+    "component": "17896441",
+    "content": "d39a25db"
+  },
+  "/api/filesystem/filecontainer/read-8f8": {
+    "component": "17896441",
+    "content": "d0467b74"
+  },
+  "/api/filesystem/filecontainer/readjson-680": {
+    "component": "17896441",
+    "content": "42c83e93"
+  },
+  "/api/filesystem/filecontainer/require-40e": {
+    "component": "17896441",
+    "content": "ec6ae546"
+  },
+  "/api/filesystem/filecontainer/resolve-3ea": {
+    "component": "17896441",
+    "content": "79837e5e"
+  },
+  "/api/filesystem/filecontainer/set-aab": {
+    "component": "17896441",
+    "content": "929a64ff"
+  },
+  "/api/filesystem/filecontainer/setdisk-873": {
+    "component": "17896441",
+    "content": "888fb800"
+  },
+  "/api/filesystem/filecontainer/write-246": {
+    "component": "17896441",
+    "content": "eb9adfcb"
+  },
+  "/api/filesystem/filecontainer/writejson-760": {
+    "component": "17896441",
+    "content": "d79ceac0"
+  },
+  "/api/filesystem/filesystem2-466": {
+    "component": "17896441",
+    "content": "924a6b62"
+  },
+  "/api/filesystem/filesystem2/basedir-8c9": {
+    "component": "17896441",
+    "content": "0586c124"
+  },
+  "/api/filesystem/filesystem2/get-347": {
+    "component": "17896441",
+    "content": "b32a74a0"
+  },
+  "/api/filesystem/filesystem2/make-702": {
+    "component": "17896441",
+    "content": "4c2df067"
+  },
+  "/api/filesystem/filesystem2/path-194": {
+    "component": "17896441",
+    "content": "8894b5a1"
+  },
+  "/api/ink-prettier/inkprettier-d3f": {
+    "component": "17896441",
+    "content": "29e7f308"
+  },
+  "/api/ink-use-style/defaulttheme-c87": {
+    "component": "17896441",
+    "content": "5fbf792e"
+  },
+  "/api/ink-use-style/defaulttheme/colors-af9": {
+    "component": "17896441",
+    "content": "f3916741"
+  },
+  "/api/ink-use-style/defaulttheme/columns-c7a": {
+    "component": "17896441",
+    "content": "cf6c2e13"
+  },
+  "/api/ink-use-style/defaulttheme/maxheight-40c": {
+    "component": "17896441",
+    "content": "18581d3e"
+  },
+  "/api/ink-use-style/defaulttheme/maxwidth-5ce": {
+    "component": "17896441",
+    "content": "4bd9bc18"
+  },
+  "/api/ink-use-style/defaulttheme/screens-09a": {
+    "component": "17896441",
+    "content": "923e6d91"
+  },
+  "/api/ink-use-style/defaulttheme/spacing-9b3": {
+    "component": "17896441",
+    "content": "66bacd7f"
+  },
+  "/api/ink-use-style/styles-a71": {
+    "component": "17896441",
+    "content": "89fd2a7a"
+  },
+  "/api/ink-use-style/styles/bounds-774": {
+    "component": "17896441",
+    "content": "7af7eb41"
+  },
+  "/api/ink-use-style/styles/col-ad7": {
+    "component": "17896441",
+    "content": "09ed1e50"
+  },
+  "/api/ink-use-style/styles/colors-380": {
+    "component": "17896441",
+    "content": "9b3bd77a"
+  },
+  "/api/ink-use-style/styles/ctx-5d3": {
+    "component": "17896441",
+    "content": "306645d2"
+  },
+  "/api/ink-use-style/styles/screen-402": {
+    "component": "17896441",
+    "content": "c918cd6c"
+  },
+  "/api/ink-use-style/styles/setcolors-216": {
+    "component": "17896441",
+    "content": "9a31c830"
+  },
+  "/api/ink-use-style/styles/setscreens-055": {
+    "component": "17896441",
+    "content": "d05bee19"
+  },
+  "/api/ink-use-style/styles/spacing-202": {
+    "component": "17896441",
+    "content": "bf076b3c"
+  },
+  "/api/ink-use-style/theme-ac5": {
+    "component": "17896441",
+    "content": "6506727f"
+  },
+  "/api/ink-use-style/theme/colors-efe": {
+    "component": "17896441",
+    "content": "4aa1b80e"
+  },
+  "/api/ink-use-style/theme/columns-29f": {
+    "component": "17896441",
+    "content": "200f8f1e"
+  },
+  "/api/ink-use-style/theme/maxheight-e20": {
+    "component": "17896441",
+    "content": "47de340c"
+  },
+  "/api/ink-use-style/theme/maxwidth-76b": {
+    "component": "17896441",
+    "content": "c1238e6e"
+  },
+  "/api/ink-use-style/theme/screens-259": {
+    "component": "17896441",
+    "content": "af2b0ead"
+  },
+  "/api/ink-use-style/theme/screentuple-ad8": {
+    "component": "17896441",
+    "content": "0e5ba419"
+  },
+  "/api/ink-use-style/theme/spacing-797": {
+    "component": "17896441",
+    "content": "3954e081"
+  },
+  "/api/ink-use-style/usestyle-91f": {
+    "component": "17896441",
+    "content": "d07b7bf8"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin-711": {
+    "component": "17896441",
+    "content": "96b39844"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply-246": {
+    "component": "17896441",
+    "content": "b89cd106"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/constructor-74e": {
+    "component": "17896441",
+    "content": "26c034d2"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/dir-bca": {
+    "component": "17896441",
+    "content": "e4c3cd4c"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/done-6e8": {
+    "component": "17896441",
+    "content": "fd5848e7"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/entrypointsname-661": {
+    "component": "17896441",
+    "content": "e6e6cb25"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/file-c48": {
+    "component": "17896441",
+    "content": "94dec84f"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/format-971": {
+    "component": "17896441",
+    "content": "a15db1b6"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/isbuildable-e04": {
+    "component": "17896441",
+    "content": "bd21a3c4"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestcontent-907": {
+    "component": "17896441",
+    "content": "d65f60bf"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestexists-162": {
+    "component": "17896441",
+    "content": "dffa42b4"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestpath-48b": {
+    "component": "17896441",
+    "content": "2c2739fb"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/path-d87": {
+    "component": "17896441",
+    "content": "346dc464"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin-ae3": {
+    "component": "17896441",
+    "content": "0b443694"
+  },
+  "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname-15f": {
+    "component": "17896441",
+    "content": "7788030e"
+  },
+  "/api/sage/name2-5d7": {
+    "component": "17896441",
+    "content": "3465d77d"
+  },
+  "/api/sage/register-cca": {
+    "component": "17896441",
+    "content": "d1a25e25"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin-469": {
+    "component": "17896441",
+    "content": "f077c2ce"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply-e1f": {
+    "component": "17896441",
+    "content": "5e16e52b"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/compilation-52f": {
+    "component": "17896441",
+    "content": "3f5f6336"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/constructor-350": {
+    "component": "17896441",
+    "content": "5f5a0ef5"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/filename-2ec": {
+    "component": "17896441",
+    "content": "a547b8fc"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/manifest-b13": {
+    "component": "17896441",
+    "content": "b137a09d"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/normalmodulefactory-b12": {
+    "component": "17896441",
+    "content": "b831e6f0"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/plugin-293": {
+    "component": "17896441",
+    "content": "1950a022"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/processassets-436": {
+    "component": "17896441",
+    "content": "5766231a"
+  },
+  "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/useddependencies-675": {
+    "component": "17896441",
+    "content": "d12b69e8"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals-61c": {
+    "component": "17896441",
+    "content": "89882cb0"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals/apply-106": {
+    "component": "17896441",
+    "content": "9c40f9fb"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals/constructor-942": {
+    "component": "17896441",
+    "content": "c2359302"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals/externals-d12": {
+    "component": "17896441",
+    "content": "9830c741"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals/name-e3c": {
+    "component": "17896441",
+    "content": "8a1fbceb"
+  },
+  "/api/wordpress-externals-webpack-plugin/wordpressexternals/stage-df7": {
+    "component": "17896441",
+    "content": "12de3d9a"
+  },
+  "/docs-95d": {
+    "component": "1be78505",
+    "versionMetadata": "935f2afb"
+  },
+  "/docs/-565": {
+    "component": "17896441",
+    "content": "56367ac6"
+  },
+  "/docs/bud.alias-074": {
+    "component": "17896441",
+    "content": "2ed12342"
+  },
+  "/docs/bud.assets-c46": {
+    "component": "17896441",
+    "content": "7a26e298"
+  },
+  "/docs/bud.define-f95": {
+    "component": "17896441",
+    "content": "3abdfbb8"
+  },
+  "/docs/bud.devtool-157": {
+    "component": "17896441",
+    "content": "340c7ed6"
+  },
+  "/docs/bud.entry-f3c": {
+    "component": "17896441",
+    "content": "82294746"
+  },
+  "/docs/bud.env-d98": {
+    "component": "17896441",
+    "content": "617e542a"
+  },
+  "/docs/bud.externals-a62": {
+    "component": "17896441",
+    "content": "e3e7a28a"
+  },
+  "/docs/bud.get-4ac": {
+    "component": "17896441",
+    "content": "e355194c"
+  },
+  "/docs/bud.hash-f6a": {
+    "component": "17896441",
+    "content": "88a95cc4"
+  },
+  "/docs/bud.hooks/-19e": {
+    "component": "17896441",
+    "content": "bab15a3a"
+  },
+  "/docs/bud.hooks/reference-66c": {
+    "component": "17896441",
+    "content": "d07274e9"
+  },
+  "/docs/bud.make-8a2": {
+    "component": "17896441",
+    "content": "267379dd"
+  },
+  "/docs/bud.minimize-d72": {
+    "component": "17896441",
+    "content": "2368f789"
+  },
+  "/docs/bud.mode/-76a": {
+    "component": "17896441",
+    "content": "a55dd90c"
+  },
+  "/docs/bud.mode/bud.isDevelopment-434": {
+    "component": "17896441",
+    "content": "99e422b0"
+  },
+  "/docs/bud.mode/bud.isProduction-08d": {
+    "component": "17896441",
+    "content": "75f7a9bd"
+  },
+  "/docs/bud.path-aed": {
+    "component": "17896441",
+    "content": "341bc6b4"
+  },
+  "/docs/bud.provide-cc6": {
+    "component": "17896441",
+    "content": "7c6decda"
+  },
+  "/docs/bud.proxy-79b": {
+    "component": "17896441",
+    "content": "767b387b"
+  },
+  "/docs/bud.publicPath-b1f": {
+    "component": "17896441",
+    "content": "5f58d385"
+  },
+  "/docs/bud.runtime-dbe": {
+    "component": "17896441",
+    "content": "060b0246"
+  },
+  "/docs/bud.serve-187": {
+    "component": "17896441",
+    "content": "78bd75c2"
+  },
+  "/docs/bud.setPath-5df": {
+    "component": "17896441",
+    "content": "e0d67ee7"
+  },
+  "/docs/bud.setPublicPath-acc": {
+    "component": "17896441",
+    "content": "b6019d4a"
+  },
+  "/docs/bud.splitChunks-296": {
+    "component": "17896441",
+    "content": "d8ddece4"
+  },
+  "/docs/bud.tap-293": {
+    "component": "17896441",
+    "content": "d1a8b976"
+  },
+  "/docs/bud.template-1c7": {
+    "component": "17896441",
+    "content": "2f5d7b88"
+  },
+  "/docs/bud.use-056": {
+    "component": "17896441",
+    "content": "8d058d2f"
+  },
+  "/docs/bud.when-a44": {
+    "component": "17896441",
+    "content": "f67f6526"
+  },
+  "/extensions-0d8": {
+    "component": "1be78505",
+    "versionMetadata": "790c9be8"
+  },
+  "/extensions/-8d3": {
+    "component": "17896441",
+    "content": "1e58cf17"
+  },
+  "/extensions/bud-babel-318": {
+    "component": "17896441",
+    "content": "d770385f"
+  },
+  "/extensions/bud-criticalcss-0d1": {
+    "component": "17896441",
+    "content": "f6e8ec50"
+  },
+  "/extensions/bud-emotion-3e4": {
+    "component": "17896441",
+    "content": "7f04dcd5"
+  },
+  "/extensions/bud-entrypoints-d8d": {
+    "component": "17896441",
+    "content": "3d8bfb47"
+  },
+  "/extensions/bud-esbuild-325": {
+    "component": "17896441",
+    "content": "05186bb3"
+  },
+  "/extensions/bud-eslint-324": {
+    "component": "17896441",
+    "content": "aa3eaa9f"
+  },
+  "/extensions/bud-imagemin-887": {
+    "component": "17896441",
+    "content": "51e45beb"
+  },
+  "/extensions/bud-library-2bc": {
+    "component": "17896441",
+    "content": "78f4bd1a"
+  },
+  "/extensions/bud-postcss-a1a": {
+    "component": "17896441",
+    "content": "50abf37c"
+  },
+  "/extensions/bud-react-0f7": {
+    "component": "17896441",
+    "content": "0d05eed3"
+  },
+  "/extensions/bud-sass-60a": {
+    "component": "17896441",
+    "content": "fe7edc1f"
+  },
+  "/extensions/bud-solid-339": {
+    "component": "17896441",
+    "content": "5341940a"
+  },
+  "/extensions/bud-tailwindcss-501": {
+    "component": "17896441",
+    "content": "beb2d4ea"
+  },
+  "/extensions/bud-typescript-f10": {
+    "component": "17896441",
+    "content": "1289958b"
+  },
+  "/extensions/bud-vue-e98": {
+    "component": "17896441",
+    "content": "a8ee1f01"
+  },
+  "/extensions/presets/bud-preset-recommend-de6": {
+    "component": "17896441",
+    "content": "190dfcad"
+  },
+  "/extensions/presets/bud-preset-wordpress-569": {
+    "component": "17896441",
+    "content": "2bfae21f"
+  },
+  "/guides-f2f": {
+    "component": "1be78505",
+    "versionMetadata": "fa69a7f4"
+  },
+  "/guides/-5ee": {
+    "component": "17896441",
+    "content": "ae5cc8f0"
+  },
+  "/guides/advanced-use/architecture-abb": {
+    "component": "17896441",
+    "content": "4cb50211"
+  },
+  "/guides/advanced-use/node-b75": {
+    "component": "17896441",
+    "content": "9041b332"
+  },
+  "/guides/advanced-use/writing-an-extension-1d9": {
+    "component": "17896441",
+    "content": "e6b90ea5"
+  },
+  "/guides/bud-cli/-03d": {
+    "component": "17896441",
+    "content": "9f5cf544"
+  },
+  "/guides/bud-cli/build-25c": {
+    "component": "17896441",
+    "content": "32b39002"
+  },
+  "/guides/bud-cli/clean-4cb": {
+    "component": "17896441",
+    "content": "74f87580"
+  },
+  "/guides/bud-cli/doctor-38e": {
+    "component": "17896441",
+    "content": "9e88435a"
+  },
+  "/guides/bud-cli/install-d17": {
+    "component": "17896441",
+    "content": "317f2f29"
+  },
+  "/guides/general-use/-1db": {
+    "component": "17896441",
+    "content": "06ee5d88"
+  },
+  "/guides/general-use/config-env-ae0": {
+    "component": "17896441",
+    "content": "475b8116"
+  },
+  "/guides/general-use/config-static-d06": {
+    "component": "17896441",
+    "content": "a7bb245c"
+  },
+  "/guides/general-use/config-ts-5a9": {
+    "component": "17896441",
+    "content": "a7cce9f0"
+  },
+  "/guides/general-use/hashing-2c7": {
+    "component": "17896441",
+    "content": "55b78a88"
+  },
+  "/guides/general-use/multi-compiler-08a": {
+    "component": "17896441",
+    "content": "fb9f5a60"
+  },
+  "/guides/getting-started/-dd0": {
+    "component": "17896441",
+    "content": "99c6c7a8"
+  },
+  "/guides/getting-started/assets-a46": {
+    "component": "17896441",
+    "content": "bf2ed936"
+  },
+  "/guides/getting-started/building-89d": {
+    "component": "17896441",
+    "content": "5c4e7405"
+  },
+  "/guides/getting-started/config-ce6": {
+    "component": "17896441",
+    "content": "3ca8e54a"
+  },
+  "/guides/getting-started/developing-a46": {
+    "component": "17896441",
+    "content": "e5aeb602"
+  },
+  "/guides/getting-started/entrypoints-813": {
+    "component": "17896441",
+    "content": "44f8c745"
+  },
+  "/guides/getting-started/extending-3e3": {
+    "component": "17896441",
+    "content": "2cd9e6d3"
+  },
+  "/guides/getting-started/optimizing-9c9": {
+    "component": "17896441",
+    "content": "00bc7b45"
+  },
+  "/guides/installation-84d": {
+    "component": "17896441",
+    "content": "6c1c9afa"
+  },
+  "/-230": {
+    "component": "4fd05c72",
+    "config": "5e9f5e1a"
+  }
+}

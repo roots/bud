@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.env",
+  "id": "bud-framework/framework/bud-framework.framework.env",
+  "title": "env property",
+  "description": "Framework.env property",
+  "source": "@site/api/bud-framework/framework/env.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/env",
+  "permalink": "/api/bud-framework/framework/env",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.env",
+    "title": "env property",
+    "sidebar_label": "env property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "env"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dump() method",
+    "permalink": "/api/bud-framework/framework/dump"
+  },
+  "next": {
+    "title": "error() method",
+    "permalink": "/api/bud-framework/framework/error"
+  }
+}

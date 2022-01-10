@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/configuration/bud-framework.server.configuration.disablehostcheck",
+  "id": "bud-framework/server/configuration/bud-framework.server.configuration.disablehostcheck",
+  "title": "disablehostcheck property",
+  "description": "Server.Configuration.disableHostCheck property",
+  "source": "@site/api/bud-framework/server/configuration/disablehostcheck.md",
+  "sourceDirName": "bud-framework/server/configuration",
+  "slug": "/bud-framework/server/configuration/disablehostcheck",
+  "permalink": "/api/bud-framework/server/configuration/disablehostcheck",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration.disablehostcheck",
+    "title": "disablehostcheck property",
+    "sidebar_label": "disablehostcheck property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "disablehostcheck"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dev property",
+    "permalink": "/api/bud-framework/server/configuration/dev"
+  },
+  "next": {
+    "title": "filename property",
+    "permalink": "/api/bud-framework/server/configuration/filename"
+  }
+}

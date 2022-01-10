@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/output/bud-framework.rule.output.use",
+  "id": "bud-framework/rule/output/bud-framework.rule.output.use",
+  "title": "use property",
+  "description": "Rule.Output.use property",
+  "source": "@site/api/bud-framework/rule/output/use.md",
+  "sourceDirName": "bud-framework/rule/output",
+  "slug": "/bud-framework/rule/output/use",
+  "permalink": "/api/bud-framework/rule/output/use",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.output.use",
+    "title": "use property",
+    "sidebar_label": "use property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "use"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "type property",
+    "permalink": "/api/bud-framework/rule/output/type"
+  },
+  "next": {
+    "title": "parse property",
+    "permalink": "/api/bud-framework/rule/parser/parse"
+  }
+}

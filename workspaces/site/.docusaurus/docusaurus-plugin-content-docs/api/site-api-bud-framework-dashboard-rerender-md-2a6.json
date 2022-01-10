@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/dashboard/bud-framework.dashboard.rerender",
+  "id": "bud-framework/dashboard/bud-framework.dashboard.rerender",
+  "title": "rerender() method",
+  "description": "Dashboard.rerender() method",
+  "source": "@site/api/bud-framework/dashboard/rerender.md",
+  "sourceDirName": "bud-framework/dashboard",
+  "slug": "/bud-framework/dashboard/rerender",
+  "permalink": "/api/bud-framework/dashboard/rerender",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.dashboard.rerender",
+    "title": "rerender() method",
+    "sidebar_label": "rerender() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "rerender"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "render() method",
+    "permalink": "/api/bud-framework/dashboard/render"
+  },
+  "next": {
+    "title": "run() method",
+    "permalink": "/api/bud-framework/dashboard/run"
+  }
+}

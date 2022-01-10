@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-imagemin/bud-imagemin.name_2",
+  "id": "bud-imagemin/bud-imagemin.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-imagemin/name2.md",
+  "sourceDirName": "bud-imagemin",
+  "slug": "/bud-imagemin/name2",
+  "permalink": "/api/bud-imagemin/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-imagemin.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mixin variable",
+    "permalink": "/api/bud-imagemin/mixin"
+  },
+  "next": {
+    "title": "register variable",
+    "permalink": "/api/bud-imagemin/register"
+  }
+}

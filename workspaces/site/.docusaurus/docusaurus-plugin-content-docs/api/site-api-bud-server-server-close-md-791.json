@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-server/server/bud-server.server.close",
+  "id": "bud-server/server/bud-server.server.close",
+  "title": "close() method",
+  "description": "Server.close() method",
+  "source": "@site/api/bud-server/server/close.md",
+  "sourceDirName": "bud-server/server",
+  "slug": "/bud-server/server/close",
+  "permalink": "/api/bud-server/server/close",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-server.server.close",
+    "title": "close() method",
+    "sidebar_label": "close() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "close"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "application property",
+    "permalink": "/api/bud-server/server/application"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-server/server/config"
+  }
+}

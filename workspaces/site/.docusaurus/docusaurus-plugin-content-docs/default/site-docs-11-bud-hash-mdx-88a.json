@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.hash",
+  "id": "bud.hash",
+  "title": "bud.hash",
+  "description": "Enable or disable filename hashing of built assets.",
+  "source": "@site/docs/11-bud.hash.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.hash",
+  "permalink": "/docs/bud.hash",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/11-bud.hash.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 11,
+  "frontMatter": {
+    "id": "bud.hash",
+    "title": "bud.hash",
+    "description": "Enable or disable filename hashing of built assets.",
+    "sidebar_label": "bud.hash",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.hash.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.get",
+    "permalink": "/docs/bud.get"
+  },
+  "next": {
+    "title": "bud.hooks",
+    "permalink": "/docs/bud.hooks/"
+  }
+}

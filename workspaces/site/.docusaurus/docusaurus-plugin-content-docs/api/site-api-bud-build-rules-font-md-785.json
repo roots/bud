@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.font",
+  "id": "bud-build/rules/bud-build.rules.font",
+  "title": "font variable",
+  "description": "rules.font variable",
+  "source": "@site/api/bud-build/rules/font.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/font",
+  "permalink": "/api/bud-build/rules/font",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.font",
+    "title": "font variable",
+    "sidebar_label": "font variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "font"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "csv variable",
+    "permalink": "/api/bud-build/rules/csv"
+  },
+  "next": {
+    "title": "html variable",
+    "permalink": "/api/bud-build/rules/html"
+  }
+}

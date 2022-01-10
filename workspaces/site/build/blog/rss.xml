@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>bud.js Blog</title>
+        <link>https://budjs.netlify.app/blog</link>
+        <description>bud.js Blog</description>
+        <lastBuildDate>Thu, 01 Jan 1970 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Release: v5.0.0]]></title>
+            <link>https://budjs.netlify.app/blog/release-v5.0.0</link>
+            <guid>release-v5.0.0</guid>
+            <pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
+            <description><![CDATA[Release notes for v5.0.0]]></description>
+            <content:encoded><![CDATA[<p>Featuring multi-compiler, automatic extension detection, and more.</p><p>Bud v5 comes with a lot of changes. Please <a href="https://github.com/roots/bud/compare/v4.6.0...v5.0.0">review the diff to see what&#x27;s changed</a>.</p><p><strong>The most important change</strong>
+You no longer need to explicitly require an extension in your configuration file or call <code>bud.use</code> to load it. Bud will automatically load the extensions you have installed. This feature can be circumvented with the <strong>--no-inject</strong> flag but this is not as well tested as the default behavior.</p><img src="/casts/build.svg"/><h3>multi-compiler</h3><p><code>bud.make</code> will create a new instance of Bud.</p><pre><code class="language-ts">interface make {
+  (name: string, tap?: (child: Bud) =&gt; any): Promise&lt;Bud&gt;
+}
+</code></pre><p>The easiest and cleanest way to use this feature is with a callback. <code>bud.make</code> ultimately returns the parent compiler instance for fluent chaining.</p><pre><code class="language-ts" metastring="title=&#x27;bud.config.ts&#x27;" title="&#x27;bud.config.ts&#x27;">export default async (app: Bud) =&gt; {
+  app
+    .make(&#x27;my-wordpress-theme&#x27;, async (theme: Bud) =&gt; {
+      // theme is a fresh copy of Bud
+    })
+    .make(&#x27;my-wordpress-plugin&#x27;, async (plugin: Bud) =&gt; {
+      // plugin is a fresh copy of Bud
+    })
+  // you can call bud.make as many times as you please
+}
+</code></pre><p>You can retrieve a compiler you have already made with <code>bud.get</code>.</p><pre><code class="language-ts">app.get(&#x27;child&#x27;)
+  .entry(...) // configuring the child
+</code></pre><p>Compile all the things:</p><img src="/casts/multi-compiler.svg"/><h3>You can now use Webpack plugins directly</h3><p>Previously, a <code>name</code> property was required for bud extensions. This is still required for extension authors,
+since it is nice for config maintainers and other extension authors to have a way to reference your
+extension should they want to change the way it works.</p><p>However, this is unnecessary for users who simply wish to use some Webpack plugin in their project.</p><p>Previously, a small amount of boilerplate was required to wrap a plugin:</p><pre><code class="language-ts">app.use({
+  name: &#x27;my-webpack-plugin&#x27;,
+  make: new MyWebpackPlugin(),
+})
+</code></pre><p>But, now you can just use a plugin. A name will be automatically generated.</p><pre><code class="language-ts">app.use(new MyWebpackPlugin())
+</code></pre><p>A side effect of this is that extension authors can now make a single package that works both with vanilla webpack and bud:</p><pre><code class="language-ts">const extension = {
+  name: &#x27;my-bud-extension&#x27;,
+  apply: compiler =&gt; {
+    // webpack apply
+  },
+  when: bud =&gt; bud.isProduction,
+  // register, boot, api, or any other extension prop
+}
+</code></pre><p>Note that <code>extension.apply</code> overrules <code>extension.make</code>. If you include both it won&#x27;t throw an error or anything, but <code>extension.make</code> won&#x27;t produce a webpack plugin in the final config (unless you call it from <code>apply</code> and use webpack apis to add the plugin manually).</p><h2>More information</h2><ul><li><a href="/releases/5.0.0">Read the release notes</a></li><li><a href="https://github.com/roots/bud/compare/v4.6.0...v5.0.0">review the diff to see what&#x27;s changed</a></li></ul><p>Thanks <a href="/contributors">to all the contributors</a>!</p>]]></content:encoded>
+        </item>
+    </channel>
+</rss>

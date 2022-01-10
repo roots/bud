@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/peers/interface/bud-framework.peers.interface.discover",
+  "id": "bud-framework/peers/interface/bud-framework.peers.interface.discover",
+  "title": "discover() method",
+  "description": "Peers.Interface.discover() method",
+  "source": "@site/api/bud-framework/peers/interface/discover.md",
+  "sourceDirName": "bud-framework/peers/interface",
+  "slug": "/bud-framework/peers/interface/discover",
+  "permalink": "/api/bud-framework/peers/interface/discover",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers.interface.discover",
+    "title": "discover() method",
+    "sidebar_label": "discover() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "discover"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "app property",
+    "permalink": "/api/bud-framework/peers/interface/app"
+  },
+  "next": {
+    "title": "getmanifest() method",
+    "permalink": "/api/bud-framework/peers/interface/getmanifest"
+  }
+}

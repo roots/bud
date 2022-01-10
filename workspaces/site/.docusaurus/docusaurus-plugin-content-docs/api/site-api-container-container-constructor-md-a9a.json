@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container._constructor_",
+  "id": "container/container/container.container._constructor_",
+  "title": "(constructor)",
+  "description": "Container.(constructor)",
+  "source": "@site/api/container/container/constructor.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/constructor",
+  "permalink": "/api/container/container/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "all() method",
+    "permalink": "/api/container/container/all"
+  },
+  "next": {
+    "title": "count() method",
+    "permalink": "/api/container/container/count"
+  }
+}

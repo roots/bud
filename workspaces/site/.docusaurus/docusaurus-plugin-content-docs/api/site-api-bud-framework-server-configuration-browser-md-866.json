@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/configuration/bud-framework.server.configuration.browser",
+  "id": "bud-framework/server/configuration/bud-framework.server.configuration.browser",
+  "title": "browser property",
+  "description": "Server.Configuration.browser property",
+  "source": "@site/api/bud-framework/server/configuration/browser.md",
+  "sourceDirName": "bud-framework/server/configuration",
+  "slug": "/bud-framework/server/configuration/browser",
+  "permalink": "/api/bud-framework/server/configuration/browser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration.browser",
+    "title": "browser property",
+    "sidebar_label": "browser property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "browser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "listen() method",
+    "permalink": "/api/bud-framework/server/application/listen"
+  },
+  "next": {
+    "title": "dev property",
+    "permalink": "/api/bud-framework/server/configuration/dev"
+  }
+}

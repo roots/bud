@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-eslint",
+  "id": "bud-eslint",
+  "title": "@roots/bud-eslint",
+  "description": "Eslint support can be added by installing the @roots/bud-eslint extension.",
+  "source": "@site/extensions/bud-eslint.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-eslint",
+  "permalink": "/extensions/bud-eslint",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-eslint"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-esbuild",
+    "permalink": "/extensions/bud-esbuild"
+  },
+  "next": {
+    "title": "@roots/bud-imagemin",
+    "permalink": "/extensions/bud-imagemin"
+  }
+}

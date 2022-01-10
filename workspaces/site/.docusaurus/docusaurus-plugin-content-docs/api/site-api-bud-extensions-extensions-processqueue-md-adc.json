@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.processqueue",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.processqueue",
+  "title": "processqueue() method",
+  "description": "Extensions.processQueue() method",
+  "source": "@site/api/bud-extensions/extensions/processqueue.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/processqueue",
+  "permalink": "/api/bud-extensions/extensions/processqueue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.processqueue",
+    "title": "processqueue() method",
+    "sidebar_label": "processqueue() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "processqueue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "makecontroller() method",
+    "permalink": "/api/bud-extensions/extensions/makecontroller"
+  },
+  "next": {
+    "title": "queue property",
+    "permalink": "/api/bud-extensions/extensions/queue"
+  }
+}

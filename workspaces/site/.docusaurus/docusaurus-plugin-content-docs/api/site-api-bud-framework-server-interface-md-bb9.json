@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/bud-framework.server.interface",
+  "id": "bud-framework/server/bud-framework.server.interface",
+  "title": "interface interface",
+  "description": "Server.Interface interface",
+  "source": "@site/api/bud-framework/server/interface.md",
+  "sourceDirName": "bud-framework/server",
+  "slug": "/bud-framework/server/interface",
+  "permalink": "/api/bud-framework/server/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "instance interface",
+    "permalink": "/api/bud-framework/server/instance"
+  },
+  "next": {
+    "title": "middleware interface",
+    "permalink": "/api/bud-framework/server/middleware"
+  }
+}

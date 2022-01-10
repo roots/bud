@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.repository",
+  "id": "container/container/container.container.repository",
+  "title": "repository property",
+  "description": "Container.repository property",
+  "source": "@site/api/container/container/repository.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/repository",
+  "permalink": "/api/container/container/repository",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.repository",
+    "title": "repository property",
+    "sidebar_label": "repository property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "repository"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "remove() method",
+    "permalink": "/api/container/container/remove"
+  },
+  "next": {
+    "title": "set() method",
+    "permalink": "/api/container/container/set"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/idependencymanager/dependencies.idependencymanager.install",
+  "id": "dependencies/idependencymanager/dependencies.idependencymanager.install",
+  "title": "install property",
+  "description": "IDependencyManager.install property",
+  "source": "@site/api/dependencies/idependencymanager/install.md",
+  "sourceDirName": "dependencies/idependencymanager",
+  "slug": "/dependencies/idependencymanager/install",
+  "permalink": "/api/dependencies/idependencymanager/install",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.idependencymanager.install",
+    "title": "install property",
+    "sidebar_label": "install property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "install"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "yarn class",
+    "permalink": "/api/dependencies/yarn"
+  },
+  "next": {
+    "title": "onmessage property",
+    "permalink": "/api/dependencies/idependencymanager/onmessage"
+  }
+}

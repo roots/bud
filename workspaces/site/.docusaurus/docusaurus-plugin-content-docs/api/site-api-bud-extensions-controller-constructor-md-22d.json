@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller._constructor_",
+  "id": "bud-extensions/controller/bud-extensions.controller._constructor_",
+  "title": "(constructor)",
+  "description": "Controller.(constructor)",
+  "source": "@site/api/bud-extensions/controller/constructor.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/constructor",
+  "permalink": "/api/bud-extensions/controller/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "booted property",
+    "permalink": "/api/bud-extensions/controller/booted"
+  },
+  "next": {
+    "title": "get() method",
+    "permalink": "/api/bud-extensions/controller/get"
+  }
+}

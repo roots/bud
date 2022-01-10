@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/peers/interface/bud-framework.peers.interface.getmanifest",
+  "id": "bud-framework/peers/interface/bud-framework.peers.interface.getmanifest",
+  "title": "getmanifest() method",
+  "description": "Peers.Interface.getManifest() method",
+  "source": "@site/api/bud-framework/peers/interface/getmanifest.md",
+  "sourceDirName": "bud-framework/peers/interface",
+  "slug": "/bud-framework/peers/interface/getmanifest",
+  "permalink": "/api/bud-framework/peers/interface/getmanifest",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers.interface.getmanifest",
+    "title": "getmanifest() method",
+    "sidebar_label": "getmanifest() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getmanifest"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "discover() method",
+    "permalink": "/api/bud-framework/peers/interface/discover"
+  },
+  "next": {
+    "title": "getpackagemanifestpath() method",
+    "permalink": "/api/bud-framework/peers/interface/getpackagemanifestpath"
+  }
+}

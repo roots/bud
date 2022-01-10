@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/styles/ink-use-style.styles.col",
+  "id": "ink-use-style/styles/ink-use-style.styles.col",
+  "title": "col property",
+  "description": "Styles.col property",
+  "source": "@site/api/ink-use-style/styles/col.md",
+  "sourceDirName": "ink-use-style/styles",
+  "slug": "/ink-use-style/styles/col",
+  "permalink": "/api/ink-use-style/styles/col",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.styles.col",
+    "title": "col property",
+    "sidebar_label": "col property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "col"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bounds property",
+    "permalink": "/api/ink-use-style/styles/bounds"
+  },
+  "next": {
+    "title": "colors property",
+    "permalink": "/api/ink-use-style/styles/colors"
+  }
+}

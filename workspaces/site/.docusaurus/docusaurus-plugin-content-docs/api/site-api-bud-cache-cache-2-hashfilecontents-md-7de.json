@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cache/cache2/bud-cache.cache_2.hashfilecontents",
+  "id": "bud-cache/cache2/bud-cache.cache_2.hashfilecontents",
+  "title": "hashfilecontents() method",
+  "description": "Cache_2.hashFileContents() method",
+  "source": "@site/api/bud-cache/cache2/hashfilecontents.md",
+  "sourceDirName": "bud-cache/cache2",
+  "slug": "/bud-cache/cache2/hashfilecontents",
+  "permalink": "/api/bud-cache/cache2/hashfilecontents",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-cache.cache_2.hashfilecontents",
+    "title": "hashfilecontents() method",
+    "sidebar_label": "hashfilecontents() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hashfilecontents"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "enabled property",
+    "permalink": "/api/bud-cache/cache2/enabled"
+  },
+  "next": {
+    "title": "type property",
+    "permalink": "/api/bud-cache/cache2/type"
+  }
+}

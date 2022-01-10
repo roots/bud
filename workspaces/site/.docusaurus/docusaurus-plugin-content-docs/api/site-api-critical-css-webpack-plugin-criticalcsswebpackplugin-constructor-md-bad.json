@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin._constructor_",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin._constructor_",
+  "title": "(constructor)",
+  "description": "CriticalCssWebpackPlugin.(constructor)",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "compilation() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation"
+  },
+  "next": {
+    "title": "criticalentry() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/criticalentry"
+  }
+}

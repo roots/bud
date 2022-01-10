@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/ink-use-style.theme",
+  "id": "ink-use-style/ink-use-style.theme",
+  "title": "theme namespace",
+  "description": "Theme namespace",
+  "source": "@site/api/ink-use-style/theme.md",
+  "sourceDirName": "ink-use-style",
+  "slug": "/ink-use-style/theme",
+  "permalink": "/api/ink-use-style/theme",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.theme",
+    "title": "theme namespace",
+    "sidebar_label": "theme namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "theme"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "styles interface",
+    "permalink": "/api/ink-use-style/styles"
+  },
+  "next": {
+    "title": "usestyle variable",
+    "permalink": "/api/ink-use-style/usestyle"
+  }
+}

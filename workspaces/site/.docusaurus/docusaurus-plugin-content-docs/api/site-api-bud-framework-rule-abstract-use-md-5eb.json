@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.use",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.use",
+  "title": "use() method",
+  "description": "Rule.Abstract.use() method",
+  "source": "@site/api/bud-framework/rule/abstract/use.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/use",
+  "permalink": "/api/bud-framework/rule/abstract/use",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.use",
+    "title": "use() method",
+    "sidebar_label": "use() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "use"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "test() method",
+    "permalink": "/api/bud-framework/rule/abstract/test"
+  },
+  "next": {
+    "title": "getexclude() method",
+    "permalink": "/api/bud-framework/rule/interface/getexclude"
+  }
+}

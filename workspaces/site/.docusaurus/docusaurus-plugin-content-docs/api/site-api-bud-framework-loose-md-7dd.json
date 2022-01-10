@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.loose",
+  "id": "bud-framework/bud-framework.loose",
+  "title": "loose interface",
+  "description": "Loose interface",
+  "source": "@site/api/bud-framework/loose.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/loose",
+  "permalink": "/api/bud-framework/loose",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loose",
+    "title": "loose interface",
+    "sidebar_label": "loose interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loose"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "logger class",
+    "permalink": "/api/bud-framework/logger"
+  },
+  "next": {
+    "title": "maybe type",
+    "permalink": "/api/bud-framework/maybe"
+  }
+}

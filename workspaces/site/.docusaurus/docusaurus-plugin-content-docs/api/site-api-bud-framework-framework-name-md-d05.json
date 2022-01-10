@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.name",
+  "id": "bud-framework/framework/bud-framework.framework.name",
+  "title": "name property",
+  "description": "Framework.name property",
+  "source": "@site/api/bud-framework/framework/name.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/name",
+  "permalink": "/api/bud-framework/framework/name",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.name",
+    "title": "name property",
+    "sidebar_label": "name property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mode property",
+    "permalink": "/api/bud-framework/framework/mode"
+  },
+  "next": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/framework/options"
+  }
+}

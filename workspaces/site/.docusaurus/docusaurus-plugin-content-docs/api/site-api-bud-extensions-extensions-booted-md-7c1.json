@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.booted",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.booted",
+  "title": "booted() method",
+  "description": "Extensions.booted() method",
+  "source": "@site/api/bud-extensions/extensions/booted.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/booted",
+  "permalink": "/api/bud-extensions/extensions/booted",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.booted",
+    "title": "booted() method",
+    "sidebar_label": "booted() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "booted"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot() method",
+    "permalink": "/api/bud-extensions/extensions/boot"
+  },
+  "next": {
+    "title": "bootextension() method",
+    "permalink": "/api/bud-extensions/extensions/bootextension"
+  }
+}

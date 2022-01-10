@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.dependencies",
+  "id": "bud-framework/framework/bud-framework.framework.dependencies",
+  "title": "dependencies property",
+  "description": "Framework.dependencies property",
+  "source": "@site/api/bud-framework/framework/dependencies.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/dependencies",
+  "permalink": "/api/bud-framework/framework/dependencies",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.dependencies",
+    "title": "dependencies property",
+    "sidebar_label": "dependencies property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dependencies"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "debug() method",
+    "permalink": "/api/bud-framework/framework/debug"
+  },
+  "next": {
+    "title": "dump() method",
+    "permalink": "/api/bud-framework/framework/dump"
+  }
+}

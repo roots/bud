@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cache/bud-cache.cache_2",
+  "id": "bud-cache/bud-cache.cache_2",
+  "title": "cache\\_2 class",
+  "description": "Cache_2 class",
+  "source": "@site/api/bud-cache/cache2.md",
+  "sourceDirName": "bud-cache",
+  "slug": "/bud-cache/cache2",
+  "permalink": "/api/bud-cache/cache2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-cache.cache_2",
+    "title": "cache\\_2 class",
+    "sidebar_label": "cache\\_2 class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "cache2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "processqueue() method",
+    "permalink": "/api/bud-api/api/processqueue"
+  },
+  "next": {
+    "title": "boot() method",
+    "permalink": "/api/bud-cache/cache2/boot"
+  }
+}

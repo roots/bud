@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.constructor",
+  "id": "bud-framework/bud-framework.constructor",
+  "title": "constructor type",
+  "description": "Constructor type",
+  "source": "@site/api/bud-framework/constructor.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/constructor",
+  "permalink": "/api/bud-framework/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.constructor",
+    "title": "constructor type",
+    "sidebar_label": "constructor type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "configuration interface",
+    "permalink": "/api/bud-framework/configuration"
+  },
+  "next": {
+    "title": "dashboard interface",
+    "permalink": "/api/bud-framework/dashboard"
+  }
+}

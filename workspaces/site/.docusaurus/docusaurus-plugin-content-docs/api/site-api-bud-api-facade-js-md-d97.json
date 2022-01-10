@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.js",
+  "id": "bud-api/facade/bud-api.facade.js",
+  "title": "js property",
+  "description": "Facade.js property",
+  "source": "@site/api/bud-api/facade/js.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/js",
+  "permalink": "/api/bud-api/facade/js",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.js",
+    "title": "js property",
+    "sidebar_label": "js property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "js"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hash property",
+    "permalink": "/api/bud-api/facade/hash"
+  },
+  "next": {
+    "title": "minimize property",
+    "permalink": "/api/bud-api/facade/minimize"
+  }
+}

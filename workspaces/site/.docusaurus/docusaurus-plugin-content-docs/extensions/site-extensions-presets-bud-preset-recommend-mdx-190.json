@@ -1,0 +1,24 @@
+{
+  "unversionedId": "presets/bud-preset-recommend",
+  "id": "presets/bud-preset-recommend",
+  "title": "@roots/bud-preset-recommend",
+  "description": "The @roots/bud-preset-recommend package is a great starting point for a wide variety of projects.",
+  "source": "@site/extensions/presets/bud-preset-recommend.mdx",
+  "sourceDirName": "presets",
+  "slug": "/presets/bud-preset-recommend",
+  "permalink": "/extensions/presets/bud-preset-recommend",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-preset-recommend"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-vue",
+    "permalink": "/extensions/bud-vue"
+  },
+  "next": {
+    "title": "@roots/bud-preset-wordpress",
+    "permalink": "/extensions/presets/bud-preset-wordpress"
+  }
+}

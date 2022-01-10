@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/abstract/bud-framework.item.abstract.mergeoptions",
+  "id": "bud-framework/item/abstract/bud-framework.item.abstract.mergeoptions",
+  "title": "mergeoptions() method",
+  "description": "Item.Abstract.mergeOptions() method",
+  "source": "@site/api/bud-framework/item/abstract/mergeoptions.md",
+  "sourceDirName": "bud-framework/item/abstract",
+  "slug": "/bud-framework/item/abstract/mergeoptions",
+  "permalink": "/api/bud-framework/item/abstract/mergeoptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.abstract.mergeoptions",
+    "title": "mergeoptions() method",
+    "sidebar_label": "mergeoptions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mergeoptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/item/abstract/make"
+  },
+  "next": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/item/abstract/options"
+  }
+}

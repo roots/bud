@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.mixin",
+  "id": "bud-extensions/controller/bud-extensions.controller.mixin",
+  "title": "mixin() method",
+  "description": "Controller.mixin() method",
+  "source": "@site/api/bud-extensions/controller/mixin.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/mixin",
+  "permalink": "/api/bud-extensions/controller/mixin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.mixin",
+    "title": "mixin() method",
+    "sidebar_label": "mixin() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mixin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "meta property",
+    "permalink": "/api/bud-extensions/controller/meta"
+  },
+  "next": {
+    "title": "modulelogger property",
+    "permalink": "/api/bud-extensions/controller/modulelogger"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.make",
+  "id": "bud-extensions/controller/bud-extensions.controller.make",
+  "title": "make() method",
+  "description": "Controller.make() method",
+  "source": "@site/api/bud-extensions/controller/make.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/make",
+  "permalink": "/api/bud-extensions/controller/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "log property",
+    "permalink": "/api/bud-extensions/controller/log"
+  },
+  "next": {
+    "title": "mergeoption() method",
+    "permalink": "/api/bud-extensions/controller/mergeoption"
+  }
+}

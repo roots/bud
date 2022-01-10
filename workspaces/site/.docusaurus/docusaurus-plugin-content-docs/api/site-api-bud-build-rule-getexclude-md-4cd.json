@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.getexclude",
+  "id": "bud-build/rule/bud-build.rule.getexclude",
+  "title": "getexclude() method",
+  "description": "Rule.getExclude() method",
+  "source": "@site/api/bud-build/rule/getexclude.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/getexclude",
+  "permalink": "/api/bud-build/rule/getexclude",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.getexclude",
+    "title": "getexclude() method",
+    "sidebar_label": "getexclude() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getexclude"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "generator property",
+    "permalink": "/api/bud-build/rule/generator"
+  },
+  "next": {
+    "title": "getgenerator() method",
+    "permalink": "/api/bud-build/rule/getgenerator"
+  }
+}

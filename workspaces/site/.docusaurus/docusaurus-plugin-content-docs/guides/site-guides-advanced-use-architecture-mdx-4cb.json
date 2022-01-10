@@ -1,0 +1,29 @@
+{
+  "unversionedId": "advanced-use/architecture",
+  "id": "advanced-use/architecture",
+  "title": "Architecture",
+  "description": "Overview of the structure of Bud",
+  "source": "@site/guides/advanced-use/architecture.mdx",
+  "sourceDirName": "advanced-use",
+  "slug": "/advanced-use/architecture",
+  "permalink": "/guides/advanced-use/architecture",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Architecture",
+    "description": "Overview of the structure of Bud",
+    "sidebar_label": "Architecture",
+    "sidebar_position": 1,
+    "image": "https://budjs.netlify.app/img/share/guides/advanced-use__architecture.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Multi-compiler",
+    "permalink": "/guides/general-use/multi-compiler"
+  },
+  "next": {
+    "title": "Node API",
+    "permalink": "/guides/advanced-use/node"
+  }
+}

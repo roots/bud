@@ -1,0 +1,25 @@
+{
+  "unversionedId": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.stage",
+  "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.stage",
+  "title": "stage property",
+  "description": "WordPressExternals.stage property",
+  "source": "@site/api/wordpress-externals-webpack-plugin/wordpressexternals/stage.md",
+  "sourceDirName": "wordpress-externals-webpack-plugin/wordpressexternals",
+  "slug": "/wordpress-externals-webpack-plugin/wordpressexternals/stage",
+  "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals/stage",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-externals-webpack-plugin.wordpressexternals.stage",
+    "title": "stage property",
+    "sidebar_label": "stage property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stage"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals/name"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.path",
+  "id": "bud-framework/framework/bud-framework.framework.path",
+  "title": "path property",
+  "description": "Framework.path property",
+  "source": "@site/api/bud-framework/framework/path.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/path",
+  "permalink": "/api/bud-framework/framework/path",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.path",
+    "title": "path property",
+    "sidebar_label": "path property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "path"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/framework/options"
+  },
+  "next": {
+    "title": "pipe property",
+    "permalink": "/api/bud-framework/framework/pipe"
+  }
+}

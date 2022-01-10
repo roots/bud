@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.test",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.test",
+  "title": "test() method",
+  "description": "Rule.Abstract.test() method",
+  "source": "@site/api/bud-framework/rule/abstract/test.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/test",
+  "permalink": "/api/bud-framework/rule/abstract/test",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.test",
+    "title": "test() method",
+    "sidebar_label": "test() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "test"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setuse() method",
+    "permalink": "/api/bud-framework/rule/abstract/setuse"
+  },
+  "next": {
+    "title": "use() method",
+    "permalink": "/api/bud-framework/rule/abstract/use"
+  }
+}

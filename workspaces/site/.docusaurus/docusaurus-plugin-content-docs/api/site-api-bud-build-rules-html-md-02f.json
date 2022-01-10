@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.html",
+  "id": "bud-build/rules/bud-build.rules.html",
+  "title": "html variable",
+  "description": "rules.html variable",
+  "source": "@site/api/bud-build/rules/html.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/html",
+  "permalink": "/api/bud-build/rules/html",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.html",
+    "title": "html variable",
+    "sidebar_label": "html variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "html"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "font variable",
+    "permalink": "/api/bud-build/rules/font"
+  },
+  "next": {
+    "title": "image variable",
+    "permalink": "/api/bud-build/rules/image"
+  }
+}

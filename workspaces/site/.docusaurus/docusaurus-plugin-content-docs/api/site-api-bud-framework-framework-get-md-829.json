@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.get",
+  "id": "bud-framework/framework/bud-framework.framework.get",
+  "title": "get property",
+  "description": "Framework.get property",
+  "source": "@site/api/bud-framework/framework/get.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/get",
+  "permalink": "/api/bud-framework/framework/get",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.get",
+    "title": "get property",
+    "sidebar_label": "get property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "get"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extensions property",
+    "permalink": "/api/bud-framework/framework/extensions"
+  },
+  "next": {
+    "title": "haschildren property",
+    "permalink": "/api/bud-framework/framework/haschildren"
+  }
+}

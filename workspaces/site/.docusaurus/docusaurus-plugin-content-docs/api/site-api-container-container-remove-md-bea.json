@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.remove",
+  "id": "container/container/container.container.remove",
+  "title": "remove() method",
+  "description": "Container.remove() method",
+  "source": "@site/api/container/container/remove.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/remove",
+  "permalink": "/api/container/container/remove",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.remove",
+    "title": "remove() method",
+    "sidebar_label": "remove() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "remove"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mutatestore() method",
+    "permalink": "/api/container/container/mutatestore"
+  },
+  "next": {
+    "title": "repository property",
+    "permalink": "/api/container/container/repository"
+  }
+}

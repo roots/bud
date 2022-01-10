@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies/dependencies.dependencies._constructor_",
+  "id": "dependencies/dependencies/dependencies.dependencies._constructor_",
+  "title": "(constructor)",
+  "description": "Dependencies.(constructor)",
+  "source": "@site/api/dependencies/dependencies/constructor.md",
+  "sourceDirName": "dependencies/dependencies",
+  "slug": "/dependencies/dependencies/constructor",
+  "permalink": "/api/dependencies/dependencies/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.dependencies._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "client property",
+    "permalink": "/api/dependencies/dependencies/client"
+  },
+  "next": {
+    "title": "isyarn() method",
+    "permalink": "/api/dependencies/dependencies/isyarn"
+  }
+}

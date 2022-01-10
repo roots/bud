@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/project/abstract/bud-framework.project.abstract.haspeerdependency",
+  "id": "bud-framework/project/abstract/bud-framework.project.abstract.haspeerdependency",
+  "title": "haspeerdependency() method",
+  "description": "Project.Abstract.hasPeerDependency() method",
+  "source": "@site/api/bud-framework/project/abstract/haspeerdependency.md",
+  "sourceDirName": "bud-framework/project/abstract",
+  "slug": "/bud-framework/project/abstract/haspeerdependency",
+  "permalink": "/api/bud-framework/project/abstract/haspeerdependency",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project.abstract.haspeerdependency",
+    "title": "haspeerdependency() method",
+    "sidebar_label": "haspeerdependency() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "haspeerdependency"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "writeprofile() method",
+    "permalink": "/api/bud-framework/project/interface/writeprofile"
+  },
+  "next": {
+    "title": "peers property",
+    "permalink": "/api/bud-framework/project/abstract/peers"
+  }
+}

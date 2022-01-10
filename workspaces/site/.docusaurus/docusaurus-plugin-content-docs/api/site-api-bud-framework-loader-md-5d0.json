@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.loader",
+  "id": "bud-framework/bud-framework.loader",
+  "title": "loader namespace",
+  "description": "Loader namespace",
+  "source": "@site/api/bud-framework/loader.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/loader",
+  "permalink": "/api/bud-framework/loader",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader",
+    "title": "loader namespace",
+    "sidebar_label": "loader namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loader"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "items interface",
+    "permalink": "/api/bud-framework/items"
+  },
+  "next": {
+    "title": "loaders interface",
+    "permalink": "/api/bud-framework/loaders"
+  }
+}

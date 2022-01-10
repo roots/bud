@@ -1,0 +1,26 @@
+{
+  "unversionedId": "general-use/multi-compiler",
+  "id": "general-use/multi-compiler",
+  "title": "Running multiple compilers",
+  "description": "It is possible to configure more than one Webpack compiler from a single bud config.",
+  "source": "@site/guides/general-use/multi-compiler.mdx",
+  "sourceDirName": "general-use",
+  "slug": "/general-use/multi-compiler",
+  "permalink": "/guides/general-use/multi-compiler",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Running multiple compilers",
+    "description": "It is possible to configure more than one Webpack compiler from a single bud config.",
+    "sidebar_label": "Multi-compiler"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Filename hashing",
+    "permalink": "/guides/general-use/hashing"
+  },
+  "next": {
+    "title": "Architecture",
+    "permalink": "/guides/advanced-use/architecture"
+  }
+}

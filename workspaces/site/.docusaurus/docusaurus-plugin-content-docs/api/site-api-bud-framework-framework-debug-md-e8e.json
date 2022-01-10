@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.debug",
+  "id": "bud-framework/framework/bud-framework.framework.debug",
+  "title": "debug() method",
+  "description": "Framework.debug() method",
+  "source": "@site/api/bud-framework/framework/debug.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/debug",
+  "permalink": "/api/bud-framework/framework/debug",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.debug",
+    "title": "debug() method",
+    "sidebar_label": "debug() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "debug"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dashboard property",
+    "permalink": "/api/bud-framework/framework/dashboard"
+  },
+  "next": {
+    "title": "dependencies property",
+    "permalink": "/api/bud-framework/framework/dependencies"
+  }
+}

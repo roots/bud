@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.ensure",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.ensure",
+  "title": "ensure() method",
+  "description": "FileContainer.ensure() method",
+  "source": "@site/api/filesystem/filecontainer/ensure.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/ensure",
+  "permalink": "/api/filesystem/filecontainer/ensure",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.ensure",
+    "title": "ensure() method",
+    "sidebar_label": "ensure() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ensure"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "(constructor)",
+    "permalink": "/api/filesystem/filecontainer/constructor"
+  },
+  "next": {
+    "title": "ensuredir() method",
+    "permalink": "/api/filesystem/filecontainer/ensuredir"
+  }
+}

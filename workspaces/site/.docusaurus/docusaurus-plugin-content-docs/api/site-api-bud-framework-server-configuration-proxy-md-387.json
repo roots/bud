@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/configuration/bud-framework.server.configuration.proxy",
+  "id": "bud-framework/server/configuration/bud-framework.server.configuration.proxy",
+  "title": "proxy property",
+  "description": "Server.Configuration.proxy property",
+  "source": "@site/api/bud-framework/server/configuration/proxy.md",
+  "sourceDirName": "bud-framework/server/configuration",
+  "slug": "/bud-framework/server/configuration/proxy",
+  "permalink": "/api/bud-framework/server/configuration/proxy",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration.proxy",
+    "title": "proxy property",
+    "sidebar_label": "proxy property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "proxy"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "middleware property",
+    "permalink": "/api/bud-framework/server/configuration/middleware"
+  },
+  "next": {
+    "title": "publicpath property",
+    "permalink": "/api/bud-framework/server/configuration/publicpath"
+  }
+}

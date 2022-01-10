@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.publicpath",
+  "id": "bud-api/facade/bud-api.facade.publicpath",
+  "title": "publicpath property",
+  "description": "Facade.publicPath property",
+  "source": "@site/api/bud-api/facade/publicpath.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/publicpath",
+  "permalink": "/api/bud-api/facade/publicpath",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.publicpath",
+    "title": "publicpath property",
+    "sidebar_label": "publicpath property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "publicpath"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "proxy property",
+    "permalink": "/api/bud-api/facade/proxy"
+  },
+  "next": {
+    "title": "run property",
+    "permalink": "/api/bud-api/facade/run"
+  }
+}

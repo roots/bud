@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/options/bud-framework.rule.options.generator",
+  "id": "bud-framework/rule/options/bud-framework.rule.options.generator",
+  "title": "generator property",
+  "description": "Rule.Options.generator property",
+  "source": "@site/api/bud-framework/rule/options/generator.md",
+  "sourceDirName": "bud-framework/rule/options",
+  "slug": "/bud-framework/rule/options/generator",
+  "permalink": "/api/bud-framework/rule/options/generator",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.options.generator",
+    "title": "generator property",
+    "sidebar_label": "generator property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "generator"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "exclude property",
+    "permalink": "/api/bud-framework/rule/options/exclude"
+  },
+  "next": {
+    "title": "parser property",
+    "permalink": "/api/bud-framework/rule/options/parser"
+  }
+}

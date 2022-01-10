@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cli/bud-clean",
+  "id": "bud-cli/bud-clean",
+  "title": "bud clean",
+  "description": "CLI command to remove compiled assets, artifacts and caches",
+  "source": "@site/guides/bud-cli/03-bud-clean.mdx",
+  "sourceDirName": "bud-cli",
+  "slug": "/bud-cli/clean",
+  "permalink": "/guides/bud-cli/clean",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "bud clean",
+    "description": "CLI command to remove compiled assets, artifacts and caches",
+    "sidebar_label": "bud clean",
+    "slug": "clean",
+    "image": "https://budjs.netlify.app/img/share/guides/bud-cli__clean.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud build",
+    "permalink": "/guides/bud-cli/build"
+  },
+  "next": {
+    "title": "bud doctor",
+    "permalink": "/guides/bud-cli/doctor"
+  }
+}

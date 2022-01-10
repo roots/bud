@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.server",
+  "id": "bud-framework/configuration/bud-framework.configuration.server",
+  "title": "server property",
+  "description": "Configuration.server property",
+  "source": "@site/api/bud-framework/configuration/server.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/server",
+  "permalink": "/api/bud-framework/configuration/server",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.server",
+    "title": "server property",
+    "sidebar_label": "server property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "server"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "patterns property",
+    "permalink": "/api/bud-framework/configuration/patterns"
+  },
+  "next": {
+    "title": "theme property",
+    "permalink": "/api/bud-framework/configuration/theme"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger._constructor_",
+  "id": "bud-framework/logger/bud-framework.logger._constructor_",
+  "title": "(constructor)",
+  "description": "Logger.(constructor)",
+  "source": "@site/api/bud-framework/logger/constructor.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/constructor",
+  "permalink": "/api/bud-framework/logger/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "config property",
+    "permalink": "/api/bud-framework/logger/config"
+  },
+  "next": {
+    "title": "context property",
+    "permalink": "/api/bud-framework/logger/context"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.await",
+  "id": "bud-framework/framework/bud-framework.framework.await",
+  "title": "await() method",
+  "description": "Framework.await() method",
+  "source": "@site/api/bud-framework/framework/await.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/await",
+  "permalink": "/api/bud-framework/framework/await",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.await",
+    "title": "await() method",
+    "sidebar_label": "await() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "await"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "api property",
+    "permalink": "/api/bud-framework/framework/api"
+  },
+  "next": {
+    "title": "bindmethod property",
+    "permalink": "/api/bud-framework/framework/bindmethod"
+  }
+}

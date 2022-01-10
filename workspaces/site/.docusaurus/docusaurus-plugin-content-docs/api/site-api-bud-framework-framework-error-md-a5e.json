@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.error",
+  "id": "bud-framework/framework/bud-framework.framework.error",
+  "title": "error() method",
+  "description": "Framework.error() method",
+  "source": "@site/api/bud-framework/framework/error.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/error",
+  "permalink": "/api/bud-framework/framework/error",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.error",
+    "title": "error() method",
+    "sidebar_label": "error() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "error"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "env property",
+    "permalink": "/api/bud-framework/framework/env"
+  },
+  "next": {
+    "title": "extensions property",
+    "permalink": "/api/bud-framework/framework/extensions"
+  }
+}

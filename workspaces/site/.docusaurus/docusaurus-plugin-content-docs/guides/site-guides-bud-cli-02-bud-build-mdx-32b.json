@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cli/bud-build",
+  "id": "bud-cli/bud-build",
+  "title": "bud build",
+  "description": "CLI command to compile project assets",
+  "source": "@site/guides/bud-cli/02-bud-build.mdx",
+  "sourceDirName": "bud-cli",
+  "slug": "/bud-cli/build",
+  "permalink": "/guides/bud-cli/build",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "bud build",
+    "description": "CLI command to compile project assets",
+    "sidebar_label": "bud build",
+    "slug": "build",
+    "image": "https://budjs.netlify.app/img/share/guides/bud-cli__build.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Introduction",
+    "permalink": "/guides/bud-cli/"
+  },
+  "next": {
+    "title": "bud clean",
+    "permalink": "/guides/bud-cli/clean"
+  }
+}

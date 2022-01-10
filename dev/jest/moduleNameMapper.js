@@ -6,7 +6,7 @@ const globby = require('globby')
  * @returns {Promise<InitialOptionsTsJest['moduleNameMapper']>} - The jest module name mapper.
  */
 module.exports = async () => {
-  const packages = await globby('packages/@roots/*', {
+  const packages = await globby('workspaces/@roots/*', {
     onlyDirectories: true,
   })
 

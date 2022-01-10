@@ -1,0 +1,22 @@
+{
+  "unversionedId": "index",
+  "id": "index",
+  "title": "index",
+  "description": "Home",
+  "source": "@site/api/index.md",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/api/",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud-hooks package",
+    "permalink": "/api/bud-hooks"
+  },
+  "next": {
+    "title": "bud namespace",
+    "permalink": "/api/bud/bud"
+  }
+}

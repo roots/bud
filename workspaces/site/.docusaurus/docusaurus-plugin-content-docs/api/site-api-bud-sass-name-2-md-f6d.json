@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-sass/bud-sass.name_2",
+  "id": "bud-sass/bud-sass.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-sass/name2.md",
+  "sourceDirName": "bud-sass",
+  "slug": "/bud-sass/name2",
+  "permalink": "/api/bud-sass/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-sass.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot variable",
+    "permalink": "/api/bud-sass/boot"
+  },
+  "next": {
+    "title": "register variable",
+    "permalink": "/api/bud-sass/register"
+  }
+}

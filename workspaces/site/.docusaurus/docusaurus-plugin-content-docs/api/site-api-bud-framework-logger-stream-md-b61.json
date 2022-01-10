@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.stream",
+  "id": "bud-framework/logger/bud-framework.logger.stream",
+  "title": "stream property",
+  "description": "Logger.stream property",
+  "source": "@site/api/bud-framework/logger/stream.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/stream",
+  "permalink": "/api/bud-framework/logger/stream",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.stream",
+    "title": "stream property",
+    "sidebar_label": "stream property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stream"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "secrets property",
+    "permalink": "/api/bud-framework/logger/secrets"
+  },
+  "next": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/project/abstract"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.getvalues",
+  "id": "container/container/container.container.getvalues",
+  "title": "getvalues() method",
+  "description": "Container.getValues() method",
+  "source": "@site/api/container/container/getvalues.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/getvalues",
+  "permalink": "/api/container/container/getvalues",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.getvalues",
+    "title": "getvalues() method",
+    "sidebar_label": "getvalues() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getvalues"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getmap() method",
+    "permalink": "/api/container/container/getmap"
+  },
+  "next": {
+    "title": "has() method",
+    "permalink": "/api/container/container/has"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-hooks",
+  "id": "bud-hooks",
+  "title": "bud-hooks package",
+  "description": "bud-hooks package",
+  "source": "@site/api/bud-hooks.md",
+  "sourceDirName": ".",
+  "slug": "/bud-hooks",
+  "permalink": "/api/bud-hooks",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-hooks",
+    "title": "bud-hooks package",
+    "sidebar_label": "bud-hooks package",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bud-hooks"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud-extensions package",
+    "permalink": "/api/bud-extensions"
+  },
+  "next": {
+    "title": "index",
+    "permalink": "/api/"
+  }
+}

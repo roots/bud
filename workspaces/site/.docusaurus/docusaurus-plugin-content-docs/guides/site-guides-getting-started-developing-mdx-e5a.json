@@ -1,0 +1,29 @@
+{
+  "unversionedId": "getting-started/developing",
+  "id": "getting-started/developing",
+  "title": "Running development builds",
+  "description": "Part 2/7 of the Getting Started guide covers running development builds",
+  "source": "@site/guides/getting-started/developing.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/developing",
+  "permalink": "/guides/getting-started/developing",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Running development builds",
+    "description": "Part 2/7 of the Getting Started guide covers running development builds",
+    "sidebar_label": "Running in dev",
+    "sidebar_position": 3,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__developing.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Running a build",
+    "permalink": "/guides/getting-started/building"
+  },
+  "next": {
+    "title": "Creating a config file",
+    "permalink": "/guides/getting-started/config"
+  }
+}

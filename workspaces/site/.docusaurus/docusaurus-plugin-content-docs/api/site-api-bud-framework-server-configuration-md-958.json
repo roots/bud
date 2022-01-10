@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/bud-framework.server.configuration",
+  "id": "bud-framework/server/bud-framework.server.configuration",
+  "title": "configuration interface",
+  "description": "Server.Configuration interface",
+  "source": "@site/api/bud-framework/server/configuration.md",
+  "sourceDirName": "bud-framework/server",
+  "slug": "/bud-framework/server/configuration",
+  "permalink": "/api/bud-framework/server/configuration",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration",
+    "title": "configuration interface",
+    "sidebar_label": "configuration interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "configuration"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "application interface",
+    "permalink": "/api/bud-framework/server/application"
+  },
+  "next": {
+    "title": "instance interface",
+    "permalink": "/api/bud-framework/server/instance"
+  }
+}

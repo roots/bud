@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/build/abstract/bud-framework.build.abstract.rules",
+  "id": "bud-framework/build/abstract/bud-framework.build.abstract.rules",
+  "title": "rules property",
+  "description": "Build.Abstract.rules property",
+  "source": "@site/api/bud-framework/build/abstract/rules.md",
+  "sourceDirName": "bud-framework/build/abstract",
+  "slug": "/bud-framework/build/abstract/rules",
+  "permalink": "/api/bud-framework/build/abstract/rules",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.build.abstract.rules",
+    "title": "rules property",
+    "sidebar_label": "rules property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "rules"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make property",
+    "permalink": "/api/bud-framework/build/abstract/make"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-framework/build/interface/config"
+  }
+}

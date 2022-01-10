@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.autoload",
+  "id": "bud-api/facade/bud-api.facade.autoload",
+  "title": "autoload property",
+  "description": "Facade.autoload property",
+  "source": "@site/api/bud-api/facade/autoload.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/autoload",
+  "permalink": "/api/bud-api/facade/autoload",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.autoload",
+    "title": "autoload property",
+    "sidebar_label": "autoload property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "autoload"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "assets property",
+    "permalink": "/api/bud-api/facade/assets"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-api/facade/config"
+  }
+}

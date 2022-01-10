@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-tailwindcss/bud-tailwindcss.boot",
+  "id": "bud-tailwindcss/bud-tailwindcss.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-tailwindcss/boot.md",
+  "sourceDirName": "bud-tailwindcss",
+  "slug": "/bud-tailwindcss/boot",
+  "permalink": "/api/bud-tailwindcss/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-tailwindcss.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "api variable",
+    "permalink": "/api/bud-tailwindcss/api"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-tailwindcss/name2"
+  }
+}

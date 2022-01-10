@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/output/bud-framework.item.output.loader",
+  "id": "bud-framework/item/output/bud-framework.item.output.loader",
+  "title": "loader property",
+  "description": "Item.Output.loader property",
+  "source": "@site/api/bud-framework/item/output/loader.md",
+  "sourceDirName": "bud-framework/item/output",
+  "slug": "/bud-framework/item/output/loader",
+  "permalink": "/api/bud-framework/item/output/loader",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.output.loader",
+    "title": "loader property",
+    "sidebar_label": "loader property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loader"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setoptions() method",
+    "permalink": "/api/bud-framework/item/interface/setoptions"
+  },
+  "next": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/item/output/options"
+  }
+}

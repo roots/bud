@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cache/cache2/bud-cache.cache_2.directory",
+  "id": "bud-cache/cache2/bud-cache.cache_2.directory",
+  "title": "directory property",
+  "description": "Cache_2.directory property",
+  "source": "@site/api/bud-cache/cache2/directory.md",
+  "sourceDirName": "bud-cache/cache2",
+  "slug": "/bud-cache/cache2/directory",
+  "permalink": "/api/bud-cache/cache2/directory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-cache.cache_2.directory",
+    "title": "directory property",
+    "sidebar_label": "directory property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "directory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot() method",
+    "permalink": "/api/bud-cache/cache2/boot"
+  },
+  "next": {
+    "title": "enabled property",
+    "permalink": "/api/bud-cache/cache2/enabled"
+  }
+}

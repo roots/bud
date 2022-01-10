@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-terser/bud-terser.boot",
+  "id": "bud-terser/bud-terser.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-terser/boot.md",
+  "sourceDirName": "bud-terser",
+  "slug": "/bud-terser/boot",
+  "permalink": "/api/bud-terser/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-terser.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "api namespace",
+    "permalink": "/api/bud-terser/api"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-terser/name2"
+  }
+}

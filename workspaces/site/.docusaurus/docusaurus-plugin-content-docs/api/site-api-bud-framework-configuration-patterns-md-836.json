@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.patterns",
+  "id": "bud-framework/configuration/bud-framework.configuration.patterns",
+  "title": "patterns property",
+  "description": "Configuration.patterns property",
+  "source": "@site/api/bud-framework/configuration/patterns.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/patterns",
+  "permalink": "/api/bud-framework/configuration/patterns",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.patterns",
+    "title": "patterns property",
+    "sidebar_label": "patterns property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "patterns"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/bud-framework/configuration/name"
+  },
+  "next": {
+    "title": "server property",
+    "permalink": "/api/bud-framework/configuration/server"
+  }
+}

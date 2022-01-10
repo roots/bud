@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bootstrapper/bud-framework.bootstrapper.ident",
+  "id": "bud-framework/bootstrapper/bud-framework.bootstrapper.ident",
+  "title": "ident property",
+  "description": "Bootstrapper.ident property",
+  "source": "@site/api/bud-framework/bootstrapper/ident.md",
+  "sourceDirName": "bud-framework/bootstrapper",
+  "slug": "/bud-framework/bootstrapper/ident",
+  "permalink": "/api/bud-framework/bootstrapper/ident",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.bootstrapper.ident",
+    "title": "ident property",
+    "sidebar_label": "ident property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ident"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-framework/bootstrapper/constructor"
+  },
+  "next": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/build/abstract"
+  }
+}

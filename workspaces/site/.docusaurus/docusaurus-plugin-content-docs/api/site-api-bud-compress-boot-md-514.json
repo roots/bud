@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/bud-compress.boot",
+  "id": "bud-compress/bud-compress.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-compress/boot.md",
+  "sourceDirName": "bud-compress",
+  "slug": "/bud-compress/boot",
+  "permalink": "/api/bud-compress/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "stats property",
+    "permalink": "/api/bud-compiler/compiler/stats"
+  },
+  "next": {
+    "title": "budcompressionextension namespace",
+    "permalink": "/api/bud-compress/budcompressionextension"
+  }
+}

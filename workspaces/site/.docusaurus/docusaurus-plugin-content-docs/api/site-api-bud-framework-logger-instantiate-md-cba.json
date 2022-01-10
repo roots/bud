@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.instantiate",
+  "id": "bud-framework/logger/bud-framework.logger.instantiate",
+  "title": "instantiate() method",
+  "description": "Logger.instantiate() method",
+  "source": "@site/api/bud-framework/logger/instantiate.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/instantiate",
+  "permalink": "/api/bud-framework/logger/instantiate",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.instantiate",
+    "title": "instantiate() method",
+    "sidebar_label": "instantiate() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "instantiate"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "instance property",
+    "permalink": "/api/bud-framework/logger/instance"
+  },
+  "next": {
+    "title": "interactive property",
+    "permalink": "/api/bud-framework/logger/interactive"
+  }
+}

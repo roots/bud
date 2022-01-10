@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/interface/bud-framework.item.interface.loader",
+  "id": "bud-framework/item/interface/bud-framework.item.interface.loader",
+  "title": "loader property",
+  "description": "Item.Interface.loader property",
+  "source": "@site/api/bud-framework/item/interface/loader.md",
+  "sourceDirName": "bud-framework/item/interface",
+  "slug": "/bud-framework/item/interface/loader",
+  "permalink": "/api/bud-framework/item/interface/loader",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.interface.loader",
+    "title": "loader property",
+    "sidebar_label": "loader property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loader"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/item/constructoroptions/options"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/item/interface/make"
+  }
+}

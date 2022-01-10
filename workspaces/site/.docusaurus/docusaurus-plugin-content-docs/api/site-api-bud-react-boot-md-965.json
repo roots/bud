@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-react/bud-react.boot",
+  "id": "bud-react/bud-react.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-react/boot.md",
+  "sourceDirName": "bud-react",
+  "slug": "/bud-react/boot",
+  "permalink": "/api/bud-react/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-react.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-purgecss/name2"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-react/name2"
+  }
+}

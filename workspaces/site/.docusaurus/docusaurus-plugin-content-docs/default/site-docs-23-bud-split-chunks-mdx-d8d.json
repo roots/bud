@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.splitChunks",
+  "id": "bud.splitChunks",
+  "title": "bud.splitChunks",
+  "description": "Separate vendor code from application code",
+  "source": "@site/docs/23-bud.splitChunks.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.splitChunks",
+  "permalink": "/docs/bud.splitChunks",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/23-bud.splitChunks.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 23,
+  "frontMatter": {
+    "slug": "bud.splitChunks",
+    "title": "bud.splitChunks",
+    "description": "Separate vendor code from application code",
+    "sidebar_label": "bud.splitChunks",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.splitChunks.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.setPublicPath",
+    "permalink": "/docs/bud.setPublicPath"
+  },
+  "next": {
+    "title": "bud.tap",
+    "permalink": "/docs/bud.tap"
+  }
+}

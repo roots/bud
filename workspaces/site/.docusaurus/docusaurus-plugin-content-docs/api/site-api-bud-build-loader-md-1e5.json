@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/bud-build.loader",
+  "id": "bud-build/bud-build.loader",
+  "title": "loader class",
+  "description": "Loader class",
+  "source": "@site/api/bud-build/loader.md",
+  "sourceDirName": "bud-build",
+  "slug": "/bud-build/loader",
+  "permalink": "/api/bud-build/loader",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.loader",
+    "title": "loader class",
+    "sidebar_label": "loader class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loader"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "items namespace",
+    "permalink": "/api/bud-build/items"
+  },
+  "next": {
+    "title": "loaders namespace",
+    "permalink": "/api/bud-build/loaders"
+  }
+}

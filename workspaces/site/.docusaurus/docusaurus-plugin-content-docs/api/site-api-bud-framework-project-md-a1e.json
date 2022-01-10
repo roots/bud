@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.project",
+  "id": "bud-framework/bud-framework.project",
+  "title": "project namespace",
+  "description": "Project namespace",
+  "source": "@site/api/bud-framework/project.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/project",
+  "permalink": "/api/bud-framework/project",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project",
+    "title": "project namespace",
+    "sidebar_label": "project namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "project"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "plugins interface",
+    "permalink": "/api/bud-framework/plugins"
+  },
+  "next": {
+    "title": "rule namespace",
+    "permalink": "/api/bud-framework/rule"
+  }
+}

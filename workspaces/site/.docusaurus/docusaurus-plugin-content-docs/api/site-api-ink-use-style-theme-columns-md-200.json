@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/theme/ink-use-style.theme.columns",
+  "id": "ink-use-style/theme/ink-use-style.theme.columns",
+  "title": "columns property",
+  "description": "Theme.columns property",
+  "source": "@site/api/ink-use-style/theme/columns.md",
+  "sourceDirName": "ink-use-style/theme",
+  "slug": "/ink-use-style/theme/columns",
+  "permalink": "/api/ink-use-style/theme/columns",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.theme.columns",
+    "title": "columns property",
+    "sidebar_label": "columns property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "columns"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "colors type",
+    "permalink": "/api/ink-use-style/theme/colors"
+  },
+  "next": {
+    "title": "maxheight property",
+    "permalink": "/api/ink-use-style/theme/maxheight"
+  }
+}

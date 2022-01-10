@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.columns",
+  "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.columns",
+  "title": "columns variable",
+  "description": "defaultTheme.columns variable",
+  "source": "@site/api/ink-use-style/defaulttheme/columns.md",
+  "sourceDirName": "ink-use-style/defaulttheme",
+  "slug": "/ink-use-style/defaulttheme/columns",
+  "permalink": "/api/ink-use-style/defaulttheme/columns",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.defaulttheme.columns",
+    "title": "columns variable",
+    "sidebar_label": "columns variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "columns"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "colors variable",
+    "permalink": "/api/ink-use-style/defaulttheme/colors"
+  },
+  "next": {
+    "title": "maxheight variable",
+    "permalink": "/api/ink-use-style/defaulttheme/maxheight"
+  }
+}

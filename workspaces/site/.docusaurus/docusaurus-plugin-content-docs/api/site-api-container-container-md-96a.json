@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container.container",
+  "id": "container/container.container",
+  "title": "container class",
+  "description": "Container class",
+  "source": "@site/api/container/container.md",
+  "sourceDirName": "container",
+  "slug": "/container/container",
+  "permalink": "/api/container/container",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container",
+    "title": "container class",
+    "sidebar_label": "container class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "container"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-wordpress-manifests/name2"
+  },
+  "next": {
+    "title": "repository interface",
+    "permalink": "/api/container/repository"
+  }
+}

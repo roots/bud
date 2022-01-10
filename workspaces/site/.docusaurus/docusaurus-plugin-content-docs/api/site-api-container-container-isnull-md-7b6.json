@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnull",
+  "id": "container/container/container.container.isnull",
+  "title": "isnull() method",
+  "description": "Container.isNull() method",
+  "source": "@site/api/container/container/isnull.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnull",
+  "permalink": "/api/container/container/isnull",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnull",
+    "title": "isnull() method",
+    "sidebar_label": "isnull() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnull"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnotstring() method",
+    "permalink": "/api/container/container/isnotstring"
+  },
+  "next": {
+    "title": "isnumber() method",
+    "permalink": "/api/container/container/isnumber"
+  }
+}

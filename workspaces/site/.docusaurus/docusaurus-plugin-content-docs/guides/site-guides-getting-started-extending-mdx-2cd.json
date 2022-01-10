@@ -1,0 +1,28 @@
+{
+  "unversionedId": "getting-started/extending",
+  "id": "getting-started/extending",
+  "title": "Adding extensions",
+  "description": "Part 5/7 of the Getting Started guide covers adding extensions to your build",
+  "source": "@site/guides/getting-started/extending.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/extending",
+  "permalink": "/guides/getting-started/extending",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "title": "Adding extensions",
+    "description": "Part 5/7 of the Getting Started guide covers adding extensions to your build",
+    "sidebar_position": 6,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__extending.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Adding entrypoints",
+    "permalink": "/guides/getting-started/entrypoints"
+  },
+  "next": {
+    "title": "Copying static assets",
+    "permalink": "/guides/getting-started/assets"
+  }
+}

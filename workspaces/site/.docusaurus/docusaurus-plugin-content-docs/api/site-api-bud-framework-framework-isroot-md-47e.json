@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.isroot",
+  "id": "bud-framework/framework/bud-framework.framework.isroot",
+  "title": "isroot property",
+  "description": "Framework.isRoot property",
+  "source": "@site/api/bud-framework/framework/isroot.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/isroot",
+  "permalink": "/api/bud-framework/framework/isroot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.isroot",
+    "title": "isroot property",
+    "sidebar_label": "isroot property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isroot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isproduction property",
+    "permalink": "/api/bud-framework/framework/isproduction"
+  },
+  "next": {
+    "title": "json property",
+    "permalink": "/api/bud-framework/framework/json"
+  }
+}

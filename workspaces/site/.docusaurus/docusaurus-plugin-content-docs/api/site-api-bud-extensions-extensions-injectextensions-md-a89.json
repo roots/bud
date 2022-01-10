@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.injectextensions",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.injectextensions",
+  "title": "injectextensions() method",
+  "description": "Extensions.injectExtensions() method",
+  "source": "@site/api/bud-extensions/extensions/injectextensions.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/injectextensions",
+  "permalink": "/api/bud-extensions/extensions/injectextensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.injectextensions",
+    "title": "injectextensions() method",
+    "sidebar_label": "injectextensions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "injectextensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "importextension() method",
+    "permalink": "/api/bud-extensions/extensions/importextension"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-extensions/extensions/make"
+  }
+}

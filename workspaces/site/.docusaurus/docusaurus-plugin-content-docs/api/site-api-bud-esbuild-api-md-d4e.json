@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-esbuild/bud-esbuild.api",
+  "id": "bud-esbuild/bud-esbuild.api",
+  "title": "api variable",
+  "description": "api variable",
+  "source": "@site/api/bud-esbuild/api.md",
+  "sourceDirName": "bud-esbuild",
+  "slug": "/bud-esbuild/api",
+  "permalink": "/api/bud-esbuild/api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-esbuild.api",
+    "title": "api variable",
+    "sidebar_label": "api variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "api"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-entrypoints/name2"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-esbuild/boot"
+  }
+}

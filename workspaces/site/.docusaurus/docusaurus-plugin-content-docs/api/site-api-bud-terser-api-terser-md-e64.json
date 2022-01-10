@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-terser/api/bud-terser.api.terser",
+  "id": "bud-terser/api/bud-terser.api.terser",
+  "title": "terser variable",
+  "description": "api.terser variable",
+  "source": "@site/api/bud-terser/api/terser.md",
+  "sourceDirName": "bud-terser/api",
+  "slug": "/bud-terser/api/terser",
+  "permalink": "/api/bud-terser/api/terser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-terser.api.terser",
+    "title": "terser variable",
+    "sidebar_label": "terser variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "terser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options variable",
+    "permalink": "/api/bud-terser/options"
+  },
+  "next": {
+    "title": "api variable",
+    "permalink": "/api/bud-typescript/api"
+  }
+}

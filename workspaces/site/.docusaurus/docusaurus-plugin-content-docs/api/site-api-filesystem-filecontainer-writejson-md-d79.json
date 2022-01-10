@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.writejson",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.writejson",
+  "title": "writejson() method",
+  "description": "FileContainer.writeJson() method",
+  "source": "@site/api/filesystem/filecontainer/writejson.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/writejson",
+  "permalink": "/api/filesystem/filecontainer/writejson",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.writejson",
+    "title": "writejson() method",
+    "sidebar_label": "writejson() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "writejson"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "write() method",
+    "permalink": "/api/filesystem/filecontainer/write"
+  },
+  "next": {
+    "title": "inkprettier variable",
+    "permalink": "/api/ink-prettier/inkprettier"
+  }
+}

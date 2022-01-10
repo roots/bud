@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.resolve",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.resolve",
+  "title": "resolve property",
+  "description": "FileContainer.resolve property",
+  "source": "@site/api/filesystem/filecontainer/resolve.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/resolve",
+  "permalink": "/api/filesystem/filecontainer/resolve",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.resolve",
+    "title": "resolve property",
+    "sidebar_label": "resolve property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "resolve"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "require() method",
+    "permalink": "/api/filesystem/filecontainer/require"
+  },
+  "next": {
+    "title": "set() method",
+    "permalink": "/api/filesystem/filecontainer/set"
+  }
+}

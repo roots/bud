@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/service/bud-framework.service.register",
+  "id": "bud-framework/service/bud-framework.service.register",
+  "title": "register() method",
+  "description": "Service.register() method",
+  "source": "@site/api/bud-framework/service/register.md",
+  "sourceDirName": "bud-framework/service",
+  "slug": "/bud-framework/service/register",
+  "permalink": "/api/bud-framework/service/register",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.service.register",
+    "title": "register() method",
+    "sidebar_label": "register() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "register"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "logger property",
+    "permalink": "/api/bud-framework/service/logger"
+  },
+  "next": {
+    "title": "registered() method",
+    "permalink": "/api/bud-framework/service/registered"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "sage/sage.name_2",
+  "id": "sage/sage.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/sage/name2.md",
+  "sourceDirName": "sage",
+  "slug": "/sage/name2",
+  "permalink": "/api/sage/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "sage.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "spacing type",
+    "permalink": "/api/ink-use-style/theme/spacing"
+  },
+  "next": {
+    "title": "register variable",
+    "permalink": "/api/sage/register"
+  }
+}

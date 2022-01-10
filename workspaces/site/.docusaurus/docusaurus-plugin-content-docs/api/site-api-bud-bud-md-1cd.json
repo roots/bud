@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud/bud.bud",
+  "id": "bud/bud.bud",
+  "title": "bud namespace",
+  "description": "Bud namespace",
+  "source": "@site/api/bud/bud.md",
+  "sourceDirName": "bud",
+  "slug": "/bud/bud",
+  "permalink": "/api/bud/bud",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud.bud",
+    "title": "bud namespace",
+    "sidebar_label": "bud namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bud"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "index",
+    "permalink": "/api/"
+  },
+  "next": {
+    "title": "config variable",
+    "permalink": "/api/bud/config"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.template",
+  "id": "bud.template",
+  "title": "bud.template",
+  "description": "Configure your application's html templates.",
+  "source": "@site/docs/25-bud.template.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.template",
+  "permalink": "/docs/bud.template",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/25-bud.template.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 25,
+  "frontMatter": {
+    "slug": "bud.template",
+    "title": "bud.template",
+    "description": "Configure your application's html templates.",
+    "sidebar_label": "bud.template",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.template.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.tap",
+    "permalink": "/docs/bud.tap"
+  },
+  "next": {
+    "title": "bud.use",
+    "permalink": "/docs/bud.use"
+  }
+}

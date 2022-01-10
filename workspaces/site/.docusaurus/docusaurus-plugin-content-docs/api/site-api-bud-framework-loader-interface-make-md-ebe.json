@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/interface/bud-framework.loader.interface.make",
+  "id": "bud-framework/loader/interface/bud-framework.loader.interface.make",
+  "title": "make() method",
+  "description": "Loader.Interface.make() method",
+  "source": "@site/api/bud-framework/loader/interface/make.md",
+  "sourceDirName": "bud-framework/loader/interface",
+  "slug": "/bud-framework/loader/interface/make",
+  "permalink": "/api/bud-framework/loader/interface/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.interface.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/loader/interface"
+  },
+  "next": {
+    "title": "normalizeinput() method",
+    "permalink": "/api/bud-framework/loader/interface/normalizeinput"
+  }
+}

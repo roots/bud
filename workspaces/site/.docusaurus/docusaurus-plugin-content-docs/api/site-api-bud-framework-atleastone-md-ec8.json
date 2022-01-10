@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.atleastone",
+  "id": "bud-framework/bud-framework.atleastone",
+  "title": "atleastone type",
+  "description": "AtLeastOne type",
+  "source": "@site/api/bud-framework/atleastone.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/atleastone",
+  "permalink": "/api/bud-framework/atleastone",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.atleastone",
+    "title": "atleastone type",
+    "sidebar_label": "atleastone type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "atleastone"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "asyncfactory interface",
+    "permalink": "/api/bud-framework/asyncfactory"
+  },
+  "next": {
+    "title": "bootstrapper class",
+    "permalink": "/api/bud-framework/bootstrapper"
+  }
+}

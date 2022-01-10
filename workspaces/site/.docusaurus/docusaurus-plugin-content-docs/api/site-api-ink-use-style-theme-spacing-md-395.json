@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/theme/ink-use-style.theme.spacing",
+  "id": "ink-use-style/theme/ink-use-style.theme.spacing",
+  "title": "spacing type",
+  "description": "Theme.Spacing type",
+  "source": "@site/api/ink-use-style/theme/spacing.md",
+  "sourceDirName": "ink-use-style/theme",
+  "slug": "/ink-use-style/theme/spacing",
+  "permalink": "/api/ink-use-style/theme/spacing",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.theme.spacing",
+    "title": "spacing type",
+    "sidebar_label": "spacing type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "spacing"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "screentuple type",
+    "permalink": "/api/ink-use-style/theme/screentuple"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/sage/name2"
+  }
+}

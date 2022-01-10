@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.use",
+  "id": "bud-build/rule/bud-build.rule.use",
+  "title": "use property",
+  "description": "Rule.use property",
+  "source": "@site/api/bud-build/rule/use.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/use",
+  "permalink": "/api/bud-build/rule/use",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.use",
+    "title": "use property",
+    "sidebar_label": "use property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "use"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "type property",
+    "permalink": "/api/bud-build/rule/type"
+  },
+  "next": {
+    "title": "css variable",
+    "permalink": "/api/bud-build/rules/css"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.istrue",
+  "id": "container/container/container.container.istrue",
+  "title": "istrue() method",
+  "description": "Container.isTrue() method",
+  "source": "@site/api/container/container/istrue.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/istrue",
+  "permalink": "/api/container/container/istrue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.istrue",
+    "title": "istrue() method",
+    "sidebar_label": "istrue() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "istrue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isstring() method",
+    "permalink": "/api/container/container/isstring"
+  },
+  "next": {
+    "title": "isundefined() method",
+    "permalink": "/api/container/container/isundefined"
+  }
+}

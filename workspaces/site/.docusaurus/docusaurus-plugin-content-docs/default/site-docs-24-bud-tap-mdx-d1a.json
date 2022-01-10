@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.tap",
+  "id": "bud.tap",
+  "title": "bud.tap",
+  "description": "Access the bud object through a callback",
+  "source": "@site/docs/24-bud.tap.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.tap",
+  "permalink": "/docs/bud.tap",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/24-bud.tap.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 24,
+  "frontMatter": {
+    "slug": "bud.tap",
+    "title": "bud.tap",
+    "description": "Access the bud object through a callback",
+    "sidebar_label": "bud.tap",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.tap.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.splitChunks",
+    "permalink": "/docs/bud.splitChunks"
+  },
+  "next": {
+    "title": "bud.template",
+    "permalink": "/docs/bud.template"
+  }
+}

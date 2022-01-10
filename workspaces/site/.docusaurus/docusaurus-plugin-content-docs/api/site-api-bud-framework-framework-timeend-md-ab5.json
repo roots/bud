@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.timeend",
+  "id": "bud-framework/framework/bud-framework.framework.timeend",
+  "title": "timeend() method",
+  "description": "Framework.timeEnd() method",
+  "source": "@site/api/bud-framework/framework/timeend.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/timeend",
+  "permalink": "/api/bud-framework/framework/timeend",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.timeend",
+    "title": "timeend() method",
+    "sidebar_label": "timeend() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "timeend"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "time() method",
+    "permalink": "/api/bud-framework/framework/time"
+  },
+  "next": {
+    "title": "ts property",
+    "permalink": "/api/bud-framework/framework/ts"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.dump",
+  "id": "bud-framework/framework/bud-framework.framework.dump",
+  "title": "dump() method",
+  "description": "Framework.dump() method",
+  "source": "@site/api/bud-framework/framework/dump.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/dump",
+  "permalink": "/api/bud-framework/framework/dump",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.dump",
+    "title": "dump() method",
+    "sidebar_label": "dump() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dump"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dependencies property",
+    "permalink": "/api/bud-framework/framework/dependencies"
+  },
+  "next": {
+    "title": "env property",
+    "permalink": "/api/bud-framework/framework/env"
+  }
+}

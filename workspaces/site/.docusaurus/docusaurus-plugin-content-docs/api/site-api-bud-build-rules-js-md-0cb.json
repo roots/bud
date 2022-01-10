@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.js",
+  "id": "bud-build/rules/bud-build.rules.js",
+  "title": "js variable",
+  "description": "rules.js variable",
+  "source": "@site/api/bud-build/rules/js.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/js",
+  "permalink": "/api/bud-build/rules/js",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.js",
+    "title": "js variable",
+    "sidebar_label": "js variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "js"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "image variable",
+    "permalink": "/api/bud-build/rules/image"
+  },
+  "next": {
+    "title": "json5 variable",
+    "permalink": "/api/bud-build/rules/json5"
+  }
+}

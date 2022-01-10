@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.instance",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.instance",
+  "title": "instance property",
+  "description": "Server.Interface.instance property",
+  "source": "@site/api/bud-framework/server/interface/instance.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/instance",
+  "permalink": "/api/bud-framework/server/interface/instance",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.instance",
+    "title": "instance property",
+    "sidebar_label": "instance property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "instance"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getwatchedfiles() method",
+    "permalink": "/api/bud-framework/server/interface/getwatchedfiles"
+  },
+  "next": {
+    "title": "middleware property",
+    "permalink": "/api/bud-framework/server/interface/middleware"
+  }
+}

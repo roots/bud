@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.set",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.set",
+  "title": "set() method",
+  "description": "FileContainer.set() method",
+  "source": "@site/api/filesystem/filecontainer/set.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/set",
+  "permalink": "/api/filesystem/filecontainer/set",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.set",
+    "title": "set() method",
+    "sidebar_label": "set() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "set"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "resolve property",
+    "permalink": "/api/filesystem/filecontainer/resolve"
+  },
+  "next": {
+    "title": "setdisk() method",
+    "permalink": "/api/filesystem/filecontainer/setdisk"
+  }
+}

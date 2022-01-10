@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.isbuildable",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.isbuildable",
+  "title": "isbuildable() method",
+  "description": "MergedManifestWebpackPlugin.isBuildable() method",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/isbuildable.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/isbuildable",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/isbuildable",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.isbuildable",
+    "title": "isbuildable() method",
+    "sidebar_label": "isbuildable() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isbuildable"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "format() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/format"
+  },
+  "next": {
+    "title": "manifestcontent() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestcontent"
+  }
+}

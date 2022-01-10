@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-prettier/ink-prettier.inkprettier",
+  "id": "ink-prettier/ink-prettier.inkprettier",
+  "title": "inkprettier variable",
+  "description": "InkPrettier variable",
+  "source": "@site/api/ink-prettier/inkprettier.md",
+  "sourceDirName": "ink-prettier",
+  "slug": "/ink-prettier/inkprettier",
+  "permalink": "/api/ink-prettier/inkprettier",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-prettier.inkprettier",
+    "title": "inkprettier variable",
+    "sidebar_label": "inkprettier variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "inkprettier"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "writejson() method",
+    "permalink": "/api/filesystem/filecontainer/writejson"
+  },
+  "next": {
+    "title": "defaulttheme namespace",
+    "permalink": "/api/ink-use-style/defaulttheme"
+  }
+}

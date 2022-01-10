@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.generator",
+  "id": "bud-build/rule/bud-build.rule.generator",
+  "title": "generator property",
+  "description": "Rule.generator property",
+  "source": "@site/api/bud-build/rule/generator.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/generator",
+  "permalink": "/api/bud-build/rule/generator",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.generator",
+    "title": "generator property",
+    "sidebar_label": "generator property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "generator"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "exclude property",
+    "permalink": "/api/bud-build/rule/exclude"
+  },
+  "next": {
+    "title": "getexclude() method",
+    "permalink": "/api/bud-build/rule/getexclude"
+  }
+}

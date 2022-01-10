@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-postcss",
+  "id": "bud-postcss",
+  "title": "bud-postcss",
+  "description": "PostCSS can be added by installing the @roots/bud-postcss extension.",
+  "source": "@site/extensions/bud-postcss.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-postcss",
+  "permalink": "/extensions/bud-postcss",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-postcss"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-library",
+    "permalink": "/extensions/bud-library"
+  },
+  "next": {
+    "title": "@roots/bud-react",
+    "permalink": "/extensions/bud-react"
+  }
+}

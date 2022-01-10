@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isinstanceof",
+  "id": "container/container/container.container.isinstanceof",
+  "title": "isinstanceof() method",
+  "description": "Container.isInstanceOf() method",
+  "source": "@site/api/container/container/isinstanceof.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isinstanceof",
+  "permalink": "/api/container/container/isinstanceof",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isinstanceof",
+    "title": "isinstanceof() method",
+    "sidebar_label": "isinstanceof() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isinstanceof"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isfunction() method",
+    "permalink": "/api/container/container/isfunction"
+  },
+  "next": {
+    "title": "isinstanceofany() method",
+    "permalink": "/api/container/container/isinstanceofany"
+  }
+}

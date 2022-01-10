@@ -1,0 +1,27 @@
+{
+  "unversionedId": "bud.hooks/reference",
+  "id": "bud.hooks/reference",
+  "title": "Hooks reference",
+  "description": "Docs are a work-in-progress.",
+  "source": "@site/docs/12-bud.hooks/reference.mdx",
+  "sourceDirName": "12-bud.hooks",
+  "slug": "/bud.hooks/reference",
+  "permalink": "/docs/bud.hooks/reference",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/12-bud.hooks/reference.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_label": "reference",
+    "sidebar_position": 2
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.hooks",
+    "permalink": "/docs/bud.hooks/"
+  },
+  "next": {
+    "title": "bud.make",
+    "permalink": "/docs/bud.make"
+  }
+}

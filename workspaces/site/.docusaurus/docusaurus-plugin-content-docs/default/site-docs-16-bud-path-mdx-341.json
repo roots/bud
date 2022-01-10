@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.path",
+  "id": "bud.path",
+  "title": "bud.path",
+  "description": "Returns an absolute path for a given Framework location.",
+  "source": "@site/docs/16-bud.path.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.path",
+  "permalink": "/docs/bud.path",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/16-bud.path.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 16,
+  "frontMatter": {
+    "slug": "bud.path",
+    "title": "bud.path",
+    "description": "Returns an absolute path for a given Framework location.",
+    "sidebar_label": "bud.path",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.path.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.isProduction",
+    "permalink": "/docs/bud.mode/bud.isProduction"
+  },
+  "next": {
+    "title": "bud.provide",
+    "permalink": "/docs/bud.provide"
+  }
+}

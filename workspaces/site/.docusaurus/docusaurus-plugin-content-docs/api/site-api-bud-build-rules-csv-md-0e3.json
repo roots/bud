@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.csv",
+  "id": "bud-build/rules/bud-build.rules.csv",
+  "title": "csv variable",
+  "description": "rules.csv variable",
+  "source": "@site/api/bud-build/rules/csv.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/csv",
+  "permalink": "/api/bud-build/rules/csv",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.csv",
+    "title": "csv variable",
+    "sidebar_label": "csv variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "csv"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "css variable",
+    "permalink": "/api/bud-build/rules/css"
+  },
+  "next": {
+    "title": "font variable",
+    "permalink": "/api/bud-build/rules/font"
+  }
+}

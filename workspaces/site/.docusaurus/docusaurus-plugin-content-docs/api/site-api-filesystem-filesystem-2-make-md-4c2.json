@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem2/filesystem.filesystem_2.make",
+  "id": "filesystem/filesystem2/filesystem.filesystem_2.make",
+  "title": "make() method",
+  "description": "FileSystem_2.make() method",
+  "source": "@site/api/filesystem/filesystem2/make.md",
+  "sourceDirName": "filesystem/filesystem2",
+  "slug": "/filesystem/filesystem2/make",
+  "permalink": "/api/filesystem/filesystem2/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filesystem_2.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "get() method",
+    "permalink": "/api/filesystem/filesystem2/get"
+  },
+  "next": {
+    "title": "path property",
+    "permalink": "/api/filesystem/filesystem2/path"
+  }
+}

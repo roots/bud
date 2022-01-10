@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/configuration/bud-framework.server.configuration.filename",
+  "id": "bud-framework/server/configuration/bud-framework.server.configuration.filename",
+  "title": "filename property",
+  "description": "Server.Configuration.filename property",
+  "source": "@site/api/bud-framework/server/configuration/filename.md",
+  "sourceDirName": "bud-framework/server/configuration",
+  "slug": "/bud-framework/server/configuration/filename",
+  "permalink": "/api/bud-framework/server/configuration/filename",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration.filename",
+    "title": "filename property",
+    "sidebar_label": "filename property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "filename"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "disablehostcheck property",
+    "permalink": "/api/bud-framework/server/configuration/disablehostcheck"
+  },
+  "next": {
+    "title": "middleware property",
+    "permalink": "/api/bud-framework/server/configuration/middleware"
+  }
+}

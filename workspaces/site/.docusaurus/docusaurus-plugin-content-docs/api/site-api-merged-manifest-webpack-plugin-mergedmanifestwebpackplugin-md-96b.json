@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin",
+  "id": "merged-manifest-webpack-plugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin",
+  "title": "mergedmanifestwebpackplugin class",
+  "description": "MergedManifestWebpackPlugin class",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin.md",
+  "sourceDirName": "merged-manifest-webpack-plugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin",
+    "title": "mergedmanifestwebpackplugin class",
+    "sidebar_label": "mergedmanifestwebpackplugin class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mergedmanifestwebpackplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "register variable",
+    "permalink": "/api/sage/register"
+  },
+  "next": {
+    "title": "apply() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnumber",
+  "id": "container/container/container.container.isnumber",
+  "title": "isnumber() method",
+  "description": "Container.isNumber() method",
+  "source": "@site/api/container/container/isnumber.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnumber",
+  "permalink": "/api/container/container/isnumber",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnumber",
+    "title": "isnumber() method",
+    "sidebar_label": "isnumber() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnumber"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnull() method",
+    "permalink": "/api/container/container/isnull"
+  },
+  "next": {
+    "title": "isstring() method",
+    "permalink": "/api/container/container/isstring"
+  }
+}

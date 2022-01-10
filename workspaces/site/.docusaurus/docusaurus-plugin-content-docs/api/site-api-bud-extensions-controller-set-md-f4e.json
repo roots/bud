@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.set",
+  "id": "bud-extensions/controller/bud-extensions.controller.set",
+  "title": "set() method",
+  "description": "Controller.set() method",
+  "source": "@site/api/bud-extensions/controller/set.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/set",
+  "permalink": "/api/bud-extensions/controller/set",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.set",
+    "title": "set() method",
+    "sidebar_label": "set() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "set"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "registered property",
+    "permalink": "/api/bud-extensions/controller/registered"
+  },
+  "next": {
+    "title": "setoption() method",
+    "permalink": "/api/bud-extensions/controller/setoption"
+  }
+}

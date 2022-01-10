@@ -1,4 +1,4 @@
-import {globby} from '@roots/bud-support'
+import globby from 'globby'
 import * as execa from 'execa'
 import {readJsonSync, writeFile, writeFileSync} from 'fs-extra'
 import {IncomingMessage} from 'http'
@@ -22,7 +22,7 @@ const packages = async (user: any) => {
     return []
   }
 
-  const list = await globby(`packages/@roots/*`, {
+  const list = await globby(`workspaces/@roots/*`, {
     absolute: false,
     cwd: process.cwd(),
     onlyFiles: false,

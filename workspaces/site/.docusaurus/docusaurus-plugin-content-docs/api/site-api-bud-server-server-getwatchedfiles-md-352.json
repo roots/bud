@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-server/server/bud-server.server.getwatchedfiles",
+  "id": "bud-server/server/bud-server.server.getwatchedfiles",
+  "title": "getwatchedfiles() method",
+  "description": "Server.getWatchedFiles() method",
+  "source": "@site/api/bud-server/server/getwatchedfiles.md",
+  "sourceDirName": "bud-server/server",
+  "slug": "/bud-server/server/getwatchedfiles",
+  "permalink": "/api/bud-server/server/getwatchedfiles",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-server.server.getwatchedfiles",
+    "title": "getwatchedfiles() method",
+    "sidebar_label": "getwatchedfiles() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getwatchedfiles"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "config property",
+    "permalink": "/api/bud-server/server/config"
+  },
+  "next": {
+    "title": "instance property",
+    "permalink": "/api/bud-server/server/instance"
+  }
+}

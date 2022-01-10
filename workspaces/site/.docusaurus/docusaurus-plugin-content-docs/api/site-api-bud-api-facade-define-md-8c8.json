@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.define",
+  "id": "bud-api/facade/bud-api.facade.define",
+  "title": "define property",
+  "description": "Facade.define property",
+  "source": "@site/api/bud-api/facade/define.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/define",
+  "permalink": "/api/bud-api/facade/define",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.define",
+    "title": "define property",
+    "sidebar_label": "define property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "define"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "css property",
+    "permalink": "/api/bud-api/facade/css"
+  },
+  "next": {
+    "title": "devtool property",
+    "permalink": "/api/bud-api/facade/devtool"
+  }
+}

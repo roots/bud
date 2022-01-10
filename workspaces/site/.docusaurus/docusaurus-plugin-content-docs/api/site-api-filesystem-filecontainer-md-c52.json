@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem.filecontainer",
+  "id": "filesystem/filesystem.filecontainer",
+  "title": "filecontainer class",
+  "description": "FileContainer class",
+  "source": "@site/api/filesystem/filecontainer.md",
+  "sourceDirName": "filesystem",
+  "slug": "/filesystem/filecontainer",
+  "permalink": "/api/filesystem/filecontainer",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer",
+    "title": "filecontainer class",
+    "sidebar_label": "filecontainer class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "filecontainer"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "type property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/type"
+  },
+  "next": {
+    "title": "filesystem\\_2 class",
+    "permalink": "/api/filesystem/filesystem2"
+  }
+}

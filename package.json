@@ -17,13 +17,15 @@
     "node": "16.13.1"
   },
   "workspaces": {
-    "packages": [
+    "@roots": [
+      "workspaces/@roots/*",
+      "workspaces/private/yarn-plugin-bud"
+    ],
+    "workspaces": [
+      "workspaces/private/base",
+      "workspaces/site",
       "examples/*",
-      "tests/util/project",
-      "packages/@roots/*",
-      "packages/base",
-      "site",
-      "dev/@bud"
+      "tests/util/project"
     ]
   },
   "devDependencies": {

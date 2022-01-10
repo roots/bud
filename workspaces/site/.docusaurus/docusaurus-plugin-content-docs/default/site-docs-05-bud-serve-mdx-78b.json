@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.serve",
+  "id": "bud.serve",
+  "title": "bud.serve",
+  "description": "Configure the development server.",
+  "source": "@site/docs/05-bud.serve.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.serve",
+  "permalink": "/docs/bud.serve",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/05-bud.serve.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "id": "bud.serve",
+    "title": "bud.serve",
+    "description": "Configure the development server.",
+    "sidebar_label": "bud.serve",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.serve.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.define",
+    "permalink": "/docs/bud.define"
+  },
+  "next": {
+    "title": "bud.devtool",
+    "permalink": "/docs/bud.devtool"
+  }
+}

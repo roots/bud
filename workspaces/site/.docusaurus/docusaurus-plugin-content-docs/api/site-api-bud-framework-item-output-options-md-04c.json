@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/output/bud-framework.item.output.options",
+  "id": "bud-framework/item/output/bud-framework.item.output.options",
+  "title": "options property",
+  "description": "Item.Output.options property",
+  "source": "@site/api/bud-framework/item/output/options.md",
+  "sourceDirName": "bud-framework/item/output",
+  "slug": "/bud-framework/item/output/options",
+  "permalink": "/api/bud-framework/item/output/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.output.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loader property",
+    "permalink": "/api/bud-framework/item/output/loader"
+  },
+  "next": {
+    "title": "async() method",
+    "permalink": "/api/bud-framework/hooks/async"
+  }
+}

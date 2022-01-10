@@ -1,0 +1,27 @@
+{
+  "unversionedId": "index",
+  "id": "index",
+  "title": "Introduction",
+  "description": "Bud is a frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+  "source": "@site/docs/01-index.mdx",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/docs/",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/01-index.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Introduction",
+    "description": "Bud is a frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+    "slug": "/",
+    "sidebar_label": "Introduction",
+    "hidden": true,
+    "image": "https://budjs.netlify.app/img/share/docs/index.png"
+  },
+  "sidebar": "sidebar",
+  "next": {
+    "title": "bud.alias",
+    "permalink": "/docs/bud.alias"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-preset-recommend/bud-preset-recommend.name_2",
+  "id": "bud-preset-recommend/bud-preset-recommend.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-preset-recommend/name2.md",
+  "sourceDirName": "bud-preset-recommend",
+  "slug": "/bud-preset-recommend/name2",
+  "permalink": "/api/bud-preset-recommend/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-preset-recommend.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "budpresetrecommend interface",
+    "permalink": "/api/bud-preset-recommend/budpresetrecommend"
+  },
+  "next": {
+    "title": "name property",
+    "permalink": "/api/bud-preset-recommend/budpresetrecommend/name"
+  }
+}

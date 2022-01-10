@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.log",
+  "id": "bud-extensions/controller/bud-extensions.controller.log",
+  "title": "log property",
+  "description": "Controller.log property",
+  "source": "@site/api/bud-extensions/controller/log.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/log",
+  "permalink": "/api/bud-extensions/controller/log",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.log",
+    "title": "log property",
+    "sidebar_label": "log property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "log"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getoption() method",
+    "permalink": "/api/bud-extensions/controller/getoption"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-extensions/controller/make"
+  }
+}

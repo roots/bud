@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies.yarn",
+  "id": "dependencies/dependencies.yarn",
+  "title": "yarn class",
+  "description": "Yarn class",
+  "source": "@site/api/dependencies/yarn.md",
+  "sourceDirName": "dependencies",
+  "slug": "/dependencies/yarn",
+  "permalink": "/api/dependencies/yarn",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.yarn",
+    "title": "yarn class",
+    "sidebar_label": "yarn class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "yarn"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "npm class",
+    "permalink": "/api/dependencies/npm"
+  },
+  "next": {
+    "title": "install property",
+    "permalink": "/api/dependencies/idependencymanager/install"
+  }
+}

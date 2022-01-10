@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.read",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.read",
+  "title": "read() method",
+  "description": "FileContainer.read() method",
+  "source": "@site/api/filesystem/filecontainer/read.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/read",
+  "permalink": "/api/filesystem/filecontainer/read",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.read",
+    "title": "read() method",
+    "sidebar_label": "read() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "read"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "path property",
+    "permalink": "/api/filesystem/filecontainer/path"
+  },
+  "next": {
+    "title": "readjson() method",
+    "permalink": "/api/filesystem/filecontainer/readjson"
+  }
+}

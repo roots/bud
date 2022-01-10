@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.children",
+  "id": "bud-framework/framework/bud-framework.framework.children",
+  "title": "children property",
+  "description": "Framework.children property",
+  "source": "@site/api/bud-framework/framework/children.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/children",
+  "permalink": "/api/bud-framework/framework/children",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.children",
+    "title": "children property",
+    "sidebar_label": "children property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "children"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "cache property",
+    "permalink": "/api/bud-framework/framework/cache"
+  },
+  "next": {
+    "title": "close property",
+    "permalink": "/api/bud-framework/framework/close"
+  }
+}

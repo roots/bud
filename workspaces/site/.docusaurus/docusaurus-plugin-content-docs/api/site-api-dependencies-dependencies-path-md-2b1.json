@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies/dependencies.dependencies.path",
+  "id": "dependencies/dependencies/dependencies.dependencies.path",
+  "title": "path property",
+  "description": "Dependencies.path property",
+  "source": "@site/api/dependencies/dependencies/path.md",
+  "sourceDirName": "dependencies/dependencies",
+  "slug": "/dependencies/dependencies/path",
+  "permalink": "/api/dependencies/dependencies/path",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.dependencies.path",
+    "title": "path property",
+    "sidebar_label": "path property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "path"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isyarn() method",
+    "permalink": "/api/dependencies/dependencies/isyarn"
+  },
+  "next": {
+    "title": "install() method",
+    "permalink": "/api/dependencies/yarn/install"
+  }
+}

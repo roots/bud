@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/critical-css-webpack-plugin.options",
+  "id": "critical-css-webpack-plugin/critical-css-webpack-plugin.options",
+  "title": "options interface",
+  "description": "Options interface",
+  "source": "@site/api/critical-css-webpack-plugin/options.md",
+  "sourceDirName": "critical-css-webpack-plugin",
+  "slug": "/critical-css-webpack-plugin/options",
+  "permalink": "/api/critical-css-webpack-plugin/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.options",
+    "title": "options interface",
+    "sidebar_label": "options interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "criticalcsswebpackplugin class",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin"
+  },
+  "next": {
+    "title": "apply() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/apply"
+  }
+}

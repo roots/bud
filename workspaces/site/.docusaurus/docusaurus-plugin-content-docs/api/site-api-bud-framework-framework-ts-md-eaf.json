@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.ts",
+  "id": "bud-framework/framework/bud-framework.framework.ts",
+  "title": "ts property",
+  "description": "Framework.ts property",
+  "source": "@site/api/bud-framework/framework/ts.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/ts",
+  "permalink": "/api/bud-framework/framework/ts",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.ts",
+    "title": "ts property",
+    "sidebar_label": "ts property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ts"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "timeend() method",
+    "permalink": "/api/bud-framework/framework/timeend"
+  },
+  "next": {
+    "title": "usingtsnode property",
+    "permalink": "/api/bud-framework/framework/usingtsnode"
+  }
+}

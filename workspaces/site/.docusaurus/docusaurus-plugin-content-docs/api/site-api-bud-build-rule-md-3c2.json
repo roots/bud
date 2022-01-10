@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/bud-build.rule",
+  "id": "bud-build/bud-build.rule",
+  "title": "rule class",
+  "description": "Rule class",
+  "source": "@site/api/bud-build/rule.md",
+  "sourceDirName": "bud-build",
+  "slug": "/bud-build/rule",
+  "permalink": "/api/bud-build/rule",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule",
+    "title": "rule class",
+    "sidebar_label": "rule class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "rule"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loaders namespace",
+    "permalink": "/api/bud-build/loaders"
+  },
+  "next": {
+    "title": "rules namespace",
+    "permalink": "/api/bud-build/rules"
+  }
+}

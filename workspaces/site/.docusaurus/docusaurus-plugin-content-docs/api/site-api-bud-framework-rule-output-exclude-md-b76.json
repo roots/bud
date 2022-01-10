@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/output/bud-framework.rule.output.exclude",
+  "id": "bud-framework/rule/output/bud-framework.rule.output.exclude",
+  "title": "exclude property",
+  "description": "Rule.Output.exclude property",
+  "source": "@site/api/bud-framework/rule/output/exclude.md",
+  "sourceDirName": "bud-framework/rule/output",
+  "slug": "/bud-framework/rule/output/exclude",
+  "permalink": "/api/bud-framework/rule/output/exclude",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.output.exclude",
+    "title": "exclude property",
+    "sidebar_label": "exclude property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "exclude"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "use property",
+    "permalink": "/api/bud-framework/rule/options/use"
+  },
+  "next": {
+    "title": "generator property",
+    "permalink": "/api/bud-framework/rule/output/generator"
+  }
+}

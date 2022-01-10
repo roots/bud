@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.use",
+  "id": "bud-api/facade/bud-api.facade.use",
+  "title": "use property",
+  "description": "Facade.use property",
+  "source": "@site/api/bud-api/facade/use.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/use",
+  "permalink": "/api/bud-api/facade/use",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.use",
+    "title": "use property",
+    "sidebar_label": "use property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "use"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "template property",
+    "permalink": "/api/bud-api/facade/template"
+  },
+  "next": {
+    "title": "version property",
+    "permalink": "/api/bud-api/facade/version"
+  }
+}

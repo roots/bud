@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/locations/bud-framework.locations.src",
+  "id": "bud-framework/locations/bud-framework.locations.src",
+  "title": "src property",
+  "description": "Locations.src property",
+  "source": "@site/api/bud-framework/locations/src.md",
+  "sourceDirName": "bud-framework/locations",
+  "slug": "/bud-framework/locations/src",
+  "permalink": "/api/bud-framework/locations/src",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.locations.src",
+    "title": "src property",
+    "sidebar_label": "src property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "src"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "project property",
+    "permalink": "/api/bud-framework/locations/project"
+  },
+  "next": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/loader/abstract"
+  }
+}

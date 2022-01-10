@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/options/bud-framework.rule.options.parser",
+  "id": "bud-framework/rule/options/bud-framework.rule.options.parser",
+  "title": "parser property",
+  "description": "Rule.Options.parser property",
+  "source": "@site/api/bud-framework/rule/options/parser.md",
+  "sourceDirName": "bud-framework/rule/options",
+  "slug": "/bud-framework/rule/options/parser",
+  "permalink": "/api/bud-framework/rule/options/parser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.options.parser",
+    "title": "parser property",
+    "sidebar_label": "parser property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "parser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "generator property",
+    "permalink": "/api/bud-framework/rule/options/generator"
+  },
+  "next": {
+    "title": "test property",
+    "permalink": "/api/bud-framework/rule/options/test"
+  }
+}

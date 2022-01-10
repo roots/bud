@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.framework",
+  "id": "bud-framework/bud-framework.framework",
+  "title": "framework class",
+  "description": "Framework class",
+  "source": "@site/api/bud-framework/framework.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/framework",
+  "permalink": "/api/bud-framework/framework",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework",
+    "title": "framework class",
+    "sidebar_label": "framework class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "framework"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "factory interface",
+    "permalink": "/api/bud-framework/factory"
+  },
+  "next": {
+    "title": "hooks namespace",
+    "permalink": "/api/bud-framework/hooks"
+  }
+}

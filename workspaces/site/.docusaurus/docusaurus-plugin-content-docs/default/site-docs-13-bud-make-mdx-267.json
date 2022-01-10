@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.make",
+  "id": "bud.make",
+  "title": "bud.make",
+  "description": "Create a new, configurable instance of Bud.",
+  "source": "@site/docs/13-bud.make.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.make",
+  "permalink": "/docs/bud.make",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/13-bud.make.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 13,
+  "frontMatter": {
+    "slug": "bud.make",
+    "title": "bud.make",
+    "description": "Create a new, configurable instance of Bud.",
+    "sidebar_label": "bud.make",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.make.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "reference",
+    "permalink": "/docs/bud.hooks/reference"
+  },
+  "next": {
+    "title": "bud.minimize",
+    "permalink": "/docs/bud.minimize"
+  }
+}

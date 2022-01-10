@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isundefined",
+  "id": "container/container/container.container.isundefined",
+  "title": "isundefined() method",
+  "description": "Container.isUndefined() method",
+  "source": "@site/api/container/container/isundefined.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isundefined",
+  "permalink": "/api/container/container/isundefined",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isundefined",
+    "title": "isundefined() method",
+    "sidebar_label": "isundefined() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isundefined"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "istrue() method",
+    "permalink": "/api/container/container/istrue"
+  },
+  "next": {
+    "title": "merge() method",
+    "permalink": "/api/container/container/merge"
+  }
+}

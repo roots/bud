@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isinstanceofany",
+  "id": "container/container/container.container.isinstanceofany",
+  "title": "isinstanceofany() method",
+  "description": "Container.isInstanceOfAny() method",
+  "source": "@site/api/container/container/isinstanceofany.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isinstanceofany",
+  "permalink": "/api/container/container/isinstanceofany",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isinstanceofany",
+    "title": "isinstanceofany() method",
+    "sidebar_label": "isinstanceofany() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isinstanceofany"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isinstanceof() method",
+    "permalink": "/api/container/container/isinstanceof"
+  },
+  "next": {
+    "title": "isnotarray() method",
+    "permalink": "/api/container/container/isnotarray"
+  }
+}

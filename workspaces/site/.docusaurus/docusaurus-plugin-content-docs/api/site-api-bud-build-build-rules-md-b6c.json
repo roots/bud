@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/build/bud-build.build.rules",
+  "id": "bud-build/build/bud-build.build.rules",
+  "title": "rules property",
+  "description": "Build.rules property",
+  "source": "@site/api/bud-build/build/rules.md",
+  "sourceDirName": "bud-build/build",
+  "slug": "/bud-build/build/rules",
+  "permalink": "/api/bud-build/build/rules",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.build.rules",
+    "title": "rules property",
+    "sidebar_label": "rules property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "rules"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "registered() method",
+    "permalink": "/api/bud-build/build/registered"
+  },
+  "next": {
+    "title": "writefinalconfig() method",
+    "permalink": "/api/bud-build/build/writefinalconfig"
+  }
+}

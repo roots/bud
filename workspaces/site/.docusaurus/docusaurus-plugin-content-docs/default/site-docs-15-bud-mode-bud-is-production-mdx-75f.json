@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud.mode/bud.isProduction",
+  "id": "bud.mode/bud.isProduction",
+  "title": "bud.isProduction",
+  "description": "Property that is `true` when bud.mode is `production`",
+  "source": "@site/docs/15-bud.mode/bud.isProduction.mdx",
+  "sourceDirName": "15-bud.mode",
+  "slug": "/bud.mode/bud.isProduction",
+  "permalink": "/docs/bud.mode/bud.isProduction",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/15-bud.mode/bud.isProduction.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "slug": "bud.isProduction",
+    "title": "bud.isProduction",
+    "description": "Property that is `true` when bud.mode is `production`",
+    "sidebar_label": "bud.isProduction",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.mode__bud.isProduction.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.isDevelopment",
+    "permalink": "/docs/bud.mode/bud.isDevelopment"
+  },
+  "next": {
+    "title": "bud.path",
+    "permalink": "/docs/bud.path"
+  }
+}

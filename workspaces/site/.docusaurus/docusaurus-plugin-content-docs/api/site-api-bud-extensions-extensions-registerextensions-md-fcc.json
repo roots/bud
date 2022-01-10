@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.registerextensions",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.registerextensions",
+  "title": "registerextensions() method",
+  "description": "Extensions.registerExtensions() method",
+  "source": "@site/api/bud-extensions/extensions/registerextensions.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/registerextensions",
+  "permalink": "/api/bud-extensions/extensions/registerextensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.registerextensions",
+    "title": "registerextensions() method",
+    "sidebar_label": "registerextensions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "registerextensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "registerextension() method",
+    "permalink": "/api/bud-extensions/extensions/registerextension"
+  },
+  "next": {
+    "title": "repository property",
+    "permalink": "/api/bud-extensions/extensions/repository"
+  }
+}

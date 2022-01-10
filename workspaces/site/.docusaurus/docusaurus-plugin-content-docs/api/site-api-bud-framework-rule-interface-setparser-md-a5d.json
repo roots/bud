@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/interface/bud-framework.rule.interface.setparser",
+  "id": "bud-framework/rule/interface/bud-framework.rule.interface.setparser",
+  "title": "setparser() method",
+  "description": "Rule.Interface.setParser() method",
+  "source": "@site/api/bud-framework/rule/interface/setparser.md",
+  "sourceDirName": "bud-framework/rule/interface",
+  "slug": "/bud-framework/rule/interface/setparser",
+  "permalink": "/api/bud-framework/rule/interface/setparser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.interface.setparser",
+    "title": "setparser() method",
+    "sidebar_label": "setparser() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setparser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setgenerator() method",
+    "permalink": "/api/bud-framework/rule/interface/setgenerator"
+  },
+  "next": {
+    "title": "settest() method",
+    "permalink": "/api/bud-framework/rule/interface/settest"
+  }
+}

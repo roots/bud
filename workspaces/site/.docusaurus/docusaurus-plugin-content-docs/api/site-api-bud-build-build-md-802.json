@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/bud-build.build",
+  "id": "bud-build/bud-build.build",
+  "title": "build class",
+  "description": "Build class",
+  "source": "@site/api/bud-build/build.md",
+  "sourceDirName": "bud-build",
+  "slug": "/bud-build/build",
+  "permalink": "/api/bud-build/build",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.build",
+    "title": "build class",
+    "sidebar_label": "build class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "build"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "version property",
+    "permalink": "/api/bud-cache/cache2/version"
+  },
+  "next": {
+    "title": "item class",
+    "permalink": "/api/bud-build/item"
+  }
+}

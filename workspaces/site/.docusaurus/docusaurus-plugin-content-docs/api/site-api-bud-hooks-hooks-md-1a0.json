@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-hooks/bud-hooks.hooks",
+  "id": "bud-hooks/bud-hooks.hooks",
+  "title": "hooks class",
+  "description": "Hooks class",
+  "source": "@site/api/bud-hooks/hooks.md",
+  "sourceDirName": "bud-hooks",
+  "slug": "/bud-hooks/hooks",
+  "permalink": "/api/bud-hooks/hooks",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-hooks.hooks",
+    "title": "hooks class",
+    "sidebar_label": "hooks class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hooks"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "repository property",
+    "permalink": "/api/bud-framework/store/repository"
+  },
+  "next": {
+    "title": "async() method",
+    "permalink": "/api/bud-hooks/hooks/async"
+  }
+}

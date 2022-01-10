@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.dashboard",
+  "id": "bud-framework/framework/bud-framework.framework.dashboard",
+  "title": "dashboard property",
+  "description": "Framework.dashboard property",
+  "source": "@site/api/bud-framework/framework/dashboard.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/dashboard",
+  "permalink": "/api/bud-framework/framework/dashboard",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.dashboard",
+    "title": "dashboard property",
+    "sidebar_label": "dashboard property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dashboard"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "container property",
+    "permalink": "/api/bud-framework/framework/container"
+  },
+  "next": {
+    "title": "debug() method",
+    "permalink": "/api/bud-framework/framework/debug"
+  }
+}

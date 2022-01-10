@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/project/bud-framework.project.interface",
+  "id": "bud-framework/project/bud-framework.project.interface",
+  "title": "interface interface",
+  "description": "Project.Interface interface",
+  "source": "@site/api/bud-framework/project/interface.md",
+  "sourceDirName": "bud-framework/project",
+  "slug": "/bud-framework/project/interface",
+  "permalink": "/api/bud-framework/project/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/project/abstract"
+  },
+  "next": {
+    "title": "buildprofile() method",
+    "permalink": "/api/bud-framework/project/interface/buildprofile"
+  }
+}

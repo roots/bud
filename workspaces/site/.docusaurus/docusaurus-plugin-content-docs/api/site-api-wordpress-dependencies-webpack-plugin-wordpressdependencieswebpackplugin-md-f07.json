@@ -1,0 +1,29 @@
+{
+  "unversionedId": "wordpress-dependencies-webpack-plugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin",
+  "id": "wordpress-dependencies-webpack-plugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin",
+  "title": "wordpressdependencieswebpackplugin class",
+  "description": "WordPressDependenciesWebpackPlugin class",
+  "source": "@site/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin.md",
+  "sourceDirName": "wordpress-dependencies-webpack-plugin",
+  "slug": "/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+  "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin",
+    "title": "wordpressdependencieswebpackplugin class",
+    "sidebar_label": "wordpressdependencieswebpackplugin class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "wordpressdependencieswebpackplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "wordpressname property",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname"
+  },
+  "next": {
+    "title": "apply() method",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply"
+  }
+}

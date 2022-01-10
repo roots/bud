@@ -1,0 +1,29 @@
+{
+  "unversionedId": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.apply",
+  "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.apply",
+  "title": "apply() method",
+  "description": "WordPressDependenciesWebpackPlugin.apply() method",
+  "source": "@site/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply.md",
+  "sourceDirName": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+  "slug": "/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply",
+  "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.apply",
+    "title": "apply() method",
+    "sidebar_label": "apply() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "wordpressdependencieswebpackplugin class",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin"
+  },
+  "next": {
+    "title": "compilation property",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/compilation"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.threshold",
+  "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.threshold",
+  "title": "threshold property",
+  "description": "BudCompressionExtension.Options.threshold property",
+  "source": "@site/api/bud-compress/budcompressionextension/options/threshold.md",
+  "sourceDirName": "bud-compress/budcompressionextension/options",
+  "slug": "/bud-compress/budcompressionextension/options/threshold",
+  "permalink": "/api/bud-compress/budcompressionextension/options/threshold",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.budcompressionextension.options.threshold",
+    "title": "threshold property",
+    "sidebar_label": "threshold property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "threshold"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "test property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/test"
+  },
+  "next": {
+    "title": "budcriticalcssplugin variable",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin"
+  }
+}

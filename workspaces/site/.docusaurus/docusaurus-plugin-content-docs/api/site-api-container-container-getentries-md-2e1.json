@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.getentries",
+  "id": "container/container/container.container.getentries",
+  "title": "getentries() method",
+  "description": "Container.getEntries() method",
+  "source": "@site/api/container/container/getentries.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/getentries",
+  "permalink": "/api/container/container/getentries",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.getentries",
+    "title": "getentries() method",
+    "sidebar_label": "getentries() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getentries"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "get() method",
+    "permalink": "/api/container/container/get"
+  },
+  "next": {
+    "title": "getkeys() method",
+    "permalink": "/api/container/container/getkeys"
+  }
+}

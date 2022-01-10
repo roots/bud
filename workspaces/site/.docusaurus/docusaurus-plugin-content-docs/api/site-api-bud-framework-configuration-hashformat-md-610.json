@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.hashformat",
+  "id": "bud-framework/configuration/bud-framework.configuration.hashformat",
+  "title": "hashformat property",
+  "description": "Configuration.hashFormat property",
+  "source": "@site/api/bud-framework/configuration/hashformat.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/hashformat",
+  "permalink": "/api/bud-framework/configuration/hashformat",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.hashformat",
+    "title": "hashformat property",
+    "sidebar_label": "hashformat property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hashformat"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "fileformat property",
+    "permalink": "/api/bud-framework/configuration/fileformat"
+  },
+  "next": {
+    "title": "location property",
+    "permalink": "/api/bud-framework/configuration/location"
+  }
+}

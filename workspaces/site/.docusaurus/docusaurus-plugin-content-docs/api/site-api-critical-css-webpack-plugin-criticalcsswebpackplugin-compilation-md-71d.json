@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.compilation",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.compilation",
+  "title": "compilation() method",
+  "description": "CriticalCssWebpackPlugin.compilation() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.compilation",
+    "title": "compilation() method",
+    "sidebar_label": "compilation() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compilation"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "apply() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/apply"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor"
+  }
+}

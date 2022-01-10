@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-tailwindcss/bud-tailwindcss.api",
+  "id": "bud-tailwindcss/bud-tailwindcss.api",
+  "title": "api variable",
+  "description": "api variable",
+  "source": "@site/api/bud-tailwindcss/api.md",
+  "sourceDirName": "bud-tailwindcss",
+  "slug": "/bud-tailwindcss/api",
+  "permalink": "/api/bud-tailwindcss/api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-tailwindcss.api",
+    "title": "api variable",
+    "sidebar_label": "api variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "api"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options variable",
+    "permalink": "/api/bud-stylelint/options"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-tailwindcss/boot"
+  }
+}

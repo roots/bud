@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/hooks/bud-framework.hooks.hook",
+  "id": "bud-framework/hooks/bud-framework.hooks.hook",
+  "title": "hook type",
+  "description": "Hooks.Hook type",
+  "source": "@site/api/bud-framework/hooks/hook.md",
+  "sourceDirName": "bud-framework/hooks",
+  "slug": "/bud-framework/hooks/hook",
+  "permalink": "/api/bud-framework/hooks/hook",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks.hook",
+    "title": "hook type",
+    "sidebar_label": "hook type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hook"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filterasync() method",
+    "permalink": "/api/bud-framework/hooks/filterasync"
+  },
+  "next": {
+    "title": "limitedentryobject type",
+    "permalink": "/api/bud-framework/hooks/limitedentryobject"
+  }
+}

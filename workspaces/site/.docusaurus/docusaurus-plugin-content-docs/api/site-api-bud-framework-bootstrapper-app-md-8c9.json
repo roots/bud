@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bootstrapper/bud-framework.bootstrapper.app",
+  "id": "bud-framework/bootstrapper/bud-framework.bootstrapper.app",
+  "title": "app property",
+  "description": "Bootstrapper.app property",
+  "source": "@site/api/bud-framework/bootstrapper/app.md",
+  "sourceDirName": "bud-framework/bootstrapper",
+  "slug": "/bud-framework/bootstrapper/app",
+  "permalink": "/api/bud-framework/bootstrapper/app",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.bootstrapper.app",
+    "title": "app property",
+    "sidebar_label": "app property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "app"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "tapable interface",
+    "permalink": "/api/bud-framework/tapable"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-framework/bootstrapper/constructor"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "unversionedId": "bud-babel",
+  "id": "bud-babel",
+  "title": "@roots/bud-babel",
+  "description": "Transpile JavaScript with Babel",
+  "source": "@site/extensions/bud-babel.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-babel",
+  "permalink": "/extensions/bud-babel",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "@roots/bud-babel",
+    "description": "Transpile JavaScript with Babel",
+    "sidebar_label": "@roots/bud-babel",
+    "image": "https://budjs.netlify.app/img/share/extensions/bud-babel.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Overview",
+    "permalink": "/extensions/"
+  },
+  "next": {
+    "title": "@roots/bud-criticalcss",
+    "permalink": "/extensions/bud-criticalcss"
+  }
+}

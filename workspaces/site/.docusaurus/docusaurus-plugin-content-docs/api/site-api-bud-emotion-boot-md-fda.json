@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-emotion/bud-emotion.boot",
+  "id": "bud-emotion/bud-emotion.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-emotion/boot.md",
+  "sourceDirName": "bud-emotion",
+  "slug": "/bud-emotion/boot",
+  "permalink": "/api/bud-emotion/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-emotion.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options property",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin/options"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-emotion/name2"
+  }
+}

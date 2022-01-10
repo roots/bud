@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/bud-framework.extension.module",
+  "id": "bud-framework/extension/bud-framework.extension.module",
+  "title": "module interface",
+  "description": "Extension.Module interface",
+  "source": "@site/api/bud-framework/extension/module.md",
+  "sourceDirName": "bud-framework/extension",
+  "slug": "/bud-framework/extension/module",
+  "permalink": "/api/bud-framework/extension/module",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.module",
+    "title": "module interface",
+    "sidebar_label": "module interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "module"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "compilerplugin interface",
+    "permalink": "/api/bud-framework/extension/compilerplugin"
+  },
+  "next": {
+    "title": "name type",
+    "permalink": "/api/bud-framework/extension/name"
+  }
+}

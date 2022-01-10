@@ -1,0 +1,27 @@
+{
+  "unversionedId": "general-use/hashing",
+  "id": "general-use/hashing",
+  "title": "Filename hashing",
+  "description": "Enable or disable filename hashing of built assets.",
+  "source": "@site/guides/general-use/hashing.mdx",
+  "sourceDirName": "general-use",
+  "slug": "/general-use/hashing",
+  "permalink": "/guides/general-use/hashing",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Filename hashing",
+    "description": "Enable or disable filename hashing of built assets.",
+    "sidebar_label": "Filename hashing",
+    "image": "https://budjs.netlify.app/img/share/guides/general-use__hashing.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Configuring with TypeScript",
+    "permalink": "/guides/general-use/config-ts"
+  },
+  "next": {
+    "title": "Multi-compiler",
+    "permalink": "/guides/general-use/multi-compiler"
+  }
+}

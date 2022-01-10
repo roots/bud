@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnotarray",
+  "id": "container/container/container.container.isnotarray",
+  "title": "isnotarray() method",
+  "description": "Container.isNotArray() method",
+  "source": "@site/api/container/container/isnotarray.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnotarray",
+  "permalink": "/api/container/container/isnotarray",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnotarray",
+    "title": "isnotarray() method",
+    "sidebar_label": "isnotarray() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnotarray"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isinstanceofany() method",
+    "permalink": "/api/container/container/isinstanceofany"
+  },
+  "next": {
+    "title": "isnotempty() method",
+    "permalink": "/api/container/container/isnotempty"
+  }
+}

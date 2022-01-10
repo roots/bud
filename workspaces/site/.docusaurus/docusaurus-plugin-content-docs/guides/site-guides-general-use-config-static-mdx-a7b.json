@@ -1,0 +1,27 @@
+{
+  "unversionedId": "general-use/config-static",
+  "id": "general-use/config-static",
+  "title": "Using a static config file",
+  "description": "Learn how to configure bud with json or yml",
+  "source": "@site/guides/general-use/config-static.mdx",
+  "sourceDirName": "general-use",
+  "slug": "/general-use/config-static",
+  "permalink": "/guides/general-use/config-static",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Using a static config file",
+    "description": "Learn how to configure bud with json or yml",
+    "sidebar_label": "Static config",
+    "image": "https://budjs.netlify.app/img/share/guides/general-use__config-static.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Environment-specific configs",
+    "permalink": "/guides/general-use/config-env"
+  },
+  "next": {
+    "title": "Configuring with TypeScript",
+    "permalink": "/guides/general-use/config-ts"
+  }
+}

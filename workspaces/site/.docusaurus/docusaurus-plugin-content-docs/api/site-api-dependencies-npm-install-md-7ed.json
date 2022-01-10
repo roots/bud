@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/npm/dependencies.npm.install",
+  "id": "dependencies/npm/dependencies.npm.install",
+  "title": "install() method",
+  "description": "Npm.install() method",
+  "source": "@site/api/dependencies/npm/install.md",
+  "sourceDirName": "dependencies/npm",
+  "slug": "/dependencies/npm/install",
+  "permalink": "/api/dependencies/npm/install",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.npm.install",
+    "title": "install() method",
+    "sidebar_label": "install() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "install"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "uninstall property",
+    "permalink": "/api/dependencies/idependencymanager/uninstall"
+  },
+  "next": {
+    "title": "uninstall() method",
+    "permalink": "/api/dependencies/npm/uninstall"
+  }
+}

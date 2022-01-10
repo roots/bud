@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-dashboard/dashboard/bud-dashboard.dashboard.run",
+  "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.run",
+  "title": "run() method",
+  "description": "Dashboard.run() method",
+  "source": "@site/api/bud-dashboard/dashboard/run.md",
+  "sourceDirName": "bud-dashboard/dashboard",
+  "slug": "/bud-dashboard/dashboard/run",
+  "permalink": "/api/bud-dashboard/dashboard/run",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-dashboard.dashboard.run",
+    "title": "run() method",
+    "sidebar_label": "run() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "run"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "rerender() method",
+    "permalink": "/api/bud-dashboard/dashboard/rerender"
+  },
+  "next": {
+    "title": "stderr property",
+    "permalink": "/api/bud-dashboard/dashboard/stderr"
+  }
+}

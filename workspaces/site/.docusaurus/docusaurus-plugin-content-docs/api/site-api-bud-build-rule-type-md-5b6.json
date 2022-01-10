@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.type",
+  "id": "bud-build/rule/bud-build.rule.type",
+  "title": "type property",
+  "description": "Rule.type property",
+  "source": "@site/api/bud-build/rule/type.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/type",
+  "permalink": "/api/bud-build/rule/type",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.type",
+    "title": "type property",
+    "sidebar_label": "type property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "type"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "test property",
+    "permalink": "/api/bud-build/rule/test"
+  },
+  "next": {
+    "title": "use property",
+    "permalink": "/api/bud-build/rule/use"
+  }
+}

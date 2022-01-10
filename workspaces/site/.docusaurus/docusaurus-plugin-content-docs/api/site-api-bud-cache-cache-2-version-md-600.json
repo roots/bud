@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cache/cache2/bud-cache.cache_2.version",
+  "id": "bud-cache/cache2/bud-cache.cache_2.version",
+  "title": "version property",
+  "description": "Cache_2.version property",
+  "source": "@site/api/bud-cache/cache2/version.md",
+  "sourceDirName": "bud-cache/cache2",
+  "slug": "/bud-cache/cache2/version",
+  "permalink": "/api/bud-cache/cache2/version",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-cache.cache_2.version",
+    "title": "version property",
+    "sidebar_label": "version property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "version"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "type property",
+    "permalink": "/api/bud-cache/cache2/type"
+  },
+  "next": {
+    "title": "build class",
+    "permalink": "/api/bud-build/build"
+  }
+}

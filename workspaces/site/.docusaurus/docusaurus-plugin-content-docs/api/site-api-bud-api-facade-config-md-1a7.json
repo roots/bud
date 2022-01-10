@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.config",
+  "id": "bud-api/facade/bud-api.facade.config",
+  "title": "config property",
+  "description": "Facade.config property",
+  "source": "@site/api/bud-api/facade/config.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/config",
+  "permalink": "/api/bud-api/facade/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.config",
+    "title": "config property",
+    "sidebar_label": "config property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "autoload property",
+    "permalink": "/api/bud-api/facade/autoload"
+  },
+  "next": {
+    "title": "copy property",
+    "permalink": "/api/bud-api/facade/copy"
+  }
+}

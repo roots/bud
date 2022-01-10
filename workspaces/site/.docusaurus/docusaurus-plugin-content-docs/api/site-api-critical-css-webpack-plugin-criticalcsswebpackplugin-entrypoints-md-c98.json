@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.entrypoints",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.entrypoints",
+  "title": "entrypoints property",
+  "description": "CriticalCssWebpackPlugin.entrypoints property",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.entrypoints",
+    "title": "entrypoints property",
+    "sidebar_label": "entrypoints property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "entrypoints"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "criticalentry() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/criticalentry"
+  },
+  "next": {
+    "title": "generatecritical() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical"
+  }
+}

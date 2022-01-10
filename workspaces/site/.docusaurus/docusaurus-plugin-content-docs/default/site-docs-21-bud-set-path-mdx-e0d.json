@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.setPath",
+  "id": "bud.setPath",
+  "title": "bud.setPath",
+  "description": "Set application paths",
+  "source": "@site/docs/21-bud.setPath.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.setPath",
+  "permalink": "/docs/bud.setPath",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/21-bud.setPath.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 21,
+  "frontMatter": {
+    "slug": "bud.setPath",
+    "title": "bud.setPath",
+    "description": "Set application paths",
+    "sidebar_label": "bud.setPath",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.setPath.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.runtime",
+    "permalink": "/docs/bud.runtime"
+  },
+  "next": {
+    "title": "bud.setPublicPath",
+    "permalink": "/docs/bud.setPublicPath"
+  }
+}

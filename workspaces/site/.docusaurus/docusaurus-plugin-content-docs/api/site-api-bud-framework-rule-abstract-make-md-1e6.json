@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.make",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.make",
+  "title": "make() method",
+  "description": "Rule.Abstract.make() method",
+  "source": "@site/api/bud-framework/rule/abstract/make.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/make",
+  "permalink": "/api/bud-framework/rule/abstract/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getuse() method",
+    "permalink": "/api/bud-framework/rule/abstract/getuse"
+  },
+  "next": {
+    "title": "setexclude() method",
+    "permalink": "/api/bud-framework/rule/abstract/setexclude"
+  }
+}

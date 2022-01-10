@@ -7,7 +7,7 @@ describe('repo', function () {
   let packageRoots
 
   beforeAll(async () => {
-    packageRoots = await globby('packages/@roots/*', {
+    packageRoots = await globby('workspaces/@roots/*', {
       absolute: true,
       onlyDirectories: true,
     })

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.stats",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.stats",
+  "title": "stats property",
+  "description": "Compiler.stats property",
+  "source": "@site/api/bud-compiler/compiler/stats.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/stats",
+  "permalink": "/api/bud-compiler/compiler/stats",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.stats",
+    "title": "stats property",
+    "sidebar_label": "stats property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stats"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "progress property",
+    "permalink": "/api/bud-compiler/compiler/progress"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-compress/boot"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.serve",
+  "id": "bud-api/facade/bud-api.facade.serve",
+  "title": "serve property",
+  "description": "Facade.serve property",
+  "source": "@site/api/bud-api/facade/serve.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/serve",
+  "permalink": "/api/bud-api/facade/serve",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.serve",
+    "title": "serve property",
+    "sidebar_label": "serve property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "serve"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "runtime property",
+    "permalink": "/api/bud-api/facade/runtime"
+  },
+  "next": {
+    "title": "setpublicpath property",
+    "permalink": "/api/bud-api/facade/setpublicpath"
+  }
+}

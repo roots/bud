@@ -1,0 +1,325 @@
+{
+  "pluginId": "guides",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "sidebar": [
+      {
+        "type": "link",
+        "label": "Introduction",
+        "href": "/guides/",
+        "docId": "introduction"
+      },
+      {
+        "type": "link",
+        "label": "Installation",
+        "href": "/guides/installation",
+        "docId": "installation"
+      },
+      {
+        "type": "category",
+        "label": "Getting started",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Running a build",
+            "href": "/guides/getting-started/building",
+            "docId": "getting-started/building"
+          },
+          {
+            "type": "link",
+            "label": "Running in dev",
+            "href": "/guides/getting-started/developing",
+            "docId": "getting-started/developing"
+          },
+          {
+            "type": "link",
+            "label": "Creating a config file",
+            "href": "/guides/getting-started/config",
+            "docId": "getting-started/config"
+          },
+          {
+            "type": "link",
+            "label": "Adding entrypoints",
+            "href": "/guides/getting-started/entrypoints",
+            "docId": "getting-started/entrypoints"
+          },
+          {
+            "type": "link",
+            "label": "Adding extensions",
+            "href": "/guides/getting-started/extending",
+            "docId": "getting-started/extending"
+          },
+          {
+            "type": "link",
+            "label": "Copying static assets",
+            "href": "/guides/getting-started/assets",
+            "docId": "getting-started/assets"
+          },
+          {
+            "type": "link",
+            "label": "Optimizing compiled assets",
+            "href": "/guides/getting-started/optimizing",
+            "docId": "getting-started/optimizing"
+          }
+        ],
+        "href": "/guides/getting-started/"
+      },
+      {
+        "type": "category",
+        "label": "General usage",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Environment-specific configs",
+            "href": "/guides/general-use/config-env",
+            "docId": "general-use/config-env"
+          },
+          {
+            "type": "link",
+            "label": "Static config",
+            "href": "/guides/general-use/config-static",
+            "docId": "general-use/config-static"
+          },
+          {
+            "type": "link",
+            "label": "Configuring with TypeScript",
+            "href": "/guides/general-use/config-ts",
+            "docId": "general-use/config-ts"
+          },
+          {
+            "type": "link",
+            "label": "Filename hashing",
+            "href": "/guides/general-use/hashing",
+            "docId": "general-use/hashing"
+          },
+          {
+            "type": "link",
+            "label": "Multi-compiler",
+            "href": "/guides/general-use/multi-compiler",
+            "docId": "general-use/multi-compiler"
+          }
+        ],
+        "href": "/guides/general-use/"
+      },
+      {
+        "type": "category",
+        "label": "Advanced topics",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Architecture",
+            "href": "/guides/advanced-use/architecture",
+            "docId": "advanced-use/architecture"
+          },
+          {
+            "type": "link",
+            "label": "Node API",
+            "href": "/guides/advanced-use/node",
+            "docId": "advanced-use/node"
+          },
+          {
+            "type": "link",
+            "label": "Writing an extension",
+            "href": "/guides/advanced-use/writing-an-extension",
+            "docId": "advanced-use/writing-an-extension"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "CLI",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Introduction",
+            "href": "/guides/bud-cli/",
+            "docId": "bud-cli/introduction"
+          },
+          {
+            "type": "link",
+            "label": "bud build",
+            "href": "/guides/bud-cli/build",
+            "docId": "bud-cli/bud-build"
+          },
+          {
+            "type": "link",
+            "label": "bud clean",
+            "href": "/guides/bud-cli/clean",
+            "docId": "bud-cli/bud-clean"
+          },
+          {
+            "type": "link",
+            "label": "bud doctor",
+            "href": "/guides/bud-cli/doctor",
+            "docId": "bud-cli/bud-doctor"
+          },
+          {
+            "type": "link",
+            "label": "bud install",
+            "href": "/guides/bud-cli/install",
+            "docId": "bud-cli/bud-install"
+          }
+        ]
+      }
+    ]
+  },
+  "docs": {
+    "advanced-use/architecture": {
+      "id": "advanced-use/architecture",
+      "title": "Architecture",
+      "description": "Overview of the structure of Bud",
+      "sidebar": "sidebar"
+    },
+    "advanced-use/node": {
+      "id": "advanced-use/node",
+      "title": "Node API",
+      "description": "Overview of instantiating Bud directly from Node",
+      "sidebar": "sidebar"
+    },
+    "advanced-use/writing-an-extension": {
+      "id": "advanced-use/writing-an-extension",
+      "title": "Writing an extension",
+      "description": "Create and package an extension to reuse across projects and share with other users",
+      "sidebar": "sidebar"
+    },
+    "bud-cli/bud-build": {
+      "id": "bud-cli/bud-build",
+      "title": "bud build",
+      "description": "CLI command to compile project assets",
+      "sidebar": "sidebar"
+    },
+    "bud-cli/bud-clean": {
+      "id": "bud-cli/bud-clean",
+      "title": "bud clean",
+      "description": "CLI command to remove compiled assets, artifacts and caches",
+      "sidebar": "sidebar"
+    },
+    "bud-cli/bud-doctor": {
+      "id": "bud-cli/bud-doctor",
+      "title": "bud doctor",
+      "description": "CLI command to check for issues with the project configuration",
+      "sidebar": "sidebar"
+    },
+    "bud-cli/bud-install": {
+      "id": "bud-cli/bud-install",
+      "title": "bud install",
+      "description": "Install dependencies registered by extensions",
+      "sidebar": "sidebar"
+    },
+    "bud-cli/introduction": {
+      "id": "bud-cli/introduction",
+      "title": "The bud command",
+      "description": "The `bud` command is your primary means of interfacing with the bud framework.",
+      "sidebar": "sidebar"
+    },
+    "general-use/config-env": {
+      "id": "general-use/config-env",
+      "title": "Environment-specific configuration",
+      "description": "Use multiple configuration files to target different environments",
+      "sidebar": "sidebar"
+    },
+    "general-use/config-static": {
+      "id": "general-use/config-static",
+      "title": "Using a static config file",
+      "description": "Learn how to configure bud with json or yml",
+      "sidebar": "sidebar"
+    },
+    "general-use/config-ts": {
+      "id": "general-use/config-ts",
+      "title": "Configuring with TypeScript",
+      "description": "Use TypeScript in your bud configuration",
+      "sidebar": "sidebar"
+    },
+    "general-use/hashing": {
+      "id": "general-use/hashing",
+      "title": "Filename hashing",
+      "description": "Enable or disable filename hashing of built assets.",
+      "sidebar": "sidebar"
+    },
+    "general-use/index": {
+      "id": "general-use/index",
+      "title": "Introduction",
+      "description": "Guide on general usage of Bud",
+      "sidebar": "sidebar"
+    },
+    "general-use/multi-compiler": {
+      "id": "general-use/multi-compiler",
+      "title": "Running multiple compilers",
+      "description": "It is possible to configure more than one Webpack compiler from a single bud config.",
+      "sidebar": "sidebar"
+    },
+    "getting-started/assets": {
+      "id": "getting-started/assets",
+      "title": "Copying static assets",
+      "description": "Part 6/7 of the Getting Started guide",
+      "sidebar": "sidebar"
+    },
+    "getting-started/building": {
+      "id": "getting-started/building",
+      "title": "Building the project",
+      "description": "Part 1/7 of the Getting Started guide covers installing @roots/bud",
+      "sidebar": "sidebar"
+    },
+    "getting-started/config": {
+      "id": "getting-started/config",
+      "title": "Creating a config file",
+      "description": "Part 3/7 of the Getting Started guide covers creating a bud.config.js file",
+      "sidebar": "sidebar"
+    },
+    "getting-started/developing": {
+      "id": "getting-started/developing",
+      "title": "Running development builds",
+      "description": "Part 2/7 of the Getting Started guide covers running development builds",
+      "sidebar": "sidebar"
+    },
+    "getting-started/entrypoints": {
+      "id": "getting-started/entrypoints",
+      "title": "Adding a new entrypoint",
+      "description": "Part 4/7 of the Getting Started guide covers adding entrypoints to your build",
+      "sidebar": "sidebar"
+    },
+    "getting-started/extending": {
+      "id": "getting-started/extending",
+      "title": "Adding extensions",
+      "description": "Part 5/7 of the Getting Started guide covers adding extensions to your build",
+      "sidebar": "sidebar"
+    },
+    "getting-started/index": {
+      "id": "getting-started/index",
+      "title": "Getting Started",
+      "description": "In this guide we'll configure a simple project for use with bud.js",
+      "sidebar": "sidebar"
+    },
+    "getting-started/optimizing": {
+      "id": "getting-started/optimizing",
+      "title": "Optimizing compiled assets",
+      "description": "Part 7/7 of the Getting Started guide covers optimizing your build assets for production",
+      "sidebar": "sidebar"
+    },
+    "installation": {
+      "id": "installation",
+      "title": "Installation",
+      "description": "Add `@roots/bud` as a development dependency using your choice of package manager.",
+      "sidebar": "sidebar"
+    },
+    "introduction": {
+      "id": "introduction",
+      "title": "Introduction",
+      "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+      "sidebar": "sidebar"
+    }
+  }
+}

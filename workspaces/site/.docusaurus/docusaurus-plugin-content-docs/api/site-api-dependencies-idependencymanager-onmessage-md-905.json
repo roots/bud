@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/idependencymanager/dependencies.idependencymanager.onmessage",
+  "id": "dependencies/idependencymanager/dependencies.idependencymanager.onmessage",
+  "title": "onmessage property",
+  "description": "IDependencyManager.onMessage property",
+  "source": "@site/api/dependencies/idependencymanager/onmessage.md",
+  "sourceDirName": "dependencies/idependencymanager",
+  "slug": "/dependencies/idependencymanager/onmessage",
+  "permalink": "/api/dependencies/idependencymanager/onmessage",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.idependencymanager.onmessage",
+    "title": "onmessage property",
+    "sidebar_label": "onmessage property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "onmessage"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "install property",
+    "permalink": "/api/dependencies/idependencymanager/install"
+  },
+  "next": {
+    "title": "path property",
+    "permalink": "/api/dependencies/idependencymanager/path"
+  }
+}

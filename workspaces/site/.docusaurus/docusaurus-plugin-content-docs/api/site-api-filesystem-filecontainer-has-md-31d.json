@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.has",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.has",
+  "title": "has() method",
+  "description": "FileContainer.has() method",
+  "source": "@site/api/filesystem/filecontainer/has.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/has",
+  "permalink": "/api/filesystem/filecontainer/has",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.has",
+    "title": "has() method",
+    "sidebar_label": "has() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "has"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "fs property",
+    "permalink": "/api/filesystem/filecontainer/fs"
+  },
+  "next": {
+    "title": "ls() method",
+    "permalink": "/api/filesystem/filecontainer/ls"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.getuse",
+  "id": "bud-build/rule/bud-build.rule.getuse",
+  "title": "getuse() method",
+  "description": "Rule.getUse() method",
+  "source": "@site/api/bud-build/rule/getuse.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/getuse",
+  "permalink": "/api/bud-build/rule/getuse",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.getuse",
+    "title": "getuse() method",
+    "sidebar_label": "getuse() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getuse"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "gettype() method",
+    "permalink": "/api/bud-build/rule/gettype"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-build/rule/make"
+  }
+}

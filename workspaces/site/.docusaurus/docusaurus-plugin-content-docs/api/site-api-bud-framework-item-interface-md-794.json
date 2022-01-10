@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/bud-framework.item.interface",
+  "id": "bud-framework/item/bud-framework.item.interface",
+  "title": "interface interface",
+  "description": "Item.Interface interface",
+  "source": "@site/api/bud-framework/item/interface.md",
+  "sourceDirName": "bud-framework/item",
+  "slug": "/bud-framework/item/interface",
+  "permalink": "/api/bud-framework/item/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "constructoroptions interface",
+    "permalink": "/api/bud-framework/item/constructoroptions"
+  },
+  "next": {
+    "title": "options interface",
+    "permalink": "/api/bud-framework/item/options"
+  }
+}

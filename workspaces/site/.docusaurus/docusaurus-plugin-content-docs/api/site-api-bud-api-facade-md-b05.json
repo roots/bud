@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/bud-api.facade",
+  "id": "bud-api/bud-api.facade",
+  "title": "facade class",
+  "description": "Facade class",
+  "source": "@site/api/bud-api/facade.md",
+  "sourceDirName": "bud-api",
+  "slug": "/bud-api/facade",
+  "permalink": "/api/bud-api/facade",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade",
+    "title": "facade class",
+    "sidebar_label": "facade class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "facade"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "api class",
+    "permalink": "/api/bud-api/api"
+  },
+  "next": {
+    "title": "alias property",
+    "permalink": "/api/bud-api/facade/alias"
+  }
+}

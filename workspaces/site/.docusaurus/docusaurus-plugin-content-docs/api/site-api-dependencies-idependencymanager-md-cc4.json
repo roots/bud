@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies.idependencymanager",
+  "id": "dependencies/dependencies.idependencymanager",
+  "title": "idependencymanager interface",
+  "description": "IDependencyManager interface",
+  "source": "@site/api/dependencies/idependencymanager.md",
+  "sourceDirName": "dependencies",
+  "slug": "/dependencies/idependencymanager",
+  "permalink": "/api/dependencies/idependencymanager",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.idependencymanager",
+    "title": "idependencymanager interface",
+    "sidebar_label": "idependencymanager interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "idependencymanager"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dependencies class",
+    "permalink": "/api/dependencies/dependencies"
+  },
+  "next": {
+    "title": "npm class",
+    "permalink": "/api/dependencies/npm"
+  }
+}

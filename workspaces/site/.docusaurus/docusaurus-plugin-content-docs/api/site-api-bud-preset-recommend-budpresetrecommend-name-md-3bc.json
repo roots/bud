@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-preset-recommend/budpresetrecommend/bud-preset-recommend.budpresetrecommend.name",
+  "id": "bud-preset-recommend/budpresetrecommend/bud-preset-recommend.budpresetrecommend.name",
+  "title": "name property",
+  "description": "BudPresetRecommend.name property",
+  "source": "@site/api/bud-preset-recommend/budpresetrecommend/name.md",
+  "sourceDirName": "bud-preset-recommend/budpresetrecommend",
+  "slug": "/bud-preset-recommend/budpresetrecommend/name",
+  "permalink": "/api/bud-preset-recommend/budpresetrecommend/name",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-preset-recommend.budpresetrecommend.name",
+    "title": "name property",
+    "sidebar_label": "name property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-preset-recommend/name2"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-preset-wordpress/name2"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/item/bud-build.item.make",
+  "id": "bud-build/item/bud-build.item.make",
+  "title": "make() method",
+  "description": "Item.make() method",
+  "source": "@site/api/bud-build/item/make.md",
+  "sourceDirName": "bud-build/item",
+  "slug": "/bud-build/item/make",
+  "permalink": "/api/bud-build/item/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.item.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loader property",
+    "permalink": "/api/bud-build/item/loader"
+  },
+  "next": {
+    "title": "mergeoptions() method",
+    "permalink": "/api/bud-build/item/mergeoptions"
+  }
+}

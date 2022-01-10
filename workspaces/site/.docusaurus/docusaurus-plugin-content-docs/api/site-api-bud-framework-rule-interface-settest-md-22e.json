@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/interface/bud-framework.rule.interface.settest",
+  "id": "bud-framework/rule/interface/bud-framework.rule.interface.settest",
+  "title": "settest() method",
+  "description": "Rule.Interface.setTest() method",
+  "source": "@site/api/bud-framework/rule/interface/settest.md",
+  "sourceDirName": "bud-framework/rule/interface",
+  "slug": "/bud-framework/rule/interface/settest",
+  "permalink": "/api/bud-framework/rule/interface/settest",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.interface.settest",
+    "title": "settest() method",
+    "sidebar_label": "settest() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "settest"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setparser() method",
+    "permalink": "/api/bud-framework/rule/interface/setparser"
+  },
+  "next": {
+    "title": "settype() method",
+    "permalink": "/api/bud-framework/rule/interface/settype"
+  }
+}

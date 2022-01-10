@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies/dependencies.dependencies.isyarn",
+  "id": "dependencies/dependencies/dependencies.dependencies.isyarn",
+  "title": "isyarn() method",
+  "description": "Dependencies.isYarn() method",
+  "source": "@site/api/dependencies/dependencies/isyarn.md",
+  "sourceDirName": "dependencies/dependencies",
+  "slug": "/dependencies/dependencies/isyarn",
+  "permalink": "/api/dependencies/dependencies/isyarn",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.dependencies.isyarn",
+    "title": "isyarn() method",
+    "sidebar_label": "isyarn() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isyarn"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "(constructor)",
+    "permalink": "/api/dependencies/dependencies/constructor"
+  },
+  "next": {
+    "title": "path property",
+    "permalink": "/api/dependencies/dependencies/path"
+  }
+}

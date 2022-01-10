@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnotinstanceofany",
+  "id": "container/container/container.container.isnotinstanceofany",
+  "title": "isnotinstanceofany() method",
+  "description": "Container.isNotInstanceOfAny() method",
+  "source": "@site/api/container/container/isnotinstanceofany.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnotinstanceofany",
+  "permalink": "/api/container/container/isnotinstanceofany",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnotinstanceofany",
+    "title": "isnotinstanceofany() method",
+    "sidebar_label": "isnotinstanceofany() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnotinstanceofany"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnotinstanceof() method",
+    "permalink": "/api/container/container/isnotinstanceof"
+  },
+  "next": {
+    "title": "isnotnull() method",
+    "permalink": "/api/container/container/isnotnull"
+  }
+}

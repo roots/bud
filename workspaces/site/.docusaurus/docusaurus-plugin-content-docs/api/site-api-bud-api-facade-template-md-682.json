@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.template",
+  "id": "bud-api/facade/bud-api.facade.template",
+  "title": "template property",
+  "description": "Facade.template property",
+  "source": "@site/api/bud-api/facade/template.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/template",
+  "permalink": "/api/bud-api/facade/template",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.template",
+    "title": "template property",
+    "sidebar_label": "template property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "template"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "splitchunks property",
+    "permalink": "/api/bud-api/facade/splitchunks"
+  },
+  "next": {
+    "title": "use property",
+    "permalink": "/api/bud-api/facade/use"
+  }
+}

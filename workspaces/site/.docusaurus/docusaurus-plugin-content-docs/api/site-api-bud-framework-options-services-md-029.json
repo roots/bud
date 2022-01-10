@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/options/bud-framework.options.services",
+  "id": "bud-framework/options/bud-framework.options.services",
+  "title": "services property",
+  "description": "Options.services property",
+  "source": "@site/api/bud-framework/options/services.md",
+  "sourceDirName": "bud-framework/options",
+  "slug": "/bud-framework/options/services",
+  "permalink": "/api/bud-framework/options/services",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.options.services",
+    "title": "services property",
+    "sidebar_label": "services property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "services"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extensions property",
+    "permalink": "/api/bud-framework/options/extensions"
+  },
+  "next": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/peers/interface"
+  }
+}

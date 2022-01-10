@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.getmergedcssmodules",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.getmergedcssmodules",
+  "title": "getmergedcssmodules() method",
+  "description": "CriticalCssWebpackPlugin.getMergedCssModules() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.getmergedcssmodules",
+    "title": "getmergedcssmodules() method",
+    "sidebar_label": "getmergedcssmodules() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getmergedcssmodules"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "generatecritical() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical"
+  },
+  "next": {
+    "title": "htmlinject() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject"
+  }
+}

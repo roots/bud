@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.colors",
+  "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.colors",
+  "title": "colors variable",
+  "description": "defaultTheme.colors variable",
+  "source": "@site/api/ink-use-style/defaulttheme/colors.md",
+  "sourceDirName": "ink-use-style/defaulttheme",
+  "slug": "/ink-use-style/defaulttheme/colors",
+  "permalink": "/api/ink-use-style/defaulttheme/colors",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.defaulttheme.colors",
+    "title": "colors variable",
+    "sidebar_label": "colors variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "colors"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "usestyle variable",
+    "permalink": "/api/ink-use-style/usestyle"
+  },
+  "next": {
+    "title": "columns variable",
+    "permalink": "/api/ink-use-style/defaulttheme/columns"
+  }
+}

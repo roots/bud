@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/items/bud-build.items.default",
+  "id": "bud-build/items/bud-build.items.default",
+  "title": "default variable",
+  "description": "items.default variable",
+  "source": "@site/api/bud-build/items/default.md",
+  "sourceDirName": "bud-build/items",
+  "slug": "/bud-build/items/default",
+  "permalink": "/api/bud-build/items/default",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.items.default",
+    "title": "default variable",
+    "sidebar_label": "default variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "default"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setoptions() method",
+    "permalink": "/api/bud-build/item/setoptions"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-build/loader/constructor"
+  }
+}

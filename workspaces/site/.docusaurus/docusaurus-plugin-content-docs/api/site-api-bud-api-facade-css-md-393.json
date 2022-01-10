@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.css",
+  "id": "bud-api/facade/bud-api.facade.css",
+  "title": "css property",
+  "description": "Facade.css property",
+  "source": "@site/api/bud-api/facade/css.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/css",
+  "permalink": "/api/bud-api/facade/css",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.css",
+    "title": "css property",
+    "sidebar_label": "css property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "css"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "copy property",
+    "permalink": "/api/bud-api/facade/copy"
+  },
+  "next": {
+    "title": "define property",
+    "permalink": "/api/bud-api/facade/define"
+  }
+}

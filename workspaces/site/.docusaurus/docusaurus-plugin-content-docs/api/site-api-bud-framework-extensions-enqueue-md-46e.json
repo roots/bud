@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extensions/bud-framework.extensions.enqueue",
+  "id": "bud-framework/extensions/bud-framework.extensions.enqueue",
+  "title": "enqueue() method",
+  "description": "Extensions.enqueue() method",
+  "source": "@site/api/bud-framework/extensions/enqueue.md",
+  "sourceDirName": "bud-framework/extensions",
+  "slug": "/bud-framework/extensions/enqueue",
+  "permalink": "/api/bud-framework/extensions/enqueue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extensions.enqueue",
+    "title": "enqueue() method",
+    "sidebar_label": "enqueue() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "enqueue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bootextensions() method",
+    "permalink": "/api/bud-framework/extensions/bootextensions"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/extensions/make"
+  }
+}

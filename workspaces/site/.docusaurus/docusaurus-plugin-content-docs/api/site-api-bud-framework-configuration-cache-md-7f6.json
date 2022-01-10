@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.cache",
+  "id": "bud-framework/configuration/bud-framework.configuration.cache",
+  "title": "cache property",
+  "description": "Configuration.cache property",
+  "source": "@site/api/bud-framework/configuration/cache.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/cache",
+  "permalink": "/api/bud-framework/configuration/cache",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.cache",
+    "title": "cache property",
+    "sidebar_label": "cache property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "cache"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "build property",
+    "permalink": "/api/bud-framework/configuration/build"
+  },
+  "next": {
+    "title": "cli property",
+    "permalink": "/api/bud-framework/configuration/cli"
+  }
+}

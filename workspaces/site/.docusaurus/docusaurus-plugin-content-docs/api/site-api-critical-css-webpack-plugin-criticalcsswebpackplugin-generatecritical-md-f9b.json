@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.generatecritical",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.generatecritical",
+  "title": "generatecritical() method",
+  "description": "CriticalCssWebpackPlugin.generateCritical() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.generatecritical",
+    "title": "generatecritical() method",
+    "sidebar_label": "generatecritical() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "generatecritical"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "entrypoints property",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints"
+  },
+  "next": {
+    "title": "getmergedcssmodules() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules"
+  }
+}

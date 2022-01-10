@@ -1,0 +1,30 @@
+{
+  "unversionedId": "installation",
+  "id": "installation",
+  "title": "Installation",
+  "description": "Add `@roots/bud` as a development dependency using your choice of package manager.",
+  "source": "@site/guides/installation.mdx",
+  "sourceDirName": ".",
+  "slug": "/installation",
+  "permalink": "/guides/installation",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Installation",
+    "description": "Add `@roots/bud` as a development dependency using your choice of package manager.",
+    "slug": "installation",
+    "sidebar_label": "Installation",
+    "sidebar_position": 2,
+    "image": "https://budjs.netlify.app/img/share/guides/installation.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Introduction",
+    "permalink": "/guides/"
+  },
+  "next": {
+    "title": "First steps",
+    "permalink": "/guides/getting-started/"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/bud-framework.loader.interface",
+  "id": "bud-framework/loader/bud-framework.loader.interface",
+  "title": "interface interface",
+  "description": "Loader.Interface interface",
+  "source": "@site/api/bud-framework/loader/interface.md",
+  "sourceDirName": "bud-framework/loader",
+  "slug": "/bud-framework/loader/interface",
+  "permalink": "/api/bud-framework/loader/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "factory interface",
+    "permalink": "/api/bud-framework/loader/factory"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/loader/interface/make"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-hooks/hooks/bud-hooks.hooks.on",
+  "id": "bud-hooks/hooks/bud-hooks.hooks.on",
+  "title": "on() method",
+  "description": "Hooks.on() method",
+  "source": "@site/api/bud-hooks/hooks/on.md",
+  "sourceDirName": "bud-hooks/hooks",
+  "slug": "/bud-hooks/hooks/on",
+  "permalink": "/api/bud-hooks/hooks/on",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-hooks.hooks.on",
+    "title": "on() method",
+    "sidebar_label": "on() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "on"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filterasync() method",
+    "permalink": "/api/bud-hooks/hooks/filterasync"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-imagemin/boot"
+  }
+}

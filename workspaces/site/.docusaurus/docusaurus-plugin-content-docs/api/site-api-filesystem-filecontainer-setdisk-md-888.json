@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.setdisk",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.setdisk",
+  "title": "setdisk() method",
+  "description": "FileContainer.setDisk() method",
+  "source": "@site/api/filesystem/filecontainer/setdisk.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/setdisk",
+  "permalink": "/api/filesystem/filecontainer/setdisk",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.setdisk",
+    "title": "setdisk() method",
+    "sidebar_label": "setdisk() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setdisk"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "set() method",
+    "permalink": "/api/filesystem/filecontainer/set"
+  },
+  "next": {
+    "title": "write() method",
+    "permalink": "/api/filesystem/filecontainer/write"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "unversionedId": "bud.mode/bud.mode",
+  "id": "bud.mode/bud.mode",
+  "title": "bud.mode",
+  "description": "Specify if a build is being run in a production or development context.",
+  "source": "@site/docs/15-bud.mode/01-index.mdx",
+  "sourceDirName": "15-bud.mode",
+  "slug": "/bud.mode/",
+  "permalink": "/docs/bud.mode/",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/15-bud.mode/01-index.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "id": "bud.mode",
+    "title": "bud.mode",
+    "description": "Specify if a build is being run in a production or development context.",
+    "sidebar_label": "bud.mode",
+    "slug": "/bud.mode/",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.mode__bud.mode.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.minimize",
+    "permalink": "/docs/bud.minimize"
+  },
+  "next": {
+    "title": "bud.isDevelopment",
+    "permalink": "/docs/bud.mode/bud.isDevelopment"
+  }
+}

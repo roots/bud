@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/bud-framework.rule.abstract",
+  "id": "bud-framework/rule/bud-framework.rule.abstract",
+  "title": "abstract class",
+  "description": "Rule.Abstract class",
+  "source": "@site/api/bud-framework/rule/abstract.md",
+  "sourceDirName": "bud-framework/rule",
+  "slug": "/bud-framework/rule/abstract",
+  "permalink": "/api/bud-framework/rule/abstract",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract",
+    "title": "abstract class",
+    "sidebar_label": "abstract class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "abstract"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "repository property",
+    "permalink": "/api/bud-framework/project/abstract/repository"
+  },
+  "next": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/rule/interface"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-library/bud-library.api",
+  "id": "bud-library/bud-library.api",
+  "title": "api variable",
+  "description": "api variable",
+  "source": "@site/api/bud-library/api.md",
+  "sourceDirName": "bud-library",
+  "slug": "/bud-library/api",
+  "permalink": "/api/bud-library/api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-library.api",
+    "title": "api variable",
+    "sidebar_label": "api variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "api"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "register variable",
+    "permalink": "/api/bud-imagemin/register"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-library/name2"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/loaders/bud-build.loaders.default",
+  "id": "bud-build/loaders/bud-build.loaders.default",
+  "title": "default variable",
+  "description": "loaders.default variable",
+  "source": "@site/api/bud-build/loaders/default.md",
+  "sourceDirName": "bud-build/loaders",
+  "slug": "/bud-build/loaders/default",
+  "permalink": "/api/bud-build/loaders/default",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.loaders.default",
+    "title": "default variable",
+    "sidebar_label": "default variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "default"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "src property",
+    "permalink": "/api/bud-build/loader/src"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-build/rule/constructor"
+  }
+}

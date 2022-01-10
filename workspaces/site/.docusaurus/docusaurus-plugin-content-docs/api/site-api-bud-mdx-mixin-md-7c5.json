@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-mdx/bud-mdx.mixin",
+  "id": "bud-mdx/bud-mdx.mixin",
+  "title": "mixin variable",
+  "description": "mixin variable",
+  "source": "@site/api/bud-mdx/mixin.md",
+  "sourceDirName": "bud-mdx",
+  "slug": "/bud-mdx/mixin",
+  "permalink": "/api/bud-mdx/mixin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-mdx.mixin",
+    "title": "mixin variable",
+    "sidebar_label": "mixin variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mixin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot variable",
+    "permalink": "/api/bud-mdx/boot"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-mdx/name2"
+  }
+}

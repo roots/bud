@@ -1,0 +1,29 @@
+{
+  "unversionedId": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.normalmodulefactory",
+  "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.normalmodulefactory",
+  "title": "normalmodulefactory() method",
+  "description": "WordPressDependenciesWebpackPlugin.normalModuleFactory() method",
+  "source": "@site/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/normalmodulefactory.md",
+  "sourceDirName": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+  "slug": "/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/normalmodulefactory",
+  "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/normalmodulefactory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.normalmodulefactory",
+    "title": "normalmodulefactory() method",
+    "sidebar_label": "normalmodulefactory() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "normalmodulefactory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "manifest property",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/manifest"
+  },
+  "next": {
+    "title": "plugin property",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/plugin"
+  }
+}

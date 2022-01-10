@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.config",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.config",
+  "title": "config property",
+  "description": "Server.Interface.config property",
+  "source": "@site/api/bud-framework/server/interface/config.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/config",
+  "permalink": "/api/bud-framework/server/interface/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.config",
+    "title": "config property",
+    "sidebar_label": "config property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "close() method",
+    "permalink": "/api/bud-framework/server/interface/close"
+  },
+  "next": {
+    "title": "getwatchedfiles() method",
+    "permalink": "/api/bud-framework/server/interface/getwatchedfiles"
+  }
+}

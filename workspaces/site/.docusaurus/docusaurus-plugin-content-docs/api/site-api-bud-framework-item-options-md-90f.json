@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/bud-framework.item.options",
+  "id": "bud-framework/item/bud-framework.item.options",
+  "title": "options interface",
+  "description": "Item.Options interface",
+  "source": "@site/api/bud-framework/item/options.md",
+  "sourceDirName": "bud-framework/item",
+  "slug": "/bud-framework/item/options",
+  "permalink": "/api/bud-framework/item/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.options",
+    "title": "options interface",
+    "sidebar_label": "options interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/item/interface"
+  },
+  "next": {
+    "title": "output interface",
+    "permalink": "/api/bud-framework/item/output"
+  }
+}

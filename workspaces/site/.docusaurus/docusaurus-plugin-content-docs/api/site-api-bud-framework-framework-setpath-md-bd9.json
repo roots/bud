@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.setpath",
+  "id": "bud-framework/framework/bud-framework.framework.setpath",
+  "title": "setpath property",
+  "description": "Framework.setPath property",
+  "source": "@site/api/bud-framework/framework/setpath.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/setpath",
+  "permalink": "/api/bud-framework/framework/setpath",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.setpath",
+    "title": "setpath property",
+    "sidebar_label": "setpath property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setpath"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "services property",
+    "permalink": "/api/bud-framework/framework/services"
+  },
+  "next": {
+    "title": "store property",
+    "permalink": "/api/bud-framework/framework/store"
+  }
+}

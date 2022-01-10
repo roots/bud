@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.compiler",
+  "id": "bud-framework/framework/bud-framework.framework.compiler",
+  "title": "compiler property",
+  "description": "Framework.compiler property",
+  "source": "@site/api/bud-framework/framework/compiler.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/compiler",
+  "permalink": "/api/bud-framework/framework/compiler",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.compiler",
+    "title": "compiler property",
+    "sidebar_label": "compiler property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compiler"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "close property",
+    "permalink": "/api/bud-framework/framework/close"
+  },
+  "next": {
+    "title": "complete() method",
+    "permalink": "/api/bud-framework/framework/complete"
+  }
+}

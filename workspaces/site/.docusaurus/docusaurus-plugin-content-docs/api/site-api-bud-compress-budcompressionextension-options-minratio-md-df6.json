@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.minratio",
+  "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.minratio",
+  "title": "minratio property",
+  "description": "BudCompressionExtension.Options.minRatio property",
+  "source": "@site/api/bud-compress/budcompressionextension/options/minratio.md",
+  "sourceDirName": "bud-compress/budcompressionextension/options",
+  "slug": "/bud-compress/budcompressionextension/options/minratio",
+  "permalink": "/api/bud-compress/budcompressionextension/options/minratio",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.budcompressionextension.options.minratio",
+    "title": "minratio property",
+    "sidebar_label": "minratio property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "minratio"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filename property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/filename"
+  },
+  "next": {
+    "title": "test property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/test"
+  }
+}

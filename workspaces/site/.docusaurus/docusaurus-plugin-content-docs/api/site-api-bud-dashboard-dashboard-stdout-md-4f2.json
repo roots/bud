@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-dashboard/dashboard/bud-dashboard.dashboard.stdout",
+  "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.stdout",
+  "title": "stdout property",
+  "description": "Dashboard.stdout property",
+  "source": "@site/api/bud-dashboard/dashboard/stdout.md",
+  "sourceDirName": "bud-dashboard/dashboard",
+  "slug": "/bud-dashboard/dashboard/stdout",
+  "permalink": "/api/bud-dashboard/dashboard/stdout",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-dashboard.dashboard.stdout",
+    "title": "stdout property",
+    "sidebar_label": "stdout property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stdout"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "stderr property",
+    "permalink": "/api/bud-dashboard/dashboard/stderr"
+  },
+  "next": {
+    "title": "make variable",
+    "permalink": "/api/bud-entrypoints/make"
+  }
+}

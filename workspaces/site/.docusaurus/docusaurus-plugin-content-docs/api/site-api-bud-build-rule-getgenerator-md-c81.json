@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.getgenerator",
+  "id": "bud-build/rule/bud-build.rule.getgenerator",
+  "title": "getgenerator() method",
+  "description": "Rule.getGenerator() method",
+  "source": "@site/api/bud-build/rule/getgenerator.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/getgenerator",
+  "permalink": "/api/bud-build/rule/getgenerator",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.getgenerator",
+    "title": "getgenerator() method",
+    "sidebar_label": "getgenerator() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getgenerator"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getexclude() method",
+    "permalink": "/api/bud-build/rule/getexclude"
+  },
+  "next": {
+    "title": "getparser() method",
+    "permalink": "/api/bud-build/rule/getparser"
+  }
+}

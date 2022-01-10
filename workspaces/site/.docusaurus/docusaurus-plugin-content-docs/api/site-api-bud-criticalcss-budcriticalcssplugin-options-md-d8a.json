@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.options",
+  "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.options",
+  "title": "options property",
+  "description": "BudCriticalCssPlugin.options property",
+  "source": "@site/api/bud-criticalcss/budcriticalcssplugin/options.md",
+  "sourceDirName": "bud-criticalcss/budcriticalcssplugin",
+  "slug": "/bud-criticalcss/budcriticalcssplugin/options",
+  "permalink": "/api/bud-criticalcss/budcriticalcssplugin/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-criticalcss.budcriticalcssplugin.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin/name"
+  },
+  "next": {
+    "title": "boot variable",
+    "permalink": "/api/bud-emotion/boot"
+  }
+}

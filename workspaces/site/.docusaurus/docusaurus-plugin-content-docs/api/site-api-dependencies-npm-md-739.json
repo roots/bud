@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies.npm",
+  "id": "dependencies/dependencies.npm",
+  "title": "npm class",
+  "description": "Npm class",
+  "source": "@site/api/dependencies/npm.md",
+  "sourceDirName": "dependencies",
+  "slug": "/dependencies/npm",
+  "permalink": "/api/dependencies/npm",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.npm",
+    "title": "npm class",
+    "sidebar_label": "npm class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "npm"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "idependencymanager interface",
+    "permalink": "/api/dependencies/idependencymanager"
+  },
+  "next": {
+    "title": "yarn class",
+    "permalink": "/api/dependencies/yarn"
+  }
+}

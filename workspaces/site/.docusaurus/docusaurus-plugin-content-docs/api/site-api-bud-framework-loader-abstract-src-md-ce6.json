@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/abstract/bud-framework.loader.abstract.src",
+  "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.src",
+  "title": "src property",
+  "description": "Loader.Abstract.src property",
+  "source": "@site/api/bud-framework/loader/abstract/src.md",
+  "sourceDirName": "bud-framework/loader/abstract",
+  "slug": "/bud-framework/loader/abstract/src",
+  "permalink": "/api/bud-framework/loader/abstract/src",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.abstract.src",
+    "title": "src property",
+    "sidebar_label": "src property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "src"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "normalizeinput() method",
+    "permalink": "/api/bud-framework/loader/abstract/normalizeinput"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-framework/options/config"
+  }
+}

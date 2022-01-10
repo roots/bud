@@ -1,0 +1,95 @@
+{
+  "name": "@roots/bud-preset-wordpress",
+  "version": "5.0.0",
+  "description": "WordPress-ready preset for Bud projects",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "workspaces/@roots/bud-preset-wordpress"
+  },
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-preset"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "profile": "yarn g:profile",
+    "profile:cjs": "yarn g:profile:cjs",
+    "profile:esm": "yarn g:profile:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-preset-recommend",
+      "@roots/bud-react",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-dependencies",
+      "@roots/bud-wordpress-manifests"
+    ]
+  },
+  "devDependencies": {
+    "@roots/bud-framework": "workspace:@roots/bud-framework",
+    "@types/jest": "27.4.0",
+    "@types/node": "16.11.19",
+    "@types/react": "17.0.38",
+    "@types/react-dom": "17.0.11",
+    "@wordpress/browserslist-config": "4.1.0",
+    "jest": "27.4.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@roots/bud-entrypoints": "workspace:@roots/bud-entrypoints",
+    "@roots/bud-preset-recommend": "workspace:@roots/bud-preset-recommend",
+    "@roots/bud-react": "workspace:@roots/bud-react",
+    "@roots/bud-wordpress-dependencies": "workspace:@roots/bud-wordpress-dependencies",
+    "@roots/bud-wordpress-externals": "workspace:@roots/bud-wordpress-externals",
+    "@roots/bud-wordpress-manifests": "workspace:@roots/bud-wordpress-manifests",
+    "tslib": "2.3.1"
+  },
+  "peerDependencies": {
+    "@wordpress/browserslist-config": "4.1.0"
+  }
+}

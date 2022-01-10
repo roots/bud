@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/bud-framework.server.middleware",
+  "id": "bud-framework/server/bud-framework.server.middleware",
+  "title": "middleware interface",
+  "description": "Server.Middleware interface",
+  "source": "@site/api/bud-framework/server/middleware.md",
+  "sourceDirName": "bud-framework/server",
+  "slug": "/bud-framework/server/middleware",
+  "permalink": "/api/bud-framework/server/middleware",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.middleware",
+    "title": "middleware interface",
+    "sidebar_label": "middleware interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "middleware"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/server/interface"
+  },
+  "next": {
+    "title": "listen() method",
+    "permalink": "/api/bud-framework/server/application/listen"
+  }
+}

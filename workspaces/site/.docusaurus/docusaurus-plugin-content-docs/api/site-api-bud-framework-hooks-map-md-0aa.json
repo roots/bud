@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/hooks/bud-framework.hooks.map",
+  "id": "bud-framework/hooks/bud-framework.hooks.map",
+  "title": "map type",
+  "description": "Hooks.Map type",
+  "source": "@site/api/bud-framework/hooks/map.md",
+  "sourceDirName": "bud-framework/hooks",
+  "slug": "/bud-framework/hooks/map",
+  "permalink": "/api/bud-framework/hooks/map",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks.map",
+    "title": "map type",
+    "sidebar_label": "map type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "map"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "limitedplugin type",
+    "permalink": "/api/bud-framework/hooks/limitedplugin"
+  },
+  "next": {
+    "title": "on() method",
+    "permalink": "/api/bud-framework/hooks/on"
+  }
+}

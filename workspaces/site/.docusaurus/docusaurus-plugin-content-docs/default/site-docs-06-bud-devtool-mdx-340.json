@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.devtool",
+  "id": "bud.devtool",
+  "title": "bud.devtool",
+  "description": "Configure sourcemaps.",
+  "source": "@site/docs/06-bud.devtool.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.devtool",
+  "permalink": "/docs/bud.devtool",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/06-bud.devtool.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "id": "bud.devtool",
+    "title": "bud.devtool",
+    "description": "Configure sourcemaps.",
+    "sidebar_label": "bud.devtool",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.devtool.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.serve",
+    "permalink": "/docs/bud.serve"
+  },
+  "next": {
+    "title": "bud.entry",
+    "permalink": "/docs/bud.entry"
+  }
+}

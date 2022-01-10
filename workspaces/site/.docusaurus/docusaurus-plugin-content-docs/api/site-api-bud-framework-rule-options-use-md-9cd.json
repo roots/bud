@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/options/bud-framework.rule.options.use",
+  "id": "bud-framework/rule/options/bud-framework.rule.options.use",
+  "title": "use property",
+  "description": "Rule.Options.use property",
+  "source": "@site/api/bud-framework/rule/options/use.md",
+  "sourceDirName": "bud-framework/rule/options",
+  "slug": "/bud-framework/rule/options/use",
+  "permalink": "/api/bud-framework/rule/options/use",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.options.use",
+    "title": "use property",
+    "sidebar_label": "use property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "use"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "type property",
+    "permalink": "/api/bud-framework/rule/options/type"
+  },
+  "next": {
+    "title": "exclude property",
+    "permalink": "/api/bud-framework/rule/output/exclude"
+  }
+}

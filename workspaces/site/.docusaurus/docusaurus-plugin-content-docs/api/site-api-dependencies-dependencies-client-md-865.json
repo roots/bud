@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies/dependencies.dependencies.client",
+  "id": "dependencies/dependencies/dependencies.dependencies.client",
+  "title": "client property",
+  "description": "Dependencies.client property",
+  "source": "@site/api/dependencies/dependencies/client.md",
+  "sourceDirName": "dependencies/dependencies",
+  "slug": "/dependencies/dependencies/client",
+  "permalink": "/api/dependencies/dependencies/client",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.dependencies.client",
+    "title": "client property",
+    "sidebar_label": "client property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "client"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "uninstall() method",
+    "permalink": "/api/dependencies/npm/uninstall"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/dependencies/dependencies/constructor"
+  }
+}

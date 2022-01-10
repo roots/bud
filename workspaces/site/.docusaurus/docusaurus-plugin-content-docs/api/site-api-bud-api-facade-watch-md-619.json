@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.watch",
+  "id": "bud-api/facade/bud-api.facade.watch",
+  "title": "watch property",
+  "description": "Facade.watch property",
+  "source": "@site/api/bud-api/facade/watch.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/watch",
+  "permalink": "/api/bud-api/facade/watch",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.watch",
+    "title": "watch property",
+    "sidebar_label": "watch property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "watch"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "version property",
+    "permalink": "/api/bud-api/facade/version"
+  },
+  "next": {
+    "title": "webpackconfig property",
+    "permalink": "/api/bud-api/facade/webpackconfig"
+  }
+}

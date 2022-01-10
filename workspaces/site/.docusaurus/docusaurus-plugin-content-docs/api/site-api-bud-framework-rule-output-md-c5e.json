@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/bud-framework.rule.output",
+  "id": "bud-framework/rule/bud-framework.rule.output",
+  "title": "output interface",
+  "description": "Rule.Output interface",
+  "source": "@site/api/bud-framework/rule/output.md",
+  "sourceDirName": "bud-framework/rule",
+  "slug": "/bud-framework/rule/output",
+  "permalink": "/api/bud-framework/rule/output",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.output",
+    "title": "output interface",
+    "sidebar_label": "output interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "output"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options interface",
+    "permalink": "/api/bud-framework/rule/options"
+  },
+  "next": {
+    "title": "parser interface",
+    "permalink": "/api/bud-framework/rule/parser"
+  }
+}

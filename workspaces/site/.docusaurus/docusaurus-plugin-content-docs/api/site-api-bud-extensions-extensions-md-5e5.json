@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/bud-extensions.extensions",
+  "id": "bud-extensions/bud-extensions.extensions",
+  "title": "extensions class",
+  "description": "Extensions class",
+  "source": "@site/api/bud-extensions/extensions.md",
+  "sourceDirName": "bud-extensions",
+  "slug": "/bud-extensions/extensions",
+  "permalink": "/api/bud-extensions/extensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions",
+    "title": "extensions class",
+    "sidebar_label": "extensions class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "extensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "controller class",
+    "permalink": "/api/bud-extensions/controller"
+  },
+  "next": {
+    "title": "add() method",
+    "permalink": "/api/bud-extensions/extensions/add"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.mutate",
+  "id": "container/container/container.container.mutate",
+  "title": "mutate() method",
+  "description": "Container.mutate() method",
+  "source": "@site/api/container/container/mutate.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/mutate",
+  "permalink": "/api/container/container/mutate",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.mutate",
+    "title": "mutate() method",
+    "sidebar_label": "mutate() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mutate"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mergestore() method",
+    "permalink": "/api/container/container/mergestore"
+  },
+  "next": {
+    "title": "mutatestore() method",
+    "permalink": "/api/container/container/mutatestore"
+  }
+}

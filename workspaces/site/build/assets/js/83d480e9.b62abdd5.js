@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_roots_bud_docs=self.webpackChunk_roots_bud_docs||[]).push([[60205],{43672:function(s){s.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/release","name":"release","count":1,"permalink":"/blog/tags/release"}')}}]);

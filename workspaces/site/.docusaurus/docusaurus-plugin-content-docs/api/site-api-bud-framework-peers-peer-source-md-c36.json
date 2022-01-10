@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/peers/peer/bud-framework.peers.peer.source",
+  "id": "bud-framework/peers/peer/bud-framework.peers.peer.source",
+  "title": "source property",
+  "description": "Peers.Peer.source property",
+  "source": "@site/api/bud-framework/peers/peer/source.md",
+  "sourceDirName": "bud-framework/peers/peer",
+  "slug": "/bud-framework/peers/peer/source",
+  "permalink": "/api/bud-framework/peers/peer/source",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers.peer.source",
+    "title": "source property",
+    "sidebar_label": "source property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "source"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/bud-framework/peers/peer/name"
+  },
+  "next": {
+    "title": "type property",
+    "permalink": "/api/bud-framework/peers/peer/type"
+  }
+}

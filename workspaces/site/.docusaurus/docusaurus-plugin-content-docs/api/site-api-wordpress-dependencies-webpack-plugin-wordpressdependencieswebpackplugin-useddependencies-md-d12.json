@@ -1,0 +1,29 @@
+{
+  "unversionedId": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.useddependencies",
+  "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.useddependencies",
+  "title": "useddependencies property",
+  "description": "WordPressDependenciesWebpackPlugin.usedDependencies property",
+  "source": "@site/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/useddependencies.md",
+  "sourceDirName": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+  "slug": "/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/useddependencies",
+  "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/useddependencies",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.useddependencies",
+    "title": "useddependencies property",
+    "sidebar_label": "useddependencies property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "useddependencies"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "processassets() method",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/processassets"
+  },
+  "next": {
+    "title": "wordpressexternals class",
+    "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals"
+  }
+}

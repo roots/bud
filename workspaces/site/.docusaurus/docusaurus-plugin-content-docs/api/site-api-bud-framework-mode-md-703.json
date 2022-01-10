@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.mode",
+  "id": "bud-framework/bud-framework.mode",
+  "title": "mode type",
+  "description": "Mode type",
+  "source": "@site/api/bud-framework/mode.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/mode",
+  "permalink": "/api/bud-framework/mode",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.mode",
+    "title": "mode type",
+    "sidebar_label": "mode type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mode"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "maybe type",
+    "permalink": "/api/bud-framework/maybe"
+  },
+  "next": {
+    "title": "module interface",
+    "permalink": "/api/bud-framework/module"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/options/bud-framework.options.config",
+  "id": "bud-framework/options/bud-framework.options.config",
+  "title": "config property",
+  "description": "Options.config property",
+  "source": "@site/api/bud-framework/options/config.md",
+  "sourceDirName": "bud-framework/options",
+  "slug": "/bud-framework/options/config",
+  "permalink": "/api/bud-framework/options/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.options.config",
+    "title": "config property",
+    "sidebar_label": "config property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "src property",
+    "permalink": "/api/bud-framework/loader/abstract/src"
+  },
+  "next": {
+    "title": "extensions property",
+    "permalink": "/api/bud-framework/options/extensions"
+  }
+}

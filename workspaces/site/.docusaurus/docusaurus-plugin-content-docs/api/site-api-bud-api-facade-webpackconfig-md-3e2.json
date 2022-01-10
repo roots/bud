@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.webpackconfig",
+  "id": "bud-api/facade/bud-api.facade.webpackconfig",
+  "title": "webpackconfig property",
+  "description": "Facade.webpackConfig property",
+  "source": "@site/api/bud-api/facade/webpackconfig.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/webpackconfig",
+  "permalink": "/api/bud-api/facade/webpackconfig",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.webpackconfig",
+    "title": "webpackconfig property",
+    "sidebar_label": "webpackconfig property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "webpackconfig"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "watch property",
+    "permalink": "/api/bud-api/facade/watch"
+  },
+  "next": {
+    "title": "call() method",
+    "permalink": "/api/bud-api/api/call"
+  }
+}

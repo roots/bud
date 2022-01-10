@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.close",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.close",
+  "title": "close() method",
+  "description": "Server.Interface.close() method",
+  "source": "@site/api/bud-framework/server/interface/close.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/close",
+  "permalink": "/api/bud-framework/server/interface/close",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.close",
+    "title": "close() method",
+    "sidebar_label": "close() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "close"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "application property",
+    "permalink": "/api/bud-framework/server/interface/application"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-framework/server/interface/config"
+  }
+}

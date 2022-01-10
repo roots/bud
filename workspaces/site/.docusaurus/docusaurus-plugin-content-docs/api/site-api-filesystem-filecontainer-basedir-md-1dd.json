@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.basedir",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.basedir",
+  "title": "basedir property",
+  "description": "FileContainer.baseDir property",
+  "source": "@site/api/filesystem/filecontainer/basedir.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/basedir",
+  "permalink": "/api/filesystem/filecontainer/basedir",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.basedir",
+    "title": "basedir property",
+    "sidebar_label": "basedir property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "basedir"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "path property",
+    "permalink": "/api/filesystem/filesystem2/path"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/filesystem/filecontainer/constructor"
+  }
+}

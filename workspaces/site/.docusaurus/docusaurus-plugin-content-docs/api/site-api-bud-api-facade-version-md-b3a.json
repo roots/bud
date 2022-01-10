@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.version",
+  "id": "bud-api/facade/bud-api.facade.version",
+  "title": "version property",
+  "description": "Facade.version property",
+  "source": "@site/api/bud-api/facade/version.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/version",
+  "permalink": "/api/bud-api/facade/version",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.version",
+    "title": "version property",
+    "sidebar_label": "version property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "version"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "use property",
+    "permalink": "/api/bud-api/facade/use"
+  },
+  "next": {
+    "title": "watch property",
+    "permalink": "/api/bud-api/facade/watch"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-tailwindcss",
+  "id": "bud-tailwindcss",
+  "title": "@roots/bud-tailwindcss",
+  "description": "TailwindCSS support can be added by installing the @roots/bud-tailwindcss extension.",
+  "source": "@site/extensions/bud-tailwindcss.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-tailwindcss",
+  "permalink": "/extensions/bud-tailwindcss",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-tailwindcss"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-solid",
+    "permalink": "/extensions/bud-solid"
+  },
+  "next": {
+    "title": "@roots/bud-typescript",
+    "permalink": "/extensions/bud-typescript"
+  }
+}

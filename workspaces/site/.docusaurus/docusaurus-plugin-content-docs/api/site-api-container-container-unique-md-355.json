@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.unique",
+  "id": "container/container/container.container.unique",
+  "title": "unique() method",
+  "description": "Container.unique() method",
+  "source": "@site/api/container/container/unique.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/unique",
+  "permalink": "/api/container/container/unique",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.unique",
+    "title": "unique() method",
+    "sidebar_label": "unique() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "unique"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "transformstore() method",
+    "permalink": "/api/container/container/transformstore"
+  },
+  "next": {
+    "title": "criticalcsswebpackplugin class",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin"
+  }
+}

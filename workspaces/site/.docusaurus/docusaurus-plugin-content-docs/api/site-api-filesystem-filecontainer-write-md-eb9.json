@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.write",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.write",
+  "title": "write() method",
+  "description": "FileContainer.write() method",
+  "source": "@site/api/filesystem/filecontainer/write.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/write",
+  "permalink": "/api/filesystem/filecontainer/write",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.write",
+    "title": "write() method",
+    "sidebar_label": "write() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "write"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setdisk() method",
+    "permalink": "/api/filesystem/filecontainer/setdisk"
+  },
+  "next": {
+    "title": "writejson() method",
+    "permalink": "/api/filesystem/filecontainer/writejson"
+  }
+}

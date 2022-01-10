@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.api",
+  "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.api",
+  "title": "api property",
+  "description": "BudCriticalCssPlugin.api property",
+  "source": "@site/api/bud-criticalcss/budcriticalcssplugin/api.md",
+  "sourceDirName": "bud-criticalcss/budcriticalcssplugin",
+  "slug": "/bud-criticalcss/budcriticalcssplugin/api",
+  "permalink": "/api/bud-criticalcss/budcriticalcssplugin/api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-criticalcss.budcriticalcssplugin.api",
+    "title": "api property",
+    "sidebar_label": "api property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "api"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "budcriticalcssplugin variable",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin"
+  },
+  "next": {
+    "title": "make property",
+    "permalink": "/api/bud-criticalcss/budcriticalcssplugin/make"
+  }
+}

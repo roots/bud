@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/interface/bud-framework.item.interface.setoptions",
+  "id": "bud-framework/item/interface/bud-framework.item.interface.setoptions",
+  "title": "setoptions() method",
+  "description": "Item.Interface.setOptions() method",
+  "source": "@site/api/bud-framework/item/interface/setoptions.md",
+  "sourceDirName": "bud-framework/item/interface",
+  "slug": "/bud-framework/item/interface/setoptions",
+  "permalink": "/api/bud-framework/item/interface/setoptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.interface.setoptions",
+    "title": "setoptions() method",
+    "sidebar_label": "setoptions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setoptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setloader() method",
+    "permalink": "/api/bud-framework/item/interface/setloader"
+  },
+  "next": {
+    "title": "loader property",
+    "permalink": "/api/bud-framework/item/output/loader"
+  }
+}

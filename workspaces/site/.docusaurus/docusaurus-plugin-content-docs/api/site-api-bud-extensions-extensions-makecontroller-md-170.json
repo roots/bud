@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.makecontroller",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.makecontroller",
+  "title": "makecontroller() method",
+  "description": "Extensions.makeController() method",
+  "source": "@site/api/bud-extensions/extensions/makecontroller.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/makecontroller",
+  "permalink": "/api/bud-extensions/extensions/makecontroller",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.makecontroller",
+    "title": "makecontroller() method",
+    "sidebar_label": "makecontroller() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "makecontroller"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make() method",
+    "permalink": "/api/bud-extensions/extensions/make"
+  },
+  "next": {
+    "title": "processqueue() method",
+    "permalink": "/api/bud-extensions/extensions/processqueue"
+  }
+}

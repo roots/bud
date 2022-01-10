@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.make",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.make",
+  "title": "make() method",
+  "description": "Extensions.make() method",
+  "source": "@site/api/bud-extensions/extensions/make.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/make",
+  "permalink": "/api/bud-extensions/extensions/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "injectextensions() method",
+    "permalink": "/api/bud-extensions/extensions/injectextensions"
+  },
+  "next": {
+    "title": "makecontroller() method",
+    "permalink": "/api/bud-extensions/extensions/makecontroller"
+  }
+}

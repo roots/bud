@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.entrypointsname",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.entrypointsname",
+  "title": "entrypointsname property",
+  "description": "MergedManifestWebpackPlugin.entrypointsName property",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/entrypointsname.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/entrypointsname",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/entrypointsname",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.entrypointsname",
+    "title": "entrypointsname property",
+    "sidebar_label": "entrypointsname property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "entrypointsname"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "done() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/done"
+  },
+  "next": {
+    "title": "file property",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/file"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/options/bud-framework.rule.options.test",
+  "id": "bud-framework/rule/options/bud-framework.rule.options.test",
+  "title": "test property",
+  "description": "Rule.Options.test property",
+  "source": "@site/api/bud-framework/rule/options/test.md",
+  "sourceDirName": "bud-framework/rule/options",
+  "slug": "/bud-framework/rule/options/test",
+  "permalink": "/api/bud-framework/rule/options/test",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.options.test",
+    "title": "test property",
+    "sidebar_label": "test property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "test"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "parser property",
+    "permalink": "/api/bud-framework/rule/options/parser"
+  },
+  "next": {
+    "title": "type property",
+    "permalink": "/api/bud-framework/rule/options/type"
+  }
+}

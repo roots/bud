@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.every",
+  "id": "container/container/container.container.every",
+  "title": "every() method",
+  "description": "Container.every() method",
+  "source": "@site/api/container/container/every.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/every",
+  "permalink": "/api/container/container/every",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.every",
+    "title": "every() method",
+    "sidebar_label": "every() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "every"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "each() method",
+    "permalink": "/api/container/container/each"
+  },
+  "next": {
+    "title": "fromentries() method",
+    "permalink": "/api/container/container/fromentries"
+  }
+}

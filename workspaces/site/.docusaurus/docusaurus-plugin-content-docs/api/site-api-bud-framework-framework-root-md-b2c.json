@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.root",
+  "id": "bud-framework/framework/bud-framework.framework.root",
+  "title": "root property",
+  "description": "Framework.root property",
+  "source": "@site/api/bud-framework/framework/root.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/root",
+  "permalink": "/api/bud-framework/framework/root",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.root",
+    "title": "root property",
+    "sidebar_label": "root property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "root"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "project property",
+    "permalink": "/api/bud-framework/framework/project"
+  },
+  "next": {
+    "title": "sequence property",
+    "permalink": "/api/bud-framework/framework/sequence"
+  }
+}

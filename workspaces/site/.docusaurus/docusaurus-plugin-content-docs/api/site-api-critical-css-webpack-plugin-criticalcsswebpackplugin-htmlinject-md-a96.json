@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.htmlinject",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.htmlinject",
+  "title": "htmlinject() method",
+  "description": "CriticalCssWebpackPlugin.htmlInject() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.htmlinject",
+    "title": "htmlinject() method",
+    "sidebar_label": "htmlinject() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "htmlinject"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getmergedcssmodules() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules"
+  },
+  "next": {
+    "title": "maybehashname() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname"
+  }
+}

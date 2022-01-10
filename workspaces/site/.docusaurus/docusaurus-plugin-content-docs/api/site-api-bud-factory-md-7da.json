@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud/bud.factory",
+  "id": "bud/bud.factory",
+  "title": "factory() function",
+  "description": "factory() function",
+  "source": "@site/api/bud/factory.md",
+  "sourceDirName": "bud",
+  "slug": "/bud/factory",
+  "permalink": "/api/bud/factory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud.factory",
+    "title": "factory() function",
+    "sidebar_label": "factory() function",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "factory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extensions() function",
+    "permalink": "/api/bud/extensions"
+  },
+  "next": {
+    "title": "options type",
+    "permalink": "/api/bud/bud/options"
+  }
+}

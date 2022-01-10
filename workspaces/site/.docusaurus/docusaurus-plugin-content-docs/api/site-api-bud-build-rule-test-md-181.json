@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.test",
+  "id": "bud-build/rule/bud-build.rule.test",
+  "title": "test property",
+  "description": "Rule.test property",
+  "source": "@site/api/bud-build/rule/test.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/test",
+  "permalink": "/api/bud-build/rule/test",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.test",
+    "title": "test property",
+    "sidebar_label": "test property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "test"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setuse() method",
+    "permalink": "/api/bud-build/rule/setuse"
+  },
+  "next": {
+    "title": "type property",
+    "permalink": "/api/bud-build/rule/type"
+  }
+}

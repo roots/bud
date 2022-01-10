@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extensions/bud-framework.extensions.bootextensions",
+  "id": "bud-framework/extensions/bud-framework.extensions.bootextensions",
+  "title": "bootextensions() method",
+  "description": "Extensions.bootExtensions() method",
+  "source": "@site/api/bud-framework/extensions/bootextensions.md",
+  "sourceDirName": "bud-framework/extensions",
+  "slug": "/bud-framework/extensions/bootextensions",
+  "permalink": "/api/bud-framework/extensions/bootextensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extensions.bootextensions",
+    "title": "bootextensions() method",
+    "sidebar_label": "bootextensions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bootextensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "add() method",
+    "permalink": "/api/bud-framework/extensions/add"
+  },
+  "next": {
+    "title": "enqueue() method",
+    "permalink": "/api/bud-framework/extensions/enqueue"
+  }
+}

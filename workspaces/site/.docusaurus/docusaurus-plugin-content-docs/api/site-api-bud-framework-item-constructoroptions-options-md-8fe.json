@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/constructoroptions/bud-framework.item.constructoroptions.options",
+  "id": "bud-framework/item/constructoroptions/bud-framework.item.constructoroptions.options",
+  "title": "options property",
+  "description": "Item.ConstructorOptions.options property",
+  "source": "@site/api/bud-framework/item/constructoroptions/options.md",
+  "sourceDirName": "bud-framework/item/constructoroptions",
+  "slug": "/bud-framework/item/constructoroptions/options",
+  "permalink": "/api/bud-framework/item/constructoroptions/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.constructoroptions.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loader property",
+    "permalink": "/api/bud-framework/item/constructoroptions/loader"
+  },
+  "next": {
+    "title": "loader property",
+    "permalink": "/api/bud-framework/item/interface/loader"
+  }
+}

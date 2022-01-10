@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.fromentries",
+  "id": "container/container/container.container.fromentries",
+  "title": "fromentries() method",
+  "description": "Container.fromEntries() method",
+  "source": "@site/api/container/container/fromentries.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/fromentries",
+  "permalink": "/api/container/container/fromentries",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.fromentries",
+    "title": "fromentries() method",
+    "sidebar_label": "fromentries() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "fromentries"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "every() method",
+    "permalink": "/api/container/container/every"
+  },
+  "next": {
+    "title": "get() method",
+    "permalink": "/api/container/container/get"
+  }
+}

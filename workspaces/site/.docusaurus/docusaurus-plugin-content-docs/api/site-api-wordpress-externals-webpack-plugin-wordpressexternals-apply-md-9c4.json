@@ -1,0 +1,29 @@
+{
+  "unversionedId": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.apply",
+  "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.apply",
+  "title": "apply() method",
+  "description": "WordPressExternals.apply() method",
+  "source": "@site/api/wordpress-externals-webpack-plugin/wordpressexternals/apply.md",
+  "sourceDirName": "wordpress-externals-webpack-plugin/wordpressexternals",
+  "slug": "/wordpress-externals-webpack-plugin/wordpressexternals/apply",
+  "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "wordpress-externals-webpack-plugin.wordpressexternals.apply",
+    "title": "apply() method",
+    "sidebar_label": "apply() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "wordpressexternals class",
+    "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/wordpress-externals-webpack-plugin/wordpressexternals/constructor"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.booted",
+  "id": "bud-extensions/controller/bud-extensions.controller.booted",
+  "title": "booted property",
+  "description": "Controller.booted property",
+  "source": "@site/api/bud-extensions/controller/booted.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/booted",
+  "permalink": "/api/bud-extensions/controller/booted",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.booted",
+    "title": "booted property",
+    "sidebar_label": "booted property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "booted"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot() method",
+    "permalink": "/api/bud-extensions/controller/boot"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-extensions/controller/constructor"
+  }
+}

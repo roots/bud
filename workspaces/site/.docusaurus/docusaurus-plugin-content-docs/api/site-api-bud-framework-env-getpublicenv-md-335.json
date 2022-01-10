@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/env/bud-framework.env.getpublicenv",
+  "id": "bud-framework/env/bud-framework.env.getpublicenv",
+  "title": "getpublicenv() method",
+  "description": "Env.getPublicEnv() method",
+  "source": "@site/api/bud-framework/env/getpublicenv.md",
+  "sourceDirName": "bud-framework/env",
+  "slug": "/bud-framework/env/getpublicenv",
+  "permalink": "/api/bud-framework/env/getpublicenv",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.env.getpublicenv",
+    "title": "getpublicenv() method",
+    "sidebar_label": "getpublicenv() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getpublicenv"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "install() method",
+    "permalink": "/api/bud-framework/dependencies/install"
+  },
+  "next": {
+    "title": "build property",
+    "permalink": "/api/bud-framework/configuration/build"
+  }
+}

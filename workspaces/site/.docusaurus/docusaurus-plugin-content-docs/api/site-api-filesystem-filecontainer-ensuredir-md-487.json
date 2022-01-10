@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.ensuredir",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.ensuredir",
+  "title": "ensuredir() method",
+  "description": "FileContainer.ensureDir() method",
+  "source": "@site/api/filesystem/filecontainer/ensuredir.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/ensuredir",
+  "permalink": "/api/filesystem/filecontainer/ensuredir",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.ensuredir",
+    "title": "ensuredir() method",
+    "sidebar_label": "ensuredir() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ensuredir"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ensure() method",
+    "permalink": "/api/filesystem/filecontainer/ensure"
+  },
+  "next": {
+    "title": "exists() method",
+    "permalink": "/api/filesystem/filecontainer/exists"
+  }
+}

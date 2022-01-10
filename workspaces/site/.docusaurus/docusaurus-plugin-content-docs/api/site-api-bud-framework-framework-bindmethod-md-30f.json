@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.bindmethod",
+  "id": "bud-framework/framework/bud-framework.framework.bindmethod",
+  "title": "bindmethod property",
+  "description": "Framework.bindMethod property",
+  "source": "@site/api/bud-framework/framework/bindmethod.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/bindmethod",
+  "permalink": "/api/bud-framework/framework/bindmethod",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.bindmethod",
+    "title": "bindmethod property",
+    "sidebar_label": "bindmethod property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bindmethod"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "await() method",
+    "permalink": "/api/bud-framework/framework/await"
+  },
+  "next": {
+    "title": "build property",
+    "permalink": "/api/bud-framework/framework/build"
+  }
+}

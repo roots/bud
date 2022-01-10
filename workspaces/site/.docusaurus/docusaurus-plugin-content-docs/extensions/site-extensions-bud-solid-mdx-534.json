@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-solid",
+  "id": "bud-solid",
+  "title": "@roots/bud-solid",
+  "description": "Solid support can be added by installing the @roots/bud-solid extension.",
+  "source": "@site/extensions/bud-solid.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-solid",
+  "permalink": "/extensions/bud-solid",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-solid"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-sass",
+    "permalink": "/extensions/bud-sass"
+  },
+  "next": {
+    "title": "@roots/bud-tailwindcss",
+    "permalink": "/extensions/bud-tailwindcss"
+  }
+}

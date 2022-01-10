@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.make",
+  "id": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.make",
+  "title": "make property",
+  "description": "Extension.CompilerPlugin.make property",
+  "source": "@site/api/bud-framework/extension/compilerplugin/make.md",
+  "sourceDirName": "bud-framework/extension/compilerplugin",
+  "slug": "/bud-framework/extension/compilerplugin/make",
+  "permalink": "/api/bud-framework/extension/compilerplugin/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.compilerplugin.make",
+    "title": "make property",
+    "sidebar_label": "make property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "apply property",
+    "permalink": "/api/bud-framework/extension/compilerplugin/apply"
+  },
+  "next": {
+    "title": "api property",
+    "permalink": "/api/bud-framework/extension/module/api"
+  }
+}

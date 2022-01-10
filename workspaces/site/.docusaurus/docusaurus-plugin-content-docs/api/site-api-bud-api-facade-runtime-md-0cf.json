@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.runtime",
+  "id": "bud-api/facade/bud-api.facade.runtime",
+  "title": "runtime property",
+  "description": "Facade.runtime property",
+  "source": "@site/api/bud-api/facade/runtime.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/runtime",
+  "permalink": "/api/bud-api/facade/runtime",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.runtime",
+    "title": "runtime property",
+    "sidebar_label": "runtime property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "runtime"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "run property",
+    "permalink": "/api/bud-api/facade/run"
+  },
+  "next": {
+    "title": "serve property",
+    "permalink": "/api/bud-api/facade/serve"
+  }
+}

@@ -1,0 +1,4288 @@
+{
+  "docusaurus-lunr-search": {
+    "default": {
+      "fileNames": {
+        "searchDoc": "search-doc-1641771362774.json",
+        "lunrIndex": "lunr-index-1641771362774.json"
+      }
+    }
+  },
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "bud.alias",
+              "path": "/docs/bud.alias",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.assets",
+              "path": "/docs/bud.assets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.define",
+              "path": "/docs/bud.define",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.devtool",
+              "path": "/docs/bud.devtool",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.entry",
+              "path": "/docs/bud.entry",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.env",
+              "path": "/docs/bud.env",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.externals",
+              "path": "/docs/bud.externals",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.get",
+              "path": "/docs/bud.get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.hash",
+              "path": "/docs/bud.hash",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.hooks/index",
+              "path": "/docs/bud.hooks/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.hooks/reference",
+              "path": "/docs/bud.hooks/reference",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.make",
+              "path": "/docs/bud.make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.minimize",
+              "path": "/docs/bud.minimize",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.mode/bud.isDevelopment",
+              "path": "/docs/bud.mode/bud.isDevelopment",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.mode/bud.isProduction",
+              "path": "/docs/bud.mode/bud.isProduction",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.mode/bud.mode",
+              "path": "/docs/bud.mode/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.path",
+              "path": "/docs/bud.path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.provide",
+              "path": "/docs/bud.provide",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.proxy",
+              "path": "/docs/bud.proxy",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.publicPath",
+              "path": "/docs/bud.publicPath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.runtime",
+              "path": "/docs/bud.runtime",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.serve",
+              "path": "/docs/bud.serve",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.setPath",
+              "path": "/docs/bud.setPath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.setPublicPath",
+              "path": "/docs/bud.setPublicPath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.splitChunks",
+              "path": "/docs/bud.splitChunks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.tap",
+              "path": "/docs/bud.tap",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.template",
+              "path": "/docs/bud.template",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.use",
+              "path": "/docs/bud.use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud.when",
+              "path": "/docs/bud.when",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "index",
+              "path": "/docs/",
+              "sidebar": "sidebar"
+            }
+          ]
+        }
+      ]
+    },
+    "api": {
+      "path": "/api",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/api",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "bud-api",
+              "path": "/api/bud-api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/api/bud-api.api.call",
+              "path": "/api/bud-api/api/call",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/api/bud-api.api.dump",
+              "path": "/api/bud-api/api/dump",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/api/bud-api.api.processqueue",
+              "path": "/api/bud-api/api/processqueue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/bud-api.api",
+              "path": "/api/bud-api/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/bud-api.facade",
+              "path": "/api/bud-api/facade",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.alias",
+              "path": "/api/bud-api/facade/alias",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.assets",
+              "path": "/api/bud-api/facade/assets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.autoload",
+              "path": "/api/bud-api/facade/autoload",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.config",
+              "path": "/api/bud-api/facade/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.copy",
+              "path": "/api/bud-api/facade/copy",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.css",
+              "path": "/api/bud-api/facade/css",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.define",
+              "path": "/api/bud-api/facade/define",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.devtool",
+              "path": "/api/bud-api/facade/devtool",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.entry",
+              "path": "/api/bud-api/facade/entry",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.experiments",
+              "path": "/api/bud-api/facade/experiments",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.externals",
+              "path": "/api/bud-api/facade/externals",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.extract",
+              "path": "/api/bud-api/facade/extract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.hash",
+              "path": "/api/bud-api/facade/hash",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.js",
+              "path": "/api/bud-api/facade/js",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.minimize",
+              "path": "/api/bud-api/facade/minimize",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.override",
+              "path": "/api/bud-api/facade/override",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.persist",
+              "path": "/api/bud-api/facade/persist",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.provide",
+              "path": "/api/bud-api/facade/provide",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.proxy",
+              "path": "/api/bud-api/facade/proxy",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.publicpath",
+              "path": "/api/bud-api/facade/publicpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.run",
+              "path": "/api/bud-api/facade/run",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.runtime",
+              "path": "/api/bud-api/facade/runtime",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.serve",
+              "path": "/api/bud-api/facade/serve",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.setpublicpath",
+              "path": "/api/bud-api/facade/setpublicpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.splitchunks",
+              "path": "/api/bud-api/facade/splitchunks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.template",
+              "path": "/api/bud-api/facade/template",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.use",
+              "path": "/api/bud-api/facade/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.version",
+              "path": "/api/bud-api/facade/version",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.watch",
+              "path": "/api/bud-api/facade/watch",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-api/facade/bud-api.facade.webpackconfig",
+              "path": "/api/bud-api/facade/webpackconfig",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-babel/bud-babel.mixin",
+              "path": "/api/bud-babel/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-babel/bud-babel.name_2",
+              "path": "/api/bud-babel/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-babel/bud-babel.register",
+              "path": "/api/bud-babel/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.build",
+              "path": "/api/bud-build/build",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.item",
+              "path": "/api/bud-build/item",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.items",
+              "path": "/api/bud-build/items",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.loader",
+              "path": "/api/bud-build/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.loaders",
+              "path": "/api/bud-build/loaders",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.rule",
+              "path": "/api/bud-build/rule",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/bud-build.rules",
+              "path": "/api/bud-build/rules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.init",
+              "path": "/api/bud-build/build/init",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.items",
+              "path": "/api/bud-build/build/items",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.loaders",
+              "path": "/api/bud-build/build/loaders",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.make",
+              "path": "/api/bud-build/build/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.register",
+              "path": "/api/bud-build/build/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.registered",
+              "path": "/api/bud-build/build/registered",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.rules",
+              "path": "/api/bud-build/build/rules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/build/bud-build.build.writefinalconfig",
+              "path": "/api/bud-build/build/writefinalconfig",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item._constructor_",
+              "path": "/api/bud-build/item/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.getloader",
+              "path": "/api/bud-build/item/getloader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.loader",
+              "path": "/api/bud-build/item/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.make",
+              "path": "/api/bud-build/item/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.mergeoptions",
+              "path": "/api/bud-build/item/mergeoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.options",
+              "path": "/api/bud-build/item/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.setloader",
+              "path": "/api/bud-build/item/setloader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/item/bud-build.item.setoptions",
+              "path": "/api/bud-build/item/setoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/items/bud-build.items.default",
+              "path": "/api/bud-build/items/default",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/loader/bud-build.loader._constructor_",
+              "path": "/api/bud-build/loader/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/loader/bud-build.loader.make",
+              "path": "/api/bud-build/loader/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/loader/bud-build.loader.normalizeinput",
+              "path": "/api/bud-build/loader/normalizeinput",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/loader/bud-build.loader.src",
+              "path": "/api/bud-build/loader/src",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/loaders/bud-build.loaders.default",
+              "path": "/api/bud-build/loaders/default",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule._constructor_",
+              "path": "/api/bud-build/rule/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.exclude",
+              "path": "/api/bud-build/rule/exclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.generator",
+              "path": "/api/bud-build/rule/generator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.getexclude",
+              "path": "/api/bud-build/rule/getexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.getgenerator",
+              "path": "/api/bud-build/rule/getgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.getparser",
+              "path": "/api/bud-build/rule/getparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.gettest",
+              "path": "/api/bud-build/rule/gettest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.gettype",
+              "path": "/api/bud-build/rule/gettype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.getuse",
+              "path": "/api/bud-build/rule/getuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.make",
+              "path": "/api/bud-build/rule/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.parser",
+              "path": "/api/bud-build/rule/parser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.setexclude",
+              "path": "/api/bud-build/rule/setexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.setgenerator",
+              "path": "/api/bud-build/rule/setgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.setparser",
+              "path": "/api/bud-build/rule/setparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.settest",
+              "path": "/api/bud-build/rule/settest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.settype",
+              "path": "/api/bud-build/rule/settype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.setuse",
+              "path": "/api/bud-build/rule/setuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.test",
+              "path": "/api/bud-build/rule/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.type",
+              "path": "/api/bud-build/rule/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rule/bud-build.rule.use",
+              "path": "/api/bud-build/rule/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.css",
+              "path": "/api/bud-build/rules/css",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.csv",
+              "path": "/api/bud-build/rules/csv",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.font",
+              "path": "/api/bud-build/rules/font",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.html",
+              "path": "/api/bud-build/rules/html",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.image",
+              "path": "/api/bud-build/rules/image",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.js",
+              "path": "/api/bud-build/rules/js",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.json5",
+              "path": "/api/bud-build/rules/json5",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.svg",
+              "path": "/api/bud-build/rules/svg",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.toml",
+              "path": "/api/bud-build/rules/toml",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.xml",
+              "path": "/api/bud-build/rules/xml",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-build/rules/bud-build.rules.yml",
+              "path": "/api/bud-build/rules/yml",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/bud-cache.cache_2",
+              "path": "/api/bud-cache/cache2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.boot",
+              "path": "/api/bud-cache/cache2/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.directory",
+              "path": "/api/bud-cache/cache2/directory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.enabled",
+              "path": "/api/bud-cache/cache2/enabled",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.hashfilecontents",
+              "path": "/api/bud-cache/cache2/hashfilecontents",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.type",
+              "path": "/api/bud-cache/cache2/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cache/cache2/bud-cache.cache_2.version",
+              "path": "/api/bud-cache/cache2/version",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/bud-compiler.compiler",
+              "path": "/api/bud-compiler/compiler",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.before",
+              "path": "/api/bud-compiler/compiler/before",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.callback",
+              "path": "/api/bud-compiler/compiler/callback",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.compile",
+              "path": "/api/bud-compiler/compiler/compile",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.config",
+              "path": "/api/bud-compiler/compiler/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.errors",
+              "path": "/api/bud-compiler/compiler/errors",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.instance",
+              "path": "/api/bud-compiler/compiler/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.invoke",
+              "path": "/api/bud-compiler/compiler/invoke",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.iscompiled",
+              "path": "/api/bud-compiler/compiler/iscompiled",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.progress",
+              "path": "/api/bud-compiler/compiler/progress",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compiler/compiler/bud-compiler.compiler.stats",
+              "path": "/api/bud-compiler/compiler/stats",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/bud-compress.boot",
+              "path": "/api/bud-compress/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/bud-compress.budcompressionextension",
+              "path": "/api/bud-compress/budcompressionextension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/bud-compress.name_2",
+              "path": "/api/bud-compress/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/bud-compress.budcompressionextension.options",
+              "path": "/api/bud-compress/budcompressionextension/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.algorithm",
+              "path": "/api/bud-compress/budcompressionextension/options/algorithm",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.compressionoptions",
+              "path": "/api/bud-compress/budcompressionextension/options/compressionoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.deleteoriginalassets",
+              "path": "/api/bud-compress/budcompressionextension/options/deleteoriginalassets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.filename",
+              "path": "/api/bud-compress/budcompressionextension/options/filename",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.minratio",
+              "path": "/api/bud-compress/budcompressionextension/options/minratio",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.test",
+              "path": "/api/bud-compress/budcompressionextension/options/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.threshold",
+              "path": "/api/bud-compress/budcompressionextension/options/threshold",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss/bud-criticalcss.budcriticalcssplugin",
+              "path": "/api/bud-criticalcss/budcriticalcssplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.api",
+              "path": "/api/bud-criticalcss/budcriticalcssplugin/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.make",
+              "path": "/api/bud-criticalcss/budcriticalcssplugin/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.name",
+              "path": "/api/bud-criticalcss/budcriticalcssplugin/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss/budcriticalcssplugin/bud-criticalcss.budcriticalcssplugin.options",
+              "path": "/api/bud-criticalcss/budcriticalcssplugin/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/bud-dashboard.dashboard",
+              "path": "/api/bud-dashboard/dashboard",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.bootstrap",
+              "path": "/api/bud-dashboard/dashboard/bootstrap",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.close",
+              "path": "/api/bud-dashboard/dashboard/close",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.instance",
+              "path": "/api/bud-dashboard/dashboard/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.render",
+              "path": "/api/bud-dashboard/dashboard/render",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.rerender",
+              "path": "/api/bud-dashboard/dashboard/rerender",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.run",
+              "path": "/api/bud-dashboard/dashboard/run",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.stderr",
+              "path": "/api/bud-dashboard/dashboard/stderr",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.stdout",
+              "path": "/api/bud-dashboard/dashboard/stdout",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-emotion/bud-emotion.boot",
+              "path": "/api/bud-emotion/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-emotion/bud-emotion.name_2",
+              "path": "/api/bud-emotion/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-entrypoints/bud-entrypoints.make",
+              "path": "/api/bud-entrypoints/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-entrypoints/bud-entrypoints.name_2",
+              "path": "/api/bud-entrypoints/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-esbuild/bud-esbuild.api",
+              "path": "/api/bud-esbuild/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-esbuild/bud-esbuild.boot",
+              "path": "/api/bud-esbuild/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-esbuild/bud-esbuild.name_2",
+              "path": "/api/bud-esbuild/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-esbuild/bud-esbuild.options",
+              "path": "/api/bud-esbuild/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-eslint/bud-eslint.make",
+              "path": "/api/bud-eslint/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-eslint/bud-eslint.mixin",
+              "path": "/api/bud-eslint/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-eslint/bud-eslint.name_2",
+              "path": "/api/bud-eslint/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-eslint/bud-eslint.options",
+              "path": "/api/bud-eslint/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions",
+              "path": "/api/bud-extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/bud-extensions.controller",
+              "path": "/api/bud-extensions/controller",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/bud-extensions.extensions",
+              "path": "/api/bud-extensions/extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller._constructor_",
+              "path": "/api/bud-extensions/controller/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.api",
+              "path": "/api/bud-extensions/controller/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.app",
+              "path": "/api/bud-extensions/controller/app",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.boot",
+              "path": "/api/bud-extensions/controller/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.booted",
+              "path": "/api/bud-extensions/controller/booted",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.get",
+              "path": "/api/bud-extensions/controller/get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.getoption",
+              "path": "/api/bud-extensions/controller/getoption",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.log",
+              "path": "/api/bud-extensions/controller/log",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.make",
+              "path": "/api/bud-extensions/controller/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.mergeoption",
+              "path": "/api/bud-extensions/controller/mergeoption",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.mergeoptions",
+              "path": "/api/bud-extensions/controller/mergeoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.meta",
+              "path": "/api/bud-extensions/controller/meta",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.mixin",
+              "path": "/api/bud-extensions/controller/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.modulelogger",
+              "path": "/api/bud-extensions/controller/modulelogger",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.mutateoptions",
+              "path": "/api/bud-extensions/controller/mutateoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.name",
+              "path": "/api/bud-extensions/controller/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.options",
+              "path": "/api/bud-extensions/controller/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.register",
+              "path": "/api/bud-extensions/controller/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.registered",
+              "path": "/api/bud-extensions/controller/registered",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.set",
+              "path": "/api/bud-extensions/controller/set",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.setoption",
+              "path": "/api/bud-extensions/controller/setoption",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.setoptions",
+              "path": "/api/bud-extensions/controller/setoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/controller/bud-extensions.controller.when",
+              "path": "/api/bud-extensions/controller/when",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.add",
+              "path": "/api/bud-extensions/extensions/add",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.boot",
+              "path": "/api/bud-extensions/extensions/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.booted",
+              "path": "/api/bud-extensions/extensions/booted",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.bootextension",
+              "path": "/api/bud-extensions/extensions/bootextension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.bootextensions",
+              "path": "/api/bud-extensions/extensions/bootextensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.enqueue",
+              "path": "/api/bud-extensions/extensions/enqueue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.importextension",
+              "path": "/api/bud-extensions/extensions/importextension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.injectextensions",
+              "path": "/api/bud-extensions/extensions/injectextensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.make",
+              "path": "/api/bud-extensions/extensions/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.makecontroller",
+              "path": "/api/bud-extensions/extensions/makecontroller",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.processqueue",
+              "path": "/api/bud-extensions/extensions/processqueue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.queue",
+              "path": "/api/bud-extensions/extensions/queue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.registered",
+              "path": "/api/bud-extensions/extensions/registered",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.registerextension",
+              "path": "/api/bud-extensions/extensions/registerextension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.registerextensions",
+              "path": "/api/bud-extensions/extensions/registerextensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.repository",
+              "path": "/api/bud-extensions/extensions/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-extensions/extensions/bud-extensions.extensions.setcontroller",
+              "path": "/api/bud-extensions/extensions/setcontroller",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bootstrapper/bud-framework.bootstrapper._constructor_",
+              "path": "/api/bud-framework/bootstrapper/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bootstrapper/bud-framework.bootstrapper.app",
+              "path": "/api/bud-framework/bootstrapper/app",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bootstrapper/bud-framework.bootstrapper.ident",
+              "path": "/api/bud-framework/bootstrapper/ident",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.asyncfactory",
+              "path": "/api/bud-framework/asyncfactory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.atleastone",
+              "path": "/api/bud-framework/atleastone",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.bootstrapper",
+              "path": "/api/bud-framework/bootstrapper",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.build",
+              "path": "/api/bud-framework/build",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.cache_2",
+              "path": "/api/bud-framework/cache2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.compiler",
+              "path": "/api/bud-framework/compiler",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.configuration",
+              "path": "/api/bud-framework/configuration",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.constructor",
+              "path": "/api/bud-framework/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.dashboard",
+              "path": "/api/bud-framework/dashboard",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.dependencies",
+              "path": "/api/bud-framework/dependencies",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.env",
+              "path": "/api/bud-framework/env",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.extension",
+              "path": "/api/bud-framework/extension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.extensions",
+              "path": "/api/bud-framework/extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.factory",
+              "path": "/api/bud-framework/factory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.framework",
+              "path": "/api/bud-framework/framework",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.hooks",
+              "path": "/api/bud-framework/hooks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.index",
+              "path": "/api/bud-framework/index",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.item",
+              "path": "/api/bud-framework/item",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.items",
+              "path": "/api/bud-framework/items",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.loader",
+              "path": "/api/bud-framework/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.loaders",
+              "path": "/api/bud-framework/loaders",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.locations",
+              "path": "/api/bud-framework/locations",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.logger",
+              "path": "/api/bud-framework/logger",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.loose",
+              "path": "/api/bud-framework/loose",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.maybe",
+              "path": "/api/bud-framework/maybe",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.mode",
+              "path": "/api/bud-framework/mode",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.module",
+              "path": "/api/bud-framework/module",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.modules",
+              "path": "/api/bud-framework/modules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.options",
+              "path": "/api/bud-framework/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.peers",
+              "path": "/api/bud-framework/peers",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.plugininstance",
+              "path": "/api/bud-framework/plugininstance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.plugins",
+              "path": "/api/bud-framework/plugins",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.project",
+              "path": "/api/bud-framework/project",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.rule",
+              "path": "/api/bud-framework/rule",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.rules",
+              "path": "/api/bud-framework/rules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.server",
+              "path": "/api/bud-framework/server",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.service",
+              "path": "/api/bud-framework/service",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.services",
+              "path": "/api/bud-framework/services",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.store",
+              "path": "/api/bud-framework/store",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/bud-framework.tapable",
+              "path": "/api/bud-framework/tapable",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/abstract/bud-framework.build.abstract.items",
+              "path": "/api/bud-framework/build/abstract/items",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/abstract/bud-framework.build.abstract.loaders",
+              "path": "/api/bud-framework/build/abstract/loaders",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/abstract/bud-framework.build.abstract.make",
+              "path": "/api/bud-framework/build/abstract/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/abstract/bud-framework.build.abstract.rules",
+              "path": "/api/bud-framework/build/abstract/rules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/bud-framework.build.abstract",
+              "path": "/api/bud-framework/build/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/bud-framework.build.interface",
+              "path": "/api/bud-framework/build/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/interface/bud-framework.build.interface.config",
+              "path": "/api/bud-framework/build/interface/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/interface/bud-framework.build.interface.items",
+              "path": "/api/bud-framework/build/interface/items",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/interface/bud-framework.build.interface.loaders",
+              "path": "/api/bud-framework/build/interface/loaders",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/interface/bud-framework.build.interface.make",
+              "path": "/api/bud-framework/build/interface/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/build/interface/bud-framework.build.interface.rules",
+              "path": "/api/bud-framework/build/interface/rules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/abstract/bud-framework.cache_2.abstract.directory",
+              "path": "/api/bud-framework/cache2/abstract/directory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/abstract/bud-framework.cache_2.abstract.hashfilecontents",
+              "path": "/api/bud-framework/cache2/abstract/hashfilecontents",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/abstract/bud-framework.cache_2.abstract.version",
+              "path": "/api/bud-framework/cache2/abstract/version",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/bud-framework.cache_2.abstract",
+              "path": "/api/bud-framework/cache2/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/bud-framework.cache_2.interface",
+              "path": "/api/bud-framework/cache2/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/interface/bud-framework.cache_2.interface.directory",
+              "path": "/api/bud-framework/cache2/interface/directory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/interface/bud-framework.cache_2.interface.hashfilecontents",
+              "path": "/api/bud-framework/cache2/interface/hashfilecontents",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/cache2/interface/bud-framework.cache_2.interface.version",
+              "path": "/api/bud-framework/cache2/interface/version",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.before",
+              "path": "/api/bud-framework/compiler/before",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.callback",
+              "path": "/api/bud-framework/compiler/callback",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.compile",
+              "path": "/api/bud-framework/compiler/compile",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.instance",
+              "path": "/api/bud-framework/compiler/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.iscompiled",
+              "path": "/api/bud-framework/compiler/iscompiled",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.progress",
+              "path": "/api/bud-framework/compiler/progress",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/compiler/bud-framework.compiler.stats",
+              "path": "/api/bud-framework/compiler/stats",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.build",
+              "path": "/api/bud-framework/configuration/build",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.cache",
+              "path": "/api/bud-framework/configuration/cache",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.cli",
+              "path": "/api/bud-framework/configuration/cli",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.extension",
+              "path": "/api/bud-framework/configuration/extension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.features",
+              "path": "/api/bud-framework/configuration/features",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.fileformat",
+              "path": "/api/bud-framework/configuration/fileformat",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.hashformat",
+              "path": "/api/bud-framework/configuration/hashformat",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.location",
+              "path": "/api/bud-framework/configuration/location",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.log",
+              "path": "/api/bud-framework/configuration/log",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.mode",
+              "path": "/api/bud-framework/configuration/mode",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.name",
+              "path": "/api/bud-framework/configuration/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.patterns",
+              "path": "/api/bud-framework/configuration/patterns",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.server",
+              "path": "/api/bud-framework/configuration/server",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/configuration/bud-framework.configuration.theme",
+              "path": "/api/bud-framework/configuration/theme",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.instance",
+              "path": "/api/bud-framework/dashboard/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.render",
+              "path": "/api/bud-framework/dashboard/render",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.rerender",
+              "path": "/api/bud-framework/dashboard/rerender",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.run",
+              "path": "/api/bud-framework/dashboard/run",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.stderr",
+              "path": "/api/bud-framework/dashboard/stderr",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dashboard/bud-framework.dashboard.stdout",
+              "path": "/api/bud-framework/dashboard/stdout",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dependencies/bud-framework.dependencies.client",
+              "path": "/api/bud-framework/dependencies/client",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/dependencies/bud-framework.dependencies.install",
+              "path": "/api/bud-framework/dependencies/install",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/env/bud-framework.env.getpublicenv",
+              "path": "/api/bud-framework/env/getpublicenv",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/bud-framework.extension.compilerplugin",
+              "path": "/api/bud-framework/extension/compilerplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/bud-framework.extension.module",
+              "path": "/api/bud-framework/extension/module",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/bud-framework.extension.name",
+              "path": "/api/bud-framework/extension/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.apply",
+              "path": "/api/bud-framework/extension/compilerplugin/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.make",
+              "path": "/api/bud-framework/extension/compilerplugin/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.api",
+              "path": "/api/bud-framework/extension/module/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.boot",
+              "path": "/api/bud-framework/extension/module/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.mixin",
+              "path": "/api/bud-framework/extension/module/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.name",
+              "path": "/api/bud-framework/extension/module/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.options",
+              "path": "/api/bud-framework/extension/module/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.register",
+              "path": "/api/bud-framework/extension/module/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extension/module/bud-framework.extension.module.when",
+              "path": "/api/bud-framework/extension/module/when",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.add",
+              "path": "/api/bud-framework/extensions/add",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.bootextensions",
+              "path": "/api/bud-framework/extensions/bootextensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.enqueue",
+              "path": "/api/bud-framework/extensions/enqueue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.make",
+              "path": "/api/bud-framework/extensions/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.processqueue",
+              "path": "/api/bud-framework/extensions/processqueue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.queue",
+              "path": "/api/bud-framework/extensions/queue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/extensions/bud-framework.extensions.registerextensions",
+              "path": "/api/bud-framework/extensions/registerextensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework._constructor_",
+              "path": "/api/bud-framework/framework/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.api",
+              "path": "/api/bud-framework/framework/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.await",
+              "path": "/api/bud-framework/framework/await",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.bindmethod",
+              "path": "/api/bud-framework/framework/bindmethod",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.build",
+              "path": "/api/bud-framework/framework/build",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.cache",
+              "path": "/api/bud-framework/framework/cache",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.children",
+              "path": "/api/bud-framework/framework/children",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.close",
+              "path": "/api/bud-framework/framework/close",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.compiler",
+              "path": "/api/bud-framework/framework/compiler",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.complete",
+              "path": "/api/bud-framework/framework/complete",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.container",
+              "path": "/api/bud-framework/framework/container",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.dashboard",
+              "path": "/api/bud-framework/framework/dashboard",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.debug",
+              "path": "/api/bud-framework/framework/debug",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.dependencies",
+              "path": "/api/bud-framework/framework/dependencies",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.dump",
+              "path": "/api/bud-framework/framework/dump",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.env",
+              "path": "/api/bud-framework/framework/env",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.error",
+              "path": "/api/bud-framework/framework/error",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.extensions",
+              "path": "/api/bud-framework/framework/extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.get",
+              "path": "/api/bud-framework/framework/get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.haschildren",
+              "path": "/api/bud-framework/framework/haschildren",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.hooks",
+              "path": "/api/bud-framework/framework/hooks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.info",
+              "path": "/api/bud-framework/framework/info",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.ischild",
+              "path": "/api/bud-framework/framework/ischild",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.isdevelopment",
+              "path": "/api/bud-framework/framework/isdevelopment",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.isproduction",
+              "path": "/api/bud-framework/framework/isproduction",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.isroot",
+              "path": "/api/bud-framework/framework/isroot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.json",
+              "path": "/api/bud-framework/framework/json",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.log",
+              "path": "/api/bud-framework/framework/log",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.logger",
+              "path": "/api/bud-framework/framework/logger",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.make",
+              "path": "/api/bud-framework/framework/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.maybecall",
+              "path": "/api/bud-framework/framework/maybecall",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.mixin",
+              "path": "/api/bud-framework/framework/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.mode",
+              "path": "/api/bud-framework/framework/mode",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.name",
+              "path": "/api/bud-framework/framework/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.options",
+              "path": "/api/bud-framework/framework/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.path",
+              "path": "/api/bud-framework/framework/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.pipe",
+              "path": "/api/bud-framework/framework/pipe",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.project",
+              "path": "/api/bud-framework/framework/project",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.root",
+              "path": "/api/bud-framework/framework/root",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.sequence",
+              "path": "/api/bud-framework/framework/sequence",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.server",
+              "path": "/api/bud-framework/framework/server",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.services",
+              "path": "/api/bud-framework/framework/services",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.setpath",
+              "path": "/api/bud-framework/framework/setpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.store",
+              "path": "/api/bud-framework/framework/store",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.success",
+              "path": "/api/bud-framework/framework/success",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.tap",
+              "path": "/api/bud-framework/framework/tap",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.time",
+              "path": "/api/bud-framework/framework/time",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.timeend",
+              "path": "/api/bud-framework/framework/timeend",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.ts",
+              "path": "/api/bud-framework/framework/ts",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.usingtsnode",
+              "path": "/api/bud-framework/framework/usingtsnode",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.warn",
+              "path": "/api/bud-framework/framework/warn",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.when",
+              "path": "/api/bud-framework/framework/when",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/framework/bud-framework.framework.yml",
+              "path": "/api/bud-framework/framework/yml",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.async",
+              "path": "/api/bud-framework/hooks/async",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.filter",
+              "path": "/api/bud-framework/hooks/filter",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.filterasync",
+              "path": "/api/bud-framework/hooks/filterasync",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.hook",
+              "path": "/api/bud-framework/hooks/hook",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.limitedentryobject",
+              "path": "/api/bud-framework/hooks/limitedentryobject",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.limitedplugin",
+              "path": "/api/bud-framework/hooks/limitedplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.map",
+              "path": "/api/bud-framework/hooks/map",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/hooks/bud-framework.hooks.on",
+              "path": "/api/bud-framework/hooks/on",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.loader",
+              "path": "/api/bud-framework/item/abstract/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.make",
+              "path": "/api/bud-framework/item/abstract/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.mergeoptions",
+              "path": "/api/bud-framework/item/abstract/mergeoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.options",
+              "path": "/api/bud-framework/item/abstract/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.setloader",
+              "path": "/api/bud-framework/item/abstract/setloader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/abstract/bud-framework.item.abstract.setoptions",
+              "path": "/api/bud-framework/item/abstract/setoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/bud-framework.item.abstract",
+              "path": "/api/bud-framework/item/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/bud-framework.item.constructoroptions",
+              "path": "/api/bud-framework/item/constructoroptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/bud-framework.item.interface",
+              "path": "/api/bud-framework/item/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/bud-framework.item.options",
+              "path": "/api/bud-framework/item/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/bud-framework.item.output",
+              "path": "/api/bud-framework/item/output",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/constructoroptions/bud-framework.item.constructoroptions.loader",
+              "path": "/api/bud-framework/item/constructoroptions/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/constructoroptions/bud-framework.item.constructoroptions.options",
+              "path": "/api/bud-framework/item/constructoroptions/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.loader",
+              "path": "/api/bud-framework/item/interface/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.make",
+              "path": "/api/bud-framework/item/interface/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.mergeoptions",
+              "path": "/api/bud-framework/item/interface/mergeoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.options",
+              "path": "/api/bud-framework/item/interface/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.setloader",
+              "path": "/api/bud-framework/item/interface/setloader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/interface/bud-framework.item.interface.setoptions",
+              "path": "/api/bud-framework/item/interface/setoptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/output/bud-framework.item.output.loader",
+              "path": "/api/bud-framework/item/output/loader",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/item/output/bud-framework.item.output.options",
+              "path": "/api/bud-framework/item/output/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.make",
+              "path": "/api/bud-framework/loader/abstract/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.normalizeinput",
+              "path": "/api/bud-framework/loader/abstract/normalizeinput",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.src",
+              "path": "/api/bud-framework/loader/abstract/src",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/bud-framework.loader.abstract",
+              "path": "/api/bud-framework/loader/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/bud-framework.loader.factory",
+              "path": "/api/bud-framework/loader/factory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/bud-framework.loader.interface",
+              "path": "/api/bud-framework/loader/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/interface/bud-framework.loader.interface.make",
+              "path": "/api/bud-framework/loader/interface/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/interface/bud-framework.loader.interface.normalizeinput",
+              "path": "/api/bud-framework/loader/interface/normalizeinput",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/loader/interface/bud-framework.loader.interface.src",
+              "path": "/api/bud-framework/loader/interface/src",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/locations/bud-framework.locations.dist",
+              "path": "/api/bud-framework/locations/dist",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/locations/bud-framework.locations.project",
+              "path": "/api/bud-framework/locations/project",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/locations/bud-framework.locations.src",
+              "path": "/api/bud-framework/locations/src",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger._constructor_",
+              "path": "/api/bud-framework/logger/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.config",
+              "path": "/api/bud-framework/logger/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.context",
+              "path": "/api/bud-framework/logger/context",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.enabled",
+              "path": "/api/bud-framework/logger/enabled",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.flags",
+              "path": "/api/bud-framework/logger/flags",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.instance",
+              "path": "/api/bud-framework/logger/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.instantiate",
+              "path": "/api/bud-framework/logger/instantiate",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.interactive",
+              "path": "/api/bud-framework/logger/interactive",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.level",
+              "path": "/api/bud-framework/logger/level",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.makeinstance",
+              "path": "/api/bud-framework/logger/makeinstance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.options",
+              "path": "/api/bud-framework/logger/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.scoped",
+              "path": "/api/bud-framework/logger/scoped",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.secrets",
+              "path": "/api/bud-framework/logger/secrets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/logger/bud-framework.logger.stream",
+              "path": "/api/bud-framework/logger/stream",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/options/bud-framework.options.config",
+              "path": "/api/bud-framework/options/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/options/bud-framework.options.extensions",
+              "path": "/api/bud-framework/options/extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/options/bud-framework.options.services",
+              "path": "/api/bud-framework/options/services",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/bud-framework.peers.interface",
+              "path": "/api/bud-framework/peers/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/bud-framework.peers.peer",
+              "path": "/api/bud-framework/peers/peer",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/bud-framework.peers.repository",
+              "path": "/api/bud-framework/peers/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/interface/bud-framework.peers.interface.app",
+              "path": "/api/bud-framework/peers/interface/app",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/interface/bud-framework.peers.interface.discover",
+              "path": "/api/bud-framework/peers/interface/discover",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/interface/bud-framework.peers.interface.getmanifest",
+              "path": "/api/bud-framework/peers/interface/getmanifest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/interface/bud-framework.peers.interface.getpackagemanifestpath",
+              "path": "/api/bud-framework/peers/interface/getpackagemanifestpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/interface/bud-framework.peers.interface.isextension",
+              "path": "/api/bud-framework/peers/interface/isextension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/peer/bud-framework.peers.peer.name",
+              "path": "/api/bud-framework/peers/peer/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/peer/bud-framework.peers.peer.source",
+              "path": "/api/bud-framework/peers/peer/source",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/peer/bud-framework.peers.peer.type",
+              "path": "/api/bud-framework/peers/peer/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/peers/peer/bud-framework.peers.peer.ver",
+              "path": "/api/bud-framework/peers/peer/ver",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/plugininstance/bud-framework.plugininstance.apply",
+              "path": "/api/bud-framework/plugininstance/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/abstract/bud-framework.project.abstract.haspeerdependency",
+              "path": "/api/bud-framework/project/abstract/haspeerdependency",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/abstract/bud-framework.project.abstract.peers",
+              "path": "/api/bud-framework/project/abstract/peers",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/abstract/bud-framework.project.abstract.repository",
+              "path": "/api/bud-framework/project/abstract/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/bud-framework.project.abstract",
+              "path": "/api/bud-framework/project/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/bud-framework.project.interface",
+              "path": "/api/bud-framework/project/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/interface/bud-framework.project.interface.buildprofile",
+              "path": "/api/bud-framework/project/interface/buildprofile",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/interface/bud-framework.project.interface.buildprofile_1",
+              "path": "/api/bud-framework/project/interface/buildprofile1",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/interface/bud-framework.project.interface.haspeerdependency",
+              "path": "/api/bud-framework/project/interface/haspeerdependency",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/interface/bud-framework.project.interface.peers",
+              "path": "/api/bud-framework/project/interface/peers",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/project/interface/bud-framework.project.interface.writeprofile",
+              "path": "/api/bud-framework/project/interface/writeprofile",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getexclude",
+              "path": "/api/bud-framework/rule/abstract/getexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getgenerator",
+              "path": "/api/bud-framework/rule/abstract/getgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getparser",
+              "path": "/api/bud-framework/rule/abstract/getparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.gettest",
+              "path": "/api/bud-framework/rule/abstract/gettest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.gettype",
+              "path": "/api/bud-framework/rule/abstract/gettype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getuse",
+              "path": "/api/bud-framework/rule/abstract/getuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.make",
+              "path": "/api/bud-framework/rule/abstract/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setexclude",
+              "path": "/api/bud-framework/rule/abstract/setexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setgenerator",
+              "path": "/api/bud-framework/rule/abstract/setgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setparser",
+              "path": "/api/bud-framework/rule/abstract/setparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.settest",
+              "path": "/api/bud-framework/rule/abstract/settest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.settype",
+              "path": "/api/bud-framework/rule/abstract/settype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setuse",
+              "path": "/api/bud-framework/rule/abstract/setuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.test",
+              "path": "/api/bud-framework/rule/abstract/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.use",
+              "path": "/api/bud-framework/rule/abstract/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/bud-framework.rule.abstract",
+              "path": "/api/bud-framework/rule/abstract",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/bud-framework.rule.interface",
+              "path": "/api/bud-framework/rule/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/bud-framework.rule.options",
+              "path": "/api/bud-framework/rule/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/bud-framework.rule.output",
+              "path": "/api/bud-framework/rule/output",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/bud-framework.rule.parser",
+              "path": "/api/bud-framework/rule/parser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.getexclude",
+              "path": "/api/bud-framework/rule/interface/getexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.getgenerator",
+              "path": "/api/bud-framework/rule/interface/getgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.getparser",
+              "path": "/api/bud-framework/rule/interface/getparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.gettest",
+              "path": "/api/bud-framework/rule/interface/gettest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.gettype",
+              "path": "/api/bud-framework/rule/interface/gettype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.getuse",
+              "path": "/api/bud-framework/rule/interface/getuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.make",
+              "path": "/api/bud-framework/rule/interface/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.setexclude",
+              "path": "/api/bud-framework/rule/interface/setexclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.setgenerator",
+              "path": "/api/bud-framework/rule/interface/setgenerator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.setparser",
+              "path": "/api/bud-framework/rule/interface/setparser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.settest",
+              "path": "/api/bud-framework/rule/interface/settest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.settype",
+              "path": "/api/bud-framework/rule/interface/settype",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.setuse",
+              "path": "/api/bud-framework/rule/interface/setuse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.test",
+              "path": "/api/bud-framework/rule/interface/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/interface/bud-framework.rule.interface.use",
+              "path": "/api/bud-framework/rule/interface/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.exclude",
+              "path": "/api/bud-framework/rule/options/exclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.generator",
+              "path": "/api/bud-framework/rule/options/generator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.parser",
+              "path": "/api/bud-framework/rule/options/parser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.test",
+              "path": "/api/bud-framework/rule/options/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.type",
+              "path": "/api/bud-framework/rule/options/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/options/bud-framework.rule.options.use",
+              "path": "/api/bud-framework/rule/options/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.exclude",
+              "path": "/api/bud-framework/rule/output/exclude",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.generator",
+              "path": "/api/bud-framework/rule/output/generator",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.parser",
+              "path": "/api/bud-framework/rule/output/parser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.test",
+              "path": "/api/bud-framework/rule/output/test",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.type",
+              "path": "/api/bud-framework/rule/output/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/output/bud-framework.rule.output.use",
+              "path": "/api/bud-framework/rule/output/use",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/rule/parser/bud-framework.rule.parser.parse",
+              "path": "/api/bud-framework/rule/parser/parse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/application/bud-framework.server.application.listen",
+              "path": "/api/bud-framework/server/application/listen",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/bud-framework.server.application",
+              "path": "/api/bud-framework/server/application",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/bud-framework.server.configuration",
+              "path": "/api/bud-framework/server/configuration",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/bud-framework.server.instance",
+              "path": "/api/bud-framework/server/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/bud-framework.server.interface",
+              "path": "/api/bud-framework/server/interface",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/bud-framework.server.middleware",
+              "path": "/api/bud-framework/server/middleware",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.browser",
+              "path": "/api/bud-framework/server/configuration/browser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.dev",
+              "path": "/api/bud-framework/server/configuration/dev",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.disablehostcheck",
+              "path": "/api/bud-framework/server/configuration/disablehostcheck",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.filename",
+              "path": "/api/bud-framework/server/configuration/filename",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.middleware",
+              "path": "/api/bud-framework/server/configuration/middleware",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.proxy",
+              "path": "/api/bud-framework/server/configuration/proxy",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.publicpath",
+              "path": "/api/bud-framework/server/configuration/publicpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/configuration/bud-framework.server.configuration.watch",
+              "path": "/api/bud-framework/server/configuration/watch",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.application",
+              "path": "/api/bud-framework/server/interface/application",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.close",
+              "path": "/api/bud-framework/server/interface/close",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.config",
+              "path": "/api/bud-framework/server/interface/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.getwatchedfiles",
+              "path": "/api/bud-framework/server/interface/getwatchedfiles",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.instance",
+              "path": "/api/bud-framework/server/interface/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.middleware",
+              "path": "/api/bud-framework/server/interface/middleware",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.run",
+              "path": "/api/bud-framework/server/interface/run",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/server/interface/bud-framework.server.interface.watcher",
+              "path": "/api/bud-framework/server/interface/watcher",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.boot",
+              "path": "/api/bud-framework/service/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.booted",
+              "path": "/api/bud-framework/service/booted",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.bootstrap",
+              "path": "/api/bud-framework/service/bootstrap",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.bootstrapped",
+              "path": "/api/bud-framework/service/bootstrapped",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.dump",
+              "path": "/api/bud-framework/service/dump",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.ident",
+              "path": "/api/bud-framework/service/ident",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.log",
+              "path": "/api/bud-framework/service/log",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.logger",
+              "path": "/api/bud-framework/service/logger",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.register",
+              "path": "/api/bud-framework/service/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/service/bud-framework.service.registered",
+              "path": "/api/bud-framework/service/registered",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/store/bud-framework.store.get",
+              "path": "/api/bud-framework/store/get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/store/bud-framework.store.ident",
+              "path": "/api/bud-framework/store/ident",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-framework/store/bud-framework.store.repository",
+              "path": "/api/bud-framework/store/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks",
+              "path": "/api/bud-hooks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks/bud-hooks.hooks",
+              "path": "/api/bud-hooks/hooks",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks/hooks/bud-hooks.hooks.async",
+              "path": "/api/bud-hooks/hooks/async",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks/hooks/bud-hooks.hooks.filter",
+              "path": "/api/bud-hooks/hooks/filter",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks/hooks/bud-hooks.hooks.filterasync",
+              "path": "/api/bud-hooks/hooks/filterasync",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-hooks/hooks/bud-hooks.hooks.on",
+              "path": "/api/bud-hooks/hooks/on",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-imagemin/bud-imagemin.boot",
+              "path": "/api/bud-imagemin/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-imagemin/bud-imagemin.mixin",
+              "path": "/api/bud-imagemin/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-imagemin/bud-imagemin.name_2",
+              "path": "/api/bud-imagemin/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-imagemin/bud-imagemin.register",
+              "path": "/api/bud-imagemin/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-library/bud-library.api",
+              "path": "/api/bud-library/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-library/bud-library.name_2",
+              "path": "/api/bud-library/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-mdx/bud-mdx.boot",
+              "path": "/api/bud-mdx/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-mdx/bud-mdx.mixin",
+              "path": "/api/bud-mdx/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-mdx/bud-mdx.name_2",
+              "path": "/api/bud-mdx/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-postcss/bud-postcss.mixin",
+              "path": "/api/bud-postcss/mixin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-postcss/bud-postcss.name_2",
+              "path": "/api/bud-postcss/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-postcss/bud-postcss.register",
+              "path": "/api/bud-postcss/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-preset-recommend/bud-preset-recommend.budpresetrecommend",
+              "path": "/api/bud-preset-recommend/budpresetrecommend",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-preset-recommend/bud-preset-recommend.name_2",
+              "path": "/api/bud-preset-recommend/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-preset-recommend/budpresetrecommend/bud-preset-recommend.budpresetrecommend.name",
+              "path": "/api/bud-preset-recommend/budpresetrecommend/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-preset-wordpress/bud-preset-wordpress.name_2",
+              "path": "/api/bud-preset-wordpress/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-prettier/bud-prettier.name_2",
+              "path": "/api/bud-prettier/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-purgecss/bud-purgecss.api",
+              "path": "/api/bud-purgecss/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-purgecss/bud-purgecss.name_2",
+              "path": "/api/bud-purgecss/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-react/bud-react.boot",
+              "path": "/api/bud-react/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-react/bud-react.name_2",
+              "path": "/api/bud-react/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-sass/bud-sass.boot",
+              "path": "/api/bud-sass/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-sass/bud-sass.name_2",
+              "path": "/api/bud-sass/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-sass/bud-sass.register",
+              "path": "/api/bud-sass/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/bud-server.server",
+              "path": "/api/bud-server/server",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.application",
+              "path": "/api/bud-server/server/application",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.close",
+              "path": "/api/bud-server/server/close",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.config",
+              "path": "/api/bud-server/server/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.getwatchedfiles",
+              "path": "/api/bud-server/server/getwatchedfiles",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.instance",
+              "path": "/api/bud-server/server/instance",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.middleware",
+              "path": "/api/bud-server/server/middleware",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.processmiddlewares",
+              "path": "/api/bud-server/server/processmiddlewares",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.run",
+              "path": "/api/bud-server/server/run",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-server/server/bud-server.server.watcher",
+              "path": "/api/bud-server/server/watcher",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-solid/bud-solid.boot",
+              "path": "/api/bud-solid/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-solid/bud-solid.name_2",
+              "path": "/api/bud-solid/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-stylelint/bud-stylelint.make",
+              "path": "/api/bud-stylelint/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-stylelint/bud-stylelint.name_2",
+              "path": "/api/bud-stylelint/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-stylelint/bud-stylelint.options",
+              "path": "/api/bud-stylelint/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-tailwindcss/bud-tailwindcss.api",
+              "path": "/api/bud-tailwindcss/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-tailwindcss/bud-tailwindcss.boot",
+              "path": "/api/bud-tailwindcss/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-tailwindcss/bud-tailwindcss.name_2",
+              "path": "/api/bud-tailwindcss/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-terser/api/bud-terser.api.terser",
+              "path": "/api/bud-terser/api/terser",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-terser/bud-terser.api",
+              "path": "/api/bud-terser/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-terser/bud-terser.boot",
+              "path": "/api/bud-terser/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-terser/bud-terser.name_2",
+              "path": "/api/bud-terser/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-terser/bud-terser.options",
+              "path": "/api/bud-terser/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-typescript/bud-typescript.api",
+              "path": "/api/bud-typescript/api",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-typescript/bud-typescript.boot",
+              "path": "/api/bud-typescript/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-typescript/bud-typescript.name_2",
+              "path": "/api/bud-typescript/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-vue/bud-vue.boot",
+              "path": "/api/bud-vue/boot",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-vue/bud-vue.name_2",
+              "path": "/api/bud-vue/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-dependencies/bud-wordpress-dependencies.make",
+              "path": "/api/bud-wordpress-dependencies/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-dependencies/bud-wordpress-dependencies.name_2",
+              "path": "/api/bud-wordpress-dependencies/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-externals/bud-wordpress-externals.make",
+              "path": "/api/bud-wordpress-externals/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-externals/bud-wordpress-externals.name_2",
+              "path": "/api/bud-wordpress-externals/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-manifests/bud-wordpress-manifests.make",
+              "path": "/api/bud-wordpress-manifests/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-wordpress-manifests/bud-wordpress-manifests.name_2",
+              "path": "/api/bud-wordpress-manifests/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud/bud.bud",
+              "path": "/api/bud/bud",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud/bud.config",
+              "path": "/api/bud/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud/bud.extensions",
+              "path": "/api/bud/extensions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud/bud.factory",
+              "path": "/api/bud/factory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud/bud/bud.bud.options",
+              "path": "/api/bud/bud/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container.container",
+              "path": "/api/container/container",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container.repository",
+              "path": "/api/container/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container._constructor_",
+              "path": "/api/container/container/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.all",
+              "path": "/api/container/container/all",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.count",
+              "path": "/api/container/container/count",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.each",
+              "path": "/api/container/container/each",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.every",
+              "path": "/api/container/container/every",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.fromentries",
+              "path": "/api/container/container/fromentries",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.get",
+              "path": "/api/container/container/get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.getentries",
+              "path": "/api/container/container/getentries",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.getkeys",
+              "path": "/api/container/container/getkeys",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.getmap",
+              "path": "/api/container/container/getmap",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.getvalues",
+              "path": "/api/container/container/getvalues",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.has",
+              "path": "/api/container/container/has",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.ident",
+              "path": "/api/container/container/ident",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.is",
+              "path": "/api/container/container/is",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isarray",
+              "path": "/api/container/container/isarray",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isdefined",
+              "path": "/api/container/container/isdefined",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isempty",
+              "path": "/api/container/container/isempty",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isfalse",
+              "path": "/api/container/container/isfalse",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isfunction",
+              "path": "/api/container/container/isfunction",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isinstanceof",
+              "path": "/api/container/container/isinstanceof",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isinstanceofany",
+              "path": "/api/container/container/isinstanceofany",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotarray",
+              "path": "/api/container/container/isnotarray",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotempty",
+              "path": "/api/container/container/isnotempty",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotfunction",
+              "path": "/api/container/container/isnotfunction",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotinstanceof",
+              "path": "/api/container/container/isnotinstanceof",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotinstanceofany",
+              "path": "/api/container/container/isnotinstanceofany",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotnull",
+              "path": "/api/container/container/isnotnull",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotnumber",
+              "path": "/api/container/container/isnotnumber",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnotstring",
+              "path": "/api/container/container/isnotstring",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnull",
+              "path": "/api/container/container/isnull",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isnumber",
+              "path": "/api/container/container/isnumber",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isstring",
+              "path": "/api/container/container/isstring",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.istrue",
+              "path": "/api/container/container/istrue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.isundefined",
+              "path": "/api/container/container/isundefined",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.merge",
+              "path": "/api/container/container/merge",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.mergestore",
+              "path": "/api/container/container/mergestore",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.mutate",
+              "path": "/api/container/container/mutate",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.mutatestore",
+              "path": "/api/container/container/mutatestore",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.remove",
+              "path": "/api/container/container/remove",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.repository",
+              "path": "/api/container/container/repository",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.set",
+              "path": "/api/container/container/set",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.setstore",
+              "path": "/api/container/container/setstore",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.transform",
+              "path": "/api/container/container/transform",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.transformstore",
+              "path": "/api/container/container/transformstore",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "container/container/container.container.unique",
+              "path": "/api/container/container/unique",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/critical-css-webpack-plugin.criticalcsswebpackplugin",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/critical-css-webpack-plugin.options",
+              "path": "/api/critical-css-webpack-plugin/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin._constructor_",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.apply",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.compilation",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/compilation",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.criticalentry",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/criticalentry",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.entrypoints",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/entrypoints",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.generatecritical",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/generatecritical",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.getmergedcssmodules",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/getmergedcssmodules",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.htmlinject",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.maybehashname",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.options",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/options",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.plugin",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/plugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.processassets",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/processassets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.vfile",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.webpack",
+              "path": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/options/critical-css-webpack-plugin.options.criticaloptions",
+              "path": "/api/critical-css-webpack-plugin/options/criticaloptions",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/options/critical-css-webpack-plugin.options.hash",
+              "path": "/api/critical-css-webpack-plugin/options/hash",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "critical-css-webpack-plugin/options/critical-css-webpack-plugin.options.replace",
+              "path": "/api/critical-css-webpack-plugin/options/replace",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies.dependencies",
+              "path": "/api/dependencies/dependencies",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies.idependencymanager",
+              "path": "/api/dependencies/idependencymanager",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies.npm",
+              "path": "/api/dependencies/npm",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies.yarn",
+              "path": "/api/dependencies/yarn",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies/dependencies.dependencies._constructor_",
+              "path": "/api/dependencies/dependencies/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies/dependencies.dependencies.client",
+              "path": "/api/dependencies/dependencies/client",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies/dependencies.dependencies.isyarn",
+              "path": "/api/dependencies/dependencies/isyarn",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/dependencies/dependencies.dependencies.path",
+              "path": "/api/dependencies/dependencies/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/idependencymanager/dependencies.idependencymanager.install",
+              "path": "/api/dependencies/idependencymanager/install",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/idependencymanager/dependencies.idependencymanager.onmessage",
+              "path": "/api/dependencies/idependencymanager/onmessage",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/idependencymanager/dependencies.idependencymanager.path",
+              "path": "/api/dependencies/idependencymanager/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/idependencymanager/dependencies.idependencymanager.uninstall",
+              "path": "/api/dependencies/idependencymanager/uninstall",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/npm/dependencies.npm.install",
+              "path": "/api/dependencies/npm/install",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/npm/dependencies.npm.uninstall",
+              "path": "/api/dependencies/npm/uninstall",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/yarn/dependencies.yarn.install",
+              "path": "/api/dependencies/yarn/install",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "dependencies/yarn/dependencies.yarn.uninstall",
+              "path": "/api/dependencies/yarn/uninstall",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypoints-webpack-plugin.entrypointswebpackplugin",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin._constructor_",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.addtomanifest",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/addtomanifest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.apply",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.assets",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/assets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.compilation",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compilation",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.compiler",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compiler",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.getentrypointfiles",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/getentrypointfiles",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.name",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.plugin",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/plugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.processassets",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/processassets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.publicpath",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/publicpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.type",
+              "path": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/type",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer._constructor_",
+              "path": "/api/filesystem/filecontainer/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.basedir",
+              "path": "/api/filesystem/filecontainer/basedir",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.ensure",
+              "path": "/api/filesystem/filecontainer/ensure",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.ensuredir",
+              "path": "/api/filesystem/filecontainer/ensuredir",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.exists",
+              "path": "/api/filesystem/filecontainer/exists",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.fs",
+              "path": "/api/filesystem/filecontainer/fs",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.has",
+              "path": "/api/filesystem/filecontainer/has",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.ls",
+              "path": "/api/filesystem/filecontainer/ls",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.path",
+              "path": "/api/filesystem/filecontainer/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.read",
+              "path": "/api/filesystem/filecontainer/read",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.readjson",
+              "path": "/api/filesystem/filecontainer/readjson",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.require",
+              "path": "/api/filesystem/filecontainer/require",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.resolve",
+              "path": "/api/filesystem/filecontainer/resolve",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.set",
+              "path": "/api/filesystem/filecontainer/set",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.setdisk",
+              "path": "/api/filesystem/filecontainer/setdisk",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.write",
+              "path": "/api/filesystem/filecontainer/write",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filecontainer/filesystem.filecontainer.writejson",
+              "path": "/api/filesystem/filecontainer/writejson",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem.filecontainer",
+              "path": "/api/filesystem/filecontainer",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem.filesystem_2",
+              "path": "/api/filesystem/filesystem2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem2/filesystem.filesystem_2.basedir",
+              "path": "/api/filesystem/filesystem2/basedir",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem2/filesystem.filesystem_2.get",
+              "path": "/api/filesystem/filesystem2/get",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem2/filesystem.filesystem_2.make",
+              "path": "/api/filesystem/filesystem2/make",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "filesystem/filesystem2/filesystem.filesystem_2.path",
+              "path": "/api/filesystem/filesystem2/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "index",
+              "path": "/api/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-prettier/ink-prettier.inkprettier",
+              "path": "/api/ink-prettier/inkprettier",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.colors",
+              "path": "/api/ink-use-style/defaulttheme/colors",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.columns",
+              "path": "/api/ink-use-style/defaulttheme/columns",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.maxheight",
+              "path": "/api/ink-use-style/defaulttheme/maxheight",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.maxwidth",
+              "path": "/api/ink-use-style/defaulttheme/maxwidth",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.screens",
+              "path": "/api/ink-use-style/defaulttheme/screens",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/defaulttheme/ink-use-style.defaulttheme.spacing",
+              "path": "/api/ink-use-style/defaulttheme/spacing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/ink-use-style.defaulttheme",
+              "path": "/api/ink-use-style/defaulttheme",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/ink-use-style.styles",
+              "path": "/api/ink-use-style/styles",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/ink-use-style.theme",
+              "path": "/api/ink-use-style/theme",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/ink-use-style.usestyle",
+              "path": "/api/ink-use-style/usestyle",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.bounds",
+              "path": "/api/ink-use-style/styles/bounds",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.col",
+              "path": "/api/ink-use-style/styles/col",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.colors",
+              "path": "/api/ink-use-style/styles/colors",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.ctx",
+              "path": "/api/ink-use-style/styles/ctx",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.screen",
+              "path": "/api/ink-use-style/styles/screen",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.setcolors",
+              "path": "/api/ink-use-style/styles/setcolors",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.setscreens",
+              "path": "/api/ink-use-style/styles/setscreens",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/styles/ink-use-style.styles.spacing",
+              "path": "/api/ink-use-style/styles/spacing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.colors",
+              "path": "/api/ink-use-style/theme/colors",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.columns",
+              "path": "/api/ink-use-style/theme/columns",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.maxheight",
+              "path": "/api/ink-use-style/theme/maxheight",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.maxwidth",
+              "path": "/api/ink-use-style/theme/maxwidth",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.screens",
+              "path": "/api/ink-use-style/theme/screens",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.screentuple",
+              "path": "/api/ink-use-style/theme/screentuple",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "ink-use-style/theme/ink-use-style.theme.spacing",
+              "path": "/api/ink-use-style/theme/spacing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin._constructor_",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.apply",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.dir",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/dir",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.done",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/done",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.entrypointsname",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/entrypointsname",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.file",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/file",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.format",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/format",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.isbuildable",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/isbuildable",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestcontent",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestcontent",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestexists",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestexists",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestpath",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestpath",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.path",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/path",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.plugin",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.wordpressname",
+              "path": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "sage/sage.name_2",
+              "path": "/api/sage/name2",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "sage/sage.register",
+              "path": "/api/sage/register",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin._constructor_",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.apply",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.compilation",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/compilation",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.filename",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/filename",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.manifest",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/manifest",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.normalmodulefactory",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/normalmodulefactory",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.plugin",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/plugin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.processassets",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/processassets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/wordpress-dependencies-webpack-plugin.wordpressdependencieswebpackplugin.useddependencies",
+              "path": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin/useddependencies",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpress-externals-webpack-plugin.wordpressexternals",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals._constructor_",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals/constructor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.apply",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals/apply",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.externals",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals/externals",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.name",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals/name",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "wordpress-externals-webpack-plugin/wordpressexternals/wordpress-externals-webpack-plugin.wordpressexternals.stage",
+              "path": "/api/wordpress-externals-webpack-plugin/wordpressexternals/stage",
+              "sidebar": "sidebar"
+            }
+          ]
+        }
+      ]
+    },
+    "guides": {
+      "path": "/guides",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/guides",
+          "mainDocId": "introduction",
+          "docs": [
+            {
+              "id": "advanced-use/architecture",
+              "path": "/guides/advanced-use/architecture",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "advanced-use/node",
+              "path": "/guides/advanced-use/node",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "advanced-use/writing-an-extension",
+              "path": "/guides/advanced-use/writing-an-extension",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cli/bud-build",
+              "path": "/guides/bud-cli/build",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cli/bud-clean",
+              "path": "/guides/bud-cli/clean",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cli/bud-doctor",
+              "path": "/guides/bud-cli/doctor",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cli/bud-install",
+              "path": "/guides/bud-cli/install",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-cli/introduction",
+              "path": "/guides/bud-cli/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/config-env",
+              "path": "/guides/general-use/config-env",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/config-static",
+              "path": "/guides/general-use/config-static",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/config-ts",
+              "path": "/guides/general-use/config-ts",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/hashing",
+              "path": "/guides/general-use/hashing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/index",
+              "path": "/guides/general-use/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "general-use/multi-compiler",
+              "path": "/guides/general-use/multi-compiler",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/assets",
+              "path": "/guides/getting-started/assets",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/building",
+              "path": "/guides/getting-started/building",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/config",
+              "path": "/guides/getting-started/config",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/developing",
+              "path": "/guides/getting-started/developing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/entrypoints",
+              "path": "/guides/getting-started/entrypoints",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/extending",
+              "path": "/guides/getting-started/extending",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/index",
+              "path": "/guides/getting-started/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "getting-started/optimizing",
+              "path": "/guides/getting-started/optimizing",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "installation",
+              "path": "/guides/installation",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "introduction",
+              "path": "/guides/",
+              "sidebar": "sidebar"
+            }
+          ]
+        }
+      ]
+    },
+    "extensions": {
+      "path": "/extensions",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/extensions",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "bud-babel",
+              "path": "/extensions/bud-babel",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-criticalcss",
+              "path": "/extensions/bud-criticalcss",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-emotion",
+              "path": "/extensions/bud-emotion",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-entrypoints",
+              "path": "/extensions/bud-entrypoints",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-esbuild",
+              "path": "/extensions/bud-esbuild",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-eslint",
+              "path": "/extensions/bud-eslint",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-imagemin",
+              "path": "/extensions/bud-imagemin",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-library",
+              "path": "/extensions/bud-library",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-postcss",
+              "path": "/extensions/bud-postcss",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-react",
+              "path": "/extensions/bud-react",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-sass",
+              "path": "/extensions/bud-sass",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-solid",
+              "path": "/extensions/bud-solid",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-tailwindcss",
+              "path": "/extensions/bud-tailwindcss",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-typescript",
+              "path": "/extensions/bud-typescript",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "bud-vue",
+              "path": "/extensions/bud-vue",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "index",
+              "path": "/extensions/",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "presets/bud-preset-recommend",
+              "path": "/extensions/presets/bud-preset-recommend",
+              "sidebar": "sidebar"
+            },
+            {
+              "id": "presets/bud-preset-wordpress",
+              "path": "/extensions/presets/bud-preset-wordpress",
+              "sidebar": "sidebar"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

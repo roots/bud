@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/cache2/abstract/bud-framework.cache_2.abstract.directory",
+  "id": "bud-framework/cache2/abstract/bud-framework.cache_2.abstract.directory",
+  "title": "directory property",
+  "description": "Cache_2.Abstract.directory property",
+  "source": "@site/api/bud-framework/cache2/abstract/directory.md",
+  "sourceDirName": "bud-framework/cache2/abstract",
+  "slug": "/bud-framework/cache2/abstract/directory",
+  "permalink": "/api/bud-framework/cache2/abstract/directory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2.abstract.directory",
+    "title": "directory property",
+    "sidebar_label": "directory property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "directory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/cache2/interface"
+  },
+  "next": {
+    "title": "hashfilecontents() method",
+    "permalink": "/api/bud-framework/cache2/abstract/hashfilecontents"
+  }
+}

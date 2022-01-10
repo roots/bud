@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.plugin",
+  "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.plugin",
+  "title": "plugin property",
+  "description": "EntrypointsWebpackPlugin.plugin property",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin/plugin.md",
+  "sourceDirName": "entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin/plugin",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/plugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin.plugin",
+    "title": "plugin property",
+    "sidebar_label": "plugin property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "plugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/name"
+  },
+  "next": {
+    "title": "processassets() method",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/processassets"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/bud-compiler.compiler",
+  "id": "bud-compiler/bud-compiler.compiler",
+  "title": "compiler class",
+  "description": "Compiler class",
+  "source": "@site/api/bud-compiler/compiler.md",
+  "sourceDirName": "bud-compiler",
+  "slug": "/bud-compiler/compiler",
+  "permalink": "/api/bud-compiler/compiler",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler",
+    "title": "compiler class",
+    "sidebar_label": "compiler class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compiler"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "yml variable",
+    "permalink": "/api/bud-build/rules/yml"
+  },
+  "next": {
+    "title": "before() method",
+    "permalink": "/api/bud-compiler/compiler/before"
+  }
+}

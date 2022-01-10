@@ -1,0 +1,29 @@
+{
+  "unversionedId": "getting-started/assets",
+  "id": "getting-started/assets",
+  "title": "Copying static assets",
+  "description": "Part 6/7 of the Getting Started guide",
+  "source": "@site/guides/getting-started/assets.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/assets",
+  "permalink": "/guides/getting-started/assets",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Copying static assets",
+    "description": "Part 6/7 of the Getting Started guide",
+    "sidebar_label": "Copying static assets",
+    "sidebar_position": 7,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__assets.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Adding extensions",
+    "permalink": "/guides/getting-started/extending"
+  },
+  "next": {
+    "title": "Optimizing compiled assets",
+    "permalink": "/guides/getting-started/optimizing"
+  }
+}

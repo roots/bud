@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.maybehashname",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.maybehashname",
+  "title": "maybehashname() method",
+  "description": "CriticalCssWebpackPlugin.maybeHashName() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/maybehashname",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.maybehashname",
+    "title": "maybehashname() method",
+    "sidebar_label": "maybehashname() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "maybehashname"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "htmlinject() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/htmlinject"
+  },
+  "next": {
+    "title": "options property",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/options"
+  }
+}

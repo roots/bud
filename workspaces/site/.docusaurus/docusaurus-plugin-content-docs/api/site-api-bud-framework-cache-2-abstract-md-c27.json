@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/cache2/bud-framework.cache_2.abstract",
+  "id": "bud-framework/cache2/bud-framework.cache_2.abstract",
+  "title": "abstract class",
+  "description": "Cache_2.Abstract class",
+  "source": "@site/api/bud-framework/cache2/abstract.md",
+  "sourceDirName": "bud-framework/cache2",
+  "slug": "/bud-framework/cache2/abstract",
+  "permalink": "/api/bud-framework/cache2/abstract",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2.abstract",
+    "title": "abstract class",
+    "sidebar_label": "abstract class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "abstract"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "rules property",
+    "permalink": "/api/bud-framework/build/interface/rules"
+  },
+  "next": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/cache2/interface"
+  }
+}

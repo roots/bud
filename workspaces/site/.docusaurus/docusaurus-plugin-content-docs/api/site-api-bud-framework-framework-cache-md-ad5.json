@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.cache",
+  "id": "bud-framework/framework/bud-framework.framework.cache",
+  "title": "cache property",
+  "description": "Framework.cache property",
+  "source": "@site/api/bud-framework/framework/cache.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/cache",
+  "permalink": "/api/bud-framework/framework/cache",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.cache",
+    "title": "cache property",
+    "sidebar_label": "cache property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "cache"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "build property",
+    "permalink": "/api/bud-framework/framework/build"
+  },
+  "next": {
+    "title": "children property",
+    "permalink": "/api/bud-framework/framework/children"
+  }
+}

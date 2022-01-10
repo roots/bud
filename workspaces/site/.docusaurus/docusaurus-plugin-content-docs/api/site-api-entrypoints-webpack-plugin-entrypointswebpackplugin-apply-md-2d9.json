@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.apply",
+  "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.apply",
+  "title": "apply() method",
+  "description": "EntrypointsWebpackPlugin.apply() method",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin/apply.md",
+  "sourceDirName": "entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin/apply",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin.apply",
+    "title": "apply() method",
+    "sidebar_label": "apply() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "addtomanifest() method",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/addtomanifest"
+  },
+  "next": {
+    "title": "assets property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/assets"
+  }
+}

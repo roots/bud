@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-dashboard/dashboard/bud-dashboard.dashboard.instance",
+  "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.instance",
+  "title": "instance property",
+  "description": "Dashboard.instance property",
+  "source": "@site/api/bud-dashboard/dashboard/instance.md",
+  "sourceDirName": "bud-dashboard/dashboard",
+  "slug": "/bud-dashboard/dashboard/instance",
+  "permalink": "/api/bud-dashboard/dashboard/instance",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-dashboard.dashboard.instance",
+    "title": "instance property",
+    "sidebar_label": "instance property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "instance"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "close() method",
+    "permalink": "/api/bud-dashboard/dashboard/close"
+  },
+  "next": {
+    "title": "render() method",
+    "permalink": "/api/bud-dashboard/dashboard/render"
+  }
+}

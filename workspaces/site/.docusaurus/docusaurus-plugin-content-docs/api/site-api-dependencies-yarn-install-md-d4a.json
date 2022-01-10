@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/yarn/dependencies.yarn.install",
+  "id": "dependencies/yarn/dependencies.yarn.install",
+  "title": "install() method",
+  "description": "Yarn.install() method",
+  "source": "@site/api/dependencies/yarn/install.md",
+  "sourceDirName": "dependencies/yarn",
+  "slug": "/dependencies/yarn/install",
+  "permalink": "/api/dependencies/yarn/install",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.yarn.install",
+    "title": "install() method",
+    "sidebar_label": "install() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "install"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "path property",
+    "permalink": "/api/dependencies/dependencies/path"
+  },
+  "next": {
+    "title": "uninstall() method",
+    "permalink": "/api/dependencies/yarn/uninstall"
+  }
+}

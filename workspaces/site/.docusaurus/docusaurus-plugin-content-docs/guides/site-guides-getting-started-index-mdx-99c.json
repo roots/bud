@@ -1,0 +1,30 @@
+{
+  "unversionedId": "getting-started/index",
+  "id": "getting-started/index",
+  "title": "Getting Started",
+  "description": "In this guide we'll configure a simple project for use with bud.js",
+  "source": "@site/guides/getting-started/index.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/",
+  "permalink": "/guides/getting-started/",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Getting Started",
+    "description": "In this guide we'll configure a simple project for use with bud.js",
+    "sidebar_label": "First steps",
+    "sidebar_position": 1,
+    "slug": "/getting-started/",
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Installation",
+    "permalink": "/guides/installation"
+  },
+  "next": {
+    "title": "Running a build",
+    "permalink": "/guides/getting-started/building"
+  }
+}

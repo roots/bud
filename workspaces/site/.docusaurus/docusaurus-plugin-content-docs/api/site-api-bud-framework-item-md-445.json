@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.item",
+  "id": "bud-framework/bud-framework.item",
+  "title": "item namespace",
+  "description": "Item namespace",
+  "source": "@site/api/bud-framework/item.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/item",
+  "permalink": "/api/bud-framework/item",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item",
+    "title": "item namespace",
+    "sidebar_label": "item namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "item"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hooks namespace",
+    "permalink": "/api/bud-framework/hooks"
+  },
+  "next": {
+    "title": "items interface",
+    "permalink": "/api/bud-framework/items"
+  }
+}

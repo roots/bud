@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-solid/bud-solid.boot",
+  "id": "bud-solid/bud-solid.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-solid/boot.md",
+  "sourceDirName": "bud-solid",
+  "slug": "/bud-solid/boot",
+  "permalink": "/api/bud-solid/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-solid.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "register variable",
+    "permalink": "/api/bud-sass/register"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-solid/name2"
+  }
+}

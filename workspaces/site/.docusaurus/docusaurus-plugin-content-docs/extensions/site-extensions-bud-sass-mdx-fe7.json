@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-sass",
+  "id": "bud-sass",
+  "title": "@roots/bud-sass",
+  "description": "Sass support can be added by installing the @roots/bud-sass extension.",
+  "source": "@site/extensions/bud-sass.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-sass",
+  "permalink": "/extensions/bud-sass",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-sass"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-react",
+    "permalink": "/extensions/bud-react"
+  },
+  "next": {
+    "title": "@roots/bud-solid",
+    "permalink": "/extensions/bud-solid"
+  }
+}

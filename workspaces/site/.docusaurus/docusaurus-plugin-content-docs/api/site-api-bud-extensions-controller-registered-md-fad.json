@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.registered",
+  "id": "bud-extensions/controller/bud-extensions.controller.registered",
+  "title": "registered property",
+  "description": "Controller.registered property",
+  "source": "@site/api/bud-extensions/controller/registered.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/registered",
+  "permalink": "/api/bud-extensions/controller/registered",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.registered",
+    "title": "registered property",
+    "sidebar_label": "registered property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "registered"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "register() method",
+    "permalink": "/api/bud-extensions/controller/register"
+  },
+  "next": {
+    "title": "set() method",
+    "permalink": "/api/bud-extensions/controller/set"
+  }
+}

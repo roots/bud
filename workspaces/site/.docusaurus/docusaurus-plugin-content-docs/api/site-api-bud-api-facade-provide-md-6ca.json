@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.provide",
+  "id": "bud-api/facade/bud-api.facade.provide",
+  "title": "provide property",
+  "description": "Facade.provide property",
+  "source": "@site/api/bud-api/facade/provide.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/provide",
+  "permalink": "/api/bud-api/facade/provide",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.provide",
+    "title": "provide property",
+    "sidebar_label": "provide property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "provide"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "persist property",
+    "permalink": "/api/bud-api/facade/persist"
+  },
+  "next": {
+    "title": "proxy property",
+    "permalink": "/api/bud-api/facade/proxy"
+  }
+}

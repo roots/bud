@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/plugininstance/bud-framework.plugininstance.apply",
+  "id": "bud-framework/plugininstance/bud-framework.plugininstance.apply",
+  "title": "apply property",
+  "description": "PluginInstance.apply property",
+  "source": "@site/api/bud-framework/plugininstance/apply.md",
+  "sourceDirName": "bud-framework/plugininstance",
+  "slug": "/bud-framework/plugininstance/apply",
+  "permalink": "/api/bud-framework/plugininstance/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.plugininstance.apply",
+    "title": "apply property",
+    "sidebar_label": "apply property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ver property",
+    "permalink": "/api/bud-framework/peers/peer/ver"
+  },
+  "next": {
+    "title": "config property",
+    "permalink": "/api/bud-framework/logger/config"
+  }
+}

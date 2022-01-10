@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.apply",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.apply",
+  "title": "apply() method",
+  "description": "MergedManifestWebpackPlugin.apply() method",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.apply",
+    "title": "apply() method",
+    "sidebar_label": "apply() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mergedmanifestwebpackplugin class",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/constructor"
+  }
+}

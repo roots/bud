@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem2/filesystem.filesystem_2.path",
+  "id": "filesystem/filesystem2/filesystem.filesystem_2.path",
+  "title": "path property",
+  "description": "FileSystem_2.path property",
+  "source": "@site/api/filesystem/filesystem2/path.md",
+  "sourceDirName": "filesystem/filesystem2",
+  "slug": "/filesystem/filesystem2/path",
+  "permalink": "/api/filesystem/filesystem2/path",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filesystem_2.path",
+    "title": "path property",
+    "sidebar_label": "path property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "path"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make() method",
+    "permalink": "/api/filesystem/filesystem2/make"
+  },
+  "next": {
+    "title": "basedir property",
+    "permalink": "/api/filesystem/filecontainer/basedir"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.haschildren",
+  "id": "bud-framework/framework/bud-framework.framework.haschildren",
+  "title": "haschildren property",
+  "description": "Framework.hasChildren property",
+  "source": "@site/api/bud-framework/framework/haschildren.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/haschildren",
+  "permalink": "/api/bud-framework/framework/haschildren",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.haschildren",
+    "title": "haschildren property",
+    "sidebar_label": "haschildren property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "haschildren"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "get property",
+    "permalink": "/api/bud-framework/framework/get"
+  },
+  "next": {
+    "title": "hooks property",
+    "permalink": "/api/bud-framework/framework/hooks"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/service/bud-framework.service.dump",
+  "id": "bud-framework/service/bud-framework.service.dump",
+  "title": "dump() method",
+  "description": "Service.dump() method",
+  "source": "@site/api/bud-framework/service/dump.md",
+  "sourceDirName": "bud-framework/service",
+  "slug": "/bud-framework/service/dump",
+  "permalink": "/api/bud-framework/service/dump",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.service.dump",
+    "title": "dump() method",
+    "sidebar_label": "dump() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dump"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bootstrapped() method",
+    "permalink": "/api/bud-framework/service/bootstrapped"
+  },
+  "next": {
+    "title": "ident property",
+    "permalink": "/api/bud-framework/service/ident"
+  }
+}

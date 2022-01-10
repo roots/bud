@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.css",
+  "id": "bud-build/rules/bud-build.rules.css",
+  "title": "css variable",
+  "description": "rules.css variable",
+  "source": "@site/api/bud-build/rules/css.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/css",
+  "permalink": "/api/bud-build/rules/css",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.css",
+    "title": "css variable",
+    "sidebar_label": "css variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "css"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "use property",
+    "permalink": "/api/bud-build/rule/use"
+  },
+  "next": {
+    "title": "csv variable",
+    "permalink": "/api/bud-build/rules/csv"
+  }
+}

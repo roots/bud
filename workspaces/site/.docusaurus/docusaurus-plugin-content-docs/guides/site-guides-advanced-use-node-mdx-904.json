@@ -1,0 +1,29 @@
+{
+  "unversionedId": "advanced-use/node",
+  "id": "advanced-use/node",
+  "title": "Node API",
+  "description": "Overview of instantiating Bud directly from Node",
+  "source": "@site/guides/advanced-use/node.mdx",
+  "sourceDirName": "advanced-use",
+  "slug": "/advanced-use/node",
+  "permalink": "/guides/advanced-use/node",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Node API",
+    "description": "Overview of instantiating Bud directly from Node",
+    "sidebar_label": "Node API",
+    "sidebar_position": 2,
+    "image": "https://budjs.netlify.app/img/share/guides/advanced-use__node.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Architecture",
+    "permalink": "/guides/advanced-use/architecture"
+  },
+  "next": {
+    "title": "Writing an extension",
+    "permalink": "/guides/advanced-use/writing-an-extension"
+  }
+}

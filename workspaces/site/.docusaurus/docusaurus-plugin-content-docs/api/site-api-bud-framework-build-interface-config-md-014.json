@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/build/interface/bud-framework.build.interface.config",
+  "id": "bud-framework/build/interface/bud-framework.build.interface.config",
+  "title": "config property",
+  "description": "Build.Interface.config property",
+  "source": "@site/api/bud-framework/build/interface/config.md",
+  "sourceDirName": "bud-framework/build/interface",
+  "slug": "/bud-framework/build/interface/config",
+  "permalink": "/api/bud-framework/build/interface/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.build.interface.config",
+    "title": "config property",
+    "sidebar_label": "config property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "rules property",
+    "permalink": "/api/bud-framework/build/abstract/rules"
+  },
+  "next": {
+    "title": "items property",
+    "permalink": "/api/bud-framework/build/interface/items"
+  }
+}

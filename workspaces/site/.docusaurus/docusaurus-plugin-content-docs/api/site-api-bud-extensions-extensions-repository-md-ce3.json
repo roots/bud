@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.repository",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.repository",
+  "title": "repository property",
+  "description": "Extensions.repository property",
+  "source": "@site/api/bud-extensions/extensions/repository.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/repository",
+  "permalink": "/api/bud-extensions/extensions/repository",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.repository",
+    "title": "repository property",
+    "sidebar_label": "repository property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "repository"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "registerextensions() method",
+    "permalink": "/api/bud-extensions/extensions/registerextensions"
+  },
+  "next": {
+    "title": "setcontroller() method",
+    "permalink": "/api/bud-extensions/extensions/setcontroller"
+  }
+}

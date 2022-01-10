@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/output/bud-framework.rule.output.parser",
+  "id": "bud-framework/rule/output/bud-framework.rule.output.parser",
+  "title": "parser property",
+  "description": "Rule.Output.parser property",
+  "source": "@site/api/bud-framework/rule/output/parser.md",
+  "sourceDirName": "bud-framework/rule/output",
+  "slug": "/bud-framework/rule/output/parser",
+  "permalink": "/api/bud-framework/rule/output/parser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.output.parser",
+    "title": "parser property",
+    "sidebar_label": "parser property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "parser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "generator property",
+    "permalink": "/api/bud-framework/rule/output/generator"
+  },
+  "next": {
+    "title": "test property",
+    "permalink": "/api/bud-framework/rule/output/test"
+  }
+}

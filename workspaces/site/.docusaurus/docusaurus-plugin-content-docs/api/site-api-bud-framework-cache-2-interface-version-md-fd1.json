@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/cache2/interface/bud-framework.cache_2.interface.version",
+  "id": "bud-framework/cache2/interface/bud-framework.cache_2.interface.version",
+  "title": "version property",
+  "description": "Cache_2.Interface.version property",
+  "source": "@site/api/bud-framework/cache2/interface/version.md",
+  "sourceDirName": "bud-framework/cache2/interface",
+  "slug": "/bud-framework/cache2/interface/version",
+  "permalink": "/api/bud-framework/cache2/interface/version",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2.interface.version",
+    "title": "version property",
+    "sidebar_label": "version property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "version"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hashfilecontents() method",
+    "permalink": "/api/bud-framework/cache2/interface/hashfilecontents"
+  },
+  "next": {
+    "title": "instance property",
+    "permalink": "/api/bud-framework/dashboard/instance"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud/bud.config",
+  "id": "bud/bud.config",
+  "title": "config variable",
+  "description": "config variable",
+  "source": "@site/api/bud/config.md",
+  "sourceDirName": "bud",
+  "slug": "/bud/config",
+  "permalink": "/api/bud/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud.config",
+    "title": "config variable",
+    "sidebar_label": "config variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud namespace",
+    "permalink": "/api/bud/bud"
+  },
+  "next": {
+    "title": "extensions() function",
+    "permalink": "/api/bud/extensions"
+  }
+}

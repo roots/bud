@@ -1,0 +1,25 @@
+{
+  "unversionedId": "bud-api",
+  "id": "bud-api",
+  "title": "bud-api package",
+  "description": "bud-api package",
+  "source": "@site/api/bud-api.md",
+  "sourceDirName": ".",
+  "slug": "/bud-api",
+  "permalink": "/api/bud-api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api",
+    "title": "bud-api package",
+    "sidebar_label": "bud-api package",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bud-api"
+  },
+  "sidebar": "sidebar",
+  "next": {
+    "title": "bud-extensions package",
+    "permalink": "/api/bud-extensions"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/project/abstract/bud-framework.project.abstract.peers",
+  "id": "bud-framework/project/abstract/bud-framework.project.abstract.peers",
+  "title": "peers property",
+  "description": "Project.Abstract.peers property",
+  "source": "@site/api/bud-framework/project/abstract/peers.md",
+  "sourceDirName": "bud-framework/project/abstract",
+  "slug": "/bud-framework/project/abstract/peers",
+  "permalink": "/api/bud-framework/project/abstract/peers",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project.abstract.peers",
+    "title": "peers property",
+    "sidebar_label": "peers property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "peers"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "haspeerdependency() method",
+    "permalink": "/api/bud-framework/project/abstract/haspeerdependency"
+  },
+  "next": {
+    "title": "repository property",
+    "permalink": "/api/bud-framework/project/abstract/repository"
+  }
+}

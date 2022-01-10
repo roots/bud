@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isfalse",
+  "id": "container/container/container.container.isfalse",
+  "title": "isfalse() method",
+  "description": "Container.isFalse() method",
+  "source": "@site/api/container/container/isfalse.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isfalse",
+  "permalink": "/api/container/container/isfalse",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isfalse",
+    "title": "isfalse() method",
+    "sidebar_label": "isfalse() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isfalse"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isempty() method",
+    "permalink": "/api/container/container/isempty"
+  },
+  "next": {
+    "title": "isfunction() method",
+    "permalink": "/api/container/container/isfunction"
+  }
+}

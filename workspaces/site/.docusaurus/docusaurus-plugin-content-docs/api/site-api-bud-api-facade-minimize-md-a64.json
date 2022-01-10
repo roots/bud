@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.minimize",
+  "id": "bud-api/facade/bud-api.facade.minimize",
+  "title": "minimize property",
+  "description": "Facade.minimize property",
+  "source": "@site/api/bud-api/facade/minimize.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/minimize",
+  "permalink": "/api/bud-api/facade/minimize",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.minimize",
+    "title": "minimize property",
+    "sidebar_label": "minimize property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "minimize"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "js property",
+    "permalink": "/api/bud-api/facade/js"
+  },
+  "next": {
+    "title": "override property",
+    "permalink": "/api/bud-api/facade/override"
+  }
+}

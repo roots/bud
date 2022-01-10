@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.settype",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.settype",
+  "title": "settype() method",
+  "description": "Rule.Abstract.setType() method",
+  "source": "@site/api/bud-framework/rule/abstract/settype.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/settype",
+  "permalink": "/api/bud-framework/rule/abstract/settype",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.settype",
+    "title": "settype() method",
+    "sidebar_label": "settype() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "settype"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "settest() method",
+    "permalink": "/api/bud-framework/rule/abstract/settest"
+  },
+  "next": {
+    "title": "setuse() method",
+    "permalink": "/api/bud-framework/rule/abstract/setuse"
+  }
+}

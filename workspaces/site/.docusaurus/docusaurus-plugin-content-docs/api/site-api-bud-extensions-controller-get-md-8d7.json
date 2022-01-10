@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.get",
+  "id": "bud-extensions/controller/bud-extensions.controller.get",
+  "title": "get() method",
+  "description": "Controller.get() method",
+  "source": "@site/api/bud-extensions/controller/get.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/get",
+  "permalink": "/api/bud-extensions/controller/get",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.get",
+    "title": "get() method",
+    "sidebar_label": "get() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "get"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-extensions/controller/constructor"
+  },
+  "next": {
+    "title": "getoption() method",
+    "permalink": "/api/bud-extensions/controller/getoption"
+  }
+}

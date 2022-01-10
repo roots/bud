@@ -1,0 +1,29 @@
+{
+  "unversionedId": "getting-started/optimizing",
+  "id": "getting-started/optimizing",
+  "title": "Optimizing compiled assets",
+  "description": "Part 7/7 of the Getting Started guide covers optimizing your build assets for production",
+  "source": "@site/guides/getting-started/optimizing.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/optimizing",
+  "permalink": "/guides/getting-started/optimizing",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Optimizing compiled assets",
+    "sidebar_label": "Optimizing compiled assets",
+    "description": "Part 7/7 of the Getting Started guide covers optimizing your build assets for production",
+    "sidebar_position": 8,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__optimization.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Copying static assets",
+    "permalink": "/guides/getting-started/assets"
+  },
+  "next": {
+    "title": "Introduction",
+    "permalink": "/guides/general-use/"
+  }
+}

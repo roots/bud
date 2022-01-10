@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.assets",
+  "id": "bud-api/facade/bud-api.facade.assets",
+  "title": "assets property",
+  "description": "Facade.assets property",
+  "source": "@site/api/bud-api/facade/assets.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/assets",
+  "permalink": "/api/bud-api/facade/assets",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.assets",
+    "title": "assets property",
+    "sidebar_label": "assets property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "assets"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "alias property",
+    "permalink": "/api/bud-api/facade/alias"
+  },
+  "next": {
+    "title": "autoload property",
+    "permalink": "/api/bud-api/facade/autoload"
+  }
+}

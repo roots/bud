@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnotfunction",
+  "id": "container/container/container.container.isnotfunction",
+  "title": "isnotfunction() method",
+  "description": "Container.isNotFunction() method",
+  "source": "@site/api/container/container/isnotfunction.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnotfunction",
+  "permalink": "/api/container/container/isnotfunction",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnotfunction",
+    "title": "isnotfunction() method",
+    "sidebar_label": "isnotfunction() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnotfunction"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnotempty() method",
+    "permalink": "/api/container/container/isnotempty"
+  },
+  "next": {
+    "title": "isnotinstanceof() method",
+    "permalink": "/api/container/container/isnotinstanceof"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "unversionedId": "bud-emotion",
+  "id": "bud-emotion",
+  "title": "@roots/bud-emotion",
+  "description": "Preconfigured \"CSS-in-JS\" support with 👩‍🎤 Emotion",
+  "source": "@site/extensions/bud-emotion.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-emotion",
+  "permalink": "/extensions/bud-emotion",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "@roots/bud-emotion",
+    "description": "Preconfigured \"CSS-in-JS\" support with 👩‍🎤 Emotion",
+    "sidebar_label": "@roots/bud-emotion",
+    "image": "https://budjs.netlify.app/img/share/extensions/bud-emotion.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-criticalcss",
+    "permalink": "/extensions/bud-criticalcss"
+  },
+  "next": {
+    "title": "@roots/bud-entrypoints",
+    "permalink": "/extensions/bud-entrypoints"
+  }
+}

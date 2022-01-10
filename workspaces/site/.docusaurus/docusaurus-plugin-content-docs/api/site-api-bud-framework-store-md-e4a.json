@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.store",
+  "id": "bud-framework/bud-framework.store",
+  "title": "store class",
+  "description": "Store class",
+  "source": "@site/api/bud-framework/store.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/store",
+  "permalink": "/api/bud-framework/store",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.store",
+    "title": "store class",
+    "sidebar_label": "store class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "store"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "services interface",
+    "permalink": "/api/bud-framework/services"
+  },
+  "next": {
+    "title": "tapable interface",
+    "permalink": "/api/bud-framework/tapable"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.publicPath",
+  "id": "bud.publicPath",
+  "title": "bud.publicPath",
+  "description": "Get the application public path.",
+  "source": "@site/docs/19-bud.publicPath.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.publicPath",
+  "permalink": "/docs/bud.publicPath",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/19-bud.publicPath.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 19,
+  "frontMatter": {
+    "slug": "bud.publicPath",
+    "title": "bud.publicPath",
+    "description": "Get the application public path.",
+    "sidebar_label": "bud.publicPath",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.publicPath.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.proxy",
+    "permalink": "/docs/bud.proxy"
+  },
+  "next": {
+    "title": "bud.runtime",
+    "permalink": "/docs/bud.runtime"
+  }
+}

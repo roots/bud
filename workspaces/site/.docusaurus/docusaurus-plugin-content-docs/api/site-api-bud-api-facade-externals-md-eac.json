@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.externals",
+  "id": "bud-api/facade/bud-api.facade.externals",
+  "title": "externals property",
+  "description": "Facade.externals property",
+  "source": "@site/api/bud-api/facade/externals.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/externals",
+  "permalink": "/api/bud-api/facade/externals",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.externals",
+    "title": "externals property",
+    "sidebar_label": "externals property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "externals"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "experiments property",
+    "permalink": "/api/bud-api/facade/experiments"
+  },
+  "next": {
+    "title": "extract property",
+    "permalink": "/api/bud-api/facade/extract"
+  }
+}

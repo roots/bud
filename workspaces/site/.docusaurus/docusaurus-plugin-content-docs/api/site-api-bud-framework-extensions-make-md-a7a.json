@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extensions/bud-framework.extensions.make",
+  "id": "bud-framework/extensions/bud-framework.extensions.make",
+  "title": "make() method",
+  "description": "Extensions.make() method",
+  "source": "@site/api/bud-framework/extensions/make.md",
+  "sourceDirName": "bud-framework/extensions",
+  "slug": "/bud-framework/extensions/make",
+  "permalink": "/api/bud-framework/extensions/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extensions.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "enqueue() method",
+    "permalink": "/api/bud-framework/extensions/enqueue"
+  },
+  "next": {
+    "title": "processqueue() method",
+    "permalink": "/api/bud-framework/extensions/processqueue"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.setexclude",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setexclude",
+  "title": "setexclude() method",
+  "description": "Rule.Abstract.setExclude() method",
+  "source": "@site/api/bud-framework/rule/abstract/setexclude.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/setexclude",
+  "permalink": "/api/bud-framework/rule/abstract/setexclude",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.setexclude",
+    "title": "setexclude() method",
+    "sidebar_label": "setexclude() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setexclude"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/rule/abstract/make"
+  },
+  "next": {
+    "title": "setgenerator() method",
+    "permalink": "/api/bud-framework/rule/abstract/setgenerator"
+  }
+}

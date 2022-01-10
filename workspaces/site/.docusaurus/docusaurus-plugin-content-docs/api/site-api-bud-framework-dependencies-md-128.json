@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.dependencies",
+  "id": "bud-framework/bud-framework.dependencies",
+  "title": "dependencies interface",
+  "description": "Dependencies interface",
+  "source": "@site/api/bud-framework/dependencies.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/dependencies",
+  "permalink": "/api/bud-framework/dependencies",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.dependencies",
+    "title": "dependencies interface",
+    "sidebar_label": "dependencies interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dependencies"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dashboard interface",
+    "permalink": "/api/bud-framework/dashboard"
+  },
+  "next": {
+    "title": "env interface",
+    "permalink": "/api/bud-framework/env"
+  }
+}

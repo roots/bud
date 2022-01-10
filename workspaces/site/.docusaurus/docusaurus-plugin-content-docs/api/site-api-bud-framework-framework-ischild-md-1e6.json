@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.ischild",
+  "id": "bud-framework/framework/bud-framework.framework.ischild",
+  "title": "ischild property",
+  "description": "Framework.isChild property",
+  "source": "@site/api/bud-framework/framework/ischild.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/ischild",
+  "permalink": "/api/bud-framework/framework/ischild",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.ischild",
+    "title": "ischild property",
+    "sidebar_label": "ischild property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ischild"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "info() method",
+    "permalink": "/api/bud-framework/framework/info"
+  },
+  "next": {
+    "title": "isdevelopment property",
+    "permalink": "/api/bud-framework/framework/isdevelopment"
+  }
+}

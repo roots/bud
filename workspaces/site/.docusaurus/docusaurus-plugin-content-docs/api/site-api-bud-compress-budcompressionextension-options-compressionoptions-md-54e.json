@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.compressionoptions",
+  "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.compressionoptions",
+  "title": "compressionoptions property",
+  "description": "BudCompressionExtension.Options.compressionOptions property",
+  "source": "@site/api/bud-compress/budcompressionextension/options/compressionoptions.md",
+  "sourceDirName": "bud-compress/budcompressionextension/options",
+  "slug": "/bud-compress/budcompressionextension/options/compressionoptions",
+  "permalink": "/api/bud-compress/budcompressionextension/options/compressionoptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.budcompressionextension.options.compressionoptions",
+    "title": "compressionoptions property",
+    "sidebar_label": "compressionoptions property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compressionoptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "algorithm property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/algorithm"
+  },
+  "next": {
+    "title": "deleteoriginalassets property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/deleteoriginalassets"
+  }
+}

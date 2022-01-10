@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/abstract/bud-framework.loader.abstract.make",
+  "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.make",
+  "title": "make() method",
+  "description": "Loader.Abstract.make() method",
+  "source": "@site/api/bud-framework/loader/abstract/make.md",
+  "sourceDirName": "bud-framework/loader/abstract",
+  "slug": "/bud-framework/loader/abstract/make",
+  "permalink": "/api/bud-framework/loader/abstract/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.abstract.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "src property",
+    "permalink": "/api/bud-framework/loader/interface/src"
+  },
+  "next": {
+    "title": "normalizeinput() method",
+    "permalink": "/api/bud-framework/loader/abstract/normalizeinput"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.getuse",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getuse",
+  "title": "getuse() method",
+  "description": "Rule.Abstract.getUse() method",
+  "source": "@site/api/bud-framework/rule/abstract/getuse.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/getuse",
+  "permalink": "/api/bud-framework/rule/abstract/getuse",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.getuse",
+    "title": "getuse() method",
+    "sidebar_label": "getuse() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getuse"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "gettype() method",
+    "permalink": "/api/bud-framework/rule/abstract/gettype"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/rule/abstract/make"
+  }
+}

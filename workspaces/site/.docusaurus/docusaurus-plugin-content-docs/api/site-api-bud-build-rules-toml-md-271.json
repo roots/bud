@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.toml",
+  "id": "bud-build/rules/bud-build.rules.toml",
+  "title": "toml variable",
+  "description": "rules.toml variable",
+  "source": "@site/api/bud-build/rules/toml.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/toml",
+  "permalink": "/api/bud-build/rules/toml",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.toml",
+    "title": "toml variable",
+    "sidebar_label": "toml variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "toml"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "svg variable",
+    "permalink": "/api/bud-build/rules/svg"
+  },
+  "next": {
+    "title": "xml variable",
+    "permalink": "/api/bud-build/rules/xml"
+  }
+}

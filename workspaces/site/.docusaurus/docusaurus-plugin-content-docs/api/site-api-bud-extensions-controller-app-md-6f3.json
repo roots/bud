@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.app",
+  "id": "bud-extensions/controller/bud-extensions.controller.app",
+  "title": "app property",
+  "description": "Controller.app property",
+  "source": "@site/api/bud-extensions/controller/app.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/app",
+  "permalink": "/api/bud-extensions/controller/app",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.app",
+    "title": "app property",
+    "sidebar_label": "app property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "app"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "api() method",
+    "permalink": "/api/bud-extensions/controller/api"
+  },
+  "next": {
+    "title": "boot() method",
+    "permalink": "/api/bud-extensions/controller/boot"
+  }
+}

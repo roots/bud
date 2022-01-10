@@ -10,7 +10,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    */
   try {
     await ensureDir(
-      path.join(process.cwd(), `/packages/${pkg}/lib/cjs/`),
+      path.join(process.cwd(), `/workspaces/${pkg}/lib/cjs/`),
     )
   } catch (err) {}
 
@@ -19,7 +19,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    */
   try {
     await emptydir(
-      path.join(process.cwd(), `/packages/${pkg}/lib/cjs/`),
+      path.join(process.cwd(), `/workspaces/${pkg}/lib/cjs/`),
     )
   } catch (err) {}
 
@@ -30,7 +30,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
     await remove(
       path.join(
         process.cwd(),
-        `/packages/${pkg}/lib/tsconfig.tsbuildinfo`,
+        `/workspaces/${pkg}/lib/tsconfig.tsbuildinfo`,
       ),
     )
   } catch (err) {}
@@ -39,7 +39,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    * Compile source
    */
   let {code} = await ncc(
-    path.join(process.cwd(), `/packages/${pkg}/src/index.ts`),
+    path.join(process.cwd(), `/workspaces/${pkg}/src/index.ts`),
     nccOptions,
   )
 
@@ -55,7 +55,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
   await outputFile(
     path.join(
       process.cwd(),
-      `/packages/${pkg}/lib/cjs/index.js`,
+      `/workspaces/${pkg}/lib/cjs/index.js`,
     ),
     code,
     'utf8',

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.register",
+  "id": "bud-extensions/controller/bud-extensions.controller.register",
+  "title": "register() method",
+  "description": "Controller.register() method",
+  "source": "@site/api/bud-extensions/controller/register.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/register",
+  "permalink": "/api/bud-extensions/controller/register",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.register",
+    "title": "register() method",
+    "sidebar_label": "register() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "register"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options property",
+    "permalink": "/api/bud-extensions/controller/options"
+  },
+  "next": {
+    "title": "registered property",
+    "permalink": "/api/bud-extensions/controller/registered"
+  }
+}

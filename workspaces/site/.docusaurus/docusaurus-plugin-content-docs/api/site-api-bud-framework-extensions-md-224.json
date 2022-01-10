@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.extensions",
+  "id": "bud-framework/bud-framework.extensions",
+  "title": "extensions interface",
+  "description": "Extensions interface",
+  "source": "@site/api/bud-framework/extensions.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/extensions",
+  "permalink": "/api/bud-framework/extensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extensions",
+    "title": "extensions interface",
+    "sidebar_label": "extensions interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "extensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extension namespace",
+    "permalink": "/api/bud-framework/extension"
+  },
+  "next": {
+    "title": "factory interface",
+    "permalink": "/api/bud-framework/factory"
+  }
+}

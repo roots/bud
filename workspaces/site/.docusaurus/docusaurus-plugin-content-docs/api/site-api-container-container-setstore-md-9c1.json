@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.setstore",
+  "id": "container/container/container.container.setstore",
+  "title": "setstore() method",
+  "description": "Container.setStore() method",
+  "source": "@site/api/container/container/setstore.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/setstore",
+  "permalink": "/api/container/container/setstore",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.setstore",
+    "title": "setstore() method",
+    "sidebar_label": "setstore() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setstore"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "set() method",
+    "permalink": "/api/container/container/set"
+  },
+  "next": {
+    "title": "transform() method",
+    "permalink": "/api/container/container/transform"
+  }
+}

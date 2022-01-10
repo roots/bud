@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isarray",
+  "id": "container/container/container.container.isarray",
+  "title": "isarray() method",
+  "description": "Container.isArray() method",
+  "source": "@site/api/container/container/isarray.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isarray",
+  "permalink": "/api/container/container/isarray",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isarray",
+    "title": "isarray() method",
+    "sidebar_label": "isarray() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isarray"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "is() method",
+    "permalink": "/api/container/container/is"
+  },
+  "next": {
+    "title": "isdefined() method",
+    "permalink": "/api/container/container/isdefined"
+  }
+}

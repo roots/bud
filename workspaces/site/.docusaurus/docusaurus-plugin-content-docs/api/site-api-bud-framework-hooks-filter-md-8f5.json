@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/hooks/bud-framework.hooks.filter",
+  "id": "bud-framework/hooks/bud-framework.hooks.filter",
+  "title": "filter() method",
+  "description": "Hooks.filter() method",
+  "source": "@site/api/bud-framework/hooks/filter.md",
+  "sourceDirName": "bud-framework/hooks",
+  "slug": "/bud-framework/hooks/filter",
+  "permalink": "/api/bud-framework/hooks/filter",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks.filter",
+    "title": "filter() method",
+    "sidebar_label": "filter() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "filter"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "async() method",
+    "permalink": "/api/bud-framework/hooks/async"
+  },
+  "next": {
+    "title": "filterasync() method",
+    "permalink": "/api/bud-framework/hooks/filterasync"
+  }
+}

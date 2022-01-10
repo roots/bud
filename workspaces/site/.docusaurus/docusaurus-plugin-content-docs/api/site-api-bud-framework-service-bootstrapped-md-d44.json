@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/service/bud-framework.service.bootstrapped",
+  "id": "bud-framework/service/bud-framework.service.bootstrapped",
+  "title": "bootstrapped() method",
+  "description": "Service.bootstrapped() method",
+  "source": "@site/api/bud-framework/service/bootstrapped.md",
+  "sourceDirName": "bud-framework/service",
+  "slug": "/bud-framework/service/bootstrapped",
+  "permalink": "/api/bud-framework/service/bootstrapped",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.service.bootstrapped",
+    "title": "bootstrapped() method",
+    "sidebar_label": "bootstrapped() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bootstrapped"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bootstrap() method",
+    "permalink": "/api/bud-framework/service/bootstrap"
+  },
+  "next": {
+    "title": "dump() method",
+    "permalink": "/api/bud-framework/service/dump"
+  }
+}

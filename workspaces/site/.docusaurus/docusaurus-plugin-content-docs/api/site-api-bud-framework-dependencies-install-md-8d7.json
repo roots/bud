@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/dependencies/bud-framework.dependencies.install",
+  "id": "bud-framework/dependencies/bud-framework.dependencies.install",
+  "title": "install() method",
+  "description": "Dependencies.install() method",
+  "source": "@site/api/bud-framework/dependencies/install.md",
+  "sourceDirName": "bud-framework/dependencies",
+  "slug": "/bud-framework/dependencies/install",
+  "permalink": "/api/bud-framework/dependencies/install",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.dependencies.install",
+    "title": "install() method",
+    "sidebar_label": "install() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "install"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "client property",
+    "permalink": "/api/bud-framework/dependencies/client"
+  },
+  "next": {
+    "title": "getpublicenv() method",
+    "permalink": "/api/bud-framework/env/getpublicenv"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cli/bud-doctor",
+  "id": "bud-cli/bud-doctor",
+  "title": "bud doctor",
+  "description": "CLI command to check for issues with the project configuration",
+  "source": "@site/guides/bud-cli/04-bud-doctor.mdx",
+  "sourceDirName": "bud-cli",
+  "slug": "/bud-cli/doctor",
+  "permalink": "/guides/bud-cli/doctor",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "bud doctor",
+    "description": "CLI command to check for issues with the project configuration",
+    "sidebar_label": "bud doctor",
+    "slug": "doctor",
+    "image": "https://budjs.netlify.app/img/share/guides/bud-cli__doctor.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud clean",
+    "permalink": "/guides/bud-cli/clean"
+  },
+  "next": {
+    "title": "bud install",
+    "permalink": "/guides/bud-cli/install"
+  }
+}

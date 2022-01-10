@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/bud-framework.item.constructoroptions",
+  "id": "bud-framework/item/bud-framework.item.constructoroptions",
+  "title": "constructoroptions interface",
+  "description": "Item.ConstructorOptions interface",
+  "source": "@site/api/bud-framework/item/constructoroptions.md",
+  "sourceDirName": "bud-framework/item",
+  "slug": "/bud-framework/item/constructoroptions",
+  "permalink": "/api/bud-framework/item/constructoroptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.constructoroptions",
+    "title": "constructoroptions interface",
+    "sidebar_label": "constructoroptions interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructoroptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/item/abstract"
+  },
+  "next": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/item/interface"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.sequence",
+  "id": "bud-framework/framework/bud-framework.framework.sequence",
+  "title": "sequence property",
+  "description": "Framework.sequence property",
+  "source": "@site/api/bud-framework/framework/sequence.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/sequence",
+  "permalink": "/api/bud-framework/framework/sequence",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.sequence",
+    "title": "sequence property",
+    "sidebar_label": "sequence property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "sequence"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "root property",
+    "permalink": "/api/bud-framework/framework/root"
+  },
+  "next": {
+    "title": "server property",
+    "permalink": "/api/bud-framework/framework/server"
+  }
+}

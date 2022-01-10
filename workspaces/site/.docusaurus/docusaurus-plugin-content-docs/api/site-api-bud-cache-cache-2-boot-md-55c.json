@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-cache/cache2/bud-cache.cache_2.boot",
+  "id": "bud-cache/cache2/bud-cache.cache_2.boot",
+  "title": "boot() method",
+  "description": "Cache_2.boot() method",
+  "source": "@site/api/bud-cache/cache2/boot.md",
+  "sourceDirName": "bud-cache/cache2",
+  "slug": "/bud-cache/cache2/boot",
+  "permalink": "/api/bud-cache/cache2/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-cache.cache_2.boot",
+    "title": "boot() method",
+    "sidebar_label": "boot() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "cache\\_2 class",
+    "permalink": "/api/bud-cache/cache2"
+  },
+  "next": {
+    "title": "directory property",
+    "permalink": "/api/bud-cache/cache2/directory"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.modules",
+  "id": "bud-framework/bud-framework.modules",
+  "title": "modules interface",
+  "description": "Modules interface",
+  "source": "@site/api/bud-framework/modules.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/modules",
+  "permalink": "/api/bud-framework/modules",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.modules",
+    "title": "modules interface",
+    "sidebar_label": "modules interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "modules"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "module interface",
+    "permalink": "/api/bud-framework/module"
+  },
+  "next": {
+    "title": "options interface",
+    "permalink": "/api/bud-framework/options"
+  }
+}

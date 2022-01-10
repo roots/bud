@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/project/interface/bud-framework.project.interface.buildprofile",
+  "id": "bud-framework/project/interface/bud-framework.project.interface.buildprofile",
+  "title": "buildprofile() method",
+  "description": "Project.Interface.buildProfile() method",
+  "source": "@site/api/bud-framework/project/interface/buildprofile.md",
+  "sourceDirName": "bud-framework/project/interface",
+  "slug": "/bud-framework/project/interface/buildprofile",
+  "permalink": "/api/bud-framework/project/interface/buildprofile",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project.interface.buildprofile",
+    "title": "buildprofile() method",
+    "sidebar_label": "buildprofile() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "buildprofile"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/project/interface"
+  },
+  "next": {
+    "title": "buildprofile() method",
+    "permalink": "/api/bud-framework/project/interface/buildprofile1"
+  }
+}

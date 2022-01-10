@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.log",
+  "id": "bud-framework/framework/bud-framework.framework.log",
+  "title": "log() method",
+  "description": "Framework.log() method",
+  "source": "@site/api/bud-framework/framework/log.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/log",
+  "permalink": "/api/bud-framework/framework/log",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.log",
+    "title": "log() method",
+    "sidebar_label": "log() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "log"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "json property",
+    "permalink": "/api/bud-framework/framework/json"
+  },
+  "next": {
+    "title": "logger property",
+    "permalink": "/api/bud-framework/framework/logger"
+  }
+}

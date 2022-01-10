@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-eslint/bud-eslint.mixin",
+  "id": "bud-eslint/bud-eslint.mixin",
+  "title": "mixin variable",
+  "description": "mixin variable",
+  "source": "@site/api/bud-eslint/mixin.md",
+  "sourceDirName": "bud-eslint",
+  "slug": "/bud-eslint/mixin",
+  "permalink": "/api/bud-eslint/mixin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-eslint.mixin",
+    "title": "mixin variable",
+    "sidebar_label": "mixin variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mixin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make variable",
+    "permalink": "/api/bud-eslint/make"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-eslint/name2"
+  }
+}

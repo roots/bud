@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/build/bud-build.build.init",
+  "id": "bud-build/build/bud-build.build.init",
+  "title": "init() method",
+  "description": "Build.init() method",
+  "source": "@site/api/bud-build/build/init.md",
+  "sourceDirName": "bud-build/build",
+  "slug": "/bud-build/build/init",
+  "permalink": "/api/bud-build/build/init",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.build.init",
+    "title": "init() method",
+    "sidebar_label": "init() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "init"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "rules namespace",
+    "permalink": "/api/bud-build/rules"
+  },
+  "next": {
+    "title": "items property",
+    "permalink": "/api/bud-build/build/items"
+  }
+}

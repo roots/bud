@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.meta",
+  "id": "bud-extensions/controller/bud-extensions.controller.meta",
+  "title": "meta property",
+  "description": "Controller.meta property",
+  "source": "@site/api/bud-extensions/controller/meta.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/meta",
+  "permalink": "/api/bud-extensions/controller/meta",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.meta",
+    "title": "meta property",
+    "sidebar_label": "meta property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "meta"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mergeoptions() method",
+    "permalink": "/api/bud-extensions/controller/mergeoptions"
+  },
+  "next": {
+    "title": "mixin() method",
+    "permalink": "/api/bud-extensions/controller/mixin"
+  }
+}

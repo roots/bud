@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.alias",
+  "id": "bud.alias",
+  "title": "bud.alias",
+  "description": "Register shorthand for resolving modules.",
+  "source": "@site/docs/02-bud.alias.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.alias",
+  "permalink": "/docs/bud.alias",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/02-bud.alias.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "id": "bud.alias",
+    "title": "bud.alias",
+    "description": "Register shorthand for resolving modules.",
+    "sidebar_label": "bud.alias",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.alias.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Introduction",
+    "permalink": "/docs/"
+  },
+  "next": {
+    "title": "bud.assets",
+    "permalink": "/docs/bud.assets"
+  }
+}

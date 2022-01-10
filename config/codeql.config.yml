@@ -1,7 +1,7 @@
 paths:
-  - packages
+  - workspaces
 paths-ignore:
-  - packages/deprecated
+  - workspaces/deprecated
   - '**/types'
   - '**/.budfiles'
   - '**/lib'

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-solid/bud-solid.name_2",
+  "id": "bud-solid/bud-solid.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-solid/name2.md",
+  "sourceDirName": "bud-solid",
+  "slug": "/bud-solid/name2",
+  "permalink": "/api/bud-solid/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-solid.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot variable",
+    "permalink": "/api/bud-solid/boot"
+  },
+  "next": {
+    "title": "make variable",
+    "permalink": "/api/bud-stylelint/make"
+  }
+}

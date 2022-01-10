@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.env",
+  "id": "bud.env",
+  "title": "bud.env",
+  "description": "bud includes support for utilizing dotenv values (in your config, templates and the client).",
+  "source": "@site/docs/08-bud.env.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.env",
+  "permalink": "/docs/bud.env",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/08-bud.env.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "id": "bud.env",
+    "title": "bud.env",
+    "description": "bud includes support for utilizing dotenv values (in your config, templates and the client).",
+    "sidebar_label": "bud.env",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.env.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.entry",
+    "permalink": "/docs/bud.entry"
+  },
+  "next": {
+    "title": "bud.externals",
+    "permalink": "/docs/bud.externals"
+  }
+}

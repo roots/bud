@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/cache2/bud-framework.cache_2.interface",
+  "id": "bud-framework/cache2/bud-framework.cache_2.interface",
+  "title": "interface interface",
+  "description": "Cache_2.Interface interface",
+  "source": "@site/api/bud-framework/cache2/interface.md",
+  "sourceDirName": "bud-framework/cache2",
+  "slug": "/bud-framework/cache2/interface",
+  "permalink": "/api/bud-framework/cache2/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/cache2/abstract"
+  },
+  "next": {
+    "title": "directory property",
+    "permalink": "/api/bud-framework/cache2/abstract/directory"
+  }
+}

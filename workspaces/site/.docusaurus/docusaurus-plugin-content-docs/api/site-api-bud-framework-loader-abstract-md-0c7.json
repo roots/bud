@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/bud-framework.loader.abstract",
+  "id": "bud-framework/loader/bud-framework.loader.abstract",
+  "title": "abstract class",
+  "description": "Loader.Abstract class",
+  "source": "@site/api/bud-framework/loader/abstract.md",
+  "sourceDirName": "bud-framework/loader",
+  "slug": "/bud-framework/loader/abstract",
+  "permalink": "/api/bud-framework/loader/abstract",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.abstract",
+    "title": "abstract class",
+    "sidebar_label": "abstract class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "abstract"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "src property",
+    "permalink": "/api/bud-framework/locations/src"
+  },
+  "next": {
+    "title": "factory interface",
+    "permalink": "/api/bud-framework/loader/factory"
+  }
+}

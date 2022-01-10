@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.locations",
+  "id": "bud-framework/bud-framework.locations",
+  "title": "locations interface",
+  "description": "Locations interface",
+  "source": "@site/api/bud-framework/locations.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/locations",
+  "permalink": "/api/bud-framework/locations",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.locations",
+    "title": "locations interface",
+    "sidebar_label": "locations interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "locations"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loaders interface",
+    "permalink": "/api/bud-framework/loaders"
+  },
+  "next": {
+    "title": "logger class",
+    "permalink": "/api/bud-framework/logger"
+  }
+}

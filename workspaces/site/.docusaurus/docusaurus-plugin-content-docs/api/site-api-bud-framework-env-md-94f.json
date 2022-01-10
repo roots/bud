@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.env",
+  "id": "bud-framework/bud-framework.env",
+  "title": "env interface",
+  "description": "Env interface",
+  "source": "@site/api/bud-framework/env.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/env",
+  "permalink": "/api/bud-framework/env",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.env",
+    "title": "env interface",
+    "sidebar_label": "env interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "env"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dependencies interface",
+    "permalink": "/api/bud-framework/dependencies"
+  },
+  "next": {
+    "title": "extension namespace",
+    "permalink": "/api/bud-framework/extension"
+  }
+}

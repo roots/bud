@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.level",
+  "id": "bud-framework/logger/bud-framework.logger.level",
+  "title": "level property",
+  "description": "Logger.level property",
+  "source": "@site/api/bud-framework/logger/level.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/level",
+  "permalink": "/api/bud-framework/logger/level",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.level",
+    "title": "level property",
+    "sidebar_label": "level property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "level"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interactive property",
+    "permalink": "/api/bud-framework/logger/interactive"
+  },
+  "next": {
+    "title": "makeinstance() method",
+    "permalink": "/api/bud-framework/logger/makeinstance"
+  }
+}

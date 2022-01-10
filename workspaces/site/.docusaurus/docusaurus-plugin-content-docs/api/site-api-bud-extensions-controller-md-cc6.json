@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/bud-extensions.controller",
+  "id": "bud-extensions/bud-extensions.controller",
+  "title": "controller class",
+  "description": "Controller class",
+  "source": "@site/api/bud-extensions/controller.md",
+  "sourceDirName": "bud-extensions",
+  "slug": "/bud-extensions/controller",
+  "permalink": "/api/bud-extensions/controller",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller",
+    "title": "controller class",
+    "sidebar_label": "controller class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "controller"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options variable",
+    "permalink": "/api/bud-eslint/options"
+  },
+  "next": {
+    "title": "extensions class",
+    "permalink": "/api/bud-extensions/extensions"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/bud-build.items",
+  "id": "bud-build/bud-build.items",
+  "title": "items namespace",
+  "description": "items namespace",
+  "source": "@site/api/bud-build/items.md",
+  "sourceDirName": "bud-build",
+  "slug": "/bud-build/items",
+  "permalink": "/api/bud-build/items",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.items",
+    "title": "items namespace",
+    "sidebar_label": "items namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "items"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "item class",
+    "permalink": "/api/bud-build/item"
+  },
+  "next": {
+    "title": "loader class",
+    "permalink": "/api/bud-build/loader"
+  }
+}

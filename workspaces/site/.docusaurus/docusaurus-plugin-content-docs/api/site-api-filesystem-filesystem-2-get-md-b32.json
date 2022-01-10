@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filesystem2/filesystem.filesystem_2.get",
+  "id": "filesystem/filesystem2/filesystem.filesystem_2.get",
+  "title": "get() method",
+  "description": "FileSystem_2.get() method",
+  "source": "@site/api/filesystem/filesystem2/get.md",
+  "sourceDirName": "filesystem/filesystem2",
+  "slug": "/filesystem/filesystem2/get",
+  "permalink": "/api/filesystem/filesystem2/get",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filesystem_2.get",
+    "title": "get() method",
+    "sidebar_label": "get() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "get"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "basedir property",
+    "permalink": "/api/filesystem/filesystem2/basedir"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/filesystem/filesystem2/make"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.modulelogger",
+  "id": "bud-extensions/controller/bud-extensions.controller.modulelogger",
+  "title": "modulelogger property",
+  "description": "Controller.moduleLogger property",
+  "source": "@site/api/bud-extensions/controller/modulelogger.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/modulelogger",
+  "permalink": "/api/bud-extensions/controller/modulelogger",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.modulelogger",
+    "title": "modulelogger property",
+    "sidebar_label": "modulelogger property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "modulelogger"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mixin() method",
+    "permalink": "/api/bud-extensions/controller/mixin"
+  },
+  "next": {
+    "title": "mutateoptions() method",
+    "permalink": "/api/bud-extensions/controller/mutateoptions"
+  }
+}

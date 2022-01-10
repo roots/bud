@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.proxy",
+  "id": "bud-api/facade/bud-api.facade.proxy",
+  "title": "proxy property",
+  "description": "Facade.proxy property",
+  "source": "@site/api/bud-api/facade/proxy.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/proxy",
+  "permalink": "/api/bud-api/facade/proxy",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.proxy",
+    "title": "proxy property",
+    "sidebar_label": "proxy property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "proxy"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "provide property",
+    "permalink": "/api/bud-api/facade/provide"
+  },
+  "next": {
+    "title": "publicpath property",
+    "permalink": "/api/bud-api/facade/publicpath"
+  }
+}

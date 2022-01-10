@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.runtime",
+  "id": "bud.runtime",
+  "title": "bud.runtime",
+  "description": "Get the application public path",
+  "source": "@site/docs/20-bud.runtime.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.runtime",
+  "permalink": "/docs/bud.runtime",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/20-bud.runtime.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 20,
+  "frontMatter": {
+    "slug": "bud.runtime",
+    "title": "bud.runtime",
+    "description": "Get the application public path",
+    "sidebar_label": "bud.runtime",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.runtime.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.publicPath",
+    "permalink": "/docs/bud.publicPath"
+  },
+  "next": {
+    "title": "bud.setPath",
+    "permalink": "/docs/bud.setPath"
+  }
+}

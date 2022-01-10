@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.assets",
+  "id": "bud.assets",
+  "title": "bud.assets",
+  "description": "Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.",
+  "source": "@site/docs/03-bud.assets.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.assets",
+  "permalink": "/docs/bud.assets",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/03-bud.assets.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "id": "bud.assets",
+    "title": "bud.assets",
+    "description": "Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.",
+    "sidebar_label": "bud.assets",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.assets.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.alias",
+    "permalink": "/docs/bud.alias"
+  },
+  "next": {
+    "title": "bud.define",
+    "permalink": "/docs/bud.define"
+  }
+}

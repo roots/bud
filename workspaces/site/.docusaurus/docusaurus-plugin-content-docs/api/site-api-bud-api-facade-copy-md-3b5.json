@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.copy",
+  "id": "bud-api/facade/bud-api.facade.copy",
+  "title": "copy property",
+  "description": "Facade.copy property",
+  "source": "@site/api/bud-api/facade/copy.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/copy",
+  "permalink": "/api/bud-api/facade/copy",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.copy",
+    "title": "copy property",
+    "sidebar_label": "copy property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "copy"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "config property",
+    "permalink": "/api/bud-api/facade/config"
+  },
+  "next": {
+    "title": "css property",
+    "permalink": "/api/bud-api/facade/css"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer._constructor_",
+  "id": "filesystem/filecontainer/filesystem.filecontainer._constructor_",
+  "title": "(constructor)",
+  "description": "FileContainer.(constructor)",
+  "source": "@site/api/filesystem/filecontainer/constructor.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/constructor",
+  "permalink": "/api/filesystem/filecontainer/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "basedir property",
+    "permalink": "/api/filesystem/filecontainer/basedir"
+  },
+  "next": {
+    "title": "ensure() method",
+    "permalink": "/api/filesystem/filecontainer/ensure"
+  }
+}

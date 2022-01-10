@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.complete",
+  "id": "bud-framework/framework/bud-framework.framework.complete",
+  "title": "complete() method",
+  "description": "Framework.complete() method",
+  "source": "@site/api/bud-framework/framework/complete.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/complete",
+  "permalink": "/api/bud-framework/framework/complete",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.complete",
+    "title": "complete() method",
+    "sidebar_label": "complete() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "complete"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "compiler property",
+    "permalink": "/api/bud-framework/framework/compiler"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-framework/framework/constructor"
+  }
+}

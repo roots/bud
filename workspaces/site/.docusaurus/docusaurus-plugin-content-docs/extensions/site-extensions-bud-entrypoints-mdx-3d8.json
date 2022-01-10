@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-entrypoints",
+  "id": "bud-entrypoints",
+  "title": "@roots/bud-entrypoints",
+  "description": "@roots/bud-entrypoints generates an enhanced asset manifest for usage in server-powered applications like Laravel and WordPress.",
+  "source": "@site/extensions/bud-entrypoints.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-entrypoints",
+  "permalink": "/extensions/bud-entrypoints",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-entrypoints"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-emotion",
+    "permalink": "/extensions/bud-emotion"
+  },
+  "next": {
+    "title": "@roots/bud-esbuild",
+    "permalink": "/extensions/bud-esbuild"
+  }
+}

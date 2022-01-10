@@ -1,0 +1,1015 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.19.4",
+    "schemaVersion": 1004,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@todo",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true,
+        "@todo": true
+      }
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@roots/critical-css-webpack-plugin!",
+  "docComment": "/**\n * CriticalCssWebpackPlugin\n *\n * @packageDocumentation\n */\n",
+  "name": "@roots/critical-css-webpack-plugin",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@roots/critical-css-webpack-plugin!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Class",
+          "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin:class",
+          "docComment": "/**\n * CriticalCSSWebpackPlugin\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare class CriticalCssWebpackPlugin "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "CriticalCssWebpackPlugin",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin:constructor(1)",
+              "docComment": "/**\n * Class constructor\n *\n * @param options - {@link Options}\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(options?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/critical-css-webpack-plugin!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#apply:member(1)",
+              "docComment": "/**\n * Webpack apply hook\n *\n * @remarks\n *\n * Webpack compiler callback\n *\n * @param compiler - Webpack compiler\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "apply(compiler: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Compiler",
+                  "canonicalReference": "webpack!~Compiler:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "compiler",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "apply"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#compilation:member(1)",
+              "docComment": "/**\n * Compilation hook\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "compilation(compilation: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Compilation",
+                  "canonicalReference": "webpack!~Compilation:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "compilation",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "compilation"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#criticalEntry:member(1)",
+              "docComment": "/**\n * Critical css from aggregated entrypoint css sources\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "criticalEntry(entry: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", module: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Module",
+                  "canonicalReference": "webpack!~Module:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 7
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "entry",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "module",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "criticalEntry"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#entrypoints:member",
+              "docComment": "/**\n * chunks to be written to json\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "entrypoints: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        [key: string]: any;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "entrypoints",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#generateCritical:member(1)",
+              "docComment": "/**\n * Generates critical css\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "generateCritical(_entry: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", file: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", contents: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 9
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "_entry",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "file",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "contents",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "generateCritical"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#getMergedCssModules:member(1)",
+              "docComment": "/**\n * Get merged css modules\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getMergedCssModules(chunk: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Module",
+                  "canonicalReference": "webpack!~Module:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "chunk",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "getMergedCssModules"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#htmlInject:member(1)",
+              "docComment": "/**\n * Inline HTML webpack plugin\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "htmlInject(css: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(data: {\n        html: string;\n    }, cb: (...args: any) => any) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "css",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "htmlInject"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#maybeHashName:member(1)",
+              "docComment": "/**\n * Returns either the entrypoint name or the entrypoint name with a hash\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "maybeHashName(module: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Module",
+                  "canonicalReference": "webpack!~Module:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "module",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "name",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "maybeHashName"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#options:member",
+              "docComment": "/**\n * Accessor: get options\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "get options(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/critical-css-webpack-plugin!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                },
+                {
+                  "kind": "Content",
+                  "text": "\n\nset options(options: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Options",
+                  "canonicalReference": "@roots/critical-css-webpack-plugin!Options:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "options",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#plugin:member",
+              "docComment": "/**\n * Plugin ident\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "plugin: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        name: string;\n        stage: number;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "plugin",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#processAssets:member(1)",
+              "docComment": "/**\n * Process assets\n *\n * @decorator\n *\n * `@bind`\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "processAssets(assets: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Compilation",
+                  "canonicalReference": "webpack!~Compilation:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "['assets']"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", callback: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "assets",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                },
+                {
+                  "parameterName": "callback",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 5
+                  }
+                }
+              ],
+              "name": "processAssets"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#vfile:member(1)",
+              "docComment": "/**\n * Vinyl adapter\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "vfile(path: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", contents: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Buffer",
+                  "canonicalReference": "!__global.Buffer:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "vinyl.BufferFile",
+                  "canonicalReference": "@types/vinyl!~File.BufferFile:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "path",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "contents",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 5
+                  }
+                }
+              ],
+              "name": "vfile"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!CriticalCssWebpackPlugin#webpack:member",
+              "docComment": "/**\n * Webpack lifecycle events\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "webpack: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        compiler: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Compiler",
+                  "canonicalReference": "webpack!~Compiler:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n        compilation: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Webpack.Compilation",
+                  "canonicalReference": "webpack!~Compilation:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "webpack",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              },
+              "isStatic": false
+            }
+          ],
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@roots/critical-css-webpack-plugin!Options:interface",
+          "docComment": "/**\n * Plugin constructor options\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface Options "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Options",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!Options#criticalOptions:member",
+              "docComment": "/**\n * Critical CSS options\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "criticalOptions?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        src?: string;\n        html?: string;\n        base?: string;\n        width?: number;\n        height?: number;\n        extract?: boolean;\n        ignore?: {\n            atrule: string[];\n            rule: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[];\n            decl: (node: any, value: any) => boolean;\n        };\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "criticalOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!Options#hash:member",
+              "docComment": "/**\n * Extract inlined styles from referenced stylesheets\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "hash?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "hash",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@roots/critical-css-webpack-plugin!Options#replace:member",
+              "docComment": "/**\n * Replace var with inlined CSS\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "replace?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "replace",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        }
+      ]
+    }
+  ]
+}

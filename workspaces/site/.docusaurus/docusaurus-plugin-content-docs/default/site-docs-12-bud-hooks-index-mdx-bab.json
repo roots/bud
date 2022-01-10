@@ -1,0 +1,31 @@
+{
+  "unversionedId": "bud.hooks/index",
+  "id": "bud.hooks/index",
+  "title": "bud.hooks",
+  "description": "Modify internal bud values with callbacks.",
+  "source": "@site/docs/12-bud.hooks/index.mdx",
+  "sourceDirName": "12-bud.hooks",
+  "slug": "/bud.hooks/",
+  "permalink": "/docs/bud.hooks/",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/12-bud.hooks/index.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "bud.hooks",
+    "description": "Modify internal bud values with callbacks.",
+    "sidebar_label": "bud.hooks",
+    "sidebar_position": 1,
+    "slug": "/bud.hooks/",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.hooks__index.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.hash",
+    "permalink": "/docs/bud.hash"
+  },
+  "next": {
+    "title": "reference",
+    "permalink": "/docs/bud.hooks/reference"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.dashboard",
+  "id": "bud-framework/bud-framework.dashboard",
+  "title": "dashboard interface",
+  "description": "Dashboard interface",
+  "source": "@site/api/bud-framework/dashboard.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/dashboard",
+  "permalink": "/api/bud-framework/dashboard",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.dashboard",
+    "title": "dashboard interface",
+    "sidebar_label": "dashboard interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dashboard"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "constructor type",
+    "permalink": "/api/bud-framework/constructor"
+  },
+  "next": {
+    "title": "dependencies interface",
+    "permalink": "/api/bud-framework/dependencies"
+  }
+}

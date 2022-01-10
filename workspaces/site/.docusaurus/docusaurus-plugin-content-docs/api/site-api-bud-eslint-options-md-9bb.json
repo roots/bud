@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-eslint/bud-eslint.options",
+  "id": "bud-eslint/bud-eslint.options",
+  "title": "options variable",
+  "description": "options variable",
+  "source": "@site/api/bud-eslint/options.md",
+  "sourceDirName": "bud-eslint",
+  "slug": "/bud-eslint/options",
+  "permalink": "/api/bud-eslint/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-eslint.options",
+    "title": "options variable",
+    "sidebar_label": "options variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-eslint/name2"
+  },
+  "next": {
+    "title": "controller class",
+    "permalink": "/api/bud-extensions/controller"
+  }
+}

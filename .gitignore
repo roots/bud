@@ -6,7 +6,7 @@
 **/lib
 *.tsbuildinfo
 /.npmrc
-/packages/@roots/*/types
+/workspaces/@roots/*/types
 
 # Docusaurus
 /site/.docusaurus
@@ -22,12 +22,8 @@ coverage
 node_modules
 /config/yarn/*
 !/config/yarn/patches
-!/config/yarn/releases
-!/config/yarn/plugins
 !/config/yarn/sdks
 !/config/yarn/versions
-!/config/yarn/@bud
-!/config/yarn/yarnrc.yml
 .pnp.*
 
 # verdaccio

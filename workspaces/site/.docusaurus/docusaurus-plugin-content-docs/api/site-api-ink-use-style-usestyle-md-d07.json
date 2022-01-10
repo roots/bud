@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/ink-use-style.usestyle",
+  "id": "ink-use-style/ink-use-style.usestyle",
+  "title": "usestyle variable",
+  "description": "useStyle variable",
+  "source": "@site/api/ink-use-style/usestyle.md",
+  "sourceDirName": "ink-use-style",
+  "slug": "/ink-use-style/usestyle",
+  "permalink": "/api/ink-use-style/usestyle",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.usestyle",
+    "title": "usestyle variable",
+    "sidebar_label": "usestyle variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "usestyle"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "theme namespace",
+    "permalink": "/api/ink-use-style/theme"
+  },
+  "next": {
+    "title": "colors variable",
+    "permalink": "/api/ink-use-style/defaulttheme/colors"
+  }
+}

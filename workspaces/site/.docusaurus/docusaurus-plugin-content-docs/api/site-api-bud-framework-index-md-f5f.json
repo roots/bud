@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.index",
+  "id": "bud-framework/bud-framework.index",
+  "title": "index type",
+  "description": "Index type",
+  "source": "@site/api/bud-framework/index.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/index",
+  "permalink": "/api/bud-framework/index",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.index",
+    "title": "index type",
+    "sidebar_label": "index type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "index"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "when property",
+    "permalink": "/api/bud-extensions/controller/when"
+  },
+  "next": {
+    "title": "asyncfactory interface",
+    "permalink": "/api/bud-framework/asyncfactory"
+  }
+}

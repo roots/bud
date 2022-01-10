@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-dashboard/dashboard/bud-dashboard.dashboard.bootstrap",
+  "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.bootstrap",
+  "title": "bootstrap() method",
+  "description": "Dashboard.bootstrap() method",
+  "source": "@site/api/bud-dashboard/dashboard/bootstrap.md",
+  "sourceDirName": "bud-dashboard/dashboard",
+  "slug": "/bud-dashboard/dashboard/bootstrap",
+  "permalink": "/api/bud-dashboard/dashboard/bootstrap",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-dashboard.dashboard.bootstrap",
+    "title": "bootstrap() method",
+    "sidebar_label": "bootstrap() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "bootstrap"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dashboard class",
+    "permalink": "/api/bud-dashboard/dashboard"
+  },
+  "next": {
+    "title": "close() method",
+    "permalink": "/api/bud-dashboard/dashboard/close"
+  }
+}

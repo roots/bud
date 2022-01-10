@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.proxy",
+  "id": "bud.proxy",
+  "title": "bud.proxy",
+  "description": "Proxy an existing development server",
+  "source": "@site/docs/18-bud.proxy.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.proxy",
+  "permalink": "/docs/bud.proxy",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/18-bud.proxy.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 18,
+  "frontMatter": {
+    "slug": "bud.proxy",
+    "title": "bud.proxy",
+    "description": "Proxy an existing development server",
+    "sidebar_label": "bud.proxy",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.proxy.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.provide",
+    "permalink": "/docs/bud.provide"
+  },
+  "next": {
+    "title": "bud.publicPath",
+    "permalink": "/docs/bud.publicPath"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.extract",
+  "id": "bud-api/facade/bud-api.facade.extract",
+  "title": "extract property",
+  "description": "Facade.extract property",
+  "source": "@site/api/bud-api/facade/extract.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/extract",
+  "permalink": "/api/bud-api/facade/extract",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.extract",
+    "title": "extract property",
+    "sidebar_label": "extract property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "extract"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "externals property",
+    "permalink": "/api/bud-api/facade/externals"
+  },
+  "next": {
+    "title": "hash property",
+    "permalink": "/api/bud-api/facade/hash"
+  }
+}

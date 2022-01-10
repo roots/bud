@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/options/critical-css-webpack-plugin.options.criticaloptions",
+  "id": "critical-css-webpack-plugin/options/critical-css-webpack-plugin.options.criticaloptions",
+  "title": "criticaloptions property",
+  "description": "Options.criticalOptions property",
+  "source": "@site/api/critical-css-webpack-plugin/options/criticaloptions.md",
+  "sourceDirName": "critical-css-webpack-plugin/options",
+  "slug": "/critical-css-webpack-plugin/options/criticaloptions",
+  "permalink": "/api/critical-css-webpack-plugin/options/criticaloptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.options.criticaloptions",
+    "title": "criticaloptions property",
+    "sidebar_label": "criticaloptions property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "criticaloptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "webpack property",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack"
+  },
+  "next": {
+    "title": "hash property",
+    "permalink": "/api/critical-css-webpack-plugin/options/hash"
+  }
+}

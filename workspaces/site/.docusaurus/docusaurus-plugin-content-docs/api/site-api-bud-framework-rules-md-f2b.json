@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.rules",
+  "id": "bud-framework/bud-framework.rules",
+  "title": "rules interface",
+  "description": "Rules interface",
+  "source": "@site/api/bud-framework/rules.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/rules",
+  "permalink": "/api/bud-framework/rules",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rules",
+    "title": "rules interface",
+    "sidebar_label": "rules interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "rules"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "rule namespace",
+    "permalink": "/api/bud-framework/rule"
+  },
+  "next": {
+    "title": "server namespace",
+    "permalink": "/api/bud-framework/server"
+  }
+}

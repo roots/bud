@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/bud-framework.loader.factory",
+  "id": "bud-framework/loader/bud-framework.loader.factory",
+  "title": "factory interface",
+  "description": "Loader.Factory interface",
+  "source": "@site/api/bud-framework/loader/factory.md",
+  "sourceDirName": "bud-framework/loader",
+  "slug": "/bud-framework/loader/factory",
+  "permalink": "/api/bud-framework/loader/factory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.factory",
+    "title": "factory interface",
+    "sidebar_label": "factory interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "factory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/loader/abstract"
+  },
+  "next": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/loader/interface"
+  }
+}

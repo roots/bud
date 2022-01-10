@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.asyncfactory",
+  "id": "bud-framework/bud-framework.asyncfactory",
+  "title": "asyncfactory interface",
+  "description": "AsyncFactory interface",
+  "source": "@site/api/bud-framework/asyncfactory.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/asyncfactory",
+  "permalink": "/api/bud-framework/asyncfactory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.asyncfactory",
+    "title": "asyncfactory interface",
+    "sidebar_label": "asyncfactory interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "asyncfactory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "index type",
+    "permalink": "/api/bud-framework/index"
+  },
+  "next": {
+    "title": "atleastone type",
+    "permalink": "/api/bud-framework/atleastone"
+  }
+}

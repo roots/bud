@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isempty",
+  "id": "container/container/container.container.isempty",
+  "title": "isempty() method",
+  "description": "Container.isEmpty() method",
+  "source": "@site/api/container/container/isempty.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isempty",
+  "permalink": "/api/container/container/isempty",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isempty",
+    "title": "isempty() method",
+    "sidebar_label": "isempty() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isempty"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isdefined() method",
+    "permalink": "/api/container/container/isdefined"
+  },
+  "next": {
+    "title": "isfalse() method",
+    "permalink": "/api/container/container/isfalse"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.peers",
+  "id": "bud-framework/bud-framework.peers",
+  "title": "peers namespace",
+  "description": "Peers namespace",
+  "source": "@site/api/bud-framework/peers.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/peers",
+  "permalink": "/api/bud-framework/peers",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers",
+    "title": "peers namespace",
+    "sidebar_label": "peers namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "peers"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options interface",
+    "permalink": "/api/bud-framework/options"
+  },
+  "next": {
+    "title": "plugininstance interface",
+    "permalink": "/api/bud-framework/plugininstance"
+  }
+}

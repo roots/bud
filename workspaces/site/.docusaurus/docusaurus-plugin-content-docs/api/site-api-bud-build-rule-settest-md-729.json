@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.settest",
+  "id": "bud-build/rule/bud-build.rule.settest",
+  "title": "settest() method",
+  "description": "Rule.setTest() method",
+  "source": "@site/api/bud-build/rule/settest.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/settest",
+  "permalink": "/api/bud-build/rule/settest",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.settest",
+    "title": "settest() method",
+    "sidebar_label": "settest() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "settest"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setparser() method",
+    "permalink": "/api/bud-build/rule/setparser"
+  },
+  "next": {
+    "title": "settype() method",
+    "permalink": "/api/bud-build/rule/settype"
+  }
+}

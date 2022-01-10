@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/compiler/bud-framework.compiler.compile",
+  "id": "bud-framework/compiler/bud-framework.compiler.compile",
+  "title": "compile() method",
+  "description": "Compiler.compile() method",
+  "source": "@site/api/bud-framework/compiler/compile.md",
+  "sourceDirName": "bud-framework/compiler",
+  "slug": "/bud-framework/compiler/compile",
+  "permalink": "/api/bud-framework/compiler/compile",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.compiler.compile",
+    "title": "compile() method",
+    "sidebar_label": "compile() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compile"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "callback() method",
+    "permalink": "/api/bud-framework/compiler/callback"
+  },
+  "next": {
+    "title": "instance property",
+    "permalink": "/api/bud-framework/compiler/instance"
+  }
+}

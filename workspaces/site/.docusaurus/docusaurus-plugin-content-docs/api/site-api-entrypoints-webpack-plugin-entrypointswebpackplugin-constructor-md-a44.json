@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin._constructor_",
+  "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin._constructor_",
+  "title": "(constructor)",
+  "description": "EntrypointsWebpackPlugin.(constructor)",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin/constructor.md",
+  "sourceDirName": "entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin/constructor",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "compiler property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compiler"
+  },
+  "next": {
+    "title": "getentrypointfiles() method",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/getentrypointfiles"
+  }
+}

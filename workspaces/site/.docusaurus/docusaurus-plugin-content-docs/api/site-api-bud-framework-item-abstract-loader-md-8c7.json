@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/item/abstract/bud-framework.item.abstract.loader",
+  "id": "bud-framework/item/abstract/bud-framework.item.abstract.loader",
+  "title": "loader property",
+  "description": "Item.Abstract.loader property",
+  "source": "@site/api/bud-framework/item/abstract/loader.md",
+  "sourceDirName": "bud-framework/item/abstract",
+  "slug": "/bud-framework/item/abstract/loader",
+  "permalink": "/api/bud-framework/item/abstract/loader",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.item.abstract.loader",
+    "title": "loader property",
+    "sidebar_label": "loader property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "loader"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "output interface",
+    "permalink": "/api/bud-framework/item/output"
+  },
+  "next": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/item/abstract/make"
+  }
+}

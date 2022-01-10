@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/api/bud-api.api.dump",
+  "id": "bud-api/api/bud-api.api.dump",
+  "title": "dump() method",
+  "description": "Api.dump() method",
+  "source": "@site/api/bud-api/api/dump.md",
+  "sourceDirName": "bud-api/api",
+  "slug": "/bud-api/api/dump",
+  "permalink": "/api/bud-api/api/dump",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.api.dump",
+    "title": "dump() method",
+    "sidebar_label": "dump() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dump"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "call() method",
+    "permalink": "/api/bud-api/api/call"
+  },
+  "next": {
+    "title": "processqueue() method",
+    "permalink": "/api/bud-api/api/processqueue"
+  }
+}

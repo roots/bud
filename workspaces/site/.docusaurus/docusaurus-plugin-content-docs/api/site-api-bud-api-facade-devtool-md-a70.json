@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.devtool",
+  "id": "bud-api/facade/bud-api.facade.devtool",
+  "title": "devtool property",
+  "description": "Facade.devtool property",
+  "source": "@site/api/bud-api/facade/devtool.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/devtool",
+  "permalink": "/api/bud-api/facade/devtool",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.devtool",
+    "title": "devtool property",
+    "sidebar_label": "devtool property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "devtool"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "define property",
+    "permalink": "/api/bud-api/facade/define"
+  },
+  "next": {
+    "title": "entry property",
+    "permalink": "/api/bud-api/facade/entry"
+  }
+}

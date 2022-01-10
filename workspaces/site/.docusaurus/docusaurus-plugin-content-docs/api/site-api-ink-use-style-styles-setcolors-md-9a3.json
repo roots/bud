@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/styles/ink-use-style.styles.setcolors",
+  "id": "ink-use-style/styles/ink-use-style.styles.setcolors",
+  "title": "setcolors property",
+  "description": "Styles.setColors property",
+  "source": "@site/api/ink-use-style/styles/setcolors.md",
+  "sourceDirName": "ink-use-style/styles",
+  "slug": "/ink-use-style/styles/setcolors",
+  "permalink": "/api/ink-use-style/styles/setcolors",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.styles.setcolors",
+    "title": "setcolors property",
+    "sidebar_label": "setcolors property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setcolors"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "screen property",
+    "permalink": "/api/ink-use-style/styles/screen"
+  },
+  "next": {
+    "title": "setscreens property",
+    "permalink": "/api/ink-use-style/styles/setscreens"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/application/bud-framework.server.application.listen",
+  "id": "bud-framework/server/application/bud-framework.server.application.listen",
+  "title": "listen() method",
+  "description": "Server.Application.listen() method",
+  "source": "@site/api/bud-framework/server/application/listen.md",
+  "sourceDirName": "bud-framework/server/application",
+  "slug": "/bud-framework/server/application/listen",
+  "permalink": "/api/bud-framework/server/application/listen",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.application.listen",
+    "title": "listen() method",
+    "sidebar_label": "listen() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "listen"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "middleware interface",
+    "permalink": "/api/bud-framework/server/middleware"
+  },
+  "next": {
+    "title": "browser property",
+    "permalink": "/api/bud-framework/server/configuration/browser"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.transform",
+  "id": "container/container/container.container.transform",
+  "title": "transform() method",
+  "description": "Container.transform() method",
+  "source": "@site/api/container/container/transform.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/transform",
+  "permalink": "/api/container/container/transform",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.transform",
+    "title": "transform() method",
+    "sidebar_label": "transform() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "transform"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setstore() method",
+    "permalink": "/api/container/container/setstore"
+  },
+  "next": {
+    "title": "transformstore() method",
+    "permalink": "/api/container/container/transformstore"
+  }
+}

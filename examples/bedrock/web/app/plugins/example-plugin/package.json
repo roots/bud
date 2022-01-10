@@ -14,8 +14,8 @@
     "build:plugin": "bud build --target plugin"
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/sage": "workspace:packages/@roots/sage",
+    "@roots/bud": "workspaces:@roots/bud",
+    "@roots/sage": "workspaces:@roots/sage",
     "@tailwindcss/typography": "^0.4.1",
     "@wordpress/browserslist-config": "^4.1.0",
     "eslint": "^7.0.0",

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.queue",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.queue",
+  "title": "queue property",
+  "description": "Extensions.queue property",
+  "source": "@site/api/bud-extensions/extensions/queue.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/queue",
+  "permalink": "/api/bud-extensions/extensions/queue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.queue",
+    "title": "queue property",
+    "sidebar_label": "queue property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "queue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "processqueue() method",
+    "permalink": "/api/bud-extensions/extensions/processqueue"
+  },
+  "next": {
+    "title": "registered() method",
+    "permalink": "/api/bud-extensions/extensions/registered"
+  }
+}

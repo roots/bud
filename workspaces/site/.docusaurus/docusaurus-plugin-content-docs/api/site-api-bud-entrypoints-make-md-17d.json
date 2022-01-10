@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-entrypoints/bud-entrypoints.make",
+  "id": "bud-entrypoints/bud-entrypoints.make",
+  "title": "make variable",
+  "description": "make variable",
+  "source": "@site/api/bud-entrypoints/make.md",
+  "sourceDirName": "bud-entrypoints",
+  "slug": "/bud-entrypoints/make",
+  "permalink": "/api/bud-entrypoints/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-entrypoints.make",
+    "title": "make variable",
+    "sidebar_label": "make variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "stdout property",
+    "permalink": "/api/bud-dashboard/dashboard/stdout"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-entrypoints/name2"
+  }
+}

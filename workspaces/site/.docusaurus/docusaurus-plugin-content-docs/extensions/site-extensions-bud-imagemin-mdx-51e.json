@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-imagemin",
+  "id": "bud-imagemin",
+  "title": "@roots/bud-imagemin",
+  "description": "@roots/bud-imagemin optimizes image filesizes.",
+  "source": "@site/extensions/bud-imagemin.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-imagemin",
+  "permalink": "/extensions/bud-imagemin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-imagemin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-eslint",
+    "permalink": "/extensions/bud-eslint"
+  },
+  "next": {
+    "title": "@roots/bud-library",
+    "permalink": "/extensions/bud-library"
+  }
+}

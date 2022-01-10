@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/peers/bud-framework.peers.repository",
+  "id": "bud-framework/peers/bud-framework.peers.repository",
+  "title": "repository interface",
+  "description": "Peers.Repository interface",
+  "source": "@site/api/bud-framework/peers/repository.md",
+  "sourceDirName": "bud-framework/peers",
+  "slug": "/bud-framework/peers/repository",
+  "permalink": "/api/bud-framework/peers/repository",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers.repository",
+    "title": "repository interface",
+    "sidebar_label": "repository interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "repository"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "peer interface",
+    "permalink": "/api/bud-framework/peers/peer"
+  },
+  "next": {
+    "title": "app property",
+    "permalink": "/api/bud-framework/peers/interface/app"
+  }
+}

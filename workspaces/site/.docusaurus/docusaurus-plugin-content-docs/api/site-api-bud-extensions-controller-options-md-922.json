@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.options",
+  "id": "bud-extensions/controller/bud-extensions.controller.options",
+  "title": "options property",
+  "description": "Controller.options property",
+  "source": "@site/api/bud-extensions/controller/options.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/options",
+  "permalink": "/api/bud-extensions/controller/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/bud-extensions/controller/name"
+  },
+  "next": {
+    "title": "register() method",
+    "permalink": "/api/bud-extensions/controller/register"
+  }
+}

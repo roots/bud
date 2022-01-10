@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud/bud/bud.bud.options",
+  "id": "bud/bud/bud.bud.options",
+  "title": "options type",
+  "description": "Bud.Options type",
+  "source": "@site/api/bud/bud/options.md",
+  "sourceDirName": "bud/bud",
+  "slug": "/bud/bud/options",
+  "permalink": "/api/bud/bud/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud.bud.options",
+    "title": "options type",
+    "sidebar_label": "options type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "factory() function",
+    "permalink": "/api/bud/factory"
+  },
+  "next": {
+    "title": "mixin variable",
+    "permalink": "/api/bud-babel/mixin"
+  }
+}

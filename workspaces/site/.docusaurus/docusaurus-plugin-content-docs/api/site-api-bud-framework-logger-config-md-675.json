@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.config",
+  "id": "bud-framework/logger/bud-framework.logger.config",
+  "title": "config property",
+  "description": "Logger.config property",
+  "source": "@site/api/bud-framework/logger/config.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/config",
+  "permalink": "/api/bud-framework/logger/config",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.config",
+    "title": "config property",
+    "sidebar_label": "config property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "config"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "apply property",
+    "permalink": "/api/bud-framework/plugininstance/apply"
+  },
+  "next": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-framework/logger/constructor"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.enabled",
+  "id": "bud-framework/logger/bud-framework.logger.enabled",
+  "title": "enabled property",
+  "description": "Logger.enabled property",
+  "source": "@site/api/bud-framework/logger/enabled.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/enabled",
+  "permalink": "/api/bud-framework/logger/enabled",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.enabled",
+    "title": "enabled property",
+    "sidebar_label": "enabled property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "enabled"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "context property",
+    "permalink": "/api/bud-framework/logger/context"
+  },
+  "next": {
+    "title": "flags property",
+    "permalink": "/api/bud-framework/logger/flags"
+  }
+}

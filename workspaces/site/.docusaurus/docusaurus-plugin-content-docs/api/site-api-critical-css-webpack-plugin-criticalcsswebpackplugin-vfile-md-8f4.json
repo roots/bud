@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.vfile",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.vfile",
+  "title": "vfile() method",
+  "description": "CriticalCssWebpackPlugin.vfile() method",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.vfile",
+    "title": "vfile() method",
+    "sidebar_label": "vfile() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "vfile"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "processassets() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/processassets"
+  },
+  "next": {
+    "title": "webpack property",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack"
+  }
+}

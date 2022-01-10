@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/peers/bud-framework.peers.interface",
+  "id": "bud-framework/peers/bud-framework.peers.interface",
+  "title": "interface interface",
+  "description": "Peers.Interface interface",
+  "source": "@site/api/bud-framework/peers/interface.md",
+  "sourceDirName": "bud-framework/peers",
+  "slug": "/bud-framework/peers/interface",
+  "permalink": "/api/bud-framework/peers/interface",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.peers.interface",
+    "title": "interface interface",
+    "sidebar_label": "interface interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interface"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "services property",
+    "permalink": "/api/bud-framework/options/services"
+  },
+  "next": {
+    "title": "peer interface",
+    "permalink": "/api/bud-framework/peers/peer"
+  }
+}

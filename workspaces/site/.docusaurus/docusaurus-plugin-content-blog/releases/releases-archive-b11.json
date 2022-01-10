@@ -1,0 +1,32 @@
+{
+  "blogPosts": [
+    {
+      "id": "5.0.0",
+      "metadata": {
+        "permalink": "/releases/5.0.0",
+        "source": "@site/releases/5.0.0.mdx",
+        "title": "Release: 5.0.0",
+        "description": "Release notes for 5.0.0",
+        "date": "1970-01-01T00:00:00.000Z",
+        "formattedDate": "January 1, 1970",
+        "tags": [
+          {
+            "label": "release",
+            "permalink": "/releases/tags/release"
+          }
+        ],
+        "readingTime": 2.875,
+        "truncated": false,
+        "authors": [
+          {
+            "name": "Kelly Mears",
+            "title": "Lead developer",
+            "url": "https://github.com/kellymears",
+            "imageURL": "https://avatars.githubusercontent.com/u/397606?v=4"
+          }
+        ]
+      },
+      "content": "import {Callout} from '@site/src/docs/callout'\n\nBud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0\")\n\n** The most important change**\n\nYou no longer need to explicitly require an extension in your\nconfiguration file or call `bud.use` to load it. Bud will\nautomatically load the extensions you have installed. This\nfeature can be circumvented with the **--no-inject** flag but\nthis is not as well tested as the default behavior.\n\n## Breaking\n\n- `@roots/bud-cli` has been deprecated. CLI functionality is packaged with `@roots/bud`.\n- `bud.use` method is now asynchronous.\n- `bud.build.make` method is now asynchronous.\n- Hook key `build` now refers to an asynchronous filter.\n- Hook key `build.plugins` now refers to an asynchronous filter.\n- `bud.extensions.enqueue` can be used to enqueue a plugin and returns Bud instance for chaining.\n- `@roots/bud` no longer exports `Framework`. Use `Bud` or import `Framework` from `@roots/bud-framework` instead.\n\n## Added\n\n- Yaml, json5 and TypeScript config file support.\n\n- Multi-compiler support:\n\n  - `bud.make` will create a new Bud instance for you to configure.\n  - `bud.get` will retrieve a previously made child instance for further configuration.\n  - `bud.set` allows setting a Bud instance as a `bud.children` entry.\n  - `bud.root` always returns the parent compiler. If called from the parent it will return itself.\n  - `bud.isRoot` will be true in the parent context.\n  - `bud.hasChildren` will be true in the parent context if there are child Bud instances.\n\n- Several new hooks:\n\n  - `event.build.make.before` is called just before the webpack config is created (async).\n  - `event.build.make.after` is called just after the webpack config is created (async).\n  - `event.compiler.before` is called just before the final config is passed to webpack.\n  - `event.compiler.after` is called just after the final config is passed to webpack.\n\n- New CLI commands:\n\n  - **bud clean** - removes dist and cache files\n  - **bud doctor** - check for missing peer dependencies and configuration errors\n  - **bud install** - automatically install/update required dependencies\n  - **bud serve** - start the development server and initiate hot module reloading\n\n- New `bud build` flags:\n\n  - **--target** Target a specific Bud instance to be built in isolation. Can be passed multiple times to target more than one compiler.\n  - **--[no]-cache** Toggle filesystem caching. [default: `true`]\n  - **--cache.type** Set the cache type. Can be `filesystem` or `memory`. [default: `filesystem`]\n  - **--location.[src|dist|project|storage]** Set a project disk location\n  - **--[no]-log** - Toggle logging [default: `true`]\n  - **--[no]-log.level** - Set logging level (`v`, `vv`, `vvv`, `vvvv`) [default: `vvv`]\n  - **--[no]-log.papertrail** - Allow logger lines to overwrite the previous line from the same scope [default: `--no-log.papertrail`]\n  - **--log-secret** - Suppress a string from logger output (can use multiple times) [default: `--log-secret {cwd}`]\n  - **--[no]-dashboard** - Toggle the bud dashboard [default: `--dashboard`]\n  - ...many more! add **--help** after any command to see what options are available.\n\n- [example project](https://github.com/roots/bud/tree/main/examples/webpack-plugin) demonstrating how to use off-the-shelf webpack plugins with `bud.use`\n\n## Improved\n\n- Greatly improved performance. The entire Bud lifecycle is asynchronous.\n- Extensions that follow the `bud-*` naming convention are now automatically registered and booted.\n- Peer dependency requirements are now checked. Missing dependencies will not throw an error but will be logged.\n- **bud.use** now supports using Webpack plugins directly.\n- Informative logging.\n- The CLI and dashboard have a fresh coat of paint.\n- New notification center integration (MacOS only)\n\n## Internal\n\n- `@roots/bud-typings` has been deprecated.\n- Added [`@roots/yarn-plugin-repo`](https://github.com/roots/bud/tree/main/.yarn/local) to provide utilities in the `yarn repo` namespace.\n\n## Contributors\n\nThanks [to all the contributors](/contributors)!"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/item/bud-build.item.options",
+  "id": "bud-build/item/bud-build.item.options",
+  "title": "options property",
+  "description": "Item.options property",
+  "source": "@site/api/bud-build/item/options.md",
+  "sourceDirName": "bud-build/item",
+  "slug": "/bud-build/item/options",
+  "permalink": "/api/bud-build/item/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.item.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mergeoptions() method",
+    "permalink": "/api/bud-build/item/mergeoptions"
+  },
+  "next": {
+    "title": "setloader() method",
+    "permalink": "/api/bud-build/item/setloader"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.json",
+  "id": "bud-framework/framework/bud-framework.framework.json",
+  "title": "json property",
+  "description": "Framework.json property",
+  "source": "@site/api/bud-framework/framework/json.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/json",
+  "permalink": "/api/bud-framework/framework/json",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.json",
+    "title": "json property",
+    "sidebar_label": "json property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "json"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isroot property",
+    "permalink": "/api/bud-framework/framework/isroot"
+  },
+  "next": {
+    "title": "log() method",
+    "permalink": "/api/bud-framework/framework/log"
+  }
+}

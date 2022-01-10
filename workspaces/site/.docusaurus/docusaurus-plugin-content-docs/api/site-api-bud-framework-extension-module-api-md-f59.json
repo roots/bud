@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/module/bud-framework.extension.module.api",
+  "id": "bud-framework/extension/module/bud-framework.extension.module.api",
+  "title": "api property",
+  "description": "Extension.Module.api property",
+  "source": "@site/api/bud-framework/extension/module/api.md",
+  "sourceDirName": "bud-framework/extension/module",
+  "slug": "/bud-framework/extension/module/api",
+  "permalink": "/api/bud-framework/extension/module/api",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.module.api",
+    "title": "api property",
+    "sidebar_label": "api property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "api"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make property",
+    "permalink": "/api/bud-framework/extension/compilerplugin/make"
+  },
+  "next": {
+    "title": "boot property",
+    "permalink": "/api/bud-framework/extension/module/boot"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/cache2/interface/bud-framework.cache_2.interface.hashfilecontents",
+  "id": "bud-framework/cache2/interface/bud-framework.cache_2.interface.hashfilecontents",
+  "title": "hashfilecontents() method",
+  "description": "Cache_2.Interface.hashFileContents() method",
+  "source": "@site/api/bud-framework/cache2/interface/hashfilecontents.md",
+  "sourceDirName": "bud-framework/cache2/interface",
+  "slug": "/bud-framework/cache2/interface/hashfilecontents",
+  "permalink": "/api/bud-framework/cache2/interface/hashfilecontents",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2.interface.hashfilecontents",
+    "title": "hashfilecontents() method",
+    "sidebar_label": "hashfilecontents() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hashfilecontents"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "directory property",
+    "permalink": "/api/bud-framework/cache2/interface/directory"
+  },
+  "next": {
+    "title": "version property",
+    "permalink": "/api/bud-framework/cache2/interface/version"
+  }
+}

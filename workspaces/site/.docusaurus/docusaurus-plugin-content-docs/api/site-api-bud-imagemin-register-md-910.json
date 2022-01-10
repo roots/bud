@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-imagemin/bud-imagemin.register",
+  "id": "bud-imagemin/bud-imagemin.register",
+  "title": "register variable",
+  "description": "register variable",
+  "source": "@site/api/bud-imagemin/register.md",
+  "sourceDirName": "bud-imagemin",
+  "slug": "/bud-imagemin/register",
+  "permalink": "/api/bud-imagemin/register",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-imagemin.register",
+    "title": "register variable",
+    "sidebar_label": "register variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "register"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-imagemin/name2"
+  },
+  "next": {
+    "title": "api variable",
+    "permalink": "/api/bud-library/api"
+  }
+}

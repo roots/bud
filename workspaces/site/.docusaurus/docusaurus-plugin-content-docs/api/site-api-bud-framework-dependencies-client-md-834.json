@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/dependencies/bud-framework.dependencies.client",
+  "id": "bud-framework/dependencies/bud-framework.dependencies.client",
+  "title": "client property",
+  "description": "Dependencies.client property",
+  "source": "@site/api/bud-framework/dependencies/client.md",
+  "sourceDirName": "bud-framework/dependencies",
+  "slug": "/bud-framework/dependencies/client",
+  "permalink": "/api/bud-framework/dependencies/client",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.dependencies.client",
+    "title": "client property",
+    "sidebar_label": "client property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "client"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "stats property",
+    "permalink": "/api/bud-framework/compiler/stats"
+  },
+  "next": {
+    "title": "install() method",
+    "permalink": "/api/bud-framework/dependencies/install"
+  }
+}

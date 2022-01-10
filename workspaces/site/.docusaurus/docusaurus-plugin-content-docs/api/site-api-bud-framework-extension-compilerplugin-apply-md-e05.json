@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.apply",
+  "id": "bud-framework/extension/compilerplugin/bud-framework.extension.compilerplugin.apply",
+  "title": "apply property",
+  "description": "Extension.CompilerPlugin.apply property",
+  "source": "@site/api/bud-framework/extension/compilerplugin/apply.md",
+  "sourceDirName": "bud-framework/extension/compilerplugin",
+  "slug": "/bud-framework/extension/compilerplugin/apply",
+  "permalink": "/api/bud-framework/extension/compilerplugin/apply",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.compilerplugin.apply",
+    "title": "apply property",
+    "sidebar_label": "apply property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "apply"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name type",
+    "permalink": "/api/bud-framework/extension/name"
+  },
+  "next": {
+    "title": "make property",
+    "permalink": "/api/bud-framework/extension/compilerplugin/make"
+  }
+}

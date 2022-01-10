@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/hooks/bud-framework.hooks.on",
+  "id": "bud-framework/hooks/bud-framework.hooks.on",
+  "title": "on() method",
+  "description": "Hooks.on() method",
+  "source": "@site/api/bud-framework/hooks/on.md",
+  "sourceDirName": "bud-framework/hooks",
+  "slug": "/bud-framework/hooks/on",
+  "permalink": "/api/bud-framework/hooks/on",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks.on",
+    "title": "on() method",
+    "sidebar_label": "on() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "on"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "map type",
+    "permalink": "/api/bud-framework/hooks/map"
+  },
+  "next": {
+    "title": "dist property",
+    "permalink": "/api/bud-framework/locations/dist"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.get",
+  "id": "bud.get",
+  "title": "bud.get",
+  "description": "Multi-compiler management utility. Allows you to reference a named compiler.",
+  "source": "@site/docs/10-bud.get.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.get",
+  "permalink": "/docs/bud.get",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/10-bud.get.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 10,
+  "frontMatter": {
+    "id": "bud.get",
+    "title": "bud.get",
+    "description": "Multi-compiler management utility. Allows you to reference a named compiler.",
+    "sidebar_label": "bud.get",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.get.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.externals",
+    "permalink": "/docs/bud.externals"
+  },
+  "next": {
+    "title": "bud.hash",
+    "permalink": "/docs/bud.hash"
+  }
+}

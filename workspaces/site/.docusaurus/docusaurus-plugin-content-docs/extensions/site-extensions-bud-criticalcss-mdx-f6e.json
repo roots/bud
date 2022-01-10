@@ -1,0 +1,27 @@
+{
+  "unversionedId": "bud-criticalcss",
+  "id": "bud-criticalcss",
+  "title": "@roots/bud-criticalcss",
+  "description": "Generate above-the-fold CSS",
+  "source": "@site/extensions/bud-criticalcss.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-criticalcss",
+  "permalink": "/extensions/bud-criticalcss",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "@roots/bud-criticalcss",
+    "description": "Generate above-the-fold CSS",
+    "sidebar_label": "@roots/bud-criticalcss",
+    "image": "https://budjs.netlify.app/img/share/extensions/bud-criticalcss.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-babel",
+    "permalink": "/extensions/bud-babel"
+  },
+  "next": {
+    "title": "@roots/bud-emotion",
+    "permalink": "/extensions/bud-emotion"
+  }
+}

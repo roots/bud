@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.theme",
+  "id": "bud-framework/configuration/bud-framework.configuration.theme",
+  "title": "theme property",
+  "description": "Configuration.theme property",
+  "source": "@site/api/bud-framework/configuration/theme.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/theme",
+  "permalink": "/api/bud-framework/configuration/theme",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.theme",
+    "title": "theme property",
+    "sidebar_label": "theme property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "theme"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "server property",
+    "permalink": "/api/bud-framework/configuration/server"
+  },
+  "next": {
+    "title": "compilerplugin interface",
+    "permalink": "/api/bud-framework/extension/compilerplugin"
+  }
+}

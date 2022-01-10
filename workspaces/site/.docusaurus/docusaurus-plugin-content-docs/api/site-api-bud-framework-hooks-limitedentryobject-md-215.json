@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/hooks/bud-framework.hooks.limitedentryobject",
+  "id": "bud-framework/hooks/bud-framework.hooks.limitedentryobject",
+  "title": "limitedentryobject type",
+  "description": "Hooks.LimitedEntryObject type",
+  "source": "@site/api/bud-framework/hooks/limitedentryobject.md",
+  "sourceDirName": "bud-framework/hooks",
+  "slug": "/bud-framework/hooks/limitedentryobject",
+  "permalink": "/api/bud-framework/hooks/limitedentryobject",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks.limitedentryobject",
+    "title": "limitedentryobject type",
+    "sidebar_label": "limitedentryobject type",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "limitedentryobject"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "hook type",
+    "permalink": "/api/bud-framework/hooks/hook"
+  },
+  "next": {
+    "title": "limitedplugin type",
+    "permalink": "/api/bud-framework/hooks/limitedplugin"
+  }
+}

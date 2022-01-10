@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-postcss/bud-postcss.name_2",
+  "id": "bud-postcss/bud-postcss.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-postcss/name2.md",
+  "sourceDirName": "bud-postcss",
+  "slug": "/bud-postcss/name2",
+  "permalink": "/api/bud-postcss/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-postcss.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mixin variable",
+    "permalink": "/api/bud-postcss/mixin"
+  },
+  "next": {
+    "title": "register variable",
+    "permalink": "/api/bud-postcss/register"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isfunction",
+  "id": "container/container/container.container.isfunction",
+  "title": "isfunction() method",
+  "description": "Container.isFunction() method",
+  "source": "@site/api/container/container/isfunction.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isfunction",
+  "permalink": "/api/container/container/isfunction",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isfunction",
+    "title": "isfunction() method",
+    "sidebar_label": "isfunction() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isfunction"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isfalse() method",
+    "permalink": "/api/container/container/isfalse"
+  },
+  "next": {
+    "title": "isinstanceof() method",
+    "permalink": "/api/container/container/isinstanceof"
+  }
+}

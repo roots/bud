@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.add",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.add",
+  "title": "add() method",
+  "description": "Extensions.add() method",
+  "source": "@site/api/bud-extensions/extensions/add.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/add",
+  "permalink": "/api/bud-extensions/extensions/add",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.add",
+    "title": "add() method",
+    "sidebar_label": "add() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "add"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extensions class",
+    "permalink": "/api/bud-extensions/extensions"
+  },
+  "next": {
+    "title": "boot() method",
+    "permalink": "/api/bud-extensions/extensions/boot"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.mixin",
+  "id": "bud-framework/framework/bud-framework.framework.mixin",
+  "title": "mixin property",
+  "description": "Framework.mixin property",
+  "source": "@site/api/bud-framework/framework/mixin.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/mixin",
+  "permalink": "/api/bud-framework/framework/mixin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.mixin",
+    "title": "mixin property",
+    "sidebar_label": "mixin property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mixin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "maybecall property",
+    "permalink": "/api/bud-framework/framework/maybecall"
+  },
+  "next": {
+    "title": "mode property",
+    "permalink": "/api/bud-framework/framework/mode"
+  }
+}

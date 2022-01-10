@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-preset-wordpress/bud-preset-wordpress.name_2",
+  "id": "bud-preset-wordpress/bud-preset-wordpress.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-preset-wordpress/name2.md",
+  "sourceDirName": "bud-preset-wordpress",
+  "slug": "/bud-preset-wordpress/name2",
+  "permalink": "/api/bud-preset-wordpress/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-preset-wordpress.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "name property",
+    "permalink": "/api/bud-preset-recommend/budpresetrecommend/name"
+  },
+  "next": {
+    "title": "name\\_2 variable",
+    "permalink": "/api/bud-prettier/name2"
+  }
+}

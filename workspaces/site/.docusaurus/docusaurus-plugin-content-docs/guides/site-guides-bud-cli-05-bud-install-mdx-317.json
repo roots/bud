@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-cli/bud-install",
+  "id": "bud-cli/bud-install",
+  "title": "bud install",
+  "description": "Install dependencies registered by extensions",
+  "source": "@site/guides/bud-cli/05-bud-install.mdx",
+  "sourceDirName": "bud-cli",
+  "slug": "/bud-cli/install",
+  "permalink": "/guides/bud-cli/install",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "bud install",
+    "description": "Install dependencies registered by extensions",
+    "sidebar_label": "bud install",
+    "slug": "install"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud doctor",
+    "permalink": "/guides/bud-cli/doctor"
+  }
+}

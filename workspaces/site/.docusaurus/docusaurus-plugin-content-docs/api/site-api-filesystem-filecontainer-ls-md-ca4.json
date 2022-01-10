@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.ls",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.ls",
+  "title": "ls() method",
+  "description": "FileContainer.ls() method",
+  "source": "@site/api/filesystem/filecontainer/ls.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/ls",
+  "permalink": "/api/filesystem/filecontainer/ls",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.ls",
+    "title": "ls() method",
+    "sidebar_label": "ls() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "ls"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "has() method",
+    "permalink": "/api/filesystem/filecontainer/has"
+  },
+  "next": {
+    "title": "path property",
+    "permalink": "/api/filesystem/filecontainer/path"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/critical-css-webpack-plugin.criticalcsswebpackplugin",
+  "id": "critical-css-webpack-plugin/critical-css-webpack-plugin.criticalcsswebpackplugin",
+  "title": "criticalcsswebpackplugin class",
+  "description": "CriticalCssWebpackPlugin class",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin.md",
+  "sourceDirName": "critical-css-webpack-plugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin",
+    "title": "criticalcsswebpackplugin class",
+    "sidebar_label": "criticalcsswebpackplugin class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "criticalcsswebpackplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "unique() method",
+    "permalink": "/api/container/container/unique"
+  },
+  "next": {
+    "title": "options interface",
+    "permalink": "/api/critical-css-webpack-plugin/options"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.xml",
+  "id": "bud-build/rules/bud-build.rules.xml",
+  "title": "xml variable",
+  "description": "rules.xml variable",
+  "source": "@site/api/bud-build/rules/xml.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/xml",
+  "permalink": "/api/bud-build/rules/xml",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.xml",
+    "title": "xml variable",
+    "sidebar_label": "xml variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "xml"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "toml variable",
+    "permalink": "/api/bud-build/rules/toml"
+  },
+  "next": {
+    "title": "yml variable",
+    "permalink": "/api/bud-build/rules/yml"
+  }
+}

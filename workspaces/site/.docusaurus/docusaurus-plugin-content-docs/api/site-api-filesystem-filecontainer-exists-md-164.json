@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.exists",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.exists",
+  "title": "exists() method",
+  "description": "FileContainer.exists() method",
+  "source": "@site/api/filesystem/filecontainer/exists.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/exists",
+  "permalink": "/api/filesystem/filecontainer/exists",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.exists",
+    "title": "exists() method",
+    "sidebar_label": "exists() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "exists"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ensuredir() method",
+    "permalink": "/api/filesystem/filecontainer/ensuredir"
+  },
+  "next": {
+    "title": "fs property",
+    "permalink": "/api/filesystem/filecontainer/fs"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.hooks",
+  "id": "bud-framework/framework/bud-framework.framework.hooks",
+  "title": "hooks property",
+  "description": "Framework.hooks property",
+  "source": "@site/api/bud-framework/framework/hooks.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/hooks",
+  "permalink": "/api/bud-framework/framework/hooks",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.hooks",
+    "title": "hooks property",
+    "sidebar_label": "hooks property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hooks"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "haschildren property",
+    "permalink": "/api/bud-framework/framework/haschildren"
+  },
+  "next": {
+    "title": "info() method",
+    "permalink": "/api/bud-framework/framework/info"
+  }
+}

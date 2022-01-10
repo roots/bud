@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.publicpath",
+  "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.publicpath",
+  "title": "publicpath property",
+  "description": "EntrypointsWebpackPlugin.publicPath property",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin/publicpath.md",
+  "sourceDirName": "entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin/publicpath",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/publicpath",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin.publicpath",
+    "title": "publicpath property",
+    "sidebar_label": "publicpath property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "publicpath"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "processassets() method",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/processassets"
+  },
+  "next": {
+    "title": "type property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/type"
+  }
+}

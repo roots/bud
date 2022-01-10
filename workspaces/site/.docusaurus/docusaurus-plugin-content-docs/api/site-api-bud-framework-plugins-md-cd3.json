@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.plugins",
+  "id": "bud-framework/bud-framework.plugins",
+  "title": "plugins interface",
+  "description": "Plugins interface",
+  "source": "@site/api/bud-framework/plugins.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/plugins",
+  "permalink": "/api/bud-framework/plugins",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.plugins",
+    "title": "plugins interface",
+    "sidebar_label": "plugins interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "plugins"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "plugininstance interface",
+    "permalink": "/api/bud-framework/plugininstance"
+  },
+  "next": {
+    "title": "project namespace",
+    "permalink": "/api/bud-framework/project"
+  }
+}

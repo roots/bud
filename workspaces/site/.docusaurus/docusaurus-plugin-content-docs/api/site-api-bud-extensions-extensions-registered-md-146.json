@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.registered",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.registered",
+  "title": "registered() method",
+  "description": "Extensions.registered() method",
+  "source": "@site/api/bud-extensions/extensions/registered.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/registered",
+  "permalink": "/api/bud-extensions/extensions/registered",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.registered",
+    "title": "registered() method",
+    "sidebar_label": "registered() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "registered"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "queue property",
+    "permalink": "/api/bud-extensions/extensions/queue"
+  },
+  "next": {
+    "title": "registerextension() method",
+    "permalink": "/api/bud-extensions/extensions/registerextension"
+  }
+}

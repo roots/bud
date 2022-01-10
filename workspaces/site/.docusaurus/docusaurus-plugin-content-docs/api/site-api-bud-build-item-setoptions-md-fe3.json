@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/item/bud-build.item.setoptions",
+  "id": "bud-build/item/bud-build.item.setoptions",
+  "title": "setoptions() method",
+  "description": "Item.setOptions() method",
+  "source": "@site/api/bud-build/item/setoptions.md",
+  "sourceDirName": "bud-build/item",
+  "slug": "/bud-build/item/setoptions",
+  "permalink": "/api/bud-build/item/setoptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.item.setoptions",
+    "title": "setoptions() method",
+    "sidebar_label": "setoptions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setoptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setloader() method",
+    "permalink": "/api/bud-build/item/setloader"
+  },
+  "next": {
+    "title": "default variable",
+    "permalink": "/api/bud-build/items/default"
+  }
+}

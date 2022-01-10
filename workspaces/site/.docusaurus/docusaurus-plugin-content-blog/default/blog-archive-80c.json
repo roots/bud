@@ -1,0 +1,32 @@
+{
+  "blogPosts": [
+    {
+      "id": "release-v5.0.0",
+      "metadata": {
+        "permalink": "/blog/release-v5.0.0",
+        "source": "@site/blog/release-5.0.0.mdx",
+        "title": "Release: v5.0.0",
+        "description": "Release notes for v5.0.0",
+        "date": "1970-01-01T00:00:00.000Z",
+        "formattedDate": "January 1, 1970",
+        "tags": [
+          {
+            "label": "release",
+            "permalink": "/blog/tags/release"
+          }
+        ],
+        "readingTime": 2.185,
+        "truncated": true,
+        "authors": [
+          {
+            "name": "Kelly Mears",
+            "title": "Lead developer",
+            "url": "https://github.com/kellymears",
+            "imageURL": "https://avatars.githubusercontent.com/u/397606?v=4"
+          }
+        ]
+      },
+      "content": "import CodeBlock from '@theme/CodeBlock'\nimport MakeDefinition from '!!raw-loader!@site/../workspaces/@roots/bud-framework/types/Framework/methods/make.d.ts'\n\nFeaturing multi-compiler, automatic extension detection, and more.\n\n<!--truncate-->\n\nBud v5 comes with a lot of changes. Please [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0).\n\n**The most important change**\nYou no longer need to explicitly require an extension in your configuration file or call `bud.use` to load it. Bud will automatically load the extensions you have installed. This feature can be circumvented with the **--no-inject** flag but this is not as well tested as the default behavior.\n\n<img src=\"/casts/build.svg\" />\n\n### multi-compiler\n\n`bud.make` will create a new instance of Bud.\n\n```ts\ninterface make {\n  (name: string, tap?: (child: Bud) => any): Promise<Bud>\n}\n```\n\nThe easiest and cleanest way to use this feature is with a callback. `bud.make` ultimately returns the parent compiler instance for fluent chaining.\n\n```ts title='bud.config.ts'\nexport default async (app: Bud) => {\n  app\n    .make('my-wordpress-theme', async (theme: Bud) => {\n      // theme is a fresh copy of Bud\n    })\n    .make('my-wordpress-plugin', async (plugin: Bud) => {\n      // plugin is a fresh copy of Bud\n    })\n  // you can call bud.make as many times as you please\n}\n```\n\nYou can retrieve a compiler you have already made with `bud.get`.\n\n```ts\napp.get('child')\n  .entry(...) // configuring the child\n```\n\nCompile all the things:\n\n<img src=\"/casts/multi-compiler.svg\" />\n\n### You can now use Webpack plugins directly\n\nPreviously, a `name` property was required for bud extensions. This is still required for extension authors,\nsince it is nice for config maintainers and other extension authors to have a way to reference your\nextension should they want to change the way it works.\n\nHowever, this is unnecessary for users who simply wish to use some Webpack plugin in their project.\n\nPreviously, a small amount of boilerplate was required to wrap a plugin:\n\n```ts\napp.use({\n  name: 'my-webpack-plugin',\n  make: new MyWebpackPlugin(),\n})\n```\n\nBut, now you can just use a plugin. A name will be automatically generated.\n\n```ts\napp.use(new MyWebpackPlugin())\n```\n\nA side effect of this is that extension authors can now make a single package that works both with vanilla webpack and bud:\n\n```ts\nconst extension = {\n  name: 'my-bud-extension',\n  apply: compiler => {\n    // webpack apply\n  },\n  when: bud => bud.isProduction,\n  // register, boot, api, or any other extension prop\n}\n```\n\nNote that `extension.apply` overrules `extension.make`. If you include both it won't throw an error or anything, but `extension.make` won't produce a webpack plugin in the final config (unless you call it from `apply` and use webpack apis to add the plugin manually).\n\n## More information\n\n- [Read the release notes](/releases/5.0.0)\n- [review the diff to see what's changed](https://github.com/roots/bud/compare/v4.6.0...v5.0.0)\n\nThanks [to all the contributors](/contributors)!"
+    }
+  ]
+}

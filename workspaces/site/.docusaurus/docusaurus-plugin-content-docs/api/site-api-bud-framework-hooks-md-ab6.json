@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.hooks",
+  "id": "bud-framework/bud-framework.hooks",
+  "title": "hooks namespace",
+  "description": "Hooks namespace",
+  "source": "@site/api/bud-framework/hooks.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/hooks",
+  "permalink": "/api/bud-framework/hooks",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.hooks",
+    "title": "hooks namespace",
+    "sidebar_label": "hooks namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "hooks"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "framework class",
+    "permalink": "/api/bud-framework/framework"
+  },
+  "next": {
+    "title": "item namespace",
+    "permalink": "/api/bud-framework/item"
+  }
+}

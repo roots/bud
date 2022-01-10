@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/compiler/bud-framework.compiler.stats",
+  "id": "bud-framework/compiler/bud-framework.compiler.stats",
+  "title": "stats property",
+  "description": "Compiler.stats property",
+  "source": "@site/api/bud-framework/compiler/stats.md",
+  "sourceDirName": "bud-framework/compiler",
+  "slug": "/bud-framework/compiler/stats",
+  "permalink": "/api/bud-framework/compiler/stats",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.compiler.stats",
+    "title": "stats property",
+    "sidebar_label": "stats property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stats"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "progress property",
+    "permalink": "/api/bud-framework/compiler/progress"
+  },
+  "next": {
+    "title": "client property",
+    "permalink": "/api/bud-framework/dependencies/client"
+  }
+}

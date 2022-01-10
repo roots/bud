@@ -1,0 +1,26 @@
+{
+  "unversionedId": "bud.when",
+  "id": "bud.when",
+  "title": "bud.when",
+  "description": "Conditionally execute a function based on conditions",
+  "source": "@site/docs/27-bud.when.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.when",
+  "permalink": "/docs/bud.when",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/27-bud.when.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 27,
+  "frontMatter": {
+    "slug": "bud.when",
+    "title": "bud.when",
+    "description": "Conditionally execute a function based on conditions",
+    "sidebar_label": "bud.when",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.when.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.use",
+    "permalink": "/docs/bud.use"
+  }
+}

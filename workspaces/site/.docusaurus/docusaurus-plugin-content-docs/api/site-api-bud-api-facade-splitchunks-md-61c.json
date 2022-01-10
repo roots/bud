@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.splitchunks",
+  "id": "bud-api/facade/bud-api.facade.splitchunks",
+  "title": "splitchunks property",
+  "description": "Facade.splitChunks property",
+  "source": "@site/api/bud-api/facade/splitchunks.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/splitchunks",
+  "permalink": "/api/bud-api/facade/splitchunks",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.splitchunks",
+    "title": "splitchunks property",
+    "sidebar_label": "splitchunks property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "splitchunks"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setpublicpath property",
+    "permalink": "/api/bud-api/facade/setpublicpath"
+  },
+  "next": {
+    "title": "template property",
+    "permalink": "/api/bud-api/facade/template"
+  }
+}

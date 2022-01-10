@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isstring",
+  "id": "container/container/container.container.isstring",
+  "title": "isstring() method",
+  "description": "Container.isString() method",
+  "source": "@site/api/container/container/isstring.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isstring",
+  "permalink": "/api/container/container/isstring",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isstring",
+    "title": "isstring() method",
+    "sidebar_label": "isstring() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isstring"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnumber() method",
+    "permalink": "/api/container/container/isnumber"
+  },
+  "next": {
+    "title": "istrue() method",
+    "permalink": "/api/container/container/istrue"
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "sidebar": [
+      {
+        "type": "link",
+        "label": "Introduction",
+        "href": "/docs/",
+        "docId": "index"
+      },
+      {
+        "type": "link",
+        "label": "bud.alias",
+        "href": "/docs/bud.alias",
+        "docId": "bud.alias"
+      },
+      {
+        "type": "link",
+        "label": "bud.assets",
+        "href": "/docs/bud.assets",
+        "docId": "bud.assets"
+      },
+      {
+        "type": "link",
+        "label": "bud.define",
+        "href": "/docs/bud.define",
+        "docId": "bud.define"
+      },
+      {
+        "type": "link",
+        "label": "bud.serve",
+        "href": "/docs/bud.serve",
+        "docId": "bud.serve"
+      },
+      {
+        "type": "link",
+        "label": "bud.devtool",
+        "href": "/docs/bud.devtool",
+        "docId": "bud.devtool"
+      },
+      {
+        "type": "link",
+        "label": "bud.entry",
+        "href": "/docs/bud.entry",
+        "docId": "bud.entry"
+      },
+      {
+        "type": "link",
+        "label": "bud.env",
+        "href": "/docs/bud.env",
+        "docId": "bud.env"
+      },
+      {
+        "type": "link",
+        "label": "bud.externals",
+        "href": "/docs/bud.externals",
+        "docId": "bud.externals"
+      },
+      {
+        "type": "link",
+        "label": "bud.get",
+        "href": "/docs/bud.get",
+        "docId": "bud.get"
+      },
+      {
+        "type": "link",
+        "label": "bud.hash",
+        "href": "/docs/bud.hash",
+        "docId": "bud.hash"
+      },
+      {
+        "type": "category",
+        "label": "bud.hooks",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "reference",
+            "href": "/docs/bud.hooks/reference",
+            "docId": "bud.hooks/reference"
+          }
+        ],
+        "href": "/docs/bud.hooks/"
+      },
+      {
+        "type": "link",
+        "label": "bud.make",
+        "href": "/docs/bud.make",
+        "docId": "bud.make"
+      },
+      {
+        "type": "link",
+        "label": "bud.minimize",
+        "href": "/docs/bud.minimize",
+        "docId": "bud.minimize"
+      },
+      {
+        "type": "category",
+        "label": "bud.mode",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "bud.mode",
+            "href": "/docs/bud.mode/",
+            "docId": "bud.mode/bud.mode"
+          },
+          {
+            "type": "link",
+            "label": "bud.isDevelopment",
+            "href": "/docs/bud.mode/bud.isDevelopment",
+            "docId": "bud.mode/bud.isDevelopment"
+          },
+          {
+            "type": "link",
+            "label": "bud.isProduction",
+            "href": "/docs/bud.mode/bud.isProduction",
+            "docId": "bud.mode/bud.isProduction"
+          }
+        ]
+      },
+      {
+        "type": "link",
+        "label": "bud.path",
+        "href": "/docs/bud.path",
+        "docId": "bud.path"
+      },
+      {
+        "type": "link",
+        "label": "bud.provide",
+        "href": "/docs/bud.provide",
+        "docId": "bud.provide"
+      },
+      {
+        "type": "link",
+        "label": "bud.proxy",
+        "href": "/docs/bud.proxy",
+        "docId": "bud.proxy"
+      },
+      {
+        "type": "link",
+        "label": "bud.publicPath",
+        "href": "/docs/bud.publicPath",
+        "docId": "bud.publicPath"
+      },
+      {
+        "type": "link",
+        "label": "bud.runtime",
+        "href": "/docs/bud.runtime",
+        "docId": "bud.runtime"
+      },
+      {
+        "type": "link",
+        "label": "bud.setPath",
+        "href": "/docs/bud.setPath",
+        "docId": "bud.setPath"
+      },
+      {
+        "type": "link",
+        "label": "bud.setPublicPath",
+        "href": "/docs/bud.setPublicPath",
+        "docId": "bud.setPublicPath"
+      },
+      {
+        "type": "link",
+        "label": "bud.splitChunks",
+        "href": "/docs/bud.splitChunks",
+        "docId": "bud.splitChunks"
+      },
+      {
+        "type": "link",
+        "label": "bud.tap",
+        "href": "/docs/bud.tap",
+        "docId": "bud.tap"
+      },
+      {
+        "type": "link",
+        "label": "bud.template",
+        "href": "/docs/bud.template",
+        "docId": "bud.template"
+      },
+      {
+        "type": "link",
+        "label": "bud.use",
+        "href": "/docs/bud.use",
+        "docId": "bud.use"
+      },
+      {
+        "type": "link",
+        "label": "bud.when",
+        "href": "/docs/bud.when",
+        "docId": "bud.when"
+      }
+    ]
+  },
+  "docs": {
+    "bud.alias": {
+      "id": "bud.alias",
+      "title": "bud.alias",
+      "description": "Register shorthand for resolving modules.",
+      "sidebar": "sidebar"
+    },
+    "bud.assets": {
+      "id": "bud.assets",
+      "title": "bud.assets",
+      "description": "Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.",
+      "sidebar": "sidebar"
+    },
+    "bud.define": {
+      "id": "bud.define",
+      "title": "bud.define",
+      "description": "Replace variables in your application code and templates at compile time.",
+      "sidebar": "sidebar"
+    },
+    "bud.devtool": {
+      "id": "bud.devtool",
+      "title": "bud.devtool",
+      "description": "Configure sourcemaps.",
+      "sidebar": "sidebar"
+    },
+    "bud.entry": {
+      "id": "bud.entry",
+      "title": "bud.entry",
+      "description": "Specify a set of assets to include in the compilation.",
+      "sidebar": "sidebar"
+    },
+    "bud.env": {
+      "id": "bud.env",
+      "title": "bud.env",
+      "description": "bud includes support for utilizing dotenv values (in your config, templates and the client).",
+      "sidebar": "sidebar"
+    },
+    "bud.externals": {
+      "id": "bud.externals",
+      "title": "bud.externals",
+      "description": "Specify a non-standard resolution strategy for modules with a matching name.",
+      "sidebar": "sidebar"
+    },
+    "bud.get": {
+      "id": "bud.get",
+      "title": "bud.get",
+      "description": "Multi-compiler management utility. Allows you to reference a named compiler.",
+      "sidebar": "sidebar"
+    },
+    "bud.hash": {
+      "id": "bud.hash",
+      "title": "bud.hash",
+      "description": "Enable or disable filename hashing of built assets.",
+      "sidebar": "sidebar"
+    },
+    "bud.hooks/index": {
+      "id": "bud.hooks/index",
+      "title": "bud.hooks",
+      "description": "Modify internal bud values with callbacks.",
+      "sidebar": "sidebar"
+    },
+    "bud.hooks/reference": {
+      "id": "bud.hooks/reference",
+      "title": "Hooks reference",
+      "description": "Docs are a work-in-progress.",
+      "sidebar": "sidebar"
+    },
+    "bud.make": {
+      "id": "bud.make",
+      "title": "bud.make",
+      "description": "Create a new, configurable instance of Bud.",
+      "sidebar": "sidebar"
+    },
+    "bud.minimize": {
+      "id": "bud.minimize",
+      "title": "bud.minimize",
+      "description": "Enables or disable minification of static assets.",
+      "sidebar": "sidebar"
+    },
+    "bud.mode/bud.isDevelopment": {
+      "id": "bud.mode/bud.isDevelopment",
+      "title": "bud.isDevelopment",
+      "description": "Property that is `true` when bud.mode is `development`",
+      "sidebar": "sidebar"
+    },
+    "bud.mode/bud.isProduction": {
+      "id": "bud.mode/bud.isProduction",
+      "title": "bud.isProduction",
+      "description": "Property that is `true` when bud.mode is `production`",
+      "sidebar": "sidebar"
+    },
+    "bud.mode/bud.mode": {
+      "id": "bud.mode/bud.mode",
+      "title": "bud.mode",
+      "description": "Specify if a build is being run in a production or development context.",
+      "sidebar": "sidebar"
+    },
+    "bud.path": {
+      "id": "bud.path",
+      "title": "bud.path",
+      "description": "Returns an absolute path for a given Framework location.",
+      "sidebar": "sidebar"
+    },
+    "bud.provide": {
+      "id": "bud.provide",
+      "title": "bud.provide",
+      "description": "Makes a variable/module available throughout the entire application.",
+      "sidebar": "sidebar"
+    },
+    "bud.proxy": {
+      "id": "bud.proxy",
+      "title": "bud.proxy",
+      "description": "Proxy an existing development server",
+      "sidebar": "sidebar"
+    },
+    "bud.publicPath": {
+      "id": "bud.publicPath",
+      "title": "bud.publicPath",
+      "description": "Get the application public path.",
+      "sidebar": "sidebar"
+    },
+    "bud.runtime": {
+      "id": "bud.runtime",
+      "title": "bud.runtime",
+      "description": "Get the application public path",
+      "sidebar": "sidebar"
+    },
+    "bud.serve": {
+      "id": "bud.serve",
+      "title": "bud.serve",
+      "description": "Configure the development server.",
+      "sidebar": "sidebar"
+    },
+    "bud.setPath": {
+      "id": "bud.setPath",
+      "title": "bud.setPath",
+      "description": "Set application paths",
+      "sidebar": "sidebar"
+    },
+    "bud.setPublicPath": {
+      "id": "bud.setPublicPath",
+      "title": "bud.setPublicPath",
+      "description": "Set the public path.",
+      "sidebar": "sidebar"
+    },
+    "bud.splitChunks": {
+      "id": "bud.splitChunks",
+      "title": "bud.splitChunks",
+      "description": "Separate vendor code from application code",
+      "sidebar": "sidebar"
+    },
+    "bud.tap": {
+      "id": "bud.tap",
+      "title": "bud.tap",
+      "description": "Access the bud object through a callback",
+      "sidebar": "sidebar"
+    },
+    "bud.template": {
+      "id": "bud.template",
+      "title": "bud.template",
+      "description": "Configure your application's html templates.",
+      "sidebar": "sidebar"
+    },
+    "bud.use": {
+      "id": "bud.use",
+      "title": "bud.use",
+      "description": "Register an extension or set of extensions",
+      "sidebar": "sidebar"
+    },
+    "bud.when": {
+      "id": "bud.when",
+      "title": "bud.when",
+      "description": "Conditionally execute a function based on conditions",
+      "sidebar": "sidebar"
+    },
+    "index": {
+      "id": "index",
+      "title": "Introduction",
+      "description": "Bud is a frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+      "sidebar": "sidebar"
+    }
+  }
+}

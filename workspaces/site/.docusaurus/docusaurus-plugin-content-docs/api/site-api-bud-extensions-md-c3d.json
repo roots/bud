@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud/bud.extensions",
+  "id": "bud/bud.extensions",
+  "title": "extensions() function",
+  "description": "extensions() function",
+  "source": "@site/api/bud/extensions.md",
+  "sourceDirName": "bud",
+  "slug": "/bud/extensions",
+  "permalink": "/api/bud/extensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud.extensions",
+    "title": "extensions() function",
+    "sidebar_label": "extensions() function",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "extensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "config variable",
+    "permalink": "/api/bud/config"
+  },
+  "next": {
+    "title": "factory() function",
+    "permalink": "/api/bud/factory"
+  }
+}

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_roots_bud_docs=self.webpackChunk_roots_bud_docs||[]).push([[49936],{13639:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Release: 5.0.0","permalink":"/releases/5.0.0"}]}')}}]);

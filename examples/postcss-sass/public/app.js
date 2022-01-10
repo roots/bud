@@ -7153,7 +7153,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 121:
       /*!*********************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/ErrorOverlay/Component.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/ErrorOverlay/Component.js ***!
   \*********************************************************************************/
       /***/ (__unused_webpack_module, exports) => {
         'use strict'
@@ -7228,7 +7228,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 852:
       /*!*****************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/ErrorOverlay/Inner.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/ErrorOverlay/Inner.js ***!
   \*****************************************************************************/
       /***/ (__unused_webpack_module, exports) => {
         'use strict'
@@ -7275,7 +7275,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 344:
       /*!*******************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/ErrorOverlay/Message.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/ErrorOverlay/Message.js ***!
   \*******************************************************************************/
       /***/ (__unused_webpack_module, exports) => {
         'use strict'
@@ -7342,7 +7342,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 403:
       /*!*****************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/ErrorOverlay/index.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/ErrorOverlay/index.js ***!
   \*****************************************************************************/
       /***/ (
         __unused_webpack_module,
@@ -7423,7 +7423,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 771:
       /*!********************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/ErrorOverlay/template.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/ErrorOverlay/template.js ***!
   \********************************************************************************/
       /***/ (__unused_webpack_module, exports) => {
         'use strict'
@@ -7445,7 +7445,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 647:
       /*!******************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/Indicator/Indicator.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/Indicator/Indicator.js ***!
   \******************************************************************************/
       /***/ (__unused_webpack_module, exports) => {
         'use strict'
@@ -7751,7 +7751,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 198:
       /*!**************************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/Indicator/index.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/Indicator/index.js ***!
   \**************************************************************************/
       /***/ (
         __unused_webpack_module,
@@ -7830,7 +7830,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
     /***/ 73:
       /*!****************************************************************!*\
-  !*** ../../packages/@roots/bud-server/lib/cjs/client/index.js ***!
+  !*** ../../workspaces/@roots/bud-server/lib/cjs/client/index.js ***!
   \****************************************************************/
       /***/ (
         __unused_webpack_module,

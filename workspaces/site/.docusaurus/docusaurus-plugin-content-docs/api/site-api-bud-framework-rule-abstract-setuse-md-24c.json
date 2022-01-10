@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.setuse",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.setuse",
+  "title": "setuse() method",
+  "description": "Rule.Abstract.setUse() method",
+  "source": "@site/api/bud-framework/rule/abstract/setuse.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/setuse",
+  "permalink": "/api/bud-framework/rule/abstract/setuse",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.setuse",
+    "title": "setuse() method",
+    "sidebar_label": "setuse() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setuse"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "settype() method",
+    "permalink": "/api/bud-framework/rule/abstract/settype"
+  },
+  "next": {
+    "title": "test() method",
+    "permalink": "/api/bud-framework/rule/abstract/test"
+  }
+}

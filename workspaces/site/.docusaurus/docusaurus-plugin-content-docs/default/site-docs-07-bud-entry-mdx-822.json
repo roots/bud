@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.entry",
+  "id": "bud.entry",
+  "title": "bud.entry",
+  "description": "Specify a set of assets to include in the compilation.",
+  "source": "@site/docs/07-bud.entry.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.entry",
+  "permalink": "/docs/bud.entry",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/07-bud.entry.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "id": "bud.entry",
+    "title": "bud.entry",
+    "description": "Specify a set of assets to include in the compilation.",
+    "sidebar_label": "bud.entry",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.entry.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.devtool",
+    "permalink": "/docs/bud.devtool"
+  },
+  "next": {
+    "title": "bud.env",
+    "permalink": "/docs/bud.env"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.define",
+  "id": "bud.define",
+  "title": "bud.define",
+  "description": "Replace variables in your application code and templates at compile time.",
+  "source": "@site/docs/04-bud.define.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.define",
+  "permalink": "/docs/bud.define",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/04-bud.define.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "id": "bud.define",
+    "title": "bud.define",
+    "description": "Replace variables in your application code and templates at compile time.",
+    "sidebar_label": "bud.define",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.define.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.assets",
+    "permalink": "/docs/bud.assets"
+  },
+  "next": {
+    "title": "bud.serve",
+    "permalink": "/docs/bud.serve"
+  }
+}

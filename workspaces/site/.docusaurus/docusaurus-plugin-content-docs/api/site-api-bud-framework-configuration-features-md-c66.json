@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.features",
+  "id": "bud-framework/configuration/bud-framework.configuration.features",
+  "title": "features property",
+  "description": "Configuration.features property",
+  "source": "@site/api/bud-framework/configuration/features.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/features",
+  "permalink": "/api/bud-framework/configuration/features",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.features",
+    "title": "features property",
+    "sidebar_label": "features property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "features"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extension property",
+    "permalink": "/api/bud-framework/configuration/extension"
+  },
+  "next": {
+    "title": "fileformat property",
+    "permalink": "/api/bud-framework/configuration/fileformat"
+  }
+}

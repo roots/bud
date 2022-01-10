@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.mergeoptions",
+  "id": "bud-extensions/controller/bud-extensions.controller.mergeoptions",
+  "title": "mergeoptions() method",
+  "description": "Controller.mergeOptions() method",
+  "source": "@site/api/bud-extensions/controller/mergeoptions.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/mergeoptions",
+  "permalink": "/api/bud-extensions/controller/mergeoptions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.mergeoptions",
+    "title": "mergeoptions() method",
+    "sidebar_label": "mergeoptions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mergeoptions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "mergeoption() method",
+    "permalink": "/api/bud-extensions/controller/mergeoption"
+  },
+  "next": {
+    "title": "meta property",
+    "permalink": "/api/bud-extensions/controller/meta"
+  }
+}

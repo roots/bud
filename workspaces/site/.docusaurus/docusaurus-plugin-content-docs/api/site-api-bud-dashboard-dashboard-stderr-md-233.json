@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-dashboard/dashboard/bud-dashboard.dashboard.stderr",
+  "id": "bud-dashboard/dashboard/bud-dashboard.dashboard.stderr",
+  "title": "stderr property",
+  "description": "Dashboard.stderr property",
+  "source": "@site/api/bud-dashboard/dashboard/stderr.md",
+  "sourceDirName": "bud-dashboard/dashboard",
+  "slug": "/bud-dashboard/dashboard/stderr",
+  "permalink": "/api/bud-dashboard/dashboard/stderr",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-dashboard.dashboard.stderr",
+    "title": "stderr property",
+    "sidebar_label": "stderr property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "stderr"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "run() method",
+    "permalink": "/api/bud-dashboard/dashboard/run"
+  },
+  "next": {
+    "title": "stdout property",
+    "permalink": "/api/bud-dashboard/dashboard/stdout"
+  }
+}

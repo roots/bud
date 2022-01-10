@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.gettest",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.gettest",
+  "title": "gettest() method",
+  "description": "Rule.Abstract.getTest() method",
+  "source": "@site/api/bud-framework/rule/abstract/gettest.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/gettest",
+  "permalink": "/api/bud-framework/rule/abstract/gettest",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.gettest",
+    "title": "gettest() method",
+    "sidebar_label": "gettest() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "gettest"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getparser() method",
+    "permalink": "/api/bud-framework/rule/abstract/getparser"
+  },
+  "next": {
+    "title": "gettype() method",
+    "permalink": "/api/bud-framework/rule/abstract/gettype"
+  }
+}

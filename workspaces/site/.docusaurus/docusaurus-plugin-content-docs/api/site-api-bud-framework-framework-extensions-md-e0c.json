@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.extensions",
+  "id": "bud-framework/framework/bud-framework.framework.extensions",
+  "title": "extensions property",
+  "description": "Framework.extensions property",
+  "source": "@site/api/bud-framework/framework/extensions.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/extensions",
+  "permalink": "/api/bud-framework/framework/extensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.extensions",
+    "title": "extensions property",
+    "sidebar_label": "extensions property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "extensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "error() method",
+    "permalink": "/api/bud-framework/framework/error"
+  },
+  "next": {
+    "title": "get property",
+    "permalink": "/api/bud-framework/framework/get"
+  }
+}

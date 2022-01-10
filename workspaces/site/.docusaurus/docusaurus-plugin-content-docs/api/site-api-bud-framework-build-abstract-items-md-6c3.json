@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/build/abstract/bud-framework.build.abstract.items",
+  "id": "bud-framework/build/abstract/bud-framework.build.abstract.items",
+  "title": "items property",
+  "description": "Build.Abstract.items property",
+  "source": "@site/api/bud-framework/build/abstract/items.md",
+  "sourceDirName": "bud-framework/build/abstract",
+  "slug": "/bud-framework/build/abstract/items",
+  "permalink": "/api/bud-framework/build/abstract/items",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.build.abstract.items",
+    "title": "items property",
+    "sidebar_label": "items property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "items"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/build/interface"
+  },
+  "next": {
+    "title": "loaders property",
+    "permalink": "/api/bud-framework/build/abstract/loaders"
+  }
+}

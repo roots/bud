@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.logger",
+  "id": "bud-framework/bud-framework.logger",
+  "title": "logger class",
+  "description": "Logger class",
+  "source": "@site/api/bud-framework/logger.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/logger",
+  "permalink": "/api/bud-framework/logger",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger",
+    "title": "logger class",
+    "sidebar_label": "logger class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "logger"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "locations interface",
+    "permalink": "/api/bud-framework/locations"
+  },
+  "next": {
+    "title": "loose interface",
+    "permalink": "/api/bud-framework/loose"
+  }
+}

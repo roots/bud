@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/project/interface/bud-framework.project.interface.peers",
+  "id": "bud-framework/project/interface/bud-framework.project.interface.peers",
+  "title": "peers property",
+  "description": "Project.Interface.peers property",
+  "source": "@site/api/bud-framework/project/interface/peers.md",
+  "sourceDirName": "bud-framework/project/interface",
+  "slug": "/bud-framework/project/interface/peers",
+  "permalink": "/api/bud-framework/project/interface/peers",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.project.interface.peers",
+    "title": "peers property",
+    "sidebar_label": "peers property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "peers"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "haspeerdependency() method",
+    "permalink": "/api/bud-framework/project/interface/haspeerdependency"
+  },
+  "next": {
+    "title": "writeprofile() method",
+    "permalink": "/api/bud-framework/project/interface/writeprofile"
+  }
+}

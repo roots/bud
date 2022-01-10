@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extensions/bud-framework.extensions.registerextensions",
+  "id": "bud-framework/extensions/bud-framework.extensions.registerextensions",
+  "title": "registerextensions() method",
+  "description": "Extensions.registerExtensions() method",
+  "source": "@site/api/bud-framework/extensions/registerextensions.md",
+  "sourceDirName": "bud-framework/extensions",
+  "slug": "/bud-framework/extensions/registerextensions",
+  "permalink": "/api/bud-framework/extensions/registerextensions",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extensions.registerextensions",
+    "title": "registerextensions() method",
+    "sidebar_label": "registerextensions() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "registerextensions"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "queue property",
+    "permalink": "/api/bud-framework/extensions/queue"
+  },
+  "next": {
+    "title": "abstract class",
+    "permalink": "/api/bud-framework/item/abstract"
+  }
+}

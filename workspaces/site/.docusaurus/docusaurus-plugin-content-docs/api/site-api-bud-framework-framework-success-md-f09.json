@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.success",
+  "id": "bud-framework/framework/bud-framework.framework.success",
+  "title": "success() method",
+  "description": "Framework.success() method",
+  "source": "@site/api/bud-framework/framework/success.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/success",
+  "permalink": "/api/bud-framework/framework/success",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.success",
+    "title": "success() method",
+    "sidebar_label": "success() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "success"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "store property",
+    "permalink": "/api/bud-framework/framework/store"
+  },
+  "next": {
+    "title": "tap property",
+    "permalink": "/api/bud-framework/framework/tap"
+  }
+}

@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "strict": false,
     "target": "ES2015",
-    "types": ["node", "jest", "react", "express", "webpack"]
+    "types": ["node"]
   },
   "files": []
 }

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.mergestore",
+  "id": "container/container/container.container.mergestore",
+  "title": "mergestore() method",
+  "description": "Container.mergeStore() method",
+  "source": "@site/api/container/container/mergestore.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/mergestore",
+  "permalink": "/api/container/container/mergestore",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.mergestore",
+    "title": "mergestore() method",
+    "sidebar_label": "mergestore() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mergestore"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "merge() method",
+    "permalink": "/api/container/container/merge"
+  },
+  "next": {
+    "title": "mutate() method",
+    "permalink": "/api/container/container/mutate"
+  }
+}

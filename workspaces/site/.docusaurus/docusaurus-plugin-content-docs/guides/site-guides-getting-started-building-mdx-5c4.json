@@ -1,0 +1,29 @@
+{
+  "unversionedId": "getting-started/building",
+  "id": "getting-started/building",
+  "title": "Building the project",
+  "description": "Part 1/7 of the Getting Started guide covers installing @roots/bud",
+  "source": "@site/guides/getting-started/building.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/building",
+  "permalink": "/guides/getting-started/building",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Building the project",
+    "description": "Part 1/7 of the Getting Started guide covers installing @roots/bud",
+    "sidebar_label": "Running a build",
+    "sidebar_position": 2,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__assets.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "First steps",
+    "permalink": "/guides/getting-started/"
+  },
+  "next": {
+    "title": "Running in dev",
+    "permalink": "/guides/getting-started/developing"
+  }
+}

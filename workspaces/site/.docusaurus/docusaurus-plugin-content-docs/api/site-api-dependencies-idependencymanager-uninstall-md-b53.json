@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/idependencymanager/dependencies.idependencymanager.uninstall",
+  "id": "dependencies/idependencymanager/dependencies.idependencymanager.uninstall",
+  "title": "uninstall property",
+  "description": "IDependencyManager.uninstall property",
+  "source": "@site/api/dependencies/idependencymanager/uninstall.md",
+  "sourceDirName": "dependencies/idependencymanager",
+  "slug": "/dependencies/idependencymanager/uninstall",
+  "permalink": "/api/dependencies/idependencymanager/uninstall",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.idependencymanager.uninstall",
+    "title": "uninstall property",
+    "sidebar_label": "uninstall property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "uninstall"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "path property",
+    "permalink": "/api/dependencies/idependencymanager/path"
+  },
+  "next": {
+    "title": "install() method",
+    "permalink": "/api/dependencies/npm/install"
+  }
+}

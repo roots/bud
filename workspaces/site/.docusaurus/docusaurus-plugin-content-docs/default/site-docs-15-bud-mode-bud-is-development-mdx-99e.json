@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud.mode/bud.isDevelopment",
+  "id": "bud.mode/bud.isDevelopment",
+  "title": "bud.isDevelopment",
+  "description": "Property that is `true` when bud.mode is `development`",
+  "source": "@site/docs/15-bud.mode/bud.isDevelopment.mdx",
+  "sourceDirName": "15-bud.mode",
+  "slug": "/bud.mode/bud.isDevelopment",
+  "permalink": "/docs/bud.mode/bud.isDevelopment",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/15-bud.mode/bud.isDevelopment.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "slug": "bud.isDevelopment",
+    "title": "bud.isDevelopment",
+    "description": "Property that is `true` when bud.mode is `development`",
+    "sidebar_label": "bud.isDevelopment",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.mode__bud.isDevelopment.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.mode",
+    "permalink": "/docs/bud.mode/"
+  },
+  "next": {
+    "title": "bud.isProduction",
+    "permalink": "/docs/bud.mode/bud.isProduction"
+  }
+}

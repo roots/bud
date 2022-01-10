@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.middleware",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.middleware",
+  "title": "middleware property",
+  "description": "Server.Interface.middleware property",
+  "source": "@site/api/bud-framework/server/interface/middleware.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/middleware",
+  "permalink": "/api/bud-framework/server/interface/middleware",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.middleware",
+    "title": "middleware property",
+    "sidebar_label": "middleware property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "middleware"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "instance property",
+    "permalink": "/api/bud-framework/server/interface/instance"
+  },
+  "next": {
+    "title": "run() method",
+    "permalink": "/api/bud-framework/server/interface/run"
+  }
+}

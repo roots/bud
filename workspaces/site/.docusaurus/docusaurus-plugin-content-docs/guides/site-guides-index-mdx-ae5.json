@@ -1,0 +1,27 @@
+{
+  "unversionedId": "introduction",
+  "id": "introduction",
+  "title": "Introduction",
+  "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+  "source": "@site/guides/index.mdx",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/guides/",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "id": "introduction",
+    "title": "Introduction",
+    "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+    "sidebar_label": "Introduction",
+    "sidebar_position": 1,
+    "slug": "/",
+    "image": "https://budjs.netlify.app/img/share/guides/index.png"
+  },
+  "sidebar": "sidebar",
+  "next": {
+    "title": "Installation",
+    "permalink": "/guides/installation"
+  }
+}

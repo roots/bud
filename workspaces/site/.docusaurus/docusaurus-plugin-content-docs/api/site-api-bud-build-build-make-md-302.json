@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/build/bud-build.build.make",
+  "id": "bud-build/build/bud-build.build.make",
+  "title": "make() method",
+  "description": "Build.make() method",
+  "source": "@site/api/bud-build/build/make.md",
+  "sourceDirName": "bud-build/build",
+  "slug": "/bud-build/build/make",
+  "permalink": "/api/bud-build/build/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.build.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loaders property",
+    "permalink": "/api/bud-build/build/loaders"
+  },
+  "next": {
+    "title": "register() method",
+    "permalink": "/api/bud-build/build/register"
+  }
+}

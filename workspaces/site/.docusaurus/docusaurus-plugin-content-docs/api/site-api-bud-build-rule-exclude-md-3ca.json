@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.exclude",
+  "id": "bud-build/rule/bud-build.rule.exclude",
+  "title": "exclude property",
+  "description": "Rule.exclude property",
+  "source": "@site/api/bud-build/rule/exclude.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/exclude",
+  "permalink": "/api/bud-build/rule/exclude",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.exclude",
+    "title": "exclude property",
+    "sidebar_label": "exclude property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "exclude"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "(constructor)",
+    "permalink": "/api/bud-build/rule/constructor"
+  },
+  "next": {
+    "title": "generator property",
+    "permalink": "/api/bud-build/rule/generator"
+  }
+}

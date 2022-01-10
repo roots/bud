@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.errors",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.errors",
+  "title": "errors property",
+  "description": "Compiler.errors property",
+  "source": "@site/api/bud-compiler/compiler/errors.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/errors",
+  "permalink": "/api/bud-compiler/compiler/errors",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.errors",
+    "title": "errors property",
+    "sidebar_label": "errors property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "errors"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "config property",
+    "permalink": "/api/bud-compiler/compiler/config"
+  },
+  "next": {
+    "title": "instance property",
+    "permalink": "/api/bud-compiler/compiler/instance"
+  }
+}

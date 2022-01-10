@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.instance",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.instance",
+  "title": "instance property",
+  "description": "Compiler.instance property",
+  "source": "@site/api/bud-compiler/compiler/instance.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/instance",
+  "permalink": "/api/bud-compiler/compiler/instance",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.instance",
+    "title": "instance property",
+    "sidebar_label": "instance property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "instance"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "errors property",
+    "permalink": "/api/bud-compiler/compiler/errors"
+  },
+  "next": {
+    "title": "invoke() method",
+    "permalink": "/api/bud-compiler/compiler/invoke"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.provide",
+  "id": "bud.provide",
+  "title": "bud.provide",
+  "description": "Makes a variable/module available throughout the entire application.",
+  "source": "@site/docs/17-bud.provide.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.provide",
+  "permalink": "/docs/bud.provide",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/17-bud.provide.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 17,
+  "frontMatter": {
+    "slug": "bud.provide",
+    "title": "bud.provide",
+    "description": "Makes a variable/module available throughout the entire application.",
+    "sidebar_label": "bud.provide",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.provide.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.path",
+    "permalink": "/docs/bud.path"
+  },
+  "next": {
+    "title": "bud.proxy",
+    "permalink": "/docs/bud.proxy"
+  }
+}

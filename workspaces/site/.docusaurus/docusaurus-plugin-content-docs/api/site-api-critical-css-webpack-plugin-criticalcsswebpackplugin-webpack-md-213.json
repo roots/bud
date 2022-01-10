@@ -1,0 +1,29 @@
+{
+  "unversionedId": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.webpack",
+  "id": "critical-css-webpack-plugin/criticalcsswebpackplugin/critical-css-webpack-plugin.criticalcsswebpackplugin.webpack",
+  "title": "webpack property",
+  "description": "CriticalCssWebpackPlugin.webpack property",
+  "source": "@site/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack.md",
+  "sourceDirName": "critical-css-webpack-plugin/criticalcsswebpackplugin",
+  "slug": "/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack",
+  "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/webpack",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "critical-css-webpack-plugin.criticalcsswebpackplugin.webpack",
+    "title": "webpack property",
+    "sidebar_label": "webpack property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "webpack"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "vfile() method",
+    "permalink": "/api/critical-css-webpack-plugin/criticalcsswebpackplugin/vfile"
+  },
+  "next": {
+    "title": "criticaloptions property",
+    "permalink": "/api/critical-css-webpack-plugin/options/criticaloptions"
+  }
+}

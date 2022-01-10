@@ -1,0 +1,26 @@
+{
+  "unversionedId": "bud-vue",
+  "id": "bud-vue",
+  "title": "@roots/bud-vue",
+  "description": "Use Vue in your Bud projects",
+  "source": "@site/extensions/bud-vue.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-vue",
+  "permalink": "/extensions/bud-vue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "@roots/bud-vue",
+    "description": "Use Vue in your Bud projects",
+    "sidebar_label": "@roots/bud-vue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-typescript",
+    "permalink": "/extensions/bud-typescript"
+  },
+  "next": {
+    "title": "@roots/bud-preset-recommend",
+    "permalink": "/extensions/presets/bud-preset-recommend"
+  }
+}

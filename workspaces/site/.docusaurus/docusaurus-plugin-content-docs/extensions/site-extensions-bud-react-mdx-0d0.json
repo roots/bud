@@ -1,0 +1,25 @@
+{
+  "unversionedId": "bud-react",
+  "id": "bud-react",
+  "title": "@roots/bud-react",
+  "description": "Use React components in your Bud projects",
+  "source": "@site/extensions/bud-react.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-react",
+  "permalink": "/extensions/bud-react",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-react",
+    "description": "Use React components in your Bud projects"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-postcss",
+    "permalink": "/extensions/bud-postcss"
+  },
+  "next": {
+    "title": "@roots/bud-sass",
+    "permalink": "/extensions/bud-sass"
+  }
+}

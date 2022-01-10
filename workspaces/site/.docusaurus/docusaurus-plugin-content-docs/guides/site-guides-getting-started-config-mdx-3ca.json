@@ -1,0 +1,29 @@
+{
+  "unversionedId": "getting-started/config",
+  "id": "getting-started/config",
+  "title": "Creating a config file",
+  "description": "Part 3/7 of the Getting Started guide covers creating a bud.config.js file",
+  "source": "@site/guides/getting-started/config.mdx",
+  "sourceDirName": "getting-started",
+  "slug": "/getting-started/config",
+  "permalink": "/guides/getting-started/config",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Creating a config file",
+    "description": "Part 3/7 of the Getting Started guide covers creating a bud.config.js file",
+    "sidebar_label": "Creating a config file",
+    "sidebar_position": 4,
+    "image": "https://budjs.netlify.app/img/share/guides/getting-started__config.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Running in dev",
+    "permalink": "/guides/getting-started/developing"
+  },
+  "next": {
+    "title": "Adding entrypoints",
+    "permalink": "/guides/getting-started/entrypoints"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/loader/bud-build.loader.src",
+  "id": "bud-build/loader/bud-build.loader.src",
+  "title": "src property",
+  "description": "Loader.src property",
+  "source": "@site/api/bud-build/loader/src.md",
+  "sourceDirName": "bud-build/loader",
+  "slug": "/bud-build/loader/src",
+  "permalink": "/api/bud-build/loader/src",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.loader.src",
+    "title": "src property",
+    "sidebar_label": "src property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "src"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "normalizeinput() method",
+    "permalink": "/api/bud-build/loader/normalizeinput"
+  },
+  "next": {
+    "title": "default variable",
+    "permalink": "/api/bud-build/loaders/default"
+  }
+}

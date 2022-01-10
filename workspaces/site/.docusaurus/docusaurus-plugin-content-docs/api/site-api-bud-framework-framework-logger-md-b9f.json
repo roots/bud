@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.logger",
+  "id": "bud-framework/framework/bud-framework.framework.logger",
+  "title": "logger property",
+  "description": "Framework.logger property",
+  "source": "@site/api/bud-framework/framework/logger.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/logger",
+  "permalink": "/api/bud-framework/framework/logger",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.logger",
+    "title": "logger property",
+    "sidebar_label": "logger property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "logger"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "log() method",
+    "permalink": "/api/bud-framework/framework/log"
+  },
+  "next": {
+    "title": "make property",
+    "permalink": "/api/bud-framework/framework/make"
+  }
+}

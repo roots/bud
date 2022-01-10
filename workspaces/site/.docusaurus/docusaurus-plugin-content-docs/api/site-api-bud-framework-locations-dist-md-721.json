@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/locations/bud-framework.locations.dist",
+  "id": "bud-framework/locations/bud-framework.locations.dist",
+  "title": "dist property",
+  "description": "Locations.dist property",
+  "source": "@site/api/bud-framework/locations/dist.md",
+  "sourceDirName": "bud-framework/locations",
+  "slug": "/bud-framework/locations/dist",
+  "permalink": "/api/bud-framework/locations/dist",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.locations.dist",
+    "title": "dist property",
+    "sidebar_label": "dist property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dist"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "on() method",
+    "permalink": "/api/bud-framework/hooks/on"
+  },
+  "next": {
+    "title": "project property",
+    "permalink": "/api/bud-framework/locations/project"
+  }
+}

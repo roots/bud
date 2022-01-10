@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.options",
+  "id": "bud-framework/logger/bud-framework.logger.options",
+  "title": "options property",
+  "description": "Logger.options property",
+  "source": "@site/api/bud-framework/logger/options.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/options",
+  "permalink": "/api/bud-framework/logger/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.options",
+    "title": "options property",
+    "sidebar_label": "options property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "makeinstance() method",
+    "permalink": "/api/bud-framework/logger/makeinstance"
+  },
+  "next": {
+    "title": "scoped() method",
+    "permalink": "/api/bud-framework/logger/scoped"
+  }
+}

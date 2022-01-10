@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/api/bud-api.api.processqueue",
+  "id": "bud-api/api/bud-api.api.processqueue",
+  "title": "processqueue() method",
+  "description": "Api.processQueue() method",
+  "source": "@site/api/bud-api/api/processqueue.md",
+  "sourceDirName": "bud-api/api",
+  "slug": "/bud-api/api/processqueue",
+  "permalink": "/api/bud-api/api/processqueue",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.api.processqueue",
+    "title": "processqueue() method",
+    "sidebar_label": "processqueue() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "processqueue"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "dump() method",
+    "permalink": "/api/bud-api/api/dump"
+  },
+  "next": {
+    "title": "cache\\_2 class",
+    "permalink": "/api/bud-cache/cache2"
+  }
+}

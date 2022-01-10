@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/interface/bud-framework.server.interface.watcher",
+  "id": "bud-framework/server/interface/bud-framework.server.interface.watcher",
+  "title": "watcher property",
+  "description": "Server.Interface.watcher property",
+  "source": "@site/api/bud-framework/server/interface/watcher.md",
+  "sourceDirName": "bud-framework/server/interface",
+  "slug": "/bud-framework/server/interface/watcher",
+  "permalink": "/api/bud-framework/server/interface/watcher",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.interface.watcher",
+    "title": "watcher property",
+    "sidebar_label": "watcher property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "watcher"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "run() method",
+    "permalink": "/api/bud-framework/server/interface/run"
+  },
+  "next": {
+    "title": "get() method",
+    "permalink": "/api/bud-framework/store/get"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/build/interface/bud-framework.build.interface.make",
+  "id": "bud-framework/build/interface/bud-framework.build.interface.make",
+  "title": "make() method",
+  "description": "Build.Interface.make() method",
+  "source": "@site/api/bud-framework/build/interface/make.md",
+  "sourceDirName": "bud-framework/build/interface",
+  "slug": "/bud-framework/build/interface/make",
+  "permalink": "/api/bud-framework/build/interface/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.build.interface.make",
+    "title": "make() method",
+    "sidebar_label": "make() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "loaders property",
+    "permalink": "/api/bud-framework/build/interface/loaders"
+  },
+  "next": {
+    "title": "rules property",
+    "permalink": "/api/bud-framework/build/interface/rules"
+  }
+}

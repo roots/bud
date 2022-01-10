@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.get",
+  "id": "container/container/container.container.get",
+  "title": "get() method",
+  "description": "Container.get() method",
+  "source": "@site/api/container/container/get.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/get",
+  "permalink": "/api/container/container/get",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.get",
+    "title": "get() method",
+    "sidebar_label": "get() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "get"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "fromentries() method",
+    "permalink": "/api/container/container/fromentries"
+  },
+  "next": {
+    "title": "getentries() method",
+    "permalink": "/api/container/container/getentries"
+  }
+}

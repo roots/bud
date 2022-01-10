@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-imagemin/bud-imagemin.boot",
+  "id": "bud-imagemin/bud-imagemin.boot",
+  "title": "boot variable",
+  "description": "boot variable",
+  "source": "@site/api/bud-imagemin/boot.md",
+  "sourceDirName": "bud-imagemin",
+  "slug": "/bud-imagemin/boot",
+  "permalink": "/api/bud-imagemin/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-imagemin.boot",
+    "title": "boot variable",
+    "sidebar_label": "boot variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "on() method",
+    "permalink": "/api/bud-hooks/hooks/on"
+  },
+  "next": {
+    "title": "mixin variable",
+    "permalink": "/api/bud-imagemin/mixin"
+  }
+}

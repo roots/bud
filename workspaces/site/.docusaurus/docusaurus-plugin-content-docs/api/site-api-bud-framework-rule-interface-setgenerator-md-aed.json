@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/interface/bud-framework.rule.interface.setgenerator",
+  "id": "bud-framework/rule/interface/bud-framework.rule.interface.setgenerator",
+  "title": "setgenerator() method",
+  "description": "Rule.Interface.setGenerator() method",
+  "source": "@site/api/bud-framework/rule/interface/setgenerator.md",
+  "sourceDirName": "bud-framework/rule/interface",
+  "slug": "/bud-framework/rule/interface/setgenerator",
+  "permalink": "/api/bud-framework/rule/interface/setgenerator",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.interface.setgenerator",
+    "title": "setgenerator() method",
+    "sidebar_label": "setgenerator() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setgenerator"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setexclude() method",
+    "permalink": "/api/bud-framework/rule/interface/setexclude"
+  },
+  "next": {
+    "title": "setparser() method",
+    "permalink": "/api/bud-framework/rule/interface/setparser"
+  }
+}

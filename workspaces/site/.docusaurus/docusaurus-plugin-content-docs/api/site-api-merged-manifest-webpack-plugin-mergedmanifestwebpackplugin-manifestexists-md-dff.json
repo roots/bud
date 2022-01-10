@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestexists",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestexists",
+  "title": "manifestexists() method",
+  "description": "MergedManifestWebpackPlugin.manifestExists() method",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestexists.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestexists",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestexists",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.manifestexists",
+    "title": "manifestexists() method",
+    "sidebar_label": "manifestexists() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "manifestexists"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "manifestcontent() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestcontent"
+  },
+  "next": {
+    "title": "manifestpath() method",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/manifestpath"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-esbuild",
+  "id": "bud-esbuild",
+  "title": "@roots/bud-esbuild",
+  "description": "Esbuild support can be added by installing the @roots/bud-esbuild extension.",
+  "source": "@site/extensions/bud-esbuild.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-esbuild",
+  "permalink": "/extensions/bud-esbuild",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-esbuild"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-entrypoints",
+    "permalink": "/extensions/bud-entrypoints"
+  },
+  "next": {
+    "title": "@roots/bud-eslint",
+    "permalink": "/extensions/bud-eslint"
+  }
+}

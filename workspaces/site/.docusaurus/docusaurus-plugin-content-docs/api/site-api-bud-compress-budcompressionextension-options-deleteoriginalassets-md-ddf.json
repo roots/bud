@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.deleteoriginalassets",
+  "id": "bud-compress/budcompressionextension/options/bud-compress.budcompressionextension.options.deleteoriginalassets",
+  "title": "deleteoriginalassets property",
+  "description": "BudCompressionExtension.Options.deleteOriginalAssets property",
+  "source": "@site/api/bud-compress/budcompressionextension/options/deleteoriginalassets.md",
+  "sourceDirName": "bud-compress/budcompressionextension/options",
+  "slug": "/bud-compress/budcompressionextension/options/deleteoriginalassets",
+  "permalink": "/api/bud-compress/budcompressionextension/options/deleteoriginalassets",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.budcompressionextension.options.deleteoriginalassets",
+    "title": "deleteoriginalassets property",
+    "sidebar_label": "deleteoriginalassets property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "deleteoriginalassets"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "compressionoptions property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/compressionoptions"
+  },
+  "next": {
+    "title": "filename property",
+    "permalink": "/api/bud-compress/budcompressionextension/options/filename"
+  }
+}

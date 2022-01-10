@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/dependencies.dependencies",
+  "id": "dependencies/dependencies.dependencies",
+  "title": "dependencies class",
+  "description": "Dependencies class",
+  "source": "@site/api/dependencies/dependencies.md",
+  "sourceDirName": "dependencies",
+  "slug": "/dependencies/dependencies",
+  "permalink": "/api/dependencies/dependencies",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.dependencies",
+    "title": "dependencies class",
+    "sidebar_label": "dependencies class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "dependencies"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "replace property",
+    "permalink": "/api/critical-css-webpack-plugin/options/replace"
+  },
+  "next": {
+    "title": "idependencymanager interface",
+    "permalink": "/api/dependencies/idependencymanager"
+  }
+}

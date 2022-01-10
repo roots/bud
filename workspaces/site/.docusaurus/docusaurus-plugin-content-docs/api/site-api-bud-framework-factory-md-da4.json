@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.factory",
+  "id": "bud-framework/bud-framework.factory",
+  "title": "factory interface",
+  "description": "Factory interface",
+  "source": "@site/api/bud-framework/factory.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/factory",
+  "permalink": "/api/bud-framework/factory",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.factory",
+    "title": "factory interface",
+    "sidebar_label": "factory interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "factory"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "extensions interface",
+    "permalink": "/api/bud-framework/extensions"
+  },
+  "next": {
+    "title": "framework class",
+    "permalink": "/api/bud-framework/framework"
+  }
+}

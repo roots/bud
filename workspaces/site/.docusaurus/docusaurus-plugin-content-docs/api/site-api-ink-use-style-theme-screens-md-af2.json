@@ -1,0 +1,29 @@
+{
+  "unversionedId": "ink-use-style/theme/ink-use-style.theme.screens",
+  "id": "ink-use-style/theme/ink-use-style.theme.screens",
+  "title": "screens property",
+  "description": "Theme.screens property",
+  "source": "@site/api/ink-use-style/theme/screens.md",
+  "sourceDirName": "ink-use-style/theme",
+  "slug": "/ink-use-style/theme/screens",
+  "permalink": "/api/ink-use-style/theme/screens",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ink-use-style.theme.screens",
+    "title": "screens property",
+    "sidebar_label": "screens property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "screens"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "maxwidth property",
+    "permalink": "/api/ink-use-style/theme/maxwidth"
+  },
+  "next": {
+    "title": "screentuple type",
+    "permalink": "/api/ink-use-style/theme/screentuple"
+  }
+}

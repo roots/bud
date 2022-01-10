@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.isnotstring",
+  "id": "container/container/container.container.isnotstring",
+  "title": "isnotstring() method",
+  "description": "Container.isNotString() method",
+  "source": "@site/api/container/container/isnotstring.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/isnotstring",
+  "permalink": "/api/container/container/isnotstring",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.isnotstring",
+    "title": "isnotstring() method",
+    "sidebar_label": "isnotstring() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isnotstring"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isnotnumber() method",
+    "permalink": "/api/container/container/isnotnumber"
+  },
+  "next": {
+    "title": "isnull() method",
+    "permalink": "/api/container/container/isnull"
+  }
+}

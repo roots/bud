@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.fs",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.fs",
+  "title": "fs property",
+  "description": "FileContainer.fs property",
+  "source": "@site/api/filesystem/filecontainer/fs.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/fs",
+  "permalink": "/api/filesystem/filecontainer/fs",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.fs",
+    "title": "fs property",
+    "sidebar_label": "fs property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "fs"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "exists() method",
+    "permalink": "/api/filesystem/filecontainer/exists"
+  },
+  "next": {
+    "title": "has() method",
+    "permalink": "/api/filesystem/filecontainer/has"
+  }
+}

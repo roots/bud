@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/service/bud-framework.service.boot",
+  "id": "bud-framework/service/bud-framework.service.boot",
+  "title": "boot() method",
+  "description": "Service.boot() method",
+  "source": "@site/api/bud-framework/service/boot.md",
+  "sourceDirName": "bud-framework/service",
+  "slug": "/bud-framework/service/boot",
+  "permalink": "/api/bud-framework/service/boot",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.service.boot",
+    "title": "boot() method",
+    "sidebar_label": "boot() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "boot"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "parse property",
+    "permalink": "/api/bud-framework/rule/parser/parse"
+  },
+  "next": {
+    "title": "booted() method",
+    "permalink": "/api/bud-framework/service/booted"
+  }
+}

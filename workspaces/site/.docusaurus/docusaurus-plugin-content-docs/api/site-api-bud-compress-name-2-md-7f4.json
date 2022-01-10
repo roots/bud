@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compress/bud-compress.name_2",
+  "id": "bud-compress/bud-compress.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-compress/name2.md",
+  "sourceDirName": "bud-compress",
+  "slug": "/bud-compress/name2",
+  "permalink": "/api/bud-compress/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compress.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "budcompressionextension namespace",
+    "permalink": "/api/bud-compress/budcompressionextension"
+  },
+  "next": {
+    "title": "options interface",
+    "permalink": "/api/bud-compress/budcompressionextension/options"
+  }
+}

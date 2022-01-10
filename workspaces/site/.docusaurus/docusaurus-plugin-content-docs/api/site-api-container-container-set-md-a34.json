@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.set",
+  "id": "container/container/container.container.set",
+  "title": "set() method",
+  "description": "Container.set() method",
+  "source": "@site/api/container/container/set.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/set",
+  "permalink": "/api/container/container/set",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.set",
+    "title": "set() method",
+    "sidebar_label": "set() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "set"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "repository property",
+    "permalink": "/api/container/container/repository"
+  },
+  "next": {
+    "title": "setstore() method",
+    "permalink": "/api/container/container/setstore"
+  }
+}

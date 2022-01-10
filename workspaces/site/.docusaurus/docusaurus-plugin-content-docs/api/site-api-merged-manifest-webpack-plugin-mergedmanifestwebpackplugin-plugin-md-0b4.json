@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.plugin",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.plugin",
+  "title": "plugin property",
+  "description": "MergedManifestWebpackPlugin.plugin property",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.plugin",
+    "title": "plugin property",
+    "sidebar_label": "plugin property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "plugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "path property",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/path"
+  },
+  "next": {
+    "title": "wordpressname property",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname"
+  }
+}

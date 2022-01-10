@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.callback",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.callback",
+  "title": "callback() method",
+  "description": "Compiler.callback() method",
+  "source": "@site/api/bud-compiler/compiler/callback.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/callback",
+  "permalink": "/api/bud-compiler/compiler/callback",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.callback",
+    "title": "callback() method",
+    "sidebar_label": "callback() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "callback"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "before() method",
+    "permalink": "/api/bud-compiler/compiler/before"
+  },
+  "next": {
+    "title": "compile() method",
+    "permalink": "/api/bud-compiler/compiler/compile"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/item/bud-build.item._constructor_",
+  "id": "bud-build/item/bud-build.item._constructor_",
+  "title": "(constructor)",
+  "description": "Item.(constructor)",
+  "source": "@site/api/bud-build/item/constructor.md",
+  "sourceDirName": "bud-build/item",
+  "slug": "/bud-build/item/constructor",
+  "permalink": "/api/bud-build/item/constructor",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.item._constructor_",
+    "title": "(constructor)",
+    "sidebar_label": "(constructor)",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "constructor"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "writefinalconfig() method",
+    "permalink": "/api/bud-build/build/writefinalconfig"
+  },
+  "next": {
+    "title": "getloader() method",
+    "permalink": "/api/bud-build/item/getloader"
+  }
+}

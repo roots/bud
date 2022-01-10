@@ -1,0 +1,30 @@
+{
+  "unversionedId": "general-use/index",
+  "id": "general-use/index",
+  "title": "Introduction",
+  "description": "Guide on general usage of Bud",
+  "source": "@site/guides/general-use/index.mdx",
+  "sourceDirName": "general-use",
+  "slug": "/general-use/",
+  "permalink": "/guides/general-use/",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Introduction",
+    "description": "Guide on general usage of Bud",
+    "slug": "/general-use/",
+    "sidebar_label": "Introduction",
+    "sidebar_position": 1,
+    "image": "https://budjs.netlify.app/img/share/guides/general-use__.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Optimizing compiled assets",
+    "permalink": "/guides/getting-started/optimizing"
+  },
+  "next": {
+    "title": "Environment-specific configs",
+    "permalink": "/guides/general-use/config-env"
+  }
+}

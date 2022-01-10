@@ -1,0 +1,29 @@
+{
+  "unversionedId": "filesystem/filecontainer/filesystem.filecontainer.require",
+  "id": "filesystem/filecontainer/filesystem.filecontainer.require",
+  "title": "require() method",
+  "description": "FileContainer.require() method",
+  "source": "@site/api/filesystem/filecontainer/require.md",
+  "sourceDirName": "filesystem/filecontainer",
+  "slug": "/filesystem/filecontainer/require",
+  "permalink": "/api/filesystem/filecontainer/require",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "filesystem.filecontainer.require",
+    "title": "require() method",
+    "sidebar_label": "require() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "require"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "readjson() method",
+    "permalink": "/api/filesystem/filecontainer/readjson"
+  },
+  "next": {
+    "title": "resolve property",
+    "permalink": "/api/filesystem/filecontainer/resolve"
+  }
+}

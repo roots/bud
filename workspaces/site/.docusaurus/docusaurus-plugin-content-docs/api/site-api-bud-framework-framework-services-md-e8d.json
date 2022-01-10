@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.services",
+  "id": "bud-framework/framework/bud-framework.framework.services",
+  "title": "services property",
+  "description": "Framework.services property",
+  "source": "@site/api/bud-framework/framework/services.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/services",
+  "permalink": "/api/bud-framework/framework/services",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.services",
+    "title": "services property",
+    "sidebar_label": "services property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "services"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "server property",
+    "permalink": "/api/bud-framework/framework/server"
+  },
+  "next": {
+    "title": "setpath property",
+    "permalink": "/api/bud-framework/framework/setpath"
+  }
+}

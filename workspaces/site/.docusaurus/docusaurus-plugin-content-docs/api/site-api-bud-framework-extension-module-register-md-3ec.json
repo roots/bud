@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/module/bud-framework.extension.module.register",
+  "id": "bud-framework/extension/module/bud-framework.extension.module.register",
+  "title": "register property",
+  "description": "Extension.Module.register property",
+  "source": "@site/api/bud-framework/extension/module/register.md",
+  "sourceDirName": "bud-framework/extension/module",
+  "slug": "/bud-framework/extension/module/register",
+  "permalink": "/api/bud-framework/extension/module/register",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.module.register",
+    "title": "register property",
+    "sidebar_label": "register property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "register"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "options property",
+    "permalink": "/api/bud-framework/extension/module/options"
+  },
+  "next": {
+    "title": "when property",
+    "permalink": "/api/bud-framework/extension/module/when"
+  }
+}

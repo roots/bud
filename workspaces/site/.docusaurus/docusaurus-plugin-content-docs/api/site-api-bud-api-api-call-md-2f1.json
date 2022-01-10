@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/api/bud-api.api.call",
+  "id": "bud-api/api/bud-api.api.call",
+  "title": "call() method",
+  "description": "Api.call() method",
+  "source": "@site/api/bud-api/api/call.md",
+  "sourceDirName": "bud-api/api",
+  "slug": "/bud-api/api/call",
+  "permalink": "/api/bud-api/api/call",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.api.call",
+    "title": "call() method",
+    "sidebar_label": "call() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "call"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "webpackconfig property",
+    "permalink": "/api/bud-api/facade/webpackconfig"
+  },
+  "next": {
+    "title": "dump() method",
+    "permalink": "/api/bud-api/api/dump"
+  }
+}

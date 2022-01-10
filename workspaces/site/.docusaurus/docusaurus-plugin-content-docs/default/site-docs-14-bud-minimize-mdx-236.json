@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.minimize",
+  "id": "bud.minimize",
+  "title": "bud.minimize",
+  "description": "Enables or disable minification of static assets.",
+  "source": "@site/docs/14-bud.minimize.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.minimize",
+  "permalink": "/docs/bud.minimize",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/14-bud.minimize.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 14,
+  "frontMatter": {
+    "slug": "bud.minimize",
+    "title": "bud.minimize",
+    "description": "Enables or disable minification of static assets.",
+    "sidebar_label": "bud.minimize",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.minimize.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.make",
+    "permalink": "/docs/bud.make"
+  },
+  "next": {
+    "title": "bud.mode",
+    "permalink": "/docs/bud.mode/"
+  }
+}

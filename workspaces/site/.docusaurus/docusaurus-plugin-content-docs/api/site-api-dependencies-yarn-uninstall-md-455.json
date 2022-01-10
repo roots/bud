@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/yarn/dependencies.yarn.uninstall",
+  "id": "dependencies/yarn/dependencies.yarn.uninstall",
+  "title": "uninstall() method",
+  "description": "Yarn.uninstall() method",
+  "source": "@site/api/dependencies/yarn/uninstall.md",
+  "sourceDirName": "dependencies/yarn",
+  "slug": "/dependencies/yarn/uninstall",
+  "permalink": "/api/dependencies/yarn/uninstall",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.yarn.uninstall",
+    "title": "uninstall() method",
+    "sidebar_label": "uninstall() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "uninstall"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "install() method",
+    "permalink": "/api/dependencies/yarn/install"
+  },
+  "next": {
+    "title": "entrypointswebpackplugin class",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/compiler/bud-framework.compiler.before",
+  "id": "bud-framework/compiler/bud-framework.compiler.before",
+  "title": "before() method",
+  "description": "Compiler.before() method",
+  "source": "@site/api/bud-framework/compiler/before.md",
+  "sourceDirName": "bud-framework/compiler",
+  "slug": "/bud-framework/compiler/before",
+  "permalink": "/api/bud-framework/compiler/before",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.compiler.before",
+    "title": "before() method",
+    "sidebar_label": "before() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "before"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "stdout property",
+    "permalink": "/api/bud-framework/dashboard/stdout"
+  },
+  "next": {
+    "title": "callback() method",
+    "permalink": "/api/bud-framework/compiler/callback"
+  }
+}

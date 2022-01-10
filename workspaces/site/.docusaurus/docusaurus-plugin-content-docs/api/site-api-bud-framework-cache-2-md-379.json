@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.cache_2",
+  "id": "bud-framework/bud-framework.cache_2",
+  "title": "cache\\_2 namespace",
+  "description": "Cache_2 namespace",
+  "source": "@site/api/bud-framework/cache2.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/cache2",
+  "permalink": "/api/bud-framework/cache2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.cache_2",
+    "title": "cache\\_2 namespace",
+    "sidebar_label": "cache\\_2 namespace",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "cache2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "build namespace",
+    "permalink": "/api/bud-framework/build"
+  },
+  "next": {
+    "title": "compiler interface",
+    "permalink": "/api/bud-framework/compiler"
+  }
+}

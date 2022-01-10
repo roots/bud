@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/extension/module/bud-framework.extension.module.mixin",
+  "id": "bud-framework/extension/module/bud-framework.extension.module.mixin",
+  "title": "mixin property",
+  "description": "Extension.Module.mixin property",
+  "source": "@site/api/bud-framework/extension/module/mixin.md",
+  "sourceDirName": "bud-framework/extension/module",
+  "slug": "/bud-framework/extension/module/mixin",
+  "permalink": "/api/bud-framework/extension/module/mixin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.extension.module.mixin",
+    "title": "mixin property",
+    "sidebar_label": "mixin property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "mixin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot property",
+    "permalink": "/api/bud-framework/extension/module/boot"
+  },
+  "next": {
+    "title": "name property",
+    "permalink": "/api/bud-framework/extension/module/name"
+  }
+}

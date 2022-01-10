@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.experiments",
+  "id": "bud-api/facade/bud-api.facade.experiments",
+  "title": "experiments property",
+  "description": "Facade.experiments property",
+  "source": "@site/api/bud-api/facade/experiments.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/experiments",
+  "permalink": "/api/bud-api/facade/experiments",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.experiments",
+    "title": "experiments property",
+    "sidebar_label": "experiments property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "experiments"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "entry property",
+    "permalink": "/api/bud-api/facade/entry"
+  },
+  "next": {
+    "title": "externals property",
+    "permalink": "/api/bud-api/facade/externals"
+  }
+}

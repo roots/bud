@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-api/facade/bud-api.facade.persist",
+  "id": "bud-api/facade/bud-api.facade.persist",
+  "title": "persist property",
+  "description": "Facade.persist property",
+  "source": "@site/api/bud-api/facade/persist.md",
+  "sourceDirName": "bud-api/facade",
+  "slug": "/bud-api/facade/persist",
+  "permalink": "/api/bud-api/facade/persist",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-api.facade.persist",
+    "title": "persist property",
+    "sidebar_label": "persist property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "persist"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "override property",
+    "permalink": "/api/bud-api/facade/override"
+  },
+  "next": {
+    "title": "provide property",
+    "permalink": "/api/bud-api/facade/provide"
+  }
+}

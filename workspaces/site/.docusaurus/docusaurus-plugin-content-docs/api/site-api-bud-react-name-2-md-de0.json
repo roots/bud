@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-react/bud-react.name_2",
+  "id": "bud-react/bud-react.name_2",
+  "title": "name\\_2 variable",
+  "description": "name_2 variable",
+  "source": "@site/api/bud-react/name2.md",
+  "sourceDirName": "bud-react",
+  "slug": "/bud-react/name2",
+  "permalink": "/api/bud-react/name2",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-react.name_2",
+    "title": "name\\_2 variable",
+    "sidebar_label": "name\\_2 variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "name2"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "boot variable",
+    "permalink": "/api/bud-react/boot"
+  },
+  "next": {
+    "title": "server class",
+    "permalink": "/api/bud-server/server"
+  }
+}

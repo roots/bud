@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.isdevelopment",
+  "id": "bud-framework/framework/bud-framework.framework.isdevelopment",
+  "title": "isdevelopment property",
+  "description": "Framework.isDevelopment property",
+  "source": "@site/api/bud-framework/framework/isdevelopment.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/isdevelopment",
+  "permalink": "/api/bud-framework/framework/isdevelopment",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.isdevelopment",
+    "title": "isdevelopment property",
+    "sidebar_label": "isdevelopment property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "isdevelopment"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ischild property",
+    "permalink": "/api/bud-framework/framework/ischild"
+  },
+  "next": {
+    "title": "isproduction property",
+    "permalink": "/api/bud-framework/framework/isproduction"
+  }
+}

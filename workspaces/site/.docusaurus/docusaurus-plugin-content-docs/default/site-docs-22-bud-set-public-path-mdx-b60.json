@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.setPublicPath",
+  "id": "bud.setPublicPath",
+  "title": "bud.setPublicPath",
+  "description": "Set the public path.",
+  "source": "@site/docs/22-bud.setPublicPath.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.setPublicPath",
+  "permalink": "/docs/bud.setPublicPath",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/22-bud.setPublicPath.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 22,
+  "frontMatter": {
+    "slug": "bud.setPublicPath",
+    "title": "bud.setPublicPath",
+    "description": "Set the public path.",
+    "sidebar_label": "bud.setPublicPath",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.setPublicPath.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.setPath",
+    "permalink": "/docs/bud.setPath"
+  },
+  "next": {
+    "title": "bud.splitChunks",
+    "permalink": "/docs/bud.splitChunks"
+  }
+}

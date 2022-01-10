@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/idependencymanager/dependencies.idependencymanager.path",
+  "id": "dependencies/idependencymanager/dependencies.idependencymanager.path",
+  "title": "path property",
+  "description": "IDependencyManager.path property",
+  "source": "@site/api/dependencies/idependencymanager/path.md",
+  "sourceDirName": "dependencies/idependencymanager",
+  "slug": "/dependencies/idependencymanager/path",
+  "permalink": "/api/dependencies/idependencymanager/path",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.idependencymanager.path",
+    "title": "path property",
+    "sidebar_label": "path property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "path"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "onmessage property",
+    "permalink": "/api/dependencies/idependencymanager/onmessage"
+  },
+  "next": {
+    "title": "uninstall property",
+    "permalink": "/api/dependencies/idependencymanager/uninstall"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/configuration/bud-framework.configuration.log",
+  "id": "bud-framework/configuration/bud-framework.configuration.log",
+  "title": "log property",
+  "description": "Configuration.log property",
+  "source": "@site/api/bud-framework/configuration/log.md",
+  "sourceDirName": "bud-framework/configuration",
+  "slug": "/bud-framework/configuration/log",
+  "permalink": "/api/bud-framework/configuration/log",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.configuration.log",
+    "title": "log property",
+    "sidebar_label": "log property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "log"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "location property",
+    "permalink": "/api/bud-framework/configuration/location"
+  },
+  "next": {
+    "title": "mode property",
+    "permalink": "/api/bud-framework/configuration/mode"
+  }
+}

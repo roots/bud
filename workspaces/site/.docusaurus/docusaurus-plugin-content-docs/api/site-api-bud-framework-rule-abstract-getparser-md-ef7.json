@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/abstract/bud-framework.rule.abstract.getparser",
+  "id": "bud-framework/rule/abstract/bud-framework.rule.abstract.getparser",
+  "title": "getparser() method",
+  "description": "Rule.Abstract.getParser() method",
+  "source": "@site/api/bud-framework/rule/abstract/getparser.md",
+  "sourceDirName": "bud-framework/rule/abstract",
+  "slug": "/bud-framework/rule/abstract/getparser",
+  "permalink": "/api/bud-framework/rule/abstract/getparser",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.abstract.getparser",
+    "title": "getparser() method",
+    "sidebar_label": "getparser() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getparser"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getgenerator() method",
+    "permalink": "/api/bud-framework/rule/abstract/getgenerator"
+  },
+  "next": {
+    "title": "gettest() method",
+    "permalink": "/api/bud-framework/rule/abstract/gettest"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypoints-webpack-plugin.entrypointswebpackplugin",
+  "id": "entrypoints-webpack-plugin/entrypoints-webpack-plugin.entrypointswebpackplugin",
+  "title": "entrypointswebpackplugin class",
+  "description": "EntrypointsWebpackPlugin class",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin.md",
+  "sourceDirName": "entrypoints-webpack-plugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin",
+    "title": "entrypointswebpackplugin class",
+    "sidebar_label": "entrypointswebpackplugin class",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "entrypointswebpackplugin"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "uninstall() method",
+    "permalink": "/api/dependencies/yarn/uninstall"
+  },
+  "next": {
+    "title": "addtomanifest() method",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/addtomanifest"
+  }
+}

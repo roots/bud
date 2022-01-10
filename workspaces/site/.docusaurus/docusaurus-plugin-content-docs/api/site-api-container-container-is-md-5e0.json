@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.is",
+  "id": "container/container/container.container.is",
+  "title": "is() method",
+  "description": "Container.is() method",
+  "source": "@site/api/container/container/is.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/is",
+  "permalink": "/api/container/container/is",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.is",
+    "title": "is() method",
+    "sidebar_label": "is() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "is"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "ident property",
+    "permalink": "/api/container/container/ident"
+  },
+  "next": {
+    "title": "isarray() method",
+    "permalink": "/api/container/container/isarray"
+  }
+}

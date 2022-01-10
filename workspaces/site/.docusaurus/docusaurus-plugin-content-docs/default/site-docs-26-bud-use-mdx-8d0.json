@@ -1,0 +1,30 @@
+{
+  "unversionedId": "bud.use",
+  "id": "bud.use",
+  "title": "bud.use",
+  "description": "Register an extension or set of extensions",
+  "source": "@site/docs/26-bud.use.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud.use",
+  "permalink": "/docs/bud.use",
+  "editUrl": "https://github.com/roots/bud/edit/next/site/docs/docs/26-bud.use.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 26,
+  "frontMatter": {
+    "slug": "bud.use",
+    "title": "bud.use",
+    "description": "Register an extension or set of extensions",
+    "sidebar_label": "bud.use",
+    "image": "https://budjs.netlify.app/img/share/docs/bud.use.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "bud.template",
+    "permalink": "/docs/bud.template"
+  },
+  "next": {
+    "title": "bud.when",
+    "permalink": "/docs/bud.when"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rules/bud-build.rules.svg",
+  "id": "bud-build/rules/bud-build.rules.svg",
+  "title": "svg variable",
+  "description": "rules.svg variable",
+  "source": "@site/api/bud-build/rules/svg.md",
+  "sourceDirName": "bud-build/rules",
+  "slug": "/bud-build/rules/svg",
+  "permalink": "/api/bud-build/rules/svg",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rules.svg",
+    "title": "svg variable",
+    "sidebar_label": "svg variable",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "svg"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "json5 variable",
+    "permalink": "/api/bud-build/rules/json5"
+  },
+  "next": {
+    "title": "toml variable",
+    "permalink": "/api/bud-build/rules/toml"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "unversionedId": "bud-typescript",
+  "id": "bud-typescript",
+  "title": "@roots/bud-typescript",
+  "description": "TypeScript support can be added by installing the @roots/bud-typescript extension.",
+  "source": "@site/extensions/bud-typescript.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-typescript",
+  "permalink": "/extensions/bud-typescript",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "sidebar_label": "@roots/bud-typescript"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-tailwindcss",
+    "permalink": "/extensions/bud-tailwindcss"
+  },
+  "next": {
+    "title": "@roots/bud-vue",
+    "permalink": "/extensions/bud-vue"
+  }
+}

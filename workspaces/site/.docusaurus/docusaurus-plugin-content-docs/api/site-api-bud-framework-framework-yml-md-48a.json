@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.yml",
+  "id": "bud-framework/framework/bud-framework.framework.yml",
+  "title": "yml property",
+  "description": "Framework.yml property",
+  "source": "@site/api/bud-framework/framework/yml.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/yml",
+  "permalink": "/api/bud-framework/framework/yml",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.yml",
+    "title": "yml property",
+    "sidebar_label": "yml property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "yml"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "when property",
+    "permalink": "/api/bud-framework/framework/when"
+  },
+  "next": {
+    "title": "add() method",
+    "permalink": "/api/bud-framework/extensions/add"
+  }
+}

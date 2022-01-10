@@ -1,0 +1,29 @@
+{
+  "unversionedId": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.wordpressname",
+  "id": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.wordpressname",
+  "title": "wordpressname property",
+  "description": "MergedManifestWebpackPlugin.wordpressName property",
+  "source": "@site/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname.md",
+  "sourceDirName": "merged-manifest-webpack-plugin/mergedmanifestwebpackplugin",
+  "slug": "/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname",
+  "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/wordpressname",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "merged-manifest-webpack-plugin.mergedmanifestwebpackplugin.wordpressname",
+    "title": "wordpressname property",
+    "sidebar_label": "wordpressname property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "wordpressname"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "plugin property",
+    "permalink": "/api/merged-manifest-webpack-plugin/mergedmanifestwebpackplugin/plugin"
+  },
+  "next": {
+    "title": "wordpressdependencieswebpackplugin class",
+    "permalink": "/api/wordpress-dependencies-webpack-plugin/wordpressdependencieswebpackplugin"
+  }
+}

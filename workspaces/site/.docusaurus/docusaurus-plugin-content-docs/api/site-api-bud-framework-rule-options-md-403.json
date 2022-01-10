@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/rule/bud-framework.rule.options",
+  "id": "bud-framework/rule/bud-framework.rule.options",
+  "title": "options interface",
+  "description": "Rule.Options interface",
+  "source": "@site/api/bud-framework/rule/options.md",
+  "sourceDirName": "bud-framework/rule",
+  "slug": "/bud-framework/rule/options",
+  "permalink": "/api/bud-framework/rule/options",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.rule.options",
+    "title": "options interface",
+    "sidebar_label": "options interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "options"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "interface interface",
+    "permalink": "/api/bud-framework/rule/interface"
+  },
+  "next": {
+    "title": "output interface",
+    "permalink": "/api/bud-framework/rule/output"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/extensions/bud-extensions.extensions.importextension",
+  "id": "bud-extensions/extensions/bud-extensions.extensions.importextension",
+  "title": "importextension() method",
+  "description": "Extensions.importExtension() method",
+  "source": "@site/api/bud-extensions/extensions/importextension.md",
+  "sourceDirName": "bud-extensions/extensions",
+  "slug": "/bud-extensions/extensions/importextension",
+  "permalink": "/api/bud-extensions/extensions/importextension",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.extensions.importextension",
+    "title": "importextension() method",
+    "sidebar_label": "importextension() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "importextension"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "enqueue() method",
+    "permalink": "/api/bud-extensions/extensions/enqueue"
+  },
+  "next": {
+    "title": "injectextensions() method",
+    "permalink": "/api/bud-extensions/extensions/injectextensions"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.getmap",
+  "id": "container/container/container.container.getmap",
+  "title": "getmap() method",
+  "description": "Container.getMap() method",
+  "source": "@site/api/container/container/getmap.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/getmap",
+  "permalink": "/api/container/container/getmap",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.getmap",
+    "title": "getmap() method",
+    "sidebar_label": "getmap() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "getmap"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "getkeys() method",
+    "permalink": "/api/container/container/getkeys"
+  },
+  "next": {
+    "title": "getvalues() method",
+    "permalink": "/api/container/container/getvalues"
+  }
+}

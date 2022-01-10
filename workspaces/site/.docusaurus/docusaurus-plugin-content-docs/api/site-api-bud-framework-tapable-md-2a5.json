@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/bud-framework.tapable",
+  "id": "bud-framework/bud-framework.tapable",
+  "title": "tapable interface",
+  "description": "Tapable interface",
+  "source": "@site/api/bud-framework/tapable.md",
+  "sourceDirName": "bud-framework",
+  "slug": "/bud-framework/tapable",
+  "permalink": "/api/bud-framework/tapable",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.tapable",
+    "title": "tapable interface",
+    "sidebar_label": "tapable interface",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "tapable"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "store class",
+    "permalink": "/api/bud-framework/store"
+  },
+  "next": {
+    "title": "app property",
+    "permalink": "/api/bud-framework/bootstrapper/app"
+  }
+}

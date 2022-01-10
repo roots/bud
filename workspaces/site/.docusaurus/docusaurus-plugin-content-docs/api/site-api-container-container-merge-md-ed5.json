@@ -1,0 +1,29 @@
+{
+  "unversionedId": "container/container/container.container.merge",
+  "id": "container/container/container.container.merge",
+  "title": "merge() method",
+  "description": "Container.merge() method",
+  "source": "@site/api/container/container/merge.md",
+  "sourceDirName": "container/container",
+  "slug": "/container/container/merge",
+  "permalink": "/api/container/container/merge",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "container.container.merge",
+    "title": "merge() method",
+    "sidebar_label": "merge() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "merge"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "isundefined() method",
+    "permalink": "/api/container/container/isundefined"
+  },
+  "next": {
+    "title": "mergestore() method",
+    "permalink": "/api/container/container/mergestore"
+  }
+}

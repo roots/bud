@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.make",
+  "id": "bud-framework/framework/bud-framework.framework.make",
+  "title": "make property",
+  "description": "Framework.make property",
+  "source": "@site/api/bud-framework/framework/make.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/make",
+  "permalink": "/api/bud-framework/framework/make",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.make",
+    "title": "make property",
+    "sidebar_label": "make property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "make"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "logger property",
+    "permalink": "/api/bud-framework/framework/logger"
+  },
+  "next": {
+    "title": "maybecall property",
+    "permalink": "/api/bud-framework/framework/maybecall"
+  }
+}

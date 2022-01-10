@@ -1,0 +1,29 @@
+{
+  "unversionedId": "advanced-use/writing-an-extension",
+  "id": "advanced-use/writing-an-extension",
+  "title": "Writing an extension",
+  "description": "Create and package an extension to reuse across projects and share with other users",
+  "source": "@site/guides/advanced-use/writing-an-extension.mdx",
+  "sourceDirName": "advanced-use",
+  "slug": "/advanced-use/writing-an-extension",
+  "permalink": "/guides/advanced-use/writing-an-extension",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Writing an extension",
+    "description": "Create and package an extension to reuse across projects and share with other users",
+    "sidebar_label": "Writing an extension",
+    "sidebar_position": 3,
+    "image": "https://budjs.netlify.app/img/share/guides/advanced-use__writing-an-extension.png"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "Node API",
+    "permalink": "/guides/advanced-use/node"
+  },
+  "next": {
+    "title": "Introduction",
+    "permalink": "/guides/bud-cli/"
+  }
+}

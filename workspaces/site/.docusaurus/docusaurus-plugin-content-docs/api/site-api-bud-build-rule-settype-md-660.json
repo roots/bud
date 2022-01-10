@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-build/rule/bud-build.rule.settype",
+  "id": "bud-build/rule/bud-build.rule.settype",
+  "title": "settype() method",
+  "description": "Rule.setType() method",
+  "source": "@site/api/bud-build/rule/settype.md",
+  "sourceDirName": "bud-build/rule",
+  "slug": "/bud-build/rule/settype",
+  "permalink": "/api/bud-build/rule/settype",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-build.rule.settype",
+    "title": "settype() method",
+    "sidebar_label": "settype() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "settype"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "settest() method",
+    "permalink": "/api/bud-build/rule/settest"
+  },
+  "next": {
+    "title": "setuse() method",
+    "permalink": "/api/bud-build/rule/setuse"
+  }
+}

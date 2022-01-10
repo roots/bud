@@ -1,0 +1,29 @@
+{
+  "unversionedId": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.compilation",
+  "id": "entrypoints-webpack-plugin/entrypointswebpackplugin/entrypoints-webpack-plugin.entrypointswebpackplugin.compilation",
+  "title": "compilation property",
+  "description": "EntrypointsWebpackPlugin.compilation property",
+  "source": "@site/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compilation.md",
+  "sourceDirName": "entrypoints-webpack-plugin/entrypointswebpackplugin",
+  "slug": "/entrypoints-webpack-plugin/entrypointswebpackplugin/compilation",
+  "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compilation",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entrypoints-webpack-plugin.entrypointswebpackplugin.compilation",
+    "title": "compilation property",
+    "sidebar_label": "compilation property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "compilation"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "assets property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/assets"
+  },
+  "next": {
+    "title": "compiler property",
+    "permalink": "/api/entrypoints-webpack-plugin/entrypointswebpackplugin/compiler"
+  }
+}

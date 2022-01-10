@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/loader/abstract/bud-framework.loader.abstract.normalizeinput",
+  "id": "bud-framework/loader/abstract/bud-framework.loader.abstract.normalizeinput",
+  "title": "normalizeinput() method",
+  "description": "Loader.Abstract.normalizeInput() method",
+  "source": "@site/api/bud-framework/loader/abstract/normalizeinput.md",
+  "sourceDirName": "bud-framework/loader/abstract",
+  "slug": "/bud-framework/loader/abstract/normalizeinput",
+  "permalink": "/api/bud-framework/loader/abstract/normalizeinput",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.loader.abstract.normalizeinput",
+    "title": "normalizeinput() method",
+    "sidebar_label": "normalizeinput() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "normalizeinput"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "make() method",
+    "permalink": "/api/bud-framework/loader/abstract/make"
+  },
+  "next": {
+    "title": "src property",
+    "permalink": "/api/bud-framework/loader/abstract/src"
+  }
+}

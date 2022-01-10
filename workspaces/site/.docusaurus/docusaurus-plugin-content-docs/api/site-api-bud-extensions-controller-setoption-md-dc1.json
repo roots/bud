@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-extensions/controller/bud-extensions.controller.setoption",
+  "id": "bud-extensions/controller/bud-extensions.controller.setoption",
+  "title": "setoption() method",
+  "description": "Controller.setOption() method",
+  "source": "@site/api/bud-extensions/controller/setoption.md",
+  "sourceDirName": "bud-extensions/controller",
+  "slug": "/bud-extensions/controller/setoption",
+  "permalink": "/api/bud-extensions/controller/setoption",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-extensions.controller.setoption",
+    "title": "setoption() method",
+    "sidebar_label": "setoption() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "setoption"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "set() method",
+    "permalink": "/api/bud-extensions/controller/set"
+  },
+  "next": {
+    "title": "setoptions() method",
+    "permalink": "/api/bud-extensions/controller/setoptions"
+  }
+}

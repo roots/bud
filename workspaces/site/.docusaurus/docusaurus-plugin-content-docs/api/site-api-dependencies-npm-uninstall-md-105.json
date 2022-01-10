@@ -1,0 +1,29 @@
+{
+  "unversionedId": "dependencies/npm/dependencies.npm.uninstall",
+  "id": "dependencies/npm/dependencies.npm.uninstall",
+  "title": "uninstall() method",
+  "description": "Npm.uninstall() method",
+  "source": "@site/api/dependencies/npm/uninstall.md",
+  "sourceDirName": "dependencies/npm",
+  "slug": "/dependencies/npm/uninstall",
+  "permalink": "/api/dependencies/npm/uninstall",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "dependencies.npm.uninstall",
+    "title": "uninstall() method",
+    "sidebar_label": "uninstall() method",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "uninstall"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "install() method",
+    "permalink": "/api/dependencies/npm/install"
+  },
+  "next": {
+    "title": "client property",
+    "permalink": "/api/dependencies/dependencies/client"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "unversionedId": "bud-library",
+  "id": "bud-library",
+  "title": "@roots/bud-library",
+  "description": "The @roots/bud-library extension adds a bud.library method to make it simple to create a long-lived, highly-cacheable DLL from a list of modules.",
+  "source": "@site/extensions/bud-library.mdx",
+  "sourceDirName": ".",
+  "slug": "/bud-library",
+  "permalink": "/extensions/bud-library",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "@roots/bud-library",
+    "sidebar_label": "@roots/bud-library"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "@roots/bud-imagemin",
+    "permalink": "/extensions/bud-imagemin"
+  },
+  "next": {
+    "title": "@roots/bud-postcss",
+    "permalink": "/extensions/bud-postcss"
+  }
+}

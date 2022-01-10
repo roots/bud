@@ -1,0 +1,104 @@
+{
+  "name": "@roots/bud-cli",
+  "description": "👩‍💻 The @roots/bud CLI runner utility",
+  "private": true,
+  "version": "4.7.0-10",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "workspaces/@roots/bud-cli"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "clayrisser",
+      "url": "https://github.com/clayrisser"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-framework",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "types/",
+    "assets/",
+    "vendor/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "profile": "yarn g:profile",
+    "profile:cjs": "yarn g:profile:cjs",
+    "profile:esm": "yarn g:profile:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "1.26.10",
+    "@oclif/test": "2.0.3",
+    "@roots/bud-framework": "workspaces:@roots/bud-framework",
+    "@types/eslint": "8.2.1",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "@types/prettier": "2.4.2",
+    "eslint": "8.6.0"
+  },
+  "dependencies": {
+    "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
+    "@oclif/command": "1.8.16",
+    "@oclif/errors": "1.3.5",
+    "@oclif/plugin-autocomplete": "1.0.0",
+    "@oclif/plugin-commands": "2.0.2",
+    "@oclif/plugin-help": "5.1.10",
+    "@oclif/plugin-update": "2.1.3",
+    "@roots/bud": "workspaces:@roots/bud",
+    "autobind-decorator": "2.4.0",
+    "cosmiconfig": "7.0.1",
+    "globby": "12.0.1",
+    "lodash": "4.17.21",
+    "node-notifier": "10.0.0",
+    "prettier": "2.5.1",
+    "pretty-format": "27.4.6",
+    "serialize-javascript": "6.0.0",
+    "tslib": "2.3.1"
+  },
+  "stableVersion": "4.6.0"
+}

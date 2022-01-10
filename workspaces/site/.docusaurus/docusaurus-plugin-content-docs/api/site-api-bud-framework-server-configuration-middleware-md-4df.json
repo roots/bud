@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/server/configuration/bud-framework.server.configuration.middleware",
+  "id": "bud-framework/server/configuration/bud-framework.server.configuration.middleware",
+  "title": "middleware property",
+  "description": "Server.Configuration.middleware property",
+  "source": "@site/api/bud-framework/server/configuration/middleware.md",
+  "sourceDirName": "bud-framework/server/configuration",
+  "slug": "/bud-framework/server/configuration/middleware",
+  "permalink": "/api/bud-framework/server/configuration/middleware",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.server.configuration.middleware",
+    "title": "middleware property",
+    "sidebar_label": "middleware property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "middleware"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "filename property",
+    "permalink": "/api/bud-framework/server/configuration/filename"
+  },
+  "next": {
+    "title": "proxy property",
+    "permalink": "/api/bud-framework/server/configuration/proxy"
+  }
+}

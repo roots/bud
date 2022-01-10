@@ -3,7 +3,7 @@ import path from 'path'
 import React from 'react'
 import {Signale} from 'signale'
 
-import {manifest} from '../../package.json'
+import {manifest} from './../../package.json'
 import {render} from './renderer'
 import * as Template from './templates'
 

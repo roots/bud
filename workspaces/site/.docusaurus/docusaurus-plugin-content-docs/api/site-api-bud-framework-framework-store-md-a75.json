@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/framework/bud-framework.framework.store",
+  "id": "bud-framework/framework/bud-framework.framework.store",
+  "title": "store property",
+  "description": "Framework.store property",
+  "source": "@site/api/bud-framework/framework/store.md",
+  "sourceDirName": "bud-framework/framework",
+  "slug": "/bud-framework/framework/store",
+  "permalink": "/api/bud-framework/framework/store",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.framework.store",
+    "title": "store property",
+    "sidebar_label": "store property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "store"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "setpath property",
+    "permalink": "/api/bud-framework/framework/setpath"
+  },
+  "next": {
+    "title": "success() method",
+    "permalink": "/api/bud-framework/framework/success"
+  }
+}

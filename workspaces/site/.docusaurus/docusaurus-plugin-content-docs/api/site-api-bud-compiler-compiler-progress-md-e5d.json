@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-compiler/compiler/bud-compiler.compiler.progress",
+  "id": "bud-compiler/compiler/bud-compiler.compiler.progress",
+  "title": "progress property",
+  "description": "Compiler.progress property",
+  "source": "@site/api/bud-compiler/compiler/progress.md",
+  "sourceDirName": "bud-compiler/compiler",
+  "slug": "/bud-compiler/compiler/progress",
+  "permalink": "/api/bud-compiler/compiler/progress",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-compiler.compiler.progress",
+    "title": "progress property",
+    "sidebar_label": "progress property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "progress"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "iscompiled property",
+    "permalink": "/api/bud-compiler/compiler/iscompiled"
+  },
+  "next": {
+    "title": "stats property",
+    "permalink": "/api/bud-compiler/compiler/stats"
+  }
+}

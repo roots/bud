@@ -1,0 +1,29 @@
+{
+  "unversionedId": "bud-framework/logger/bud-framework.logger.interactive",
+  "id": "bud-framework/logger/bud-framework.logger.interactive",
+  "title": "interactive property",
+  "description": "Logger.interactive property",
+  "source": "@site/api/bud-framework/logger/interactive.md",
+  "sourceDirName": "bud-framework/logger",
+  "slug": "/bud-framework/logger/interactive",
+  "permalink": "/api/bud-framework/logger/interactive",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "bud-framework.logger.interactive",
+    "title": "interactive property",
+    "sidebar_label": "interactive property",
+    "hide_title": true,
+    "sidebar": "api",
+    "slug": "interactive"
+  },
+  "sidebar": "sidebar",
+  "previous": {
+    "title": "instantiate() method",
+    "permalink": "/api/bud-framework/logger/instantiate"
+  },
+  "next": {
+    "title": "level property",
+    "permalink": "/api/bud-framework/logger/level"
+  }
+}
