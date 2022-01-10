@@ -6,17 +6,17 @@ const globby = require('globby')
  * @returns {Promise<InitialOptionsTsJest['moduleNameMapper']>} - The jest module name mapper.
  */
 module.exports = async () => {
-  const packages = await globby('packages/@roots/*', {
+  const packages = await globby('sources/@roots/*', {
     onlyDirectories: true,
   })
 
   return packages
-    .map(pkg => pkg.replace('packages/', ''))
+    .map(pkg => pkg.replace('sources/', ''))
     .reduce(
       (mapping, pkg) => ({
         ...mapping,
-        [`^${pkg}$`]: `<rootDir>/packages/${pkg}/src/index`,
-        [`^${pkg}/(.*)$`]: `<rootDir>/packages/${pkg}/$1`,
+        [`^${pkg}$`]: `<rootDir>sources/${pkg}/src/index`,
+        [`^${pkg}/(.*)$`]: `<rootDir>sources/${pkg}/$1`,
       }),
       {},
     )

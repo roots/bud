@@ -14,8 +14,8 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "eslint": "8.6.0",
     "postcss": "8.4.5",
     "postcss-import": "14.0.2",

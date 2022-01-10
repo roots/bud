@@ -287,6 +287,6 @@ exports[`bud.project resolveFrom contains paths of found peers 2`] = `
 Array [
   StringContaining "src",
   StringContaining "node_modules",
-  StringContaining "/packages",
+  StringContaining "/sources",
 ]
 `;

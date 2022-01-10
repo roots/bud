@@ -1,0 +1,49 @@
+{
+  "lastUpdate": 1641811071324,
+  "blocks": {
+    "*": {
+      "hits": {
+        "installCount": {
+          "node-modules": 7
+        }
+      },
+      "values": {
+        "version": [
+          "3.1.1"
+        ],
+        "pluginName": [
+          "@yarnpkg/plugin-typescript",
+          "@yarnpkg/plugin-interactive-tools",
+          "@yarnpkg/plugin-workspace-tools"
+        ],
+        "commandName": [
+          "<none>",
+          "@bud config",
+          "@bud compile",
+          "@bud build",
+          "workspace",
+          "@bud docs",
+          "node",
+          "cache clean",
+          "@bud clean",
+          "install",
+          "workspaces foreach",
+          "@bud lint",
+          "@bud test",
+          "@bud make"
+        ],
+        "workspaceCount": [
+          "78"
+        ],
+        "dependencyCount": [
+          "835"
+        ]
+      },
+      "enumerators": {
+        "projectCount": [
+          "f1b25ac7404a402e414de154b37b3d61f0fc261bd966bd5bdfe73a75c95507f21564a98a3ea08c9366d589abcd4eeb86ee5268137245ff120c25ad68023c3b3d"
+        ]
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
   "folders": [
     {"name": "bud.js", "path": "./"},
-    {"name": "packages", "path": "./packages/@roots"},
+    {"name": "packages", "path": "./sources/@roots"},
     {"name": "examples", "path": "./examples"},
-    {"name": "site", "path": "./site"},
+    {"name": "docs", "path": "./sources/docs"},
     {"name": "tests", "path": "./tests"},
     {"name": "tests:integration", "path": "./tests/integration"},
     {"name": "tests:unit", "path": "./tests/unit"}

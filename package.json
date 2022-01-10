@@ -20,10 +20,10 @@
     "packages": [
       "examples/*",
       "tests/util/project",
-      "packages/@roots/*",
-      "packages/base",
-      "site",
-      "dev/@bud"
+      "sources/@roots/*",
+      "sources/base",
+      "sources/docs",
+      "sources/yarn-plugin-bud"
     ]
   },
   "devDependencies": {

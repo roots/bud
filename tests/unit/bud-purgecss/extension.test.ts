@@ -12,7 +12,7 @@ describe('@roots/bud-purgecss', () => {
       expect(extension.name).toBe('@roots/bud-purgecss')
     })
     it('has api prop', () => {
-      expect(extension.api.purgecss).toBe(purgecss)
+      expect(extension.api.purgecss).toBeInstanceOf(Function)
     })
     it('has a registration method', () => {
       expect(extension.register).toBeInstanceOf(Function)

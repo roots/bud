@@ -1,0 +1,90 @@
+{
+  "name": "@roots/bud-sass",
+  "version": "5.0.0",
+  "description": "Sass support for @roots/bud projects.",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-sass"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "sass"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "profile": "yarn g:profile",
+    "profile:cjs": "yarn g:profile:cjs",
+    "profile:esm": "yarn g:profile:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-postcss"
+    ]
+  },
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@types/node": "16.11.19",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "postcss-scss": "4.0.2",
+    "resolve-cwd": "3.0.0",
+    "sass-loader": "12.4.0",
+    "tslib": "2.3.1"
+  },
+  "peerDependencies": {
+    "sass": "1.45.2"
+  }
+}

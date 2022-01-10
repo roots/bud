@@ -19,13 +19,13 @@ import {nccOptions} from './options'
 const build = async (pkg: `@roots/${string}`): Promise<void> => {
   try {
     await ensureDir(
-      path.join(process.cwd(), `/packages/${pkg}/lib/esm/`),
+      path.join(process.cwd(), `/sources/${pkg}/lib/esm/`),
     )
   } catch (err) {}
 
   try {
     await emptydir(
-      path.join(process.cwd(), `/packages/${pkg}/lib/esm/`),
+      path.join(process.cwd(), `/sources/${pkg}/lib/esm/`),
     )
   } catch (err) {}
 
@@ -33,7 +33,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
     await remove(
       path.join(
         process.cwd(),
-        `/packages/${pkg}/lib/tsconfig-esm.tsbuildinfo`,
+        `/sources/${pkg}/lib/tsconfig-esm.tsbuildinfo`,
       ),
     )
   } catch (err) {}
@@ -42,7 +42,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    * Read package.json contents
    */
   const prettyPackageJson = await readFile(
-    path.join(process.cwd(), `/packages/${pkg}/package.json`),
+    path.join(process.cwd(), `/sources/${pkg}/package.json`),
   )
 
   /**
@@ -50,7 +50,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    */
   const restoreJson = async () =>
     writeFile(
-      path.join(process.cwd(), `/packages/${pkg}/package.json`),
+      path.join(process.cwd(), `/sources/${pkg}/package.json`),
       prettyPackageJson,
       'utf8',
     )
@@ -59,7 +59,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
    * Read package.json contents
    */
   const packageJson = await readJson(
-    path.join(process.cwd(), `/packages/${pkg}/package.json`),
+    path.join(process.cwd(), `/sources/${pkg}/package.json`),
   )
 
   try {
@@ -67,7 +67,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
      * Writes type:module prop to package.json so build will compile as ESM
      */
     await writeJson(
-      path.join(process.cwd(), `/packages/${pkg}/package.json`),
+      path.join(process.cwd(), `/sources/${pkg}/package.json`),
       {
         ...packageJson,
         type: 'module',
@@ -80,7 +80,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
     await writeJson(
       path.join(
         process.cwd(),
-        `/packages/${pkg}/lib/esm/package.json`,
+        `/sources/${pkg}/lib/esm/package.json`,
       ),
       {type: 'module'},
     )
@@ -89,7 +89,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
      * Run ncc and output to lib/tmp/esm
      */
     const {code} = await ncc(
-      path.join(process.cwd(), `/packages/${pkg}/src/index.ts`),
+      path.join(process.cwd(), `/sources/${pkg}/src/index.ts`),
       nccOptions,
     )
 
@@ -99,7 +99,7 @@ const build = async (pkg: `@roots/${string}`): Promise<void> => {
     await outputFile(
       path.join(
         process.cwd(),
-        `/packages/${pkg}/lib/esm/index.js`,
+        `/sources/${pkg}/lib/esm/index.js`,
       ),
       code,
       'utf8',

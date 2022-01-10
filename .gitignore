@@ -6,14 +6,14 @@
 **/lib
 *.tsbuildinfo
 /.npmrc
-/packages/@roots/*/types
+/sources/@roots/*/types
 
 # Docusaurus
-/site/.docusaurus
-/site/.cache-loader
-/site/build
-/site/.netlify
-/site/src/api/**/*.*
+/sources/docs/.docusaurus
+/sources/docs/.cache-loader
+/sources/docs/build
+/sources/docs/.netlify
+/sources/docs/src/api/**/*.*
 
 # jest
 coverage

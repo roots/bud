@@ -14,10 +14,10 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "postcss": "8.4.5",

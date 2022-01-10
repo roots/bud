@@ -85,8 +85,8 @@ You no longer need to explicitly require an extension in your configuration file
 
 The following notes only apply to specific extensions:
 
-- [`@roots/bud-tailwindcss`](https://github.com/roots/bud/tree/main/packages/@roots/bud-tailwindcss) - updated to version 3.
-- [`@roots/bud-sass`](https://github.com/roots/bud/tree/main/packages/@roots/bud-sass) - uses `postcss-scss` to avoid syntax conflicts between sass and postcss.
+- [`@roots/bud-tailwindcss`](https://github.com/roots/bud/tree/main/sources/@roots/bud-tailwindcss) - updated to version 3.
+- [`@roots/bud-sass`](https://github.com/roots/bud/tree/main/sources/@roots/bud-sass) - uses `postcss-scss` to avoid syntax conflicts between sass and postcss.
 
 ## Contributors
 

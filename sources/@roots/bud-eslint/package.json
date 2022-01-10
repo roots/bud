@@ -1,0 +1,81 @@
+{
+  "name": "@roots/bud-eslint",
+  "version": "5.0.0",
+  "description": "Adds eslint support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-eslint"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "eslint"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/",
+    "template/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "profile": "yarn g:profile",
+    "profile:cjs": "yarn g:profile:cjs",
+    "profile:esm": "yarn g:profile:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "devDependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@types/node": "16.11.19",
+    "eslint": "8.6.0",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.16.5",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-webpack-plugin": "^3.1.1",
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "eslint": "8.6.0"
+  }
+}

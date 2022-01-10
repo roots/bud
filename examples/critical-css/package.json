@@ -17,10 +17,10 @@
     "inject": false
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss",
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "postcss": "8.3.11",
     "postcss-import": "14.0.2",
     "postcss-preset-env": "6.7.0",

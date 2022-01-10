@@ -9,12 +9,12 @@ module.exports = async function config() {
 
   return {
     collectCoverageFrom: [
-      'packages/@roots/**/*.{ts,tsx}',
-      '!packages/@roots/**/*.d.ts',
+      'sources/@roots/**/*.{ts,tsx}',
+      '!sources/@roots/**/*.d.ts',
     ],
     coveragePathIgnorePatterns: [
-      'packages/@roots/bud-support/',
-      'packages/@roots/filesystem/',
+      'sources/@roots/bud-support/',
+      'sources/@roots/filesystem/',
     ],
     coverageReporters: ['lcov', 'text', 'text-summary'],
     displayName: {
