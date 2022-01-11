@@ -333,6 +333,7 @@ __metadata:
     "@yarnpkg/shell": 3.2.0-rc.8
     clipanion: 3.2.0-rc.4
     fs-extra: ^10.0.0
+    helpful-decorators: ^2.1.0
     semver: ^7.3.5
     tslib: 2.3.1
     typescript: 4.5.4
@@ -2523,6 +2524,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"helpful-decorators@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "helpful-decorators@npm:2.1.0"
+  dependencies:
+    lodash.debounce: 4.0.8
+    lodash.delay: 4.1.1
+    lodash.memoize: 4.1.2
+    lodash.once: 4.1.1
+    lodash.throttle: 4.1.1
+  checksum: 107405582cd1926e90c1d448bc5c3fe66e246c0aeb6e2531e9053c541997ccfb85c23dba655dbeb59426b3ff09dbb95ec1b3736854bd4281b7c7b7b2ec8d30c3
+  languageName: node
+  linkType: hard
+
 "http-cache-semantics@npm:^4.0.0":
   version: 4.1.0
   resolution: "http-cache-semantics@npm:4.1.0"
@@ -2860,6 +2874,41 @@ __metadata:
   version: 4.17.21
   resolution: "lodash-es@npm:4.17.21"
   checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
+  languageName: node
+  linkType: hard
+
+"lodash.debounce@npm:4.0.8":
+  version: 4.0.8
+  resolution: "lodash.debounce@npm:4.0.8"
+  checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
+"lodash.delay@npm:4.1.1":
+  version: 4.1.1
+  resolution: "lodash.delay@npm:4.1.1"
+  checksum: 4bb9d9217d379748354b31439ec0a9c2bdf7ffd16da0f40f7e7e94bb5f5a8985c2090cbbf6d5d3260664fd6619c577b16b5c12cd3c9d44100a7096bcb5329ae1
+  languageName: node
+  linkType: hard
+
+"lodash.memoize@npm:4.1.2":
+  version: 4.1.2
+  resolution: "lodash.memoize@npm:4.1.2"
+  checksum: 9ff3942feeccffa4f1fafa88d32f0d24fdc62fd15ded5a74a5f950ff5f0c6f61916157246744c620173dddf38d37095a92327d5fd3861e2063e736a5c207d089
+  languageName: node
+  linkType: hard
+
+"lodash.once@npm:4.1.1":
+  version: 4.1.1
+  resolution: "lodash.once@npm:4.1.1"
+  checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
+  languageName: node
+  linkType: hard
+
+"lodash.throttle@npm:4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
   languageName: node
   linkType: hard
 

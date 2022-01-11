@@ -2,6 +2,7 @@ import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
 import {Option} from 'clipanion'
+import {bind} from 'helpful-decorators'
 
 import {YarnRC} from '../yarnrc/yarnrc'
 import {Yml} from '../yarnrc/yml'
@@ -27,6 +28,18 @@ export abstract class Command extends BaseCommand {
   public passthrough?: Array<string>
 
   /**
+   * Boolean indicating whether the command must be run in a container context
+   *
+   * @remarks
+   * This is mainly used to prevent accidental publishing of packages
+   * in the host context.
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  public requiresContainer: boolean = false
+
+  /**
    * --dry-run flag
    *
    * @internal
@@ -35,16 +48,12 @@ export abstract class Command extends BaseCommand {
     description: 'log output to console',
   })
 
-  public constructor() {
-    super()
-    this.log = this.log.bind(this)
-  }
-
   /**
    * Get manifest contents
    *
    * @internal
    */
+  @bind
   public async getManifest(): Promise<Manifest> {
     return await Manifest.tryFind(this.context.cwd)
   }
@@ -54,6 +63,7 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public async getYarnYml(): Promise<Yml> {
     return await YarnRC.find(this.context)
   }
@@ -62,7 +72,9 @@ export abstract class Command extends BaseCommand {
    * Get project configuration
    *
    * @internal
+   * @decorator `@bind`
    */
+  @bind
   public async getConfiguration() {
     const configuration = await Configuration.find(
       this.context.cwd,
@@ -76,7 +88,9 @@ export abstract class Command extends BaseCommand {
    * Get project info
    *
    * @internal
+   * @decorator `@bind`
    */
+  @bind
   public async getProject() {
     const configuration = await this.getConfiguration()
 
@@ -86,6 +100,19 @@ export abstract class Command extends BaseCommand {
     )
 
     return project
+  }
+
+  /**
+   * Returns true if process is being run in a container
+   *
+   * @returns boolean
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  @bind
+  public isContainerized() {
+    return process.env.BUD_ENV === 'container'
   }
 
   /**
@@ -102,6 +129,17 @@ export abstract class Command extends BaseCommand {
       : str
   }
 
+  /**
+   * Called on error.
+   *
+   * @remarks
+   * Unless overriden, the base class is set to immediately exit the process on error.
+   *
+   * @param message - message to log
+   *
+   * @internal
+   */
+  @bind
   public async errorHandler(e: string) {
     this.err(e)
     await this.$(`yarn @bud config`)
@@ -115,6 +153,7 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public log(message: string): void {
     const label = this.name ?? '@bud'
     process.stdout.write(`[${label}] ${message}\n`)
@@ -127,6 +166,7 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public err(message: string): void {
     const label = this.name ?? '@bud'
     process.stderr.write(`[${label}] ${message}\n`)
@@ -137,6 +177,7 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public async _dry(...tasks: Array<string>): Promise<void> {
     tasks.forEach(this.log)
   }
@@ -147,6 +188,7 @@ export abstract class Command extends BaseCommand {
    * @param tasks
    * @internal
    */
+  @bind
   public async _$(...tasks: Array<string>): Promise<void> {
     const project = await this.getProject()
 
@@ -178,7 +220,13 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public async $(...tasks: Array<string>): Promise<void> {
+    if (!this.isContainerized() && this.requiresContainer) {
+      this.err('This command must be run in a container')
+      process.exit(1)
+    }
+
     this.dryRun
       ? await this._dry(...tasks)
       : await this._$(...tasks)

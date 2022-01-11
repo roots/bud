@@ -36,11 +36,22 @@ export class ProxyStop extends Command {
   }
 
   /**
+   * Requires container
+   *
+   * @remarks
+   * Will fail if process.env.BUD_ENV does not equal 'container'
+   *
+   * @internal
+   */
+  public requiresContainer = true
+
+  /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
     await this.$(`yarn pm2 stop verdaccio`)
+    await this.$(`rm -rf /verdaccio/storage`)
   }
 }

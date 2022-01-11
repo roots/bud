@@ -2,6 +2,7 @@
 .env
 
 # artifacts
+.tmp
 *.log
 **/lib
 *.tsbuildinfo

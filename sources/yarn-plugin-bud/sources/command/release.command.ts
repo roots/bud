@@ -51,6 +51,16 @@ export class Release extends Command {
   }
 
   /**
+   * Requires container
+   *
+   * @remarks
+   * Will fail if process.env.BUD_ENV does not equal 'container'
+   *
+   * @internal
+   */
+  public requiresContainer = true
+
+  /**
    * --token flag
    *
    * @internal

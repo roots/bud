@@ -14,7 +14,6 @@ import {Make} from './make.command'
 import {ProxyDelete} from './proxy/delete.command'
 import {ProxyMake} from './proxy/make.command'
 import {ProxyPublish} from './proxy/publish.command'
-import {ProxyRemake} from './proxy/remake.command'
 import {ProxyRestart} from './proxy/restart.command'
 import {ProxyStart} from './proxy/start.command'
 import {ProxyStop} from './proxy/stop.command'
@@ -38,7 +37,6 @@ export const Commands = {
   ProxyDelete,
   ProxyMake,
   ProxyPublish,
-  ProxyRemake,
   ProxyRestart,
   ProxyStart,
   ProxyStop,

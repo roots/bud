@@ -1,4 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
+import {bind} from 'helpful-decorators'
 
 import {Command} from '../base.command'
 
@@ -44,12 +45,43 @@ export class ProxyPublish extends Command {
     description: `version`,
   })
 
+  /**
+   * Requires container
+   *
+   * @remarks
+   * Will fail if process.env.BUD_ENV does not equal 'container'
+   *
+   * @internal
+   */
+  public requiresContainer = true
+
+  /**
+   * Unmodified version string
+   *
+   * @remarks
+   * This is used to restore the version after publishing
+   *
+   * @internal
+   */
   public unmodifiedVersion: string
 
+  /**
+   * This is a custom error handler
+   *
+   * @remarks
+   * This is used so we can restore the version if the
+   * proxy publish fails
+   *
+   * @param e
+   *
+   * @internal
+   */
   public async errorHandler(e: string) {
     this.err(e)
+
     await this.restoreUnmodifiedVersion()
     await this.$(`yarn @bud config`)
+
     process.exit(1)
   }
 
@@ -58,11 +90,11 @@ export class ProxyPublish extends Command {
    *
    * @internal
    */
+  @bind
   public async execute() {
     await this.setUnmodifiedVersion()
-    if (!this.version) this.version = '0.0.0'
 
-    await this.$(`rm -rf ./verdaccio`)
+    if (!this.version) this.version = '0.0.0'
 
     await this.$(`yarn @bud config --proxy`)
 
@@ -81,11 +113,23 @@ export class ProxyPublish extends Command {
     await this.$(`yarn @bud config`)
   }
 
+  /**
+   * Set unmodified version
+   *
+   * @internal
+   */
+  @bind
   public async setUnmodifiedVersion() {
     const {version} = await this.getManifest()
     this.unmodifiedVersion = version
   }
 
+  /**
+   * Restore unmodified version
+   *
+   * @internal
+   */
+  @bind
   public async restoreUnmodifiedVersion() {
     await this.$(
       `yarn workspaces foreach --no-private exec npm version ${this.unmodifiedVersion}`,

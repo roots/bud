@@ -1,4 +1,5 @@
 import {CommandClass} from 'clipanion'
+import {bind} from 'helpful-decorators'
 
 import {Command} from '../base.command'
 
@@ -38,11 +39,23 @@ export class ProxyStart extends Command {
   }
 
   /**
+   * Requires container
+   *
+   * @remarks
+   * Will fail if process.env.BUD_ENV does not equal 'container'
+   *
+   * @internal
+   */
+  public requiresContainer = true
+
+  /**
    * Execute command
    *
    * @internal
    */
+  @bind
   public async execute() {
-    await this.$(`yarn pm2 start ./config/pm2.config.js`)
+    await this.$(`rm -rf /verdaccio/storage`)
+    await this.$(`yarn pm2 start /bud/config/pm2.config.js`)
   }
 }

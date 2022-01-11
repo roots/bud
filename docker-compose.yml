@@ -9,12 +9,16 @@ services:
     working_dir: /
     user: node
     command: bash -c /bud/dev/docker/bud/init.sh
+    environment:
+      - BUD_ENV=container
+      - PROXY_REGISTRY=http:/0.0.0.0:4873
     ports:
-      - 4873:4873
+      - '4873:4873'
     volumes:
       - ./:/bud
-      - ./.tmp/npm:/npm
-      - ./.tmp/yarn:/yarn
+      - ./.tmp/tests:/tests/npm
+      - ./.tmp/verdaccio/storage:/verdaccio/storage
+      - ./dev/docker/verdaccio/config:/verdaccio/config
 
 networks:
   node-network:
