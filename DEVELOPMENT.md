@@ -76,7 +76,7 @@ bud.js uses [verdaccio](https://verdaccio.org/) to serve packages locally for te
 
 Check out `yarn @bud proxy --help` for more information.
 
-The proxy runs on port 4873. There is a web interface at http://localhost:4873/.
+The proxy runs on port 4873. There is a web interface at [http://localhost:4873/](http://localhost:4873).
 
 To start the proxy server and install all packages using it you should try `yarn @bud proxy make`.
 

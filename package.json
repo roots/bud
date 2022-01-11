@@ -18,12 +18,10 @@
   },
   "workspaces": {
     "packages": [
-      "examples/*",
       "tests/util/project",
       "sources/@roots/*",
       "sources/base",
-      "sources/docs",
-      "sources/yarn-plugin-bud"
+      "sources/docs"
     ]
   },
   "scripts": {

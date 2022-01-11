@@ -4,7 +4,11 @@ set -e
 
 cd /bud
 
-yarn @bud make
+yarn install
+
+yarn @bud proxy start
+
+yarn @bud proxy publish
 
 while true; do
   sleep 100

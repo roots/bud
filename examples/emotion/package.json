@@ -17,10 +17,10 @@
     "@emotion/css": "11.7.1",
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-emotion": "workspace:sources/@roots/bud-emotion",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-emotion": "latest",
+    "@roots/bud-react": "latest",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   }

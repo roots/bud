@@ -1,7 +1,9 @@
-import {factory as budFactory} from '@roots/bud'
+import {factory as budFactory, Bud} from '@roots/bud'
 import {join} from 'path'
 
-export const factory = async (config?) => {
+export const repoPath = (path: string) => join(process.cwd(), path)
+
+export const factory = async (options?: Bud.Options) => {
   const bud = await budFactory({
     config: {
       features: {
@@ -9,16 +11,13 @@ export const factory = async (config?) => {
         log: false,
       },
       location: {
-        project: join(process.cwd(), 'tests/util/project'),
+        project: repoPath('tests/util/project'),
       },
-      ...(config ?? {}),
+      ...(options ?? {}),
     },
   })
 
-  bud.setPath(
-    'location',
-    join(process.cwd(), 'tests/util/project'),
-  )
+  bud.setPath('location', repoPath('tests/util/project'))
 
   return bud
 }

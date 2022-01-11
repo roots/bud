@@ -11,12 +11,12 @@
     }
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
-    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier",
-    "@roots/bud-stylelint": "workspace:sources/@roots/bud-stylelint",
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
-    "@roots/sage": "workspace:*",
+    "@roots/bud": "latest",
+    "@roots/bud-eslint": "latest",
+    "@roots/bud-prettier": "latest",
+    "@roots/bud-stylelint": "latest",
+    "@roots/bud-tailwindcss": "latest",
+    "@roots/sage": "latest",
     "@wordpress/browserslist-config": "4.1.0",
     "eslint": "8.6.0",
     "postcss": "8.4.5",
