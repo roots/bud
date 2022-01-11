@@ -2,7 +2,7 @@
 
 cd /bud
 
-yarn @bud proxy publish
+yarn install
 
 while true; do
   sleep 100

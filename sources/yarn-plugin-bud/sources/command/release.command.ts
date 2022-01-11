@@ -142,7 +142,8 @@ export class Release extends Command {
       this.err(error.stack)
 
       this.err(`[release] resettting yarnrc state\n`)
-      await this.$(`yarn @bud config`)
+      const yarnrc = await this.getYarnYml()
+      await yarnrc.set('npmAuthToken', this.token).write()
 
       process.exit(1)
     }
@@ -191,9 +192,7 @@ export class Release extends Command {
     await this.$(`yarn @bud clean --all`)
     await this.$(`git checkout -b v${this.version}`)
     await this.$(`yarn install --immutable`)
-    await this.$(
-      `yarn workspaces foreach --no-private exec npm version ${this.version}`,
-    )
+    await this.$(`yarn @bud version ${this.version}`)
   }
 
   /**
@@ -243,23 +242,14 @@ export class Release extends Command {
    * @internal
    */
   public async prepublish() {
-    await this.$(`yarn @bud config --token ${this.token}`)
+    await this.$(`yarn @bud auth npm --token ${this.token}`)
   }
 
   /**
    * npm publish
-   *
-   * @remarks
-   * The packages are published. Pay attention to the npm tag here.
-   * If this is a next version, then be sure to add the next
-   * tag instead of latest.
-   *
-   * @internal
    */
   public async publish() {
-    await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
-    )
+    await this.$(`yarn @bud publish --tag ${this.tag}`)
   }
 
   /**
@@ -271,6 +261,7 @@ export class Release extends Command {
    * @internal
    */
   public async postpublish() {
-    await this.$(`yarn @bud config`)
+    const yarnrc = await this.getYarnYml()
+    await yarnrc.set('npmAuthToken', '').write()
   }
 }

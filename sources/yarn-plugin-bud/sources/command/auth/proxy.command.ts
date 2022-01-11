@@ -1,20 +1,20 @@
-import {CommandClass} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 
 import {Command} from '../base.command'
 
 /**
- * Proxy command class
+ * Authenticate proxy command class
  *
  * @internal
  */
-export class ProxyStart extends Command {
+export class AuthProxy extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'proxy start'
+  public name = 'auth proxy'
 
   /**
    * Command paths
@@ -22,7 +22,7 @@ export class ProxyStart extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    ['@bud', 'proxy', 'start'],
+    ['@bud', 'auth', 'proxy'],
   ]
 
   /**
@@ -32,10 +32,8 @@ export class ProxyStart extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: '@bud',
-    description: 'start proxy server',
-    examples: [
-      ['run verdaccio server', 'yarn @bud proxy start'],
-    ],
+    description: 'authenticate with proxy',
+    examples: [['auth verdaccio', 'yarn @bud auth proxy']],
   }
 
   /**
@@ -55,6 +53,14 @@ export class ProxyStart extends Command {
    */
   @bind
   public async execute() {
-    await this.$(`yarn pm2 start /bud/config/pm2.config.js`)
+    const yarnrc = await this.getYarnYml()
+
+    await yarnrc
+      .set('npmAuthToken', '')
+      .set('npmAuthIdent', 'test:test')
+      .set('npmRegistryServer', 'http://verdaccio:4873')
+      .set('npmPublishRegistry', 'http://verdaccio:4873')
+      .set('unsafeHttpWhitelist', ['verdaccio'])
+      .write()
   }
 }

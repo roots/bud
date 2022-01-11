@@ -20,8 +20,8 @@ uplinks:
 
 packages:
   '@roots/*':
-    access: $anonymous
-    publish: $anonymous
+    access: $all
+    publish: $all
 
   '**':
     access: $all

@@ -4,7 +4,7 @@ import {bind} from 'helpful-decorators'
 import {Command} from '../base.command'
 
 /**
- * Proxy command class
+ * Proxy Publish command class
  *
  * @internal
  */
@@ -14,7 +14,7 @@ export class ProxyPublish extends Command {
    *
    * @internal
    */
-  public name = 'proxy publish'
+  public name = 'proxy auth'
 
   /**
    * Command paths
@@ -32,13 +32,8 @@ export class ProxyPublish extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: '@bud',
-    description: 'publish packages to proxy repo',
-    examples: [
-      [
-        'publish packages to verdaccio',
-        'yarn @bud proxy publish',
-      ],
-    ],
+    description: 'authenticate with proxy repository',
+    examples: [['publish', 'yarn @bud proxy publish']],
   }
 
   public version = Option.String(`-v,--version`, null, {
@@ -65,6 +60,8 @@ export class ProxyPublish extends Command {
    */
   public unmodifiedVersion: string
 
+  public hasErrors = false
+
   /**
    * This is a custom error handler
    *
@@ -78,11 +75,7 @@ export class ProxyPublish extends Command {
    */
   public async errorHandler(e: string) {
     this.err(e)
-
-    await this.restoreUnmodifiedVersion()
-    await this.$(`yarn @bud config`)
-
-    process.exit(1)
+    this.hasErrors = true
   }
 
   /**
@@ -92,47 +85,27 @@ export class ProxyPublish extends Command {
    */
   @bind
   public async execute() {
-    await this.setUnmodifiedVersion()
-
-    if (!this.version) this.version = '0.0.0'
-
-    await this.$(`yarn @bud config --proxy`)
-
-    await this.$(
-      `yarn workspaces foreach --no-private exec npm version ${this.version}`,
-    )
-
-    await this.$(`yarn @bud build`)
-
-    await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag dev`,
-    )
-
-    await this.restoreUnmodifiedVersion()
-
-    await this.$(`yarn @bud config`)
-  }
-
-  /**
-   * Set unmodified version
-   *
-   * @internal
-   */
-  @bind
-  public async setUnmodifiedVersion() {
     const {version} = await this.getManifest()
     this.unmodifiedVersion = version
-  }
+    if (!this.version) this.version = '0.0.0'
 
-  /**
-   * Restore unmodified version
-   *
-   * @internal
-   */
-  @bind
-  public async restoreUnmodifiedVersion() {
+    await this.$(`yarn @bud auth proxy`)
+    await this.$(`yarn @bud version ${this.version}`)
+    await this.$(`yarn @bud publish --tag latest`)
+
+    await this.$(`yarn @bud auth npm`)
+    await this.$(`yarn @bud version ${this.unmodifiedVersion}`)
+
+    await this.$(`cd /tests/`)
     await this.$(
-      `yarn workspaces foreach --no-private exec npm version ${this.unmodifiedVersion}`,
+      `yarn config set registry http://verdaccio:4873/`,
     )
+    await this.$(
+      `npm config set registry http://verdaccio:4873/`,
+    )
+
+    if (this.hasErrors) {
+      throw new Error(`Proxy publish failed`)
+    }
   }
 }
