@@ -14,7 +14,7 @@
   },
   "typings": "./global.d.ts",
   "volta": {
-    "node": "16.13.1"
+    "node": "16.13.2"
   },
   "workspaces": {
     "packages": [
