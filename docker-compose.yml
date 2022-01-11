@@ -16,8 +16,10 @@ services:
       - '4873:4873'
     volumes:
       - ./:/bud
-      - ./.tmp/tests:/tests/npm
+      - ./.tmp/tests:/tests
       - ./.tmp/verdaccio/storage:/verdaccio/storage
+      - ./dev/docker/tests/npm:/tests/npm
+      - ./dev/docker/tests/yarn:/tests/yarn
       - ./dev/docker/verdaccio/config:/verdaccio/config
 
 networks:

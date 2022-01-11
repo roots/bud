@@ -9,6 +9,8 @@
 **/profiles
 coverage
 .budfiles
+dev/docker/tests/yarn/**/*
+dev/docker/tests/npm/**/*
 
 # pacman
 /dev/yarn/*
