@@ -88,6 +88,15 @@ export class Config extends Command {
    *
    * @internal
    */
+  public get npmAuthIdent(): string {
+    return this.proxy ? 'test:test' : ``
+  }
+
+  /**
+   * Get npm auth token
+   *
+   * @internal
+   */
   public get npmAuthToken() {
     return this.token ?? ``
   }
@@ -102,6 +111,7 @@ export class Config extends Command {
 
     await yarnrc
       .set('npmAuthToken', this.npmAuthToken)
+      .set('npmAuthIdent', this.npmAuthIdent)
       .set('npmRegistryServer', this.registry)
       .set('npmPublishRegistry', this.registry)
       .set('unsafeHttpWhitelist', this.httpAllowlist)

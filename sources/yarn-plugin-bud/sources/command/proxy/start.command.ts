@@ -55,7 +55,6 @@ export class ProxyStart extends Command {
    */
   @bind
   public async execute() {
-    await this.$(`rm -rf /verdaccio/storage`)
     await this.$(`yarn pm2 start /bud/config/pm2.config.js`)
   }
 }

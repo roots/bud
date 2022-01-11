@@ -2,7 +2,7 @@ storage: /verdaccio/storage
 
 auth:
   htpasswd:
-    file: /verdaccio/config/verdaccio.auth
+    file: /verdaccio/conf/htpasswd
 
 security:
   api:
@@ -27,6 +27,3 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
-
-logs:
-  - {type: stdout, format: pretty, level: trace}

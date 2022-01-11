@@ -55,8 +55,7 @@ export class ProxyMake extends Command {
   public async execute() {
     await this.$(`yarn cache clean --all`)
     await this.$(`yarn @bud config --proxy`)
-    await this.$(`yarn @bud proxy start`)
-    await this.$(`yarn install --immutable`)
+    await this.$(`yarn @bud proxy publish`)
     await this.$(`yarn @bud config`)
   }
 }
