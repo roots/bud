@@ -102,6 +102,12 @@ export abstract class Command extends BaseCommand {
       : str
   }
 
+  public async errorHandler(e: string) {
+    this.err(e)
+    await this.$(`yarn @bud config`)
+    process.exit(1)
+  }
+
   /**
    * Logs message to process.stdout
    *
@@ -158,9 +164,7 @@ export abstract class Command extends BaseCommand {
           if (code !== 0)
             throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
-          this.err(e)
-          await this.$(`yarn @bud config`)
-          process.exit(1)
+          await this.errorHandler(e)
         }
       }),
     )

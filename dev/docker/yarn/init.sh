@@ -1,13 +1,9 @@
 #!/bin/sh
 
-set -e
+registry="http://localhost:4873"
 
-registry="http://bud:4873"
+cp -rf /bud/examples /yarn
 
-yarn add jest --global
-
-cp -rf /yarn/examples /yarn/.tmp/yarn
-
-cd /yarn/.tmp/yarn/basic
-yarn install --registry=$registry
+cd /yarn/examples/basic
+yarn install --registry $registry
 yarn bud build

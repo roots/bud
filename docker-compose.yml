@@ -6,55 +6,15 @@ services:
     container_name: bud
     networks:
       - node-network
-    working_dir: /bud
+    working_dir: /
     user: node
     command: bash -c /bud/dev/docker/bud/init.sh
     ports:
       - 4873:4873
     volumes:
       - ./:/bud
-
-  yarn:
-    build: ./dev/docker
-    container_name: yarn
-    depends_on:
-      - bud
-    networks:
-      - node-network
-    working_dir: /bud
-    user: node
-    command: bash -c /bud/dev/docker/yarn/init.sh
-    ports:
-      - 3000:3000
-      - 3001:3001
-    volumes:
-      - ./:/bud
-
-  npm:
-    build: ./dev/docker
-    container_name: npm
-    depends_on:
-      - bud
-    networks:
-      - node-network
-    working_dir: /npm
-    user: node
-    command: bash -c /bud/dev/docker/npm/init.sh
-    ports:
-      - 3002:3002
-      - 3003:3003
-    volumes:
-      - ./:/bud
-
-volumes:
-  bud:
-    driver: local
-  yarn:
-    driver: local
-
-  npm:
-    driver: local
-
+      - ./.tmp/npm:/npm
+      - ./.tmp/yarn:/yarn
 
 networks:
   node-network:

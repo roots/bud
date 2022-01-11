@@ -1,13 +1,9 @@
 #!/bin/sh
 
-set -e
+registry="http://localhost:4873"
 
-registry="http://bud:4873"
+cp -rf /bud/examples /npm
 
-npm install jest --global
-
-cp -rf /npm/examples /npm/.tmp/npm
-
-cd /npm/.tmp/npm/basic
-npm install --registry=$registry
+cd /npm/examples/basic
+npm install --registry $registry
 npx bud build

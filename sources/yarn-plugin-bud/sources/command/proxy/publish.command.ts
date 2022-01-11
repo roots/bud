@@ -44,13 +44,25 @@ export class ProxyPublish extends Command {
     description: `version`,
   })
 
+  public unmodifiedVersion: string
+
+  public async errorHandler(e: string) {
+    this.err(e)
+    await this.restoreUnmodifiedVersion()
+    await this.$(`yarn @bud config`)
+    process.exit(1)
+  }
+
   /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
+    await this.setUnmodifiedVersion()
     if (!this.version) this.version = '0.0.0'
+
+    await this.$(`rm -rf ./verdaccio`)
 
     await this.$(`yarn @bud config --proxy`)
 
@@ -64,6 +76,19 @@ export class ProxyPublish extends Command {
       `yarn workspaces foreach --no-private npm publish --access public --tag dev`,
     )
 
+    await this.restoreUnmodifiedVersion()
+
     await this.$(`yarn @bud config`)
+  }
+
+  public async setUnmodifiedVersion() {
+    const {version} = await this.getManifest()
+    this.unmodifiedVersion = version
+  }
+
+  public async restoreUnmodifiedVersion() {
+    await this.$(
+      `yarn workspaces foreach --no-private exec npm version ${this.unmodifiedVersion}`,
+    )
   }
 }

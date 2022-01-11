@@ -1,4 +1,7 @@
-storage: ../verdaccio/storage
+storage: ../verdaccio
+auth:
+  htpasswd:
+    file: ./verdaccio.auth
 
 uplinks:
   npmjs:
