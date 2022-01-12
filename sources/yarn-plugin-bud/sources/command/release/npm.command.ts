@@ -140,9 +140,6 @@ export class ReleaseNpm extends Command {
       this.err(`${step} failed: ${error.message}\n`)
       this.err(error.stack)
 
-      this.err(`resettting yarnrc state`)
-      await this.postpublish()
-
       process.exit(1)
     }
   }

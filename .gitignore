@@ -10,6 +10,7 @@
 **/profiles
 coverage
 .budfiles
+.container
 
 dev/docker/tests/yarn/**/*
 dev/docker/tests/npm/**/*

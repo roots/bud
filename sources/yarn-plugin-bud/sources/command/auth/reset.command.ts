@@ -48,8 +48,8 @@ export class AuthReset extends Command {
 
     await yarnrc
       .set(`npmAuthToken`, '')
+      .set(`npmAuthIdent`, ``)
       .set('npmRegistryServer', 'https://registry.npmjs.org')
-      .set('npmPublishRegistry', 'https://registry.npmjs.org')
       .set('unsafeHttpWhitelist', [])
       .write()
   }

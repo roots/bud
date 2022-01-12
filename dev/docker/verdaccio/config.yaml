@@ -27,3 +27,6 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
+
+logs:
+  - {type: stdout, format: pretty, level: info}

@@ -9,9 +9,9 @@ services:
     ports:
       - '4873:4873'
     volumes:
-      - ./.cache/storage:/verdaccio/storage
-      - ./config/verdaccio.config.yml:/verdaccio/conf/config.yml
-      - ./dev/docker/verdaccio/htpasswd:/verdaccio/conf/htpasswd
+      - ./.container/verdaccio/storage:/verdaccio/storage
+      - ./.container/verdaccio/config:/verdaccio/conf
+      - ./dev/docker/verdaccio:/verdaccio/conf
 
   bud:
     build: ./dev/docker
@@ -27,7 +27,8 @@ services:
       - PROXY_REGISTRY=http://verdaccio:4873
     volumes:
       - ./:/bud
-      - ./.tmp/tests:/tests
+      - ./.container/bud/npm:/npm
+      - ./.container/bud/yarn:/yarn
 
 networks:
   node-network:

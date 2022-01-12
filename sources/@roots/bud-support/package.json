@@ -33,8 +33,7 @@
     "node": ">=14"
   },
   "files": [
-    "lib/cjs/index.js",
-    "lib/esm/index.js",
+    "lib/",
     "templates/",
     "types/"
   ],

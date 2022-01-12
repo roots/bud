@@ -60,3 +60,5 @@ export const compileCjs = async (pkg: string): Promise<void> => {
 
   return
 }
+
+compileCjs(process.argv[2])

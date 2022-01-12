@@ -71,8 +71,8 @@ export class AuthNpm extends Command {
 
     await yarnrc
       .set(`npmAuthToken`, this.token)
+      .set(`npmAuthIdent`, '')
       .set('npmRegistryServer', 'https://registry.npmjs.org')
-      .set('npmPublishRegistry', 'https://registry.npmjs.org')
       .set('unsafeHttpWhitelist', [])
       .write()
   }

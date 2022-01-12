@@ -18,8 +18,8 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "ES2015",
-    "types": ["node", "jest", "react", "express", "webpack"]
+    "target": "ES2021",
+    "types": ["node"]
   },
   "files": []
 }

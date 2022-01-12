@@ -50,6 +50,11 @@ export class Version extends Command {
    * @internal
    */
   public async execute() {
+    if (!this.version) {
+      const {version} = await this.getManifest()
+      this.version = version
+    }
+
     await this.$(
       `yarn workspaces foreach --no-private exec npm version ${this.version}`,
     )

@@ -6,16 +6,8 @@
     "esModuleInterop": true,
     "outDir": "./lib/cjs",
     "rootDir": "./src",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
-  ]
+  "include": ["src"],
+  "exclude": ["lib", "node_modules", "types"]
 }

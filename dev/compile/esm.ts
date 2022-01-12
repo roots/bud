@@ -111,3 +111,5 @@ export const compileEsm = async (pkg: string): Promise<void> => {
     process.exit(1)
   }
 }
+
+compileEsm(process.argv[2])
