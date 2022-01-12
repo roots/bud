@@ -91,7 +91,9 @@ export class ProxyPublish extends Command {
 
     await this.$(`yarn @bud auth proxy`)
     await this.$(`yarn @bud version ${this.version}`)
-    await this.$(`yarn @bud publish --tag latest`)
+    await this.$(
+      `yarn @bud publish --tag latest --registry https://verdaccio:4873/`,
+    )
 
     await this.$(`yarn @bud auth npm`)
     await this.$(`yarn @bud version ${this.unmodifiedVersion}`)

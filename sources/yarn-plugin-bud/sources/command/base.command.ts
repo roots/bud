@@ -142,7 +142,6 @@ export abstract class Command extends BaseCommand {
   @bind
   public async errorHandler(e: string) {
     this.err(e)
-    await this.$(`yarn @bud config`)
     process.exit(1)
   }
 

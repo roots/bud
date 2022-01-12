@@ -50,6 +50,19 @@ export class Publish extends Command {
   public requiresContainer = true
 
   /**
+   * --registry flag
+   *
+   * @internal
+   */
+  public registry = Option.String(
+    `-r,--registry`,
+    'https://registry.npmjs.org/',
+    {
+      description: `registry`,
+    },
+  )
+
+  /**
    * --tag flag
    *
    * @internal
