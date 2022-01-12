@@ -57,7 +57,6 @@ export class AuthProxy extends Command {
 
     await yarnrc
       .set('npmAuthToken', '')
-      .set('npmAuthIdent', 'test:test')
       .set('npmRegistryServer', 'http://verdaccio:4873')
       .set('npmPublishRegistry', 'http://verdaccio:4873')
       .set('unsafeHttpWhitelist', ['verdaccio'])

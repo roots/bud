@@ -1,2 +1,6 @@
-/examples
-/node_modules
+**/node_modules
+**/.git
+**/.cache
+**/.budfiles
+**/.tmp
+coverage

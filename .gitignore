@@ -2,6 +2,7 @@
 .env
 
 # artifacts
+.cache
 .tmp
 *.log
 **/lib
@@ -13,6 +14,7 @@ coverage
 dev/docker/tests/yarn/**/*
 dev/docker/tests/npm/**/*
 dev/docker/verdaccio/storage
+
 # pacman
 /dev/yarn/*
 !/dev/yarn/patches

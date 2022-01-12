@@ -5,17 +5,17 @@ import {REGISTRY_NPM} from '../../constants'
 import {Command} from '../base.command'
 
 /**
- * Npm command class
+ * Auth reset command class
  *
  * @internal
  */
-export class AuthNpm extends Command {
+export class AuthReset extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'auth npm'
+  public name = 'auth reset'
 
   /**
    * Command paths
@@ -23,21 +23,8 @@ export class AuthNpm extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    ['@bud', 'auth', 'npm'],
+    ['@bud', 'auth', 'reset'],
   ]
-
-  /**
-   * --token flag
-   *
-   * @internal
-   */
-  public token = Option.String(
-    '-t,--token',
-    process.env.NPM_AUTH_TOKEN ?? '',
-    {
-      description: 'token',
-    },
-  )
 
   /**
    * Command usage
@@ -46,19 +33,9 @@ export class AuthNpm extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: '@bud',
-    description: 'authenticate with npm',
-    examples: [['authenticate', 'yarn @bud auth npm']],
+    description: 'reset authentication',
+    examples: [['reset authentication', 'yarn @bud auth reset']],
   }
-
-  /**
-   * Requires container
-   *
-   * @remarks
-   * Will fail if process.env.BUD_ENV does not equal 'container'
-   *
-   * @internal
-   */
-  public requiresContainer = true
 
   /**
    * Execute command
@@ -70,7 +47,7 @@ export class AuthNpm extends Command {
     const yarnrc = await this.getYarnYml()
 
     await yarnrc
-      .set(`npmAuthToken`, this.token)
+      .set(`npmAuthToken`, '')
       .set('npmRegistryServer', 'https://registry.npmjs.org')
       .set('npmPublishRegistry', 'https://registry.npmjs.org')
       .set('unsafeHttpWhitelist', [])

@@ -14,42 +14,6 @@ Use this command to assist with developer tasks and debugging across the reposit
 If you are just trying to build \`bud.js\` run \`yarn @bud make\`.
 
 If you are doing development work in the repository you can run \`yarn @bud build -w\` to watch for changes and rebuild automatically.
-
-There are additional commands to assist with:
-
-🐋 using docker
-
-- \`yarn @bud down --help\`
-- \`yarn @bud up --help\`
-- \`yarn @bud $ --help\`
-
-🧼 cleaning build artifacts
-
-- \`yarn @bud clean --help\`
-
-🧱 compiling packages to single file, zero dependency executables
-
-- \`yarn @bud compile --help\`
-
-📙 documenting code
-
-- \`yarn @bud docs --help\`
-
-🤨 linting code
-
-- \`yarn @bud lint --help\`
-
-🛠  building all packages as in CI
-
-- \`yarn @bud make --help\`
-
-📦  proxying packages in a local dev environment
-
-- \`yarn @bud proxy --help\`
-
-🚚  ship it
-
-- \`yarn @bud release --help\`
 `,
   }
 

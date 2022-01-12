@@ -11,6 +11,6 @@
   "settings": {
     "editor.formatOnSave": true,
     "prettier.configPath": "./config/prettier.config.js",
-    "prettier.prettierPath": "../dev/yarn/sdks/prettier/index.js"
+    "prettier.prettierPath": "./dev/yarn/sdks/prettier/index.js"
   }
 }

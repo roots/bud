@@ -1,9 +1,9 @@
 import {CommandClass, Option} from 'clipanion'
 import {parse} from 'semver'
 
-import {Command} from './base.command'
+import {Command} from '../base.command'
 
-type EXECUTION_STEPS =
+export type EXECUTION_STEPS =
   | 'preflight'
   | 'bump'
   | 'make'
@@ -17,38 +17,13 @@ type EXECUTION_STEPS =
  *
  * @internal
  */
-export class Release extends Command {
+export class ReleaseNpm extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'release'
-
-  /**
-   * Command paths
-   *
-   * @internal
-   */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `release`],
-  ]
-
-  /**
-   * Command usage
-   *
-   * @internal
-   */
-  public static usage: CommandClass['usage'] = {
-    category: `@bud`,
-    description: `do a release. if no token is passed, the env NPM_AUTH_TOKEN will be used.`,
-    examples: [
-      [
-        `yarn @bud release --version x.y.z --tag latest --token <token>`,
-        `Bump packages to x.y.z and publish to npm.`,
-      ],
-    ],
-  }
+  public name = 'release npm'
 
   /**
    * Requires container
@@ -59,6 +34,31 @@ export class Release extends Command {
    * @internal
    */
   public requiresContainer = true
+
+  /**
+   * Command paths
+   *
+   * @internal
+   */
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `release`, `npm`],
+  ]
+
+  /**
+   * Command usage
+   *
+   * @internal
+   */
+  public static usage: CommandClass['usage'] = {
+    category: `@bud`,
+    description: `do an npm release. if no token is passed, the env NPM_AUTH_TOKEN will be used.`,
+    examples: [
+      [
+        `yarn @bud release npm --version x.y.z --tag latest --token <token>`,
+        `Bump packages to x.y.z and publish to npm.`,
+      ],
+    ],
+  }
 
   /**
    * --token flag
@@ -106,7 +106,6 @@ export class Release extends Command {
    * @remarks
    * You must be in the roots staff channel to see this link. It is
    * just a broader overview of the steps.
-   * {@link https://discourse.roots.io/t/bump-bud-version/21988}
    *
    * @internal
    */
@@ -141,9 +140,8 @@ export class Release extends Command {
       this.err(`${step} failed: ${error.message}\n`)
       this.err(error.stack)
 
-      this.err(`[release] resettting yarnrc state\n`)
-      const yarnrc = await this.getYarnYml()
-      await yarnrc.set('npmAuthToken', this.token).write()
+      this.err(`resettting yarnrc state`)
+      await this.postpublish()
 
       process.exit(1)
     }
@@ -160,17 +158,34 @@ export class Release extends Command {
       this.version = version
     }
 
+    await this.checkHasToken()
+    await this.checkTagIsValid()
+  }
+
+  /**
+   * check has token
+   *
+   * @internal
+   */
+  public async checkHasToken() {
+    if (!this.token)
+      throw new Error(
+        `--token flag or NPM_AUTH_TOKEN env variable is required`,
+      )
+  }
+
+  /**
+   * Check tag validity
+   *
+   * @internal
+   */
+  public async checkTagIsValid() {
     if (!this.tag) {
       const [prerelease, iteration] = parse(
         this.version,
       ).prerelease
       this.tag = `${prerelease ?? 'latest'}`
     }
-
-    if (!this.token)
-      throw new Error(
-        `--token flag or NPM_AUTH_TOKEN env variable is required`,
-      )
 
     if (this.tag !== 'latest' && this.tag !== 'next') {
       throw new Error(
@@ -247,6 +262,11 @@ export class Release extends Command {
 
   /**
    * npm publish
+   *
+   * @remarks
+   * publishes release to npm
+   *
+   * @internal
    */
   public async publish() {
     await this.$(`yarn @bud publish --tag ${this.tag}`)
@@ -261,7 +281,6 @@ export class Release extends Command {
    * @internal
    */
   public async postpublish() {
-    const yarnrc = await this.getYarnYml()
-    await yarnrc.set('npmAuthToken', '').write()
+    await this.$(`yarn @bud auth reset`)
   }
 }

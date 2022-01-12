@@ -2,6 +2,9 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from '../base.command'
 
+/**
+ * Container up
+ */
 export class ContainerUp extends Command {
   /**
    * Command name

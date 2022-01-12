@@ -21,6 +21,15 @@ export abstract class Command extends BaseCommand {
   public name: string
 
   /**
+   * --dry-run flag
+   *
+   * @internal
+   */
+  public dryRun = Option.Boolean('--dry-run', false, {
+    description: 'log output to console',
+  })
+
+  /**
    * Variadic arguments
    *
    * @internal
@@ -38,15 +47,6 @@ export abstract class Command extends BaseCommand {
    * @decorator `@bind`
    */
   public requiresContainer: boolean = false
-
-  /**
-   * --dry-run flag
-   *
-   * @internal
-   */
-  public dryRun = Option.Boolean('--dry-run', false, {
-    description: 'log output to console',
-  })
 
   /**
    * Get manifest contents
@@ -120,6 +120,7 @@ export abstract class Command extends BaseCommand {
    *
    * @internal
    */
+  @bind
   public withPassthrough(str: string): string {
     return this.passthrough.length
       ? this.passthrough.reduce(

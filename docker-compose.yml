@@ -2,16 +2,16 @@ version: '3.2'
 
 services:
   verdaccio:
-    image: verdaccio/verdaccio:nightly-master
+    image: verdaccio/verdaccio
     container_name: verdaccio
     networks:
       - node-network
     ports:
       - '4873:4873'
     volumes:
-      - ./dev/docker/verdaccio/config/verdaccio.config.yml:/verdaccio/conf/config.yml
-      - ./dev/docker/verdaccio/config/htpasswd:/verdaccio/conf/htpasswd
-      - ./.tmp/storage:/verdaccio/storage
+      - ./.cache/storage:/verdaccio/storage
+      - ./config/verdaccio.config.yml:/verdaccio/conf/config.yml
+      - ./dev/docker/verdaccio/htpasswd:/verdaccio/conf/htpasswd
 
   bud:
     build: ./dev/docker
@@ -24,7 +24,7 @@ services:
     command: bash -c /bud/dev/docker/bud/init.sh
     environment:
       - BUD_ENV=container
-      - PROXY_REGISTRY=http://localhost:4873
+      - PROXY_REGISTRY=http://verdaccio:4873
     volumes:
       - ./:/bud
       - ./.tmp/tests:/tests

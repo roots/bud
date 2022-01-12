@@ -1,5 +1,6 @@
-import {AuthProxy} from './auth/proxy.command'
 import {AuthNpm} from './auth/npm.command'
+import {AuthProxy} from './auth/proxy.command'
+import {AuthReset} from './auth/reset.command'
 import {Bud} from './bud.command'
 import {Build} from './build.command'
 import {Clean} from './clean.command'
@@ -12,15 +13,16 @@ import {ContainerUp} from './container/up.command'
 import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
-import {ProxyPublish} from './proxy/publish.command'
 import {Publish} from './publish.command'
-import {Release} from './release.command'
+import {ReleaseNpm} from './release/npm.command'
+import {ReleaseProxy} from './release/proxy.command'
 import {Test} from './test.command'
 import {Version} from './version.command'
 
 export const Commands = {
-  AuthProxy,
   AuthNpm,
+  AuthProxy,
+  AuthReset,
   Bud,
   Build,
   Clean,
@@ -33,9 +35,9 @@ export const Commands = {
   Docs,
   Lint,
   Make,
-  ProxyPublish,
   Publish,
+  ReleaseNpm,
+  ReleaseProxy,
   Test,
-  Release,
   Version,
 }

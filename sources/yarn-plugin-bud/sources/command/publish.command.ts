@@ -1,8 +1,10 @@
 import {CommandClass, Option} from 'clipanion'
+import {bind} from 'helpful-decorators'
+
 import {Command} from './base.command'
 
 /**
- * Publish command
+ * Publish command class
  *
  * @internal
  */
@@ -15,31 +17,6 @@ export class Publish extends Command {
   public name = 'publish'
 
   /**
-   * Command paths
-   *
-   * @internal
-   */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `publish`],
-  ]
-
-  /**
-   * Command usage
-   *
-   * @internal
-   */
-  public static usage: CommandClass['usage'] = {
-    category: `@bud`,
-    description: `publish a package`,
-    examples: [
-      [
-        `yarn @bud publish --tag latest`,
-        `Publish packages with the 'latest' tag`,
-      ],
-    ],
-  }
-
-  /**
    * Requires container
    *
    * @remarks
@@ -50,17 +27,22 @@ export class Publish extends Command {
   public requiresContainer = true
 
   /**
-   * --registry flag
+   * Command paths
    *
    * @internal
    */
-  public registry = Option.String(
-    `-r,--registry`,
-    'https://registry.npmjs.org/',
-    {
-      description: `registry`,
-    },
-  )
+  public static paths: CommandClass['paths'] = [
+    ['@bud', 'publish'],
+  ]
+
+  /**
+   * Command usage
+   *
+   * @remarks
+   * Don't define usage to hide from CLI --help
+   *
+   * @internal
+   */
 
   /**
    * --tag flag
@@ -72,22 +54,12 @@ export class Publish extends Command {
   })
 
   /**
-   * execute command
-   *
-   * @remarks
-   * You must be in the roots staff channel to see this link. It is
-   * just a broader overview of the steps.
+   * Execute command
    *
    * @internal
    */
+  @bind
   public async execute() {
-    if (
-      !this.tag ||
-      (this.tag !== 'latest' && this.tag !== 'next')
-    ) {
-      this.errorHandler(`Invalid tag: ${this.tag}`)
-    }
-
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
