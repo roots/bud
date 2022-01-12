@@ -40,7 +40,7 @@
     "@types/react-helmet": "6.1.5",
     "@types/react-reconciler": "0.26.4",
     "@types/react-router-dom": "5.3.2",
-    "@types/signale": "1.4.3",
+    "@types/signale": "1.4.4",
     "@types/weak-napi": "2.0.0",
     "@typescript-eslint/eslint-plugin": "5.8.1",
     "@typescript-eslint/parser": "5.8.1",
