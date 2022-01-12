@@ -72,7 +72,7 @@
     "@types/node": "16.11.19",
     "@types/prettier": "2.4.3",
     "@types/safe-json-stringify": "1.1.2",
-    "@types/signale": "1.4.3",
+    "@types/signale": "1.4.4",
     "@types/yamljs": "0.2.31",
     "chalk": "4.1.2",
     "cli-highlight": "2.1.11",
