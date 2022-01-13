@@ -9,7 +9,7 @@ services:
     ports:
       - '4873:4873'
     volumes:
-      - ./.container/verdaccio/storage:/verdaccio/storage
+      - ./.container/storage:/verdaccio/storage
       - ./dev/docker/verdaccio:/verdaccio/conf
 
   bud:

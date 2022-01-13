@@ -29,7 +29,7 @@ describe('repo', function () {
     }
   })
 
-  it('publish check: */lib/esm/index.js', async () => {
+  it.skip('publish check: */lib/esm/index.js', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
