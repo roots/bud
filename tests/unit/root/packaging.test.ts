@@ -7,7 +7,7 @@ describe('repo', function () {
   let packageRoots
 
   beforeAll(async () => {
-    packageRoots = await globby('packages/@roots/*', {
+    packageRoots = await globby('sources/@roots/*', {
       absolute: true,
       onlyDirectories: true,
     })
@@ -144,7 +144,7 @@ describe('repo', function () {
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
-            .split(`packages/`)
+            .split(`sources/`)
             .pop()
             .concat('/tsconfig.json')
 
@@ -167,7 +167,7 @@ describe('repo', function () {
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
-            .split(`packages/`)
+            .split(`sources/`)
             .pop()
             .concat('/tsconfig-esm.json')
 

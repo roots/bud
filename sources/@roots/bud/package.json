@@ -1,0 +1,102 @@
+{
+  "name": "@roots/bud",
+  "version": "5.0.0",
+  "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "clayrisser",
+      "url": "https://github.com/clayrisser"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "roots",
+    "webpack"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "bin": "./bin/bud.js",
+  "files": [
+    "assets/",
+    "bin/",
+    "lib/",
+    "types/",
+    "vendor/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
+    }
+  },
+  "types": "./types/index.d.ts",
+  "oclif": {
+    "commands": "lib/cjs/cli/commands",
+    "bin": "bud"
+  },
+  "devDependencies": {
+    "@microsoft/api-documenter": "7.13.78",
+    "@skypack/package-check": "^0.2.2",
+    "@types/braces": "^3",
+    "@types/fs-extra": "9.0.13",
+    "@types/lodash": "4.14.178",
+    "@types/mini-css-extract-plugin": "2.4.0",
+    "@types/node": "16.11.19"
+  },
+  "dependencies": {
+    "@oclif/core": "1.1.2",
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
+    "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
+    "@roots/bud-server": "workspace:sources/@roots/bud-server",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/container": "workspace:sources/@roots/container",
+    "@roots/dependencies": "workspace:sources/@roots/dependencies",
+    "braces": "3.0.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.0.0",
+    "execa": "5.1.1",
+    "fast-glob": "3.2.10",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.0",
+    "helpful-decorators": "^2.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.4.5",
+    "tslib": "^2.3.1",
+    "type-fest": "^2.5.4",
+    "webpack": "5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-manifest-plugin": "^4.0.2"
+  }
+}

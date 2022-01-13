@@ -2,36 +2,30 @@
 .env
 
 # artifacts
+.cache
+.tmp
 *.log
 **/lib
 *.tsbuildinfo
-/.npmrc
-/packages/@roots/*/types
-
-# Docusaurus
-/site/.docusaurus
-/site/.cache-loader
-/site/build
-/site/.netlify
-/site/src/api/**/*.*
-
-# jest
+**/profiles
 coverage
+.budfiles
+.container
+
+dev/docker/tests/yarn/**/*
+dev/docker/tests/npm/**/*
+dev/docker/verdaccio/storage
 
 # pacman
-node_modules
-/config/yarn/*
-!/config/yarn/patches
-!/config/yarn/releases
-!/config/yarn/plugins
-!/config/yarn/sdks
-!/config/yarn/versions
-!/config/yarn/@bud
-!/config/yarn/yarnrc.yml
+/dev/yarn/*
+!/dev/yarn/patches
+!/dev/yarn/releases
+!/dev/yarn/plugins
+!/dev/yarn/sdks
+!/dev/yarn/versions
 .pnp.*
-
-# verdaccio
-/verdaccio
+/.npmrc
+node_modules
 
 # bin
 !bin/**/*
@@ -39,8 +33,20 @@ node_modules
 # bud
 **/.budfiles
 
-# Profiles
-**/profiles
+.netlify
+.docusaurus
+.cache-loader
 
-# Netlify
-**/.netlify
+# verdaccio
+/verdaccio
+
+# Sources
+/sources/@roots/*/types
+
+# Docs
+/sources/docs/build
+/sources/docs/src/api/**/*.*
+
+# Examples
+/examples/*/dist
+/examples/*/.budfiles

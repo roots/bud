@@ -24,11 +24,5 @@ module.exports = async () => {
       ...manifest,
       name: manifest.cwd.split('examples/')[1],
     }))
-
-  console.log('\nprojects')
-  paths.forEach(path => console.log(`- ${path.name}`))
-
-  console.log('\nignoring')
-  IGNORE_LIST.forEach(path => console.log(`- ${path}`))
   return paths
 }

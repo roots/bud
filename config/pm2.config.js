@@ -3,8 +3,8 @@ module.exports = {
   apps: [
     {
       name: 'verdaccio',
-      script: './node_modules/verdaccio/bin/verdaccio',
-      args: '-c ./config/verdaccio.config.yml',
+      script: '/bud/node_modules/verdaccio/bin/verdaccio',
+      args: '-c /verdaccio/config/verdaccio.config.yml',
     },
   ],
 }

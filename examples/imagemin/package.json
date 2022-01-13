@@ -14,7 +14,7 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-imagemin": "workspace:*"
+    "@roots/bud": "latest",
+    "@roots/bud-imagemin": "latest"
   }
 }

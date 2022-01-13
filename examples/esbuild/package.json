@@ -14,7 +14,7 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild"
+    "@roots/bud": "latest",
+    "@roots/bud-esbuild": "latest"
   }
 }

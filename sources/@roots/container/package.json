@@ -1,0 +1,58 @@
+{
+  "name": "@roots/container",
+  "version": "5.0.0",
+  "description": "Collections utility",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/container"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "container",
+    "utility"
+  ],
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "^0.2.2",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "type-fest": "2.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  }
+}

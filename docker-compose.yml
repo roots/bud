@@ -1,22 +1,41 @@
 version: '3.2'
 
 services:
+  verdaccio:
+    image: verdaccio/verdaccio
+    container_name: verdaccio
+    networks:
+      - node-network
+    ports:
+      - '4873:4873'
+    volumes:
+      - ./.container/verdaccio/storage:/verdaccio/storage
+      - ./.container/verdaccio/config:/verdaccio/conf
+      - ./dev/docker/verdaccio:/verdaccio/conf
+
   bud:
-    build: ./dev/build
+    build: ./dev/docker
     container_name: bud
+    depends_on: [verdaccio]
     networks:
       - node-network
     working_dir: /bud
     user: node
-    command: bash -c /bud/dev/build/init.sh
+    command: bash -c /bud/dev/docker/bud/init.sh
+    environment:
+      - BUD_ENV=container
+      - PROXY_REGISTRY=http://verdaccio:4873
     volumes:
       - ./:/bud
-      - ./dev/build/.npmrc:/bud/.npmrc
-
-volumes:
-  bud:
-    driver: local
+      - ./.container/bud/npm:/npm
+      - ./.container/bud/yarn:/yarn
 
 networks:
   node-network:
     driver: bridge
+
+volumes:
+  bud:
+    driver: local
+  verdaccio:
+    driver: local

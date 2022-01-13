@@ -19,7 +19,6 @@ describe('@roots/bud-server', function () {
         hot: true,
         proxy: false,
       },
-
       dev: {
         url: new URL('http://localhost:3000/'),
       },
@@ -40,6 +39,10 @@ describe('@roots/bud-server', function () {
   })
 
   it('has run method', () => {
-    expect(bud.server.run).toBeInstanceOf(Function)
+    try {
+      expect(bud.server.run).toBeInstanceOf(Function)
+    } catch (e) {
+      console.error(e)
+    }
   })
 })
