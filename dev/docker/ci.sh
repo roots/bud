@@ -13,11 +13,11 @@ docker compose up -d
 echo initialize
 yarn @bud $ sh /bud/dev/docker/setup.sh
 
-echo Build packages
-yarn @bud : build
-
 echo Lint packages
 yarn @bud : lint --skypack
+
+echo Publish packages
+yarn @bud : release proxy --tag latest
 
 echo babel integration: yarn install
 yarn @bud : example install babel --with yarn

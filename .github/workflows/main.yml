@@ -52,11 +52,11 @@ jobs:
       - name: Setup
         run: 'yarn @bud $ sh /bud/dev/docker/setup.sh'
 
-      - name: Build packages
-        run: 'yarn @bud : build'
-
       - name: Lint packages
         run: 'yarn @bud : lint --skypack'
+
+      - name: Proxy publish packages
+        run: 'yarn @bud : release proxy --tag latest'
 
       - name: 'babel integration: yarn install'
         run: 'yarn @bud : example install babel --with yarn'
