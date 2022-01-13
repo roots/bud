@@ -32,9 +32,5 @@ export class Compile extends Command {
     await this.$(
       `yarn ts-node --project ./config/tsconfig.json ./dev/compile/cjs ${this.package}`,
     )
-
-    await this.$(
-      `yarn ts-node --project ./config/tsconfig.esm.json ./dev/compile/esm ${this.package}`,
-    )
   }
 }

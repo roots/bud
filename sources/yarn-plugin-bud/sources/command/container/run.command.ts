@@ -36,6 +36,15 @@ export class ContainerRun extends Command {
   }
 
   /**
+   * Passthrough args
+   *
+   * @internal
+   */
+  public passthrough = Option.Proxy({
+    name: `docker compose up options`,
+  })
+
+  /**
    * Command execute
    *
    * @internal

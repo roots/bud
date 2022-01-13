@@ -42,9 +42,11 @@ module.exports = async function config() {
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
-    setupFilesAfterEnv: ['<rootDir>/dev/jest/setup.afterEnv.js'],
     testEnvironment: 'node',
-    testMatch: [`<rootDir>/tests/unit/**/*.test.ts`],
+    testMatch: [
+      `<rootDir>/tests/unit/**/*.test.ts`,
+      `<rootDir>/tests/integration/babel.test.ts`,
+    ],
     testPathIgnorePatterns: [
       '<rootDir>/build/',
       '<rootDir>/node_modules/',

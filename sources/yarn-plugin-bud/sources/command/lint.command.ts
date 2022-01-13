@@ -109,7 +109,7 @@ export class Lint extends Command {
             ]
           : []),
         this.skypack
-          ? `yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run pkg`
+          ? `yarn workspaces foreach --no-private exec yarn run package-check`
           : null,
       ].filter(Boolean),
     )

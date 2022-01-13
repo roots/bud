@@ -19,3 +19,4 @@ RUN apt-get update \
   # && apt-get install -yq google-chrome-stable \
   && apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
+RUN npm install npm-cli-login --global

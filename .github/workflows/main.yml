@@ -21,6 +21,7 @@ jobs:
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -45,17 +46,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
-        run: yarn install --immutable
+      - name: Start
+        run: 'docker compose up -d'
 
-      - name: Launch proxy
-        run: yarn @bud proxy start
+      - name: Setup
+        run: 'yarn @bud $ sh /bud/docker/setup.sh'
 
-      - name: Build
-        run: yarn @bud build
+      - name: Build packages
+        run: 'yarn @bud : build'
 
-      - name: Lint
-        run: yarn @bud lint --skypack
+      - name: Lint packages
+        run: 'yarn @bud : lint --skypack'
+
+      - name: 'babel integration: yarn install'
+        run: 'yarn @bud : example install babel --with yarn'
+
+      - name: 'babel integration: yarn build'
+        run: 'yarn @bud : example build babel --with yarn'
+
+      - name: 'babel integration: npm install'
+        run: 'yarn @bud : example install babel --with npm'
+
+      - name: 'babel integration: npm build'
+        run: 'yarn @bud : example build babel --with npm'
 
       - name: Test
-        run: yarn @bud test --coverage --verbose --maxWorkers=50%
+        run: 'yarn @bud : test --coverage --verbose --maxWorkers=50%'

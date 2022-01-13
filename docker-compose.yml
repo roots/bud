@@ -10,7 +10,6 @@ services:
       - '4873:4873'
     volumes:
       - ./.container/verdaccio/storage:/verdaccio/storage
-      - ./.container/verdaccio/config:/verdaccio/conf
       - ./dev/docker/verdaccio:/verdaccio/conf
 
   bud:
@@ -21,14 +20,14 @@ services:
       - node-network
     working_dir: /bud
     user: node
-    command: bash -c /bud/dev/docker/bud/init.sh
+    command: bash -c /bud/dev/docker/init.sh
     environment:
       - BUD_ENV=container
       - PROXY_REGISTRY=http://verdaccio:4873
     volumes:
       - ./:/bud
-      - ./.container/bud/npm:/npm
-      - ./.container/bud/yarn:/yarn
+      - ./.container/npm:/npm
+      - ./.container/yarn:/yarn
 
 networks:
   node-network:

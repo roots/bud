@@ -2,7 +2,7 @@ storage: /verdaccio/storage
 
 auth:
   htpasswd:
-    file: /verdaccio/conf/htpasswd
+    file: .htpasswd
 
 security:
   api:

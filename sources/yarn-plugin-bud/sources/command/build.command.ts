@@ -94,7 +94,7 @@ export class Build extends Command {
     }
 
     if (all) {
-      await this.$(tsc.cjs, tsc.esm)
+      await this.$(tsc.cjs)
     } else if (this.cjs) {
       await this.$(tsc.cjs)
     } else if (this.esm) {

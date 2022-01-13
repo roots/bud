@@ -1,10 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/babel app.css matches snapshot 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+exports[`babel app.css has contents npm 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 
-exports[`examples/babel app.js matches snapshot 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{490:function(n,e,c){\\"use strict\\";c(668),(void 0).accept(console.error)},668:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},582:function(){},152:function(){}},function(n){var e=function(e){return n(n.s=e)};e(490),e(668),e(582),e(152)}]);"`;
+exports[`babel app.css has contents yarn 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
 
-exports[`examples/babel manifest.json 1`] = `
+exports[`babel app.css matches snapshot npm 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+
+exports[`babel app.css matches snapshot yarn 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+
+exports[`babel app.js has contents npm 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
+
+exports[`babel app.js has contents yarn 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
+
+exports[`babel app.js matches snapshot npm 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
+
+exports[`babel app.js matches snapshot yarn 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
+
+exports[`babel manifest.json matches snapshot npm 1`] = `
 Object {
   "app.css": "app.css",
   "app.js": "app.js",
@@ -12,16 +24,10 @@ Object {
 }
 `;
 
-exports[`examples/babel module map matches snapshot 1`] = `
+exports[`babel manifest.json matches snapshot yarn 1`] = `
 Object {
-  "byName": Object {
-    "app": Any<Number>,
-    "runtime": 666,
-  },
-  "bySource": Object {
-    "0 app": Any<Number>,
-    "1 app": 143,
-  },
-  "usedIds": Any<Array>,
+  "app.css": "app.css",
+  "app.js": "app.js",
+  "runtime.js": "runtime.js",
 }
 `;
