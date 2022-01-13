@@ -88,4 +88,14 @@ export class ReleaseProxy extends ReleaseNpm {
   public async prepublish() {
     await this.$(`yarn @bud auth proxy`)
   }
+
+  /**
+   * npm postpublish
+   *
+   * @remarks
+   * Reset auth token.
+   *
+   * @internal
+   */
+  public async postpublish() {}
 }

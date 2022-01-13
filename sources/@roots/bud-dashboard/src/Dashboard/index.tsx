@@ -1,10 +1,10 @@
-import {Dashboard as Contract, Framework} from '@roots/bud-framework'
+import {
+  Dashboard as Contract,
+  Framework,
+} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, chalk, once} from '@roots/bud-support'
-import {Instance, render} from 'ink'
 import React from 'react'
-
-import {Dashboard as DashboardComponent} from '../components/dashboard.component'
 
 /**
  * Dashboard service
@@ -17,7 +17,7 @@ export class Dashboard extends Service implements Contract {
    *
    * @public
    */
-  public instance: Instance
+  public instance: any
 
   /**
    * Stderr buffer
@@ -43,9 +43,9 @@ export class Dashboard extends Service implements Contract {
   public async bootstrap(): Promise<void> {
     this.log('log', chalk.green('initializing dashboard'))
 
-    !this.app.isDevelopment
-      ? this.run()
-      : this.app.hooks.on('event.server.after', this.run)
+    if (this.app.store.is('features.dashboard', true)) {
+      await this.run()
+    }
   }
 
   /**
@@ -57,14 +57,18 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   @once
-  public run(): Framework {
+  public async run(): Promise<Framework> {
     this.app.hooks.on<'event.dashboard.done'>(
       'event.dashboard.done',
       this.close,
     )
 
     if (this.app.store.is('features.dashboard', true)) {
-      this.render(<DashboardComponent application={this.app} />)
+      const {Dashboard} = await import(
+        '../components/dashboard.component.js'
+      )
+
+      this.render(<Dashboard application={this.app} />)
 
       this.log('success', {
         message: 'rendering dashboard',
@@ -97,15 +101,21 @@ export class Dashboard extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public render(Component: any): void {
+  public async render(Component: any): Promise<void> {
+    const {render} = await import('ink')
     this.instance = render(Component)
   }
 
   @bind
   public async rerender(): Promise<void> {
+    const {render} = await import('ink')
+    const {Dashboard} = await import(
+      '../components/dashboard.component.js'
+    )
+
     setTimeout(() => {
       this.instance.rerender(
-        render(<DashboardComponent application={this.app} />),
+        render(<Dashboard application={this.app} />),
       )
     }, 500)
   }

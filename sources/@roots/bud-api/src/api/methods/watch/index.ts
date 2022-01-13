@@ -8,12 +8,7 @@ export interface watch {
 export const watch: watch = function (files) {
   const ctx = (this.root as Framework) ?? (this as Framework)
 
-  ctx.api.log('success', {
-    message: `watch files added`,
-    suffix: chalk.dim(files.join(', ')),
-  })
-
-  if (!ctx.isDevelopment || !ctx.server) {
+  if (!ctx.isDevelopment) {
     ctx.api.log('log', {
       message: 'skipping watch files',
       suffix: 'production mode is set',
@@ -21,11 +16,15 @@ export const watch: watch = function (files) {
     return ctx
   }
 
-  files &&
-    ctx.store.set(
-      'server.watch.files',
-      Array.isArray(files) ? files : [files],
-    )
+  ctx.store.set(
+    'server.watch.files',
+    Array.isArray(files) ? files : [files],
+  )
+
+  ctx.api.log('success', {
+    message: `watch files added`,
+    suffix: chalk.dim(files.join(', ')),
+  })
 
   return ctx
 }

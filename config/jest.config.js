@@ -9,12 +9,18 @@ module.exports = async function config() {
 
   return {
     collectCoverageFrom: [
-      'sources/@roots/**/*.{ts,tsx}',
+      'sources/@roots/**/src/**/*.{ts,tsx}',
+      '!sources/@roots/**/src/**/*.dependencies.{ts,tsx}',
+      '!sources/@roots/bud/src/cli/**/*.{ts,tsx}',
       '!sources/@roots/**/*.d.ts',
     ],
     coveragePathIgnorePatterns: [
+      'node_modules',
+      'sources/@roots/bud-dashboard/',
       'sources/@roots/bud-support/',
       'sources/@roots/filesystem/',
+      'sources/@roots/ink-prettier/',
+      'sources/@roots/ink-use-style/',
     ],
     coverageReporters: ['lcov', 'text', 'text-summary'],
     displayName: {
@@ -28,22 +34,21 @@ module.exports = async function config() {
         compiler: 'typescript',
       },
     },
-    globalSetup: '<rootDir>/dev/jest/setup.global.js',
     moduleNameMapper,
+    modulePathIgnorePatterns: [
+      `<rootDir>/.container/`,
+      `<rootDir>/node_modules/`,
+    ],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
     setupFilesAfterEnv: ['<rootDir>/dev/jest/setup.afterEnv.js'],
     testEnvironment: 'node',
-    testMatch: [
-      `<rootDir>/tests/unit/**/*.ts`,
-      `<rootDir>/tests/integration/**/*.ts`,
-      `!**/__mocks__/**/*`,
-    ],
+    testMatch: [`<rootDir>/tests/unit/**/*.test.ts`],
     testPathIgnorePatterns: [
-      '/node_modules/',
-      '/tests/util/',
-      '/tests/.*?/__mocks__/',
+      '<rootDir>/build/',
+      '<rootDir>/node_modules/',
+      '<rootDir>/tests/__mocks__',
     ],
   }
 }

@@ -15,8 +15,8 @@ module.exports = async () => {
     .reduce(
       (mapping, pkg) => ({
         ...mapping,
-        [`^${pkg}$`]: `<rootDir>sources/${pkg}/src/index`,
-        [`^${pkg}/(.*)$`]: `<rootDir>sources/${pkg}/$1`,
+        [`^${pkg}$`]: `<rootDir>/sources/${pkg}/src/index`,
+        [`^${pkg}/(.*)$`]: `<rootDir>/sources/${pkg}/$1`,
       }),
       {},
     )

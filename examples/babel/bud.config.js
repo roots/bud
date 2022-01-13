@@ -1,7 +1,4 @@
-import '@roots/bud-babel'
-import {Bud} from '@roots/bud'
-
-module.exports = async (app: Bud) => {
+module.exports = async app => {
   await app
     .entry('app', '*.{js,css}')
     .when(app.isProduction, app => {
@@ -10,7 +7,7 @@ module.exports = async (app: Bud) => {
     .proxy({
       target: 'http://localhost:8080',
     })
-    .tap(({babel}: Bud) =>
+    .tap(({babel}) =>
       babel
         .setPresets({
           '@babel/preset-env': require.resolve(

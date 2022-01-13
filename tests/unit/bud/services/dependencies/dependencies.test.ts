@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory, mockProject} from '../../../../util/bud'
 import {Dependencies} from '@roots/bud/src/services/Dependencies'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 
@@ -9,11 +9,9 @@ describe('bud.project', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
+      features: {
+        dashboard: false,
+        log: false,
       },
     })
 
@@ -28,7 +26,7 @@ describe('bud.project', function () {
   })
 
   it('dependencies manager client has path registered', () => {
-    expect(manager.client.path).toBe(process.cwd())
+    expect(manager.client.path).toBe(mockProject.path)
   })
 
   test.todo('dependencies manager returns npm')

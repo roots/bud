@@ -185,14 +185,19 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public getEntries<T = any>(key?: string): [string, ValueOf<T>][] {
+  public getEntries<T = any>(
+    key?: string,
+  ): [string, ValueOf<T>][] {
     if (!key) return Object.entries(this.repository)
 
     if (!this.has(key)) {
       throw new Error(`Key ${key} does not exist`)
     }
 
-    return Object.entries(this.get(key)) as [string, ValueOf<T>][]
+    return Object.entries(this.get(key)) as [
+      string,
+      ValueOf<T>,
+    ][]
   }
 
   /**
@@ -330,7 +335,10 @@ export class Container<I = any> {
   @bind
   public getMap(key?: string): Map<string, any> {
     const reducer: [
-      (acc: Map<string, any>, curr: [string, any]) => Map<string, any>,
+      (
+        acc: Map<string, any>,
+        curr: [string, any],
+      ) => Map<string, any>,
       Map<string, any>,
     ] = [
       (map, [key, value]) => {
@@ -405,7 +413,10 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public transform(key: string, mutationFn: (value?: any) => any): any {
+  public transform(
+    key: string,
+    mutationFn: (value?: any) => any,
+  ): any {
     return mutationFn(this.get(key))
   }
 
@@ -424,7 +435,10 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public mutate(key: string, mutationFn: (value?: any) => any): this {
+  public mutate(
+    key: string,
+    mutationFn: (value?: any) => any,
+  ): this {
     this.set(key, this.transform(key, mutationFn))
 
     return this
@@ -891,10 +905,15 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isInstanceOfAny(key: string, instances: any[]): boolean {
+  public isInstanceOfAny(
+    key: string,
+    instances: any[],
+  ): boolean {
     return (
       this.has(key) &&
-      instances.some(instance => this.get(key) instanceof instance)
+      instances.some(
+        instance => this.get(key) instanceof instance,
+      )
     )
   }
 
@@ -915,10 +934,15 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public isNotInstanceOfAny(key: string, instances: any[]): boolean {
+  public isNotInstanceOfAny(
+    key: string,
+    instances: any[],
+  ): boolean {
     return (
       this.has(key) &&
-      !instances.some(instance => this.get(key) instanceof instance)
+      !instances.some(
+        instance => this.get(key) instanceof instance,
+      )
     )
   }
 

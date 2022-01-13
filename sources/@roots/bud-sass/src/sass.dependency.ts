@@ -5,13 +5,14 @@ import type {Signale} from '@roots/bud-support'
  *
  * @param app -- Bud instance
  * @returns dart-sass
+ *
+ * @public
  */
 export async function importSassImplementation(logger: Signale) {
   try {
     logger.await('attempting to import sass')
 
-    const raw = await import('sass')
-    const sass = raw.default || raw
+    const sass = await import('sass')
 
     logger.success('sass imported')
 
@@ -28,7 +29,8 @@ export async function importSassImplementation(logger: Signale) {
  * Resolves sass-loader
  *
  * @returns sass-loader path
- * @internal
+ *
+ * @public
  */
 export function resolveLoader(logger: Signale): string {
   try {

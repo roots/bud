@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
 describe.skip('bud.splitChunks', function () {
   let bud: Bud
@@ -19,7 +19,7 @@ describe.skip('bud.splitChunks', function () {
     ).toMatchSnapshot()
   })
 
-  it('sets options when passed as parameters', () => {
+  it('sets options when passed as parameters', async () => {
     const param = {
       cacheGroups: {
         chunks: 'all',
@@ -27,6 +27,8 @@ describe.skip('bud.splitChunks', function () {
     }
 
     bud.splitChunks(param)
+
+    await bud.api.processQueue()
 
     expect(
       bud.hooks.filter('build.optimization.splitChunks'),

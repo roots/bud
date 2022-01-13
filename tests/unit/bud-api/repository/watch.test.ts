@@ -1,31 +1,31 @@
-import { Bud, factory } from "../../../util/bud";
+import {Bud, factory} from '../../../util/bud'
 
-describe("bud.watch", function () {
-  let bud: Bud;
+describe('bud.watch', function () {
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({
-      config: {
-        mode: "development",
-      },
-    });
-  });
+      mode: 'development',
+    })
+  })
 
-  it("is a function", () => {
-    expect(bud.watch).toBeInstanceOf(Function);
-  });
+  it('is a function', () => {
+    expect(bud.watch).toBeInstanceOf(Function)
+  })
 
   it("doesn't throw when called in production", () => {
-    expect(bud.watch(["**/*.js"])).toBeInstanceOf(Bud);
-  });
+    expect(bud.watch(['**/*.js'])).toBeInstanceOf(Bud)
+  })
 
-  it("sets watch files", async () => {
-    const files = ["**/*.js"];
+  it('sets watch files', async () => {
+    const files = ['**/*.js']
 
-    bud.watch(files);
+    bud.watch(files)
 
-    await bud.api.processQueue();
+    await bud.api.processQueue()
 
-    expect(bud.store.get("server.watch.files")).toMatchSnapshot(files);
-  });
-});
+    expect(bud.store.get('server.watch.files')).toMatchSnapshot(
+      files,
+    )
+  })
+})

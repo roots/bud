@@ -3695,7 +3695,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
+"@roots/bud-tailwindcss@workspace:*, @roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
@@ -3856,13 +3856,16 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@roots/dependencies": "workspace:sources/@roots/dependencies"
     "@skypack/package-check": ^0.2.2
+    "@types/braces": ^3
     "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.178
     "@types/mini-css-extract-plugin": 2.4.0
     "@types/node": 16.11.19
+    braces: 3.0.2
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: ^10.0.0
     execa: 5.1.1
+    fast-glob: 3.2.10
     fs-extra: ^10.0.0
     globby: ^11.0.0
     helpful-decorators: ^2.1.0
@@ -4474,6 +4477,13 @@ __metadata:
     "@types/connect": "*"
     "@types/node": "*"
   checksum: 2990656ea2de81f3529a3359a79a13b67feb4c627caf7a367fdc0017a178e567b0cc410546bdd219104ad7197c5ee5a90b70193f5253839ea43d9cdb2d2dacee
+  languageName: node
+  linkType: hard
+
+"@types/braces@npm:^3":
+  version: 3.0.1
+  resolution: "@types/braces@npm:3.0.1"
+  checksum: 3749f7673a03d498ddb2f199b222bb403e53e78ac05a599c757c2049703ece802602c78640af0ff826be0fd2ea8b03daff04ce18806ed739592302195b7a569b
   languageName: node
   linkType: hard
 
@@ -7317,7 +7327,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"braces@npm:^3.0.1, braces@npm:~3.0.2":
+"braces@npm:3.0.2, braces@npm:^3.0.1, braces@npm:~3.0.2":
   version: 3.0.2
   resolution: "braces@npm:3.0.2"
   dependencies:
@@ -10745,6 +10755,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-glob@npm:3.2.10, fast-glob@npm:^3.2.9":
+  version: 3.2.10
+  resolution: "fast-glob@npm:3.2.10"
+  dependencies:
+    "@nodelib/fs.stat": ^2.0.2
+    "@nodelib/fs.walk": ^1.2.3
+    glob-parent: ^5.1.2
+    merge2: ^1.3.0
+    micromatch: ^4.0.4
+  checksum: dee958d95638c8d00d200c55af5884dda513cfef96f674caab5a289a4436936ee26d603841a9ab85a6a4d9f7914558bce78dbf1088d3b8ec64b255422eea840b
+  languageName: node
+  linkType: hard
+
 "fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.7":
   version: 3.2.7
   resolution: "fast-glob@npm:3.2.7"
@@ -10755,19 +10778,6 @@ __metadata:
     merge2: ^1.3.0
     micromatch: ^4.0.4
   checksum: 2f4708ff112d2b451888129fdd9a0938db88b105b0ddfd043c064e3c4d3e20eed8d7c7615f7565fee660db34ddcf08a2db1bf0ab3c00b87608e4719694642d78
-  languageName: node
-  linkType: hard
-
-"fast-glob@npm:^3.2.9":
-  version: 3.2.10
-  resolution: "fast-glob@npm:3.2.10"
-  dependencies:
-    "@nodelib/fs.stat": ^2.0.2
-    "@nodelib/fs.walk": ^1.2.3
-    glob-parent: ^5.1.2
-    merge2: ^1.3.0
-    micromatch: ^4.0.4
-  checksum: dee958d95638c8d00d200c55af5884dda513cfef96f674caab5a289a4436936ee26d603841a9ab85a6a4d9f7914558bce78dbf1088d3b8ec64b255422eea840b
   languageName: node
   linkType: hard
 
@@ -21053,6 +21063,7 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
     postcss: 8.4.5
     postcss-import: 14.0.2
     postcss-nested: 5.0.6

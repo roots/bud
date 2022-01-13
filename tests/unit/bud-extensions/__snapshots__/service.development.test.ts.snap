@@ -59,6 +59,23 @@ Object {
       "registered": true,
     },
   },
+  "@roots/bud-tailwindcss": Controller {
+    "_app": [Function],
+    "_module": Object {
+      "api": Object {
+        "tailwind": [Function],
+      },
+      "boot": [Function],
+      "name": "@roots/bud-tailwindcss",
+      "options": undefined,
+    },
+    "log": [Function],
+    "meta": Object {
+      "booted": true,
+      "instance": "bud",
+      "registered": true,
+    },
+  },
   "clean-webpack-plugin": Controller {
     "_app": [Function],
     "_module": Object {
@@ -263,7 +280,7 @@ Object {
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 10`] = `
 Object {
-  "booted": false,
+  "booted": true,
   "instance": "bud",
   "registered": true,
 }
@@ -278,6 +295,14 @@ Object {
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 12`] = `
+Object {
+  "booted": false,
+  "instance": "bud",
+  "registered": true,
+}
+`;
+
+exports[`Extensions [development] bud.extensions.repository options matches snapshot 13`] = `
 Object {
   "booted": false,
   "instance": "bud",

@@ -53,7 +53,7 @@ export class Test extends Command {
   public async execute() {
     await this.$(
       this.withPassthrough(
-        `yarn jest --config config/jest.config.js`,
+        `yarn jest --config ./config/jest.config.js`,
       ),
     )
   }

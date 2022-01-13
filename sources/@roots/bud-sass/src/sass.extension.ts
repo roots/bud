@@ -37,7 +37,9 @@ export const extension: extension = {
       use: ({build, isProduction}) =>
         Array.from(
           new Set([
-            isProduction ? build.items.minicss : build.items.style,
+            isProduction
+              ? build.items.minicss
+              : build.items.style,
             build.items.css,
             build.items.postcss ?? undefined,
             build.items['resolve-url'],
@@ -47,7 +49,10 @@ export const extension: extension = {
     })
 
     // add .scss extension
-    app.hooks.on('build.resolve.extensions', webpack.resolveExtensions)
+    app.hooks.on(
+      'build.resolve.extensions',
+      webpack.resolveExtensions,
+    )
   },
 
   /**

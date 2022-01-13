@@ -10,6 +10,7 @@ import {ContainerDown} from './container/down.command'
 import {ContainerRun} from './container/run.command'
 import {ContainerBash} from './container/bash.command'
 import {ContainerUp} from './container/up.command'
+import {Dev} from './dev.command'
 import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
@@ -32,6 +33,7 @@ export const Commands = {
   ContainerRun,
   ContainerBash,
   ContainerUp,
+  Dev,
   Docs,
   Lint,
   Make,

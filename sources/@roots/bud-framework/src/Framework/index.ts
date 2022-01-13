@@ -2,7 +2,12 @@ import type {
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
-import {bind, format, highlight, lodash} from '@roots/bud-support'
+import {
+  bind,
+  format,
+  highlight,
+  lodash,
+} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {
@@ -53,7 +58,11 @@ export abstract class Framework {
    * @public
    */
   public get name(): string {
-    return this.store?.get('name') ?? this.options.config.name ?? 'bud'
+    return (
+      this.store?.get('name') ??
+      this.options.config.name ??
+      'bud'
+    )
   }
   public set name(name: string) {
     this.store.set('name', name)
@@ -315,7 +324,10 @@ export abstract class Framework {
 
     Object.entries(methods).map(([key, method]) => {
       if (!isFunction(method)) {
-        this.error(`framework ctor`, `method "${key}" is not a function`)
+        this.error(
+          `framework ctor`,
+          `method "${key}" is not a function`,
+        )
       }
 
       this[key] = method.bind(this)
@@ -346,7 +358,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
+  public maybeCall: methods.maybeCall =
+    methods.maybeCall.bind(this)
 
   /**
    * Gracefully shutdown {@link Framework} and registered {@link @roots/bud-framework#Service | Service instances}
@@ -372,7 +385,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public container: methods.container = methods.container.bind(this)
+  public container: methods.container =
+    methods.container.bind(this)
 
   /**
    * Returns a {@link Framework | Framework instance} from the {@link Framework.children} container
@@ -532,7 +546,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
+  public bindMethod: methods.bindMethod =
+    methods.bindMethod.bind(this)
 
   /**
    * Adds a class as a property of the Framework
@@ -573,7 +588,9 @@ export abstract class Framework {
   @bind
   public log(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).log(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .log(...messages)
 
     return this
   }
@@ -587,7 +604,9 @@ export abstract class Framework {
   @bind
   public info(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).info(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .info(...messages)
 
     return this
   }
@@ -617,7 +636,9 @@ export abstract class Framework {
   @bind
   public warn(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).warn(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .warn(...messages)
 
     return this
   }
@@ -631,7 +652,9 @@ export abstract class Framework {
   @bind
   public time(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).time(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .time(...messages)
 
     return this
   }
@@ -645,7 +668,9 @@ export abstract class Framework {
   @bind
   public await(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).await(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .await(...messages)
 
     return this
   }
@@ -673,7 +698,9 @@ export abstract class Framework {
    */
   @bind
   public timeEnd(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).timeEnd(...messages)
+    this.logger.instance
+      .scope(...this.logger.context)
+      .timeEnd(...messages)
 
     return this
   }
@@ -716,7 +743,9 @@ export abstract class Framework {
    */
   @bind
   public error(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).error(...messages)
+    this.logger.instance
+      .scope(...this.logger.context)
+      .error(...messages)
 
     return this
   }
@@ -724,7 +753,8 @@ export abstract class Framework {
   @bind
   public dump(
     obj: any,
-    options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
+    options?: PrettyFormatOptions &
+      HighlightOptions & {prefix: string},
   ): Framework {
     if (this.logger.level !== 'log') return
 
@@ -736,7 +766,9 @@ export abstract class Framework {
 
     // eslint-disable-next-line no-console
     process.stdout.write(
-      `${options?.prefix ? `\n${options.prefix}\n` : `\n`}${highlight(
+      `${
+        options?.prefix ? `\n${options.prefix}\n` : `\n`
+      }${highlight(
         format(obj, {
           callToJSON: false,
           maxDepth: 8,
