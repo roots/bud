@@ -19,17 +19,17 @@ yarn @bud : lint --skypack
 echo Publish packages
 yarn @bud : release proxy --tag latest
 
-echo babel integration: yarn install
+echo babel integration
 yarn @bud : example install babel --with yarn
-
-echo babel integration: yarn build
 yarn @bud : example build babel --with yarn
-
-echo babel integration: npm install
 yarn @bud : example install babel --with npm
-
-echo babel integration: npm build
 yarn @bud : example build babel --with npm
+
+echo sage integration
+yarn @bud : example install sage --with yarn
+yarn @bud : example build sage --with yarn
+yarn @bud : example install sage --with npm
+yarn @bud : example build sage --with npm
 
 echo Test
 yarn @bud : test --coverage --verbose --maxWorkers=50%
