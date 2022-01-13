@@ -5,13 +5,13 @@ set -e
 WORKFLOW_FILE=./.github/workflows/main.yml
 WORKFLOW_CHECKSUM=e4b17a9ebd2ab631a69f4f6e3185f6ae
 
-md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
+# md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
 
 echo start containers
 docker compose up -d
 
 echo initialize
-yarn @bud $ sh /bud/docker/setup.sh
+yarn @bud $ sh /bud/dev/docker/setup.sh
 
 echo Build packages
 yarn @bud : build
