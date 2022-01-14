@@ -55,16 +55,31 @@ export class ExampleBuild extends Command {
     ],
   }
 
+  /**
+   * cd command string
+   *
+   * @internal
+   */
   public ctx(command: string) {
     return `cd /${this.with}/${this.example} && ${command}`
   }
 
+  /**
+   * Build command string
+   *
+   * @internal
+   */
   public get build() {
     return this.with == 'yarn'
       ? `yarn bud build`
       : `npx bud build`
   }
 
+  /**
+   * Execute command
+   *
+   * @internal
+   */
   public async execute() {
     await this.$(this.ctx(this.build))
   }

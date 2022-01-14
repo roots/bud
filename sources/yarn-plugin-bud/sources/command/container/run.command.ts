@@ -11,6 +11,18 @@ export class ContainerRun extends Command {
   public name = '@bud $'
 
   /**
+   * Boolean indicating whether the command must be run in a container context
+   *
+   * @remarks
+   * This is mainly used to prevent accidental publishing of packages
+   * in the host context.
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  public requiresContainer: boolean = false
+
+  /**
    * Command paths
    *
    * @internal
@@ -41,7 +53,7 @@ export class ContainerRun extends Command {
    * @internal
    */
   public passthrough = Option.Proxy({
-    name: `docker compose up options`,
+    name: `docker compose run options`,
   })
 
   /**
@@ -50,6 +62,8 @@ export class ContainerRun extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(this.withPassthrough(`docker compose run bud`))
+    await this.$(
+      this.withPassthrough(`docker compose run --rm bud bash`),
+    )
   }
 }

@@ -1,6 +1,7 @@
 **/.git
-.container
-sources/**/types
-sources/**/lib
+sources/@roots/*/types
+sources/@roots/*/lib
 coverage
-**/node_modules
+.cache/global/*
+.cache/yarn/*
+node_modules

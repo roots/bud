@@ -24,5 +24,6 @@ module.exports = async () => {
       ...manifest,
       name: manifest.cwd.split('examples/')[1],
     }))
+
   return paths
 }

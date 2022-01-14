@@ -38,21 +38,25 @@ export class Clean extends Command {
   }
 
   /**
-   * --all flag
-   *
-   * @internal
-   */
-  public all = Option.Boolean(`-a,--all`, false, {
-    description: `cleans all untracked files`,
-  })
-
-  /**
    * Command execution
    *
    * @internal
    */
   public async execute() {
     await this.$(`yarn cache clean --all`)
-    if (this.all) await this.$(`git clean -fxd`)
+    await this.$(
+      `yarn rimraf \
+      /yarn/*/node_modules \
+      /npm/*/node_modules \
+      /yarn/*/yarn.lock \
+      /npm/*/package-lock.json \
+      /yarn/.budfiles \
+      /npm/.budfiles \
+      /bud/sources/@roots/*/node_modules \
+      /bud/sources/@roots/*/lib \
+      /bud/sources/@roots/*/types \
+      /bud/coverage \
+      /bud/.cache`,
+    )
   }
 }

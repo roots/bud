@@ -14,6 +14,18 @@ export class ContainerUp extends Command {
   public name = '@bud up'
 
   /**
+   * Boolean indicating whether the command must be run in a container context
+   *
+   * @remarks
+   * This is mainly used to prevent accidental publishing of packages
+   * in the host context.
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  public requiresContainer: boolean = false
+
+  /**
    * Command paths
    *
    * @internal
@@ -50,6 +62,8 @@ export class ContainerUp extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(this.withPassthrough(`docker compose up`))
+    await this.$(
+      this.withPassthrough(`docker compose up --no-log-prefix`),
+    )
   }
 }

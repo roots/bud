@@ -56,24 +56,32 @@ export class ExampleInstall extends Command {
     ],
   }
 
+  /**
+   * cd command screen
+   *
+   * @internal
+   */
   public ctx(command: string) {
     return `cd /${this.with}/${this.example} && ${command}`
   }
 
-  public get removeLockfile() {
-    return this.with === 'yarn'
-      ? `rm -rf yarn.lock`
-      : `rm -rf package-lock.json`
-  }
-
+  /**
+   * Install command screen
+   *
+   * @internal
+   */
   public get install() {
     return this.with === 'yarn'
       ? `yarn --registry ${REGISTRY_PROXY}`
       : `npm install --registry ${REGISTRY_PROXY}`
   }
 
+  /**
+   * Execute command
+   *
+   * @internal
+   */
   public async execute() {
-    await this.$(this.ctx(this.removeLockfile))
     await this.$(this.ctx(this.install))
   }
 }

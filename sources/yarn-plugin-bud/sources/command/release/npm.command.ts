@@ -26,16 +26,6 @@ export class ReleaseNpm extends Command {
   public name = 'release npm'
 
   /**
-   * Requires container
-   *
-   * @remarks
-   * Will fail if process.env.BUD_ENV does not equal 'container'
-   *
-   * @internal
-   */
-  public requiresContainer = true
-
-  /**
    * Command paths
    *
    * @internal

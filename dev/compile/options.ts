@@ -20,11 +20,10 @@ export const nccOptions = {
     '@roots/bud-support',
   ],
   cache: false,
-  minify: true,
+  minify: false,
   sourceMap: false,
   sourceMapRegister: false,
   watch: false,
   v8cache: false,
-  quiet: false,
-  debugLog: true,
+  debugLog: false,
 }

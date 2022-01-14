@@ -46,7 +46,7 @@ export abstract class Command extends BaseCommand {
    * @internal
    * @decorator `@bind`
    */
-  public requiresContainer: boolean = false
+  public requiresContainer: boolean = true
 
   /**
    * Get manifest contents

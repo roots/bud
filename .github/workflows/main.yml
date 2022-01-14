@@ -50,7 +50,7 @@ jobs:
         run: 'docker compose up -d'
 
       - name: Setup
-        run: 'yarn @bud $ sh /bud/dev/docker/setup.sh'
+        run: 'yarn @bud $ ./bud/dev/docker/setup.sh'
 
       - name: Lint packages
         run: 'yarn @bud : lint --skypack'

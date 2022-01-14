@@ -13,7 +13,19 @@ export class ContainerBud extends Command {
    *
    * @internal
    */
-  public name = '@bud :'
+  public name = '@bud container'
+
+  /**
+   * Boolean indicating whether the command must be run in a container context
+   *
+   * @remarks
+   * This is mainly used to prevent accidental publishing of packages
+   * in the host context.
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  public requiresContainer: boolean = false
 
   /**
    * Command paths
@@ -34,7 +46,7 @@ export class ContainerBud extends Command {
     examples: [
       [
         `run \`yarn @bud make\` within the container`,
-        `yarn @bud : make`,
+        `yarn @bud :`,
       ],
     ],
   }
@@ -55,7 +67,9 @@ export class ContainerBud extends Command {
    */
   public async execute() {
     await this.$(
-      this.withPassthrough(`docker compose run bud yarn @bud`),
+      this.withPassthrough(
+        `docker compose run --rm bud yarn @bud`,
+      ),
     )
   }
 }
