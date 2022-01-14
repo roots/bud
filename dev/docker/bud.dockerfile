@@ -22,6 +22,13 @@ RUN apt-get update \
 
 RUN npm install npm-cli-login --global
 
+COPY --chown=node ./dev/docker/bud/bash/motd /etc/motd
+COPY --chown=node ./dev/docker/bud/bash/alias.sh /home/node/alias
+COPY --chown=node ./dev/docker/bud/bash/.bashrc /home/node/.bashrc
+
+COPY --chown=node ./dev/docker/bud/bin/ci.sh /usr/local/bin/ci
+COPY --chown=node ./dev/docker/bud/bin/up.sh /usr/local/bin/up
+
 COPY --chown=node ./ /bud
 COPY --chown=node ./examples/ /npm
 COPY --chown=node ./examples/ /yarn

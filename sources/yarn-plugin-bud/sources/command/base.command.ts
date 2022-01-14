@@ -112,7 +112,7 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public isContainerized() {
-    return process.env.BUD_ENV === 'container'
+    return typeof process.env.BUD_ENV !== 'undefined'
   }
 
   /**

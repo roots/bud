@@ -7,6 +7,8 @@ WORKFLOW_CHECKSUM=e4b17a9ebd2ab631a69f4f6e3185f6ae
 
 # md5sum --status --strict -c <(echo $WORKFLOW_CHECKSUM  $WORKFLOW_FILE)
 
+cd /bud
+
 echo Lint packages
 yarn @bud lint --skypack
 

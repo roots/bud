@@ -1,7 +1,2 @@
-**/.git
-sources/@roots/*/types
-sources/@roots/*/lib
-coverage
-.cache/global/*
-.cache/yarn/*
-node_modules
+**/node_modules
+**/.budfiles
