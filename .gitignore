@@ -1,20 +1,19 @@
 # secret
 .env
 
-# artifacts
-.cache
-.tmp
-*.log
-**/lib
-*.tsbuildinfo
-**/profiles
-coverage
-.budfiles
-.container
+cache/yarn/**/*
+cache/verdaccio/**/*
+cache/install-state.gz
+!cache/yarn/.gitkeep
+!cache/verdaccio/.gitkeep
 
-dev/docker/tests/yarn/**/*
-dev/docker/tests/npm/**/*
-dev/docker/verdaccio/storage
+*.log
+
+**/lib
+**/*.tsbuildinfo
+**/profiles
+**/.budfiles
+coverage
 
 # pacman
 /dev/yarn/*
@@ -27,11 +26,7 @@ dev/docker/verdaccio/storage
 /.npmrc
 node_modules
 
-# bin
-!bin/**/*
-
 # bud
-**/.budfiles
 
 .netlify
 .docusaurus

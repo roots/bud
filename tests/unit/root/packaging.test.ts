@@ -13,7 +13,7 @@ describe('repo', function () {
     })
   })
 
-  it('publish check: */lib/cjs/index.js', async () => {
+  it.skip('publish check: */lib/cjs/index.js', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
@@ -45,7 +45,7 @@ describe('repo', function () {
     }
   })
 
-  it('publish check: */types/index.d.ts', async () => {
+  it.skip('publish check: */types/index.d.ts', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
@@ -133,7 +133,7 @@ describe('repo', function () {
     }
   })
 
-  it('root: project references', async () => {
+  it.skip('root: project references', async () => {
     try {
       const tsConfCjsString = await readFile(
         process.cwd().concat('/config/tsconfig.json'),

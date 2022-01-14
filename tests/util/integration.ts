@@ -1,7 +1,31 @@
 import Project from '../../dev/jest/project'
 jest.setTimeout(120000)
 
-export const runIntegration = async (
+export const runIntegration = (name, callback) => {
+  const project: {yarn: Project; npm: Project} = {
+    yarn: null,
+    npm: null,
+  }
+
+  beforeAll(async () => {
+    project.yarn = await new Project({
+      name,
+      with: 'yarn',
+    }).setup()
+
+    project.npm = await new Project({
+      name,
+      with: 'npm',
+    }).setup()
+  })
+
+  describe(name, () => {
+    callback(project.yarn)
+    callback(project.npm)
+  })
+}
+
+export const runIntegrations = async (
   name: string,
   callback: (
     project: Record<string, Project>,
@@ -15,12 +39,12 @@ export const runIntegration = async (
 
     beforeAll(async () => {
       project.yarn = await new Project({
-        name: 'babel',
+        name,
         with: 'yarn',
       }).setup()
 
       project.npm = await new Project({
-        name: 'babel',
+        name,
         with: 'npm',
       }).setup()
     })

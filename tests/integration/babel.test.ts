@@ -1,6 +1,6 @@
-import {runIntegration, test} from '../util/integration'
+import {runIntegrations, test} from '../util/integration'
 
-runIntegration('babel', project => {
+runIntegrations('babel', project => {
   return [
     [
       'app.js has contents',

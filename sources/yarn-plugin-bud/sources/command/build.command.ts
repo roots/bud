@@ -48,7 +48,7 @@ export class Build extends Command {
    */
   public async execute() {
     await this.$(
-      this.withPassthrough(`yarn tsc -b config/tsconfig.json`),
+      this.withPassthrough(`yarn tsc -b ./config/tsconfig.json`),
     )
 
     await this.$(

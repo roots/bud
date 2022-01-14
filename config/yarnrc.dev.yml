@@ -1,12 +1,16 @@
-cacheFolder: /bud/.cache/yarn
+cacheFolder: /bud/cache/yarn
+
+enableTelemetry: false
 
 defaultSemverRangePrefix: ''
 
 enableMessageNames: false
 
-globalFolder: /bud/.cache/yarn/global
+enableMirror: false
 
-installStatePath: /bud/.cache/yarn/install-state.gz
+globalFolder: /bud/cache/global
+
+installStatePath: /bud/cache/install-state.gz
 
 nodeLinker: node-modules
 

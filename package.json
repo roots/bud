@@ -17,7 +17,6 @@
   },
   "workspaces": {
     "packages": [
-      "tests/util/project",
       "sources/@roots/*",
       "sources/base",
       "sources/docs"

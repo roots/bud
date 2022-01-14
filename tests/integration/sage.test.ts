@@ -1,21 +1,6 @@
-import Project from '../../dev/jest/project'
+import {runIntegration} from '../util/integration'
 
-jest.setTimeout(60000)
-
-describe('examples/sage', () => {
-  let project: Project
-
-  beforeAll(async () => {
-    project = new Project({
-      name: 'sage',
-      dir: 'examples/sage',
-      dist: 'public',
-      storage: 'storage/bud',
-    })
-
-    await project.setup()
-  })
-
+runIntegration('sage', project => {
   it('[project.entrypoints.json] has expected app entries', () => {
     expect(project.entrypoints.app.js).toBeInstanceOf(Array)
     expect(project.entrypoints.app.js).toHaveLength(2)

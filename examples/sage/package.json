@@ -4,12 +4,6 @@
   "browserslist": [
     "extends @wordpress/browserslist-config"
   ],
-  "bud": {
-    "location": {
-      "storage": "storage/bud",
-      "src": "resources"
-    }
-  },
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-eslint": "latest",

@@ -9,8 +9,14 @@ WORKFLOW_CHECKSUM=e4b17a9ebd2ab631a69f4f6e3185f6ae
 
 cd /bud
 
-echo Lint packages
-yarn @bud lint --skypack
+echo Clear cache
+yarn cache clean --all
+
+echo install
+yarn
+
+echo Build packages
+yarn @bud build --verbose --force
 
 echo Publish packages
 yarn @bud release proxy --tag latest || true

@@ -46,6 +46,7 @@ module.exports = async function config() {
     testMatch: [
       `<rootDir>/tests/unit/**/*.test.ts`,
       `<rootDir>/tests/integration/babel.test.ts`,
+      `<rootDir>/tests/integration/sage.test.ts`,
     ],
     testPathIgnorePatterns: [
       '<rootDir>/build/',

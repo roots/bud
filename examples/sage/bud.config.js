@@ -11,6 +11,12 @@ module.exports = async (app) => {
       editor: '**/editor.{js,css}',
       customizer: '**/customizer.js',
     })
+    .alias({
+      fonts: app.path('src', 'fonts'),
+      images: app.path('src', 'scripts'),
+      scripts: app.path('src', 'scripts'),
+      styles: app.path('src', 'styles'),
+    })
     .copy([app.path('src', 'images/**/*')])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
     .setPath('dist', 'public')

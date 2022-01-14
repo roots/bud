@@ -11,6 +11,7 @@ services:
       - '4873:4873'
     volumes:
       - ./dev/docker/verdaccio:/verdaccio/conf
+      - ./cache/verdaccio:/verdaccio/storage
 
   bud:
     container_name: bud
@@ -22,232 +23,27 @@ services:
       - node-network
     working_dir: /bud
     user: node
-    command: bash up
+    command: up
     environment:
       - BUD_ENV=dev
       - BUD_PROXY_REGISTRY=http://verdaccio:4873
       - YARN_RC_FILENAME=/bud/config/yarnrc.dev.yml
     volumes:
-      - ./.git:/bud/.git
-
-      - ./config:/bud/config
-      - ./dev:/bud/dev
-      - ./examples:/bud/examples
-      - ./tests:/bud/tests
-
-      - ./sources/@roots:/bud/sources/@roots
-      - ./sources/docs:/bud/sources/docs
-
-      - exclude:/bud/node_modules
-      - exclude:/bud/tests/util/project
-
-      - exclude:/bud/sources/roots-notifier
-      - exclude:/bud/sources/deprecated
-
-      - exclude:/bud/sources/docs/node_modules
-      - exclude:/bud/sources/docs/build
-      - exclude:/bud/sources/docs/api
-
-      - exclude:/bud/sources/@roots/bud/node_modules
-      - exclude:/bud/sources/@roots/bud/types
-      - exclude:/bud/sources/@roots/bud/lib
-
-      - exclude:/bud/sources/@roots/bud-api/node_modules
-      - exclude:/bud/sources/@roots/bud-api/types
-      - exclude:/bud/sources/@roots/bud-api/lib
-
-      - exclude:/bud/sources/@roots/bud-babel/node_modules
-      - exclude:/bud/sources/@roots/bud-babel/types
-      - exclude:/bud/sources/@roots/bud-babel/lib
-
-      - exclude:/bud/sources/@roots/bud-build/node_modules
-      - exclude:/bud/sources/@roots/bud-build/types
-      - exclude:/bud/sources/@roots/bud-build/lib
-
-      - exclude:/bud/sources/@roots/bud-cache/node_modules
-      - exclude:/bud/sources/@roots/bud-cache/types
-      - exclude:/bud/sources/@roots/bud-cache/lib
-
-      - exclude:/bud/sources/@roots/bud-compiler/node_modules
-      - exclude:/bud/sources/@roots/bud-compiler/types
-      - exclude:/bud/sources/@roots/bud-compiler/lib
-
-      - exclude:/bud/sources/@roots/bud-compress/node_modules
-      - exclude:/bud/sources/@roots/bud-compress/types
-      - exclude:/bud/sources/@roots/bud-compress/lib
-
-      - exclude:/bud/sources/@roots/bud-criticalcss/node_modules
-      - exclude:/bud/sources/@roots/bud-criticalcss/types
-      - exclude:/bud/sources/@roots/bud-criticalcss/lib
-
-      - exclude:/bud/sources/@roots/bud-emotion/node_modules
-      - exclude:/bud/sources/@roots/bud-emotion/types
-      - exclude:/bud/sources/@roots/bud-emotion/lib
-
-      - exclude:/bud/sources/@roots/bud-dashboard/node_modules
-      - exclude:/bud/sources/@roots/bud-dashboard/types
-      - exclude:/bud/sources/@roots/bud-dashboard/lib
-
-      - exclude:/bud/sources/@roots/bud-entrypoints/node_modules
-      - exclude:/bud/sources/@roots/bud-entrypoints/types
-      - exclude:/bud/sources/@roots/bud-entrypoints/lib
-
-      - exclude:/bud/sources/@roots/bud-esbuild/node_modules
-      - exclude:/bud/sources/@roots/bud-esbuild/types
-      - exclude:/bud/sources/@roots/bud-esbuild/lib
-
-      - exclude:/bud/sources/@roots/bud-eslint/node_modules
-      - exclude:/bud/sources/@roots/bud-eslint/types
-      - exclude:/bud/sources/@roots/bud-eslint/lib
-
-      - exclude:/bud/sources/@roots/bud-extensions/node_modules
-      - exclude:/bud/sources/@roots/bud-extensions/types
-      - exclude:/bud/sources/@roots/bud-extensions/lib
-
-      - exclude:/bud/sources/@roots/bud-framework/node_modules
-      - exclude:/bud/sources/@roots/bud-framework/types
-      - exclude:/bud/sources/@roots/bud-framework/lib
-
-      - exclude:/bud/sources/@roots/bud-hooks/node_modules
-      - exclude:/bud/sources/@roots/bud-hooks/types
-      - exclude:/bud/sources/@roots/bud-hooks/lib
-
-      - exclude:/bud/sources/@roots/bud-imagemin/node_modules
-      - exclude:/bud/sources/@roots/bud-imagemin/types
-      - exclude:/bud/sources/@roots/bud-imagemin/lib
-
-      - exclude:/bud/sources/@roots/bud-library/node_modules
-      - exclude:/bud/sources/@roots/bud-library/types
-      - exclude:/bud/sources/@roots/bud-library/lib
-
-      - exclude:/bud/sources/@roots/bud-mdx/node_modules
-      - exclude:/bud/sources/@roots/bud-mdx/types
-      - exclude:/bud/sources/@roots/bud-mdx/lib
-
-      - exclude:/bud/sources/@roots/bud-postcss/node_modules
-      - exclude:/bud/sources/@roots/bud-postcss/types
-      - exclude:/bud/sources/@roots/bud-postcss/lib
-
-      - exclude:/bud/sources/@roots/bud-preset-recommend/node_modules
-      - exclude:/bud/sources/@roots/bud-preset-recommend/types
-      - exclude:/bud/sources/@roots/bud-preset-recommend/lib
-
-      - exclude:/bud/sources/@roots/bud-preset-wordpress/node_modules
-      - exclude:/bud/sources/@roots/bud-preset-wordpress/types
-      - exclude:/bud/sources/@roots/bud-preset-wordpress/lib
-
-      - exclude:/bud/sources/@roots/bud-prettier/node_modules
-      - exclude:/bud/sources/@roots/bud-prettier/types
-      - exclude:/bud/sources/@roots/bud-prettier/lib
-
-      - exclude:/bud/sources/@roots/bud-purgecss/node_modules
-      - exclude:/bud/sources/@roots/bud-purgecss/types
-      - exclude:/bud/sources/@roots/bud-purgecss/lib
-
-      - exclude:/bud/sources/@roots/bud-react/node_modules
-      - exclude:/bud/sources/@roots/bud-react/types
-      - exclude:/bud/sources/@roots/bud-react/lib
-
-      - exclude:/bud/sources/@roots/bud-sass/node_modules
-      - exclude:/bud/sources/@roots/bud-sass/types
-      - exclude:/bud/sources/@roots/bud-sass/lib
-
-      - exclude:/bud/sources/@roots/bud-server/node_modules
-      - exclude:/bud/sources/@roots/bud-server/types
-      - exclude:/bud/sources/@roots/bud-server/lib
-
-      - exclude:/bud/sources/@roots/bud-solid/node_modules
-      - exclude:/bud/sources/@roots/bud-solid/types
-      - exclude:/bud/sources/@roots/bud-solid/lib
-
-      - exclude:/bud/sources/@roots/bud-styelint/node_modules
-      - exclude:/bud/sources/@roots/bud-styelint/types
-      - exclude:/bud/sources/@roots/bud-styelint/lib
-
-      - exclude:/bud/sources/@roots/bud-support/node_modules
-      - exclude:/bud/sources/@roots/bud-support/types
-      - exclude:/bud/sources/@roots/bud-support/lib
-
-      - exclude:/bud/sources/@roots/bud-tailwindcss/node_modules
-      - exclude:/bud/sources/@roots/bud-tailwindcss/types
-      - exclude:/bud/sources/@roots/bud-tailwindcss/lib
-
-      - exclude:/bud/sources/@roots/bud-terser/node_modules
-      - exclude:/bud/sources/@roots/bud-terser/types
-      - exclude:/bud/sources/@roots/bud-terser/lib
-
-      - exclude:/bud/sources/@roots/bud-typescript/node_modules
-      - exclude:/bud/sources/@roots/bud-typescript/types
-      - exclude:/bud/sources/@roots/bud-typescript/lib
-
-      - exclude:/bud/sources/@roots/bud-vue/node_modules
-      - exclude:/bud/sources/@roots/bud-vue/types
-      - exclude:/bud/sources/@roots/bud-vue/lib
-
-      - exclude:/bud/sources/@roots/bud-wordpress-dependencies/node_modules
-      - exclude:/bud/sources/@roots/bud-wordpress-dependencies/types
-      - exclude:/bud/sources/@roots/bud-wordpress-dependencies/lib
-
-      - exclude:/bud/sources/@roots/bud-wordpress-externals/node_modules
-      - exclude:/bud/sources/@roots/bud-wordpress-externals/types
-      - exclude:/bud/sources/@roots/bud-wordpress-externals/lib
-
-      - exclude:/bud/sources/@roots/bud-wordpress-manifests/node_modules
-      - exclude:/bud/sources/@roots/bud-wordpress-manifests/types
-      - exclude:/bud/sources/@roots/bud-wordpress-manifests/lib
-
-      - exclude:/bud/sources/@roots/container/node_modules
-      - exclude:/bud/sources/@roots/container/types
-      - exclude:/bud/sources/@roots/container/lib
-
-      - exclude:/bud/sources/@roots/critical-css-webpack-plugin/node_modules
-      - exclude:/bud/sources/@roots/critical-css-webpack-plugin/types
-      - exclude:/bud/sources/@roots/critical-css-webpack-plugin/lib
-
-      - exclude:/bud/sources/@roots/dependencies/node_modules
-      - exclude:/bud/sources/@roots/dependencies/types
-      - exclude:/bud/sources/@roots/dependencies/lib
-
-      - exclude:/bud/sources/@roots/entrypoints-webpack-plugin/node_modules
-      - exclude:/bud/sources/@roots/entrypoints-webpack-plugin/types
-      - exclude:/bud/sources/@roots/entrypoints-webpack-plugin/lib
-
-      - exclude:/bud/sources/@roots/filesystem/node_modules
-      - exclude:/bud/sources/@roots/filesystem/types
-      - exclude:/bud/sources/@roots/filesystem/lib
-
-      - exclude:/bud/sources/@roots/ink-prettier/node_modules
-      - exclude:/bud/sources/@roots/ink-prettier/types
-      - exclude:/bud/sources/@roots/ink-prettier/lib
-
-      - exclude:/bud/sources/@roots/ink-use-style/node_modules
-      - exclude:/bud/sources/@roots/ink-use-style/types
-      - exclude:/bud/sources/@roots/ink-use-style/lib
-
-      - exclude:/bud/sources/@roots/merged-manifest-webpack-plugin/node_modules
-      - exclude:/bud/sources/@roots/merged-manifest-webpack-plugin/types
-      - exclude:/bud/sources/@roots/merged-manifest-webpack-plugin/lib
-
-      - exclude:/bud/sources/@roots/sage/node_modules
-      - exclude:/bud/sources/@roots/sage/types
-      - exclude:/bud/sources/@roots/sage/lib
-
-      - exclude:/bud/sources/@roots/wordpress-dependencies-webpack-plugin/node_modules
-      - exclude:/bud/sources/@roots/wordpress-dependencies-webpack-plugin/types
-      - exclude:/bud/sources/@roots/wordpress-dependencies-webpack-plugin/lib
-
-      - exclude:/bud/sources/@roots/wordpress-externals-webpack-plugin/node_modules
-      - exclude:/bud/sources/@roots/wordpress-externals-webpack-plugin/types
-      - exclude:/bud/sources/@roots/wordpress-externals-webpack-plugin/lib
+      - ./:/bud
+      - storage:/bud/cache/storage
+      - node_modules:/bud/node_modules
 
 networks:
   node-network:
     driver: bridge
 
 volumes:
-  exclude:
+  node_modules:
+  storage:
+    driver: local
 
   bud:
     driver: local
+
   verdaccio:
     driver: local
