@@ -51,6 +51,7 @@
     "@skypack/package-check": "^0.2.2",
     "@types/eslint": "8.2.1",
     "@types/jest": "27.4.0",
+    "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "@vue/compiler-sfc": "3.2.26",
     "css-loader": "6.5.1",

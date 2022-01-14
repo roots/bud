@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
+    "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "@types/prettier": "2.4.2",
     "@types/react": "17.0.38"
