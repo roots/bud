@@ -1,7 +1,3 @@
-import {AuthNpm} from './auth/npm.command'
-import {AuthProxy} from './auth/proxy.command'
-import {AuthReset} from './auth/reset.command'
-import {Bud} from './bud.command'
 import {Build} from './build.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
@@ -22,10 +18,6 @@ import {Test} from './test.command'
 import {Version} from './version.command'
 
 export const Commands = {
-  AuthNpm,
-  AuthProxy,
-  AuthReset,
-  Bud,
   Build,
   Clean,
   Compile,

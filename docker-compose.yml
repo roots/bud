@@ -31,6 +31,8 @@ services:
     volumes:
       - ./:/bud
       - storage:/verdaccio
+      - cache:/bud/cache
+      - coverage:/bud/coverage
       - node_modules:/bud/node_modules
 
 networks:
@@ -38,12 +40,15 @@ networks:
     driver: bridge
 
 volumes:
+  cache:
+  coverage:
   node_modules:
-  storage:
-    driver: local
 
   bud:
     driver: local
 
   verdaccio:
+    driver: local
+
+  storage:
     driver: local

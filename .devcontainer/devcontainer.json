@@ -17,13 +17,11 @@
     "prettier.configPath": "../config/prettier.config.js",
     "prettier.prettierPath": "../dev/yarn/sdks/prettier/index.js",
     "search.exclude": {
-      "bin": true,
       "dev/yarn": true,
       "coverage": true,
       "verdaccio": true,
       "**/pnp.*": true,
-      "**/node_modules": true,
-      "**/.budfiles/**/*": true
+      "**/node_modules": true
     },
     "typescript.tsdk": "../node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
@@ -39,8 +37,8 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
   ],
-  // "forwardPorts": [4873],
+  "forwardPorts": [4873, 3000],
   // "runServices": [],
-  // "postCreateCommand": "yarn install && yarn @bud build",
+  "postCreateCommand": "yarn && yarn @bud build",
   "remoteUser": "node"
 }

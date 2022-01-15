@@ -1,4 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
+import {TS_CONFIG_PATH} from '../constants'
 
 import {Command} from './base.command'
 
@@ -30,7 +31,7 @@ export class Compile extends Command {
 
   public async execute() {
     await this.$(
-      `yarn ts-node --project ./config/tsconfig.json ./dev/compile/cjs ${this.package}`,
+      `yarn ts-node --project ${TS_CONFIG_PATH} ./dev/compile/cjs ${this.package}`,
     )
   }
 }

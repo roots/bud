@@ -4,6 +4,7 @@ This guide is a work-in-progress
 
 #### Table Of Contents
 
+- [Requirements](#requirements)
 - [Getting started](#getting-started)
 - [Repository layout](#repository)
 - [Dev CLI](#cli)
@@ -11,47 +12,40 @@ This guide is a work-in-progress
 - [Documentation](#documentation)
 - [Core packages](#core-packages)
 
+## Requirements
+
+Bud is developed using docker. As long as you have docker you should be fine.
+
+Bud is compatible with x86 and arm architectures.
+
 ## Getting started
 
-For the most part you can just run `yarn install` and be on your way.
+vscode isn't a requirement to develop bud, but it is the easiest way to get in without much friction.
 
-`yarn @bud make` will build all the site files, generate documentation, run tests and linters. `yarn @bud build` will just build the site files. For more information about either of those commands use the `--help` flag and [check out the section of this doc related to the `@bud` CLI](#cli).
+There is a vscode devcontainer configuration in `./devcontainer` which is useful for developing bud. You should be prompted to restart vscode inside the container context when you first open the project. Doing so will automatically build all the project files. Opening a vscode terminal allows you to run commands within the container.
 
-It is probably easiest if you use vscode to develop bud.js. We recommend you install the following plugins:
-
-- arcanis.vscode-zipfs
-- dbaeumer.vscode-eslint
-- esbenp.prettier-vscode
-
-Without the vscode-zipfs plugin vscode will have difficulties associating related source files.
-
-There is a vscode workspace available (./bud.code-workspace). Additionally, there is a vscode container preconfigured for development. You should be prompted to restart vscode using the container when you first open the project. Doing so will automatically build all the project files in a containerized environment before dropping you off in the terminal. You may also use the `@bud cli` to run commands in the container from the terminal if you prefer.
-
-If/when you are asked to use the vscode typescript server or the one bundled with bud.js we highly recommend electing to use the bundled typescript. Not using it can cause false errors to be reported in vscode. This isn't a bud thing, it's a yarn 3 thing.
+It comes preconfigured with prettier, eslint, and support for yarn 3's typescript plugin.
 
 ## Repository layout
 
 - `.devcontainer`: vscode specific container configuration
 - `.github`: github specific configuration
 - `.vscode`: vscode editor specific configuration
-- `bin`: executable files
 - `config`: tooling configuration (eslint, prettier, tsc, etc)
 - `dev`: build scripts
-
   - `compile`: script to compile public packages into single file bundles (@vercel/ncc)
   - `docker`: dockerfiles and container scripts
   - `jest`: jest setup scripts
   - `readme`: readme generator
-
+  - `site`: bud docs scripts
+  - `yarn`: yarn berry plugins, patches, sdks, etc
 - `examples`: usage examples. these packages are also used for integration testing.
 - `sources`: source code
-
   - `@roots`: public packages
   - `deprecated`: deprecated packages
   - `docs`: docusaurus site files
   - `roots-notifier`: macos notifier integration
   - `yarn-plugin-bud`: `@bud` yarn plugin source
-
 - `tests`: jest test specs and snapshots
   - `integration`: integration tests
   - `unit`: unit tests
@@ -61,26 +55,21 @@ If/when you are asked to use the vscode typescript server or the one bundled wit
 
 The `@bud` CLI is a yarn plugin for managing the development environment and running project tasks.
 
-You can run it from the command line with `yarn @bud`. Try `yarn @bud --help` for more information.
+Note that most `@bud` commands require being executed within the container. The command will fail if you try to run it on your host machine.
+
+If you run `yarn --help` you can find a listing of all the commands under the `@bud` category.
 
 Common tasks:
 
-- `yarn @bud build`: build all packages
-- `yarn @bud test`: run all tests
-- `yarn @bud lint`: run all linters
-- `yarn @bud docs`: generate documentation
+- `yarn @bud build`: build all packages. this command passes through all options/flags to `tsc`.
+- `yarn @bud test`: run all tests. this command passes through all options/flags to `jest`.
+- `yarn @bud lint`: run all linters.
 
 ## Proxying
 
-bud.js uses [verdaccio](https://verdaccio.org/) to serve packages locally for testing. You can use the `@bud` CLI to interact with the proxy server.
-
-Check out `yarn @bud proxy --help` for more information.
+bud.js uses [verdaccio](https://verdaccio.org/) to serve packages locally for testing.
 
 The proxy runs on port 4873. There is a web interface at [http://localhost:4873/](http://localhost:4873).
-
-To start the proxy server and install all packages using it you should try `yarn @bud proxy make`.
-
-To publish all public packages on the proxy you should try `yarn @bud proxy publish`. They will be published with the `dev` tag and version `0.0.0`. You can modify these with flags. Check the `yarn @bud proxy publish --help` flag for more information.
 
 ## Documentation
 

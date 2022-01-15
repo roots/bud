@@ -29,7 +29,7 @@ export class Test extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    details: `test files with jest`,
+    description: `test files with jest`,
     examples: [
       [`test`, `yarn @bud test`],
       [`update snapshots`, `yarn @bud test --updateSnapshot`],

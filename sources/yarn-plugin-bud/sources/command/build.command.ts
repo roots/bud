@@ -1,7 +1,13 @@
 import {CommandClass, Option} from 'clipanion'
+import {TS_CONFIG_PATH} from '../constants'
 
 import {Command} from './base.command'
 
+/**
+ * Build command
+ * 
+ * @internal
+ */
 export class Build extends Command {
   /**
    * Command name
@@ -38,7 +44,7 @@ export class Build extends Command {
    * @internal
    */
   public passthrough = Option.Proxy({
-    name: `docker compose down options`,
+    name: `tsc options`,
   })
 
   /**
@@ -48,7 +54,7 @@ export class Build extends Command {
    */
   public async execute() {
     await this.$(
-      this.withPassthrough(`yarn tsc -b ./config/tsconfig.json`),
+      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`),
     )
 
     await this.$(

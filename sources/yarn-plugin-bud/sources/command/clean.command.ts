@@ -33,7 +33,7 @@ export class Clean extends Command {
     category: `@bud`,
     description: `clean project artifacts`,
     examples: [
-      [`delete all untracked files`, `yarn @bud clean --dfx`],
+      [`delete yarn cache`, `yarn @bud clean`],
     ],
   }
 

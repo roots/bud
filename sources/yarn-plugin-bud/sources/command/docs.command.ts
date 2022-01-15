@@ -1,4 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
+import {TS_CONFIG_PATH} from '../constants'
 
 import {Command} from './base.command'
 
@@ -84,7 +85,7 @@ export class Docs extends Command {
       )
       await this.$(
         `yarn workspace @roots/bud-docs run docusaurus build`,
-        `yarn ts-node-transpile-only --project ./config/tsconfig.json ./dev/readme`,
+        `yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./dev/readme`,
       )
       return
     }
@@ -104,7 +105,7 @@ export class Docs extends Command {
 
     if (this.readme) {
       await this.$(
-        `yarn ts-node-transpile-only --project ./config/tsconfig.json ./dev/readme`,
+        `yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./dev/readme`,
       )
     }
   }
