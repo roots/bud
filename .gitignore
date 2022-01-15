@@ -2,7 +2,6 @@
 .env
 
 cache/yarn/**/*
-cache/verdaccio/**/*
 cache/install-state.gz
 !cache/yarn/.gitkeep
 !cache/verdaccio/.gitkeep

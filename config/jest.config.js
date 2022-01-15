@@ -13,9 +13,10 @@ module.exports = async function config() {
       '!sources/@roots/**/src/**/*.dependencies.{ts,tsx}',
       '!sources/@roots/bud/src/cli/**/*.{ts,tsx}',
       '!sources/@roots/**/*.d.ts',
+      '!cache/verdaccio/**/*',
+      '!node_modules/**/*',
     ],
     coveragePathIgnorePatterns: [
-      'node_modules',
       'sources/@roots/bud-dashboard/',
       'sources/@roots/bud-support/',
       'sources/@roots/filesystem/',
@@ -35,10 +36,7 @@ module.exports = async function config() {
       },
     },
     moduleNameMapper,
-    modulePathIgnorePatterns: [
-      `<rootDir>/.container/`,
-      `<rootDir>/node_modules/`,
-    ],
+    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/cache/`],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
@@ -52,6 +50,7 @@ module.exports = async function config() {
       '<rootDir>/build/',
       '<rootDir>/node_modules/',
       '<rootDir>/tests/__mocks__',
+      '<rootDir>/cache/verdaccio',
     ],
   }
 }

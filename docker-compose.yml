@@ -11,7 +11,7 @@ services:
       - '4873:4873'
     volumes:
       - ./dev/docker/verdaccio:/verdaccio/conf
-      - ./cache/verdaccio:/verdaccio/storage
+      - storage:/verdaccio/storage
 
   bud:
     container_name: bud
@@ -30,7 +30,7 @@ services:
       - YARN_RC_FILENAME=/bud/config/yarnrc.dev.yml
     volumes:
       - ./:/bud
-      - storage:/bud/cache/storage
+      - storage:/verdaccio
       - node_modules:/bud/node_modules
 
 networks:
