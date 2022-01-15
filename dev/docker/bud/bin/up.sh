@@ -1,7 +1,12 @@
 #!/bin/bash
 
-cp -rf /bud/examples /yarn
-cp -rf /bud/examples /npm
+#!/bin/sh
+
+echo copying files
+cp -rf $BUD_PATH/examples $ROOTS_PATH/examples/yarn
+cp -rf $BUD_PATH/examples $ROOTS_PATH/examples/npm
+
+echo ready
 
 while true; do
   sleep 100

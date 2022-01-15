@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.8'
 
 services:
   verdaccio:
@@ -8,41 +8,46 @@ services:
     networks:
       - node-network
     ports:
-      - '4873:4873'
+      - 4873:4873
     volumes:
       - ./dev/docker/verdaccio:/verdaccio/conf
-      - storage:/verdaccio/storage
+      - verdaccio_storage:/verdaccio/storage
 
   bud:
     container_name: bud
     build:
       context: ./
       dockerfile: ./dev/docker/bud.dockerfile
-    depends_on: [verdaccio]
+    depends_on:
+      - verdaccio
     networks:
       - node-network
-    working_dir: /bud
+    working_dir: /roots/bud
     user: node
     command: up
     environment:
       - BUD_ENV=dev
       - BUD_PROXY_REGISTRY=http://verdaccio:4873
-      - YARN_RC_FILENAME=/bud/config/yarnrc.dev.yml
+      - ROOTS_PATH=/roots
+      - BUD_PATH=/roots/bud
+      - YARN_RC_FILENAME=config/yarnrc.dev.yml
     volumes:
-      - ./:/bud
-      - storage:/verdaccio
-      - cache:/bud/cache
-      - coverage:/bud/coverage
-      - node_modules:/bud/node_modules
+      - ./:/roots/bud
+      - verdaccio_storage:/roots/verdaccio
+      - bud_modules:/roots/bud/node_modules
+      - bud_coverage:/roots/bud/coverage
+      - bud_yarn:/roots/yarn
+      - bud_docusaurus_modules:/roots/bud/sources/docs/node_modules
 
 networks:
   node-network:
     driver: bridge
 
 volumes:
-  cache:
-  coverage:
-  node_modules:
+  bud_coverage:
+  bud_modules:
+  bud_yarn:
+  bud_docusaurus_modules:
 
   bud:
     driver: local
@@ -50,5 +55,5 @@ volumes:
   verdaccio:
     driver: local
 
-  storage:
+  verdaccio_storage:
     driver: local

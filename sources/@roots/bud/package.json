@@ -60,7 +60,6 @@
     "bin": "bud"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.13.78",
     "@skypack/package-check": "^0.2.2",
     "@types/braces": "^3",
     "@types/fs-extra": "9.0.13",

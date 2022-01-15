@@ -1,4 +1,4 @@
-cacheFolder: /bud/cache/yarn
+cacheFolder: ../yarn/cache
 
 enableTelemetry: false
 
@@ -8,15 +8,15 @@ enableMessageNames: false
 
 enableMirror: false
 
-globalFolder: /bud/cache/global
+globalFolder: ../yarn/global
 
-installStatePath: /bud/cache/install-state.gz
+installStatePath: ../yarn/install-state.gz
+
+nmMode: hardlinks-global
 
 nodeLinker: node-modules
 
 npmAuthIdent: 'test:test'
-
-npmAuthToken: ''
 
 npmPublishAccess: public
 
@@ -25,21 +25,21 @@ npmPublishRegistry: 'http://verdaccio:4873'
 npmRegistryServer: 'http://verdaccio:4873'
 
 plugins:
-  - path: /bud/dev/yarn/plugins/@yarnpkg/plugin-typescript.cjs
+  - path: ../yarn/plugins/@yarnpkg/plugin-typescript.cjs
     spec: '@yarnpkg/plugin-typescript'
-  - path: /bud/dev/yarn/plugins/@yarnpkg/plugin-interactive-tools.cjs
+  - path: ../yarn/plugins/@yarnpkg/plugin-interactive-tools.cjs
     spec: '@yarnpkg/plugin-interactive-tools'
-  - path: /bud/dev/yarn/plugins/@yarnpkg/plugin-workspace-tools.cjs
+  - path: ../yarn/plugins/@yarnpkg/plugin-workspace-tools.cjs
     spec: '@yarnpkg/plugin-workspace-tools'
-  - /bud/sources/yarn-plugin-bud/bundles/@yarnpkg/plugin-bud.js
+  - sources/yarn-plugin-bud/bundles/@yarnpkg/plugin-bud.js
 
-pnpDataPath: /bud/dev/yarn/pnp.data.json
+pnpDataPath: ../yarn/pnp.data.json
 
-pnpUnpluggedFolder: /bud/dev/yarn/unplugged
+pnpUnpluggedFolder: ../yarn/unplugged
 
 unsafeHttpWhitelist:
   - verdaccio
 
-virtualFolder: /bud/dev/yarn/__virtual__
+virtualFolder: ../yarn/__virtual__
 
-yarnPath: /bud/dev/yarn/releases/yarn-3.1.1.cjs
+yarnPath: ../yarn/releases/yarn-3.1.1.cjs

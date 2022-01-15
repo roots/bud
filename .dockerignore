@@ -1,6 +1,5 @@
 cache/install-state.gz
 cache/yarn/**/*
-cache/verdaccio/**/*
 **/node_modules/**/*
 sources/@roots/*/types/**/*
 sources/@roots/*/lib/**/*

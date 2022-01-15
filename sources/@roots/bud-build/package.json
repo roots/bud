@@ -51,7 +51,7 @@
     "@types/mini-css-extract-plugin": "2.4.0",
     "@types/node": "16.11.19",
     "@types/safe-json-stringify": "1.1.2",
-    "@types/svgo": "2.6.0",
+    "@types/svgo": "2.6.1",
     "jest": "27.4.7",
     "remark": "14.0.2",
     "webpack": "5.65.0"

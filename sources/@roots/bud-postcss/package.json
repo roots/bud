@@ -55,7 +55,7 @@
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
-    "@types/signale": "1.4.3",
+    "@types/signale": "1.4.4",
     "jest": "27.4.7",
     "postcss": "8.4.5",
     "postcss-import": "14.0.2",
