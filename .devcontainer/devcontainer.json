@@ -4,6 +4,7 @@
   "service": "bud",
   "workspaceFolder": "/bud",
   "settings": {
+    "editor.formatOnSave": true,
     "eslint.nodePath": "../dev/yarn/sdks/eslint",
     "files.exclude": {
       "**/.git": true,
@@ -40,5 +41,5 @@
   "forwardPorts": [4873, 3000],
   // "runServices": [],
   "postCreateCommand": "yarn && yarn @bud build",
-  "remoteUser": "node"
+  "remoteUser": "node",
 }
