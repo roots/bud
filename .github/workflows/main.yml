@@ -50,7 +50,7 @@ jobs:
         run: 'docker compose up -d'
 
       - name: Setup
-        run: 'yarn @bud $ ./bud/dev/docker/setup.sh'
+        run: 'yarn @bud $ yarn'
 
       - name: Lint packages
         run: 'yarn @bud : lint --skypack'
@@ -69,6 +69,18 @@ jobs:
 
       - name: 'babel integration: npm build'
         run: 'yarn @bud : example build babel --with npm'
+
+      - name: 'sage integration: yarn install'
+        run: 'yarn @bud : example install sage --with yarn'
+
+      - name: 'sage integration: yarn build'
+        run: 'yarn @bud : example build sage --with yarn'
+
+      - name: 'sage integration: npm install'
+        run: 'yarn @bud : example install sage --with npm'
+
+      - name: 'sage integration: npm build'
+        run: 'yarn @bud : example build sage --with npm'
 
       - name: Test
         run: 'yarn @bud : test --coverage --verbose --maxWorkers=50%'
