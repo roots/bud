@@ -94,10 +94,7 @@ export abstract class Command extends BaseCommand {
   public async getProject() {
     const configuration = await this.getConfiguration()
 
-    const {project} = await Project.find(
-      configuration,
-      this.context.cwd,
-    )
+    const {project} = await Project.find(configuration, this.context.cwd)
 
     return project
   }
@@ -123,10 +120,7 @@ export abstract class Command extends BaseCommand {
   @bind
   public withPassthrough(str: string): string {
     return this.passthrough.length
-      ? this.passthrough.reduce(
-          (a, c) => (!c ? `${a}` : `${a} ${c}`),
-          str,
-        )
+      ? this.passthrough.reduce((a, c) => (!c ? `${a}` : `${a} ${c}`), str)
       : str
   }
 
@@ -203,8 +197,7 @@ export abstract class Command extends BaseCommand {
             cwd: project.cwd,
           })
 
-          if (code !== 0)
-            throw new Error(`${task} failed with code ${code}`)
+          if (code !== 0) throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
           await this.errorHandler(e)
         }
@@ -222,13 +215,6 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public async $(...tasks: Array<string>): Promise<void> {
-    if (!this.isContainerized() && this.requiresContainer) {
-      this.err('This command must be run in a container')
-      process.exit(1)
-    }
-
-    this.dryRun
-      ? await this._dry(...tasks)
-      : await this._$(...tasks)
+    this.dryRun ? await this._dry(...tasks) : await this._$(...tasks)
   }
 }
