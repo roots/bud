@@ -37,6 +37,7 @@ services:
       - bud_modules:/roots/bud/node_modules
       - bud_coverage:/roots/bud/coverage
       - bud_yarn:/roots/yarn
+      - bud_examples:/roots/examples
 
 networks:
   node-network:
@@ -44,6 +45,7 @@ networks:
 
 volumes:
   bud_coverage:
+  bud_examples:
   bud_modules:
   bud_yarn:
 
