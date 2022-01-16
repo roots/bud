@@ -15,9 +15,6 @@ yarn cache clean --all
 echo install
 yarn
 
-echo Build packages
-yarn @bud build --verbose --force
-
 echo Publish packages
 yarn @bud release proxy --tag latest || true
 

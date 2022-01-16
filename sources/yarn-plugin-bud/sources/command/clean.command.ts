@@ -1,4 +1,4 @@
-import {CommandClass, Option} from 'clipanion'
+import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
@@ -20,9 +20,7 @@ export class Clean extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `clean`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `clean`]]
 
   /**
    * Command usage
@@ -32,9 +30,7 @@ export class Clean extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `clean project artifacts`,
-    examples: [
-      [`delete yarn cache`, `yarn @bud clean`],
-    ],
+    examples: [[`delete yarn cache`, `yarn @bud clean`]],
   }
 
   /**

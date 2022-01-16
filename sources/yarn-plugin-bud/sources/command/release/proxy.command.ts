@@ -1,4 +1,6 @@
 import {CommandClass} from 'clipanion'
+import {readJson, remove, writeJson} from 'fs-extra'
+import {ROOTS_PATH} from '../../constants'
 import {ReleaseNpm} from './npm.command'
 
 /**
@@ -85,7 +87,20 @@ export class ReleaseProxy extends ReleaseNpm {
    *
    * @internal
    */
-  public async prepublish() {}
+  public async prepublish() {
+    const verdaccioDb = await readJson(
+      `${ROOTS_PATH}/verdaccio/.verdaccio-db.json`,
+    )
+
+    verdaccioDb.list = []
+
+    await writeJson(
+      `${ROOTS_PATH}/verdaccio/.verdaccio-db.json`,
+      verdaccioDb,
+    )
+
+    await remove(`${ROOTS_PATH}/verdaccio/@roots`)
+  }
 
   /**
    * npm postpublish

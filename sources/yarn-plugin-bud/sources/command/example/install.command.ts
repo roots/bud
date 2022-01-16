@@ -1,5 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
-import {REGISTRY_PROXY} from '../../constants'
+import {REGISTRY_PROXY, EXAMPLES_DIR} from '../../constants'
 import {Command} from '../base.command'
 
 /**
@@ -62,7 +62,7 @@ export class ExampleInstall extends Command {
    * @internal
    */
   public ctx(command: string) {
-    return `cd /${this.with}/${this.example} && ${command}`
+    return `cd ${EXAMPLES_DIR}/${this.with}/${this.example} && ${command}`
   }
 
   /**

@@ -74,7 +74,7 @@ class Project {
   }
 
   get dir() {
-    return join(`/${this.options.with}`, this.options.name)
+    return join(`/roots/examples/${this.options.with}`, this.options.name)
   }
 
   projectPath(file) {

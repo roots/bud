@@ -1,4 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
+import {EXAMPLES_DIR} from '../../constants'
 import {Command} from '../base.command'
 
 /**
@@ -61,7 +62,7 @@ export class ExampleBuild extends Command {
    * @internal
    */
   public ctx(command: string) {
-    return `cd /${this.with}/${this.example} && ${command}`
+    return `cd ${EXAMPLES_DIR}/${this.with}/${this.example} && ${command}`
   }
 
   /**
@@ -70,9 +71,7 @@ export class ExampleBuild extends Command {
    * @internal
    */
   public get build() {
-    return this.with == 'yarn'
-      ? `yarn bud build`
-      : `npx bud build`
+    return this.with == 'yarn' ? `yarn bud build` : `npx bud build`
   }
 
   /**
