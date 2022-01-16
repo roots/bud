@@ -22,6 +22,7 @@ packages:
   '@roots/*':
     access: $all
     publish: $all
+    unpublish: $all
 
   '**':
     access: $all

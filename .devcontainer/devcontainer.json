@@ -10,7 +10,7 @@
   ],
   "forwardPorts": [4873],
   "postCreateCommand": "cd /roots/bud && yarn && yarn @bud build",
-  "remoteUser": "node",
+  "remoteUser": "root",
   "service": "bud",
   "settings": {
     "eslint.nodePath": "bud/dev/yarn/sdks/eslint",

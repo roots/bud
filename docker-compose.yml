@@ -23,7 +23,7 @@ services:
     networks:
       - node-network
     working_dir: /roots/bud
-    user: node
+    user: root
     command: sh ./dev/docker/shared/up.sh
     environment:
       - BUD_ENV=dev

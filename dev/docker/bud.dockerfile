@@ -11,18 +11,16 @@ RUN apt-get update \
 
 RUN npm install npm-cli-login --global
 
-COPY --chown=node:node ./dev/docker/bud/dotfiles/motd /etc/motd
-COPY --chown=node:node ./dev/docker/bud/dotfiles/alias.sh /home/node/alias
-COPY --chown=node:node ./dev/docker/bud/dotfiles/.bashrc /home/node/.bashrc
+COPY ./dev/docker/bud/dotfiles/motd /etc/motd
+COPY ./dev/docker/bud/dotfiles/bash.bashrc /etc/bash.bashrc
 
-COPY --chown=node:node ./dev/docker/bud/bin/ci.sh /usr/local/bin/ci
-COPY --chown=node:node ./dev/docker/bud/bin/reset_integration.sh /usr/local/bin/reset_integration
-COPY --chown=node:node ./dev/docker/bud/bin/yarn_plugin_build.sh /usr/local/bin/yarn_plugin_build
+COPY ./dev/docker/bud/bin/ci.sh /bin/ci
+COPY ./dev/docker/bud/bin/reset_integration.sh /bin/reset_integration
+COPY ./dev/docker/bud/bin/yarn_plugin_build.sh /bin/yarn_plugin_build
 
-RUN mkdir -p /roots && chown -R node:node /roots
-
-COPY --chown=node:node ./ /roots/bud
-COPY --chown=node:node ./dev/yarn /roots/yarn
-COPY --chown=node:node ./examples/ /roots/examples/npm
-COPY --chown=node:node ./examples/ /roots/examples/yarn
+RUN mkdir -p /roots
+COPY ./ /roots/bud
+COPY ./dev/yarn /roots/yarn
+COPY ./examples/ /roots/examples/npm
+COPY ./examples/ /roots/examples/yarn
 
