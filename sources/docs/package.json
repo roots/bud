@@ -22,15 +22,11 @@
       "last 1 safari version"
     ]
   },
-  "installConfig": {
-    "hoistingLimits": "workspaces"
-  },
   "devDependencies": {
     "@docusaurus/core": "2.0.0-beta.14",
     "@docusaurus/module-type-aliases": "2.0.0-beta.14",
     "@docusaurus/preset-classic": "2.0.0-beta.14",
     "@easyops-cn/docusaurus-search-local": "0.21.4",
-    "@skypack/package-check": "0.2.2",
     "@svgr/webpack": "6.2.0",
     "@tsconfig/docusaurus": "1.0.4",
     "@types/jsesc": "3.0.1",

@@ -17,7 +17,8 @@
   },
   "workspaces": {
     "packages": [
-      "sources/@roots/*"
+      "sources/@roots/*",
+      "sources/docs"
     ]
   },
   "scripts": {

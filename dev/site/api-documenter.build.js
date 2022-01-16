@@ -70,12 +70,9 @@ const ensureDirs = async () => {
 }
 
 const getPackages = async () => {
-  packages = await globby(
-    [`sources/@roots/*`, `!sources/@roots/bud-support`],
-    {
-      onlyDirectories: true,
-    },
-  )
+  packages = await globby([`sources/@roots/*`, `!sources/@roots/bud-support`], {
+    onlyDirectories: true,
+  })
 
   return packages
     .filter(pkg => pkg !== 'sources/@roots')
@@ -97,9 +94,7 @@ const runExtractor = async () => {
 
       await Promise.all(
         chunk.map(async pkg => {
-          console.log(
-            `Running api-extractor on ${pkg.extractorConfig}`,
-          )
+          console.log(`Running api-extractor on ${pkg.extractorConfig}`)
 
           const child = execa('yarn', [
             'api-extractor',
@@ -202,9 +197,7 @@ async function formatMarkdown() {
             const titleLine = line.match(/## (.*)/)
 
             if (titleLine) {
-              title = titleLine[1]
-                .replace(/## (.*)/, '# $1')
-                .toLowerCase()
+              title = titleLine[1].replace(/## (.*)/, '# $1').toLowerCase()
             }
           }
 
@@ -253,9 +246,7 @@ async function formatMarkdown() {
           }
         })
 
-        await new Promise(resolve =>
-          lines.once('close', resolve),
-        )
+        await new Promise(resolve => lines.once('close', resolve))
 
         const shortTitle = (
           title

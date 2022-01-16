@@ -24,7 +24,7 @@ services:
       - node-network
     working_dir: /roots/bud
     user: node
-    command: up
+    command: sh ./dev/docker/shared/up.sh
     environment:
       - BUD_ENV=dev
       - BUD_PROXY_REGISTRY=http://verdaccio:4873
@@ -37,7 +37,6 @@ services:
       - bud_modules:/roots/bud/node_modules
       - bud_coverage:/roots/bud/coverage
       - bud_yarn:/roots/yarn
-      - bud_docusaurus_modules:/roots/bud/sources/docs/node_modules
 
 networks:
   node-network:
@@ -47,7 +46,6 @@ volumes:
   bud_coverage:
   bud_modules:
   bud_yarn:
-  bud_docusaurus_modules:
 
   bud:
     driver: local

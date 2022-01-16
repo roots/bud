@@ -27,6 +27,7 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
+    storage: 'npm'
 
 logs:
   - {type: stdout, format: pretty, level: info}

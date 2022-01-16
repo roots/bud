@@ -12,7 +12,7 @@ globalFolder: ../yarn/global
 
 installStatePath: ../yarn/install-state.gz
 
-nmMode: hardlinks-global
+nmMode: hardlinks-local
 
 nodeLinker: node-modules
 

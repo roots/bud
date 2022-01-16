@@ -1,0 +1,32 @@
+{
+  "eslint.nodePath": "dev/yarn/sdks/eslint",
+  "eslint.validate": ["javascript", "typescript"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": false
+  },
+  "prettier.configPath": "config/prettier.config.js",
+  "prettier.ignorePath": "config/.prettierignore",
+  "prettier.prettierPath": "dev/yarn/sdks/prettier/index.js",
+  "search.exclude": {
+    "dev/yarn": true,
+    "coverage": true,
+    "verdaccio": true,
+    "**/pnp.*": true,
+    "**/node_modules": true,
+    "**/.budfiles/**/*": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.associations": {
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact",
+    "*.mdx": "mdx",
+    "bud.config.json": "json5"
+  }
+}

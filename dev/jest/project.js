@@ -91,9 +91,7 @@ class Project {
   }
 
   async setPackageJson() {
-    let packageJson = await this.readJson(
-      this.projectPath('package.json'),
-    )
+    let packageJson = await this.readJson(this.projectPath('package.json'))
 
     Object.assign(this, {packageJson})
   }
@@ -151,9 +149,7 @@ class Project {
   async setWebpackConfig() {
     try {
       const webpackConfig = await readFile(
-        this.projectPath(
-          `${this.storage}/bud/webpack.config.js`,
-        ),
+        this.projectPath(`${this.storage}/bud/webpack.config.js`),
         'utf8',
       )
 
