@@ -50,37 +50,37 @@ jobs:
         run: 'docker compose up -d'
 
       - name: Setup
-        run: 'yarn @bud $ yarn'
+        run: 'docker compose run bud yarn'
 
       - name: Lint packages
-        run: 'yarn @bud : lint --skypack'
+        run: 'docker compose run bud yarn @bud lint --skypack'
 
       - name: Proxy publish packages
-        run: 'yarn @bud : release proxy --tag latest'
+        run: 'docker compose run bud yarn @bud release proxy --tag latest'
 
       - name: 'babel integration: yarn install'
-        run: 'yarn @bud : example install babel --with yarn'
+        run: 'docker compose run bud yarn @bud example install babel --with yarn'
 
       - name: 'babel integration: yarn build'
-        run: 'yarn @bud : example build babel --with yarn'
+        run: 'docker compose run bud yarn @bud example build babel --with yarn'
 
       - name: 'babel integration: npm install'
-        run: 'yarn @bud : example install babel --with npm'
+        run: 'docker compose run bud yarn @bud example install babel --with npm'
 
       - name: 'babel integration: npm build'
-        run: 'yarn @bud : example build babel --with npm'
+        run: 'docker compose run bud yarn @bud example build babel --with npm'
 
       - name: 'sage integration: yarn install'
-        run: 'yarn @bud : example install sage --with yarn'
+        run: 'docker compose run bud yarn @bud example install sage --with yarn'
 
       - name: 'sage integration: yarn build'
-        run: 'yarn @bud : example build sage --with yarn'
+        run: 'docker compose run bud yarn @bud example build sage --with yarn'
 
       - name: 'sage integration: npm install'
-        run: 'yarn @bud : example install sage --with npm'
+        run: 'docker compose run bud yarn @bud example install sage --with npm'
 
       - name: 'sage integration: npm build'
-        run: 'yarn @bud : example build sage --with npm'
+        run: 'docker compose run bud yarn @bud example build sage --with npm'
 
       - name: Test
-        run: 'yarn @bud : test --coverage --verbose --maxWorkers=50%'
+        run: 'docker compose run bud yarn @bud test --coverage --maxWorkers=50%'
