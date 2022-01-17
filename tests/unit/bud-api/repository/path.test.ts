@@ -1,25 +1,23 @@
-import {Bud, config, factory} from '@roots/bud'
+import {join} from 'path'
 
-describe.skip('bud.path', function () {
+import {Bud, factory} from '../../../util/bud'
+
+describe('bud.path', function () {
   let bud: Bud
+  let dir = join(process.cwd(), 'tests/util/project')
 
   beforeAll(async () => {
     bud = await factory()
   })
 
   beforeEach(() => {
-    bud.hooks.on<'location.project'>(
-      'location.project',
-      () => config.location.project,
-    )
+    bud.hooks.on('location.project', () => dir)
   })
 
   it('returns the correct project path', () => {
     const path = bud.path('project')
 
-    expect(path).toEqual(config.location.project)
-    expect(
-      bud.hooks.filter<'location.project'>('location.project'),
-    ).toEqual(path)
+    expect(path).toEqual(dir)
+    expect(bud.hooks.filter('location.project')).toEqual(path)
   })
 })

@@ -1,12 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multi-compiler module map matches snapshot 1`] = `
+exports[`multi-compiler plugin module map matches snapshot 1`] = `
 Object {
   "byName": Object {
-    "global": Any<Number>,
+    "plugin": Any<Number>,
   },
   "bySource": Object {
-    "0 global": Any<Number>,
+    "0 plugin": Any<Number>,
+  },
+  "usedIds": Array [
+    Any<Number>,
+  ],
+}
+`;
+
+exports[`multi-compiler theme module map matches snapshot 1`] = `
+Object {
+  "byName": Object {
+    "theme": Any<Number>,
+  },
+  "bySource": Object {
+    "0 theme": Any<Number>,
   },
   "usedIds": Array [
     Any<Number>,

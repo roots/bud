@@ -17,7 +17,7 @@ Object {
     ],
   },
   "devDependencies": Object {
-    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud": "workspace:sources/@roots/bud",
   },
   "name": "example-template",
   "private": true,

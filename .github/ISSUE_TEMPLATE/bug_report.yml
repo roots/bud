@@ -1,0 +1,135 @@
+name: Bug Report
+title: '[bug] <title>'
+description: Report a bug. Please provide enough information so that we can reproduce the problem.
+labels: [bug]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for reporting technical issues.
+        If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
+
+        Please attempt the following before filing an issue:
+          - Run bud using the `--no-cache` flag to force modules to recompile from scratch.
+          - Run `bud clean` to remove any stale `.budfiles`.
+          - Run `yarn build` again (even if your problem is not related to the `build` command). This will ensure any submitted files are pertitent to your issue.
+          - If, at this point, `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agreement
+      options:
+        - label: This is not a duplicate of an existing issue
+          required: true
+        - label: I have read the [guidelines for Contributing to Roots Projects](https://github.com/roots/.github/blob/master/CONTRIBUTING.md)
+          required: true
+        - label: This is not a personal support request that should be posted on the [Roots Discourse](https://discourse.roots.io/) community
+          required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      placeholder: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      placeholder: What actually happens?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps To Reproduce
+      description: |
+        Non-reproducible issues may be immediately closed as not actionable.
+        Please provide reproduction steps as detailed as possible.
+      value: |
+        1.
+        1.
+        1.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: version
+      description: Please provide the output of `bud --version`
+      placeholder: '@roots/bud/5.0.0 darwin-arm64 node-v16.13.1'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: What package manager are you using?
+      options:
+        - yarn classic
+        - yarn berry
+        - npm
+    validations:
+      required: true
+
+  - type: input
+    id: package-manager-version
+    attributes:
+      label: version
+      description: What version are you using? (`yarn -v` or `npm -v`)
+      placeholder: '3.1.1'
+
+  - type: checkboxes
+    id: pnpm
+    attributes:
+      label: Are you using pnpm?
+      options:
+        - label: 'yes'
+          required: false
+        - label: 'no'
+          required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Copy/paste any logging output. If applicable, run the command with `--no-dashboard` and `--log.level vvvv` flags for better reporting.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: configs
+    attributes:
+      label: Configuration
+      description: |
+        Please attach your bud configuration file(s).
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Relevant .budfiles
+      description: |
+        If they were emitted, please attach:
+          - `.budfiles/bud/profile.json`, and;
+          - `.budfiles/bud/webpack.config.js`
+
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!

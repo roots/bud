@@ -3,33 +3,33 @@
   - codecov.yml
 
 'yarn':
-  - config/yarn/*
-  - config/yarn/**/*
+  - dev/yarn/*
+  - dev/yarn/**/*
 
 'dev':
-  - config/yarn/repo/**/*
   - dev/**/*
+  - sources/yarn-plugin-bud/**/*
   - docker-compose.yml
 
 'docs':
-  - site/*
-  - site/**
+  - sources/site/*
+  - sources/site/**
   - README.md
-  - packages/@roots/*/README.md
+  - sources/@roots/*/README.md
   - dev/site/*
   - dev/site/**/*
   - dev/readme/*
   - dev/readme/**/*
 
 'dependencies':
-  - packages/**/package.json
+  - sources/**/package.json
   - examples/**/package.json
   - package.json
   - yarn.lock
 
 'deprecated':
-  - packages/deprecated/*
-  - packages/deprecated/**
+  - sources/deprecated/*
+  - sources/deprecated/**
 
 'examples':
   - examples/*
@@ -37,211 +37,211 @@
 
 'test':
   - dev/jest/**/*
-  - packages/**/*.test.js
+  - sources/**/*.test.js
   - tests/*
   - tests/**
   - jest.config.ts
 
 'roots-notifier':
-  - packages/roots-notifier/*
-  - packages/roots-notifier/**
+  - sources/roots-notifier/*
+  - sources/roots-notifier/**
 
 '@roots/bud':
-  - packages/@roots/bud/*
-  - packages/@roots/bud/**
+  - sources/@roots/bud/*
+  - sources/@roots/bud/**
 
 '@roots/bud-api':
-  - packages/@roots/bud-api/*
-  - packages/@roots/bud-api/**
+  - sources/@roots/bud-api/*
+  - sources/@roots/bud-api/**
 
 '@roots/bud-babel':
-  - packages/@roots/bud-babel/*
-  - packages/@roots/bud-babel/**
+  - sources/@roots/bud-babel/*
+  - sources/@roots/bud-babel/**
 
 '@roots/bud-build':
-  - packages/@roots/bud-build/*
-  - packages/@roots/bud-build/**
+  - sources/@roots/bud-build/*
+  - sources/@roots/bud-build/**
 
 '@roots/bud-cache':
-  - packages/@roots/bud-cache/*
-  - packages/@roots/bud-cache/**
+  - sources/@roots/bud-cache/*
+  - sources/@roots/bud-cache/**
 
 '@roots/bud-compiler':
-  - packages/@roots/bud-compiler/*
-  - packages/@roots/bud-compiler/**
+  - sources/@roots/bud-compiler/*
+  - sources/@roots/bud-compiler/**
 
 '@roots/bud-compress':
-  - packages/@roots/bud-compress/*
-  - packages/@roots/bud-compress/**
+  - sources/@roots/bud-compress/*
+  - sources/@roots/bud-compress/**
 
 '@roots/bud-criticalcss':
-  - packages/@roots/bud-criticalcss/*
-  - packages/@roots/bud-criticalcss/**
+  - sources/@roots/bud-criticalcss/*
+  - sources/@roots/bud-criticalcss/**
 
 '@roots/bud-dashboard':
-  - packages/@roots/bud-dashboard/*
-  - packages/@roots/bud-dashboard/**
+  - sources/@roots/bud-dashboard/*
+  - sources/@roots/bud-dashboard/**
 
 '@roots/bud-emotion':
-  - packages/@roots/bud-emotion/*
-  - packages/@roots/bud-emotion/**
+  - sources/@roots/bud-emotion/*
+  - sources/@roots/bud-emotion/**
 
 '@roots/bud-entrypoints':
-  - packages/@roots/bud-entrypoints/*
-  - packages/@roots/bud-entrypoints/**
+  - sources/@roots/bud-entrypoints/*
+  - sources/@roots/bud-entrypoints/**
 
 '@roots/bud-esbuild':
-  - packages/@roots/bud-esbuild/*
-  - packages/@roots/bud-esbuild/**
+  - sources/@roots/bud-esbuild/*
+  - sources/@roots/bud-esbuild/**
 
 '@roots/bud-eslint':
-  - packages/@roots/bud-eslint/*
-  - packages/@roots/bud-eslint/**
+  - sources/@roots/bud-eslint/*
+  - sources/@roots/bud-eslint/**
 
 '@roots/bud-extensions':
-  - packages/@roots/bud-extensions/*
-  - packages/@roots/bud-extensions/**
+  - sources/@roots/bud-extensions/*
+  - sources/@roots/bud-extensions/**
 
 '@roots/bud-framework':
-  - packages/@roots/bud-framework/*
-  - packages/@roots/bud-framework/**
+  - sources/@roots/bud-framework/*
+  - sources/@roots/bud-framework/**
 
 '@roots/bud-hooks':
-  - packages/@roots/bud-hooks/*
-  - packages/@roots/bud-hooks/**
+  - sources/@roots/bud-hooks/*
+  - sources/@roots/bud-hooks/**
 
 '@roots/bud-imagemin':
-  - packages/@roots/bud-imagemin/*
-  - packages/@roots/bud-imagemin/**
+  - sources/@roots/bud-imagemin/*
+  - sources/@roots/bud-imagemin/**
 
 '@roots/bud-library':
-  - packages/@roots/bud-library/*
-  - packages/@roots/bud-library/**
+  - sources/@roots/bud-library/*
+  - sources/@roots/bud-library/**
 
 '@roots/bud-mdx':
-  - packages/@roots/bud-mdx/*
-  - packages/@roots/bud-mdx/**
+  - sources/@roots/bud-mdx/*
+  - sources/@roots/bud-mdx/**
 
 '@roots/bud-postcss':
-  - packages/@roots/bud-postcss/*
-  - packages/@roots/bud-postcss/**
+  - sources/@roots/bud-postcss/*
+  - sources/@roots/bud-postcss/**
 
 '@roots/bud-preset-recommend':
-  - packages/@roots/bud-preset-recommend/*
-  - packages/@roots/bud-preset-recommend/**
+  - sources/@roots/bud-preset-recommend/*
+  - sources/@roots/bud-preset-recommend/**
 
 '@roots/bud-preset-wordpress':
-  - packages/@roots/bud-preset-wordpress/*
-  - packages/@roots/bud-preset-wordpress/**
+  - sources/@roots/bud-preset-wordpress/*
+  - sources/@roots/bud-preset-wordpress/**
 
 '@roots/bud-prettier':
-  - packages/@roots/bud-prettier/*
-  - packages/@roots/bud-prettier/**
+  - sources/@roots/bud-prettier/*
+  - sources/@roots/bud-prettier/**
 
 '@roots/bud-purgecss':
-  - packages/@roots/bud-purgecss/*
-  - packages/@roots/bud-purgecss/**
+  - sources/@roots/bud-purgecss/*
+  - sources/@roots/bud-purgecss/**
 
 '@roots/bud-react':
-  - packages/@roots/bud-react/*
-  - packages/@roots/bud-react/**
+  - sources/@roots/bud-react/*
+  - sources/@roots/bud-react/**
 
 '@roots/bud-sass':
-  - packages/@roots/bud-sass/*
-  - packages/@roots/bud-sass/**
+  - sources/@roots/bud-sass/*
+  - sources/@roots/bud-sass/**
 
 '@roots/bud-server':
-  - packages/@roots/bud-server/*
-  - packages/@roots/bud-server/**
+  - sources/@roots/bud-server/*
+  - sources/@roots/bud-server/**
 
 '@roots/bud-solid':
-  - packages/@roots/bud-solid/*
-  - packages/@roots/bud-solid/**
+  - sources/@roots/bud-solid/*
+  - sources/@roots/bud-solid/**
 
 '@roots/bud-stylelint':
-  - packages/@roots/bud-stylelint/*
-  - packages/@roots/bud-stylelint/**
+  - sources/@roots/bud-stylelint/*
+  - sources/@roots/bud-stylelint/**
 
 '@roots/bud-support':
-  - packages/@roots/bud-support/*
-  - packages/@roots/bud-support/**
+  - sources/@roots/bud-support/*
+  - sources/@roots/bud-support/**
 
 '@roots/bud-tailwindcss':
-  - packages/@roots/bud-tailwindcss/*
-  - packages/@roots/bud-tailwindcss/**
+  - sources/@roots/bud-tailwindcss/*
+  - sources/@roots/bud-tailwindcss/**
 
 '@roots/bud-terser':
-  - packages/@roots/bud-terser/*
-  - packages/@roots/bud-terser/**
+  - sources/@roots/bud-terser/*
+  - sources/@roots/bud-terser/**
 
 '@roots/bud-typescript':
-  - packages/@roots/bud-typescript/*
-  - packages/@roots/bud-typescript/**
+  - sources/@roots/bud-typescript/*
+  - sources/@roots/bud-typescript/**
 
 '@roots/bud-vue':
-  - packages/@roots/bud-vue/*
-  - packages/@roots/bud-vue/**
+  - sources/@roots/bud-vue/*
+  - sources/@roots/bud-vue/**
 
 '@roots/bud-wordpress-dependencies':
-  - packages/@roots/bud-wordpress-dependencies/*
-  - packages/@roots/bud-wordpress-dependencies/**
+  - sources/@roots/bud-wordpress-dependencies/*
+  - sources/@roots/bud-wordpress-dependencies/**
 
 '@roots/bud-wordpress-externals':
-  - packages/@roots/bud-wordpress-externals/*
-  - packages/@roots/bud-wordpress-externals/**
+  - sources/@roots/bud-wordpress-externals/*
+  - sources/@roots/bud-wordpress-externals/**
 
 '@roots/bud-wordpress-manifests':
-  - packages/@roots/bud-wordpress-manifests/*
-  - packages/@roots/bud-wordpress-manifests/**
+  - sources/@roots/bud-wordpress-manifests/*
+  - sources/@roots/bud-wordpress-manifests/**
 
 '@roots/container':
-  - packages/@roots/container/*
-  - packages/@roots/container/**
+  - sources/@roots/container/*
+  - sources/@roots/container/**
 
 '@roots/critical-css-webpack-plugin':
-  - packages/@roots/critical-css-webpack-plugin/*
-  - packages/@roots/critical-css-webpack-plugin/**
+  - sources/@roots/critical-css-webpack-plugin/*
+  - sources/@roots/critical-css-webpack-plugin/**
 
 '@roots/dependencies':
-  - packages/@roots/dependencies/*
-  - packages/@roots/dependencies/**
+  - sources/@roots/dependencies/*
+  - sources/@roots/dependencies/**
 
 '@roots/entrypoints-webpack-plugin':
-  - packages/@roots/entrypoints-webpack-plugin/*
-  - packages/@roots/entrypoints-webpack-plugin/**
+  - sources/@roots/entrypoints-webpack-plugin/*
+  - sources/@roots/entrypoints-webpack-plugin/**
 
 '@roots/filesystem':
-  - packages/@roots/filesystem/*
-  - packages/@roots/filesystem/**
+  - sources/@roots/filesystem/*
+  - sources/@roots/filesystem/**
 
 '@roots/ink-prettier':
-  - packages/@roots/ink-prettier/*
-  - packages/@roots/ink-prettier/**
+  - sources/@roots/ink-prettier/*
+  - sources/@roots/ink-prettier/**
 
 '@roots/ink-use-style':
-  - packages/@roots/ink-use-style/*
-  - packages/@roots/ink-use-style/**
+  - sources/@roots/ink-use-style/*
+  - sources/@roots/ink-use-style/**
 
 '@roots/merged-manifest-webpack-plugin':
-  - packages/@roots/merged-manifest-webpack-plugin/*
-  - packages/@roots/merged-manifest-webpack-plugin/**
+  - sources/@roots/merged-manifest-webpack-plugin/*
+  - sources/@roots/merged-manifest-webpack-plugin/**
 
 '@roots/sage':
-  - packages/@roots/sage/*
-  - packages/@roots/sage/**
+  - sources/@roots/sage/*
+  - sources/@roots/sage/**
 
 '@roots/wordpress-dependencies-webpack-plugin':
-  - packages/@roots/wordpress-dependencies-webpack-plugin/*
-  - packages/@roots/wordpress-dependencies-webpack-plugin/**
+  - sources/@roots/wordpress-dependencies-webpack-plugin/*
+  - sources/@roots/wordpress-dependencies-webpack-plugin/**
 
 '@roots/wordpress-externals-webpack-plugin':
-  - packages/@roots/wordpress-externals-webpack-plugin/*
-  - packages/@roots/wordpress-externals-webpack-plugin/**
+  - sources/@roots/wordpress-externals-webpack-plugin/*
+  - sources/@roots/wordpress-externals-webpack-plugin/**
 
 '@roots/bud-typings':
-  - packages/deprecated/bud-typings/*
-  - packages/deprecated/bud-typings/**
+  - sources/deprecated/bud-typings/*
+  - sources/deprecated/bud-typings/**
 
 '@roots/bud-cli':
-  - packages/deprecated/bud-cli/*
-  - packages/deprecated/bud-cli/**
+  - sources/deprecated/bud-cli/*
+  - sources/deprecated/bud-cli/**

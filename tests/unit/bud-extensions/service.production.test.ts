@@ -1,17 +1,10 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../util/bud'
 
 describe('Extensions', function () {
   let bud: Bud = null
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-      },
-    })
+    bud = await factory()
   })
 
   it('[production] bud.extensions.repository matches snapshot', () => {
@@ -20,7 +13,7 @@ describe('Extensions', function () {
     expect(bud.extensions.all()).toMatchSnapshot()
 
     bud.extensions.every((key, controller) => {
-      expect(controller.options).toMatchSnapshot()
+      expect(controller.meta).toMatchSnapshot()
     })
   })
 })

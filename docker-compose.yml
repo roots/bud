@@ -1,41 +1,57 @@
-version: '3.2'
+version: '3.8'
 
 services:
   verdaccio:
-    image: verdaccio/verdaccio
+    build:
+      dockerfile: ./dev/docker/verdaccio.dockerfile
     container_name: verdaccio
     networks:
       - node-network
-    environment:
-      - VERDACCIO_PORT=4873
     ports:
       - 4873:4873
     volumes:
-      - ./dev/build/verdaccio/storage:/verdaccio/storage
-      - ./dev/build/verdaccio/conf:/verdaccio/conf
-      - ./dev/build/verdaccio/plugins:/verdaccio/plugins
+      - ./dev/docker/verdaccio:/verdaccio/conf
+      - verdaccio_storage:/verdaccio/storage
 
   bud:
-    build: ./dev/build
     container_name: bud
+    build:
+      context: ./
+      dockerfile: ./dev/docker/bud.dockerfile
     depends_on:
       - verdaccio
     networks:
       - node-network
-    working_dir: /bud
-    user: node
-    command: bash -c /bud/dev/build/init.sh
+    working_dir: /roots/bud
+    user: root
+    command: sh ./dev/docker/shared/up.sh
+    environment:
+      - BUD_ENV=${BUD_ENV:-dev}
+      - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
+      - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
-      - ./:/bud
-      - ./dev/build/.yarnrc.yml:/bud/.yarnrc.yml
-      - ./dev/build/.npmrc:/bud/.npmrc
-
-volumes:
-  bud:
-    driver: local
-  verdaccio:
-    driver: local
+      - ./:/roots/bud
+      - verdaccio_storage:/roots/verdaccio
+      - bud_modules:/roots/bud/node_modules
+      - bud_coverage:/roots/bud/coverage
+      - bud_yarn:/roots/yarn
+      - bud_examples:/roots/examples
 
 networks:
   node-network:
     driver: bridge
+
+volumes:
+  bud_coverage:
+  bud_examples:
+  bud_modules:
+  bud_yarn:
+
+  bud:
+    driver: local
+
+  verdaccio:
+    driver: local
+
+  verdaccio_storage:
+    driver: local

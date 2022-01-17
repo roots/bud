@@ -8,6 +8,8 @@ describe('bud.build.config', function () {
 
   beforeAll(async () => {
     bud = await factory()
+    await bud.project.buildProfile()
+    await bud.extensions.injectExtensions()
     await bud.build.make()
   })
 
@@ -121,7 +123,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins.length).toMatchSnapshot()
+    expect(bud.build.config.plugins?.length).toMatchSnapshot()
   })
 
   it('has valid plugins', () => {
@@ -137,143 +139,32 @@ describe('bud.build.config', function () {
     })
   })
 
-  it('has expected default asset/image rule', () => {
+  it('has expected default js rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      generator: {
-        filename: 'assets/[name][ext]',
-      },
-      test: /\.(png|jpe?g|gif)$/,
-      type: 'asset/resource',
-    })
-  })
-
-  it('has expected default font rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
-    ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.(ttf|otf|eot|woff2?|ico)$/,
+      test: /\.(js|jsx)/,
+      include: expect.stringContaining('src'),
       use: [
         {
-          loader: expect.stringContaining(
-            'resolve-url-loader/index.js',
-          ),
-          options: {
-            root: expect.stringContaining('src'),
-            sourceMap: false,
-          },
+          loader: expect.any(String),
+          options: expect.any(Object),
         },
       ],
-    })
-  })
-
-  it('has expected default svg rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
-    ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.svg$/,
-      type: 'asset/resource',
-      generator: {
-        filename: 'assets/[name][ext]',
-      },
-    })
-  })
-
-  it('has expected default html rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
-    ).toMatchSnapshot({
-      test: /\.(html?)$/,
-      use: [
-        {
-          loader: expect.stringContaining(
-            'html-loader/dist/cjs.js',
-          ),
-        },
-      ],
-    })
-  })
-
-  it('has expected default csv rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
-    ).toMatchSnapshot({
-      test: /\.(csv|tsv)$/,
-      use: [
-        {
-          loader: expect.stringContaining('csv-loader/index.js'),
-        },
-      ],
-    })
-  })
-
-  it('has expected default xml rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
-    ).toMatchSnapshot({
-      test: /\.xml$/,
-      use: [
-        {
-          loader: expect.stringContaining(
-            '/xml-loader/index.js',
-          ),
-        },
-      ],
-    })
-  })
-
-  it('has expected default toml rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
-    ).toMatchSnapshot({
-      parser: {
-        parse: toml.parse,
-      },
-      test: /\.toml$/,
-      type: 'json',
-    })
-  })
-
-  it('has expected default yaml rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
-    ).toMatchSnapshot({
-      parser: {
-        parse: yaml.parse,
-      },
-      test: /\.ya?ml$/,
-      type: 'json',
-    })
-  })
-
-  it('has expected default json rule', () => {
-    expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
-    ).toMatchSnapshot({
-      parser: {
-        parse: json5.parse,
-      },
-      test: /\.json5$/,
-      type: 'json',
     })
   })
 
   it('has expected default css rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
       test: /\.css$/,
+      include: expect.stringContaining('src'),
       use: [
         {
           loader: expect.stringContaining(
             'mini-css-extract-plugin/dist/loader.js',
           ),
-          options: {},
         },
         {
           loader: expect.stringContaining(
@@ -296,19 +187,165 @@ describe('bud.build.config', function () {
     })
   })
 
-  it('has expected default js rule', () => {
+  it('has expected default cssModule rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
+    ).toMatchSnapshot({
+      test: /\.module.css$/,
+      include: expect.stringContaining('src'),
+      use: [
+        {
+          loader: expect.stringContaining(
+            'mini-css-extract-plugin/dist/loader.js',
+          ),
+        },
+        {
+          loader: expect.stringContaining(
+            'css-loader/dist/cjs.js',
+          ),
+          options: {
+            importLoaders: 1,
+            modules: true,
+            sourceMap: false,
+          },
+        },
+      ],
+    })
+  })
+
+  it('has expected default image rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
+    ).toMatchSnapshot({
+      exclude: /(node_modules|bower_components)/,
+      generator: {
+        filename: 'images/[name][ext]',
+      },
+      test: /\.(png|jpe?g|gif)$/,
+      type: 'asset/resource',
+    })
+  })
+
+  it('has expected default webp rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
+    ).toMatchSnapshot({
+      generator: {
+        filename: 'webp/[name][ext]',
+      },
+      test: /\.webp$/,
+      type: 'asset/resource',
+    })
+  })
+
+  it('has expected default svg rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
+    ).toMatchSnapshot({
+      test: /\.svg$/,
+      type: 'asset/resource',
+      generator: {
+        filename: 'svg/[name][ext]',
+      },
+    })
+  })
+
+  it('has expected default font rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
+    ).toMatchSnapshot({
+      type: 'asset',
+      include: expect.stringContaining('src'),
+      generator: {filename: 'fonts/[name][ext]'},
+      parser: {
+        dataUrlCondition: {
+          maxSize: 50000,
+        },
+      },
+    })
+  })
+
+  it('has expected default json rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
+    ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
+      parser: {parse: json5.parse},
+      test: /\.json$/,
+      type: 'json',
+    })
+  })
+
+  it('has expected default yaml rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
+    ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
+      parser: {parse: yaml.parse},
+      test: /\.ya?ml$/,
+      type: 'json',
+    })
+  })
+
+  it('has expected default html rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
+    ).toMatchSnapshot({
+      test: /\.(html?)$/,
+      include: expect.stringContaining('src'),
+      use: [
+        {
+          loader: expect.stringContaining(
+            'html-loader/dist/cjs.js',
+          ),
+        },
+      ],
+    })
+  })
+
+  it('has expected default csv rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule)
         .oneOf[10],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
-      test: /\.(js|jsx)/,
+      test: /\.(csv|tsv)$/,
+      include: expect.stringContaining('src'),
       use: [
         {
-          loader: expect.any(String),
-          options: expect.any(Object),
+          loader: expect.stringContaining('csv-loader/index.js'),
         },
       ],
+    })
+  })
+
+  it('has expected default xml rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule)
+        .oneOf[11],
+    ).toMatchSnapshot({
+      test: /\.xml$/,
+      include: expect.stringContaining('src'),
+      use: [
+        {
+          loader: expect.stringContaining(
+            '/xml-loader/index.js',
+          ),
+        },
+      ],
+    })
+  })
+
+  it('has expected default toml rule', () => {
+    expect(
+      (bud.build.config.module.rules[1] as RuleSetRule)
+        .oneOf[12],
+    ).toMatchSnapshot({
+      include: expect.stringContaining('src'),
+      parser: {
+        parse: toml.parse,
+      },
+      test: /\.toml$/,
+      type: 'json',
     })
   })
 })

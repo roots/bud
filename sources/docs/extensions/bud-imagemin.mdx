@@ -1,0 +1,62 @@
+---
+sidebar_label: '@roots/bud-imagemin'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# @roots/bud-imagemin
+
+[@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
+
+The extension uses [squoosh](https://squoosh.app) under the hood and can be configured for
+lossless or lossy compression.
+
+## Installation
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-imagemin --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-imagemin --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Configuration
+
+Without any configuration, the image minimizer extension will compress nearly all
+image asset types and compress them very well.
+
+To compress assets losslessly:
+
+```ts
+bud.imagemin('lossless')
+```
+
+To compress assets in a lossy manner:
+
+```ts
+bud.imagemin('lossy')
+```
+
+### Custom config
+
+To provide your own configuration options you can pass a callback which
+will receive and should return the options.
+
+```ts
+bud.imagemin(options => ({
+  ...options,
+  // ...override
+}))
+```

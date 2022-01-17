@@ -1,0 +1,11 @@
+h1 {
+  color: black;
+}
+
+h2 {
+  color: red;
+}
+
+h3.exclude {
+  color: yellow;
+}

@@ -5,8 +5,6 @@ describe('bud.entry', function () {
 
   beforeAll(async () => {
     bud = await factory()
-
-    bud.logger.instance.scope('bud.entry test')
   })
 
   beforeEach(() => {
@@ -63,6 +61,7 @@ describe('bud.entry', function () {
     bud.entry({
       app: ['scripts/app.js', 'styles/app.css'],
     })
+
     await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({
@@ -94,6 +93,7 @@ describe('bud.entry', function () {
       app: ['scripts/app.js', 'styles/app.css'],
       editor: ['styles/editor.css'],
     })
+
     await bud.build.make()
 
     expect(bud.build.config.entry).toEqual({

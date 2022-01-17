@@ -9,10 +9,19 @@ module.exports = async function config() {
 
   return {
     collectCoverageFrom: [
-      'packages/@roots/**/*.{ts,tsx}',
-      '!packages/@roots/**/*.d.ts',
-      '!packages/@roots/bud-support/**/*',
-      '!packages/@roots/filesystem/**/*',
+      'sources/@roots/**/src/**/*.{ts,tsx}',
+      '!sources/@roots/**/src/**/*.dependencies.{ts,tsx}',
+      '!sources/@roots/bud/src/cli/**/*.{ts,tsx}',
+      '!sources/@roots/**/*.d.ts',
+      '!cache/verdaccio/**/*',
+      '!node_modules/**/*',
+    ],
+    coveragePathIgnorePatterns: [
+      'sources/@roots/bud-dashboard/',
+      'sources/@roots/bud-support/',
+      'sources/@roots/filesystem/',
+      'sources/@roots/ink-prettier/',
+      'sources/@roots/ink-use-style/',
     ],
     coverageReporters: ['lcov', 'text', 'text-summary'],
     displayName: {
@@ -26,22 +35,22 @@ module.exports = async function config() {
         compiler: 'typescript',
       },
     },
-    globalSetup: '<rootDir>/dev/jest/setup.global.js',
     moduleNameMapper,
+    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/cache/`],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
     testEnvironment: 'node',
     testMatch: [
-      `<rootDir>/tests/unit/**/*.ts`,
-      `<rootDir>/tests/integration/**/*.ts`,
-      `!**/__mocks__/**/*`,
+      `<rootDir>/tests/unit/**/*.test.ts`,
+      `<rootDir>/tests/integration/babel.test.ts`,
+      `<rootDir>/tests/integration/sage.test.ts`,
     ],
     testPathIgnorePatterns: [
-      '/node_modules/',
-      '/tests/util/',
-      '/tests/.*?/__mocks__/',
+      '<rootDir>/build/',
+      '<rootDir>/node_modules/',
+      '<rootDir>/tests/__mocks__',
+      '<rootDir>/cache/verdaccio',
     ],
-    verbose: true,
   }
 }

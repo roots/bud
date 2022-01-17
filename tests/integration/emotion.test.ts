@@ -3,7 +3,7 @@ import Project from '../../dev/jest/project'
 jest.setTimeout(60000)
 
 describe('examples/emotion', () => {
-  let project
+  let project: Project
 
   beforeAll(async () => {
     project = new Project({

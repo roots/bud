@@ -1,0 +1,5 @@
+node_modules
+dist
+
+# You probably will want to remove these entries
+.bud

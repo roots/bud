@@ -14,15 +14,16 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:packages/@roots/bud",
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-postcss": "latest",
+    "@roots/bud-react": "latest",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
-    "postcss": "8.3.11",
+    "postcss": "8.4.5",
     "postcss-import": "14.0.2",
-    "postcss-preset-env": "6.7.0",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   }

@@ -1,10 +1,11 @@
-import {Bud, factory} from '@roots/bud'
 import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
-describe.skip('@roots/bud-extensions Controller', function () {
-  let bud: Bud = null
+import {Bud, factory} from '../../util/bud'
+
+describe('@roots/bud-extensions Controller', function () {
+  let bud: Bud
 
   let mockWebpackPlugin: WebpackPluginInstance = {
     apply: jest.fn(),
@@ -17,7 +18,7 @@ describe.skip('@roots/bud-extensions Controller', function () {
     register: jest.fn(() => null),
     boot: jest.fn(() => null),
     api: {
-      foo: jest.fn(function (this: Bud) {
+      foo: jest.fn(async function (this: Bud) {
         return this
       }),
     },
@@ -69,8 +70,9 @@ describe.skip('@roots/bud-extensions Controller', function () {
     expect(controller._module.boot).toHaveBeenCalled()
   })
 
-  it('module options are registered', () => {
-    bud.use(mockModule)
+  it('module options are registered', async () => {
+    await bud.extensions.add(mockModule)
+    await bud.extensions.processQueue()
 
     expect(
       bud.extensions.get('@roots/bud-postcss').options.all(),
@@ -89,5 +91,15 @@ describe.skip('@roots/bud-extensions Controller', function () {
     const controller = new Controller(bud, mockModule)
 
     expect(controller.make()).toBe(mockWebpackPlugin)
+  })
+
+  it('controller.api', async () => {
+    const controller = new Controller(bud, mockModule)
+    await controller.api()
+    // @ts-ignore
+    expect(bud.foo).toBeInstanceOf(Function)
+    // @ts-ignore
+    expect(bud.foo()).toBeInstanceOf(Bud)
+    expect(bud.api.get('foo')()).toBeInstanceOf(Promise)
   })
 })

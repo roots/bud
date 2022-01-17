@@ -1,17 +1,23 @@
-import {Bud} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
-describe.skip('webpack.resolve.alias', function () {
+describe('bud.assets', function () {
   let bud: Bud
 
-  it('is a function', () => {
-    expect(bud.alias).toBeInstanceOf(Function)
+  beforeAll(async () => {
+    bud = await factory()
   })
 
-  it('is configurable by bud.alias', () => {
-    bud.alias({'@foo': 'bar'}).build.make()
+  it('is a function', () => {
+    expect(bud.assets).toBeInstanceOf(Function)
+  })
 
-    expect(bud.build.config.resolve.alias).toEqual({
-      '@foo': bud.path('project', 'bar'),
-    })
+  it('is configurable by bud.assets', async () => {
+    bud.assets([bud.path('src', 'images')])
+
+    await bud.api.processQueue()
+
+    const {options} = bud.extensions.get('copy-webpack-plugin')
+
+    expect(options.get('patterns')).toHaveLength(2)
   })
 })

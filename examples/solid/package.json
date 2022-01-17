@@ -14,8 +14,10 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-solid": "workspace:*"
+    "@babel/plugin-syntax-jsx": "7.16.7",
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-solid": "latest",
+    "solid-js": "^1.1.7"
   }
 }

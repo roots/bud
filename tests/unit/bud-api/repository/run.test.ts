@@ -1,47 +1,17 @@
-import {factory} from '@roots/bud'
 import {run} from '@roots/bud-api/src/api/methods/run'
 
-describe.skip('bud.run', function () {
-  let bud
-  let compile = jest.fn(async () => true)
-  let MOCK_BUD = {
-    isDevelopment: false,
+import {Bud, factory} from '../../../util/bud'
 
-    when: () => false,
-
-    compiler: {
-      compile: compile,
-    },
-
-    path: jest.fn((...strings: string[]): string => {
-      return process.cwd().concat('/.budfiles')
-    }),
-
-    run: jest.fn(cb => {
-      return cb
-    }),
-
-    server: {
-      inject: jest.fn(),
-      run: jest.fn(),
-      config: {
-        isTrue: () => true,
-      },
-    },
-  }
+describe('bud.run', function () {
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-
-    run.bind(MOCK_BUD)()
   })
 
   it('is a function', () => {
-    expect(bud.run).toBeInstanceOf(Function)
+    expect(JSON.stringify(run.bind(bud))).toEqual(
+      JSON.stringify(bud.api.get('run')),
+    )
   })
-
-  /**
-   * I think this broke because it async now
-   */
-  it.todo('calls compile fn')
 })

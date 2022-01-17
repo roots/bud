@@ -1,7 +1,7 @@
 paths:
-  - packages
+  - sources
 paths-ignore:
-  - packages/deprecated
+  - sources/deprecated
   - '**/types'
   - '**/.budfiles'
   - '**/lib'

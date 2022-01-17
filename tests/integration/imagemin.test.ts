@@ -55,10 +55,10 @@ describe('examples/imagemin', () => {
       )
 
       expect(
-        project.assets['assets/owl.jpeg'].length,
+        project.assets['images/owl.jpeg'].length,
       ).toBeLessThan(original.length)
 
-      expect(project.assets['assets/owl.jpeg']).toMatchSnapshot()
+      expect(project.assets['images/owl.jpeg']).toMatchSnapshot()
 
       return Promise.resolve()
     })

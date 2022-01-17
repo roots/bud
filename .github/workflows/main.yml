@@ -21,6 +21,7 @@ jobs:
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -45,14 +46,41 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
-        run: yarn install --immutable
+      - name: Start
+        run: 'docker compose up -d'
 
-      - name: Build
-        run: yarn @bud build
+      - name: Setup
+        run: 'docker compose run bud yarn'
 
-      - name: Lint
-        run: yarn @bud lint
+      - name: Lint packages
+        run: 'docker compose run bud yarn @bud lint --skypack'
+
+      - name: Proxy publish packages
+        run: 'docker compose run bud yarn @bud release proxy --tag latest'
+
+      - name: 'babel integration: yarn install'
+        run: 'docker compose run bud yarn @bud example install babel --with yarn'
+
+      - name: 'babel integration: yarn build'
+        run: 'docker compose run bud yarn @bud example build babel --with yarn'
+
+      - name: 'babel integration: npm install'
+        run: 'docker compose run bud yarn @bud example install babel --with npm'
+
+      - name: 'babel integration: npm build'
+        run: 'docker compose run bud yarn @bud example build babel --with npm'
+
+      - name: 'sage integration: yarn install'
+        run: 'docker compose run bud yarn @bud example install sage --with yarn'
+
+      - name: 'sage integration: yarn build'
+        run: 'docker compose run bud yarn @bud example build sage --with yarn'
+
+      - name: 'sage integration: npm install'
+        run: 'docker compose run bud yarn @bud example install sage --with npm'
+
+      - name: 'sage integration: npm build'
+        run: 'docker compose run bud yarn @bud example build sage --with npm'
 
       - name: Test
-        run: yarn @bud test
+        run: 'docker compose run bud yarn @bud test --coverage --maxWorkers=50%'

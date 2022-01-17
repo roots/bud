@@ -14,6 +14,9 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "webpack": "5.65.0",
+    "jest": "27.4.7"
   }
 }

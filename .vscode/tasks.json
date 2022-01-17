@@ -2,12 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "build",
-      "group": "build",
-      "problemMatcher": [],
-      "label": "npm: build",
-      "detail": "lerna run build"
+      "label": "compile",
+      "type": "shell",
+      "command": "cd test-project && npm run compile",
+      "problemMatcher": "$tsc",
+      "dependsOn": "npm: install - test-project"
     }
   ]
 }

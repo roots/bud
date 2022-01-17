@@ -1,0 +1,67 @@
+{
+  "name": "@roots/sage",
+  "version": "5.0.0",
+  "description": "@roots/sage preset for @roots/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/sage"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "sage"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-preset-wordpress"
+    ]
+  },
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "helpful-decorators": "^2.1.0",
+    "tslib": "^2.3.1"
+  }
+}

@@ -14,7 +14,7 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*"
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest"
   }
 }
