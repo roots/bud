@@ -3524,12 +3524,12 @@ __metadata:
     "@types/node": 16.11.19
     postcss-scss: 4.0.3
     resolve-cwd: 3.0.0
-    sass: 1.45.2
+    sass: 1.48.0
     sass-loader: 12.4.0
     tslib: 2.3.1
     webpack: 5.65.0
   peerDependencies:
-    sass: 1.45.2
+    sass: 1.48.0
   languageName: unknown
   linkType: soft
 
@@ -19474,16 +19474,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.45.2":
-  version: 1.45.2
-  resolution: "sass@npm:1.45.2"
+"sass@npm:1.48.0":
+  version: 1.48.0
+  resolution: "sass@npm:1.48.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 7041ae5532b2a5dec10fe10d66cf2d1fc52f3f80ecedb5a6ffffdc5545eb996c12d3e749131778a765ada445f2a47671ab1bf13bf736cbbf9e71f29c592cb41d
+  checksum: 0fa57d17a9ac9eff914719a3c9cf986cb81c6714cc09214ace65e9f1af0bd47f750793dfc39bbd1b199c9b8c12b1e4aba669ba08dfbd649cfb581c55d20a839f
   languageName: node
   linkType: hard
 
