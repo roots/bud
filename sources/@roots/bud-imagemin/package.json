@@ -1,0 +1,62 @@
+{
+  "name": "@roots/bud-imagemin",
+  "version": "5.0.0",
+  "description": "Image minification for `@roots/bud` projects",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-imagemin"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "imagemin"
+  ],
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
+    "@types/jest": "27.4.0",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "jest": "27.4.7",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@squoosh/lib": "^0.4.0",
+    "helpful-decorators": "^2.1.0",
+    "image-minimizer-webpack-plugin": "^3.0.0",
+    "tslib": "^2.3.1"
+  }
+}

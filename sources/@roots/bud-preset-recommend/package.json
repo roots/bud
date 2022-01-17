@@ -1,0 +1,75 @@
+{
+  "name": "@roots/bud-preset-recommend",
+  "version": "5.0.0",
+  "description": "Recommended preset for Bud projects",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-preset-recommend"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "catgofire",
+      "url": "https://github.com/catgofire"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-preset"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/",
+    "index.d.ts"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "bud": {
+    "type": "extension",
+    "peers": [
+      "@roots/bud-babel",
+      "@roots/bud-entrypoints",
+      "@roots/bud-eslint",
+      "@roots/bud-postcss"
+    ]
+  },
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19"
+  },
+  "dependencies": {
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "tslib": "2.3.1"
+  }
+}

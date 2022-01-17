@@ -7,13 +7,13 @@ describe('repo', function () {
   let packageRoots
 
   beforeAll(async () => {
-    packageRoots = await globby('packages/@roots/*', {
+    packageRoots = await globby('sources/@roots/*', {
       absolute: true,
       onlyDirectories: true,
     })
   })
 
-  it('publish check: */lib/cjs/index.js', async () => {
+  it.skip('publish check: */lib/cjs/index.js', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
@@ -29,7 +29,7 @@ describe('repo', function () {
     }
   })
 
-  it('publish check: */lib/esm/index.js', async () => {
+  it.skip('publish check: */lib/esm/index.js', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
@@ -45,7 +45,7 @@ describe('repo', function () {
     }
   })
 
-  it('publish check: */types/index.d.ts', async () => {
+  it.skip('publish check: */types/index.d.ts', async () => {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
@@ -133,7 +133,7 @@ describe('repo', function () {
     }
   })
 
-  it('root: project references', async () => {
+  it.skip('root: project references', async () => {
     try {
       const tsConfCjsString = await readFile(
         process.cwd().concat('/config/tsconfig.json'),
@@ -144,7 +144,7 @@ describe('repo', function () {
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
-            .split(`packages/`)
+            .split(`sources/`)
             .pop()
             .concat('/tsconfig.json')
 
@@ -167,7 +167,7 @@ describe('repo', function () {
       await Promise.all(
         packageRoots.map(async pkg => {
           const name = pkg
-            .split(`packages/`)
+            .split(`sources/`)
             .pop()
             .concat('/tsconfig-esm.json')
 

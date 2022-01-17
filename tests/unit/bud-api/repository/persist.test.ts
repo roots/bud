@@ -52,9 +52,6 @@ describe('bud.persist', function () {
     bud.persist('memory')
     await bud.api.processQueue()
 
-    const value = await bud.hooks.filterAsync('build')
-    console.log(value)
-
     expect(bud.hooks.filter('build.cache').type).toBe('memory')
   })
 })

@@ -2,6 +2,7 @@
 const execa = require('execa')
 const {readFile} = require('fs-extra')
 const json5 = require('json5')
+const {join} = require('path/posix')
 
 /**
  * This class is used to represent an example project being used
@@ -29,8 +30,6 @@ class Project {
 
   mode = 'production'
 
-  dir = ''
-
   dist = 'dist'
 
   storage = '.budfiles'
@@ -48,12 +47,7 @@ class Project {
   packageJson = {}
 
   constructor(options) {
-    Object.assign(this, {
-      ...options,
-      dir: options.dir
-        ? process.cwd().concat(`/${options.dir}`)
-        : process.cwd(),
-    })
+    Object.assign(this, {options})
 
     this.setup = this.setup.bind(this)
     this.projectPath = this.projectPath.bind(this)
@@ -75,6 +69,12 @@ class Project {
     await this.setModules()
     await this.setEntrypoints()
     await this.setWebpackConfig()
+
+    return this
+  }
+
+  get dir() {
+    return join(`/roots/examples/${this.options.with}`, this.options.name)
   }
 
   projectPath(file) {
@@ -91,9 +91,7 @@ class Project {
   }
 
   async setPackageJson() {
-    let packageJson = await this.readJson(
-      this.projectPath('package.json'),
-    )
+    let packageJson = await this.readJson(this.projectPath('package.json'))
 
     Object.assign(this, {packageJson})
   }
@@ -151,9 +149,7 @@ class Project {
   async setWebpackConfig() {
     try {
       const webpackConfig = await readFile(
-        this.projectPath(
-          `${this.storage}/bud/webpack.config.js`,
-        ),
+        this.projectPath(`${this.storage}/bud/webpack.config.js`),
         'utf8',
       )
 

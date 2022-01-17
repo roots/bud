@@ -22,7 +22,7 @@ const packages = async (user: any) => {
     return []
   }
 
-  const list = await globby(`packages/@roots/*`, {
+  const list = await globby(`sources/@roots/*`, {
     absolute: false,
     cwd: process.cwd(),
     onlyFiles: false,
@@ -45,7 +45,7 @@ const packages = async (user: any) => {
           res.stdout.includes(user.login) ||
           res.stdout.includes(user.name)
         ) {
-          return pkg.replace('packages/', '')
+          return pkg.replace('sources/', '')
         } else {
           return false
         }
@@ -83,7 +83,7 @@ const curryRequestCb =
 
       if (userData.contributions.length > 0) {
         userData.contributions.map(pkgPath => {
-          const filePath = `${process.cwd()}/packages/${pkgPath}/package.json`
+          const filePath = `${process.cwd()}/sources/${pkgPath}/package.json`
 
           const pkgJson = readJsonSync(filePath)
 

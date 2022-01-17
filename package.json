@@ -12,19 +12,19 @@
   "engines": {
     "node": "^16.3.0"
   },
-  "typings": "./global.d.ts",
   "volta": {
     "node": "16.13.2"
   },
   "workspaces": {
     "packages": [
-      "examples/*",
-      "tests/util/project",
-      "packages/@roots/*",
-      "packages/base",
-      "site",
-      "dev/@bud"
+      "sources/@roots/*",
+      "sources/docs"
     ]
+  },
+  "scripts": {
+    "g:profile": "yarn run profile:cjs && yarn run profile:esm",
+    "g:profile:cjs": "mkdir -p ./profiles/cjs && tsc --extendedDiagnostics --generateCpuProfile ./profiles/cjs/profile.cpuprofile --generateTrace ./profiles/cjs -p ./tsconfig.json | tee ./profiles/cjs/build.log",
+    "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.14.1",
@@ -49,7 +49,6 @@
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
-    "esbuild": "0.14.11",
     "eslint": "8.6.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-react": "7.28.0",
@@ -66,6 +65,7 @@
     "json5": "2.2.0",
     "lodash": "4.17.21",
     "npm-auth-to-token": "1.0.0",
+    "npm-run-all": "4.1.5",
     "npm-run-path": "5.0.1",
     "prettier": "2.5.1",
     "pretty-format": "27.4.6",

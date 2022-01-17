@@ -67,7 +67,7 @@ describe('bud.project', function () {
     expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
-      expect.stringContaining('/packages'),
+      expect.stringContaining('/sources'),
     ])
   })
 })

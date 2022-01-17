@@ -14,10 +14,10 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-typescript": "workspace:*",
-    "eslint": "^7 || ^8.0.0",
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-typescript": "latest",
+    "eslint": "8.0.0",
     "typescript": "^4"
   }
 }

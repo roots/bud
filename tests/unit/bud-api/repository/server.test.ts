@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 import {join} from 'path'
 
 describe('bud.serve', function () {
@@ -6,14 +6,12 @@ describe('bud.serve', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-        location: {
-          project: join(process.cwd(), 'examples/sage'),
-        },
+      features: {
+        dashboard: false,
+        log: false,
+      },
+      location: {
+        project: join(process.cwd(), 'examples/sage'),
       },
     })
   })

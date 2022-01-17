@@ -1,0 +1,70 @@
+{
+  "name": "@roots/bud-prettier",
+  "version": "5.0.0",
+  "description": "Adds prettier support to Bud",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-prettier"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "prettier"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "devDependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
+    "@types/jest": "27.4.0",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "jest": "27.4.7"
+  },
+  "dependencies": {
+    "autobind-decorator": "2.4.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.5.1",
+    "tslib": "2.3.1"
+  },
+  "peerDependencies": {
+    "prettier": "2.5.1"
+  }
+}

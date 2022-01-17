@@ -14,9 +14,8 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-sass": "workspace:*",
-    "@types/sass": "^1",
+    "@roots/bud": "latest",
+    "@roots/bud-sass": "latest",
     "postcss": "8.4.5",
     "postcss-import": "14.0.2",
     "postcss-nested": "5.0.6",
