@@ -8,15 +8,14 @@ import {Bud} from '@roots/bud'
  *
  * @public
  */
-export async function eventBuildMakeBeforeDevelopment(app: Bud) {
-  app.extensions
-    .get('@roots/bud-entrypoints')
-    .setOption(
-      'publicPath',
-      `${app.store.get('server.dev.url')}${app.hooks.filter(
-        'build.output.publicPath',
-      )}`,
-    )
+export async function eventBuildMakeBeforeDevelopment(this: Bud) {
+  const devUrl = `${
+    this.store.get('server.dev.url').origin
+  }${this.hooks.filter('build.output.publicPath')}`
 
-  return app
+  this.extensions
+    .get('@roots/bud-entrypoints')
+    .setOption('publicPath', devUrl)
+
+  return this
 }
