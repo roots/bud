@@ -7,9 +7,9 @@ import type {Signale} from '@roots/bud-support'
  * @internal
  */
 export function configure(app: Framework): void {
-  app.extensions
-    .get('@roots/bud-postcss')
-    .setOption('syntax', 'postcss-scss')
+  app.hooks.on('extension.@roots/bud-postcss.options', options => ({
+    syntax: 'postcss-scss',
+  }))
 }
 
 /**

@@ -123,7 +123,6 @@ export const font = (app: Framework) =>
           ? `fonts/${app.store.get('hashFormat')}[ext]`
           : `fonts/${app.store.get('fileFormat')}[ext]`,
     }))
-    .setParser({dataUrlCondition: {maxSize: 50000}})
 
 /**
  * Returns {@link Rule} for `.jsonc` handling

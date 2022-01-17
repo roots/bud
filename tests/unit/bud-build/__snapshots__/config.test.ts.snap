@@ -77,11 +77,6 @@ Object {
     "filename": "fonts/[name][ext]",
   },
   "include": StringContaining "src",
-  "parser": Object {
-    "dataUrlCondition": Object {
-      "maxSize": 50000,
-    },
-  },
   "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
   "type": "asset",
 }

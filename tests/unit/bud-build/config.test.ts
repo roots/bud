@@ -14,12 +14,8 @@ describe('bud.build.config', function () {
   })
 
   it(`doesn't include deprecated properties`, () => {
-    expect(bud.build.config.hasOwnProperty('devServer')).toBe(
-      false,
-    )
-    expect(bud.build.config.hasOwnProperty('unsafeCache')).toBe(
-      false,
-    )
+    expect(bud.build.config.hasOwnProperty('devServer')).toBe(false)
+    expect(bud.build.config.hasOwnProperty('unsafeCache')).toBe(false)
   })
 
   it('has expected bail default', () => {
@@ -73,15 +69,13 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect(
-      (bud.build.config.optimization as any).emitOnErrors,
-    ).toEqual(false)
+    expect((bud.build.config.optimization as any).emitOnErrors).toEqual(
+      false,
+    )
   })
 
   it('has expected optimization.runtimeChunk default', () => {
-    expect(bud.build.config.optimization.runtimeChunk).toEqual(
-      false,
-    )
+    expect(bud.build.config.optimization.runtimeChunk).toEqual(false)
   })
 
   it('has expected profile default', () => {
@@ -167,18 +161,14 @@ describe('bud.build.config', function () {
           ),
         },
         {
-          loader: expect.stringContaining(
-            'css-loader/dist/cjs.js',
-          ),
+          loader: expect.stringContaining('css-loader/dist/cjs.js'),
           options: {
             importLoaders: 1,
             sourceMap: false,
           },
         },
         {
-          loader: expect.stringContaining(
-            'postcss-loader/dist/cjs.js',
-          ),
+          loader: expect.stringContaining('postcss-loader/dist/cjs.js'),
           options: {
             postcssOptions: expect.any(Object),
           },
@@ -200,9 +190,7 @@ describe('bud.build.config', function () {
           ),
         },
         {
-          loader: expect.stringContaining(
-            'css-loader/dist/cjs.js',
-          ),
+          loader: expect.stringContaining('css-loader/dist/cjs.js'),
           options: {
             importLoaders: 1,
             modules: true,
@@ -257,11 +245,6 @@ describe('bud.build.config', function () {
       type: 'asset',
       include: expect.stringContaining('src'),
       generator: {filename: 'fonts/[name][ext]'},
-      parser: {
-        dataUrlCondition: {
-          maxSize: 50000,
-        },
-      },
     })
   })
 
@@ -295,9 +278,7 @@ describe('bud.build.config', function () {
       include: expect.stringContaining('src'),
       use: [
         {
-          loader: expect.stringContaining(
-            'html-loader/dist/cjs.js',
-          ),
+          loader: expect.stringContaining('html-loader/dist/cjs.js'),
         },
       ],
     })
@@ -305,8 +286,7 @@ describe('bud.build.config', function () {
 
   it('has expected default csv rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule)
-        .oneOf[10],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
       include: expect.stringContaining('src'),
@@ -320,16 +300,13 @@ describe('bud.build.config', function () {
 
   it('has expected default xml rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule)
-        .oneOf[11],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
       include: expect.stringContaining('src'),
       use: [
         {
-          loader: expect.stringContaining(
-            '/xml-loader/index.js',
-          ),
+          loader: expect.stringContaining('/xml-loader/index.js'),
         },
       ],
     })
@@ -337,8 +314,7 @@ describe('bud.build.config', function () {
 
   it('has expected default toml rule', () => {
     expect(
-      (bud.build.config.module.rules[1] as RuleSetRule)
-        .oneOf[12],
+      (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
     ).toMatchSnapshot({
       include: expect.stringContaining('src'),
       parser: {

@@ -12,16 +12,18 @@ import eventCompilerDone from './hooks/event.compiler.done'
 const inDevelopment = (app: Framework) => {
   app.devtool()
 
-  app.hooks
-    /** Use full URL for development */
-    .async('event.build.make.before', eventBuildMakeBeforeDevelopment)
+  app.hooks /** Use full URL for development */
+    .async(
+      'event.build.make.before',
+      eventBuildMakeBeforeDevelopment.bind(app),
+    )
     /** Write hmr.json after compilation */
     .hooks.async<'event.compiler.done'>(
       'event.compiler.done',
       eventCompilerDone(app),
     )
     /** rm hmr.json when app is closed */
-    .hooks.on('event.app.close', eventAppClose(app))
+    .hooks.on('event.app.close', eventAppClose.bind(app))
 }
 
 /**
@@ -34,7 +36,7 @@ const inProduction = (app: Framework) => {
 
   app.hooks.async(
     'event.build.make.before',
-    eventBuildMakeBeforeProduction,
+    eventBuildMakeBeforeProduction.bind(app),
   )
 }
 
