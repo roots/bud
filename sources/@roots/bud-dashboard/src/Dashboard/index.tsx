@@ -1,7 +1,4 @@
-import {
-  Dashboard as Contract,
-  Framework,
-} from '@roots/bud-framework'
+import {Dashboard as Contract, Framework} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, chalk, once} from '@roots/bud-support'
 import React from 'react'
@@ -114,9 +111,7 @@ export class Dashboard extends Service implements Contract {
     )
 
     setTimeout(() => {
-      this.instance.rerender(
-        render(<Dashboard application={this.app} />),
-      )
+      this.instance.rerender(render(<Dashboard application={this.app} />))
     }, 500)
   }
 }

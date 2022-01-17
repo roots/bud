@@ -21,9 +21,7 @@ export function configure(app: Framework): void {
  * @internal
  */
 export function verify(app: Framework, logger: Signale): void {
-  const options = app.hooks.filter(
-    'extension.@roots/bud-postcss.options',
-  )
+  const options = app.hooks.filter('extension.@roots/bud-postcss.options')
 
   if (options?.syntax == 'postcss-scss') {
     logger.success('postcss configured to handle scss syntax')

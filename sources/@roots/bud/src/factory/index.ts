@@ -14,9 +14,7 @@ import {services} from '../services'
  *
  * @public
  */
-export async function factory(
-  overrides?: Bud.Options,
-): Promise<Bud> {
+export async function factory(overrides?: Bud.Options): Promise<Bud> {
   const options: Bud.Options = {
     ...(overrides ?? {}),
     services: {
