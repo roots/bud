@@ -1,9 +1,8 @@
 #!/bin/sh
 
 echo removing public packages
-rm -rf $ROOTS_PATH/verdaccio/@roots
+rm -rf /roots/verdaccio/@roots
 
 echo copying files
-cp -rf $BUD_PATH/examples $ROOTS_PATH/examples/yarn
-cp -rf $BUD_PATH/examples $ROOTS_PATH/examples/npm
-
+cp -rf /roots/bud/examples /roots/examples/yarn
+cp -rf /roots/bud/examples /roots/examples/npm

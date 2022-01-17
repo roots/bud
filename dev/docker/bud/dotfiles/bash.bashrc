@@ -164,8 +164,7 @@ export PS1="\[\e[35m\]\`parse_git_branch\`\[\e[m\] \[\e[36m\]\w\[\e[m\]  "
 [ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd
 
 function budfn {
-  cd $BUD_PATH && yarn @bud $@
+  cd /roots/bud && yarn @bud $@
 }
 
 alias @bud=budfn
-

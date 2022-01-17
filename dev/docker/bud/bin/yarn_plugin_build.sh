@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $BUD_PATH/sources/yarn-plugin-bud
+cd /roots/bud/sources/yarn-plugin-bud
 
 yarn
 yarn build

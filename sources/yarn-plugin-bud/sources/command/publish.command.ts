@@ -31,9 +31,7 @@ export class Publish extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    ['@bud', 'publish'],
-  ]
+  public static paths: CommandClass['paths'] = [['@bud', 'publish']]
 
   /**
    * Command usage

@@ -26,11 +26,9 @@ services:
     user: root
     command: sh ./dev/docker/shared/up.sh
     environment:
-      - BUD_ENV=dev
-      - BUD_PROXY_REGISTRY=http://verdaccio:4873
-      - ROOTS_PATH=/roots
-      - BUD_PATH=/roots/bud
-      - YARN_RC_FILENAME=config/yarnrc.dev.yml
+      - BUD_ENV=${BUD_ENV:-dev}
+      - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
+      - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
       - ./:/roots/bud
       - verdaccio_storage:/roots/verdaccio

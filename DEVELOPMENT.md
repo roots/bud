@@ -2,7 +2,7 @@
 
 This guide is a work-in-progress
 
-#### Table Of Contents
+## Table Of Contents
 
 - [Requirements](#requirements)
 - [Getting started](#getting-started)

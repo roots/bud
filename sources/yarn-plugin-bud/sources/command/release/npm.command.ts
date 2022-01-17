@@ -30,9 +30,7 @@ export class ReleaseNpm extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `release`, `npm`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `release`, `npm`]]
 
   /**
    * Command usage
@@ -44,24 +42,11 @@ export class ReleaseNpm extends Command {
     description: `do an npm release. if no token is passed, the env NPM_AUTH_TOKEN will be used.`,
     examples: [
       [
-        `yarn @bud release npm --version x.y.z --tag latest --token <token>`,
+        `yarn @bud release npm --version x.y.z --tag latest`,
         `Bump packages to x.y.z and publish to npm.`,
       ],
     ],
   }
-
-  /**
-   * --token flag
-   *
-   * @internal
-   */
-  public token = Option.String(
-    '-t,--token',
-    process.env.NPM_AUTH_TOKEN,
-    {
-      description: 'token',
-    },
-  )
 
   /**
    * --version flag
@@ -122,8 +107,7 @@ export class ReleaseNpm extends Command {
    */
   public async executeStep(step: EXECUTION_STEPS) {
     try {
-      if (!this[step])
-        throw new Error(`${step} is not implemented`)
+      if (!this[step]) throw new Error(`${step} is not implemented`)
 
       await this[`${step}`]()
     } catch (error) {
@@ -145,20 +129,7 @@ export class ReleaseNpm extends Command {
       this.version = version
     }
 
-    await this.checkHasToken()
     await this.checkTagIsValid()
-  }
-
-  /**
-   * check has token
-   *
-   * @internal
-   */
-  public async checkHasToken() {
-    if (!this.token)
-      throw new Error(
-        `--token flag or NPM_AUTH_TOKEN env variable is required`,
-      )
   }
 
   /**
@@ -168,16 +139,12 @@ export class ReleaseNpm extends Command {
    */
   public async checkTagIsValid() {
     if (!this.tag) {
-      const [prerelease, iteration] = parse(
-        this.version,
-      ).prerelease
+      const [prerelease, iteration] = parse(this.version).prerelease
       this.tag = `${prerelease ?? 'latest'}`
     }
 
     if (this.tag !== 'latest' && this.tag !== 'next') {
-      throw new Error(
-        `--tag [${this.tag}] must be 'latest' or 'next'`,
-      )
+      throw new Error(`--tag [${this.tag}] must be 'latest' or 'next'`)
     }
   }
 
@@ -191,7 +158,7 @@ export class ReleaseNpm extends Command {
    * @internal
    */
   public async bump() {
-    await this.$(`yarn @bud clean --all`)
+    await this.$(`git clean -fxd`)
     await this.$(`git checkout -b v${this.version}`)
     await this.$(`yarn install --immutable`)
     await this.$(`yarn @bud version ${this.version}`)
@@ -210,7 +177,7 @@ export class ReleaseNpm extends Command {
    * @internal
    */
   public async make() {
-    await this.$(`yarn @bud clean --all`)
+    await this.$(`git clean -fxd`)
     await this.$(`yarn @bud make`)
   }
 
@@ -224,9 +191,7 @@ export class ReleaseNpm extends Command {
    */
   public async push() {
     /* Commit, tag and push tags */
-    await this.$(
-      `git commit -am 'chore: Bump @roots/bud to v${this.version}`,
-    )
+    await this.$(`git commit -am 'chore: Bump @roots/bud to v${this.version}`)
     await this.$(`git tag v${this.version}`)
     await this.$(`git push --tags`)
 
@@ -243,9 +208,7 @@ export class ReleaseNpm extends Command {
    *
    * @internal
    */
-  public async prepublish() {
-    await this.$(`yarn @bud auth npm --token ${this.token}`)
-  }
+  public async prepublish() {}
 
   /**
    * npm publish
@@ -267,7 +230,5 @@ export class ReleaseNpm extends Command {
    *
    * @internal
    */
-  public async postpublish() {
-    await this.$(`yarn @bud auth reset`)
-  }
+  public async postpublish() {}
 }

@@ -46,6 +46,4 @@ jobs:
 
       - name: Release
         run: >
-          yarn @bud release
-          --tag next
-          --token ${{secrets.NPM_AUTH_TOKEN}}
+          yarn @bud release --tag next

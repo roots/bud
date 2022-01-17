@@ -21,9 +21,7 @@ export class ReleaseProxy extends ReleaseNpm {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `release`, `proxy`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `release`, `proxy`]]
 
   /**
    * Command usage
@@ -94,10 +92,7 @@ export class ReleaseProxy extends ReleaseNpm {
 
     verdaccioDb.list = []
 
-    await writeJson(
-      `${ROOTS_PATH}/verdaccio/.verdaccio-db.json`,
-      verdaccioDb,
-    )
+    await writeJson(`${ROOTS_PATH}/verdaccio/.verdaccio-db.json`, verdaccioDb)
 
     await remove(`${ROOTS_PATH}/verdaccio/@roots`)
   }
