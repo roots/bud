@@ -39,6 +39,6 @@ jobs:
 
       - name: Release
         env:
-          NPM_AUTH_TOKEN: {{ secrets.NODE_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           YARN_RC_FILENAME: ".yarnrc.yml"
-        run: yarn @bud release --tag latest --version {{ inputs.version }}
+        run: yarn @bud release --tag latest --version ${{ inputs.version }}
