@@ -1,0 +1,63 @@
+{
+  "name": "@roots/critical-css-webpack-plugin",
+  "version": "5.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-wordpress-manifests"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "critical-css",
+    "webpack"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "^0.2.2",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "@types/vinyl": "2.0.6",
+    "critical": "^4.0.1"
+  },
+  "dependencies": {
+    "autobind-decorator": "^2.4.0",
+    "lodash": "^4.17.21",
+    "safe-require": "^1.0.4",
+    "tslib": "^2.3.1",
+    "vinyl": "^2.2.1",
+    "webpack": "^5.64.2"
+  },
+  "peerDependencies": {
+    "critical": "^4.0.1"
+  }
+}

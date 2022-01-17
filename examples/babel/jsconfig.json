@@ -4,8 +4,8 @@
       "@roots/bud",
       "@roots/bud-api",
       "@roots/bud-babel",
-      "@roots/bud-framework",
-    ],
+      "@roots/bud-framework"
+    ]
   },
   "typeAcquisition": {
     "enable": true

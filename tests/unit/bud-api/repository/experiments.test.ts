@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 import {join} from 'path'
 
 describe('bud.experiments', function () {
@@ -6,17 +6,14 @@ describe('bud.experiments', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      config: {
-        features: {
-          dashboard: false,
-          log: false,
-        },
-        location: {
-          project: join(process.cwd(), 'examples/sage'),
-        },
+      features: {
+        dashboard: false,
+        log: false,
+      },
+      location: {
+        project: join(process.cwd(), 'examples/sage'),
       },
     })
-    bud.logger.instance.scope('bud.experiments test')
   })
 
   it('is a function', () => {

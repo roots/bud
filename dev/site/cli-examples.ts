@@ -38,7 +38,7 @@ const generateMarkdown = async (
 
   const path = join(
     process.cwd(),
-    'site/src/components/cli-output',
+    'sources/docs/src/components/cli-output',
     name,
   )
 

@@ -1,47 +1,47 @@
 # secret
 .env
 
-# artifacts
+cache/yarn/**/*
+cache/global/**/*
+cache/install-state.gz
+!cache/yarn/.gitkeep
+!cache/verdaccio/.gitkeep
+
 *.log
+
 **/lib
-*.tsbuildinfo
-/.npmrc
-/packages/@roots/*/types
-
-# verdaccio
-/dev/build/verdaccio/conf/htpasswd
-/dev/build/verdaccio/plugins/*
-!/dev/build/verdaccio/plugins/.gitkeep
-/dev/build/verdaccio/storage/*
-!/dev/build/verdaccio/storage/.gitkeep
-
-# Docusaurus
-/site/.docusaurus
-/site/.cache-loader
-/site/build
-/site/.netlify
-/site/src/api/**/*.*
-
-# jest
+**/*.tsbuildinfo
+**/profiles
+**/.budfiles
 coverage
 
 # pacman
-node_modules
-/config/yarn/*
-!/config/yarn/patches
-!/config/yarn/releases
-!/config/yarn/plugins
-!/config/yarn/sdks
-!/config/yarn/versions
-!/config/yarn/@bud
-!/config/yarn/yarnrc.yml
+/dev/yarn/*
+!/dev/yarn/patches
+!/dev/yarn/releases
+!/dev/yarn/plugins
+!/dev/yarn/sdks
+!/dev/yarn/versions
 .pnp.*
+/.npmrc
+node_modules
 
 # bud
-**/.budfiles
 
-# Profiles
-**/profiles
+.netlify
+.docusaurus
+.cache-loader
 
-# Netlify
-**/.netlify
+# verdaccio
+/verdaccio
+
+# Sources
+/sources/@roots/*/types
+
+# Docs
+/sources/docs/build
+/sources/docs/src/api/**/*.*
+
+# Examples
+/examples/*/dist
+/examples/*/.budfiles

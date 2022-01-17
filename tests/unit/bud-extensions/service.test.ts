@@ -1,9 +1,10 @@
-import {Bud, factory} from '@roots/bud'
 import {Extensions} from '@roots/bud-extensions'
 import {Extension, Modules} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
-describe.skip('Extensions', function () {
+import {Bud, factory} from '../../util/bud'
+
+describe('Extensions', function () {
   let bud: Bud = null
 
   let mockWebpackPlugin: WebpackPluginInstance = {
@@ -38,7 +39,7 @@ describe.skip('Extensions', function () {
 
     extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.name).module).toBe(
+    expect(extensions.get(mockModule.name)._module).toEqual(
       mockModule,
     )
   })

@@ -8,4 +8,4 @@
 examples/*/src/**/*
 examples/*/bud.config.*
 dev/**/*
-site/**/*
+sources/site/**/*

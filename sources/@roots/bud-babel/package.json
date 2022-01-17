@@ -1,0 +1,71 @@
+{
+  "name": "@roots/bud-babel",
+  "version": "5.0.0",
+  "description": "Adds babel support to @roots/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-babel"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "babel"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "eslint-config/",
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js"
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@skypack/package-check": "^0.2.2",
+    "@types/fs-extra": "9.0.13",
+    "@types/lodash": "4.14.178",
+    "@types/node": "16.11.19",
+    "webpack": "5.65.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "tslib": "^2.3.1"
+  }
+}

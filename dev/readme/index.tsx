@@ -28,7 +28,7 @@ const getRepoPath = (...filePath: string[]): string =>
 const getPackagePath = (
   packageName: string,
   filePath: string,
-): string => getRepoPath(`packages`, packageName, filePath)
+): string => getRepoPath(`sources`, packageName, filePath)
 
 /**
  * Write a README.md file from a template

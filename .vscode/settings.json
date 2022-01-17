@@ -1,5 +1,6 @@
 {
-  "eslint.nodePath": "config/yarn/sdks/eslint",
+  "eslint.nodePath": "dev/yarn/sdks/eslint",
+  "eslint.validate": ["javascript", "typescript"],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -9,12 +10,16 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
-  "prettier.prettierPath": "config/yarn/sdks/prettier/index.js",
+  "prettier.configPath": "config/prettier.config.js",
+  "prettier.ignorePath": "config/.prettierignore",
+  "prettier.prettierPath": "dev/yarn/sdks/prettier/index.js",
   "search.exclude": {
-    "config/yarn": true,
+    "dev/yarn": true,
     "coverage": true,
+    "verdaccio": true,
     "**/pnp.*": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/.budfiles/**/*": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,

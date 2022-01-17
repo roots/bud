@@ -1,4 +1,4 @@
-import {Bud, factory} from '@roots/bud'
+import {Bud, factory} from '../../../util/bud'
 
 describe.skip('bud.runtime', function () {
   let bud: Bud

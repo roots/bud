@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./resources",
+    "baseUrl": "./src",
     "paths": {
       "@scripts/*": ["scripts/*"],
       "@styles/*": ["styles/*"]
@@ -18,6 +18,6 @@
     "resolveJsonModule": true,
     "jsx": "preserve"
   },
-  "include": ["resources/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
 }
