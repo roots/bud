@@ -51,6 +51,10 @@ export class Test extends Command {
       [`@bud test unit`, `run unit tests`],
       [`@bud test integration`, `run integration tests`],
       [
+        `@bud test integration/sage`,
+        `run integration test on mock sage project`,
+      ],
+      [
         `@bud test integration --verbose`,
         `run integration tests with jest verbose flag`,
       ],
@@ -66,14 +70,16 @@ export class Test extends Command {
    *
    * @internal
    */
-  public match = Option.String({name: `test matcher`, required: true})
+  public match = Option.String({
+    name: `test matcher`,
+  })
 
   /**
    * Variadic arguments
    *
    * @internal
    */
-  public rest = Option.Rest({name: `jest params`})
+  public passthrough = Option.Proxy({name: `jest params`})
 
   /**
    * True if setup script should be run
@@ -81,7 +87,7 @@ export class Test extends Command {
    * @internal
    */
   public get shouldSetup(): boolean {
-    return this.match === 'integration' || this.match === 'all'
+    return this.match === 'all' || this.match.includes('integration')
   }
 
   /**
@@ -91,8 +97,9 @@ export class Test extends Command {
    * @internal
    */
   public get jestBase(): string {
-    const match = this.match === 'all' ? '' : this.match
-    return `yarn jest ${match} ${DEFAULT_JEST_FLAGS}`
+    return this.match === 'all'
+      ? `yarn jest ${DEFAULT_JEST_FLAGS}`
+      : `yarn jest ${this.match} ${DEFAULT_JEST_FLAGS}`
   }
 
   /**
@@ -106,9 +113,7 @@ export class Test extends Command {
       await Promise.all(INTEGRATION_TESTS.map(this.build))
     }
 
-    return await this.$(
-      this.rest.reduce((a, c) => `${a} ${c}`, this.jestBase),
-    )
+    return await this.$(this.withPassthrough(this.jestBase))
   }
 
   /**
