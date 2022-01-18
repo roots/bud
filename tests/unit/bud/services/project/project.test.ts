@@ -224,10 +224,12 @@ describe('bud.project', function () {
             "@roots/bud-postcss": "workspace:*",
             "@roots/bud-preset-recommend": "workspace:*",
             "@roots/bud-tailwindcss": "workspace:*",
+            "eslint": profile.modules['eslint'].version,
             "postcss": profile.modules['postcss'].version,
             "postcss-import": profile.modules['postcss-import'].version,
             "postcss-nested": profile.modules['postcss-nested'].version,
             "postcss-preset-env": profile.modules['postcss-preset-env'].version,
+            "tailwindcss": profile.modules['tailwindcss'].version,
           },
           "name": "root",
           "parent": null,
@@ -254,6 +256,10 @@ describe('bud.project', function () {
               "workspace:*",
             ],
             [
+              "eslint",
+              profile.modules['eslint'].version,
+            ],
+            [
               "postcss",
               profile.modules['postcss'].version,
             ],
@@ -269,6 +275,10 @@ describe('bud.project', function () {
               "postcss-preset-env",
               profile.modules['postcss-preset-env'].version,
             ],
+            [
+              "tailwindcss",
+              profile.modules['tailwindcss'].version,
+            ],
           ],
           "resolvable": true,
           "version": expect.any(String),
@@ -276,43 +286,45 @@ describe('bud.project', function () {
   })
 
     it('has a reference to @roots/bud-tailwindcss', () => {
-    expect(bud.project.get('modules.@roots/bud-tailwindcss')).toMatchSnapshot({
-          "bud": {
-            "peers": [
-              "@roots/bud-postcss",
-            ],
-            "type": "extension",
-          },
-          "name": "@roots/bud-tailwindcss",
-          "peerDependencies": {
-            "tailwindcss": profile.modules['tailwindcss'].version,
-          },
-          "requires": [
-            [
-              "tailwindcss",
-              profile.modules['tailwindcss'].version,
-            ],
-            [
-              "@roots/bud-postcss",
-              expect.any(String),
-            ],
+      expect(bud.project.get('modules.@roots/bud-tailwindcss')).toMatchSnapshot({
+        "bud": {
+          "peers": [
+            "@roots/bud-postcss",
           ],
-          "resolvable": true,
-          "version": expect.any(String),
-    })
+          "type": "extension",
+        },
+        "name": "@roots/bud-tailwindcss",
+        "peerDependencies": {
+          "tailwindcss": profile.modules['tailwindcss'].version,
+        },
+        "requires": [
+          [
+            "tailwindcss",
+            profile.modules['tailwindcss'].version,
+          ],
+          [
+            "@roots/bud-postcss",
+            expect.any(String),
+          ],
+        ],
+        "resolvable": true,
+        "version": expect.any(String),
+      })
     })
   
    it('has references to upstream modules', () => {
-    expect(bud.project.isUndefined('modules.eslint')).toBeFalsy()
-    expect(bud.project.isUndefined('modules.postcss')).toBeFalsy()
-    expect(bud.project.isUndefined('modules.postcss-import')).toBeFalsy()
-    expect(bud.project.isUndefined('modules.postcss-nested')).toBeFalsy()
-     expect(bud.project.isUndefined('modules.postcss-preset-env')).toBeFalsy()
-    expect(bud.project.isUndefined('modules.tailwindcss')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.eslint')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.postcss')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.postcss-import')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.postcss-nested')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.postcss-preset-env')).toBeFalsy()
+      expect(bud.project.isUndefined('modules.tailwindcss')).toBeFalsy()
    })
   
-     it('matches expected adjacency array', () => {
-    expect(bud.project.get('adjacents')).toMatchSnapshot()
+  it('matches expected adjacency array', () => {
+    bud.project.get('adjacents').forEach(adjacent => {
+      expect(adjacent.name).toMatchSnapshot()
+    })
   })
 
   it('has hasPeerDependency function', () => {
@@ -330,8 +342,6 @@ describe('bud.project', function () {
       expect.stringContaining('project/package.json'),
       expect.stringContaining('project/bud.config.js'),
     ])
-
-    await bud.build.make()
 
     expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
