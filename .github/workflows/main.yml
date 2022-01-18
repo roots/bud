@@ -58,29 +58,5 @@ jobs:
       - name: Proxy publish packages
         run: 'docker compose run bud yarn @bud release proxy --tag latest'
 
-      - name: 'babel integration: yarn install'
-        run: 'docker compose run bud yarn @bud example install babel --with yarn'
-
-      - name: 'babel integration: yarn build'
-        run: 'docker compose run bud yarn @bud example build babel --with yarn'
-
-      - name: 'babel integration: npm install'
-        run: 'docker compose run bud yarn @bud example install babel --with npm'
-
-      - name: 'babel integration: npm build'
-        run: 'docker compose run bud yarn @bud example build babel --with npm'
-
-      - name: 'sage integration: yarn install'
-        run: 'docker compose run bud yarn @bud example install sage --with yarn'
-
-      - name: 'sage integration: yarn build'
-        run: 'docker compose run bud yarn @bud example build sage --with yarn'
-
-      - name: 'sage integration: npm install'
-        run: 'docker compose run bud yarn @bud example install sage --with npm'
-
-      - name: 'sage integration: npm build'
-        run: 'docker compose run bud yarn @bud example build sage --with npm'
-
       - name: Test
-        run: 'docker compose run bud yarn @bud test --coverage --maxWorkers=50%'
+        run: 'docker compose run bud yarn @bud test all --coverage --maxWorkers=50%'
