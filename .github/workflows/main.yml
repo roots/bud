@@ -59,4 +59,4 @@ jobs:
         run: 'docker compose run bud yarn @bud release proxy --tag latest'
 
       - name: Test
-        run: 'docker compose run bud yarn @bud test --coverage --maxWorkers=50%'
+        run: 'docker compose run bud yarn @bud test all --coverage --maxWorkers=50%'
