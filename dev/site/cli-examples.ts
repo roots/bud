@@ -4,25 +4,26 @@ import {join} from 'path'
 
 const main = async () => {
   await Promise.all([
-    generateMarkdown(['bud', '--help']),
-    generateMarkdown(['bud', 'install', '--help']),
-    generateMarkdown(['bud', 'dev', '--help']),
-    generateMarkdown(['bud', 'doctor', '--help']),
-    generateMarkdown(['bud', 'clean', '--help']),
-    generateMarkdown(['bud', 'build', '--help']),
+    generateMarkdown(['--help']),
+    generateMarkdown(['install', '--help']),
+    generateMarkdown(['dev', '--help']),
+    generateMarkdown(['doctor', '--help']),
+    generateMarkdown(['clean', '--help']),
+    generateMarkdown(['build', '--help']),
   ])
 }
 
 /**
  * Write terminal output to docusaurus mdx
  */
-const generateMarkdown = async (
-  args: string[],
-  dir = 'babel',
-) => {
-  const {stdout} = await execa('yarn', args, {
-    cwd: join(process.cwd(), 'examples', dir),
-  })
+const generateMarkdown = async (args: string[], dir = 'babel') => {
+  const {stdout} = await execa(
+    'node',
+    [`/roots/examples/yarn/${dir}/node_modules/.bin/bud`, ...args],
+    {
+      cwd: `/roots/examples/yarn/${dir}`,
+    },
+  )
 
   const content = stdout
     .replaceAll(/^\n/g, '') // remove leading newlines
@@ -31,7 +32,6 @@ const generateMarkdown = async (
 
   const name = args
     .join('.')
-    .replaceAll(/^yarn\sbud\s/g, '') // remove `yarn bud`
     .replaceAll(/\--/g, '') // replace `--` with `.`
     .replace(/^\./, '') // remove leading `.`
     .concat('.md') // add .md extension

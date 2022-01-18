@@ -1,4 +1,3 @@
-```sh
 install peer dependencies
 
 USAGE
@@ -12,9 +11,8 @@ FLAGS
                            debug level.
                            <options: v|vv|vvv|vvvv>
   --[no-]log.min           remove formatting from logged objects
-  --log.secret=<value>...  [default:
-                           /Users/kellymears/code/roots/dev/bud/examples/babel]
-                           hide matching strings from logging output
+  --log.secret=<value>...  [default: /roots/examples/yarn/babel] hide matching
+                           strings from logging output
   --version                Show CLI version.
 
 DESCRIPTION
@@ -25,4 +23,3 @@ ALIASES
 
 EXAMPLES
   $ bud install
-```
