@@ -1,9 +1,21 @@
 import {CommandClass, Option} from 'clipanion'
-
+import {bind} from 'helpful-decorators'
+import {
+  EXAMPLES_DIR,
+  INTEGRATION_TESTS,
+  REGISTRY_PROXY,
+} from '../constants'
 import {Command} from './base.command'
 
 /**
- * Test command class
+ * Default jest flags
+ *
+ * @internal
+ */
+const DEFAULT_JEST_FLAGS = `--config ./config/jest.config.js`
+
+/**
+ * Run tests
  *
  * @internal
  */
@@ -13,7 +25,7 @@ export class Test extends Command {
    *
    * @internal
    */
-  public name = 'test'
+  public name = `test`
 
   /**
    * Command paths
@@ -29,21 +41,59 @@ export class Test extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `test files with jest`,
+    description: `run unit and integration tests`,
+    details: `
+    The first positional argument is required and should be one of: 'all', 'unit', or 'integration', depending on what you want to run.
+    You may add any jest flags to the command following that positional.
+  `,
     examples: [
-      [`test`, `yarn @bud test`],
-      [`update snapshots`, `yarn @bud test --updateSnapshot`],
+      [`@bud test all`, `run all tests`],
+      [`@bud test unit`, `run unit tests`],
+      [`@bud test integration`, `run integration tests`],
+      [
+        `@bud test integration --verbose`,
+        `run integration tests with jest verbose flag`,
+      ],
+      [
+        `@bud test integration --coverage --verbose`,
+        `run integration tests with jest coverage and verbose flags`,
+      ],
     ],
   }
 
   /**
-   * Passthrough args
+   * Match
    *
    * @internal
    */
-  public passthrough = Option.Proxy({
-    name: `jest options`,
-  })
+  public match = Option.String({name: `test matcher`, required: true})
+
+  /**
+   * Variadic arguments
+   *
+   * @internal
+   */
+  public rest = Option.Rest({name: `jest params`})
+
+  /**
+   * True if setup script should be run
+   *
+   * @internal
+   */
+  public get shouldSetup(): boolean {
+    return this.match === 'integration' || this.match === 'all'
+  }
+
+  /**
+   * Returns base jest command with match argument and
+   * default flags applied
+   *
+   * @internal
+   */
+  public get jestBase(): string {
+    const match = this.match === 'all' ? '' : this.match
+    return `yarn jest ${match} ${DEFAULT_JEST_FLAGS}`
+  }
 
   /**
    * Execute command
@@ -51,10 +101,47 @@ export class Test extends Command {
    * @internal
    */
   public async execute() {
+    if (this.shouldSetup) {
+      await Promise.all(INTEGRATION_TESTS.map(this.install))
+      await Promise.all(INTEGRATION_TESTS.map(this.build))
+    }
+
+    return await this.$(
+      this.rest.reduce((a, c) => `${a} ${c}`, this.jestBase),
+    )
+  }
+
+  /**
+   * Install an integration test
+   *
+   * @param example
+   *
+   * @internal
+   */
+  @bind
+  public async install(example: typeof INTEGRATION_TESTS & string) {
     await this.$(
-      this.withPassthrough(
-        `yarn jest --config ./config/jest.config.js`,
-      ),
+      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
+    )
+    await this.$(
+      `cd ${EXAMPLES_DIR}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
+    )
+  }
+
+  /**
+   * Build an integration test
+   *
+   * @param example
+   *
+   * @internal
+   */
+  @bind
+  public async build(example: typeof INTEGRATION_TESTS & string) {
+    await this.$(
+      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn bud build --no-dashboard --log`,
+    )
+    await this.$(
+      `cd ${EXAMPLES_DIR}/npm/${example} && npx bud build --no-dashboard --log`,
     )
   }
 }
