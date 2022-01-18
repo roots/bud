@@ -1,10 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
-import {
-  EXAMPLES_DIR,
-  INTEGRATION_TESTS,
-  REGISTRY_PROXY,
-} from '../constants'
+import {EXAMPLES_DIR, INTEGRATION_TESTS, REGISTRY_PROXY} from '../constants'
 import {Command} from './base.command'
 
 /**
@@ -109,7 +105,7 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
-      await Promise.all(INTEGRATION_TESTS.map(this.install))
+      await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
     }
 
@@ -124,7 +120,12 @@ export class Test extends Command {
    * @internal
    */
   @bind
-  public async install(example: typeof INTEGRATION_TESTS & string) {
+  public async install(
+    promised: Promise<any>,
+    example: typeof INTEGRATION_TESTS & string,
+  ) {
+    await promised
+
     await this.$(
       `cd ${EXAMPLES_DIR}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
     )
