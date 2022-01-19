@@ -38,9 +38,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Release
+      - name: Release v${{ github.event.inputs.version }}
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           YARN_RC_FILENAME: '.yarnrc.yml'
         run: |
           yarn @bud : release npm --tag latest --version ${{ github.event.inputs.version }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "Roots Ladybud"
+          git config user.email "<>"
+
+      - name: Create v${{ github.event.inputs.version }} branch
+        run: |
+          git checkout -b v${{ github.event.inputs.version }}
+
+      - name: Commit v${{ github.event.inputs.version }}
+        run: |
+          git commit -am "chore: Bump @roots/bud to v${{ github.event.inputs.version }}"
+
+      - name: Tag v${{ github.event.inputs.version }}
+        run: |
+          git tag v${{ github.event.inputs.version }}
+          git push --tags
+
+      - name: Push v${{ github.event.inputs.version }}
+        run: |
+          git push -u origin v${{ github.event.inputs.version }}

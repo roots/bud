@@ -10,8 +10,7 @@ import {Docs} from './docs.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
 import {Publish} from './publish.command'
-import {ReleaseNpm} from './release/npm.command'
-import {ReleaseProxy} from './release/proxy.command'
+import {Release} from './release.command'
 import {Test} from './test.command'
 import {Version} from './version.command'
 
@@ -28,8 +27,7 @@ export const Commands = {
   Lint,
   Make,
   Publish,
-  ReleaseNpm,
-  ReleaseProxy,
+  Release,
   Test,
   Version,
 }
