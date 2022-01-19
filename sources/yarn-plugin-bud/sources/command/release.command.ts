@@ -159,14 +159,14 @@ export class Release extends Command {
    * @internal
    */
   public async preflight() {
-    await this.log('Installing')
-    await this.$(`yarn install --immutable`)
-
-    await this.checkTagIsValid()
-
     if (!process.env.NPM_AUTH_TOKEN) {
       await this.wipeProxyDb()
     }
+
+    this.log('Installing')
+    await this.$(`yarn install --immutable`)
+
+    await this.checkTagIsValid()
   }
 
   /**
@@ -190,10 +190,10 @@ export class Release extends Command {
   }
 
   /**
-   * npm publish
+   * Publish release
    *
    * @remarks
-   * publishes release to npm
+   * Publishes release to registry
    *
    * @internal
    */
