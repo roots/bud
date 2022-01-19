@@ -43,7 +43,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           YARN_RC_FILENAME: '.yarnrc.yml'
         run: |
-          yarn @bud : release npm --tag latest --version ${{ github.event.inputs.version }}
+          yarn @bud : release --tag latest --version ${{ github.event.inputs.version }}
 
       - name: Configure Git
         run: |
