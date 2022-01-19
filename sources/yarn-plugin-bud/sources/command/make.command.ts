@@ -30,9 +30,7 @@ export class Make extends Command {
   public static usage: CommandClass['usage'] = {
     category: '@bud',
     description: 'make project files same as ci',
-    examples: [
-      ['install/build repo packages', 'yarn @bud make'],
-    ],
+    examples: [['install/build repo packages', 'yarn @bud make']],
   }
 
   /**
@@ -49,7 +47,7 @@ export class Make extends Command {
 
     await this.$(
       'yarn @bud lint',
-      'yarn @bud test --coverage --verbose --maxWorkers=50%',
+      'yarn @bud test all --coverage --verbose --maxWorkers=50%',
     )
 
     await this.$('yarn @bud docs')
