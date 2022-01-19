@@ -8,7 +8,12 @@ on:
         required: true
 
 jobs:
+  test:
+    steps:
+      - uses: ./.github/workflows/test.yml
+
   release:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,7 +42,6 @@ jobs:
       - name: Release
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-          YARN_RC_FILENAME: ".yarnrc.yml"
+          YARN_RC_FILENAME: '.yarnrc.yml'
         run: |
-          yarn @bud : release proxy --tag latest --version ${{ github.event.inputs.version }}
           yarn @bud : release npm --tag latest --version ${{ github.event.inputs.version }}

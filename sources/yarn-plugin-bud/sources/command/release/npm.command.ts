@@ -89,8 +89,7 @@ export class ReleaseNpm extends Command {
     await this.executeStep(`bump`)
     await this.executeStep(`make`)
     await this.executeStep(`push`)
-    await this.executeStep(`prepublish`)
-    await this.executeStep('postpublish')
+    await this.executeStep(`publish`)
   }
 
   /**
@@ -163,19 +162,12 @@ export class ReleaseNpm extends Command {
   }
 
   /**
-   * make
-   *
-   * @remarks
-   * I wipe everything again to ensure that any potential
-   * post-install scripts that might grab the version are
-   * being run properly.
-   *
-   * This will also run all tests and generate all docs.
+   * Build packages
    *
    * @internal
    */
   public async make() {
-    await this.$(`yarn @bud make`)
+    await this.$(`yarn @bud build`)
   }
 
   /**
@@ -188,7 +180,10 @@ export class ReleaseNpm extends Command {
    */
   public async push() {
     /* Commit, tag and push tags */
-    await this.$(`git commit -am 'chore: Bump @roots/bud to v${this.version}`)
+    await this.$(
+      `git commit -am 'chore: Bump @roots/bud to v${this.version}`,
+    )
+
     await this.$(`git tag v${this.version}`)
     await this.$(`git push --tags`)
 
@@ -196,16 +191,6 @@ export class ReleaseNpm extends Command {
     this.isTaggedLatest() &&
       (await this.$(`git push -u origin v${this.version}`))
   }
-
-  /**
-   * npm prepublish
-   *
-   * @remarks
-   * Set the registry to npm.
-   *
-   * @internal
-   */
-  public async prepublish() {}
 
   /**
    * npm publish
@@ -218,14 +203,4 @@ export class ReleaseNpm extends Command {
   public async publish() {
     await this.$(`yarn @bud publish --tag ${this.tag}`)
   }
-
-  /**
-   * npm postpublish
-   *
-   * @remarks
-   * Reset auth token.
-   *
-   * @internal
-   */
-  public async postpublish() {}
 }

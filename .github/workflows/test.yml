@@ -1,14 +1,12 @@
 name: Build & Test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
       - next
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -46,17 +44,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Start
-        run: 'docker compose up -d'
-
       - name: Setup
-        run: 'docker compose run bud yarn'
+        run: |
+          yarn @bud $ yarn install --immutable
 
-      - name: Lint packages
-        run: 'docker compose run bud yarn @bud lint --skypack'
+      - name: Lint
+        run: |
+          yarn @bud : lint --skypack --eslint
 
       - name: Proxy publish packages
-        run: 'docker compose run bud yarn @bud release proxy --tag latest'
+        run: |
+          yarn @bud : release proxy --tag latest
 
       - name: Test
-        run: 'docker compose run bud yarn @bud test all --coverage --maxWorkers=50%'
+        run: |
+          yarn @bud : test all --coverage

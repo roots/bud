@@ -62,8 +62,6 @@ export class ContainerRun extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      this.withPassthrough(`docker compose run --rm bud bash`),
-    )
+    await this.$(this.withPassthrough(`docker compose run --rm bud`))
   }
 }
