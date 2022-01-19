@@ -57,12 +57,9 @@ jobs:
       - name: Commit v${{ github.event.inputs.version }}
         run: |
           git commit -am "chore: Bump @roots/bud to v${{ github.event.inputs.version }}"
+          git push -u origin v${{ github.event.inputs.version }}
 
       - name: Tag v${{ github.event.inputs.version }}
         run: |
           git tag v${{ github.event.inputs.version }}
           git push --tags
-
-      - name: Push v${{ github.event.inputs.version }}
-        run: |
-          git push -u origin v${{ github.event.inputs.version }}
