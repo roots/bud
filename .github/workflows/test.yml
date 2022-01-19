@@ -52,10 +52,10 @@ jobs:
         run: |
           yarn @bud : lint --skypack --eslint
 
-      - name: Proxy publish packages
+      - name: Publish
         run: |
-          yarn @bud : release proxy --tag latest
+          yarn @bud : release --tag latest
 
       - name: Test
         run: |
-          yarn @bud : test all --coverage
+          yarn @bud : test all --coverage --maxWorkers 50%
