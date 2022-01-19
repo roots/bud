@@ -92,13 +92,6 @@ const navbar = {
     },
     {to: '/blog', label: 'Blog', position: 'left'},
     {
-      href: '/api',
-      label: 'Api',
-      position: 'right',
-      className: 'header-github-link',
-      'aria-label': 'Bud API documentation',
-    },
-    {
       href: '/releases',
       label: 'Releases',
       position: 'right',
