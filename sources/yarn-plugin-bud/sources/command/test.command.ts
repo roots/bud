@@ -1,6 +1,12 @@
 import {CommandClass, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
-import {EXAMPLES_DIR, INTEGRATION_TESTS, REGISTRY_PROXY} from '../constants'
+import {copy} from 'fs-extra'
+import {
+  EXAMPLES_DIR,
+  INTEGRATION_TESTS,
+  REGISTRY_PROXY,
+  ROOTS_PATH,
+} from '../constants'
 import {Command} from './base.command'
 
 /**
@@ -105,6 +111,16 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
+      await copy(
+        `${ROOTS_PATH}/bud/examples`,
+        `${ROOTS_PATH}/examples/npm`,
+      )
+
+      await copy(
+        `${ROOTS_PATH}/bud/examples`,
+        `${ROOTS_PATH}/examples/yarn`,
+      )
+
       await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
     }
