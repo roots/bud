@@ -44,6 +44,25 @@ export class ReleaseProxy extends ReleaseNpm {
   }
 
   /**
+   * execute command
+   *
+   * @remarks
+   * You must be in the roots staff channel to see this link. It is
+   * just a broader overview of the steps.
+   *
+   * @internal
+   */
+  public async execute() {
+    await this.executeStep(`preflight`)
+    await this.executeStep(`bump`)
+    await this.executeStep(`make`)
+    await this.executeStep(`push`)
+    await this.executeStep(`prepublish`)
+    await this.executeStep(`publish`)
+    await this.executeStep('postpublish')
+  }
+
+  /**
    * Check token is valid
    */
   public async checkHasToken() {}
