@@ -1,4 +1,5 @@
 import {CommandClass} from 'clipanion'
+import rimraf = require('rimraf')
 
 import {Command} from './base.command'
 
@@ -40,10 +41,9 @@ export class Make extends Command {
    */
   public async execute() {
     await this.$(`yarn @bud clean`)
-
     await this.$('yarn install --immutable')
 
-    await this.$('yarn @bud build')
+    await this.$('yarn @bud build --force')
 
     await this.$(
       'yarn @bud lint',

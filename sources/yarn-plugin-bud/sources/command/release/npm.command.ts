@@ -177,7 +177,6 @@ export class ReleaseNpm extends Command {
    * @internal
    */
   public async make() {
-    await this.$(`git clean -fxd`)
     await this.$(`yarn @bud make`)
   }
 
