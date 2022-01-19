@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    uses: roots/bud/.github/workflows/test.yml
+    uses: roots/bud/.github/workflows/test.yml@main
 
   release:
     needs: test
