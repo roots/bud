@@ -3,17 +3,10 @@ const {posix: path} = require('path')
 const {manifest} = require('../../package.json')
 const themeConfig = require('./docusaurus.theme')
 
-const pluginBlog = require.resolve(
-  '@docusaurus/plugin-content-blog',
-)
-const pluginDocs = require.resolve(
-  '@docusaurus/plugin-content-docs',
-)
+const presetClassic = require.resolve('@docusaurus/preset-classic')
+const pluginBlog = require.resolve('@docusaurus/plugin-content-blog')
+const pluginDocs = require.resolve('@docusaurus/plugin-content-docs')
 const pluginSearch = require.resolve('docusaurus-lunr-search')
-
-const presetClassic = require.resolve(
-  '@docusaurus/preset-classic',
-)
 
 module.exports = {
   title: manifest.name,
@@ -34,10 +27,7 @@ module.exports = {
         docs: {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars/docs.js'),
-          editUrl: path.join(
-            manifest.url.web,
-            `edit/next/site/docs/`,
-          ),
+          editUrl: path.join(manifest.url.web, `edit/main/sources/docs/`),
         },
         blog: {
           path: './blog',
