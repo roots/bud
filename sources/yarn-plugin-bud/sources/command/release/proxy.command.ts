@@ -75,7 +75,9 @@ export class ReleaseProxy extends ReleaseNpm {
    *
    * @internal
    */
-  public async bump() {}
+  public async bump() {
+    await this.$(`yarn install --immutable`)
+  }
 
   /**
    * build packages
