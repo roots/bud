@@ -181,7 +181,7 @@ export class ReleaseNpm extends Command {
   public async push() {
     /* Commit, tag and push tags */
     await this.$(
-      `git commit -am 'chore: Bump @roots/bud to v${this.version}`,
+      `git commit -am 'chore: Bump @roots/bud to v${this.version}'`,
     )
 
     await this.$(`git tag v${this.version}`)
