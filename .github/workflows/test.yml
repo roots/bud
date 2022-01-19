@@ -45,7 +45,8 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Setup
-        run: docker compose bud run yarn install --immutable
+        run: |
+          yarn @bud $ yarn install --immutable
 
       - name: Lint
         run: |
@@ -57,4 +58,4 @@ jobs:
 
       - name: Test
         run: |
-          yarn @bud : test all --coverage --maxWorkers=50%
+          yarn @bud : test all --coverage
