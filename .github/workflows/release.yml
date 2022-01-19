@@ -9,8 +9,7 @@ on:
 
 jobs:
   test:
-    steps:
-      - uses: ./.github/workflows/test.yml
+    uses: roots/bud/.github/workflows/test.yml
 
   release:
     needs: test
