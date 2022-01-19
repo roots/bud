@@ -12,11 +12,6 @@ jobs:
     steps:
       - uses: ./.github/workflows/test.yml
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
   release:
     needs: test
     runs-on: ubuntu-latest
