@@ -89,8 +89,7 @@ export class ReleaseNpm extends Command {
     await this.executeStep(`bump`)
     await this.executeStep(`make`)
     await this.executeStep(`push`)
-    await this.executeStep(`prepublish`)
-    await this.executeStep('postpublish')
+    await this.executeStep(`publish`)
   }
 
   /**
