@@ -35,10 +35,7 @@ export class Lint extends Command {
       [`run prettier`, `yarn @bud lint --prettier`],
       [`run eslint`, `yarn @bud lint --eslint`],
       [`run skypack`, `yarn @bud lint --skypack`],
-      [
-        `lint on type definitions as well`,
-        `yarn @bud lint --types`,
-      ],
+      [`lint on type definitions as well`, `yarn @bud lint --types`],
     ],
   }
 
@@ -105,7 +102,7 @@ export class Lint extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint sources/@roots/ --config ./config/eslint.config.js --ignore-path config/.eslintignore`,
+              `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.js --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
             ]
           : []),
         this.skypack

@@ -1,4 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+
 import type {Plugin} from './mini-css-extract-plugin.interface'
 
 export const name: Plugin['name'] = 'mini-css-extract-plugin'

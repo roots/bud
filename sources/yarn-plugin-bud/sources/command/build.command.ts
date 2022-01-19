@@ -5,7 +5,7 @@ import {Command} from './base.command'
 
 /**
  * Build command
- * 
+ *
  * @internal
  */
 export class Build extends Command {
@@ -21,9 +21,7 @@ export class Build extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `build`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `build`]]
 
   /**
    * Command usage
@@ -33,9 +31,7 @@ export class Build extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `build project packages`,
-    examples: [
-      [`build packages as commonjs`, `yarn @bud build`],
-    ],
+    examples: [[`build packages as commonjs`, `yarn @bud build`]],
   }
 
   /**
@@ -53,9 +49,7 @@ export class Build extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`),
-    )
+    await this.$(this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`))
 
     await this.$(
       `yarn @bud compile @roots/container`,
