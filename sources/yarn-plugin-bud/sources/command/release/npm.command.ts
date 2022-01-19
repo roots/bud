@@ -90,7 +90,6 @@ export class ReleaseNpm extends Command {
     await this.executeStep(`make`)
     await this.executeStep(`push`)
     await this.executeStep(`prepublish`)
-    await this.executeStep(`publish`)
     await this.executeStep('postpublish')
   }
 
@@ -158,7 +157,6 @@ export class ReleaseNpm extends Command {
    * @internal
    */
   public async bump() {
-    await this.$(`git clean -fxd`)
     await this.$(`git checkout -b v${this.version}`)
     await this.$(`yarn install --immutable`)
     await this.$(`yarn @bud version ${this.version}`)
@@ -181,7 +179,7 @@ export class ReleaseNpm extends Command {
   }
 
   /**
-   * npm publish
+   * push
    *
    * @remarks
    * The code is committed, the tag is pushed.
