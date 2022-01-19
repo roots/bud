@@ -1,0 +1,60 @@
+name: Build & Test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - next
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+        node:
+          - 16.x
+
+    name: test node@${{matrix.node}}/${{matrix.platform}}
+    runs-on: ${{matrix.platform}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node}}
+
+      - name: Cache
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Restore
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup
+        run: docker compose bud run yarn install --immutable
+
+      - name: Lint
+        run: |
+          yarn @bud : lint --skypack --eslint
+
+      - name: Proxy publish packages
+        run: |
+          yarn @bud : release proxy --tag latest
+
+      - name: Test
+        run: |
+          yarn @bud : test all --coverage --maxWorkers=50%
