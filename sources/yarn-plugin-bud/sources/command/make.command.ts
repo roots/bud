@@ -41,19 +41,15 @@ export class Make extends Command {
    */
   public async execute() {
     await this.$(`yarn @bud clean`)
-    await rimraf(`sources/*/node_modules`, () => {
-      rimraf(`sources/*/lib`, async () => {
-        await this.$('yarn install --immutable')
+    await this.$('yarn install --immutable')
 
-        await this.$('yarn @bud build')
+    await this.$('yarn @bud build --force')
 
-        await this.$(
-          'yarn @bud lint',
-          'yarn @bud test all --coverage --verbose --maxWorkers=50%',
-        )
+    await this.$(
+      'yarn @bud lint',
+      'yarn @bud test all --coverage --verbose --maxWorkers=50%',
+    )
 
-        await this.$('yarn @bud docs')
-      })
-    })
+    await this.$('yarn @bud docs')
   }
 }
