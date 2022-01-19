@@ -7,8 +7,6 @@ import {ContainerRun} from './container/run.command'
 import {ContainerUp} from './container/up.command'
 import {Dev} from './dev.command'
 import {Docs} from './docs.command'
-import {ExampleBuild} from './example/build.command'
-import {ExampleInstall} from './example/install.command'
 import {Lint} from './lint.command'
 import {Make} from './make.command'
 import {Publish} from './publish.command'
@@ -27,8 +25,6 @@ export const Commands = {
   ContainerUp,
   Dev,
   Docs,
-  ExampleBuild,
-  ExampleInstall,
   Lint,
   Make,
   Publish,

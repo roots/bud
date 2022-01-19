@@ -67,6 +67,6 @@ export class AdjacencyList {
       ordered.unshift(dependency)
     })
 
-    return ordered.map(name => this.manifests[name])
+    return ordered.map(name => this.manifests[name]).filter(Boolean)
   }
 }
