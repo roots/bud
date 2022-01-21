@@ -8,8 +8,6 @@ describe('Extensions', function () {
   })
 
   it('[production] bud.extensions.repository matches snapshot', () => {
-    bud.hash()
-
     expect(bud.extensions.all()).toMatchSnapshot()
 
     bud.extensions.every((key, controller) => {
