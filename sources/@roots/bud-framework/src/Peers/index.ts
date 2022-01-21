@@ -21,6 +21,13 @@ export interface Peers {
   adjacents: any
 
   /**
+   * Modules
+   *
+   * @public
+   */
+  modules: Record<string, Record<string, any>>
+
+  /**
    * True if project is missing dependencies
    *
    * @public
