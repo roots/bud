@@ -5,13 +5,10 @@ describe('Extensions', function () {
 
   beforeAll(async () => {
     bud = await factory()
+    expect(bud.mode).toBe('production')
   })
 
   it('[production] bud.extensions.repository matches snapshot', () => {
-    expect(bud.extensions.all()).toMatchSnapshot()
-
-    bud.extensions.every((key, controller) => {
-      expect(controller.meta).toMatchSnapshot()
-    })
+    expect(bud.extensions.getKeys().sort()).toMatchSnapshot()
   })
 })
