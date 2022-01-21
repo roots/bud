@@ -143,7 +143,7 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
+      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY} --force`,
     )
     await this.$(
       `cd ${EXAMPLES_DIR}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,

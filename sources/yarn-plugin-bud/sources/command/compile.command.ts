@@ -11,19 +11,14 @@ export class Compile extends Command {
    */
   public name = 'compile'
 
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `compile`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `compile`]]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `compile a package`,
     details: `compiles as both cjs and esm with ncc`,
     examples: [
-      [
-        `compile {package name}`,
-        `yarn @bud compile @roots/bud-support`,
-      ],
+      [`compile {package name}`, `yarn @bud compile @roots/bud-support`],
     ],
   }
 
