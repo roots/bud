@@ -12,8 +12,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -26,8 +28,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -41,8 +45,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -54,8 +60,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -72,7 +80,9 @@ Object {
     "log": [Function],
     "meta": Object {
       "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -93,8 +103,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -108,8 +120,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -124,7 +138,9 @@ Object {
     "log": [Function],
     "meta": Object {
       "booted": false,
+      "bound": false,
       "instance": "bud",
+      "mixed": false,
       "registered": false,
     },
   },
@@ -138,8 +154,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -153,8 +171,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -168,8 +188,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -183,8 +205,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -198,8 +222,10 @@ Object {
     },
     "log": [Function],
     "meta": Object {
-      "booted": false,
+      "booted": true,
+      "bound": true,
       "instance": "bud",
+      "mixed": true,
       "registered": true,
     },
   },
@@ -208,56 +234,70 @@ Object {
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 1`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 2`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 3`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 4`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 5`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 6`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 7`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
@@ -265,15 +305,19 @@ Object {
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 8`] = `
 Object {
   "booted": false,
+  "bound": false,
   "instance": "bud",
+  "mixed": false,
   "registered": false,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 9`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
@@ -281,31 +325,39 @@ Object {
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 10`] = `
 Object {
   "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 11`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 12`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
 
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 13`] = `
 Object {
-  "booted": false,
+  "booted": true,
+  "bound": true,
   "instance": "bud",
+  "mixed": true,
   "registered": true,
 }
 `;
