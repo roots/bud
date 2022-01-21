@@ -25,6 +25,7 @@ export interface watch {
  * app.watch(['templates/*.html'], {
  *   // chokidar options
  * })
+ * ```
  *
  * @public
  */

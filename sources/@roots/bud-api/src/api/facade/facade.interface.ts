@@ -713,6 +713,7 @@ export class Facade {
    * app.watch(['templates/*.html'], {
    *   // chokidar options
    * })
+   * ```
    *
    * @public
    */
