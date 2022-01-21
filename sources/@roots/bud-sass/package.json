@@ -36,14 +36,15 @@
   },
   "files": [
     "lib/",
-    "types/"
+    "types/",
+    "stylelint-config/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./stylelint-config": "./stylelint-config/index.js"
   },
   "bud": {
     "type": "extension",
@@ -58,7 +59,6 @@
     "@skypack/package-check": "^0.2.2",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
-    "sass": "1.45.2",
     "webpack": "5.65.0"
   },
   "dependencies": {
@@ -66,10 +66,29 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "postcss-scss": "4.0.3",
     "resolve-cwd": "3.0.0",
+    "sass": "1.45.2",
     "sass-loader": "12.4.0",
+    "stylelint-config-recommended-scss": "5.0.2",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "sass": "1.45.2"
+    "postcss-scss": "^4.0.3",
+    "sass": "^1.45.2",
+    "sass-loader": "^12.4.0",
+    "stylelint-config-recommended-scss": "^5.0.2"
+  },
+  "peerDependenciesMeta": {
+    "postcss-scss": {
+      "optional": true
+    },
+    "sass": {
+      "optional": true
+    },
+    "sass-loader": {
+      "optional": true
+    },
+    "stylelint-config-recommended-scss": {
+      "optional": true
+    }
   }
 }

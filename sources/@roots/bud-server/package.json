@@ -59,6 +59,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "chokidar": "^3.5.2",
     "express": "^4.17.1",
+    "globby": "^11.0.0",
     "http-proxy-middleware": "2.0.1",
     "tslib": "^2.3.1",
     "webpack-dev-middleware": "5.3.0",

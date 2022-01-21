@@ -34,6 +34,7 @@
   },
   "files": [
     "eslint-config/",
+    "stylelint-config/",
     "lib/",
     "types/"
   ],
@@ -42,7 +43,8 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    "./eslint-config": "./eslint-config/index.js",
+    "./stylelint-config": "./stylelint-config/index.js"
   },
   "bud": {
     "type": "extension",

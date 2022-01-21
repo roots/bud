@@ -16,8 +16,6 @@
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
-    "@roots/bud-typescript": "latest",
-    "eslint": "8.0.0",
-    "typescript": "^4"
+    "@roots/bud-typescript": "latest"
   }
 }

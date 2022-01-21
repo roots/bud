@@ -7,8 +7,7 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
-      "@roots/bud-api",
+      "@roots/bud-build",
       "@roots/bud-framework"
     ]
   },
@@ -21,9 +20,6 @@
     "types"
   ],
   "references": [
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
     {
       "path": "./../bud-build/tsconfig.json"
     },
