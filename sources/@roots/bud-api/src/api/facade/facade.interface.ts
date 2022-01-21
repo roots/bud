@@ -696,13 +696,23 @@ export class Facade {
   public use: use
 
   /**
-   * Configure the list of files that, when modified,
-   * will force the browser to reload (even in hot mode).
+   * Set files that, when modified, will force the browser to reload.
+   *
+   * @remarks
+   * Modifying these files will cause a full page reload, even in hot mode.
    *
    * @example
    * ```js
    * app.watch(['templates/*.html'])
    * ```
+   *
+   * @example
+   * Set chokidar options as well:
+   *
+   * ```js
+   * app.watch(['templates/*.html'], {
+   *   // chokidar options
+   * })
    *
    * @public
    */

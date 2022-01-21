@@ -19,7 +19,7 @@ export class Watcher {
    */
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
-    const [files, options] = this.app.store.getValues('server.watch.files')
+    const {files, options} = this.app.store.get('server.watch')
 
     if (!files?.length) return []
 
