@@ -8,7 +8,7 @@
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers"
   ],
-  "forwardPorts": [4873],
+  "forwardPorts": [],
   "postCreateCommand": "cd /roots/bud && yarn && yarn @bud build",
   "remoteUser": "root",
   "service": "bud",
