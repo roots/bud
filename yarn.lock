@@ -4186,6 +4186,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.178
     "@types/node": 16.11.19
+    chokidar: 3.5.3
     cli-highlight: ^2.1.11
     http-proxy-middleware: 2.0.1
     ink: 3.2.0
@@ -8808,6 +8809,25 @@ __metadata:
     "@chevrotain/utils": ^9.1.0
     regexp-to-ast: 0.5.0
   checksum: 632d0d7c69081e3cc3a08c071cb738c46499a05f1a513b7f9101f7a9b5570d6ee62cac5ba506659a85bf9e71e1029c462dbb7bd9fe1bfe019b6c1879ca29c525
+  languageName: node
+  linkType: hard
+
+"chokidar@npm:3.5.3":
+  version: 3.5.3
+  resolution: "chokidar@npm:3.5.3"
+  dependencies:
+    anymatch: ~3.1.2
+    braces: ~3.0.2
+    fsevents: ~2.3.2
+    glob-parent: ~5.1.2
+    is-binary-path: ~2.1.0
+    is-glob: ~4.0.1
+    normalize-path: ~3.0.0
+    readdirp: ~3.6.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: b49fcde40176ba007ff361b198a2d35df60d9bb2a5aab228279eb810feae9294a6b4649ab15981304447afe1e6ffbf4788ad5db77235dc770ab777c6e771980c
   languageName: node
   linkType: hard
 
