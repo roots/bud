@@ -52,28 +52,11 @@ export class ResponseInterceptorFactory {
     _req: IncomingMessage,
     res: ServerResponse,
   ): Promise<Buffer | string> {
-    try {
-      res.setHeader('x-proxy-by', '@roots/bud')
-      res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
-      res.setHeader('x-bud-dev-origin', this.url.dev.origin)
-
-      /**
-       * Attempt to convert the body to a string
-       * If it fails, just return the buffer to http-proxy-middleware
-       */
-      let body = buffer?.toString()
-      if (!body) return buffer
-
-      /**
-       * Process replacements and return body
-       */
-      return this.app.hooks
-        .filter('proxy.replace', () => [this.replaceAssetPath()])
-        ?.reduce((html, [from, to]) => html.replaceAll(from, to), body)
-    } catch (err) {
-      this.app.error(err)
-      return buffer
-    }
+    res.setHeader('x-proxy-by', '@roots/bud')
+    res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
+    res.setHeader('x-bud-dev-origin', this.url.dev.origin)
+    return buffer
+    // return res.buffer ?? buffer
   }
 
   /**
@@ -87,20 +70,5 @@ export class ResponseInterceptorFactory {
     return responseInterceptor(
       this.app.hooks.filter('proxy.interceptor', () => this._interceptor),
     )
-  }
-
-  /**
-   * Replaces asset path in response body
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public replaceAssetPath(): [string | RegExp, string] {
-    const search = `${this.url.proxyAssetUrlBase}(.*)?`
-    const replacement = `${this.url.devAssetUrlBase}$1`
-
-    this.app.log(`Replacing '${search}' with '${replacement}'`)
-    return [new RegExp(search, 'g'), replacement]
   }
 }
