@@ -25,7 +25,9 @@ declare module '@roots/bud-framework' {
      *
      * @public
      */
-    setPublicPath: () => Framework
+    setPublicPath: (
+      publicPath: string | ((publicPath: string) => string),
+    ) => Framework
   }
 
   interface Modules {
