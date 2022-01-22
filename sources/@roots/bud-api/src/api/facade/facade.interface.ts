@@ -16,7 +16,7 @@ import type {run} from '../methods/run'
 import type {runtime} from '../methods/runtime'
 import type {serve} from '../methods/serve'
 import {setPublicPath} from '../methods/setPublicPath'
-import type {splitChunks} from '../methods/splitChunks'
+import type * as splitChunks from '../methods/splitChunks'
 import type {facade as templateFacade} from '../methods/template'
 import type {use} from '../methods/use'
 import type {watch} from '../methods/watch'
@@ -170,28 +170,59 @@ export class Facade {
    * Bundle vendor modules separately from application code.
    *
    * @example
+   * Enable chunk splitting
+   *
    * ```js
-   * bud.splitChunks({
-   *  chunks: 'all',
-   * })
+   * bud.splitChunks()
+   * ```
+   *
+   * @example
+   * Disable chunk splitting
+   *
+   * ```js
+   * bud.splitChunks(false)
+   * ```
+   *
+   * @example
+   * Merge optimization.splitChunks object
+   *
+   * ```js
+   * bud.splitChunks({chunks: 'all'})
    * ```
    *
    * @public
    */
-  public splitChunks: splitChunks
+  public splitChunks: splitChunks.facade
+
   /**
    * Bundle vendor modules separately from application code.
    *
    * @example
+   * Enable chunk splitting
+   *
    * ```js
-   * bud.splitChunks({
-   *  chunks: 'all',
-   * })
+   * bud.splitChunks()
    * ```
+   *
+   * @example
+   * Disable chunk splitting
+   *
+   * ```js
+   * bud.splitChunks(false)
+   * ```
+   *
+   * @example
+   * Merge optimization.splitChunks object
+   *
+   * ```js
+   * bud.splitChunks({chunks: 'all'})
+   * ```
+   *
+   * @deprecated Use `bud.splitChunks`
    *
    * @public
    */
-  public extract: splitChunks
+  public extract: splitChunks.facade
 
   /**
    * Generate application entrypoints from source asset paths.
