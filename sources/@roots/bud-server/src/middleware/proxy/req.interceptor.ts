@@ -30,24 +30,26 @@ export class RequestInterceptorFactory {
   /**
    * Callback for `http-proxy-middleware` `onProxyReq`
    *
-   * @param proxyReq - proxy request
-   * @param req - request
-   * @param res - response
+   * @param proxyRequest - proxy client request
+   * @param request - incoming message
+   * @param response - server response
+   * @returns void
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async _interceptor(
-    proxyReq: ClientRequest,
-    req: IncomingMessage,
-    res: ServerResponse,
+    proxyRequest: ClientRequest,
+    request: IncomingMessage,
+    _response: ServerResponse,
   ) {
     try {
-      proxyReq.setHeader('x-bud-dev-origin', this.url.dev.origin)
-      proxyReq.setHeader(
+      proxyRequest.setHeader('x-bud-dev-origin', this.url.dev.origin)
+      proxyRequest.setHeader(
         'x-bud-dev-pathname',
-        new nodeUrl(req.url).pathname,
+        new nodeUrl(request.url, `http://${request.headers.host}`)
+          .pathname,
       )
     } catch (err) {
       process.stderr.write(`${err}\n`)
