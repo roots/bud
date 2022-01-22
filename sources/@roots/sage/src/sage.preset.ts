@@ -2,6 +2,7 @@ import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
 import eventCompilerDone from './hooks/event.compiler.done'
+import {setPublicPath} from './setPublicPath'
 
 /**
  * Image filename utility
@@ -36,6 +37,16 @@ export const Sage: Extension.Module<void> = {
    * @public
    */
   boot: async app => {
+    /**
+     * setPublicPath
+     *
+     * @deprecated Please remove this function from your config file. It is not needed.
+     * @returns Framework
+     *
+     * @public
+     */
+    app.setPublicPath = setPublicPath.bind(this)
+
     /**
      * Override output directory for svg assets
      * `@roots/bud-build` places them, by default, in `svg/`
