@@ -6,16 +6,30 @@ import {Stats} from 'webpack'
 
 const {writeJson} = fs
 
-export default (app: Framework) => async (stats: Stats) => {
-  const contents = {
-    dev: urlToHttpOptions(app.store.get('server.dev.url')),
-    proxy: urlToHttpOptions(app.store.get('server.proxy.url')) ?? false,
-    publicPath: app.hooks.filter('build.output.publicPath'),
-  }
-
+/**
+ * Event compiler done hook
+ *
+ * @remarks
+ * Generates and emits `hmr.json` with proxy/dev server information
+ * for use in Acorn.
+ *
+ * @this Framework
+ * @param stats - webpack stats object
+ * @returns stats
+ *
+ * @public
+ */
+export default async function (this: Framework, stats: Stats) {
   try {
-    await ensureDir(app.path('dist'))
-    await writeJson(app.path('dist', 'hmr.json'), contents)
+    const contents = {
+      dev: urlToHttpOptions(this.store.get('server.dev.url')) ?? null,
+      proxy: urlToHttpOptions(this.store.get('server.proxy.url')) ?? null,
+      publicPath: this.hooks.filter('build.output.publicPath') ?? null,
+      hash: stats ? stats.toJson().hash : null,
+    }
+
+    await ensureDir(this.path('dist'))
+    await writeJson(this.path('dist', 'hmr.json'), contents)
   } catch (error) {
     throw new Error(error)
   }
