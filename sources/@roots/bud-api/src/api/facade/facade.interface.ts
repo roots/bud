@@ -11,14 +11,12 @@ import type {minimize} from '../methods/minimize'
 import type {persist} from '../methods/persist'
 import type {provide} from '../methods/provide'
 import type {proxy} from '../methods/proxy'
-import {publicPath} from '../methods/publicPath'
 import type {run} from '../methods/run'
 import type {runtime} from '../methods/runtime'
 import type {serve} from '../methods/serve'
-import {setPublicPath} from '../methods/setPublicPath'
 import type * as splitChunks from '../methods/splitChunks'
 import type {facade as templateFacade} from '../methods/template'
-import type {use} from '../methods/use'
+import type * as use from '../methods/use'
 import type {watch} from '../methods/watch'
 
 /**
@@ -577,22 +575,6 @@ export class Facade {
   public proxy: proxy
 
   /**
-   * By default it is assumed that assets are served from webroot (`/`).
-   * You can use this method to replace this value for apps  served from
-   * a subdirectory.
-   *
-   * @example
-   * Set the default path for a Sage project:
-   *
-   * ```js
-   * bud.publicPath('/app/themes/sage/dist')
-   * ```
-   *
-   * @public
-   */
-  public publicPath: publicPath
-
-  /**
    * Run the build
    *
    * @example
@@ -632,31 +614,6 @@ export class Facade {
    * @public
    */
   public serve: serve
-
-  /**
-   * By default it is assumed that assets are served from webroot (`/`).
-   * You can use this method to replace this value for apps served from
-   * a subdirectory.
-   *
-   * @example
-   * Set the default path using a string
-   *
-   * ```js
-   * app.setPublicPath('/app/themes/sage/dist')
-   * ```
-   *
-   * @example
-   * Set the publicPath using a function.
-   *
-   * ```js
-   * app.setPublicPath(publicPath => {
-   *   return `web/assets/${publicPath}`
-   * })
-   * ```
-   *
-   * @public
-   */
-  public setPublicPath: setPublicPath
 
   /**
    * Enable and/or configure a generated HTML template
@@ -724,7 +681,7 @@ export class Facade {
  *
  * @public
  */
-  public use: use
+  public use: use.facade
 
   /**
    * Configure the list of files that, when modified,
