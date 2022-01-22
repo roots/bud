@@ -21,7 +21,7 @@ export const test: RegExp =
  * bud cache group name
  *
  * @remarks
- * in the format of `vendor/bud.[chunk].[chunk].js
+ * in the format of `vendor/bud.[chunk].[chunk].js`
  *
  * This is a webpack callback
  *

@@ -13,7 +13,6 @@ const {writeJson} = fs
  * Generates and emits `hmr.json` with proxy/dev server information
  * for use in Acorn.
  *
- * @this Framework
  * @param stats - webpack stats object
  * @returns stats
  *

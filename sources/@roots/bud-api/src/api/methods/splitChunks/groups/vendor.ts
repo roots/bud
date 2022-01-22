@@ -20,7 +20,7 @@ export const test: RegExp = /[\\/]node_modules[\\/]/
  * vendor cache group name
  *
  * @remarks
- * in the format of `vendor/[chunk].[chunk].js
+ * in the format of `vendor/[chunk].[chunk].js`
  *
  * This is a webpack callback
  *
