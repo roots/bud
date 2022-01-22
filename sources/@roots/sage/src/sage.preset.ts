@@ -37,14 +37,6 @@ export const Sage: Extension.Module<void> = {
    * @public
    */
   boot: async app => {
-    /**
-     * setPublicPath
-     *
-     * @deprecated Please remove this function from your config file. It is not needed.
-     * @returns Framework
-     *
-     * @public
-     */
     app.setPublicPath = setPublicPath.bind(this)
 
     /**

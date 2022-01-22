@@ -17,7 +17,10 @@ declare module '@roots/bud-framework' {
     /**
      * setPublicPath
      *
-     * @deprecated Please remove this function from your config file. It is not needed.
+     * @deprecated
+     * Please remove this function from your config file. It is not needed.
+     * When Sage 10 exits beta this function call will break your build.
+     *
      * @returns Framework
      *
      * @public
