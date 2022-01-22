@@ -1,6 +1,6 @@
-import type {Framework} from '..'
-
 import {lodash} from '@roots/bud-support'
+
+import type {Framework} from '..'
 
 const {isFunction, isString} = lodash
 

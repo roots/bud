@@ -1,5 +1,6 @@
-import type {Framework} from '../'
 import {Configuration} from 'webpack'
+
+import type {Framework} from '../'
 
 /**
  * @public

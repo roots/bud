@@ -1,5 +1,5 @@
-import type {Configuration} from 'webpack'
 import type {Framework} from '@roots/bud-framework'
+import type {Configuration} from 'webpack'
 
 export interface method {
   (options?: Configuration['optimization']['splitChunks']): Framework

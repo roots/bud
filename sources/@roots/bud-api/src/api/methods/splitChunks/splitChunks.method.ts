@@ -1,8 +1,8 @@
 import type {Framework} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
-import {method} from './splitChunks.interface'
 import * as defaultGroups from './groups'
+import {method} from './splitChunks.interface'
 
 const {isUndefined} = lodash
 
