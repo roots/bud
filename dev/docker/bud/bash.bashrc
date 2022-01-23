@@ -117,9 +117,3 @@ function parse_git_dirty {
 export PS1="\[\e[35m\]\`parse_git_branch\`\[\e[m\]\[\e[m\] \[\e[36m\]\w\e[m\]\n➤ "
 
 [ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd
-
-export PATH=$PATH:$(npm get prefix)/bin
-
-alias du=ncdu
-alias ls="exa -la --git"
-alias emma=emma-cli
