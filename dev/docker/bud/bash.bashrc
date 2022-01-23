@@ -122,5 +122,4 @@ export PATH=$PATH:$(npm get prefix)/bin
 
 alias du=ncdu
 alias ls="exa -la --git"
-alias man=tldr
 alias emma=emma-cli
