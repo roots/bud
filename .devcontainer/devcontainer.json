@@ -1,6 +1,5 @@
 {
   "name": "bud",
-  "codespaces": {},
   "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
   "extensions": [
     "arcanis.vscode-zipfs",
@@ -8,51 +7,10 @@
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers"
   ],
-  "forwardPorts": [4873],
   "postCreateCommand": [
-    "yarn",
+    "yarn"
   ],
   "remoteUser": "root",
   "service": "bud",
-  "settings": {
-    "debug.javascript.terminalOptions": {
-      "skipFiles": [
-        "<node_internals>/**",
-        "!**/node_modules/**",
-        "**/$KNOWN_TOOLS$/**",
-      ],
-    },
-    "eslint.nodePath": "/roots/bud/dev/yarn/sdks/eslint",
-    "eslint.validate": ["javascript", "typescript"],
-    "files.exclude": {
-      "**/.git": true,
-      "**/.svn": true,
-      "**/.hg": true,
-      "**/CVS": true,
-      "**/.DS_Store": true,
-      "**/Thumbs.db": true,
-      "**/node_modules": false
-    },
-    "prettier.configPath": "/roots/bud/config/prettier.config.js",
-    "prettier.ignorePath": "/roots/bud/config/.prettierignore",
-    "prettier.prettierPath": "/roots/bud/dev/yarn/sdks/prettier/index.js",
-    "search.exclude": {
-      "bin": true,
-      "dev/yarn": true,
-      "coverage": true,
-      "verdaccio": true,
-      "**/pnp.*": true,
-      "**/node_modules": true,
-      "**/.budfiles/**/*": true
-    },
-    "typescript.tsdk": "/roots/bud/node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "files.associations": {
-      "*.ts": "typescript",
-      "*.tsx": "typescriptreact",
-      "*.mdx": "mdx",
-      "bud.config.json": "json5"
-    },
-  },
-  "workspaceFolder": "/roots/bud"
+  "workspaceFolder": "/bud"
 }

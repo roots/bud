@@ -5,7 +5,6 @@ import {
   EXAMPLES_DIR,
   INTEGRATION_TESTS,
   REGISTRY_PROXY,
-  ROOTS_PATH,
 } from '../constants'
 import {Command} from './base.command'
 
@@ -111,15 +110,8 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
-      await copy(
-        `${ROOTS_PATH}/bud/examples`,
-        `${ROOTS_PATH}/examples/npm`,
-      )
-
-      await copy(
-        `${ROOTS_PATH}/bud/examples`,
-        `${ROOTS_PATH}/examples/yarn`,
-      )
+      await copy(`./examples`, `./storage/mocks/npm`)
+      await copy(`./examples`, `./storage/mocks/yarn`)
 
       await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
@@ -143,10 +135,10 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
+      `cd ./storage/mocks/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
     )
     await this.$(
-      `cd ${EXAMPLES_DIR}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
+      `cd ./storage/mocks/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
     )
   }
 

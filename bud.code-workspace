@@ -8,9 +8,4 @@
     {"name": "tests:integration", "path": "./tests/integration"},
     {"name": "tests:unit", "path": "./tests/unit"}
   ],
-  "settings": {
-    "editor.formatOnSave": true,
-    "prettier.configPath": "./config/prettier.config.js",
-    "prettier.prettierPath": "./dev/yarn/sdks/prettier/index.js"
-  }
 }

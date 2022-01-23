@@ -1,4 +1,4 @@
-storage: /verdaccio/storage
+storage: /bud/storage
 
 auth:
   htpasswd:
@@ -23,12 +23,13 @@ packages:
     access: $all
     publish: $all
     unpublish: $all
+    storage: 'packages'
 
   '**':
     access: $all
     publish: $all
     proxy: npmjs
-    storage: 'npm'
+    storage: 'packages/npm'
 
 logs:
   - {type: stdout, format: pretty, level: info}

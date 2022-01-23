@@ -1,7 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 import {readJson, remove, writeJson} from 'fs-extra'
 import {parse} from 'semver'
-import {ROOTS_PATH} from '../constants'
 
 import {Command} from './base.command'
 
@@ -110,7 +109,6 @@ export class Release extends Command {
     } catch (error) {
       this.err(`${step} failed: ${error.message}\n`)
       this.err(error.stack)
-
       process.exit(1)
     }
   }
@@ -140,17 +138,13 @@ export class Release extends Command {
     this.log('Wiping previously published packages')
 
     const verdaccioDb = await readJson(
-      `${ROOTS_PATH}/verdaccio/.verdaccio-db.json`,
+      `./storage/verdaccio/.verdaccio-db.json`,
     )
 
     verdaccioDb.list = []
 
-    await writeJson(
-      `${ROOTS_PATH}/verdaccio/.verdaccio-db.json`,
-      verdaccioDb,
-    )
-
-    await remove(`${ROOTS_PATH}/verdaccio/@roots`)
+    await writeJson(`./storage/verdaccio/.verdaccio-db.json`, verdaccioDb)
+    await remove(`./storage/verdaccio/packages/@roots`)
   }
 
   /**
