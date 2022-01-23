@@ -73,7 +73,7 @@ export class Yml {
    *
    * @internal
    */
-  public get(key: string): Promise<Record<string, any>> {
+  public get(key: string): Promise<any> {
     return get(this.data, key)
   }
 

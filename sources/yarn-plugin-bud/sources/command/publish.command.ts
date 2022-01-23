@@ -34,15 +34,6 @@ export class Publish extends Command {
   public static paths: CommandClass['paths'] = [['@bud', 'publish']]
 
   /**
-   * Command usage
-   *
-   * @remarks
-   * Don't define usage to hide from CLI --help
-   *
-   * @internal
-   */
-
-  /**
    * --tag flag
    *
    * @internal

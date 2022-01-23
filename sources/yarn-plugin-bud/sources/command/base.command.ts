@@ -37,18 +37,6 @@ export abstract class Command extends BaseCommand {
   public passthrough?: Array<string>
 
   /**
-   * Boolean indicating whether the command must be run in a container context
-   *
-   * @remarks
-   * This is mainly used to prevent accidental publishing of packages
-   * in the host context.
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  public requiresContainer: boolean = true
-
-  /**
    * Get manifest contents
    *
    * @internal
@@ -197,7 +185,8 @@ export abstract class Command extends BaseCommand {
             cwd: project.cwd,
           })
 
-          if (code !== 0) throw new Error(`${task} failed with code ${code}`)
+          if (code !== 0)
+            throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
           await this.errorHandler(e)
         }

@@ -12,8 +12,6 @@ globalFolder: ../yarn/global
 
 installStatePath: ../yarn/install-state.gz
 
-nmMode: hardlinks-local
-
 nodeLinker: node-modules
 
 npmAuthIdent: 'test:test'

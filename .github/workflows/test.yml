@@ -46,16 +46,16 @@ jobs:
 
       - name: Setup
         run: |
-          yarn @bud $ yarn install --immutable
+          docker-compose run bash yarn install --immutable
 
       - name: Lint
         run: |
-          yarn @bud : lint --skypack --eslint
+          docker compose run bash yarn @bud lint --skypack --eslint
 
       - name: Publish
         run: |
-          yarn @bud : release --tag latest
+          docker compose run bash yarn @bud release --tag latest
 
       - name: Test
         run: |
-          yarn @bud : test all --coverage --maxWorkers 50%
+          docker compose run bash yarn @bud test all --coverage --maxWorkers 50%

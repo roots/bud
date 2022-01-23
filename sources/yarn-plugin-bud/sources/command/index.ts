@@ -1,9 +1,7 @@
 import {Build} from './build.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
-import {ContainerBud} from './container/bud.command'
 import {ContainerDown} from './container/down.command'
-import {ContainerRun} from './container/run.command'
 import {ContainerUp} from './container/up.command'
 import {Dev} from './dev.command'
 import {Docs} from './docs.command'
@@ -18,9 +16,7 @@ export const Commands = {
   Build,
   Clean,
   Compile,
-  ContainerBud,
   ContainerDown,
-  ContainerRun,
   ContainerUp,
   Dev,
   Docs,

@@ -9,18 +9,14 @@ export const compileCjs = async (pkg: string): Promise<void> => {
    * Ensure target/lib/cjs is present
    */
   try {
-    await ensureDir(
-      join(process.cwd(), `/sources/${pkg}/lib/cjs/`),
-    )
+    await ensureDir(join(process.cwd(), `/sources/${pkg}/lib/cjs/`))
   } catch (err) {}
 
   /**
    * ...and empty
    */
   try {
-    await emptydir(
-      join(process.cwd(), `/sources/${pkg}/lib/cjs/`),
-    )
+    await emptydir(join(process.cwd(), `/sources/${pkg}/lib/cjs/`))
   } catch (err) {}
 
   /**
@@ -28,10 +24,7 @@ export const compileCjs = async (pkg: string): Promise<void> => {
    */
   try {
     await remove(
-      join(
-        process.cwd(),
-        `/sources/${pkg}/lib/tsconfig.tsbuildinfo`,
-      ),
+      join(process.cwd(), `/sources/${pkg}/lib/tsconfig.tsbuildinfo`),
     )
   } catch (err) {}
 
@@ -44,10 +37,7 @@ export const compileCjs = async (pkg: string): Promise<void> => {
   )
 
   if (code?.replaceAll)
-    code = code.replaceAll(
-      /require\("node:(\w*)"\)/g,
-      `require('$1')`,
-    )
+    code = code.replaceAll(/require\("node:(\w*)"\)/g, `require('$1')`)
 
   /**
    * Write entrypoint

@@ -9,11 +9,20 @@
     "ms-vscode-remote.remote-containers"
   ],
   "forwardPorts": [4873],
-  "postCreateCommand": "cd /roots/bud && yarn && yarn @bud build",
+  "postCreateCommand": [
+    "yarn",
+  ],
   "remoteUser": "root",
   "service": "bud",
   "settings": {
-    "eslint.nodePath": "bud/dev/yarn/sdks/eslint",
+    "debug.javascript.terminalOptions": {
+      "skipFiles": [
+        "<node_internals>/**",
+        "!**/node_modules/**",
+        "**/$KNOWN_TOOLS$/**",
+      ],
+    },
+    "eslint.nodePath": "/roots/bud/dev/yarn/sdks/eslint",
     "eslint.validate": ["javascript", "typescript"],
     "files.exclude": {
       "**/.git": true,
@@ -24,9 +33,9 @@
       "**/Thumbs.db": true,
       "**/node_modules": false
     },
-    "prettier.configPath": "bud/config/prettier.config.js",
-    "prettier.ignorePath": "bud/config/.prettierignore",
-    "prettier.prettierPath": "bud/dev/yarn/sdks/prettier/index.js",
+    "prettier.configPath": "/roots/bud/config/prettier.config.js",
+    "prettier.ignorePath": "/roots/bud/config/.prettierignore",
+    "prettier.prettierPath": "/roots/bud/dev/yarn/sdks/prettier/index.js",
     "search.exclude": {
       "bin": true,
       "dev/yarn": true,
@@ -36,7 +45,7 @@
       "**/node_modules": true,
       "**/.budfiles/**/*": true
     },
-    "typescript.tsdk": "bud/node_modules/typescript/lib",
+    "typescript.tsdk": "/roots/bud/node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "files.associations": {
       "*.ts": "typescript",
@@ -45,5 +54,5 @@
       "bud.config.json": "json5"
     },
   },
-  "workspaceFolder": "/roots"
+  "workspaceFolder": "/roots/bud"
 }

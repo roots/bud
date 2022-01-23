@@ -27,9 +27,7 @@ export class Version extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `version`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `version`]]
 
   /**
    * Command usage
@@ -39,9 +37,7 @@ export class Version extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `bump version of public packages`,
-    examples: [
-      [`yarn @bud version x.y.z`, `Bump packages to x.y.z`],
-    ],
+    examples: [[`yarn @bud version x.y.z`, `Bump packages to x.y.z`]],
   }
 
   /**

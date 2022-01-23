@@ -2,9 +2,8 @@ version: '3.8'
 
 services:
   verdaccio:
-    build:
-      dockerfile: ./dev/docker/verdaccio.dockerfile
     container_name: verdaccio
+    image: verdaccio/verdaccio
     networks:
       - node-network
     ports:
@@ -24,29 +23,170 @@ services:
       - node-network
     working_dir: /roots/bud
     user: root
-    command: sh ./dev/docker/shared/up.sh
+    command: sh ./dev/docker/bud/up.sh
     environment:
       - BUD_ENV=${BUD_ENV:-dev}
       - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
       - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
       - ./:/roots/bud
-      - verdaccio_storage:/roots/verdaccio
-      - bud_modules:/roots/bud/node_modules
-      - bud_coverage:/roots/bud/coverage
+      - /roots/bud/node_modules
+      - /roots/bud/coverage
+      - /roots/bud/sources/yarn-plugin-bud/node_modules
+      - /roots/bud/sources/docs/node_modules
+      - /roots/bud/sources/docs/api
+      - /roots/bud/sources/docs/build
+      - /roots/bud/sources/docs/.docusaurus
+      - /roots/bud/sources/@roots/bud/node_modules
+      - /roots/bud/sources/@roots/bud-api/node_modules
+      - /roots/bud/sources/@roots/bud-babel/node_modules
+      - /roots/bud/sources/@roots/bud-build/node_modules
+      - /roots/bud/sources/@roots/bud-cache/node_modules
+      - /roots/bud/sources/@roots/bud-compiler/node_modules
+      - /roots/bud/sources/@roots/bud-compress/node_modules
+      - /roots/bud/sources/@roots/bud-criticalcss/node_modules
+      - /roots/bud/sources/@roots/bud-dashboard/node_modules
+      - /roots/bud/sources/@roots/bud-emotion/node_modules
+      - /roots/bud/sources/@roots/bud-entrypoints/node_modules
+      - /roots/bud/sources/@roots/bud-esbuild/node_modules
+      - /roots/bud/sources/@roots/bud-eslint/node_modules
+      - /roots/bud/sources/@roots/bud-extensions/node_modules
+      - /roots/bud/sources/@roots/bud-framework/node_modules
+      - /roots/bud/sources/@roots/bud-hooks/node_modules
+      - /roots/bud/sources/@roots/bud-imagemin/node_modules
+      - /roots/bud/sources/@roots/bud-library/node_modules
+      - /roots/bud/sources/@roots/bud-mdx/node_modules
+      - /roots/bud/sources/@roots/bud-postcss/node_modules
+      - /roots/bud/sources/@roots/bud-preset-recommend/node_modules
+      - /roots/bud/sources/@roots/bud-preset-wordpress/node_modules
+      - /roots/bud/sources/@roots/bud-prettier/node_modules
+      - /roots/bud/sources/@roots/bud-purgecss/node_modules
+      - /roots/bud/sources/@roots/bud-react/node_modules
+      - /roots/bud/sources/@roots/bud-sass/node_modules
+      - /roots/bud/sources/@roots/bud-server/node_modules
+      - /roots/bud/sources/@roots/bud-solid/node_modules
+      - /roots/bud/sources/@roots/bud-stylelint/node_modules
+      - /roots/bud/sources/@roots/bud-support/node_modules
+      - /roots/bud/sources/@roots/bud-tailwindcss/node_modules
+      - /roots/bud/sources/@roots/bud-terser/node_modules
+      - /roots/bud/sources/@roots/bud-typescript/node_modules
+      - /roots/bud/sources/@roots/bud-vue/node_modules
+      - /roots/bud/sources/@roots/bud-wordpress-dependencies/node_modules
+      - /roots/bud/sources/@roots/bud-wordpress-externals/node_modules
+      - /roots/bud/sources/@roots/container/node_modules
+      - /roots/bud/sources/@roots/critical-css-webpack-plugin/node_modules
+      - /roots/bud/sources/@roots/dependencies/node_modules
+      - /roots/bud/sources/@roots/entrypoints-webpack-plugin/node_modules
+      - /roots/bud/sources/@roots/filesystem/node_modules
+      - /roots/bud/sources/@roots/ink-prettier/node_modules
+      - /roots/bud/sources/@roots/ink-use-style/node_modules
+      - /roots/bud/sources/@roots/merged-manifest-webpack-plugin/node_modules
+      - /roots/bud/sources/@roots/sage/node_modules
+      - /roots/bud/sources/@roots/wordpress-dependencies-webpack-plugin/node_modules
+      - /roots/bud/sources/@roots/wordpress-externals-webpack-plugin/node_modules
+      - /roots/bud/sources/@roots/bud/lib
+      - /roots/bud/sources/@roots/bud-api/lib
+      - /roots/bud/sources/@roots/bud-babel/lib
+      - /roots/bud/sources/@roots/bud-build/lib
+      - /roots/bud/sources/@roots/bud-cache/lib
+      - /roots/bud/sources/@roots/bud-compiler/lib
+      - /roots/bud/sources/@roots/bud-compress/lib
+      - /roots/bud/sources/@roots/bud-criticalcss/lib
+      - /roots/bud/sources/@roots/bud-dashboard/lib
+      - /roots/bud/sources/@roots/bud-emotion/lib
+      - /roots/bud/sources/@roots/bud-entrypoints/lib
+      - /roots/bud/sources/@roots/bud-esbuild/lib
+      - /roots/bud/sources/@roots/bud-eslint/lib
+      - /roots/bud/sources/@roots/bud-extensions/lib
+      - /roots/bud/sources/@roots/bud-framework/lib
+      - /roots/bud/sources/@roots/bud-hooks/lib
+      - /roots/bud/sources/@roots/bud-imagemin/lib
+      - /roots/bud/sources/@roots/bud-library/lib
+      - /roots/bud/sources/@roots/bud-mdx/lib
+      - /roots/bud/sources/@roots/bud-postcss/lib
+      - /roots/bud/sources/@roots/bud-preset-recommend/lib
+      - /roots/bud/sources/@roots/bud-preset-wordpress/lib
+      - /roots/bud/sources/@roots/bud-prettier/lib
+      - /roots/bud/sources/@roots/bud-purgecss/lib
+      - /roots/bud/sources/@roots/bud-react/lib
+      - /roots/bud/sources/@roots/bud-sass/lib
+      - /roots/bud/sources/@roots/bud-server/lib
+      - /roots/bud/sources/@roots/bud-solid/lib
+      - /roots/bud/sources/@roots/bud-stylelint/lib
+      - /roots/bud/sources/@roots/bud-support/lib
+      - /roots/bud/sources/@roots/bud-tailwindcss/lib
+      - /roots/bud/sources/@roots/bud-terser/lib
+      - /roots/bud/sources/@roots/bud-typescript/lib
+      - /roots/bud/sources/@roots/bud-vue/lib
+      - /roots/bud/sources/@roots/bud-wordpress-dependencies/lib
+      - /roots/bud/sources/@roots/bud-wordpress-externals/lib
+      - /roots/bud/sources/@roots/container/lib
+      - /roots/bud/sources/@roots/critical-css-webpack-plugin/lib
+      - /roots/bud/sources/@roots/dependencies/lib
+      - /roots/bud/sources/@roots/entrypoints-webpack-plugin/lib
+      - /roots/bud/sources/@roots/filesystem/lib
+      - /roots/bud/sources/@roots/ink-prettier/lib
+      - /roots/bud/sources/@roots/ink-use-style/lib
+      - /roots/bud/sources/@roots/merged-manifest-webpack-plugin/lib
+      - /roots/bud/sources/@roots/sage/lib
+      - /roots/bud/sources/@roots/wordpress-dependencies-webpack-plugin/lib
+      - /roots/bud/sources/@roots/wordpress-externals-webpack-plugin/lib
+      - /roots/bud/sources/@roots/bud/types
+      - /roots/bud/sources/@roots/bud-api/types
+      - /roots/bud/sources/@roots/bud-babel/types
+      - /roots/bud/sources/@roots/bud-build/types
+      - /roots/bud/sources/@roots/bud-cache/types
+      - /roots/bud/sources/@roots/bud-compiler/types
+      - /roots/bud/sources/@roots/bud-compress/types
+      - /roots/bud/sources/@roots/bud-criticalcss/types
+      - /roots/bud/sources/@roots/bud-dashboard/types
+      - /roots/bud/sources/@roots/bud-emotion/types
+      - /roots/bud/sources/@roots/bud-entrypoints/types
+      - /roots/bud/sources/@roots/bud-esbuild/types
+      - /roots/bud/sources/@roots/bud-eslint/types
+      - /roots/bud/sources/@roots/bud-extensions/types
+      - /roots/bud/sources/@roots/bud-framework/types
+      - /roots/bud/sources/@roots/bud-hooks/types
+      - /roots/bud/sources/@roots/bud-imagemin/types
+      - /roots/bud/sources/@roots/bud-typesrary/types
+      - /roots/bud/sources/@roots/bud-mdx/types
+      - /roots/bud/sources/@roots/bud-postcss/types
+      - /roots/bud/sources/@roots/bud-preset-recommend/types
+      - /roots/bud/sources/@roots/bud-preset-wordpress/types
+      - /roots/bud/sources/@roots/bud-prettier/types
+      - /roots/bud/sources/@roots/bud-purgecss/types
+      - /roots/bud/sources/@roots/bud-react/types
+      - /roots/bud/sources/@roots/bud-sass/types
+      - /roots/bud/sources/@roots/bud-server/types
+      - /roots/bud/sources/@roots/bud-solid/types
+      - /roots/bud/sources/@roots/bud-stylelint/types
+      - /roots/bud/sources/@roots/bud-support/types
+      - /roots/bud/sources/@roots/bud-tailwindcss/types
+      - /roots/bud/sources/@roots/bud-terser/types
+      - /roots/bud/sources/@roots/bud-typescript/types
+      - /roots/bud/sources/@roots/bud-vue/types
+      - /roots/bud/sources/@roots/bud-wordpress-dependencies/types
+      - /roots/bud/sources/@roots/bud-wordpress-externals/types
+      - /roots/bud/sources/@roots/container/types
+      - /roots/bud/sources/@roots/critical-css-webpack-plugin/types
+      - /roots/bud/sources/@roots/dependencies/types
+      - /roots/bud/sources/@roots/entrypoints-webpack-plugin/types
+      - /roots/bud/sources/@roots/filesystem/types
+      - /roots/bud/sources/@roots/ink-prettier/types
+      - /roots/bud/sources/@roots/ink-use-style/types
+      - /roots/bud/sources/@roots/merged-manifest-webpack-plugin/types
+      - /roots/bud/sources/@roots/sage/types
+      - /roots/bud/sources/@roots/wordpress-dependencies-webpack-plugin/types
+      - /roots/bud/sources/@roots/wordpress-externals-webpack-plugin/types
       - bud_yarn:/roots/yarn
       - bud_examples:/roots/examples
+      - verdaccio_storage:/roots/verdaccio
 
 networks:
   node-network:
     driver: bridge
 
 volumes:
-  bud_coverage:
-  bud_examples:
-  bud_modules:
-  bud_yarn:
-
   bud:
     driver: local
 
@@ -54,4 +194,5 @@ volumes:
     driver: local
 
   verdaccio_storage:
-    driver: local
+  bud_examples:
+  bud_yarn:
