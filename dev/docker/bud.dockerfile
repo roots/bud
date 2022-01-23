@@ -5,8 +5,9 @@ LABEL version 1
 
 ENV DOCKER_BUILDKIT=1
 
-RUN npm install emma-cli netlify-cli npm-cli-login --global
+RUN npm install netlify-cli npm-cli-login --global
 
 COPY ./dev/docker/bud/motd /etc/motd
 COPY ./dev/docker/bud/bash.bashrc /etc/bash.bashrc
+
 COPY ./ /bud

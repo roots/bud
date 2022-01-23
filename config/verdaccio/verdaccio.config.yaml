@@ -1,4 +1,4 @@
-storage: /bud/storage
+storage: ./
 
 auth:
   htpasswd:
