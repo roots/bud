@@ -37,7 +37,7 @@ module.exports = async function config() {
       },
     },
     moduleNameMapper,
-    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/cache/`],
+    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/storage/`],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
