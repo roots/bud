@@ -1,6 +1,7 @@
 import {CommandClass, Option} from 'clipanion'
-import {bind} from 'helpful-decorators'
 import {copy} from 'fs-extra'
+import {bind} from 'helpful-decorators'
+
 import {
   INTEGRATION_MOCKS_PATH,
   INTEGRATION_TESTS,
