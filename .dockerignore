@@ -2,5 +2,4 @@ cache/yarn
 **/node_modules
 sources/@roots/*/types
 sources/@roots/*/lib
-sources/@roots/*/node_modules/**/*
 **/.budfiles
