@@ -1,5 +1,5 @@
 import {CommandClass, Option} from 'clipanion'
-import {readJson, remove, writeJson} from 'fs-extra'
+import {pathExists, readJson, remove, writeJson} from 'fs-extra'
 import {parse} from 'semver'
 
 import {Command} from './base.command'
@@ -137,13 +137,24 @@ export class Release extends Command {
   public async wipeProxyDb() {
     this.log('Wiping previously published packages')
 
+    /**
+     * Wipe db records if they exist
+     */
+    const dbExists = await pathExists(`./storage/verdaccio/.verdaccio-db.json`)
+    if (!dbExists) return
+
     const verdaccioDb = await readJson(
       `./storage/verdaccio/.verdaccio-db.json`,
     )
-
     verdaccioDb.list = []
-
     await writeJson(`./storage/verdaccio/.verdaccio-db.json`, verdaccioDb)
+
+    /**
+     * Wipe packages if they exist
+     */
+    const packagesExists = await pathExists(`./storage/verdaccio/packages`)
+    if (!packagesExists) return
+
     await remove(`./storage/verdaccio/packages/@roots`)
   }
 
