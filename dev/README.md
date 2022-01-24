@@ -26,7 +26,7 @@ If you do want to help improve scripts in this directory, here are the most pres
      └── options.ts
 ```
 
-Scripts for [@vercel/ncc](https://github.com/vercel/ncc). 
+Scripts for [@vercel/ncc](https://github.com/vercel/ncc).
 
 ncc converts a package into a single js file. It is similar to rollup.
 
@@ -47,7 +47,7 @@ There are two implementations in this directory as well as a file exporting shar
 
 Currently we're using cjs. Eventually we'll be using esm. The files are relatively well commented.
 
-There is a wrapper for them in the cli (`yarn @bud compile [package]`), but they can be called directly like so: 
+There is a wrapper for them in the cli (`yarn @bud compile [package]`), but they can be called directly like so:
 
 ```sh
 node ./dev/compile/cjs @roots/bud-support
@@ -70,11 +70,11 @@ The issue with loaders is not exclusive to loaders -- lots of stuff in Webpack i
     └── chrome.dockerfile
 ```
 
-Images used for development. 
+Images used for development.
 
-- `bud.dockerfile` is the main dockerfile. 
+- `bud.dockerfile` is the main dockerfile.
 - `chrome.dockerfile` is not currently in use but will be needed one day for testing things like `critical-css` in the browser. It is currently kind of busted due to upstream ARM/Intel incompatibilities.
-- the `bud` directory contains bash scripts used by the container. 
+- the `bud` directory contains bash scripts used by the container.
 
 ## jest
 
@@ -101,12 +101,12 @@ Jest scripts. These could probably be moved to `tests` but that isn't a priority
 
 Used to generate READMEs in public packages (and the root README). They are written in JSX using a bespoke react renderer.
 
-### `components` 
+### `components`
 
 Reusable, composable chunks of README. Think: headers, footers, et al.
 
 
-### `renderer` 
+### `renderer`
 
 Contains the react-renderer implementation. It's kind of like a retrograde mdx in that it takes React components and generates markdown from them.
 
@@ -133,7 +133,7 @@ There is no specialization between readmes of the same type. As in: the core tem
 
 Build scripts relating to `/docs`. These don't live in `/docs` directly because of module incompatibilities and because it's easier to work on these tasks having them outside of the `/sources` dir.
 
-### `api-documenter.build` 
+### `api-documenter.build`
 
 An absolute bog of swamp code based on [faast.js's api-documenter to docusaurus mdx build step](https://github.com/faastjs/faast.js/blob/master/build/make-docs.js). I'd say it's about 70% there but it might be better to just host api docs as their own thing entirely. Or, just fundamentally rethink it.
 
@@ -143,15 +143,21 @@ An absolute bog of swamp code based on [faast.js's api-documenter to docusaurus 
 
 Note that the _entire repo_ is written to the api-documenter specification (look for code comment blocks containing `@public`, `@internal`, `@remarks`, et al.) I think it's a good, reasonable schema for documentation. It should be compatible with most all of what's out there in terms of tsdoc style api documentation generators.
 
-### `cli-examples` 
+This works better in a lot of ways:
+
+```ts
+typedoc --out ./sources/docs/api --tsconfig ./config/tsconfig.json --entryPointStrategy expand --entryPoints ./sources/@roots/bud-framework/src/index.ts
+```
+
+### `cli-examples`
 
 Literally perfect. It calls bud cli commands and stashes the output in `/sources/docs/src` for use in docusaurus.
 
 ## yarn
 
-``` 
+```
 ─── yarn
    ...
 ```
 
-Mystery yarn bins. Everything in here is generated. 
+Mystery yarn bins. Everything in here is generated.
