@@ -2,7 +2,7 @@ import {CommandClass, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import {copy} from 'fs-extra'
 import {
-  EXAMPLES_DIR,
+  INTEGRATION_MOCKS_PATH,
   INTEGRATION_TESTS,
   REGISTRY_PROXY,
 } from '../constants'
@@ -110,8 +110,8 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
-      await copy(`./examples`, `./storage/mocks/npm`)
-      await copy(`./examples`, `./storage/mocks/yarn`)
+      await copy(`./examples`, `${INTEGRATION_MOCKS_PATH}/npm`)
+      await copy(`./examples`, `${INTEGRATION_MOCKS_PATH}/yarn`)
 
       await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
@@ -135,10 +135,10 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ./storage/mocks/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
+      `cd ${INTEGRATION_MOCKS_PATH}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY}`,
     )
     await this.$(
-      `cd ./storage/mocks/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
+      `cd ${INTEGRATION_MOCKS_PATH}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
     )
   }
 
@@ -152,10 +152,10 @@ export class Test extends Command {
   @bind
   public async build(example: typeof INTEGRATION_TESTS & string) {
     await this.$(
-      `cd ${EXAMPLES_DIR}/yarn/${example} && yarn bud build --no-dashboard --log`,
+      `cd ${INTEGRATION_MOCKS_PATH}/yarn/${example} && yarn bud build --no-dashboard --log`,
     )
     await this.$(
-      `cd ${EXAMPLES_DIR}/npm/${example} && npx bud build --no-dashboard --log`,
+      `cd ${INTEGRATION_MOCKS_PATH}/npm/${example} && npx bud build --no-dashboard --log`,
     )
   }
 }

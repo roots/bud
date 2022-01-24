@@ -1,4 +1,4 @@
-export const EXAMPLES_DIR = `./storage/mocks`
+export const INTEGRATION_MOCKS_PATH = `/mocks`
 export const TS_CONFIG_PATH = './config/tsconfig.json'
 export const REGISTRY_PROXY = 'http://verdaccio:4873'
 

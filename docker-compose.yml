@@ -32,7 +32,7 @@ services:
       - ./:/bud
       - modules:/bud/node_modules
       - yarn:/bud/storage/yarn
-      - mocks:/bud/storage/mocks
+      - mocks:/mocks
       - docs-modules:/bud/sources/docs/node_modules
       - yarn-plugin-modules:/bud/sources/yarn-plugin-bud/node_modules
 

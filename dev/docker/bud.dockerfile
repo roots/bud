@@ -14,4 +14,4 @@ RUN mkdir -p /bud/node_modules \
   && mkdir -p /bud/storage/verdaccio \
   && mkdir -p /bud/storage/yarn \
   && mkdir -p /bud/storage/coverage \
-  && mkdir -p /bud/storage/mocks
+  && mkdir -p /mocks
