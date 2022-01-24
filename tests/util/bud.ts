@@ -1,4 +1,4 @@
-import {factory as budFactory, Bud} from '@roots/bud'
+import {Bud,factory as budFactory} from '@roots/bud'
 import {join} from 'path'
 
 export const repoPath = (path: string) =>

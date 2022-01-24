@@ -19,6 +19,7 @@
     "packages": [
       "sources/@roots/*",
       "sources/docs",
+      "sources/private/yarn-plugin-bud",
       "tests/util/project"
     ]
   },

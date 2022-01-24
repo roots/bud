@@ -22,19 +22,20 @@ services:
       - verdaccio
     networks:
       - node-network
-    working_dir: /bud
+    working_dir: /srv/bud
     user: root
     command: sh ./dev/docker/bud/up.sh
     environment:
       - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
       - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
-      - ./:/bud
-      - modules:/bud/node_modules
-      - yarn:/bud/storage/yarn
-      - mocks:/mocks
-      - docs-modules:/bud/sources/docs/node_modules
-      - yarn-plugin-modules:/bud/sources/yarn-plugin-bud/node_modules
+      - ./:/srv/bud
+      - modules:/srv/bud/node_modules
+      - storage:/srv/bud/storage
+      - mocks:/srv/mocks
+      - docs-modules:/srv/bud/sources/docs/node_modules
+      - yarn-plugin-modules:/srv/bud/sources/private/yarn-plugin-bud/node_modules
+      - support-libs:/srv/bud/sources/@roots/bud-support/lib
 
 networks:
   node-network:
@@ -43,11 +44,10 @@ networks:
 volumes:
   bud:
     driver: local
-  docs-modules:
-  modules:
-  yarn:
-  mocks:
-  yarn-plugin-modules:
-
   verdaccio:
-    driver: local
+  docs-modules:
+  mocks:
+  modules:
+  storage:
+  support-libs:
+  yarn-plugin-modules:

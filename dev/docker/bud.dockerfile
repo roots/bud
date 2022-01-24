@@ -8,10 +8,10 @@ RUN npm install netlify-cli npm-cli-login --global
 COPY ./dev/docker/bud/motd /etc/motd
 COPY ./dev/docker/bud/bash.bashrc /etc/bash.bashrc
 
-COPY ./ /bud
+COPY ./ /srv/bud
 
-RUN mkdir -p /bud/node_modules \
-  && mkdir -p /bud/storage/verdaccio \
-  && mkdir -p /bud/storage/yarn \
-  && mkdir -p /bud/storage/coverage \
-  && mkdir -p /mocks
+RUN mkdir -p /srv/bud/node_modules \
+  && mkdir -p /srv/bud/storage/verdaccio \
+  && mkdir -p /srv/bud/storage/yarn \
+  && mkdir -p /srv/bud/storage/coverage \
+  && mkdir -p /srv/mocks

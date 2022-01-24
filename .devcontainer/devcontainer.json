@@ -12,5 +12,5 @@
   ],
   "remoteUser": "root",
   "service": "bud",
-  "workspaceFolder": "/bud"
+  "workspaceFolder": "/srv/bud"
 }

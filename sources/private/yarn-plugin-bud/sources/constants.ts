@@ -5,7 +5,7 @@ export const REGISTRY_PROXY = 'http://verdaccio:4873'
 /**
  * Enabled integration tests
  *
- * @internalRemarks
+ * @remarks
  * This should be a part of jest config (once all integration tests are rewritten for verdaccio)
  *
  * @internal

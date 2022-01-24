@@ -1,4 +1,4 @@
-# ./dev
+# dev
 
 > Build scripts, dockerfiles, yarn binaries.
 
@@ -57,7 +57,7 @@ A package does not have to built prior to compiling it with ncc. It will just be
 
 ### .dev/compiler/options
 
-You'll notice a set of excluded packages in `./dev/compile/options.ts`. In particular watch out for stuff like loaders. Make sure they are excluded.
+You'll notice a set of excluded packages in `/dev/compile/options.ts`. In particular watch out for stuff like loaders. Make sure they are excluded.
 
 The issue with loaders is not exclusive to loaders -- lots of stuff in Webpack is handled the way loaders are -- they generally are just passed around by path and are resolved later by Webpack. If you have bundled a loader (or whatever) with ncc that path won't exist at build time 💀.
 
@@ -84,10 +84,10 @@ Images used for development.
     └── project.js
 ```
 
-Jest scripts. These could probably be moved to `/bud/tests` but that isn't a priority. These scripts are fine.
+Jest scripts. These could probably be moved to `tests` but that isn't a priority. These scripts are fine.
 
-- `moduleNameMapper.js` exports a function used in `/bud/config/jest.config.js` to map module names to source directories.
-- `project.js` is a helper function inteneded for integration testing. It is used by `/bud/tests/util/integration.ts`.
+- `moduleNameMapper.js` exports a function used in `/config/jest.config.js` to map module names to source directories.
+- `project.js` is a helper function inteneded for integration testing. It is used by `/tests/util/integration.ts`.
 
 ## readme
 
@@ -110,7 +110,7 @@ Reusable, composable chunks of README. Think: headers, footers, et al.
 
 Contains the react-renderer implementation. It's kind of like a retrograde mdx in that it takes React components and generates markdown from them.
 
-The renderer needs to be made great again, but a lot of the work to make something kind of cool is there and it has utility in our repo. You can see the full list of primitives which have been written in `./readme/renderer/components`. The main issue with the renderer at this point is centered around parsing component children (inner tags). Out on the top level everything is good to go.
+The renderer needs to be made great again, but a lot of the work to make something kind of cool is there and it has utility in our repo. You can reference the primitives in `./readme/renderer/components`. The main issue with the renderer at this point is centered around parsing component children (inner tags). Out on the top level everything is good to go.
 
 ### `templates`
 
@@ -131,7 +131,7 @@ There is no specialization between readmes of the same type. As in: the core tem
      └── cli-examples.ts
 ```
 
-Build scripts relating to `/bud/sources/docs`. These don't live in `/bud/sources/docs` directly because of module incompatibilities and because it's easier to work on these tasks having them outside of the `/bud/sources` dir.
+Build scripts relating to `/docs`. These don't live in `/docs` directly because of module incompatibilities and because it's easier to work on these tasks having them outside of the `/sources` dir.
 
 ### `api-documenter.build` 
 
@@ -145,7 +145,7 @@ Note that the _entire repo_ is written to the api-documenter specification (look
 
 ### `cli-examples` 
 
-Literally perfect. It calls bud cli commands and stashes the output in `./sources/docs/src` for use in docusaurus.
+Literally perfect. It calls bud cli commands and stashes the output in `/sources/docs/src` for use in docusaurus.
 
 ## yarn
 
