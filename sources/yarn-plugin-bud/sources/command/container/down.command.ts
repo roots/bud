@@ -16,18 +16,6 @@ export class ContainerDown extends Command {
   public name = '@bud down'
 
   /**
-   * Boolean indicating whether the command must be run in a container context
-   *
-   * @remarks
-   * This is mainly used to prevent accidental publishing of packages
-   * in the host context.
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  public requiresContainer: boolean = false
-
-  /**
    * Command paths
    *
    * @internal

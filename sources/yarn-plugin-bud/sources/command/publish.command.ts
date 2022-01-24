@@ -17,16 +17,6 @@ export class Publish extends Command {
   public name = 'publish'
 
   /**
-   * Requires container
-   *
-   * @remarks
-   * Will fail if process.env.BUD_ENV does not equal 'container'
-   *
-   * @internal
-   */
-  public requiresContainer = true
-
-  /**
    * Command paths
    *
    * @internal
