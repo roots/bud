@@ -30,6 +30,15 @@ Scripts for [@vercel/ncc](https://github.com/vercel/ncc).
 
 ncc converts a package into a single js file. It is similar to rollup.
 
+Right now this is applied to the following packages:
+
+- @roots/container
+- @roots/bud-dashboard
+- @roots/bud-support
+- @roots/wordpress-dependencies-webpack-plugin
+- @roots/wordpress-externals-webpack-plugin
+- @roots/entrypoints-webpack-plugin
+
 Not all of our packages are compatible with running through ncc. It has a hard time with dynamic code. Still, it should be run on a package if it can be run.
 
 There are two implementations in this directory as well as a file exporting shared options.
@@ -40,7 +49,7 @@ Currently we're using cjs. Eventually we'll be using esm. The files are relative
 
 There is a wrapper for them in the cli (`yarn @bud compile [package]`), but they can be called directly like so: 
 
-```
+```sh
 node ./dev/compile/cjs @roots/bud-support
 ```
 
@@ -63,9 +72,9 @@ The issue with loaders is not exclusive to loaders -- lots of stuff in Webpack i
 
 Images used for development. 
 
-- `./dev/docker/bud.dockerfile` is the main dockerfile. 
-- `./dev/docker/chrome.dockerfile` is not currently in use but will be needed one day for testing things like `critical-css` in the browser. It is currently kind of busted due to upstream ARM/Intel incompatibilities.
-- `./dev/docker/bud` contains bash scripts used by the container. 
+- `bud.dockerfile` is the main dockerfile. 
+- `chrome.dockerfile` is not currently in use but will be needed one day for testing things like `critical-css` in the browser. It is currently kind of busted due to upstream ARM/Intel incompatibilities.
+- the `bud` directory contains bash scripts used by the container. 
 
 ## jest
 
@@ -75,10 +84,10 @@ Images used for development.
     └── project.js
 ```
 
-Jest scripts. These could probably be moved to `./tests` but that isn't a priority. These scripts are fine.
+Jest scripts. These could probably be moved to `/bud/tests` but that isn't a priority. These scripts are fine.
 
-- `./dev/jest/moduleNameMapper.js` exports a function used in `./config/jest.config.js` to map module names to source directories.
-- `./dev/jest/project.js` is a helper function inteneded for integration testing. It is used by `./tests/util/integration.ts`.
+- `moduleNameMapper.js` exports a function used in `/bud/config/jest.config.js` to map module names to source directories.
+- `project.js` is a helper function inteneded for integration testing. It is used by `/bud/tests/util/integration.ts`.
 
 ## readme
 
@@ -92,18 +101,18 @@ Jest scripts. These could probably be moved to `./tests` but that isn't a priori
 
 Used to generate READMEs in public packages (and the root README). They are written in JSX using a bespoke react renderer.
 
-### `./dev/readme/components` 
+### `components` 
 
 Reusable, composable chunks of README. Think: headers, footers, et al.
 
 
-### `./dev/readme/renderer` 
+### `renderer` 
 
 Contains the react-renderer implementation. It's kind of like a retrograde mdx in that it takes React components and generates markdown from them.
 
-The renderer needs to be made great again, but a lot of the work to make something kind of cool is there and it has utility in our repo. You can see the full list of primitives which have been written in `./dev/readme/renderer/components`. The main issue with the renderer at this point is centered around parsing component children (inner tags). Out on the top level everything is good to go.
+The renderer needs to be made great again, but a lot of the work to make something kind of cool is there and it has utility in our repo. You can see the full list of primitives which have been written in `./readme/renderer/components`. The main issue with the renderer at this point is centered around parsing component children (inner tags). Out on the top level everything is good to go.
 
-### `./dev/readme/templates`
+### `templates`
 
 Houses the readme templates. There are currently four:
 
@@ -122,9 +131,9 @@ There is no specialization between readmes of the same type. As in: the core tem
      └── cli-examples.ts
 ```
 
-Build scripts relating to `./sources/docs`. These don't live in `./sources/docs` directly because of module incompatibilities and because it's easier to work on these tasks having them outside of the `./sources`.
+Build scripts relating to `/bud/sources/docs`. These don't live in `/bud/sources/docs` directly because of module incompatibilities and because it's easier to work on these tasks having them outside of the `/bud/sources` dir.
 
-### `./dev/site/api-documenter.build.js` 
+### `api-documenter.build` 
 
 An absolute bog of swamp code based on [faast.js's api-documenter to docusaurus mdx build step](https://github.com/faastjs/faast.js/blob/master/build/make-docs.js). I'd say it's about 70% there but it might be better to just host api docs as their own thing entirely. Or, just fundamentally rethink it.
 
@@ -134,7 +143,7 @@ An absolute bog of swamp code based on [faast.js's api-documenter to docusaurus 
 
 Note that the _entire repo_ is written to the api-documenter specification (look for code comment blocks containing `@public`, `@internal`, `@remarks`, et al.) I think it's a good, reasonable schema for documentation. It should be compatible with most all of what's out there in terms of tsdoc style api documentation generators.
 
-### `./dev/site/cli-examples.ts` 
+### `cli-examples` 
 
 Literally perfect. It calls bud cli commands and stashes the output in `./sources/docs/src` for use in docusaurus.
 

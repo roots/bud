@@ -1,4 +1,4 @@
-storage: ./
+storage: /verdaccio/storage
 
 auth:
   htpasswd:

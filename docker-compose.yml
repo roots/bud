@@ -4,13 +4,14 @@ services:
   verdaccio:
     container_name: verdaccio
     image: verdaccio/verdaccio
+    user: root
     networks:
       - node-network
     ports:
       - 4873:4873
     volumes:
       - ./config/verdaccio:/verdaccio/conf
-      - storage:/verdaccio/storage
+      - ./storage/verdaccio:/verdaccio/storage
 
   bud:
     container_name: bud
@@ -25,12 +26,11 @@ services:
     user: root
     command: sh ./dev/docker/bud/up.sh
     environment:
-      - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN:-false}
-      - YARN_RC_FILENAME=${YARN_RC_FILENAME:-./config/yarnrc.dev.yml}
+      - NPM_AUTH_TOKEN=${NPM_AUTH_TOKEN}
+      - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
       - ./:/bud
       - modules:/bud/node_modules
-      - storage:/bud/storage/verdaccio
       - yarn:/bud/storage/yarn
       - mocks:/bud/storage/mocks
       - docs-modules:/bud/sources/docs/node_modules
@@ -45,7 +45,6 @@ volumes:
     driver: local
   docs-modules:
   modules:
-  storage:
   yarn:
   mocks:
   yarn-plugin-modules:
