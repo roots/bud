@@ -51,14 +51,10 @@ jobs:
         run: |
           docker compose run bud yarn @bud lint --skypack --eslint
 
-      - name: Publish
-        run: |
-          docker compose run bud yarn @bud release --tag latest
-
       - name: Unit
         run: |
           docker compose run bud yarn @bud test unit --coverage --maxWorkers 50%
 
       - name: Integration
         run: |
-          docker compose run bud yarn @bud test integration --coverage --maxWorkers 50%
+          docker compose run bud yarn @bud release --tag latest && docker compose run bud yarn @bud test integration --coverage --maxWorkers 50%
