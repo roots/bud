@@ -1,6 +1,8 @@
 # Developing Bud
 
-This guide is a work-in-progress
+This is a work-in-progress. 
+
+This is not intended to be a resources for questions like "how do I develop an extension for bud?" It is specifically intended to help potential contributors get started working in the roots/bud repository.
 
 ## Table Of Contents
 
@@ -8,48 +10,41 @@ This guide is a work-in-progress
 - [Getting started](#getting-started)
 - [Repository layout](#repository)
 - [Dev CLI](#cli)
-- [Proxying](#proxying)
+- [Integration testing](#integration-testing)
 - [Documentation](#documentation)
-- [Core packages](#core-packages)
+- [Packages](#packages)
 
 ## Requirements
 
-Bud is developed using docker. As long as you have docker you should be fine.
+Either:
+
+- docker
+
+Or:
+
+- Node v16.13.2
+- Yarn 1.22.17 (or anything recent enough that it recognizes yarn v3)
+
+While you are free to develop with the second option (outside of docker) please note:
+
+- This isn't supported
+- You will find it more difficult to run integration tests
+
+Additionally, it is not a requirement to develop in vscode but if you are using a different IDE it will be on you to consult the `yarn v3` docs in order to get your IDE into a state where it recognizes yarn's `zip-fs` cache. Without `zip-fs` support your IDE links will probably not work.
 
 Bud is compatible with x86 and arm architectures.
 
 ## Getting started
 
-vscode isn't a requirement to develop bud, but it is the easiest way to get in without much friction.
+vscode isn't a requirement to develop bud, but it is the easiest way to get started and is the best supported way to work with the codebase.
 
-There is a vscode devcontainer configuration in `./devcontainer` which is useful for developing bud. You should be prompted to restart vscode inside the container context when you first open the project. Doing so will automatically build all the project files. Opening a vscode terminal allows you to run commands within the container.
+vscode as an IDE works particularly well [in conjunction with the vscode remote development extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) and docker (in the context of this repo).
 
-It comes preconfigured with prettier, eslint, and support for yarn 3's typescript plugin.
+If you have the extension installed you'll be prompted to restart vscode inside the container context when you first open the project. Doing so will build everything and ask you to install all of the recommended extensions. These extension installs only apply to the remote container context, so don't worry too much about messing up your IDE. 
 
-## Repository layout
+Opening a vscode terminal allows you to run commands within the container. The workbench will probably be a little different than the one you use outside the container, but it should all feel pretty familiar.
 
-- `.devcontainer`: vscode specific container configuration
-- `.github`: github specific configuration
-- `.vscode`: vscode editor specific configuration
-- `config`: tooling configuration (eslint, prettier, tsc, etc)
-- `dev`: build scripts
-  - `compile`: script to compile public packages into single file bundles (@vercel/ncc)
-  - `docker`: dockerfiles and container scripts
-  - `jest`: jest setup scripts
-  - `readme`: readme generator
-  - `site`: bud docs scripts
-  - `yarn`: yarn berry plugins, patches, sdks, etc
-- `examples`: usage examples. these packages are also used for integration testing.
-- `sources`: source code
-  - `@roots`: public packages
-  - `deprecated`: deprecated packages
-  - `docs`: docusaurus site files
-  - `roots-notifier`: macos notifier integration
-  - `yarn-plugin-bud`: `@bud` yarn plugin source
-- `tests`: jest test specs and snapshots
-  - `integration`: integration tests
-  - `unit`: unit tests
-  - `util`: testing utilities and scripts
+If you don't want to use docker but still use vscode you'll want to make sure that you have installed the `arcanis.vscode-zipfs` extension, since that won't be handled for you. Without it vscode will have a lot of difficulty tracing linked modules.
 
 ## CLI
 
@@ -62,14 +57,28 @@ If you run `yarn --help` you can find a listing of all the commands under the `@
 Common tasks:
 
 - `yarn @bud build`: build all packages. this command passes through all options/flags to `tsc`.
-- `yarn @bud test`: run all tests. this command passes through all options/flags to `jest`.
+- `yarn @bud dev`: build all packages with tsc's `--watch` flag.
+- `yarn @bud test all`: run all tests. this command passes through all options/flags to `jest`.
 - `yarn @bud lint`: run all linters.
 
-## Proxying
+## Integration testing
 
-bud.js uses [verdaccio](https://verdaccio.org/) to serve packages locally for testing.
+In order to do integration testing you will either need to use docker or:
 
-The proxy runs on port 4873. There is a web interface at [http://localhost:4873/](http://localhost:4873).
+- set the `YARN_RC_FILENAME` environment variable to `./config/yarn.dev.yml`
+- be running verdaccio (see below) separately
+
+This is because bud integration tests start by downloading the packages from a locally hosted private package registry. This repository is expected to be running at `http://verdaccio:4873`.
+
+The proxy package registry is provided by software called [verdaccio](https://verdaccio.org/).
+
+If you run `yarn @bud release --tag latest` (either in the container or with verdaccio running as a separate process on your machine) you'll have "released" the package to the registry at http://verdaccio:4873. If you go to that URL in a browser you should see your packages listed.
+
+Now, anywhere in the container (or outside of it, locally) you can install the package from the registry like so: `yarn install --registry http://verdaccio:4873` or `yarn add @roots/bud --dev --registry http://verdaccio:4873`. Same flag works for npm installs.
+
+If you want to make a change and try it again, rerun `yarn @bud release --tag latest`. Don't worry about incrementing versions, the `@bud` cli will delete the old packages before publishing again. 
+
+Between publishes, you will probably need to revert your lockfile wherever you are running the installs so you don't get trigger checksum mismatch errors. Sometimes yarn will get annoyed anyway. Adding `'unsafe-disable-integrity-migration': false` to `.yarnrc` will get it to chill.
 
 ## Documentation
 
@@ -79,13 +88,11 @@ Check out `yarn @bud docs --help` for more information.
 
 All site files are housed in `./sources/docs`.
 
-In addition, there are build scripts related to docs generation in `./dev/site`. These scripts are located in a different directory to avoid conflicts between docusaurus and other tools.
-
-### Writing docblocks for generated documentation
+### Docblocks
 
 API documentation is generated with [api-extractor](https://api-extractor.com/). You should not manually edit the API documentation at `./sources/docs/api`. It will be overwritten.
 
-When writing typescript for a bud.js package you should try and label exported symbols with either `@public` or `@private`. TS symbols labeled with `@public` will be included in built docs. TS symbols labeled with `@private` are not exposed to the public API and will not be included in built docs.
+When writing a bud.js package you should try and label exported symbols with either `@public` or `@private`. TS symbols labeled with `@public` will be included in built docs. TS symbols labeled with `@private` are not exposed to the public API and will not be included in built docs.
 
 You should also consider using other tags supported by api-extractor: `@params`, `@returns`, `@remarks`, `@decorator` and `@example`. An ideal comment block has:
 
@@ -121,28 +128,102 @@ function sum: (a: number, b: number) => number = sum(a, b) {
 }
 ````
 
-This isn't strictly enforced but it is nice. Adding docblocks to undocumented symbols is a very endearing and helpful way to contribute to the project.
+This isn't strictly enforced. Adding docblocks to undocumented symbols is a great way to contribute to the project. There is a tsdoc linter which can be used to get feedback. It's pretty noisy right now (if you run it on the entire repository). 
 
 ### READMEs
 
-Don't edit READMEs directly. They are generated in `./dev/readme` from templates in `./dev/readme/templates`. The templating engine is a react renderer and sort of like an inverted `mdx` (in that it takes react-ish markup and generates markdown from it).
+Don't edit `README.md` files directly. They are generated and your work will be overwritten.
 
-## Core packages
+## Packages
 
-- @roots/bud-api
-- @roots/bud-build
-- @roots/bud-cache
-- @roots/bud-dashboard
-- @roots/bud-extensions
-- @roots/bud-framework
-- @roots/bud-hooks
-- @roots/bud-server
-- @roots/bud-support
+>This section is incomplete.
 
-### @roots/bud-framework
+### Core packages
 
-This package is core to all of bud.js. Its exports, particularly its types, interfaces, and abstract classes are used by almost all other packages. When writing a package for bud.js you will, in all likelihood, be implementing against interfaces exported by this package.
+#### `@roots/bud-framework`
+
+This package is core to all of bud.js. Its exports are used by almost all other packages. When writing a package for bud.js you will, in all likelihood, be implementing against interfaces exported by this package.
+
+This package does not import from any other package. This is key to its role (IoC container).
 
 Structuring your package with this package as a dependency will help ensure that your package is compatible with bud.js.
 
 You can find many examples of using the interfaces exported from this package in any of the core bud packages or extensions.
+
+#### `@roots/bud-api`
+
+Many of the most visible configuration functions are provided by this service.
+
+Other than providing the functions it has two other tasks:
+
+- binding the functions
+- exposing facades for each of the functions
+
+Many of these functions are actually asynchronous but they are used as if they are sync functions in the configuration. This is because a call to a bud config function actually just stores a reference to the call in the `bud.api` service. Each stored reference is a tuple holding:
+
+- the function name as it was called (`String`)
+- the parameters passed (`Array`)
+
+Later, these stored tuples are looped through and the actual calls are made.
+
+This allows the user to enjoy a synchronous API while also keeping everything non-blocking.
+
+- `@roots/bud-build`
+- `@roots/bud-cache`
+- `@roots/bud-compiler`
+- `@roots/bud-dashboard`
+- `@roots/bud-extensions`
+- `@roots/bud-hooks`
+- `@roots/bud-server`
+- `@roots/bud-support`
+
+### Extensions
+
+- `@roots/bud-babel`
+- `@roots/bud-compress`
+- `@roots/bud-criticalcss`
+- `@roots/bud-emotion`
+- `@roots/bud-entrypoints`
+- `@roots/bud-esbuild`
+- `@roots/bud-eslint`
+- `@roots/bud-imagemin`
+- `@roots/bud-library`
+- `@roots/bud-mdx`
+- `@roots/bud-postcss`
+- `@roots/bud-preset-recommend`
+- `@roots/bud-prettier`
+- `@roots/bud-purgecss`
+- `@roots/bud-react`
+- `@roots/bud-sass`
+- `@roots/bud-solid`
+- `@roots/bud-stylelint`
+- `@roots/bud-tailwindcss`
+- `@roots/bud-terser`
+- `@roots/bud-typescript`
+- `@roots/bud-vue`
+- `@roots/bud-wordpress-dependencies`
+- `@roots/bud-wordpress-externals`
+- `@roots/bud-wordpress-manifests`
+- `@roots/sage`
+
+### Libraries
+
+- `@roots/container`
+- `@roots/dependencies`
+- `@roots/filesystem`
+- `@roots/ink-prettier`
+- `@roots/ink-use-style`
+
+Webpack plugins:
+
+- `@roots/critical-css-webpack-plugin`
+- `@roots/entrypoints-webpack-plugin`
+- `@roots/merged-manifest-webpack-plugin`
+- `@roots/wordpress-dependencies-webpack-plugin`
+- `@roots/wordpress-externals-webpack-plugin`
+
+### Private packages
+
+- `@roots/yarn-plugin-bud` (`./sources/yarn-plugin-bud`)
+- `@roots/bud-docs` (`./sources/docs`)
+- `roots-notifier` (`./sources/roots-notifier`)

@@ -3,24 +3,15 @@ FROM node:16
 LABEL name 'bud'
 LABEL version 1
 
-ENV DOCKER_BUILDKIT=1
+RUN npm install netlify-cli npm-cli-login --global
 
-RUN apt-get update \
-    && apt-get install -y curl less wget gnupg ca-certificates \
-    && apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+COPY ./dev/docker/bud/motd /etc/motd
+COPY ./dev/docker/bud/bash.bashrc /etc/bash.bashrc
 
-RUN npm install npm-cli-login --global
+COPY ./ /srv/bud
 
-COPY ./dev/docker/bud/dotfiles/motd /etc/motd
-COPY ./dev/docker/bud/dotfiles/bash.bashrc /etc/bash.bashrc
-
-COPY ./dev/docker/bud/bin/ci.sh /bin/ci
-COPY ./dev/docker/bud/bin/reset_integration.sh /bin/reset_integration
-COPY ./dev/docker/bud/bin/yarn_plugin_build.sh /bin/yarn_plugin_build
-
-RUN mkdir -p /roots
-COPY ./ /roots/bud
-COPY ./dev/yarn /roots/yarn
-COPY ./examples/ /roots/examples/npm
-COPY ./examples/ /roots/examples/yarn
-
+RUN mkdir -p /srv/bud/node_modules \
+  && mkdir -p /srv/bud/storage/verdaccio \
+  && mkdir -p /srv/bud/storage/yarn \
+  && mkdir -p /srv/bud/storage/coverage \
+  && mkdir -p /srv/mocks

@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - next
   workflow_dispatch:
   workflow_call:
 
@@ -46,16 +45,20 @@ jobs:
 
       - name: Setup
         run: |
-          yarn @bud $ yarn install --immutable
+          docker compose run bud yarn install --immutable
 
       - name: Lint
         run: |
-          yarn @bud : lint --skypack --eslint
+          docker compose run bud yarn @bud lint --skypack --eslint
 
       - name: Publish
         run: |
-          yarn @bud : release --tag latest
+          docker compose run bud yarn @bud release --tag latest
 
-      - name: Test
+      - name: Unit
         run: |
-          yarn @bud : test all --coverage --maxWorkers 50%
+          docker compose run bud yarn @bud test unit --coverage --maxWorkers 50%
+
+      - name: Integration
+        run: |
+          docker compose run bud yarn @bud test integration --coverage --maxWorkers 50%

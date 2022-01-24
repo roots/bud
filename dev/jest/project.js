@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
 const execa = require('execa')
 const {readFile} = require('fs-extra')
@@ -8,7 +9,7 @@ const {join} = require('path/posix')
  * This class is used to represent an example project being used
  * as the subject of an integration test.
  *
- * @usage
+ * @example
  * ```ts
  *  project = new Project({
  *    name: 'basic',
@@ -74,7 +75,7 @@ class Project {
   }
 
   get dir() {
-    return join(`/roots/examples/${this.options.with}`, this.options.name)
+    return join(`/srv/mocks/${this.options.with}`, this.options.name)
   }
 
   projectPath(file) {

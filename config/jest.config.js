@@ -8,12 +8,13 @@ module.exports = async function config() {
   const moduleNameMapper = await mapModuleNames()
 
   return {
+    coverageDirectory: 'storage/coverage',
     collectCoverageFrom: [
       'sources/@roots/**/src/**/*.{ts,tsx}',
       '!sources/@roots/**/src/**/*.dependencies.{ts,tsx}',
       '!sources/@roots/bud/src/cli/**/*.{ts,tsx}',
       '!sources/@roots/**/*.d.ts',
-      '!cache/verdaccio/**/*',
+      '!storage/**/*',
       '!node_modules/**/*',
     ],
     coveragePathIgnorePatterns: [
@@ -36,7 +37,7 @@ module.exports = async function config() {
       },
     },
     moduleNameMapper,
-    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/cache/`],
+    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/storage/`],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
