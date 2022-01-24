@@ -57,4 +57,4 @@ jobs:
 
       - name: Integration
         run: |
-          docker compose run bud yarn @bud release --tag latest && docker compose run bud yarn @bud test integration --coverage --maxWorkers 50%
+          docker compose run bud yarn @bud release --tag latest && yarn @bud test integration --coverage --maxWorkers 50%
