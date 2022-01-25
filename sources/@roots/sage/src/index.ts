@@ -7,22 +7,32 @@
  * @see https://github.com/roots/bud
  * @see https://github.com/roots/sage
  *
- * @remarks
- * - 💁 Composable - Build exceptional web applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 
 import {Sage} from './sage.preset'
 
 declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * setPublicPath
+     *
+     * @deprecated
+     * Please remove this function from your config file. It is not needed.
+     * When Sage 10 exits beta this function call will break your build.
+     *
+     * @returns Framework
+     *
+     * @public
+     */
+    setPublicPath: (
+      publicPath: string | ((publicPath: string) => string),
+    ) => Framework
+  }
+
   interface Modules {
     '@roots/sage': typeof Sage
   }
 }
 
-export const {name, register} = Sage
+export const {name, boot} = Sage

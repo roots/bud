@@ -3,7 +3,6 @@ import {bind, chalk, lodash} from '@roots/bud-support'
 
 import * as facade from './facade'
 import * as methods from './methods'
-import * as immediate from './methods/immediate'
 
 const {isEmpty, isFunction} = lodash
 
@@ -11,9 +10,8 @@ const {isEmpty, isFunction} = lodash
  * API service
  *
  * @remarks
- * Binds facade methods to the framework
- * and provides a means to call the methods
- * directly for immediate execution.
+ * Binds facade methods to the framework and provides a way to list them,
+ * call them, and otherwise manipulate them.
  *
  * @public
  */
@@ -45,10 +43,8 @@ export class Api extends Framework.Service implements Framework.Api {
         {},
       ),
     )
-
-    this.getKeys().map(key => this.bindFacade(key))
-
-    this.app.bindMethod(immediate)
+      .getKeys()
+      .map(this.bindFacade)
   }
 
   /**

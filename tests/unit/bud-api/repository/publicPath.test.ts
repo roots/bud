@@ -14,9 +14,7 @@ describe('bud.publicPath', function () {
 
   it('publicPath: returns the correct default publicPath', () => {
     expect(bud.publicPath()).toEqual('')
-    expect(bud.publicPath()).toEqual(
-      bud.build.config.output.publicPath,
-    )
+    expect(bud.publicPath()).toEqual(bud.build.config.output.publicPath)
   })
 
   it('setPublicPath: is a function', () => {
@@ -26,7 +24,9 @@ describe('bud.publicPath', function () {
   it('setPublicPath: sets publicPath when called', async () => {
     const newPath = '/foo'
 
+    // @ts-ignore
     bud.setPublicPath(newPath)
+
     await bud.build.make()
 
     expect(bud.build.config.output.publicPath).toEqual(newPath)

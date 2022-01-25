@@ -21,10 +21,10 @@ export default function dev(app: Framework) {
 const makeOptions = (
   app: Framework,
 ): WebpackDevMiddleware.Options<IncomingMessage, ServerResponse> => ({
-  writeToDisk: true,
-  publicPath: app.hooks.filter('build.output.publicPath'),
-  stats: false,
   headers: {
     ['X-Server']: '@roots/bud',
   },
+  publicPath: app.hooks.filter('build.output.publicPath'),
+  stats: false,
+  writeToDisk: true,
 })

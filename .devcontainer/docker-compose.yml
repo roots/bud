@@ -1,5 +1,0 @@
-version: '3.8'
-services:
-  bud:
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock

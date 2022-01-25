@@ -1,51 +1,29 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
-import {eventBuildMakeBeforeDevelopment} from './hooks/event.build.make.before.dev'
-import {eventBuildMakeBeforeProduction} from './hooks/event.build.make.before.production'
 import eventCompilerDone from './hooks/event.compiler.done'
-/**
- * Development configuration
- *
- * @param app - bud instance
- */
-const inDevelopment = (app: Framework) => {
-  app.devtool()
-
-  app.hooks /** Use full URL for development */
-    .async(
-      'event.build.make.before',
-      eventBuildMakeBeforeDevelopment.bind(app),
-    )
-    /** Write hmr.json after compilation */
-    .hooks.async<'event.compiler.done'>(
-      'event.compiler.done',
-      eventCompilerDone(app),
-    )
-    /** rm hmr.json when app is closed */
-    .hooks.on('event.app.close', eventAppClose.bind(app))
-}
+import {setPublicPath} from './setPublicPath'
 
 /**
- * Production configuration
+ * Image filename utility
  *
- * @param app - bud instance
+ * @remarks
+ * Given a string, will return it as a webpack filename
+ * in the `images/` directory
+ *
+ * @param name - filename
+ * @returns filename
+ *
+ * @internal
  */
-const inProduction = (app: Framework) => {
-  app.minimize().hash().runtime('single')
-
-  app.hooks.async(
-    'event.build.make.before',
-    eventBuildMakeBeforeProduction.bind(app),
-  )
-}
+const makeImageFilename = (name: string) => `images/${name}/[ext]`
 
 /**
  * Sage preset
  *
  * @public
  */
-export const Sage: Extension.Module = {
+export const Sage: Extension.Module<void> = {
   /**
    * Extension identifier
    *
@@ -58,25 +36,58 @@ export const Sage: Extension.Module = {
    *
    * @public
    */
-  register: async app => {
-    app
-      .alias({
-        '@fonts': app.path('src', 'fonts'),
-        '@images': app.path('src', 'images'),
-        '@scripts': app.path('src', 'scripts'),
-        '@styles': app.path('src', 'styles'),
-      })
-      .provide({$: ['jquery'], jQuery: ['jquery']})
-      .when(app.isProduction, inProduction, inDevelopment)
+  boot: async app => {
+    app.setPublicPath = setPublicPath.bind(this)
 
     /**
      * Override output directory for svg assets
+     * `@roots/bud-build` places them, by default, in `svg/`
      */
     app.build.rules.svg.setGenerator(app => ({
       filename:
         app.store.is('features.hash', true) && app.isProduction
-          ? `images/${app.store.get('hashFormat')}[ext]`
-          : `images/${app.store.get('fileFormat')}[ext]`,
+          ? makeImageFilename(app.store.get('hashFormat'))
+          : makeImageFilename(app.store.get('fileFormat')),
     }))
+
+    /**
+     * Directory aliases
+     */
+    app.alias({
+      '@fonts': app.path('src', 'fonts'),
+      '@images': app.path('src', 'images'),
+      '@scripts': app.path('src', 'scripts'),
+      '@styles': app.path('src', 'styles'),
+    })
+
+    /**
+     * Separate vendor code from application
+     */
+    app.splitChunks()
+
+    /**
+     * Production/development configuration
+     */
+    app.when(
+      /**
+       * Test for production
+       */
+      app.isProduction,
+
+      /**
+       * Production
+       */
+      () => app.minimize().hash().runtime('single'),
+
+      /**
+       * Development
+       */
+      ({devtool, hooks}) => {
+        devtool()
+
+        hooks.async('event.compiler.done', eventCompilerDone.bind(app))
+        hooks.on('event.app.close', eventAppClose.bind(app))
+      },
+    )
   },
 }

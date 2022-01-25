@@ -1,3 +1,4 @@
+import {WatchOptions} from 'chokidar'
 import {URL} from 'url'
 
 /**
@@ -39,6 +40,13 @@ export interface Configuration {
      * @public
      */
     files: Array<string>
+
+    /**
+     * Watch options
+     *
+     * @public
+     */
+    options: WatchOptions
   }
 
   /**

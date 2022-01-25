@@ -289,6 +289,7 @@ export const seed: Partial<Store.Repository> = {
   server: {
     watch: {
       files: [],
+      options: {},
     },
 
     middleware: {

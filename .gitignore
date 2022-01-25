@@ -1,46 +1,24 @@
 # secret
 .env
 
-cache/yarn/**/*
-cache/global/**/*
-cache/install-state.gz
-!cache/yarn/.gitkeep
-!cache/verdaccio/.gitkeep
+coverage
+storage
 
-*.log
-
+**/*.log
 **/lib
 **/*.tsbuildinfo
 **/profiles
 **/.budfiles
-coverage
+**/.pnp.*
+**/.yarn
 
-# pacman
-/dev/yarn/*
-!/dev/yarn/patches
-!/dev/yarn/releases
-!/dev/yarn/plugins
-!/dev/yarn/sdks
-!/dev/yarn/versions
-.pnp.*
-/.npmrc
-node_modules
-
-# bud
-
-.netlify
-.docusaurus
-.cache-loader
-
-# verdaccio
-/verdaccio
+**/node_modules
 
 # Sources
 /sources/@roots/*/types
-
-# Docs
+/sources/docs/api
 /sources/docs/build
-/sources/docs/src/api/**/*.*
+/sources/docs/.docusaurus
 
 # Examples
 /examples/*/dist

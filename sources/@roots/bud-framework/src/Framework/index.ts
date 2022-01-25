@@ -441,6 +441,16 @@ export abstract class Framework {
   public pipe: methods.pipe = methods.pipe.bind(this)
 
   /**
+   * Public path
+   *
+   * @remarks
+   * Path from web root to assets
+   *
+   * @public
+   */
+  public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
+
+  /**
    * Set a {@link @roots/bud-framework#Location | Location} value
    *
    * @remarks
@@ -459,6 +469,32 @@ export abstract class Framework {
    * @public
    */
   public setPath: methods.setPath = methods.setPath.bind(this)
+
+  /**
+   * By default it is assumed that assets are served from webroot (`/`).
+   * You can use this method to replace this value for apps served from
+   * a subdirectory.
+   *
+   * @example
+   * Set the default path using a string
+   *
+   * ```js
+   * app.setPublicPath('/app/themes/sage/dist')
+   * ```
+   *
+   * @example
+   * Set the publicPath using a function.
+   *
+   * ```js
+   * app.setPublicPath(publicPath => {
+   *   return `web/assets/${publicPath}`
+   * })
+   * ```
+   *
+   * @public
+   */
+  public setPublicPath: methods.setPublicPath =
+    methods.setPublicPath.bind(this)
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.

@@ -6,6 +6,10 @@ export interface use {
   (source: Source): Promise<Framework>
 }
 
+export interface facade {
+  (source: Source): Framework
+}
+
 export const use: use = async function (source): Promise<Framework> {
   const bud = this as Framework
 

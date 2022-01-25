@@ -8,11 +8,7 @@ on:
         required: true
 
 jobs:
-  test:
-    uses: roots/bud/.github/workflows/test.yml@main
-
   release:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +39,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           YARN_RC_FILENAME: '.yarnrc.yml'
         run: |
-          yarn @bud : release --tag latest --version ${{ github.event.inputs.version }}
+          docker-compose run bash yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
 
       - name: Configure Git
         run: |
