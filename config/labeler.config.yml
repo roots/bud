@@ -3,8 +3,8 @@
   - codecov.yml
 
 'yarn':
-  - dev/yarn/*
-  - dev/yarn/**/*
+  - .yarn/*
+  - .yarn/**/*
 
 'dev':
   - dev/**/*
@@ -43,8 +43,8 @@
   - jest.config.ts
 
 'roots-notifier':
-  - sources/roots-notifier/*
-  - sources/roots-notifier/**
+  - sources/@repo/notifier/*
+  - sources/@repo/notifier/**
 
 '@roots/bud':
   - sources/@roots/bud/*

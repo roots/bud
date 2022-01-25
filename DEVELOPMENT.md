@@ -224,6 +224,6 @@ Webpack plugins:
 
 ### Private packages
 
-- `@roots/yarn-plugin-bud` (`./sources/yarn-plugin-bud`)
-- `@roots/bud-docs` (`./sources/docs`)
-- `roots-notifier` (`./sources/roots-notifier`)
+- `@repo/yarn-plugin-bud` (`./sources/yarn-plugin-bud`)
+- `@repo/docs` (`./sources/docs`)
+- `@repo/notifier` (`./sources/@repo/notifier`)

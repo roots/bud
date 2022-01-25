@@ -1,7 +1,7 @@
 import {readFile} from 'fs-extra'
 import {join} from 'path'
 
-import Project from '../../dev/jest/project'
+import {Project} from '@repo/test-kit/project'
 
 jest.setTimeout(60000)
 

@@ -13,14 +13,14 @@
     "node": "^16.3.0"
   },
   "volta": {
-    "node": "16.13.2"
+    "node": "16.13.2",
+    "yarn": "1.22.17"
   },
   "workspaces": {
     "packages": [
       "sources/@roots/*",
-      "sources/docs",
-      "sources/private/yarn-plugin-bud",
-      "tests/util/project"
+      "tests/util/project",
+      "sources/@repo/*"
     ]
   },
   "scripts": {
@@ -29,9 +29,8 @@
     "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.14.1",
-    "@microsoft/api-extractor": "7.19.4",
-    "@skypack/package-check": "0.2.2",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.4.0",
     "@types/js-yaml": "4.0.5",
@@ -39,15 +38,11 @@
     "@types/node": "16.11.19",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
-    "@types/react-helmet": "6.1.5",
     "@types/react-reconciler": "0.26.4",
-    "@types/react-router-dom": "5.3.2",
     "@types/signale": "1.4.4",
-    "@types/weak-napi": "2.0.0",
     "@typescript-eslint/eslint-plugin": "5.9.1",
     "@typescript-eslint/parser": "5.9.1",
     "@vercel/ncc": "0.33.1",
-    "@yarnpkg/builder": "3.1.0",
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
@@ -66,23 +61,16 @@
     "js-yaml": "4.1.0",
     "json5": "2.2.0",
     "lodash": "4.17.21",
-    "npm-auth-to-token": "1.0.0",
-    "npm-run-all": "4.1.5",
-    "npm-run-path": "5.0.1",
     "prettier": "2.5.1",
     "pretty-format": "27.4.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-reconciler": "0.26.2",
-    "rimraf": "3.0.2",
-    "shebang-command": "2.0.0",
     "signale": "1.4.0",
     "ts-jest": "27.1.3",
     "ts-node": "10.4.0",
-    "tsconfig-paths": "3.12.0",
     "type-fest": "2.9.0",
-    "typescript": "4.5.4",
-    "weak-napi": "2.0.2"
+    "typescript": "4.5.4"
   },
   "dependencies": {
     "tslib": "2.3.1"

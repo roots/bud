@@ -31,10 +31,8 @@ services:
     volumes:
       - ./:/srv/bud
       - modules:/srv/bud/node_modules
-      - storage:/srv/bud/storage
-      - mocks:/srv/mocks
-      - docs-modules:/srv/bud/sources/docs/node_modules
-      - yarn-plugin-modules:/srv/bud/sources/private/yarn-plugin-bud/node_modules
+      - ./storage:/srv/bud/storage
+      - ./storage/mocks:/srv/mocks
       - support-libs:/srv/bud/sources/@roots/bud-support/lib
 
 networks:
@@ -45,9 +43,9 @@ volumes:
   bud:
     driver: local
   verdaccio:
-  docs-modules:
+    driver: local
+
   mocks:
   modules:
   storage:
   support-libs:
-  yarn-plugin-modules:

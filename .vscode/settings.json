@@ -9,7 +9,7 @@
     "eslint.options": {
       "overrideConfigFile": "config/eslint.config.js"
     },
-    "eslint.nodePath": "dev/yarn/sdks/eslint",
+    "eslint.nodePath": ".yarn/sdks/eslint",
     "eslint.validate": ["javascript", "typescript"],
     "files.exclude": {
       "**/.git": true,
@@ -22,10 +22,10 @@
     },
     "prettier.configPath": "dev/config/prettier.config.js",
     "prettier.ignorePath": "dev/config/.prettierignore",
-    "prettier.prettierPath": "dev/yarn/sdks/prettier/index.js",
+    "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
     "search.exclude": {
       "bin": true,
-      "dev/yarn": true,
+      ".yarn": true,
       "coverage": true,
       "verdaccio": true,
       "**/pnp.*": true,

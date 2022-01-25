@@ -1,5 +1,5 @@
 import {fs} from '@roots/bud-support'
-import {Bud, factory} from '../../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {expect, describe, beforeAll, it} from '@jest/globals'
 
 const PROJECT_MANIFEST_PATH = `${process.cwd()}/tests/util/project/package.json`

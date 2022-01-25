@@ -1,7 +1,7 @@
 import * as Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.use', function () {
   let bud: Bud

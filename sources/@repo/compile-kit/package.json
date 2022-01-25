@@ -1,0 +1,19 @@
+{
+  "name": "@repo/compile-kit",
+  "private": true,
+  "packageManager": "yarn@3.1.1",
+  "exports": {
+    "./cjs": "./cjs.ts",
+    "./esm": "./esm.ts",
+    "./options": "./options.ts"
+  },
+  "devDependencies": {
+    "@repo/constants": "workspace:*",
+    "@types/fs-extra": "9.0.13",
+    "@vercel/ncc": "0.33.1",
+    "execa": "6.0.0",
+    "fs-extra": "10.0.0",
+    "helpful-decorators": "2.1.0",
+    "json5": "2.2.0"
+  }
+}

@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-server', function () {
   let bud: Bud

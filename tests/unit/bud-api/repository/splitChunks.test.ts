@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe.skip('bud.splitChunks', function () {
   let bud: Bud

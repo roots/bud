@@ -2,7 +2,7 @@ import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-extensions Controller', function () {
   let bud: Bud

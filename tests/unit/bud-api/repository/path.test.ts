@@ -1,6 +1,6 @@
 import {join} from 'path'
 
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.path', function () {
   let bud: Bud

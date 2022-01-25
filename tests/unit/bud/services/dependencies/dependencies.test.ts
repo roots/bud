@@ -1,4 +1,4 @@
-import {Bud, factory, mockProject} from '../../../../util/bud'
+import {Bud, factory, mockProject} from '@repo/test-kit/bud'
 import {Dependencies} from '@roots/bud/src/services/Dependencies'
 import {Dependencies as DependenciesManager} from '@roots/dependencies'
 

@@ -1,4 +1,4 @@
-import Project from '../../dev/jest/project'
+import {Project} from '@repo/test-kit/project'
 jest.setTimeout(120000)
 
 export const runIntegrations = async (
