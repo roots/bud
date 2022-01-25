@@ -36,14 +36,14 @@
   "files": [
     "lib/",
     "types/",
-    "templates/"
+    "config/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./config": "./config/index.js"
   },
   "bud": {
     "type": "extension"
@@ -64,5 +64,13 @@
     "stylelint-config-standard": "^24.0.0",
     "stylelint-webpack-plugin": "^3.1.0",
     "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "stylelint": "^14.1.0"
+  },
+  "peerDependenciesMeta": {
+    "stylelint": {
+      "optional": true
+    }
   }
 }

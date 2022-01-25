@@ -4,10 +4,7 @@
  * @public
  */
 module.exports = {
-  extends: [
-    require.resolve('@roots/bud-preset-wordpress/eslint-config'),
-    require.resolve('@roots/bud-prettier/eslint-config'),
-  ],
+  extends: [require.resolve('@roots/bud-preset-wordpress/eslint-config')],
   rules: {
     'no-console': 0,
     'comma-dangle': [

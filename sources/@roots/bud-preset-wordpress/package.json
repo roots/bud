@@ -43,6 +43,10 @@
   "bud": {
     "type": "extension",
     "peers": [
+      "@roots/bud-babel",
+      "@roots/bud-entrypoints",
+      "@roots/bud-eslint",
+      "@roots/bud-postcss",
       "@roots/bud-preset-recommend",
       "@roots/bud-react",
       "@roots/bud-wordpress-externals",
@@ -58,22 +62,28 @@
     "@types/node": "16.11.19",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
-    "@wordpress/browserslist-config": "4.1.0",
     "jest": "27.4.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "webpack": "5.65.0"
   },
   "dependencies": {
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
+    "@wordpress/browserslist-config": "4.1.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@wordpress/browserslist-config": "4.1.0"
+    "@wordpress/browserslist-config": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@wordpress/browserslist-config": {
+      "optional": true
+    }
   }
 }

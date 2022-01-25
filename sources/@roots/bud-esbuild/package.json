@@ -54,10 +54,8 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "^0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
-    "jest": "27.4.7",
     "webpack": "5.65.0"
   },
   "dependencies": {
@@ -66,5 +64,13 @@
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "esbuild-loader": "^2.16.0"
+  },
+  "peerDependenciesMeta": {
+    "esbuild-loader": {
+      "optional": true
+    }
   }
 }

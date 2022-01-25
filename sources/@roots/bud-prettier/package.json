@@ -65,6 +65,11 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "prettier": "2.5.1"
+    "prettier": "^2.5.1"
+  },
+  "peerDependenciesMeta": {
+    "prettier": {
+      "optional": true
+    }
   }
 }

@@ -34,6 +34,12 @@ export class Extensions extends Service implements Base {
     return controller
   }
 
+  @bind
+  public async setController(extension: Extension.Module): Promise<void> {
+    const controller = this.makeController(extension)
+    this.set(controller.name, controller)
+  }
+
   /**
    * @override
    * @public
@@ -77,26 +83,24 @@ export class Extensions extends Service implements Base {
     }
 
     try {
-      const modules = this.app.project.peers.adjacents
-        .fromRoot('root')
+      const modules = Object.values(this.app.project.peers.modules)
         .filter(Boolean)
         .filter(({bud}) => bud?.type === 'extension')
-        .map(({name}) => name)
 
       await Promise.all(
-        modules.map(async name => {
-          await this.importExtension(name)
+        modules.map(async record => {
+          await this.importExtension(record)
         }),
       )
 
-      await modules.reduce(async (promised, name) => {
+      await modules.reduce(async (promised: Promise<void>, record) => {
         await promised
-        await this.registerExtension(this.get(name))
+        await this.registerExtension(this.get(record.name))
       }, Promise.resolve())
 
-      await modules.reduce(async (promised, name) => {
+      await modules.reduce(async (promised, record) => {
         await promised
-        await this.bootExtension(this.get(name))
+        await this.bootExtension(this.get(record.name))
       }, Promise.resolve())
     } catch (e) {
       this.app.error(e)
@@ -104,19 +108,17 @@ export class Extensions extends Service implements Base {
   }
 
   @bind
-  public async importExtension(extension: string): Promise<void> {
-    this.log('log', `importing ${extension}`)
-    const importedExt = await import(extension)
+  public async importExtension(
+    extension: Record<string, any>,
+  ): Promise<void> {
+    this.log('log', `importing ${extension.name}`)
+    const importedModule = await import(extension.name)
+    const importedExtension: Extension.Module = importedModule.default
+      ? importedModule.default
+      : importedModule
 
-    if (this.has(importedExt)) return
-    await this.setController(importedExt)
-    return this.get(importedExt.name)
-  }
-
-  @bind
-  public async setController(extension): Promise<void> {
-    const controller = this.makeController(extension)
-    this.set(controller.name, controller)
+    if (this.has(importedExtension.name)) return
+    await this.setController(importedExtension)
   }
 
   /**
@@ -159,10 +161,13 @@ export class Extensions extends Service implements Base {
   public async registerExtensions(): Promise<void> {
     this.log('time', 'registering')
 
-    await this.getEntries().reduce(async (promised, [key, controller]) => {
-      await promised
-      await this.registerExtension(controller)
-    }, Promise.resolve())
+    await this.getEntries().reduce(
+      async (promised, [_key, controller]) => {
+        await promised
+        await this.registerExtension(controller)
+      },
+      Promise.resolve(),
+    )
 
     this.log('timeEnd', 'registering')
   }

@@ -55,11 +55,9 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/eslint": "8.2.2",
-    "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "eslint": "8.6.0",
-    "jest": "27.4.7",
     "typescript": "4.5.4",
     "webpack": "5.65.0"
   },
@@ -70,14 +68,14 @@
     "fork-ts-checker-webpack-plugin": "^6.4.0",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "typescript": "4.5.5"
   },
   "peerDependencies": {
-    "eslint": "^7 || ^8.0.0",
-    "typescript": "^4"
+    "typescript": "^4.5.5"
   },
   "peerDependenciesMeta": {
-    "eslint": {
+    "typescript": {
       "optional": true
     }
   }

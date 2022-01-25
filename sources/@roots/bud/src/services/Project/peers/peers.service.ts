@@ -142,7 +142,6 @@ export class Peers implements PeersInterface {
       resolvable: manifest ? true : false,
       peerDependencies: manifest.peerDependencies ?? {},
       requires: Object.entries<string>({
-        ...(manifest.peerDependencies ?? {}),
         ...manifest.bud?.peers?.reduce(
           (a: Record<string, any>, k: string) => ({
             ...a,
@@ -153,9 +152,9 @@ export class Peers implements PeersInterface {
       }),
     }
 
-    this.modules[name] = dependency
-
     if (dependency.bud?.type !== 'extension') return
+
+    this.modules[name] = dependency
 
     if (dependency.peerDependencies) {
       Object.entries(dependency.peerDependencies).forEach(

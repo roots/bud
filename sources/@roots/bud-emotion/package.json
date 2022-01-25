@@ -53,30 +53,40 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.16.7",
-    "@babel/preset-react": "7.16.7",
-    "@emotion/css": "11.7.1",
-    "@emotion/react": "11.7.1",
-    "@emotion/styled": "11.6.0",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "8.2.2",
-    "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
-    "jest": "27.4.7"
+    "react": "17.0.2"
   },
   "dependencies": {
+    "@emotion/babel-plugin": "^11.7.2",
+    "@emotion/css": "^11.7.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "autobind-decorator": "^2.4.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@emotion/css": "11.7.1",
-    "@emotion/react": "11.7.1",
-    "@emotion/styled": "11.6.0",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "@emotion/babel-plugin": "^11.7.2",
+    "@emotion/css": "^11.7.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0"
+  },
+  "peerDependenciesMeta": {
+    "@emotion/babel-plugin": {
+      "optional": true
+    },
+    "@emotion/css": {
+      "optional": true
+    },
+    "@emotion/react": {
+      "optional": true
+    },
+    "@emotion/styled": {
+      "optional": true
+    }
   }
 }

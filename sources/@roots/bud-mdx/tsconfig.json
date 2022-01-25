@@ -7,10 +7,9 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
-      "@roots/bud-api",
       "@roots/bud-build",
       "@roots/bud-babel",
+      "@roots/bud-framework",
       "@roots/bud-react"
     ]
   },

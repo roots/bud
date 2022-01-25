@@ -69,13 +69,25 @@
     "de-indent": "^1.0.2",
     "he": "^1.2.0",
     "tslib": "^2.3.1",
+    "vue": "3.2.26",
     "vue-loader": "^17.0.0",
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.6.14"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "3.2.26",
-    "@vue/runtime-dom": "3.2.26",
-    "vue": "3.2.26"
+    "@vue/compiler-sfc": "^3.2.26",
+    "@vue/runtime-dom": "^3.2.26",
+    "vue": "^3.2.26"
+  },
+  "peerDependenciesMeta": {
+    "@vue/compiler-sfc": {
+      "optional": true
+    },
+    "@vue/runtime-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
   }
 }
