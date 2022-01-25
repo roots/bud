@@ -19,7 +19,7 @@ export class Watcher {
    */
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
-    const [files, options] = this.app.store.getValues('server.watch')
+    const {files, options} = this.app.store.get('server.watch')
 
     if (!files?.length) return []
 
@@ -53,7 +53,7 @@ export class Watcher {
     if (watchFiles.length) {
       this.instance = chokidar.watch(
         watchFiles.map(entry => {
-          this.app.log('log', `watching`, entry, `for changes`)
+          this.app.log(`watching`, entry, `for changes`)
           return entry
         }),
       )

@@ -566,6 +566,7 @@ export namespace Store {
     ['server.middleware']: Repository['server']['middleware']
     ['server.browser']: Repository['server']['browser']
     ['server.watch.files']: Repository['server']['watch']['files']
+    ['server.watch.options']: Repository['server']['watch']['options']
     ['server.middleware.dev']: Repository['server']['middleware']['dev']
     ['server.middleware.hot']: Repository['server']['middleware']['hot']
     ['server.middleware.proxy']: Repository['server']['middleware']['proxy']
