@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
-import { execa } from 'execa'
+import execa = require('execa')
 import {readFile} from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import * as json5 from 'json5'

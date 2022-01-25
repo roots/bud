@@ -29,6 +29,7 @@
     "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
   },
   "devDependencies": {
+    "@repo/logger": "workspace:*",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@types/fs-extra": "9.0.13",

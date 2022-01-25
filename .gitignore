@@ -17,7 +17,7 @@ storage
 
 # Sources
 /sources/@roots/*/types
-/sources/@repo/docs/api
+/sources/@repo/docs/dev/api
 /sources/@repo/docs/build
 /sources/@repo/docs/.docusaurus
 

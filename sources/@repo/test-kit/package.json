@@ -13,6 +13,7 @@
     "execa": "5.0.0",
     "fs-extra": "10.0.0",
     "helpful-decorators": "2.1.0",
+    "jest": "27.4.7",
     "json5": "2.2.0"
   }
 }

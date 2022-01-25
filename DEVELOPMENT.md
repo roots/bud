@@ -2,18 +2,6 @@
 
 This is a work-in-progress. 
 
-This is not intended to be a resources for questions like "how do I develop an extension for bud?" It is specifically intended to help potential contributors get started working in the roots/bud repository.
-
-## Table Of Contents
-
-- [Requirements](#requirements)
-- [Getting started](#getting-started)
-- [Repository layout](#repository)
-- [Dev CLI](#cli)
-- [Integration testing](#integration-testing)
-- [Documentation](#documentation)
-- [Packages](#packages)
-
 ## Requirements
 
 Either:

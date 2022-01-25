@@ -3033,6 +3033,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@repo/logger@workspace:*, @repo/logger@workspace:sources/@repo/logger":
+  version: 0.0.0-use.local
+  resolution: "@repo/logger@workspace:sources/@repo/logger"
+  dependencies:
+    signale: 1.4.0
+  languageName: unknown
+  linkType: soft
+
 "@repo/markdown-kit@workspace:sources/@repo/markdown-kit":
   version: 0.0.0-use.local
   resolution: "@repo/markdown-kit@workspace:sources/@repo/markdown-kit"
@@ -3061,6 +3069,7 @@ __metadata:
     execa: 5.0.0
     fs-extra: 10.0.0
     helpful-decorators: 2.1.0
+    jest: 27.4.7
     json5: 2.2.0
   languageName: unknown
   linkType: soft
@@ -7860,6 +7869,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud@workspace:."
   dependencies:
+    "@repo/logger": "workspace:*"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@types/fs-extra": 9.0.13

@@ -28,4 +28,4 @@ logger.config({
 })
 
 export {logger}
-export const {log, error, success} = logger
+export const {log, error, debug, info, warn, success} = logger
