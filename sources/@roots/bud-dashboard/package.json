@@ -52,7 +52,7 @@
     "ink": "3.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.3",
-    "node-fetch": "3.1.0",
+    "node-fetch": "3.1.1",
     "patch-console": "1.0.0",
     "react": "17.0.2",
     "webpack": "5.65.0"
