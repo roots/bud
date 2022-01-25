@@ -1,11 +1,19 @@
-import type {Framework} from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
 
-import {isFunction, isString} from './setPublicPath.dependencies'
+import type {Framework} from '..'
 
+const {isFunction, isString} = lodash
+
+/**
+ * @public
+ */
 export interface setPublicPath {
   (publicPath: string | ((publicPath: string) => string)): Framework
 }
 
+/**
+ * @public
+ */
 export const setPublicPath: setPublicPath = function (publicPath) {
   this as Framework
 

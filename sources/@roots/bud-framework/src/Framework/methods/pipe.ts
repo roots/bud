@@ -1,5 +1,13 @@
 import {Framework} from '..'
 
+/**
+ * Pipe callback
+ *
+ * @remarks
+ * The output of this function becomes the input to the next
+ *
+ * @public
+ */
 interface Callback<T = Framework> {
   (input: T): T
 }
@@ -12,12 +20,14 @@ export interface pipe {
 }
 
 /**
- * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
+ * Pipe a value through an array of functions
  *
  * @remarks
- * If no value is provided the value is assumed to be the {@link (Framework:class)} itself
+ * - The return value of each callback is used as input for the next.
  *
- * {@link (sequence:function)} is a non-mutational version of this method.
+ * - If no value is provided the value is assumed to be the Framework itself
+ *
+ * - `bud.sequence` is a non-mutational version of this method.
  *
  * @public
  */
