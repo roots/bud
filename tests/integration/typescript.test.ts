@@ -1,5 +1,21 @@
-jest.setTimeout(60000)
+import {runIntegrations, test} from '../util/integration'
 
-describe('examples/typescript', () => {
-  test.todo('ts tests')
+/**
+ * Typescript integration tests
+ */
+runIntegrations('typescript', project => {
+  return [
+    [
+      'app.js has contents',
+      test.assetNotEmpty(project, 'app.js'),
+    ],
+    [
+      'app.js is transpiled',
+      test.assetDoesNotIncludeImport(project, 'app.js'),
+    ],
+    [
+      'app.js matches snapshot',
+      test.assetMatchesSnapshot(project, 'app.js'),
+    ],
+  ]
 })

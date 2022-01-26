@@ -77,13 +77,5 @@
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "@wordpress/browserslist-config": "4.1.0",
     "tslib": "2.3.1"
-  },
-  "peerDependencies": {
-    "@wordpress/browserslist-config": "^4.1.0"
-  },
-  "peerDependenciesMeta": {
-    "@wordpress/browserslist-config": {
-      "optional": true
-    }
   }
 }

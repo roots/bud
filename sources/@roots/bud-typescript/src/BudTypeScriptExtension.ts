@@ -1,6 +1,6 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
-import {Configuration} from 'webpack'
+import { Configuration } from 'webpack'
 
 import {typecheck} from './api'
 
@@ -13,17 +13,17 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
     typecheck,
   },
 
-  boot: ({build, hooks, store}) => {
+  boot: async (app) => {
+    /**
+     * Destructuring
+     */
+    const { build, hooks, store } = app
+
     store.set('patterns.ts', /\.tsx?$/)
-
     build.loaders['ts'] = new Loader(require.resolve('ts-loader'))
-
     build.items['ts'] = new Item({
       loader: build.loaders['ts'],
-      options: {
-        transpileOnly: true,
-        happyPackMode: true,
-      },
+      options: {transpileOnly: true},
     })
 
     build.setRule('ts', {
