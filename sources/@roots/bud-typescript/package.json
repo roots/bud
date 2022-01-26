@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typescript",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
@@ -58,11 +58,11 @@
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "eslint": "8.6.0",
-    "typescript": "4.5.4",
     "webpack": "5.65.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@tsconfig/recommended": "1.0.1",
     "@typescript-eslint/parser": "^5.4.0",
     "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^6.4.0",
@@ -72,9 +72,13 @@
     "typescript": "4.5.5"
   },
   "peerDependencies": {
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   },
   "peerDependenciesMeta": {
+    "ts-node": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
