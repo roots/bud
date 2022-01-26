@@ -11,5 +11,6 @@ import {Modules, Plugins} from '../..'
  */
 export type Name = `${(keyof Modules & string) | (keyof Plugins & string)}`
 
+export {Controller} from './controller.interface'
 export {CompilerPlugin} from './compiler-plugin.interface'
 export {Module} from './module.interface'

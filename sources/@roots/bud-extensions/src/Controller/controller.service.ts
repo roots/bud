@@ -1,4 +1,8 @@
-import {Modules, Service} from '@roots/bud-framework'
+import {Extension, Framework, Modules, Service} from '@roots/bud-framework'
+
+export type Plugin = Extension.CompilerPlugin
+export type Extension = Extension.Module
+
 import {Container} from '@roots/container'
 
 import {
@@ -10,14 +14,13 @@ import {
   omit,
   Signale,
 } from './controller.dependencies'
-import {Extension, Framework, Plugin} from './controller.interface'
 
 /**
  * Extension instance controller
  *
  * @public
  */
-export class Controller {
+export class Controller implements Extension.Controller {
   /**
    * @internal
    */
@@ -63,7 +66,7 @@ export class Controller {
   /**
    * @internal
    */
-  public _module: Extension | Plugin = {}
+  public _module: Extension.Module = {}
 
   /**
    * @public
@@ -109,8 +112,9 @@ export class Controller {
    * @decorator `@bind`
    */
   @bind
-  public set(key: string, value: any) {
+  public set(key: string, value: any): Controller {
     this._module[key] = value
+    return this
   }
 
   /**

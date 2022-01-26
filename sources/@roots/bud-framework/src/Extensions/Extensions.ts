@@ -1,9 +1,9 @@
 import {Framework} from '../Framework'
 import {Service} from '../Service'
-import {CompilerPlugin, Module} from './Extension'
+import {CompilerPlugin, Controller, Module} from './Extension'
 
 /**
- * Extensions Service interface
+ * Extensions Service
  *
  *  @public
  */
@@ -16,14 +16,20 @@ export interface Extensions extends Service {
   queue: Array<CompilerPlugin | Module>
 
   /**
-   * Add an extension
+   * Add a {@link Controller} to the container
    *
    * @public
    */
   add(extension: CompilerPlugin | Module): Promise<void>
 
   /**
+   * Queue an extension to be added to the container before the build process.
+   *
+   * @remarks
+   * Useful for extensions which cannot be added in an awaitable context (like a user config)
+   *
    * @public
+   * @decorator `@bind`
    */
   enqueue(extension: CompilerPlugin | Module): Framework
 
@@ -34,11 +40,18 @@ export interface Extensions extends Service {
   injectExtensions(): Promise<void>
 
   /**
-   * Register event for all extensions
+   * Call {@link Controller.register} on all {@link Controller}s
    *
    * @public
    */
   registerExtensions(): Promise<void>
+
+  /**
+   * Call an {@link Controller.register}
+   *
+   * @public
+   */
+  registerExtension(extension: Controller): Promise<void>
 
   /**
    * Boot event for all extensions
@@ -48,7 +61,10 @@ export interface Extensions extends Service {
   bootExtensions(): Promise<void>
 
   /**
-   * Get {@link ApplyPlugin} instances to be included in compilation
+   * Returns an array of plugin instances which have been registered to the
+   * container and are set to be used in the compilation
+   *
+   * @returns An array of plugin instances
    *
    * @public
    */

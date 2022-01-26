@@ -8,23 +8,13 @@ import {
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
 
-/**
- * Extensions Service
- *
- * @remarks
- * Manages extension controllers
- *
- * @public
- */
 export class Extensions extends Service implements Base {
   public queue = []
 
   public repository = {}
 
   /**
-   * Controller factory
-   *
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public makeController(
@@ -34,15 +24,19 @@ export class Extensions extends Service implements Base {
     return controller
   }
 
+  /**
+   * @decorator `@bind`
+   */
   @bind
-  public async setController(extension: Extension.Module): Promise<void> {
+  public async setController(
+    extension: Extension.Module,
+  ): Promise<void> {
     const controller = this.makeController(extension)
     this.set(controller.name, controller)
   }
 
   /**
-   * @override
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public async boot(): Promise<void> {
@@ -55,16 +49,12 @@ export class Extensions extends Service implements Base {
         this.log('success', {message: `${key} instantiated`})
       }),
     )
-
     await this.registerExtensions()
     await this.bootExtensions()
     await this.injectExtensions()
   }
 
   /**
-   * Inject extension modules
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind
@@ -74,16 +64,10 @@ export class Extensions extends Service implements Base {
       return
     }
 
-    if (this.app.project.peers.hasMissingDependencies) {
-      this.log(
-        'error',
-        'missing dependencies in project. not booting extensions.',
-      )
-      return
-    }
-
     try {
-      const modules = Object.values(this.app.project.peers.modules)
+      const modules = Object.values(
+        this.app.project.peers.modules,
+      )
         .filter(Boolean)
         .filter(({bud}) => bud?.type === 'extension')
 
@@ -93,10 +77,13 @@ export class Extensions extends Service implements Base {
         }),
       )
 
-      await modules.reduce(async (promised: Promise<void>, record) => {
-        await promised
-        await this.registerExtension(this.get(record.name))
-      }, Promise.resolve())
+      await modules.reduce(
+        async (promised: Promise<void>, record) => {
+          await promised
+          await this.registerExtension(this.get(record.name))
+        },
+        Promise.resolve(),
+      )
 
       await modules.reduce(async (promised, record) => {
         await promised
@@ -107,25 +94,32 @@ export class Extensions extends Service implements Base {
     }
   }
 
+  /**
+   * @decorator `@bind`
+   */
   @bind
   public async importExtension(
     extension: Record<string, any>,
   ): Promise<void> {
     this.log('log', `importing ${extension.name}`)
     const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
-      ? importedModule.default
-      : importedModule
+    const importedExtension: Extension.Module =
+      importedModule.default
+        ? importedModule.default
+        : importedModule
 
     if (this.has(importedExtension.name)) return
+
     await this.setController(importedExtension)
   }
 
   /**
-   * @public
+   * @decorator `@bind`
    */
   @bind
-  public async registerExtension(extension: Controller): Promise<void> {
+  public async registerExtension(
+    extension: Controller,
+  ): Promise<void> {
     try {
       if (!extension) return
       this.app.log('registering', extension.name)
@@ -140,10 +134,12 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @public
+   * @decorator `@bind`
    */
   @bind
-  public async bootExtension(extension: Controller): Promise<void> {
+  public async bootExtension(
+    extension: Controller,
+  ): Promise<void> {
     try {
       if (!extension) return
       this.app.log('booting', extension.name)
@@ -155,7 +151,7 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public async registerExtensions(): Promise<void> {
@@ -173,29 +169,32 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public async bootExtensions(): Promise<void> {
     this.log('time', 'booting')
-    await this.getEntries().reduce(async (promised, [key, controller]) => {
-      await promised
-      await this.bootExtension(controller)
-    }, Promise.resolve())
+    await this.getValues().reduce(
+      async (promised, controller) => {
+        await promised
+        await this.bootExtension(controller)
+      },
+      Promise.resolve(),
+    )
 
     this.log('timeEnd', 'booting')
   }
 
   /**
-   * Add a {@link Controller} to the container
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind
   public async add(extension: Extension.Module): Promise<void> {
     if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
+      this.log(
+        'info',
+        `${extension.name} already exists. skipping.`,
+      )
       return
     }
 
@@ -205,12 +204,6 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * Queue an extension to be added to the container before the build process.
-   *
-   * @remarks
-   * Useful for extensions which cannot be added in an awaitable context (like a user config)
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind
@@ -220,7 +213,7 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public async processQueue(): Promise<void> {
@@ -230,12 +223,6 @@ export class Extensions extends Service implements Base {
   }
 
   /**
-   * Returns an array of plugin instances which have been registered to the
-   * container and are set to be used in the compilation
-   *
-   * @returns An array of plugin instances
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind
