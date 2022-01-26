@@ -1,6 +1,6 @@
 {
   "name": "@roots/dependencies",
-  "version": "5.2.0",
+  "version": "5.1.0",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
