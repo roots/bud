@@ -1,5 +1,34 @@
 # Changelog
 
+## v5.2.1 (2022-01-25)
+
+- Fixes an issue introduced in [improve(bud) dependency strategy (](https://github.com/roots/bud/commit/898a54afdd11cd963526cd9b395c199e49d037fa)[#1005](https://github.com/roots/bud/pull/1005)[)](https://github.com/roots/bud/commit/898a54afdd11cd963526cd9b395c199e49d037fa)
+
+## v5.2.0 (2022-01-25)
+
+[See the v5.2.0 release post](https://budjs.netlify.app/blog/release-5.2.0)
+
+- [Fix release branch push](https://github.com/roots/bud/commit/401450f8ef0b62f613085d3fcbe8f2b4381d33d8)
+- [chore: 5.1.0 release post (](https://github.com/roots/bud/commit/2a12c04268a144b1d246817180d2912abbb26111)[#1001](https://github.com/roots/bud/pull/1001)[)](https://github.com/roots/bud/commit/2a12c04268a144b1d246817180d2912abbb26111)
+- [renovate - target main (](https://github.com/roots/bud/commit/d03f711cec20b7db1c80c9d2b2e927338f825a1f)[#988](https://github.com/roots/bud/pull/988)[)](https://github.com/roots/bud/commit/d03f711cec20b7db1c80c9d2b2e927338f825a1f)
+- [improve(dev) ci & dx (](https://github.com/roots/bud/commit/978ade20eee67d823e89358d312a771c920efc6e)[#1009](https://github.com/roots/bud/pull/1009)[)](https://github.com/roots/bud/commit/978ade20eee67d823e89358d312a771c920efc6e)
+- [improve(server) proxy middleware (](https://github.com/roots/bud/commit/94a208a7a9edb7d0f304a08986c98424cc743831)[#1008](https://github.com/roots/bud/pull/1008)[)](https://github.com/roots/bud/commit/94a208a7a9edb7d0f304a08986c98424cc743831)
+- [improve(bud) dependency strategy (](https://github.com/roots/bud/commit/898a54afdd11cd963526cd9b395c199e49d037fa)[#1005](https://github.com/roots/bud/pull/1005)[)](https://github.com/roots/bud/commit/898a54afdd11cd963526cd9b395c199e49d037fa)
+- [fix(server) bud.watch (](https://github.com/roots/bud/commit/582c3f326802b8123f31175d6c2e79bb639c0717)[#1007](https://github.com/roots/bud/pull/1007)[)](https://github.com/roots/bud/commit/582c3f326802b8123f31175d6c2e79bb639c0717)
+- [chore(deps): bump node-fetch to v3.1.1 [security]](https://github.com/roots/bud/commit/62ec26e7e5168b2e9d85856f267a9d2809dd677c)
+- [chore(deps): bump @babel/core to v7.16.12](https://github.com/roots/bud/commit/4058fbab683c203ab208c5fe887fc741b7046965)
+- [chore(deps): bump tailwindcss to v3.0.16](https://github.com/roots/bud/commit/0a895e5bcbd2b72632833c114c15ca2760756441)
+
+Compare: [https://github.com/roots/bud/compare/v5.1.0...main](https://github.com/roots/bud/compare/v5.1.0...main)
+
+### Contributors
+
+Thanks to everyone who contributed to this release!
+
+- [kellymears](mailto:kelly@roots.io)
+- [benword](mailto:ben@roots.io)
+- [swalkinshaw](mailto:scott@roots.io)
+
 ## v5.1.0 (2022-01-19)
 
 - [fix(deps): bump image-minimizer-webpack-plugin to v3](https://github.com/roots/bud/pull/867)
