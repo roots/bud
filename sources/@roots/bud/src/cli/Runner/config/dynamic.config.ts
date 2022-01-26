@@ -52,9 +52,9 @@ class Configuration {
       })
 
       const raw = config.endsWith('.ts')
-        ? await this.app.ts.read(config)
+        ? await require(config)
         : await import(config)
-
+      
       const result = isFunction(raw?.default) ? raw.default : raw
 
       if (!isFunction(result)) {
