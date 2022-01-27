@@ -29,6 +29,7 @@
     "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
   },
   "devDependencies": {
+    "@repo/constants": "workspace:*",
     "@repo/logger": "workspace:*",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
@@ -37,13 +38,9 @@
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
-    "@types/react": "17.0.38",
-    "@types/react-dom": "17.0.11",
-    "@types/react-reconciler": "0.26.4",
     "@types/signale": "1.4.4",
     "@typescript-eslint/eslint-plugin": "5.9.1",
     "@typescript-eslint/parser": "5.9.1",
-    "@vercel/ncc": "0.33.1",
     "chalk": "4.1.2",
     "codecov": "3.8.3",
     "dotenv": "10.0.0",
@@ -57,16 +54,12 @@
     "fs-extra": "10.0.0",
     "globby": "11.1.0",
     "ink": "3.2.0",
-    "ink-testing-library": "2.1.0",
     "jest": "27.4.7",
     "js-yaml": "4.1.0",
     "json5": "2.2.0",
     "lodash": "4.17.21",
     "prettier": "2.5.1",
     "pretty-format": "27.4.6",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-reconciler": "0.26.2",
     "signale": "1.4.0",
     "ts-jest": "27.1.3",
     "ts-node": "10.4.0",
@@ -75,139 +68,5 @@
   },
   "dependencies": {
     "tslib": "2.3.1"
-  },
-  "manifest": {
-    "name": "bud.js",
-    "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
-    "logo": "https://cdn.roots.io/app/uploads/logo-bud.svg",
-    "url": {
-      "discourse": "https://discourse.roots.io/c/bud/24",
-      "docs": "https://budjs.netlify.app",
-      "git": "git@github.com:roots/bud",
-      "web": "https://github.com/roots/bud"
-    },
-    "organization": {
-      "name": "Roots Foundation, LLC",
-      "site": "https://roots.io",
-      "twitter": "https://twitter.com/rootswp",
-      "favicon": "https://roots.io/favicon.ico"
-    },
-    "contributors": {
-      "kellymears": {
-        "type": [
-          "🚀 steward",
-          "💻 dev",
-          "✍🏽 docs"
-        ]
-      },
-      "qwp6t": {
-        "type": [
-          "🚀 steward",
-          "💻 dev",
-          "✍🏽 docs"
-        ]
-      },
-      "retlehs": {
-        "type": [
-          "🚀 steward"
-        ]
-      },
-      "swalkinshaw": {
-        "type": [
-          "🚀 steward",
-          "✍🏽 docs"
-        ]
-      },
-      "clayrisser": {
-        "type": [
-          "✍🏽 docs"
-        ]
-      },
-      "catgofire": {
-        "type": [
-          "✍🏽 docs"
-        ]
-      }
-    },
-    "core": [
-      "@roots/bud",
-      "@roots/bud-api",
-      "@roots/bud-build",
-      "@roots/bud-cache",
-      "@roots/bud-compiler",
-      "@roots/bud-dashboard",
-      "@roots/bud-extensions",
-      "@roots/bud-framework",
-      "@roots/bud-hooks",
-      "@roots/bud-server",
-      "@roots/bud-support"
-    ],
-    "extensions": [
-      "@roots/bud-babel",
-      "@roots/bud-compress",
-      "@roots/bud-criticalcss",
-      "@roots/bud-emotion",
-      "@roots/bud-entrypoints",
-      "@roots/bud-esbuild",
-      "@roots/bud-eslint",
-      "@roots/bud-library",
-      "@roots/bud-mdx",
-      "@roots/bud-postcss",
-      "@roots/bud-preset-recommend",
-      "@roots/bud-prettier",
-      "@roots/bud-purgecss",
-      "@roots/bud-react",
-      "@roots/bud-sass",
-      "@roots/bud-solid",
-      "@roots/bud-stylelint",
-      "@roots/bud-tailwindcss",
-      "@roots/bud-terser",
-      "@roots/bud-typescript",
-      "@roots/bud-vue",
-      "@roots/bud-wordpress-dependencies",
-      "@roots/bud-wordpress-externals",
-      "@roots/bud-wordpress-manifests",
-      "@roots/sage"
-    ],
-    "libraries": [
-      "@roots/container",
-      "@roots/critical-css-webpack-plugin",
-      "@roots/dependencies",
-      "@roots/entrypoints-webpack-plugin",
-      "@roots/filesystem",
-      "@roots/ink-prettier"
-    ],
-    "sponsors": [
-      {
-        "image": "https://cdn.roots.io/app/uploads/kinsta.svg",
-        "title": "Kinsta",
-        "url": "https://kinsta.com/?kaid=OFDHAJIXUDIV"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/km-digital.svg",
-        "title": "KM Digital",
-        "url": "https://k-m.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/carrot.svg",
-        "title": "Carrot",
-        "url": "https://carrot.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/c21redwood.svg",
-        "title": "C21 Redwood Realty",
-        "url": "https://www.c21redwood.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/wordpress.svg",
-        "title": "WordPress.com",
-        "url": "https://wordpress.com/"
-      },
-      {
-        "image": "https://cdn.roots.io/app/uploads/pantheon.svg",
-        "title": "Pantheon",
-        "url": "https://pantheon.io/"
-      }
-    ]
   }
 }
