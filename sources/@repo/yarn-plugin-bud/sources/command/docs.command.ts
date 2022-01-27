@@ -1,7 +1,7 @@
-import {REPO_ROOT} from '@repo/constants'
+import * as repo from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
+import {copy, ensureDir} from 'fs-extra'
 
-import {TS_CONFIG_PATH} from '../constants'
 import {Command} from './base.command'
 
 /**
@@ -82,7 +82,7 @@ export class Docs extends Command {
        */
       await this.$(
         `typedoc \
-          --out ./sources/@repo/docs/dev/api \
+          --out ./sources/@repo/docs/content/dev/api \
           --tsconfig ./config/tsconfig.json \
           --entryPointStrategy expand \
           --entryPoints \
@@ -91,18 +91,28 @@ export class Docs extends Command {
       )
     }
 
+    /**
+     * Build docs site cli examples
+     */
     if (all || this.site) {
-      /**
-       * Build docs site cli examples
-       */
+      // run cli-examples generator
       await this.$(
-        `yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./sources/@repo/markdown-kit/cli-examples`,
+        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH} ${repo.paths.sources}/@repo/markdown-kit/cli-examples`,
       )
 
       /**
        * Build docs
        */
       await this.$(`yarn workspace @repo/docs run build`)
+
+      /**
+       * Copy api docs into `@repo/docs/build` directory
+       */
+      await copy(
+        `${repo.paths.sources}/@repo/docs/content/dev/api`,
+        `${repo.paths.sources}/@repo/docs/build/dev/api`,
+        {overwrite: true},
+      )
     }
 
     if (all || this.readme) {
@@ -110,7 +120,7 @@ export class Docs extends Command {
        * Build repo readmes
        */
       await this.$(
-        `yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./sources/@repo/markdown-kit/readme`,
+        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH} ${repo.paths.sources}/@repo/markdown-kit/readme`,
       )
     }
 

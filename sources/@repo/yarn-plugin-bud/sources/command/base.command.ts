@@ -167,7 +167,7 @@ export abstract class Command extends BaseCommand {
   /**
    * Execute a series of tasks
    *
-   * @param tasks
+   * @param tasks - Any number of string commands
    * @internal
    */
   @bind
@@ -185,8 +185,7 @@ export abstract class Command extends BaseCommand {
             cwd: project.cwd,
           })
 
-          if (code !== 0)
-            throw new Error(`${task} failed with code ${code}`)
+          if (code !== 0) throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
           await this.errorHandler(e)
         }

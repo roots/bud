@@ -1,6 +1,6 @@
+import {REPO_PATH, TS_CONFIG_PATH} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {TS_CONFIG_PATH} from '../constants'
 import {Command} from './base.command'
 
 export class Compile extends Command {
@@ -26,7 +26,7 @@ export class Compile extends Command {
 
   public async execute() {
     await this.$(
-      `yarn ts-node --project ${TS_CONFIG_PATH} ./sources/@repo/compile-kit/cjs ${this.package}`,
+      `yarn ts-node --project ${TS_CONFIG_PATH} ${REPO_PATH}/sources/@repo/compile-kit/src/cjs ${this.package}`,
     )
   }
 }

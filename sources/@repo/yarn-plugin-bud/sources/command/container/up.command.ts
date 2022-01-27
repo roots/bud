@@ -50,8 +50,6 @@ export class ContainerUp extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      this.withPassthrough(`docker compose up --no-log-prefix`),
-    )
+    await this.$(this.withPassthrough(`docker compose up --no-log-prefix`))
   }
 }

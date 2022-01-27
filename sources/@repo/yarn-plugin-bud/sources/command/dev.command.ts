@@ -1,5 +1,5 @@
+import {TS_CONFIG_PATH} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {TS_CONFIG_PATH} from '../constants'
 
 import {Command} from './base.command'
 
@@ -30,8 +30,6 @@ export class Dev extends Command {
   }
 
   public async execute() {
-    await this.$(
-      `yarn tsc -b ${TS_CONFIG_PATH} --force --watch`,
-    )
+    await this.$(`yarn tsc -b ${TS_CONFIG_PATH} --force --watch`)
   }
 }

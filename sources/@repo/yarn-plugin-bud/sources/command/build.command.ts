@@ -1,6 +1,6 @@
+import {TS_CONFIG_PATH} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {TS_CONFIG_PATH} from '../constants'
 import {Command} from './base.command'
 
 /**

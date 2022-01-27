@@ -1,12 +1,8 @@
+import {INTEGRATION_TESTS, paths, REGISTRY_PROXY} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {copy} from 'fs-extra'
 import {bind} from 'helpful-decorators'
 
-import {
-  INTEGRATION_MOCKS_PATH,
-  INTEGRATION_TESTS,
-  REGISTRY_PROXY,
-} from '../constants'
 import {Command} from './base.command'
 
 /**
@@ -111,8 +107,8 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
-      await copy(`./examples`, `${INTEGRATION_MOCKS_PATH}/npm`)
-      await copy(`./examples`, `${INTEGRATION_MOCKS_PATH}/yarn`)
+      await copy(`./examples`, `${paths.mocks}/npm`)
+      await copy(`./examples`, `${paths.mocks}/yarn`)
 
       await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
@@ -124,7 +120,7 @@ export class Test extends Command {
   /**
    * Install an integration test
    *
-   * @param example
+   * @param example - string
    *
    * @internal
    */
@@ -136,27 +132,27 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ${INTEGRATION_MOCKS_PATH}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY} --force`,
+      `cd ${paths.mocks}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY} --force`,
     )
     await this.$(
-      `cd ${INTEGRATION_MOCKS_PATH}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
+      `cd ${paths.mocks}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
     )
   }
 
   /**
    * Build an integration test
    *
-   * @param example
+   * @param example - string
    *
    * @internal
    */
   @bind
   public async build(example: typeof INTEGRATION_TESTS & string) {
     await this.$(
-      `cd ${INTEGRATION_MOCKS_PATH}/yarn/${example} && yarn bud build --no-dashboard --log`,
+      `cd ${paths.mocks}/yarn/${example} && yarn bud build --no-dashboard --log`,
     )
     await this.$(
-      `cd ${INTEGRATION_MOCKS_PATH}/npm/${example} && npx bud build --no-dashboard --log`,
+      `cd ${paths.mocks}/npm/${example} && npx bud build --no-dashboard --log`,
     )
   }
 }
