@@ -24,7 +24,7 @@
 - Supports configuration with TypeScript.
 - Customizable and extensible. Add new features. Swap our core components with your own.
 
-![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/docs/static/casts/babel-build--cache.svg)
+![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg)
 
 ## Requirements
 
@@ -75,6 +75,10 @@ There are also [example implementations available in the /examples directory of 
 | [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
+
+## Want to contribute to bud.js?
+
+Check out [our development guide](https://budjs.netlify.app/dev) to get started.
 
 ## Licensing
 

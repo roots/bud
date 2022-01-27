@@ -11,14 +11,15 @@ storage
 **/.budfiles
 **/.pnp.*
 **/.yarn
+!/.yarn
 
 **/node_modules
 
 # Sources
 /sources/@roots/*/types
-/sources/docs/api
-/sources/docs/build
-/sources/docs/.docusaurus
+/sources/@repo/docs/content/dev/api/**/*
+/sources/@repo/docs/build
+/sources/@repo/docs/.docusaurus
 
 # Examples
 /examples/*/dist

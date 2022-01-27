@@ -1,5 +1,5 @@
 const {resolve} = require('path')
-const mapModuleNames = require('../dev/jest/moduleNameMapper')
+const mapModuleNames = require('@repo/test-kit/moduleNameMapper')
 
 /**
  * Jest configuration

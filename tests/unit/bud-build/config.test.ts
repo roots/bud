@@ -1,7 +1,6 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
-
-import {Bud, factory} from '../../util/bud'
 
 describe('bud.build.config', function () {
   let bud: Bud

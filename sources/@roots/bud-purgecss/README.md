@@ -22,8 +22,6 @@ Install **@roots/bud-purgecss** to your project.
 yarn add @roots/bud-purgecss --dev
 ```
 
-Run `bud install` after installation to ensure peer dependencies are met.
-
 ```shell
 yarn bud install
 ```

@@ -22,8 +22,6 @@ Install **@roots/bud-wordpress-manifests** to your project.
 yarn add @roots/bud-wordpress-manifests --dev
 ```
 
-Run `bud install` after installation to ensure peer dependencies are met.
-
 ```shell
 yarn bud install
 ```

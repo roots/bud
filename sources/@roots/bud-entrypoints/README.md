@@ -22,8 +22,6 @@ Install **@roots/bud-entrypoints** to your project.
 yarn add @roots/bud-entrypoints --dev
 ```
 
-Run `bud install` after installation to ensure peer dependencies are met.
-
 ```shell
 yarn bud install
 ```
