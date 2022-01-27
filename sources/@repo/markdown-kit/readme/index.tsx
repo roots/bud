@@ -1,33 +1,22 @@
-import {REPO_ROOT} from '@repo/constants'
-import {manifest} from '@repo/constants'
+import {paths, projectConfig} from '@repo/constants'
+import {logger} from '@repo/logger'
 import {readJson} from 'fs-extra'
 import path from 'path'
 import React from 'react'
-import { Signale } from 'signale'
 
 import {render} from './renderer'
 import * as Template from './templates'
-
-/** Logger */
-const interactive = !process.argv.includes(`-v`)
-const signale = new Signale({
-  interactive,
-  secrets: [REPO_ROOT],
-})
-
 /**
  * Get the absolute path of a repo file or directory
  */
 const getRepoPath = (...filePath: string[]): string =>
-  path.join(REPO_ROOT, ...filePath)
+  path.join(paths.root, ...filePath)
 
 /**
  * Get the absolute path of a package file or directory
  */
-const getPackagePath = (
-  packageName: string,
-  filePath: string,
-): string => getRepoPath(`sources`, packageName, filePath)
+const getPackagePath = (packageName: string, filePath: string): string =>
+  getRepoPath(`sources`, packageName, filePath)
 
 /**
  * Write a README.md file from a template
@@ -37,12 +26,11 @@ const writeReadme = async (
   data: Record<string, any>,
   target: string,
 ) => {
-  signale.await(`[${data.name}] rendering README`)
-  signale.info('target', target)
-  signale.info('data (type)', typeof data)
+  logger.await(`[${data.name}] rendering README`)
+  logger.info('target', target)
 
   await render(<Component {...data} />, target)
-  signale.success(`[${data.name}] rendering README`)
+  logger.success(`[${data.name}] rendering README`)
 }
 
 /**
@@ -51,26 +39,27 @@ const writeReadme = async (
 async function getReadmeProps(
   packageName: string,
 ): Promise<Record<string, any>> {
-  signale.await(`[${packageName}] get json`)
+  logger.await(`[${packageName}] get json`)
 
-  const json = await readJson(
-    getPackagePath(packageName, 'package.json'),
-  )
+  const json = await readJson(getPackagePath(packageName, 'package.json'))
 
-  signale.success(`[${packageName}] get json`)
+  logger.success(`[${packageName}] get json`)
 
-  return {...json, manifest}
+  return {...json, projectConfig}
 }
 
 /**
  * Write a set of README.md files from an array of package names
  */
-async function writeReadmes(template: any, group: string) {
-  signale.await(`[${group}] rendering README.md`)
+async function writeReadmes(
+  template: any,
+  group: 'extension' | 'library' | 'core',
+) {
+  logger.await(`[${group}] rendering README.md`)
 
   try {
     await Promise.all(
-      manifest[group].map(async (packageName: string) => {
+      projectConfig.packages[group].map(async (packageName: string) => {
         try {
           const path = getPackagePath(packageName, 'README.md')
           const data = await getReadmeProps(packageName)
@@ -82,10 +71,11 @@ async function writeReadmes(template: any, group: string) {
       }),
     )
   } catch (e) {
-    signale.error(e)
+    logger.error(template, group, 'error during render')
+    logger.error(e)
   }
 
-  signale.success(`[${group}] rendering README.md`)
+  logger.success(`[${group}] rendering README.md`)
 }
 
 /**
@@ -100,10 +90,10 @@ async function writeReadmes(template: any, group: string) {
  */
 ;(async function writeReadmeFiles() {
   /* Templates to render */
-  const templates: Array<[any, string]> = [
-    [Template.Extension, 'extensions'],
+  const templates: Array<[any, 'extension' | 'core' | 'library']> = [
+    [Template.Extension, 'extension'],
     [Template.Core, 'core'],
-    [Template.Library, 'libraries'],
+    [Template.Library, 'library'],
   ]
 
   /* Render each template */
@@ -114,9 +104,5 @@ async function writeReadmes(template: any, group: string) {
   )
 
   /* Render the repo README */
-  await writeReadme(
-    Template.Root,
-    manifest,
-    getRepoPath('README.md'),
-  )
+  await writeReadme(Template.Root, projectConfig, getRepoPath('README.md'))
 })()

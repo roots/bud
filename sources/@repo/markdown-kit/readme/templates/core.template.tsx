@@ -1,20 +1,10 @@
 import React from 'react'
 
-import {
-  Banner,
-  Community,
-  Contributing,
-  Docs,
-  Sponsors,
-} from '../components'
+import {Banner, Community, Contributing, Docs, Sponsors} from '../components'
 
-export const Core = ({name, description, manifest}) => (
+export const Core = ({name, description, projectConfig}) => (
   <>
-    <Banner
-      name={name}
-      description={description}
-      logo={manifest.logo}
-    />
+    <Banner name={name} description={description} logo={projectConfig.logo} />
 
     <h2>Installation</h2>
 
@@ -22,12 +12,12 @@ export const Core = ({name, description, manifest}) => (
 
     <code lang="shell">yarn add {name} --dev</code>
 
-    <Docs url={manifest.url.docs} />
+    <Docs url={projectConfig.url.docs} />
 
     <Community />
 
     <Contributing />
 
-    <Sponsors {...manifest} />
+    <Sponsors {...projectConfig} />
   </>
 )

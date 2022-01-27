@@ -1,19 +1,10 @@
 import React from 'react'
 
-import {
-  Banner,
-  Community,
-  Contributing,
-  Sponsors,
-} from '../components'
+import {Banner, Community, Contributing, Sponsors} from '../components'
 
-export const Library = ({name, description, manifest}) => (
+export const Library = ({name, description, projectConfig}) => (
   <>
-    <Banner
-      name={name}
-      description={description}
-      logo={manifest.logo}
-    />
+    <Banner name={name} description={description} logo={projectConfig.logo} />
 
     <h2>Installation</h2>
 
@@ -23,6 +14,6 @@ export const Library = ({name, description, manifest}) => (
 
     <Community />
     <Contributing />
-    <Sponsors {...manifest} />
+    <Sponsors {...projectConfig} />
   </>
 )

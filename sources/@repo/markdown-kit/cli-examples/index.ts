@@ -1,7 +1,7 @@
-import { containerPaths, repoPaths } from '@repo/constants'
+import {paths} from '@repo/constants'
 import execa from 'execa'
 import {writeFile} from 'fs-extra'
-import { join } from 'path'
+import {join} from 'path'
 
 const main = async () => {
   await Promise.all([
@@ -18,18 +18,21 @@ const main = async () => {
  * Write terminal output to docusaurus mdx
  */
 const generateMarkdown = async (args: string[], dir = 'babel') => {
-  const {stdout} = await execa(
-    'node',
-    [`${containerPaths.mocks}/yarn/${dir}/node_modules/.bin/bud`, ...args],
-    {
-      cwd: `${containerPaths.mocks}/yarn/${dir}`,
-    },
-  )
+  const {stdout} = await execa('yarn', [
+    `workspace`,
+    `@repo/markdown-kit`,
+    `run`,
+    `bud`,
+    ...args,
+    `--location.project`,
+    `${paths.sources}/@repo/markdown-kit`,
+  ])
 
   const content = stdout
     .replaceAll(/^\n/g, '') // remove leading newlines
     .replaceAll(/^\s/g, '') // remove leading whitespace
     .replaceAll(/\n$/g, '') // remove trailing newlines
+    .replaceAll(`${process.cwd()}`, '[REDACTED]', 'g') // remove path
 
   const name = args
     .join('.')
@@ -37,11 +40,7 @@ const generateMarkdown = async (args: string[], dir = 'babel') => {
     .replace(/^\./, '') // remove leading `.`
     .concat('.md') // add .md extension
 
-  const path = join(
-    repoPaths.root,
-    'sources/@repo/docs/src/components/cli-output',
-    name,
-  )
+  const path = join(paths.sources, '@repo/docs/src/components/cli-output', name)
 
   await writeFile(path, content)
 }

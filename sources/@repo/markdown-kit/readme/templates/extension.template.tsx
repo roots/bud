@@ -1,20 +1,19 @@
+import {projectConfig} from '@repo/constants'
 import React from 'react'
 
-import {
-  Banner,
-  Community,
-  Contributing,
-  Docs,
-  Sponsors,
-} from '../components'
+import {Banner, Community, Contributing, Docs, Sponsors} from '../components'
 
-export const Extension = ({name, description, manifest}) => (
+export const Extension = ({
+  name,
+  description,
+  projectConfig,
+}: {
+  name: string
+  description: string
+  projectConfig: projectConfig
+}) => (
   <>
-    <Banner
-      name={name}
-      description={description}
-      logo={manifest.logo}
-    />
+    <Banner name={name} description={description} logo={projectConfig.logo} />
 
     <h2>Installation</h2>
 
@@ -22,19 +21,14 @@ export const Extension = ({name, description, manifest}) => (
 
     <code lang="shell">yarn add {name} --dev</code>
 
-    <p>
-      Run `bud install` after installation to ensure peer
-      dependencies are met.
-    </p>
-
     <code lang="shell">yarn bud install</code>
 
-    <Docs url={manifest.url.docs} />
+    <Docs url={projectConfig.url.docs} />
 
     <Community />
 
     <Contributing />
 
-    <Sponsors {...manifest} />
+    <Sponsors {...projectConfig} />
   </>
 )

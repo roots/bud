@@ -8,10 +8,18 @@
   },
   "devDependencies": {
     "@repo/constants": "workspace:*",
+    "@repo/logger": "workspace:*",
+    "@roots/bud": "workspace:*",
     "@types/fs-extra": "9.0.13",
+    "@types/react": "17.0.38",
+    "@types/react-dom": "17.0.11",
+    "@types/react-reconciler": "0.26.4",
     "execa": "5.0.0",
     "fs-extra": "10.0.0",
     "helpful-decorators": "2.1.0",
-    "json5": "2.2.0"
+    "json5": "2.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-reconciler": "0.26.2"
   }
 }

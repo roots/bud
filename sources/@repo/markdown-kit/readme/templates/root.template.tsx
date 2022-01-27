@@ -1,44 +1,30 @@
+import {projectConfig} from '@repo/constants'
 import React from 'react'
 
-import {
-  Banner,
-  Community,
-  Contributing,
-  License,
-  Sponsors,
-} from '../components'
-
-export interface RootTemplateProps {
-  name: string
-  description: string
-  logo: string
-  url: string
-}
+import {Banner, Community, Contributing, License, Sponsors} from '../components'
 
 export const Body = ({url}) => (
   <>
     <h2>Features</h2>
 
     <li>
-      Zero config by default (seriously, you don&rsquo;t even _need_ a
-      config file).
+      Zero config by default (seriously, you don&rsquo;t even _need_ a config
+      file).
     </li>
     <li>Modular by design. Use only what you need.</li>
     <li>Easily implementable multi-compiler support.</li>
     <li>Heckin&rsquo; fast.</li>
-    <li>
-      Luxury dev tooling including semi-automated dependency management.
-    </li>
+    <li>Luxury dev tooling including semi-automated dependency management.</li>
     <li>Supports configuration with TypeScript.</li>
     <li>
-      Customizable and extensible. Add new features. Swap our core
-      components with your own.
+      Customizable and extensible. Add new features. Swap our core components
+      with your own.
     </li>
 
     <br />
 
     <img
-      src="https://raw.githubusercontent.com/roots/bud/main/sources/docs/static/casts/babel-build--cache.svg"
+      src="https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg"
       title="bud.js build"
     />
 
@@ -111,15 +97,15 @@ export const Body = ({url}) => (
 
     <h2>Want to contribute to bud.js?</h2>
     <p>
-      Check out [our development guide](https://budjs.netlify.app/dev) to
-      get started.
+      Check out [our development guide](https://budjs.netlify.app/dev) to get
+      started.
     </p>
 
     <License />
   </>
 )
 
-export const Root = (props: RootTemplateProps) => (
+export const Root = (props: projectConfig) => (
   <>
     <Banner {...props} />
     <Body {...props} />
