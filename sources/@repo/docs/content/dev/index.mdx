@@ -5,7 +5,9 @@ sidebar_label: Introduction
 slug: /dev/
 ---
 
-This is a work-in-progress. 
+This is a work-in-progress.
+
+You can [reference API documentation here](/dev/api).
 
 ## Requirements
 
@@ -33,7 +35,7 @@ vscode isn't a requirement to develop bud, but it is the easiest way to get star
 
 vscode as an IDE works particularly well [in conjunction with the vscode remote development extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) and docker (in the context of this repo).
 
-If you have the extension installed you'll be prompted to restart vscode inside the container context when you first open the project. Doing so will build everything and ask you to install all of the recommended extensions. These extension installs only apply to the remote container context, so don't worry too much about messing up your IDE. 
+If you have the extension installed you'll be prompted to restart vscode inside the container context when you first open the project. Doing so will build everything and ask you to install all of the recommended extensions. These extension installs only apply to the remote container context, so don't worry too much about messing up your IDE.
 
 Opening a vscode terminal allows you to run commands within the container. The workbench will probably be a little different than the one you use outside the container, but it should all feel pretty familiar.
 
@@ -69,7 +71,7 @@ If you run `yarn @bud release --tag latest` (either in the container or with ver
 
 Now, anywhere in the container (or outside of it, locally) you can install the package from the registry like so: `yarn install --registry http://verdaccio:4873` or `yarn add @roots/bud --dev --registry http://verdaccio:4873`. Same flag works for npm installs.
 
-If you want to make a change and try it again, rerun `yarn @bud release --tag latest`. Don't worry about incrementing versions, the `@bud` cli will delete the old packages before publishing again. 
+If you want to make a change and try it again, rerun `yarn @bud release --tag latest`. Don't worry about incrementing versions, the `@bud` cli will delete the old packages before publishing again.
 
 Between publishes, you will probably need to revert your lockfile wherever you are running the installs so you don't get trigger checksum mismatch errors. Sometimes yarn will get annoyed anyway. Adding `'unsafe-disable-integrity-migration': false` to `.yarnrc` will get it to chill.
 
@@ -121,7 +123,7 @@ function sum: (a: number, b: number) => number = sum(a, b) {
 }
 ````
 
-This isn't strictly enforced. Adding docblocks to undocumented symbols is a great way to contribute to the project. There is a tsdoc linter which can be used to get feedback. It's pretty noisy right now (if you run it on the entire repository). 
+This isn't strictly enforced. Adding docblocks to undocumented symbols is a great way to contribute to the project. There is a tsdoc linter which can be used to get feedback. It's pretty noisy right now (if you run it on the entire repository).
 
 ### READMEs
 
@@ -129,7 +131,7 @@ Don't edit `README.md` files directly. They are generated and your work will be 
 
 ## Packages
 
->This section is incomplete.
+> This section is incomplete.
 
 ### Core packages
 

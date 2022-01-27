@@ -1,13 +1,14 @@
-const darkTheme = require('prism-react-renderer/themes/dracula')
-const {manifest} = require('../../../package.json')
-const theme = require('prism-react-renderer/themes/github')
+import dracula from 'prism-react-renderer/themes/dracula'
+import github from 'prism-react-renderer/themes/github'
 
-const announcementBar = {
+import {config} from '../../../../config/monorepo.config'
+
+export const announcementBar = {
   id: 'announcementBar-2', // Increment on change
   content: `🧹 We're working hard to get the docs up to date with Bud v5. Thanks for your understanding!`,
 }
 
-const footer = {
+export const footer = {
   style: 'dark',
   links: [
     {
@@ -36,11 +37,11 @@ const footer = {
       items: [
         {
           label: 'Twitter',
-          href: manifest.organization.twitter,
+          href: config.organization.twitter,
         },
         {
           label: 'Discourse',
-          href: manifest.url.discourse,
+          href: config.url.discourse,
         },
       ],
     },
@@ -53,21 +54,21 @@ const footer = {
         },
         {
           label: 'GitHub',
-          href: manifest.url.web,
+          href: config.url.web,
         },
       ],
     },
   ],
   copyright: `Copyright © ${new Date().getFullYear()} ${
-    manifest.organization.name
+    config.organization.name
   }.`,
 }
 
-const navbar = {
+export const navbar = {
   hideOnScroll: true,
   logo: {
-    alt: manifest.name,
-    src: manifest.logo,
+    alt: config.name,
+    src: config.logo,
   },
   items: [
     {
@@ -99,7 +100,7 @@ const navbar = {
       'aria-label': 'Release notes',
     },
     {
-      href: manifest.url.web,
+      href: config.url.web,
       label: 'GitHub',
       position: 'right',
       className: 'header-github-link',
@@ -108,16 +109,8 @@ const navbar = {
   ],
 }
 
-const prism = {
+export const prism = {
   additionalLanguages: ['php'],
-  darkTheme,
-  theme,
-}
-
-module.exports = {
-  announcementBar,
-  hideableSidebar: true,
-  prism,
-  navbar,
-  footer,
+  darkTheme: dracula,
+  theme: github,
 }
