@@ -1,4 +1,4 @@
-import { REPO_ROOT } from '@repo/constants'
+import {REPO_ROOT} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
 import {TS_CONFIG_PATH} from '../constants'
@@ -36,10 +36,7 @@ export class Docs extends Command {
     examples: [
       ['build all', 'yarn @bud docs'],
       ['build api documentation', 'yarn @bud docs --api'],
-      [
-        'build api documentation and site files',
-        'yarn @bud docs --site',
-      ],
+      ['build api documentation and site files', 'yarn @bud docs --site'],
       ['build readme files', 'yarn docs --readme'],
     ],
   }
@@ -98,14 +95,14 @@ export class Docs extends Command {
       /**
        * Build docs site cli examples
        */
-      await this.$(`yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./sources/@repo/markdown-kit/cli-examples`)
+      await this.$(
+        `yarn ts-node-transpile-only --project ${TS_CONFIG_PATH} ./sources/@repo/markdown-kit/cli-examples`,
+      )
 
       /**
        * Build docs
        */
-      await this.$(
-        `yarn workspace @repo/docs run docusaurus build`,
-      )
+      await this.$(`yarn workspace @repo/docs run build`)
     }
 
     if (all || this.readme) {

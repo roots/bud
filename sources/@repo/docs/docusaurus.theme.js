@@ -1,5 +1,5 @@
 const darkTheme = require('prism-react-renderer/themes/dracula')
-const {manifest} = require('../../package.json')
+const {manifest} = require('../../../package.json')
 const theme = require('prism-react-renderer/themes/github')
 
 const announcementBar = {

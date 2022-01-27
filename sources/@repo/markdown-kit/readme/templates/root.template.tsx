@@ -109,6 +109,12 @@ export const Body = ({url}) => (
       create an issue sharing information about your project.
     </p>
 
+    <h2>Want to contribute to bud.js?</h2>
+    <p>
+      Check out [our development guide](https://budjs.netlify.app/dev) to
+      get started.
+    </p>
+
     <License />
   </>
 )

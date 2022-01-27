@@ -1,7 +1,7 @@
 import {REPO_ROOT} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {pathExists, readJson, remove, writeJson} from 'fs-extra'
-import { parse } from 'semver'
+import {parse} from 'semver'
 
 import {Command} from './base.command'
 
@@ -141,19 +141,26 @@ export class Release extends Command {
     /**
      * Wipe db records if they exist
      */
-    const dbExists = await pathExists(`${REPO_ROOT}/storage/verdaccio/.verdaccio-db.json`)
+    const dbExists = await pathExists(
+      `${REPO_ROOT}/storage/verdaccio/.verdaccio-db.json`,
+    )
     if (!dbExists) return
 
     const verdaccioDb = await readJson(
       `${REPO_ROOT}/storage/verdaccio/.verdaccio-db.json`,
     )
     verdaccioDb.list = []
-    await writeJson(`${REPO_ROOT}/storage/verdaccio/.verdaccio-db.json`, verdaccioDb)
+    await writeJson(
+      `${REPO_ROOT}/storage/verdaccio/.verdaccio-db.json`,
+      verdaccioDb,
+    )
 
     /**
      * Wipe packages if they exist
      */
-    const packagesExists = await pathExists(`${REPO_ROOT}/storage/verdaccio/packages`)
+    const packagesExists = await pathExists(
+      `${REPO_ROOT}/storage/verdaccio/packages`,
+    )
     if (!packagesExists) return
 
     await remove(`${REPO_ROOT}/storage/verdaccio/packages/@roots`)

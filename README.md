@@ -76,6 +76,10 @@ There are also [example implementations available in the /examples directory of 
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
+## Want to contribute to bud.js?
+
+Check out [our development guide](https://budjs.netlify.app/dev) to get started.
+
 ## Licensing
 
 Bud is licensed MIT.

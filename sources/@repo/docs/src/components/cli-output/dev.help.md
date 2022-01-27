@@ -35,8 +35,8 @@ FLAGS
                                  <options: v|vv|vvv|vvvv>
   --[no-]log.min                 remove formatting from logged objects
   --[no-]log.papertrail          preserve logger output
-  --log.secret=<value>...        [default: /roots/examples/yarn/babel] hide
-                                 matching strings from logging output
+  --log.secret=<value>...        [default: /srv/mocks/yarn/babel] hide matching
+                                 strings from logging output
   --[no-]manifest                emit manifest.json
   --[no-]minimize                minimize file size of compiled assets
   --[no-]runtime                 Create a runtime chunk

@@ -2984,13 +2984,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@private/docs@workspace:sources/@repo/docs":
+"@repo/compile-kit@workspace:sources/@repo/compile-kit":
   version: 0.0.0-use.local
-  resolution: "@private/docs@workspace:sources/@repo/docs"
+  resolution: "@repo/compile-kit@workspace:sources/@repo/compile-kit"
+  dependencies:
+    "@repo/constants": "workspace:*"
+    "@types/fs-extra": 9.0.13
+    "@vercel/ncc": 0.33.1
+    execa: 6.0.0
+    fs-extra: 10.0.0
+    helpful-decorators: 2.1.0
+    json5: 2.2.0
+  languageName: unknown
+  linkType: soft
+
+"@repo/constants@workspace:*, @repo/constants@workspace:sources/@repo/constants":
+  version: 0.0.0-use.local
+  resolution: "@repo/constants@workspace:sources/@repo/constants"
+  languageName: unknown
+  linkType: soft
+
+"@repo/docs@workspace:sources/@repo/docs":
+  version: 0.0.0-use.local
+  resolution: "@repo/docs@workspace:sources/@repo/docs"
   dependencies:
     "@docusaurus/core": 2.0.0-beta.14
     "@docusaurus/module-type-aliases": 2.0.0-beta.14
     "@docusaurus/preset-classic": 2.0.0-beta.14
+    "@repo/constants": "workspace:sources/@repo/constants"
     "@svgr/webpack": 6.2.0
     "@tsconfig/docusaurus": 1.0.4
     "@types/node": 16.11.19
@@ -3010,26 +3031,6 @@ __metadata:
     typescript: 4.5.4
     url-loader: 4.1.1
     webpack: 5.65.0
-  languageName: unknown
-  linkType: soft
-
-"@repo/compile-kit@workspace:sources/@repo/compile-kit":
-  version: 0.0.0-use.local
-  resolution: "@repo/compile-kit@workspace:sources/@repo/compile-kit"
-  dependencies:
-    "@repo/constants": "workspace:*"
-    "@types/fs-extra": 9.0.13
-    "@vercel/ncc": 0.33.1
-    execa: 6.0.0
-    fs-extra: 10.0.0
-    helpful-decorators: 2.1.0
-    json5: 2.2.0
-  languageName: unknown
-  linkType: soft
-
-"@repo/constants@workspace:*, @repo/constants@workspace:sources/@repo/constants":
-  version: 0.0.0-use.local
-  resolution: "@repo/constants@workspace:sources/@repo/constants"
   languageName: unknown
   linkType: soft
 

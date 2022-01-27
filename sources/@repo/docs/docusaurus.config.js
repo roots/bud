@@ -1,6 +1,6 @@
 const {posix: path} = require('path')
 
-const {manifest} = require('../../package.json')
+const {manifest} = require(`../../../package.json`)
 const themeConfig = require('./docusaurus.theme')
 
 const presetClassic = require.resolve('@docusaurus/preset-classic')

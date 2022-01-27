@@ -1,5 +1,5 @@
 {
-  "name": "@private/docs",
+  "name": "@repo/docs",
   "private": true,
   "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
@@ -30,6 +30,7 @@
     "@docusaurus/core": "2.0.0-beta.14",
     "@docusaurus/module-type-aliases": "2.0.0-beta.14",
     "@docusaurus/preset-classic": "2.0.0-beta.14",
+    "@repo/constants": "workspace:sources/@repo/constants",
     "@svgr/webpack": "6.2.0",
     "@tsconfig/docusaurus": "1.0.4",
     "@types/node": "16.11.19",

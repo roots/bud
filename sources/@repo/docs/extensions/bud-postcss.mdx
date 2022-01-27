@@ -9,7 +9,7 @@ import CodeBlock from '@theme/CodeBlock'
 import {Install} from '@site/src/docs/Install'
 import {PeerDependencies} from '@site/src/docs/PeerDependencies'
 
-import Example from '!!raw-loader!@site/../../examples/postcss/bud.config.js'
+import Example from '!!raw-loader!@site/../../../examples/postcss/bud.config.js'
 
 [PostCSS](https://postcss.org) can be added by installing the [@roots/bud-postcss](/extensions/bud-postcss) extension.
 
@@ -73,10 +73,7 @@ In addition to `postcss.setPlugin` there is a `postcss.setPluginOptions` method 
 ```js
 bud.postcss
   .setPlugin('postcss-import', require.resolve('postcss-import'))
-  .setPlugin(
-    'postcss-preset-env',
-    require.resolve('postcss-preset-env'),
-  )
+  .setPlugin('postcss-preset-env', require.resolve('postcss-preset-env'))
   .setPluginOptions('postcss-preset-env', {stage: 1})
 ```
 

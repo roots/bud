@@ -12,15 +12,14 @@ import CodeBlock from '@theme/CodeBlock'
 import {Install} from '@site/src/docs/Install'
 import {PeerDependencies} from '@site/src/docs/PeerDependencies'
 
-import Example from '!!raw-loader!@site/../../examples/emotion/bud.config.js'
+import Example from '!!raw-loader!@site/../../../examples/emotion/bud.config.js'
 
 <blockquote>
   <p>
-    Emotion is a library designed for writing css styles with
-    JavaScript. It provides powerful and predictable style
-    composition in addition to a great developer experience with
-    features such as source maps, labels, and testing utilities.
-    Both string and object styles are supported.
+    Emotion is a library designed for writing css styles with JavaScript.
+    It provides powerful and predictable style composition in addition to a
+    great developer experience with features such as source maps, labels,
+    and testing utilities. Both string and object styles are supported.
   </p>
   <cite>
     &mdash; <a href="https://emotion.sh">emotion.sh</a>
@@ -56,11 +55,7 @@ const BudReactExtension = require('@roots/bud-react')
 const BudEmotionExtension = require('@roots/bud-emotion')
 
 module.exports = app =>
-  app.use([
-    BudBabelExtension,
-    BudReactExtension,
-    BudEmotionExtension,
-  ])
+  app.use([BudBabelExtension, BudReactExtension, BudEmotionExtension])
 ```
 
   </TabItem>
