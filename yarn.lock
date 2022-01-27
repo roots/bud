@@ -3038,6 +3038,7 @@ __metadata:
   resolution: "@repo/markdown-kit@workspace:sources/@repo/markdown-kit"
   dependencies:
     "@repo/constants": "workspace:*"
+    "@repo/logger": "workspace:*"
     "@roots/bud": "workspace:*"
     "@types/fs-extra": 9.0.13
     "@types/react": 17.0.38
@@ -7868,7 +7869,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud@workspace:."
   dependencies:
-    "@docusaurus/types": 2.0.0-beta.15
     "@repo/constants": "workspace:*"
     "@repo/logger": "workspace:*"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
@@ -7900,7 +7900,6 @@ __metadata:
     lodash: 4.17.21
     prettier: 2.5.1
     pretty-format: 27.4.6
-    signale: 1.4.0
     ts-jest: 27.1.3
     ts-node: 10.4.0
     tslib: 2.3.1
