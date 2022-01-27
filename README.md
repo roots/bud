@@ -24,7 +24,7 @@
 - Supports configuration with TypeScript.
 - Customizable and extensible. Add new features. Swap our core components with your own.
 
-![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/docs/static/casts/babel-build--cache.svg)
+![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg)
 
 ## Requirements
 
