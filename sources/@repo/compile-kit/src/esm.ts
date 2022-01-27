@@ -1,5 +1,4 @@
-import { REPO_ROOT } from '@repo/constants'
-import ncc from '@vercel/ncc'
+import {paths} from '@repo/constants'
 import {
   emptydir,
   ensureDir,
@@ -12,38 +11,30 @@ import {
 } from 'fs-extra'
 import {join} from 'path'
 
-import {nccOptions} from './options'
+import * as config from '../ncc.config'
+import {ncc} from './ncc'
 
 /**
  * Compiles entire package down to a single ESM file
  */
 export const compileEsm = async (pkg: string): Promise<void> => {
   try {
-    await ensureDir(
-      join(REPO_ROOT, `/sources/${pkg}/lib/esm/`),
-    )
+    await ensureDir(join(paths.sources, `${pkg}/lib/esm/`))
   } catch (err) {}
 
   try {
-    await emptydir(
-      join(REPO_ROOT, `/sources/${pkg}/lib/esm/`),
-    )
+    await emptydir(join(paths.sources, `${pkg}/lib/esm/`))
   } catch (err) {}
 
   try {
-    await remove(
-      join(
-        REPO_ROOT,
-        `/sources/${pkg}/lib/tsconfig-esm.tsbuildinfo`,
-      ),
-    )
+    await remove(join(paths.sources, `${pkg}/lib/tsconfig-esm.tsbuildinfo`))
   } catch (err) {}
 
   /**
    * Read package.json contents
    */
   const prettyPackageJson = await readFile(
-    join(REPO_ROOT, `/sources/${pkg}/package.json`),
+    join(paths.sources, `${pkg}/package.json`),
   )
 
   /**
@@ -51,7 +42,7 @@ export const compileEsm = async (pkg: string): Promise<void> => {
    */
   const restoreJson = async () =>
     writeFile(
-      join(REPO_ROOT, `/sources/${pkg}/package.json`),
+      join(paths.sources, `${pkg}/package.json`),
       prettyPackageJson,
       'utf8',
     )
@@ -59,46 +50,37 @@ export const compileEsm = async (pkg: string): Promise<void> => {
   /**
    * Read package.json contents
    */
-  const packageJson = await readJson(
-    join(REPO_ROOT, `/sources/${pkg}/package.json`),
-  )
+  const packageJson = await readJson(join(paths.sources, `${pkg}/package.json`))
 
   try {
     /**
      * Writes type:module prop to package.json so build will compile as ESM
      */
-    await writeJson(
-      join(REPO_ROOT, `/sources/${pkg}/package.json`),
-      {
-        ...packageJson,
-        type: 'module',
-      },
-    )
+    await writeJson(join(paths.sources, `${pkg}/package.json`), {
+      ...packageJson,
+      type: 'module',
+    })
 
     /**
      * Package boundary indicating ESM export
      */
-    await writeJson(
-      join(
-        REPO_ROOT,
-        `/sources/${pkg}/lib/esm/package.json`,
-      ),
-      {type: 'module'},
-    )
+    await writeJson(join(paths.sources, `${pkg}/lib/esm/package.json`), {
+      type: 'module',
+    })
 
     /**
      * Run ncc and output to lib/tmp/esm
      */
     const {code} = await ncc(
-      join(REPO_ROOT, `/sources/${pkg}/src/index.ts`),
-      nccOptions,
+      join(paths.sources, `${pkg}/src/index.ts`),
+      config.options,
     )
 
     /**
      * Write entrypoint
      */
     await outputFile(
-      join(REPO_ROOT, `/sources/${pkg}/lib/esm/index.js`),
+      join(paths.sources, `${pkg}/lib/esm/index.js`),
       code,
       'utf8',
     )
