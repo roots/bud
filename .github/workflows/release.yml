@@ -39,7 +39,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           YARN_RC_FILENAME: '.yarnrc.yml'
         run: |
-          docker-compose run bash yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
+          docker-compose run bud yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
 
       - name: Configure Git
         run: |
