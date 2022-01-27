@@ -22,8 +22,6 @@ Install **@roots/bud-preset-recommend** to your project.
 yarn add @roots/bud-preset-recommend --dev
 ```
 
-Run `bud install` after installation to ensure peer dependencies are met.
-
 ```shell
 yarn bud install
 ```

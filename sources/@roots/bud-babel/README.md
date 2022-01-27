@@ -22,8 +22,6 @@ Install **@roots/bud-babel** to your project.
 yarn add @roots/bud-babel --dev
 ```
 
-Run `bud install` after installation to ensure peer dependencies are met.
-
 ```shell
 yarn bud install
 ```

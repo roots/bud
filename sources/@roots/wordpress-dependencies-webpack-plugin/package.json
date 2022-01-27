@@ -1,5 +1,6 @@
 {
   "name": "@roots/wordpress-dependencies-webpack-plugin",
+  "description": "Webpack plugin to help with wp_enqueue_script",
   "version": "5.1.0",
   "repository": {
     "type": "git",
