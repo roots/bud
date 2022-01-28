@@ -1,7 +1,4 @@
-import type {
-  HighlightOptions,
-  PrettyFormatOptions,
-} from '@roots/bud-support'
+import type {HighlightOptions, PrettyFormatOptions} from '@roots/bud-support'
 import {bind, format, highlight, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
@@ -21,6 +18,7 @@ import {
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
+import * as frameworkProcess from './framework.process'
 import {Logger} from '../Logger'
 import {Project} from '../Project'
 import {lifecycle} from './lifecycle'
@@ -303,6 +301,8 @@ export abstract class Framework {
 
     this.store = new Store(this, options.config)
 
+    frameworkProcess.initialize(this)
+
     if (!options.childOf) {
       this.children = this.container()
       this.root = this
@@ -493,8 +493,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public setPublicPath: methods.setPublicPath =
-    methods.setPublicPath.bind(this)
+  public setPublicPath: methods.setPublicPath = methods.setPublicPath.bind(this)
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.
@@ -637,9 +636,7 @@ export abstract class Framework {
   @bind
   public success(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .success(...messages)
+      this.logger.instance.scope(...this.logger.context).success(...messages)
 
     return this
   }
@@ -694,9 +691,7 @@ export abstract class Framework {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .complete(...messages)
+    this.logger.instance.scope(...this.logger.context).complete(...messages)
 
     return this
   }
@@ -830,8 +825,5 @@ export interface Options {
    *
    * @public
    */
-  extensions?: () => Record<
-    string,
-    Extension.Module | Extension.CompilerPlugin
-  >
+  extensions?: () => Record<string, Extension.Module | Extension.CompilerPlugin>
 }
