@@ -66,7 +66,6 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "^0.2.2",
-    "@types/copy-webpack-plugin": "8.0.1",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
