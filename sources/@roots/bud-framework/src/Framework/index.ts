@@ -23,6 +23,7 @@ import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import {Project} from '../Project'
+import * as frameworkProcess from './framework.process'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
 import * as parser from './parser'
@@ -302,6 +303,8 @@ export abstract class Framework {
     this.logger = new Logger(this)
 
     this.store = new Store(this, options.config)
+
+    frameworkProcess.initialize(this)
 
     if (!options.childOf) {
       this.children = this.container()
@@ -753,8 +756,7 @@ export abstract class Framework {
   @bind
   public error(...messages: any[]) {
     this.logger.instance.scope(...this.logger.context).error(...messages)
-
-    return this
+    throw new Error('Error thrown. Reference message contents above.')
   }
 
   @bind

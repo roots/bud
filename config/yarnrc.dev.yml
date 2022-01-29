@@ -14,7 +14,9 @@ installStatePath: storage/yarn/install-state.gz
 
 nodeLinker: node-modules
 
-npmAuthIdent: 'roots:roots'
+npmAuthIdent: ${NPM_AUTH_IDENT:-'roots:roots'}
+
+npmAuthToken: ${NPM_AUTH_TOKEN:-01234}
 
 npmPublishAccess: public
 
@@ -36,6 +38,7 @@ pnpDataPath: .yarn/pnp.data.json
 pnpUnpluggedFolder: .yarn/unplugged
 
 unsafeHttpWhitelist:
+  - localhost
   - verdaccio
 
 virtualFolder: .yarn/__virtual__
