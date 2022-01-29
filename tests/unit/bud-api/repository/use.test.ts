@@ -1,7 +1,6 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import * as Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-
-import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.use', function () {
   let bud: Bud
@@ -13,7 +12,7 @@ describe('bud.use', function () {
   beforeEach(async () => {
     bud.extensions.setStore({})
 
-    await bud.use({
+    await bud.extensions.add({
       name: 'css-minimizer-webpack-plugin',
       options: {},
     })

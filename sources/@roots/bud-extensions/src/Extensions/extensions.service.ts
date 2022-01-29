@@ -4,6 +4,7 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
+import {nanoid} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
@@ -74,16 +75,10 @@ export class Extensions extends Service implements Base {
       return
     }
 
-    if (this.app.project.peers.hasMissingDependencies) {
-      this.log(
-        'error',
-        'missing dependencies in project. not booting extensions.',
-      )
-      return
-    }
-
     try {
-      const modules = Object.values(this.app.project.peers.modules)
+      const modules: Array<Extension.Module> = Object.values(
+        this.app.project.peers.modules,
+      )
         .filter(Boolean)
         .filter(({bud}) => bud?.type === 'extension')
 
@@ -93,15 +88,21 @@ export class Extensions extends Service implements Base {
         }),
       )
 
-      await modules.reduce(async (promised: Promise<void>, record) => {
-        await promised
-        await this.registerExtension(this.get(record.name))
-      }, Promise.resolve())
+      await modules.reduce(
+        async (promised: Promise<void>, record: Extension.Module) => {
+          await promised
+          return await this.registerExtension(this.get(record.name))
+        },
+        Promise.resolve(),
+      )
 
-      await modules.reduce(async (promised, record) => {
-        await promised
-        await this.bootExtension(this.get(record.name))
-      }, Promise.resolve())
+      await modules.reduce(
+        async (promised: Promise<void>, record: Extension.Module) => {
+          await promised
+          return await this.bootExtension(this.get(record.name))
+        },
+        Promise.resolve(),
+      )
     } catch (e) {
       this.app.error(e)
     }
@@ -117,7 +118,10 @@ export class Extensions extends Service implements Base {
       ? importedModule.default
       : importedModule
 
+    if (!importedExtension)
+      throw new Error('Extension could not be imported')
     if (this.has(importedExtension.name)) return
+
     await this.setController(importedExtension)
   }
 
@@ -128,6 +132,7 @@ export class Extensions extends Service implements Base {
   public async registerExtension(extension: Controller): Promise<void> {
     try {
       if (!extension) return
+
       this.app.log('registering', extension.name)
 
       await extension.mixin()
@@ -194,14 +199,31 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public async add(extension: Extension.Module): Promise<void> {
+    if (!extension?.name) {
+      const name = nanoid(4)
+      this.app.warn(
+        `extension added with no name property. Applying generated name: ${name}`,
+      )
+      Object.assign(extension, {
+        name: nanoid(4),
+      })
+    }
+
     if (this.has(extension.name)) {
       this.log('info', `${extension.name} already exists. skipping.`)
       return
     }
 
     await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
+    const controller: Controller = this.get(extension.name)
+
+    if (!(controller instanceof Controller)) {
+      this.app.info(controller)
+      throw new Error(`${extension.name} was misregistered`)
+    }
+
+    await this.registerExtension(controller)
+    await this.bootExtension(controller)
   }
 
   /**

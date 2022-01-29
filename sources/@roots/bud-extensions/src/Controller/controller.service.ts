@@ -1,15 +1,9 @@
 import {Modules, Service} from '@roots/bud-framework'
+import {bind, chalk, lodash, nanoid, Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
+import {isArray} from 'lodash'
+const {isObject, isUndefined, isFunction} = lodash
 
-import {
-  bind,
-  chalk,
-  isFunction,
-  isObject,
-  isUndefined,
-  omit,
-  Signale,
-} from './controller.dependencies'
 import {Extension, Framework, Plugin} from './controller.interface'
 
 /**
@@ -37,16 +31,20 @@ export class Controller {
    */
   public meta: {
     instance: string
-    bound: boolean
-    mixed: boolean
-    registered: boolean
-    booted: boolean
+    called: {
+      api: boolean
+      mixin: boolean
+      register: boolean
+      boot: boolean
+    }
   } = {
     instance: null,
-    bound: false,
-    mixed: false,
-    registered: false,
-    booted: false,
+    called: {
+      api: false,
+      mixin: false,
+      register: false,
+      boot: false,
+    },
   }
 
   public get moduleLogger(): Signale {
@@ -83,16 +81,10 @@ export class Controller {
     if (!extension) {
       throw Error(`extension controller constructor: missing module`)
     }
+    this.name = extension.name ?? nanoid(4)
+    this.options = extension.options ?? {}
 
-    if (!extension.name) {
-      this.app.dump(extension)
-      throw Error(`name is a required property for extensions`)
-    }
-
-    this.name = extension.name
-    this.options = extension.options
-
-    Object.assign(this._module, omit(extension, ['name', 'options']))
+    Object.assign(this._module, extension)
   }
 
   /**
@@ -354,22 +346,8 @@ export class Controller {
    */
   @bind
   public async register(): Promise<Controller> {
-    if (!this._module.register) {
-      this.meta.registered = true
-      return this
-    }
-    if (this.meta.registered) return this
-    this.meta.registered = true
-
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.registered) {
-            await this.app.extensions.get(name).register()
-          }
-        },
-      ),
-    )
+    if (!this.callOnlyOnce('register')) return
+    await this.callRequirementsFirst('register')
 
     await this.mixin()
     await this.api()
@@ -390,21 +368,8 @@ export class Controller {
    */
   @bind
   public async api(): Promise<Controller> {
-    if (!this._module.api) {
-      this.meta.bound = true
-      return this
-    }
-    if (this.meta.bound) return this
-    this.meta.bound = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.bound) {
-            await this.app.extensions.get(name).api()
-          }
-        },
-      ),
-    )
+    if (!this.callOnlyOnce('api')) return
+    await this.callRequirementsFirst('api')
 
     const methodMap: Record<string, CallableFunction> = isFunction(
       this._module.api,
@@ -439,24 +404,10 @@ export class Controller {
    */
   @bind
   public async mixin(): Promise<this> {
-    if (!this._module.mixin) {
-      this.meta.mixed = true
-      return this
-    }
-    if (this.meta.mixed) return this
-    this.meta.mixed = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.mixed) {
-            await this.app.extensions.get(name).mixin()
-          }
-        },
-      ),
-    )
+    if (!this.callOnlyOnce('mixin')) return
+    await this.callRequirementsFirst('mixin')
 
     let classMap: Record<string, any>
-
     if (isFunction(this._module.mixin)) {
       classMap = await this._module.mixin(this.app)
     } else {
@@ -486,21 +437,8 @@ export class Controller {
    */
   @bind
   public async boot(): Promise<this> {
-    if (!this._module.boot) {
-      this.meta.booted = true
-      return this
-    }
-    if (this.meta.booted) return this
-    this.meta.booted = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.boot) {
-            await this.app.extensions.get(name).boot()
-          }
-        },
-      ),
-    )
+    if (!this.callOnlyOnce('boot')) return
+    await this.callRequirementsFirst('boot')
 
     if (isFunction(this._module.boot)) {
       await this._module.boot(this.app, this.moduleLogger)
@@ -511,5 +449,40 @@ export class Controller {
     }
 
     return this
+  }
+
+  @bind
+  public callOnlyOnce(methodName: string) {
+    if (!this._module[methodName]) {
+      this.meta.called[methodName] = true
+      return false
+    }
+
+    if (this.meta.called[methodName]) return false
+    this.meta.called[methodName] = true
+    return this
+  }
+
+  @bind
+  public isFirstOrderModule(moduleName: string): boolean {
+    return this.app.project.peers.modules[moduleName] ? true : false
+  }
+
+  @bind
+  public async callRequirementsFirst(methodName: string) {
+    if (!this.isFirstOrderModule(this.name)) return
+
+    const moduleRecord = this.app.project.peers.modules[this.name]
+    const moduleRequirements = isArray(moduleRecord.requires)
+      ? moduleRecord.requires
+      : []
+
+    await Promise.all(
+      moduleRequirements.map(async ([name]) => {
+        if (!this.app.extensions.get(name).meta.called[methodName]) {
+          await this.app.extensions.get(name)[methodName]()
+        }
+      }),
+    )
   }
 }

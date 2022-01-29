@@ -111,7 +111,6 @@ export class Peers implements PeersInterface {
             await this.collect(name)
           }),
       )
-
       this.adjacents = new AdjacencyList(this.modules)
     } catch (e) {
       this.app.error(e)
@@ -131,9 +130,6 @@ export class Peers implements PeersInterface {
   @bind
   public async collect(name: string) {
     const manifest = await this.retrieveManifest(name)
-    if (!manifest) {
-      this.hasMissingDependencies = true
-    }
 
     const dependency: Dependency = {
       name: manifest.name ?? name,

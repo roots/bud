@@ -1,3 +1,4 @@
+import {Module} from '../Extensions'
 import {Framework} from '../Framework'
 
 /**
@@ -25,7 +26,7 @@ export interface Peers {
    *
    * @public
    */
-  modules: Record<string, Record<string, any>>
+  modules: Record<string, Module>
 
   /**
    * True if project is missing dependencies
