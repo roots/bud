@@ -23,8 +23,5 @@ export interface close {
 export function close(done = process.exit) {
   const ctx = this as Framework
   ctx.hooks.filter('event.app.close')
-
-  ctx.success('exiting application')
-
   done()
 }
