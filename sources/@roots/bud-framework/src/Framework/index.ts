@@ -1,4 +1,7 @@
-import type {HighlightOptions, PrettyFormatOptions} from '@roots/bud-support'
+import type {
+  HighlightOptions,
+  PrettyFormatOptions,
+} from '@roots/bud-support'
 import {bind, format, highlight, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
@@ -18,9 +21,9 @@ import {
 } from '../'
 import * as Cache from '../Cache'
 import {Extensions} from '../Extensions'
-import * as frameworkProcess from './framework.process'
 import {Logger} from '../Logger'
 import {Project} from '../Project'
+import * as frameworkProcess from './framework.process'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
 import * as parser from './parser'
@@ -493,7 +496,8 @@ export abstract class Framework {
    *
    * @public
    */
-  public setPublicPath: methods.setPublicPath = methods.setPublicPath.bind(this)
+  public setPublicPath: methods.setPublicPath =
+    methods.setPublicPath.bind(this)
 
   /**
    * Run a value through an array of syncronous, non-mutational functions.
@@ -636,7 +640,9 @@ export abstract class Framework {
   @bind
   public success(...messages: any[]) {
     this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).success(...messages)
+      this.logger.instance
+        .scope(...this.logger.context)
+        .success(...messages)
 
     return this
   }
@@ -691,7 +697,9 @@ export abstract class Framework {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).complete(...messages)
+    this.logger.instance
+      .scope(...this.logger.context)
+      .complete(...messages)
 
     return this
   }
@@ -748,8 +756,7 @@ export abstract class Framework {
   @bind
   public error(...messages: any[]) {
     this.logger.instance.scope(...this.logger.context).error(...messages)
-
-    return this
+    throw new Error('Error thrown. Reference message contents above.')
   }
 
   @bind
@@ -825,5 +832,8 @@ export interface Options {
    *
    * @public
    */
-  extensions?: () => Record<string, Extension.Module | Extension.CompilerPlugin>
+  extensions?: () => Record<
+    string,
+    Extension.Module | Extension.CompilerPlugin
+  >
 }
