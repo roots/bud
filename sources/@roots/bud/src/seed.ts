@@ -283,6 +283,9 @@ export const seed: Partial<Store.Repository> = {
       entrypoints: false,
       performance: false,
       warnings: true,
+      errorsCount: true,
+      warningsCount: true,
+      logging: true,
     },
   },
 

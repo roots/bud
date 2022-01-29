@@ -1,8 +1,6 @@
 import {lodash} from '@roots/bud-support'
 import {useInput} from 'ink'
 
-import {useForceUpdate} from '../hooks/useForceUpdate'
-
 const {isEqual} = lodash
 
 /**
@@ -11,8 +9,6 @@ const {isEqual} = lodash
  * @public
  */
 export const Input = ({bud}) => {
-  useForceUpdate()
-
   useInput(input => {
     if (isEqual(input, 'q')) {
       bud.hooks.filter('event.dashboard.q')
