@@ -1,4 +1,5 @@
 import {resolve} from 'path'
+import {Stats} from 'webpack'
 
 import {Bud} from '../../Bud'
 import {NodeNotifier} from '../cli.dependencies'
@@ -29,16 +30,18 @@ export class Notifier {
     this.notify = this.notify.bind(this)
   }
 
-  public notify(app: Bud, props) {
+  public notify(app: Bud, _props?: Stats) {
     const group = app.name
 
     const title =
-      props?.title || app.compiler.stats.errors.length > 0
+      app.compiler.stats?.errorsCount &&
+      app.compiler.stats?.errorsCount > 0
         ? `Build error`
         : `Build success`
 
     const message =
-      props?.message || app.compiler.stats.errors.length > 0
+      app.compiler.stats?.errorsCount &&
+      app.compiler.stats?.errorsCount > 0
         ? `${group} couldn't be compiled`
         : `${group} compiled successfully`
 
@@ -46,8 +49,7 @@ export class Notifier {
       title,
       message,
       group,
-
-      contentImage: resolve(__dirname, '../assets/bud-icon.jpg'),
+      contentImage: resolve(__dirname, '../../../../assets/bud-icon.jpg'),
     })
   }
 }
