@@ -64,7 +64,7 @@ class Configuration {
 
       return result
     } catch (e) {
-      this.logger.error('error', e)
+      throw new Error(e)
     }
   }
 
@@ -97,17 +97,26 @@ export const configs = async (app: Bud, logger: Signale) => {
   const generalConfigs = app.project.get('configs.dynamic.global')
   const conditionalConfigs = app.project.get('configs.dynamic.conditional')
 
-  if (generalConfigs?.length) {
-    const dynamicConfig = new Configuration(app, logger, generalConfigs)
-    await dynamicConfig.run()
+  const processAllEnqueued = async () => {
     await app.api.processQueue()
     await app.extensions.processQueue()
   }
 
+  if (generalConfigs?.length) {
+    await processAllEnqueued()
+
+    const dynamicConfig = new Configuration(app, logger, generalConfigs)
+    await dynamicConfig.run()
+
+    await processAllEnqueued()
+  }
+
   if (conditionalConfigs?.length) {
+    await processAllEnqueued()
+
     const staticConfig = new Configuration(app, logger, conditionalConfigs)
     await staticConfig.run()
-    await app.api.processQueue()
-    await app.extensions.processQueue()
+
+    await processAllEnqueued()
   }
 }
