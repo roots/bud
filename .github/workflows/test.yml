@@ -52,6 +52,8 @@ jobs:
           docker compose run bud yarn @bud lint --skypack --eslint
 
       - name: Publish
+        env:
+          NPM_AUTH_TOKEN: "kjo"
         run: |
           docker compose run bud yarn @bud release --tag latest
 
