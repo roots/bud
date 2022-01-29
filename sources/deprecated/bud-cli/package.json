@@ -70,7 +70,7 @@
     "@oclif/plugin-autocomplete": "1.2.0",
     "@oclif/plugin-commands": "2.1.0",
     "@oclif/plugin-help": "5.1.10",
-    "@oclif/plugin-update": "2.1.5",
+    "@oclif/plugin-update": "2.2.0",
     "@roots/bud": "workspace:sources/@roots/bud",
     "autobind-decorator": "2.4.0",
     "cosmiconfig": "7.0.1",
