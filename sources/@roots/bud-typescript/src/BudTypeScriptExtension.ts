@@ -1,16 +1,22 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
+import {Options} from 'ts-loader'
 import {Configuration} from 'webpack'
 
 import {typecheck} from './api'
 
-interface BudTypeScriptExtension extends Extension.CompilerPlugin {}
+interface BudTypeScriptExtension
+  extends Extension.Module<Partial<Options>> {}
 
 const BudTypeScriptExtension: BudTypeScriptExtension = {
   name: '@roots/bud-typescript',
 
   api: {
     typecheck,
+  },
+
+  options: {
+    transpileOnly: true,
   },
 
   boot: ({build, hooks, store}) => {
@@ -20,10 +26,8 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
 
     build.items['ts'] = new Item({
       loader: build.loaders['ts'],
-      options: {
-        transpileOnly: true,
-        happyPackMode: true,
-      },
+      options: app =>
+        app.extensions.get('@roots/bud-typescript').options.all(),
     })
 
     build.setRule('ts', {
