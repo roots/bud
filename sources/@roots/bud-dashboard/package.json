@@ -56,11 +56,9 @@
     "patch-console": "1.0.0",
     "react": "17.0.2",
     "react-use": "17.3.2",
-    "use-force-update": "1.0.7",
     "webpack": "5.65.0"
   },
   "dependencies": {
-    "trim-newlines": "^4.0.2",
     "tslib": "^2.3.1"
   }
 }
