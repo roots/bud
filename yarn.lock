@@ -3005,7 +3005,7 @@ __metadata:
     "@types/lodash": 4.14.178
     "@types/node": 16.11.21
     copy-webpack-plugin: 10.2.3
-    css-minimizer-webpack-plugin: 3.3.1
+    css-minimizer-webpack-plugin: 3.4.1
     fs-extra: 10.0.0
     html-webpack-plugin: 5.5.0
     lodash: 4.17.21
@@ -8875,30 +8875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:3.3.1":
-  version: 3.3.1
-  resolution: "css-minimizer-webpack-plugin@npm:3.3.1"
-  dependencies:
-    cssnano: ^5.0.6
-    jest-worker: ^27.0.2
-    postcss: ^8.3.5
-    schema-utils: ^4.0.0
-    serialize-javascript: ^6.0.0
-    source-map: ^0.6.1
-  peerDependencies:
-    webpack: ^5.0.0
-  peerDependenciesMeta:
-    clean-css:
-      optional: true
-    csso:
-      optional: true
-    esbuild:
-      optional: true
-  checksum: 5e054ef608702dba55dec629503618acfbebb9566f92058a1ebf372f0feb47b9faa3de7142372be629fa327a7223c614b325a08d955d080a64a06983c8782321
-  languageName: node
-  linkType: hard
-
-"css-minimizer-webpack-plugin@npm:^3.3.1":
+"css-minimizer-webpack-plugin@npm:3.4.1, css-minimizer-webpack-plugin@npm:^3.3.1":
   version: 3.4.1
   resolution: "css-minimizer-webpack-plugin@npm:3.4.1"
   dependencies:
