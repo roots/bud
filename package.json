@@ -43,7 +43,7 @@
     "@typescript-eslint/parser": "5.9.1",
     "chalk": "4.1.2",
     "codecov": "3.8.3",
-    "dotenv": "10.0.0",
+    "dotenv": "14.3.2",
     "eslint": "8.8.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-react": "7.28.0",
