@@ -3167,7 +3167,7 @@ __metadata:
     ink: 3.2.0
     ink-gradient: 2.0.0
     ink-spinner: 4.0.3
-    node-fetch: 3.1.1
+    node-fetch: 3.2.0
     patch-console: 1.0.0
     react: 17.0.2
     trim-newlines: ^4.0.2
@@ -11035,7 +11035,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.3":
+"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
   version: 3.1.4
   resolution: "fetch-blob@npm:3.1.4"
   dependencies:
@@ -15762,14 +15762,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:3.1.1":
-  version: 3.1.1
-  resolution: "node-fetch@npm:3.1.1"
+"node-fetch@npm:3.2.0":
+  version: 3.2.0
+  resolution: "node-fetch@npm:3.2.0"
   dependencies:
     data-uri-to-buffer: ^4.0.0
-    fetch-blob: ^3.1.3
+    fetch-blob: ^3.1.4
     formdata-polyfill: ^4.0.10
-  checksum: 2e03f9a309a0a3e20758045e5eea5f1a0961be236f01cf9caecfd2224a1388a59a5c7fa3809d16f76cce1b5b7411a61db146fd265b7af5a6c9e5920a18eeef63
+  checksum: 1c809a0f64dd11cc18b49f990440e22c471da47da2a6d6b3388a83beba9d23ba7eaca1b9bf706a792bd283b824cf1a76777910859b9c28ad33a59f2ae4e44f8e
   languageName: node
   linkType: hard
 
