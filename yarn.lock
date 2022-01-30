@@ -3298,7 +3298,7 @@ __metadata:
     "@types/node": 16.11.21
     chokidar: 3.5.3
     cli-highlight: ^2.1.11
-    http-proxy-middleware: 2.0.1
+    http-proxy-middleware: 2.0.2
     ink: 3.2.0
     js-yaml: ^4.1.0
     json5: ^2.2.0
@@ -3615,7 +3615,7 @@ __metadata:
     chokidar: ^3.5.2
     express: ^4.17.1
     globby: ^11.0.0
-    http-proxy-middleware: 2.0.1
+    http-proxy-middleware: 2.0.2
     tslib: ^2.3.1
     webpack: 5.65.0
     webpack-dev-middleware: 5.3.0
@@ -4658,7 +4658,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-proxy@npm:^1.17.5, @types/http-proxy@npm:^1.17.8":
+"@types/http-proxy@npm:^1.17.8":
   version: 1.17.8
   resolution: "@types/http-proxy@npm:1.17.8"
   dependencies:
@@ -12429,20 +12429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:2.0.1":
-  version: 2.0.1
-  resolution: "http-proxy-middleware@npm:2.0.1"
-  dependencies:
-    "@types/http-proxy": ^1.17.5
-    http-proxy: ^1.18.1
-    is-glob: ^4.0.1
-    is-plain-obj: ^3.0.0
-    micromatch: ^4.0.2
-  checksum: 0de65bc6644b6efae5d26cd3bec071ceaeb92f26856ffee5ecdde9c702ea1435936e7dfb09da2ac0883eada80fdc993e9925902fc10bf6625565d6365f8cb30f
-  languageName: node
-  linkType: hard
-
-"http-proxy-middleware@npm:^2.0.0":
+"http-proxy-middleware@npm:2.0.2, http-proxy-middleware@npm:^2.0.0":
   version: 2.0.2
   resolution: "http-proxy-middleware@npm:2.0.2"
   dependencies:
