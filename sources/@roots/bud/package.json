@@ -85,7 +85,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.0.0",
     "execa": "5.1.1",
-    "fast-glob": "3.2.10",
+    "fast-glob": "3.2.11",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.0",
     "helpful-decorators": "^2.1.0",

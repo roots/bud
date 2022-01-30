@@ -3910,7 +3910,7 @@ __metadata:
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: ^10.0.0
     execa: 5.1.1
-    fast-glob: 3.2.10
+    fast-glob: 3.2.11
     fs-extra: ^10.0.0
     globby: ^11.0.0
     helpful-decorators: ^2.1.0
@@ -10936,20 +10936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:3.2.10":
-  version: 3.2.10
-  resolution: "fast-glob@npm:3.2.10"
-  dependencies:
-    "@nodelib/fs.stat": ^2.0.2
-    "@nodelib/fs.walk": ^1.2.3
-    glob-parent: ^5.1.2
-    merge2: ^1.3.0
-    micromatch: ^4.0.4
-  checksum: dee958d95638c8d00d200c55af5884dda513cfef96f674caab5a289a4436936ee26d603841a9ab85a6a4d9f7914558bce78dbf1088d3b8ec64b255422eea840b
-  languageName: node
-  linkType: hard
-
-"fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9":
+"fast-glob@npm:3.2.11, fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9":
   version: 3.2.11
   resolution: "fast-glob@npm:3.2.11"
   dependencies:
