@@ -64,7 +64,7 @@ const docusaurusConfig: Config = {
       {
         id: 'dev',
         path: docsPath('content/dev'),
-        routeBasePath: docsPath('content/dev'),
+        routeBasePath: 'dev',
         sidebarPath,
         include: ['**/*.md', '**/*.mdx'],
       },

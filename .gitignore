@@ -24,3 +24,6 @@ storage
 # Examples
 /examples/*/dist
 /examples/*/.budfiles
+
+# Local Netlify folder
+**/.netlify
