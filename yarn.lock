@@ -3101,7 +3101,6 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": ^0.2.2
-    "@types/copy-webpack-plugin": 8.0.1
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.4.0
     "@types/lodash": 4.14.178
@@ -3804,7 +3803,6 @@ __metadata:
   dependencies:
     "@endemolshinegroup/cosmiconfig-typescript-loader": 3.0.2
     "@skypack/package-check": ^0.2.2
-    "@types/copy-webpack-plugin": 8.0.1
     "@types/express": 4.17.13
     "@types/lodash": 4.14.178
     "@types/node": 16.11.19
@@ -3814,6 +3812,7 @@ __metadata:
     "@types/yamljs": 0.2.31
     chalk: 4.1.2
     cli-highlight: 2.1.11
+    copy-webpack-plugin: 10.2.3
     cosmiconfig: 7.0.1
     dotenv: 10.0.0
     dotenv-expand: 5.1.0
@@ -4628,17 +4627,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
-  languageName: node
-  linkType: hard
-
-"@types/copy-webpack-plugin@npm:8.0.1":
-  version: 8.0.1
-  resolution: "@types/copy-webpack-plugin@npm:8.0.1"
-  dependencies:
-    "@types/node": "*"
-    tapable: ^2.0.0
-    webpack: ^5.1.0
-  checksum: e921a28fca72bf1708d51ffad06ee2a4b80b8de7e748639588681ea1912413b92dbd433627f3b7eb51c14b9254a1d9c13cf037f25ca08a718df005871454a696
   languageName: node
   linkType: hard
 
@@ -8937,6 +8925,22 @@ __metadata:
   peerDependencies:
     webpack: ^5.1.0
   checksum: 70652af613b6bee93039c95daa72a68b0cdc4f66d3d861d9237b4b338968fb5c4fb1860c8424348c73d480975844887c9a0d9a2a57257c226a896b2348d2edcd
+  languageName: node
+  linkType: hard
+
+"copy-webpack-plugin@npm:10.2.3":
+  version: 10.2.3
+  resolution: "copy-webpack-plugin@npm:10.2.3"
+  dependencies:
+    fast-glob: ^3.2.7
+    glob-parent: ^6.0.1
+    globby: ^12.0.2
+    normalize-path: ^3.0.0
+    schema-utils: ^4.0.0
+    serialize-javascript: ^6.0.0
+  peerDependencies:
+    webpack: ^5.1.0
+  checksum: 74abbe300307a6e2d7ce21c88d737762861de06bede814567bf001c7b0506d0b04ffae41b16eb6b8120c5bc1ff0a4bcfc0d4b5ddd14efc2bd37504b36ca706c3
   languageName: node
   linkType: hard
 
@@ -23008,7 +23012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.38.1, webpack@npm:^5.64.2":
+"webpack@npm:^5, webpack@npm:^5.38.1, webpack@npm:^5.64.2":
   version: 5.66.0
   resolution: "webpack@npm:5.66.0"
   dependencies:
