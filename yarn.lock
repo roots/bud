@@ -2931,7 +2931,7 @@ __metadata:
     "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/react-reconciler": 0.26.4
-    execa: 5.0.0
+    execa: 5.1.1
     fs-extra: 10.0.0
     helpful-decorators: 2.1.0
     json5: 2.2.0
@@ -2953,7 +2953,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@types/fs-extra": 9.0.13
-    execa: 5.0.0
+    execa: 5.1.1
     fs-extra: 10.0.0
     helpful-decorators: 2.1.0
     jest: 27.4.7
@@ -10752,23 +10752,6 @@ __metadata:
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
-  languageName: node
-  linkType: hard
-
-"execa@npm:5.0.0":
-  version: 5.0.0
-  resolution: "execa@npm:5.0.0"
-  dependencies:
-    cross-spawn: ^7.0.3
-    get-stream: ^6.0.0
-    human-signals: ^2.1.0
-    is-stream: ^2.0.0
-    merge-stream: ^2.0.0
-    npm-run-path: ^4.0.1
-    onetime: ^5.1.2
-    signal-exit: ^3.0.3
-    strip-final-newline: ^2.0.0
-  checksum: a044367ebdcc68ca019810cb134510fc77bbc55c799122258ee0e00e289c132941ab48c2a331a036699c42bc8d479d451ae67c105fce5ce5cc813e7dd92d642b
   languageName: node
   linkType: hard
 
