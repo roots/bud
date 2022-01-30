@@ -48,7 +48,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.21",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.1",
     "ink": "3.2.0",

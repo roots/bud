@@ -59,7 +59,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/eslint": "8.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.21",
     "@types/prettier": "2.4.3",
     "eslint": "8.6.0"
   },
