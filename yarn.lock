@@ -3061,7 +3061,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.178
-    "@types/mini-css-extract-plugin": 2.4.0
+    "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.11.19
     "@types/svgo": 2.6.1
     autobind-decorator: ^2.4.0
@@ -3904,7 +3904,7 @@ __metadata:
     "@types/braces": 3.0.1
     "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.178
-    "@types/mini-css-extract-plugin": 2.4.0
+    "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.11.19
     braces: 3.0.2
     clean-webpack-plugin: ^4.0.0
@@ -4769,14 +4769,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mini-css-extract-plugin@npm:2.4.0":
-  version: 2.4.0
-  resolution: "@types/mini-css-extract-plugin@npm:2.4.0"
+"@types/mini-css-extract-plugin@npm:2.5.0":
+  version: 2.5.0
+  resolution: "@types/mini-css-extract-plugin@npm:2.5.0"
   dependencies:
-    "@types/node": "*"
-    tapable: ^2.2.0
-    webpack: ^5
-  checksum: 7f2be7cadb012078d4e3ba6fde8d09d586d1ec39f170f54ea5cc0654a8834b2c4c765a89710972638ebb6f97299fc9115ed5fd8ffe4db7f12332d5ad5ba3ee26
+    mini-css-extract-plugin: "*"
+  checksum: 8912e191195187e6ebf6b190cf9c636296504922472264bdec2d53e97efb261600d815d502041241326babeb56f2a8ab8ffd21f5445eb3bc065c179eb1b907b6
   languageName: node
   linkType: hard
 
@@ -15577,6 +15575,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mini-css-extract-plugin@npm:*, mini-css-extract-plugin@npm:^2.4.5":
+  version: 2.5.3
+  resolution: "mini-css-extract-plugin@npm:2.5.3"
+  dependencies:
+    schema-utils: ^4.0.0
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: de53fbded09fd2ae81174b11754bc955fcf0e0a85b2c4df7e179fcc8a81533362498824395d43d50960b0bc93550eb2bd9cd1ded113eaa21bd84ab50ef29e65c
+  languageName: node
+  linkType: hard
+
 "mini-css-extract-plugin@npm:^1.6.0":
   version: 1.6.2
   resolution: "mini-css-extract-plugin@npm:1.6.2"
@@ -15587,17 +15596,6 @@ __metadata:
   peerDependencies:
     webpack: ^4.4.0 || ^5.0.0
   checksum: c2c1f3d7e5bc206b5bece0f37b65467ee58e0bb0b61d5e031bb818682b02db2552b296f5018af9058b18eb7127e00f6462fb718712a3d4432079dfa848b510cc
-  languageName: node
-  linkType: hard
-
-"mini-css-extract-plugin@npm:^2.4.5":
-  version: 2.4.5
-  resolution: "mini-css-extract-plugin@npm:2.4.5"
-  dependencies:
-    schema-utils: ^4.0.0
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 09ad56ac33fd960c6a645a2a18b0fee22c34c8e48e91fc48acc5ac3b9c101a5e9ea50d168b94c9fcdf571265271f6e4dd4fea835b2242907d4311b170aff322f
   languageName: node
   linkType: hard
 
@@ -22517,7 +22515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5, webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
+"webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
   version: 5.67.0
   resolution: "webpack@npm:5.67.0"
   dependencies:
