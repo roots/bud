@@ -51,7 +51,7 @@
     "@types/node": "16.11.21",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.5",
-    "webpack": "5.65.0"
+    "webpack": "5.67.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

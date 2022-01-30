@@ -55,7 +55,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.21",
-    "webpack": "5.65.0"
+    "webpack": "5.67.0"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
