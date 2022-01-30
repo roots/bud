@@ -57,11 +57,11 @@
     "@oclif/dev-cli": "1.26.10",
     "@oclif/test": "2.0.3",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@types/eslint": "8.2.2",
+    "@types/eslint": "8.4.1",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.21",
     "@types/prettier": "2.4.3",
-    "eslint": "8.6.0"
+    "eslint": "8.8.0"
   },
   "dependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "3.0.2",
