@@ -68,7 +68,7 @@
     "@types/node": "16.11.21"
   },
   "dependencies": {
-    "@oclif/core": "1.1.2",
+    "@oclif/core": "1.2.1",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
