@@ -2908,7 +2908,7 @@ __metadata:
     tslib: 2.3.1
     typescript: 4.5.5
     url-loader: 4.1.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3000,7 +3000,7 @@ __metadata:
     nanoid: 3.2.0
     npm-run-path: 5.0.1
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3023,7 +3023,7 @@ __metadata:
     babel-loader: ^8.2.3
     babel-plugin-add-module-exports: ^1.0.4
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     "@babel/core": ^7.16.10
     "@babel/plugin-proposal-class-properties": ^7.16.0
@@ -3081,7 +3081,7 @@ __metadata:
     svgo: ^2.8.0
     tslib: ^2.3.1
     url-loader: ^4.1.1
-    webpack: 5.65.0
+    webpack: 5.67.0
     xml-loader: ^1.2.1
   languageName: unknown
   linkType: soft
@@ -3110,7 +3110,7 @@ __metadata:
     "@types/node": 16.11.21
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3127,7 +3127,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^9.0.1
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3172,7 +3172,7 @@ __metadata:
     react: 17.0.2
     trim-newlines: ^4.0.2
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3240,7 +3240,7 @@ __metadata:
     fs-extra: ^10.0.0
     lodash: ^4.17.21
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     esbuild-loader: ^2.16.0
   peerDependenciesMeta:
@@ -3262,7 +3262,7 @@ __metadata:
     eslint-plugin-import: ^2.25.3
     eslint-webpack-plugin: ^3.1.1
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     eslint: ^8.6.0
   peerDependenciesMeta:
@@ -3282,7 +3282,7 @@ __metadata:
     "@types/node": 16.11.21
     autobind-decorator: ^2.4.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3305,7 +3305,7 @@ __metadata:
     signale: ^1.4.0
     ts-node: ^10.4.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     typescript: ^4.5.5
   peerDependenciesMeta:
@@ -3346,7 +3346,7 @@ __metadata:
     helpful-decorators: ^2.1.0
     image-minimizer-webpack-plugin: ^3.0.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3362,7 +3362,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     autodll-webpack-plugin: ^0.4.2
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     autodll-webpack-plugin: ^0.4.2
   peerDependenciesMeta:
@@ -3387,7 +3387,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     "@mdx-js/loader": ^1.6.22
   peerDependenciesMeta:
@@ -3411,7 +3411,7 @@ __metadata:
     postcss-nested: 5.0.6
     postcss-preset-env: 7.1.0
     tslib: 2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     postcss: ^8.4.5
     postcss-import: ^14.0.2
@@ -3469,7 +3469,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     tslib: 2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     "@wordpress/browserslist-config": ^4.1.0
   peerDependenciesMeta:
@@ -3551,7 +3551,7 @@ __metadata:
     react-refresh: 0.11.0
     tslib: 2.3.1
     type-fest: 2.11.0
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3581,7 +3581,7 @@ __metadata:
     sass-loader: 12.4.0
     stylelint-config-recommended-scss: 5.0.2
     tslib: 2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     postcss-scss: ^4.0.3
     sass: ^1.45.2
@@ -3617,7 +3617,7 @@ __metadata:
     globby: ^11.0.0
     http-proxy-middleware: 2.0.2
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
     webpack-dev-middleware: 5.3.0
     webpack-hot-middleware: ^2.25.1
   languageName: unknown
@@ -3644,7 +3644,7 @@ __metadata:
     solid-js: 1.3.4
     tslib: ^2.3.1
     type-fest: 2.11.0
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     "@babel/plugin-syntax-jsx": 7.16.7
     babel-preset-solid: ^1.2.5
@@ -3675,7 +3675,7 @@ __metadata:
     stylelint-config-standard: ^24.0.0
     stylelint-webpack-plugin: ^3.1.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     stylelint: ^14.1.0
   peerDependenciesMeta:
@@ -3722,7 +3722,7 @@ __metadata:
     toml: 3.0.0
     tslib: 2.3.1
     typescript: 4.5.5
-    webpack: 5.65.0
+    webpack: 5.67.0
     webpack-config-dump-plugin: 3.0.1
     yamljs: 0.3.0
   languageName: unknown
@@ -3761,7 +3761,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     terser-webpack-plugin: ^5.2.5
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -3784,7 +3784,7 @@ __metadata:
     ts-node: ^10.4.0
     tslib: ^2.3.1
     typescript: 4.5.5
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     typescript: ^4.5.5
   peerDependenciesMeta:
@@ -3819,7 +3819,7 @@ __metadata:
     vue-loader: ^17.0.0
     vue-style-loader: ^4.1.3
     vue-template-compiler: ^2.6.14
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     "@vue/compiler-sfc": ^3.2.26
     "@vue/runtime-dom": ^3.2.26
@@ -3919,7 +3919,7 @@ __metadata:
     mini-css-extract-plugin: ^2.4.5
     tslib: ^2.3.1
     type-fest: ^2.5.4
-    webpack: 5.65.0
+    webpack: 5.67.0
     webpack-cli: ^4.9.1
     webpack-manifest-plugin: ^4.0.2
   bin:
@@ -3985,7 +3985,7 @@ __metadata:
     autobind-decorator: 2.4.0
     lodash: 4.17.21
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   peerDependencies:
     webpack: ">=5"
   languageName: unknown
@@ -4056,7 +4056,7 @@ __metadata:
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -4073,7 +4073,7 @@ __metadata:
     "@types/node": 16.11.21
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -4087,7 +4087,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: ^2.3.1
-    webpack: 5.65.0
+    webpack: 5.67.0
   languageName: unknown
   linkType: soft
 
@@ -22324,51 +22324,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.2, webpack-sources@npm:^3.2.3":
+"webpack-sources@npm:^3.2.3":
   version: 3.2.3
   resolution: "webpack-sources@npm:3.2.3"
   checksum: 989e401b9fe3536529e2a99dac8c1bdc50e3a0a2c8669cbafad31271eadd994bc9405f88a3039cd2e29db5e6d9d0926ceb7a1a4e7409ece021fe79c37d9c4607
   languageName: node
   linkType: hard
 
-"webpack@npm:5.65.0":
-  version: 5.65.0
-  resolution: "webpack@npm:5.65.0"
-  dependencies:
-    "@types/eslint-scope": ^3.7.0
-    "@types/estree": ^0.0.50
-    "@webassemblyjs/ast": 1.11.1
-    "@webassemblyjs/wasm-edit": 1.11.1
-    "@webassemblyjs/wasm-parser": 1.11.1
-    acorn: ^8.4.1
-    acorn-import-assertions: ^1.7.6
-    browserslist: ^4.14.5
-    chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.8.3
-    es-module-lexer: ^0.9.0
-    eslint-scope: 5.1.1
-    events: ^3.2.0
-    glob-to-regexp: ^0.4.1
-    graceful-fs: ^4.2.4
-    json-parse-better-errors: ^1.0.2
-    loader-runner: ^4.2.0
-    mime-types: ^2.1.27
-    neo-async: ^2.6.2
-    schema-utils: ^3.1.0
-    tapable: ^2.1.1
-    terser-webpack-plugin: ^5.1.3
-    watchpack: ^2.3.1
-    webpack-sources: ^3.2.2
-  peerDependenciesMeta:
-    webpack-cli:
-      optional: true
-  bin:
-    webpack: bin/webpack.js
-  checksum: 221ab8ccd440cb678269e86689704bbef81cf41393eb266625873e30c6980ffaa055bb1a7d14bf9fc0f5a2e6f03d15d068cbb995bc876757c01a4ca27fd2870c
-  languageName: node
-  linkType: hard
-
-"webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
+"webpack@npm:5.67.0, webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
   version: 5.67.0
   resolution: "webpack@npm:5.67.0"
   dependencies:
