@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@roots/container": "workspace:sources/@roots/container",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "autobind-decorator": "2.4.0",

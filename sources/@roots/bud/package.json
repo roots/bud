@@ -60,8 +60,8 @@
     "bin": "bud"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
-    "@types/braces": "^3",
+    "@skypack/package-check": "0.2.2",
+    "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
     "@types/mini-css-extract-plugin": "2.4.0",
