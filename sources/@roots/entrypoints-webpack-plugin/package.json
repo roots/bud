@@ -47,7 +47,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.21",
     "autobind-decorator": "2.4.0",
     "lodash": "4.17.21",
     "webpack": "5.65.0"
