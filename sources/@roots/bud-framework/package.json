@@ -50,7 +50,7 @@
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.21",
     "chokidar": "3.5.3",
-    "http-proxy-middleware": "2.0.1",
+    "http-proxy-middleware": "2.0.2",
     "ink": "3.2.0",
     "webpack": "5.65.0"
   },
