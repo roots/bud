@@ -56,7 +56,7 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.19",
     "react": "17.0.2",
