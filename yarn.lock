@@ -2972,7 +2972,7 @@ __metadata:
     "@yarnpkg/cli": 3.2.0-rc.10
     "@yarnpkg/core": 3.2.0-rc.10
     "@yarnpkg/shell": 3.2.0-rc.8
-    clipanion: 3.2.0-rc.4
+    clipanion: 3.2.0-rc.6
     fs-extra: 10.0.0
     helpful-decorators: 2.1.0
     semver: 7.3.5
@@ -8297,14 +8297,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.2.0-rc.4":
-  version: 3.2.0-rc.4
-  resolution: "clipanion@npm:3.2.0-rc.4"
+"clipanion@npm:3.2.0-rc.6, clipanion@npm:^3.2.0-rc.4":
+  version: 3.2.0-rc.6
+  resolution: "clipanion@npm:3.2.0-rc.6"
   dependencies:
     typanion: ^3.3.1
   peerDependencies:
     typanion: "*"
-  checksum: c9d8ba9e16dca3016c32f42107a7602c52c9176626e0c815113c32b614ca125a9707221ec9df9c0a06e9741a23e0664153db1522c4f80b29f4b4d427fba002be
+  checksum: fc7d8563deaa6e30a4ed5f2f4c4722133afae335d38c2c89b1bd8b4971f534f00763f5e8a012acfef4c396dd5876047e77347651f81a436a0465d4fc87625dd5
   languageName: node
   linkType: hard
 
@@ -8316,17 +8316,6 @@ __metadata:
   peerDependencies:
     typanion: "*"
   checksum: bf350082e8953c697cfe35262845700012bdeb1cc490f81cd17de2fe985c8861750164509795ad95d3ee6a2b3742a1d5c6394cdf0f3ff4c4d24173a9fec3418e
-  languageName: node
-  linkType: hard
-
-"clipanion@npm:^3.2.0-rc.4":
-  version: 3.2.0-rc.6
-  resolution: "clipanion@npm:3.2.0-rc.6"
-  dependencies:
-    typanion: ^3.3.1
-  peerDependencies:
-    typanion: "*"
-  checksum: fc7d8563deaa6e30a4ed5f2f4c4722133afae335d38c2c89b1bd8b4971f534f00763f5e8a012acfef4c396dd5876047e77347651f81a436a0465d4fc87625dd5
   languageName: node
   linkType: hard
 
