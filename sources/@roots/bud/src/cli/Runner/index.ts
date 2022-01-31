@@ -107,7 +107,7 @@ export class Runner {
       await manifest.configs(this.app, this.logger)
       this.logger.timeEnd('process user configs')
     } catch (error) {
-      this.logger.error(error)
+      throw new Error(error)
     }
 
     await flags.config(this.app, this.cli.flags)
