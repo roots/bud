@@ -1,11 +1,13 @@
+import {humanReadable} from '@roots/bud-support'
 import {Box, Text} from 'ink'
 import React from 'react'
 
-import {useFormatter} from '../../hooks'
+const fileSize = humanReadable.sizeFormatter({
+  decimalPlaces: 2,
+  keepTrailingZeroes: false,
+})
 
 export const Asset = ({compilation, asset, theme}) => {
-  const {fileSize} = useFormatter()
-
   return (
     <Box flexDirection="row" justifyContent="flex-start">
       <Box display={'flex'} width={theme.col(8)}>

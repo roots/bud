@@ -101,7 +101,7 @@ namespace Compiler {
   export type Config = Configuration
   export type Instance = WebpackCompiler | WebpackMultiCompiler
 
-  export type Progress = any
+  export type Progress = [number, string]
 
   export namespace Progress {
     export type Handler = ProgressPlugin['handler']

@@ -35,9 +35,7 @@ export const Bar: React.FunctionComponent<{
   return (
     <Text wrap="truncate">
       <Gradient colors={colors}>{character.repeat(fill) ?? ''}</Gradient>
-
       {character.repeat(maxWidth - fill) ?? ''}
-
       <Newline />
     </Text>
   )

@@ -122,14 +122,12 @@ export class Compiler extends Service implements Contract {
             this.stats.errors.push(err)
             this.log('error', err)
           }
-
-          !this.app.dashboard.instance && this.app.close()
         })
       }
     })
 
     new ProgressPlugin((...args): void => {
-      this.progress = args
+      this.progress = [args[0], args[1]]
     }).apply(this.instance)
 
     this.app.hooks.filter<'event.compiler.after'>(

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 
 import {Bar} from './bar'
 
-const {isUndefined, isNumber, isString, isArray} = lodash
+const {isUndefined, isNumber, isArray} = lodash
 
 /**
  * Progress component
@@ -19,9 +19,7 @@ export const Progress = ({progress, theme}) => {
       isUndefined(progress) ||
       !isArray(progress) ||
       isUndefined(progress[0]) ||
-      isUndefined(progress[1]) ||
-      !isNumber(progress[0]) ||
-      !isString(progress[1])
+      !isNumber(progress[0])
     )
       return
 
