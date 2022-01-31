@@ -34,7 +34,7 @@ export class Dashboard extends Service implements Contract {
     const {Dashboard} = await import('../components')
     const {render} = await import('ink')
 
-    this.log('info', {message: chalk.blue(`rendering dashboard\n`)})
+    this.log('info', {message: chalk.blue`rendering dashboard\n`})
     render(<Dashboard tap={() => this.app.root} />)
 
     return this.app
