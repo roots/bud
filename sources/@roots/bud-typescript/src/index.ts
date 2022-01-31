@@ -8,11 +8,6 @@
  * @see https://github.com/roots/bud
  *
  * @remarks
- * - 💁 Composable - Build exceptional web applications using a modular, hackable build system
- * - 💪 Modern - Modern framework that scales from a single file to thousands of lines of code
- * - 🌱 Easy - Low bundle size and fast build times with little to no configuration
- *
- * @remarks
  * You should absolutely use this extension
  *
  * @packageDocumentation
@@ -22,8 +17,8 @@ import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
-import {typecheck} from './api'
-import {BudTypeScriptExtension} from './BudTypeScriptExtension'
+import {BudTypeScriptExtension} from './bud.extension'
+import {facade} from './bud.typecheck'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -37,21 +32,13 @@ declare module '@roots/bud-framework' {
      *
      * @public
      */
-    typecheck: typecheck
+    typecheck: facade
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
   interface Modules {
     '@roots/bud-typescript': Extension.Module
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Plugins}
-   * @public @override
-   */
   interface Plugins {
     'fork-ts-checker-plugin': Extension.CompilerPlugin<
       typeof ForkTsCheckerWebpackPlugin
@@ -71,4 +58,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot, api} = BudTypeScriptExtension
+export const {name, boot, options, api} = BudTypeScriptExtension

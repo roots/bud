@@ -3785,12 +3785,11 @@ __metadata:
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.4.1
-    "@types/lodash": 4.14.178
+    "@types/fork-ts-checker-webpack-plugin": 0.4.5
     "@types/node": 16.11.21
-    "@typescript-eslint/parser": ^5.4.0
+    "@typescript-eslint/eslint-plugin": 5.10.1
+    "@typescript-eslint/parser": 5.10.1
     autobind-decorator: ^2.4.0
-    eslint: 8.8.0
     fork-ts-checker-webpack-plugin: ^7.0.0
     ts-loader: ^9.2.6
     ts-node: ^10.4.0
@@ -4612,6 +4611,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/fork-ts-checker-webpack-plugin@npm:0.4.5":
+  version: 0.4.5
+  resolution: "@types/fork-ts-checker-webpack-plugin@npm:0.4.5"
+  dependencies:
+    fork-ts-checker-webpack-plugin: "*"
+  checksum: 01ba16e743642c921d516d57ff7e646c3e2819267e567ad6eb6350b4e22f18a0a3ac4901a1f982f35e81d787becdc319f5efb7746472275de94db1f09469178f
+  languageName: node
+  linkType: hard
+
 "@types/fs-extra@npm:9.0.13":
   version: 9.0.13
   resolution: "@types/fs-extra@npm:9.0.13"
@@ -5236,7 +5244,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.10.1, @typescript-eslint/parser@npm:^5.4.0":
+"@typescript-eslint/parser@npm:5.10.1":
   version: 5.10.1
   resolution: "@typescript-eslint/parser@npm:5.10.1"
   dependencies:
@@ -11198,6 +11206,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fork-ts-checker-webpack-plugin@npm:*, fork-ts-checker-webpack-plugin@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "fork-ts-checker-webpack-plugin@npm:7.0.0"
+  dependencies:
+    "@babel/code-frame": ^7.16.7
+    chalk: ^4.1.2
+    chokidar: ^3.5.3
+    cosmiconfig: ^7.0.1
+    deepmerge: ^4.2.2
+    fs-extra: ^10.0.0
+    memfs: ^3.4.1
+    minimatch: ^3.0.4
+    schema-utils: 4.0.0
+    semver: ^7.3.5
+    tapable: ^2.2.1
+  peerDependencies:
+    typescript: ">3.6.0"
+    vue-template-compiler: "*"
+    webpack: ^5.11.0
+  peerDependenciesMeta:
+    vue-template-compiler:
+      optional: true
+  checksum: b02a74ada4d3917fd2edbfbf13c5c17804e7a8669c785cd127c320983ce793042e50892c38e108bc52562b41ec8490bbfddc4963bf651629d4829d9bbc355d38
+  languageName: node
+  linkType: hard
+
 "fork-ts-checker-webpack-plugin@npm:^5.0.0":
   version: 5.2.1
   resolution: "fork-ts-checker-webpack-plugin@npm:5.2.1"
@@ -11245,32 +11279,6 @@ __metadata:
     vue-template-compiler:
       optional: true
   checksum: 95d145ab7936445f3a9bfa4116ef73537f97196cfaa3f5b24473dff36d034e839d3b0e034a23beefc9619eceb7a9866816bfd55afd1968e955eb3b3f8cfc35ed
-  languageName: node
-  linkType: hard
-
-"fork-ts-checker-webpack-plugin@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "fork-ts-checker-webpack-plugin@npm:7.0.0"
-  dependencies:
-    "@babel/code-frame": ^7.16.7
-    chalk: ^4.1.2
-    chokidar: ^3.5.3
-    cosmiconfig: ^7.0.1
-    deepmerge: ^4.2.2
-    fs-extra: ^10.0.0
-    memfs: ^3.4.1
-    minimatch: ^3.0.4
-    schema-utils: 4.0.0
-    semver: ^7.3.5
-    tapable: ^2.2.1
-  peerDependencies:
-    typescript: ">3.6.0"
-    vue-template-compiler: "*"
-    webpack: ^5.11.0
-  peerDependenciesMeta:
-    vue-template-compiler:
-      optional: true
-  checksum: b02a74ada4d3917fd2edbfbf13c5c17804e7a8669c785cd127c320983ce793042e50892c38e108bc52562b41ec8490bbfddc4963bf651629d4829d9bbc355d38
   languageName: node
   linkType: hard
 
