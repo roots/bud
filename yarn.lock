@@ -3787,7 +3787,8 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/fork-ts-checker-webpack-plugin": 0.4.5
     "@types/node": 16.11.21
-    "@typescript-eslint/parser": ^5.4.0
+    "@typescript-eslint/eslint-plugin": 5.10.1
+    "@typescript-eslint/parser": 5.10.1
     autobind-decorator: ^2.4.0
     fork-ts-checker-webpack-plugin: ^7.0.0
     ts-loader: ^9.2.6
@@ -5243,7 +5244,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.10.1, @typescript-eslint/parser@npm:^5.4.0":
+"@typescript-eslint/parser@npm:5.10.1":
   version: 5.10.1
   resolution: "@typescript-eslint/parser@npm:5.10.1"
   dependencies:

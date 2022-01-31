@@ -1,12 +1,18 @@
 import {Framework} from '@roots/bud-framework'
-import {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker-webpack-plugin/lib/ForkTsCheckerWebpackPluginOptions'
 
-interface OptionsFactory {
+import {Options} from './fork-ts-checker-webpack-plugin'
+
+/**
+ * @public
+ */
+export interface OptionsFactory {
   (app: Framework): Options
 }
 
 /**
  * Configuration to use when bud.mode is `production`.
+ *
+ * @public
  */
 export const production: OptionsFactory = (app: Framework) => ({
   async: false,
@@ -27,6 +33,8 @@ export const production: OptionsFactory = (app: Framework) => ({
 
 /**
  * options to use when bud.mode is `development`.
+ *
+ * @public
  */
 export const development: OptionsFactory = (app: Framework) => ({
   async: false,
