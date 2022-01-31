@@ -61,7 +61,7 @@
     "postcss-import": "14.0.2",
     "postcss-loader": "6.2.1",
     "postcss-nested": "5.0.6",
-    "postcss-preset-env": "7.2.3",
+    "postcss-preset-env": "7.3.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
