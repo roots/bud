@@ -1,9 +1,10 @@
 import * as Framework from '@roots/bud-framework'
 import Express from 'express'
+import {URL} from 'url'
 
-import * as middleware from '../middleware'
+import {inject} from '../client/inject'
+import {middlewareMap} from '../middleware'
 import __BudRouter from '../router/__bud'
-import {inject} from '../util/inject'
 import {bind} from './server.dependencies'
 import {Watcher} from './server.watcher'
 
@@ -14,7 +15,7 @@ import {Watcher} from './server.watcher'
  */
 export class Server
   extends Framework.Service
-  implements Framework.Server.Interface
+  implements Framework.Server.Server
 {
   /**
    * Express instance
@@ -28,8 +29,17 @@ export class Server
    *
    * @public
    */
-  public get config(): Framework.Server.Configuration {
-    return this.app.store.get('server')
+  public get config(): Framework.Server.DevConfiguration {
+    return {
+      url: this.app.hooks.filter('dev.url'),
+      watch: {
+        files: this.app.hooks.filter('dev.watch.files'),
+        options: this.app.hooks.filter('dev.watch.options'),
+      },
+      client: {
+        scripts: this.app.hooks.filter('dev.client.scripts'),
+      },
+    }
   }
 
   /**
@@ -44,7 +54,7 @@ export class Server
    *
    * @public
    */
-  public middleware: Framework.Server.Middleware = {}
+  public middleware: Framework.Server.MiddlewareMap = {}
 
   /**
    * Watcher instance
@@ -59,7 +69,7 @@ export class Server
    * @public
    */
   public get port(): string {
-    const url = this.app.store.get('server.dev.url')
+    const url = this.app.hooks.filter('dev.url')
     if (!url.port || url.port == '') {
       return url.protocol == 'https:' ? '443' : '80'
     }
@@ -78,25 +88,14 @@ export class Server
     this.application = Express()
 
     this.app.hooks
-      .on('server.middleware', () => middleware)
-
-      .hooks.on('server.inject', () => [
+      .on('dev.url', () => new URL('http://localhost:3000'))
+      .hooks.on('dev.watch.files', () => [])
+      .hooks.on('dev.watch.options', () => ({}))
+      .hooks.on('dev.client.scripts', () => [
         instance =>
           `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
+        () => `@roots/bud-server/client/proxy-click-interceptor.js`,
       ])
-
-      .hooks.async('event.server.before', async app => {
-        app.when(
-          ({store}) => store.is('features.proxy', true),
-          ({hooks}) =>
-            hooks.on('server.inject', inject => [
-              ...inject,
-              () => `@roots/bud-server/client/proxy-click-interceptor.js`,
-            ]),
-        )
-
-        return app
-      })
   }
 
   /**
@@ -105,19 +104,13 @@ export class Server
    * @returns
    */
   public applyMiddlewares() {
-    Object.entries(this.app.hooks.filter('server.middleware')).map(
-      ([key, factory]) => {
-        this.log(`info`, `using middleware: ${key}`)
-
-        const middleware = factory(this.app)
-
-        Object.assign(this.middleware, {
-          [key]: middleware,
-        })
-
-        this.application.use(this.middleware[key])
-      },
-    )
+    this.app.hooks.filter('middleware.enabled').map(key => {
+      this.log(`info`, `using middleware: ${key}`)
+      Object.assign(this.middleware, {
+        [key]: middlewareMap[key](this.app),
+      })
+      this.application.use(this.middleware[key])
+    })
   }
 
   /**
@@ -180,6 +173,7 @@ export class Server
      */
     await this.watcher.watch()
     this.watcher.instance.on('change', path => {
+      // @ts-ignore
       this.middleware?.hot?.publish({
         action: 'reload',
         message: `Detected file change: ${path}. Reloading window.`,
@@ -199,7 +193,10 @@ export class Server
     await Promise.all(
       [this.app, ...this.app.children.getValues()].map(
         async (instance: Framework.Framework) => {
-          await inject(instance, this.app.hooks.filter('server.inject'))
+          await inject(
+            instance,
+            this.app.hooks.filter('dev.client.scripts'),
+          )
         },
       ),
     )

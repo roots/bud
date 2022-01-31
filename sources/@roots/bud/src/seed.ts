@@ -1,6 +1,5 @@
 import type {Store} from '@roots/bud-framework'
 import {cpus} from 'os'
-import {URL} from 'url'
 
 /**
  * Bud configuration defaults
@@ -286,40 +285,6 @@ export const seed: Partial<Store.Repository> = {
       errorsCount: true,
       warningsCount: true,
       logging: true,
-    },
-  },
-
-  server: {
-    watch: {
-      files: [],
-      options: {},
-    },
-
-    middleware: {
-      dev: true,
-      hot: true,
-      proxy: false,
-    },
-
-    browser: {
-      indicator: true,
-      overlay: true,
-      log: true,
-    },
-
-    dev: {
-      url: new URL('http://localhost:3000'),
-    },
-
-    proxy: {
-      url: new URL('http://localhost'),
-    },
-
-    ssl: {
-      enabled: false,
-      key: null,
-      cert: null,
-      port: 443,
     },
   },
 

@@ -1,7 +1,7 @@
 import {lodash} from '@roots/bud-support'
 import Webpack from 'webpack'
 
-import {Locations, Server} from './'
+import {Locations} from './'
 import {Framework} from './Framework'
 import {Service} from './Service'
 
@@ -289,13 +289,6 @@ export namespace Store {
     }
 
     /**
-     * Server configuration
-     *
-     * @public
-     */
-    server: Server.Configuration
-
-    /**
      * Command line theme configuration
      *
      * @public
@@ -419,7 +412,6 @@ export namespace Store {
       FeaturesKeyMap,
       LocationKeyMap,
       PatternKeyMap,
-      ServerKeyMap,
       ThemeKeyMap,
       ThemeColorsKeyMap {
     ['cache.type']: Repository['cache']['type']
@@ -556,24 +548,5 @@ export namespace Store {
     [`build.target`]: Repository['build']['target']
     [`build.watch`]: Repository['build']['watch']
     [`build.watchOptions`]: Repository['build']['watchOptions']
-  }
-
-  type ServerKeyMap = {
-    ['server']: Repository['server']
-    ['server.dev']: Repository['server']['dev']
-    ['server.proxy']: Repository['server']['proxy']
-    ['server.watch']: Repository['server']['watch']
-    ['server.middleware']: Repository['server']['middleware']
-    ['server.browser']: Repository['server']['browser']
-    ['server.watch.files']: Repository['server']['watch']['files']
-    ['server.watch.options']: Repository['server']['watch']['options']
-    ['server.middleware.dev']: Repository['server']['middleware']['dev']
-    ['server.middleware.hot']: Repository['server']['middleware']['hot']
-    ['server.middleware.proxy']: Repository['server']['middleware']['proxy']
-    ['server.browser.indicator']: Repository['server']['browser']['indicator']
-    ['server.browser.overlay']: Repository['server']['browser']['overlay']
-    ['server.browser.log']: Repository['server']['browser']['log']
-    ['server.dev.url']: Repository['server']['dev']['url']
-    ['server.proxy.url']: Repository['server']['proxy']['url']
   }
 }

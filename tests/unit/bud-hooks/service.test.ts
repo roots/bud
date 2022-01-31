@@ -1,6 +1,5 @@
-import {Hooks} from '@roots/bud-hooks'
-
 import {Bud, factory} from '@repo/test-kit/bud'
+import {Hooks} from '@roots/bud-hooks'
 
 describe('@roots/bud-hooks', function () {
   let bud: Bud

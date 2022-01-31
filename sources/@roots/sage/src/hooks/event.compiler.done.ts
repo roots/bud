@@ -21,8 +21,10 @@ const {writeJson} = fs
 export default async function (this: Framework, stats: Stats) {
   try {
     const contents = {
-      dev: urlToHttpOptions(this.store.get('server.dev.url')) ?? null,
-      proxy: urlToHttpOptions(this.store.get('server.proxy.url')) ?? null,
+      dev: urlToHttpOptions(this.hooks.filter('dev.url')) ?? null,
+      proxy:
+        urlToHttpOptions(this.hooks.filter('middleware.proxy.target')) ??
+        null,
       publicPath: this.hooks.filter('build.output.publicPath') ?? null,
       hash: stats ? stats.toJson().hash : null,
     }

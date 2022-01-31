@@ -1,9 +1,10 @@
-import {IncomingMessage, ServerResponse} from 'http'
+import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
+import {URL} from 'url'
 import {Configuration, RuleSetRule, Stats, StatsCompilation} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
-import {ProxyOptions} from './Server'
+import {MiddlewareMap, Middlewares} from './Server'
 
 /**
  * Assign and filter callback to values.
@@ -143,7 +144,9 @@ export namespace Hooks {
     | Map[T]
     | Partial<Map[T]>
 
-  export interface Map {
+  export interface Map
+    extends Middlewares<'options'>,
+      Middlewares<'factory'> {
     [`build`]: Record<string, any>
     [`build.bail`]: boolean
     [`build.cache`]: any
@@ -221,20 +224,12 @@ export namespace Hooks {
     [`event.server.before`]: Framework
     [`event.server.after`]: Framework
     [`event.run`]: Framework
-    [`proxy.target`]: string
-    [`proxy.interceptor`]: (
-      buffer: Buffer,
-      proxyRes: IncomingMessage,
-      req: IncomingMessage,
-      res: ServerResponse,
-    ) => Promise<Buffer | string>
-    [`proxy.replace`]: Array<[string | RegExp, string]>
-    [`proxy.options`]?: ProxyOptions
-    [`server.inject`]?: Array<(app: Framework) => string>
-    [`server.middleware`]?: Record<
-      string,
-      (app: Framework) => Express.Response
-    >
+    [`dev.url`]: URL
+    [`dev.watch.files`]: Array<string>
+    [`dev.watch.options`]: WatchOptions
+    [`dev.client.scripts`]: Array<(app: Framework) => string>
+    [`middleware.enabled`]: Array<keyof MiddlewareMap>
+    [`middleware.proxy.target`]: URL
 
     // this is wack
     [key: `extension.${string}`]: any

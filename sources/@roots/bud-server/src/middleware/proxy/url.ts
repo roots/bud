@@ -1,12 +1,11 @@
-import {Framework, Server} from '@roots/bud-framework'
-import {URL as nodeUrl} from 'url'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * URL helpers for proxy middleware
  *
  * @public
  */
-export class URL {
+export class ApplicationURL {
   /**
    * Application instance
    *
@@ -17,21 +16,12 @@ export class URL {
   }
 
   /**
-   * Server config
-   *
-   * @public
-   */
-  public get config(): Server.Configuration {
-    return this.app.store.get('server')
-  }
-
-  /**
    * Node URL for dev
    *
    * @public
    */
-  public get dev(): nodeUrl {
-    return this.config.dev.url
+  public get dev(): URL {
+    return this.app.hooks.filter('dev.url')
   }
 
   /**
@@ -39,8 +29,8 @@ export class URL {
    *
    * @public
    */
-  public get proxy(): nodeUrl {
-    return this.config.proxy.url
+  public get proxy(): URL {
+    return this.app.hooks.filter('middleware.proxy.target')
   }
 
   /**

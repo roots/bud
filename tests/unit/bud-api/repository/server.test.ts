@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {join} from 'path'
+import {URL} from 'url'
 
 describe('bud.serve', function () {
   let bud: Bud
@@ -10,9 +10,7 @@ describe('bud.serve', function () {
         dashboard: false,
         log: false,
       },
-      location: {
-        project: join(process.cwd(), 'examples/sage'),
-      },
+      mode: 'development',
     })
   })
 
@@ -20,8 +18,14 @@ describe('bud.serve', function () {
     bud.serve('http://example.com')
     await bud.api.processQueue()
 
-    expect(bud.store.get('server.dev.url')).toEqual(
+    expect(bud.hooks.get('dev.url').pop()()).toStrictEqual(
       new URL('http://example.com'),
     )
   })
+
+  test.todo('set host from URL')
+
+  test.todo('sets host from port #')
+
+  test.todo('sets dev options obj')
 })

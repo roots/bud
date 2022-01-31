@@ -221,6 +221,7 @@ export class Compiler extends Service implements Contract {
 
     if (err) {
       if (this.app.isDevelopment) {
+        // @ts-ignore
         this.app.server.middleware?.hot?.publish({
           errors: stats.toJson(this.app.store.get('build.stats')).errors,
         })

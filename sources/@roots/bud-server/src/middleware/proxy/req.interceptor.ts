@@ -1,9 +1,8 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {ClientRequest, IncomingMessage, ServerResponse} from 'http'
-import {URL as nodeUrl} from 'url'
 
-import {URL} from './url'
+import {ApplicationURL} from './url'
 
 /**
  * Proxy request interceptor
@@ -25,7 +24,10 @@ export class RequestInterceptorFactory {
    *
    * @public
    */
-  public constructor(public _app: () => Framework, public url: URL) {}
+  public constructor(
+    public _app: () => Framework,
+    public url: ApplicationURL,
+  ) {}
 
   /**
    * Callback for `http-proxy-middleware` `onProxyReq`
@@ -48,8 +50,7 @@ export class RequestInterceptorFactory {
       proxyRequest.setHeader('x-bud-dev-origin', this.url.dev.origin)
       proxyRequest.setHeader(
         'x-bud-dev-pathname',
-        new nodeUrl(request.url, `http://${request.headers.host}`)
-          .pathname,
+        new URL(request.url, `http://${request.headers.host}`).pathname,
       )
     } catch (err) {
       process.stderr.write(`${err}\n`)

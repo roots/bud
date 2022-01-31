@@ -14,31 +14,38 @@ export interface serve {
 }
 
 export interface serve {
-  (config: Partial<Server.Configuration['dev']>): Framework
+  (config: Partial<Server.DevConfiguration>): Framework
 }
 
-export const serve: serve = function (
-  config: URL | string | number | Partial<Server.Configuration['dev']>,
-): Framework {
+export const serve: serve = function (config): Framework {
   const ctx = this as Framework
 
   if (typeof config === 'number') {
-    const url = ctx.store.get('server.dev.url')
+    const url = ctx.hooks.filter('dev.url')
     url.port = `${config}`
-    ctx.store.set('server.dev.url', url)
+    ctx.hooks.on('dev.url', () => url)
     return ctx
   }
 
   if (typeof config === 'string') {
-    ctx.store.set('server.dev.url', new URL(config))
+    ctx.hooks.on('dev.url', () => new URL(config))
     return ctx
   }
 
   if (config instanceof URL) {
-    ctx.store.set('server.dev.url', config)
+    ctx.hooks.on('dev.url', () => config)
     return ctx
   }
 
-  ctx.store.set('server.dev', config)
+  config.url && ctx.hooks.on('dev.url', () => config.url)
+  config.watch?.files &&
+    ctx.hooks.on('dev.watch.files', () => config.watch.files)
+
+  config.watch?.options &&
+    ctx.hooks.on('dev.watch.options', () => config.watch.options)
+
+  config.client?.scripts &&
+    ctx.hooks.on('dev.client.scripts', () => config.client.scripts)
+
   return ctx
 }

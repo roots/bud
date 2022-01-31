@@ -243,11 +243,11 @@ export abstract class Framework {
    *
    * @public
    */
-  public _server: Server.Interface
-  public get server(): Server.Interface {
+  public _server: Server.Server
+  public get server(): Server.Server {
     return this.root._server
   }
-  public set server(server: Server.Interface) {
+  public set server(server: Server.Server) {
     this.root._server = server
   }
 

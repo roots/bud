@@ -3,7 +3,7 @@ import {bind} from '@roots/bud-support'
 import {IncomingMessage, ServerResponse} from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
 
-import {URL} from './url'
+import {ApplicationURL} from './url'
 
 /**
  * Proxy response interceptor
@@ -25,7 +25,10 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public constructor(public _app: () => Framework, public url: URL) {}
+  public constructor(
+    public _app: () => Framework,
+    public url: ApplicationURL,
+  ) {}
 
   /**
    * Response interceptor
@@ -55,8 +58,8 @@ export class ResponseInterceptorFactory {
     res.setHeader('x-proxy-by', '@roots/bud')
     res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
     res.setHeader('x-bud-dev-origin', this.url.dev.origin)
+
     return buffer
-    // return res.buffer ?? buffer
   }
 
   /**
@@ -67,8 +70,6 @@ export class ResponseInterceptorFactory {
    */
   @bind
   public make() {
-    return responseInterceptor(
-      this.app.hooks.filter('proxy.interceptor', () => this._interceptor),
-    )
+    return responseInterceptor(this._interceptor)
   }
 }

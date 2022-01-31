@@ -1,4 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
+import {fs} from '@roots/bud-support'
+
+export const {ensureDirSync, pathExistsSync} = fs
 
 export interface run {
   (): Promise<void>
@@ -12,10 +15,7 @@ export const run: run = async function (): Promise<void> {
 
   await ctx.hooks.filterAsync<'event.run'>('event.run', async () => ctx)
 
-  const isDev =
-    ctx.isDevelopment &&
-    ctx.server?.run &&
-    ctx.store.is('server.middleware.hot', true)
+  const isDev = ctx.isDevelopment && ctx.hooks.filter('middleware.enabled')
 
   const development = async () => {
     await ctx.server.run()

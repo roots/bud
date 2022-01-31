@@ -78,11 +78,7 @@ export const Output = ({tap}: {tap: () => Framework}) => {
       app?.compiler?.stats?.assets &&
       app.compiler.progress?.length &&
       app.compiler.progress[0] == 1 ? (
-        <Serve
-          theme={theme}
-          features={app.store.get('features')}
-          server={app.store.get('server')}
-        />
+        <Serve theme={theme} app={app} />
       ) : null}
     </Box>
   )

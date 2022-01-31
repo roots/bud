@@ -2,8 +2,8 @@ import type {Framework, Server} from '@roots/bud-framework'
 
 export interface watch {
   (
-    files: Server.Configuration['watch']['files'],
-    options?: Server.Configuration['watch']['options'],
+    files: Server.DevConfiguration['watch']['files'],
+    options?: Server.DevConfiguration['watch']['options'],
   ): Framework
 }
 
@@ -34,9 +34,12 @@ export const watch: watch = function (files, options = {}) {
 
   files = Array.isArray(files) ? files : [files]
 
-  ctx.store
-    .merge('server.watch.files', files)
-    .merge('server.watch.options', options)
+  ctx.hooks
+    .on('dev.watch.files', hookValue => [...(hookValue ?? []), ...files])
+    .hooks.on('dev.watch.options', hookValue => ({
+      ...(hookValue ?? {}),
+      ...(options ?? {}),
+    }))
 
   return ctx
 }

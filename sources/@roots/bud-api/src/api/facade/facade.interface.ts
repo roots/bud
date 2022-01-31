@@ -10,7 +10,7 @@ import type {hash} from '../methods/hash'
 import type {minimize} from '../methods/minimize'
 import type {persist} from '../methods/persist'
 import type {provide} from '../methods/provide'
-import type {proxy} from '../methods/proxy'
+import type * as proxy from '../methods/proxy'
 import type {run} from '../methods/run'
 import type {runtime} from '../methods/runtime'
 import type {serve} from '../methods/serve'
@@ -572,7 +572,7 @@ export class Facade {
    *
    * @public
    */
-  public proxy: proxy
+  public proxy: proxy.facade
 
   /**
    * Run the build

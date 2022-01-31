@@ -19,7 +19,10 @@ export class Watcher {
    */
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
-    const {files, options} = this.app.store.get('server.watch')
+    const {files, options} = {
+      files: this.app.hooks.filter('dev.watch.files'),
+      options: this.app.hooks.filter('dev.watch.options'),
+    }
 
     if (!files?.length) return []
 
@@ -28,9 +31,7 @@ export class Watcher {
       options,
     )
 
-    return globResults.map(entry =>
-      typeof entry === 'object' ? entry.path : entry,
-    )
+    return globResults
   }
 
   /**

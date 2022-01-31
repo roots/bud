@@ -3308,6 +3308,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.178
     "@types/node": 16.11.21
+    "@types/webpack-hot-middleware": ^2
     chokidar: 3.5.3
     cli-highlight: ^2.1.11
     http-proxy-middleware: 2.0.2
@@ -3318,6 +3319,8 @@ __metadata:
     ts-node: ^10.4.0
     tslib: ^2.3.1
     webpack: 5.67.0
+    webpack-dev-middleware: 5.3.0
+    webpack-hot-middleware: 2.25.1
   peerDependencies:
     typescript: ^4.5.5
   peerDependenciesMeta:
@@ -5154,7 +5157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-hot-middleware@npm:2.25.5":
+"@types/webpack-hot-middleware@npm:2.25.5, @types/webpack-hot-middleware@npm:^2":
   version: 2.25.5
   resolution: "@types/webpack-hot-middleware@npm:2.25.5"
   dependencies:
@@ -22364,7 +22367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-hot-middleware@npm:^2.25.1":
+"webpack-hot-middleware@npm:2.25.1, webpack-hot-middleware@npm:^2.25.1":
   version: 2.25.1
   resolution: "webpack-hot-middleware@npm:2.25.1"
   dependencies:
