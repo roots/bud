@@ -114,7 +114,7 @@ export default class Build extends Command {
 
   public async run() {
     await this.prime(Build)
-    await this.build()
+    await this.runner.make()
 
     this.app.hooks.on('event.compiler.done', stats => {
       this.notifier.notify(this.app, stats)

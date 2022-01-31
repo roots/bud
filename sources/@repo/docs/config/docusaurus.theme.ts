@@ -93,6 +93,13 @@ export const navbar = {
     },
     {to: '/blog', label: 'Blog', position: 'left'},
     {
+      href: '/dev',
+      label: 'Development',
+      position: 'right',
+      className: 'header-github-link',
+      'aria-label': 'Release notes',
+    },
+    {
       href: '/releases',
       label: 'Releases',
       position: 'right',

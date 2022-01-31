@@ -42,7 +42,9 @@ export const persist: persist = function (
 
     .hooks.on('build.cache.version', () => ctx.cache.version)
     .hooks.on('build.cache.type', (): 'filesystem' => 'filesystem')
-    .hooks.on('build.cache.cacheDirectory', () => ctx.path('storage'))
+    .hooks.on('build.cache.cacheDirectory', () =>
+      ctx.path('storage', 'cache', 'webpack'),
+    )
     .hooks.on('build.cache.buildDependencies', () => ({
       bud: ctx.project.get('dependencies'),
     }))
