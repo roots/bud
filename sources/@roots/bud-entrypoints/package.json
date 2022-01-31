@@ -48,9 +48,9 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19"
+    "@types/node": "16.11.21"
   },
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin",

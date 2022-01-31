@@ -45,12 +45,12 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/mini-css-extract-plugin": "2.4.0",
-    "@types/node": "16.11.19",
+    "@types/mini-css-extract-plugin": "2.5.0",
+    "@types/node": "16.11.21",
     "@types/svgo": "2.6.1",
-    "webpack": "5.65.0"
+    "webpack": "5.67.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -67,7 +67,7 @@
     "remark": "^14.0.2",
     "remark-html": "^15.0.0",
     "remark-loader": "4.0.0",
-    "resolve-url-loader": "^4.0.0",
+    "resolve-url-loader": "^5.0.0",
     "style-loader": "^3.3.1",
     "svgo": "^2.8.0",
     "tslib": "^2.3.1",

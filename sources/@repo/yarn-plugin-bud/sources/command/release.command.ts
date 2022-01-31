@@ -136,31 +136,21 @@ export class Release extends Command {
    * @internal
    */
   public async wipeProxyDb() {
-    this.log('Wiping previously published packages')
+    try {
+      this.log('Wiping previously published packages')
 
-    /**
-     * Wipe db records if they exist
-     */
-    const dbExists = await pathExists(
-      `${REPO_PATH}/storage/.verdaccio-db.json`,
-    )
-    if (!dbExists) return
-
-    const verdaccioDb = await readJson(
-      `${REPO_PATH}/storage/.verdaccio-db.json`,
-    )
-    verdaccioDb.list = []
-    await writeJson(`${REPO_PATH}/storage/.verdaccio-db.json`, verdaccioDb)
-
-    /**
-     * Wipe packages if they exist
-     */
-    const packagesExists = await pathExists(
-      `${REPO_PATH}/storage/packages`,
-    )
-    if (!packagesExists) return
-
-    await remove(`${REPO_PATH}/storage/packages/@roots`)
+      const verdaccioDb = await readJson(
+        `${REPO_PATH}/storage/.verdaccio-db.json`,
+      )
+      verdaccioDb.list = []
+      await writeJson(
+        `${REPO_PATH}/storage/.verdaccio-db.json`,
+        verdaccioDb,
+      )
+      await remove(`${REPO_PATH}/storage/packages/@roots`)
+    } catch (e) {
+      this.log('db/previously published packages could not be wiped.')
+    }
   }
 
   /**

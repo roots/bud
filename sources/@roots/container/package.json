@@ -45,12 +45,12 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.21",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "type-fest": "2.9.0"
+    "type-fest": "2.11.0"
   },
   "dependencies": {
     "tslib": "^2.3.1"

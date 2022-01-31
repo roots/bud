@@ -56,17 +56,17 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "webpack": "5.65.0"
+    "@types/node": "16.11.21",
+    "webpack": "5.67.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "postcss-scss": "4.0.3",
     "resolve-cwd": "3.0.0",
-    "sass": "1.45.2",
+    "sass": "1.49.0",
     "sass-loader": "12.4.0",
     "stylelint-config-recommended-scss": "5.0.2",
     "tslib": "2.3.1"
