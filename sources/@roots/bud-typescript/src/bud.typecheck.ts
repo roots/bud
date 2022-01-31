@@ -1,8 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
-import {ForkTsCheckerWebpackPluginOptions} from 'fork-ts-checker-webpack-plugin/lib/ForkTsCheckerWebpackPluginOptions'
 
-import * as BudTypeCheckPlugin from './BudTypeCheckPlugin'
+import * as BudTypeCheckPlugin from './fork-ts-checker-webpack-plugin'
 
 /**
  * fork-ts-webpack-plugin options callback
@@ -15,11 +14,11 @@ import * as BudTypeCheckPlugin from './BudTypeCheckPlugin'
  */
 interface OptionsMutator {
   (
-    options: Container<ForkTsCheckerWebpackPluginOptions>,
-  ): ForkTsCheckerWebpackPluginOptions
+    options: Container<BudTypeCheckPlugin.Options>,
+  ): BudTypeCheckPlugin.Options
 }
 
-type Options = OptionsMutator | ForkTsCheckerWebpackPluginOptions | boolean
+type Options = OptionsMutator | BudTypeCheckPlugin.Options | boolean
 
 export interface typecheck {
   (this: Framework, options?: Options): Promise<Framework>

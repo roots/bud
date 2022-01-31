@@ -17,8 +17,8 @@ import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
-import {facade} from './api'
-import {BudTypeScriptExtension} from './BudTypeScriptExtension'
+import {BudTypeScriptExtension} from './bud.extension'
+import {facade} from './bud.typecheck'
 
 declare module '@roots/bud-framework' {
   interface Framework {

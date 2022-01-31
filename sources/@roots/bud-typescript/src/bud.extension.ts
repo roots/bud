@@ -3,12 +3,18 @@ import {Extension} from '@roots/bud-framework'
 import {Options} from 'ts-loader'
 import {Configuration} from 'webpack'
 
-import {typecheck} from './api'
+import {typecheck} from './bud.typecheck'
 
-interface BudTypeScriptExtension
+/**
+ * @public
+ */
+export interface BudTypeScriptExtension
   extends Extension.Module<Partial<Options>> {}
 
-const BudTypeScriptExtension: BudTypeScriptExtension = {
+/**
+ * @public
+ */
+export const BudTypeScriptExtension: BudTypeScriptExtension = {
   name: '@roots/bud-typescript',
 
   api: {
@@ -42,5 +48,3 @@ const BudTypeScriptExtension: BudTypeScriptExtension = {
     )
   },
 }
-
-export {BudTypeScriptExtension}

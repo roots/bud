@@ -8,7 +8,7 @@ interface OptionsFactory {
 /**
  * Configuration to use when bud.mode is `production`.
  */
-export const PRODUCTION_OPTIONS: OptionsFactory = (app: Framework) => ({
+export const production: OptionsFactory = (app: Framework) => ({
   async: false,
   logger: {
     infrastructure: app.logger.instance,
@@ -28,7 +28,7 @@ export const PRODUCTION_OPTIONS: OptionsFactory = (app: Framework) => ({
 /**
  * options to use when bud.mode is `development`.
  */
-export const DEVELOPMENT_OPTIONS = (app: Framework) => ({
+export const development: OptionsFactory = (app: Framework) => ({
   async: false,
   logger: {
     infrastructure: app.logger.instance,
