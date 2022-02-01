@@ -54,7 +54,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
+    "@types/node": "16.11.22",
     "webpack": "5.67.0"
   },
   "dependencies": {
