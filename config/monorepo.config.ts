@@ -42,11 +42,6 @@ export const config: config = {
   },
   sponsors: [
     {
-      image: 'https://cdn.roots.io/app/uploads/kinsta.svg',
-      title: 'Kinsta',
-      url: 'https://kinsta.com/?kaid=OFDHAJIXUDIV',
-    },
-    {
       image: 'https://cdn.roots.io/app/uploads/km-digital.svg',
       title: 'KM Digital',
       url: 'https://k-m.com/',
