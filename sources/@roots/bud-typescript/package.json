@@ -63,8 +63,8 @@
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@typescript-eslint/eslint-plugin": "5.10.1",
-    "@typescript-eslint/parser": "5.10.1",
+    "@typescript-eslint/eslint-plugin": "5.10.2",
+    "@typescript-eslint/parser": "5.10.2",
     "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^7.0.0",
     "ts-loader": "^9.2.6",
