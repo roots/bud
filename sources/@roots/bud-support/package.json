@@ -58,7 +58,7 @@
     "@types/yamljs": "0.2.31",
     "chalk": "4.1.2",
     "cli-highlight": "2.1.11",
-    "copy-webpack-plugin": "10.2.3",
+    "copy-webpack-plugin": "10.2.4",
     "cosmiconfig": "7.0.1",
     "dotenv": "15.0.0",
     "dotenv-expand": "6.0.1",
