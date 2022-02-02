@@ -53,7 +53,7 @@
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
     "@vue/compiler-sfc": "3.2.29",
-    "css-loader": "6.5.1",
+    "css-loader": "6.6.0",
     "jest": "27.4.7",
     "vue": "3.2.29",
     "webpack": "5.68.0"
