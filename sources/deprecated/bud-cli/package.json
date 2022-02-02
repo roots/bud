@@ -76,7 +76,7 @@
     "cosmiconfig": "7.0.1",
     "globby": "12.2.0",
     "lodash": "4.17.21",
-    "node-notifier": "10.0.0",
+    "node-notifier": "10.0.1",
     "prettier": "2.5.1",
     "pretty-format": "27.4.6",
     "serialize-javascript": "6.0.0",
