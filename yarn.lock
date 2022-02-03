@@ -3811,7 +3811,7 @@ __metadata:
     copy-webpack-plugin: 10.2.4
     cosmiconfig: 7.0.1
     dotenv: 15.0.1
-    dotenv-expand: 6.0.1
+    dotenv-expand: 7.0.0
     execa: 5.1.1
     fs-extra: 10.0.0
     globby: 11.1.0
@@ -9991,10 +9991,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-expand@npm:6.0.1":
-  version: 6.0.1
-  resolution: "dotenv-expand@npm:6.0.1"
-  checksum: db5ba937eece3a29b8c2839574d080d3d5c1adf79acc8fe8c82a6577c5ecfc3dba960ebd9e10904b6bcc3ed922e64cc3570ed42b1c135b1eac2f34d89e38819e
+"dotenv-expand@npm:7.0.0":
+  version: 7.0.0
+  resolution: "dotenv-expand@npm:7.0.0"
+  checksum: 4ee3ad7ec5d829c745d014649218d506401d9914473ef9e1343cd148fec8d7e7fb2fdc3db410a08fd9c64d6420b90c5645cec661cf9aff5ebf2092ac43e4eda2
   languageName: node
   linkType: hard
 
