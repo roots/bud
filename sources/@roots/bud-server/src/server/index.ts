@@ -179,7 +179,7 @@ export class Server
      * event subscribers.
      */
     await this.watcher.watch()
-    this.watcher.instance.on('change', path => {
+    this.watcher.instance?.on('change', path => {
       this.middleware?.hot?.publish({
         action: 'reload',
         message: `Detected file change: ${path}. Reloading window.`,
