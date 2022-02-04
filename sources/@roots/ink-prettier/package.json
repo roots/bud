@@ -50,7 +50,7 @@
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
     "@types/prettier": "2.4.3",
-    "@types/react": "17.0.38"
+    "@types/react": "17.0.39"
   },
   "peerDependencies": {
     "ink": "^3.0.9",

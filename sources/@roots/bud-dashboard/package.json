@@ -47,7 +47,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
-    "@types/react": "17.0.38",
+    "@types/react": "17.0.39",
     "axios": "0.25.0",
     "ink": "3.2.0",
     "ink-gradient": "2.0.0",

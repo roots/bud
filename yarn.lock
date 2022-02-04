@@ -3002,7 +3002,7 @@ __metadata:
     "@svgr/webpack": 6.2.1
     "@tsconfig/docusaurus": 1.0.4
     "@types/node": 16.11.22
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     "@types/react-dom": 17.0.11
     "@types/react-helmet": 6.1.5
     "@types/react-reconciler": 0.26.4
@@ -3037,7 +3037,7 @@ __metadata:
     "@repo/logger": "workspace:*"
     "@roots/bud": "workspace:*"
     "@types/fs-extra": 9.0.13
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     "@types/react-dom": 17.0.11
     "@types/react-reconciler": 0.26.4
     execa: 5.1.1
@@ -3271,7 +3271,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     axios: 0.25.0
     ink: 3.2.0
     ink-gradient: 2.0.0
@@ -3571,7 +3571,7 @@ __metadata:
     "@types/jest": 27.4.0
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     "@types/react-dom": 17.0.11
     "@wordpress/browserslist-config": 4.1.0
     jest: 27.4.7
@@ -3647,7 +3647,7 @@ __metadata:
     "@types/jest": 27.4.0
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     "@types/react-dom": 17.0.11
     autobind-decorator: 2.4.0
     eslint-plugin-jsx-a11y: ^6.5.1
@@ -4124,7 +4124,7 @@ __metadata:
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
     "@types/prettier": 2.4.3
-    "@types/react": 17.0.38
+    "@types/react": 17.0.39
     tslib: ^2.3.1
   peerDependencies:
     ink: ^3.0.9
@@ -5091,14 +5091,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.38":
-  version: 17.0.38
-  resolution: "@types/react@npm:17.0.38"
+"@types/react@npm:*, @types/react@npm:17.0.39":
+  version: 17.0.39
+  resolution: "@types/react@npm:17.0.39"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 4079f4f959cd4a4bfaeda8b89fe8a1b1f8bdc9d87acfdc5f74a0b39cec9ec6a470724357c62778c0f063180b360c250e920c5a142f1dbcda67d9cc25a6d43a85
+  checksum: bf04d3c2894559012710d595553e12b422d3b91cd8f4f7e122d8cb044ba9c2ba17f6e8a4e09581359cc5509ddc59cd8c8fabd6774f3505a40a45393f074d6e6e
   languageName: node
   linkType: hard
 
