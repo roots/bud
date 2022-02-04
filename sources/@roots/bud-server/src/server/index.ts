@@ -87,7 +87,7 @@ export class Server
 
       .hooks.async('event.server.before', async app => {
         app.when(
-          ({store}) => store.is('features.proxy', true),
+          ({store}) => store.is('server.middleware.proxy', true),
           ({hooks}) =>
             hooks.on('server.inject', inject => [
               ...inject,
