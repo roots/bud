@@ -417,7 +417,11 @@ export async function config(app: Framework): Promise<void> {
      */
     .hooks.on<'build.target'>(
       'build.target',
-      () => `browserslist:${app.path('project', 'package.json')}`,
+      () =>
+        app.project.has('manifest.browserslist') &&
+          app.project.isArray('manifest.browserslist')
+            ? `browserslist:${app.path('project', 'package.json')}`
+            : undefined,
     )
 
     /**
