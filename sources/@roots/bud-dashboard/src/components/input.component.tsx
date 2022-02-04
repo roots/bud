@@ -8,11 +8,11 @@ const {isEqual} = lodash
  *
  * @public
  */
-export const Input = ({bud}) => {
+export const Input = ({app}) => {
   useInput(input => {
     if (isEqual(input, 'q')) {
-      bud.hooks.filter('event.dashboard.q')
-      bud.close()
+      app.hooks.filter('event.dashboard.q')
+      app.close()
     }
   })
 

@@ -12,25 +12,23 @@ const {isNumber} = lodash
  */
 export const Bar: React.FunctionComponent<{
   colors?: string[]
-  percent: number
+  width: number
   character?: string
   maxWidth?: number
-}> = ({character, colors, percent, maxWidth}) => {
+}> = ({character, colors, width, maxWidth}) => {
   const [fill, setFill] = useState(0)
 
   useEffect(() => {
-    const valid = typeof maxWidth == 'number' && typeof percent == 'number'
+    const valid = typeof maxWidth == 'number' && typeof width == 'number'
 
     const lower = valid ? maxWidth : 0
-    const chars = valid ? percent : 0
+    const chars = valid ? width : 0
     const upper = Math.ceil(lower * chars)
 
     setFill(Math.min(lower, upper))
-  }, [maxWidth, percent])
+  }, [maxWidth, width])
 
-  if (!isNumber(fill) || fill <= 0) {
-    return null
-  }
+  if (!isNumber(fill) || fill <= 0 || fill >= maxWidth) return null
 
   return (
     <Text wrap="truncate">
