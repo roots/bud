@@ -107,7 +107,8 @@ export class Server
   public applyMiddlewares() {
     Object.entries(this.app.hooks.filter('server.middleware')).map(
       ([key, factory]) => {
-        this.log(`info`, `using middleware: ${key}`)
+        if (this.app.store.isFalse(`server.middleware.${key}` as any))
+          return this.log(`info`, `not using middleware: ${key}`)
 
         const middleware = factory(this.app)
 
@@ -116,6 +117,8 @@ export class Server
         })
 
         this.application.use(this.middleware[key])
+
+        this.log(`info`, `using middleware: ${key}`)
       },
     )
   }
