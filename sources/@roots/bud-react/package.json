@@ -40,11 +40,33 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./eslint-config": {
+      "require": "./eslint-config/index.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    },
+    "./react-refresh/*": {
+      "require": "./lib/cjs/react-refresh/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "react-refresh/*": [
+        "./types/react-refresh/*.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension",
