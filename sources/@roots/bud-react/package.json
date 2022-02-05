@@ -40,6 +40,7 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
@@ -81,12 +82,9 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.18",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
-    "jest": "27.4.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "type-fest": "2.11.1",
@@ -100,8 +98,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "react-hot-loader": "4.13.0",
-    "react-refresh": "0.11.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
+    "react-refresh": "^0.11.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
