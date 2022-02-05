@@ -42,12 +42,16 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./lib/cjs/index.js",
-      "import": "./lib/esm/index.js"
+      "require": "./lib/cjs/index.js"
     },
     "./repository": {
-      "require": "./lib/cjs/repository/index.js",
-      "import": "./lib/esm/repository/index.js"
+      "require": "./lib/cjs/repository/index.js"
+    },
+    "./methods": {
+      "require": "./lib/cjs/methods/index.js"
+    },
+    "./methods/*": {
+      "require": "./lib/cjs/api/methods/*/index.js"
     }
   },
   "typesVersions": {
@@ -60,6 +64,12 @@
       ],
       "repository/*": [
         "./types/repository/*/index.d.ts"
+      ],
+      "methods": [
+        "./types/repository/index.d.ts"
+      ],
+      "methods/*": [
+        "./types/api/methods/*/index.d.ts"
       ]
     }
   },
