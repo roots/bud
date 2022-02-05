@@ -3498,7 +3498,7 @@ __metadata:
     tslib: ^2.3.1
     webpack: 5.68.0
   peerDependencies:
-    "@mdx-js/loader": ^1.6.22
+    "@mdx-js/loader": ^1.6.22 || ^2.0.0
   peerDependenciesMeta:
     "@mdx-js/loader":
       optional: true
