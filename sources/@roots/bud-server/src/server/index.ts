@@ -87,7 +87,7 @@ export class Server
 
       .hooks.async('event.server.before', async app => {
         app.when(
-          ({store}) => store.is('features.proxy', true),
+          ({store}) => store.is('server.middleware.proxy', true),
           ({hooks}) =>
             hooks.on('server.inject', inject => [
               ...inject,
@@ -107,7 +107,8 @@ export class Server
   public applyMiddlewares() {
     Object.entries(this.app.hooks.filter('server.middleware')).map(
       ([key, factory]) => {
-        this.log(`info`, `using middleware: ${key}`)
+        if (this.app.store.isFalse(`server.middleware.${key}` as any))
+          return this.log(`info`, `not using middleware: ${key}`)
 
         const middleware = factory(this.app)
 
@@ -116,6 +117,8 @@ export class Server
         })
 
         this.application.use(this.middleware[key])
+
+        this.log(`info`, `using middleware: ${key}`)
       },
     )
   }
