@@ -3810,7 +3810,7 @@ __metadata:
     cli-highlight: 2.1.11
     copy-webpack-plugin: 10.2.4
     cosmiconfig: 7.0.1
-    dotenv: 15.0.1
+    dotenv: 16.0.0
     dotenv-expand: 6.0.1
     execa: 5.1.1
     fs-extra: 10.0.0
@@ -7815,7 +7815,7 @@ __metadata:
     "@typescript-eslint/parser": 5.10.2
     chalk: 4.1.2
     codecov: 3.8.3
-    dotenv: 15.0.1
+    dotenv: 16.0.0
     eslint: 8.8.0
     eslint-plugin-import: 2.25.4
     eslint-plugin-react: 7.28.0
@@ -9998,10 +9998,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:15.0.1":
-  version: 15.0.1
-  resolution: "dotenv@npm:15.0.1"
-  checksum: acebaa5b0bb23fdbbdc50827936bdf6782e935b73c6048e949df352515576ec9542455a93f58cc3eefd839e45c670fbfed250a1061eb72f536dab05745d1bf33
+"dotenv@npm:16.0.0":
+  version: 16.0.0
+  resolution: "dotenv@npm:16.0.0"
+  checksum: 664cebb51f0a9a1d1b930f51f0271e72e26d62feaecc9dc03df39453dd494b4e724809ca480fb3ec3213382b1ed3f791aaeb83569a137f9329ce58efd4853dbf
   languageName: node
   linkType: hard
 
