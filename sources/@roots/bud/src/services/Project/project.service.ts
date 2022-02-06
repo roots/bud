@@ -120,7 +120,6 @@ export class Project
   public async resolvePeers() {
     await this.peers.discover()
     this.set('modules', this.peers.modules)
-    this.set('adjacents', this.peers.adjacents.fromRoot('root'))
   }
 
   /**
@@ -135,11 +134,6 @@ export class Project
     )
 
     this.set('manifest', manifest)
-
-    this.merge('installed', {
-      ...(this.get('manifest.devDependencies') ?? {}),
-      ...(this.get('manifest.dependencies') ?? {}),
-    })
   }
 
   /**

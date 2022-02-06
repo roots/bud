@@ -6,7 +6,6 @@ import {
 } from '@roots/bud-framework'
 import {bind, fs, pkgUp, safeResolve} from '@roots/bud-support'
 import {posix} from 'path'
-import {AdjacencyList} from './adjacencyList'
 import {Dependency} from './peers.interface'
 
 const {readJson} = fs
@@ -26,10 +25,6 @@ export class Peers implements PeersInterface {
   public get log(): Service['log'] {
     return this.app.project.log
   }
-
-  public adjacents: AdjacencyList
-
-  public hasMissingDependencies: boolean = false
 
   public modules: Record<string, Dependency> = {}
 
@@ -92,12 +87,8 @@ export class Peers implements PeersInterface {
     try {
       const manifest = await this.getManifest(this.app.path('project'))
       this.modules['root'] = {
-        ...manifest,
         name: 'root',
-        version: manifest.version ?? '0.0.0',
         bud: manifest.bud ?? null,
-        parent: null,
-        resolvable: manifest ? true : false,
         requires: Object.entries<string>({
           ...(manifest.devDependencies ?? {}),
           ...(manifest.dependencies ?? {}),
@@ -111,8 +102,6 @@ export class Peers implements PeersInterface {
             await this.collect(name)
           }),
       )
-
-      this.adjacents = new AdjacencyList(this.modules)
     } catch (e) {
       this.app.error(e)
     }
@@ -131,15 +120,10 @@ export class Peers implements PeersInterface {
   @bind
   public async collect(name: string) {
     const manifest = await this.retrieveManifest(name)
-    if (!manifest) {
-      this.hasMissingDependencies = true
-    }
 
     const dependency: Dependency = {
       name: manifest.name ?? name,
-      version: manifest.version ?? '0.0.0',
       bud: manifest.bud ?? null,
-      resolvable: manifest ? true : false,
       peerDependencies: manifest.peerDependencies ?? {},
       requires: Object.entries<string>({
         ...manifest.bud?.peers?.reduce(
