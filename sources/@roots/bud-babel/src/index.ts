@@ -17,12 +17,12 @@ import '@roots/bud-framework'
 import {Item, Loader} from '@roots/bud-build'
 
 import {Config} from './babel.config'
-import {mixin, name, register} from './babel.extension'
+import * as babel from './babel.extension'
 
 interface BabelExtension {
-  name: typeof name
-  mixin: typeof mixin
-  register: typeof register
+  name: typeof babel.name
+  mixin: typeof babel.mixin
+  register: typeof babel.register
 }
 
 declare module '@roots/bud-framework' {
@@ -61,4 +61,4 @@ declare module '@roots/bud' {
   }
 }
 
-export {name, mixin, register}
+export const {name, mixin, register} = babel
