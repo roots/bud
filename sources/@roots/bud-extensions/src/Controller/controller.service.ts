@@ -85,12 +85,6 @@ export class Controller {
       throw Error(`extension controller constructor: missing module`)
     }
 
-    if (extension.options) {
-      extension.options = this.app.container(
-        this.app.maybeCall(extension.options),
-      )
-    }
-
     this.module = extension
   }
 
@@ -134,15 +128,12 @@ export class Controller {
       return this.app.container()
     }
 
-    if (isFunction(this.module.options)) {
-      return this.app.container(this.module.options(this.app))
+    if (this.module.options instanceof Container) {
+      return this.module.options
     }
 
-    if (this.module.options instanceof Container) {
-      return this.app.hooks.filter(
-        `extension.${this.module.name}.options`,
-        () => this.module.options,
-      )
+    if (isFunction(this.module.options)) {
+      return this.app.container(this.module.options(this.app))
     }
 
     if (!isObject(this.module.options))
@@ -150,10 +141,7 @@ export class Controller {
         `${this.name} options must be an object or Container instance`,
       )
 
-    return this.app.hooks.filter(
-      `extension.${this.module.name}.options`,
-      () => this.app.container(this.module.options),
-    )
+    return this.app.container(this.module.options)
   }
 
   /**
@@ -324,7 +312,7 @@ export class Controller {
   public get when() {
     if (isUndefined(this.module.when)) return true
     if (isFunction(this.module.when))
-      return this.module.when(this.app, this.module.options)
+      return this.module.when(this.app, this.options)
 
     return this.module.when
   }
