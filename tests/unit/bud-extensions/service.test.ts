@@ -1,8 +1,7 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import {Extensions} from '@roots/bud-extensions'
 import {Extension, Modules} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
-
-import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('Extensions', function () {
   let bud: Bud = null
@@ -33,14 +32,12 @@ describe('Extensions', function () {
     expect(extensions).toBeInstanceOf(Extensions)
   })
 
-  it('add fn registers a module', () => {
+  it('add fn registers a module', async () => {
     const extensions: Extensions = new Extensions(bud)
     extensions.repository = {} as Modules
 
-    extensions.add(mockModule)
+    await extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.name)._module).toEqual(
-      mockModule,
-    )
+    expect(extensions.get(mockModule.name).module).toEqual(mockModule)
   })
 })

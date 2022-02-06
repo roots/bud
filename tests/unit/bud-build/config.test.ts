@@ -8,7 +8,6 @@ describe('bud.build.config', function () {
   beforeAll(async () => {
     bud = await factory()
     await bud.project.buildProfile()
-    await bud.extensions.injectExtensions()
     await bud.build.make()
   })
 
@@ -68,9 +67,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect((bud.build.config.optimization as any).emitOnErrors).toEqual(
-      false,
-    )
+    expect((bud.build.config.optimization as any).emitOnErrors).toEqual(false)
   })
 
   it('has expected optimization.runtimeChunk default', () => {

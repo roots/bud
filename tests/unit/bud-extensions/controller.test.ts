@@ -32,42 +32,30 @@ describe('@roots/bud-extensions Controller', function () {
   })
 
   it('is constructable', () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
 
     expect(controller).toBeInstanceOf(Controller)
   })
 
   it('register fn returns self', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     const registerReturn = await controller.register()
 
     expect(registerReturn).toBeInstanceOf(Controller)
   })
 
   it('calls module register fn', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     await controller.register()
 
-    expect(controller._module.register).toHaveBeenCalled()
+    expect(controller.module.register).toHaveBeenCalled()
   })
 
   it('calls module boot fn', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     await controller.boot()
 
-    expect(controller._module.boot).toHaveBeenCalled()
+    expect(controller.module.boot).toHaveBeenCalled()
   })
 
   it('module options are registered', async () => {

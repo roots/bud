@@ -65,8 +65,6 @@ describe('bud.project', function () {
       name: '@roots/bud-babel',
       peerDependencies: {},
       requires: [],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -80,8 +78,6 @@ describe('bud.project', function () {
       name: '@roots/bud-entrypoints',
       peerDependencies: {},
       requires: [],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -95,8 +91,6 @@ describe('bud.project', function () {
         eslint: expect.any(String),
       },
       requires: [],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -113,8 +107,6 @@ describe('bud.project', function () {
         'postcss-preset-env': expect.any(String),
       },
       requires: [],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -128,8 +120,6 @@ describe('bud.project', function () {
       name: '@roots/bud-entrypoints',
       peerDependencies: {},
       requires: [],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -154,26 +144,13 @@ describe('bud.project', function () {
         ['@roots/bud-eslint', expect.any(String)],
         ['@roots/bud-postcss', expect.any(String)],
       ],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
   it('references the root package', async () => {
     expect(bud.project.get('modules.root')).toMatchSnapshot({
-      browserslist: ['extends @wordpress/browserslist-config'],
       bud: null,
-      devDependencies: {
-        '@roots/bud': 'workspace:*',
-        '@roots/bud-babel': 'workspace:*',
-        '@roots/bud-eslint': 'workspace:*',
-        '@roots/bud-postcss': 'workspace:*',
-        '@roots/bud-preset-recommend': 'workspace:*',
-        '@roots/bud-tailwindcss': 'workspace:*',
-      },
       name: 'root',
-      parent: null,
-      private: true,
       requires: [
         ['@roots/bud', 'workspace:*'],
         ['@roots/bud-babel', 'workspace:*'],
@@ -182,8 +159,6 @@ describe('bud.project', function () {
         ['@roots/bud-preset-recommend', 'workspace:*'],
         ['@roots/bud-tailwindcss', 'workspace:*'],
       ],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 
@@ -200,8 +175,6 @@ describe('bud.project', function () {
         tailwindcss: expect.any(String),
       },
       requires: [['@roots/bud-postcss', expect.any(String)]],
-      resolvable: true,
-      version: expect.any(String),
     })
   })
 

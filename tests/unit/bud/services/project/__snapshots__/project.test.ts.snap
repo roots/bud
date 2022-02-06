@@ -49,8 +49,6 @@ Object {
     "babel-plugin-add-module-exports": "^1.0.4",
   },
   "requires": Array [],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -62,8 +60,6 @@ Object {
   "name": "@roots/bud-entrypoints",
   "peerDependencies": Object {},
   "requires": Array [],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -75,8 +71,6 @@ Object {
   "name": "@roots/bud-entrypoints",
   "peerDependencies": Object {},
   "requires": Array [],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -90,8 +84,6 @@ Object {
     "eslint": Any<String>,
   },
   "requires": Array [],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -108,8 +100,6 @@ Object {
     "postcss-preset-env": Any<String>,
   },
   "requires": Array [],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -144,8 +134,6 @@ Object {
       Any<String>,
     ],
   ],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
@@ -167,28 +155,13 @@ Object {
       Any<String>,
     ],
   ],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 
 exports[`bud.project references the root package 1`] = `
 Object {
-  "browserslist": Array [
-    "extends @wordpress/browserslist-config",
-  ],
   "bud": null,
-  "devDependencies": Object {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-eslint": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-preset-recommend": "workspace:*",
-    "@roots/bud-tailwindcss": "workspace:*",
-  },
   "name": "root",
-  "parent": null,
-  "private": true,
   "requires": Array [
     Array [
       "@roots/bud",
@@ -215,8 +188,6 @@ Object {
       "workspace:*",
     ],
   ],
-  "resolvable": true,
-  "version": Any<String>,
 }
 `;
 

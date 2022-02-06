@@ -79,11 +79,7 @@ describe('bud.entry', function () {
 
     expect(config.entry).toEqual({
       app: {
-        import: [
-          'scripts/app.js',
-          'styles/app.css',
-          'styles/editor.css',
-        ],
+        import: ['scripts/app.js', 'styles/app.css', 'styles/editor.css'],
       },
     })
   })
