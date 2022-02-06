@@ -54,7 +54,7 @@
     "@types/node": "16.11.22",
     "@vue/compiler-sfc": "3.2.29",
     "css-loader": "6.6.0",
-    "jest": "27.4.7",
+    "jest": "27.5.0",
     "vue": "3.2.29",
     "webpack": "5.68.0"
   },
