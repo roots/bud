@@ -14,25 +14,11 @@ export interface Peers {
   app: Framework
 
   /**
-   * Module load order
-   *
-   * @public
-   */
-  adjacents: any
-
-  /**
    * Modules
    *
    * @public
    */
   modules: Record<string, Record<string, any>>
-
-  /**
-   * True if project is missing dependencies
-   *
-   * @public
-   */
-  hasMissingDependencies: boolean
 
   /**
    * Expected project dependencies

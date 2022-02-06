@@ -578,7 +578,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public mixin: typeof methods.mixin
+  public mixin: typeof methods.mixin = methods.mixin.bind(this)
 
   /**
    * Read and write json files

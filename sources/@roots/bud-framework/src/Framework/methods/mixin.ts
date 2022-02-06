@@ -48,5 +48,7 @@ export function mixin<ClassMap = GenericClassMap>(
       this.dump(this.name)
       this.dump(ClassObj)
     }
+
+    this.success(`${this.name}.${name}`, `class is bound`)
   })
 }
