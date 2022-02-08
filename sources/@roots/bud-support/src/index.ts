@@ -29,6 +29,7 @@
  */
 //
 
+export * from './external/boxen'
 export * from './external/chalk'
 export * from './external/cosmiconfig'
 export * from './external/cli-highlight'
@@ -50,6 +51,7 @@ export * from './external/safe-json-stringify'
 export * from './external/signale'
 export * from './external/toml'
 export * from './external/yaml'
+export * from './external/table'
 
 /**
  * Utilities
