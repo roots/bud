@@ -415,13 +415,11 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.target
      */
-    .hooks.on<'build.target'>(
-      'build.target',
-      () =>
-        app.project.has('manifest.browserslist') &&
-          app.project.isArray('manifest.browserslist')
-            ? `browserslist:${app.path('project', 'package.json')}`
-            : undefined,
+    .hooks.on('build.target', () =>
+      app.project.has('manifest.browserslist') &&
+      app.project.isArray('manifest.browserslist')
+        ? `browserslist:${app.path('project', 'package.json')}`
+        : undefined,
     )
 
     /**
