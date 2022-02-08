@@ -10,6 +10,8 @@ import {
   StatsError,
   webpack,
 } from 'webpack'
+
+import {writeToProcessOut} from './writeToProcessOut'
 const {isFunction} = lodash
 
 /**
@@ -107,9 +109,7 @@ export class Compiler extends Service implements Contract {
       )
 
       stats && Object.assign(this.stats, stats.toJson())
-      if (this.app.store.is('features.dashboard', false)) {
-        this.log('log', stats.toString(this.app.store.get('build.stats')))
-      }
+      writeToProcessOut(this.stats, this.app.store.get('theme.colors'))
 
       if (this.app.isProduction) {
         this.instance.close(err => {
@@ -227,9 +227,7 @@ export class Compiler extends Service implements Contract {
       }
 
       this.errors.push(this.app.hooks.filter('event.compiler.error', err))
-
-      this.app.store.is('features.dashboard', false) &&
-        this.log('error', err)
+      this.log('error', err)
     }
   }
 }
