@@ -6,6 +6,8 @@ import {isArray, isString} from 'lodash'
  *
  * @param assets - array of assets
  * @returns assets array
+ *
+ * @internal
  */
 const filterAssetsArray = (assets: Array<string>) =>
   assets.filter(imports => imports !== 'react-refresh/runtime')

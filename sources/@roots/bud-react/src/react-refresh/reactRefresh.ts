@@ -2,7 +2,7 @@ import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plug
 import type {Framework} from '@roots/bud-framework'
 import {isFunction} from 'lodash'
 
-import {BudReactRefreshExtension} from './extension'
+import {ReactRefreshExtension} from './extension'
 import * as reduceEntries from './reducers'
 
 /**
@@ -64,7 +64,7 @@ export const reactRefresh: reactRefresh = async function (
   ctx.hooks.async('build.entry', async entries =>
     reduceEntries.add(entries),
   )
-  await ctx.extensions.add(BudReactRefreshExtension)
+  await ctx.extensions.add(ReactRefreshExtension)
 
   if (!userOptions || userOptions === true) return ctx
 

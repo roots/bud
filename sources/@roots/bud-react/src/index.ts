@@ -11,6 +11,8 @@
  * @packageDocumentation
  */
 
-import {BudReactExtension} from './extension'
+import './global'
 
-export const {api, boot, name} = BudReactExtension
+import {ReactExtension} from './extension'
+
+export const {api, boot, name} = ReactExtension

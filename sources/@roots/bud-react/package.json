@@ -52,6 +52,9 @@
     "./extension": {
       "require": "./lib/cjs/extension.js"
     },
+    "./react-refresh": {
+      "require": "./lib/cjs/react-refresh/index.js"
+    },
     "./react-refresh/*": {
       "require": "./lib/cjs/react-refresh/*.js"
     }
@@ -63,6 +66,9 @@
       ],
       "extension": [
         "./types/extension.d.ts"
+      ],
+      "react-refresh": [
+        "./types/react-refresh/index.d.ts"
       ],
       "react-refresh/*": [
         "./types/react-refresh/*.d.ts"
@@ -85,8 +91,6 @@
     "@types/node": "16.11.22",
     "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
     "type-fest": "2.11.1",
     "webpack": "5.68.0"
   },
