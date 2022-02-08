@@ -41,8 +41,19 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "entry": [
+        "./types/entry/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
