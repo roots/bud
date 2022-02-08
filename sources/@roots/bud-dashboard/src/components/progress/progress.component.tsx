@@ -1,9 +1,10 @@
 import {lodash} from '@roots/bud-support'
-import React, {useEffect, useState} from 'react'
+import {Box, Text} from 'ink'
+import React from 'react'
 
 import {Bar} from './bar'
 
-const {isUndefined, isNumber, isArray} = lodash
+const {isNumber, isString} = lodash
 
 /**
  * Progress component
@@ -11,28 +12,24 @@ const {isUndefined, isNumber, isArray} = lodash
  * @public
  */
 export const Progress = ({progress, theme}) => {
-  const [display, setDisplay] = useState(false)
-  const [number, setNumber] = useState(0)
+  if (!Array.isArray(progress)) return null
 
-  useEffect(() => {
-    if (
-      isUndefined(progress) ||
-      !isArray(progress) ||
-      isUndefined(progress[0]) ||
-      !isNumber(progress[0])
-    )
-      return
+  const [value, message] = progress
+  const hasMessage = message && isString(message) && message !== '[0] '
+  const hasValue = value && isNumber(value)
 
-    setNumber(progress[0])
-    setDisplay(progress[0] > 0 && progress[0] < 1)
-  }, [progress])
+  return (
+    <Box flexDirection={`column`}>
+      <Text wrap={`truncate-end`}>
+        {hasMessage ? message.replace('[0] ', '') : ''}
+      </Text>
 
-  return display ? (
-    <Bar
-      character={'▮'}
-      maxWidth={theme.bounds.width}
-      colors={[theme.colors.primary, theme.colors.primaryAlt]}
-      percent={number}
-    />
-  ) : null
+      <Bar
+        character={`▇`}
+        maxWidth={theme.bounds.width}
+        colors={[theme.colors.primary, theme.colors.accent]}
+        width={hasValue ? value : 0}
+      />
+    </Box>
+  )
 }
