@@ -50,13 +50,37 @@ export class Facade {
    * Copy static assets during compilation.
    *
    * @remarks
-   * You may specify paths with a string literal or glob pattern.
+   * You may specify paths with a string literal, glob pattern, options object,
+   * or an array of any of these.
    *
    * @example
-   * Copy **src/images** to **dist/images**
-   *
    * ```js
-   * app.assets(['src/images'])
+   * app.assets('images')
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets(['images', 'fonts'])
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets({
+   *  from: app.path('src', 'images'),
+   *  errorOnUnmatchedPattern: true,
+   * })
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets([
+   *   {
+   *    from: app.path('src', 'images'),
+   *    errorOnUnmatchedPattern: true,
+   *   },
+   *   'fonts',
+   *   '** /*.txt'
+   * ])
    * ```
    *
    * @public
@@ -67,13 +91,37 @@ export class Facade {
    * Copy static assets during compilation.
    *
    * @remarks
-   * You may specify paths with a string literal or glob pattern.
+   * You may specify paths with a string literal, glob pattern, options object,
+   * or an array of any of these.
    *
    * @example
-   * Copy **src/images** to **dist/images**
-   *
    * ```js
-   * app.assets(['src/images'])
+   * app.assets('images')
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets(['images', 'fonts'])
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets({
+   *  from: app.path('src', 'images'),
+   *  errorOnUnmatchedPattern: true,
+   * })
+   * ```
+   *
+   * @example
+   * ```js
+   * app.assets([
+   *   {
+   *    from: app.path('src', 'images'),
+   *    errorOnUnmatchedPattern: true,
+   *   },
+   *   'fonts',
+   *   '** /*.txt'
+   * ])
    * ```
    *
    * @public
