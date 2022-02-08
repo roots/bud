@@ -18,6 +18,6 @@ describe('bud.assets', function () {
 
     const {options} = bud.extensions.get('copy-webpack-plugin')
 
-    expect(options.get('patterns')).toHaveLength(2)
+    expect(options.get('patterns')).toHaveLength(1)
   })
 })
