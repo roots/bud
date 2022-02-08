@@ -59,12 +59,8 @@ export class Api extends Framework.Service implements Framework.Api {
     this.app.hooks.async<'event.build.make.before'>(
       'event.build.make.before',
       async app => {
-        this.log('log', 'event.build.make.promise api calls')
-
         await this.processQueue()
-
         this.dump()
-
         return app
       },
     )
@@ -75,11 +71,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public bindFacade(name: string) {
-    this.log('log', `binding ${this.app.name}.${name} facade`)
-
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
-
-    this.log('success', `binding ${this.app.name}.${name} facade`)
   }
 
   /**
