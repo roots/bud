@@ -52,7 +52,7 @@
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
-    "jest": "27.4.7"
+    "jest": "27.5.0"
   },
   "dependencies": {
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",

@@ -7,9 +7,9 @@
     ]
   },
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.js"
+    "overrideConfigFile": "config/eslint.config.js",
   },
-  "eslint.nodePath": "dev/yarn/sdks/eslint",
+  "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.validate": ["javascript", "typescript"],
   "files.exclude": {
     "**/.git": true,
@@ -20,19 +20,19 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
-  "prettier.configPath": "config/prettier.config.js",
-  "prettier.ignorePath": "config/.prettierignore",
-  "prettier.prettierPath": "dev/yarn/sdks/prettier/index.js",
   "search.exclude": {
-    "bin": true,
-    "dev/yarn": true,
-    "coverage": true,
+    ".yarn": true,
+    ".git": true,
+    "storage": true,
     "verdaccio": true,
     "**/pnp.*": true,
     "**/node_modules": true,
     "**/.budfiles/**/*": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "prettier.configPath": "config/prettier.config.js",
+  "prettier.ignorePath": "config/.prettierignore",
+  "prettier.prettierPath": ".yarn/sdks/prettier",
+  "typescript.tsdk": ".yarn/sdks/typescript",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "files.associations": {
     "*.ts": "typescript",
