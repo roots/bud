@@ -1,5 +1,5 @@
 import {lodash} from '@roots/bud-support'
-import {Newline, Text} from 'ink'
+import {Text} from 'ink'
 import Gradient from 'ink-gradient'
 import React, {useEffect, useState} from 'react'
 
@@ -34,7 +34,6 @@ export const Bar: React.FunctionComponent<{
     <Text wrap="truncate">
       <Gradient colors={colors}>{character.repeat(fill) ?? ''}</Gradient>
       {character.repeat(maxWidth - fill) ?? ''}
-      <Newline />
     </Text>
   )
 }

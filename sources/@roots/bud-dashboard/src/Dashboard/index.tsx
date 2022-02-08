@@ -1,6 +1,6 @@
 import {Dashboard as Contract, Framework} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, chalk, once} from '@roots/bud-support'
+import {bind, once} from '@roots/bud-support'
 import React from 'react'
 import {MultiCompiler} from 'webpack'
 
@@ -37,11 +37,9 @@ export class Dashboard extends Service implements Contract {
     const {Build} = await import('../components')
     const {render} = await import('ink')
 
-    this.log('info', {
-      message: chalk.blue`rendering dashboard`,
+    render(<Build tap={() => this.app.root} />, {
+      patchConsole: true,
     })
-
-    render(<Build tap={() => this.app.root} />)
 
     return this.app
   }

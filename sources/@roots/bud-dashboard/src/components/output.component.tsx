@@ -3,7 +3,6 @@ import {Box} from 'ink'
 import React from 'react'
 import {StatsCompilation} from 'webpack'
 
-import {Assets} from './assets/assets.component'
 import {Progress} from './progress'
 import {Serve} from './serve'
 
@@ -31,13 +30,14 @@ export const Output = ({
 
   return (
     <Box flexDirection="column">
-      <Progress progress={progress} theme={theme} />
-
-      {mode === 'development' && stats?.children?.length > 0 && (
-        <Serve theme={theme} proxy={proxy} url={url} />
-      )}
-
-      <Assets stats={stats?.children} theme={theme} />
+      <Box flexDirection="column" marginY={1}>
+        <Progress progress={progress} theme={theme} />
+      </Box>
+      <Box flexDirection="column">
+        {mode === 'development' && (
+          <Serve theme={theme} proxy={proxy} url={url} />
+        )}
+      </Box>
     </Box>
   )
 }

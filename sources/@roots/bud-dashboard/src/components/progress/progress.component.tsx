@@ -15,13 +15,13 @@ export const Progress = ({progress, theme}) => {
   if (!Array.isArray(progress)) return null
 
   const [value, message] = progress
-  const hasMessage = message && isString(message)
+  const hasMessage = message && isString(message) && message !== '[0] '
   const hasValue = value && isNumber(value)
 
-  return value < 1 ? (
+  return (
     <Box flexDirection={`column`}>
       <Text wrap={`truncate-end`}>
-        {hasMessage ? message : 'instantiating..'}
+        {hasMessage ? message.replace('[0] ', '') : ''}
       </Text>
 
       <Bar
@@ -31,5 +31,5 @@ export const Progress = ({progress, theme}) => {
         width={hasValue ? value : 0}
       />
     </Box>
-  ) : null
+  )
 }

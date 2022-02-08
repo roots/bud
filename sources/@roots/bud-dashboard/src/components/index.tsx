@@ -1,8 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 import {useStdin} from 'ink'
-import React, {useEffect, useState} from 'react'
-import {useEffectOnce, useUpdate} from 'react-use'
-import {StatsCompilation} from 'webpack'
+import React, {useEffect} from 'react'
+import {useInterval, useUpdate} from 'react-use'
 
 import {Input} from './input.component'
 import {Output} from './output.component'
@@ -13,39 +12,30 @@ import {Output} from './output.component'
  * @public
  */
 export const Build = ({tap}: {tap: () => Framework}) => {
-  const [app, setApp] = useState<Framework>(tap())
+  const {isRawModeSupported} = useStdin()
+  isRawModeSupported && Input({app: tap()})
 
   const update = useUpdate()
+  useInterval(update, 10)
 
-  useEffectOnce(() => {
-    setInterval(() => {
-      if (app.isProduction && app.compiler.progress[0] >= 1) {
-        setTimeout(app.close, 100)
-      }
-
-      setApp(tap())
-      update()
-    }, 36)
-  })
-
-  const {isRawModeSupported} = useStdin()
-  isRawModeSupported && Input({app: app})
-
-  const [stats, setStats] = useState<StatsCompilation>(null)
+  const stats = tap().compiler.stats
 
   useEffect(() => {
-    app?.compiler?.stats && setStats(app.compiler.stats)
-    update()
-  }, [update, app])
+    tap().isProduction &&
+      tap().compiler.progress &&
+      tap().compiler.progress[0] &&
+      tap().compiler.progress[0] === 1 &&
+      setTimeout(tap().close, 100)
+  })
 
-  return (
+  return tap().compiler.stats?.hash ? (
     <Output
-      mode={app?.mode}
-      url={app?.store?.get('server.dev.url')}
-      proxy={app?.store?.get('server.proxy.url')}
+      mode={tap().mode}
+      url={tap().store.get('server.dev.url')}
+      proxy={tap().store.get('server.proxy.url')}
       stats={stats}
-      progress={app?.compiler.progress ?? [0, 'Instantiating...']}
-      style={app?.store.get('theme')}
+      progress={tap().compiler.progress}
+      style={tap().store.get('theme')}
     />
-  )
+  ) : null
 }

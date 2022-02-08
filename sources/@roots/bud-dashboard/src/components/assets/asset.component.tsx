@@ -34,6 +34,7 @@ export const Asset = ({
             {asset.emitted ? '✔ ' : '… '}
           </Text>
         </Box>
+
         <Box display={'flex'} width={theme.ctx([`30%`])}>
           <Text wrap="truncate-end" color={color}>
             {asset.name}

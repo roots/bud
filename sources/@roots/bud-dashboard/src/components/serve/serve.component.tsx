@@ -13,9 +13,7 @@ interface Props {
 
 export const Serve = ({url, proxy, theme}: Props) => {
   return (
-    <Box flexDirection={`column`}>
-      <Newline />
-
+    <Box flexDirection={`column`} marginBottom={1}>
       <Text color={theme?.colors.text}>
         <Url label="dev" value={url} />
       </Text>
@@ -26,12 +24,12 @@ export const Serve = ({url, proxy, theme}: Props) => {
         </Text>
       )}
 
-      <Newline />
-
-      <Text>
-        <Spinner /> waiting for changes... <Text color="dim">🆀 to exit</Text>{' '}
-        <Newline />
-      </Text>
+      <Box flexDirection={`column`} marginTop={1}>
+        <Text>
+          <Spinner /> waiting for changes...{' '}
+          <Text color="dim">🆀 to exit</Text> <Newline />
+        </Text>
+      </Box>
     </Box>
   )
 }
