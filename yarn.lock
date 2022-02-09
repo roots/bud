@@ -3799,7 +3799,7 @@ __metadata:
     "@types/express": 4.17.13
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/prettier": 2.4.3
+    "@types/prettier": 2.4.4
     "@types/safe-json-stringify": 1.1.2
     "@types/signale": 1.4.4
     "@types/yamljs": 0.2.31
@@ -4122,7 +4122,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/prettier": 2.4.3
+    "@types/prettier": 2.4.4
     "@types/react": 17.0.39
     tslib: ^2.3.1
   peerDependencies:
@@ -4159,7 +4159,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.178
     "@types/node": 16.11.22
-    "@types/prettier": 2.4.3
+    "@types/prettier": 2.4.4
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     tslib: ^2.3.1
@@ -4996,10 +4996,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.4.3, @types/prettier@npm:^2.1.5":
-  version: 2.4.3
-  resolution: "@types/prettier@npm:2.4.3"
-  checksum: b240434daabac54700c862b0bb52a83fec396e0e9c847447119ba41fd8404d79aadfa174e6306fb094b29efadac586344b7606c3a71c286b71755ab2579d54df
+"@types/prettier@npm:2.4.4, @types/prettier@npm:^2.1.5":
+  version: 2.4.4
+  resolution: "@types/prettier@npm:2.4.4"
+  checksum: 2c2cc57efd49c7d8907415a72f96c84a6dd8696dd3bf8aa4ca3a667427bebf71cbfbc912673624bdfc935d272d1c008c639cf155f6449315990a4dc110f0d216
   languageName: node
   linkType: hard
 
