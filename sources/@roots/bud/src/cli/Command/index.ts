@@ -59,34 +59,16 @@ export abstract class Command extends oclif.Command {
   public logger: Framework.Logger['instance']
 
   /**
-   * True if running in jest env
    * @internal
    */
-  public get jest() {
-    return process.env.JEST_WORKER_ID !== undefined
-  }
-
-  /**
-   * Initialize command
-   *
-   * @internal
-   */
-  public async init() {
-    this.notifier = new Notifier()
-  }
-
-  /**
-   * @remarks
-   * this should be an oclif hook (plugin api)
-   *
-   * @internal
-   */
-  public async prime(command): Promise<void> {
+  public async prime(command: any): Promise<void> {
     this.cli = await this.parse(command)
     this.runner = new Runner(this.cli)
     this.app = await this.runner.initialize()
     this.logger = this.app.logger.makeInstance()
     this.runner.logger = this.logger
+
+    this.notifier = new Notifier(this.app)
   }
 
   /**

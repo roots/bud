@@ -60,8 +60,8 @@ export class Runner {
             seed.location.storage,
           ),
           publicPath: parse(
-            this.cli.flags['location.publicPath'],
-            seed.location.publicPath,
+            this.cli.flags['publicPath'],
+            seed.build.output.publicPath,
           ),
         },
         cache: {

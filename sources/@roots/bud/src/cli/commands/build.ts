@@ -22,6 +22,7 @@ export default class Build extends Command {
    */
   public static flags = {
     ...Command.flags,
+    ...flags.build,
     ...flags.target,
     ...flags.location,
 
@@ -115,12 +116,6 @@ export default class Build extends Command {
   public async run() {
     await this.prime(Build)
     await this.runner.make()
-
-    this.app.hooks.on('event.compiler.done', stats => {
-      this.notifier.notify(this.app, stats)
-      return stats
-    })
-
     await this.app.api.call('run', [])
   }
 }

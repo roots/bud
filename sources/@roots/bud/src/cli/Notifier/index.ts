@@ -1,6 +1,8 @@
-import {resolve} from 'path'
+import {Framework} from '@roots/bud-framework'
+import {bind, humanReadable} from '@roots/bud-support'
+import {dirname, resolve} from 'path'
+import {StatsCompilation} from 'webpack'
 
-import {Bud} from '../../Bud'
 import {NodeNotifier} from '../cli.dependencies'
 
 /**
@@ -12,42 +14,52 @@ const MACOS_NOTIFIER_PATH = resolve(
 )
 
 export class Notifier {
-  public instance: {
-    notify(props: {
-      title: string
-      message: string
-      group: string
-      contentImage: string
-    }): unknown
-  }
+  public instance: NodeNotifier.NotificationCenter
 
-  public constructor() {
+  public constructor(public app: Framework) {
     this.instance = new NodeNotifier.NotificationCenter({
       customPath: MACOS_NOTIFIER_PATH,
     })
 
-    this.notify = this.notify.bind(this)
+    this.app.hooks.on('event.compiler.stats', this.notify)
   }
 
-  public notify(app: Bud, props) {
-    const group = app.name
+  @bind
+  public async notify(stats: StatsCompilation) {
+    const summary = stats.children?.reduce(
+      (summary, compilation) => {
+        return {
+          errors: summary.errors + (compilation.errorsCount ?? 0),
+          warnings: summary.warnings + (compilation.warningsCount ?? 0),
+          assets: summary.assets + (compilation.assets?.length ?? 0),
+          time: summary.time + (compilation.time ?? 0),
+        }
+      },
+      {
+        errors: stats.errorsCount ?? 0,
+        warnings: stats.warningsCount ?? 0,
+        assets: 0,
+        time: 0,
+      },
+    )
 
+    const group = dirname(this.app.path('project')).split('/').pop()
     const title =
-      props?.title || app.compiler.stats.errors.length > 0
-        ? `Build error`
-        : `Build success`
-
-    const message =
-      props?.message || app.compiler.stats.errors.length > 0
-        ? `${group} couldn't be compiled`
-        : `${group} compiled successfully`
+      !summary?.errors && !summary?.warnings
+        ? 'Compilation success'
+        : summary?.errors
+        ? 'Compilation failed'
+        : 'Compiled with warnings'
 
     this.instance.notify({
       title,
-      message,
       group,
-
-      contentImage: resolve(__dirname, '../assets/bud-icon.jpg'),
+      message: `Done in ${humanReadable.durationFormatter()(
+        summary?.time,
+      )}.`,
+      contentImage: resolve(__dirname, '../../../assets/bud-icon.jpg'),
     })
+
+    return stats
   }
 }

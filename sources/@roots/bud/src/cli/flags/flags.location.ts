@@ -25,7 +25,6 @@ export interface location {
   ['location.project']: Option<string>
   ['location.src']: Option<string>
   ['location.dist']: Option<string>
-  ['location.publicPath']: Option<string>
   ['location.storage']: Option<string>
   ['location.modules']: Option<string>
 }
@@ -44,10 +43,6 @@ export const location: location = {
   ['location.project']: oclif.Flags.string({
     description: 'repo root path',
     parse,
-  }),
-
-  ['location.publicPath']: oclif.Flags.string({
-    description: 'public path',
   }),
 
   ['location.storage']: oclif.Flags.string({

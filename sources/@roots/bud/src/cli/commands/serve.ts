@@ -31,9 +31,6 @@ export default class Serve extends Build {
    */
   public static flags = {
     ...Build.flags,
-    log: oclif.Flags.boolean({
-      default: true,
-    }),
     mode: oclif.Flags.string({
       default: 'development',
       options: ['development', 'production'],
@@ -47,12 +44,6 @@ export default class Serve extends Build {
   public async run() {
     await this.prime(Serve)
     await this.build()
-
-    this.app.hooks.on('event.compiler.done', stats => {
-      this.notifier.notify(this.app, stats)
-      return stats
-    })
-
     await this.app.api.call('run', [])
   }
 }

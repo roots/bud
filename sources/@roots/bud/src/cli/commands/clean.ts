@@ -30,7 +30,7 @@ export default class Clean extends Command {
       hidden: true,
     }),
     ['log.papertrail']: oclif.Flags.boolean({
-      default: true,
+      default: false,
       hidden: true,
     }),
     ['dashboard']: oclif.Flags.boolean({
