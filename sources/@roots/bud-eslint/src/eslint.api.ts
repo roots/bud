@@ -34,9 +34,7 @@ export class eslint {
    */
   @bind
   public config(userOptions: Options): Framework {
-    this.app.extensions
-      .get('eslint-webpack-plugin')
-      .setOptions(userOptions)
+    this.app.extensions.get('@roots/bud-eslint').setOptions(userOptions)
 
     this.app.info({
       message: 'overriding eslint by user configuration',
