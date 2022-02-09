@@ -73,6 +73,7 @@ Object {
 
 exports[`bud.build.config has expected default font rule 1`] = `
 Object {
+  "exclude": /\\(node_modules\\|bower_components\\)/,
   "generator": Object {
     "filename": "fonts/[name][ext]",
   },
@@ -140,6 +141,7 @@ Object {
 
 exports[`bud.build.config has expected default svg rule 1`] = `
 Object {
+  "exclude": /\\(node_modules\\|bower_components\\)/,
   "generator": Object {
     "filename": "svg/[name][ext]",
   },
@@ -161,8 +163,9 @@ Object {
 
 exports[`bud.build.config has expected default webp rule 1`] = `
 Object {
+  "exclude": /\\(node_modules\\|bower_components\\)/,
   "generator": Object {
-    "filename": "webp/[name][ext]",
+    "filename": "images/[name][ext]",
   },
   "test": Object {},
   "type": "asset/resource",

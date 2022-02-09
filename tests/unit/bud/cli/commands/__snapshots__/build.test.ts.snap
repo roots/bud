@@ -96,13 +96,6 @@ Object {
     "parse": [Function],
     "type": "option",
   },
-  "location.publicPath": Object {
-    "description": "public path",
-    "input": Array [],
-    "multiple": false,
-    "parse": [Function],
-    "type": "option",
-  },
   "location.src": Object {
     "description": "source directory",
     "input": Array [],
@@ -185,6 +178,13 @@ Object {
       "development",
       "production",
     ],
+    "parse": [Function],
+    "type": "option",
+  },
+  "publicPath": Object {
+    "description": "public path",
+    "input": Array [],
+    "multiple": false,
     "parse": [Function],
     "type": "option",
   },
