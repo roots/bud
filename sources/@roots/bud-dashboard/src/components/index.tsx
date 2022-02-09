@@ -18,8 +18,6 @@ export const Build = ({tap}: {tap: () => Framework}) => {
   const update = useUpdate()
   useInterval(update, 10)
 
-  const stats = tap().compiler.stats
-
   useEffect(() => {
     tap().isProduction &&
       tap().compiler.progress &&
@@ -33,7 +31,7 @@ export const Build = ({tap}: {tap: () => Framework}) => {
       mode={tap().mode}
       url={tap().store.get('server.dev.url')}
       proxy={tap().store.get('server.proxy.url')}
-      stats={stats}
+      middleware={tap().store.get('server.middleware')}
       progress={tap().compiler.progress}
       style={tap().store.get('theme')}
     />

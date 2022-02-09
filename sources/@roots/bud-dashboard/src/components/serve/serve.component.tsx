@@ -6,19 +6,20 @@ import React from 'react'
 import {Url} from './url.component'
 
 interface Props {
+  middleware: Record<string, boolean>
   url: URL
   proxy?: URL
   theme: Styles
 }
 
-export const Serve = ({url, proxy, theme}: Props) => {
+export const Serve = ({middleware, url, proxy, theme}: Props) => {
   return (
     <Box flexDirection={`column`} marginBottom={1}>
       <Text color={theme?.colors.text}>
         <Url label="dev" value={url} />
       </Text>
 
-      {proxy && (
+      {middleware.proxy && (
         <Text color={theme?.colors.text}>
           <Url label="proxy" value={proxy} />
         </Text>

@@ -15,6 +15,7 @@ export const Progress = ({progress, theme}) => {
   if (!Array.isArray(progress)) return null
 
   const [value, message] = progress
+
   const hasMessage = message && isString(message) && message !== '[0] '
   const hasValue = value && isNumber(value)
 
