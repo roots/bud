@@ -2,7 +2,7 @@ import {Framework} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
 import {ensureDir} from 'fs-extra'
 import {urlToHttpOptions} from 'url'
-import {Stats} from 'webpack'
+import {StatsCompilation} from 'webpack'
 
 const {writeJson} = fs
 
@@ -18,13 +18,13 @@ const {writeJson} = fs
  *
  * @public
  */
-export default async function (this: Framework, stats: Stats) {
+export default async function (this: Framework, stats: StatsCompilation) {
   try {
     const contents = {
       dev: urlToHttpOptions(this.store.get('server.dev.url')) ?? null,
       proxy: urlToHttpOptions(this.store.get('server.proxy.url')) ?? null,
       publicPath: this.hooks.filter('build.output.publicPath') ?? null,
-      hash: stats ? stats.toJson().hash : null,
+      hash: stats ? stats.hash : null,
     }
 
     await ensureDir(this.path('dist'))
