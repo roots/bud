@@ -79,7 +79,7 @@ export async function makeEntrypoints(
       string,
       {
         import?: string[]
-        dependsOn?: string[]
+        dependOn?: string[]
       },
     ],
   ) => {
@@ -114,7 +114,7 @@ export async function makeEntrypoints(
       string,
       {
         import?: string[]
-        dependsOn?: string[]
+        dependOn?: string[]
       }
     >,
   ) => {

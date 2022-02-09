@@ -54,7 +54,7 @@ export const seed: Partial<Store.Repository> = {
      *
      * @public
      */
-    dashboard: false,
+    dashboard: true,
 
     /**
      * Clean dist directory prior to compilation
@@ -97,13 +97,6 @@ export const seed: Partial<Store.Repository> = {
      * @public
      */
     manifest: true,
-
-    /**
-     * Proxy enabled
-     *
-     * @public
-     */
-    proxy: false,
 
     /**
      * @public
@@ -226,7 +219,6 @@ export const seed: Partial<Store.Repository> = {
     dist: 'dist',
     modules: 'node_modules',
     storage: '.budfiles',
-    publicPath: '',
   },
 
   /**

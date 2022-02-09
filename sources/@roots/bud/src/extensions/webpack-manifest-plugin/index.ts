@@ -23,9 +23,11 @@ const BudWebpackManifestPlugin: Plugin = {
   /**
    * @public
    */
-  make: (options, {store}) => {
+  make: (options, {hooks}) => {
     return new WebpackManifestPlugin({
-      publicPath: store.get('location.publicPath'),
+      publicPath: hooks
+        .filter('build.output.publicPath')
+        .replace('auto', ''),
       ...options.all(),
     })
   },

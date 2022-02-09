@@ -9,7 +9,7 @@ export interface EntryObject {
   /**
    * Array of modules the entrypoint explicitly depends on
    */
-  dependsOn?: string[]
+  dependOn?: string[]
 }
 
 /**
