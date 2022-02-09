@@ -61,10 +61,9 @@ export const image = (app: Framework): Rule =>
     .setExclude(({store}) => store.get('patterns.modules'))
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename:
-        app.store.is('features.hash', true) && app.isProduction
-          ? `images/${app.store.get('hashFormat')}[ext]`
-          : `images/${app.store.get('fileFormat')}[ext]`,
+      filename: app.store.is('features.hash', true)
+        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -79,13 +78,12 @@ export const webp = (app: Framework) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.webp'))
+    .setExclude(({store}) => store.get('patterns.modules'))
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename: `webp/${
-        app.store.is('features.hash', true) && app.isProduction
-          ? app.store.get('hashFormat')
-          : app.store.get('fileFormat')
-      }[ext]`,
+      filename: app.store.is('features.hash', true)
+        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -98,12 +96,12 @@ export const svg = (app: Framework) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.svg'))
+    .setExclude(({store}) => store.get('patterns.modules'))
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename:
-        app.store.is('features.hash', true) && app.isProduction
-          ? `svg/${app.store.get('hashFormat')}[ext]`
-          : `svg/${app.store.get('fileFormat')}[ext]`,
+      filename: app.store.is('features.hash', true)
+        ? 'svg/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'svg/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -116,12 +114,12 @@ export const font = (app: Framework) =>
     .makeRule()
     .setType('asset')
     .setTest(({store}) => store.get('patterns.font'))
+    .setExclude(({store}) => store.get('patterns.modules'))
     .setInclude(({path}) => path('src'))
     .setGenerator(app => ({
-      filename:
-        app.store.is('features.hash', true) && app.isProduction
-          ? `fonts/${app.store.get('hashFormat')}[ext]`
-          : `fonts/${app.store.get('fileFormat')}[ext]`,
+      filename: app.store.is('features.hash', true)
+        ? 'fonts/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'fonts/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**

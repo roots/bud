@@ -7,19 +7,19 @@ function makeTable(data: Array<Array<string>>): string {
     border: table.getBorderCharacters('void'),
     columnDefault: {
       alignment: 'left',
-      paddingLeft: 0,
-      paddingRight: 4,
+      paddingLeft: 2,
+      paddingRight: 2,
     },
     columns: [
       {alignment: 'left'},
       {alignment: 'center'},
       {alignment: 'center'},
-      {alignment: 'center'},
+      {alignment: 'right'},
     ],
   })
 }
 
-export function writeToProcessOut(
+export function write(
   stats: StatsCompilation,
   colors: Framework['store']['repository']['theme']['colors'],
 ): void {
@@ -66,18 +66,27 @@ export function writeToProcessOut(
 
     const assets = boxen(
       makeTable([
-        [' name', 'emit', 'cache', 'hot', 'size'].map(i =>
-          chalk.hex(colors.flavor)(i),
+        [' name', 'cached', 'hot', 'size'].map(i =>
+          chalk.bold.hex(colors.flavor)(i),
         ),
-        ...compilation.assets.map(asset => [
-          ` ${asset.name}`,
-          asset.emitted ? '✔' : '✘',
-          asset.cached ? '✔' : '✘',
-          asset.info.hotModuleReplacement ? '✔' : '✘',
-          asset.info.size > 1000
-            ? humanReadable.sizeFormatter<string>()(asset.info.size)
-            : `.${asset.info.size}`,
-        ]),
+        ...compilation.assets
+          ?.filter(({emitted}) => emitted)
+          .map(asset => [
+            chalk.hex(
+              asset.info.error
+                ? colors.error
+                : asset.info.warn
+                ? colors.warning
+                : '#FFFFFF',
+            )(` ${asset.name}`),
+            asset.cached
+              ? chalk.hex(colors.success)('✔')
+              : chalk.hex(colors.faded)('✘'),
+            asset.info.hotModuleReplacement
+              ? chalk.hex(colors.success)('✔')
+              : chalk.hex(colors.faded)('✘'),
+            humanReadable.sizeFormatter<string>()(asset.info.size),
+          ]),
       ]),
       {
         title: `assets`,
@@ -109,7 +118,7 @@ export function writeToProcessOut(
     }
   })
 
-  const out = compilers.map(compiler => compiler.boxes.join(''))
+  const out = compilers?.map(compiler => compiler.boxes.join(''))
   // eslint-disable-next-line no-console
   console.log(out.join(''))
 }

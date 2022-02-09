@@ -1,22 +1,7 @@
 import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
-import eventCompilerDone from './hooks/event.compiler.done'
-import {setPublicPath} from './setPublicPath'
-
-/**
- * Image filename utility
- *
- * @remarks
- * Given a string, will return it as a webpack filename
- * in the `images/` directory
- *
- * @param name - filename
- * @returns filename
- *
- * @internal
- */
-const makeImageFilename = (name: string) => `images/${name}/[ext]`
+import eventCompilerStats from './hooks/event.compiler.stats'
 
 /**
  * Sage preset
@@ -37,17 +22,14 @@ export const Sage: Extension.Module<void> = {
    * @public
    */
   boot: async app => {
-    app.setPublicPath = setPublicPath.bind(this)
-
     /**
      * Override output directory for svg assets
      * `@roots/bud-build` places them, by default, in `svg/`
      */
     app.build.rules.svg.setGenerator(app => ({
-      filename:
-        app.store.is('features.hash', true) && app.isProduction
-          ? makeImageFilename(app.store.get('hashFormat'))
-          : makeImageFilename(app.store.get('fileFormat')),
+      filename: app.store.is('features.hash', true)
+        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
     /**
@@ -82,10 +64,11 @@ export const Sage: Extension.Module<void> = {
       /**
        * Development
        */
-      ({devtool, hooks}) => {
+      ({devtool, hooks, setPublicPath}) => {
         devtool()
+        setPublicPath('/')
 
-        hooks.async('event.compiler.done', eventCompilerDone.bind(app))
+        hooks.async('event.compiler.stats', eventCompilerStats.bind(app))
         hooks.on('event.app.close', eventAppClose.bind(app))
       },
     )

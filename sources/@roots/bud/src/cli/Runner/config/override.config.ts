@@ -34,10 +34,10 @@ export const config = async (app: Framework, flags) => {
   /**
    * Handle --publicPath flag
    */
-  if (typeof flags['location.publicPath'] !== 'undefined') {
-    app.setPublicPath(flags['location.publicPath'])
+  if (typeof flags['publicPath'] !== 'undefined') {
+    app.setPublicPath(flags['publicPath'])
     app.children?.every((_name, child) =>
-      child.setPublicPath(flags['location.publicPath']),
+      child.setPublicPath(flags['publicPath']),
     )
   }
 

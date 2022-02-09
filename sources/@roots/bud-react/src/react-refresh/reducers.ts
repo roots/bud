@@ -57,7 +57,7 @@ export function remove(
       return {...all, [name]: filterAssetsArray(assets)}
     }
 
-    new Set(['dependsOn', 'import']).forEach(key => {
+    new Set(['dependOn', 'import']).forEach(key => {
       if (!assets[key]) return
       assets[key] = filterAssetsArray(assets[key])
     })

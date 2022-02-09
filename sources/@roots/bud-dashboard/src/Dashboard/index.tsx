@@ -37,9 +37,7 @@ export class Dashboard extends Service implements Contract {
     const {Build} = await import('../components')
     const {render} = await import('ink')
 
-    render(<Build tap={() => this.app.root} />, {
-      patchConsole: true,
-    })
+    render(<Build tap={() => this.app.root ?? this.app} />)
 
     return this.app
   }

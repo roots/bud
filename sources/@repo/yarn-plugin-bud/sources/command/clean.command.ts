@@ -40,5 +40,20 @@ export class Clean extends Command {
    */
   public async execute() {
     await this.$(`yarn cache clean --all`)
+
+    if (process.env.YARN_RC_FILENAME == 'config/yarnrc.dev.yml') {
+      try {
+        await this.$(`rm -rf storage/packages/@roots/**/*`)
+      } catch (e) {}
+
+      try {
+        await this.$(`cp -rf examples/* /srv/mocks/yarn/`)
+        await this.$(`cp -rf examples/* /srv/mocks/npm/`)
+      } catch (e) {}
+    }
+  }
+
+  public async errorHandler(e: string) {
+    process.stdout.write(`[non-fatal] ${e}`)
   }
 }

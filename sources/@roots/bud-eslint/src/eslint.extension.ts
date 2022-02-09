@@ -10,7 +10,7 @@ export type BudEslintWebpackPlugin = Extension.CompilerPlugin<
 >
 
 export const BudEslintWebpackPlugin: BudEslintWebpackPlugin = {
-  name: 'eslint-webpack-plugin',
+  name: '@roots/bud-eslint',
   mixin: async app => ({
     eslint: [api.eslint, app],
   }),

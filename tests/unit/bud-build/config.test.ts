@@ -218,7 +218,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
     ).toMatchSnapshot({
       generator: {
-        filename: 'webp/[name][ext]',
+        filename: 'images/[name][ext]',
       },
       test: /\.webp$/,
       type: 'asset/resource',

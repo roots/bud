@@ -247,17 +247,16 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.output
      */
-    .hooks.on<'build.output'>('build.output', () => ({
-      assetModuleFilename:
-        app.hooks.filter<'build.output.assetModuleFilename'>(
-          'build.output.assetModuleFilename',
-        ),
+    .hooks.on('build.output', () => ({
+      assetModuleFilename: app.hooks.filter(
+        'build.output.assetModuleFilename',
+      ),
       chunkFilename: app.hooks.filter('build.output.chunkFilename'),
       clean: app.hooks.filter<'build.output.clean'>('build.output.clean'),
       filename: app.hooks.filter<'build.output.filename'>(
         'build.output.filename',
       ),
-      path: app.hooks.filter<'build.output.path'>('build.output.path'),
+      path: app.hooks.filter('build.output.path'),
       pathinfo: app.hooks.filter<'build.output.pathinfo'>(
         'build.output.pathinfo',
       ),
@@ -270,9 +269,9 @@ export async function config(app: Framework): Promise<void> {
      * build.output.assetModuleFilename
      */
     .hooks.on('build.output.assetModuleFilename', () =>
-      app.isProduction && app.store.is('features.hash', true)
-        ? `assets/${app.store.get('hashFormat')}[ext]`
-        : app.store.get('fileFormat'),
+      app.store.is('features.hash', true)
+        ? app.store.get('hashFormat').concat('[ext]')
+        : app.store.get('fileFormat').concat('[ext]'),
     )
 
     .hooks.on('build.output.clean', () =>
@@ -282,14 +281,10 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.output.filename
      */
-    .hooks.on(
-      'build.output.filename',
-      () =>
-        `${
-          app.store.is('features.hash', true) && app.isProduction
-            ? app.store.get('hashFormat')
-            : app.store.get('fileFormat')
-        }.js`,
+    .hooks.on('build.output.filename', () =>
+      app.store.is('features.hash', true)
+        ? app.store.get('hashFormat').concat('.js')
+        : app.store.get('fileFormat').concat('.js'),
     )
 
     /**
@@ -308,7 +303,7 @@ export async function config(app: Framework): Promise<void> {
      * build.output.publicPath
      */
     .hooks.on('build.output.publicPath', () =>
-      app.store.get('location.publicPath'),
+      app.store.get('build.output.publicPath'),
     )
 
     /**
@@ -415,13 +410,11 @@ export async function config(app: Framework): Promise<void> {
     /**
      * build.target
      */
-    .hooks.on<'build.target'>(
-      'build.target',
-      () =>
-        app.project.has('manifest.browserslist') &&
-          app.project.isArray('manifest.browserslist')
-            ? `browserslist:${app.path('project', 'package.json')}`
-            : undefined,
+    .hooks.on('build.target', () =>
+      app.project.has('manifest.browserslist') &&
+      app.project.isArray('manifest.browserslist')
+        ? `browserslist:${app.path('project', 'package.json')}`
+        : undefined,
     )
 
     /**
