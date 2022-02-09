@@ -1,6 +1,6 @@
 import {IncomingMessage, ServerResponse} from 'http'
 import {ValueOf} from 'type-fest'
-import {Configuration, RuleSetRule, Stats, StatsCompilation} from 'webpack'
+import {Configuration, RuleSetRule, StatsCompilation} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
 import {EntryObject} from './entry'
@@ -199,9 +199,8 @@ export namespace Hooks {
     [`event.build.make.after`]: unknown
     [`event.build.override`]: Configuration
     [`event.compiler.before`]: Array<Framework>
-    [`event.compiler.done`]: Stats
     [`event.compiler.after`]: Framework
-    [`event.compiler.stats`]: StatsCompilation
+    [`event.compiler.stats`]: Promise<StatsCompilation>
     [`event.compiler.error`]: Error
     [`event.dashboard.done`]: void
     [`event.dashboard.q`]: void

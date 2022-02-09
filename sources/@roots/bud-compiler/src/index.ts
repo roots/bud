@@ -11,4 +11,4 @@
  *  @packageDocumentation
  */
 
-export {Compiler} from './Compiler'
+export {Compiler} from './Compiler/compiler.service'
