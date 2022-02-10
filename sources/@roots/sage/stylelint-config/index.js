@@ -10,7 +10,6 @@ module.exports = {
   ],
   rules: {
     'at-rule-empty-line-before': null,
-    'custom-property-pattern': null,
     'declaration-colon-newline-after': null,
     'no-descending-specificity': null,
     'no-empty-source': null,
