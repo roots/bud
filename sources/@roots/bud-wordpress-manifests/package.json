@@ -52,7 +52,7 @@
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.22",
-    "jest": "27.5.0"
+    "jest": "27.5.1"
   },
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
