@@ -1,9 +1,10 @@
 ---
-sidebar_label: '@roots/bud-typescript'
+sidebar_label: '🟢 @roots/bud-typescript'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
 
 # @roots/bud-typescript
 
@@ -11,45 +12,7 @@ import TabItem from '@theme/TabItem'
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-typescript --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-typescript --save-dev
-
-  </TabItem>
-</Tabs>
-
-## Installing peer dependencies
-
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-typescript @roots/bud-babel" />
 
 ## Enable Typechecking
 
@@ -70,19 +33,11 @@ bud.typecheck()
 
 Beyond that, general ts configuration is handled using a standard **tsconfig.json** in your project root. See [the TypeScript docs on tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for more information.
 
-Here's a simple starter, should you need it:
+There is a base tsconfig available for you to extend:
 
 ```json
 {
-  "compilerOptions": {
-    "rootDir": "ts",
-    "outDir": "dist",
-    "target": "es2019",
-    "lib": ["es2019", "dom"],
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "strict": true,
-    "sourceMap": true
-  }
+  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
+  "compilerOptions": {}
 }
 ```

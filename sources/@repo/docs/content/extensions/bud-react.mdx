@@ -1,10 +1,11 @@
 ---
-sidebar_label: '@roots/bud-react'
+sidebar_label: '🟢 @roots/bud-react'
 description: Use React components in your Bud projects
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
 
 # @roots/bud-react
 
@@ -12,42 +13,6 @@ import TabItem from '@theme/TabItem'
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
+[@roots/bud-react](/extensions/bud-react) requires [@roots/bud-babel](/extensions/bud-babel) in order to function.
 
-    yarn add @roots/bud-react --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-react --save-dev
-
-  </TabItem>
-</Tabs>
-
-## Installing peer dependencies
-
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-react @roots/bud-babel" />

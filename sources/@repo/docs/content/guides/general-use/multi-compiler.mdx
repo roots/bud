@@ -40,10 +40,7 @@ module.exports = app =>
     )
     .make('plugin', plugin =>
       plugin
-        .use([
-          require('@roots/bud-babel'),
-          require('@roots/bud-react'),
-        ])
+        .use([require('@roots/bud-babel'), require('@roots/bud-react')])
         .setPath('dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
     )
