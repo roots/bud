@@ -240,7 +240,7 @@ export const seed: Partial<Store.Repository> = {
       removeEmptyChunks: true,
       splitChunks: {},
     },
-    parallelism: cpus().length - 1,
+    parallelism: Math.max(cpus().length - 1, 1),
     performance: {
       hints: false,
     },
