@@ -1,62 +1,30 @@
 ---
+title: '@roots/bud-preset-wordpress'
+description: 'Recommended extensions and base configuration for WordPress projects'
 sidebar_label: '@roots/bud-preset-wordpress'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-preset-wordpress.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# @roots/bud-preset-wordpress
-
 The [@roots/bud-preset-wordpress](/extensions/presets/bud-preset-wordpress) package is a great starting point for WordPress plugins & themes.
 
-If you plan on using it in a WordPress theme you should consider using [@roots/sage](https://github.com/roots/sage), which is a best-practice grade
-solution to WordPress theming. It leverages this extension internally.
+If you plan on using it in a WordPress theme you should consider using [@roots/sage](https://github.com/roots/sage).
 
-`@roots/bud-preset-wordpress` includes out-of-the-box support for:
+It's companion preset leverages this preset as its base.
 
-- Babel
-- PostCss
-- React
-- WordPress asset manifests and dependencies management
+It includes the following extensions:
+
+- [@roots/bud-babel](/extensions/bud-babel)
+- [@roots/bud-postcss](/extensions/bud-postcss)
+- [@roots/bud-react](/extensions/bud-react)
+- [@roots/bud-entrypoints](/extensions/bud-entrypoints)
+- @roots/bud-wordpress-manifests
+- @roots/bud-wordpress-externals - maps bundled packages to wordpress provided window variables in emitted files
+- @roots/bud-wordpress-dependencies – lists used packages in a wordpress specific manifests
+- @roots/bud-wordpress-manifests - merges the `@roots/bud-entrypoints` and `@roots/bud-wordpress-dependencies` manifests
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-preset-wordpress --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-preset-wordpress --save-dev
-
-  </TabItem>
-</Tabs>
-
-## Installing peer dependencies
-
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-preset-wordpress" />
