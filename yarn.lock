@@ -415,7 +415,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.10.4, @babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.16.7":
+"@babel/helper-module-imports@npm:7.16.0":
+  version: 7.16.0
+  resolution: "@babel/helper-module-imports@npm:7.16.0"
+  dependencies:
+    "@babel/types": ^7.16.0
+  checksum: 8e1eb9ac39440e52080b87c78d8d318e7c93658bdd0f3ce0019c908de88cbddafdc241f392898c0b0ba81fc52c8c6d2f9cc1b163ac5ed2a474d49b11646b7516
+  languageName: node
+  linkType: hard
+
+"@babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/helper-module-imports@npm:7.16.7"
   dependencies:
@@ -895,7 +904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:7.16.7, @babel/plugin-syntax-jsx@npm:^7.10.4, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.7":
+"@babel/plugin-syntax-jsx@npm:7.16.7, @babel/plugin-syntax-jsx@npm:^7.12.13, @babel/plugin-syntax-jsx@npm:^7.16.0, @babel/plugin-syntax-jsx@npm:^7.16.5, @babel/plugin-syntax-jsx@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/plugin-syntax-jsx@npm:7.16.7"
   dependencies:
@@ -1648,7 +1657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.11.5, @babel/types@npm:^7.12.7, @babel/types@npm:^7.15.6, @babel/types@npm:^7.16.0, @babel/types@npm:^7.16.7, @babel/types@npm:^7.16.8, @babel/types@npm:^7.17.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.12.7, @babel/types@npm:^7.15.6, @babel/types@npm:^7.16.0, @babel/types@npm:^7.16.7, @babel/types@npm:^7.16.8, @babel/types@npm:^7.17.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.17.0
   resolution: "@babel/types@npm:7.17.0"
   dependencies:
@@ -3772,20 +3781,20 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
-    "@types/lodash": 4.14.178
     "@types/node": 16.11.23
     autobind-decorator: ^2.4.0
-    jest: 27.5.1
-    stylelint: ^14.1.0
+    stylelint: ^14.5.0
     stylelint-config-standard: ^25.0.0
-    stylelint-webpack-plugin: ^3.1.0
+    stylelint-webpack-plugin: ^3.1.1
     tslib: ^2.3.1
     webpack: 5.68.0
   peerDependencies:
-    stylelint: ^14.1.0
+    stylelint: ^14.5.0
+    stylelint-config-standard: ^25.0.0
   peerDependenciesMeta:
     stylelint:
+      optional: true
+    stylelint-config-standard:
       optional: true
   languageName: unknown
   linkType: soft
@@ -5195,16 +5204,6 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019
-  languageName: node
-  linkType: hard
-
-"@types/stylelint@npm:^13.13.3":
-  version: 13.13.3
-  resolution: "@types/stylelint@npm:13.13.3"
-  dependencies:
-    globby: 11.x.x
-    postcss: 7.x.x
-  checksum: b624d01baf1434246c899891e3b26703421db71a14a9fe825a37e30e53607fbffddd6d300b9b631c4ec6666c79bce9846b8c28b89599294603e8df1269217775
   languageName: node
   linkType: hard
 
@@ -7479,15 +7478,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.30.9":
-  version: 0.30.9
-  resolution: "babel-plugin-jsx-dom-expressions@npm:0.30.9"
+"babel-plugin-jsx-dom-expressions@npm:^0.32.0":
+  version: 0.32.0
+  resolution: "babel-plugin-jsx-dom-expressions@npm:0.32.0"
   dependencies:
-    "@babel/helper-module-imports": ^7.10.4
-    "@babel/plugin-syntax-jsx": ^7.10.4
-    "@babel/types": ^7.11.5
+    "@babel/helper-module-imports": 7.16.0
+    "@babel/plugin-syntax-jsx": ^7.16.5
+    "@babel/types": ^7.16.0
     html-entities: 2.3.2
-  checksum: 537be3c6dedc24ac368c8a66ac6ee965d5d993d086b4414a97c8934ac8ca64bf1517bb9bfe5b29fb21e368dc6677cb7ff86e56ea1bdba5f30474448e8deccc4d
+  checksum: f5a972b795ce5ceab3f37c6dea38e1fceb169ef99cfb4a09c87fe7378e17efa2d2435e7adf2283bd20a7c67f5ef7006655e80f83c7ac2162dccff7fa194c398e
   languageName: node
   linkType: hard
 
@@ -7584,11 +7583,11 @@ __metadata:
   linkType: hard
 
 "babel-preset-solid@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "babel-preset-solid@npm:1.2.5"
+  version: 1.3.6
+  resolution: "babel-preset-solid@npm:1.3.6"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.30.9
-  checksum: e060d3db78df21b9559ca4ff37ea2b870e9ead3e41230c57de33ebee3f96caea1b4a344fc73bb365e17108d6450164a2296d946df882659531f0047db24aeb84
+    babel-plugin-jsx-dom-expressions: ^0.32.0
+  checksum: 9f1e27e2d40564f3323a3d8a0d850b0630f09a81bb3b99fd1470c4bc6ab0f86f636accec23d4a66ad3d2add430b72dbcfffd378e2f2d12ea15fe7ed0f1b7655f
   languageName: node
   linkType: hard
 
@@ -8590,6 +8589,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colord@npm:^2.9.2":
+  version: 2.9.2
+  resolution: "colord@npm:2.9.2"
+  checksum: 2aa6a9b3abbce74ba3c563886cfeb433ea0d7df5ad6f4a560005eddab1ddf7c0fc98f39b09b599767a19c86dd3837b77f66f036e479515d4b17347006dbd6d9f
+  languageName: node
+  linkType: hard
+
 "colorette@npm:^2.0.10, colorette@npm:^2.0.14":
   version: 2.0.16
   resolution: "colorette@npm:2.0.16"
@@ -9017,6 +9023,13 @@ __metadata:
   peerDependencies:
     postcss: ^8.0.9
   checksum: 6fdacdce48e1351a8fd73472b7dfaae573ce7d4f5bba8385afc9c765d01055920b851d288228ecb0d535d163b22f8d7941e095b9da995956cd3309e41d1bffa2
+  languageName: node
+  linkType: hard
+
+"css-functions-list@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "css-functions-list@npm:3.0.0"
+  checksum: 4499ff204b4c172300f1f452bd684b50271fc31085879a5f1515301d01596d1f803f3fdd1c58cc3b24332448519e7584f92c8f81bdd10114c37f26f0c24c61ab
   languageName: node
   linkType: hard
 
@@ -11904,7 +11917,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:11.1.0, globby@npm:11.x.x, globby@npm:^11.0.0, globby@npm:^11.0.1, globby@npm:^11.0.2, globby@npm:^11.0.3, globby@npm:^11.0.4":
+"globby@npm:11.1.0, globby@npm:^11.0.0, globby@npm:^11.0.1, globby@npm:^11.0.2, globby@npm:^11.0.3, globby@npm:^11.0.4, globby@npm:^11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
   dependencies:
@@ -12801,7 +12814,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.1.8, ignore@npm:^5.1.9, ignore@npm:^5.2.0":
+"ignore@npm:^5.1.8, ignore@npm:^5.2.0":
   version: 5.2.0
   resolution: "ignore@npm:5.2.0"
   checksum: 6b1f926792d614f64c6c83da3a1f9c83f6196c2839aa41e1e32dd7b8d174cef2e329d75caabb62cb61ce9dc432f75e67d07d122a037312db7caa73166a1bdb77
@@ -14541,10 +14554,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"known-css-properties@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "known-css-properties@npm:0.23.0"
-  checksum: 10d6400f6b411b731b9766be730ede298c7b28e94e2aaa882a014e5975da8028f3c7bab599358d4f53e1118ab33fc7e085c2b851167c698072bac917c372236f
+"known-css-properties@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "known-css-properties@npm:0.24.0"
+  checksum: 071c3a9457ed2c5c46b6172d2c7b6a253ca4aec0c5c84da06e705026c377529fc57b690957c87f9313606be63a5152dc706102c09ba36102cc484936ec2f96b9
   languageName: node
   linkType: hard
 
@@ -17154,13 +17167,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "picocolors@npm:0.2.1"
-  checksum: 3b0f441f0062def0c0f39e87b898ae7461c3a16ffc9f974f320b44c799418cabff17780ee647fda42b856a1dc45897e2c62047e1b546d94d6d5c6962f45427b2
-  languageName: node
-  linkType: hard
-
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -18177,17 +18183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:7.x.x":
-  version: 7.0.39
-  resolution: "postcss@npm:7.0.39"
-  dependencies:
-    picocolors: ^0.2.1
-    source-map: ^0.6.1
-  checksum: 4ac793f506c23259189064bdc921260d869a115a82b5e713973c5af8e94fbb5721a5cc3e1e26840500d7e1f1fa42a209747c5b1a151918a9bc11f0d7ed9048e3
-  languageName: node
-  linkType: hard
-
-"postcss@npm:8.4.6, postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.5":
+"postcss@npm:8.4.6, postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.5, postcss@npm:^8.4.6":
   version: 8.4.6
   resolution: "postcss@npm:8.4.6"
   dependencies:
@@ -20183,6 +20179,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"signal-exit@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "signal-exit@npm:3.0.7"
+  checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
+  languageName: node
+  linkType: hard
+
 "signale@npm:1.4.0, signale@npm:^1.4.0":
   version: 1.4.0
   resolution: "signale@npm:1.4.0"
@@ -20910,68 +20913,70 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-webpack-plugin@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "stylelint-webpack-plugin@npm:3.1.0"
+"stylelint-webpack-plugin@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "stylelint-webpack-plugin@npm:3.1.1"
   dependencies:
-    "@types/stylelint": ^13.13.3
     globby: ^11.0.4
     jest-worker: ^27.3.1
     micromatch: ^4.0.4
     normalize-path: ^3.0.0
-    schema-utils: ^3.1.1
+    schema-utils: ^4.0.0
   peerDependencies:
     stylelint: ^13.0.0 || ^14.0.0
     webpack: ^5.0.0
-  checksum: a0e8df3f3b0a7dd6dd3532d581ade8492095d7e70beec8c7dbbea4f056f8ebce130e093460d8eb3e04c70e13c21ca1db7224183fbc29f788dc1b087a9e312206
+  checksum: 7f479ed7f36278f6cd4a6b1dbea80c8f8eac3f57f5cb9ea2454bca5893340e4959d5d87edb3bdfcf2c15aecf3e9b524e2a18ef26d443c7fa52c4eb201c63882f
   languageName: node
   linkType: hard
 
-"stylelint@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "stylelint@npm:14.1.0"
+"stylelint@npm:^14.5.0":
+  version: 14.5.0
+  resolution: "stylelint@npm:14.5.0"
   dependencies:
     balanced-match: ^2.0.0
+    colord: ^2.9.2
     cosmiconfig: ^7.0.1
-    debug: ^4.3.2
+    css-functions-list: ^3.0.0
+    debug: ^4.3.3
     execall: ^2.0.0
-    fast-glob: ^3.2.7
+    fast-glob: ^3.2.11
     fastest-levenshtein: ^1.0.12
     file-entry-cache: ^6.0.1
     get-stdin: ^8.0.0
     global-modules: ^2.0.0
-    globby: ^11.0.4
+    globby: ^11.1.0
     globjoin: ^0.1.4
     html-tags: ^3.1.0
-    ignore: ^5.1.9
+    ignore: ^5.2.0
     import-lazy: ^4.0.0
     imurmurhash: ^0.1.4
     is-plain-object: ^5.0.0
-    known-css-properties: ^0.23.0
+    known-css-properties: ^0.24.0
     mathml-tag-names: ^2.1.3
     meow: ^9.0.0
     micromatch: ^4.0.4
     normalize-path: ^3.0.0
     normalize-selector: ^0.2.0
     picocolors: ^1.0.0
-    postcss: ^8.3.11
+    postcss: ^8.4.6
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
-    postcss-selector-parser: ^6.0.6
-    postcss-value-parser: ^4.1.0
+    postcss-selector-parser: ^6.0.9
+    postcss-value-parser: ^4.2.0
     resolve-from: ^5.0.0
     specificity: ^0.4.1
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     style-search: ^0.1.0
+    supports-hyperlinks: ^2.2.0
     svg-tags: ^1.0.0
-    table: ^6.7.3
+    table: ^6.8.0
     v8-compile-cache: ^2.3.0
-    write-file-atomic: ^3.0.3
+    write-file-atomic: ^4.0.0
   bin:
     stylelint: bin/stylelint.js
-  checksum: c7a016ce0c0737cc5fa9ab8ab025cba2e534eae4ba936fc41d90de7e13e0947b6a78d68d2644572c0f743822444a4cdc25bb2f0bf3e3f9a8993a08b209b13e1a
+  checksum: b4244701f7a276528b2e3c262406514d85a023ec623547bc762dfa1db6ab910ba867e6e012c10937e5a750e61e5f0656ec6e66ffc4a368733c2f595b0dd19702
   languageName: node
   linkType: hard
 
@@ -21096,7 +21101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"table@npm:6.8.0, table@npm:^6.7.3":
+"table@npm:6.8.0, table@npm:^6.8.0":
   version: 6.8.0
   resolution: "table@npm:6.8.0"
   dependencies:
@@ -23141,7 +23146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^3.0.0, write-file-atomic@npm:^3.0.3":
+"write-file-atomic@npm:^3.0.0":
   version: 3.0.3
   resolution: "write-file-atomic@npm:3.0.3"
   dependencies:
@@ -23150,6 +23155,16 @@ __metadata:
     signal-exit: ^3.0.2
     typedarray-to-buffer: ^3.1.5
   checksum: c55b24617cc61c3a4379f425fc62a386cc51916a9b9d993f39734d005a09d5a4bb748bc251f1304e7abd71d0a26d339996c275955f527a131b1dcded67878280
+  languageName: node
+  linkType: hard
+
+"write-file-atomic@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "write-file-atomic@npm:4.0.1"
+  dependencies:
+    imurmurhash: ^0.1.4
+    signal-exit: ^3.0.7
+  checksum: 8f780232533ca6223c63c9b9c01c4386ca8c625ebe5017a9ed17d037aec19462ae17109e0aa155bff5966ee4ae7a27b67a99f55caf3f32ffd84155e9da3929fc
   languageName: node
   linkType: hard
 
