@@ -46,7 +46,7 @@
     "@roots/ink-use-style": "workspace:sources/@roots/ink-use-style",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.22",
+    "@types/node": "16.11.23",
     "@types/react": "17.0.39",
     "axios": "0.25.0",
     "ink": "3.2.0",
