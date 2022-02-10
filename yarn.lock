@@ -2876,9 +2876,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:1.3.0":
-  version: 1.3.0
-  resolution: "@oclif/core@npm:1.3.0"
+"@oclif/core@npm:1.3.3":
+  version: 1.3.3
+  resolution: "@oclif/core@npm:1.3.3"
   dependencies:
     "@oclif/linewrap": ^1.0.0
     "@oclif/screen": ^3.0.2
@@ -2909,7 +2909,7 @@ __metadata:
     tslib: ^2.3.1
     widest-line: ^3.1.0
     wrap-ansi: ^7.0.0
-  checksum: a73ccc5c7d1a647da58f69d827bbdbf3efb8a37a489134a98d06ac1d838120944ee21baa3304ca7bf7d87fd61b1721ba930f1e310878e035323aa7dce1d2c72c
+  checksum: 12e4f7bc8a4d82db266837e5302579edc8c725cbafa1ef7c1d35e408a4540811b449d3e06235b2190d8fec16e6ecd37b765869ac2f11886320b08935781c4a05
   languageName: node
   linkType: hard
 
@@ -3994,7 +3994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
-    "@oclif/core": 1.3.0
+    "@oclif/core": 1.3.3
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache"
