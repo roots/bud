@@ -3857,7 +3857,7 @@ __metadata:
     "@types/node": 16.11.23
     "@types/tailwindcss": 3.0.7
     autoprefixer: ^10.4.0
-    tailwindcss: 3.0.19
+    tailwindcss: 3.0.21
     tslib: ^2.3.1
   peerDependencies:
     tailwindcss: ^3.0.8
@@ -8582,14 +8582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colord@npm:^2.9.1":
-  version: 2.9.1
-  resolution: "colord@npm:2.9.1"
-  checksum: c47ff86c6ffc28ac55812c64fe35563809ccf860687506e4127137dcd27595b49610b85dcf3551b39a1c19af6a1a41ed41a42043ef6e795f787f29e4e49b4014
-  languageName: node
-  linkType: hard
-
-"colord@npm:^2.9.2":
+"colord@npm:^2.9.1, colord@npm:^2.9.2":
   version: 2.9.2
   resolution: "colord@npm:2.9.2"
   checksum: 2aa6a9b3abbce74ba3c563886cfeb433ea0d7df5ad6f4a560005eddab1ddf7c0fc98f39b09b599767a19c86dd3837b77f66f036e479515d4b17347006dbd6d9f
@@ -20172,14 +20165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.5":
-  version: 3.0.6
-  resolution: "signal-exit@npm:3.0.6"
-  checksum: b819ac81ba757af559dad0804233ae31bf6f054591cd8a671e9cbcf09f21c72ec3076fe87d1e04861f5b33b47d63f0694b568de99c99cd733ee2060515beb6d5
-  languageName: node
-  linkType: hard
-
-"signal-exit@npm:^3.0.7":
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.5, signal-exit@npm:^3.0.7":
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
@@ -21114,9 +21100,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.19":
-  version: 3.0.19
-  resolution: "tailwindcss@npm:3.0.19"
+"tailwindcss@npm:3.0.21":
+  version: 3.0.21
+  resolution: "tailwindcss@npm:3.0.21"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -21144,7 +21130,7 @@ __metadata:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: dbaf8a0c5ee07ee6ab7f460b1068e1bcb230f1a67458be767519a8d248b94846e4903fb43849e49b045be1e7a4503b5921f6179db47ca733b7c37a3ed953c5fa
+  checksum: 5ee9bd7bfc746a929ec9d6fe4bd3be0d9e7b2cebf5f1047aab58795773d9c456dd1b7dbedb6b59d58a5c36605445f97626e9132c420394b73f006bbbd2c3e759
   languageName: node
   linkType: hard
 
