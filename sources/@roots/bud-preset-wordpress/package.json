@@ -75,7 +75,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "@wordpress/browserslist-config": "4.1.0",
+    "@wordpress/browserslist-config": "4.1.1",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
