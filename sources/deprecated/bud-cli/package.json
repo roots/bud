@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.26.10",
-    "@oclif/test": "2.0.3",
+    "@oclif/test": "2.1.0",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/eslint": "8.4.1",
     "@types/lodash": "4.14.178",
