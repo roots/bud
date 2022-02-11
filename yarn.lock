@@ -3545,7 +3545,6 @@ __metadata:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
@@ -4172,6 +4171,7 @@ __metadata:
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"

@@ -47,7 +47,6 @@
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
-      "@roots/bud-eslint",
       "@roots/bud-postcss",
       "@roots/bud-preset-recommend",
       "@roots/bud-react",
