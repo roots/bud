@@ -58,7 +58,7 @@ module.exports = bud =>
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
     })
-    .assets(['images'])
+    .assets('images')
     .template()
 ```
 
@@ -74,7 +74,7 @@ module.exports = bud =>
       main: ['index.js', 'index.css'],
       landing: 'landing.js',
     })
-    .assets(['images/**/*.{png,gif,jpg}'])
+    .assets('images/**/*')
     .template()
 ```
 

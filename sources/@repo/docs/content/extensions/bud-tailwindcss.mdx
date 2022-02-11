@@ -1,52 +1,17 @@
 ---
-sidebar_label: '@roots/bud-tailwindcss'
+sidebar_label: '🟢 @roots/bud-tailwindcss'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
 
 # @roots/bud-tailwindcss
 
-[TailwindCSS](https://tailwindcss.org) support can be added by installing the **@roots/bud-tailwindcss** extension.
+[TailwindCSS](https://tailwindcss.org) support can be added by installing the [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension.
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
+[@roots/bud-tailwindcss](/extensions/bud-tailwindcss) requires [@roots/bud-postcss](/extensions/bud-postcss) in order to function.
 
-    yarn add @roots/bud-tailwindcss --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-tailwindcss --save-dev
-
-  </TabItem>
-</Tabs>
-
-## Installing peer dependencies
-
-After installing the main package, run the `bud init` command to install required peer dependencies:
-
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn bud init
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm run bud init
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-tailwindcss @roots/bud-postcss" />

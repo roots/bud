@@ -1,11 +1,13 @@
 ---
-sidebar_label: '@roots/bud-imagemin'
+title: '@roots/bud-imagemin'
+description: 'Image minification for bud.js projects'
+sidebar_label: '🟡 @roots/bud-imagemin'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-imagemin.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-
-# @roots/bud-imagemin
+import {Install} from '@site/src/docs/Install'
 
 [@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
 
@@ -14,28 +16,11 @@ lossless or lossy compression.
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-imagemin --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-imagemin --save-dev
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-imagemin" />
 
 ## Configuration
 
-Without any configuration, the image minimizer extension will compress nearly all
-image asset types and compress them very well.
+Without any configuration, the image minimizer extension will compress many image asset types and compress them very well.
 
 To compress assets losslessly:
 
@@ -52,7 +37,7 @@ bud.imagemin('lossy')
 ### Custom config
 
 To provide your own configuration options you can pass a callback which
-will receive and should return the options.
+will receive and should return the `web`.
 
 ```ts
 bud.imagemin(options => ({
@@ -60,3 +45,5 @@ bud.imagemin(options => ({
   // ...override
 }))
 ```
+
+You could use this function to provide your own `implementation` if you would prefer to use something other than squoosh.

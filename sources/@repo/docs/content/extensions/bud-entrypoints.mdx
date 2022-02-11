@@ -1,59 +1,36 @@
 ---
-sidebar_label: '@roots/bud-entrypoints'
+title: '@roots/bud-entrypoints'
+description: 'Manifest with assets grouped by entrypoint and filetype'
+sidebar_label: '🟢 @roots/bud-entrypoints'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-entrypoints.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# @roots/bud-entrypoints
+import {Install} from '@site/src/docs/Install'
 
 **@roots/bud-entrypoints** generates an enhanced asset manifest for usage in server-powered applications like **Laravel** and **WordPress**.
 
 ## Installation
 
-<Tabs
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
-
-    yarn add @roots/bud-entrypoints --dev
-
-  </TabItem>
-  <TabItem value="npm">
-
-    npm install @roots/bud-entrypoints --save-dev
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-entrypoints" />
 
 ## Example output
 
-Assets are broken down by entrypoint and then filetype. If a runtime is being generated it should always be the first item in the `js` array.
+Assets are broken down by entrypoint and then filetype.
+
+If a runtime is being generated it should always be the first item in the `js` array.
 
 ```json
 {
-  "app": {
-    "js": [
-      "/app/themes/sage/public/runtime.275c0c.js",
-      "/app/themes/sage/public/app.c28c5f.js"
-    ],
-    "css": ["/app/themes/sage/public/app.fefc38.css"]
+  "entrypoint-a": {
+    "js": ["runtime.js", "entrypoint-a.js"],
+    "css": ["entrypoint-a.css"]
   },
-  "editor": {
-    "js": [
-      "/app/themes/sage/public/runtime.275c0c.js",
-      "/app/themes/sage/public/editor.b8360e.js"
-    ],
-    "css": ["/app/themes/sage/public/editor.a67373.css"]
-  },
-  "customizer": {
-    "js": [
-      "/app/themes/sage/public/runtime.275c0c.js",
-      "/app/themes/sage/public/customizer.a6ba2e.js"
-    ]
+  "entrypoint-b": {
+    "js": ["runtime.js", "entrypoint-b.js"],
+    "css": ["entrypoint-b.css"]
   }
 }
 ```
