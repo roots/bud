@@ -364,7 +364,7 @@ export async function config(app: Framework): Promise<void> {
     .hooks.async<'build.resolve.modules'>(
       'build.resolve.modules',
       async (value?: any): Promise<any> => {
-        const budPkg = await pkgUp({
+        const budPkg = await pkgUp.pkgUp({
           cwd: require.resolve('@roots/bud'),
         })
 

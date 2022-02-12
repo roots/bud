@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
-import execa = require('execa')
+import {bind, execa} from '@roots/bud-support'
 import {readFile} from 'fs-extra'
-import {bind} from 'helpful-decorators'
 import * as json5 from 'json5'
-import { join } from 'path'
+import {join} from 'path'
 
 interface Options {
   name: string

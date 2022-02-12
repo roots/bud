@@ -255,7 +255,7 @@ export class Project
     ]
 
     const findConfig = async function ({key, searchStrings}) {
-      const search = await globby(searchStrings, {
+      const search = await globby.globby(searchStrings, {
         cwd: this.app.path('project'),
       })
 

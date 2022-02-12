@@ -1,9 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import type {EntryObject} from '@roots/bud-framework/types/entry'
-import {chalk} from '@roots/bud-support'
-import type {GlobTask} from 'globby'
 
-import {globby, isArray, isString} from './entry.dependencies'
+import {chalk, globby, isArray, isString} from './entry.dependencies'
 
 export {EntryObject}
 
@@ -11,13 +9,18 @@ export {EntryObject}
  * Entry assets expressed as a key-value mapping
  */
 export interface EntryInput {
-  [k: string]: EntryObject | EntryObject['import'] | GlobTask['pattern']
+  [k: string]:
+    | EntryObject
+    | EntryObject['import']
+    | globby.GlobTask['patterns']
 }
 
 /**
  * An entry asset or an array of entry assets expressed with fast-glob syntax.
  */
-export type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>
+export type EntryValue =
+  | globby.GlobTask['patterns']
+  | Array<globby.GlobTask['patterns']>
 
 export interface entry {
   (name: string, entrypoint: EntryValue): Promise<Framework>
@@ -148,7 +151,7 @@ export async function getAssets(
   this.info({message: 'glob directory', suffix: globDir})
 
   try {
-    const results = await globby(imports, {
+    const results = await globby.globby(imports, {
       cwd: this.path('src'),
     })
 

@@ -1,13 +1,10 @@
-/* eslint-disable tsdoc/syntax */
-const globby = require('globby')
+const REPO_PATH = __dirname.split('/sources/').shift()
+const {
+  globby,
+} = require(`${REPO_PATH}/sources/@roots/bud-support/lib/cjs/index.js`)
 
-/**
- * Map module names to their respective paths.
- *
- * @returns {Promise<InitialOptionsTsJest['moduleNameMapper']>} - The jest module name mapper.
- */
 module.exports = async () => {
-  const packages = await globby('sources/@roots/*', {
+  const packages = await globby.globby('sources/@roots/*', {
     onlyDirectories: true,
   })
 
@@ -18,6 +15,7 @@ module.exports = async () => {
         ...mapping,
         [`^${pkg}$`]: `<rootDir>/sources/${pkg}/src/index`,
         [`^${pkg}/(.*)$`]: `<rootDir>/sources/${pkg}/$1`,
+        '@roots/bud-support': `<rootDir>/sources/@roots/bud-support/lib/cjs/index`,
       }),
       {},
     )

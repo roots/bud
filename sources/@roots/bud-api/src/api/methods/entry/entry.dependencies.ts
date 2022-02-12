@@ -1,4 +1,4 @@
-import {globby, lodash} from '@roots/bud-support'
+import {chalk, globby, lodash} from '@roots/bud-support'
 
-export {globby}
+export {chalk, globby}
 export const {isArray, isString} = lodash
