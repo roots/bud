@@ -1,3 +1,3 @@
-import pkgUp from 'pkg-up'
+import * as pkgUp from 'pkg-up'
 
 export {pkgUp}
