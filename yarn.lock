@@ -3725,7 +3725,7 @@ __metadata:
     "@types/lodash": 4.14.178
     "@types/node": 16.11.24
     "@types/webpack-dev-middleware": 5.0.2
-    "@types/webpack-hot-middleware": 2.25.5
+    "@types/webpack-hot-middleware": 2.25.6
     chokidar: ^3.5.2
     express: ^4.17.1
     globby: ^11.0.0
@@ -5193,13 +5193,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-list-map@npm:*":
-  version: 0.1.2
-  resolution: "@types/source-list-map@npm:0.1.2"
-  checksum: fda8f37537aca9d3ed860d559289ab1dddb6897e642e6f53e909bbd18a7ac3129a8faa2a7d093847c91346cf09c86ef36e350c715406fba1f2271759b449adf6
-  languageName: node
-  linkType: hard
-
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
@@ -5223,13 +5216,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tapable@npm:^1":
-  version: 1.0.8
-  resolution: "@types/tapable@npm:1.0.8"
-  checksum: b4b754dd0822c407b8f29ef6b766490721c276880f9e976d92ee2b3ef915f11a05a2442ae36c8978bcd872ad6bc833b0a2c4d267f2d611590668a366bad50652
-  languageName: node
-  linkType: hard
-
 "@types/tinycolor2@npm:^1.4.0":
   version: 1.4.3
   resolution: "@types/tinycolor2@npm:1.4.3"
@@ -5241,15 +5227,6 @@ __metadata:
   version: 1.0.0
   resolution: "@types/treeify@npm:1.0.0"
   checksum: 1b2397030d13beee7f82b878ca80feeddb0d550a6b00d8be30082a370c0ac5985ecf7b9378cf93ea278ff00c3e900b416ae8d9379f2c7e8caecdece1dfc77380
-  languageName: node
-  linkType: hard
-
-"@types/uglify-js@npm:*":
-  version: 3.13.1
-  resolution: "@types/uglify-js@npm:3.13.1"
-  dependencies:
-    source-map: ^0.6.1
-  checksum: def36fd2c698a33d8f67f5e21aab926eb9bda2d7951eab544941e1feb1231f020ff1c210d840dcc0fc9f07b5d22ef8b566887ddec9753b8b9f7223cceaa70993
   languageName: node
   linkType: hard
 
@@ -5281,38 +5258,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-hot-middleware@npm:2.25.5":
-  version: 2.25.5
-  resolution: "@types/webpack-hot-middleware@npm:2.25.5"
+"@types/webpack-hot-middleware@npm:2.25.6":
+  version: 2.25.6
+  resolution: "@types/webpack-hot-middleware@npm:2.25.6"
   dependencies:
     "@types/connect": "*"
-    "@types/webpack": ^4
-  checksum: 3c125953fa1634a138eb2e535bafcc091e60c9207433809227a02036d851edde526ba623c01efef92f4eea4fbb8002c2feab98b41ea3e3cd3fc7da98bd2cc2d2
-  languageName: node
-  linkType: hard
-
-"@types/webpack-sources@npm:*":
-  version: 3.2.0
-  resolution: "@types/webpack-sources@npm:3.2.0"
-  dependencies:
-    "@types/node": "*"
-    "@types/source-list-map": "*"
-    source-map: ^0.7.3
-  checksum: fa23dcfb99f79cc0ba8e6ca41cb8dedb406f8d7772e8e3d3d9b443bfb36557a1a78f4de2b97905554db98beee1a2ef6f930e188977adde6452392a64dd4b7c2a
-  languageName: node
-  linkType: hard
-
-"@types/webpack@npm:^4":
-  version: 4.41.31
-  resolution: "@types/webpack@npm:4.41.31"
-  dependencies:
-    "@types/node": "*"
-    "@types/tapable": ^1
-    "@types/uglify-js": "*"
-    "@types/webpack-sources": "*"
-    anymatch: ^3.0.0
-    source-map: ^0.6.0
-  checksum: 8aa4b4ad68bb7a6ee5bd027005014e6242434162ed4c14cd251713ad6041e42bf7629fc56a5edc5a2124b49cc0dce273d6ee3386fae9a9cfe02e1f7e82087ea2
+    tapable: ^2.2.0
+    webpack: ^5
+  checksum: e3da40b5a80333ae1ce463d5fc283c79413332a5a7331674b6cf48b1e4138d93f4c8143532a2d374fd474044ad67413d735da4e3b145c056ca9713a2be302ed1
   languageName: node
   linkType: hard
 
@@ -6994,7 +6947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"anymatch@npm:^3.0.0, anymatch@npm:^3.0.3, anymatch@npm:~3.1.2":
+"anymatch@npm:^3.0.3, anymatch@npm:~3.1.2":
   version: 3.1.2
   resolution: "anymatch@npm:3.1.2"
   dependencies:
@@ -22930,7 +22883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.68.0, webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
+"webpack@npm:5.68.0, webpack@npm:^5, webpack@npm:^5.1.1, webpack@npm:^5.38.1, webpack@npm:^5.61.0, webpack@npm:^5.64.2":
   version: 5.68.0
   resolution: "webpack@npm:5.68.0"
   dependencies:
