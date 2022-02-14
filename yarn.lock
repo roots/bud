@@ -3181,7 +3181,7 @@ __metadata:
     "@types/lodash": 4.14.178
     "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.11.24
-    "@types/svgo": 2.6.1
+    "@types/svgo": 2.6.2
     autobind-decorator: ^2.4.0
     css-loader: ^6.5.1
     csv-loader: ^3.0.3
@@ -5207,12 +5207,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/svgo@npm:2.6.1":
-  version: 2.6.1
-  resolution: "@types/svgo@npm:2.6.1"
+"@types/svgo@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@types/svgo@npm:2.6.2"
   dependencies:
     "@types/node": "*"
-  checksum: 1858f44bb35250efa28be76f3e23d33e68bb4abee5edfd2e495ba80be8ba90ddaedbf28efeb712518d464215680cbcf19d11bf471ec293c78d6ae3304374ed3a
+  checksum: e1eb4be176f83510a88e5688309713be0ef89c7e99cf6b451799a19467535501f159bbd35eba731be150dbbea42c67e0b52315c38434bc063a645324a90e8438
   languageName: node
   linkType: hard
 
