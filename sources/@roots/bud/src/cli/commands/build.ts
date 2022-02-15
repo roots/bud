@@ -1,4 +1,4 @@
-import {bind} from '@roots/bud-support'
+import {bind, lodash as _} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
 import * as t from 'typanion'
 
@@ -115,6 +115,13 @@ export class BuildCommand extends Command {
   })
 
   /**
+   * --dashboard
+   */
+  public dashboard = Option.Boolean(`--dashboard`, undefined, {
+    hidden: true,
+  })
+
+  /**
    * --hash
    */
   public hash = Option.Boolean(`--clean`, seed.features.hash, {
@@ -138,21 +145,25 @@ export class BuildCommand extends Command {
   /**
    * --project
    */
-  public project = Option.String(`--project`, seed.location.project, {
-    description: 'Project directory',
-  })
+  public project = Option.String(
+    `--project --cwd`,
+    seed.location.project,
+    {
+      description: 'Project directory',
+    },
+  )
 
   /**
    * --src
    */
-  public src = Option.String(`--source`, seed.location.src, {
+  public src = Option.String(`--source --src --input`, seed.location.src, {
     description: 'Source directory (relative to project)',
   })
 
   /**
    * --dist
    */
-  public dist = Option.String(`--dist`, seed.location.dist, {
+  public dist = Option.String(`--dist --output`, seed.location.dist, {
     description: 'Distribution directory (relative to project)',
   })
 
@@ -201,7 +212,7 @@ export class BuildCommand extends Command {
    * --splitChunks
    */
   public splitChunks = Option.Boolean(
-    `--splitChunks`,
+    `--splitChunks --vendor`,
     seed.features.splitChunks,
     {
       description: 'Separate vendor bundle',
@@ -258,6 +269,11 @@ export class BuildCommand extends Command {
    * Execute command
    */
   public async execute() {
+    if (!_.isUndefined(this.dashboard))
+      process.stdout.write(
+        `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
+      )
+
     this.app = await factory({config: this.config()})
 
     await this.make()

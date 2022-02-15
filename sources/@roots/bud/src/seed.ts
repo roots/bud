@@ -89,7 +89,7 @@ export const seed: Partial<Store.Repository> = {
      *
      * @public
      */
-    log: true,
+    log: false,
 
     /**
      * Emit a manifest.json with references to emitted assets
