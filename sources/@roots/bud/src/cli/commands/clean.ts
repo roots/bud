@@ -13,11 +13,6 @@ export class CleanCommand extends BuildCommand {
   public static usage = Command.Usage({
     category: `Clean`,
     description: `Clean project artifacts and caches`,
-    details: `
-      A longer description of the command with some \`markdown code\`.
-      
-      Multiple paragraphs are allowed. Clipanion will take care of both reindenting the content and wrapping the paragraphs as needed.
-    `,
     examples: [[`Clean artifacts/caches`, `$0 clean`]],
   })
 

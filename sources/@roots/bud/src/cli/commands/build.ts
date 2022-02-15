@@ -68,11 +68,6 @@ export class BuildCommand extends Command {
   public static usage = Command.Usage({
     category: `Compile`,
     description: `Compile source assets`,
-    details: `
-      A longer description of the command with some \`markdown code\`.
-      
-      Multiple paragraphs are allowed. Clipanion will take care of both reindenting the content and wrapping the paragraphs as needed.
-    `,
     examples: [
       [`Compile source`, `$0 build`],
       [

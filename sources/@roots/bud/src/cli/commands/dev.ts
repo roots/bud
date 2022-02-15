@@ -11,11 +11,6 @@ export class DevCommand extends BuildCommand {
   public static usage = Command.Usage({
     category: `Compile`,
     description: `Compile and serve source assets`,
-    details: `
-      A longer description of the command with some \`markdown code\`.
-      
-      Multiple paragraphs are allowed. Clipanion will take care of both reindenting the content and wrapping the paragraphs as needed.
-    `,
     examples: [
       [`Start dev server and compile assets in dev mode`, `$0 dev`],
       [
