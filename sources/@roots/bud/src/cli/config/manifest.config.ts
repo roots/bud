@@ -1,7 +1,8 @@
-import {Signale} from '@roots/bud-support'
+import {lodash, Signale} from '@roots/bud-support'
 
-import {Bud} from '../../..'
-import {isFunction} from '../../cli.dependencies'
+import {Bud} from '../../Bud/index.js'
+
+const {isFunction} = lodash
 
 /**
  * @internal

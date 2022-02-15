@@ -1,5 +1,23 @@
 #!/usr/bin/env node
+// @ts-check
 
-const {run, flush, Errors} = require('@oclif/core')
+const [node, app, ...args] = process.argv;
 
-run().then(flush).catch(Errors.handle)
+(async () => {
+  const {Cli} = await import('clipanion');
+  const {BuildCommand, CleanCommand, DevCommand, DoctorCommand} = await import('../lib/cjs/cli/index.js');
+  
+  const cli = new Cli({
+    binaryLabel: `bud`,
+    binaryName: `bud`,
+    binaryVersion: `1.0.0`,
+    enableColors: true,
+  })
+
+  cli.register(BuildCommand);
+  cli.register(CleanCommand);
+  cli.register(DevCommand);
+  cli.register(DoctorCommand);
+  
+  cli.runExit(args);
+})();

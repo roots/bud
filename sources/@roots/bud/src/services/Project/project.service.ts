@@ -60,8 +60,7 @@ export class Project
     const setLocale = key =>
       this.app.store.set(
         `location.${key}`,
-        this.app.options.config.cli.flags[`location.${key}`] ??
-          this.get(`manifest.${this.app.name}.location.${key}`) ??
+        this.get(`manifest.${this.app.name}.location.${key}`) ??
           this.app.options.config.location[key],
       )
 
