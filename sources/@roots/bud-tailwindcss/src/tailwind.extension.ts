@@ -31,7 +31,7 @@ const getVerifiedUserConfigPath = async function (
 
     return configPath
   } catch (e) {
-    this.error({
+    this.warn({
       message: '@roots/bud-tailwindcss failed to load user config',
     })
     return null
@@ -102,7 +102,7 @@ export const BudTailwindCssExtension: BudTailwindCssExtension = {
 
       log.success('postcss has been configured for tailwindcss')
     } catch (e) {
-      log.error({message: e})
+      log.warn({message: e})
     }
   },
 }
