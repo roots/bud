@@ -124,14 +124,14 @@ export class BuildCommand extends Command {
   /**
    * --hash
    */
-  public hash = Option.Boolean(`--clean`, seed.features.hash, {
+  public hash = Option.Boolean(`--hash`, seed.features.hash, {
     description: 'Hash compiled files',
   })
 
   /**
    * --html
    */
-  public html = Option.Boolean(`--html`, seed.features.hash, {
+  public html = Option.Boolean(`--html`, seed.features.html, {
     description: 'Generate an html template',
   })
 
@@ -182,6 +182,23 @@ export class BuildCommand extends Command {
   })
 
   /**
+   * --log.level
+   */
+  public logLevel = Option.String(
+    `--log.level --logLevel`,
+    seed.log.level,
+    {
+      description: 'Set logging level',
+      validator: t.isOneOf([
+        t.isLiteral('v'),
+        t.isLiteral('vv'),
+        t.isLiteral('vvv'),
+        t.isLiteral('vvvv'),
+      ]),
+    },
+  )
+
+  /**
    * --manifest
    */
   public manifest = Option.Boolean(`--manifest`, seed.features.manifest, {
@@ -192,7 +209,7 @@ export class BuildCommand extends Command {
    * --minimize
    */
   public minimize = Option.Boolean(
-    `--minimize`,
+    `--minimize --minify --min`,
     seed.build.optimization.enable,
     {
       description: 'Minimize compiled assets',
