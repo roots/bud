@@ -33,9 +33,13 @@
     "node": ">=14"
   },
   "files": [
-    "lib/",
-    "types/",
-    "eslint-config/"
+    "babel.js",
+    "defaults.js",
+    "react.js",
+    "recommended.js",
+    "sage.js",
+    "typescript.js",
+    "wordpress.js"
   ],
   "main": "./lib.js",
   "module": "./lib.js",
