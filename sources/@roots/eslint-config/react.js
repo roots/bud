@@ -4,8 +4,8 @@
  * @public
  */
 module.exports = {
-  extends: ['plugin:react/recommended'],
-  plugins: ['react-hooks', 'jsx-a11y'],
+  extends: ['./defaults', 'plugin:react/recommended'],
+  plugins: ['import', 'react', 'react-hooks', 'jsx-a11y'],
   settings: {
     react: {
       version: 'detect',

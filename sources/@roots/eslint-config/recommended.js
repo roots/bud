@@ -1,10 +1,10 @@
 /**
- * Sage default eslint config
+ * Recommended preset default eslint config
  *
  * @public
  */
 module.exports = {
-  extends: ['../wordpress'],
+  extends: ['./defaults'],
   rules: {
     'no-console': 0,
     'comma-dangle': [

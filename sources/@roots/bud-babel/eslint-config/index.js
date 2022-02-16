@@ -4,17 +4,14 @@
  * @public
  */
 module.exports = {
+  extends: [require.resolve('@roots/bud-eslint/eslint-config')],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-      globalReturn: true,
-      generators: false,
-      impliedStrict: true,
+      globalReturn: false,
       jsx: true,
-      objectLiteralDuplicateProperties: false,
     },
-    ecmaVersion: 2017,
+    ecmaVersion: 2020,
     requireConfigFile: false,
     sourceType: 'module',
   },

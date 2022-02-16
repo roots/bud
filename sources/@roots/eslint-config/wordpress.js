@@ -4,7 +4,9 @@
  * @public
  */
 module.exports = {
-  extends: ['../react'],
-  env: {jquery: true},
+  extends: ['./react'],
+  env: {
+    jquery: true,
+  },
   globals: {wp: true},
 }
