@@ -41,8 +41,9 @@
     "typescript.js",
     "wordpress.js"
   ],
-  "main": "./lib.js",
-  "module": "./lib.js",
+  "main": "./defaults.js",
+  "module": "./defaults.js",
+  "types": "./types.d.ts",
   "exports": {
     ".": "./defaults.js",
     "./defaults": "./defaults.js",
