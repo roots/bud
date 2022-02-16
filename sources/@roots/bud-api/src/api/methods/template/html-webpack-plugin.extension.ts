@@ -21,7 +21,7 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
   make: (options, app) =>
     new HtmlWebpackPlugin({
       ...options.all(),
-      publicPath: app.hooks.filter('build.output.publicPath'),
+      publicPath: app.publicPath(),
     }),
 
   when: ({store}) => store.is('features.html', true),

@@ -109,29 +109,17 @@ export async function makeEntrypoints(
     }
   }
 
-  const hook = async (
-    entries: Record<
-      string,
-      {
-        import?: string[]
-        dependOn?: string[]
-      }
-    >,
-  ) => {
-    const current = await entries
-
-    const newItems = await Object.entries(entry).reduce(
+  this.hooks.async('build.entry', async entries => {
+    const addition = await Object.entries(entry).reduce(
       reducer,
-      Promise.resolve(current ?? {}),
+      entries ?? {},
     )
 
     return {
-      ...(current ?? {}),
-      ...newItems,
+      ...(entries ?? {}),
+      ...addition,
     }
-  }
-
-  this.hooks.async<'build.entry'>('build.entry', hook)
+  })
 
   return this
 }

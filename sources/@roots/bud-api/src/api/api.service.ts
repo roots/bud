@@ -56,14 +56,11 @@ export class Api extends Framework.Service implements Framework.Api {
   public async registered() {
     await this.processQueue()
 
-    this.app.hooks.async<'event.build.make.before'>(
-      'event.build.make.before',
-      async app => {
-        await this.processQueue()
-        this.dump()
-        return app
-      },
-    )
+    this.app.hooks.async('event.build.make.before', async app => {
+      await this.processQueue()
+      this.dump()
+      return app
+    })
   }
 
   /**
