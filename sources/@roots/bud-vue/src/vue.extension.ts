@@ -22,23 +22,20 @@ export const VueExtension: Extension.Module = {
       make: () => new VueLoaderPlugin(),
     })
 
-    hooks.on<'build.module.rules.before'>(
-      'build.module.rules.before',
-      rules => [
-        {
-          test: store.get('patterns.vue'),
-          use: [{loader: require.resolve('vue-loader')}],
-        },
-        ...(rules ?? []),
-      ],
-    )
+    hooks.on('build.module.rules.before', rules => [
+      {
+        test: store.get('patterns.vue'),
+        use: [{loader: require.resolve('vue-loader')}],
+      },
+      ...(rules ?? []),
+    ])
 
-    hooks.on<'build.resolve.alias'>('build.resolve.alias', aliases => ({
+    hooks.on('build.resolve.alias', aliases => ({
       ...(aliases ?? {}),
       vue: '@vue/runtime-dom',
     }))
 
-    hooks.on<'build.resolve.extensions'>(
+    hooks.on(
       'build.resolve.extensions',
       (extensions: Configuration['resolve']['extensions']) => [
         ...extensions,
