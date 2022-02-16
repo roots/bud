@@ -1,72 +1,52 @@
-/* eslint-disable no-console */
-import {bind, Signale} from '@roots/bud-support'
-import Webpack from 'webpack'
+import {bind} from '@roots/bud-support'
+import {Command} from 'clipanion'
 import webpackcli from 'webpack-cli'
 
-import {Command} from '../Command/index.js'
+import {factory} from '../../factory/index.js'
+import {BuildCommand} from './build.js'
 
 /**
  * @internal
  */
-export default class Doctor extends Command {
-  /**
-   * @internal
-   */
-  public static id = 'doctor'
+export class DoctorCommand extends BuildCommand {
+  public webpack: {validate: (conf: any) => any}
+  public webpackCLI: webpackcli
 
-  /**
-   * @internal
-   */
-  public static description = 'diagnose issues'
+  public static paths = [[`doctor`]]
 
-  /**
-   * @internal
-   */
-  public static examples = [`$ bud doctor`]
+  public static usage = Command.Usage({
+    category: `Doctor`,
+    description: `Doctor source assets`,
+    examples: [
+      [`Check bud compiled configuration against webpack`, `$0 doctor`],
+    ],
+  })
 
-  /**
-   * @internal
-   */
-  public conf: Array<Webpack.Configuration>
+  public async execute() {
+    this.webpackCLI = new webpackcli()
+    this.webpack = await this.webpackCLI.loadWebpack()
+    this.app = await factory({config: this.config()})
 
-  /**
-   * @internal
-   */
-  public async run(): Promise<void> {
-    await this.prime(Doctor)
-
-    this.logger = new Signale({scope: 'doctor'})
+    await this.make()
 
     await this.checkConfiguration()
   }
 
-  /**
-   * @param logger - logger instance
-   *
-   * @internal
-   * @decorator `@bind`
-   */
   @bind
   public async checkConfiguration() {
     try {
-      /* Instantiate webpack-cli */
-      const cli = new webpackcli()
-      const webpack = await cli.loadWebpack()
+      const conf = await this.app.compiler.before()
 
-      /* Build webpack configuration */
-      await this.build()
-      this.conf = await this.app.compiler.before()
-
-      if (!this.conf) {
+      if (!conf) {
         throw new Error('config not returned from bud compiler.')
       }
 
-      if (!Array.isArray(this.conf)) {
+      if (!Array.isArray(conf)) {
         this.logger.info('the bud compiler should always return an array.')
         throw new Error('compiler did not return an array')
       }
 
-      webpack.validate(this.conf)
+      this.webpack.validate(conf)
       this.logger.success(`webpack configuration is valid`)
     } catch (error) {
       this.logger.error(error)

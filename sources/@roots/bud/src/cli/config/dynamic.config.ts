@@ -1,6 +1,6 @@
 import {chalk, lodash, Signale} from '@roots/bud-support'
 
-import {Bud} from '../../..'
+import {Bud} from '../../Bud/index.js'
 
 const {isFunction} = lodash
 
