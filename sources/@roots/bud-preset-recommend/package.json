@@ -54,21 +54,19 @@
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
-      "@roots/bud-eslint",
       "@roots/bud-postcss"
     ]
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19"
+    "@types/node": "16.11.25"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.3.1"
   }

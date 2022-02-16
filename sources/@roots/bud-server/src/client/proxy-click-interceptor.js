@@ -22,10 +22,10 @@
     )
 
     document.addEventListener('click', event => {
-      if (!(event.target instanceof HTMLAnchorElement)) return
-
+      // @ts-ignore
       const el = event.target.closest('a')
       const href = el?.getAttribute('href')
+
       if (!href || href.includes(origin.dev)) return
 
       Object.assign(el, {

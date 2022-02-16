@@ -100,9 +100,9 @@ body:
     attributes:
       label: Logs
       description: |
-        Copy/paste any logging output. If applicable, run the command with `--no-dashboard` and `--log.level vvvv` flags for better reporting.
+        Copy/paste any logging output. If applicable, run the command with `--log` flag.
         Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary
-      render: shell
+      render: zsh
     validations:
       required: false
 
@@ -113,7 +113,7 @@ body:
       description: |
         Please attach your bud configuration file(s).
         Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
-      render: shell
+      render: zsh
     validations:
       required: false
 

@@ -1,0 +1,30 @@
+---
+title: '@roots/bud-esbuild'
+description: 'esbuild support for bud.js projects'
+sidebar_label: '🔴 @roots/bud-esbuild'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-esbuild.png'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import {Install} from '@site/src/docs/Install'
+
+:::warning
+
+This extension is experimental and does not yet feature support for hot module reloading.
+
+:::
+
+[Esbuild](https://esbuild.github.io) support can be added by installing the **@roots/bud-esbuild** extension.
+
+## Installation
+
+<Install packages="@roots/bud-esbuild" />
+
+## Configuration
+
+Set options:
+
+```js
+bud.esbuild.setOptions({target: 'es2020'})
+```

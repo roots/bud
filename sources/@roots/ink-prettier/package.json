@@ -46,11 +46,11 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "@types/prettier": "2.4.3",
-    "@types/react": "17.0.38"
+    "@types/node": "16.11.25",
+    "@types/prettier": "2.4.4",
+    "@types/react": "17.0.39"
   },
   "peerDependencies": {
     "ink": "^3.0.9",

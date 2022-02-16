@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.publicPath', function () {
   let bud: Bud
@@ -13,7 +13,7 @@ describe('bud.publicPath', function () {
   })
 
   it('publicPath: returns the correct default publicPath', () => {
-    expect(bud.publicPath()).toEqual('')
+    expect(bud.publicPath()).toEqual('auto')
     expect(bud.publicPath()).toEqual(bud.build.config.output.publicPath)
   })
 

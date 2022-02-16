@@ -2,7 +2,7 @@ import * as postcss from '@roots/bud-postcss'
 import * as extension from '@roots/bud-purgecss'
 import {purgecss} from '@roots/bud-purgecss/src/bud.purge'
 
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-purgecss', () => {
   test.todo('test @roots/bud-purgecss')

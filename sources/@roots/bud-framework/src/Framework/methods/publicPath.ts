@@ -21,7 +21,5 @@ export const publicPath: publicPath =
         'build.output.publicPath',
       )
 
-    ctx.api.log('log', {message: 'publicPath', suffix: value})
-
     return value
   }

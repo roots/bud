@@ -1,5 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
+  "description": "Webpack plugin to merge roots manifests.",
   "version": "5.1.0",
   "repository": {
     "type": "git",
@@ -43,12 +44,12 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "@types/prettier": "2.4.3",
-    "webpack": "5.65.0"
+    "@types/node": "16.11.25",
+    "@types/prettier": "2.4.4",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "fs-extra": "^10.0.0",

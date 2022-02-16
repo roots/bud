@@ -1,0 +1,4 @@
+[build]
+  base = "./"
+  publish = "sources/@repo/docs/build/"
+  command = "yarn docusaurus build"

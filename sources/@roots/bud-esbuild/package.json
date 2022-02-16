@@ -52,15 +52,15 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "webpack": "5.65.0"
+    "@types/node": "16.11.25",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
-    "esbuild-loader": "2.16.0",
+    "esbuild-loader": "2.18.0",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"

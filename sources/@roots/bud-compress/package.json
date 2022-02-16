@@ -52,10 +52,10 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/container": "workspace:sources/@roots/container",
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "webpack": "5.65.0"
+    "@types/node": "16.11.25",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

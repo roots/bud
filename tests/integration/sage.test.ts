@@ -1,4 +1,4 @@
-import Project from '../../dev/jest/project'
+import {Project} from '@repo/test-kit/project'
 
 describe('sage', test('npm'))
 describe('sage', test('yarn'))

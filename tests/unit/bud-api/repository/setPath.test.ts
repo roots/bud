@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 const NEW_PATH = `${process.cwd()}/foo`
 

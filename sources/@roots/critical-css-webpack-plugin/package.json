@@ -1,5 +1,6 @@
 {
   "name": "@roots/critical-css-webpack-plugin",
+  "description": "Webpack plugin for generating critical-path CSS",
   "version": "5.1.0",
   "repository": {
     "type": "git",
@@ -43,11 +44,11 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.25",
     "@types/vinyl": "2.0.6",
-    "critical": "^4.0.1"
+    "critical": "4.0.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

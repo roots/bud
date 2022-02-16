@@ -4,7 +4,7 @@
  * @param {Bud} app
  */
 
-module.exports = async (app) => {
+module.exports = async app => {
   app
     .entry({
       app: '**/app.{js,css}',
@@ -19,7 +19,6 @@ module.exports = async (app) => {
     })
     .copy([app.path('src', 'images/**/*')])
     .watch(['tailwind.config.js', 'resources/views/*.blade.php'])
-    .setPublicPath('/app/themes/sage/public/')
     .serve('http://example.test:3000')
-    .proxy('http://example.test');
-};
+    .proxy('http://example.test')
+}

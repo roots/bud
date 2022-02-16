@@ -1,8 +1,9 @@
 import {IncomingMessage, ServerResponse} from 'http'
 import {ValueOf} from 'type-fest'
-import {Configuration, RuleSetRule, Stats, StatsCompilation} from 'webpack'
+import {Configuration, RuleSetRule, StatsCompilation} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
+import {EntryObject} from './entry'
 import {ProxyOptions} from './Server'
 
 /**
@@ -117,17 +118,6 @@ export interface Hooks extends Service {
  */
 export namespace Hooks {
   /**
-   * Bud does not support all the entry types of Webpack
-   */
-  type LimitedEntryObject = Record<
-    string,
-    {
-      import?: string[]
-      dependsOn?: string[]
-    }
-  >
-
-  /**
    * Same with plugins
    */
   type LimitedPlugin = Array<{apply: any}>
@@ -154,7 +144,7 @@ export namespace Hooks {
     ['build.cache.managedPaths']: Array<string>
     [`build.context`]: Configuration['context']
     [`build.devtool`]: Configuration['devtool']
-    [`build.entry`]: LimitedEntryObject
+    [`build.entry`]: Record<string, EntryObject>
     [`build.experiments`]: Configuration['experiments']
     [`build.externals`]: Configuration['externals']
     [`build.infrastructureLogging`]: Configuration['infrastructureLogging']
@@ -209,9 +199,8 @@ export namespace Hooks {
     [`event.build.make.after`]: unknown
     [`event.build.override`]: Configuration
     [`event.compiler.before`]: Array<Framework>
-    [`event.compiler.done`]: Stats
     [`event.compiler.after`]: Framework
-    [`event.compiler.stats`]: StatsCompilation
+    [`event.compiler.stats`]: Promise<StatsCompilation>
     [`event.compiler.error`]: Error
     [`event.dashboard.done`]: void
     [`event.dashboard.q`]: void

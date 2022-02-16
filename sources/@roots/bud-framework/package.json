@@ -41,18 +41,29 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "entry": [
+        "./types/entry/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
-    "chokidar": "^3.5.3",
-    "http-proxy-middleware": "2.0.1",
+    "@types/node": "16.11.25",
+    "chokidar": "3.5.3",
+    "http-proxy-middleware": "2.0.3",
     "ink": "3.2.0",
-    "webpack": "5.65.0"
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

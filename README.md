@@ -24,7 +24,7 @@
 - Supports configuration with TypeScript.
 - Customizable and extensible. Add new features. Swap our core components with your own.
 
-![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/docs/static/casts/babel-build--cache.svg)
+![bud.js build](https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg)
 
 ## Requirements
 
@@ -76,6 +76,10 @@ There are also [example implementations available in the /examples directory of 
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
+## Want to contribute to bud.js?
+
+Check out [our development guide](https://budjs.netlify.app/dev) to get started.
+
 ## Licensing
 
 Bud is licensed MIT.
@@ -100,7 +104,6 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>
 <a href="https://www.c21redwood.com/"><img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/></a>

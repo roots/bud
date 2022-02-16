@@ -1,7 +1,6 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
-
-import {Bud, factory} from '../../util/bud'
 
 describe('bud.build.config', function () {
   let bud: Bud
@@ -219,7 +218,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
     ).toMatchSnapshot({
       generator: {
-        filename: 'webp/[name][ext]',
+        filename: 'images/[name][ext]',
       },
       test: /\.webp$/,
       type: 'asset/resource',

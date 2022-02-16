@@ -105,11 +105,9 @@ export default {
     new Item({
       loader: ({build}) => build.loaders.file,
       options: app => ({
-        name: `${
-          app.store.is('features.hash', true) && app.isProduction
-            ? app.store.get('hashFormat')
-            : app.store.get('fileFormat')
-        }.[ext]`,
+        name: app.store.is('features.hash', true)
+          ? app.store.get('hashFormat').concat('.[ext]')
+          : app.store.get('fileFormat').concat('.[ext]'),
       }),
     }),
 

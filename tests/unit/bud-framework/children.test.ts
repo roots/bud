@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-framework child', () => {
   let bud: Bud

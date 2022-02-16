@@ -1,4 +1,4 @@
-import {Bud, factory} from '../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.assets', function () {
   let bud: Bud
@@ -18,6 +18,6 @@ describe('bud.assets', function () {
 
     const {options} = bud.extensions.get('copy-webpack-plugin')
 
-    expect(options.get('patterns')).toHaveLength(2)
+    expect(options.get('patterns')).toHaveLength(1)
   })
 })

@@ -1,0 +1,92 @@
+---
+id: bud.assets
+title: bud.assets
+description: Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
+sidebar_label: bud.assets
+image: 'https://budjs.netlify.app/img/share/docs/bud.assets.png'
+---
+
+Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
+
+You may specify a path to a specific file or use glob syntax to match many files at once.
+
+## Signature
+
+This function is pretty flexible and accepts a few different ways of specifying what you want to copy.
+
+```ts
+(paths:
+  | string
+  | CopyPlugin.ObjectPattern
+  | Array<string | CopyPlugin.ObjectPattern>,
+): Framework
+```
+
+## Usage
+
+Use a single `string` to specify a single file to copy. Relative to source dir.
+
+```js title='bud.config.js'
+bud.assets('images/image.png')
+```
+
+Use a single `string` to copy the entire images directory. Relative to source dir.
+
+```js title='bud.config.js'
+bud.assets('images')
+```
+
+Copy only `.woff` files found in `src/fonts` and the images directory. Relative to source dir.
+
+```js title='bud.config.js'
+// you can add as many arguments as you'd like
+bud.assets('fonts/**/*.woff', 'images')
+// or, use an array
+bud.assets(['fonts/**/*.woff', 'images'])
+```
+
+Copy a file relative to the project root with a leading `./`.
+
+```js title='bud.config.js'
+bud.assets('./assets/some-file.svg')
+```
+
+Copy a file with an absolute path.
+
+```js title='bud.config.js'
+bud.assets('/srv/www/project/assets/some-file.svg')
+
+// or, use the bud.path utility
+bud.assets(bud.path('project', 'assets/some-file.svg'))
+```
+
+Specify the job using a `CopyPlugin.ObjectPattern` object:
+
+```js title='bud.config.js'
+bud.assets({
+  from: './assets/some-file.svg',
+  to: './dist/some-file.svg',
+})
+```
+
+Or some combination:
+
+```js
+bud.assets(
+  'image.jpg',
+  {
+    from: './assets/some-file.svg',
+    to: './dist/some-file.svg',
+  },
+  './assets/another-file.svg',
+)
+```
+
+## Additional information
+
+You don't need to import assets which are utilized by your bundled code. For instance,
+if you are referencing a font file from your stylesheet, the font will already be included
+in your distribution. You don't need to manually require it with **bud.assets**, although
+there is probably no real harm in doing so.
+
+[bud.assets](/docs/bud.assets) is specifically for compiling files which are not already included elsewhere.

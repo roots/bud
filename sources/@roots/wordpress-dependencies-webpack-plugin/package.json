@@ -1,5 +1,6 @@
 {
   "name": "@roots/wordpress-dependencies-webpack-plugin",
+  "description": "Webpack plugin to help with wp_enqueue_script",
   "version": "5.1.0",
   "repository": {
     "type": "git",
@@ -43,12 +44,12 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
+    "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.25",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "webpack": "5.65.0"
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "tslib": "^2.3.1"

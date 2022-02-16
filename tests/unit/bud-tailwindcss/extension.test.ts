@@ -3,7 +3,7 @@ import '@roots/bud-postcss'
 import {BudPostCssExtension} from '@roots/bud-postcss/src/postcss.extension'
 import {BudTailwindCssExtension} from '@roots/bud-tailwindcss/src/tailwind.extension'
 
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-tailwindcss', () => {
   let bud: Bud

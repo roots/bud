@@ -1,34 +1,23 @@
 import type {Framework} from '@roots/bud-framework'
+import type {EntryObject} from '@roots/bud-framework/types/entry'
 import {chalk} from '@roots/bud-support'
 import type {GlobTask} from 'globby'
 
 import {globby, isArray, isString} from './entry.dependencies'
 
-/**
- * A singular entrypoint asset value
- */
-interface EntryObject {
-  /**
-   * Lower-level representation of entrypoint
-   */
-  import?: string[]
-  /**
-   * Array of modules the entrypoint explicitly depends on
-   */
-  dependsOn?: string[]
-}
+export {EntryObject}
 
 /**
  * Entry assets expressed as a key-value mapping
  */
-interface EntryInput {
+export interface EntryInput {
   [k: string]: EntryObject | EntryObject['import'] | GlobTask['pattern']
 }
 
 /**
  * An entry asset or an array of entry assets expressed with fast-glob syntax.
  */
-type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>
+export type EntryValue = GlobTask['pattern'] | Array<GlobTask['pattern']>
 
 export interface entry {
   (name: string, entrypoint: EntryValue): Promise<Framework>
@@ -40,7 +29,6 @@ export interface entry {
 export interface facade {
   (name: string, entrypoint: EntryValue): Framework
 }
-
 export interface facade {
   (entrypoints: EntryInput): Framework
 }
@@ -73,7 +61,7 @@ export const entry: entry = async function (...args): Promise<Framework> {
  *
  * @internal
  */
-async function makeEntrypoints(
+export async function makeEntrypoints(
   this: Framework,
   entry: EntryObject,
 ): Promise<Framework> {
@@ -91,7 +79,7 @@ async function makeEntrypoints(
       string,
       {
         import?: string[]
-        dependsOn?: string[]
+        dependOn?: string[]
       },
     ],
   ) => {
@@ -126,7 +114,7 @@ async function makeEntrypoints(
       string,
       {
         import?: string[]
-        dependsOn?: string[]
+        dependOn?: string[]
       }
     >,
   ) => {
@@ -148,7 +136,7 @@ async function makeEntrypoints(
   return this
 }
 
-async function getAssets(
+export async function getAssets(
   imports: EntryObject['import'],
 ): Promise<EntryObject['import']> {
   const globDir = this.path('src')

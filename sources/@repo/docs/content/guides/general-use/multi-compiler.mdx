@@ -1,0 +1,136 @@
+---
+title: Running multiple compilers
+description: It is possible to configure more than one Webpack compiler from a single bud config.
+sidebar_label: Multi-compiler
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+It is possible to configure more than one Webpack compiler from a single bud config file.
+
+For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; anything with very different
+needs for its marketing pages and administrative interfaces &mdash; it is potentially very useful.
+
+## In practice
+
+To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters: a name for the instance
+(so we can refer to it later), and a callback that is identical to the standard `bud.config.js` module-level function.
+
+In this example we're creating two instances of bud: one for `theme` code and another for `plugin` code.
+
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='bud.config.js'
+module.exports = app =>
+  app
+    .make('theme', theme =>
+      theme
+        .use(require('@roots/bud-babel'))
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css']),
+    )
+    .make('plugin', plugin =>
+      plugin
+        .use([require('@roots/bud-babel'), require('@roots/bud-react')])
+        .setPath('dist', 'dist/plugin')
+        .entry('plugin', ['plugin.js', 'plugin.css']),
+    )
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='bud.config.ts'
+import type {Framework} from '@roots/bud'
+import Babel from '@roots/bud-babel'
+import React from '@roots/bud-react'
+
+export default (app: Framework): void =>
+  app
+    .make('theme', (theme: Framework): void => {
+      theme
+        .use(Babel)
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
+    .make('plugin', (plugin: Framework): void =>
+      plugin
+        .use([Babel, React])
+        .setPath('dist', 'dist/plugin')
+        .entry('plugin', ['plugin.js', 'plugin.css']),
+    )
+```
+
+  </TabItem>
+</Tabs>
+
+There is an implicit benefit to structuring our config this way: our `plugin` compiler uses [@roots/bud-react](/extensions/bud-react),
+but our `theme` compiler does not.
+
+Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
+build into two distinct compilations we've all but guaranteed that it won't.
+
+## Using the `--target` flag
+
+The other benefit is a potentially massive workflow improvement. Let's say that we have to work on the `theme` more often than the `plugin`.
+With the above config we don't have to rebuild the `plugin` code again just to work on our `theme` code.
+
+We can use the `bud` cli to only run the compiler we need using [the `--target` flag](/guides/bud-cli/build).
+
+```sh
+$ yarn bud build --target theme
+```
+
+If you had more than two instances it might make sense to want to target more than one compiler, and `--target` supports that:
+
+```sh
+$ yarn bud build --target theme --target plugin
+```
+
+## Compilers can only be made from the parent context
+
+You cannot create a child compiler from a child compiler. So, don't do this:
+
+```js title='bud.config.js' {9-13}
+module.exports = app =>
+  app.make('theme', theme => {
+    theme
+      .use([require('@roots/bud-babel')])
+      .setPath('dist', 'dist/theme')
+      .entry('theme', ['theme.js', 'theme.css'])
+
+      .make('invalid', grandchild => {
+        /**
+         * `theme` cannot create a child compiler. only `app` can.
+         */
+      })
+  })
+```
+
+If you want to create another child compiler, do so from the parent context:
+
+```js title='bud.config.js' {8-13}
+module.exports = app =>
+  app
+    .make('theme', theme => {
+      theme
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
+    .make('plugin', plugin => {
+      plugin
+        .use([require('@roots/bud-babel')])
+        .setPath('dist', 'dist/plugin')
+        .entry('plugin', ['plugin.js', 'plugin.css'])
+    })
+```

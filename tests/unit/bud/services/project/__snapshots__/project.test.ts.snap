@@ -119,7 +119,6 @@ Object {
     "peers": Array [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
-      "@roots/bud-eslint",
       "@roots/bud-postcss",
     ],
     "type": "extension",
@@ -133,10 +132,6 @@ Object {
     ],
     Array [
       "@roots/bud-entrypoints",
-      Any<String>,
-    ],
-    Array [
-      "@roots/bud-eslint",
       Any<String>,
     ],
     Array [

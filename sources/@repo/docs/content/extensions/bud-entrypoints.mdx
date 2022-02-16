@@ -1,0 +1,36 @@
+---
+title: '@roots/bud-entrypoints'
+description: 'Manifest with assets grouped by entrypoint and filetype'
+sidebar_label: '🟢 @roots/bud-entrypoints'
+image: 'https://budjs.netlify.app/img/share/extensions/bud-entrypoints.png'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+import {Install} from '@site/src/docs/Install'
+
+**@roots/bud-entrypoints** generates an enhanced asset manifest for usage in server-powered applications like **Laravel** and **WordPress**.
+
+## Installation
+
+<Install packages="@roots/bud-entrypoints" />
+
+## Example output
+
+Assets are broken down by entrypoint and then filetype.
+
+If a runtime is being generated it should always be the first item in the `js` array.
+
+```json
+{
+  "entrypoint-a": {
+    "js": ["runtime.js", "entrypoint-a.js"],
+    "css": ["entrypoint-a.css"]
+  },
+  "entrypoint-b": {
+    "js": ["runtime.js", "entrypoint-b.js"],
+    "css": ["entrypoint-b.css"]
+  }
+}
+```

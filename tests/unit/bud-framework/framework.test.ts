@@ -2,7 +2,7 @@ import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
 
-import {Bud, factory} from '../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud', () => {
   let bud: Bud

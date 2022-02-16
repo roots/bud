@@ -1,5 +1,5 @@
 import {fs} from '@roots/bud-support'
-import {Bud, factory} from '../../../../util/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {expect, describe, beforeAll, it} from '@jest/globals'
 
 const PROJECT_MANIFEST_PATH = `${process.cwd()}/tests/util/project/package.json`
@@ -39,7 +39,9 @@ describe('bud.project', function () {
   })
 
   it('has evn records matching profile.json artifact', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot(profile.env.all)
+    expect(bud.project.get('env.all')).toMatchSnapshot(
+      profile.env.all,
+    )
     expect(bud.project.get('env.public')).toMatchSnapshot(
       profile.env.public,
     )
@@ -60,7 +62,9 @@ describe('bud.project', function () {
   })
 
   it('references @roots/bud-babel', async () => {
-    expect(bud.project.get('modules.@roots/bud-babel')).toMatchSnapshot({
+    expect(
+      bud.project.get('modules.@roots/bud-babel'),
+    ).toMatchSnapshot({
       bud: {type: 'extension'},
       name: '@roots/bud-babel',
       peerDependencies: {},
@@ -86,7 +90,9 @@ describe('bud.project', function () {
   })
 
   it('references @roots/bud-eslint', async () => {
-    expect(bud.project.get('modules.@roots/bud-eslint')).toMatchSnapshot({
+    expect(
+      bud.project.get('modules.@roots/bud-eslint'),
+    ).toMatchSnapshot({
       bud: {
         type: 'extension',
       },
@@ -101,7 +107,9 @@ describe('bud.project', function () {
   })
 
   it('references @roots/bud-postcss', async () => {
-    expect(bud.project.get('modules.@roots/bud-postcss')).toMatchSnapshot({
+    expect(
+      bud.project.get('modules.@roots/bud-postcss'),
+    ).toMatchSnapshot({
       bud: {
         type: 'extension',
       },
@@ -141,7 +149,6 @@ describe('bud.project', function () {
         peers: [
           '@roots/bud-babel',
           '@roots/bud-entrypoints',
-          '@roots/bud-eslint',
           '@roots/bud-postcss',
         ],
         type: 'extension',
@@ -151,7 +158,6 @@ describe('bud.project', function () {
       requires: [
         ['@roots/bud-babel', expect.any(String)],
         ['@roots/bud-entrypoints', expect.any(String)],
-        ['@roots/bud-eslint', expect.any(String)],
         ['@roots/bud-postcss', expect.any(String)],
       ],
       resolvable: true,

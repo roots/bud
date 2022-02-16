@@ -1,10 +1,11 @@
 import {
   Compiler as WebpackCompiler,
   Configuration,
+  MultiCompiler,
   MultiCompiler as WebpackMultiCompiler,
+  MultiStats,
   ProgressPlugin,
   StatsCompilation,
-  StatsError,
 } from 'webpack'
 
 import {Service} from './'
@@ -65,7 +66,7 @@ interface Compiler extends Service {
    *
    * @public
    */
-  compile(): Promise<any>
+  compile(): Promise<MultiCompiler>
 
   /**
    * Callback for {@link (Framework:namespace).Hooks | Framework.Hooks} `before` filter
@@ -78,22 +79,15 @@ interface Compiler extends Service {
    */
   before(): any
 
-  /**
-   * Compilation callback
-   *
-   * @remarks
-   * Provides stats and error reporting
-   *
-   * @public
-   */
-  callback(err: StatsError, stats: StatsCompilation): void
+  callback(error: Error, stats: MultiStats): Promise<void>
+
+  handleStats(stats: MultiStats): Promise<void>
+
+  handleErrors(error: Error): Promise<void>
 }
 
 /**
  * Compiler namespace
- *
- * @internalRemarks
- * Todo: move out of this namespace
  *
  * @internal
  */
@@ -101,7 +95,7 @@ namespace Compiler {
   export type Config = Configuration
   export type Instance = WebpackCompiler | WebpackMultiCompiler
 
-  export type Progress = any
+  export type Progress = [number, string]
 
   export namespace Progress {
     export type Handler = ProgressPlugin['handler']
