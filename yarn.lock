@@ -3809,9 +3809,9 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
-    "@types/tailwindcss": 3.0.7
+    "@types/tailwindcss": 3.0.8
     autoprefixer: ^10.4.0
-    tailwindcss: 3.0.21
+    tailwindcss: 3.0.23
     tslib: ^2.3.1
   peerDependencies:
     tailwindcss: ^3.0.8
@@ -5163,10 +5163,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:3.0.7":
-  version: 3.0.7
-  resolution: "@types/tailwindcss@npm:3.0.7"
-  checksum: 240f9ae0f9c7314b453bc55cbbd00e7882234f51dc205296b56f8bc053a08bb7f8530844c5d5cfd05d1daa66a51a5b2965e77a666f9a0268f9b7a9384d0777c6
+"@types/tailwindcss@npm:3.0.8":
+  version: 3.0.8
+  resolution: "@types/tailwindcss@npm:3.0.8"
+  checksum: 627cf0863178e6ea592d72e388bf7abf110b2e9b0dd611084e9a0d8854ec2ac4cf83f792edf752445b63c0fd3d1db44318dc45a24ed31fdf8c4de14225695c5c
   languageName: node
   linkType: hard
 
@@ -20839,9 +20839,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.21":
-  version: 3.0.21
-  resolution: "tailwindcss@npm:3.0.21"
+"tailwindcss@npm:3.0.23":
+  version: 3.0.23
+  resolution: "tailwindcss@npm:3.0.23"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -20856,6 +20856,7 @@ __metadata:
     is-glob: ^4.0.3
     normalize-path: ^3.0.0
     object-hash: ^2.2.0
+    postcss: ^8.4.6
     postcss-js: ^4.0.0
     postcss-load-config: ^3.1.0
     postcss-nested: 5.0.6
@@ -20869,7 +20870,7 @@ __metadata:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 5ee9bd7bfc746a929ec9d6fe4bd3be0d9e7b2cebf5f1047aab58795773d9c456dd1b7dbedb6b59d58a5c36605445f97626e9132c420394b73f006bbbd2c3e759
+  checksum: 2e7fdd11561e619770f656821c4b6850fdef633777c1f56fc815e566fc3fe6ec707df0966e90764ef9f452be0d0ee54daa0541002918eada590def3788a30f08
   languageName: node
   linkType: hard
 
