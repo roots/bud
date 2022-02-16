@@ -41,8 +41,6 @@ export const api: Purge['api'] = {purgecss}
 /**
  * Module registration
  *
- * @todo facade bindings to `@roots/bud-extension`
- *
  * @public
  */
 export const register: Purge['register'] = async app => {
