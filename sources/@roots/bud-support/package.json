@@ -73,7 +73,7 @@
     "nanoid": "3.2.0",
     "node-notifier": "10.0.1",
     "patch-console": "1.0.0",
-    "pkg-up": "3.1.0",
+    "pkg-up": "4.0.0",
     "pretty-format": "27.5.1",
     "safe-json-stringify": "1.2.0",
     "safe-resolve": "1.0.0",
