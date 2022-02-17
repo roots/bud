@@ -138,7 +138,7 @@ export class Project {
 
   @bind
   public async yarn(...opts: any) {
-    const res = execa('yarn', opts, {
+    const res = execa.execa('yarn', opts, {
       cwd: this.dir,
     })
 
