@@ -5,11 +5,11 @@ export interface EntryObject {
   /**
    * Lower-level representation of entrypoint
    */
-  import?: string[]
+  import: Array<string>
   /**
    * Array of modules the entrypoint explicitly depends on
    */
-  dependOn?: string[]
+  dependOn?: Array<string>
 }
 
 /**
