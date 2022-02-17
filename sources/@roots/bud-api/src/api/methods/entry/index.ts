@@ -6,7 +6,7 @@ const {isArray, isString} = lodash
 
 export {EntryObject}
 
-type Input =
+export type Input =
   | [string, string]
   | [string, Array<string>]
   | [Record<string, string>]
@@ -22,22 +22,24 @@ export interface facade {
 }
 
 const isGlobular = (str: string) =>
-  ['*', '{', '}'].filter(c => str.includes(c)).length > 0
+  ['*', '{', '}'].filter(c => str.includes(c))?.length > 0
 
-export const entry: entry = async function (...useInput) {
+export const entry: entry = async function (...userInput) {
   const ctx = this as Framework
   const glob: typeof globAssets = globAssets.bind(this)
 
-  const normalizedInput = isString(useInput[0])
-    ? {[useInput[0]]: useInput[1]}
-    : useInput[0]
+  const normalizedInput = isString(userInput[0])
+    ? {[userInput[0]]: userInput[1]}
+    : userInput[0]
 
   ctx.hooks.async('build.entry', async all => {
     await Promise.all(
       Object.entries(normalizedInput).map(async ([name, entry]) => {
-        const normalizedImports = isArray(entry.imports ?? entry)
-          ? entry.imports ?? entry
-          : [entry.imports ?? entry]
+        const normalizedImports = isArray(entry.import ?? entry)
+          ? entry.import ?? entry
+          : [entry.import ?? entry]
+
+        this.log(`inputs`, normalizedImports)
 
         const value = (
           await Promise.all(
@@ -47,12 +49,13 @@ export const entry: entry = async function (...useInput) {
           )
         ).flat()
 
-        Object.assign(all, {
+        all = {
+          ...(all ?? {}),
           [name]: {
             import: value,
             ...(entry.dependOn ? {dependOn: entry.dependOn} : {}),
           },
-        })
+        }
       }),
     )
 
@@ -63,25 +66,23 @@ export const entry: entry = async function (...useInput) {
 }
 
 export async function globAssets(search: string): Promise<Array<string>> {
-  const globDir = this.path('src')
+  const cwd = this.path('src')
 
   try {
-    const results = await globby.globby(search, {
-      cwd: this.path('src'),
-    })
+    this.log(`search`, search)
+    const results = await globby.globby(search, {cwd})
+    this.log(`results`, results)
 
     if (!results.length) {
       this.error(
         `bud.entry found no files matching ${JSON.stringify(
           search,
-        )}. check your config for errors. files should be specified relative to ${this.path(
-          'src',
-        )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
+        )}. check your config for errors. files should be specified relative to ${cwd}. fast glob syntax can be referenced here https://git.io/JkGbw`,
       )
       throw new Error(
         `nothing resolvable for ${JSON.stringify(
           search,
-        )} query of results for ${globDir}`,
+        )} query of results for ${cwd}`,
       )
     }
 
