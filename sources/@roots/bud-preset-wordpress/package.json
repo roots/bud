@@ -31,6 +31,7 @@
   "files": [
     "eslint-config/",
     "lib/",
+    "stylelint-config/",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -38,14 +39,14 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    "./eslint-config": "./eslint-config/index.js",
+    "./stylelint-config": "./stylelint-config/index.js"
   },
   "bud": {
     "type": "extension",
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
-      "@roots/bud-eslint",
       "@roots/bud-postcss",
       "@roots/bud-preset-recommend",
       "@roots/bud-react",
@@ -59,7 +60,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/jest": "27.4.0",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.24",
+    "@types/node": "16.11.25",
     "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11",
     "jest": "27.5.1",
@@ -75,7 +76,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "@wordpress/browserslist-config": "4.1.0",
+    "@wordpress/browserslist-config": "4.1.1",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

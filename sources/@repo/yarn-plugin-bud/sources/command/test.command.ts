@@ -149,10 +149,8 @@ export class Test extends Command {
   @bind
   public async build(example: typeof INTEGRATION_TESTS & string) {
     await this.$(
-      `cd ${paths.mocks}/yarn/${example} && yarn bud build --no-dashboard --log`,
+      `cd ${paths.mocks}/yarn/${example} && yarn bud build --log`,
     )
-    await this.$(
-      `cd ${paths.mocks}/npm/${example} && npx bud build --no-dashboard --log`,
-    )
+    await this.$(`cd ${paths.mocks}/npm/${example} && npx bud build --log`)
   }
 }
