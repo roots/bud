@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@roots/bud": "latest",
-    "@roots/bud-preset-wordpress": "latest"
+    "@roots/bud-preset-wordpress": "latest",
+    "@roots/eslint-config/wordpress": "latest"
   }
 }
