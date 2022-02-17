@@ -57,7 +57,7 @@
     "@types/signale": "1.4.4",
     "@types/yamljs": "0.2.31",
     "boxen": "5.1.2",
-    "chalk": "4.1.2",
+    "chalk": "5.0.0",
     "cli-highlight": "2.1.11",
     "copy-webpack-plugin": "10.2.4",
     "cosmiconfig": "7.0.1",
