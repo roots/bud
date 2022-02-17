@@ -48,7 +48,10 @@ export const entry: entry = async function (...useInput) {
         ).flat()
 
         Object.assign(all, {
-          [name]: {import: value, ...(entry.dependOn ?? {})},
+          [name]: {
+            import: value,
+            ...(entry.dependOn ? {dependOn: entry.dependOn} : {}),
+          },
         })
       }),
     )
