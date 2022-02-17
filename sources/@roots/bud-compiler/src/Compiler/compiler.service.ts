@@ -3,8 +3,9 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {bind, lodash, once} from '@roots/bud-support'
+import {bind, chalk, lodash, once} from '@roots/bud-support'
 import {
+  Configuration,
   MultiStats,
   ProgressPlugin,
   StatsCompilation,
@@ -14,7 +15,7 @@ import {
 
 import * as budProcess from './process'
 
-const {isFunction} = lodash
+const {isFunction, isEqual} = lodash
 
 /**
  * Wepback compilation controller class
@@ -62,7 +63,12 @@ export class Compiler extends Service implements Contract {
   /**
    * @public
    */
-  public config: any = []
+  public config: Array<Configuration> = []
+
+  /**
+   * @public
+   */
+  public scope: Array<String>
 
   /**
    * Initiates compilation
@@ -88,38 +94,51 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async invoke(config: any) {
+  public async invoke(config: Array<Configuration>) {
     config = await this.app.hooks.filterAsync(
       'event.compiler.before',
       config,
     )
 
-    this.instance = webpack(
-      this.app.hooks.filter('config.override', config),
-    )
+    this.config = this.app.hooks.filter('config.override', config)
 
+    const progressPluginCallback = function (
+      percent: number,
+      scope: string,
+      ...message: any[]
+    ) {
+      try {
+        const normalPercent = Math.ceil((percent ?? 0) * 100)
+        scope = scope.replace(/\[.*\]/, '')?.trim() ?? ''
+
+        this.message = message
+          ? message.flatMap(i => (i ? `${i}`?.trim() : ''))
+          : []
+        this.message.reverse()
+
+        const isStale = isEqual(this.progress, [
+          normalPercent,
+          message.join(' ').concat(scope),
+        ])
+        this.progress = [normalPercent, message.join(' ').concat(scope)]
+
+        !isStale &&
+          (message.length > 1 || scope) &&
+          budProcess.logger
+            .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
+            .log(...this.message)
+      } catch (error) {
+        this.app.error(error)
+      }
+    }
+
+    this.instance = webpack(this.config)
     this.instance.hooks.done.tap(config.shift().name, async stats => {
       if (this.app.isDevelopment) await this.handleStats(stats)
     })
-
-    new ProgressPlugin((...args): void => {
-      args[1] = args[1].replace('[0] ', '')
-      const shouldLog =
-        !this.progress ||
-        !this.progress[1] ||
-        (args[1] !== this.progress[1] && args[1] !== '')
-
-      this.progress = [args[0] * 100, args[1]]
-      this.progress[0] < 100 && shouldLog
-        ? budProcess.logger.await(
-            `[${Math.ceil(this.progress[0])}] `,
-            this.progress[1],
-          )
-        : budProcess.logger.success(
-            `[${Math.ceil(this.progress[0])}] `,
-            `🎉 ${this.progress[1]}`,
-          )
-    }).apply(this.instance)
+    new ProgressPlugin(progressPluginCallback.bind(this)).apply(
+      this.instance,
+    )
 
     this.app.hooks.filter('event.compiler.after', this.app)
 
@@ -135,7 +154,6 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async before() {
-    const config = []
     this.isCompiled = true
     await this.app.build.make()
 
@@ -145,8 +163,8 @@ export class Compiler extends Service implements Contract {
      */
     if (!this.app.hasChildren) {
       this.app.info(`using config from parent compiler`)
-      config.push(this.app.build.config)
-      return config
+      this.config.push(this.app.build.config)
+      return this.config
     }
 
     this.app.warn(
@@ -161,11 +179,11 @@ export class Compiler extends Service implements Contract {
       this.app.children?.getValues().map(async (instance: Framework) => {
         if (!instance.name) return
         await instance.build.make()
-        config.push(instance.build.config)
+        this.config.push(instance.build.config)
       }),
     )
 
-    return config
+    return this.config
   }
 
   @bind
