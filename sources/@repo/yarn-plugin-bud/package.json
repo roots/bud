@@ -14,7 +14,7 @@
     "@yarnpkg/cli": "3.2.0-rc.15",
     "@yarnpkg/core": "3.2.0-rc.15",
     "@yarnpkg/shell": "3.2.0-rc.13",
-    "clipanion": "3.2.0-rc.8",
+    "clipanion": "3.2.0-rc.9",
     "fs-extra": "10.0.0",
     "semver": "7.3.5",
     "tslib": "2.3.1",
