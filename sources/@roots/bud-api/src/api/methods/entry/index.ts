@@ -1,8 +1,8 @@
 import type {Framework} from '@roots/bud-framework'
 import type {EntryObject} from '@roots/bud-framework/types/entry'
-import {isArray} from 'lodash'
+import {globby, lodash} from '@roots/bud-support'
 
-import {globby, isString} from './entry.dependencies'
+const {isArray, isString} = lodash
 
 export {EntryObject}
 
@@ -24,9 +24,7 @@ export interface facade {
 const isGlobular = (str: string) =>
   ['*', '{', '}'].filter(c => str.includes(c)).length > 0
 
-export const entry: entry = async function (
-  ...useInput: Input
-): Promise<Framework> {
+export const entry: entry = async function (...useInput) {
   const ctx = this as Framework
   const glob: typeof globAssets = globAssets.bind(this)
 
