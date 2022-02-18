@@ -1,4 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
+import {EntryObject} from '@roots/bud-framework/entry'
 
 describe('bud.entry', function () {
   let bud: Bud
@@ -79,11 +80,7 @@ describe('bud.entry', function () {
 
     expect(config.entry).toEqual({
       app: {
-        import: [
-          'scripts/app.js',
-          'styles/app.css',
-          'styles/editor.css',
-        ],
+        import: ['scripts/app.js', 'styles/app.css', 'styles/editor.css'],
       },
     })
   })
@@ -104,5 +101,46 @@ describe('bud.entry', function () {
         import: ['styles/editor.css'],
       },
     })
+  })
+
+  it('supports dependOn', async () => {
+    const input = {
+      app: {
+        import: ['scripts/app.js', 'styles/app.css'],
+      },
+      editor: {
+        import: ['styles/editor.css'],
+        dependOn: ['app'],
+      },
+    }
+
+    bud.entry(input)
+
+    await bud.build.make()
+
+    expect(bud.build.config.entry).toEqual(input)
+  })
+
+  it('supports managing runtime', async () => {
+    const input: Record<string, EntryObject> = {
+      app: {
+        import: ['scripts/main.js'],
+        dependOn: ['entry', 'entry-2'],
+      },
+      entry: {
+        import: ['scripts/entry.js', 'styles/entry.css'],
+        runtime: 'main',
+      },
+      ['entry-2']: {
+        import: ['scripts/entry-2.js', 'styles/entry-2.css'],
+        runtime: 'main',
+      },
+    }
+
+    bud.entry(input)
+
+    await bud.build.make()
+
+    expect(bud.build.config.entry).toEqual(input)
   })
 })

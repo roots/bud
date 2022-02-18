@@ -52,8 +52,8 @@ export const entry: entry = async function (...userInput) {
         all = {
           ...(all ?? {}),
           [name]: {
+            ...(!isString(entry) && !isArray(entry) ? entry : {}),
             import: value,
-            ...(entry.dependOn ? {dependOn: entry.dependOn} : {}),
           },
         }
       }),
