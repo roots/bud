@@ -132,8 +132,12 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ${paths.mocks}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY} --force`,
+      `cd ${paths.mocks}/yarn/${example} \ 
+        && yarn cache clean --all \
+        && yarn install --update-checksums --skip-integrity-check \
+                        --registry ${REGISTRY_PROXY} --force`,
     )
+
     await this.$(
       `cd ${paths.mocks}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
     )
