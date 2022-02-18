@@ -504,6 +504,7 @@ export namespace Store {
     [`build.infrastructureLogging`]: Repository['build']['infrastructureLogging']
     [`build.mode`]: Repository['build']['mode']
     [`build.module`]: Repository['build']['module']
+    [`build.module.unsafeCache`]: Repository['build']['module']['unsafeCache']
     [`build.name`]: Repository['build']['name']
     [`build.node`]: Repository['build']['node']
     [`build.optimization`]: Repository['build']['optimization']

@@ -154,6 +154,7 @@ export namespace Hooks {
     [`build.module.rules.oneOf`]: Array<RuleSetRule>
     [`build.module.rules.before`]: Array<RuleSetRule>
     [`build.module.rules.after`]: Array<RuleSetRule>
+    [`build.module.unsafeCache`]: Configuration['module']['unsafeCache']
     [`build.name`]: Configuration['name']
     [`build.node`]: Configuration['node']
     [`build.optimization`]: Configuration['optimization']

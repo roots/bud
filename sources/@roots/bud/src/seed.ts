@@ -192,8 +192,12 @@ export const seed: Partial<Store.Repository> = {
     bail: true,
     devtool: false,
     infrastructureLogging: {console: false},
+    module: {
+      unsafeCache: false,
+    },
     node: false,
     output: {
+      pathinfo: false,
       publicPath: 'auto',
     },
     optimization: {
@@ -208,6 +212,7 @@ export const seed: Partial<Store.Repository> = {
       hints: false,
     },
     resolve: {
+      alias: {},
       extensions: [
         '.wasm',
         '.mjs',

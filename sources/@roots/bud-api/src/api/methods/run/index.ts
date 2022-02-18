@@ -10,7 +10,7 @@ export const run: run = async function (): Promise<void> {
   await ctx.extensions.processQueue()
   await ctx.api.processQueue()
 
-  await ctx.hooks.filterAsync<'event.run'>('event.run', async () => ctx)
+  await ctx.hooks.filterAsync('event.run', async () => ctx)
 
   const isDev =
     ctx.isDevelopment &&

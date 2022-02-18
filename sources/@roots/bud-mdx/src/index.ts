@@ -79,7 +79,7 @@ const extension: Extension.Module = {
       use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
-    hooks.on<'build.resolve.extensions'>(
+    hooks.on(
       'build.resolve.extensions',
       (exts: Webpack.Configuration['resolve']['extensions']) => [
         ...(exts ?? []),
