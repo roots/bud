@@ -262,17 +262,6 @@ export namespace Store {
     hashFormat: string
 
     /**
-     * @public
-     */
-    cli?: {
-      args: Record<string, any>
-      argv: Array<string>
-      flags: Record<string, any>
-      raw: Array<Record<string, string>>
-      metadata: Record<string, Record<string, any>>
-    }
-
-    /**
      * Initial webpack configuration values
      *
      * @public
@@ -414,8 +403,6 @@ export namespace Store {
   export interface Map
     extends BuildKeyMap,
       RepositoryKeyMap,
-      CliKeyMap,
-      CliFlagsKeyMap,
       FeaturesKeyMap,
       LocationKeyMap,
       PatternKeyMap,
@@ -452,15 +439,6 @@ export namespace Store {
 
   type RepositoryKeyMap = {
     [K in keyof Repository as `${K & string}`]: Repository[K]
-  }
-
-  type CliKeyMap = {
-    [K in keyof Repository['cli'] as `cli.${K &
-      string}`]: Repository['cli'][K]
-  }
-  type CliFlagsKeyMap = {
-    [K in keyof Repository['cli']['flags'] as `cli.flags.${K &
-      string}`]: Repository['cli']['flags'][K]
   }
 
   type FeaturesKeyMap = {

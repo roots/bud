@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-dashboard",
   "description": "Bud CLI dashboard",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -52,8 +52,6 @@
     "ink": "3.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.3",
-    "node-fetch": "3.2.0",
-    "patch-console": "1.0.0",
     "react": "17.0.2",
     "react-use": "17.3.2",
     "webpack": "5.68.0"

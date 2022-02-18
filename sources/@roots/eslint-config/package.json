@@ -1,0 +1,70 @@
+{
+  "name": "@roots/eslint-config",
+  "version": "5.1.0",
+  "description": "eslint presets for roots projects",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "babel.js",
+    "defaults.js",
+    "react.js",
+    "recommended.js",
+    "sage.js",
+    "typescript.js",
+    "wordpress.js"
+  ],
+  "main": "./defaults.js",
+  "module": "./defaults.js",
+  "types": "./types.d.ts",
+  "exports": {
+    ".": "./defaults.js",
+    "./defaults": "./defaults.js",
+    "./babel": "./babel.js",
+    "./recommended": "./recommended.js",
+    "./typescript": "./typescript.js",
+    "./react": "./react.js",
+    "./wordpress": "./wordpress.js",
+    "./sage": "./sage.js"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2"
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.16.5",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "5.10.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
+}

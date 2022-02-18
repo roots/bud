@@ -36,24 +36,12 @@ Object {
     "@roots/bud-prettier": "latest",
     "@roots/bud-stylelint": "latest",
     "@roots/bud-tailwindcss": "latest",
+    "@roots/eslint-config": "latest",
     "@roots/sage": "latest",
   },
   "name": "example-sage",
   "private": true,
 }
-`;
-
-exports[`sage npm [snapshots] public/manifest.json matches expectations 1`] = `
-Array [
-  "app.css",
-  "app.js",
-  "editor.css",
-  "editor.js",
-  "customizer.js",
-  "runtime.js",
-  "images/image.jpeg",
-  "images/nested/image.jpeg",
-]
 `;
 
 exports[`sage yarn [snapshots] module map matches snapshot 1`] = `
@@ -92,22 +80,10 @@ Object {
     "@roots/bud-prettier": "latest",
     "@roots/bud-stylelint": "latest",
     "@roots/bud-tailwindcss": "latest",
+    "@roots/eslint-config": "latest",
     "@roots/sage": "latest",
   },
   "name": "example-sage",
   "private": true,
 }
-`;
-
-exports[`sage yarn [snapshots] public/manifest.json matches expectations 1`] = `
-Array [
-  "app.css",
-  "app.js",
-  "editor.css",
-  "editor.js",
-  "customizer.js",
-  "runtime.js",
-  "images/image.jpeg",
-  "images/nested/image.jpeg",
-]
 `;

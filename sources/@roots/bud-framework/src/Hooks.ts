@@ -194,12 +194,12 @@ export namespace Hooks {
     [`location.project`]: string
     [`location.modules`]: string
     [`location.storage`]: string
-    [`config.override`]: Configuration[]
+    [`config.override`]: Array<Configuration>
     [`event.app.close`]: unknown
     [`event.build.make.before`]: unknown
     [`event.build.make.after`]: unknown
     [`event.build.override`]: Configuration
-    [`event.compiler.before`]: Array<Framework>
+    [`event.compiler.before`]: Array<Configuration>
     [`event.compiler.after`]: Framework
     [`event.compiler.stats`]: Promise<StatsCompilation>
     [`event.compiler.error`]: Error

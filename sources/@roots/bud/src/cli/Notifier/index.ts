@@ -1,9 +1,7 @@
 import {Framework} from '@roots/bud-framework'
-import {bind, humanReadable} from '@roots/bud-support'
+import {bind, humanReadable, NodeNotifier} from '@roots/bud-support'
 import {dirname, resolve} from 'path'
 import {StatsCompilation} from 'webpack'
-
-import {NodeNotifier} from '../cli.dependencies'
 
 /**
  * MacOS binary

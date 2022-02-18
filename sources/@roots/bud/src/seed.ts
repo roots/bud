@@ -143,44 +143,6 @@ export const seed: Partial<Store.Repository> = {
   hashFormat: '[name].[contenthash:6]',
 
   /**
-   * Received command line arguments and flags
-   *
-   * @public
-   */
-  cli: {
-    /**
-     * Arguments
-     *
-     * @public
-     */
-    args: {},
-    /**
-     * Argv object reference
-     *
-     * @public
-     */
-    argv: [],
-    /**
-     * Flags
-     *
-     * @public
-     */
-    flags: {},
-    /**
-     * Raw data from oclif
-     *
-     * @public
-     */
-    raw: [],
-    /**
-     * Additional information on received CLI data
-     *
-     * @public
-     */
-    metadata: {},
-  },
-
-  /**
    * Regular expression records
    *
    * @public
@@ -240,6 +202,7 @@ export const seed: Partial<Store.Repository> = {
     },
     optimization: {
       emitOnErrors: false,
+      enable: false,
       minimizer: ['...'],
       removeEmptyChunks: true,
       splitChunks: {},

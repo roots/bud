@@ -9,11 +9,14 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-support": "link:sources/@roots/bud-support/lib/index.js",
     "@types/fs-extra": "9.0.13",
-    "execa": "5.1.1",
     "fs-extra": "10.0.0",
     "helpful-decorators": "2.1.0",
     "jest": "27.5.1",
     "json5": "2.2.0"
+  },
+  "dependencies": {
+    "tslib": "2.3.1"
   }
 }
