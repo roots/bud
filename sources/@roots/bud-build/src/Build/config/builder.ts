@@ -228,7 +228,7 @@ export async function build(app: Framework): Promise<void> {
     .hooks.async('build.resolve.alias', async () => ({}))
     .hooks.async('build.resolve.modules', async (value?: any) => {
       const budPath = dirname(
-        await pkgUp({
+        await pkgUp.pkgUp({
           cwd: require.resolve('@roots/bud'),
         }),
       )
