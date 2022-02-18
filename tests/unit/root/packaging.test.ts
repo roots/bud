@@ -7,7 +7,7 @@ describe('repo', function () {
   let packageRoots
 
   beforeAll(async () => {
-    packageRoots = await globby('sources/@roots/*', {
+    packageRoots = await globby.globby('sources/@roots/*', {
       absolute: true,
       onlyDirectories: true,
     })
@@ -17,7 +17,7 @@ describe('repo', function () {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
-          const cjs = await globby(
+          const cjs = await globby.globby(
             path.join(pkg, 'lib/cjs/index.js'),
           )
 
@@ -33,7 +33,7 @@ describe('repo', function () {
     try {
       await Promise.all(
         packageRoots.map(async pkg => {
-          const esm = await globby(
+          const esm = await globby.globby(
             path.join(pkg, 'lib/esm/index.js'),
           )
 
@@ -94,11 +94,9 @@ describe('repo', function () {
               try {
                 if (cjsJson)
                   expect(
-                    cjsJson.references.filter(
-                      ({path}: {path: string}) => {
-                        return path.includes(cjsRefPath)
-                      },
-                    ).length,
+                    cjsJson.references.filter(({path}: {path: string}) => {
+                      return path.includes(cjsRefPath)
+                    }).length,
                   ).toEqual(1)
               } catch (error) {
                 throw new Error(
@@ -113,11 +111,9 @@ describe('repo', function () {
 
               try {
                 expect(
-                  esmJson.references.filter(
-                    ({path}: {path: string}) => {
-                      return path.includes(esmRefPath)
-                    },
-                  ).length,
+                  esmJson.references.filter(({path}: {path: string}) => {
+                    return path.includes(esmRefPath)
+                  }).length,
                 ).toEqual(1)
               } catch (error) {
                 throw new Error(
@@ -143,17 +139,12 @@ describe('repo', function () {
 
       await Promise.all(
         packageRoots.map(async pkg => {
-          const name = pkg
-            .split(`sources/`)
-            .pop()
-            .concat('/tsconfig.json')
+          const name = pkg.split(`sources/`).pop().concat('/tsconfig.json')
 
           expect(
-            tsConfCjs.references.filter(
-              ({path}: {path: string}) => {
-                return path.includes(name)
-              },
-            ).length,
+            tsConfCjs.references.filter(({path}: {path: string}) => {
+              return path.includes(name)
+            }).length,
           ).toBe(1)
         }),
       )
@@ -172,11 +163,9 @@ describe('repo', function () {
             .concat('/tsconfig-esm.json')
 
           expect(
-            tsConfEsm.references.filter(
-              ({path}: {path: string}) => {
-                return path.includes(name)
-              },
-            ).length,
+            tsConfEsm.references.filter(({path}: {path: string}) => {
+              return path.includes(name)
+            }).length,
           ).toBe(1)
         }),
       )

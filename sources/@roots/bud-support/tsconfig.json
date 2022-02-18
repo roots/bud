@@ -1,11 +1,10 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "declarationDir": "./types",
     "esModuleInterop": true,
-    "outDir": "./lib/cjs",
     "rootDir": "./src",
+    "outDir": "./lib/cjs",
     "types": ["node"]
   },
   "include": ["src"],

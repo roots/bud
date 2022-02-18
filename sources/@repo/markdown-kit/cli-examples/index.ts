@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import execa from 'execa'
+import {execa} from '@roots/bud-support'
 import {writeFile} from 'fs-extra'
 import {join} from 'path'
 
@@ -18,7 +18,7 @@ const main = async () => {
  * Write terminal output to docusaurus mdx
  */
 const generateMarkdown = async (args: string[], dir = 'babel') => {
-  const {stdout} = await execa('yarn', [
+  const {stdout} = await execa.execa('yarn', [
     `workspace`,
     `@repo/markdown-kit`,
     `run`,
@@ -40,7 +40,11 @@ const generateMarkdown = async (args: string[], dir = 'babel') => {
     .replace(/^\./, '') // remove leading `.`
     .concat('.md') // add .md extension
 
-  const path = join(paths.sources, '@repo/docs/src/components/cli-output', name)
+  const path = join(
+    paths.sources,
+    '@repo/docs/src/components/cli-output',
+    name,
+  )
 
   await writeFile(path, content)
 }
