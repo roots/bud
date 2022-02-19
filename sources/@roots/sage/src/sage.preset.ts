@@ -33,7 +33,15 @@ export const Sage: Extension.Module<void> = {
     }))
 
     /**
-     * Directory aliases
+     * Application paths
+     */
+    app.setPath({
+      src: 'resources',
+      dist: 'public',
+    })
+
+    /**
+     * Application aliases
      */
     app.alias({
       '@fonts': app.path('src', 'fonts'),
