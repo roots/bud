@@ -72,12 +72,15 @@ export const Sage: Extension.Module<void> = {
       /**
        * Development
        */
-      ({devtool, hooks, setPublicPath}) => {
-        devtool()
-        setPublicPath('/')
+      () => {
+        app.devtool()
 
-        hooks.async('event.compiler.stats', eventCompilerStats.bind(app))
-        hooks.on('event.app.close', eventAppClose.bind(app))
+        app.hooks.async(
+          'event.compiler.stats',
+          eventCompilerStats.bind(app),
+        )
+
+        app.hooks.on('event.app.close', eventAppClose.bind(app))
       },
     )
   },
