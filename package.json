@@ -11,6 +11,11 @@
   "engines": {
     "node": "^16.3.0"
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  },
   "volta": {
     "node": "16.14.0",
     "yarn": "1.22.17"
@@ -28,6 +33,7 @@
     "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
   },
   "devDependencies": {
+    "@commitlint/cli": "16.2.1",
     "@repo/constants": "workspace:*",
     "@repo/logger": "workspace:*",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
@@ -37,6 +43,9 @@
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "codecov": "3.8.3",
+    "commitizen": "4.2.4",
+    "commitlint-config-gitmoji": "2.2.5",
+    "cz-customizable": "6.3.0",
     "eslint": "8.9.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-react": "7.28.0",
