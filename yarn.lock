@@ -3692,7 +3692,7 @@ __metadata:
     postcss-scss: 4.0.3
     resolve-cwd: 3.0.0
     sass: 1.49.8
-    sass-loader: 12.4.0
+    sass-loader: 12.6.0
     stylelint-config-recommended-scss: 5.0.2
     tslib: 2.3.1
     webpack: 5.68.0
@@ -19730,9 +19730,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:12.4.0":
-  version: 12.4.0
-  resolution: "sass-loader@npm:12.4.0"
+"sass-loader@npm:12.6.0":
+  version: 12.6.0
+  resolution: "sass-loader@npm:12.6.0"
   dependencies:
     klona: ^2.0.4
     neo-async: ^2.6.2
@@ -19740,6 +19740,7 @@ __metadata:
     fibers: ">= 3.1.0"
     node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
     sass: ^1.3.0
+    sass-embedded: "*"
     webpack: ^5.0.0
   peerDependenciesMeta:
     fibers:
@@ -19748,7 +19749,9 @@ __metadata:
       optional: true
     sass:
       optional: true
-  checksum: 0f7ca3633e7f61c412b0628766a9b57cb15f68def45e4303e68eb2f3a0722aec231956fbfd118489d93c997ab605470e89de8e3f7d6776830cc6366d9657d618
+    sass-embedded:
+      optional: true
+  checksum: 5d73a428588150f704016aa27397941bb9246cecd2ee083b573e95d969fc080ac6a16f2fe1cc64aca08f6e70da6f3c586ee68f0efc9f527fecc360e5f1c299ec
   languageName: node
   linkType: hard
 
