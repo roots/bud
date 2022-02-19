@@ -1,4 +1,10 @@
+import {Signale} from '@roots/bud-support'
+
 import {Framework} from '.'
+
+const Logger = new Signale({
+  scope: 'process',
+})
 
 /**
  * Node shutdown factory
@@ -23,17 +29,14 @@ export const makeTerminator = (
     global.process.exit()
   }
 
-  return (code: number, reason: string) => (err: Error, promise) => {
+  return (code: number, reason: string) => (err: Error) => {
     if (err && err instanceof Error) {
-      const termLog = app.logger.scoped('node', 'terminate')
-      termLog.error(err.message, err.stack)
+      Logger.error(err.message, err.stack)
     }
 
-    app.logger.scoped(app.name, 'node', 'terminate').info(reason)
+    Logger.info(reason)
 
-    app.close(exit(code))
-
-    setTimeout(exit(code), options.timeout).unref()
+    setTimeout(() => app.close(exit(code)), options.timeout).unref()
   }
 }
 
