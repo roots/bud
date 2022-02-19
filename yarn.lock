@@ -3825,7 +3825,7 @@ __metadata:
     dotenv-expand: 8.0.1
     execa: 6.0.0
     fs-extra: 10.0.0
-    globby: 13.0.0
+    globby: 13.1.1
     helpful-decorators: 2.1.0
     human-readable: 0.2.1
     json5: 2.2.0
@@ -11888,16 +11888,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:13.0.0":
-  version: 13.0.0
-  resolution: "globby@npm:13.0.0"
+"globby@npm:13.1.1":
+  version: 13.1.1
+  resolution: "globby@npm:13.1.1"
   dependencies:
     dir-glob: ^3.0.1
     fast-glob: ^3.2.11
     ignore: ^5.2.0
     merge2: ^1.4.1
     slash: ^4.0.0
-  checksum: 9119e156a18c93ebdf1e4de63957dad2020df5607bc2951c9cb04d0b032ee1c7d61facc78e99339819140d75351220dd4f276b1d1e7aa872a720389277f51ff4
+  checksum: e6c43409c6c31b374fbd1c01a8c1811de52336928be9c697e472d2a89a156c9cbf1fb33863755c0447b4db16485858aa57f16628d66a6b7c7131669c9fbe76cd
   languageName: node
   linkType: hard
 
