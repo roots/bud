@@ -11,6 +11,7 @@ function test(pacman) {
       project = await new Project({
         name: 'sage',
         with: pacman,
+        dist: 'public',
       }).setup()
     })
 

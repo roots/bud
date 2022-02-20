@@ -8,6 +8,7 @@ import {join} from 'path'
 interface Options {
   name: string
   with: 'yarn' | 'npm'
+  dist?: string
 }
 
 /**
@@ -53,6 +54,10 @@ export class Project {
   public constructor(public options: Options) {}
 
   public async setup() {
+    if (this.options.dist) {
+      this.dist = this.options.dist
+    }
+
     await this.setPackageJson()
     await this.setManifest()
     await this.setAssets()
