@@ -63,7 +63,7 @@
     "cosmiconfig": "7.0.1",
     "dotenv": "16.0.0",
     "dotenv-expand": "8.0.1",
-    "execa": "6.0.0",
+    "execa": "6.1.0",
     "fs-extra": "10.0.0",
     "globby": "13.1.1",
     "helpful-decorators": "2.1.0",
