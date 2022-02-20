@@ -13,15 +13,11 @@ describe('@roots/bud-tailwindcss', () => {
   })
 
   it('has name prop', () => {
-    expect(BudTailwindCssExtension.name).toBe(
-      '@roots/bud-tailwindcss',
-    )
+    expect(BudTailwindCssExtension.name).toBe('@roots/bud-tailwindcss')
   })
 
   it('has an api prop', () => {
-    expect(BudTailwindCssExtension.api.tailwind).toBeInstanceOf(
-      Function,
-    )
+    expect(BudTailwindCssExtension.api.tailwind).toBeInstanceOf(Function)
   })
 
   it('sets up postcss plugins', async () => {
