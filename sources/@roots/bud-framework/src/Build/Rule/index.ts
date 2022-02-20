@@ -18,8 +18,8 @@ export interface Parser extends Record<string, any> {}
 export type Options = Partial<{
   test: Maybe<Array<Framework>, RegExp>
   use: Maybe<Array<Framework>, Array<Item.Interface>>
-  include: Maybe<Array<Framework>, string>
-  exclude: Maybe<Array<Framework>, RegExp>
+  include: Maybe<Array<Framework>, Array<string | RegExp>>
+  exclude: Maybe<Array<Framework>, Array<string | RegExp>>
   type: Maybe<Array<Framework>, string>
   parser: Maybe<Array<Framework>, Parser>
   generator: Maybe<Array<Framework>, any>
@@ -100,42 +100,46 @@ export interface Interface {
    *
    * @public
    */
-  exclude?: (app: Framework) => RegExp
+  exclude?: (app: Framework) => Array<string | RegExp>
 
   /**
    * Get the value of `exclude`
    *
    * @public
    */
-  getExclude(): RegExp
+  getExclude(): Array<string | RegExp>
 
   /**
    * Set the value of `exclude`
    *
    * @public
    */
-  setExclude(exclude: Maybe<[Framework], RegExp>): Rule.Interface
+  setExclude(
+    exclude: Maybe<[Framework], Array<string | RegExp>>,
+  ): Rule.Interface
 
   /**
    * Include paths
    *
    * @public
    */
-  include?: (app: Framework) => string
+  include?: (app: Framework) => Array<string | RegExp>
 
   /**
    * Get the value of `include`
    *
    * @public
    */
-  getInclude(): string
+  getInclude(): Array<string | RegExp>
 
   /**
    * Set the value of `include`
    *
    * @public
    */
-  setInclude(include: Maybe<[Framework], string>): Rule.Interface
+  setInclude(
+    include: Maybe<[Framework], Array<string | RegExp>>,
+  ): Rule.Interface
 
   /**
    * Type
