@@ -3117,7 +3117,7 @@ __metadata:
     fs-extra: 10.0.0
     html-webpack-plugin: 5.5.0
     lodash: 4.17.21
-    nanoid: 3.2.0
+    nanoid: 3.3.1
     npm-run-path: 5.1.0
     tslib: ^2.3.1
     webpack: 5.68.0
@@ -3830,7 +3830,7 @@ __metadata:
     human-readable: 0.2.1
     json5: 2.2.0
     lodash: 4.17.21
-    nanoid: 3.2.0
+    nanoid: 3.3.1
     node-notifier: 10.0.1
     pkg-up: 4.0.0
     pretty-format: 27.5.1
@@ -16030,12 +16030,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:3.2.0, nanoid@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "nanoid@npm:3.2.0"
+"nanoid@npm:3.3.1, nanoid@npm:^3.2.0":
+  version: 3.3.1
+  resolution: "nanoid@npm:3.3.1"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 3d1d5a69fea84e538057cf64106e713931c4ef32af344068ecff153ff91252f39b0f2b472e09b0dfff43ac3cf520c92938d90e6455121fe93976e23660f4fccc
+  checksum: 4ef0969e1bbe866fc223eb32276cbccb0961900bfe79104fa5abe34361979dead8d0e061410a5c03bc3d47455685adf32c09d6f27790f4a6898fb51f7df7ec86
   languageName: node
   linkType: hard
 
