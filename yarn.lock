@@ -3823,7 +3823,7 @@ __metadata:
     cosmiconfig: 7.0.1
     dotenv: 16.0.0
     dotenv-expand: 8.0.1
-    execa: 6.0.0
+    execa: 6.1.0
     fs-extra: 10.0.0
     globby: 13.1.1
     helpful-decorators: 2.1.0
@@ -10890,20 +10890,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:6.0.0":
-  version: 6.0.0
-  resolution: "execa@npm:6.0.0"
+"execa@npm:6.1.0":
+  version: 6.1.0
+  resolution: "execa@npm:6.1.0"
   dependencies:
     cross-spawn: ^7.0.3
     get-stream: ^6.0.1
     human-signals: ^3.0.1
     is-stream: ^3.0.0
     merge-stream: ^2.0.0
-    npm-run-path: ^5.0.1
+    npm-run-path: ^5.1.0
     onetime: ^6.0.0
-    signal-exit: ^3.0.5
+    signal-exit: ^3.0.7
     strip-final-newline: ^3.0.0
-  checksum: c44249edd4d112266ecd95df9eff5657e07a24aa41f6fb34d9b8185db1255231b482b469e2b8837a73cc898a51ef38ca2bab15d78d80c46917adade3e688da7f
+  checksum: 1a4af799839134f5c72eb63d525b87304c1114a63aa71676c91d57ccef2e26f2f53e14c11384ab11c4ec479be1efa83d11c8190e00040355c2c5c3364327fa8e
   languageName: node
   linkType: hard
 
@@ -16260,7 +16260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-path@npm:5.1.0, npm-run-path@npm:^5.0.1":
+"npm-run-path@npm:5.1.0, npm-run-path@npm:^5.1.0":
   version: 5.1.0
   resolution: "npm-run-path@npm:5.1.0"
   dependencies:
@@ -20044,7 +20044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.5, signal-exit@npm:^3.0.7":
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
