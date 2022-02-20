@@ -755,8 +755,9 @@ export abstract class Framework {
    */
   @bind
   public error(...messages: any[]) {
+    this.logger.instance.enable()
     this.logger.instance.scope(...this.logger.context).error(...messages)
-    throw new Error('Error thrown. Reference message contents above.')
+    throw new Error(messages.shift())
   }
 
   @bind
