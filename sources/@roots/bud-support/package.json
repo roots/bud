@@ -65,7 +65,7 @@
     "dotenv-expand": "8.0.1",
     "execa": "6.0.0",
     "fs-extra": "10.0.0",
-    "globby": "13.0.0",
+    "globby": "13.1.1",
     "helpful-decorators": "2.1.0",
     "human-readable": "0.2.1",
     "json5": "2.2.0",

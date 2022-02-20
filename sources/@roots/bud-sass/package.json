@@ -67,7 +67,7 @@
     "postcss-scss": "4.0.3",
     "resolve-cwd": "3.0.0",
     "sass": "1.49.8",
-    "sass-loader": "12.4.0",
+    "sass-loader": "12.6.0",
     "stylelint-config-recommended-scss": "5.0.2",
     "tslib": "2.3.1"
   },
