@@ -1,16 +1,13 @@
-import {Bud,factory as budFactory} from '@roots/bud'
+import {Bud, factory as budFactory} from '@roots/bud'
 import {join} from 'path'
 
-export const repoPath = (path: string) =>
-  join(process.cwd(), path)
+export const repoPath = (path: string) => join(process.cwd(), path)
 
 export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-export const factory = async (
-  options?: Bud.Options['config'],
-) => {
+export const factory = async (options?: Bud.Options['config']) => {
   const bud = await budFactory({
     config: {
       features: {

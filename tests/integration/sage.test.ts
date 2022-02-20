@@ -29,11 +29,6 @@ function test(pacman) {
         expect(project.entrypoints.editor.js).toHaveLength(2)
         expect(project.entrypoints.editor.css).toBeInstanceOf(Array)
         expect(project.entrypoints.editor.css).toHaveLength(1)
-        expect(project.entrypoints.editor.dependencies).toEqual([
-          'wp-edit-post',
-          'wp-dom-ready',
-          'wp-blocks',
-        ])
       })
 
       it('[project.entrypoints.json] has expected customizer entries', () => {
@@ -118,15 +113,7 @@ function test(pacman) {
       })
 
       it('[snapshots] package.json is unchanged', async () => {
-        expect(project.packageJson).toMatchSnapshot({
-          browserslist: ['extends @wordpress/browserslist-config'],
-          devDependencies: {
-            '@roots/bud': 'latest',
-            '@roots/sage': 'latest',
-          },
-          name: 'example-sage',
-          private: true,
-        })
+        expect(project.packageJson).toMatchSnapshot()
       })
 
       it('[snapshots] public/manifest.json matches expectations', async () => {
