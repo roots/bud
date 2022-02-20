@@ -22,15 +22,24 @@ describe('bud.build.config', function () {
   })
 
   it('has expected cache default', () => {
-    expect(bud.build.config.cache).toMatchSnapshot({
-      type: 'filesystem',
-      buildDependencies: {
-        bud: expect.any(Array),
-      },
-      cacheDirectory: expect.stringContaining('.budfiles'),
-      managedPaths: expect.any(Array),
-      version: expect.any(String),
-    })
+    const cache = bud.build.config.cache as any
+
+    expect(cache.type).toStrictEqual('filesystem')
+
+    expect(cache.buildDependencies.bud).toStrictEqual([
+      expect.stringContaining('package.json'),
+      expect.stringContaining('bud.config.js'),
+    ])
+
+    expect(cache.cacheDirectory).toStrictEqual(
+      expect.stringContaining('.budfiles/cache/webpack'),
+    )
+
+    expect(cache.managedPaths).toStrictEqual([
+      expect.stringContaining('node_modules'),
+    ])
+
+    expect(cache.version).toStrictEqual(expect.any(String))
   })
 
   it('has expected context default', () => {
@@ -137,7 +146,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
     ).toMatchSnapshot({
       test: /\.(js|jsx)/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.any(String),
@@ -152,7 +161,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
     ).toMatchSnapshot({
       test: /\.css$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining(
@@ -181,7 +190,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
     ).toMatchSnapshot({
       test: /\.module.css$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining(
@@ -204,7 +213,6 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
       generator: {
         filename: 'images/[name][ext]',
       },
@@ -242,7 +250,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
     ).toMatchSnapshot({
       type: 'asset',
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       generator: {filename: 'fonts/[name][ext]'},
     })
   })
@@ -251,7 +259,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {parse: json5.parse},
       test: /\.json$/,
       type: 'json',
@@ -262,7 +270,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {parse: yaml.parse},
       test: /\.ya?ml$/,
       type: 'json',
@@ -274,7 +282,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('html-loader/dist/cjs.js'),
@@ -288,7 +296,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('csv-loader/index.js'),
@@ -302,7 +310,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('/xml-loader/index.js'),
@@ -315,7 +323,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {
         parse: toml.parse,
       },

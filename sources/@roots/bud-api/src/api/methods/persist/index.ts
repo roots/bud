@@ -11,9 +11,8 @@ export const persist: persist = function (
   const ctx = this as Framework
 
   if (cacheStrategy === false) {
-    ctx.api.log('success', {
-      message: 'cache disabled',
-    })
+    ctx.api.log('success', {message: 'cache disabled'})
+
     ctx.hooks.on('build.cache', () => false)
     return ctx
   }
@@ -46,7 +45,7 @@ export const persist: persist = function (
       ctx.path('storage', 'cache', 'webpack'),
     )
     .hooks.on('build.cache.buildDependencies', () => ({
-      bud: ctx.project.get('dependencies'),
+      bud: Array.from(new Set<string>(ctx.project.get('dependencies'))),
     }))
     .hooks.on('build.cache.managedPaths', () => [ctx.path('modules')])
 
