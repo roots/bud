@@ -98,14 +98,18 @@ export class BuildCommand extends Command {
   /**
    * --cacheType
    */
-  public cacheType = Option.String(`--cacheType`, seed.cache.type, {
-    description: `Type of cache`,
-    tolerateBoolean: true,
-    validator: t.isOneOf([
-      t.isLiteral('filesystem'),
-      t.isLiteral('memory'),
-    ]),
-  })
+  public cacheType = Option.String(
+    `--cache.type,--cacheType`,
+    seed.cache.type,
+    {
+      description: `Type of cache`,
+      tolerateBoolean: true,
+      validator: t.isOneOf([
+        t.isLiteral('filesystem'),
+        t.isLiteral('memory'),
+      ]),
+    },
+  )
 
   /**
    * --clean
@@ -146,7 +150,7 @@ export class BuildCommand extends Command {
    * --project
    */
   public project = Option.String(
-    `--project --cwd`,
+    `--project,--cwd`,
     seed.location.project,
     {
       description: 'Project directory',
@@ -156,14 +160,14 @@ export class BuildCommand extends Command {
   /**
    * --src
    */
-  public src = Option.String(`--source --src --input`, seed.location.src, {
+  public src = Option.String(`--source,--src,--input`, seed.location.src, {
     description: 'Source directory (relative to project)',
   })
 
   /**
    * --dist
    */
-  public dist = Option.String(`--dist --output`, seed.location.dist, {
+  public dist = Option.String(`--dist,--output`, seed.location.dist, {
     description: 'Distribution directory (relative to project)',
   })
 
@@ -185,7 +189,7 @@ export class BuildCommand extends Command {
    * --log.level
    */
   public logLevel = Option.String(
-    `--log.level --logLevel`,
+    `--log.level,--logLevel`,
     seed.log.level,
     {
       description: 'Set logging level',
@@ -209,7 +213,7 @@ export class BuildCommand extends Command {
    * --minimize
    */
   public minimize = Option.Boolean(
-    `--minimize --minify --min`,
+    `--minimize,--minify,--min`,
     seed.build.optimization.enable,
     {
       description: 'Minimize compiled assets',
@@ -220,7 +224,7 @@ export class BuildCommand extends Command {
    * --publicPath
    */
   public publicPath = Option.String(
-    `--publicPath --public`,
+    `--publicPath,--public`,
     // this value may be a function, but not over cli
     seed.build.output.publicPath as string,
   )
@@ -229,7 +233,7 @@ export class BuildCommand extends Command {
    * --splitChunks
    */
   public splitChunks = Option.Boolean(
-    `--splitChunks --vendor`,
+    `--splitChunks,--vendor`,
     seed.features.splitChunks,
     {
       description: 'Separate vendor bundle',
@@ -239,7 +243,7 @@ export class BuildCommand extends Command {
   /**
    * --target
    */
-  public target = Option.Array(`--target -t`, [], {
+  public target = Option.Array(`--target,-t`, [], {
     description: 'Limit compilation to particular compilers',
   })
 
