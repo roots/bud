@@ -274,7 +274,7 @@ export namespace Store {
      * @public
      */
     cache: {
-      type?: 'filesystem' | 'memory' | false
+      type?: 'filesystem' | 'memory'
     }
 
     /**

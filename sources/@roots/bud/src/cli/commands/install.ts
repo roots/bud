@@ -1,11 +1,11 @@
 import {chalk} from '@roots/bud-support'
 
-import {BuildCommand} from './build.js'
+import {BaseCommand} from './base.js'
 
 /**
  * @public
  */
-export class InstallCommand extends BuildCommand {
+export class InstallCommand extends BaseCommand {
   public static paths = [[`install`], [`init`]]
 
   public async execute() {

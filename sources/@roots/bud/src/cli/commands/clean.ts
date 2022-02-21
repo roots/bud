@@ -1,13 +1,13 @@
-import {bind, fs} from '@roots/bud-support'
+import {bind, chalk, fs} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
 import {factory} from '../../factory/index.js'
 import {Notifier} from '../Notifier/index.js'
-import {BuildCommand} from './build.js'
+import {BaseCommand} from './base.js'
 
 const {ensureDir, remove} = fs
 
-export class CleanCommand extends BuildCommand {
+export class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]
 
   public static usage = Command.Usage({
@@ -25,26 +25,29 @@ export class CleanCommand extends BuildCommand {
   public async cleanProjectAssets() {
     this.notifier = new Notifier(this.app)
 
-    this.logger.info('clearing artifacts')
+    process.stdout.write('clearing artifacts\n')
 
     try {
-      this.logger.pending(`emptying ${this.app.path('storage')}`)
+      process.stdout.write(`emptying ${this.app.path('storage')}\n`)
 
       await ensureDir(this.app.path('storage'))
-
       await remove(this.app.path('storage'))
 
-      this.logger.success(`emptying ${this.app.path('storage')}`)
+      process.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('storage')}\n`),
+      )
     } catch (err) {
-      this.app.error(err)
+      process.stderr.write(chalk.red(err))
     }
 
     try {
-      this.logger.pending(`emptying ${this.app.path('dist')}`)
+      process.stdout.write(`emptying ${this.app.path('dist')}\n`)
 
       await remove(this.app.path('dist'))
 
-      this.logger.success(`emptying ${this.app.path('dist')}`)
+      process.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('dist')}\n`),
+      )
     } catch (err) {
       this.app.error(err)
     }

@@ -1,14 +1,14 @@
-import {bind} from '@roots/bud-support'
+import {bind, chalk} from '@roots/bud-support'
 import {Command} from 'clipanion'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
-import {BuildCommand} from './build.js'
+import {BaseCommand} from './base.js'
 
 /**
  * @internal
  */
-export class DoctorCommand extends BuildCommand {
+export class DoctorCommand extends BaseCommand {
   public webpack: {validate: (conf: any) => any}
   public webpackCLI: webpackcli
 
@@ -16,9 +16,9 @@ export class DoctorCommand extends BuildCommand {
 
   public static usage = Command.Usage({
     category: `Doctor`,
-    description: `Doctor source assets`,
+    description: `Check compiled configuration against webpack`,
     examples: [
-      [`Check bud compiled configuration against webpack`, `$0 doctor`],
+      [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
 
@@ -28,7 +28,6 @@ export class DoctorCommand extends BuildCommand {
     this.app = await factory({config: this.config()})
 
     await this.make()
-
     await this.checkConfiguration()
   }
 
@@ -47,9 +46,13 @@ export class DoctorCommand extends BuildCommand {
       }
 
       this.webpack.validate(conf)
-      this.logger.success(`webpack configuration is valid`)
+      process.stdout.write(chalk.green(`webpack configuration is valid\n`))
     } catch (error) {
-      this.logger.error(error)
+      process.stderr.write(
+        chalk.red(`webpack configuration check returned an error\n`),
+      )
+      process.stderr.write(error)
+      process.exit(1)
     }
   }
 }

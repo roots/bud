@@ -1,14 +1,11 @@
-import {bind, lodash as _} from '@roots/bud-support'
+import {lodash as _} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
 import * as t from 'typanion'
 
 import {Bud} from '../../Bud/index.js'
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
-import * as dynamic from '../config/dynamic.config.js'
-import * as manifest from '../config/manifest.config.js'
-import * as overrides from '../config/override.config.js'
-import {Notifier} from '../Notifier/index.js'
+import {BaseCommand} from './base.js'
 
 /**
  * Accepted options
@@ -16,12 +13,12 @@ import {Notifier} from '../Notifier/index.js'
  * @public
  */
 export interface BuildOptions {
-  cache: Bud.Options['config']['cache']
-  features: Bud.Options['config']['features']
-  location: Bud.Options['config']['location']
-  mode: Bud.Options['config']['mode']
-  publicPath: Bud.Options['config']['output']['publicPath']
-  target: Array<string>
+  cache?: Bud.Options['config']['cache']
+  features?: Bud.Options['config']['features']
+  location?: Bud.Options['config']['location']
+  mode?: Bud.Options['config']['mode']
+  publicPath?: Bud.Options['config']['output']['publicPath']
+  target?: Array<string>
 }
 
 /**
@@ -29,30 +26,7 @@ export interface BuildOptions {
  *
  * @public
  */
-export class BuildCommand extends Command {
-  /**
-   * Application
-   *
-   * @public
-   */
-  public app: Bud
-
-  /**
-   * Application logger
-   *
-   * @public
-   */
-  public get logger() {
-    return this.app.logger.scoped('cli')
-  }
-
-  /**
-   * Node notifier
-   *
-   * @public
-   */
-  public notifier: Notifier
-
+export class BuildCommand extends BaseCommand {
   /**
    * Command paths
    *
@@ -68,19 +42,24 @@ export class BuildCommand extends Command {
   public static usage = Command.Usage({
     category: `Compile`,
     description: `Compile source assets`,
-    examples: [
-      [`Compile source`, `$0 build`],
-      [
-        `Compile from a single compiler`,
-        `$0 build --target [compiler-name]`,
-      ],
-    ],
+    details: `
+      \`bud build\` compiles source assets from the \`src\` directory to the \`dist\` directory.
+
+      Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
+      value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
+
+      By default, the \`src\` directory is \`[cwd]/src\`. You can override this with the \`-i\` flag.
+
+      If you run this command without a bud configuration file \`bud\` will
+      look for an entrypoint at \`src/index.js\`.
+    `,
+    examples: [[`Compile source`, `$0 build`]],
   })
 
   /**
    * --mode
    */
-  public mode = Option.String(seed.mode, 'production', {
+  public mode = Option.String(`--mode`, seed.mode, {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral('production'),
@@ -99,11 +78,10 @@ export class BuildCommand extends Command {
    * --cacheType
    */
   public cacheType = Option.String(
-    `--cache.type,--cacheType`,
+    `--cacheType,--cache.type`,
     seed.cache.type,
     {
       description: `Type of cache`,
-      tolerateBoolean: true,
       validator: t.isOneOf([
         t.isLiteral('filesystem'),
         t.isLiteral('memory'),
@@ -144,30 +122,27 @@ export class BuildCommand extends Command {
    */
   public inject = Option.Boolean(`--inject`, seed.features.inject, {
     description: 'Automatically inject extensions',
+    hidden: true,
   })
 
   /**
    * --project
    */
-  public project = Option.String(
-    `--project,--cwd`,
-    seed.location.project,
-    {
-      description: 'Project directory',
-    },
-  )
+  public project = Option.String(`--project`, seed.location.project, {
+    description: 'Project directory',
+  })
 
   /**
    * --src
    */
-  public src = Option.String(`--source,--src,--input`, seed.location.src, {
+  public src = Option.String(`--input,-i`, seed.location.src, {
     description: 'Source directory (relative to project)',
   })
 
-  /**
+  /*
    * --dist
    */
-  public dist = Option.String(`--dist,--output`, seed.location.dist, {
+  public dist = Option.String(`--output,-o`, seed.location.dist, {
     description: 'Distribution directory (relative to project)',
   })
 
@@ -189,7 +164,7 @@ export class BuildCommand extends Command {
    * --log.level
    */
   public logLevel = Option.String(
-    `--log.level,--logLevel`,
+    `--logLevel,--log.level`,
     seed.log.level,
     {
       description: 'Set logging level',
@@ -213,7 +188,7 @@ export class BuildCommand extends Command {
    * --minimize
    */
   public minimize = Option.Boolean(
-    `--minimize,--minify,--min`,
+    `--minimize`,
     seed.build.optimization.enable,
     {
       description: 'Minimize compiled assets',
@@ -224,7 +199,7 @@ export class BuildCommand extends Command {
    * --publicPath
    */
   public publicPath = Option.String(
-    `--publicPath,--public`,
+    `--publicPath`,
     // this value may be a function, but not over cli
     seed.build.output.publicPath as string,
   )
@@ -299,40 +274,5 @@ export class BuildCommand extends Command {
 
     await this.make()
     await this.run()
-  }
-
-  /**
-   * Bootstrap Application
-   *
-   * @returns Bud
-   */
-  @bind
-  public async make() {
-    this.notifier = new Notifier(this.app)
-
-    try {
-      this.logger.time('process user configs')
-      await dynamic.configs(this.app, this.logger)
-      await manifest.configs(this.app, this.logger)
-      this.logger.timeEnd('process user configs')
-    } catch (error) {
-      throw new Error(error)
-    }
-
-    await overrides.config(this.app, this.config())
-    this.app.api.processQueue()
-    this.app.extensions.processQueue()
-
-    return this.app
-  }
-
-  /**
-   * Run the build
-   *
-   * @public
-   */
-  @bind
-  public async run() {
-    await this.app.api.call('run')
   }
 }
