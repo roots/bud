@@ -31,14 +31,14 @@ export class Rule extends Base implements FrameworkRule.Interface {
   /**
    * Include paths
    */
-  public include?: (app: Framework) => string
+  public include?: (app: Framework) => Array<string | RegExp>
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude?: (app: Framework) => RegExp
+  public exclude?: (app: Framework) => Array<string | RegExp>
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
@@ -162,7 +162,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): string {
+  public getInclude(): Array<string | RegExp> {
     return this.include ? this.include(this.app) : null
   }
 
@@ -173,7 +173,9 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(include: Maybe<[Framework], string>): Rule {
+  public setInclude(
+    include: Maybe<[Framework], Array<string | RegExp>>,
+  ): Rule {
     this.include = this.normalizeInput(include)
     return this
   }
@@ -185,7 +187,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): RegExp {
+  public getExclude(): Array<string | RegExp> {
     return this.exclude ? this.exclude(this.app) : null
   }
 
@@ -196,7 +198,9 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setExclude(exclude: Maybe<[Framework], RegExp>): Rule {
+  public setExclude(
+    exclude: Maybe<[Framework], Array<string | RegExp>>,
+  ): Rule {
     this.exclude = this.normalizeInput(exclude)
     return this
   }

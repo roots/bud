@@ -53,7 +53,7 @@ describe('Build Rule', function () {
   it('getExclude', () => {
     const definition = {
       test: /.foo$/,
-      exclude: /.bar$/,
+      exclude: [/.bar$/],
     }
 
     const rule = new Rule(bud, definition)
@@ -64,7 +64,7 @@ describe('Build Rule', function () {
   it('setExclude from fn', () => {
     const rule = new Rule(bud, {test: /.foo$/})
 
-    const mutationFn = () => /.js$/
+    const mutationFn = () => [/.js$/]
     rule.setExclude(mutationFn)
 
     expect(rule.exclude).toEqual(mutationFn)
@@ -73,11 +73,9 @@ describe('Build Rule', function () {
   it('setExclude from obj', () => {
     const rule = new Rule(bud, {test: /.foo$/})
 
-    const mutation = /.js$/
+    const mutation = [/.js$/]
     rule.setExclude(mutation)
 
-    expect<RegExp>(rule.exclude(bud)).toStrictEqual<RegExp>(
-      mutation,
-    )
+    expect(rule.exclude(bud)).toStrictEqual(mutation)
   })
 })
