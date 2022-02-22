@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import type {Extension} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -29,9 +29,33 @@ declare module '@roots/bud-framework' {
  * - `@roots/bud-wordpress-externals`
  * - `@roots/bud-wordpress-manifests`
  *
+ * The manifest plugin suite is only enqueued in production mode:
+ * - `@roots/bud-wordpress-dependencies`
+ * - `@roots/bud-wordpress-externals`
+ * - `@roots/bud-wordpress-manifests`
+ *
  * @public
  */
-type BudWordPressPreset = Extension.Module
+interface BudWordPressPreset extends Extension.Module {
+  name: '@roots/bud-preset-wordpress'
+  register(app: Framework): Promise<void>
+}
 
 export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
+
+export const register: BudWordPressPreset['register'] = async app => {
+  if (!app.isProduction) return
+
+  try {
+    const extensions = await Promise.all([
+      await import('@roots/bud-wordpress-externals'),
+      await import('@roots/bud-wordpress-manifests'),
+      await import('@roots/bud-wordpress-dependencies'),
+    ])
+
+    await Promise.all(extensions.map(app.extensions.add))
+  } catch (err) {
+    app.error(err)
+  }
+}
