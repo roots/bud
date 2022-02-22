@@ -1,3 +1,4 @@
+import {jsonStringify} from '@roots/bud-support'
 import {readFile, writeFile} from 'fs-extra'
 import json5 from 'json5'
 
@@ -10,3 +11,5 @@ export const write = async (file: string, data: any): Promise<void> => {
   const source = json5.stringify(data)
   await writeFile(file, source)
 }
+
+export const stringify = jsonStringify
