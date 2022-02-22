@@ -84,15 +84,6 @@ export class EntrypointsWebpackPlugin {
   public name: string = 'entrypoints.json'
 
   /**
-   * Entrypoints type.
-   *
-   * Object type will key files by chunk name
-   *
-   * @public
-   */
-  public type: 'array' | 'object' = 'array'
-
-  /**
    * Webpack compiler instance
    *
    * @public
@@ -107,20 +98,6 @@ export class EntrypointsWebpackPlugin {
   public compilation: Webpack.Compilation
 
   /**
-   * Emit html
-   *
-   * @public
-   */
-  public emitHtml: boolean = false
-
-  /**
-   * Project publicPath
-   *
-   * @public
-   */
-  public publicPath: string
-
-  /**
    * Collected assets
    *
    * @public
@@ -132,12 +109,7 @@ export class EntrypointsWebpackPlugin {
    *
    * @public
    */
-  public constructor(options?: Options) {
-    options &&
-      Object.keys(options).map(prop => {
-        this[prop] = options[prop]
-      })
-  }
+  public constructor(public options: Options) {}
 
   /**
    * Webpack plugin API's `apply` hook
@@ -150,12 +122,13 @@ export class EntrypointsWebpackPlugin {
     this.assets = {}
 
     this.compiler = compiler
-    this.publicPath =
-      this.publicPath ??
+
+    this.options.publicPath =
+      this.options.publicPath ??
       (this.compiler.options.output.publicPath as string) ??
       ''
 
-    this.publicPath = this.publicPath.replace('auto', '')
+    this.options.publicPath = this.options.publicPath.replace('auto', '')
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,
@@ -187,11 +160,11 @@ export class EntrypointsWebpackPlugin {
         })
     })
 
-    this.emitHtml &&
+    this.options.emitHtml &&
       new InlineEmitter(
         this.compilation,
         this.assets,
-        this.publicPath,
+        this.options.publicPath,
       ).emitHtmlTags()
 
     Object.assign(this.compilation.assets, {
@@ -221,14 +194,14 @@ export class EntrypointsWebpackPlugin {
     this.assets[entry] = {
       ...this.assets[entry],
       [type]:
-        this.type === 'object' && key
+        this.options.type === 'object' && key
           ? {
               ...(this.assets[entry][type] ?? {}),
-              [key]: this.publicPath.concat(file),
+              [key]: this.options.publicPath.concat(file),
             }
           : uniq([
               ...(this.assets[entry][type] ?? []),
-              this.publicPath.concat(file),
+              this.options.publicPath.concat(file),
             ]),
     }
   }
