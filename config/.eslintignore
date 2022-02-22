@@ -6,6 +6,7 @@
 **/tsconfig.json
 **/*.d.ts
 examples/*/src/**/*
+examples/*/resources/**/*
 examples/*/bud.config.*
 dev/**/*
 sources/site/**/*
