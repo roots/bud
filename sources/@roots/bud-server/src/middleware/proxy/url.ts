@@ -49,32 +49,4 @@ export class URL {
    * @public
    */
   public constructor(public _app: () => Framework) {}
-
-  /**
-   * Asset public path
-   *
-   * @public
-   */
-  public get publicPath() {
-    const publicPath = this.app.hooks.filter('build.output.publicPath')
-    return publicPath !== 'auto' ? publicPath : '/'
-  }
-
-  /**
-   * Asset base path for dev
-   *
-   * @public
-   */
-  public get devAssetUrlBase() {
-    return `${this.dev.origin}${this.publicPath}`
-  }
-
-  /**
-   * Asset base path for proxy
-   *
-   * @public
-   */
-  public get proxyAssetUrlBase() {
-    return `${this.proxy.origin}${this.publicPath}`
-  }
 }
