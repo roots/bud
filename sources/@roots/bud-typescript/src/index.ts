@@ -36,7 +36,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-typescript': Extension.Module
+    '@roots/bud-typescript': BudTypeScriptExtension
   }
 
   interface Plugins {

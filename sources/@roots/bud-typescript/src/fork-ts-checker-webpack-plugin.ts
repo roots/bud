@@ -16,7 +16,10 @@ export type Options = Plugin['options']
  * @public
  */
 export interface BudTypeCheckPlugin
-  extends Extension.CompilerPlugin<Plugin, Options> {}
+  extends Extension.CompilerPlugin<Plugin, Options> {
+  name: 'fork-ts-checker-webpack-plugin'
+  options(app: Framework): Options
+}
 
 /**
  * extension name
