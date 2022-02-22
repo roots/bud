@@ -2,7 +2,7 @@ import type * as alias from '../methods/alias'
 import type * as assets from '../methods/assets'
 import type {config} from '../methods/config'
 import type {define} from '../methods/define'
-import type {devtool} from '../methods/devtool'
+import type * as devtool from '../methods/devtool'
 import type {facade as entryFacade} from '../methods/entry'
 import type {experiments} from '../methods/experiments'
 import type {externals} from '../methods/externals'
@@ -210,7 +210,7 @@ export class Facade {
    *
    * @public
    */
-  public devtool: devtool
+  public devtool: devtool.facade
 
   /**
    * Bundle vendor modules separately from application code.

@@ -5,6 +5,10 @@ export interface devtool {
   (devtool?: Configuration['devtool']): Promise<Framework>
 }
 
+export interface facade {
+  (devtool?: Configuration['devtool']): Framework
+}
+
 export const devtool: devtool = async function (devtool = false) {
   this as Framework
 
