@@ -3,9 +3,9 @@ import {
   Items,
   Loaders,
   Rules,
+  Service,
 } from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs, lodash, prettyFormat} from '@roots/bud-support'
+import {bind, chalk, fs, lodash} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 import {Configuration} from 'webpack'
 
@@ -194,7 +194,11 @@ export class Build extends Service implements Contract.Interface {
 
       await writeFile(
         filePath,
-        `module.exports = (${prettyFormat(this.config)})`,
+        `module.exports = ${this.app.json.stringify(
+          this.config,
+          null,
+          2,
+        )}`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

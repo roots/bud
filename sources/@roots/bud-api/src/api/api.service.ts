@@ -80,7 +80,8 @@ export class Api extends Framework.Service implements Framework.Api {
   public async call(name: string, ...args: any[]) {
     this.log('log', {
       message: `executing ${chalk.blue(name)}`,
-      suffix: args && !isEmpty(args) ? JSON.stringify(args) : 'none',
+      suffix:
+        args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
     })
 
     // get a reference to the callable
