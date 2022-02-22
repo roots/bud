@@ -11,6 +11,13 @@ export class Watcher {
   public instance: FSWatcher
 
   /**
+   * Class constructor
+   *
+   * @param app - Application instance
+   */
+  public constructor(public app: Framework) {}
+
+  /**
    * Get watched files
    *
    * @public
@@ -22,22 +29,21 @@ export class Watcher {
 
     if (!files?.length) return []
 
-    const globResults = await globby.globby(
-      files.map((file: string) => this.app.path('project', file)),
-      options,
-    )
+    return await globby.globby(
+      files.map((file: string) => {
+        this.app.build.config.resolve.alias &&
+          Object.entries(this.app.build.config.resolve.alias).map(
+            ([key, value]) => {
+              file = file.replace(key, value)
+            },
+          )
 
-    return globResults.map(entry =>
-      typeof entry === 'object' ? entry.path : entry,
+        if (!file.startsWith('/')) file = this.app.path('project', file)
+
+        return file
+      }, options),
     )
   }
-
-  /**
-   * Class constructor
-   *
-   * @param app - Application instance
-   */
-  public constructor(public app: Framework) {}
 
   /**
    * Initialize watch files
