@@ -2,7 +2,7 @@
 // @ts-check
 
 const {Cli, Builtins} = require('clipanion');
-const {BuildCommand, CleanCommand, DevCommand, DoctorCommand} = require('../lib/cjs/cli/index.js');
+const {BuildCommand, CleanCommand, DevCommand, DoctorCommand, InstallCommand} = require('../lib/cjs/cli/index.js');
 const { fs } = require('@roots/bud-support')
 
 const args = process.argv.splice(2);
@@ -25,6 +25,7 @@ const args = process.argv.splice(2);
   cli.register(CleanCommand);
   cli.register(DevCommand);
   cli.register(DoctorCommand);
+  cli.register(InstallCommand)
 
   cli.run(args);
 })();
