@@ -49,10 +49,7 @@
       "@roots/bud-entrypoints",
       "@roots/bud-postcss",
       "@roots/bud-preset-recommend",
-      "@roots/bud-react",
-      "@roots/bud-wordpress-externals",
-      "@roots/bud-wordpress-dependencies",
-      "@roots/bud-wordpress-manifests"
+      "@roots/bud-react"
     ]
   },
   "devDependencies": {
