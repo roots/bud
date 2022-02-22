@@ -46,12 +46,15 @@ export class DoctorCommand extends BaseCommand {
       }
 
       this.webpack.validate(conf)
-      process.stdout.write(chalk.green(`webpack configuration is valid\n`))
+      this.context.stdout.write(
+        chalk.green(`webpack configuration is valid\n`),
+      )
     } catch (error) {
-      process.stderr.write(
+      this.context.stderr.write(
         chalk.red(`webpack configuration check returned an error\n`),
       )
-      process.stderr.write(error)
+      this.context.stderr.write(error)
+
       process.exit(1)
     }
   }

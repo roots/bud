@@ -75,7 +75,7 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --cacheType
+   * --cache.type
    */
   public cacheType = Option.String(
     `--cacheType,--cache.type`,
@@ -202,6 +202,7 @@ export class BuildCommand extends BaseCommand {
     `--publicPath`,
     // this value may be a function, but not over cli
     seed.build.output.publicPath as string,
+    {description: 'public path of emitted assets'},
   )
 
   /**
@@ -266,7 +267,7 @@ export class BuildCommand extends BaseCommand {
    */
   public async execute() {
     if (!_.isUndefined(this.dashboard))
-      process.stdout.write(
+      this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
 

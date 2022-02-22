@@ -9,7 +9,7 @@ import * as overrides from '../config/override.config.js'
 import {Notifier} from '../Notifier/index.js'
 
 /**
- * Build command
+ * Base command
  *
  * @public
  */
@@ -57,8 +57,10 @@ export abstract class BaseCommand extends Command {
 
     try {
       this.logger.time('process user configs')
+
       await dynamic.configs(this.app, this.logger)
       await manifest.configs(this.app, this.logger)
+
       this.logger.timeEnd('process user configs')
     } catch (error) {
       throw new Error(error)

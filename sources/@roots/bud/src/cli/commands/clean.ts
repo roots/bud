@@ -25,36 +25,31 @@ export class CleanCommand extends BaseCommand {
   public async cleanProjectAssets() {
     this.notifier = new Notifier(this.app)
 
-    process.stdout.write('clearing artifacts\n')
+    this.context.stdout.write('clearing artifacts\n')
 
     try {
-      process.stdout.write(`emptying ${this.app.path('storage')}\n`)
+      this.context.stdout.write(`emptying ${this.app.path('storage')}\n`)
 
       await ensureDir(this.app.path('storage'))
       await remove(this.app.path('storage'))
 
-      process.stdout.write(
+      this.context.stdout.write(
         chalk.green(`✔ emptying ${this.app.path('storage')}\n`),
       )
     } catch (err) {
-      process.stderr.write(chalk.red(err))
+      this.context.stderr.write(chalk.red(err))
     }
 
     try {
-      process.stdout.write(`emptying ${this.app.path('dist')}\n`)
+      this.context.stdout.write(`emptying ${this.app.path('dist')}\n`)
 
       await remove(this.app.path('dist'))
 
-      process.stdout.write(
+      this.context.stdout.write(
         chalk.green(`✔ emptying ${this.app.path('dist')}\n`),
       )
     } catch (err) {
       this.app.error(err)
     }
-  }
-
-  @bind
-  public async run() {
-    await this.app.api.call('run')
   }
 }
