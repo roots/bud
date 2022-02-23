@@ -46,7 +46,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/eslint": "8.4.1",
-    "@types/jest": "27.4.0",
+    "@types/jest": "27.4.1",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.25",
     "autobind-decorator": "2.4.0",

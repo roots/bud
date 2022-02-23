@@ -3109,7 +3109,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     copy-webpack-plugin: 10.2.4
@@ -3440,7 +3440,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: ^2.4.0
@@ -3576,7 +3576,7 @@ __metadata:
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     "@types/react": 17.0.39
@@ -3601,7 +3601,7 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: 2.4.0
@@ -3747,7 +3747,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/eslint": 8.4.1
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: ^2.4.0
@@ -3922,7 +3922,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/eslint": 8.4.1
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     "@vue/compiler-sfc": 3.2.31
@@ -3960,7 +3960,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: ^2.4.0
@@ -3977,7 +3977,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: ^2.4.0
@@ -3993,7 +3993,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: ^2.4.0
@@ -4095,7 +4095,7 @@ __metadata:
   resolution: "@roots/entrypoints-webpack-plugin@workspace:sources/@roots/entrypoints-webpack-plugin"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: 2.4.0
@@ -4230,7 +4230,7 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/eslint": 8.4.1
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
     autobind-decorator: 2.4.0
@@ -4859,13 +4859,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:27.4.0":
-  version: 27.4.0
-  resolution: "@types/jest@npm:27.4.0"
+"@types/jest@npm:27.4.1":
+  version: 27.4.1
+  resolution: "@types/jest@npm:27.4.1"
   dependencies:
-    jest-diff: ^27.0.0
+    jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
-  checksum: d2350267f954f9a2e4a15e5f02fbf19a77abfb9fd9e57a954de1fb0e9a0d3d5f8d3646ac7d9c42aeb4b4d828d2e70624ec149c85bb50a48634a54eed8429e1f8
+  checksum: 5184f3eef4832d01ee8f59bed15eec45ccc8e29c724a5e6ce37bf74396b37bdf04f557000f45ba4fc38ae6075cf9cfcce3d7a75abc981023c61ceb27230a93e4
   languageName: node
   linkType: hard
 
@@ -7806,7 +7806,7 @@ __metadata:
     "@repo/logger": "workspace:*"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
-    "@types/jest": 27.4.0
+    "@types/jest": 27.4.1
     "@types/node": 16.11.25
     "@typescript-eslint/eslint-plugin": 5.12.0
     "@typescript-eslint/parser": 5.12.0
@@ -13782,7 +13782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^27.0.0, jest-diff@npm:^27.5.1":
+"jest-diff@npm:^27.5.1":
   version: 27.5.1
   resolution: "jest-diff@npm:27.5.1"
   dependencies:
@@ -13911,7 +13911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-matcher-utils@npm:^27.5.1":
+"jest-matcher-utils@npm:^27.0.0, jest-matcher-utils@npm:^27.5.1":
   version: 27.5.1
   resolution: "jest-matcher-utils@npm:27.5.1"
   dependencies:
