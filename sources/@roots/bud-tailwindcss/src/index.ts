@@ -14,4 +14,5 @@ import './typings'
 
 import {BudTailwindCssExtension} from './tailwind.extension'
 
-export const {label: name, boot} = BudTailwindCssExtension
+export const name = BudTailwindCssExtension.label
+export const boot = BudTailwindCssExtension.boot
