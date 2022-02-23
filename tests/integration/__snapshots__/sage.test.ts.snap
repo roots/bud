@@ -44,16 +44,13 @@ exports[`sage yarn [snapshots] module map matches snapshot 1`] = `
 Object {
   "byName": Object {
     "app": Any<Number>,
-    "customizer": 290,
     "editor": Any<Number>,
     "runtime": Any<Number>,
   },
   "bySource": Object {
     "0 app": Any<Number>,
-    "0 customizer": 666,
     "0 editor": Any<Number>,
     "1 app": Any<Number>,
-    "1 customizer": 290,
     "1 editor": Any<Number>,
   },
   "usedIds": Array [
