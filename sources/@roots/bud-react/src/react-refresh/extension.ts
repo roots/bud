@@ -21,10 +21,7 @@ export interface ReactRefreshExtension
 
 export const ReactRefreshExtension: ReactRefreshExtension = {
   name: '@pmmmwh/react-refresh-webpack-plugin',
-
   options: {overlay: false},
-
-  make: opt => new RefreshPlugin(opt.all()),
-
-  when: ({isDevelopment}) => isDevelopment,
+  make: options => new RefreshPlugin(options.all()),
+  when: app => app.isDevelopment,
 }
