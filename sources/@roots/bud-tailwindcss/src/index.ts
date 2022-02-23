@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './typings.js'
+import './typings'
 
 import {BudTailwindCssExtension} from './tailwind.extension'
 
