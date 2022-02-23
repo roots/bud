@@ -3667,12 +3667,15 @@ __metadata:
     type-fest: 2.11.2
     webpack: 5.68.0
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: 17.0.2
+    react-dom: 17.0.2
+    react-refresh: 0.11.0
   peerDependenciesMeta:
     react:
       optional: true
     react-dom:
+      optional: true
+    react-refresh:
       optional: true
   languageName: unknown
   linkType: soft
