@@ -86,13 +86,16 @@ export class Config {
   }
 
   @bind
-  public setPlugin(name: string, plugin: [any, any] | string): this {
-    if (Array.isArray(plugin)) {
-      this.plugins[name] = plugin
+  public setPlugin(
+    ...args: [string] | [string, string] | [string, [string, string]]
+  ): this {
+    if (args.length == 1) {
+      this.plugins[args[0]] = [args[0]]
       return this
     }
 
-    this.plugins[name] = [plugin]
+    this.plugins[args[0]] = Array.isArray(args[1]) ? args[1] : [args[1]]
+
     return this
   }
 
