@@ -3858,7 +3858,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.178
     "@types/node": 16.11.25
-    "@types/tailwindcss": 3.0.8
+    "@types/tailwindcss": 3.0.9
     autoprefixer: ^10.4.0
     tailwindcss: 3.0.23
     tslib: ^2.3.1
@@ -5226,10 +5226,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:3.0.8":
-  version: 3.0.8
-  resolution: "@types/tailwindcss@npm:3.0.8"
-  checksum: 627cf0863178e6ea592d72e388bf7abf110b2e9b0dd611084e9a0d8854ec2ac4cf83f792edf752445b63c0fd3d1db44318dc45a24ed31fdf8c4de14225695c5c
+"@types/tailwindcss@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@types/tailwindcss@npm:3.0.9"
+  checksum: c991b2156d484276316d28d4e621d55ac2b43d2291939a6809d5c1ee71ed632331f08f0ac4ded8ea87f4038e38e28945ea63746d739ceb662e42face4e65e3a8
   languageName: node
   linkType: hard
 
