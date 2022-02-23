@@ -121,7 +121,7 @@ export const config: config = {
 
 export type ContributionTypes = '🚀 steward' | '💻 dev' | '✍🏽 docs'
 
-export interface config extends Record<string, unknown> {
+export interface config {
   /**
    * Project name
    */
@@ -151,10 +151,10 @@ export interface config extends Record<string, unknown> {
    * Project organization information
    */
   organization: {
-    name: 'Roots Foundation, LLC'
-    site: 'https://roots.io'
-    twitter: 'https://twitter.com/rootswp'
-    favicon: 'https://roots.io/favicon.ico'
+    name: string
+    site: `https://${string}`
+    twitter: `https://${string}`
+    favicon: `https://${string}.ico`
   }
 
   /**
