@@ -90,7 +90,7 @@ export class Config {
     ...args: [string] | [string, string] | [string, [string, string]]
   ): this {
     if (args.length == 1) {
-      this.plugins[args[0]] = [args[0]]
+      this.plugins[args[0]] = [require.resolve(args[0])]
       return this
     }
 
