@@ -1,9 +1,10 @@
 import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import type {Framework} from '@roots/bud-framework'
-import {isFunction} from 'lodash'
+import {lodash} from '@roots/bud-support'
 
-import {ReactRefreshExtension} from './extension'
 import * as reduceEntries from './reducers'
+
+const {isFunction, isUndefined} = lodash
 
 /**
  * Configure react-refresh-webpack-plugin
@@ -41,32 +42,50 @@ export interface reactRefresh {
   (options?: boolean): Promise<Framework>
 }
 
+/**
+ * Cleanup
+ *
+ * @param app - Framework
+ * @returns Framework
+ */
+const cleanup = (app: Framework) => {
+  app.extensions.has('@pmmmwh/react-refresh-webpack-plugin') &&
+    app.extensions.remove('@pmmmwh/react-refresh-webpack-plugin')
+
+  app.babel.plugins['react-refresh/babel'] &&
+    app.babel.unsetPlugin('react-refresh/babel')
+
+  app.hooks.async('build.entry', async entries =>
+    reduceEntries.remove(entries),
+  )
+
+  return app
+}
+
+/**
+ * Register react-refresh-webpack-plugin
+ *
+ * @param app - Framework
+ * @returns void
+ */
+const register = async (app: Framework) => {
+  const {ReactRefreshExtension} = await import('./extension')
+
+  await app.extensions.add(ReactRefreshExtension)
+  app.hooks.on('build.entry', reduceEntries.add)
+  app.babel.setPlugin('react-refresh/babel')
+}
+
 export const reactRefresh: reactRefresh = async function (
   userOptions?: ReactRefreshPluginOptions | boolean,
 ) {
   const ctx = this as Framework
 
-  if (
-    userOptions === false &&
-    ctx.extensions.has('@pmmmwh/react-refresh-webpack-plugin')
-  ) {
-    ctx.extensions.remove('@pmmmwh/react-refresh-webpack-plugin')
-    ctx.hooks.async('build.entry', async entries =>
-      reduceEntries.remove(entries),
-    )
+  if (userOptions === false) return cleanup(ctx)
 
-    return ctx
-  }
+  await register(ctx)
 
-  /**
-   * Add entries
-   */
-  ctx.hooks.async('build.entry', async entries =>
-    reduceEntries.add(entries),
-  )
-  await ctx.extensions.add(ReactRefreshExtension)
-
-  if (!userOptions || userOptions === true) return ctx
+  if (isUndefined(userOptions) || userOptions === true) return ctx
 
   if (isFunction(userOptions)) {
     ctx.extensions
