@@ -3754,7 +3754,7 @@ __metadata:
     babel-preset-solid: ^1.2.5
     eslint: 8.9.0
     jest: 27.5.1
-    solid-js: 1.3.7
+    solid-js: 1.3.8
     tslib: ^2.3.1
     type-fest: 2.11.2
     webpack: 5.68.0
@@ -20169,10 +20169,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.3.7":
-  version: 1.3.7
-  resolution: "solid-js@npm:1.3.7"
-  checksum: a46923b9cfed9d27b0729dd398ddfaa0b83433a771bfa22c81cf7ff86940f6122e5d78cc42a0fa71f2a47221844a74cff21f467696160a6b716fc1f87f576f65
+"solid-js@npm:1.3.8":
+  version: 1.3.8
+  resolution: "solid-js@npm:1.3.8"
+  checksum: 35979d5c31d7322161f1a78fa30991ec30d9577aa265628c4fffcf865458ccb094bf8b0983cc815d77bfcd07b518e25a48a231aaf44a62f509d74a92ce01bd01
   languageName: node
   linkType: hard
 
