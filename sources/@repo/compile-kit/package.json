@@ -12,6 +12,6 @@
     "@roots/bud-support": "workspace:*",
     "@types/fs-extra": "9.0.13",
     "@vercel/ncc": "0.33.3",
-    "fs-extra": "10.0.0"
+    "fs-extra": "10.0.1"
   }
 }

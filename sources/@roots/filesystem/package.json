@@ -50,7 +50,7 @@
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.25",
     "autobind-decorator": "2.4.0",
-    "fs-extra": "10.0.0",
+    "fs-extra": "10.0.1",
     "lodash": "4.17.21",
     "resolve-from": "5.0.0"
   },
