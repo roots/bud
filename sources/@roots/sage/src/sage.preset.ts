@@ -2,10 +2,11 @@ import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
 import eventCompilerStats from './hooks/event.compiler.stats'
+import * as ThemeJSON from './theme/extension'
 
 /**
  * Sage preset
- *
+ *å
  * @public
  */
 export const Sage: Extension.Module<void> = {
@@ -23,6 +24,11 @@ export const Sage: Extension.Module<void> = {
    */
   boot: async app => {
     /**
+     * Add theme.json generator support
+     */
+    await app.extensions.add(ThemeJSON)
+
+    /**
      * Override output directory for svg assets
      * `@roots/bud-build` places them, by default, in `svg/`
      */
@@ -35,10 +41,7 @@ export const Sage: Extension.Module<void> = {
     /**
      * Application paths
      */
-    app.setPath({
-      src: 'resources',
-      dist: 'public',
-    })
+    app.setPath({src: 'resources', dist: 'public'})
 
     /**
      * Application aliases
