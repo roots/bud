@@ -97,7 +97,7 @@ export const Body = ({url}) => (
 
     <h2>Want to contribute to bud.js?</h2>
     <p>
-      Check out [our development guide](https://budjs.netlify.app/dev) to get
+      Check out [our development guide](https://bud.js.org/dev) to get
       started.
     </p>
 
