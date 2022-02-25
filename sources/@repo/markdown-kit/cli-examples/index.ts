@@ -1,12 +1,11 @@
 import {paths} from '@repo/constants'
-import {execa} from '@roots/bud-support'
+import {execa, stripAnsi} from '@roots/bud-support'
 import {writeFile} from 'fs-extra'
 import {join} from 'path'
 
 const main = async () => {
   await Promise.all([
     generateMarkdown(['--help']),
-    generateMarkdown(['install', '--help']),
     generateMarkdown(['dev', '--help']),
     generateMarkdown(['doctor', '--help']),
     generateMarkdown(['clean', '--help']),
@@ -17,26 +16,20 @@ const main = async () => {
 /**
  * Write terminal output to docusaurus mdx
  */
-const generateMarkdown = async (args: string[], dir = 'babel') => {
+const generateMarkdown = async (args: string[]) => {
   const {stdout} = await execa.execa('yarn', [
     `workspace`,
     `@repo/markdown-kit`,
     `run`,
     `bud`,
     ...args,
-    `--location.project`,
-    `${paths.sources}/@repo/markdown-kit`,
   ])
 
-  const content = stdout
-    .replaceAll(/^\n/g, '') // remove leading newlines
-    .replaceAll(/^\s/g, '') // remove leading whitespace
-    .replaceAll(/\n$/g, '') // remove trailing newlines
-    .replaceAll(`${process.cwd()}`, '[REDACTED]', 'g') // remove path
+  const content = stripAnsi(stdout)
 
   const name = args
     .join('.')
-    .replaceAll(/\--/g, '') // replace `--` with `.`
+    .replace(/\--/g, '') // replace `--` with `.`
     .replace(/^\./, '') // remove leading `.`
     .concat('.md') // add .md extension
 
