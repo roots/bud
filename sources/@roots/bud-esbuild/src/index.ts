@@ -15,14 +15,6 @@
  * @remarks
  * If you would like to contribute to the development of this plugin (especially if you have experience
  * with module reloading in an ESBuild context), please open an issue on Github.
- *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 

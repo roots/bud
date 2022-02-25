@@ -7,10 +7,10 @@
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-eslint": "latest",
-    "@roots/eslint-config": "latest",
     "@roots/bud-prettier": "latest",
     "@roots/bud-stylelint": "latest",
     "@roots/bud-tailwindcss": "latest",
+    "@roots/eslint-config": "latest",
     "@roots/sage": "latest"
   }
 }

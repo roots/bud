@@ -11,7 +11,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-support": "link:sources/@roots/bud-support/lib/index.js",
     "@types/fs-extra": "9.0.13",
-    "fs-extra": "10.0.0",
+    "fs-extra": "10.0.1",
     "helpful-decorators": "2.1.0",
     "jest": "27.5.1",
     "json5": "2.2.0"

@@ -1,108 +1,45 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import {chalk, lodash} from '@roots/bud-support'
-
-import {tailwind} from './bud.tailwind'
-import * as requirements from './tailwind.requirements'
-
-const {isUndefined} = lodash
-
-export interface BudTailwindCssExtension extends Extension.Module {
-  name: '@roots/bud-tailwindcss'
-  api: {tailwind}
-  boot: (app: Framework) => Promise<void>
-}
+import type {Signale} from '@roots/bud-support'
 
 /**
- * Load user configuration path
- *
- * @internal
- */
-const getVerifiedUserConfigPath = async function (
-  this: Framework,
-): Promise<string> {
-  try {
-    const configPath = this.path('project', 'tailwind.config.js')
-
-    await import(configPath)
-
-    this.success(
-      `loaded user tailwindcss config from ${chalk.green(configPath)}`,
-    )
-
-    return configPath
-  } catch (e) {
-    this.warn({
-      message: '@roots/bud-tailwindcss failed to load user config',
-    })
-    return null
-  }
-}
-
-/**
- * TailwindCSS Extension
+ * Add TailwindCSS support to Bud
  *
  * @public
  */
-export const BudTailwindCssExtension: BudTailwindCssExtension = {
+export interface BudTailwindCssExtension extends Extension.Module {
+  label: '@roots/bud-tailwindcss'
+  boot: (app: Framework) => Promise<void>
+}
+
+export class BudTailwindCssExtension implements BudTailwindCssExtension {
   /**
+   * Extension name
+   *
    * @public
    */
-  name: '@roots/bud-tailwindcss',
+  public static label = '@roots/bud-tailwindcss'
 
   /**
-   * @public
+   * Extension boot
+   *
+   * @param app - Framework
+   * @returns void
    */
-  api: {tailwind},
-
-  /**
-   * @public
-   */
-  boot: async app => {
-    const log = app.logger.instance.scope(
-      ...app.logger.context,
-      'extensions',
-      'tailwindcss',
-    )
-
-    if (isUndefined(app.postcss)) {
-      log.error(
-        '@roots/bud-tailwindcss has missing dependencies',
-        'exiting early.',
-      )
-      return
-    }
-
-    const meetsRequirements = await requirements.verify()
-    if (!meetsRequirements) {
-      log.error(
-        '@roots/bud-tailwindcss has missing dependencies',
-        'exiting early.',
-      )
-      return
-    }
-
+  public static async boot(app: Framework, logger: Signale) {
     try {
-      const tailwindcss = await import('tailwindcss')
-      const {default: nesting} = await import(
-        'tailwindcss/nesting/index.js'
-      )
-
-      const config: string | null = await getVerifiedUserConfigPath.bind(
-        app,
-      )()
+      const {default: tailwindcss} = await import('tailwindcss')
+      const {default: nesting} = await import('tailwindcss/nesting')
 
       app.postcss.setPlugins({
         'postcss-import': app.postcss.get('postcss-import'),
         'tailwindcss-nesting': [nesting],
-        tailwindcss: config
-          ? [tailwindcss.default, config]
-          : tailwindcss.default,
+        tailwindcss: [tailwindcss],
         'postcss-preset-env': app.postcss.get('postcss-preset-env'),
       })
 
-      log.success('postcss has been configured for tailwindcss')
-    } catch (e) {
-      log.warn({message: e})
+      logger.success('postcss has been configured for tailwindcss')
+    } catch (message) {
+      logger.warn({message})
     }
-  },
+  }
 }

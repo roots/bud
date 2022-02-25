@@ -31,11 +31,6 @@ function test(pacman) {
         expect(project.entrypoints.editor.css).toHaveLength(1)
       })
 
-      it('[project.entrypoints.json] has expected customizer entries', () => {
-        expect(project.entrypoints.customizer.js).toBeInstanceOf(Array)
-        expect(project.entrypoints.customizer.js).toHaveLength(2)
-      })
-
       it('[runtime] has contents', () => {
         expect(project.assets['runtime.js'].length).toBeGreaterThan(10)
       })
@@ -102,22 +97,12 @@ function test(pacman) {
         expect(project.assets['editor.css'].match(/\\n/)).toBeFalsy()
       })
 
-      it('[customizer] has contents', () => {
-        expect(project.assets['customizer.js'].length).toBeGreaterThan(10)
-      })
-
-      it('[customizer] is transpiled', () => {
-        expect(
-          project.assets['customizer.js'].includes('import'),
-        ).toBeFalsy()
-      })
-
       it('[snapshots] package.json is unchanged', async () => {
         expect(project.packageJson).toMatchSnapshot()
       })
 
       it('[snapshots] public/manifest.json matches expectations', async () => {
-        expect(Object.entries(project.manifest).length).toEqual(8)
+        expect(Object.entries(project.manifest).length).toEqual(7)
 
         expect(project.manifest['app.js']).toMatch(/app\.[\d|\w]*\.js/)
         expect(project.manifest['app.css']).toMatch(/app\.[\d|\w]*\.css/)
@@ -126,9 +111,6 @@ function test(pacman) {
         )
         expect(project.manifest['editor.css']).toMatch(
           /editor\.[\d|\w]*\.css/,
-        )
-        expect(project.manifest['customizer.js']).toMatch(
-          /customizer\.[\d|\w]*\.js/,
         )
         expect(project.manifest['runtime.js']).toMatch(
           /runtime\.[\d|\w]*\.js/,
@@ -139,20 +121,16 @@ function test(pacman) {
         expect(project.modules.chunks).toMatchSnapshot({
           byName: {
             app: expect.any(Number),
-            customizer: expect.any(Number),
             editor: expect.any(Number),
             runtime: expect.any(Number),
           },
           bySource: {
             '0 app': expect.any(Number),
-            '0 customizer': expect.any(Number),
             '0 editor': expect.any(Number),
             '1 app': expect.any(Number),
-            '1 customizer': expect.any(Number),
             '1 editor': expect.any(Number),
           },
           usedIds: [
-            expect.any(Number),
             expect.any(Number),
             expect.any(Number),
             expect.any(Number),
