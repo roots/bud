@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url('./dank-mono.css');
 
 :root {
   --ifm-color-primary: rgb(134, 144, 250);
@@ -10,17 +11,25 @@
   --ifm-color-primary-lightest: rgb(206, 209, 247);
   --ifm-footer-background-color: rgb(40, 49, 142);
 
-  --ifm-h2-vertical-rhythm-top: 2;
-  --ifm-h3-vertical-rhythm-top: 1.5;
-  --ifm-heading-vertical-rhythm-top: 1.25;
-  --ifm-h1-vertical-rhythm-bottom: 1.25;
-  --ifm-heading-vertical-rhythm-bottom: 1;
   --ifm-font-family-base: 'Work Sans';
-  --ifm-h1-vertical-rhythm-top: 3;
+  --ifm-font-family-monospace: 'dm';
+}
+
+.theme-back-to-top-button {
+  background: var(--ifm-footer-background-color);
+  color: var(--ifm-color-primary-lightest);
+}
+
+p {
+  font-family: 'Work Sans';
 }
 
 h1 {
-  font-size: var(--ifm-h1-font-size);
+  font-size: 2.2rem !important;
+}
+
+h2 {
+  font-size: 1.6rem !important;
 }
 
 h2 {
@@ -43,16 +52,8 @@ h6 {
   font-size: var(--ifm-h6-font-size);
 }
 
-.markdown h1:first-child {
-  --ifm-h1-font-size: 2.5rem;
-}
-
 .footer {
-  background: linear-gradient(
-    217deg,
-    rgb(86, 98, 218),
-    rgb(40, 49, 142)
-  );
+  background: linear-gradient(217deg, rgb(86, 98, 218), rgb(40, 49, 142));
 }
 
 .docusaurus-highlight-code-line {
@@ -75,18 +76,4 @@ h6 {
   display: inline-block;
   padding: 0.2rem 0.7rem;
   border-radius: 4px;
-}
-
-.table-of-contents__link--active {
-  background: var(--ifm-color-primary-darker);
-  color: white;
-}
-
-.table-of-contents__link--active:hover {
-  color: white;
-  background: var(--ifm-color-primary-dark);
-}
-
-.markdown a {
-  font-weight: 900;
 }
