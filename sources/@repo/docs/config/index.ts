@@ -25,7 +25,7 @@ const docusaurusConfig: Config = {
   favicon: config.organization.favicon,
   organizationName: config.organization.name,
   projectName: config.name,
-  customFields: config,
+  customFields: config as unknown as Record<string, unknown>,
   themeConfig,
   presets: [
     [
@@ -35,6 +35,9 @@ const docusaurusConfig: Config = {
           path: docsPath('content/docs'),
           sidebarPath,
           editUrl: join(config.url.web, `edit/main/sources/docs/`),
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          ],
         },
         blog: {
           path: docsPath('content/blog'),
