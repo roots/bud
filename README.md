@@ -40,15 +40,15 @@ There are also [example implementations available in the /examples directory of 
 
 ### Presets
 
-| Name                                                                    | Usage                                                                         | Latest                                                                                                 |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Name                                                                    | Usage                                                                  | Latest                                                                                                 |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
 
 ### Extensions
 
-| Name                                                                                | Usage                                                                                 | Latest                                                                                                       |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Name                                                                                | Usage                                                                          | Latest                                                                                                       |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-babel**](/sources/@roots/bud-babel)                                   | [📚 Usage](https://bud.js.org/extensions/bud-babel/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
 | [**@roots/bud-compress**](/sources/@roots/bud-compress)                             | [📚 Usage](https://bud.js.org/extensions/bud-compress/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
 | [**@roots/bud-criticalcss**](/sources/@roots/bud-criticalcss)                       | [📚 Usage](https://bud.js.org/extensions/bud-criticalcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |

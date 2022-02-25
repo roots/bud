@@ -13,14 +13,6 @@
  * It is recommended for extension authors to include their type definitions separately. You can
  * ensure that these packages are included in the runtime by specifying your type imports with
  * `import type` syntax.
- *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  *  @packageDocumentation
  */
 
@@ -49,6 +41,7 @@ export * from './external/safe-resolve'
 export * from './external/safe-require'
 export * from './external/safe-json-stringify'
 export * from './external/signale'
+export * from './external/strip-ansi'
 export * from './external/toml'
 export * from './external/yaml'
 export * from './external/table'
