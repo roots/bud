@@ -15,14 +15,6 @@
  * - {@link @roots/bud-postcss# | @roots/bud-postcss}
  *
  * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
- *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 
