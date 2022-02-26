@@ -58,6 +58,9 @@ const docusaurusConfig: Config = {
       {
         id: 'releases',
         path: docsPath('content/releases'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'releases',
         include: ['**/*.md', '**/*.mdx'],
       },
@@ -67,6 +70,9 @@ const docusaurusConfig: Config = {
       {
         id: 'dev',
         path: docsPath('content/dev'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'dev',
         sidebarPath,
         include: ['**/*.md', '**/*.mdx'],
@@ -77,6 +83,9 @@ const docusaurusConfig: Config = {
       {
         id: 'guides',
         path: docsPath('content/guides'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'guides',
         sidebarPath,
         include: ['**/*.md', '**/*.mdx'],

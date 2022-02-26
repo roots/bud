@@ -1,6 +1,5 @@
 import Link from '@docusaurus/Link'
 import React from 'react'
-import {Fragment} from 'react'
 
 export const Card = ({title, description, links}) => (
   <div className="card">
@@ -15,13 +14,13 @@ export const Card = ({title, description, links}) => (
     <div className="card__footer">
       <div className="button-group button-group--block">
         {links.map((link, id) => (
-          <Fragment key={id}>
-            <Link to={link[1]}>
-              <button className="button button--secondary">
-                {link[0]}
-              </button>
-            </Link>
-          </Fragment>
+          <button
+            key={id}
+            className="button button--secondary"
+            onClick={() => (window.location = link[1])}
+          >
+            <Link to={link[1]}>{link[0]}</Link>
+          </button>
         ))}
       </div>
     </div>

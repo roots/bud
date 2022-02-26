@@ -1,12 +1,31 @@
 # Changelog
 
-## Unreleased
+For more information on any given release check the corresponding [bud.js.org `release` tag](https://bud.js.org/blog/tags/release)
 
-- improve: stylelint base configs by @kellymears in []()
+## 5.4.0 (2022-02-22)
+
+- 🎉 feature: @roots/eslint-config by @kellymears in https://github.com/roots/bud/pull/1020
+- 🎉 feature: rule.includes as an array by @kellymears in https://github.com/roots/bud/pull/1179
+- 🎉 feature: replace oclif with clipanion by @kellymears in https://github.com/roots/bud/pull/1153
+- 🩹 fix: late extensions are assumed to be modules by @kellymears in https://github.com/roots/bud/pull/1140
+- 🩹 fix: tailwindcss shouldn't throw when there is no config by @kellymears in https://github.com/roots/bud/pull/1141
+- 🩹 fix: remove click interceptor instanceof check by @kellymears in https://github.com/roots/bud/pull/1150
+- 🩹 fix: ci logging by @kellymears in https://github.com/roots/bud/pull/1158
+- 🩹 fix: json logging errors by @kellymears in https://github.com/roots/bud/pull/1183
+- 🩹 fix: @roots/bud-entrypoints option export by @kellymears in https://github.com/roots/bud/pull/1185
+- 🩹 fix: devtool facade typings by @kellymears in https://github.com/roots/bud/pull/1186
+- 🙌 improve: eslint/stylelint base config by @kellymears in https://github.com/roots/bud/pull/1134
+- 🙌 improve: process logger by @kellymears in https://github.com/roots/bud/pull/1171
+- 🙌 improve: @roots/sage preset by @kellymears in https://github.com/roots/bud/pull/1172
+- 🙌 improve: cli backwards compatibility by @kellymears in https://github.com/roots/bud/pull/1180
+
+## 5.3.2 (2022-02-11)
+
+- [deps: update stylelint](https://github.com/roots/bud/commit/b7113341cfa521b185b0f104a6712785f46b3721) by @kellymears
 
 ## 5.3.1 (2022-02-10)
 
-- fix(bud): ensure parallism is at least 1cpu by default (Thanks @Pederytter) by @qwp6t [https://github.com/roots/bud/pull/1130](https://github.com/roots/bud/pull/1130)
+- fix(bud): ensure parallelism is at least 1cpu by default (Thanks @Pederytter) by @qwp6t [https://github.com/roots/bud/pull/1130](https://github.com/roots/bud/pull/1130)
 
 ## 5.3.0 (2022-02-09)
 
@@ -20,12 +39,10 @@
 - fix(copy-webpack-plugin): update interface by @QWp6t in [https://github.com/roots/bud/pull/1052](https://github.com/roots/bud/pull/1052)
 - improve(framework): add exception handling by @kellymears in [https://github.com/roots/bud/pull/1053](https://github.com/roots/bud/pull/1053)
 - improve(cli): `bud build` command by @kellymears in [https://github.com/roots/bud/pull/1063](https://github.com/roots/bud/pull/1063)
-- improve(typescript): improved configurability by @kellymears in [https://github.com/roots/bud/pull/1062](https://github.com/roots/bud/pull/1062)
+- improve(typescript): improved configuration by @kellymears in [https://github.com/roots/bud/pull/1062](https://github.com/roots/bud/pull/1062)
 - improve(dashboard): rendering by @kellymears in [https://github.com/roots/bud/pull/1054](https://github.com/roots/bud/pull/1054) and [https://github.com/roots/bud/pull/1096](https://github.com/roots/bud/pull/1096)
 - improve(react): general plugin improvements by @kellymears in [https://github.com/roots/bud/pull/1104](https://github.com/roots/bud/pull/1104)
 - improve(api): improved `bud.assets` function by @kellymears in [https://github.com/roots/bud/pull/1114](https://github.com/roots/bud/pull/1114)
-
-**Full Changelog**: [https://github.com/roots/bud/compare/v5.2.0...v5.3.0](https://github.com/roots/bud/compare/v5.2.0...v5.3.0)
 
 ## 5.2.0 (2022-01-19)
 
@@ -60,16 +77,6 @@
 - [fix(framework) fix sourcemap warning](https://github.com/roots/bud/pull/938)
 - [fix(sage) hmr fixes](https://github.com/roots/bud/pull/945)
 - [improve(framework): automated releases](https://github.com/roots/bud/pull/978)
-
-### Contributors
-
-Thanks to everyone who contributed to this release!
-
-- [kellymears](kelly@roots.io)
-- [QWp6t](hi@qwp6t.me)
-- [benword](ben@roots.io)
-- [swalkinshaw](scott@roots.io)
-- [austinpray](austin@austinpray.com)
 
 ## v5.0.0 (2021-11-22)
 
@@ -158,9 +165,3 @@ The following notes only apply to specific extensions:
 
 - [`@roots/bud-tailwindcss`](https://github.com/roots/bud/tree/main/sources/@roots/bud-tailwindcss) - updated to version 3.
 - [`@roots/bud-sass`](https://github.com/roots/bud/tree/main/sources/@roots/bud-sass) - uses `postcss-scss` to avoid syntax conflicts between sass and postcss.
-
-## Contributors
-
-- [kellymears](kelly@roots.io)
-- [QWp6t](hi@qwp6t.me)
-- [benword](ben@roots.io)
