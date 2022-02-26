@@ -51,7 +51,7 @@
     "@types/eslint": "8.4.1",
     "@types/jest": "27.4.1",
     "@types/lodash": "4.14.179",
-    "@types/node": "16.11.25",
+    "@types/node": "16.11.26",
     "@vue/compiler-sfc": "3.2.31",
     "css-loader": "6.6.0",
     "jest": "27.5.1",
