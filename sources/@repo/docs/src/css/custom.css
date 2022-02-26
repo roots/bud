@@ -15,9 +15,9 @@
   --ifm-font-family-monospace: 'dm';
 }
 
-.theme-back-to-top-button {
-  background: var(--ifm-footer-background-color);
-  color: var(--ifm-color-primary-lightest);
+.card {
+  border: 1px solid rgba(206, 209, 247, 0.4);
+  box-shadow: none;
 }
 
 p {
@@ -70,10 +70,4 @@ h6 {
 .footer__bottom {
   text-align: left;
   margin-top: 2rem;
-}
-
-.table-of-contents__link {
-  display: inline-block;
-  padding: 0.2rem 0.7rem;
-  border-radius: 4px;
 }

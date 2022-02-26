@@ -20,7 +20,7 @@ This import statement is very lengthy and fragile.
 import {merge} from '../../../util'
 ```
 
-So, we may wish to define an alias to reference the root of scripts.
+So, we can use [bud.alias](/docs/bud.alias) to create a reference to `./src/scripts`.
 
 ```js title='bud.config.js'
 bud.alias({
@@ -28,7 +28,7 @@ bud.alias({
 })
 ```
 
-And use **bud.alias** to import the script relative to the alias.
+And use the reference to import the module.
 
 ```js title='scripts/my-feature/components/example/index.js'
 import {merge} from '@scripts/util'

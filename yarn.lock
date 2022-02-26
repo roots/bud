@@ -2138,17 +2138,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/remark-plugin-npm2yarn@npm:2.0.0-beta.15":
-  version: 2.0.0-beta.15
-  resolution: "@docusaurus/remark-plugin-npm2yarn@npm:2.0.0-beta.15"
+"@docusaurus/remark-plugin-npm2yarn@npm:latest":
+  version: 2.0.0-beta.16
+  resolution: "@docusaurus/remark-plugin-npm2yarn@npm:2.0.0-beta.16"
   dependencies:
     npm-to-yarn: ^1.0.1
     tslib: ^2.3.1
     unist-util-visit: ^2.0.2
-  peerDependencies:
-    react: ^16.8.4 || ^17.0.0
-    react-dom: ^16.8.4 || ^17.0.0
-  checksum: 14e78229bb055af3d7f0d7f921e1ae2544859f39c2ca92d916437ad08e91200238a2b1857e0bd23a9d692f6dfcdcfcd6665ef319c61a47ddc59a3e4c8d4bf9fe
+  checksum: 81f672feccc2d9eba5b9020d092bce3cfdac9f758e10c8b4ec9c6d282c2be6602c6f47db33607011fcef285598391464c9bfaf3965fb22663eeddeee23fe7e16
   languageName: node
   linkType: hard
 
@@ -3023,7 +3020,7 @@ __metadata:
     "@docusaurus/core": latest
     "@docusaurus/module-type-aliases": latest
     "@docusaurus/preset-classic": latest
-    "@docusaurus/remark-plugin-npm2yarn": 2.0.0-beta.15
+    "@docusaurus/remark-plugin-npm2yarn": latest
     "@repo/constants": "workspace:sources/@repo/constants"
     "@svgr/webpack": 6.2.1
     "@tsconfig/docusaurus": 1.0.4
@@ -7832,7 +7829,6 @@ __metadata:
     eslint-plugin-react-hooks: 4.3.0
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-tsdoc: 0.2.14
-    ink: 3.2.0
     jest: 27.5.1
     prettier: 2.5.1
     ts-jest: 27.1.3
