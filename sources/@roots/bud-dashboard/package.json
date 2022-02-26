@@ -45,7 +45,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/ink-use-style": "workspace:sources/@roots/ink-use-style",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
+    "@types/lodash": "4.14.179",
     "@types/node": "16.11.25",
     "@types/react": "17.0.39",
     "axios": "0.26.0",
