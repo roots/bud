@@ -214,6 +214,7 @@ export class Compiler extends Service implements Contract {
     if (!error) return
 
     this.app.isDevelopment &&
+      // @ts-ignore
       this.app.server.middleware?.hot?.publish({error})
 
     this.app.error(error)
