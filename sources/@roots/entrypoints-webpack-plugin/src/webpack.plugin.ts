@@ -26,18 +26,22 @@ export interface Options {
    * Name of the file to emit (default: `entrypoints.json`)
    */
   name?: string
+
   /**
    * Emit entrypoints as an array or an object (default: `array`)
    */
   type?: 'array' | 'object'
+
   /**
    * Override the public path (default is from webpack)
    */
   publicPath?: string
+
   /**
    * Path to emit entrypoints.json
    */
   outputPath?: string
+
   /**
    * Emit html with inlined runtime, script and style tags
    *
@@ -131,7 +135,7 @@ export class EntrypointsWebpackPlugin {
   public constructor(options?: Options) {
     options &&
       Object.keys(options).map(prop => {
-        Object.assign(this, {[prop]: options[prop]})
+        this[prop] = options[prop]
       })
   }
 
@@ -150,6 +154,8 @@ export class EntrypointsWebpackPlugin {
       this.publicPath ??
       (this.compiler.options.output.publicPath as string) ??
       ''
+
+    this.publicPath = this.publicPath.replace('auto', '')
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,

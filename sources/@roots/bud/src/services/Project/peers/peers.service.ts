@@ -51,7 +51,7 @@ export class Peers implements PeersInterface {
   @bind
   public async resolveModulePath(name: string) {
     try {
-      const result = await pkgUp({
+      const result = await pkgUp.pkgUp({
         cwd: dirname(safeResolve(name)),
       })
 

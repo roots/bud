@@ -1,10 +1,10 @@
+import {globby} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as fs from 'fs-extra'
-import {sync as globbySync} from 'globby'
 import {get, has, set} from 'lodash'
 import * as path from 'path'
-import * as resolve from 'resolve-from'
+import resolve from 'resolve-from'
 
 export class FileContainer extends Container {
   /**
@@ -61,13 +61,15 @@ export class FileContainer extends Container {
    */
   @bind
   public setDisk(glob: string[]): this {
-    globbySync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
-      onlyFiles: false,
-      cwd: this._baseDir,
-      expandDirectories: true,
-    }).map((file: any) => {
-      this.set(file, path.join(this.baseDir, file))
-    })
+    globby
+      .globbySync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
+        onlyFiles: false,
+        cwd: this._baseDir,
+        expandDirectories: true,
+      })
+      .map((file: any) => {
+        this.set(file, path.join(this.baseDir, file))
+      })
 
     return this
   }

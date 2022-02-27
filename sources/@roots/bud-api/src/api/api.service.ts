@@ -56,18 +56,11 @@ export class Api extends Framework.Service implements Framework.Api {
   public async registered() {
     await this.processQueue()
 
-    this.app.hooks.async<'event.build.make.before'>(
-      'event.build.make.before',
-      async app => {
-        this.log('log', 'event.build.make.promise api calls')
-
-        await this.processQueue()
-
-        this.dump()
-
-        return app
-      },
-    )
+    this.app.hooks.async('event.build.make.before', async app => {
+      await this.processQueue()
+      this.dump()
+      return app
+    })
   }
 
   /**
@@ -75,11 +68,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public bindFacade(name: string) {
-    this.log('log', `binding ${this.app.name}.${name} facade`)
-
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
-
-    this.log('success', `binding ${this.app.name}.${name} facade`)
   }
 
   /**
@@ -91,7 +80,8 @@ export class Api extends Framework.Service implements Framework.Api {
   public async call(name: string, ...args: any[]) {
     this.log('log', {
       message: `executing ${chalk.blue(name)}`,
-      suffix: args && !isEmpty(args) ? JSON.stringify(args) : 'none',
+      suffix:
+        args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
     })
 
     // get a reference to the callable

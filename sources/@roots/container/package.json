@@ -1,6 +1,6 @@
 {
   "name": "@roots/container",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "Collections utility",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -46,11 +46,11 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "type-fest": "2.11.0"
+    "type-fest": "2.11.2"
   },
   "dependencies": {
     "tslib": "^2.3.1"

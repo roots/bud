@@ -2,7 +2,7 @@
 sidebar_label: Adding entrypoints
 description: Part 4/7 of the Getting Started guide covers adding entrypoints to your build
 sidebar_position: 5
-image: 'https://budjs.netlify.app/img/share/guides/getting-started__config.png'
+image: 'https://bud.js.org/img/share/guides/getting-started__config.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -32,8 +32,7 @@ To build it, specify the new script in **bud.config.js** using [**bud.entry**](/
   <TabItem value="js">
 
 ```js {3} title='bud.config.js'
-module.exports = bud =>
-  bud.entry('landing', 'landing.js').template()
+module.exports = bud => bud.entry('landing', 'landing.js').template()
 ```
 
   </TabItem>
@@ -69,10 +68,7 @@ But now that we are [specifying an entrypoint in our config](#add-a-second-scrip
 
 ```js {3} title='bud.config.js'
 module.exports = bud =>
-  bud
-    .entry('main', 'index.js')
-    .entry('landing', 'landing.js')
-    .template()
+  bud.entry('main', 'index.js').entry('landing', 'landing.js').template()
 ```
 
   </TabItem>
@@ -82,10 +78,7 @@ module.exports = bud =>
 import type {Framework} from '@roots/bud'
 
 export default function (bud: Framework): void {
-  bud
-    .entry('main', 'index.js')
-    .entry('landing', 'landing.js')
-    .template()
+  bud.entry('main', 'index.js').entry('landing', 'landing.js').template()
 }
 ```
 

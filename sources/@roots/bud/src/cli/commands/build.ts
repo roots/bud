@@ -1,126 +1,279 @@
-import * as oclif from '@oclif/core'
+import {lodash as _} from '@roots/bud-support'
+import {Command, Option} from 'clipanion'
+import * as t from 'typanion'
 
-import {Command} from '../Command'
-import * as flags from '../flags'
+import {Bud} from '../../Bud/index.js'
+import {factory} from '../../factory/index.js'
+import {seed} from '../../seed.js'
+import {BaseCommand} from './base.js'
 
 /**
- * @internal
+ * Accepted options
+ *
+ * @public
  */
-export default class Build extends Command {
+export interface BuildOptions {
+  cache?: Bud.Options['config']['cache']
+  features?: Bud.Options['config']['features']
+  location?: Bud.Options['config']['location']
+  mode?: Bud.Options['config']['mode']
+  publicPath?: Bud.Options['config']['output']['publicPath']
+  target?: Array<string>
+}
+
+/**
+ * Build command
+ *
+ * @public
+ */
+export class BuildCommand extends BaseCommand {
   /**
-   * @internal
+   * Command paths
+   *
+   * @public
    */
-  public static description = 'compile source assets'
+  public static paths = [[`build`]]
 
   /**
-   * @internal
+   * Command usage
+   *
+   * @public
    */
-  public static examples = [`$ bud build`, `$ bud build --cache`]
+  public static usage = Command.Usage({
+    category: `Compile`,
+    description: `Compile source assets`,
+    details: `
+      \`bud build\` compiles source assets from the \`src\` directory to the \`dist\` directory.
+
+      Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
+      value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
+
+      By default, the \`src\` directory is \`[cwd]/src\`. You can override this with the \`-i\` flag.
+
+      If you run this command without a bud configuration file \`bud\` will
+      look for an entrypoint at \`src/index.js\`.
+    `,
+    examples: [[`Compile source`, `$0 build`]],
+  })
 
   /**
-   * @internal
+   * --mode
    */
-  public static flags = {
-    ...Command.flags,
-    ...flags.target,
-    ...flags.location,
+  public mode = Option.String(`--mode`, seed.mode, {
+    description: `Compilation mode`,
+    validator: t.isOneOf([
+      t.isLiteral('production'),
+      t.isLiteral('development'),
+    ]),
+  })
 
-    mode: oclif.Flags.string({
-      description: 'compiler mode',
-      default: 'production',
-      options: ['development', 'production'],
-      hidden: true,
-    }),
+  /**
+   * --cache
+   */
+  public cache = Option.Boolean(`--cache`, seed.features.cache, {
+    description: `Utilize filesystem cache`,
+  })
 
-    cache: oclif.Flags.boolean({
-      allowNo: true,
-      default: true,
-      description: 'cache built modules to the filesystem',
-    }),
-    ['cache.type']: oclif.Flags.string({
-      default: 'filesystem',
-      options: ['filesystem', 'memory', 'false'],
-    }),
+  /**
+   * --cache.type
+   */
+  public cacheType = Option.String(
+    `--cacheType,--cache.type`,
+    seed.cache.type,
+    {
+      description: `Type of cache`,
+      validator: t.isOneOf([
+        t.isLiteral('filesystem'),
+        t.isLiteral('memory'),
+      ]),
+    },
+  )
 
-    clean: oclif.Flags.boolean({
-      allowNo: true,
-      default: true,
-      description: 'clean dist directory before compiling',
-    }),
+  /**
+   * --clean
+   */
+  public clean = Option.Boolean(`--clean`, seed.features.clean, {
+    description: `Clean artifacts and distributables prior to compilation`,
+  })
 
-    config: oclif.Flags.string({
-      description: 'path to config file',
-    }),
+  /**
+   * --dashboard
+   */
+  public dashboard = Option.Boolean(`--dashboard`, undefined, {
+    hidden: true,
+  })
 
-    dashboard: oclif.Flags.boolean({
-      allowNo: true,
-      default: true,
-      description: 'enable bud dashboard',
-    }),
+  /**
+   * --hash
+   */
+  public hash = Option.Boolean(`--hash`, seed.features.hash, {
+    description: 'Hash compiled files',
+  })
 
-    devtool: oclif.Flags.string({
-      description: 'specify source-map type',
-    }),
+  /**
+   * --html
+   */
+  public html = Option.Boolean(`--html`, seed.features.html, {
+    description: 'Generate an html template',
+  })
 
-    html: oclif.Flags.boolean({
-      allowNo: true,
-      description: 'generate an html template',
-    }),
+  /**
+   * --inject
+   */
+  public inject = Option.Boolean(`--inject`, seed.features.inject, {
+    description: 'Automatically inject extensions',
+    hidden: true,
+  })
 
-    hash: oclif.Flags.boolean({
-      allowNo: true,
-      description: 'hash compiled filenames',
-    }),
+  /**
+   * --project
+   */
+  public project = Option.String(`--project`, seed.location.project, {
+    description: 'Project directory',
+  })
 
-    inject: oclif.Flags.boolean({
-      allowNo: true,
-      default: true,
-      description: 'automatically register & boot extensions',
-    }),
+  /**
+   * --src
+   */
+  public src = Option.String(`--input,-i`, seed.location.src, {
+    description: 'Source directory (relative to project)',
+  })
 
-    manifest: oclif.Flags.boolean({
-      allowNo: true,
-      default: true,
-      description: 'emit manifest.json',
-    }),
+  /*
+   * --dist
+   */
+  public dist = Option.String(`--output,-o`, seed.location.dist, {
+    description: 'Distribution directory (relative to project)',
+  })
 
-    minimize: oclif.Flags.boolean({
-      allowNo: true,
-      description: 'minimize file size of compiled assets',
-    }),
+  /**
+   * --storage
+   */
+  public storage = Option.String(`--storage`, seed.location.storage, {
+    description: 'Storage/cache directory (relative to project)',
+  })
 
-    ['splitChunks']: oclif.Flags.boolean({
-      allowNo: true,
-      description: 'create separate chunks for vendor and app code',
-    }),
+  /**
+   * --log
+   */
+  public log = Option.Boolean(`--log`, seed.features.log, {
+    description: 'Enable logging',
+  })
 
-    vendor: oclif.Flags.boolean({
-      allowNo: true,
-      description:
-        'create separate chunks for vendor and app code; alias for splitChunks',
-    }),
+  /**
+   * --log.level
+   */
+  public logLevel = Option.String(
+    `--logLevel,--log.level`,
+    seed.log.level,
+    {
+      description: 'Set logging level',
+      validator: t.isOneOf([
+        t.isLiteral('v'),
+        t.isLiteral('vv'),
+        t.isLiteral('vvv'),
+        t.isLiteral('vvvv'),
+      ]),
+    },
+  )
 
-    runtime: oclif.Flags.boolean({
-      allowNo: true,
-      description: 'Create a runtime chunk',
-    }),
+  /**
+   * --manifest
+   */
+  public manifest = Option.Boolean(`--manifest`, seed.features.manifest, {
+    description: 'Generate a manifest of compiled assets',
+  })
 
-    target: oclif.Flags.string({
-      description: 'limit compilation to this compiler',
-      multiple: true,
-      default: [],
-    }),
+  /**
+   * --minimize
+   */
+  public minimize = Option.Boolean(
+    `--minimize`,
+    seed.build.optimization.enable,
+    {
+      description: 'Minimize compiled assets',
+    },
+  )
+
+  /**
+   * --publicPath
+   */
+  public publicPath = Option.String(
+    `--publicPath`,
+    // this value may be a function, but not over cli
+    seed.build.output.publicPath as string,
+    {description: 'public path of emitted assets'},
+  )
+
+  /**
+   * --splitChunks
+   */
+  public splitChunks = Option.Boolean(
+    `--splitChunks,--vendor`,
+    seed.features.splitChunks,
+    {
+      description: 'Separate vendor bundle',
+    },
+  )
+
+  /**
+   * --target
+   */
+  public target = Option.Array(`--target,-t`, [], {
+    description: 'Limit compilation to particular compilers',
+  })
+
+  /**
+   * Bud configuration
+   *
+   * @remarks
+   * Fills in whatever is missing with values from the seed config.
+   *
+   * @returns Bud configuration
+   */
+  public config(): BuildOptions {
+    return {
+      ...seed,
+      mode: this.mode,
+      target: this.target,
+      location: {
+        ...seed.location,
+        project: this.project,
+        src: this.src,
+        dist: this.dist,
+        storage: this.storage,
+      },
+      publicPath: this.publicPath,
+      cache: {
+        ...seed.cache,
+        type: this.cacheType,
+      },
+      features: {
+        ...seed.features,
+        cache: this.cache,
+        clean: this.clean,
+        hash: this.hash,
+        html: this.html,
+        inject: this.inject,
+        log: this.log,
+        manifest: this.manifest,
+        splitChunks: this.splitChunks,
+      },
+    }
   }
 
-  public async run() {
-    await this.prime(Build)
-    await this.runner.make()
+  /**
+   * Execute command
+   */
+  public async execute() {
+    if (!_.isUndefined(this.dashboard))
+      this.context.stdout.write(
+        `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
+      )
 
-    this.app.hooks.on('event.compiler.done', stats => {
-      this.notifier.notify(this.app, stats)
-      return stats
-    })
+    this.app = await factory({config: this.config()})
 
-    await this.app.api.call('run', [])
+    await this.make()
+    await this.run()
   }
 }

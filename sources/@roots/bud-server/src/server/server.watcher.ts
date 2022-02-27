@@ -1,7 +1,6 @@
 import {Framework} from '@roots/bud-framework'
+import {bind, globby} from '@roots/bud-support'
 import chokidar, {FSWatcher} from 'chokidar'
-import globby from 'globby'
-import {bind} from 'helpful-decorators'
 
 export class Watcher {
   /**
@@ -26,7 +25,7 @@ export class Watcher {
 
     if (!files?.length) return []
 
-    const globResults = await globby(
+    const globResults = await globby.globby(
       files.map((file: string) => this.app.path('project', file)),
       options,
     )

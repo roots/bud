@@ -1,5 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import type {Options} from 'eslint-webpack-plugin'
+import {cpus} from 'os'
 
 export interface options {
   (app: Framework): Options
@@ -7,9 +8,10 @@ export interface options {
 
 export const options: options = ({path}) => ({
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-  cache: true,
   cacheLocation: path('storage', 'cache', 'eslint.json'),
-  context: path('src'),
+  cacheStrategy: 'content',
   cwd: path('project'),
-  failOnError: true,
+  eslintPath: require.resolve('eslint'),
+  resolvePluginsRelativeTo: path('project'),
+  threads: cpus.length / 2,
 })

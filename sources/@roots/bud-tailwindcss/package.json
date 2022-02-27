@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -55,14 +55,14 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
-    "@types/tailwindcss": "3.0.4",
-    "tailwindcss": "3.0.18"
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26",
+    "@types/tailwindcss": "3.0.9",
+    "tailwindcss": "3.0.23"
   },
   "dependencies": {
     "autoprefixer": "^10.4.0",
-    "tailwindcss": "3.0.18",
+    "tailwindcss": "3.0.23",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

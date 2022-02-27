@@ -132,8 +132,12 @@ export class Test extends Command {
     await promised
 
     await this.$(
-      `cd ${paths.mocks}/yarn/${example} && yarn install --registry ${REGISTRY_PROXY} --force`,
+      `cd ${paths.mocks}/yarn/${example} \ 
+        && yarn cache clean --all \
+        && yarn install --update-checksums --skip-integrity-check \
+                        --registry ${REGISTRY_PROXY} --force`,
     )
+
     await this.$(
       `cd ${paths.mocks}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
     )
@@ -149,10 +153,8 @@ export class Test extends Command {
   @bind
   public async build(example: typeof INTEGRATION_TESTS & string) {
     await this.$(
-      `cd ${paths.mocks}/yarn/${example} && yarn bud build --no-dashboard --log`,
+      `cd ${paths.mocks}/yarn/${example} && yarn bud build --log`,
     )
-    await this.$(
-      `cd ${paths.mocks}/npm/${example} && npx bud build --no-dashboard --log`,
-    )
+    await this.$(`cd ${paths.mocks}/npm/${example} && npx bud build --log`)
   }
 }

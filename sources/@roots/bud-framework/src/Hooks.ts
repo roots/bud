@@ -1,9 +1,10 @@
 import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
 import {URL} from 'url'
-import {Configuration, RuleSetRule, Stats, StatsCompilation} from 'webpack'
+import {Configuration, RuleSetRule, StatsCompilation} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
+import {EntryObject} from './entry'
 import {MiddlewareMap, Middlewares} from './Server'
 
 /**
@@ -118,17 +119,6 @@ export interface Hooks extends Service {
  */
 export namespace Hooks {
   /**
-   * Bud does not support all the entry types of Webpack
-   */
-  type LimitedEntryObject = Record<
-    string,
-    {
-      import?: string[]
-      dependsOn?: string[]
-    }
-  >
-
-  /**
    * Same with plugins
    */
   type LimitedPlugin = Array<{apply: any}>
@@ -157,7 +147,7 @@ export namespace Hooks {
     ['build.cache.managedPaths']: Array<string>
     [`build.context`]: Configuration['context']
     [`build.devtool`]: Configuration['devtool']
-    [`build.entry`]: LimitedEntryObject
+    [`build.entry`]: Record<string, EntryObject>
     [`build.experiments`]: Configuration['experiments']
     [`build.externals`]: Configuration['externals']
     [`build.infrastructureLogging`]: Configuration['infrastructureLogging']
@@ -167,6 +157,7 @@ export namespace Hooks {
     [`build.module.rules.oneOf`]: Array<RuleSetRule>
     [`build.module.rules.before`]: Array<RuleSetRule>
     [`build.module.rules.after`]: Array<RuleSetRule>
+    [`build.module.unsafeCache`]: Configuration['module']['unsafeCache']
     [`build.name`]: Configuration['name']
     [`build.node`]: Configuration['node']
     [`build.optimization`]: Configuration['optimization']
@@ -206,15 +197,14 @@ export namespace Hooks {
     [`location.project`]: string
     [`location.modules`]: string
     [`location.storage`]: string
-    [`config.override`]: Configuration[]
+    [`config.override`]: Array<Configuration>
     [`event.app.close`]: unknown
     [`event.build.make.before`]: unknown
     [`event.build.make.after`]: unknown
     [`event.build.override`]: Configuration
-    [`event.compiler.before`]: Array<Framework>
-    [`event.compiler.done`]: Stats
+    [`event.compiler.before`]: Array<Configuration>
     [`event.compiler.after`]: Framework
-    [`event.compiler.stats`]: StatsCompilation
+    [`event.compiler.stats`]: Promise<StatsCompilation>
     [`event.compiler.error`]: Error
     [`event.dashboard.done`]: void
     [`event.dashboard.q`]: void

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -43,8 +43,37 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./eslint-config": {
+      "require": "./eslint-config/index.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    },
+    "./react-refresh": {
+      "require": "./lib/cjs/react-refresh/index.js"
+    },
+    "./react-refresh/*": {
+      "require": "./lib/cjs/react-refresh/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "react-refresh": [
+        "./types/react-refresh/index.d.ts"
+      ],
+      "react-refresh/*": [
+        "./types/react-refresh/*.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension",
@@ -53,22 +82,17 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
+    "@babel/core": "7.17.5",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.18",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
-    "@types/react": "17.0.38",
+    "@types/node": "16.11.26",
+    "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11",
-    "jest": "27.4.7",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "type-fest": "2.11.0",
-    "webpack": "5.67.0"
+    "type-fest": "2.11.2",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",
@@ -78,8 +102,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "react-hot-loader": "4.13.0",
-    "react-refresh": "0.11.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
+    "react-refresh": "^0.11.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

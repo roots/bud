@@ -10,12 +10,12 @@ export const config: config = {
   logo: 'https://cdn.roots.io/app/uploads/logo-bud.svg',
   url: {
     discourse: 'https://discourse.roots.io/c/bud/24',
-    docs: 'https://budjs.netlify.app',
+    docs: 'https://bud.js.org',
     git: 'git@github.com:roots/bud',
     web: 'https://github.com/roots/bud',
   },
   organization: {
-    name: 'Roots Foundation, LLC',
+    name: 'Roots Software Foundation LLC',
     site: 'https://roots.io',
     twitter: 'https://twitter.com/rootswp',
     favicon: 'https://roots.io/favicon.ico',
@@ -41,11 +41,6 @@ export const config: config = {
     },
   },
   sponsors: [
-    {
-      image: 'https://cdn.roots.io/app/uploads/kinsta.svg',
-      title: 'Kinsta',
-      url: 'https://kinsta.com/?kaid=OFDHAJIXUDIV',
-    },
     {
       image: 'https://cdn.roots.io/app/uploads/km-digital.svg',
       title: 'KM Digital',
@@ -126,7 +121,7 @@ export const config: config = {
 
 export type ContributionTypes = '🚀 steward' | '💻 dev' | '✍🏽 docs'
 
-export interface config extends Record<string, unknown> {
+export interface config {
   /**
    * Project name
    */
@@ -156,10 +151,10 @@ export interface config extends Record<string, unknown> {
    * Project organization information
    */
   organization: {
-    name: 'Roots Foundation, LLC'
-    site: 'https://roots.io'
-    twitter: 'https://twitter.com/rootswp'
-    favicon: 'https://roots.io/favicon.ico'
+    name: string
+    site: `https://${string}`
+    twitter: `https://${string}`
+    favicon: `https://${string}.ico`
   }
 
   /**

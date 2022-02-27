@@ -7,13 +7,6 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 
@@ -79,7 +72,7 @@ const extension: Extension.Module = {
       use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
-    hooks.on<'build.resolve.extensions'>(
+    hooks.on(
       'build.resolve.extensions',
       (exts: Webpack.Configuration['resolve']['extensions']) => [
         ...(exts ?? []),

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,9 +54,9 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
-    "webpack": "5.67.0"
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

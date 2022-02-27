@@ -53,7 +53,7 @@ export const seed: Partial<Store.Repository> = {
      *
      * @public
      */
-    dashboard: false,
+    dashboard: true,
 
     /**
      * Clean dist directory prior to compilation
@@ -96,13 +96,6 @@ export const seed: Partial<Store.Repository> = {
      * @public
      */
     manifest: true,
-
-    /**
-     * Proxy enabled
-     *
-     * @public
-     */
-    proxy: false,
 
     /**
      * @public
@@ -149,44 +142,6 @@ export const seed: Partial<Store.Repository> = {
   hashFormat: '[name].[contenthash:6]',
 
   /**
-   * Received command line arguments and flags
-   *
-   * @public
-   */
-  cli: {
-    /**
-     * Arguments
-     *
-     * @public
-     */
-    args: {},
-    /**
-     * Argv object reference
-     *
-     * @public
-     */
-    argv: [],
-    /**
-     * Flags
-     *
-     * @public
-     */
-    flags: {},
-    /**
-     * Raw data from oclif
-     *
-     * @public
-     */
-    raw: [],
-    /**
-     * Additional information on received CLI data
-     *
-     * @public
-     */
-    metadata: {},
-  },
-
-  /**
    * Regular expression records
    *
    * @public
@@ -225,7 +180,6 @@ export const seed: Partial<Store.Repository> = {
     dist: 'dist',
     modules: 'node_modules',
     storage: '.budfiles',
-    publicPath: '',
   },
 
   /**
@@ -237,21 +191,27 @@ export const seed: Partial<Store.Repository> = {
     bail: true,
     devtool: false,
     infrastructureLogging: {console: false},
+    module: {
+      unsafeCache: false,
+    },
     node: false,
     output: {
+      pathinfo: false,
       publicPath: 'auto',
     },
     optimization: {
       emitOnErrors: false,
+      enable: false,
       minimizer: ['...'],
       removeEmptyChunks: true,
       splitChunks: {},
     },
-    parallelism: cpus().length - 1,
+    parallelism: Math.max(cpus().length - 1, 1),
     performance: {
       hints: false,
     },
     resolve: {
+      alias: {},
       extensions: [
         '.wasm',
         '.mjs',
@@ -269,22 +229,7 @@ export const seed: Partial<Store.Repository> = {
       ],
     },
     stats: {
-      assets: true,
-      cached: true,
-      chunks: false,
-      chunkModules: false,
-      colors: true,
-      children: true,
-      errors: true,
-      hash: true,
-      modules: false,
-      outputPath: true,
-      entrypoints: false,
-      performance: false,
-      warnings: true,
-      errorsCount: true,
-      warningsCount: true,
-      logging: true,
+      preset: 'normal',
     },
   },
 

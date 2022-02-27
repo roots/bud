@@ -1,77 +1,55 @@
-import * as oclif from '@oclif/core'
-import {fs} from '@roots/bud-support'
+import {bind, chalk, fs} from '@roots/bud-support'
+import {Command} from 'clipanion'
 
-import {remove} from '../cli.dependencies.js'
-import {Command} from '../Command/index.js'
+import {factory} from '../../factory/index.js'
+import {Notifier} from '../Notifier/index.js'
+import {BaseCommand} from './base.js'
 
-const {ensureDir} = fs
+const {ensureDir, remove} = fs
 
-/**
- * @internal
- */
-export default class Clean extends Command {
-  /**
-   * @internal
-   */
-  public static description = 'clean project distributables and caches'
+export class CleanCommand extends BaseCommand {
+  public static paths = [[`clean`]]
 
-  /**
-   * @internal
-   */
-  public static examples = [`$ bud clean`]
+  public static usage = Command.Usage({
+    category: `Clean`,
+    description: `Clean project artifacts and caches`,
+    examples: [[`Clean artifacts/caches`, `$0 clean`]],
+  })
 
-  /**
-   * @internal
-   */
-  public static flags = {
-    ...Command.flags,
-    ['log']: oclif.Flags.boolean({
-      default: false,
-      hidden: true,
-    }),
-    ['log.papertrail']: oclif.Flags.boolean({
-      default: true,
-      hidden: true,
-    }),
-    ['dashboard']: oclif.Flags.boolean({
-      default: false,
-      hidden: true,
-    }),
+  public async execute() {
+    this.app = await factory({config: this.config()})
+    await this.cleanProjectAssets()
   }
 
-  /**
-   * @internal
-   */
-  public async run() {
-    await this.prime(Clean)
+  @bind
+  public async cleanProjectAssets() {
+    this.notifier = new Notifier(this.app)
 
-    this.logger.enable()
-
-    this.logger.info('clearing artifacts')
+    this.context.stdout.write('clearing artifacts\n')
 
     try {
-      this.logger.pending(`emptying ${this.app.path('storage')}`)
+      this.context.stdout.write(`emptying ${this.app.path('storage')}\n`)
 
       await ensureDir(this.app.path('storage'))
       await remove(this.app.path('storage'))
 
-      this.logger.success(`emptying ${this.app.path('storage')}`)
+      this.context.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('storage')}\n`),
+      )
     } catch (err) {
-      this.logger.error(err)
-      this.exit(1)
+      this.context.stderr.write(chalk.red(err))
     }
 
     try {
-      this.logger.pending(`emptying ${this.app.path('dist')}`)
+      this.context.stdout.write(`emptying ${this.app.path('dist')}\n`)
 
       await remove(this.app.path('dist'))
 
-      this.logger.success(`emptying ${this.app.path('dist')}`)
+      this.context.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('dist')}\n`),
+      )
     } catch (err) {
-      this.logger.error(err)
-      this.exit(1)
+      this.app.error(err)
     }
-
-    this.exit(0)
   }
 }

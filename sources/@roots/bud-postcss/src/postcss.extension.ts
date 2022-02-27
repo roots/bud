@@ -36,10 +36,7 @@ export const BudPostCssExtension: Extension.Module = {
       options: ({postcss}) => {
         return {
           postcssOptions: {
-            ...app.hooks.filter(
-              'extension.@roots/bud-postcss.options',
-              () => ({}),
-            ),
+            ...app.extensions.get('@roots/bud-postcss').options.all(),
             plugins: [...(postcss.getValues() ?? [])],
           },
           sourceMap: true,
@@ -57,8 +54,8 @@ export const BudPostCssExtension: Extension.Module = {
       log.await('resolving postcss plugins')
 
       app.postcss.setPlugins({
-        'postcss-import': require.resolve('postcss-import'),
-        'postcss-nested': require.resolve('postcss-nested'),
+        'postcss-import': [require.resolve('postcss-import')],
+        'postcss-nested': [require.resolve('postcss-nested')],
         'postcss-preset-env': [
           require.resolve('postcss-preset-env'),
           {

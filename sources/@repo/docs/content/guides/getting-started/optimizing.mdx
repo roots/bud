@@ -3,13 +3,13 @@ title: Optimizing compiled assets
 sidebar_label: Optimizing compiled assets
 description: Part 7/7 of the Getting Started guide covers optimizing your build assets for production
 sidebar_position: 8
-image: 'https://budjs.netlify.app/img/share/guides/getting-started__optimization.png'
+image: 'https://bud.js.org/img/share/guides/getting-started__optimization.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-We're now compilnig project assets with babel and postcss.
+We're now compiling project assets with babel and postcss.
 
 ## Minimizing filesizes
 
@@ -105,10 +105,6 @@ Image optimization can be added using the [@roots/bud-imagemin](/extensions/bud-
   </TabItem>
 </Tabs>
 
-Remember to run **bud install** after installing to ensure you have the proper peer dependencies. Then, add the extension to your config.
-
-You can provide additional configuration to the [@roots/bud-imagemin](/extensions/bud-imagemin) extension using `bud.imagemin`. but we won't get into that.
-
 ## Applying optimizations conditionally
 
 All of these optimizations are slowing down our dev builds for no reason. Worse still, the [bud.hash](/docs/bud.hash) function is breaking our hot reloading.
@@ -152,11 +148,6 @@ module.exports = async bud =>
     .assets(['images/**/*.{png,gif,jpg}'])
     .template()
     .when(bud.isProduction, bud =>
-      bud
-        .use(require('@roots/bud-imagemin'))
-        .minimize()
-        .hash()
-        .runtime()
-        .splitChunks(),
+      bud.minimize().hash().runtime().splitChunks(),
     )
 ```

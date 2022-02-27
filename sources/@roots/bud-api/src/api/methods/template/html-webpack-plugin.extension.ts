@@ -12,21 +12,17 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
 
   options(app: Framework) {
     return {
-      publicPath: app.publicPath(),
       alwaysWriteToDisk: true,
       inject: true,
       template: 'auto',
     }
   },
 
-  make: (options, app) => {
-    const constructorOptions = options.all()
-    app.dump(constructorOptions, {
-      prefix: 'html-webpack-plugin constructor args',
-    })
-
-    return new HtmlWebpackPlugin(constructorOptions)
-  },
+  make: (options, app) =>
+    new HtmlWebpackPlugin({
+      ...options.all(),
+      publicPath: app.publicPath(),
+    }),
 
   when: ({store}) => store.is('features.html', true),
 }

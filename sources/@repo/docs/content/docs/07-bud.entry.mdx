@@ -3,7 +3,7 @@ id: bud.entry
 title: bud.entry
 description: Specify a set of assets to include in the compilation.
 sidebar_label: bud.entry
-image: 'https://budjs.netlify.app/img/share/docs/bud.entry.png'
+image: 'https://bud.js.org/img/share/docs/bud.entry.png'
 ---
 
 Specify a set of assets to include in the compilation.
@@ -85,11 +85,7 @@ bud.hooks.on('build/entry', entrypoints => ({
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 namespace Repository {
   interface Entry {
-    (
-      this: Framework,
-      name: string,
-      entrypoint: Entry.Value,
-    ): Framework
+    (this: Framework, name: string, entrypoint: Entry.Value): Framework
   }
 
   interface Entry {
@@ -99,14 +95,11 @@ namespace Repository {
   namespace Entry {
     interface Object {
       import?: string[]
-      dependsOn?: string[]
+      dependOn?: string[]
     }
 
     interface Input {
-      [k: string]:
-        | Object
-        | Object['import']
-        | GlobTask['pattern']
+      [k: string]: Object | Object['import'] | GlobTask['pattern']
     }
 
     type Value = GlobTask['pattern'] | Array<GlobTask['pattern']>

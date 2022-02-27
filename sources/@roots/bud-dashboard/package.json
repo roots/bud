@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-dashboard",
   "description": "Bud CLI dashboard",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -45,18 +45,16 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/ink-use-style": "workspace:sources/@roots/ink-use-style",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
-    "@types/react": "17.0.38",
-    "axios": "0.25.0",
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26",
+    "@types/react": "17.0.39",
+    "axios": "0.26.0",
     "ink": "3.2.0",
     "ink-gradient": "2.0.0",
     "ink-spinner": "4.0.3",
-    "node-fetch": "3.2.0",
-    "patch-console": "1.0.0",
     "react": "17.0.2",
     "react-use": "17.3.2",
-    "webpack": "5.67.0"
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "tslib": "^2.3.1"

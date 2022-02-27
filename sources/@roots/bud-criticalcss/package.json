@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-criticalcss",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "Adds critical.css support to Bud",
   "repository": {
     "type": "git",
@@ -47,8 +47,8 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21"
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26"
   },
   "dependencies": {
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",

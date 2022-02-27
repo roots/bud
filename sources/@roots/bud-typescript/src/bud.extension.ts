@@ -9,7 +9,12 @@ import {typecheck} from './bud.typecheck'
  * @public
  */
 export interface BudTypeScriptExtension
-  extends Extension.Module<Partial<Options>> {}
+  extends Extension.Module<Partial<Options>> {
+  name: '@roots/bud-typescript'
+  api: {typecheck: typecheck}
+  options: Partial<Options>
+  boot: Extension.Module['boot']
+}
 
 /**
  * @public

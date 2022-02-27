@@ -361,15 +361,16 @@ export class Controller {
     if (this.meta.registered) return this
     this.meta.registered = true
 
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.registered) {
-            await this.app.extensions.get(name).register()
-          }
-        },
-      ),
-    )
+    this.app.project.has(`project.peers.${this.name}.requires`) &&
+      (await Promise.all(
+        this.app.project
+          .get(`project.peers.${this.name}.requires`)
+          .map(async ([name]) => {
+            if (!this.app.extensions.get(name).meta.registered) {
+              await this.app.extensions.get(name).register()
+            }
+          }),
+      ))
 
     await this.mixin()
     await this.api()
@@ -396,15 +397,16 @@ export class Controller {
     }
     if (this.meta.bound) return this
     this.meta.bound = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.bound) {
-            await this.app.extensions.get(name).api()
-          }
-        },
-      ),
-    )
+    this.app.project.has(`project.peers.${this.name}.requires`) &&
+      (await Promise.all(
+        this.app.project
+          .get(`project.peers.${this.name}.requires`)
+          .map(async ([name]) => {
+            if (!this.app.extensions.get(name).meta.bound) {
+              await this.app.extensions.get(name).api()
+            }
+          }),
+      ))
 
     const methodMap: Record<string, CallableFunction> = isFunction(
       this._module.api,
@@ -445,15 +447,16 @@ export class Controller {
     }
     if (this.meta.mixed) return this
     this.meta.mixed = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.mixed) {
-            await this.app.extensions.get(name).mixin()
-          }
-        },
-      ),
-    )
+    this.app.project.has(`project.peers.${this.name}.requires`) &&
+      (await Promise.all(
+        this.app.project
+          .get(`project.peers.${this.name}.requires`)
+          .map(async ([name]) => {
+            if (!this.app.extensions.get(name).meta.mixed) {
+              await this.app.extensions.get(name).mixin()
+            }
+          }),
+      ))
 
     let classMap: Record<string, any>
 
@@ -492,15 +495,16 @@ export class Controller {
     }
     if (this.meta.booted) return this
     this.meta.booted = true
-    await Promise.all(
-      this.app.project.peers.modules[this.name].requires.map(
-        async ([name]) => {
-          if (!this.app.extensions.get(name).meta.boot) {
-            await this.app.extensions.get(name).boot()
-          }
-        },
-      ),
-    )
+    this.app.project.has(`project.peers.${this.name}.requires`) &&
+      (await Promise.all(
+        this.app.project
+          .get(`project.peers.${this.name}.requires`)
+          .map(async ([name]) => {
+            if (!this.app.extensions.get(name).meta.boot) {
+              await this.app.extensions.get(name).boot()
+            }
+          }),
+      ))
 
     if (isFunction(this._module.boot)) {
       await this._module.boot(this.app, this.moduleLogger)

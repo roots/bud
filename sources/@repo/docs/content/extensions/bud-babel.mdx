@@ -1,8 +1,8 @@
 ---
 title: '@roots/bud-babel'
 description: Transpile JavaScript with Babel
-sidebar_label: '@roots/bud-babel'
-image: 'https://budjs.netlify.app/img/share/extensions/bud-babel.png'
+sidebar_label: '🟢 @roots/bud-babel'
+image: 'https://bud.js.org/img/share/extensions/bud-babel.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -10,17 +10,12 @@ import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
 import {Install} from '@site/src/docs/Install'
-import {PeerDependencies} from '@site/src/docs/PeerDependencies'
 
 [Babel](https://babeljs.io) can be added by installing the [@roots/bud-babel](/extensions/bud-babel) extension.
 
 ## Installation
 
 <Install packages="@roots/bud-babel" />
-
-## Installing peer dependencies
-
-<PeerDependencies />
 
 ## Configuration
 
@@ -71,12 +66,6 @@ app.babel.setPresetOptions('@babel/preset-env', {
 
 Plugins has nearly the exact same API already demonstrated by the `presets` docs above.
 
-See what plugins are registered:
-
-```js title='bud.config.js'
-console.log(app.babel.plugins)
-```
-
 Add a plugin:
 
 ```js title='bud.config.js'
@@ -85,16 +74,13 @@ app.babel.setPlugin('@babel/plugin-transform-runtime')
 
 Add a plugin with options:
 
-```js title='bud.config.js'
-app.babel.setPlugin([
-  '@babel/plugin-transform-runtime',
-  {helpers: false},
-])
+```ts title='bud.config.js'
+app.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
 ```
 
 Fully override plugins:
 
-```js title='bud.config.js'
+```ts title='bud.config.js'
 app.babel.setPlugins([
   '@babel/plugin-transform-runtime',
   '@babel/plugin-proposal-object-rest-spread',
@@ -104,7 +90,7 @@ app.babel.setPlugins([
 
 Remove a plugin:
 
-```js title='bud.config.js'
+```ts title='bud.config.js'
 app.babel.unsetPlugin('@babel/plugin-transform-runtime')
 ```
 
@@ -153,4 +139,23 @@ app.build.items['babel'].setOptions({
     '@babel/plugin-syntax-dynamic-import',
   ],
 })
+```
+
+## Eslint plugin
+
+There are babel specific linting rules that you will probably want in your project.
+
+As a courtesy, a base configuration is provided in `@roots/bud-babel/eslint-config`.
+
+You may use it in conjunction with `@roots/bud-eslint/config` for a complete linting configuration.
+
+```js
+module.exports = {
+  root: true,
+  extends: [
+    require.resolve('@roots/bud-eslint/config'),
+    require.resolve('@roots/bud-babel/eslint-config'),
+  ],
+  rules: {},
+}
 ```

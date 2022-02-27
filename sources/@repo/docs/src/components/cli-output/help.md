@@ -1,14 +1,24 @@
-Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+━━━ bud - 0.0.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-VERSION
-  @roots/bud/5.1.0 darwin-arm64 node-v16.13.2
+  $ bud <command>
 
-USAGE
-  $ bud [COMMAND]
+━━━ Clean ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-COMMANDS
-  build    compile source assets
-  clean    clean project distributables and caches
-  doctor   diagnose issues
-  install  install peer dependencies
-  serve    compile assets
+  bud clean
+    Clean project artifacts and caches
+
+━━━ Compile ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  bud build [--mode #0] [--cache] [--cacheType,--cache.type #0] [--clean] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+    Compile source assets
+
+  bud dev [--cache] [--cacheType,--cache.type #0] [--clean] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+    Compile and serve source assets
+
+━━━ Doctor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  bud doctor
+    Check compiled configuration against webpack
+
+You can also print more details about any of these commands by calling them with 
+the `-h,--help` flag right after the command name.

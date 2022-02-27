@@ -1,100 +1,88 @@
 import {humanReadable} from '@roots/bud-support'
 import {Styles} from '@roots/ink-use-style'
-import {Box, Static, Text} from 'ink'
-import React, {Fragment} from 'react'
+import {Box, Text} from 'ink'
+import React from 'react'
 import {StatsCompilation} from 'webpack'
 
 import {Asset} from './asset.component'
 
 export interface Props {
-  childCompilers: StatsCompilation['children']
+  stats: StatsCompilation
   theme: Styles
 }
 
 const duration = humanReadable.durationFormatter({
   allowMultiples: ['m', 's', 'ms'],
 })
+const hasErrors = (stats: StatsCompilation) => stats.errorsCount > 0
+const hasWarnings = (stats: StatsCompilation) => stats.warningsCount > 0
 
-export const Assets = ({childCompilers: children, theme}: Props) => {
+export const Assets = ({stats, theme}: Props) => {
   return (
-    <Static items={children}>
-      {(child, id) => (
-        <Fragment key={`stats-${child.name}-${child.hash}-${id}`}>
-          {child.errorsCount
-            ? child.errors.map((error, id) => (
-                <Box
-                  key={`${child.name}-${child.hash}-warning-${id}`}
-                  flexDirection="column"
-                  display="flex"
-                  justifyContent="flex-start"
-                  width={theme.col(8)}
-                  borderStyle="round"
-                  borderColor={theme.colors.error}
-                  margin={1}
-                  paddingX={1}
-                >
-                  <Text>{error.message}</Text>
-                </Box>
-              ))
-            : null}
-
-          {child.warningsCount
-            ? child.warnings.map((warning, id) => (
-                <Box
-                  key={`${child.name}-${child.hash}-warning-${id}`}
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="flex-start"
-                  width={theme.col(8)}
-                  borderStyle="round"
-                  borderColor={theme.colors.warning}
-                  margin={1}
-                  paddingX={1}
-                >
-                  <Text>{warning.message}</Text>
-                </Box>
-              ))
-            : null}
-
-          {child.warningsCount && child.errorsCount ? (
-            child.assets
-              .filter(
-                ({name, size}) =>
-                  !name.includes('.json') &&
-                  !name.includes('hot-update') &&
-                  size > 0,
-              )
-              .map((asset, id) => (
-                <Asset
-                  key={`${child.name}-${child.hash}-asset-${id}`}
-                  compilation={child}
-                  theme={theme}
-                  asset={asset}
-                />
-              ))
-          ) : (
-            <Fragment></Fragment>
-          )}
-
+    <Box flexDirection="column" width={`100%`}>
+      {hasErrors(stats) &&
+        stats.errors.map((error, id) => (
           <Box
-            key={`compilation-${id}`}
+            key={`${stats.name}-${stats.hash}-warning-${id}`}
             flexDirection="column"
+            display="flex"
+            justifyContent="flex-start"
+            width={`90%`}
+            borderStyle="round"
+            borderColor={theme.colors.error}
+            paddingX={1}
             marginTop={1}
-            marginBottom={1}
           >
-            <Text color={theme.colors.faded}>
-              … compiled in{' '}
-              <Text color={theme.colors.flavor}>
-                {duration(child.time)}
-              </Text>{' '}
-              using{' '}
-              <Text color={theme.colors.accent}>
-                webpack v{child.version}
-              </Text>
-            </Text>
+            <Text>{error.message}</Text>
           </Box>
-        </Fragment>
-      )}
-    </Static>
+        ))}
+
+      {hasWarnings(stats) &&
+        stats.warnings.slice(0, 4).map((warning, id) => (
+          <Box
+            key={`${stats.name}-${stats.hash}-warning-${id}`}
+            display="flex"
+            flexDirection="column"
+            justifyContent="flex-start"
+            width={`90%`}
+            borderStyle="round"
+            borderColor={theme.colors.warning}
+            paddingX={1}
+            marginTop={1}
+          >
+            <Text>{warning.message}</Text>
+          </Box>
+        ))}
+
+      {Object.entries(stats.entrypoints).map(([key, entry], id) => (
+        <Box key={id} flexDirection="column" marginTop={1}>
+          <Text
+            color={hasErrors(stats) ? 'red' : 'blue'}
+            underline={true}
+            inverse={true}
+          >
+            {entry.name}
+          </Text>
+          {entry.assets.map((asset, id) => (
+            <Asset
+              key={`${stats.name}-${stats.hash}-asset-${id}`}
+              compilation={stats}
+              hasErrors={hasErrors(stats)}
+              asset={stats.assets.find(a => a.name === asset.name)}
+              theme={theme}
+            />
+          ))}
+        </Box>
+      ))}
+
+      <Box flexDirection="column" marginTop={1}>
+        <Text color={theme.colors.faded}>
+          … compiled in{' '}
+          <Text color={theme.colors.flavor}>{duration(stats.time)}</Text>{' '}
+          using{' '}
+          <Text color={theme.colors.accent}>webpack v{stats.version}</Text>
+        </Text>
+      </Box>
+    </Box>
   )
 }

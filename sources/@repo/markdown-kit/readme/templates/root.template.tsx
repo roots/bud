@@ -1,24 +1,32 @@
 import {projectConfig} from '@repo/constants'
 import React from 'react'
 
-import {Banner, Community, Contributing, License, Sponsors} from '../components'
+import {
+  Banner,
+  Community,
+  Contributing,
+  License,
+  Sponsors,
+} from '../components'
 
 export const Body = ({url}) => (
   <>
     <h2>Features</h2>
 
     <li>
-      Zero config by default (seriously, you don&rsquo;t even _need_ a config
-      file).
+      Zero config by default (seriously, you don&rsquo;t even _need_ a
+      config file).
     </li>
     <li>Modular by design. Use only what you need.</li>
     <li>Easily implementable multi-compiler support.</li>
     <li>Heckin&rsquo; fast.</li>
-    <li>Luxury dev tooling including semi-automated dependency management.</li>
+    <li>
+      Luxury dev tooling including semi-automated dependency management.
+    </li>
     <li>Supports configuration with TypeScript.</li>
     <li>
-      Customizable and extensible. Add new features. Swap our core components
-      with your own.
+      Customizable and extensible. Add new features. Swap our core
+      components with your own.
     </li>
 
     <br />
@@ -31,6 +39,11 @@ export const Body = ({url}) => (
     <h2>Requirements</h2>
 
     <li>Node 16+</li>
+    <li>yarn 1.22 or higher</li>
+    <li>npm 8.3 or higher</li>
+    <li>
+      Windows users must run bud.js under the Windows Subsystem for Linux.
+    </li>
 
     <h2>Getting started</h2>
 
@@ -97,7 +110,7 @@ export const Body = ({url}) => (
 
     <h2>Want to contribute to bud.js?</h2>
     <p>
-      Check out [our development guide](https://budjs.netlify.app/dev) to get
+      Check out [our development guide](https://bud.js.org/dev) to get
       started.
     </p>
 

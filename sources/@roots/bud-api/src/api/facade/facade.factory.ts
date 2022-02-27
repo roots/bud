@@ -20,16 +20,11 @@ export interface factory {
  */
 export const factory: factory = (name: string): facade =>
   function facade(...args: any[]): Framework {
-    this.api.log('log', {
-      message: `facade called: ${chalk.cyan(name)}`,
-      suffix: JSON.stringify(args),
-    })
-
     this.api.queue.push([name, args])
 
-    this.api.log('log', {
+    this.log({
       message: `facade added to queue: ${chalk.cyan(name)}`,
-      suffix: JSON.stringify(args),
+      suffix: this.json.stringify(args),
     })
 
     return this

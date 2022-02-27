@@ -1,41 +1,45 @@
 ---
-title: Introduction
-description: Bud is a frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
-slug: /
-sidebar_label: Introduction
-hidden: true
-image: 'https://budjs.netlify.app/img/share/docs/index.png'
+title: Configuration reference
+description: Register shorthand for resolving modules.
+image: 'https://bud.js.org/img/share/docs/bud.alias.png'
+slug: '/'
 ---
 
-### bud.alias
+import {Card} from '../../src/components/Card'
 
-Register shorthand for resolving modules
+<Card
+  title="bud.alias"
+  description="Register short hand for resolving module paths"
+  links={[
+    ['documentation', '/docs/bud.alias'],
+    ['sandbox', '/docs/bud.alias/example'],
+  ]}
+/>
 
-<a href="/docs/bud.alias" className="button button--primary">
-  Read documentation
-</a>
+<div className="margin-bottom--sm" />
 
-### bud.assets
+<Card
+  title="bud.assets"
+  description="Include static assets in your compilation even if they aren't referenced in compiled assets"
+  links={[['documentation', '/docs/bud.assets']]}
+/>
 
-Include static assets in your compilation even if they aren't referenced in scripts or stylesheets
+<div className="margin-bottom--sm" />
 
-<a href="/docs/bud.assets" className="button button--primary">
-  Read documentation
-</a>
-
-### bud.define
-
-Replace variables in your application code and templates at compile time
-
-<a href="/docs/bud.define" className="button button--primary">
-  Read documentation
-</a>
+<Card
+  title="bud.define"
+  description="Replace variables in your application code and templates at compile time"
+  links={[['documentation', '/docs/bud.define']]}
+/>
 
 ### bud.devtool
 
 Configure sourcemaps
 
-<a href="/docs/bud.devtool" className="button button--primary">
+<a
+  href="/docs/bud.devtool"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -43,7 +47,10 @@ Configure sourcemaps
 
 Specify a set of assets to include in the compilation
 
-<a href="/docs/bud.entry" className="button button--primary">
+<a
+  href="/docs/bud.entry"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -51,7 +58,10 @@ Specify a set of assets to include in the compilation
 
 bud includes support for utilizing dotenv values (in your config, templates and the browser)
 
-<a href="/docs/bud.entry" className="button button--primary">
+<a
+  href="/docs/bud.entry"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -59,7 +69,10 @@ bud includes support for utilizing dotenv values (in your config, templates and 
 
 Specify a non-standard resolution strategy for modules with a matching name
 
-<a href="/docs/bud.externals" className="button button--primary">
+<a
+  href="/docs/bud.externals"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -67,7 +80,7 @@ Specify a non-standard resolution strategy for modules with a matching name
 
 Multi-compiler management utility allowing reference of child compilers
 
-<a href="/docs/bud.get" className="button button--primary">
+<a href="/docs/bud.get" className="button button--outline button--primary">
   Read documentation
 </a>
 
@@ -75,7 +88,10 @@ Multi-compiler management utility allowing reference of child compilers
 
 Enable or disable filename hashing of built assets
 
-<a href="/docs/bud.hash" className="button button--primary">
+<a
+  href="/docs/bud.hash"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -83,7 +99,10 @@ Enable or disable filename hashing of built assets
 
 Modify internal values with callbacks
 
-<a href="/docs/bud.hooks/" className="button button--primary">
+<a
+  href="/docs/bud.hooks/"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -91,7 +110,10 @@ Modify internal values with callbacks
 
 Create a new, configurable instance of Bud
 
-<a href="/docs/bud.make" className="button button--primary">
+<a
+  href="/docs/bud.make"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -99,7 +121,10 @@ Create a new, configurable instance of Bud
 
 Enable or disable minification of static assets
 
-<a href="/docs/bud.minimize" className="button button--primary">
+<a
+  href="/docs/bud.minimize"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -107,7 +132,10 @@ Enable or disable minification of static assets
 
 Specify if a build is being run in a `production` or `development` context
 
-<a href="/docs/bud.mode" className="button button--primary">
+<a
+  href="/docs/bud.mode"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -115,7 +143,10 @@ Specify if a build is being run in a `production` or `development` context
 
 Get an absolute path for a given Framework location
 
-<a href="/docs/bud.path" className="button button--primary">
+<a
+  href="/docs/bud.path"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -123,7 +154,10 @@ Get an absolute path for a given Framework location
 
 Make a variable/module available throughout the entire application
 
-<a href="/docs/bud.provide" className="button button--primary">
+<a
+  href="/docs/bud.provide"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -131,7 +165,10 @@ Make a variable/module available throughout the entire application
 
 Proxy an existing development server
 
-<a href="/docs/bud.proxy" className="button button--primary">
+<a
+  href="/docs/bud.proxy"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -141,7 +178,8 @@ Get the application public path
 
 <a
   href="/docs/bud.publicPath"
-  className="button button--primary">
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -149,7 +187,10 @@ Get the application public path
 
 Generate a runtime chunk intended to be inlined on the page
 
-<a href="/docs/bud.runtime" className="button button--primary">
+<a
+  href="/docs/bud.runtime"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -157,7 +198,10 @@ Generate a runtime chunk intended to be inlined on the page
 
 Configure the development server
 
-<a href="/docs/bud.serve" className="button button--primary">
+<a
+  href="/docs/bud.serve"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -165,7 +209,10 @@ Configure the development server
 
 Set application filesystem paths
 
-<a href="/docs/bud.setPath" className="button button--primary">
+<a
+  href="/docs/bud.setPath"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -175,7 +222,8 @@ Set application filesystem paths
 
 <a
   href="/docs/bud.setPublicPath"
-  className="button button--primary">
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -185,7 +233,8 @@ Separate vendor code from application code
 
 <a
   href="/docs/bud.splitChunks"
-  className="button button--primary">
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -193,7 +242,7 @@ Separate vendor code from application code
 
 Access the bud object through a callback. Useful to maintain a function chain
 
-<a href="/docs/bud.tap" className="button button--primary">
+<a href="/docs/bud.tap" className="button button--outline button--primary">
   Read documentation
 </a>
 
@@ -201,7 +250,10 @@ Access the bud object through a callback. Useful to maintain a function chain
 
 Configure your application's html templates
 
-<a href="/docs/bud.template" className="button button--primary">
+<a
+  href="/docs/bud.template"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>
 
@@ -209,7 +261,7 @@ Configure your application's html templates
 
 Register an extension or set of extensions
 
-<a href="/docs/bud.use" className="button button--primary">
+<a href="/docs/bud.use" className="button button--outline button--primary">
   Read documentation
 </a>
 
@@ -217,6 +269,9 @@ Register an extension or set of extensions
 
 Conditionally execute a [tap function](/docs/bud.tap)
 
-<a href="/docs/bud.when" className="button button--primary">
+<a
+  href="/docs/bud.when"
+  className="button button--outline button--primary"
+>
   Read documentation
 </a>

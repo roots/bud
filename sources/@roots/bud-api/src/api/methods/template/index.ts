@@ -83,7 +83,7 @@ export const template: template = async function (
    * If no template is known, provides a default
    */
   if (!plugins.html?.options.has('template')) {
-    const manifest = await pkgUp({
+    const manifest = await pkgUp.pkgUp({
       cwd: require.resolve('@roots/bud-support'),
     })
 

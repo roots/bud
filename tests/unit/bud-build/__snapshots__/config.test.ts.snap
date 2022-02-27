@@ -1,20 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.build.config has expected cache default 1`] = `
-Object {
-  "buildDependencies": Object {
-    "bud": Any<Array>,
-  },
-  "cacheDirectory": StringContaining ".budfiles",
-  "managedPaths": Any<Array>,
-  "type": "filesystem",
-  "version": Any<String>,
-}
-`;
-
 exports[`bud.build.config has expected default css rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -40,7 +30,9 @@ Object {
 
 exports[`bud.build.config has expected default cssModule rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -61,7 +53,9 @@ Object {
 
 exports[`bud.build.config has expected default csv rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -76,7 +70,9 @@ Object {
   "generator": Object {
     "filename": "fonts/[name][ext]",
   },
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
   "type": "asset",
 }
@@ -84,7 +80,9 @@ Object {
 
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -96,10 +94,12 @@ Object {
 
 exports[`bud.build.config has expected default image rule 1`] = `
 Object {
-  "exclude": Object {},
   "generator": Object {
     "filename": "images/[name][ext]",
   },
+  "include": Array [
+    "/srv/bud/tests/util/project/src",
+  ],
   "test": Object {},
   "type": "asset/resource",
 }
@@ -107,7 +107,9 @@ Object {
 
 exports[`bud.build.config has expected default js rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -120,7 +122,9 @@ Object {
 
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "parser": Object {
     "parse": [Function],
   },
@@ -143,6 +147,9 @@ Object {
   "generator": Object {
     "filename": "svg/[name][ext]",
   },
+  "include": Array [
+    "/srv/bud/tests/util/project/src",
+  ],
   "test": Object {},
   "type": "asset/resource",
 }
@@ -150,7 +157,9 @@ Object {
 
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "parser": Object {
     "parse": [Function],
   },
@@ -162,8 +171,11 @@ Object {
 exports[`bud.build.config has expected default webp rule 1`] = `
 Object {
   "generator": Object {
-    "filename": "webp/[name][ext]",
+    "filename": "images/[name][ext]",
   },
+  "include": Array [
+    "/srv/bud/tests/util/project/src",
+  ],
   "test": Object {},
   "type": "asset/resource",
 }
@@ -171,7 +183,9 @@ Object {
 
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "test": Object {},
   "use": Array [
     Object {
@@ -183,7 +197,9 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
-  "include": StringContaining "src",
+  "include": Array [
+    StringContaining "src",
+  ],
   "parser": Object {
     "parse": [Function],
   },

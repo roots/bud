@@ -129,10 +129,7 @@ export class Server
     /**
      * Filter server before
      */
-    await this.app.hooks.filterAsync<'event.server.before'>(
-      'event.server.before',
-      this.app,
-    )
+    await this.app.hooks.filterAsync('event.server.before', this.app)
 
     /**
      * Prep and run compilation
@@ -180,10 +177,7 @@ export class Server
       })
     })
 
-    await this.app.hooks.filterAsync<'event.server.after'>(
-      'event.server.after',
-      this.app,
-    )
+    await this.app.hooks.filterAsync('event.server.after', this.app)
 
     return this
   }

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -47,11 +47,11 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/express": "4.17.13",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21",
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26",
     "@types/webpack-dev-middleware": "5.0.2",
-    "@types/webpack-hot-middleware": "2.25.5",
-    "webpack": "5.67.0"
+    "@types/webpack-hot-middleware": "2.25.6",
+    "webpack": "5.68.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -59,10 +59,9 @@
     "@roots/container": "workspace:sources/@roots/container",
     "chokidar": "^3.5.2",
     "express": "^4.17.1",
-    "globby": "^11.0.0",
-    "http-proxy-middleware": "2.0.2",
+    "http-proxy-middleware": "2.0.3",
     "tslib": "^2.3.1",
-    "webpack-dev-middleware": "5.3.0",
+    "webpack-dev-middleware": "5.3.1",
     "webpack-hot-middleware": "^2.25.1"
   }
 }

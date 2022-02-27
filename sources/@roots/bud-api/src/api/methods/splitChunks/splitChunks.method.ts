@@ -40,7 +40,7 @@ export const splitChunks: method = function (options) {
    * cache groups are added to the build
    */
   if (isUndefined(options) || options === true) {
-    ctx.hooks.on<'build.optimization.splitChunks'>(
+    ctx.hooks.on(
       'build.optimization.splitChunks',
       splitChunksFilterValue => ({
         ...(splitChunksFilterValue ?? {}),

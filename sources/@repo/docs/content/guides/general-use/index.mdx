@@ -1,21 +1,63 @@
 ---
-title: Introduction
+title: General Use
 description: Guide on general usage of Bud
 slug: /general-use/
 sidebar_label: Introduction
 sidebar_position: 1
-image: 'https://budjs.netlify.app/img/share/guides/general-use__.png'
+image: 'https://bud.js.org/img/share/guides/general-use__.png'
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import {Card} from '@site/src/components/Card'
 
-If you are new to Bud and/or JS tooling and are just trying to get started, you might
+:::tip
+If you are new to bud.js (or js tooling, generally) and are just trying to get started, you might
 want to check out the [getting started guide](/guides/getting-started) first.
+:::
 
-## Topics
-
-- [Configuring with TypeScript](/guides/general-use/config-ts)
-- [Configuring with yml or json](/guides/general-use/config-static)
-- [Environment specific configuration](/guides/general-use/config-env)
-- [Running multiple compilers](/guides/general-use/multi-compiler)
+<div className="row">
+  <div className="col">
+    <Card
+      title="TS configuration"
+      description="You can use TypeScript to configure your build for a better developer experience"
+      links={[['Learn more', '/guides/general-use/config-ts']]}
+    />
+  </div>
+  <div className="col">
+    <Card
+      title="Static configuration"
+      description={
+        <span>
+          Bud supports static configurations authored in{' '}
+          <strong>json5</strong> and <strong>yml</strong>.
+        </span>
+      }
+      links={[['Learn more', '/guides/general-use/config-static']]}
+    />
+  </div>
+</div>
+<div className="row margin-top--lg">
+  <div className="col">
+    <Card
+      title="Environment specific configurations"
+      description={
+        <span>
+          Create separate config files for <strong>dev</strong> and{' '}
+          <strong>production</strong>.
+        </span>
+      }
+      links={[['Learn more', '/guides/general-use/config-env']]}
+    />
+  </div>
+  <div className="col">
+    <Card
+      title="Multiple compilers"
+      description={
+        <span>
+          Run two or more separately configurable compilers from a single
+          bud config file.
+        </span>
+      }
+      links={[['Learn more', '/guides/general-use/multi-compiler']]}
+    />
+  </div>
+</div>

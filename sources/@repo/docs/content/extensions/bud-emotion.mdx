@@ -1,8 +1,8 @@
 ---
 title: '@roots/bud-emotion'
 description: 'Preconfigured "CSS-in-JS" support with 👩‍🎤 Emotion'
-sidebar_label: '@roots/bud-emotion'
-image: 'https://budjs.netlify.app/img/share/extensions/bud-emotion.png'
+sidebar_label: '🟡 @roots/bud-emotion'
+image: 'https://bud.js.org/img/share/extensions/bud-emotion.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -10,7 +10,6 @@ import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
 import {Install} from '@site/src/docs/Install'
-import {PeerDependencies} from '@site/src/docs/PeerDependencies'
 
 import Example from '!!raw-loader!@site/../../../examples/emotion/bud.config.js'
 
@@ -30,50 +29,6 @@ import Example from '!!raw-loader!@site/../../../examples/emotion/bud.config.js'
 
 ## Installation
 
-<Install packages="@roots/bud-emotion" />
+[@roots/bud-emotion](/extensions/bud-emotion) requires [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-react](/extensions/bud-react) in order to function.
 
-## Installing peer dependencies
-
-<PeerDependencies />
-
-## Usage
-
-Add the extension to your config. Make sure it is included after [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-react](/extensions/bud-react).
-
-<Tabs
-  groupId="lang"
-  defaultValue="ts"
-  values={[
-    {label: 'Javascript', value: 'js'},
-    {label: 'TypeScript', value: 'ts'},
-  ]}>
-  <TabItem value="js">
-
-```js title='bud.config.js' {3,9}
-const BudBabelExtension = require('@roots/bud-babel')
-const BudReactExtension = require('@roots/bud-react')
-const BudEmotionExtension = require('@roots/bud-emotion')
-
-module.exports = app =>
-  app.use([BudBabelExtension, BudReactExtension, BudEmotionExtension])
-```
-
-  </TabItem>
-  <TabItem value="ts">
-
-```ts title='bud.config.ts' {4,10}
-import type {Framework} from '@roots/bud'
-import * as BudBabelExtension from '@roots/bud-babel'
-import * as BudReactExtension = from '@roots/bud-react'
-import * as BudEmotionExtension = from '@roots/bud-emotion'
-
-export default (app: Framework) =>
-  app.use([
-    BudBabelExtension,
-    BudReactExtension,
-    BudEmotionExtension,
-  ])
-```
-
-  </TabItem>
-</Tabs>
+<Install packages="@roots/bud-emotion @roots/bud-react @roots/bud-babel" />

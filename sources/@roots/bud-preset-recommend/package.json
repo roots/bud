@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "version": "5.1.0",
+  "version": "0.0.0",
   "description": "Recommended preset for Bud projects",
   "repository": {
     "type": "git",
@@ -54,7 +54,6 @@
     "peers": [
       "@roots/bud-babel",
       "@roots/bud-entrypoints",
-      "@roots/bud-eslint",
       "@roots/bud-postcss"
     ]
   },
@@ -62,13 +61,12 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.21"
+    "@types/lodash": "4.14.179",
+    "@types/node": "16.11.26"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.3.1"
   }

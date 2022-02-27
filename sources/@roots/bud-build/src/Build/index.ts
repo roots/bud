@@ -3,14 +3,14 @@ import {
   Items,
   Loaders,
   Rules,
+  Service,
 } from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs, lodash, prettyFormat} from '@roots/bud-support'
+import {bind, chalk, fs, lodash} from '@roots/bud-support'
 import type * as Webpack from 'webpack'
 import {Configuration} from 'webpack'
 
-import {Rule} from '../Rule'
-import {config} from './config'
+import {Rule} from '../Rule/index'
+import * as config from './config/index'
 import items from './items'
 import loaders from './loaders'
 import * as rules from './rules'
@@ -25,12 +25,12 @@ const {ensureFile, writeFile} = fs
  */
 export class Build extends Service implements Contract.Interface {
   /**
-   * @internal
+   * @public
    */
   public config: Partial<Configuration>
 
   /**
-   * {@inheritDoc @roots/bud-framework#Build.Interface.loaders}
+   * Registered loaders
    *
    * @public
    */
@@ -58,10 +58,7 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async registered() {
-    this.app.hooks.on<'event.build.make.after'>(
-      'event.build.make.after',
-      this.writeFinalConfig,
-    )
+    this.app.hooks.on('event.build.make.after', this.writeFinalConfig)
   }
 
   /**
@@ -72,18 +69,15 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.filterAsync<'event.build.make.before'>(
-      'event.build.make.before',
-      this.app,
-    )
+    await this.app.hooks.filterAsync('event.build.make.before', this.app)
 
-    const build = await this.app.hooks.filterAsync<'build'>('build')
+    const build = await this.app.hooks.filterAsync('build')
 
     if (!build) {
       throw new Error('Configuration could not be processed')
     }
 
-    this.config = await this.app.hooks.filterAsync<'event.build.override'>(
+    this.config = await this.app.hooks.filterAsync(
       'event.build.override',
       Object.entries(build).reduce((all: Configuration, [key, value]) => {
         if (isUndefined(value) || isNull(value)) {
@@ -104,7 +98,7 @@ export class Build extends Service implements Contract.Interface {
       }, {}),
     )
 
-    await this.app.hooks.filterAsync<'event.build.make.after'>(
+    await this.app.hooks.filterAsync(
       'event.build.make.after',
       async () => null,
     )
@@ -140,7 +134,7 @@ export class Build extends Service implements Contract.Interface {
         .reduce(reducer, this.items),
     })
 
-    await config(this.app)
+    await config.builder.build(this.app)
   }
 
   /**
@@ -200,7 +194,11 @@ export class Build extends Service implements Contract.Interface {
 
       await writeFile(
         filePath,
-        `module.exports = (${prettyFormat(this.config)})`,
+        `module.exports = ${this.app.json.stringify(
+          this.config,
+          null,
+          2,
+        )}`,
       )
     } catch (error) {
       this.log('error', `failed to write webpack.config.json`)

@@ -1,6 +1,6 @@
-import {fs} from '@roots/bud-support'
+import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {expect, describe, beforeAll, it} from '@jest/globals'
+import {fs} from '@roots/bud-support'
 
 const PROJECT_MANIFEST_PATH = `${process.cwd()}/tests/util/project/package.json`
 const PROJECT_BUD_PROFILE_PATH = `${process.cwd()}/tests/util/project/.budfiles/bud/profile.json`
@@ -141,7 +141,6 @@ describe('bud.project', function () {
         peers: [
           '@roots/bud-babel',
           '@roots/bud-entrypoints',
-          '@roots/bud-eslint',
           '@roots/bud-postcss',
         ],
         type: 'extension',
@@ -151,7 +150,6 @@ describe('bud.project', function () {
       requires: [
         ['@roots/bud-babel', expect.any(String)],
         ['@roots/bud-entrypoints', expect.any(String)],
-        ['@roots/bud-eslint', expect.any(String)],
         ['@roots/bud-postcss', expect.any(String)],
       ],
       resolvable: true,
