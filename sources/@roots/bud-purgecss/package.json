@@ -58,7 +58,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.179",
     "@types/node": "16.11.26",
-    "postcss": "8.4.6"
+    "postcss": "8.4.7"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "4.1.3",
