@@ -10,9 +10,9 @@ const options: (
   app: Framework,
 ) => WebpackHotMiddleware.MiddlewareOptions = app =>
   app.hooks.filter('middleware.hot.options', {
-    path: `/__bud/hmr`,
-    log: false,
-    heartbeat: 2000,
+    path: app.hooks.filter('middleware.hot.options.path', `/__bud/hmr`),
+    log: app.hooks.filter('middleware.hot.options.log', false),
+    heartbeat: app.hooks.filter('middleware.hot.options.heartbeat', 2000),
   })
 
 /**
@@ -20,6 +20,5 @@ const options: (
  *
  * @public
  */
-export default function hot(app: Framework) {
-  return WebpackHotMiddleware(app.compiler.instance, options(app))
-}
+export const hot = (app: Framework) =>
+  WebpackHotMiddleware(app.compiler.instance, options(app))

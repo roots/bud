@@ -95,11 +95,7 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async invoke(config: Array<Configuration>) {
-    config = await this.app.hooks.filterAsync(
-      'event.compiler.before',
-      config,
-    )
-
+    await this.app.hooks.fire('event.compiler.before')
     this.config = this.app.hooks.filter('config.override', config)
 
     const progressPluginCallback = function (
@@ -140,7 +136,7 @@ export class Compiler extends Service implements Contract {
       this.instance,
     )
 
-    this.app.hooks.filter('event.compiler.after', this.app)
+    await this.app.hooks.fire('event.compiler.after')
 
     return this.instance
   }
@@ -201,12 +197,10 @@ export class Compiler extends Service implements Contract {
   public async handleStats(stats: MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
     this.stats = stats.toJson(this.app.store.get('build.stats'))
-    budProcess.stats.write(this.stats, this.app.store.get('theme.colors'))
 
-    await this.app.hooks.filter(
-      'event.compiler.stats',
-      async () => this.stats,
-    )
+    budProcess.stats.write(this.stats)
+
+    await this.app.hooks.fire('event.compiler.stats')
   }
 
   @bind
@@ -215,7 +209,7 @@ export class Compiler extends Service implements Contract {
 
     this.app.isDevelopment &&
       // @ts-ignore
-      this.app.server.middleware?.hot?.publish({error})
+      this.app.server.enabledMiddleware?.hot?.publish({error})
 
     this.app.error(error)
   }

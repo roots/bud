@@ -1,6 +1,5 @@
 import {format} from '@roots/bud-support'
-import {bind, chalk, lodash} from '@roots/bud-support'
-import highlight from 'cli-highlight'
+import {bind, chalk, highlight, lodash} from '@roots/bud-support'
 import {PrettyFormatOptions} from 'pretty-format/build/types'
 
 import {Bootstrapper} from './Bootstrapper'

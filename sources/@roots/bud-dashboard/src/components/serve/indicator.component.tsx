@@ -2,7 +2,6 @@ import axios from 'axios'
 import {Text} from 'ink'
 import Spinner from 'ink-spinner'
 import React, {useEffect, useState} from 'react'
-import {URL} from 'url'
 
 interface IndicatorProps {
   url: URL

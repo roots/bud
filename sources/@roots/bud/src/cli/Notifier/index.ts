@@ -1,7 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {bind, humanReadable, NodeNotifier} from '@roots/bud-support'
 import {dirname, resolve} from 'path'
-import {StatsCompilation} from 'webpack'
 
 /**
  * MacOS binary
@@ -19,12 +18,12 @@ export class Notifier {
       customPath: MACOS_NOTIFIER_PATH,
     })
 
-    this.app.hooks.on('event.compiler.stats', this.notify)
+    this.app.hooks.action('event.compiler.stats', this.notify)
   }
 
   @bind
-  public async notify(stats: StatsCompilation) {
-    const summary = stats.children?.reduce(
+  public async notify(app: Framework) {
+    const summary = app.compiler.stats.children?.reduce(
       (summary, compilation) => {
         return {
           errors: summary.errors + (compilation.errorsCount ?? 0),
@@ -34,8 +33,8 @@ export class Notifier {
         }
       },
       {
-        errors: stats.errorsCount ?? 0,
-        warnings: stats.warningsCount ?? 0,
+        errors: app.compiler.stats.errorsCount ?? 0,
+        warnings: app.compiler.stats.warningsCount ?? 0,
         assets: 0,
         time: 0,
       },
@@ -57,7 +56,5 @@ export class Notifier {
       )}.`,
       contentImage: resolve(__dirname, '../../../assets/bud-icon.jpg'),
     })
-
-    return stats
   }
 }

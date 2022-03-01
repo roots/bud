@@ -4,22 +4,20 @@ import WebpackDevMiddleware, {
   ServerResponse,
 } from 'webpack-dev-middleware'
 
-export interface dev
-  extends Server.MiddlewareRecord<
-    WebpackDevMiddleware.Options<IncomingMessage, ServerResponse>
-  > {
-  (app: Framework): any
-}
-
 /**
  * Dev middleware factory
  *
  * @public
  */
-export function dev(app: Framework) {
-  const options = makeOptions(app)
-  return WebpackDevMiddleware(app.compiler.instance as any, options)
+export interface dev
+  extends Server.Middleware.Definition<
+    WebpackDevMiddleware.Options<IncomingMessage, ServerResponse>
+  > {
+  (app: Framework): any
 }
+
+export const dev = (app: Framework) =>
+  WebpackDevMiddleware(app.compiler.instance, makeOptions(app))
 
 /**
  * Dev middleware options factory
@@ -29,11 +27,16 @@ export function dev(app: Framework) {
 const makeOptions = (
   app: Framework,
 ): WebpackDevMiddleware.Options<IncomingMessage, ServerResponse> =>
-  app.hooks.filter('middleware.dev.options', () => ({
+  app.hooks.filter(`middleware.dev.options`, {
     headers: {
-      ['X-Server']: '@roots/bud',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'x-powered-by': '@roots/bud',
     },
-    publicPath: app.hooks.filter('build.output.publicPath'),
-    stats: false,
-    writeToDisk: true,
-  }))
+    publicPath: app.hooks.filter(`build.output.publicPath`),
+    stats: app.hooks.filter(`middleware.dev.options.stats`, 'errors-only'),
+    writeToDisk: app.hooks.filter(
+      `middleware.dev.options.writeToDisk`,
+      true,
+    ),
+  })

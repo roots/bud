@@ -1,6 +1,6 @@
-import {jsonStringify} from '@roots/bud-support'
 import {readFile, writeFile} from 'fs-extra'
 import json5 from 'json5'
+import jsonStringify from 'safe-json-stringify'
 
 export const read = async (file: string): Promise<any> => {
   const source = await readFile(file, 'utf8')

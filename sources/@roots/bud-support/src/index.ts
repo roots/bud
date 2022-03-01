@@ -16,20 +16,18 @@
  *  @packageDocumentation
  */
 
-/**
- * Dependencies
- */
-//
-
 export * from './external/boxen'
-export {chalk} from './external/chalk'
+export * from './external/chalk'
+export * from './external/chokidar'
 export * from './external/cosmiconfig'
 export * from './external/cli-highlight'
 export * from './external/dotenv'
 export * from './external/dotenv-expand'
+export * from './external/ejs'
 export * from './external/execa'
 export * from './external/pretty-format'
 export * from './external/fs-extra'
+export * from './external/get-port'
 export * from './external/globby'
 export * from './external/human-readable'
 export * from './external/json5'
@@ -37,6 +35,7 @@ export * from './external/lodash'
 export * from './external/nanoid'
 export * from './external/node-notifier'
 export * from './external/pkg-up'
+export * from './external/pug'
 export * from './external/safe-resolve'
 export * from './external/safe-require'
 export * from './external/safe-json-stringify'
@@ -46,18 +45,10 @@ export * from './external/toml'
 export * from './external/yaml'
 export * from './external/table'
 
-/**
- * Utilities
- */
-//
-
 export * from './util/dump'
 export * from './util/killPort'
 export * as wpPkgs from './util/wordpressPkgs'
 
-/**
- * Decorators
- */
-//
+export * as parsers from './parsers'
 
 export * from './external/helpful-decorators'

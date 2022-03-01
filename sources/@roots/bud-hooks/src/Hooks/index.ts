@@ -129,11 +129,11 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof Contract.Map & string>(
+  public async<T extends keyof Contract.AsyncMap & string>(
     id: T,
     callback:
-      | Contract.Map[T]
-      | ((value: Contract.Map[T]) => Promise<Contract.Map[T]>),
+      | Contract.AsyncMap[T]
+      | ((value: Contract.AsyncMap[T]) => Promise<Contract.AsyncMap[T]>),
   ): Framework {
     const current = this.has(id) ? this.get(id) : []
 
@@ -195,10 +195,10 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof Contract.Map & string>(
+  public async filterAsync<T extends keyof Contract.AsyncMap & string>(
     id: T,
-    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
-  ): Promise<Contract.Map[T]> {
+    value?: Contract.AsyncMap[T] | ((value?: Contract.AsyncMap[T]) => any),
+  ): Promise<Contract.AsyncMap[T]> {
     if (!this.has(id)) {
       if (isUndefined(value)) return
       return isFunction(value) ? await value() : value
@@ -210,6 +210,57 @@ export class Hooks extends Service implements Contract {
         return isFunction(cb) ? await cb(value) : cb
       },
       value,
+    )
+  }
+
+  /**
+   * Register an action on an event
+   *
+   * @param id
+   * @returns
+   */
+  /**
+   * Action (on event)
+   *
+   * @public
+   */
+  public action<T extends keyof Contract.Events & string>(
+    id: T,
+    action: (app: Framework) => Promise<unknown>,
+  ): Framework {
+    const current = this.has(id) ? this.get(id) : []
+
+    this.set(id, [...current, action])
+
+    return this.app
+  }
+
+  /**
+   * Fire actions registered to an event.
+   *
+   * @example
+   * ```js
+   * await app.hooks.fire('namespace.key')
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async fire<T extends keyof Contract.Events & string>(
+    id: T,
+  ): Promise<Framework> {
+    if (!this.has(id)) return
+
+    await this.get(id).reduce(
+      async (
+        promised: Promise<unknown>,
+        cb?: (value: Framework) => Promise<unknown>,
+      ) => {
+        await promised
+        await cb(this.app)
+      },
+      Promise.resolve(),
     )
   }
 }

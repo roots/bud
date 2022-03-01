@@ -13,7 +13,7 @@ import type {provide} from '../methods/provide'
 import type * as proxy from '../methods/proxy'
 import type {run} from '../methods/run'
 import type {runtime} from '../methods/runtime'
-import type {serve} from '../methods/serve'
+import type * as serve from '../methods/serve'
 import type * as splitChunks from '../methods/splitChunks'
 import type {facade as templateFacade} from '../methods/template'
 import type * as use from '../methods/use'
@@ -661,7 +661,7 @@ export class Facade {
    *
    * @public
    */
-  public serve: serve
+  public serve: serve.facade
 
   /**
    * Enable and/or configure a generated HTML template

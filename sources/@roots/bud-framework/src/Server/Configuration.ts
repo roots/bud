@@ -1,16 +1,27 @@
 import {WatchOptions} from 'chokidar'
-import {URL} from 'url'
 
 import {Framework} from '../Framework'
 
+export {WatchOptions}
+
 /**
- * Files which should reload the browser when changed.
+ * Dev config
  *
  * @public
  */
-export interface DevConfiguration {
+export interface Configuration {
+  /**
+   * Dev server URL
+   *
+   * @public
+   */
   url: URL
 
+  /**
+   * Dev server client opts
+   *
+   * @public
+   */
   client: {
     scripts: Array<(app: Framework) => string>
   }

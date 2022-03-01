@@ -1,36 +1,24 @@
-import {Styles} from '@roots/ink-use-style'
-import {Box, Newline, Text} from 'ink'
-import Spinner from 'ink-spinner'
+import {Framework} from '@roots/bud-framework'
+import {Box, Text} from 'ink'
 import React from 'react'
 
 import {Url} from './url.component'
 
-interface Props {
-  middleware: Record<string, boolean>
-  url: URL
-  proxy?: URL
-  theme: Styles
-}
-
-export const Serve = ({middleware, url, proxy, theme}: Props) => {
+export const Serve = ({app}: {app: Framework}) => {
   return (
     <Box flexDirection={`column`} marginBottom={1}>
-      <Text color={theme?.colors.text}>
-        <Url label="dev" value={url} />
+      <Text color={`white`}>
+        <Url label="dev" value={app.hooks.filter('dev.url')} />
       </Text>
 
-      {middleware.proxy && (
-        <Text color={theme?.colors.text}>
-          <Url label="proxy" value={proxy} />
+      {app.hooks.filter('middleware.enabled').includes('proxy') && (
+        <Text color={`white`}>
+          <Url
+            label="proxy"
+            value={app.hooks.filter('middleware.proxy.target')}
+          />
         </Text>
       )}
-
-      <Box flexDirection={`column`} marginTop={1}>
-        <Text>
-          <Spinner /> waiting for changes...{' '}
-          <Text color="dim">🆀 to exit</Text> <Newline />
-        </Text>
-      </Box>
     </Box>
   )
 }

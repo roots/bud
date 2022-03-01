@@ -73,14 +73,13 @@ export const Sage: Extension.Module<void> = {
        * Development
        */
       () => {
-        app.devtool()
-
-        app.hooks.async(
-          'event.compiler.stats',
-          eventCompilerStats.bind(app),
-        )
-
-        app.hooks.on('event.app.close', eventAppClose.bind(app))
+        app
+          .devtool()
+          .hooks.action(
+            'event.compiler.stats',
+            eventCompilerStats.bind(app),
+          )
+          .hooks.action('event.app.close', eventAppClose.bind(app))
       },
     )
   },

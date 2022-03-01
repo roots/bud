@@ -18,9 +18,8 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public async bootstrap(): Promise<void> {
-    this.app.hooks.async('event.compiler.after', async app => {
+    this.app.hooks.action('event.compiler.after', async app => {
       app.store.is('features.dashboard', true) && (await this.run())
-      return app
     })
   }
 
@@ -34,10 +33,10 @@ export class Dashboard extends Service implements Contract {
   @bind
   @once
   public async run(compiler?: MultiCompiler): Promise<Framework> {
-    const {Build} = await import('../components')
+    const {Serve} = await import('../components')
     const {render} = await import('ink')
 
-    render(<Build tap={() => this.app.root ?? this.app} />)
+    render(<Serve app={this.app} />)
 
     return this.app
   }

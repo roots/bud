@@ -58,7 +58,7 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async registered() {
-    this.app.hooks.on('event.build.make.after', this.writeFinalConfig)
+    this.app.hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**
@@ -69,7 +69,7 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.filterAsync('event.build.make.before', this.app)
+    await this.app.hooks.fire('event.build.before')
 
     const build = await this.app.hooks.filterAsync('build')
 
@@ -77,9 +77,8 @@ export class Build extends Service implements Contract.Interface {
       throw new Error('Configuration could not be processed')
     }
 
-    this.config = await this.app.hooks.filterAsync(
-      'event.build.override',
-      Object.entries(build).reduce((all: Configuration, [key, value]) => {
+    this.config = Object.entries(build).reduce(
+      (all: Configuration, [key, value]) => {
         if (isUndefined(value) || isNull(value)) {
           this.log(`warn`, {
             message: `build.make: excluding ${key}`,
@@ -95,13 +94,11 @@ export class Build extends Service implements Contract.Interface {
         })
 
         return {...all, [key]: value}
-      }, {}),
+      },
+      {},
     )
 
-    await this.app.hooks.filterAsync(
-      'event.build.make.after',
-      async () => null,
-    )
+    await this.app.hooks.fire('event.build.after')
 
     return this.config
   }

@@ -2,7 +2,7 @@ import type {
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
-import {bind, format, highlight, lodash} from '@roots/bud-support'
+import {bind, format, highlight, lodash, parsers} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {
@@ -26,7 +26,6 @@ import {Project} from '../Project'
 import * as frameworkProcess from './framework.process'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
-import * as parser from './parser'
 
 const {isFunction, omit} = lodash
 
@@ -239,15 +238,15 @@ export abstract class Framework {
   public logger: Logger
 
   /**
-   * Development server and browser devtools
+   * Development server
    *
    * @public
    */
-  public _server: Server.Server
-  public get server(): Server.Server {
+  public _server: Server.Service
+  public get server(): Server.Service {
     return this.root._server
   }
-  public set server(server: Server.Server) {
+  public set server(server: Server.Service) {
     this.root._server = server
   }
 
@@ -585,22 +584,22 @@ export abstract class Framework {
    *
    * @public
    */
-  public json: typeof parser.json = parser.json
+  public json: typeof parsers.json5 = parsers.json5
 
   /**
    * Read and write yaml files
    *
    * @public
    */
-  public yml: typeof parser.yml = parser.yml
+  public yml: typeof parsers.yml = parsers.yml
 
   /**
    * Read and write typescript files
    *
    * @public
    */
-  public ts: typeof parser.ts = {
-    read: parser.ts.read.bind(this),
+  public ts: typeof parsers.ts = {
+    read: parsers.ts.read.bind(this),
   }
 
   /**

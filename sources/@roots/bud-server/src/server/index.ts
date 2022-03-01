@@ -1,11 +1,12 @@
 import * as Framework from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 import Express from 'express'
-import {URL} from 'url'
 
 import {inject} from '../client/inject'
-import {middlewareMap} from '../middleware'
-import __BudRouter from '../router/__bud'
-import {bind} from './server.dependencies'
+import * as middlewareMap from '../middleware'
+import {seed} from '../seed'
+import {Http} from './server.http'
+import {Https} from './server.https'
 import {Watcher} from './server.watcher'
 
 /**
@@ -15,46 +16,40 @@ import {Watcher} from './server.watcher'
  */
 export class Server
   extends Framework.Service
-  implements Framework.Server.Server
+  implements Framework.Server.Service
 {
   /**
    * Express instance
    *
    * @public
    */
-  public application: Framework.Server.Application
+  public application: Express.Application
 
   /**
-   * Server config accessor
+   * Server connections
    *
    * @public
    */
-  public get config(): Framework.Server.DevConfiguration {
-    return {
-      url: this.app.hooks.filter('dev.url'),
-      watch: {
-        files: this.app.hooks.filter('dev.watch.files'),
-        options: this.app.hooks.filter('dev.watch.options'),
-      },
-      client: {
-        scripts: this.app.hooks.filter('dev.client.scripts'),
-      },
-    }
+  public conn: Framework.Server.Service['conn'] = {
+    http: null,
+    https: null,
   }
 
   /**
-   * Express instance
+   * Available middleware
    *
    * @public
    */
-  public instance: Framework.Server.Instance
+  public availableMiddleware: Framework.Server.Service['availableMiddleware'] =
+    middlewareMap
 
   /**
    * Utilized middleware
    *
    * @public
    */
-  public middleware: Framework.Server.MiddlewareMap = {}
+  public enabledMiddleware: Framework.Server.Service['enabledMiddleware'] =
+    {}
 
   /**
    * Watcher instance
@@ -64,20 +59,6 @@ export class Server
   public watcher: Watcher
 
   /**
-   * Port
-   *
-   * @public
-   */
-  public get port(): string {
-    const url = this.app.hooks.filter('dev.url')
-    if (!url.port || url.port == '') {
-      return url.protocol == 'https:' ? '443' : '80'
-    }
-
-    return url.port
-  }
-
-  /**
    * Service boot callback
    *
    * @public
@@ -85,103 +66,71 @@ export class Server
    */
   @bind
   public async boot(): Promise<void> {
-    this.application = Express()
+    seed(this.app)
 
+    /* Instantiate express */
+    this.application = Express()
+    this.application.set('x-powered-by', false)
+
+    /* Watching */
     this.app.hooks
-      .on('dev.url', () => new URL('http://localhost:3000'))
-      .hooks.on('dev.watch.files', () => [])
-      .hooks.on('dev.watch.options', () => ({}))
-      .hooks.on('dev.client.scripts', () => [
-        instance =>
-          `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
-        () => `@roots/bud-server/client/proxy-click-interceptor.js`,
-      ])
+      .action('event.server.before', async app => {
+        this.watcher = new Watcher(app)
+      })
+      .hooks.action(
+        'event.server.after',
+        async app => await app.server.watcher?.watch(),
+      )
   }
 
   /**
    * Apply middlewares
    *
    * @returns
+   * @decorator `@bind`
    */
-  public applyMiddlewares() {
+  @bind
+  public async apply() {
     this.app.hooks.filter('middleware.enabled').map(key => {
       this.log(`info`, `using middleware: ${key}`)
-      Object.assign(this.middleware, {
-        [key]: middlewareMap[key](this.app),
+
+      const middlewareFactory = this.availableMiddleware[key]
+
+      Object.assign(this.enabledMiddleware, {
+        [key]: middlewareFactory(this.app),
       })
-      this.application.use(this.middleware[key])
     })
+
+    Object.values(this.enabledMiddleware).map(middleware =>
+      this.application.use(middleware),
+    )
   }
 
   /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.run}
+   * Run server
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async run(): Promise<this> {
-    /**
-     * Instantiate watcher
-     */
-    this.watcher = new Watcher(this.app)
+  public async run() {
+    await this.app.hooks.fire('event.server.before')
 
-    /**
-     * Filter server before
-     */
-    await this.app.hooks.filterAsync('event.server.before', this.app)
-
-    /**
-     * Prep and run compilation
-     */
     await this.compile()
 
-    this.applyMiddlewares()
+    await this.apply()
 
-    /**
-     * 404 middleware
-     */
-    this.application.use(
-      (
-        _req: Express.Request,
-        res: Express.Response,
-        _next: Express.NextFunction,
-      ) => {
-        res.status(404).send("Sorry can't find that!")
-      },
-    )
+    await this.initializeServers()
 
-    /**
-     * Listen
-     */
-    this.instance = this.application.listen(
-      this.port,
-      async (error: string) => {
-        this.log('info', `started server on %s`, this.port)
-        if (error) this.log('error', error)
-
-        this.app.hooks.filter('event.server.listen')
-      },
-    )
-
-    /**
-     * If watching and a watched file is touched, update hmr websocket
-     * event subscribers.
-     */
-    await this.watcher.watch()
-    this.watcher.instance.on('change', path => {
-      // @ts-ignore
-      this.middleware?.hot?.publish({
-        action: 'reload',
-        message: `Detected file change: ${path}. Reloading window.`,
-      })
-    })
-
-    await this.app.hooks.filterAsync('event.server.after', this.app)
-
-    return this
+    await this.app.hooks.fire('event.server.after')
   }
 
+  /**
+   * Run compilation
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async compile() {
     await Promise.all(
@@ -189,20 +138,31 @@ export class Server
         async (instance: Framework.Framework) => {
           await inject(
             instance,
-            this.app.hooks.filter('dev.client.scripts'),
+            instance.hooks.filter('dev.client.scripts'),
           )
         },
       ),
     )
 
-    this.app.hooks.on('config.override', config => {
-      return config.map(compilerConfiguration => {
-        compilerConfiguration.bail = false
-        return compilerConfiguration
-      })
-    })
-
     await this.app.compiler.compile()
+  }
+
+  /**
+   * Initialize servers
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async initializeServers(): Promise<void> {
+    this.conn.http = new Http(this.app)
+    await this.conn.http.createServer(this.application)
+    await this.conn.http.listen()
+
+    this.conn.https = new Https(this.app)
+    if (!this.conn.https.isEnabled()) return
+    await this.conn.https.createServer(this.application)
+    await this.conn.https.listen()
   }
 
   /**

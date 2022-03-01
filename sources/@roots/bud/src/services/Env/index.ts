@@ -1,7 +1,8 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, dotenv, dotenvExpand, once} from '@roots/bud-support'
-import {isString} from 'lodash'
+import {bind, dotenv, dotenvExpand, lodash, once} from '@roots/bud-support'
+
+const {isString} = lodash
 
 /**
  * Env service

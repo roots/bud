@@ -12,19 +12,16 @@ export const run: run = async function (): Promise<void> {
 
   await ctx.extensions.processQueue()
   await ctx.api.processQueue()
-
-  await ctx.hooks.filterAsync('event.run', async () => ctx)
-
-  const isDev = ctx.isDevelopment && ctx.hooks.filter('middleware.enabled')
-
-  const development = async () => {
-    await ctx.server.run()
-  }
+  await ctx.hooks.fire('event.run')
 
   const production = async () => {
     const compiler = await ctx.compiler.compile()
     compiler.run(ctx.compiler.callback)
   }
 
-  isDev ? await development() : await production()
+  try {
+    ctx.isDevelopment ? await ctx.server.run() : await production()
+  } catch (error) {
+    ctx.error(error)
+  }
 }

@@ -232,32 +232,4 @@ export const seed: Partial<Store.Repository> = {
       preset: 'normal',
     },
   },
-
-  /**
-   * Terminal styling
-   */
-  theme: {
-    spacing: 1,
-    colors: {
-      foreground: '#FFFFFF',
-      faded: '#6C758F',
-      primary: '#663399',
-      primaryAlt: '#545DD7',
-      error: '#dc3545',
-      errorAlt: '#b22222',
-      warning: '#FF611A',
-      success: '#46D46A',
-      accent: '#ff69b4',
-      flavor: '#78C5D7',
-    },
-    screens: [
-      [0, 40],
-      [41, 60],
-      [61, 80],
-      [81, 200],
-    ],
-    columns: 12,
-    maxWidth: 140,
-    maxHeight: 999,
-  },
 }

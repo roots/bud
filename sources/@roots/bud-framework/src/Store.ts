@@ -276,121 +276,6 @@ export namespace Store {
     cache: {
       type?: 'filesystem' | 'memory'
     }
-
-    /**
-     * Command line theme configuration
-     *
-     * @public
-     */
-    theme: {
-      /**
-       * Scale of spacer unit
-       *
-       * @defaultValue 1
-       *
-       * @public
-       */
-      spacing: number
-      /**
-       * Color palette
-       *
-       * @public
-       */
-      colors: {
-        /**
-         * Text color
-         *
-         * @public
-         */
-        foreground: TermColor
-        /**
-         * Grayed out text color
-         *
-         * @public
-         */
-        faded: TermColor
-        /**
-         * Primary color
-         *
-         * @public
-         */
-        primary: TermColor
-        /**
-         * Variant of primary color (for gradients, etc.)
-         *
-         * @public
-         */
-        primaryAlt: TermColor
-        /**
-         * Error color
-         *
-         * @public
-         */
-        error: TermColor
-        /**
-         * Variant of error color (for gradients, etc.)
-         *
-         * @public
-         */
-        errorAlt: TermColor
-        /**
-         * Warning color
-         *
-         * @public
-         */
-        warning: TermColor
-        /**
-         * Success color
-         *
-         * @public
-         */
-        success: TermColor
-        /**
-         * Accent color
-         *
-         * @public
-         */
-        accent: TermColor
-        /**
-         * Flavor color
-         *
-         * @public
-         */
-        flavor: TermColor
-      }
-      /**
-       * Interface breakpoints
-       *
-       * @remarks
-       * Expressed as [width, height]
-       *
-       * @public
-       */
-      screens: [
-        [number, number], // sm
-        [number, number], // md
-        [number, number], // lg
-        [number, number], // xl
-      ]
-      /**
-       * Number of columns (like a bootstrap/960 grid system for web)
-       *
-       * @public
-       */
-      columns: number
-      /**
-       * Maximum width of raw rendered text
-       *
-       * @public
-       */
-      maxWidth: number
-      /**
-       * Maximum height of raw rendered text
-       *
-       * @public
-       */
-      maxHeight: number
-    }
   }
 
   export interface Map
@@ -398,36 +283,10 @@ export namespace Store {
       RepositoryKeyMap,
       FeaturesKeyMap,
       LocationKeyMap,
-      PatternKeyMap,
-      ThemeKeyMap,
-      ThemeColorsKeyMap {
+      PatternKeyMap {
     ['cache.type']: Repository['cache']['type']
     ['log.level']: Repository['log']['level']
   }
-
-  /**
-   * @public
-   */
-  export type TermColor =
-    | `#${string}`
-    | `black`
-    | `red`
-    | `green`
-    | `yellow`
-    | `blue`
-    | `magenta`
-    | `cyan`
-    | `white`
-    | `gray`
-    | `grey`
-    | `blackBright`
-    | `redBright`
-    | `greenBright`
-    | `yellowBright`
-    | `blueBright`
-    | `magentaBright`
-    | `cyanBright`
-    | `whiteBright`
 
   type RepositoryKeyMap = {
     [K in keyof Repository as `${K & string}`]: Repository[K]
@@ -436,16 +295,6 @@ export namespace Store {
   type FeaturesKeyMap = {
     [K in keyof Repository['features'] as `features.${K &
       string}`]: Repository['features'][K]
-  }
-
-  type ThemeKeyMap = {
-    [K in keyof Repository['theme'] as `theme.${K &
-      string}`]: Repository['theme'][K]
-  }
-
-  type ThemeColorsKeyMap = {
-    [C in keyof Repository['theme']['colors'] as `theme.colors.${C &
-      string}`]: Repository['theme']['colors'][C]
   }
 
   type LocationKeyMap = {

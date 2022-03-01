@@ -1,51 +1,49 @@
 import type {Framework, Server} from '@roots/bud-framework'
-import {URL} from 'url'
 
-export interface serve {
-  (port: number): Framework
+export type UserInput =
+  | URL
+  | string
+  | number
+  | Partial<Server.Configuration>
+
+export interface method {
+  (input?: UserInput): Framework
 }
 
-export interface serve {
-  (url: URL): Framework
-}
+export type facade = method
 
-export interface serve {
-  (url: string): Framework
-}
-
-export interface serve {
-  (config: Partial<Server.DevConfiguration>): Framework
-}
-
-export const serve: serve = function (config): Framework {
+export const method: method = function (input) {
   const ctx = this as Framework
 
-  if (typeof config === 'number') {
-    const url = ctx.hooks.filter('dev.url')
-    url.port = `${config}`
-    ctx.hooks.on('dev.url', () => url)
+  if (typeof input === 'number') {
+    ctx.hooks.on('dev.url', url => {
+      url.port = `${input}`
+      return url
+    })
+
     return ctx
   }
 
-  if (typeof config === 'string') {
-    ctx.hooks.on('dev.url', () => new URL(config))
+  if (typeof input === 'string') {
+    ctx.hooks.on('dev.url', () => new URL(input))
     return ctx
   }
 
-  if (config instanceof URL) {
-    ctx.hooks.on('dev.url', () => config)
+  if (input instanceof URL) {
+    ctx.hooks.on('dev.url', () => input)
     return ctx
   }
 
-  config.url && ctx.hooks.on('dev.url', () => config.url)
-  config.watch?.files &&
-    ctx.hooks.on('dev.watch.files', () => config.watch.files)
+  input.url && ctx.hooks.on('dev.url', () => input.url)
 
-  config.watch?.options &&
-    ctx.hooks.on('dev.watch.options', () => config.watch.options)
+  input.watch?.files &&
+    ctx.hooks.on('dev.watch.files', () => input.watch.files)
 
-  config.client?.scripts &&
-    ctx.hooks.on('dev.client.scripts', () => config.client.scripts)
+  input.watch?.options &&
+    ctx.hooks.on('dev.watch.options', () => input.watch.options)
+
+  input.client?.scripts &&
+    ctx.hooks.on('dev.client.scripts', () => input.client.scripts)
 
   return ctx
 }
