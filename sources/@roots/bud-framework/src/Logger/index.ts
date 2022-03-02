@@ -1,5 +1,3 @@
-import {SignaleConfig, SignaleOptions} from 'signale'
-
 import {INSTANCE_CONFIG, types} from './logger.constants'
 import {bind, Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
@@ -58,8 +56,14 @@ export class Logger {
    *
    * @public
    */
-  public config: INSTANCE_CONFIG = INSTANCE_CONFIG
-  public options: SignaleOptions
+  public config = INSTANCE_CONFIG
+
+  /**
+   * Signale options
+   *
+   * @public
+   */
+  public options: any
 
   /**
    * Class constructor
@@ -72,6 +76,8 @@ export class Logger {
   }
 
   /**
+   * Instantiate primary framework logger
+   *
    * @public
    * @decorator `@bind`
    */
@@ -89,14 +95,13 @@ export class Logger {
   }
 
   /**
+   * Make signale instance
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public makeInstance(
-    options?: SignaleOptions,
-    config?: SignaleConfig,
-  ): Signale {
+  public makeInstance(options?: any, config?: any): Signale {
     options = {
       ...this.options,
       ...(options ?? {}),

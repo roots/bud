@@ -19,10 +19,14 @@ export const seed = (app: Framework) => {
   app.hooks.on(`middleware.proxy.target`, new URL(`http://localhost`))
 
   app.hooks.on(`dev.ssl.enabled`, false)
-  app.hooks.on(`dev.client.scripts`, [makeHmr, makeClickInterceptor])
+
+  app.hooks.on(
+    `dev.client.scripts`,
+    new Set([makeHmr, makeClickInterceptor]),
+  )
 
   app.hooks.on(`middleware.enabled`, [`dev`, `hot`])
 
-  app.hooks.on(`dev.watch.files`, [])
+  app.hooks.on(`dev.watch.files`, new Set([]))
   app.hooks.on(`dev.watch.options`, {})
 }

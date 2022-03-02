@@ -1,7 +1,5 @@
 import {Container} from '@roots/container'
 
-import {Index} from './'
-
 /**
  * Env container interface
  *
@@ -13,5 +11,5 @@ export interface Env extends Container {
    *
    * @public
    */
-  getPublicEnv(): Index<any>
+  getPublicEnv(): Record<string, any>
 }

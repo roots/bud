@@ -66,11 +66,6 @@ export class Compiler extends Service implements Contract {
   public config: Array<Configuration> = []
 
   /**
-   * @public
-   */
-  public scope: Array<String>
-
-  /**
    * Initiates compilation
    *
    * @returns the compiler instance

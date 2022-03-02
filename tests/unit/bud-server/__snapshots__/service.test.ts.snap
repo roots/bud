@@ -2,13 +2,13 @@
 
 exports[`@roots/bud-server has expected defaults 1`] = `"http://localhost:3000/"`;
 
-exports[`@roots/bud-server has expected defaults 2`] = `Array []`;
+exports[`@roots/bud-server has expected defaults 2`] = `Set {}`;
 
 exports[`@roots/bud-server has expected defaults 3`] = `Object {}`;
 
 exports[`@roots/bud-server has expected defaults 4`] = `
-Array [
+Set {
   [Function],
   [Function],
-]
+}
 `;

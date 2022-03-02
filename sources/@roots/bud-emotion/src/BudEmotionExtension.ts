@@ -1,11 +1,11 @@
-import {Framework, Module} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 
 /**
  * BudEmotionExtension interface
  *
  * @public
  */
-export interface BudEmotionExtension extends Module {}
+export interface BudEmotionExtension extends Extension.Module {}
 
 /**
  * Adds EmotionCSS to the framework

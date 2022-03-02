@@ -150,6 +150,11 @@ export namespace Hooks {
     | Map[T]
     | Partial<Map[T]>
 
+  /**
+   * Asyncronous hooks map
+   *
+   * @public
+   */
   export interface AsyncMap {
     [`build`]: Record<string, any>
     [`build.entry`]: Record<string, EntryObject>
@@ -159,6 +164,11 @@ export namespace Hooks {
     [`build.resolve.modules`]: Configuration[`resolve`][`modules`]
   }
 
+  /**
+   * Syncronous hooks map
+   *
+   * @public
+   */
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
       Server.Middleware.Middleware<`factory`> {
@@ -205,9 +215,6 @@ export namespace Hooks {
     [`build.plugins`]: LimitedPlugin
     [`build.profile`]: Configuration[`profile`]
     [`build.recordsPath`]: Configuration[`recordsPath`]
-    [`build.resolve.alias`]: {
-      [index: string]: string | false | string[]
-    }
     [`build.resolve.extensions`]: Configuration[`resolve`][`extensions`]
     [`build.stats`]: Configuration[`stats`]
     [`build.target`]: Configuration[`target`]
@@ -225,9 +232,9 @@ export namespace Hooks {
     [`dev.ssl.key`]: string
     [`dev.ssl.port`]: number
     [`dev.url`]: URL
-    [`dev.watch.files`]: Array<string>
+    [`dev.watch.files`]: Set<string>
     [`dev.watch.options`]: WatchOptions
-    [`dev.client.scripts`]: Array<(app: Framework) => string>
+    [`dev.client.scripts`]: Set<(app: Framework) => string>
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
     [key: Server.Middleware.OptionsKey]: any

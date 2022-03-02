@@ -11,20 +11,30 @@ export interface method {
 
 export type facade = method
 
+/**
+ * Enables proxy middleware
+ *
+ * @remarks
+ * If proxy middleware is already enabled it will be removed before it is re-added
+ *
+ * @public
+ */
 export const enableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> => [
-  ...disableMiddleware(middleware),
+  ...(disableMiddleware(middleware) ?? []),
   'proxy',
 ]
 
 export const disableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> =>
-  middleware.filter(middleware => middleware !== 'proxy')
+  middleware?.filter(middleware => middleware !== 'proxy') ?? []
 
 export const method: method = function (input) {
   const ctx = this as Framework
+
+  if (!ctx.isDevelopment) return ctx
 
   if (isUndefined(input)) {
     return ctx.hooks.on('middleware.enabled', enableMiddleware)
@@ -47,10 +57,10 @@ export const method: method = function (input) {
   }
 
   if (isString(input)) {
-    return ctx.hooks.on('middleware.proxy.target', () => new URL(input))
+    return ctx.hooks.on('middleware.proxy.target', new URL(input))
   }
 
   if (input instanceof URL) {
-    return ctx.hooks.on('middleware.proxy.target', () => input)
+    return ctx.hooks.on('middleware.proxy.target', input)
   }
 }

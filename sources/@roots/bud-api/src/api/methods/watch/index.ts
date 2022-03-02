@@ -1,9 +1,16 @@
-import type {Framework, Server} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
+import {chokidar} from '@roots/bud-support'
 
 export interface watch {
   (
-    files: Server.Configuration['watch']['files'],
-    options?: Server.Configuration['watch']['options'],
+    /**
+     * Watched files
+     */
+    files: Array<string>,
+    /**
+     * Watcher options
+     */
+    options?: chokidar.WatchOptions,
   ): Framework
 }
 
@@ -13,7 +20,10 @@ export const watch: watch = function (files, options = {}) {
   files = Array.isArray(files) ? files : [files]
 
   ctx.hooks
-    .on('dev.watch.files', hookValue => [...(hookValue ?? []), ...files])
+    .on('dev.watch.files', fileSet => {
+      files.forEach(file => fileSet.add(file))
+      return fileSet
+    })
     .hooks.on('dev.watch.options', hookValue => ({
       ...(hookValue ?? {}),
       ...(options ?? {}),

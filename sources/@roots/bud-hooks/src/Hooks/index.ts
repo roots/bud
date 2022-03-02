@@ -4,14 +4,17 @@ import {bind, lodash} from '@roots/bud-support'
 const {get, isFunction, isUndefined, set} = lodash
 
 /**
- * Service allowing for fitering values through callbacks.
+ * Hooks and events registry
+ *
+ * @remarks
+ * Supports async and sync value hooks as well as asyncronous events.
  *
  * @example
  * Add a new entry to the `webpack.externals` configuration:
  *
  * ```ts
  * hooks.on(
- *   'build/externals',
+ *   'build.externals',
  *   externals => ({
  *     ...externals,
  *     $: 'jquery',
@@ -30,14 +33,14 @@ const {get, isFunction, isUndefined, set} = lodash
  * ```
  *
  * @example
- * Create a new filter for a value:
+ * Filter a value through any registered hooks:
  *
  * ```ts
- * hooks.filter('my-event-name', DEFAULT_VALUE)
+ * hooks.filter('build.output.filename', DEFAULT_VALUE)
  * ```
  *
  * @example
- * Create a new async filter for a value:
+ * Filter an async value through any registered hooks:
  *
  * ```ts
  * await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
@@ -101,8 +104,9 @@ export class Hooks extends Service implements Contract {
     callback: Contract.Map[T] | ((value: Contract.Map[T]) => any),
   ): Framework {
     const current = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(current) ? current : [current]
 
-    this.set(id, [...current, callback])
+    this.set(id, [...normal, callback])
 
     return this.app
   }
@@ -136,8 +140,9 @@ export class Hooks extends Service implements Contract {
       | ((value: Contract.AsyncMap[T]) => Promise<Contract.AsyncMap[T]>),
   ): Framework {
     const current = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(current) ? current : [current]
 
-    this.set(id, [...current, callback])
+    this.set(id, [...normal, callback])
 
     return this.app
   }
@@ -171,8 +176,12 @@ export class Hooks extends Service implements Contract {
       return isFunction(value) ? value() : value
     }
 
-    return this.get(id).reduce(
-      (v: T, cb?: CallableFunction) => (isFunction(cb) ? cb(v) : cb),
+    const retrieved = this.get(id) ?? []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    return normal.reduce(
+      (v: T, reducerValue?: CallableFunction) =>
+        isFunction(reducerValue) ? reducerValue(v) : reducerValue,
       value,
     )
   }
@@ -204,7 +213,10 @@ export class Hooks extends Service implements Contract {
       return isFunction(value) ? await value() : value
     }
 
-    return await this.get(id).reduce(
+    const retrieved = this.get(id) ?? []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    return await normal.reduce(
       async (promised: Promise<T>, cb?: (value: T) => Promise<T>) => {
         const value = await promised
         return isFunction(cb) ? await cb(value) : cb
@@ -214,23 +226,20 @@ export class Hooks extends Service implements Contract {
   }
 
   /**
-   * Register an action on an event
-   *
-   * @param id
-   * @returns
-   */
-  /**
-   * Action (on event)
+   * Register an action (called with {@link Hooks.fire})
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public action<T extends keyof Contract.Events & string>(
     id: T,
     action: (app: Framework) => Promise<unknown>,
   ): Framework {
-    const current = this.has(id) ? this.get(id) : []
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    this.set(id, [...current, action])
+    this.set(id, [...normal, action])
 
     return this.app
   }
@@ -252,7 +261,10 @@ export class Hooks extends Service implements Contract {
   ): Promise<Framework> {
     if (!this.has(id)) return
 
-    await this.get(id).reduce(
+    const retrieved = this.get(id)
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    await normal.reduce(
       async (
         promised: Promise<unknown>,
         cb?: (value: Framework) => Promise<unknown>,

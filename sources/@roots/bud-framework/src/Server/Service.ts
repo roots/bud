@@ -8,6 +8,26 @@ export {Middleware}
 export {Watcher}
 
 /**
+ * Application interface
+ *
+ * @defaultValue express
+ *
+ * @public
+ */
+export interface Application extends Express.Application {}
+
+/**
+ * Application server connections
+ *
+ * @public
+ */
+export interface Connections
+  extends Record<string, Connection.Connection> {
+  http: Connection.Http
+  https: Connection.Https
+}
+
+/**
  * Server interface
  *
  * @public
@@ -25,10 +45,7 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  conn: {
-    http: Connection.Http
-    https: Connection.Https
-  }
+  connection: Connections
 
   /**
    * Available middleware
@@ -42,7 +59,7 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  enabledMiddleware: Partial<Record<keyof Middleware.Available, any>>
+  get enabledMiddleware(): Partial<Record<keyof Middleware.Available, any>>
 
   /**
    * Apply middleware
@@ -65,12 +82,3 @@ export interface Service extends Framework.Service {
    */
   run: () => Promise<void>
 }
-
-/**
- * Application interface
- *
- * @defaultValue express
- *
- * @public
- */
-export interface Application extends Express.Application {}

@@ -3429,7 +3429,6 @@ __metadata:
     chokidar: 3.5.3
     http-proxy-middleware: 2.0.3
     ink: 3.2.0
-    signale: ^1.4.0
     tslib: ^2.3.1
     webpack: 5.68.0
     webpack-dev-middleware: 5.3.0
@@ -20321,7 +20320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signale@npm:1.4.0, signale@npm:^1.4.0":
+"signale@npm:1.4.0":
   version: 1.4.0
   resolution: "signale@npm:1.4.0"
   dependencies:

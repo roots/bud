@@ -1,4 +1,5 @@
 import * as Framework from '@roots/bud-framework'
+import * as BudServer from '@roots/bud-framework/server'
 import {bind} from '@roots/bud-support'
 import Express from 'express'
 
@@ -16,7 +17,7 @@ import {Watcher} from './server.watcher'
  */
 export class Server
   extends Framework.Service
-  implements Framework.Server.Service
+  implements BudServer.Service
 {
   /**
    * Express instance
@@ -30,26 +31,29 @@ export class Server
    *
    * @public
    */
-  public conn: Framework.Server.Service['conn'] = {
-    http: null,
-    https: null,
-  }
+  public connection = {http: null, https: null}
 
   /**
    * Available middleware
    *
    * @public
    */
-  public availableMiddleware: Framework.Server.Service['availableMiddleware'] =
-    middlewareMap
+  public availableMiddleware = middlewareMap
 
   /**
    * Utilized middleware
    *
    * @public
    */
-  public enabledMiddleware: Framework.Server.Service['enabledMiddleware'] =
-    {}
+  public get enabledMiddleware(): BudServer.Service['enabledMiddleware'] {
+    return this.app.hooks.filter('middleware.enabled').reduce(
+      (enabled, key) => ({
+        ...enabled,
+        [key]: this.availableMiddleware[key],
+      }),
+      {},
+    )
+  }
 
   /**
    * Watcher instance
@@ -59,6 +63,20 @@ export class Server
   public watcher: Watcher
 
   /**
+   * Service register callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register(): Promise<void> {
+    seed(this.app)
+
+    this.application = Express()
+    this.application.set('x-powered-by', false)
+  }
+
+  /**
    * Service boot callback
    *
    * @public
@@ -66,12 +84,6 @@ export class Server
    */
   @bind
   public async boot(): Promise<void> {
-    seed(this.app)
-
-    /* Instantiate express */
-    this.application = Express()
-    this.application.set('x-powered-by', false)
-
     /* Watching */
     this.app.hooks
       .action('event.server.before', async app => {
@@ -91,16 +103,6 @@ export class Server
    */
   @bind
   public async apply() {
-    this.app.hooks.filter('middleware.enabled').map(key => {
-      this.log(`info`, `using middleware: ${key}`)
-
-      const middlewareFactory = this.availableMiddleware[key]
-
-      Object.assign(this.enabledMiddleware, {
-        [key]: middlewareFactory(this.app),
-      })
-    })
-
     Object.values(this.enabledMiddleware).map(middleware =>
       this.application.use(middleware),
     )
@@ -138,7 +140,9 @@ export class Server
         async (instance: Framework.Framework) => {
           await inject(
             instance,
-            instance.hooks.filter('dev.client.scripts'),
+            Array.from(
+              instance.hooks.filter('dev.client.scripts') ?? new Set([]),
+            ),
           )
         },
       ),
@@ -155,22 +159,13 @@ export class Server
    */
   @bind
   public async initializeServers(): Promise<void> {
-    this.conn.http = new Http(this.app)
-    await this.conn.http.createServer(this.application)
-    await this.conn.http.listen()
+    this.connection.http = new Http(this.app)
+    await this.connection.http.createServer(this.application)
+    await this.connection.http.listen()
 
-    this.conn.https = new Https(this.app)
-    if (!this.conn.https.isEnabled()) return
-    await this.conn.https.createServer(this.application)
-    await this.conn.https.listen()
+    this.connection.https = new Https(this.app)
+    if (!this.connection.https.isEnabled()) return
+    await this.connection.https.createServer(this.application)
+    await this.connection.https.listen()
   }
-
-  /**
-   * App close handler
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public close(): void {}
 }

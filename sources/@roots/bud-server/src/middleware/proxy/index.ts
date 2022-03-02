@@ -1,6 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
+import {Signale} from '@roots/bud-support'
 import {createProxyMiddleware} from 'http-proxy-middleware'
-import {Signale} from 'signale'
 
 import {RequestInterceptorFactory} from './req.interceptor'
 import {ResponseInterceptorFactory} from './res.interceptor'
@@ -101,7 +101,7 @@ export const proxy = (app: Framework) => {
        */
       protocolRewrite: app.hooks.filter(
         `middleware.proxy.options.protocolRewrite`,
-        app.server.conn.https?.isEnabled() ? `https` : `http`,
+        app.server.connection.https?.isEnabled() ? `https` : `http`,
       ),
 
       /**

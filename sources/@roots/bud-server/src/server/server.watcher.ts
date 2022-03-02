@@ -30,10 +30,12 @@ export class Watcher implements Server.Watcher {
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
     const files = this.app.hooks.filter('dev.watch.files')
-    if (!files?.length) return []
+    if (!files.size) return []
 
     return await globby.globby(
-      files.map((file: string) => this.app.path('project', file)),
+      Array.from(files).map((file: string) =>
+        this.app.path('project', file),
+      ),
       this.app.hooks.filter('dev.watch.options'),
     )
   }
