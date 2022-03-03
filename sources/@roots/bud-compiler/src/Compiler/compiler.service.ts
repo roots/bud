@@ -43,6 +43,8 @@ export class Compiler extends Service implements Contract {
 
   /**
    * Compiler errors
+   *
+   * @public
    */
   public errors: Array<StatsError> = []
 
@@ -54,6 +56,8 @@ export class Compiler extends Service implements Contract {
   public progress: Contract.Progress
 
   /**
+   * Multi-compiler configuration
+   *
    * @public
    */
   public config: Array<Configuration> = []
@@ -138,6 +142,12 @@ export class Compiler extends Service implements Contract {
     return this.config
   }
 
+  /**
+   * Webpack callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async callback(error: Error, stats: MultiStats) {
     await this.handleErrors(error)
@@ -151,6 +161,12 @@ export class Compiler extends Service implements Contract {
     })
   }
 
+  /**
+   * Stats handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async handleStats(stats: MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
@@ -159,6 +175,12 @@ export class Compiler extends Service implements Contract {
     budProcess.stats.write(this.stats)
   }
 
+  /**
+   * Error handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async handleErrors(error: Error) {
     if (!error) return
@@ -169,6 +191,12 @@ export class Compiler extends Service implements Contract {
     this.app.error(error)
   }
 
+  /**
+   * Progress callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async progressCallback(
     percent: number,
@@ -177,18 +205,20 @@ export class Compiler extends Service implements Contract {
   ) {
     try {
       const normalPercent = Math.ceil((percent ?? 0) * 100)
-      scope = scope.replace(/\[.*\]/, '')?.trim() ?? ''
+      scope =
+        (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
+        ``
 
       message = message
-        ? message.flatMap(i => (i ? `${i}`?.trim() : ''))
+        ? message.flatMap(i => (i ? `${i}`?.trim() : ``))
         : []
       message.reverse()
 
       const isStale = isEqual(this.progress, [
         normalPercent,
-        message.join(' ').concat(scope),
+        message.join(` `).concat(scope),
       ])
-      this.progress = [normalPercent, message.join(' ').concat(scope)]
+      this.progress = [normalPercent, message.join(` `).concat(scope)]
 
       !isStale &&
         (message.length > 1 || scope) &&
