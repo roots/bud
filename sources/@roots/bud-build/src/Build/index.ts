@@ -182,13 +182,7 @@ export class Build extends Service implements Contract.Interface {
         'webpack.config.js',
       )
 
-      this.log('log', {
-        message: `writing webpack dump to disk`,
-        suffix: filePath,
-      })
-
       await ensureFile(filePath)
-
       await writeFile(
         filePath,
         `module.exports = ${this.app.json.stringify(

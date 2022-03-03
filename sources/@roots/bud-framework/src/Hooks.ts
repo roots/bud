@@ -1,9 +1,11 @@
+import {Container} from '@roots/container'
 import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
 import {Configuration, RuleSetRule} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
 import {EntryObject} from './entry'
+import {PluginInstance} from './Extensions/Extension'
 import * as Server from './Server'
 
 /**
@@ -126,7 +128,7 @@ export interface Hooks extends Service {
    */
   action<T extends keyof Hooks.Events & string>(
     id: T,
-    action: (app: Framework) => Promise<unknown>,
+    ...action: Array<(app: Framework) => Promise<unknown>>
   ): Framework
 }
 
@@ -134,11 +136,6 @@ export interface Hooks extends Service {
  * @public
  */
 export namespace Hooks {
-  /**
-   * Same with plugins
-   */
-  type LimitedPlugin = Array<{apply: any}>
-
   /**
    * Hook signature
    *
@@ -212,7 +209,7 @@ export namespace Hooks {
     [`build.output.publicPath`]: string
     [`build.parallelism`]: Configuration[`parallelism`]
     [`build.performance`]: Configuration[`performance`]
-    [`build.plugins`]: LimitedPlugin
+    [`build.plugins`]: Array<PluginInstance>
     [`build.profile`]: Configuration[`profile`]
     [`build.recordsPath`]: Configuration[`recordsPath`]
     [`build.resolve.extensions`]: Configuration[`resolve`][`extensions`]
@@ -226,7 +223,6 @@ export namespace Hooks {
     [`location.project`]: string
     [`location.modules`]: string
     [`location.storage`]: string
-    [`config.override`]: Array<Configuration>
     [`dev.ssl.enabled`]: boolean
     [`dev.ssl.cert`]: string
     [`dev.ssl.key`]: string
@@ -237,10 +233,19 @@ export namespace Hooks {
     [`dev.client.scripts`]: Set<(app: Framework) => string>
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
-    [key: Server.Middleware.OptionsKey]: any
 
-    // this is wack
-    [key: `extension.${string}`]: any
+    // here down is wack
+    [key: Server.Middleware.OptionsKey]: any
+    [
+      key: `extension.${
+        | (keyof Modules & string)
+        | (keyof Plugins & string)}`
+    ]: any
+    [
+      key: `extension.${
+        | (keyof Modules & string)
+        | (keyof Plugins & string)}.options`
+    ]: Container<Record<string, any>>
   }
 
   export interface Events {
@@ -249,11 +254,10 @@ export namespace Hooks {
     [`event.build.after`]: (app: Framework) => Promise<any>
     [`event.compiler.before`]: (app: Framework) => Promise<any>
     [`event.compiler.after`]: (app: Framework) => Promise<any>
-    [`event.compiler.stats`]: (app: Framework) => Promise<any>
+    [`event.compiler.done`]: (app: Framework) => Promise<any>
     [`event.compiler.error`]: (app: Framework) => Promise<any>
     [`event.dashboard.done`]: (app: Framework) => Promise<any>
     [`event.dashboard.q`]: (app: Framework) => Promise<any>
-    [`event.dashboard.c`]: (app: Framework) => Promise<any>
     [`event.project.write`]: (app: Framework) => Promise<any>
     [`event.server.listen`]: (app: Framework) => Promise<any>
     [`event.server.before`]: (app: Framework) => Promise<any>

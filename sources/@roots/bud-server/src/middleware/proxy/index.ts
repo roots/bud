@@ -1,20 +1,9 @@
 import type {Framework} from '@roots/bud-framework'
-import {Signale} from '@roots/bud-support'
 import {createProxyMiddleware} from 'http-proxy-middleware'
 
 import {RequestInterceptorFactory} from './req.interceptor'
 import {ResponseInterceptorFactory} from './res.interceptor'
 import {ApplicationURL} from './url'
-
-/**
- * Fallback proxy log provider
- *
- * @public
- */
-const logProvider = () => {
-  let logger = new Signale()
-  return logger.scope(`server`, `proxy`)
-}
 
 /**
  * Proxy middleware factory
@@ -51,6 +40,7 @@ export const proxy = (app: Framework) => {
        */
       headers: app.hooks.filter(`middleware.proxy.options.headers`, {
         [`X-Proxy-By`]: `@roots/bud`,
+        [`Connection`]: `keep-alive`,
         [`Access-Control-Allow-Origin`]: `*`,
         [`Access-Control-Allow-Credentials`]: `*`,
         [`Access-Control-Allow-Methods`]: `*`,
@@ -61,7 +51,7 @@ export const proxy = (app: Framework) => {
        */
       hostRewrite: app.hooks.filter(
         `middleware.proxy.options.hostRewrite`,
-        url.dev.host,
+        app.hooks.filter('dev.url').host,
       ),
 
       /**
@@ -69,16 +59,13 @@ export const proxy = (app: Framework) => {
        */
       logLevel: app.hooks.filter(
         `middleware.proxy.options.logLevel`,
-        app.store.is(`features.log`, true) ? `info` : `silent`,
+        `info`,
       ),
 
       /**
        * Log provider
        */
-      logProvider: app.hooks.filter(
-        `middleware.proxy.options.logProvider`,
-        () => logProvider,
-      ),
+      logProvider: () => app.server.serverLogger.scope('proxy'),
 
       /**
        * Proxy request handler
@@ -101,7 +88,9 @@ export const proxy = (app: Framework) => {
        */
       protocolRewrite: app.hooks.filter(
         `middleware.proxy.options.protocolRewrite`,
-        app.server.connection.https?.isEnabled() ? `https` : `http`,
+        app.hooks.filter('dev.url').protocol.startsWith('https')
+          ? 'https'
+          : undefined,
       ),
 
       /**
@@ -120,10 +109,7 @@ export const proxy = (app: Framework) => {
       /**
        * Target
        */
-      target: app.hooks.filter(
-        `middleware.proxy.options.target`,
-        url.proxy.href,
-      ),
+      target: app.hooks.filter('middleware.proxy.target'),
     }),
   )
 }

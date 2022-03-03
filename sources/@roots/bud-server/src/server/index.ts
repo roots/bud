@@ -1,9 +1,10 @@
 import * as Framework from '@roots/bud-framework'
 import * as BudServer from '@roots/bud-framework/server'
-import {bind} from '@roots/bud-support'
+import {bind, once} from '@roots/bud-support'
 import Express from 'express'
 
 import {inject} from '../client/inject'
+import {logger} from '../logger'
 import * as middlewareMap from '../middleware'
 import {seed} from '../seed'
 import {Http} from './server.http'
@@ -27,11 +28,26 @@ export class Server
   public application: Express.Application
 
   /**
+   * Logger
+   */
+  public serverLogger = logger
+
+  /**
+   * Watcher instance
+   *
+   * @public
+   */
+  public watcher: Watcher
+
+  /**
    * Server connections
    *
    * @public
    */
-  public connection = {http: null, https: null}
+  public connection: BudServer.Service['connection'] = {
+    http: null,
+    https: null,
+  }
 
   /**
    * Available middleware
@@ -56,60 +72,54 @@ export class Server
   }
 
   /**
-   * Watcher instance
+   * Applied middleware
    *
    * @public
    */
-  public watcher: Watcher
+  public appliedMiddleware: Partial<
+    Record<keyof BudServer.Middleware.Available, any>
+  > = {}
 
   /**
-   * Service register callback
+   * Register service
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async register(): Promise<void> {
     seed(this.app)
 
     this.application = Express()
     this.application.set('x-powered-by', false)
+    this.watcher = new Watcher(this.app)
   }
 
   /**
-   * Service boot callback
+   * Boot service
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async boot(): Promise<void> {
-    /* Watching */
-    this.app.hooks
-      .action('event.server.before', async app => {
-        this.watcher = new Watcher(app)
-      })
-      .hooks.action(
-        'event.server.after',
-        async app => await app.server.watcher?.watch(),
-      )
-  }
-
-  /**
-   * Apply middlewares
-   *
-   * @returns
-   * @decorator `@bind`
-   */
-  @bind
-  public async apply() {
-    Object.values(this.enabledMiddleware).map(middleware =>
-      this.application.use(middleware),
+    this.app.hooks.action(
+      'event.server.before',
+      this.injectScripts,
+      this.app.compiler.compile,
+      this.applyMiddleware,
+    )
+    this.app.hooks.action('event.server.after', async () =>
+      this.watcher.watch(),
     )
   }
 
   /**
-   * Run server
+   * Run development server
    *
    * @public
    * @decorator `@bind`
@@ -118,54 +128,63 @@ export class Server
   public async run() {
     await this.app.hooks.fire('event.server.before')
 
-    await this.compile()
-
-    await this.apply()
-
-    await this.initializeServers()
+    if (
+      this.app.hooks.filter('dev.ssl.cert') &&
+      this.app.hooks.filter('dev.ssl.key')
+    ) {
+      this.connection.https = new Https(
+        this.app,
+        this.app.hooks.filter('dev.url'),
+      )
+      await this.connection.https.createServer(this.application)
+      await this.connection.https.listen()
+    } else {
+      this.connection.http = new Http(
+        this.app,
+        this.app.hooks.filter('dev.url'),
+      )
+      await this.connection.http.createServer(this.application)
+      await this.connection.http.listen()
+    }
 
     await this.app.hooks.fire('event.server.after')
   }
 
   /**
-   * Run compilation
+   * Inject scripts
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
-  public async compile() {
+  @once
+  public async injectScripts() {
     await Promise.all(
       [this.app, ...this.app.children.getValues()].map(
         async (instance: Framework.Framework) => {
-          await inject(
-            instance,
-            Array.from(
-              instance.hooks.filter('dev.client.scripts') ?? new Set([]),
-            ),
+          const scripts = Array.from(
+            instance.hooks.filter('dev.client.scripts') ?? new Set([]),
           )
+          await inject(instance, scripts)
         },
       ),
     )
-
-    await this.app.compiler.compile()
   }
 
   /**
-   * Initialize servers
+   * Apply middleware
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
-  public async initializeServers(): Promise<void> {
-    this.connection.http = new Http(this.app)
-    await this.connection.http.createServer(this.application)
-    await this.connection.http.listen()
-
-    this.connection.https = new Https(this.app)
-    if (!this.connection.https.isEnabled()) return
-    await this.connection.https.createServer(this.application)
-    await this.connection.https.listen()
+  @once
+  public async applyMiddleware() {
+    Object.entries(this.enabledMiddleware).map(([key, middleware]) => {
+      this.appliedMiddleware[key] = middleware(this.app)
+      this.application.use(this.appliedMiddleware[key])
+    })
   }
 }

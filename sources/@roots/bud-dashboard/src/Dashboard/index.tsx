@@ -10,18 +10,20 @@ import React from 'react'
  */
 export class Dashboard extends Service implements Contract {
   /**
+   * Boot
+   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
    */
   @bind
   @once
-  public async bootstrap(): Promise<void> {
+  public async boot(): Promise<void> {
     this.app.hooks.action('event.server.after', this.run)
   }
 
   /**
-   * Run the dashboard
+   * Run dashboard
    *
    * @public
    * @decorator `@bind`

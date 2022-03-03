@@ -1,5 +1,5 @@
 import {Framework, Hooks as Contract, Service} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind, chalk, lodash} from '@roots/bud-support'
 
 const {get, isFunction, isUndefined, set} = lodash
 
@@ -101,10 +101,11 @@ export class Hooks extends Service implements Contract {
   @bind
   public on<T extends keyof Contract.Map & string>(
     id: T,
-    callback: Contract.Map[T] | ((value: Contract.Map[T]) => any),
+    input: Contract.Map[T] | ((value: Contract.Map[T]) => any),
   ): Framework {
-    const current = this.has(id) ? this.get(id) : []
-    const normal = Array.isArray(current) ? current : [current]
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const callback = typeof input === 'function' ? input : () => input
 
     this.set(id, [...normal, callback])
 
@@ -135,12 +136,13 @@ export class Hooks extends Service implements Contract {
   @bind
   public async<T extends keyof Contract.AsyncMap & string>(
     id: T,
-    callback:
+    input:
       | Contract.AsyncMap[T]
       | ((value: Contract.AsyncMap[T]) => Promise<Contract.AsyncMap[T]>),
   ): Framework {
-    const current = this.has(id) ? this.get(id) : []
-    const normal = Array.isArray(current) ? current : [current]
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const callback = typeof input === 'function' ? input : () => input
 
     this.set(id, [...normal, callback])
 
@@ -180,8 +182,14 @@ export class Hooks extends Service implements Contract {
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
     return normal.reduce(
-      (v: T, reducerValue?: CallableFunction) =>
-        isFunction(reducerValue) ? reducerValue(v) : reducerValue,
+      (
+        v: Contract.Map[T],
+        current?:
+          | ((value: Contract.Map[T]) => Contract.Map[T])
+          | Contract.Map[T],
+      ) => {
+        return isFunction(current) ? current(v) : current
+      },
       value,
     )
   }
@@ -217,9 +225,14 @@ export class Hooks extends Service implements Contract {
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
     return await normal.reduce(
-      async (promised: Promise<T>, cb?: (value: T) => Promise<T>) => {
+      async (
+        promised,
+        current?:
+          | ((value: T) => Promise<T> | Contract.AsyncMap[T])
+          | Contract.AsyncMap[T],
+      ) => {
         const value = await promised
-        return isFunction(cb) ? await cb(value) : cb
+        return isFunction(current) ? await current(value) : current
       },
       value,
     )
@@ -234,12 +247,17 @@ export class Hooks extends Service implements Contract {
   @bind
   public action<T extends keyof Contract.Events & string>(
     id: T,
-    action: (app: Framework) => Promise<unknown>,
+    ...action: Array<(app: Framework) => Promise<unknown>>
   ): Framework {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    this.set(id, [...normal, action])
+    this.app.log({
+      message: `registering action: ${id}`,
+      suffix: chalk.dim(`${normal.length + 1} registered`),
+    })
+
+    this.set(id, [...normal, ...action])
 
     return this.app
   }
@@ -264,15 +282,17 @@ export class Hooks extends Service implements Contract {
     const retrieved = this.get(id)
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    await normal.reduce(
-      async (
-        promised: Promise<unknown>,
-        cb?: (value: Framework) => Promise<unknown>,
-      ) => {
-        await promised
-        await cb(this.app)
-      },
-      Promise.resolve(),
-    )
+    await normal.reduce(async (promised, current, increment) => {
+      await promised
+
+      this.app.log({
+        message: `firing action ${id}`,
+        suffix: chalk.dim(`${increment + 1}/${normal.length}`),
+      })
+
+      return await current(this.app)
+    }, Promise.resolve())
+
+    return this.app
   }
 }

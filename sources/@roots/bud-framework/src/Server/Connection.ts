@@ -1,5 +1,6 @@
 import {Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
+import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
 
 /**
  * Connection
@@ -17,7 +18,7 @@ export interface Connection<T = HttpServer> {
    *
    * @public
    */
-  get port(): string
+  get port(): number
 
   /**
    * Server hostname
@@ -34,7 +35,7 @@ export interface Connection<T = HttpServer> {
    *
    * @public
    */
-  createServer(app: any): Promise<T>
+  createServer: (app: any) => Promise<T>
 
   /**
    * Listen
@@ -45,6 +46,39 @@ export interface Connection<T = HttpServer> {
    * @public
    */
   listen(): Promise<void>
+
+  /**
+   * On listen
+   *
+   * @remarks
+   * Request handler
+   *
+   * @public
+   */
+  onListening(): void
+
+  /**
+   * On request
+   *
+   * @remarks
+   * Request handler
+   *
+   * @public
+   */
+  onRequest(
+    req: IncomingMessage,
+    res: ServerResponse,
+  ): Promise<ServerResponse>
+
+  /**
+   * On error
+   *
+   * @remarks
+   * Error handler
+   *
+   * @public
+   */
+  onError(error: Error): void
 }
 
 /**

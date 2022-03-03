@@ -1,14 +1,18 @@
 import {Framework} from '@roots/bud-framework'
-import {getPort} from '@roots/bud-support'
-import {Server as HttpServer} from 'http'
+import {Connection} from '@roots/bud-framework/src/Server/Connection'
+import {bind, getPort, Signale} from '@roots/bud-support'
+import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
+import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
  * HTTP Server
  *
  * @public
  */
-export abstract class BaseServer<T> {
+export abstract class BaseServer<T> implements Connection {
+  public abstract createServer: Connection['createServer']
+
   /**
    * Server instance
    *
@@ -17,56 +21,105 @@ export abstract class BaseServer<T> {
   public instance: T & (HttpServer | HttpsServer)
 
   /**
-   * Dev URL
-   *
-   * @public
-   */
-  public get devUrl() {
-    return this.app.hooks.filter(`dev.url`)
-  }
-
-  /**
    * Hostname
    *
-   * @remarks
-   * - default `localhost`
+   * @defaultValue `localhost`
    *
    * @public
    */
   public get hostname(): string {
-    return this.devUrl?.hostname ?? `localhost`
+    return this.url?.hostname ?? `localhost`
   }
 
   /**
-   * Port
-   *
-   * @remarks
-   * - default `80`
+   * Port number
    *
    * @public
    */
-  public get port(): string {
-    return this.devUrl?.port ?? `3000`
-  }
+  public port: number
+
+  /**
+   * Logger
+   *
+   * @public
+   */
+  public logger: Signale
 
   /**
    * Constructor
    *
    * @param app - Framework
    */
-  public constructor(public app: Framework) {}
+  public constructor(public app: Framework, public url: URL) {}
+
+  /**
+   * Listen
+   *
+   * @public
+   */
+  @bind
+  public async listen() {
+    this.port = await getPort({port: Number(this.url.port)})
+    this.url.port = `${this.port}`
+    this.app.hooks.on('dev.url', this.url)
+
+    this.logger = this.app.server.serverLogger.scope(this.constructor.name)
+
+    this.instance
+      .listen({port: this.url.port, host: this.url.hostname})
+      .on('listening', this.onListening)
+      .on('request', this.onRequest)
+      .on('error', this.onError)
+
+    this.logger.log(this.url.toString())
+  }
 
   /**
    * Server listen event
    *
    * @public
    */
-  public async listen() {
-    const port = await getPort({port: Number(this.port)})
+  @bind
+  public onListening() {
+    this.logger.info(`listening`)
+  }
 
-    this.instance.listen(port, this.hostname, () =>
-      this.app.hooks.fire('event.server.listen'),
-    )
-    this.instance.on('error', err => err && this.app.error(err))
+  /**
+   * Server request
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async onRequest(
+    request: IncomingMessage,
+    response: ServerResponse,
+  ) {
+    if (request.headers['bud-healthcheck']) return response
+
+    if (response.statusCode === 200) {
+      this.logger.success([response.statusCode], request.url)
+      return response
+    }
+
+    if (response.statusCode === 500) {
+      this.logger.error([response.statusCode], request.url)
+      return response
+    }
+
+    return response
+  }
+
+  /**
+   * Server error
+   *
+   * @param error - error
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public onError(error: Error) {
+    this.app.error(error)
   }
 }

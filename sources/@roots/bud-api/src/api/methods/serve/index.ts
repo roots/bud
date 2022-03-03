@@ -9,18 +9,39 @@ import {chokidar} from '@roots/bud-support'
 export interface UserRecordInput {
   /**
    * URL object or url string
+   *
+   * @defaultValue URL('http://localhost:3000')
    */
   url?: URL | string
   /**
-   * Is SSL enabled
+   * Hostname
+   *
+   * @defaultValue `localhost`
    */
-  ssl?: boolean
+  hostname?: string
+
   /**
-   * Path to ssl certification
+   * Protocol
+   *
+   * @defaultValue `http`
+   */
+  protocol?: 'http:' | 'https:' | 'http' | 'https'
+  /**
+   * Port
+   *
+   * @defaultValue 3000
+   */
+  port?: number
+  /**
+   * Path to ssl certificate
+   *
+   * @defaultValue undefined
    */
   cert?: string
   /**
    * Path to ssl key
+   *
+   * @defaultValue undefined
    */
   key?: string
   /**
@@ -82,16 +103,35 @@ export const method: method = function (input) {
       input.url instanceof URL ? input.url : new URL(input.url),
     )
 
-  input.ssl && ctx.hooks.on('dev.ssl.enabled', input.ssl)
+  input.hostname &&
+    ctx.hooks.on('dev.url', url => {
+      url.host = input.hostname
+      return url
+    })
+
+  input.port &&
+    ctx.hooks.on('dev.url', url => {
+      url.port = `${input.port}`
+      return url
+    })
+
+  input.protocol &&
+    ctx.hooks.on('dev.url', url => {
+      url.protocol = input.protocol.endsWith(':')
+        ? input.protocol
+        : input.protocol.concat(':')
+      return url
+    })
+
   input.key && ctx.hooks.on('dev.ssl.key', input.key)
   input.cert && ctx.hooks.on('dev.ssl.cert', input.cert)
 
-  if (input.ssl) {
+  ctx.hooks.filter('dev.ssl.key') &&
+    ctx.hooks.filter('dev.ssl.cert') &&
     ctx.hooks.on('dev.url', url => {
       url.protocol = 'https:'
       return url
     })
-  }
 
   input.watch?.files &&
     ctx.hooks.on('dev.watch.files', files => {

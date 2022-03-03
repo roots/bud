@@ -23,34 +23,12 @@ export class Https
   public instance: HttpsServer
 
   /**
-   * Port
-   *
-   * @public
-   */
-  public get port() {
-    return `${this.app.hooks.filter('dev.ssl.port', 443)}`
-  }
-
-  /**
-   * Hostname
-   *
-   * @remarks
-   * - default `localhost`
-   *
-   * @public
-   */
-  public get hostname(): string {
-    const url = this.app.hooks.filter(`dev.url`)
-    return url?.hostname ?? `localhost`
-  }
-
-  /**
    * SSL enabled
    *
    * @public
    */
   public isEnabled(): boolean {
-    return this.app.hooks.filter('dev.ssl.enabled') === true
+    return true
   }
 
   /**
@@ -96,7 +74,7 @@ export class Https
    *
    * @public
    */
-  public async createServer(app: any): Promise<HttpsServer> {
+  public createServer = async function (app: any): Promise<HttpsServer> {
     const key = await this.getKey()
     const cert = await this.getCert()
 

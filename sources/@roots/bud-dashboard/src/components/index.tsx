@@ -4,8 +4,13 @@ import {Box, Text} from 'ink'
 import React from 'react'
 
 import {Input} from './input.component'
-import {Url} from './serve/url.component'
+import {Url} from './url.component'
 
+/**
+ * Server/Proxy info component
+ *
+ * @public
+ */
 export const Serve = ({app}: {app: Framework}) => {
   const {isRawModeSupported} = useStdin()
   isRawModeSupported && Input({app})

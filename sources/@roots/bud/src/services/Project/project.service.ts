@@ -102,10 +102,13 @@ export class Project
    */
   @bind
   public async boot() {
-    this.app.hooks.action('event.build.after', async () => {
-      await this.app.hooks.fire('event.project.write')
-      await this.writeProfile()
-    })
+    this.app.hooks.action(
+      'event.build.after',
+      async (app: Framework.Framework) => {
+        await app.hooks.fire('event.project.write')
+        await this.writeProfile()
+      },
+    )
   }
 
   /**

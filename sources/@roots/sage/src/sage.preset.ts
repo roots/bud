@@ -1,7 +1,7 @@
 import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
-import eventCompilerStats from './hooks/event.compiler.stats'
+import eventCompilerDone from './hooks/event.compiler.done'
 
 /**
  * Sage preset
@@ -75,11 +75,8 @@ export const Sage: Extension.Module<void> = {
       () => {
         app
           .devtool()
-          .hooks.action(
-            'event.compiler.stats',
-            eventCompilerStats.bind(app),
-          )
-          .hooks.action('event.app.close', eventAppClose.bind(app))
+          .hooks.action('event.compiler.done', eventCompilerDone)
+          .hooks.action('event.app.close', eventAppClose)
       },
     )
   },

@@ -17,26 +17,7 @@ export interface dev
 }
 
 export const dev = (app: Framework) =>
-  WebpackDevMiddleware(app.compiler.instance, makeOptions(app))
-
-/**
- * Dev middleware options factory
- *
- * @public
- */
-const makeOptions = (
-  app: Framework,
-): WebpackDevMiddleware.Options<IncomingMessage, ServerResponse> =>
-  app.hooks.filter(`middleware.dev.options`, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': '*',
-      'x-powered-by': '@roots/bud',
-    },
-    publicPath: app.hooks.filter(`build.output.publicPath`),
-    stats: app.hooks.filter(`middleware.dev.options.stats`, 'errors-only'),
-    writeToDisk: app.hooks.filter(
-      `middleware.dev.options.writeToDisk`,
-      true,
-    ),
-  })
+  WebpackDevMiddleware(
+    app.compiler.instance,
+    app.hooks.filter(`middleware.dev.options`),
+  )

@@ -54,13 +54,6 @@ export class Compiler extends Service implements Contract {
   public progress: Contract.Progress
 
   /**
-   * True if compiler is already instantiated
-   *
-   * @public
-   */
-  public isCompiled: boolean = false
-
-  /**
    * @public
    */
   public config: Array<Configuration> = []
@@ -91,45 +84,14 @@ export class Compiler extends Service implements Contract {
   @bind
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
-    this.config = this.app.hooks.filter('config.override', config)
-
-    const progressPluginCallback = function (
-      percent: number,
-      scope: string,
-      ...message: any[]
-    ) {
-      try {
-        const normalPercent = Math.ceil((percent ?? 0) * 100)
-        scope = scope.replace(/\[.*\]/, '')?.trim() ?? ''
-
-        this.message = message
-          ? message.flatMap(i => (i ? `${i}`?.trim() : ''))
-          : []
-        this.message.reverse()
-
-        const isStale = isEqual(this.progress, [
-          normalPercent,
-          message.join(' ').concat(scope),
-        ])
-        this.progress = [normalPercent, message.join(' ').concat(scope)]
-
-        !isStale &&
-          (message.length > 1 || scope) &&
-          budProcess.logger
-            .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
-            .log(...this.message)
-      } catch (error) {
-        this.app.error(error)
-      }
-    }
 
     this.instance = webpack(this.config)
+
     this.instance.hooks.done.tap(config.shift().name, async stats => {
       if (this.app.isDevelopment) await this.handleStats(stats)
     })
-    new ProgressPlugin(progressPluginCallback.bind(this)).apply(
-      this.instance,
-    )
+
+    new ProgressPlugin(this.progressCallback).apply(this.instance)
 
     await this.app.hooks.fire('event.compiler.after')
 
@@ -145,7 +107,6 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async before() {
-    this.isCompiled = true
     await this.app.build.make()
 
     /**
@@ -182,6 +143,8 @@ export class Compiler extends Service implements Contract {
     await this.handleErrors(error)
     await this.handleStats(stats)
 
+    await this.app.hooks.fire('event.compiler.done')
+
     this.instance.close(err => {
       err && this.app.error(err)
       this.app.close()
@@ -191,11 +154,9 @@ export class Compiler extends Service implements Contract {
   @bind
   public async handleStats(stats: MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
-    this.stats = stats.toJson(this.app.store.get('build.stats'))
+    this.stats = stats.toJson(this.app.build.config.stats)
 
     budProcess.stats.write(this.stats)
-
-    await this.app.hooks.fire('event.compiler.stats')
   }
 
   @bind
@@ -203,9 +164,39 @@ export class Compiler extends Service implements Contract {
     if (!error) return
 
     this.app.isDevelopment &&
-      // @ts-ignore
       this.app.server.enabledMiddleware?.hot?.publish({error})
 
     this.app.error(error)
+  }
+
+  @bind
+  public async progressCallback(
+    percent: number,
+    scope: string,
+    ...message: any[]
+  ) {
+    try {
+      const normalPercent = Math.ceil((percent ?? 0) * 100)
+      scope = scope.replace(/\[.*\]/, '')?.trim() ?? ''
+
+      message = message
+        ? message.flatMap(i => (i ? `${i}`?.trim() : ''))
+        : []
+      message.reverse()
+
+      const isStale = isEqual(this.progress, [
+        normalPercent,
+        message.join(' ').concat(scope),
+      ])
+      this.progress = [normalPercent, message.join(' ').concat(scope)]
+
+      !isStale &&
+        (message.length > 1 || scope) &&
+        budProcess.logger
+          .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
+          .log(...message)
+    } catch (error) {
+      this.app.error(error)
+    }
   }
 }

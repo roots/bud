@@ -10,8 +10,6 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   const ctx = this as Framework
 
-  await ctx.extensions.processQueue()
-  await ctx.api.processQueue()
   await ctx.hooks.fire('event.run')
 
   const production = async () => {

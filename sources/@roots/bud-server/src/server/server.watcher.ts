@@ -30,7 +30,7 @@ export class Watcher implements Server.Watcher {
   @bind
   public async getWatchedFiles(): Promise<Array<string>> {
     const files = this.app.hooks.filter('dev.watch.files')
-    if (!files.size) return []
+    if (files.size === 0) return []
 
     return await globby.globby(
       Array.from(files).map((file: string) =>
@@ -48,19 +48,21 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
+    const {info} = this.app.server.serverLogger.scope('server', 'watcher')
     const watchFiles = await this.getWatchedFiles()
 
-    if (watchFiles.length) {
-      this.instance = chokidar.watch(
-        watchFiles.map(entry => {
-          this.app.log(`watching`, entry, `for changes`)
-          return entry
-        }),
-      )
-    }
+    if (!watchFiles.length) return
 
-    this.instance.on('change', path => {
-      this.app.server.enabledMiddleware?.hot?.publish({
+    info(`watching ${watchFiles.length} files for changes`)
+
+    this.instance = chokidar.watch(watchFiles).on('change', path => {
+      info(
+        'edit to',
+        path.replace(this.app.path('project'), '[project]'),
+        'triggered reload',
+      )
+
+      this.app.server.appliedMiddleware?.hot?.publish({
         action: 'reload',
         message: `Detected file change: ${path}. Reloading window.`,
       })

@@ -18,7 +18,7 @@ export class Notifier {
       customPath: MACOS_NOTIFIER_PATH,
     })
 
-    this.app.hooks.action('event.compiler.stats', this.notify)
+    this.app.hooks.action('event.compiler.done', this.notify)
   }
 
   @bind

@@ -9,11 +9,7 @@ import WebpackHotMiddleware from 'webpack-hot-middleware'
 const options: (
   app: Framework,
 ) => WebpackHotMiddleware.MiddlewareOptions = app =>
-  app.hooks.filter('middleware.hot.options', {
-    path: app.hooks.filter('middleware.hot.options.path', `/__bud/hmr`),
-    log: app.hooks.filter('middleware.hot.options.log', false),
-    heartbeat: app.hooks.filter('middleware.hot.options.heartbeat', 2000),
-  })
+  app.hooks.filter('middleware.hot.options')
 
 /**
  * Hot middleware factory
