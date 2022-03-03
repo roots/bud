@@ -48,11 +48,6 @@ describe('bud.serve', function () {
     expect(bud.hooks.filter('dev.url')).toStrictEqual(url)
   })
 
-  it('enables ssl with prop', async () => {
-    await bud.api.call('serve', {ssl: true})
-    expect(bud.hooks.filter('dev.ssl.enabled')).toStrictEqual(true)
-  })
-
   it('registers cert with prop', async () => {
     await bud.api.call('serve', {cert: 'foo'})
     expect(bud.hooks.filter('dev.ssl.cert')).toStrictEqual('foo')
