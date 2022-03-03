@@ -50,7 +50,7 @@ export const seed = (app: Framework) => {
         _app => src(`proxy-click-interceptor.js`),
       ]),
     )
-    .hooks.on(`dev.url`, new URL(`http://localhost:3000`))
+    .hooks.on(`dev.url`, new URL(`http://localhost`))
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
 }

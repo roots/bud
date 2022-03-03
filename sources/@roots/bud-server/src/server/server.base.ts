@@ -21,17 +21,6 @@ export abstract class BaseServer<T> implements Connection {
   public instance: T & (HttpServer | HttpsServer)
 
   /**
-   * Hostname
-   *
-   * @defaultValue `localhost`
-   *
-   * @public
-   */
-  public get hostname(): string {
-    return this.url?.hostname ?? `localhost`
-  }
-
-  /**
    * Port number
    *
    * @public
@@ -50,7 +39,25 @@ export abstract class BaseServer<T> implements Connection {
    *
    * @param app - Framework
    */
-  public constructor(public app: Framework, public url: URL) {}
+  public constructor(public app: Framework, public url: URL) {
+    this.logger = this.app.server.serverLogger.scope(
+      this.constructor.name.toLowerCase(),
+    )
+  }
+
+  /**
+   * setup
+   *
+   * @public
+   */
+  @bind
+  public async setup() {
+    const port = await getPort({port: Number(this.url.port)})
+    this.url.port = `${port}`
+    this.app.hooks.on('dev.url', this.url)
+
+    this.logger.log(this.url.toString())
+  }
 
   /**
    * Listen
@@ -59,19 +66,11 @@ export abstract class BaseServer<T> implements Connection {
    */
   @bind
   public async listen() {
-    this.port = await getPort({port: Number(this.url.port)})
-    this.url.port = `${this.port}`
-    this.app.hooks.on('dev.url', this.url)
-
-    this.logger = this.app.server.serverLogger.scope(this.constructor.name)
-
     this.instance
       .listen({port: this.url.port, host: this.url.hostname})
       .on('listening', this.onListening)
       .on('request', this.onRequest)
       .on('error', this.onError)
-
-    this.logger.log(this.url.toString())
   }
 
   /**

@@ -14,25 +14,6 @@ export interface UserRecordInput {
    */
   url?: URL | string
   /**
-   * Hostname
-   *
-   * @defaultValue `localhost`
-   */
-  hostname?: string
-
-  /**
-   * Protocol
-   *
-   * @defaultValue `http`
-   */
-  protocol?: 'http:' | 'https:' | 'http' | 'https'
-  /**
-   * Port
-   *
-   * @defaultValue 3000
-   */
-  port?: number
-  /**
    * Path to ssl certificate
    *
    * @defaultValue undefined
@@ -103,33 +84,14 @@ export const method: method = function (input) {
       input.url instanceof URL ? input.url : new URL(input.url),
     )
 
-  input.hostname &&
-    ctx.hooks.on('dev.url', url => {
-      url.host = input.hostname
-      return url
-    })
-
-  input.port &&
-    ctx.hooks.on('dev.url', url => {
-      url.port = `${input.port}`
-      return url
-    })
-
-  input.protocol &&
-    ctx.hooks.on('dev.url', url => {
-      url.protocol = input.protocol.endsWith(':')
-        ? input.protocol
-        : input.protocol.concat(':')
-      return url
-    })
-
   input.key && ctx.hooks.on('dev.ssl.key', input.key)
   input.cert && ctx.hooks.on('dev.ssl.cert', input.cert)
 
   ctx.hooks.filter('dev.ssl.key') &&
     ctx.hooks.filter('dev.ssl.cert') &&
     ctx.hooks.on('dev.url', url => {
-      url.protocol = 'https:'
+      url.protocol = `https:`
+      url.port = url.port ?? `443`
       return url
     })
 

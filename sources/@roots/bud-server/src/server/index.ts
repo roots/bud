@@ -1,5 +1,6 @@
 import * as Framework from '@roots/bud-framework'
 import * as BudServer from '@roots/bud-framework/server'
+import {Connection} from '@roots/bud-framework/src/Server/Connection'
 import {bind, once} from '@roots/bud-support'
 import Express from 'express'
 
@@ -44,10 +45,7 @@ export class Server
    *
    * @public
    */
-  public connection: BudServer.Service['connection'] = {
-    http: null,
-    https: null,
-  }
+  public connection: Connection
 
   /**
    * Available middleware
@@ -109,6 +107,7 @@ export class Server
   public async boot(): Promise<void> {
     this.app.hooks.action(
       'event.server.before',
+      this.setConnection,
       this.injectScripts,
       this.app.compiler.compile,
       this.applyMiddleware,
@@ -128,26 +127,29 @@ export class Server
   public async run() {
     await this.app.hooks.fire('event.server.before')
 
-    if (
-      this.app.hooks.filter('dev.ssl.cert') &&
-      this.app.hooks.filter('dev.ssl.key')
-    ) {
-      this.connection.https = new Https(
-        this.app,
-        this.app.hooks.filter('dev.url'),
-      )
-      await this.connection.https.createServer(this.application)
-      await this.connection.https.listen()
-    } else {
-      this.connection.http = new Http(
-        this.app,
-        this.app.hooks.filter('dev.url'),
-      )
-      await this.connection.http.createServer(this.application)
-      await this.connection.http.listen()
-    }
+    await this.connection.createServer(this.application)
+    await this.connection.listen()
 
     await this.app.hooks.fire('event.server.after')
+  }
+
+  /**
+   * Set connection
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public async setConnection() {
+    this.connection =
+      this.app.hooks.filter('dev.ssl.cert') &&
+      this.app.hooks.filter('dev.ssl.key')
+        ? new Https(this.app, this.app.hooks.filter('dev.url'))
+        : new Http(this.app, this.app.hooks.filter('dev.url'))
+
+    await this.connection.setup()
   }
 
   /**
@@ -161,14 +163,14 @@ export class Server
   @once
   public async injectScripts() {
     await Promise.all(
-      [this.app, ...this.app.children.getValues()].map(
-        async (instance: Framework.Framework) => {
-          const scripts = Array.from(
+      [this.app, ...this.app.children.getValues()].map(async instance => {
+        await inject(
+          instance,
+          Array.from(
             instance.hooks.filter('dev.client.scripts') ?? new Set([]),
-          )
-          await inject(instance, scripts)
-        },
-      ),
+          ),
+        )
+      }),
     )
   }
 

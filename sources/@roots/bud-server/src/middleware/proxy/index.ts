@@ -51,7 +51,7 @@ export const proxy = (app: Framework) => {
        */
       hostRewrite: app.hooks.filter(
         `middleware.proxy.options.hostRewrite`,
-        app.hooks.filter('dev.url').host,
+        url.dev.host,
       ),
 
       /**
@@ -79,7 +79,7 @@ export const proxy = (app: Framework) => {
        * Proxy response handler
        */
       onProxyRes: app.hooks.filter(
-        `middleware.proxy.options.onProxyReq`,
+        `middleware.proxy.options.onProxyRes`,
         interceptor.make,
       ),
 
@@ -88,9 +88,7 @@ export const proxy = (app: Framework) => {
        */
       protocolRewrite: app.hooks.filter(
         `middleware.proxy.options.protocolRewrite`,
-        app.hooks.filter('dev.url').protocol.startsWith('https')
-          ? 'https'
-          : undefined,
+        url.dev.protocol.startsWith('https') ? 'https' : undefined,
       ),
 
       /**

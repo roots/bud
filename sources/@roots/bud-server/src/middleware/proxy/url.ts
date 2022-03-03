@@ -21,7 +21,7 @@ export class ApplicationURL {
    * @public
    */
   public get dev(): URL {
-    return this.app.hooks.filter('dev.url')
+    return this.app.server.connection.url
   }
 
   /**

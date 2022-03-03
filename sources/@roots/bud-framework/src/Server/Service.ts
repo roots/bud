@@ -54,7 +54,7 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  connection: Connections
+  connection: Connection.Http | Connection.Https
 
   /**
    * Available middleware

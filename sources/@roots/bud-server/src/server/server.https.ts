@@ -23,15 +23,6 @@ export class Https
   public instance: HttpsServer
 
   /**
-   * SSL enabled
-   *
-   * @public
-   */
-  public isEnabled(): boolean {
-    return true
-  }
-
-  /**
    * Has SSL key
    *
    * @public

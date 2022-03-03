@@ -14,18 +14,18 @@ export interface Connection<T = HttpServer> {
   instance: T
 
   /**
+   * Server URL
+   *
+   * @public
+   */
+  url: URL
+
+  /**
    * Server port
    *
    * @public
    */
   get port(): number
-
-  /**
-   * Server hostname
-   *
-   * @public
-   */
-  get hostname(): string
 
   /**
    * Create server
@@ -36,6 +36,13 @@ export interface Connection<T = HttpServer> {
    * @public
    */
   createServer: (app: any) => Promise<T>
+
+  /**
+   * Setup
+   *
+   * @public
+   */
+  setup(): Promise<void>
 
   /**
    * Listen
@@ -96,13 +103,6 @@ export interface Http extends Connection<HttpServer> {}
  * @public
  */
 export interface Https extends Connection<HttpsServer> {
-  /**
-   * SSL enabled
-   *
-   * @public
-   */
-  isEnabled(): boolean
-
   /**
    * Has SSL key
    *
