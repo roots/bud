@@ -1,5 +1,4 @@
 import {Item, Loader} from '@roots/bud-build'
-import {Signale} from 'signale'
 
 import {importSassImplementation} from './sass.dependency'
 
@@ -14,7 +13,7 @@ import {importSassImplementation} from './sass.dependency'
  *
  * @internal
  */
-export async function item(logger): Promise<Item> {
+export async function item(logger: any): Promise<Item> {
   logger.await('configuring scss ruleset use item')
 
   const implementation = await importSassImplementation(logger)
@@ -39,7 +38,7 @@ export async function item(logger): Promise<Item> {
  *
  * @internal
  */
-export function loader(logger: Signale): Loader {
+export function loader(logger: any): Loader {
   logger.await('configuring scss loader')
 
   const loader = new Loader(require.resolve('sass-loader'))

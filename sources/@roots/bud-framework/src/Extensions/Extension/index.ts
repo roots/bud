@@ -1,15 +1,19 @@
-import {Modules, Plugins} from '../..'
-
 /**
- * Registered extension names
+ * Compiler plugin instance
  *
  * @remarks
- * Extension names can be declared by overloading
- * the {@link Modules} and {@link Plugins} interfaces
+ * Compatible with the webpack plugin interface.
  *
  * @public
  */
-export type Name = `${(keyof Modules & string) | (keyof Plugins & string)}`
+export interface PluginInstance {
+  /**
+   * Apply method
+   *
+   * @public
+   */
+  apply: CallableFunction
+}
 
 export {CompilerPlugin} from './compiler-plugin.interface'
 export {Module} from './module.interface'

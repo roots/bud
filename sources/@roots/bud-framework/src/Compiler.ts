@@ -28,13 +28,6 @@ interface Compiler extends Service {
   instance: Compiler.Instance
 
   /**
-   * `true` if compiler has already been instantiated.
-   *
-   * @public
-   */
-  isCompiled: boolean
-
-  /**
    * Contains compilation stats, if available.
    *
    * @public

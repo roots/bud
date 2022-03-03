@@ -57,7 +57,6 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "chokidar": "^3.5.2",
     "express": "^4.17.1",
     "http-proxy-middleware": "2.0.3",
     "tslib": "^2.3.1",

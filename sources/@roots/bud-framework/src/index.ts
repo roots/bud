@@ -212,23 +212,6 @@ export interface Services
   extends Partial<Record<string, new (app: Framework) => Service>> {}
 
 /**
- * Compiler plugin instance
- *
- * @remarks
- * Compatible with the webpack plugin interface.
- *
- * @public
- */
-export interface PluginInstance {
-  /**
-   * Apply method
-   *
-   * @public
-   */
-  apply: CallableFunction
-}
-
-/**
  * Module
  *
  * @deprecated Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead

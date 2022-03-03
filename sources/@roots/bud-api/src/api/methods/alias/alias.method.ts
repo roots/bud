@@ -21,31 +21,19 @@ import type {Alias, Framework, method} from './alias.interface'
  * @public
  */
 export const alias: method = function (alias: Alias) {
-  this as Framework
+  const ctx = this as Framework
 
-  const mergeAliases = Object.entries(alias).reduce(
-    (a, [k, v]: [string, string]) => {
-      const path = resolve(this.path('project'), v)
-
-      this.api.log('success', {
-        message: `alias ${k}`,
-        suffix: path,
-      })
-
-      return {
-        ...a,
-        [k]: resolve(this.path('project'), v),
-      }
-    },
+  const merged = Object.entries(alias).reduce(
+    (a, [k, v]: [string, string]) => ({
+      ...a,
+      [k]: resolve(ctx.path('project'), v),
+    }),
     {},
   )
 
-  this.hooks.on('build.resolve.alias', async (aliases: Alias) => {
-    return {
-      ...aliases,
-      ...mergeAliases,
-    }
+  ctx.hooks.async('build.resolve.alias', async (aliases: Alias) => {
+    return {...aliases, ...merged}
   })
 
-  return this
+  return ctx
 }

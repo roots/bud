@@ -1,14 +1,21 @@
 import axios from 'axios'
 import {Text} from 'ink'
-import Spinner from 'ink-spinner'
 import React, {useEffect, useState} from 'react'
-import {URL} from 'url'
 
 interface IndicatorProps {
   url: URL
   label: string
 }
 
+/**
+ * Status indicator for dev/proxy servers
+ *
+ * @remarks
+ * Passes 'bud-healthcheck' header to identify this
+ * request so as to not spam the console
+ *
+ * @public
+ */
 export const Indicator = ({url, label}: IndicatorProps) => {
   const [status, setStatus] = useState(null)
 
@@ -16,7 +23,11 @@ export const Indicator = ({url, label}: IndicatorProps) => {
     if (!(url instanceof URL)) return
     ;(async () => {
       try {
-        const res = await axios(url.toString())
+        const res = await axios(url.toString(), {
+          headers: {
+            'bud-healthcheck': true,
+          },
+        })
 
         setStatus(res.status)
       } catch (error) {
@@ -27,17 +38,15 @@ export const Indicator = ({url, label}: IndicatorProps) => {
     })()
   }, [url, label, status])
 
-  return status == null ? (
-    <Text>
-      <Spinner /> {status} [{label}]
-    </Text>
-  ) : status == 200 ? (
+  if (status === null) return null
+
+  return status == 200 ? (
     <Text color="green">
-      ◉ {status} [{label}]
+      ◉ {status} [{label}] {url.origin}
     </Text>
   ) : (
     <Text color="red">
-      ◉ {status} [{label}]
+      ◉ {status} [{label}] {url.origin}
     </Text>
   )
 }

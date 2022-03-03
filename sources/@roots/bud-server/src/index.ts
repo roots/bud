@@ -1,5 +1,5 @@
 /**
- *  Development server features
+ *  Development server
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud

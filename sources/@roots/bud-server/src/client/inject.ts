@@ -1,5 +1,7 @@
 import {Framework} from '@roots/bud-framework'
-import {isNull, isUndefined} from 'lodash'
+import {lodash} from '@roots/bud-support'
+
+const {isNull, isUndefined} = lodash
 
 export interface inject {
   (
@@ -17,14 +19,6 @@ export interface inject {
  */
 export const inject: inject = async (instance: Framework, injection) => {
   instance.hooks.on('build.entry', entrypoints => {
-    if (instance.hasChildren) {
-      instance.log(
-        `${instance.name} is a parent compiler`,
-        `skipping inject`,
-      )
-      return entrypoints
-    }
-
     const invalidEntrypoints =
       !entrypoints ||
       isUndefined(entrypoints) ||

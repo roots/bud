@@ -20,8 +20,8 @@ export interface close {
  *
  * @public
  */
-export function close(done = process.exit) {
+export async function close(done = process.exit) {
   const ctx = this as Framework
-  ctx.hooks.filter('event.app.close')
+  await ctx.hooks.fire('event.app.close')
   done()
 }

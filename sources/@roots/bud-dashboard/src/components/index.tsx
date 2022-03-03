@@ -1,39 +1,34 @@
 import {Framework} from '@roots/bud-framework'
 import {useStdin} from 'ink'
-import React, {useEffect} from 'react'
-import {useInterval, useUpdate} from 'react-use'
+import {Box, Text} from 'ink'
+import React from 'react'
 
 import {Input} from './input.component'
-import {Output} from './output.component'
+import {Url} from './url.component'
 
 /**
- * Build display component
+ * Server/Proxy info component
  *
  * @public
  */
-export const Build = ({tap}: {tap: () => Framework}) => {
+export const Serve = ({app}: {app: Framework}) => {
   const {isRawModeSupported} = useStdin()
-  isRawModeSupported && Input({app: tap()})
+  isRawModeSupported && Input({app})
 
-  const update = useUpdate()
-  useInterval(update, 10)
+  return (
+    <Box flexDirection={`column`} marginBottom={1}>
+      <Text color={`white`}>
+        <Url label="dev" value={app.hooks.filter('dev.url')} />
+      </Text>
 
-  useEffect(() => {
-    tap().isProduction &&
-      tap().compiler.progress &&
-      tap().compiler.progress[0] &&
-      tap().compiler.progress[0] === 1 &&
-      setTimeout(tap().close, 100)
-  })
-
-  return tap().compiler.stats?.hash ? (
-    <Output
-      mode={tap().mode}
-      url={tap().store.get('server.dev.url')}
-      proxy={tap().store.get('server.proxy.url')}
-      middleware={tap().store.get('server.middleware')}
-      progress={tap().compiler.progress}
-      style={tap().store.get('theme')}
-    />
-  ) : null
+      {app.hooks.filter('middleware.enabled').includes('proxy') && (
+        <Text color={`white`}>
+          <Url
+            label="proxy"
+            value={app.hooks.filter('middleware.proxy.target')}
+          />
+        </Text>
+      )}
+    </Box>
+  )
 }

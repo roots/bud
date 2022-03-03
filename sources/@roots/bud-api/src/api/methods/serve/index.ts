@@ -1,44 +1,117 @@
-import type {Framework, Server} from '@roots/bud-framework'
-import {URL} from 'url'
+import type {Framework} from '@roots/bud-framework'
+import {chokidar} from '@roots/bud-support'
 
-export interface serve {
-  (port: number): Framework
+/**
+ * Input object
+ *
+ * @public
+ */
+export interface UserRecordInput {
+  /**
+   * URL object or url string
+   *
+   * @defaultValue URL('http://localhost:3000')
+   */
+  url?: URL | string
+  /**
+   * Path to ssl certificate
+   *
+   * @defaultValue undefined
+   */
+  cert?: string
+  /**
+   * Path to ssl key
+   *
+   * @defaultValue undefined
+   */
+  key?: string
+  /**
+   * Client options
+   */
+  client?: {
+    /**
+     * Scripts to be injected before application scripts
+     */
+    scripts: Set<(app: Framework) => string>
+  }
+
+  /**
+   * FSWatcher
+   */
+  watch?: {
+    /**
+     * Watched files
+     */
+    files: Array<string>
+    /**
+     * Watcher options
+     */
+    options?: chokidar.WatchOptions
+  }
 }
 
-export interface serve {
-  (url: URL): Framework
+export type UserInput = URL | string | number | UserRecordInput
+
+export interface method {
+  (input?: UserInput): Framework
 }
 
-export interface serve {
-  (url: string): Framework
-}
+export type facade = method
 
-export interface serve {
-  (config: Partial<Server.Configuration['dev']>): Framework
-}
-
-export const serve: serve = function (
-  config: URL | string | number | Partial<Server.Configuration['dev']>,
-): Framework {
+export const method: method = function (input) {
   const ctx = this as Framework
 
-  if (typeof config === 'number') {
-    const url = ctx.store.get('server.dev.url')
-    url.port = `${config}`
-    ctx.store.set('server.dev.url', url)
-    return ctx
+  if (!ctx.isDevelopment) return ctx
+
+  if (typeof input === 'number') {
+    return ctx.hooks.on('dev.url', url => {
+      url.port = `${input}`
+      return url
+    })
   }
 
-  if (typeof config === 'string') {
-    ctx.store.set('server.dev.url', new URL(config))
-    return ctx
+  if (typeof input === 'string') {
+    return ctx.hooks.on('dev.url', new URL(input))
   }
 
-  if (config instanceof URL) {
-    ctx.store.set('server.dev.url', config)
-    return ctx
+  if (input instanceof URL) {
+    return ctx.hooks.on('dev.url', input)
   }
 
-  ctx.store.set('server.dev', config)
+  input.url &&
+    ctx.hooks.on(
+      'dev.url',
+      input.url instanceof URL ? input.url : new URL(input.url),
+    )
+
+  input.key && ctx.hooks.on('dev.ssl.key', input.key)
+  input.cert && ctx.hooks.on('dev.ssl.cert', input.cert)
+
+  ctx.hooks.filter('dev.ssl.key') &&
+    ctx.hooks.filter('dev.ssl.cert') &&
+    ctx.hooks.on('dev.url', url => {
+      url.protocol = `https:`
+      url.port = url.port ?? `443`
+      return url
+    })
+
+  input.watch?.files &&
+    ctx.hooks.on('dev.watch.files', files => {
+      input.watch.files.forEach(file => files.add(file))
+      return files
+    })
+
+  input.watch?.options &&
+    ctx.hooks.on('dev.watch.options', options => ({
+      ...options,
+      ...input.watch.options,
+    }))
+
+  input.client?.scripts &&
+    ctx.hooks.on('dev.client.scripts', scripts => {
+      input.client.scripts.forEach(script => scripts.add(script))
+      return scripts
+    })
+
   return ctx
 }
