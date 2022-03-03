@@ -11,28 +11,33 @@
  */
 
 import {Sage} from './sage.preset'
+import * as themeJson from './theme/api/themeJson'
+import * as useTailwindColors from './theme/api/useTailwindColors'
+import * as ThemeJSON from './theme/extension'
+import * as tailwindTheme from './theme/tailwind.adapter'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * setPublicPath
-     *
-     * @deprecated
-     * Please remove this function from your config file. It is not needed.
-     * When Sage 10 exits beta this function call will break your build.
-     *
-     * @returns Framework
+     * Generate a WordPress `theme.json`
      *
      * @public
      */
-    setPublicPath: (
-      publicPath: string | ((publicPath: string) => string),
-    ) => Framework
+    themeJson: themeJson.facade
+    /**
+     * Emit WordPress `theme.json` color settings using values sourced from
+     * `tailwind.config.js` (theme.extend.colors)
+     *
+     * @public
+     */
+    useTailwindColors: useTailwindColors.facade
   }
 
   interface Modules {
     '@roots/sage': typeof Sage
+    'wp-theme-json': ThemeJSON.Extension
   }
 }
 
 export const {name, boot} = Sage
+export {tailwindTheme, ThemeJSON}

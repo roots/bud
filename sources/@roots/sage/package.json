@@ -48,6 +48,7 @@
     "./client/dom-ready": "./lib/cjs/client/domReady.js",
     "./eslint-config": "./eslint-config/index.js",
     "./stylelint-config": "./stylelint-config/index.js",
+    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
     "./tsconfig": "./tsconfig/tsconfig.json"
   },
   "bud": {

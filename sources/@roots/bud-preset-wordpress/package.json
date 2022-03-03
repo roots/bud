@@ -34,14 +34,6 @@
     "stylelint-config/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
-    "./stylelint-config": "./stylelint-config/index.js"
-  },
   "bud": {
     "type": "extension",
     "peers": [
@@ -54,6 +46,24 @@
       "@roots/bud-wordpress-dependencies",
       "@roots/bud-wordpress-manifests"
     ]
+  },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js",
+    "./stylelint-config": "./stylelint-config/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "theme": [
+        "./types/theme.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
