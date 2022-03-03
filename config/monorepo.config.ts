@@ -108,11 +108,12 @@ export const config: config = {
       '@roots/bud-wordpress-manifests',
       '@roots/sage',
     ],
-    libraries: [
+    library: [
       '@roots/container',
       '@roots/critical-css-webpack-plugin',
       '@roots/dependencies',
       '@roots/entrypoints-webpack-plugin',
+      '@roots/eslint-config',
       '@roots/filesystem',
       '@roots/ink-prettier',
     ],
@@ -177,6 +178,6 @@ export interface config {
   packages: {
     core: Array<string>
     extension: Array<string>
-    libraries: Array<string>
+    library: Array<string>
   }
 }

@@ -7,30 +7,20 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-typescript</strong>
+  <strong>@roots/eslint-config</strong>
 </h1>
 
 <p align="center">
-  Adds Typescript support to Bud.
+  eslint presets for roots projects
 </p>
 
 ## Installation
 
-Install **@roots/bud-typescript** to your project.
+Install **@roots/eslint-config** to your project.
 
 ```shell
-yarn add @roots/bud-typescript --dev
+yarn add @roots/eslint-config --dev
 ```
-
-Run `bud install` after installation to ensure peer dependencies are met.
-
-```shell
-yarn bud install
-```
-
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)
 
 ## Community
 
@@ -52,7 +42,6 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>
 <a href="https://www.c21redwood.com/"><img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/></a>
