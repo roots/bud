@@ -1,6 +1,8 @@
 import {Item} from '@roots/bud-build'
 import type {Extension, Framework} from '@roots/bud-framework'
-import {pathExistsSync, readJson} from 'fs-extra'
+import {fs} from '@roots/bud-support'
+
+const {pathExistsSync, readJson} = fs
 
 export const tsFeature: Extension.CompilerPlugin = {
   name: '@roots/bud-esbuild/ts',

@@ -1,3 +1,4 @@
+import {logger} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-server', function () {
@@ -8,41 +9,17 @@ describe('@roots/bud-server', function () {
   })
 
   it('has expected defaults', () => {
-    expect(bud.store.get('server')).toMatchSnapshot({
-      browser: {
-        indicator: true,
-        log: true,
-        overlay: true,
-      },
-      middleware: {
-        dev: true,
-        hot: true,
-        proxy: false,
-      },
-      dev: {
-        url: new URL('http://localhost:3000/'),
-      },
-      proxy: {
-        url: new URL('http://localhost/'),
-      },
-
-      watch: {
-        files: [],
-      },
-    })
-  })
-
-  it('is modifiable', () => {
-    expect(bud.store.get('server.browser.indicator')).toBe(true)
-    bud.store.set('server.browser.indicator', false)
-    expect(bud.store.get('server.browser.indicator')).toBe(false)
+    expect(bud.hooks.filter('dev.url')).toMatchSnapshot()
+    expect(bud.hooks.filter('dev.watch.files')).toMatchSnapshot()
+    expect(bud.hooks.filter('dev.watch.options')).toMatchSnapshot()
+    expect(bud.hooks.filter('dev.client.scripts')).toMatchSnapshot()
   })
 
   it('has run method', () => {
     try {
       expect(bud.server.run).toBeInstanceOf(Function)
     } catch (e) {
-      console.error(e)
+      logger.error(e)
     }
   })
 })

@@ -1,8 +1,7 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import {Controller} from '@roots/bud-extensions'
 import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
-
-import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-extensions Controller', function () {
   let bud: Bud
@@ -32,39 +31,27 @@ describe('@roots/bud-extensions Controller', function () {
   })
 
   it('is constructable', () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
 
     expect(controller).toBeInstanceOf(Controller)
   })
 
   it('register fn returns self', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     const registerReturn = await controller.register()
 
     expect(registerReturn).toBeInstanceOf(Controller)
   })
 
   it('calls module register fn', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     await controller.register()
 
     expect(controller._module.register).toHaveBeenCalled()
   })
 
   it('calls module boot fn', async () => {
-    const controller: Controller = new Controller(
-      bud,
-      mockModule,
-    )
+    const controller: Controller = new Controller(bud, mockModule)
     await controller.boot()
 
     expect(controller._module.boot).toHaveBeenCalled()

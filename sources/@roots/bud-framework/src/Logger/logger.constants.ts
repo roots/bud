@@ -1,15 +1,11 @@
-import {SignaleConfig} from 'signale'
-
 import {figures} from './figures'
-
-export type INSTANCE_CONFIG = SignaleConfig
 
 /**
  * Instance configuration
  *
  * @internal
  */
-export const INSTANCE_CONFIG: SignaleConfig = {
+export const INSTANCE_CONFIG: any = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,

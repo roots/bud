@@ -7,10 +7,6 @@ describe('@roots/bud-compiler', function () {
     bud = await factory()
   })
 
-  it('is not compiled initially', () => {
-    expect(bud.compiler.isCompiled).toEqual(false)
-  })
-
   it('has run fn', () => {
     expect(bud.compiler.compile).toBeInstanceOf(Function)
   })

@@ -1,42 +1,33 @@
-import type {Framework, Server} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
+import {chokidar} from '@roots/bud-support'
 
 export interface watch {
   (
-    files: Server.Configuration['watch']['files'],
-    options?: Server.Configuration['watch']['options'],
+    /**
+     * Watched files
+     */
+    files: Array<string>,
+    /**
+     * Watcher options
+     */
+    options?: chokidar.WatchOptions,
   ): Framework
 }
 
-/**
- * Set files that, when modified, will force the browser to reload.
- *
- * @remarks
- * Modifying these files will cause a full page reload, even in hot mode.
- *
- * @example
- * ```js
- * app.watch(['templates/*.html'])
- * ```
- *
- * @example
- * Set chokidar options as well:
- *
- * ```js
- * app.watch(['templates/*.html'], {
- *   // chokidar options
- * })
- * ```
- *
- * @public
- */
 export const watch: watch = function (files, options = {}) {
   const ctx = (this.root as Framework) ?? (this as Framework)
 
   files = Array.isArray(files) ? files : [files]
 
-  ctx.store
-    .merge('server.watch.files', files)
-    .merge('server.watch.options', options)
+  ctx.hooks
+    .on('dev.watch.files', fileSet => {
+      files.forEach(file => fileSet.add(file))
+      return fileSet
+    })
+    .hooks.on('dev.watch.options', hookValue => ({
+      ...(hookValue ?? {}),
+      ...(options ?? {}),
+    }))
 
   return ctx
 }

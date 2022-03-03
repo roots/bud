@@ -1,10 +1,15 @@
 import * as Framework from '@roots/bud-framework'
+import * as BudServer from '@roots/bud-framework/server'
+import {Connection} from '@roots/bud-framework/src/Server/Connection'
+import {bind, once} from '@roots/bud-support'
 import Express from 'express'
 
-import * as middleware from '../middleware'
-import __BudRouter from '../router/__bud'
-import {inject} from '../util/inject'
-import {bind} from './server.dependencies'
+import {inject} from '../client/inject'
+import {logger} from '../logger'
+import * as middlewareMap from '../middleware'
+import {seed} from '../seed'
+import {Http} from './server.http'
+import {Https} from './server.https'
 import {Watcher} from './server.watcher'
 
 /**
@@ -14,37 +19,19 @@ import {Watcher} from './server.watcher'
  */
 export class Server
   extends Framework.Service
-  implements Framework.Server.Interface
+  implements BudServer.Service
 {
   /**
    * Express instance
    *
    * @public
    */
-  public application: Framework.Server.Application
+  public application: Express.Application
 
   /**
-   * Server config accessor
-   *
-   * @public
+   * Logger
    */
-  public get config(): Framework.Server.Configuration {
-    return this.app.store.get('server')
-  }
-
-  /**
-   * Express instance
-   *
-   * @public
-   */
-  public instance: Framework.Server.Instance
-
-  /**
-   * Utilized middleware
-   *
-   * @public
-   */
-  public middleware: Framework.Server.Middleware = {}
+  public serverLogger = logger
 
   /**
    * Watcher instance
@@ -54,169 +41,152 @@ export class Server
   public watcher: Watcher
 
   /**
-   * Port
+   * Server connections
    *
    * @public
    */
-  public get port(): string {
-    const url = this.app.store.get('server.dev.url')
-    if (!url.port || url.port == '') {
-      return url.protocol == 'https:' ? '443' : '80'
-    }
+  public connection: Connection
 
-    return url.port
+  /**
+   * Available middleware
+   *
+   * @public
+   */
+  public availableMiddleware = middlewareMap
+
+  /**
+   * Utilized middleware
+   *
+   * @public
+   */
+  public get enabledMiddleware(): BudServer.Service['enabledMiddleware'] {
+    return this.app.hooks.filter('middleware.enabled').reduce(
+      (enabled, key) => ({
+        ...enabled,
+        [key]: this.availableMiddleware[key],
+      }),
+      {},
+    )
   }
 
   /**
-   * Service boot callback
+   * Applied middleware
+   *
+   * @public
+   */
+  public appliedMiddleware: Partial<
+    Record<keyof BudServer.Middleware.Available, any>
+  > = {}
+
+  /**
+   * Register service
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
-  public async boot(): Promise<void> {
+  @once
+  public async register(): Promise<void> {
+    seed(this.app)
+
     this.application = Express()
-
-    this.app.hooks
-      .on('server.middleware', () => middleware)
-
-      .hooks.on('server.inject', () => [
-        instance =>
-          `@roots/bud-server/client/index.js?name=${instance.name}&path=/__bud/hmr`,
-      ])
-
-      .hooks.async('event.server.before', async app => {
-        app.when(
-          ({store}) => store.is('server.middleware.proxy', true),
-          ({hooks}) =>
-            hooks.on('server.inject', inject => [
-              ...inject,
-              () => `@roots/bud-server/client/proxy-click-interceptor.js`,
-            ]),
-        )
-
-        return app
-      })
-  }
-
-  /**
-   * Apply middlewares
-   *
-   * @returns
-   */
-  public applyMiddlewares() {
-    Object.entries(this.app.hooks.filter('server.middleware')).map(
-      ([key, factory]) => {
-        if (this.app.store.isFalse(`server.middleware.${key}` as any))
-          return this.log(`info`, `not using middleware: ${key}`)
-
-        const middleware = factory(this.app)
-
-        Object.assign(this.middleware, {
-          [key]: middleware,
-        })
-
-        this.application.use(this.middleware[key])
-
-        this.log(`info`, `using middleware: ${key}`)
-      },
-    )
-  }
-
-  /**
-   * {@inheritDoc @roots/bud-framework#Server.Interface.run}
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async run(): Promise<this> {
-    /**
-     * Instantiate watcher
-     */
+    this.application.set('x-powered-by', false)
     this.watcher = new Watcher(this.app)
-
-    /**
-     * Filter server before
-     */
-    await this.app.hooks.filterAsync('event.server.before', this.app)
-
-    /**
-     * Prep and run compilation
-     */
-    await this.compile()
-
-    this.applyMiddlewares()
-
-    /**
-     * 404 middleware
-     */
-    this.application.use(
-      (
-        _req: Express.Request,
-        res: Express.Response,
-        _next: Express.NextFunction,
-      ) => {
-        res.status(404).send("Sorry can't find that!")
-      },
-    )
-
-    /**
-     * Listen
-     */
-    this.instance = this.application.listen(
-      this.port,
-      async (error: string) => {
-        this.log('info', `started server on %s`, this.port)
-        if (error) this.log('error', error)
-
-        this.app.hooks.filter('event.server.listen')
-      },
-    )
-
-    /**
-     * If watching and a watched file is touched, update hmr websocket
-     * event subscribers.
-     */
-    await this.watcher.watch()
-    this.watcher.instance?.on('change', path => {
-      this.middleware?.hot?.publish({
-        action: 'reload',
-        message: `Detected file change: ${path}. Reloading window.`,
-      })
-    })
-
-    await this.app.hooks.filterAsync('event.server.after', this.app)
-
-    return this
-  }
-
-  @bind
-  public async compile() {
-    await Promise.all(
-      [this.app, ...this.app.children.getValues()].map(
-        async (instance: Framework.Framework) => {
-          await inject(instance, this.app.hooks.filter('server.inject'))
-        },
-      ),
-    )
-
-    this.app.hooks.on('config.override', config => {
-      return config.map(compilerConfiguration => {
-        compilerConfiguration.bail = false
-        return compilerConfiguration
-      })
-    })
-
-    await this.app.compiler.compile()
   }
 
   /**
-   * App close handler
+   * Boot service
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public async boot(): Promise<void> {
+    this.app.hooks.action(
+      'event.server.before',
+      this.setConnection,
+      this.injectScripts,
+      this.app.compiler.compile,
+      this.applyMiddleware,
+    )
+    this.app.hooks.action('event.server.after', async () =>
+      this.watcher.watch(),
+    )
+  }
+
+  /**
+   * Run development server
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public close(): void {}
+  public async run() {
+    await this.app.hooks.fire('event.server.before')
+
+    await this.connection.createServer(this.application)
+    await this.connection.listen()
+
+    await this.app.hooks.fire('event.server.after')
+  }
+
+  /**
+   * Set connection
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public async setConnection() {
+    this.connection =
+      this.app.hooks.filter('dev.ssl.cert') &&
+      this.app.hooks.filter('dev.ssl.key')
+        ? new Https(this.app, this.app.hooks.filter('dev.url'))
+        : new Http(this.app, this.app.hooks.filter('dev.url'))
+
+    await this.connection.setup()
+  }
+
+  /**
+   * Inject scripts
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public async injectScripts() {
+    await Promise.all(
+      [this.app, ...this.app.children.getValues()].map(async instance => {
+        await inject(
+          instance,
+          Array.from(
+            instance.hooks.filter('dev.client.scripts') ?? new Set([]),
+          ),
+        )
+      }),
+    )
+  }
+
+  /**
+   * Apply middleware
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
+  @bind
+  @once
+  public async applyMiddleware() {
+    Object.entries(this.enabledMiddleware).map(([key, middleware]) => {
+      this.appliedMiddleware[key] = middleware(this.app)
+      this.application.use(this.appliedMiddleware[key])
+    })
+  }
 }

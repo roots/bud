@@ -59,9 +59,9 @@
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.178",
+    "@types/lodash": "4.14.179",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.25"
+    "@types/node": "16.11.26"
   },
   "dependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
@@ -79,10 +79,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "clipanion": "3.2.0-rc.9",
     "copy-webpack-plugin": "^10.0.0",
-    "fs-extra": "^10.0.0",
-    "helpful-decorators": "^2.1.0",
     "html-webpack-plugin": "^5.5.0",
-    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "tslib": "^2.3.1",
     "typanion": "3.7.1",

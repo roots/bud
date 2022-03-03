@@ -1,6 +1,5 @@
 import type {Store} from '@roots/bud-framework'
 import {cpus} from 'os'
-import {URL} from 'url'
 
 /**
  * Bud configuration defaults
@@ -232,60 +231,5 @@ export const seed: Partial<Store.Repository> = {
     stats: {
       preset: 'normal',
     },
-  },
-
-  server: {
-    watch: {
-      files: [],
-      options: {},
-    },
-
-    middleware: {
-      dev: true,
-      hot: true,
-      proxy: false,
-    },
-
-    browser: {
-      indicator: true,
-      overlay: true,
-      log: true,
-    },
-
-    dev: {
-      url: new URL('http://localhost:3000'),
-    },
-
-    proxy: {
-      url: new URL('http://localhost'),
-    },
-  },
-
-  /**
-   * Terminal styling
-   */
-  theme: {
-    spacing: 1,
-    colors: {
-      foreground: '#FFFFFF',
-      faded: '#6C758F',
-      primary: '#663399',
-      primaryAlt: '#545DD7',
-      error: '#dc3545',
-      errorAlt: '#b22222',
-      warning: '#FF611A',
-      success: '#46D46A',
-      accent: '#ff69b4',
-      flavor: '#78C5D7',
-    },
-    screens: [
-      [0, 40],
-      [41, 60],
-      [61, 80],
-      [81, 200],
-    ],
-    columns: 12,
-    maxWidth: 140,
-    maxHeight: 999,
   },
 }

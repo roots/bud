@@ -10,12 +10,16 @@ export function config(
     config: Partial<Webpack.Configuration>,
   ) => Partial<Webpack.Configuration>,
 ): Framework {
+  const ctx = this as Framework
+
   if (!overrides)
     throw new Error(
       'config overrides must pass a callback function that returns a webpack configuration',
     )
 
-  this.hooks.on('event.build.override', overrides)
+  ctx.hooks.action('event.build.after', async app => {
+    app.build.config = overrides(app.build.config)
+  })
 
-  return this
+  return ctx
 }

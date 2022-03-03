@@ -1,7 +1,9 @@
-import {readFile} from 'fs-extra'
+import {fs} from '@roots/bud-support'
 import {bind} from 'helpful-decorators'
 
 import {Bud, createHash} from './cache.dependencies'
+
+const {readFile} = fs
 
 /**
  * Cache service class
@@ -61,9 +63,8 @@ export class Cache
         suffix: hash,
       })
 
-      this.app.hooks.async('event.project.write', async project => {
-        project.set('cache.hash', hash)
-        return project
+      this.app.hooks.action('event.project.write', async app => {
+        app.project.set('cache.hash', hash)
       })
 
       return hash

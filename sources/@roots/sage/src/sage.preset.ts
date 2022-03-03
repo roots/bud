@@ -1,7 +1,7 @@
 import {Extension} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
-import eventCompilerStats from './hooks/event.compiler.stats'
+import eventCompilerDone from './hooks/event.compiler.done'
 import * as ThemeJSON from './theme/extension'
 
 /**
@@ -76,14 +76,10 @@ export const Sage: Extension.Module<void> = {
        * Development
        */
       () => {
-        app.devtool()
-
-        app.hooks.async(
-          'event.compiler.stats',
-          eventCompilerStats.bind(app),
-        )
-
-        app.hooks.on('event.app.close', eventAppClose.bind(app))
+        app
+          .devtool()
+          .hooks.action('event.compiler.done', eventCompilerDone)
+          .hooks.action('event.app.close', eventAppClose)
       },
     )
   },

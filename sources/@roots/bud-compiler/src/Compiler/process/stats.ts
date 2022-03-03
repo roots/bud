@@ -1,6 +1,16 @@
-import {Framework} from '@roots/bud-framework'
 import {boxen, chalk, humanReadable, table} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
+
+export const theme = {
+  foregroundColor: '#eff0eb',
+  backgroundColor: '#282a36',
+  red: '#ff5c57',
+  green: '#5af78e',
+  yellow: '#f3f99d',
+  blue: '#57c7ff',
+  magenta: '#ff6ac1',
+  cyan: '#9aedfe',
+}
 
 function makeTable(data: Array<Array<string>>): string {
   return table.table(data, {
@@ -19,10 +29,7 @@ function makeTable(data: Array<Array<string>>): string {
   })
 }
 
-export function write(
-  stats: StatsCompilation,
-  colors: Framework['store']['repository']['theme']['colors'],
-): void {
+export function write(stats: StatsCompilation): void {
   const compilers = stats.children?.map(compilation => {
     if (!compilation?.entrypoints) return compilation
 
@@ -41,7 +48,7 @@ export function write(
           right: 0,
           left: 0,
         },
-        borderColor: colors.error,
+        borderColor: theme.red,
       })
     })
 
@@ -60,31 +67,28 @@ export function write(
           right: 0,
           left: 0,
         },
-        borderColor: colors.warning,
+        borderColor: theme.cyan,
       })
     })
 
     const assets = boxen(
       makeTable([
-        [' name', 'cached', 'hot', 'size'].map(i =>
-          chalk.bold.hex(colors.flavor)(i),
+        [' name', 'hot', 'size'].map(i =>
+          chalk.bold.hex(theme.magenta)(i),
         ),
         ...compilation.assets
           ?.filter(({emitted}) => emitted)
           .map(asset => [
             chalk.hex(
               asset.info.error
-                ? colors.error
+                ? theme.red
                 : asset.info.warn
-                ? colors.warning
+                ? theme.yellow
                 : '#FFFFFF',
             )(` ${asset.name}`),
-            asset.cached
-              ? chalk.hex(colors.success)('✔')
-              : chalk.hex(colors.faded)('✘'),
             asset.info.hotModuleReplacement
-              ? chalk.hex(colors.success)('✔')
-              : chalk.hex(colors.faded)('✘'),
+              ? chalk.hex(theme.green)('✔')
+              : chalk.dim('✘'),
             humanReadable.sizeFormatter<string>()(asset.info.size),
           ]),
       ]),
@@ -102,7 +106,7 @@ export function write(
           right: 0,
           bottom: 0,
         },
-        borderColor: colors.accent,
+        borderColor: theme.blue,
       },
     )
 
