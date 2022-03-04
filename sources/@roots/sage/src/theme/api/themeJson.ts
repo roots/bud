@@ -1,7 +1,10 @@
 import {Framework} from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {WPThemeJson} from '..'
+
+const {isFunction} = lodash
 
 /**
  * Callback function used to configure wordpress `theme.json`
@@ -15,32 +18,35 @@ export interface Mutator {
 }
 
 export interface method {
-  (callback: Mutator, raw?: boolean): Promise<Framework>
+  (
+    input?: Mutator | WPThemeJson['settings'],
+    raw?: boolean,
+  ): Promise<Framework>
 }
 
 export interface facade {
-  (callback: Mutator, raw?: boolean): Framework
+  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Framework
 }
 
-export const method: method = async function (callback, raw = false) {
+export const method: method = async function (
+  input?: Mutator | WPThemeJson['settings'],
+  raw?: boolean,
+) {
   const ctx = this as Framework
 
   ctx.extensions.get('wp-theme-json').set('when', true)
 
-  if (!callback)
-    throw new Error(`A callback must be provided to ${ctx.name}.themeJson`)
+  if (!input) return ctx
 
-  if (raw) {
-    const options = ctx.extensions.get('wp-theme-json').options.all()
-
-    ctx.extensions
-      .get('wp-theme-json')
-      .setOptions(ctx.container(callback(options)))
-
-    return ctx
-  }
-
-  ctx.extensions.get('wp-theme-json').mutateOptions(callback)
+  isFunction(input)
+    ? ctx.extensions
+        .get('wp-theme-json')
+        .setOptions(
+          raw === true
+            ? input(ctx.extensions.get('wp-theme-json').options.all())
+            : input(ctx.extensions.get('wp-theme-json').options),
+        )
+    : ctx.extensions.get('wp-theme-json').setOptions(input)
 
   return ctx
 }
