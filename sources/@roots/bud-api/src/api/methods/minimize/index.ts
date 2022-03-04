@@ -1,7 +1,10 @@
-import {isUndefined} from 'lodash'
+import {lodash} from '@roots/bud-support'
+
 import {cssMinimizerOptions} from './minimize.constants'
 import {CssMinimizer} from './minimize.dependencies'
 import {Framework} from './minimize.interface'
+
+const {isUndefined} = lodash
 
 /**
  * Minimize function interface
