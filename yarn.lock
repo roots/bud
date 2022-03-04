@@ -4199,7 +4199,6 @@ __metadata:
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"

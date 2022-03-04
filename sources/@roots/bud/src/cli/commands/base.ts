@@ -5,7 +5,6 @@ import {Bud} from '../../Bud/index.js'
 import {seed} from '../../seed.js'
 import * as dynamic from '../config/dynamic.config.js'
 import * as manifest from '../config/manifest.config.js'
-import * as overrides from '../config/override.config.js'
 import {Notifier} from '../Notifier/index.js'
 
 /**
@@ -65,10 +64,6 @@ export abstract class BaseCommand extends Command {
     } catch (error) {
       throw new Error(error)
     }
-
-    await overrides.config(this.app, this.config())
-    this.app.api.processQueue()
-    this.app.extensions.processQueue()
 
     return this.app
   }

@@ -201,7 +201,7 @@ export const seed: Partial<Store.Repository> = {
     },
     optimization: {
       emitOnErrors: false,
-      enable: false,
+      minimize: false,
       minimizer: ['...'],
       removeEmptyChunks: true,
       splitChunks: {},

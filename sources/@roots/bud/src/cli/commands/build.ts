@@ -1,10 +1,12 @@
 import {lodash as _} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
+import {isUndefined} from 'lodash'
 import * as t from 'typanion'
 
 import {Bud} from '../../Bud/index.js'
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
+import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -16,6 +18,7 @@ export interface BuildOptions {
   cache?: Bud.Options['config']['cache']
   features?: Bud.Options['config']['features']
   location?: Bud.Options['config']['location']
+  minimize?: Bud.Options['config']['optimization']['minimize']
   mode?: Bud.Options['config']['mode']
   publicPath?: Bud.Options['config']['output']['publicPath']
   target?: Array<string>
@@ -70,29 +73,25 @@ export class BuildCommand extends BaseCommand {
   /**
    * --cache
    */
-  public cache = Option.Boolean(`--cache`, seed.features.cache, {
+  public cache = Option.Boolean(`--cache`, undefined, {
     description: `Utilize filesystem cache`,
   })
 
   /**
    * --cache.type
    */
-  public cacheType = Option.String(
-    `--cacheType,--cache.type`,
-    seed.cache.type,
-    {
-      description: `Type of cache`,
-      validator: t.isOneOf([
-        t.isLiteral('filesystem'),
-        t.isLiteral('memory'),
-      ]),
-    },
-  )
+  public cacheType = Option.String(`--cacheType,--cache.type`, undefined, {
+    description: `Type of cache`,
+    validator: t.isOneOf([
+      t.isLiteral('filesystem'),
+      t.isLiteral('memory'),
+    ]),
+  })
 
   /**
    * --clean
    */
-  public clean = Option.Boolean(`--clean`, seed.features.clean, {
+  public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
 
@@ -104,23 +103,30 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --devtool
+   */
+  public devtool = Option.Boolean(`--devtool`, undefined, {
+    description: `Set devtool`,
+  })
+
+  /**
    * --hash
    */
-  public hash = Option.Boolean(`--hash`, seed.features.hash, {
+  public hash = Option.Boolean(`--hash`, undefined, {
     description: 'Hash compiled files',
   })
 
   /**
    * --html
    */
-  public html = Option.Boolean(`--html`, seed.features.html, {
+  public html = Option.Boolean(`--html`, undefined, {
     description: 'Generate an html template',
   })
 
   /**
    * --inject
    */
-  public inject = Option.Boolean(`--inject`, seed.features.inject, {
+  public inject = Option.Boolean(`--inject`, undefined, {
     description: 'Automatically inject extensions',
     hidden: true,
   })
@@ -128,35 +134,35 @@ export class BuildCommand extends BaseCommand {
   /**
    * --project
    */
-  public project = Option.String(`--project`, seed.location.project, {
+  public project = Option.String(`--project`, undefined, {
     description: 'Project directory',
   })
 
   /**
    * --src
    */
-  public src = Option.String(`--input,-i`, seed.location.src, {
+  public src = Option.String(`--input,-i`, undefined, {
     description: 'Source directory (relative to project)',
   })
 
   /*
    * --dist
    */
-  public dist = Option.String(`--output,-o`, seed.location.dist, {
+  public dist = Option.String(`--output,-o`, undefined, {
     description: 'Distribution directory (relative to project)',
   })
 
   /**
    * --storage
    */
-  public storage = Option.String(`--storage`, seed.location.storage, {
+  public storage = Option.String(`--storage`, undefined, {
     description: 'Storage/cache directory (relative to project)',
   })
 
   /**
    * --log
    */
-  public log = Option.Boolean(`--log`, seed.features.log, {
+  public log = Option.Boolean(`--log`, undefined, {
     description: 'Enable logging',
   })
 
@@ -180,37 +186,30 @@ export class BuildCommand extends BaseCommand {
   /**
    * --manifest
    */
-  public manifest = Option.Boolean(`--manifest`, seed.features.manifest, {
+  public manifest = Option.Boolean(`--manifest`, undefined, {
     description: 'Generate a manifest of compiled assets',
   })
 
   /**
    * --minimize
    */
-  public minimize = Option.Boolean(
-    `--minimize`,
-    seed.build.optimization.enable,
-    {
-      description: 'Minimize compiled assets',
-    },
-  )
+  public minimize = Option.Boolean(`--minimize`, undefined, {
+    description: 'Minimize compiled assets',
+  })
 
   /**
    * --publicPath
    */
-  public publicPath = Option.String(
-    `--publicPath`,
-    // this value may be a function, but not over cli
-    seed.build.output.publicPath as string,
-    {description: 'public path of emitted assets'},
-  )
+  public publicPath = Option.String(`--publicPath`, undefined, {
+    description: 'public path of emitted assets',
+  })
 
   /**
    * --splitChunks
    */
   public splitChunks = Option.Boolean(
     `--splitChunks,--vendor`,
-    seed.features.splitChunks,
+    undefined,
     {
       description: 'Separate vendor bundle',
     },
@@ -219,7 +218,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --target
    */
-  public target = Option.Array(`--target,-t`, [], {
+  public target = Option.Array(`--target,-t`, undefined, {
     description: 'Limit compilation to particular compilers',
   })
 
@@ -232,34 +231,20 @@ export class BuildCommand extends BaseCommand {
    * @returns Bud configuration
    */
   public config(): BuildOptions {
-    return {
-      ...seed,
-      mode: this.mode,
-      target: this.target,
-      location: {
-        ...seed.location,
-        project: this.project,
-        src: this.src,
-        dist: this.dist,
-        storage: this.storage,
-      },
-      publicPath: this.publicPath,
-      cache: {
-        ...seed.cache,
-        type: this.cacheType,
-      },
-      features: {
-        ...seed.features,
-        cache: this.cache,
-        clean: this.clean,
-        hash: this.hash,
-        html: this.html,
-        inject: this.inject,
-        log: this.log,
-        manifest: this.manifest,
-        splitChunks: this.splitChunks,
-      },
-    }
+    const config: BuildOptions = {...seed}
+
+    config.mode = this.mode
+
+    if (!isUndefined(this.project)) config.location.project = this.project
+    if (!isUndefined(this.src)) config.location.src = this.src
+    if (!isUndefined(this.dist)) config.location.dist = this.dist
+    if (!isUndefined(this.storage)) config.location.storage = this.storage
+    if (!isUndefined(this.publicPath)) config.publicPath = this.publicPath
+    if (!isUndefined(this.log)) config.features.log = this.log
+    if (!isUndefined(this.manifest))
+      config.features.manifest = this.manifest
+
+    return config
   }
 
   /**
@@ -274,6 +259,8 @@ export class BuildCommand extends BaseCommand {
     this.app = await factory({config: this.config()})
 
     await this.make()
+    await overrides.config(this)
+
     await this.run()
   }
 }
