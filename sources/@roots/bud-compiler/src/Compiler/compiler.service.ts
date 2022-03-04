@@ -92,6 +92,7 @@ export class Compiler extends Service implements Contract {
     this.instance = webpack(this.config)
 
     this.instance.hooks.done.tap(config.shift().name, async stats => {
+      await this.app.hooks.fire('event.compiler.done')
       if (this.app.isDevelopment) await this.handleStats(stats)
     })
 
