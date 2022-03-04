@@ -54,7 +54,6 @@
   "bud": {
     "type": "extension",
     "peers": [
-      "@roots/bud-eslint",
       "@roots/bud-preset-wordpress"
     ]
   },
@@ -67,7 +66,6 @@
     "webpack": "5.68.0"
   },
   "dependencies": {
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "helpful-decorators": "^2.1.0",

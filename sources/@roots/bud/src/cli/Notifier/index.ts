@@ -9,6 +9,7 @@ const MACOS_NOTIFIER_PATH = resolve(
   __dirname,
   '../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
 )
+const IMAGE = resolve(__dirname, '../../../assets/bud-icon.jpg')
 
 export class Notifier {
   public instance: NodeNotifier.NotificationCenter
@@ -40,7 +41,7 @@ export class Notifier {
       },
     )
 
-    const group = dirname(this.app.path('project')).split('/').pop()
+    const group = dirname(app.path('project')).split('/').pop()
     const title =
       !summary?.errors && !summary?.warnings
         ? 'Compilation success'
@@ -54,7 +55,7 @@ export class Notifier {
       message: `Done in ${humanReadable.durationFormatter()(
         summary?.time,
       )}.`,
-      contentImage: resolve(__dirname, '../../../assets/bud-icon.jpg'),
+      contentImage: IMAGE,
     })
   }
 }

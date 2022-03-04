@@ -65,7 +65,7 @@ export const proxy = (app: Framework) => {
       /**
        * Log provider
        */
-      logProvider: () => app.server.serverLogger.scope('proxy'),
+      logProvider: () => app.logger.instance.scope('proxy'),
 
       /**
        * Proxy request handler

@@ -5,7 +5,6 @@ import {bind, once} from '@roots/bud-support'
 import Express from 'express'
 
 import {inject} from '../client/inject'
-import {logger} from '../logger'
 import * as middlewareMap from '../middleware'
 import {seed} from '../seed'
 import {Http} from './server.http'
@@ -27,11 +26,6 @@ export class Server
    * @public
    */
   public application: Express.Application
-
-  /**
-   * Logger
-   */
-  public serverLogger = logger
 
   /**
    * Watcher instance
@@ -118,22 +112,6 @@ export class Server
   }
 
   /**
-   * Run development server
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async run() {
-    await this.app.hooks.fire('event.server.before')
-
-    await this.connection.createServer(this.application)
-    await this.connection.listen()
-
-    await this.app.hooks.fire('event.server.after')
-  }
-
-  /**
    * Set connection
    *
    * @public
@@ -188,5 +166,21 @@ export class Server
       this.appliedMiddleware[key] = middleware(this.app)
       this.application.use(this.appliedMiddleware[key])
     })
+  }
+
+  /**
+   * Run development server
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async run() {
+    await this.app.hooks.fire('event.server.before')
+
+    await this.connection.createServer(this.application)
+    await this.connection.listen()
+
+    await this.app.hooks.fire('event.server.after')
   }
 }

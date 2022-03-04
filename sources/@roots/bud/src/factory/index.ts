@@ -32,6 +32,10 @@ export async function factory(overrides?: Bud.Options): Promise<Bud> {
         ...seed.location,
         ...(overrides?.config?.location ?? {}),
       },
+      build: {
+        ...seed.build,
+        ...(overrides?.config?.build ?? {}),
+      },
     },
   }
 
@@ -41,6 +45,7 @@ export async function factory(overrides?: Bud.Options): Promise<Bud> {
   const project = new Bud(options)
 
   project.time(project.name)
+
   project.log({
     message: 'process.env.NODE_ENV',
     suffix: process.env.NODE_ENV,

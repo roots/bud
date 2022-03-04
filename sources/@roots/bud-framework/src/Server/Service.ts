@@ -1,5 +1,3 @@
-import {Signale} from '@roots/bud-support'
-
 import * as Framework from '../'
 import * as Connection from './Connection'
 import * as Middleware from './Middleware'
@@ -41,13 +39,6 @@ export interface Service extends Framework.Service {
    * @public
    */
   application: Application
-
-  /**
-   * Server logger
-   *
-   * @public
-   */
-  serverLogger: Signale
 
   /**
    * Express instance

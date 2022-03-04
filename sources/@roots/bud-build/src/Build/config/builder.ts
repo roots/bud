@@ -133,7 +133,7 @@ export async function build(app: Framework): Promise<void> {
       app.store.get('build.optimization.emitOnErrors'),
     )
     .hooks.on('build.optimization.minimize', () =>
-      app.store.is('features.minimize', true),
+      app.store.get('build.optimization.minimize'),
     )
     .hooks.on(
       'build.optimization.minimizer',
