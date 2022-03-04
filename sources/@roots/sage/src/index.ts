@@ -21,12 +21,57 @@ declare module '@roots/bud-framework' {
     /**
      * Generate a WordPress `theme.json`
      *
+     * @example
+     * Use default values:
+     *
+     * ```js
+     * app.themeJson()
+     * ```
+     *
+     * @example
+     * Set with an object:
+     *
+     * ```js
+     * app.themeJson({
+     *   color: {
+     *     palette: []
+     *   }
+     * })
+     * ```
+     *
+     * @example
+     * Set with a callback. Callback supplies a container object.
+     *
+     * ```js
+     * app.themeJson(theme => {
+     *   theme.set('color.palette', [])
+     *   return theme
+     * })
+     * ```
+     *
+     * @example
+     * Set with a callback. Pass `true` as a second parameter to
+     * specify that you would like to use a raw object rather than
+     * a container.
+     *
+     * ```js
+     * app.themeJson(theme => ({
+     *   ...theme,
+     *   color: {
+     *     palette: [],
+     *   },
+     * }), true)
+     * ```
+     *
      * @public
      */
     themeJson: themeJson.facade
+
     /**
-     * Emit WordPress `theme.json` color settings using values sourced from
-     * `tailwind.config.js` (theme.extend.colors)
+     * Use extended tailwind colors as theme.json colors
+     *
+     * @example
+     * app.useTailwindColors()
      *
      * @public
      */

@@ -261,9 +261,6 @@ export class Controller {
     this.app.error(
       `[${this.name}] options must be a container or an object`,
     )
-    throw new Error(
-      `[${this.name}] options must be a container or an object`,
-    )
   }
 
   /**
