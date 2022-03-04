@@ -22,9 +22,8 @@ function makeTable(data: Array<Array<string>>): string {
     },
     columns: [
       {alignment: 'left'},
-      {alignment: 'center'},
-      {alignment: 'center'},
-      {alignment: 'right'},
+      {alignment: 'left'},
+      {alignment: 'left'},
     ],
   })
 }
@@ -67,7 +66,7 @@ export function write(stats: StatsCompilation): void {
           right: 0,
           left: 0,
         },
-        borderColor: theme.cyan,
+        borderColor: theme.yellow,
       })
     })
 

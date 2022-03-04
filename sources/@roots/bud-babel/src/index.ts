@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel
- * transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.
+ * Babel transpilation for {@link @roots/bud-framework# | @roots/bud-framework}.
 
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud

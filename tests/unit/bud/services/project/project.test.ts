@@ -1,20 +1,11 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {fs} from '@roots/bud-support'
-
-const PROJECT_MANIFEST_PATH = `${process.cwd()}/tests/util/project/package.json`
-const PROJECT_BUD_PROFILE_PATH = `${process.cwd()}/tests/util/project/.budfiles/bud/profile.json`
 
 describe('bud.project', function () {
   let bud: Bud
-  let manifest: Record<string, any>
-  let profile: Record<string, any>
 
   beforeAll(async () => {
     bud = await factory()
     await bud.build.make()
-    manifest = await fs.readJson(PROJECT_MANIFEST_PATH)
-    profile = await fs.readJson(PROJECT_BUD_PROFILE_PATH)
   })
 
   it('holds cache validation hash', () => {
@@ -39,10 +30,8 @@ describe('bud.project', function () {
   })
 
   it('has evn records matching profile.json artifact', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot(profile.env.all)
-    expect(bud.project.get('env.public')).toMatchSnapshot(
-      profile.env.public,
-    )
+    expect(bud.project.get('env.all')).toMatchSnapshot()
+    expect(bud.project.get('env.public')).toMatchSnapshot()
   })
 
   it('holds cli records', async () => {
@@ -53,10 +42,6 @@ describe('bud.project', function () {
       metadata: {},
       raw: [],
     })
-  })
-
-  it('holds manifest records', async () => {
-    expect(bud.project.get('manifest')).toStrictEqual(manifest)
   })
 
   it('references @roots/bud-babel', async () => {
