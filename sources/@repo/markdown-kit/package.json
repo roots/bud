@@ -12,7 +12,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.11",
+    "@types/react-dom": "17.0.13",
     "@types/react-reconciler": "0.26.4",
     "fs-extra": "10.0.1",
     "helpful-decorators": "2.1.0",
