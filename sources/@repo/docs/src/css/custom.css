@@ -14,8 +14,8 @@
     rgb(86, 98, 218),
     rgb(40, 49, 142)
   );
-  --ifm-font-family-base: 'Public Sans';
-  --ifm-font-family-monospace: 'dm';
+  --ifm-font-family-base: 'Public Sans', system-ui, sans-serif;
+  --ifm-font-family-monospace: 'dm', monospace;
 }
 
 .card {
