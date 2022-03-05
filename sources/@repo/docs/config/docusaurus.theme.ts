@@ -127,6 +127,12 @@ export const navbar: Config['themeConfig']['navbar'] = {
       className: 'header-github-link',
     },
     {
+      href: config.url.discourse,
+      label: 'Community',
+      position: 'right',
+      className: 'header-discourse-link',
+    },
+    {
       href: config.url.web,
       label: 'GitHub',
       position: 'right',
