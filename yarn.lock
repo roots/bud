@@ -3428,7 +3428,7 @@ __metadata:
     ink: 3.2.0
     tslib: ^2.3.1
     webpack: 5.68.0
-    webpack-dev-middleware: 5.3.0
+    webpack-dev-middleware: 5.3.1
     webpack-hot-middleware: 2.25.1
   languageName: unknown
   linkType: soft
@@ -15236,7 +15236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^3.1.2, memfs@npm:^3.2.2, memfs@npm:^3.4.1":
+"memfs@npm:^3.1.2, memfs@npm:^3.4.1":
   version: 3.4.1
   resolution: "memfs@npm:3.4.1"
   dependencies:
@@ -22697,21 +22697,6 @@ __metadata:
     lodash: ^4.17.15
     webpack-log: ^3.0.1
   checksum: ffaeb9f7ddd20acbce28c830ba3b3ef4146c373484e19d8b01eb3db3530c91d5e16a9da5b2c65a63d5dcd3d385a2ca86c86e98b62d7d7135dbe86218fe267a38
-  languageName: node
-  linkType: hard
-
-"webpack-dev-middleware@npm:5.3.0":
-  version: 5.3.0
-  resolution: "webpack-dev-middleware@npm:5.3.0"
-  dependencies:
-    colorette: ^2.0.10
-    memfs: ^3.2.2
-    mime-types: ^2.1.31
-    range-parser: ^1.2.1
-    schema-utils: ^4.0.0
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 01f9e11583bb682cd5ab5a1b9d6dc99545f777513c4c15aa67d10f5d057fc3d0c6f9365e02c07792d3c9b17bd47a16c8185e66eb66e9de74d8ccf561e75085e7
   languageName: node
   linkType: hard
 
