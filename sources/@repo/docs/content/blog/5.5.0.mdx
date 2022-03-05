@@ -1,0 +1,54 @@
+---
+slug: '5.5.0'
+title: 'Release: 5.5.0'
+description: 'Release notes for v5.5.0'
+date: 2022-03-04
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+SSL support and incremental improvements and fixes for core bud features.
+
+<!--truncate-->
+
+## SSL support for bud server
+
+Bud server now supports `https` connections!
+
+```ts title="bud.config.js"
+bud.serve({
+  url: 'https://example.test',
+  cert: '/path/to/cert.crt',
+  key: '/path/to/key.key',
+})
+```
+
+For more on how to set this up [check out the bud.serve documentation](/docs/bud.serve).
+
+## `theme.json` support for @roots/sage
+
+You can generate a `theme.json` file for your theme using the `@roots/sage` package.
+
+```ts title="bud.config.js"
+app.themeJson({
+  typography: {
+    customFontSize: false,
+  },
+})
+```
+
+You can even sync your tailwind palette:
+
+```ts title="bud.config.js"
+app.useTailwindColors()
+```
+
+Find out more in the updated docs for [@roots/sage](/extensions/sage).
+
+## More information
+
+- [Read the release notes](/releases/5.5.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.4.0...v5.5.0)

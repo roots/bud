@@ -9,6 +9,7 @@ $ bud dev
   --cache                        Utilize filesystem cache
   --cacheType,--cache.type #0    Type of cache
   --clean                        Clean artifacts and distributables prior to compilation
+  --devtool                      Set devtool
   --hash                         Hash compiled files
   --html                         Generate an html template
   --project #0                   Project directory

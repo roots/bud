@@ -9,10 +9,10 @@
 
 ━━━ Compile ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud build [--mode #0] [--cache] [--cacheType,--cache.type #0] [--clean] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  bud build [--mode #0] [--cache] [--cacheType,--cache.type #0] [--clean] [--devtool] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
     Compile source assets
 
-  bud dev [--cache] [--cacheType,--cache.type #0] [--clean] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  bud dev [--cache] [--cacheType,--cache.type #0] [--clean] [--devtool] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
     Compile and serve source assets
 
 ━━━ Doctor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
