@@ -174,7 +174,7 @@ export class Hooks extends Service implements Contract {
     value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
   ): Contract.Map[T] {
     if (!this.has(id)) {
-      if (isUndefined(value)) return
+      if (isUndefined(value)) return undefined
       return isFunction(value) ? value() : value
     }
 
@@ -183,12 +183,12 @@ export class Hooks extends Service implements Contract {
 
     return normal.reduce(
       (
-        v: Contract.Map[T],
+        accumulated: Contract.Map[T],
         current?:
           | ((value: Contract.Map[T]) => Contract.Map[T])
           | Contract.Map[T],
       ) => {
-        return isFunction(current) ? current(v) : current
+        return isFunction(current) ? current(accumulated) : current
       },
       value,
     )

@@ -1,14 +1,5 @@
 export interface repository {
-  cache: {
-    hash: null
-  }
-  cli: {
-    args: any
-    argv: Array<string>
-    flags: Record<string, any>
-    metadata: Record<string, any>
-    raw: Array<Record<string, string>>
-  }
+  version: string
   configs: {
     dynamic: {
       global?: Array<string>
@@ -22,10 +13,6 @@ export interface repository {
   manifestPath: string
   manifest: Record<string, any>
   installed: Record<string, string>
-
-  /**
-   * @see webpack.cache.buildDependencies
-   */
   dependencies: Array<string>
 }
 
@@ -35,9 +22,7 @@ export interface repository {
  * @public
  */
 export const repository: repository = {
-  cache: {
-    hash: null,
-  },
+  version: null,
   configs: {
     dynamic: {
       global: [],
@@ -47,13 +32,6 @@ export const repository: repository = {
       global: [],
       conditional: [],
     },
-  },
-  cli: {
-    args: {},
-    argv: [],
-    flags: {},
-    metadata: {},
-    raw: [],
   },
   manifestPath: null,
   manifest: {},

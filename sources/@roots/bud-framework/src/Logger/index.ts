@@ -1,6 +1,10 @@
+import {lodash} from '@roots/bud-support'
+
 import {INSTANCE_CONFIG, types} from './logger.constants'
 import {bind, Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
+
+const {isUndefined} = lodash
 
 /**
  * Logger service
@@ -14,7 +18,9 @@ export class Logger {
   public get context(): Array<string> {
     const ctx = ['root']
 
-    !this.app.isRoot && this.app.name && ctx.push(this.app.name)
+    !this.app.isRoot &&
+      this.options.config['build.name'] &&
+      ctx.push(this.options.config['build.name'])
 
     return ctx
   }
@@ -41,7 +47,7 @@ export class Logger {
    * @public
    */
   public get level(): string {
-    return this.app.options.config.log.level
+    return this.app.options.config['log.level'] ?? 'vvv'
   }
 
   /**
@@ -72,7 +78,6 @@ export class Logger {
    */
   public constructor(private app: Framework) {
     this.instantiate()
-    this.scoped('logger').debug('config', this.instance.config)
   }
 
   /**
@@ -84,11 +89,13 @@ export class Logger {
   @bind
   public instantiate() {
     this.options = {
-      disabled: this.app.options.config.features.log === false,
+      disabled: !isUndefined(this.app.options.config['features.log'])
+        ? this.app.options.config['features.log'] === false
+        : true,
       interactive: false,
-      secrets: this.secrets,
+      secrets: [process.cwd()],
       types: types(),
-      logLevel: this.level,
+      logLevel: this.app.options.config['log.level'] ?? 'vvv',
     }
 
     this.instance = this.makeInstance()

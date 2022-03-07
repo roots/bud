@@ -70,6 +70,9 @@
       ],
       "server": [
         "./types/Server/index.d.ts"
+      ],
+      "store": [
+        "./types/Store.d.ts"
       ]
     }
   },

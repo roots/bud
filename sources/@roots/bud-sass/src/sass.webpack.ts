@@ -46,15 +46,3 @@ export function loader(logger: any): Loader {
   logger.success('configuring scss loader')
   return loader
 }
-
-/**
- * Resolve extensions callback
- *
- * @param extensions - current extensions value
- * @returns extensions + '.scss'
- *
- * @internal
- */
-export function resolveExtensions(extensions: Array<string>) {
-  return [...new Set([...extensions, '.scss'])]
-}

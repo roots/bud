@@ -208,7 +208,15 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected number of plugins 1`] = `6`;
+exports[`bud.build.config has expected number of plugins 1`] = `
+Array [
+  "DefinePlugin",
+  "WebpackManifestPlugin",
+  "MiniCssExtractPlugin",
+  "ESLintWebpackPlugin",
+  "EntrypointsWebpackPlugin",
+]
+`;
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
@@ -218,12 +226,7 @@ Array [
   ".jsx",
   ".css",
   ".json",
-  ".json5",
   ".toml",
-  ".xml",
-  ".csv",
   ".yml",
-  ".yaml",
-  ".xml",
 ]
 `;

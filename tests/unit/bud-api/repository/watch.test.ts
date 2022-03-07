@@ -4,7 +4,9 @@ describe('bud.watch', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({mode: 'development'})
+    bud = await factory({
+      mode: 'development',
+    })
   })
 
   it('is a function', () => {

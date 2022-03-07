@@ -6,4 +6,6 @@ module.exports = async app => {
       },
     })
     .copy(['src/images/**/*'])
+    .devtool('source-map')
+    .runtime()
 }

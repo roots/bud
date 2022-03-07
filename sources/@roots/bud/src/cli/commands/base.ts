@@ -2,7 +2,6 @@ import {bind, lodash as _} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
 import {Bud} from '../../Bud/index.js'
-import {seed} from '../../seed.js'
 import * as dynamic from '../config/dynamic.config.js'
 import * as manifest from '../config/manifest.config.js'
 import {Notifier} from '../Notifier/index.js'
@@ -35,15 +34,6 @@ export abstract class BaseCommand extends Command {
    * @public
    */
   public notifier: Notifier
-
-  /**
-   * Config
-   *
-   * @public
-   */
-  public config() {
-    return seed
-  }
 
   /**
    * Bootstrap Application

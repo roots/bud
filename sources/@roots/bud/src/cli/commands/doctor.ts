@@ -3,6 +3,7 @@ import {Command} from 'clipanion'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
+import {seed} from '../../seed.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -25,7 +26,7 @@ export class DoctorCommand extends BaseCommand {
   public async execute() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
-    this.app = await factory({config: this.config()})
+    this.app = await factory({config: seed})
 
     await this.make()
     await this.checkConfiguration()

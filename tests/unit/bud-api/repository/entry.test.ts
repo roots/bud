@@ -25,6 +25,7 @@ describe('bud.entry', function () {
 
   it('sets an entrypoint using (string, string) fn signature with globbing', async () => {
     bud.entry('app', '**/app.{css,js}')
+
     await bud.build.make()
 
     expect((bud.build.config.entry as any).app.import).toContain(

@@ -14,12 +14,11 @@ import {
   Env,
   Extension,
   Hooks,
-  Mode,
   Server,
   Services,
   Store,
 } from '../'
-import * as Cache from '../Cache'
+import {Cache} from '../Cache'
 import {Extensions} from '../Extensions'
 import {Logger} from '../Logger'
 import {Project} from '../Project'
@@ -52,11 +51,9 @@ export abstract class Framework {
    *
    * @public
    */
-  public get name(): string {
-    return this.store?.get('name') ?? this.options.config.name ?? 'bud'
-  }
-  public set name(name: string) {
-    this.store.set('name', name)
+  private _name: string
+  public get name() {
+    return this._name
   }
 
   /**
@@ -67,13 +64,10 @@ export abstract class Framework {
    *
    * @defaultValue 'production'
    */
-  public get mode(): Mode {
-    return this.store.get('mode')
+  private _mode: 'production' | 'development'
+  public get mode(): 'development' | 'production' {
+    return this._mode
   }
-  public set mode(mode: Mode) {
-    this.store.set('mode', mode)
-  }
-
   /**
    * Parent {@link Framework} instance
    *
@@ -90,7 +84,7 @@ export abstract class Framework {
    * @readonly
    */
   public get isRoot(): boolean {
-    return this.root.name === this.name
+    return this.name === this.root.name
   }
 
   /**
@@ -99,7 +93,7 @@ export abstract class Framework {
    * @readonly
    */
   public get isChild(): boolean {
-    return this.root.name !== this.name
+    return this.name !== this.root.name
   }
 
   /**
@@ -150,7 +144,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public cache: Cache.Interface
+  public cache: Cache
 
   /**
    * Compiles configuration and stats/errors/progress reporting.
@@ -298,8 +292,8 @@ export abstract class Framework {
    */
   public constructor(options: Options) {
     this.options = options
-
-    this.logger = new Logger(this)
+    this._mode = this.options.mode
+    this._name = this.options.name
 
     this.store = new Store(this, options.config)
 
@@ -322,6 +316,8 @@ export abstract class Framework {
 
       this[key] = method.bind(this)
     })
+
+    this.logger = new Logger(this)
   }
 
   /**
@@ -735,7 +731,6 @@ export abstract class Framework {
           maxDepth: 8,
           printFunctionName: false,
           escapeString: false,
-          min: this.options.config.cli.flags['log.min'],
         }),
       )}`,
     )
@@ -780,7 +775,6 @@ export abstract class Framework {
           maxDepth: 8,
           printFunctionName: false,
           escapeString: false,
-          min: this.options.config.cli.flags['log.min'],
           ...prettyFormatOptions,
         }),
         {
@@ -804,6 +798,27 @@ export type Constructor = new (options: Options) => Framework
  */
 export interface Options {
   /**
+   * name
+   *
+   * @defaultValue `bud`
+   *
+   * @public
+   */
+  name?: string
+
+  /**
+   * Build mode
+   *
+   * @remarks
+   * One of: `production` | `development`
+   *
+   * @defaultValue `production`
+   *
+   * @public
+   */
+  mode?: 'production' | 'development'
+
+  /**
    * The object providing initial configuration values.
    *
    * @remarks
@@ -814,7 +829,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Partial<Store['repository']>
+  config?: Partial<Store.Repository>
 
   /**
    * Framework services

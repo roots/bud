@@ -51,4 +51,4 @@ export * as wpPkgs from './util/wordpressPkgs'
 
 export * as parsers from './parsers'
 
-export * from './external/helpful-decorators'
+export * from './decorators'

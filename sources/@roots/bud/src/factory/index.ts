@@ -16,6 +16,8 @@ import {services} from '../services'
  */
 export async function factory(overrides?: Bud.Options): Promise<Bud> {
   const options: Bud.Options = {
+    name: 'bud',
+    mode: 'production',
     ...(overrides ?? {}),
     services: {
       ...services,
@@ -24,25 +26,16 @@ export async function factory(overrides?: Bud.Options): Promise<Bud> {
     config: {
       ...seed,
       ...(overrides?.config ?? {}),
-      features: {
-        ...seed.features,
-        ...(overrides?.config?.features ?? {}),
-      },
       location: {
         ...seed.location,
         ...(overrides?.config?.location ?? {}),
       },
-      build: {
-        ...seed.build,
-        ...(overrides?.config?.build ?? {}),
-      },
     },
   }
 
-  process.env.BABEL_ENV = options.config.mode
-  process.env.NODE_ENV = options.config.mode
-
   const project = new Bud(options)
+  process.env.BABEL_ENV = project.mode
+  process.env.NODE_ENV = project.mode
 
   project.time(project.name)
 

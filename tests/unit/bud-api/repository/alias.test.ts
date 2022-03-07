@@ -15,6 +15,9 @@ describe('bud.alias', function () {
     await bud.api.call('alias', {'@foo': 'bar'})
 
     const alias = await bud.hooks.filterAsync('build.resolve.alias')
-    expect(alias).toEqual({'@foo': bud.path('project', 'bar')})
+    expect(alias).toEqual({
+      '@project': bud.path('project'),
+      '@foo': bud.path('project', 'bar'),
+    })
   })
 })

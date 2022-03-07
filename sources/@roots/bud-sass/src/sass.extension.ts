@@ -47,7 +47,10 @@ export const extension: extension = {
     })
 
     // add .scss extension
-    app.hooks.on('build.resolve.extensions', webpack.resolveExtensions)
+    app.hooks.on('build.resolve.extensions', extensions => {
+      extensions.add('.scss')
+      return extensions
+    })
   },
 
   /**

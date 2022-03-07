@@ -22,10 +22,10 @@ export const VueExtension: Extension.Module = {
       ...(rules ?? []),
     ])
 
-    app.hooks.on('build.resolve.extensions', extensions => [
-      ...extensions,
-      '.vue',
-    ])
+    app.hooks.on('build.resolve.extensions', extensions => {
+      extensions.add('.vue')
+      return extensions
+    })
 
     app.hooks.async('build.resolve.alias', async aliases => ({
       ...(aliases ?? {}),

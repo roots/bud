@@ -32,7 +32,7 @@
 
 import Build, {Item, Loader} from './Build'
 import * as Rule from './Build/Rule'
-import * as Cache from './Cache'
+import {Cache} from './Cache'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
 import {Constructor, Framework, Options} from './Framework'
@@ -197,10 +197,10 @@ export interface Rules extends Partial<Record<string, Rule.Interface>> {}
  * @virtual @public
  */
 export interface Locations extends Partial<Record<string, string>> {
-  [key: string]: string
-  project?: string
-  src?: string
-  dist?: string
+  project: string
+  src: string
+  dist: string
+  storage: string
 }
 
 /**

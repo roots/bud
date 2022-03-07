@@ -9,13 +9,11 @@ describe('bud.project', function () {
   })
 
   it('holds cache validation hash', () => {
-    expect(bud.project.get('cache')).toMatchSnapshot({
-      hash: expect.any(String),
-    })
+    expect(bud.project.get('version')).toHaveLength(28)
   })
 
   it('holds cache deps', async () => {
-    expect(bud.project.get('dependencies').length).toEqual(2)
+    expect(bud.project.get('dependencies').size).toEqual(3)
   })
 
   it('holds env values', async () => {
@@ -32,16 +30,6 @@ describe('bud.project', function () {
   it('has evn records matching profile.json artifact', async () => {
     expect(bud.project.get('env.all')).toMatchSnapshot()
     expect(bud.project.get('env.public')).toMatchSnapshot()
-  })
-
-  it('holds cli records', async () => {
-    expect(bud.project.get('cli')).toStrictEqual({
-      args: {},
-      argv: [],
-      flags: {},
-      metadata: {},
-      raw: [],
-    })
   })
 
   it('references @roots/bud-babel', async () => {
@@ -192,7 +180,6 @@ describe('bud.project', function () {
     expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
-      expect.stringContaining('/sources'),
     ])
   })
 })

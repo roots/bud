@@ -1,19 +1,10 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {join} from 'path'
 
 describe('bud.externals', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      features: {
-        dashboard: false,
-        log: false,
-      },
-      location: {
-        project: join(process.cwd(), 'examples/sage'),
-      },
-    })
+    bud = await factory()
   })
 
   it('is a function', () => {

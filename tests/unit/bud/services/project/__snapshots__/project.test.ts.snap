@@ -13,12 +13,6 @@ Object {
 }
 `;
 
-exports[`bud.project holds cache validation hash 1`] = `
-Object {
-  "hash": Any<String>,
-}
-`;
-
 exports[`bud.project holds env values 1`] = `
 Object {
   "PUBLIC_APP_TEST": "PUBLIC_VALUE",
@@ -219,6 +213,5 @@ exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
   StringContaining "src",
   StringContaining "node_modules",
-  StringContaining "/sources",
 ]
 `;

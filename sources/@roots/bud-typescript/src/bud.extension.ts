@@ -1,7 +1,6 @@
 import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {Options} from 'ts-loader'
-import {Configuration} from 'webpack'
 
 import {typecheck} from './bud.typecheck'
 
@@ -47,9 +46,10 @@ export const BudTypeScriptExtension: BudTypeScriptExtension = {
       use: ({build}) => [build.items['babel'], build.items['ts']],
     })
 
-    hooks.on(
-      'build.resolve.extensions',
-      (e: Configuration['resolve']['extensions']) => [...e, '.ts', '.tsx'],
-    )
+    hooks.on('build.resolve.extensions', extensions => {
+      extensions.add('.ts')
+      extensions.add('.tsx')
+      return extensions
+    })
   },
 }

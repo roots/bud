@@ -5,6 +5,8 @@ describe('bud.hash', function () {
 
   beforeAll(async () => {
     bud = await factory()
+    await bud.api.call(`hash`)
+    await bud.build.make()
   })
 
   it('is a function', () => {
@@ -12,10 +14,6 @@ describe('bud.hash', function () {
   })
 
   it('enables hashing when called', async () => {
-    bud.hash()
-
-    await bud.build.make()
-
     expect(bud.build.config.output.filename).toEqual(
       '[name].[contenthash:6].js',
     )

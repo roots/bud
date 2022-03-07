@@ -17,15 +17,11 @@ describe('bud.template', function () {
     })
 
     it('html-webpack-plugin not set', () => {
-      expect(bud.extensions.has('html-webpack-plugin')).toBe(
-        false,
-      )
+      expect(bud.extensions.has('html-webpack-plugin')).toBe(false)
     })
 
     it('interpolate-html-plugin not set', () => {
-      expect(bud.extensions.has('interpolate-html-plugin')).toBe(
-        false,
-      )
+      expect(bud.extensions.has('interpolate-html-plugin')).toBe(false)
     })
   })
 
@@ -52,15 +48,11 @@ describe('bud.template', function () {
     it('adds html webpack plugin', async () => {
       await bud.api.call('template')
 
-      expect(bud.extensions.has('html-webpack-plugin')).toEqual(
-        true,
-      )
+      expect(bud.extensions.has('html-webpack-plugin')).toEqual(true)
     })
 
     it('adds interpolate-html-plugint', () => {
-      expect(bud.extensions.has('interpolate-html-plugin')).toBe(
-        true,
-      )
+      expect(bud.extensions.has('interpolate-html-plugin')).toBe(true)
     })
 
     it('enables html feature flag', async () => {
@@ -92,9 +84,7 @@ describe('bud.template', function () {
       await bud.api.call('template', props)
 
       expect(
-        bud.extensions
-          .get('html-webpack-plugin')
-          .options.get('template'),
+        bud.extensions.get('html-webpack-plugin').options.get('template'),
       ).toBe(props.template)
     })
   })

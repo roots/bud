@@ -1,7 +1,6 @@
-import {fs} from '@roots/bud-support'
-import {bind} from 'helpful-decorators'
-
-import {Bud, createHash} from './cache.dependencies'
+import * as Framework from '@roots/bud-framework'
+import {bind, fs} from '@roots/bud-support'
+import {createHash} from 'crypto'
 
 const {readFile} = fs
 
@@ -10,30 +9,132 @@ const {readFile} = fs
  *
  * @public
  */
-export class Cache
-  extends Bud.Cache.Abstract
-  implements Bud.Cache.Interface
-{
+export class Cache extends Framework.Service implements Framework.Cache {
   /**
+   * Enabled
+   *
    * @public
    */
-  public directory: string
+  public enabled: boolean = true
 
   /**
+   * Type
+   *
    * @public
    */
-  public version: string
+  public get name(): string {
+    return this.app.hooks.filter('build.cache.name')
+  }
+  public set name(name: string) {
+    this.app.hooks.on('build.cache.name', name)
+  }
+
+  /**
+   * Type
+   *
+   * @public
+   */
+  public get type(): 'memory' | 'filesystem' {
+    return this.app.hooks.filter('build.cache.type')
+  }
+  public set type(type: 'memory' | 'filesystem') {
+    this.app.hooks.on('build.cache.type', type)
+  }
+
+  /**
+   * version
+   *
+   * @public
+   */
+  public get version(): string {
+    return this.app.hooks.filter(`build.cache.version`)
+  }
+  public set version(version: string) {
+    this.app.hooks.on(`build.cache.version`, version)
+  }
+
+  /**
+   * Build dependencies
+   *
+   * @public
+   */
+  public get buildDependencies(): Record<string, Array<string>> {
+    return {
+      bud: Array.from(this.app.project.get('dependencies')),
+    }
+  }
+
+  /**
+   * Cache directory
+   *
+   * @public
+   */
+  public get cacheDirectory(): string {
+    return this.app.hooks.filter(`build.cache.cacheDirectory`)
+  }
+  public set cacheDirectory(directory: string) {
+    this.app.hooks.on(`build.cache.cacheDirectory`, directory)
+  }
+
+  /**
+   * Managed paths
+   *
+   * @public
+   */
+  public get managedPaths(): Array<string> {
+    return this.app.hooks.filter(`build.cache.managedPaths`)
+  }
+  public set managedPaths(paths: Array<string>) {
+    this.app.hooks.on(`build.cache.managedPaths`, paths)
+  }
+
+  /**
+   * Webpack configuration
+   *
+   * @public
+   */
+  public get configuration() {
+    if (this.enabled === false) return this.enabled
+    return this.type === 'memory' ? this.memoryCache : this.filesystemCache
+  }
+
+  /**
+   * Memory cache
+   *
+   * @public
+   */
+  public get memoryCache() {
+    return {
+      type: this.type,
+    }
+  }
+
+  /**
+   * Filesystem cache
+   *
+   * @public
+   */
+  public get filesystemCache() {
+    return {
+      name: this.name,
+      type: this.type,
+      version: this.version,
+      cacheDirectory: this.cacheDirectory,
+      managedPaths: this.managedPaths,
+      buildDependencies: this.buildDependencies,
+    }
+  }
 
   /**
    * @public
    */
   @bind
   public async boot() {
+    this.name = `${this.app.name}.${this.app.mode}`
     this.version = await this.hashFileContents()
-
-    if (this.app.store.get('features.cache')) {
-      this.app.api.call('persist', 'filesystem')
-    }
+    this.type = 'filesystem'
+    this.cacheDirectory = this.app.path(`storage`, `cache`, `webpack`)
+    this.managedPaths = [this.app.path(`modules`)]
   }
 
   /**
@@ -49,24 +150,16 @@ export class Cache
         .toLowerCase()
 
     try {
-      const paths = this.app.project.get('dependencies')
       const strings = await Promise.all(
-        paths.map(async (path: string) => readFile(path, 'utf8')),
+        this.buildDependencies.bud.map(async (path: string) =>
+          readFile(path, 'utf8'),
+        ),
       )
-
       const hash = await makeHash(
-        `${strings}${JSON.stringify(this.app.project.get('cli'))}`,
+        `${strings}${JSON.stringify(process.argv)}`,
       )
 
-      this.log('info', {
-        message: 'cache hash generated',
-        suffix: hash,
-      })
-
-      this.app.hooks.action('event.project.write', async app => {
-        app.project.set('cache.hash', hash)
-      })
-
+      this.app.project.set('version', hash)
       return hash
     } catch (e) {
       this.app.error('error hashing file contents for cache')

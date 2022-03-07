@@ -1,11 +1,11 @@
 import {Container} from '@roots/container'
 import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
-import {Configuration, RuleSetRule} from 'webpack'
+import {Configuration} from 'webpack'
 
 import {Framework, Modules, Plugins, Service} from './'
+import {ConfigMap} from './config.map'
 import {EntryObject} from './entry'
-import {PluginInstance} from './Extensions/Extension'
 import * as Server from './Server'
 
 /**
@@ -148,6 +148,35 @@ export namespace Hooks {
     | Partial<Map[T]>
 
   /**
+   * Event Keys
+   */
+  interface Keys {
+    events: [
+      `event.app.close`,
+      `event.build.before`,
+      `event.build.after`,
+      `event.compiler.before`,
+      `event.compiler.after`,
+      `event.compiler.done`,
+      `event.compiler.error`,
+      `event.dashboard.q`,
+      `event.project.write`,
+      `event.run`,
+      `event.server.before`,
+      `event.server.listen`,
+      `event.server.after`,
+    ]
+  }
+
+  type EventMap = {
+    [K in Keys['events'] as `${K & string}`]: (
+      app: Framework,
+    ) => Promise<any>
+  }
+
+  export interface Events extends EventMap {}
+
+  /**
    * Asyncronous hooks map
    *
    * @public
@@ -155,7 +184,7 @@ export namespace Hooks {
   export interface AsyncMap {
     [`build`]: Record<string, any>
     [`build.entry`]: Record<string, EntryObject>
-    [`build.plugins`]: Record<string, any>
+    [`build.plugins`]: Array<any>
     [`build.resolve`]: Configuration['resolve']
     [`build.resolve.alias`]: Configuration[`resolve`][`alias`]
     [`build.resolve.modules`]: Configuration[`resolve`][`modules`]
@@ -168,60 +197,13 @@ export namespace Hooks {
    */
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
-      Server.Middleware.Middleware<`factory`> {
-    [`build.bail`]: boolean
-    [`build.cache`]: any
-    [`build.cache.buildDependencies`]: Record<string, Array<string>>
-    [`build.cache.cacheDirectory`]: string
-    [`build.cache.version`]: string
-    [`build.cache.type`]: `memory` | `filesystem`
-    [`build.cache.managedPaths`]: Array<string>
-    [`build.context`]: Configuration[`context`]
-    [`build.devtool`]: Configuration[`devtool`]
-    [`build.entry`]: Record<string, EntryObject>
-    [`build.experiments`]: Configuration[`experiments`]
-    [`build.externals`]: Configuration[`externals`]
-    [`build.infrastructureLogging`]: Configuration[`infrastructureLogging`]
-    [`build.mode`]: Configuration[`mode`]
-    [`build.module`]: Configuration[`module`]
-    [`build.module.rules`]: Configuration[`module`][`rules`]
-    [`build.module.rules.oneOf`]: Array<RuleSetRule>
-    [`build.module.rules.before`]: Array<RuleSetRule>
-    [`build.module.rules.after`]: Array<RuleSetRule>
-    [`build.module.unsafeCache`]: Configuration[`module`][`unsafeCache`]
-    [`build.name`]: Configuration[`name`]
-    [`build.node`]: Configuration[`node`]
-    [`build.optimization`]: Configuration[`optimization`]
-    [`build.optimization.emitOnErrors`]: Configuration[`optimization`][`emitOnErrors`]
-    [`build.optimization.minimize`]: Configuration[`optimization`][`minimize`]
-    [`build.optimization.minimizer`]: Configuration[`optimization`][`minimizer`]
-    [`build.optimization.moduleIds`]: Configuration[`optimization`][`moduleIds`]
-    [`build.optimization.removeEmptyChunks`]: Configuration[`optimization`][`removeEmptyChunks`]
-    [`build.optimization.runtimeChunk`]: Configuration[`optimization`][`runtimeChunk`]
-    [`build.optimization.splitChunks`]: any
-    [`build.output`]: Configuration[`output`]
-    [`build.output.assetModuleFilename`]: Configuration[`output`][`assetModuleFilename`]
-    [`build.output.chunkFilename`]: Configuration[`output`][`chunkFilename`]
-    [`build.output.clean`]: Configuration[`output`][`clean`]
-    [`build.output.filename`]: Configuration[`output`][`filename`]
-    [`build.output.path`]: Configuration[`output`][`path`]
-    [`build.output.pathinfo`]: Configuration[`output`][`pathinfo`]
-    [`build.output.publicPath`]: string
-    [`build.parallelism`]: Configuration[`parallelism`]
-    [`build.performance`]: Configuration[`performance`]
-    [`build.plugins`]: Array<PluginInstance>
-    [`build.profile`]: Configuration[`profile`]
-    [`build.recordsPath`]: Configuration[`recordsPath`]
-    [`build.resolve.extensions`]: Configuration[`resolve`][`extensions`]
-    [`build.stats`]: Configuration[`stats`]
-    [`build.target`]: Configuration[`target`]
-    [`build.watch`]: Configuration[`watch`]
-    [`build.watchOptions`]: Configuration[`watchOptions`]
+      Server.Middleware.Middleware<`factory`>,
+      ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
     [`location.src`]: string
     [`location.dist`]: string
-    [`location.project`]: string
     [`location.modules`]: string
+    [`location.project`]: string
     [`location.storage`]: string
     [`dev.ssl.enabled`]: boolean
     [`dev.ssl.cert`]: string
@@ -246,22 +228,5 @@ export namespace Hooks {
         | (keyof Modules & string)
         | (keyof Plugins & string)}.options`
     ]: Container<Record<string, any>>
-  }
-
-  export interface Events {
-    [`event.app.close`]: (app: Framework) => Promise<any>
-    [`event.build.before`]: (app: Framework) => Promise<any>
-    [`event.build.after`]: (app: Framework) => Promise<any>
-    [`event.compiler.before`]: (app: Framework) => Promise<any>
-    [`event.compiler.after`]: (app: Framework) => Promise<any>
-    [`event.compiler.done`]: (app: Framework) => Promise<any>
-    [`event.compiler.error`]: (app: Framework) => Promise<any>
-    [`event.dashboard.done`]: (app: Framework) => Promise<any>
-    [`event.dashboard.q`]: (app: Framework) => Promise<any>
-    [`event.project.write`]: (app: Framework) => Promise<any>
-    [`event.server.listen`]: (app: Framework) => Promise<any>
-    [`event.server.before`]: (app: Framework) => Promise<any>
-    [`event.server.after`]: (app: Framework) => Promise<any>
-    [`event.run`]: (app: Framework) => Promise<any>
   }
 }

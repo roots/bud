@@ -18,12 +18,12 @@ export interface CacheInterface extends Service {
    *
    * @public
    */
-  directory: string
+  cacheDirectory: string
 
   /**
    * Hash of config files and build dependencies
    *
    * @public
    */
-  hashFileContents(str: Array<string>): Promise<string>
+  hashFileContents(): Promise<string>
 }

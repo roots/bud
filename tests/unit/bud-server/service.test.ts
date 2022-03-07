@@ -5,7 +5,9 @@ describe('@roots/bud-server', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({mode: 'development'})
+    bud = await factory({
+      mode: 'development',
+    })
   })
 
   it('has expected defaults', () => {

@@ -25,30 +25,10 @@ export class Hooks extends Base implements Contract, Service {
    */
   @bind
   public async bootstrap({store}) {
-    this.on<`location.project`>(`location.project`, () =>
-      !store.isUndefined(`cli.flags.location.project`)
-        ? store.get(`cli.flags.location.project`)
-        : store.get(`location.project`),
-    )
-    this.on<`location.src`>(`location.src`, () =>
-      !store.isUndefined(`cli.flags.location.src`)
-        ? store.get(`cli.flags.location.src`)
-        : store.get(`location.src`),
-    )
-    this.on<`location.dist`>(`location.dist`, () =>
-      !store.isUndefined(`cli.flags.location.dist`)
-        ? store.get(`cli.flags.location.dist`)
-        : store.get(`location.dist`),
-    )
-    this.on<`location.modules`>(`location.modules`, () =>
-      !store.isUndefined(`cli.flags.location.modules`)
-        ? store.get(`cli.flags.location.modules`)
-        : store.get(`location.modules`),
-    )
-    this.on<`location.storage`>(`location.storage`, () =>
-      !store.isUndefined(`cli.flags.location.storage`)
-        ? store.get(`cli.flags.location.storage`)
-        : store.get(`location.storage`),
-    )
+    this.on(`location.project`, store.get(`location.project`))
+    this.on(`location.src`, store.get(`location.src`))
+    this.on(`location.dist`, store.get(`location.dist`))
+    this.on(`location.storage`, store.get(`location.storage`))
+    this.on(`location.modules`, store.get(`location.modules`))
   }
 }

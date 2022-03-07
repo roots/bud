@@ -86,6 +86,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
 
@@ -150,6 +151,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async callback(error: Error, stats: MultiStats) {
     await this.handleErrors(error)
     await this.handleStats(stats)
@@ -172,8 +174,7 @@ export class Compiler extends Service implements Contract {
   public async handleStats(stats: MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
     this.stats = stats.toJson(this.app.build.config.stats)
-
-    budProcess.stats.write(this.stats)
+    budProcess.stats.write(stats, this.app)
   }
 
   /**
@@ -199,6 +200,7 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async progressCallback(
     percent: number,
     scope: string,

@@ -12,7 +12,6 @@
 
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
-import type * as Webpack from 'webpack'
 
 import {MdxConfig} from './MdxConfig'
 
@@ -72,13 +71,11 @@ const extension: Extension.Module = {
       use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
-    hooks.on(
-      'build.resolve.extensions',
-      (exts: Webpack.Configuration['resolve']['extensions']) => [
-        ...(exts ?? []),
-        '.mdx',
-      ],
-    )
+    hooks.on('build.resolve.extensions', extensions => {
+      extensions.add('.md')
+      extensions.add('.mdx')
+      return extensions
+    })
   },
 }
 

@@ -79,18 +79,17 @@ export class Project
       public: this.app.env.getPublicEnv(),
       all: this.app.env.all(),
     })
-    this.set('dependencies', [this.app.path('project', 'package.json')])
+
+    const projectFiles = await globby.globby([
+      this.app.path('project', 'package.json'),
+      this.app.path('project', '*.config.js'),
+    ])
+    this.set('dependencies', new Set(projectFiles))
 
     try {
       await this.buildProfile()
     } catch (e) {
       this.log('error', e)
-    }
-
-    if (this.app.store.is('features.install', true)) {
-      if (this.isEmpty('unmet')) return
-      await this.app.dependencies.install(this.get('unmet'))
-      await this.loadManifest()
     }
   }
 
@@ -271,7 +270,7 @@ export class Project
 
           if (!result || !result.length) return
 
-          this.merge('dependencies', [this.app.path('project', result)])
+          this.get('dependencies').add(this.app.path('project', result))
 
           if (!result.endsWith('json') && !result.endsWith('yml')) {
             return this.merge(key, [this.app.path('project', result)])

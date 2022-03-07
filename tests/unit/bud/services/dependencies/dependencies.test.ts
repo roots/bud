@@ -9,9 +9,10 @@ describe('bud.project', function () {
 
   beforeAll(async () => {
     bud = await factory({
-      features: {
-        dashboard: false,
-        log: false,
+      config: {
+        location: {
+          project: mockProject.path,
+        },
       },
     })
 

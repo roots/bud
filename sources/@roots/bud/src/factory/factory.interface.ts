@@ -8,15 +8,8 @@ import {Bud} from '../Bud'
  *
  * @public
  */
-export interface Options extends Partial<Bud.Options> {
-  config: Partial<Bud.Options> & {
-    features?: Partial<Bud.Options['config']['features']>
-    location?: Partial<Bud.Options['config']['location']>
-    build?: Partial<Bud.Options['config']['build']>
-    cache?: Partial<Bud.Options['config']['cache']>
-    mode?: Bud.Options['config']['mode']
-    cli?: Bud.Options['config']['cli']
-    name?: Bud.Options['config']['name']
-  }
+export interface Options extends Bud.Options {
+  name: Bud['name']
+  mode: Bud['mode']
   services?: Partial<Bud.Options['services']>
 }

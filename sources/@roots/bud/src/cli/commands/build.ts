@@ -3,26 +3,11 @@ import {Command, Option} from 'clipanion'
 import {isUndefined} from 'lodash'
 import * as t from 'typanion'
 
-import {Bud} from '../../Bud/index.js'
 import {factory} from '../../factory/index.js'
+import {Bud} from '../../index.js'
 import {seed} from '../../seed.js'
 import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
-
-/**
- * Accepted options
- *
- * @public
- */
-export interface BuildOptions {
-  cache?: Bud.Options['config']['cache']
-  features?: Bud.Options['config']['features']
-  location?: Bud.Options['config']['location']
-  minimize?: Bud.Options['config']['optimization']['minimize']
-  mode?: Bud.Options['config']['mode']
-  publicPath?: Bud.Options['config']['output']['publicPath']
-  target?: Array<string>
-}
 
 /**
  * Build command
@@ -62,7 +47,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --mode
    */
-  public mode = Option.String(`--mode`, seed.mode, {
+  public mode = Option.String(`--mode`, 'production', {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral('production'),
@@ -73,18 +58,14 @@ export class BuildCommand extends BaseCommand {
   /**
    * --cache
    */
-  public cache = Option.Boolean(`--cache`, undefined, {
+  public cache = Option.String(`--cache`, undefined, {
     description: `Utilize filesystem cache`,
-  })
-
-  /**
-   * --cache.type
-   */
-  public cacheType = Option.String(`--cacheType,--cache.type`, undefined, {
-    description: `Type of cache`,
+    tolerateBoolean: true,
     validator: t.isOneOf([
       t.isLiteral('filesystem'),
       t.isLiteral('memory'),
+      t.isLiteral(true),
+      t.isLiteral(false),
     ]),
   })
 
@@ -171,7 +152,7 @@ export class BuildCommand extends BaseCommand {
    */
   public logLevel = Option.String(
     `--logLevel,--log.level`,
-    seed.log.level,
+    seed['log.level'],
     {
       description: 'Set logging level',
       validator: t.isOneOf([
@@ -230,19 +211,19 @@ export class BuildCommand extends BaseCommand {
    *
    * @returns Bud configuration
    */
-  public config(): BuildOptions {
-    const config: BuildOptions = {...seed}
-
-    config.mode = this.mode
+  public config(): Bud.Options['config'] {
+    const config: Bud.Options['config'] = seed
 
     if (!isUndefined(this.project)) config.location.project = this.project
     if (!isUndefined(this.src)) config.location.src = this.src
     if (!isUndefined(this.dist)) config.location.dist = this.dist
     if (!isUndefined(this.storage)) config.location.storage = this.storage
-    if (!isUndefined(this.publicPath)) config.publicPath = this.publicPath
-    if (!isUndefined(this.log)) config.features.log = this.log
+
+    if (!isUndefined(this.publicPath))
+      config['build.output.publicPath'] = () => this.publicPath
+    if (!isUndefined(this.log)) config['features.log'] = this.log
     if (!isUndefined(this.manifest))
-      config.features.manifest = this.manifest
+      config['features.manifest'] = this.manifest
 
     return config
   }
@@ -256,7 +237,11 @@ export class BuildCommand extends BaseCommand {
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
 
-    this.app = await factory({config: this.config()})
+    this.app = await factory({
+      name: 'bud',
+      mode: this.mode,
+      config: this.config(),
+    })
 
     await this.make()
     await overrides.config(this)

@@ -47,21 +47,21 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.cache)) {
-    await command.app.api.call('cache', command.cache)
+    command.app.api.call(`persist`, command.cache)
     await Promise.all(
       command.app.children.getEntries().map(async ([_name, child]) => {
-        await child.api.call('cache', command.cache)
+        await child.app.api.call(`persist`, command.cache)
       }),
     )
   }
-  if (!isUndefined(command.cacheType)) {
-    await command.app.api.call('cache', command.cacheType)
-    await Promise.all(
-      command.app.children.getEntries().map(async ([_name, child]) => {
-        await child.api.call('cache', command.cacheType)
-      }),
-    )
+
+  if (!isUndefined(command.clean)) {
+    command.app.hooks.on('build.output.clean', true)
+    command.app.children.getEntries().map(([_name, child]) => {
+      child.hooks.on('build.output.clean', true)
+    })
   }
+
   if (!isUndefined(command.devtool)) {
     await command.app.api.call('devtool', command.devtool)
     await Promise.all(

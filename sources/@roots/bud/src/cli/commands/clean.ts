@@ -2,6 +2,7 @@ import {bind, chalk, fs} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
 import {factory} from '../../factory/index.js'
+import {seed} from '../../seed'
 import {Notifier} from '../Notifier/index.js'
 import {BaseCommand} from './base.js'
 
@@ -17,7 +18,7 @@ export class CleanCommand extends BaseCommand {
   })
 
   public async execute() {
-    this.app = await factory({config: this.config()})
+    this.app = await factory({config: seed})
     await this.cleanProjectAssets()
   }
 
