@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "postcss": "8.4.7",
+    "postcss": "8.4.8",
     "postcss-import": "14.0.2",
     "postcss-loader": "6.2.1",
     "postcss-nested": "5.0.6",
