@@ -33,9 +33,10 @@ describe('bud.persist', function () {
   it('sets buildDependencies', async () => {
     expect(bud.cache.buildDependencies).toMatchSnapshot({
       bud: [
-        expect.stringContaining('project/package.json'),
-        expect.stringContaining('project/bud.config.js'),
-        expect.stringContaining('project/tailwind.config.js'),
+        expect.stringContaining('package.json'),
+        expect.stringContaining('.eslintrc.js'),
+        expect.stringContaining('bud.config.js'),
+        expect.stringContaining('tailwind.config.js'),
       ],
     })
   })

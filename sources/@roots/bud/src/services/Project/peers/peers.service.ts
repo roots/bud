@@ -121,13 +121,10 @@ export class Peers implements PeersInterface {
 
   @bind
   public async retrieveManifest(name: string) {
-    const resolve = await this.app.cache.memoize(this.resolveModulePath)
-    const get = await this.app.cache.memoize(this.getManifest)
-
-    const search = await resolve(name)
+    const search = await this.resolveModulePath(name)
     if (!search) return false
 
-    return await get(search)
+    return await this.getManifest(search)
   }
 
   @bind
@@ -135,19 +132,19 @@ export class Peers implements PeersInterface {
     const manifest = await this.retrieveManifest(name)
 
     const dependency: Dependency = {
-      name: manifest.name ?? name,
-      version: manifest.version ?? '0.0.0',
-      bud: manifest.bud ?? null,
+      name: manifest?.name ?? name,
+      version: manifest?.version ?? '0.0.0',
+      bud: manifest?.bud ?? null,
       resolvable:
         manifest && (manifest.main || manifest.module || manifest.exports)
           ? true
           : false,
-      peerDependencies: manifest.peerDependencies ?? {},
+      peerDependencies: manifest?.peerDependencies ?? {},
       requires: Object.entries<string>({
-        ...manifest.bud?.peers?.reduce(
+        ...manifest?.bud?.peers?.reduce(
           (a: Record<string, any>, k: string) => ({
             ...a,
-            [k]: manifest.version,
+            [k]: manifest?.version,
           }),
           {},
         ),

@@ -137,8 +137,7 @@ export class Cache extends Framework.Service implements Framework.Cache {
       salt:
         this.version ??
         this.app.json.stringify([
-          this.app.project.get('manifest'),
-          this.app.project.get('files'),
+          this.app.project.all(),
           process.argv.slice(2),
         ]),
     })
@@ -160,8 +159,8 @@ export class Cache extends Framework.Service implements Framework.Cache {
     this.version = createHash('sha1')
       .update(
         this.app.json.stringify([
-          this.app.project.get('files'),
-          process.argv,
+          this.app.project.all(),
+          process.argv.slice(2),
         ]),
       )
       .digest('base64')

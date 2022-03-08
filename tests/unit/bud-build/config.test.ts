@@ -27,6 +27,7 @@ describe('bud.build.config', function () {
 
     expect(cache.buildDependencies.bud).toStrictEqual([
       expect.stringContaining('package.json'),
+      expect.stringContaining('.eslintrc.js'),
       expect.stringContaining('bud.config.js'),
       expect.stringContaining('tailwind.config.js'),
     ])

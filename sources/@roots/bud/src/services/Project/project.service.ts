@@ -5,7 +5,7 @@ import {Peers} from './peers'
 import {writeFile} from './project.dependencies'
 import {repository} from './project.repository'
 
-const {ensureFile, readFile, readJson} = fs
+const {ensureFile, readJson} = fs
 
 /**
  * Project service
@@ -80,21 +80,19 @@ export class Project
       all: this.app.env.all(),
     })
 
-    const projectFiles = await globby.globby([
-      this.app.path('project', '*.config.js'),
-      this.app.path('project', '*lint*'),
-    ])
+    const projectFiles = await globby.globby(
+      [
+        this.app.path('project', '*.config.js'),
+        this.app.path('project', '*lint*'),
+      ],
+      {
+        dot: true,
+      },
+    )
 
     this.set(
       'dependencies',
       new Set([this.app.path('project', 'package.json'), ...projectFiles]),
-    )
-
-    await Promise.all(
-      projectFiles.map(async filePath => {
-        const file = await readFile(filePath, 'utf8')
-        this.set(`files.${filePath.split('/').pop()}`, file)
-      }),
     )
 
     try {

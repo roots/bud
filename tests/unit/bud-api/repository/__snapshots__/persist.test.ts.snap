@@ -3,9 +3,10 @@
 exports[`bud.persist sets buildDependencies 1`] = `
 Object {
   "bud": Array [
-    StringContaining "project/package.json",
-    StringContaining "project/bud.config.js",
-    StringContaining "project/tailwind.config.js",
+    StringContaining "package.json",
+    StringContaining ".eslintrc.js",
+    StringContaining "bud.config.js",
+    StringContaining "tailwind.config.js",
   ],
 }
 `;

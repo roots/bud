@@ -8,12 +8,8 @@ describe('bud.project', function () {
     await bud.build.make()
   })
 
-  it('holds cache validation hash', () => {
-    expect(bud.project.get('version')).toHaveLength(28)
-  })
-
   it('holds cache deps', async () => {
-    expect(bud.project.get('dependencies').size).toEqual(3)
+    expect(bud.project.get('dependencies').size).toEqual(4)
   })
 
   it('holds env values', async () => {
