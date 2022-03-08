@@ -8,13 +8,7 @@ describe('bud.project', function () {
   let manager: DependenciesManager
 
   beforeAll(async () => {
-    bud = await factory({
-      config: {
-        location: {
-          project: mockProject.path,
-        },
-      },
-    })
+    bud = await factory()
 
     dependencies = new Dependencies(bud)
     await dependencies.register()

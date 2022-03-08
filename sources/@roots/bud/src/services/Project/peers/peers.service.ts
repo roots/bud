@@ -29,8 +29,6 @@ export class Peers implements PeersInterface {
 
   public adjacents: AdjacencyList
 
-  public hasMissingDependencies: boolean = false
-
   public modules: Record<string, Dependency> = {}
 
   public peerDependencies: Map<string, string> = new Map()
@@ -51,9 +49,8 @@ export class Peers implements PeersInterface {
   @bind
   public async resolveModulePath(name: string) {
     try {
-      const result = await pkgUp.pkgUp({
-        cwd: dirname(safeResolve(name)),
-      })
+      const find = await this.app.cache.memoize(pkgUp.pkgUp)
+      const result = await find({cwd: dirname(safeResolve(name))})
 
       return dirname(result)
     } catch (err) {
@@ -71,7 +68,8 @@ export class Peers implements PeersInterface {
   @bind
   public async getManifest(directoryPath: string) {
     try {
-      return await readJson(join(directoryPath, '/package.json'))
+      const read = await this.app.cache.memoize(readJson)
+      return await read(join(directoryPath, '/package.json'))
     } catch (err) {
       this.log('error', {
         message: `manifest could not be resolved`,
@@ -90,7 +88,8 @@ export class Peers implements PeersInterface {
   @bind
   public async discover() {
     try {
-      const manifest = await this.getManifest(this.app.path('project'))
+      const manifest = this.app.project.get('manifest')
+
       this.modules['root'] = {
         ...manifest,
         name: 'root',
@@ -122,24 +121,27 @@ export class Peers implements PeersInterface {
 
   @bind
   public async retrieveManifest(name: string) {
-    const searchDir = await this.resolveModulePath(name)
-    if (!searchDir) return false
+    const resolve = await this.app.cache.memoize(this.resolveModulePath)
+    const get = await this.app.cache.memoize(this.getManifest)
 
-    return await this.getManifest(searchDir)
+    const search = await resolve(name)
+    if (!search) return false
+
+    return await get(search)
   }
 
   @bind
   public async collect(name: string) {
     const manifest = await this.retrieveManifest(name)
-    if (!manifest) {
-      this.hasMissingDependencies = true
-    }
 
     const dependency: Dependency = {
       name: manifest.name ?? name,
       version: manifest.version ?? '0.0.0',
       bud: manifest.bud ?? null,
-      resolvable: manifest ? true : false,
+      resolvable:
+        manifest && (manifest.main || manifest.module || manifest.exports)
+          ? true
+          : false,
       peerDependencies: manifest.peerDependencies ?? {},
       requires: Object.entries<string>({
         ...manifest.bud?.peers?.reduce(

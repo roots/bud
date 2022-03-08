@@ -5,7 +5,7 @@ import {Peers} from './peers'
 import {writeFile} from './project.dependencies'
 import {repository} from './project.repository'
 
-const {ensureFile, readJson} = fs
+const {ensureFile, readFile, readJson} = fs
 
 /**
  * Project service
@@ -81,10 +81,21 @@ export class Project
     })
 
     const projectFiles = await globby.globby([
-      this.app.path('project', 'package.json'),
       this.app.path('project', '*.config.js'),
+      this.app.path('project', '*lint*'),
     ])
-    this.set('dependencies', new Set(projectFiles))
+
+    this.set(
+      'dependencies',
+      new Set([this.app.path('project', 'package.json'), ...projectFiles]),
+    )
+
+    await Promise.all(
+      projectFiles.map(async filePath => {
+        const file = await readFile(filePath, 'utf8')
+        this.set(`files.${filePath.split('/').pop()}`, file)
+      }),
+    )
 
     try {
       await this.buildProfile()
@@ -162,7 +173,6 @@ export class Project
     this.log('time', 'building profile')
 
     try {
-      await this.loadManifest()
       await this.resolvePeers()
       await this.searchConfigs()
     } catch (e) {
@@ -203,14 +213,15 @@ export class Project
     })
 
     try {
-      const res = await readJson(this.profilePath)
+      const read = await this.app.cache.memoize(readJson)
+      const profile = await read(this.profilePath)
 
       this.log('success', {
         message: 'read profile',
         suffix: this.profilePath,
       })
 
-      return res
+      return profile
     } catch (e) {
       this.log('error', {
         message: 'read profile',
@@ -255,7 +266,11 @@ export class Project
     ]
 
     const findConfig = async function ({key, searchStrings}) {
-      const search = await globby.globby(searchStrings, {
+      const find = await this.app.cache.memoize(globby.globby)
+      const readJson5 = await this.app.cache.memoize(this.app.json.read)
+      const readYml = await this.app.cache.memoize(this.app.yml.read)
+
+      const search = await find(searchStrings, {
         cwd: this.app.path('project'),
       })
 
@@ -277,21 +292,17 @@ export class Project
           }
 
           if (result.endsWith('.json')) {
-            const json = await this.app.json.read(
-              this.app.path('project', result),
-            )
+            const json = await readJson5(this.app.path('project', result))
             this.app.dump(json)
             return this.merge(key, json)
           }
 
           if (result.endsWith('.yml')) {
+            const contents = await readYml(
+              this.app.path('project', result),
+            )
             return this.mutate(key, i =>
-              Array.from(
-                new Set([
-                  ...i,
-                  this.app.yml.read(this.app.path('project', result)),
-                ]),
-              ),
+              Array.from(new Set([...i, contents])),
             )
           }
         }),

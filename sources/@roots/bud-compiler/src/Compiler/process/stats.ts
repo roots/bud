@@ -1,12 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {
-  boxen,
-  chalk,
-  highlight,
-  HighlightOptions,
-  humanReadable,
-  table,
-} from '@roots/bud-support'
+import {boxen, chalk, humanReadable, table} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
 
 export const theme = {
@@ -21,20 +14,6 @@ export const theme = {
   cyan: '#9aedfe',
 }
 
-const highlightOpts: HighlightOptions = {
-  language: 'json',
-  theme: {
-    literal: chalk.hex(theme.blue),
-    quote: chalk.hex(theme.blue),
-    keyword: chalk.hex(theme.blue),
-    regexp: chalk.hex(theme.green),
-    string: chalk.hex(theme.blue),
-    addition: chalk.hex(theme.green),
-    deletion: chalk.hex(theme.dim).strikethrough,
-    number: chalk.hex(theme.magenta),
-  },
-}
-
 function makeTable(data: Array<Array<string>>): string {
   return table.table(data, {
     border: table.getBorderCharacters('void'),
@@ -45,7 +24,6 @@ function makeTable(data: Array<Array<string>>): string {
       paddingRight: 2,
       paddingLeft: 0,
     },
-    columns: [{paddingRight: 0, wrapWord: true}],
   })
 }
 
@@ -94,125 +72,216 @@ export function write(
       })
     })
 
-    const assets = makeTable([
-      ['name', '', 'min', 'chunks', 'size'].map(i =>
-        chalk.hex(theme.magenta)(i),
-      ),
-      ['', '', '', '', ''],
-      ...compilation.assets.map(asset => [
-        chalk.hex(
-          asset.info.error
-            ? theme.red
-            : asset.info.warning
-            ? theme.yellow
-            : asset.emitted
-            ? theme.green
-            : theme.dim,
-        )(
-          asset.info.hotModuleReplacement
-            ? `🔥`
-            : asset.emitted
-            ? `✔`
-            : asset.info.error
-            ? `✘`
-            : asset.info.warning
-            ? `⚠`
-            : `᠃`,
-        ),
-        chalk.hex(
-          asset.info.error
-            ? theme.red
-            : asset.info.warn
-            ? theme.yellow
-            : asset.emitted
-            ? theme.foregroundColor
-            : theme.dim,
-        )(asset.name.split('').slice(0, 20).join('')),
+    const marker = asset =>
+      chalk.hex(
+        asset.info.error
+          ? theme.red
+          : asset.info.warning
+          ? theme.yellow
+          : asset.emitted
+          ? theme.green
+          : theme.dim,
+      )(
+        asset.info.hotModuleReplacement
+          ? `🔥`
+          : asset.emitted
+          ? `✔`
+          : asset.info.error
+          ? `✘`
+          : asset.info.warning
+          ? `⚠`
+          : `᠃`,
+      )
+    const name = asset =>
+      chalk.hex(
+        asset.info?.error
+          ? theme.red
+          : asset.info?.warn
+          ? theme.yellow
+          : asset.emitted
+          ? theme.foregroundColor
+          : theme.dim,
+      )(
+        asset.info.hotModuleReplacement
+          ? (asset.info.sourceFilename ?? asset.name).split(`.`)[0]
+          : (asset.info.sourceFilename ?? asset.name)
+              .split(``)
+              .reverse()
+              .slice(0, 20)
+              .reverse()
+              .join(``),
+      )
+    const size = asset =>
+      chalk.hex(
         asset.info.minimized
-          ? chalk.hex(theme.green)(`minimized`)
-          : chalk.hex(theme.dim)(`᠃`),
-        chalk.hex(theme.dim)(
-          asset.chunkNames.length ? asset.chunkNames.join(` `) : `᠃`,
-        ),
-        humanReadable.sizeFormatter<string>()(asset.info.size),
-      ]),
-    ])
+          ? theme.green
+          : asset.emitted
+          ? theme.foregroundColor
+          : theme.dim,
+      )(humanReadable.sizeFormatter()(asset.info.size))
+
+    const hot = compilation.assets.filter(
+      asset =>
+        asset.name.endsWith(`.js`) && asset.name.includes(`hot-update`),
+    )
+    const statics = compilation.assets.filter(
+      asset =>
+        ![`js`, `css`].includes(asset.name.split('.').pop()) &&
+        !asset.name.includes(`hot-update`),
+    )
+    const assets = compilation.assets.filter(
+      asset =>
+        asset.name.endsWith(`.css`) ||
+        (asset.name.endsWith(`.js`) && !asset.name.includes('hot-update')),
+    )
+    const assetTable = assets
+      ? makeTable([
+          ...assets.map(asset => [
+            marker(asset),
+            chalk.hex(theme.cyan)(
+              asset.chunkNames.length ? asset.chunkNames.join(` `) : `᠃`,
+            ),
+            name(asset),
+            size(asset),
+          ]),
+          ...(hot.length
+            ? [
+                ['', '', '', ''],
+                ...hot.map(asset => [
+                  marker(asset),
+                  chalk.hex(theme.cyan)(
+                    asset.chunkNames.length
+                      ? asset.chunkNames.join(` `)
+                      : `᠃`,
+                  ),
+                  name(asset),
+                  size(asset),
+                ]),
+              ]
+            : []),
+          ...(statics.length
+            ? [
+                ['', '', '', ''],
+                ...statics
+                  .map(asset => [
+                    marker(asset),
+                    chalk.hex(theme.cyan)(asset.name.split('.').pop()),
+                    name(asset),
+                    size(asset),
+                  ])
+                  .slice(0, 5),
+              ]
+            : []),
+        ])
+      : ``
 
     const summary = () => {
       const tableOpts = {
         border: table.getBorderCharacters('void'),
         singleLine: true,
         columnDefault: {
-          paddingRight: 2,
+          paddingRight: 1,
           wrapWord: true,
         },
       }
+      const time = time =>
+        humanReadable.durationFormatter({
+          allowMultiples: ['s', 'ms'],
+        })(time)
+
       const compiler = [
         table.table(
           [
-            [chalk.hex(theme.dim)(`build mode`), app.mode],
-            [chalk.hex(theme.dim)(`build ident`), compilation.hash],
+            [
+              chalk.hex(theme.magenta)(`duration`),
+              app.mode === 'production'
+                ? `${time(app._hrdone + compilation.time)} ${chalk.dim(
+                    `(${time(app._hrdone)} + ${time(compilation.time)})`,
+                  )}`
+                : time(compilation.time),
+            ],
           ],
           tableOpts,
         ),
+        table.table(
+          [
+            [
+              chalk.hex(theme.magenta)(`mode`),
+              chalk.hex(theme.foregroundColor)(app.mode),
+              chalk.hex(theme.magenta)(`hash`),
+              chalk.hex(theme.foregroundColor)(compilation.hash),
+            ],
+            [
+              chalk.hex(theme.magenta)('bud'),
+              chalk.hex(theme.foregroundColor)(
+                app.project.get('installed.@roots/bud'),
+              ),
+              chalk.hex(theme.magenta)('webpack'),
+              chalk.hex(theme.foregroundColor)(compilation.version),
+            ],
+          ],
+          tableOpts,
+        ),
+
+        app.store.get('features.log')
+          ? table.table(
+              Object.entries(app.build.rules)
+                .filter(
+                  ([t, value]) => ['js', 'css'].includes(t) && value.use,
+                )
+                .map(([type, rule]) => [
+                  chalk.hex(theme.magenta)(type),
+                  [
+                    ...rule
+                      .getUse()
+                      .map(use =>
+                        chalk.hex(theme.cyan)(
+                          `\`${app
+                            .maybeCall(use.loader(app).src)
+                            .split('node_modules/')
+                            .pop()
+                            .split('/')[0]
+                            .replace('-loader', '')}\``,
+                        ),
+                      ),
+                  ]
+                    .reverse()
+                    .join(' > '),
+                ]),
+              tableOpts,
+            )
+          : '',
+
         app.store.get('features.log')
           ? table.table(
               [
                 [
-                  chalk.hex(theme.dim)(`cache type`),
-                  chalk.hex(theme.green)(`"filesystem"`),
+                  chalk.hex(theme.magenta)(`cache type`),
+                  chalk.hex(theme.foregroundColor)(`filesystem`),
                 ],
                 [
-                  chalk.hex(theme.dim)(`cache ident`),
-                  chalk.hex(theme.green)(`"${app.cache.version}"`),
-                ],
-                [
-                  chalk.hex(theme.dim)(`cache dependencies`),
-                  highlight(
-                    `[${app.cache.buildDependencies.bud
-                      .map(
-                        d =>
-                          `"${d.replace(
-                            app.path(`project`).concat(`/`),
-                            ``,
-                          )}"`,
-                      )
-                      .join(`, `)}]`,
-                    highlightOpts,
-                  ),
+                  chalk.hex(theme.magenta)(`cache ident`),
+                  chalk.hex(theme.foregroundColor)(app.cache.version),
                 ],
               ],
               tableOpts,
             )
           : '',
+
         app.store.get('features.log')
           ? table.table(
               [
                 [
-                  chalk.hex(theme.dim)('extensions'),
-                  highlight(
-                    `[${app.extensions
-                      .getValues()
-                      .map(p => `"${p.name.toLowerCase()}"`)
-                      .join(`, `)}]`,
-                    highlightOpts,
-                  ),
-                ],
-              ],
-              tableOpts,
-            )
-          : '',
-        app.store.get('features.log')
-          ? table.table(
-              [
-                [
-                  chalk.hex(theme.dim)('compiler plugins'),
-                  highlight(
-                    `[${app.build.config.plugins
-                      .map(p => `"${p.constructor.name.toLowerCase()}"`)
-                      .join(`, `)}]`,
-                    highlightOpts,
-                  ),
+                  chalk.hex(theme.magenta)('extensions'),
+                  `[${app.extensions
+                    .getValues()
+                    .map(
+                      p =>
+                        `${chalk.hex(theme.cyan)(
+                          `\`${p.name.toLowerCase()}\``,
+                        )}`,
+                    )
+                    .join(`, `)}]`,
                 ],
               ],
               tableOpts,
@@ -223,17 +292,17 @@ export function write(
       return compiler.join('')
     }
 
-    const assetsBox = boxen(assets, {
+    const assetsBox = boxen(assetTable, {
       title: chalk.hex(theme.blue)(`Assets`),
       margin: {
-        top: 1,
+        top: 0,
         bottom: 1,
         left: 0,
         right: 0,
       },
       padding: {
         left: 1,
-        top: 1,
+        top: 2,
         right: 1,
         bottom: 0,
       },
@@ -246,7 +315,7 @@ export function write(
       boxes: [
         compilation.errorsCount ? errors.join('\n') : null,
         compilation.warningsCount ? warnings.join('\n') : null,
-        assetsBox,
+        compilation.errorsCount ? chalk.dim(assetsBox) : `\n${assetsBox}`,
         summary(),
       ].filter(Boolean),
     }

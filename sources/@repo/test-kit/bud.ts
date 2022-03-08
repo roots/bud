@@ -9,10 +9,10 @@ export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-export const factory = async (options?: Bud.Options) =>
-  await budFactory({
-    mode: 'production',
+export const factory = async (options?: Bud.Options) => {
+  const bud = await budFactory({
     name: 'bud',
+    mode: 'production',
     config: {
       ...seed,
       ...(options?.config ?? {}),
@@ -24,3 +24,6 @@ export const factory = async (options?: Bud.Options) =>
     },
     ...(options ?? {}),
   })
+
+  return bud
+}

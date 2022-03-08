@@ -3983,6 +3983,7 @@ __metadata:
     human-readable: 0.2.1
     json5: 2.2.0
     lodash: 4.17.21
+    memoize-fs: 2.2.0
     nanoid: 3.3.1
     node-notifier: 10.0.1
     pkg-up: 4.0.0
@@ -11817,6 +11818,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-extra@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "fs-extra@npm:8.1.0"
+  dependencies:
+    graceful-fs: ^4.2.0
+    jsonfile: ^4.0.0
+    universalify: ^0.1.0
+  checksum: bf44f0e6cea59d5ce071bba4c43ca76d216f89e402dc6285c128abc0902e9b8525135aa808adad72c9d5d218e9f4bcc63962815529ff2f684ad532172a284880
+  languageName: node
+  linkType: hard
+
 "fs-extra@npm:^9.0.0":
   version: 9.1.0
   resolution: "fs-extra@npm:9.1.0"
@@ -14716,6 +14728,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonfile@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "jsonfile@npm:4.0.0"
+  dependencies:
+    graceful-fs: ^4.1.6
+  dependenciesMeta:
+    graceful-fs:
+      optional: true
+  checksum: 6447d6224f0d31623eef9b51185af03ac328a7553efcee30fa423d98a9e276ca08db87d71e17f2310b0263fd3ffa6c2a90a6308367f661dc21580f9469897c9e
+  languageName: node
+  linkType: hard
+
 "jsonfile@npm:^6.0.1":
   version: 6.1.0
   resolution: "jsonfile@npm:6.1.0"
@@ -15555,6 +15579,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"memoize-fs@npm:2.2.0":
+  version: 2.2.0
+  resolution: "memoize-fs@npm:2.2.0"
+  dependencies:
+    fs-extra: ^8.1.0
+    meriyah: ^1.9.7
+  checksum: 901070e0d1a12f1463651712e94fe6f22903cc11c8dd60de3bcb030a9bb5f2fb3c2dd93935ab3bf6e5df21ccab40a01b5aebb30b32bda6df77426aa43dee237e
+  languageName: node
+  linkType: hard
+
 "memory-fs@npm:^0.4.1":
   version: 0.4.1
   resolution: "memory-fs@npm:0.4.1"
@@ -15632,6 +15666,13 @@ __metadata:
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 7268db63ed5169466540b6fb947aec313200bcf6d40c5ab722c22e242f651994619bcd85601602972d3c85bd2cc45a358a4c61937e9f11a061919a1da569b0c2
+  languageName: node
+  linkType: hard
+
+"meriyah@npm:^1.9.7":
+  version: 1.9.15
+  resolution: "meriyah@npm:1.9.15"
+  checksum: 48e7daf319eb3c1ab0e7fd2fe251a795095babb86743a68f04f01d63bd4f1e6e75aeaee1645cc34b3df51f0bf000c6b4761de697e0beaebd3ca7f768a07fdac9
   languageName: node
   linkType: hard
 
@@ -22760,7 +22801,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universalify@npm:^0.1.2":
+"universalify@npm:^0.1.0, universalify@npm:^0.1.2":
   version: 0.1.2
   resolution: "universalify@npm:0.1.2"
   checksum: 40cdc60f6e61070fe658ca36016a8f4ec216b29bf04a55dce14e3710cc84c7448538ef4dad3728d0bfe29975ccd7bfb5f414c45e7b78883567fb31b246f02dff

@@ -208,7 +208,7 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected number of plugins 1`] = `
+exports[`bud.build.config has expected plugins 1`] = `
 Array [
   "DefinePlugin",
   "WebpackManifestPlugin",

@@ -125,16 +125,10 @@ describe('bud.build.config', function () {
     expect(bud.build.config.watchOptions).toBeUndefined()
   })
 
-  it('has expected number of plugins', () => {
+  it('has expected plugins', () => {
     expect(
       bud.build.config.plugins.map(plugin => plugin.constructor.name),
     ).toMatchSnapshot()
-  })
-
-  it('has valid plugins', () => {
-    bud.build.config.plugins.filter(plugin => {
-      expect(plugin).toHaveProperty('apply')
-    })
   })
 
   it('has expected default requireEnsure rule', () => {

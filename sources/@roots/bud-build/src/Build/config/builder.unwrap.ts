@@ -5,15 +5,19 @@ import {lodash} from '@roots/bud-support'
 const {isUndefined} = lodash
 
 /**
- * Unwrap
+ * Unwrap initialValue
  *
  * @remarks
- * Unwraps a store value
+ * Returns the initializing value for a hook
+ * If the value is available from {@link Framework.store}, the store value is used.
+ * Otherwise, it will return the fallback value (if supplied)
  *
  * @param this - Application
  * @param key - store key
  * @param fallback - fallback value
  * @returns hook function
+ *
+ * @public
  */
 export function unwrap<
   F extends keyof CompilerConfigCallables & keyof Hooks.Map & string,

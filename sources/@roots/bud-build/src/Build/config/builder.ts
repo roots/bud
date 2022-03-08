@@ -4,7 +4,11 @@ import {unwrap as unwrapFn} from './builder.unwrap'
 import {filenameFormat} from './filenameFormat'
 
 /**
- * Filters framework values and returns a webpack configuration
+ * Initializes configuration builder hooks
+ *
+ * @remarks
+ * All hooks in the `build` namespace are initialized here with
+ * the exception of `build.cache` which is handled in {@link Framework.cache}
  *
  * @param app - the Framework instance
  * @returns Promise

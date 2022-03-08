@@ -74,6 +74,7 @@
     "human-readable": "0.2.1",
     "json5": "2.2.0",
     "lodash": "4.17.21",
+    "memoize-fs": "2.2.0",
     "nanoid": "3.3.1",
     "node-notifier": "10.0.1",
     "pkg-up": "4.0.0",

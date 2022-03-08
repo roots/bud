@@ -1,8 +1,6 @@
 import * as Framework from '@roots/bud-framework'
-import {bind, fs} from '@roots/bud-support'
+import {bind, memoizeFs} from '@roots/bud-support'
 import {createHash} from 'crypto'
-
-const {readFile} = fs
 
 /**
  * Cache service class
@@ -62,6 +60,9 @@ export class Cache extends Framework.Service implements Framework.Cache {
     return {
       bud: Array.from(this.app.project.get('dependencies')),
     }
+  }
+  public set buildDependencies(deps: Record<string, Array<string>>) {
+    this.app.project.set(`dependencies`, deps)
   }
 
   /**
@@ -126,44 +127,49 @@ export class Cache extends Framework.Service implements Framework.Cache {
   }
 
   /**
-   * @public
+   * Memoize
    */
+  public memoizer: memoizeFs.Memoizer
+
   @bind
-  public async boot() {
-    this.name = `${this.app.name}.${this.app.mode}`
-    this.version = await this.hashFileContents()
+  public async memoize(fn: any): Promise<memoizeFs.FnToMemoize> {
+    return await this.memoizer.fn(fn, {
+      salt:
+        this.version ??
+        this.app.json.stringify([
+          this.app.project.get('manifest'),
+          this.app.project.get('files'),
+          process.argv.slice(2),
+        ]),
+    })
+  }
+
+  @bind
+  public async bootstrap() {
+    this.name = `${this.app.name}.${this.app.mode}.${process.argv
+      .slice(2)
+      .join('.')}`
+  }
+
+  @bind
+  public async register() {
+    this.memoizer = memoizeFs({
+      cachePath: this.app.path('storage', 'cache', 'bud'),
+    })
+
+    this.version = createHash('sha1')
+      .update(
+        this.app.json.stringify([
+          this.app.project.get('files'),
+          process.argv,
+        ]),
+      )
+      .digest('base64')
+      .replace(/[^a-z0-9]/gi, '_')
+      .toLowerCase()
+
     this.type = 'filesystem'
     this.cacheDirectory = this.app.path(`storage`, `cache`, `webpack`)
     this.managedPaths = [this.app.path(`modules`)]
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async hashFileContents(): Promise<string> {
-    const makeHash: (str: string) => Promise<string> = async str =>
-      createHash('sha1')
-        .update(str)
-        .digest('base64')
-        .replace(/[^a-z0-9]/gi, '_')
-        .toLowerCase()
-
-    try {
-      const strings = await Promise.all(
-        this.buildDependencies.bud.map(async (path: string) =>
-          readFile(path, 'utf8'),
-        ),
-      )
-      const hash = await makeHash(
-        `${strings}${JSON.stringify(process.argv)}`,
-      )
-
-      this.app.project.set('version', hash)
-      return hash
-    } catch (e) {
-      this.app.error('error hashing file contents for cache')
-      throw new Error(e)
-    }
   }
 }

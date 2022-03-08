@@ -169,6 +169,18 @@ export abstract class Framework {
   public dependencies: Dependencies
 
   /**
+   * timer util
+   *
+   * @public
+   */
+  public _hrtime: [number, number] = process.hrtime()
+  public _hrdiff() {
+    const diff = process.hrtime(this._hrtime)
+    return diff[0] * 1000 + diff[1] / 1000000
+  }
+  public _hrdone: number
+
+  /**
    * Project information and peer dependency management utilities
    *
    * @public

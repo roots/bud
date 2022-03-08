@@ -74,14 +74,6 @@ export class Extensions extends Service implements Base {
       return
     }
 
-    if (this.app.project.peers.hasMissingDependencies) {
-      this.log(
-        'error',
-        'missing dependencies in project. not booting extensions.',
-      )
-      return
-    }
-
     try {
       const modules = Object.values(this.app.project.peers.modules)
         .filter(Boolean)
