@@ -10,26 +10,26 @@ describe('Build Rule', function () {
 
   it('is constructable', () => {
     const rule = {test: /.foo$/}
-    expect(new Rule(bud, rule)).toBeInstanceOf(Rule)
+    expect(new Rule(() => bud, rule)).toBeInstanceOf(Rule)
   })
 
   it('make', () => {
     const rule = {test: /.foo$/}
-    expect(new Rule(bud, rule).make()).toEqual({
+    expect(new Rule(() => bud, rule).make()).toEqual({
       test: /.foo$/,
     })
   })
 
   it('getUse', () => {
-    const input = [bud.build.items.md]
-    const rule = new Rule(bud, {test: /.foo$/, use: input})
+    const input = [`md`]
+    const rule = new Rule(() => bud, {test: /.foo$/, use: input})
 
     expect(rule.getUse()).toEqual(input)
   })
 
   it('setUse', () => {
-    const input = () => [bud.build.items.raw, bud.build.items.md]
-    const rule = new Rule(bud, {test: /.foo$/})
+    const input = [`raw`, `md`]
+    const rule = new Rule(() => bud, {test: /.foo$/})
     rule.setUse(input)
 
     expect(rule.use).toEqual(input)
@@ -37,14 +37,14 @@ describe('Build Rule', function () {
 
   it('getTest', () => {
     const input = /.foo$/
-    const rule = new Rule(bud, {test: input})
+    const rule = new Rule(() => bud, {test: input})
 
     expect(rule.getTest()).toEqual(input)
   })
 
   it('setTest', () => {
     const input = () => /.js$/
-    const rule = new Rule(bud, {test: /.foo$/})
+    const rule = new Rule(() => bud, {test: /.foo$/})
     rule.setTest(input)
 
     expect(rule.test).toEqual(input)
@@ -56,13 +56,13 @@ describe('Build Rule', function () {
       exclude: [/.bar$/],
     }
 
-    const rule = new Rule(bud, definition)
+    const rule = new Rule(() => bud, definition)
 
     expect(rule.getExclude()).toEqual(definition.exclude)
   })
 
   it('setExclude from fn', () => {
-    const rule = new Rule(bud, {test: /.foo$/})
+    const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutationFn = () => [/.js$/]
     rule.setExclude(mutationFn)
@@ -71,11 +71,11 @@ describe('Build Rule', function () {
   })
 
   it('setExclude from obj', () => {
-    const rule = new Rule(bud, {test: /.foo$/})
+    const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutation = [/.js$/]
     rule.setExclude(mutation)
 
-    expect(rule.exclude(bud)).toStrictEqual(mutation)
+    expect(rule.getExclude()).toStrictEqual(mutation)
   })
 })

@@ -137,7 +137,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public build: Build.Interface
+  public build: Build
 
   /**
    * Determines cache validity and generates cache keys.

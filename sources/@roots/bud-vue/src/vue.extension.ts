@@ -1,4 +1,3 @@
-import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {VueLoaderPlugin} from 'vue-loader'
 
@@ -14,36 +13,23 @@ export const VueExtension: Extension.Module = {
       make: () => new VueLoaderPlugin(),
     })
 
-    app.hooks.on('build.module.rules.before', rules => [
-      {
+    app.hooks
+      .on('build.module.rules.before', rules => [
+        app.build.items.vue.make(),
+        ...(rules ?? []),
+      ])
+      .hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
+      .hooks.async('build.resolve.alias', async aliases => ({
+        ...(aliases ?? {}),
+        vue: '@vue/runtime-dom',
+      }))
+      .build.setLoader('vue-loader', require.resolve('vue-loader'))
+      .setLoader('vue-style', require.resolve('vue-style-loader'))
+      .setItem('vue', {
         test: app.store.get('patterns.vue'),
-        use: [{loader: require.resolve('vue-loader')}],
-      },
-      ...(rules ?? []),
-    ])
-
-    app.hooks.on('build.resolve.extensions', extensions => {
-      extensions.add('.vue')
-      return extensions
-    })
-
-    app.hooks.async('build.resolve.alias', async aliases => ({
-      ...(aliases ?? {}),
-      vue: '@vue/runtime-dom',
-    }))
-
-    app.build.loaders['vue-style'] = new Loader(
-      require.resolve('vue-style-loader'),
-    )
-
-    app.build.items['vue-style'] = new Item({
-      loader: ({build}) => build.loaders['vue-style'],
-    })
-
-    const existingCssRules = app.build.rules.css.getUse()
-    app.build.rules.css.setUse(({build}) => [
-      build.items['vue-style'],
-      ...(existingCssRules ?? []),
-    ])
+        use: [`vue-loader`],
+      })
+      .setItem('vue-style', {loader: app.build.loaders['vue-style']})
+      .rules.css.setUse(items => [`vue-style`, ...items])
   },
 }

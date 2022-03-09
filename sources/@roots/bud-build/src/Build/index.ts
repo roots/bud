@@ -1,20 +1,17 @@
-import {
-  Build as Contract,
-  Items,
-  Loaders,
-  Rules,
-  Service,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import {bind, fs, lodash, memo} from '@roots/bud-support'
+import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
-import {Rule} from '../Rule/index'
-import * as config from './config/index'
-import items from './items'
-import loaders from './loaders'
+import {Item} from '../Item'
+import {Loader} from '../Loader'
+import {Rule} from '../Rule'
+import * as config from './config'
+import * as items from './items'
+import * as loaders from './loaders'
 import * as rules from './rules'
 
-const {isNull, isUndefined} = lodash
+const {isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -22,32 +19,32 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build extends Service implements Contract.Interface {
+export class Build extends Framework.Service implements Framework.Build {
   /**
    * @public
    */
-  public config: Partial<Configuration>
+  public config: Partial<Configuration> = {}
 
   /**
    * Registered loaders
    *
    * @public
    */
-  public loaders: Loaders
+  public loaders: Framework.Loaders
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Rules
+  public rules: Framework.Rules
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Items
+  public items: Framework.Items
 
   /**
    * Service booted event
@@ -57,13 +54,12 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async registered() {
-    this.app.hooks.action('event.build.before', async app =>
-      app.time(`build.make`),
-    )
-    this.app.hooks.action('event.build.after', async app =>
-      app.timeEnd(`build.make`),
-    )
-    this.app.hooks.action('event.build.after', this.writeFinalConfig)
+    this.app.hooks
+      .action('event.build.before', async app => app.time(`build.make`))
+      .hooks.action('event.build.after', async app =>
+        app.timeEnd(`build.make`),
+      )
+      .hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**
@@ -76,48 +72,44 @@ export class Build extends Service implements Contract.Interface {
   public async make(): Promise<Configuration> {
     await this.app.hooks.fire('event.build.before')
 
-    this.config = await [
-      ['entry', true],
-      ['plugins', true],
-      ['resolve', true],
-      ['bail'],
-      ['cache'],
-      ['context'],
-      ['devtool'],
-      ['experiments'],
-      ['externals'],
-      ['infrastructureLogging'],
-      ['loader'],
-      ['mode'],
-      ['module'],
-      ['name'],
-      ['node'],
-      ['output'],
-      ['optimization'],
-      ['parallelism'],
-      ['performance'],
-      ['profile'],
-      ['recordsPath'],
-      ['stats'],
-      ['target'],
-      ['watch'],
-      ['watchOptions'],
-    ]
-      .map(this.memoMap)
-      .filter(Boolean)
-      .reduce(this.memoReducer, Promise.resolve({}))
+    await Promise.all(
+      [
+        ['entry', true],
+        ['plugins', true],
+        ['resolve', true],
+        ['bail'],
+        ['cache'],
+        ['context'],
+        ['devtool'],
+        ['experiments'],
+        ['externals'],
+        ['infrastructureLogging'],
+        ['loader'],
+        ['mode'],
+        ['module'],
+        ['name'],
+        ['node'],
+        ['output'],
+        ['optimization'],
+        ['parallelism'],
+        ['performance'],
+        ['profile'],
+        ['recordsPath'],
+        ['stats'],
+        ['target'],
+        ['watch'],
+        ['watchOptions'],
+      ]
+        .map(this.memoMap)
+        .filter(Boolean)
+        .map(this.memoMapValue),
+    )
 
     await this.app.hooks.fire('event.build.after')
 
     return this.config
   }
 
-  /**
-   *
-   *
-   * @param args
-   * @returns
-   */
   @bind
   public memoMap(...args: [value: (string | boolean)[]]) {
     const [[key, ...rest]] = args
@@ -132,24 +124,21 @@ export class Build extends Service implements Contract.Interface {
 
   @bind
   @memo()
-  public async memoReducer(
-    promised: Promise<Configuration>,
-    [propKey, type, _count]: [
-      keyof Configuration,
-      'async' | 'sync',
-      number,
-    ],
-  ) {
-    const config = await promised
-
+  public async memoMapValue([propKey, type, _count]: [
+    keyof Configuration,
+    'async' | 'sync',
+    number,
+  ]) {
     const propValue =
       type == 'async'
         ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
         : this.app.hooks.filter(`build.${propKey}` as any)
 
-    return isUndefined(propValue) || isNull(propValue)
-      ? config
-      : {...config, [propKey]: propValue}
+    if (isUndefined(propValue)) return
+
+    Object.assign(this.config, {
+      [propKey]: propValue,
+    })
   }
 
   /**
@@ -160,7 +149,10 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async register() {
-    const reducer = (a: Rules | Items | Loaders, [k, v]) => ({
+    const reducer = (
+      a: Framework.Rules | Framework.Items | Framework.Loaders,
+      [k, v],
+    ) => ({
       ...a,
       [k]: v(this.app),
     })
@@ -187,33 +179,104 @@ export class Build extends Service implements Contract.Interface {
    * Set a rule
    *
    * @param name - rule key
-   * @param constructorProperties - rule constructor properties
+   * @param options - rule constructor properties
    * @returns the rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, constructorProperties?): Rule {
-    Object.assign(this.rules, {
-      [name]: this.makeRule(constructorProperties),
-    })
+  public setRule(name: string, options?: Framework.Rule.Options): Build {
+    Object.assign(this.rules, {[name]: this.makeRule(options)})
 
-    return this.rules[name]
+    return this
+  }
+  /**
+   * Make a rule
+   *
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeRule(options?: Framework.Rule.Options): Rule {
+    return new Rule(() => this.app, options)
+  }
+
+  /**
+   * Set a rule
+   *
+   * @param name - rule key
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setLoader(name: string, options: string): Build {
+    Object.assign(this.loaders, {[name]: this.makeLoader(options)})
+
+    return this
   }
 
   /**
    * Make a rule
    *
-   * @param constructorProperties - rule constructor properties
+   * @param options - rule constructor properties
    * @returns the rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public makeRule(constructorProperties?): Rule {
-    return new Rule(this.app, constructorProperties)
+  public makeLoader(options: string): Loader {
+    return new Loader(() => this.app, options)
+  }
+
+  /**
+   * Set a rule
+   *
+   * @param name - rule key
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setItem(
+    name: string,
+    options:
+      | ((item: Framework.Item) => Framework.Item)
+      | Framework.Item.ConstructorOptions,
+  ): Build {
+    const processedOptions = isFunction(options)
+      ? options(this.makeItem())
+      : this.makeItem(options)
+
+    Object.assign(this.items, {[name]: processedOptions})
+
+    return this
+  }
+
+  /**
+   * Make a rule
+   *
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeItem(options?: {
+    options?: Item['options']
+    loader?: Item['loader']
+  }): Item {
+    return new Item(() => this.app, options)
   }
 
   /**

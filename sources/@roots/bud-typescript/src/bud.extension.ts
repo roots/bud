@@ -1,4 +1,3 @@
-import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {Options} from 'ts-loader'
 
@@ -21,9 +20,7 @@ export interface BudTypeScriptExtension
 export const BudTypeScriptExtension: BudTypeScriptExtension = {
   name: '@roots/bud-typescript',
 
-  api: {
-    typecheck,
-  },
+  api: {typecheck},
 
   options: {
     transpileOnly: true,
@@ -31,25 +28,19 @@ export const BudTypeScriptExtension: BudTypeScriptExtension = {
 
   boot: ({build, hooks, store}) => {
     store.set('patterns.ts', /\.tsx?$/)
+    build
+      .setLoader('ts-loader', require.resolve('ts-loader'))
+      .setItem('ts', {
+        loader: build.loaders.ts,
+        options: ({extensions}) =>
+          extensions.get('@roots/bud-typescript').options.all(),
+      })
+      .setRule('ts', {
+        test: store.get('patterns.ts'),
+        exclude: store.get('patterns.modules'),
+        use: [`babel`, `ts`],
+      })
 
-    build.loaders['ts'] = new Loader(require.resolve('ts-loader'))
-
-    build.items['ts'] = new Item({
-      loader: build.loaders['ts'],
-      options: app =>
-        app.extensions.get('@roots/bud-typescript').options.all(),
-    })
-
-    build.setRule('ts', {
-      test: store.get('patterns.ts'),
-      exclude: store.get('patterns.modules'),
-      use: ({build}) => [build.items['babel'], build.items['ts']],
-    })
-
-    hooks.on('build.resolve.extensions', extensions => {
-      extensions.add('.ts')
-      extensions.add('.tsx')
-      return extensions
-    })
+    hooks.on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
   },
 }

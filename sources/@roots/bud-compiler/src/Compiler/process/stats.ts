@@ -236,8 +236,9 @@ export function write(
                       .getUse()
                       .map(use =>
                         chalk.hex(theme.cyan)(
-                          `\`${app
-                            .maybeCall(use.loader(app).src)
+                          `\`${app.build.items[use]
+                            .getLoader()
+                            .getSrc()
                             .split('node_modules/')
                             .pop()
                             .split('/')[0]

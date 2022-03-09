@@ -58,24 +58,19 @@ const extension: Extension.Module = {
 
     store.set('patterns.mdx', /\.mdx?$/)
 
-    build.loaders.mdx = new Loader(require.resolve('@mdx-js/loader'))
+    build
+      .setLoader('mdx', require.resolve('@mdx-js/loader'))
+      .setItem('mdx', {
+        loader: ({build}) => build.loaders.mdx,
+        options: ({mdx}) => mdx.options,
+      })
+      .setRule('mdx', {
+        test: ({store}) => store.get('patterns.mdx'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: [`babel`, `mdx`],
+      })
 
-    build.items.mdx = new Item({
-      loader: ({build}) => build.loaders.mdx,
-      options: ({mdx}) => mdx.options,
-    })
-
-    build.setRule('mdx', {
-      test: ({store}) => store.get('patterns.mdx'),
-      exclude: ({store}) => store.get('patterns.modules'),
-      use: ({build}) => [build.items.babel, build.items.mdx],
-    })
-
-    hooks.on('build.resolve.extensions', extensions => {
-      extensions.add('.md')
-      extensions.add('.mdx')
-      return extensions
-    })
+    hooks.on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
   },
 }
 

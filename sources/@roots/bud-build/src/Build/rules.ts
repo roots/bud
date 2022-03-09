@@ -5,8 +5,6 @@ import {
   yaml as yamlParser,
 } from '@roots/bud-support'
 
-import {Rule} from '../Rule'
-
 /**
  * .js rule
  *
@@ -29,10 +27,7 @@ export const css = (app: Framework) =>
     .makeRule()
     .setTest(({store}) => store.get('patterns.css'))
     .setInclude(({path}) => [path('src')])
-    .setUse(({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.css,
-    ])
+    .setUse([app.isProduction ? `minicss` : `style`, `css`])
 
 /**
  * .module.css rule
@@ -44,17 +39,14 @@ export const cssModule = (app: Framework) =>
     .makeRule()
     .setTest(({store}) => store.get('patterns.cssModule'))
     .setInclude(({path}) => [path('src')])
-    .setUse(({isProduction, build}) => [
-      isProduction ? build.items.minicss : build.items.style,
-      build.items.cssModule,
-    ])
+    .setUse([app.isProduction ? `minicss` : `style`, `cssModule`])
 
 /**
  * .jpg, .jpeg, .png, .gif rule
  *
  * @public
  */
-export const image = (app: Framework): Rule =>
+export const image = (app: Framework) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.image'))
@@ -157,7 +149,7 @@ export const html = (app: Framework) =>
     .makeRule()
     .setInclude(({path}) => [path('src')])
     .setTest(({store}) => store.get('patterns.html'))
-    .setUse(({build}) => [build.items.html])
+    .setUse([`html`])
 
 /**
  * Returns {@link Rule} for `.csv` handling
@@ -169,7 +161,7 @@ export const csv = (app: Framework) =>
     .makeRule()
     .setInclude(({path}) => [path('src')])
     .setTest(({store}) => store.get('patterns.csv'))
-    .setUse(({build}) => [build.items.csv])
+    .setUse([`csv`])
 
 /**
  * Returns {@link Rule} for `.xml` handling
@@ -181,7 +173,7 @@ export const xml = (app: Framework) =>
     .makeRule()
     .setInclude(({path}) => [path('src')])
     .setTest(({store}) => store.get('patterns.xml'))
-    .setUse(({build}) => [build.items.xml])
+    .setUse([`xml`])
 
 /**
  * Returns {@link Rule} for `.toml` handling
