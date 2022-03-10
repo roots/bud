@@ -40,9 +40,7 @@ export abstract class BaseServer<T> implements Connection {
    * @param app - Framework
    */
   public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope(
-      this.constructor.name.toLowerCase(),
-    )
+    this.logger = this.app.logger.instance
   }
 
   /**

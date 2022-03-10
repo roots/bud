@@ -13,7 +13,8 @@ import {
   webpack,
 } from 'webpack'
 
-import * as budProcess from './process'
+import * as logger from './compiler.logger'
+import * as dashboard from './process'
 
 const {isFunction, isEqual} = lodash
 
@@ -63,6 +64,11 @@ export class Compiler extends Service implements Contract {
   public config: Array<Configuration> = []
 
   /**
+   * Logger
+   */
+  public compilerLogger
+
+  /**
    * Initiates compilation
    *
    * @returns the compiler instance
@@ -90,6 +96,8 @@ export class Compiler extends Service implements Contract {
   @once
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
+    this.compilerLogger = logger.instance(this.app)
+    this.compilerLogger.disable()
 
     this.instance = webpack(this.config)
 
@@ -112,7 +120,6 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  @once
   public async before() {
     await this.app.build.make()
 
@@ -175,7 +182,7 @@ export class Compiler extends Service implements Contract {
   public async handleStats(stats: MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
     this.stats = stats.toJson(this.app.build.config.stats)
-    budProcess.stats.write(stats, this.app)
+    dashboard.stats.write(stats, this.app, console)
   }
 
   /**
@@ -201,7 +208,6 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  @once
   public async progressCallback(
     percent: number,
     scope: string,
@@ -213,22 +219,24 @@ export class Compiler extends Service implements Contract {
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
-      message = message
-        ? message.flatMap(i => (i ? `${i}`?.trim() : ``))
-        : []
-      message.reverse()
+      message = (
+        message ? message.flatMap(i => (i ? `${i}`?.trim() : ``)) : []
+      ).reverse()
 
       const isStale = isEqual(this.progress, [
         normalPercent,
         message.join(` `).concat(scope),
       ])
+
       this.progress = [normalPercent, message.join(` `).concat(scope)]
 
       !isStale &&
         (message.length > 1 || scope) &&
-        budProcess.logger
-          .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
-          .log(...message)
+        this.compilerLogger.log(
+          chalk.green(`[${normalPercent}%]`),
+          chalk.blue(`[${scope}]`),
+          ...message,
+        )
     } catch (error) {
       this.app.error(error)
     }

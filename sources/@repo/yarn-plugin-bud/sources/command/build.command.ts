@@ -51,13 +51,20 @@ export class Build extends Command {
   public async execute() {
     await this.$(this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`))
 
-    await this.$(
+    await [
       `yarn @bud compile @roots/container`,
       `yarn @bud compile @roots/bud-dashboard`,
       `yarn @bud compile @roots/bud-support`,
       `yarn @bud compile @roots/wordpress-dependencies-webpack-plugin`,
       `yarn @bud compile @roots/wordpress-externals-webpack-plugin`,
       `yarn @bud compile @roots/entrypoints-webpack-plugin`,
-    )
+      `yarn @bud compile @roots/bud-compiler`,
+      `yarn @bud compile @roots/bud-cache`,
+      `yarn @bud compile @roots/bud-entrypoints`,
+      `yarn @bud compile @roots/bud-extensions`,
+    ].reduce(async (a, c) => {
+      await a
+      await this.$(c)
+    }, Promise.resolve())
   }
 }

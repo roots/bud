@@ -137,7 +137,7 @@ export class Rule extends Base implements Contract {
    */
   @bind
   public getUse(): Array<`${keyof Items & string}`> {
-    return this.use.filter(isString)
+    return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
   /**
@@ -155,9 +155,9 @@ export class Rule extends Base implements Contract {
           app: Framework,
         ) => Array<keyof Items & string>),
   ): Rule {
-    this.use = isFunction(input)
-      ? input(this.getUse() ?? [], this.app)
-      : input
+    this.use =
+      (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
+      []
 
     return this
   }
