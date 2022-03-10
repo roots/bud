@@ -8,7 +8,7 @@ import {Framework} from '@roots/bud-framework'
 export const css = (app: Framework) =>
   app.build
     .makeItem()
-    .setLoader(({build}) => build.loaders.css)
+    .setLoader(`css`)
     .setOptions(({hooks}) => ({
       importLoaders: 1,
       sourceMap: hooks.filter('build.devtool') ? true : false,
@@ -22,7 +22,7 @@ export const css = (app: Framework) =>
 export const cssModule = (app: Framework) =>
   app.build
     .makeItem()
-    .setLoader(({build}) => build.loaders.css)
+    .setLoader(`css`)
     .setOptions(({hooks}) => ({
       importLoaders: 1,
       localIdentName: '[name]__[local]___[hash:base64:5]',
@@ -36,7 +36,7 @@ export const cssModule = (app: Framework) =>
  * @public
  */
 export const csv = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.csv)
+  app.build.makeItem().setLoader(`csv`)
 
 /**
  * .html handler factory
@@ -44,7 +44,7 @@ export const csv = (app: Framework) =>
  * @public
  */
 export const html = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.html)
+  app.build.makeItem().setLoader(`html`)
 
 /**
  * Factory {@link Item} for style
@@ -52,15 +52,14 @@ export const html = (app: Framework) =>
  * @public
  */
 export const style = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.style)
+  app.build.makeItem().setLoader(`style`)
 
 /**
  * Factory {@link Item} for markdown
  *
  * @public
  */
-export const md = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.md)
+export const md = (app: Framework) => app.build.makeItem().setLoader(`md`)
 
 /**
  * Factory {@link Item} for minicss-extract-plugin
@@ -68,10 +67,10 @@ export const md = (app: Framework) =>
  * @public
  */
 export const minicss = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.minicss)
+  app.build.makeItem().setLoader(`minicss`)
 
 export const raw = ({build}: Framework) =>
-  build.makeItem().setLoader(({build}) => build.loaders.raw)
+  build.makeItem().setLoader(`raw`)
 
 /**
  * Factory {@link Item} for file
@@ -81,7 +80,7 @@ export const raw = ({build}: Framework) =>
 export const file = (app: Framework) =>
   app.build
     .makeItem()
-    .setLoader(({build}) => build.loaders.file)
+    .setLoader(`file`)
     .setOptions(app => ({
       name: app.store.is('features.hash', true)
         ? app.store.get('hashFormat').concat('.[ext]')
@@ -96,7 +95,7 @@ export const file = (app: Framework) =>
 export const resolveUrl = (app: Framework) =>
   app.build
     .makeItem()
-    .setLoader(({build}) => build.loaders.resolveUrl)
+    .setLoader(`resolveUrl`)
     .setOptions(({path, hooks}) => ({
       root: path('src'),
       sourceMap: hooks.filter('build.devtool') ?? false,
@@ -108,4 +107,4 @@ export const resolveUrl = (app: Framework) =>
  * @public
  */
 export const xml = (app: Framework) =>
-  app.build.makeItem().setLoader(({build}) => build.loaders.xml)
+  app.build.makeItem().setLoader(`xml`)

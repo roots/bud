@@ -22,25 +22,23 @@ export const BudTypeScriptExtension: BudTypeScriptExtension = {
 
   api: {typecheck},
 
-  options: {
-    transpileOnly: true,
-  },
+  options: {transpileOnly: true},
 
-  boot: ({build, hooks, store}) => {
-    store.set('patterns.ts', /\.tsx?$/)
-    build
-      .setLoader('ts-loader', require.resolve('ts-loader'))
-      .setItem('ts', {
-        loader: build.loaders.ts,
-        options: ({extensions}) =>
-          extensions.get('@roots/bud-typescript').options.all(),
+  boot: async app => {
+    app.build
+      .setLoader(`ts`, require.resolve(`ts-loader`))
+      .setItem(`ts`, {
+        loader: `ts`,
+        options: {transpileOnly: true},
       })
-      .setRule('ts', {
-        test: store.get('patterns.ts'),
-        exclude: store.get('patterns.modules'),
+      .setRule(`ts`, {
+        test: app.store.get(`patterns.ts`),
+        include: [app.path(`src`)],
         use: [`babel`, `ts`],
       })
 
-    hooks.on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
+    app.hooks.on(`build.resolve.extensions`, ext =>
+      ext.add(`.ts`).add(`.tsx`),
+    )
   },
 }

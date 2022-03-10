@@ -22,7 +22,7 @@ export const tsFeature: Extension.Module = {
     hooks
       .on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
       .build.setItem('es-build-ts', {
-        loader: ({build}) => build.loaders.esbuild,
+        loader: `esbuild`,
         options: ({extensions}) => ({
           loader: 'tsx',
           target: 'es2015',

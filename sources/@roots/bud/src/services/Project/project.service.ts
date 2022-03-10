@@ -82,11 +82,13 @@ export class Project
 
     const projectFiles = await globby.globby(
       [
-        this.app.path('project', '*.config.js'),
+        this.app.path('project', '*config*'),
         this.app.path('project', '*lint*'),
       ],
       {
         dot: true,
+        onlyFiles: true,
+        unique: true,
       },
     )
 

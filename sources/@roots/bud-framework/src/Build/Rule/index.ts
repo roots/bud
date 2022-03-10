@@ -1,4 +1,4 @@
-import {Items, Maybe} from '../..'
+import {Items} from '../..'
 import {Framework} from '../../Framework'
 
 export namespace Rule {
@@ -113,14 +113,16 @@ export interface Rule {
    *
    * @public
    */
-  setExclude(exclude: Maybe<[Framework], Array<string | RegExp>>): Rule
+  setExclude(exclude: Rule['exclude']): Rule
 
   /**
    * Include paths
    *
    * @public
    */
-  include?: (app: Framework) => Array<string | RegExp>
+  include?:
+    | ((app: Framework) => Array<string | RegExp>)
+    | Array<string | RegExp>
 
   /**
    * Get the value of `include`
@@ -134,28 +136,28 @@ export interface Rule {
    *
    * @public
    */
-  setInclude(include: Maybe<[Framework], Array<string | RegExp>>): Rule
+  setInclude(include: Rule['include']): Rule
 
   /**
    * Type
    *
    * @public
    */
-  type?: (app: Framework) => string
+  type?: ((app: Framework) => string) | string
 
   /**
    * Get the value of `type`
    *
    * @public
    */
-  getType(): string
+  getType(): ((app: Framework) => string) | string
 
   /**
    * Set the value of `type`
    *
    * @public
    */
-  setType(type: Maybe<[Framework], string>): Rule
+  setType(type: Rule['type']): Rule
 
   /**
    * Parser
@@ -176,7 +178,7 @@ export interface Rule {
    *
    * @public
    */
-  setParser(parser: Maybe<[Framework], Rule.Parser>): Rule
+  setParser(parser: ((app: Framework) => Rule.Parser) | Rule.Parser): Rule
 
   /**
    * Generator
@@ -206,5 +208,5 @@ export interface Rule {
    *
    * @public
    */
-  make(): Rule.Output
+  toWebpack(): Rule.Output
 }

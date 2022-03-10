@@ -100,7 +100,10 @@ export interface Build extends Service {
    *
    * @public
    */
-  setRule(name: string, options?: Rule.Options): Build
+  setRule(
+    name: string,
+    options?: Partial<Rule.Options> | ((item: Rule) => Rule),
+  ): Build
 
   /**
    * Make a new rule

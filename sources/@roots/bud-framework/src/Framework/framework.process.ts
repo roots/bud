@@ -1,4 +1,4 @@
-import {Signale} from '@roots/bud-support'
+import {fs, Signale} from '@roots/bud-support'
 
 import {Framework} from '.'
 
@@ -31,6 +31,8 @@ export const makeTerminator = (
 
   return (code: number, reason: string) => (err: Error) => {
     if (err && err instanceof Error) {
+      fs.removeSync(app.path('storage', 'cache'))
+
       Logger.error(err.message, err.stack)
     }
 

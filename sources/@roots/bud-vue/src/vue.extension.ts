@@ -13,23 +13,28 @@ export const VueExtension: Extension.Module = {
       make: () => new VueLoaderPlugin(),
     })
 
-    app.hooks
-      .on('build.module.rules.before', rules => [
-        app.build.items.vue.make(),
-        ...(rules ?? []),
-      ])
-      .hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
-      .hooks.async('build.resolve.alias', async aliases => ({
-        ...(aliases ?? {}),
-        vue: '@vue/runtime-dom',
-      }))
-      .build.setLoader('vue-loader', require.resolve('vue-loader'))
+    app.build
+      .setLoader('vue', require.resolve('vue-loader'))
+      .setItem('vue', item => item.setLoader('vue'))
       .setLoader('vue-style', require.resolve('vue-style-loader'))
-      .setItem('vue', {
-        test: app.store.get('patterns.vue'),
-        use: [`vue-loader`],
-      })
-      .setItem('vue-style', {loader: app.build.loaders['vue-style']})
-      .rules.css.setUse(items => [`vue-style`, ...items])
+      .setItem('vue-style', item => item.setLoader('vue-style'))
+
+    app.build.rules.css.setUse(items => [`vue-style`, ...items])
+
+    app.hooks.on('build.module.rules.before', rules => [
+      app.build
+        .makeRule()
+        .setTest(app.store.get('patterns.vue'))
+        .setUse(items => [`vue`, ...items])
+        .toWebpack(),
+      ...rules,
+    ])
+
+    app.hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
+
+    app.hooks.async('build.resolve.alias', async aliases => ({
+      ...(aliases ?? {}),
+      vue: '@vue/runtime-dom',
+    }))
   },
 }

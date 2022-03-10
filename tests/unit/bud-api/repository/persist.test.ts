@@ -37,6 +37,7 @@ describe('bud.persist', function () {
         expect.stringContaining('.eslintrc.js'),
         expect.stringContaining('bud.config.js'),
         expect.stringContaining('tailwind.config.js'),
+        expect.stringContaining('tsconfig.json'),
       ],
     })
   })

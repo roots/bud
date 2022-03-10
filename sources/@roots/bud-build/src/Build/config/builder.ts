@@ -37,7 +37,7 @@ export async function build(app: Framework): Promise<void> {
       ...app.hooks.filter('build.module.rules.after'),
     ])
     .hooks.on('build.module.rules.oneOf', () =>
-      Object.values(app.build.rules).map(rule => rule.make()),
+      Object.values(app.build.rules).map(rule => rule.toWebpack()),
     )
     .hooks.on('build.name', app.name)
     .hooks.on('build.output', () => ({

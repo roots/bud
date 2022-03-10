@@ -15,7 +15,7 @@ describe('Build Rule', function () {
 
   it('make', () => {
     const rule = {test: /.foo$/}
-    expect(new Rule(() => bud, rule).make()).toEqual({
+    expect(new Rule(() => bud, rule).toWebpack()).toEqual({
       test: /.foo$/,
     })
   })

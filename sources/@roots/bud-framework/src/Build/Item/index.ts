@@ -1,4 +1,4 @@
-import {Framework} from '../..'
+import {Framework, Loaders} from '../..'
 import {Loader} from '../Loader'
 
 /**
@@ -14,7 +14,10 @@ export interface Item {
    *
    * @public
    */
-  loader: Loader | ((app: Framework) => Loader)
+  loader:
+    | `${keyof Loaders & string}`
+    | ((app: Framework) => `${keyof Loaders & string}`)
+
   /**
    * Set loader
    *
@@ -63,7 +66,7 @@ export interface Item {
    *
    * @public
    */
-  make(): Item.Output
+  toWebpack(): Item.Output
 }
 
 export namespace Item {

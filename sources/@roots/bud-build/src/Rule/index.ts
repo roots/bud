@@ -263,12 +263,14 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public make() {
+  public toWebpack() {
     const output = {test: this.getTest()}
 
     this.use &&
       Object.assign(output, {
-        use: this.getUse().map(item => this.app.build.items[item].make()),
+        use: this.getUse().map(item =>
+          this.app.build.items[item].toWebpack(),
+        ),
       })
     this.include && Object.assign(output, {include: this.getInclude()})
     this.exclude && Object.assign(output, {exclude: this.getExclude()})

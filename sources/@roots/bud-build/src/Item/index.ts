@@ -52,7 +52,7 @@ export class Item extends Base implements Contract {
    */
   @bind
   public getLoader(): Loader {
-    return this.unwrap(this.loader)
+    return this.app.build.loaders[this.unwrap(this.loader)]
   }
 
   /**
@@ -60,8 +60,8 @@ export class Item extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(loader: Item['loader']) {
-    this.loader = this.wrap(loader)
+  public setLoader(loader: Contract['loader']) {
+    this.loader = loader
     return this
   }
 
@@ -99,7 +99,7 @@ export class Item extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public make(): Contract.Output {
+  public toWebpack(): Contract.Output {
     const loader = this.getLoader()
     if (!loader) this.app.error(loader, `missing`, this)
 

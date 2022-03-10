@@ -133,14 +133,7 @@ export class Cache extends Framework.Service implements Framework.Cache {
 
   @bind
   public async memoize(fn: any): Promise<memoizeFs.FnToMemoize> {
-    return await this.memoizer.fn(fn, {
-      salt:
-        this.version ??
-        this.app.json.stringify([
-          this.app.project.all(),
-          process.argv.slice(2),
-        ]),
-    })
+    return await this.memoizer.fn(fn, {salt: this.version})
   }
 
   @bind

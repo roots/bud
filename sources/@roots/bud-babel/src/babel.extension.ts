@@ -29,9 +29,8 @@ export const register: Extension.Module['register'] = async (
 ) => {
   app.build
     .setLoader('babel', require.resolve('babel-loader'))
-    .setItem('babel', {
-      loader: ({build}) => build.loaders.babel,
-      options: app => {
+    .setItem('babel', babel =>
+      babel.setLoader(`babel`).setOptions(app => {
         const options: {
           cacheDirectory: string
           env: any
@@ -57,10 +56,9 @@ export const register: Extension.Module['register'] = async (
         }
 
         return options
-      },
-    })
-
-  app.build.rules.js.setUse(items => [`babel`, ...items])
+      }),
+    )
+    .rules.js.setUse(items => [`babel`, ...items])
 
   app.babel.setPresets(DEFAULT_PRESETS).setPlugins(DEFAULT_PLUGINS)
 }

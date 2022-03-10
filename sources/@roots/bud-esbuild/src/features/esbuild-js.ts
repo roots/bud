@@ -6,11 +6,8 @@ export const jsFeature: Extension.CompilerPlugin = {
   boot: app => {
     app.build
       .setItem('esbuild-js', {
-        loader: app => app.build.loaders.esbuild,
-        options: () => ({
-          loader: 'jsx',
-          target: 'es2015',
-        }),
+        loader: `esbuild`,
+        options: {loader: 'jsx', target: 'es2015'},
       })
       .rules.js.setUse(['esbuild-js'])
   },

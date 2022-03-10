@@ -14,18 +14,14 @@ export const BudPostCssExtension: Extension.Module = {
     app.build
       .setLoader('postcss', require.resolve('postcss-loader'))
       .setItem('postcss', item =>
-        item
-          .setLoader(({build}) => build.loaders.postcss)
-          .setOptions(({postcss}) => ({
-            postcssOptions: {
-              ...(app.extensions.get('@roots/bud-postcss').options.all() ??
-                {}),
-              ...(postcss.getValues()
-                ? {plugins: postcss.getValues()}
-                : {}),
-            },
-            sourceMap: true,
-          })),
+        item.setLoader(`postcss`).setOptions(({postcss}) => ({
+          postcssOptions: {
+            ...(app.extensions.get('@roots/bud-postcss').options.all() ??
+              {}),
+            ...(postcss.getValues() ? {plugins: postcss.getValues()} : {}),
+          },
+          sourceMap: true,
+        })),
       )
 
     app.build.rules.css.setUse(items => [...items, `postcss`])

@@ -9,7 +9,7 @@ describe('bud.project', function () {
   })
 
   it('holds cache deps', async () => {
-    expect(bud.project.get('dependencies').size).toEqual(4)
+    expect(bud.project.get('dependencies').size).toEqual(5)
   })
 
   it('holds env values', async () => {
