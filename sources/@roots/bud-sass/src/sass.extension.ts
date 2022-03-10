@@ -34,7 +34,7 @@ export const extension: extension = {
       .on('build.resolve.extensions', ext => ext.add('.scss'))
       .build.setLoader('sass', require.resolve('sass-loader'))
       .setItem('sass', {
-        loader: ({build}) => build.loaders.sass,
+        loader: 'sass',
         options: {
           implementation,
           sourceMap: true,
@@ -42,15 +42,8 @@ export const extension: extension = {
       })
       .setRule('sass', {
         test: app => app.store.get('patterns.sass'),
-        exclude: app => app.store.get('patterns.modules'),
-        use: () =>
-          [
-            app.isProduction ? `minicss` : `style`,
-            `css`,
-            `postcss` ?? undefined,
-            `resolveUrl`,
-            `sass`,
-          ].filter(Boolean),
+        include: app => [app.path('src')],
+        use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
   },
 

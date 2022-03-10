@@ -49,29 +49,18 @@ declare module '@roots/bud-framework' {
 const extension: Extension.Module = {
   name: '@roots/bud-mdx',
 
-  mixin: async app => ({
-    mdx: [MdxConfig, app],
-  }),
+  mixin: async app => ({mdx: [MdxConfig, app]}),
 
-  boot: (app: Framework) => {
-    const {build, store, hooks} = app
-
-    store.set('patterns.mdx', /\.mdx?$/)
-
-    build
-      .setLoader('mdx', require.resolve('@mdx-js/loader'))
-      .setItem('mdx', {
-        loader: ({build}) => build.loaders.mdx,
-        options: ({mdx}) => mdx.options,
-      })
-      .setRule('mdx', {
-        test: ({store}) => store.get('patterns.mdx'),
-        exclude: ({store}) => store.get('patterns.modules'),
+  boot: (app: Framework) =>
+    app.hooks
+      .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
+      .build.setLoader(`mdx`, require.resolve(`@mdx-js/loader`))
+      .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
+      .setRule(`mdx`, {
+        test: /\.mdx?$/,
+        include: app => [app.path('src')],
         use: [`babel`, `mdx`],
-      })
-
-    hooks.on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
-  },
+      }),
 }
 
 export const {name, boot, mixin} = extension

@@ -1,8 +1,9 @@
 import {Framework, Items, Rule as Contract} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
-import {isFunction} from 'lodash'
+import {bind, lodash} from '@roots/bud-support'
 
 import {Base} from '../shared/Base'
+
+const {isFunction, isString} = lodash
 
 export namespace Rule {
   export type ConstructorOptions = Partial<Contract.Options>
@@ -136,7 +137,7 @@ export class Rule extends Base implements Contract {
    */
   @bind
   public getUse(): Array<`${keyof Items & string}`> {
-    return this.use
+    return this.use.filter(isString)
   }
 
   /**

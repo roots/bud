@@ -59,15 +59,21 @@ export const style = (app: Framework) =>
  *
  * @public
  */
-export const md = (app: Framework) => app.build.makeItem().setLoader(`md`)
+export const md = (app: Framework) => app.build.makeItem({loader: 'md'})
 
 /**
  * Factory {@link Item} for minicss-extract-plugin
- *
  * @public
  */
 export const minicss = (app: Framework) =>
   app.build.makeItem().setLoader(`minicss`)
+
+/**
+ * CSS rule which accounts for env
+ * @public
+ */
+export const precss = (app: Framework) =>
+  app.build.makeItem().setLoader(app.isProduction ? `minicss` : `css`)
 
 export const raw = ({build}: Framework) =>
   build.makeItem().setLoader(`raw`)

@@ -24,7 +24,7 @@ export const BudPostCssExtension: Extension.Module = {
         })),
       )
 
-    app.build.rules.css.setUse(items => [...items, `postcss`])
+    app.build.rules.css.setUse([`precss`, `css`, `postcss`])
 
     try {
       logger.await('resolving postcss plugins')

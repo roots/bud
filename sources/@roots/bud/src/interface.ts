@@ -27,6 +27,9 @@ declare module '@roots/bud-framework' {
   }
 
   interface Items {
+    precss: Framework.Item
+    minicss: Framework.Item
+    style: Framework.Item
     css: Framework.Item
     csv: Framework.Item
     file: Framework.Item
@@ -34,10 +37,8 @@ declare module '@roots/bud-framework' {
     font: Framework.Item
     html: Framework.Item
     md: Framework.Item
-    minicss: Framework.Item
     resolveUrl: Framework.Item
     raw: Framework.Item
-    style: Framework.Item
     xml: Framework.Item
   }
 

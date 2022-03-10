@@ -19,6 +19,18 @@ export const mixin: Extension.Module['mixin'] = async app => ({
   babel: [Config, app],
 })
 
+export const options: Extension.Module['options'] = async (
+  app: Framework,
+) => ({
+  cacheDirectory: app.path('storage', 'cache', 'babel'),
+  env: {
+    development: {
+      compact: false,
+    },
+  },
+  root: app.path('src'),
+})
+
 /**
  * Extension register event
  *
@@ -31,31 +43,15 @@ export const register: Extension.Module['register'] = async (
     .setLoader('babel', require.resolve('babel-loader'))
     .setItem('babel', babel =>
       babel.setLoader(`babel`).setOptions(app => {
-        const options: {
-          cacheDirectory: string
-          env: any
-          root: string
-          presets?: any
-          plugins?: any
-        } = {
-          cacheDirectory: app.path('storage', 'cache', 'babel'),
-          env: {
-            development: {
-              compact: false,
-            },
-          },
-          root: app.path('src'),
-        }
+        const options = app.extensions.get('@roots/bud-babel').options
 
-        if (app.babel?.presets) {
-          options.presets = Object.values(app.babel.presets)
-        }
+        app.babel?.presets &&
+          options.set('presets', Object.values(app.babel.presets))
 
-        if (app.babel?.plugins) {
-          options.plugins = Object.values(app.babel.plugins)
-        }
+        app.babel?.plugins &&
+          options.set('plugins', Object.values(app.babel.plugins))
 
-        return options
+        return options.all()
       }),
     )
     .rules.js.setUse(items => [`babel`, ...items])

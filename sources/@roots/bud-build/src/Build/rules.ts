@@ -27,7 +27,7 @@ export const css = (app: Framework) =>
     .makeRule()
     .setTest(({store}) => store.get('patterns.css'))
     .setInclude(({path}) => [path('src')])
-    .setUse([app.isProduction ? `minicss` : `style`, `css`])
+    .setUse([`precss`, `css`])
 
 /**
  * .module.css rule
@@ -39,7 +39,7 @@ export const cssModule = (app: Framework) =>
     .makeRule()
     .setTest(({store}) => store.get('patterns.cssModule'))
     .setInclude(({path}) => [path('src')])
-    .setUse([app.isProduction ? `minicss` : `style`, `cssModule`])
+    .setUse([`precss`, `cssModule`])
 
 /**
  * .jpg, .jpeg, .png, .gif rule
