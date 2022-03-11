@@ -76,7 +76,6 @@
     "lodash": "4.17.21",
     "memoize-fs": "2.2.0",
     "nanoid": "3.3.1",
-    "node-notifier": "10.0.1",
     "pkg-up": "4.0.0",
     "pretty-format": "27.5.1",
     "pug": "3.0.2",

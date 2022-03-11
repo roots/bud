@@ -1,10 +1,9 @@
 import {bind, chalk, fs} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
-import {factory} from '../../factory/index.js'
+import {factory} from '../../factory/index'
 import {seed} from '../../seed'
-import {Notifier} from '../Notifier/index.js'
-import {BaseCommand} from './base.js'
+import {BaseCommand} from './base'
 
 const {ensureDir, remove} = fs
 
@@ -24,8 +23,6 @@ export class CleanCommand extends BaseCommand {
 
   @bind
   public async cleanProjectAssets() {
-    this.notifier = new Notifier(this.app)
-
     this.context.stdout.write('clearing artifacts\n')
 
     try {

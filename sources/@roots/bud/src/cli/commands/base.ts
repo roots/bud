@@ -1,10 +1,10 @@
 import {bind, lodash as _} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
-import {Bud} from '../../Bud/index.js'
-import * as dynamic from '../config/dynamic.config.js'
-import * as manifest from '../config/manifest.config.js'
-import {Notifier} from '../Notifier/index.js'
+import {Bud} from '../../Bud'
+import * as dynamic from '../config/dynamic.config'
+import * as manifest from '../config/manifest.config'
+import {Notifier} from '../Notifier'
 
 /**
  * Base command
@@ -42,7 +42,9 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public async make() {
-    this.notifier = new Notifier(this.app)
+    this.notifier = new Notifier()
+
+    this.app.hooks.action('event.compiler.done', this.notifier.notify)
 
     try {
       this.logger.time('process user configs')

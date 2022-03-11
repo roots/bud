@@ -61,7 +61,8 @@
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.179",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.26"
+    "@types/node": "16.11.26",
+    "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
@@ -81,6 +82,7 @@
     "copy-webpack-plugin": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-notifier": "10.0.1",
     "tslib": "^2.3.1",
     "typanion": "3.7.1",
     "type-fest": "^2.5.4",

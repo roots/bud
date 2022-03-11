@@ -1,7 +1,9 @@
 import {Dashboard as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, once} from '@roots/bud-support'
-import React from 'react'
+import readline from 'node:readline'
+
+import {stats} from './stats'
 
 /**
  * Dashboard service
@@ -10,16 +12,29 @@ import React from 'react'
  */
 export class Dashboard extends Service implements Contract {
   /**
-   * Boot
+   * Is raw mode compatible
+   *
+   * @public
+   */
+  public tty: boolean = process.stdin.isTTY
+
+  /**
+   * Register service
    *
    * @public
    * @decorator `@bind`
-   * @decorator `@once`
+   * @decorator `@bind`
    */
   @bind
   @once
-  public async boot(): Promise<void> {
-    this.app.hooks.action('event.server.after', this.run)
+  public async register() {
+    readline.emitKeypressEvents(process.stdin)
+    this.tty && process.stdin.setRawMode(true)
+
+    process.stdin.on(
+      'keypress',
+      (chunk, key) => key && key.name == 'q' && this.app.close(),
+    )
   }
 
   /**
@@ -27,14 +42,9 @@ export class Dashboard extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
-  @once
-  public async run(): Promise<void> {
-    const {Serve} = await import('../components')
-    const {render} = await import('ink')
-
-    render(<Serve app={this.app} />)
+  public async stats(compilerStats): Promise<void> {
+    stats.write(compilerStats, this.app)
   }
 }

@@ -44,16 +44,8 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.179",
     "@types/node": "16.11.26",
-    "@types/react": "17.0.39",
-    "axios": "0.26.0",
-    "ink": "3.2.0",
-    "ink-spinner": "4.0.3",
-    "react": "17.0.2",
+    "tslib": "^2.3.1",
     "webpack": "5.68.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.1"
   }
 }

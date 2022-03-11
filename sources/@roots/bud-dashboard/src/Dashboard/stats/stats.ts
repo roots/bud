@@ -9,7 +9,6 @@ import * as webpackMessage from './webpack.message'
 export const write = (
   stats: {toJson: () => StatsCompilation},
   app: Framework,
-  compilerLogger: any,
 ) =>
   stats.toJson().children?.map(compilation => {
     if (!compilation?.entrypoints) return compilation

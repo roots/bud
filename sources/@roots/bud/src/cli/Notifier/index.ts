@@ -1,61 +1,78 @@
 import {Framework} from '@roots/bud-framework'
-import {bind, humanReadable, NodeNotifier} from '@roots/bud-support'
-import {dirname, resolve} from 'path'
-
-/**
- * MacOS binary
- */
-const MACOS_NOTIFIER_PATH = resolve(
-  __dirname,
-  '../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
-)
-const IMAGE = resolve(__dirname, '../../../assets/bud-icon.jpg')
+import {bind} from '@roots/bud-support'
+import NotificationCenter from 'node-notifier/notifiers/notificationcenter'
+import {resolve} from 'path'
 
 export class Notifier {
-  public instance: NodeNotifier.NotificationCenter
+  /**
+   * MacOS Notifier binary
+   *
+   * @public
+   */
+  public binary = resolve(
+    __dirname,
+    '../../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
+  )
 
-  public constructor(public app: Framework) {
-    this.instance = new NodeNotifier.NotificationCenter({
-      customPath: MACOS_NOTIFIER_PATH,
+  /**
+   * Node notifier notification center
+   *
+   * @public
+   */
+  public notificationCenter: NotificationCenter
+
+  /**
+   * Class constructor
+   *
+   * @public
+   */
+  public constructor() {
+    this.notificationCenter = new NotificationCenter({
+      customPath: this.binary,
     })
-
-    this.app.hooks.action('event.compiler.done', this.notify)
   }
 
+  public getGroup(app: Framework): string {
+    return app.path('project').split('/').pop()
+  }
+
+  /**
+   * Emits notification
+   *
+   * @param app - Framework
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async notify(app: Framework) {
-    const summary = app.compiler.stats.children?.reduce(
-      (summary, compilation) => {
-        return {
-          errors: summary.errors + (compilation.errorsCount ?? 0),
-          warnings: summary.warnings + (compilation.warningsCount ?? 0),
-          assets: summary.assets + (compilation.assets?.length ?? 0),
-          time: summary.time + (compilation.time ?? 0),
-        }
-      },
+    this.notificationCenter.notify(
       {
-        errors: app.compiler.stats.errorsCount ?? 0,
-        warnings: app.compiler.stats.warningsCount ?? 0,
-        assets: 0,
-        time: 0,
+        title:
+          app.compiler.stats.errorsCount > 0
+            ? `✖ ${app.project.get('manifest.name') ?? app.name}`
+            : `✔ ${app.project.get('manifest.name') ?? app.name}`,
+        message: `${app.mode} build completed with ${app.compiler.stats.errorsCount} errors and ${app.compiler.stats.warningsCount} warnings`,
+        // @ts-ignore
+        group: this.getGroup(app),
+        ...(app.isDevelopment
+          ? {open: app.server.connection.url.toString()}
+          : {}),
       },
+      this.makeCallback(app),
     )
+  }
 
-    const group = dirname(app.path('project')).split('/').pop()
-    const title =
-      !summary?.errors && !summary?.warnings
-        ? 'Compilation success'
-        : summary?.errors
-        ? 'Compilation failed'
-        : 'Compiled with warnings'
-
-    this.instance.notify({
-      title,
-      group,
-      message: `Done in ${humanReadable.durationFormatter()(
-        summary?.time,
-      )}.`,
-      contentImage: IMAGE,
-    })
+  /**
+   * node notifier callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeCallback(app: Framework) {
+    return (error: Error, response: any, metadata: any) => {
+      //  error && app.error(error.toString())
+    }
   }
 }

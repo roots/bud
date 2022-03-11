@@ -53,13 +53,6 @@ export class Clean extends Command {
         await this.$(`rm -rf storage/packages/@roots/*`)
         await this.$(`rm -rf /srv/mocks/yarn/* /srv/mocks/npm/*`)
       } catch (e) {}
-
-      try {
-        await this.$(`rm ${repo.paths.root}/examples/*/yarn.lock`)
-        await this.$(`rm ${repo.paths.root}/examples/*/package-lock.json`)
-        await this.$(`cp -rf examples/* /srv/mocks/yarn/`)
-        await this.$(`cp -rf examples/* /srv/mocks/npm/`)
-      } catch (e) {}
     }
   }
 

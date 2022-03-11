@@ -102,7 +102,7 @@ function test(pacman) {
       })
 
       it('[snapshots] public/manifest.json matches expectations', async () => {
-        expect(Object.entries(project.manifest).length).toEqual(7)
+        expect(Object.entries(project.manifest).length).toEqual(6)
 
         expect(project.manifest['app.js']).toMatch(/app\.[\d|\w]*\.js/)
         expect(project.manifest['app.css']).toMatch(/app\.[\d|\w]*\.css/)

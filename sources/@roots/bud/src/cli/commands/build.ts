@@ -244,6 +244,7 @@ export class BuildCommand extends BaseCommand {
     })
 
     await this.make()
+
     await overrides.config(this)
 
     await this.run()

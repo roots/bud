@@ -5,6 +5,7 @@ import {
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
   ProgressPlugin,
+  Stats,
   StatsCompilation,
 } from 'webpack'
 
@@ -72,11 +73,11 @@ interface Compiler extends Service {
    */
   before(): any
 
-  callback(error: Error, stats: MultiStats): Promise<void>
+  callback(error: Error, stats: Stats & MultiStats): void
 
-  handleStats(stats: MultiStats): Promise<void>
+  handleStats(stats: Stats & MultiStats): void
 
-  handleErrors(error: Error): Promise<void>
+  handleErrors(error: Error): void
 }
 
 /**

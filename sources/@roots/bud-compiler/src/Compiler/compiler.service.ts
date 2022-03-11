@@ -8,13 +8,13 @@ import {
   Configuration,
   MultiStats,
   ProgressPlugin,
+  Stats,
   StatsCompilation,
   StatsError,
   webpack,
 } from 'webpack'
 
 import * as logger from './compiler.logger'
-import * as dashboard from './process'
 
 const {isFunction, isEqual} = lodash
 
@@ -96,15 +96,16 @@ export class Compiler extends Service implements Contract {
   @once
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
+
     this.compilerLogger = logger.instance(this.app)
-    this.compilerLogger.disable()
+    this.app.store.isFalse('features.log') && this.compilerLogger.disable()
 
     this.instance = webpack(this.config)
 
-    this.instance.hooks.done.tap(config.shift().name, async stats => {
-      await this.app.hooks.fire('event.compiler.done')
-      if (this.app.isDevelopment) await this.handleStats(stats)
-    })
+    this.app.compiler.instance.hooks.done.tap(
+      config.shift().name,
+      this.handleStats,
+    )
 
     new ProgressPlugin(this.progressCallback).apply(this.instance)
 
@@ -145,6 +146,7 @@ export class Compiler extends Service implements Contract {
       this.app.children?.getValues().map(async (instance: Framework) => {
         if (!instance.name) return
         await instance.build.make()
+
         this.config.push(instance.build.config)
       }),
     )
@@ -160,16 +162,15 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   @once
-  public async callback(error: Error, stats: MultiStats) {
-    await this.handleErrors(error)
-    await this.handleStats(stats)
+  public async callback(error: Error, stats: Stats & MultiStats) {
+    error && (await this.handleErrors(error))
+    stats && (await this.handleStats(stats))
 
-    await this.app.hooks.fire('event.compiler.done')
-
-    this.instance.close(err => {
-      err && this.app.error(err)
-      this.app.close()
-    })
+    this.app.isProduction &&
+      this.instance.close(error => {
+        error && this.app.error(error)
+        this.app.close()
+      })
   }
 
   /**
@@ -179,10 +180,12 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async handleStats(stats: MultiStats) {
+  public async handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
-    this.stats = stats.toJson(this.app.build.config.stats)
-    dashboard.stats.write(stats, this.app, console)
+    this.stats = stats.toJson()
+    this.app.dashboard.stats(stats)
+
+    await this.app.hooks.fire(`event.compiler.done`)
   }
 
   /**
@@ -199,6 +202,7 @@ export class Compiler extends Service implements Contract {
       this.app.server.enabledMiddleware?.hot?.publish({error})
 
     this.app.error(error)
+    await this.app.hooks.fire(`event.compiler.error`)
   }
 
   /**
@@ -208,14 +212,15 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async progressCallback(
+  public progressCallback(
     percent: number,
     scope: string,
     ...message: any[]
   ) {
     try {
       const normalPercent = Math.ceil((percent ?? 0) * 100)
-      scope =
+
+      const stage =
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
@@ -225,16 +230,16 @@ export class Compiler extends Service implements Contract {
 
       const isStale = isEqual(this.progress, [
         normalPercent,
-        message.join(` `).concat(scope),
+        message.join(` `).concat(stage),
       ])
 
-      this.progress = [normalPercent, message.join(` `).concat(scope)]
+      this.progress = [normalPercent, message.join(` `).concat(stage)]
 
       !isStale &&
         (message.length > 1 || scope) &&
         this.compilerLogger.log(
           chalk.green(`[${normalPercent}%]`),
-          chalk.blue(`[${scope}]`),
+          chalk.blue(`[${stage}]`),
           ...message,
         )
     } catch (error) {
