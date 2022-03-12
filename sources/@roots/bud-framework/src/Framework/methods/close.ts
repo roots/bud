@@ -1,3 +1,5 @@
+import {chalk} from '@roots/bud-support'
+
 import {Framework} from '..'
 
 /**
@@ -9,7 +11,7 @@ import {Framework} from '..'
  * @public
  */
 export interface close {
-  (done?: CallableFunction): void
+  (done?: CallableFunction): Promise<void>
 }
 
 /**
@@ -20,8 +22,13 @@ export interface close {
  *
  * @public
  */
-export async function close(done = process.exit) {
+export async function close(callback: any) {
   const ctx = this as Framework
+
+  global.process.exitCode === 0
+    ? process.stdout.write(chalk.green(`\n✔ that's a wrap\n`))
+    : process.stderr.write(chalk.red(`\n✖ Error\n`))
+
   await ctx.hooks.fire('event.app.close')
-  done()
+  callback()
 }

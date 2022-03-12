@@ -54,9 +54,10 @@ export class DoctorCommand extends BaseCommand {
       this.context.stderr.write(
         chalk.red(`webpack configuration check returned an error\n`),
       )
-      this.context.stderr.write(error)
 
-      process.exit(1)
+      this.app.error(error)
     }
+
+    this.app.close(global.process.exit, 0)
   }
 }

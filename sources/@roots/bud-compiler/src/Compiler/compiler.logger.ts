@@ -1,6 +1,3 @@
 import {Signale} from '@roots/bud-support'
 
-export const instance = app =>
-  new Signale({
-    scope: 'compiler',
-  })
+export const instance = () => new Signale({interactive: true})

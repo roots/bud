@@ -11,6 +11,8 @@ describe('bud.build.config', function () {
     await bud.build.make()
   })
 
+  afterAll(async () => await bud.close(() => null))
+
   it(`doesn't include deprecated properties`, () => {
     expect(bud.build.config.hasOwnProperty('devServer')).toBe(false)
     expect(bud.build.config.hasOwnProperty('unsafeCache')).toBe(false)

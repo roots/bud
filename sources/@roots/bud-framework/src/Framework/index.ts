@@ -761,8 +761,7 @@ export abstract class Framework {
    */
   @bind
   public error(...messages: any[]) {
-    this.logger.instance.enable()
-    this.logger.instance.scope(...this.logger.context).error(...messages)
+    global.process.exitCode = 1
     throw new Error(messages.shift())
   }
 

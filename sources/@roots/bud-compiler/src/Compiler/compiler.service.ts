@@ -79,6 +79,8 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async compile() {
+    this.compilerLogger = logger.instance()
+
     const config = await this.before()
     const compiler = await this.invoke(config)
 
@@ -97,15 +99,13 @@ export class Compiler extends Service implements Contract {
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
 
-    this.compilerLogger = logger.instance(this.app)
-    this.app.store.isFalse('features.log') && this.compilerLogger.disable()
-
     this.instance = webpack(this.config)
 
-    this.app.compiler.instance.hooks.done.tap(
-      config.shift().name,
-      this.handleStats,
-    )
+    this.app.isDevelopment &&
+      this.app.compiler.instance.hooks.done.tap(
+        config.shift().name,
+        this.handleStats,
+      )
 
     new ProgressPlugin(this.progressCallback).apply(this.instance)
 
@@ -167,9 +167,8 @@ export class Compiler extends Service implements Contract {
     stats && (await this.handleStats(stats))
 
     this.app.isProduction &&
-      this.instance.close(error => {
-        error && this.app.error(error)
-        this.app.close()
+      this.instance.close(async error => {
+        error ? this.app.error(error) : this.app.close()
       })
   }
 
@@ -182,10 +181,15 @@ export class Compiler extends Service implements Contract {
   @bind
   public async handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
+
     this.stats = stats.toJson()
     this.app.dashboard.stats(stats)
 
     await this.app.hooks.fire(`event.compiler.done`)
+
+    this.app.isProduction &&
+      this.stats.errorsCount > 0 &&
+      this.app.error('Errors detected in source')
   }
 
   /**
@@ -198,10 +202,10 @@ export class Compiler extends Service implements Contract {
   public async handleErrors(error: Error) {
     if (!error) return
 
-    this.app.isDevelopment &&
-      this.app.server.enabledMiddleware?.hot?.publish({error})
+    this.app.isDevelopment
+      ? this.app.server.enabledMiddleware?.hot?.publish({error})
+      : this.app.error(error)
 
-    this.app.error(error)
     await this.app.hooks.fire(`event.compiler.error`)
   }
 
@@ -236,11 +240,26 @@ export class Compiler extends Service implements Contract {
       this.progress = [normalPercent, message.join(` `).concat(stage)]
 
       !isStale &&
+        normalPercent !== 100 &&
         (message.length > 1 || scope) &&
         this.compilerLogger.log(
-          chalk.green(`[${normalPercent}%]`),
+          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
+            `[${normalPercent}%]`,
+          ),
           chalk.blue(`[${stage}]`),
           ...message,
+        )
+
+      normalPercent === 100 &&
+        this.compilerLogger.log(
+          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
+            `[${normalPercent}%]`,
+          ),
+          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
+            this.stats.errorsCount > 0
+              ? `Compiled with errors`
+              : `Compiled`,
+          ),
         )
     } catch (error) {
       this.app.error(error)

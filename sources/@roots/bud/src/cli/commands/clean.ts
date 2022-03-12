@@ -49,5 +49,7 @@ export class CleanCommand extends BaseCommand {
     } catch (err) {
       this.app.error(err)
     }
+
+    this.app.close(global.process.exit, 0)
   }
 }

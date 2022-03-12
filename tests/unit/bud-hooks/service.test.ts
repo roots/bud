@@ -11,6 +11,8 @@ describe('@roots/bud-hooks', function () {
     hooks = new Hooks(bud)
   })
 
+  afterAll(async () => await bud.close(() => null))
+
   it('has an on method', () => {
     expect(hooks.on).toBeInstanceOf(Function)
   })
@@ -47,15 +49,15 @@ describe('@roots/bud-hooks', function () {
   })
 
   it('action registers callable function', async () => {
-    const value = jest.fn((app: Bud) => null)
-    hooks.action('event.app.close', value)
-    expect(hooks.repository.event.app.close.pop()).toBe(value)
+    const value = jest.fn(async (app: Bud) => null)
+    hooks.action('event.app.build', value)
+    expect(hooks.repository.event.app.build.pop()).toBe(value)
   })
 
   it('fire calls action function', async () => {
     const value = jest.fn(async () => null)
-    hooks.action('event.app.close', value)
-    await hooks.fire('event.app.close')
+    hooks.action('event.app.build', value)
+    await hooks.fire('event.app.build')
     expect(value).toHaveBeenCalled()
   })
 })

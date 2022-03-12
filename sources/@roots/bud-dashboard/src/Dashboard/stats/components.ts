@@ -23,10 +23,10 @@ const assetIcon = asset =>
     : asset.emitted
     ? `✔`
     : asset.info.error
-    ? `⚠`
+    ? `✖`
     : asset.info.warning
     ? `⚠`
-    : `∅`
+    : ` `
 
 export const status = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(assetIcon(asset))

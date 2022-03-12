@@ -1,46 +1,7 @@
-import {fs, Signale} from '@roots/bud-support'
+import {fs} from '@roots/bud-support'
+import readline from 'node:readline'
 
 import {Framework} from '.'
-
-const Logger = new Signale({
-  scope: 'process',
-})
-
-/**
- * Node shutdown factory
- *
- * @remarks
- * Returns a curried function which accepts a sigterm code
- * and a reason to be logged for the shutdown and returns a
- * a node `process.on` event handler.
- *
- * @param app - the Framework instance
- * @param options - Termination options
- * @returns
- *
- * @public
- */
-export const makeTerminator = (
-  app: Framework,
-  options = {timeout: 500},
-) => {
-  const exit = (code: number) => () => {
-    global.process.exitCode = code
-    global.process.exit()
-  }
-
-  return (code: number, reason: string) => (err: Error) => {
-    if (err && err instanceof Error) {
-      fs.removeSync(app.path('storage', 'cache'))
-
-      Logger.error(err.message, err.stack)
-    }
-
-    Logger.info(reason)
-
-    setTimeout(() => app.close(exit(code)), options.timeout).unref()
-  }
-}
 
 /**
  * Registers a callback for all kinds of application shutdown events.
@@ -54,12 +15,30 @@ export const makeTerminator = (
  * @public
  */
 export const initialize = (app: Framework) => {
-  const handler = makeTerminator(app, {timeout: 500})
+  const keypressListener = (_chunk, key) => {
+    key?.name == 'q' && app.close(process.exit)
+  }
 
-  global.process.on('uncaughtException', handler(1, 'uncaughtException'))
-  global.process.on('unhandledRejection', handler(1, 'unhandledRejection'))
-  global.process.on('beforeExit', handler(0, 'beforeExit'))
-  global.process.on('exit', handler(0, 'exit'))
-  global.process.on('SIGTERM', handler(0, 'SIGTERM'))
-  global.process.on('SIGINT', handler(0, 'SIGINT'))
+  const makeExit = (code: number) => () => {
+    global.process.exitCode = code
+    global.process.exit(global.process.exitCode)
+  }
+
+  const makeHandle = (code: number) => (error: Error) => {
+    error && fs.removeSync(app.path('storage', 'cache'))
+    global.process.stdin.removeListener('keypress', keypressListener)
+    setTimeout(() => app.close(makeExit(code)), 500).unref()
+  }
+
+  global.process
+    .on('beforeExit', makeHandle(0))
+    .on('exit', makeHandle(0))
+    .on('SIGTERM', makeHandle(0))
+    .on('SIGINT', makeHandle(0))
+    .on('uncaughtException', makeHandle(1))
+    .on('unhandledRejection', makeHandle(1))
+
+  readline.emitKeypressEvents(process.stdin)
+  global.process.stdin.isTTY &&
+    global.process.stdin.setRawMode(true).on('keypress', keypressListener)
 }
