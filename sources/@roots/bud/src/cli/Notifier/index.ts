@@ -31,6 +31,7 @@ export class Notifier {
     return join(
       this.app.context.application.dir,
       'vendor',
+      'mac.no-index',
       'roots-notifier.app',
       'Contents',
       'MacOS',
