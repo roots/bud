@@ -22,7 +22,7 @@ export const mixin: Extension.Module['mixin'] = async app => ({
 export const options: Extension.Module['options'] = async (
   app: Framework,
 ) => ({
-  cacheDirectory: app.path('storage', 'cache', 'babel'),
+  cacheDirectory: app.path(`@storage/cache/babel`),
   env: {
     development: {
       compact: false,

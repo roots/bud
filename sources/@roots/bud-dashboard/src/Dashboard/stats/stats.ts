@@ -23,5 +23,5 @@ export const write = (
     ].join('\n')
 
     // eslint-disable-next-line
-    process.stdout.write(`\n${output}`)
+    app.context.stdout.write(`\n${output}\n`)
   })

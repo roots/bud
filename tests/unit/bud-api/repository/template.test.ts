@@ -34,10 +34,6 @@ describe('bud.template', function () {
       bud.store.set('features.html', false)
     })
 
-    afterAll(done => {
-      bud.close(done)
-    })
-
     it('returns bud', async () => {
       const apiReturns = await bud.api.call('template')
 

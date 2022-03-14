@@ -39,17 +39,19 @@ export const assets: method = async function assets(
     if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
       return true
 
-    return !pattern.includes('.')
+    return !pattern.split('/').pop().includes('.')
   }
+
   /**
    * Return a wildcard glob for a given path
    */
   const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
+
   /**
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern.startsWith('./')
+    pattern?.startsWith('./')
       ? pattern.replace('./', `/`.concat(ctx.path('project')))
       : pattern
 
@@ -82,9 +84,9 @@ export const assets: method = async function assets(
      *  - raw input
      */
     const context = () => {
-      if (test(ctx.path('src'))) return ctx.path('src')
-      if (test(ctx.path('project'))) return ctx.path('project')
-      if (!test('/')) return ctx.path('src')
+      if (test(ctx.path())) return ctx.path('@project')
+      if (test(ctx.path('@src'))) return ctx.path('@src')
+      if (!test('/')) return ctx.path('@src')
       else return
     }
 

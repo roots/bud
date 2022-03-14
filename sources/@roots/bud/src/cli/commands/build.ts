@@ -1,13 +1,13 @@
-import {lodash as _} from '@roots/bud-support'
+import {lodash} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
-import {isUndefined} from 'lodash'
 import * as t from 'typanion'
 
 import {factory} from '../../factory/index.js'
-import {Bud} from '../../index.js'
 import {seed} from '../../seed.js'
 import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
+
+const {isUndefined} = lodash
 
 /**
  * Build command
@@ -59,7 +59,7 @@ export class BuildCommand extends BaseCommand {
    * --cache
    */
   public cache = Option.String(`--cache`, undefined, {
-    description: `Utilize filesystem cache`,
+    description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
     validator: t.isOneOf([
       t.isLiteral('filesystem'),
@@ -67,6 +67,13 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(true),
       t.isLiteral(false),
     ]),
+  })
+
+  /**
+   * --ci
+   */
+  public ci = Option.Boolean(`--ci`, undefined, {
+    description: `Run in CI mode (disables keyboard input handlers).`,
   })
 
   /**
@@ -87,14 +94,21 @@ export class BuildCommand extends BaseCommand {
    * --devtool
    */
   public devtool = Option.Boolean(`--devtool`, undefined, {
-    description: `Set devtool`,
+    description: `Set devtool option`,
+  })
+
+  /**
+   * --flush
+   */
+  public flush = Option.Boolean(`--flush`, undefined, {
+    description: `Force clearing bud internal cache`,
   })
 
   /**
    * --hash
    */
   public hash = Option.Boolean(`--hash`, undefined, {
-    description: 'Hash compiled files',
+    description: 'Hash compiled filenames',
   })
 
   /**
@@ -110,13 +124,6 @@ export class BuildCommand extends BaseCommand {
   public inject = Option.Boolean(`--inject`, undefined, {
     description: 'Automatically inject extensions',
     hidden: true,
-  })
-
-  /**
-   * --project
-   */
-  public project = Option.String(`--project`, undefined, {
-    description: 'Project directory',
   })
 
   /**
@@ -137,7 +144,7 @@ export class BuildCommand extends BaseCommand {
    * --storage
    */
   public storage = Option.String(`--storage`, undefined, {
-    description: 'Storage/cache directory (relative to project)',
+    description: 'Storage directory (relative to project)',
   })
 
   /**
@@ -178,6 +185,14 @@ export class BuildCommand extends BaseCommand {
     description: 'Minimize compiled assets',
   })
 
+  public modules = Option.String(`--modules`, undefined, {
+    description: 'Module resolution path',
+  })
+
+  public notify = Option.Boolean(`--notify`, true, {
+    description: 'Allow OS notifications',
+  })
+
   /**
    * --publicPath
    */
@@ -204,49 +219,68 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * Bud configuration
-   *
-   * @remarks
-   * Fills in whatever is missing with values from the seed config.
-   *
-   * @returns Bud configuration
-   */
-  public config(): Bud.Options['config'] {
-    const config: Bud.Options['config'] = seed
-
-    if (!isUndefined(this.project)) config.location.project = this.project
-    if (!isUndefined(this.src)) config.location.src = this.src
-    if (!isUndefined(this.dist)) config.location.dist = this.dist
-    if (!isUndefined(this.storage)) config.location.storage = this.storage
-
-    if (!isUndefined(this.publicPath))
-      config['build.output.publicPath'] = () => this.publicPath
-    if (!isUndefined(this.log)) config['features.log'] = this.log
-    if (!isUndefined(this.manifest))
-      config['features.manifest'] = this.manifest
-
-    return config
-  }
-
-  /**
    * Execute command
    */
   public async execute() {
-    if (!_.isUndefined(this.dashboard))
+    if (!isUndefined(this.dashboard))
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
 
+    this.context.args = {
+      cache: this.cache ?? null,
+      clean: this.clean ?? null,
+      devtool: this.devtool ?? null,
+      dist: this.dist ?? null,
+      flush: this.flush ?? null,
+      hash: this.hash ?? null,
+      html: this.html ?? null,
+      inject: this.inject ?? null,
+      log: this.log ?? null,
+      logLevel: this.logLevel ?? null,
+      manifest: this.manifest ?? null,
+      minimize: this.minimize ?? null,
+      mode: this.mode ?? null,
+      modules: this.modules ?? null,
+      notify: this.notify ?? null,
+      publicPath: this.publicPath ?? null,
+      src: this.src ?? null,
+      splitChunks: this.splitChunks ?? null,
+      target: this.target ?? null,
+    }
+
     this.app = await factory({
       name: 'bud',
       mode: this.mode,
-      config: this.config(),
+      context: this.context,
+      config: {
+        'build.output.publicPath': isUndefined(this.publicPath)
+          ? seed['build.output.publicPath']
+          : () => this.publicPath,
+        'features.inject': isUndefined(this.inject)
+          ? seed['features.inject']
+          : this.inject,
+        'features.log': isUndefined(this.log)
+          ? seed['features.log']
+          : this.log,
+        'features.manifest': isUndefined(this.manifest)
+          ? seed['features.manifest']
+          : this.manifest,
+        location: {
+          src: isUndefined(this.src) ? seed.location.src : this.src,
+          dist: isUndefined(this.dist) ? seed.location.dist : this.dist,
+          storage: isUndefined(this.storage)
+            ? seed.location.storage
+            : this.storage,
+          modules: isUndefined(this.modules)
+            ? seed.location.modules
+            : this.modules,
+        },
+      },
     })
 
     await this.make()
-
     await overrides.config(this)
-
     await this.run()
   }
 }

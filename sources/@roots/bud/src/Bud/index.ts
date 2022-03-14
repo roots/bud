@@ -16,9 +16,17 @@ export class Bud extends Base {
 }
 
 /**
+ * ⚡️ Bud
+ *
  * @public
  */
 export namespace Bud {
+  /**
+   * Application context
+   * @see {@link }
+   */
+  export type Context = Framework.Context
+
   /**
    * Bud constructor options
    *

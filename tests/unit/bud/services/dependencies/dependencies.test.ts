@@ -24,11 +24,11 @@ describe('bud.project', function () {
     expect(manager.client.path).toBe(mockProject.path)
   })
 
-  test.todo('dependencies manager returns npm')
-
   it('has a install method', () => {
     expect(dependencies.install).toBeInstanceOf(Function)
   })
 
   test.todo('test install method')
+
+  test.todo('dependencies manager returns npm')
 })

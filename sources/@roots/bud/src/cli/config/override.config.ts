@@ -11,13 +11,6 @@ export const config = async (command: BuildCommand) => {
     })
   }
 
-  if (!isUndefined(command.project)) {
-    command.app.setPath('project', command.project)
-    command.app.children?.every((_name, child) =>
-      child.setPath('project', command.project),
-    )
-  }
-
   if (!isUndefined(command.src)) {
     command.app.setPath('src', command.src)
     command.app.children?.every((_name, child) =>

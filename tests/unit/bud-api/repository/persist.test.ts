@@ -36,6 +36,7 @@ describe('bud.persist', function () {
         expect.stringContaining('package.json'),
         expect.stringContaining('.eslintrc.js'),
         expect.stringContaining('bud.config.js'),
+        expect.stringContaining('docker-compose.yml'),
         expect.stringContaining('tailwind.config.js'),
         expect.stringContaining('tsconfig.json'),
       ],

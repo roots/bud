@@ -1,4 +1,3 @@
-import {memoizeFs} from '@roots/bud-support'
 import {Configuration} from 'webpack'
 
 import type {Service} from '../Service'
@@ -76,10 +75,4 @@ export interface Cache extends Service {
    * @public
    */
   filesystemCache: Configuration['cache']
-
-  /**
-   * memoizeFs
-   */
-  memoizer: memoizeFs.Memoizer
-  memoize: (fn: any) => Promise<memoizeFs.FnToMemoize>
 }

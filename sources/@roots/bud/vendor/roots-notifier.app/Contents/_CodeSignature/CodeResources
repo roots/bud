@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/Base.lproj/MainMenu.nib</key>
+		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects-101300.nib</key>
 		<data>
-		x8cRDPLyv1/f8Ckzz/Jd142TNI8=
+		JUZkIAWBOD3cOeGBAiXoSdtNvUo=
+		</data>
+		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects.nib</key>
+		<data>
+		t6kX13ftGoJK4xyr+L9gBWiyQQU=
 		</data>
 		<key>Resources/Terminal.icns</key>
 		<data>
@@ -33,15 +37,26 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Resources/Base.lproj/MainMenu.nib</key>
+		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects-101300.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			x8cRDPLyv1/f8Ckzz/Jd142TNI8=
+			JUZkIAWBOD3cOeGBAiXoSdtNvUo=
 			</data>
 			<key>hash2</key>
 			<data>
-			+Ncv2Hd3QugS49x3XCGm7fi3Zu+MD1EbSO3h9MoW+EA=
+			smnqP0N1sVp4d+CHczUQqlINRhkae7c9pJTM+ORCLG8=
+			</data>
+		</dict>
+		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			t6kX13ftGoJK4xyr+L9gBWiyQQU=
+			</data>
+			<key>hash2</key>
+			<data>
+			UEi66lJbMd87aZXfL7HeBzG21sDAJTegYnJzLxwfMsE=
 			</data>
 		</dict>
 		<key>Resources/Terminal.icns</key>

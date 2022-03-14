@@ -1,31 +1,52 @@
 #!/usr/bin/env node
-// @ts-check
 
-const {Cli, Builtins} = require('clipanion');
-const {BuildCommand, CleanCommand, DevCommand, DoctorCommand, InstallCommand} = require('../lib/cjs/cli/index.js');
-const { fs } = require('@roots/bud-support')
+const {Cli, Builtins} = require('clipanion')
+const {BuildCommand, CleanCommand, DevCommand, DoctorCommand, InstallCommand} = require('../lib/cjs/cli/index.js')
+const {makeContext} = require('../lib/cjs/context/index.js')
 
-const args = process.argv.splice(2);
+/**
+ * Run Bud CLI
+ * @public
+ */
+const runBudCLI = async () => {
+  /**
+   * Arguments
+   *
+   * @public
+   */
+  const argv = process.argv.splice(2)
 
-(async () => {
-  const manifest = await fs.readJson(`${__dirname}/../package.json`)
-  const name = manifest.name.split('/').pop()
+  /**
+   * Execution context
+   *
+   * @see {@link https://mael.dev/clipanion/docs/contexts}
+   */
+  const context = await makeContext()
 
-  const cli = new Cli({
-    binaryLabel: name,
-    binaryName: name,
-    binaryVersion:manifest.version,
+  /**
+   * CLI instantiation
+   *
+   * @see {@link https://mael.dev/clipanion/docs/api/cli}
+   */
+  const application = new Cli({
+    binaryLabel: context.application.name,
+    binaryName: context.application.name,
+    binaryVersion: context.application.version,
     enableColors: true,
   })
 
-  cli.register(Builtins.HelpCommand)
-  cli.register(Builtins.DefinitionsCommand)
-  cli.register(Builtins.VersionCommand)
-  cli.register(BuildCommand);
-  cli.register(CleanCommand);
-  cli.register(DevCommand);
-  cli.register(DoctorCommand);
-  cli.register(InstallCommand)
+  application.register(Builtins.HelpCommand)
+  application.register(Builtins.DefinitionsCommand)
+  application.register(Builtins.VersionCommand)
 
-  cli.run(args);
-})();
+  application.register(BuildCommand);
+  application.register(CleanCommand);
+  application.register(DevCommand);
+  application.register(DoctorCommand);
+  application.register(InstallCommand)
+
+  application.runExit(argv, context)
+}
+
+/* ⚡️ */
+runBudCLI()

@@ -3,14 +3,13 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {bind, chalk, lodash, once} from '@roots/bud-support'
+import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
 import {
   Configuration,
   MultiStats,
   ProgressPlugin,
   Stats,
   StatsCompilation,
-  StatsError,
   webpack,
 } from 'webpack'
 
@@ -25,29 +24,25 @@ const {isFunction, isEqual} = lodash
  */
 export class Compiler extends Service implements Contract {
   /**
+   * Compiler
+   *
+   * @public
+   */
+  public compiler: Contract.Compiler = webpack
+
+  /**
    * Compiler instance
    *
    * @public
    */
-  public instance: Contract.Instance
+  public compilation: Contract.Compilation
 
   /**
    * Compilation stats
    *
    * @public
    */
-  public stats: StatsCompilation = {
-    assets: [],
-    errors: [],
-    warnings: [],
-  }
-
-  /**
-   * Compiler errors
-   *
-   * @public
-   */
-  public errors: Array<StatsError> = []
+  public stats: StatsCompilation
 
   /**
    * Compilation progress
@@ -65,8 +60,19 @@ export class Compiler extends Service implements Contract {
 
   /**
    * Logger
+   *
+   * @public
    */
-  public compilerLogger
+  public get logger(): Signale {
+    return logger.instance
+  }
+
+  public getCompiler(): Contract.Compiler {
+    return this.compiler
+  }
+  public setCompiler(compiler: Contract.Compiler) {
+    this.compiler = compiler
+  }
 
   /**
    * Initiates compilation
@@ -79,8 +85,6 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async compile() {
-    this.compilerLogger = logger.instance()
-
     const config = await this.before()
     const compiler = await this.invoke(config)
 
@@ -99,19 +103,19 @@ export class Compiler extends Service implements Contract {
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
 
-    this.instance = webpack(this.config)
+    this.compilation = this.compiler(this.config)
 
     this.app.isDevelopment &&
-      this.app.compiler.instance.hooks.done.tap(
+      this.compilation.hooks.done.tap(
         config.shift().name,
         this.handleStats,
       )
 
-    new ProgressPlugin(this.progressCallback).apply(this.instance)
+    new ProgressPlugin(this.progressCallback).apply(this.compilation)
 
     await this.app.hooks.fire('event.compiler.after')
 
-    return this.instance
+    return this.compilation
   }
 
   /**
@@ -122,6 +126,9 @@ export class Compiler extends Service implements Contract {
    */
   @bind
   public async before() {
+    /**
+     * Make config
+     */
     await this.app.build.make()
 
     /**
@@ -167,7 +174,7 @@ export class Compiler extends Service implements Contract {
     stats && (await this.handleStats(stats))
 
     this.app.isProduction &&
-      this.instance.close(async error => {
+      this.compilation.close(async error => {
         error ? this.app.error(error) : this.app.close()
       })
   }
@@ -222,45 +229,43 @@ export class Compiler extends Service implements Contract {
     ...message: any[]
   ) {
     try {
-      const normalPercent = Math.ceil((percent ?? 0) * 100)
-
-      const stage =
-        (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
-        ``
+      percent = Math.ceil((percent ?? 0) * 100)
 
       message = (
         message ? message.flatMap(i => (i ? `${i}`?.trim() : ``)) : []
       ).reverse()
 
+      const stage =
+        (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
+        ``
+
       const isStale = isEqual(this.progress, [
-        normalPercent,
+        percent,
         message.join(` `).concat(stage),
       ])
 
-      this.progress = [normalPercent, message.join(` `).concat(stage)]
+      this.progress = [percent, message.join(` `).concat(stage)]
 
-      !isStale &&
-        normalPercent !== 100 &&
-        (message.length > 1 || scope) &&
-        this.compilerLogger.log(
-          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
-            `[${normalPercent}%]`,
-          ),
-          chalk.blue(`[${stage}]`),
-          ...message,
-        )
+      if (isStale) return
 
-      normalPercent === 100 &&
-        this.compilerLogger.log(
-          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
-            `[${normalPercent}%]`,
-          ),
-          chalk.hex(this.stats.errorsCount > 0 ? '#ff5c57' : '#5af78e')(
-            this.stats.errorsCount > 0
-              ? `Compiled with errors`
-              : `Compiled`,
-          ),
-        )
+      const statusColor = chalk.hex(
+        this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
+      )
+
+      percent !== 100
+        ? this.logger.log(
+            statusColor(`[${percent}%]`),
+            chalk.blue(`[${stage}]`),
+            ...message,
+          )
+        : this.logger.log(
+            statusColor(`[${percent}%]`),
+            statusColor(
+              this.stats?.errorsCount > 0
+                ? `Compiled with errors`
+                : `Compiled`,
+            ),
+          )
     } catch (error) {
       this.app.error(error)
     }

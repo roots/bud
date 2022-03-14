@@ -34,23 +34,26 @@ export const Sage: Extension.Module<void> = {
      */
     app.build.rules.svg.setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? '@images/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : '@images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
     /**
      * Application paths
      */
-    app.setPath({src: 'resources', dist: 'public'})
+    app.setPath({
+      src: 'resources',
+      dist: 'public',
+    })
 
     /**
      * Application aliases
      */
     app.alias({
-      '@fonts': app.path('src', 'fonts'),
-      '@images': app.path('src', 'images'),
-      '@scripts': app.path('src', 'scripts'),
-      '@styles': app.path('src', 'styles'),
+      '@fonts': app.path('@src/fonts'),
+      '@images': app.path('@src/images'),
+      '@scripts': app.path('@src/scripts'),
+      '@styles': app.path('@src/styles'),
     })
 
     /**

@@ -3,6 +3,9 @@ import {seed} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
+/* 3x */
+jest.setTimeout(15000)
+
 describe('bud.build.config', function () {
   let bud: Bud
 
@@ -10,8 +13,6 @@ describe('bud.build.config', function () {
     bud = await factory()
     await bud.build.make()
   })
-
-  afterAll(async () => await bud.close(() => null))
 
   it(`doesn't include deprecated properties`, () => {
     expect(bud.build.config.hasOwnProperty('devServer')).toBe(false)
@@ -27,10 +28,11 @@ describe('bud.build.config', function () {
 
     expect(cache.type).toStrictEqual('filesystem')
 
-    expect(cache.buildDependencies.bud).toStrictEqual([
+    expect(cache.buildDependencies.bud).toEqual([
       expect.stringContaining('package.json'),
       expect.stringContaining('.eslintrc.js'),
       expect.stringContaining('bud.config.js'),
+      expect.stringContaining('docker-compose.yml'),
       expect.stringContaining('tailwind.config.js'),
       expect.stringContaining('tsconfig.json'),
     ])
@@ -100,7 +102,9 @@ describe('bud.build.config', function () {
 
   it('has expected resolve.alias default', () => {
     expect(bud.build.config.resolve.alias).toEqual({
+      '@dist': bud.path('dist'),
       '@project': bud.path('project'),
+      '@src': bud.path('src'),
     })
   })
 

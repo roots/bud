@@ -8,7 +8,7 @@ export class Dependencies {
   /**
    * @public
    */
-  public constructor(public path: string = process.cwd()) {}
+  public constructor(public path: string) {}
 
   /**
    * @public

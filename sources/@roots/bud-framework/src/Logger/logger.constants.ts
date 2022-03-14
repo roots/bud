@@ -50,12 +50,13 @@ export const LEVEL = {
   v: 'error',
 }
 
-export const types = () => ({
+export const types = app => ({
   error: {
     badge: figures.cross,
     color: 'red',
     label: 'error',
     logLevel: LEVEL['v'],
+    process: [app.context.stderr, app.context.stdout],
   },
   fatal: {
     badge: figures.cross,

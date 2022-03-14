@@ -17,16 +17,18 @@ import {bind} from './extensions.dependencies'
  * @public
  */
 export class Extensions extends Service implements Base {
+  /**
+   * Extensions queued for registration
+   *
+   * @public
+   */
   public queue = []
-
-  public repository = {}
 
   /**
    * Controller factory
    *
    * @public
    */
-  @bind
   public makeController(
     extension: Extension.Module | Promise<Extension.Module>,
   ): Controller {
@@ -45,7 +47,7 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async boot(): Promise<void> {
+  public async booted(): Promise<void> {
     /**
      * Handle in-built extensions
      */

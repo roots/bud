@@ -32,6 +32,7 @@
 
 import {Build, Item, Loader, Rule} from './Build'
 import {Cache} from './Cache'
+import {Context} from './Context'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
 import {Constructor, Framework, Options} from './Framework'
@@ -55,6 +56,7 @@ export {Store} from './Store'
 export {Build}
 export {Cache}
 export {Constructor}
+export {Context}
 export {Extension}
 export {Extensions}
 export {Framework}
@@ -194,10 +196,10 @@ export interface Rules extends Partial<Record<string, Rule>> {}
  * @virtual @public
  */
 export interface Locations extends Partial<Record<string, string>> {
-  project: string
   src: string
   dist: string
   storage: string
+  modules: string
 }
 
 /**

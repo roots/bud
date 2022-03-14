@@ -13,6 +13,7 @@ export function sequence<T = Framework>(
   value?: T,
 ): Framework {
   const ctx = this as Framework
+
   value ? fns.map(fn => fn(value)) : fns.map(fn => fn(ctx))
 
   return ctx

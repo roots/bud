@@ -41,6 +41,7 @@ import './interface'
 
 export {Bud} from './Bud'
 
+export {makeContext} from './context'
 export {seed} from './seed'
 export {extensions} from './extensions'
 export {services} from './services'

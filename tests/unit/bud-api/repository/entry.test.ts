@@ -9,7 +9,7 @@ describe('bud.entry', function () {
   })
 
   beforeEach(() => {
-    bud.hooks.on('build.entry', () => ({}))
+    bud.hooks.on('build.entry', {})
   })
 
   it('sets an entrypoint using (string, string) fn signature', async () => {
@@ -50,6 +50,7 @@ describe('bud.entry', function () {
 
   it('sets an entrypoint using (string, string[]) fn signature with globbing', async () => {
     bud.entry('app', ['**/app.js', '**/editor.css'])
+
     await bud.build.make()
 
     expect(bud.build.config.entry).toStrictEqual({

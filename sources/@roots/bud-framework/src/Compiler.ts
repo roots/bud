@@ -7,6 +7,7 @@ import {
   ProgressPlugin,
   Stats,
   StatsCompilation,
+  webpack,
 } from 'webpack'
 
 import {Service} from './'
@@ -21,12 +22,14 @@ import {Service} from './'
  * @public
  */
 interface Compiler extends Service {
+  compiler: Compiler.Compiler
+
   /**
    * The compiler instance
    *
    * @public
    */
-  instance: Compiler.Instance
+  compilation: Compiler.Compilation
 
   /**
    * Contains compilation stats, if available.
@@ -87,7 +90,8 @@ interface Compiler extends Service {
  */
 namespace Compiler {
   export type Config = Configuration
-  export type Instance = WebpackCompiler | WebpackMultiCompiler
+  export type Compiler = typeof webpack
+  export type Compilation = WebpackCompiler | WebpackMultiCompiler
 
   export type Progress = [number, string]
 

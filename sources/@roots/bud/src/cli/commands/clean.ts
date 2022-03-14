@@ -1,8 +1,7 @@
 import {bind, chalk, fs} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
-import {factory} from '../../factory/index'
-import {seed} from '../../seed'
+import {factory} from '../../factory'
 import {BaseCommand} from './base'
 
 const {ensureDir, remove} = fs
@@ -17,7 +16,7 @@ export class CleanCommand extends BaseCommand {
   })
 
   public async execute() {
-    this.app = await factory({config: seed})
+    this.app = await factory()
     await this.cleanProjectAssets()
   }
 
@@ -50,6 +49,6 @@ export class CleanCommand extends BaseCommand {
       this.app.error(err)
     }
 
-    this.app.close(global.process.exit)
+    this.app.close()
   }
 }

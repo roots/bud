@@ -1,0 +1,466 @@
+{
+  "version": null,
+  "config": {
+    "development": {},
+    "production": {},
+    "base": {
+      ".eslintrc.js": {
+        "name": ".eslintrc.js",
+        "path": "/Users/kellymears/code/roots/dev/bud/tests/util/project/.eslintrc.js",
+        "module": {
+          "extends": [
+            "/Users/kellymears/code/roots/dev/bud/sources/@roots/bud-preset-recommend/eslint-config/index.js"
+          ],
+          "default": {
+            "extends": [
+              "/Users/kellymears/code/roots/dev/bud/sources/@roots/bud-preset-recommend/eslint-config/index.js"
+            ]
+          }
+        }
+      },
+      "bud.config.js": {
+        "name": "bud.config.js",
+        "path": "/Users/kellymears/code/roots/dev/bud/tests/util/project/bud.config.js"
+      },
+      "tailwind.config.js": {
+        "name": "tailwind.config.js",
+        "path": "/Users/kellymears/code/roots/dev/bud/tests/util/project/tailwind.config.js",
+        "module": {
+          "default": {}
+        }
+      }
+    }
+  },
+  "manifest": {
+    "name": "test-empty",
+    "private": true,
+    "browserslist": [
+      "extends @wordpress/browserslist-config"
+    ],
+    "devDependencies": {
+      "@roots/bud": "workspace:*",
+      "@roots/bud-babel": "workspace:*",
+      "@roots/bud-eslint": "workspace:*",
+      "@roots/bud-postcss": "workspace:*",
+      "@roots/bud-preset-recommend": "workspace:*",
+      "@roots/bud-tailwindcss": "workspace:*"
+    }
+  },
+  "installed": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-eslint": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
+  },
+  "context": {
+    "name": "bud",
+    "cwd": "/Users/kellymears/code/roots/dev/bud/tests/util/project",
+    "projectDir": "/Users/kellymears/code/roots/dev/bud/tests/util/project",
+    "manifest": {
+      "name": "test-empty",
+      "private": true,
+      "browserslist": [
+        "extends @wordpress/browserslist-config"
+      ],
+      "devDependencies": {
+        "@roots/bud": "workspace:*",
+        "@roots/bud-babel": "workspace:*",
+        "@roots/bud-eslint": "workspace:*",
+        "@roots/bud-postcss": "workspace:*",
+        "@roots/bud-preset-recommend": "workspace:*",
+        "@roots/bud-tailwindcss": "workspace:*"
+      }
+    },
+    "disk": {
+      "projectDir": "/Users/kellymears/code/roots/dev/bud/tests/util/project",
+      "config": {
+        "package.json": "/Users/kellymears/code/roots/dev/bud/tests/util/project/package.json",
+        ".eslintrc.js": "/Users/kellymears/code/roots/dev/bud/tests/util/project/.eslintrc.js",
+        "bud.config.js": "/Users/kellymears/code/roots/dev/bud/tests/util/project/bud.config.js",
+        "docker-compose.yml": "/Users/kellymears/code/roots/dev/bud/tests/util/project/docker-compose.yml",
+        "tailwind.config.js": "/Users/kellymears/code/roots/dev/bud/tests/util/project/tailwind.config.js",
+        "tsconfig.json": "/Users/kellymears/code/roots/dev/bud/tests/util/project/tsconfig.json"
+      }
+    },
+    "application": {
+      "dir": "/Users/kellymears/code/roots/dev/bud/sources/@roots/bud",
+      "name": "@roots/bud",
+      "version": "0.0.0",
+      "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+      "homepage": "https://roots.io/bud",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/roots/bud.git",
+        "directory": "sources/@roots/bud"
+      },
+      "contributors": [
+        {
+          "name": "kellymears",
+          "url": "https://github.com/kellymears"
+        },
+        {
+          "name": "QWp6t",
+          "url": "https://github.com/QWp6t"
+        },
+        {
+          "name": "clayrisser",
+          "url": "https://github.com/clayrisser"
+        }
+      ],
+      "license": "MIT",
+      "bugs": {
+        "url": "https://github.com/roots/bud/issues"
+      },
+      "funding": {
+        "type": "github sponsors",
+        "url": "https://github.com/sponsors/roots"
+      },
+      "keywords": [
+        "bud",
+        "roots",
+        "webpack"
+      ],
+      "engines": {
+        "node": ">=14"
+      },
+      "bin": "./bin/bud.js",
+      "files": [
+        "assets/",
+        "bin/",
+        "lib/",
+        "types/",
+        "vendor/"
+      ],
+      "main": "./lib/cjs/index.js",
+      "module": "./lib/esm/index.js",
+      "exports": {
+        ".": {
+          "require": "./lib/cjs/index.js",
+          "import": "./lib/esm/index.js"
+        }
+      },
+      "types": "./types/index.d.ts",
+      "devDependencies": {
+        "@skypack/package-check": "0.2.2",
+        "@types/braces": "3.0.1",
+        "@types/fs-extra": "9.0.13",
+        "@types/lodash": "4.14.179",
+        "@types/mini-css-extract-plugin": "2.5.0",
+        "@types/node": "16.11.26",
+        "@types/node-notifier": "8.0.2"
+      },
+      "dependencies": {
+        "@roots/bud-api": "workspace:sources/@roots/bud-api",
+        "@roots/bud-build": "workspace:sources/@roots/bud-build",
+        "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
+        "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
+        "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+        "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+        "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+        "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
+        "@roots/bud-server": "workspace:sources/@roots/bud-server",
+        "@roots/bud-support": "workspace:sources/@roots/bud-support",
+        "@roots/container": "workspace:sources/@roots/container",
+        "@roots/dependencies": "workspace:sources/@roots/dependencies",
+        "clean-webpack-plugin": "^4.0.0",
+        "clipanion": "3.2.0-rc.9",
+        "copy-webpack-plugin": "^10.0.0",
+        "html-webpack-plugin": "^5.5.0",
+        "mini-css-extract-plugin": "^2.4.5",
+        "node-notifier": "10.0.1",
+        "schema-utils": "4.0.0",
+        "tslib": "^2.3.1",
+        "typanion": "3.7.1",
+        "type-fest": "^2.5.4",
+        "webpack": "5.68.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-manifest-plugin": "^4.0.2"
+      }
+    },
+    "env": {
+      "baseDirectory": "/Users/kellymears/code/roots/dev/bud/tests/util/project",
+      "TEST": "VALUE",
+      "PUBLIC_APP_TEST": "PUBLIC_VALUE"
+    },
+    "colorDepth": 256,
+    "args": {
+      "cache": null,
+      "clean": null,
+      "devtool": null,
+      "dist": null,
+      "force": null,
+      "hash": null,
+      "html": null,
+      "inject": null,
+      "log": true,
+      "logLevel": null,
+      "manifest": null,
+      "memo": null,
+      "minimize": null,
+      "mode": "production",
+      "modules": null,
+      "publicPath": null,
+      "src": null,
+      "splitChunks": null,
+      "target": null
+    }
+  },
+  "modules": {
+    "root": {
+      "name": "root",
+      "private": true,
+      "browserslist": [
+        "extends @wordpress/browserslist-config"
+      ],
+      "devDependencies": {
+        "@roots/bud": "workspace:*",
+        "@roots/bud-babel": "workspace:*",
+        "@roots/bud-eslint": "workspace:*",
+        "@roots/bud-postcss": "workspace:*",
+        "@roots/bud-preset-recommend": "workspace:*",
+        "@roots/bud-tailwindcss": "workspace:*"
+      },
+      "version": "0.0.0",
+      "bud": null,
+      "resolvable": true,
+      "requires": [
+        [
+          "@roots/bud",
+          "workspace:*"
+        ],
+        [
+          "@roots/bud-babel",
+          "workspace:*"
+        ],
+        [
+          "@roots/bud-eslint",
+          "workspace:*"
+        ],
+        [
+          "@roots/bud-postcss",
+          "workspace:*"
+        ],
+        [
+          "@roots/bud-preset-recommend",
+          "workspace:*"
+        ],
+        [
+          "@roots/bud-tailwindcss",
+          "workspace:*"
+        ]
+      ]
+    },
+    "@roots/bud-babel": {
+      "name": "@roots/bud-babel",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "@babel/core": "^7.16.10",
+        "@babel/plugin-proposal-class-properties": "^7.16.0",
+        "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/plugin-transform-runtime": "^7.16.4",
+        "@babel/preset-env": "^7.16.4",
+        "babel-loader": "^8.2.3",
+        "babel-plugin-add-module-exports": "^1.0.4"
+      },
+      "requires": []
+    },
+    "@roots/bud-postcss": {
+      "name": "@roots/bud-postcss",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "postcss": "^8.4.5",
+        "postcss-import": "^14.0.2",
+        "postcss-nested": "^5.0.6",
+        "postcss-preset-env": "^7.1.0"
+      },
+      "requires": []
+    },
+    "@roots/bud-eslint": {
+      "name": "@roots/bud-eslint",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "eslint": "^8.6.0"
+      },
+      "requires": []
+    },
+    "@roots/bud-preset-recommend": {
+      "name": "@roots/bud-preset-recommend",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension",
+        "peers": [
+          "@roots/bud-babel",
+          "@roots/bud-entrypoints",
+          "@roots/bud-postcss"
+        ]
+      },
+      "resolvable": true,
+      "peerDependencies": {},
+      "requires": [
+        [
+          "@roots/bud-babel",
+          "0.0.0"
+        ],
+        [
+          "@roots/bud-entrypoints",
+          "0.0.0"
+        ],
+        [
+          "@roots/bud-postcss",
+          "0.0.0"
+        ]
+      ]
+    },
+    "@roots/bud-tailwindcss": {
+      "name": "@roots/bud-tailwindcss",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension",
+        "peers": [
+          "@roots/bud-postcss"
+        ]
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "tailwindcss": "^3.0.8"
+      },
+      "requires": [
+        [
+          "@roots/bud-postcss",
+          "0.0.0"
+        ]
+      ]
+    },
+    "@roots/bud-entrypoints": {
+      "name": "@roots/bud-entrypoints",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {},
+      "requires": []
+    }
+  },
+  "adjacents": [
+    {
+      "name": "@roots/bud-entrypoints",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {},
+      "requires": []
+    },
+    {
+      "name": "@roots/bud-tailwindcss",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension",
+        "peers": [
+          "@roots/bud-postcss"
+        ]
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "tailwindcss": "^3.0.8"
+      },
+      "requires": [
+        [
+          "@roots/bud-postcss",
+          "0.0.0"
+        ]
+      ]
+    },
+    {
+      "name": "@roots/bud-preset-recommend",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension",
+        "peers": [
+          "@roots/bud-babel",
+          "@roots/bud-entrypoints",
+          "@roots/bud-postcss"
+        ]
+      },
+      "resolvable": true,
+      "peerDependencies": {},
+      "requires": [
+        [
+          "@roots/bud-babel",
+          "0.0.0"
+        ],
+        [
+          "@roots/bud-entrypoints",
+          "0.0.0"
+        ],
+        [
+          "@roots/bud-postcss",
+          "0.0.0"
+        ]
+      ]
+    },
+    {
+      "name": "@roots/bud-postcss",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "postcss": "^8.4.5",
+        "postcss-import": "^14.0.2",
+        "postcss-nested": "^5.0.6",
+        "postcss-preset-env": "^7.1.0"
+      },
+      "requires": []
+    },
+    {
+      "name": "@roots/bud-eslint",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "eslint": "^8.6.0"
+      },
+      "requires": []
+    },
+    {
+      "name": "@roots/bud-babel",
+      "version": "0.0.0",
+      "bud": {
+        "type": "extension"
+      },
+      "resolvable": true,
+      "peerDependencies": {
+        "@babel/core": "^7.16.10",
+        "@babel/plugin-proposal-class-properties": "^7.16.0",
+        "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/plugin-transform-runtime": "^7.16.4",
+        "@babel/preset-env": "^7.16.4",
+        "babel-loader": "^8.2.3",
+        "babel-plugin-add-module-exports": "^1.0.4"
+      },
+      "requires": []
+    }
+  ]
+}

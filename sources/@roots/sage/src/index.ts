@@ -80,7 +80,7 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/sage': typeof Sage
-    'wp-theme-json': ThemeJSON.Extension
+    'wp-theme-json': ThemeJSON.ThemeExtension
   }
 }
 

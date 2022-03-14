@@ -17,4 +17,4 @@ const options: (
  * @public
  */
 export const hot = (app: Framework) =>
-  WebpackHotMiddleware(app.compiler.instance, options(app))
+  WebpackHotMiddleware(app.compiler.compilation, options(app))

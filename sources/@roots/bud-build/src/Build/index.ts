@@ -289,9 +289,7 @@ export class Build extends Framework.Service implements Framework.Build {
   public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
-        'storage',
-        this.config.name,
-        'webpack.config.js',
+        `@storage/${this.config.name}/webpack.config.js`,
       )
 
       await ensureFile(filePath)

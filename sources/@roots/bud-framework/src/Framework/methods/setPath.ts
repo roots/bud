@@ -1,4 +1,8 @@
-import {Framework} from '..'
+import {lodash} from '@roots/bud-support'
+
+import * as Framework from '../..'
+
+const {isString} = lodash
 
 /**
  * setPath function interface
@@ -6,7 +10,13 @@ import {Framework} from '..'
  * @internal
  */
 export interface setPath {
-  (...args): Framework
+  <
+    T extends `${Omit<'project', `${keyof Framework.Locations & string}`> &
+      string}`,
+  >(
+    arg1: T | Record<T, string>,
+    arg2?: string,
+  ): Framework.Framework
 }
 
 /**
@@ -22,46 +32,20 @@ export interface setPath {
  * bud.setPath('src', 'custom/src')
  * ```
  *
- * @param this - {@link Framework}
- * @param args - path parts
- *
  * @public
  */
-export function setPath(...args): Framework {
-  this as Framework
+export function setPath<
+  T extends `${Omit<'project', keyof Framework.Locations> & string}`,
+>(arg1: T | Record<T, string>, arg2?: string): Framework.Framework {
+  const ctx = this as Framework.Framework
 
-  if (typeof args[0] == 'string') {
-    this.hooks.on(`location.${args[0]}`, args[1])
-    this.info(`${args[0]} set to ${args[1]}`)
+  const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
-    return this
-  }
-
-  if (Object.entries(args[0]).length === 0) {
-    this.error({
-      message: `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations`,
-    })
-  }
-
-  Object.entries(args[0]).map(([k, v]: [string, string]) => {
-    this.when(k == 'project' && !v.startsWith('/'), () => {
-      this.error({
-        message: 'The project path must be absolute',
-      })
-    })
-
-    this.when(!['project'].includes(k) && v.startsWith('/'), () => {
-      this.warn({
-        message: `${k} was defined as ${v}.`,
-        suffix: `This path should be relative to the project root. You should fix this.`,
-      })
-
-      v = v.replace(this.hooks.filter('location.project'), '')
-    })
-
-    this.hooks.on(`location.${k}`, v)
-    this.info({message: `${k} set`, suffix: v})
+  Object.entries(input).map(([key, value]: [string, string]) => {
+    key = key.startsWith('@') ? key.split('').splice(1).join('') : key
+    ctx.hooks.on(`location.${key}`, value)
+    ctx.info(`${key} set to ${value}`)
   })
 
-  return this
+  return ctx
 }

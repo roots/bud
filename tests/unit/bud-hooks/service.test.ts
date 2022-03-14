@@ -11,8 +11,6 @@ describe('@roots/bud-hooks', function () {
     hooks = new Hooks(bud)
   })
 
-  afterAll(async () => await bud.close(() => null))
-
   it('has an on method', () => {
     expect(hooks.on).toBeInstanceOf(Function)
   })

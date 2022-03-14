@@ -1,19 +1,22 @@
+import {Bud} from '../../Bud'
+
+export interface ConfigItem {
+  fileName: string
+  filePath: string
+  module: (app: Bud) => Promise<unknown> | Record<string, any>
+}
+
+export interface ConfigManifest {
+  development: Record<string, ConfigItem>
+  production: Record<string, ConfigItem>
+  base: Record<string, ConfigItem>
+}
+
 export interface repository {
   version: string
-  configs: {
-    dynamic: {
-      global?: Array<string>
-      conditional?: Array<string>
-    }
-    json: {
-      global: Array<Record<string, any>>
-      conditional: Array<Record<string, any>>
-    }
-  }
-  manifestPath: string
+  config: ConfigManifest
   manifest: Record<string, any>
   installed: Record<string, string>
-  dependencies: Array<string>
 }
 
 /**
@@ -23,18 +26,11 @@ export interface repository {
  */
 export const repository: repository = {
   version: null,
-  configs: {
-    dynamic: {
-      global: [],
-      conditional: [],
-    },
-    json: {
-      global: [],
-      conditional: [],
-    },
+  config: {
+    development: {},
+    production: {},
+    base: {},
   },
-  manifestPath: null,
   manifest: {},
   installed: {},
-  dependencies: [],
 }

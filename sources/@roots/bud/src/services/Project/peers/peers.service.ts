@@ -49,8 +49,7 @@ export class Peers implements PeersInterface {
   @bind
   public async resolveModulePath(name: string) {
     try {
-      const find = await this.app.cache.memoize(pkgUp.pkgUp)
-      const result = await find({cwd: dirname(safeResolve(name))})
+      const result = await pkgUp.pkgUp({cwd: dirname(safeResolve(name))})
 
       return dirname(result)
     } catch (err) {
@@ -68,8 +67,7 @@ export class Peers implements PeersInterface {
   @bind
   public async getManifest(directoryPath: string) {
     try {
-      const read = await this.app.cache.memoize(readJson)
-      return await read(join(directoryPath, '/package.json'))
+      return await readJson(join(directoryPath, '/package.json'))
     } catch (err) {
       this.log('error', {
         message: `manifest could not be resolved`,
@@ -88,24 +86,21 @@ export class Peers implements PeersInterface {
   @bind
   public async discover() {
     try {
-      const manifest = this.app.project.get('manifest')
-
       this.modules['root'] = {
-        ...manifest,
+        ...(this.app.context?.manifest ?? {}),
         name: 'root',
-        version: manifest.version ?? '0.0.0',
-        bud: manifest.bud ?? null,
-        parent: null,
-        resolvable: manifest ? true : false,
+        version: this.app.context.manifest?.version ?? '0.0.0',
+        bud: this.app.context.manifest?.bud ?? null,
+        resolvable: this.app.context?.manifest ? true : false,
         requires: Object.entries<string>({
-          ...(manifest.devDependencies ?? {}),
-          ...(manifest.dependencies ?? {}),
+          ...(this.app.context.manifest?.devDependencies ?? {}),
+          ...(this.app.context.manifest?.dependencies ?? {}),
         }),
       }
 
       await Promise.all(
         this.modules['root'].requires
-          .filter(([name]) => !name.startsWith('@types'))
+          .filter(([name]) => !name?.startsWith('@types'))
           .map(async ([name]) => {
             await this.collect(name)
           }),

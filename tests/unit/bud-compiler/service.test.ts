@@ -10,4 +10,20 @@ describe('@roots/bud-compiler', function () {
   it('has run fn', () => {
     expect(bud.compiler.compile).toBeInstanceOf(Function)
   })
+
+  it('has before fn', () => {
+    expect(bud.compiler.before).toBeInstanceOf(Function)
+  })
+
+  it('has handleStats fn', () => {
+    expect(bud.compiler.handleStats).toBeInstanceOf(Function)
+  })
+
+  it('has handleErrors fn', () => {
+    expect(bud.compiler.handleErrors).toBeInstanceOf(Function)
+  })
+
+  it('has compile fn', () => {
+    expect(bud.compiler.compile).toBeInstanceOf(Function)
+  })
 })

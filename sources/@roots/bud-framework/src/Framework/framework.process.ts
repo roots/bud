@@ -1,4 +1,3 @@
-import {fs} from '@roots/bud-support'
 import readline from 'node:readline'
 
 import {Framework} from '.'
@@ -19,26 +18,42 @@ export const initialize = (app: Framework) => {
     key?.name == 'q' && app.close(process.exit)
   }
 
-  const makeExit = (code: number) => () => {
-    global.process.exitCode = code
-    global.process.exit(global.process.exitCode)
+  const exit = (code: number) => {
+    process.exitCode = code
+    process.exit(process.exitCode)
   }
 
-  const makeHandle = (code: number) => (error: Error) => {
-    error && fs.removeSync(app.path('storage', 'cache'))
-    global.process.stdin.removeListener('keypress', keypressListener)
-    setTimeout(() => app.close(makeExit(code)), 500).unref()
+  const makeHandle = (code: number) => msg => {
+    process.exitCode = code
+    code === 0 && app.logger.instance.info(msg)
+
+    if (code !== 0) {
+      typeof msg == 'string'
+        ? app.logger.instance.error(msg)
+        : Array.isArray(msg)
+        ? msg.map(app.logger.instance.error)
+        : Object.entries(msg).map(app.logger.instance.error)
+    }
+
+    setTimeout(() => exit(code), 500).unref()
   }
 
-  global.process
-    .on('beforeExit', makeHandle(0))
-    .on('exit', makeHandle(0))
+  const beforeExit = () => {
+    process.stdin.removeListener('keypress', keypressListener)
+  }
+
+  process.exitCode = 0
+  process
+    .on('beforeExit', beforeExit)
     .on('SIGTERM', makeHandle(0))
     .on('SIGINT', makeHandle(0))
     .on('uncaughtException', makeHandle(1))
     .on('unhandledRejection', makeHandle(1))
 
   readline.emitKeypressEvents(process.stdin)
-  global.process.stdin.isTTY &&
-    global.process.stdin.setRawMode(true).on('keypress', keypressListener)
+
+  process.stdin.isTTY &&
+    !process.env.JEST_WORKER_ID &&
+    !process.env.CI &&
+    process.stdin.setRawMode(true).on('keypress', keypressListener)
 }

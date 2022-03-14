@@ -71,6 +71,7 @@ export async function globAssets(search: string): Promise<Array<string>> {
   try {
     this.log(`search`, search)
     const results = await globby.globby(search, {cwd})
+
     this.log(`results`, results)
 
     if (!results.length) {

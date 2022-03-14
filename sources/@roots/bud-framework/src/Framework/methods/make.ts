@@ -49,10 +49,8 @@ export async function make(
 
   const instance = new this.implementation({
     childOf: this,
-    config: {
-      ...this.options.config,
-      name,
-    },
+    config: {...this.options.config, name},
+    context: this.context,
     services: this.options.services,
   })
 

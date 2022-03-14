@@ -2,10 +2,10 @@ import type {Store} from '@roots/bud-framework'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
 
-const infrastructureLogger = new (class {
-  public count = {}
-  public instance = new Signale({scope: `webpack`})
-})()
+const infrastructureLogger = {
+  count: {},
+  instance: new Signale({scope: `webpack`}),
+}
 
 /**
  * Bud configuration defaults
@@ -13,13 +13,6 @@ const infrastructureLogger = new (class {
  * @public
  */
 export const seed: Partial<Store.Repository> = {
-  /**
-   * Log level
-   *
-   * @public
-   */
-  [`log.level`]: `vvv`,
-
   /**
    * Feature flags
    *
@@ -80,7 +73,6 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   [`features.splitChunks`]: false,
-
   /**
    * Filename format for emitted assets when hashing is disabled
    *
@@ -129,7 +121,6 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   location: {
-    project: process.cwd(),
     src: `src`,
     dist: `dist`,
     modules: `node_modules`,
@@ -142,13 +133,13 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   [`build.bail`]: app => app.isProduction,
-  [`build.context`]: app => app.path('project'),
+  [`build.context`]: app => app.context.projectDir,
   [`build.infrastructureLogging.level`]: app => `verbose`,
   [`build.infrastructureLogging.console`]: app => ({
     Console: require(`console`),
     assert: (v, m) => v && infrastructureLogger.instance.info(m),
     // eslint-disable-next-line
-    clear: console.clear,
+    clear: () => null,
     count: (label?: string) => {
       infrastructureLogger.count[label] =
         infrastructureLogger.count[label] + 1
@@ -198,6 +189,8 @@ export const seed: Partial<Store.Repository> = {
   [`build.performance`]: app => ({hints: false}),
   [`build.resolve.alias`]: app => ({
     '@project': app.path('project'),
+    '@src': app.path('src'),
+    '@dist': app.path('dist'),
   }),
   [`build.resolve.extensions`]: app =>
     new Set([
@@ -219,7 +212,5 @@ export const seed: Partial<Store.Repository> = {
     },
   ],
   [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => ({
-    preset: `normal`,
-  }),
+  [`build.stats`]: app => ({preset: `normal`}),
 }

@@ -3,7 +3,6 @@ import {Command} from 'clipanion'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
-import {seed} from '../../seed.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -26,7 +25,7 @@ export class DoctorCommand extends BaseCommand {
   public async execute() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
-    this.app = await factory({config: seed})
+    this.app = await factory()
 
     await this.make()
     await this.checkConfiguration()
@@ -38,17 +37,17 @@ export class DoctorCommand extends BaseCommand {
       const conf = await this.app.compiler.before()
 
       if (!conf) {
-        throw new Error('config not returned from bud compiler.')
+        this.app.error('config not returned from bud compiler.')
       }
 
       if (!Array.isArray(conf)) {
-        this.logger.info('the bud compiler should always return an array.')
-        throw new Error('compiler did not return an array')
+        this.logger.info('The bud compiler should always return an array.')
+        this.app.error('compiler did not return an array')
       }
 
       this.webpack.validate(conf)
       this.context.stdout.write(
-        chalk.green(`webpack configuration is valid\n`),
+        chalk.green(`Webpack configuration is valid\n`),
       )
     } catch (error) {
       this.context.stderr.write(
@@ -58,6 +57,6 @@ export class DoctorCommand extends BaseCommand {
       this.app.error(error)
     }
 
-    this.app.close(global.process.exit)
+    this.app.close(process.exit)
   }
 }

@@ -51,9 +51,7 @@ export abstract class Service<
    * @public
    */
   public get logger(): Logger['instance'] {
-    return this.app.logger.scoped(
-      this.ident ?? this.constructor.name.toLowerCase(),
-    )
+    return this.app.logger.instance
   }
 
   /**
@@ -166,7 +164,10 @@ export abstract class Service<
               isString(loggedItem?.suffix)
             ) {
               loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(process.cwd(), '.'),
+                loggedItem.suffix.replace(
+                  this.app.context.projectDir,
+                  '.',
+                ),
               )
             }
 

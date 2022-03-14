@@ -23,6 +23,7 @@ export async function build(app: Framework): Promise<void> {
 
   app.hooks
     .on('build.cache', () => app.cache.configuration)
+    .hooks.on('build.context', () => app.context.projectDir)
     .hooks.on('build.mode', app.mode)
     .hooks.on('build.module', () => ({
       noParse: app.hooks.filter('build.module.noParse'),
@@ -67,7 +68,7 @@ export async function build(app: Framework): Promise<void> {
     }))
     .hooks.async('build.plugins', async () => await app.extensions.make())
     .hooks.on('build.recordsPath', () =>
-      app.path('storage', app.name, `modules.json`),
+      app.path(`@storage/${app.name}/modules.json`),
     )
     .hooks.async('build.resolve', async () => {
       const alias = await app.hooks.filterAsync('build.resolve.alias')
@@ -102,7 +103,6 @@ export async function build(app: Framework): Promise<void> {
    */
   app.hooks
     .on('build.bail', unwrap('build.bail'))
-    .hooks.on('build.context', unwrap('build.context'))
     .hooks.on('build.devtool', unwrap('build.devtool'))
     .hooks.on('build.loader', unwrap('build.loader'))
     .hooks.on(

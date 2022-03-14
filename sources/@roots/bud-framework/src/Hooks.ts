@@ -3,7 +3,7 @@ import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
 import {Configuration} from 'webpack'
 
-import {Framework, Modules, Plugins, Service} from './'
+import {Framework, Locations, Modules, Plugins, Service} from './'
 import {ConfigMap} from './config.map'
 import {EntryObject} from './entry'
 import * as Server from './Server'
@@ -190,6 +190,10 @@ export namespace Hooks {
     [`build.resolve.modules`]: Configuration[`resolve`][`modules`]
   }
 
+  export type LocationKeyMap = {
+    [K in keyof Locations as `location.${K & string}`]: Locations[K]
+  }
+
   /**
    * Syncronous hooks map
    *
@@ -198,13 +202,9 @@ export namespace Hooks {
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
       Server.Middleware.Middleware<`factory`>,
+      LocationKeyMap,
       ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
-    [`location.src`]: string
-    [`location.dist`]: string
-    [`location.modules`]: string
-    [`location.project`]: string
-    [`location.storage`]: string
     [`dev.ssl.enabled`]: boolean
     [`dev.ssl.cert`]: string
     [`dev.ssl.key`]: string

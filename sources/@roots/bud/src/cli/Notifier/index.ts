@@ -1,19 +1,20 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import NotificationCenter from 'node-notifier/notifiers/notificationcenter'
-import {resolve} from 'path'
+import {
+  Notification,
+  NotificationCallback,
+  NotificationCenter,
+} from 'node-notifier'
+import {join} from 'path'
+
+interface NotificationCenter {
+  notify(
+    notification?: Notification,
+    callback?: NotificationCallback,
+  ): NotificationCenter
+}
 
 export class Notifier {
-  /**
-   * MacOS Notifier binary
-   *
-   * @public
-   */
-  public binary = resolve(
-    __dirname,
-    '../../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
-  )
-
   /**
    * Node notifier notification center
    *
@@ -22,18 +23,52 @@ export class Notifier {
   public notificationCenter: NotificationCenter
 
   /**
+   * Binary path
+   *
+   * @public
+   */
+  public get binary() {
+    return join(
+      this.app.context.application.dir,
+      'vendor',
+      'roots-notifier.app',
+      'Contents',
+      'MacOS',
+      'roots-notifier',
+    )
+  }
+
+  /**
    * Class constructor
    *
    * @public
    */
-  public constructor() {
+  public constructor(public app: Framework) {
     this.notificationCenter = new NotificationCenter({
       customPath: this.binary,
     })
   }
 
-  public getGroup(app: Framework): string {
-    return app.path('project').split('/').pop()
+  public get title(): string {
+    return this.app.compiler.stats.errorsCount > 0
+      ? `✖ ${this.app.project.get('manifest.name') ?? this.app.name}`
+      : `✔ ${this.app.project.get('manifest.name') ?? this.app.name}`
+  }
+
+  public get group(): string {
+    return this.app.context.manifest.name
+  }
+
+  public get message() {
+    return `\
+${this.app.mode} build completed with ${this.app.compiler.stats.errorsCount} errors \
+and ${this.app.compiler.stats.warningsCount} warnings`
+  }
+
+  public get open(): string {
+    if (this.app.isProduction) return
+
+    return this.app.server.connection.url.toString()
   }
 
   /**
@@ -45,22 +80,18 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  public async notify(app: Framework) {
-    this.notificationCenter.notify(
-      {
-        title:
-          app.compiler.stats.errorsCount > 0
-            ? `✖ ${app.project.get('manifest.name') ?? app.name}`
-            : `✔ ${app.project.get('manifest.name') ?? app.name}`,
-        message: `${app.mode} build completed with ${app.compiler.stats.errorsCount} errors and ${app.compiler.stats.warningsCount} warnings`,
-        // @ts-ignore
-        group: this.getGroup(app),
-        ...(app.isDevelopment
-          ? {open: app.server.connection.url.toString()}
-          : {}),
-      },
-      this.makeCallback(app),
-    )
+  public async notify() {
+    this.app.context.args.notify === true &&
+      this.notificationCenter.notify(
+        {
+          title: this.title,
+          message: this.message,
+          // @ts-ignore
+          group: this.group,
+          open: this.open,
+        },
+        this.callback,
+      )
   }
 
   /**
@@ -70,9 +101,7 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  public makeCallback(app: Framework) {
-    return (error: Error, response: any, metadata: any) => {
-      //  error && app.error(error.toString())
-    }
+  public callback(error: Error, response: any, metadata: any) {
+    //  error && this.app.error(error.toString())
   }
 }

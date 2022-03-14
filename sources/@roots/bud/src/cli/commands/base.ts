@@ -1,9 +1,9 @@
+import {Context} from '@roots/bud-framework'
 import {bind, lodash as _} from '@roots/bud-support'
-import {Command} from 'clipanion'
+import {BaseContext, Command} from 'clipanion'
 
 import {Bud} from '../../Bud'
-import * as dynamic from '../config/dynamic.config'
-import * as manifest from '../config/manifest.config'
+import * as disk from '../config/disk.config'
 import {Notifier} from '../Notifier'
 
 /**
@@ -12,6 +12,13 @@ import {Notifier} from '../Notifier'
  * @public
  */
 export abstract class BaseCommand extends Command {
+  /**
+   * Context
+   *
+   * @public
+   */
+  public context: Context & BaseContext
+
   /**
    * Application
    *
@@ -25,7 +32,7 @@ export abstract class BaseCommand extends Command {
    * @public
    */
   public get logger() {
-    return this.app.logger.scoped('cli')
+    return this.app.logger.instance
   }
 
   /**
@@ -42,16 +49,13 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public async make() {
-    this.notifier = new Notifier()
+    this.notifier = new Notifier(this.app)
 
     this.app.hooks.action('event.compiler.done', this.notifier.notify)
 
     try {
       this.logger.time('process user configs')
-
-      await dynamic.configs(this.app, this.logger)
-      await manifest.configs(this.app, this.logger)
-
+      await disk.config(this.app)
       this.logger.timeEnd('process user configs')
     } catch (error) {
       throw new Error(error)

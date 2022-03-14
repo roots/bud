@@ -4,23 +4,50 @@ import {Framework, Locations} from '../..'
 
 export interface path {
   (
-    this: Framework,
-    key: keyof Locations & string,
-    ...path: string[]
+    base?:
+      | `${keyof Locations & string}`
+      | `@${keyof Locations & string}/${string}`
+      | `project`
+      | `@project/${string}`,
+    ...segments: Array<string>
   ): string
 }
 
-export interface path {
-  (key: `${keyof Locations & string}`, ...path: string[]): string
+const transformShorthandBase = (app: Framework, base: string): string => {
+  const parts = base.includes('/') ? base.split('/') : [base]
+
+  parts[0] = parts[0].replace('@', '')
+  parts[0] = app.hooks.filter(`location.${parts[0]}`)
+
+  return parts.join('/')
 }
 
-export const path: path = function (key, ...path): string {
-  const project = this.hooks.filter(`location.project`)
-  const partial = this.hooks.filter(`location.${key}`)
+const transformBase = (app: Framework, base: string): string => {
+  return app.hooks.filter(`location.${base}`)
+}
 
-  const useAbsolute = project === partial || partial.startsWith('/')
+export const path: path = function (
+  base?:
+    | `${keyof Locations & string}`
+    | `@${keyof Locations & string}/${string}`
+    | `project`
+    | `@project/${string}`,
+  ...segments: Array<string>
+): string {
+  const ctx = this as Framework
 
-  return useAbsolute
-    ? join(...[partial, ...(path ?? [])].filter(Boolean))
-    : join(...[project, partial, ...(path ?? [])].filter(Boolean))
+  if (!base) return ctx.context.projectDir
+
+  if (['project', '@project', '.'].includes(base)) {
+    base = ctx.context.projectDir
+    if (!segments) return base
+  }
+
+  base = base.startsWith(`@`)
+    ? transformShorthandBase(ctx, base)
+    : transformBase(ctx, base)
+
+  segments = [base, ...(segments ?? [])].filter(Boolean)
+
+  return join(ctx.context.projectDir, ...segments)
 }

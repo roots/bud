@@ -8,19 +8,20 @@ import {Container} from '@roots/container'
 import {
   Api,
   Build,
+  Cache,
   Compiler,
+  Context,
   Dashboard,
   Dependencies,
   Env,
   Extension,
+  Extensions,
   Hooks,
+  Logger,
   Server,
   Services,
   Store,
 } from '../'
-import {Cache} from '../Cache'
-import {Extensions} from '../Extensions'
-import {Logger} from '../Logger'
 import {Project} from '../Project'
 import * as frameworkProcess from './framework.process'
 import {lifecycle} from './lifecycle'
@@ -40,6 +41,8 @@ export abstract class Framework {
    * @internal @virtual
    */
   public abstract implementation: Constructor
+
+  public context: Context
 
   /**
    * Framework name
@@ -169,18 +172,6 @@ export abstract class Framework {
   public dependencies: Dependencies
 
   /**
-   * timer util
-   *
-   * @public
-   */
-  public _hrtime: [number, number] = process.hrtime()
-  public _hrdiff() {
-    const diff = process.hrtime(this._hrtime)
-    return diff[0] * 1000 + diff[1] / 1000000
-  }
-  public _hrdone: number
-
-  /**
    * Project information and peer dependency management utilities
    *
    * @public
@@ -304,6 +295,9 @@ export abstract class Framework {
    */
   public constructor(options: Options) {
     this.options = options
+
+    this.context = options.context
+
     this._mode = this.options.mode
     this._name = this.options.name
 
@@ -618,8 +612,7 @@ export abstract class Framework {
    */
   @bind
   public log(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).log(...messages)
+    this.logger?.instance && this.logger.instance.log(...messages)
 
     return this
   }
@@ -632,8 +625,7 @@ export abstract class Framework {
    */
   @bind
   public info(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).info(...messages)
+    this.logger?.instance && this.logger.instance.info(...messages)
 
     return this
   }
@@ -646,10 +638,7 @@ export abstract class Framework {
    */
   @bind
   public success(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .success(...messages)
+    this.logger?.instance && this.logger.instance.success(...messages)
 
     return this
   }
@@ -662,8 +651,7 @@ export abstract class Framework {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).warn(...messages)
+    this.logger?.instance && this.logger.instance.warn(...messages)
 
     return this
   }
@@ -676,8 +664,7 @@ export abstract class Framework {
    */
   @bind
   public time(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).time(...messages)
+    this.logger?.instance && this.logger.instance.time(...messages)
 
     return this
   }
@@ -690,8 +677,7 @@ export abstract class Framework {
    */
   @bind
   public await(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).await(...messages)
+    this.logger?.instance && this.logger.instance.await(...messages)
 
     return this
   }
@@ -704,9 +690,7 @@ export abstract class Framework {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .complete(...messages)
+    this.logger?.instance && this.logger.instance.complete(...messages)
 
     return this
   }
@@ -719,7 +703,7 @@ export abstract class Framework {
    */
   @bind
   public timeEnd(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).timeEnd(...messages)
+    this.logger?.instance && this.logger.instance.timeEnd(...messages)
 
     return this
   }
@@ -736,7 +720,7 @@ export abstract class Framework {
   @bind
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
-    process.stdout.write(
+    this.context.stdout.write(
       `${highlight(
         format(messages, {
           callToJSON: false,
@@ -761,8 +745,10 @@ export abstract class Framework {
    */
   @bind
   public error(...messages: any[]) {
-    global.process.exitCode = 1
-    throw new Error(messages.shift())
+    this.logger.instance.error(...messages)
+
+    process.exitCode = 1
+    process.exit()
   }
 
   @bind
@@ -770,7 +756,7 @@ export abstract class Framework {
     obj: any,
     options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
   ): Framework {
-    if (this.logger.level !== 'log') return
+    if (!['vvvv'].includes(this.store.get('log.level'))) return
 
     const prettyFormatOptions = omit(options, [
       'prefix',
@@ -797,6 +783,18 @@ export abstract class Framework {
 
     return this
   }
+
+  /**
+   * timer util
+   *
+   * @public
+   */
+  public _hrtime: [number, number] = process.hrtime()
+  public _hrdiff() {
+    const diff = process.hrtime(this._hrtime)
+    return diff[0] * 1000 + diff[1] / 1000000
+  }
+  public _hrdone: number
 }
 
 /**
@@ -804,10 +802,19 @@ export abstract class Framework {
  */
 export type Constructor = new (options: Options) => Framework
 
-/*
+/**
  * Constructor options
+ *
+ * @public
  */
 export interface Options {
+  /**
+   * Application context
+   *
+   * @public
+   */
+  context?: Context
+
   /**
    * name
    *
