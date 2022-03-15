@@ -85,7 +85,7 @@
     "http-proxy-middleware": "2.0.3",
     "ink": "3.2.0",
     "webpack": "5.68.0",
-    "webpack-dev-middleware": "5.3.0",
+    "webpack-dev-middleware": "5.3.1",
     "webpack-hot-middleware": "2.25.1"
   },
   "dependencies": {
