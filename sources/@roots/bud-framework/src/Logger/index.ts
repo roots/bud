@@ -24,11 +24,7 @@ export class Logger {
     this.instance = new Signale({
       disabled: this.app.context.args.log !== true,
       interactive: false,
-      secrets: [
-        this.app.context.projectDir,
-        this.app.context.cwd,
-        ...Object.values(this.app.context.env),
-      ],
+      secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.app.context.args.verbose ? 'vvvv' : 'vvv',
       types: types(app),
       // @ts-ignore

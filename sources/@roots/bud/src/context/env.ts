@@ -17,8 +17,7 @@ export class Env {
     if (error || !parsed) return
 
     const expanded = dotenvExpand({
-      ignoreProcessEnv: false,
-      parsed: parsed,
+      ...parsed,
     })
     if (!expanded) return
 

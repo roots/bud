@@ -9,4 +9,5 @@ module.exports = async app => {
     .template({template: 'src/index.html'})
     .devtool(false)
     .watch('src/index.html')
+    .provide({jquery: ['$', 'jQuery']})
 }

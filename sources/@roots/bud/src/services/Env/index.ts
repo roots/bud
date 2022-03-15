@@ -1,6 +1,6 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, lodash, once} from '@roots/bud-support'
+import {bind, lodash} from '@roots/bud-support'
 
 const {isString} = lodash
 
@@ -36,13 +36,10 @@ export class Env extends Service implements Base {
    * @decorator `@once`
    */
   @bind
-  @once
   public getPublicEnv(): Record<string, any> {
-    if (this.isEmpty()) return {}
-
     return this.getEntries()
-      .filter(Env.filterPublicEnv)
-      .map(Env.transformPublicEnv)
+      .filter(this.filterPublicEnv)
+      .map(this.transformPublicEnv)
       .reduce((a, [k, v]) => ({...a, [k]: v}), {})
   }
 
@@ -53,10 +50,12 @@ export class Env extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public static transformPublicEnv([rawKey, rawValue]: [string, string]) {
+  public transformPublicEnv([rawKey, rawValue]: [string, string]) {
     const interpolated = rawKey.replace('PUBLIC_', '')
 
-    const value = isString(rawValue) ? rawValue : JSON.stringify(rawValue)
+    const value = isString(rawValue)
+      ? rawValue
+      : this.app.json.stringify(rawValue)
 
     return [interpolated, value]
   }
@@ -66,10 +65,8 @@ export class Env extends Service implements Base {
    *
    * @public
    */
-  public static filterPublicEnv([key]: [string, string]) {
-    if (!key || typeof key !== 'string' || !key.startsWith('PUBLIC_'))
-      return false
-
-    return true
+  @bind
+  public filterPublicEnv([key]: [string, string]) {
+    return key.startsWith('PUBLIC_')
   }
 }

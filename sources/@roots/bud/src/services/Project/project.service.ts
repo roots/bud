@@ -44,12 +44,12 @@ export class Project
    * @decorator `@bind`
    */
   public async bootstrap() {
+    this.peers = new Peers(this.app)
+
     this.set(
       'context',
       omit(this.app.context, ['stdin', 'stderr', 'stdout']),
-    )
-
-    this.peers = new Peers(this.app)
+    ).set('publicEnv', this.app.env.getPublicEnv())
 
     await this.loadManifest()
   }

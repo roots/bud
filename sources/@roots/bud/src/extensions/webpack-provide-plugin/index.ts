@@ -14,4 +14,4 @@ const BudWebpackProvidePlugin: Model = {
   when: (_app, options) => options?.getEntries().length > 0,
 }
 
-export const {name, options, make, when} = BudWebpackProvidePlugin
+export const {name, make, when} = BudWebpackProvidePlugin
