@@ -35,10 +35,7 @@ export const extension: extension = {
       .build.setLoader('sass', require.resolve('sass-loader'))
       .setItem('sass', {
         loader: 'sass',
-        options: {
-          implementation,
-          sourceMap: true,
-        },
+        options: {implementation, sourceMap: true},
       })
       .setRule('sass', {
         test: app => app.store.get('patterns.sass'),

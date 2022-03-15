@@ -35,7 +35,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -43,8 +42,7 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": "./lib/cjs/index.js"
   },
   "bud": {
     "type": "extension"

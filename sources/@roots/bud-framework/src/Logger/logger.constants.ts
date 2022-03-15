@@ -43,11 +43,9 @@ export interface types {
   [key: string]: Type
 }
 
-export const LEVEL = {
-  vvvv: 'log',
-  vvv: 'timer',
-  vv: 'warn',
-  v: 'error',
+export const enum LEVEL {
+  VERBOSE = 'log',
+  STANDARD = 'timer',
 }
 
 export const types = app => ({
@@ -55,92 +53,93 @@ export const types = app => ({
     badge: figures.cross,
     color: 'red',
     label: 'error',
-    logLevel: LEVEL['v'],
+    logLevel: LEVEL.STANDARD,
     process: [app.context.stderr, app.context.stdout],
   },
   fatal: {
     badge: figures.cross,
     color: 'red',
     label: 'fatal',
-    logLevel: LEVEL['v'],
+    logLevel: LEVEL.STANDARD,
+    process: [app.context.stderr],
   },
   star: {
     badge: figures.star,
     color: 'cyan',
     label: 'instantiate',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   info: {
     badge: figures.info,
     color: 'magenta',
     label: 'log',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   success: {
     badge: figures.tick,
     color: 'green',
     label: 'success',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   warn: {
     badge: figures.warning,
     color: 'yellow',
     label: 'warning',
-    logLevel: LEVEL['vv'],
+    logLevel: LEVEL.STANDARD,
   },
   complete: {
     badge: figures.circleFilled,
     color: 'cyan',
     label: 'complete',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   pending: {
     badge: figures.ellipsis,
     color: 'cyan',
     label: 'pending',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
     stream: process.stdout,
   },
   note: {
     badge: figures.bullet,
     color: 'blue',
     label: 'note',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   start: {
     badge: figures.play,
     color: 'green',
     label: 'start',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   pause: {
     badge: figures.squareSmallFilled,
     color: 'yellow',
     label: 'pause',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   debug: {
     badge: figures.circleFilled,
     color: 'red',
     label: 'log',
-    logLevel: LEVEL['vvvv'],
+    logLevel: LEVEL.VERBOSE,
   },
   await: {
     badge: figures.ellipsis,
     color: 'cyan',
     label: 'awaiting',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   watch: {
     badge: figures.ellipsis,
     color: 'yellow',
     label: 'watching',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   log: {
     badge: figures.pointer,
     color: 'blue',
     label: 'log',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
 })

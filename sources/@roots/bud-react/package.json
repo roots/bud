@@ -35,7 +35,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
     "types/"
   ],

@@ -10,34 +10,8 @@
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
- * @example
- * Example configuration file (`bud.config.js`).
- * This is run by invoking `$ bud build` in the terminal.
- *
- * ```js
- * module.exports = app =>
- *   app
- *   .template({
- *     favicon: app.path('@src', 'favicon.ico'),
- *     minify: false,
- *   })
- *   .entry('app', 'index.js')
- * ```
- *
- * @example
- * Instantiate `Bud` from node using the `factory` function:
- *
- * ```js
- * import {factory} from '@roots/bud'
- *
- * const bud = factory()
- *
- * bud.run() // run build
- * ```
  * @packageDocumentation
  */
-
-import './interface'
 
 export {Bud} from './Bud'
 

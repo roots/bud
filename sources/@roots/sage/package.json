@@ -33,7 +33,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "stylelint-config/",
     "tsconfig/",
     "lib/",

@@ -756,7 +756,7 @@ export abstract class Framework {
     obj: any,
     options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
   ): Framework {
-    if (!['vvvv'].includes(this.store.get('log.level'))) return
+    if (!this.context.args.verbose) return
 
     const prettyFormatOptions = omit(options, [
       'prefix',

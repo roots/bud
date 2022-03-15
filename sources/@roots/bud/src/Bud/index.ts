@@ -1,12 +1,11 @@
 import * as Framework from '@roots/bud-framework'
-import {Framework as Base} from '@roots/bud-framework'
 
 /**
  * ⚡️ Bud
  *
  * @public
  */
-export class Bud extends Base {
+export class Bud extends Framework.Framework {
   /**
    * Constructor for producing additional Bud instances.
    *

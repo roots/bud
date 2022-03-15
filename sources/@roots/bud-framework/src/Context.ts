@@ -21,7 +21,9 @@ export interface Context {
   disk: {
     config: Record<string, any>
   }
-  env: Record<string, string | undefined>
+  env: {
+    values: Record<string, string | undefined>
+  }
   stdin: Readable
   stdout: Writable
   stderr: Writable

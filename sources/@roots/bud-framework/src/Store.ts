@@ -1,5 +1,4 @@
 import {lodash} from '@roots/bud-support'
-import {Container} from '@roots/container'
 
 import {Locations} from './'
 import {ConfigMap} from './config.map'
@@ -82,30 +81,6 @@ export namespace Store {
      * @public
      */
     name: string
-
-    /**
-     * Logger settings
-     *
-     * @public
-     */
-    ['log.count']: Container
-
-    /**
-     * Log level
-     *
-     * @remarks
-     * This is a little weird. It is not a standard log level (working around
-     * Signale stuff). It would be better if 'log' and 'debug' were swapped.
-     *
-     * Map of levels:
-     * - 'error' (least verbose)
-     * - 'warn'
-     * - 'log' (default)
-     * - 'debug' (most verbose)
-     *
-     * @public
-     */
-    ['log.level']: 'v' | 'vv' | 'vvv' | 'vvvv'
 
     /**
      * Is caching enabled?
@@ -245,17 +220,11 @@ export namespace Store {
      */
   }
 
-  export interface LoggerKeyMap {
-    ['log.count']: Repository['log.count']
-    ['log.level']: Repository['log.level']
-  }
-
   export interface Map
     extends RepositoryKeyMap,
       LocationKeyMap,
       PatternKeyMap,
-      CompilerConfigCallables,
-      LoggerKeyMap {}
+      CompilerConfigCallables {}
 
   type RepositoryKeyMap = {
     [K in keyof Repository as `${K & string}`]: Repository[K]

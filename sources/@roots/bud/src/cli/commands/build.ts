@@ -155,21 +155,11 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --log.level
+   * --verbose
    */
-  public logLevel = Option.String(
-    `--logLevel,--log.level`,
-    seed['log.level'],
-    {
-      description: 'Set logging level',
-      validator: t.isOneOf([
-        t.isLiteral('v'),
-        t.isLiteral('vv'),
-        t.isLiteral('vvv'),
-        t.isLiteral('vvvv'),
-      ]),
-    },
-  )
+  public verbose = Option.Boolean(`--verbose`, false, {
+    description: 'Set logging level',
+  })
 
   /**
    * --manifest
@@ -237,7 +227,7 @@ export class BuildCommand extends BaseCommand {
       html: this.html ?? null,
       inject: this.inject ?? null,
       log: this.log ?? null,
-      logLevel: this.logLevel ?? null,
+      verbose: this.verbose ?? null,
       manifest: this.manifest ?? null,
       minimize: this.minimize ?? null,
       mode: this.mode ?? null,

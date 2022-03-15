@@ -27,7 +27,7 @@ export class Logger {
       secrets: [
         this.app.context.projectDir,
         this.app.context.cwd,
-        ...Object.values(this.app.context.env),
+        ...Object.values(this.app.context.env.values),
       ],
       logLevel: this.app.context.args.verbose ? 'vvvv' : 'vvv',
       types: types(app),

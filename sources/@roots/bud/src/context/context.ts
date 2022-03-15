@@ -5,6 +5,7 @@ import {Readable, Writable} from 'node:stream'
 
 import {Application} from './application'
 import {Disk} from './disk'
+import {Env} from './env'
 
 export class Context implements Framework.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}
@@ -15,7 +16,7 @@ export class Context implements Framework.Context, BaseContext {
     public manifest: Record<string, any>,
     public disk: Disk,
     public application: Application,
-    public env: Record<string, string | undefined> = {},
+    public env: Env,
     public stdin: Readable = process.stdin,
     public stdout: Writable = process.stdout,
     public stderr: Writable = process.stderr,

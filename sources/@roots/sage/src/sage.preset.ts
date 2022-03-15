@@ -1,15 +1,17 @@
-import {Extension} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
 import eventCompilerDone from './hooks/event.compiler.done'
 import * as ThemeJSON from './theme/extension'
 
+interface Sage extends Framework.Extension.Module {}
+
 /**
  * Sage preset
- *å
+ *
  * @public
  */
-export const Sage: Extension.Module<void> = {
+const Sage: Sage = {
   /**
    * Extension identifier
    *
@@ -88,3 +90,5 @@ export const Sage: Extension.Module<void> = {
     )
   },
 }
+
+export {Sage as default}
