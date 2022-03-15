@@ -63,7 +63,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public bindFacade(name: string) {
-    this.app.bindMethod({[`${name}`]: facade.factory(name)})
+    this.app.bindMethod({[name]: facade.factory(name)})
   }
 
   /**

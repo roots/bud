@@ -4,7 +4,7 @@ import {
   toml as tomlParser,
   yaml as yamlParser,
 } from '@roots/bud-support'
-import {sep as slash} from 'node:path'
+import {join} from 'node:path'
 
 /**
  * .js rule
@@ -55,12 +55,8 @@ export const image = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? `images${slash}`
-            .concat(app.store.get('hashFormat'))
-            .concat('[ext]')
-        : `images${slash}`
-            .concat(app.store.get('fileFormat'))
-            .concat('[ext]'),
+        ? join('images', app.store.get('hashFormat')).concat('[ext]')
+        : join('images', app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -79,12 +75,8 @@ export const webp = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? `images${slash}`
-            .concat(app.store.get('hashFormat'))
-            .concat('[ext]')
-        : `images${slash}`
-            .concat(app.store.get('fileFormat'))
-            .concat('[ext]'),
+        ? join('images', app.store.get('hashFormat')).concat('[ext]')
+        : join('images', app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -101,10 +93,8 @@ export const svg = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? `svg${slash}`.concat(app.store.get('hashFormat')).concat('[ext]')
-        : `svg${slash}`
-            .concat(app.store.get('fileFormat'))
-            .concat('[ext]'),
+        ? join('svg', app.store.get('hashFormat')).concat('[ext]')
+        : join('svg', app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**
@@ -120,12 +110,8 @@ export const font = (app: Framework) =>
     .setInclude(({path}) => [path('@src')])
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? `fonts${slash}`
-            .concat(app.store.get('hashFormat'))
-            .concat('[ext]')
-        : `fonts${slash}`
-            .concat(app.store.get('fileFormat'))
-            .concat('[ext]'),
+        ? join('fonts', app.store.get('hashFormat')).concat('[ext]')
+        : join('fonts', app.store.get('fileFormat')).concat('[ext]'),
     }))
 
 /**

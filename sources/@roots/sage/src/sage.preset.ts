@@ -1,4 +1,5 @@
 import * as Framework from '@roots/bud-framework'
+import {join} from 'node:path'
 
 import eventAppClose from './hooks/event.app.close'
 import eventCompilerDone from './hooks/event.compiler.done'
@@ -36,8 +37,8 @@ const Sage: Sage = {
      */
     app.build.rules.svg.setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? '@images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : '@images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? join(`images`, app.store.get('hashFormat')).concat('[ext]')
+        : join(`images`, app.store.get('fileFormat')).concat('[ext]'),
     }))
 
     /**
@@ -52,11 +53,11 @@ const Sage: Sage = {
      * Application aliases
      */
     app.alias({
-      '@fonts': 'resources/fonts',
-      '@images': 'resources/images',
-      '@scripts': 'resources/scripts',
-      '@styles': 'resources/styles',
-      '@views': 'resources/views',
+      '@fonts': join('resources', 'fonts'),
+      '@images': join('resources', 'images'),
+      '@scripts': join('resources', 'scripts'),
+      '@styles': join('resources', 'styles'),
+      '@views': join('resources', 'views'),
     })
 
     /**

@@ -1,5 +1,5 @@
 import {globby} from '@roots/bud-support'
-import {posix, sep} from 'node:path'
+import {posix, sep as slash} from 'node:path'
 
 export class Disk {
   public constructor(
@@ -34,7 +34,8 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.split(`${this.projectDir}${sep}`).pop()}`]: filePath,
+        [`${filePath.split(this.projectDir.concat(slash)).pop()}`]:
+          filePath,
       }),
       this.config,
     )

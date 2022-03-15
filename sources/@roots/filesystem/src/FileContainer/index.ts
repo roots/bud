@@ -107,7 +107,7 @@ export class FileContainer extends Container {
    */
   @bind
   public set(key: string, value: any): this {
-    set(this.repository, [`${key}`], value)
+    set(this.repository, key, value)
 
     return this
   }

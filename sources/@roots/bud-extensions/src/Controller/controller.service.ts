@@ -469,7 +469,7 @@ export class Controller {
     Object.entries(classMap).forEach(([k, v]) => {
       this.moduleLogger.success({
         message: `registered ${this.app.name}.${k}`,
-        suffix: chalk.dim`${this.name}`,
+        suffix: chalk.dim(this.name),
       })
     })
   }
