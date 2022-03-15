@@ -1,3 +1,5 @@
+import {sep as slash} from 'node:path'
+
 /**
  * Chunks to apply this grouping to
  *
@@ -33,10 +35,10 @@ export const name = (
 ) =>
   chunks.reduce(
     (groupName, {name}) =>
-      groupName.endsWith('/')
+      groupName.endsWith(slash)
         ? `${groupName}${name}`
         : `${groupName}.${name}`,
-    `${cacheGroupKey}/`,
+    `${cacheGroupKey}${slash}`,
   )
 
 /**

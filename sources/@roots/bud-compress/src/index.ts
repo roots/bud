@@ -38,7 +38,7 @@ declare module '@roots/bud-framework' {
      * bud.brotli({
      *   filename: '[name].br[query]',
      *   algorithm: 'brotliCompress',
-     *   test: /\.js$|\.css$|\.html$|\.html$/,
+     *   test: /\.js$|\.css$|\.html$|\.html?$/,
      *   compressionOptions: {
      *     level: 11,
      *   },

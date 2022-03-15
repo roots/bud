@@ -1,4 +1,5 @@
 import {globby} from '@roots/bud-support'
+import {posix, sep} from 'node:path'
 
 export class Disk {
   public constructor(
@@ -18,8 +19,8 @@ export class Disk {
         `*rc`,
         `*lint*`,
         `package.json`,
-        `config/*.{ts,js,json,yml}`,
-        `!node_modules/**/*`,
+        posix.join(`config`, `*.{ts,js,json,yml}`),
+        `!node_modules`,
       ],
       {
         absolute: true,
@@ -33,7 +34,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.split(`${this.projectDir}/`).pop()}`]: filePath,
+        [`${filePath.split(`${this.projectDir}${sep}`).pop()}`]: filePath,
       }),
       this.config,
     )

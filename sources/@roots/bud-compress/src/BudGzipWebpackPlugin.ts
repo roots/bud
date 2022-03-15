@@ -14,7 +14,7 @@ const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
 const options: BudGzipWebpackPlugin['options'] = {
   algorithm: 'gzip',
   filename: '[name].gz[query]',
-  test: /\.js$|\.css$|\.html$/,
+  test: /\.js$|\.css$|\.html?$/,
   compressionOptions: {
     level: 9,
   },

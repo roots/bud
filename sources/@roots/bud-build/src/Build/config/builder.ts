@@ -68,7 +68,7 @@ export async function build(app: Framework): Promise<void> {
     }))
     .hooks.async('build.plugins', async () => await app.extensions.make())
     .hooks.on('build.recordsPath', () =>
-      app.path(`@storage/${app.name}/modules.json`),
+      app.path(`@storage`, app.name, `modules.json`),
     )
     .hooks.async('build.resolve', async () => {
       const alias = await app.hooks.filterAsync('build.resolve.alias')
