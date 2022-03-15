@@ -17,17 +17,15 @@ describe('bud.path', function () {
   })
 
   it('returns projectDir when passed `project`', () => {
-    expect(bud.path('project')).toEqual(mockProject.path)
+    expect(bud.path()).toEqual(mockProject.path)
   })
 
   it('returns expected projectDir when passed `@project`', () => {
-    expect(bud.path('project')).toEqual(mockProject.path)
+    expect(bud.path()).toEqual(mockProject.path)
   })
 
   it('returns expected project relative path', () => {
-    expect(bud.path('project', 'foo')).toEqual(
-      join(mockProject.path, 'foo'),
-    )
+    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
   })
   it('returns expected multipart path', () => {
     expect(bud.path('@project', 'foo', 'bar')).toEqual(
@@ -36,15 +34,13 @@ describe('bud.path', function () {
   })
 
   it('path: returns src relative path', () => {
-    expect(bud.path('src', 'foo')).toEqual(
+    expect(bud.path('@src', 'foo')).toEqual(
       join(mockProject.path, 'src', 'foo'),
     )
   })
 
   it('path: returns correct paths joined to context', () => {
-    expect(bud.path('project', 'foo')).toEqual(
-      join(mockProject.path, 'foo'),
-    )
+    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
   })
 
   it('path: returns correct paths with @ shorthand', () => {

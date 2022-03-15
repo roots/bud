@@ -58,7 +58,7 @@ const extension: Extension.Module = {
       .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
       .setRule(`mdx`, {
         test: /\.mdx?$/,
-        include: app => [app.path('src')],
+        include: app => [app.path('@src')],
         use: [`babel`, `mdx`],
       }),
 }

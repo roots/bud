@@ -132,7 +132,7 @@ export class Cache extends Framework.Service implements Framework.Cache {
   }
 
   @bind
-  public async bootstrap() {
+  public async boot() {
     this.type = 'filesystem'
     this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
     this.managedPaths = [this.app.path(`@modules`)]
@@ -141,10 +141,7 @@ export class Cache extends Framework.Service implements Framework.Cache {
     if (this.app.context.args.flush === true) {
       await fs.remove(this.app.path(`@storage/cache`))
     }
-  }
 
-  @bind
-  public async register() {
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
       .map(([k, v]) => `${k}-${v}`)

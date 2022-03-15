@@ -1,5 +1,3 @@
-import {resolve} from 'path'
-
 import type {Alias, Framework, method} from './alias.interface'
 
 /**
@@ -11,7 +9,7 @@ import type {Alias, Framework, method} from './alias.interface'
  * @example
  * ```js
  * app.alias({
- *   '@scripts': app.path('src', 'scripts'),
+ *   '@scripts': app.path('@src', 'scripts'),
  * })
  * ```
  *
@@ -23,11 +21,12 @@ import type {Alias, Framework, method} from './alias.interface'
 export const alias: method = function (alias: Alias) {
   const ctx = this as Framework
 
-  const merged = Object.entries(alias).reduce(
-    (a, [k, v]: [string, string]) => ({
-      ...a,
-      [k]: resolve(ctx.path('project'), v),
-    }),
+  Object.entries(alias).map(([k, v]) => {
+    if (typeof v === 'string' && k.startsWith('@')) ctx.setPath(k, v)
+  })
+
+  const merged = Object.keys(alias).reduce(
+    (a, k) => ({...a, [k]: ctx.path(k)}),
     {},
   )
 

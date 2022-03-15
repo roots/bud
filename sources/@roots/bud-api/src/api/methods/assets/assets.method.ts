@@ -52,7 +52,7 @@ export const assets: method = async function assets(
    */
   const fromDotRel = (pattern: string) =>
     pattern?.startsWith('./')
-      ? pattern.replace('./', `/`.concat(ctx.path('project')))
+      ? pattern.replace('./', `/`.concat(ctx.path()))
       : pattern
 
   /**
@@ -84,10 +84,9 @@ export const assets: method = async function assets(
      *  - raw input
      */
     const context = () => {
-      if (test(ctx.path())) return ctx.path('@project')
-      if (test(ctx.path('@src'))) return ctx.path('@src')
-      if (!test('/')) return ctx.path('@src')
-      else return
+      if (test('.')) return ctx.path()
+      if (test('/')) return
+      else return ctx.path('@src')
     }
 
     return {

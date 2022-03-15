@@ -11,12 +11,24 @@ const {isString} = lodash
  */
 export interface setPath {
   <
-    T extends `${Omit<'project', `${keyof Framework.Locations & string}`> &
+    T extends `${Omit<
+      '@project',
+      `${keyof Framework.Locations & string}`
+    > &
       string}`,
   >(
     arg1: T | Record<T, string>,
     arg2?: string,
   ): Framework.Framework
+}
+
+const transformShorthandBase = (
+  app: Framework.Framework,
+  base: string,
+): string => {
+  const parts = base.includes('/') ? base.split('/') : [base]
+  parts[0] = app.hooks.filter(`location.${parts[0]}`)
+  return parts.join('/')
 }
 
 /**
@@ -29,7 +41,7 @@ export interface setPath {
  *
  * @example
  * ```js
- * bud.setPath('src', 'custom/src')
+ * bud.setPath('@src', 'custom/src')
  * ```
  *
  * @public
@@ -42,7 +54,10 @@ export function setPath<
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
   Object.entries(input).map(([key, value]: [string, string]) => {
-    key = key.startsWith('@') ? key.split('').splice(1).join('') : key
+    value = value.startsWith(`@`)
+      ? transformShorthandBase(ctx, value)
+      : value
+
     ctx.hooks.on(`location.${key}`, value)
     ctx.info(`${key} set to ${value}`)
   })

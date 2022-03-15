@@ -33,9 +33,7 @@ export class Watcher implements Server.Watcher {
     if (files.size === 0) return []
 
     return await globby.globby(
-      Array.from(files).map((file: string) =>
-        this.app.path('project', file),
-      ),
+      Array.from(files),
       this.app.hooks.filter('dev.watch.options'),
     )
   }
@@ -58,7 +56,7 @@ export class Watcher implements Server.Watcher {
     this.instance = chokidar.watch(watchFiles).on('change', path => {
       info(
         'edit to',
-        path.replace(this.app.path('project'), '[project]'),
+        path.replace(this.app.path(), '[project]'),
         'triggered reload',
       )
 

@@ -16,9 +16,9 @@ const {writeJson} = fs
  */
 export default async function (app: Framework) {
   try {
-    await ensureDir(app.path('dist'))
+    await ensureDir(app.path('@dist'))
 
-    await writeJson(app.path('dist', 'hmr.json'), {
+    await writeJson(app.path('@dist', 'hmr.json'), {
       dev: urlToHttpOptions(app.hooks.filter('dev.url')) ?? null,
       proxy:
         urlToHttpOptions(app.hooks.filter('middleware.proxy.target')) ??

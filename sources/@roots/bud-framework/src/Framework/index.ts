@@ -464,7 +464,7 @@ export abstract class Framework {
    *
    * @example
    * ```js
-   * bud.setPath('src', 'custom/src')
+   * bud.setPath('@src', 'custom/src')
    * ```
    *
    * @param this - {@link Framework}

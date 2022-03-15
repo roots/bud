@@ -44,7 +44,7 @@ describe('bud.persist', function () {
   })
 
   it('set managedPaths', async () => {
-    expect(bud.cache.managedPaths).toEqual([bud.path('modules')])
+    expect(bud.cache.managedPaths).toEqual([bud.path('@modules')])
   })
 
   it('disables caching', async () => {

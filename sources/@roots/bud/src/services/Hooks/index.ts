@@ -1,6 +1,7 @@
 import {Hooks as Contract, Service} from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
-import {bind} from '@roots/bud-support'
+
+import {Bud} from '../../Bud'
 
 /**
  * Hooks service
@@ -15,20 +16,12 @@ export class Hooks extends Base implements Contract, Service {
    */
   public ident: string = 'hooks'
 
-  /**
-   * Registr lifecycle hook
-   *
-   * @remarks
-   * Register hooks for each disk key
-   *
-   * @internal
-   */
-  @bind
-  public async bootstrap({store}) {
-    this.on(`location.project`, store.get(`location.project`))
-    this.on(`location.src`, store.get(`location.src`))
-    this.on(`location.dist`, store.get(`location.dist`))
-    this.on(`location.storage`, store.get(`location.storage`))
-    this.on(`location.modules`, store.get(`location.modules`))
+  public constructor(bud: Bud) {
+    super(bud)
+
+    this.on('location.@src', this.app.store.get('location.@src'))
+    this.on('location.@dist', this.app.store.get('location.@dist'))
+    this.on('location.@storage', this.app.store.get('location.@storage'))
+    this.on('location.@modules', this.app.store.get('location.@modules'))
   }
 }

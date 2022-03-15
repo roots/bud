@@ -16,10 +16,10 @@ describe('bud.alias', function () {
 
     const alias = await bud.hooks.filterAsync('build.resolve.alias')
     expect(alias).toEqual({
-      '@project': bud.path('project'),
-      '@foo': bud.path('@project/bar'),
-      '@dist': bud.path('dist'),
-      '@src': bud.path('src'),
+      '@dist': bud.path('@dist'),
+      '@src': bud.path('@src'),
+      '@project': bud.path(),
+      '@foo': bud.path('bar'),
     })
   })
 })

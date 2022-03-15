@@ -42,18 +42,19 @@ export const Sage: Extension.Module<void> = {
      * Application paths
      */
     app.setPath({
-      src: 'resources',
-      dist: 'public',
+      '@src': 'resources',
+      '@dist': 'public',
     })
 
     /**
      * Application aliases
      */
     app.alias({
-      '@fonts': app.path('@src/fonts'),
-      '@images': app.path('@src/images'),
-      '@scripts': app.path('@src/scripts'),
-      '@styles': app.path('@src/styles'),
+      '@fonts': 'resources/fonts',
+      '@images': 'resources/images',
+      '@scripts': 'resources/scripts',
+      '@styles': 'resources/styles',
+      '@views': 'resources/views',
     })
 
     /**

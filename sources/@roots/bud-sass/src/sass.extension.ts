@@ -42,7 +42,7 @@ export const extension: extension = {
       })
       .setRule('sass', {
         test: app => app.store.get('patterns.sass'),
-        include: app => [app.path('src')],
+        include: app => [app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
   },

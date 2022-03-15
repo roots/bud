@@ -2,11 +2,10 @@ import * as Framework from '@roots/bud-framework'
 import {bind, fs, jsonStringify, lodash} from '@roots/bud-support'
 
 import {Peers} from './peers'
-import {writeFile} from './project.dependencies'
 import {repository} from './project.repository'
 
 const {isFunction, isString, omit} = lodash
-const {ensureDir, ensureFile} = fs
+const {ensureFile, writeFile} = fs
 
 /**
  * Project service
@@ -48,19 +47,6 @@ export class Project
     this.set(
       'context',
       omit(this.app.context, ['stdin', 'stderr', 'stdout']),
-    )
-
-    this.app.hooks
-      .on('location.src', this.app.context.projectDir)
-      .hooks.on('location.src', this.app.store.get('location.src'))
-      .hooks.on('location.dist', this.app.store.get('location.dist'))
-      .hooks.on('location.storage', this.app.store.get('location.storage'))
-      .hooks.on('location.modules', this.app.store.get('location.modules'))
-
-    await ensureDir(this.app.path(`@storage`))
-    await ensureDir(this.app.path(`@dist`))
-    await ensureFile(
-      this.app.path(`@storage/${this.app.name}/profile.json`),
     )
 
     this.peers = new Peers(this.app)
@@ -167,7 +153,6 @@ export class Project
     await ensureFile(
       this.app.path(`@storage/${this.app.name}/profile.json`),
     )
-
     await writeFile(
       this.app.path(`@storage/${this.app.name}/profile.json`),
       jsonStringify(this.repository, null, 2),
@@ -181,9 +166,6 @@ export class Project
 
   @bind
   public async searchConfigs() {
-    const readJson = this.app.json.read
-    const readYml = this.app.yml.read
-
     await Promise.all(
       Object.entries(this.app.context.disk.config).map(
         async ([fileName, filePath]) => {
@@ -216,9 +198,9 @@ export class Project
               : hasExtension('ts')
               ? await this.app.ts.read(filePath)
               : hasExtension('yml')
-              ? await readYml(filePath)
+              ? await this.app.yml.read(filePath)
               : hasExtension('json')
-              ? await readJson(filePath)
+              ? await this.app.json.read(filePath)
               : {}
 
             const processedModule =

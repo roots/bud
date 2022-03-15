@@ -118,7 +118,7 @@ export namespace Store {
      * Feature toggle: Clean dist before compilation
      *
      * When enabled stale assets will be removed from
-     * the `location.dist` directory prior to the next
+     * the `@dist` directory prior to the next
      * compilation.
      *
      * @defaultValue true
@@ -151,15 +151,6 @@ export namespace Store {
      * @public
      */
     ['features.inject']?: boolean
-
-    /**
-     * Automatically install peer dependencies
-     *
-     * @defaultValue false
-     *
-     * @public
-     */
-    ['features.install']?: boolean
 
     /**
      * Log to console
@@ -217,7 +208,12 @@ export namespace Store {
      *
      * @public
      */
-    location: Locations
+    location: Partial<Locations> & {
+      '@src': string
+      '@dist': string
+      '@modules': string
+      '@storage': string
+    }
 
     /**
      * File format (when hashing is disabled)

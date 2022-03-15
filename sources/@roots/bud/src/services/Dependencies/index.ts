@@ -37,7 +37,7 @@ export class Dependencies
    */
   @bind
   public async register(): Promise<void> {
-    this.client = new DependenciesManager(this.app.path('project')).client
+    this.client = new DependenciesManager(this.app.path()).client
   }
 
   /**

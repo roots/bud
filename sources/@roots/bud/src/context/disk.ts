@@ -12,6 +12,8 @@ export class Disk {
         `*.json`,
         `*.yml`,
         `*.toml`,
+        `*.ts`,
+        `*.js`,
         `*config*`,
         `*rc`,
         `*lint*`,

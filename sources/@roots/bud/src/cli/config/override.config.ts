@@ -12,16 +12,16 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.src)) {
-    command.app.setPath('src', command.src)
+    command.app.setPath('@src', command.src)
     command.app.children?.every((_name, child) =>
-      child.setPath('src', command.src),
+      child.setPath('@src', command.src),
     )
   }
 
   if (!isUndefined(command.dist)) {
-    command.app.setPath('dist', command.dist)
+    command.app.setPath('@dist', command.dist)
     command.app.children?.every((_name, child) =>
-      child.setPath('dist', command.dist),
+      child.setPath('@dist', command.dist),
     )
   }
 

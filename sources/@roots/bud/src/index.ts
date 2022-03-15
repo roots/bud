@@ -18,7 +18,7 @@
  * module.exports = app =>
  *   app
  *   .template({
- *     favicon: app.path('src', 'favicon.ico'),
+ *     favicon: app.path('@src', 'favicon.ico'),
  *     minify: false,
  *   })
  *   .entry('app', 'index.js')

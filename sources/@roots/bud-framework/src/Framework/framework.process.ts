@@ -39,7 +39,7 @@ export const initialize = (app: Framework) => {
   }
 
   const beforeExit = () => {
-    process.stdin.removeListener('keypress', keypressListener)
+    process.stdin.removeAllListeners()
   }
 
   process.exitCode = 0

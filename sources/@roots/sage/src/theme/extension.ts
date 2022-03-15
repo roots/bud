@@ -5,8 +5,7 @@ import * as useTailwindColors from './api/useTailwindColors'
 import {Options, ThemeJsonWebpackPlugin} from './plugin'
 
 /**
- * Extension providing a way to manage WordPress `theme.json` values
- * from within the context of the build.
+ * Extension for managing WordPress `theme.json` values
  *
  * @public
  */
@@ -35,7 +34,7 @@ export const name: ThemeExtension['name'] = 'wp-theme-json'
  * @public
  */
 export const options: ThemeExtension['options'] = app => ({
-  path: app.path('@project/theme.json'),
+  path: app.path('theme.json'),
   json: {
     color: {
       custom: false,

@@ -121,10 +121,10 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   location: {
-    src: `src`,
-    dist: `dist`,
-    modules: `node_modules`,
-    storage: `.budfiles`,
+    '@src': 'src',
+    '@dist': 'dist',
+    '@modules': 'node_modules',
+    '@storage': '.budfiles',
   },
 
   /**
@@ -188,9 +188,9 @@ export const seed: Partial<Store.Repository> = {
   [`build.parallelism`]: app => Math.max(cpus().length - 1, 1),
   [`build.performance`]: app => ({hints: false}),
   [`build.resolve.alias`]: app => ({
-    '@project': app.path('project'),
-    '@src': app.path('src'),
-    '@dist': app.path('dist'),
+    '@project': app.path(),
+    '@src': app.path('@src'),
+    '@dist': app.path('@dist'),
   }),
   [`build.resolve.extensions`]: app =>
     new Set([

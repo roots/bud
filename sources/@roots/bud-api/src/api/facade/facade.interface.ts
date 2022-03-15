@@ -38,7 +38,7 @@ export class Facade {
    * @example
    * ```js
    * app.alias({
-   *   '@scripts': app.path('src', 'scripts'),
+   *   '@scripts': app.path('@src', 'scripts'),
    * })
    * ```
    *
@@ -66,7 +66,7 @@ export class Facade {
    * @example
    * ```js
    * app.assets({
-   *  from: app.path('src', 'images'),
+   *  from: app.path('@src', 'images'),
    *  errorOnUnmatchedPattern: true,
    * })
    * ```
@@ -75,7 +75,7 @@ export class Facade {
    * ```js
    * app.assets([
    *   {
-   *    from: app.path('src', 'images'),
+   *    from: app.path('@src', 'images'),
    *    errorOnUnmatchedPattern: true,
    *   },
    *   'fonts',
@@ -107,7 +107,7 @@ export class Facade {
    * @example
    * ```js
    * app.assets({
-   *  from: app.path('src', 'images'),
+   *  from: app.path('@src', 'images'),
    *  errorOnUnmatchedPattern: true,
    * })
    * ```
@@ -116,7 +116,7 @@ export class Facade {
    * ```js
    * app.assets([
    *   {
-   *    from: app.path('src', 'images'),
+   *    from: app.path('@src', 'images'),
    *    errorOnUnmatchedPattern: true,
    *   },
    *   'fonts',

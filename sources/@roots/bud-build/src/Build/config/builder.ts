@@ -57,7 +57,7 @@ export async function build(app: Framework): Promise<void> {
     )
     .hooks.on('build.output.chunkFilename', () => filenameFormat(app))
     .hooks.on('build.output.filename', () => filenameFormat(app))
-    .hooks.on('build.output.path', () => app.path('dist'))
+    .hooks.on('build.output.path', () => app.path('@dist'))
     .hooks.on('build.optimization', () => ({
       emitOnErrors: app.hooks.filter('build.optimization.emitOnErrors'),
       minimize: app.hooks.filter('build.optimization.minimize'),
@@ -83,15 +83,15 @@ export async function build(app: Framework): Promise<void> {
       return Array.from(
         new Set([
           ...(value ?? []),
-          app.hooks.filter('location.src'),
-          app.hooks.filter('location.modules'),
+          app.hooks.filter('location.@src'),
+          app.hooks.filter('location.@modules'),
         ]),
       )
     })
     .hooks.on('build.target', () =>
       app.project.has('manifest.browserslist') &&
       app.project.isArray('manifest.browserslist')
-        ? `browserslist:${app.path('project', 'package.json')}`
+        ? `browserslist:${app.path('package.json')}`
         : undefined,
     )
     .hooks.on('build.infrastructureLogging', () => ({

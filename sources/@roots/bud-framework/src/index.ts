@@ -196,10 +196,10 @@ export interface Rules extends Partial<Record<string, Rule>> {}
  * @virtual @public
  */
 export interface Locations extends Partial<Record<string, string>> {
-  src: string
-  dist: string
-  storage: string
-  modules: string
+  '@src': string
+  '@dist': string
+  '@storage': string
+  '@modules': string
 }
 
 /**

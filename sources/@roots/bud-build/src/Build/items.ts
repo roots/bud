@@ -103,7 +103,7 @@ export const resolveUrl = (app: Framework) =>
     .makeItem()
     .setLoader(`resolveUrl`)
     .setOptions(({path, hooks}) => ({
-      root: path('src'),
+      root: path('@src'),
       sourceMap: hooks.filter('build.devtool') ?? false,
     }))
 

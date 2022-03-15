@@ -13,7 +13,7 @@ describe('bud.project', function () {
     dependencies = new Dependencies(bud)
     await dependencies.register()
 
-    manager = new DependenciesManager(bud.path('project'))
+    manager = new DependenciesManager(bud.path())
   })
 
   it('has dependencies name', () => {

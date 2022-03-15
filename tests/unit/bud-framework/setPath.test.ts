@@ -14,12 +14,12 @@ describe('bud.setPath', function () {
   })
 
   it('returns Bud', () => {
-    expect(bud.setPath('src', NEW_PATH)).toBeInstanceOf(Bud)
+    expect(bud.setPath('@src', NEW_PATH)).toBeInstanceOf(Bud)
   })
 
   it('sets a path', () => {
-    bud.setPath('src', NEW_PATH)
-    expect(bud.path('src')).toContain(NEW_PATH)
+    bud.setPath('@src', NEW_PATH)
+    expect(bud.path('@src')).toContain(NEW_PATH)
   })
 
   it('sets a path with @ shortcut', () => {
@@ -35,7 +35,7 @@ describe('bud.setPath', function () {
 
     bud.setPath(value)
 
-    expect(bud.path('src')).toEqual(bud.path('project', value.src))
-    expect(bud.path('dist')).toEqual(bud.path('project', value['@dist']))
+    expect(bud.path('@src')).toEqual(bud.path(value.src))
+    expect(bud.path('@dist')).toEqual(bud.path(value['@dist']))
   })
 })

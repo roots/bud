@@ -49,7 +49,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected context default', () => {
-    expect(bud.build.config.context).toEqual(bud.path('project'))
+    expect(bud.build.config.context).toEqual(bud.path())
   })
 
   it('has expected devtool default', () => {
@@ -102,9 +102,9 @@ describe('bud.build.config', function () {
 
   it('has expected resolve.alias default', () => {
     expect(bud.build.config.resolve.alias).toEqual({
-      '@dist': bud.path('dist'),
-      '@project': bud.path('project'),
-      '@src': bud.path('src'),
+      '@dist': bud.path('@dist'),
+      '@project': bud.path(),
+      '@src': bud.path('@src'),
     })
   })
 

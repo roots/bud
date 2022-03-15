@@ -31,15 +31,15 @@ export class BuildCommand extends BaseCommand {
     category: `Compile`,
     description: `Compile source assets`,
     details: `
-      \`bud build\` compiles source assets from the \`src\` directory to the \`dist\` directory.
+      \`bud build\` compiles source assets from the \`@src\` directory to the \`@dist\` directory.
 
       Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
       value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
 
-      By default, the \`src\` directory is \`[cwd]/src\`. You can override this with the \`-i\` flag.
+      By default, the \`@src\` directory is \`[project]/src\`. You can override this with the \`-i\` flag.
 
       If you run this command without a bud configuration file \`bud\` will
-      look for an entrypoint at \`src/index.js\`.
+      look for an entrypoint at \`@src/index.js\`.
     `,
     examples: [[`Compile source`, `$0 build`]],
   })
@@ -267,13 +267,15 @@ export class BuildCommand extends BaseCommand {
           ? seed['features.manifest']
           : this.manifest,
         location: {
-          src: isUndefined(this.src) ? seed.location.src : this.src,
-          dist: isUndefined(this.dist) ? seed.location.dist : this.dist,
-          storage: isUndefined(this.storage)
-            ? seed.location.storage
+          '@src': isUndefined(this.src) ? seed.location['@src'] : this.src,
+          '@dist': isUndefined(this.dist)
+            ? seed.location['@dist']
+            : this.dist,
+          '@storage': isUndefined(this.storage)
+            ? seed.location['@storage']
             : this.storage,
-          modules: isUndefined(this.modules)
-            ? seed.location.modules
+          '@modules': isUndefined(this.modules)
+            ? seed.location['@modules']
             : this.modules,
         },
       },

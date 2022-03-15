@@ -9,8 +9,8 @@ export const tsFeature: Extension.Module = {
   options: async ({path}) => ({
     loader: 'tsx',
     target: 'es2015',
-    tsconfigRaw: (await pathExists(path('project', 'tsconfig.json')))
-      ? await readJson(path('project', 'tsconfig.json'))
+    tsconfigRaw: (await pathExists(path('@project', 'tsconfig.json')))
+      ? await readJson(path('@project', 'tsconfig.json'))
       : {
           compilerOptions: {
             importsNotUsedAsValues: 'remove',
