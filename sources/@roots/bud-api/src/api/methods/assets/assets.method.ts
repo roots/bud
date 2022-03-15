@@ -1,7 +1,7 @@
 import type {Framework} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash'
-import {normalize} from 'path'
+import {normalize, sep as slash} from 'node:path'
 
 import type {method} from './assets.interface'
 
@@ -35,11 +35,14 @@ export const assets: method = async function assets(
    */
   const isDirectoryish = (pattern: string) => {
     if (pattern.endsWith('*')) return false
-    if (pattern.endsWith('/')) return true
-    if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
+    if (pattern.endsWith(slash)) return true
+    if (
+      pattern.includes(slash) &&
+      !pattern.split(slash).pop().includes('.')
+    )
       return true
 
-    return !pattern.split('/').pop().includes('.')
+    return !pattern.split(slash).pop().includes('.')
   }
 
   /**
@@ -51,8 +54,8 @@ export const assets: method = async function assets(
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern?.startsWith('./')
-      ? pattern.replace('./', `/`.concat(ctx.path()))
+    pattern?.startsWith(`.${slash}`)
+      ? pattern.replace(`.${slash}`, slash.concat(ctx.path()))
       : pattern
 
   /**
@@ -85,7 +88,7 @@ export const assets: method = async function assets(
      */
     const context = () => {
       if (test('.')) return ctx.path()
-      if (test('/')) return
+      if (test(slash)) return
       else return ctx.path('@src')
     }
 

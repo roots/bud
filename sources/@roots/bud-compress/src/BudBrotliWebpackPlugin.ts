@@ -15,7 +15,7 @@ const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
   options: {
     algorithm: 'brotliCompress',
     filename: '[name].br[query]',
-    test: /\.js$|\.css$|\.html$|\.htm$/,
+    test: /\.js$|\.css$|\.html?$/,
     compressionOptions: {
       level: 11,
     },

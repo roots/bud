@@ -35,10 +35,7 @@ export const runIntegrations = async (
 }
 
 export const test = {
-  assetNotEmpty: (
-    project: Record<string, Project>,
-    asset: string,
-  ) => {
+  assetNotEmpty: (project: Record<string, Project>, asset: string) => {
     return async (key: string) => {
       expect(project[key].assets[asset]).toMatchSnapshot()
     }
@@ -49,9 +46,7 @@ export const test = {
     asset: string,
   ) => {
     return async (key: string) => {
-      expect(
-        project[key].assets[asset].includes('import'),
-      ).toBeFalsy()
+      expect(project[key].assets[asset].includes('import')).toBeFalsy()
     }
   },
 
@@ -64,9 +59,7 @@ export const test = {
     }
   },
 
-  manifestMatchesSnapshot: (
-    project: Record<string, Project>,
-  ) => {
+  manifestMatchesSnapshot: (project: Record<string, Project>) => {
     return async (key: string) => {
       expect(project[key].manifest).toMatchSnapshot()
     }

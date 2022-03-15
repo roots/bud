@@ -1,4 +1,5 @@
 import {lodash} from '@roots/bud-support'
+import {sep as slash} from 'path'
 
 import * as Framework from '../..'
 
@@ -26,9 +27,9 @@ const transformShorthandBase = (
   app: Framework.Framework,
   base: string,
 ): string => {
-  const parts = base.includes('/') ? base.split('/') : [base]
+  const parts = base.includes(slash) ? base.split(slash) : [base]
   parts[0] = app.hooks.filter(`location.${parts[0]}`)
-  return parts.join('/')
+  return parts.join(slash)
 }
 
 /**

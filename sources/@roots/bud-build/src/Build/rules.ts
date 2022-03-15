@@ -4,6 +4,7 @@ import {
   toml as tomlParser,
   yaml as yamlParser,
 } from '@roots/bud-support'
+import {sep as slash} from 'node:path'
 
 /**
  * .js rule
@@ -54,8 +55,12 @@ export const image = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? `images${slash}`
+            .concat(app.store.get('hashFormat'))
+            .concat('[ext]')
+        : `images${slash}`
+            .concat(app.store.get('fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -74,8 +79,12 @@ export const webp = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? `images${slash}`
+            .concat(app.store.get('hashFormat'))
+            .concat('[ext]')
+        : `images${slash}`
+            .concat(app.store.get('fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -92,8 +101,10 @@ export const svg = (app: Framework) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? 'svg/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'svg/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? `svg${slash}`.concat(app.store.get('hashFormat')).concat('[ext]')
+        : `svg${slash}`
+            .concat(app.store.get('fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -109,8 +120,12 @@ export const font = (app: Framework) =>
     .setInclude(({path}) => [path('@src')])
     .setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? 'fonts/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'fonts/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? `fonts${slash}`
+            .concat(app.store.get('hashFormat'))
+            .concat('[ext]')
+        : `fonts${slash}`
+            .concat(app.store.get('fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
