@@ -8,17 +8,12 @@ describe('bud.project', function () {
   let manager: DependenciesManager
 
   beforeAll(async () => {
-    bud = await factory({
-      features: {
-        dashboard: false,
-        log: false,
-      },
-    })
+    bud = await factory()
 
     dependencies = new Dependencies(bud)
     await dependencies.register()
 
-    manager = new DependenciesManager(bud.path('project'))
+    manager = new DependenciesManager(bud.path())
   })
 
   it('has dependencies name', () => {
@@ -29,11 +24,11 @@ describe('bud.project', function () {
     expect(manager.client.path).toBe(mockProject.path)
   })
 
-  test.todo('dependencies manager returns npm')
-
   it('has a install method', () => {
     expect(dependencies.install).toBeInstanceOf(Function)
   })
 
   test.todo('test install method')
+
+  test.todo('dependencies manager returns npm')
 })

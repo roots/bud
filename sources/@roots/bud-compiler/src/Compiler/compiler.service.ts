@@ -3,17 +3,17 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {bind, chalk, lodash, once} from '@roots/bud-support'
+import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
 import {
   Configuration,
   MultiStats,
   ProgressPlugin,
+  Stats,
   StatsCompilation,
-  StatsError,
   webpack,
 } from 'webpack'
 
-import * as budProcess from './process'
+import * as logger from './compiler.logger'
 
 const {isFunction, isEqual} = lodash
 
@@ -24,29 +24,25 @@ const {isFunction, isEqual} = lodash
  */
 export class Compiler extends Service implements Contract {
   /**
+   * Compiler
+   *
+   * @public
+   */
+  public compiler: Contract.Compiler = webpack
+
+  /**
    * Compiler instance
    *
    * @public
    */
-  public instance: Contract.Instance
+  public compilation: Contract.Compilation
 
   /**
    * Compilation stats
    *
    * @public
    */
-  public stats: StatsCompilation = {
-    assets: [],
-    errors: [],
-    warnings: [],
-  }
-
-  /**
-   * Compiler errors
-   *
-   * @public
-   */
-  public errors: Array<StatsError> = []
+  public stats: StatsCompilation
 
   /**
    * Compilation progress
@@ -63,6 +59,22 @@ export class Compiler extends Service implements Contract {
   public config: Array<Configuration> = []
 
   /**
+   * Logger
+   *
+   * @public
+   */
+  public get logger(): Signale {
+    return logger.instance
+  }
+
+  public getCompiler(): Contract.Compiler {
+    return this.compiler
+  }
+  public setCompiler(compiler: Contract.Compiler) {
+    this.compiler = compiler
+  }
+
+  /**
    * Initiates compilation
    *
    * @returns the compiler instance
@@ -77,6 +89,7 @@ export class Compiler extends Service implements Contract {
     const compiler = await this.invoke(config)
 
     this.app.timeEnd('bud')
+    this.app._hrdone = this.app._hrdiff()
 
     return compiler
   }
@@ -86,21 +99,23 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async invoke(config: Array<Configuration>) {
     await this.app.hooks.fire('event.compiler.before')
 
-    this.instance = webpack(this.config)
+    this.compilation = this.compiler(this.config)
 
-    this.instance.hooks.done.tap(config.shift().name, async stats => {
-      await this.app.hooks.fire('event.compiler.done')
-      if (this.app.isDevelopment) await this.handleStats(stats)
-    })
+    this.app.isDevelopment &&
+      this.compilation.hooks.done.tap(
+        config.shift().name,
+        this.handleStats,
+      )
 
-    new ProgressPlugin(this.progressCallback).apply(this.instance)
+    new ProgressPlugin(this.progressCallback).apply(this.compilation)
 
     await this.app.hooks.fire('event.compiler.after')
 
-    return this.instance
+    return this.compilation
   }
 
   /**
@@ -110,8 +125,10 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  @once
   public async before() {
+    /**
+     * Make config
+     */
     await this.app.build.make()
 
     /**
@@ -136,6 +153,7 @@ export class Compiler extends Service implements Contract {
       this.app.children?.getValues().map(async (instance: Framework) => {
         if (!instance.name) return
         await instance.build.make()
+
         this.config.push(instance.build.config)
       }),
     )
@@ -150,16 +168,15 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async callback(error: Error, stats: MultiStats) {
-    await this.handleErrors(error)
-    await this.handleStats(stats)
+  @once
+  public async callback(error: Error, stats: Stats & MultiStats) {
+    error && (await this.handleErrors(error))
+    stats && (await this.handleStats(stats))
 
-    await this.app.hooks.fire('event.compiler.done')
-
-    this.instance.close(err => {
-      err && this.app.error(err)
-      this.app.close()
-    })
+    this.app.isProduction &&
+      this.compilation.close(async error => {
+        error ? this.app.error(error) : this.app.close()
+      })
   }
 
   /**
@@ -169,11 +186,17 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async handleStats(stats: MultiStats) {
+  public async handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
-    this.stats = stats.toJson(this.app.build.config.stats)
 
-    budProcess.stats.write(this.stats)
+    this.stats = stats.toJson()
+    this.app.dashboard.stats(stats)
+
+    await this.app.hooks.fire(`event.compiler.done`)
+
+    this.app.isProduction &&
+      this.stats.errorsCount > 0 &&
+      this.app.error('Errors detected in source')
   }
 
   /**
@@ -186,10 +209,11 @@ export class Compiler extends Service implements Contract {
   public async handleErrors(error: Error) {
     if (!error) return
 
-    this.app.isDevelopment &&
-      this.app.server.enabledMiddleware?.hot?.publish({error})
+    this.app.isDevelopment
+      ? this.app.server.enabledMiddleware?.hot?.publish({error})
+      : this.app.error(error)
 
-    this.app.error(error)
+    await this.app.hooks.fire(`event.compiler.error`)
   }
 
   /**
@@ -199,33 +223,49 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async progressCallback(
+  public progressCallback(
     percent: number,
     scope: string,
     ...message: any[]
   ) {
     try {
-      const normalPercent = Math.ceil((percent ?? 0) * 100)
-      scope =
+      percent = Math.ceil((percent ?? 0) * 100)
+
+      message = (
+        message ? message.flatMap(i => (i ? `${i}`?.trim() : ``)) : []
+      ).reverse()
+
+      const stage =
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
-      message = message
-        ? message.flatMap(i => (i ? `${i}`?.trim() : ``))
-        : []
-      message.reverse()
-
       const isStale = isEqual(this.progress, [
-        normalPercent,
-        message.join(` `).concat(scope),
+        percent,
+        message.join(` `).concat(stage),
       ])
-      this.progress = [normalPercent, message.join(` `).concat(scope)]
 
-      !isStale &&
-        (message.length > 1 || scope) &&
-        budProcess.logger
-          .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
-          .log(...message)
+      this.progress = [percent, message.join(` `).concat(stage)]
+
+      if (isStale) return
+
+      const statusColor = chalk.hex(
+        this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
+      )
+
+      percent !== 100
+        ? this.logger.log(
+            statusColor(`[${percent}%]`),
+            chalk.blue(`[${stage}]`),
+            ...message,
+          )
+        : this.logger.log(
+            statusColor(`[${percent}%]`),
+            statusColor(
+              this.stats?.errorsCount > 0
+                ? `Compiled with errors`
+                : `Compiled`,
+            ),
+          )
     } catch (error) {
       this.app.error(error)
     }

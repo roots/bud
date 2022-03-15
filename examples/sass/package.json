@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@roots/bud": "latest",
+    "@roots/bud-postcss": "latest",
     "@roots/bud-sass": "latest"
   }
 }

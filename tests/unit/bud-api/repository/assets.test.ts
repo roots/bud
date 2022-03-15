@@ -12,7 +12,7 @@ describe('bud.assets', function () {
   })
 
   it('is configurable by bud.assets', async () => {
-    bud.assets([bud.path('src', 'images')])
+    bud.assets([bud.path('@src/images')])
 
     await bud.api.processQueue()
 

@@ -18,6 +18,6 @@ export interface dev
 
 export const dev = (app: Framework) =>
   WebpackDevMiddleware(
-    app.compiler.instance,
+    app.compiler.compilation,
     app.hooks.filter(`middleware.dev.options`),
   )

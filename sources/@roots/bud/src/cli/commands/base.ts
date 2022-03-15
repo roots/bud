@@ -1,11 +1,10 @@
+import {Context} from '@roots/bud-framework'
 import {bind, lodash as _} from '@roots/bud-support'
-import {Command} from 'clipanion'
+import {BaseContext, Command} from 'clipanion'
 
-import {Bud} from '../../Bud/index.js'
-import {seed} from '../../seed.js'
-import * as dynamic from '../config/dynamic.config.js'
-import * as manifest from '../config/manifest.config.js'
-import {Notifier} from '../Notifier/index.js'
+import {Bud} from '../../Bud'
+import * as disk from '../config/disk.config'
+import {Notifier} from '../Notifier'
 
 /**
  * Base command
@@ -13,6 +12,13 @@ import {Notifier} from '../Notifier/index.js'
  * @public
  */
 export abstract class BaseCommand extends Command {
+  /**
+   * Context
+   *
+   * @public
+   */
+  public context: Context & BaseContext
+
   /**
    * Application
    *
@@ -26,7 +32,7 @@ export abstract class BaseCommand extends Command {
    * @public
    */
   public get logger() {
-    return this.app.logger.scoped('cli')
+    return this.app.logger.instance
   }
 
   /**
@@ -37,15 +43,6 @@ export abstract class BaseCommand extends Command {
   public notifier: Notifier
 
   /**
-   * Config
-   *
-   * @public
-   */
-  public config() {
-    return seed
-  }
-
-  /**
    * Bootstrap Application
    *
    * @returns Bud
@@ -54,12 +51,11 @@ export abstract class BaseCommand extends Command {
   public async make() {
     this.notifier = new Notifier(this.app)
 
+    this.app.hooks.action('event.compiler.done', this.notifier.notify)
+
     try {
       this.logger.time('process user configs')
-
-      await dynamic.configs(this.app, this.logger)
-      await manifest.configs(this.app, this.logger)
-
+      await disk.config(this.app)
       this.logger.timeEnd('process user configs')
     } catch (error) {
       throw new Error(error)

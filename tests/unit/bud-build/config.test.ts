@@ -1,14 +1,16 @@
 import {Bud, factory} from '@repo/test-kit/bud'
+import {seed} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
+
+/* 3x */
+jest.setTimeout(15000)
 
 describe('bud.build.config', function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    await bud.project.buildProfile()
-    await bud.extensions.injectExtensions()
     await bud.build.make()
   })
 
@@ -22,13 +24,17 @@ describe('bud.build.config', function () {
   })
 
   it('has expected cache default', () => {
-    const cache = bud.build.config.cache as any
+    const cache: any = bud.build.config.cache
 
     expect(cache.type).toStrictEqual('filesystem')
 
-    expect(cache.buildDependencies.bud).toStrictEqual([
+    expect(cache.buildDependencies.bud).toEqual([
       expect.stringContaining('package.json'),
+      expect.stringContaining('.eslintrc.js'),
       expect.stringContaining('bud.config.js'),
+      expect.stringContaining('docker-compose.yml'),
+      expect.stringContaining('tailwind.config.js'),
+      expect.stringContaining('tsconfig.json'),
     ])
 
     expect(cache.cacheDirectory).toStrictEqual(
@@ -43,11 +49,11 @@ describe('bud.build.config', function () {
   })
 
   it('has expected context default', () => {
-    expect(bud.build.config.context).toEqual(bud.path('project'))
+    expect(bud.build.config.context).toEqual(bud.path())
   })
 
   it('has expected devtool default', () => {
-    expect(bud.build.config.devtool).toBe(false)
+    expect(bud.build.config.devtool).toBe(undefined)
   })
 
   it('has expected entry default', () => {
@@ -55,9 +61,13 @@ describe('bud.build.config', function () {
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(bud.build.config.infrastructureLogging).toEqual({
-      console: false,
-    })
+    expect(
+      JSON.stringify(bud.build.config.infrastructureLogging.console),
+    ).toStrictEqual(
+      JSON.stringify(
+        bud.maybeCall(seed['build.infrastructureLogging.console']),
+      ),
+    )
   })
 
   it('has expected mode default', () => {
@@ -83,32 +93,31 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.runtimeChunk default', () => {
-    expect(bud.build.config.optimization.runtimeChunk).toEqual(false)
+    expect(bud.build.config.optimization.runtimeChunk).toBeUndefined()
   })
 
   it('has expected profile default', () => {
-    expect(bud.build.config.profile).toEqual(undefined)
+    expect(bud.build.config.profile).toBeUndefined()
   })
 
   it('has expected resolve.alias default', () => {
-    expect(bud.build.config.resolve.alias).toEqual({})
+    expect(bud.build.config.resolve.alias).toEqual({
+      '@dist': bud.path('@dist'),
+      '@project': bud.path(),
+      '@src': bud.path('@src'),
+    })
   })
 
   it('has expected resolve.extensions default', () => {
     expect(bud.build.config.resolve.extensions).toMatchSnapshot([
-      '.wasm',
-      '.mjs',
-      '.js',
-      '.jsx',
-      '.css',
-      '.json',
-      '.json5',
-      '.toml',
-      '.xml',
-      '.csv',
-      '.yml',
-      '.yaml',
-      '.xml',
+      `.wasm`,
+      `.mjs`,
+      `.js`,
+      `.jsx`,
+      `.css`,
+      `.json`,
+      `.toml`,
+      `.yml`,
     ])
   })
 
@@ -124,14 +133,10 @@ describe('bud.build.config', function () {
     expect(bud.build.config.watchOptions).toBeUndefined()
   })
 
-  it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins?.length).toMatchSnapshot()
-  })
-
-  it('has valid plugins', () => {
-    bud.build.config.plugins.filter(plugin => {
-      expect(plugin).toHaveProperty('apply')
-    })
+  it('has expected plugins', () => {
+    expect(
+      bud.build.config.plugins.map(plugin => plugin.constructor.name),
+    ).toMatchSnapshot()
   })
 
   it('has expected default requireEnsure rule', () => {

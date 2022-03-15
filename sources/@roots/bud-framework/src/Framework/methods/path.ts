@@ -1,26 +1,30 @@
 import {join} from 'path'
 
-import {Framework, Locations} from '../..'
+import {Framework} from '../..'
 
 export interface path {
-  (
-    this: Framework,
-    key: keyof Locations & string,
-    ...path: string[]
-  ): string
+  (base?: string, ...segments: Array<string>): string
 }
 
-export interface path {
-  (key: `${keyof Locations & string}`, ...path: string[]): string
+const transformShorthandBase = (app: Framework, base: string): string => {
+  const parts = base.includes('/') ? base.split('/') : [base]
+  parts[0] = app.hooks.filter(`location.${parts[0]}`)
+  return parts.join('/')
 }
 
-export const path: path = function (key, ...path): string {
-  const project = this.hooks.filter(`location.project`)
-  const partial = this.hooks.filter(`location.${key}`)
+export const path: path = function (
+  base?: string,
+  ...segments: Array<string>
+): string {
+  const ctx = this as Framework
 
-  const useAbsolute = project === partial || partial.startsWith('/')
+  if (!base || base.startsWith(`/`)) return ctx.context.projectDir
 
-  return useAbsolute
-    ? join(...[partial, ...(path ?? [])].filter(Boolean))
-    : join(...[project, partial, ...(path ?? [])].filter(Boolean))
+  return join(
+    ctx.context.projectDir,
+    ...[
+      base.startsWith(`@`) ? transformShorthandBase(ctx, base) : base,
+      ...(segments ?? []),
+    ].filter(Boolean),
+  )
 }

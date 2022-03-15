@@ -30,8 +30,6 @@ describe.skip('bud.splitChunks', function () {
 
     await bud.api.processQueue()
 
-    expect(
-      bud.hooks.filter('build.optimization.splitChunks'),
-    ).toBe(param)
+    expect(bud.hooks.filter('build.optimization.splitChunks')).toBe(param)
   })
 })

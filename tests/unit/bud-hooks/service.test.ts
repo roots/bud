@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Framework} from '@roots/bud-build/types/Item/item.interface'
 import {Hooks} from '@roots/bud-hooks'
 
 describe('@roots/bud-hooks', function () {
@@ -48,15 +47,15 @@ describe('@roots/bud-hooks', function () {
   })
 
   it('action registers callable function', async () => {
-    const value = jest.fn((app: Framework) => null)
-    hooks.action('event.app.close', value)
-    expect(hooks.repository.event.app.close.pop()).toBe(value)
+    const value = jest.fn(async (app: Bud) => null)
+    hooks.action('event.app.build', value)
+    expect(hooks.repository.event.app.build.pop()).toBe(value)
   })
 
   it('fire calls action function', async () => {
     const value = jest.fn(async () => null)
-    hooks.action('event.app.close', value)
-    await hooks.fire('event.app.close')
+    hooks.action('event.app.build', value)
+    await hooks.fire('event.app.build')
     expect(value).toHaveBeenCalled()
   })
 })

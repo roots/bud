@@ -28,13 +28,6 @@ export interface Peers {
   modules: Record<string, Record<string, any>>
 
   /**
-   * True if project is missing dependencies
-   *
-   * @public
-   */
-  hasMissingDependencies: boolean
-
-  /**
    * Expected project dependencies
    *
    * @public

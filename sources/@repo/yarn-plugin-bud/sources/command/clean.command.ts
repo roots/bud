@@ -1,3 +1,4 @@
+import * as repo from '@repo/constants'
 import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
@@ -40,15 +41,17 @@ export class Clean extends Command {
    */
   public async execute() {
     await this.$(`yarn cache clean --all`)
+    try {
+      await this.$(`rm -rf **/.budfiles`)
+      await this.$(`rm -rf **/node_modules/*`)
+      await this.$(`rm -rf ${repo.paths.sources}/@roots/*/lib/*`)
+      await this.$(`rm -rf ${repo.paths.sources}/@roots/*/types/*`)
+    } catch (e) {}
 
     if (process.env.YARN_RC_FILENAME == 'config/yarnrc.dev.yml') {
       try {
-        await this.$(`rm -rf storage/packages/@roots/**/*`)
-      } catch (e) {}
-
-      try {
-        await this.$(`cp -rf examples/* /srv/mocks/yarn/`)
-        await this.$(`cp -rf examples/* /srv/mocks/npm/`)
+        await this.$(`rm -rf storage/packages/@roots/*`)
+        await this.$(`rm -rf /srv/mocks/yarn/* /srv/mocks/npm/*`)
       } catch (e) {}
     }
   }

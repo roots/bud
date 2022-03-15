@@ -14,44 +14,45 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    css: Framework.Loader.Interface
-    csv: Framework.Loader.Interface
-    file: Framework.Loader.Interface
-    html: Framework.Loader.Interface
-    md: Framework.Loader.Interface
-    minicss: Framework.Loader.Interface
-    'resolve-url': Framework.Loader.Interface
-    style: Framework.Loader.Interface
-    url: Framework.Loader.Interface
-    xml: Framework.Loader.Interface
+    css: Framework.Loader
+    csv: Framework.Loader
+    file: Framework.Loader
+    html: Framework.Loader
+    md: Framework.Loader
+    minicss: Framework.Loader
+    resolveUrl: Framework.Loader
+    style: Framework.Loader
+    url: Framework.Loader
+    xml: Framework.Loader
   }
 
   interface Items {
-    css: Framework.Item.Interface
-    csv: Framework.Item.Interface
-    file: Framework.Item.Interface
-    image: Framework.Item.Interface
-    font: Framework.Item.Interface
-    html: Framework.Item.Interface
-    md: Framework.Item.Interface
-    minicss: Framework.Item.Interface
-    'resolve-url': Framework.Item.Interface
-    raw: Framework.Item.Interface
-    style: Framework.Item.Interface
-    xml: Framework.Item.Interface
+    precss: Framework.Item
+    minicss: Framework.Item
+    style: Framework.Item
+    css: Framework.Item
+    csv: Framework.Item
+    file: Framework.Item
+    image: Framework.Item
+    font: Framework.Item
+    html: Framework.Item
+    md: Framework.Item
+    resolveUrl: Framework.Item
+    raw: Framework.Item
+    xml: Framework.Item
   }
 
   interface Rules {
-    js: Framework.Rule.Interface
-    css: Framework.Rule.Interface
-    html: Framework.Rule.Interface
-    svg: Framework.Rule.Interface
-    image: Framework.Rule.Interface
-    font: Framework.Rule.Interface
-    xml: Framework.Rule.Interface
-    json5: Framework.Rule.Interface
-    csv: Framework.Rule.Interface
-    yml: Framework.Rule.Interface
-    toml: Framework.Rule.Interface
+    js: Framework.Rule
+    css: Framework.Rule
+    html: Framework.Rule
+    svg: Framework.Rule
+    image: Framework.Rule
+    font: Framework.Rule
+    xml: Framework.Rule
+    json5: Framework.Rule
+    csv: Framework.Rule
+    yml: Framework.Rule
+    toml: Framework.Rule
   }
 }

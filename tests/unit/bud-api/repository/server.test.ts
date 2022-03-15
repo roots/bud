@@ -5,10 +5,7 @@ describe('bud.serve', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      features: {log: false},
-      mode: 'development',
-    })
+    bud = await factory({mode: 'development'})
   })
 
   beforeEach(async () => {

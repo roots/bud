@@ -1,3 +1,5 @@
+import {chalk, fs} from '@roots/bud-support'
+
 import {Framework} from '..'
 
 /**
@@ -9,19 +11,33 @@ import {Framework} from '..'
  * @public
  */
 export interface close {
-  (done?: CallableFunction): void
+  (done?: CallableFunction): Promise<void>
 }
 
 /**
  * Exit the program
  *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param done - Callback function to be called before end of run
+ * @param callback - Callback function to be called before end of run
  *
  * @public
  */
-export async function close(done = process.exit) {
+export function close(callback?: any) {
   const ctx = this as Framework
-  await ctx.hooks.fire('event.app.close')
-  done()
+
+  process.stdin.removeAllListeners()
+
+  if (process.exitCode !== 0) {
+    ctx.logger.instance.error(
+      chalk.red(`\nClearing cache due to non-zero exit code.\n`),
+    )
+    fs.removeSync(ctx.path('@storage/cache'))
+  }
+
+  process.exitCode === 0
+    ? ctx.context.stdout.write(chalk.green(`\n✔ that's a wrap\n`))
+    : ctx.context.stderr.write(chalk.red(`\n✖ Error\n`))
+
+  ctx.hooks.fire('event.app.close')
+
+  callback ? callback() : process.exit()
 }

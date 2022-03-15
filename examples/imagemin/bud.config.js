@@ -8,7 +8,7 @@
  */
 module.exports = async app => {
   app
-    .template({template: app.path('src', 'index.html')})
+    .template({template: app.path('@src/index.html')})
     .entry({app: 'app.js'})
     .minimize()
     .imagemin('lossy')

@@ -17,16 +17,18 @@ import {bind} from './extensions.dependencies'
  * @public
  */
 export class Extensions extends Service implements Base {
+  /**
+   * Extensions queued for registration
+   *
+   * @public
+   */
   public queue = []
-
-  public repository = {}
 
   /**
    * Controller factory
    *
    * @public
    */
-  @bind
   public makeController(
     extension: Extension.Module | Promise<Extension.Module>,
   ): Controller {
@@ -45,7 +47,7 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async boot(): Promise<void> {
+  public async booted(): Promise<void> {
     /**
      * Handle in-built extensions
      */
@@ -71,14 +73,6 @@ export class Extensions extends Service implements Base {
   public async injectExtensions() {
     if (this.app.store.is('features.inject', false)) {
       this.log('log', 'injection disabled')
-      return
-    }
-
-    if (this.app.project.peers.hasMissingDependencies) {
-      this.log(
-        'error',
-        'missing dependencies in project. not booting extensions.',
-      )
       return
     }
 

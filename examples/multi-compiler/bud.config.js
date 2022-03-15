@@ -3,14 +3,14 @@ module.exports = async app => {
 
   await app.make('theme', async theme => {
     theme
-      .setPath('dist', app.path('dist', 'theme'))
+      .setPath('@dist', 'dist/theme')
       .entry('theme', ['theme.js', 'theme.css'])
       .minimize()
   })
 
   await app.make('plugin', async plugin => {
     plugin
-      .setPath('dist', app.path('dist', 'plugin'))
+      .setPath('@dist', 'dist/plugin')
       .entry('plugin', ['plugin.js', 'plugin.css'])
       .minimize()
   })

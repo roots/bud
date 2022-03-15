@@ -1,36 +1,47 @@
-import {bind, isFunction} from './item.dependencies'
-import {Base, Factory, Framework, Loader, Maybe} from './item.interface'
+import {Framework, Item as Contract, Loader} from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
+
+import {Base} from '../shared/Base'
+
+export namespace Item {
+  export type ConstructorOptions = Contract.ConstructorOptions
+}
 
 /**
  * Item class
  *
  * @public
  */
-export class Item extends Base.Abstract implements Base.Interface {
+export class Item extends Base implements Contract {
   /**
    * Loader
    *
    * @public
    */
-  public loader: Factory<[Framework], Loader.Interface>
+  public loader: Contract['loader']
 
   /**
    * Loader options
    *
    * @public
    */
-  public options: Factory<[Framework], Base.Options>
+  public options: Contract['options']
 
   /**
    * Class constructor
    *
-   * @param options - {@link Base.Options}
+   * @param options - {@link Contract.Options}
    */
-  public constructor({loader, options}: Base.ConstructorOptions) {
-    super()
-
-    this.setLoader(loader)
-    options && this.setOptions(options)
+  public constructor(
+    _app: () => Framework,
+    options?: {
+      loader?: Item['loader']
+      options?: Item['options']
+    },
+  ) {
+    super(_app)
+    options?.loader && this.setLoader(options.loader)
+    options?.options && this.setOptions(options.options)
   }
 
   /**
@@ -40,8 +51,8 @@ export class Item extends Base.Abstract implements Base.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getLoader(app: Framework) {
-    return this.loader(app)
+  public getLoader(): Loader {
+    return this.app.build.loaders[this.unwrap(this.loader)]
   }
 
   /**
@@ -49,8 +60,9 @@ export class Item extends Base.Abstract implements Base.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(loader: Maybe<[Framework], Loader.Interface>) {
-    this.loader = isFunction(loader) ? loader : () => loader
+  public setLoader(loader: Contract['loader']) {
+    this.loader = loader
+    return this
   }
 
   /**
@@ -58,8 +70,13 @@ export class Item extends Base.Abstract implements Base.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setOptions(options: Maybe<[Framework], Base.Options>) {
-    this.options = isFunction(options) ? options : () => options
+  public setOptions(options: Item['options']) {
+    this.options = this.wrap(options)
+    return this
+  }
+  @bind
+  public getOptions(): Item['options'] {
+    return this.unwrap(this.options)
   }
 
   /**
@@ -67,13 +84,14 @@ export class Item extends Base.Abstract implements Base.Interface {
    * @decorator `@bind`
    */
   @bind
-  public mergeOptions(options: Base.Options, app: Framework) {
+  public mergeOptions(options: Contract.Options) {
     options = {
-      ...this.options(app),
+      ...(this.getOptions() ?? {}),
       ...options,
     }
 
-    this.setOptions((app: Framework) => options)
+    this.setOptions(options)
+    return this
   }
 
   /**
@@ -81,13 +99,16 @@ export class Item extends Base.Abstract implements Base.Interface {
    * @decorator `@bind`
    */
   @bind
-  public make(app: Framework): Base.Output {
-    const output: Base.Output = {
-      loader: this.loader(app).make(app),
+  public toWebpack(): Contract.Output {
+    const loader = this.getLoader()
+    if (!loader) this.app.error(loader, `missing`, this)
+
+    const output: Contract.Output = {
+      loader: this.getLoader().getSrc(),
     }
 
     if (this.options) {
-      output.options = this.options(app)
+      output.options = this.getOptions()
     }
 
     return output

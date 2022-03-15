@@ -9,13 +9,13 @@
   --ifm-color-primary-light: rgb(86, 98, 218);
   --ifm-color-primary-lighter: rgb(140, 146, 220);
   --ifm-color-primary-lightest: rgb(206, 209, 247);
-  --ifm-footer-background-color: linear-gradient(
-    217deg,
-    rgb(86, 98, 218),
-    rgb(40, 49, 142)
-  );
+
   --ifm-font-family-base: 'Public Sans', system-ui, sans-serif;
   --ifm-font-family-monospace: 'dm', monospace;
+}
+
+.navbar__items--right > :last-child {
+  padding-left: var(--ifm-navbar-item-padding-horizontal);
 }
 
 .card {
@@ -35,5 +35,5 @@
 }
 
 .footer {
-  background: linear-gradient(217deg, rgb(86, 98, 218), rgb(40, 49, 142));
+  background: var(--ifm-color-primary-darker);
 }

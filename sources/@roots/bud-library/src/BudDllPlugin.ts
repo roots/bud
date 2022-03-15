@@ -24,7 +24,7 @@ const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
     },
     path: 'dll',
     inherit: false,
-    context: app.path('project'),
+    context: app.path(),
   }),
 
   make: options => new AutoDllPlugin(options.all()),

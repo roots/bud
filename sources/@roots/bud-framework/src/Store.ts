@@ -1,7 +1,7 @@
 import {lodash} from '@roots/bud-support'
-import Webpack from 'webpack'
 
 import {Locations} from './'
+import {ConfigMap} from './config.map'
 import {Framework} from './Framework'
 import {Service} from './Service'
 
@@ -56,9 +56,12 @@ export class Store<T = Store.Repository> extends Service<T> {
   }
 }
 
-interface CompilerConfig extends Partial<Webpack.Configuration> {
-  optimization?: any
-  infrastructureLogging?: any
+export type FrameworkCallable<T> = (app: Framework) => T
+
+export type CompilerConfigCallables = {
+  [K in keyof ConfigMap as `${K & string}`]: FrameworkCallable<
+    ConfigMap[K]
+  >
 }
 
 export namespace Store {
@@ -71,7 +74,7 @@ export namespace Store {
    *
    * @public
    */
-  export interface Repository {
+  export interface Repository extends CompilerConfigCallables {
     /**
      * Application name
      *
@@ -80,144 +83,88 @@ export namespace Store {
     name: string
 
     /**
-     * Mode
+     * Is caching enabled?
      *
      * @public
      */
-    mode: 'production' | 'development'
+    ['features.cache']?: boolean
 
     /**
-     * Logger settings
+     * Feature toggle: Clean dist before compilation
+     *
+     * When enabled stale assets will be removed from
+     * the `@dist` directory prior to the next
+     * compilation.
+     *
+     * @defaultValue true
      *
      * @public
      */
-    log?: {
-      /**
-       * Log level
-       *
-       * @remarks
-       * This is a little weird. It is not a standard log level (working around
-       * Signale stuff). It would be better if 'log' and 'debug' were swapped.
-       *
-       * Map of levels:
-       * - 'error' (least verbose)
-       * - 'warn'
-       * - 'log' (default)
-       * - 'debug' (most verbose)
-       *
-       * @public
-       */
-      level?: 'v' | 'vv' | 'vvv' | 'vvvv'
-    }
+    ['features.clean']?: boolean
 
     /**
-     * Features to enable
+     * Enable or disable filename hashing
+     *
+     * @defaultValue false
      *
      * @public
      */
-    features: {
-      /**
-       * Is caching enabled?
-       *
-       * @public
-       */
-      cache?: boolean
+    ['features.hash']?: boolean
 
-      /**
-       * Feature toggle: enable or disable the command line interface
-       *
-       * @defaultValue true
-       *
-       * @public
-       */
-      dashboard?: boolean
+    /**
+     * Emit html template
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    ['features.html']?: boolean
 
-      /**
-       * Feature toggle: Clean dist before compilation
-       *
-       * When enabled stale assets will be removed from
-       * the `location.dist` directory prior to the next
-       * compilation.
-       *
-       * @defaultValue true
-       *
-       * @public
-       */
-      clean?: boolean
+    /**
+     * Automatically inject installed extensions
+     *
+     * @public
+     */
+    ['features.inject']?: boolean
 
-      /**
-       * Enable or disable filename hashing
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      hash?: boolean
+    /**
+     * Log to console
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    ['features.log']?: boolean
 
-      /**
-       * Emit html template
-       *
-       * @defaultValue true
-       *
-       * @public
-       */
-      html?: boolean
+    /**
+     * Enable or disable producing a manifest.json file
+     *
+     * @defaultValue true
+     *
+     * @public
+     */
+    ['features.manifest']?: boolean
 
-      /**
-       * Automatically inject installed extensions
-       *
-       * @public
-       */
-      inject?: boolean
+    /**
+     * Enable or disable proxy
+     */
+    ['features.proxy']?: boolean
 
-      /**
-       * Automatically install peer dependencies
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      install?: boolean
+    /**
+     * Enable or disable runtime chunk
+     *
+     * @public
+     */
+    ['features.runtimeChunk']?: boolean
 
-      /**
-       * Log to console
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      log?: boolean
-
-      /**
-       * Enable or disable producing a manifest.json file
-       *
-       * @defaultValue true
-       *
-       * @public
-       */
-      manifest?: boolean
-
-      /**
-       * Enable or disable proxy
-       */
-      proxy?: boolean
-
-      /**
-       * Enable or disable runtime chunk
-       *
-       * @public
-       */
-      runtimeChunk?: boolean
-
-      /**
-       * Enable or disable chunk splitting (vendor)
-       *
-       * @defaultValue false
-       *
-       * @public
-       */
-      splitChunks?: boolean
-    }
+    /**
+     * Enable or disable chunk splitting (vendor)
+     *
+     * @defaultValue false
+     *
+     * @public
+     */
+    ['features.splitChunks']?: boolean
 
     /**
      * Shared regular expressions for pattern matching.
@@ -236,7 +183,12 @@ export namespace Store {
      *
      * @public
      */
-    location: Locations
+    location: Partial<Locations> & {
+      '@src': string
+      '@dist': string
+      '@modules': string
+      '@storage': string
+    }
 
     /**
      * File format (when hashing is disabled)
@@ -266,35 +218,16 @@ export namespace Store {
      *
      * @public
      */
-    build: CompilerConfig
-
-    /**
-     * Cache settings
-     *
-     * @public
-     */
-    cache: {
-      type?: 'filesystem' | 'memory'
-    }
   }
 
   export interface Map
-    extends BuildKeyMap,
-      RepositoryKeyMap,
-      FeaturesKeyMap,
+    extends RepositoryKeyMap,
       LocationKeyMap,
-      PatternKeyMap {
-    ['cache.type']: Repository['cache']['type']
-    ['log.level']: Repository['log']['level']
-  }
+      PatternKeyMap,
+      CompilerConfigCallables {}
 
   type RepositoryKeyMap = {
     [K in keyof Repository as `${K & string}`]: Repository[K]
-  }
-
-  type FeaturesKeyMap = {
-    [K in keyof Repository['features'] as `features.${K &
-      string}`]: Repository['features'][K]
   }
 
   type LocationKeyMap = {
@@ -327,54 +260,5 @@ export namespace Store {
   type PatternKeyMap = {
     [K in PatternKeys as `patterns.${K &
       string}`]: Repository['patterns'][K]
-  }
-
-  type BuildKeyMap = {
-    ['build.bail']: boolean
-    [`build.cache`]: any
-    ['build.cache.buildDependencies']: Record<string, Array<string>>
-    ['build.cache.cacheDirectory']: string
-    [`build.cache.version`]: string
-    ['build.cache.type']: 'memory' | 'filesystem'
-    ['build.cache.managedPaths']: Array<string>
-    [`build.context`]: Repository['build']['context']
-    [`build.devtool`]: Repository['build']['devtool']
-    [`build.entry`]: Repository['build']['entry']
-    [`build.experiments`]: Repository['build']['experiments']
-    [`build.externals`]: Repository['build']['externals']
-    [`build.infrastructureLogging`]: Repository['build']['infrastructureLogging']
-    [`build.mode`]: Repository['build']['mode']
-    [`build.module`]: Repository['build']['module']
-    [`build.module.unsafeCache`]: Repository['build']['module']['unsafeCache']
-    [`build.name`]: Repository['build']['name']
-    [`build.node`]: Repository['build']['node']
-    [`build.optimization`]: Repository['build']['optimization']
-    [`build.optimization.emitOnErrors`]: Repository['build']['optimization']['emitOnErrors']
-    [`build.optimization.minimize`]: Repository['build']['optimization']['minimize']
-    [`build.optimization.minimizer`]: Repository['build']['optimization']['minimizer']
-    [`build.optimization.moduleIds`]: Repository['build']['optimization']['moduleIds']
-    [`build.optimization.removeEmptyChunks`]: Repository['build']['optimization']['removeEmptyChunks']
-    [`build.optimization.runtimeChunk`]: Repository['build']['optimization']['runtimeChunk']
-    [`build.optimization.splitChunks`]: any
-    [`build.output`]: Repository['build']['output']
-    [`build.output.assetModuleFilename`]: Repository['build']['output']['assetModuleFilename']
-    [`build.output.chunkFilename`]: Repository['build']['output']['chunkFilename']
-    [`build.output.clean`]: Repository['build']['output']['clean']
-    [`build.output.filename`]: Repository['build']['output']['filename']
-    [`build.output.path`]: Repository['build']['output']['path']
-    [`build.output.pathinfo`]: Repository['build']['output']['pathinfo']
-    [`build.output.publicPath`]: string
-    [`build.parallelism`]: Repository['build']['parallelism']
-    [`build.performance`]: Repository['build']['performance']
-    [`build.profile`]: Repository['build']['profile']
-    [`build.recordsPath`]: Repository['build']['recordsPath']
-    [`build.resolve`]: Repository['build']['resolve']
-    [`build.resolve.alias`]: Record<string, string | false | string[]>
-    [`build.resolve.extensions`]: Repository['build']['resolve']['extensions']
-    [`build.resolve.modules`]: Repository['build']['resolve']['modules']
-    [`build.stats`]: Repository['build']['stats']
-    [`build.target`]: Repository['build']['target']
-    [`build.watch`]: Repository['build']['watch']
-    [`build.watchOptions`]: Repository['build']['watchOptions']
   }
 }

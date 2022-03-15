@@ -29,8 +29,6 @@ export class Peers implements PeersInterface {
 
   public adjacents: AdjacencyList
 
-  public hasMissingDependencies: boolean = false
-
   public modules: Record<string, Dependency> = {}
 
   public peerDependencies: Map<string, string> = new Map()
@@ -51,9 +49,7 @@ export class Peers implements PeersInterface {
   @bind
   public async resolveModulePath(name: string) {
     try {
-      const result = await pkgUp.pkgUp({
-        cwd: dirname(safeResolve(name)),
-      })
+      const result = await pkgUp.pkgUp({cwd: dirname(safeResolve(name))})
 
       return dirname(result)
     } catch (err) {
@@ -90,23 +86,21 @@ export class Peers implements PeersInterface {
   @bind
   public async discover() {
     try {
-      const manifest = await this.getManifest(this.app.path('project'))
       this.modules['root'] = {
-        ...manifest,
+        ...(this.app.context?.manifest ?? {}),
         name: 'root',
-        version: manifest.version ?? '0.0.0',
-        bud: manifest.bud ?? null,
-        parent: null,
-        resolvable: manifest ? true : false,
+        version: this.app.context.manifest?.version ?? '0.0.0',
+        bud: this.app.context.manifest?.bud ?? null,
+        resolvable: this.app.context?.manifest ? true : false,
         requires: Object.entries<string>({
-          ...(manifest.devDependencies ?? {}),
-          ...(manifest.dependencies ?? {}),
+          ...(this.app.context.manifest?.devDependencies ?? {}),
+          ...(this.app.context.manifest?.dependencies ?? {}),
         }),
       }
 
       await Promise.all(
         this.modules['root'].requires
-          .filter(([name]) => !name.startsWith('@types'))
+          .filter(([name]) => !name?.startsWith('@types'))
           .map(async ([name]) => {
             await this.collect(name)
           }),
@@ -122,30 +116,30 @@ export class Peers implements PeersInterface {
 
   @bind
   public async retrieveManifest(name: string) {
-    const searchDir = await this.resolveModulePath(name)
-    if (!searchDir) return false
+    const search = await this.resolveModulePath(name)
+    if (!search) return false
 
-    return await this.getManifest(searchDir)
+    return await this.getManifest(search)
   }
 
   @bind
   public async collect(name: string) {
     const manifest = await this.retrieveManifest(name)
-    if (!manifest) {
-      this.hasMissingDependencies = true
-    }
 
     const dependency: Dependency = {
-      name: manifest.name ?? name,
-      version: manifest.version ?? '0.0.0',
-      bud: manifest.bud ?? null,
-      resolvable: manifest ? true : false,
-      peerDependencies: manifest.peerDependencies ?? {},
+      name: manifest?.name ?? name,
+      version: manifest?.version ?? '0.0.0',
+      bud: manifest?.bud ?? null,
+      resolvable:
+        manifest && (manifest.main || manifest.module || manifest.exports)
+          ? true
+          : false,
+      peerDependencies: manifest?.peerDependencies ?? {},
       requires: Object.entries<string>({
-        ...manifest.bud?.peers?.reduce(
+        ...manifest?.bud?.peers?.reduce(
           (a: Record<string, any>, k: string) => ({
             ...a,
-            [k]: manifest.version,
+            [k]: manifest?.version,
           }),
           {},
         ),

@@ -1,6 +1,6 @@
 import * as repo from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {copy, ensureDir} from 'fs-extra'
+import {copy} from 'fs-extra'
 
 import {Command} from './base.command'
 

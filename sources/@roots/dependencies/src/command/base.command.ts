@@ -17,7 +17,7 @@ export abstract class Command {
    * @public
    */
   public constructor(
-    public path: string = process.cwd(),
+    public path: string,
     onMessage?: (message: string) => void,
   ) {
     if (onMessage) this.onMessage = onMessage
@@ -32,6 +32,7 @@ export abstract class Command {
   ): Promise<any> {
     return new Promise((resolve, reject) => {
       const command = spawn(commandArgs.shift(), commandArgs)
+
       onMessage &&
         command.stdout.on('data', message => onMessage(message.toString()))
 

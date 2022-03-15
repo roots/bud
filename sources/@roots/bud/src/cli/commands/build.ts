@@ -1,28 +1,13 @@
-import {lodash as _} from '@roots/bud-support'
+import {lodash} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
-import {isUndefined} from 'lodash'
 import * as t from 'typanion'
 
-import {Bud} from '../../Bud/index.js'
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
 import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
 
-/**
- * Accepted options
- *
- * @public
- */
-export interface BuildOptions {
-  cache?: Bud.Options['config']['cache']
-  features?: Bud.Options['config']['features']
-  location?: Bud.Options['config']['location']
-  minimize?: Bud.Options['config']['optimization']['minimize']
-  mode?: Bud.Options['config']['mode']
-  publicPath?: Bud.Options['config']['output']['publicPath']
-  target?: Array<string>
-}
+const {isUndefined} = lodash
 
 /**
  * Build command
@@ -46,15 +31,15 @@ export class BuildCommand extends BaseCommand {
     category: `Compile`,
     description: `Compile source assets`,
     details: `
-      \`bud build\` compiles source assets from the \`src\` directory to the \`dist\` directory.
+      \`bud build\` compiles source assets from the \`@src\` directory to the \`@dist\` directory.
 
       Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
       value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
 
-      By default, the \`src\` directory is \`[cwd]/src\`. You can override this with the \`-i\` flag.
+      By default, the \`@src\` directory is \`[project]/src\`. You can override this with the \`-i\` flag.
 
       If you run this command without a bud configuration file \`bud\` will
-      look for an entrypoint at \`src/index.js\`.
+      look for an entrypoint at \`@src/index.js\`.
     `,
     examples: [[`Compile source`, `$0 build`]],
   })
@@ -62,7 +47,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --mode
    */
-  public mode = Option.String(`--mode`, seed.mode, {
+  public mode = Option.String(`--mode`, 'production', {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral('production'),
@@ -73,19 +58,22 @@ export class BuildCommand extends BaseCommand {
   /**
    * --cache
    */
-  public cache = Option.Boolean(`--cache`, undefined, {
-    description: `Utilize filesystem cache`,
-  })
-
-  /**
-   * --cache.type
-   */
-  public cacheType = Option.String(`--cacheType,--cache.type`, undefined, {
-    description: `Type of cache`,
+  public cache = Option.String(`--cache`, undefined, {
+    description: `Utilize compiler's filesystem cache`,
+    tolerateBoolean: true,
     validator: t.isOneOf([
       t.isLiteral('filesystem'),
       t.isLiteral('memory'),
+      t.isLiteral(true),
+      t.isLiteral(false),
     ]),
+  })
+
+  /**
+   * --ci
+   */
+  public ci = Option.Boolean(`--ci`, undefined, {
+    description: `Run in CI mode (disables keyboard input handlers).`,
   })
 
   /**
@@ -106,14 +94,21 @@ export class BuildCommand extends BaseCommand {
    * --devtool
    */
   public devtool = Option.Boolean(`--devtool`, undefined, {
-    description: `Set devtool`,
+    description: `Set devtool option`,
+  })
+
+  /**
+   * --flush
+   */
+  public flush = Option.Boolean(`--flush`, undefined, {
+    description: `Force clearing bud internal cache`,
   })
 
   /**
    * --hash
    */
   public hash = Option.Boolean(`--hash`, undefined, {
-    description: 'Hash compiled files',
+    description: 'Hash compiled filenames',
   })
 
   /**
@@ -129,13 +124,6 @@ export class BuildCommand extends BaseCommand {
   public inject = Option.Boolean(`--inject`, undefined, {
     description: 'Automatically inject extensions',
     hidden: true,
-  })
-
-  /**
-   * --project
-   */
-  public project = Option.String(`--project`, undefined, {
-    description: 'Project directory',
   })
 
   /**
@@ -156,7 +144,7 @@ export class BuildCommand extends BaseCommand {
    * --storage
    */
   public storage = Option.String(`--storage`, undefined, {
-    description: 'Storage/cache directory (relative to project)',
+    description: 'Storage directory (relative to project)',
   })
 
   /**
@@ -167,21 +155,11 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --log.level
+   * --verbose
    */
-  public logLevel = Option.String(
-    `--logLevel,--log.level`,
-    seed.log.level,
-    {
-      description: 'Set logging level',
-      validator: t.isOneOf([
-        t.isLiteral('v'),
-        t.isLiteral('vv'),
-        t.isLiteral('vvv'),
-        t.isLiteral('vvvv'),
-      ]),
-    },
-  )
+  public verbose = Option.Boolean(`--verbose`, false, {
+    description: 'Set logging level',
+  })
 
   /**
    * --manifest
@@ -195,6 +173,14 @@ export class BuildCommand extends BaseCommand {
    */
   public minimize = Option.Boolean(`--minimize`, undefined, {
     description: 'Minimize compiled assets',
+  })
+
+  public modules = Option.String(`--modules`, undefined, {
+    description: 'Module resolution path',
+  })
+
+  public notify = Option.Boolean(`--notify`, true, {
+    description: 'Allow OS notifications',
   })
 
   /**
@@ -223,44 +209,70 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * Bud configuration
-   *
-   * @remarks
-   * Fills in whatever is missing with values from the seed config.
-   *
-   * @returns Bud configuration
-   */
-  public config(): BuildOptions {
-    const config: BuildOptions = {...seed}
-
-    config.mode = this.mode
-
-    if (!isUndefined(this.project)) config.location.project = this.project
-    if (!isUndefined(this.src)) config.location.src = this.src
-    if (!isUndefined(this.dist)) config.location.dist = this.dist
-    if (!isUndefined(this.storage)) config.location.storage = this.storage
-    if (!isUndefined(this.publicPath)) config.publicPath = this.publicPath
-    if (!isUndefined(this.log)) config.features.log = this.log
-    if (!isUndefined(this.manifest))
-      config.features.manifest = this.manifest
-
-    return config
-  }
-
-  /**
    * Execute command
    */
   public async execute() {
-    if (!_.isUndefined(this.dashboard))
+    if (!isUndefined(this.dashboard))
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
 
-    this.app = await factory({config: this.config()})
+    this.context.args = {
+      cache: this.cache ?? null,
+      clean: this.clean ?? null,
+      devtool: this.devtool ?? null,
+      dist: this.dist ?? null,
+      flush: this.flush ?? null,
+      hash: this.hash ?? null,
+      html: this.html ?? null,
+      inject: this.inject ?? null,
+      log: this.log ?? null,
+      verbose: this.verbose ?? null,
+      manifest: this.manifest ?? null,
+      minimize: this.minimize ?? null,
+      mode: this.mode ?? null,
+      modules: this.modules ?? null,
+      notify: this.notify ?? null,
+      publicPath: this.publicPath ?? null,
+      src: this.src ?? null,
+      splitChunks: this.splitChunks ?? null,
+      target: this.target ?? null,
+    }
+
+    this.app = await factory({
+      name: 'bud',
+      mode: this.mode,
+      context: this.context,
+      config: {
+        'build.output.publicPath': isUndefined(this.publicPath)
+          ? seed['build.output.publicPath']
+          : () => this.publicPath,
+        'features.inject': isUndefined(this.inject)
+          ? seed['features.inject']
+          : this.inject,
+        'features.log': isUndefined(this.log)
+          ? seed['features.log']
+          : this.log,
+        'features.manifest': isUndefined(this.manifest)
+          ? seed['features.manifest']
+          : this.manifest,
+        location: {
+          '@src': isUndefined(this.src) ? seed.location['@src'] : this.src,
+          '@dist': isUndefined(this.dist)
+            ? seed.location['@dist']
+            : this.dist,
+          '@storage': isUndefined(this.storage)
+            ? seed.location['@storage']
+            : this.storage,
+          '@modules': isUndefined(this.modules)
+            ? seed.location['@modules']
+            : this.modules,
+        },
+      },
+    })
 
     await this.make()
     await overrides.config(this)
-
     await this.run()
   }
 }

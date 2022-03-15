@@ -29,7 +29,7 @@ export const STORAGE_PATH = join(REPO_PATH, 'storage')
  *
  * @public
  */
-export const INTEGRATION_TESTS = ['babel', 'sage']
+export const INTEGRATION_TESTS = ['babel', 'sage', 'sass', 'vue']
 
 /**
  * Base public package tsconfig

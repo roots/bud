@@ -1,22 +1,39 @@
 import {Bud} from '../Bud'
+import {makeContext} from '../context'
 import {seed} from '../seed'
 import {services} from '../services'
+import {Options} from './options'
 
 /**
  * Create a {@link Bud} instance programatically
  *
  * @example
  * ```ts
- * const bud = factory()
+ * const bud = await factory()
+ * ```
+ *
+ * @example
+ * Running in a particular mode
+ *
+ * ```ts
+ * const bud = await factory({mode: 'development'})
  * ```
  *
  * @returns Bud instance
  *
  * @public
  */
-export async function factory(overrides?: Bud.Options): Promise<Bud> {
-  const options: Bud.Options = {
+export async function factory(overrides?: Options): Promise<Bud> {
+  const context = await makeContext()
+
+  const options: Options = {
+    name: 'bud',
+    mode: 'production',
     ...(overrides ?? {}),
+    context: {
+      ...context,
+      ...(overrides?.context ?? {}),
+    },
     services: {
       ...services,
       ...(overrides?.services ?? {}),
@@ -24,25 +41,17 @@ export async function factory(overrides?: Bud.Options): Promise<Bud> {
     config: {
       ...seed,
       ...(overrides?.config ?? {}),
-      features: {
-        ...seed.features,
-        ...(overrides?.config?.features ?? {}),
-      },
       location: {
         ...seed.location,
         ...(overrides?.config?.location ?? {}),
       },
-      build: {
-        ...seed.build,
-        ...(overrides?.config?.build ?? {}),
-      },
     },
   }
 
-  process.env.BABEL_ENV = options.config.mode
-  process.env.NODE_ENV = options.config.mode
-
   const project = new Bud(options)
+
+  process.env.BABEL_ENV = project.mode
+  process.env.NODE_ENV = project.mode
 
   project.time(project.name)
 

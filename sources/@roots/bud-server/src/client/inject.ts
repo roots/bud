@@ -37,12 +37,12 @@ export const inject: inject = async (instance: Framework, injection) => {
       (entrypoints, [name, entry]) => {
         if (!entry) return entrypoints
 
-        entry.import = [
-          ...new Set([
+        entry.import = Array.from(
+          new Set([
             ...injection.map(inject => inject(instance)),
             ...(entry.import ?? []),
           ]),
-        ]
+        )
 
         return {...entrypoints, [name]: entry}
       },

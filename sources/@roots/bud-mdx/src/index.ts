@@ -12,7 +12,6 @@
 
 import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
-import type * as Webpack from 'webpack'
 
 import {MdxConfig} from './MdxConfig'
 
@@ -50,36 +49,18 @@ declare module '@roots/bud-framework' {
 const extension: Extension.Module = {
   name: '@roots/bud-mdx',
 
-  mixin: async app => ({
-    mdx: [MdxConfig, app],
-  }),
+  mixin: async app => ({mdx: [MdxConfig, app]}),
 
-  boot: (app: Framework) => {
-    const {build, store, hooks} = app
-
-    store.set('patterns.mdx', /\.mdx?$/)
-
-    build.loaders.mdx = new Loader(require.resolve('@mdx-js/loader'))
-
-    build.items.mdx = new Item({
-      loader: ({build}) => build.loaders.mdx,
-      options: ({mdx}) => mdx.options,
-    })
-
-    build.setRule('mdx', {
-      test: ({store}) => store.get('patterns.mdx'),
-      exclude: ({store}) => store.get('patterns.modules'),
-      use: ({build}) => [build.items.babel, build.items.mdx],
-    })
-
-    hooks.on(
-      'build.resolve.extensions',
-      (exts: Webpack.Configuration['resolve']['extensions']) => [
-        ...(exts ?? []),
-        '.mdx',
-      ],
-    )
-  },
+  boot: (app: Framework) =>
+    app.hooks
+      .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
+      .build.setLoader(`mdx`, require.resolve(`@mdx-js/loader`))
+      .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
+      .setRule(`mdx`, {
+        test: /\.mdx?$/,
+        include: app => [app.path('@src')],
+        use: [`babel`, `mdx`],
+      }),
 }
 
 export const {name, boot, mixin} = extension

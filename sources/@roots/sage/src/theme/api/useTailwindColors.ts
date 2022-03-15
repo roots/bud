@@ -14,9 +14,7 @@ export const method: method = async function () {
     '../tailwind.adapter'
   )
 
-  const palette = await getPalette(
-    ctx.path('project', 'tailwind.config.js'),
-  )
+  const palette = await getPalette(ctx.path('tailwind.config.js'))
 
   ctx.extensions
     .get('wp-theme-json')

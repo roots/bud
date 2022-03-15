@@ -5,7 +5,7 @@
  */
 export async function read(path: string) {
   try {
-    const {register} = await import('ts-node')
+    const {register} = require('ts-node')
     register({transpileOnly: true})
 
     return require(path)

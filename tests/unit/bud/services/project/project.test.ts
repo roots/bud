@@ -8,42 +8,6 @@ describe('bud.project', function () {
     await bud.build.make()
   })
 
-  it('holds cache validation hash', () => {
-    expect(bud.project.get('cache')).toMatchSnapshot({
-      hash: expect.any(String),
-    })
-  })
-
-  it('holds cache deps', async () => {
-    expect(bud.project.get('dependencies').length).toEqual(2)
-  })
-
-  it('holds env values', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot({
-      TEST: 'VALUE',
-      PUBLIC_APP_TEST: 'PUBLIC_VALUE',
-    })
-
-    expect(bud.project.get('env.public')).toMatchSnapshot({
-      APP_TEST: 'PUBLIC_VALUE',
-    })
-  })
-
-  it('has evn records matching profile.json artifact', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot()
-    expect(bud.project.get('env.public')).toMatchSnapshot()
-  })
-
-  it('holds cli records', async () => {
-    expect(bud.project.get('cli')).toStrictEqual({
-      args: {},
-      argv: [],
-      flags: {},
-      metadata: {},
-      raw: [],
-    })
-  })
-
   it('references @roots/bud-babel', async () => {
     expect(bud.project.get('modules.@roots/bud-babel')).toMatchSnapshot({
       bud: {type: 'extension'},
@@ -155,7 +119,6 @@ describe('bud.project', function () {
         '@roots/bud-tailwindcss': 'workspace:*',
       },
       name: 'root',
-      parent: null,
       private: true,
       requires: [
         ['@roots/bud', 'workspace:*'],
@@ -192,7 +155,6 @@ describe('bud.project', function () {
     expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
-      expect.stringContaining('/sources'),
     ])
   })
 })

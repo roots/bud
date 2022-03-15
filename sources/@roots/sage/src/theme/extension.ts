@@ -5,12 +5,11 @@ import * as useTailwindColors from './api/useTailwindColors'
 import {Options, ThemeJsonWebpackPlugin} from './plugin'
 
 /**
- * Extension providing a way to manage WordPress `theme.json` values
- * from within the context of the build.
+ * Extension for managing WordPress `theme.json` values
  *
  * @public
  */
-export interface Extension
+export interface ThemeExtension
   extends Framework.Extension.CompilerPlugin<
     ThemeJsonWebpackPlugin,
     Options
@@ -27,38 +26,41 @@ export interface Extension
  *
  * @public
  */
-export const name: Extension['name'] = 'wp-theme-json'
+export const name: ThemeExtension['name'] = 'wp-theme-json'
 
 /**
  * Extension options
  *
  * @public
  */
-export const options: Extension['options'] = {
-  color: {
-    custom: false,
-    customGradient: false,
+export const options: ThemeExtension['options'] = app => ({
+  path: app.path('theme.json'),
+  json: {
+    color: {
+      custom: false,
+      customGradient: false,
+    },
+    custom: {
+      spacing: {},
+      typography: {'font-size': {}, 'line-height': {}},
+    },
+    spacing: {
+      padding: true,
+      units: ['px', '%', 'em', 'rem', 'vw', 'vh'],
+    },
+    typography: {
+      customFontSize: false,
+      dropCap: false,
+    },
   },
-  custom: {
-    spacing: {},
-    typography: {'font-size': {}, 'line-height': {}},
-  },
-  spacing: {
-    padding: true,
-    units: ['px', '%', 'em', 'rem', 'vw', 'vh'],
-  },
-  typography: {
-    customFontSize: false,
-    dropCap: false,
-  },
-}
+})
 
 /**
  * Extension api
  *
  * @public
  */
-export const api: Extension['api'] = {
+export const api: ThemeExtension['api'] = {
   themeJson: themeJson.method,
   useTailwindColors: useTailwindColors.method,
 }
@@ -68,18 +70,10 @@ export const api: Extension['api'] = {
  *
  * @public
  */
-export const make: Extension['make'] = (options, app) =>
+export const make: ThemeExtension['make'] = options =>
   new ThemeJsonWebpackPlugin({
-    path: app.path('project', 'theme.json'),
-    json: app.json.stringify(
-      {
-        $schema: 'https://schemas.wp.org/trunk/theme.json',
-        version: 2,
-        settings: options.all(),
-      },
-      null,
-      2,
-    ),
+    path: options.get('path'),
+    json: options.get('json'),
   })
 
-export const when: Extension['when'] = false
+export const when: ThemeExtension['when'] = false

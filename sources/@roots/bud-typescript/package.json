@@ -35,14 +35,12 @@
   "files": [
     "lib/",
     "types/",
-    "eslint-config/",
     "tsconfig/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
     "./tsconfig": "./tsconfig/tsconfig.json"
   },
   "types": "./types/index.d.ts",

@@ -30,7 +30,7 @@ const BudStylelintWebpackPlugin: Extension.CompilerPlugin<
 
   options(app) {
     return {
-      context: app.path('src'),
+      context: app.path('@src'),
     }
   },
 

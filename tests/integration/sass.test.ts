@@ -1,31 +1,19 @@
-import {readFile} from 'fs-extra'
-import {join} from 'path'
+import {runIntegrations, test} from '../util/integration'
 
-import {Project} from '@repo/test-kit/project'
-
-jest.setTimeout(60000)
-
-describe('examples/sass', () => {
-  let project
-
-  beforeAll(async () => {
-    project = new Project({
-      name: 'sass',
-      dir: 'examples/sass',
-    })
-
-    await project.setup()
-  })
-
-  it('src/app.scss is unchanged', async () => {
-    const artifact = await readFile(
-      join(process.cwd(), 'examples/sass/src/app.scss'),
-    )
-
-    expect(artifact.toString()).toMatchSnapshot()
-  })
-
-  it('scss is transpiled', () => {
-    expect(project.assets['app.css']).toMatchSnapshot()
-  })
+runIntegrations('sass', project => {
+  return [
+    ['app.css has contents', test.assetNotEmpty(project, 'app.css')],
+    [
+      'app.css is transpiled',
+      test.assetDoesNotIncludeImport(project, 'app.css'),
+    ],
+    [
+      'app.css matches snapshot',
+      test.assetMatchesSnapshot(project, 'app.css'),
+    ],
+    [
+      'manifest.json matches snapshot',
+      test.manifestMatchesSnapshot(project),
+    ],
+  ]
 })

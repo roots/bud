@@ -1,5 +1,11 @@
 import type {Store} from '@roots/bud-framework'
+import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
+
+const infrastructureLogger = {
+  count: {},
+  instance: new Signale({scope: `webpack`}),
+}
 
 /**
  * Bud configuration defaults
@@ -8,138 +14,78 @@ import {cpus} from 'os'
  */
 export const seed: Partial<Store.Repository> = {
   /**
-   * bud.name property
-   *
-   * @public
-   */
-  name: 'bud',
-
-  /**
-   * Compilation mode
-   *
-   * @public
-   */
-  mode: 'production',
-
-  /**
-   * Logging settings
-   *
-   * @public
-   */
-  log: {
-    /**
-     * Log level
-     *
-     * @public
-     */
-    level: 'vvv',
-  },
-
-  /**
    * Feature flags
    *
    * @public
    */
-  features: {
-    /**
-     * Webpack caching enabled
-     *
-     * @public
-     */
-    cache: true,
-
-    /**
-     * Dashboard enabled
-     *
-     * @public
-     */
-    dashboard: true,
-
-    /**
-     * Clean dist directory prior to compilation
-     *
-     * @public
-     */
-    clean: true,
-
-    /**
-     * Hash emitted filenames
-     *
-     * @public
-     */
-    hash: false,
-
-    /**
-     * Emit an html file during compilation
-     *
-     * @public
-     */
-    html: false,
-
-    /**
-     * Automatically register installed extensions
-     *
-     * @public
-     */
-    inject: true,
-
-    /**
-     * Log build status informatino to the terminal
-     *
-     * @public
-     */
-    log: false,
-
-    /**
-     * Emit a manifest.json with references to emitted assets
-     *
-     * @public
-     */
-    manifest: true,
-
-    /**
-     * @public
-     */
-    runtimeChunk: false,
-
-    /**
-     * Enable code splitting
-     *
-     * @public
-     */
-    splitChunks: false,
-  },
+  [`features.cache`]: true,
 
   /**
-   * Cache settings
+   * Clean dist directory prior to compilation
    *
    * @public
    */
-  cache: {
-    /**
-     * Cache strategy
-     *
-     * @remarks
-     * One of: 'filesystem', 'memory', or false
-     *
-     * @public
-     */
-    type: 'filesystem',
-  },
+  [`features.clean`]: false,
 
+  /**
+   * Hash emitted filenames
+   *
+   * @public
+   */
+  [`features.hash`]: false,
+
+  /**
+   * Emit an html file during compilation
+   *
+   * @public
+   */
+  [`features.html`]: false,
+
+  /**
+   * Automatically register installed extensions
+   *
+   * @public
+   */
+  [`features.inject`]: true,
+
+  /**
+   * Log build status informatino to the terminal
+   *
+   * @public
+   */
+  [`features.log`]: false,
+
+  /**
+   * Emit a manifest.json with references to emitted assets
+   *
+   * @public
+   */
+  [`features.manifest`]: true,
+
+  /**
+   * @public
+   */
+  [`features.runtimeChunk`]: false,
+
+  /**
+   * Enable code splitting
+   *
+   * @public
+   */
+  [`features.splitChunks`]: false,
   /**
    * Filename format for emitted assets when hashing is disabled
    *
    * @public
    */
-  fileFormat: '[name]',
+  fileFormat: `[name]`,
 
   /**
    * Filename format for emitted assets when hashing is enabled
    *
    * @public
    */
-  hashFormat: '[name].[contenthash:6]',
+  hashFormat: `[name].[contenthash:6]`,
 
   /**
    * Regular expression records
@@ -175,11 +121,10 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   location: {
-    project: process.cwd(),
-    src: 'src',
-    dist: 'dist',
-    modules: 'node_modules',
-    storage: '.budfiles',
+    '@src': 'src',
+    '@dist': 'dist',
+    '@modules': 'node_modules',
+    '@storage': '.budfiles',
   },
 
   /**
@@ -187,49 +132,85 @@ export const seed: Partial<Store.Repository> = {
    *
    * @public
    */
-  build: {
-    bail: true,
-    devtool: false,
-    infrastructureLogging: {console: false},
-    module: {
-      unsafeCache: false,
+  [`build.bail`]: app => app.isProduction,
+  [`build.context`]: app => app.context.projectDir,
+  [`build.infrastructureLogging.level`]: app => `verbose`,
+  [`build.infrastructureLogging.console`]: app => ({
+    Console: require(`console`),
+    assert: (v, m) => v && infrastructureLogger.instance.info(m),
+    // eslint-disable-next-line
+    clear: () => null,
+    count: (label?: string) => {
+      infrastructureLogger.count[label] =
+        infrastructureLogger.count[label] + 1
+
+      infrastructureLogger.instance.info(
+        `${label}: ${infrastructureLogger.count[label]}`,
+      )
     },
-    node: false,
-    output: {
-      pathinfo: false,
-      publicPath: 'auto',
+    countReset: (label?: string) => {
+      infrastructureLogger.count[label] = 0
     },
-    optimization: {
-      emitOnErrors: false,
-      minimize: false,
-      minimizer: ['...'],
-      removeEmptyChunks: true,
-      splitChunks: {},
+    debug: infrastructureLogger.instance.debug,
+    dir: infrastructureLogger.instance.info,
+    dirxml: infrastructureLogger.instance.info,
+    error: infrastructureLogger.instance.error,
+    group: () => null,
+    groupCollapsed: () => null,
+    groupEnd: () => null,
+    info: infrastructureLogger.instance.info,
+    log: infrastructureLogger.instance.log,
+    table: (tabularData?: any, properties?: string[]) =>
+      infrastructureLogger.instance.log(table.table(tabularData)),
+    time: infrastructureLogger.instance.time,
+    timeEnd: infrastructureLogger.instance.timeEnd,
+    timeLog: () => null,
+    trace: (message, ...params) =>
+      infrastructureLogger.instance.log(
+        `Trace: `,
+        message ? prettyFormat(message) : ``,
+        ...params,
+      ),
+    warn: infrastructureLogger.instance.warn,
+    profile: () => null,
+    profileEnd: () => null,
+    timeStamp: () => null,
+  }),
+  [`build.module.noParse`]: app => /jquery|lodash/,
+  [`build.module.unsafeCache`]: app => false,
+  [`build.node`]: app => false,
+  [`build.output.pathinfo`]: app => false,
+  [`build.output.publicPath`]: app => `auto`,
+  [`build.optimization.emitOnErrors`]: app => false,
+  [`build.optimization.minimize`]: app => false,
+  [`build.optimization.minimizer`]: app => [`...`],
+  [`build.optimization.removeEmptyChunks`]: app => true,
+  [`build.parallelism`]: app => Math.max(cpus().length - 1, 1),
+  [`build.performance`]: app => ({hints: false}),
+  [`build.resolve.alias`]: app => ({
+    '@project': app.path(),
+    '@src': app.path('@src'),
+    '@dist': app.path('@dist'),
+  }),
+  [`build.resolve.extensions`]: app =>
+    new Set([
+      `.wasm`,
+      `.mjs`,
+      `.js`,
+      `.jsx`,
+      `.css`,
+      `.json`,
+      `.toml`,
+      `.yml`,
+    ]),
+  [`build.module.rules.before`]: app => [
+    {
+      test: /\.[cm]?(jsx?|tsx?)$/,
+      parser: {
+        requireEnsure: false,
+      },
     },
-    parallelism: Math.max(cpus().length - 1, 1),
-    performance: {
-      hints: false,
-    },
-    resolve: {
-      alias: {},
-      extensions: [
-        '.wasm',
-        '.mjs',
-        '.js',
-        '.jsx',
-        '.css',
-        '.json',
-        '.json5',
-        '.toml',
-        '.xml',
-        '.csv',
-        '.yml',
-        '.yaml',
-        '.xml',
-      ],
-    },
-    stats: {
-      preset: 'normal',
-    },
-  },
+  ],
+  [`build.module.rules.after`]: app => [],
+  [`build.stats`]: app => ({preset: `normal`}),
 }

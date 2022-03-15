@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.project has evn records matching profile.json artifact 1`] = `
-Object {
-  "PUBLIC_APP_TEST": "PUBLIC_VALUE",
-  "TEST": "VALUE",
-}
-`;
-
-exports[`bud.project has evn records matching profile.json artifact 2`] = `
-Object {
-  "APP_TEST": "PUBLIC_VALUE",
-}
-`;
-
-exports[`bud.project holds cache validation hash 1`] = `
-Object {
-  "hash": Any<String>,
-}
-`;
-
-exports[`bud.project holds env values 1`] = `
-Object {
-  "PUBLIC_APP_TEST": "PUBLIC_VALUE",
-  "TEST": "VALUE",
-}
-`;
-
-exports[`bud.project holds env values 2`] = `
-Object {
-  "APP_TEST": "PUBLIC_VALUE",
-}
-`;
-
 exports[`bud.project references @roots/bud-babel 1`] = `
 Object {
   "bud": Object {
@@ -182,7 +150,6 @@ Object {
     "@roots/bud-tailwindcss": "workspace:*",
   },
   "name": "root",
-  "parent": null,
   "private": true,
   "requires": Array [
     Array [
@@ -219,6 +186,5 @@ exports[`bud.project resolveFrom contains paths of found peers 1`] = `
 Array [
   StringContaining "src",
   StringContaining "node_modules",
-  StringContaining "/sources",
 ]
 `;

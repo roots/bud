@@ -30,9 +30,9 @@
  * @packageDocumentation
  */
 
-import Build, {Item, Loader} from './Build'
-import * as Rule from './Build/Rule'
-import * as Cache from './Cache'
+import {Build, Item, Loader, Rule} from './Build'
+import {Cache} from './Cache'
+import {Context} from './Context'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
 import {Constructor, Framework, Options} from './Framework'
@@ -56,6 +56,7 @@ export {Store} from './Store'
 export {Build}
 export {Cache}
 export {Constructor}
+export {Context}
 export {Extension}
 export {Extensions}
 export {Framework}
@@ -67,8 +68,6 @@ export {Project}
 export {Rule}
 export {Service}
 export {Server}
-
-export {Bootstrapper} from './Bootstrapper'
 
 /**
  * Types and interfaces
@@ -175,21 +174,21 @@ export interface Plugins
  *
  * @virtual @public
  */
-export interface Loaders extends Partial<Index<Loader.Interface>> {}
+export interface Loaders extends Partial<Index<Loader>> {}
 
 /**
  * Registered items
  *
  * @virtual @public
  */
-export interface Items extends Partial<Index<Item.Interface>> {}
+export interface Items extends Partial<Index<Item>> {}
 
 /**
  * Registered rules
  *
  * @virtual @public
  */
-export interface Rules extends Partial<Record<string, Rule.Interface>> {}
+export interface Rules extends Partial<Record<string, Rule>> {}
 
 /**
  * Registered locations
@@ -197,10 +196,10 @@ export interface Rules extends Partial<Record<string, Rule.Interface>> {}
  * @virtual @public
  */
 export interface Locations extends Partial<Record<string, string>> {
-  [key: string]: string
-  project?: string
-  src?: string
-  dist?: string
+  '@src': string
+  '@dist': string
+  '@storage': string
+  '@modules': string
 }
 
 /**

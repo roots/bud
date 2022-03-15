@@ -1,32 +1,22 @@
+import {Bud} from '../../Bud'
+
+export interface ConfigItem {
+  fileName: string
+  filePath: string
+  module: (app: Bud) => Promise<unknown> | Record<string, any>
+}
+
+export interface ConfigManifest {
+  development: Record<string, ConfigItem>
+  production: Record<string, ConfigItem>
+  base: Record<string, ConfigItem>
+}
+
 export interface repository {
-  cache: {
-    hash: null
-  }
-  cli: {
-    args: any
-    argv: Array<string>
-    flags: Record<string, any>
-    metadata: Record<string, any>
-    raw: Array<Record<string, string>>
-  }
-  configs: {
-    dynamic: {
-      global?: Array<string>
-      conditional?: Array<string>
-    }
-    json: {
-      global: Array<Record<string, any>>
-      conditional: Array<Record<string, any>>
-    }
-  }
-  manifestPath: string
+  version: string
+  config: ConfigManifest
   manifest: Record<string, any>
   installed: Record<string, string>
-
-  /**
-   * @see webpack.cache.buildDependencies
-   */
-  dependencies: Array<string>
 }
 
 /**
@@ -35,28 +25,12 @@ export interface repository {
  * @public
  */
 export const repository: repository = {
-  cache: {
-    hash: null,
+  version: null,
+  config: {
+    development: {},
+    production: {},
+    base: {},
   },
-  configs: {
-    dynamic: {
-      global: [],
-      conditional: [],
-    },
-    json: {
-      global: [],
-      conditional: [],
-    },
-  },
-  cli: {
-    args: {},
-    argv: [],
-    flags: {},
-    metadata: {},
-    raw: [],
-  },
-  manifestPath: null,
   manifest: {},
   installed: {},
-  dependencies: [],
 }
