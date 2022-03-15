@@ -2,11 +2,7 @@ import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {join} from 'node:path'
 
 export class Env {
-  /**
-   * Env values
-   * @public
-   */
-  public values: Record<string, string | undefined>
+  [key: string]: string | undefined
 
   /**
    * Constructor
@@ -14,9 +10,9 @@ export class Env {
    * @param baseDirectory -- nearest directory containing package.json from root
    * @returns
    */
-  public constructor(public baseDirectory: string) {
+  public constructor(baseDirectory: string) {
     const {parsed, error} = dotenv.config({
-      path: join(this.baseDirectory, '.env'),
+      path: join(baseDirectory, '.env'),
     })
     if (error || !parsed) return
 
@@ -27,7 +23,7 @@ export class Env {
     if (!expanded) return
 
     Object.entries(expanded).map(([k, v]) => {
-      this.values[k] = v
+      this[k] = v
     })
   }
 }

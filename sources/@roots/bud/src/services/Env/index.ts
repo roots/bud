@@ -25,7 +25,7 @@ export class Env extends Service implements Base {
    */
   @bind
   public async bootstrap() {
-    this.setStore(this.app.context.env.values)
+    this.setStore(this.app.context.env)
   }
 
   /**
