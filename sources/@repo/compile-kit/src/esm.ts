@@ -1,98 +1,28 @@
-import {paths} from '@repo/constants'
-import {
-  emptydir,
-  ensureDir,
-  outputFile,
-  readFile,
-  readJson,
-  remove,
-  writeFile,
-  writeJson,
-} from 'fs-extra'
-import {join} from 'path'
+import {error, log} from '@repo/logger'
+import {chunk} from 'lodash'
+import {cpus} from 'os'
 
 import * as config from '../ncc.config'
-import {ncc} from './ncc'
+import {compileEsm} from './compiler/esm'
 
-/**
- * Compiles entire package down to a single ESM file
- */
-export const compileEsm = async (pkg: string): Promise<void> => {
+const packageArgument = process.argv[2]
+
+const run = async () => {
+  const size = cpus().length / 2 ?? 1
+  log(`chunk size`, size)
   try {
-    await ensureDir(join(paths.sources, `${pkg}/lib/esm/`))
-  } catch (err) {}
-
-  try {
-    await emptydir(join(paths.sources, `${pkg}/lib/esm/`))
-  } catch (err) {}
-
-  try {
-    await remove(join(paths.sources, `${pkg}/lib/tsconfig-esm.tsbuildinfo`))
-  } catch (err) {}
-
-  /**
-   * Read package.json contents
-   */
-  const prettyPackageJson = await readFile(
-    join(paths.sources, `${pkg}/package.json`),
-  )
-
-  /**
-   * Restore the original package.json
-   */
-  const restoreJson = async () =>
-    writeFile(
-      join(paths.sources, `${pkg}/package.json`),
-      prettyPackageJson,
-      'utf8',
-    )
-
-  /**
-   * Read package.json contents
-   */
-  const packageJson = await readJson(join(paths.sources, `${pkg}/package.json`))
-
-  try {
-    /**
-     * Writes type:module prop to package.json so build will compile as ESM
-     */
-    await writeJson(join(paths.sources, `${pkg}/package.json`), {
-      ...packageJson,
-      type: 'module',
-    })
-
-    /**
-     * Package boundary indicating ESM export
-     */
-    await writeJson(join(paths.sources, `${pkg}/lib/esm/package.json`), {
-      type: 'module',
-    })
-
-    /**
-     * Run ncc and output to lib/tmp/esm
-     */
-    const {code} = await ncc(
-      join(paths.sources, `${pkg}/src/index.ts`),
-      config.options,
-    )
-
-    /**
-     * Write entrypoint
-     */
-    await outputFile(
-      join(paths.sources, `${pkg}/lib/esm/index.js`),
-      code,
-      'utf8',
-    )
-
-    /**
-     * Restore original json
-     */
-    await restoreJson()
+    return packageArgument !== 'all'
+      ? await compileEsm(packageArgument)
+      : await chunk(config.packages, size).reduce(
+          async (promised, chunk) => {
+            await promised
+            await Promise.all(chunk.map(compileEsm))
+          },
+          Promise.resolve(),
+        )
   } catch (err) {
-    await restoreJson()
-    process.exit(1)
+    error(err)
   }
 }
 
-compileEsm(process.argv[2])
+run()

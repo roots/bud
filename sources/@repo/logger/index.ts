@@ -14,7 +14,7 @@ const logger = new Signale({
       color: 'red',
     },
     success: {
-      badge: '✅',
+      badge: '✔',
       label: '',
       color: 'green',
     },

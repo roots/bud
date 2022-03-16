@@ -1,7 +1,11 @@
-import {REPO_PATH, TS_CONFIG_PATH} from '@repo/constants'
+import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
+import {join} from 'path'
 
 import {Command} from './base.command'
+
+const tsConfig = join(paths.config, 'tsconfig.json')
+const ncc = join(paths.sources, `@repo/compile-kit/src/cjs`)
 
 export class Compile extends Command {
   /**
@@ -22,11 +26,11 @@ export class Compile extends Command {
     ],
   }
 
-  public package = Option.String()
+  public package = Option.String('package to transpile', 'all')
 
   public async execute() {
     await this.$(
-      `yarn ts-node --project ${TS_CONFIG_PATH} ${REPO_PATH}/sources/@repo/compile-kit/src/cjs ${this.package}`,
+      `yarn ts-node --project ${tsConfig} ${ncc} ${this.package}`,
     )
   }
 }

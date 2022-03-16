@@ -49,19 +49,9 @@ export class Build extends Command {
    * @public
    */
   public async execute() {
-    await this.$(this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`))
-
-    await [
-      `yarn @bud compile @roots/container`,
-      `yarn @bud compile @roots/bud-dashboard`,
-      `yarn @bud compile @roots/bud-support`,
-      `yarn @bud compile @roots/wordpress-dependencies-webpack-plugin`,
-      `yarn @bud compile @roots/wordpress-externals-webpack-plugin`,
-      `yarn @bud compile @roots/entrypoints-webpack-plugin`,
-      `yarn @bud compile @roots/bud-entrypoints`,
-    ].reduce(async (a, c) => {
-      await a
-      await this.$(c)
-    }, Promise.resolve())
+    await this.$(
+      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH} --force`),
+    )
+    await this.$(`yarn @bud compile`)
   }
 }
