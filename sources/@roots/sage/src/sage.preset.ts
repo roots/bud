@@ -36,8 +36,8 @@ const Sage: Sage = {
      */
     app.build.rules.svg.setGenerator(app => ({
       filename: app.store.is('features.hash', true)
-        ? '@images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : '@images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
+        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
     }))
 
     /**
@@ -46,6 +46,14 @@ const Sage: Sage = {
     app.setPath({
       '@src': 'resources',
       '@dist': 'public',
+      '@app': 'app',
+      '@resources': '@src',
+      '@public': '@dist',
+      '@fonts': '@src/fonts',
+      '@images': '@src/images',
+      '@scripts': '@src/scripts',
+      '@styles': '@src/styles',
+      '@views': '@src/views',
     })
 
     /**
@@ -56,7 +64,6 @@ const Sage: Sage = {
       '@images': 'resources/images',
       '@scripts': 'resources/scripts',
       '@styles': 'resources/styles',
-      '@views': 'resources/views',
     })
 
     /**
