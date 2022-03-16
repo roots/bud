@@ -2,7 +2,7 @@
 slug: '5.6.0'
 title: 'Release: 5.6.0'
 description: 'Release notes for v5.6.0'
-date: 2022-03-04
+date: 2022-03-15
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -10,7 +10,7 @@ author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
 tags: [release]
 ---
 
-Enhanced module definitions and performance optimizations. Breaking change to `bud.path`.
+Notifications (macos), speed improvements, easier webpack customizations.
 
 <!--truncate-->
 
@@ -19,6 +19,10 @@ Enhanced module definitions and performance optimizations. Breaking change to `b
 bud is now about 30% faster 🎉.
 
 There is a new CLI flag `--flush` which will force a full recompilation if you feel like something is goofy. It's also recommended to run `bud clean` after installing an update.
+
+## Notifier
+
+MacOS notification center notices are fixed. If you don't want them run the cli command with the `--no-notify` flag.
 
 ## **bud.path** and **bud.setPath**
 
@@ -86,4 +90,4 @@ Extension authors should take advantage of how all properties for loader, item, 
 ## More information
 
 - [Read the release notes](/releases/5.6.0)
-- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.4.0...v5.6.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.5.0...v5.6.0)
