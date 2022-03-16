@@ -1,10 +1,8 @@
 module.exports = {
-  rules: {
-    'function-no-unknown': [
-      true,
-      {
-        ignoreFunctions: ['theme'],
-      },
-    ],
-  },
+  'function-no-unknown': [
+    true,
+    {
+      ignoreFunctions: ['theme'],
+    },
+  ],
 }
