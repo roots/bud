@@ -10,9 +10,7 @@ const {isString} = lodash
  * @internal
  */
 export interface setPath {
-  <
-    T extends `${keyof Framework.Locations & string}`
-  >(
+  <T extends `${keyof Framework.Locations & string}`>(
     arg1: T | Record<T, string>,
     arg2?: string,
   ): Framework.Framework
