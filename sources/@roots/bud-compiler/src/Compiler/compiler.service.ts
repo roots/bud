@@ -131,20 +131,7 @@ export class Compiler extends Service implements Contract {
      */
     await this.app.build.make()
 
-    /**
-     * Attempt to use the parent instance in the compilation if there are entries
-     * registered to it or if it has no child instances registered.
-     */
-    if (!this.app.hasChildren) {
-      this.app.info(`using config from parent compiler`)
-      this.config.push(this.app.build.config)
-      return this.config
-    }
-
-    this.app.warn(
-      `root compiler will not be tapped (child compilers in use)`,
-    )
-
+    this.config.push(this.app.build.config)
     /**
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`

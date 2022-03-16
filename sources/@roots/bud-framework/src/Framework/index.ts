@@ -596,15 +596,6 @@ export abstract class Framework {
   public yml: typeof parsers.yml = parsers.yml
 
   /**
-   * Read and write typescript files
-   *
-   * @public
-   */
-  public ts: typeof parsers.ts = {
-    read: parsers.ts.read.bind(this),
-  }
-
-  /**
    * Log a message
    *
    * @public
