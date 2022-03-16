@@ -1,3 +1,3 @@
 module.exports = {
-  extends: [require.resolve('@roots/bud-preset-recommend/eslint-config')],
+  extends: ['@roots/eslint-config'],
 }

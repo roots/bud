@@ -25,7 +25,6 @@ describe('@roots/sage', () => {
 
   it(`sets aliases`, () => {
     expect(bud.hooks.filter('build.resolve.alias')).toBe({
-      '@project': bud.path(),
       '@scripts': bud.path('@src', 'scripts'),
       '@styles': bud.path('@src', 'styles'),
       '@images': bud.path('@src', 'images'),

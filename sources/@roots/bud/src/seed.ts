@@ -188,7 +188,6 @@ export const seed: Partial<Store.Repository> = {
   [`build.parallelism`]: app => Math.max(cpus().length - 1, 1),
   [`build.performance`]: app => ({hints: false}),
   [`build.resolve.alias`]: app => ({
-    '@project': app.path(),
     '@src': app.path('@src'),
     '@dist': app.path('@dist'),
   }),
