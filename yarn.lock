@@ -3797,10 +3797,6 @@ __metadata:
     "@types/node": 16.11.26
     "@types/react": 17.0.39
     "@types/react-dom": 17.0.13
-    autobind-decorator: 2.4.0
-    eslint-plugin-jsx-a11y: ^6.5.1
-    eslint-plugin-react: ^7.27.1
-    eslint-plugin-react-hooks: ^4.3.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-hot-loader: ^4.13.0
@@ -4343,9 +4339,7 @@ __metadata:
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.179
     "@types/node": 16.11.26
-    helpful-decorators: ^2.1.0
     tslib: ^2.3.1
     webpack: 5.68.0
   languageName: unknown

@@ -103,7 +103,6 @@ describe('bud.build.config', function () {
   it('has expected resolve.alias default', () => {
     expect(bud.build.config.resolve.alias).toEqual({
       '@dist': bud.path('@dist'),
-      '@project': bud.path(),
       '@src': bud.path('@src'),
     })
   })

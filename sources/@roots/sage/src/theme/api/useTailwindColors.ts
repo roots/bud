@@ -18,7 +18,7 @@ export const method: method = async function () {
 
   ctx.extensions
     .get('wp-theme-json')
-    .setOption('color.palette', transformPalette(palette))
+    .setOption('settings.color.palette', transformPalette(palette))
 
   return ctx
 }

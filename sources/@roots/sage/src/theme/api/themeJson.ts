@@ -28,25 +28,32 @@ export interface facade {
   (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Framework
 }
 
+const getContainerOptions = (app: Framework) =>
+  app.extensions.get('wp-theme-json').options
+
+const getRawOptions = (app: Framework) =>
+  app.extensions.get('wp-theme-json').options.all()
+
 export const method: method = async function (
   input?: Mutator | WPThemeJson['settings'],
   raw?: boolean,
 ) {
-  const ctx = this as Framework
+  const app = this as Framework
 
-  ctx.extensions.get('wp-theme-json').set('when', true)
+  if (!app.extensions.has('wp-theme-json')) return
 
-  if (!input) return ctx
+  app.extensions.get('wp-theme-json').set('when', true)
+
+  if (!input) return app
 
   isFunction(input)
-    ? ctx.extensions
+    ? app.extensions
         .get('wp-theme-json')
-        .setOptions(
-          raw === true
-            ? input(ctx.extensions.get('wp-theme-json').options.all())
-            : input(ctx.extensions.get('wp-theme-json').options),
+        .setOption(
+          'settings',
+          raw === true ? getRawOptions(app) : getContainerOptions(app),
         )
-    : ctx.extensions.get('wp-theme-json').setOptions(input)
+    : app.extensions.get('wp-theme-json').setOption('settings', input)
 
-  return ctx
+  return app
 }

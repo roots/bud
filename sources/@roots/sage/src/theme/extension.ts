@@ -5,7 +5,7 @@ import * as useTailwindColors from './api/useTailwindColors'
 import {Options, ThemeJsonWebpackPlugin} from './plugin'
 
 /**
- * Extension for managing WordPress `theme.json` values
+ * Extension for managing WordPress `theme.json`
  *
  * @public
  */
@@ -15,6 +15,7 @@ export interface ThemeExtension
     Options
   > {
   name: 'wp-theme-json'
+  options: (app: Framework.Framework) => Options
   api: {
     themeJson: themeJson.method
     useTailwindColors: useTailwindColors.method
@@ -35,7 +36,7 @@ export const name: ThemeExtension['name'] = 'wp-theme-json'
  */
 export const options: ThemeExtension['options'] = app => ({
   path: app.path('theme.json'),
-  json: {
+  settings: {
     color: {
       custom: false,
       customGradient: false,
@@ -73,7 +74,12 @@ export const api: ThemeExtension['api'] = {
 export const make: ThemeExtension['make'] = options =>
   new ThemeJsonWebpackPlugin({
     path: options.get('path'),
-    json: options.get('json'),
+    settings: options.get('settings'),
   })
 
+/**
+ * Extension when
+ *
+ * @public
+ */
 export const when: ThemeExtension['when'] = false
