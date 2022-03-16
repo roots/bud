@@ -1,23 +1,23 @@
-━━━ bud - 0.0.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━ @roots/bud - 0.0.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  $ bud <command>
+  $ @roots/bud <command>
 
 ━━━ Clean ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud clean
+  @roots/bud clean
     Clean project artifacts and caches
 
 ━━━ Compile ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud build [--mode #0] [--cache] [--cacheType,--cache.type #0] [--clean] [--devtool] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  @roots/bud build [--mode #0] [--cache] [--ci] [--clean] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--verbose] [--manifest] [--minimize] [--modules #0] [--notify] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
     Compile source assets
 
-  bud dev [--cache] [--cacheType,--cache.type #0] [--clean] [--devtool] [--hash] [--html] [--project #0] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--logLevel,--log.level #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  @roots/bud dev [--cache] [--ci] [--clean] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--verbose] [--manifest] [--minimize] [--modules #0] [--notify] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
     Compile and serve source assets
 
 ━━━ Doctor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud doctor
+  @roots/bud doctor
     Check compiled configuration against webpack
 
 You can also print more details about any of these commands by calling them with 
