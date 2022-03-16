@@ -192,28 +192,25 @@ export class Project
             ? 'development'
             : 'base'
 
-          if (hasExtension('js') || hasExtension('ts')) {
-            const rawImport = hasExtension('js')
+          const rawImport =
+            hasExtension('js') || hasExtension('ts')
               ? await import(filePath)
-              : hasExtension('ts')
-              ? await this.app.ts.read(filePath)
               : hasExtension('yml')
               ? await this.app.yml.read(filePath)
               : hasExtension('json')
               ? await this.app.json.read(filePath)
               : {}
 
-            const processedModule =
-              rawImport.default && isFunction(rawImport?.default)
-                ? rawImport.default
-                : rawImport
+          const processedModule =
+            rawImport.default && isFunction(rawImport?.default)
+              ? rawImport.default
+              : rawImport
 
-            this.set(['config', condition, fileName], {
-              name: fileName,
-              path: filePath,
-              module: processedModule,
-            })
-          }
+          this.set(['config', condition, fileName], {
+            name: fileName,
+            path: filePath,
+            module: processedModule,
+          })
         },
       ),
     )

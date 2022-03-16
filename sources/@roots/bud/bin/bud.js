@@ -32,6 +32,24 @@ const bud = async () => {
   const context = await makeContext()
 
   /**
+   * Attempt to load ts-node if available and applicable
+   */
+  if (
+    context.disk.config &&
+      Object.keys(context.disk.config)?.filter(config =>
+        config.endsWith('.ts') && config.includes('bud.config')
+      ).length
+  ) {
+    try {
+      const { register } = await import('ts-node')
+      register({ transpileOnly: true })
+    } catch (err) {
+      context.stderr.write(`You must install ts-node in order to configure bud with typescript`)
+      context.stderr.write(err)
+    }
+  }
+
+  /**
    * MacOS notifier permissions
    */
   if (platform() === 'darwin') {
@@ -47,7 +65,7 @@ const bud = async () => {
       )
 
       await execa.execa(`chmod`, [`u+x`, notifierPath])
-    } catch (err) {}
+    } catch (err) { }
   }
 
   /**
