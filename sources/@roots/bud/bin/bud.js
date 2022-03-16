@@ -1,14 +1,22 @@
 #!/usr/bin/env node
 
-const {Cli, Builtins} = require('clipanion')
-const {BuildCommand, CleanCommand, DevCommand, DoctorCommand, InstallCommand} = require('../lib/cjs/cli/index.js')
-const {makeContext} = require('../lib/cjs/context/index.js')
+// @ts-check
+
+const { platform } = require('node:os')
+const { join } = require('node:path')
+
+const { execa } = require('@roots/bud-support')
+const { Cli, Builtins } = require('clipanion')
+
+const { BuildCommand, CleanCommand, DevCommand, DoctorCommand, InstallCommand } = require('../lib/cjs/cli/index.js')
+const { makeContext } = require('../lib/cjs/context/index.js')
 
 /**
  * Run Bud CLI
+ *
  * @public
  */
-const runBudCLI = async () => {
+const bud = async () => {
   /**
    * Arguments
    *
@@ -24,9 +32,30 @@ const runBudCLI = async () => {
   const context = await makeContext()
 
   /**
+   * MacOS notifier permissions
+   */
+  if (platform() === 'darwin') {
+    try {
+      const notifierPath = join(
+        context.application.dir,
+        'vendor',
+        'mac.no-index',
+        'roots-notifier.app',
+        'Contents',
+        'MacOS',
+        'roots-notifier'
+      )
+
+      await execa.execa(`chmod`, [`u+x`, notifierPath])
+    } catch (err) {}
+  }
+
+  /**
    * CLI instantiation
    *
    * @see {@link https://mael.dev/clipanion/docs/api/cli}
+   *
+   * @public
    */
   const application = new Cli({
     binaryLabel: context.application.name,
@@ -49,4 +78,4 @@ const runBudCLI = async () => {
 }
 
 /* ⚡️ */
-runBudCLI()
+bud()
