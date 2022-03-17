@@ -1,6 +1,6 @@
 import {REPO_PATH} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {pathExists, readJson, remove, writeJson} from 'fs-extra'
+import {emptyDir, readJson, writeJson} from 'fs-extra'
 import {parse} from 'semver'
 
 import {Command} from './base.command'
@@ -147,7 +147,7 @@ export class Release extends Command {
         `${REPO_PATH}/storage/.verdaccio-db.json`,
         verdaccioDb,
       )
-      await remove(`${REPO_PATH}/storage/packages/@roots`)
+      await emptyDir(`${REPO_PATH}/storage/packages/@roots`)
     } catch (e) {
       this.log('db/previously published packages could not be wiped.')
     }
@@ -159,9 +159,7 @@ export class Release extends Command {
    * @internal
    */
   public async preflight() {
-    if (!process.env.NPM_AUTH_TOKEN) {
-      await this.wipeProxyDb()
-    }
+    await this.wipeProxyDb()
 
     this.log('Installing')
     await this.$(`yarn install --immutable`)
