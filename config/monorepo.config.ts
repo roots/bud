@@ -73,6 +73,7 @@ export const config: config = {
       '@roots/bud-api',
       '@roots/bud-build',
       '@roots/bud-cache',
+      '@roots/bud-client',
       '@roots/bud-compiler',
       '@roots/bud-dashboard',
       '@roots/bud-extensions',

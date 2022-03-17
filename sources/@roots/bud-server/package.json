@@ -41,8 +41,7 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./client/*": "./lib/cjs/client/*"
+    ".": "./lib/cjs/index.js"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
@@ -54,6 +53,7 @@
     "webpack": "5.68.0"
   },
   "dependencies": {
+    "@roots/bud-client": "workspace:sources/@roots/bud-client",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",

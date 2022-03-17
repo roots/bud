@@ -21,6 +21,9 @@
       "path": "./../sources/@roots/bud-cache/tsconfig.json"
     },
     {
+      "path": "./../sources/@roots/bud-client/tsconfig.json"
+    },
+    {
       "path": "./../sources/@roots/bud-compiler/tsconfig.json"
     },
     {

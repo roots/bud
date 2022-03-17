@@ -1,8 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 
-const src = (modulePath: string) =>
-  `@roots/bud-server/client/${modulePath}`
-
 /**
  * Initial values
  *
@@ -46,8 +43,8 @@ export const seed = (app: Framework) => {
     .hooks.on(
       `dev.client.scripts`,
       new Set([
-        app => src(`index.js?name=${app.name}&path=/__bud/hmr`),
-        _app => src(`proxy-click-interceptor.js`),
+        () => `@roots/bud-client/client.js?name=${app.name}`,
+        () => `@roots/bud-client/interceptor`,
       ]),
     )
     .hooks.on(`dev.url`, new URL(`http://localhost`))
