@@ -1,5 +1,3 @@
-import {Inner} from './inner.web-component'
-import {Message} from './messages.web-component'
 import {Component} from './overlay.web-component'
 
 /**
@@ -29,8 +27,6 @@ export class OverlayController {
    */
   public constructor() {
     customElements.define('bud-overlay', Component)
-    customElements.define('bud-inner', Inner)
-    customElements.define('bud-message', Message)
 
     this.node = document.createElement('bud-overlay')
     document.body && document.body.appendChild(this.node)
@@ -45,9 +41,5 @@ export class OverlayController {
     this.payload = payload
     this.node.payload = payload
     this.node.setAttribute('hash', payload.hash)
-  }
-
-  public clear() {
-    this.node.clear()
   }
 }
