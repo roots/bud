@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "tightenco/collect": "^8.15"
+    "tightenco/collect": "^9.0"
   },
   "autoload": {
     "psr-4": {
