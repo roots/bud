@@ -58,7 +58,7 @@
     "@types/signale": "1.4.4",
     "@types/yamljs": "0.2.31",
     "boxen": "6.2.1",
-    "chalk": "5.0.0",
+    "chalk": "5.0.1",
     "chokidar": "3.5.3",
     "cli-highlight": "2.1.11",
     "copy-webpack-plugin": "10.2.4",
