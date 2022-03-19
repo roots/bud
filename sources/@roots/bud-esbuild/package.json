@@ -56,7 +56,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.179",
     "@types/node": "16.11.26",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
