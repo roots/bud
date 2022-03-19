@@ -50,7 +50,7 @@
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.26",
     "@types/svgo": "2.6.2",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

@@ -56,7 +56,7 @@
     "css-loader": "6.6.0",
     "jest": "27.5.1",
     "vue": "3.2.31",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "bud": {
     "type": "extension"

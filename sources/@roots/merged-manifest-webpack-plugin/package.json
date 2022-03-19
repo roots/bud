@@ -49,7 +49,7 @@
     "@types/lodash": "4.14.179",
     "@types/node": "16.11.26",
     "@types/prettier": "2.4.4",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "fs-extra": "^10.0.0",
