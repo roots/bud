@@ -3005,7 +3005,7 @@ __metadata:
     "@docusaurus/remark-plugin-npm2yarn": 2.0.0-beta.17
     "@repo/constants": "workspace:sources/@repo/constants"
     "@svgr/webpack": 6.2.1
-    "@tsconfig/docusaurus": 1.0.4
+    "@tsconfig/docusaurus": 1.0.5
     "@types/node": 16.11.26
     "@types/react": 17.0.39
     "@types/react-dom": 17.0.13
@@ -4485,10 +4485,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/docusaurus@npm:1.0.4":
-  version: 1.0.4
-  resolution: "@tsconfig/docusaurus@npm:1.0.4"
-  checksum: 720ca04baa47cbd7ec9c4f6ce18c5fcc2117a077ceff9fe89b7ac66be4968a9ea37bbf8c72e91e517ed57953b38ce6d1c7e05380623f2c579ae4021fb59f0632
+"@tsconfig/docusaurus@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@tsconfig/docusaurus@npm:1.0.5"
+  checksum: 3089de4a1ae9444c97caaee52dc5e429cc5e719fa596fb8862c19695259818d7e0b86c0eea15f6abe0749757cdc4048771d4b9332059f1b0bd8d4a80b32d51e9
   languageName: node
   linkType: hard
 
